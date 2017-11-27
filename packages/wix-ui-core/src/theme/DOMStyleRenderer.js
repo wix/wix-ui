@@ -1,12 +1,15 @@
 import {create, SheetsManager} from 'jss';
 import preset from 'jss-preset-default';
+import rtl from 'jss-rtl';
 
 const jss = create(preset());
+jss.use(rtl());
+
 const sheetManager = new SheetsManager();
 const sheetMapper = {};
 
-const atachStyleSheetToDom = (styles, componentId) => {
-  const newSheet = jss.createStyleSheet(styles);
+const atachStyleSheetToDom = ({styles, componentId, rtl}) => {
+  const newSheet = jss.createStyleSheet(styles, {flip: rtl});
 
   if (sheetMapper[componentId]) {
     sheetManager.unmanage(sheetMapper[componentId]);
@@ -20,8 +23,8 @@ const atachStyleSheetToDom = (styles, componentId) => {
   return newSheet;
 };
 
-export const generateClasses = (styles, componentId) => {
-  const {classes} = atachStyleSheetToDom(styles, componentId);
+export const generateClasses = ({styles, componentId, rtl}) => {
+  const {classes} = atachStyleSheetToDom({styles, componentId, rtl});
   return classes;
 };
 

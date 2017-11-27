@@ -1,7 +1,6 @@
 import React from 'react';
 import {string} from 'prop-types';
-import ReactDOM from 'react-dom';
-
+import {findDOMNode} from 'react-dom';
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent {
@@ -10,7 +9,7 @@ export const createHOC = Component => {
     componentDidMount() {
       const {dataHook} = this.props;
       if (dataHook) {
-        const domNode = ReactDOM.findDOMNode(this);
+        const domNode = findDOMNode(this);
         if (domNode) {
           domNode.setAttribute('data-hook', dataHook);
         }
