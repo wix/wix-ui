@@ -72,7 +72,7 @@ const skinToHoverColor = {
   error: pallete.dangerHover
 };
 
-export const theme = ({size, skin}) => ({
+export const themeCreator = ({size, skin}) => ({
   outerLabelWidth: sizeToOuterLabelWidth[size],
   outerLabelHeight: sizeToOuterLabelHeight[size],
 
