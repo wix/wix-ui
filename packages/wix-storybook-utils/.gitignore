@@ -1,0 +1,12 @@
+*.swp
+node_modules
+npm-debug.log
+dist
+target
+storybook-static
+/.idea/
+*.iml
+.vscode
+.happypack
+yarn.lock
+package-lock.json

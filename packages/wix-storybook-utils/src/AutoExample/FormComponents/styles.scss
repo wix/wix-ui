@@ -1,0 +1,42 @@
+.wrapper {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  margin-bottom: 0 !important;
+
+  &:nth-child(2n + 1) {
+    background-color: #f6f8fa;
+  }
+
+  :global {
+    .markdown-body p {
+      margin: 0;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #cbccce;
+}
+
+.rtlToggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.preview {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f8fa;
+}
