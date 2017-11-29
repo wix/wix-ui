@@ -4,24 +4,26 @@ import {mount} from 'enzyme';
 import {expect} from 'chai';
 
 describe('ThemedComponent', () => {
+  const themeObject = {color: 'green'};
+  const expectedRender = '<div>green</div>';
 
   it('should pass the calculated theme object to the wrapped component', () => {
     const Component = ({theme}): any => <div>{theme.color}</div>;
 
     const wrapper = mount(
-      <ThemedComponent theme={() => ({color: 'green'})}>
+      <ThemedComponent theme={() => themeObject}>
         <Component/>
       </ThemedComponent>
     );
 
-    expect(wrapper.html()).to.equal('<div>green</div>');
+    expect(wrapper.html()).to.equal(expectedRender);
   });
 
   it('should keep the original props of the wrapped component', () => {
     const Component = ({theme, anotherProp}): any => <div>{anotherProp}</div>;
 
     const wrapper = mount(
-      <ThemedComponent theme={() => ({color: 'green'})}>
+      <ThemedComponent theme={() => themeObject}>
         <Component anotherProp="Hello"/>
       </ThemedComponent>
     );
@@ -33,12 +35,12 @@ describe('ThemedComponent', () => {
     const Component = ({theme}): any => <div>{theme.color}</div>;
 
     const wrapper = mount(
-      <ThemedComponent theme={{color: 'green'}}>
+      <ThemedComponent theme={themeObject}>
         <Component/>
       </ThemedComponent>
     );
 
-    expect(wrapper.html()).to.equal('<div>green</div>');
+    expect(wrapper.html()).to.equal(expectedRender);
   });
 
   it('should calculate the theme with the additional props that was given to the wrapper', () => {
@@ -50,7 +52,7 @@ describe('ThemedComponent', () => {
       </ThemedComponent>
     );
 
-    expect(wrapper.html()).to.equal('<div>green</div>');
+    expect(wrapper.html()).to.equal(expectedRender);
   });
 
   it('should re-calculate the theme when the additional prop for the wrapper changes', () => {
@@ -76,6 +78,6 @@ describe('ThemedComponent', () => {
     );
 
     wrapper.setProps({});
-    expect(wrapper.html()).to.equal('<div>green</div>');
+    expect(wrapper.html()).to.equal(expectedRender);
   });
 });
