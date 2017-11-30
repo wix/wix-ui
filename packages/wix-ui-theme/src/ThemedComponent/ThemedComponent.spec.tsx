@@ -4,8 +4,8 @@ import {ThemedComponent, Theme} from './';
 import {expect} from 'chai';
 
 describe('ThemedComponent', () => {
-  const themeObject: Object = {color: 'green'};
-  const expectedRender: string = '<div>green</div>';
+  const themeObject = {color: 'green'};
+  const expectedRender = '<div>green</div>';
 
   it('should pass the calculated theme object to the wrapped component', () => {
     const Component = ({theme}): any => <div>{theme.color}</div>;
@@ -74,7 +74,7 @@ describe('ThemedComponent', () => {
 
     interface WrappedComponentProps {
       theme: Theme;
-      color: Object;
+      color: string;
     }
 
     const WrappedComponent: React.SFC<WrappedComponentProps> = ({theme, color}) => (
@@ -83,10 +83,7 @@ describe('ThemedComponent', () => {
       </ThemedComponent>
     );
 
-    interface AppState {
-      theme: Theme;
-      color: Object;
-    }
+    interface AppState extends WrappedComponentProps {}
 
     class App extends React.Component<{}, AppState> {
       constructor(props) {

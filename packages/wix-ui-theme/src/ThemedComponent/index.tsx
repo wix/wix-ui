@@ -8,12 +8,12 @@ export type ThemeGeneratorState = {
   calculatedTheme: object
 };
 
-export interface ThemeGeneratorProps {
+interface ThemeGeneratorProps {
   render: (state: ThemeGeneratorState) => React.ReactElement<any>;
   theme?: Theme;
 }
 
-export interface ThemedComponentProps {
+interface ThemedComponentProps {
   theme?: Theme;
   children: ReactElement<any>;
   [propName: string]: any;
