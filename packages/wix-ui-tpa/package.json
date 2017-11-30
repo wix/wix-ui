@@ -31,7 +31,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.22.0",
     "lodash": "^4.17.4",
-    "wix-ui-core": "latest"
+    "wix-ui-core": "^1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-options": "3.2.13",
@@ -54,7 +54,7 @@
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
     "react-test-utils": "0.0.1",
-    "wix-ui-test-utils": "latest",
+    "wix-ui-test-utils": "^1.0.0",
     "yoshi": "latest"
   },
   "babel": {
