@@ -12,8 +12,7 @@
   "scripts": {
     "build": "yoshi build",
     "prepush": "yoshi lint",
-    "start": "yoshi start",
-    "release": "yoshi release"
+    "start": "yoshi start"
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
+    "eslint-config-wix": "^1.1.16",
     "github-markdown-css": "^2.9.0",
     "highlight.js": "^9.12.0",
     "react-docgen": "^2.20.0",

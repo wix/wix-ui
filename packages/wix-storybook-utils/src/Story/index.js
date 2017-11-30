@@ -292,7 +292,10 @@ Story.propTypes = {
    * Usually this holds more examples.
    */
   examples: PropTypes.element,
-  exampleProps: PropTypes.object
+  exampleProps: PropTypes.object,
+
+  /** reference to `{storiesOf}` from `@storybook/react` */
+  storiesOf: PropTypes.object.isRequired
 };
 
 Story.defaultProps = {
