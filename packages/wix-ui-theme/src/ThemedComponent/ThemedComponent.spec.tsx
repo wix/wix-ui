@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {ThemedComponent} from './';
+import {ThemedComponent, Theme} from './';
 import {expect} from 'chai';
 
 describe('ThemedComponent', () => {
-  const themeObject = {color: 'green'};
-  const expectedRender = '<div>green</div>';
+  const themeObject: Object = {color: 'green'};
+  const expectedRender: string = '<div>green</div>';
 
   it('should pass the calculated theme object to the wrapped component', () => {
     const Component = ({theme}): any => <div>{theme.color}</div>;
@@ -70,18 +70,28 @@ describe('ThemedComponent', () => {
 
   it('should not re-calculate the theme when the component get\'s updated but not due to a theme dependant props change', () => {
     const Component = ({color}): any => <div>{color}</div>;
-    const theme = jest.fn();
-    
-    const WrappedComponent = ({theme, color}) => (
-      <ThemedComponent theme={theme}>
+    const mockedTheme = jest.fn();
+
+    interface WrappedComponentProps {
+      theme: Theme;
+      color: Object;
+    }
+
+    const WrappedComponent: React.SFC<WrappedComponentProps> = ({theme, color}) => (
+      <ThemedComponent theme={mockedTheme}>
         <Component color={color}/>
       </ThemedComponent>
     );
-    
-    class App extends React.Component {
+
+    interface AppState {
+      theme: Theme;
+      color: Object;
+    }
+
+    class App extends React.Component<{}, AppState> {
       constructor(props) {
         super(props);
-        this.state = {color: 'green', theme};
+        this.state = {color: 'green', theme: mockedTheme};
       }
 
       render() {
@@ -92,10 +102,10 @@ describe('ThemedComponent', () => {
     const wrapper = mount(<App/>);
 
     wrapper.setState({color: 'red'});
-    
+
     expect(wrapper.html()).to.equal('<div>red</div>');
-    
+
     //only the constructor called the theme function
-    expect(theme.mock.calls.length).to.equal(1);
+    expect(mockedTheme.mock.calls.length).to.equal(1);
   });
 });

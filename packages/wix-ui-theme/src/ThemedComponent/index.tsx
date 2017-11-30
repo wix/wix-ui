@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as pickBy from 'lodash.pickby';
+import {ReactElement} from 'react';
 
 export type Theme = ((props: any) => Object) | Object;
 
@@ -7,15 +8,16 @@ export type ThemeGeneratorState = {
   calculatedTheme: object
 };
 
-export type ThemeGeneratorProps = {
-  render: (state: ThemeGeneratorState) => React.ReactElement<any>,
-  theme: Theme
-};
+export interface ThemeGeneratorProps {
+  render: (state: ThemeGeneratorState) => React.ReactElement<any>;
+  theme?: Theme;
+}
 
-export type ThemedComponentProps = {
-  children: React.ReactElement<any>,
-  theme: Theme
-};
+export interface ThemedComponentProps {
+  theme?: Theme;
+  children: ReactElement<any>;
+  [propName: string]: any;
+}
 
 class ThemeGenerator extends React.PureComponent<ThemeGeneratorProps, ThemeGeneratorState> {
   constructor(props) {
@@ -42,7 +44,7 @@ class ThemeGenerator extends React.PureComponent<ThemeGeneratorProps, ThemeGener
 export const ThemedComponent: React.SFC<ThemedComponentProps> = ({children, theme, ...propsForTheme}) => (
   <ThemeGenerator
     theme={theme}
-    render={({calculatedTheme}) => React.cloneElement(children, {theme: calculatedTheme})}
+    render={({calculatedTheme}) => React.cloneElement(children, {theme: calculatedTheme}, children)}
     {...propsForTheme}
     />
 );
