@@ -44,7 +44,7 @@ class ThemeGenerator extends React.PureComponent<ThemeGeneratorProps, ThemeGener
 export const ThemedComponent: React.SFC<ThemedComponentProps> = ({children, theme, ...propsForTheme}) => (
   <ThemeGenerator
     theme={theme}
-    render={({calculatedTheme}) => React.cloneElement(children, {theme: calculatedTheme}, children)}
+    render={({calculatedTheme}) => React.cloneElement(children, {theme: calculatedTheme})}
     {...propsForTheme}
     />
 );
