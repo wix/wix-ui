@@ -1,17 +1,30 @@
 # wix-ui-theme
 
-> Create your own themed components easily.
+If you wish to implement a new component with some specific theme, the best choice would be to take a core component from [wix-ui-core](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core), and to add your own theme to it.
 
-If you are creating a new component library with a unique theme, this is the package you are looking for.
+This package provides a nice API for creating a themed component from a core component with maximal performance optimization.
+
+## Why do we need themes
+- Prevent code duplication by having one core components code base.
+- Make it easy to style components to match the different designs.
+
+## Themed libraries
+The themes we currently have at Wix (WIP):
+- [Backoffice](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-backoffice)
+- [Tpa](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-tpa)
 
 ## Creating a new theme
-A theme is simply an object that we need to pass to the core component as a prop. The core component has no style by definition, or at at least only a basic one.
+A theme is simply an object that we need to pass to the core component as a prop. The core component has no style by definition, or at least only a basic one.
 Each component must have it's own theme object.
 It should have a specific structure (TBD).
 
 ![buttons](/packages/wix-ui-theme/assets/buttons.png)
 
-## Basic Example
+## Why do we need this package
+Since the whole idea is to provide a theme prop to the core component, one might wonder what the hell is this package needed for.
+
+Why not simply do the following:
+
 ```javascript
 import CoreButton from 'wix-ui-core/Button';
 import {ThemedComponent} from 'wix-ui-theme';
@@ -23,29 +36,47 @@ const theme = {
   hover: {
     color: 'white',
     backgroundColor: 'black'
-  };
+  }
+};
 
-  export const ThemedButton = ({theme, ...coreProps}) => (
-    <ThemedComponent theme={theme}>
-      <CoreButton {...coreProps}> 
-    </ThemedComponent>
-  );
-}
+export const ThemedButton = props =>
+  <CoreButton theme={theme} {...props}>;
 ```
 
-## Why do we need themes
-- Prevent code duplication
-- Make it easy to style components to match the different designs.
+We won't get into too many implementation details, but what is going to happen with the given implementation is that for each prop change there will be a lot of DOM interactions to keep the styles up to date.
 
-## Themed libraries
-The themes we currently have at Wix (WIP):
-- [Backoffice](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-backoffice)
-- [Tpa](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-tpa)
+## ThemedComponent
+In order to boost the performance issue we faced in the previous example, this package exposes the `ThemedComponent` component.
 
-### Implement your components
-We want to create a new themed component which renders the core component with additional styles.
+```javascript
+import CoreButton from 'wix-ui-core/Button';
+import {ThemedComponent} from 'wix-ui-theme';
 
-The core component is already implemented in `wix-ui-core`, and the styles will be generated from the custom theme you need to write.
+const theme = {
+  color: 'green',
+  backgroundColor: 'red',
+
+  hover: {
+    color: 'white',
+    backgroundColor: 'black'
+  }
+};
+
+export const ThemedButton = ({theme, ...coreProps}) => (
+  <ThemedComponent theme={theme}>
+    <CoreButton {...coreProps}> 
+  </ThemedComponent>
+);
+```
+
+`theme`: Object or a function that returns an object
+`coreProps`: The props for the core component.
+
+This will result with a new component which has it's own style.
+The styles will be generated from the custom theme you need to write.
+
+### Conditional Theme
+The core component is implemented in `wix-ui-core`, and the styles will be generated from the custom theme you need to write.
 
 The theme is an object, or a fucnction that gets some optional additional props as arguments, and returns an object with a very specific structure. Each component has it's own theme structure.
 For example:
