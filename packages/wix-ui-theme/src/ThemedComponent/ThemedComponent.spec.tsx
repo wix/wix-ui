@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {ThemedComponent} from './';
 import {mount} from 'enzyme';
+import {ThemedComponent} from './';
 import {expect} from 'chai';
 
 describe('ThemedComponent', () => {
@@ -68,16 +68,34 @@ describe('ThemedComponent', () => {
     expect(wrapper.html()).to.equal('<div>red</div>');
   });
 
-  it('should not re-calculate the theme when the component get\'s updated but not due to a theme dependant change', () => {
-    const Component = ({theme, x}): any => <div>{x}</div>;
-
-    const wrapper = mount(
-      <ThemedComponent theme={({color}) => ({color})} color="green">
-        <Component x="green"/>
+  it('should not re-calculate the theme when the component get\'s updated but not due to a theme dependant props change', () => {
+    const Component = ({color}): any => <div>{color}</div>;
+    const theme = jest.fn();
+    
+    const WrappedComponent = ({theme, color}) => (
+      <ThemedComponent theme={theme}>
+        <Component color={color}/>
       </ThemedComponent>
     );
+    
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {color: 'green', theme};
+      }
 
-    wrapper.setProps({});
-    expect(wrapper.html()).to.equal(expectedRender);
+      render() {
+        return <WrappedComponent theme={this.state.theme} color={this.state.color}/>;
+      }
+    }
+
+    const wrapper = mount(<App/>);
+
+    wrapper.setState({color: 'red'});
+    
+    expect(wrapper.html()).to.equal('<div>red</div>');
+    
+    //only the constructor called the theme function
+    expect(theme.mock.calls.length).to.equal(1);
   });
 });

@@ -28,7 +28,6 @@ class ThemeGenerator extends React.PureComponent<ThemeGeneratorProps, ThemeGener
     const {render, theme, ...propsForTheme} = nextProps;
 
     const changedProps = pickBy(propsForTheme, (value, key) => this.props[key] !== value);
-
     if (Object.keys(changedProps).length > 0) {
       this.setState({calculatedTheme: getTheme(theme, propsForTheme)});
     }
