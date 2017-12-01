@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import * as React from 'react';
+import * as ReactTestUtils from 'react-dom/test-utils';
 
 export const testkitFactoryCreator = driverFactory => ({wrapper, dataHook}) => {
   const element = wrapper.querySelector(`[data-hook='${dataHook}']`);
