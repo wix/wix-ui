@@ -1,5 +1,5 @@
-import Wix from 'Wix';
-import _color from 'color';
+import * as Wix from 'Wix';
+import * as _color from 'color';
 
 export const theme = ({backgroundColor, fonts, color}) => {
   const style = Wix.Styles.getStyleParams();

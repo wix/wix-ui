@@ -1,14 +1,18 @@
-import React from 'react';
-import {array, object} from 'prop-types';
-import Wix from 'Wix';
+import * as React from 'react';
+import * as Wix from 'Wix';
+
+interface TpaComponentProps {
+  wixBindings: object,
+  events: Array<string>
+}
+
+interface TpaComponentState {
+  calculatedTheme: object,
+  events: Array<string>
+}
 
 export function tpaComponentFactory({CoreComponent, theme}) {
-  class TpaComponent extends React.PureComponent {
-    static propTypes = {
-      wixBindings: object,
-      events: array
-    }
-
+  class TpaComponent extends React.PureComponent<TpaComponentProps, TpaComponentState> {
     static defaultProps = {
       wixBindings: {},
       events: ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE']
