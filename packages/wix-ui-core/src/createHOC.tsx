@@ -1,6 +1,6 @@
 import React from 'react';
 import {string} from 'prop-types';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 
 
 export const createHOC = Component => {

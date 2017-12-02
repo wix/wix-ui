@@ -1,6 +1,6 @@
-import ReactTestUtils from 'react-dom/test-utils';
+import * as ReactTestUtils from 'react-dom/test-utils';
 
-const toggleSwitchDriverFactory = ({element}) => {
+export const toggleSwitchDriverFactory = ({element}) => {
   const toggleSwitch = element.querySelector('input');
 
   return {
@@ -10,5 +10,3 @@ const toggleSwitchDriverFactory = ({element}) => {
     isDisabled: () => toggleSwitch.disabled
   };
 };
-
-export default toggleSwitchDriverFactory;

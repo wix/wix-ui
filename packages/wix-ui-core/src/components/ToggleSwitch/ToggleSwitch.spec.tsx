@@ -1,6 +1,6 @@
-import React from 'react';
-import toggleSwitchDriverFactory from './ToggleSwitch.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
+import * as React from 'react';
+import {toggleSwitchDriverFactory} from './ToggleSwitch.driver';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import ToggleSwitch from './index';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';

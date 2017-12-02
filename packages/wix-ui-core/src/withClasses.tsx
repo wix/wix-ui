@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import {object} from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import * as uniqueId from 'lodash/uniqueId';
 import {generateClasses, detachStyleSheetFromDom} from './DOMStyleRenderer';
 
 export function withClasses(CoreComponent, styles) {

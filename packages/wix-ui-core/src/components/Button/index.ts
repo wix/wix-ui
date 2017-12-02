@@ -1,4 +1,4 @@
-import Button from './Button';
+import * as Button from './Button';
 import {styles} from './styles';
 import {withClasses} from '../../withClasses';
 

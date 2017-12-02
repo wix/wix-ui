@@ -1,5 +1,16 @@
 import {core} from './theme';
-import defaultsDeep from 'lodash/defaultsDeep';
+import * as defaultsDeep from 'lodash/defaultsDeep';
+import {ToggleSwitchTheme} from './theme';
+
+export interface ToggleSwitchClasses {
+  root: object;
+  outerLabel: object;
+  innerLabel: object;
+  toggleActive: object;
+  toggleInactive: object;
+}
+
+type ToggleSwitchStyles = (ToggleSwitchTheme) => ToggleSwitchClasses;
 
 export const styles = theme => {
   theme = defaultsDeep(theme, core);
