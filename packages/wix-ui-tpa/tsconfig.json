@@ -11,7 +11,8 @@
   },
   "include": [
     "./src/**/*.tsx",
-    "./test/**/*.tsx"
+    "./test/**/*.tsx",
+    "./src/external-types.d.ts"
   ],
   "files": [
     "./src/index.ts"
