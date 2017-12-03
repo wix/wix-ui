@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as Wix from 'Wix';
 
 interface TpaComponentProps {
-  wixBindings: object,
-  events: Array<string>
+  wixBindings: object;
+  events: Array<string>;
 }
 
 interface TpaComponentState {
-  calculatedTheme: object,
-  events: Array<string>
+  calculatedTheme: object;
+  events: Array<string>;
 }
 
 export function tpaComponentFactory({CoreComponent, theme}) {
@@ -16,7 +16,7 @@ export function tpaComponentFactory({CoreComponent, theme}) {
     static defaultProps = {
       wixBindings: {},
       events: ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE']
-    }
+    };
 
     constructor(props) {
       super(props);
