@@ -69,7 +69,20 @@
     ]
   },
   "eslintConfig": {
-    "extends": "wix/react"
+    "extends": "wix/react",
+    "env": {
+      "jest": true
+    },
+    "rules": {
+      "react/jsx-handler-names": 0,
+      "react/no-find-dom-node": 0,
+      "react/no-string-refs": 0,
+      "react/jsx-boolean-value": 2,
+      "comma-dangle": [
+        "error",
+        "never"
+      ]
+    }
   },
   "haste": {
     "preset": "yoshi"
