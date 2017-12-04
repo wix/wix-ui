@@ -51,7 +51,7 @@ function Story(props) {
     componentProps,
     examples,
     exampleProps,
-    storiesOf
+    storiesOf // eslint-disable-line
   } = props;
 
   if (typeof componentSrcFolder === 'undefined') {
@@ -292,10 +292,7 @@ Story.propTypes = {
    * Usually this holds more examples.
    */
   examples: PropTypes.element,
-  exampleProps: PropTypes.object,
-
-  /** reference to `{storiesOf}` from `@storybook/react` */
-  storiesOf: PropTypes.object.isRequired
+  exampleProps: PropTypes.object
 };
 
 Story.defaultProps = {
