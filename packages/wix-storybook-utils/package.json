@@ -4,6 +4,7 @@
   "description": "Utilities for automated component documentation within Storybook",
   "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
   "license": "MIT",
+  "files": ["dist"],
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
