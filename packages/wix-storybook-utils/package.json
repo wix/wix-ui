@@ -4,7 +4,10 @@
   "description": "Utilities for automated component documentation within Storybook",
   "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "*.js"
+  ],
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
@@ -15,7 +18,7 @@
     "test": "haste test --jest && haste test --protractor",
     "start": "haste start & npm run storybook",
     "release": "haste release",
-    "build": "haste build",
+    "build": "haste build && import-path --path src",
     "storybook": "start-storybook -p 6006"
   },
   "repository": {
@@ -42,6 +45,7 @@
     "eslint-config-wix": "^1.1.16",
     "github-markdown-css": "^2.9.0",
     "highlight.js": "^9.12.0",
+    "import-path": "0.0.13",
     "react-docgen": "^2.20.0",
     "react-element-to-jsx-string": "^13.1.0",
     "react-remarkable": "^1.1.3",
