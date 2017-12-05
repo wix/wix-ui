@@ -1,4 +1,6 @@
 import React from 'react';
+import {render} from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import toggleSwitchDriverFactory from './ToggleSwitch.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
 import ToggleSwitch from './index';
@@ -51,6 +53,17 @@ describe('ToggleSwitch', () => {
       driver.click();
       expect(onChange).toHaveBeenCalledTimes(0);
       expect(driver.isChecked()).toBe(true);
+    });
+  });
+
+  describe('onLabelClick prop', () => {
+    it('should call onLabelClick event handler upon clicking on label', () => {
+      const onLabelClick = jest.fn();
+      const div = document.createElement('div');
+      const wrapper = render(<ToggleSwitch onChange={() => {}} onLabelClick={onLabelClick}/>, div);
+      const labels = div.querySelectorAll('label');
+      labels.forEach(label => ReactTestUtils.Simulate.click(label));
+      expect(onLabelClick).toHaveBeenCalledTimes(3);
     });
   });
 
