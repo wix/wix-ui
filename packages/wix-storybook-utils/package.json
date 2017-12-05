@@ -10,7 +10,6 @@
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "scripts": {
-    "prepush": "haste lint",
     "pretest": "haste lint && haste build && build-storybook",
     "test": "haste test",
     "start": "haste start & npm run storybook",
@@ -29,6 +28,9 @@
     "automatic",
     "react"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "react": "^15.4.0"
   },
@@ -53,7 +55,6 @@
     "gh-pages-auto-release": "~1.1.0",
     "haste-cli": "~0.1.16",
     "haste-preset-yoshi": "latest",
-    "husky": "~0.14.0",
     "jsdom": "~11.1.0",
     "prop-types": "~15.6.0",
     "react": "15.6.1",

@@ -10,3 +10,5 @@ storybook-static
 .happypack
 yarn.lock
 package-lock.json
+/*.js
+!wallaby.js
