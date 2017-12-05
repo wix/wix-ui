@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import isEqual from 'deep-eql';
 import classnames from 'classnames';
 
-import Markdown from '../../Markdown';
-import CodeBlock from '../../CodeBlock';
+import Markdown from '../Markdown';
+import CodeBlock from '../CodeBlock';
 
 import {Container, Row, Col} from 'wix-style-react/Grid';
 import {default as WixInput} from 'wix-style-react/Input';

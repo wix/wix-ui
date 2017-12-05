@@ -14,7 +14,7 @@ import {
   Input,
   List,
   NodesList
-} from './FormComponents';
+} from '../FormComponents';
 
 const stripQuotes = string => {
   const quoted = string.match(/^['"](.*?)['"]$/);
