@@ -1,0 +1,1 @@
+export {TpaStylesProvider} from './TpaStylesProvider';
