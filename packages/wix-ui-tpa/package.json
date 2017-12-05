@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "haste build && import-path --path src/components",
-    "pretest": "npm run build",
+    "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
     "start": "haste start & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "color": "^2.0.1",
-    "hoist-non-react-statics": "^2.3.1",
     "lodash": "^4.17.4",
     "wix-ui-core": "^1.0.0"
   },
@@ -47,17 +46,17 @@
     "@types/storybook__react": "^3.0.5",
     "enzyme": "^2.3.0",
     "gh-pages-auto-release": "^1.1.2",
-    "haste-cli": "~0.1.16",
-    "haste-preset-yoshi": "latest",
     "import-path": "^0.0.10",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.5.4",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
     "react-test-utils": "0.0.1",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-ui-test-utils": "^1.0.7"
+    "wix-ui-test-utils": "^1.0.7",
+    "haste-preset-yoshi": "latest",
+    "haste-cli": "~0.1.16"
   },
   "license": "MIT",
   "publishConfig": {
@@ -65,7 +64,8 @@
   },
   "yoshi": {
     "externals": {
-      "react": "React"
+      "react": "React",
+      "Wix": "Wix"
     }
   },
   "jest": {
