@@ -7,6 +7,14 @@ import {createHOC} from '../../createHOC';
  */
 class Pagination extends React.Component {
   
+  state = {
+    pageInput: this.props.currentPage
+  };
+  
+  onChange(page) {
+    this.props.onChange({page})
+  }
+  
   handlePageClick = (page) => {
     if (
       (page === 'first' && this.props.currentPage === 1) || // don't trigger when clicking first page when in first page
@@ -15,13 +23,13 @@ class Pagination extends React.Component {
     ) {
       return;
     }
-    this.props.onChange({page: page});
+    this.onChange(page);
   };
   
   createPagesArray() {
     const {numOfPages, roomForXPages} = this.props;
     const isSiblingNeeded = numOfPages > roomForXPages;
-    const amountOfPages = roomForXPages && (isSiblingNeeded ? roomForXPages : numOfPages) || numOfPages;
+    const amountOfPages = roomForXPages && (isSiblingNeeded ?   : numOfPages) || numOfPages;
     const showSiblingOnIdx = isSiblingNeeded && amountOfPages - 2;
     
     let pagesArray = [];
@@ -43,11 +51,38 @@ class Pagination extends React.Component {
       )
     }
     return pagesArray;
-  }
+  };
+  
+  handlePageInputChange = (e) => {
+    const newInput = e.target.value;
+    if(newInput === parseInt(newInput,10).toString() || newInput === '') {
+      this.setState({pageInput: e.target.value})
+    }
+  };
+  
+  handlePageInputKeyDown = (e) => {
+    const keyCode = e.keyCode;
+    if(keyCode === 13) { // pressing enter
+      this.handlePageInputCommit();
+    }
+  };
+  
+  handlePageInputCommit = () => {
+    this.state.pageInput &&
+    parseInt(this.state.pageInput, 10) !== this.props.currentPage &&
+    this.onChange(this.state.pageInput)
+  };
   
   createInputLayout = () => {
     return [
-      <input data-hook="PAGE_INPUT" key="PAGE_INPUT" value={this.props.currentPage} onChange={(e) => {}}/>,
+      <input
+        data-hook="PAGE_INPUT"
+        key="PAGE_INPUT"
+        type="text"
+        value={this.state.pageInput}
+        onChange={this.handlePageInputChange}
+        onKeyDown={this.handlePageInputKeyDown}
+        onBlur={this.handlePageInputCommit}/>,
       <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL">/ {this.props.numOfPages}</span>
     ]
   };

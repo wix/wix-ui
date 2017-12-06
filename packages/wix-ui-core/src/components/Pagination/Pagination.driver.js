@@ -5,7 +5,7 @@ const paginationDriverFactory = ({element}) => {
   const selectedPage = parseInt(element.getAttribute('data-selected'), 10);
   
   const getButton = (btnName) => element.querySelector('[data-hook="' + btnName.toUpperCase() + '"]');
-  
+  const getInput = () => element.querySelector('[data-hook="PAGE_INPUT"]');
   return {
     exists: () => !!element,
     getPages: (idx) => (typeof idx !== 'undefined') ? pages[idx] : pages,
@@ -13,12 +13,11 @@ const paginationDriverFactory = ({element}) => {
     getButton: getButton,
     clickOnPage: (idx) => ReactTestUtils.Simulate.click(pages[idx]),
     clickOnButton: (btnName) => ReactTestUtils.Simulate.click(getButton(btnName)),
-    getPageInput: () => element.querySelector('[data-hook="PAGE_INPUT"]'),
-    getLastPageField: () => element.querySelector('[data-hook="PAGES_TOTAL"]')
-    // hasPage: (idx) => !!element.querySelector('[data-hook="PAGE_' + idx + '"]' )
-    // click: () => ReactTestUtils.Simulate.change(pagination),
-    // isChecked: () => pagination.checked,
-    // isDisabled: () => pagination.disabled
+    getPageInput: getInput,
+    getLastPageField: () => element.querySelector('[data-hook="PAGES_TOTAL"]'),
+    changeInput: (newValue) => ReactTestUtils.Simulate.change(getInput(), {target : {value : newValue}}),
+    inputKeyCode: (keyCode) => ReactTestUtils.Simulate.keyDown(getInput(), {keyCode}),
+    inputBlur: () => ReactTestUtils.Simulate.blur(getInput())
   };
 };
 
