@@ -11,13 +11,13 @@ interface TpaComponentState {
   calculatedTheme: object;
 }
 
-export function withTheme({CoreComponent, theme}) {
+export function withTheme({Component, theme}) {
   class TpaComponent extends React.PureComponent<TpaComponentProps, TpaComponentState> {
     static defaultProps = {
       wixBindings: {}
     };
 
-    static displayName = CoreComponent.displayName;
+    static displayName = Component.displayName;
 
     constructor(props) {
       super(props);
@@ -35,7 +35,7 @@ export function withTheme({CoreComponent, theme}) {
 
     render() {
       const {wixBindings, colors, fonts, ...coreProps} = this.props;
-      return <CoreComponent {...coreProps} theme={this.state.calculatedTheme}/>;
+      return <Component {...coreProps} theme={this.state.calculatedTheme}/>;
     }
   }
   return withTpaStyles(TpaComponent);
