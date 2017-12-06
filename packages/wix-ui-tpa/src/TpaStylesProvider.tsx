@@ -10,23 +10,19 @@ interface WixSdk {
 
 interface TpaStylesProviderProps {
   children: any;
-  events: Array<string>,
-  Wix: WixSdk
+  Wix: WixSdk;
 }
 
 interface TpaStylesProviderState {
-  events: Array<string>,
   tpaStyles: {
     colors: object,
     fonts: object
   }
 }
 
-export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProps, TpaStylesProviderState> {
-  static defaultProps = {
-    events: ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE']
-  };
+const events = ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE'];
 
+export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProps, TpaStylesProviderState> {
   static childContextTypes = {
     colors: object,
     fonts: object
@@ -35,18 +31,15 @@ export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProp
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
-    this.state = {
-      events: props.events.filter(event => this.props.Wix.Events[event] !== undefined),
-      tpaStyles: props.Wix.Styles.getStyleParams()
-    };
+    this.state = {tpaStyles: props.Wix.Styles.getStyleParams()};
   }
 
   componentDidMount() {
-    this.state.events.forEach(event => this.props.Wix.addEventListener(this.props.Wix.Events[event], this.update));
+    events.forEach(event => this.props.Wix.addEventListener(this.props.Wix.Events[event], this.update));
   }
 
   componentWillUnmout() {
-    this.state.events.forEach(event => this.props.Wix.removeEventListener(this.props.Wix.Events[event], this.update));
+    events.forEach(event => this.props.Wix.removeEventListener(this.props.Wix.Events[event], this.update));
   }
 
   update() {
