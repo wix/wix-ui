@@ -13,14 +13,14 @@ class ToggleSwitch extends React.PureComponent {
   }
 
   render() {
-    const {checked, disabled, onChange, classes} = this.props;
+    const {checked, disabled, onChange, classes, onLabelClick} = this.props;
     const {id} = this;
 
     return (
       <div className={classes.root}>
         <input type="checkbox" id={id} checked={checked} disabled={disabled} onChange={e => !disabled && onChange(e)}/>
-        <label htmlFor={id} className={classes.outerLabel}>
-          <label htmlFor={id} className={classes.innerLabel}>
+        <label htmlFor={id} className={classes.outerLabel} onClick={onLabelClick}>
+          <label htmlFor={id} className={classes.innerLabel} onClick={onLabelClick}>
             <svg className={classes.toggleActive} viewBox="0 0 41 32">
               <path d="M0.169 17.815c0.169 1.098 0.76 2.111 1.689 2.871l14.269 10.385c1.942 1.435 4.644 1.013 6.079-0.844l18.069-23.303c1.435-1.858 1.098-4.559-0.844-5.995s-4.644-1.098-6.164 0.844l-15.367 19.842-10.723-7.852c-1.942-1.435-4.644-1.013-6.164 0.844-0.76 0.929-1.013 2.111-0.844 3.208z"/>
             </svg>
@@ -46,7 +46,13 @@ ToggleSwitch.propTypes = {
   /** Is the toggleSwitch disabled or not  */
   disabled: bool,
 
-  classes: object.isRequired
+  classes: object.isRequired,
+
+  onLabelClick: func
+};
+
+ToggleSwitch.defaultProps = {
+    onLabelClick: () => {}
 };
 
 export default createHOC(ToggleSwitch);
