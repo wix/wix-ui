@@ -3,8 +3,19 @@ import {object} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {generateClasses, detachStyleSheetFromDom} from './DOMStyleRenderer';
 
+interface ThemedComponentProps {
+  theme?: any;
+
+  [coreProps: string]: any;
+}
+
+interface ThemedComponentState {
+  classes: any;
+}
+
 export function withClasses(CoreComponent, styles) {
-  class ThemedComponent extends React.PureComponent {
+  class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
+    private id;
     static propTypes = {
       ...CoreComponent.propTypes,
       theme: object
@@ -27,7 +38,6 @@ export function withClasses(CoreComponent, styles) {
     }
 
     render() {
-      // eslint-disable-next-line no-unused-vars
       const {theme, ...coreProps} = this.props;
       return (
         <CoreComponent {...coreProps} classes={this.state.classes}/>

@@ -1,4 +1,4 @@
-import * as ToggleSwitch from './ToggleSwitch';
+import ToggleSwitch from './ToggleSwitch';
 import {styles} from './styles';
 import {withClasses} from '../../withClasses';
 

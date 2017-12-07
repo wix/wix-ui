@@ -2,9 +2,13 @@ import * as React from 'react';
 import {Prefix} from './components/Prefix';
 import {Suffix} from './components/Suffix';
 import {createHOC} from '../../createHOC';
-import {ButtonClasses} from './styles';
 
-export interface ButtonProps extends React.Props<HTMLDivElement> {
+//TODO - maybe this can be a generic type?
+type ButtonClasses = {
+  button: string
+};
+
+export interface ButtonProps {
   type?: string;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
   onMouseEnter?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
@@ -12,9 +16,14 @@ export interface ButtonProps extends React.Props<HTMLDivElement> {
   disabled?: boolean;
   classes: ButtonClasses;
   children: React.ReactNode;
+}
+
+type ButtonComponent = React.StatelessComponent<ButtonProps> & {
+  Prefix?: React.StatelessComponent
+  Suffix?: React.StatelessComponent
 };
 
-const Button: React.StatelessComponent<ButtonProps> = ({disabled, onClick, children, type, onMouseEnter, onMouseLeave, classes}) => (
+const Button: ButtonComponent = ({disabled, onClick, children, type, onMouseEnter, onMouseLeave, classes}) => (
   <button
     className={classes.button}
     onClick={onClick}

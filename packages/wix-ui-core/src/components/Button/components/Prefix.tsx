@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface PrefixProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export const Prefix: React.SFC<PrefixProps> = ({children}) =>

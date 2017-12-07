@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface SuffixProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export const Suffix: React.SFC<SuffixProps> = ({children}) =>

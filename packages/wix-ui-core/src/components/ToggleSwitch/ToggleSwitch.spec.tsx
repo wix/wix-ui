@@ -8,15 +8,16 @@ import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '..
 describe('ToggleSwitch', () => {
 
   const createDriver = createDriverFactory(toggleSwitchDriverFactory);
+  const noop = () => null;
 
   describe('checked prop', () => {
     it('should pass down to input when checked', () => {
-      const driver = createDriver(<ToggleSwitch checked onChange={() => {}}/>);
+      const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
       expect(driver.isChecked()).toBeTruthy();
     });
 
     it('should pass down to input when not checked', () => {
-      const driver = createDriver(<ToggleSwitch checked={false} onChange={() => {}}/>);
+      const driver = createDriver(<ToggleSwitch checked={false} onChange={noop}/>);
       expect(driver.isChecked()).toBeFalsy();
     });
   });
@@ -33,7 +34,7 @@ describe('ToggleSwitch', () => {
 
   describe('disabled prop', () => {
     it('should not be disabled by default', () => {
-      const driver = createDriver(<ToggleSwitch onChange={() => {}}/>);
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.isDisabled()).toBe(false);
     });
 
@@ -60,13 +61,13 @@ describe('ToggleSwitch', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<ToggleSwitch onChange={() => {}}/>, toggleSwitchTestkitFactory)).toBe(true);
+      expect(isTestkitExists(<ToggleSwitch onChange={noop}/>, toggleSwitchTestkitFactory)).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={() => {}}/>, enzymeToggleSwitchTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory)).toBe(true);
     });
   });
 });

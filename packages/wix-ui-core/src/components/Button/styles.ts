@@ -1,14 +1,8 @@
 import {core, ButtonTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
-export interface ButtonClasses {
-  button: object;
-}
-
-type ButtonStyles = (ButtonTheme) => ButtonClasses;
-
-export const styles: ButtonStyles = theme => {
-  theme = defaultsDeep(theme, core);
+export const styles = (theme: ButtonTheme) => {
+  theme = (defaultsDeep(theme, core) as ButtonTheme);
 
   return {
     button: {

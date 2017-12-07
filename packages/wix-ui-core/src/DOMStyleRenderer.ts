@@ -1,5 +1,5 @@
 import {create, SheetsManager} from 'jss';
-import * as preset from 'jss-preset-default';
+import preset from 'jss-preset-default';
 
 const jss = create(preset());
 const sheetManager = new SheetsManager();
