@@ -1,13 +1,12 @@
-
 import {browser, promise, ExpectedConditions} from 'protractor';
 
 export const getStoryUrl = (kind, story) => `iframe.html?selectedKind=${kind}&selectedStory=${story}`;
 
-export const scrollToElement = el => {
+export const scrollToElement = element => {
   browser.executeScript(el => {
     const offset = el.offsetTop;
     window.scroll(0, offset);
-  }, el.getWebElement());
+  }, element.getWebElement());
 };
 
 export const waitForVisibilityOf = (elements, errorMsg, timeout = 10000) => {

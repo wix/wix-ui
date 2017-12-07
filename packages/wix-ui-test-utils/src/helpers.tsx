@@ -1,27 +1,27 @@
 import * as React from 'react';
 
 interface ControlledComponentState {
-  value: String;
+  value: string;
 }
 
 interface ControlledComponentProps {
-  value: String;
-  onChange: (e: Event) => void;
+  value?: string;
+  onChange?: (e: Event) => void;
+  [otherProps: string]: any;
 }
 
-interface Element {
-  className: String;
-}
-
-export const isClassExists = (element: Element, className: String): Boolean =>
-!!element && !!element.className.match(new RegExp('\\b' + className + '\\b'));
+export const isClassExists = (element: HTMLElement, className: String): Boolean =>
+  !!element && !!element.className.match(new RegExp('\\b' + className + '\\b'));
 
 // HOC that makes underlying component "controlled"
 export function makeControlled(Component) {
-  return class ControlledComponent extends React.Component<ControlledComponentProps ,ControlledComponentState> {
+  return class ControlledComponent extends React.Component<ControlledComponentProps, ControlledComponentState> {
     static displayName = `Controlled${Component.name}`;
-   
-    static defaultProps = {value: ''};
+
+    static defaultProps = {
+      value: '',
+      onChange: () => null
+    };
 
     constructor(props) {
       super(props);
@@ -38,7 +38,7 @@ export function makeControlled(Component) {
       });
 
       onChange && onChange(e);
-    };
+    }
 
     render() {
       const bindedPropMethods = {};
@@ -57,7 +57,7 @@ export function makeControlled(Component) {
           {...bindedPropMethods}
           value={this.state.value}
           onChange={this._onChange}
-          />
+        />
       );
     }
   };

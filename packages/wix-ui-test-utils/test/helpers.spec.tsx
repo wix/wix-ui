@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {isClassExists, makeControlled} from '../src/helpers';
+import {isClassExists, makeControlled} from '../src';
 
 describe('helpers', () => {
   describe('isClassExists function', () => {
     const classes = 'class class2 class3';
-    const element = {className: classes};
+    const element = document.createElement('div');
+    element.className = classes;
 
     describe('existing class', () => {
       classes.split(' ').forEach(className =>
@@ -31,11 +32,7 @@ describe('helpers', () => {
       const ControlledInput = makeControlled(UncontrolledInput);
       const initialValue = 'some value';
 
-      const component = mount(
-        <ControlledInput
-          value={initialValue}
-          />
-      );
+      const component = mount(<ControlledInput value={initialValue}/>);
 
       expect(component.find('input').getNode().value).toBe(initialValue);
     });
@@ -45,9 +42,7 @@ describe('helpers', () => {
       const ControlledInput = makeControlled(UncontrolledInput);
 
       const component = mount(
-        <ControlledInput
-          onChange={onChange}
-          />
+        <ControlledInput onChange={onChange}/>
       );
 
       const enteredValue = 'some value';
@@ -60,29 +55,25 @@ describe('helpers', () => {
     });
 
     it('should bind passed prop-functions to *this*', () => {
-      // NOTE: don't use arrow functions
-      const onEnter = function () {
-        this.setState({value: ''});
-      };
-
-      const NotifyOnEnter = ({onEnter, ...passedProps}) => (
+      const NotifyOnEnter: React.SFC<any> = ({onEnter, ...passedProps}) => (
         <UncontrolledInput
           {...passedProps}
           onKeyPress={e => e.key === 'Enter' && onEnter()}
-          />
+        />
       );
-
-      NotifyOnEnter.propTypes = {
-        onEnter: PropTypes.func
-      };
 
       const ControlledInput = makeControlled(NotifyOnEnter);
 
       const component = mount(
         <ControlledInput
           value="some value"
-          onEnter={onEnter}
-          />
+          onEnter={function () {
+            // NOTE: don't use arrow functions by purpose
+            /* tslint:disable */
+            this.setState({value: ''});
+            /* tslint:enable */
+          }}
+        />
       );
 
       const input = component.find('input');

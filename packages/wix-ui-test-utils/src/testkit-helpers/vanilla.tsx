@@ -9,8 +9,10 @@ export const testkitFactoryCreator = driverFactory => ({wrapper, dataHook}) => {
 export const isTestkitExists = (Element, testkitFactory) => {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
+
   const elementToRender = React.cloneElement(Element, {dataHook});
-  const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>));
+  const renderedElement = ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>);
+  const wrapper = div.appendChild((renderedElement as any));
   const testkit = testkitFactory({wrapper, dataHook});
   return testkit.exists();
 };

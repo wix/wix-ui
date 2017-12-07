@@ -2,7 +2,7 @@ import {
   createDriverFactory, isClassExists, makeControlled, getStoryUrl, scrollToElement,
   waitForVisibilityOf, testkitFactoryCreator, isTestkitExists,
   isEnzymeTestkitExists, enzymeTestkitFactoryCreator, protractorTestkitFactoryCreator
-} from '../src/index';
+} from '../src';
 
 describe('exports', () => {
   const modules = {
