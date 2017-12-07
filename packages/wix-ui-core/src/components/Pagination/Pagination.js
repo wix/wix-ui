@@ -8,7 +8,7 @@ import {createHOC} from '../../createHOC';
 class Pagination extends React.Component {
   
   state = {
-    pageInput: this.props.currentPage
+    pageInput: String(this.props.currentPage)
   };
   
   onChange(page) {
@@ -17,8 +17,8 @@ class Pagination extends React.Component {
   
   handlePageClick = (page) => {
     if (
-      (page === 'first' && this.props.currentPage === 1) || // don't trigger when clicking first page when in first page
-      (page === 'last' && this.props.currentPage === this.props.numOfPages) ||  // don't trigger when clicking last page when in last page
+      ( (page === 'first' || page === 'previous') && this.props.currentPage === 1) || // don't trigger when clicking first page when in first page
+      ( (page === 'last' || page === 'next') && this.props.currentPage === this.props.numOfPages) ||  // don't trigger when clicking last page when in last page
       (page === '...') // don't trigger for sibling page
     ) {
       return;
@@ -29,7 +29,7 @@ class Pagination extends React.Component {
   createPagesArray() {
     const {numOfPages, roomForXPages} = this.props;
     const isSiblingNeeded = numOfPages > roomForXPages;
-    const amountOfPages = roomForXPages && (isSiblingNeeded ?   : numOfPages) || numOfPages;
+    const amountOfPages = roomForXPages && (isSiblingNeeded ? roomForXPages : numOfPages) || numOfPages;
     const showSiblingOnIdx = isSiblingNeeded && amountOfPages - 2;
     
     let pagesArray = [];
@@ -55,7 +55,7 @@ class Pagination extends React.Component {
   
   handlePageInputChange = (e) => {
     const newInput = e.target.value;
-    if(newInput === parseInt(newInput,10).toString() || newInput === '') {
+    if((newInput === parseInt(newInput,10).toString() && parseInt(newInput,10) > 0) || newInput === '') {
       this.setState({pageInput: e.target.value})
     }
   };
@@ -90,21 +90,29 @@ class Pagination extends React.Component {
   render() {
     return (
       <div data-hook="PAGINATION" data-selected={this.props.currentPage}>
-        <span
+        
+        {this.props.showFirstLastButtons && <span
           data-hook="FIRST"
-          onClick={() => this.handlePageClick('first')}
-          data-disabled={this.props.currentPage === 1}>
-          First
+          onClick={() => this.handlePageClick('first')}>
+          {this.props.replaceArrowsWithText ? 'First' : '<<'}
+        </span>}
+        
+        <span data-hook="PREVIOUS" onClick={() => this.handlePageClick('previous')}>
+          {this.props.replaceArrowsWithText ? 'Previous' : '<'}
         </span>
-        <span data-hook="PREVIOUS" onClick={() => this.handlePageClick('previous')}>&lt;</span>
+        
         { this.props.layout === 'INPUT' ? this.createInputLayout() : this.createPagesArray()}
-        <span data-hook="NEXT" onClick={() => this.handlePageClick('next')}>&gt;</span>
-        <span
-          data-hook="LAST"
-          onClick={() => this.handlePageClick('last')}
-          data-disabled={this.props.currentPage === this.props.numOfPages}>
-          Last
+        
+        <span data-hook="NEXT" onClick={() => this.handlePageClick('next')}>
+          {this.props.replaceArrowsWithText ? 'Next' : '>'}
         </span>
+        
+        {this.props.showFirstLastButtons && <span
+          data-hook="LAST"
+          onClick={() => this.handlePageClick('last')}>
+          {this.props.replaceArrowsWithText ? 'Last' : '>>'}
+        </span>}
+        
       </div>
     );
   };
@@ -115,11 +123,15 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   roomForXPages: PropTypes.number,
   onChange: PropTypes.func,
-  layout: PropTypes.string
+  layout: PropTypes.string,
+  showFirstLastButtons: PropTypes.bool,
+  replaceArrowsWithText: PropTypes.bool
 };
 
 Pagination.defaultProps = {
-  currentPage: 1
+  currentPage: 1,
+  showFirstLastButtons: false,
+  replaceArrowsWithText: false
 };
 
 export default createHOC(Pagination)
