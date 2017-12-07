@@ -1,11 +1,10 @@
 import React from 'react';
 import paginationDriverFactory from './Pagination.driver';
-// import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
-import {createDriverFactory} from 'wix-ui-test-utils/dist/src';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
 import Pagination from './index';
 import {sleep} from "../../testkit/utils/sleep";
-// import {toggleSwitchTestkitFactory} from '../../testkit';
-// import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
+import {paginationTestkitFactory} from '../../testkit';
+import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
@@ -219,6 +218,18 @@ describe('Pagination', () => {
       expect(pagination.getButton('last').textContent).toEqual('Last');
       expect(pagination.getButton('previous').textContent).toEqual('Previous');
       expect(pagination.getButton('next').textContent).toEqual('Next');
+    });
+  });
+  
+  describe('testkit', () => {
+    it('should exist', () => {
+      expect(isTestkitExists(<Pagination numOfPages={3} />, paginationTestkitFactory)).toBe(true);
+    });
+  });
+  
+  describe('enzyme testkit', () => {
+    it('should exist', () => {
+      expect(isEnzymeTestkitExists(<Pagination numOfPages={3} />, enzymePaginationTestkitFactory)).toBe(true);
     });
   });
 });
