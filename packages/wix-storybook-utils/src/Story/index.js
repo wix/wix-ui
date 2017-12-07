@@ -51,7 +51,9 @@ function Story(props) {
     componentProps,
     examples,
     exampleProps,
-    storiesOf // eslint-disable-line
+    storiesOf, // eslint-disable-line
+    contextualImport, // eslint-disable-line
+    rawContextualImport // eslint-disable-line
   } = props;
 
   if (typeof componentSrcFolder === 'undefined') {
@@ -70,6 +72,8 @@ function Story(props) {
 
   storiesOf(category, module).add(storyName, () => (
     <ComponentMetaInfoGetter
+      contextualImport={contextualImport}
+      rawContextualImport={rawContextualImport}
       componentSrcFolder={componentSrcFolder}
       showStoryContent={
         params => {

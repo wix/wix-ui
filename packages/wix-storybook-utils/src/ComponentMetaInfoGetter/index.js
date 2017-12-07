@@ -11,8 +11,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     showStoryContent: PropTypes.func.isRequired
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.contextualImport = this.props.contextualImport;
+    this.rawContextualImport = this.props.rawContextualImport;
 
     this.state = {
       isLoading: true,
@@ -66,10 +69,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     const {componentSrcFolder} = this.props;
 
     const resolvedPath = normalize(`${componentSrcFolder}/${additionalPath}`);
+    const resolvedWithIndex = resolvedPath.replace(/\/$/, '/index.js');
 
     // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
     // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
-    return import(`!raw-loader!wix-style-react/${resolvedPath}`)
+    return this.rawContextualImport(`./${resolvedWithIndex}`)
       .then(source => {
         const sourceContainsOneLine = source.trim().split('\n').length === 1;
         const onlyDefaultExportPresent = source.startsWith('export {default} from');
@@ -92,7 +96,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   getComponentInstance() {
     // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
     // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
-    return import(`wix-style-react/${this.props.componentSrcFolder}/`)
+    return this.contextualImport(`./${this.props.componentSrcFolder}/index.js`)
       .then(component => component.default)
       .catch(console.warn);
   }
@@ -161,6 +165,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
     // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
     // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
-    return import(`wix-style-react/${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {});
+    return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {});
   }
 }
