@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {withTpaStyles} from './withTpaStyles';
+import {withTpaStyles} from './TpaStylesProvider/withTpaStyles';
 
 interface TpaComponentProps {
   wixBindings: object;

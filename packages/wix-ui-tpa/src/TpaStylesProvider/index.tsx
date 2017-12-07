@@ -10,7 +10,7 @@ interface WixSdk {
 
 interface TpaStylesProviderProps {
   children: any;
-  Wix: WixSdk;
+  wixSdk: WixSdk;
 }
 
 interface TpaStylesProviderState {
@@ -31,23 +31,23 @@ export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProp
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
-    this.state = {tpaStyles: props.Wix.Styles.getStyleParams()};
+    this.state = {tpaStyles: props.wixSdk.Styles.getStyleParams()};
   }
 
   componentDidMount() {
-    events.forEach(event => this.props.Wix.addEventListener(this.props.Wix.Events[event], this.update));
+    events.forEach(event => this.props.wixSdk.addEventListener(event, this.update));
   }
 
   componentWillUnmout() {
-    events.forEach(event => this.props.Wix.removeEventListener(this.props.Wix.Events[event], this.update));
+    events.forEach(event => this.props.wixSdk.removeEventListener(event, this.update));
   }
 
   update() {
-    this.setState({tpaStyles: this.props.Wix.Styles.getStyleParams()});
+    this.setState({tpaStyles: this.props.wixSdk.Styles.getStyleParams()});
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    return this.props.children;
   }
 
   getChildContext() {

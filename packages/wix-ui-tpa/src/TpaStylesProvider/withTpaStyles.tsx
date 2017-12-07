@@ -18,8 +18,8 @@ export const withTpaStyles = Component => {
   }
 
   ThemeWrapper.contextTypes = {
-    colors: object.isRequired,
-    fonts: object.isRequired
+    colors: object,
+    fonts: object
   };
   return ThemeWrapper;
 };
