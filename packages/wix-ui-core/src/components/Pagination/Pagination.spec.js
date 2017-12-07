@@ -33,17 +33,23 @@ describe('Pagination', () => {
       expect(pagination.getCurrentPage().textContent).toBe('2');
     });
     
-    it('shows the amount of pages it has room for (shows sibling)', () => {
+    it('shows all pages when possible', () => {
+      const pagination = createDriver(<Pagination numOfPages={7} roomForXPages={8}/>);
+      expect(pagination.getPages().length).toEqual(7);
+      ['1', '2', '3', '4', '5', '6', '7'].forEach((num, idx) => {
+        expect(pagination.getPages(idx).textContent).toEqual(num);
+      });
+    });
+    
+    it('shows the "forward sibling" if current page lower than 5 spots below last', () => {
       const pagination = createDriver(<Pagination numOfPages={33} roomForXPages={7}/>);
       expect(pagination.getPages().length).toBe(7);
-      expect(pagination.getPages(0).textContent).toBe('1');
-      expect(pagination.getPages(1).textContent).toBe('2');
-      expect(pagination.getPages(2).textContent).toBe('3');
-      expect(pagination.getPages(3).textContent).toBe('4');
-      expect(pagination.getPages(4).textContent).toBe('...');
-      expect(pagination.getPages(5).textContent).toBe('32');
-      expect(pagination.getPages(6).textContent).toBe('33');
+      ['1','2','3','4','...','32','33'].forEach((num, idx) => {
+        expect(pagination.getPages(idx).textContent).toBe(num);
+      });
     });
+    
+    // it('centers on the current page')
     
     it('pages send onChange with page number', () => {
       const onChange = jest.fn();
