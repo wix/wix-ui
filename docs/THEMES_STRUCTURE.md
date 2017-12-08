@@ -69,4 +69,4 @@ export const ToggleSwitch = ({size, ...coreProps}) => (
 );
 ```
 
-`ThemedComponent` component generates a `theme` props according to the component props and passes it to the core component. Read more [here](../wix-ui-theme/README.md)
+`ThemedComponent` component generates a `theme` props according to the component props and passes it to the core component. Read more [here](../packages/wix-ui-theme/README.md)
