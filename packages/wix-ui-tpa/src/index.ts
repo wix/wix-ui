@@ -1,1 +1,1 @@
-export {TpaStylesProvider} from './TpaStylesProvider';
+export {TpaStylesProvider} from './TpaStylesProvider/TpaStyleProvider';

@@ -1,18 +1,13 @@
 const STYLE_PARAMS_CHANGE = 'STYLE_PARAMS_CHANGE';
 const THEME_CHANGE = 'THEME_CHANGE';
+import {WixSdk as WixSdkType, SiteStyles} from './WixSdk.d';
 
 interface EventHandlers {
   STYLE_PARAMS_CHANGE: Array<Function>;
   THEME_CHANGE: Array<Function>;
 }
 
-interface SiteStyles {
-  colors: object,
-  fonts: object,
-  [x: string]: any
-}
-
-export class WixSdk {
+export class WixSdk implements WixSdkType {
   private eventHandlers: EventHandlers;
   private siteStyles: SiteStyles;
 
@@ -27,7 +22,7 @@ export class WixSdk {
   };
 
   Styles = {
-    getStyleParams: () => this.siteStyles
+    getStyleParams: () => this.siteStyles,
   }
 
   addEventListener (event, cb) {

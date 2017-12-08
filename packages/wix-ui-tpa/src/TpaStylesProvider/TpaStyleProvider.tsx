@@ -1,12 +1,6 @@
 import * as React from 'react';
 import {object} from 'prop-types';
-
-interface WixSdk {
-  Events: object;
-  addEventListener: Function;
-  removeEventListener: Function;
-  Styles: {getStyleParams: Function};
-}
+import {WixSdk} from './WixSdk.d';
 
 interface TpaStylesProviderProps {
   children: any;
