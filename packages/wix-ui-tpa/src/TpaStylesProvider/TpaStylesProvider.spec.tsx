@@ -1,63 +1,62 @@
 import {mount} from 'enzyme';
 import * as React from 'react';
 import {TpaStylesProvider} from './';
-import {WixSdkTestkit} from '../../test/WixSdkTestkit';
+import {WixSdk} from '../../test/WixSdkTestkit';
 import {withTpaStyles} from './withTpaStyles';
 
-const Component: React.SFC<any> = ({children, wixBindings}) => <div>{children}</div>
+let wixSdk;
+
+const Component: React.SFC<any> = ({children}) => <div>{children}</div>;
 
 const renderWrapped = (Component = <div/>) => mount(
-  <TpaStylesProvider wixSdk={WixSdkTestkit.get()}>
+  <TpaStylesProvider wixSdk={wixSdk}>
     {Component}
   </TpaStylesProvider>,
-  {attachTo: document.createElement('div')}      
+  {attachTo: document.createElement('div')}
 );
+
+const siteStyles = {
+  fonts: {
+    buttonFonts: {
+      editorKey: 'font_8',
+      family: 'din-next-w01-light',
+      fontStyleParam: true,
+      preset: 'Custom',
+      size: '16px',
+      style: {
+        italic: true,
+        bold: true,
+        underline: true
+      }
+    }
+  },
+  colors: {
+    backgroundColor: {value: 'green'},
+    color: {value: 'green'}
+  }
+};
 
 describe('TpaStylesProvider', () => {
   let wrapper;
-  
-  const styles = {
-    fonts: {
-      buttonFonts: {
-        editorKey: 'font_8',
-        family: 'din-next-w01-light',
-        fontStyleParam: true,
-        preset: 'Custom',
-        size: '16px',
-        style: {
-          italic: true,
-          bold: true,
-          underline: true
-        }
-      }
-    },
-    colors: {
-      backgroundColor: {value: 'green'},
-      color: {value: 'green'}
-    }
-  };
 
-  beforeEach(() => WixSdkTestkit.init(styles));
+  beforeEach(() => wixSdk = new WixSdk(siteStyles));
 
-  afterEach(() => {
-    wrapper.detach();
-    WixSdkTestkit.reset();
-  });
+  afterEach(() => wrapper.detach());
 
   it('should be initialize the state with the correct styles', () => {
-    wrapper = renderWrapped()
-    expect(WixSdkTestkit.getStyles()).toBe(wrapper.state().tpaStyles);
+    wrapper = renderWrapped();
+    expect(wixSdk.Styles.getStyleParams()).toBe(wrapper.state().tpaStyles);
   });
 
   it('should add event listeners', () => {
-    Object.keys(WixSdkTestkit.getEventHandlers()).forEach(event =>
-      expect(WixSdkTestkit.getEventHandlers()[event]).toHaveLength(0)
+    Object.keys(wixSdk.getEventHandlers()).forEach(event =>
+      expect(wixSdk.getEventHandlers()[event]).toHaveLength(0)
     );
-    
+
     wrapper = renderWrapped();
-    
-    Object.keys(WixSdkTestkit.getEventHandlers()).forEach(event =>
-      expect(WixSdkTestkit.getEventHandlers()[event]).toHaveLength(1)
+
+    Object.keys(wixSdk.getEventHandlers()).forEach(event =>
+      expect(wixSdk.getEventHandlers()[event]).toHaveLength(1)
     );
   });
 
@@ -69,14 +68,14 @@ describe('TpaStylesProvider', () => {
   it('should update the state when colors changed', () => {
     wrapper = renderWrapped(<Component/>);
 
-    WixSdkTestkit.changeColorParam('color', 'green');
+    wixSdk.setColorParam('color', 'green');
     expect(wrapper.state().tpaStyles.colors.color).toBe('green');
   });
 
   it('should update the state when fonts changed', () => {
     wrapper = renderWrapped(<Component/>);
-    
-    WixSdkTestkit.changeFontParam('bold', true);
+
+    wixSdk.setFontParam('bold', true);
     expect(wrapper.state().tpaStyles.fonts.bold).toBe(true);
   });
 
@@ -88,7 +87,7 @@ describe('TpaStylesProvider', () => {
     );
 
     const StyledComponent = withTpaStyles(Component);
-    
+
     it('should pass the colors and fonts on the context', () => {
       wrapper = renderWrapped(<StyledComponent/>);
       expect(wrapper.html()).toBe('<div>color is green and font size is 16px</div>');
@@ -102,16 +101,11 @@ describe('TpaStylesProvider', () => {
 });
 
 it('TpaStylesProvider should removeEventListeners when unmounts', () => {
-  WixSdkTestkit.init();
+  wixSdk = new WixSdk();
   const wrapper = renderWrapped();
   wrapper.unmount();
-  
-  //TODO: make wix-eventually public and use it. issue https://github.com/wix/wix-ui/issues/26
-  setTimeout(() => 
-    Object.keys(WixSdkTestkit.getEventHandlers()).forEach(event =>
-      expect(WixSdkTestkit.getEventHandlers()[event]).toHaveLength(0)
-    ), 0
-  );
 
-  WixSdkTestkit.reset();
+  Object.keys(wixSdk.Events).forEach(event =>
+    expect(wixSdk.getEventHandlers()[event]).toHaveLength(0)
+  );
 });

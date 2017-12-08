@@ -2,10 +2,10 @@ import * as React from 'react';
 import {object} from 'prop-types';
 
 interface WixSdk {
-  Events: Array<string>,
-  addEventListener: Function,
-  removeEventListener: Function,
-  Styles: {getStyleParams: Function}
+  Events: object;
+  addEventListener: Function;
+  removeEventListener: Function;
+  Styles: {getStyleParams: Function};
 }
 
 interface TpaStylesProviderProps {
@@ -27,7 +27,7 @@ export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProp
     colors: object,
     fonts: object
   };
-  
+
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
@@ -38,7 +38,7 @@ export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProp
     events.forEach(event => this.props.wixSdk.addEventListener(event, this.update));
   }
 
-  componentWillUnmout() {
+  componentWillUnmount() {
     events.forEach(event => this.props.wixSdk.removeEventListener(event, this.update));
   }
 

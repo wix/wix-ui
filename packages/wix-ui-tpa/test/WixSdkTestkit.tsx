@@ -1,44 +1,54 @@
-let siteStyles;
+const STYLE_PARAMS_CHANGE = 'STYLE_PARAMS_CHANGE';
+const THEME_CHANGE = 'THEME_CHANGE';
 
-let eventHandlers = {
-  STYLE_PARAMS_CHANGE: [],
-  THEME_CHANGE: []
-};
+interface EventHandlers {
+  STYLE_PARAMS_CHANGE: Array<Function>;
+  THEME_CHANGE: Array<Function>;
+}
 
-const WixSdk = {
-  Styles: {
-    getStyleParams: () => siteStyles
-  },
-  Events: ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE'],
-  addEventListener: (event, cb) => eventHandlers[event].push(cb),
-  removeEventListener: (event, cb) => 
-    eventHandlers[event] = eventHandlers[event].filter(handler => handler !== event)
-};
+interface SiteStyles {
+  colors: object,
+  fonts: object,
+  [x: string]: any
+}
 
-export const WixSdkTestkit = {
-  init: (styles = {colors: {}, fonts: {}}) => {
-    siteStyles = styles
-    eventHandlers = {
-      STYLE_PARAMS_CHANGE: [],
-      THEME_CHANGE: []
-    };
-  },
-  reset: () => {
-    siteStyles = {colors: {}, fonts: {}};
-    eventHandlers = {
-      STYLE_PARAMS_CHANGE: [],
-      THEME_CHANGE: []
-    };
-  },
-  get: () => WixSdk,
-  changeColorParam: (key, value) => {
-    siteStyles.colors[key] = value;
-    eventHandlers['STYLE_PARAMS_CHANGE'][0]();
-  },
-  changeFontParam: (key, value) => {siteStyles.fonts[key] = value
-    siteStyles.fonts[key] = value;
-    eventHandlers['STYLE_PARAMS_CHANGE'][0]();    
-  },
-  getStyles: () => WixSdk.Styles.getStyleParams(),
-  getEventHandlers: () => eventHandlers,
+export class WixSdk {
+  private eventHandlers: EventHandlers;
+  private siteStyles: SiteStyles;
+
+  constructor(siteStyles?: SiteStyles) {
+    this.siteStyles = siteStyles || {colors: {}, fonts: {}};
+    this.eventHandlers = {[STYLE_PARAMS_CHANGE]: [], [THEME_CHANGE]: []};
+  }
+
+  Events = {
+    STYLE_PARAMS_CHANGE,
+    THEME_CHANGE
+  };
+
+  Styles = {
+    getStyleParams: () => this.siteStyles
+  }
+
+  addEventListener (event, cb) {
+    this.eventHandlers[event].push(cb);
+  }
+
+  removeEventListener (event, cb) {
+    this.eventHandlers[event] = this.eventHandlers[event].filter(handler => handler !== cb)
+  }
+
+  getEventHandlers () {
+    return this.eventHandlers;
+  }
+
+  setColorParam (key, value) {
+    this.siteStyles.colors[key] = value;
+    this.eventHandlers[STYLE_PARAMS_CHANGE][0]();
+  }
+
+  setFontParam (key, value) {
+    this.siteStyles.fonts[key] = value;
+    this.eventHandlers[STYLE_PARAMS_CHANGE][0]();
+  }
 };
