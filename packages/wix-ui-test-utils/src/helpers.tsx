@@ -19,8 +19,7 @@ export function makeControlled(Component) {
     static displayName = `Controlled${Component.name}`;
 
     static defaultProps = {
-      value: '',
-      onChange: () => null
+      value: ''
     };
 
     constructor(props) {
