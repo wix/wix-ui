@@ -2,10 +2,34 @@
 
 ## The example
 Below is a a simple example on how the themes eco-system works.
-In the example - `Button` is a simple `core` component with a green text that can be wrapped by a `backoffice` theme.
-The backoffice theme exposes a `Button` component that changes the color according to `skin` prop.
+In the example - `Button` is a simple `core` component with an expendable font-size.
+The backoffice theme exposes it's own `Button` component that changes the font-size according to a custom `size` prop.
 
-### wix-ui-core/src/Components/Button.tsx
+## The core library
+
+### wix-ui-core/src/Components/theme.ts (The core default theme)
+```
+export const core = {
+  fontSize: '10px'
+};
+```
+
+### wix-ui-core/src/Components/styles.ts (Returns a style definition of the component)
+```
+import {core} from './theme';
+import defaultsDeep from './lodash/defaultsDeep'
+
+export const styles = theme => {
+  theme = defaultsDeep(theme, core); //a theme can be partial, so fill it with the default core theme
+  return {
+    button: {
+      fontSize: theme.fontSize
+    }
+  };
+};
+```
+
+### wix-ui-core/src/Components/Button.tsx (The core component)
 ```
 export const Button = ({classes}) => (
   <button className={classes.button}>
@@ -14,56 +38,43 @@ export const Button = ({classes}) => (
 );
 ```
 
-### wix-ui-core/src/Components/theme.ts
-```
-export const core = {
-  color: 'red'
-};
-```
+`classes` prop will be explained below
 
-### wix-ui-core/src/Components/styles.ts
-```
-import {core} from './theme';
-
-export const styles = theme => {
-  theme = defaultsDeep(theme, core);
-  return {
-    button: {
-       color: theme.color
-    }
-  };
-};
-```
-
-### wix-ui-core/src/Components/index.ts
+### wix-ui-core/src/Components/index.ts (Will render the core button with `classes`)
 ```
 import {withClasses} from '../withClasses';
 import {styles} from './styles';
-import {Button} from './Button';
+import Button from './Button';
 
 export default withClasses(Button, styles);
 ```
 
-In general what `withClasses()` does is wrapping the component with another HOC that expects to receive a `theme` prop.
-When rendered - it generates a new style tag using `jss`(css-in-js) mechanism.
+`withClasses()` is a HOC wrapping the component and passing it a `classes` prop.
+the `classes` prop is generated from the data passed to `styles` (the theme).
+When rendered - it generates a new style tag using `jss` (css-in-js) mechanism.
 
-### wix-ui-backoffice/src/Components/theme.ts
+## The backoffice theme library
+The backoffice `Button` component extends the core component and allows creating custom props, for example `size`.
+
+### wix-ui-backoffice/src/Components/theme.ts (The backoffice theme)
 ```
-export const theme = ({skin}) => {
+export const theme = ({size}) => {
   return {
-    color: skin === 'primary' ? 'blue' : 'white'
+    fontSize: size === 'primary' ? '36px' : '20px'
   };
 }
 ```
 
-### wix-ui-backoffice/src/Components/index.tsx
+The theme will be created dynamically according to the `size` prop.
+
+### wix-ui-backoffice/src/Components/index.tsx (The styled backoffice component)
 ```
 import {theme} from './theme';
 import {ThemedComponent} from 'wix-ui-theme';
 import CoreButton from 'wix-ui-core/Button';
 
 export const ToggleSwitch = ({size, ...coreProps}) => (
-  <ThemedComponent theme={theme} size={skin}>
+  <ThemedComponent theme={theme} size={size}>
     <CoreButton {...coreProps}/>
   </ThemedComponent>
 );
