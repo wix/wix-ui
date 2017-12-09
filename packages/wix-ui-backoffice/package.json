@@ -51,7 +51,6 @@
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.8.0",
     "gh-pages-auto-release": "^1.1.2",
-    "haste-cli": "~0.1.16",
     "haste-preset-yoshi": "latest",
     "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
