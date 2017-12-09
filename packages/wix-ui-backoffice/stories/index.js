@@ -1,1 +1,1 @@
-import './ToggleSwitch';
+require('./ToggleSwitch').story();
