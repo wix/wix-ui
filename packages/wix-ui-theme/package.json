@@ -38,8 +38,7 @@
     "react-test-renderer": "~15.6.0",
     "ts-jest": "^21.2.3",
     "typescript": "~2.4.0",
-    "haste-preset-yoshi": "latest",
-    "haste-cli": "~0.1.16"
+    "haste-preset-yoshi": "latest"
   },
   "dependencies": {
     "lodash.pickby": "^4.6.0",

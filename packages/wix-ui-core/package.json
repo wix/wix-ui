@@ -45,7 +45,6 @@
     "@types/react-dom": "^15.5.6",
     "enzyme": "^2.3.0",
     "gh-pages-auto-release": "^1.1.2",
-    "haste-cli": "~0.1.16",
     "haste-preset-yoshi": "latest",
     "import-path": "^0.0.7",
     "prop-types": "^15.6.0",

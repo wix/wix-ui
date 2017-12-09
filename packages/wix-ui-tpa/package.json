@@ -55,8 +55,7 @@
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
     "wix-ui-test-utils": "^1.0.7",
-    "haste-preset-yoshi": "latest",
-    "haste-cli": "~0.1.16"
+    "haste-preset-yoshi": "latest"
   },
   "license": "MIT",
   "publishConfig": {
