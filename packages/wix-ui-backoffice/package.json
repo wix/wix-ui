@@ -52,7 +52,6 @@
     "eslint-plugin-react": "^6.8.0",
     "gh-pages-auto-release": "^1.1.2",
     "haste-preset-yoshi": "latest",
-    "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "^0.0.11",
     "prop-types": "^15.5.4",
