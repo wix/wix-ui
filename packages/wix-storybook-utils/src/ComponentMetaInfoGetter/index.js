@@ -8,7 +8,9 @@ import parser from '../AutoDocs/parser';
 export default class ComponentMetaInfoGetter extends React.PureComponent {
   static propTypes = {
     componentSrcFolder: PropTypes.string,
-    showStoryContent: PropTypes.func.isRequired
+    showStoryContent: PropTypes.func.isRequired,
+    contextualImport: PropTypes.func.isRequired,
+    rawContextualImport: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -68,20 +70,17 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   getComponentSource(additionalPath = '') {
     const {componentSrcFolder} = this.props;
 
-    const resolvedPath = normalize(`${componentSrcFolder}/${additionalPath}`);
-    const resolvedWithIndex = resolvedPath.replace(/\/$/, '/index.js');
+    const resolvedPath = normalize(additionalPath ? `${componentSrcFolder}/${additionalPath}` : componentSrcFolder);
 
-    // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
-    // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
-    return this.rawContextualImport(`./${resolvedWithIndex}`)
+    return this.rawContextualImport(`./${resolvedPath}`)
       .then(source => {
         const sourceContainsOneLine = source.trim().split('\n').length === 1;
         const onlyDefaultExportPresent = source.startsWith('export {default} from');
 
         if (sourceContainsOneLine && onlyDefaultExportPresent) {
           let newSourcePath = '';
-          source.replace(/(?!['"])([./a-z]+)(?=['"])/gi, match => {
-            newSourcePath = match;
+          source.replace(/['"]([./a-zA-Z0-9-]+)['"]/gi, (match, p1) => {
+            newSourcePath = p1;
           });
 
           newSourcePath = newSourcePath.replace(/^\.\//, '/');
@@ -94,8 +93,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   }
 
   getComponentInstance() {
-    // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
-    // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
     return this.contextualImport(`./${this.props.componentSrcFolder}/index.js`)
       .then(component => component.default)
       .catch(console.warn);
@@ -163,8 +160,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   loadMdFile(fileName) {
     const baseName = fileName.endsWith('.md') ? fileName.replace(/\.md$/gi, '') : fileName;
 
-    // the following import is part of the "black magic". Webpack does not resolve paths correctly if the beginning of
-    // import string is computed. in this case, we reuse `wix-style-react` alias defined in .storybook/webpack.config.js
     return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {});
   }
 }
