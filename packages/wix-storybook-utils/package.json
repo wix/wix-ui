@@ -61,7 +61,6 @@
     "enzyme": "~2.9.0",
     "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
-    "jsdom": "~11.1.0",
     "prop-types": "~15.6.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",

@@ -53,7 +53,6 @@
     "gh-pages-auto-release": "^1.1.2",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "^0.0.13",
-    "jsdom": "^9.4.1",
     "prop-types": "^15.5.4",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
