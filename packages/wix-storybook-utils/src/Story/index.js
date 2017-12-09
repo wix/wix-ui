@@ -46,6 +46,8 @@ function Story(props) {
     readmeAccessibility: customReadmeAccessibility,
     source: customSource,
     component: customComponent,
+    repoBaseURL,
+    moduleName,
     componentSrcFolder,
     storyName = customName || componentSrcFolder,
     componentProps,
@@ -80,11 +82,11 @@ function Story(props) {
           const {
             isLoading,
             source,
+            readme,
             readmeTestKit,
             readmeAccessibility,
             component,
             name = customName || (component && (component.displayName || component.name)),
-            readme,
             parsedSource
           } = params;
 
@@ -136,15 +138,15 @@ function Story(props) {
                 {name &&
                 <div className={styles.githubLink}>
                   <TextLink
-                    link={`https://github.com/wix/wix-style-react/blob/master/src/${name}`}
+                    link={`${repoBaseURL}${name}`}
                     target="_blank"
                     >
-                    View source on GitHub
+                    View source
                   </TextLink>
                 </div>
                 }
 
-                {name && <CodeBlock source={`import ${name} from 'wix-style-react/${name}';`}/>}
+                {name && <CodeBlock source={`import ${name} from '${moduleName}/${name}';`}/>}
 
                 {actualComponent && actualSource &&
                 <AutoExample
@@ -194,6 +196,26 @@ Story.propTypes = {
    *
    */
   storyName: PropTypes.string,
+
+  /**
+   * Name of module from which component is exported
+   * Used as part of `import` example
+   */
+  moduleName: PropTypes.string,
+
+  /**
+   * String representing the base of source control repository.
+   *
+   * This is used as part of `ViewSource` link like so:
+   * `repoBaseURL + name` where `name` is `component.displayName` or `name` provided in this configuration.
+   *
+   * For example, when:
+   * * `repoBaseUrl: 'https://github.com/wix/wix-style-react/blob/master/src/'`
+   * * `name: 'Component'`
+   *
+   * The link will be `https://github.com/wix/wix-style-react/blob/master/src/Component`
+   */
+  repoBaseURL: PropTypes.string,
 
   /**
    * the README.md file in your component folder.
@@ -301,7 +323,9 @@ Story.propTypes = {
 
 Story.defaultProps = {
   componentProps: {},
-  examples: null
+  examples: null,
+  repoBaseURL: 'https://github.com/wix/wix-style-react/blob/master/src/',
+  moduleName: 'wix-style-react'
 };
 
 export default Story;
