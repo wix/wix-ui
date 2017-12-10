@@ -1,9 +1,24 @@
 import * as React from 'react';
-import {bool, func, string, number} from 'prop-types';
+import {oneOfType, bool, func, string, number, object} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
 
+const createAriaAttributes = props => {
+  const aria = 'aria';
+  const ariaAttribute = {};
+  Object
+    .keys(props)
+    .filter(key => key.startsWith(aria))
+    .map(key => ariaAttribute[`${aria}-${key.substr(aria.length).toLowerCase()}`] = props[key]);
+  return ariaAttribute;
+};
+
+type InputClasses = {
+  input: string
+};
+
 interface InputProps {
+  classes: InputClasses;
   defaultValue: string;
   disabled: boolean;
   maxLength: number;
@@ -26,17 +41,26 @@ class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static propTypes = {
+    classes: object.isRequired,
+    /** Default value for those who wants to use this component un-controlled */
     defaultValue: string,
+    /** when set to true this component is disabled */
     disabled: bool,
+    /** Input max length */
     maxLength: number,
     name: string,
+    /** Standard input onChange callback */
     onChange: func,
+    /** Placeholder to display */
     placeholder: string,
+    /** Sets the input to readOnly */
     readOnly: bool,
     required: bool,
+    /** Standard component tabIndex */
     tabIndex: number,
     type: string,
-    value: string
+    /** Inputs value */
+    value: oneOfType([string, number])
   };
 
   constructor(props) {
@@ -54,37 +78,38 @@ class Input extends React.Component<InputProps> {
 
   render() {
     const {
-      name,
-      disabled,
+      classes,
       defaultValue,
-      value,
+      disabled,
       maxLength,
+      name,
       placeholder,
-      tabIndex,
       readOnly,
+      required,
+      tabIndex,
       type,
-      required
+      value
     } = this.props;
 
-    const ariaAttribute = {};
-    Object.keys(this.props).filter(key => key.startsWith('aria')).map(key => ariaAttribute['aria-' + key.substr(4).toLowerCase()] = this.props[key]);
+    const ariaAttributes = createAriaAttributes(this.props);
     const {id} = this;
 
     return (
       <input
-        id={id}
-        name={name}
-        disabled={disabled}
+        className={classes.input}
         defaultValue={defaultValue}
-        value={value}
-        onChange={this._onChange}
+        disabled={disabled}
+        id={id}
         maxLength={maxLength}
+        name={name}
+        onChange={this._onChange}
         placeholder={placeholder}
-        tabIndex={tabIndex}
         readOnly={readOnly}
-        type={type}
         required={required}
-        {...ariaAttribute}
+        tabIndex={tabIndex}
+        type={type}
+        value={value}
+        {...ariaAttributes}
       />
     );
   }
