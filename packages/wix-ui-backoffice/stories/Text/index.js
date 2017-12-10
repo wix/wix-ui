@@ -10,6 +10,8 @@ export const story = () => createStory({
   component: Text,
   componentProps: (setState, getState) => ({
     appearance: 'T1.1',
+    ellipsis: true,
+    forceHideTitle: false,
     children: 'Maccabi haifa SUCKS!!!!'
   }),
   source: TextSource

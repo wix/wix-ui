@@ -1,5 +1,5 @@
 import React from 'react';
-import {oneOf} from 'prop-types';
+import {oneOf, bool} from 'prop-types';
 import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
@@ -23,11 +23,15 @@ Text.propTypes = {
     'T2', 'T2.1', 'T2.2', 'T2.3',
     'T3', 'T3.1', 'T3.2', 'T3.3', 'T3.4',
     'T4', 'T4.1', 'T4.2', 'T4.3',
-    'T5', 'T5.1'])
+    'T5', 'T5.1']),
+  ellipsis: bool,
+  forceHideTitle: bool
 };
 
 Text.defaultProps = {
-  appearance: 'T1.1'
+  appearance: 'T1.1',
+  ellipsis: true,
+  forceHideTitle: false
 };
 
 function getType(appearance) {
