@@ -19,7 +19,6 @@ type InputClasses = {
 
 interface InputProps {
   classes: InputClasses;
-  defaultValue: string;
   disabled: boolean;
   maxLength: number;
   name: string;
@@ -40,11 +39,13 @@ class Input extends React.Component<InputProps> {
 
   static displayName = 'Input';
 
+  static defaultProps = {
+    maxLength: 524288
+  };
+
   static propTypes = {
     classes: object.isRequired,
     /** Default value for those who wants to use this component un-controlled */
-    defaultValue: string,
-    /** when set to true this component is disabled */
     disabled: bool,
     /** Input max length */
     maxLength: number,
@@ -79,7 +80,6 @@ class Input extends React.Component<InputProps> {
   render() {
     const {
       classes,
-      defaultValue,
       disabled,
       maxLength,
       name,
@@ -97,7 +97,6 @@ class Input extends React.Component<InputProps> {
     return (
       <input
         className={classes.input}
-        defaultValue={defaultValue}
         disabled={disabled}
         id={id}
         maxLength={maxLength}
