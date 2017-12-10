@@ -22,9 +22,9 @@ export const styles = (theme: InputTheme) => {
 
       boxSizing: 'border-box',
       '-webkit-font-smoothing': 'antialiased',
-      textAlign: 'center',
+      textAlign: 'left',
       border: '1px solid',
-      cursor: 'pointer',
+      cursor: 'text',
       outline: 'none',
 
       transition: 'background-color 100ms linear, border-color 100ms linear, color 100ms linear',
