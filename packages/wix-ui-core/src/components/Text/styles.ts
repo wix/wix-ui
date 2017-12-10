@@ -12,6 +12,13 @@ export const styles = (theme: TextTheme) => {
       color: theme.color,
       textTransform: theme.textTransform,
       letterSpacing: theme.letterSpacing
+    },
+    ellipsis : {
+      textOverflow: 'ellipsis',
+      display: 'inline-block',
+      width: '100%',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap'
     }
   };
 };

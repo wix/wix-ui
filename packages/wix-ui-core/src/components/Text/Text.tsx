@@ -1,6 +1,7 @@
 import * as React from 'react'; 
-
+import * as classnames from 'classnames';
 import PropTypes from 'prop-types'; 
+
 import {createHOC} from '../../createHOC';
 
 
@@ -23,11 +24,13 @@ import {createHOC} from '../../createHOC';
   // }
   type TextClasses = {
     root: string;
+    ellipsis: string;
   };
   
   interface TextProps {
     classes: TextClasses;
     children: PropTypes.any;
+    ellipsis: PropTypes.bool,
     forceHideTitle: PropTypes.bool
   }
   
@@ -38,10 +41,23 @@ import {createHOC} from '../../createHOC';
     super(props);
   }
 
+  getTitle = () => {
+    const {forceHideTitle, ellipsis, children} = this.props;
+    let title = null;
+    if(typeof children === 'string' && ellipsis && !forceHideTitle){
+      title = children;
+    }
+    return title
+  }
+
   render() {
-    const { classes, children} = this.props;    
-    
-    return (<span className={classes.root}>
+    const { classes, children, ellipsis} = this.props;    
+    const cssClasses = {
+      [classes.root]: true,
+      [classes.ellipsis] : ellipsis
+    }
+
+    return (<span className={classnames(cssClasses)} title={this.getTitle()}>
       {children}
     </span>)
   }

@@ -12,7 +12,7 @@ storiesOf('Components', module)
     <ToggleSwitch/>
   ))
   .add('Text', () => (
-    <Text>
+    <Text ellipsis>
         Hello World
     </Text>
   ));
