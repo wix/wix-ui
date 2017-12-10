@@ -1,57 +1,19 @@
-import {palette} from '../../palette';
+// import {palette} from '../../palette';
 
 export type TextTheme = {
-  // transitionSpeed?: string;
-  // borderRadius?: string;
-  // labelMovementRange?: string;
-
-  // outerLabelWidth?: string;
-  // outerLabelHeight?: string;
-
-  // innerLabelWidth?: string;
-  // innerLabelHeight?: string;
-  // innerLabelBackgroundColor?: string;
-
-  // backgroundColor?: string;
-  // backgroundColorChecked?: string;
-  // backgroundColorDisabled?: string;
-  // backgroundColorHover?: string;
-
-  // color?: string;
-  // colorChecked?: string;
-  // colorDisabled?: string;
-  // colorCheckedDisabled?: string;
-  // colorHover?: string;
-
-  // toggleIconWidth?: string;
-  // toggleIconHeight?: string;
-  // toggleIconDisplay?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  lineHeight?: string;
+  color?: string;
+  textTransform?: string;
+  letterSpacing?: string;
 };
 
 export const core: TextTheme = {
-  // transitionSpeed: '.3s',
-  // borderRadius: '50px',
-  // labelMovementRange: '23px',
-
-  // outerLabelWidth: '45px',
-  // outerLabelHeight: '24px',
-
-  // innerLabelWidth: '21px',
-  // innerLabelHeight: '22px',
-  // innerLabelBackgroundColor: palette.white,
-
-  // backgroundColor: palette.grey,
-  // backgroundColorChecked: palette.grey,
-  // backgroundColorDisabled: palette.disabledButton,
-  // backgroundColorHover: palette.grey,
-
-  // color: palette.white,
-  // colorChecked: palette.white,
-  // colorDisabled: palette.white,
-  // colorCheckedDisabled: palette.white,
-  // colorHover: palette.white,
-
-  // toggleIconWidth: '8px',
-  // toggleIconHeight: '6px',
-  // toggleIconDisplay: 'none'
+  fontFamily: 'Arial',
+  fontSize: '12px',
+  lineHeight: 'normal',
+  color: '#000',
+  textTransform: 'none',
+  letterSpacing: 'normal'
 };
