@@ -25,11 +25,27 @@ const skinToFocusBorderColor = {
   error: palette.danger
 };
 
+const sizeToHeight = {
+  small: 30,
+  medium: 36,
+  large: 60
+};
+
+const sizeToFontSize = {
+  small: 14,
+  medium: 16,
+  large: 22
+};
+
 export const theme = ({size, skin}) => ({
 
   color: skinToColor[skin],
   backgroundColor: palette.white,
   borderColor: skinToBorderColor[skin],
+
+  height: sizeToHeight[size],
+  lineHeight: sizeToHeight[size] - 2,
+  fontSize: sizeToFontSize[size],
 
   hover: {
     color: skinToColor[skin],
