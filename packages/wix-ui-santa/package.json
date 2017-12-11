@@ -24,7 +24,8 @@
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
     "posttest": "haste lint",
-    "start": "haste start & npm run storybook",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },

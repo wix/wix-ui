@@ -16,7 +16,8 @@
   "scripts": {
     "pretest": "haste lint && haste build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
-    "start": "haste start & npm run storybook",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test & npm run storybook",
     "release": "haste release",
     "build": "haste build && import-path --path src",
     "storybook": "start-storybook -p 6006"
