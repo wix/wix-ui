@@ -38,12 +38,12 @@ export const core: InputTheme = {
   textDecoration: 'none',
 
   height: '36px',
-  padding: '0 23px',
+  padding: '0 12px',
 
   color: palette.black,
   backgroundColor: palette.grey,
   borderColor: palette.black,
-  borderRadius: '0',
+  borderRadius: '6px',
 
   hover: {
     color: palette.black,

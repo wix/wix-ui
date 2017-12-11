@@ -13,15 +13,15 @@ const Input = ({size, skin, ...coreProps}) => (
 Input.propTypes = {
   ...CoreInput.propTypes,
 
-  /** size of the toggle switch */
-  size: oneOf(['x-small', 'small', 'large']),
+  /** size of the input component */
+  size: oneOf(['small', 'normal', 'large']),
 
-  /** Color for disabled toggle switch */
-  skin: oneOf(['standard', 'error', 'success'])
+  /** Color schemes for the inpus component */
+  skin: oneOf(['standard', 'error', 'disabled'])
 };
 
 Input.defaultProps = {
-  size: 'large',
+  size: 'normal',
   skin: 'standard'
 };
 

@@ -9,6 +9,7 @@ export const palette = {
   successHover: '#80c979', //G20
   successNotifications: '#c9eebc', //G30
 
+  disabledFields: '#dadada',  // GR20
   disabledButton: '#cbd3dc', // GR40
 
   danger: '#ee5951', //R10
