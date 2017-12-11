@@ -47,7 +47,6 @@
     "highlight.js": "^9.12.0",
     "import-path": "0.0.13",
     "react-docgen": "^2.20.0",
-    "react-element-to-jsx-string": "^13.1.0",
     "react-remarkable": "^1.1.3",
     "wix-style-react": "^1.1.4264",
     "wix-ui-test-utils": "latest"
@@ -60,6 +59,7 @@
     "enzyme": "~2.9.0",
     "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
+    "jsx-to-string": "^1.3.0",
     "prop-types": "~15.6.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",

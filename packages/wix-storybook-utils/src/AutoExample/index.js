@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import reactElementToJSXString from 'react-element-to-jsx-string';
+import jsxToString from 'jsx-to-string';
 import styles from './styles.scss';
 import componentParser from '../AutoDocs/parser';
 
@@ -213,7 +213,14 @@ export default class extends Component {
   }
 
   componentToString = component =>
-    reactElementToJSXString(component, {showDefaultProps: false, showFunctions: true})
+    jsxToString(
+      component,
+      {
+        useFunctionCode: true,
+        functionNameOnly: false,
+        shortBooleanSyntax: true
+      }
+    );
 
   render() {
     const component = this.props.component;
