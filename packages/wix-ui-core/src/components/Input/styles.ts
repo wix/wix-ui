@@ -35,6 +35,12 @@ export const styles = (theme: InputTheme) => {
         borderColor: theme.hover.borderColor
       },
 
+      '&:active': {
+        color: theme.focus.color,
+        backgroundColor: theme.focus.backgroundColor,
+        borderColor: theme.focus.borderColor
+      },
+
       '&:disabled': {
         pointerEvents: 'none',
         backgroundColor: theme.disabled.backgroundColor,

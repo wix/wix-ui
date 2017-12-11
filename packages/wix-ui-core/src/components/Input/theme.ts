@@ -22,6 +22,12 @@ export type InputTheme = {
     borderColor?: string
   };
 
+  focus?: {
+    color?: string,
+    backgroundColor?: string,
+    borderColor?: string
+  };
+
   disabled?: {
     color?: string,
     backgroundColor?: string,
@@ -46,6 +52,12 @@ export const core: InputTheme = {
   borderRadius: '6px',
 
   hover: {
+    color: palette.black,
+    backgroundColor: palette.grey,
+    borderColor: palette.black
+  },
+
+  focus: {
     color: palette.black,
     backgroundColor: palette.grey,
     borderColor: palette.black

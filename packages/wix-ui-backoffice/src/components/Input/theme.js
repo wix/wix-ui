@@ -6,10 +6,10 @@ const skinToColor = {
   error: palette.mainInputText
 };
 
-const skinToBackgroundColor = {
-  standard: palette.white,
-  disabled: palette.disabledButton,
-  error: palette.white
+const skinToHoverBackgroundColor = {
+  standard: palette.dividers,
+  disabled: palette.white,
+  error: palette.dividers
 };
 
 const skinToBorderColor = {
@@ -18,19 +18,30 @@ const skinToBorderColor = {
   error: palette.danger
 };
 
+const skinToHoverBorderColor = {
+  standard: palette.notifications,
+  disabled: palette.disabledFields,
+  error: palette.danger
+};
+
+const skinToFocusBorderColor = {
+  standard: palette.mainHover,
+  error: palette.danger
+};
+
 export const theme = ({size, skin}) => ({
 
   color: skinToColor[skin],
-  backgroundColor: skinToBackgroundColor[skin],
+  backgroundColor: palette.white,
   borderColor: skinToBorderColor[skin],
 
   hover: {
-    color: palette.mainInputText,
-    borderColor: palette.notifications,
-    backgroundColor: palette.dividers
+    color: skinToColor[skin],
+    borderColor: skinToHoverBorderColor[skin],
+    backgroundColor: skinToHoverBackgroundColor[skin]
   },
 
   focus: {
-    borderColor: palette.mainHover
+    borderColor: skinToFocusBorderColor[skin]
   }
 });
