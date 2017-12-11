@@ -36,8 +36,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.22.0",
     "lodash": "^4.17.4",
-    "wix-ui-core": "^1.0.8",
-    "wix-ui-theme": "^1.0.16"
+    "wix-ui-core": "latest",
+    "wix-ui-theme": "latest"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.2.13",
@@ -53,11 +53,11 @@
     "identity-obj-proxy": "^3.0.0",
     "import-path": "^0.0.11",
     "prop-types": "^15.5.4",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
-    "wix-storybook-utils": "^1.0.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-storybook-utils": "latest",
+    "wix-ui-test-utils": "latest"
   },
   "babel": {
     "presets": [

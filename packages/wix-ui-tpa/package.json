@@ -35,7 +35,7 @@
   "dependencies": {
     "color": "^2.0.1",
     "lodash": "^4.17.4",
-    "wix-ui-core": "^1.0.0"
+    "wix-ui-core": "latest"
   },
   "devDependencies": {
     "@storybook/addon-options": "3.2.13",
@@ -55,7 +55,7 @@
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-ui-test-utils": "^1.0.7",
+    "wix-ui-test-utils": "latest",
     "haste-preset-yoshi": "latest"
   },
   "license": "MIT",
