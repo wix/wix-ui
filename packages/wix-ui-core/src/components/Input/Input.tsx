@@ -13,6 +13,8 @@ const createAriaAttributes = props => {
   return ariaAttribute;
 };
 
+const NUMBER_REGEX = /^[\d.,\-+]*$/;
+
 type InputClasses = {
   input: string
 };
@@ -49,6 +51,7 @@ class Input extends React.Component<InputProps> {
     disabled: bool,
     /** Input max length */
     maxLength: number,
+    /** Name for the input */
     name: string,
     /** Standard input onChange callback */
     onChange: func,
@@ -56,9 +59,11 @@ class Input extends React.Component<InputProps> {
     placeholder: string,
     /** Sets the input to readOnly */
     readOnly: bool,
+    /** Sets the input to be required */
     required: bool,
     /** Standard component tabIndex */
     tabIndex: number,
+    /** The type of the input - number / text */
     type: string,
     /** Inputs value */
     value: oneOfType([string, number])
@@ -70,7 +75,11 @@ class Input extends React.Component<InputProps> {
   }
 
   _onChange = e => {
-    if (this.props.type === 'number' && !(/^[\d.,\-+]*$/.test(e.target.value))) {
+    const {type, disabled, readOnly} = this.props;
+
+    if (disabled ||
+        readOnly ||
+        (type === 'number' && !(NUMBER_REGEX.test(e.target.value)))) {
       return;
     }
 

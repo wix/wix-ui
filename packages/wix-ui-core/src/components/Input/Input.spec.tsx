@@ -10,7 +10,7 @@ describe('Input', () => {
   const createDriver = createDriverFactory(inputDriverFactory);
 
   describe('disabled prop', () => {
-    it('should not be present on default', () => {
+    it('should not be present by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.isDisabled()).toBeFalsy();
     });
@@ -22,7 +22,7 @@ describe('Input', () => {
   });
 
   describe('readOnly prop', () => {
-    it('should not be present on default', () => {
+    it('should not be present by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.isReadOnly()).toBeFalsy();
     });
@@ -34,7 +34,7 @@ describe('Input', () => {
   });
 
   describe('required prop', () => {
-    it('should not be present on default', () => {
+    it('should not be present by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.isRequired()).toBeFalsy();
     });
@@ -70,7 +70,7 @@ describe('Input', () => {
       expect(driver.getValue()).toEqual(value);
     });
 
-    it('should have initial value updated', () => {
+    it('should have initial value', () => {
       const value = 'value';
       const driver = createDriver(<Input value={value}/>);
       expect(driver.getValue()).toEqual(value);
@@ -78,7 +78,7 @@ describe('Input', () => {
   });
 
   describe('tab index prop', () => {
-    it('should not be present on default', () => {
+    it('should be 0 by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.getTabIndex()).toEqual(0);
     });
@@ -90,7 +90,7 @@ describe('Input', () => {
   });
 
   describe('placeholder prop', () => {
-    it('should not be present on default', () => {
+    it('should not be present by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.getPlaceholder()).toEqual('');
     });
@@ -103,7 +103,7 @@ describe('Input', () => {
   });
 
   describe('type prop', () => {
-    it('should be text on default', () => {
+    it('should be text by default', () => {
       const driver = createDriver(<Input/>);
       expect(driver.getType()).toEqual('text');
     });
@@ -123,10 +123,22 @@ describe('Input', () => {
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(driver.getValue()).toBe(value);
     });
-  });
 
-  describe.skip('classes prop', () => {
-    //TODO: create testkit for the jss mechanism
+    it('should not call onChange callback when input is disabled', () => {
+      const value = 'value';
+      const onChange = jest.fn();
+      const driver = createDriver(<Input disabled onChange={onChange}/>);
+      driver.setValue(value);
+      expect(onChange).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not call onChange callback when input is readonly', () => {
+      const value = 'value';
+      const onChange = jest.fn();
+      const driver = createDriver(<Input readOnly onChange={onChange}/>);
+      driver.setValue(value);
+      expect(onChange).toHaveBeenCalledTimes(0);
+    });
   });
 
   describe('testkit', () => {
