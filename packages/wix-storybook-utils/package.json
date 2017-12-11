@@ -14,9 +14,11 @@
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "scripts": {
-    "pretest": "haste lint && haste build && build-storybook",
+    "pretest": "npm run build && build-storybook",
+    "precommit": "haste lint",
     "test": "haste test --jest && haste test --protractor",
     "test:watch": "haste test --jest --watch",
+    "posttest": "haste lint",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release",
     "build": "haste build && import-path --path src",
