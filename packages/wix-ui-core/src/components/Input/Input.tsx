@@ -47,7 +47,7 @@ class Input extends React.Component<InputProps> {
 
   static propTypes = {
     /** Classes object */
-    classes: object,
+    classes: object.isRequired,
     /** Makes the component disabled */
     disabled: bool,
     /** Input max length */

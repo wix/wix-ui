@@ -8,5 +8,10 @@ export const story = () => createStory({
   name: 'Input',
   storyName: 'Input',
   component: Input,
-  source: InputSource
+  source: InputSource,
+  componentProps: () => ({
+    classes: {
+      input: 'input'
+    }
+  })
 });

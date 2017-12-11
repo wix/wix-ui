@@ -1,5 +1,5 @@
 import React from 'react';
-import {oneOf, bool} from 'prop-types';
+import {oneOf} from 'prop-types';
 import CoreInput from 'wix-ui-core/Input';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
