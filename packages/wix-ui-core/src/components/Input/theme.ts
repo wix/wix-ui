@@ -31,7 +31,8 @@ export type InputTheme = {
   disabled?: {
     color?: string,
     backgroundColor?: string,
-    borderColor?: string
+    borderColor?: string,
+    hoverBorderColor?: string
   };
 };
 
@@ -66,6 +67,7 @@ export const core: InputTheme = {
   disabled: {
     color: palette.black,
     backgroundColor: palette.grey,
-    borderColor: palette.black
+    borderColor: palette.black,
+    hoverBorderColor: palette.black
   }
 };

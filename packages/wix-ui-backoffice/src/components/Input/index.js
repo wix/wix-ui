@@ -1,5 +1,5 @@
 import React from 'react';
-import {oneOf} from 'prop-types';
+import {oneOf, bool} from 'prop-types';
 import CoreInput from 'wix-ui-core/Input';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
@@ -17,7 +17,7 @@ Input.propTypes = {
   size: oneOf(['small', 'normal', 'large']),
 
   /** Color schemes for the inpus component */
-  skin: oneOf(['standard', 'error', 'disabled'])
+  skin: oneOf(['standard', 'error'])
 };
 
 Input.defaultProps = {

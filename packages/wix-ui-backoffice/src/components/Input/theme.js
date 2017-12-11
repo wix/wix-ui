@@ -2,25 +2,21 @@ import {palette} from '../../palette';
 
 const skinToColor = {
   standard: palette.mainInputText,
-  disabled: palette.disabled,
   error: palette.mainInputText
 };
 
 const skinToHoverBackgroundColor = {
   standard: palette.dividers,
-  disabled: palette.white,
   error: palette.dividers
 };
 
 const skinToBorderColor = {
   standard: palette.notifications,
-  disabled: palette.disabledDividers,
   error: palette.danger
 };
 
 const skinToHoverBorderColor = {
   standard: palette.notifications,
-  disabled: palette.disabledFields,
   error: palette.danger
 };
 
@@ -42,6 +38,15 @@ export const theme = ({size, skin}) => ({
   },
 
   focus: {
-    borderColor: skinToFocusBorderColor[skin]
+    color: skinToColor[skin],
+    borderColor: skinToFocusBorderColor[skin],
+    backgroundColor: palette.white
+  },
+
+  disabled: {
+    color: palette.disabled,
+    backgroundColor: palette.white,
+    borderColor: palette.disabledDividers,
+    hoverBorderColor: palette.disabledFields
   }
 });

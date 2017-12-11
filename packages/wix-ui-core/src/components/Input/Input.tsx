@@ -46,8 +46,9 @@ class Input extends React.Component<InputProps> {
   };
 
   static propTypes = {
-    classes: object.isRequired,
-    /** Default value for those who wants to use this component un-controlled */
+    /** Classes object */
+    classes: object,
+    /** Makes the component disabled */
     disabled: bool,
     /** Input max length */
     maxLength: number,

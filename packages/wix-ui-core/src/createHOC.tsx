@@ -8,7 +8,10 @@ interface WixComponentProps {
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
-    static propTypes = {dataHook: string};
+    static propTypes = {
+      ...Component.propTypes,
+      dataHook: string
+    };
 
     componentDidMount() {
       const {dataHook} = this.props;
