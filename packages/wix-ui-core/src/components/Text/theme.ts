@@ -1,5 +1,3 @@
-// import {palette} from '../../palette';
-
 export type TextTheme = {
   fontFamily?: string;
   fontSize?: string;

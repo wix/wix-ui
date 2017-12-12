@@ -4,8 +4,7 @@ import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const Text = coreProps => {
-  const {forceHideTitle, ellipsis, children, appearance} = coreProps;
+const Text = ({forceHideTitle, ellipsis, children, appearance}) => {
   return (
     <ThemedComponent theme={theme} appearance={appearance}>
       <CoreText forceHideTitle={forceHideTitle} ellipsis={ellipsis} tagName={getType(appearance)}>

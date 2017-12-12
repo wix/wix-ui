@@ -1,5 +1,4 @@
 import createStory from '../create-story';
-
 import Text from '../../src/components/Text';
 import TextSource from '!raw-loader!../../src/components/Text';
 
@@ -12,7 +11,7 @@ export const story = () => createStory({
     appearance: 'T1.1',
     ellipsis: true,
     forceHideTitle: false,
-    children: 'Maccabi haifa SUCKS!!!!'
+    children: 'Some text'
   }),
   source: TextSource
 });
