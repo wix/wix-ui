@@ -38,7 +38,11 @@ export const styles = (theme: InputTheme) => {
       '&:focus': {
         color: theme.focus.color,
         backgroundColor: theme.focus.backgroundColor,
-        borderColor: theme.focus.borderColor
+        borderColor: theme.focus.borderColor,
+
+        '&:hover': {
+          backgroundColor: theme.focus.hoverBackgroundColor
+        }
       },
 
       '&:disabled': {

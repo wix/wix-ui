@@ -25,6 +25,7 @@ export type InputTheme = {
   focus?: {
     color?: string,
     backgroundColor?: string,
+    hoverBackgroundColor?: string,
     borderColor?: string
   };
 

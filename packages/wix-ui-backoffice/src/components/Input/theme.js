@@ -56,7 +56,8 @@ export const theme = ({size, skin}) => ({
   focus: {
     color: skinToColor[skin],
     borderColor: skinToFocusBorderColor[skin],
-    backgroundColor: palette.white
+    backgroundColor: palette.white,
+    hoverBackgroundColor: skinToHoverBackgroundColor[skin]
   },
 
   disabled: {
