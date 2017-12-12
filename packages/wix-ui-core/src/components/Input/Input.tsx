@@ -29,7 +29,7 @@ interface InputProps {
   readOnly: bool;
   required: bool;
   tabIndex: number;
-  type: string;
+  type: 'text' | 'number';
   value: string;
 }
 
@@ -42,7 +42,8 @@ class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
-    maxLength: 524288
+    maxLength: 524288,
+    type: 'text'
   };
 
   static propTypes = {
