@@ -5,8 +5,7 @@
   "version": "1.0.0",
   "author": {
     "name": "Lior Belinsky",
-    "email": "liorbe@wix.com",
-    "url": ""
+    "email": "liorbe@wix.com"
   },
   "main": "./dist/src/index.js",
   "files": [
@@ -20,19 +19,19 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && import-path --path src/components",
-    "pretest": "yoshi build && build-storybook",
-    "test": "yoshi test --jest && yoshi test --protractor",
-    "posttest": "yoshi lint",
-    "start": "yoshi start & npm run storybook",
-    "release": "yoshi release && gh-pages-auto-release --dist=storybook-static",
+    "build": "haste build && import-path --path src/components",
+    "pretest": "npm run build && build-storybook",
+    "test": "haste test --jest && haste test --protractor",
+    "posttest": "haste lint",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test & npm run storybook",
+    "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
     "react": "^15.4.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.22.0",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
@@ -42,33 +41,24 @@
     "@storybook/addon-options": "3.2.13",
     "@storybook/react": "~3.1.0",
     "@storybook/storybook-deployer": "~2.0.0",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
+    "@types/jest": "^21.1.8",
+    "@types/react": "^15.6.7",
+    "@types/react-dom": "^15.5.6",
     "enzyme": "^2.3.0",
-    "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-react": "^6.8.0",
-    "express": "^4.13.4",
     "gh-pages-auto-release": "^1.1.2",
-    "identity-obj-proxy": "^3.0.0",
+    "haste-preset-yoshi": "latest",
     "import-path": "^0.0.7",
-    "prop-types": "^15.5.4",
+    "prop-types": "^15.6.0",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
-    "react-test-utils": "0.0.1",
-    "wix-ui-test-utils": "^1.0.0",
-    "yoshi": "latest"
+    "ts-jest": "^21.2.4",
+    "typescript": "^2.6.2",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "babel": {
     "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
+      "es2015",
       "react",
       "stage-2"
     ]
@@ -95,7 +85,6 @@
   },
   "yoshi": {
     "entry": {
-      "app": "index.js",
       "toggleSwitch": "components/ToggleSwitch/index"
     },
     "externals": {
@@ -108,16 +97,22 @@
     }
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/node_modules/babel-polyfill"
-    ],
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
-    "moduleNameMapper": {
-      "\\.(css|less|scss)$": "identity-obj-proxy"
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
-    ]
+    ],
+    "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
+  },
+  "haste": {
+    "preset": "yoshi"
   }
 }

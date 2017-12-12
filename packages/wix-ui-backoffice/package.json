@@ -19,13 +19,13 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && import-path --path src/components",
-    "precommit": "yoshi lint",
+    "build": "haste build && import-path --path src/components",
     "pretest": "npm run build && build-storybook",
-    "test": "yoshi test --jest && yoshi test --protractor",
-    "posttest": "yoshi lint",
-    "start": "yoshi start & npm run storybook",
-    "release": "yoshi release && gh-pages-auto-release --dist=storybook-static",
+    "test": "haste test --jest && haste test --protractor",
+    "test:watch": "haste test --jest --watch",
+    "posttest": "haste lint",
+    "start": "haste start --no-test & npm run storybook",
+    "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
@@ -35,45 +35,32 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.22.0",
     "lodash": "^4.17.4",
-    "wix-ui-core": "^1.0.8",
-    "wix-ui-theme": "^1.0.16"
+    "wix-ui-core": "^1.0.0",
+    "wix-ui-theme": "^1.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-options": "3.2.13",
-    "@storybook/react": "~3.1.0",
-    "@storybook/storybook-deployer": "~2.0.0",
+    "@storybook/addon-options": "^3.2.13",
+    "@storybook/react": "^3.2.13",
     "babel-jest": "^21.2.0",
     "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
+    "babel-preset-wix": "^1.0.2",
     "enzyme": "^2.3.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.8.0",
-    "express": "^4.13.4",
     "gh-pages-auto-release": "^1.1.2",
-    "husky": "^0.13.4",
+    "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "^0.0.11",
-    "jsdom": "^9.4.1",
     "prop-types": "^15.5.4",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
-    "react-test-utils": "0.0.1",
-    "wix-ui-test-utils": "^1.0.0",
-    "yoshi": "latest"
+    "wix-storybook-utils": "^1.0.0",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "babel": {
     "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
-      "react",
-      "stage-2"
+      "wix"
     ]
   },
   "eslintConfig": {
@@ -116,5 +103,8 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ]
+  },
+  "haste": {
+    "preset": "yoshi"
   }
 }

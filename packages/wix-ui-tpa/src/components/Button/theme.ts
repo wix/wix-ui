@@ -1,10 +1,9 @@
-import * as Wix from 'Wix';
 import * as _color from 'color';
 
-export const theme = ({backgroundColor, fonts, color}) => {
-  const style = Wix.Styles.getStyleParams();
-  const buttonColor = style.colors[backgroundColor].value;
-  const buttonFonts = style.fonts[fonts];
+export const theme = ({wixBindings, colors, fonts}) => {
+  const buttonBgColor = colors[wixBindings.backgroundColor].value;
+  const buttonColor = colors[wixBindings.color].value;
+  const buttonFonts = fonts[wixBindings.fonts]
 
   return {
     fontSize: buttonFonts.size,
@@ -13,13 +12,13 @@ export const theme = ({backgroundColor, fonts, color}) => {
     fontWeight: buttonFonts.style.bold ? 'bold' : 'normal',
     textDecoration: buttonFonts.style.underline ? 'underline' : 'none',
 
-    backgroundColor: buttonColor,
-    borderColor: buttonColor,
-    color: style.colors[color].value,
+    backgroundColor: buttonBgColor,
+    borderColor: buttonBgColor,
+    color: buttonColor,
 
     hover: {
-      backgroundColor: _color(buttonColor).lighten(0.4).rgb().string(),
-      borderColor: _color(buttonColor).lighten(0.4).rgb().string()
+      backgroundColor: _color(buttonBgColor).lighten(0.4).rgb().string(),
+      borderColor: _color(buttonBgColor).lighten(0.4).rgb().string()
     }
   };
 };

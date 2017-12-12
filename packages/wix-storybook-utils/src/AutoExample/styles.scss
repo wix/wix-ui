@@ -1,0 +1,10 @@
+.example {
+  padding: 6px 8px;
+  font-size: 14px;
+  transition: all .4s;
+
+  &.active {
+    color: #fff;
+    background-color: #3899eb;
+  }
+}

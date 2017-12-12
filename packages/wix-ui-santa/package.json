@@ -2,25 +2,30 @@
   "private": false,
   "name": "wix-ui-santa",
   "version": "1.0.0",
+  "description": "Components for Wix Santa Editor and Viewer",
   "author": {
     "name": "Lior Belinsky",
-    "email": "liorbe@wix.com",
-    "url": ""
+    "email": "liorbe@wix.com"
   },
   "main": "./dist/src/index.js",
   "files": [
     "dist",
-    "src",
-    ".babelrc",
-    "testkit"
+    "*.js",
+    "!wallaby.js",
+    "!protractor.conf.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix/wix-ui.git"
+  },
   "scripts": {
-    "build": ":",
-    "pretest": "yoshi build && build-storybook",
-    "test": "yoshi test --jest && yoshi test --protractor",
-    "posttest": "yoshi lint",
-    "start": "yoshi start & npm run storybook",
-    "release": "yoshi release && gh-pages-auto-release --dist=storybook-static",
+    "build": "haste build && import-path --path src/components",
+    "pretest": "npm run build && build-storybook",
+    "test": "haste test --jest && haste test --protractor",
+    "posttest": "haste lint",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test & npm run storybook",
+    "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
@@ -45,26 +50,19 @@
     "enzyme": "^2.3.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.8.0",
-    "express": "^4.13.4",
     "gh-pages-auto-release": "^1.1.2",
     "identity-obj-proxy": "^3.0.0",
-    "jsdom": "^9.4.1",
+    "import-path": "^0.0.13",
     "prop-types": "^15.5.4",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
-    "react-test-utils": "0.0.1",
     "wix-ui-test-utils": "^1.0.0",
-    "yoshi": "latest"
+    "haste-preset-yoshi": "latest"
   },
   "babel": {
     "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
+      "es2015",
       "react",
       "stage-2"
     ]
@@ -91,10 +89,27 @@
   },
   "yoshi": {
     "entry": {
-      "app": "index.js"
+      "toggleSwitch": "components/ToggleSwitch/index"
     },
     "externals": {
-      "react": "React"
+      "react": {
+        "amd": "react",
+        "umd": "react",
+        "commonjs": "react",
+        "commonjs2": "react",
+        "root": "React"
+      },
+      "react-dom": {
+        "amd": "reactDOM",
+        "umd": "react-dom",
+        "commonjs": "react-dom",
+        "commonjs2": "react-dom",
+        "root": "ReactDOM"
+      }
+    },
+    "exports": {},
+    "alias": {
+      "lodash": "lodash-editor"
     }
   },
   "jest": {
@@ -109,5 +124,8 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ]
+  },
+  "haste": {
+    "preset": "yoshi"
   }
 }

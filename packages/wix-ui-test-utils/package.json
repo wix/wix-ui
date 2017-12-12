@@ -4,85 +4,66 @@
   "version": "1.0.0",
   "author": {
     "name": "Lior Belinsky",
-    "email": "liorbe@wix.com",
-    "url": ""
+    "email": "liorbe@wix.com"
   },
+  "bugs": {
+    "url": "https://github.com/wix/wix-ui/issues"
+  },
+  "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wix/wix-ui.git"
+  },
   "scripts": {
-    "start": "yoshi start",
-    "build": ":",
-    "pretest": "yoshi build",
-    "test": "yoshi test --jest && yoshi test --protractor",
-    "posttest": "yoshi lint",
-    "release": "yoshi release"
+    "build": "haste build",
+    "pretest": "npm run build",
+    "test": "haste test --jest && haste test --protractor",
+    "posttest": "haste lint",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test",
+    "release": "haste release"
   },
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "babel-jest": "^21.2.0",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
+    "@types/jest": "^21.1.8",
+    "@types/react": "^15.6.7",
+    "@types/react-dom": "^15.5.6",
     "enzyme": "^2.3.0",
-    "identity-obj-proxy": "^3.0.0",
+    "haste-preset-yoshi": "latest",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
-    "yoshi": "latest"
-  },
-  "dependencies": {
-    "babel-runtime": "^6.22.0"
+    "ts-jest": "^21.2.3",
+    "typescript": "^2.6.2"
   },
   "peerDependencies": {
     "react": ">=15",
     "react-dom": ">=15"
   },
-  "babel": {
-    "presets": [
-      [
-        "es2015",
-        {
-          "modules": false
-        }
-      ],
-      "react",
-      "stage-2"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "wix/react",
-    "env": {
-      "jest": true
-    },
-    "rules": {
-      "react/jsx-handler-names": 0,
-      "react/no-find-dom-node": 0,
-      "react/no-string-refs": 0,
-      "react/jsx-boolean-value": 2,
-      "comma-dangle": [
-        "error",
-        "never"
-      ]
-    }
-  },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/node_modules/babel-polyfill"
-    ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup",
-    "moduleNameMapper": {
-      "\\.(css|less|scss)$": "identity-obj-proxy"
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
-    ]
+    ],
+    "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup"
+  },
+  "haste": {
+    "preset": "yoshi"
   }
 }

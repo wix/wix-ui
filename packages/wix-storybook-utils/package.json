@@ -1,0 +1,124 @@
+{
+  "name": "wix-storybook-utils",
+  "version": "1.0.0",
+  "description": "Utilities for automated component documentation within Storybook",
+  "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "*.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/wix/wix-ui/issues"
+  },
+  "homepage": "https://github.com/wix/wix-ui#readme",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "pretest": "npm run build && build-storybook",
+    "test": "haste test --jest && haste test --protractor",
+    "test:watch": "haste test --jest --watch",
+    "posttest": "haste lint",
+    "start": "haste start --no-test & npm run storybook",
+    "release": "haste release",
+    "build": "haste build && import-path --path src",
+    "storybook": "start-storybook -p 6006"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wix/wix-ui.git"
+  },
+  "keywords": [
+    "storybook",
+    "utilities",
+    "documentation",
+    "generated",
+    "automatic",
+    "react"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "^15.4.0"
+  },
+  "dependencies": {
+    "babel-runtime": "~6.25.0",
+    "copy-to-clipboard": "^3.0.8",
+    "eslint-config-wix": "^1.1.16",
+    "github-markdown-css": "^2.9.0",
+    "highlight.js": "^9.12.0",
+    "import-path": "0.0.13",
+    "react-docgen": "^2.20.0",
+    "react-remarkable": "^1.1.3",
+    "wix-style-react": "latest",
+    "jsx-to-string": "^1.3.0",
+    "wix-ui-test-utils": "^1.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-options": "^3.2.16",
+    "@storybook/react": "^3.2.16",
+    "babel-plugin-transform-runtime": "~6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "enzyme": "~2.9.0",
+    "haste-preset-yoshi": "latest",
+    "identity-obj-proxy": "^3.0.0",
+    "prop-types": "~15.6.0",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-test-renderer": "~15.6.0"
+  },
+  "babel": {
+    "plugins": [
+      "transform-runtime"
+    ],
+    "presets": [
+      "wix"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "wix/react",
+    "env": {
+      "jest": true
+    },
+    "rules": {
+      "react/jsx-handler-names": 0,
+      "react/no-find-dom-node": 0,
+      "react/no-string-refs": 0,
+      "react/jsx-boolean-value": 2,
+      "comma-dangle": [
+        "error",
+        "never"
+      ]
+    }
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/node_modules/babel-polyfill"
+    ],
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ]
+  },
+  "haste": {
+    "preset": "yoshi"
+  },
+  "yoshi": {
+    "servers": {
+      "cdn": {
+        "port": 3201
+      }
+    },
+    "entry": {
+      "app": "index.js"
+    },
+    "externals": {
+      "react": "React",
+      "react-dom": "ReactDOM"
+    }
+  }
+}

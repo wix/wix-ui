@@ -1,9 +1,7 @@
-import * as Wix from 'Wix';
 import * as color from 'color';
 
-export const theme = ({backgroundColor}) => {
-  const style = Wix.Styles.getStyleParams();
-  const buttonColor = style.colors[backgroundColor].value;
+export const theme = ({wixBindings, colors, fonts}) => {
+  const buttonColor = colors[wixBindings.backgroundColor].value;
 
   return {
     backgroundColor: buttonColor,

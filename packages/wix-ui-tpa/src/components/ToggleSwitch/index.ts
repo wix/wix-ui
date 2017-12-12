@@ -1,5 +1,5 @@
-import {tpaComponentFactory} from '../../tpaComponentFactory';
+import {withTheme} from '../../withTheme';
 import CoreToggleSwitch from 'wix-ui-core/ToggleSwitch';
 import {theme} from './theme';
 
-export default tpaComponentFactory({CoreComponent: CoreToggleSwitch, theme});
+export default withTheme({Component: CoreToggleSwitch, theme});
