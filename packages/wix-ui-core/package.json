@@ -21,7 +21,6 @@
   "scripts": {
     "build": "haste build && import-path --path src/components",
     "pretest": "npm run build && build-storybook",
-    "precommit": "haste lint",
     "test": "haste test --jest && haste test --protractor",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",

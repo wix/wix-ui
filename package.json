@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bootstrap": "lerna bootstrap",
-    "build": "npm run --prefix packages/wix-ui-test-utils build && npm run --prefix packages/wix-storybook-utils build && npm run --prefix packages/wix-ui-core build && npm run --prefix packages/wix-ui-theme build && npm run --prefix packages/wix-ui-backoffice build && npm run --prefix packages/wix-ui-santa build && npm run --prefix packages/wix-ui-tpa build"
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",

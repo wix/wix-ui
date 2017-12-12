@@ -20,7 +20,6 @@
   },
   "scripts": {
     "build": "haste build && import-path --path src/components",
-    "precommit": "haste lint",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
     "posttest": "haste lint",
