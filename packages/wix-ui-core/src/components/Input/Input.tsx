@@ -29,7 +29,7 @@ interface InputProps {
   readOnly: bool;
   required: bool;
   tabIndex: number;
-  type: 'text' | 'number';
+  type: string;
   value: string;
 }
 

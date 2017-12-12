@@ -44,7 +44,7 @@ export const theme = ({size, skin}) => ({
   borderColor: skinToBorderColor[skin],
 
   height: sizeToHeight[size],
-  lineHeight: sizeToHeight[size] - 2,
+  lineHeight: `${sizeToHeight[size] - 2}px`,
   fontSize: sizeToFontSize[size],
 
   hover: {

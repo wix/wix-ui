@@ -14,14 +14,14 @@ Input.propTypes = {
   ...CoreInput.propTypes,
 
   /** size of the input component */
-  size: oneOf(['small', 'normal', 'large']),
+  size: oneOf(['small', 'medium', 'large']),
 
   /** Color schemes for the inpus component */
   skin: oneOf(['standard', 'error'])
 };
 
 Input.defaultProps = {
-  size: 'normal',
+  size: 'medium',
   skin: 'standard'
 };
 
