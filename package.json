@@ -7,9 +7,9 @@
   "description": "wix-ui-monorepo",
   "main": "index.js",
   "scripts": {
+    "test": "lerna run test",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build",
-    "test": "lerna run test"
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",
