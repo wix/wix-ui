@@ -1,5 +1,5 @@
-import React from 'react';
-import paginationDriverFactory from './Pagination.driver';
+import * as React from 'react';
+import {paginationDriverFactory} from './Pagination.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
 import Pagination from './index';
 import {sleep} from "../../testkit/utils/sleep";
@@ -195,7 +195,7 @@ describe('Pagination', () => {
           onChange.mockClear();
           pagination.clickOnButton('previous');
         })
-        .then(sleep(10))
+        .then(() => sleep(10))
         .then(() => {
           expect(onChange.mock.calls.length).toBe(0);
         });
@@ -212,7 +212,7 @@ describe('Pagination', () => {
           onChange.mockClear();
           pagination.clickOnButton('next');
         })
-        .then(sleep(10))
+        .then(() => sleep(10))
         .then(() => {
           expect(onChange.mock.calls.length).toBe(0);
         });
