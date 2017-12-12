@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {createHOC} from '../../createHOC';
 
 interface HboxProps {
   children: any;
@@ -7,11 +8,13 @@ interface HboxProps {
   };
 }
 
-export default class Hbox extends React.PureComponent<HboxProps> {
+class Hbox extends React.PureComponent<HboxProps> {
   render() {
     const {children, classes} = this.props;
     return (
-      <div className={classes.root} >{children}</div>
+      <div className={classes.root}>{children}</div>
     );
   }
 }
+
+export default createHOC(Hbox);
