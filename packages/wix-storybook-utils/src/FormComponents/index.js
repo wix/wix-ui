@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import isEqual from 'deep-eql';
 import classnames from 'classnames';
 
-import Markdown from '../Markdown';
-import CodeBlock from '../CodeBlock';
-
 import {Container, Row, Col} from 'wix-style-react/Grid';
 import {default as WixInput} from 'wix-style-react/Input';
 import ToggleSwitch from 'wix-style-react/ToggleSwitch';
 import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
 import Dropdown from 'wix-style-react/Dropdown';
 import Text from 'wix-style-react/Text';
+
+import Markdown from '../Markdown';
+import CodeBlock from '../CodeBlock';
 
 import styles from './styles.scss';
 
