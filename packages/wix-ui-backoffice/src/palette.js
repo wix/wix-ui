@@ -1,4 +1,15 @@
+import * as c from './colors';
+
 export const palette = {
+  heading0Dark: c.D10,
+  heading0Light: c.D80,
+  heading1Dark: c.D10,
+  heading1Light: c.D80,
+  heading2Dark: c.D10,
+  heading2Light: c.D80,
+  heading3Dark: c.D20,
+  heading3Light: c.D50,
+
   main: '#3899ec', //B10
   mainHover: '#4eb7f5', //B20
   notifications: '#c1e4fe', //B30
