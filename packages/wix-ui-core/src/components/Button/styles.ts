@@ -6,12 +6,11 @@ export const styles = (theme: ButtonTheme) => {
 
   return {
     button: {
-      color: theme.color,
-      background: theme.backgroundColor,
-      borderColor: theme.borderColor,
+      minWidth: theme.minWidth,
+      width: theme.width,
       height: theme.height,
-      borderRadius: theme.borderRadius,
       padding: theme.padding,
+      borderRadius: theme.borderRadius,
 
       fontFamily: theme.fontFamily,
       fontSize: theme.fontSize,
@@ -19,6 +18,10 @@ export const styles = (theme: ButtonTheme) => {
       fontStyle: theme.fontStyle,
       fontWeight: theme.fontWeight,
       textDecoration: theme.textDecoration,
+
+      color: theme.color,
+      background: theme.backgroundColor,
+      borderColor: theme.borderColor,
 
       boxSizing: 'border-box',
       '-webkit-font-smoothing': 'antialiased',
@@ -30,15 +33,34 @@ export const styles = (theme: ButtonTheme) => {
       transition: 'background-color 100ms linear, border-color 100ms linear, color 100ms linear',
 
       '&:hover': {
-        color: theme.hover.color,
+        // color: theme.hover.color,
         backgroundColor: theme.hover.backgroundColor,
-        borderColor: theme.hover.borderColor
+        borderColor: theme.hover.borderColor,
+
+        '& [data-class="ui-text"]': {
+          color: theme.hover.color
+        }
+      },
+
+      '&:active': {
+        // color: theme.active.color,
+        backgroundColor: theme.active.backgroundColor,
+        borderColor: theme.active.borderColor,
+
+        '& [data-class="ui-text"]': {
+          color: theme.active.color
+        }
       },
 
       '&:disabled': {
         pointerEvents: 'none',
+        // color: theme.disabled.color,
         backgroundColor: theme.disabled.backgroundColor,
-        borderColor: theme.disabled.borderColor
+        borderColor: theme.disabled.borderColor,
+
+        '& [data-class="ui-text"]': {
+          color: theme.disabled.color
+        }
       }
     }
   };
