@@ -7,8 +7,8 @@
   "description": "wix-ui-monorepo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "bootstrap": "lerna bootstrap",
+    "test": "lerna run test",
+    "bootstrap": "lerna bootstrap && npm run build",
     "build": "lerna run build"
   },
   "repository": {

@@ -3,8 +3,8 @@ import {withTpaStyles} from './TpaStylesProvider/withTpaStyles';
 
 interface TpaComponentProps {
   wixBindings: object;
-  colors: object,
-  fonts: object
+  colors: object;
+  fonts: object;
 }
 
 interface TpaComponentState {
@@ -27,7 +27,7 @@ export function withTheme({Component, theme}) {
 
     componentWillReceiveProps(nextProps) {
       const {wixBindings, colors, fonts} = nextProps;
-      
+
       if (this.props.colors !== nextProps.colors || this.props.fonts !== nextProps.fonts) {
           this.setState({calculatedTheme: theme({wixBindings, colors, fonts})});
       }
