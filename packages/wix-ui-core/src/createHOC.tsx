@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 
 interface WixComponentProps {
   dataHook: string;
+  dataClass: string;
 }
 
 export const createHOC = Component => {
@@ -11,11 +12,12 @@ export const createHOC = Component => {
     static propTypes = {dataHook: string};
 
     componentDidMount() {
-      const {dataHook} = this.props;
-      if (dataHook) {
+      const {dataHook, dataClass} = this.props;
+      if (dataHook || dataClass) {
         const domNode = ReactDOM.findDOMNode(this);
         if (domNode) {
-          domNode.setAttribute('data-hook', dataHook);
+          dataHook && domNode.setAttribute('data-hook', dataHook);
+          dataClass && domNode.setAttribute('data-class', dataClass);
         }
       }
     }

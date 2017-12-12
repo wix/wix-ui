@@ -1,17 +1,17 @@
 import createStory from '../create-story';
-import Text from '../../src/components/Text';
-import TextSource from '!raw-loader!../../src/components/Text';
+import UIText from '../../src/components/UIText';
+import UITextSource from '!raw-loader!../../src/components/UIText';
 
 export const story = () => createStory({
   category: 'Components',
-  name: 'Text',
-  storyName: 'Text',
-  component: Text,
+  name: 'UIText',
+  storyName: 'UIText',
+  component: UIText,
   componentProps: (setState, getState) => ({
     appearance: 'T1.1',
     ellipsis: true,
     forceHideTitle: false,
     children: 'Some text'
   }),
-  source: TextSource
+  source: UITextSource
 });
