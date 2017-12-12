@@ -17,7 +17,7 @@ Vbox.propTypes = {
   spacing: oneOf(['small', 'medium', 'large']),
 
   /** Similar to textAlign */
-  horizontalAlignment: oneOf(['center', 'flex-end', 'flex-start'])
+  horizontalAlignment: oneOf(['left', 'center', 'right'])
 };
 
 Vbox.defaultProps = {

@@ -1,6 +1,6 @@
 export type VboxTheme = {
  spacing?: string
- horizontalAlignment?: 'left' | 'right' | 'center'
+ horizontalAlignment?: 'left' | 'center' | 'right'
 };
 
 export const core: VboxTheme = {
