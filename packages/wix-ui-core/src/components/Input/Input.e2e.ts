@@ -1,4 +1,5 @@
 import eyes from 'eyes.it';
+import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {inputTestkitFactory} from '../../testkit/protractor';
 
