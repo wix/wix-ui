@@ -20,11 +20,11 @@
   },
   "scripts": {
     "build": "haste build && import-path --path src/components",
-    "precommit": "haste lint",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
     "posttest": "haste lint",
-    "start": "haste start & npm run storybook",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },
@@ -89,10 +89,27 @@
   },
   "yoshi": {
     "entry": {
-      "app": "index.js"
+      "toggleSwitch": "components/ToggleSwitch/index"
     },
     "externals": {
-      "react": "React"
+      "react": {
+        "amd": "react",
+        "umd": "react",
+        "commonjs": "react",
+        "commonjs2": "react",
+        "root": "React"
+      },
+      "react-dom": {
+        "amd": "reactDOM",
+        "umd": "react-dom",
+        "commonjs": "react-dom",
+        "commonjs2": "react-dom",
+        "root": "ReactDOM"
+      }
+    },
+    "exports": {},
+    "alias": {
+      "lodash": "lodash-editor"
     }
   },
   "jest": {
