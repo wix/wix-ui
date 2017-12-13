@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-import PropTypes from 'prop-types';
+import {bool, string, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
   type TextClasses = {
@@ -10,10 +10,10 @@ import {createHOC} from '../../createHOC';
 
   interface TextProps {
     classes: TextClasses;
-    children: PropTypes.string;
-    ellipsis: PropTypes.bool;
-    forceHideTitle: PropTypes.bool;
-    tagName: PropTypes.string;
+    children: string;
+    ellipsis: bool;
+    forceHideTitle: bool;
+    tagName: string;
   }
 
   /**
@@ -28,14 +28,13 @@ import {createHOC} from '../../createHOC';
 
   static propTypes = {
     /** should the text be ellipsed or not */
-    ellipsis: PropTypes.bool,
+    ellipsis: bool,
     /** should hide the title tooltip that is shown on mouse hover when using the ellipsis prop */
-    forceHideTitle: PropTypes.bool,
+    forceHideTitle: bool,
     /** tag name that will be rendered */
-    tagName: PropTypes.string,
+    tagName: string,
     /** any nodes to be rendered (usually text nodes) */
-    children: PropTypes.any
-
+    children: any
   };
 
   getTitle = () => {
