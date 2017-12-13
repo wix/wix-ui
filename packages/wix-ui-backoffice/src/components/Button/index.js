@@ -4,11 +4,12 @@ import CoreButton from 'wix-ui-core/Button';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 import {appearance} from './appearance';
+import UIText from '../UIText'
 
 const Button = ({height: size, theme: skin, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
     <CoreButton {...coreProps}>
-      <span data-appearance={appearance(size)}>{coreProps.children}</span>
+      <UIText appearance={appearance(size)}>{coreProps.children}</UIText>
     </CoreButton>
   </ThemedComponent>
 );

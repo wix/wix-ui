@@ -1,10 +1,10 @@
 import {SIZE} from './constants';
 
 const sizeToAppearance = {
-  [SIZE.tiny]: 't3',
-  [SIZE.small]: 't3',
-  [SIZE.medium]: 't1',
-  [SIZE.large]: 't1'
+  [SIZE.tiny]: 'T3',
+  [SIZE.small]: 'T3',
+  [SIZE.medium]: 'T1',
+  [SIZE.large]: 'T1'
 };
 
 export const appearance = size =>
