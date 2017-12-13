@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {oneOf, node} from 'prop-types';
 import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-class Heading extends Component {
+class Heading extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {tagName: getType(props.appearance)};

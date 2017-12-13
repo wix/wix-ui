@@ -22,9 +22,8 @@ const colors = {
   H3: {dark: palette.heading3Dark, light: palette.heading3Light}
 };
 
-export const theme = ({appearance, skin}) => {
-  return {
-    ...typographies[appearance],
-    color: colors[appearance][skin]
-  };
-};
+export const theme = ({appearance, skin}) => ({
+  ...typographies[appearance],
+  color: colors[appearance][skin]
+});
+

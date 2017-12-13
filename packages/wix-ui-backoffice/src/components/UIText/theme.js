@@ -34,6 +34,4 @@ const classes = {
   'T6.1': createTypography(t.fontBold, '10px', '12px', colors.D80)
 };
 
-export const theme = props => {
-  return classes[props.appearance];
-};
+export const theme = props => classes[props.appearance];
