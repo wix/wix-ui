@@ -23,14 +23,14 @@ export class WixSdk implements WixSdkType {
 
   Styles = {
     getStyleParams: () => this.siteStyles,
-  }
+  };
 
   addEventListener (event, cb) {
     this.eventHandlers[event].push(cb);
   }
 
   removeEventListener (event, cb) {
-    this.eventHandlers[event] = this.eventHandlers[event].filter(handler => handler !== cb)
+    this.eventHandlers[event] = this.eventHandlers[event].filter(handler => handler !== cb);
   }
 
   getEventHandlers () {
@@ -46,4 +46,4 @@ export class WixSdk implements WixSdkType {
     this.siteStyles.fonts[key] = value;
     this.eventHandlers[STYLE_PARAMS_CHANGE][0]();
   }
-};
+}
