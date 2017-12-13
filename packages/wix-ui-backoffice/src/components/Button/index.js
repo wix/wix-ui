@@ -17,7 +17,7 @@ Button.propTypes = {
   ...CoreButton.propTypes,
 
   /** The height of the button */
-  height: oneOf(['small', 'medium', 'large']),
+  height: oneOf(['tiny', 'small', 'medium', 'large']),
 
   /** The theme of the button */
   theme: oneOf([

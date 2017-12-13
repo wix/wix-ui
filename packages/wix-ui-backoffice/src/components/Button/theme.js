@@ -1,16 +1,11 @@
 import {basePalette} from '../../palette';
+import {SIZE} from './constants';
 
 const hexToRgba = (hex, opacity) => {
   const r = parseInt(hex.substring(1, 3), 16);
   const g = parseInt(hex.substring(3, 5), 16);
   const b = parseInt(hex.substring(5, 7), 16);
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-};
-
-const SIZE = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large'
 };
 
 const createBaseColorSkin = (defaultBg, defaultBc, hoverBg, hoverBc, activeBg, activeBc, disabledBg, disabledBc) => ({
@@ -39,20 +34,25 @@ const createEmptyColorSkin = (defaultColor, hoverColor, activeColor) =>
   createBaseColorSkin('transparent', defaultColor, hoverColor, hoverColor, activeColor, activeColor, 'transparent', basePalette.D55);
 
 const defaultSkin = {
+  [SIZE.tiny]: {
+    height: '24px',
+    borderRadius: '21px',
+    padding: '0 12px'
+  },
   [SIZE.small]: {
     height: '30px',
-    borderRadius: '15px',
-    padding: '0 17px'
+    borderRadius: '21px',
+    padding: '0 18px'
   },
   [SIZE.medium]: {
     height: '36px',
-    borderRadius: '18px',
-    padding: '0 23px'
+    borderRadius: '21px',
+    padding: '0 24px'
   },
   [SIZE.large]: {
     height: '42px',
     borderRadius: '21px',
-    padding: '0 29px'
+    padding: '0 30px'
   }
 };
 
