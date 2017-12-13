@@ -10,6 +10,7 @@
   "main": "./dist/src/index.js",
   "files": [
     "dist",
+    "src",
     "*.js",
     "!wallaby.js",
     "!protractor.conf.js"
