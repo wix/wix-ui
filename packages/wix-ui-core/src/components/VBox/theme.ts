@@ -7,7 +7,7 @@ export type VBoxTheme = {
 
 export const core: VBoxTheme = {
   spacing: '20px',
-  horizontalAlignment: 'center',
+  horizontalAlignment: 'left',
   width: '100px',
   height: '100%'
 };
