@@ -1,4 +1,4 @@
-import {basePalette} from '../../palette';
+import { basePalette as c } from '../../palette';
 import {SIZE} from './constants';
 
 const hexToRgba = (hex, opacity) => {
@@ -8,32 +8,85 @@ const hexToRgba = (hex, opacity) => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
 
-const createBaseColorSkin = (defaultBg, defaultBc, hoverBg, hoverBc, activeBg, activeBc, disabledBg, disabledBc) => ({
-  default: {
-    backgroundColor: defaultBg,
-    borderColor: defaultBc,
-    hover: {
-      backgroundColor: hoverBg,
-      borderColor: hoverBc
-    },
-    active: {
-      backgroundColor: activeBg,
-      borderColor: activeBc
-    },
-    disabled: {
-      backgroundColor: disabledBg,
-      borderColor: disabledBc
-    }
-  }
+const createBaseColorSkin = (color, bg, border, hoverColor, hoverBg, hoverBc, activeColor, activeBg, activeBc, disabledColor, disabledBg, disabledBc) => ({
+  color,
+  backgroundColor: bg,
+  borderColor: border,
+  hover: {
+    color: hoverColor,
+    backgroundColor: hoverBg,
+    borderColor: hoverBc,
+  },
+  active: {
+    color: activeColor,
+    backgroundColor: activeBg,
+    borderColor: activeBc,
+  },
+  disabled: {
+    color: disabledColor,
+    backgroundColor: disabledBg,
+    borderColor: disabledBc,
+  },
 });
 
-const createFullColorSkin = (defaultColor, hoverColor, activeColor) =>
-  createBaseColorSkin(defaultColor, defaultColor, hoverColor, hoverColor, activeColor, activeColor, basePalette.D55, basePalette.D55);
+const createPrimaryColorSkin = (color, hoverColor) =>
+  createBaseColorSkin(c.D80, color, color, c.D80, hoverColor, hoverColor, c.D80, color, color, c.D80, c.D55, c.D55);
 
-const createEmptyColorSkin = (defaultColor, hoverColor, activeColor) =>
-  createBaseColorSkin('transparent', defaultColor, hoverColor, hoverColor, activeColor, activeColor, 'transparent', basePalette.D55);
+const createSecondaryColorSkin = (color, hoverColor) =>
+  createBaseColorSkin(color, c.TRANSPARENT, color, c.D80, hoverColor, hoverColor, c.D80, color, color, c.D55, c.TRANSPARENT, c.D55);
 
-const defaultSkin = {
+const createTertiaryColorSkin = (color, hoverColor) =>
+  createBaseColorSkin(color, c.D80, c.D80, c.D80, hoverColor, hoverColor, c.D80, color, color, c.D55, c.TRANSPARENT, c.D55);
+
+const createPrimaryWhiteColorSkin = (color, hoverColor, activeColor) =>
+  createBaseColorSkin(color, c.D80, c.D80, color, hoverColor, hoverColor, color, activeColor, activeColor, c.D80, c.D55, c.D55);
+
+const createSecondaryWhiteColorSkin = (color, hoverColor, activeColor) =>
+  createBaseColorSkin(c.D80, c.TRANSPARENT, c.D80, color, hoverColor, hoverColor, color, activeColor, activeColor, c.D55, c.TRANSPARENT, c.D55);
+
+const greyscale = hexToRgba(c.D10, 0.24);
+const greyscaleHover = hexToRgba(c.D10, 0.3);
+const greyscaleActive = hexToRgba(c.D10, 0.36);
+const transparentGreyscale = createBaseColorSkin(c.D80, greyscale, c.TRANSPARENT, c.D80, greyscaleHover, c.TRANSPARENT, c.D80, greyscaleActive, c.TRANSPARENT, c.D80, c.D55, c.D55);
+
+const skins = {
+  greyscale: transparentGreyscale,
+  primaryStandard: createPrimaryColorSkin(c.B10, c.B20),
+  primaryError: createPrimaryColorSkin(c.R10, c.R20),
+  primaryPremium: createPrimaryColorSkin(c.P10, c.P20),
+  primaryWhite: createPrimaryWhiteColorSkin(c.B10, c.B50, c.B40),
+  secondaryStandard: createSecondaryColorSkin(c.B10, c.B20),
+  secondaryError: createSecondaryColorSkin(c.R10, c.R20),
+  secondaryPremium: createSecondaryColorSkin(c.P10, c.P20),
+  secondaryWhite: createSecondaryWhiteColorSkin(c.B10, c.B50, c.B40),
+  tertiaryStandard: createTertiaryColorSkin(c.B10, c.B20),
+};
+skins.primaryStandardIcon = skins.primaryStandard;
+skins.secondaryStandardIcon = skins.secondaryStandard;
+
+//**************  deprecated themes  *************
+skins.fullred = skins.primaryError;
+skins.fullgreen = createPrimaryColorSkin(c.G10, c.G20);
+skins.fullblue = skins.primaryStandard;
+skins.fullpurple = skins.primaryPremium;
+skins.emptyred = skins.secondaryError;
+skins.emptygreen = createSecondaryColorSkin(c.G10, c.G20);
+skins.emptyblue = skins.transparentblue = skins.secondaryStandard;
+skins.emptypurple = skins.secondaryPremium;
+skins.emptybluesecondary = skins.primaryWhite;
+skins.whiteblue = skins.tertiaryStandard;
+skins.whiteblueprimary = skins.primaryWhite;
+skins.whitebluesecondary = skins.secondaryWhite;
+// skins.closeStandard = skins.
+// skins.closeDark = skins.
+// skins.closeTransparent = skins.
+// skins.iconGreybackground = skins.
+// skins.iconStandard = skins.
+// skins.iconStandardsecondary = skins.
+// skins.iconWhite = skins.
+// skins.iconWhitesecondary = skins.
+
+const sizes = {
   [SIZE.tiny]: {
     height: '24px',
     borderRadius: '21px',
@@ -56,62 +109,7 @@ const defaultSkin = {
   }
 };
 
-const transparent = {
-  [SIZE.small]: {
-    padding: '0 18px'
-  },
-  [SIZE.medium]: {
-    padding: '0 24px'
-  },
-  [SIZE.large]: {
-    padding: '0 30px'
-  },
-  default: {
-    backgroundColor: hexToRgba(basePalette.D10, 0.24),
-    border: '0',
-    hover: {
-      backgroundColor: hexToRgba(basePalette.D10, 0.3)
-    },
-    active: {
-      backgroundColor: hexToRgba(basePalette.D10, 0.36)
-    },
-    disabled: {
-      backgroundColor: basePalette.D55,
-      borderColor: basePalette.D55
-    }
-  }
-};
-
-const SKIN = {
-  default: defaultSkin,
-  transparent,
-  fullred: createFullColorSkin(basePalette.R10, basePalette.R20, basePalette.R10),
-  fullgreen: createFullColorSkin(basePalette.G10, basePalette.G20, basePalette.G00),
-  fullblue: createFullColorSkin(basePalette.B10, basePalette.B20, basePalette.B10),
-  fullpurple: createFullColorSkin(basePalette.P10, basePalette.P20, basePalette.P10),
-  emptyred: createEmptyColorSkin(basePalette.R00, basePalette.R20, basePalette.R10),
-  emptygreen: createEmptyColorSkin(basePalette.G10, basePalette.G20, basePalette.G00),
-  emptyblue: createEmptyColorSkin(basePalette.B20, basePalette.B20, basePalette.B10),
-  emptypurple: createEmptyColorSkin(basePalette.P10, basePalette.P20, basePalette.P10),
-  emptybluesecondary: createEmptyColorSkin('transparent', basePalette.B50, 'transparent'),
-  login: 'login',
-  emptylogin: 'emptylogin',
-  transparentblue: createEmptyColorSkin(basePalette.B10, basePalette.B20, basePalette.B10),
-  whiteblue: createBaseColorSkin(basePalette.D80, basePalette.D80, basePalette.B20, basePalette.B20, basePalette.B10, basePalette.B10, 'transparent', basePalette.D55),
-  whiteblueprimary: createBaseColorSkin(basePalette.D80, basePalette.D80, basePalette.B50, basePalette.B50, basePalette.B40, basePalette.B40, basePalette.D55, basePalette.D55),
-  whitebluesecondary: createBaseColorSkin('transparent', basePalette.D80, basePalette.B50, basePalette.B50, basePalette.B40, basePalette.B40, 'transparent', basePalette.D55),
-  closeStandard: 'close-standard',
-  closeDark: 'close-dark',
-  closeTransparent: 'close-transparent',
-  iconGreybackground: 'icon-greybackground',
-  iconStandard: 'icon-standard',
-  iconStandardsecondary: 'icon-standardsecondary',
-  iconWhite: 'icon-white',
-  iconWhitesecondary: 'icon-whitesecondary'
-};
-
-export const theme = ({size, skin}) => ({
-  ...SKIN['default'][size],
-  ...SKIN[skin].default,
-  ...SKIN[skin][size]
+export const theme = ({ size, skin }) => ({
+  ...sizes[size],
+  ...skins[skin],
 });

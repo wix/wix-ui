@@ -57,7 +57,9 @@ export const basePalette = {
   Y30: '#fef0ba',   // Notifications
   Y40: '#fef4cd',
   Y50: '#fdf7df',
-  Y60: '#fffcf0'
+  Y60: '#fffcf0',
+
+  TRANSPARENT: 'transparent'
 };
 
 export const palette = {

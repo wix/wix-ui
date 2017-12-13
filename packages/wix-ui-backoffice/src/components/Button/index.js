@@ -21,7 +21,19 @@ Button.propTypes = {
 
   /** The theme of the button */
   theme: oneOf([
-    'transparent',
+    'greyscale',
+    'primaryStandard',
+    'primaryError',
+    'primaryPremium',
+    'primaryWhite',
+    'secondaryStandard',
+    'secondaryError',
+    'secondaryPremium',
+    'secondaryWhite',
+    'tertiaryStandard',
+
+    //deprecated themes
+    'greyscale',
     'fullred',
     'fullgreen',
     'fullpurple',
@@ -31,8 +43,6 @@ Button.propTypes = {
     'emptyblue',
     'emptypurple',
     'fullblue',
-    'login',
-    'emptylogin',
     'transparentblue',
     'whiteblue',
     'whiteblueprimary',
