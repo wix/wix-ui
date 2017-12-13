@@ -21,6 +21,7 @@ export const palette = {
   successNotifications: colors.G30,
 
   disabledButton: colors.GR40,
+  disabledFields: colors.GR20,
 
   danger: colors.R10,
   dangerHover: colors.R20,
