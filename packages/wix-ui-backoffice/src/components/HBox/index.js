@@ -20,13 +20,14 @@ HBox.propTypes = {
   verticalAlignment: oneOf(['top', 'center', 'bottom']),
 
   /** Height of the HBox container */
-  height: string
+  height: string,
+
+  /** Width of the HBox container */
+  width: string
 };
 
 HBox.defaultProps = {
-  spacing: 'medium',
-  verticalAlignment: 'center',
-  height: '100px'
+  spacing: 'medium'
 };
 
 export default HBox;
