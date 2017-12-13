@@ -10,6 +10,8 @@ export const styles = (theme: VBoxTheme) => {
       flexDirection: 'column',
       textAlign: `-webkit-${theme.horizontalAlignment}`,
       margin: '0 auto',
+      width: theme.width,
+      height: theme.height,
       '& *:not(:last-child)': {
         marginBottom: theme.spacing
       }

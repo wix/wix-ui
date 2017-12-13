@@ -1,11 +1,11 @@
 import React from 'react';
-import {oneOf} from 'prop-types';
+import {oneOf, string} from 'prop-types';
 import CoreVBox from 'wix-ui-core/VBox';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const VBox = ({spacing, horizontalAlignment, ...coreProps}) => (
-  <ThemedComponent theme={theme} spacing={spacing} horizontalAlignment={horizontalAlignment}>
+const VBox = ({spacing, horizontalAlignment, width, height, ...coreProps}) => (
+  <ThemedComponent theme={theme} spacing={spacing} horizontalAlignment={horizontalAlignment} width={width} height={height}>
     <CoreVBox {...coreProps}/>
   </ThemedComponent>
 );
@@ -17,7 +17,13 @@ VBox.propTypes = {
   spacing: oneOf(['small', 'medium', 'large']),
 
   /** Similar to textAlign */
-  horizontalAlignment: oneOf(['left', 'center', 'right'])
+  horizontalAlignment: oneOf(['left', 'center', 'right']),
+
+  /** Width of the HBox container */
+  width: string,
+
+  /** Width of the HBox container */
+  height: string
 };
 
 VBox.defaultProps = {
