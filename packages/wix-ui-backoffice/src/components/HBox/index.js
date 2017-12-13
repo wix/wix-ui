@@ -4,8 +4,8 @@ import CoreHBox from 'wix-ui-core/HBox';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const HBox = ({spacing, verticalAlignment, ...coreProps}) => (
-  <ThemedComponent theme={theme} spacing={spacing} verticalAlignment={verticalAlignment}>
+const HBox = ({spacing, verticalAlignment, height, width, ...coreProps}) => (
+  <ThemedComponent theme={theme} spacing={spacing} height={height} width={width} verticalAlignment={verticalAlignment}>
     <CoreHBox {...coreProps}/>
   </ThemedComponent>
 );
