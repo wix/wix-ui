@@ -3,10 +3,13 @@ import {oneOf} from 'prop-types';
 import CoreButton from 'wix-ui-core/Button';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
+import {appearance} from './appearance';
 
 const Button = ({height: size, theme: skin, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
-    <CoreButton {...coreProps}/>
+    <CoreButton {...coreProps}>
+      <span data-appearance={appearance(size)}>{coreProps.children}</span> /* waiting for UIText component */
+    </CoreButton>
   </ThemedComponent>
 );
 
