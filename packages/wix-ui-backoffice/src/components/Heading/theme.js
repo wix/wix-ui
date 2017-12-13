@@ -1,13 +1,12 @@
 import * as t from '../../typography';
 import {palette} from '../../palette';
 
-const createTypography = (fontFamily, fontSize, lineHeight) => {
-  return {
-    fontFamily,
-    fontSize,
-    lineHeight
-  };
-};
+const createTypography = (fontFamily, fontSize, lineHeight) => ({
+  fontFamily,
+  fontSize,
+  lineHeight
+});
+
 
 const typographies = {
   H0: createTypography(t.fontUltraThin, '48px', '54px'),
@@ -23,13 +22,9 @@ const colors = {
   H3: {dark: palette.heading3Dark, light: palette.heading3Light}
 };
 
-const getClass = (appearance, skin) => {
+export const theme = ({appearance, skin}) => {
   return {
     ...typographies[appearance],
     color: colors[appearance][skin]
   };
-};
-
-export const theme = ({appearance, skin}) => {
-  return getClass(appearance, skin);
 };

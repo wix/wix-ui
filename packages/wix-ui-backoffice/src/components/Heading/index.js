@@ -1,18 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {oneOf} from 'prop-types';
 import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const Heading = ({children, appearance, skin}) => {
-  return (
-    <ThemedComponent theme={theme} appearance={appearance} skin={skin}>
-      <CoreText forceHideTitle ellipsis={false} tagName={getType(appearance)}>
-        {children}
-      </CoreText>
-    </ThemedComponent>
-  );
-};
+class Heading extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {tagName: getType(props.appearance)};
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.appearance !== nextProps.appearance) {
+      this.setState({tagName: getType(nextProps.appearance)});
+    }
+  }
+
+  render() {
+    const {children, appearance, skin} = this.props;
+
+    return (
+      <ThemedComponent theme={theme} appearance={appearance} skin={skin}>
+        <CoreText tagName={this.state.tagName}>
+          {children}
+        </CoreText>
+      </ThemedComponent>
+    );
+  }
+}
 
 Heading.propTypes = {
   skin: oneOf(['dark', 'light']),

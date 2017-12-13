@@ -29,7 +29,7 @@ import {createHOC} from '../../createHOC';
   }
 
   render() {
-    const { classes, children, ellipsis, tagName} = this.props;
+    const {classes, children, ellipsis, tagName} = this.props;
     const cssClasses = classnames(classes.root, {[classes.ellipsis] : ellipsis});
     return React.createElement(tagName || 'span', {className: cssClasses, title: this.getTitle()}, children)
   }

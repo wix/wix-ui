@@ -1,14 +1,12 @@
 import * as t from '../../typography';
 import * as colors from '../../colors';
 
-const createTypography = (fontFamily, fontSize, lineHeight, color) => {
-  return {
-    fontFamily,
-    fontSize,
-    lineHeight,
-    color
-  };
-};
+const createTypography = (fontFamily, fontSize, lineHeight, color) => ({
+  fontFamily,
+  fontSize,
+  lineHeight,
+  color
+});
 
 const classes = {
   T1: createTypography(t.fontLight, '16px', '24px', colors.D10),

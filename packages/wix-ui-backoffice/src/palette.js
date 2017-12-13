@@ -10,24 +10,24 @@ export const palette = {
   heading3Dark: colors.D20,
   heading3Light: colors.D50,
 
-  main: '#3899ec', //B10
-  mainHover: '#4eb7f5', //B20
-  notifications: '#c1e4fe', //B30
-  tableSelected: '#daeffe', // B40
-  dividers: '#eaf7ff', //B50
+  main: colors.B10,
+  mainHover: colors.B20,
+  notifications: colors.B30,
+  tableSelected: colors.B40,
+  dividers: colors.B50,
 
-  ctaHover: '#60bc57', //G10
-  successHover: '#80c979', //G20
-  successNotifications: '#c9eebc', //G30
+  ctaHover: colors.G10,
+  successHover: colors.G20,
+  successNotifications: colors.G30,
 
-  disabledButton: '#cbd3dc', // GR40
+  disabledButton: colors.GR40,
 
-  danger: '#ee5951', //R10
-  dangerHover: '#ff6666', //R20
-  dangerNotifications: '#ffd7d7', //R30
+  danger: colors.R10,
+  dangerHover: colors.R20,
+  dangerNotifications: colors.R30,
 
-  mainInputText: '#162d3d', //D10
-  disabled: '#cbd3dc', //D55
-  disabledDividers: '#dfe5eb', //D60
-  white: '#ffffff' //D80
+  mainInputText: colors.D10,
+  disabled: colors.D55,
+  disabledDividers: colors.D60,
+  white: colors.D80
 };

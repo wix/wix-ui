@@ -1,4 +1,3 @@
-/* Fonts */
 export const fontsFallback = `"Helvetica Neue", "Helvetica", "Arial", "メイリオ, meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif"`;
 export const fontUltraThin = `"HelveticaNeueW01-UltLt", "HelveticaNeueW02-UltLt", "HelveticaNeueW10-25UltL", ${fontsFallback}`;
 export const fontThin = `"HelveticaNeueW01-Thin", "HelveticaNeueW02-Thin", "HelveticaNeueW10-35Thin", ${fontsFallback}`;

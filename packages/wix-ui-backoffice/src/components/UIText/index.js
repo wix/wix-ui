@@ -4,7 +4,7 @@ import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const Text = ({forceHideTitle, ellipsis, children, appearance, tagName}) => {
+const UIText = ({forceHideTitle, ellipsis, children, appearance, tagName}) => {
   return (
     <ThemedComponent theme={theme} appearance={appearance}>
       <CoreText forceHideTitle={forceHideTitle} ellipsis={ellipsis} tagName={tagName} dataClass="uitext">
@@ -14,7 +14,7 @@ const Text = ({forceHideTitle, ellipsis, children, appearance, tagName}) => {
   );
 };
 
-Text.propTypes = {
+UIText.propTypes = {
   ...CoreText.propTypes,
   appearance: oneOf([
     'T1', 'T1.1', 'T1.2', 'T1.3', 'T1.4',
@@ -27,11 +27,11 @@ Text.propTypes = {
   tagName: oneOf(['div', 'span'])
 };
 
-Text.defaultProps = {
+UIText.defaultProps = {
   appearance: 'T1.1',
-  ellipsis: true,
+  ellipsis: false,
   forceHideTitle: false,
   tagName: 'span'
 };
 
-export default Text;
+export default UIText;
