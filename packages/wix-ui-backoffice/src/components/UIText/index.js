@@ -31,7 +31,7 @@ UIText.propTypes = {
   /** hide title tooltip if ellipsis is enabled */
   forceHideTitle: bool,
 
-  /** the tag name to be used (default span) */
+  /** the tag name to be used */
   tagName: oneOf(['div', 'span'])
 };
 
