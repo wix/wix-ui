@@ -17,7 +17,7 @@ HBox.propTypes = {
   spacing: oneOf(['small', 'medium', 'large']),
 
   /** Similar to flexbox vertical-align */
-  verticalAlignment: oneOf(['center', 'flex-end', 'flex-start']),
+  verticalAlignment: oneOf(['top', 'center', 'bottom']),
 
   /** Height of the HBox container */
   height: string

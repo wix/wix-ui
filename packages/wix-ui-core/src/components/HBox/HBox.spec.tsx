@@ -12,4 +12,3 @@ describe('HBox', () => {
     expect(wrapper.html()).toContain('<div>1</div>');
   });
 });
-
