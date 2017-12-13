@@ -8,7 +8,7 @@ import {appearance} from './appearance';
 const Button = ({height: size, theme: skin, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
     <CoreButton {...coreProps}>
-      <span data-appearance={appearance(size)}>{coreProps.children}</span> /* waiting for UIText component */
+      <span data-appearance={appearance(size)}>{coreProps.children}</span>
     </CoreButton>
   </ThemedComponent>
 );
