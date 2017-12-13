@@ -30,7 +30,10 @@ class Heading extends Component {
 }
 
 Heading.propTypes = {
+  /** skin color of the heading */
   skin: oneOf(['dark', 'light']),
+
+  /** typography of the heading */
   appearance: oneOf(['H0', 'H1', 'H2', 'H3'])
 };
 

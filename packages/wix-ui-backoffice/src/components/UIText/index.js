@@ -28,9 +28,16 @@ UIText.propTypes = {
 };
 
 UIText.defaultProps = {
+  /** typography of the text */
   appearance: 'T1.1',
+
+  /** show ellipsis if needed */
   ellipsis: false,
+
+  /** hide title tooltip if ellipsis is enabled */
   forceHideTitle: false,
+
+  /** the tag name to be used (default span) */
   tagName: 'span'
 };
 
