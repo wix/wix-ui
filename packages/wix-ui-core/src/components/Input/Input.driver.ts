@@ -1,6 +1,4 @@
-import * as ReactTestUtils from 'react-dom/test-utils';
-
-export const inputDriverFactory = ({element}) => {
+export const inputDriverFactory = ({element, eventTrigger}) => {
   return {
     exists: () => !!element,
     isDisabled: () => element.disabled,
@@ -13,7 +11,7 @@ export const inputDriverFactory = ({element}) => {
     getValue: () => element.value,
     setValue: value => {
       element.value = value;
-      ReactTestUtils.Simulate.change(element);
+      eventTrigger.change(element);
     }
   };
 };

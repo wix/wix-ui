@@ -23,7 +23,7 @@ describe('ToggleSwitch', () => {
   });
 
   describe('onChange prop', () => {
-    it.skip('should be called when the input is clicked', () => {
+    it('should be called when the input is clicked', () => {
       const onChange = jest.fn();
       const driver = createDriver(<ToggleSwitch checked={false} onChange={onChange}/>);
 

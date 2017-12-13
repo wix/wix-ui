@@ -115,7 +115,7 @@ describe('Input', () => {
   });
 
   describe('onChange callback', () => {
-    it.skip('should get the new value when changed', () => {
+    it('should get the new value when changed', () => {
       const value = 'value';
       const onChange = jest.fn();
       const driver = createDriver(<Input onChange={onChange}/>);

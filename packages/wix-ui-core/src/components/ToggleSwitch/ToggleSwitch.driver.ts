@@ -1,11 +1,9 @@
-import * as ReactTestUtils from 'react-dom/test-utils';
-
-export const toggleSwitchDriverFactory = ({element}) => {
+export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
   const toggleSwitch = element.querySelector('input');
 
   return {
     exists: () => !!element,
-    click: () => ReactTestUtils.Simulate.change(toggleSwitch),
+    click: () => eventTrigger.change(toggleSwitch),
     isChecked: () => toggleSwitch.checked,
     isDisabled: () => toggleSwitch.disabled
   };
