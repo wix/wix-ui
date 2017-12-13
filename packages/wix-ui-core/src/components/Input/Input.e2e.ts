@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {inputTestkitFactory} from '../../testkit/protractor';
 
-describe.skip('Input', () => {
+describe('Input', () => {
   const storyUrl = getStoryUrl('Components', 'Input');
 
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe.skip('Input', () => {
   });
 
   eyes.it('should enter text to inpux', () => {
-    const dataHook = 'story-button-enabled';
+    const dataHook = 'story-input';
     const driver = inputTestkitFactory({dataHook});
 
     waitForVisibilityOf(driver.element(), 'Cannot find Input')

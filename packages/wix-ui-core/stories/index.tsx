@@ -9,7 +9,7 @@ storiesOf('Components', module)
     <Button>Hello</Button>
   ))
   .add('Input', () => (
-    <Input />
+    <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitch/>
