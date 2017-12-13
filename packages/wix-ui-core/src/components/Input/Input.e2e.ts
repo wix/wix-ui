@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {inputTestkitFactory} from '../../testkit/protractor';
 
-describe.skip('Backoffice Button', () => {
+describe.skip('Input', () => {
   const storyUrl = getStoryUrl('Components', 'Input');
 
   beforeEach(() => {

@@ -74,9 +74,10 @@ class Input extends React.Component<InputProps> {
   constructor(props) {
     super(props);
     this.id = uniqueId('Input');
+    this._onChange = this._onChange.bind(this);
   }
 
-  _onChange = e => {
+  _onChange(e) {
     const {type, disabled, readOnly} = this.props;
 
     if (disabled ||
