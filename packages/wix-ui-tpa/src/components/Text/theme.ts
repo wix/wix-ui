@@ -1,5 +1,3 @@
-import * as color from 'color';
-
 export const theme = ({wixBindings, colors, fonts}) => {
   const textColor = colors[wixBindings.backgroundColor].value;
   const textFonts = fonts[wixBindings.fonts];
