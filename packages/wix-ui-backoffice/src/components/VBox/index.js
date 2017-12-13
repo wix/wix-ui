@@ -22,7 +22,7 @@ VBox.propTypes = {
   /** Width of the HBox container */
   width: string,
 
-  /** Width of the HBox container */
+  /** Height of the HBox container */
   height: string
 };
 
