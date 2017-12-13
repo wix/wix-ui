@@ -1,28 +1,32 @@
 import React from 'react';
-import {oneOf} from 'prop-types';
-import CoreHbox from 'wix-ui-core/Hbox';
+import {oneOf, string} from 'prop-types';
+import CoreHBox from 'wix-ui-core/HBox';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const Hbox = ({spacing, verticalAlignment, ...coreProps}) => (
+const HBox = ({spacing, verticalAlignment, ...coreProps}) => (
   <ThemedComponent theme={theme} spacing={spacing} verticalAlignment={verticalAlignment}>
-    <CoreHbox {...coreProps}/>
+    <CoreHBox {...coreProps}/>
   </ThemedComponent>
 );
 
-Hbox.propTypes = {
-  ...CoreHbox.propTypes,
+HBox.propTypes = {
+  ...CoreHBox.propTypes,
 
-  /** spacing between the elements */
+  /** Spacing between the elements */
   spacing: oneOf(['small', 'medium', 'large']),
 
   /** Similar to flexbox vertical-align */
-  verticalAlignment: oneOf(['center', 'flex-end', 'flex-start'])
+  verticalAlignment: oneOf(['center', 'flex-end', 'flex-start']),
+
+  /** Height of the HBox container */
+  height: string
 };
 
-Hbox.defaultProps = {
+HBox.defaultProps = {
   spacing: 'medium',
-  verticalAlignment: 'center'
+  verticalAlignment: 'center',
+  height: '100px'
 };
 
-export default Hbox;
+export default HBox;

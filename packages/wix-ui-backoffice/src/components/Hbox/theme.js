@@ -1,4 +1,4 @@
-export const theme = ({spacing, verticalAlignment}) => {
+export const theme = ({spacing, verticalAlignment, height}) => {
   const spacingMap = {
     small: '5px',
     medium: '15px',
@@ -7,6 +7,7 @@ export const theme = ({spacing, verticalAlignment}) => {
 
   return {
     spacing: spacingMap[spacing],
-    verticalAlignment
+    verticalAlignment,
+    height
   };
 };
