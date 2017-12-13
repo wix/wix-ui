@@ -26,9 +26,4 @@ HBox.propTypes = {
   width: string
 };
 
-HBox.defaultProps = {
-  spacing: 'medium'
-};
-
 export default HBox;
-
