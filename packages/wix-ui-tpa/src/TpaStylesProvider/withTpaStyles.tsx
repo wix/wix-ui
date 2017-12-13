@@ -21,5 +21,6 @@ export const withTpaStyles = Component => {
     colors: object,
     fonts: object
   };
+
   return ThemeWrapper;
 };

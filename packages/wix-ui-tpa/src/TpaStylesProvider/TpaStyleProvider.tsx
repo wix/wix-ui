@@ -9,9 +9,9 @@ interface TpaStylesProviderProps {
 
 interface TpaStylesProviderState {
   tpaStyles: {
-    colors: object,
-    fonts: object
-  };
+    colors: object;
+    fonts: object;
+  }
 }
 
 const events = ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE'];
@@ -22,7 +22,7 @@ export class TpaStylesProvider extends React.PureComponent<TpaStylesProviderProp
     fonts: object
   };
 
-  constructor(props) {
+  constructor(props: TpaStylesProviderProps) {
     super(props);
     this.update = this.update.bind(this);
     this.state = {tpaStyles: props.wixSdk.Styles.getStyleParams()};

@@ -5,7 +5,6 @@ import {generateClasses, detachStyleSheetFromDom} from './DOMStyleRenderer';
 
 interface ThemedComponentProps {
   theme?: any;
-
   [coreProps: string]: any;
 }
 
@@ -16,17 +15,18 @@ interface ThemedComponentState {
 export function withClasses(CoreComponent, styles) {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
     private id;
+
     static propTypes = {
       theme: object
     };
 
-    constructor(props) {
+    constructor(props: ThemedComponentProps) {
       super(props);
       this.id = uniqueId();
       this.state = {classes: generateClasses(styles(props.theme), this.id)};
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: ThemedComponentProps) {
       if (this.props.theme !== nextProps.theme) {
         this.setState({classes: generateClasses(styles(nextProps.theme), this.id)});
       }
