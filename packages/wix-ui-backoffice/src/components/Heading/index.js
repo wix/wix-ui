@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {oneOf} from 'prop-types';
+import {oneOf, node} from 'prop-types';
 import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
@@ -34,7 +34,10 @@ Heading.propTypes = {
   skin: oneOf(['dark', 'light']),
 
   /** typography of the heading */
-  appearance: oneOf(['H0', 'H1', 'H2', 'H3'])
+  appearance: oneOf(['H0', 'H1', 'H2', 'H3']),
+
+  /** The text to show */
+  children: node
 };
 
 Heading.defaultProps = {

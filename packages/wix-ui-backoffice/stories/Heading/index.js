@@ -7,7 +7,7 @@ export const story = () => createStory({
   name: 'Heading',
   storyName: 'Heading',
   component: Heading,
-  componentProps: (setState, getState) => ({
+  componentProps: () => ({
     appearance: 'H0',
     skin: 'dark',
     children: 'Some text'

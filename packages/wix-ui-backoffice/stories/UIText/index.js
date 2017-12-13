@@ -7,7 +7,7 @@ export const story = () => createStory({
   name: 'UIText',
   storyName: 'UIText',
   component: UIText,
-  componentProps: (setState, getState) => ({
+  componentProps: () => ({
     appearance: 'T1.1',
     ellipsis: true,
     forceHideTitle: false,
