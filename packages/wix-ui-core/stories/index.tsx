@@ -4,7 +4,6 @@ import ToggleSwitch from '../src/components/ToggleSwitch';
 import Text from '../src/components/Text';
 import Button from '../src/components/Button';
 import Input from '../src/components/Input';
-import Hbox from '../src/components/HBox';
 
 storiesOf('Components', module)
   .add('Button', () => (
