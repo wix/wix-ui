@@ -14,7 +14,6 @@ export class DomTestDriver {
 
   getCssValue({className, property}): string {
     const selector = `.${className}`;
-    let declarationValue = '';
     const styleElemet = getStyleElementByComponentId(this.componentId);
     const parsedCss = this.getParsedCss(styleElemet);
 
@@ -24,8 +23,6 @@ export class DomTestDriver {
 
     const declarationFound = rule.declarations.find(declarationItem => property === declarationItem.property);
 
-    declarationValue = declarationFound.value;
-
-    return declarationValue;
+    return declarationFound.value;
   }
 }
