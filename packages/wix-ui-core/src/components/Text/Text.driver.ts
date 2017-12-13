@@ -20,6 +20,5 @@ export const textDriverFactory = ({element, componentInstance}) => {
     isEllipsis: className => getClasses(element).indexOf('ellipsis') !== -1,
     hasTitleAttribute: () => element.getAttribute('title') !== null,
     getFontFamily: () =>  domTestDriver.getCssValue({className: 'root', property: 'font-family'})
-    getFontFamily: () =>  domTestDriver.getCssValue({className: 'root', property: 'font-family'})
   };
 };
