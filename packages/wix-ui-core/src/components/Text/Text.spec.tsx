@@ -47,9 +47,7 @@ describe('Text', () => {
 
   describe('style', () => {
     it('should have default font-family', () => {
-      const theme: TextTheme = {
-      };
-      const driver = createDriver(<Text theme={theme}>Hello World</Text>);
+      const driver = createDriver(<Text>Hello World</Text>);
       expect(driver.getFontFamily()).toBe(core.fontFamily);
     });
 
