@@ -3,7 +3,7 @@ import * as css from 'css';
 
 export class DomTestDriver {
   private componentId: string;
-  constructor({componentId}){
+  constructor({componentId}) {
     this.componentId = componentId;
   }
 
@@ -12,16 +12,17 @@ export class DomTestDriver {
     return css.parse(styleElementContent);
   }
 
-  getCssDeclarationValue(selector: string, declaration: string): string{
+  getCssValue({className, property}): string {
+    const selector = `.${className}`;
     let declarationValue = '';
     const styleElemet = getStyleElementByComponentId(this.componentId);
     const parsedCss = this.getParsedCss(styleElemet);
 
-    const rule = parsedCss.stylesheet.rules.find(rule => {
-      return rule.selectors.indexOf(selector) !== -1;
-    });
+    const rule = parsedCss.stylesheet.rules.find(ruleItem =>
+      ruleItem.selectors.indexOf(selector) !== -1
+    );
 
-    const declarationFound = rule.declarations.find(declarationItem => declaration === declarationItem.property);
+    const declarationFound = rule.declarations.find(declarationItem => property === declarationItem.property);
 
     declarationValue = declarationFound.value;
 

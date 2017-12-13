@@ -73,12 +73,12 @@ describe('ToggleSwitch', () => {
 
   describe('styles', () => {
     it('root should be inline-block', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);  
-      expect(driver.isRootInlineBlock()).toBeTruthy();
-    })
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getRootDisplay()).toBe('inline-block');
+    });
     it('root label should have border-radius 50px', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);  
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.getBorderRadius()).toBe('50px');
-    })    
-  })
+    });
+  });
 });
