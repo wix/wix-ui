@@ -11,7 +11,7 @@ interface TpaStylesProviderState {
   tpaStyles: {
     colors: object,
     fonts: object
-  }
+  };
 }
 
 const events = ['STYLE_PARAMS_CHANGE', 'THEME_CHANGE'];

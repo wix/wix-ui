@@ -22,10 +22,18 @@ export type InputTheme = {
     borderColor?: string
   };
 
+  focus?: {
+    color?: string,
+    backgroundColor?: string,
+    hoverBackgroundColor?: string,
+    borderColor?: string
+  };
+
   disabled?: {
     color?: string,
     backgroundColor?: string,
-    borderColor?: string
+    borderColor?: string,
+    hoverBorderColor?: string
   };
 };
 
@@ -38,14 +46,20 @@ export const core: InputTheme = {
   textDecoration: 'none',
 
   height: '36px',
-  padding: '0 23px',
+  padding: '0 12px',
 
   color: palette.black,
   backgroundColor: palette.grey,
   borderColor: palette.black,
-  borderRadius: '0',
+  borderRadius: '6px',
 
   hover: {
+    color: palette.black,
+    backgroundColor: palette.grey,
+    borderColor: palette.black
+  },
+
+  focus: {
     color: palette.black,
     backgroundColor: palette.grey,
     borderColor: palette.black
@@ -54,6 +68,7 @@ export const core: InputTheme = {
   disabled: {
     color: palette.black,
     backgroundColor: palette.grey,
-    borderColor: palette.black
+    borderColor: palette.black,
+    hoverBorderColor: palette.black
   }
 };

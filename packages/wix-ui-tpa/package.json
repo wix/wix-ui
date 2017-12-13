@@ -22,11 +22,11 @@
     "build": "haste build && import-path --path src/components",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
+    "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
-    "storybook": "start-storybook -p 6006",
-    "lint": "haste lint"
+    "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
     "react": "^15.4.0"
@@ -54,7 +54,7 @@
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-ui-test-utils": "^1.0.7",
+    "wix-ui-test-utils": "^1.0.0",
     "haste-preset-yoshi": "latest"
   },
   "license": "MIT",

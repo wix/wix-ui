@@ -70,4 +70,15 @@ describe('ToggleSwitch', () => {
       expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory)).toBe(true);
     });
   });
+
+  describe('styles', () => {
+    it('root should be inline-block', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getRootDisplay()).toBe('inline-block');
+    });
+    it('root label should have border-radius 50px', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getBorderRadius()).toBe('50px');
+    });
+  });
 });

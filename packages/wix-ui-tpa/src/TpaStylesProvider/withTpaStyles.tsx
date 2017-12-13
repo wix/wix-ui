@@ -13,9 +13,9 @@ export const withTpaStyles = Component => {
     if (!colors || !fonts) {
       throw new Error(`Error: wix-ui-tpa components must be wrapped by TpaStylesProvider`);
     }
-   
-    return <Component {...{...props, colors, fonts}}/>
-  }
+
+    return <Component {...{...props, colors, fonts}}/>;
+  };
 
   ThemeWrapper.contextTypes = {
     colors: object,

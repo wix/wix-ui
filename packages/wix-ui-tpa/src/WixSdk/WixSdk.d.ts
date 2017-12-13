@@ -6,7 +6,7 @@ export interface WixSdk {
 }
 
 export interface SiteStyles {
-  colors: object,
-  fonts: object,
-  [x: string]: any
+  colors: object;
+  fonts: object;
+  [x: string]: any;
 }

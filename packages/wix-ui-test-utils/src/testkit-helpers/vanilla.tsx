@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as ReactTestUtils from 'react-dom/test-utils';
+import {reactEventTrigger} from '../helpers';
 
-export const testkitFactoryCreator = driverFactory => ({wrapper, dataHook}) => {
+export const testkitFactoryCreator = driverFactory => ({wrapper, dataHook, testUtils = ReactTestUtils}) => {
+  const eventTrigger = reactEventTrigger(testUtils);
   const element = wrapper.querySelector(`[data-hook='${dataHook}']`);
-  return driverFactory({element, wrapper});
+  return driverFactory({element, wrapper, eventTrigger});
 };
 
 export const isTestkitExists = (Element, testkitFactory) => {
@@ -13,6 +15,6 @@ export const isTestkitExists = (Element, testkitFactory) => {
   const elementToRender = React.cloneElement(Element, {dataHook});
   const renderedElement = ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>);
   const wrapper = div.appendChild((renderedElement as any));
-  const testkit = testkitFactory({wrapper, dataHook});
+  const testkit = testkitFactory({wrapper, dataHook, testUtils: ReactTestUtils});
   return testkit.exists();
 };

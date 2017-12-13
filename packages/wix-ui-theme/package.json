@@ -20,12 +20,13 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "pretest": "haste build",
-    "test": "haste test --jest",
+    "build": "haste build",
+    "pretest": "npm run build",
+    "test": "haste test --jest && haste test --protractor",
+    "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
     "start": "haste start --no-test",
-    "release": "haste release",
-    "lint": "haste lint"
+    "release": "haste release"
   },
   "license": "MIT",
   "publishConfig": {

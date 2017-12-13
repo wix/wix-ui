@@ -14,7 +14,7 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
  
 script:
- - npm run bootstrap
+ - npm run bootstrap && npm run test
 
 notifications:
   email:
