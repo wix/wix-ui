@@ -26,9 +26,6 @@ VBox.propTypes = {
   height: string
 };
 
-VBox.defaultProps = {
-  spacing: 'medium',
-  horizontalAlignment: 'center'
-};
+VBox.defaultProps = {spacing: '15px'};
 
 export default VBox;
