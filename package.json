@@ -7,7 +7,7 @@
   "description": "wix-ui-monorepo",
   "main": "index.js",
   "scripts": {
-    "test": "lerna run test",
+    "test": "lerna run test --parallel false",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build"
   },
