@@ -7,6 +7,8 @@ export const styles = (theme: ToggleSwitchTheme) => {
   return {
     root: {
       display: 'inline-block',
+      width: theme.rootWidth,
+      height: theme.rootHeight,
 
       '& input[type=checkbox]': {
         display: 'none'
