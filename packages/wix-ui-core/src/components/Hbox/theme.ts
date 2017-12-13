@@ -1,9 +1,11 @@
-export type HboxTheme = {
+export type HBoxTheme = {
  spacing?: string
- verticalAlignment?: string
+ verticalAlignment?: 'flex-start' | 'center' | 'flex-end',
+ height?: string
 };
 
-export const core: HboxTheme = {
+export const core: HBoxTheme = {
   spacing: '0',
-  verticalAlignment: 'center'
+  verticalAlignment: 'flex-start',
+  height: '100px'
 };
