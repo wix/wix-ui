@@ -11,7 +11,6 @@ import Text from './index';
 describe('Text', () => {
 
   const createDriver = createDriverFactory(textDriverFactory);
-  // const noop = () => null;
 
   describe('checked prop', () => {
     it('should render', () => {
@@ -55,9 +54,7 @@ describe('Text', () => {
     });
 
     it('should have override default font-family', () => {
-      const theme: TextTheme = {
-        fontFamily: 'David'
-      };
+      const theme: TextTheme = {fontFamily: 'David'};
       const driver = createDriver(<Text theme={theme}>Hello World</Text>);
       expect(driver.getFontFamily()).toBe('David');
     });
