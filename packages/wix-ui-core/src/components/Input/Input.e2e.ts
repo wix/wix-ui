@@ -1,3 +1,4 @@
+import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {inputTestkitFactory} from '../../testkit/protractor';
@@ -9,7 +10,7 @@ describe('Input', () => {
     browser.get(storyUrl);
   });
 
-  it('should enter text to input', () => {
+  eyes.it('should enter text to input', () => {
     const dataHook = 'story-input';
     const driver = inputTestkitFactory({dataHook});
 

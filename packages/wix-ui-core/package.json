@@ -49,6 +49,7 @@
     "css": "^2.2.1",
     "concurrently": "^3.5.1",
     "enzyme": "^2.3.0",
+    "eyes.it": "^2.0.1",
     "gh-pages-auto-release": "^1.1.2",
     "haste-preset-yoshi": "^1.0.10",
     "import-path": "^0.0.7",
