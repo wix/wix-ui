@@ -2,7 +2,7 @@ import * as colors from './colors';
 
 export const basePalette = {
   D10: '#162d3d',   // Main input text, titles
-  D20: '#32536A',   // Titles, texts
+  D20: '#32536a',   // Titles, texts
   D30: '#577083',   // Texts
   D40: '#7a92a5',   // Dividers, texts
   D50: '#b6c1cd',   // Dividers, texts
@@ -15,25 +15,18 @@ export const basePalette = {
   B05: '#308ddd',   // CTA
   B10: '#3899ec',   // Main action color, active, buttons
   B20: '#4eb7f5',   // Hover for elements with B10, buttons
-  B25: '#A1D7FB',
-  B27: '#b3e0fb',
   B30: '#c1e4fe',   // Notifications
   B40: '#daeffe',   // Dividers, table selected
   B50: '#eaf7ff',   // Dividers
   B60: '#f4fafe',   // Table hover
-
-  GR10: '#c8c8c8',  // Disabled buttons
-  GR20: '#dadada',  // Disabled fields
-  GR30: '#f1f1f1',  // Disabled background
-  GR40: '#cbd3dc',  // Disabled button - new version - naming not final
-  GR50: '#eff1f2',
-  GR60: '#a3abb0',	// placeholder for InputArea theme="amaterial"
 
   P00: '#8e21b1',
   P10: '#aa4dc8',   // Wix premium
   P20: '#cd68ed',
   P30: '#e5c9ee',
   P40: '#eedbf4',
+  P50: '#faeeff',
+  P60: '#faf7fc',
 
   O00: '#ea5f0e',
   O10: '#fb7d33',
@@ -45,12 +38,17 @@ export const basePalette = {
   R20: '#ff6666',   // Notifications
   R30: '#ffd7d7',   // Notifications
   R40: '#ffe1e1',
+  R50: '#ffebeb',
+  R60: '#fff5f5',
 
   G00: '#44823f',
   G05: '#61ad5a',   // CTA
   G10: '#60bc57',   // CTA hover
   G20: '#80c979',   // Notifications
   G30: '#c9eebc',   // Notifications
+  G40: '#def4d4',
+  G50: '#edf9e5',
+  G60: '#f2fbef',
 
   Y00: '#c68801',
   Y05: '#eda200',   // CTA
@@ -58,8 +56,8 @@ export const basePalette = {
   Y20: '#fac249',   // Notifications
   Y30: '#fef0ba',   // Notifications
   Y40: '#fef4cd',
-
-  WR00: '#e05050',  // Wix Restaurant red
+  Y50: '#fdf7df',
+  Y60: '#fffcf0'
 };
 
 export const palette = {
