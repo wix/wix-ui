@@ -17,7 +17,6 @@ export function withClasses(CoreComponent, styles) {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
     private id;
     static propTypes = {
-      ...CoreComponent.propTypes,
       theme: object
     };
 
