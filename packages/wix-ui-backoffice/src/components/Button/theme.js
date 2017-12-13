@@ -1,4 +1,4 @@
-import { basePalette as c } from '../../palette';
+import * as c from '../../colors';
 import {SIZE} from './constants';
 
 const hexToRgba = (hex, opacity) => {
