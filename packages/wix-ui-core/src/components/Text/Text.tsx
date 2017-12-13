@@ -36,6 +36,4 @@ import {createHOC} from '../../createHOC';
   }
 }
 
-
-
 export default createHOC(Text);
