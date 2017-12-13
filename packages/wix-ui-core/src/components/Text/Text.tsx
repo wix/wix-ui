@@ -9,11 +9,11 @@ import {createHOC} from '../../createHOC';
   };
 
   interface TextProps {
-    classes: TextClasses,
-    children: PropTypes.any,
-    ellipsis: PropTypes.bool,
-    forceHideTitle: PropTypes.bool,
-    tagName: PropTypes.string
+    classes: TextClasses;
+    children: PropTypes.any;
+    ellipsis: PropTypes.bool;
+    forceHideTitle: PropTypes.bool;
+    tagName: PropTypes.string;
   }
 
   class Text extends  React.PureComponent<TextProps> {
@@ -22,18 +22,18 @@ import {createHOC} from '../../createHOC';
   getTitle = () => {
     const {forceHideTitle, ellipsis, children} = this.props;
     let title = null;
-    if(typeof children === 'string' && ellipsis && !forceHideTitle){
+
+    if (typeof children === 'string' && ellipsis && !forceHideTitle) {
       title = children;
     }
-    return title
+    return title;
   }
 
   render() {
     const {classes, children, ellipsis, tagName} = this.props;
     const cssClasses = classnames(classes.root, {[classes.ellipsis] : ellipsis});
-    return React.createElement(tagName || 'span', {className: cssClasses, title: this.getTitle()}, children)
+    return React.createElement(tagName || 'span', {className: cssClasses, title: this.getTitle()}, children);
   }
 }
-
 
 export default createHOC(Text);
