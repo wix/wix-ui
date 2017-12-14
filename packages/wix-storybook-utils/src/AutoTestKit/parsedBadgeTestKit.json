@@ -1,0 +1,77 @@
+{
+  "description": "TODO",
+  "name": "Anonymous",
+  "params": [
+    {
+      "properties": [
+        "element"
+      ],
+      "type": "object"
+    }
+  ],
+  "returns": {
+    "exists": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [],
+      "type": "function"
+    },
+    "isBadge": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [],
+      "type": "function"
+    },
+    "isOfAlignment": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [
+        {
+          "name": "alignment",
+          "type": "unknown"
+        }
+      ],
+      "type": "function"
+    },
+    "isOfAppearance": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [
+        {
+          "name": "appearance",
+          "type": "unknown"
+        }
+      ],
+      "type": "function"
+    },
+    "isOfShape": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [
+        {
+          "name": "shape",
+          "type": "unknown"
+        }
+      ],
+      "type": "function"
+    },
+    "isOfType": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [
+        {
+          "name": "type",
+          "type": "unknown"
+        }
+      ],
+      "type": "function"
+    },
+    "text": {
+      "description": "TODO",
+      "name": "Anonymous",
+      "params": [],
+      "type": "function"
+    }
+  },
+  "type": "function"
+}

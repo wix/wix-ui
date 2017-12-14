@@ -86,6 +86,7 @@ function Story(props) {
             source,
             readme,
             readmeTestKit,
+            testKitSrc,
             readmeAccessibility,
             component,
             name = customName || (component && (component.displayName || component.name)),
