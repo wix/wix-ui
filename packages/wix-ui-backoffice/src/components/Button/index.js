@@ -7,7 +7,7 @@ import {appearance, iconSize} from './appearance';
 import UIText from '../UIText';
 
 const addPrefix = (icon, size) => (
-  !!icon ?
+  icon ?
     <span data-hook="btn-prefix" style={{paddingRight: '10px', display: 'flex'}}>
       {React.cloneElement(icon, {size})}
     </span> :
@@ -15,7 +15,7 @@ const addPrefix = (icon, size) => (
 );
 
 const addSuffix = (icon, size) => (
-  !!icon ?
+  icon ?
     <span data-hook="btn-suffix" style={{paddingLeft: '10px', display: 'flex'}}>
       {React.cloneElement(icon, {size})}
     </span> :
@@ -88,7 +88,7 @@ Button.propTypes = {
     'icon-standard',
     'icon-standardsecondary',
     'icon-white',
-    'icon-whitesecondary',
+    'icon-whitesecondary'
   ]),
 
   prefixIcon: node,
@@ -97,7 +97,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   height: 'medium',
-  theme: 'primaryStandard',
+  theme: 'primaryStandard'
 };
 
 export default Button;

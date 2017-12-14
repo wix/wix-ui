@@ -1,5 +1,5 @@
 import * as c from '../../colors';
-import { SIZE } from './constants';
+import {SIZE} from './constants';
 
 const hexToRgba = (hex, opacity) => {
   const r = parseInt(hex.substring(1, 3), 16);
@@ -15,18 +15,18 @@ const createBaseColorSkin = (color, bg, border, hoverColor, hoverBg, hoverBc, ac
   hover: {
     color: hoverColor,
     backgroundColor: hoverBg,
-    borderColor: hoverBc,
+    borderColor: hoverBc
   },
   active: {
     color: activeColor,
     backgroundColor: activeBg,
-    borderColor: activeBc,
+    borderColor: activeBc
   },
   disabled: {
     color: disabledColor,
     backgroundColor: disabledBg,
-    borderColor: disabledBc,
-  },
+    borderColor: disabledBc
+  }
 });
 
 const createPrimaryColorSkin = (color, hoverColor) =>
@@ -68,7 +68,7 @@ const skins = {
   'close-standard': createTransparentColorSkin(c.B10, c.B20, c.B10),
   'close-dark': createTransparentColorSkin(c.D10, c.D10, c.D10),
   'close-white': createTransparentColorSkin(c.D40, c.D50, c.D40),
-  'close-lightBlue': createBaseColorSkin(c.B10, c.B30, c.B30, c.B10, c.B40, c.B40, c.B10, c.B30, c.B30, c.D80, c.D55, c.D55),
+  'close-lightBlue': createBaseColorSkin(c.B10, c.B30, c.B30, c.B10, c.B40, c.B40, c.B10, c.B30, c.B30, c.D80, c.D55, c.D55)
 };
 
 skins['close-transparent'] = skins.transparentGrey;
@@ -102,23 +102,23 @@ const sizes = {
   [SIZE.tiny]: {
     height: '24px',
     borderRadius: '21px',
-    padding: '0 12px',
+    padding: '0 12px'
   },
   [SIZE.small]: {
     height: '30px',
     borderRadius: '21px',
-    padding: '0 18px',
+    padding: '0 18px'
   },
   [SIZE.medium]: {
     height: '36px',
     borderRadius: '21px',
-    padding: '0 24px',
+    padding: '0 24px'
   },
   [SIZE.large]: {
     height: '42px',
     borderRadius: '21px',
-    padding: '0 30px',
-  },
+    padding: '0 30px'
+  }
 };
 
 const iconSizes = {
@@ -126,14 +126,14 @@ const iconSizes = {
     height: '30px',
     width: '30px',
     borderRadius: '50px',
-    padding: 0,
+    padding: 0
   },
   [SIZE.medium]: {
     height: '36px',
     width: '36px',
     borderRadius: '50px',
-    padding: 0,
-  },
+    padding: 0
+  }
 };
 
 const closeSizes = {
@@ -141,29 +141,29 @@ const closeSizes = {
     height: '18px',
     width: '18px',
     borderRadius: '50px',
-    padding: 0,
+    padding: 0
   },
   [SIZE.large]: {
     height: '24px',
     width: '24px',
     borderRadius: '50px',
-    padding: 0,
-  },
+    padding: 0
+  }
 };
 
 const getSizeAttributes = (skin, size, isIcon) => {
   if (skin.startsWith('icon') || isIcon) {
-    return iconSizes[size]
+    return iconSizes[size];
   }
   if (skin.startsWith('close')) {
-    return closeSizes[size]
+    return closeSizes[size];
   }
-  return sizes[size]
-}
+  return sizes[size];
+};
 
-export const theme = ({ skin, size, isIcon }) => {
+export const theme = ({skin, size, isIcon}) => {
   return {
     ...getSizeAttributes(skin, size, isIcon),
-    ...skins[skin],
+    ...skins[skin]
   };
-}
+};
