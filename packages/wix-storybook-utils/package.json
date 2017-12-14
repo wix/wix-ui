@@ -5,9 +5,9 @@
   "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
   "license": "MIT",
   "files": [
+    "src",
     "dist",
-    "*.js",
-    "src/AutoExample/protractor.driver.js"
+    "*.js"
   ],
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
