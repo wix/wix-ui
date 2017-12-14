@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'test') {
 const sheetManager = new SheetsManager();
 const sheetMapper = {};
 
-const atachStyleSheetToDom = (styles, componentId) => {
+const attachStyleSheetToDom = (styles, componentId) => {
   const newSheet = jss.createStyleSheet(styles);
 
   if (sheetMapper[componentId]) {
@@ -32,7 +32,7 @@ const atachStyleSheetToDom = (styles, componentId) => {
 };
 
 export const generateClasses = (styles, componentId) => {
-  const {classes} = atachStyleSheetToDom(styles, componentId);
+  const {classes} = attachStyleSheetToDom(styles, componentId);
   return classes;
 };
 

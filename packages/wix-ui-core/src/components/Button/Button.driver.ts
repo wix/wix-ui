@@ -1,11 +1,20 @@
-import * as ReactTestUtils from 'react-dom/test-utils';
+import {DomTestDriver} from '../../DOMStyleRenderer/domTest.driver';
 
-export const buttonDriverFactory = ({element}) => ({
-  exists: () => !!element,
-  click: () => ReactTestUtils.Simulate.click(element),
-  mouseEnter: () => ReactTestUtils.Simulate.mouseEnter(element),
-  mouseLeave: () => ReactTestUtils.Simulate.mouseLeave(element),
-  getType: () => element.getAttribute('type'),
-  getTextContent: () => element.textContent,
-  isDisabled: () => element.getAttribute('disabled') === ''
-});
+export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) => {
+  let domTestDriver = null;
+
+  if (componentInstance) {
+    domTestDriver =  new DomTestDriver({componentId: componentInstance.id});
+  }
+
+  return {
+    exists: () => !!element,
+    click: () => eventTrigger.click(element),
+    mouseEnter: () => eventTrigger.mouseEnter(element),
+    mouseLeave: () => eventTrigger.mouseLeave(element),
+    getType: () => element.getAttribute('type'),
+    getTextContent: () => element.textContent,
+    isDisabled: () => element.getAttribute('disabled') === '',
+    getHeight: () => domTestDriver.getCssValue({className: 'button', property: 'height'})
+  };
+};

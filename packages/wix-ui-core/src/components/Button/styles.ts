@@ -6,7 +6,6 @@ const uiTextSelector = '& [data-class="uitext"]';
 export const styles = (theme: ButtonTheme) => {
   theme = (defaultsDeep(theme, core) as ButtonTheme);
 
-
   theme.hover = theme.hover || {};
   theme.active = theme.active || {};
   theme.disabled = theme.disabled || {};

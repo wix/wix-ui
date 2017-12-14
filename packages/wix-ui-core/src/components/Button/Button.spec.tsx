@@ -1,9 +1,12 @@
 import * as React from 'react';
 import {buttonDriverFactory} from './Button.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
-import Button from './index';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {core, ButtonTheme} from './theme';
+
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
+
+import Button from './index';
 
 describe('Button', () => {
 
@@ -67,8 +70,17 @@ describe('Button', () => {
     });
   });
 
-  describe.skip('classes prop', () => {
-    //TODO: create testkit for the jss mechanism
+  describe('style', () => {
+    it('should have default height', () => {
+      const driver = createDriver(<Button/>);
+      expect(driver.getHeight()).toBe(core.height);
+    });
+
+    it('should override default height', () => {
+      const theme: ButtonTheme = {height: 'height'};
+      const driver = createDriver(<Button theme={theme}/>);
+      expect(driver.getHeight()).toBe(theme.height);
+    });
   });
 
   describe('testkit', () => {

@@ -1,8 +1,9 @@
-import {getStyleElementByComponentId} from './index';
+import {getStyleElementByComponentId} from './';
 import * as css from 'css';
 
 export class DomTestDriver {
   private componentId: string;
+
   constructor({componentId}) {
     this.componentId = componentId;
   }
@@ -14,8 +15,8 @@ export class DomTestDriver {
 
   getCssValue({className, property}): string {
     const selector = `.${className}`;
-    const styleElemet = getStyleElementByComponentId(this.componentId);
-    const parsedCss = this.getParsedCss(styleElemet);
+    const styleElement = getStyleElementByComponentId(this.componentId);
+    const parsedCss = this.getParsedCss(styleElement);
 
     const rule = parsedCss.stylesheet.rules.find(ruleItem =>
       ruleItem.selectors.indexOf(selector) !== -1
