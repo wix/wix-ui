@@ -32,8 +32,8 @@ export type ToggleSwitchTheme = {
 };
 
 export const core: ToggleSwitchTheme = {
-  rootWidth: 'auto',
-  rootHeight: 'auto',
+  rootWidth: 'initial',
+  rootHeight: 'initial',
 
   transitionSpeed: '.3s',
   borderRadius: '50px',
