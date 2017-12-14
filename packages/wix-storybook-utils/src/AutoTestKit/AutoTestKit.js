@@ -17,11 +17,11 @@ export default class AutoTestKit extends Component {
     const method = this.getMethod(methodName);
 
     return (
-      <tr key={methodName}>
-        <td>{methodName}</td>
+      <tr key={methodName} data-hook="method">
+        <td data-hook="name">{methodName}</td>
         <td>{this.getParams(method.params)}</td>
         <td>{method.returnType}</td>
-        <td>{method.description}</td>
+        <td data-hook="description">{method.description}</td>
       </tr>
     );
   }

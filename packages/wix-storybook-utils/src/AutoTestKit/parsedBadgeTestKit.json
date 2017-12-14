@@ -1,5 +1,4 @@
 {
-  "description": "TODO",
   "name": "Anonymous",
   "params": [
     {
@@ -11,19 +10,17 @@
   ],
   "returns": {
     "exists": {
-      "description": "TODO",
+      "description": " Something  Something ",
       "name": "Anonymous",
       "params": [],
       "type": "function"
     },
     "isBadge": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [],
       "type": "function"
     },
     "isOfAlignment": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [
         {
@@ -34,7 +31,6 @@
       "type": "function"
     },
     "isOfAppearance": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [
         {
@@ -45,7 +41,6 @@
       "type": "function"
     },
     "isOfShape": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [
         {
@@ -56,7 +51,6 @@
       "type": "function"
     },
     "isOfType": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [
         {
@@ -67,7 +61,6 @@
       "type": "function"
     },
     "text": {
-      "description": "TODO",
       "name": "Anonymous",
       "params": [],
       "type": "function"
