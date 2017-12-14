@@ -10,7 +10,8 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     componentSrcFolder: PropTypes.string,
     showStoryContent: PropTypes.func.isRequired,
     contextualImport: PropTypes.func.isRequired,
-    rawContextualImport: PropTypes.func.isRequired
+    rawContextualImport: PropTypes.func.isRequired,
+    storyName: PropTypes.string
   };
 
   constructor(props) {
@@ -46,11 +47,12 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     Promise.all([
       componentSourcePromise,
       this.getComponentReadme(),
+      this.getTestKitSrc(),
       this.getReadmeTestKit(),
       this.getReadmeAccessibility(),
       this.getComponentInstance(),
       this.getParsedSource(componentSourcePromise)
-    ]).then(([source, readme, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
+    ]).then(([source, readme, testKitSrc, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
       this.setState({
         isLoading: false,
         source,
@@ -58,7 +60,8 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
         readmeTestKit,
         readmeAccessibility,
         component,
-        parsedSource
+        parsedSource,
+        testKitSrc
       });
     });
   }
@@ -147,6 +150,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
   getComponentReadme() {
     return this.loadMdFile('README');
+  }
+
+  getTestKitSrc() {
+    const {componentSrcFolder, storyName} = this.props;
+    return this.rawContextualImport(`./${componentSrcFolder}/${storyName}.driver.js`).catch(() => {});
   }
 
   getReadmeTestKit() {

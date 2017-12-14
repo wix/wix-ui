@@ -12,6 +12,7 @@ import TabbedView from '../TabbedView';
 import ComponentMetaInfoGetter from '../ComponentMetaInfoGetter';
 
 import styles from './styles.scss';
+import AutoTestKit from '../AutoTestKit';
 
 const isE2E = global.self === global.top;
 
@@ -77,6 +78,7 @@ function Story(props) {
       contextualImport={contextualImport}
       rawContextualImport={rawContextualImport}
       componentSrcFolder={componentSrcFolder}
+      storyName={storyName}
       showStoryContent={
         params => {
           const {
@@ -163,7 +165,10 @@ function Story(props) {
 
               {actualSource && <AutoDocs source={actualSource} parsedSource={parsedSource}/>}
 
-              {actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/>}
+              <div>
+                {actualReadmeTestKit && !testKitSrc && <Markdown source={actualReadmeTestKit} />}
+                {testKitSrc && <AutoTestKit source={testKitSrc}/>}
+              </div>
 
               {actualReadmeAccessibility && <Markdown source={actualReadmeAccessibility}/>}
             </TabbedView>
