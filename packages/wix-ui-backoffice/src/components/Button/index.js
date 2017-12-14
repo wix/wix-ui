@@ -1,12 +1,12 @@
 import React from 'react';
-import {oneOf} from 'prop-types';
+import { oneOf } from 'prop-types';
 import CoreButton from 'wix-ui-core/Button';
-import {ThemedComponent} from 'wix-ui-theme';
-import {theme} from './theme';
-import {appearance} from './appearance';
+import { ThemedComponent } from 'wix-ui-theme';
+import { theme } from './theme';
+import { appearance } from './appearance';
 import UIText from '../UIText'
 
-const Button = ({height: size, theme: skin, ...coreProps}) => (
+const Button = ({ height: size, theme: skin, ...coreProps }) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
     <CoreButton {...coreProps}>
       <UIText appearance={appearance(size)}>{coreProps.children}</UIText>
@@ -22,8 +22,8 @@ Button.propTypes = {
 
   /** The theme of the button */
   theme: oneOf([
-    'greyscale',
-    'secondaryGreyscale',
+    'transparentGrey',
+    'secondaryGrey',
     'primaryStandard',
     'primaryError',
     'primaryPremium',
@@ -34,7 +34,20 @@ Button.propTypes = {
     'secondaryWhite',
     'tertiaryStandard',
 
-    //**********  deprecated themes ***********
+    'close-standard',
+    'close-dark',
+    'close-white',
+    'close-lightBlue',
+    'close-transparent',
+
+    'icon-primaryStandard',
+    'icon-secondaryStandard',
+    'icon-tertiaryStandard',
+    'icon-primaryWhite',
+    'icon-secondaryWhite',
+
+
+    '************************** BELOW ARE DEPRECATED (supported for wix-react-style) **************************',
     'fullred',
     'fullgreen',
     'fullpurple',
@@ -55,13 +68,13 @@ Button.propTypes = {
     'icon-standard',
     'icon-standardsecondary',
     'icon-white',
-    'icon-whitesecondary'
-  ])
+    'icon-whitesecondary',
+  ]),
 };
 
 Button.defaultProps = {
   height: 'medium',
-  theme: 'fullblue'
+  theme: 'primaryStandard',
 };
 
 export default Button;
