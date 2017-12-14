@@ -7,16 +7,16 @@ export default class StorybookStaticsServer {
   private server: Server;
 
   start({port}: {port: 6006}) {
-    this.server = express()
-      .use('/', express.static(storybookPath))
-      .listen(port, () => {
-        console.log(`e2e sandbox running at http://localhost:${port}, serving ${storybookPath}`);
-      });
+    return new Promise(resolve => {
+      this.server = express()
+        .use('/', express.static(storybookPath))
+        .listen(port, resolve);
+    });
   }
 
   stop() {
-    this.server.close(() => {
-      console.log('Finished all requests');
+    return new Promise(resolve => {
+      this.server.close(resolve);
     });
   }
 }
