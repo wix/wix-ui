@@ -1,15 +1,35 @@
 import React from 'react';
-import { oneOf } from 'prop-types';
+import {node, oneOf} from 'prop-types';
 import CoreButton from 'wix-ui-core/Button';
-import { ThemedComponent } from 'wix-ui-theme';
-import { theme } from './theme';
-import { appearance } from './appearance';
-import UIText from '../UIText'
+import {ThemedComponent} from 'wix-ui-theme';
+import {theme} from './theme';
+import {appearance, iconSize} from './appearance';
+import UIText from '../UIText';
 
-const Button = ({ height: size, theme: skin, ...coreProps }) => (
+const addPrefix = (icon, size) => (
+  !!icon ?
+    <span data-hook="btn-prefix" style={{paddingRight: '10px', display: 'flex'}}>
+      {React.cloneElement(icon, {size})}
+    </span> :
+    null
+);
+
+const addSuffix = (icon, size) => (
+  !!icon ?
+    <span data-hook="btn-suffix" style={{paddingLeft: '10px', display: 'flex'}}>
+      {React.cloneElement(icon, {size})}
+    </span> :
+    null
+);
+
+const Button = ({height: size, theme: skin, prefixIcon, suffixIcon, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
     <CoreButton {...coreProps}>
-      <UIText appearance={appearance(size)}>{coreProps.children}</UIText>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        {addPrefix(prefixIcon, iconSize(size))}
+        <UIText appearance={appearance(size)}>{coreProps.children}</UIText>
+        {addSuffix(suffixIcon, iconSize(size))}
+      </div>
     </CoreButton>
   </ThemedComponent>
 );
@@ -47,7 +67,7 @@ Button.propTypes = {
     'icon-secondaryWhite',
 
 
-    '************************** BELOW ARE DEPRECATED (supported for wix-react-style) **************************',
+    '************************** BELOW ARE DEPRECATED (supported for wix-style-react) **************************',
     'fullred',
     'fullgreen',
     'fullpurple',
@@ -70,6 +90,9 @@ Button.propTypes = {
     'icon-white',
     'icon-whitesecondary',
   ]),
+
+  prefixIcon: node,
+  suffixIcon: node
 };
 
 Button.defaultProps = {

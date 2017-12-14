@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {bool, string, func, object, any} from 'prop-types';
-// import {Prefix} from './components/Prefix';
-// import {Suffix} from './components/Suffix';
 import {createHOC} from '../../createHOC';
 
 type ButtonClasses = {
@@ -62,8 +60,5 @@ class Button extends React.PureComponent<ButtonProps> {
     );
   }
 }
-
-// Button.Prefix = Prefix;
-// Button.Suffix = Suffix;
 
 export default createHOC(Button);
