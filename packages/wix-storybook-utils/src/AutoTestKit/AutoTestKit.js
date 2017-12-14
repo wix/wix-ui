@@ -28,7 +28,7 @@ export default class AutoTestKit extends Component {
 
   getParams = params => {
     if (params.length) {
-      return params.map((param, i) => `${param.name} (${param.type})${i === params.length - 1 ? '' : ', '}`);
+      return params.map((param, i) => `${param.name} (${param.type})${i === params.length - 1 ? '' : '\n'}`);
     } else {
       return '---';
     }
@@ -42,7 +42,7 @@ export default class AutoTestKit extends Component {
     const source = this.state.source;
     return (
       <div className="markdown-body">
-        <div>{JSON.stringify(source, null, 2)}</div>
+        <h2>Auto Generated Enzyme Testkit</h2>
         <table>
           <thead>
             <tr>

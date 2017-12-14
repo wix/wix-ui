@@ -167,7 +167,7 @@ function Story(props) {
               {actualSource && <AutoDocs source={actualSource} parsedSource={parsedSource}/>}
 
               <div>
-                {actualReadmeTestKit && !testKitSrc && <Markdown source={actualReadmeTestKit} />}
+                {actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/>}
                 {testKitSrc && <AutoTestKit source={testKitSrc}/>}
               </div>
 

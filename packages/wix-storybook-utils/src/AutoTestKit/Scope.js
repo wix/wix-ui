@@ -71,6 +71,8 @@ class FunctionScope extends Scope {
         break;
       case 'CallExpression':
       case 'MemberExpression':
+      case 'LogicalExpression':
+      case 'ConditionalExpression':
         // TODO We need to parse this as it can be another object
         blockScope = null;
         break;
@@ -131,6 +133,8 @@ class FunctionScope extends Scope {
         break;
       case 'CallExpression':
       case 'MemberExpression':
+      case 'LogicalExpression':
+      case 'ConditionalExpression':
         // TODO We need to parse this as it can be another object
         returnValue = null;
         break;
