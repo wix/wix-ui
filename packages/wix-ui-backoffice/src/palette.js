@@ -9,6 +9,8 @@ export const palette = {
   heading2Light: colors.D80,
   heading3Dark: colors.D20,
   heading3Light: colors.D50,
+  heading4Dark: colors.D20,
+  heading4Light: colors.D50,
 
   main: colors.B10,
   mainHover: colors.B20,
