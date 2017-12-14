@@ -1,13 +1,13 @@
 import React from 'react';
-import {oneOf, bool} from 'prop-types';
+import {oneOf, bool, string} from 'prop-types';
 import CoreText from 'wix-ui-core/Text';
 import {ThemedComponent} from 'wix-ui-theme';
 import {theme} from './theme';
 
-const UIText = ({forceHideTitle, ellipsis, children, appearance, tagName}) => {
+const UIText = ({forceHideTitle, ellipsis, children, appearance, tagName, dataClass}) => {
   return (
     <ThemedComponent theme={theme} appearance={appearance}>
-      <CoreText forceHideTitle={forceHideTitle} ellipsis={ellipsis} tagName={tagName} dataClass="uitext">
+      <CoreText forceHideTitle={forceHideTitle} ellipsis={ellipsis} tagName={tagName} dataClass={dataClass}>
         {children}
       </CoreText>
     </ThemedComponent>
@@ -32,11 +32,14 @@ UIText.propTypes = {
   forceHideTitle: bool,
 
   /** the tag name to be used */
-  tagName: oneOf(['div', 'span'])
+  tagName: oneOf(['div', 'span']),
+
+  dataClass: string
 };
 
 UIText.defaultProps = {
-  appearance: 'T1.1'
+  appearance: 'T1.1',
+  dataClass: 'uitext'
 };
 
 export default UIText;
