@@ -23,6 +23,7 @@ Button.propTypes = {
   /** The theme of the button */
   theme: oneOf([
     'greyscale',
+    'secondaryGreyscale',
     'primaryStandard',
     'primaryError',
     'primaryPremium',
@@ -33,8 +34,7 @@ Button.propTypes = {
     'secondaryWhite',
     'tertiaryStandard',
 
-    //deprecated themes
-    'greyscale',
+    //**********  deprecated themes ***********
     'fullred',
     'fullgreen',
     'fullpurple',

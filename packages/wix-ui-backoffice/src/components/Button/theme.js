@@ -48,9 +48,11 @@ const greyscale = hexToRgba(c.D10, 0.24);
 const greyscaleHover = hexToRgba(c.D10, 0.3);
 const greyscaleActive = hexToRgba(c.D10, 0.36);
 const transparentGreyscale = createBaseColorSkin(c.D80, greyscale, c.TRANSPARENT, c.D80, greyscaleHover, c.TRANSPARENT, c.D80, greyscaleActive, c.TRANSPARENT, c.D80, c.D55, c.D55);
+const secondaryGreyscale = createBaseColorSkin(c.D40, c.TRANSPARENT, c.D40, c.D80, c.D20, c.D20, c.D80, c.D10, c.D10, c.D80, c.D55, c.D55);
 
 const skins = {
   greyscale: transparentGreyscale,
+  secondaryGreyscale: secondaryGreyscale,
   primaryStandard: createPrimaryColorSkin(c.B10, c.B20),
   primaryError: createPrimaryColorSkin(c.R10, c.R20),
   primaryPremium: createPrimaryColorSkin(c.P10, c.P20),
@@ -109,7 +111,28 @@ const sizes = {
   }
 };
 
-export const theme = ({ size, skin }) => ({
+const iconSizes = {
+  [SIZE.small]: {
+    height: '30px',
+    width: '30px',
+    borderRadius: '50px',
+  },
+  ['regular']: {
+    height: '36px',
+    width: '36px',
+    borderRadius: '50px',
+  },
+  [SIZE.medium]: {
+    height: '36px',
+    borderRadius: '21px',
+  },
+  [SIZE.large]: {
+    height: '42px',
+    borderRadius: '21px',
+  }
+};
+
+export const theme = ({ size, skin, isIcon }) => ({
   ...sizes[size],
   ...skins[skin],
 });
