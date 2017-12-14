@@ -53,7 +53,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
       this.getComponentInstance(),
       this.getParsedSource(componentSourcePromise)
     ]).then(([source, readme, testKitSrc, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
-      console.log('kurwa', testKitSrc);
       this.setState({
         isLoading: false,
         source,
@@ -68,7 +67,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state);
     return this.props.showStoryContent(this.state);
   }
 
@@ -156,7 +154,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
   getTestKitSrc() {
     const {componentSrcFolder, storyName} = this.props;
-    console.log(componentSrcFolder, storyName);
     return this.rawContextualImport(`./${componentSrcFolder}/${storyName}.driver.js`).catch(console.log);
   }
 
