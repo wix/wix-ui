@@ -16,7 +16,7 @@
   "main": "./dist/src/index.js",
   "scripts": {
     "pretest": "npm run build && build-storybook",
-    "test": "haste test --jest && haste test --protractor",
+    "test": "haste test --jest",
     "test:watch": "haste test --jest --watch",
     "posttest": "haste lint",
     "start": "haste start --no-test & npm run storybook",
