@@ -78,8 +78,8 @@ skins['icon-tertiaryStandard'] = skins.tertiaryStandard;
 skins['icon-primaryWhite'] = skins.primaryWhite;
 skins['icon-secondaryWhite'] = skins.secondaryWhite;
 
-
 //**************************  deprecated themes (support for wix-react-style) **************************
+skins.transparent = skins.transparentGrey;
 skins.fullred = skins.primaryError;
 skins.fullgreen = createPrimaryColorSkin(c.G10, c.G20);
 skins.fullblue = skins.primaryStandard;

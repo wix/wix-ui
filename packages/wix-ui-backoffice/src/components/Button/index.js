@@ -66,8 +66,8 @@ Button.propTypes = {
     'icon-primaryWhite',
     'icon-secondaryWhite',
 
-
     '************************** BELOW ARE DEPRECATED (supported for wix-style-react) **************************',
+    'transparent',
     'fullred',
     'fullgreen',
     'fullpurple',
@@ -81,9 +81,6 @@ Button.propTypes = {
     'whiteblue',
     'whiteblueprimary',
     'whitebluesecondary',
-    'close-standard',
-    'close-dark',
-    'close-transparent',
     'icon-greybackground',
     'icon-standard',
     'icon-standardsecondary',
