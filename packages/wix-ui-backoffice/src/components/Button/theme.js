@@ -67,7 +67,7 @@ const skins = {
   tertiaryStandard: createTertiaryColorSkin(c.B10, c.B20),
   'close-standard': createTransparentColorSkin(c.B10, c.B20, c.B10),
   'close-dark': createTransparentColorSkin(c.D10, c.D10, c.D10),
-  'close-white': createTransparentColorSkin(c.D40, c.D50, c.D40),
+  'close-white': createTransparentColorSkin(c.B40, c.B50, c.B40),
   'close-lightBlue': createBaseColorSkin(c.B10, c.B30, c.B30, c.B10, c.B40, c.B40, c.B10, c.B30, c.B30, c.D80, c.D55, c.D55)
 };
 

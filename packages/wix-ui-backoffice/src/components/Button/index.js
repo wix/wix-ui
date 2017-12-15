@@ -25,7 +25,7 @@ const addSuffix = (icon, size) => (
 const Button = ({height: size, theme: skin, prefixIcon, suffixIcon, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size} skin={skin}>
     <CoreButton {...coreProps}>
-      <div style={{display: 'flex', alignItems: 'center'}}>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         {addPrefix(prefixIcon, iconSize(size))}
         <UIText appearance={appearance(size)}>{coreProps.children}</UIText>
         {addSuffix(suffixIcon, iconSize(size))}
