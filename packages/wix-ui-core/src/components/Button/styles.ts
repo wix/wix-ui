@@ -1,7 +1,7 @@
 import {core, ButtonTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
-const uiTextSelector = '& [data-class="uitext"]';
+const contentSelector = '& [data-class="button-content"]';
 
 export const styles = (theme: ButtonTheme) => {
   theme = (defaultsDeep(theme, core) as ButtonTheme);
@@ -25,6 +25,7 @@ export const styles = (theme: ButtonTheme) => {
       fontWeight: theme.fontWeight,
       textDecoration: theme.textDecoration,
 
+      color: theme.color,
       background: theme.backgroundColor,
       borderColor: theme.borderColor,
 
@@ -37,9 +38,12 @@ export const styles = (theme: ButtonTheme) => {
 
       transition: 'background-color 100ms linear, border-color 100ms linear, color 100ms linear',
 
-      color: theme.color,
-      [uiTextSelector]: {
-        color: theme.color
+      [contentSelector]: {
+        display: 'block',
+        height: '100%',
+        padding: theme.contentPadding,
+        color: theme.color,
+        textDecoration: theme.textDecoration
       },
 
       '&:hover': {
@@ -47,7 +51,7 @@ export const styles = (theme: ButtonTheme) => {
         backgroundColor: theme.hover.backgroundColor,
         borderColor: theme.hover.borderColor,
 
-        [uiTextSelector]: {
+        [contentSelector]: {
           color: theme.hover.color
         }
       },
@@ -57,7 +61,7 @@ export const styles = (theme: ButtonTheme) => {
         backgroundColor: theme.active.backgroundColor,
         borderColor: theme.active.borderColor,
 
-        [uiTextSelector]: {
+        [contentSelector]: {
           color: theme.active.color
         }
       },
@@ -68,7 +72,7 @@ export const styles = (theme: ButtonTheme) => {
         backgroundColor: theme.disabled.backgroundColor,
         borderColor: theme.disabled.borderColor,
 
-        [uiTextSelector]: {
+        [contentSelector]: {
           color: theme.disabled.color
         }
       }

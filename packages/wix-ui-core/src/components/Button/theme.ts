@@ -5,6 +5,7 @@ export type ButtonTheme = {
   width?: string;
   height?: string;
   padding?: string;
+  contentPadding?: string;
   borderRadius?: string;
 
   fontFamily?: string;
@@ -40,6 +41,7 @@ export type ButtonTheme = {
 export const core: ButtonTheme = {
   height: '36px',
   padding: '0 23px',
+  contentPadding: '0',
   borderRadius: '0',
 
   fontFamily: `"HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "メイリオ, meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif"`,

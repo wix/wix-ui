@@ -68,15 +68,9 @@ const skins = {
   'close-standard': createTransparentColorSkin(c.B10, c.B20, c.B10),
   'close-dark': createTransparentColorSkin(c.D10, c.D10, c.D10),
   'close-white': createTransparentColorSkin(c.B40, c.B50, c.B40),
-  'close-lightBlue': createBaseColorSkin(c.B10, c.B30, c.B30, c.B10, c.B40, c.B40, c.B10, c.B30, c.B30, c.D80, c.D55, c.D55)
+  'close-lightBlue': createBaseColorSkin(c.B10, c.B30, c.B30, c.B10, c.B40, c.B40, c.B10, c.B30, c.B30, c.D80, c.D55, c.D55),
+  'close-transparent': transparentGrey
 };
-
-skins['close-transparent'] = skins.transparentGrey;
-skins['icon-primaryStandard'] = skins.primaryStandard;
-skins['icon-secondaryStandard'] = skins.secondaryStandard;
-skins['icon-tertiaryStandard'] = skins.tertiaryStandard;
-skins['icon-primaryWhite'] = skins.primaryWhite;
-skins['icon-secondaryWhite'] = skins.secondaryWhite;
 
 //**************************  deprecated themes (support for wix-react-style) **************************
 skins.transparent = skins.transparentGrey;
@@ -92,32 +86,36 @@ skins.emptybluesecondary = skins.primaryWhite;
 skins.whiteblue = skins.tertiaryStandard;
 skins.whiteblueprimary = skins.primaryWhite;
 skins.whitebluesecondary = skins.secondaryWhite;
-skins['icon-standard'] = skins['icon-primaryStandard'];
-skins['icon-standardsecondary'] = skins['icon-secondaryStandard'];
-skins['icon-greybackground'] = skins['icon-tertiaryStandard'];
-skins['icon-white'] = skins['icon-primaryWhite'];
-skins['icon-whitesecondary'] = skins['icon-secondaryWhite'];
+skins['icon-standard'] = skins.primaryStandard;
+skins['icon-standardsecondary'] = skins.secondaryStandard;
+skins['icon-greybackground'] = skins.tertiaryStandard;
+skins['icon-white'] = skins.primaryWhite;
+skins['icon-whitesecondary'] = skins.secondaryWhite;
 
 const sizes = {
   [SIZE.tiny]: {
     height: '24px',
     borderRadius: '21px',
-    padding: '0 12px'
+    padding: '0',
+    contentPadding: '0 12px'
   },
   [SIZE.small]: {
     height: '30px',
     borderRadius: '21px',
-    padding: '0 18px'
+    padding: '0',
+    contentPadding: '0 18px'
   },
   [SIZE.medium]: {
     height: '36px',
     borderRadius: '21px',
-    padding: '0 24px'
+    padding: '0',
+    contentPadding: '0 24px'
   },
   [SIZE.large]: {
     height: '42px',
     borderRadius: '21px',
-    padding: '0 30px'
+    padding: '0',
+    contentPadding: '0 30px'
   }
 };
 
@@ -152,18 +150,24 @@ const closeSizes = {
 };
 
 const getSizeAttributes = (skin, size, isIcon) => {
-  if (skin.startsWith('icon') || isIcon) {
-    return iconSizes[size];
-  }
   if (skin.startsWith('close')) {
     return closeSizes[size];
+  }
+  if (skin.startsWith('icon') || isIcon) {
+    return iconSizes[size];
   }
   return sizes[size];
 };
 
 export const theme = ({skin, size, isIcon}) => {
+  const sizeAttributes = getSizeAttributes(skin, size, isIcon);
+
+  if (!sizeAttributes) {
+    throw new Error(`Button height "${size}" is not supported for these props: theme - "${skin}", isIcon - ${isIcon}`);
+  }
+
   return {
-    ...getSizeAttributes(skin, size, isIcon),
+    ...sizeAttributes,
     ...skins[skin]
   };
 };
