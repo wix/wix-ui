@@ -1,6 +1,3 @@
-import typography, {convertFromUxLangToCss} from '../Typography';
-import styles from './Badge.scss';
-
 export default ({element}) => ({
   /** Something */
   /** Something */

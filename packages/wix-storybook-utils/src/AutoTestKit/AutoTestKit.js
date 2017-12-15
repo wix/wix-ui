@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class AutoTestKit extends Component {
 
   static propTypes = {
-    source: PropTypes.string
+    source: PropTypes.object
   };
 
   getMethodRow = methodName => {
