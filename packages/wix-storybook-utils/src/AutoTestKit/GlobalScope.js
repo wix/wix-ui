@@ -11,7 +11,11 @@ class GlobalScope extends Scope {
     if (declaration.specifiers.some(specifier => specifier.local.name === name)) {
       const fileContents = this.files[declaration.source.value];
       const recastedContent = parse(fileContents);
-      return {identifierValue: this._getDefaultExportStatement(recastedContent.program.body).declaration, scope: new GlobalScope(recastedContent.program.body, this.files)};
+      // We return a new scope because we return a new file contents which has its own scope
+      return {
+        identifierValue: this._getDefaultExportStatement(recastedContent.program.body).declaration,
+        scope: new GlobalScope(recastedContent.program.body, this.files)
+      };
     }
   }
 
@@ -20,9 +24,8 @@ class GlobalScope extends Scope {
   }
 
   getDefaultExportStatement() {
-    return this._getDefaultExportStatement(this.scope)
+    return this._getDefaultExportStatement(this.scope);
   }
 }
 
 module.exports = GlobalScope;
-

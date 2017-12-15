@@ -3,6 +3,14 @@ const GlobalScope = require('./GlobalScope');
 const parse = require('recast').parse;
 
 class DriverParser {
+  /**
+   * @param {Object} files - This is an object that contains all of the external file content that this parser may need.
+   * For example:
+   * {
+   *    './Badge/Badge.driver.js': '[content of this file as text]'
+   * }
+   * This Object also has a special property called 'entry' which is what the parser should start with
+   */
   constructor(files) {
     this.files = files;
     const fileContents = files[files.entry];
@@ -12,6 +20,8 @@ class DriverParser {
   parse() {
     const topParentScope = new GlobalScope(this.recastedDriver.program.body, this.files);
 
+    // We only case about what this file exports..
+    //TODO: Parse non-default exports
     return this.parseDefaultExport(topParentScope);
   }
 
@@ -29,12 +39,14 @@ class DriverParser {
         returnValue = this._parseObjectExpression(scope, declaration);
         break;
       case 'Identifier':
-        const returnData = scope.getIdentifierValue(declaration.name);
-        returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
+        {
+          const returnData = scope.getIdentifierValue(declaration.name);
+          returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
+        }
         break;
       case 'UnaryExpression':
       case 'LogicalExpression':
-        // TODO
+        // TODO: Do something smart if possible
         return null;
       default:
         throw new Error(`Unknown declaration type ${type}`);
@@ -48,6 +60,11 @@ class DriverParser {
   }
 
   _commentsToDescription(comments) {
+    /*
+     * Comments may contain some valueble data regarding the thing they are describing.
+     * For instance: variable types / return types etc..
+     * Maybe we should parse it in the future and add them to the result of the parse output
+     */
     const isValidComment = comment => {
       return comment.type === 'Block' && comment.value.indexOf('*') === 0;
     };

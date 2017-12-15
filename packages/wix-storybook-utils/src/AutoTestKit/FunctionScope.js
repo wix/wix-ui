@@ -16,13 +16,13 @@ class FunctionScope extends Scope {
       case 'MemberExpression':
       case 'LogicalExpression':
       case 'ConditionalExpression':
-        // TODO We need to parse this as it can be another object
+      case 'Identifier':
+      case 'Literal':
+        // TODO: These cases may return an object, so maybe we need to continue parsing them.
         blockScope = null;
         break;
       case 'BinaryExpression':
       case 'UnaryExpression':
-      case 'Identifier':
-      case 'Literal':
         blockScope = null;
         break;
       default:
@@ -71,8 +71,10 @@ class FunctionScope extends Scope {
         returnValue = this.body;
         break;
       case 'BlockStatement':
-        const returnStatement = this.body.body.find(statement => statement.type === 'ReturnStatement');
-        returnValue = returnStatement && returnStatement.argument;
+        {
+          const returnStatement = this.body.body.find(statement => statement.type === 'ReturnStatement');
+          returnValue = returnStatement && returnStatement.argument;
+        }
         break;
       case 'CallExpression':
       case 'MemberExpression':
@@ -94,6 +96,11 @@ class FunctionScope extends Scope {
   }
 
   _getIdentifierValueFromParams(name) {
+    /*
+      TODO: Currently this method always returns 'undefined'. This is because we can never know the value of the param (maybe we can in the future when we use TypeScript)
+
+      In any case, if we do find the parameter, we should return 'null' and not 'undefined' so we'll know that it was found
+    */
     const params = this.params;
     const value = undefined;
     (params || []).forEach(param => {
@@ -101,7 +108,7 @@ class FunctionScope extends Scope {
       switch (type) {
         case 'ObjectPattern':
           break;
-
+        // TODO: Get the param with the name
         default:
           break;
       }
