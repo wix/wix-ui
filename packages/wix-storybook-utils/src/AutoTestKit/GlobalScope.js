@@ -1,6 +1,4 @@
 const Scope = require('./Scope');
-const fs = require('fs');
-const path = require('path');
 const parse = require('recast').parse;
 
 class GlobalScope extends Scope {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import DriverParser from './DriverParser';
+import {DriverParser} from './DriverParser';
 
 export default class AutoTestKit extends Component {
 

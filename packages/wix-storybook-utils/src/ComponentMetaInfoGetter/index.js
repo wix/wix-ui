@@ -1,4 +1,4 @@
-import {normalize} from 'path';
+import path, {normalize} from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -127,19 +127,19 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
       const componentSourcePromises = composes.map(dependencyPath => this.getComponentSource(dependencyPath));
 
       return Promise.all(componentSourcePromises)
-         .then(dependencySources => {
-           const collectedPropPromises = dependencySources.map(source => this.getAllPropTypesFromParsedSource(parser(source)));
+        .then(dependencySources => {
+          const collectedPropPromises = dependencySources.map(source => this.getAllPropTypesFromParsedSource(parser(source)));
 
-           return Promise.all(collectedPropPromises).then(collectedResults =>
-             collectedResults.reduce(
-               (acc, props) => ({
-                 ...props,
-                 ...acc
-               }),
-               {}
-             )
-           );
-         });
+          return Promise.all(collectedPropPromises).then(collectedResults =>
+            collectedResults.reduce(
+              (acc, props) => ({
+                ...props,
+                ...acc
+              }),
+              {}
+            )
+          );
+        });
     }
 
     const result = {
@@ -156,13 +156,45 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
   getTestKitSrc() {
     const {componentSrcFolder, storyName} = this.props;
-    this.getTestKitFileContent(`./${componentSrcFolder}/${storyName}.driver.js`);
+    let filePath = path.join(`./${componentSrcFolder}`, `${storyName}.driver.js`);
+    filePath = '.' + path.resolve(filePath);
+    const files = {entry: filePath};
+
+    const getFileContent = (fileName, basePath, originalPath) => {
+      if (fileName.endsWith('css')) {
+        return Promise.resolve();
+      }
+      console.log(`fileName: ${fileName}`);
+      console.log(`basePath: ${basePath}`);
+
+      let filePath = path.join(basePath, fileName);
+      filePath = '.' + path.resolve(filePath);
+      console.log(`filePath: ${filePath}`);
+
+      return this.getTestKitFilePromise(filePath)
+        .then(fileContents => {
+          files[originalPath] = fileContents;
+          const programBody = parse(fileContents).program.body;
+          const promises = [];
+          programBody.forEach(declaration => {
+            if (declaration.type === 'ImportDeclaration') {
+              if (declaration.source.value[0] === '.') {
+                const nextFileName = path.basename(declaration.source.value);
+                const nextBasePath = path.dirname(declaration.source.value);
+
+                promises.push(getFileContent(nextFileName, nextBasePath, declaration.source.value));
+              }
+            }
+          });
+          return Promise.all(promises);
+        });
+    };
+
+    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath).then(() => files);
   }
 
-  getTestKitFileContent(path) {
-    return this.rawContextualImport(path).then((fileContent) => {
-      console.log(parse(fileContent));
-    });
+  getTestKitFilePromise(path) {
+    return this.rawContextualImport(path);
   }
 
   getReadmeTestKit() {
@@ -176,6 +208,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   loadMdFile(fileName) {
     const baseName = fileName.endsWith('.md') ? fileName.replace(/\.md$/gi, '') : fileName;
 
-    return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {});
+    return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {
+    });
   }
 }

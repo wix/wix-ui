@@ -3,9 +3,10 @@ const GlobalScope = require('./GlobalScope');
 const parse = require('recast').parse;
 
 class DriverParser {
-    constructor(files) {
-      this.files = files;
-    this.recastedDriver = parse(files[files.entry]);
+  constructor(files) {
+    this.files = files;
+    const fileContents = files[files.entry];
+    this.recastedDriver = parse(fileContents);
   }
 
   parse() {
@@ -33,7 +34,7 @@ class DriverParser {
         break;
       case 'UnaryExpression':
       case 'LogicalExpression':
-        // TODO 
+        // TODO
         return null;
       default:
         throw new Error(`Unknown declaration type ${type}`);
