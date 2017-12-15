@@ -1,12 +1,8 @@
 import path, {normalize} from 'path';
-
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import parser from '../AutoDocs/parser';
-
-const parse = require('recast').parse;
-
+import {parse} from 'recast';
 import {DriverParser} from '../AutoTestKit/DriverParser';
 
 export default class ComponentMetaInfoGetter extends React.PureComponent {
@@ -36,9 +32,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {
-      componentSrcFolder
-    } = this.props;
+    const {componentSrcFolder} = this.props;
 
     if (!componentSrcFolder) {
       this.setState({
@@ -79,24 +73,23 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
     const resolvedPath = normalize(additionalPath ? `${componentSrcFolder}/${additionalPath}` : componentSrcFolder);
 
-    return this.rawContextualImport(`./${resolvedPath}`)
-      .then(source => {
-        const sourceContainsOneLine = source.trim().split('\n').length === 1;
-        const onlyDefaultExportPresent = source.startsWith('export {default} from');
+    return this.rawContextualImport(`./${resolvedPath}`).then(source => {
+      const sourceContainsOneLine = source.trim().split('\n').length === 1;
+      const onlyDefaultExportPresent = source.startsWith('export {default} from');
 
-        if (sourceContainsOneLine && onlyDefaultExportPresent) {
-          let newSourcePath = '';
-          source.replace(/['"]([./a-zA-Z0-9-]+)['"]/gi, (match, p1) => {
-            newSourcePath = p1;
-          });
+      if (sourceContainsOneLine && onlyDefaultExportPresent) {
+        let newSourcePath = '';
+        source.replace(/['"]([./a-zA-Z0-9-]+)['"]/gi, (match, p1) => {
+          newSourcePath = p1;
+        });
 
-          newSourcePath = newSourcePath.replace(/^\.\//, '/');
+        newSourcePath = newSourcePath.replace(/^\.\//, '/');
 
-          return this.getComponentSource(`${additionalPath}${newSourcePath}`);
-        }
+        return this.getComponentSource(`${additionalPath}${newSourcePath}`);
+      }
 
-        return source;
-      });
+      return source;
+    });
   }
 
   getComponentInstance() {
@@ -120,28 +113,24 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   }
 
   getAllPropTypesFromParsedSource(parsedSource, collectedProps = {}) {
-    const {
-      composes = [],
-      props
-    } = parsedSource;
+    const {composes = [], props} = parsedSource;
 
     if (composes.length) {
       const componentSourcePromises = composes.map(dependencyPath => this.getComponentSource(dependencyPath));
 
-      return Promise.all(componentSourcePromises)
-        .then(dependencySources => {
-          const collectedPropPromises = dependencySources.map(source => this.getAllPropTypesFromParsedSource(parser(source)));
+      return Promise.all(componentSourcePromises).then(dependencySources => {
+        const collectedPropPromises = dependencySources.map(source => this.getAllPropTypesFromParsedSource(parser(source)));
 
-          return Promise.all(collectedPropPromises).then(collectedResults =>
-            collectedResults.reduce(
-              (acc, props) => ({
-                ...props,
-                ...acc
-              }),
-              {}
-            )
-          );
-        });
+        return Promise.all(collectedPropPromises).then(collectedResults =>
+          collectedResults.reduce(
+            (acc, props) => ({
+              ...props,
+              ...acc
+            }),
+            {}
+          )
+        );
+      });
     }
 
     const result = {
@@ -156,6 +145,10 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     return this.loadMdFile('README');
   }
 
+  /**
+   * This method will get all file contents from all imported files.
+   * Then if will try to parse them to build an auto generated doc
+   */
   getTestKitSrc() {
     const {componentSrcFolder, storyName} = this.props;
     let filePath = path.join(`./${componentSrcFolder}`, `${storyName}.driver.js`);
@@ -166,38 +159,36 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
       if (fileName.endsWith('css')) {
         return Promise.resolve();
       }
-      console.log(`fileName: ${fileName}`);
-      console.log(`basePath: ${basePath}`);
 
       let filePath = path.join(basePath, fileName);
       filePath = '.' + path.resolve(filePath);
-      console.log(`filePath: ${filePath}`);
 
-      return this.getTestKitFilePromise(filePath)
-        .then(fileContents => {
-          files[originalPath] = fileContents;
-          const programBody = parse(fileContents).program.body;
-          const promises = [];
-          programBody.forEach(declaration => {
-            if (declaration.type === 'ImportDeclaration') {
-              if (declaration.source.value[0] === '.') {
-                const nextFileName = path.basename(declaration.source.value);
-                const nextBasePath = path.dirname(declaration.source.value);
+      return this.getTestKitFilePromise(filePath).then(fileContents => {
+        files[originalPath] = fileContents;
+        const programBody = parse(fileContents).program.body;
+        const promises = [];
+        programBody.forEach(declaration => {
+          if (declaration.type === 'ImportDeclaration') {
+            if (declaration.source.value[0] === '.') {
+              const nextFileName = path.basename(declaration.source.value);
+              const nextBasePath = path.dirname(declaration.source.value);
 
-                promises.push(getFileContent(nextFileName, nextBasePath, declaration.source.value));
-              }
+              promises.push(getFileContent(nextFileName, nextBasePath, declaration.source.value));
             }
-          });
-          return Promise.all(promises);
+          }
         });
+        return Promise.all(promises);
+      });
     };
 
-    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath).then(() => {
-      return new DriverParser(files).parse();
-    }).catch(() => {
-      // TODO remove this if you want to see all failing cases
-      return null;
-    });
+    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath)
+      .then(() => {
+        return new DriverParser(files).parse();
+      })
+      .catch(() => {
+        // TODO remove this if you want to see all failing cases
+        return null;
+      });
   }
 
   getTestKitFilePromise(path) {
@@ -215,7 +206,6 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
   loadMdFile(fileName) {
     const baseName = fileName.endsWith('.md') ? fileName.replace(/\.md$/gi, '') : fileName;
 
-    return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {
-    });
+    return this.contextualImport(`./${this.props.componentSrcFolder}/${baseName}.md`).catch(() => {});
   }
 }
