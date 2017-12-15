@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import parser from '../AutoDocs/parser';
 
+const parse = require('recast').parse;
+
 export default class ComponentMetaInfoGetter extends React.PureComponent {
   static propTypes = {
     componentSrcFolder: PropTypes.string,
@@ -154,7 +156,13 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
   getTestKitSrc() {
     const {componentSrcFolder, storyName} = this.props;
-    return this.rawContextualImport(`./${componentSrcFolder}/${storyName}.driver.js`).catch(console.log);
+    this.getTestKitFileContent(`./${componentSrcFolder}/${storyName}.driver.js`);
+  }
+
+  getTestKitFileContent(path) {
+    return this.rawContextualImport(path).then((fileContent) => {
+      console.log(parse(fileContent));
+    });
   }
 
   getReadmeTestKit() {

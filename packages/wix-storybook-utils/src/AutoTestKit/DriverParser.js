@@ -1,14 +1,15 @@
-const Scope = require('./Scope').Scope;
-const FunctionScope = require('./Scope').FunctionScope;
+const FunctionScope = require('./FunctionScope');
+const GlobalScope = require('./GlobalScope');
 const parse = require('recast').parse;
 
 class DriverParser {
-  constructor(driverFileContent) {
-    this.recastedDriver = parse(driverFileContent);
+    constructor(files) {
+      this.files = files;
+    this.recastedDriver = parse(files[files.entry]);
   }
 
   parse() {
-    const topParentScope = new Scope(this.recastedDriver.program.body, null);
+    const topParentScope = new GlobalScope(this.recastedDriver.program.body, this.files);
 
     return this.parseDefaultExport(topParentScope);
   }
@@ -27,8 +28,13 @@ class DriverParser {
         returnValue = this._parseObjectExpression(scope, declaration);
         break;
       case 'Identifier':
-        returnValue = this._parseDeclaration(scope, scope.getIdentifierValue(declaration.name));
+        const returnData = scope.getIdentifierValue(declaration.name);
+        returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
         break;
+      case 'UnaryExpression':
+      case 'LogicalExpression':
+        // TODO 
+        return null;
       default:
         throw new Error(`Unknown declaration type ${type}`);
     }
@@ -88,4 +94,4 @@ class DriverParser {
   }
 }
 
-module.exports = DriverParser;
+module.exports.DriverParser = DriverParser;

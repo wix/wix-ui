@@ -1,0 +1,101 @@
+{
+  "type": "function",
+  "name": "Anonymous",
+  "params": [
+    {
+      "type": "object",
+      "properties": [
+        "element",
+        "wrapper",
+        "component"
+      ]
+    }
+  ],
+  "returns": {
+    "exists": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": []
+    },
+    "driver": {
+      "exists": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "inputWrapper": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "focus": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "blur": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressDownKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressUpKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressAnyKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressEnterKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressTabKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "pressEscKey": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "outsideClick": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": []
+      },
+      "setProps": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": [
+          {
+            "type": "unknown",
+            "name": "props"
+          }
+        ]
+      },
+      "isOptionWrappedToHighlighter": {
+        "type": "function",
+        "name": "Anonymous",
+        "params": [
+          {
+            "type": "unknown",
+            "name": "optionId"
+          }
+        ],
+        "returns": null
+      }
+    },
+    "inputDriver": null,
+    "dropdownLayoutDriver": null
+  }
+}

@@ -7,6 +7,7 @@ import AutoTestKit from './AutoTestKit';
 
 const fakeBadgeTestKitFilePath = 'mock-testkits/BadgeDriverString.txt';
 const fakeInputTestKitFilePath = 'mock-testkits/InputDriverString.txt';
+const fakeTextLinkTestKitFilePath = 'mock-testkits/textLinkDriverString.txt';
 
 const getFakeTestKitFile = fileName =>
   fs.readFileSync(path.resolve(path.join(__dirname, fileName)), 'utf8');
@@ -34,8 +35,8 @@ describe('AutoTestKit', () => {
 
   describe('Badge testKit', () => {
     it('should have seven methods', () => {
-      const BadgeTestKit = getFakeTestKitFile(fakeBadgeTestKitFilePath);
-      const driver = createDriver(render(BadgeTestKit));
+      const badgeTestKit = getFakeTestKitFile(fakeBadgeTestKitFilePath);
+      const driver = createDriver(render(badgeTestKit));
       expect(driver.getMethodsCount()).toEqual(7);
       expect(driver.getMethodAt(0).getDescription()).toEqual(' Something  Something ');
     });
@@ -43,10 +44,17 @@ describe('AutoTestKit', () => {
 
   describe('Input testKit', () => {
     it('should have fifty methods', () => {
-      const InputTestKit = getFakeTestKitFile(fakeInputTestKitFilePath);
-      const driver = createDriver(render(InputTestKit));
+      const inputTestKit = getFakeTestKitFile(fakeInputTestKitFilePath);
+      const driver = createDriver(render(inputTestKit));
       expect(driver.getMethodsCount()).toEqual(50);
       expect(driver.getMethodAt(2).getName()).toEqual('blur');
+    });
+  });
+
+  describe.only('TextLink testKit', () => {
+    it('should render', () => {
+      const textLinkTestKit = getFakeTestKitFile(fakeTextLinkTestKitFilePath);
+      const driver = createDriver(render(textLinkTestKit));
     });
   });
 });
