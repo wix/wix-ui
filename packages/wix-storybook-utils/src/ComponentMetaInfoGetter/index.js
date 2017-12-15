@@ -194,6 +194,9 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
     return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath).then(() => {
       return new DriverParser(files).parse();
+    }).catch(() => {
+      // TODO remove this if you want to see all failing cases
+      return null;
     });
   }
 

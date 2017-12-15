@@ -37,22 +37,23 @@ export default class AutoTestKit extends Component {
     return (
       <div className="markdown-body">
         <h2>Auto Generated Enzyme Testkit</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Arguments</th>
-              <th>Returned Value</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              Object.keys(source.returns)
-                .map(methodName => this.getMethodRow(methodName))
-            }
-          </tbody>
-        </table>
+        {source ?
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Arguments</th>
+                <th>Returned Value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                Object.keys(source.returns)
+                  .map(methodName => this.getMethodRow(methodName))
+              }
+            </tbody>
+          </table> : <h4>Parsing driver crashed, pull requests are welcome :)</h4>}
       </div>
 
     );

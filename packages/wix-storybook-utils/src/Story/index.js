@@ -168,7 +168,7 @@ function Story(props) {
 
               <div>
                 {actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/>}
-                {testKitSrc && <AutoTestKit source={testKitSrc}/>}
+                <AutoTestKit source={testKitSrc}/>
               </div>
 
               {actualReadmeAccessibility && <Markdown source={actualReadmeAccessibility}/>}
