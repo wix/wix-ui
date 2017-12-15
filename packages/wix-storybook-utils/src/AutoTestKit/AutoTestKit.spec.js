@@ -51,7 +51,7 @@ describe('AutoTestKit', () => {
     });
   });
 
-  describe.only('TextLink testKit', () => {
+  describe('TextLink testKit', () => {
     it('should render', () => {
       const textLinkTestKit = getFakeTestKitFile(fakeTextLinkTestKitFilePath);
       const driver = createDriver(render(textLinkTestKit));

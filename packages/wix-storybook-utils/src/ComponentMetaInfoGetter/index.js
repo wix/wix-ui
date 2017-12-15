@@ -7,6 +7,8 @@ import parser from '../AutoDocs/parser';
 
 const parse = require('recast').parse;
 
+import {DriverParser} from '../AutoTestKit/DriverParser';
+
 export default class ComponentMetaInfoGetter extends React.PureComponent {
   static propTypes = {
     componentSrcFolder: PropTypes.string,
@@ -190,7 +192,9 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
         });
     };
 
-    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath).then(() => files);
+    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath).then(() => {
+      return new DriverParser(files).parse();
+    });
   }
 
   getTestKitFilePromise(path) {

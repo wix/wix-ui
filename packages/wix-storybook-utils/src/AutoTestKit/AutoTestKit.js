@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DriverParser} from './DriverParser';
 
 export default class AutoTestKit extends Component {
 
   static propTypes = {
     source: PropTypes.string
   };
-
-  componentWillMount() {
-    const result = new DriverParser(this.props.source).parse() || '';
-    this.setState({source: result});
-  }
 
   getMethodRow = methodName => {
     const method = this.getMethod(methodName);
@@ -35,11 +29,11 @@ export default class AutoTestKit extends Component {
   }
 
   getMethod = methodName => {
-    return this.state.source.returns[methodName];
+    return this.props.source.returns[methodName];
   }
 
   render() {
-    const source = this.state.source;
+    const source = this.props.source;
     return (
       <div className="markdown-body">
         <h2>Auto Generated Enzyme Testkit</h2>
