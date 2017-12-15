@@ -70,11 +70,10 @@ class FunctionScope extends Scope {
       case 'ObjectExpression':
         returnValue = this.body;
         break;
-      case 'BlockStatement':
-        {
-          const returnStatement = this.body.body.find(statement => statement.type === 'ReturnStatement');
-          returnValue = returnStatement && returnStatement.argument;
-        }
+      case 'BlockStatement': {
+        const returnStatement = this.body.body.find(statement => statement.type === 'ReturnStatement');
+        returnValue = returnStatement && returnStatement.argument;
+      }
         break;
       case 'CallExpression':
       case 'MemberExpression':
@@ -95,7 +94,7 @@ class FunctionScope extends Scope {
     return returnValue;
   }
 
-  _getIdentifierValueFromParams(name) {
+  _getIdentifierValueFromParams(name) { // eslint-disable-line no-unused-vars
     /*
       TODO: Currently this method always returns 'undefined'. This is because we can never know the value of the param (maybe we can in the future when we use TypeScript)
 
