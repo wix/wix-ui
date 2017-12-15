@@ -3,8 +3,9 @@ import {mount} from 'enzyme';
 import fs from 'fs';
 import path from 'path';
 import {DriverParser} from './DriverParser';
+import BadgeDriverJson from './Badge.driver';
 
-import AutoTestKit from './AutoTestKit';
+import AutoTestKit from './index';
 
 const fakeTestKitsPaths = {
   InputWithOptions: 'mock-testkits/InputWithOptions.driver.txt',
@@ -23,15 +24,18 @@ const getFiles = () => ({
   '../DropdownLayout/DropdownLayout.driver': getFakeTestKitFile(fakeTestKitsPaths.DropdownLayout)
 });
 
-const render = testKit => {
+const parseTestKit = testKit => {
   const entryTestKitFile = getFakeTestKitFile(testKit);
   const files = {
     entry: testKit,
     ...getFiles,
     [testKit]: entryTestKitFile
   };
-  const source = new DriverParser(files).parse();
-  return mount(<AutoTestKit source={source}/>);
+  return new DriverParser(files).parse();
+};
+
+const render = testKit => {
+  return mount(<AutoTestKit source={parseTestKit(testKit)}/>);
 };
 
 const byHook = (wrapper, hook) =>
@@ -65,6 +69,12 @@ describe('AutoTestKit', () => {
       const driver = createDriver(render(fakeTestKitsPaths.Input));
       expect(driver.getMethodsCount()).toEqual(50);
       expect(driver.getMethodAt(2).getName()).toEqual('blur');
+    });
+  });
+
+  describe('parsing', () => {
+    it('should return json', () => {
+      expect(parseTestKit(fakeTestKitsPaths.Badge)).toEqual(BadgeDriverJson);
     });
   });
 });

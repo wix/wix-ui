@@ -1,0 +1,70 @@
+{
+  "type": "function",
+  "name": "Anonymous",
+  "params": [
+    {
+      "type": "object",
+      "properties": [
+        "element"
+      ]
+    }
+  ],
+  "returns": {
+    "exists": {
+      "type": "function",
+      "name": "Anonymous",
+      "description": " Something  Something ",
+      "params": []
+    },
+    "isBadge": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": []
+    },
+    "isOfType": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": [
+        {
+          "type": "unknown",
+          "name": "type"
+        }
+      ]
+    },
+    "isOfAppearance": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": [
+        {
+          "type": "unknown",
+          "name": "appearance"
+        }
+      ]
+    },
+    "isOfAlignment": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": [
+        {
+          "type": "unknown",
+          "name": "alignment"
+        }
+      ]
+    },
+    "isOfShape": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": [
+        {
+          "type": "unknown",
+          "name": "shape"
+        }
+      ]
+    },
+    "text": {
+      "type": "function",
+      "name": "Anonymous",
+      "params": []
+    }
+  }
+}
