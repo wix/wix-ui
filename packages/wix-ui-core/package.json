@@ -32,7 +32,6 @@
     "react": "^15.4.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.22.0",
     "classnames": "^2.2.5",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
@@ -65,22 +64,6 @@
       "react",
       "stage-2"
     ]
-  },
-  "eslintConfig": {
-    "extends": "wix/react",
-    "env": {
-      "jest": true
-    },
-    "rules": {
-      "react/jsx-handler-names": 0,
-      "react/no-find-dom-node": 0,
-      "react/no-string-refs": 0,
-      "react/jsx-boolean-value": 2,
-      "comma-dangle": [
-        "error",
-        "never"
-      ]
-    }
   },
   "license": "MIT",
   "publishConfig": {
