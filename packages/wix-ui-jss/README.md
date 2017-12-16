@@ -29,7 +29,7 @@ Let's assume `theme` is an object which specifies the values for the style. for 
 ```javascript
 const theme = {
   fontSize: '10px',
-  color: 'green
+  color: 'green'
 }
 ```
 
