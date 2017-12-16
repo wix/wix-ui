@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash.uniqueid';
-import {generateClasses, detachStyleSheetFromDom} from './DOMStyleRenderer';
+import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
 
 interface ThemedComponentProps {
   theme?: object;

@@ -1,4 +1,4 @@
-import {getStyleElementByComponentId} from '../src/DOMStyleRenderer';
+import {getStyleElementByComponentId} from '../src/domStyleRenderer';
 import * as css from 'css';
 
 export class DomTestDriver {

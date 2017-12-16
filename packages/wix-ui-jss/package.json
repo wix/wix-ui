@@ -23,7 +23,6 @@
     "build": "haste build",
     "pretest": "npm run build",
     "test": "haste test --jest",
-    "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
     "start": "haste start --no-test",
     "release": "haste release"
@@ -68,7 +67,7 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ],
-    "testRegex": "/src/.*\\.spec\\.(ts|tsx)$",
+    "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
     "setupTestFrameworkScriptFile": "<rootDir>/jest-setup"
   },
   "haste": {
