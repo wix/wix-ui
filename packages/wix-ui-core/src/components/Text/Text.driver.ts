@@ -1,4 +1,4 @@
-import {DomTestDriver} from './../../DOMStyleRenderer/domTest.driver';
+import {DomTestkit} from 'wix-ui-jss/domTestkit';
 
 const getClasses = (element) => {
   const rawCssClasses = element.getAttribute('class');
@@ -10,9 +10,9 @@ const getClasses = (element) => {
 };
 
 export const textDriverFactory = ({element, componentInstance}) => {
-  let domTestDriver = null;
+  let domTestkit = null;
   if (componentInstance) {
-    domTestDriver =  new DomTestDriver({componentId: componentInstance.id} );
+    domTestkit =  new DomTestkit({componentId: componentInstance.id} );
   }
 
   return {
@@ -23,6 +23,6 @@ export const textDriverFactory = ({element, componentInstance}) => {
     /** check if element has title attribute */
     hasTitleAttribute: () => element.getAttribute('title') !== null,
     /** return text font-family value */
-    getFontFamily: () =>  domTestDriver.getCssValue({className: 'root', property: 'font-family'})
+    getFontFamily: () => domTestkit.getCssValue({className: 'root', property: 'font-family'})
   };
 };

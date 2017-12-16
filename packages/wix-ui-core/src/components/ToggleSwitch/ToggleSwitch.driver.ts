@@ -1,11 +1,11 @@
-import {DomTestDriver} from './../../DOMStyleRenderer/domTest.driver';
+import {DomTestkit} from 'wix-ui-jss/domTestkit';
 
 export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrigger}) => {
-  let domTestDriver = null;
+  let domTestkit = null;
   const toggleSwitch = element.querySelector('input');
 
   if (componentInstance) {
-    domTestDriver =  new DomTestDriver({componentId: componentInstance.id} );
+    domTestkit =  new DomTestkit({componentId: componentInstance.id} );
   }
 
   return {
@@ -14,13 +14,13 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
     isChecked: () => toggleSwitch.checked,
     isDisabled: () => toggleSwitch.disabled,
     getRootDisplay: () => {
-      return domTestDriver.getCssValue({
+      return domTestkit.getCssValue({
         className: 'root',
         property: 'display'
       });
     },
     getBorderRadius() {
-      return domTestDriver.getCssValue({
+      return domTestkit.getCssValue({
         className: 'root label',
         property: 'border-radius'
       });

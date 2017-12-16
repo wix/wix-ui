@@ -35,7 +35,8 @@
     "classnames": "^2.2.5",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "wix-ui-jss": "^1.0.1"
   },
   "devDependencies": {
     "@storybook/addon-options": "3.2.13",
@@ -57,13 +58,6 @@
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
     "wix-ui-test-utils": "^1.0.0"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-2"
-    ]
   },
   "license": "MIT",
   "publishConfig": {
