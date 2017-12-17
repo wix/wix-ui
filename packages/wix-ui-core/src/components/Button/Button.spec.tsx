@@ -53,7 +53,7 @@ describe('Button', () => {
       expect(driver.isDisabled()).toBe(false);
     });
 
-    it('should not let call onClick when truthy', () => {
+    it('should not call onClick when truthy', () => {
       const onClick = jest.fn();
       const driver = createDriver(<Button onClick={onClick} disabled/>);
       driver.click();
