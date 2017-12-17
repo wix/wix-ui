@@ -14,8 +14,6 @@ const sizeToIconSize = {
   [SIZE.large]: '16px'
 };
 
-export const appearance = size =>
-  sizeToAppearance[size];
+export const appearance = size => sizeToAppearance[size];
 
-export const iconSize = size =>
-  sizeToIconSize[size];
+export const iconSize = size => sizeToIconSize[size];
