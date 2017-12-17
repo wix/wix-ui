@@ -64,10 +64,12 @@ Lets see for example how we can test that the themed Button we just created abov
 import {DomTestkit} from 'wix-ui-jss/domTestkit';
 import {mount} from 'enzyme';
 
-it('should', () => {
-  const wrapper = mount(<ThemedButton/>);
-  const domTestkit = new DomTestkit({componentId: wrapper.node.id});
+describe('Button', () => {
+  it('should have green color', () => {
+    const wrapper = mount(<ThemedButton/>);
+    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
 
-  expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('green');
+    expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('green');
+  });
 });
 ```
