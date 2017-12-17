@@ -1,5 +1,5 @@
-import Dropdown from './Dropdown';
+import Popover from './Popover';
 // import {styles} from './styles';
 // import {withClasses} from 'wix-ui-jss';
 
-export default Dropdown;
+export default Popover;

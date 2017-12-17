@@ -6,25 +6,10 @@ import Button from '../src/components/Button';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
-import Dropdown from '../src/components/Dropdown';
 
 storiesOf('Components', module)
   .add('Button', () => (
     <Button>Hello</Button>
-  ))
-  .add('Dropdown', () => (
-    <Dropdown trigger="click" placement="right">
-      <Dropdown.Element>
-        <div style={{display: 'inline-block'}}>
-          <input value="This is an input" />
-        </div>
-      </Dropdown.Element>
-      <Dropdown.Content>
-        <div>
-          Content element
-        </div>
-      </Dropdown.Content>
-    </Dropdown>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
