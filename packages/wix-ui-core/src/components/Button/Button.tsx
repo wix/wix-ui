@@ -39,12 +39,8 @@ class Button extends React.PureComponent<ButtonProps> {
     children: any
   };
 
-  constructor(props: ButtonProps) {
-    super(props);
-  }
-
   render() {
-    const {type, disabled, onClick, onMouseEnter, onMouseLeave, classes, children} = this.props;
+    const {type, disabled, onClick, onMouseEnter, onMouseLeave, children, classes} = this.props;
 
     return (
       <button

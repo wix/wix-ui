@@ -38,6 +38,12 @@ export type ButtonTheme = {
   };
 };
 
+const stateStyle = {
+  color: palette.black,
+  backgroundColor: palette.grey,
+  borderColor: palette.black
+};
+
 export const core: ButtonTheme = {
   height: '36px',
   padding: '0 23px',
@@ -54,4 +60,8 @@ export const core: ButtonTheme = {
   color: palette.black,
   backgroundColor: palette.grey,
   borderColor: palette.black,
+
+  hover: stateStyle,
+  disabled: stateStyle,
+  active: stateStyle
 };

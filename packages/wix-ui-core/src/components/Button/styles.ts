@@ -6,10 +6,6 @@ const contentSelector = '& [data-class="button-content"]';
 export const styles = (theme: ButtonTheme) => {
   theme = (defaultsDeep(theme, core) as ButtonTheme);
 
-  theme.hover = theme.hover || {};
-  theme.active = theme.active || {};
-  theme.disabled = theme.disabled || {};
-
   return {
     button: {
       minWidth: theme.minWidth,

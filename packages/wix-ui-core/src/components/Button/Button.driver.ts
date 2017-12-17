@@ -1,4 +1,4 @@
-import {DomTestDriver} from '../../DOMStyleRenderer/domTest.driver';
+import {DomTestDriver} from 'wix-ui-jss/domTestkit';
 
 export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) => {
   let domTestDriver = null;
