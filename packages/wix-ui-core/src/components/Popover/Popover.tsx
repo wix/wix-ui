@@ -28,6 +28,9 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
     popoverShown: false
   };
 
+  public static Element = PopoverElement;
+  public static Content = PopoverContent;
+
   constructor(props) {
     super(props);
 
