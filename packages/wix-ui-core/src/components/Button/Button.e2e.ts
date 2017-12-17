@@ -6,9 +6,7 @@ import {buttonTestkitFactory} from '../../testkit/protractor';
 describe('Button', () => {
   const storyUrl = getStoryUrl('Components', 'Button');
 
-  beforeEach(() => {
-    browser.get(storyUrl);
-  });
+  beforeEach(() => browser.get(storyUrl));
 
   eyes.it('should display correct content', () => {
     const dataHook = 'story-button';
