@@ -6,6 +6,9 @@ import Button from '../src/components/Button';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import Popover from '../src/components/Popover';
+import PopoverElement from '../src/components/Popover/components/PopoverElement';
+import PopoverContent from '../src/components/Popover/components/PopoverContent';
 
 storiesOf('Components', module)
   .add('Button', () => (
@@ -13,6 +16,20 @@ storiesOf('Components', module)
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
+  ))
+  .add('Popover', () => (
+    <Popover>
+      <PopoverElement>
+      <div>
+        Element
+      </div>
+    </PopoverElement>
+    <PopoverContent>
+        <div>
+          Content
+        </div>
+      </PopoverContent>
+    </Popover>
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitch/>

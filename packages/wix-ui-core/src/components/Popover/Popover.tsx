@@ -1,6 +1,9 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import PopperJS from 'popper.js';
+import PopoverElement from './components/PopoverElement';
+import PopoverContent from './components/PopoverContent';
+import {createHOC} from '../../createHOC';
 
 type PopoverClasses = {
   element: string;
@@ -25,9 +28,6 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
     popoverShown: false
   };
 
-  public static Element = props => props.children;
-  public static Content = props => props.children;
-
   constructor(props) {
     super(props);
 
@@ -44,11 +44,11 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
       }
 
       switch (child.type) {
-        case Popover.Element: {
+        case PopoverElement: {
           acc.Element = child;
           break;
         }
-        case Popover.Content: {
+        case PopoverContent: {
           acc.Content = child;
           break;
         }
@@ -89,4 +89,4 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 }
 
-export default Popover;
+export default createHOC(Popover);
