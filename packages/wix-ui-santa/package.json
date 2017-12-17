@@ -19,14 +19,15 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components",
+    "build": "haste build && npm run copy-bundles",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && haste test --protractor",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "copy-bundles": "node scripts/bundlePath.js"
   },
   "peerDependencies": {
     "react": "^15.4.0"
@@ -52,7 +53,6 @@
     "eslint-plugin-react": "^6.8.0",
     "gh-pages-auto-release": "^1.1.2",
     "identity-obj-proxy": "^3.0.0",
-    "import-path": "^0.0.13",
     "prop-types": "^15.5.4",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
@@ -89,7 +89,7 @@
   },
   "yoshi": {
     "entry": {
-      "toggleSwitch": "components/ToggleSwitch/index"
+      "ToggleSwitch": "components/ToggleSwitch/index"
     },
     "externals": {
       "react": {
