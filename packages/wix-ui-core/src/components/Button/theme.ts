@@ -1,6 +1,13 @@
 import {palette} from '../../palette';
 
 export type ButtonTheme = {
+  minWidth?: string;
+  width?: string;
+  height?: string;
+  padding?: string;
+  contentPadding?: string;
+  borderRadius?: string;
+
   fontFamily?: string;
   fontSize?: string;
   lineHeight?: string;
@@ -8,15 +15,17 @@ export type ButtonTheme = {
   fontWeight?: string;
   textDecoration?: string;
 
-  height?: string;
-  padding?: string;
-
   color?: string;
   backgroundColor?: string;
   borderColor?: string;
-  borderRadius?: string;
 
   hover?: {
+    color?: string;
+    backgroundColor?: string;
+    borderColor?: string;
+  };
+
+  active?: {
     color?: string,
     backgroundColor?: string,
     borderColor?: string
@@ -29,7 +38,18 @@ export type ButtonTheme = {
   };
 };
 
+const stateStyle = {
+  color: palette.black,
+  backgroundColor: palette.grey,
+  borderColor: palette.black
+};
+
 export const core: ButtonTheme = {
+  height: '36px',
+  padding: '0 23px',
+  contentPadding: '0',
+  borderRadius: '0',
+
   fontFamily: `"HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "メイリオ, meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif"`,
   fontSize: '16px',
   lineHeight: '24px',
@@ -37,23 +57,11 @@ export const core: ButtonTheme = {
   fontWeight: 'normal',
   textDecoration: 'none',
 
-  height: '36px',
-  padding: '0 23px',
-
   color: palette.black,
   backgroundColor: palette.grey,
   borderColor: palette.black,
-  borderRadius: '0',
 
-  hover: {
-    color: palette.black,
-    backgroundColor: palette.grey,
-    borderColor: palette.black
-  },
-
-  disabled: {
-    color: palette.black,
-    backgroundColor: palette.grey,
-    borderColor: palette.black
-  }
+  hover: stateStyle,
+  disabled: stateStyle,
+  active: stateStyle
 };
