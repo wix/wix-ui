@@ -60,14 +60,6 @@ describe('TpaStylesProvider', () => {
     );
   });
 
-  it('should remove event listeners when unmounts', () => {
-    renderWrapped().unmount();
-
-    Object.keys(wixSdk.Events).forEach(event =>
-      expect(wixSdk.getEventHandlers()[event]).toHaveLength(0)
-    );
-  });
-
   it('should render the children prop', () => {
     wrapper = renderWrapped(<div>Hello</div>);
     expect(wrapper.html()).toBe('<div>Hello</div>');
@@ -104,4 +96,13 @@ describe('TpaStylesProvider', () => {
         .toThrow('wix-ui-tpa components must be wrapped by TpaStylesProvider');
     });
   });
+});
+
+it('TpaStylesProvider should remove event listeners when unmounts', () => {
+  wixSdk = new WixSdk();
+  renderWrapped().unmount();
+
+  Object.keys(wixSdk.Events).forEach(event =>
+    expect(wixSdk.getEventHandlers()[event]).toHaveLength(0)
+  );
 });
