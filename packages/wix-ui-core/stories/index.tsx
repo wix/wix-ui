@@ -9,7 +9,7 @@ import HBox from '../src/components/HBox';
 
 storiesOf('Components', module)
   .add('Button', () => (
-    <Button>Hello</Button>
+    <Button dataHook="story-button">Hello</Button>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
