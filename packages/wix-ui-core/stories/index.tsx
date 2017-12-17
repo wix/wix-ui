@@ -13,7 +13,18 @@ storiesOf('Components', module)
     <Button>Hello</Button>
   ))
   .add('Dropdown', () => (
-    <Dropdown placement="top"/>
+    <Dropdown trigger="click" placement="right">
+      <Dropdown.Element>
+        <div style={{display: 'inline-block'}}>
+          <input value="This is an input" />
+        </div>
+      </Dropdown.Element>
+      <Dropdown.Content>
+        <div>
+          Content element
+        </div>
+      </Dropdown.Content>
+    </Dropdown>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
