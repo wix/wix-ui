@@ -1,5 +1,5 @@
 import Popover from './Popover';
-// import {styles} from './styles';
-// import {withClasses} from 'wix-ui-jss';
+import {styles} from './styles';
+import {withClasses} from 'wix-ui-jss';
 
-export default Popover;
+export default withClasses(Popover, styles);
