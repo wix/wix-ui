@@ -1,6 +1,9 @@
 import {palette} from '../../palette';
 
 export type ToggleSwitchTheme = {
+  rootWidth?: string;
+  rootHeight?: string;
+
   transitionSpeed?: string;
   borderRadius?: string;
   labelMovementRange?: string;
@@ -29,6 +32,9 @@ export type ToggleSwitchTheme = {
 };
 
 export const core: ToggleSwitchTheme = {
+  rootWidth: 'initial',
+  rootHeight: 'initial',
+
   transitionSpeed: '.3s',
   borderRadius: '50px',
   labelMovementRange: '23px',

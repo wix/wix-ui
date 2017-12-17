@@ -178,6 +178,7 @@ export default class extends Component {
 
   controllableComponentGetters = {
     string: () => <Input/>,
+    number: () => <Input/>,
     bool: () => <Toggle/>,
 
     enum: ({type}) =>
@@ -213,14 +214,17 @@ export default class extends Component {
   }
 
   componentToString = component =>
-    jsxToString(
-      component,
-      {
-        useFunctionCode: true,
-        functionNameOnly: false,
-        shortBooleanSyntax: true
+    jsxToString(component, {
+      useFunctionCode: true,
+      functionNameOnly: false,
+      shortBooleanSyntax: true,
+      keyValueOverride: {
+        ...(component.props.value && component.props.value._isAMomentObject ?
+          {value: `'${component.props.value.format(component.props.dateFormat || 'YYYY/MM/DD')}'`} :
+          {}
+        )
       }
-    );
+    })
 
   render() {
     const component = this.props.component;

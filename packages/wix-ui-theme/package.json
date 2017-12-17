@@ -22,7 +22,7 @@
   "scripts": {
     "build": "haste build",
     "pretest": "npm run build",
-    "test": "haste test --jest && haste test --protractor",
+    "test": "haste test --jest",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
     "start": "haste start --no-test",

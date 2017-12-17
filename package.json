@@ -7,9 +7,10 @@
   "description": "wix-ui-monorepo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "lerna run test --parallel false --concurrency 1",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "clean": "lerna clean --yes"
   },
   "repository": {
     "type": "git",

@@ -5,3 +5,4 @@ export {getStoryUrl, scrollToElement, waitForVisibilityOf} from './protractor-he
 export {testkitFactoryCreator, isTestkitExists} from './testkit-helpers/vanilla';
 export {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from './testkit-helpers/enzyme';
 export {protractorTestkitFactoryCreator} from './testkit-helpers/protractor';
+export {default as baseProtractorConfig} from './config/protractor.conf';

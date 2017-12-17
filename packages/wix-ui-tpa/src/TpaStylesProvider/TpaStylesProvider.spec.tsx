@@ -8,9 +8,9 @@ let wixSdk;
 
 const Component: React.SFC<any> = ({children}) => <div>{children}</div>;
 
-const renderWrapped = (Component = <div/>) => mount(
+const renderWrapped = (component = <div/>) => mount(
   <TpaStylesProvider wixSdk={wixSdk}>
-    {Component}
+    {component}
   </TpaStylesProvider>,
   {attachTo: document.createElement('div')}
 );
@@ -80,13 +80,13 @@ describe('TpaStylesProvider', () => {
   });
 
   describe('withTpaStyles function', () => {
-    const Component = ({wixBindings, colors, fonts}) => (
+    const component = ({wixBindings, colors, fonts}) => (
       <div>
         {`color is ${colors.color} and font size is ${fonts.buttonFonts.size}`}
       </div>
     );
 
-    const StyledComponent = withTpaStyles(Component);
+    const StyledComponent = withTpaStyles(component);
 
     it('should pass the colors and fonts on the context', () => {
       wrapper = renderWrapped(<StyledComponent/>);

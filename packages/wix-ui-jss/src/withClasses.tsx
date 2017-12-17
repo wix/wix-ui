@@ -1,25 +1,19 @@
 import * as React from 'react';
-import {object} from 'prop-types';
-import * as uniqueId from 'lodash/uniqueId';
-import {generateClasses, detachStyleSheetFromDom} from './DOMStyleRenderer';
+import * as uniqueId from 'lodash.uniqueid';
+import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
 
 interface ThemedComponentProps {
-  theme?: any;
-
+  theme?: object;
   [coreProps: string]: any;
 }
 
 interface ThemedComponentState {
-  classes: any;
+  classes: object;
 }
 
 export function withClasses(CoreComponent, styles) {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
     private id;
-    static propTypes = {
-      ...CoreComponent.propTypes,
-      theme: object
-    };
 
     constructor(props) {
       super(props);

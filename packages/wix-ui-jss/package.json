@@ -1,0 +1,80 @@
+{
+  "private": false,
+  "name": "wix-ui-jss",
+  "version": "1.0.0",
+  "description": "Render style tags to the Dom and provide the relevant classes to the wix-ui-core components, using jss",
+  "author": {
+    "name": "Lior Belinsky",
+    "email": "liorbe@wix.com"
+  },
+  "bugs": {
+    "url": "https://github.com/wix/wix-ui/issues"
+  },
+  "homepage": "https://github.com/wix/wix-ui#readme",
+  "main": "./dist/src/index.js",
+  "files": [
+    "dist",
+    "*.js",
+    "!wallaby.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wix/wix-ui.git"
+  },
+  "scripts": {
+    "build": "haste build && import-path --path testkit",
+    "pretest": "npm run build",
+    "test": "haste test --jest",
+    "posttest": "haste lint",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test",
+    "release": "haste release"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "@types/react": "~15.6.0",
+    "@types/react-dom": "~15.5.0",
+    "enzyme": "~2.9.0",
+    "haste-preset-yoshi": "latest",
+    "import-path": "0.0.13",
+    "react-test-renderer": "~15.6.0",
+    "ts-jest": "^21.2.3",
+    "typescript": "~2.4.0"
+  },
+  "dependencies": {
+    "jss": "^9.3.3",
+    "jss-preset-default": "^4.0.1",
+    "lodash.uniqueid": "^4.0.1",
+    "react": "15.6.1",
+    "react-dom": "15.6.1"
+  },
+  "yoshi": {
+    "externals": {
+      "react": "React",
+      "react-dom": "ReactDOM"
+    }
+  },
+  "jest": {
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ],
+    "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
+    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup"
+  },
+  "haste": {
+    "preset": "yoshi"
+  }
+}

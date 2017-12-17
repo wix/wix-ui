@@ -2,8 +2,16 @@ import {create, SheetsManager} from 'jss';
 import preset from 'jss-preset-default';
 
 const jss = create(preset());
-const sheetManager = new SheetsManager();
-const sheetMapper = {};
+
+if (process.env.NODE_ENV !== 'production') {
+  jss.setup({
+    createGenerateClassName: args => {
+      return (rule, sheet) => `${rule.key}`;
+    }
+  });
+}
+export const sheetManager = new SheetsManager();
+export const sheetMapper = {};
 
 const atachStyleSheetToDom = (styles, componentId) => {
   const newSheet = jss.createStyleSheet(styles);
@@ -12,7 +20,10 @@ const atachStyleSheetToDom = (styles, componentId) => {
     detachStyleSheetFromDom(componentId);
   }
 
-  sheetMapper[componentId] = styles;
+  sheetMapper[componentId] = {
+    styleElement: newSheet.renderer.element,
+    styles
+  };
 
   sheetManager.add(styles, newSheet);
   sheetManager.manage(styles);
@@ -26,6 +37,6 @@ export const generateClasses = (styles, componentId) => {
 };
 
 export function detachStyleSheetFromDom(componentId) {
-  sheetManager.unmanage(sheetMapper[componentId]);
+  sheetManager.unmanage(sheetMapper[componentId].styles);
   delete sheetMapper[componentId];
 }

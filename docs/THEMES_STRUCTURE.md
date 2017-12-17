@@ -42,7 +42,7 @@ export const Button = ({classes}) => (
 
 ### wix-ui-core/src/Components/index.ts (Will render the core button with `classes`)
 ```
-import {withClasses} from '../withClasses';
+import {withClasses} from 'wix-ui-jss';
 import {styles} from './styles';
 import Button from './Button';
 

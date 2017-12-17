@@ -39,7 +39,7 @@ const resolveHOC = (path, types) => {
 
   if (types.CallExpression.check(node) && !isReactCreateClassCall(path)) {
     if (node.arguments.length) {
-      return resolveHOC(path.get('arguments', node.arguments.length - 1));
+      return resolveHOC(path.get('arguments', node.arguments.length - 1), types);
     }
   }
 
@@ -126,9 +126,9 @@ export default (ast, recast) => {
       // expression, something like React.createClass
       path = resolveToValue(path.get('right'));
 
-      if (!isComponentDefinition(path)) {
-        path = resolveToValue(resolveHOC(path));
-        if (!isComponentDefinition(path)) {
+      if (!isComponentDefinition(path, types)) {
+        path = resolveToValue(resolveHOC(path, types));
+        if (!isComponentDefinition(path, types)) {
           return false;
         }
       }

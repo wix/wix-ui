@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   setProps: props => {
     const script = componentProps => {
       // for `browser.executeScript(fn, args)`:

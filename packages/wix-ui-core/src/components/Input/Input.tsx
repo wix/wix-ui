@@ -42,12 +42,14 @@ class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
-    maxLength: 524288
+    maxLength: 524288,
+    type: 'text'
   };
 
   static propTypes = {
+    /** Classes object */
     classes: object.isRequired,
-    /** Default value for those who wants to use this component un-controlled */
+    /** Makes the component disabled */
     disabled: bool,
     /** Input max length */
     maxLength: number,
@@ -72,9 +74,10 @@ class Input extends React.Component<InputProps> {
   constructor(props) {
     super(props);
     this.id = uniqueId('Input');
+    this._onChange = this._onChange.bind(this);
   }
 
-  _onChange = e => {
+  _onChange(e) {
     const {type, disabled, readOnly} = this.props;
 
     if (disabled ||
