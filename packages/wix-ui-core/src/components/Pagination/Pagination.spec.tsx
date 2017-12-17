@@ -157,26 +157,28 @@ describe('Pagination', () => {
   
   describe('First, Last, Next, Previous Buttons', () => {
     
-    it('shows next & previous buttons (as arrows icon) by default', () => {
+    it('shows next & previous buttons (as arrows icon) inline by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
-      expect(pagination.getButton('previous')).toBeTruthy();
-      expect(pagination.getButton('previous').textContent).toEqual('<');
-      expect(pagination.getButton('next')).toBeTruthy();
-      expect(pagination.getButton('next').textContent).toEqual('>');
+      expect(pagination.getButton('previous').element).toBeTruthy();
+      expect(pagination.getButton('previous').element.textContent).toEqual('<');
+      expect(pagination.getButton('previous').placement).toEqual('inline');
+      expect(pagination.getButton('next').element).toBeTruthy();
+      expect(pagination.getButton('next').element.textContent).toEqual('>');
+      expect(pagination.getButton('next').placement).toEqual('inline');
     });
     
     it('does not show first & last buttons by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
-      expect(pagination.getButton('first')).not.toBeTruthy();
-      expect(pagination.getButton('last')).not.toBeTruthy();
+      expect(pagination.getButton('first').element).not.toBeTruthy();
+      expect(pagination.getButton('last').element).not.toBeTruthy();
       
     });
     it('shows first & last buttons (as arrows icons) with showFirstLastButtons prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons/>);
-      expect(pagination.getButton('first')).toBeTruthy();
-      expect(pagination.getButton('first').textContent).toEqual('<<');
-      expect(pagination.getButton('last')).toBeTruthy();
-      expect(pagination.getButton('last').textContent).toEqual('>>');
+      expect(pagination.getButton('first').element).toBeTruthy();
+      expect(pagination.getButton('first').element.textContent).toEqual('<<');
+      expect(pagination.getButton('last').element).toBeTruthy();
+      expect(pagination.getButton('last').element.textContent).toEqual('>>');
     });
     
     
@@ -223,10 +225,26 @@ describe('Pagination', () => {
     
     it('shows button text with replaceArrowsWithText prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons replaceArrowsWithText/>);
-      expect(pagination.getButton('first').textContent).toEqual('First');
-      expect(pagination.getButton('last').textContent).toEqual('Last');
-      expect(pagination.getButton('previous').textContent).toEqual('Previous');
-      expect(pagination.getButton('next').textContent).toEqual('Next');
+      expect(pagination.getButton('first').element.textContent).toEqual('First');
+      expect(pagination.getButton('last').element.textContent).toEqual('Last');
+      expect(pagination.getButton('previous').element.textContent).toEqual('Previous');
+      expect(pagination.getButton('next').element.textContent).toEqual('Next');
+    });
+
+    it('places navigagtion buttons on top if navButtonPlacement prop is set to "top"', () => {
+      const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons navButtonPlacement="top"/>);
+      expect(pagination.getButton('first').placement).toEqual('top');
+      expect(pagination.getButton('previous').placement).toEqual('top');
+      expect(pagination.getButton('next').placement).toEqual('top');
+      expect(pagination.getButton('last').placement).toEqual('top');
+    });
+
+    it('places navigagtion buttons on bottom if navButtonPlacement prop is set to "bottom"', () => {
+      const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons navButtonPlacement="bottom"/>);
+      expect(pagination.getButton('first').placement).toEqual('bottom');
+      expect(pagination.getButton('previous').placement).toEqual('bottom');
+      expect(pagination.getButton('next').placement).toEqual('bottom');
+      expect(pagination.getButton('last').placement).toEqual('bottom');
     });
   });
   

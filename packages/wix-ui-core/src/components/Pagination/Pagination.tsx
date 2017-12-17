@@ -2,24 +2,28 @@ import * as React from 'react';
 import {createHOC} from '../../createHOC';
 
 interface PaginationProps {
-    numOfPages: number,
-    currentPage?: number,
-    roomForXPages?: number,
-    onChange?: (event: {page: string}) => void,
-    layout?: string,
-    showFirstLastButtons?: boolean,
-    replaceArrowsWithText?: boolean
+  numOfPages: number,
+  currentPage?: number,
+  roomForXPages?: number,
+  onChange?: (event: {page: string}) => void,
+  layout?: string,
+  showFirstLastButtons?: boolean,
+  replaceArrowsWithText?: boolean,
+  navButtonPlacement: 'inline' | 'top' | 'bottom'
 }
 
 interface PaginationState {
   pageInput: string
 }
 
+enum NavButtonTypes {FIRST, PREVIOUS, NEXT, LAST}
+
 class Pagination extends React.Component<PaginationProps, PaginationState> {
   public static defaultProps: Partial<PaginationProps> = {
-        currentPage: 1,
-        showFirstLastButtons: false,
-        replaceArrowsWithText: false
+      currentPage: 1,
+      showFirstLastButtons: false,
+      replaceArrowsWithText: false,
+      navButtonPlacement: 'inline'
   };
 
   state = {
@@ -106,33 +110,80 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL">/ {this.props.numOfPages}</span>
     ]
   };
+
+  private renderNavButton(buttonType: NavButtonTypes): JSX.Element {
+    switch (buttonType) {
+      case NavButtonTypes.FIRST: return (
+        <span
+            key="FIRST"
+            data-hook="FIRST"
+            onClick={() => this.handlePageClick('first')}>
+          {this.props.replaceArrowsWithText ? 'First' : '<<'}
+        </span>
+      );
+      case NavButtonTypes.PREVIOUS: return (
+        <span key="PREVIOUS" data-hook="PREVIOUS" onClick={() => this.handlePageClick('previous')}>
+          {this.props.replaceArrowsWithText ? 'Previous' : '<'}
+        </span>
+      );
+
+      case NavButtonTypes.NEXT: return (
+        <span key="NEXT"data-hook="NEXT" onClick={() => this.handlePageClick('next')}>
+        {this.props.replaceArrowsWithText ? 'Next' : '>'}
+        </span>
+      );
+
+      case NavButtonTypes.LAST: return (
+        <span
+            key="LAST"
+            data-hook="LAST"
+            onClick={() => this.handlePageClick('last')}>
+          {this.props.replaceArrowsWithText ? 'Last' : '>>'}
+        </span>
+      );
+    }
+  }
   
   render() {
     return (
       <div data-hook="PAGINATION" data-selected={this.props.currentPage}>
-        
-        {this.props.showFirstLastButtons && <span
-          data-hook="FIRST"
-          onClick={() => this.handlePageClick('first')}>
-          {this.props.replaceArrowsWithText ? 'First' : '<<'}
-        </span>}
-        
-        <span data-hook="PREVIOUS" onClick={() => this.handlePageClick('previous')}>
-          {this.props.replaceArrowsWithText ? 'Previous' : '<'}
-        </span>
-        
-        { this.props.layout === 'INPUT' ? this.createInputLayout() : this.renderPages()}
-        
-        <span data-hook="NEXT" onClick={() => this.handlePageClick('next')}>
-          {this.props.replaceArrowsWithText ? 'Next' : '>'}
-        </span>
-        
-        {this.props.showFirstLastButtons && <span
-          data-hook="LAST"
-          onClick={() => this.handlePageClick('last')}>
-          {this.props.replaceArrowsWithText ? 'Last' : '>>'}
-        </span>}
-        
+        {this.props.navButtonPlacement === 'top' ?
+            <div data-hook="TOP_ROW">
+              {[
+                this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
+                this.renderNavButton(NavButtonTypes.PREVIOUS),
+                this.renderNavButton(NavButtonTypes.NEXT),
+                this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
+              ]}
+            </div> : null
+        }
+        <div data-hook="MIDDLE_ROW">
+          {this.props.navButtonPlacement === 'inline' ?
+            [
+              this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
+              this.renderNavButton(NavButtonTypes.PREVIOUS)
+            ] : null
+          }
+
+          { this.props.layout === 'INPUT' ? this.createInputLayout() : this.renderPages()}
+
+          {this.props.navButtonPlacement === 'inline' ?
+            [
+              this.renderNavButton(NavButtonTypes.NEXT),
+              this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
+            ] : null
+          }
+        </div>
+        {this.props.navButtonPlacement === 'bottom' ?
+          <div data-hook="BOTTOM_ROW">
+            {[
+              this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
+              this.renderNavButton(NavButtonTypes.PREVIOUS),
+              this.renderNavButton(NavButtonTypes.NEXT),
+              this.props.showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
+            ]}
+          </div> : null
+        }
       </div>
     );
   };
