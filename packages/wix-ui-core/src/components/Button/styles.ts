@@ -3,6 +3,16 @@ import * as defaultsDeep from 'lodash/defaultsDeep';
 
 const contentSelector = '& [data-class="button-content"]';
 
+const stateStyle = (state, theme) => ({
+  color: theme[state].color,
+  backgroundColor: theme[state].backgroundColor,
+  borderColor: theme[state].borderColor,
+
+  [contentSelector]: {
+    color: theme[state].color
+  }
+});
+
 export const styles = (theme: ButtonTheme) => {
   theme = (defaultsDeep(theme, core) as ButtonTheme);
 
@@ -42,35 +52,13 @@ export const styles = (theme: ButtonTheme) => {
         textDecoration: theme.textDecoration
       },
 
-      '&:hover': {
-        color: theme.hover.color,
-        backgroundColor: theme.hover.backgroundColor,
-        borderColor: theme.hover.borderColor,
+      '&:hover': stateStyle('hover', theme),
 
-        [contentSelector]: {
-          color: theme.hover.color
-        }
-      },
-
-      '&:active': {
-        color: theme.active.color,
-        backgroundColor: theme.active.backgroundColor,
-        borderColor: theme.active.borderColor,
-
-        [contentSelector]: {
-          color: theme.active.color
-        }
-      },
+      '&:active': stateStyle('active', theme),
 
       '&:disabled': {
         pointerEvents: 'none',
-        color: theme.disabled.color,
-        backgroundColor: theme.disabled.backgroundColor,
-        borderColor: theme.disabled.borderColor,
-
-        [contentSelector]: {
-          color: theme.disabled.color
-        }
+        ...stateStyle('disabled', theme)
       }
     }
   };
