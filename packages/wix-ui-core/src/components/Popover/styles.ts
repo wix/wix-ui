@@ -5,5 +5,12 @@ export const styles = (theme: PopoverTheme) => {
   theme = (defaultsDeep(theme, core) as PopoverTheme);
 
   return {
+    element: {
+      display: theme.element.display
+    },
+    content: {
+    },
+    arrow: {
+    }
   };
 };

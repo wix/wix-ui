@@ -2,7 +2,14 @@ import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import PopperJS from 'popper.js';
 
+type PopoverClasses = {
+  element: string;
+  content: string;
+  arrow: string;
+};
+
 interface PopoverProps {
+  classes: PopoverClasses;
   trigger?: 'click' | 'hover';
   popoverShown?: boolean;
   placement: PopperJS.Placement;
@@ -37,15 +44,15 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
       }
 
       switch (child.type) {
-        case Popover.Element : {
+        case Popover.Element: {
           acc.Element = child;
           break;
         }
-        case Popover.Content : {
+        case Popover.Content: {
           acc.Content = child;
           break;
         }
-        default : {
+        default: {
           break;
         }
       }
@@ -57,23 +64,23 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   render() {
-    const {trigger, placement, children} = this.props;
+    const {classes, trigger, placement, children} = this.props;
     const {popoverShown} = this.state;
     const childrenObject = this._getChildrenObject(children);
 
     return (
       <Manager>
         <Target
+          className={classes.element}
           onClick={() => trigger === 'click' && this.setState({popoverShown: !popoverShown})}
           onMouseEnter={() => trigger === 'hover' && this.setState({popoverShown: true})}
-          onMouseLeave={() => trigger === 'hover' && this.setState({popoverShown: false})}
-          style={{display: 'inline-block'}}>
+          onMouseLeave={() => trigger === 'hover' && this.setState({popoverShown: false})}>
           {childrenObject.Element}
         </Target>
         {
           popoverShown &&
-            <Popper placement={placement}>
-              <Arrow className="popper__arrow"/>
+            <Popper className={classes.content} placement={placement}>
+              <Arrow className={classes.arrow}/>
               {childrenObject.Content}
             </Popper>
         }
