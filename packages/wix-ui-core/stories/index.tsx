@@ -6,10 +6,14 @@ import Button from '../src/components/Button';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import Dropdown from '../src/components/Dropdown';
 
 storiesOf('Components', module)
   .add('Button', () => (
     <Button>Hello</Button>
+  ))
+  .add('Dropdown', () => (
+    <Dropdown/>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
