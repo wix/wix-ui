@@ -1,22 +1,22 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
+import PopperJS from 'popper.js';
 
 interface DropdownProps {
   triggerType?: 'click' | 'hover';
   popoverShown?: boolean;
+  placement: PopperJS.Placement;
 }
 
 interface DropdownState {
   popoverShown: boolean;
 }
 
-interface DefaultProps extends Partial<DropdownProps> {
-  triggerType: 'click';
-  popoverShown: false;
-}
-
 class Dropdown extends React.Component<DropdownProps, DropdownState> {
-  public static defaultProps: DefaultProps;
+  public static defaultProps: Partial<DropdownProps> = {
+    triggerType: 'click',
+    popoverShown: false
+  };
 
   constructor(props) {
     super(props);
@@ -28,7 +28,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
   }
 
   render() {
-    const {triggerType} = this.props;
+    const {triggerType, placement} = this.props;
     const {popoverShown} = this.state;
 
     return (
@@ -42,7 +42,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
             Target Box
           </div>
         </Target>
-        {popoverShown && <Popper placement="right" className="popper">
+        {popoverShown && <Popper placement={placement}>
           Right Content
           <Arrow className="popper__arrow"/>
         </Popper>}

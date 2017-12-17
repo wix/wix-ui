@@ -13,7 +13,7 @@ storiesOf('Components', module)
     <Button>Hello</Button>
   ))
   .add('Dropdown', () => (
-    <Dropdown/>
+    <Dropdown placement="top"/>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
