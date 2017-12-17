@@ -19,7 +19,7 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     changeInput: (newValue: string): void => {
       const input = getInput();
       input.value = newValue;
-      Simulate.change(input)
+      Simulate.change(input);
     },
     inputKeyCode: (keyCode: number): void => Simulate.keyDown(getInput(), {keyCode}),
     inputBlur: (): void => Simulate.blur(getInput())

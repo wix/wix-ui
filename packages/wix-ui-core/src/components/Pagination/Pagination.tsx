@@ -41,31 +41,36 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     this.onChange(page);
   };
   
-  private createPagesArray(): Array<HTMLSpanElement> {
-    const {numOfPages, roomForXPages} = this.props;
-    const isSiblingNeeded = numOfPages > roomForXPages;
-    const amountOfPages = roomForXPages && (isSiblingNeeded ? roomForXPages : numOfPages) || numOfPages;
-    const showSiblingOnIdx = isSiblingNeeded && amountOfPages - 2;
-    
-    let pagesArray = [];
-    for (let i = 1; i <= amountOfPages; i++) {
-      
-      const pageContent = (
-        i < showSiblingOnIdx ? i.toString() :
-          i > showSiblingOnIdx ? (numOfPages - (amountOfPages - i)).toString() :
-            '...'
-      );
-      
-      pagesArray.push(
-        <span
-          data-hook={'PAGE_' + i}
-          key={'PAGE' + i}
-          onClick={() => this.handlePageClick(pageContent)}>
-            {pageContent}
-          </span>
-      )
+  private renderPages(): Array<JSX.Element> {
+    const pages = this.getPages();
+
+    return pages.map((pageContent, i) => (
+      <span
+      data-hook={'PAGE_' + i}
+      key={'PAGE' + i}
+      onClick={() => this.handlePageClick(pageContent)}>
+        {pageContent}
+      </span>
+    ));
+  }
+
+  private getPages(): Array<string> {
+    const {numOfPages, roomForXPages, currentPage} = this.props;
+    let startPage = 1, endPage = numOfPages;
+
+    const numOfPagesToDisplay = (roomForXPages%2) ? roomForXPages : roomForXPages - 1;
+
+    if (numOfPagesToDisplay < numOfPages ) {
+      startPage = currentPage - Math.floor(numOfPagesToDisplay / 2);
+      endPage = numOfPagesToDisplay + startPage - 1;
     }
-    return pagesArray;
+
+    let result: Array<string> = [];
+    for(let i = startPage; i <= endPage; i++ ) {
+        result.push(String(i));
+    }
+
+    return result;
   };
   
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +121,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           {this.props.replaceArrowsWithText ? 'Previous' : '<'}
         </span>
         
-        { this.props.layout === 'INPUT' ? this.createInputLayout() : this.createPagesArray()}
+        { this.props.layout === 'INPUT' ? this.createInputLayout() : this.renderPages()}
         
         <span data-hook="NEXT" onClick={() => this.handlePageClick('next')}>
           {this.props.replaceArrowsWithText ? 'Next' : '>'}
@@ -133,4 +138,4 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   };
 }
 
-export default createHOC(Pagination)
+export default createHOC(Pagination);
