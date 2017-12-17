@@ -57,3 +57,5 @@ export const Y30 = '#fef0ba';
 export const Y40 = '#fef4cd';
 
 export const WR00 = '#e05050';
+
+export const TRANSPARENT = 'transparent';
