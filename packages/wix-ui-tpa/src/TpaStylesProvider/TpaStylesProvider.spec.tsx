@@ -1,5 +1,5 @@
-import {mount} from 'enzyme';
 import * as React from 'react';
+import {mount} from 'enzyme';
 import {TpaStylesProvider} from './TpaStyleProvider';
 import {WixSdk} from '../WixSdk/WixSdkMock';
 import {withTpaStyles} from './withTpaStyles';
@@ -43,7 +43,7 @@ describe('TpaStylesProvider', () => {
 
   afterEach(() => wrapper.detach());
 
-  it('should be initialize the state with the correct styles', () => {
+  it('should initialize the state with the correct styles', () => {
     wrapper = renderWrapped();
     expect(wixSdk.Styles.getStyleParams()).toBe(wrapper.state().tpaStyles);
   });
@@ -65,16 +65,14 @@ describe('TpaStylesProvider', () => {
     expect(wrapper.html()).toBe('<div>Hello</div>');
   });
 
-  it('should update the state when colors changed', () => {
+  it('should update the state when colors are changed', () => {
     wrapper = renderWrapped(<Component/>);
-
     wixSdk.setColorParam('color', 'green');
     expect(wrapper.state().tpaStyles.colors.color).toBe('green');
   });
 
-  it('should update the state when fonts changed', () => {
+  it('should update the state when fonts are changed', () => {
     wrapper = renderWrapped(<Component/>);
-
     wixSdk.setFontParam('bold', true);
     expect(wrapper.state().tpaStyles.fonts.bold).toBe(true);
   });
@@ -100,10 +98,9 @@ describe('TpaStylesProvider', () => {
   });
 });
 
-it('TpaStylesProvider should removeEventListeners when unmounts', () => {
+it('TpaStylesProvider should remove event listeners when unmounts', () => {
   wixSdk = new WixSdk();
-  const wrapper = renderWrapped();
-  wrapper.unmount();
+  renderWrapped().unmount();
 
   Object.keys(wixSdk.Events).forEach(event =>
     expect(wixSdk.getEventHandlers()[event]).toHaveLength(0)

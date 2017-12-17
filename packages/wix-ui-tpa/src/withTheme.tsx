@@ -19,17 +19,17 @@ export function withTheme({Component, theme}) {
 
     static displayName = Component.displayName;
 
-    constructor(props) {
+    constructor(props: TpaComponentProps) {
       super(props);
       const {wixBindings, colors, fonts} = props;
       this.state = {calculatedTheme: theme({wixBindings, colors, fonts})};
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: TpaComponentProps) {
       const {wixBindings, colors, fonts} = nextProps;
 
-      if (this.props.colors !== nextProps.colors || this.props.fonts !== nextProps.fonts) {
-          this.setState({calculatedTheme: theme({wixBindings, colors, fonts})});
+      if (this.props.colors !== colors || this.props.fonts !== fonts) {
+        this.setState({calculatedTheme: theme({wixBindings, colors, fonts})});
       }
     }
 

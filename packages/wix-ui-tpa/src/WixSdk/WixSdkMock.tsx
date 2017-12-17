@@ -1,6 +1,6 @@
+import {WixSdk as WixSdkType, SiteStyles} from './WixSdk.d';
 const STYLE_PARAMS_CHANGE = 'STYLE_PARAMS_CHANGE';
 const THEME_CHANGE = 'THEME_CHANGE';
-import {WixSdk as WixSdkType, SiteStyles} from './WixSdk.d';
 
 interface EventHandlers {
   STYLE_PARAMS_CHANGE: Array<Function>;
