@@ -45,12 +45,12 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     Promise.all([
       componentSourcePromise,
       this.getComponentReadme(),
-      this.getTestKitSrc(),
+      this.getTestkitSource(),
       this.getReadmeTestKit(),
       this.getReadmeAccessibility(),
       this.getComponentInstance(),
       this.getParsedSource(componentSourcePromise)
-    ]).then(([source, readme, testKitSrc, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
+    ]).then(([source, readme, testkitSource, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
       this.setState({
         isLoading: false,
         source,
@@ -59,7 +59,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
         readmeAccessibility,
         component,
         parsedSource,
-        testKitSrc
+        testkitSource
       });
     });
   }
@@ -149,7 +149,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
    * This method will get all file contents from all imported files.
    * Then if will try to parse them to build an auto generated doc
    */
-  getTestKitSrc() {
+  getTestkitSource() {
     const {componentSrcFolder, storyName} = this.props;
     let filePath = path.join(`./${componentSrcFolder}`, `${storyName}.driver.js`);
     filePath = '.' + path.resolve(filePath);

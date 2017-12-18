@@ -86,7 +86,7 @@ function Story(props) {
             source,
             readme,
             readmeTestKit,
-            testKitSrc,
+            testkitSource,
             readmeAccessibility,
             component,
             name = customName || (component && (component.displayName || component.name)),
@@ -167,8 +167,8 @@ function Story(props) {
               {actualSource && <AutoDocs source={actualSource} parsedSource={parsedSource}/>}
 
               <div>
-                {actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/>}
-                <AutoTestKit source={testKitSrc}/>
+                { actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/> }
+                { testkitSource && <AutoTestKit source={testkitSource}/> }
               </div>
 
               {actualReadmeAccessibility && <Markdown source={actualReadmeAccessibility}/>}
