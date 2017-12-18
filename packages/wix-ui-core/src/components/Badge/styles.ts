@@ -1,11 +1,11 @@
 import {core, BadgeTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
-  
+
 export const styles = (theme: BadgeTheme) => {
   theme = (defaultsDeep(theme, core) as BadgeTheme);
 
   return {
-    button: {
+    badge: {
       minWidth: theme.minWidth,
       width: theme.width,
       height: theme.height,

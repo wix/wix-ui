@@ -10,7 +10,7 @@ export const badgeDriverFactory = ({element, componentInstance, eventTrigger}) =
   return {
     exists: () => !!element,
     getType: () => element.getAttribute('type'),
-    getChildren: () => element.children,
+    getContent: () => element.innerHTML,
     getHeight: () => domTestkit.getCssValue({className: 'badge', property: 'height'})
   };
 };
