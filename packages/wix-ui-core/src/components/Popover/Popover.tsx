@@ -40,6 +40,7 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
     return (
       <Manager>
         <Target
+          data-hook="target"
           onClick={() => trigger === 'click' && this.setState({popoverShown: !popoverShown})}
           onMouseEnter={() => trigger === 'hover' && this.setState({popoverShown: true})}
           onMouseLeave={() => trigger === 'hover' && this.setState({popoverShown: false})}
