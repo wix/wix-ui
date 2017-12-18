@@ -56,7 +56,7 @@ When rendered - it generates a new style tag using `jss` (css-in-js) mechanism.
 ## The backoffice theme library
 The backoffice `Button` component extends the core component and allows creating custom props, for example `size`.
 
-### wix-ui-backoffice/src/Components/theme.ts (The backoffice theme)
+### wix-ui-backoffice/src/components/Button/theme.ts (The backoffice theme)
 ```
 export const theme = ({size}) => {
   return {
@@ -67,13 +67,13 @@ export const theme = ({size}) => {
 
 The theme will be created dynamically according to the `size` prop.
 
-### wix-ui-backoffice/src/Components/index.tsx (The styled backoffice component)
+### wix-ui-backoffice/src/components/Button/index.tsx (The styled backoffice component)
 ```
 import {theme} from './theme';
 import {ThemedComponent} from 'wix-ui-theme';
 import CoreButton from 'wix-ui-core/Button';
 
-export const ToggleSwitch = ({size, ...coreProps}) => (
+export const Button = ({size, ...coreProps}) => (
   <ThemedComponent theme={theme} size={size}>
     <CoreButton {...coreProps}/>
   </ThemedComponent>
