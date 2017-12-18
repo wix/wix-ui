@@ -3,15 +3,16 @@ import {string} from 'prop-types';
 import * as ReactDOM from 'react-dom';
 
 interface WixComponentProps {
-  dataHook: string;
-  dataClass: string;
+  dataHook?: string;
+  dataClass?: string;
 }
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
     static propTypes = {
       ...Component.propTypes,
-      dataHook: string
+      dataHook: string,
+      dataClass: string
     };
 
     componentDidMount() {
