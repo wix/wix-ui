@@ -1,4 +1,3 @@
-import {palette} from '../../palette';
 
 export type TooltipTheme = {
 };
