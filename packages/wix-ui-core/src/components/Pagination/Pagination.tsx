@@ -6,7 +6,7 @@ interface PaginationProps {
   currentPage?: number,
   roomForXPages?: number,
   onChange?: (event: {page: string}) => void,
-  layout?: string,
+  layoutType?: 'pages' | 'input',
   showFirstLastButtons?: boolean,
   replaceArrowsWithText?: boolean,
   navButtonPlacement: 'inline' | 'top' | 'bottom'
@@ -23,21 +23,25 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       currentPage: 1,
       showFirstLastButtons: false,
       replaceArrowsWithText: false,
-      navButtonPlacement: 'inline'
+      navButtonPlacement: 'inline',
+      layoutType: 'pages'
   };
 
+  private currentPage: number = this.props.currentPage <= this.props.numOfPages ? this.props.currentPage : this.props.numOfPages;
+
   state = {
-    pageInput: String(this.props.currentPage)
+    pageInput: String(this.currentPage)
   };
-  
+
+
   private onChange(page): void{
     this.props.onChange({page})
   }
   
   private handlePageClick = (page: string): void => {
     if (
-      ( (page === 'first' || page === 'previous') && this.props.currentPage === 1) || // don't trigger when clicking first page when in first page
-      ( (page === 'last' || page === 'next') && this.props.currentPage === this.props.numOfPages) ||  // don't trigger when clicking last page when in last page
+      ( (page === 'first' || page === 'previous') && this.currentPage === 1) || // don't trigger when clicking first page when in first page
+      ( (page === 'last' || page === 'next') && this.currentPage === this.props.numOfPages) ||  // don't trigger when clicking last page when in last page
       (page === '...') // don't trigger for sibling page
     ) {
       return;
@@ -59,13 +63,13 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private getPages(): Array<string> {
-    const {numOfPages, roomForXPages, currentPage} = this.props;
+    const {numOfPages, roomForXPages} = this.props;
     let startPage = 1, endPage = numOfPages;
 
     const numOfPagesToDisplay = (roomForXPages%2) ? roomForXPages : roomForXPages - 1;
 
     if (numOfPagesToDisplay < numOfPages ) {
-      startPage = currentPage - Math.floor(numOfPagesToDisplay / 2);
+      startPage = this.currentPage - Math.floor(numOfPagesToDisplay / 2);
       endPage = numOfPagesToDisplay + startPage - 1;
     }
 
@@ -77,24 +81,32 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return result;
   };
   
-  private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newInput = e.target.value;
     if((newInput === parseInt(newInput,10).toString() && parseInt(newInput,10) > 0) || newInput === '') {
       this.setState({pageInput: e.target.value})
     }
   };
   
-  private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const keyCode = e.keyCode;
     if(keyCode === 13) { // pressing enter
       this.handlePageInputCommit();
     }
   };
   
-  private handlePageInputCommit = (e?: React.FocusEvent<HTMLInputElement>) => {
-    this.state.pageInput &&
-    parseInt(this.state.pageInput, 10) !== this.props.currentPage &&
-    this.onChange(this.state.pageInput)
+  private handlePageInputCommit = (e?: React.FocusEvent<HTMLInputElement>): void => {
+    // this.state.pageInput &&
+    // parseInt(this.state.pageInput, 10) !== this.currentPage &&
+    // this.onChange(this.state.pageInput)
+    if (!this.state.pageInput || parseInt(this.state.pageInput, 10) === this.currentPage) {
+      return;
+    } else if (parseInt(this.state.pageInput, 10) > this.props.numOfPages) {
+      this.onChange(String(this.props.numOfPages))
+    } else {
+      this.onChange(this.state.pageInput);
+    }
+
   };
   
   private createInputLayout = () => {
@@ -146,7 +158,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   
   render() {
     return (
-      <div data-hook="PAGINATION" data-selected={this.props.currentPage}>
+      <div data-hook="PAGINATION" data-selected={this.currentPage}>
         {this.props.navButtonPlacement === 'top' ?
             <div data-hook="TOP_ROW">
               {[
@@ -165,7 +177,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
             ] : null
           }
 
-          { this.props.layout === 'INPUT' ? this.createInputLayout() : this.renderPages()}
+          { this.props.layoutType === 'input' ? this.createInputLayout() : this.renderPages()}
 
           {this.props.navButtonPlacement === 'inline' ?
             [

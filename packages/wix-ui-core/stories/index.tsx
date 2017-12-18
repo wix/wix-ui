@@ -38,5 +38,5 @@ storiesOf('Components', module)
     </HBox>
   ))
   .add('Pagination', () => (
-    <Pagination numOfPages={13} roomForXPages={6} currentPage={4} showFirstLastButtons navButtonPlacement='bottom' onChange={(e) => {console.log(e)}}/>
+    <Pagination numOfPages={13} roomForXPages={6} currentPage={4} showFirstLastButtons navButtonPlacement='inline' layoutType='input' onChange={(e) => {console.log(e)}}/>
   ));
