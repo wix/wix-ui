@@ -11,3 +11,6 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
+
+import {popoverDriverFactory} from '../components/Popover/Popover.driver';
+export const popoverTestkitFactory = testkitFactoryCreator(popoverDriverFactory);

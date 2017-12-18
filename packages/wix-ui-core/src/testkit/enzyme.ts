@@ -11,3 +11,6 @@ export const inputTestkitFactory = enzymeTestkitFactoryCreator(inputDriverFactor
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
+
+import {popoverDriverFactory} from '../components/Popover/Popover.driver';
+export const popoverTestkitFactory = enzymeTestkitFactoryCreator(popoverDriverFactory);
