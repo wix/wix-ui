@@ -3,10 +3,10 @@ import {storiesOf} from '@storybook/react';
 import ToggleSwitch from '../src/components/ToggleSwitch';
 import Text from '../src/components/Text';
 import Button from '../src/components/Button';
-import Pagination from '../src/components/Pagination';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import {PaginationStory} from "./pagination-story";
 
 storiesOf('Components', module)
   .add('Button', () => (
@@ -38,5 +38,5 @@ storiesOf('Components', module)
     </HBox>
   ))
   .add('Pagination', () => (
-    <Pagination numOfPages={13} roomForXPages={6} currentPage={4} showFirstLastButtons navButtonPlacement='inline' layoutType='input' onChange={(e) => {console.log(e)}}/>
+    <PaginationStory/>
   ));
