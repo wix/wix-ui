@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import PopperJS from 'popper.js';
-import PopoverElement from './components/PopoverElement';
-import PopoverContent from './components/PopoverContent';
 import {createHOC} from '../../createHOC';
+import {getChildrenObject, generateDefaultChildComponent} from '../../utils';
 
 interface PopoverProps {
   trigger?: 'click' | 'hover';
@@ -21,8 +20,8 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
     popoverShown: false
   };
 
-  public static Element = PopoverElement;
-  public static Content = PopoverContent;
+  public static Element = generateDefaultChildComponent('Popover.Element');
+  public static Content = generateDefaultChildComponent('Popover.Content');
 
   constructor(props) {
     super(props);
@@ -33,36 +32,10 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
     };
   }
 
-  _getChildrenObject(children) {
-    return React.Children.toArray(children).reduce((acc, child) => {
-      if (!React.isValidElement(child)) {
-        return acc;
-      }
-
-      switch (child.type) {
-        case PopoverElement: {
-          acc.Element = child;
-          break;
-        }
-        case PopoverContent: {
-          acc.Content = child;
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-      return acc;
-    }, {
-      Element: null,
-      Content: null
-    });
-  }
-
   render() {
     const {trigger, placement, children} = this.props;
     const {popoverShown} = this.state;
-    const childrenObject = this._getChildrenObject(children);
+    const childrenObject = getChildrenObject(children, {Element: null, Content: null});
 
     return (
       <Manager>
