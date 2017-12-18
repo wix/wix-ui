@@ -6,14 +6,14 @@ import {theme} from './theme';
 import {appearance, iconSize} from './appearance';
 import UIText from '../UIText';
 
-const iconStyle = {
+const iconStyles = {
   suffix: {paddingRight: '10px', display: 'flex'},
   prefix: {paddingLeft: '10px', display: 'flex'}
 };
 
 const createButtonIcon = (type, icon, size) => (
   icon ?
-    <span style={iconStyle[type]}>
+    <span style={iconStyles[type]}>
       {React.cloneElement(icon, {size})}
     </span> :
     null
@@ -95,5 +95,3 @@ Button.defaultProps = {
 };
 
 export default Button;
-
-
