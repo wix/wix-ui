@@ -5,14 +5,7 @@ import PopoverElement from './components/PopoverElement';
 import PopoverContent from './components/PopoverContent';
 import {createHOC} from '../../createHOC';
 
-type PopoverClasses = {
-  element: string;
-  content: string;
-  arrow: string;
-};
-
 interface PopoverProps {
-  classes: PopoverClasses;
   trigger?: 'click' | 'hover';
   popoverShown?: boolean;
   placement: PopperJS.Placement;
@@ -67,23 +60,23 @@ class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   render() {
-    const {classes, trigger, placement, children} = this.props;
+    const {trigger, placement, children} = this.props;
     const {popoverShown} = this.state;
     const childrenObject = this._getChildrenObject(children);
 
     return (
       <Manager>
         <Target
-          className={classes.element}
           onClick={() => trigger === 'click' && this.setState({popoverShown: !popoverShown})}
           onMouseEnter={() => trigger === 'hover' && this.setState({popoverShown: true})}
-          onMouseLeave={() => trigger === 'hover' && this.setState({popoverShown: false})}>
+          onMouseLeave={() => trigger === 'hover' && this.setState({popoverShown: false})}
+          style={{display: 'inline-block'}}>
           {childrenObject.Element}
         </Target>
         {
           popoverShown &&
-            <Popper className={classes.content} placement={placement}>
-              <Arrow className={classes.arrow}/>
+            <Popper placement={placement}>
+              <Arrow/>
               {childrenObject.Content}
             </Popper>
         }

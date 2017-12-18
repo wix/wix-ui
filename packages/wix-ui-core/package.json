@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4",
