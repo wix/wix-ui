@@ -1,1 +1,3 @@
-ToggleSwitch.js
+/*.js
+!wallaby.js
+!protractor.conf.js
