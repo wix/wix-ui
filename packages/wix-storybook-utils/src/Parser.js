@@ -1,5 +1,4 @@
 const recastParse = require('recast').parse;
-const recastVisit = require('recast').visit;
 const babylonParse = require('babylon').parse;
 
 const _parser = {
@@ -29,8 +28,5 @@ module.exports = {
     return recastParse(code, {
       parser: _parser
     });
-  },
-  visit(ast, visitors) {
-    return recastVisit(ast, visitors);
   }
 };
