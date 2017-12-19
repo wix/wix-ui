@@ -64,18 +64,6 @@ describe('Pagination', () => {
           expect(onChange.mock.calls.length).toBe(0);
       });
     });
-    
-    xit('does not invoke onChange on sibling page click', () => {
-      const onChange = jest.fn();
-      const pagination = createDriver(<Pagination numOfPages={58} roomForXPages={10} onChange={onChange}/>);
-      
-      expect(pagination.getPages(7).textContent).toBe('...');
-      pagination.clickOnPage(7);
-      
-      return sleep(10).then(() => {
-        expect(onChange.mock.calls.length).toBe(0);
-      });
-    });
 
     describe('page numbers logic', () => {
       it('shows all pages when possible', () => {
