@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const SuperParse = require('./DriverParser').DriverParser;
-const parse = require('recast').parse;
+const parse = require('../Parser').parse;
 
 const readFile = filePath => {
   return new Promise(resolve => {
@@ -9,7 +9,7 @@ const readFile = filePath => {
   });
 };
 
-const files = {entry: './mock-testkits/Badge.driver'};
+const files = {entry: './mock-testkits/IconWithOptions.driver'};
 
 const getFileContent = filePath => {
   if (filePath.includes('scss')) {
