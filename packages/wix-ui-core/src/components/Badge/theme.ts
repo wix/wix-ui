@@ -26,7 +26,6 @@ export type BadgeTheme = Partial<BadgeState & {
   textAlign: string;
 
   cursor: string;
-  '-webkit-font-smoothing': string;
 
   hover: BadgeState;
 }>;
@@ -54,7 +53,6 @@ export const core: BadgeTheme = {
   textAlign: 'center',
 
   cursor: 'pointer',
-  '-webkit-font-smoothing': 'antialiased',
 
   ...stateStyle,
   hover: stateStyle

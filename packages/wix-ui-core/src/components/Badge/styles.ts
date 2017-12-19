@@ -11,6 +11,7 @@ export const styles = (theme: BadgeTheme) => {
       height: theme.height,
       padding: theme.padding,
       borderRadius: theme.borderRadius,
+      outline: theme.outline,
 
       fontFamily: theme.fontFamily,
       fontSize: theme.fontSize,
@@ -18,10 +19,14 @@ export const styles = (theme: BadgeTheme) => {
       fontStyle: theme.fontStyle,
       fontWeight: theme.fontWeight,
       textDecoration: theme.textDecoration,
+      textAlign: theme.textAlign,
 
       color: theme.color,
       background: theme.backgroundColor,
       borderColor: theme.borderColor,
+
+      cursor: theme.cursor,
+      '-webkit-font-smoothing': 'antialiased',
 
       '&:hover': theme.hover
     }
