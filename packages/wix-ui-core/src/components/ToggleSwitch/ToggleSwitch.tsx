@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, func, object} from 'prop-types';
+import {bool, func, object, any} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
 
@@ -16,6 +16,7 @@ interface ToggleSwitchProps {
   disabled: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   classes: ToggleSwitchClasses;
+  children: React.ReactNode;
 }
 
 /**
@@ -27,16 +28,16 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static displayName = 'ToggleSwitch';
 
   static propTypes = {
-    /** Is the toggleSwitch checked or not  */
+    /** Is the toggleSwitch checked or not */
     checked: bool,
-
-    /** Callback function when user changes the value of the component  */
+    /** Callback function when user changes the value of the component */
     onChange: func.isRequired,
-
-    /** Is the toggleSwitch disabled or not  */
+    /** Is the toggleSwitch disabled or not */
     disabled: bool,
-
-    classes: object.isRequired
+    /** Classes object */
+    classes: object.isRequired,
+    /** Any node to be rendered (usually text node) */
+    children: any
   };
 
   constructor(props) {
@@ -45,7 +46,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 
   render() {
-    const {checked, disabled, onChange, classes} = this.props;
+    const {checked, disabled, onChange, classes, children} = this.props;
     const {id} = this;
 
     return (
@@ -62,6 +63,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
             </svg>
           </label>
         </label>
+        {children}
       </div>
     );
   }

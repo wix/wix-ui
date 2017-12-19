@@ -13,6 +13,7 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
     click: () => eventTrigger.change(toggleSwitch),
     isChecked: () => toggleSwitch.checked,
     isDisabled: () => toggleSwitch.disabled,
+    getContent: () => element.innerHTML,
     getRootDisplay: () => {
       return domTestkit.getCssValue({
         className: 'root',
@@ -24,6 +25,6 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
         className: 'root label',
         property: 'border-radius'
       });
-    }
+    },
   };
 };
