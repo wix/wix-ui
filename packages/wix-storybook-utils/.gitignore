@@ -13,3 +13,4 @@ package-lock.json
 /*.js
 !wallaby.js
 !AutoExampleDriver.js
+.history

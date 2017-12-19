@@ -10,7 +10,7 @@ import {PaginationStory} from "./pagination-story";
 
 storiesOf('Components', module)
   .add('Button', () => (
-    <Button>Hello</Button>
+    <Button dataHook="story-button">Hello</Button>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />

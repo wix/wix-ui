@@ -51,6 +51,7 @@
     "highlight.js": "^9.12.0",
     "import-path": "0.0.13",
     "jsx-to-string": "^1.3.0",
+    "path": "^0.12.7",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",
     "react-motion": "^0.5.2",
