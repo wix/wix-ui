@@ -1,6 +1,6 @@
 const FunctionScope = require('./FunctionScope');
 const GlobalScope = require('./GlobalScope');
-const parse = require('recast').parse;
+const parse = require('../Parser').parse;
 
 class DriverParser {
   /**
@@ -13,15 +13,13 @@ class DriverParser {
    */
   constructor(files) {
     this.files = files;
+
     const fileContents = files[files.entry];
-    this.recastedDriver = parse(fileContents);
+    this.ast = parse(fileContents);
   }
 
   parse() {
-    const topParentScope = new GlobalScope(this.recastedDriver.program.body, this.files);
-
-    // We only case about what this file exports..
-    //TODO: Parse non-default exports
+    const topParentScope = new GlobalScope(this.ast.program.body, this.files);
     return this.parseDefaultExport(topParentScope);
   }
 
@@ -66,7 +64,7 @@ class DriverParser {
      * Maybe we should parse it in the future and add them to the result of the parse output
      */
     const isValidComment = comment => {
-      return comment.type === 'Block' && comment.value.indexOf('*') === 0;
+      return comment.type === 'CommentBlock' && comment.value.indexOf('*') === 0;
     };
 
     const parseCommentValue = commentValue => {
@@ -99,8 +97,17 @@ class DriverParser {
     const returnObject = {};
 
     properties.forEach(property => {
-      const {key: {name}, value, comments} = property;
-      returnObject[name] = this._parseDeclaration(scope, value, comments);
+      switch (property.type) {
+        case 'Property':
+          returnObject[property.key.name] =
+            this._parseDeclaration(scope, property.value, property.leadingComments);
+          break;
+        case 'SpreadProperty':
+          // TODO: handle property spread
+          console.log(property);
+          break;
+        default: break;
+      }
     });
 
     return returnObject;
@@ -108,7 +115,8 @@ class DriverParser {
 
   parseDefaultExport(scope) {
     const exportDeclaration = scope.getDefaultExportStatement();
-    return this._parseDeclaration(scope, exportDeclaration.declaration);
+    return exportDeclaration ?
+      this._parseDeclaration(scope, exportDeclaration.declaration) : null;
   }
 }
 
