@@ -150,7 +150,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
    * Then if will try to parse them to build an auto generated doc
    */
   getTestkitSource() {
-    const {componentSrcFolder, storyName} = this.props;
+    const {componentSrcFolder} = this.props;
     let filePath = path.join(`./${componentSrcFolder}`, `${componentSrcFolder}.driver.js`);
     filePath = '.' + path.resolve(filePath);
     const files = {entry: filePath};
