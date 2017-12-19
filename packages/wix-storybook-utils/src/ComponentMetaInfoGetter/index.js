@@ -151,7 +151,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
    */
   getTestkitSource() {
     const {componentSrcFolder, storyName} = this.props;
-    let filePath = path.join(`./${componentSrcFolder}`, `${storyName}.driver.js`);
+    let filePath = path.join(`./${componentSrcFolder}`, `${componentSrcFolder}.driver.js`);
     filePath = '.' + path.resolve(filePath);
     const files = {entry: filePath};
 
@@ -181,7 +181,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
       });
     };
 
-    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath)
+    return getFileContent(`${componentSrcFolder}.driver.js`, `./${componentSrcFolder}`, filePath)
       .then(() => {
         return new DriverParser(files).parse();
       })
