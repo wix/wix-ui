@@ -1,6 +1,8 @@
 import {core, BadgeTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
+const contentSelector = '& [data-class="badge-content"]';
+
 export const styles = (theme: BadgeTheme) => {
   theme = (defaultsDeep(theme, core) as BadgeTheme);
 
@@ -30,7 +32,11 @@ export const styles = (theme: BadgeTheme) => {
       boxSizing: 'border-box',
       textAlign: 'center',
 
-      '&:hover': theme.hover
+      '&:hover': theme.hover,
+
+      [contentSelector]: {
+        color: theme.color
+      }
     }
   };
 };
