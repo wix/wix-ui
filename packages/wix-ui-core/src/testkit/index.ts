@@ -11,3 +11,6 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
+
+import {badgeDriverFactory} from '../components/Badge/Badge.driver';
+export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
