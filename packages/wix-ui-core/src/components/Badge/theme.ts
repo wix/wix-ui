@@ -15,7 +15,7 @@ export type BadgeTheme = Partial<BadgeState & {
   borderRadius: string;
   border: string;
   outline: string;
-  boxSizing: string;
+  opacity: string;
 
   fontFamily: string;
   fontSize: string;
@@ -23,7 +23,6 @@ export type BadgeTheme = Partial<BadgeState & {
   fontStyle: string;
   fontWeight: string;
   textDecoration: string;
-  textAlign: string;
 
   cursor: string;
 
@@ -41,8 +40,6 @@ export const core: BadgeTheme = {
   padding: '6px 12px',
   borderRadius: '2px',
   border: '1px solid',
-  outline: 'none',
-  boxSizing: 'border-box',
 
   fontFamily: `“HelveticaNeueW01-65Medi”, “HelveticaNeueW02-65Medi”, “HelveticaNeueW10-65Medi”, "sans-serif"`,
   fontSize: '10px',
@@ -50,9 +47,8 @@ export const core: BadgeTheme = {
   fontStyle: 'normal',
   fontWeight: 'normal',
   textDecoration: 'none',
-  textAlign: 'center',
 
-  cursor: 'pointer',
+  cursor: 'default',
 
   ...stateStyle,
   hover: stateStyle

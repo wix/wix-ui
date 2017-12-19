@@ -33,10 +33,28 @@ describe('Badge', () => {
       expect(driver.getHeight()).toBe(core.height);
     });
 
-    it('should override default height', () => {
-      const theme: BadgeTheme = {height: '36px'};
+    it('should override default theme', () => {
+      const theme: BadgeTheme = {
+          height: '36px',
+          padding: '10px',
+          color: '#fdb10c',
+          opacity: '0.5',
+          borderRadius: '5px',
+          fontSize: '16px',
+          lineHeight: '16px',
+          textDecoration: 'underline',
+          cursor: 'none'
+        };
       const driver = createDriver(<Badge theme={theme}/>);
       expect(driver.getHeight()).toBe(theme.height);
+      expect(driver.getPadding()).toBe(theme.padding);
+      expect(driver.getColor()).toBe(theme.color);
+      expect(driver.getOpacity()).toBe(theme.opacity);
+      expect(driver.getBorderRadius()).toBe(theme.borderRadius);
+      expect(driver.getFontSize()).toBe(theme.fontSize);
+      expect(driver.getLineHeight()).toBe(theme.lineHeight);
+      expect(driver.getTextDecoration()).toBe(theme.textDecoration);
+      expect(driver.getCursor()).toBe(theme.cursor);
     });
   });
 

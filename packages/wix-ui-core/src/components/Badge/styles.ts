@@ -12,6 +12,7 @@ export const styles = (theme: BadgeTheme) => {
       padding: theme.padding,
       borderRadius: theme.borderRadius,
       outline: theme.outline,
+      opacity: theme.opacity,
 
       fontFamily: theme.fontFamily,
       fontSize: theme.fontSize,
@@ -19,7 +20,6 @@ export const styles = (theme: BadgeTheme) => {
       fontStyle: theme.fontStyle,
       fontWeight: theme.fontWeight,
       textDecoration: theme.textDecoration,
-      textAlign: theme.textAlign,
 
       color: theme.color,
       background: theme.backgroundColor,
@@ -27,6 +27,8 @@ export const styles = (theme: BadgeTheme) => {
 
       cursor: theme.cursor,
       '-webkit-font-smoothing': 'antialiased',
+      boxSizing: 'border-box',
+      textAlign: 'center',
 
       '&:hover': theme.hover
     }
