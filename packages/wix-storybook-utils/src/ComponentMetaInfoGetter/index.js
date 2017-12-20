@@ -234,11 +234,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     };
 
     return getFileContent(path.basename(filePath), path.dirname(filePath), filePath)
-      .then(() => new DriverParser(files).parse());
-      // .catch(() => {
-      //   // TODO remove this if you want to see all failing cases
-      //   return null;
-      // });
+      .then(() => new DriverParser(files).parse())
+      .catch(() => {
+        // TODO remove this if you want to see all failing cases
+        return null;
+      });
   }
 
   getTestKitFilePromise(path) {
