@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import PopperJS from 'popper.js';
-import {buildChildrenObject, generateDefaultComponent} from '../../utils';
+import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
 export type Placement = PopperJS.Placement;
 
@@ -15,13 +15,12 @@ class Popover extends React.Component<PopoverProps> {
     popoverShown: false
   };
 
-  static Element = generateDefaultComponent('Popover.Element');
-  static Content = generateDefaultComponent('Popover.Content');
+  static Element = createComponentThatRendersItsChildren('Popover.Element');
+  static Content = createComponentThatRendersItsChildren('Popover.Content');
 
   render() {
     const {placement, popoverShown, children} = this.props;
-    const childrenObject = {Element: null, Content: null};
-    buildChildrenObject(children, childrenObject);
+    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
     return (
       <Manager>
@@ -30,10 +29,13 @@ class Popover extends React.Component<PopoverProps> {
           style={{display: 'inline-block'}}>
           {childrenObject.Element}
         </Target>
-          <Popper data-hook="content" placement={placement} style={popoverShown ? null : {display: 'none'}}>
-            <Arrow/>
-            {childrenObject.Content}
-          </Popper>
+        {
+          popoverShown &&
+            <Popper data-hook="content" placement={placement}>
+              <Arrow/>
+              {childrenObject.Content}
+            </Popper>
+        }
       </Manager>
     );
   }

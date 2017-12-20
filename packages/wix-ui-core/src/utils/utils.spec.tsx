@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {buildChildrenObject, generateDefaultComponent} from './index';
+import {buildChildrenObject, createComponentThatRendersItsChildren} from './index';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {
@@ -18,7 +18,7 @@ describe('Utils', () => {
 
     it('should return a children object when rendered with component', () => {
       const displayName = 'componentName';
-      const Component = generateDefaultComponent(displayName);
+      const Component = createComponentThatRendersItsChildren(displayName);
       const children = <Component><div/></Component>;
       const childrenObject = buildChildrenObject(children, {});
 
@@ -28,7 +28,7 @@ describe('Utils', () => {
     it('should return a children object when rendered with component with namespace', () => {
       const displayName = 'a.b.c.b.componentName';
       const displayNameWithoutNamespace = 'componentName';
-      const Component = generateDefaultComponent(displayName);
+      const Component = createComponentThatRendersItsChildren(displayName);
       const children = <Component><div/></Component>;
       const childrenObject = buildChildrenObject(children, {});
 
@@ -38,11 +38,11 @@ describe('Utils', () => {
     it('should return a children object when rendered with multitple component', () => {
       const firstComponentDisplayName = 'a.b.c.b.firstComponentName';
       const firstComponentDisplayNameWithoutNamespace = 'firstComponentName';
-      const FirstComponent = generateDefaultComponent(firstComponentDisplayName);
+      const FirstComponent = createComponentThatRendersItsChildren(firstComponentDisplayName);
 
       const secondComponentDisplayName = 'a.b.c.b.secondComponentName';
       const secondComponentDisplayNameWithoutNamespace = 'secondComponentName';
-      const SecondComponent = generateDefaultComponent(secondComponentDisplayName);
+      const SecondComponent = createComponentThatRendersItsChildren(secondComponentDisplayName);
 
       const children = [];
       children.push(<FirstComponent><div/></FirstComponent>);
@@ -57,16 +57,16 @@ describe('Utils', () => {
     });
   });
 
-  describe('generateDefaultComponent', () => {
+  describe('createComponentThatRendersItsChildren', () => {
     it('should generate stateless component', () => {
       const displayName = 'componentName';
-      const component = generateDefaultComponent(displayName);
+      const component = createComponentThatRendersItsChildren(displayName);
       expect(component.displayName).toEqual(displayName);
     });
 
     it('should return element children when called', () => {
       const displayName = 'componentName';
-      const component = generateDefaultComponent(displayName);
+      const component = createComponentThatRendersItsChildren(displayName);
       const props = {children: {prop: 'value'}};
       expect(component(props)).toEqual(props.children);
     });

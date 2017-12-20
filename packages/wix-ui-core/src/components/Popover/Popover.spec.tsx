@@ -21,11 +21,11 @@ describe ('Popover', () => {
 
   it('should not display content by default', () => {
     const driver = createDriver(createPopover());
-    expect(driver.isContentVisible()).toBeFalsy();
+    expect(driver.isContentExists()).toBeFalsy();
   });
 
-  it('should display content when popoverShown is true', () => {
+  it.only('should display content when popoverShown is true', () => {
     const driver = createDriver(createPopover({popoverShown: true}));
-    expect(driver.isContentVisible()).toBeTruthy();
+    expect(driver.isContentExists()).toBeTruthy();
   });
 });

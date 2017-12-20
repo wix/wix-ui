@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const buildChildrenObject = (children, childrenObject) => {
+export const buildChildrenObject = <T>(children: Object, childrenObject: T) => {
   return React.Children.toArray(children).reduce((acc, child) => {
     if (!React.isValidElement(child)) {
       return acc;
@@ -13,10 +13,10 @@ export const buildChildrenObject = (children, childrenObject) => {
     const name = child.type['displayName'].split('.').pop();
     acc[name] = child;
     return acc;
-  }, childrenObject || {});
+  }, childrenObject || ({} as T));
 };
 
-export const  generateDefaultComponent = displayName => {
+export const createComponentThatRendersItsChildren = displayName => {
   interface ElementProps { children: any; }
   const Element: React.SFC<ElementProps> = ({children}) => children;
   Element.displayName = displayName;
