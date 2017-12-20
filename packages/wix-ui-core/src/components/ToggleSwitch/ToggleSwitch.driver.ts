@@ -32,6 +32,6 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
         className: 'root label',
         property: 'border-radius'
       });
-    },
+    }
   };
 };

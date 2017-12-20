@@ -19,7 +19,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch dataHook="story-toggle-switch">Hello<i>?</i></ToggleSwitch>
+    <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
   ))
   .add('Text', () => (
     <Text ellipsis>
