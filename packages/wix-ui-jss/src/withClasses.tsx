@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
+const hoistNonReactStatics = require('hoist-non-react-statics');
 
 interface ThemedComponentProps {
   theme?: object;
@@ -39,5 +40,5 @@ export function withClasses(CoreComponent, styles) {
     }
   }
 
-  return ThemedComponent;
+  return hoistNonReactStatics(ThemedComponent, CoreComponent, {inner: true});
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {string} from 'prop-types';
 import * as ReactDOM from 'react-dom';
+const hoistNonReactStatics = require('hoist-non-react-statics');
 
 interface WixComponentProps {
   dataHook?: string;
@@ -31,5 +32,5 @@ export const createHOC = Component => {
     }
   }
 
-  return WixComponent;
+  return hoistNonReactStatics(WixComponent, Component, {inner: true});
 };
