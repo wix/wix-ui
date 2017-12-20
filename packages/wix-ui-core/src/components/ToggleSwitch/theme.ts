@@ -29,6 +29,9 @@ export type ToggleSwitchTheme = Partial<{
   toggleIconWidth: string;
   toggleIconHeight: string;
   toggleIconDisplay: string;
+
+  childrenColor: string;
+  childrenMarginLeft: string;
 }>;
 
 export const core: ToggleSwitchTheme = {
@@ -59,5 +62,8 @@ export const core: ToggleSwitchTheme = {
 
   toggleIconWidth: '8px',
   toggleIconHeight: '6px',
-  toggleIconDisplay: 'none'
+  toggleIconDisplay: 'none',
+
+  childrenColor: palette.grey,
+  childrenMarginLeft: '10px'
 };

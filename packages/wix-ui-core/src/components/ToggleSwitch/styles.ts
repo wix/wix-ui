@@ -8,7 +8,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
   return {
     root: {
-      display: 'inline-block',
+      display: 'flex',
       width: theme.rootWidth,
       height: theme.rootHeight,
 
@@ -84,6 +84,11 @@ export const styles = (theme: ToggleSwitchTheme) => {
             color: theme.color
           }
         }
+      },
+
+      [contentSelector]: {
+        color: theme.childrenColor,
+        marginLeft: theme.childrenMarginLeft
       }
     },
 
