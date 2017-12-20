@@ -169,8 +169,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
               this.renderNavButton(NavButtonTypes.PREVIOUS)
             ] : null
           }
-
-          { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
+          <span data-hook="PAGES_SELECTION">
+            { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
+          </span>
 
           {navButtonPlacement === 'inline' ?
             [

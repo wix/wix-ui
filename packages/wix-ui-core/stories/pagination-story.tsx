@@ -12,6 +12,7 @@ export class PaginationStory extends React.Component<{},{currPage: number}> {
       console.log('Current Page: ', this.state.currPage);
       return (
         <Pagination
+          dataHook="story-pagination"
           numOfPages={numOfPages}
           roomForXPages={6}
           currentPage={this.state.currPage}

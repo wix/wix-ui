@@ -38,5 +38,5 @@ storiesOf('Components', module)
     </HBox>
   ))
   .add('Pagination', () => (
-    <PaginationStory/>
+    <PaginationStory />
   ));
