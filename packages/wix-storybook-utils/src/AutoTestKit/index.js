@@ -1,21 +1,70 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {isPlainObject} from 'lodash';
+import path from 'path';
 
 export default class AutoTestKit extends Component {
   static propTypes = {
     source: PropTypes.object.isRequired
   };
 
-  getMethodRow = methodName => {
-    const method = this.props.source.returns[methodName];
+  isFunction = data => data.type && data.type === 'function';
 
+  isMethodContainer = data =>
+    !this.isFunction(data) && isPlainObject(data) &&
+    Object.keys(data).length > 0 &&
+    Object.keys(data).some(methodName => this.isFunction(data[methodName]));
+
+  /* Converts this:
+
+    {
+      driver: {
+        exists: () => {...},
+        element: () => {...}
+      },
+      dropDownDriver: {
+        exists: () => {...},
+        element: () => {...}
+      }
+    }
+
+    into this:
+
+    {
+      driver.exists: () => {...},
+      driver.element: () => {...},
+      dropDownDriver.exists: () => {...},
+      dropDownDriver.element: () => {...}
+    } */
+  flatenMethods = methodContainer =>
+      Object.keys(methodContainer).map(returnName => ({returnName, method: methodContainer[returnName]}))
+      .filter(({method}) => this.isFunction(method) || this.isMethodContainer(method))
+      .reduce((flatContainer, {returnName, method}) => {
+        if (this.isMethodContainer(method)) {
+          Object.keys(method).map(methodName => ({fullName: `${returnName}.${methodName}`, actualMethod: method[methodName]}))
+          .filter(({actualMethod}) => this.isFunction(actualMethod) || this.isMethodContainer(actualMethod))
+          .reduce((flatContainer, {fullName, actualMethod}) => {
+            flatContainer[fullName] = actualMethod;
+            return flatContainer;
+          }, flatContainer);
+        } else {
+          flatContainer[returnName] = method;
+        }
+        return flatContainer;
+      }, {});
+
+  getMethodRows = (flatMethods, hasOrigin) => {
     return (
-      <tr key={methodName} data-hook="method">
-        <td data-hook="name">{methodName}</td>
-        <td>{this.getParams(method.params)}</td>
-        <td>{method.returnType}</td>
-        <td data-hook="description">{method.description}</td>
-      </tr>
+      <tbody>
+        { Object.keys(flatMethods).map(methodName =>
+          <tr key={methodName} data-hook="method">
+            <td data-hook="name">{methodName}</td>
+            <td>{this.getParams(flatMethods[methodName].params)}</td>
+            <td>{flatMethods[methodName].returnType}</td>
+            <td data-hook="description">{flatMethods[methodName].description}</td>
+            {hasOrigin ? <td data-hook="origin">{path.basename(flatMethods[methodName].origin)}</td> : null}
+          </tr>)}
+      </tbody>
     );
   }
 
@@ -25,11 +74,20 @@ export default class AutoTestKit extends Component {
     } else {
       return '---';
     }
-  }
+  };
+
+  getHeaders = flatMethods => {
+    const headers = ['Method', 'Arguments', 'Returned Value', 'Description'];
+
+    const hasOrigin = Object.keys(flatMethods).map(methodName => flatMethods[methodName]).some(method => method.origin);
+
+    return headers.concat(hasOrigin ? ['Origin'] : []);
+  };
 
   render() {
     const source = this.props.source;
-
+    const flatMethods = this.flatenMethods(source.returns);
+    const headers = this.getHeaders(flatMethods);
     return (
       <div className="markdown-body">
         <h2>Enzyme Testkit</h2>
@@ -37,16 +95,10 @@ export default class AutoTestKit extends Component {
         <table>
           <thead>
             <tr>
-              <th>Method</th>
-              <th>Arguments</th>
-              <th>Returned Value</th>
-              <th>Description</th>
+              {headers.map(header => <th key={header}>{header}</th>)}
             </tr>
           </thead>
-
-          <tbody>
-            { Object.keys(source.returns).map(this.getMethodRow) }
-          </tbody>
+          { this.getMethodRows(flatMethods, headers.includes('Origin')) }
         </table>
       </div>
     );
