@@ -149,7 +149,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
   
   render() {
-    const {navButtonPlacement, showFirstLastButtons, paginationMode, classes} = this.props;
+    const {currentPage, numOfPages, navButtonPlacement, showFirstLastButtons, paginationMode, classes} = this.props;
+    this.currentPage = currentPage <= numOfPages ? currentPage : numOfPages;
+
     return (
       <div data-hook="PAGINATION" data-selected={this.currentPage} className={classes.paginationRoot}>
         {navButtonPlacement === 'top' ?
