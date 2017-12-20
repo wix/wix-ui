@@ -46,6 +46,7 @@
     "typescript": "~2.4.0"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash.uniqueid": "^4.0.1",
