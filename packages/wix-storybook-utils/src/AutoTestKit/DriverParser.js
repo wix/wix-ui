@@ -13,7 +13,6 @@ class DriverParser {
    */
   constructor(files) {
     this.files = files;
-
     const fileContents = files[files.entry];
     this.ast = parse(fileContents);
   }
@@ -52,6 +51,10 @@ class DriverParser {
 
     if (comments) {
       returnValue.description = this._commentsToDescription(comments);
+    }
+
+    if (this.files.origin !== this.files.entry) {
+      returnValue.origin = this.files.entry;
     }
 
     return returnValue;
