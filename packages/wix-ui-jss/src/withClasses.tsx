@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
-import * as hoistNonReactStatics from 'hoist-non-react-statics';
+const hoistNonReactStatics = require('hoist-non-react-statics');
 
 interface ThemedComponentProps {
   theme?: object;

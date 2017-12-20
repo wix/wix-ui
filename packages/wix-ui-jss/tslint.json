@@ -1,8 +1,5 @@
 {
   "extends": [
     "tslint-config-wix"
-  ],
-  "include": [
-    "./src/external-types.d.ts"
   ]
 }
