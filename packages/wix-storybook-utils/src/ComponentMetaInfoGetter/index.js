@@ -176,15 +176,25 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     });
   }
 
+  getComponentPathBySrcFolder = srcFolder => {
+    const [dirName, componentName] = srcFolder.split('/');
+
+    if (dirName && componentName) {
+      return path.join(`./${dirName}/${componentName}`, `${componentName}.driver.js`);
+    }
+
+    return path.join(`./${srcFolder}`, `${srcFolder}.driver.js`);
+  };
+
   /**
    * This method will get all file contents from all imported files.
    * Then if will try to parse them to build an auto generated doc
    */
   getTestkitSource() {
     const {componentSrcFolder} = this.props;
-    let filePath = path.join(`./${componentSrcFolder}`, `${componentSrcFolder}.driver.js`);
+    let filePath = this.getComponentPathBySrcFolder(componentSrcFolder);
     filePath = '.' + path.resolve(filePath);
-    let files = {entry: filePath};
+    let files = {entry: filePath, origin: filePath};
 
     const getFileContent = (fileName, basePath, originalPath) => {
       if (fileName.endsWith('css')) {
@@ -204,9 +214,13 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
             promises.push(getFileContent(path.basename(filePath), path.dirname(filePath), filePath));
           },
           ExportNamedDeclaration: filePath => {
+
+            // Remove the file that contains a single export line from files
             const {[originalPath]: val, ...rest} = files;
             console.log(val, ' removed'); // val unused
             files = rest;
+
+            // Replace the entry by the export target
             files.entry = filePath;
             promises.push(getFileContent(path.basename(filePath), path.dirname(filePath), filePath));
           }
@@ -219,14 +233,12 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
         .then(content => processFileContents(content));
     };
 
-    return getFileContent(`${componentSrcFolder}.driver.js`, `./${componentSrcFolder}`, filePath)
-      .then(() => {
-        return new DriverParser(files).parse();
-      })
-      .catch(() => {
-        // TODO remove this if you want to see all failing cases
-        return null;
-      });
+    return getFileContent(path.basename(filePath), path.dirname(filePath), filePath)
+      .then(() => new DriverParser(files).parse());
+      // .catch(() => {
+      //   // TODO remove this if you want to see all failing cases
+      //   return null;
+      // });
   }
 
   getTestKitFilePromise(path) {
