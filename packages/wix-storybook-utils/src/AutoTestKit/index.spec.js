@@ -9,6 +9,8 @@ import AutoTestKit from './index';
 
 const fakeTestKitsPaths = {
   InputWithOptions: 'mock-testkits/InputWithOptions.driver.txt',
+  IconWithOptions: 'mock-testkits/IconWithOptions.driver.txt',
+  LanguagePicker: 'mock-testkits/LanguagePicker.driver.txt',
   Input: 'mock-testkits/Input.driver.txt',
   DropdownLayout: 'mock-testkits/DropdownLayout.driver.txt',
   Badge: 'mock-testkits/Badge.driver.txt',
@@ -28,6 +30,7 @@ const parseTestKit = testKit => {
   const entryTestKitFile = getFakeTestKitFile(testKit);
   const files = {
     entry: testKit,
+    origin: testKit,
     ...getFiles,
     [testKit]: entryTestKitFile
   };
@@ -48,7 +51,8 @@ const createDriver = wrapper => {
       const method = byHook(wrapper, 'method').at(index);
       return {
         getName: () => byHook(method, 'name').text(),
-        getDescription: () => byHook(method, 'description').text()
+        getDescription: () => byHook(method, 'description').text(),
+        getOrigin: () => byHook(method, 'origin').text()
       };
     }
   };
@@ -69,6 +73,15 @@ describe('AutoTestKit', () => {
       const driver = createDriver(render(fakeTestKitsPaths.Input));
       expect(driver.getMethodsCount()).toEqual(50);
       expect(driver.getMethodAt(2).getName()).toEqual('blur');
+    });
+  });
+
+  describe('IconWithOptions testKit', () => {
+    it('should have seven nested methods', () => {
+      const driver = createDriver(render(fakeTestKitsPaths.IconWithOptions));
+      expect(driver.getMethodsCount()).toEqual(7);
+      expect(driver.getMethodAt(2).getName()).toEqual('driver.mouseLeave');
+      expect(driver.getMethodAt(6).getName()).toEqual('dropdownLayoutDriver.isDropDirectionUp');
     });
   });
 

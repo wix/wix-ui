@@ -217,7 +217,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
 
             // Remove the file that contains a single export line from files
             const {[originalPath]: val, ...rest} = files;
-            console.log(val, ' removed'); // val unused
+            console.log(val, ' removed'); // linter barks on unused val
             files = rest;
 
             // Replace the entry by the export target

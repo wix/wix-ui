@@ -107,7 +107,6 @@ class DriverParser {
           break;
         case 'SpreadProperty':
           // TODO: handle property spread
-          console.log(property);
           break;
         default: break;
       }

@@ -9,7 +9,10 @@ const readFile = filePath => {
   });
 };
 
-const files = {entry: './mock-testkits/IconWithOptions.driver'};
+const files = {
+  entry: './mock-testkits/Badge.driver',
+  origin: './mock-testkits/Badge.driver'
+};
 
 const getFileContent = filePath => {
   if (filePath.includes('scss')) {
