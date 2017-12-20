@@ -67,11 +67,7 @@ describe('Utils', () => {
     it('should return element children when called', () => {
       const displayName = 'componentName';
       const component = generateDefaultComponent(displayName);
-      const props = {
-        children: {
-          prop: 'value'
-        }
-      };
+      const props = {children: {prop: 'value'}};
       expect(component(props)).toEqual(props.children);
     });
    });
