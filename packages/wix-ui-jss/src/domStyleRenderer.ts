@@ -3,7 +3,7 @@ import preset from 'jss-preset-default';
 
 const jss = create(preset());
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'test') {
   jss.setup({
     createGenerateClassName: args => {
       return (rule, sheet) => `${rule.key}`;

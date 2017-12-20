@@ -12,5 +12,8 @@ export const inputTestkitFactory = enzymeTestkitFactoryCreator(inputDriverFactor
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
 
+import {badgeDriverFactory} from '../components/Badge/Badge.driver';
+export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
+
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = enzymeTestkitFactoryCreator(paginationDriverFactory);

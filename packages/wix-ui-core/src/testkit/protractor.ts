@@ -8,3 +8,6 @@ export const buttonTestkitFactory = protractorTestkitFactoryCreator(buttonDriver
 
 import {paginationDriverFactory} from '../components/Pagination/Pagination.protractor.driver';
 export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginationDriverFactory);
+
+import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
+export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
