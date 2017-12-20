@@ -6,9 +6,12 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
   return {
     root: {
-      display: 'inline-block',
+      display: 'inline-flex',
+      flexDirection: 'row',
       width: theme.rootWidth,
       height: theme.rootHeight,
+      alignItems: 'center',
+      position: 'relative',
 
       '& input[type=checkbox]': {
         display: 'none'
@@ -30,16 +33,16 @@ export const styles = (theme: ToggleSwitchTheme) => {
       '& input[type=checkbox]:checked + $outerLabel': {
         background: theme.backgroundColorChecked,
 
-        '& $innerLabel': {
-          left: theme.labelMovementRange,
+        '& + $innerLabel': {
+            left: theme.labelMovementRange,
 
-          '& $toggleActive': {
-            display: theme.toggleIconDisplay
-          },
+            '& $toggleActive': {
+                display: theme.toggleIconDisplay
+            },
 
-          '& $toggleInactive': {
-            display: 'none'
-          }
+            '& $toggleInactive': {
+                display: 'none'
+            }
         }
       },
 
@@ -63,7 +66,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
         background: theme.backgroundColorDisabled,
         cursor: 'default',
 
-        '& $innerLabel': {
+        '& + $innerLabel': {
           cursor: 'default',
 
           '& $toggleActive': {
@@ -96,11 +99,12 @@ export const styles = (theme: ToggleSwitchTheme) => {
       height: theme.innerLabelHeight,
       background: theme.innerLabelBackgroundColor,
       position: 'absolute',
-      top: '1px',
       left: '1px',
       zIndex: '1',
       textAlign: 'center',
       cursor: 'pointer',
+      top: '50%',
+      transform: 'translate(0, -50%)',
 
       justifyContent: 'center',
       alignItems: 'center',
