@@ -23,13 +23,13 @@ describe ('Popover', () => {
 
   it('should not display content by default', () => {
     const driver = createDriver(createPopover());
-    expect(driver.contentExists()).toBeFalsy();
+    expect(driver.isContentExists()).toBeFalsy();
   });
 
   it('should display content after click', () => {
     const driver = createDriver(createPopover());
     driver.clickElement();
-    expect(driver.contentExists()).toBeTruthy();
+    expect(driver.isContentExists()).toBeTruthy();
   });
 
   describe('testkit', () => {

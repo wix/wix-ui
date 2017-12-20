@@ -15,13 +15,13 @@ interface PopoverState {
 }
 
 class Popover extends React.Component<PopoverProps, PopoverState> {
-  public static defaultProps: Partial<PopoverProps> = {
+  static defaultProps: Partial<PopoverProps> = {
     trigger: 'click',
     popoverShown: false
   };
 
-  public static Element = generateDefaultChildComponent('Popover.Element');
-  public static Content = generateDefaultChildComponent('Popover.Content');
+  static Element = generateDefaultChildComponent('Popover.Element');
+  static Content = generateDefaultChildComponent('Popover.Content');
 
   constructor(props) {
     super(props);
