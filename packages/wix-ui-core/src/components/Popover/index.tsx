@@ -30,7 +30,7 @@ class Popover extends React.Component<PopoverProps> {
           style={{display: 'inline-block'}}>
           {childrenObject.Element}
         </Target>
-          <Popper data-hook="content" placement={placement} style={{display: popoverShown ? null : 'none'}}>
+          <Popper data-hook="content" placement={placement} style={popoverShown ? null : {display: 'none'}}>
             <Arrow/>
             {childrenObject.Content}
           </Popper>

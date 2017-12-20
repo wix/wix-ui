@@ -1,4 +1,5 @@
 export const popoverDriverFactory = ({element}) => ({
   exists: () => !!element,
-  isContentExists: () => !!element.querySelector('[data-hook="content"]')
+  isContentVisible: () => window.getComputedStyle(
+    element.querySelector('[data-hook="content"]')).display !== 'none'
 });
