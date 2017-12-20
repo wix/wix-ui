@@ -83,6 +83,25 @@ describe('AutoTestKit', () => {
       expect(driver.getMethodAt(2).getName()).toEqual('driver.mouseLeave');
       expect(driver.getMethodAt(6).getName()).toEqual('dropdownLayoutDriver.isDropDirectionUp');
     });
+
+    it('should have proper origin', () => {
+      const parseIconWithOptionsTestKit = () => {
+        const files = {
+          entry: fakeTestKitsPaths.IconWithOptions,
+          origin: fakeTestKitsPaths.LanguagePicker,
+          ...getFiles,
+          [fakeTestKitsPaths.IconWithOptions]: getFakeTestKitFile(fakeTestKitsPaths.IconWithOptions)
+        };
+        return new DriverParser(files).parse();
+      };
+
+      const render = () => {
+        return mount(<AutoTestKit source={parseIconWithOptionsTestKit()}/>);
+      };
+
+      const driver = createDriver(render(fakeTestKitsPaths.IconWithOptions));
+      expect(driver.getMethodAt(2).getOrigin()).toEqual('IconWithOptions.driver.txt');
+    });
   });
 
   describe('parsing', () => {
