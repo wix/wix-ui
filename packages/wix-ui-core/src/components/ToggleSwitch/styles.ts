@@ -79,10 +79,6 @@ export const styles = (theme: ToggleSwitchTheme) => {
               fill: theme.colorDisabled
             }
           },
-
-          [contentSelector]: {
-            color: theme.color
-          }
         }
       },
 

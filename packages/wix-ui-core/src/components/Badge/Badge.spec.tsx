@@ -30,7 +30,7 @@ describe('Badge', () => {
   describe('style', () => {
     it('should have default height', () => {
       const driver = createDriver(<Badge/>);
-      expect(driver.getHeight()).toBe(core.height);
+      expect(driver.styles.getHeight()).toBe(core.height);
     });
 
     it('should override default theme', () => {
@@ -46,15 +46,15 @@ describe('Badge', () => {
           cursor: 'none'
         };
       const driver = createDriver(<Badge theme={theme}/>);
-      expect(driver.getHeight()).toBe(theme.height);
-      expect(driver.getPadding()).toBe(theme.padding);
-      expect(driver.getColor()).toBe(theme.color);
-      expect(driver.getOpacity()).toBe(theme.opacity);
-      expect(driver.getBorderRadius()).toBe(theme.borderRadius);
-      expect(driver.getFontSize()).toBe(theme.fontSize);
-      expect(driver.getLineHeight()).toBe(theme.lineHeight);
-      expect(driver.getTextDecoration()).toBe(theme.textDecoration);
-      expect(driver.getCursor()).toBe(theme.cursor);
+      expect(driver.styles.getHeight()).toBe(theme.height);
+      expect(driver.styles.getPadding()).toBe(theme.padding);
+      expect(driver.styles.getColor()).toBe(theme.color);
+      expect(driver.styles.getOpacity()).toBe(theme.opacity);
+      expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
+      expect(driver.styles.getFontSize()).toBe(theme.fontSize);
+      expect(driver.styles.getLineHeight()).toBe(theme.lineHeight);
+      expect(driver.styles.getTextDecoration()).toBe(theme.textDecoration);
+      expect(driver.styles.getCursor()).toBe(theme.cursor);
     });
   });
 

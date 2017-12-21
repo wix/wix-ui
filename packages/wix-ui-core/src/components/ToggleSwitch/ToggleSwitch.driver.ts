@@ -9,29 +9,32 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
   }
 
   return {
-    /** exists method - checks if element exists */
+    /** checks if element exists */
     exists: () => !!element,
-    /** click method - triggers toggleSwitch change */
+    /** triggers toggleSwitch change */
     click: () => eventTrigger.change(toggleSwitch),
-    /** isChecked method - returns a boolean indicating if the toggleSwitch is checked */
+    /** returns a boolean indicating if the toggleSwitch is checked */
     isChecked: () => toggleSwitch.checked,
-    /** isDisabled method - returns a boolean indicating if the toggleSwitch is disabled */
+    /** returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => toggleSwitch.disabled,
-    /** getContent method - gets the innerHtml of the toggleSwitch element */
+    /** returns elements innerHtml */
     getContent: () => element.innerHTML,
-    /** getRootDisplay method - returns elements display css property*/
-    getRootDisplay: () => {
-      return domTestkit.getCssValue({
-        className: 'root',
-        property: 'display'
-      });
-    },
-    /** getBorderRadius method - returns elements border-radius css property*/
-    getBorderRadius() {
-      return domTestkit.getCssValue({
-        className: 'root label',
-        property: 'border-radius'
-      });
+    /** styles element for css properties */
+    styles: {
+      /** returns elements display css property */
+      getRootDisplay: () => {
+        return domTestkit.getCssValue({
+          className: 'root',
+          property: 'display'
+        });
+      },
+      /** returns elements border-radius css property */
+      getBorderRadius() {
+        return domTestkit.getCssValue({
+          className: 'root label',
+          property: 'border-radius'
+        });
+      }
     }
   };
 };
