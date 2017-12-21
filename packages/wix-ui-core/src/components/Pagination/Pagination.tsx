@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
+import * as PropTypes from 'prop-types';
 
 interface PaginationProps {
   numOfPages: number,
@@ -9,7 +10,7 @@ interface PaginationProps {
   paginationMode?: 'pages' | 'input',
   showFirstLastButtons?: boolean,
   replaceArrowsWithText?: boolean,
-  navButtonPlacement: 'inline' | 'top' | 'bottom',
+  navButtonPlacement?: 'inline' | 'top' | 'bottom',
   classes: {[s:string]:string};
 }
 
@@ -20,6 +21,28 @@ interface PaginationState {
 enum NavButtonTypes {FIRST, PREVIOUS, NEXT, LAST}
 
 class Pagination extends React.Component<PaginationProps, PaginationState> {
+  // this is a techincal debt - remove once we have support for typescript props in autodocs
+  static propTypes = {
+    /** The number of pages available to paginate */
+    numOfPages: PropTypes.number.isRequired,
+    /** Current page to be shown as current. defaults to 1 */
+    currentPage: PropTypes.number,
+    /** Temp */
+    roomForXPages: PropTypes.number,
+    /** Callback to be called when pagination happens - structure ({page: string}) => () */
+    onChange: PropTypes.func,
+    /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
+    paginationMode: PropTypes.oneOf(['pages' , 'input']),
+    /** Shows the 'first' and 'last' navigation buttons. defaults to false */
+    showFirstLastButtons: PropTypes.bool,
+    /** Allows replacing navigation arrows with textual buttons */
+    replaceArrowsWithText: PropTypes.bool,
+    /** Changes the location of the navigation buttons relative to the pages selection. defaults to 'inline'  */
+    navButtonPlacement: PropTypes.oneOf(['inline' , 'top' , 'bottom']),
+    /** Classes object */
+    classes: PropTypes.object.isRequired
+  };
+
   public static defaultProps: Partial<PaginationProps> = {
       currentPage: 1,
       showFirstLastButtons: false,
@@ -28,12 +51,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       paginationMode: 'pages'
   };
 
-  private currentPage: number = this.props.currentPage <= this.props.numOfPages ? this.props.currentPage : this.props.numOfPages;
+  private currentPage: number = this.validateCurrentPage();
 
   state = {
     pageInput: String(this.currentPage)
   };
 
+  private validateCurrentPage(): number{
+    return Math.max(Math.min(this.props.currentPage, this.props.numOfPages), 1);
+  }
 
   private onChange(page): void {
     (parseInt(page, 10) !== this.currentPage) && this.props.onChange({page})
@@ -58,7 +84,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       data-hook={'PAGE_' + i}
       key={'PAGE' + i}
       className={pageContent === String(this.currentPage) ? this.props.classes.currentPage : this.props.classes.pageNumber}
-      onClick={() => this.handlePageClick(pageContent)}>
+      onClick={() => this.handlePageClick(pageContent)}
+      data-isSelected={pageContent === String(this.currentPage)}>
         {pageContent}
       </span>
     ));
@@ -149,11 +176,11 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
   
   render() {
-    const {currentPage, numOfPages, navButtonPlacement, showFirstLastButtons, paginationMode, classes} = this.props;
-    this.currentPage = currentPage <= numOfPages ? currentPage : numOfPages;
+    const {navButtonPlacement, showFirstLastButtons, paginationMode, classes} = this.props;
+    this.currentPage = this.validateCurrentPage();
 
     return (
-      <div data-hook="PAGINATION" data-selected={this.currentPage} className={classes.paginationRoot}>
+      <div data-hook="PAGINATION" className={classes.paginationRoot}>
         {navButtonPlacement === 'top' ?
             <div data-hook="TOP_ROW">
               {[

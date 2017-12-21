@@ -8,19 +8,12 @@ import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
-  
-  it('exists', () => {
-    const pagination = createDriver(<Pagination numOfPages={3}/>);
-    expect(pagination.exists()).toBe(true);
-  });
-  
+
   describe('default view', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
-      expect(pagination.getPages().length).toBe(3);
-      expect(pagination.getPages(0).textContent).toBe('1');
-      expect(pagination.getPages(1).textContent).toBe('2');
-      expect(pagination.getPages(2).textContent).toBe('3');
+      expect(pagination.amountOfPages).toBe(3);
+      expect(pagination.getPagesList()).toEqual(['1','2','3'])
     });
     
     it('marks page 1 as selected by default', () => {
@@ -36,6 +29,11 @@ describe('Pagination', () => {
     it('if currentPage is higher than the number of pages - current page is the last one', () => {
       const pagination = createDriver(<Pagination numOfPages={34} currentPage={56}/>);
       expect(pagination.getCurrentPage().textContent).toBe('34');
+    });
+
+    it('if currentPage is lower than 1 - current page is set to 1', () => {
+      const pagination = createDriver(<Pagination numOfPages={34} currentPage={0}/>);
+      expect(pagination.getCurrentPage().textContent).toBe('1');
     });
 
     it('pages send onChange with page number', () => {
@@ -57,37 +55,11 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={15} currentPage={8} roomForXPages={3} onChange={onChange}/>);
 
-      expect(pagination.getPages(1).textContent).toEqual('8');
+      expect(pagination.getPage(1).textContent).toEqual('8');
 
       pagination.clickOnPage(1);
       return sleep(10).then(() => {
           expect(onChange.mock.calls.length).toBe(0);
-      });
-    });
-
-    describe('page numbers logic', () => {
-      it('shows all pages when possible', () => {
-        const pagination = createDriver(<Pagination numOfPages={7} roomForXPages={8}/>);
-        expect(pagination.getPages().length).toEqual(7);
-        ['1', '2', '3', '4', '5', '6', '7'].forEach((num, idx) => {
-            expect(pagination.getPages(idx).textContent).toEqual(num);
-        });
-      });
-
-      it('centers on current page for odd number of pages', () => {
-        const pagination = createDriver(<Pagination numOfPages={10} roomForXPages={3} currentPage={5}/>);
-        expect(pagination.getPages().length).toEqual(3);
-        ['4', '5', '6'].forEach((num, idx) => {
-            expect(pagination.getPages(idx).textContent).toEqual(num);
-        });
-      });
-
-      it('centers on current page for even number of pages', () => {
-        const pagination = createDriver(<Pagination numOfPages={10} roomForXPages={4} currentPage={5}/>);
-        expect(pagination.getPages().length).toEqual(3);
-        ['4', '5', '6'].forEach((num, idx) => {
-            expect(pagination.getPages(idx).textContent).toEqual(num);
-        });
       });
     });
   });
@@ -121,7 +93,7 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} onChange={onChange}/>);
       pagination.changeInput('5');
-      pagination.inputKeyCode(13);
+      pagination.inputKeyDown(13);
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
     });
@@ -130,7 +102,7 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('');
-      pagination.inputKeyCode(13);
+      pagination.inputKeyDown(13);
       
       return sleep(10).then(() => {
         expect(onChange.mock.calls.length).toBe(0);
@@ -141,7 +113,7 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('8');
-      pagination.inputKeyCode(13);
+      pagination.inputKeyDown(13);
       
       return sleep(10).then(() => {
         expect(onChange.mock.calls.length).toBe(0);
@@ -152,7 +124,7 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('34');
-      pagination.inputKeyCode(13);
+      pagination.inputKeyDown(13);
 
       return sleep(10).then(() => {
           expect(onChange.mock.calls.length).toBe(1);
@@ -174,26 +146,26 @@ describe('Pagination', () => {
     
     it('shows next & previous buttons (as arrows icon) inline by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
-      expect(pagination.getButton('previous').element).toBeTruthy();
-      expect(pagination.getButton('previous').element.textContent).toEqual('<');
-      expect(pagination.getButton('previous').placement).toEqual('inline');
-      expect(pagination.getButton('next').element).toBeTruthy();
-      expect(pagination.getButton('next').element.textContent).toEqual('>');
-      expect(pagination.getButton('next').placement).toEqual('inline');
+      expect(pagination.getNavButton('previous').element).toBeTruthy();
+      expect(pagination.getNavButton('previous').element.textContent).toEqual('<');
+      expect(pagination.getNavButton('previous').placement).toEqual('inline');
+      expect(pagination.getNavButton('next').element).toBeTruthy();
+      expect(pagination.getNavButton('next').element.textContent).toEqual('>');
+      expect(pagination.getNavButton('next').placement).toEqual('inline');
     });
     
     it('does not show first & last buttons by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
-      expect(pagination.getButton('first').element).not.toBeTruthy();
-      expect(pagination.getButton('last').element).not.toBeTruthy();
+      expect(pagination.getNavButton('first').element).not.toBeTruthy();
+      expect(pagination.getNavButton('last').element).not.toBeTruthy();
       
     });
     it('shows first & last buttons (as arrows icons) with showFirstLastButtons prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons/>);
-      expect(pagination.getButton('first').element).toBeTruthy();
-      expect(pagination.getButton('first').element.textContent).toEqual('<<');
-      expect(pagination.getButton('last').element).toBeTruthy();
-      expect(pagination.getButton('last').element.textContent).toEqual('>>');
+      expect(pagination.getNavButton('first').element).toBeTruthy();
+      expect(pagination.getNavButton('first').element.textContent).toEqual('<<');
+      expect(pagination.getNavButton('last').element).toBeTruthy();
+      expect(pagination.getNavButton('last').element.textContent).toEqual('>>');
     });
     
     
@@ -202,7 +174,7 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={2} showFirstLastButtons onChange={onChange}/>);
       
       ['first', 'last', 'previous', 'next'].forEach(btnName => {
-        pagination.clickOnButton(btnName);
+        pagination.clickOnNavButton(btnName);
         expect(onChange.mock.calls[0][0]).toEqual({page: btnName});
         onChange.mockClear();
       });
@@ -212,12 +184,12 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={1} showFirstLastButtons onChange={onChange}/>);
       
-      pagination.clickOnButton('first');
+      pagination.clickOnNavButton('first');
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
       onChange.mockClear();
-      pagination.clickOnButton('previous');
+      pagination.clickOnNavButton('previous');
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
@@ -227,12 +199,12 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={3} showFirstLastButtons onChange={onChange}/>);
       
-      pagination.clickOnButton('last');
+      pagination.clickOnNavButton('last');
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
       onChange.mockClear();
-      pagination.clickOnButton('next');
+      pagination.clickOnNavButton('next');
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
@@ -240,26 +212,26 @@ describe('Pagination', () => {
     
     it('shows button text with replaceArrowsWithText prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons replaceArrowsWithText/>);
-      expect(pagination.getButton('first').element.textContent).toEqual('First');
-      expect(pagination.getButton('last').element.textContent).toEqual('Last');
-      expect(pagination.getButton('previous').element.textContent).toEqual('Previous');
-      expect(pagination.getButton('next').element.textContent).toEqual('Next');
+      expect(pagination.getNavButton('first').element.textContent).toEqual('First');
+      expect(pagination.getNavButton('last').element.textContent).toEqual('Last');
+      expect(pagination.getNavButton('previous').element.textContent).toEqual('Previous');
+      expect(pagination.getNavButton('next').element.textContent).toEqual('Next');
     });
 
     it('places navigagtion buttons on top if navButtonPlacement prop is set to "top"', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons navButtonPlacement="top"/>);
-      expect(pagination.getButton('first').placement).toEqual('top');
-      expect(pagination.getButton('previous').placement).toEqual('top');
-      expect(pagination.getButton('next').placement).toEqual('top');
-      expect(pagination.getButton('last').placement).toEqual('top');
+      expect(pagination.getNavButton('first').placement).toEqual('top');
+      expect(pagination.getNavButton('previous').placement).toEqual('top');
+      expect(pagination.getNavButton('next').placement).toEqual('top');
+      expect(pagination.getNavButton('last').placement).toEqual('top');
     });
 
     it('places navigagtion buttons on bottom if navButtonPlacement prop is set to "bottom"', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons navButtonPlacement="bottom"/>);
-      expect(pagination.getButton('first').placement).toEqual('bottom');
-      expect(pagination.getButton('previous').placement).toEqual('bottom');
-      expect(pagination.getButton('next').placement).toEqual('bottom');
-      expect(pagination.getButton('last').placement).toEqual('bottom');
+      expect(pagination.getNavButton('first').placement).toEqual('bottom');
+      expect(pagination.getNavButton('previous').placement).toEqual('bottom');
+      expect(pagination.getNavButton('next').placement).toEqual('bottom');
+      expect(pagination.getNavButton('last').placement).toEqual('bottom');
     });
   });
   
