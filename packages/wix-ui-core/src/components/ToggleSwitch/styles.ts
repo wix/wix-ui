@@ -83,8 +83,8 @@ export const styles = (theme: ToggleSwitchTheme) => {
       },
 
       [contentSelector]: {
-        color: theme.childrenColor,
-        marginLeft: theme.childrenMarginLeft
+        color: theme.labelColor,
+        marginLeft: theme.labelMarginLeft
       }
     },
 
