@@ -37,6 +37,7 @@
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4",
+    "react-popper": "^0.7.4",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
