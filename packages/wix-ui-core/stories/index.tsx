@@ -7,7 +7,7 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
-import {PaginationStory} from "./pagination-story";
+import {PaginationStory} from "./Pagination/pagination-story";
 
 storiesOf('Components', module)
   .add('Badge', () => (
