@@ -17,11 +17,11 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
   static Content = createComponentThatRendersItsChildren('Tooltip.Content');
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = {
-        isHover: false
-      };
+    this.state = {
+      isHover: false
+    };
   }
 
   render () {
