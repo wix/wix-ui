@@ -41,7 +41,7 @@ const parseTestKit = testKit => {
 };
 
 const render = testKit => {
-  return mount(<AutoTestKit source={parseTestKit(testKit)}/>);
+  return mount(<AutoTestKit testkitType={'Enzyme'} source={parseTestKit(testKit)}/>);
 };
 
 const byHook = (wrapper, hook) =>

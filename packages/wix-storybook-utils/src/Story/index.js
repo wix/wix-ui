@@ -86,7 +86,8 @@ function Story(props) {
             source,
             readme,
             readmeTestKit,
-            testkitSource,
+            enzymeTestkitSource,
+            //protractorTestkitSource,
             readmeAccessibility,
             component,
             name = customName || (component && (component.displayName || component.name)),
@@ -110,7 +111,7 @@ function Story(props) {
           const tabs = [
             'Usage',
             'API',
-            ...(actualReadmeTestKit || testkitSource ? ['Testkit'] : []),
+            ...(actualReadmeTestKit || enzymeTestkitSource /*|| protractorTestkitSource*/ ? ['Testkit'] : []),
             ...(actualReadmeAccessibility ? ['Accessibility'] : [])
           ];
 
@@ -168,7 +169,8 @@ function Story(props) {
 
               <div>
                 { actualReadmeTestKit && <Markdown source={actualReadmeTestKit}/> }
-                { testkitSource && <AutoTestKit source={testkitSource}/> }
+                { enzymeTestkitSource && <AutoTestKit testkitType={'Enzyme'} source={enzymeTestkitSource}/> }
+                {/* { protractorTestkitSource && <AutoTestKit testkitType={'Protractor'} source={protractorTestkitSource}/> } */}
               </div>
 
               {actualReadmeAccessibility && <Markdown source={actualReadmeAccessibility}/>}
