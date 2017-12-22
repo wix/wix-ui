@@ -49,12 +49,13 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     Promise.all([
       componentSourcePromise,
       this.getComponentReadme(),
-      this.getTestkitSource(),
+      this.getTestkitSource('driver'),
+      //this.getTestkitSource('protractor.driver'), TODO: uncomment this once the protractor files are bundled
       this.getReadmeTestKit(),
       this.getReadmeAccessibility(),
       this.getComponentInstance(),
       this.getParsedSource(componentSourcePromise)
-    ]).then(([source, readme, testkitSource, readmeTestKit, readmeAccessibility, component, parsedSource]) => {
+    ]).then(([source, readme, enzymeTestkitSource, /*protractorTestkitSource,*/ readmeTestKit, readmeAccessibility, component, parsedSource]) => {
       this.setState({
         isLoading: false,
         source,
@@ -63,7 +64,8 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
         readmeAccessibility,
         component,
         parsedSource,
-        testkitSource
+        enzymeTestkitSource
+        //protractorTestkitSource
       });
     });
   }
@@ -155,11 +157,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     return this.loadMdFile('README');
   }
 
-  traverseAst(ast, declarationHandlers) {
+  traverseAst(ast, declarationHandlers, driverType) {
     visit(ast, {
       visitImportDeclaration(declaration) {
         const {value} = declaration.value.source;
-        if (value.startsWith('.') && value.includes('.driver')) {
+        if (value.startsWith('.') && value.includes(`.${driverType}`)) {
           declarationHandlers[declaration.value.type](value);
         }
         this.traverse(declaration);
@@ -176,23 +178,23 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     });
   }
 
-  getComponentPathBySrcFolder = srcFolder => {
+  getComponentPathBySrcFolder = (srcFolder, driverType) => {
     const [dirName, componentName] = srcFolder.split('/');
 
     if (dirName && componentName) {
-      return path.join(`./${dirName}/${componentName}`, `${componentName}.driver.js`);
+      return path.join(`./${dirName}/${componentName}`, `${componentName}.${driverType}.js`);
     }
 
-    return path.join(`./${srcFolder}`, `${srcFolder}.driver.js`);
+    return path.join(`./${srcFolder}`, `${srcFolder}.${driverType}.js`);
   };
 
   /**
    * This method will get all file contents from all imported files.
    * Then if will try to parse them to build an auto generated doc
    */
-  getTestkitSource() {
+  getTestkitSource(driverType) {
     const {componentSrcFolder} = this.props;
-    let filePath = this.getComponentPathBySrcFolder(componentSrcFolder);
+    let filePath = this.getComponentPathBySrcFolder(componentSrcFolder, driverType);
     filePath = '.' + path.resolve(filePath);
     let files = {entry: filePath, origin: filePath};
 
@@ -224,7 +226,7 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
             files.entry = filePath;
             promises.push(getFileContent(path.basename(filePath), path.dirname(filePath), filePath));
           }
-        });
+        }, driverType);
 
         return Promise.all(promises);
       };
@@ -234,11 +236,11 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     };
 
     return getFileContent(path.basename(filePath), path.dirname(filePath), filePath)
-      .then(() => new DriverParser(files).parse())
-      .catch(() => {
-        // TODO remove this if you want to see all failing cases
-        return null;
-      });
+      .then(() => new DriverParser(files).parse());
+      // .catch(() => {
+      //   // TODO remove this if you want to see all failing cases
+      //   return null;
+      // });
   }
 
   getTestKitFilePromise(path) {

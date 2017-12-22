@@ -5,7 +5,8 @@ import path from 'path';
 
 export default class AutoTestKit extends Component {
   static propTypes = {
-    source: PropTypes.object.isRequired
+    source: PropTypes.object.isRequired,
+    testkitType: PropTypes.string.isRequired
   };
 
   isFunction = data => data && isPlainObject(data) && data.type && data.type === 'function';
@@ -85,12 +86,13 @@ export default class AutoTestKit extends Component {
   };
 
   render() {
+    const {testkitType} = this.props;
     const source = this.props.source;
     const flatMethods = this.flatenMethods(source.returns);
     const headers = this.getHeaders(flatMethods);
     return (
       <div className="markdown-body">
-        <h2>Enzyme Testkit</h2>
+        <h2>{`${testkitType} TestKit`}</h2>
 
         <table>
           <thead>
