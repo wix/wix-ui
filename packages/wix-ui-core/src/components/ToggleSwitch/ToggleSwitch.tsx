@@ -23,6 +23,7 @@ interface ToggleSwitchProps {
  */
 class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   private id: string;
+  private toggle: HTMLLabelElement;
 
   static displayName = 'ToggleSwitch';
 
@@ -44,6 +45,25 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     this.id = uniqueId('ToggleSwitch');
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.listenToSpace);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.listenToSpace);
+  }
+
+  listenToSpace = e => {
+    if (e.keyCode === 32 && document.activeElement === this.toggle) {
+      e.preventDefault();
+      this.props.onChange(e);
+    }
+  }
+
+  setToggleRef = ref => {
+    this.toggle = ref;
+  }
+
   render() {
     const {checked, disabled, onChange, classes} = this.props;
     const {id} = this;
@@ -51,7 +71,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     return (
       <div className={classes.root}>
         <input type="checkbox" id={id} checked={checked} disabled={disabled} onChange={e => !disabled && onChange(e)}/>
-        <label htmlFor={id} className={classes.outerLabel}>
+        <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={this.setToggleRef}>
           <label htmlFor={id} className={classes.innerLabel}>
             <svg className={classes.toggleActive} viewBox="0 0 41 32">
               <path
