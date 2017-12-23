@@ -10,7 +10,7 @@ import HBox from '../src/components/HBox';
 
 storiesOf('Components', module)
   .add('Badge', () => (
-    <Badge dataHook="story-badge">Hello<i>?</i></Badge>
+    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
   ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
