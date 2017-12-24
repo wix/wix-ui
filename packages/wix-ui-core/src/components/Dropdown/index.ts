@@ -1,3 +1,5 @@
 import Dropdown from './Dropdown';
+import {styles} from './styles';
+import {withClasses} from 'wix-ui-jss';
 
-export default Dropdown;
+export default withClasses(Dropdown, styles);
