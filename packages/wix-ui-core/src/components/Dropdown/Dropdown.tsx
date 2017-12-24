@@ -1,11 +1,12 @@
 import * as React from 'react';
-import Popover from '../Popover';
+import Popover, {Placement} from '../Popover';
 import {string} from 'prop-types';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
 interface DropdownProps {
   openTrigger: 'click' | 'hover';
+  placement: Placement;
 }
 
 interface DropdownState {
@@ -18,11 +19,15 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   static Content = createComponentThatRendersItsChildren('Dropdown.Content');
 
   static defaultProps = {
-    openTrigger: 'click'
+    openTrigger: 'click',
+    placement: 'bottom-start'
   };
 
   static propTypes = {
-    openTrigger: string
+    /** Trigger type to show the content */
+    openTrigger: string,
+    /** The location to display the content */
+    placement: string
   };
 
   constructor(props) {
