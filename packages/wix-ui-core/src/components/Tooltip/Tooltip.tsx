@@ -11,7 +11,7 @@ interface TooltipState {
   isHover: boolean;
 }
 
-class Tooltip extends React.Component<TooltipProps, TooltipState> {
+class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static Element = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content = createComponentThatRendersItsChildren('Tooltip.Content');

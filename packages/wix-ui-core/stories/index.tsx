@@ -19,6 +19,9 @@ storiesOf('Components', module)
   .add('Input', () => (
     <Input dataHook="story-input" />
   ))
+  .add('ToggleSwitch', () => (
+    <ToggleSwitch/>
+  ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">
       <Tooltip.Element>
@@ -28,9 +31,6 @@ storiesOf('Components', module)
         <span>This is my tooltip!</span>
       </Tooltip.Content>
     </Tooltip>
-  ))
-  .add('ToggleSwitch', () => (
-    <ToggleSwitch/>
   ))
   .add('Text', () => (
     <Text ellipsis>
