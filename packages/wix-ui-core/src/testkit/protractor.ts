@@ -11,3 +11,6 @@ export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFa
 
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
 export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
+
+import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
+export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);

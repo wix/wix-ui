@@ -7,6 +7,7 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import Tooltip from '../src/components/Tooltip';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -20,6 +21,16 @@ storiesOf('Components', module)
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
+  ))
+  .add('Tooltip', () => (
+    <Tooltip dataHook="story-tooltip" placement="right">
+      <Tooltip.Element>
+        <span>I need a tooltip</span>
+      </Tooltip.Element>
+      <Tooltip.Content>
+        <span>This is my tooltip!</span>
+      </Tooltip.Content>
+    </Tooltip>
   ))
   .add('Text', () => (
     <Text ellipsis>
