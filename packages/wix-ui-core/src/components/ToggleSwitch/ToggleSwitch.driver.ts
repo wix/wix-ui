@@ -9,21 +9,32 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
   }
 
   return {
+    /** checks if element exists */
     exists: () => !!element,
+    /** triggers toggleSwitch change */
     click: () => eventTrigger.change(toggleSwitch),
+    /** returns a boolean indicating if the toggleSwitch is checked */
     isChecked: () => toggleSwitch.checked,
+    /** returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => toggleSwitch.disabled,
-    getRootDisplay: () => {
-      return domTestkit.getCssValue({
-        className: 'root',
-        property: 'display'
-      });
-    },
-    getBorderRadius() {
-      return domTestkit.getCssValue({
-        className: 'root label',
-        property: 'border-radius'
-      });
+    /** returns elements innerHtml */
+    getContent: () => element.innerHTML,
+    /** styles element for css properties */
+    styles: {
+      /** returns elements display css property */
+      getRootDisplay: () => {
+        return domTestkit.getCssValue({
+          className: 'root',
+          property: 'display'
+        });
+      },
+      /** returns elements border-radius css property */
+      getBorderRadius() {
+        return domTestkit.getCssValue({
+          className: 'root label',
+          property: 'border-radius'
+        });
+      }
     }
   };
 };

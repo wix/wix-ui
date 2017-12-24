@@ -11,7 +11,7 @@ import Tooltip from '../src/components/Tooltip';
 
 storiesOf('Components', module)
   .add('Badge', () => (
-    <Badge dataHook="story-badge">Hello<i>?</i></Badge>
+    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
   ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
@@ -20,7 +20,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch/>
+    <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">

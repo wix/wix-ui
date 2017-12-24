@@ -12,6 +12,7 @@ export const styles = (theme: BadgeTheme) => {
       width: theme.width,
       height: theme.height,
       padding: theme.padding,
+      border: theme.border,
       borderRadius: theme.borderRadius,
       outline: theme.outline,
       opacity: theme.opacity,
@@ -28,6 +29,8 @@ export const styles = (theme: BadgeTheme) => {
       borderColor: theme.borderColor,
 
       cursor: theme.cursor,
+      display: 'flex',
+      justifyContent: 'center',
       '-webkit-font-smoothing': 'antialiased',
       boxSizing: 'border-box',
       textAlign: 'center',
