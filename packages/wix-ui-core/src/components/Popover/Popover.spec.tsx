@@ -3,13 +3,21 @@ import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import Popover from './index';
 
-const Target = <div>Element</div>;
-const Content = <div>Content</div>;
-
 describe ('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
   const createPopover = (props = {}) =>
-    <Popover placement="top" Element={Target} Content={Content} {...props}/>;
+    <Popover placement="top" {...props}>
+      <Popover.Element>
+        <div>
+          Element
+        </div>
+      </Popover.Element>
+      <Popover.Content>
+        <div>
+          Content
+        </div>
+      </Popover.Content>
+    </Popover>;
 
   it('should not display content by default', () => {
     const driver = createDriver(createPopover());
