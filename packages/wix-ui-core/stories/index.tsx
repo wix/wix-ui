@@ -8,6 +8,7 @@ import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
+import Dropdown from '../src/components/Dropdown';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -15,6 +16,16 @@ storiesOf('Components', module)
   ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
+  ))
+  .add('Dropdown', () => (
+    <Dropdown dataHook="story-dropdown">
+      <Dropdown.Element>
+        <span>Best option</span>
+      </Dropdown.Element>
+      <Dropdown.Content>
+        <span>This is my tooltip!</span>
+      </Dropdown.Content>
+    </Dropdown>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
