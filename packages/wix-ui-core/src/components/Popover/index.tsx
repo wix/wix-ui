@@ -43,7 +43,9 @@ Popover.defaultProps = {
 };
 
 Popover.propTypes = {
+  /** Is the popover content shown */
   popoverShown: bool,
+  /** The location to display the content */
   placement: string
 };
 

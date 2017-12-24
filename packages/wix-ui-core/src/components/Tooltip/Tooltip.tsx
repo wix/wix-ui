@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {string} from 'prop-types';
 import Popover, {Placement} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
@@ -16,23 +17,17 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static Element = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content = createComponentThatRendersItsChildren('Tooltip.Content');
 
+  static propTypes = {
+    /** The location to display the content */
+    placement: string
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       isHover: false
     };
-  }
-
-  _wrapElement(element) {
-    return (
-      <div
-        data-hook="tooltip-element"
-        onMouseEnter={() => this.setState({isHover: true})}
-        onMouseLeave={() => this.setState({isHover: false})}>
-        {element}
-      </div>
-    );
   }
 
   render () {
