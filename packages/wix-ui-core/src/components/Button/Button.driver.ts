@@ -31,7 +31,6 @@ export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) 
       getHeight: () => domTestkit.getCssValue({className: 'button', property: 'height'}),
       /** returns elements padding css property */
       getPadding: () => domTestkit.getCssValue({className: 'button', property: 'padding'}),
-      // getContentPadding: () => element.querySelector('[data-class="button-content"]').style.padding,
       /** returns elements border-radius css property */
       getBorderRadius: () => domTestkit.getCssValue({className: 'button', property: 'border-radius'}),
     }
