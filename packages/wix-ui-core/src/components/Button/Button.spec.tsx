@@ -75,7 +75,6 @@ describe('Button', () => {
       const driver = createDriver(<Button/>);
       expect(driver.styles.getHeight()).toBe(core.height);
       expect(driver.styles.getPadding()).toBe(core.padding);
-      // expect(driver.styles.getContentPadding()).toBecoretheme.contentPadding);
       expect(driver.styles.getBorderRadius()).toBe(core.borderRadius);
     });
 
@@ -93,7 +92,6 @@ describe('Button', () => {
       expect(driver.styles.getWidth()).toBe(theme.width);
       expect(driver.styles.getHeight()).toBe(theme.height);
       expect(driver.styles.getPadding()).toBe(theme.padding);
-      // expect(driver.styles.getContentPadding()).toBe(theme.contentPadding);
       expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
     });
   });
