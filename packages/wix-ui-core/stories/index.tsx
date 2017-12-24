@@ -20,7 +20,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('Tooltip', () => (
-    <Tooltip placement="right">
+    <Tooltip dataHook="story-tooltip" placement="right">
       <Tooltip.Element>
         <span>I need a tooltip</span>
       </Tooltip.Element>

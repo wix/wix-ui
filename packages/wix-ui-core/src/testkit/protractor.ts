@@ -8,3 +8,6 @@ export const buttonTestkitFactory = protractorTestkitFactoryCreator(buttonDriver
 
 import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
+
+import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
+export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);

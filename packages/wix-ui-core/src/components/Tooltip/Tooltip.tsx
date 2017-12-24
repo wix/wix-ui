@@ -24,24 +24,28 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
     };
   }
 
+  _wrapElement(element) {
+    return (
+      <div
+        data-hook="tooltip-element"
+        onMouseEnter={() => this.setState({isHover: true})}
+        onMouseLeave={() => this.setState({isHover: false})}>
+        {element}
+      </div>
+    );
+  }
+
   render () {
     const {placement, children} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isHover} = this.state;
 
     return (
-      <Popover placement={placement} popoverShown={isHover}>
-        <Popover.Element>
-          <div
-            onMouseEnter={() => this.setState({isHover: true})}
-            onMouseLeave={() => this.setState({isHover: false})}>
-            {childrenObject.Element}
-          </div>
-        </Popover.Element>
-        <Popover.Content>
-          {childrenObject.Content}
-        </Popover.Content>
-      </Popover>
+      <Popover
+        placement={placement}
+        popoverShown={isHover}
+        Element={this._wrapElement(childrenObject.Element)}
+        Content={childrenObject.Content}/>
     );
   }
 }
