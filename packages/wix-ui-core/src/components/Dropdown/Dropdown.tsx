@@ -3,6 +3,7 @@ import Popover, {Placement} from '../Popover';
 import {string} from 'prop-types';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
+import onClickOutside from '../../onClickOutside';
 
 interface DropdownProps {
   openTrigger: 'click' | 'hover';
@@ -38,6 +39,10 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     };
   }
 
+  handleClickOutside() {
+    this.setState({isOpen: false});
+  }
+
   render () {
     const {openTrigger, children} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -62,4 +67,4 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 }
 
-export default createHOC(Dropdown);
+export default createHOC(onClickOutside(Dropdown));
