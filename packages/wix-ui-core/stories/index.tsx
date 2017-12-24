@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react';
 import ToggleSwitch from '../src/components/ToggleSwitch';
 import Text from '../src/components/Text';
 import Button from '../src/components/Button';
+import ButtonLayout from '../src/components/ButtonLayout';
 import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
@@ -15,6 +16,9 @@ storiesOf('Components', module)
   ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
+  ))
+  .add('ButtonLayout', () => (
+    <ButtonLayout dataHook="story-button-layout">Hello</ButtonLayout>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
