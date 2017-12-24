@@ -44,12 +44,12 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   render () {
-    const {openTrigger, children} = this.props;
+    const {openTrigger, placement, children} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isOpen} = this.state;
 
     return (
-      <Popover placement="bottom" shown={isOpen}>
+      <Popover placement={placement} shown={isOpen}>
         <Popover.Element>
           <div
             data-hook="dropdown-element"
