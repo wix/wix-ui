@@ -2,7 +2,7 @@ import * as React from 'react';
 import {paginationDriverFactory} from './Pagination.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
 import Pagination from './index';
-import {sleep} from "../../testkit/utils/sleep";
+import {sleep} from '../../testkit/utils/sleep';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
 
@@ -13,14 +13,14 @@ describe('Pagination', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
       expect(pagination.amountOfPages).toBe(3);
-      expect(pagination.getPagesList()).toEqual(['1','2','3'])
+      expect(pagination.getPagesList()).toEqual(['1', '2', '3']);
     });
-    
+
     it('marks page 1 as selected by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
       expect(pagination.getCurrentPage().textContent).toBe('1');
     });
-    
+
     it('marks currentPage prop as selected', () => {
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={2}/>);
       expect(pagination.getCurrentPage().textContent).toBe('2');
@@ -39,16 +39,16 @@ describe('Pagination', () => {
     it('pages send onChange with page number', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={10} onChange={onChange}/>);
-      
+
       pagination.clickOnPage(2);
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '3'});
-      
+
       onChange.mockClear();
-      
+
       pagination.clickOnPage(8);
       expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '9'})
+      expect(onChange.mock.calls[0][0]).toEqual({page: '9'});
     });
 
     it('does not call onChange on clicking the current page', () => {
@@ -63,7 +63,7 @@ describe('Pagination', () => {
       });
     });
   });
-  
+
   describe('input view', () => {
     it('displays input field showing current page and displays the last page', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={4}/>);
@@ -71,13 +71,13 @@ describe('Pagination', () => {
       expect(pagination.getPageInput().value).toEqual('4');
       expect(pagination.getLastPageField().textContent).toEqual('/ 15');
     });
-    
+
     it('accepts numbers in page input', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15}/>);
       pagination.changeInput('6');
       expect(pagination.getPageInput().value).toEqual('6');
     });
-    
+
     it('does not accept non natural numbers in page input', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15}/>);
       expect(pagination.getPageInput().value).toEqual('1');
@@ -97,24 +97,24 @@ describe('Pagination', () => {
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
     });
-    
+
     it('does not call onChange with empty value after pressing ENTER', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('');
       pagination.inputKeyDown(13);
-      
+
       return sleep(10).then(() => {
         expect(onChange.mock.calls.length).toBe(0);
       });
     });
-    
+
     it('does not call onChange if the input value is the same as the current page', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} numOfPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('8');
       pagination.inputKeyDown(13);
-      
+
       return sleep(10).then(() => {
         expect(onChange.mock.calls.length).toBe(0);
       });
@@ -141,9 +141,9 @@ describe('Pagination', () => {
       expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
     });
   });
-  
+
   describe('First, Last, Next, Previous Buttons', () => {
-    
+
     it('shows next & previous buttons (as arrows icon) inline by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
       expect(pagination.getNavButton('previous').element).toBeTruthy();
@@ -153,12 +153,12 @@ describe('Pagination', () => {
       expect(pagination.getNavButton('next').element.textContent).toEqual('>');
       expect(pagination.getNavButton('next').placement).toEqual('inline');
     });
-    
+
     it('does not show first & last buttons by default', () => {
       const pagination = createDriver(<Pagination numOfPages={3}/>);
       expect(pagination.getNavButton('first').element).not.toBeTruthy();
       expect(pagination.getNavButton('last').element).not.toBeTruthy();
-      
+
     });
     it('shows first & last buttons (as arrows icons) with showFirstLastButtons prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons/>);
@@ -167,23 +167,22 @@ describe('Pagination', () => {
       expect(pagination.getNavButton('last').element).toBeTruthy();
       expect(pagination.getNavButton('last').element.textContent).toEqual('>>');
     });
-    
-    
+
     it('calls onChange on previous, next, first, last buttons', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={2} showFirstLastButtons onChange={onChange}/>);
-      
+
       ['first', 'last', 'previous', 'next'].forEach(btnName => {
         pagination.clickOnNavButton(btnName);
         expect(onChange.mock.calls[0][0]).toEqual({page: btnName});
         onChange.mockClear();
       });
     });
-    
+
     it('disables "first" & "prevoius" buttons when current page is the first', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={1} showFirstLastButtons onChange={onChange}/>);
-      
+
       pagination.clickOnNavButton('first');
 
       await sleep(10);
@@ -194,11 +193,11 @@ describe('Pagination', () => {
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
     });
-    
+
     it('disables "last" & "next" button when current page is the last', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination numOfPages={3} currentPage={3} showFirstLastButtons onChange={onChange}/>);
-      
+
       pagination.clickOnNavButton('last');
 
       await sleep(10);
@@ -209,7 +208,7 @@ describe('Pagination', () => {
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
     });
-    
+
     it('shows button text with replaceArrowsWithText prop', () => {
       const pagination = createDriver(<Pagination numOfPages={3} showFirstLastButtons replaceArrowsWithText/>);
       expect(pagination.getNavButton('first').element.textContent).toEqual('First');
@@ -234,13 +233,13 @@ describe('Pagination', () => {
       expect(pagination.getNavButton('last').placement).toEqual('bottom');
     });
   });
-  
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Pagination numOfPages={3} />, paginationTestkitFactory)).toBe(true);
     });
   });
-  
+
   describe('enzyme testkit', () => {
     it('should exist', () => {
       expect(isEnzymeTestkitExists(<Pagination numOfPages={3} />, enzymePaginationTestkitFactory)).toBe(true);

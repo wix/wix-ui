@@ -25,7 +25,7 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
       default:
         this.setState({currPage: parseInt(e.page, 10)});
     }
-  };
+  }
 
   render() {
     return (
@@ -35,9 +35,9 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
         roomForXPages={6}
         currentPage={this.state.currPage}
         showFirstLastButtons
-        navButtonPlacement='inline'
-        paginationMode='pages'
+        navButtonPlacement="inline"
+        paginationMode="pages"
         onChange={this.handleChange}/>
-    )
+    );
   }
 }

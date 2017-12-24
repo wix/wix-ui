@@ -3,19 +3,19 @@ import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 
 interface PaginationProps {
-  numOfPages: number,
-  currentPage?: number,
-  roomForXPages?: number,
-  onChange?: (event: {page: string}) => void,
-  paginationMode?: 'pages' | 'input',
-  showFirstLastButtons?: boolean,
-  replaceArrowsWithText?: boolean,
-  navButtonPlacement?: 'inline' | 'top' | 'bottom',
-  classes: {[s:string]:string};
+  numOfPages: number;
+  currentPage?: number;
+  roomForXPages?: number;
+  onChange?: (event: {page: string}) => void;
+  paginationMode?: 'pages' | 'input';
+  showFirstLastButtons?: boolean;
+  replaceArrowsWithText?: boolean;
+  navButtonPlacement?: 'inline' | 'top' | 'bottom';
+  classes: {[s: string]: string};
 }
 
 interface PaginationState {
-  pageInput: string
+  pageInput: string;
 }
 
 enum NavButtonTypes {FIRST, PREVIOUS, NEXT, LAST}
@@ -57,14 +57,14 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     pageInput: String(this.currentPage)
   };
 
-  private validateCurrentPage(): number{
+  private validateCurrentPage(): number {
     return Math.max(Math.min(this.props.currentPage, this.props.numOfPages), 1);
   }
 
   private onChange(page): void {
-    (parseInt(page, 10) !== this.currentPage) && this.props.onChange({page})
+    (parseInt(page, 10) !== this.currentPage) && this.props.onChange({page});
   }
-  
+
   private handlePageClick = (page: string): void => {
     if (
       ( (page === 'first' || page === 'previous') && this.currentPage === 1) || // don't trigger when clicking first page when in first page
@@ -74,8 +74,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       return;
     }
     this.onChange(page);
-  };
-  
+  }
+
   private renderPages(): Array<JSX.Element> {
     const pages = this.getPages();
 
@@ -95,7 +95,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const {numOfPages, roomForXPages} = this.props;
     let startPage = 1, endPage = numOfPages;
 
-    const numOfPagesToDisplay = (roomForXPages%2) ? roomForXPages : roomForXPages - 1;
+    const numOfPagesToDisplay = (roomForXPages % 2) ? roomForXPages : roomForXPages - 1;
 
     if (numOfPagesToDisplay < numOfPages ) {
       startPage = this.currentPage - Math.floor(numOfPagesToDisplay / 2);
@@ -103,38 +103,38 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     }
 
     let result: Array<string> = [];
-    for(let i = startPage; i <= endPage; i++ ) {
+    for (let i = startPage; i <= endPage; i++ ) {
         result.push(String(i));
     }
 
     return result;
-  };
-  
+  }
+
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newInput = e.target.value;
-    if((newInput === parseInt(newInput,10).toString() && parseInt(newInput,10) > 0) || newInput === '') {
-      this.setState({pageInput: e.target.value})
+    if ((newInput === parseInt(newInput, 10).toString() && parseInt(newInput, 10) > 0) || newInput === '') {
+      this.setState({pageInput: e.target.value});
     }
-  };
-  
+  }
+
   private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const keyCode = e.keyCode;
-    if(keyCode === 13) { // pressing enter
+    if (keyCode === 13) { // pressing enter
       this.handlePageInputCommit();
     }
-  };
-  
+  }
+
   private handlePageInputCommit = (e?: React.FocusEvent<HTMLInputElement>): void => {
     if (!this.state.pageInput) {
       return;
     } else if (parseInt(this.state.pageInput, 10) > this.props.numOfPages) {
-      this.onChange(String(this.props.numOfPages))
+      this.onChange(String(this.props.numOfPages));
     } else {
       this.onChange(this.state.pageInput);
     }
 
-  };
-  
+  }
+
   private createInputLayout = () => {
     return [
       <input
@@ -147,12 +147,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         onKeyDown={this.handlePageInputKeyDown}
         onBlur={this.handlePageInputCommit}/>,
       <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL" className={this.props.classes.inputTotalPages}>/ {this.props.numOfPages}</span>
-    ]
-  };
+    ];
+  }
 
   private renderNavButton(buttonType: NavButtonTypes): JSX.Element {
 
-    const navButton = (name: string, content: string):JSX.Element => {
+    const navButton = (name: string, content: string): JSX.Element => {
       return (
           <span
               key={name.toUpperCase()}
@@ -161,20 +161,22 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
               onClick={() => this.handlePageClick(name)}>
             {content}
           </span>
-      )
-    }
+      );
+    };
 
     switch (buttonType) {
       case NavButtonTypes.FIRST: return navButton('first', this.props.replaceArrowsWithText ? 'First' : '<<');
 
       case NavButtonTypes.PREVIOUS: return navButton('previous', this.props.replaceArrowsWithText ? 'Previous' : '<');
 
-      case NavButtonTypes.NEXT: return navButton('next',this.props.replaceArrowsWithText ? 'Next' : '>');
+      case NavButtonTypes.NEXT: return navButton('next', this.props.replaceArrowsWithText ? 'Next' : '>');
 
       case NavButtonTypes.LAST: return navButton('last', this.props.replaceArrowsWithText ? 'Last' : '>>');
+
+      default: return null;
     }
   }
-  
+
   render() {
     const {navButtonPlacement, showFirstLastButtons, paginationMode, classes} = this.props;
     this.currentPage = this.validateCurrentPage();
@@ -221,7 +223,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         }
       </div>
     );
-  };
+  }
 }
 
 export default createHOC(Pagination);

@@ -11,8 +11,8 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
   const getInput = (): HTMLInputElement | null => (<HTMLInputElement> element.querySelector('[data-hook="PAGE_INPUT"]'));
 
   const getNavButtonPlacement = (btnName: string): NavButtonPlacement => {
-    const btn = getNavButtonElement(btnName)
-    if (!btn) return 'nowhere';
+    const btn = getNavButtonElement(btnName);
+    if (!btn) { return 'nowhere'; }
 
     switch (btn.parentElement.getAttribute('data-hook')) {
       case 'TOP_ROW': return 'top';
@@ -34,7 +34,7 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     /** Returns the page element currently selected */
     getCurrentPage: (): Element | null => element.querySelector('[data-isSelected="true"]'),
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    getNavButton: (btnName: string):{ element: HTMLButtonElement, placement: NavButtonPlacement } => (
+    getNavButton: (btnName: string): { element: HTMLButtonElement, placement: NavButtonPlacement } => (
       {
         element: getNavButtonElement(btnName),
         placement: getNavButtonPlacement(btnName)

@@ -11,7 +11,7 @@ export type PaginationTheme = {
   inputField: React.CSSProperties,
   inputTotalPages: React.CSSProperties
   ellipsis: React.CSSProperties
-}
+};
 
 export const core: PaginationTheme = {
   paginationRoot: {

@@ -11,5 +11,5 @@ export const styles = theme => {
     inputField: theme.inputField,
     inputTotalPages: theme.inputTotalPages,
     ellipsis: theme.ellipsis
-  }
-}
+  };
+};
