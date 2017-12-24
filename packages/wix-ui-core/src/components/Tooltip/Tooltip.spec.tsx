@@ -28,7 +28,7 @@ describe ('Tooltip', () => {
 
   it('should display content on hover', () => {
     const driver = createDriver(createTooltip());
-    driver.onMouseEnter();
+    driver.mouseEnter();
     expect(driver.isContentExists()).toBeTruthy();
   });
 

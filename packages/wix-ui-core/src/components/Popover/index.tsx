@@ -7,7 +7,7 @@ import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../
 export type Placement = PopperJS.Placement;
 
 interface PopoverProps {
-  popoverShown?: boolean;
+  shown?: boolean;
   placement: Placement;
 }
 
@@ -17,7 +17,7 @@ type PopoverType = React.SFC<PopoverProps> & {
 };
 
 const Popover: PopoverType = props => {
-    const {placement, popoverShown, children} = props;
+    const {placement, shown, children} = props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
     return (
@@ -28,7 +28,7 @@ const Popover: PopoverType = props => {
           {childrenObject.Element}
         </Target>
         {
-          popoverShown &&
+          shown &&
             <Popper data-hook="popover-content" placement={placement}>
               <Arrow/>
               {childrenObject.Content}
@@ -38,13 +38,9 @@ const Popover: PopoverType = props => {
   );
 };
 
-Popover.defaultProps = {
-  popoverShown: false
-};
-
 Popover.propTypes = {
   /** Is the popover content shown */
-  popoverShown: bool,
+  shown: bool,
   /** The location to display the content */
   placement: string
 };

@@ -25,8 +25,8 @@ describe ('Popover', () => {
     expect(driver.isElementExists()).toBeTruthy();
   });
 
-  it('should display content when popoverShown is true', () => {
-    const driver = createDriver(createPopover({popoverShown: true}));
+  it('should display content when shown is true', () => {
+    const driver = createDriver(createPopover({shown: true}));
     expect(driver.isContentExists()).toBeTruthy();
     expect(driver.isElementExists()).toBeTruthy();
   });

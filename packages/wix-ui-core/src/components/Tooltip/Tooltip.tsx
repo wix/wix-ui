@@ -40,7 +40,7 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     const {isHover} = this.state;
 
     return (
-      <Popover placement={placement} popoverShown={isHover}>
+      <Popover placement={placement} shown={isHover}>
         <Popover.Element>
           <div
             data-hook="tooltip-element"
