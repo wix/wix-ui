@@ -67,9 +67,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "yoshi": {
-    "entry": {
-      "toggleSwitch": "components/ToggleSwitch/index"
-    },
     "externals": {
       "react": "react",
       "react-dom": "reactDOM"
