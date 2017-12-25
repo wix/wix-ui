@@ -6,6 +6,9 @@ export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(toggleSwit
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = enzymeTestkitFactoryCreator(buttonDriverFactory);
 
+import {buttonLayoutDriverFactory} from '../components/ButtonLayout/ButtonLayout.driver';
+export const buttonLayoutTestkitFactory = enzymeTestkitFactoryCreator(buttonLayoutDriverFactory);
+
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = enzymeTestkitFactoryCreator(inputDriverFactory);
 
