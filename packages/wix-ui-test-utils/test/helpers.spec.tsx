@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {isClassExists, makeControlled} from '../src';
+import {isClassExists, makeControlled, sleep} from '../src';
 
 describe('helpers', () => {
   describe('isClassExists function', () => {
@@ -22,6 +22,14 @@ describe('helpers', () => {
           expect(isClassExists(element, className)).toBe(false);
         })
       );
+    });
+  });
+
+  describe('sleep helper', () => {
+    it('sleeps', async () => {
+      let previousTime = Date.now();
+      await sleep(50);
+      expect(Date.now()).toBeGreaterThanOrEqual(previousTime + 50);
     });
   });
 
