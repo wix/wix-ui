@@ -10,10 +10,12 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import Dropdown from '../src/components/Dropdown';
 
-const dropdownOptions = [1, 2, 3].map(x => ({
+const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
     id: x,
     value: `value${x}`,
-    displayName: `value ${x}`
+    displayName: `value ${x}`,
+    type: x === 3 ? 'separator' : 'option',
+    isDisabled: x === 4
   }));
 
 storiesOf('Components', module)

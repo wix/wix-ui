@@ -4,16 +4,28 @@ import {string, arrayOf, object, func} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 
+export const OPTION = 'option';
+export type OPTION_TYPE = 'option';
+
+export const SEPARATOR = 'separator';
+export type SEPARATOR_TYPE = 'separator';
+
+export const CLICK = 'click';
+export type CLICK_TYPE = 'click';
+
+export const HOVER = 'hover';
+export type HOVER_TYPE = 'hover';
+
 interface Option {
   id: number;
   value: any;
   displayName: any;
-  type: 'option' | 'separator';
+  type: OPTION_TYPE | SEPARATOR_TYPE;
   isDisabled: boolean;
 }
 
 interface DropdownProps {
-  openTrigger?: 'click' | 'hover';
+  openTrigger?: CLICK_TYPE | HOVER_TYPE;
   placement?: Placement;
   options: Array<Option>;
   onOptionClick: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
@@ -26,7 +38,7 @@ interface DropdownState {
 class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
   static defaultProps = {
-    openTrigger: 'click',
+    openTrigger: CLICK,
     placement: 'bottom-start',
     options: []
   };
@@ -67,12 +79,12 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
       <Popover
         placement={placement}
         shown={isOpen}
-        onMouseEnter={openTrigger === 'hover' ? () => this.setState({isOpen: true}) : null}
-        onMouseLeave={openTrigger === 'hover' ? () => this.setState({isOpen: false}) : null}>
+        onMouseEnter={openTrigger === HOVER ? () => this.setState({isOpen: true}) : null}
+        onMouseLeave={openTrigger === HOVER ? () => this.setState({isOpen: false}) : null}>
         <Popover.Element>
           <div
             data-hook="dropdown-element"
-            onClick={openTrigger === 'click' ? () => this.setState({isOpen: !isOpen}) : null}
+            onClick={openTrigger === CLICK ? () => this.setState({isOpen: !isOpen}) : null}
             style={{display: 'inline-block'}}>
             {children}
           </div>
@@ -83,8 +95,8 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
             options.map(x =>
               <div
                 key={x.id}
-                onClick={!x.isDisabled && x.type === 'option' ? evt => this._onOptionClick(x, evt) : null}>
-                {x.displayName}
+                onClick={x.isDisabled || x.type === SEPARATOR ? null : evt => this._onOptionClick(x, evt)}>
+                {x.type === SEPARATOR ? '------' : x.displayName}
               </div>)
           }
           </div>
