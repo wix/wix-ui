@@ -11,8 +11,8 @@ interface Option {
 }
 
 interface DropdownProps {
-  openTrigger: 'click' | 'hover';
-  placement: Placement;
+  openTrigger?: 'click' | 'hover';
+  placement?: Placement;
   options: Array<Option>;
 }
 
@@ -34,7 +34,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** The location to display the content */
     placement: string,
     /** The dropdown options array */
-    options: arrayOf(object)
+    options: arrayOf(object).isRequired
   };
 
   constructor(props) {

@@ -5,7 +5,7 @@ import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../
 import {createHOC} from '../../createHOC';
 
 interface TooltipProps {
-  placement: Placement;
+  placement?: Placement;
 }
 
 interface TooltipState {
@@ -16,6 +16,10 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static Element = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content = createComponentThatRendersItsChildren('Tooltip.Content');
+
+  static defaultProps = {
+    placement: 'top'
+  };
 
   static propTypes = {
     /** The location to display the content */
