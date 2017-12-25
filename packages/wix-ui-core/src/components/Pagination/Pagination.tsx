@@ -3,9 +3,11 @@ import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 
 interface PaginationProps {
+  // data
   numOfPages: number;
   currentPage?: number;
-  roomForXPages?: number;
+  // props
+  roomForXPages?: number; //temp
   onChange?: (event: {page: string}) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastButtons?: boolean;
