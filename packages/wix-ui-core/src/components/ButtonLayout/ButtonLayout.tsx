@@ -22,17 +22,17 @@ class ButtonLayout extends React.PureComponent<ButtonLayoutProps> {
   static displayName = 'ButtonLayout';
 
   static propTypes = {
-    /** Makes the button disabled */
+    /** Makes the button layout disabled */
     disabled: bool,
-    /** Standard button onClick callback */
+    /** onClick callback */
     onClick: func,
-    /** Standard button onMouseEnter callback */
+    /** onMouseEnter callback */
     onMouseEnter: func,
-    /** Standard button onMouseLeave callback */
+    /** onMouseLeave callback */
     onMouseLeave: func,
     /** Classes object */
     classes: object.isRequired,
-    /** Any node to be rendered (usually text node) */
+    /** Any node to be rendered (usually <a> or <Link> node) */
     children: any
   };
 
