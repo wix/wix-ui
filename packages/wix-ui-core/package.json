@@ -21,11 +21,10 @@
   "scripts": {
     "build": "haste build && import-path --path src/components",
     "pretest": "npm run build && build-storybook",
-    "test:unit": "haste test --jest",
-    "test:e2e": "haste test --protractor",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
+    "test:e2e": "haste test --protractor",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
@@ -61,7 +60,6 @@
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-storybook-utils": "^1.0.12",
     "wix-ui-test-utils": "^1.0.16"
   },
   "license": "MIT",

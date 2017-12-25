@@ -11,3 +11,9 @@ export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginati
 
 import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
+
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
+export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
+
+import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
+export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);

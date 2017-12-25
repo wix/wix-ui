@@ -7,11 +7,12 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 
 storiesOf('Components', module)
   .add('Badge', () => (
-    <Badge dataHook="story-badge">Hello<i>?</i></Badge>
+    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
   ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
@@ -20,7 +21,17 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch/>
+    <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
+  ))
+  .add('Tooltip', () => (
+    <Tooltip dataHook="story-tooltip" placement="right">
+      <Tooltip.Element>
+        <span>I need a tooltip</span>
+      </Tooltip.Element>
+      <Tooltip.Content>
+        <span>This is my tooltip!</span>
+      </Tooltip.Content>
+    </Tooltip>
   ))
   .add('Text', () => (
     <Text ellipsis>

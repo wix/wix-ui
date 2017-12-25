@@ -7,6 +7,8 @@ type BadgeState = Partial<{
 }>;
 
 export type BadgeTheme = Partial<BadgeState & {
+  display: string;
+  justifyContent: string;
   minWidth: string;
   width: string;
   height: string;
@@ -38,8 +40,8 @@ const stateStyle = {
 export const core: BadgeTheme = {
   height: '24px',
   padding: '6px 12px',
-  borderRadius: '2px',
   border: '1px solid',
+  borderRadius: '2px',
 
   fontFamily: `“HelveticaNeueW01-65Medi”, “HelveticaNeueW02-65Medi”, “HelveticaNeueW10-65Medi”, "sans-serif"`,
   fontSize: '10px',

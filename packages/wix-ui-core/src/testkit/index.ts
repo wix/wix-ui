@@ -17,3 +17,6 @@ export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFa
 
 import {badgeDriverFactory} from '../components/Badge/Badge.driver';
 export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
+
+import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
+export const tooltipTestkitFactory = testkitFactoryCreator(tooltipDriverFactory);

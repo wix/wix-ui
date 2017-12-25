@@ -1,4 +1,5 @@
 export const popoverDriverFactory = ({element}) => ({
   exists: () => !!element,
-  isContentExists: () => !!element.querySelector('[data-hook="content"]')
+  isElementExists: () => !!element.querySelector('[data-hook="popover-element"]'),
+  isContentExists: () => !!element.querySelector('[data-hook="popover-content"]')
 });

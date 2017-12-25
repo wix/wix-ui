@@ -1,12 +1,14 @@
 import {core, ToggleSwitchTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
+const contentSelector = '& [data-class="toggle-switch-content"]';
+
 export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
   return {
     root: {
-      display: 'inline-block',
+      display: 'flex',
       width: theme.rootWidth,
       height: theme.rootHeight,
 
@@ -76,8 +78,13 @@ export const styles = (theme: ToggleSwitchTheme) => {
             '& path': {
               fill: theme.colorDisabled
             }
-          }
+          },
         }
+      },
+
+      [contentSelector]: {
+        color: theme.labelColor,
+        marginLeft: theme.labelMarginLeft
       }
     },
 
