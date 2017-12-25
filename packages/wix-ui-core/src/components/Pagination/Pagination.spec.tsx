@@ -2,7 +2,7 @@ import * as React from 'react';
 import {paginationDriverFactory} from './Pagination.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils/dist/src';
 import Pagination from './index';
-import {sleep} from '../../testkit/utils/sleep';
+import {sleep} from 'wix-ui-test-utils';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
 
