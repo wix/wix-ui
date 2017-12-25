@@ -18,7 +18,13 @@ storiesOf('Components', module)
     <Button dataHook="story-button">Hello</Button>
   ))
   .add('ButtonLayout', () => (
-    <ButtonLayout dataHook="story-button-layout">Hello</ButtonLayout>
+    <ButtonLayout dataHook="story-button-layout">
+      <a href="http://www.wix.com"
+        target="_blank"
+        style={{textDecoration: 'inherit'}}>
+        Hello
+      </a>
+    </ButtonLayout>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />

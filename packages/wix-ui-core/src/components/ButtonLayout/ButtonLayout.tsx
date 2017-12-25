@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {bool, func, object, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
+import * as classNames from 'classnames';
 
 type ButtonLayoutClasses = {
-  buttonLayout: string
+  buttonLayout: string;
+  disabled: string;
 };
 
 interface ButtonLayoutProps {
@@ -36,22 +38,15 @@ class ButtonLayout extends React.PureComponent<ButtonLayoutProps> {
     children: any
   };
 
-  internalOnClick(onClick: Function) {
-    if (!this.props.disabled && onClick) {
-      onClick();
-    }
-  }
-
   render() {
     const {onClick, children, classes, onMouseEnter, onMouseLeave, disabled} = this.props;
 
     return (
       <div
-        onClick={() => this.internalOnClick(onClick)}
-        className={classes.buttonLayout}
+        onClick={(e) => !this.props.disabled && onClick && onClick(e)}
+        className={classNames(classes.buttonLayout, {[classes.disabled]: disabled})}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        data-disabled={disabled}
         >
         {children}
       </div>

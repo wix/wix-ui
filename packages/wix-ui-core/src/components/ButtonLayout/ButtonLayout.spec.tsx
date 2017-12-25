@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {buttonLayoutDriverFactory} from './ButtonLayout.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import {core, ButtonLayoutTheme} from './theme';
+import {core, ButtonTheme} from './../Button/theme';
 import {mount} from 'enzyme';
 
 import {buttonLayoutTestkitFactory} from '../../testkit';
@@ -72,7 +72,7 @@ describe('ButtonLayout', () => {
     });
 
     it('should override default styles', () => {
-      const theme: ButtonLayoutTheme = {height: '78px'};
+      const theme: ButtonTheme = {height: '78px'};
       const driver = createDriver(<ButtonLayout theme={theme}/>);
       expect(driver.styles.getHeight()).toBe(theme.height);
       expect(driver.styles.getPadding()).toBe(theme.padding);
