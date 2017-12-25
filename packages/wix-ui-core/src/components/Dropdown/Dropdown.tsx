@@ -54,13 +54,16 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     const {isOpen} = this.state;
 
     return (
-      <Popover placement={placement} shown={isOpen}>
+      <Popover
+        placement={placement}
+        shown={isOpen}
+        onMouseEnter={openTrigger === 'hover' ? () => this.setState({isOpen: true}) : null}
+        onMouseLeave={openTrigger === 'hover' ? () => this.setState({isOpen: false}) : null}>
         <Popover.Element>
           <div
             data-hook="dropdown-element"
             onClick={openTrigger === 'click' ? () => this.setState({isOpen: !isOpen}) : null}
-            onMouseEnter={openTrigger === 'hover' ? () => this.setState({isOpen: true}) : null}
-            onMouseLeave={openTrigger === 'hover' ? () => this.setState({isOpen: false}) : null}>
+            style={{display: 'inline-block'}}>
             {children}
           </div>
         </Popover.Element>

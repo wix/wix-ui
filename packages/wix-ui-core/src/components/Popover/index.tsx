@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
-import {bool, string} from 'prop-types';
+import {bool, string, func} from 'prop-types';
 import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
 export type Placement = PopperJS.Placement;
 
 interface PopoverProps {
-  shown?: boolean;
   placement: Placement;
+  shown?: boolean;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 type PopoverType = React.SFC<PopoverProps> & {
@@ -17,14 +19,12 @@ type PopoverType = React.SFC<PopoverProps> & {
 };
 
 const Popover: PopoverType = props => {
-    const {placement, shown, children} = props;
+    const {placement, shown, onMouseEnter, onMouseLeave, children} = props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
     return (
-      <Manager>
-        <Target
-          data-hook="popover-element"
-          style={{display: 'inline-block'}}>
+      <Manager onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <Target data-hook="popover-element" style={{display: 'inline-block'}}>
           {childrenObject.Element}
         </Target>
         {
@@ -39,10 +39,14 @@ const Popover: PopoverType = props => {
 };
 
 Popover.propTypes = {
+  /** The location to display the content */
+  placement: string.isRequired,
   /** Is the popover content shown */
   shown: bool,
-  /** The location to display the content */
-  placement: string
+  /** Event handler for onMouseEnter event */
+  onMouseEnter: func,
+  /** Event handler for onMouseLeave event */
+  onMouseLeave: func
 };
 
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
