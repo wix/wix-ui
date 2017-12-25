@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Popover, {Placement} from '../Popover';
-import {string, arrayOf, object} from 'prop-types';
+import {string, arrayOf, object, func} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 
@@ -8,12 +8,15 @@ interface Option {
   id: number;
   value: any;
   displayName: any;
+  type: 'option' | 'separator';
+  isDisabled: boolean;
 }
 
 interface DropdownProps {
   openTrigger?: 'click' | 'hover';
   placement?: Placement;
   options: Array<Option>;
+  onOptionClick: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 interface DropdownState {
@@ -34,7 +37,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** The location to display the content */
     placement: string,
     /** The dropdown options array */
-    options: arrayOf(object).isRequired
+    options: arrayOf(object).isRequired,
+    /** Handler for when an option is selected */
+    onOptionClick: func
   };
 
   constructor(props) {
@@ -47,6 +52,11 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
   handleClickOutside() {
     this.setState({isOpen: false});
+  }
+
+  _onOptionClick(option, evt) {
+    this.setState({isOpen: false});
+    this.props.onOptionClick(option, evt);
   }
 
   render () {
@@ -71,7 +81,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
           <div>
           {
             options.map(x =>
-              <div key={x.id}>
+              <div
+                key={x.id}
+                onClick={!x.isDisabled && x.type === 'option' ? evt => this._onOptionClick(x, evt) : null}>
                 {x.displayName}
               </div>)
           }
