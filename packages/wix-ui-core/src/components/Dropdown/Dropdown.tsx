@@ -1,13 +1,19 @@
 import * as React from 'react';
 import Popover, {Placement} from '../Popover';
-import {string} from 'prop-types';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {string, arrayOf, object} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
+
+interface Option {
+  id: number;
+  value: any;
+  displayName: any;
+}
 
 interface DropdownProps {
   openTrigger: 'click' | 'hover';
   placement: Placement;
+  options: Array<Option>;
 }
 
 interface DropdownState {
@@ -16,19 +22,19 @@ interface DropdownState {
 
 class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
-  static Element = createComponentThatRendersItsChildren('Dropdown.Element');
-  static Content = createComponentThatRendersItsChildren('Dropdown.Content');
-
   static defaultProps = {
     openTrigger: 'click',
-    placement: 'bottom-start'
+    placement: 'bottom-start',
+    options: []
   };
 
   static propTypes = {
     /** Trigger type to show the content */
     openTrigger: string,
     /** The location to display the content */
-    placement: string
+    placement: string,
+    /** The dropdown options array */
+    options: arrayOf(object)
   };
 
   constructor(props) {
@@ -44,8 +50,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   render () {
-    const {openTrigger, placement, children} = this.props;
-    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
+    const {openTrigger, placement, options, children} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -56,11 +61,18 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
             onClick={openTrigger === 'click' ? () => this.setState({isOpen: !isOpen}) : null}
             onMouseEnter={openTrigger === 'hover' ? () => this.setState({isOpen: true}) : null}
             onMouseLeave={openTrigger === 'hover' ? () => this.setState({isOpen: false}) : null}>
-            {childrenObject.Element}
+            {children}
           </div>
         </Popover.Element>
         <Popover.Content>
-          {childrenObject.Content}
+          <div>
+          {
+            options.map(x =>
+              <div key={x.id}>
+                {x.displayName}
+              </div>)
+          }
+          </div>
         </Popover.Content>
       </Popover>
     );

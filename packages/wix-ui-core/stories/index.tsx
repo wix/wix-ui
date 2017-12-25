@@ -10,6 +10,12 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import Dropdown from '../src/components/Dropdown';
 
+const dropdownOptions = [1, 2, 3].map(x => ({
+    id: x,
+    value: `value${x}`,
+    displayName: `value ${x}`
+  }));
+
 storiesOf('Components', module)
   .add('Badge', () => (
     <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
@@ -18,13 +24,8 @@ storiesOf('Components', module)
     <Button dataHook="story-button">Hello</Button>
   ))
   .add('Dropdown', () => (
-    <Dropdown dataHook="story-dropdown">
-      <Dropdown.Element>
-        <span>Best option</span>
-      </Dropdown.Element>
-      <Dropdown.Content>
-        <span>This is my tooltip!</span>
-      </Dropdown.Content>
+    <Dropdown dataHook="story-dropdown" options={dropdownOptions}>
+      <span>Best option</span>
     </Dropdown>
   ))
   .add('Input', () => (
