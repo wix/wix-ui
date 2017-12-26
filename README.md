@@ -5,5 +5,5 @@
 Read [here](./docs/WHAT_ARE_THEMES.md)
 
 ## **How do themes work?**
-Read here about [Themes structure and architecture](./docs/THEMES_STRUCTURE.md)
+Read here about [themes structure and architecture](./docs/THEMES_STRUCTURE.md)
 
