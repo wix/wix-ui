@@ -8,6 +8,7 @@ import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
+import Slider from '../src/components/Slider';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -46,8 +47,11 @@ storiesOf('Components', module)
   ))
   .add('HBox', () => (
     <HBox>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
+      <div>a</div>
+      <div>b</div>
+      <div>c</div>
     </HBox>
+    ))
+  .add('Slider', () => (
+    <Slider/>
   ));
