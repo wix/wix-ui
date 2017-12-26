@@ -29,11 +29,11 @@ storiesOf('Components', module)
     return (
       <div>
         <Dropdown dataHook="story-dropdown" options={dropdownOptions} selectedId={1}>
-          {(state) => <span>Dropdown with click</span>}
+          {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
         </Dropdown>
         <div style={{display: 'inline-block', width: '20px'}} />
-        <Dropdown dataHook="story-dropdown" openTrigger="hover" selectedIds={[1, 2, 6]} options={dropdownOptions}>
-          {(state) => <span>Dropdown with hover</span>}
+        <Dropdown dataHook="story-dropdown" openTrigger="hover" mode="multiSelect" selectedIds={[1, 2, 6]} options={dropdownOptions}>
+          {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
         </Dropdown>
       </div>
     );

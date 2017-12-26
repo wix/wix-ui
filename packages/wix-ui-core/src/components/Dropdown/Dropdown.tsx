@@ -94,7 +94,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   isSingleSelect() {
-    return this.props.mode === MULTI_SELECT;
+    return this.props.mode === SINGLE_SELECT;
   }
 
   _onSelected(option, evt) {
@@ -106,16 +106,17 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     if (this.isSingleSelect()) {
       newState.selectedOptions = [option];
     } else {
+      newState.isOpen = true;
       const {selectedOptions} = this.state;
-      if (selectedOptions.includes(option)) {
-        newState.selectedOptions = selectedOptions.filter(x => x !== option);
+      if (selectedOptions.find(x => x.id === option.id)) {
+        newState.selectedOptions = selectedOptions.filter(x => x.id !== option.id);
       } else {
         newState.selectedOptions = [...selectedOptions, option];
       }
     }
 
     this.setState(newState);
-    this.props.onSelected(option, evt);
+    this.props.onSelected && this.props.onSelected(option, evt);
   }
 
   render () {
