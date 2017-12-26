@@ -18,7 +18,6 @@ export const core: PaginationTheme = {
   paginationRoot: {
     background: '#fff',
     display: 'inline-flex',
-    'flex-direction': 'column'
   },
   rtl: {
     flexDirection: 'row-reverse'

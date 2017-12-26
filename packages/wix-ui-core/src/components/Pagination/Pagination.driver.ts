@@ -1,26 +1,14 @@
 import {Simulate} from 'react-dom/test-utils';
 
-type NavButtonPlacement = 'top' | 'bottom' | 'inline' | 'nowhere';
+type NavButtonNames = 'first' | 'previous' | 'next' | 'last';
 
 export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
   const pages: Element = element.querySelector('[data-hook^="PAGES_SELECTION"]');
 
-  const getNavButtonElement = (btnName: string): HTMLButtonElement => (
+  const getNavButtonElement = (btnName: NavButtonNames): HTMLButtonElement => (
       <HTMLButtonElement> element.querySelector('[data-hook="' + btnName.toUpperCase() + '"]')
   );
   const getInput = (): HTMLInputElement | null => (<HTMLInputElement> element.querySelector('[data-hook="PAGE_INPUT"]'));
-
-  const getNavButtonPlacement = (btnName: string): NavButtonPlacement => {
-    const btn = getNavButtonElement(btnName);
-    if (!btn) { return 'nowhere'; }
-
-    switch (btn.parentElement.getAttribute('data-hook')) {
-      case 'TOP_ROW': return 'top';
-      case 'MIDDLE_ROW': return 'inline';
-      case 'BOTTOM_ROW': return 'bottom';
-      default: return 'nowhere';
-    }
-  };
 
   return {
     /** Returns whether the element exists */
@@ -34,16 +22,11 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     /** Returns the page element currently selected */
     getCurrentPage: (): Element | null => element.querySelector('[data-isSelected="true"]'),
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    getNavButton: (btnName: string): { element: HTMLButtonElement, placement: NavButtonPlacement } => (
-      {
-        element: getNavButtonElement(btnName),
-        placement: getNavButtonPlacement(btnName)
-      }
-    ),
+    getNavButton: (btnName: NavButtonNames): HTMLButtonElement => getNavButtonElement(btnName),
     /** Simulates clicking a page in "pages" mode */
     clickOnPage: (idx: number): void => (idx < pages.children.length) && Simulate.click(pages.children[idx]),
     /** Simulates clicking a navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    clickOnNavButton: (btnName: string): void => Simulate.click(getNavButtonElement(btnName)),
+    clickOnNavButton: (btnName: NavButtonNames): void => Simulate.click(getNavButtonElement(btnName)),
     /** Returns the page input element in "input" mode */
     getPageInput: getInput,
     /** Returns the total amount of pages displayed in "input" mode */
