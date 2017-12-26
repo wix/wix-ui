@@ -119,7 +119,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     this.props.onSelected && this.props.onSelected(option, evt);
   }
 
-  render () {
+  render() {
     const {openTrigger, placement, options, children} = this.props;
     const {isOpen} = this.state;
 
