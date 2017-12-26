@@ -63,11 +63,17 @@ describe('Pagination', () => {
   });
 
   describe('input view', () => {
-    it('displays input field showing current page and displays the last page', () => {
+    it('displays input field showing current page (does not show the total amount of pages by default)', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4}/>);
       expect(pagination.getPageInput()).toBeTruthy();
       expect(pagination.getPageInput().value).toEqual('4');
-      expect(pagination.getLastPageField().textContent).toEqual('/ 15');
+      expect(pagination.getTotalPagesField()).not.toBeTruthy();
+    });
+
+    it('shows the total amount of pages if showInputModeTotalPages is true', () => {
+      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4} showInputModeTotalPages/>);
+      expect(pagination.getTotalPagesField()).toBeTruthy();
+      expect(pagination.getTotalPagesField().textContent).toEqual('/ 15');
     });
 
     it('accepts numbers in page input', () => {

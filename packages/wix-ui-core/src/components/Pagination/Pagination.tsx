@@ -20,6 +20,7 @@ interface PaginationProps {
   width?: number;
   alwaysShowFirstPage?: boolean;
   alwaysShowLastPage?: boolean;
+  showInputModeTotalPages: boolean;
   classes: {[s: string]: string};
 }
 
@@ -36,8 +37,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     totalPages: PropTypes.number.isRequired,
     /** Current page to be shown as current. defaults to 1 */
     currentPage: PropTypes.number,
-    /** Temp */
-    roomForXPages: PropTypes.number,
     /** Callback to be called when pagination happens - structure ({page: string}) => () */
     onChange: PropTypes.func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
@@ -62,6 +61,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     alwaysShowFirstPage: PropTypes.bool,
     /** Whether the page numbers always show the last page  */
     alwaysShowLastPage: PropTypes.bool,
+    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode  */
+    showInputModeTotalPages: PropTypes.bool,
     /** Classes object */
     classes: PropTypes.object.isRequired
   };
@@ -71,7 +72,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
     paginationMode: 'pages',
-    direction: 'ltr'
+    direction: 'ltr',
+    showInputModeTotalPages: false
   };
 
   private currentPage: number = this.validateCurrentPage();
@@ -159,7 +161,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         onChange={this.handlePageInputChange}
         onKeyDown={this.handlePageInputKeyDown}
         onBlur={this.handlePageInputCommit}/>,
-      <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL" className={this.props.classes.inputTotalPages}>/ {this.props.totalPages}</span>
+      this.props.showInputModeTotalPages && <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL" className={this.props.classes.inputTotalPages}>/ {this.props.totalPages}</span>,
     ];
   }
 

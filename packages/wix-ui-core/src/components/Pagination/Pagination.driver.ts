@@ -30,7 +30,7 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     /** Returns the page input element in "input" mode */
     getPageInput: getInput,
     /** Returns the total amount of pages displayed in "input" mode */
-    getLastPageField: (): Element | null => element.querySelector('[data-hook="PAGES_TOTAL"]'),
+    getTotalPagesField: (): Element | null => element.querySelector('[data-hook="PAGES_TOTAL"]'),
     /** Simulates changing the value of the input field in "input" mode */
     changeInput: (newValue: string): void => {
       const input = getInput();
