@@ -57,7 +57,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
   static propTypes = {
     /** Trigger type to show the content */
-    openTrigger: oneOf(CLICK, HOVER),
+    openTrigger: oneOf([CLICK, HOVER]),
     /** The location to display the content */
     placement: string,
     /** The dropdown options array */
@@ -71,7 +71,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** render function that renders the element with the state */
     children: func,
     /** Dropdown mode - single / multi select */
-    mode: oneOf(SINGLE_SELECT, MULTI_SELECT)
+    mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
   };
 
   constructor(props) {
