@@ -3,9 +3,9 @@ import * as defaultsDeep from 'lodash/defaultsDeep';
 
 const selectors = {
   toggleIconPath: '& $toggleIcon path',
-  state: state => `& > input[type=checkbox]:${state}`,
   outerLabel: '& + $outerLabel',
-  innerLabel: '& ~ $innerLabel'
+  innerLabel: '& ~ $innerLabel',
+  state: state => `& > input[type=checkbox]:${state}`
 };
 
 export const styles = (theme: ToggleSwitchTheme) => {
@@ -35,9 +35,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.innerLabel]: {left: theme.labelMovementRange},
         '& $toggleIcon': {
           transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
-          '& path': {
-            fill: theme.colorChecked
-          }
+          '& path': {fill: theme.colorChecked}
         }
       },
 
