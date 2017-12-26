@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 
 import {toggleSwitchDriverFactory} from './ToggleSwitch.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
@@ -74,26 +73,13 @@ describe('ToggleSwitch', () => {
   });
 
   describe('styles', () => {
-    it('root should be flex', () => {
+    it('root should be inline-flex', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.styles.getRootDisplay()).toBe('flex');
+      expect(driver.styles.getRootDisplay()).toBe('inline-flex');
     });
     it('root label should have border-radius 50px', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.styles.getBorderRadius()).toBe('50px');
-    });
-  });
-
-  describe('children', () => {
-    it('should be rendered', () => {
-      const content = (
-        <div>
-          <span>Delete</span>
-          <i>?</i>
-        </div>
-      );
-      const driver = createDriver(<ToggleSwitch onChange={noop}>{content}</ToggleSwitch>);
-      expect(driver.getContent()).toContain(mount(content).html());
     });
   });
 });

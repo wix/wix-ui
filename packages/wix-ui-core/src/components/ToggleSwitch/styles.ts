@@ -1,131 +1,101 @@
 import {core, ToggleSwitchTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
-const contentSelector = '& [data-class="toggle-switch-content"]';
+const selectors = {
+  toggleIconPath: '& $toggleIcon path',
+  state: state => `& > input[type=checkbox]:${state}`,
+  outerLabel: '& + $outerLabel',
+  innerLabel: '& ~ $innerLabel'
+};
 
 export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
+  const LabelCommon = {
+    '-webkit-border-radius': theme.borderRadius,
+    '-moz-border-radius': theme.borderRadius,
+    borderRadius: theme.borderRadius,
+    transition: `all ${theme.transitionSpeed} ease`
+  };
+
   return {
     root: {
-      display: 'flex',
+      display: 'inline-flex',
+      alignItems: 'center',
       width: theme.rootWidth,
       height: theme.rootHeight,
+      position: 'relative',
 
-      '& input[type=checkbox]': {
+      '& > input[type=checkbox]': {
         display: 'none'
       },
 
-      '& label': {
-        '-webkit-border-radius': theme.borderRadius,
-        '-moz-border-radius': theme.borderRadius,
-        borderRadius: theme.borderRadius,
-        transition: `all ${theme.transitionSpeed} ease`
-      },
-
-      '& input[type=checkbox] + $outerLabel': {
-        '& $toggleInactive': {
-          display: theme.toggleIconDisplay
-        }
-      },
-
-      '& input[type=checkbox]:checked + $outerLabel': {
-        background: theme.backgroundColorChecked,
-
-        '& $innerLabel': {
-          left: theme.labelMovementRange,
-
-          '& $toggleActive': {
-            display: theme.toggleIconDisplay
-          },
-
-          '& $toggleInactive': {
-            display: 'none'
-          }
-        }
-      },
-
-      '& input[type=checkbox]:hover + $outerLabel': {
-        background: theme.backgroundColorHover,
-
-        '& $toggleInactive': {
+      [selectors.state('checked')]: {
+        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorChecked},
+        [selectors.innerLabel]: {left: theme.labelMovementRange},
+        '& $toggleIcon': {
+          transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
           '& path': {
-            fill: theme.colorHover
-          }
-        },
-
-        '& $toggleActive': {
-          '& path': {
-            fill: theme.colorHover
+            fill: theme.colorChecked
           }
         }
       },
 
-      '& input[type=checkbox]:disabled + $outerLabel': {
-        background: theme.backgroundColorDisabled,
-        cursor: 'default',
-
-        '& $innerLabel': {
-          cursor: 'default',
-
-          '& $toggleActive': {
-            '& path': {
-              fill: theme.colorCheckedDisabled
-            }
-          },
-
-          '& $toggleInactive': {
-            '& path': {
-              fill: theme.colorDisabled
-            }
-          },
-        }
+      [selectors.state('hover')]: {
+        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorHover},
+        [selectors.toggleIconPath]: {fill: theme.colorHover}
       },
 
-      [contentSelector]: {
-        color: theme.labelColor,
-        marginLeft: theme.labelMarginLeft
+      [selectors.state('hover:checked')]: {
+        [selectors.toggleIconPath]: {fill: theme.colorHover}
+      },
+
+      [selectors.state('disabled')]: {
+        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
+        [selectors.innerLabel]: {cursor: 'default'},
+        [selectors.toggleIconPath]: {fill: theme.colorDisabled}
+      },
+
+      [selectors.state('checked:disabled')]: {
+        [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
       }
     },
 
     outerLabel: {
+      ...LabelCommon,
+
       display: 'inline-block',
       width: theme.outerLabelWidth,
       height: theme.outerLabelHeight,
-      background: theme.backgroundColor,
-      position: 'relative',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: theme.backgroundColor,
     },
 
     innerLabel: {
+     ...LabelCommon,
+
       display: 'flex',
       width: theme.innerLabelWidth,
       height: theme.innerLabelHeight,
-      background: theme.innerLabelBackgroundColor,
+
       position: 'absolute',
-      top: '1px',
       left: '1px',
-      zIndex: '1',
+      zIndex: 1,
+
       textAlign: 'center',
-      cursor: 'pointer',
-
-      justifyContent: 'center',
       alignItems: 'center',
-      boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)'
+      justifyContent: 'center',
+
+      cursor: 'pointer',
+      backgroundColor: theme.innerLabelBackgroundColor,
+      boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
+
+      top: '50%',
+      transform: 'translate(0, -50%)'
     },
 
-    toggleActive: {
-      display: 'none',
-      width: theme.toggleIconWidth,
-      height: theme.toggleIconHeight,
-      transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
-
-      '& path': {
-        fill: theme.colorChecked
-      }
-    },
-
-    toggleInactive: {
+    toggleIcon: {
+      display: theme.toggleIconDisplay,
       width: theme.toggleIconWidth,
       height: theme.toggleIconHeight,
       transition: `all ${theme.transitionSpeed} cubic-bezier(1,0,1,0)`,

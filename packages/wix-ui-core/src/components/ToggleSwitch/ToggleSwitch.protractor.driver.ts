@@ -6,7 +6,5 @@ export const toggleSwitchDriverFactory = component => ({
   /** returns a boolean indicating if the toggleSwitch is checked */
   isChecked: () => component.$('input').isSelected(),
   /** returns a boolean indicating if the toggleSwitch is disabled */
-  isDisabled: () => !component.$('input').isEnabled(),
-  /** returns the component text */
-  getTextContent: () => component.getText(),
+  isDisabled: () => !component.$('input').isEnabled()
 });

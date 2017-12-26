@@ -18,8 +18,6 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
     /** returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => toggleSwitch.disabled,
     /** returns elements innerHtml */
-    getContent: () => element.innerHTML,
-    /** styles element for css properties */
     styles: {
       /** returns elements display css property */
       getRootDisplay: () => {
@@ -31,7 +29,7 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
       /** returns elements border-radius css property */
       getBorderRadius() {
         return domTestkit.getCssValue({
-          className: 'root label',
+          className: 'innerLabel',
           property: 'border-radius'
         });
       }
