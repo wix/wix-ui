@@ -1,6 +1,7 @@
 import {paginationTestkitFactory} from '../../testkit/protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {browser, $} from 'protractor';
+import * as eyes from 'eyes.it';
 
 const dataHook = 'story-pagination';
 
@@ -9,7 +10,7 @@ describe('Pagination', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  xit('has correct inline layout', async () => {
+  eyes.it('has correct inline layout', async () => {
     const pagination = paginationTestkitFactory({dataHook});
 
     await waitForVisibilityOf(pagination.element(), 'Cannot find Pagination');

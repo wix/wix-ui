@@ -82,7 +82,3 @@ export const reactEventTrigger = (ReactTestUtils) => {
     trigger: (event, element, handler = () => null) => simulate[event](element, handler)
   };
 };
-
-export function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
