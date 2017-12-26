@@ -51,16 +51,14 @@ describe('Pagination', () => {
       expect(onChange.mock.calls[0][0]).toEqual({page: '9'});
     });
 
-    it('does not call onChange on clicking the current page', () => {
+    it('does not call onChange on clicking the current page', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={15} currentPage={8} roomForXPages={3} onChange={onChange}/>);
 
-      expect(pagination.getPage(1).textContent).toEqual('8');
+      pagination.clickOnPage(pagination.getCurrentPage());
 
-      pagination.clickOnPage(1);
-      return sleep(10).then(() => {
-          expect(onChange.mock.calls.length).toBe(0);
-      });
+      await sleep(10);
+      expect(onChange.mock.calls.length).toBe(0);
     });
   });
 
@@ -158,8 +156,8 @@ describe('Pagination', () => {
       expect(pagination.getNavButton('last')).not.toBeTruthy();
 
     });
-    it('shows first & last buttons (as arrows icons) with showFirstLastButtons prop', () => {
-      const pagination = createDriver(<Pagination totalPages={3} showFirstLastButtons/>);
+    it('shows first & last buttons (as arrows icons) with showFirstLastNavButtons prop', () => {
+      const pagination = createDriver(<Pagination totalPages={3} showFirstLastNavButtons/>);
       expect(pagination.getNavButton('first')).toBeTruthy();
       expect(pagination.getNavButton('first').textContent).toEqual('<<');
       expect(pagination.getNavButton('last')).toBeTruthy();
@@ -168,7 +166,7 @@ describe('Pagination', () => {
 
     it('calls onChange on previous, next, first, last buttons', () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} showFirstLastButtons onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} showFirstLastNavButtons onChange={onChange}/>);
 
       ['first', 'last', 'previous', 'next'].forEach(btnName => {
         pagination.clickOnNavButton(btnName);
@@ -179,7 +177,7 @@ describe('Pagination', () => {
 
     it('disables "first" & "prevoius" buttons when current page is the first', async () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={3} currentPage={1} showFirstLastButtons onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={1} showFirstLastNavButtons onChange={onChange}/>);
 
       pagination.clickOnNavButton('first');
 
@@ -194,7 +192,7 @@ describe('Pagination', () => {
 
     it('disables "last" & "next" button when current page is the last', async () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={3} currentPage={3} showFirstLastButtons onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={3} showFirstLastNavButtons onChange={onChange}/>);
 
       pagination.clickOnNavButton('last');
 
@@ -208,7 +206,7 @@ describe('Pagination', () => {
     });
 
     it('shows button text with replaceArrowsWithText prop', () => {
-      const pagination = createDriver(<Pagination totalPages={3} showFirstLastButtons replaceArrowsWithText/>);
+      const pagination = createDriver(<Pagination totalPages={3} showFirstLastNavButtons replaceArrowsWithText/>);
       expect(pagination.getNavButton('first').textContent).toEqual('First');
       expect(pagination.getNavButton('last').textContent).toEqual('Last');
       expect(pagination.getNavButton('previous').textContent).toEqual('Previous');
@@ -219,7 +217,7 @@ describe('Pagination', () => {
       const pagination = createDriver(
         <Pagination
           totalPages={3}
-          showFirstLastButtons
+          showFirstLastNavButtons
           replaceArrowsWithText
           firstText="oh"
           previousText="my"

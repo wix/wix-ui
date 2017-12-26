@@ -32,7 +32,7 @@ describe('Pagination', () => {
     const pageSelectionLoc = await $('[data-hook="PAGES_SELECTION"]').getLocation();
     const pageSelectionSize = await $('[data-hook="PAGES_SELECTION"]').getSize();
 
-    expect(prevLoc.x).toBeGreaterThan(pageSelectionLoc.x);
-    expect(nextLoc.x).toBeLessThan(pageSelectionLoc.x - pageSelectionSize.width);
+    expect(prevLoc.x).toBeGreaterThan(pageSelectionLoc.x + pageSelectionSize.width);
+    expect(nextLoc.x).toBeLessThan(pageSelectionLoc.x);
   });
 });

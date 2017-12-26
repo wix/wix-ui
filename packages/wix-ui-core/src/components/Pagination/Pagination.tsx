@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
+import * as  classNames from 'classnames';
 
 interface PaginationProps {
   // data
   totalPages: number;
   currentPage?: number;
   // props
-  roomForXPages?: number; //temp
   onChange?: (event: {page: string}) => void;
   paginationMode?: 'pages' | 'input';
-  showFirstLastButtons?: boolean;
+  showFirstLastNavButtons?: boolean;
   replaceArrowsWithText?: boolean;
   firstText?: string;
   previousText?: string;
@@ -43,7 +43,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
     paginationMode: PropTypes.oneOf(['pages' , 'input']),
     /** Shows the 'first' and 'last' navigation buttons. defaults to false */
-    showFirstLastButtons: PropTypes.bool,
+    showFirstLastNavButtons: PropTypes.bool,
     /** Allows replacing navigation arrows with textual buttons */
     replaceArrowsWithText: PropTypes.bool,
     /** Text to appear for the 'first' navigation button when prop 'replaceArrowsWithText' is true */
@@ -68,7 +68,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   public static defaultProps: Partial<PaginationProps> = {
     currentPage: 1,
-    showFirstLastButtons: false,
+    showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
     paginationMode: 'pages',
     direction: 'ltr'
@@ -115,18 +115,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private getPages(): Array<string> {
-    const {totalPages, roomForXPages} = this.props;
-    let startPage = 1, endPage = totalPages;
-
-    const numOfPagesToDisplay = (roomForXPages % 2) ? roomForXPages : roomForXPages - 1;
-
-    if (numOfPagesToDisplay < totalPages ) {
-      startPage = this.currentPage - Math.floor(numOfPagesToDisplay / 2);
-      endPage = numOfPagesToDisplay + startPage - 1;
-    }
-
     let result: Array<string> = [];
-    for (let i = startPage; i <= endPage; i++ ) {
+    for (let i = 1; i <= this.props.totalPages; i++ ) {
         result.push(String(i));
     }
 
@@ -201,21 +191,21 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   render() {
-    const {showFirstLastButtons, paginationMode, classes} = this.props;
+    const {showFirstLastNavButtons, paginationMode, classes} = this.props;
     this.currentPage = this.validateCurrentPage();
 
     return (
-      <div data-hook="PAGINATION" className={classes.paginationRoot + (this.props.direction === 'rtl' ? ' ' + classes.rtl : '')}>
+      <div data-hook="PAGINATION" className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.direction === 'rtl'})}>
         {[
-          showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
+          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
           this.renderNavButton(NavButtonTypes.PREVIOUS)
         ]}
-          <span data-hook="PAGES_SELECTION" style={{direction: this.props.direction}}>
+          <span data-hook="PAGES_SELECTION" className={classNames(classes.pagesSelection, {[classes.rtl]: this.props.direction === 'rtl'})}>
             { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
           </span>
         {[
           this.renderNavButton(NavButtonTypes.NEXT),
-          showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
+          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.LAST)
         ]}
         </div>
     );

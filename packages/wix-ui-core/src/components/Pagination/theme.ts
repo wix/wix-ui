@@ -11,7 +11,8 @@ export type PaginationTheme = {
   inputField: React.CSSProperties,
   inputTotalPages: React.CSSProperties
   ellipsis: React.CSSProperties,
-  rtl: React.CSSProperties
+  rtl: React.CSSProperties,
+  pagesSelection: React.CSSProperties
 };
 
 export const core: PaginationTheme = {
@@ -21,6 +22,9 @@ export const core: PaginationTheme = {
   },
   rtl: {
     flexDirection: 'row-reverse'
+  },
+  pagesSelection: {
+    display: 'inline-flex'
   },
   currentPage: {
     minWidth: buttonMinWidth,
