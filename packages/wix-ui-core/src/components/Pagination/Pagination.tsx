@@ -17,6 +17,7 @@ interface PaginationProps {
   nextText?: string;
   lastText?: string;
   navButtonPlacement?: 'inline' | 'top' | 'bottom';
+  direction?: 'ltr' | 'rtl';
   classes: {[s: string]: string};
 }
 
@@ -45,16 +46,27 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     replaceArrowsWithText: PropTypes.bool,
     /** Changes the location of the navigation buttons relative to the pages selection. defaults to 'inline'  */
     navButtonPlacement: PropTypes.oneOf(['inline' , 'top' , 'bottom']),
+    /** Text to appear for the 'first' navigation button when prop 'replaceArrowsWithText' is true */
+    firstText: PropTypes.string,
+    /** Text to appear for the 'previous' navigation button when prop 'replaceArrowsWithText' is true */
+    previousText: PropTypes.string,
+    /** Text to appear for the 'next' navigation button when prop 'replaceArrowsWithText' is true */
+    nextText: PropTypes.string,
+    /** Text to appear for the 'last' navigation button when prop 'replaceArrowsWithText' is true */
+    lastText: PropTypes.string,
+    /** The pagination direction. acceots 'ltr' (left to right) or 'rtl' (right to left). defaults to 'ltr' */
+    direction: PropTypes.oneOf(['ltr' , 'rtl']),
     /** Classes object */
     classes: PropTypes.object.isRequired
   };
 
   public static defaultProps: Partial<PaginationProps> = {
-      currentPage: 1,
-      showFirstLastButtons: false,
-      replaceArrowsWithText: false,
-      navButtonPlacement: 'inline',
-      paginationMode: 'pages'
+    currentPage: 1,
+    showFirstLastButtons: false,
+    replaceArrowsWithText: false,
+    navButtonPlacement: 'inline',
+    paginationMode: 'pages',
+    direction: 'ltr'
   };
 
   private currentPage: number = this.validateCurrentPage();
@@ -188,25 +200,14 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     this.currentPage = this.validateCurrentPage();
 
     return (
-      <div data-hook="PAGINATION" className={classes.paginationRoot}>
-        {navButtonPlacement === 'top' ?
-            <div data-hook="TOP_ROW">
-              {[
-                showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
-                this.renderNavButton(NavButtonTypes.PREVIOUS),
-                this.renderNavButton(NavButtonTypes.NEXT),
-                showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
-              ]}
-            </div> : null
-        }
-        <div data-hook="MIDDLE_ROW">
+      <div data-hook="PAGINATION" className={classes.paginationRoot + (this.props.direction === 'rtl' ? ' ' + classes.rtl : '')}>
           {navButtonPlacement === 'inline' ?
             [
               showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
               this.renderNavButton(NavButtonTypes.PREVIOUS)
             ] : null
           }
-          <span data-hook="PAGES_SELECTION">
+          <span data-hook="PAGES_SELECTION" style={{direction: this.props.direction}}>
             { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
           </span>
 
@@ -217,17 +218,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
             ] : null
           }
         </div>
-        {navButtonPlacement === 'bottom' ?
-          <div data-hook="BOTTOM_ROW">
-            {[
-              showFirstLastButtons && this.renderNavButton(NavButtonTypes.FIRST),
-              this.renderNavButton(NavButtonTypes.PREVIOUS),
-              this.renderNavButton(NavButtonTypes.NEXT),
-              showFirstLastButtons && this.renderNavButton(NavButtonTypes.LAST)
-            ]}
-          </div> : null
-        }
-      </div>
     );
   }
 }

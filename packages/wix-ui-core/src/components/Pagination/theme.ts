@@ -10,14 +10,18 @@ export type PaginationTheme = {
   pageNumber: React.CSSProperties,
   inputField: React.CSSProperties,
   inputTotalPages: React.CSSProperties
-  ellipsis: React.CSSProperties
+  ellipsis: React.CSSProperties,
+  rtl: React.CSSProperties
 };
 
 export const core: PaginationTheme = {
   paginationRoot: {
     background: '#fff',
-    display: 'flex',
+    display: 'inline-flex',
     'flex-direction': 'column'
+  },
+  rtl: {
+    flexDirection: 'row-reverse'
   },
   currentPage: {
     minWidth: buttonMinWidth,

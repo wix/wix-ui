@@ -29,15 +29,29 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
 
   render() {
     return (
-      <Pagination
-        dataHook="story-pagination"
-        numOfPages={numOfPages}
-        roomForXPages={6}
-        currentPage={this.state.currPage}
-        showFirstLastButtons
-        navButtonPlacement="inline"
-        paginationMode="pages"
-        onChange={this.handleChange}/>
+      <div>
+        <div>
+          <Pagination
+            dataHook="story-pagination"
+            totalPages={numOfPages}
+            roomForXPages={6}
+            currentPage={this.state.currPage}
+            showFirstLastButtons
+            onChange={this.handleChange}
+            direction="rtl"
+            />
+        </div>
+        {/*<div>*/}
+          {/*<Pagination*/}
+            {/*dataHook="story-pagination-rtl"*/}
+            {/*direction="rtl"*/}
+            {/*numOfPages={numOfPages}*/}
+            {/*roomForXPages={6}*/}
+            {/*currentPage={this.state.currPage}*/}
+            {/*showFirstLastButtons*/}
+            {/*onChange={this.handleChange}/>*/}
+        {/*</div>*/}
+    </div>
     );
   }
 }

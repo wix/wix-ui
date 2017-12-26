@@ -10,6 +10,7 @@ export const styles = theme => {
     currentPage: theme.currentPage,
     inputField: theme.inputField,
     inputTotalPages: theme.inputTotalPages,
-    ellipsis: theme.ellipsis
+    ellipsis: theme.ellipsis,
+    rtl: theme.rtl
   };
 };
