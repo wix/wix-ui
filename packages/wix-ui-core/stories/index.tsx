@@ -20,7 +20,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
+    <ToggleSwitch dataHook="story-toggle-switch"/>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">
