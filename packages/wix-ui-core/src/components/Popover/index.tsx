@@ -23,8 +23,11 @@ const Popover: PopoverType = props => {
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
     return (
-      <Manager onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <Target data-hook="popover-element" style={{display: 'inline-block'}}>
+      <Manager
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        style={{display: 'inline-block'}}>
+        <Target data-hook="popover-element">
           {childrenObject.Element}
         </Target>
         {
