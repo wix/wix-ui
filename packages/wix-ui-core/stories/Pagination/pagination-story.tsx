@@ -41,16 +41,26 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
             direction="rtl"
             />
         </div>
-        {/*<div>*/}
-          {/*<Pagination*/}
-            {/*dataHook="story-pagination-rtl"*/}
-            {/*direction="rtl"*/}
-            {/*numOfPages={numOfPages}*/}
-            {/*roomForXPages={6}*/}
-            {/*currentPage={this.state.currPage}*/}
-            {/*showFirstLastButtons*/}
-            {/*onChange={this.handleChange}/>*/}
-        {/*</div>*/}
+        <div>
+          <Pagination
+            dataHook="story-pagination-rtl"
+            direction="rtl"
+            numOfPages={numOfPages}
+            roomForXPages={6}
+            currentPage={this.state.currPage}
+            showFirstLastButtons
+            onChange={this.handleChange}/>
+        </div>
+        <div>
+          <Pagination
+            dataHook="story-pagination-responsive-numbering"
+            direction="rtl"
+            numOfPages={numOfPages}
+            roomForXPages={6}
+            currentPage={this.state.currPage}
+            showFirstLastButtons
+            onChange={this.handleChange}/>
+        </div>
     </div>
     );
   }

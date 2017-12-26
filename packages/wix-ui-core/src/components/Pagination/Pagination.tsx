@@ -17,6 +17,9 @@ interface PaginationProps {
   nextText?: string;
   lastText?: string;
   direction?: 'ltr' | 'rtl';
+  width?: number;
+  alwaysShowFirstPage?: boolean;
+  alwaysShowLastPage?: boolean;
   classes: {[s: string]: string};
 }
 
@@ -53,6 +56,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     lastText: PropTypes.string,
     /** The pagination direction. acceots 'ltr' (left to right) or 'rtl' (right to left). defaults to 'ltr' */
     direction: PropTypes.oneOf(['ltr' , 'rtl']),
+    /** The pixel width the component will render in  */
+    width: PropTypes.number,
+    /** Whether the page numbers always show the first page  */
+    alwaysShowFirstPage: PropTypes.bool,
+    /** Whether the page numbers always show the last page  */
+    alwaysShowLastPage: PropTypes.bool,
     /** Classes object */
     classes: PropTypes.object.isRequired
   };
