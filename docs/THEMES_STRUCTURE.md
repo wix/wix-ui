@@ -3,7 +3,7 @@
 ## The example
 Below is a a simple example on how the themes eco-system works.
 In the example - `Button` is a simple `core` component with an expendable font-size.
-The backoffice theme exposes it's own `Button` component that changes the font-size according to a custom `size` prop.
+The backoffice theme exposes its own `Button` component that changes the font-size according to a custom `size` prop.
 
 ## The core library
 
