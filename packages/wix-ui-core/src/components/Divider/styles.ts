@@ -14,4 +14,4 @@ export const styles = (theme: DividerTheme) => {
             marginBottom: theme.marginBottom
         }
     };
-}
+};

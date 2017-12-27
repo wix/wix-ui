@@ -15,12 +15,12 @@ class Divider extends React.PureComponent<DividerProps> {
     static propTypes = {
         /** The classes used to style the Divider */
         classes: object
-    }
+    };
 
     render() {
         const {classes} = this.props;
 
-        return <div className={classes.divider} />
+        return <div className={classes.divider} />;
     }
 }
 

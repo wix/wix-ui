@@ -59,4 +59,3 @@ storiesOf('Components', module)
   .add('Divider', () => (
     <DividerStory />
   ));
-
