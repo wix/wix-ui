@@ -9,6 +9,7 @@ import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
+import {DividerStory} from './Divider/divider-story';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -54,4 +55,8 @@ storiesOf('Components', module)
   ))
   .add('Pagination', () => (
     <PaginationStory />
+  ))
+  .add('Divider', () => (
+    <DividerStory />
   ));
+
