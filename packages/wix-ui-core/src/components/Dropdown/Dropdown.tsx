@@ -21,12 +21,12 @@ interface DropdownProps {
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   placement?: Placement;
   options: Array<Option>;
-  onSelect: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
-  onDeselect: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
-  selectedId: number;
-  selectedIds: Array<number>;
+  onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
+  onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
+  selectedId?: number;
+  selectedIds?: Array<number>;
   children: (state: DropdownState) => React.ReactNode;
-  mode: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
+  mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
 }
 
 interface DropdownState {

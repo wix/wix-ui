@@ -62,7 +62,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps> {
           </div>
         );
       default:
-      return null;
+        return null;
     }
   }
 
