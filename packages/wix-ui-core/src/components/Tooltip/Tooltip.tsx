@@ -5,7 +5,7 @@ import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../
 import {createHOC} from '../../createHOC';
 
 interface TooltipProps {
-  placement: Placement;
+  placement?: Placement;
   classes: TooltipClasses;
 }
 
