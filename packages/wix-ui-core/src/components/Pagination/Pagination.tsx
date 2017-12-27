@@ -105,14 +105,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const pages = this.getPages();
 
     return pages.map((pageContent, i) => (
-      <span
+      <button
       data-hook={'PAGE_' + i}
       key={'PAGE' + i}
+      aria-label={`Goto Page ${pageContent}`}
       className={pageContent === String(this.currentPage) ? this.props.classes.currentPage : this.props.classes.pageNumber}
       onClick={() => this.handlePageClick(pageContent)}
       data-isSelected={pageContent === String(this.currentPage)}>
         {pageContent}
-      </span>
+      </button>
     ));
   }
 
@@ -147,7 +148,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     } else {
       this.onChange(this.state.pageInput);
     }
-
   }
 
   private createInputLayout = () => {
@@ -167,15 +167,16 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   private renderNavButton(buttonType: NavButtonTypes): JSX.Element {
 
+    const {classes} = this.props;
     const navButton = (name: string, content: string): JSX.Element => {
       return (
-          <span
-              key={name.toUpperCase()}
-              data-hook={name.toUpperCase()}
-              className={this.props.classes.navButton}
-              onClick={() => this.handlePageClick(name)}>
-            {content}
-          </span>
+        <button
+            key={name.toUpperCase()}
+            data-hook={name.toUpperCase()}
+            className={classNames(classes.navButton, {[classes.navButtonRtl]: this.props.direction === 'rtl'})}
+            onClick={() => this.handlePageClick(name)}>
+          {content}
+        </button>
       );
     };
 
@@ -197,7 +198,11 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     this.currentPage = this.validateCurrentPage();
 
     return (
-      <div data-hook="PAGINATION" className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.direction === 'rtl'})}>
+      <nav
+        data-hook="PAGINATION"
+        className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.direction === 'rtl'})}
+        role="navigation"
+        aria-label="Pagination Navigation">
         {[
           showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
           this.renderNavButton(NavButtonTypes.PREVIOUS)
@@ -209,7 +214,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           this.renderNavButton(NavButtonTypes.NEXT),
           showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.LAST)
         ]}
-        </div>
+        </nav>
     );
   }
 }

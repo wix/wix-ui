@@ -9,6 +9,23 @@ import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
 
+  describe('General accessibility', () => {
+    it('has NAV as root node', () => {
+      const pagination = createDriver(<Pagination totalPages={5}/>);
+      expect(pagination.root.tagName).toEqual('NAV');
+    });
+
+    it('has role in the root node', () => {
+      const pagination = createDriver(<Pagination totalPages={5}/>);
+      expect(pagination.root.getAttribute('role')).toEqual('navigation');
+    });
+
+    it('has aria-label in the root node', () => {
+      const pagination = createDriver(<Pagination totalPages={5}/>);
+      expect(pagination.root.getAttribute('aria-label')).toEqual('Pagination Navigation');
+    });
+  });
+
   describe('Page numbers mode', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination totalPages={3}/>);
@@ -53,12 +70,22 @@ describe('Pagination', () => {
 
     it('does not call onChange on clicking the current page', async () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={15} currentPage={8} roomForXPages={3} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={15} currentPage={8} onChange={onChange}/>);
 
       pagination.clickOnPage(pagination.getCurrentPage());
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);
+    });
+
+    describe('Page numbers mode accessibility', () => {
+      it('has aria-label attribute on pages', () => {
+        const pagination = createDriver(<Pagination totalPages={8} currentPage={4}/>);
+        Array.from(Array(pagination.amountOfPages)).forEach((n, idx) => {
+          const page = pagination.getPage(idx);
+          expect(page.getAttribute('aria-label')).toEqual('Goto Page ' + page.textContent);
+        });
+      });
     });
   });
 

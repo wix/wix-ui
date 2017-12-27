@@ -13,7 +13,8 @@ export type PaginationTheme = {
   ellipsis: React.CSSProperties,
   rtl: React.CSSProperties,
   pagesSelection: React.CSSProperties,
-  navButton: React.CSSProperties
+  navButton: React.CSSProperties,
+  navButtonRtl: React.CSSProperties
 };
 
 const buttonCommon: React.CSSProperties = {
@@ -93,6 +94,8 @@ export const core: PaginationTheme = {
     cursor: 'pointer',
     color: '#2196F3',
     border: '1px solid #BBDEFB',
+  },
+  navButtonRtl: {
     transform: 'scaleX(-1)'
   }
 };
