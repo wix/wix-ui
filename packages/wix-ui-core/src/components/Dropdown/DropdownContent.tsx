@@ -68,7 +68,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps> {
 
   render() {
     return (
-      <div>
+      <div data-hook="options-container">
         {(this.props.options || []).map(this._renderOption)}
       </div>
     );
