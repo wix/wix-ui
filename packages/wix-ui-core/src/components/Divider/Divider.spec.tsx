@@ -4,7 +4,7 @@ import {createDriverFactory} from 'wix-ui-test-utils';
 
 import Divider from './index';
 
-describe.only('Divider', () => {
+describe('Divider', () => {
 
     const createDriver = createDriverFactory(dividerDriverFactory);
 
