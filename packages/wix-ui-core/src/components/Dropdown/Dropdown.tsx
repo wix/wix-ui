@@ -3,12 +3,7 @@ import Popover, {Placement} from '../Popover';
 import {string, oneOf, arrayOf, object, func, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
-
-export const OPTION = 'option';
-export type OPTION_TYPE = 'option';
-
-export const SEPARATOR = 'separator';
-export type SEPARATOR_TYPE = 'separator';
+import DropdownContent, {Option} from './DropdownContent';
 
 export const CLICK = 'click';
 export type CLICK_TYPE = 'click';
@@ -22,19 +17,12 @@ export type SINGLE_SELECT_TYPE = 'singleSelect';
 export const MULTI_SELECT = 'multiSelect';
 export type MULTI_SELECT_TYPE = 'multiSelect';
 
-interface Option {
-  id: number;
-  value: any;
-  displayName: any;
-  type: OPTION_TYPE | SEPARATOR_TYPE;
-  isDisabled: boolean;
-}
-
 interface DropdownProps {
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   placement?: Placement;
   options: Array<Option>;
-  onSelected: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
+  onSelect: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
+  onDeselect: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   selectedId: number;
   selectedIds: Array<number>;
   children: (state: DropdownState) => React.ReactNode;
@@ -63,7 +51,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** The dropdown options array */
     options: arrayOf(object).isRequired,
     /** Handler for when an option is selected */
-    onSelected: func,
+    onSelect: func,
+    /** Handler for when an option is selected */
+    onDeselect: func,
     /** Selected option id */
     selectedId: number,
     /** Selected option ids for multi selected */
@@ -77,6 +67,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   constructor(props) {
     super(props);
 
+    this._onOptionClick = this._onOptionClick.bind(this);
     const {selectedId, selectedIds, options} = props;
     const selectedOptions =
       (selectedIds || (selectedId ? [selectedId] : []))
@@ -97,26 +88,28 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     return this.props.mode === SINGLE_SELECT;
   }
 
-  _onSelected(option, evt) {
+  _onOptionClick(option, evt) {
+    const {onSelect, onDeselect} = this.props;
     const newState = {
-      isOpen: false,
+      isOpen: !this.isSingleSelect(),
       selectedOptions: []
     };
 
     if (this.isSingleSelect()) {
       newState.selectedOptions = [option];
+      onSelect && onSelect(option, evt);
     } else {
-      newState.isOpen = true;
       const {selectedOptions} = this.state;
       if (selectedOptions.find(x => x.id === option.id)) {
         newState.selectedOptions = selectedOptions.filter(x => x.id !== option.id);
+        onDeselect && onDeselect(option, evt);
       } else {
         newState.selectedOptions = [...selectedOptions, option];
+        onSelect && onSelect(option, evt);
       }
     }
 
     this.setState(newState);
-    this.props.onSelected && this.props.onSelected(option, evt);
   }
 
   render() {
@@ -138,16 +131,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
           </div>
         </Popover.Element>
         <Popover.Content>
-          <div>
-          {
-            options.map(x =>
-              <div
-                key={x.id}
-                onClick={x.isDisabled || x.type === SEPARATOR ? null : evt => this._onSelected(x, evt)}>
-                {x.type === SEPARATOR ? '------' : x.displayName}
-              </div>)
-          }
-          </div>
+          <DropdownContent options={options} onOptionClick={this._onOptionClick} />
         </Popover.Content>
       </Popover>
     );

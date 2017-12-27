@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from './index';
+import {buildChildrenObject, createComponentThatRendersItsChildren, getRandomInt} from './index';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {
@@ -69,6 +69,24 @@ describe('Utils', () => {
       const component = createComponentThatRendersItsChildren(displayName);
       const props = {children: {prop: 'value'}};
       expect(component(props)).toEqual(props.children);
+    });
+   });
+
+   describe('getRandomInt', () => {
+    it('should get min value when range is 0', () => {
+      const actual = getRandomInt(1, 1);
+      expect(actual).toEqual(1);
+    });
+
+    it('should get min value when range is 1', () => {
+      const actual = getRandomInt(1, 2);
+      expect(actual).toEqual(1);
+    });
+
+    it('should get a value within the range', () => {
+      const actual = getRandomInt(1, 5);
+      expect(actual).toBeGreaterThanOrEqual(1);
+      expect(actual).toBeLessThan(5);
     });
    });
 });
