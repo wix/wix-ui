@@ -12,6 +12,9 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
 
+import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
+export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFactory);
+
 import {badgeDriverFactory} from '../components/Badge/Badge.driver';
 export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
 

@@ -4,6 +4,6 @@
 ## **What themes are?**
 Read [here](./docs/WHAT_ARE_THEMES.md)
 
-## **How does themes work?**
-Read here about [Themes structure and architecture](./docs/THEMES_STRUCTURE.md)
+## **How do themes work?**
+Read here about [themes structure and architecture](./docs/THEMES_STRUCTURE.md)
 

@@ -8,6 +8,7 @@ import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
+import {PaginationStory} from './Pagination/pagination-story';
 import Dropdown from '../src/components/Dropdown';
 
 storiesOf('Components', module)
@@ -42,7 +43,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch dataHook="story-toggle-switch">Hello</ToggleSwitch>
+    <ToggleSwitch dataHook="story-toggle-switch"/>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">
@@ -72,4 +73,7 @@ storiesOf('Components', module)
         <div>b</div>
         <div>c</div>
     </HBox>
+  ))
+  .add('Pagination', () => (
+    <PaginationStory />
   ));

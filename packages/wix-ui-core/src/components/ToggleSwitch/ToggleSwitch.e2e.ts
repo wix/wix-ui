@@ -13,6 +13,6 @@ describe('ToggleSwitch', () => {
     const driver = toggleSwitchTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find ToggleSwitch')
-      .then(() => expect(driver.getTextContent()).toBe('Hello'));
+      .then(() => expect(driver.isDisabled()).toBe(false));
   });
 });

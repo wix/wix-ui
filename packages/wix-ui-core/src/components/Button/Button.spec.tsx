@@ -71,15 +71,28 @@ describe('Button', () => {
   });
 
   describe('style', () => {
-    it('should have default height', () => {
+    it('should have default styles', () => {
       const driver = createDriver(<Button/>);
-      expect(driver.getHeight()).toBe(core.height);
+      expect(driver.styles.getHeight()).toBe(core.height);
+      expect(driver.styles.getPadding()).toBe(core.padding);
+      expect(driver.styles.getBorderRadius()).toBe(core.borderRadius);
     });
 
     it('should override default height', () => {
-      const theme: ButtonTheme = {height: '78px'};
-      const driver = createDriver(<Button theme={theme}/>);
-      expect(driver.getHeight()).toBe(theme.height);
+      const theme: ButtonTheme = {
+        minWidth: '15px',
+        width: '15px',
+        height: '78px',
+        padding: '15px',
+        contentPadding: '16px',
+        borderRadius: '3px'
+      };
+      const driver = createDriver(<Button theme={theme}></Button>);
+      expect(driver.styles.getMinWidth()).toBe(theme.minWidth);
+      expect(driver.styles.getWidth()).toBe(theme.width);
+      expect(driver.styles.getHeight()).toBe(theme.height);
+      expect(driver.styles.getPadding()).toBe(theme.padding);
+      expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
     });
   });
 
