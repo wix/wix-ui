@@ -172,7 +172,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           <span
               key={name.toUpperCase()}
               data-hook={name.toUpperCase()}
-              className={this.props.classes.pageNumber}
+              className={this.props.classes.navButton}
               onClick={() => this.handlePageClick(name)}>
             {content}
           </span>
