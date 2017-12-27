@@ -9,7 +9,7 @@ import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
 
-  describe('default view', () => {
+  describe('Page numbers mode', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination totalPages={3}/>);
       expect(pagination.amountOfPages).toBe(3);
@@ -62,7 +62,7 @@ describe('Pagination', () => {
     });
   });
 
-  describe('input view', () => {
+  describe('Input field mode', () => {
     it('displays input field showing current page (does not show the total amount of pages by default)', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4}/>);
       expect(pagination.getPageInput()).toBeTruthy();

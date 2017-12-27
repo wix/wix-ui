@@ -1,16 +1,16 @@
-import {Simulate} from 'react-dom/test-utils';
-
 type NavButtonNames = 'first' | 'previous' | 'next' | 'last';
 
-export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
+export const paginationDriverFactory = ({element, eventTrigger}: {element: HTMLElement, eventTrigger: any}) => {
   const pages: Element = element.querySelector('[data-hook^="PAGES_SELECTION"]');
 
-  const getNavButtonElement = (btnName: NavButtonNames): HTMLButtonElement => (
+  const getNavButtonElement = (btnName: string): HTMLButtonElement => (
       <HTMLButtonElement> element.querySelector('[data-hook="' + btnName.toUpperCase() + '"]')
   );
   const getInput = (): HTMLInputElement | null => (<HTMLInputElement> element.querySelector('[data-hook="PAGE_INPUT"]'));
 
   return {
+    /** Returns the root element*/
+    root: element,
     /** Returns whether the element exists */
     exists: (): boolean => !!element,
     /** The amount of pages displayed in "pages" mode */
@@ -24,9 +24,9 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     getNavButton: (btnName: NavButtonNames): HTMLButtonElement => getNavButtonElement(btnName),
     /** Simulates clicking a page in "pages" mode */
-    clickOnPage: (idx: number): void => (idx < pages.children.length) && Simulate.click(pages.children[idx]),
+    clickOnPage: (idx: number): void => (idx < pages.children.length) && eventTrigger.click(pages.children[idx]),
     /** Simulates clicking a navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    clickOnNavButton: (btnName: NavButtonNames): void => Simulate.click(getNavButtonElement(btnName)),
+    clickOnNavButton: (btnName: string): void => eventTrigger.click(getNavButtonElement(btnName)),
     /** Returns the page input element in "input" mode */
     getPageInput: getInput,
     /** Returns the total amount of pages displayed in "input" mode */
@@ -35,11 +35,11 @@ export const paginationDriverFactory = ({element}: {element: HTMLElement}) => {
     changeInput: (newValue: string): void => {
       const input = getInput();
       input.value = newValue;
-      Simulate.change(input);
+      eventTrigger.change(input);
     },
     /** Simulates keyDown on the input field in "input" mode */
-    inputKeyDown: (keyCode: number): void => Simulate.keyDown(getInput(), {keyCode}),
+    inputKeyDown: (keyCode: number): void => eventTrigger.keyDown(getInput(), {keyCode}),
     /** Simulates blur in the input field in "input" mode */
-    inputBlur: (): void => Simulate.blur(getInput())
+    inputBlur: (): void => eventTrigger.blur(getInput())
   };
 };
