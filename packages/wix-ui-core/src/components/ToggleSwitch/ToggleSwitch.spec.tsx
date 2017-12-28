@@ -12,6 +12,15 @@ describe('ToggleSwitch', () => {
   const noop = () => null;
 
   describe('checked prop', () => {
+    it('should be controlled', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.isChecked()).toBe(false);
+
+      driver.click();
+
+      expect(driver.isChecked()).toBe(false);
+    });
+
     it('should pass down to input when checked', () => {
       const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
       expect(driver.isChecked()).toBeTruthy();
