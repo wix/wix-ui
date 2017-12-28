@@ -72,6 +72,19 @@ describe('ToggleSwitch', () => {
     });
   });
 
+  describe('id prop', () => {
+    it('should apply arbitrary unique id be default', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getId()).toBeDefined();
+    });
+
+    it('should apply user specified id', () => {
+      const testId = 'testId';
+      const driver = createDriver(<ToggleSwitch onChange={noop} id={testId}/>);
+      expect(driver.getId()).toBe(testId);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<ToggleSwitch onChange={noop}/>, toggleSwitchTestkitFactory)).toBe(true);

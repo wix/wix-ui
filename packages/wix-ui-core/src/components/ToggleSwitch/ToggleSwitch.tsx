@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, func, object} from 'prop-types';
+import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
@@ -16,6 +16,7 @@ interface ToggleSwitchProps {
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   classes: ToggleSwitchClasses;
+  id: string;
 }
 
 /**
@@ -34,11 +35,13 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     disabled: bool,
     /** Classes object */
     classes: object.isRequired,
+    /** Component ID, will be generated automatically if not provided */
+    id: string,
   };
 
   render() {
     const {checked, disabled, onChange, classes} = this.props;
-    const {id} = this;
+    const id = this.props.id || this.id;
 
     return (
       <div className={classes.root}>

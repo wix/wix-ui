@@ -19,6 +19,8 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
     isDisabled: () => toggleSwitch.disabled,
     /** Returns the toggle icon inside the knob */
     getToggleIcon: () => element.querySelector('.toggleIcon'),
+    /** Returns the id of the input component */
+    getId: () => element.querySelector('input').getAttribute('id'),
 
     /** returns elements innerHtml */
     styles: {
