@@ -24,7 +24,7 @@ interface ToggleSwitchProps {
  */
 class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static displayName = 'ToggleSwitch';
-  id: string = uniqueId('ToggleSwitch');
+  id: string = this.props.id || uniqueId('ToggleSwitch');
 
   private toggle: HTMLLabelElement;
 
@@ -44,22 +44,22 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static defaultProps = {checked: false};
 
   componentDidMount() {
-    this.toggle.addEventListener('keydown', this.listenToSpace);
+    this.toggle.addEventListener('keydown', this._listenToSpace);
   }
 
   componentWillUnmount() {
-    this.toggle.removeEventListener('keydown', this.listenToSpace);
+    this.toggle.removeEventListener('keydown', this._listenToSpace);
   }
 
-  listenToSpace = e => {
+  _listenToSpace = e => {
     const SPACEBAR = 32;
     if (e.keyCode === SPACEBAR) {
       e.preventDefault();
-      this.handleChange(e);
+      this._handleChange(e);
     }
   }
 
-  handleChange(e) {
+  _handleChange = e => {
     if (!this.props.disabled) {
       this.props.onChange(e);
     }
@@ -67,7 +67,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
   render() {
     const {checked, disabled, classes} = this.props;
-    const id = this.props.id || this.id;
+    const {id} = this;
 
     return (
       <div className={classes.root}>
@@ -76,7 +76,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           id={id}
           checked={checked}
           disabled={disabled}
-          onChange={this.handleChange}
+          onChange={e => this._handleChange(e)}
         />
 
         <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={ref => this.toggle = ref}/>
