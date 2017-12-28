@@ -40,7 +40,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     /** Component ID, will be generated automatically if not provided */
     id: string,
   };
-  
+
   static defaultProps = {checked: false};
 
   componentDidMount() {
