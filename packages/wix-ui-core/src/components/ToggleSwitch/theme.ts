@@ -53,7 +53,7 @@ export const core: ToggleSwitchTheme = {
   backgroundColorChecked: palette.grey,
   backgroundColorDisabled: palette.disabledButton,
   backgroundColorHover: palette.grey,
-  backgroundColorFocus: palette.black,
+  backgroundColorFocus: palette.grey,
 
   focusOutline: 'none',
 
