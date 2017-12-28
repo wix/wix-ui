@@ -8,6 +8,19 @@ import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
 
+class ControlledToggleSwitch extends React.Component<{}, {checked: boolean}> {
+  state = {checked: false};
+  render() {
+    return (
+      <ToggleSwitch
+        checked={this.state.checked}
+        onChange={() => this.setState({checked: !this.state.checked})}
+        dataHook="story-toggleswitch"
+      />
+    );
+  }
+}
+
 storiesOf('Components', module)
   .add('Badge', () => (
     <Badge dataHook="story-badge">Hello<i>?</i></Badge>
@@ -19,7 +32,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch/>
+    <ControlledToggleSwitch />
   ))
   .add('Text', () => (
     <Text ellipsis>
