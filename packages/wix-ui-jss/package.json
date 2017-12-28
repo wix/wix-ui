@@ -50,6 +50,7 @@
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash.uniqueid": "^4.0.1",
+    "prop-types": "^15.6.0",
     "react": "15.6.1",
     "react-dom": "15.6.1"
   },

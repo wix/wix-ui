@@ -24,13 +24,8 @@ storiesOf('Components', module)
     <ToggleSwitch dataHook="story-toggle-switch"/>
   ))
   .add('Tooltip', () => (
-    <Tooltip dataHook="story-tooltip" placement="right">
-      <Tooltip.Element>
-        <span>I need a tooltip</span>
-      </Tooltip.Element>
-      <Tooltip.Content>
-        <span>This is my tooltip!</span>
-      </Tooltip.Content>
+    <Tooltip>
+
     </Tooltip>
   ))
   .add('Text', () => (

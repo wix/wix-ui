@@ -1,5 +1,5 @@
-import Tooltip from './Tooltip';
+import Tooltip, {TooltipProps} from './Tooltip';
 import {styles} from './styles';
 import {withClasses} from 'wix-ui-jss';
 
-export default withClasses(Tooltip, styles);
+export default withClasses<TooltipProps>(Tooltip, styles);
