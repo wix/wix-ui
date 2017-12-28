@@ -89,7 +89,8 @@ export const styles = (theme: ToggleSwitchTheme) => {
       backgroundColor: theme.backgroundColor,
 
       '&:focus': {
-        backgroundColor: theme.backgroundColorFocus
+        backgroundColor: theme.backgroundColorFocus,
+        outline: 'none'
       }
     },
 
