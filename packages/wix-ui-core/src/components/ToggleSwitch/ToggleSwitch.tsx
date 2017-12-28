@@ -16,7 +16,7 @@ interface ToggleSwitchProps {
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   classes: ToggleSwitchClasses;
-  id: string;
+  id?: string;
 }
 
 /**
