@@ -14,3 +14,9 @@ export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory)
 
 import {badgeDriverFactory} from '../components/Badge/Badge.driver';
 export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
+
+import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
+export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(tooltipDriverFactory);
+
+import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
+export const paginationTestkitFactory = enzymeTestkitFactoryCreator(paginationDriverFactory);

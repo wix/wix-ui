@@ -13,6 +13,10 @@ interface ControlledComponentProps {
 export const isClassExists = (element: HTMLElement, className: String): Boolean =>
   !!element && !!element.className.match(new RegExp('\\b' + className + '\\b'));
 
+export const sleep = (ms: number): Promise<void> => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
 // HOC that makes underlying component "controlled"
 export function makeControlled(Component) {
   return class ControlledComponent extends React.Component<ControlledComponentProps, ControlledComponentState> {

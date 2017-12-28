@@ -21,9 +21,10 @@
   "scripts": {
     "build": "haste build && import-path --path src/components",
     "pretest": "npm run build && build-storybook",
-    "test": "haste test --jest && haste test --protractor",
+    "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",
+    "test:e2e": "haste test --protractor",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
@@ -33,9 +34,11 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4",
+    "react-popper": "^0.7.4",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
@@ -64,9 +67,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "yoshi": {
-    "entry": {
-      "toggleSwitch": "components/ToggleSwitch/index"
-    },
     "externals": {
       "react": "react",
       "react-dom": "reactDOM"

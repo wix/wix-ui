@@ -1,35 +1,35 @@
 import {palette} from '../../palette';
 
-export type ToggleSwitchTheme = {
-  rootWidth?: string;
-  rootHeight?: string;
+export type ToggleSwitchTheme = Partial<{
+  rootWidth: string;
+  rootHeight: string;
 
-  transitionSpeed?: string;
-  borderRadius?: string;
-  labelMovementRange?: string;
+  transitionSpeed: string;
+  borderRadius: string;
+  labelMovementRange: string;
 
-  outerLabelWidth?: string;
-  outerLabelHeight?: string;
+  outerLabelWidth: string;
+  outerLabelHeight: string;
 
-  innerLabelWidth?: string;
-  innerLabelHeight?: string;
-  innerLabelBackgroundColor?: string;
+  innerLabelWidth: string;
+  innerLabelHeight: string;
+  innerLabelBackgroundColor: string;
 
-  backgroundColor?: string;
-  backgroundColorChecked?: string;
-  backgroundColorDisabled?: string;
-  backgroundColorHover?: string;
+  backgroundColor: string;
+  backgroundColorChecked: string;
+  backgroundColorDisabled: string;
+  backgroundColorHover: string;
 
-  color?: string;
-  colorChecked?: string;
-  colorDisabled?: string;
-  colorCheckedDisabled?: string;
-  colorHover?: string;
+  color: string;
+  colorChecked: string;
+  colorDisabled: string;
+  colorCheckedDisabled: string;
+  colorHover: string;
 
-  toggleIconWidth?: string;
-  toggleIconHeight?: string;
-  toggleIconDisplay?: string;
-};
+  toggleIconWidth: string;
+  toggleIconHeight: string;
+  toggleIconDisplay: string;
+}>;
 
 export const core: ToggleSwitchTheme = {
   rootWidth: 'initial',

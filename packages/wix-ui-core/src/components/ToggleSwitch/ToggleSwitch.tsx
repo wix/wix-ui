@@ -1,50 +1,45 @@
 import * as React from 'react';
-import {bool, func, object} from 'prop-types';
+import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
+import {getViewBox, getPathDescription} from './utils';
 
 type ToggleSwitchClasses = {
   root: string;
   outerLabel: string;
   innerLabel: string;
-  toggleActive: string;
-  toggleInactive: string;
+  toggleIcon: string;
 };
 
 interface ToggleSwitchProps {
-  checked: boolean;
-  disabled: boolean;
+  checked?: boolean;
+  disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   classes: ToggleSwitchClasses;
+  id?: string;
 }
 
 /**
  * Toggle Switch
  */
 class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
-  private id: string;
-  private toggle: HTMLLabelElement;
-  private input: HTMLInputElement;
-
   static displayName = 'ToggleSwitch';
+  id: string = uniqueId('ToggleSwitch');
+
+  private toggle: HTMLLabelElement;
 
   static propTypes = {
-    /** Is the toggleSwitch checked or not  */
+    /** Is the toggleSwitch checked or not */
     checked: bool,
-
-    /** Callback function when user changes the value of the component  */
+    /** Callback function when user changes the value of the component */
     onChange: func.isRequired,
-
-    /** Is the toggleSwitch disabled or not  */
+    /** Is the toggleSwitch disabled or not */
     disabled: bool,
-
-    classes: object.isRequired
+    /** Classes object */
+    classes: object.isRequired,
+    /** Component ID, will be generated automatically if not provided */
+    id: string,
   };
-
-  constructor(props) {
-    super(props);
-    this.id = uniqueId('ToggleSwitch');
-  }
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this.listenToSpace);
@@ -58,27 +53,35 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     const SPACEBAR = 32;
     if (e.keyCode === SPACEBAR) {
       e.preventDefault();
+      this.handleChange(e);
+    }
+  }
+
+  handleChange(e) {
+    if (!this.props.disabled) {
       this.props.onChange(e);
     }
   }
 
   render() {
-    const {checked, disabled, onChange, classes} = this.props;
-    const {id} = this;
+    const {checked, disabled, classes} = this.props;
+    const id = this.props.id || this.id;
 
     return (
       <div className={classes.root}>
-        <input type="checkbox" id={id} checked={checked} disabled={disabled} ref={ref => this.input = ref} onChange={e => !disabled && onChange(e)}/>
-        <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={ref => this.toggle = ref}>
-          <label htmlFor={id} className={classes.innerLabel}>
-            <svg className={classes.toggleActive} viewBox="0 0 41 32">
-              <path
-                d="M0.169 17.815c0.169 1.098 0.76 2.111 1.689 2.871l14.269 10.385c1.942 1.435 4.644 1.013 6.079-0.844l18.069-23.303c1.435-1.858 1.098-4.559-0.844-5.995s-4.644-1.098-6.164 0.844l-15.367 19.842-10.723-7.852c-1.942-1.435-4.644-1.013-6.164 0.844-0.76 0.929-1.013 2.111-0.844 3.208z"/>
-            </svg>
-            <svg className={classes.toggleInactive} viewBox="0 0 143 32">
-              <path d="M0 0h142.545v32h-142.545v-32z"/>
-            </svg>
-          </label>
+        <input
+          type="checkbox"
+          id={id}
+          checked={checked}
+          disabled={disabled}
+          onChange={e => this.handleChange(e)}
+        />
+
+        <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={ref => this.toggle = ref}/>
+        <label htmlFor={id} className={classes.innerLabel}>
+          <svg className={classes.toggleIcon} viewBox={getViewBox(checked)}>
+            <path d={getPathDescription(checked)}/>
+          </svg>
         </label>
       </div>
     );
