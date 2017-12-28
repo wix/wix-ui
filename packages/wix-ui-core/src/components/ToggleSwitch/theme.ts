@@ -19,6 +19,7 @@ export type ToggleSwitchTheme = Partial<{
   backgroundColorChecked: string;
   backgroundColorDisabled: string;
   backgroundColorHover: string;
+  backgroundColorFocus: string;
 
   color: string;
   colorChecked: string;
@@ -50,6 +51,7 @@ export const core: ToggleSwitchTheme = {
   backgroundColorChecked: palette.grey,
   backgroundColorDisabled: palette.disabledButton,
   backgroundColorHover: palette.grey,
+  backgroundColorFocus: palette.black,
 
   color: palette.white,
   colorChecked: palette.white,

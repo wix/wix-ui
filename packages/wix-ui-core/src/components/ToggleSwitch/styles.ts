@@ -31,7 +31,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       },
 
       [selectors.state('checked')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorChecked},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorChecked,
+          '&:focus': {backgroundColor: theme.backgroundColorFocus}
+        },
         [selectors.innerLabel]: {
           left: theme.labelMovementRange,
           '& > $toggleIcon': {
@@ -84,6 +87,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       height: theme.outerLabelHeight,
       cursor: 'pointer',
       backgroundColor: theme.backgroundColor,
+
+      '&:focus': {
+        backgroundColor: theme.backgroundColorFocus
+      }
     },
 
     innerLabel: {
