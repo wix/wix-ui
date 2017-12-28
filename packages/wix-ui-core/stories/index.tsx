@@ -10,19 +10,6 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 
-class ControlledToggleSwitch extends React.Component<{}, {checked: boolean}> {
-  state = {checked: false};
-  render() {
-    return (
-      <ToggleSwitch
-        checked={this.state.checked}
-        onChange={() => this.setState({checked: !this.state.checked})}
-        dataHook="story-toggleswitch"
-      />
-    );
-  }
-}
-
 storiesOf('Components', module)
   .add('Badge', () => (
     <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
@@ -34,7 +21,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ControlledToggleSwitch />
+    <ToggleSwitch dataHook="story-toggle-switch" onChange={() => ({})}/>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">

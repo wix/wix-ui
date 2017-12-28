@@ -40,6 +40,8 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     /** Component ID, will be generated automatically if not provided */
     id: string,
   };
+  
+  static defaultProps = {checked: false};
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this.listenToSpace);
@@ -74,7 +76,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           id={id}
           checked={checked}
           disabled={disabled}
-          onChange={e => this.handleChange(e)}
+          onChange={this.handleChange}
         />
 
         <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={ref => this.toggle = ref}/>
