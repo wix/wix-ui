@@ -10,6 +10,15 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import Dropdown from '../src/components/Dropdown';
+import IconWithOptions from '../src/components/IconWithOptions';
+
+const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
+  id: x,
+  value: `value${x}`,
+  displayName: `value ${x}`,
+  type: x === 3 ? 'separator' : 'option',
+  isDisabled: x === 4
+}));
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -18,27 +27,25 @@ storiesOf('Components', module)
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
   ))
-  .add('Dropdown', () => {
-    const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
-      id: x,
-      value: `value${x}`,
-      displayName: `value ${x}`,
-      type: x === 3 ? 'separator' : 'option',
-      isDisabled: x === 4
-    }));
-
-    return (
-      <div>
-        <Dropdown dataHook="story-dropdown" options={dropdownOptions} selectedId={1}>
-          {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
-        </Dropdown>
-        <div style={{display: 'inline-block', width: '20px'}} />
-        <Dropdown dataHook="story-dropdown" openTrigger="hover" mode="multiSelect" selectedIds={[1, 2, 6]} options={dropdownOptions}>
-          {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
-        </Dropdown>
-      </div>
-    );
-  })
+  .add('Dropdown', () => (
+    <div style={{padding: '50px'}}>
+      <Dropdown dataHook="story-dropdown" options={dropdownOptions} selectedId={1}>
+        {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
+      </Dropdown>
+      <div style={{display: 'inline-block', width: '20px'}} />
+      <Dropdown dataHook="story-dropdown" openTrigger="hover" mode="multiSelect" selectedIds={[1, 2, 6]} options={dropdownOptions}>
+        {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
+      </Dropdown>
+    </div>
+  ))
+  .add('IconWithOptions', () => (
+    <div style={{padding: '50px'}}>
+      <IconWithOptions
+        iconUrl="fds"
+        dataHook="story-icon-with-options"
+        options={dropdownOptions}/>
+    </div>
+  ))
   .add('Input', () => (
     <Input dataHook="story-input" />
   ))
