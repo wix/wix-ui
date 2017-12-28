@@ -57,13 +57,13 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={10} onChange={onChange}/>);
 
-      pagination.clickOnPage(2);
+      pagination.click(pagination.getPage(2));
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '3'});
 
       onChange.mockClear();
 
-      pagination.clickOnPage(8);
+      pagination.click(pagination.getPage(8));
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '9'});
     });
@@ -72,7 +72,7 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={15} currentPage={8} onChange={onChange}/>);
 
-      pagination.clickOnPage(pagination.getCurrentPage());
+      pagination.click(pagination.getCurrentPage());
 
       await sleep(10);
       expect(onChange.mock.calls.length).toBe(0);

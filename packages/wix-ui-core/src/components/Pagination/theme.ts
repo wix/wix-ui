@@ -14,7 +14,8 @@ export type PaginationTheme = {
   rtl: React.CSSProperties,
   pagesSelection: React.CSSProperties,
   navButton: React.CSSProperties,
-  navButtonRtl: React.CSSProperties
+  navButtonRtl: React.CSSProperties,
+  disabledNavButton: React.CSSProperties
 };
 
 const buttonCommon: React.CSSProperties = {
@@ -45,7 +46,8 @@ export const core: PaginationTheme = {
     cursor: 'default',
     color: '#607D8B',
     fontWeight: 'bold',
-    border: '1px solid transparent'
+    border: '1px solid transparent',
+    outline: 'none'
   },
   pageNumber: {
     ...buttonCommon,
@@ -55,6 +57,9 @@ export const core: PaginationTheme = {
 
     '&:hover': {
       backgroundColor: '#E1F5FE'
+    },
+    '&:active': {
+      outline: 'none'
     }
   },
   inputField: {
@@ -97,5 +102,11 @@ export const core: PaginationTheme = {
   },
   navButtonRtl: {
     transform: 'scaleX(-1)'
+  },
+  disabledNavButton: {
+    ...buttonCommon,
+    color: 'grey',
+    border: 'none',
+    pointer: 'default'
   }
 };

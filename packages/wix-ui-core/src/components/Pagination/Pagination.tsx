@@ -87,34 +87,31 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private onChange(page): void {
-    (parseInt(page, 10) !== this.currentPage) && this.props.onChange({page});
+    console.log('ONCHANFE', page);
+    this.props.onChange({page});
   }
 
   private handlePageClick = (page: string): void => {
-    if (
-      ( (page === 'first' || page === 'previous') && this.currentPage === 1) || // don't trigger when clicking first page when in first page
-      ( (page === 'last' || page === 'next') && this.currentPage === this.props.totalPages) ||  // don't trigger when clicking last page when in last page
-      (page === '...') // don't trigger for sibling page
-    ) {
-      return;
-    }
     this.onChange(page);
   }
 
   private renderPages(): Array<JSX.Element> {
     const pages = this.getPages();
-
-    return pages.map((pageContent, i) => (
-      <button
-      data-hook={'PAGE_' + i}
-      key={'PAGE' + i}
-      aria-label={`Goto Page ${pageContent}`}
-      className={pageContent === String(this.currentPage) ? this.props.classes.currentPage : this.props.classes.pageNumber}
-      onClick={() => this.handlePageClick(pageContent)}
-      data-isSelected={pageContent === String(this.currentPage)}>
-        {pageContent}
-      </button>
-    ));
+    return pages.map((pageContent, i) => {
+      const isCurrent: boolean = pageContent === String(this.currentPage);
+      return (
+        <button
+          data-hook={'PAGE_' + i}
+          key={'PAGE' + i}
+          aria-label={`Goto Page ${pageContent}`}
+          className={pageContent === String(this.currentPage) ? this.props.classes.currentPage : this.props.classes.pageNumber}
+          onClick={() => this.handlePageClick(pageContent)}
+          data-isSelected={isCurrent}
+          disabled={isCurrent}>
+          {pageContent}
+        </button>
+      );
+    });
   }
 
   private getPages(): Array<string> {
@@ -141,7 +138,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private handlePageInputCommit = (e?: React.FocusEvent<HTMLInputElement>): void => {
-    if (!this.state.pageInput) {
+    if (!this.state.pageInput || this.state.pageInput === String(this.currentPage)) {
       return;
     } else if (parseInt(this.state.pageInput, 10) > this.props.totalPages) {
       this.onChange(String(this.props.totalPages));
@@ -166,15 +163,25 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderNavButton(buttonType: NavButtonTypes): JSX.Element {
-
     const {classes} = this.props;
+
+    const isDisabled: boolean = (
+      ((buttonType === NavButtonTypes.FIRST || buttonType === NavButtonTypes.PREVIOUS) && this.currentPage === 1) ||
+      ((buttonType === NavButtonTypes.LAST || buttonType === NavButtonTypes.NEXT) && this.currentPage === this.props.totalPages)
+    );
+
     const navButton = (name: string, content: string): JSX.Element => {
       return (
         <button
-            key={name.toUpperCase()}
-            data-hook={name.toUpperCase()}
-            className={classNames(classes.navButton, {[classes.navButtonRtl]: this.props.direction === 'rtl'})}
-            onClick={() => this.handlePageClick(name)}>
+          key={name.toUpperCase()}
+          data-hook={name.toUpperCase()}
+          className={classNames({
+            [classes.navButtonRtl]: this.props.direction === 'rtl',
+            [classes.navButton]: !isDisabled,
+            [classes.disabledNavButton]: isDisabled
+          })}
+          onClick={() => this.handlePageClick(name)}
+          disabled={isDisabled}>
           {content}
         </button>
       );
