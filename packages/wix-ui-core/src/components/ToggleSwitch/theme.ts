@@ -28,6 +28,7 @@ export type ToggleSwitchTheme = Partial<{
   colorDisabled: string;
   colorCheckedDisabled: string;
   colorHover: string;
+  colorFocus: string;
 
   toggleIconWidth: string;
   toggleIconHeight: string;
@@ -62,6 +63,7 @@ export const core: ToggleSwitchTheme = {
   colorDisabled: palette.white,
   colorCheckedDisabled: palette.white,
   colorHover: palette.white,
+  colorFocus: palette.white,
 
   toggleIconWidth: '8px',
   toggleIconHeight: '6px',

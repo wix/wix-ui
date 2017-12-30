@@ -26,7 +26,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static displayName = 'ToggleSwitch';
   id: string = this.props.id || uniqueId('ToggleSwitch');
 
-  private toggle: HTMLLabelElement;
+  private toggle: HTMLDivElement;
 
   static propTypes = {
     /** Is the toggleSwitch checked or not */
@@ -70,7 +70,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     const {id} = this;
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} tabIndex={0} ref={ref => this.toggle = ref}>
         <input
           type="checkbox"
           id={id}
@@ -79,7 +79,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           onChange={e => this._handleChange(e)}
         />
 
-        <label htmlFor={id} className={classes.outerLabel} tabIndex={0} ref={ref => this.toggle = ref}/>
+        <label htmlFor={id} className={classes.outerLabel}/>
         <label htmlFor={id} className={classes.innerLabel}>
           <svg className={classes.toggleIcon} viewBox={getViewBox(checked)}>
             <path d={getPathDescription(checked)}/>
