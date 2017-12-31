@@ -56,7 +56,8 @@
     "react-docgen": "^2.20.0",
     "react-motion": "^0.5.2",
     "react-remarkable": "^1.1.3",
-    "wix-style-react": "^2.0.1"
+    "wix-style-react": "^2.0.1",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.2.16",
@@ -70,8 +71,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "react-test-renderer": "^15.6.0"
   },
   "babel": {
     "plugins": [
