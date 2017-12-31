@@ -1,6 +1,9 @@
-export const dividerDriverFactory = ({element}) => {
+export const dividerDriverFactory = ({element, componentInstance}) => {
     return {
         /** checks if the element exists */
-        exists: () => !!element
+        exists: () => !!element,
+
+        /** checks if the divider is vertical */
+        isVertical: () => window.getComputedStyle(element).height === 'auto'
     };
 };

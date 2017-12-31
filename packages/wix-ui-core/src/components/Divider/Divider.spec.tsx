@@ -13,4 +13,16 @@ describe('Divider', () => {
 
         expect(driver.exists()).toBe(true);
     });
+
+    it('is horizontal by default', () => {
+        const driver = createDriver(<Divider />);
+
+        expect(driver.isVertical()).toBe(false);
+    });
+
+    it('is vertical', () => {
+        const driver = createDriver(<Divider vertical />);
+
+        expect(driver.isVertical()).toBe(true);
+    });
 });

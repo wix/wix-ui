@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {object, boolean} from 'prop-types';
+import {object, bool} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import * as classNames from 'classnames';
 
@@ -18,7 +18,7 @@ class Divider extends React.PureComponent<DividerProps> {
     static propTypes = {
         /** The classes used to style the Divider */
         classes: object,
-        vertical: boolean
+        vertical: bool
     };
 
     render() {

@@ -6,14 +6,14 @@ const horizontalDemo: React.CSSProperties = {
     border: '1px solid lightgray',
     display: 'flex',
     flexDirection: 'column',
-}
+};
 
 const verticalDemo: React.CSSProperties = {
     width: '150px',
     display: 'flex',
     justifyContent: 'space-around',
     border: '1px solid lightgray'
-}
+};
 
 export class DividerStory extends React.PureComponent {
     render() {
@@ -21,7 +21,7 @@ export class DividerStory extends React.PureComponent {
                 <h3>Horizontal Example:</h3>
                 <div style={horizontalDemo}>
                     <p>Component 1</p>
-                    <Divider />
+                    <Divider dataHook="story-divider"/>
                     <p>Component 2</p>
                 </div>
                 <br/>
@@ -31,6 +31,6 @@ export class DividerStory extends React.PureComponent {
                     <Divider vertical/>
                     <p>East</p>
                 </div>
-            </div>
+            </div>;
     }
 }
