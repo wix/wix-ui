@@ -16,7 +16,7 @@ export interface Option {
   isDisabled: boolean;
 }
 
-interface DropdownContentProps {
+export interface DropdownContentProps {
   options: Array<Option>;
   onOptionClick: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
 }
