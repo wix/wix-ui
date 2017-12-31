@@ -25,8 +25,8 @@ interface DropdownProps {
   onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   selectedId?: number;
   selectedIds?: Array<number>;
-  children: (state: DropdownState) => React.ReactNode;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
+  children: (state: DropdownState) => React.ReactNode;
 }
 
 interface DropdownState {
@@ -89,13 +89,14 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   _onOptionClick(option, evt) {
+    const isSingleSelect = this.isSingleSelect();
     const {onSelect, onDeselect} = this.props;
     const newState = {
-      isOpen: !this.isSingleSelect(),
+      isOpen: !isSingleSelect,
       selectedOptions: []
     };
 
-    if (this.isSingleSelect()) {
+    if (isSingleSelect) {
       newState.selectedOptions = [option];
       onSelect && onSelect(option, evt);
     } else {

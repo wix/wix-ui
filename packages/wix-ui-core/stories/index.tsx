@@ -42,6 +42,7 @@ storiesOf('Components', module)
     <div style={{padding: '50px'}}>
       <IconWithOptions
         iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
+        mode="multiSelect"
         dataHook="story-icon-with-options"
         options={dropdownOptions}/>
     </div>
