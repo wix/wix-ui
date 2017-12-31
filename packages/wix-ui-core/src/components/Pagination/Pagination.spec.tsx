@@ -83,7 +83,7 @@ describe('Pagination', () => {
         const pagination = createDriver(<Pagination totalPages={8} currentPage={4}/>);
         Array.from(Array(pagination.amountOfPages)).forEach((n, idx) => {
           const page = pagination.getPage(idx);
-          expect(page.getAttribute('aria-label')).toEqual('Goto Page ' + page.textContent);
+          expect(page.getAttribute('aria-label')).toEqual('Page ' + page.textContent);
         });
       });
     });
@@ -170,6 +170,13 @@ describe('Pagination', () => {
       pagination.inputBlur();
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
+    });
+
+    describe('Input mode accessibility',  () => {
+      it('has aria-label for the input field', () => {
+        const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={42}/>);
+        expect(pagination.getPageInput().getAttribute('aria-label')).toEqual('Page Number, select number between 1 to 42');
+      });
     });
   });
 
@@ -261,6 +268,16 @@ describe('Pagination', () => {
       expect(pagination.getNavButton('previous').textContent).toEqual('my');
       expect(pagination.getNavButton('next').textContent).toEqual('god');
       expect(pagination.getNavButton('last').textContent).toEqual('!!!');
+    });
+
+    describe('Navigation Button Accessibility', () => {
+      it('has aria-label on the navigation buttons', () => {
+        const pagination = createDriver(<Pagination totalPages={3} showFirstLastNavButtons/>);
+        expect(pagination.getNavButton('first').getAttribute('aria-label')).toEqual('First Page');
+        expect(pagination.getNavButton('last').getAttribute('aria-label')).toEqual('Last Page');
+        expect(pagination.getNavButton('previous').getAttribute('aria-label')).toEqual('Previous Page');
+        expect(pagination.getNavButton('next').getAttribute('aria-label')).toEqual('Next Page');
+      });
     });
   });
 

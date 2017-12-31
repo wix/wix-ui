@@ -58,6 +58,18 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
             onChange={this.handleChange}
             replaceArrowsWithText/>
         </div>
+        <div><h3>Input Mode</h3>
+          <Pagination
+            dataHook="story-pagination-rtl"
+            direction="rtl"
+            totalPages={numOfPages}
+            paginationMode="input"
+            showInputModeTotalPages
+            currentPage={this.state.currPage}
+            showFirstLastNavButtons
+            onChange={this.handleChange}
+            replaceArrowsWithText/>
+        </div>
     </div>
     );
   }
