@@ -39,6 +39,8 @@
     "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4",
     "react-popper": "^0.7.4",
+    "stylable": "^5.0.4",
+    "stylable-integration": "^6.0.1",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {

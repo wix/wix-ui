@@ -9,6 +9,7 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
+import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -22,6 +23,12 @@ storiesOf('Components', module)
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
+  ))
+  .add('BOStylableToggleSwitchStory', () => (
+    <BOStylableToggleSwitchStory/>
+  ))
+  .add('StylableToggleSwitchStory', () => (
+    <StylableToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">
