@@ -6,12 +6,12 @@ import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../
 
 export type Placement = PopperJS.Placement;
 
-interface PopoverProps {
+export interface PopoverProps {
   shown?: boolean;
   placement: Placement;
 }
 
-type PopoverType = React.SFC<PopoverProps> & {
+export type PopoverType = React.SFC<PopoverProps> & {
   Element?: React.SFC;
   Content?: React.SFC;
 };

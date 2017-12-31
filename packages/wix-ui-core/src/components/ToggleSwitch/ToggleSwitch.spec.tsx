@@ -12,6 +12,15 @@ describe('ToggleSwitch', () => {
   const noop = () => null;
 
   describe('checked prop', () => {
+    it('should be controlled', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.isChecked()).toBe(false);
+
+      driver.click();
+
+      expect(driver.isChecked()).toBe(false);
+    });
+
     it('should pass down to input when checked', () => {
       const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
       expect(driver.isChecked()).toBeTruthy();
@@ -69,6 +78,19 @@ describe('ToggleSwitch', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(inactiveViewBox);
       expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(inactivePathD);
+    });
+  });
+
+  describe('id prop', () => {
+    it('should apply arbitrary unique id be default', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getId()).toBeDefined();
+    });
+
+    it('should apply user specified id', () => {
+      const testId = 'testId';
+      const driver = createDriver(<ToggleSwitch onChange={noop} id={testId}/>);
+      expect(driver.getId()).toBe(testId);
     });
   });
 
