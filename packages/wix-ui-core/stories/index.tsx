@@ -55,17 +55,28 @@ storiesOf('Components', module)
   ))
   .add('Box', () => (
     <div>
-    vertical
     <Box theme={{boxType: 'vertical'}}>
         <div>v</div>
         <div>e</div>
         <div>r</div>
+        <div>t</div>
+        <div>i</div>
+        <div>c</div>
+        <div>a</div>
+        <div>l</div>
     </Box>
-    horizontal
+    <hr />
     <Box theme={{boxType: 'horizontal'}}>
         <div>h</div>
         <div>o</div>
         <div>r</div>
+        <div>i</div>
+        <div>z</div>
+        <div>o</div>
+        <div>n</div>
+        <div>t</div>
+        <div>a</div>
+        <div>l</div>
     </Box>
     </div>
   ))
