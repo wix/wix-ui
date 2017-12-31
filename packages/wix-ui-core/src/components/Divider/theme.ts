@@ -10,9 +10,9 @@ export interface DividerTheme {
 }
 
 export const core: DividerTheme = {
-    height: '1px',
+    height: '2px',
     backgroundColor: palette.black,
-    opacity: '0.12',
+    opacity: '0.5',
 
     marginTop: '0px',
     marginBottom: '0px'

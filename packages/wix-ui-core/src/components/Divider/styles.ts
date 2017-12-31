@@ -12,6 +12,11 @@ export const styles = (theme: DividerTheme) => {
 
             marginTop: theme.marginTop,
             marginBottom: theme.marginBottom
+        },
+        vertical: {
+            height: 'auto',
+            width: theme.height
         }
     };
 };
+
