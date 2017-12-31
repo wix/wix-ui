@@ -39,7 +39,7 @@
     "@types/react-dom": "^15.5.6",
     "enzyme": "^2.3.0",
     "express": "^4.16.2",
-    "haste-preset-yoshi": "latest",
+    "haste-preset-yoshi": "^1.0.19",
     "protractor": "^5.2.2",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",
@@ -65,7 +65,7 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup.ts"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup"
   },
   "haste": {
     "preset": "yoshi"
