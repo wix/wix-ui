@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {string} from 'prop-types';
-import Popover, {Placement} from '../Popover';
+import {string, number} from 'prop-types';
+import Popover, {SharedPopoverProps} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps {
-  placement?: Placement;
+interface TooltipProps extends SharedPopoverProps {
 }
 
 interface TooltipState {
@@ -23,7 +22,9 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static propTypes = {
     /** The location to display the content */
-    placement: string
+    placement: string,
+    /** Tab index of the element */
+    tabIndex: number
   };
 
   constructor(props) {

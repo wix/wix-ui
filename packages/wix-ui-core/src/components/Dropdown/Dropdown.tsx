@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Popover, {Placement} from '../Popover';
+import Popover, {SharedPopoverProps} from '../Popover';
 import {string, oneOf, arrayOf, object, func, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
@@ -18,15 +18,17 @@ export const MULTI_SELECT = 'multiSelect';
 export type MULTI_SELECT_TYPE = 'multiSelect';
 
 interface DropdownProps {
+  children: (state: DropdownState) => React.ReactNode;
+}
+
+export interface SharedDropdownProps extends SharedPopoverProps {
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
-  placement?: Placement;
   options: Array<Option>;
   onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   selectedId?: number;
   selectedIds?: Array<number>;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
-  children: (state: DropdownState) => React.ReactNode;
 }
 
 interface DropdownState {
@@ -34,7 +36,7 @@ interface DropdownState {
   selectedOptions: Array<Option>;
 }
 
-class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
+class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
 
   static defaultProps = {
     openTrigger: CLICK,
@@ -61,7 +63,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** render function that renders the element with the state */
     children: func,
     /** Dropdown mode - single / multi select */
-    mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
+    mode: oneOf([SINGLE_SELECT, MULTI_SELECT]),
+    /** Tab index of the element */
+    tabIndex: number
   };
 
   constructor(props) {
