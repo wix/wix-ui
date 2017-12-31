@@ -24,7 +24,7 @@ export const paginationDriverFactory = ({element, eventTrigger}: {element: HTMLE
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     getNavButton: (btnName: NavButtonNames): HTMLButtonElement => getNavButtonElement(btnName),
     /** Simulates clicking a page in "pages" mode */
-    click: (element: Element): void => eventTrigger.click(element),
+    click: (elmnt: Element): void => eventTrigger.click(elmnt),
     /** Simulates clicking a navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     clickOnNavButton: (btnName: string): void => eventTrigger.click(getNavButtonElement(btnName)),
     /** Returns the page input element in "input" mode */
