@@ -30,7 +30,7 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
   render() {
     return (
       <div>
-        <div>
+        <div><h3>Vanilla</h3>
           <Pagination
             dataHook="story-pagination"
             totalPages={numOfPages}
@@ -39,7 +39,7 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
             onChange={this.handleChange}
             />
         </div>
-        <div>
+        <div><h3>RTL</h3>
           <Pagination
             dataHook="story-pagination-rtl"
             direction="rtl"
@@ -47,6 +47,16 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
             currentPage={this.state.currPage}
             showFirstLastNavButtons
             onChange={this.handleChange}/>
+        </div>
+        <div><h3>RTL with text</h3>
+          <Pagination
+            dataHook="story-pagination-rtl"
+            direction="rtl"
+            totalPages={numOfPages}
+            currentPage={this.state.currPage}
+            showFirstLastNavButtons
+            onChange={this.handleChange}
+            replaceArrowsWithText/>
         </div>
     </div>
     );

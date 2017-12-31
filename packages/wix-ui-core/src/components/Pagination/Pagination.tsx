@@ -87,7 +87,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private onChange(page): void {
-    console.log('ONCHANFE', page);
     this.props.onChange({page});
   }
 
@@ -170,31 +169,32 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       ((buttonType === NavButtonTypes.LAST || buttonType === NavButtonTypes.NEXT) && this.currentPage === this.props.totalPages)
     );
 
-    const navButton = (name: string, content: string): JSX.Element => {
+    const navButton = (name: string, content: string, order: number): JSX.Element => {
       return (
         <button
           key={name.toUpperCase()}
           data-hook={name.toUpperCase()}
           className={classNames({
-            [classes.navButtonRtl]: this.props.direction === 'rtl',
+            [classes.navButtonRtl]: (this.props.direction === 'rtl' && !this.props.replaceArrowsWithText),
             [classes.navButton]: !isDisabled,
             [classes.disabledNavButton]: isDisabled
           })}
           onClick={() => this.handlePageClick(name)}
-          disabled={isDisabled}>
+          disabled={isDisabled}
+          style={{order}}>
           {content}
         </button>
       );
     };
 
     switch (buttonType) {
-      case NavButtonTypes.FIRST: return navButton('first', this.props.replaceArrowsWithText ? this.props.firstText || 'First' : '<<');
+      case NavButtonTypes.FIRST: return navButton('first', this.props.replaceArrowsWithText ? this.props.firstText || 'First' : '<<', 1);
 
-      case NavButtonTypes.PREVIOUS: return navButton('previous', this.props.replaceArrowsWithText ? this.props.previousText || 'Previous' : '<');
+      case NavButtonTypes.PREVIOUS: return navButton('previous', this.props.replaceArrowsWithText ? this.props.previousText || 'Previous' : '<', 2);
 
-      case NavButtonTypes.NEXT: return navButton('next', this.props.replaceArrowsWithText ? this.props.nextText || 'Next' : '>');
+      case NavButtonTypes.NEXT: return navButton('next', this.props.replaceArrowsWithText ? this.props.nextText || 'Next' : '>', 4);
 
-      case NavButtonTypes.LAST: return navButton('last', this.props.replaceArrowsWithText ? this.props.lastText || 'Last' : '>>');
+      case NavButtonTypes.LAST: return navButton('last', this.props.replaceArrowsWithText ? this.props.lastText || 'Last' : '>>', 5);
 
       default: return null;
     }
@@ -211,19 +211,39 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         role="navigation"
         aria-label="Pagination Navigation">
         {[
-          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
+          this.renderNavButton(NavButtonTypes.NEXT),
           this.renderNavButton(NavButtonTypes.PREVIOUS)
         ]}
-          <span data-hook="PAGES_SELECTION" className={classNames(classes.pagesSelection, {[classes.rtl]: this.props.direction === 'rtl'})}>
+        <span data-hook="PAGES_SELECTION" className={classNames(classes.pagesSelection, {[classes.rtl]: this.props.direction === 'rtl'})} style={{order: 3}}>
             { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
           </span>
         {[
-          this.renderNavButton(NavButtonTypes.NEXT),
+          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
           showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.LAST)
         ]}
-        </nav>
+      </nav>
     );
   }
 }
 
 export default createHOC(Pagination);
+
+/*
+<nav
+  data-hook="PAGINATION"
+  className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.direction === 'rtl'})}
+  role="navigation"
+  aria-label="Pagination Navigation">
+  {[
+    showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
+    this.renderNavButton(NavButtonTypes.PREVIOUS)
+  ]}
+  <span data-hook="PAGES_SELECTION" className={classNames(classes.pagesSelection, {[classes.rtl]: this.props.direction === 'rtl'})}>
+            { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
+          </span>
+  {[
+    this.renderNavButton(NavButtonTypes.NEXT),
+    showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.LAST)
+  ]}
+</nav>
+*/
