@@ -6,6 +6,7 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
+import Box from '../src/components/Box';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
@@ -51,6 +52,22 @@ storiesOf('Components', module)
         <div>b</div>
         <div>c</div>
     </HBox>
+  ))
+  .add('Box', () => (
+    <div>
+    vertical
+    <Box theme={{boxType: 'vertical'}}>
+        <div>v</div>
+        <div>e</div>
+        <div>r</div>
+    </Box>
+    horizontal
+    <Box theme={{boxType: 'horizontal'}}>
+        <div>h</div>
+        <div>o</div>
+        <div>r</div>
+    </Box>
+    </div>
   ))
   .add('Pagination', () => (
     <PaginationStory />
