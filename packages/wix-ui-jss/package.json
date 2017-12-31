@@ -42,6 +42,7 @@
     "enzyme": "^2.9.0",
     "haste-preset-yoshi": "^1.0.19",
     "import-path": "^0.0.13",
+    "prop-types": "^15.6.0",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^21.2.3",
     "typescript": "^2.4.0"

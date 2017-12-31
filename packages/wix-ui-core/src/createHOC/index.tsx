@@ -8,8 +8,8 @@ interface WixComponentProps {
   dataClass?: string;
 }
 
-export const createHOC = Component => {
-  class WixComponent extends React.PureComponent<WixComponentProps> {
+export const createHOC = <TProps extends {}> (Component) => {
+  class WixComponent extends React.PureComponent<WixComponentProps & TProps> {
     static propTypes = {
       ...Component.propTypes,
       dataHook: string,
@@ -32,5 +32,6 @@ export const createHOC = Component => {
     }
   }
 
-  return hoistNonReactStatics(WixComponent, Component, {inner: true});
+  hoistNonReactStatics(WixComponent, Component, {inner: true});
+  return WixComponent;
 };

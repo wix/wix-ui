@@ -4,7 +4,7 @@ import Popover, {Placement} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps {
+export interface TooltipProps {
   placement: Placement;
 }
 
@@ -19,7 +19,7 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static propTypes = {
     /** The location to display the content */
-    placement: string
+    placement: string.isRequired
   };
 
   constructor(props) {
@@ -57,4 +57,4 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 }
 
-export default createHOC(Tooltip);
+export default createHOC<TooltipProps>(Tooltip);

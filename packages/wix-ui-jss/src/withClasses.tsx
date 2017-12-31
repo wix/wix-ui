@@ -1,19 +1,24 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
+import {object} from 'prop-types';
 const hoistNonReactStatics = require('hoist-non-react-statics');
 
-interface ThemedComponentProps {
+export interface ThemedComponentProps {
   theme?: object;
-  [coreProps: string]: any;
 }
 
 interface ThemedComponentState {
   classes: object;
 }
 
-export function withClasses(CoreComponent, styles) {
-  class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
+export const withClasses = <TProps extends {}> (CoreComponent, styles) => {
+  class ThemedComponent extends React.PureComponent<ThemedComponentProps & TProps, ThemedComponentState> {
+    static propTypes = {
+      ...CoreComponent.propTypes,
+      theme: object
+    };
+
     private id;
 
     constructor(props) {
@@ -33,12 +38,12 @@ export function withClasses(CoreComponent, styles) {
     }
 
     render() {
-      const {theme, ...coreProps} = this.props;
       return (
-        <CoreComponent {...coreProps} classes={this.state.classes}/>
+        <CoreComponent {...this.props} classes={this.state.classes}/>
       );
     }
   }
 
-  return hoistNonReactStatics(ThemedComponent, CoreComponent, {inner: true});
-}
+  hoistNonReactStatics(ThemedComponent, CoreComponent, {inner: true});
+  return ThemedComponent;
+};
