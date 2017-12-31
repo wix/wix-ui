@@ -42,6 +42,7 @@ storiesOf('Components', module)
     <div style={{padding: '50px'}}>
       <input tabIndex={1} />
       <IconWithOptions
+        tabIndex={2}
         iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
         mode="multiSelect"
         dataHook="story-icon-with-options"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
-import {bool, string, func, number} from 'prop-types';
+import {bool, string, func} from 'prop-types';
 import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
@@ -14,7 +14,6 @@ export interface PopoverProps {
 
 export interface SharedPopoverProps {
   placement: Placement;
-  tabIndex?: number;
 }
 
 export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
@@ -23,12 +22,11 @@ export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
 };
 
 const Popover: PopoverType = props => {
-    const {placement, shown, onMouseEnter, onMouseLeave, children, tabIndex} = props;
+    const {placement, shown, onMouseEnter, onMouseLeave, children} = props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
     return (
       <Manager
-        tabIndex={tabIndex}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={{display: 'inline-block'}}>
@@ -54,9 +52,7 @@ Popover.propTypes = {
   /** Event handler for onMouseEnter event */
   onMouseEnter: func,
   /** Event handler for onMouseLeave event */
-  onMouseLeave: func,
-  /** Tab index of the element */
-  tabIndex: number
+  onMouseLeave: func
 };
 
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');

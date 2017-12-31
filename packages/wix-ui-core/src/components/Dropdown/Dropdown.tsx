@@ -63,9 +63,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     /** render function that renders the element with the state */
     children: func,
     /** Dropdown mode - single / multi select */
-    mode: oneOf([SINGLE_SELECT, MULTI_SELECT]),
-    /** Tab index of the element */
-    tabIndex: number
+    mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
   };
 
   constructor(props) {

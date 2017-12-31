@@ -3,14 +3,15 @@ import Dropdown from '../Dropdown';
 import {SharedDropdownProps} from '../Dropdown/Dropdown';
 import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/Dropdown';
 import {createHOC} from '../../createHOC';
-import {oneOf, string, object, func, arrayOf} from 'prop-types';
+import {oneOf, string, object, func, arrayOf, number} from 'prop-types';
 
 export interface IconWithOptionsProps extends SharedDropdownProps {
   iconUrl: string;
+  tabIndex?: number;
 }
 
 const IconWithOptions: React.SFC<IconWithOptionsProps> = props => {
-  const {options, openTrigger, placement, onSelect, iconUrl, mode} = props;
+  const {options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex} = props;
 
   return (
     <Dropdown
@@ -19,7 +20,13 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> = props => {
       openTrigger={openTrigger}
       mode={mode}
       onSelect={onSelect}>
-      {() => <img src={iconUrl}/>}
+      {
+        () =>
+          <img
+            src={iconUrl}
+            tabIndex={tabIndex}
+            onKeyDown={(evt: React.KeyboardEvent<HTMLImageElement>) => console.log(evt.keyCode)}/>
+      }
     </Dropdown>);
 };
 
@@ -41,7 +48,9 @@ IconWithOptions.propTypes = {
   /** The icon url to display */
   iconUrl: string.isRequired,
   /** Dropdown mode - single / multi select */
-  mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
+  mode: oneOf([SINGLE_SELECT, MULTI_SELECT]),
+  /** Tab index of the element */
+  tabIndex: number
 };
 
 export default createHOC(IconWithOptions);
