@@ -16,8 +16,8 @@ export const buildChildrenObject = <T>(children: Object, childrenObject: T) => {
   }, childrenObject || ({} as T));
 };
 
+export interface ElementProps { children: any; }
 export const createComponentThatRendersItsChildren = displayName => {
-  interface ElementProps { children: any; }
   const Element: React.SFC<ElementProps> = ({children}) => children;
   Element.displayName = displayName;
   return Element;

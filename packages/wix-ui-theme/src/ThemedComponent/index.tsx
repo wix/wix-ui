@@ -4,11 +4,11 @@ import {ReactElement} from 'react';
 
 export type Theme = ((props: any) => Object) | Object;
 
-interface ThemedComponentState {
+export interface ThemedComponentState {
   calculatedTheme: Object;
 }
 
-interface ThemedComponentProps {
+export interface ThemedComponentProps {
   theme?: Theme;
   children: ReactElement<any>;
   [propName: string]: any;

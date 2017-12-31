@@ -1,7 +1,7 @@
 const originConsoleError = console.error;
 let errors = [];
 
-console.error = function (...args) {
+console.error = (...args) => {
   errors.push(args);
   originConsoleError.apply(console, args);
 };
