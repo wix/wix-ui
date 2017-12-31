@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import ToggleSwitch from '../src/components/ToggleSwitch';
 import Text from '../src/components/Text';
 import Button from '../src/components/Button';
 import Badge from '../src/components/Badge';
@@ -10,6 +9,7 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
+import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -22,7 +22,7 @@ storiesOf('Components', module)
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch dataHook="story-toggle-switch"/>
+    <ToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">

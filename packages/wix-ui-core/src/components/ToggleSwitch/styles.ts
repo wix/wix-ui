@@ -11,7 +11,7 @@ const selectors = {
 export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
-  const LabelCommon = {
+  const labelCommon = {
     '-webkit-border-radius': theme.borderRadius,
     '-moz-border-radius': theme.borderRadius,
     borderRadius: theme.borderRadius,
@@ -25,6 +25,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
       width: theme.rootWidth,
       height: theme.rootHeight,
       position: 'relative',
+      outline: 'none',
 
       '& > input[type=checkbox]': {
         display: 'none'
@@ -73,21 +74,25 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
         [selectors.innerLabel]: {cursor: 'default'},
         [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
-      }
+      },
+
+      [selectors.state('focus')]: {
+        outline: theme.focusOutline
+      },
     },
 
     outerLabel: {
-      ...LabelCommon,
+      ...labelCommon,
 
       display: 'inline-block',
       width: theme.outerLabelWidth,
       height: theme.outerLabelHeight,
       cursor: 'pointer',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.backgroundColor
     },
 
     innerLabel: {
-     ...LabelCommon,
+     ...labelCommon,
 
       display: 'flex',
       width: theme.innerLabelWidth,
