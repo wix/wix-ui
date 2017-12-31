@@ -8,6 +8,7 @@
     "email": "liorbe@wix.com"
   },
   "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.js",
   "files": [
     "dist",
     "*.js",
@@ -42,9 +43,9 @@
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-options": "3.2.13",
-    "@storybook/react": "~3.1.0",
-    "@storybook/storybook-deployer": "~2.0.0",
+    "@storybook/addon-options": "^3.2.13",
+    "@storybook/react": "^3.1.0",
+    "@storybook/storybook-deployer": "^2.0.0",
     "@types/jest": "^21.1.8",
     "@types/react": "^15.6.8",
     "@types/react-dom": "^15.5.6",
@@ -52,7 +53,7 @@
     "enzyme": "^2.3.0",
     "eyes.it": "^2.0.1",
     "gh-pages-auto-release": "^1.1.2",
-    "haste-preset-yoshi": "latest",
+    "haste-preset-yoshi": "^1.0.19",
     "import-path": "^0.0.7",
     "prop-types": "^15.6.0",
     "react": "^15.5.0",
