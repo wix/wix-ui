@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-interface ControlledComponentState {
+export interface ControlledComponentState {
   value: string;
 }
 
-interface ControlledComponentProps {
+export interface ControlledComponentProps {
   value?: string;
   onChange?: (e: Event) => void;
   [otherProps: string]: any;
