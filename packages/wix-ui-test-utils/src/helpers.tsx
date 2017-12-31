@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Simulate} from 'react-dom/test-utils';
 
 export interface ControlledComponentState {
   value: string;
@@ -66,8 +67,8 @@ export function makeControlled(Component) {
   };
 }
 
-export const reactEventTrigger = (ReactTestUtils) => {
-  const simulate = ReactTestUtils.Simulate;
+export const reactEventTrigger = () => {
+  const simulate = Simulate;
   return {
     click: (element) => simulate.click(element),
     mousedown: (element) => simulate.mouseDown(element),
