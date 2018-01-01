@@ -5,7 +5,6 @@ import ToggleSwitch from './index';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
-import {ToggleSwitchStory} from "../../../stories/ToggleSwitch/ToggleSwitch-story";
 
 describe('ToggleSwitch', () => {
 
