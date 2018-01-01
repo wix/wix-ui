@@ -67,23 +67,6 @@ describe ('Dropdown', () => {
     });
   });
 
-  describe('selectedId', () => {
-    it('should initialize dropdown without selected when selected id is null', () => {
-      const driver = createDriver(createDropdown({options, selectedId: null}));
-      expect(getTargetText(driver)).toEqual('Select option');
-    });
-
-    it('should initialize dropdown with selected item', () => {
-      const driver = createDriver(createDropdown({options, selectedId: 5}));
-      expect(getTargetText(driver)).toEqual('value 5');
-    });
-
-    it('should initialize dropdown without selected when selected id is not present', () => {
-      const driver = createDriver(createDropdown({options, selectedId: 6}));
-      expect(getTargetText(driver)).toEqual('Select option');
-    });
-  });
-
   describe('selectedIds', () => {
     it('should initialize dropdown with selected with selected option', () => {
       const driver = createDriver(createDropdown({options, selectedIds: [1]}));
@@ -107,6 +90,16 @@ describe ('Dropdown', () => {
 
     it('should initialize dropdown without selected options when null', () => {
       const driver = createDriver(createDropdown({options, selectedIds: null}));
+      expect(getTargetText(driver)).toEqual('Select option');
+    });
+
+    it('should initialize dropdown without selected options when selected is disabled', () => {
+      const driver = createDriver(createDropdown({options, selectedIds: [3]}));
+      expect(getTargetText(driver)).toEqual('Select option');
+    });
+
+    it('should initialize dropdown without selected options when selected is separator', () => {
+      const driver = createDriver(createDropdown({options, selectedIds: [4]}));
       expect(getTargetText(driver)).toEqual('Select option');
     });
   });

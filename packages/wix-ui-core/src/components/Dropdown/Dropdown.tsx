@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Popover, {SharedPopoverProps} from '../Popover';
-import {string, oneOf, arrayOf, object, func, number} from 'prop-types';
+import {string, oneOf, arrayOf, object, func, number, oneOfType} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 import DropdownContent, {Option} from './DropdownContent';
-import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE} from './constants';
+import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE, SEPARATOR} from './constants';
 
 interface DropdownProps {
   children: (state: DropdownState) => React.ReactNode;
@@ -15,8 +15,7 @@ export interface SharedDropdownProps extends SharedPopoverProps {
   options: Array<Option>;
   onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
-  selectedId?: number;
-  selectedIds?: Array<number>;
+  selectedIds?: Array<number> | Array<string>;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
 }
 
@@ -47,10 +46,8 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     onSelect: func,
     /** Handler for when an option is selected */
     onDeselect: func,
-    /** Selected option id */
-    selectedId: number,
     /** Selected option ids for multi selected */
-    selectedIds: arrayOf(number),
+    selectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
     /** render function that renders the element with the state */
     children: func,
     /** Dropdown mode - single / multi select */
@@ -61,11 +58,11 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     super(props);
 
     this._onOptionClick = this._onOptionClick.bind(this);
-    const {selectedId, selectedIds, options} = props;
+    const {selectedIds, options} = props;
     const selectedOptions =
-      (selectedIds || (selectedId ? [selectedId] : []))
+      (selectedIds || [])
         .map(id => options.find(option => id === option.id))
-        .filter(option => !!option);
+        .filter(option => !!option && !option.isDisabled && option.type !== SEPARATOR);
 
     this.state = {
       isOpen: false,
