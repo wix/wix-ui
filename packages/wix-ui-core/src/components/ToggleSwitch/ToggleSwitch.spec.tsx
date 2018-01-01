@@ -5,6 +5,7 @@ import ToggleSwitch from './index';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
+import {ToggleSwitchStory} from "../../../stories/ToggleSwitch/ToggleSwitch-story";
 
 describe('ToggleSwitch', () => {
 
@@ -114,6 +115,26 @@ describe('ToggleSwitch', () => {
     it('root label should have border-radius 50px', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.styles.getBorderRadius()).toBe('50px');
+    });
+    it('should apply inline styles for root element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{root: {color: 'red'}}}/>);
+      const inlineStyles = driver.getRootInlineStyles();
+      expect(inlineStyles.color).toBe('red');
+    });
+    it('should apply inline styles for outerLabel element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{outerLabel: {color: 'green'}}}/>);
+      const inlineStyles = driver.getOuterLabelInlineStyles();
+      expect(inlineStyles.color).toBe('green');
+    });
+    it('should apply inline styles for innerLabel element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{innerLabel: {color: 'blue'}}}/>);
+      const inlineStyles = driver.getInnerLabelInlineStyles();
+      expect(inlineStyles.color).toBe('blue');
+    });
+    it('should apply inline styles for toggleIcon element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{toggleIcon: {color: 'black'}}}/>);
+      const inlineStyles = driver.getToggleIconInlineStyles();
+      expect(inlineStyles.color).toBe('black');
     });
   });
 });
