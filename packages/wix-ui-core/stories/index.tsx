@@ -39,20 +39,6 @@ storiesOf('Components', module)
         Hello World
     </Text>
   ))
-  .add('VBox', () => (
-    <VBox>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
-    </VBox>
-  ))
-  .add('HBox', () => (
-    <HBox>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
-    </HBox>
-  ))
   .add('Box', () => (
     <div>
     <Box theme={{boxType: 'vertical'}}>
