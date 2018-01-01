@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Popover, {SharedPopoverProps} from '../Popover';
-import {string, oneOf, arrayOf, object, func, any} from 'prop-types';
+import {string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 import DropdownContent, {Option} from './DropdownContent';
@@ -16,7 +16,7 @@ export interface SharedDropdownProps extends SharedPopoverProps {
   onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
-  selectedIds?: Array<any>;
+  selectedIds?: Array<string | number>;
 }
 
 interface DropdownState {
@@ -46,7 +46,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     /** Handler for when an option is selected */
     onDeselect: func,
     /** Selected option ids */
-    selectedIds: arrayOf(any),
+    selectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
     /** render function that renders the element with the state */
     children: func.isRequired,
     /** Dropdown mode - single / multi select */
