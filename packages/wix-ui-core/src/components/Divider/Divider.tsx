@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {object, bool} from 'prop-types';
+import {object, bool, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import * as classNames from 'classnames';
 
@@ -11,6 +11,7 @@ interface DividerClasses {
 interface DividerProps {
     classes: DividerClasses;
     vertical?: boolean;
+    children?: any;
 }
 
 class Divider extends React.PureComponent<DividerProps> {
@@ -19,17 +20,19 @@ class Divider extends React.PureComponent<DividerProps> {
         /** The classes used to style the Divider */
         classes: object.isRequired,
         /** Is the direction of the divider vertical */
-        vertical: bool
+        vertical: bool,
+        /** Optional custom divider */
+        children: any
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, children} = this.props;
 
         const activeClasses = classNames(classes.divider, {
             [classes.vertical]: this.props.vertical
         });
 
-        return <div className={activeClasses} />;
+        return children ? <div>{children}</div> : <div className={activeClasses} />;
     }
 }
 
