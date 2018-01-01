@@ -1,29 +1,31 @@
 export type BoxTheme = VBoxTheme | HBoxTheme;
 
 export type VBoxTheme = {
-  boxType: 'vertical'
+  vertical?: Vertical
   spacing?: string
   alignment?: VBoxAlignment
 };
 
 export type HBoxTheme = {
-  boxType: 'horizontal'
+  vertical?: Vertical
   spacing?: string
   alignment?: HBoxAlignment
 };
+
+export type Vertical = boolean;
 
 export type HBoxAlignment = 'top' | 'center' | 'bottom';
 
 export type VBoxAlignment = 'left' | 'center' | 'right';
 
 export const vCore: BoxTheme = {
-  boxType: 'vertical',
+  vertical: true,
   spacing: '20px',
   alignment: 'left'
 };
 
 export const hCore: BoxTheme = {
-  boxType: 'horizontal',
+  vertical: false,
   spacing: '0',
   alignment: 'bottom'
 };
