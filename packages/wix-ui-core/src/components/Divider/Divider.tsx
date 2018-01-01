@@ -29,7 +29,7 @@ class Divider extends React.PureComponent<DividerProps> {
             [classes.vertical]: this.props.vertical
         });
 
-        return <div className={activeClasses} />;
+        return this.props.children ? <div>{this.props.children}</div> : <div className={activeClasses} />;
     }
 }
 
