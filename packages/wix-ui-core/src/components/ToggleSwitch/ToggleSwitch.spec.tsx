@@ -113,6 +113,7 @@ describe('ToggleSwitch', () => {
     });
     it('root label should have border-radius 50px', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      driver.styles.getBorderRadius();
       expect(driver.styles.getBorderRadius()).toBe('50px');
     });
     it('should apply inline styles for root element', () => {
