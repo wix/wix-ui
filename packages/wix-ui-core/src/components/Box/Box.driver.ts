@@ -1,5 +1,4 @@
 export const boxDriverFactory = ({element, componentInstance}) => {
-
   return {
     /** check if element exists */
     exists: () => !!element,
