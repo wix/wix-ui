@@ -4,8 +4,6 @@ import Text from '../src/components/Text';
 import Button from '../src/components/Button';
 import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
-import VBox from '../src/components/VBox';
-import HBox from '../src/components/HBox';
 import Box from '../src/components/Box';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
