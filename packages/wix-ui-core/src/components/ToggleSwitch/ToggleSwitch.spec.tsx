@@ -117,23 +117,19 @@ describe('ToggleSwitch', () => {
     });
     it('should apply inline styles for root element', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop} styles={{root: {color: 'red'}}}/>);
-      const inlineStyles = driver.getRootStyles();
-      expect(inlineStyles.color).toBe('red');
+      expect(driver.getRootStyles().color).toBe('red');
     });
     it('should apply inline styles for outerLabel element', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop} styles={{outerLabel: {color: 'green'}}}/>);
-      const inlineStyles = driver.getOuterLabelStyles();
-      expect(inlineStyles.color).toBe('green');
+      expect(driver.getOuterLabelStyles().color).toBe('green');
     });
     it('should apply inline styles for innerLabel element', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop} styles={{innerLabel: {color: 'blue'}}}/>);
-      const inlineStyles = driver.getInnerLabelStyles();
-      expect(inlineStyles.color).toBe('blue');
+      expect(driver.getInnerLabelStyles().color).toBe('blue');
     });
     it('should apply inline styles for toggleIcon element', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop} styles={{toggleIcon: {color: 'black'}}}/>);
-      const inlineStyles = driver.getToggleIconStyles();
-      expect(inlineStyles.color).toBe('black');
+      expect(driver.getToggleIconStyles().color).toBe('black');
     });
   });
 });
