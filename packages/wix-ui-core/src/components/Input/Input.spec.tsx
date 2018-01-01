@@ -141,6 +141,20 @@ describe('Input', () => {
     });
   });
 
+  describe('autoFocus prop', () => {
+    it('should be focused when autoFoucs is true', () => {
+      const driver = createDriver(<Input autoFocus/>);
+      expect(driver.isFocus()).toBeTruthy();
+    });
+  });
+
+  describe('autoComplete prop', () => {
+    it('should pass down to the wrapped input', () => {
+      const driver = createDriver(<Input autoComplete="on"/>);
+      expect(driver.getAutocomplete()).toBe('on');
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);

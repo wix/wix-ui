@@ -22,6 +22,8 @@ type InputClasses = {
 interface InputProps {
   classes: InputClasses;
   disabled: boolean;
+  autoComplete: 'on' | 'off';
+  autoFocus: boolean;
   maxLength: number;
   name: string;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
@@ -51,6 +53,10 @@ class Input extends React.Component<InputProps> {
     classes: object.isRequired,
     /** Makes the component disabled */
     disabled: bool,
+    /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
+    autoComplete: string,
+    /** Standard React Input autoFocus (focus the element on mount) */
+    autoFocus: bool,
     /** Input max length */
     maxLength: number,
     /** Name for the input */
@@ -93,6 +99,8 @@ class Input extends React.Component<InputProps> {
     const {
       classes,
       disabled,
+      autoComplete,
+      autoFocus,
       maxLength,
       name,
       placeholder,
@@ -110,6 +118,8 @@ class Input extends React.Component<InputProps> {
       <input
         className={classes.input}
         disabled={disabled}
+        autoComplete={autoComplete}
+        autoFocus={autoFocus}
         id={id}
         maxLength={maxLength}
         name={name}
