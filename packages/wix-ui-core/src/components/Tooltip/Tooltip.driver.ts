@@ -5,5 +5,5 @@ export const tooltipDriverFactory = ({element, eventTrigger}) => ({
   exists: () => !!element,
   isTargetElementExists: () => !!getElement(element),
   isContentExists: () => !!getContent(element),
-  mouseEnter: () => eventTrigger.mouseEnter(getElement(element))
+  mouseEnter: () => eventTrigger.mouseEnter(element)
 });
