@@ -20,23 +20,23 @@ export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
 };
 
 const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children}) => {
-    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-    return (
-      <Manager
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        style={{display: 'inline-block'}}>
-        <Target data-hook="popover-element">
-          {childrenObject.Element}
-        </Target>
-        {
-          shown &&
-            <Popper data-hook="popover-content" placement={placement}>
-              <Arrow/>
-              {childrenObject.Content}
-            </Popper>
-        }
-      </Manager>
+  const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
+  return (
+    <Manager
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{display: 'inline-block'}}>
+      <Target data-hook="popover-element">
+        {childrenObject.Element}
+      </Target>
+      {
+        shown &&
+        <Popper data-hook="popover-content" placement={placement}>
+          <Arrow/>
+          {childrenObject.Content}
+        </Popper>
+      }
+    </Manager>
   );
 };
 
