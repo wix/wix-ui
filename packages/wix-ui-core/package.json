@@ -60,7 +60,7 @@
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-ui-test-utils": "^1.0.16"
+    "wix-ui-test-utils": "^1.0.0"
   },
   "license": "MIT",
   "publishConfig": {
