@@ -6,7 +6,7 @@ import Popover from './index';
 describe ('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
   const createPopover = (props = {}) =>
-    <Popover placement="top" {...props}>
+    <Popover placement="top" shown={false} {...props}>
       <Popover.Element>
         <div>
           Element

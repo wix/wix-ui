@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
 import {SharedDropdownProps} from '../Dropdown/Dropdown';
-import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/Dropdown';
+import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
 import {oneOf, string, object, func, arrayOf, number} from 'prop-types';
 
@@ -10,10 +10,10 @@ export interface IconWithOptionsProps extends SharedDropdownProps {
   tabIndex?: number;
 }
 
-const IconWithOptions: React.SFC<IconWithOptionsProps> = props => {
-  const {options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex} = props;
+const onKeyDownHandler = (evt: React.KeyboardEvent<HTMLImageElement>) => null;
 
-  return (
+const IconWithOptions: React.SFC<IconWithOptionsProps> =
+  ({options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex}) => (
     <Dropdown
       options={options}
       placement={placement}
@@ -25,10 +25,10 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> = props => {
           <img
             src={iconUrl}
             tabIndex={tabIndex}
-            onKeyDown={(evt: React.KeyboardEvent<HTMLImageElement>) => console.log(evt.keyCode)}/>
+            onKeyDown={(evt: React.KeyboardEvent<HTMLImageElement>) => onKeyDownHandler(evt)}/>
       }
-    </Dropdown>);
-};
+    </Dropdown>
+  );
 
 IconWithOptions.defaultProps = {
   openTrigger: HOVER,

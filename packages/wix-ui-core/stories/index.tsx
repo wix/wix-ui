@@ -9,7 +9,6 @@ import HBox from '../src/components/HBox';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
-import Dropdown from '../src/components/Dropdown';
 import IconWithOptions from '../src/components/IconWithOptions';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
@@ -27,24 +26,10 @@ storiesOf('Components', module)
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
   ))
-  .add('Dropdown', () => (
-    <div style={{padding: '50px'}}>
-      <Dropdown dataHook="story-dropdown" options={dropdownOptions} selectedId={1}>
-        {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
-      </Dropdown>
-      <div style={{display: 'inline-block', width: '20px'}} />
-      <Dropdown dataHook="story-dropdown" openTrigger="hover" mode="multiSelect" selectedIds={[1, 2, 6]} options={dropdownOptions}>
-        {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
-      </Dropdown>
-    </div>
-  ))
   .add('IconWithOptions', () => (
     <div style={{padding: '50px'}}>
-      <input tabIndex={1} />
       <IconWithOptions
-        tabIndex={2}
         iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
-        mode="multiSelect"
         dataHook="story-icon-with-options"
         options={dropdownOptions}/>
     </div>

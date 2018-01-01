@@ -4,18 +4,7 @@ import {string, oneOf, arrayOf, object, func, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 import DropdownContent, {Option} from './DropdownContent';
-
-export const CLICK = 'click';
-export type CLICK_TYPE = 'click';
-
-export const HOVER = 'hover';
-export type HOVER_TYPE = 'hover';
-
-export const SINGLE_SELECT = 'singleSelect';
-export type SINGLE_SELECT_TYPE = 'singleSelect';
-
-export const MULTI_SELECT = 'multiSelect';
-export type MULTI_SELECT_TYPE = 'multiSelect';
+import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE} from './constants';
 
 interface DropdownProps {
   children: (state: DropdownState) => React.ReactNode;
@@ -42,7 +31,9 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     openTrigger: CLICK,
     placement: 'bottom-start',
     options: [],
-    mode: SINGLE_SELECT
+    mode: SINGLE_SELECT,
+    onSelect: () => null,
+    onDeselect: () => null
   };
 
   static propTypes = {
@@ -83,15 +74,23 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   }
 
   handleClickOutside() {
-    this.setState({isOpen: false});
+    this.close();
   }
 
-  isSingleSelect() {
+  _isSingleSelect() {
     return this.props.mode === SINGLE_SELECT;
   }
 
+  open() {
+    this.setState({isOpen: true});
+  }
+
+  close () {
+    this.setState({isOpen: false});
+  }
+
   _onOptionClick(option, evt) {
-    const isSingleSelect = this.isSingleSelect();
+    const isSingleSelect = this._isSingleSelect();
     const {onSelect, onDeselect} = this.props;
     const newState = {
       isOpen: !isSingleSelect,
@@ -100,15 +99,15 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
     if (isSingleSelect) {
       newState.selectedOptions = [option];
-      onSelect && onSelect(option, evt);
+      onSelect(option, evt);
     } else {
       const {selectedOptions} = this.state;
       if (selectedOptions.find(x => x.id === option.id)) {
         newState.selectedOptions = selectedOptions.filter(x => x.id !== option.id);
-        onDeselect && onDeselect(option, evt);
+        onDeselect(option, evt);
       } else {
         newState.selectedOptions = [...selectedOptions, option];
-        onSelect && onSelect(option, evt);
+        onSelect(option, evt);
       }
     }
 
@@ -123,13 +122,12 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
       <Popover
         placement={placement}
         shown={isOpen}
-        onMouseEnter={openTrigger === HOVER ? () => this.setState({isOpen: true}) : null}
-        onMouseLeave={openTrigger === HOVER ? () => this.setState({isOpen: false}) : null}>
+        onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
+        onMouseLeave={openTrigger === HOVER ? () => this.close() : null}>
         <Popover.Element>
           <div
             data-hook="dropdown-element"
-            onClick={openTrigger === CLICK ? () => this.setState({isOpen: true}) : null}
-            style={{display: 'inline-block'}}>
+            onClick={openTrigger === CLICK ? () => this.open() : null}>
             {children(this.state)}
           </div>
         </Popover.Element>

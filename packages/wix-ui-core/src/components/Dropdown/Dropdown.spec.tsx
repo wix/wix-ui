@@ -2,13 +2,14 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import Dropdown from './index';
-import {HOVER, MULTI_SELECT} from './Dropdown';
+import {HOVER, MULTI_SELECT} from './constants';
 
 describe ('Dropdown', () => {
+  const getTargetText = driver => driver.targetElement().innerHTML;
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const createDropdown = (props = {}) =>
     <Dropdown {...props}>
-      {({selectedOptions}) => <span>{selectedOptions.map(x => x.displayName).join() || 'Select option'}</span>}
+      {({selectedOptions}) => selectedOptions.map(x => x.displayName).join() || 'Select option'}
     </Dropdown>;
 
     const options = [1, 2, 3, 4, 5].map(x => ({
@@ -19,7 +20,7 @@ describe ('Dropdown', () => {
       isDisabled: x === 4
     }));
 
-  it ('should render dropdown default dropdown', () => {
+  it ('should render default dropdown', () => {
     const driver = createDriver(createDropdown());
 
     expect(driver.isTargetElementExists()).toBeTruthy();
@@ -34,7 +35,7 @@ describe ('Dropdown', () => {
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
-    it ('should show content on on hover', () => {
+    it ('should show content on hover', () => {
       const driver = createDriver(createDropdown({openTrigger: HOVER}));
 
       driver.mouseEnter();
@@ -50,61 +51,63 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(driver.targetText()).toEqual('value 1');
+      expect(getTargetText(driver)).toEqual('value 1');
 
       driver.click();
       driver.clickOptionAt(1);
-      expect(driver.targetText()).toEqual('value 2');
+      expect(getTargetText(driver)).toEqual('value 2');
 
       driver.click();
       driver.clickOptionAt(2); // Separator, do nothing
+      expect(getTargetText(driver)).toEqual('value 2');
       driver.clickOptionAt(3); // Disabled, do nothing
+      expect(getTargetText(driver)).toEqual('value 2');
       driver.clickOptionAt(4);
-      expect(driver.targetText()).toEqual('value 5');
+      expect(getTargetText(driver)).toEqual('value 5');
     });
   });
 
   describe('selectedId', () => {
-    it('should display selected option with initial null value', () => {
+    it('should initialize dropdown without selected when selected id is null', () => {
       const driver = createDriver(createDropdown({options, selectedId: null}));
-      expect(driver.targetText()).toEqual('Select option');
+      expect(getTargetText(driver)).toEqual('Select option');
     });
 
-    it('should display selected option with initial value', () => {
+    it('should initialize dropdown with selected item', () => {
       const driver = createDriver(createDropdown({options, selectedId: 5}));
-      expect(driver.targetText()).toEqual('value 5');
+      expect(getTargetText(driver)).toEqual('value 5');
     });
 
-    it('should display selected option with initial invalid value', () => {
+    it('should initialize dropdown without selected when selected id is not present', () => {
       const driver = createDriver(createDropdown({options, selectedId: 6}));
-      expect(driver.targetText()).toEqual('Select option');
+      expect(getTargetText(driver)).toEqual('Select option');
     });
   });
 
   describe('selectedIds', () => {
-    it('should display selected options with single initial value', () => {
+    it('should initialize dropdown with selected with selected option', () => {
       const driver = createDriver(createDropdown({options, selectedIds: [1]}));
-      expect(driver.targetText()).toEqual('value 1');
+      expect(getTargetText(driver)).toEqual('value 1');
     });
 
-    it('should display selected options with initial value', () => {
+    it('should initialize dropdown with selected with multiple selected options', () => {
       const driver = createDriver(createDropdown({options, selectedIds: [1, 5]}));
-      expect(driver.targetText()).toEqual('value 1,value 5');
+      expect(getTargetText(driver)).toEqual('value 1,value 5');
     });
 
-    it('should display selected options with initial value one invalid index', () => {
+    it('should initialize dropdown with selected options that are present', () => {
       const driver = createDriver(createDropdown({options, selectedIds: [1, 6]}));
-      expect(driver.targetText()).toEqual('value 1');
+      expect(getTargetText(driver)).toEqual('value 1');
     });
 
-    it('should display selected options with initial empty value', () => {
+    it('should initialize dropdown without selected options when empty', () => {
       const driver = createDriver(createDropdown({options, selectedIds: []}));
-      expect(driver.targetText()).toEqual('Select option');
+      expect(getTargetText(driver)).toEqual('Select option');
     });
 
-    it('should display selected options with initial null value', () => {
+    it('should initialize dropdown without selected options when null', () => {
       const driver = createDriver(createDropdown({options, selectedIds: null}));
-      expect(driver.targetText()).toEqual('Select option');
+      expect(getTargetText(driver)).toEqual('Select option');
     });
   });
 
@@ -115,7 +118,25 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onSelect).toHaveBeenCalled();
+      expect(onSelect).toHaveBeenCalledWith(options[0], expect.any(Object));
+    });
+
+    it('should not be called when selecting disabled option', () => {
+      const onSelect = jest.fn();
+      const driver = createDriver(createDropdown({options, onSelect}));
+
+      driver.click();
+      driver.clickOptionAt(2);
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it('should not be called when selecting separator', () => {
+      const onSelect = jest.fn();
+      const driver = createDriver(createDropdown({options, onSelect}));
+
+      driver.click();
+      driver.clickOptionAt(3);
+      expect(onSelect).not.toHaveBeenCalled();
     });
   });
 
@@ -127,9 +148,9 @@ describe ('Dropdown', () => {
       driver.clickOptionAt(0);
       driver.clickOptionAt(1);
 
-      expect(driver.targetText()).toEqual('value 1,value 2');
+      expect(getTargetText(driver)).toEqual('value 1,value 2');
       driver.clickOptionAt(1);
-      expect(driver.targetText()).toEqual('value 1');
+      expect(getTargetText(driver)).toEqual('value 1');
     });
 
     it('should trigger onDeselect', () => {
@@ -139,7 +160,7 @@ describe ('Dropdown', () => {
       driver.click();
       driver.clickOptionAt(0);
       driver.clickOptionAt(0);
-      expect(onDeselect).toHaveBeenCalled();
+      expect(onDeselect).toHaveBeenCalledWith(options[0], expect.any(Object));
     });
   });
 });

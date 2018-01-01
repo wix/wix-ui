@@ -1,12 +1,7 @@
 import * as React from 'react';
 import {func, object, arrayOf} from 'prop-types';
-import {getRandomInt} from '../../utils';
-
-export const OPTION = 'option';
-export type OPTION_TYPE = 'option';
-
-export const SEPARATOR = 'separator';
-export type SEPARATOR_TYPE = 'separator';
+import * as uniqueId from 'lodash/uniqueId';
+import {OPTION, OPTION_TYPE, SEPARATOR, SEPARATOR_TYPE} from './constants';
 
 export interface Option {
   id: number;
@@ -24,7 +19,8 @@ export interface DropdownContentProps {
 class DropdownContent extends React.PureComponent<DropdownContentProps> {
 
   static defaultProps = {
-    options: []
+    options: [],
+    onOptionClick: () => null
   };
 
   static propTypes = {
@@ -41,8 +37,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps> {
   }
 
   _onOptionClick(option, evt) {
-    const {onOptionClick} = this.props;
-    onOptionClick && onOptionClick(option, evt);
+    this.props.onOptionClick(option, evt);
   }
 
   _renderOption(option) {
@@ -57,7 +52,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps> {
         );
       case SEPARATOR:
         return (
-          <div key={getRandomInt(1000, 2000)}>
+          <div key={uniqueId(SEPARATOR)}>
             --------
           </div>
         );

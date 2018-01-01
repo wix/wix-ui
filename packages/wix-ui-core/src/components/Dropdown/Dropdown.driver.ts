@@ -9,6 +9,6 @@ export const dropdownDriverFactory = ({element, eventTrigger}) => ({
   mouseEnter: () => eventTrigger.mouseEnter(element),
   mouseLeave: () => eventTrigger.mouseLeave(element),
   click: () => eventTrigger.click(getElement(element)),
-  targetText: () => getElement(element).querySelector('span').innerHTML,
+  targetElement: () => getElement(element),
   clickOptionAt: index => eventTrigger.click(getOptionAt(element, index))
 });
