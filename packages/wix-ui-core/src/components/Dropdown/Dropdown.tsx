@@ -74,11 +74,15 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   }
 
   open() {
-    this.setState({isOpen: true});
+    if (!this.state.isOpen) {
+      this.setState({isOpen: true});
+    }
   }
 
   close() {
-    this.setState({isOpen: false});
+    if (this.state.isOpen) {
+      this.setState({isOpen: false});
+    }
   }
 
   _onOptionClick(option, evt) {
