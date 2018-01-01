@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Divider from '../Divider';
+import * as uniqueId from 'lodash/uniqueId';
 import {func, object, arrayOf} from 'prop-types';
 import {OPTION, OPTION_TYPE, SEPARATOR, SEPARATOR_TYPE} from './constants';
 
@@ -51,7 +52,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps> {
           </div>
         );
       case SEPARATOR:
-        return <Divider />;
+        return <Divider key={uniqueId(SEPARATOR)} />;
       default:
         return null;
     }
