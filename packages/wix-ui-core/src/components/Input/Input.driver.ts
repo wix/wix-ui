@@ -8,6 +8,7 @@ export const inputDriverFactory = ({element, eventTrigger}) => {
     getPlaceholder: () => element.placeholder,
     getAutocomplete: () => element.getAttribute('autocomplete'),
     isRequired: () => element.required,
+    focus: () => eventTrigger.focus(element),
     getTabIndex: () => element.tabIndex,
     getType: () => element.type,
     getValue: () => element.value,

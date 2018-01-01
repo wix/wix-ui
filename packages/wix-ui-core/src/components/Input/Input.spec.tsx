@@ -155,6 +155,16 @@ describe('Input', () => {
     });
   });
 
+  describe('onFocus attribute', () => {
+    it('should be called when the input gets focused', () => {
+      const onFocus = jest.fn();
+      const driver = createDriver(<Input onFocus={onFocus}/>);
+
+      driver.focus();
+      expect(onFocus).toBeCalled();
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);
