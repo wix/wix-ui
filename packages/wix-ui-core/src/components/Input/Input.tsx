@@ -26,6 +26,7 @@ interface InputProps {
   autoFocus: boolean;
   maxLength: number;
   name: string;
+  onBlur: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   onFocus: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
   placeholder: string;
@@ -62,6 +63,8 @@ class Input extends React.Component<InputProps> {
     maxLength: number,
     /** Name for the input */
     name: string,
+    /** Standard input onBlur callback */
+    onBlur: func,
     /** Standard input onChange callback */
     onChange: func,
     /** Standard input onFocus callback */
@@ -106,6 +109,7 @@ class Input extends React.Component<InputProps> {
       autoFocus,
       maxLength,
       name,
+      onBlur,
       onFocus,
       placeholder,
       readOnly,
@@ -128,6 +132,7 @@ class Input extends React.Component<InputProps> {
         maxLength={maxLength}
         name={name}
         onChange={this._onChange}
+        onBlur={onBlur}
         onFocus={onFocus}
         placeholder={placeholder}
         readOnly={readOnly}

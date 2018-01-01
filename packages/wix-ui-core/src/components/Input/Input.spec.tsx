@@ -165,6 +165,16 @@ describe('Input', () => {
     });
   });
 
+  describe('onBlur attribute', () => {
+    it('should be called when the input gets blurred', () => {
+      const onBlur = jest.fn();
+      const driver = createDriver(<Input onBlur={onBlur}/>);
+
+      driver.blur();
+      expect(onBlur).toBeCalled();
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);
