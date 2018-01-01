@@ -23,13 +23,13 @@ class Divider extends React.PureComponent<DividerProps> {
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, children} = this.props;
 
         const activeClasses = classNames(classes.divider, {
             [classes.vertical]: this.props.vertical
         });
 
-        return this.props.children ? <div>{this.props.children}</div> : <div className={activeClasses} />;
+        return children ? <div>{children}</div> : <div className={activeClasses} />;
     }
 }
 
