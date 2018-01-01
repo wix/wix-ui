@@ -20,7 +20,7 @@ describe ('Dropdown', () => {
     </Dropdown>
   );
 
-  it ('should render default dropdown', () => {
+  it('should render default dropdown', () => {
     const driver = createDriver(createDropdown());
 
     expect(driver.isTargetElementExists()).toBeTruthy();
@@ -28,14 +28,14 @@ describe ('Dropdown', () => {
   });
 
   describe('openTrigger', () => {
-    it ('should show content on click', () => {
+    it('should show content on click', () => {
       const driver = createDriver(createDropdown());
 
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
-    it ('should show content on hover', () => {
+    it('should show content on hover', () => {
       const driver = createDriver(createDropdown({openTrigger: HOVER}));
 
       driver.mouseEnter();
