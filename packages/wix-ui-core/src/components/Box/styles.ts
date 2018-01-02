@@ -1,21 +1,11 @@
-import {hCore, vCore, BoxTheme} from './theme';
+import {horizontalCore, verticalCore, BoxTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
-import * as get from 'lodash/get';
 
-const getDefaultTheme = (theme: BoxTheme) => {
-  // any <Box /> which isn't vertical should be horizontal - https://github.com/wix/wix-ui/pull/126#discussion_r159144509
-  theme; /*?*/
-  if (theme && theme.vertical) {
-    console.log('vCore');
-    return (defaultsDeep(theme, vCore));
-  } else {
-    console.log('hCore');
-    return (defaultsDeep(theme, hCore));
-  }
-};
+// any <Box /> which isn't vertical will deafult to horizontal - https://github.com/wix/wix-ui/pull/126#discussion_r159144509
 
 export const styles = (theme: BoxTheme) => {
-  theme = getDefaultTheme(theme);
+  const verticalTheme = defaultsDeep({...theme}, verticalCore);
+  const horizontalTheme = defaultsDeep(theme, horizontalCore);
 
   const crossAxisAlignmentMap = {
     start: 'flex-start',
@@ -26,20 +16,21 @@ export const styles = (theme: BoxTheme) => {
   return {
     boxRoot: {
       display: 'flex',
-      alignItems: crossAxisAlignmentMap[theme.crossAxisAlignment],
       width: '100%',
       height: '100%',
     },
     vertical: {
+      alignItems: crossAxisAlignmentMap[verticalTheme.crossAxisAlignment],
       flexDirection: 'column',
       '& >:not(:last-child)': {
-        marginBottom: theme.spacing || '20px'
+        marginBottom: verticalTheme.spacing
       }
     },
     horizontal: {
+      alignItems: crossAxisAlignmentMap[horizontalTheme.crossAxisAlignment],
       flexDirection: 'row',
       '& >:not(:last-child)': {
-        marginRight: theme.spacing || '0px'
+        marginRight: horizontalTheme.spacing
       }
     }
   };

@@ -1,14 +1,10 @@
 import * as React from 'react';
-import {object, any, string, bool} from 'prop-types';
+import {object, any, bool} from 'prop-types';
 import * as classnames from 'classnames';
 import {createHOC} from '../../createHOC';
 
-export type BoxSpacing = string;
-export type BoxVertical = boolean;
-export type BoxCrossAxisAlignment = 'start' | 'center' | 'end';
-
 export interface BoxProps {
-  vertical: BoxVertical;
+  vertical: boolean;
   children: any;
   classes: {
     boxRoot: string,

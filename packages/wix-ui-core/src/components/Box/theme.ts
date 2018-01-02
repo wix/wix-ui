@@ -1,16 +1,16 @@
-import {BoxSpacing, BoxCrossAxisAlignment} from './Box';
+export type BoxCrossAxisAlignment = 'start' | 'center' | 'end';
 
 export type BoxTheme = {
-  spacing?: BoxSpacing
-  crossAxisAlignment?: BoxCrossAxisAlignment
+  spacing?: string;
+  crossAxisAlignment?: BoxCrossAxisAlignment;
 };
 
-export const vCore: BoxTheme = {
+export const verticalCore: BoxTheme = {
   spacing: '20px',
   crossAxisAlignment: 'start'
 };
 
-export const hCore: BoxTheme = {
+export const horizontalCore: BoxTheme = {
   spacing: '0px',
   crossAxisAlignment: 'end'
 };

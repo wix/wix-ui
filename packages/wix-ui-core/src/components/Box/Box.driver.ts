@@ -2,6 +2,7 @@ export interface BoxDriverFactoryInput {
   element: HTMLElement;
   componentInstance: any;
 }
+
 export const boxDriverFactory = ({element, componentInstance}: BoxDriverFactoryInput) => {
   return {
     /** check if element exists */
