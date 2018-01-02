@@ -1,0 +1,86 @@
+:import {
+  -st-from: "./theme.st.css";
+  -st-named:
+    rootWidth,
+    rootHeight,
+
+    transitionSpeed,
+    borderRadius,
+    labelMovementRange,
+
+    outerLabelWidth,
+    outerLabelHeight,
+
+    innerLabelWidth,
+    innerLabelHeight,
+    innerLabelBackgroundColor,
+
+    backgroundColor,
+    backgroundColorChecked,
+    backgroundColorDisabled,
+    backgroundColorHover,
+    backgroundColorFocus,
+    
+    focusOutline,
+
+    color,
+    colorChecked,
+    colorDisabled,
+    colorCheckedDisabled,
+    colorHover,
+    colorFocus,
+
+    toggleIconWidth,
+    toggleIconHeight,
+    toggleIconDisplay
+}
+
+:import {
+  -st-from: "../ToggleSwitch.st.css";
+  -st-default: ToggleSwitch;
+}
+
+.root {
+  -st-extends: ToggleSwitch;
+  -st-states: standard, error, success, x-small, small, large;
+  width: value(rootWidth);
+  height: value(rootHeight);
+}
+
+.root::outerLabel, .root::innerLabel {
+  -webkit-border-radius: value(borderRadius);
+  -moz-border-radius: value(borderRadius);
+  border-radius: value(borderRadius);
+}
+
+.root::outerLabel {
+  width: value(outerLabelWidth);
+  height: value(outerLabelHeight);
+  background-color: value(backgroundColor);
+}
+
+.root::innerLabel {
+  width: value(innerLabelWidth);
+  height: value(innerLabelHeight);
+  background-color: value(innerLabelBackgroundColor);
+}
+
+.root::toggleIcon {
+  display: value(toggleIconDisplay);
+  width: value(toggleIconWidth);
+  height: value(toggleIconHeight);
+  transition: all value(transitionSpeed) cubic-bezier(1,0,1,0);
+}
+
+.root:standard::outerLabel {
+  background-color: yellow;
+}
+
+.root:error::outerLabel {
+  background-color: pink;
+}
+
+/* .root:success:not(:disabled)::outerLabel {
+  background-color: purple;
+} */
+

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {StylableToggleSwitch} from '../../src/components/StylableToggleSwitch';
-import style from '../../src/components/StylableToggleSwitch/toggle-switch.st.css';
 import BOStylableToggleSwitch from '../../src/components/StylableToggleSwitch/backoffice/ToggleSwitch';
 
 export class StylableToggleSwitchStory extends React.Component<{}, {checked: boolean}> {
@@ -11,8 +10,7 @@ export class StylableToggleSwitchStory extends React.Component<{}, {checked: boo
       <StylableToggleSwitch
         checked={this.state.checked}
         onChange={() => this.setState({checked: !this.state.checked})}
-        dataHook="story-StylableToggleSwitch"
-        themedStyle={style}
+        data-hook="story-StylableToggleSwitch"
         />
     );
   }
@@ -26,7 +24,7 @@ export class BOStylableToggleSwitchStory extends React.Component<{}, {checked: b
       <BOStylableToggleSwitch
         checked={this.state.checked}
         onChange={() => this.setState({checked: !this.state.checked})}
-        dataHook="story-StylableToggleSwitch"
+        data-hook="story-StylableToggleSwitch"
         />
     );
   }

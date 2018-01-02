@@ -1,0 +1,160 @@
+@custom-selector :--toggleIcon .toggleIcon path;
+
+:import {
+  -st-from: "./theme.st.css";
+  -st-named:
+    rootWidth,
+    rootHeight,
+
+    transitionSpeed,
+    borderRadius,
+    labelMovementRange,
+
+    outerLabelWidth,
+    outerLabelHeight,
+
+    innerLabelWidth,
+    innerLabelHeight,
+    innerLabelBackgroundColor,
+
+    backgroundColor,
+    backgroundColorChecked,
+    backgroundColorDisabled,
+    backgroundColorHover,
+    backgroundColorFocus,
+    
+    focusOutline,
+
+    color,
+    colorChecked,
+    colorDisabled,
+    colorCheckedDisabled,
+    colorHover,
+    colorFocus,
+
+    toggleIconWidth,
+    toggleIconHeight,
+    toggleIconDisplay
+}
+
+.root {
+  -st-states: checked, disabled;
+  display: inline-flex;
+  align-items: center;
+  width: value(rootWidth);
+  height: value(rootHeight);
+  position: relative;
+  outline: none
+}
+
+.root > input[type=checkbox] {
+  display: none;
+}
+
+.outerLabel, .innerLabel {
+  -webkit-border-radius: value(borderRadius);
+  -moz-border-radius: value(borderRadius);
+  border-radius: value(borderRadius);
+  transition: all value(transitionSpeed) ease;
+}
+
+.outerLabel {
+  display: inline-block;
+  width: value(outerLabelWidth);
+  height: value(outerLabelHeight);
+  cursor: pointer;
+  background-color: value(backgroundColor);
+}
+
+.innerLabel {
+  display: flex;
+  width: value(innerLabelWidth);
+  height: value(innerLabelHeight);
+
+  position: absolute;
+  left: 1px;
+  z-index: 1;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  background-color: value(innerLabelBackgroundColor);
+  box-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
+
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.toggleIcon {
+  display: value(toggleIconDisplay);
+  width: value(toggleIconWidth);
+  height: value(toggleIconHeight);
+  transition: all value(transitionSpeed) cubic-bezier(1,0,1,0);
+}
+
+:--toggleIcon {
+  fill: value(color);
+}
+
+/* checked state */
+
+.root:checked .outerLabel {
+  background-color: value(backgroundColorChecked);
+}
+
+.root:checked .innerLabel {
+  left: value(labelMovementRange);
+}
+
+.root:checked .toggle {
+  transition: all value(transitionSpeed) cubic-bezier(0,1,0,1);
+}
+
+.root:checked :--toggleIcon {
+  fill: value(colorChecked);
+}
+
+/* disabled state */
+
+.root:disabled .outerLabel, .root:disabled:hover .outerLabel, .root:disabled:checked .outerLabel, .root:disabled:checked:hover .outerLabel {
+  background-color: value(backgroundColorDisabled);
+  cursor: default;
+}
+
+.root:disabled .innerLabel, .root:disabled:hover .innerLabel, .root:disabled:checked .innerLabel, .root:disabled:checked:hover .innerLabel {
+  cursor: default;
+}
+
+.root:disabled :--toggleIcon, .root:disabled:hover :--toggleIcon {
+  fill: value(colorDisabled);
+}
+
+.root:disabled:checked :--toggleIcon, .root:disabled:checked:hover :--toggleIcon {
+  fill: value(colorCheckedDisabled);
+}
+
+/* hover state */
+
+.root:hover .outerLabel, .root:checked:hover .outerLabel {
+  background-color: value(backgroundColorHover);
+}
+
+.root:hover :--toggleIcon, .root:checked:hover :--toggleIcon {
+  fill: value(colorHover);
+}
+
+/* focus state */
+.root:focus {
+  outline: value(focusOutline);
+}
+
+/* TODO: Get Ben's UX spec */
+/* .root:focus .outerLabel {
+  background-color: value(backgroundColorFocus);
+} */
+
+/* .root:focus :--toggleIcon, .root:checked:focus :--toggleIcon {
+  fill: value(colorHover);
+} */

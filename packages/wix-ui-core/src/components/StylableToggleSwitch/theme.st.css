@@ -1,0 +1,39 @@
+:import {
+  -st-from: "../../palette.st.css";
+  -st-named: disabledButton, white, grey;
+}
+
+:vars {
+  rootWidth: initial;
+  rootHeight: initial;
+
+  transitionSpeed: 0.3s;
+  borderRadius: 50px;
+  labelMovementRange: 23px;
+
+  outerLabelWidth: 45px;
+  outerLabelHeight: 24px;
+
+  innerLabelWidth: 21px;
+  innerLabelHeight: 22px;
+  innerLabelBackgroundColor: value(white);
+
+  backgroundColor: value(grey);
+  backgroundColorChecked: value(grey);
+  backgroundColorDisabled: value(disabledButton);
+  backgroundColorHover: value(grey);
+  backgroundColorFocus: value(grey);
+
+  focusOutline: none;
+
+  color: value(white);
+  colorChecked: value(white);
+  colorDisabled: value(white);
+  colorCheckedDisabled:value(white);
+  colorHover: value(white);
+  colorFocus:  value(white);
+
+  toggleIconWidth: 8px;
+  toggleIconHeight: 6px;
+  toggleIconDisplay: none;
+}

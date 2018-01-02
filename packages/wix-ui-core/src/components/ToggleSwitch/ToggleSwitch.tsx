@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
-import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
 
 type ToggleSwitchClasses = {
@@ -11,7 +10,7 @@ type ToggleSwitchClasses = {
   toggleIcon: string;
 };
 
-interface ToggleSwitchProps {
+export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
@@ -90,4 +89,4 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 }
 
-export default createHOC(ToggleSwitch);
+export default ToggleSwitch;
