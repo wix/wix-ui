@@ -1,4 +1,4 @@
-export const badgeDriverFactory = ({element, componentInstance, eventTrigger}) => {
+export const badgeDriverFactory = ({element, eventTrigger}) => {
   const getBadgeStyle = () => window.getComputedStyle(element);
 
   return {
