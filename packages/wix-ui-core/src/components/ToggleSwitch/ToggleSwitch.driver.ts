@@ -1,4 +1,4 @@
-export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrigger}) => {
+export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
   const toggleSwitch = element.querySelector('input');
 
   return {
