@@ -29,6 +29,9 @@ interface InputProps {
   onBlur: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   onFocus: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  //Breaks wix-style-react - used to be named onInputClicked
+  onClick: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onKeyDown: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
   placeholder: string;
   readOnly: bool;
   required: bool;
@@ -69,6 +72,10 @@ class Input extends React.Component<InputProps> {
     onChange: func,
     /** Standard input onFocus callback */
     onFocus: func,
+    /** Standard input onClick callback */
+    onClick: func,
+    /** Standard input onKeyDown callback */
+    onKeyDown: func,
     /** Placeholder to display */
     placeholder: string,
     /** Sets the input to readOnly */
@@ -111,6 +118,8 @@ class Input extends React.Component<InputProps> {
       name,
       onBlur,
       onFocus,
+      onClick,
+      onKeyDown,
       placeholder,
       readOnly,
       required,
@@ -132,8 +141,10 @@ class Input extends React.Component<InputProps> {
         maxLength={maxLength}
         name={name}
         onChange={this._onChange}
+        onClick={onClick}
         onBlur={onBlur}
         onFocus={onFocus}
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         readOnly={readOnly}
         required={required}
