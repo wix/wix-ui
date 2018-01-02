@@ -15,3 +15,5 @@ export type OPTION_TYPE = 'option';
 
 export const SEPARATOR = 'separator';
 export type SEPARATOR_TYPE = 'separator';
+
+export const NOT_HOVERED_INDEX = -1;

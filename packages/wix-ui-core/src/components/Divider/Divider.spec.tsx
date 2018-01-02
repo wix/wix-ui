@@ -25,4 +25,11 @@ describe('Divider', () => {
 
         expect(driver.isVertical()).toBe(true);
     });
+
+    it('renders custom divider', () => {
+        const customDivider = 'Custom Divider';
+        const driver = createDriver(<Divider><span>{customDivider}</span></Divider>);
+
+        expect(driver.textContent()).toEqual(customDivider);
+    });
 });

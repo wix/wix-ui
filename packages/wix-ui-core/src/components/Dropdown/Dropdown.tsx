@@ -1,39 +1,38 @@
 import * as React from 'react';
 import Popover, {SharedPopoverProps} from '../Popover';
-import {string, oneOf, arrayOf, object, func, number} from 'prop-types';
+import {string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 import DropdownContent, {Option} from './DropdownContent';
-import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE} from './constants';
+import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE, SEPARATOR} from './constants';
 
 interface DropdownProps {
-  children: (state: DropdownState) => React.ReactNode;
+  children: () => React.ReactNode;
 }
 
 export interface SharedDropdownProps extends SharedPopoverProps {
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   options: Array<Option>;
-  onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
-  onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
-  selectedId?: number;
-  selectedIds?: Array<number>;
+  onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>, selectedIds: Array<string | number>) => void;
+  onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>, selectedIds: Array<string | number>) => void;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
+  initialSelectedIds?: Array<string | number>;
 }
 
 interface DropdownState {
   isOpen: boolean;
-  selectedOptions: Array<Option>;
+  selectedIds: Array<string | number>;
 }
 
 class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
-
   static defaultProps = {
     openTrigger: CLICK,
     placement: 'bottom-start',
     options: [],
     mode: SINGLE_SELECT,
     onSelect: () => null,
-    onDeselect: () => null
+    onDeselect: () => null,
+    initialSelectedIds: []
   };
 
   static propTypes = {
@@ -47,12 +46,10 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     onSelect: func,
     /** Handler for when an option is selected */
     onDeselect: func,
-    /** Selected option id */
-    selectedId: number,
-    /** Selected option ids for multi selected */
-    selectedIds: arrayOf(number),
+    /** Selected option ids */
+    initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
     /** render function that renders the element with the state */
-    children: func,
+    children: func.isRequired,
     /** Dropdown mode - single / multi select */
     mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
   };
@@ -60,16 +57,20 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   constructor(props) {
     super(props);
 
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
     this._onOptionClick = this._onOptionClick.bind(this);
-    const {selectedId, selectedIds, options} = props;
-    const selectedOptions =
-      (selectedIds || (selectedId ? [selectedId] : []))
-        .map(id => options.find(option => id === option.id))
-        .filter(option => !!option);
+
+    const {initialSelectedIds, options} = props;
+    const selectedIds =
+       (initialSelectedIds || [])
+         .map(id => options.find(option => id === option.id))
+         .filter(option => !!option && !option.isDisabled && option.type !== SEPARATOR)
+         .map(x => x.id);
 
     this.state = {
       isOpen: false,
-      selectedOptions
+      selectedIds
     };
   }
 
@@ -82,57 +83,68 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   }
 
   open() {
-    this.setState({isOpen: true});
+    if (!this.state.isOpen) {
+      this.setState({isOpen: true});
+    }
   }
 
-  close () {
-    this.setState({isOpen: false});
+  close() {
+    if (this.state.isOpen) {
+      this.setState({isOpen: false});
+    }
   }
 
   _onOptionClick(option, evt) {
     const isSingleSelect = this._isSingleSelect();
     const {onSelect, onDeselect} = this.props;
+    const {selectedIds} = this.state;
+    let callback = onSelect;
     const newState = {
       isOpen: !isSingleSelect,
-      selectedOptions: []
+      selectedIds: []
     };
 
     if (isSingleSelect) {
-      newState.selectedOptions = [option];
-      onSelect(option, evt);
-    } else {
-      const {selectedOptions} = this.state;
-      if (selectedOptions.find(x => x.id === option.id)) {
-        newState.selectedOptions = selectedOptions.filter(x => x.id !== option.id);
-        onDeselect(option, evt);
+      if (selectedIds.includes(option.id)) {
+        return this.close();
       } else {
-        newState.selectedOptions = [...selectedOptions, option];
-        onSelect(option, evt);
+        newState.selectedIds = [option.id];
+      }
+    } else {
+      if (selectedIds.includes(option.id)) {
+        newState.selectedIds = selectedIds.filter(x => x !== option.id);
+        callback = onDeselect;
+      } else {
+        newState.selectedIds = [...selectedIds, option.id];
       }
     }
 
     this.setState(newState);
+    callback(option, evt, newState.selectedIds);
   }
 
   render() {
     const {openTrigger, placement, options, children} = this.props;
-    const {isOpen} = this.state;
+    const {isOpen, selectedIds} = this.state;
 
     return (
       <Popover
         placement={placement}
         shown={isOpen}
-        onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
-        onMouseLeave={openTrigger === HOVER ? () => this.close() : null}>
+        onMouseEnter={openTrigger === HOVER ? this.open : null}
+        onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           <div
             data-hook="dropdown-element"
-            onClick={openTrigger === CLICK ? () => this.open() : null}>
-            {children(this.state)}
+            onClick={openTrigger === CLICK ? this.open : null}>
+            {children()}
           </div>
         </Popover.Element>
         <Popover.Content>
-          <DropdownContent options={options} onOptionClick={this._onOptionClick} />
+          <DropdownContent
+            options={options}
+            selectedIds={selectedIds}
+            onOptionClick={this._onOptionClick} />
         </Popover.Content>
       </Popover>
     );

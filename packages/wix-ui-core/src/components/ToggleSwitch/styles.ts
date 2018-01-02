@@ -88,7 +88,9 @@ export const styles = (theme: ToggleSwitchTheme) => {
       width: theme.outerLabelWidth,
       height: theme.outerLabelHeight,
       cursor: 'pointer',
-      backgroundColor: theme.backgroundColor
+      backgroundColor: theme.backgroundColor,
+      border: theme.outerLabelBorder,
+      boxSizing: 'border-box'
     },
 
     innerLabel: {
@@ -111,7 +113,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
 
       top: '50%',
-      transform: 'translate(0, -50%)'
+      transform: 'translate(0, -50%)',
+
+      border: theme.innerLabelBorder,
+      boxSizing: 'border-box'
     },
 
     toggleIcon: {

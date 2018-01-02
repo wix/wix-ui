@@ -15,6 +15,17 @@ const verticalDemo: React.CSSProperties = {
     border: '1px solid lightgray'
 };
 
+const customDemo: React.CSSProperties = {
+  width: '100px',
+  border: '1px solid lightgray',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+};
+
+const unicornSeparator = <div>🦄🦄🦄🦄🦄</div>;
+const snailSeperator = <div>🐌🐌🐌🐌🐌</div>;
+
 export class DividerStory extends React.PureComponent {
     render() {
         return <div>
@@ -30,6 +41,16 @@ export class DividerStory extends React.PureComponent {
                     <p>West</p>
                     <Divider vertical/>
                     <p>East</p>
+                </div>
+                <h3>Custom Divider Example:</h3>
+                <div style={customDemo}>
+                  <p>One</p>
+                    {unicornSeparator}
+                  <p>Two</p>
+                  <Divider>
+                    {snailSeperator}
+                  </Divider>
+                  <p>Three</p>
                 </div>
             </div>;
     }
