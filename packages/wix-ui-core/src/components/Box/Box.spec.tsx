@@ -4,6 +4,7 @@ import {boxDriverFactory} from './Box.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import * as times from 'lodash/times';
 import Box from './';
+import {BoxVertical, BoxSpacing, BoxCrossAxisAlignment} from './Box';
 
 describe('Box', () => {
   let wrapper;
@@ -20,9 +21,10 @@ describe('Box', () => {
 
 describe('Box styling', () => {
   const createDriver = createDriverFactory(boxDriverFactory);
-  const boxMaker = (vertical: boolean = false, numBoxes: number = 1) => (<Box theme={{vertical}}>{times(numBoxes, (index) => (<div key={index}>{index}</div>))}</Box>);
-  describe('Box default', () => {
-    const defaultBox = boxMaker(false, 1);
+  const boxMaker = (numBoxes: number = 1, vertical: BoxVertical = false) =>
+    (<Box vertical={vertical}>{times(numBoxes, (index) => (<div key={index}>{index}</div>))}</Box>);
+  describe('Box default (horizontal)', () => {
+    const defaultBox = boxMaker(1);
 
     it('with unspecified vertical orientation should be horizontal by default', () => {
       const driver = createDriver(<Box><div>1</div></Box>);
@@ -33,24 +35,24 @@ describe('Box styling', () => {
       expect(driver.getAlignment()).toBe('flex-end');
     });
     it('should use flex direction row by default', () => {
-      const driver = createDriver(<Box theme={{vertical: false}}><div>1</div></Box>);
+      const driver = createDriver(defaultBox);
       expect(driver.getFlexDirection()).toBe('row');
     });
     it('should have a default spacing of 0', () => {
-      const testBox = boxMaker(false, 2);
+      const testBox = boxMaker(2);
       const driver = createDriver(testBox);
       const childStyle = driver.getChildStyle(0);
       expect(childStyle.marginRight).toBe('0px');
     });
   });
   describe('Box: vertical variant', () => {
-    const defaultVerticalBox = boxMaker(true, 1);
+    const defaultVerticalBox = boxMaker(1, true);
     it('should use flex direction column', () => {
       const driver = createDriver(defaultVerticalBox);
       expect(driver.getFlexDirection()).toBe('column');
     });
     it('should have a default spacing of 20px', () => {
-      const testBox = boxMaker(true, 2);
+      const testBox = boxMaker(2, true);
       const driver = createDriver(testBox);
       const childStyle = driver.getChildStyle(0);
       expect(childStyle.marginBottom).toBe('20px');
