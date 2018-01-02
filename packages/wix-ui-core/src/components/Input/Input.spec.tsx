@@ -183,6 +183,26 @@ describe('Input', () => {
     });
   });
 
+  describe('onKeyUp attribute', () => {
+    it('should be called when the input press is released', () => {
+      const onKeyUp = jest.fn();
+      const driver = createDriver(<Input onKeyUp={onKeyUp}/>);
+
+      driver.keyUp();
+      expect(onKeyUp).toBeCalled();
+    });
+  });
+
+  describe('onDoubleClick attribute', () => {
+    it('should be called when the input double clicked', () => {
+      const onDoubleClick = jest.fn();
+      const driver = createDriver(<Input onDoubleClick={onDoubleClick}/>);
+
+      driver.doubleClick();
+      expect(onDoubleClick).toBeCalled();
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);
