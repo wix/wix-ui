@@ -39,7 +39,7 @@ export type ToggleSwitchTheme = Partial<{
   outerLabelBorderDisabled: string;
   outerLabelBorderHover: string;
   outerLabelBorderHoverChecked: string;
-  
+
   innerLabelBorder: string;
   innerLabelBorderChecked: string;
   innerLabelBorderDisabled: string;
