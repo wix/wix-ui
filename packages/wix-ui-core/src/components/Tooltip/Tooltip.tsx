@@ -10,17 +10,20 @@ interface TooltipProps {
 }
 
 interface TooltipState {
-  isHover: boolean;
+  isOpen: boolean;
 }
 
 type TooltipClasses = {
   tooltip: string;
-}
+};
 
 class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
-
   static Element = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content = createComponentThatRendersItsChildren('Tooltip.Content');
+
+  static defaultProps = {
+    placement: 'top'
+  };
 
   static propTypes = {
     /** The location to display the content */
@@ -32,27 +35,40 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   constructor(props) {
     super(props);
 
+    this._open = this._open.bind(this);
+    this._close = this._close.bind(this);
+
     this.state = {
-      isHover: false
+      isOpen: false
     };
   }
 
-  _setHover(isHover) {
-    this.setState({isHover});
+  _open() {
+    if (!this.state.isOpen) {
+      this.setState({isOpen: true});
+    }
+  }
+
+  _close() {
+    if (this.state.isOpen) {
+      this.setState({isOpen: false});
+    }
   }
 
   render () {
     const {placement, children, classes} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-    const {isHover} = this.state;
+    const {isOpen} = this.state;
 
     return (
-      <Popover placement={placement} shown={isHover}>
+      <Popover
+        placement={placement}
+        shown={isOpen}
+        onMouseEnter={this._open}
+        onMouseLeave={this._close}>
         <Popover.Element>
           <div
-            data-hook="tooltip-element"
-            onMouseEnter={() => this._setHover(true)}
-            onMouseLeave={() => this._setHover(false)}>
+            data-hook="tooltip-element">
             {childrenObject.Element}
           </div>
         </Popover.Element>

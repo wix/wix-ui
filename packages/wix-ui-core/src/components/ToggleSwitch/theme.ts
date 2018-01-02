@@ -19,16 +19,23 @@ export type ToggleSwitchTheme = Partial<{
   backgroundColorChecked: string;
   backgroundColorDisabled: string;
   backgroundColorHover: string;
+  backgroundColorFocus: string;
+
+  focusOutline: string
 
   color: string;
   colorChecked: string;
   colorDisabled: string;
   colorCheckedDisabled: string;
   colorHover: string;
+  colorFocus: string;
 
   toggleIconWidth: string;
   toggleIconHeight: string;
   toggleIconDisplay: string;
+
+  outerLabelBorder: string;
+  innerLabelBorder: string;
 }>;
 
 export const core: ToggleSwitchTheme = {
@@ -50,14 +57,21 @@ export const core: ToggleSwitchTheme = {
   backgroundColorChecked: palette.grey,
   backgroundColorDisabled: palette.disabledButton,
   backgroundColorHover: palette.grey,
+  backgroundColorFocus: palette.grey,
+
+  focusOutline: 'none',
 
   color: palette.white,
   colorChecked: palette.white,
   colorDisabled: palette.white,
   colorCheckedDisabled: palette.white,
   colorHover: palette.white,
+  colorFocus: palette.white,
 
   toggleIconWidth: '8px',
   toggleIconHeight: '6px',
-  toggleIconDisplay: 'none'
+  toggleIconDisplay: 'none',
+
+  outerLabelBorder: 'none',
+  innerLabelBorder: 'none'
 };

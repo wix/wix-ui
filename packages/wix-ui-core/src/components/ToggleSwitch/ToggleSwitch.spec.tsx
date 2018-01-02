@@ -12,6 +12,15 @@ describe('ToggleSwitch', () => {
   const noop = () => null;
 
   describe('checked prop', () => {
+    it('should be controlled', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.isChecked()).toBe(false);
+
+      driver.click();
+
+      expect(driver.isChecked()).toBe(false);
+    });
+
     it('should pass down to input when checked', () => {
       const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
       expect(driver.isChecked()).toBeTruthy();
@@ -72,6 +81,19 @@ describe('ToggleSwitch', () => {
     });
   });
 
+  describe('id prop', () => {
+    it('should apply arbitrary unique id be default', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.getId()).toBeDefined();
+    });
+
+    it('should apply user specified id', () => {
+      const testId = 'testId';
+      const driver = createDriver(<ToggleSwitch onChange={noop} id={testId}/>);
+      expect(driver.getId()).toBe(testId);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<ToggleSwitch onChange={noop}/>, toggleSwitchTestkitFactory)).toBe(true);
@@ -92,6 +114,22 @@ describe('ToggleSwitch', () => {
     it('root label should have border-radius 50px', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
       expect(driver.styles.getBorderRadius()).toBe('50px');
+    });
+    it('should apply inline styles for root element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{root: {color: 'red'}}}/>);
+      expect(driver.getRootStyles().color).toBe('red');
+    });
+    it('should apply inline styles for outerLabel element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{outerLabel: {color: 'green'}}}/>);
+      expect(driver.getOuterLabelStyles().color).toBe('green');
+    });
+    it('should apply inline styles for innerLabel element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{innerLabel: {color: 'blue'}}}/>);
+      expect(driver.getInnerLabelStyles().color).toBe('blue');
+    });
+    it('should apply inline styles for toggleIcon element', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop} styles={{toggleIcon: {color: 'black'}}}/>);
+      expect(driver.getToggleIconStyles().color).toBe('black');
     });
   });
 });

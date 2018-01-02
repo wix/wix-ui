@@ -1,12 +1,11 @@
 import * as React from 'react';
 import {render} from 'react-dom';
-import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from './helpers';
 
 const componentFactory = Component => {
   let element;
   let componentInstance;
-  const eventTrigger = reactEventTrigger(ReactTestUtils);
+  const eventTrigger = reactEventTrigger();
 
   const wrapperDiv = document.createElement('div');
   const ClonedComponent = React.cloneElement(Component, {ref: r => componentInstance = r});
