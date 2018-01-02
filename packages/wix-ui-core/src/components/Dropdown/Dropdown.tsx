@@ -7,7 +7,7 @@ import DropdownContent, {Option} from './DropdownContent';
 import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE, SEPARATOR} from './constants';
 
 interface DropdownProps {
-  children: () => React.ReactNode;
+  children: (onKeyDown) => React.ReactNode;
 }
 
 export interface SharedDropdownProps extends SharedPopoverProps {
@@ -59,6 +59,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this._onOptionClick = this._onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
@@ -82,6 +83,10 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     return this.props.mode === SINGLE_SELECT;
   }
 
+  toggleOpen() {
+    this.state.isOpen ? this.close() : this.open();
+  }
+
   open() {
     if (!this.state.isOpen) {
       this.setState({isOpen: true});
@@ -91,6 +96,36 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   close() {
     if (this.state.isOpen) {
       this.setState({isOpen: false});
+    }
+  }
+
+  onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
+    switch (evt.key) {
+      case 'ArrowDown': {
+        this.open();
+        break;
+      }
+
+      case 'ArrowUp': {
+        this.open();
+        break;
+      }
+
+      case ' ':
+      case 'Enter': {
+        this.toggleOpen();
+        break;
+      }
+
+      case 'Tab':
+      case 'Escape': {
+        this.close();
+        break;
+      }
+
+      default: {
+        return false;
+      }
     }
   }
 
@@ -137,7 +172,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
           <div
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
-            {children()}
+            {children(this.onKeyDown)}
           </div>
         </Popover.Element>
         <Popover.Content>

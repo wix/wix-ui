@@ -10,8 +10,6 @@ export interface IconWithOptionsProps extends SharedDropdownProps {
   tabIndex?: number;
 }
 
-const onKeyDownHandler = (evt: React.KeyboardEvent<HTMLImageElement>) => null;
-
 const IconWithOptions: React.SFC<IconWithOptionsProps> =
   ({options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex}) => (
     <Dropdown
@@ -21,11 +19,11 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
       mode={mode}
       onSelect={onSelect}>
       {
-        () =>
+        (onKeyDown) =>
           <img
             src={iconUrl}
             tabIndex={tabIndex}
-            onKeyDown={(evt: React.KeyboardEvent<HTMLImageElement>) => onKeyDownHandler(evt)}/>
+            onKeyDown={onKeyDown}/>
       }
     </Dropdown>
   );
