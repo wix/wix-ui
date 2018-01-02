@@ -23,7 +23,7 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
       /** returns elements display css property */
       getRootDisplay: () => window.getComputedStyle(element).display,
       /** returns elements border-radius css property */
-      getBorderRadius: () => window.getComputedStyle(element.children[2]).borderRadius
+      getBorderRadius: () => window.getComputedStyle(element.querySelector('.outerLabel')).borderRadius
     }
   };
 };
