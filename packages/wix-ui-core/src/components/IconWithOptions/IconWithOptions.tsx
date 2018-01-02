@@ -3,7 +3,7 @@ import Dropdown from '../Dropdown';
 import {SharedDropdownProps} from '../Dropdown/Dropdown';
 import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
-import {oneOf, string, object, func, arrayOf, number} from 'prop-types';
+import {oneOf, string, object, func, arrayOf} from 'prop-types';
 
 export interface IconWithOptionsProps extends SharedDropdownProps {
   iconUrl: string;
@@ -45,9 +45,7 @@ IconWithOptions.propTypes = {
   /** The icon url to display */
   iconUrl: string.isRequired,
   /** Dropdown mode - single / multi select */
-  mode: oneOf([SINGLE_SELECT, MULTI_SELECT]),
-  /** Tab index of the element */
-  tabIndex: number
+  mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
 };
 
 export default createHOC(IconWithOptions);

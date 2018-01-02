@@ -3,11 +3,17 @@ import Popover, {SharedPopoverProps} from '../Popover';
 import {string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
-import DropdownContent, {Option} from './DropdownContent';
+import DropdownContent from './DropdownContent';
+import {Option} from './DropdownContent/DropdownContent';
 import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE, SEPARATOR} from './constants';
+
+type DropdownClasses = {
+  targetElement: string;
+};
 
 interface DropdownProps {
   children: (onKeyDown) => React.ReactNode;
+  classes: DropdownClasses;
 }
 
 export interface SharedDropdownProps extends SharedPopoverProps {
@@ -159,7 +165,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   }
 
   render() {
-    const {openTrigger, placement, options, children} = this.props;
+    const {openTrigger, placement, options, children, classes} = this.props;
     const {isOpen, selectedIds} = this.state;
 
     return (
@@ -170,6 +176,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           <div
+            className={classes.targetElement}
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
             {children(this.onKeyDown)}

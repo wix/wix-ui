@@ -1,9 +1,15 @@
 import * as React from 'react';
 import {func, object, arrayOf, oneOfType, number, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
-import {OPTION, SEPARATOR, OPTION_TYPE, SEPARATOR_TYPE, NOT_HOVERED_INDEX} from './constants';
+import {OPTION, SEPARATOR, OPTION_TYPE, SEPARATOR_TYPE, NOT_HOVERED_INDEX} from '../constants';
 import * as classNames from 'classnames';
-import Divider from '../Divider';
+import Divider from '../../Divider';
+import {createHOC} from '../../../createHOC';
+
+export type DropdownContentClasses = {
+  optionsContainer: string;
+  option: string;
+};
 
 export interface Option {
   id: number;
@@ -16,6 +22,7 @@ export interface DropdownContentProps {
   options: Array<Option>;
   onOptionClick: (option: Option, evt: React.SyntheticEvent<HTMLElement>) => void;
   selectedIds: Array<string | number>;
+  classes: DropdownContentClasses;
 }
 
 export interface DropdownContentState {
@@ -113,14 +120,14 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   _renderOption(option: Option, index: number) {
-    const {selectedIds} = this.props;
+    const {selectedIds, classes} = this.props;
     const {hoveredIndex} = this.state;
 
     switch (option.type) {
       case OPTION:
         return (
           <div
-            className={classNames({
+            className={classNames(classes.option, {
               selected: !option.isDisabled && selectedIds.includes(option.id),
               hover: hoveredIndex === index
             })}
@@ -132,7 +139,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
         );
       case SEPARATOR:
         return (
-        <Divider key={uniqueId(SEPARATOR)}>
+        <Divider className="Amir" key={uniqueId(SEPARATOR)}>
           {option.value}
         </Divider>);
       default:
@@ -141,8 +148,10 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   render() {
+    const {classes} = this.props;
     return (
       <div
+        className={classes.optionsContainer}
         data-hook="options-container"
         tabIndex={1000}
         onKeyDown={this.onKeyDown}
@@ -153,4 +162,4 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 }
 
-export default DropdownContent;
+export default createHOC(DropdownContent);
