@@ -45,18 +45,6 @@ describe('Input', () => {
     });
   });
 
-  describe('max length prop', () => {
-    it('should have default value', () => {
-      const driver = createDriver(<Input/>);
-      expect(driver.getMaxLength()).toEqual(524288);
-    });
-
-    it('should be present when has value', () => {
-      const driver = createDriver(<Input maxLength={200}/>);
-      expect(driver.getMaxLength()).toEqual(200);
-    });
-  });
-
   describe('value prop', () => {
     it('should not have value by default', () => {
       const driver = createDriver(<Input/>);
