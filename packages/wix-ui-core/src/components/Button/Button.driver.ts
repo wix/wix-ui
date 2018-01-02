@@ -1,4 +1,4 @@
-export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) => {
+export const buttonDriverFactory = ({element, eventTrigger}) => {
   const getButtonStyle = () => window.getComputedStyle(element);
 
   return {
