@@ -1,4 +1,4 @@
-import {browser, ExpectedConditions} from 'protractor';
+import {browser, promise, ExpectedConditions} from 'protractor';
 
 export const getStoryUrl = (kind, story) => `iframe.html?selectedKind=${kind}&selectedStory=${story}`;
 
@@ -12,7 +12,7 @@ export const scrollToElement = element => {
 export const waitForVisibilityOf = (elements, errorMsg, timeout = 10000) => {
   const arrayOfElements = Array.isArray(elements) ? [...elements] : [elements];
 
-  return Promise.all(arrayOfElements.map(elem =>
+  return promise.all(arrayOfElements.map(elem =>
     browser.wait(ExpectedConditions.visibilityOf(elem), timeout, errorMsg)
   ));
 };
