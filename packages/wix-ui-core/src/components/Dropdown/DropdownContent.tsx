@@ -86,9 +86,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
       }
     }
 
-    this.setState({
-      hoveredIndex
-    });
+    this._setHoveredIndex(hoveredIndex);
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
