@@ -11,11 +11,19 @@ type ToggleSwitchClasses = {
   toggleIcon: string;
 };
 
+type ToggleSwitchStyles = {
+  root: object;
+  outerLabel: object;
+  innerLabel: object;
+  toggleIcon: object;
+};
+
 interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   classes: ToggleSwitchClasses;
+  styles?: ToggleSwitchStyles;
   id?: string;
 }
 
@@ -38,10 +46,13 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     /** Classes object */
     classes: object.isRequired,
     /** Component ID, will be generated automatically if not provided */
+    /** Styles object */
+    styles: object,
+    /** Component ID, will be generated automatically if not provided */
     id: string,
   };
 
-  static defaultProps = {checked: false};
+  static defaultProps = {checked: false, styles: {}};
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this._listenToSpace);
@@ -66,11 +77,11 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 
   render() {
-    const {checked, disabled, classes} = this.props;
+    const {checked, disabled, classes, styles} = this.props;
     const {id} = this;
 
     return (
-      <div className={classes.root} tabIndex={0} ref={ref => this.toggle = ref}>
+      <div className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
         <input
           type="checkbox"
           id={id}
@@ -79,9 +90,9 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           onChange={e => this._handleChange(e)}
         />
 
-        <label htmlFor={id} className={classes.outerLabel}/>
-        <label htmlFor={id} className={classes.innerLabel}>
-          <svg className={classes.toggleIcon} viewBox={getViewBox(checked)}>
+        <label htmlFor={id} className={classes.outerLabel} style={styles.outerLabel}/>
+        <label htmlFor={id} className={classes.innerLabel} style={styles.innerLabel}>
+          <svg className={classes.toggleIcon} style={styles.toggleIcon} viewBox={getViewBox(checked)}>
             <path d={getPathDescription(checked)}/>
           </svg>
         </label>
