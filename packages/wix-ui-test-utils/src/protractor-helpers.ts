@@ -1,4 +1,4 @@
-import {browser, promise, ExpectedConditions} from 'protractor';
+import {browser, ExpectedConditions} from 'protractor';
 
 export const getStoryUrl = (kind, story) => `iframe.html?selectedKind=${kind}&selectedStory=${story}`;
 
