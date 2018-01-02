@@ -32,6 +32,14 @@ export const styles = (theme: BoxTheme) => {
       '& >:not(:last-child)': {
         marginRight: horizontalTheme.spacing
       }
+    },
+    lastItemTakesRemainingWidth: {
+      '& *:last-child': {
+        flexGrow: 1,
+      },
+      '& *:not(:last-child)': {
+        flexGrow: 0,
+      }
     }
   };
 };

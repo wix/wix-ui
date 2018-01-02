@@ -39,7 +39,7 @@ storiesOf('Components', module)
   ))
   .add('Box', () => (
     <div>
-    <Box theme={{vertical: true}}>
+    <Box vertical>
         <div>v</div>
         <div>e</div>
         <div>r</div>
@@ -50,7 +50,7 @@ storiesOf('Components', module)
         <div>l</div>
     </Box>
     <hr />
-    <Box theme={{vertical: false}}>
+    <Box>
         <div>h</div>
         <div>o</div>
         <div>r</div>
@@ -61,6 +61,11 @@ storiesOf('Components', module)
         <div>t</div>
         <div>a</div>
         <div>l</div>
+    </Box>
+    <hr />
+    <Box lastItemTakesRemainingWidth>
+      <div>label (input should take remaining width)</div>
+      <input/>
     </Box>
     </div>
   ))
