@@ -9,7 +9,6 @@ describe ('Dropdown', () => {
   const options = [1, 2, 3, 4, 5].map(x => ({
     id: x,
     value: `value${x}`,
-    displayName: `value ${x}`,
     type: x === 3 ? SEPARATOR : OPTION,
     isDisabled: x === 4
   }));

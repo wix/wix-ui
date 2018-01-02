@@ -13,8 +13,8 @@ interface DropdownProps {
 export interface SharedDropdownProps extends SharedPopoverProps {
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   options: Array<Option>;
-  onSelect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>, selectedIds: Array<string | number>) => void;
-  onDeselect?: (option: Option, evt: React.MouseEvent<HTMLDivElement>, selectedIds: Array<string | number>) => void;
+  onSelect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
+  onDeselect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
   mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
   initialSelectedIds?: Array<string | number>;
 }
@@ -129,7 +129,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     }
   }
 
-  _onOptionClick(option, evt) {
+  _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
     const isSingleSelect = this._isSingleSelect();
     const {onSelect, onDeselect} = this.props;
     const {selectedIds} = this.state;

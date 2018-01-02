@@ -14,7 +14,7 @@ export interface Option {
 
 export interface DropdownContentProps {
   options: Array<Option>;
-  onOptionClick: (option: Option, evt: React.MouseEvent<HTMLDivElement>) => void;
+  onOptionClick: (option: Option, evt: React.SyntheticEvent<HTMLElement>) => void;
   selectedIds: Array<string | number>;
 }
 
@@ -54,11 +54,11 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     this.optionsContainerRef.focus();
   }
 
-  _onOptionClick(option, evt) {
+  _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
     this.props.onOptionClick(option, evt);
   }
 
-  _setHoveredIndex(index) {
+  _setHoveredIndex(index: number) {
     if (this.state.hoveredIndex !== index) {
       this.setState({
         hoveredIndex: index
@@ -70,7 +70,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     return option.type === OPTION && !option.isDisabled;
   }
 
-  _hoverNextItem(interval) {
+  _hoverNextItem(interval: number) {
     const {options} = this.props;
     let {hoveredIndex} = this.state;
     while (true) {
@@ -112,7 +112,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     }
   }
 
-  _renderOption(option, index) {
+  _renderOption(option: Option, index: number) {
     const {selectedIds} = this.props;
     const {hoveredIndex} = this.state;
 
@@ -127,11 +127,14 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
             onMouseEnter={!option.isDisabled ? () => this._setHoveredIndex(index) : null}
             key={option.id}
             onClick={option.isDisabled ? null : evt => this._onOptionClick(option, evt)}>
-            {option.displayName}
+            {option.value}
           </div>
         );
       case SEPARATOR:
-        return <Divider key={uniqueId(SEPARATOR)} />;
+        return (
+        <Divider key={uniqueId(SEPARATOR)}>
+          {option.value}
+        </Divider>);
       default:
         return null;
     }

@@ -15,7 +15,6 @@ import IconWithOptions from '../src/components/IconWithOptions';
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
   id: x,
   value: `value${x}`,
-  displayName: `value ${x}`,
   type: x === 3 ? 'separator' : 'option',
   isDisabled: x === 4
 }));

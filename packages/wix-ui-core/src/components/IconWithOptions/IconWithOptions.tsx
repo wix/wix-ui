@@ -7,11 +7,10 @@ import {oneOf, string, object, func, arrayOf, number} from 'prop-types';
 
 export interface IconWithOptionsProps extends SharedDropdownProps {
   iconUrl: string;
-  tabIndex?: number;
 }
 
 const IconWithOptions: React.SFC<IconWithOptionsProps> =
-  ({options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex}) => (
+  ({options, openTrigger, placement, onSelect, iconUrl, mode}) => (
     <Dropdown
       options={options}
       placement={placement}
@@ -22,7 +21,7 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
         (onKeyDown) =>
           <img
             src={iconUrl}
-            tabIndex={tabIndex}
+            tabIndex={5}
             onKeyDown={onKeyDown}/>
       }
     </Dropdown>
