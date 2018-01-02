@@ -7,7 +7,7 @@ const getClasses = (element) => {
   return cssClasses;
 };
 
-export const textDriverFactory = ({element, componentInstance}) => {
+export const textDriverFactory = ({element}) => {
   return {
     /** check if element exists */
     exists: () => !!element,
