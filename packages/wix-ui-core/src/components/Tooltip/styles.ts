@@ -8,7 +8,9 @@ export const styles = (theme: TooltipTheme) => {
     tooltip: {
       backgroundColor: theme.backgroundColor,
 
-      border: `${theme.borderWidth} ${theme.borderStyle} ${theme.borderColor}`,
+      borderWidth: theme.borderWidth,
+      borderStyle: theme.borderStyle,
+      borderColor: theme.borderColor,
       borderRadius: theme.borderRadius,
 
       padding: theme.contentPadding
