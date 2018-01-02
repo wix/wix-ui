@@ -139,7 +139,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
         );
       case SEPARATOR:
         return (
-        <Divider className="Amir" key={uniqueId(SEPARATOR)}>
+        <Divider key={uniqueId(SEPARATOR)}>
           {option.value}
         </Divider>);
       default:
