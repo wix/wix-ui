@@ -32,6 +32,7 @@ export interface SharedDropdownProps extends SharedPopoverProps {
 interface DropdownState {
   isOpen: boolean;
   selectedIds: Array<string | number>;
+  keyboardEvent: React.KeyboardEvent<HTMLElement>;
 }
 
 class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
@@ -81,7 +82,8 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
     this.state = {
       isOpen: false,
-      selectedIds
+      selectedIds,
+      keyboardEvent: null
     };
   }
 
@@ -111,30 +113,23 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     switch (evt.key) {
+      case 'ArrowUp':
       case 'ArrowDown': {
-        this.open();
-        break;
+        this.setState({
+          isOpen: true,
+          keyboardEvent: evt
+        });
+        return;
       }
-
-      case 'ArrowUp': {
-        this.open();
-        break;
-      }
-
-      case ' ':
       case 'Enter': {
-        this.toggleOpen();
-        break;
+        return this.toggleOpen();
       }
-
       case 'Tab':
       case 'Escape': {
-        this.close();
-        break;
+        return this.close();
       }
-
       default: {
-        return false;
+        return;
       }
     }
   }
@@ -170,7 +165,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
   render() {
     const {openTrigger, placement, options, children, classes} = this.props;
-    const {isOpen, selectedIds} = this.state;
+    const {isOpen, selectedIds, keyboardEvent} = this.state;
 
     return (
       <Popover
@@ -188,6 +183,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
+            keyboardEvent={keyboardEvent}
             options={options}
             selectedIds={selectedIds}
             onOptionClick={this._onOptionClick} />

@@ -12,7 +12,7 @@ export type DropdownContentClasses = {
 };
 
 export interface Option {
-  id: number;
+  id: number | string;
   value: any;
   type: OPTION_TYPE | SEPARATOR_TYPE;
   isDisabled: boolean;
@@ -24,6 +24,7 @@ export interface DropdownContentProps {
   onOptionClick: (option: Option, evt: React.SyntheticEvent<HTMLElement>) => void;
   selectedIds: Array<string | number>;
   classes: DropdownContentClasses;
+  keyboardEvent: React.KeyboardEvent<HTMLElement>;
 }
 
 export interface DropdownContentState {
@@ -46,20 +47,27 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     selectedIds: oneOfType([arrayOf(number), arrayOf(string)]).isRequired
   };
 
-  private optionsContainerRef: HTMLDivElement;
-
   constructor(props) {
     super(props);
 
-    this.onKeyDown = this.onKeyDown.bind(this);
     this._renderOption = this._renderOption.bind(this);
     this.state = {
       hoveredIndex: NOT_HOVERED_INDEX
     };
   }
 
-  componentDidMount() {
-    this.optionsContainerRef.focus();
+  componentWillMount() {
+    const {keyboardEvent} = this.props;
+    if (keyboardEvent) {
+      this.onKeyDown(keyboardEvent);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextKeyboardEvent = nextProps.keyboadEvent;
+    if (nextKeyboardEvent) {
+      this.onKeyDown(nextKeyboardEvent);
+    }
   }
 
   _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
@@ -154,9 +162,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
       <div
         className={classes.optionsContainer}
         data-hook="options-container"
-        tabIndex={1000}
-        onKeyDown={this.onKeyDown}
-        ref={r => this.optionsContainerRef = r}>
+        tabIndex={1000}>
         {(this.props.options || []).map(this._renderOption)}
       </div>
     );
