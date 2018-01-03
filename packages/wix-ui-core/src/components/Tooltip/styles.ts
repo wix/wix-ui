@@ -14,8 +14,6 @@ export const styles = (theme: TooltipTheme) => {
       borderRadius: theme.borderRadius,
 
       padding: theme.contentPadding
-    },
-
-    tooltipArrow: {}
+    }
   };
 };

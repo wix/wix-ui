@@ -13,7 +13,7 @@ export type TooltipTheme = {
 };
 
 export const core: Partial<TooltipTheme> = {
-  backgroundColor: palette.white,
+  backgroundColor: 'rgb(255, 255, 255)',
 
   borderWidth: '1px',
   borderStyle: 'solid',
