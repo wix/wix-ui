@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from './ToggleSwitch';
 import style from './ToggleSwitch.st.css';
 
 // Generic adapter to add the root class and it's css states
