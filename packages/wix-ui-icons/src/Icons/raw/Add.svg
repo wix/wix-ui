@@ -1,1 +1,3 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.88 40.88"><defs><style>.cls-1{fill:#559cd4;}</style></defs><title>icon 2</title><path class="cls-1" d="M266.5,463a20.44,20.44,0,1,0,20.44,20.44A20.46,20.46,0,0,0,266.5,463Zm0,39.88a19.44,19.44,0,1,1,19.44-19.44A19.46,19.46,0,0,1,266.5,502.88Z" transform="translate(-246.05 -462.99)"/><polygon class="cls-1" points="20.95 13.01 19.95 13.01 19.95 20 12.95 20 12.95 21 19.95 21 19.95 28 20.95 28 20.95 21 27.95 21 27.95 20 20.95 20 20.95 13.01"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <polygon id="add-a" points="12 12 12 6 11 6 11 12 5 12 5 13 11 13 11 19 12 19 12 13 18 13 18 12"/>
+</svg>
