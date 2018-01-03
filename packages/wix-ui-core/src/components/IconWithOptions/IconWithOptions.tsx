@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
-import {SharedDropdownProps, DropdownElementProps} from '../Dropdown/Dropdown';
+import {SharedDropdownProps, TriggerElementProps} from '../Dropdown/Dropdown';
 import {HOVER, CLICK} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
 import {oneOf, string, object, func, arrayOf, bool} from 'prop-types';
@@ -18,11 +18,11 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
       closeOnSelect={closeOnSelect}
       onSelect={onSelect}>
       {
-        (props: DropdownElementProps) =>
+        ({onKeyDown}: TriggerElementProps) =>
           <img
             src={iconUrl}
             tabIndex={5}
-            onKeyDown={props.onKeyDown}/>
+            onKeyDown={onKeyDown}/>
       }
     </Dropdown>
   );

@@ -11,13 +11,13 @@ type DropdownClasses = {
   targetElement: string;
 };
 
-export interface DropdownElementProps {
+export interface TriggerElementProps {
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
 }
 
 interface DropdownProps {
   classes: DropdownClasses;
-  children: (props: DropdownElementProps) => React.ReactNode;
+  children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
 }
 
 export interface SharedDropdownProps extends SharedPopoverProps {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
-import {SharedDropdownProps, DropdownElementProps} from '../Dropdown/Dropdown';
+import {SharedDropdownProps, TriggerElementProps} from '../Dropdown/Dropdown';
 import {createHOC} from '../../createHOC';
 import {bool, object, arrayOf} from 'prop-types';
 
@@ -60,13 +60,13 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
         onDeselect={this.onDeselect}
         closeOnSelect={closeOnSelect}>
         {
-          (props: DropdownElementProps) =>
+          ({onKeyDown}: TriggerElementProps) =>
             <input
               style={{outline: 0}}
               tabIndex={5}
               value={inputValue}
               onChange={evt => this.setState({inputValue: evt.target.value})}
-              onKeyDown={props.onKeyDown}/>
+              onKeyDown={onKeyDown}/>
         }
       </Dropdown>
     );
