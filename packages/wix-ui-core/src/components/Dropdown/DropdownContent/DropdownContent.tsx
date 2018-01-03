@@ -47,7 +47,6 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   constructor(props) {
     super(props);
 
-    this._renderOption = this._renderOption.bind(this);
     this.state = {
       hoveredIndex: NOT_HOVERED_INDEX
     };
@@ -125,32 +124,29 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     }
   }
 
-  _renderOption(option: Option, index: number) {
+  render() {
     const {selectedIds, classes} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
       <div
-        key={option.id}
-        className={classNames(classes.option, {
-          selected: !option.isDisabled && selectedIds.includes(option.id),
-          hover: hoveredIndex === index
-        })}
-        onClick={this._isValidOptionForSelection(option) ? evt => this._onOptionClick(option, evt) : null}
-        onMouseEnter={this._isValidOptionForSelection(option) ? () => this._setHoveredIndex(index) : null}>
-        {option.render()}
-      </div>
-    );
-  }
-
-  render() {
-    const {classes} = this.props;
-    return (
-      <div
         className={classes.optionsContainer}
         data-hook="options-container"
         tabIndex={1000}>
-        {(this.props.options || []).map(this._renderOption)}
+        {
+          (this.props.options || []).map((option, index) => (
+            <div
+              key={option.id}
+              className={classNames(classes.option, {
+                selected: !option.isDisabled && selectedIds.includes(option.id),
+                hover: hoveredIndex === index
+              })}
+              onClick={this._isValidOptionForSelection(option) ? evt => this._onOptionClick(option, evt) : null}
+              onMouseEnter={this._isValidOptionForSelection(option) ? () => this._setHoveredIndex(index) : null}>
+              {option.render()}
+            </div>
+        ))
+      }
       </div>
     );
   }
