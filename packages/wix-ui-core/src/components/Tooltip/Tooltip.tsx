@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {string, object} from 'prop-types';
-import Popover, {Placement} from '../Popover';
+import Popover, {SharedPopoverProps} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps {
-  placement?: Placement;
+interface TooltipProps extends SharedPopoverProps {
   classes: TooltipClasses;
 }
 

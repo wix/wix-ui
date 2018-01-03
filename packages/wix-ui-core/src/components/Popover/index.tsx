@@ -10,8 +10,6 @@ export interface PopoverProps {
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export type Placement = PopperJS.Placement;
-
 export interface SharedPopoverProps {
   placement?: PopperJS.Placement;
 }
