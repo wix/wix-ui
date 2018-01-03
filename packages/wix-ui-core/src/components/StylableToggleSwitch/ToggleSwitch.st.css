@@ -36,23 +36,3 @@
 }
 
 .toggleIcon {}
-
-/* checked state */
-
-
-/* disabled state */
-
-
-/* hover state */
-
-
-/* focus state */
-
-/* TODO: Get Ben's UX spec */
-/* .root:focus .outerLabel {
-  background-color: value(backgroundColorFocus);
-} */
-
-/* .root:focus :--toggleIcon, .root:checked:focus :--toggleIcon {
-  fill: value(colorHover);
-} */
