@@ -10,46 +10,56 @@ export type PaginationTheme = {
   pageNumber: React.CSSProperties,
   inputField: React.CSSProperties,
   inputTotalPages: React.CSSProperties
-  ellipsis: React.CSSProperties
+  ellipsis: React.CSSProperties,
+  rtl: React.CSSProperties,
+  pagesSelection: React.CSSProperties,
+  navButton: React.CSSProperties,
+  navButtonRtl: React.CSSProperties,
+  disabledNavButton: React.CSSProperties
+};
+
+const buttonCommon: React.CSSProperties = {
+  minWidth: buttonMinWidth,
+  minHeight: buttonMinHeight,
+  padding: buttonPadding,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: buttonMargin,
+  font: buttonFont,
+  userSelect: 'none'
 };
 
 export const core: PaginationTheme = {
   paginationRoot: {
     background: '#fff',
-    display: 'flex',
-    'flex-direction': 'column'
+    display: 'inline-flex',
+  },
+  rtl: {
+    flexDirection: 'row-reverse'
+  },
+  pagesSelection: {
+    display: 'inline-flex'
   },
   currentPage: {
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    padding: buttonPadding,
+    ...buttonCommon,
     cursor: 'default',
-    display: 'inline-flex',
-    border: '1px solid transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: buttonMargin,
-    font: buttonFont,
     color: '#607D8B',
     fontWeight: 'bold',
-    userSelect: 'none'
+    border: '1px solid transparent',
+    outline: 'none'
   },
   pageNumber: {
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    padding: buttonPadding,
+    ...buttonCommon,
     cursor: 'pointer',
-    display: 'inline-flex',
-    border: '1px solid #BBDEFB',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: buttonMargin,
-    font: buttonFont,
     color: '#2196F3',
-    userSelect: 'none',
+    border: '1px solid #BBDEFB',
 
     '&:hover': {
       backgroundColor: '#E1F5FE'
+    },
+    '&:active': {
+      outline: 'none'
     }
   },
   inputField: {
@@ -83,5 +93,20 @@ export const core: PaginationTheme = {
     font: buttonFont,
     color: '#78909C',
     userSelect: 'none'
+  },
+  navButton: {
+    ...buttonCommon,
+    cursor: 'pointer',
+    color: '#2196F3',
+    border: '1px solid #BBDEFB',
+  },
+  navButtonRtl: {
+    transform: 'scaleX(-1)'
+  },
+  disabledNavButton: {
+    ...buttonCommon,
+    color: 'grey',
+    border: 'none',
+    pointer: 'default'
   }
 };

@@ -33,6 +33,18 @@ export type ToggleSwitchTheme = Partial<{
   toggleIconWidth: string;
   toggleIconHeight: string;
   toggleIconDisplay: string;
+
+  outerLabelBorder: string;
+  outerLabelBorderChecked: string;
+  outerLabelBorderDisabled: string;
+  outerLabelBorderHover: string;
+  outerLabelBorderHoverChecked: string;
+
+  innerLabelBorder: string;
+  innerLabelBorderChecked: string;
+  innerLabelBorderDisabled: string;
+  innerLabelBorderHover: string;
+  innerLabelBorderHoverChecked: string;
 }>;
 
 export const core: ToggleSwitchTheme = {
@@ -67,5 +79,17 @@ export const core: ToggleSwitchTheme = {
 
   toggleIconWidth: '8px',
   toggleIconHeight: '6px',
-  toggleIconDisplay: 'none'
+  toggleIconDisplay: 'none',
+
+  outerLabelBorder: 'none',
+  outerLabelBorderChecked: 'none',
+  outerLabelBorderDisabled: 'none',
+  outerLabelBorderHover: 'none',
+  outerLabelBorderHoverChecked: 'none',
+
+  innerLabelBorder: 'none',
+  innerLabelBorderChecked: 'none',
+  innerLabelBorderDisabled: 'none',
+  innerLabelBorderHover: 'none',
+  innerLabelBorderHoverChecked: 'none'
 };

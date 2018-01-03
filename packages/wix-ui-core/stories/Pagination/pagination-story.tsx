@@ -29,15 +29,45 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
 
   render() {
     return (
-      <Pagination
-        dataHook="story-pagination"
-        numOfPages={numOfPages}
-        roomForXPages={6}
-        currentPage={this.state.currPage}
-        showFirstLastButtons
-        navButtonPlacement="inline"
-        paginationMode="pages"
-        onChange={this.handleChange}/>
+      <div>
+        <div><h3>Basic layout</h3>
+          <Pagination
+            dataHook="story-pagination"
+            totalPages={numOfPages}
+            currentPage={this.state.currPage}
+            onChange={this.handleChange}
+            />
+        </div>
+        <div><h3>RTL with "first" and "last" buttons</h3>
+          <Pagination
+            dataHook="story-pagination-rtl"
+            rtl
+            totalPages={numOfPages}
+            currentPage={this.state.currPage}
+            showFirstLastNavButtons
+            onChange={this.handleChange}/>
+        </div>
+        <div><h3>RTL with text</h3>
+          <Pagination
+            rtl
+            totalPages={numOfPages}
+            currentPage={this.state.currPage}
+            showFirstLastNavButtons
+            onChange={this.handleChange}
+            replaceArrowsWithText/>
+        </div>
+        <div><h3>Input Mode</h3>
+          <Pagination
+            rtl
+            totalPages={numOfPages}
+            paginationMode="input"
+            showInputModeTotalPages
+            currentPage={this.state.currPage}
+            showFirstLastNavButtons
+            onChange={this.handleChange}
+            replaceArrowsWithText/>
+        </div>
+    </div>
     );
   }
 }

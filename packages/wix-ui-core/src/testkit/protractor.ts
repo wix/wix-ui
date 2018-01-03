@@ -17,3 +17,6 @@ export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggle
 
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
 export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);
+
+import {dividerDriverFactory} from '../components/Divider/Divider.protractor.driver';
+export const dividerTestkitFactory = protractorTestkitFactoryCreator(dividerDriverFactory);

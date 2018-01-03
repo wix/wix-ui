@@ -20,3 +20,6 @@ export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(tooltipDriverFa
 
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = enzymeTestkitFactoryCreator(paginationDriverFactory);
+
+import {dividerDriverFactory} from '../components/Divider/Divider.driver';
+export const dividerTestkitFactory = enzymeTestkitFactoryCreator(dividerDriverFactory);

@@ -1,48 +1,58 @@
 import * as React from 'react';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
-import {bool, string} from 'prop-types';
+import {bool, string, func} from 'prop-types';
 import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
-export type Placement = PopperJS.Placement;
-
-interface PopoverProps {
+export interface PopoverProps {
   shown?: boolean;
-  placement: Placement;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-type PopoverType = React.SFC<PopoverProps> & {
+export interface SharedPopoverProps {
+  placement?: PopperJS.Placement;
+}
+
+export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
   Element?: React.SFC;
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = props => {
-    const {placement, shown, children} = props;
-    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-
-    return (
-      <Manager>
-        <Target
-          data-hook="popover-element"
-          style={{display: 'inline-block'}}>
-          {childrenObject.Element}
-        </Target>
-        {
-          shown &&
-            <Popper data-hook="popover-content" placement={placement}>
-              <Arrow/>
-              {childrenObject.Content}
-            </Popper>
-        }
-      </Manager>
+const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children}) => {
+  const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
+  return (
+    <Manager
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{display: 'inline-block'}}>
+      <Target data-hook="popover-element">
+        {childrenObject.Element}
+      </Target>
+      {
+        shown &&
+        <Popper data-hook="popover-content" placement={placement}>
+          <Arrow/>
+          {childrenObject.Content}
+        </Popper>
+      }
+    </Manager>
   );
 };
 
+Popover.defaultProps = {
+  placement: 'auto'
+};
+
 Popover.propTypes = {
+  /** The location to display the content */
+  placement: string,
   /** Is the popover content shown */
   shown: bool,
-  /** The location to display the content */
-  placement: string
+  /** Event handler for onMouseEnter event */
+  onMouseEnter: func,
+  /** Event handler for onMouseLeave event */
+  onMouseLeave: func
 };
 
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
