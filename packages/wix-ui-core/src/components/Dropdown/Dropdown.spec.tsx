@@ -2,15 +2,16 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import Dropdown from './index';
-import {HOVER, MULTI_SELECT, SEPARATOR, OPTION} from './constants';
+import {HOVER} from './constants';
+import Divider from '../Divider';
 
 describe ('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const options = [1, 2, 3, 4, 5].map(x => ({
     id: x,
-    value: `value${x}`,
-    type: x === 3 ? SEPARATOR : OPTION,
-    isDisabled: x === 4
+    isSelectable: x !== 3,
+    isDisabled: x === 4,
+    render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
   }));
 
   const createDropdown = (props = {}) => (
@@ -77,7 +78,7 @@ describe ('Dropdown', () => {
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, onDeselect, mode: MULTI_SELECT}));
+      const driver = createDriver(createDropdown({options, onSelect, onDeselect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);
@@ -87,7 +88,7 @@ describe ('Dropdown', () => {
     it('should call onSelect when selection is not empty then changed', () => {
       const onSelect = jest.fn();
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, mode: MULTI_SELECT}));
+      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(1);
@@ -97,7 +98,7 @@ describe ('Dropdown', () => {
     it('should call onDeselect when selection is changed', () => {
       const onSelect = jest.fn();
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, mode: MULTI_SELECT}));
+      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);

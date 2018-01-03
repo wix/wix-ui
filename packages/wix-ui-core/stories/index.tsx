@@ -12,12 +12,13 @@ import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
 import InputWithOptions from '../src/components/InputWithOptions';
+import Divider from '../src/components/Divider';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
   id: x,
-  value: x !== 3 ? `value${x}` : null,
-  type: x === 3 ? 'separator' : 'option',
-  isDisabled: x === 4
+  isSelectable: x !== 3,
+  isDisabled: x === 4,
+  render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
 }));
 
 storiesOf('Components', module)

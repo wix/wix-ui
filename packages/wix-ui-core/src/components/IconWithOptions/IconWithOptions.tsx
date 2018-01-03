@@ -1,21 +1,21 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
 import {SharedDropdownProps, DropdownElementProps} from '../Dropdown/Dropdown';
-import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
+import {HOVER, CLICK} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
-import {oneOf, string, object, func, arrayOf} from 'prop-types';
+import {oneOf, string, object, func, arrayOf, bool} from 'prop-types';
 
 export interface IconWithOptionsProps extends SharedDropdownProps {
   iconUrl: string;
 }
 
 const IconWithOptions: React.SFC<IconWithOptionsProps> =
-  ({options, openTrigger, placement, onSelect, iconUrl, mode}) => (
+  ({options, openTrigger, placement, onSelect, iconUrl, closeOnSelect}) => (
     <Dropdown
       options={options}
       placement={placement}
       openTrigger={openTrigger}
-      mode={mode}
+      closeOnSelect={closeOnSelect}
       onSelect={onSelect}>
       {
         (props: DropdownElementProps) =>
@@ -31,7 +31,7 @@ IconWithOptions.defaultProps = {
   openTrigger: HOVER,
   placement: 'bottom',
   options: [],
-  mode: SINGLE_SELECT
+  closeOnSelect: true
 };
 
 IconWithOptions.propTypes = {
@@ -45,7 +45,7 @@ IconWithOptions.propTypes = {
   /** The icon url to display */
   iconUrl: string.isRequired,
   /** Dropdown mode - single / multi select */
-  mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
+  closeOnSelect: bool
 };
 
 export default createHOC(IconWithOptions);

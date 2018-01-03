@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Popover, {SharedPopoverProps} from '../Popover';
-import {string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
+import {bool, string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
 import DropdownContent from './DropdownContent';
 import {Option} from './DropdownContent/DropdownContent';
-import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE, SINGLE_SELECT, SINGLE_SELECT_TYPE, MULTI_SELECT, MULTI_SELECT_TYPE, SEPARATOR} from './constants';
+import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE} from './constants';
 
 type DropdownClasses = {
   targetElement: string;
@@ -16,17 +16,17 @@ export interface DropdownElementProps {
 }
 
 interface DropdownProps {
-  children: (props: DropdownElementProps) => React.ReactNode;
   classes: DropdownClasses;
+  children: (props: DropdownElementProps) => React.ReactNode;
 }
 
 export interface SharedDropdownProps extends SharedPopoverProps {
-  openTrigger?: CLICK_TYPE | HOVER_TYPE;
   options: Array<Option>;
+  openTrigger?: CLICK_TYPE | HOVER_TYPE;
   onSelect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
   onDeselect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
-  mode?: SINGLE_SELECT_TYPE | MULTI_SELECT_TYPE;
   initialSelectedIds?: Array<string | number>;
+  closeOnSelect: boolean;
 }
 
 interface DropdownState {
@@ -37,13 +37,13 @@ interface DropdownState {
 
 class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
   static defaultProps = {
-    openTrigger: CLICK,
     placement: 'bottom-start',
+    openTrigger: CLICK,
     options: [],
-    mode: SINGLE_SELECT,
     onSelect: () => null,
     onDeselect: () => null,
-    initialSelectedIds: []
+    initialSelectedIds: [],
+    closeOnSelect: true
   };
 
   static propTypes = {
@@ -62,7 +62,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     /** render function that renders the element with the state */
     children: func.isRequired,
     /** Dropdown mode - single / multi select */
-    mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
+    closeOnSelect: bool
   };
 
   constructor(props) {
@@ -77,7 +77,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     const selectedIds =
        (initialSelectedIds || [])
          .map(id => options.find(option => id === option.id))
-         .filter(option => !!option && !option.isDisabled && option.type !== SEPARATOR)
+         .filter(option => !!option && !option.isDisabled && option.isSelectable)
          .map(x => x.id);
 
     this.state = {
@@ -89,10 +89,6 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
 
   handleClickOutside() {
     this.close();
-  }
-
-  _isSingleSelect() {
-    return this.props.mode === SINGLE_SELECT;
   }
 
   toggleOpen() {
@@ -135,16 +131,15 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
   }
 
   _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
-    const isSingleSelect = this._isSingleSelect();
-    const {onSelect, onDeselect} = this.props;
+    const {onSelect, onDeselect, closeOnSelect} = this.props;
     const {selectedIds} = this.state;
     let callback = onSelect;
     const newState = {
-      isOpen: !isSingleSelect,
+      isOpen: !closeOnSelect,
       selectedIds: []
     };
 
-    if (isSingleSelect) {
+    if (closeOnSelect) {
       if (selectedIds.includes(option.id)) {
         return this.close();
       } else {

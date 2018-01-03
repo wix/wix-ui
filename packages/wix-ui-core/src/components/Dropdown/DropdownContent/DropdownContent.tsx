@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {func, object, arrayOf, oneOfType, number, string} from 'prop-types';
-import * as uniqueId from 'lodash/uniqueId';
-import {OPTION, SEPARATOR, OPTION_TYPE, SEPARATOR_TYPE, NOT_HOVERED_INDEX} from '../constants';
+import {NOT_HOVERED_INDEX} from '../constants';
 import * as classNames from 'classnames';
-import Divider from '../../Divider';
 import {createHOC} from '../../../createHOC';
 
 export type DropdownContentClasses = {
@@ -13,10 +11,9 @@ export type DropdownContentClasses = {
 
 export interface Option {
   id: number | string;
-  value: any;
-  type: OPTION_TYPE | SEPARATOR_TYPE;
   isDisabled: boolean;
-  valueParser: (value: any) => string;
+  isSelectable: boolean;
+  render: () => React.ReactNode;
 }
 
 export interface DropdownContentProps {
@@ -83,7 +80,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   _isValidOptionForSelection(option: Option) {
-    return option.type === OPTION && !option.isDisabled;
+    return option.isSelectable && !option.isDisabled;
   }
 
   _hoverNextItem(interval: number) {
@@ -132,28 +129,18 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     const {selectedIds, classes} = this.props;
     const {hoveredIndex} = this.state;
 
-    switch (option.type) {
-      case OPTION:
-        return (
-          <div
-            className={classNames(classes.option, {
-              selected: !option.isDisabled && selectedIds.includes(option.id),
-              hover: hoveredIndex === index
-            })}
-            onMouseEnter={!option.isDisabled ? () => this._setHoveredIndex(index) : null}
-            key={option.id}
-            onClick={option.isDisabled ? null : evt => this._onOptionClick(option, evt)}>
-            {option.value}
-          </div>
-        );
-      case SEPARATOR:
-        return (
-          <Divider key={uniqueId(SEPARATOR)}>
-            {option.value}
-          </Divider>);
-      default:
-        return null;
-    }
+    return (
+      <div
+        key={option.id}
+        className={classNames(classes.option, {
+          selected: !option.isDisabled && selectedIds.includes(option.id),
+          hover: hoveredIndex === index
+        })}
+        onClick={this._isValidOptionForSelection(option) ? evt => this._onOptionClick(option, evt) : null}
+        onMouseEnter={this._isValidOptionForSelection(option) ? () => this._setHoveredIndex(index) : null}>
+        {option.render()}
+      </div>
+    );
   }
 
   render() {

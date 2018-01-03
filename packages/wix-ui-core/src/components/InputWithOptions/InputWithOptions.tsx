@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
 import {SharedDropdownProps, DropdownElementProps} from '../Dropdown/Dropdown';
-import {SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
-import {oneOf, object, arrayOf} from 'prop-types';
+import {bool, object, arrayOf} from 'prop-types';
 
 export interface InputWithOptionsProps extends SharedDropdownProps {
 }
@@ -16,14 +15,14 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
 
   static defaultProps = {
     options: [],
-    mode: SINGLE_SELECT
+    closeOnSelect: true
   };
 
   static propTypes = {
     /** The dropdown options array */
     options: arrayOf(object).isRequired,
     /** Dropdown mode - single / multi select */
-    mode: oneOf([SINGLE_SELECT, MULTI_SELECT])
+    closeOnSelect: bool
   };
 
   constructor(props) {
@@ -51,7 +50,7 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
   }
 
   render () {
-    const {options, mode} = this.props;
+    const {options, closeOnSelect} = this.props;
     const {inputValue} = this.state;
 
     return (
@@ -59,7 +58,7 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
         options={options}
         onSelect={this.onSelect}
         onDeselect={this.onDeselect}
-        mode={mode}>
+        closeOnSelect={closeOnSelect}>
         {
           (props: DropdownElementProps) =>
             <input
