@@ -1,12 +1,5 @@
-import {DomTestkit} from 'wix-ui-jss/domTestkit';
-
-export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrigger}) => {
-  let domTestkit = null;
+export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
   const toggleSwitch = element.querySelector('input');
-
-  if (componentInstance) {
-    domTestkit =  new DomTestkit({componentId: componentInstance.id} );
-  }
 
   return {
     /** checks if element exists */
@@ -36,19 +29,9 @@ export const toggleSwitchDriverFactory = ({element, componentInstance, eventTrig
     /** returns elements innerHtml */
     styles: {
       /** returns elements display css property */
-      getRootDisplay: () => {
-        return domTestkit.getCssValue({
-          className: 'root',
-          property: 'display'
-        });
-      },
+      getRootDisplay: () => window.getComputedStyle(element).display,
       /** returns elements border-radius css property */
-      getBorderRadius() {
-        return domTestkit.getCssValue({
-          className: 'innerLabel',
-          property: 'border-radius'
-        });
-      }
+      getBorderRadius: () => window.getComputedStyle(element.querySelector('.outerLabel')).borderRadius
     }
   };
 };

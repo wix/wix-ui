@@ -12,9 +12,7 @@ export const scrollToElement = element => {
 export const waitForVisibilityOf = (elements, errorMsg, timeout = 10000) => {
   const arrayOfElements = Array.isArray(elements) ? [...elements] : [elements];
 
-  arrayOfElements.map(elem =>
+  return promise.all(arrayOfElements.map(elem =>
     browser.wait(ExpectedConditions.visibilityOf(elem), timeout, errorMsg)
-  );
-
-  return promise.all(arrayOfElements);
+  ));
 };

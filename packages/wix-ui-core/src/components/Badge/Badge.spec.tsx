@@ -37,7 +37,7 @@ describe('Badge', () => {
       const theme: BadgeTheme = {
           height: '36px',
           padding: '10px',
-          color: '#fdb10c',
+          color: 'rgb(253, 177, 12)',
           opacity: '0.5',
           borderRadius: '5px',
           fontSize: '16px',
