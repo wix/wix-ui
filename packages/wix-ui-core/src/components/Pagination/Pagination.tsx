@@ -175,6 +175,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const navButton = (name: string, content: string, order: number): JSX.Element => {
       return (
         <button
+          id={name + '_page'}
           key={name.toUpperCase()}
           data-hook={name.toUpperCase()}
           className={classNames({
@@ -210,6 +211,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
     return (
       <nav
+        id="pagination_root"
         data-hook="PAGINATION"
         className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.rtl})}
         role="navigation"
@@ -219,6 +221,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           this.renderNavButton(NavButtonTypes.PREVIOUS)
         ]}
         <span
+          id="pages_selection"
           data-hook="PAGES_SELECTION"
           className={classNames(classes.pagesSelection, {[classes.rtl]: (this.props.rtl && paginationMode === 'pages')})}
           style={{order: 3}}>

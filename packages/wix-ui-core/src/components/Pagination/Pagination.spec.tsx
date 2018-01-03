@@ -24,6 +24,22 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination totalPages={5}/>);
       expect(pagination.root.getAttribute('aria-label')).toEqual('Pagination Navigation');
     });
+
+    it('has correct DOM elements order for screen reader', () => {
+      // this test is used to lock down the order of "elements of interest" for screen reader flow. This also determines native tab focus
+      // note - the actual visual order of the elements could be different (using css ordering)
+      const pagination = createDriver(<Pagination totalPages={5} showFirstLastNavButtons/>);
+      const nextBtn = pagination.getNavButton('next');
+      const prevBtn = pagination.getNavButton('previous');
+      const firstBtn = pagination.getNavButton('first');
+      const lastBtn = pagination.getNavButton('last');
+      const pageSelection = pagination.getPage(0).parentElement;
+
+      expect(nextBtn.compareDocumentPosition(prevBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(prevBtn.compareDocumentPosition(pageSelection)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(pageSelection.compareDocumentPosition(firstBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(firstBtn.compareDocumentPosition(lastBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+    });
   });
 
   describe('Page numbers mode', () => {
