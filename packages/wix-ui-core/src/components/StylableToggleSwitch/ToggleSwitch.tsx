@@ -3,7 +3,7 @@ import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {getViewBox, getPathDescription} from '../ToggleSwitch/utils';
 
-type ToggleSwitchClasses = {
+export type ToggleSwitchClasses = {
   root: string;
   outerLabel: string;
   innerLabel: string;
@@ -14,7 +14,7 @@ export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  classes: ToggleSwitchClasses;
+  classes?: ToggleSwitchClasses;
   id?: string;
 }
 
