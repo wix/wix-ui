@@ -20,12 +20,11 @@
     "precommit": "haste lint",
     "buildIcons": "svg2react-icon 'src/Icons/raw' 'src/Icons/dist' true",
     "pretest": "npm run buildIcons && haste build",
-    "build": "haste lint && npm run buildIcons && haste build && npm run export-components",
+    "build": "haste lint && npm run buildIcons && haste build",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",
-    "release": "haste release",
-    "export-components": "cp dist/src/Icons/dist/components/*.js ."
+    "release": "haste release"
   },
   "devDependencies": {
     "@types/chai": "~4.0.0",
