@@ -9,6 +9,6 @@ const BOStylableToggleSwitch: React.ComponentClass<any> = withStylable(
   ({size, skin}) => ({[size]: true, [skin]: true})
 );
 
-BOStylableToggleSwitch.defaultProps = {skin: 'success', size: 'large'};
+BOStylableToggleSwitch.defaultProps = {skin: 'standard', size: 'large'};
 
 export default BOStylableToggleSwitch;

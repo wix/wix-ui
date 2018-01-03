@@ -25,6 +25,8 @@ export class BOStylableToggleSwitchStory extends React.Component<{}, {checked: b
         checked={this.state.checked}
         onChange={() => this.setState({checked: !this.state.checked})}
         data-hook="story-StylableToggleSwitch"
+        size="small"
+        skin="success"
         />
     );
   }
