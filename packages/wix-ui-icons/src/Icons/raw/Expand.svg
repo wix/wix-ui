@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Billing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="002-billing-Default-hover" transform="translate(-1164.000000, -638.000000)" fill-rule="nonzero" fill="#3899EC">
+            <g id="1260-starter">
+                <g id="Form/-Card-" transform="translate(246.000000, 216.000000)">
+                    <g id="Group-6" transform="translate(906.000000, 410.000000)">
+                        <path d="M18,18 L18,12.5 C18,12.2238576 18.2238576,12 18.5,12 C18.7761424,12 19,12.2238576 19,12.5 L19,18 L24.5,18 C24.7761424,18 25,18.2238576 25,18.5 C25,18.7761424 24.7761424,19 24.5,19 L19,19 L19,24.5 C19,24.7761424 18.7761424,25 18.5,25 C18.2238576,25 18,24.7761424 18,24.5 L18,19 L12.5,19 C12.2238576,19 12,18.7761424 12,18.5 C12,18.2238576 12.2238576,18 12.5,18 L18,18 L18,18 Z" id="Combined-Shape" transform="translate(18.500000, 18.500000) rotate(-360.000000) translate(-18.500000, -18.500000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

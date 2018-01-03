@@ -14,21 +14,18 @@
     "testkit"
   ],
   "publishConfig": {
-    "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "precommit": "haste lint",
     "buildIcons": "svg2react-icon 'src/Icons/raw' 'src/Icons/dist' true",
-    "pretest": "npm run buildIcons && haste build && build-storybook",
+    "pretest": "npm run buildIcons && haste build",
     "test": "haste test",
     "posttest": "haste lint",
-    "start": "npm run buildIcons && haste start & npm run storybook",
-    "release": "haste release && gh-pages-auto-release --dist=storybook-static",
-    "storybook": "start-storybook -p 6006"
+    "start": "npm run buildIcons && haste start",
+    "release": "haste release"
   },
   "devDependencies": {
-    "@storybook/react": "~3.2.0",
-    "@storybook/storybook-deployer": "~2.0.0",
     "@types/chai": "~4.0.0",
     "@types/mocha": "~2.2.0",
     "@types/prop-types": "~15.5.0",
@@ -45,8 +42,7 @@
     "react-dom": "15.6.1",
     "react-test-renderer": "~15.6.0",
     "svg2react-icon": "^1.0.51",
-    "typescript": "~2.4.0",
-    "wix-storybook-utils": "^1.0.17"
+    "typescript": "~2.4.0"
   },
   "haste": {
     "preset": "yoshi"

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="11"
+     viewBox="0 0 16 11">
+  <path id="a"
+        fill-rule="evenodd" transform="translate(0 -35)"
+        d="M8 38H4a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm7 5.382L11 41.5V44a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v2.5l4-1.882v5.764zM12 38v-1a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1l4 2v-9l-4 2z" />
+</svg>

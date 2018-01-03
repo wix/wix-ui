@@ -1,3 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <path d="M21,19 L23,19 L23,20 L1,20 L1,19 L3,19 C3,15 4,8 11,7 L11,6 L10,6 L10,5 L11,5 L13,5 L14,5 L14,6 L13,6 L13,7 C20,8 21,15 21,19 Z M11,8 C5.2,8.9 4,14.5 4,19 L20,19 C20,14.5 18.8,8.9 13,8 L11,8 Z M10.9,15.5 L15.2,11.1 L16,11.9 L10.9,17 L8,14.1 L8.8,13.4 L10.9,15.5 Z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24">
+<path d="M21,18c0-4-1-11-8-12V5h1V4h-1h-2h-1v1h1v1c-7,1-8,8-8,12H1v1h22v-1H21z M11,7h2c5.8,0.9,7,6.5,7,11H4C4,13.5,5.2,7.9,11,7z "/>
+<polygon id="Icon" points="10.9,14.5 8.8,12.4 8,13.1 10.9,16 16,10.9 15.2,10.1 "/>
 </svg>

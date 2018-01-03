@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="1px" viewBox="0 0 13 1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Billing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="005-billing-Default-open" transform="translate(-1164.000000, -642.000000)" fill-rule="nonzero" fill="#3899EC">
+            <g id="1260-starter">
+                <g id="Form/-Card-" transform="translate(244.000000, 357.000000)">
+                    <path d="M927,285 L932.5,285 C932.776142,285 933,285.223858 933,285.5 C933,285.776142 932.776142,286 932.5,286 L927,286 L926,286 L920.5,286 C920.223858,286 920,285.776142 920,285.5 C920,285.223858 920.223858,285 920.5,285 L926,285 L927,285 Z" id="Combined-Shape" transform="translate(926.500000, 285.500000) rotate(-360.000000) translate(-926.500000, -285.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
