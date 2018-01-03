@@ -1,7 +1,8 @@
+import {sheetMapper} from '../src/domStyleRenderer';
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {withClasses} from '../src/';
-import {DomTestkit} from '../testkit/domTestkit';
+import * as ReactDOM from 'react-dom';
 
 type Classes = {classes: {someClass: string}};
 
@@ -39,48 +40,46 @@ describe('withClasses', () => {
 
   it('should set an id for the componet and map it to the style element in the dom', () => {
     wrapper = render(<StyledComponent/>);
-    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
-
     expect(wrapper.node.id).toBeDefined();
-    expect(domTestkit.getStyleElementByComponentId(wrapper.node.id)).toBe(getJssStyleElement());
+    expect(sheetMapper[wrapper.node.id].styleElement).toBe(getJssStyleElement());
   });
 
   it('should inject the correct style tag to the DOM', () => {
     wrapper = render(<StyledComponent/>);
-    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
-    expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('green');
+    const element = ReactDOM.findDOMNode(wrapper.node);
+    expect(window.getComputedStyle(element).color).toBe('green');
   });
 
   it('should calculate the style with respect to the theme prop', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
-    expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('blue');
+    const element = ReactDOM.findDOMNode(wrapper.node);
+    expect(window.getComputedStyle(element).color).toBe('blue');
   });
 
   it('should update the style element when the theme changes, and remove the old style element', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
-    const styleElementBefore = domTestkit.getStyleElementByComponentId(wrapper.node.id);
+    const element = ReactDOM.findDOMNode(wrapper.node);
+    const styleElementBefore = window.getComputedStyle(element);
     const numberOfDomStyleElements = document.querySelectorAll('style').length;
 
     wrapper.setProps({theme: {color: 'yellow'}});
-    const styleElementAfter = domTestkit.getStyleElementByComponentId(wrapper.node.id);
+    const styleElementAfter = window.getComputedStyle(element);
     const updatedNumberOfDomStyleElements = document.querySelectorAll('style').length;
 
     expect(numberOfDomStyleElements).toBe(updatedNumberOfDomStyleElements);
     expect(styleElementBefore).not.toBe(styleElementAfter);
-    expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('yellow');
+    expect(styleElementAfter.color).toBe('yellow');
   });
 
   it('should not update the style tag when the component re-renders not due to a theme changes', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const domTestkit = new DomTestkit({componentId: wrapper.node.id});
-    const styleElementBefore = domTestkit.getStyleElementByComponentId(wrapper.node.id);
+    const element = ReactDOM.findDOMNode(wrapper.node);
+    const styleElementBefore = sheetMapper[wrapper.node.id];
 
     wrapper.setProps();
-    const styleElementAfter = domTestkit.getStyleElementByComponentId(wrapper.node.id);
+    const styleElementAfter = sheetMapper[wrapper.node.id];
     expect(styleElementBefore).toBe(styleElementAfter);
-    expect(domTestkit.getCssValue({className: 'someClass', property: 'color'})).toBe('blue');
+    expect(window.getComputedStyle(element).color).toBe('blue');
   });
 });
 
