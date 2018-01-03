@@ -3,7 +3,7 @@ export interface BoxDriverFactoryInput {
   componentInstance: any;
 }
 
-export const boxDriverFactory = ({element, componentInstance}: BoxDriverFactoryInput) => ({
+export const boxDriverFactory = ({element}: BoxDriverFactoryInput) => ({
     /** check if element exists */
     exists: () => !!element,
     /** return box flex direction value */
@@ -12,5 +12,4 @@ export const boxDriverFactory = ({element, componentInstance}: BoxDriverFactoryI
     getAlignment: () => window.getComputedStyle(element).alignItems,
     /** returns computed style of child at place idx */
     getChildStyle: (idx: number): CSSStyleDeclaration => window.getComputedStyle(element.children[idx])
-
 });
