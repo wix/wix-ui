@@ -2,7 +2,6 @@ import {sheetMapper} from '../src/domStyleRenderer';
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {withClasses} from '../src/';
-import * as ReactDOM from 'react-dom';
 
 type Classes = {classes: {someClass: string}};
 
@@ -46,19 +45,19 @@ describe('withClasses', () => {
 
   it('should inject the correct style tag to the DOM', () => {
     wrapper = render(<StyledComponent/>);
-    const element = ReactDOM.findDOMNode(wrapper.node);
+    const element = wrapper.getDOMNode();
     expect(window.getComputedStyle(element).color).toBe('green');
   });
 
   it('should calculate the style with respect to the theme prop', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const element = ReactDOM.findDOMNode(wrapper.node);
+    const element = wrapper.getDOMNode();
     expect(window.getComputedStyle(element).color).toBe('blue');
   });
 
   it('should update the style element when the theme changes, and remove the old style element', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const element = ReactDOM.findDOMNode(wrapper.node);
+    const element = wrapper.getDOMNode();
     const styleElementBefore = window.getComputedStyle(element);
     const numberOfDomStyleElements = document.querySelectorAll('style').length;
 
@@ -73,7 +72,7 @@ describe('withClasses', () => {
 
   it('should not update the style tag when the component re-renders not due to a theme changes', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
-    const element = ReactDOM.findDOMNode(wrapper.node);
+    const element = wrapper.getDOMNode();
     const styleElementBefore = sheetMapper[wrapper.node.id];
 
     wrapper.setProps();
