@@ -32,7 +32,11 @@ class Box extends React.PureComponent<BoxProps> {
 
   render() {
     const {children, classes, vertical, lastItemTakesRemainingWidth} = this.props;
-    const classNames = classnames(classes.boxRoot, {[classes.vertical]: vertical}, {[classes.horizontal]: !vertical}, {[classes.lastItemTakesRemainingWidth]: lastItemTakesRemainingWidth});
+    const classNames = classnames(classes.boxRoot, {
+      [classes.vertical]: vertical,
+      [classes.horizontal]: !vertical,
+      [classes.lastItemTakesRemainingWidth]: lastItemTakesRemainingWidth
+    });
     return (
       <div className={classNames}>{children}</div>
     );

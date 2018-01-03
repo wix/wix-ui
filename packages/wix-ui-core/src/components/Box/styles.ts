@@ -1,11 +1,9 @@
 import {horizontalCore, verticalCore, BoxTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
-// any <Box /> which isn't vertical will deafult to horizontal - https://github.com/wix/wix-ui/pull/126#discussion_r159144509
-
 export const styles = (theme: BoxTheme) => {
   const verticalTheme = defaultsDeep({...theme}, verticalCore);
-  const horizontalTheme = defaultsDeep(theme, horizontalCore);
+  const horizontalTheme = defaultsDeep({...theme}, horizontalCore);
 
   const crossAxisAlignmentMap = {
     start: 'flex-start',
@@ -34,10 +32,10 @@ export const styles = (theme: BoxTheme) => {
       }
     },
     lastItemTakesRemainingWidth: {
-      '& *:last-child': {
+      '& >:last-child': {
         flexGrow: 1,
       },
-      '& *:not(:last-child)': {
+      '& >:not(:last-child)': {
         flexGrow: 0,
       }
     }

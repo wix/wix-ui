@@ -3,14 +3,14 @@ export interface BoxDriverFactoryInput {
   componentInstance: any;
 }
 
-export const boxDriverFactory = ({element, componentInstance}: BoxDriverFactoryInput) => {
-  return {
+export const boxDriverFactory = ({element, componentInstance}: BoxDriverFactoryInput) => ({
     /** check if element exists */
     exists: () => !!element,
     /** return box flex direction value */
     getFlexDirection: () => window.getComputedStyle(element).flexDirection,
     /** return box item alignment value */
     getAlignment: () => window.getComputedStyle(element).alignItems,
-    getChildStyle: (child: number): CSSStyleDeclaration => window.getComputedStyle(element.children[child])
-  };
-};
+    /** returns computed style of child at place idx */
+    getChildStyle: (idx: number): CSSStyleDeclaration => window.getComputedStyle(element.children[idx])
+
+});
