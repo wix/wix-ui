@@ -22,7 +22,6 @@ export function withStylable(CoreComponent: React.ComponentClass<any>, styleshee
   };
 }
 
-// Specific Stylable ToggleSwitch adapter
 export const StylableToggleSwitch = withStylable(
   ToggleSwitch,
   style,
