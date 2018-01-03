@@ -20,10 +20,12 @@
     "precommit": "haste lint",
     "buildIcons": "svg2react-icon 'src/Icons/raw' 'src/Icons/dist' true",
     "pretest": "npm run buildIcons && haste build",
+    "build": "haste lint && npm run buildIcons && haste build && npm run export-components",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",
-    "release": "haste release"
+    "release": "haste release",
+    "export-components": "cp dist/src/Icons/dist/components/*.js ."
   },
   "devDependencies": {
     "@types/chai": "~4.0.0",
@@ -36,6 +38,7 @@
     "gh-pages-auto-release": "~1.1.0",
     "haste-preset-yoshi": "latest",
     "husky": "~0.14.0",
+    "import-path": "0.0.13",
     "jsdom": "~11.1.0",
     "prop-types": "~15.6.0",
     "react": "15.6.1",
