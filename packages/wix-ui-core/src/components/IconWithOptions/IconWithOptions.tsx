@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
-import {SharedDropdownProps} from '../Dropdown/Dropdown';
+import {SharedDropdownProps, DropdownElementProps} from '../Dropdown/Dropdown';
 import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
 import {oneOf, string, object, func, arrayOf} from 'prop-types';
@@ -18,11 +18,11 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
       mode={mode}
       onSelect={onSelect}>
       {
-        (onKeyDown) =>
+        (props: DropdownElementProps) =>
           <img
             src={iconUrl}
             tabIndex={5}
-            onKeyDown={onKeyDown}/>
+            onKeyDown={props.onKeyDown}/>
       }
     </Dropdown>
   );

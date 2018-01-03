@@ -11,6 +11,7 @@ import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
+import InputWithOptions from '../src/components/InputWithOptions';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
   id: x,
@@ -31,6 +32,14 @@ storiesOf('Components', module)
       <IconWithOptions
         iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
         dataHook="story-icon-with-options"
+        options={dropdownOptions}/>
+    </div>
+  ))
+  .add('InputWithOptions', () => (
+    <div style={{padding: '50px'}}>
+      <InputWithOptions
+        mode="multiSelect"
+        dataHook="story-input-with-options"
         options={dropdownOptions}/>
     </div>
   ))

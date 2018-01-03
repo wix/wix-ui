@@ -25,7 +25,7 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
     <Manager
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={{display: 'inline-block'}}>
+      style={{display: 'inline-block', position: 'relative'}}>
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>

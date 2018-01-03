@@ -11,8 +11,12 @@ type DropdownClasses = {
   targetElement: string;
 };
 
+export interface DropdownElementProps {
+  onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
+}
+
 interface DropdownProps {
-  children: (onKeyDown) => React.ReactNode;
+  children: (props: DropdownElementProps) => React.ReactNode;
   classes: DropdownClasses;
 }
 
@@ -179,7 +183,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
             className={classes.targetElement}
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
-            {children(this.onKeyDown)}
+            {children({onKeyDown: this.onKeyDown})}
           </div>
         </Popover.Element>
         <Popover.Content>

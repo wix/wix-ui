@@ -16,6 +16,7 @@ export interface Option {
   value: any;
   type: OPTION_TYPE | SEPARATOR_TYPE;
   isDisabled: boolean;
+  valueParser: (value: any) => string;
 }
 
 export interface DropdownContentProps {
