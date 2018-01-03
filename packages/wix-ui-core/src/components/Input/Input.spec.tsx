@@ -130,6 +130,11 @@ describe('Input', () => {
   });
 
   describe('autoFocus prop', () => {
+    it('should not be focused by default', () => {
+      const driver = createDriver(<Input/>);
+      expect(driver.isFocus()).toBeFalsy();
+    });
+
     it('should be focused when autoFoucs is true', () => {
       const driver = createDriver(<Input autoFocus/>);
       expect(driver.isFocus()).toBeTruthy();

@@ -50,7 +50,6 @@ class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
-    maxLength: 524288,
     type: 'text'
   };
 
