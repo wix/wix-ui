@@ -16,7 +16,7 @@ interface PaginationProps {
   previousText?: string;
   nextText?: string;
   lastText?: string;
-  direction?: 'ltr' | 'rtl';
+  rtl?: boolean;
   width?: number;
   alwaysShowFirstPage?: boolean;
   alwaysShowLastPage?: boolean;
@@ -53,8 +53,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     nextText: PropTypes.string,
     /** Text to appear for the 'last' navigation button when prop 'replaceArrowsWithText' is true */
     lastText: PropTypes.string,
-    /** The pagination direction. acceots 'ltr' (left to right) or 'rtl' (right to left). defaults to 'ltr' */
-    direction: PropTypes.oneOf(['ltr' , 'rtl']),
+    /**  Whether the component layout is right to left */
+    rtl: PropTypes.bool,
     /** The pixel width the component will render in  */
     width: PropTypes.number,
     /** Whether the page numbers always show the first page  */
@@ -72,7 +72,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
     paginationMode: 'pages',
-    direction: 'ltr',
     showInputModeTotalPages: false
   };
 
@@ -179,7 +178,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           key={name.toUpperCase()}
           data-hook={name.toUpperCase()}
           className={classNames({
-            [classes.navButtonRtl]: (this.props.direction === 'rtl' && !this.props.replaceArrowsWithText),
+            [classes.navButtonRtl]: (this.props.rtl && !this.props.replaceArrowsWithText),
             [classes.navButton]: !isDisabled,
             [classes.disabledNavButton]: isDisabled
           })}
@@ -206,13 +205,13 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   render() {
-    const {showFirstLastNavButtons, paginationMode, classes, direction} = this.props;
+    const {showFirstLastNavButtons, paginationMode, classes} = this.props;
     this.currentPage = this.validateCurrentPage();
 
     return (
       <nav
         data-hook="PAGINATION"
-        className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.direction === 'rtl'})}
+        className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.rtl})}
         role="navigation"
         aria-label="Pagination Navigation">
         {[
@@ -221,7 +220,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         ]}
         <span
           data-hook="PAGES_SELECTION"
-          className={classNames(classes.pagesSelection, {[classes.rtl]: (direction === 'rtl' && paginationMode === 'pages')})}
+          className={classNames(classes.pagesSelection, {[classes.rtl]: (this.props.rtl && paginationMode === 'pages')})}
           style={{order: 3}}>
             { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
           </span>

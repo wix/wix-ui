@@ -1,6 +1,6 @@
 import {paginationTestkitFactory} from '../../testkit/protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
-import {browser, $} from 'protractor';
+import {browser} from 'protractor';
 import * as eyes from 'eyes.it';
 
 describe('Pagination', () => {
@@ -13,10 +13,10 @@ describe('Pagination', () => {
 
     await waitForVisibilityOf(pagination.element(), 'Cannot find Pagination');
 
-    const prevLoc = await pagination.getNavButtonLocation('previous');
-    const nextLoc = await pagination.getNavButtonLocation('next');
-    const pageSelectionLoc = await $('[data-hook="PAGES_SELECTION"]').getLocation();
-    const pageSelectionSize = await $('[data-hook="PAGES_SELECTION"]').getSize();
+    const prevLoc = await pagination.getElementLocation('PREVIOUS');
+    const nextLoc = await pagination.getElementLocation('NEXT');
+    const pageSelectionLoc = await pagination.getElementLocation('PAGES_SELECTION');
+    const pageSelectionSize = await pagination.getElementSize('PAGES_SELECTION');
 
     expect(prevLoc.x).toBeLessThan(pageSelectionLoc.x);
     expect(nextLoc.x).toBeGreaterThan(pageSelectionLoc.x + pageSelectionSize.width);
@@ -27,10 +27,10 @@ describe('Pagination', () => {
 
     await waitForVisibilityOf(pagination.element(), 'Cannot find Pagination');
 
-    const prevLoc = await pagination.getNavButtonLocation('previous');
-    const nextLoc = await pagination.getNavButtonLocation('next');
-    const pageSelectionLoc = await $('[data-hook="PAGES_SELECTION"]').getLocation();
-    const pageSelectionSize = await $('[data-hook="PAGES_SELECTION"]').getSize();
+    const prevLoc = await pagination.getElementLocation('PREVIOUS');
+    const nextLoc = await pagination.getElementLocation('NEXT');
+    const pageSelectionLoc = await pagination.getElementLocation('PAGES_SELECTION');
+    const pageSelectionSize = await pagination.getElementSize('PAGES_SELECTION');
 
     expect(prevLoc.x).toBeGreaterThan(pageSelectionLoc.x + pageSelectionSize.width);
     expect(nextLoc.x).toBeLessThan(pageSelectionLoc.x);

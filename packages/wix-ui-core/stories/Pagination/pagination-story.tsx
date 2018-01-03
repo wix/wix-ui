@@ -30,19 +30,18 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
   render() {
     return (
       <div>
-        <div><h3>Vanilla</h3>
+        <div><h3>Basic layout</h3>
           <Pagination
             dataHook="story-pagination"
             totalPages={numOfPages}
             currentPage={this.state.currPage}
-            showFirstLastNavButtons
             onChange={this.handleChange}
             />
         </div>
-        <div><h3>RTL</h3>
+        <div><h3>RTL with "first" and "last" buttons</h3>
           <Pagination
             dataHook="story-pagination-rtl"
-            direction="rtl"
+            rtl
             totalPages={numOfPages}
             currentPage={this.state.currPage}
             showFirstLastNavButtons
@@ -50,8 +49,7 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
         </div>
         <div><h3>RTL with text</h3>
           <Pagination
-            dataHook="story-pagination-rtl"
-            direction="rtl"
+            rtl
             totalPages={numOfPages}
             currentPage={this.state.currPage}
             showFirstLastNavButtons
@@ -60,8 +58,7 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
         </div>
         <div><h3>Input Mode</h3>
           <Pagination
-            dataHook="story-pagination-rtl"
-            direction="rtl"
+            rtl
             totalPages={numOfPages}
             paginationMode="input"
             showInputModeTotalPages
