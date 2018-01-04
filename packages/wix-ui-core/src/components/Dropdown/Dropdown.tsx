@@ -80,10 +80,6 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     this.close();
   }
 
-  toggleOpen() {
-    this.state.isOpen ? this.close() : this.open();
-  }
-
   open() {
     if (!this.state.isOpen) {
       this.setState({isOpen: true});
@@ -96,18 +92,19 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     }
   }
 
+  setKeyboardEvent(evt: React.KeyboardEvent<HTMLElement>) {
+    this.setState({
+      isOpen: true,
+      keyboardEvent: evt.key + Math.random()
+    });
+  }
+
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     switch (evt.key) {
+      case 'Enter':
       case 'ArrowUp':
       case 'ArrowDown': {
-        this.setState({
-          isOpen: true,
-          keyboardEvent: evt.key + (Math.random() + '')
-        });
-        return;
-      }
-      case 'Enter': {
-        return this.toggleOpen();
+        return this.setKeyboardEvent(evt);
       }
       case 'Tab':
       case 'Escape': {

@@ -108,13 +108,15 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
 
   onKeyDown(key) {
     if (key.startsWith('ArrowDown')) {
-      return this.hoverNextItem(1);
-    }
-    if (key.startsWith('ArrowUp')) {
+      this.hoverNextItem(1);
+    } else if (key.startsWith('ArrowUp')) {
       return this.hoverNextItem(-1);
-    }
-    if (key === 'Enter') {
-      this.onOptionClick(this.props.options[this.state.hoveredIndex]);
+    } else if (key.startsWith('Enter')) {
+      const {options} = this.props;
+      const {hoveredIndex} = this.state;
+      if (hoveredIndex >= 0 && hoveredIndex < options.length) {
+        this.onOptionClick(options[hoveredIndex]);
+      }
     }
   }
 
