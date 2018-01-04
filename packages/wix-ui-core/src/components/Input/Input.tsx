@@ -34,8 +34,8 @@ export interface InputProps {
   onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
   onKeyUp?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
   placeholder?: string;
-  readOnly?: bool;
-  required?: bool;
+  readOnly?: boolean;
+  required?: boolean;
   tabIndex?: number;
   type?: string;
   value?: string;
