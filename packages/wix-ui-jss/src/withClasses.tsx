@@ -3,17 +3,16 @@ import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
 const hoistNonReactStatics = require('hoist-non-react-statics');
 
-interface ThemedComponentProps {
+export interface ThemedComponentProps {
   theme?: object;
-  [coreProps: string]: any;
 }
 
-interface ThemedComponentState {
-  classes: object;
+export interface HasClasses {
+  classes?: object;
 }
 
-export function withClasses(CoreComponent, styles) {
-  class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
+export function withClasses<P>(CoreComponent: React.ComponentType<P & HasClasses>, styles: Function): React.ComponentClass<P & ThemedComponentProps> {
+  class ThemedComponent extends React.PureComponent<ThemedComponentProps & P, HasClasses> {
     private id;
 
     constructor(props) {
@@ -33,7 +32,8 @@ export function withClasses(CoreComponent, styles) {
     }
 
     render() {
-      const {theme, ...coreProps} = this.props;
+      let coreProps = Object.assign({}, this.props, {theme: undefined});
+
       return (
         <CoreComponent {...coreProps} classes={this.state.classes}/>
       );

@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import {withClasses} from '../src/';
 import {DomTestkit} from '../testkit/domTestkit';
 
-type Classes = {classes: {someClass: string}};
+type Classes = {classes?: {someClass: string}};
 
 const styles = (theme: any = {}) => ({
   someClass: {

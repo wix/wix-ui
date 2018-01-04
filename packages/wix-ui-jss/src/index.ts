@@ -1,1 +1,1 @@
-export {withClasses} from './withClasses';
+export {withClasses, HasClasses, ThemedComponentProps} from './withClasses';
