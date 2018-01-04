@@ -18,7 +18,8 @@ export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
   const labelCommon = {
-    transition: `all ${theme.transitionSpeed} ease`
+    transition: `all ${theme.transitionSpeed} ease`,
+    ...borderRadius(theme.borderRadius)
   };
 
   return {
@@ -161,7 +162,6 @@ export const styles = (theme: ToggleSwitchTheme) => {
       borderColor: theme.outerLabelBorderColor,
       borderStyle: 'solid',
       boxSizing: 'border-box',
-      ...borderRadius(theme.borderRadius)
     },
 
     innerLabel: {
@@ -190,7 +190,6 @@ export const styles = (theme: ToggleSwitchTheme) => {
       borderColor: theme.innerLabelBorderColor,
       borderStyle: 'solid',
       boxSizing: 'border-box',
-      ...borderRadius(theme.innerLabelBorderRadius)
     },
 
     toggleIcon: {
