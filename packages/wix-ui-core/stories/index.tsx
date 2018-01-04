@@ -6,9 +6,9 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import VBox from '../src/components/VBox';
 import HBox from '../src/components/HBox';
-import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
+import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
 
@@ -42,14 +42,7 @@ storiesOf('Components', module)
     <ToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
-    <Tooltip dataHook="story-tooltip" placement="right">
-      <Tooltip.Element>
-        <span>I need a tooltip</span>
-      </Tooltip.Element>
-      <Tooltip.Content>
-        <span>This is my tooltip!</span>
-      </Tooltip.Content>
-    </Tooltip>
+    <TooltipStory />
   ))
   .add('Text', () => (
     <Text ellipsis>
