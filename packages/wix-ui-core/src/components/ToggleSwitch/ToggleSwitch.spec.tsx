@@ -4,7 +4,6 @@ import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-u
 import ToggleSwitch from './index';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
-import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 
 describe('ToggleSwitch', () => {
 
@@ -65,19 +64,51 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of haveing one within it
-  //See issue https://github.com/wix/wix-ui/issues/38
   describe('toggleIcon', () => {
     it('should be the checked icon when the toggleSwitch is checked', () => {
       const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(activeViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(activePathD);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>✓</div>');
     });
 
     it('should be the unchecked icon when the toggleSwitch is unchecked', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(inactiveViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(inactivePathD);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>-</div>');
+    });
+  });
+
+  describe('IconOn prop', () => {
+    it('should apply when toggleSwitch is checked', () => {
+      const IconOn = () => <div>Yes</div>;
+      const component = <ToggleSwitch IconOn={IconOn} checked onChange={noop}/>;
+      const driver = createDriver(component);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>Yes</div>');
+    });
+  });
+
+  describe('IconOff prop', () => {
+    it('should apply when toggleSwitch is unchecked', () => {
+      const IconOff = () => <div>No</div>;
+      const component = <ToggleSwitch IconOff={IconOff} onChange={noop}/>;
+      const driver = createDriver(component);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>No</div>');
+    });
+  });
+
+  describe('getIconComponent prop', () => {
+    const getIconComponent = checked => () => {
+      return checked ? <div>{'checked'}</div> : <div>{'unchecked'}</div>;
+    };
+
+    it('should be used for the icon when unchecked', () => {
+      const component = <ToggleSwitch getIconComponent={getIconComponent} onChange={noop}/>;
+      const driver = createDriver(component);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>unchecked</div>');
+    });
+
+    it('should be used for the icon when unchecked', () => {
+      const component = <ToggleSwitch getIconComponent={getIconComponent} checked onChange={noop}/>;
+      const driver = createDriver(component);
+      expect(driver.getToggleIcon().innerHTML).toBe('<div>checked</div>');
     });
   });
 

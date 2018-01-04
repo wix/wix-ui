@@ -2,7 +2,6 @@ import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
-import {getViewBox, getPathDescription} from './utils';
 
 export type ToggleSwitchClasses = {
   root: string;
@@ -25,6 +24,9 @@ export interface ToggleSwitchProps {
   classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
+  getIconComponent?: (checked: boolean) => () => React.Component<null>;
+  IconOn?: () => React.Component<null>;
+  IconOff?: () => React.Component<null>;
 }
 
 /**
@@ -52,7 +54,12 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     id: string,
   };
 
-  static defaultProps = {checked: false, styles: {}};
+  static defaultProps = {
+    checked: false,
+    styles: {},
+    IconOn: () => <div>{'✓'}</div>,
+    IconOff: () => <div>{'-'}</div>
+  };
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this._listenToSpace);
@@ -76,9 +83,16 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     }
   }
 
+  defaultGetIconComponent = checked => {
+    const {IconOn, IconOff} = this.props;
+    return checked ? IconOn : IconOff;
+  }
+
   render() {
     const {checked, disabled, classes, styles} = this.props;
     const {id} = this;
+    const getIconComponent = this.props.getIconComponent || this.defaultGetIconComponent;
+    const IconComponent = getIconComponent(checked);
 
     return (
       <div className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
@@ -92,9 +106,9 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
         <label htmlFor={id} className={classes.outerLabel} style={styles.outerLabel}/>
         <label htmlFor={id} className={classes.innerLabel} style={styles.innerLabel}>
-          <svg className={classes.toggleIcon} style={styles.toggleIcon} viewBox={getViewBox(checked)}>
-            <path d={getPathDescription(checked)}/>
-          </svg>
+          <div className={classes.toggleIcon} style={styles.toggleIcon}>
+            <IconComponent />
+          </div>
         </label>
       </div>
     );

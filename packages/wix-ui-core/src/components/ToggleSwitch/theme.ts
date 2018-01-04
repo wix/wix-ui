@@ -38,6 +38,7 @@ export type ToggleSwitchTheme = Partial<{
   colorHoverChecked: string;
   colorFocus: string;
 
+  toggleIconFontSize: string;
   toggleIconWidth: string;
   toggleIconHeight: string;
   toggleIconDisplay: string;
@@ -105,7 +106,8 @@ export const core: ToggleSwitchTheme = {
   colorHoverChecked: palette.white,
   colorFocus: palette.white,
 
-  toggleIconWidth: '8px',
+  toggleIconFontSize: 'inherit',
+  toggleIconWidth: '12px',
   toggleIconHeight: '6px',
   toggleIconDisplay: 'none',
 
