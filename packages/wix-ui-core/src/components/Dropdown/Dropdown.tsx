@@ -8,7 +8,6 @@ import {Option} from './DropdownContent/DropdownContent';
 import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE} from './constants';
 
 type DropdownClasses = {
-  targetElement: string;
 };
 
 export interface TriggerElementProps {
