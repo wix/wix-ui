@@ -23,8 +23,8 @@ interface DropdownProps {
 export interface SharedDropdownProps extends SharedPopoverProps {
   options: Array<Option>;
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
-  onSelect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
-  onDeselect?: (option: Option, evt: React.SyntheticEvent<HTMLElement>, selectedIds: Array<string | number>) => void;
+  onSelect?: (option: Option) => void;
+  onDeselect?: (option: Option) => void;
   initialSelectedIds?: Array<string | number>;
   closeOnSelect: boolean;
 }
@@ -32,7 +32,7 @@ export interface SharedDropdownProps extends SharedPopoverProps {
 interface DropdownState {
   isOpen: boolean;
   selectedIds: Array<string | number>;
-  keyboardEvent: React.KeyboardEvent<HTMLElement>;
+  keyboardEvent: string;
 }
 
 class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
@@ -113,7 +113,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
       case 'ArrowDown': {
         this.setState({
           isOpen: true,
-          keyboardEvent: evt
+          keyboardEvent: evt.key + (Math.random() + '')
         });
         return;
       }
@@ -130,7 +130,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     }
   }
 
-  _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
+  _onOptionClick(option: Option) {
     const {onSelect, onDeselect, closeOnSelect} = this.props;
     const {selectedIds} = this.state;
     let callback = onSelect;
@@ -155,7 +155,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     }
 
     this.setState(newState);
-    callback(option, evt, newState.selectedIds);
+    callback(option);
   }
 
   render() {

@@ -18,10 +18,10 @@ export interface Option {
 
 export interface DropdownContentProps {
   options: Array<Option>;
-  onOptionClick: (option: Option, evt: React.SyntheticEvent<HTMLElement>) => void;
+  onOptionClick: (option: Option) => void;
   selectedIds: Array<string | number>;
   classes: DropdownContentClasses;
-  keyboardEvent: React.KeyboardEvent<HTMLElement>;
+  keyboardEvent: string;
 }
 
 export interface DropdownContentState {
@@ -60,14 +60,14 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextKeyboardEvent = nextProps.keyboadEvent;
-    if (nextKeyboardEvent) {
-      this.onKeyDown(nextKeyboardEvent);
+    const {keyboardEvent} = nextProps;
+    if (keyboardEvent) {
+      this.onKeyDown(keyboardEvent);
     }
   }
 
-  _onOptionClick(option: Option, evt: React.SyntheticEvent<HTMLElement>) {
-    this.props.onOptionClick(option, evt);
+  _onOptionClick(option: Option) {
+    this.props.onOptionClick(option);
   }
 
   _setHoveredIndex(index: number) {
@@ -89,7 +89,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
       hoveredIndex += interval;
       if (hoveredIndex === options.length) {
         hoveredIndex = 0;
-      } else if (hoveredIndex === -1) {
+      } else if (hoveredIndex < 0) {
         hoveredIndex = options.length - 1;
       }
 
@@ -101,26 +101,15 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     this._setHoveredIndex(hoveredIndex);
   }
 
-  onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    switch (evt.key) {
-      case 'ArrowDown': {
-        this._hoverNextItem(1);
-        break;
-      }
-
-      case 'ArrowUp': {
-        this._hoverNextItem(-1);
-        break;
-      }
-
-      case 'Enter': {
-        this._onOptionClick(this.props.options[this.state.hoveredIndex], evt);
-        break;
-      }
-
-      default: {
-        return false;
-      }
+  onKeyDown(key) {
+    if (key.startsWith('ArrowDown')) {
+      return this._hoverNextItem(1);
+    }
+    if (key.startsWith('ArrowUp')) {
+      return this._hoverNextItem(-1);
+    }
+    if (key === 'Enter') {
+      this._onOptionClick(this.props.options[this.state.hoveredIndex]);
     }
   }
 
@@ -141,7 +130,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
                 selected: !option.isDisabled && selectedIds.includes(option.id),
                 hover: hoveredIndex === index
               })}
-              onClick={this._isValidOptionForSelection(option) ? evt => this._onOptionClick(option, evt) : null}
+              onClick={this._isValidOptionForSelection(option) ? () => this._onOptionClick(option) : null}
               onMouseEnter={this._isValidOptionForSelection(option) ? () => this._setHoveredIndex(index) : null}>
               {option.render()}
             </div>
