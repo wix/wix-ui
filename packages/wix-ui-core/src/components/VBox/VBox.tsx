@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
 
-interface VBoxProps {
+export interface VBoxProps {
   children: any;
-  classes: {
+  classes?: {
     vRoot: string
   };
 }

@@ -4,25 +4,25 @@ import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
 
-type ToggleSwitchClasses = {
+export type ToggleSwitchClasses = {
   root: string;
   outerLabel: string;
   innerLabel: string;
   toggleIcon: string;
 };
 
-type ToggleSwitchStyles = {
-  root: object;
-  outerLabel: object;
-  innerLabel: object;
-  toggleIcon: object;
+export type ToggleSwitchStyles = {
+  root?: object;
+  outerLabel?: object;
+  innerLabel?: object;
+  toggleIcon?: object;
 };
 
-interface ToggleSwitchProps {
+export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
-  onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  classes: ToggleSwitchClasses;
+  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
 }

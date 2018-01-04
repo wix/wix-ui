@@ -15,22 +15,22 @@ const createAriaAttributes = props => {
 
 const NUMBER_REGEX = /^[\d.,\-+]*$/;
 
-type InputClasses = {
+export type InputClasses = {
   input: string
 };
 
-interface InputProps {
-  classes: InputClasses;
-  disabled: boolean;
-  maxLength: number;
-  name: string;
-  onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  placeholder: string;
-  readOnly: bool;
-  required: bool;
-  tabIndex: number;
-  type: string;
-  value: string;
+export interface InputProps {
+  classes?: InputClasses;
+  disabled?: boolean;
+  maxLength?: number;
+  name?: string;
+  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  placeholder?: string;
+  readOnly?: boolean;
+  required?: boolean;
+  tabIndex?: number;
+  type?: string;
+  value?: string;
 }
 
 /**

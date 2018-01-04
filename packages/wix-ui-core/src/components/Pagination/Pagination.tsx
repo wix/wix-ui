@@ -3,7 +3,7 @@ import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 import * as  classNames from 'classnames';
 
-interface PaginationProps {
+export interface PaginationProps {
   // data
   totalPages: number;
   currentPage?: number;
@@ -20,8 +20,8 @@ interface PaginationProps {
   width?: number;
   alwaysShowFirstPage?: boolean;
   alwaysShowLastPage?: boolean;
-  showInputModeTotalPages: boolean;
-  classes: {[s: string]: string};
+  showInputModeTotalPages?: boolean;
+  classes?: {[s: string]: string};
 }
 
 interface PaginationState {

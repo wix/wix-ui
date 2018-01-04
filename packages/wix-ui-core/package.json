@@ -20,7 +20,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components",
+    "build": "haste build && import-path --path src/components --dts",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -38,6 +38,7 @@
     "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
+    "prop-types": "^15.6.0",
     "lodash": "^4.17.4",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.7.4",
