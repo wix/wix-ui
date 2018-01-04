@@ -9,7 +9,7 @@ function createTooltip(direction) {
     <Tooltip.Content>
       <span>This is my tooltip!</span>
     </Tooltip.Content>
-  </Tooltip>
+  </Tooltip>;
 }
 
 const tooltipDemo: React.CSSProperties = {
@@ -31,7 +31,6 @@ export class TooltipStory extends React.PureComponent {
         <h3>Bottom</h3>
         {createTooltip('bottom')}
       </div>
-    )
+    );
   }
 }
-

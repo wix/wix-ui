@@ -1,12 +1,17 @@
-import {PopoverTheme} from './theme';
-
+import {core, PopoverTheme} from './theme';
+import * as defaultsDeep from 'lodash/defaultsDeep';
 const arrowPlacement = pos => `&[data-placement="${pos}"]`;
 
 export const styles = (theme: PopoverTheme) => {
+  theme = (defaultsDeep(theme, core) as PopoverTheme);
 
   return {
     arrow: {
-      color: 'red'
+      width: 0,
+      height: 0,
+      borderStyle: 'solid',
+      position: 'absolute',
+      margin: '5px'
     },
 
     popoverContent: {

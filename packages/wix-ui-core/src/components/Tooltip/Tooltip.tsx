@@ -66,8 +66,7 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         placement={placement}
         shown={isOpen}
         onMouseEnter={this._open}
-        onMouseLeave={this._close}
-        arrowStyle={classes.arrow}>
+        onMouseLeave={this._close}>
         <Popover.Element>
           <div
             data-hook="tooltip-element">
