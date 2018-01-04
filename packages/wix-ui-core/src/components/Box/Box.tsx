@@ -4,10 +4,10 @@ import * as classnames from 'classnames';
 import {createHOC} from '../../createHOC';
 
 export interface BoxProps {
-  vertical: boolean;
-  lastItemTakesRemainingWidth: boolean;
+  vertical?: boolean;
+  lastItemTakesRemainingWidth?: boolean;
   children: any;
-  classes: {
+  classes?: {
     boxRoot: string,
     vertical: string,
     horizontal: string,

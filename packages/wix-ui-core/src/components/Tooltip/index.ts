@@ -6,5 +6,5 @@ import * as React from 'react';
 import {WixComponentProps} from '../../createHOC/index';
 
 export {TooltipProps};
-export const Tooltip = withClasses(TooltipComponent, styles) as React.ComponentClass<TooltipProps & ThemedComponentProps & WixComponentProps>;
+export const Tooltip = withClasses(TooltipComponent, styles) as React.ComponentClass<TooltipProps & ThemedComponentProps & WixComponentProps> & {Content, Element};
 export default Tooltip;

@@ -19,7 +19,7 @@ export type InputClasses = {
   input: string
 };
 
-interface InputProps {
+export interface InputProps {
   classes?: InputClasses;
   disabled?: boolean;
   autoComplete?: 'on' | 'off';
