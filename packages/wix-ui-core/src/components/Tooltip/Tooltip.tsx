@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {string, object} from 'prop-types';
-import Popover, {SharedPopoverProps} from '../Popover';
+import Popover, {Placement} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-export interface TooltipProps extends SharedPopoverProps {
+export interface TooltipProps {
+  placement?: Placement;
   classes?: TooltipClasses;
 }
 
@@ -34,21 +35,21 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   constructor(props) {
     super(props);
 
-    this._open = this._open.bind(this);
-    this._close = this._close.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
 
     this.state = {
       isOpen: false
     };
   }
 
-  _open() {
+  open() {
     if (!this.state.isOpen) {
       this.setState({isOpen: true});
     }
   }
 
-  _close() {
+  close() {
     if (this.state.isOpen) {
       this.setState({isOpen: false});
     }
@@ -63,8 +64,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       <Popover
         placement={placement}
         shown={isOpen}
-        onMouseEnter={this._open}
-        onMouseLeave={this._close}>
+        onMouseEnter={this.open}
+        onMouseLeave={this.close}>
         <Popover.Element>
           <div
             data-hook="tooltip-element">

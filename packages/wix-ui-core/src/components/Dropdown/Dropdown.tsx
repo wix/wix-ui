@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Popover, {SharedPopoverProps} from '../Popover';
+import Popover, {Placement} from '../Popover';
 import {bool, string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';
@@ -16,16 +16,14 @@ export interface TriggerElementProps {
 }
 
 interface DropdownProps {
+  placement: Placement;
   classes: DropdownClasses;
   children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
-}
-
-export interface SharedDropdownProps extends SharedPopoverProps {
   options: Array<Option>;
-  openTrigger?: CLICK_TYPE | HOVER_TYPE;
-  onSelect?: (option: Option) => void;
-  onDeselect?: (option: Option) => void;
-  initialSelectedIds?: Array<string | number>;
+  openTrigger: CLICK_TYPE | HOVER_TYPE;
+  onSelect: (option: Option) => void;
+  onDeselect: (option: Option) => void;
+  initialSelectedIds: Array<string | number>;
   closeOnSelect: boolean;
 }
 
@@ -35,34 +33,24 @@ interface DropdownState {
   keyboardEvent: string;
 }
 
-class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, DropdownState> {
-  static defaultProps = {
-    placement: 'bottom-start',
-    openTrigger: CLICK,
-    options: [],
-    onSelect: () => null,
-    onDeselect: () => null,
-    initialSelectedIds: [],
-    closeOnSelect: true
-  };
-
+class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   static propTypes = {
-    /** Trigger type to show the content */
-    openTrigger: oneOf([CLICK, HOVER]),
+    /** Trigger type to open the content */
+    openTrigger: oneOf([CLICK, HOVER]).isRequired,
     /** The location to display the content */
-    placement: string,
+    placement: string.isRequired,
     /** The dropdown options array */
     options: arrayOf(object).isRequired,
     /** Handler for when an option is selected */
-    onSelect: func,
-    /** Handler for when an option is selected */
-    onDeselect: func,
-    /** Selected option ids */
-    initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
-    /** render function that renders the element with the state */
+    onSelect: func.isRequired,
+    /** Handler for when an option is deselected */
+    onDeselect: func.isRequired,
+    /** initial selected option ids */
+    initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]).isRequired,
+    /** render function that renders the target element with the state */
     children: func.isRequired,
-    /** Dropdown mode - single / multi select */
-    closeOnSelect: bool
+    /** Should close content on select */
+    closeOnSelect: bool.isRequired
   };
 
   constructor(props) {
@@ -71,7 +59,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this._onOptionClick = this._onOptionClick.bind(this);
+    this.onOptionClick = this.onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
     const selectedIds =
@@ -130,7 +118,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
     }
   }
 
-  _onOptionClick(option: Option) {
+  onOptionClick(option: Option) {
     const {onSelect, onDeselect, closeOnSelect} = this.props;
     const {selectedIds} = this.state;
     let callback = onSelect;
@@ -181,7 +169,7 @@ class Dropdown extends React.PureComponent<DropdownProps & SharedDropdownProps, 
             keyboardEvent={keyboardEvent}
             options={options}
             selectedIds={selectedIds}
-            onOptionClick={this._onOptionClick} />
+            onOptionClick={this.onOptionClick} />
         </Popover.Content>
       </Popover>
     );

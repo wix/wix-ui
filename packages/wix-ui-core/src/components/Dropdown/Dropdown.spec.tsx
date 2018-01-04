@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import Dropdown from './index';
-import {HOVER} from './constants';
+import {HOVER, CLICK} from './constants';
 import Divider from '../Divider';
 
 describe ('Dropdown', () => {
@@ -15,7 +15,15 @@ describe ('Dropdown', () => {
   }));
 
   const createDropdown = (props = {}) => (
-    <Dropdown {...props}>
+    <Dropdown {...Object.assign({
+      options: [],
+      openTrigger: CLICK,
+      placement: 'bottom',
+      onSelect: () => null,
+      onDeselect: () => null,
+      initialSelectedIds: [],
+      closeOnSelect: true
+    }, props)}>
       {() => ''}
     </Dropdown>
   );
@@ -52,7 +60,7 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onSelect).toHaveBeenCalledWith(options[0], expect.any(Object), [1]);
+      expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
     it('should not be called when selecting disabled item', () => {
@@ -82,7 +90,7 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onSelect).toHaveBeenCalledWith(options[0], expect.any(Object), [1]);
+      expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
     it('should call onSelect when selection is not empty then changed', () => {
@@ -92,7 +100,7 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(1);
-      expect(onSelect).toHaveBeenCalledWith(options[1], expect.any(Object), [1, 2]);
+      expect(onSelect).toHaveBeenCalledWith(options[1]);
     });
 
     it('should call onDeselect when selection is changed', () => {
@@ -102,7 +110,7 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onDeselect).toHaveBeenCalledWith(options[0], expect.any(Object), []);
+      expect(onDeselect).toHaveBeenCalledWith(options[0]);
     });
   });
 });
