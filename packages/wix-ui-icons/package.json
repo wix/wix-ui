@@ -20,11 +20,12 @@
     "precommit": "haste lint",
     "buildIcons": "svg2react-icon 'src/Icons/raw' 'src/Icons/dist' true",
     "pretest": "npm run buildIcons && haste build",
-    "build": "haste lint && npm run buildIcons && haste build",
+    "build": "haste lint && npm run buildIcons && haste build && npm run create-aliases",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",
-    "release": "haste release"
+    "release": "haste release",
+    "create-aliases": "node ./scripts/create-aliases.js ./dist/src/Icons/dist/components"
   },
   "devDependencies": {
     "@types/chai": "~4.0.0",
