@@ -1,15 +1,20 @@
 import * as React from 'react';
-import {string} from 'prop-types';
+import {string, object} from 'prop-types';
 import Popover, {SharedPopoverProps} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
 interface TooltipProps extends SharedPopoverProps {
+  classes: TooltipClasses;
 }
 
 interface TooltipState {
   isOpen: boolean;
 }
+
+type TooltipClasses = {
+  tooltip: string;
+};
 
 class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static Element = createComponentThatRendersItsChildren('Tooltip.Element');
@@ -21,7 +26,9 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static propTypes = {
     /** The location to display the content */
-    placement: string
+    placement: string,
+    /** Classes object */
+    classes: object.isRequired
   };
 
   constructor(props) {
@@ -48,7 +55,7 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, children} = this.props;
+    const {placement, children, classes} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isOpen} = this.state;
 
@@ -65,7 +72,9 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
           </div>
         </Popover.Element>
         <Popover.Content>
-          {childrenObject.Content}
+          <div className={classes.tooltip}>
+            {childrenObject.Content}
+          </div>
         </Popover.Content>
       </Popover>
     );

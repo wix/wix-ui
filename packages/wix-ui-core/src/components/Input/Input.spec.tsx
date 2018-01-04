@@ -45,18 +45,6 @@ describe('Input', () => {
     });
   });
 
-  describe('max length prop', () => {
-    it('should have default value', () => {
-      const driver = createDriver(<Input/>);
-      expect(driver.getMaxLength()).toEqual(524288);
-    });
-
-    it('should be present when has value', () => {
-      const driver = createDriver(<Input maxLength={200}/>);
-      expect(driver.getMaxLength()).toEqual(200);
-    });
-  });
-
   describe('value prop', () => {
     it('should not have value by default', () => {
       const driver = createDriver(<Input/>);
@@ -138,6 +126,85 @@ describe('Input', () => {
       const driver = createDriver(<Input readOnly onChange={onChange}/>);
       driver.setValue(value);
       expect(onChange).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('autoFocus prop', () => {
+    it('should not be focused by default', () => {
+      const driver = createDriver(<Input/>);
+      expect(driver.isFocus()).toBeFalsy();
+    });
+
+    it('should be focused when autoFoucs is true', () => {
+      const driver = createDriver(<Input autoFocus/>);
+      expect(driver.isFocus()).toBeTruthy();
+    });
+  });
+
+  describe('autoComplete prop', () => {
+    it('should pass down to the wrapped input', () => {
+      const driver = createDriver(<Input autoComplete="on"/>);
+      expect(driver.getAutocomplete()).toBe('on');
+    });
+  });
+
+  describe('onBlur attribute', () => {
+    it('should be called when the input is blurred', () => {
+      const onBlur = jest.fn();
+      const driver = createDriver(<Input onBlur={onBlur}/>);
+
+      driver.blur();
+      expect(onBlur).toBeCalled();
+    });
+  });
+
+  describe('onFocus attribute', () => {
+    it('should be called when the input gets focused', () => {
+      const onFocus = jest.fn();
+      const driver = createDriver(<Input onFocus={onFocus}/>);
+
+      driver.focus();
+      expect(onFocus).toBeCalled();
+    });
+  });
+
+  describe('onClick attribute', () => {
+    it('should be called when the input is clicked', () => {
+      const onClick = jest.fn();
+      const driver = createDriver(<Input onClick={onClick}/>);
+
+      driver.click();
+      expect(onClick).toBeCalled();
+    });
+  });
+
+  describe('onKeyDown attribute', () => {
+    it('should be called when the input is pressed', () => {
+      const onKeyDown = jest.fn();
+      const driver = createDriver(<Input onKeyDown={onKeyDown}/>);
+
+      driver.keyDown();
+      expect(onKeyDown).toBeCalled();
+    });
+  });
+
+  describe('onKeyUp attribute', () => {
+    it('should be called when the input press is released', () => {
+      const onKeyUp = jest.fn();
+      const driver = createDriver(<Input onKeyUp={onKeyUp}/>);
+
+      driver.keyUp();
+      expect(onKeyUp).toBeCalled();
+    });
+  });
+
+  describe('onDoubleClick attribute', () => {
+    it('should be called when the input double clicked', () => {
+      const onDoubleClick = jest.fn();
+      const driver = createDriver(<Input onDoubleClick={onDoubleClick}/>);
+
+      driver.doubleClick();
+      expect(onDoubleClick).toBeCalled();
     });
   });
 

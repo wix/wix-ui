@@ -4,12 +4,12 @@ import Text from '../src/components/Text';
 import Button from '../src/components/Button';
 import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
-import VBox from '../src/components/VBox';
-import HBox from '../src/components/HBox';
+import Box from '../src/components/Box';
 import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
+import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
@@ -41,6 +41,12 @@ storiesOf('Components', module)
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
   ))
+  .add('BOStylableToggleSwitchStory', () => (
+    <BOStylableToggleSwitchStory/>
+  ))
+  .add('StylableToggleSwitchStory', () => (
+    <StylableToggleSwitchStory/>
+  ))
   .add('Tooltip', () => (
     <Tooltip dataHook="story-tooltip" placement="right">
       <Tooltip.Element>
@@ -56,19 +62,37 @@ storiesOf('Components', module)
         Hello World
     </Text>
   ))
-  .add('VBox', () => (
-    <VBox>
-        <div>a</div>
-        <div>b</div>
+  .add('Box', () => (
+    <div>
+    <Box vertical>
+        <div>v</div>
+        <div>e</div>
+        <div>r</div>
+        <div>t</div>
+        <div>i</div>
         <div>c</div>
-    </VBox>
-  ))
-  .add('HBox', () => (
-    <HBox>
         <div>a</div>
-        <div>b</div>
-        <div>c</div>
-    </HBox>
+        <div>l</div>
+    </Box>
+    <hr />
+    <Box>
+        <div>h</div>
+        <div>o</div>
+        <div>r</div>
+        <div>i</div>
+        <div>z</div>
+        <div>o</div>
+        <div>n</div>
+        <div>t</div>
+        <div>a</div>
+        <div>l</div>
+    </Box>
+    <hr />
+    <Box lastItemTakesRemainingWidth>
+      <div>label (input should take remaining width)</div>
+      <input/>
+    </Box>
+    </div>
   ))
   .add('Pagination', () => (
     <PaginationStory />
