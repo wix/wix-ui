@@ -7,16 +7,16 @@ import DropdownContent from './DropdownContent';
 import {Option} from './DropdownContent/DropdownContent';
 import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE} from './constants';
 
-type DropdownClasses = {
+export type DropdownClasses = {
 };
 
 export interface TriggerElementProps {
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
 }
 
-interface DropdownProps {
+export interface DropdownProps {
   placement: Placement;
-  classes: DropdownClasses;
+  classes?: DropdownClasses;
   children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
   options: Array<Option>;
   openTrigger: CLICK_TYPE | HOVER_TYPE;

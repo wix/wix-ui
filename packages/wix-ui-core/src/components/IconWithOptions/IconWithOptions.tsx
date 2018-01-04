@@ -7,12 +7,12 @@ import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number} from 'prop-types';
 
-interface IconWithOptionsClasses {
+export interface IconWithOptionsClasses {
 }
 
-interface IconWithOptionsProps {
+export interface IconWithOptionsProps {
   placement?: Placement;
-  classes: IconWithOptionsClasses;
+  classes?: IconWithOptionsClasses;
   options: Array<Option>;
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   onSelect?: (option: Option) => void;

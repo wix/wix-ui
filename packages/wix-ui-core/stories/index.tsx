@@ -39,7 +39,7 @@ storiesOf('Components', module)
   .add('InputWithOptions', () => (
     <div style={{padding: '50px'}}>
       <InputWithOptions
-        mode="multiSelect"
+        closeOnSelect={false}
         dataHook="story-input-with-options"
         options={dropdownOptions}/>
     </div>

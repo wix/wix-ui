@@ -15,10 +15,8 @@ describe('Dropdown', () => {
   }));
 
   const createDropdown = (props = {}) => (
-    <Dropdown {...Object.assign({
+    <Dropdown placement="top" openTrigger={CLICK} {...Object.assign({
       options: [],
-      openTrigger: CLICK,
-      placement: 'bottom',
       onSelect: () => null,
       onDeselect: () => null,
       initialSelectedIds: [],

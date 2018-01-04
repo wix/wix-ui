@@ -4,7 +4,7 @@ import {NOT_HOVERED_INDEX} from '../constants';
 import * as classNames from 'classnames';
 import {createHOC} from '../../../createHOC';
 
-type DropdownContentClasses = {
+export type DropdownContentClasses = {
   optionsContainer: string;
   option: string;
 };
@@ -16,11 +16,11 @@ export interface Option {
   render: () => React.ReactNode;
 }
 
-interface DropdownContentProps {
+export interface DropdownContentProps {
   options: Array<Option>;
   onOptionClick: (option: Option) => void;
   selectedIds: Array<string | number>;
-  classes: DropdownContentClasses;
+  classes?: DropdownContentClasses;
   keyboardEvent?: string;
 }
 
