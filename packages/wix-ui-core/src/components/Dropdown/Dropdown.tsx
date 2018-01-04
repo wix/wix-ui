@@ -49,7 +49,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** render function that renders the target element with the state */
     children: func.isRequired,
     /** Should close content on select */
-    closeOnSelect: bool.isRequired
+    closeOnSelect: bool.isRequired,
+    /** Classes object */
+    classes: object.isRequired
   };
 
   constructor(props) {
@@ -146,7 +148,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   render() {
-    const {openTrigger, placement, options, children, classes} = this.props;
+    const {openTrigger, placement, options, children} = this.props;
     const {isOpen, selectedIds, keyboardEvent} = this.state;
 
     return (
@@ -157,7 +159,6 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           <div
-            className={classes.targetElement}
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
             {children({onKeyDown: this.onKeyDown})}

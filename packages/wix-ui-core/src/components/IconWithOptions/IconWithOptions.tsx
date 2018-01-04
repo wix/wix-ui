@@ -68,7 +68,9 @@ IconWithOptions.propTypes = {
   /** Should close content on select */
   closeOnSelect: bool,
   /** Icon url to display */
-  iconUrl: string.isRequired
+  iconUrl: string.isRequired,
+  /** Classes object */
+  classes: object.isRequired
 };
 
 export default createHOC(IconWithOptions);

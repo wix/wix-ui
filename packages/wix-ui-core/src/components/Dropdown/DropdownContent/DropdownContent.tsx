@@ -44,7 +44,9 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     /** Selected Ids array */
     selectedIds: oneOfType([arrayOf(number), arrayOf(string)]).isRequired,
     /** Keyboard event key */
-    keyboardEvent: string
+    keyboardEvent: string,
+    /** Classes object */
+    classes: object.isRequired
   };
 
   constructor(props) {

@@ -50,7 +50,9 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
     /** initial selected option ids */
     initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
     /** Should close content on select */
-    closeOnSelect: bool
+    closeOnSelect: bool,
+    /** Classes object */
+    classes: object.isRequired
   };
 
   constructor(props) {
