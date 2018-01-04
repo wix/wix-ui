@@ -4,15 +4,15 @@ import Popover, {SharedPopoverProps} from '../Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps extends SharedPopoverProps {
+export interface TooltipProps extends SharedPopoverProps {
   classes: TooltipClasses;
 }
 
-interface TooltipState {
+export interface TooltipState {
   isOpen: boolean;
 }
 
-type TooltipClasses = {
+export type TooltipClasses = {
   tooltip: string;
 };
 
