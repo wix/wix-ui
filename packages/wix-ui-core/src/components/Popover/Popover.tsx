@@ -3,11 +3,13 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {bool, string, func} from 'prop-types';
 import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {createHOC} from '../../createHOC';
 
 export interface PopoverProps {
   shown?: boolean;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  arrowStyle?: string;
 }
 
 export interface SharedPopoverProps {
@@ -19,7 +21,7 @@ export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children}) => {
+const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, arrowStyle, children}) => {
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   return (
     <Manager
@@ -32,7 +34,7 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
       {
         shown &&
         <Popper data-hook="popover-content" placement={placement}>
-          <Arrow/>
+          <Arrow className={arrowStyle}/>
           {childrenObject.Content}
         </Popper>
       }
@@ -58,4 +60,4 @@ Popover.propTypes = {
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
 Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
 
-export default Popover;
+export default createHOC(Popover);

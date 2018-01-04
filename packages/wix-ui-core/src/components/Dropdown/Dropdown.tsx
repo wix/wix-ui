@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Popover, {SharedPopoverProps} from '../Popover';
+import Popover from '../Popover';
+import {SharedPopoverProps} from '../Popover/Popover';
 import {string, oneOf, arrayOf, object, func, oneOfType, number} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import onClickOutside from '../../onClickOutside';

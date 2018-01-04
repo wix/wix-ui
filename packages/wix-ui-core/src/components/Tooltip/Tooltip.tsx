@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {string, object} from 'prop-types';
-import Popover, {SharedPopoverProps} from '../Popover';
+import Popover from '../Popover';
+import {SharedPopoverProps} from '../Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
@@ -14,6 +15,7 @@ interface TooltipState {
 
 type TooltipClasses = {
   tooltip: string;
+  arrow: string;
 };
 
 class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
@@ -64,7 +66,8 @@ class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         placement={placement}
         shown={isOpen}
         onMouseEnter={this._open}
-        onMouseLeave={this._close}>
+        onMouseLeave={this._close}
+        arrowStyle={classes.arrow}>
         <Popover.Element>
           <div
             data-hook="tooltip-element">
