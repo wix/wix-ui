@@ -8,14 +8,18 @@ const selectors = {
   state: state => `& > input[type=checkbox]:${state}`
 };
 
+const borderRadius = radius => ({
+    '-webkit-border-radius': radius,
+    '-moz-border-radius': radius,
+    borderRadius: radius
+});
+
 export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
   const labelCommon = {
-    '-webkit-border-radius': theme.borderRadius,
-    '-moz-border-radius': theme.borderRadius,
-    borderRadius: theme.borderRadius,
-    transition: `all ${theme.transitionSpeed} ease`
+    transition: `all ${theme.transitionSpeed} ease`,
+    ...borderRadius(theme.borderRadius)
   };
 
   return {
@@ -34,10 +38,13 @@ export const styles = (theme: ToggleSwitchTheme) => {
       [selectors.state('checked')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorChecked,
-          border: theme.outerLabelBorderChecked
+          borderWidth: theme.outerLabelBorderSizeChecked,
+          borderColor: theme.outerLabelBorderColorChecked
         },
         [selectors.innerLabel]: {
-          border: theme.innerLabelBorderChecked,
+          backgroundColor: theme.innerLabelBackgroundColorChecked,
+          borderWidth: theme.innerLabelBorderSizeChecked,
+          borderColor: theme.innerLabelBorderColorChecked,
           left: theme.labelMovementRange,
           '& > $toggleIcon': {
             transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
@@ -50,11 +57,14 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
-          border: theme.outerLabelBorderDisabled
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
         },
         [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
           cursor: 'default',
-          border: theme.innerLabelBorderDisabled
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
         },
         [selectors.toggleIconPath]: {fill: theme.colorDisabled}
       },
@@ -63,11 +73,14 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
-          border: theme.outerLabelBorderDisabled
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
         },
         [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
           cursor: 'default',
-          border: theme.innerLabelBorderDisabled
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
         },
         [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
       },
@@ -75,34 +88,43 @@ export const styles = (theme: ToggleSwitchTheme) => {
       [selectors.state('hover')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorHover,
-          border: theme.outerLabelBorderHover
+          borderWidth: theme.outerLabelBorderSizeHover,
+          borderColor: theme.outerLabelBorderColorHover
         },
         [selectors.innerLabel]: {
-          border: theme.innerLabelBorderHover
+          backgroundColor: theme.innerLabelBackgroundColorHover,
+          borderWidth: theme.innerLabelBorderSizeHover,
+          borderColor: theme.innerLabelBorderColorHover
         },
         [selectors.toggleIconPath]: {fill: theme.colorHover}
       },
 
       [selectors.state('hover:checked')]: {
         [selectors.outerLabel]: {
-          backgroundColor: theme.backgroundColorHover,
-          border: theme.outerLabelBorderHoverChecked
+          backgroundColor: theme.backgroundColorHoverChecked,
+          borderWidth: theme.outerLabelBorderSizeHoverChecked,
+          borderColor: theme.outerLabelBorderColorHoverChecked
         },
         [selectors.innerLabel]: {
-          border: theme.innerLabelBorderHoverChecked
+          backgroundColor: theme.innerLabelBackgroundColorHoverChecked,
+          borderWidth: theme.innerLabelBorderSizeHoverChecked,
+          borderColor: theme.innerLabelBorderColorHoverChecked
         },
-        [selectors.toggleIconPath]: {fill: theme.colorHover}
+        [selectors.toggleIconPath]: {fill: theme.colorHoverChecked}
       },
 
       [selectors.state('hover:disabled')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
-          border: theme.outerLabelBorderDisabled
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
         },
         [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
           cursor: 'default',
-          border: theme.innerLabelBorderDisabled
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
         },
         [selectors.toggleIconPath]: {fill: theme.colorDisabled}
       },
@@ -111,11 +133,14 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
-          border: theme.outerLabelBorderDisabled
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
         },
         [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
           cursor: 'default',
-          border: theme.innerLabelBorderDisabled
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
         },
         [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
       },
@@ -133,8 +158,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       height: theme.outerLabelHeight,
       cursor: 'pointer',
       backgroundColor: theme.backgroundColor,
-      border: theme.outerLabelBorder,
-      boxSizing: 'border-box'
+      borderWidth: theme.outerLabelBorderSize,
+      borderColor: theme.outerLabelBorderColor,
+      borderStyle: 'solid',
+      boxSizing: 'border-box',
     },
 
     innerLabel: {
@@ -159,8 +186,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       top: '50%',
       transform: 'translate(0, -50%)',
 
-      border: theme.innerLabelBorder,
-      boxSizing: 'border-box'
+      borderWidth: theme.innerLabelBorderSize,
+      borderColor: theme.innerLabelBorderColor,
+      borderStyle: 'solid',
+      boxSizing: 'border-box',
     },
 
     toggleIcon: {
