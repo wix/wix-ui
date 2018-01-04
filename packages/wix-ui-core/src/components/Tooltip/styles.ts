@@ -13,7 +13,21 @@ export const styles = (theme: TooltipTheme) => {
       borderColor: theme.borderColor,
       borderRadius: theme.borderRadius,
 
-      padding: theme.contentPadding
+      padding: theme.contentPadding,
+    },
+
+    rightArrowStyle: {
+      borderColor: `transparent ${theme.borderColor} transparent transparent`
+    },
+    leftArrowStyle: {
+      borderColor: `transparent transparent transparent ${theme.borderColor}`
+    },
+    topArrowStyle: {
+      borderColor: `${theme.borderColor} transparent transparent transparent`
+    },
+    bottomArrowStyle: {
+      borderColor: `transparent transparent ${theme.borderColor} transparent`
     }
+
   };
 };

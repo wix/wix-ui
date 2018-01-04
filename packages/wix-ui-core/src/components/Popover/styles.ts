@@ -1,10 +1,8 @@
-import {core, PopoverTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import {PopoverTheme} from './theme';
+
 const arrowPlacement = pos => `&[data-placement="${pos}"]`;
 
 export const styles = (theme: PopoverTheme) => {
-  theme = (defaultsDeep(theme, core) as PopoverTheme);
-
   return {
     arrow: {
       width: 0,
@@ -20,7 +18,6 @@ export const styles = (theme: PopoverTheme) => {
 
         '& $arrow': {
           borderWidth: '5px 5px 5px 0',
-          borderColor: 'transparent #222 transparent transparent',
           left: '-5px',
           top: 'calc(50% - 5px)',
           marginLeft: '0',
@@ -33,7 +30,6 @@ export const styles = (theme: PopoverTheme) => {
 
         '& $arrow': {
           borderWidth: '5px 0 5px 5px',
-          borderColor: 'transparent transparent transparent #222',
           right: '-5px',
           top: 'calc(50% - 5px)',
           marginLeft: '0',
@@ -46,7 +42,6 @@ export const styles = (theme: PopoverTheme) => {
 
         '& $arrow': {
           borderWidth: '0 5px 5px 5px',
-          borderColor: 'transparent transparent #222 transparent',
           top: '-5px',
           left: 'calc(50% - 5px)',
           marginTop: '0',
@@ -59,7 +54,6 @@ export const styles = (theme: PopoverTheme) => {
 
         '& $arrow': {
           borderWidth: '5px 5px 0 5px',
-          borderColor: '#222 transparent transparent transparent',
           bottom: '-5px',
           left: 'calc(50% - 5px)',
           marginTop: '0',

@@ -15,6 +15,7 @@ export interface PopoverProps {
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   classes?: PopoverClasses;
+  arrowStyle?: string;
 }
 
 export interface SharedPopoverProps {
@@ -26,7 +27,7 @@ export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children, classes}) => {
+const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes}) => {
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   return (
     <Manager
@@ -40,7 +41,7 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
         shown &&
         <Popper data-hook="popover-content" placement={placement}
                 className={classes.popoverContent}>
-          <Arrow className={classes.arrow}/>
+          <Arrow className={`${classes.arrow} ${arrowStyle}`}/>
           {childrenObject.Content}
         </Popper>
       }
