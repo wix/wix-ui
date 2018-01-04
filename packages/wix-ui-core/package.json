@@ -12,6 +12,7 @@
   "files": [
     "dist",
     "*.js",
+    "*.d.ts",
     "!wallaby.js",
     "!protractor.conf.js"
   ],
