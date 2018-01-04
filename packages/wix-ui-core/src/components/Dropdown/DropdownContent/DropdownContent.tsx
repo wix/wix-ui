@@ -127,11 +127,11 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     return (
       <div
         className={classes.optionsContainer}
-        data-hook="options-container"
         tabIndex={1000}>
         {
           (this.props.options || []).map((option, index) => (
             <div
+              data-hook="option"
               key={option.id}
               className={classNames(classes.option, {
                 selected: !option.isDisabled && selectedIds.includes(option.id),

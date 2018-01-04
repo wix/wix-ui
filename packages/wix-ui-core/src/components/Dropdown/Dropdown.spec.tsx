@@ -5,7 +5,7 @@ import Dropdown from './index';
 import {HOVER, CLICK} from './constants';
 import Divider from '../Divider';
 
-describe ('Dropdown', () => {
+describe('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const options = [1, 2, 3, 4, 5].map(x => ({
     id: x,
@@ -80,33 +80,21 @@ describe ('Dropdown', () => {
       driver.clickOptionAt(3);
       expect(onSelect).not.toHaveBeenCalled();
     });
-  });
 
-  describe('multiSelect', () => {
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
-      const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, onDeselect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
+  });
 
-    it('should call onSelect when selection is not empty then changed', () => {
-      const onSelect = jest.fn();
+  describe('onDeselect', () => {
+    it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, closeOnSelect: false}));
-
-      driver.click();
-      driver.clickOptionAt(1);
-      expect(onSelect).toHaveBeenCalledWith(options[1]);
-    });
-
-    it('should call onDeselect when selection is changed', () => {
-      const onSelect = jest.fn();
-      const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onDeselect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);

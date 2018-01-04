@@ -1,6 +1,6 @@
 const getElement = element => element.querySelector('[data-hook="dropdown-element"]');
 const getContent = element => element.querySelector('[data-hook="popover-content"]');
-const getOptionAt = (element, index) => element.querySelectorAll('[data-hook="options-container"] > div')[index];
+const getOptionAt = (element, index) => element.querySelectorAll('[data-hook="option"]')[index];
 
 export const dropdownDriverFactory = ({element, eventTrigger}) => ({
   exists: () => !!element,
