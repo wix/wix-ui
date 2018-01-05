@@ -1,7 +1,5 @@
 # wix-ui-icons
 
-> SVG Icon base type. The list of existing icons can be found [here]('https://wix.github.io/wix-style-react/?selectedKind=6.%20Common&selectedStory=6.5%20Icons&full=0&down=0&left=1&panelRight=0')
-
 ## Properties
 
 | propName | propType | defaultValue | isRequired | description |
