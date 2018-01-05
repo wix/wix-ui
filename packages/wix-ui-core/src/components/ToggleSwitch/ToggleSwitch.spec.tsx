@@ -76,37 +76,35 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  describe('IconOn prop', () => {
+  describe('iconOn prop', () => {
     it('should apply when toggleSwitch is checked', () => {
-      const IconOn = () => <div>Yes</div>;
-      const component = <ToggleSwitch IconOn={IconOn} checked onChange={noop}/>;
+      const component = <ToggleSwitch iconOn={<div>Yes</div>} checked onChange={noop}/>;
       const driver = createDriver(component);
       expect(driver.getToggleIcon().innerHTML).toBe('<div>Yes</div>');
     });
   });
 
-  describe('IconOff prop', () => {
+  describe('iconOff prop', () => {
     it('should apply when toggleSwitch is unchecked', () => {
-      const IconOff = () => <div>No</div>;
-      const component = <ToggleSwitch IconOff={IconOff} onChange={noop}/>;
+      const component = <ToggleSwitch iconOff={<div>No</div>} onChange={noop}/>;
       const driver = createDriver(component);
       expect(driver.getToggleIcon().innerHTML).toBe('<div>No</div>');
     });
   });
 
-  describe('getIconComponent prop', () => {
-    const getIconComponent = checked => () => {
+  describe('IconComponent prop', () => {
+    const IconComponent = ({checked}) => {
       return checked ? <div>{'checked'}</div> : <div>{'unchecked'}</div>;
     };
 
     it('should be used for the icon when unchecked', () => {
-      const component = <ToggleSwitch getIconComponent={getIconComponent} onChange={noop}/>;
+      const component = <ToggleSwitch IconComponent={IconComponent} onChange={noop}/>;
       const driver = createDriver(component);
       expect(driver.getToggleIcon().innerHTML).toBe('<div>unchecked</div>');
     });
 
     it('should be used for the icon when unchecked', () => {
-      const component = <ToggleSwitch getIconComponent={getIconComponent} checked onChange={noop}/>;
+      const component = <ToggleSwitch IconComponent={IconComponent} checked onChange={noop}/>;
       const driver = createDriver(component);
       expect(driver.getToggleIcon().innerHTML).toBe('<div>checked</div>');
     });

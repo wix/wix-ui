@@ -17,6 +17,10 @@ export type ToggleSwitchStyles = {
   toggleIcon?: object;
 };
 
+export type ToggleSwitchIconProps = {
+  checked: boolean;
+}
+
 export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
@@ -24,9 +28,9 @@ export interface ToggleSwitchProps {
   classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
-  getIconComponent?: (checked: boolean) => () => React.Component<null>;
-  IconOn?: () => React.Component<null>;
-  IconOff?: () => React.Component<null>;
+  IconComponent?: React.ComponentType<ToggleSwitchIconProps>;
+  iconOn?: React.ReactElement<ToggleSwitchIconProps>;
+  iconOff?: React.ReactElement<ToggleSwitchIconProps>;
 }
 
 /**
@@ -57,8 +61,8 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static defaultProps = {
     checked: false,
     styles: {},
-    IconOn: () => <div>{'✓'}</div>,
-    IconOff: () => <div>{'-'}</div>
+    iconOn: <div>{'✓'}</div>,
+    iconOff: <div>{'-'}</div>
   };
 
   componentDidMount() {
@@ -83,16 +87,15 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     }
   }
 
-  defaultGetIconComponent = checked => {
-    const {IconOn, IconOff} = this.props;
-    return checked ? IconOn : IconOff;
+  defaultIconComponent = ({checked}) => {
+    const {iconOn, iconOff} = this.props;
+    return checked ? iconOn : iconOff;
   }
 
   render() {
     const {checked, disabled, classes, styles} = this.props;
     const {id} = this;
-    const getIconComponent = this.props.getIconComponent || this.defaultGetIconComponent;
-    const IconComponent = getIconComponent(checked);
+    const IconComponent = this.props.IconComponent || this.defaultIconComponent;
 
     return (
       <div className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
@@ -107,7 +110,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
         <label htmlFor={id} className={classes.outerLabel} style={styles.outerLabel}/>
         <label htmlFor={id} className={classes.innerLabel} style={styles.innerLabel}>
           <div className={classes.toggleIcon} style={styles.toggleIcon}>
-            <IconComponent />
+            <IconComponent checked={checked}/>
           </div>
         </label>
       </div>
