@@ -1,7 +1,7 @@
 {
   "name": "wix-ui-icons",
   "version": "1.0.0",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": false,
   "author": {
     "name": "Ronen Stern",
