@@ -19,7 +19,7 @@ export type ToggleSwitchStyles = {
 
 export type ToggleSwitchIconProps = {
   checked: boolean;
-}
+};
 
 export interface ToggleSwitchProps {
   checked?: boolean;
