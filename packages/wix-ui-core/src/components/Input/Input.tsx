@@ -22,9 +22,17 @@ type InputClasses = {
 interface InputProps {
   classes: InputClasses;
   disabled: boolean;
-  maxLength: number;
+  autoComplete: 'on' | 'off';
+  autoFocus: boolean;
   name: string;
+  onBlur: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  onFocus: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  //Breaks wix-style-react - used to be named onInputClicked
+  onClick: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onDoubleClick: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onKeyDown: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+  onKeyUp: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
   placeholder: string;
   readOnly: bool;
   required: bool;
@@ -42,7 +50,6 @@ class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
-    maxLength: 524288,
     type: 'text'
   };
 
@@ -51,12 +58,26 @@ class Input extends React.Component<InputProps> {
     classes: object.isRequired,
     /** Makes the component disabled */
     disabled: bool,
-    /** Input max length */
-    maxLength: number,
+    /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
+    autoComplete: string,
+    /** Standard React Input autoFocus (focus the element on mount) */
+    autoFocus: bool,
     /** Name for the input */
     name: string,
+    /** Standard input onBlur callback */
+    onBlur: func,
     /** Standard input onChange callback */
     onChange: func,
+    /** Standard input onClick callback */
+    onClick: func,
+    /** Standard input onDoubleClick callback */
+    onDoubleClick: func,
+    /** Standard input onFocus callback */
+    onFocus: func,
+    /** Standard input onKeyDown callback */
+    onKeyDown: func,
+    /** Standard input onKeyUp callback */
+    onKeyUp: func,
     /** Placeholder to display */
     placeholder: string,
     /** Sets the input to readOnly */
@@ -93,8 +114,15 @@ class Input extends React.Component<InputProps> {
     const {
       classes,
       disabled,
-      maxLength,
+      autoComplete,
+      autoFocus,
       name,
+      onBlur,
+      onFocus,
+      onClick,
+      onDoubleClick,
+      onKeyDown,
+      onKeyUp,
       placeholder,
       readOnly,
       required,
@@ -110,10 +138,17 @@ class Input extends React.Component<InputProps> {
       <input
         className={classes.input}
         disabled={disabled}
+        autoComplete={autoComplete}
+        autoFocus={autoFocus}
         id={id}
-        maxLength={maxLength}
         name={name}
         onChange={this._onChange}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
         placeholder={placeholder}
         readOnly={readOnly}
         required={required}

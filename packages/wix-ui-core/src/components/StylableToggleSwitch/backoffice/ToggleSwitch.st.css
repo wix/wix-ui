@@ -1,0 +1,261 @@
+:import {
+  -st-from: "./theme.st.css";
+  -st-named:
+    rootWidth,
+    rootHeight,
+
+    transitionSpeed,
+    borderRadius,
+    labelMovementRange,
+
+    outerLabelWidth,
+    outerLabelHeight,
+
+    innerLabelWidth,
+    innerLabelHeight,
+    innerLabelBackgroundColor,
+
+    backgroundColor,
+    backgroundColorChecked,
+    backgroundColorDisabled,
+    backgroundColorHover,
+    backgroundColorFocus,
+    
+    focusOutline,
+
+    color,
+    colorChecked,
+    colorDisabled,
+    colorCheckedDisabled,
+    colorHover,
+    colorFocus,
+
+    toggleIconWidth,
+    toggleIconHeight,
+    toggleIconDisplay
+}
+
+:import {
+  -st-from: "../ToggleSwitch.st.css";
+  -st-default: ToggleSwitch;
+}
+
+:import {
+  -st-from: "./palette.st.css";
+  -st-named:
+    successNotifications,
+    dangerNotifications,
+    ctaHover,
+    danger,
+    successHover,
+    dangerHover;
+}
+
+.root {
+  -st-extends: ToggleSwitch;
+  -st-states: error, success, x-small, small;
+  width: value(rootWidth);
+  height: value(rootHeight);
+}
+
+.root::outerLabel, .root::innerLabel {
+  -webkit-border-radius: value(borderRadius);
+  -moz-border-radius: value(borderRadius);
+  border-radius: value(borderRadius);
+  transition: all value(transitionSpeed) ease;
+
+}
+
+.root::outerLabel {
+  width: value(outerLabelWidth);
+  height: value(outerLabelHeight);
+  background-color: value(backgroundColor);
+}
+
+.root::innerLabel {
+  width: value(innerLabelWidth);
+  height: value(innerLabelHeight);
+  background-color: value(innerLabelBackgroundColor);
+}
+
+.root::toggleIcon {
+  display: value(toggleIconDisplay);
+  width: value(toggleIconWidth);
+  height: value(toggleIconHeight);
+  transition: all value(transitionSpeed) cubic-bezier(1,0,1,0);
+}
+
+.root::toggleIconPath {
+  fill: value(color);
+}
+
+
+/* checked state */
+
+.root:checked::outerLabel {
+  background-color: value(backgroundColorChecked);
+}
+
+.root:checked::innerLabel {
+  left: value(labelMovementRange);
+}
+
+.root:checked::toggle {
+  transition: all value(transitionSpeed) cubic-bezier(0,1,0,1);
+}
+
+.root:checked::toggleIconPath {
+  fill: value(colorChecked);
+}
+
+/* disabled state */
+
+.root:disabled::outerLabel, .root:disabled:hover::outerLabel, .root:disabled:checked::outerLabel, .root:disabled:checked:hover::outerLabel {
+  background-color: value(backgroundColorDisabled);
+  cursor: default;
+}
+
+.root:disabled::innerLabel, .root:disabled:hover::innerLabel, .root:disabled:checked::innerLabel, .root:disabled:checked:hover::innerLabel {
+  cursor: default;
+}
+
+.root:disabled::toggleIconPath, .root:disabled:hover::toggleIconPath {
+  fill: value(colorDisabled);
+}
+
+.root:disabled:checked::toggleIconPath, .root:disabled:checked:hover::toggleIconPath {
+  fill: value(colorCheckedDisabled);
+}
+
+/* hover state */
+
+.root:hover::outerLabel, .root:checked:hover::outerLabel {
+  background-color: value(backgroundColorHover);
+}
+
+.root:hover::toggleIconPath, .root:checked:hover::toggleIconPath {
+  fill: value(colorHover);
+}
+
+/* focus state */
+.root:focus {
+  outline: value(focusOutline);
+}
+
+
+/* ====================== custom size states ====================== */
+
+.root:x-small::outerLabel {
+  width: 28px;
+  height: 15px;
+}
+
+.root:small::outerLabel {
+  width: 36px;
+  height: 20px;
+}
+
+.root:x-small::innerLabel {
+  width: 13px;
+  height: 13px;
+}
+
+.root:small::innerLabel {
+  width: 18px;
+  height: 18px;
+}
+
+.root:x-small::toggleIcon {
+  display: none;
+}
+
+/* & checked */
+
+.root:checked:small::innerLabel {
+  left: 17px;
+}
+
+.root:checked:x-small::innerLabel {
+  left: 13px;
+}
+
+
+/* ====================== custom skin states ====================== */
+
+.root:error::outerLabel {
+  background-color: value(dangerNotifications);
+}
+
+.root:success::outerLabel {
+  background-color: value(successNotifications);
+}
+
+.root:error::toggleIconPath {
+  fill: value(dangerNotifications);
+}
+
+.root:success::toggleIconPath {
+  fill: value(successNotifications);
+}
+
+/* & checked */
+
+.root:checked:success::outerLabel {
+  background-color: value(ctaHover);
+}
+
+.root:checked:error::outerLabel {
+  background-color: value(danger);
+}
+
+.root:checked:success::toggleIconPath {
+  fill: value(ctaHover);
+}
+
+.root:checked:error::toggleIconPath {
+  fill: value(danger);
+}
+
+/* & hover */
+.root:hover:success::outerLabel, .root:checked:hover:success::outerLabel {
+  background-color: value(successHover);
+}
+
+.root:hover:error::outerLabel, .root:checked:hover:error::outerLabel {
+  background-color: value(dangerHover);
+}
+
+.root:hover:success::toggleIconPath, .root:checked:hover:success::toggleIconPath {
+  fill: value(successHover);
+}
+
+.root:hover:error::toggleIconPath, .root:checked:hover:error::toggleIconPath {
+  fill: value(dangerHover);
+}
+
+/* & disabled */
+
+.root:disabled:success::outerLabel, .root:disabled:success:hover::outerLabel, .root:disabled:success:checked::outerLabel, .root:disabled:success:checked:hover::outerLabel {
+  background-color: value(backgroundColorDisabled);
+}
+
+.root:disabled:error::outerLabel, .root:disabled:error:hover::outerLabel, .root:disabled:error:checked::outerLabel, .root:disabled:success:checked:hover::outerLabel {
+  background-color: value(backgroundColorDisabled);
+}
+
+
+.root:disabled:success::toggleIconPath, .root:disabled:success:hover::toggleIconPath {
+  fill: value(colorDisabled);
+}
+
+.root:disabled:error::toggleIconPath, .root:disabled:error:hover::toggleIconPath {
+  fill: value(colorDisabled);
+}
+
+.root:disabled:success:checked::toggleIconPath, .root:disabled:success:checked:hover::toggleIconPath {
+  fill: value(colorCheckedDisabled);
+}
+
+.root:disabled:error:checked::toggleIconPath, .root:disabled:error:checked:hover::toggleIconPath {
+  fill: value(colorCheckedDisabled);
+}

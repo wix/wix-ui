@@ -1,0 +1,38 @@
+@custom-selector :--toggleIconPath .toggleIcon path;
+
+.root {
+  -st-states: checked, disabled;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  outline: none
+}
+
+.root > input[type=checkbox] {
+  display: none;
+}
+
+.outerLabel {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.innerLabel {
+  display: flex;
+
+  position: absolute;
+  left: 1px;
+  z-index: 1;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  box-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
+
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.toggleIcon {}
