@@ -3,23 +3,23 @@ import * as classnames from 'classnames';
 import {bool, string, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
-  type TextClasses = {
-    root: string;
-    ellipsis: string;
-  };
+export type TextClasses = {
+  root: string;
+  ellipsis: string;
+};
 
-  interface TextProps {
-    classes: TextClasses;
-    children: string;
-    ellipsis: bool;
-    forceHideTitle: bool;
-    tagName: string;
-  }
+export interface TextProps {
+  classes?: TextClasses;
+  children?: React.ReactNode;
+  ellipsis?: boolean;
+  forceHideTitle?: boolean;
+  tagName?: string;
+}
 
-  /**
-   * Text
-   */
-  class Text extends  React.PureComponent<TextProps> {
+/**
+ * Text
+ */
+class Text extends  React.PureComponent<TextProps> {
   static displayName = 'Text';
 
   static defaultProps = {

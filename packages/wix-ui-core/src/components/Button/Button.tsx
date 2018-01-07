@@ -2,18 +2,18 @@ import * as React from 'react';
 import {bool, string, func, object, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
-type ButtonClasses = {
+export type ButtonClasses = {
   button: string
 };
 
-interface ButtonProps {
+export interface ButtonProps {
   type?: string;
   disabled?: boolean;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
   onMouseEnter?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
   onMouseLeave?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
-  classes: ButtonClasses;
-  children: React.ReactNode;
+  classes?: ButtonClasses;
+  children?: React.ReactNode;
 }
 
 /**

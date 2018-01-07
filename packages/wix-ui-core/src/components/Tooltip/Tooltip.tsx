@@ -5,15 +5,15 @@ import {SharedPopoverProps} from '../Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps extends SharedPopoverProps {
-  classes: TooltipClasses;
+export interface TooltipProps extends SharedPopoverProps {
+  classes?: TooltipClasses;
 }
 
-interface TooltipState {
+export interface TooltipState {
   isOpen: boolean;
 }
 
-type TooltipClasses = {
+export type TooltipClasses = {
   tooltip: string;
   arrow: string;
 };
@@ -22,9 +22,9 @@ function calculateStyleFromDirection(placement: string) {
   return `${placement}ArrowStyle`;
 }
 
-class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
-  static Element = createComponentThatRendersItsChildren('Tooltip.Element');
-  static Content = createComponentThatRendersItsChildren('Tooltip.Content');
+export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
+  static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
+  static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
 
   static defaultProps = {
     placement: 'top'

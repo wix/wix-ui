@@ -3,13 +3,13 @@ import {object, bool, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import * as classNames from 'classnames';
 
-interface DividerClasses {
+export interface DividerClasses {
     divider: string;
     vertical: string;
 }
 
-interface DividerProps {
-    classes: DividerClasses;
+export interface DividerProps {
+    classes?: DividerClasses;
     vertical?: boolean;
     children?: any;
 }

@@ -15,7 +15,7 @@ const element = document.createElement('div');
 element.classList.add('big');
 
 isClassExists(element, 'big'); // true
-isClassExists(element, 'small'); // small
+isClassExists(element, 'small'); // false
 ```
 
 ### `sleep`
@@ -67,7 +67,7 @@ Returns the iframe URL of a storybook's story.
 ```javascript
 import {getStoryUrl} from 'wix-ui-test-utils';
 
-const storyUrl = getStoryUrl('Components', 'DatePicker');
+const storyUrl = getStoryUrl('Components', 'DatePicker'); // 'iframe.html?selectedKind=...'
 browser.get(storyUrl);
 ```
 

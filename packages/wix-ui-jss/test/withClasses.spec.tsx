@@ -3,7 +3,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {withClasses} from '../src/';
 
-type Classes = {classes: {someClass: string}};
+type Classes = {classes?: {someClass: string}};
 
 const styles = (theme: any = {}) => ({
   someClass: {

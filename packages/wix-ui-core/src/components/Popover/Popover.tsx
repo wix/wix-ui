@@ -67,4 +67,5 @@ Popover.propTypes = {
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
 Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
 
-export default createHOC(Popover);
+const popoverExport = createHOC(Popover);
+export {popoverExport as Popover};

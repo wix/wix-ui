@@ -15,30 +15,30 @@ const createAriaAttributes = props => {
 
 const NUMBER_REGEX = /^[\d.,\-+]*$/;
 
-type InputClasses = {
+export type InputClasses = {
   input: string
 };
 
-interface InputProps {
-  classes: InputClasses;
-  disabled: boolean;
-  autoComplete: 'on' | 'off';
-  autoFocus: boolean;
-  name: string;
-  onBlur: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-  onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  onFocus: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+export interface InputProps {
+  classes?: InputClasses;
+  disabled?: boolean;
+  autoComplete?: 'on' | 'off';
+  autoFocus?: boolean;
+  name?: string;
+  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
   //Breaks wix-style-react - used to be named onInputClicked
-  onClick: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onDoubleClick: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onKeyDown: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
-  onKeyUp: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
-  placeholder: string;
-  readOnly: bool;
-  required: bool;
-  tabIndex: number;
-  type: string;
-  value: string;
+  onClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onDoubleClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+  onKeyUp?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+  placeholder?: string;
+  readOnly?: boolean;
+  required?: boolean;
+  tabIndex?: number;
+  type?: string;
+  value?: string;
 }
 
 /**
