@@ -14,26 +14,19 @@ export interface DividerProps {
     children?: any;
 }
 
-class Divider extends React.PureComponent<DividerProps> {
+const Divider: React.SFC<DividerProps> = ({classes, children, vertical}) => (
+    children ?
+        <div>{children}</div> :
+        <div className={classNames(classes.divider, {[classes.vertical]: vertical})} />
+);
 
-    static propTypes = {
-        /** The classes used to style the Divider */
-        classes: object.isRequired,
-        /** Is the direction of the divider vertical */
-        vertical: bool,
-        /** Optional custom divider */
-        children: any
-    };
-
-    render() {
-        const {classes, children} = this.props;
-
-        const activeClasses = classNames(classes.divider, {
-            [classes.vertical]: this.props.vertical
-        });
-
-        return children ? <div>{children}</div> : <div className={activeClasses} />;
-    }
-}
+Divider.propTypes = {
+    /** The classes used to style the Divider */
+    classes: object.isRequired,
+    /** Is the direction of the divider vertical */
+    vertical: bool,
+    /** Optional custom divider */
+    children: any
+};
 
 export default createHOC(Divider);

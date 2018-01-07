@@ -6,7 +6,7 @@ import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
 import {core, TooltipTheme} from './theme';
 
-describe ('Tooltip', () => {
+describe('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
   const createTooltip = (props = {}) =>
   <Tooltip placement="top" {...props}>
