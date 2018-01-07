@@ -4,7 +4,7 @@ import Tooltip from '../../src/components/Tooltip';
 function createTooltip(direction) {
   return <Tooltip dataHook="story-tooltip" placement={direction}>
     <Tooltip.Element>
-      <span>I need a tooltip</span>
+      <button disabled>Muffins</button>
     </Tooltip.Element>
     <Tooltip.Content>
       <span>This is my tooltip!</span>

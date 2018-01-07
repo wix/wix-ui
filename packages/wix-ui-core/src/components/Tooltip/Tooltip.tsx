@@ -2,7 +2,7 @@ import * as React from 'react';
 import {string, object} from 'prop-types';
 import Popover from '../Popover';
 import {SharedPopoverProps} from '../Popover/Popover';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {createHOC} from '../../createHOC';
 
 export interface TooltipProps extends SharedPopoverProps {
