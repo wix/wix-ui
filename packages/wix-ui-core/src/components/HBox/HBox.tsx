@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
 
-interface HBoxProps {
+export interface HBoxProps {
   children: any;
-  classes: {
+  classes?: {
     hRoot: string
   };
 }

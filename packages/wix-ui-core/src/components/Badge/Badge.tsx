@@ -2,13 +2,13 @@ import * as React from 'react';
 import {object, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
-type BadgeClasses = {
+export type BadgeClasses = {
   badge: string;
 };
 
-interface BadgeProps {
-  classes: BadgeClasses;
-  children: React.ReactNode;
+export interface BadgeProps {
+  classes?: BadgeClasses;
+  children?: React.ReactNode;
 }
 
 /**

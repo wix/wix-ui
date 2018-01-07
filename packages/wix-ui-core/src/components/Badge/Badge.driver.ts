@@ -1,11 +1,5 @@
-import {DomTestkit} from 'wix-ui-jss/domTestkit';
-
-export const badgeDriverFactory = ({element, componentInstance, eventTrigger}) => {
-  let domTestkit = null;
-
-  if (componentInstance) {
-    domTestkit =  new DomTestkit({componentId: componentInstance.id});
-  }
+export const badgeDriverFactory = ({element, eventTrigger}) => {
+  const getBadgeStyle = () => window.getComputedStyle(element);
 
   return {
     /** checks if element exists */
@@ -17,23 +11,23 @@ export const badgeDriverFactory = ({element, componentInstance, eventTrigger}) =
     /** styles element for css properties */
     styles: {
       /** returns elements height css property */
-      getHeight: () => domTestkit.getCssValue({className: 'badge', property: 'height'}),
+      getHeight: () => getBadgeStyle().height,
       /** returns elements padding css property */
-      getPadding: () => domTestkit.getCssValue({className: 'badge', property: 'padding'}),
+      getPadding: () => getBadgeStyle().padding,
       /** returns elements color css property */
-      getColor: () => domTestkit.getCssValue({className: 'badge', property: 'color'}),
+      getColor: () => getBadgeStyle().color,
       /** returns elements opacity css property */
-      getOpacity: () => domTestkit.getCssValue({className: 'badge', property: 'opacity'}),
+      getOpacity: () => getBadgeStyle().opacity,
       /** returns elements border-radius css property */
-      getBorderRadius: () => domTestkit.getCssValue({className: 'badge', property: 'border-radius'}),
+      getBorderRadius: () => getBadgeStyle().borderRadius,
       /** returns elements font-size css property */
-      getFontSize: () => domTestkit.getCssValue({className: 'badge', property: 'font-size'}),
+      getFontSize: () => getBadgeStyle().fontSize,
       /** returns elements line-height css property */
-      getLineHeight: () => domTestkit.getCssValue({className: 'badge', property: 'line-height'}),
+      getLineHeight: () => getBadgeStyle().lineHeight,
       /** returns elements text-decoration css property */
-      getTextDecoration: () => domTestkit.getCssValue({className: 'badge', property: 'text-decoration'}),
+      getTextDecoration: () => getBadgeStyle().textDecoration,
       /** returns elements cursor css property */
-      getCursor: () => domTestkit.getCssValue({className: 'badge', property: 'cursor'})
+      getCursor: () => getBadgeStyle().cursor,
     }
   };
 };

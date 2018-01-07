@@ -1,11 +1,5 @@
-import {DomTestkit} from 'wix-ui-jss/domTestkit';
-
-export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) => {
-  let domTestkit = null;
-
-  if (componentInstance) {
-    domTestkit =  new DomTestkit({componentId: componentInstance.id});
-  }
+export const buttonDriverFactory = ({element, eventTrigger}) => {
+  const getButtonStyle = () => window.getComputedStyle(element);
 
   return {
     /** checks if element exists */
@@ -24,15 +18,15 @@ export const buttonDriverFactory = ({element, componentInstance, eventTrigger}) 
     isDisabled: () => element.getAttribute('disabled') === '',
     styles: {
       /** returns elements min-width css property */
-      getMinWidth: () => domTestkit.getCssValue({className: 'button', property: 'min-width'}),
+      getMinWidth: () => getButtonStyle().minWidth,
       /** returns elements width css property */
-      getWidth: () => domTestkit.getCssValue({className: 'button', property: 'width'}),
+      getWidth: () => getButtonStyle().width,
       /** returns elements height css property */
-      getHeight: () => domTestkit.getCssValue({className: 'button', property: 'height'}),
+      getHeight: () => getButtonStyle().height,
       /** returns elements padding css property */
-      getPadding: () => domTestkit.getCssValue({className: 'button', property: 'padding'}),
+      getPadding: () => getButtonStyle().padding,
       /** returns elements border-radius css property */
-      getBorderRadius: () => domTestkit.getCssValue({className: 'button', property: 'border-radius'}),
+      getBorderRadius: () => getButtonStyle().borderRadius,
     }
   };
 };

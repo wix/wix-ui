@@ -1,56 +1,80 @@
 import * as React from 'react';
-import {string} from 'prop-types';
-import Popover, {Placement} from '../Popover';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {string, object} from 'prop-types';
+import Popover, {SharedPopoverProps} from '../Popover';
+import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {createHOC} from '../../createHOC';
 
-interface TooltipProps {
-  placement: Placement;
+export interface TooltipProps extends SharedPopoverProps {
+  classes?: TooltipClasses;
 }
 
-interface TooltipState {
-  isHover: boolean;
+export interface TooltipState {
+  isOpen: boolean;
 }
 
-class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
+export type TooltipClasses = {
+  tooltip: string;
+};
 
-  static Element = createComponentThatRendersItsChildren('Tooltip.Element');
-  static Content = createComponentThatRendersItsChildren('Tooltip.Content');
+export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
+  static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
+  static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
+
+  static defaultProps = {
+    placement: 'top'
+  };
 
   static propTypes = {
     /** The location to display the content */
-    placement: string
+    placement: string,
+    /** Classes object */
+    classes: object.isRequired
   };
 
   constructor(props) {
     super(props);
 
+    this._open = this._open.bind(this);
+    this._close = this._close.bind(this);
+
     this.state = {
-      isHover: false
+      isOpen: false
     };
   }
 
-  _setHover(isHover) {
-    this.setState({isHover});
+  _open() {
+    if (!this.state.isOpen) {
+      this.setState({isOpen: true});
+    }
+  }
+
+  _close() {
+    if (this.state.isOpen) {
+      this.setState({isOpen: false});
+    }
   }
 
   render () {
-    const {placement, children} = this.props;
+    const {placement, children, classes} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-    const {isHover} = this.state;
+    const {isOpen} = this.state;
 
     return (
-      <Popover placement={placement} shown={isHover}>
+      <Popover
+        placement={placement}
+        shown={isOpen}
+        onMouseEnter={this._open}
+        onMouseLeave={this._close}>
         <Popover.Element>
           <div
-            data-hook="tooltip-element"
-            onMouseEnter={() => this._setHover(true)}
-            onMouseLeave={() => this._setHover(false)}>
+            data-hook="tooltip-element">
             {childrenObject.Element}
           </div>
         </Popover.Element>
         <Popover.Content>
-          {childrenObject.Content}
+          <div className={classes.tooltip}>
+            {childrenObject.Content}
+          </div>
         </Popover.Content>
       </Popover>
     );

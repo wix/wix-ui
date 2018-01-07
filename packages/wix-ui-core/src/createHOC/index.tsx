@@ -3,7 +3,7 @@ import {string} from 'prop-types';
 import * as ReactDOM from 'react-dom';
 const hoistNonReactStatics = require('hoist-non-react-statics');
 
-interface WixComponentProps {
+export interface WixComponentProps {
   dataHook?: string;
   dataClass?: string;
 }

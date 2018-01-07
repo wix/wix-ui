@@ -17,3 +17,9 @@ export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactor
 
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(tooltipDriverFactory);
+
+import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
+export const paginationTestkitFactory = enzymeTestkitFactoryCreator(paginationDriverFactory);
+
+import {dividerDriverFactory} from '../components/Divider/Divider.driver';
+export const dividerTestkitFactory = enzymeTestkitFactoryCreator(dividerDriverFactory);

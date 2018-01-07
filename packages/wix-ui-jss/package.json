@@ -12,6 +12,7 @@
   },
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.js",
   "files": [
     "dist",
     "*.js",
@@ -36,22 +37,22 @@
   },
   "devDependencies": {
     "@types/jest": "^21.1.8",
-    "@types/react": "~15.6.0",
-    "@types/react-dom": "~15.5.0",
-    "enzyme": "~2.9.0",
-    "haste-preset-yoshi": "latest",
-    "import-path": "0.0.13",
-    "react-test-renderer": "~15.6.0",
+    "@types/react": "^15.6.0",
+    "@types/react-dom": "^15.5.0",
+    "enzyme": "^2.9.0",
+    "haste-preset-yoshi": "^1.0.19",
+    "import-path": "^0.0.13",
+    "react-test-renderer": "^15.6.0",
     "ts-jest": "^21.2.3",
-    "typescript": "~2.4.0"
+    "typescript": "^2.4.0"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash.uniqueid": "^4.0.1",
-    "react": "15.6.1",
-    "react-dom": "15.6.1"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "yoshi": {
     "externals": {

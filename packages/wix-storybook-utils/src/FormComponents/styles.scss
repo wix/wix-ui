@@ -27,42 +27,52 @@
   border-bottom: 1px solid #cbccce;
 }
 
-.rtlToggle {
-  display: flex;
-  align-items: center;
+.previewControls {
   margin-left: auto;
 }
 
-.preview {
-  $checker-size: 20px;
-  $checker-bg-light: transparent;
-  $checker-bg-dark: #eff2f6;
+.previewControl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  padding: 60px;
+@mixin checkerboard($size, $color1, $color2) {
+  background:
+    linear-gradient(45deg,
+      $color1 25%,
+      transparent 25%,
+      transparent 75%,
+      $color1 75%,
+      $color1 0
+    ),
+    linear-gradient(45deg,
+      $color1 25%,
+      transparent 5%,
+      transparent 75%,
+      $color1 75%,
+      $color1 0
+    ),
+    $color2;
+  background-position: 0 0, ($size / 2) ($size / 2);
+  background-size: $size $size;
+  background-clip: border-box;
+  background-origin: padding-box;
+}
+
+.preview {
+  padding: 60px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 0 10px 2px #e5ebf1 inset;
   border: 1px solid #dee6ed;
-  background:
-    linear-gradient(45deg,
-      $checker-bg-dark 25%,
-      $checker-bg-light 25%,
-      $checker-bg-light 75%,
-      $checker-bg-dark 75%,
-      $checker-bg-dark 0
-    ),
-    linear-gradient(45deg,
-      $checker-bg-dark 25%,
-      $checker-bg-light 5%,
-      $checker-bg-light 75%,
-      $checker-bg-dark 75%,
-      $checker-bg-dark 0
-    ),
-    #fff;
-  background-position: 0 0, ($checker-size / 2) ($checker-size / 2);
-  background-size: $checker-size $checker-size;
-  background-clip: border-box;
-  background-origin: padding-box;
+  box-shadow: 0 0 10px 2px #e5ebf1 inset;
+
+  @include checkerboard(20px, #eff2f6, #fff);
+
+  &.darkPreview {
+    @include checkerboard(20px, #5b7fa4, #486684);
+    box-shadow: 0 0 10px 2px #486684 inset;
+  }
 }
