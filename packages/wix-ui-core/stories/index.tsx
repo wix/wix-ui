@@ -6,7 +6,7 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import Box from '../src/components/Box';
 import Tooltip from '../src/components/Tooltip';
-import Slider from '../src/components/Slider';
+// import Slider from '../src/components/Slider';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';

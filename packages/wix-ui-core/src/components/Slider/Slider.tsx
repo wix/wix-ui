@@ -1,12 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {createHOC} from '../../createHOC';
 
-interface SliderProps {
-    min: PropTypes.number;
-    max: PropTypes.number;
-    value: PropTypes.number;
-    onChange: PropTypes.func.isRequired;
+export interface SliderProps {
+    min?: number;
+    max?: number;
+    value?: number;
+    onChange?: () => any;
 }
 
 class Slider extends React.PureComponent<SliderProps> {

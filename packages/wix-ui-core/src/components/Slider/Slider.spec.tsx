@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {sliderDriverFactory} from './Slider.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils';
 import Slider from './index';
-import {sliderTestkitFactory} from '../../testkit';
-import {sliderTestkitFactory as enzymesliderTestkitFactory} from '../../testkit/enzyme';
+// import {sliderTestkitFactory} from '../../testkit';
+// import {sliderTestkitFactory as enzymesliderTestkitFactory} from '../../testkit/enzyme';
 import * as sinon from 'sinon';
 
 describe('Slider', () => {
