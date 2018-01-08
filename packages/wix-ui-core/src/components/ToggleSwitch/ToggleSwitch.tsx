@@ -29,8 +29,8 @@ export interface ToggleSwitchProps {
   styles?: ToggleSwitchStyles;
   id?: string;
   IconComponent?: React.ComponentType<ToggleSwitchIconProps>;
-  iconOn?: React.ReactElement<ToggleSwitchIconProps>;
-  iconOff?: React.ReactElement<ToggleSwitchIconProps>;
+  iconOn?: React.ReactElement<any>;
+  iconOff?: React.ReactElement<any>;
 }
 
 /**
