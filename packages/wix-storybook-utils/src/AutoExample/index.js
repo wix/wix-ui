@@ -136,7 +136,8 @@ export default class extends Component {
       },
       funcValues: {},
       funcAnimate: {},
-      isRtl: false
+      isRtl: false,
+      isDarkBackground: false
     };
 
     this._initialPropsState = this.state.propsState;
@@ -284,7 +285,9 @@ export default class extends Component {
 
         <Preview
           isRtl={this.state.isRtl}
+          isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({isRtl})}
+          onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
           >
           {React.createElement(component, componentPropsState)}
         </Preview>

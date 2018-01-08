@@ -2,37 +2,30 @@ import * as React from 'react';
 import {object, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
-type BadgeClasses = {
+export type BadgeClasses = {
   badge: string;
 };
 
-interface BadgeProps {
-  classes: BadgeClasses;
-  children: React.ReactNode;
+export interface BadgeProps {
+  classes?: BadgeClasses;
+  children?: React.ReactNode;
 }
 
 /**
  * Badge
  */
-class Badge extends React.PureComponent<BadgeProps> {
-  static displayName = 'Badge';
+const Badge: React.SFC<BadgeProps> = ({classes, children}) => (
+  <span className={classes.badge}>
+    {children}
+  </span>
+);
 
-  static propTypes = {
-    /** Classes object */
-    classes: object.isRequired,
-    /** Any node to be rendered (usually text node) */
-    children: any
-  };
-
-  render() {
-    const {classes, children} = this.props;
-
-    return (
-      <span className={classes.badge}>
-        {children}
-      </span>
-    );
-  }
-}
+Badge.displayName = 'Badge';
+Badge.propTypes = {
+  /** Classes object */
+  classes: object.isRequired,
+  /** Any node to be rendered (usually text node) */
+  children: any
+};
 
 export default createHOC(Badge);

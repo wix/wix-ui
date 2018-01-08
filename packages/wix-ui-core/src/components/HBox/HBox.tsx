@@ -1,20 +1,15 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
 
-interface HBoxProps {
+export interface HBoxProps {
   children: any;
-  classes: {
+  classes?: {
     hRoot: string
   };
 }
 
-class HBox extends React.PureComponent<HBoxProps> {
-  render() {
-    const {children, classes} = this.props;
-    return (
-      <div className={classes.hRoot}>{children}</div>
-    );
-  }
-}
+const HBox: React.SFC<HBoxProps> = ({children, classes}) => (
+  <div className={classes.hRoot}>{children}</div>
+);
 
 export default createHOC(HBox);

@@ -3,7 +3,7 @@ import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 import * as  classNames from 'classnames';
 
-interface PaginationProps {
+export interface PaginationProps {
   // data
   totalPages: number;
   currentPage?: number;
@@ -20,8 +20,8 @@ interface PaginationProps {
   width?: number;
   alwaysShowFirstPage?: boolean;
   alwaysShowLastPage?: boolean;
-  showInputModeTotalPages: boolean;
-  classes: {[s: string]: string};
+  showInputModeTotalPages?: boolean;
+  classes?: {[s: string]: string};
 }
 
 interface PaginationState {
@@ -64,7 +64,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Whether the to show the total amount of pages next to the input field in "input" paginationMode  */
     showInputModeTotalPages: PropTypes.bool,
     /** Classes object */
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object
   };
 
   public static defaultProps: Partial<PaginationProps> = {

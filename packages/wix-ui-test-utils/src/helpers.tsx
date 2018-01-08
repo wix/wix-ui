@@ -1,10 +1,11 @@
 import * as React from 'react';
+import {Simulate} from 'react-dom/test-utils';
 
-interface ControlledComponentState {
+export interface ControlledComponentState {
   value: string;
 }
 
-interface ControlledComponentProps {
+export interface ControlledComponentProps {
   value?: string;
   onChange?: (e: Event) => void;
   [otherProps: string]: any;
@@ -66,16 +67,18 @@ export function makeControlled(Component) {
   };
 }
 
-export const reactEventTrigger = (ReactTestUtils) => {
-  const simulate = ReactTestUtils.Simulate;
+export const reactEventTrigger = () => {
+  const simulate = Simulate;
   return {
     click: (element) => simulate.click(element),
+    doubleClick: (element) => simulate.doubleClick(element),
     mousedown: (element) => simulate.mouseDown(element),
     change: (element, handler) => simulate.change(element, handler),
     mouseEnter: (element) => simulate.mouseEnter(element),
     mouseLeave: (element) => simulate.mouseLeave(element),
     focus: (element) => simulate.focus(element),
     blur: (element) => simulate.blur(element),
+    keyUp: (element, handler) => simulate.keyUp(element, handler),
     keyDown: (element, handler) => simulate.keyDown(element, handler),
     compositionStart: (element) => simulate.compositionStart(element),
     compositionEnd: (element) => simulate.compositionEnd(element),

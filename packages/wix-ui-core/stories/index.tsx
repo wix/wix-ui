@@ -1,14 +1,25 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import ToggleSwitch from '../src/components/ToggleSwitch';
 import Text from '../src/components/Text';
 import Button from '../src/components/Button';
 import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
-import VBox from '../src/components/VBox';
-import HBox from '../src/components/HBox';
-import Tooltip from '../src/components/Tooltip';
+import Box from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
+import {DividerStory} from './Divider/divider-story';
+import {TooltipStory} from './Tooltip/tooltip-story';
+import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
+import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
+import IconWithOptions from '../src/components/IconWithOptions';
+import InputWithOptions from '../src/components/InputWithOptions';
+import Divider from '../src/components/Divider';
+
+const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
+  id: x,
+  isSelectable: x !== 3,
+  isDisabled: x === 4,
+  render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
+}));
 
 storiesOf('Components', module)
   .add('Badge', () => (
@@ -17,41 +28,77 @@ storiesOf('Components', module)
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
   ))
+  .add('IconWithOptions', () => (
+    <div style={{padding: '50px'}}>
+      <IconWithOptions
+        iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
+        dataHook="story-icon-with-options"
+        options={dropdownOptions}/>
+    </div>
+  ))
+  .add('InputWithOptions', () => (
+    <div style={{padding: '50px'}}>
+      <InputWithOptions
+        closeOnSelect={false}
+        dataHook="story-input-with-options"
+        options={dropdownOptions}/>
+    </div>
+  ))
   .add('Input', () => (
     <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
-    <ToggleSwitch dataHook="story-toggle-switch"/>
+    <ToggleSwitchStory/>
+  ))
+  .add('BOStylableToggleSwitchStory', () => (
+    <BOStylableToggleSwitchStory/>
+  ))
+  .add('StylableToggleSwitchStory', () => (
+    <StylableToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
-    <Tooltip dataHook="story-tooltip" placement="right">
-      <Tooltip.Element>
-        <span>I need a tooltip</span>
-      </Tooltip.Element>
-      <Tooltip.Content>
-        <span>This is my tooltip!</span>
-      </Tooltip.Content>
-    </Tooltip>
+    <TooltipStory />
   ))
   .add('Text', () => (
     <Text ellipsis>
         Hello World
     </Text>
   ))
-  .add('VBox', () => (
-    <VBox>
-        <div>a</div>
-        <div>b</div>
+  .add('Box', () => (
+    <div>
+    <Box vertical>
+        <div>v</div>
+        <div>e</div>
+        <div>r</div>
+        <div>t</div>
+        <div>i</div>
         <div>c</div>
-    </VBox>
-  ))
-  .add('HBox', () => (
-    <HBox>
         <div>a</div>
-        <div>b</div>
-        <div>c</div>
-    </HBox>
+        <div>l</div>
+    </Box>
+    <hr />
+    <Box>
+        <div>h</div>
+        <div>o</div>
+        <div>r</div>
+        <div>i</div>
+        <div>z</div>
+        <div>o</div>
+        <div>n</div>
+        <div>t</div>
+        <div>a</div>
+        <div>l</div>
+    </Box>
+    <hr />
+    <Box lastItemTakesRemainingWidth>
+      <div>label (input should take remaining width)</div>
+      <input/>
+    </Box>
+    </div>
   ))
   .add('Pagination', () => (
     <PaginationStory />
+  ))
+  .add('Divider', () => (
+    <DividerStory />
   ));

@@ -8,14 +8,18 @@ const selectors = {
   state: state => `& > input[type=checkbox]:${state}`
 };
 
+const borderRadius = radius => ({
+    '-webkit-border-radius': radius,
+    '-moz-border-radius': radius,
+    borderRadius: radius
+});
+
 export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
-  const LabelCommon = {
-    '-webkit-border-radius': theme.borderRadius,
-    '-moz-border-radius': theme.borderRadius,
-    borderRadius: theme.borderRadius,
-    transition: `all ${theme.transitionSpeed} ease`
+  const labelCommon = {
+    transition: `all ${theme.transitionSpeed} ease`,
+    ...borderRadius(theme.borderRadius)
   };
 
   return {
@@ -25,14 +29,22 @@ export const styles = (theme: ToggleSwitchTheme) => {
       width: theme.rootWidth,
       height: theme.rootHeight,
       position: 'relative',
+      outline: 'none',
 
       '& > input[type=checkbox]': {
         display: 'none'
       },
 
       [selectors.state('checked')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorChecked},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorChecked,
+          borderWidth: theme.outerLabelBorderSizeChecked,
+          borderColor: theme.outerLabelBorderColorChecked
+        },
         [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorChecked,
+          borderWidth: theme.innerLabelBorderSizeChecked,
+          borderColor: theme.innerLabelBorderColorChecked,
           left: theme.labelMovementRange,
           '& > $toggleIcon': {
             transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
@@ -42,52 +54,118 @@ export const styles = (theme: ToggleSwitchTheme) => {
       },
 
       [selectors.state('disabled')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
-        [selectors.innerLabel]: {cursor: 'default'},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
+        },
         [selectors.toggleIconPath]: {fill: theme.colorDisabled}
       },
 
       [selectors.state('checked:disabled')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
-        [selectors.innerLabel]: {cursor: 'default'},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
+        },
         [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
       },
 
       [selectors.state('hover')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorHover},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorHover,
+          borderWidth: theme.outerLabelBorderSizeHover,
+          borderColor: theme.outerLabelBorderColorHover
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorHover,
+          borderWidth: theme.innerLabelBorderSizeHover,
+          borderColor: theme.innerLabelBorderColorHover
+        },
         [selectors.toggleIconPath]: {fill: theme.colorHover}
       },
 
       [selectors.state('hover:checked')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorHover},
-        [selectors.toggleIconPath]: {fill: theme.colorHover}
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorHoverChecked,
+          borderWidth: theme.outerLabelBorderSizeHoverChecked,
+          borderColor: theme.outerLabelBorderColorHoverChecked
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorHoverChecked,
+          borderWidth: theme.innerLabelBorderSizeHoverChecked,
+          borderColor: theme.innerLabelBorderColorHoverChecked
+        },
+        [selectors.toggleIconPath]: {fill: theme.colorHoverChecked}
       },
 
       [selectors.state('hover:disabled')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
-        [selectors.innerLabel]: {cursor: 'default'},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
+        },
         [selectors.toggleIconPath]: {fill: theme.colorDisabled}
       },
 
       [selectors.state('hover:checked:disabled')]: {
-        [selectors.outerLabel]: {backgroundColor: theme.backgroundColorDisabled, cursor: 'default'},
-        [selectors.innerLabel]: {cursor: 'default'},
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.outerLabelBorderSizeDisabled,
+          borderColor: theme.outerLabelBorderColorDisabled
+        },
+        [selectors.innerLabel]: {
+          backgroundColor: theme.innerLabelBackgroundColorDisabled,
+          cursor: 'default',
+          borderWidth: theme.innerLabelBorderSizeDisabled,
+          borderColor: theme.innerLabelBorderColorDisabled
+        },
         [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
-      }
+      },
+
+      [selectors.state('focus')]: {
+        outline: theme.focusOutline
+      },
     },
 
     outerLabel: {
-      ...LabelCommon,
+      ...labelCommon,
 
       display: 'inline-block',
       width: theme.outerLabelWidth,
       height: theme.outerLabelHeight,
       cursor: 'pointer',
       backgroundColor: theme.backgroundColor,
+      borderWidth: theme.outerLabelBorderSize,
+      borderColor: theme.outerLabelBorderColor,
+      borderStyle: 'solid',
+      boxSizing: 'border-box',
     },
 
     innerLabel: {
-     ...LabelCommon,
+     ...labelCommon,
 
       display: 'flex',
       width: theme.innerLabelWidth,
@@ -106,7 +184,12 @@ export const styles = (theme: ToggleSwitchTheme) => {
       boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
 
       top: '50%',
-      transform: 'translate(0, -50%)'
+      transform: 'translate(0, -50%)',
+
+      borderWidth: theme.innerLabelBorderSize,
+      borderColor: theme.innerLabelBorderColor,
+      borderStyle: 'solid',
+      boxSizing: 'border-box',
     },
 
     toggleIcon: {

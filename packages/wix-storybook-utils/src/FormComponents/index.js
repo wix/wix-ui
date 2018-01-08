@@ -62,23 +62,46 @@ Option.propTypes = {
 };
 
 
-const Preview = ({children, isRtl, onToggleRtl}) =>
+const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackground}) =>
   <Col span={6}>
     <div className={styles.title}>
       <Text appearance="H2">Preview</Text>
 
-      <div className={styles.rtlToggle}>
-        Imitate RTL:&nbsp;
+      <div className={styles.previewControls}>
+        <div className={styles.previewControl}>
+          Imitate RTL:&nbsp;
 
-        <ToggleSwitch
-          size="x-small"
-          checked={isRtl}
-          onChange={e => onToggleRtl(e.target.checked)}
-          />
+          <ToggleSwitch
+            size="x-small"
+            checked={isRtl}
+            onChange={e => onToggleRtl(e.target.checked)}
+            />
+        </div>
+
+        <div className={styles.previewControl}>
+          Dark Background:&nbsp;
+
+          <ToggleSwitch
+            size="x-small"
+            checked={isDarkBackground}
+            onChange={e => onToggleBackground(e.target.checked)}
+            />
+        </div>
       </div>
     </div>
 
-    <div className={classnames(styles.preview, {rtl: isRtl})}>
+    <div
+      {...{
+        className: classnames(
+          styles.preview,
+          {
+            rtl: isRtl,
+            [styles.darkPreview]: isDarkBackground
+          }
+        ),
+        ...(isRtl ? {dir: 'rtl'} : {})
+      }}
+      >
       {children}
     </div>
   </Col>;
@@ -86,7 +109,9 @@ const Preview = ({children, isRtl, onToggleRtl}) =>
 Preview.propTypes = {
   children: PropTypes.node,
   isRtl: PropTypes.bool,
-  onToggleRtl: PropTypes.func
+  isDarkBackground: PropTypes.bool,
+  onToggleRtl: PropTypes.func,
+  onToggleBackground: PropTypes.func
 };
 
 

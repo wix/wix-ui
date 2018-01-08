@@ -46,7 +46,7 @@ const stateStyle = {
 
 export const core: ButtonTheme = {
   height: '36px',
-  padding: '0 23px',
+  padding: '0px 23px',
   contentPadding: '0',
   borderRadius: '0',
 

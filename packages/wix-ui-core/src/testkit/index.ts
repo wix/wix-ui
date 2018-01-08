@@ -20,3 +20,6 @@ export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
 
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = testkitFactoryCreator(tooltipDriverFactory);
+
+import {dividerDriverFactory} from '../components/Divider/Divider.driver';
+export const dividerTestkitFactory = testkitFactoryCreator(dividerDriverFactory);

@@ -1,6 +1,6 @@
 import {palette} from '../../palette';
 
-type BadgeState = Partial<{
+export type BadgeState = Partial<{
   color: string;
   backgroundColor: string;
   borderColor: string;
