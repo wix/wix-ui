@@ -100,7 +100,7 @@ describe('Pagination', () => {
     it('shows the total amount of pages if showInputModeTotalPages is true', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4} showInputModeTotalPages/>);
       expect(pagination.getTotalPagesField()).toBeTruthy();
-      expect(pagination.getTotalPagesField().textContent).toEqual('/ 15');
+      expect(pagination.getTotalPagesField().textContent).toMatch(/\b15\b/);
     });
 
     it('accepts numbers in page input', () => {

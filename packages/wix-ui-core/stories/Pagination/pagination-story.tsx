@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Pagination from '../../src/components/Pagination';
+import {theme} from './pagination-story-theme';
 
 const numOfPages = 13;
 
@@ -23,40 +24,49 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
         this.setState({currPage: this.state.currPage - 1});
         break;
       default:
-        this.setState({currPage: parseInt(e.page, 10)});
+        this.setState({currPage: Number(e.page)});
     }
   }
 
   render() {
     return (
       <div>
-        <div><h3>Basic layout</h3>
+        <div>
+          <h3>Basic layout</h3>
           <Pagination
             dataHook="story-pagination"
             totalPages={numOfPages}
             currentPage={this.state.currPage}
             onChange={this.handleChange}
-            />
+            theme={theme}
+          />
         </div>
-        <div><h3>RTL with "first" and "last" buttons</h3>
+        <div>
+          <h3>RTL with "first" and "last" buttons</h3>
           <Pagination
             dataHook="story-pagination-rtl"
             rtl
             totalPages={numOfPages}
             currentPage={this.state.currPage}
             showFirstLastNavButtons
-            onChange={this.handleChange}/>
+            onChange={this.handleChange}
+            theme={theme}
+          />
         </div>
-        <div><h3>RTL with text</h3>
+        <div>
+          <h3>RTL with text</h3>
           <Pagination
             rtl
             totalPages={numOfPages}
             currentPage={this.state.currPage}
             showFirstLastNavButtons
             onChange={this.handleChange}
-            replaceArrowsWithText/>
+            replaceArrowsWithText
+            theme={theme}
+          />
         </div>
-        <div><h3>Input Mode</h3>
+        <div>
+          <h3>Input Mode</h3>
           <Pagination
             rtl
             totalPages={numOfPages}
@@ -65,9 +75,11 @@ export class PaginationStory extends React.Component<{}, { currPage: number }> {
             currentPage={this.state.currPage}
             showFirstLastNavButtons
             onChange={this.handleChange}
-            replaceArrowsWithText/>
+            replaceArrowsWithText
+            theme={theme}
+          />
         </div>
-    </div>
+      </div>
     );
   }
 }
