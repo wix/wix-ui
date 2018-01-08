@@ -297,12 +297,12 @@ describe('Pagination', () => {
     });
   });
 
-  it('add ID attribute to the root if provided', () => {
+  it('adds ID to the root if provided', () => {
     const pagination = createDriver(<Pagination id="beet" totalPages={3} />);
     expect(pagination.root.getAttribute('id')).toBe('beetroot');
   });
 
-  it('does not ad ID attribute to the root if not provided', () => {
+  it('does not add ID to the root if not provided', () => {
     const pagination = createDriver(<Pagination totalPages={3} />);
     expect(pagination.root.getAttribute('id')).toBe(null);
   });
