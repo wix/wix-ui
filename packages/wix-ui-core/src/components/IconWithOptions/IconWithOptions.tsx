@@ -1,31 +1,43 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown';
-import {SharedDropdownProps} from '../Dropdown/Dropdown';
-import {HOVER, CLICK, SINGLE_SELECT, MULTI_SELECT} from '../Dropdown/constants';
+import {Placement} from '../Popover/Popover';
+import {TriggerElementProps} from '../Dropdown/Dropdown';
+import {Option} from '../Dropdown/DropdownContent/DropdownContent';
+import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../Dropdown/constants';
 import {createHOC} from '../../createHOC';
-import {oneOf, string, object, func, arrayOf, number} from 'prop-types';
+import {oneOf, string, object, func, arrayOf, bool, oneOfType, number} from 'prop-types';
 
-export interface IconWithOptionsProps extends SharedDropdownProps {
-  iconUrl: string;
-  tabIndex?: number;
+export interface IconWithOptionsClasses {
 }
 
-const onKeyDownHandler = (evt: React.KeyboardEvent<HTMLImageElement>) => null;
+export interface IconWithOptionsProps {
+  placement?: Placement;
+  classes?: IconWithOptionsClasses;
+  options: Array<Option>;
+  openTrigger?: CLICK_TYPE | HOVER_TYPE;
+  onSelect?: (option: Option) => void;
+  onDeselect?: (option: Option) => void;
+  initialSelectedIds?: Array<string | number>;
+  closeOnSelect?: boolean;
+  iconUrl: string;
+}
 
 const IconWithOptions: React.SFC<IconWithOptionsProps> =
-  ({options, openTrigger, placement, onSelect, iconUrl, mode, tabIndex}) => (
+  ({placement, options, openTrigger, onSelect, onDeselect, initialSelectedIds, closeOnSelect, iconUrl}) => (
     <Dropdown
       options={options}
       placement={placement}
       openTrigger={openTrigger}
-      mode={mode}
-      onSelect={onSelect}>
+      closeOnSelect={closeOnSelect}
+      onSelect={onSelect}
+      onDeselect={onDeselect}
+      initialSelectedIds={initialSelectedIds}>
       {
-        () =>
+        ({onKeyDown}: TriggerElementProps) =>
           <img
             src={iconUrl}
-            tabIndex={tabIndex}
-            onKeyDown={(evt: React.KeyboardEvent<HTMLImageElement>) => onKeyDownHandler(evt)}/>
+            tabIndex={5}
+            onKeyDown={onKeyDown}/>
       }
     </Dropdown>
   );
@@ -34,10 +46,14 @@ IconWithOptions.defaultProps = {
   openTrigger: HOVER,
   placement: 'bottom',
   options: [],
-  mode: SINGLE_SELECT
+  closeOnSelect: true,
+  initialSelectedIds: [],
+  onSelect: () => null,
+  onDeselect: () => null
 };
 
 IconWithOptions.propTypes = {
+  /** Trigger type to open the content */
   openTrigger: oneOf([CLICK, HOVER]),
   /** The location to display the content */
   placement: string,
@@ -45,12 +61,16 @@ IconWithOptions.propTypes = {
   options: arrayOf(object).isRequired,
   /** Handler for when an option is selected */
   onSelect: func,
-  /** The icon url to display */
+  /** Handler for when an option is deselected */
+  onDeselect: func,
+  /** initial selected option ids */
+  initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
+  /** Should close content on select */
+  closeOnSelect: bool,
+  /** Icon url to display */
   iconUrl: string.isRequired,
-  /** Dropdown mode - single / multi select */
-  mode: oneOf([SINGLE_SELECT, MULTI_SELECT]),
-  /** Tab index of the element */
-  tabIndex: number
+  /** Classes object */
+  classes: object.isRequired
 };
 
 export default createHOC(IconWithOptions);

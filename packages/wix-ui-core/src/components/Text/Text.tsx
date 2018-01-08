@@ -19,35 +19,31 @@ export interface TextProps {
 /**
  * Text
  */
-class Text extends  React.PureComponent<TextProps> {
-  static displayName = 'Text';
+const Text: React.SFC<TextProps> = ({classes, children, ellipsis, tagName, forceHideTitle}) => (
+  React.createElement(
+    tagName,
+    {
+      className: classnames(classes.root, {[classes.ellipsis] : ellipsis}),
+      title: typeof children === 'string' && ellipsis && !forceHideTitle ? children : null
+    },
+    children
+  )
+);
 
-  static defaultProps = {
-    tagName: 'span'
-  };
+Text.displayName = 'Text';
+Text.defaultProps = {
+  tagName: 'span'
+};
 
-  static propTypes = {
-    /** should the text be ellipsed or not */
-    ellipsis: bool,
-    /** should hide the title tooltip that is shown on mouse hover when using the ellipsis prop */
-    forceHideTitle: bool,
-    /** tag name that will be rendered */
-    tagName: string,
-    /** any nodes to be rendered (usually text nodes) */
-    children: any
-  };
-
-  getTitle = () => {
-    const {forceHideTitle, ellipsis, children} = this.props;
-    const showTitle = typeof children === 'string' && ellipsis && !forceHideTitle;
-    return showTitle ? children : null;
-  }
-
-  render() {
-    const {classes, children, ellipsis, tagName} = this.props;
-    const cssClasses = classnames(classes.root, {[classes.ellipsis] : ellipsis});
-    return React.createElement(tagName, {className: cssClasses, title: this.getTitle()}, children);
-  }
-}
+Text.propTypes = {
+  /** should the text be ellipsed or not */
+  ellipsis: bool,
+  /** should hide the title tooltip that is shown on mouse hover when using the ellipsis prop */
+  forceHideTitle: bool,
+  /** tag name that will be rendered */
+  tagName: string,
+  /** any nodes to be rendered (usually text nodes) */
+  children: any
+};
 
 export default createHOC(Text);

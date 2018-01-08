@@ -8,13 +8,8 @@ export interface VBoxProps {
   };
 }
 
-class VBox extends React.PureComponent<VBoxProps> {
-  render() {
-    const {children, classes} = this.props;
-    return (
-      <div className={classes.vRoot}>{children}</div>
-    );
-  }
-}
+const VBox: React.SFC<VBoxProps> = ({children, classes}) => (
+  <div className={classes.vRoot}>{children}</div>
+);
 
 export default createHOC(VBox);

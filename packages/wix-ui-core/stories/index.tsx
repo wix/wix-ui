@@ -5,19 +5,20 @@ import Button from '../src/components/Button';
 import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import Box from '../src/components/Box';
-import Tooltip from '../src/components/Tooltip';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
+import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
+import InputWithOptions from '../src/components/InputWithOptions';
+import Divider from '../src/components/Divider';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
   id: x,
-  value: `value${x}`,
-  displayName: `value ${x}`,
-  type: x === 3 ? 'separator' : 'option',
-  isDisabled: x === 4
+  isSelectable: x !== 3,
+  isDisabled: x === 4,
+  render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
 }));
 
 storiesOf('Components', module)
@@ -35,6 +36,14 @@ storiesOf('Components', module)
         options={dropdownOptions}/>
     </div>
   ))
+  .add('InputWithOptions', () => (
+    <div style={{padding: '50px'}}>
+      <InputWithOptions
+        closeOnSelect={false}
+        dataHook="story-input-with-options"
+        options={dropdownOptions}/>
+    </div>
+  ))
   .add('Input', () => (
     <Input dataHook="story-input" />
   ))
@@ -48,14 +57,7 @@ storiesOf('Components', module)
     <StylableToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
-    <Tooltip dataHook="story-tooltip" placement="right">
-      <Tooltip.Element>
-        <span>I need a tooltip</span>
-      </Tooltip.Element>
-      <Tooltip.Content>
-        <span>This is my tooltip!</span>
-      </Tooltip.Content>
-    </Tooltip>
+    <TooltipStory />
   ))
   .add('Text', () => (
     <Text ellipsis>

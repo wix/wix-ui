@@ -3,7 +3,7 @@ import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import Popover from './index';
 
-describe ('Popover', () => {
+describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
   const createPopover = (props = {}) =>
     <Popover placement="top" shown={false} {...props}>

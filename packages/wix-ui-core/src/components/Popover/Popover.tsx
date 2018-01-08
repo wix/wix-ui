@@ -3,36 +3,44 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {bool, string, func} from 'prop-types';
 import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {createHOC} from '../../createHOC';
+
+export type PopoverClasses = {
+  popoverContent: string;
+  arrow: string;
+};
+
+export type Placement = PopperJS.Placement;
 
 export interface PopoverProps {
-  shown?: boolean;
+  placement: Placement;
+  shown: boolean;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  classes?: PopoverClasses;
+  arrowStyle?: string;
 }
 
-export interface SharedPopoverProps {
-  placement?: PopperJS.Placement;
-}
-
-export type PopoverType = React.SFC<PopoverProps & SharedPopoverProps> & {
+export type PopoverType = React.SFC<PopoverProps> & {
   Element?: React.SFC;
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children}) => {
+const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes}) => {
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   return (
     <Manager
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={{display: 'inline-block'}}>
+      style={{display: 'inline-block', position: 'relative'}}>
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
       {
         shown &&
-        <Popper data-hook="popover-content" placement={placement}>
-          <Arrow/>
+        <Popper data-hook="popover-content" placement={placement}
+                className={classes.popoverContent}>
+          <Arrow className={`${classes.arrow} ${arrowStyle}`}/>
           {childrenObject.Content}
         </Popper>
       }
@@ -58,5 +66,4 @@ Popover.propTypes = {
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
 Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
 
-export {Popover};
-export default Popover;
+export default createHOC(Popover);

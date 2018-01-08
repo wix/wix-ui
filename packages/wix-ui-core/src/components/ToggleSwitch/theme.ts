@@ -42,11 +42,11 @@ export type ToggleSwitchTheme = Partial<{
   toggleIconHeight: string;
   toggleIconDisplay: string;
 
-  outerLabelBorderSize: string;
-  outerLabelBorderSizeChecked: string;
-  outerLabelBorderSizeDisabled: string;
-  outerLabelBorderSizeHover: string;
-  outerLabelBorderSizeHoverChecked: string;
+  outerLabelBorderSize: number;
+  outerLabelBorderSizeChecked: number;
+  outerLabelBorderSizeDisabled: number;
+  outerLabelBorderSizeHover: number;
+  outerLabelBorderSizeHoverChecked: number;
 
   outerLabelBorderColor: string;
   outerLabelBorderColorChecked: string;
@@ -54,11 +54,11 @@ export type ToggleSwitchTheme = Partial<{
   outerLabelBorderColorHover: string;
   outerLabelBorderColorHoverChecked: string;
 
-  innerLabelBorderSize: string;
-  innerLabelBorderSizeChecked: string;
-  innerLabelBorderSizeDisabled: string;
-  innerLabelBorderSizeHover: string;
-  innerLabelBorderSizeHoverChecked: string;
+  innerLabelBorderSize: number;
+  innerLabelBorderSizeChecked: number;
+  innerLabelBorderSizeDisabled: number;
+  innerLabelBorderSizeHover: number;
+  innerLabelBorderSizeHoverChecked: number;
 
   innerLabelBorderColor: string;
   innerLabelBorderColorChecked: string;
@@ -109,27 +109,27 @@ export const core: ToggleSwitchTheme = {
   toggleIconHeight: '6px',
   toggleIconDisplay: 'none',
 
-  outerLabelBorderSize: 'none',
-  outerLabelBorderSizeChecked: 'none',
-  outerLabelBorderSizeDisabled: 'none',
-  outerLabelBorderSizeHover: 'none',
-  outerLabelBorderSizeHoverChecked: 'none',
+  outerLabelBorderSize: 0,
+  outerLabelBorderSizeChecked: 0,
+  outerLabelBorderSizeDisabled: 0,
+  outerLabelBorderSizeHover: 0,
+  outerLabelBorderSizeHoverChecked: 0,
 
-  outerLabelBorderColor: 'none',
-  outerLabelBorderColorChecked: 'none',
-  outerLabelBorderColorDisabled: 'none',
-  outerLabelBorderColorHover: 'none',
-  outerLabelBorderColorHoverChecked: 'none',
+  outerLabelBorderColor: '#ffffff',
+  outerLabelBorderColorChecked: '#ffffff',
+  outerLabelBorderColorDisabled: '#ffffff',
+  outerLabelBorderColorHover: '#ffffff',
+  outerLabelBorderColorHoverChecked: '#ffffff',
 
-  innerLabelBorderSize: 'none',
-  innerLabelBorderSizeChecked: 'none',
-  innerLabelBorderSizeDisabled: 'none',
-  innerLabelBorderSizeHover: 'none',
-  innerLabelBorderSizeHoverChecked: 'none',
+  innerLabelBorderSize: 0,
+  innerLabelBorderSizeChecked: 0,
+  innerLabelBorderSizeDisabled: 0,
+  innerLabelBorderSizeHover: 0,
+  innerLabelBorderSizeHoverChecked: 0,
 
-  innerLabelBorderColor: 'none',
-  innerLabelBorderColorChecked: 'none',
-  innerLabelBorderColorDisabled: 'none',
-  innerLabelBorderColorHover: 'none',
-  innerLabelBorderColorHoverChecked: 'none'
+  innerLabelBorderColor: '#ffffff',
+  innerLabelBorderColorChecked: '#ffffff',
+  innerLabelBorderColorDisabled: '#ffffff',
+  innerLabelBorderColorHover: '#ffffff',
+  innerLabelBorderColorHoverChecked: '#ffffff'
 };

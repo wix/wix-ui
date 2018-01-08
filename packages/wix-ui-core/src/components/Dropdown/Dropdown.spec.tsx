@@ -2,20 +2,26 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import Dropdown from './index';
-import {HOVER, MULTI_SELECT, SEPARATOR, OPTION} from './constants';
+import {HOVER, CLICK} from './constants';
+import Divider from '../Divider';
 
-describe ('Dropdown', () => {
+describe('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const options = [1, 2, 3, 4, 5].map(x => ({
     id: x,
-    value: `value${x}`,
-    displayName: `value ${x}`,
-    type: x === 3 ? SEPARATOR : OPTION,
-    isDisabled: x === 4
+    isSelectable: x !== 3,
+    isDisabled: x === 4,
+    render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
   }));
 
   const createDropdown = (props = {}) => (
-    <Dropdown {...props}>
+    <Dropdown placement="top" openTrigger={CLICK} {...Object.assign({
+      options: [],
+      onSelect: () => null,
+      onDeselect: () => null,
+      initialSelectedIds: [],
+      closeOnSelect: true
+    }, props)}>
       {() => ''}
     </Dropdown>
   );
@@ -52,7 +58,7 @@ describe ('Dropdown', () => {
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onSelect).toHaveBeenCalledWith(options[0], expect.any(Object), [1]);
+      expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
     it('should not be called when selecting disabled item', () => {
@@ -72,37 +78,25 @@ describe ('Dropdown', () => {
       driver.clickOptionAt(3);
       expect(onSelect).not.toHaveBeenCalled();
     });
-  });
 
-  describe('multiSelect', () => {
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
-      const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, onDeselect, mode: MULTI_SELECT}));
+      const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onSelect).toHaveBeenCalledWith(options[0], expect.any(Object), [1]);
+      expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
+  });
 
-    it('should call onSelect when selection is not empty then changed', () => {
-      const onSelect = jest.fn();
+  describe('onDeselect', () => {
+    it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, mode: MULTI_SELECT}));
-
-      driver.click();
-      driver.clickOptionAt(1);
-      expect(onSelect).toHaveBeenCalledWith(options[1], expect.any(Object), [1, 2]);
-    });
-
-    it('should call onDeselect when selection is changed', () => {
-      const onSelect = jest.fn();
-      const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onSelect, onDeselect, mode: MULTI_SELECT}));
+      const driver = createDriver(createDropdown({initialSelectedIds: [1], options, onDeselect, closeOnSelect: false}));
 
       driver.click();
       driver.clickOptionAt(0);
-      expect(onDeselect).toHaveBeenCalledWith(options[0], expect.any(Object), []);
+      expect(onDeselect).toHaveBeenCalledWith(options[0]);
     });
   });
 });
