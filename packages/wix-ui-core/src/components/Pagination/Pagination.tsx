@@ -107,7 +107,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     showFirstPage: false,
     showLastPage: false,
     responsive: false,
-    maxPagesToShow: 25, // setting this too high can degrade responsive layout performance
+    maxPagesToShow: 7,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
     firstText: 'First',

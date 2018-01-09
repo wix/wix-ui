@@ -71,7 +71,7 @@ describe('Pagination', () => {
 
     it('pages send onChange with page number', () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={10} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={10} maxPagesToShow={10} onChange={onChange}/>);
 
       pagination.click(pagination.getPage(2));
       expect(onChange.mock.calls.length).toBe(1);
@@ -86,7 +86,7 @@ describe('Pagination', () => {
 
     it('does not call onChange on clicking the current page', async () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={15} currentPage={8} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={15}  maxPagesToShow={15} currentPage={8} onChange={onChange}/>);
 
       pagination.click(pagination.getCurrentPage());
 

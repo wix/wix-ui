@@ -22,6 +22,12 @@ describe('Pagination', () => {
     expect(nextLoc.x).toBeGreaterThan(pageSelectionLoc.x + pageSelectionSize.width);
   });
 
+  eyes.it('supports showFirstPage and showLastPage', () => {
+    const pagination = paginationTestkitFactory({dataHook: 'story-pagination-show-first-and-last'});
+    waitForVisibilityOf(pagination.element());
+    expect(pagination.getPageList()).toEqual(['1', '...', '4', '5', '6', '...', '9']);
+  });
+
   eyes.it('responds to rtl prop', async () => {
     const pagination = paginationTestkitFactory({dataHook: 'story-pagination-rtl'});
 
