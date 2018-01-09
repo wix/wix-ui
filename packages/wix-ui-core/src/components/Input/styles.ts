@@ -53,6 +53,19 @@ export const styles = (theme: InputTheme) => {
         '&:hover': {
           borderColor: theme.disabled.hoverBorderColor
         }
+      },
+
+      '&::-webkit-input-placeholder': {
+        color: theme.placeholder.color,
+      },
+      '&:-moz-placeholder': {
+        color: theme.placeholder.color,
+      },
+      '&::-moz-placeholder': {
+        color: theme.placeholder.color,
+      },
+      '&:-ms-input-placeholder': {
+        color: theme.placeholder.color
       }
     }
   };
