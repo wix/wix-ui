@@ -49,7 +49,7 @@
     "eslint-config-wix": "^1.1.16",
     "github-markdown-css": "^2.9.0",
     "highlight.js": "^9.12.0",
-    "import-path": "^0.0.13",
+    "import-path": "^1.0.0",
     "jsx-to-string": "^1.3.0",
     "path": "^0.12.7",
     "react-collapse": "^4.0.3",

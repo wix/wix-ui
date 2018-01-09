@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Dropdown from '../Dropdown';
-import {Placement} from '../Popover/Popover';
-import {TriggerElementProps} from '../Dropdown/Dropdown';
-import {Option} from '../Dropdown/DropdownContent/DropdownContent';
+import Dropdown from '../../baseComponents/Dropdown';
+import {Placement} from '../../baseComponents/Popover/Popover';
+import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
+import {Option} from '../../baseComponents/DropdownOption';
 import {createHOC} from '../../createHOC';
-import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../Dropdown/constants';
+import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {bool, oneOf, object, arrayOf, string, func, oneOfType, number} from 'prop-types';
 import Input from '../Input';
 

@@ -40,7 +40,7 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
         shown &&
         <Popper data-hook="popover-content" placement={placement}
                 className={classes.popoverContent}>
-          <Arrow className={`${classes.arrow} ${arrowStyle}`}/>
+          <Arrow data-hook="popover-arrow" className={`${classes.arrow} ${arrowStyle}`}/>
           {childrenObject.Content}
         </Popper>
       }

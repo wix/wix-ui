@@ -98,6 +98,27 @@ waitForVisibilityOf(
 
 ## Testkit helpers
 
+### `createDriverFactory`
+
+Accepts a component driver. Returns a new driver factory. An explanation of drivers can be viewd
+[here](./docs/COMPONENT_DRIVERS.md).
+
+```javascript
+import React from 'react';
+import {createDriverFactory} from 'wix-ui-test-utils';
+import {buttonDriverFactory} from './Button.driver';
+import Button from './';
+
+const createDriver = createDriverFactory(buttonDriverFactory);
+
+describe('Button', () => {
+  it('should exist', () => {
+    const driver = createDriver(<Button />);
+    expect(driver.exists()).toBe(true);
+  });
+});
+```
+
 ### Vanilla (react-test-utils)
 
 #### `testkitFactoryCreator`

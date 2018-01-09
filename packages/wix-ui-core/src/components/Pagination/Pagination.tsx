@@ -1,7 +1,32 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
-import * as  classNames from 'classnames';
+import * as classNames from 'classnames';
+
+enum ButtonType {
+  Prev = 'previous',
+  Next = 'next',
+  First = 'first',
+  Last = 'last'
+}
+
+// TODO: should be automatically derived from styles somehow.
+export interface PaginationClasses {
+  root: string;
+  navButton: string;
+  // Mode: pages
+  pageStrip: string;
+  pageButton: string;
+  currentPage: string;
+  ellipsis: string;
+  // Mode: input
+  pageForm: string;
+  pageInput: string;
+  totalPages: string;
+  // Modifiers
+  rtl: string;
+  disabled: string;
+}
 
 export interface PaginationProps {
   // data
@@ -21,14 +46,13 @@ export interface PaginationProps {
   alwaysShowFirstPage?: boolean;
   alwaysShowLastPage?: boolean;
   showInputModeTotalPages?: boolean;
-  classes?: {[s: string]: string};
+  classes?: PaginationClasses;
+  id?: string;
 }
 
 interface PaginationState {
-  pageInput: string;
+  pageInputValue: string;
 }
-
-enum NavButtonTypes {FIRST, PREVIOUS, NEXT, LAST}
 
 class Pagination extends React.Component<PaginationProps, PaginationState> {
   // this is a techincal debt - remove once we have support for typescript props in autodocs
@@ -64,7 +88,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Whether the to show the total amount of pages next to the input field in "input" paginationMode  */
     showInputModeTotalPages: PropTypes.bool,
     /** Classes object */
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object,
+    /** Component ID */
+    id: PropTypes.string
   };
 
   public static defaultProps: Partial<PaginationProps> = {
@@ -72,50 +98,74 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
     paginationMode: 'pages',
-    showInputModeTotalPages: false
+    showInputModeTotalPages: false,
+    firstText: 'First',
+    lastText: 'Last',
+    previousText: 'Previous',
+    nextText: 'Next'
   };
 
-  private currentPage: number = this.validateCurrentPage();
+  private getId(elementName: string = ''): string | null {
+    return this.props.id ? this.props.id + elementName : null;
+  }
 
-  state = {
-    pageInput: String(this.currentPage)
+  private get currentPage() {
+    return this.makePageNumberValid(this.props.currentPage, this.props.totalPages);
+  }
+
+  public state = {
+    pageInputValue: String(this.currentPage)
   };
 
-  private validateCurrentPage(): number {
-    return Math.max(Math.min(this.props.currentPage, this.props.totalPages), 1);
+  private makePageNumberValid(pageNumber: number, totalPages: number): number {
+    pageNumber = Math.floor(pageNumber);
+    return isNaN(pageNumber) ? 1 : Math.max(Math.min(pageNumber, totalPages), 1);
   }
 
-  private onChange(page): void {
-    this.props.onChange({page});
+  private onChange(page: number | string): void {
+    this.props.onChange({page: String(page)});
   }
 
-  private handlePageClick = (page: string): void => {
+  private handlePageClick = (page: number | string): void => {
     this.onChange(page);
   }
 
-  private renderPages(): Array<JSX.Element> {
+  private renderPageStrip(): JSX.Element {
+    const {classes} = this.props;
     const pages = this.getPages();
-    return pages.map((pageContent, i) => {
-      const isCurrent: boolean = pageContent === String(this.currentPage);
-      return (
-        <button
-          data-hook={'PAGE_' + i}
-          key={'PAGE' + i}
-          aria-label={`Page ${pageContent}`}
-          className={pageContent === String(this.currentPage) ? this.props.classes.currentPage : this.props.classes.pageNumber}
-          onClick={() => this.handlePageClick(pageContent)}
-          data-isSelected={isCurrent}
-          disabled={isCurrent}>
-          {pageContent}
-        </button>
-      );
-    });
+    const currentPage = this.currentPage;
+
+    return (
+      <div
+        data-hook="PAGES_SELECTION"
+        id={this.getId('pageStrip')}
+        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
+        style={{order: 3}}
+      >
+        {pages.map(page =>
+          <a
+            data-hook={'PAGE_' + page + (page === currentPage ? ' PAGE_CURRENT' : '')}
+            key={page}
+            aria-label={`Page ${page}`}
+            className={
+              page === currentPage ?
+                this.props.classes.currentPage :
+                this.props.classes.pageButton
+            }
+            onClick={page === currentPage ? null : () => this.handlePageClick(page)}
+            tabIndex={page === currentPage ? null : 0}
+          >
+            {page}
+          </a>
+        )}
+      </div>
+    );
   }
 
-  private getPages(): Array<string> {
-    let result: Array<string> = [];
+  private getPages(): number[] {
+    let result: number[] = [];
     for (let i = 1; i <= this.props.totalPages; i++ ) {
-        result.push(String(i));
+      result.push(i);
     }
 
     return result;
@@ -124,110 +174,103 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newInput = e.target.value;
     if ((newInput === parseInt(newInput, 10).toString() && parseInt(newInput, 10) > 0) || newInput === '') {
-      this.setState({pageInput: e.target.value});
+      this.setState({pageInputValue: e.target.value});
     }
   }
 
   private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const keyCode = e.keyCode;
     if (keyCode === 13) { // pressing enter
-      this.handlePageInputCommit();
+      this.pageInputCommit();
     }
   }
 
-  private handlePageInputCommit = (e?: React.FocusEvent<HTMLInputElement>): void => {
-    if (!this.state.pageInput || this.state.pageInput === String(this.currentPage)) {
-      return;
-    } else if (parseInt(this.state.pageInput, 10) > this.props.totalPages) {
-      this.onChange(String(this.props.totalPages));
-    } else {
-      this.onChange(this.state.pageInput);
+  private pageInputCommit = (): void => {
+    const page = Number(this.state.pageInputValue);
+    if (page && page !== this.currentPage) {
+      this.onChange(this.makePageNumberValid(page, this.props.totalPages));
     }
   }
 
-  private createInputLayout = () => {
-    return [
-      <input
-        data-hook="PAGE_INPUT"
-        key="PAGE_INPUT"
-        name="pagenumber"
-        type="number"
-        min="1"
-        max={this.props.totalPages}
-        className={this.props.classes.inputField}
-        value={this.state.pageInput}
-        onChange={this.handlePageInputChange}
-        onKeyDown={this.handlePageInputKeyDown}
-        onBlur={this.handlePageInputCommit}
-        aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}/>,
-      this.props.showInputModeTotalPages && <span data-hook="PAGES_TOTAL" key="PAGES_TOTAL" className={this.props.classes.inputTotalPages}>/ {this.props.totalPages}</span>,
-    ];
-  }
-
-  private renderNavButton(buttonType: NavButtonTypes): JSX.Element {
+  private renderPageForm(): JSX.Element {
     const {classes} = this.props;
+    const inputSize = this.props.totalPages.toString().length + 2;
 
-    const isDisabled: boolean = (
-      ((buttonType === NavButtonTypes.FIRST || buttonType === NavButtonTypes.PREVIOUS) && this.currentPage === 1) ||
-      ((buttonType === NavButtonTypes.LAST || buttonType === NavButtonTypes.NEXT) && this.currentPage === this.props.totalPages)
+    return (
+      <div data-hook="PAGES_SELECTION" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
+        <input
+          data-hook="PAGE_INPUT"
+          name="pagenumber"
+          type="text"
+          size={inputSize}
+          className={this.props.classes.pageInput}
+          value={this.state.pageInputValue}
+          onChange={this.handlePageInputChange}
+          onKeyDown={this.handlePageInputKeyDown}
+          onBlur={this.pageInputCommit}
+          aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}
+        />
+        {this.props.showInputModeTotalPages && (
+          <span data-hook="PAGES_TOTAL" className={this.props.classes.totalPages}>
+            {`\u00A0/\u00A0${this.props.totalPages}`}
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  private renderNavButton(type: ButtonType): JSX.Element {
+    const {classes, rtl} = this.props;
+
+    const disabled = (
+      ((type === ButtonType.First || type === ButtonType.Prev) && this.currentPage === 1) ||
+      ((type === ButtonType.Last  || type === ButtonType.Next) && this.currentPage === this.props.totalPages)
     );
 
-    const navButton = (name: string, content: string, order: number): JSX.Element => {
-      return (
-        <button
-          key={name.toUpperCase()}
-          data-hook={name.toUpperCase()}
-          className={classNames({
-            [classes.navButtonRtl]: (this.props.rtl && !this.props.replaceArrowsWithText),
-            [classes.navButton]: !isDisabled,
-            [classes.disabledNavButton]: isDisabled
-          })}
-          onClick={() => this.handlePageClick(name)}
-          disabled={isDisabled}
-          aria-label={name.charAt(0).toUpperCase() + name.slice(1) + ' Page'}
-          style={{order}}>
-          {content}
-        </button>
-      );
-    };
+    const [order, text, symbol] = {
+      [ButtonType.Prev]:  [2, this.props.previousText, rtl ? '>'  :  '<'],
+      [ButtonType.Next]:  [4, this.props.nextText,     rtl ? '<'  :  '>'],
+      [ButtonType.First]: [1, this.props.firstText,    rtl ? '>>' : '<<'],
+      [ButtonType.Last]:  [5, this.props.lastText,     rtl ? '<<' : '>>']
+    }[type] as [number, string, string];
 
-    switch (buttonType) {
-      case NavButtonTypes.FIRST: return navButton('first', this.props.replaceArrowsWithText ? this.props.firstText || 'First' : '<<', 1);
-
-      case NavButtonTypes.PREVIOUS: return navButton('previous', this.props.replaceArrowsWithText ? this.props.previousText || 'Previous' : '<', 2);
-
-      case NavButtonTypes.NEXT: return navButton('next', this.props.replaceArrowsWithText ? this.props.nextText || 'Next' : '>', 4);
-
-      case NavButtonTypes.LAST: return navButton('last', this.props.replaceArrowsWithText ? this.props.lastText || 'Last' : '>>', 5);
-
-      default: return null;
-    }
+    return (
+      <a
+        data-hook={type.toUpperCase()}
+        id={this.getId(type + 'Page')}
+        className={classNames(classes.navButton, {[classes.disabled]: disabled})}
+        onClick={disabled ? null : () => this.handlePageClick(type)}
+        aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
+        style={{order}}
+        tabIndex={disabled ? null : 0}
+      >
+        {this.props.replaceArrowsWithText ? text : symbol}
+      </a>
+    );
   }
 
-  render() {
+  public componentWillReceiveProps(nextProps) {
+    this.setState({
+      pageInputValue: String(this.makePageNumberValid(nextProps.currentPage, nextProps.totalPages))
+    });
+  }
+
+  public render() {
     const {showFirstLastNavButtons, paginationMode, classes} = this.props;
-    this.currentPage = this.validateCurrentPage();
 
     return (
       <nav
         data-hook="PAGINATION"
-        className={classNames(classes.paginationRoot, {[classes.rtl]: this.props.rtl})}
+        id={this.getId('root')}
+        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
         role="navigation"
-        aria-label="Pagination Navigation">
-        {[
-          this.renderNavButton(NavButtonTypes.NEXT),
-          this.renderNavButton(NavButtonTypes.PREVIOUS)
-        ]}
-        <span
-          data-hook="PAGES_SELECTION"
-          className={classNames(classes.pagesSelection, {[classes.rtl]: (this.props.rtl && paginationMode === 'pages')})}
-          style={{order: 3}}>
-            { paginationMode === 'input' ? this.createInputLayout() : this.renderPages()}
-          </span>
-        {[
-          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.FIRST),
-          showFirstLastNavButtons && this.renderNavButton(NavButtonTypes.LAST)
-        ]}
+        aria-label="Pagination Navigation"
+      >
+        {this.renderNavButton(ButtonType.Next)}
+        {this.renderNavButton(ButtonType.Prev)}
+        {paginationMode === 'input' ? this.renderPageForm() : this.renderPageStrip()}
+        {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
+        {showFirstLastNavButtons && this.renderNavButton(ButtonType.Last)}
       </nav>
     );
   }
