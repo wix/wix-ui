@@ -92,24 +92,6 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  describe('IconComponent prop', () => {
-    const IconComponent = ({checked}) => {
-      return checked ? <div>{'checked'}</div> : <div>{'unchecked'}</div>;
-    };
-
-    it('should be used for the icon when unchecked', () => {
-      const component = <ToggleSwitch IconComponent={IconComponent} onChange={noop}/>;
-      const driver = createDriver(component);
-      expect(driver.getToggleIcon().innerHTML).toBe('<div>unchecked</div>');
-    });
-
-    it('should be used for the icon when unchecked', () => {
-      const component = <ToggleSwitch IconComponent={IconComponent} checked onChange={noop}/>;
-      const driver = createDriver(component);
-      expect(driver.getToggleIcon().innerHTML).toBe('<div>checked</div>');
-    });
-  });
-
   describe('id prop', () => {
     it('should apply arbitrary unique id be default', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);

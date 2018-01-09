@@ -28,7 +28,6 @@ export interface ToggleSwitchProps {
   classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
-  IconComponent?: React.ComponentType<ToggleSwitchIconProps>;
   iconOn?: React.ReactElement<any>;
   iconOff?: React.ReactElement<any>;
 }
@@ -87,15 +86,9 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     }
   }
 
-  defaultIconComponent = ({checked}) => {
-    const {iconOn, iconOff} = this.props;
-    return checked ? iconOn : iconOff;
-  }
-
   render() {
-    const {checked, disabled, classes, styles} = this.props;
+    const {checked, disabled, classes, styles, iconOn, iconOff} = this.props;
     const {id} = this;
-    const IconComponent = this.props.IconComponent || this.defaultIconComponent;
 
     return (
       <div className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
@@ -110,7 +103,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
         <label htmlFor={id} className={classes.outerLabel} style={styles.outerLabel}/>
         <label htmlFor={id} className={classes.innerLabel} style={styles.innerLabel}>
           <div className={classes.toggleIcon} style={styles.toggleIcon}>
-            <IconComponent checked={checked}/>
+            {checked ? iconOn : iconOff}
           </div>
         </label>
       </div>
