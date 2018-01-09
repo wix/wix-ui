@@ -6,17 +6,27 @@ export interface SliderProps {
     max?: number;
     value?: number;
     onChange?: () => any;
+    onInput?: () => any;
+    classes?: any;
 }
 
 class Slider extends React.PureComponent<SliderProps> {
     render() {
-        return <input
-            type="range"
-            value={this.props.value}
-            min={this.props.min}
-            max={this.props.max}
-            onChange={this.props.onChange}
-        />;
+        const {classes} = this.props;
+
+        return (
+            <div className={classes.root} style={{width: '100%', height: '100%'}}>
+                <input
+                    className={classes.slider}
+                    type="range"
+                    value={this.props.value}
+                    min={this.props.min}
+                    max={this.props.max}
+                    onChange={this.props.onChange}
+                    onInput={this.props.onInput}
+                />
+            </div>
+        );
     }
 }
 

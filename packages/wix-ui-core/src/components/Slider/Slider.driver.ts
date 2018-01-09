@@ -1,11 +1,14 @@
 export const sliderDriverFactory = ({element, componentInstance, eventTrigger}) => {
+  const sliderInput = element.querySelector('input');
+
   return {
     /** checks if element exists */
     exists: () => !!element,
-    value: () => element.getAttribute('value'),
-    min: () => element.getAttribute('min'),
-    max: () => element.getAttribute('max'),
-    change: () => eventTrigger.change(element),
+    value: () => sliderInput.getAttribute('value'),
+    min: () => sliderInput.getAttribute('min'),
+    max: () => sliderInput.getAttribute('max'),
+    change: () => eventTrigger.change(sliderInput),
+    input: () => eventTrigger.input(sliderInput),
     /** triggers slider change */
     styles: {
     }
