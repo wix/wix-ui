@@ -98,7 +98,9 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
         <div className={classes.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
         <div className={classes.innerLabel} style={styles.innerLabel}>
-          {checked ? iconOn : iconOff}
+          <div className={classes.toggleIcon} style={styles.toggleIcon}>
+            {checked ? iconOn : iconOff}
+          </div>
         </div>
       </label>
     );
