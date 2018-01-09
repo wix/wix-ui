@@ -1,6 +1,10 @@
-const fs = require('fs');
-const [folder] = process.argv.slice(2);
+const fse = require('fs-extra');
+const [from, to] = process.argv.slice(2);
 
-fs.readdirSync(folder)
+if (to && to !== '.' ) {
+  fse.removeSync(to);
+  fse.ensureDirSync(to);
+}
+fse.readdirSync(from)
   .filter(file => file.endsWith('.js'))
-  .forEach(file => fs.writeFileSync(file, `module.exports = require('${folder}/${file}');\n`));
+  .forEach(file => fse.writeFileSync(`${to}/${file}`, `module.exports = require('${from}/${file}');\n`));

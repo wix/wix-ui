@@ -18,14 +18,18 @@
   },
   "scripts": {
     "precommit": "haste lint",
-    "buildIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
+    "buildGeneralIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
+    "buildSystemIcons": "svg2react-icon 'src/system/raw' 'src/system/dist' true",
+    "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
     "pretest": "npm run buildIcons && haste build",
     "build": "haste lint && npm run buildIcons && haste build && npm run create-aliases",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",
     "release": "haste release",
-    "create-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components"
+    "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
+    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system",
+    "create-aliases": "npm run create-general-aliases && npm run create-system-aliases"
   },
   "devDependencies": {
     "@types/chai": "~4.0.0",
@@ -35,6 +39,7 @@
     "@types/react-dom": "~15.5.0",
     "chai": "~4.1.0",
     "enzyme": "~2.9.0",
+    "fs-extra": "^5.0.0",
     "gh-pages-auto-release": "~1.1.0",
     "haste-preset-yoshi": "latest",
     "husky": "~0.14.0",

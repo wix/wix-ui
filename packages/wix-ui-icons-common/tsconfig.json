@@ -16,6 +16,7 @@
   ],
   "files": [
     "./src/external-types.d.ts",
-    "./src/index.ts"
+    "./src/index.ts",
+    "./src/system/index.ts"
   ]
 }

@@ -1,1 +1,1 @@
-export * from './Icons';
+export * from './general';
