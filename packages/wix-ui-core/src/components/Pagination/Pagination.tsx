@@ -2,6 +2,7 @@ import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
+import {PageStrip} from './PageStrip';
 
 enum ButtonType {
   Prev = 'previous',
@@ -43,9 +44,11 @@ export interface PaginationProps {
   lastText?: string;
   rtl?: boolean;
   width?: number;
-  alwaysShowFirstPage?: boolean;
-  alwaysShowLastPage?: boolean;
+  showFirstPage?: boolean;
+  showLastPage?: boolean;
   showInputModeTotalPages?: boolean;
+  responsive?: boolean;
+  maxPagesToShow?: number;
   classes?: PaginationClasses;
   id?: string;
 }
@@ -82,11 +85,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** The pixel width the component will render in  */
     width: PropTypes.number,
     /** Whether the page numbers always show the first page  */
-    alwaysShowFirstPage: PropTypes.bool,
+    showFirstPage: PropTypes.bool,
     /** Whether the page numbers always show the last page  */
-    alwaysShowLastPage: PropTypes.bool,
-    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode  */
+    showLastPage: PropTypes.bool,
+    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode */
     showInputModeTotalPages: PropTypes.bool,
+    /** In 'pages' mode automatically limits the number of pages such that they don't overflow the container */
+    responsive: PropTypes.bool,
+    /** In 'pages' mode defines the maximum number of pages to show */
+    maxPagesToShow: PropTypes.number,
     /** Classes object */
     classes: PropTypes.object,
     /** Component ID */
@@ -97,6 +104,10 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     currentPage: 1,
     showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
+    showFirstPage: false,
+    showLastPage: false,
+    responsive: false,
+    maxPagesToShow: 25, // setting this too high can degrade responsive layout performance
     paginationMode: 'pages',
     showInputModeTotalPages: false,
     firstText: 'First',
@@ -131,44 +142,18 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderPageStrip(): JSX.Element {
-    const {classes} = this.props;
-    const pages = this.getPages();
-    const currentPage = this.currentPage;
-
     return (
-      <div
-        data-hook="PAGES_SELECTION"
-        id={this.getId('pageStrip')}
-        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
-        style={{order: 3}}
-      >
-        {pages.map(page =>
-          <a
-            data-hook={'PAGE_' + page + (page === currentPage ? ' PAGE_CURRENT' : '')}
-            key={page}
-            aria-label={`Page ${page}`}
-            className={
-              page === currentPage ?
-                this.props.classes.currentPage :
-                this.props.classes.pageButton
-            }
-            onClick={page === currentPage ? null : () => this.handlePageClick(page)}
-            tabIndex={page === currentPage ? null : 0}
-          >
-            {page}
-          </a>
-        )}
-      </div>
+      <PageStrip
+        totalPages={this.props.totalPages}
+        currentPage={this.currentPage}
+        maxPagesToShow={this.props.maxPagesToShow}
+        showFirstPage={this.props.showFirstPage}
+        showLastPage={this.props.showLastPage}
+        responsive={this.props.responsive}
+        classes={this.props.classes}
+        onPageSelect={this.handlePageClick}
+      />
     );
-  }
-
-  private getPages(): number[] {
-    let result: number[] = [];
-    for (let i = 1; i <= this.props.totalPages; i++ ) {
-      result.push(i);
-    }
-
-    return result;
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -197,9 +182,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const inputSize = this.props.totalPages.toString().length + 2;
 
     return (
-      <div data-hook="PAGES_SELECTION" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
+      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
         <input
-          data-hook="PAGE_INPUT"
+          data-hook="page-input"
           name="pagenumber"
           type="text"
           size={inputSize}
@@ -211,7 +196,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && (
-          <span data-hook="PAGES_TOTAL" className={this.props.classes.totalPages}>
+          <span data-hook="total-pages" className={this.props.classes.totalPages}>
             {`\u00A0/\u00A0${this.props.totalPages}`}
           </span>
         )}
@@ -236,7 +221,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
     return (
       <a
-        data-hook={type.toUpperCase()}
+        data-hook={type}
         id={this.getId(type + 'Page')}
         className={classNames(classes.navButton, {[classes.disabled]: disabled})}
         onClick={disabled ? null : () => this.handlePageClick(type)}
@@ -256,15 +241,16 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   public render() {
-    const {showFirstLastNavButtons, paginationMode, classes} = this.props;
+    const {showFirstLastNavButtons, paginationMode, classes, width} = this.props;
 
     return (
       <nav
-        data-hook="PAGINATION"
+        data-hook="pagination"
         id={this.getId('root')}
-        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
         role="navigation"
         aria-label="Pagination Navigation"
+        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
+        style={width ? {width} : null}
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}

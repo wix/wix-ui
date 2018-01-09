@@ -46,7 +46,7 @@ describe('Pagination', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination totalPages={3}/>);
       expect(pagination.amountOfPages).toBe(3);
-      expect(pagination.getPagesList()).toEqual(['1', '2', '3']);
+      expect(pagination.getPageList()).toEqual(['1', '2', '3']);
     });
 
     it('marks page 1 as selected by default', () => {

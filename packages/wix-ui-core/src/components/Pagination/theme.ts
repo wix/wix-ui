@@ -36,8 +36,9 @@ export const core: PaginationTheme = {
   },
   pageStrip: {
     display: 'flex',
-    overflow: 'hidden',
+    order: 3,
     justifyContent: 'center',
+    overflow: 'hidden',
 
     '$rtl > &': {
       flexDirection: 'row-reverse'
