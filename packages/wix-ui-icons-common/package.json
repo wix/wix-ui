@@ -13,6 +13,8 @@
     "src",
     "testkit",
     "*.js",
+    "!wallaby.js",
+    "!protractor.conf.js",
     "system"
   ],
   "publishConfig": {
