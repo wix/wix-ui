@@ -11,7 +11,9 @@
   "files": [
     "dist",
     "src",
-    "testkit"
+    "testkit",
+    "*.js",
+    "system"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
