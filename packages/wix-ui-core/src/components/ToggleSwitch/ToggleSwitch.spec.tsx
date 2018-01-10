@@ -4,6 +4,8 @@ import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-u
 import ToggleSwitch from './';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
+import {ToggleOn, ToggleOff} from 'wix-ui-icons-common/system';
+import * as ReactDOMServer from 'react-dom/server';
 
 describe('ToggleSwitch', () => {
 
@@ -67,12 +69,14 @@ describe('ToggleSwitch', () => {
   describe('toggleIcon', () => {
     it('should be the checked icon when the toggleSwitch is checked', () => {
       const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
-      expect(driver.getToggleIcon().innerHTML).toBe('<div>✓</div>');
+      const toggleOnHtml = ReactDOMServer.renderToStaticMarkup(<ToggleOn/>);
+      expect(driver.getToggleIcon().innerHTML).toBe(toggleOnHtml);
     });
 
     it('should be the unchecked icon when the toggleSwitch is unchecked', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.getToggleIcon().innerHTML).toBe('<div>-</div>');
+      const toggleOffHtml = ReactDOMServer.renderToStaticMarkup(<ToggleOff/>);
+      expect(driver.getToggleIcon().innerHTML).toBe(toggleOffHtml);
     });
   });
 
