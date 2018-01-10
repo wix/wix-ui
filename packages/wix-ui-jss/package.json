@@ -36,6 +36,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@types/jest": "^21.1.8",
     "@types/react": "^15.6.0",
     "@types/react-dom": "^15.5.0",
     "enzyme": "^3.0.0",
