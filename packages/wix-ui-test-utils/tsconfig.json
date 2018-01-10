@@ -13,8 +13,7 @@
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
-    "./src/**/*.js",
-    "./test/**/*.tsx"
+    "./src/**/*.js"
   ],
   "files": [
     "./src/index.ts"
