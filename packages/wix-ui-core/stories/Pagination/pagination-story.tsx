@@ -101,7 +101,7 @@ export function PaginationStory() {
 
       <h2>Responsive Layout</h2>
       <div>
-        <h3>Full Range</h3>
+        <h3>Full range</h3>
         <UncontrolledPagination
           dataHook="responsive-full-range"
           responsive
@@ -113,7 +113,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Without Ellipses</h3>
+        <h3>Limited range without ellipses</h3>
         <UncontrolledPagination
           dataHook="responsive-no-ellipsis"
           responsive
@@ -123,7 +123,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Ellipsis at the End</h3>
+        <h3>Ellipsis at the end</h3>
         <UncontrolledPagination
           dataHook="responsive-ellipsis-end"
           responsive
@@ -135,7 +135,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Ellipsis at the Beginning</h3>
+        <h3>Ellipsis at the beginning</h3>
         <UncontrolledPagination
           dataHook="responsive-ellipsis-beginning"
           responsive
@@ -147,7 +147,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Ellipses on Both Sides</h3>
+        <h3>Ellipses on both sides</h3>
         <UncontrolledPagination
           dataHook="responsive-ellipsis-beginning-end"
           responsive
@@ -159,7 +159,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Not Enough Space for Ellipses</h3>
+        <h3>Not enough space for ellipses</h3>
         <UncontrolledPagination
           dataHook="responsive-no-space-for-ellipsis"
           responsive
@@ -171,7 +171,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Not Enough Space for the Current Page</h3>
+        <h3>Not enough space for the current page</h3>
         <UncontrolledPagination
           dataHook="responsive-no-space-for-current"
           responsive

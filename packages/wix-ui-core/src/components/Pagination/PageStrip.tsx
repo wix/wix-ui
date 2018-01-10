@@ -30,7 +30,7 @@ export interface PageStripProps {
     responsive: boolean;
     id?: string;
     classes: PageStripClasses;
-    onPageSelect: (pageNumber: number) => void;
+    onPageSelect: (event: React.KeyboardEvent<Element> | React.MouseEvent<Element>, pageNumber: number) => void;
 }
 
 export interface PageStripState {
@@ -72,20 +72,38 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     private renderLayout(layout: PageStripLayout): JSX.Element[] {
         const {currentPage, classes} = this.props;
 
-        return layout.map((pageNumber, index) => pageNumber ?
-            <div
-                key={index}
-                data-hook={'page-' + pageNumber + (pageNumber === currentPage ? ' current-page' : '')}
-                aria-label={`Page ${pageNumber}`}
-                className={pageNumber === currentPage ? classes.currentPage : classes.pageButton}
-                onClick={pageNumber === currentPage ? null : e => this.handleClick(e, pageNumber)}
-                tabIndex={pageNumber === currentPage ? null : 0}
-            >
-                {pageNumber}
-            </div>
-            :
-            <div key={index} className={classes.ellipsis}>...</div>
-        );
+        return layout.map((pageNumber, index) => {
+            if (!pageNumber) {
+                return <span key={index} className={classes.ellipsis}>...</span>;
+            }
+
+            if (pageNumber === currentPage) {
+                return (
+                    <span
+                        key={index}
+                        data-hook={`page-${pageNumber} current-page`}
+                        aria-label={`Page ${pageNumber}`}
+                        className={classes.currentPage}
+                    >
+                        {pageNumber}
+                    </span>
+                );
+            }
+
+            return (
+                <a
+                    key={index}
+                    data-hook={`page-${pageNumber}`}
+                    aria-label={`Page ${pageNumber}`}
+                    className={classes.pageButton}
+                    tabIndex={0}
+                    onClick={e => this.handleClick(e, pageNumber)}
+                    onKeyDown={e => this.handleKeyDown(e, pageNumber)}
+                >
+                    {pageNumber}
+                </a>
+            );
+        });
     }
 
     private getLayout(): PageStripLayout {
@@ -118,7 +136,12 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     }
 
     private handleClick(e: React.MouseEvent<Element>, pageNumber: number) {
-        e.preventDefault(); // Don't follow the link
-        this.props.onPageSelect(pageNumber);
+        this.props.onPageSelect(e, pageNumber);
+    }
+
+    private handleKeyDown(e: React.KeyboardEvent<Element>, pageNumber: number) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            this.props.onPageSelect(e, pageNumber);
+        }
     }
 }

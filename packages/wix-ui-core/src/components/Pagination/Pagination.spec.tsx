@@ -59,16 +59,6 @@ describe('Pagination', () => {
       expect(pagination.getCurrentPage().textContent).toBe('2');
     });
 
-    it('if currentPage is higher than the number of pages - current page is the last one', () => {
-      const pagination = createDriver(<Pagination totalPages={34} currentPage={56}/>);
-      expect(pagination.getCurrentPage().textContent).toBe('34');
-    });
-
-    it('if currentPage is lower than 1 - current page is set to 1', () => {
-      const pagination = createDriver(<Pagination totalPages={34} currentPage={0}/>);
-      expect(pagination.getCurrentPage().textContent).toBe('1');
-    });
-
     it('pages send onChange with page number', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={10} maxPagesToShow={10} onChange={onChange}/>);
@@ -156,6 +146,16 @@ describe('Pagination', () => {
       });
     });
 
+    it('does not call onChange with an invalid numeric value after pressing ENTER', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
+      pagination.changeInput('16');
+      pagination.inputKeyDown(13);
+      return sleep(10).then(() => {
+        expect(onChange.mock.calls.length).toBe(0);
+      });
+    });
+
     it('does not call onChange if the input value is the same as the current page', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={8} onChange={onChange}/>);
@@ -165,27 +165,6 @@ describe('Pagination', () => {
       return sleep(10).then(() => {
         expect(onChange.mock.calls.length).toBe(0);
       });
-    });
-
-    it('calls onChange with the last page if input value is higher than the last page', () => {
-      const onChange = jest.fn();
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={8} onChange={onChange}/>);
-      pagination.changeInput('34');
-      pagination.inputKeyDown(13);
-
-      return sleep(10).then(() => {
-          expect(onChange.mock.calls.length).toBe(1);
-          expect(onChange.mock.calls[0][0]).toEqual({page: '15'});
-      });
-    });
-
-    it('calls onChange with new numeric value after BLUR', () => {
-      const onChange = jest.fn();
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
-      pagination.changeInput('5');
-      pagination.inputBlur();
-      expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
     });
 
     describe('Input mode accessibility',  () => {

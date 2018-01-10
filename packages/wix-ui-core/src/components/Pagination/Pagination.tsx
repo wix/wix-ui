@@ -107,7 +107,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     showFirstPage: false,
     showLastPage: false,
     responsive: false,
-    maxPagesToShow: 7,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
     firstText: 'First',
@@ -120,24 +119,26 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return this.props.id ? this.props.id + elementName : null;
   }
 
-  private get currentPage() {
-    return this.makePageNumberValid(this.props.currentPage, this.props.totalPages);
+  private get maxPagesToShow(): number {
+    if (this.props.maxPagesToShow) {
+      return this.props.maxPagesToShow;
+    } else if (this.props.responsive) {
+      return 20;
+    } else {
+      return 7;
+    }
   }
 
   public state = {
-    pageInputValue: String(this.currentPage)
+    pageInputValue: String(this.props.currentPage)
   };
-
-  private makePageNumberValid(pageNumber: number, totalPages: number): number {
-    pageNumber = Math.floor(pageNumber);
-    return isNaN(pageNumber) ? 1 : Math.max(Math.min(pageNumber, totalPages), 1);
-  }
 
   private onChange(page: number | string): void {
     this.props.onChange({page: String(page)});
   }
 
-  private handlePageClick = (page: number | string): void => {
+  private handlePageClick = (e: React.SyntheticEvent<Element>, page: number | string): void => {
+    e.preventDefault();
     this.onChange(page);
   }
 
@@ -145,8 +146,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return (
       <PageStrip
         totalPages={this.props.totalPages}
-        currentPage={this.currentPage}
-        maxPagesToShow={this.props.maxPagesToShow}
+        currentPage={this.props.currentPage}
+        maxPagesToShow={this.maxPagesToShow}
         showFirstPage={this.props.showFirstPage}
         showLastPage={this.props.showLastPage}
         responsive={this.props.responsive}
@@ -172,8 +173,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   private pageInputCommit = (): void => {
     const page = Number(this.state.pageInputValue);
-    if (page && page !== this.currentPage) {
-      this.onChange(this.makePageNumberValid(page, this.props.totalPages));
+    if (page && page !== this.props.currentPage) {
+      if (1 <= page && page <= this.props.totalPages) {
+        this.onChange(page);
+      } else {
+        // Error state not implemented.
+      }
     }
   }
 
@@ -185,14 +190,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
         <input
           data-hook="page-input"
-          name="pagenumber"
           type="text"
           size={inputSize}
           className={this.props.classes.pageInput}
           value={this.state.pageInputValue}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
-          onBlur={this.pageInputCommit}
           aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && (
@@ -208,8 +211,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const {classes, rtl} = this.props;
 
     const disabled = (
-      ((type === ButtonType.First || type === ButtonType.Prev) && this.currentPage === 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && this.currentPage === this.props.totalPages)
+      ((type === ButtonType.First || type === ButtonType.Prev) && this.props.currentPage === 1) ||
+      ((type === ButtonType.Last  || type === ButtonType.Next) && this.props.currentPage === this.props.totalPages)
     );
 
     const [order, text, symbol] = {
@@ -224,7 +227,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         data-hook={type}
         id={this.getId(type + 'Page')}
         className={classNames(classes.navButton, {[classes.disabled]: disabled})}
-        onClick={disabled ? null : () => this.handlePageClick(type)}
+        onClick={disabled ? null : e => this.handlePageClick(e, type)}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
         style={{order}}
         tabIndex={disabled ? null : 0}
@@ -236,7 +239,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   public componentWillReceiveProps(nextProps) {
     this.setState({
-      pageInputValue: String(this.makePageNumberValid(nextProps.currentPage, nextProps.totalPages))
+      pageInputValue: String(nextProps.currentPage)
     });
   }
 
