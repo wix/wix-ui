@@ -115,17 +115,6 @@ describe('Pagination', () => {
       expect(pagination.getPageInput().value).toEqual('6');
     });
 
-    it('does not accept non natural numbers in page input', () => {
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15}/>);
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('ko');
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('3.4');
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('-2');
-      expect(pagination.getPageInput().value).toEqual('1');
-    });
-
     it('calls onChange with new numeric value after pressing ENTER', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);

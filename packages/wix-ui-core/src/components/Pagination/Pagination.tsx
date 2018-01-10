@@ -158,16 +158,19 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newInput = e.target.value;
-    if ((newInput === parseInt(newInput, 10).toString() && parseInt(newInput, 10) > 0) || newInput === '') {
-      this.setState({pageInputValue: e.target.value});
-    }
+    this.setState({pageInputValue: e.target.value});
   }
 
   private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const keyCode = e.keyCode;
     if (keyCode === 13) { // pressing enter
       this.pageInputCommit();
+    }
+  }
+
+  private handleNavButtonKeyDown = (e: React.KeyboardEvent<Element>, type: ButtonType): void => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      this.handlePageClick(e, type);
     }
   }
 
@@ -184,15 +187,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   private renderPageForm(): JSX.Element {
     const {classes} = this.props;
-    const inputSize = this.props.totalPages.toString().length + 2;
 
     return (
       <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
         <input
           data-hook="page-input"
-          type="text"
-          size={inputSize}
+          type="number"
           className={this.props.classes.pageInput}
+          min={1}
+          max={this.props.totalPages}
           value={this.state.pageInputValue}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
@@ -227,10 +230,11 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         data-hook={type}
         id={this.getId(type + 'Page')}
         className={classNames(classes.navButton, {[classes.disabled]: disabled})}
-        onClick={disabled ? null : e => this.handlePageClick(e, type)}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
         style={{order}}
         tabIndex={disabled ? null : 0}
+        onClick={disabled ? null : e => this.handlePageClick(e, type)}
+        onKeyDown={disabled ? null : e => this.handleNavButtonKeyDown(e, type)}
       >
         {this.props.replaceArrowsWithText ? text : symbol}
       </a>

@@ -69,6 +69,10 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private renderLayout(layout: PageStripLayout): JSX.Element[] {
     const {currentPage, classes} = this.props;
 
+    // We can't use page number as a key, because we might need to render the same page twice
+    // for responsive layout.
+    // We also can't use index as a key, because React might reuse the node for another page,
+    // and keep keyboard focus on it.
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
         return (
@@ -81,7 +85,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       if (pageNumber === currentPage) {
         return (
           <span
-            key={index}
+            key={pageNumber + '-' + index}
             data-hook={`page-${pageNumber} current-page`}
             aria-label={`Page ${pageNumber}`}
             className={classes.currentPage}
@@ -93,7 +97,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
 
       return (
         <a
-          key={index}
+          key={pageNumber + '-' + index}
           data-hook={`page-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
           className={classes.pageButton}
