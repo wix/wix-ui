@@ -1,8 +1,7 @@
 # Component drivers
 
-Each core component should have an associated driver file containing useful methods used to test
-the component behaviour. The driver file should export a function that accepts one argument, and
-return an object containing the methods used for testing.
+Each component should have an associated driver file containing useful methods used to test
+the component's behaviour. The driver file should export a function that returns an object containing the methods used for testing.
 
 The exported function will then be used in a "factory creator" (see the
 [README](../README.md#createdriverfactory) for more details).
@@ -37,7 +36,7 @@ describe('Button', () => {
 });
 ```
 
-## Received argument
+## Received arguments
 
 The component driver receives an object containing the following properties:
 

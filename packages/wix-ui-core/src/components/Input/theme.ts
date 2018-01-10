@@ -35,6 +35,10 @@ export type InputTheme = {
     borderColor?: string,
     hoverBorderColor?: string
   };
+
+  placeholder?: {
+    color?: string
+  }
 };
 
 export const core: InputTheme = {
@@ -70,5 +74,9 @@ export const core: InputTheme = {
     backgroundColor: palette.grey,
     borderColor: palette.black,
     hoverBorderColor: palette.black
+  },
+
+  placeholder: {
+    color: palette.white
   }
 };

@@ -1,8 +1,10 @@
 # wix-ui-test-utils
 
-> A common test utils used in `wix-ui` packages
+> A common test utils used within the different `wix-ui` packages
 
 ## Generic test utils
+
+The following helper functions can be used within the different `wix-ui` packages:
 
 ### `isClassExists`
 
@@ -141,7 +143,8 @@ driver.exists();
 
 #### `isTestkitExists`
 
-Accepts an React Element and a testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript
@@ -178,7 +181,8 @@ driver.exists();
 
 #### `isEnzymeTestkitExists`
 
-Accepts an React Element and an enzyme testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript
