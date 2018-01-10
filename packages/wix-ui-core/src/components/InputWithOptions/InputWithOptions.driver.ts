@@ -1,4 +1,4 @@
-import {dropdownDriverFactory} from '../baseComponents/Dropdown/Dropdown.driver';
+import {dropdownDriverFactory} from '../../baseComponents/Dropdown/Dropdown.driver';
 
 export const inputWithOptionsDriverFactory = (args) => {
   const dropdownDriver = dropdownDriverFactory(args);

@@ -6,7 +6,7 @@ import {mount} from 'enzyme';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
 
-import Button from './index';
+import Button from './';
 
 describe('Button', () => {
 

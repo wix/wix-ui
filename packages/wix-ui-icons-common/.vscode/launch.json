@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "Launch Mocha",
+    "type": "node",
+    "request": "launch",
+    "program": "${workspaceRoot}/node_modules/haste-preset-yoshi/debug/mocha",
+    "cwd": "${workspaceRoot}"
+  },
+  {
+    "name": "Launch Protractor",
+    "type": "node",
+    "request": "launch",
+    "program": "${workspaceRoot}/node_modules/haste-preset-yoshi/debug/protractor",
+    "cwd": "${workspaceRoot}"
+  }]
+}
