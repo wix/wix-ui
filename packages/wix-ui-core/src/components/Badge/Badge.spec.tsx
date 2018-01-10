@@ -9,6 +9,7 @@ import {badgeTestkitFactory} from '../../testkit';
 import {badgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
 
 import Badge from './index';
+import {mount} from 'enzyme';
 
 describe('Badge', () => {
 
@@ -66,7 +67,7 @@ describe('Badge', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Badge/>, enzymeBadgeTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Badge/>, enzymeBadgeTestkitFactory, mount)).toBe(true);
     });
   });
 });

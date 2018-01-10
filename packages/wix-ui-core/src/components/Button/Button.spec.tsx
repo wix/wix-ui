@@ -2,7 +2,7 @@ import * as React from 'react';
 import {buttonDriverFactory} from './Button.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {core, ButtonTheme} from './theme';
-
+import {mount} from 'enzyme';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
 
@@ -104,7 +104,7 @@ describe('Button', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Button/>, enzymeButtonTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Button/>, enzymeButtonTestkitFactory, mount)).toBe(true);
     });
   });
 });
