@@ -106,9 +106,9 @@ export const core: ToggleSwitchTheme = {
   colorHoverChecked: palette.white,
   colorFocus: palette.white,
 
-  toggleIconFontSize: 'inherit',
-  toggleIconWidth: '12px',
-  toggleIconHeight: '6px',
+  toggleIconFontSize: '10px',
+  toggleIconWidth: '10px',
+  toggleIconHeight: '10px',
   toggleIconDisplay: 'none',
 
   outerLabelBorderSize: 0,

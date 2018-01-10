@@ -2,6 +2,8 @@ import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
+import ToggleOn from 'wix-ui-icons-common/system/ToggleOn';
+import ToggleOff from 'wix-ui-icons-common/system/ToggleOff';
 
 export type ToggleSwitchClasses = {
   root: string;
@@ -56,8 +58,8 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static defaultProps = {
     checked: false,
     styles: {},
-    iconOn: <div>{'✓'}</div>,
-    iconOff: <div>{'-'}</div>
+    iconOn: <ToggleOn/>,
+    iconOff: <ToggleOff/>
   };
 
   componentDidMount() {
