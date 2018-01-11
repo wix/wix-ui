@@ -89,6 +89,7 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
         placement={placement}
         openTrigger={openTrigger}
         onSelect={onSelect}
+        showArrow={false}
         onDeselect={onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}

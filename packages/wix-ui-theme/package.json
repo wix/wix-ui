@@ -37,11 +37,13 @@
     "@types/jest": "^21.1.8",
     "@types/react": "^15.6.0",
     "@types/react-dom": "^15.5.0",
-    "enzyme": "^2.9.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^21.2.3",
     "typescript": "^2.4.0",
-    "haste-preset-yoshi": "^1.0.19"
+    "haste-preset-yoshi": "^1.0.19",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "dependencies": {
     "lodash.pickby": "^4.6.0",
@@ -68,7 +70,8 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup"
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "setupFiles": ["<rootDir>/test/enzyme-setup"]
   },
   "haste": {
     "preset": "yoshi"

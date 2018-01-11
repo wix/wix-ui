@@ -1,13 +1,10 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-
 import {badgeDriverFactory} from './Badge.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {core, BadgeTheme} from './theme';
-
 import {badgeTestkitFactory} from '../../testkit';
 import {badgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
-
+import {mount} from 'enzyme';
 import Badge from './';
 
 describe('Badge', () => {
@@ -66,7 +63,7 @@ describe('Badge', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Badge/>, enzymeBadgeTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Badge/>, enzymeBadgeTestkitFactory, mount)).toBe(true);
     });
   });
 });

@@ -5,6 +5,7 @@ import Tooltip from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
 import {core, TooltipTheme} from './theme';
+import {mount} from 'enzyme';
 
 describe('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
@@ -78,7 +79,7 @@ describe('Tooltip', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Tooltip/>, enzymeTooltipTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Tooltip/>, enzymeTooltipTestkitFactory, mount)).toBe(true);
     });
   });
 });

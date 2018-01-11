@@ -4,6 +4,7 @@ import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-u
 import ToggleSwitch from './';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
+import {mount} from 'enzyme';
 import {ToggleOn, ToggleOff} from 'wix-ui-icons-common/system';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -117,7 +118,7 @@ describe('ToggleSwitch', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
     });
   });
 

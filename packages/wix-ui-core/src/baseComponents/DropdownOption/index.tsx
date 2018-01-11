@@ -31,8 +31,8 @@ export const OptionFactory = {
     id: number | string,
     isDisabled: boolean,
     isSelectable: boolean,
-    value: any, type:
-    OptionType = OptionType.Simple): Option {
+    value: any,
+    type: OptionType = OptionType.Simple): Option {
 
     switch (type) {
       case OptionType.Simple:

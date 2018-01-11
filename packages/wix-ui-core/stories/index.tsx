@@ -12,14 +12,12 @@ import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
 import InputWithOptions from '../src/components/InputWithOptions';
-import Divider from '../src/components/Divider';
+import {OptionFactory} from '../src/baseComponents/DropdownOption';
 
-const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
-  id: x,
-  isSelectable: x !== 3,
-  isDisabled: x === 4,
-  render: () => x === 3 ? <Divider /> : <span>{`value${x}`}</span>
-}));
+const dropdownOptions =
+    Array.from(Array(50))
+      .map((x, index) =>
+        index === 2500 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
 
 storiesOf('Components', module)
   .add('Badge', () => (

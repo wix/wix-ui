@@ -5,6 +5,7 @@ import Pagination from './';
 import {sleep} from 'wix-ui-test-utils';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
+import {mount} from 'enzyme';
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
@@ -315,7 +316,7 @@ describe('Pagination', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Pagination totalPages={3} />, enzymePaginationTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Pagination totalPages={3} />, enzymePaginationTestkitFactory, mount)).toBe(true);
     });
   });
 });
