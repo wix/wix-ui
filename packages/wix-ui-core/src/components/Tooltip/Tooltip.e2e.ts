@@ -9,7 +9,7 @@ describe('Tooltip', () => {
   beforeEach(() => browser.get(storyUrl));
 
   eyes.it('should display content when hover', () => {
-    const dataHook = 'story-tooltip';
+    const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Tooltip')

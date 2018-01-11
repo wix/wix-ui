@@ -5,7 +5,7 @@ import path from 'path';
 import {DriverParser} from './DriverParser';
 import BadgeDriverJson from './Badge.driver';
 
-import AutoTestKit from './index';
+import AutoTestKit from './';
 
 const fakeTestKitsPaths = {
   InputWithOptions: 'mock-testkits/InputWithOptions.driver.txt',

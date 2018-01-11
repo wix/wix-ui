@@ -20,7 +20,7 @@ export const paginationDriverFactory = ({element, eventTrigger}: {element: HTMLE
     /** Returns the page element */
     getPage: (idx?: number): Element | null => (idx < pages.children.length) ? pages.children[idx] : null,
     /** Returns the page element currently selected */
-    getCurrentPage: (): Element | null => element.querySelector('[data-isSelected="true"]'),
+    getCurrentPage: (): Element | null => element.querySelector('[data-hook~="PAGE_CURRENT"]'),
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     getNavButton: (btnName: NavButtonNames): HTMLButtonElement => getNavButtonElement(btnName),
     /** Simulates clicking a page in "pages" mode */

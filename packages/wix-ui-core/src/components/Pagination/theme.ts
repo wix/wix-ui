@@ -1,112 +1,66 @@
-const buttonMinWidth = 20;
-const buttonMinHeight = 20;
-const buttonPadding = 3;
-const buttonMargin = 3;
-const buttonFont = '12px/1 Helvetica';
-
 export type PaginationTheme = {
-  paginationRoot: React.CSSProperties,
-  currentPage: React.CSSProperties,
-  pageNumber: React.CSSProperties,
-  inputField: React.CSSProperties,
-  inputTotalPages: React.CSSProperties
-  ellipsis: React.CSSProperties,
-  rtl: React.CSSProperties,
-  pagesSelection: React.CSSProperties,
+  root: React.CSSProperties,
   navButton: React.CSSProperties,
-  navButtonRtl: React.CSSProperties,
-  disabledNavButton: React.CSSProperties
+
+  // Mode: pages
+  pageStrip: React.CSSProperties,
+  pageButton: React.CSSProperties,
+  currentPage: React.CSSProperties,
+  ellipsis: React.CSSProperties,
+
+  // Mode: input
+  pageForm: React.CSSProperties,
+  pageInput: React.CSSProperties,
+  totalPages: React.CSSProperties,
+
+  // Modifiers
+  rtl: React.CSSProperties,
+  disabled: React.CSSProperties
 };
 
-const buttonCommon: React.CSSProperties = {
-  minWidth: buttonMinWidth,
-  minHeight: buttonMinHeight,
-  padding: buttonPadding,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  margin: buttonMargin,
-  font: buttonFont,
-  userSelect: 'none'
-};
-
+// Responsive layout logic depends on styling defined here and may not work correctly with different styling.
 export const core: PaginationTheme = {
-  paginationRoot: {
-    background: '#fff',
+  root: {
     display: 'inline-flex',
-  },
-  rtl: {
-    flexDirection: 'row-reverse'
-  },
-  pagesSelection: {
-    display: 'inline-flex'
-  },
-  currentPage: {
-    ...buttonCommon,
-    cursor: 'default',
-    color: '#607D8B',
-    fontWeight: 'bold',
-    border: '1px solid transparent',
-    outline: 'none'
-  },
-  pageNumber: {
-    ...buttonCommon,
-    cursor: 'pointer',
-    color: '#2196F3',
-    border: '1px solid #BBDEFB',
-
-    '&:hover': {
-      backgroundColor: '#E1F5FE'
-    },
-    '&:active': {
-      outline: 'none'
+    userSelect: 'none',
+    '&$rtl': {
+      flexDirection: 'row-reverse'
     }
   },
-  inputField: {
-    width: '40px',
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#2196F3',
-    userSelect: 'none'
+  navButton: {
+    display: 'inline-flex',
+    flexShrink: 0,
+    '&:not($disabled)': {
+      cursor: 'pointer'
+    }
   },
-  inputTotalPages: {
-    width: '40px',
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#2196F3',
-    userSelect: 'none'
+  pageStrip: {
+    display: 'flex',
+    overflow: 'hidden',
+    justifyContent: 'center',
+
+    '$rtl > &': {
+      flexDirection: 'row-reverse'
+    }
+  },
+  pageButton: {
+    display: 'inline-flex',
+    flexShrink: 0,
+    cursor: 'pointer'
+  },
+  currentPage: {
+    display: 'inline-flex',
+    flexShrink: 0
   },
   ellipsis: {
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    padding: buttonPadding,
-    cursor: 'default',
     display: 'inline-flex',
-    border: '1px solid transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#78909C',
-    userSelect: 'none'
+    flexShrink: 0
   },
-  navButton: {
-    ...buttonCommon,
-    cursor: 'pointer',
-    color: '#2196F3',
-    border: '1px solid #BBDEFB',
+  pageForm: {
+    display: 'flex'
   },
-  navButtonRtl: {
-    transform: 'scaleX(-1)'
-  },
-  disabledNavButton: {
-    ...buttonCommon,
-    color: 'grey',
-    border: 'none',
-    pointer: 'default'
-  }
+  pageInput: {},
+  totalPages: {},
+  rtl: {},
+  disabled: {}
 };

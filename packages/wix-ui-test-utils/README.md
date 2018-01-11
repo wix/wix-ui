@@ -1,8 +1,10 @@
 # wix-ui-test-utils
 
-> A common test utils used in `wix-ui` packages
+> A common test utils used within the different `wix-ui` packages
 
 ## Generic test utils
+
+The following helper functions can be used within the different `wix-ui` packages:
 
 ### `isClassExists`
 
@@ -98,6 +100,27 @@ waitForVisibilityOf(
 
 ## Testkit helpers
 
+### `createDriverFactory`
+
+Accepts a component driver. Returns a new driver factory. An explanation of drivers can be viewd
+[here](./docs/COMPONENT_DRIVERS.md).
+
+```javascript
+import React from 'react';
+import {createDriverFactory} from 'wix-ui-test-utils';
+import {buttonDriverFactory} from './Button.driver';
+import Button from './';
+
+const createDriver = createDriverFactory(buttonDriverFactory);
+
+describe('Button', () => {
+  it('should exist', () => {
+    const driver = createDriver(<Button />);
+    expect(driver.exists()).toBe(true);
+  });
+});
+```
+
 ### Vanilla (react-test-utils)
 
 #### `testkitFactoryCreator`
@@ -120,7 +143,8 @@ driver.exists();
 
 #### `isTestkitExists`
 
-Accepts an React Element and a testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript
@@ -157,7 +181,8 @@ driver.exists();
 
 #### `isEnzymeTestkitExists`
 
-Accepts an React Element and an enzyme testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {paginationDriverFactory} from './Pagination.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Pagination from './index';
+import Pagination from './';
 import {sleep} from 'wix-ui-test-utils';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
@@ -23,6 +23,22 @@ describe('Pagination', () => {
     it('has aria-label in the root node', () => {
       const pagination = createDriver(<Pagination totalPages={5}/>);
       expect(pagination.root.getAttribute('aria-label')).toEqual('Pagination Navigation');
+    });
+
+    it('has correct DOM elements order for screen reader', () => {
+      // this test is used to lock down the order of "elements of interest" for screen reader flow. This also determines native tab focus
+      // note - the actual visual order of the elements could be different (using css ordering)
+      const pagination = createDriver(<Pagination totalPages={5} showFirstLastNavButtons/>);
+      const nextBtn = pagination.getNavButton('next');
+      const prevBtn = pagination.getNavButton('previous');
+      const firstBtn = pagination.getNavButton('first');
+      const lastBtn = pagination.getNavButton('last');
+      const pageSelection = pagination.getPage(0).parentElement;
+
+      expect(nextBtn.compareDocumentPosition(prevBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(prevBtn.compareDocumentPosition(pageSelection)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(pageSelection.compareDocumentPosition(firstBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(firstBtn.compareDocumentPosition(lastBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
     });
   });
 
@@ -100,7 +116,7 @@ describe('Pagination', () => {
     it('shows the total amount of pages if showInputModeTotalPages is true', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4} showInputModeTotalPages/>);
       expect(pagination.getTotalPagesField()).toBeTruthy();
-      expect(pagination.getTotalPagesField().textContent).toEqual('/ 15');
+      expect(pagination.getTotalPagesField().textContent).toMatch(/\b15\b/);
     });
 
     it('accepts numbers in page input', () => {
@@ -279,6 +295,16 @@ describe('Pagination', () => {
         expect(pagination.getNavButton('next').getAttribute('aria-label')).toEqual('Next Page');
       });
     });
+  });
+
+  it('adds ID to the root if provided', () => {
+    const pagination = createDriver(<Pagination id="beet" totalPages={3} />);
+    expect(pagination.root.getAttribute('id')).toBe('beetroot');
+  });
+
+  it('does not add ID to the root if not provided', () => {
+    const pagination = createDriver(<Pagination totalPages={3} />);
+    expect(pagination.root.getAttribute('id')).toBe(null);
   });
 
   describe('testkit', () => {

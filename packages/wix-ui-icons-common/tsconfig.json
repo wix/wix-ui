@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["dom", "es2016"]
+  },
+  "include": [
+    "./test/**/*.ts"
+  ],
+  "files": [
+    "./src/external-types.d.ts",
+    "./src/index.ts",
+    "./src/system/index.ts"
+  ]
+}

@@ -1,18 +1,21 @@
-const getElement = element => element.querySelector('[data-hook="tooltip-element"]');
-const getContent = element => element.querySelector('[data-hook="popover-content"]');
+import {popoverDriverFactory} from '../../baseComponents/Popover/Popover.driver';
 
-export const tooltipDriverFactory = ({element, eventTrigger}) => {
-  const getTooltipStyle = () => window.getComputedStyle(element.querySelector('.tooltip'));
+export const tooltipDriverFactory = (args) => {
+  const {element, eventTrigger} = args;
+  const popoverDriver = popoverDriverFactory(args);
+  const getTooltipStyle = () => window.getComputedStyle(element.querySelector('[data-hook="tooltip-content"]'));
 
   return {
     /** Checks if the tooltip exists */
     exists: () => !!element,
     /** Checks if the target element exists */
-    isTargetElementExists: () => !!getElement(element),
+    isTargetElementExists: () => popoverDriver.isElementExists(),
     /** Checks if the content element exists */
-    isContentExists: () => !!getContent(element),
+    isContentExists: () => popoverDriver.isContentExists(),
     /** Invokes mouseEnter on the tooltip */
     mouseEnter: () => eventTrigger.mouseEnter(element),
+    /** Invokes mouseLeave on the tooltip */
+    mouseLeave: () => eventTrigger.mouseLeave(element),
     styles: {
       /** Gets background color */
       getBackgroundColor: () => getTooltipStyle().backgroundColor,
