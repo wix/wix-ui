@@ -15,29 +15,14 @@ class UncontrolledPagination extends Pagination {
       <Pagination
         {...this.props}
         theme={theme}
-        onChange={this.handleChange}
+        onChange={({page, event}) => {
+          event.preventDefault();
+          this.setState({currentPage: page});
+        }}
+        pageUrl={pageNumber => `https://example.com/page/${pageNumber}`}
         currentPage={this.state.currentPage}
       />
     );
-  }
-
-  handleChange = ({page}) => {
-    switch (page) {
-      case 'first' :
-        this.setState({currentPage: 1});
-        break;
-      case 'last' :
-        this.setState({currentPage: this.props.totalPages});
-        break;
-      case 'next' :
-        this.setState({currentPage: this.state.currentPage + 1});
-        break;
-      case 'previous' :
-        this.setState({currentPage: this.state.currentPage - 1});
-        break;
-      default:
-        this.setState({currentPage: Number(page)});
-    }
   }
 }
 

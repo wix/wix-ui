@@ -34,7 +34,8 @@ export interface PaginationProps {
   totalPages: number;
   currentPage?: number;
   // props
-  onChange?: (event: {page: string}) => void;
+  pageUrl?: (pageNumber: number) => string;
+  onChange?: ({event, page}: {event: React.SyntheticEvent<Element>, page: number}) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
   replaceArrowsWithText?: boolean;
@@ -64,7 +65,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     totalPages: PropTypes.number.isRequired,
     /** Current page to be shown as current. defaults to 1 */
     currentPage: PropTypes.number,
-    /** Callback to be called when pagination happens - structure ({page: string}) => () */
+    /** Function that generates URLs for page links. If onitted, pages don't link anywhere. */
+    pageUrl: PropTypes.func,
+    /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
     onChange: PropTypes.func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
     paginationMode: PropTypes.oneOf(['pages' , 'input']),
@@ -133,13 +136,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     pageInputValue: String(this.props.currentPage)
   };
 
-  private onChange(page: number | string): void {
-    this.props.onChange({page: String(page)});
-  }
-
-  private handlePageClick = (e: React.SyntheticEvent<Element>, page: number | string): void => {
-    e.preventDefault();
-    this.onChange(page);
+  private handlePageSelect = (event: React.SyntheticEvent<Element>, page: number): void => {
+    this.props.onChange({event, page});
   }
 
   private renderPageStrip(): JSX.Element {
@@ -152,7 +150,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         showLastPage={this.props.showLastPage}
         responsive={this.props.responsive}
         classes={this.props.classes}
-        onPageSelect={this.handlePageClick}
+        onPageSelect={this.handlePageSelect}
+        pageUrl={this.props.pageUrl}
       />
     );
   }
@@ -161,27 +160,24 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     this.setState({pageInputValue: e.target.value});
   }
 
-  private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    const keyCode = e.keyCode;
-    if (keyCode === 13) { // pressing enter
-      this.pageInputCommit();
-    }
-  }
-
-  private handleNavButtonKeyDown = (e: React.KeyboardEvent<Element>, type: ButtonType): void => {
-    if (e.keyCode === 13 || e.keyCode === 32) {
-      this.handlePageClick(e, type);
-    }
-  }
-
-  private pageInputCommit = (): void => {
-    const page = Number(this.state.pageInputValue);
-    if (page && page !== this.props.currentPage) {
-      if (1 <= page && page <= this.props.totalPages) {
-        this.onChange(page);
-      } else {
-        // Error state not implemented.
+  private handlePageInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    // Enter
+    if (event.keyCode === 13) {
+      const page = Number(this.state.pageInputValue);
+      if (page && page !== this.props.currentPage) {
+        if (1 <= page && page <= this.props.totalPages) {
+          this.props.onChange({event, page});
+        } else {
+          // Error state not implemented.
+        }
       }
+    }
+  }
+
+  private handleNavButtonKeyDown = (event: React.KeyboardEvent<Element>, page: number): void => {
+    // Enter or Space
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      this.handlePageSelect(event, page);
     }
   }
 
@@ -199,7 +195,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           value={this.state.pageInputValue}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
-          aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}
+          aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && (
           <span data-hook="total-pages" className={this.props.classes.totalPages}>
@@ -211,19 +207,19 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderNavButton(type: ButtonType): JSX.Element {
-    const {classes, rtl} = this.props;
+    const {classes, rtl, currentPage, totalPages, pageUrl} = this.props;
 
     const disabled = (
-      ((type === ButtonType.First || type === ButtonType.Prev) && this.props.currentPage === 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && this.props.currentPage === this.props.totalPages)
+      ((type === ButtonType.First || type === ButtonType.Prev) && currentPage === 1) ||
+      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage === totalPages)
     );
 
-    const [order, text, symbol] = {
-      [ButtonType.Prev]:  [2, this.props.previousText, rtl ? '>'  :  '<'],
-      [ButtonType.Next]:  [4, this.props.nextText,     rtl ? '<'  :  '>'],
-      [ButtonType.First]: [1, this.props.firstText,    rtl ? '>>' : '<<'],
-      [ButtonType.Last]:  [5, this.props.lastText,     rtl ? '<<' : '>>']
-    }[type] as [number, string, string];
+    const [order, text, symbol, page] = {
+      [ButtonType.Prev]:  [2, this.props.previousText, rtl ? '>'  :  '<', currentPage - 1],
+      [ButtonType.Next]:  [4, this.props.nextText,     rtl ? '<'  :  '>', currentPage + 1],
+      [ButtonType.First]: [1, this.props.firstText,    rtl ? '>>' : '<<', 1],
+      [ButtonType.Last]:  [5, this.props.lastText,     rtl ? '<<' : '>>', totalPages]
+    }[type] as [number, string, string, number];
 
     return (
       <a
@@ -232,9 +228,10 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         className={classNames(classes.navButton, {[classes.disabled]: disabled})}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
         style={{order}}
-        tabIndex={disabled ? null : 0}
-        onClick={disabled ? null : e => this.handlePageClick(e, type)}
-        onKeyDown={disabled ? null : e => this.handleNavButtonKeyDown(e, type)}
+        tabIndex={disabled || pageUrl ? null : 0}
+        onClick={disabled ? null : event => this.handlePageSelect(event, page)}
+        onKeyDown={disabled ? null : event => this.handleNavButtonKeyDown(event, page)}
+        href={!disabled && pageUrl ? pageUrl(page) : null}
       >
         {this.props.replaceArrowsWithText ? text : symbol}
       </a>

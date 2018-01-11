@@ -27,7 +27,8 @@ export interface PageStripProps {
   responsive: boolean;
   id?: string;
   classes: PageStripClasses;
-  onPageSelect: (event: React.KeyboardEvent<Element> | React.MouseEvent<Element>, pageNumber: number) => void;
+  onPageSelect: (event: React.SyntheticEvent<Element>, page: number) => void;
+  pageUrl?: (pageNumber: number) => string;
 }
 
 export interface PageStripState {
@@ -67,7 +68,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   private renderLayout(layout: PageStripLayout): JSX.Element[] {
-    const {currentPage, classes} = this.props;
+    const {currentPage, pageUrl, classes} = this.props;
 
     // We can't use page number as a key, because we might need to render the same page twice
     // for responsive layout.
@@ -101,9 +102,10 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           data-hook={`page-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
           className={classes.pageButton}
-          tabIndex={0}
+          tabIndex={pageUrl ? null : 0}
           onClick={e => this.handleClick(e, pageNumber)}
           onKeyDown={e => this.handleKeyDown(e, pageNumber)}
+          href={pageUrl ? pageUrl(pageNumber) : null}
         >
           {pageNumber}
         </a>
@@ -140,13 +142,14 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     }
   }
 
-  private handleClick(e: React.MouseEvent<Element>, pageNumber: number) {
-    this.props.onPageSelect(e, pageNumber);
+  private handleClick(event: React.MouseEvent<Element>, page: number) {
+    this.props.onPageSelect(event, page);
   }
 
-  private handleKeyDown(e: React.KeyboardEvent<Element>, pageNumber: number) {
-    if (e.keyCode === 13 || e.keyCode === 32) {
-      this.props.onPageSelect(e, pageNumber);
+  private handleKeyDown(event: React.KeyboardEvent<Element>, page: number) {
+    // Enter or Space
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      this.props.onPageSelect(event, page);
     }
   }
 }
