@@ -260,6 +260,28 @@ describe('Pagination', () => {
     });
   });
 
+  describe('Keyboard Navigation', () => {
+    it('calls onChange when Enter or Space is pressed on a nav button', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
+
+      pagination.keydown(pagination.getNavButton('previous'), {keyCode: 13});
+      pagination.keydown(pagination.getNavButton('previous'), {keyCode: 32});
+      pagination.keydown(pagination.getNavButton('previous'), {});
+      expect(onChange).toHaveBeenCalledTimes(2);
+    });
+
+    it('calls onChange when Enter or Space is pressed on a page button', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
+
+      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 13});
+      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 32});
+      pagination.keydown(pagination.getPageByNumber(1), {});
+      expect(onChange).toHaveBeenCalledTimes(2);
+    });
+  });
+
   it('adds ID to the root if provided', () => {
     const pagination = createDriver(<Pagination id="beet" totalPages={3} />);
     expect(pagination.root.getAttribute('id')).toBe('beetroot');

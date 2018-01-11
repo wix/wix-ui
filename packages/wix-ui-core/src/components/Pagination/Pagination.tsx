@@ -14,16 +14,25 @@ enum ButtonType {
 // TODO: should be automatically derived from styles somehow.
 export interface PaginationClasses {
   root: string;
+
+  // Nav buttons
   navButton: string;
+  navButtonFirst: string;
+  navButtonPrevious: string;
+  navButtonNext: string;
+  navButtonLast: string;
+
   // Mode: pages
   pageStrip: string;
   pageButton: string;
   currentPage: string;
   ellipsis: string;
+
   // Mode: input
   pageForm: string;
   pageInput: string;
   totalPages: string;
+
   // Modifiers
   rtl: string;
   disabled: string;
@@ -35,7 +44,7 @@ export interface PaginationProps {
   currentPage?: number;
   // props
   pageUrl?: (pageNumber: number) => string;
-  onChange?: ({event, page}: {event: React.SyntheticEvent<Element>, page: number}) => void;
+  onChange?: (event: {event: React.SyntheticEvent<Element>, page: number}) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
   replaceArrowsWithText?: boolean;
@@ -185,7 +194,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const {classes} = this.props;
 
     return (
-      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
+      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm}>
         <input
           data-hook="page-input"
           type="number"
@@ -210,24 +219,23 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const {classes, rtl, currentPage, totalPages, pageUrl} = this.props;
 
     const disabled = (
-      ((type === ButtonType.First || type === ButtonType.Prev) && currentPage === 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage === totalPages)
+      ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
+      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
-    const [order, text, symbol, page] = {
-      [ButtonType.Prev]:  [2, this.props.previousText, rtl ? '>'  :  '<', currentPage - 1],
-      [ButtonType.Next]:  [4, this.props.nextText,     rtl ? '<'  :  '>', currentPage + 1],
-      [ButtonType.First]: [1, this.props.firstText,    rtl ? '>>' : '<<', 1],
-      [ButtonType.Last]:  [5, this.props.lastText,     rtl ? '<<' : '>>', totalPages]
-    }[type] as [number, string, string, number];
+    const [btnClass, text, symbol, page] = {
+      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousText, rtl ? '>'  :  '<', currentPage - 1],
+      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextText,     rtl ? '<'  :  '>', currentPage + 1],
+      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstText,    rtl ? '>>' : '<<', 1],
+      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastText,     rtl ? '<<' : '>>', totalPages]
+    }[type] as [string, string, string, number];
 
     return (
       <a
         data-hook={type}
         id={this.getId(type + 'Page')}
-        className={classNames(classes.navButton, {[classes.disabled]: disabled})}
+        className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
-        style={{order}}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageSelect(event, page)}
         onKeyDown={disabled ? null : event => this.handleNavButtonKeyDown(event, page)}

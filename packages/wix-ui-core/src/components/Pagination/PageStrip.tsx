@@ -113,8 +113,12 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     });
   }
 
+  private isResponsive() {
+    return this.props.responsive && this.props.totalPages > 0 && this.props.maxPagesToShow > 1;
+  }
+
   private getLayout(): PageStripLayout {
-    if (this.props.responsive) {
+    if (this.isResponsive()) {
       if (this.state.responsiveLayout) {
         return this.state.responsiveLayout;
       } else if (canUseDOM()) {
@@ -128,7 +132,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private updateLayoutIfNeeded(): void {
     const {totalPages, currentPage, maxPagesToShow, showFirstPage, showLastPage} = this.props;
 
-    if (this.props.responsive && !this.state.responsiveLayout) {
+    if (this.isResponsive() && !this.state.responsiveLayout) {
       this.setState({
         responsiveLayout: createResponsiveLayout({
           container: ReactDOM.findDOMNode(this),

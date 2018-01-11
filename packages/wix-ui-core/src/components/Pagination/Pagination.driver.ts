@@ -41,6 +41,8 @@ export const paginationDriverFactory = ({element: root, eventTrigger}: {element:
       input.value = newValue;
       eventTrigger.change(input);
     },
+    /** Simulates keyDown on an element */
+    keydown: (element: Element, eventData): void => eventTrigger.keyDown(element, eventData),
     /** Simulates keyDown on the input field in "input" mode */
     inputKeyDown: (keyCode: number): void => eventTrigger.keyDown(getInput(), {keyCode}),
     /** Simulates blur in the input field in "input" mode */
