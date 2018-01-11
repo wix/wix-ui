@@ -98,18 +98,18 @@ export const core: ToggleSwitchTheme = {
 
   focusOutline: 'none',
 
-  color: palette.white,
-  colorChecked: palette.white,
-  colorDisabled: palette.white,
-  colorCheckedDisabled: palette.white,
-  colorHover: palette.white,
-  colorHoverChecked: palette.white,
-  colorFocus: palette.white,
+  color: palette.grey,
+  colorChecked: palette.grey,
+  colorDisabled: palette.grey,
+  colorCheckedDisabled: palette.grey,
+  colorHover: palette.grey,
+  colorHoverChecked: palette.grey,
+  colorFocus: palette.grey,
 
   toggleIconFontSize: '10px',
   toggleIconWidth: '10px',
   toggleIconHeight: '10px',
-  toggleIconDisplay: 'none',
+  toggleIconDisplay: 'block',
 
   outerLabelBorderSize: 0,
   outerLabelBorderSizeChecked: 0,
