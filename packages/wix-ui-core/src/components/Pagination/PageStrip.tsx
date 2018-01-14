@@ -27,7 +27,8 @@ export interface PageStripProps {
   responsive: boolean;
   id?: string;
   classes: PageStripClasses;
-  onPageSelect: (event: React.SyntheticEvent<Element>, page: number) => void;
+  onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
+  onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
   pageUrl?: (pageNumber: number) => string;
 }
 
@@ -103,8 +104,8 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           aria-label={`Page ${pageNumber}`}
           className={classes.pageButton}
           tabIndex={pageUrl ? null : 0}
-          onClick={e => this.handleClick(e, pageNumber)}
-          onKeyDown={e => this.handleKeyDown(e, pageNumber)}
+          onClick={e => this.props.onPageClick(e, pageNumber)}
+          onKeyDown={e => this.props.onPageKeyDown(e, pageNumber)}
           href={pageUrl ? pageUrl(pageNumber) : null}
         >
           {pageNumber}
@@ -143,17 +144,6 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           showLastPage
         })
       });
-    }
-  }
-
-  private handleClick(event: React.MouseEvent<Element>, page: number) {
-    this.props.onPageSelect(event, page);
-  }
-
-  private handleKeyDown(event: React.KeyboardEvent<Element>, page: number) {
-    // Enter or Space
-    if (event.keyCode === 13 || event.keyCode === 32) {
-      this.props.onPageSelect(event, page);
     }
   }
 }

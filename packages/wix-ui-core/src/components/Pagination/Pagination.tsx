@@ -145,10 +145,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     pageInputValue: String(this.props.currentPage)
   };
 
-  private handlePageSelect = (event: React.SyntheticEvent<Element>, page: number): void => {
-    this.props.onChange({event, page});
-  }
-
   private renderPageStrip(): JSX.Element {
     return (
       <PageStrip
@@ -159,8 +155,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         showLastPage={this.props.showLastPage}
         responsive={this.props.responsive}
         classes={this.props.classes}
-        onPageSelect={this.handlePageSelect}
         pageUrl={this.props.pageUrl}
+        onPageClick={this.handlePageClick}
+        onPageKeyDown={this.handlePageKeyDown}
       />
     );
   }
@@ -183,10 +180,16 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     }
   }
 
-  private handleNavButtonKeyDown = (event: React.KeyboardEvent<Element>, page: number): void => {
+  private handlePageClick = (event: React.MouseEvent<Element>, page: number): void => {
+    if (event.button === 0) {
+      this.props.onChange({event, page});
+    }
+  }
+
+  private handlePageKeyDown = (event: React.KeyboardEvent<Element>, page: number): void => {
     // Enter or Space
     if (event.keyCode === 13 || event.keyCode === 32) {
-      this.handlePageSelect(event, page);
+      this.props.onChange({event, page});
     }
   }
 
@@ -237,8 +240,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
-        onClick={disabled ? null : event => this.handlePageSelect(event, page)}
-        onKeyDown={disabled ? null : event => this.handleNavButtonKeyDown(event, page)}
+        onClick={disabled ? null : event => this.handlePageClick(event, page)}
+        onKeyDown={disabled ? null : event => this.handlePageKeyDown(event, page)}
         href={!disabled && pageUrl ? pageUrl(page) : null}
       >
         {this.props.replaceArrowsWithText ? text : symbol}

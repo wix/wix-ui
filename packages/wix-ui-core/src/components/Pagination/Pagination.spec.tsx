@@ -261,25 +261,59 @@ describe('Pagination', () => {
     });
   });
 
-  describe('Keyboard Navigation', () => {
-    it('calls onChange when Enter or Space is pressed on a nav button', () => {
+  describe('Keyboard and mouse handling', () => {
+    it('calls onChange when Enter or Space is pressed on a button', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
       pagination.keydown(pagination.getNavButton('previous'), {keyCode: 13});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
       pagination.keydown(pagination.getNavButton('previous'), {keyCode: 32});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
       pagination.keydown(pagination.getNavButton('previous'), {});
-      expect(onChange).toHaveBeenCalledTimes(2);
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 13});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 32});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getPageByNumber(1), {});
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
     });
 
-    it('calls onChange when Enter or Space is pressed on a page button', () => {
+    it('calls onChange when the left mouse button is pressed', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 13});
-      pagination.keydown(pagination.getPageByNumber(1), {keyCode: 32});
-      pagination.keydown(pagination.getPageByNumber(1), {});
-      expect(onChange).toHaveBeenCalledTimes(2);
+      pagination.click(pagination.getNavButton('previous'), {button: 0});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getNavButton('previous'), {button: 1});
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getPageByNumber(1), {button: 0});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.keydown(pagination.getPageByNumber(1), {button: 1});
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
     });
   });
 

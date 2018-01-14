@@ -28,7 +28,9 @@ export const paginationDriverFactory = ({element: root, eventTrigger}: {element:
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     getNavButton: (btnName: NavButtonNames): Element => getNavButtonElement(btnName),
     /** Simulates clicking a page in "pages" mode */
-    click: (element: Element): void => eventTrigger.click(element),
+    click: (element: Element, eventData = {}): void => eventTrigger.click(element, eventData),
+    /** Simulates keyDown on an element */
+    keydown: (element: Element, eventData = {}): void => eventTrigger.keyDown(element, eventData),
     /** Simulates clicking a navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
     clickOnNavButton: (btnName: string): void => eventTrigger.click(getNavButtonElement(btnName)),
     /** Returns the page input element in "input" mode */
@@ -41,8 +43,6 @@ export const paginationDriverFactory = ({element: root, eventTrigger}: {element:
       input.value = newValue;
       eventTrigger.change(input);
     },
-    /** Simulates keyDown on an element */
-    keydown: (element: Element, eventData): void => eventTrigger.keyDown(element, eventData),
     /** Simulates keyDown on the input field in "input" mode */
     inputKeyDown: (keyCode: number): void => eventTrigger.keyDown(getInput(), {keyCode}),
     /** Simulates blur in the input field in "input" mode */
