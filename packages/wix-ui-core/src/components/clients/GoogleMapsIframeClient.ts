@@ -1,5 +1,6 @@
 import {IframesManager} from './IframesManager/IframesManager';
 import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
+import {generateID} from './utils';
 
 export class GoogleMapsIframeClient {
   _iframesManager = new IframesManager();
@@ -17,17 +18,6 @@ export class GoogleMapsIframeClient {
     }
   }
 
-  generateID() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
-
   autocomplete(apiKey, lang, request) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
@@ -36,7 +26,7 @@ export class GoogleMapsIframeClient {
       requestIframe = this._iframesManager.addIframe(apiKey, lang);
     }
 
-    const requestId = this.generateID();
+    const requestId = generateID();
     const requestPromise = new Promise((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });
@@ -53,7 +43,7 @@ export class GoogleMapsIframeClient {
       requestIframe = this._iframesManager.addIframe(apiKey, lang);
     }
 
-    const requestId = this.generateID();
+    const requestId = generateID();
     const requestPromise = new Promise((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });
@@ -70,7 +60,7 @@ export class GoogleMapsIframeClient {
       requestIframe = this._iframesManager.addIframe(apiKey, lang);
     }
 
-    const requestId = this.generateID();
+    const requestId = generateID();
     const requestPromise = new Promise((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });

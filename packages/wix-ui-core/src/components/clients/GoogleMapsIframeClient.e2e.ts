@@ -17,6 +17,7 @@ describe('Google Maps Iframe client', () => {
   };
   const broadyWayLng = -73.85838059999998;
   const broadwayLat = 41.1115472;
+  const allowedDiff = 0.001;
 
   beforeEach(async () => {
     await browser.get(storyUrl);
@@ -45,8 +46,8 @@ describe('Google Maps Iframe client', () => {
     const parsedResults = await driver.getParsedResults();
     const firstResult = parsedResults[0];
     expect(firstResult.formatted_address.includes(searchTest)).toBeTruthy();
-    expect(firstResult.geometry.location.lat).toEqual(broadwayLat); //It might be a flaky test due to flaky results in long/lat values
-    expect(firstResult.geometry.location.lng).toEqual(broadyWayLng); //It might be a flaky test due to flaky results in long/lat values
+    expect(firstResult.geometry.location.lat - broadwayLat).toBeLessThanOrEqual(allowedDiff); //It might be a flaky test due to flaky results in long/lat values
+    expect(firstResult.geometry.location.lng - broadyWayLng).toBeLessThanOrEqual(allowedDiff); //It might be a flaky test due to flaky results in long/lat values
   });
 
   it('should ask google for placeDetails for broadway and return relevant values', async () => {
