@@ -1,5 +1,5 @@
-export type InputWithOptionsTheme = {
+export type InputWithAffixesTheme = {
 };
 
-export const core: InputWithOptionsTheme = {
+export const core: InputWithAffixesTheme = {
 };
