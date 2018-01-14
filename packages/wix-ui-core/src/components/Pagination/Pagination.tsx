@@ -4,6 +4,8 @@ import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
 import {PageStrip} from './PageStrip';
 
+const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
+
 enum ButtonType {
   Prev = 'previous',
   Next = 'next',
@@ -148,6 +150,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   private renderPageStrip(): JSX.Element {
     return (
       <PageStrip
+        id={this.props.id}
         totalPages={this.props.totalPages}
         currentPage={this.props.currentPage}
         maxPagesToShow={this.maxPagesToShow}
@@ -236,7 +239,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return (
       <a
         data-hook={type}
-        id={this.getId(type + 'Page')}
+        id={this.getId('navButton' + upperCaseFirst(type))}
         className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
