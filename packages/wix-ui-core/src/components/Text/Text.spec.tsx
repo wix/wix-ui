@@ -2,10 +2,9 @@ import * as React from 'react';
 import {textDriverFactory} from './Text.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {core, TextTheme} from './theme';
-
+import {mount} from 'enzyme';
 import {textTestkitFactory} from '../../testkit';
 import {textTestkitFactory as enzymeTextTestkitFactory} from '../../testkit/enzyme';
-
 import Text from './index';
 
 describe('Text', () => {
@@ -66,7 +65,7 @@ describe('Text', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Text>Hello World</Text>, enzymeTextTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Text>Hello World</Text>, enzymeTextTestkitFactory, mount)).toBe(true);
     });
   });
 });

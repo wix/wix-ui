@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {tooltipDriverFactory} from './Tooltip.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Tooltip from './index';
+import Tooltip from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
 import {core, TooltipTheme} from './theme';
+import {mount} from 'enzyme';
 
 describe('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
@@ -27,10 +28,12 @@ describe('Tooltip', () => {
     expect(driver.isContentExists()).toBeFalsy();
   });
 
-  it('should display content on hover', () => {
+  it('should display content on hover and hide it on leave', () => {
     const driver = createDriver(createTooltip());
     driver.mouseEnter();
     expect(driver.isContentExists()).toBeTruthy();
+    driver.mouseLeave();
+    expect(driver.isContentExists()).toBeFalsy();
   });
 
   describe('style', () => {
@@ -76,7 +79,7 @@ describe('Tooltip', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Tooltip/>, enzymeTooltipTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Tooltip/>, enzymeTooltipTestkitFactory, mount)).toBe(true);
     });
   });
 });

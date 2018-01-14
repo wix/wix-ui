@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 import {reactEventTrigger} from '../helpers';
 
 export const enzymeTestkitFactoryCreator = driverFactory => ({wrapper, dataHook}) => {
@@ -10,7 +9,7 @@ export const enzymeTestkitFactoryCreator = driverFactory => ({wrapper, dataHook}
   return driverFactory({element, wrapper, eventTrigger});
 };
 
-export const isEnzymeTestkitExists = (Element, testkitFactory, options = {withoutDataHook: false}) => {
+export const isEnzymeTestkitExists = (Element, testkitFactory, mount, options = {withoutDataHook: false}) => {
   const dataHook = 'myDataHook';
   const elementToRender = React.cloneElement(Element, {dataHook: options.withoutDataHook ? '' : dataHook});
   const wrapper = mount(elementToRender);

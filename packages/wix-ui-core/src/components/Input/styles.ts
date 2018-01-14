@@ -53,6 +53,20 @@ export const styles = (theme: InputTheme) => {
         '&:hover': {
           borderColor: theme.disabled.hoverBorderColor
         }
+      },
+
+      // changing the placeholder color for various browsers:
+      '&::-webkit-input-placeholder': { /* Chrome/Opera/Safari */
+        color: theme.placeholder.color,
+      },
+      '&:-moz-placeholder': { /* Firefox 18- */
+        color: theme.placeholder.color,
+      },
+      '&::-moz-placeholder': { /* Firefox 19+ */
+        color: theme.placeholder.color,
+      },
+      '&:-ms-input-placeholder': { /* IE 10+ */
+        color: theme.placeholder.color
       }
     }
   };

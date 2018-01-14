@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {isTestkitExists, testkitFactoryCreator, enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src';
+import {mount} from 'enzyme';
 
 describe('isTestkitExists', () => {
   const MyComp: React.SFC = () => (<div></div>);
@@ -14,6 +15,6 @@ describe('isTestkitExists', () => {
   });
 
   it('enzyme should exist', () => {
-    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver))).toEqual(true);
+    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount)).toEqual(true);
   });
 });
