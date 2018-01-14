@@ -20,3 +20,6 @@ export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriv
 
 import {dividerDriverFactory} from '../components/Divider/Divider.protractor.driver';
 export const dividerTestkitFactory = protractorTestkitFactoryCreator(dividerDriverFactory);
+
+import {googleMapsIframeClientDriverFactory} from '../components/clients/GoogleMapsIframeClient.protractor.driver';
+export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(googleMapsIframeClientDriverFactory);
