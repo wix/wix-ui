@@ -1,6 +1,12 @@
 export type PaginationTheme = {
   root: React.CSSProperties,
+
+  // Nav buttons
   navButton: React.CSSProperties,
+  navButtonFirst: React.CSSProperties,
+  navButtonPrevious: React.CSSProperties,
+  navButtonNext: React.CSSProperties,
+  navButtonLast: React.CSSProperties,
 
   // Mode: pages
   pageStrip: React.CSSProperties,
@@ -34,10 +40,15 @@ export const core: PaginationTheme = {
       cursor: 'pointer'
     }
   },
+  navButtonFirst: {order: 1},
+  navButtonPrevious: {order: 2},
+  navButtonNext: {order: 4},
+  navButtonLast: {order: 5},
   pageStrip: {
     display: 'flex',
-    overflow: 'hidden',
+    order: 3,
     justifyContent: 'center',
+    overflow: 'hidden',
 
     '$rtl > &': {
       flexDirection: 'row-reverse'
@@ -57,7 +68,8 @@ export const core: PaginationTheme = {
     flexShrink: 0
   },
   pageForm: {
-    display: 'flex'
+    display: 'flex',
+    order: 3
   },
   pageInput: {},
   totalPages: {},

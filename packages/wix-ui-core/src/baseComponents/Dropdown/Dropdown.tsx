@@ -17,6 +17,7 @@ export interface TriggerElementProps {
 
 export interface DropdownProps {
   placement: Placement;
+  showArrow?: boolean;
   classes?: DropdownClasses;
   children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
   options: Array<Option>;
@@ -52,7 +53,9 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
     /** Should close content on select */
     closeOnSelect: bool.isRequired,
     /** Classes object */
-    classes: object.isRequired
+    classes: object.isRequired,
+    /** Should display arrow with the content */
+    showArrow: bool
   };
 
   constructor(props) {
@@ -147,13 +150,14 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 
   render() {
-    const {openTrigger, placement, options, children} = this.props;
+    const {openTrigger, placement, options, children, showArrow} = this.props;
     const {isOpen, selectedIds, keyboardEvent} = this.state;
 
     return (
       <Popover
         placement={placement}
         shown={isOpen}
+        showArrow={showArrow}
         onMouseEnter={openTrigger === HOVER ? this.open : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
@@ -167,6 +171,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
           <DropdownContent
             keyboardEvent={keyboardEvent}
             options={options}
+            maxHeight={150}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick} />
         </Popover.Content>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
+import {PageStrip} from './PageStrip';
 
 enum ButtonType {
   Prev = 'previous',
@@ -13,16 +14,25 @@ enum ButtonType {
 // TODO: should be automatically derived from styles somehow.
 export interface PaginationClasses {
   root: string;
+
+  // Nav buttons
   navButton: string;
+  navButtonFirst: string;
+  navButtonPrevious: string;
+  navButtonNext: string;
+  navButtonLast: string;
+
   // Mode: pages
   pageStrip: string;
   pageButton: string;
   currentPage: string;
   ellipsis: string;
+
   // Mode: input
   pageForm: string;
   pageInput: string;
   totalPages: string;
+
   // Modifiers
   rtl: string;
   disabled: string;
@@ -33,7 +43,8 @@ export interface PaginationProps {
   totalPages: number;
   currentPage?: number;
   // props
-  onChange?: (event: {page: string}) => void;
+  pageUrl?: (pageNumber: number) => string;
+  onChange?: (event: {event: React.SyntheticEvent<Element>, page: number}) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
   replaceArrowsWithText?: boolean;
@@ -43,9 +54,11 @@ export interface PaginationProps {
   lastText?: string;
   rtl?: boolean;
   width?: number;
-  alwaysShowFirstPage?: boolean;
-  alwaysShowLastPage?: boolean;
+  showFirstPage?: boolean;
+  showLastPage?: boolean;
   showInputModeTotalPages?: boolean;
+  responsive?: boolean;
+  maxPagesToShow?: number;
   classes?: PaginationClasses;
   id?: string;
 }
@@ -61,7 +74,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     totalPages: PropTypes.number.isRequired,
     /** Current page to be shown as current. defaults to 1 */
     currentPage: PropTypes.number,
-    /** Callback to be called when pagination happens - structure ({page: string}) => () */
+    /** Function that generates URLs for page links. If onitted, pages don't link anywhere. */
+    pageUrl: PropTypes.func,
+    /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
     onChange: PropTypes.func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
     paginationMode: PropTypes.oneOf(['pages' , 'input']),
@@ -82,11 +97,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** The pixel width the component will render in  */
     width: PropTypes.number,
     /** Whether the page numbers always show the first page  */
-    alwaysShowFirstPage: PropTypes.bool,
+    showFirstPage: PropTypes.bool,
     /** Whether the page numbers always show the last page  */
-    alwaysShowLastPage: PropTypes.bool,
-    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode  */
+    showLastPage: PropTypes.bool,
+    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode */
     showInputModeTotalPages: PropTypes.bool,
+    /** In 'pages' mode automatically limits the number of pages such that they don't overflow the container */
+    responsive: PropTypes.bool,
+    /** In 'pages' mode defines the maximum number of pages to show */
+    maxPagesToShow: PropTypes.number,
     /** Classes object */
     classes: PropTypes.object,
     /** Component ID */
@@ -97,6 +116,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     currentPage: 1,
     showFirstLastNavButtons: false,
     replaceArrowsWithText: false,
+    showFirstPage: false,
+    showLastPage: false,
+    responsive: false,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
     firstText: 'First',
@@ -109,109 +131,83 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return this.props.id ? this.props.id + elementName : null;
   }
 
-  private get currentPage() {
-    return this.makePageNumberValid(this.props.currentPage, this.props.totalPages);
+  private get maxPagesToShow(): number {
+    if (this.props.maxPagesToShow) {
+      return this.props.maxPagesToShow;
+    } else if (this.props.responsive) {
+      return 20;
+    } else {
+      return 7;
+    }
   }
 
   public state = {
-    pageInputValue: String(this.currentPage)
+    pageInputValue: String(this.props.currentPage)
   };
 
-  private makePageNumberValid(pageNumber: number, totalPages: number): number {
-    pageNumber = Math.floor(pageNumber);
-    return isNaN(pageNumber) ? 1 : Math.max(Math.min(pageNumber, totalPages), 1);
-  }
-
-  private onChange(page: number | string): void {
-    this.props.onChange({page: String(page)});
-  }
-
-  private handlePageClick = (page: number | string): void => {
-    this.onChange(page);
+  private handlePageSelect = (event: React.SyntheticEvent<Element>, page: number): void => {
+    this.props.onChange({event, page});
   }
 
   private renderPageStrip(): JSX.Element {
-    const {classes} = this.props;
-    const pages = this.getPages();
-    const currentPage = this.currentPage;
-
     return (
-      <div
-        data-hook="PAGES_SELECTION"
-        id={this.getId('pageStrip')}
-        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
-        style={{order: 3}}
-      >
-        {pages.map(page =>
-          <a
-            data-hook={'PAGE_' + page + (page === currentPage ? ' PAGE_CURRENT' : '')}
-            key={page}
-            aria-label={`Page ${page}`}
-            className={
-              page === currentPage ?
-                this.props.classes.currentPage :
-                this.props.classes.pageButton
-            }
-            onClick={page === currentPage ? null : () => this.handlePageClick(page)}
-            tabIndex={page === currentPage ? null : 0}
-          >
-            {page}
-          </a>
-        )}
-      </div>
+      <PageStrip
+        totalPages={this.props.totalPages}
+        currentPage={this.props.currentPage}
+        maxPagesToShow={this.maxPagesToShow}
+        showFirstPage={this.props.showFirstPage}
+        showLastPage={this.props.showLastPage}
+        responsive={this.props.responsive}
+        classes={this.props.classes}
+        onPageSelect={this.handlePageSelect}
+        pageUrl={this.props.pageUrl}
+      />
     );
   }
 
-  private getPages(): number[] {
-    let result: number[] = [];
-    for (let i = 1; i <= this.props.totalPages; i++ ) {
-      result.push(i);
-    }
-
-    return result;
-  }
-
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newInput = e.target.value;
-    if ((newInput === parseInt(newInput, 10).toString() && parseInt(newInput, 10) > 0) || newInput === '') {
-      this.setState({pageInputValue: e.target.value});
+    this.setState({pageInputValue: e.target.value});
+  }
+
+  private handlePageInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    // Enter
+    if (event.keyCode === 13) {
+      const page = Number(this.state.pageInputValue);
+      if (page && page !== this.props.currentPage) {
+        if (1 <= page && page <= this.props.totalPages) {
+          this.props.onChange({event, page});
+        } else {
+          // Error state not implemented.
+        }
+      }
     }
   }
 
-  private handlePageInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    const keyCode = e.keyCode;
-    if (keyCode === 13) { // pressing enter
-      this.pageInputCommit();
-    }
-  }
-
-  private pageInputCommit = (): void => {
-    const page = Number(this.state.pageInputValue);
-    if (page && page !== this.currentPage) {
-      this.onChange(this.makePageNumberValid(page, this.props.totalPages));
+  private handleNavButtonKeyDown = (event: React.KeyboardEvent<Element>, page: number): void => {
+    // Enter or Space
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      this.handlePageSelect(event, page);
     }
   }
 
   private renderPageForm(): JSX.Element {
     const {classes} = this.props;
-    const inputSize = this.props.totalPages.toString().length + 2;
 
     return (
-      <div data-hook="PAGES_SELECTION" id={this.getId('pageForm')} className={classes.pageForm} style={{order: 3}}>
+      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm}>
         <input
-          data-hook="PAGE_INPUT"
-          name="pagenumber"
-          type="text"
-          size={inputSize}
+          data-hook="page-input"
+          type="number"
           className={this.props.classes.pageInput}
+          min={1}
+          max={this.props.totalPages}
           value={this.state.pageInputValue}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
-          onBlur={this.pageInputCommit}
-          aria-label={'Page Number, select number between 1 to ' + this.props.totalPages}
+          aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && (
-          <span data-hook="PAGES_TOTAL" className={this.props.classes.totalPages}>
+          <span data-hook="total-pages" className={this.props.classes.totalPages}>
             {`\u00A0/\u00A0${this.props.totalPages}`}
           </span>
         )}
@@ -220,29 +216,30 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderNavButton(type: ButtonType): JSX.Element {
-    const {classes, rtl} = this.props;
+    const {classes, rtl, currentPage, totalPages, pageUrl} = this.props;
 
     const disabled = (
-      ((type === ButtonType.First || type === ButtonType.Prev) && this.currentPage === 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && this.currentPage === this.props.totalPages)
+      ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
+      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
-    const [order, text, symbol] = {
-      [ButtonType.Prev]:  [2, this.props.previousText, rtl ? '>'  :  '<'],
-      [ButtonType.Next]:  [4, this.props.nextText,     rtl ? '<'  :  '>'],
-      [ButtonType.First]: [1, this.props.firstText,    rtl ? '>>' : '<<'],
-      [ButtonType.Last]:  [5, this.props.lastText,     rtl ? '<<' : '>>']
-    }[type] as [number, string, string];
+    const [btnClass, text, symbol, page] = {
+      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousText, rtl ? '>'  :  '<', currentPage - 1],
+      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextText,     rtl ? '<'  :  '>', currentPage + 1],
+      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstText,    rtl ? '>>' : '<<', 1],
+      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastText,     rtl ? '<<' : '>>', totalPages]
+    }[type] as [string, string, string, number];
 
     return (
       <a
-        data-hook={type.toUpperCase()}
+        data-hook={type}
         id={this.getId(type + 'Page')}
-        className={classNames(classes.navButton, {[classes.disabled]: disabled})}
-        onClick={disabled ? null : () => this.handlePageClick(type)}
+        className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
         aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
-        style={{order}}
-        tabIndex={disabled ? null : 0}
+        tabIndex={disabled || pageUrl ? null : 0}
+        onClick={disabled ? null : event => this.handlePageSelect(event, page)}
+        onKeyDown={disabled ? null : event => this.handleNavButtonKeyDown(event, page)}
+        href={!disabled && pageUrl ? pageUrl(page) : null}
       >
         {this.props.replaceArrowsWithText ? text : symbol}
       </a>
@@ -251,20 +248,21 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   public componentWillReceiveProps(nextProps) {
     this.setState({
-      pageInputValue: String(this.makePageNumberValid(nextProps.currentPage, nextProps.totalPages))
+      pageInputValue: String(nextProps.currentPage)
     });
   }
 
   public render() {
-    const {showFirstLastNavButtons, paginationMode, classes} = this.props;
+    const {showFirstLastNavButtons, paginationMode, classes, width} = this.props;
 
     return (
       <nav
-        data-hook="PAGINATION"
+        data-hook="pagination"
         id={this.getId('root')}
-        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
         role="navigation"
         aria-label="Pagination Navigation"
+        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
+        style={width ? {width} : null}
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}

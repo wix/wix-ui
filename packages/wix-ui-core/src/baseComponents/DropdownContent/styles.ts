@@ -7,7 +7,11 @@ export const styles = (theme: DropdownContentTheme) => {
   return {
     optionsContainer: {
       outline: 0,
-      border: '1px solid black'
+      border: '1px solid',
+      borderColor: theme.borderColor,
+      backgroundColor: theme.backgroundColor,
+      borderRadius: theme.borderRadius,
+      overflow: 'auto'
     },
 
     option: {

@@ -30,6 +30,7 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
       openTrigger={openTrigger}
       closeOnSelect={closeOnSelect}
       onSelect={onSelect}
+      showArrow={true}
       onDeselect={onDeselect}
       initialSelectedIds={initialSelectedIds}>
       {

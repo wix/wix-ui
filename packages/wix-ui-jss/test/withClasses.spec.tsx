@@ -37,10 +37,10 @@ describe('withClasses', () => {
     expect(wrapper.prop('children')).toBe('Hello');
   });
 
-  it('should set an id for the componet and map it to the style element in the dom', () => {
+  it('should set an id for the component and map it to the style element in the dom', () => {
     wrapper = render(<StyledComponent/>);
-    expect(wrapper.node.id).toBeDefined();
-    expect(sheetMapper[wrapper.node.id].styleElement).toBe(getJssStyleElement());
+    expect(wrapper.instance().id).toBeDefined();
+    expect(sheetMapper[wrapper.first().instance().id].styleElement).toBe(getJssStyleElement());
   });
 
   it('should inject the correct style tag to the DOM', () => {
@@ -73,10 +73,10 @@ describe('withClasses', () => {
   it('should not update the style tag when the component re-renders not due to a theme changes', () => {
     wrapper = render(<StyledComponent theme={{color: 'blue'}}/>);
     const element = wrapper.getDOMNode();
-    const styleElementBefore = sheetMapper[wrapper.node.id];
+    const styleElementBefore = sheetMapper[wrapper.getDOMNode().id];
 
     wrapper.setProps();
-    const styleElementAfter = sheetMapper[wrapper.node.id];
+    const styleElementAfter = sheetMapper[wrapper.getDOMNode().id];
     expect(styleElementBefore).toBe(styleElementAfter);
     expect(window.getComputedStyle(element).color).toBe('blue');
   });

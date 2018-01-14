@@ -4,6 +4,7 @@ import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-u
 import Input from './';
 import {inputTestkitFactory} from '../../testkit';
 import {inputTestkitFactory as enzymeInputTestkitFactory} from '../../testkit/enzyme';
+import {mount} from 'enzyme';
 
 describe('Input', () => {
 
@@ -216,7 +217,7 @@ describe('Input', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory, mount)).toBe(true);
     });
   });
 });
