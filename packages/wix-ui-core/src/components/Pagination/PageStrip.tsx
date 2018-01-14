@@ -7,10 +7,6 @@ import {
   createResponsiveLayoutTemplate
 } from './page-strip-layout';
 
-function canUseDOM(): boolean {
-  return typeof window !== 'undefined' && Boolean(window.document && window.document.createElement);
-}
-
 export interface PageStripClasses {
   pageStrip: string;
   pageButton: string;
@@ -32,20 +28,35 @@ export interface PageStripProps {
   pageUrl?: (pageNumber: number) => string;
 }
 
+// When using responsive layout we initially want to render identical tree
+// on the server and in the browser so that React doesn't freak out.
+// But on subsequent renders we can skip ahead to the responsive template,
+// see componentWillReceiveProps.
+export enum ResponsiveLayoutPhase {
+  Initial,
+  Template,
+  Final
+}
+
 export interface PageStripState {
-  responsiveLayout?: PageStripLayout;
+  responsiveLayout: PageStripLayout;
+  responsiveLayoutPhase: ResponsiveLayoutPhase;
 }
 
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   constructor() {
     super();
     this.state = {
-      responsiveLayout: null
+      responsiveLayout: null,
+      responsiveLayoutPhase: ResponsiveLayoutPhase.Initial
     };
   }
 
   public componentWillReceiveProps() {
-    this.setState({responsiveLayout: null});
+    this.setState({
+      responsiveLayout: null,
+      responsiveLayoutPhase: ResponsiveLayoutPhase.Template
+    });
   }
 
   public componentDidMount() {
@@ -119,31 +130,38 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   private getLayout(): PageStripLayout {
-    if (this.isResponsive()) {
-      if (this.state.responsiveLayout) {
-        return this.state.responsiveLayout;
-      } else if (canUseDOM()) {
-        return createResponsiveLayoutTemplate(this.props);
-      }
-      return [this.props.currentPage];
+    if (!this.isResponsive()) {
+      return createStaticLayout(this.props);
     }
-    return createStaticLayout(this.props);
+
+    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
+      return createResponsiveLayoutTemplate(this.props);
+    }
+
+    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Final) {
+      return this.state.responsiveLayout;
+    }
+
+    return [this.props.currentPage];
   }
 
   private updateLayoutIfNeeded(): void {
-    const {totalPages, currentPage, maxPagesToShow, showFirstPage, showLastPage} = this.props;
-
-    if (this.isResponsive() && !this.state.responsiveLayout) {
-      this.setState({
-        responsiveLayout: createResponsiveLayout({
-          container: ReactDOM.findDOMNode(this),
-          totalPages,
-          currentPage,
-          maxPagesToShow,
-          showFirstPage,
-          showLastPage
-        })
-      });
+    if (this.isResponsive()) {
+      if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Initial) {
+        this.setState({responsiveLayoutPhase: ResponsiveLayoutPhase.Template});
+      } else if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
+        this.setState({
+          responsiveLayout: createResponsiveLayout({
+            container: ReactDOM.findDOMNode(this),
+            totalPages: this.props.totalPages,
+            currentPage: this.props.currentPage,
+            maxPagesToShow: this.props.maxPagesToShow,
+            showFirstPage: this.props.showFirstPage,
+            showLastPage: this.props.showLastPage
+          }),
+          responsiveLayoutPhase: ResponsiveLayoutPhase.Final
+        });
+      }
     }
   }
 }
