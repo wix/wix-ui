@@ -2,7 +2,8 @@ import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
 import {createHOC} from '../../createHOC';
-import {getViewBox, getPathDescription} from './utils';
+import ToggleOn from 'wix-ui-icons-common/system/ToggleOn';
+import ToggleOff from 'wix-ui-icons-common/system/ToggleOff';
 
 export type ToggleSwitchClasses = {
   root: string;
@@ -25,6 +26,8 @@ export interface ToggleSwitchProps {
   classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
+  iconOn?: React.ReactElement<any>;
+  iconOff?: React.ReactElement<any>;
 }
 
 /**
@@ -52,7 +55,12 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     id: string,
   };
 
-  static defaultProps = {checked: false, styles: {}};
+  static defaultProps = {
+    checked: false,
+    styles: {},
+    iconOn: <ToggleOn/>,
+    iconOff: <ToggleOff/>
+  };
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this._listenToSpace);
@@ -77,7 +85,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 
   render() {
-    const {checked, disabled, classes, styles} = this.props;
+    const {checked, disabled, classes, styles, iconOn, iconOff} = this.props;
     const {id} = this;
 
     return (
@@ -92,9 +100,9 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
         <div className={classes.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
         <div className={classes.innerLabel} style={styles.innerLabel}>
-          <svg className={classes.toggleIcon} style={styles.toggleIcon} viewBox={getViewBox(checked)}>
-            <path d={getPathDescription(checked)}/>
-          </svg>
+          <div className={classes.toggleIcon} style={styles.toggleIcon}>
+            {checked ? iconOn : iconOff}
+          </div>
         </div>
       </label>
     );

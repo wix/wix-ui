@@ -2,7 +2,7 @@ import {core, ToggleSwitchTheme} from './theme';
 import * as defaultsDeep from 'lodash/defaultsDeep';
 
 const selectors = {
-  toggleIconPath: '& ~ $innerLabel > $toggleIcon path',
+  toggleIcon: '& ~ $innerLabel > $toggleIcon',
   outerLabel: '& + $outerLabel',
   innerLabel: '& ~ $innerLabel',
   state: state => `& > input[type=checkbox]:${state}`
@@ -48,7 +48,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           left: theme.labelMovementRange,
           '& > $toggleIcon': {
             transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
-            '& path': {fill: theme.colorChecked}
+            color: theme.colorChecked
           }
         },
       },
@@ -66,7 +66,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeDisabled,
           borderColor: theme.innerLabelBorderColorDisabled
         },
-        [selectors.toggleIconPath]: {fill: theme.colorDisabled}
+        [selectors.toggleIcon]: {color: theme.colorDisabled}
       },
 
       [selectors.state('checked:disabled')]: {
@@ -82,7 +82,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeDisabled,
           borderColor: theme.innerLabelBorderColorDisabled
         },
-        [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
+        [selectors.toggleIcon]: {color: theme.colorCheckedDisabled}
       },
 
       [selectors.state('hover')]: {
@@ -96,7 +96,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeHover,
           borderColor: theme.innerLabelBorderColorHover
         },
-        [selectors.toggleIconPath]: {fill: theme.colorHover}
+        [selectors.toggleIcon]: {color: theme.colorHover}
       },
 
       [selectors.state('hover:checked')]: {
@@ -110,7 +110,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeHoverChecked,
           borderColor: theme.innerLabelBorderColorHoverChecked
         },
-        [selectors.toggleIconPath]: {fill: theme.colorHoverChecked}
+        [selectors.toggleIcon]: {color: theme.colorHoverChecked}
       },
 
       [selectors.state('hover:disabled')]: {
@@ -126,7 +126,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeDisabled,
           borderColor: theme.innerLabelBorderColorDisabled
         },
-        [selectors.toggleIconPath]: {fill: theme.colorDisabled}
+        [selectors.toggleIcon]: {color: theme.colorDisabled}
       },
 
       [selectors.state('hover:checked:disabled')]: {
@@ -142,7 +142,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderWidth: theme.innerLabelBorderSizeDisabled,
           borderColor: theme.innerLabelBorderColorDisabled
         },
-        [selectors.toggleIconPath]: {fill: theme.colorCheckedDisabled}
+        [selectors.toggleIcon]: {color: theme.colorCheckedDisabled}
       },
 
       [selectors.state('focus')]: {
@@ -195,10 +195,12 @@ export const styles = (theme: ToggleSwitchTheme) => {
     toggleIcon: {
       display: theme.toggleIconDisplay,
       width: theme.toggleIconWidth,
+      fontSize: theme.toggleIconFontSize,
       height: theme.toggleIconHeight,
+      lineHeight: theme.toggleIconHeight,
       transition: `all ${theme.transitionSpeed} cubic-bezier(1,0,1,0)`,
-
-      '& path': {fill: theme.color}
+      color: theme.color,
+      fill: 'currentColor'
     }
   };
 };
