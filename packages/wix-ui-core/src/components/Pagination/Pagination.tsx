@@ -263,7 +263,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
     return (
       <nav
-        data-hook="pagination"
         id={this.getId('root')}
         role="navigation"
         aria-label="Pagination Navigation"

@@ -28,13 +28,17 @@ export interface PageStripProps {
   pageUrl?: (pageNumber: number) => string;
 }
 
-// When using responsive layout we initially want to render identical tree
-// on the server and in the browser so that React doesn't freak out.
-// But on subsequent renders we can skip ahead to the responsive template,
-// see componentWillReceiveProps.
 export enum ResponsiveLayoutPhase {
+  // When using responsive layout we initially want to render identical tree
+  // on the server and in the browser so that React doesn't freak out.
   Initial,
+
+  // Once the component is mounted we need to determine how much space various buttons
+  // occupy to decide which of them we have enough space for. The users should never
+  // see this layout, we only use it to take measurements.
   Template,
+
+  // Once we have the measurements, we can render the final responsive layout.
   Final
 }
 
