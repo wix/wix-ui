@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {bool, func, object, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
+import {bool, func, object, string} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
 

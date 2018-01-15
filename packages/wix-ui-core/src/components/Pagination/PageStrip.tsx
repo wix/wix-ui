@@ -7,10 +7,6 @@ import {
   createResponsiveLayoutTemplate
 } from './page-strip-layout';
 
-function canUseDOM(): boolean {
-  return typeof window !== 'undefined' && Boolean(window.document && window.document.createElement);
-}
-
 export interface PageStripClasses {
   pageStrip: string;
   pageButton: string;
@@ -27,24 +23,44 @@ export interface PageStripProps {
   responsive: boolean;
   id?: string;
   classes: PageStripClasses;
-  onPageSelect: (event: React.SyntheticEvent<Element>, page: number) => void;
+  onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
+  onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
   pageUrl?: (pageNumber: number) => string;
 }
 
+export enum ResponsiveLayoutPhase {
+  // When using responsive layout we initially want to render identical tree
+  // on the server and in the browser so that React doesn't freak out.
+  Initial,
+
+  // Once the component is mounted we need to determine how much space various buttons
+  // occupy to decide which of them we have enough space for. The users should never
+  // see this layout, we only use it to take measurements.
+  Template,
+
+  // Once we have the measurements, we can render the final responsive layout.
+  Final
+}
+
 export interface PageStripState {
-  responsiveLayout?: PageStripLayout;
+  responsiveLayout: PageStripLayout;
+  responsiveLayoutPhase: ResponsiveLayoutPhase;
 }
 
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   constructor() {
     super();
     this.state = {
-      responsiveLayout: null
+      responsiveLayout: null,
+      responsiveLayoutPhase: ResponsiveLayoutPhase.Initial
     };
   }
 
   public componentWillReceiveProps() {
-    this.setState({responsiveLayout: null});
+    this.setState({
+      responsiveLayout: null,
+      responsiveLayoutPhase: ResponsiveLayoutPhase.Template
+    });
   }
 
   public componentDidMount() {
@@ -103,8 +119,8 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           aria-label={`Page ${pageNumber}`}
           className={classes.pageButton}
           tabIndex={pageUrl ? null : 0}
-          onClick={e => this.handleClick(e, pageNumber)}
-          onKeyDown={e => this.handleKeyDown(e, pageNumber)}
+          onClick={e => this.props.onPageClick(e, pageNumber)}
+          onKeyDown={e => this.props.onPageKeyDown(e, pageNumber)}
           href={pageUrl ? pageUrl(pageNumber) : null}
         >
           {pageNumber}
@@ -118,42 +134,38 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   private getLayout(): PageStripLayout {
-    if (this.isResponsive()) {
-      if (this.state.responsiveLayout) {
-        return this.state.responsiveLayout;
-      } else if (canUseDOM()) {
-        return createResponsiveLayoutTemplate(this.props);
-      }
-      return [this.props.currentPage];
+    if (!this.isResponsive()) {
+      return createStaticLayout(this.props);
     }
-    return createStaticLayout(this.props);
+
+    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
+      return createResponsiveLayoutTemplate(this.props);
+    }
+
+    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Final) {
+      return this.state.responsiveLayout;
+    }
+
+    return [this.props.currentPage];
   }
 
   private updateLayoutIfNeeded(): void {
-    const {totalPages, currentPage, maxPagesToShow, showFirstPage, showLastPage} = this.props;
-
-    if (this.isResponsive() && !this.state.responsiveLayout) {
-      this.setState({
-        responsiveLayout: createResponsiveLayout({
-          container: ReactDOM.findDOMNode(this),
-          totalPages,
-          currentPage,
-          maxPagesToShow,
-          showFirstPage,
-          showLastPage
-        })
-      });
-    }
-  }
-
-  private handleClick(event: React.MouseEvent<Element>, page: number) {
-    this.props.onPageSelect(event, page);
-  }
-
-  private handleKeyDown(event: React.KeyboardEvent<Element>, page: number) {
-    // Enter or Space
-    if (event.keyCode === 13 || event.keyCode === 32) {
-      this.props.onPageSelect(event, page);
+    if (this.isResponsive()) {
+      if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Initial) {
+        this.setState({responsiveLayoutPhase: ResponsiveLayoutPhase.Template});
+      } else if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
+        this.setState({
+          responsiveLayout: createResponsiveLayout({
+            container: ReactDOM.findDOMNode(this),
+            totalPages: this.props.totalPages,
+            currentPage: this.props.currentPage,
+            maxPagesToShow: this.props.maxPagesToShow,
+            showFirstPage: this.props.showFirstPage,
+            showLastPage: this.props.showLastPage
+          }),
+          responsiveLayoutPhase: ResponsiveLayoutPhase.Final
+        });
+      }
     }
   }
 }

@@ -1,22 +1,22 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import Text from '../src/components/Text';
-import Button from '../src/components/Button';
-import Badge from '../src/components/Badge';
-import Input from '../src/components/Input';
-import Box from '../src/components/Box';
+import {Text} from '../src/components/Text';
+import {Button} from '../src/components/Button';
+import {Badge} from '../src/components/Badge';
+import {Input} from '../src/components/Input';
+import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
-import IconWithOptions from '../src/components/IconWithOptions';
-import InputWithOptions from '../src/components/InputWithOptions';
+import {IconWithOptions} from '../src/components/IconWithOptions';
+import {InputWithOptions} from '../src/components/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 
 const dropdownOptions =
-    Array.from(Array(50))
+    Array.from(Array(20))
       .map((x, index) =>
         index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
@@ -28,20 +28,21 @@ storiesOf('Components', module)
     <Button dataHook="story-button">Hello</Button>
   ))
   .add('IconWithOptions', () => (
-    <div style={{padding: '50px'}}>
-      <IconWithOptions
-        iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
-        dataHook="story-icon-with-options"
-        options={dropdownOptions}/>
-    </div>
+    <IconWithOptions
+      iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
+      dataHook="story-icon-with-options"
+      options={dropdownOptions}/>
   ))
-  .add('InputWithOptions', () => (
-    <div style={{padding: '50px'}}>
-      <InputWithOptions
-        closeOnSelect={false}
-        dataHook="story-input-with-options"
-        options={dropdownOptions}/>
-    </div>
+  .add('InputWithOptions Single select', () => (
+    <InputWithOptions
+      dataHook="story-input-with-options-single"
+      options={dropdownOptions}/>
+  ))
+  .add('InputWithOptions Multi select', () => (
+    <InputWithOptions
+      closeOnSelect={false}
+      dataHook="story-input-with-options-multi"
+      options={dropdownOptions}/>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />

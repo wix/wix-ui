@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {OptionFactory, OptionType} from './';
-import Divider from '../../components/Divider';
+import {Divider} from '../../components/Divider';
 
 describe('DropdownOption', () => {
   it('should create default Option', () => {
@@ -24,7 +24,7 @@ describe('DropdownOption', () => {
     expect(option.id).toContain('Divider');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeFalsy();
-    expect(option.render()).toEqual(<Divider>{null}</Divider>);
+    expect(option.render()).toEqual(<Divider />);
   });
 
   it('should create divider with content', () => {

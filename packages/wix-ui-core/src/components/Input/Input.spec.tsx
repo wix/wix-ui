@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {inputDriverFactory} from './Input.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Input from './';
+import {Input} from './';
 import {inputTestkitFactory} from '../../testkit';
 import {inputTestkitFactory as enzymeInputTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';

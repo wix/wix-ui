@@ -1,7 +1,7 @@
 import * as React from 'react';
+import PopperJS from 'popper.js';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {bool, string, func} from 'prop-types';
-import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
@@ -27,7 +27,9 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes, showArrow}) => {
+const Popover: PopoverType =
+  ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes, showArrow}) => {
+
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   return (
     <Manager
@@ -39,10 +41,10 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
       </Target>
       {
         shown &&
-        <Popper data-hook="popover-content" placement={placement} className={classes.popoverContent}>
-          {showArrow && <Arrow data-hook="popover-arrow" className={`${classes.arrow} ${arrowStyle}`}/>}
-          {childrenObject.Content}
-        </Popper>
+          <Popper data-hook="popover-content" placement={placement} className={classes.popoverContent}>
+            {showArrow && <Arrow data-hook="popover-arrow" className={`${classes.arrow} ${arrowStyle}`}/>}
+            {childrenObject.Content}
+          </Popper>
       }
     </Manager>
   );

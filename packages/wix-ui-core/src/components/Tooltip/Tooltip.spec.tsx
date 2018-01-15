@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {tooltipDriverFactory} from './Tooltip.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Tooltip from './';
+import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
 import {core, TooltipTheme} from './theme';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
-import InputWithOptions from './';
+import {InputWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 
 describe('InputWithOptions', () => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {func, object, arrayOf, oneOfType, number, string, node} from 'prop-types';
 import * as classNames from 'classnames';
+import {func, object, arrayOf, oneOfType, number, string, node} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {Option} from '../DropdownOption';
 
@@ -19,7 +19,7 @@ export interface DropdownContentProps {
   keyboardEvent?: string;
   fixedHeader?: React.ReactNode;
   fixedFooter?: React.ReactNode;
-  maxHeight: number;
+  maxHeight?: number;
 }
 
 interface DropdownContentState {
@@ -31,7 +31,8 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   static defaultProps = {
     options: [],
     onOptionClick: () => null,
-    selectedIds: []
+    selectedIds: [],
+    maxHeight: 260,
   };
 
   static propTypes = {
@@ -50,7 +51,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     /** An element that always appears at the bottom of the options */
     fixedFooter: node,
     /** Maximum height of the content */
-    maxHeight: node
+    maxHeight: number
   };
 
   private optionsContainerRef: HTMLDivElement;
@@ -67,7 +68,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     this.onKeyDown(this.props.keyboardEvent);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: DropdownContentProps) {
     this.onKeyDown(nextProps.keyboardEvent);
   }
 
@@ -150,6 +151,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
 
     return (
       <div
+        data-hook="dropdown-content"
         tabIndex={1000}>
         {fixedHeader}
         {

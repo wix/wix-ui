@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Pagination from '../../src/components/Pagination';
+import {Pagination} from '../../src/components/Pagination';
 import {theme} from './pagination-story-theme';
 
 // Assuming we use pagination-story-theme

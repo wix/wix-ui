@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Dropdown from '../../baseComponents/Dropdown';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
 import {Option} from '../../baseComponents/DropdownOption';
 import {createHOC} from '../../createHOC';
 import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {bool, oneOf, object, arrayOf, string, func, oneOfType, number} from 'prop-types';
-import Input from '../Input';
+import {bool, oneOf, object, arrayOf, string, func, oneOfType, number, node} from 'prop-types';
+import {Input} from '../Input';
 
 export interface InputWithOptionsClasses {
 }
@@ -20,7 +20,12 @@ export interface InputWithOptionsProps {
   onDeselect?: (option: Option) => void;
   initialSelectedIds?: Array<string | number>;
   closeOnSelect?: boolean;
-  onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  fixedHeader?: React.ReactNode;
+  fixedFooter?: React.ReactNode;
+  optionsMaxHeight?: number;
+  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
 }
 
 interface InputWithOptionsState {
@@ -56,7 +61,17 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
     /** Classes object */
     classes: object.isRequired,
     /** Event handler for when the input changes */
-    onInputChange: func
+    onInputChange: func,
+    /** An element that always appears at the top of the options */
+    fixedHeader: node,
+    /** An element that always appears at the bottom of the options */
+    fixedFooter: node,
+    /** Maximum height of the options */
+    optionsMaxHeight: number,
+    /** Event handler for when the input loses focus */
+    onBlur: func,
+    /** Event handler for when the input gains focus */
+    onFocus: func
   };
 
   constructor(props) {
@@ -79,37 +94,59 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
     onInputChange && onInputChange(event);
   }
 
-  onDeselect(option) {
+  onDeselect(option: Option) {
+    const {onDeselect} = this.props;
     const {inputValue} = this.state;
     this.setState({
-      inputValue: inputValue.replace(option.value + ' ', '')
+      inputValue: (inputValue || '').split(' ').filter(x => x !== option.value).join(' ').trim()
     });
+
+    onDeselect(option);
   }
 
-  onSelect(option) {
+  onSelect(option: Option) {
+    const {onSelect, closeOnSelect} = this.props;
     const {inputValue} = this.state;
     this.setState({
-      inputValue: inputValue + `${option.value} `
+      inputValue: closeOnSelect ? option.value : [...((inputValue || '').split(' ')), option.value].join(' ').trim()
     });
+
+    onSelect(option);
   }
 
   render () {
-    const {placement, options, openTrigger, onSelect, onDeselect, initialSelectedIds, closeOnSelect} = this.props;
+    const {
+      placement,
+      options,
+      openTrigger,
+      initialSelectedIds,
+      closeOnSelect,
+      fixedFooter,
+      fixedHeader,
+      optionsMaxHeight,
+      onFocus,
+      onBlur} = this.props;
     const {inputValue} = this.state;
 
     return (
       <Dropdown
         placement={placement}
         openTrigger={openTrigger}
-        onSelect={onSelect}
+        onSelect={this.onSelect}
         showArrow={false}
-        onDeselect={onDeselect}
+        optionsMaxHeight={optionsMaxHeight}
+        fixedFooter={fixedFooter}
+        fixedHeader={fixedHeader}
+        onDeselect={this.onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
         {
           ({onKeyDown}: TriggerElementProps) =>
             <Input
+              dataHook="dropdown-input"
+              onFocus={onFocus}
+              onBlur={onBlur}
               value={inputValue}
               onChange={this.onInputChange}
               onKeyDown={onKeyDown}/>

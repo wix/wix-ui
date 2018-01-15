@@ -13,6 +13,7 @@ export const styles = (theme: PopoverTheme) => {
     },
 
     popoverContent: {
+      zIndex: 1000,
       minWidth: '100%',
       [arrowPlacement('right')]: {
         paddingLeft: '5px',

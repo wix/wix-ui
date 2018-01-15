@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {GoogleMapsIframeClient} from '../../src/components/clients/GoogleMapsIframeClient';
+import {GoogleMapsIframeClient} from '../../src/clients/GoogleMaps';
 
 const buttonStyle = {
     fontSize: '15px',

@@ -5,7 +5,7 @@ import {core, BadgeTheme} from './theme';
 import {badgeTestkitFactory} from '../../testkit';
 import {badgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
-import Badge from './';
+import {Badge} from './';
 
 describe('Badge', () => {
 

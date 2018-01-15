@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {string} from 'prop-types';
 import * as ReactDOM from 'react-dom';
+import {string} from 'prop-types';
 const hoistNonReactStatics = require('hoist-non-react-statics');
 
 export interface WixComponentProps {

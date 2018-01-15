@@ -5,7 +5,7 @@ import {core, TextTheme} from './theme';
 import {mount} from 'enzyme';
 import {textTestkitFactory} from '../../testkit';
 import {textTestkitFactory as enzymeTextTestkitFactory} from '../../testkit/enzyme';
-import Text from './index';
+import {Text} from './index';
 
 describe('Text', () => {
 

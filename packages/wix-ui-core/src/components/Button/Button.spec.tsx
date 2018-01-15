@@ -5,8 +5,7 @@ import {core, ButtonTheme} from './theme';
 import {mount} from 'enzyme';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
-
-import Button from './';
+import {Button} from './';
 
 describe('Button', () => {
 

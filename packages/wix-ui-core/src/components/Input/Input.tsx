@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {oneOfType, bool, func, string, number, object} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
+import {oneOfType, bool, func, string, number, object} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
 const createAriaAttributes = props => {

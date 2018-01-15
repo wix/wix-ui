@@ -6,4 +6,3 @@ import {WixComponentProps} from '../../createHOC';
 
 export {DropdownContentProps};
 export const DropdownContent = withClasses(DropdownContentComponent, styles) as React.ComponentClass<DropdownContentProps & ThemedComponentProps & WixComponentProps>;
-export default DropdownContent;

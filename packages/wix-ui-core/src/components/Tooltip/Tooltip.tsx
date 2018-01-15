@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {string, object} from 'prop-types';
-import Popover from '../../baseComponents/Popover';
+import {Popover} from '../../baseComponents/Popover';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {createHOC} from '../../createHOC';

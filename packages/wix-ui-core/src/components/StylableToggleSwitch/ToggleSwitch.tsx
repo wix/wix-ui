@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {bool, func, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
+import {bool, func, object, string} from 'prop-types';
 import {getViewBox, getPathDescription} from '../ToggleSwitch/utils';
 import style from './ToggleSwitch.st.css';
 

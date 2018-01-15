@@ -1,5 +1,5 @@
-
 import {palette} from '../../palette';
+
 export type DropdownContentTheme = {
   backgroundColor?: string;
   borderColor?: string;
