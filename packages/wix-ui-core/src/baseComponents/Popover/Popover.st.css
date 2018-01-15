@@ -1,0 +1,65 @@
+.root {
+  display: 'inline-block'; 
+  position: 'relative';
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  borderStyle: 'solid';
+  position: 'absolute';
+  margin: '5px';
+}
+
+.popoverContent {
+  zIndex: 1000;
+  minWidth: '100%';
+}
+
+.popoverContent[data-placement="right"] {
+  paddingLeft: '5px';
+}
+
+.popoverContent[data-placement="right"] .arrow {
+  borderWidth: '5px 5px 5px 0';
+  left: '-5px';
+  top: 'calc(50% - 5px)';
+  marginLeft: '5px';
+  marginRight: '0';
+}
+
+.popoverContent[data-placement="left"] {
+  paddingRight: '5px';
+}
+
+.popoverContent[data-placement="left"] .arrow {
+  borderWidth: '5px 0 5px 5px';
+  right: '-5px';
+  top: 'calc(50% - 5px)';
+  marginLeft: '0';
+  marginRight: '5px';
+}
+
+.popoverContent[data-placement="bottom"] {
+  paddingTop: '5px';
+}
+
+.popoverContent[data-placement="bottom"] .arrow {
+  borderWidth: '0 5px 5px 5px';
+  top: '-5px';
+  left: 'calc(50% - 5px)';
+  marginTop: '5px';
+  marginBottom: '0';
+}
+
+.popoverContent[data-placement="top"] {
+  paddingBottom: '5px';
+}
+
+.popoverContent[data-placement="top"] .arrow {
+  borderWidth: '5px 5px 0 5px';
+  bottom: '-5px';
+  left: 'calc(50% - 5px)';
+  marginTop: '0';
+  marginBottom: '5px';
+}
