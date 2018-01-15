@@ -3,71 +3,71 @@
 }
 
 .root {
-  display: 'inline-block'; 
-  position: 'relative';
+  display: inline-block;
+  position: relative;
 }
 
-.root::arrow {
+.root .arrow {
   width: 0;
   height: 0;
-  borderStyle: 'solid';
-  position: 'absolute';
-  margin: '5px';
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
 }
 
-.root::popoverContent {
-  zIndex: 1000;
-  minWidth: '100%';
+.root .popoverContent {
+  z-index: 1000;
+  min-width: 100%;
 }
 
-.root::popoverContent[data-placement="right"] {
-  paddingLeft: '5px';
+.root .popoverContent[data-placement="right"] {
+  padding-left: 5px;
 }
 
-.root::popoverContent[data-placement="right"]::arrow {
-  borderWidth: '5px 5px 5px 0';
-  left: '-5px';
-  top: 'calc(50% - 5px)';
-  marginLeft: '5px';
-  marginRight: '0';
-  borderColor: `transparent ${value(borderColor)} transparent transparent`;
+.root .popoverContent[data-placement="right"] .arrow {
+  border-width: 5px 5px 5px 0;
+  left: -5px;
+  top: calc(50% - 5px);
+  margin-left: 5px;
+  margin-right: 0;
+  border-color: transparent value(borderColor) transparent transparent;
 }
 
-.root::popoverContent[data-placement="left"] {
-  paddingRight: '5px';
+.root .popoverContent[data-placement="left"] {
+  padding-right: 5px;
 }
 
-.root::popoverContent[data-placement="left"]::arrow {
-  borderWidth: '5px 0 5px 5px';
-  right: '-5px';
-  top: 'calc(50% - 5px)';
-  marginLeft: '0';
-  marginRight: '5px';
-  borderColor: `transparent transparent transparent ${value(borderColor)}`;
+.root .popoverContent[data-placement="left"] .arrow {
+  border-width: 5px 0 5px 5px;
+  right: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 5px;
+  border-color: transparent transparent transparent value(borderColor);
 }
 
-.root::popoverContent[data-placement="bottom"] {
-  paddingTop: '5px';
+.root .popoverContent[data-placement="bottom"] {
+  padding-top: 5px;
 }
 
-.root::popoverContent[data-placement="bottom"]::arrow {
-  borderWidth: '0 5px 5px 5px';
-  top: '-5px';
-  left: 'calc(50% - 5px)';
-  marginTop: '5px';
-  marginBottom: '0';
-  borderColor: `transparent transparent ${value(borderColor)} transparent`;
+.root .popoverContent[data-placement="bottom"] .arrow {
+  border-width: 0 5px 5px 5px;
+  top: -5px;
+  left: calc(50% - 5px);
+  margin-top: 5px;
+  margin-bottom: 0;
+  border-color: transparent transparent value(borderColor) transparent;
 }
 
-.root::popoverContent[data-placement="top"] {
-  paddingBottom: '5px';
+.root .popoverContent[data-placement="top"] {
+  padding-bottom: 5px;
 }
 
-.root::popoverContent[data-placement="top"]::arrow {
-  borderWidth: '5px 5px 0 5px';
-  bottom: '-5px';
-  left: 'calc(50% - 5px)';
-  marginTop: '0';
-  marginBottom: '5px';
-  borderColor: `${value(borderColor)} transparent transparent transparent`;
+.root .popoverContent[data-placement="top"] .arrow {
+  border-width: 5px 5px 0 5px;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 5px;
+  border-color: value(borderColor) transparent transparent transparent;
 }
