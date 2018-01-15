@@ -144,6 +144,7 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
         {
           ({onKeyDown}: TriggerElementProps) =>
             <Input
+              dataHook="dropdown-input"
               onFocus={onFocus}
               onBlur={onBlur}
               value={inputValue}

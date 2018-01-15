@@ -151,6 +151,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
 
     return (
       <div
+        data-hook="dropdown-content"
         tabIndex={1000}>
         {fixedHeader}
         {

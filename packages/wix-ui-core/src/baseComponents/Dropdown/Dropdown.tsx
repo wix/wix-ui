@@ -166,6 +166,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
     return (
       <Popover
+        data-hook="dropdown"
         placement={placement}
         shown={isOpen}
         showArrow={showArrow}

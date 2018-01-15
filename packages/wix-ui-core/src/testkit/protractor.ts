@@ -26,3 +26,9 @@ export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCrea
 
 import {inputWithOptionsDriverFactory} from '../components/InputWithOptions/InputWithOptions.protractor.driver';
 export const inputWithOptionsTestkitFactory = protractorTestkitFactoryCreator(inputWithOptionsDriverFactory);
+
+import {dropdownContentDriverFactory} from '../baseComponents/DropdownContent/DropdownContent.protractor.driver';
+export const dropdownContentTestkitFactory = protractorTestkitFactoryCreator(dropdownContentDriverFactory);
+
+import {dropdownDriverFactory} from '../baseComponents/Dropdown/Dropdown.protractor.driver';
+export const dropdownTestkitFactory = protractorTestkitFactoryCreator(dropdownDriverFactory);

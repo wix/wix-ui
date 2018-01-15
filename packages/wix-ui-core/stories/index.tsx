@@ -33,22 +33,16 @@ storiesOf('Components', module)
       dataHook="story-icon-with-options"
       options={dropdownOptions}/>
   ))
-  .add('InputWithOptions', () => (
-    <div>
-      <div>
-        <span>Singleselect:</span>
-        <InputWithOptions
-          dataHook="story-input-with-options-single"
-          options={dropdownOptions}/>
-      </div>
-      <div>
-        <span>Multiselect:</span>
-        <InputWithOptions
-          closeOnSelect={false}
-          dataHook="story-input-with-options-multi"
-          options={dropdownOptions}/>
-      </div>
-    </div>
+  .add('InputWithOptions Single select', () => (
+    <InputWithOptions
+      dataHook="story-input-with-options-single"
+      options={dropdownOptions}/>
+  ))
+  .add('InputWithOptions Multi select', () => (
+    <InputWithOptions
+      closeOnSelect={false}
+      dataHook="story-input-with-options-multi"
+      options={dropdownOptions}/>
   ))
   .add('Input', () => (
     <Input dataHook="story-input" />
