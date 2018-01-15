@@ -41,9 +41,9 @@ export const paginationDriverFactory = ({element: root}: {element: Element}) => 
     /** Returns the total amount of pages displayed in "input" mode */
     getTotalPagesField: (): Element | null => root.querySelector('[data-hook="total-pages"]'),
     /** Simulates clicking a nav button */
-    clickNavButton: (name: NavButtonName): void => Simulate.click(getNavButton(name), {button: 0}),
+    clickNavButton: (name: NavButtonName): void => Simulate.click(getNavButton(name)),
     /** Simulates clicking a page in "pages" mode */
-    clickPage: (page: number): void => Simulate.click(getPageByNumber(page), {button: 0}),
+    clickPage: (page: number): void => Simulate.click(getPageByNumber(page)),
     /** Simulates changing the value of the input field in "input" mode */
     changeInput: (newValue: string): void => {
       const input = getInput();

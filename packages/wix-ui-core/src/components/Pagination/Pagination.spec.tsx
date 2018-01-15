@@ -293,26 +293,16 @@ describe('Pagination', () => {
       onChange.mockClear();
     });
 
-    it('calls onChange only when the left mouse button is pressed', async () => {
+    it('calls onChange when the left mouse button is pressed', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      Simulate.click(pagination.getNavButton('previous'), {button: 0});
+      Simulate.click(pagination.getNavButton('previous'));
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.click(pagination.getNavButton('previous'), {button: 1});
-      await sleep(10);
-      expect(onChange).not.toBeCalled();
-      onChange.mockClear();
-
-      Simulate.click(pagination.getPageByNumber(1), {button: 0});
+      Simulate.click(pagination.getPageByNumber(1));
       expect(onChange).toBeCalled();
-      onChange.mockClear();
-
-      Simulate.click(pagination.getPageByNumber(1), {button: 1});
-      await sleep(10);
-      expect(onChange).not.toBeCalled();
       onChange.mockClear();
     });
   });

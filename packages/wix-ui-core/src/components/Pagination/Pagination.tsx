@@ -184,9 +184,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private handlePageClick = (event: React.MouseEvent<Element>, page: number): void => {
-    if (event.button === 0) {
-      this.props.onChange({event, page});
-    }
+    this.props.onChange({event, page});
   }
 
   private handlePageKeyDown = (event: React.KeyboardEvent<Element>, page: number): void => {
