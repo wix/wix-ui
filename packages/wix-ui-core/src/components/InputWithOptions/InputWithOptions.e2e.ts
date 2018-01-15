@@ -11,7 +11,7 @@ describe('InputWithOptions', () => {
   });
 
   eyes.it('should select items in multi select including items unseen with keyboard arrow down', () => {
-    const dataHook = 'story-input-with-options';
+    const dataHook = 'story-input-with-options-multi';
     const driver = inputWithOptionsTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find InputWithOptions')
@@ -40,7 +40,7 @@ describe('InputWithOptions', () => {
   });
 
   eyes.it('should select items in multi select including items unseen with keyboard arrow up', () => {
-    const dataHook = 'story-input-with-options';
+    const dataHook = 'story-input-with-options-multi';
     const driver = inputWithOptionsTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find InputWithOptions')
