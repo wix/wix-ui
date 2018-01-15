@@ -1,7 +1,12 @@
 import {inputDriverFactory} from '../Input/Input.driver';
 
+function getInput(elem) {
+  return elem.getElementsByTagName('input')[0];
+}
+
 export const inputWithAffixesDriverFactory = ({element, eventTrigger}) => {
-  const inputDriver = inputDriverFactory({element, eventTrigger});
+  const inputElement = getInput(element);
+  const inputDriver = inputDriverFactory({element: inputElement, eventTrigger});
   const driver = {
     hasPrefix: () => !!element.querySelector('[data-hook="input-prefix"]'),
     getPrefix: () => element.querySelector('[data-hook="input-prefix"]'),

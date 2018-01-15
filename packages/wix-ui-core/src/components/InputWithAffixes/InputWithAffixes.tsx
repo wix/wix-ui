@@ -9,12 +9,13 @@ export interface InputWithAffixesProps extends InputProps {
 
 class InputWithAffixes extends React.Component<InputWithAffixesProps> {
     render() {
-    return (
-    <div>
-        {this.props.prefix && <div data-hook="input-prefix">{this.props.prefix}</div>}
-        <Input/>
-        {this.props.suffix && <div data-hook="input-suffix">{this.props.suffix}</div>}
-    </div>);
+        const {prefix, suffix, ...props} = this.props;
+        return (
+        <div>
+            {this.props.prefix && <div data-hook="input-prefix">{prefix}</div>}
+            <Input {...props}/>
+            {this.props.suffix && <div data-hook="input-suffix">{suffix}</div>}
+        </div>);
     }
 }
 
