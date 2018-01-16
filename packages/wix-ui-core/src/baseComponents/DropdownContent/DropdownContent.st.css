@@ -7,14 +7,19 @@
 
 .option {}
 
-.option.hover {
-  background-color: red;
+.hover {
+  background-color: lightgreen;
 }
 
-.option.selected {
+.selected {
+  background-color: orange;
+}
+
+.disabled {
+  background-color: blue;
+}
+
+.hover.selected {
   background-color: green;
 }
 
-.option.hover.selected {
-  background-color: orange;
-}
