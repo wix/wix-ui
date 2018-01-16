@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Tooltip} from '../../src/components/Tooltip';
 
 function createTooltip(direction) {
-  return <Tooltip dataHook={`story-tooltip-${direction}`} placement={direction}>
+  return <Tooltip data-hook={`story-tooltip-${direction}`} placement={direction}>
     <Tooltip.Element>
       <span>I need a tooltip</span>
     </Tooltip.Element>

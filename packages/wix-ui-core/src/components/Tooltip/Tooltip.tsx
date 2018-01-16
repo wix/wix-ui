@@ -1,23 +1,17 @@
 import * as React from 'react';
-import {string, object} from 'prop-types';
+import {string} from 'prop-types';
 import {Popover} from '../../baseComponents/Popover';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import {createHOC} from '../../createHOC';
+import style from './Tooltip.st.css';
 
 export interface TooltipProps {
   placement?: Placement;
-  classes?: TooltipClasses;
 }
 
 export interface TooltipState {
   isOpen: boolean;
 }
-
-export type TooltipClasses = {
-  tooltip: string;
-  arrow: string;
-};
 
 export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
@@ -29,9 +23,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static propTypes = {
     /** The location to display the content */
-    placement: string,
-    /** Classes object */
-    classes: object.isRequired
+    placement: string
   };
 
   constructor(props) {
@@ -58,29 +50,25 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, children, classes} = this.props;
+    const {placement, children} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isOpen} = this.state;
 
     return (
       <Popover
+        {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={isOpen || true}
         showArrow={true}
         onMouseEnter={this.open}
-        onMouseLeave={this.close}
-        arrowStyle={classes[`${placement}ArrowStyle`]}>>
+        onMouseLeave={this.close}>
         <Popover.Element>
           {childrenObject.Element}
         </Popover.Element>
         <Popover.Content>
-          <div data-hook="tooltip-content" className={classes.tooltip}>
-            {childrenObject.Content}
-          </div>
+          {childrenObject.Content}
         </Popover.Content>
       </Popover>
     );
   }
 }
-
-export default createHOC(Tooltip);

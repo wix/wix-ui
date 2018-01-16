@@ -1,0 +1,70 @@
+:import {
+  -st-from: "./Popover.st.css";
+  -st-default: Popover;
+}
+
+:vars {
+  borderColor: initial;
+  arrowSize: 5px;
+  negativeArrowSize: -5px;
+}
+
+.root {
+  -st-extends: Popover;
+}
+
+.root::arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: value(arrowSize);
+}
+
+.root::popoverContent[data-placement="right"] {
+  padding-left: value(arrowSize);
+}
+
+.root::popoverContent[data-placement="right"]::arrow {
+  border-width: value(arrowSize) value(arrowSize) value(arrowSize) 0;
+  left: value(negativeArrowSize);
+  margin-left: value(arrowSize);
+  margin-right: 0;
+  border-color: transparent value(borderColor) transparent transparent;
+}
+
+.root::popoverContent[data-placement="left"] {
+  padding-right: value(arrowSize);
+}
+
+.root::popoverContent[data-placement="left"]::arrow {
+  border-width: value(arrowSize) 0 value(arrowSize) value(arrowSize);
+  right: value(negativeArrowSize);
+  margin-left: 0;
+  margin-right: value(arrowSize);
+  border-color: transparent transparent transparent value(borderColor);
+}
+
+.root::popoverContent[data-placement="bottom"] {
+  padding-top: value(arrowSize);
+}
+
+.root::popoverContent[data-placement="bottom"]::arrow {
+  border-width: 0 value(arrowSize) value(arrowSize) value(arrowSize);
+  top: value(negativeArrowSize);
+  margin-top: value(arrowSize);
+  margin-bottom: 0;
+  border-color: transparent transparent value(borderColor) transparent;
+}
+
+.root::popoverContent[data-placement="top"] {
+  padding-bottom: value(arrowSize);
+}
+
+.root::popoverContent[data-placement="top"]::arrow {
+  border-width: value(arrowSize) value(arrowSize) 0 value(arrowSize);
+  bottom: value(negativeArrowSize);
+  margin-top: 0;
+  margin-bottom: value(arrowSize);
+  border-color: value(borderColor) transparent transparent transparent;
+} 
