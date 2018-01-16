@@ -28,7 +28,7 @@ export interface PaginationClasses {
   pageStrip: string;
   pageButton: string;
   currentPage: string;
-  ellipsis: string;
+  gap: string;
 
   // Mode: input
   pageForm: string;
@@ -49,10 +49,11 @@ export interface PaginationProps {
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
   replaceArrowsWithText?: boolean;
-  firstText?: string;
-  previousText?: string;
-  nextText?: string;
-  lastText?: string;
+  firstLabel?: React.ReactNode;
+  previousLabel?: React.ReactNode;
+  nextLabel?: React.ReactNode;
+  lastLabel?: React.ReactNode;
+  gapLabel?: React.ReactNode;
   rtl?: boolean;
   width?: number;
   showFirstPage?: boolean;
@@ -86,13 +87,13 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Allows replacing navigation arrows with textual buttons */
     replaceArrowsWithText: bool,
     /** Text to appear for the 'first' navigation button when prop 'replaceArrowsWithText' is true */
-    firstText: string,
+    firstLabel: string,
     /** Text to appear for the 'previous' navigation button when prop 'replaceArrowsWithText' is true */
-    previousText: string,
+    previousLabel: string,
     /** Text to appear for the 'next' navigation button when prop 'replaceArrowsWithText' is true */
-    nextText: string,
+    nextLabel: string,
     /** Text to appear for the 'last' navigation button when prop 'replaceArrowsWithText' is true */
-    lastText: string,
+    lastLabel: string,
     /**  Whether the component layout is right to left */
     rtl: bool,
     /** The pixel width the component will render in  */
@@ -122,10 +123,11 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     responsive: false,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
-    firstText: 'First',
-    lastText: 'Last',
-    previousText: 'Previous',
-    nextText: 'Next'
+    firstLabel: 'First',
+    lastLabel: 'Last',
+    previousLabel: 'Previous',
+    nextLabel: 'Next',
+    gapLabel: '...'
   };
 
   private getId(elementName: string = ''): string | null {
@@ -150,14 +152,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return (
       <PageStrip
         id={this.props.id}
+        classes={this.props.classes}
         totalPages={this.props.totalPages}
         currentPage={this.props.currentPage}
         maxPagesToShow={this.maxPagesToShow}
         showFirstPage={this.props.showFirstPage}
         showLastPage={this.props.showLastPage}
         responsive={this.props.responsive}
-        classes={this.props.classes}
         pageUrl={this.props.pageUrl}
+        gapLabel={this.props.gapLabel}
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
       />
@@ -229,11 +232,11 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     // dir="rtl" automatically flips the direction of less-than and more-than signs.
     // If we decide to use different characters we need to add conditional logic here.
 
-    const [btnClass, text, symbol, page] = {
-      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousText, '<',  currentPage - 1],
-      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextText,     '>',  currentPage + 1],
-      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstText,    '<<', 1],
-      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastText,     '>>', totalPages]
+    const [btnClass, label, symbol, page] = {
+      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousLabel, '<',  currentPage - 1],
+      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextLabel,     '>',  currentPage + 1],
+      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstLabel,    '<<', 1],
+      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastLabel,     '>>', totalPages]
     }[type] as [string, string, string, number];
 
     return (
@@ -241,13 +244,13 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         data-hook={type}
         id={this.getId('navButton' + upperCaseFirst(type))}
         className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
-        aria-label={type[0].toUpperCase() + type.slice(1) + ' Page'}
+        aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
         onKeyDown={disabled ? null : event => this.handlePageKeyDown(event, page)}
         href={!disabled && pageUrl ? pageUrl(page) : null}
       >
-        {this.props.replaceArrowsWithText ? text : symbol}
+        {this.props.replaceArrowsWithText ? label : symbol}
       </a>
     );
   }

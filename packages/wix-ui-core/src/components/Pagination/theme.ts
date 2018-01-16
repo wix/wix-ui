@@ -12,7 +12,7 @@ export type PaginationTheme = {
   pageStrip: React.CSSProperties,
   pageButton: React.CSSProperties,
   currentPage: React.CSSProperties,
-  ellipsis: React.CSSProperties,
+  gap: React.CSSProperties,
 
   // Mode: input
   pageForm: React.CSSProperties,
@@ -55,7 +55,7 @@ export const core: PaginationTheme = {
     display: 'inline-flex',
     flexShrink: 0
   },
-  ellipsis: {
+  gap: {
     display: 'inline-flex',
     flexShrink: 0
   },
