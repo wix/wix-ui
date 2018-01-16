@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import {createHOC} from '../../createHOC';
-import {number, func, oneOf, bool, string, object} from 'prop-types';
+import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
@@ -87,13 +87,15 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Allows replacing navigation arrows with textual buttons */
     replaceArrowsWithText: bool,
     /** Text to appear for the 'first' navigation button when prop 'replaceArrowsWithText' is true */
-    firstLabel: string,
+    firstLabel: node,
     /** Text to appear for the 'previous' navigation button when prop 'replaceArrowsWithText' is true */
-    previousLabel: string,
+    previousLabel: node,
     /** Text to appear for the 'next' navigation button when prop 'replaceArrowsWithText' is true */
-    nextLabel: string,
+    nextLabel: node,
     /** Text to appear for the 'last' navigation button when prop 'replaceArrowsWithText' is true */
-    lastLabel: string,
+    lastLabel: node,
+    /** Text to appear in the gap between page numbers */
+    gapLabel: node,
     /**  Whether the component layout is right to left */
     rtl: bool,
     /** The pixel width the component will render in  */

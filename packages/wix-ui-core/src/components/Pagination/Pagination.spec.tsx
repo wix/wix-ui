@@ -326,7 +326,7 @@ describe('Pagination', () => {
     const pagination = createDriver(
       <Pagination totalPages={5} maxPagesToShow={4} showLastPage gapLabel={<em>*</em>} />
     );
-    expect(pagination.getPageLabels()).toBe(['1', '2', '*', '5']);
+    expect(pagination.getPageLabels()).toEqual(['1', '2', '*', '5']);
   });
 
   it('adds URLs to the pages according to desired format', () => {
