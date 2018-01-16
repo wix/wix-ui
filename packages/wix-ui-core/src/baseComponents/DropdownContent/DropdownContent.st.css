@@ -1,4 +1,6 @@
-.root {}
+.root {
+  outline: 0;
+}
 
 .optionsContainer {
   outline: 0;
@@ -7,19 +9,8 @@
 
 .option {}
 
-.hover {
-  background-color: lightgreen;
-}
+.optionHover {}
 
-.selected {
-  background-color: orange;
-}
+.optionSelected {}
 
-.disabled {
-  background-color: blue;
-}
-
-.hover.selected {
-  background-color: green;
-}
-
+.optionDisabled {}

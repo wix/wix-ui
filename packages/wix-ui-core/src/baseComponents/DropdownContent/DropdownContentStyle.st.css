@@ -1,0 +1,31 @@
+:import {
+  -st-from: "./DropdownContent.st.css";
+  -st-default: DropdownContent;
+}
+
+:vars {
+  optionHoverBackgroundColor: initial;
+  optionSelectedBackgroundColor: initial;
+  optionSelectedHoverBackgroundColor: initial;
+  optionDisabledBackgroundColor: initial;
+}
+
+.root {
+  -st-extends: DropdownContent;
+}
+
+.root::optionHover {
+  background-color: value(optionHoverBackgroundColor);
+}
+
+.root::optionDisabled {
+  background-color: value(optionDisabledBackgroundColor);
+}
+
+.root::optionSelected {
+  background-color: value(optionSelectedBackgroundColor);
+}
+
+.root::optionSelected::optionHover {
+  background-color: value(optionSelectedHoverBackgroundColor);
+}

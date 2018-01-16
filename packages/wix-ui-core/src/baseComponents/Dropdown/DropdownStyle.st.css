@@ -1,0 +1,8 @@
+:import {
+  -st-from: "./Dropdown.st.css";
+  -st-default: Dropdown;
+}
+
+.root {
+  -st-extends: Dropdown;
+}
