@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ToggleSwitch from '../../src/components/ToggleSwitch';
+import {ToggleSwitch} from '../../src/components/ToggleSwitch';
 
 export class ToggleSwitchStory extends React.Component<{}, {checked: boolean}> {
   state = {checked: false};

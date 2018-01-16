@@ -1,14 +1,11 @@
-import * as React from 'react';
-import {withStylable} from '../';
+import CoreToggleSwitch from '../ToggleSwitch';
 import style from './ToggleSwitch.st.css';
-import {StylableToggleSwitch} from '../';
+import {withStylable} from '../../../withStylable';
 
-const BOStylableToggleSwitch: React.ComponentClass<any> = withStylable(
-  StylableToggleSwitch,
+export const ToggleSwitch: any = withStylable(
+  CoreToggleSwitch,
   style,
   ({size, skin}) => ({[size]: true, [skin]: true})
 );
 
-BOStylableToggleSwitch.defaultProps = {skin: 'standard', size: 'large'};
-
-export default BOStylableToggleSwitch;
+ToggleSwitch.defaultProps = {skin: 'standard', size: 'large'};

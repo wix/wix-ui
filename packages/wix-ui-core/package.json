@@ -39,23 +39,24 @@
     "hoist-non-react-statics": "^2.3.1",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
-    "prop-types": "^15.6.0",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.7.4",
-    "stylable": "^5.0.4",
-    "stylable-integration": "^6.0.1",
+    "stylable": "^5.1.0",
+    "stylable-integration": "^6.0.2",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-options": "^3.2.13",
-    "@storybook/react": "^3.1.0",
+    "@storybook/addon-options": "^3.3.7",
+    "@storybook/react": "^3.3.7",
     "@storybook/storybook-deployer": "^2.0.0",
     "@types/jest": "^21.1.8",
     "@types/react": "^15.6.8",
     "@types/react-dom": "^15.5.6",
     "css": "^2.2.1",
-    "enzyme": "^2.3.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
     "eyes.it": "^2.0.1",
     "gh-pages-auto-release": "^1.1.2",
     "haste-preset-yoshi": "^1.0.19",
@@ -65,7 +66,7 @@
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-ui-test-utils": "^1.0.30"
   },
   "license": "MIT",
   "publishConfig": {
@@ -86,6 +87,9 @@
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "setupFiles": [
+      "<rootDir>/test/enzyme-setup"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",

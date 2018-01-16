@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import VBox from './';
+import {VBox} from './';
 
 describe('VBox', () => {
   let wrapper;

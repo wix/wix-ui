@@ -29,7 +29,6 @@
   justify-content: center;
 
   cursor: pointer;
-  box-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
 
   top: 50%;
   transform: translate(0, -50%);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
-import Dropdown from './';
+import {Dropdown} from './';
 import {HOVER, CLICK} from './constants';
 import {OptionFactory} from '../DropdownOption';
 
@@ -10,7 +10,7 @@ describe('Dropdown', () => {
   const options =
     Array.from(Array(5))
       .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${x}`));
+        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
 
   const createDropdown = (props = {}) => (
     <Dropdown placement="top" openTrigger={CLICK} {...Object.assign({

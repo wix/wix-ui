@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {object, any, bool} from 'prop-types';
 import * as classnames from 'classnames';
+import {object, any, bool} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
 export interface BoxProps {

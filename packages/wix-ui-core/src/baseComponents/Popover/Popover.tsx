@@ -1,7 +1,7 @@
 import * as React from 'react';
+import PopperJS from 'popper.js';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {bool, string, func} from 'prop-types';
-import PopperJS from 'popper.js';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {createHOC} from '../../createHOC';
 
@@ -19,6 +19,7 @@ export interface PopoverProps {
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   classes?: PopoverClasses;
   arrowStyle?: string;
+  showArrow?: boolean;
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
@@ -26,7 +27,9 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
-const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes}) => {
+const Popover: PopoverType =
+  ({placement, shown, onMouseEnter, onMouseLeave, children, arrowStyle, classes, showArrow}) => {
+
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   return (
     <Manager
@@ -38,11 +41,10 @@ const Popover: PopoverType = ({placement, shown, onMouseEnter, onMouseLeave, chi
       </Target>
       {
         shown &&
-        <Popper data-hook="popover-content" placement={placement}
-                className={classes.popoverContent}>
-          <Arrow data-hook="popover-arrow" className={`${classes.arrow} ${arrowStyle}`}/>
-          {childrenObject.Content}
-        </Popper>
+          <Popper data-hook="popover-content" placement={placement} className={classes.popoverContent}>
+            {showArrow && <Arrow data-hook="popover-arrow" className={`${classes.arrow} ${arrowStyle}`}/>}
+            {childrenObject.Content}
+          </Popper>
       }
     </Manager>
   );
@@ -60,7 +62,9 @@ Popover.propTypes = {
   /** Event handler for onMouseEnter event */
   onMouseEnter: func,
   /** Event handler for onMouseLeave event */
-  onMouseLeave: func
+  onMouseLeave: func,
+  /** Should display arrow with the content */
+  showArrow: bool
 };
 
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');

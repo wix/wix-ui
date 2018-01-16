@@ -188,12 +188,14 @@ works as expected.
 ```javascript
 import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import datePickerDriverFactory './driver';
+import {mount} from 'enzyme';
 
 const driverFactory = enzymeTestkitFactoryCreator(datePickerDriverFactory);
 
 isEnzymeTestkitExists(
   <DatePicker />,
-  driverFactory
+  driverFactory,
+  mount
 ); // true
 ```
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import {object, bool, any} from 'prop-types';
 import {createHOC} from '../../createHOC';
-import * as classNames from 'classnames';
 
 export interface DividerClasses {
     divider: string;

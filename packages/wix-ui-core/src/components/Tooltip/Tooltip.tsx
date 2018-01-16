@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {string, object} from 'prop-types';
-import Popover from '../../baseComponents/Popover';
+import {Popover} from '../../baseComponents/Popover';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {createHOC} from '../../createHOC';
@@ -66,6 +66,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       <Popover
         placement={placement}
         shown={isOpen}
+        showArrow={true}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
         arrowStyle={classes[`${placement}ArrowStyle`]}>>

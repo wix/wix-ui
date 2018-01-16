@@ -1,6 +1,6 @@
+import * as React from 'react';
 import {createHOC} from './';
 import {mount} from 'enzyme';
-import * as React from 'react';
 
 describe('createHOC function', () => {
 

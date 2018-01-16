@@ -1,0 +1,128 @@
+:import {
+  -st-from: "./ToggleSwitch.st.css";
+  -st-default: ToggleSwitch;
+}
+
+:vars {
+  rootWidth: initial;
+  rootHeight: initial;
+
+  transitionSpeed: 0.3s;
+  borderRadius: 50px;
+  labelMovementRange: 23px;
+
+  outerLabelWidth: 45px;
+  outerLabelHeight: 24px;
+
+  innerLabelWidth: 21px;
+  innerLabelHeight: 22px;
+  innerLabelBackgroundColor: white;
+
+  backgroundColor: #daeffe;
+  backgroundColorChecked: #3899ec;
+  backgroundColorDisabled: #cbd3dc;
+  backgroundColorHover: #4eb7f5;
+  backgroundColorFocus: #4eb7f5;
+
+  focusOutline: none;
+
+  color: #daeffe;
+  colorChecked: #3899ec;
+  colorDisabled: #dfe5eb;
+  colorCheckedDisabled:#dfe5eb;
+  colorHover: #4eb7f5;
+  colorFocus:  #4eb7f5;
+
+  toggleIconWidth: 8px;
+  toggleIconHeight: 6px;
+  toggleIconDisplay: block;
+}
+
+
+.root {
+  -st-extends: ToggleSwitch;
+  width: value(rootWidth);
+  height: value(rootHeight);
+}
+
+.root::outerLabel, .root::innerLabel {
+  border-radius: value(borderRadius);
+  transition: all value(transitionSpeed) ease;
+}
+
+.root::outerLabel {
+  width: value(outerLabelWidth);
+  height: value(outerLabelHeight);
+  background-color: value(backgroundColor);
+}
+
+.root::innerLabel {
+  width: value(innerLabelWidth);
+  height: value(innerLabelHeight);
+  background-color: value(innerLabelBackgroundColor);
+  box-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
+}
+
+.root::toggleIcon {
+  display: value(toggleIconDisplay);
+  width: value(toggleIconWidth);
+  height: value(toggleIconHeight);
+  transition: all value(transitionSpeed) cubic-bezier(1,0,1,0);
+}
+
+.root::toggleIcon path {
+  fill: value(color);
+}
+
+
+/* checked state */
+
+.root:checked::outerLabel {
+  background-color: value(backgroundColorChecked);
+}
+
+.root:checked::innerLabel {
+  left: value(labelMovementRange);
+}
+
+.root:checked::toggleIcon {
+  transition: all value(transitionSpeed) cubic-bezier(0,1,0,1);
+}
+
+.root:checked::toggleIconPath {
+  fill: value(colorChecked);
+}
+
+/* disabled state */
+
+.root:disabled::outerLabel, .root:disabled:hover::outerLabel, .root:disabled:checked::outerLabel, .root:disabled:checked:hover::outerLabel {
+  background-color: value(backgroundColorDisabled);
+  cursor: default;
+}
+
+.root:disabled::innerLabel, .root:disabled:hover::innerLabel, .root:disabled:checked::innerLabel, .root:disabled:checked:hover::innerLabel {
+  cursor: default;
+}
+
+.root:disabled::toggleIconPath, .root:disabled:hover::toggleIconPath {
+  fill: value(colorDisabled);
+}
+
+.root:disabled:checked::toggleIconPath, .root:disabled:checked:hover::toggleIconPath {
+  fill: value(colorCheckedDisabled);
+}
+
+/* hover state */
+
+.root:hover::outerLabel, .root:checked:hover::outerLabel {
+  background-color: value(backgroundColorHover);
+}
+
+.root:hover::toggleIconPath, .root:checked:hover::toggleIconPath {
+  fill: value(colorHover);
+}
+
+/* focus state */
+.root:focus {
+  outline: value(focusOutline);
+}

@@ -6,4 +6,3 @@ import {WixComponentProps} from '../../createHOC';
 
 export {IconWithOptionsProps};
 export const IconWithOptions = withClasses(IconWithOptionsComponent, styles) as React.ComponentClass<IconWithOptionsProps & ThemedComponentProps & WixComponentProps>;
-export default IconWithOptions;

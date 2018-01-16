@@ -10,26 +10,27 @@
   "main": "./dist/src/index.js",
   "files": [
     "dist",
-    "src",
-    "testkit"
+    "system",
+    "*.js",
+    "!wallaby.js",
+    "!protractor.conf.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "precommit": "haste lint",
-    "buildGeneralIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
-    "buildSystemIcons": "svg2react-icon 'src/system/raw' 'src/system/dist' true",
-    "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
-    "pretest": "npm run buildIcons && haste build",
-    "build": "haste lint && npm run buildIcons && haste build && npm run create-aliases",
+    "pretest": "npm run buildIcons && haste build && npm run create-aliases",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",
     "release": "haste release",
+    "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
+    "buildGeneralIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
+    "buildSystemIcons": "svg2react-icon 'src/system/raw' 'src/system/dist' true",
+    "create-aliases": "npm run create-general-aliases && npm run create-system-aliases",
     "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
-    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system",
-    "create-aliases": "npm run create-general-aliases && npm run create-system-aliases"
+    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist"
   },
   "devDependencies": {
     "@types/chai": "^4.0.0",
@@ -56,9 +57,6 @@
     "preset": "yoshi"
   },
   "yoshi": {
-    "entry": {
-      "app": "index.ts"
-    },
     "externals": {
       "react": "React",
       "react-dom": "ReactDOM"

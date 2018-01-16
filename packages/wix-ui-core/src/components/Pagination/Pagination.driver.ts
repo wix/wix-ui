@@ -1,45 +1,58 @@
-type NavButtonNames = 'first' | 'previous' | 'next' | 'last';
+import {Simulate} from 'react-dom/test-utils';
 
-export const paginationDriverFactory = ({element, eventTrigger}: {element: HTMLElement, eventTrigger: any}) => {
-  const pages: Element = element.querySelector('[data-hook^="PAGES_SELECTION"]');
+type NavButtonName = 'first' | 'previous' | 'next' | 'last';
 
-  const getNavButtonElement = (btnName: string): HTMLButtonElement => (
-      <HTMLButtonElement> element.querySelector('[data-hook="' + btnName.toUpperCase() + '"]')
+export const paginationDriverFactory = ({element: root}: {element: Element}) => {
+  const pageStrip: Element = root.querySelector('[data-hook="page-strip"]');
+
+  const getNavButton = (name: NavButtonName): Element | null => (
+    root.querySelector(`[data-hook=${name}]`)
   );
-  const getInput = (): HTMLInputElement | null => (<HTMLInputElement> element.querySelector('[data-hook="PAGE_INPUT"]'));
+
+  const getInput = (): HTMLInputElement | null => (
+    <HTMLInputElement> root.querySelector('[data-hook="page-input"]')
+  );
+
+  const getPageByNumber = (n: number): Element | null => (
+    pageStrip.querySelector(`[data-hook~=page-${n}]`)
+  );
 
   return {
     /** Returns the root element*/
-    root: element,
+    root,
     /** Returns whether the element exists */
-    exists: (): boolean => !!element,
-    /** The amount of pages displayed in "pages" mode */
-    amountOfPages: pages ? pages.children.length : 0,
+    exists: (): boolean => !!root,
+    /** Returns the container of page elements */
+    getPageStrip: () => root.querySelector('[data-hook="page-strip"]'),
+    /** Returns displayed page elements */
+    getPages: () => Array.from(pageStrip.children),
     /** Returns the text content of the displayed pages in "pages" mode */
-    getPagesList: (): string[] => Array.from(pages.children).map(p => p.textContent),
-    /** Returns the page element */
-    getPage: (idx?: number): Element | null => (idx < pages.children.length) ? pages.children[idx] : null,
+    getPageLabels: (): string[] => Array.from(pageStrip.children).map(p => p.textContent),
+    /** Returns the page element given its index in the page strip */
+    getPageByIndex: (idx?: number): Element | null => (idx < pageStrip.children.length) ? pageStrip.children[idx] : null,
+    /** Returns the page element given page number */
+    getPageByNumber,
     /** Returns the page element currently selected */
-    getCurrentPage: (): Element | null => element.querySelector('[data-hook~="PAGE_CURRENT"]'),
+    getCurrentPage: (): Element | null => root.querySelector('[data-hook~="current-page"]'),
     /** Returns the element for the navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    getNavButton: (btnName: NavButtonNames): HTMLButtonElement => getNavButtonElement(btnName),
-    /** Simulates clicking a page in "pages" mode */
-    click: (elmnt: Element): void => eventTrigger.click(elmnt),
-    /** Simulates clicking a navigation button - acceptable values are 'first', 'last', 'previous' or 'next' */
-    clickOnNavButton: (btnName: string): void => eventTrigger.click(getNavButtonElement(btnName)),
+    getNavButton,
     /** Returns the page input element in "input" mode */
     getPageInput: getInput,
     /** Returns the total amount of pages displayed in "input" mode */
-    getTotalPagesField: (): Element | null => element.querySelector('[data-hook="PAGES_TOTAL"]'),
+    getTotalPagesField: (): Element | null => root.querySelector('[data-hook="total-pages"]'),
+    /** Simulates clicking a nav button */
+    clickNavButton: (name: NavButtonName): void => Simulate.click(getNavButton(name)),
+    /** Simulates clicking a page in "pages" mode */
+    clickPage: (page: number): void => Simulate.click(getPageByNumber(page)),
     /** Simulates changing the value of the input field in "input" mode */
     changeInput: (newValue: string): void => {
       const input = getInput();
       input.value = newValue;
-      eventTrigger.change(input);
+      Simulate.change(input);
     },
-    /** Simulates keyDown on the input field in "input" mode */
-    inputKeyDown: (keyCode: number): void => eventTrigger.keyDown(getInput(), {keyCode}),
+    /** Simulates committing the input field value in "input" mode */
+    commitInput: (): void => Simulate.keyDown(getInput(), {keyCode: 13}),
     /** Simulates blur in the input field in "input" mode */
-    inputBlur: (): void => eventTrigger.blur(getInput())
+    blurInput: (): void => Simulate.blur(getInput())
   };
 };

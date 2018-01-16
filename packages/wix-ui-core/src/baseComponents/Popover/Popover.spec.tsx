@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
-import Popover from './';
+import {Popover} from './';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
   const createPopover = (props = {}) =>
-    <Popover placement="top" shown={false} {...props}>
+    <Popover placement="top" showArrow={true} shown={false} {...props}>
       <Popover.Element>
         <div>
           Element

@@ -2,18 +2,19 @@ import * as React from 'react';
 import {dropdownContentDriverFactory} from './DropdownContent.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {OptionFactory} from '../DropdownOption';
-import DropdownContent from './';
+import {DropdownContent} from './';
 
 describe('DropdownContent', () => {
   const createDriver = createDriverFactory(dropdownContentDriverFactory);
   const options =
     Array.from(Array(5))
       .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${x}`));
+        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
 
   const createDropdownContent = (props = {}) => (
     <DropdownContent {...Object.assign({
       options: [],
+      maxHeight: 150,
       onOptionClick: () => null,
       selectedIds: []
     }, props)}/>

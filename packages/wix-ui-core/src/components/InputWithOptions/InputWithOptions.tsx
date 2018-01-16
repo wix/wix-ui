@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Dropdown from '../../baseComponents/Dropdown';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
 import {Option} from '../../baseComponents/DropdownOption';
 import {createHOC} from '../../createHOC';
 import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {bool, oneOf, object, arrayOf, string, func, oneOfType, number} from 'prop-types';
-import Input from '../Input';
+import {bool, oneOf, object, arrayOf, string, func, oneOfType, number, node} from 'prop-types';
+import {Input} from '../Input';
 
 export interface InputWithOptionsClasses {
 }
@@ -20,6 +20,12 @@ export interface InputWithOptionsProps {
   onDeselect?: (option: Option) => void;
   initialSelectedIds?: Array<string | number>;
   closeOnSelect?: boolean;
+  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  fixedHeader?: React.ReactNode;
+  fixedFooter?: React.ReactNode;
+  optionsMaxHeight?: number;
+  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
 }
 
 interface InputWithOptionsState {
@@ -53,7 +59,19 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
     /** Should close content on select */
     closeOnSelect: bool,
     /** Classes object */
-    classes: object.isRequired
+    classes: object.isRequired,
+    /** Event handler for when the input changes */
+    onInputChange: func,
+    /** An element that always appears at the top of the options */
+    fixedHeader: node,
+    /** An element that always appears at the bottom of the options */
+    fixedFooter: node,
+    /** Maximum height of the options */
+    optionsMaxHeight: number,
+    /** Event handler for when the input loses focus */
+    onBlur: func,
+    /** Event handler for when the input gains focus */
+    onFocus: func
   };
 
   constructor(props) {
@@ -61,43 +79,76 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
 
     this.onSelect = this.onSelect.bind(this);
     this.onDeselect = this.onDeselect.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.state = {
       inputValue: ''
     };
   }
 
-  onDeselect(option) {
-    const {inputValue} = this.state;
+  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
-      inputValue: inputValue.replace(option.value + ' ', '')
+      inputValue: event.target.value
     });
+
+    const {onInputChange} = this.props;
+    onInputChange && onInputChange(event);
   }
 
-  onSelect(option) {
+  onDeselect(option: Option) {
+    const {onDeselect} = this.props;
     const {inputValue} = this.state;
     this.setState({
-      inputValue: inputValue + `${option.value} `
+      inputValue: (inputValue || '').split(' ').filter(x => x !== option.value).join(' ').trim()
     });
+
+    onDeselect(option);
+  }
+
+  onSelect(option: Option) {
+    const {onSelect, closeOnSelect} = this.props;
+    const {inputValue} = this.state;
+    this.setState({
+      inputValue: closeOnSelect ? option.value : [...((inputValue || '').split(' ')), option.value].join(' ').trim()
+    });
+
+    onSelect(option);
   }
 
   render () {
-    const {placement, options, openTrigger, onSelect, onDeselect, initialSelectedIds, closeOnSelect} = this.props;
+    const {
+      placement,
+      options,
+      openTrigger,
+      initialSelectedIds,
+      closeOnSelect,
+      fixedFooter,
+      fixedHeader,
+      optionsMaxHeight,
+      onFocus,
+      onBlur} = this.props;
     const {inputValue} = this.state;
 
     return (
       <Dropdown
         placement={placement}
         openTrigger={openTrigger}
-        onSelect={onSelect}
-        onDeselect={onDeselect}
+        onSelect={this.onSelect}
+        showArrow={false}
+        optionsMaxHeight={optionsMaxHeight}
+        fixedFooter={fixedFooter}
+        fixedHeader={fixedHeader}
+        onDeselect={this.onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
         {
           ({onKeyDown}: TriggerElementProps) =>
             <Input
+              dataHook="dropdown-input"
+              onFocus={onFocus}
+              onBlur={onBlur}
               value={inputValue}
-              onChange={evt => this.setState({inputValue: evt.target.value})}
+              onChange={this.onInputChange}
               onKeyDown={onKeyDown}/>
         }
       </Dropdown>

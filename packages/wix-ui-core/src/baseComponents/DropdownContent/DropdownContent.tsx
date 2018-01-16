@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {func, object, arrayOf, oneOfType, number, string} from 'prop-types';
 import * as classNames from 'classnames';
+import {func, object, arrayOf, oneOfType, number, string, node} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {Option} from '../DropdownOption';
 
@@ -17,6 +17,9 @@ export interface DropdownContentProps {
   selectedIds: Array<string | number>;
   classes?: DropdownContentClasses;
   keyboardEvent?: string;
+  fixedHeader?: React.ReactNode;
+  fixedFooter?: React.ReactNode;
+  maxHeight?: number;
 }
 
 interface DropdownContentState {
@@ -28,7 +31,8 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   static defaultProps = {
     options: [],
     onOptionClick: () => null,
-    selectedIds: []
+    selectedIds: [],
+    maxHeight: 260,
   };
 
   static propTypes = {
@@ -41,8 +45,16 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     /** Keyboard event key */
     keyboardEvent: string,
     /** Classes object */
-    classes: object.isRequired
+    classes: object.isRequired,
+    /** An element that always appears at the top of the options */
+    fixedHeader: node,
+    /** An element that always appears at the bottom of the options */
+    fixedFooter: node,
+    /** Maximum height of the content */
+    maxHeight: number
   };
+
+  private optionsContainerRef: HTMLDivElement;
 
   constructor(props) {
     super(props);
@@ -56,7 +68,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     this.onKeyDown(this.props.keyboardEvent);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: DropdownContentProps) {
     this.onKeyDown(nextProps.keyboardEvent);
   }
 
@@ -78,7 +90,7 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
 
   hoverNextItem(interval: number) {
     const {options} = this.props;
-    if (options.filter(this.isValidOptionForSelection).length === 0) {
+    if (!options.find(this.isValidOptionForSelection)) {
       return;
     }
 
@@ -96,10 +108,27 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
       }
     }
 
+    if (this.optionsContainerRef) {
+      const hoveredOption = this.optionsContainerRef.childNodes[hoveredIndex] as HTMLElement;
+      const hoveredOptionHeight = hoveredOption.offsetHeight;
+      const hoveredOptionTop = hoveredOption.offsetTop - 1;
+
+      const {scrollTop: optionsContainerScrollTop, clientHeight: optionsContainerClientHeight} = this.optionsContainerRef;
+
+      // If hovered option is not visible
+      if (!(optionsContainerScrollTop <= hoveredOptionTop && (optionsContainerScrollTop + optionsContainerClientHeight) > hoveredOptionTop + hoveredOptionHeight)) {
+        if (this.optionsContainerRef.scrollTop < hoveredOptionTop) {
+          this.optionsContainerRef.scrollTop = hoveredOptionHeight + hoveredOptionTop - optionsContainerClientHeight;
+        } else {
+          this.optionsContainerRef.scrollTop = hoveredOptionTop;
+        }
+      }
+    }
+
     this.setHoveredIndex(hoveredIndex);
   }
 
-  onKeyDown(keyboardEvent) {
+  onKeyDown(keyboardEvent: string) {
     if (!keyboardEvent) {
       return;
     }
@@ -117,29 +146,38 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   render() {
-    const {selectedIds, classes} = this.props;
+    const {selectedIds, classes, fixedHeader, fixedFooter, options, maxHeight} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
       <div
-        className={classes.optionsContainer}
+        data-hook="dropdown-content"
         tabIndex={1000}>
+        {fixedHeader}
         {
-          (this.props.options || []).map((option, index) => (
-            <div
-              data-hook="option"
-              key={option.id}
-              className={classNames(classes.option, {
-                selected: !option.isDisabled && selectedIds.includes(option.id),
-                hover: hoveredIndex === index,
-                disabled: option.isDisabled
-              })}
-              onClick={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
-              onMouseEnter={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}>
-              {option.render()}
-            </div>
-        ))
-      }
+          <div
+            style={{maxHeight: `${maxHeight}px`}}
+            className={classes.optionsContainer}
+            ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
+            {
+              (options || []).map((option, index) => (
+                <div
+                  data-hook="option"
+                  key={option.id}
+                  className={classNames(classes.option, {
+                    selected: !option.isDisabled && selectedIds.includes(option.id),
+                    hover: hoveredIndex === index,
+                    disabled: option.isDisabled
+                  })}
+                  onClick={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
+                  onMouseEnter={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}>
+                  {option.render()}
+                </div>
+              ))
+            }
+          </div>
+        }
+        {fixedFooter}
       </div>
     );
   }

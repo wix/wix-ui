@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {iconWithOptionsDriverFactory} from './IconWithOptions.driver';
-import IconWithOptions from './';
+import {IconWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 
 describe('IconWithOptions', () => {
@@ -10,7 +10,7 @@ describe('IconWithOptions', () => {
   const options =
     Array.from(Array(5))
       .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${x}`));
+        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
 
   const createIconWithOptions = (props = {}) => (
     <IconWithOptions {...Object.assign({
