@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Input, {InputProps} from '../Input';
+import {Input, InputProps} from '../Input';
 import {createHOC} from '../../createHOC';
 
 export interface InputWithAffixesProps extends InputProps {

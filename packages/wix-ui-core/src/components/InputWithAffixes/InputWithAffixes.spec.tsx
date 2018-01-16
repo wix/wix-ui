@@ -14,7 +14,7 @@ describe('InputWithAffixes', () => {
             expect(driver.hasSuffix()).toBeFalsy();
         });
 
-        it('renders the input with the correct props', () => {
+        it('renders the internal Input comp with the correct props', () => {
             const driver = createDriver(<InputWithAffixes disabled/>);
 
             expect(driver.isDisabled()).toBeTruthy();
@@ -44,7 +44,7 @@ describe('InputWithAffixes', () => {
         expect(driver.getSuffix().querySelector('[data-automation-id="suffix"]')).toBeTruthy();
     });
 
-    it('renders the input with the correct props', () => {
+    it('renders the internal Input comp with the correct props', () => {
         const driver = createDriver(<InputWithAffixes prefix={<div/>} readOnly/>);
 
         expect(driver.isReadOnly()).toBeTruthy();
