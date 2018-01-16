@@ -4,7 +4,6 @@ import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-u
 import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
-import {core, TooltipTheme} from './theme';
 import {mount} from 'enzyme';
 
 describe('Tooltip', () => {
@@ -41,33 +40,12 @@ describe('Tooltip', () => {
       const driver = createDriver(createTooltip());
       driver.mouseEnter();
 
-      expect(driver.styles.getBackgroundColor()).toBe(core.backgroundColor);
-      expect(driver.styles.getBorderColor()).toBe(core.borderColor);
-      expect(driver.styles.getBorderRadius()).toBe(core.borderRadius);
-      expect(driver.styles.getBorderWidth()).toBe(core.borderWidth);
-      expect(driver.styles.getBorderStyle()).toBe(core.borderStyle);
-      expect(driver.styles.getContentPadding()).toBe(core.contentPadding);
-    });
-
-    it('should override default theme', () => {
-      const theme: TooltipTheme = {
-        contentPadding: '10px',
-        borderStyle: 'dotted',
-        borderWidth: '5px',
-        borderColor: 'red',
-        borderRadius: '50%',
-        backgroundColor: 'yellow'
-      };
-
-      const driver = createDriver(createTooltip({theme}));
-      driver.mouseEnter();
-
-      expect(driver.styles.getBackgroundColor()).toBe(theme.backgroundColor);
-      expect(driver.styles.getBorderColor()).toBe(theme.borderColor);
-      expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
-      expect(driver.styles.getBorderWidth()).toBe(theme.borderWidth);
-      expect(driver.styles.getBorderStyle()).toBe(theme.borderStyle);
-      expect(driver.styles.getContentPadding()).toBe(theme.contentPadding);
+      expect(driver.styles.getBackgroundColor()).toBe('white');
+      expect(driver.styles.getBorderColor()).toBe('black');
+      expect(driver.styles.getBorderRadius()).toBe('10px');
+      expect(driver.styles.getBorderWidth()).toBe('1px');
+      expect(driver.styles.getBorderStyle()).toBe('solid');
+      expect(driver.styles.getContentPadding()).toBe('5px');
     });
   });
 
