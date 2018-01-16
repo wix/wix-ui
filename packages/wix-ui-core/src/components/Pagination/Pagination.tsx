@@ -36,7 +36,6 @@ export interface PaginationClasses {
   totalPages: string;
 
   // Modifiers
-  rtl: string;
   disabled: string;
 }
 
@@ -198,7 +197,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     const {classes} = this.props;
 
     return (
-      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm}>
+      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} dir="ltr">
         <input
           data-hook="page-input"
           type="number"
@@ -220,18 +219,21 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderNavButton(type: ButtonType): JSX.Element {
-    const {classes, rtl, currentPage, totalPages, pageUrl} = this.props;
+    const {classes, currentPage, totalPages, pageUrl} = this.props;
 
     const disabled = (
       ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
       ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
+    // dir="rtl" automatically flips the direction of less-than and more-than signs.
+    // If we decide to use different characters we need to add conditional logic here.
+
     const [btnClass, text, symbol, page] = {
-      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousText, rtl ? '>'  :  '<', currentPage - 1],
-      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextText,     rtl ? '<'  :  '>', currentPage + 1],
-      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstText,    rtl ? '>>' : '<<', 1],
-      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastText,     rtl ? '<<' : '>>', totalPages]
+      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousText, '<',  currentPage - 1],
+      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextText,     '>',  currentPage + 1],
+      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstText,    '<<', 1],
+      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastText,     '>>', totalPages]
     }[type] as [string, string, string, number];
 
     return (
@@ -264,7 +266,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         id={this.getId('root')}
         role="navigation"
         aria-label="Pagination Navigation"
-        className={classNames(classes.root, {[classes.rtl]: this.props.rtl})}
+        className={classes.root}
+        dir={this.props.rtl ? 'rtl' : null}
         style={width ? {width} : null}
       >
         {this.renderNavButton(ButtonType.Next)}
