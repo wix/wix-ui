@@ -1,0 +1,41 @@
+:import {
+  -st-from: "../Popover/PopoverStyle.st.css";
+  -st-default: Popover;
+}
+
+:import {
+  -st-from: "../Popover/Popover.st.css";
+  -st-default: BasePopover;
+}
+
+:import {
+  -st-from: "../DropdownContent/DropdownContent.st.css";
+  -st-default: DropdownContent;
+}
+
+:vars {
+  backgroundColor: white;
+  borderWidth: 1px;
+  borderStyle: solid;
+  borderColor: black;
+  borderRadius: 5px;
+  padding: 0px;
+  arrowSize: 5px;
+}
+
+.root {
+  -st-extends: BasePopover;
+  -st-mixin: Popover(
+    backgroundColor value(backgroundColor),
+    borderWidth value(borderWidth),
+    borderStyle value(borderStyle),
+    borderColor value(borderColor),
+    borderRadius value(borderRadius),
+    padding value(padding),
+    arrowSize value(arrowSize)
+  );
+}
+
+.dropdownContent {
+  -st-extends: DropdownContent;
+}

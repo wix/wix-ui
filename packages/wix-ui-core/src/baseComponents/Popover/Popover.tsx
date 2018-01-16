@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
-import {Manager, Target, Popper, Arrow} from 'react-popper';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import style from './Popover.st.css';
 import * as classNames from 'classnames';
+import {Manager, Target, Popper, Arrow} from 'react-popper';
+import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
 export type Placement = PopperJS.Placement;
 

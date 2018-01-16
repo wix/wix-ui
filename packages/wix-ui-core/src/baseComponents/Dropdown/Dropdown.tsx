@@ -1,15 +1,11 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
+import style from './Dropdown.st.css';
 import {Popover} from '../Popover';
 import {Placement} from '../Popover/Popover';
-import {bool, string, oneOf, arrayOf, object, func, oneOfType, number, node} from 'prop-types';
-import {createHOC} from '../../createHOC';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE} from './constants';
-
-export type DropdownClasses = {
-};
 
 export interface TriggerElementProps {
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
@@ -18,7 +14,6 @@ export interface TriggerElementProps {
 export interface DropdownProps {
   placement: Placement;
   showArrow?: boolean;
-  classes?: DropdownClasses;
   children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
   options: Array<Option>;
   openTrigger: CLICK_TYPE | HOVER_TYPE;
@@ -31,43 +26,14 @@ export interface DropdownProps {
   optionsMaxHeight?: number;
 }
 
-interface DropdownState {
+export interface DropdownState {
   isOpen: boolean;
   selectedIds: Array<string | number>;
   keyboardEvent: string;
 }
 
-class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
-  static propTypes = {
-    /** Trigger type to open the content */
-    openTrigger: oneOf([CLICK, HOVER]).isRequired,
-    /** The location to display the content */
-    placement: string.isRequired,
-    /** The dropdown options array */
-    options: arrayOf(object).isRequired,
-    /** Handler for when an option is selected */
-    onSelect: func.isRequired,
-    /** Handler for when an option is deselected */
-    onDeselect: func.isRequired,
-    /** initial selected option ids */
-    initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]).isRequired,
-    /** render function that renders the target element with the state */
-    children: func.isRequired,
-    /** Should close content on select */
-    closeOnSelect: bool.isRequired,
-    /** Classes object */
-    classes: object.isRequired,
-    /** Should display arrow with the content */
-    showArrow: bool,
-    /** An element that always appears at the top of the options */
-    fixedHeader: node,
-    /** An element that always appears at the bottom of the options */
-    fixedFooter: node,
-    /** Maximum height of the options */
-    optionsMaxHeight: number
-  };
-
-  private dropdownContentRef;
+export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+  private dropdownContentRef: DropdownContent;
 
   constructor(props) {
     super(props);
@@ -166,6 +132,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
 
     return (
       <Popover
+        {...style('root', {}, this.props)}
         data-hook="dropdown"
         placement={placement}
         shown={isOpen}
@@ -181,6 +148,7 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
+            className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             keyboardEvent={keyboardEvent}
             options={options}
@@ -195,4 +163,4 @@ class Dropdown extends React.PureComponent<DropdownProps, DropdownState> {
   }
 }
 
-export default createHOC(onClickOutside(Dropdown));
+export const Dropdown = onClickOutside(DropdownComponent);

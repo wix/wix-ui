@@ -1,9 +1,9 @@
 import * as React from 'react';
+import style from './Tooltip.st.css';
 import {string} from 'prop-types';
 import {Popover} from '../../baseComponents/Popover';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import style from './Tooltip.st.css';
 
 export interface TooltipProps {
   placement?: Placement;

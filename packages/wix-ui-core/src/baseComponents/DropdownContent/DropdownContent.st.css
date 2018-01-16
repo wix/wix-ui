@@ -1,0 +1,20 @@
+.root {}
+
+.optionsContainer {
+  outline: 0;
+  overflow: auto;
+}
+
+.option {}
+
+.option.hover {
+  background-color: red;
+}
+
+.option.selected {
+  background-color: green;
+}
+
+.option.hover.selected {
+  background-color: orange;
+}

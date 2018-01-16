@@ -4,12 +4,12 @@
 }
 
 :vars {
-  backgroundColor: white;
-  borderWidth: 1px;
-  borderStyle: solid;
-  borderColor: black;
-  borderRadius: 10px;
-  padding: 5px;
+  backgroundColor: initial;
+  borderWidth: initial;
+  borderStyle: initial;
+  borderColor: initial;
+  borderRadius: initial;
+  padding: initial;
   arrowSize: 5px;
 }
 

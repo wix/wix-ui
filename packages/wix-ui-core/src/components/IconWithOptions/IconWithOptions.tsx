@@ -1,18 +1,14 @@
 import * as React from 'react';
+import style from './IconWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
 import {Option} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {createHOC} from '../../createHOC';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
-
-export interface IconWithOptionsClasses {
-}
 
 export interface IconWithOptionsProps {
   placement?: Placement;
-  classes?: IconWithOptionsClasses;
   options: Array<Option>;
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   onSelect?: (option: Option) => void;
@@ -25,21 +21,25 @@ export interface IconWithOptionsProps {
   optionsMaxHeight?: number;
 }
 
-const IconWithOptions: React.SFC<IconWithOptionsProps> =
-  ({
-    placement,
-    options,
-    openTrigger,
-    onSelect,
-    onDeselect,
-    initialSelectedIds,
-    closeOnSelect,
-    iconUrl,
-    fixedHeader,
-    fixedFooter,
-    optionsMaxHeight
-  }) => (
+export const IconWithOptions: React.SFC<IconWithOptionsProps> =
+  props => {
+    const {
+      placement,
+      options,
+      openTrigger,
+      onSelect,
+      onDeselect,
+      initialSelectedIds,
+      closeOnSelect,
+      iconUrl,
+      fixedHeader,
+      fixedFooter,
+      optionsMaxHeight
+    } = props;
+
+  return (
     <Dropdown
+      {...style('root', {}, props)}
       options={options}
       placement={placement}
       openTrigger={openTrigger}
@@ -58,8 +58,8 @@ const IconWithOptions: React.SFC<IconWithOptionsProps> =
             tabIndex={5}
             onKeyDown={onKeyDown}/>
       }
-    </Dropdown>
-  );
+    </Dropdown>);
+  };
 
 IconWithOptions.defaultProps = {
   openTrigger: HOVER,
@@ -88,8 +88,6 @@ IconWithOptions.propTypes = {
   closeOnSelect: bool,
   /** Icon url to display */
   iconUrl: string.isRequired,
-  /** Classes object */
-  classes: object.isRequired,
   /** An element that always appears at the top of the options */
   fixedHeader: node,
   /** An element that always appears at the bottom of the options */
@@ -97,5 +95,3 @@ IconWithOptions.propTypes = {
   /** Maximum height of the options */
   optionsMaxHeight: number
 };
-
-export default createHOC(IconWithOptions);

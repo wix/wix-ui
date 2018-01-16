@@ -1,19 +1,15 @@
 import * as React from 'react';
+import style from './InputWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
 import {Option} from '../../baseComponents/DropdownOption';
-import {createHOC} from '../../createHOC';
 import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {bool, oneOf, object, arrayOf, string, func, oneOfType, number, node} from 'prop-types';
 import {Input} from '../Input';
 
-export interface InputWithOptionsClasses {
-}
-
 export interface InputWithOptionsProps {
   placement?: Placement;
-  classes?: InputWithOptionsClasses;
   options: Array<Option>;
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
   onSelect?: (option: Option) => void;
@@ -28,11 +24,11 @@ export interface InputWithOptionsProps {
   onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
 }
 
-interface InputWithOptionsState {
+export interface InputWithOptionsState {
   inputValue: string;
 }
 
-class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
+export class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
   static defaultProps = {
     openTrigger: CLICK,
     placement: 'bottom-start',
@@ -130,6 +126,7 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
 
     return (
       <Dropdown
+      {...style('root', {}, this.props)}
         placement={placement}
         openTrigger={openTrigger}
         onSelect={this.onSelect}
@@ -155,5 +152,3 @@ class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputW
     );
   }
 }
-
-export default createHOC(InputWithOptions);

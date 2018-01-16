@@ -1,57 +1,32 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import {func, object, arrayOf, oneOfType, number, string, node} from 'prop-types';
-import {createHOC} from '../../createHOC';
+import style from './DropdownContent.st.css';
 import {Option} from '../DropdownOption';
 
 const NOT_HOVERED_INDEX = -1;
-
-export type DropdownContentClasses = {
-  optionsContainer: string;
-  option: string;
-};
 
 export interface DropdownContentProps {
   options: Array<Option>;
   onOptionClick: (option: Option) => void;
   selectedIds: Array<string | number>;
-  classes?: DropdownContentClasses;
   keyboardEvent?: string;
   fixedHeader?: React.ReactNode;
   fixedFooter?: React.ReactNode;
   maxHeight?: number;
+  className?: string;
 }
 
-interface DropdownContentState {
+export interface DropdownContentState {
   hoveredIndex: number;
 }
 
-class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
+export class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
 
   static defaultProps = {
     options: [],
     onOptionClick: () => null,
     selectedIds: [],
     maxHeight: 260,
-  };
-
-  static propTypes = {
-    /** The dropdown options array */
-    options: arrayOf(object).isRequired,
-    /** Handler for when an option is clicked */
-    onOptionClick: func.isRequired,
-    /** Selected Ids array */
-    selectedIds: oneOfType([arrayOf(number), arrayOf(string)]).isRequired,
-    /** Keyboard event key */
-    keyboardEvent: string,
-    /** Classes object */
-    classes: object.isRequired,
-    /** An element that always appears at the top of the options */
-    fixedHeader: node,
-    /** An element that always appears at the bottom of the options */
-    fixedFooter: node,
-    /** Maximum height of the content */
-    maxHeight: number
   };
 
   private optionsContainerRef: HTMLDivElement;
@@ -146,25 +121,26 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
   }
 
   render() {
-    const {selectedIds, classes, fixedHeader, fixedFooter, options, maxHeight} = this.props;
+    const {selectedIds, fixedHeader, fixedFooter, options, maxHeight, className} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
       <div
+        {...style('root ' + className, {}, this.props)}
         data-hook="dropdown-content"
         tabIndex={1000}>
         {fixedHeader}
         {
           <div
             style={{maxHeight: `${maxHeight}px`}}
-            className={classes.optionsContainer}
+            className={style.optionsContainer}
             ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
             {
               (options || []).map((option, index) => (
                 <div
                   data-hook="option"
                   key={option.id}
-                  className={classNames(classes.option, {
+                  className={classNames(style.option, {
                     selected: !option.isDisabled && selectedIds.includes(option.id),
                     hover: hoveredIndex === index,
                     disabled: option.isDisabled
@@ -182,5 +158,3 @@ class DropdownContent extends React.PureComponent<DropdownContentProps, Dropdown
     );
   }
 }
-
-export default createHOC(DropdownContent);
