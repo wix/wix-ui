@@ -3,11 +3,6 @@
   -st-default: Dropdown;
 }
 
-:import {
-  -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
-  -st-default: BaseDropdown;
-}
-
 :vars {
   contentBackgroundColor: white;
   contentBorderWidth: 1px;
@@ -23,7 +18,6 @@
 }
 
 .root {
-  -st-extends: BaseDropdown;
   -st-mixin: Dropdown(
     contentBackgroundColor value(contentBackgroundColor),
     contentBorderWidth value(contentBorderWidth),

@@ -1,8 +1,44 @@
 :import {
-  -st-from: "./Dropdown.st.css";
-  -st-default: Dropdown;
+  -st-from: "../Popover/PopoverStyle.st.css";
+  -st-default: Popover;
+}
+
+:import {
+  -st-from: "../DropdownContent/DropdownContentStyle.st.css";
+  -st-default: DropdownContent;
+}
+
+:vars {
+  contentBackgroundColor: white;
+  contentBorderWidth: 1px;
+  contentBorderStyle: solid;
+  contentBorderColor: black;
+  contentBorderRadius: initial;
+  contentPadding: initial;
+  contentArrowSize: 5px;
+  optionHoverBackgroundColor: initial;
+  optionSelectedBackgroundColor: initial;
+  optionSelectedHoverBackgroundColor: initial;
+  optionDisabledBackgroundColor: initial;
 }
 
 .root {
-  -st-extends: Dropdown;
+  -st-mixin: Popover(
+    backgroundColor value(contentBackgroundColor),
+    borderWidth value(contentBorderWidth),
+    borderStyle value(contentBorderStyle),
+    borderColor value(contentBorderColor),
+    borderRadius value(contentBorderRadius),
+    padding value(contentPadding),
+    arrowSize value(contentArrowSize)
+  );
+}
+
+.dropdownContent {
+  -st-mixin: DropdownContent(
+    optionHoverBackgroundColor value(optionHoverBackgroundColor),
+    optionSelectedBackgroundColor value(optionSelectedBackgroundColor),
+    optionSelectedHoverBackgroundColor value(optionSelectedHoverBackgroundColor),
+    optionDisabledBackgroundColor value(optionDisabledBackgroundColor)
+  );
 }
