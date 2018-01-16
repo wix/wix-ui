@@ -3,6 +3,7 @@ import PopperJS from 'popper.js';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import style from './Popover.st.css';
+import * as classNames from 'classnames';
 
 export type Placement = PopperJS.Placement;
 
@@ -33,9 +34,15 @@ export const Popover: PopoverType = props => {
       </Target>
       {
         shown &&
-          <Popper data-hook="popover-content" placement={placement} className={style.popoverContent}>
+          <Popper
+            data-hook="popover-content"
+            placement={placement}
+            className={classNames(style.popoverContentContainer, {[style.popoverContent]: !showArrow})}>
             {showArrow && <Arrow data-hook="popover-arrow" className={style.arrow}/>}
-            {childrenObject.Content}
+            {showArrow && <div className={style.popoverContent}>
+              {childrenObject.Content}
+            </div>}
+            {!showArrow && childrenObject.Content}
           </Popper>
       }
     </Manager>

@@ -15,20 +15,18 @@
   borderColor: black;
   borderRadius: 10px;
   padding: 5px;
+  arrowSize: 5px;
 }
 
 .root {
   -st-extends: BasePopover;
   -st-mixin: Popover(
-    borderColor value(borderColor)
+    backgroundColor value(backgroundColor),
+    borderWidth value(borderWidth),
+    borderStyle value(borderStyle),
+    borderColor value(borderColor),
+    borderRadius value(borderRadius),
+    padding value(padding),
+    arrowSize value(arrowSize)
   );
-}
-
-.root::popoverContent {
-  background-color: value(backgroundColor);
-  border-width: value(borderWidth);
-  border-style: value(borderStyle);
-  border-color: value(borderColor);
-  border-radius: value(borderRadius);
-  padding: value(padding);
 }
