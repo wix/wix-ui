@@ -90,6 +90,9 @@
     "setupFiles": [
       "<rootDir>/test/enzyme-setup"
     ],
+    "moduleNameMapper": {
+      "\\.(css)$": "stylable-integration/require"
+    },
     "moduleFileExtensions": [
       "ts",
       "tsx",
