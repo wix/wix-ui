@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash/uniqueId';
-import {oneOfType, bool, func, string, number, object} from 'prop-types';
+import {oneOf, bool, func, string, number, object} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
 const createAriaAttributes = props => {
@@ -41,12 +41,14 @@ export interface InputProps {
   value?: string;
 }
 
+export interface InputState {
+  id: string;
+}
+
 /**
  * Input
  */
-class Input extends React.Component<InputProps> {
-  private id: string;
-
+class Input extends React.Component<InputProps, InputState> {
   static displayName = 'Input';
 
   static defaultProps = {
@@ -56,6 +58,8 @@ class Input extends React.Component<InputProps> {
   static propTypes = {
     /** Classes object */
     classes: object.isRequired,
+    /** Inputs value */
+    value: string,
     /** Makes the component disabled */
     disabled: bool,
     /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
@@ -87,14 +91,14 @@ class Input extends React.Component<InputProps> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: string,
-    /** Inputs value */
-    value: oneOfType([string, number])
+    type: oneOf(['number', 'text'])
   };
 
   constructor(props) {
     super(props);
-    this.id = uniqueId('Input');
+    this.state = {
+      id: uniqueId('Input')
+    };
     this._onChange = this._onChange.bind(this);
   }
 
@@ -132,7 +136,6 @@ class Input extends React.Component<InputProps> {
     } = this.props;
 
     const ariaAttributes = createAriaAttributes(this.props);
-    const {id} = this;
 
     return (
       <input
@@ -140,7 +143,7 @@ class Input extends React.Component<InputProps> {
         disabled={disabled}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
-        id={id}
+        id={this.state.id}
         name={name}
         onChange={this._onChange}
         onClick={onClick}
