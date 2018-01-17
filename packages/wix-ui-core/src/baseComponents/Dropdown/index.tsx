@@ -147,7 +147,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     return (
       <Popover
         {...style('root', {}, this.props)}
-        data-hook="dropdown"
         placement={placement}
         shown={isOpen}
         showArrow={showArrow}

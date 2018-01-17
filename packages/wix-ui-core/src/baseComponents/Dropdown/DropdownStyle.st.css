@@ -9,7 +9,7 @@
 }
 
 :import {
-  -st-from: "../Popover/PopoverVars.st.css";
+  -st-from: "./DropdownVars.st.css";
   -st-named:
     contentBackgroundColor,
     contentBorderWidth,
@@ -17,12 +17,7 @@
     contentBorderColor,
     contentBorderRadius,
     contentPadding,
-    contentArrowSize;
-}
-
-:import {
-  -st-from: "../DropdownContent/DropdownContentVars.st.css";
-  -st-named:
+    contentArrowSize,
     optionHoverBackgroundColor,
     optionDisabledBackgroundColor,
     optionSelectedBackgroundColor,

@@ -3,29 +3,20 @@
   -st-default: Dropdown;
 }
 
-:vars {
-  /** Background color of the dropdown content */
-  contentBackgroundColor: white;
-  /** Border width of the dropdown content */
-  contentBorderWidth: 1px;
-  /** Border style of the dropdown content */
-  contentBorderStyle: solid;
-  /** Border color of the dropdown content */
-  contentBorderColor: black;
-  /** Border radius of the dropdown content */
-  contentBorderRadius: 6px;
-  /** Content padding for the dropdown content */
-  contentPadding: 0px;
-  /** Size of the arrow of the dropdown content */
-  contentArrowSize: 5px;
-  /** Option background color when hovered */
-  optionHoverBackgroundColor: lightgreen;
-  /** Option background color when selected */
-  optionSelectedBackgroundColor: orage;
-  /** Option background color when selected & hovered */
-  optionSelectedHoverBackgroundColor: green;
-  /** Option background color when disabled */
-  optionDisabledBackgroundColor: blue;
+:import {
+  -st-from: "../../baseComponents/Dropdown/DropdownVars.st.css";
+  -st-named:
+    contentBackgroundColor,
+    contentBorderWidth,
+    contentBorderStyle,
+    contentBorderColor,
+    contentBorderRadius,
+    contentPadding,
+    contentArrowSize,
+    optionHoverBackgroundColor,
+    optionDisabledBackgroundColor,
+    optionSelectedBackgroundColor,
+    optionSelectedHoverBackgroundColor;
 }
 
 .root {
