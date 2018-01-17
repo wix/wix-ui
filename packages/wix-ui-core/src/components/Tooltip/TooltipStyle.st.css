@@ -4,30 +4,30 @@
 }
 
 :vars {
-  /** Background color of the popover content */
-  backgroundColor: white;
-  /** Border width of the popover content */
-  borderWidth: 1px;
-  /** Border style of the popover content */
-  borderStyle: solid;
-  /** Border color of the popover content */
-  borderColor: black;
-  /** Border radius of the popover content */
-  borderRadius: 10px;
-  /** Padding of the popover content */
-  padding: 5px;
-  /** Size of the arrow of the popover content */
-  arrowSize: 5px;
+  /** Background color of the content */
+  contentBackgroundColor: white;
+  /** Border width of the content */
+  contentBorderWidth: 1px;
+  /** Border style of the content */
+  contentBorderStyle: solid;
+  /** Border color of the content */
+  contentBorderColor: black;
+  /** Border radius of the content */
+  contentBorderRadius: 10px;
+  /** Content padding for the content */
+  contentPadding: 5px;
+  /** Size of the arrow of the content */
+  contentArrowSize: 5px;
 }
 
 .root {
   -st-mixin: Popover(
-    backgroundColor value(backgroundColor),
-    borderWidth value(borderWidth),
-    borderStyle value(borderStyle),
-    borderColor value(borderColor),
-    borderRadius value(borderRadius),
-    padding value(padding),
-    arrowSize value(arrowSize)
+    contentBackgroundColor value(contentBackgroundColor),
+    contentBorderWidth value(contentBorderWidth),
+    contentBorderStyle value(contentBorderStyle),
+    contentBorderColor value(contentBorderColor),
+    contentBorderRadius value(contentBorderRadius),
+    contentPadding value(contentPadding),
+    contentArrowSize value(contentArrowSize)
   );
 }

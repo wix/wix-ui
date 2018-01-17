@@ -1,0 +1,16 @@
+:vars {
+  /** Background color of the content */
+  contentBackgroundColor: initial;
+  /** Border width of the content */
+  contentBorderWidth: initial;
+  /** Border style of the content */
+  contentBorderStyle: initial;
+  /** Border color of the content */
+  contentBorderColor: initial;
+  /** Border radius of the content */
+  contentBorderRadius: initial;
+  /** Content padding for the content */
+  contentPadding: initial;
+  /** Size of the arrow of the content */
+  contentArrowSize: 5px;
+}

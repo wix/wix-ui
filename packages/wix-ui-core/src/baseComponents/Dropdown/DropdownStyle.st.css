@@ -8,40 +8,36 @@
   -st-default: DropdownContent;
 }
 
-:vars {
-  /** Background color of the dropdown content */
-  contentBackgroundColor: initial;
-  /** Border width of the dropdown content */
-  contentBorderWidth: 1px;
-  /** Border style of the dropdown content */
-  contentBorderStyle: initial;
-  /** Border color of the dropdown content */
-  contentBorderColor: black;
-  /** Border radius of the dropdown content */
-  contentBorderRadius: initial;
-  /** Content padding for the dropdown content */
-  contentPadding: initial;
-  /** Size of the arrow of the dropdown content */
-  contentArrowSize: 5px;
-  /** Option background color when hovered */
-  optionHoverBackgroundColor: initial;
-  /** Option background color when selected */
-  optionSelectedBackgroundColor: initial;
-  /** Option background color when selected & hovered */
-  optionSelectedHoverBackgroundColor: initial;
-  /** Option background color when disabled */
-  optionDisabledBackgroundColor: initial;
+:import {
+  -st-from: "../Popover/PopoverVars.st.css";
+  -st-named:
+    contentBackgroundColor,
+    contentBorderWidth,
+    contentBorderStyle,
+    contentBorderColor,
+    contentBorderRadius,
+    contentPadding,
+    contentArrowSize;
+}
+
+:import {
+  -st-from: "../DropdownContent/DropdownContentVars.st.css";
+  -st-named:
+    optionHoverBackgroundColor,
+    optionDisabledBackgroundColor,
+    optionSelectedBackgroundColor,
+    optionSelectedHoverBackgroundColor;
 }
 
 .root {
   -st-mixin: Popover(
-    backgroundColor value(contentBackgroundColor),
-    borderWidth value(contentBorderWidth),
-    borderStyle value(contentBorderStyle),
-    borderColor value(contentBorderColor),
-    borderRadius value(contentBorderRadius),
-    padding value(contentPadding),
-    arrowSize value(contentArrowSize)
+    contentBackgroundColor value(contentBackgroundColor),
+    contentBorderWidth value(contentBorderWidth),
+    contentBorderStyle value(contentBorderStyle),
+    contentBorderColor value(contentBorderColor),
+    contentBorderRadius value(contentBorderRadius),
+    contentPadding value(contentPadding),
+    contentArrowSize value(contentArrowSize)
   );
 }
 
