@@ -4,7 +4,7 @@ import {createDriverFactory} from 'wix-ui-test-utils';
 import {OptionFactory} from '../DropdownOption';
 import {DropdownContent} from './';
 
-describe('DropdownContent', () => {
+describe.skip('DropdownContent', () => {
   const createDriver = createDriverFactory(dropdownContentDriverFactory);
   const options =
     Array.from(Array(5))

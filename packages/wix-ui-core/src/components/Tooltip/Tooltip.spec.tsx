@@ -6,7 +6,7 @@ import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
 
-describe('Tooltip', () => {
+describe.skip('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
   const createTooltip = (props = {}) =>
   <Tooltip placement="top" {...props}>

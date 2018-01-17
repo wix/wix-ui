@@ -5,7 +5,7 @@ import {Dropdown} from './';
 import {HOVER, CLICK} from './constants';
 import {OptionFactory} from '../DropdownOption';
 
-describe('Dropdown', () => {
+describe.skip('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const options =
     Array.from(Array(5))
