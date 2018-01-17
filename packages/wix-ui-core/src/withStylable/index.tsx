@@ -1,5 +1,7 @@
-import * as React from 'react';
+// tslint:disable-next-line:no-reference
+/// <reference path="../../globals.d.ts"/>
 
+import * as React from 'react';
 // Generic adapter to add the root class and it's css states
 export function withStylable(
   CoreComponent: React.ComponentClass<any>,
