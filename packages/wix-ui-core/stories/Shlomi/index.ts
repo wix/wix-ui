@@ -2,7 +2,7 @@ import 'react';
 import createStory from '../create-story';
 
 import {Shlomi} from '../../src/components/Shlomi';
-const ShlomiSource = require('!raw-loader!../../src/components/Shlomi/Shlomi.tsx');
+import * as ShlomiSource from '!raw-loader!../../src/components/Shlomi/Shlomi.tsx';
 
 export const story = () => createStory({
   category: 'Components',
