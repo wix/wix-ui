@@ -18,24 +18,24 @@
   innerLabelHeight: 22px;
   innerLabelBackgroundColor: white;
 
-  backgroundColor: #daeffe;
-  backgroundColorChecked: #3899ec;
+  backgroundColor: grey;
+  backgroundColorChecked: grey;
   backgroundColorDisabled: #cbd3dc;
-  backgroundColorHover: #4eb7f5;
-  backgroundColorFocus: #4eb7f5;
+  backgroundColorHover: grey;
+  backgroundColorFocus: grey;
 
   focusOutline: none;
 
-  color: #daeffe;
-  colorChecked: #3899ec;
-  colorDisabled: #dfe5eb;
-  colorCheckedDisabled:#dfe5eb;
-  colorHover: #4eb7f5;
-  colorFocus:  #4eb7f5;
+  color: white;
+  colorChecked: white;
+  colorDisabled: white;
+  colorCheckedDisabled:white;
+  colorHover: white;
+  colorFocus:  white;
 
   toggleIconWidth: 8px;
   toggleIconHeight: 6px;
-  toggleIconDisplay: block;
+  toggleIconDisplay: none;
 }
 
 
