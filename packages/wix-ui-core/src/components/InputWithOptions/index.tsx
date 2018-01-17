@@ -1,8 +1,7 @@
 import * as React from 'react';
 import style from './InputWithOptionsStyle.st.css';
-import {Dropdown} from '../../baseComponents/Dropdown';
-import {Placement} from '../../baseComponents/Popover/Popover';
-import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
+import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
+import {Placement} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {bool, oneOf, object, arrayOf, string, func, oneOfType, number, node} from 'prop-types';
