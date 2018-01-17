@@ -45,6 +45,7 @@
     "react-popper": "^0.7.4",
     "stylable": "^5.1.0",
     "stylable-integration": "^6.0.2",
+    "wix-storybook-utils": "^1.0.22",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
@@ -90,9 +91,6 @@
     "setupFiles": [
       "<rootDir>/test/enzyme-setup"
     ],
-    "moduleNameMapper": {
-      "\\.(css)$": "stylable-integration/require"
-    },
     "moduleFileExtensions": [
       "ts",
       "tsx",

@@ -102,3 +102,5 @@ storiesOf('Components', module)
   .add('Divider', () => (
     <DividerStory />
   ));
+
+require('./Shlomi').story();
