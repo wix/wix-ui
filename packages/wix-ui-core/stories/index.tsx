@@ -2,7 +2,6 @@ import * as React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Text} from '../src/components/Text';
 import {Button} from '../src/components/Button';
-import {Badge} from '../src/components/Badge';
 import {Input} from '../src/components/Input';
 import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
@@ -20,10 +19,9 @@ const dropdownOptions =
       .map((x, index) =>
         index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
+require('./Badge').story();
+
 storiesOf('Components', module)
-  .add('Badge', () => (
-    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
-  ))
   .add('Button', () => (
     <Button dataHook="story-button">Hello</Button>
   ))
@@ -102,5 +100,3 @@ storiesOf('Components', module)
   .add('Divider', () => (
     <DividerStory />
   ));
-
-require('./Shlomi').story();
