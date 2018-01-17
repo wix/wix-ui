@@ -12,17 +12,29 @@ export interface TriggerElementProps {
 }
 
 export interface DropdownProps {
+  /** The location to display the content */
   placement: Placement;
+  /** Should display arrow with the content */
   showArrow?: boolean;
+  /** render function that renders the target element with the state */
   children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
+  /** The dropdown options array */
   options: Array<Option>;
+  /** Trigger type to open the content */
   openTrigger: CLICK_TYPE | HOVER_TYPE;
+  /** Handler for when an option is selected */
   onSelect: (option: Option) => void;
+  /** Handler for when an option is deselected */
   onDeselect: (option: Option) => void;
+  /** initial selected option ids */
   initialSelectedIds: Array<string | number>;
+  /** Should close content on select */
   closeOnSelect: boolean;
+  /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
+  /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
+  /** Maximum height of the options */
   optionsMaxHeight?: number;
 }
 
@@ -32,6 +44,9 @@ export interface DropdownState {
   keyboardEvent: string;
 }
 
+/**
+ * Dropdown
+ */
 export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
   private dropdownContentRef: DropdownContent;
 
@@ -164,3 +179,4 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
 }
 
 export const Dropdown = onClickOutside(DropdownComponent);
+Dropdown.displayName = 'Dropdown';

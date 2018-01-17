@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './InputWithOptions.st.css';
+import style from './InputWithOptionsStyle.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {TriggerElementProps} from '../../baseComponents/Dropdown/Dropdown';
@@ -9,18 +9,31 @@ import {bool, oneOf, object, arrayOf, string, func, oneOfType, number, node} fro
 import {Input} from '../Input';
 
 export interface InputWithOptionsProps {
+  /** The location to display the content */
   placement?: Placement;
+  /** The dropdown options array */
   options: Array<Option>;
+  /** Trigger type to open the content */
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
+  /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
+  /** Handler for when an option is deselected */
   onDeselect?: (option: Option) => void;
+  /** initial selected option ids */
   initialSelectedIds?: Array<string | number>;
+  /** Should close content on select */
   closeOnSelect?: boolean;
-  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
+  /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
+  /** Maximum height of the options */
   optionsMaxHeight?: number;
+  /** Event handler for when the input changes */
+  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  /** Event handler for when the input loses focus */
   onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  /** Event handler for when the input gains focus */
   onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
 }
 
@@ -28,11 +41,14 @@ export interface InputWithOptionsState {
   inputValue: string;
 }
 
+/**
+ * InputWithOptions
+ */
 export class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
+  static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: CLICK,
     placement: 'bottom-start',
-    options: [],
     closeOnSelect: true,
     initialSelectedIds: [],
     onSelect: () => null,
@@ -40,12 +56,12 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
   };
 
   static propTypes = {
-    /** Trigger type to open the content */
-    openTrigger: oneOf([CLICK, HOVER]),
     /** The location to display the content */
     placement: string,
     /** The dropdown options array */
     options: arrayOf(object).isRequired,
+    /** Trigger type to open the content */
+    openTrigger: oneOf([CLICK, HOVER]),
     /** Handler for when an option is selected */
     onSelect: func,
     /** Handler for when an option is deselected */
@@ -54,16 +70,14 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
     initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
     /** Should close content on select */
     closeOnSelect: bool,
-    /** Classes object */
-    classes: object.isRequired,
-    /** Event handler for when the input changes */
-    onInputChange: func,
     /** An element that always appears at the top of the options */
     fixedHeader: node,
     /** An element that always appears at the bottom of the options */
     fixedFooter: node,
     /** Maximum height of the options */
     optionsMaxHeight: number,
+    /** Event handler for when the input changes */
+    onInputChange: func,
     /** Event handler for when the input loses focus */
     onBlur: func,
     /** Event handler for when the input gains focus */

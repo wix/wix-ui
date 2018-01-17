@@ -8,10 +8,15 @@ import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../
 export type Placement = PopperJS.Placement;
 
 export interface PopoverProps {
+  /** The location to display the content */
   placement: Placement;
+  /** Is the content shown or not */
   shown: boolean;
+  /** onMouseEnter on the component */
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  /** onMouseLeave on the component */
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  /** Show show arrow from the content */
   showArrow?: boolean;
 }
 
@@ -20,6 +25,9 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
+/**
+ * Popover
+ */
 export const Popover: PopoverType = props => {
   const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children} = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -49,9 +57,6 @@ export const Popover: PopoverType = props => {
   );
 };
 
-Popover.defaultProps = {
-  placement: 'auto'
-};
-
+Popover.displayName = 'Popover';
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
 Popover.Content = createComponentThatRendersItsChildren('Popover.Content');

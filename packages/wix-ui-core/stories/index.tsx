@@ -22,10 +22,10 @@ const dropdownOptions =
 
 storiesOf('Components', module)
   .add('Badge', () => (
-    <div style={{width: '50px'}}><Badge data-hook="story-badge">Hello</Badge></div>
+    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
   ))
   .add('Button', () => (
-    <Button data-hook="story-button">Hello</Button>
+    <Button dataHook="story-button">Hello</Button>
   ))
   .add('IconWithOptions', () => (
     <IconWithOptions
@@ -45,7 +45,7 @@ storiesOf('Components', module)
       options={dropdownOptions}/>
   ))
   .add('Input', () => (
-    <Input data-hook="story-input" />
+    <Input dataHook="story-input" />
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>

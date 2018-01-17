@@ -3,23 +3,24 @@
   -st-default: Popover;
 }
 
-:import {
-  -st-from: "../../baseComponents/Popover/Popover.st.css";
-  -st-default: BasePopover;
-}
-
 :vars {
+  /** Background color of the popover content */
   backgroundColor: white;
+  /** Border width of the popover content */
   borderWidth: 1px;
+  /** Border style of the popover content */
   borderStyle: solid;
+  /** Border color of the popover content */
   borderColor: black;
+  /** Border radius of the popover content */
   borderRadius: 10px;
+  /** Padding of the popover content */
   padding: 5px;
+  /** Size of the arrow of the popover content */
   arrowSize: 5px;
 }
 
 .root {
-  -st-extends: BasePopover;
   -st-mixin: Popover(
     backgroundColor value(backgroundColor),
     borderWidth value(borderWidth),

@@ -4,12 +4,19 @@
 }
 
 :vars {
+  /** Background color of the popover content */
   backgroundColor: initial;
+  /** Border width of the popover content */
   borderWidth: initial;
+  /** Border style of the popover content */
   borderStyle: initial;
+  /** Border color of the popover content */
   borderColor: initial;
+  /** Border radius of the popover content */
   borderRadius: initial;
+  /** Padding of the popover content */
   padding: initial;
+  /** Size of the arrow of the popover content */
   arrowSize: 5px;
 }
 

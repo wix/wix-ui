@@ -1,10 +1,12 @@
 import * as React from 'react';
-import style from './Tooltip.st.css';
+import style from './TooltipStyle.st.css';
+import {string} from 'prop-types';
 import {Popover} from '../../baseComponents/Popover';
 import {Placement} from '../../baseComponents/Popover/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 export interface TooltipProps {
+  /** The location to display the content */
   placement?: Placement;
 }
 
@@ -12,12 +14,21 @@ export interface TooltipState {
   isOpen: boolean;
 }
 
+/**
+ * Tooltip
+ */
 export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
 
+  static displayName = 'Tooltip';
   static defaultProps = {
     placement: 'top'
+  };
+
+  static propTypes = {
+    /** The location to display the content */
+    placement: string
   };
 
   constructor(props) {

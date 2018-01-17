@@ -8,19 +8,33 @@ import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdow
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
 
 export interface IconWithOptionsProps {
+  /** The location to display the content */
   placement?: Placement;
+  /** The dropdown options array */
   options: Array<Option>;
+  /** Trigger type to open the content */
   openTrigger?: CLICK_TYPE | HOVER_TYPE;
+  /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
+  /** Handler for when an option is deselected */
   onDeselect?: (option: Option) => void;
+  /** initial selected option ids */
   initialSelectedIds?: Array<string | number>;
+  /** Should close content on select */
   closeOnSelect?: boolean;
-  iconUrl: string;
+  /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
+  /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
+  /** Maximum height of the options */
   optionsMaxHeight?: number;
+  /** Icon url to display */
+  iconUrl: string;
 }
 
+/**
+ * IconWithOptions
+ */
 export const IconWithOptions: React.SFC<IconWithOptionsProps> =
   props => {
     const {
@@ -61,10 +75,10 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
     </Dropdown>);
   };
 
+IconWithOptions.displayName = 'IconWithOptions';
 IconWithOptions.defaultProps = {
   openTrigger: HOVER,
   placement: 'bottom',
-  options: [],
   closeOnSelect: true,
   initialSelectedIds: [],
   onSelect: () => null,
@@ -72,12 +86,12 @@ IconWithOptions.defaultProps = {
 };
 
 IconWithOptions.propTypes = {
-  /** Trigger type to open the content */
-  openTrigger: oneOf([CLICK, HOVER]),
   /** The location to display the content */
   placement: string,
   /** The dropdown options array */
   options: arrayOf(object).isRequired,
+  /** Trigger type to open the content */
+  openTrigger: oneOf([CLICK, HOVER]),
   /** Handler for when an option is selected */
   onSelect: func,
   /** Handler for when an option is deselected */
@@ -86,12 +100,12 @@ IconWithOptions.propTypes = {
   initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
   /** Should close content on select */
   closeOnSelect: bool,
-  /** Icon url to display */
-  iconUrl: string.isRequired,
   /** An element that always appears at the top of the options */
   fixedHeader: node,
   /** An element that always appears at the bottom of the options */
   fixedFooter: node,
   /** Maximum height of the options */
-  optionsMaxHeight: number
+  optionsMaxHeight: number,
+  /** Icon url to display */
+  iconUrl: string.isRequired
 };

@@ -9,16 +9,27 @@
 }
 
 :vars {
-  contentBackgroundColor: white;
+  /** Background color of the dropdown content */
+  contentBackgroundColor: initial;
+  /** Border width of the dropdown content */
   contentBorderWidth: 1px;
-  contentBorderStyle: solid;
+  /** Border style of the dropdown content */
+  contentBorderStyle: initial;
+  /** Border color of the dropdown content */
   contentBorderColor: black;
+  /** Border radius of the dropdown content */
   contentBorderRadius: initial;
+  /** Content padding for the dropdown content */
   contentPadding: initial;
+  /** Size of the arrow of the dropdown content */
   contentArrowSize: 5px;
+  /** Option background color when hovered */
   optionHoverBackgroundColor: initial;
+  /** Option background color when selected */
   optionSelectedBackgroundColor: initial;
+  /** Option background color when selected & hovered */
   optionSelectedHoverBackgroundColor: initial;
+  /** Option background color when disabled */
   optionDisabledBackgroundColor: initial;
 }
 
