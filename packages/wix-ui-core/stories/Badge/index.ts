@@ -2,7 +2,7 @@ import 'react';
 import createStory from '../create-story';
 
 import {Badge} from '../../src/components/Badge';
-import * as ShlomiSource from '!raw-loader!../../src/components/Badge/Badge.tsx';
+import * as BadgeSource from '!raw-loader!../../src/components/Badge/Badge.tsx';
 
 export const story = () => createStory({
   category: 'Components',
@@ -13,5 +13,5 @@ export const story = () => createStory({
     children: 'I\'m a Badge!',
     dataHook: 'storybook-badge'
   }),
-  source: ShlomiSource
+  source: BadgeSource
 });

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Text} from '../src/components/Text';
-import {Button} from '../src/components/Button';
 import {Input} from '../src/components/Input';
 import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
@@ -20,11 +19,9 @@ const dropdownOptions =
         index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
 require('./Badge').story();
+require('./Button').story();
 
 storiesOf('Components', module)
-  .add('Button', () => (
-    <Button dataHook="story-button">Hello</Button>
-  ))
   .add('IconWithOptions', () => (
     <IconWithOptions
       iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"

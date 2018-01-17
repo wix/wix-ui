@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, string, func, object, any} from 'prop-types';
+import {bool, func, object, any, oneOf} from 'prop-types';
 import {createHOC} from '../../createHOC';
 
 export type ButtonClasses = {
@@ -35,7 +35,7 @@ const Button: React.SFC<ButtonProps> = ({type, disabled, onClick, onMouseEnter, 
 Button.displayName = 'Button';
 Button.propTypes = {
   /** Type of the button - submit / button / reset */
-  type: string,
+  type: oneOf(['submit', 'button', 'reset']),
   /** Makes the button disabled */
   disabled: bool,
   /** Standard button onClick callback */
