@@ -1,7 +1,7 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
-import * as classNames from 'classnames';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 
