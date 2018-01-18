@@ -1,5 +1,4 @@
 const fs = require('fs');
-// const module = require('module');
 const {Stylable} = require('stylable');
 const {createCSSModuleString, CreateModuleInput} = require('stylable-integration');
 
