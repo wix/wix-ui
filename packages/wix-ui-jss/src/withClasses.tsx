@@ -14,6 +14,7 @@ export interface HasClasses {
 export function withClasses<P>(CoreComponent: React.ComponentType<P & HasClasses>, styles: Function): React.ComponentClass<P & ThemedComponentProps> {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps & P, HasClasses> {
     private id;
+    static displayName = CoreComponent.displayName || 'ThemedComponent';
 
     constructor(props) {
       super(props);
