@@ -11,10 +11,10 @@ export const story = () => createStory({
   component: Input,
   componentProps: (setState) => ({
     dataHook: 'storybook-input',
+    value: '',
     onChange: ({target: {value}}) => setState({value}),
   }),
   exampleProps: {
-    value: '',
     onClick: () => 'Triggered onClick',
     onChange: () => 'Triggered onChange',
     onDoubleClick: () => 'Triggered onDoubleClick',
