@@ -51,7 +51,7 @@ export class Input extends React.Component<InputProps, InputState> {
   };
 
   static propTypes = {
-    /** Inputs value */		
+    /** Inputs value */
     value: string,
     /** Makes the component disabled */
     disabled: bool,
