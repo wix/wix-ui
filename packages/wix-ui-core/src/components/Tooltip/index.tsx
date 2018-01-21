@@ -47,6 +47,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   close() {
+    debugger;
     if (this.state.isOpen) {
       this.setState({isOpen: false});
     }
