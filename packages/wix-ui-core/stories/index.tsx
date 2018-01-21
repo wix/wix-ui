@@ -8,6 +8,7 @@ import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {IconWithOptions} from '../src/components/IconWithOptions';
+import {InputStory} from './Input/';
 import {InputWithOptions} from '../src/components/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
@@ -19,7 +20,6 @@ const dropdownOptions =
 
 require('./Badge').story();
 require('./Button').story();
-require('./Input').story();
 
 storiesOf('Components', module)
   .add('IconWithOptions', () => (
@@ -27,6 +27,9 @@ storiesOf('Components', module)
       iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
       data-hook="story-icon-with-options"
       options={dropdownOptions}/>
+  ))
+  .add('Input', () => (
+    <InputStory/>
   ))
   .add('InputWithOptions Single select', () => (
     <InputWithOptions
