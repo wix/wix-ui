@@ -5,6 +5,7 @@ export type TextTheme = {
   color?: string;
   textTransform?: string;
   letterSpacing?: string;
+  margin?: string;
 };
 
 export const core: TextTheme = {
@@ -13,5 +14,6 @@ export const core: TextTheme = {
   lineHeight: 'normal',
   color: '#000',
   textTransform: 'none',
-  letterSpacing: 'normal'
+  letterSpacing: 'normal',
+  margin: '0'
 };
