@@ -16,7 +16,6 @@ const createAriaAttributes = props => {
 const NUMBER_REGEX = /^[\d.,\-+]*$/;
 
 export interface InputProps {
-  dataHook?: string;
   disabled?: boolean;
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
@@ -52,6 +51,8 @@ export class Input extends React.Component<InputProps, InputState> {
   };
 
   static propTypes = {
+    /** Inputs value */		
+    value: string,
     /** Makes the component disabled */
     disabled: bool,
     /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
@@ -149,6 +150,7 @@ export class Input extends React.Component<InputProps, InputState> {
         tabIndex={tabIndex}
         type={type}
         value={value}
+        onMouseOver={console.log}
         {...ariaAttributes}
       />
     );

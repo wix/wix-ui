@@ -1,5 +1,5 @@
 .root {
-    -st-states: hover, focus, disabled;
+    -st-states: disabled;
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
@@ -10,4 +10,3 @@
     cursor: text;
     outline: none;
   }
-  
