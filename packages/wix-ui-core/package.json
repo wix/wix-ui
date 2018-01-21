@@ -44,7 +44,7 @@
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.7.4",
     "stylable": "^5.1.0",
-    "stylable-integration": "^6.0.2",
+    "wix-storybook-utils": "^1.0.22",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
@@ -64,6 +64,7 @@
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
+    "stylable-integration": "^6.0.2",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
     "wix-ui-test-utils": "^1.0.30"
@@ -84,15 +85,13 @@
   },
   "jest": {
     "transform": {
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+      "\\.(css)$": "./jest.js"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
     "setupFiles": [
       "<rootDir>/test/enzyme-setup"
     ],
-    "moduleNameMapper": {
-      "\\.(css)$": "stylable-integration/require"
-    },
     "moduleFileExtensions": [
       "ts",
       "tsx",

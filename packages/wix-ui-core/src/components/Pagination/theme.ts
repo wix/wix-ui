@@ -12,7 +12,7 @@ export type PaginationTheme = {
   pageStrip: React.CSSProperties,
   pageButton: React.CSSProperties,
   currentPage: React.CSSProperties,
-  ellipsis: React.CSSProperties,
+  gap: React.CSSProperties,
 
   // Mode: input
   pageForm: React.CSSProperties,
@@ -20,7 +20,6 @@ export type PaginationTheme = {
   totalPages: React.CSSProperties,
 
   // Modifiers
-  rtl: React.CSSProperties,
   disabled: React.CSSProperties
 };
 
@@ -28,10 +27,7 @@ export type PaginationTheme = {
 export const core: PaginationTheme = {
   root: {
     display: 'inline-flex',
-    userSelect: 'none',
-    '&$rtl': {
-      flexDirection: 'row-reverse'
-    }
+    userSelect: 'none'
   },
   navButton: {
     display: 'inline-flex',
@@ -48,11 +44,7 @@ export const core: PaginationTheme = {
     display: 'flex',
     order: 3,
     justifyContent: 'center',
-    overflow: 'hidden',
-
-    '$rtl > &': {
-      flexDirection: 'row-reverse'
-    }
+    overflow: 'hidden'
   },
   pageButton: {
     display: 'inline-flex',
@@ -63,7 +55,7 @@ export const core: PaginationTheme = {
     display: 'inline-flex',
     flexShrink: 0
   },
-  ellipsis: {
+  gap: {
     display: 'inline-flex',
     flexShrink: 0
   },
@@ -73,6 +65,5 @@ export const core: PaginationTheme = {
   },
   pageInput: {},
   totalPages: {},
-  rtl: {},
   disabled: {}
 };

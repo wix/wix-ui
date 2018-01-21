@@ -11,7 +11,7 @@ describe('Input', () => {
   });
 
   eyes.it('should enter text to input', () => {
-    const dataHook = 'story-input';
+    const dataHook = 'storybook-input';
     const driver = inputTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Input')

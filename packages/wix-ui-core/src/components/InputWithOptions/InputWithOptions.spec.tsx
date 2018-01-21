@@ -4,7 +4,7 @@ import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 
-describe.skip('InputWithOptions', () => {
+describe('InputWithOptions', () => {
 
   const createDriver = createDriverFactory(inputWithOptionsDriverFactory);
   const options =

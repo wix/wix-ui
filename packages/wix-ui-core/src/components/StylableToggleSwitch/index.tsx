@@ -14,7 +14,7 @@ export interface ToggleSwitchProps {
 /**
  * Toggle Switch
  */
-export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
+export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps & P> {
   static displayName = 'ToggleSwitch';
   id: string = this.props.id || uniqueId('ToggleSwitch');
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {dropdownContentDriverFactory} from './DropdownContent.driver';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory, sleep} from 'wix-ui-test-utils';
 import {OptionFactory} from '../DropdownOption';
 import {DropdownContent} from './';
 
-describe.skip('DropdownContent', () => {
+describe('DropdownContent', () => {
   const createDriver = createDriverFactory(dropdownContentDriverFactory);
   const options =
     Array.from(Array(5))
@@ -52,31 +52,39 @@ describe.skip('DropdownContent', () => {
     });
   });
 
-  describe('keyboardEvent', () => {
-    it('should move down when ArrowDown is sent', () => {
+  describe.skip('keyboardEvent', () => {
+    it('should move down when ArrowDown is sent', async () => {
       const onOptionClick = jest.fn();
-      const driver = createDriver(createDropdownContent({options, onOptionClick, keyboardEvent: 'ArrowDown'}));
+      const driver = createDriver(createDropdownContent({options, onOptionClick}));
+      driver.onKeyDown('ArrowDown');
+      await sleep(10);
 
       expect(driver.optionAt(0).containsClass('hover')).toBeTruthy();
     });
 
-    it('should move to last when ArrowUp is sent', () => {
+    it('should move to last when ArrowUp is sent', async () => {
       const onOptionClick = jest.fn();
-      const driver = createDriver(createDropdownContent({options, onOptionClick, keyboardEvent: 'ArrowUp'}));
+      const driver = createDriver(createDropdownContent({options, onOptionClick}));
+      driver.onKeyDown('ArrowUp');
+      await sleep(10);
 
       expect(driver.optionAt(4).containsClass('hover')).toBeTruthy();
     });
 
-    it('should not hover over seperator with arrow up', () => {
+    it('should not hover over seperator with arrow up', async () => {
       const onOptionClick = jest.fn();
-      const driver = createDriver(createDropdownContent({options: [options[2]], onOptionClick, keyboardEvent: 'ArrowUp'}));
+      const driver = createDriver(createDropdownContent({options: [options[2]], onOptionClick}));
+      driver.onKeyDown('ArrowUp');
+      await sleep(10);
 
       expect(driver.optionAt(0).containsClass('hover')).toBeFalsy();
     });
 
-    it('should not hover over seperator with arrow down', () => {
+    it('should not hover over seperator with arrow down', async () => {
       const onOptionClick = jest.fn();
-      const driver = createDriver(createDropdownContent({options: [options[2]], onOptionClick, keyboardEvent: 'ArrowDown'}));
+      const driver = createDriver(createDropdownContent({options: [options[2]], onOptionClick}));
+      driver.onKeyDown('ArrowDown');
+      await sleep(10);
 
       expect(driver.optionAt(0).containsClass('hover')).toBeFalsy();
     });

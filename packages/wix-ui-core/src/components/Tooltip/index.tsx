@@ -1,7 +1,6 @@
 import * as React from 'react';
 import style from './TooltipStyle.st.css';
-import {string} from 'prop-types';
-import {Popover, Placement} from '../../baseComponents/Popover';
+import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 export interface TooltipProps {
@@ -27,7 +26,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static propTypes = {
     /** The location to display the content */
-    placement: string
+    placement: PlacementPropType,
   };
 
   constructor(props) {

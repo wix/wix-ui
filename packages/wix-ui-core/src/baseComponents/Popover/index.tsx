@@ -4,8 +4,10 @@ import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {oneOf} from 'prop-types';
 
 export type Placement = PopperJS.Placement;
+export const PlacementPropType = oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']);
 
 export interface PopoverProps {
   /** The location to display the content */

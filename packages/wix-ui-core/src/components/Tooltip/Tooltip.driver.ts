@@ -3,7 +3,7 @@ import {popoverDriverFactory} from '../../baseComponents/Popover/Popover.driver'
 export const tooltipDriverFactory = (args) => {
   const {element, eventTrigger} = args;
   const popoverDriver = popoverDriverFactory(args);
-  const getTooltipStyle = () => window.getComputedStyle(element.querySelector('[data-hook="tooltip-content"]'));
+  const getTooltipStyle = () => window.getComputedStyle(element.querySelector('[data-hook="popover-content"]'));
 
   return {
     /** Checks if the tooltip exists */

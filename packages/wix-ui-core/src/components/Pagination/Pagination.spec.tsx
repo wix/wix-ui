@@ -239,10 +239,10 @@ describe('Pagination', () => {
           totalPages={3}
           showFirstLastNavButtons
           replaceArrowsWithText
-          firstText="oh"
-          previousText="my"
-          nextText="god"
-          lastText="!!!"/>
+          firstLabel="oh"
+          previousLabel="my"
+          nextLabel="god"
+          lastLabel="!!!"/>
       );
       expect(pagination.getNavButton('first').textContent).toEqual('oh');
       expect(pagination.getNavButton('previous').textContent).toEqual('my');
@@ -320,6 +320,13 @@ describe('Pagination', () => {
   it('does not add ID to the root if ID prefix is not provided', () => {
     const pagination = createDriver(<Pagination totalPages={3} />);
     expect(pagination.root.getAttribute('id')).toBe(null);
+  });
+
+  it('allows to customize gap text', () => {
+    const pagination = createDriver(
+      <Pagination totalPages={5} maxPagesToShow={4} showLastPage gapLabel={<em>*</em>} />
+    );
+    expect(pagination.getPageLabels()).toEqual(['1', '2', '*', '5']);
   });
 
   it('adds URLs to the pages according to desired format', () => {

@@ -209,21 +209,21 @@ function createLayout({
 
     // Apparently, no. Let's prioritize showing the previous and the next page,
     // then the first and the last page if requested, then the rest.
-    // Also let's try to show ellipsis only on one side.
+    // Also let's try to have a gap only on one side.
 
-    // Cut off only at the end.
-    (showFirstPage && lowerBound === 1) &&
-    expand(lowerBound, nextOrUpperBound, false, showLastPage) ||
+    // Gap only before the last page.
+    (showLastPage && lowerBound === 1) &&
+    expand(lowerBound, nextOrUpperBound, false, true) ||
 
-    // Cut off only at the beginning.
-    (showLastPage && upperBound === totalPages) &&
-    expand(prevOrLowerBound, upperBound, showFirstPage, false) ||
+    // Gap only after the first page.
+    (showFirstPage && upperBound === totalPages) &&
+    expand(prevOrLowerBound, upperBound, true, false) ||
 
-    // Cut off on both sides, add ellipses.
+    // Gap after the first page and before the last.
     (showFirstPage && showLastPage) &&
     expand(prevOrLowerBound, nextOrUpperBound, true, true) ||
 
-    // Cut off on both sides, no ellipses.
+    // Cut off both sides, don't show the first and last page.
     expand(prevOrLowerBound, nextOrUpperBound, false, false) ||
 
     // Oh well.

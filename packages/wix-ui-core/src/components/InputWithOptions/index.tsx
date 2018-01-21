@@ -1,10 +1,10 @@
 import * as React from 'react';
 import style from './InputWithOptionsStyle.st.css';
 import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
-import {Placement} from '../../baseComponents/Popover';
+import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
-import {CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {bool, object, arrayOf, string, func, oneOfType, number, node, any} from 'prop-types';
+import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
+import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf} from 'prop-types';
 import {Input} from '../Input';
 
 export interface InputWithOptionsProps {
@@ -13,7 +13,7 @@ export interface InputWithOptionsProps {
   /** The dropdown options array */
   options: Array<Option>;
   /** Trigger type to open the content */
-  openTrigger?: CLICK_TYPE | HOVER_TYPE;
+  openTrigger?: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
   /** Handler for when an option is deselected */
@@ -43,7 +43,7 @@ export interface InputWithOptionsState {
 /**
  * InputWithOptions
  */
-export class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
+export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptionsProps & P, InputWithOptionsState> {
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: CLICK,
@@ -56,11 +56,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
 
   static propTypes = {
     /** The location to display the content */
-    placement: any,
+    placement: PlacementPropType,
     /** The dropdown options array */
     options: arrayOf(object).isRequired,
     /** Trigger type to open the content */
-    openTrigger: any,
+    openTrigger: oneOf([CLICK, HOVER]),
     /** Handler for when an option is selected */
     onSelect: func,
     /** Handler for when an option is deselected */
@@ -89,9 +89,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
     this.onSelect = this.onSelect.bind(this);
     this.onDeselect = this.onDeselect.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.state = {
-      inputValue: ''
-    };
+    this.state = {inputValue: ''};
   }
 
   onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -139,7 +137,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
 
     return (
       <Dropdown
-      {...style('root', {}, this.props)}
+        {...style('root', {}, this.props)}
         placement={placement}
         openTrigger={openTrigger}
         onSelect={this.onSelect}

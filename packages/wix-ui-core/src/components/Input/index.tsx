@@ -3,6 +3,7 @@ import * as uniqueId from 'lodash/uniqueId';
 import {oneOfType, bool, func, string, number} from 'prop-types';
 import style from './InputStyle.st.css';
 
+
 const createAriaAttributes = props => {
   const aria = 'aria';
   const ariaAttribute = {};
@@ -37,12 +38,14 @@ export interface InputProps {
   value?: string;
 }
 
+export interface InputState {
+  id: string;
+}
+
 /**
  * Input
  */
-export class Input extends React.Component<InputProps> {
-  private id: string;
-
+export class Input extends React.Component<InputProps, InputState> {
   static displayName = 'Input';
 
   static defaultProps = {
@@ -54,6 +57,7 @@ export class Input extends React.Component<InputProps> {
     dataHook: string,
 // 
 //
+
     /** Makes the component disabled */
     disabled: bool,
     /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
@@ -85,14 +89,14 @@ export class Input extends React.Component<InputProps> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: string,
-    /** Inputs value */
-    value: oneOfType([string, number])
+    type: oneOfType(['number', 'text'])
   };
 
   constructor(props) {
     super(props);
-    this.id = uniqueId('Input');
+    this.state = {
+      id: uniqueId('Input')
+    };
     this._onChange = this._onChange.bind(this);
   }
 
@@ -130,7 +134,6 @@ export class Input extends React.Component<InputProps> {
     } = this.props;
 
     const ariaAttributes = createAriaAttributes(this.props);
-    const {id} = this;
 
     return (
       <input
@@ -139,7 +142,7 @@ export class Input extends React.Component<InputProps> {
         disabled={disabled}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
-        id={id}
+        id={this.state.id}
         name={name}
         onChange={this._onChange}
         onClick={onClick}

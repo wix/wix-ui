@@ -4,7 +4,7 @@ import style from './DropdownStyle.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
-import {CLICK, CLICK_TYPE, HOVER, HOVER_TYPE} from './constants';
+import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
 export interface TriggerElementProps {
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
@@ -20,7 +20,7 @@ export interface DropdownProps {
   /** The dropdown options array */
   options: Array<Option>;
   /** Trigger type to open the content */
-  openTrigger: CLICK_TYPE | HOVER_TYPE;
+  openTrigger: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
   onSelect: (option: Option) => void;
   /** Handler for when an option is deselected */

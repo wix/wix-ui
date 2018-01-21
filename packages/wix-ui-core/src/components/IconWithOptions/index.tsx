@@ -1,9 +1,9 @@
 import * as React from 'react';
 import style from './IconWithOptionsStyle.st.css';
 import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
-import {Placement} from '../../baseComponents/Popover';
+import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
-import {HOVER, CLICK, CLICK_TYPE, HOVER_TYPE} from '../../baseComponents/Dropdown/constants';
+import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
 
 export interface IconWithOptionsProps {
@@ -12,7 +12,7 @@ export interface IconWithOptionsProps {
   /** The dropdown options array */
   options: Array<Option>;
   /** Trigger type to open the content */
-  openTrigger?: CLICK_TYPE | HOVER_TYPE;
+  openTrigger?: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
   /** Handler for when an option is deselected */
@@ -86,7 +86,7 @@ IconWithOptions.defaultProps = {
 
 IconWithOptions.propTypes = {
   /** The location to display the content */
-  placement: string,
+  placement: PlacementPropType,
   /** The dropdown options array */
   options: arrayOf(object).isRequired,
   /** Trigger type to open the content */

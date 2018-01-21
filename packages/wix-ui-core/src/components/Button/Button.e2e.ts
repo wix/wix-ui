@@ -9,12 +9,12 @@ describe('Button', () => {
   beforeEach(() => browser.get(storyUrl));
 
   eyes.it('should display correct content', () => {
-    const dataHook = 'story-button';
+    const dataHook = 'storybook-button';
     const driver = buttonTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Button')
       .then(async () => {
-        await expect(driver.getTextContent()).toBe('Hello');
+        await expect(driver.getTextContent()).toBe('I\'m a Button!');
       });
   });
 });
