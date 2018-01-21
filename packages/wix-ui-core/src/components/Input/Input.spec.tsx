@@ -6,7 +6,7 @@ import {inputTestkitFactory} from '../../testkit';
 import {inputTestkitFactory as enzymeInputTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
 
-describe.skip('Input', () => {
+describe('Input', () => {
 
   const createDriver = createDriverFactory(inputDriverFactory);
 
