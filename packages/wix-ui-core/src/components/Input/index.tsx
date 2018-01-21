@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash/uniqueId';
-import {oneOfType, bool, func, string, number} from 'prop-types';
+import {oneOf, bool, func, string, number} from 'prop-types';
 import style from './InputStyle.st.css';
-
 
 const createAriaAttributes = props => {
   const aria = 'aria';
@@ -55,7 +54,7 @@ export class Input extends React.Component<InputProps, InputState> {
   static propTypes = {
     // Temporary solution for InputWithOptions
     dataHook: string,
-// 
+//
 //
 
     /** Makes the component disabled */
@@ -89,7 +88,7 @@ export class Input extends React.Component<InputProps, InputState> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: oneOfType(['number', 'text'])
+    type: oneOf(['number', 'text'])
   };
 
   constructor(props) {
