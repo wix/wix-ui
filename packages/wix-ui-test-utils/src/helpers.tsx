@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Simulate, SyntheticEventData} from 'react-dom/test-utils';
-import { EventSimulator } from './index';
+import {Simulate} from 'react-dom/test-utils';
+import {EventSimulator} from './index';
 
 export interface ControlledComponentState {
   value: string;
@@ -65,26 +65,4 @@ export function makeControlled(Component) {
   };
 }
 
-// interface EventTrigger {
-//   trigger: (event: string, element: Element, handler?: SyntheticEventData) => void;
-//   [key: string]: Partial<EventSimulator>;
-// }
-
-// export const reactEventTrigger: () => EventTrigger = () => {
-//   const simulate = Simulate;
-//   return {
-//     click: (element: Element) => simulate.click(element),
-//     doubleClick: (element: Element) => simulate.doubleClick(element),
-//     mousedown: (element: Element) => simulate.mouseDown(element),
-//     change: (element: Element, handler: SyntheticEventData) => simulate.change(element, handler),
-//     mouseEnter: (element: Element) => simulate.mouseEnter(element),
-//     mouseLeave: (element: Element) => simulate.mouseLeave(element),
-//     focus: (element: Element) => simulate.focus(element),
-//     blur: (element: Element) => simulate.blur(element),
-//     keyUp: (element: Element, handler: SyntheticEventData) => simulate.keyUp(element, handler),
-//     keyDown: (element: Element, handler: SyntheticEventData) => simulate.keyDown(element, handler),
-//     compositionStart: (element: Element) => simulate.compositionStart(element),
-//     compositionEnd: (element: Element) => simulate.compositionEnd(element),
-//     trigger: (event, element: Element, handler = () => null) => simulate[event](element, handler)
-//   } ;
-// };
+export const reactEventTrigger = () => Simulate;

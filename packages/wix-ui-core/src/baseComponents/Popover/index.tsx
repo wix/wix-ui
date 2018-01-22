@@ -3,6 +3,7 @@ import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
+import Transition from 'react-transition-group/Transition';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {oneOf} from 'prop-types';
 
@@ -27,6 +28,32 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
+const duration = 150;
+
+const defaultStyle = {
+  opacity: 0,
+  transition: `opacity ${duration}ms ease-in-out`
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 },
+};
+
+const Fade = ({inProp, children}) => (
+  <Transition in={inProp} timeout={duration} unmountOnExit={true}>
+    {state => (
+      <div key="fade-container"
+        style={{
+        ...defaultStyle,
+        ...transitionStyles[state]
+      }}>
+        {[children]}
+      </div>
+    )}
+  </Transition>
+);
+
 /**
  * Popover
  */
@@ -42,19 +69,18 @@ export const Popover: PopoverType = props => {
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      {
-        shown &&
-          <Popper
-            data-hook="popover-content"
-            placement={placement}
-            className={classNames(style.popoverContentContainer, {[style.popoverContent]: !showArrow})}>
-            {showArrow && <Arrow data-hook="popover-arrow" className={style.arrow}/>}
-            {showArrow && <div className={style.popoverContent}>
-              {childrenObject.Content}
-            </div>}
-            {!showArrow && childrenObject.Content}
-          </Popper>
-      }
+      <Fade inProp={shown}>
+        <Popper
+          data-hook="popover-content"
+          placement={placement}
+          className={classNames(style.popoverContentContainer, {[style.popoverContent]: !showArrow})}>
+          {showArrow && <Arrow data-hook="popover-arrow" className={style.arrow}/>}
+          {showArrow && <div className={style.popoverContent}>
+            {childrenObject.Content}
+          </div>}
+          {!showArrow && childrenObject.Content}
+        </Popper>
+      </Fade>
     </Manager>
   );
 };
