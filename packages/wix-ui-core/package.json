@@ -68,6 +68,7 @@
     "stylable-integration": "^6.0.2",
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
+    "wix-eventually": "^2.1.0",
     "wix-ui-test-utils": "^1.0.30"
   },
   "license": "MIT",

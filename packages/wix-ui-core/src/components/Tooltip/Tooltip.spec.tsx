@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {tooltipDriverFactory} from './Tooltip.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists, sleep} from 'wix-ui-test-utils';
 import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
@@ -27,11 +27,12 @@ describe.skip('Tooltip', () => {
     expect(driver.isContentExists()).toBeFalsy();
   });
 
-  it('should display content on hover and hide it on leave', () => {
+  it('should display content on hover and hide it on leave', async () => {
     const driver = createDriver(createTooltip());
     driver.mouseEnter();
     expect(driver.isContentExists()).toBeTruthy();
     driver.mouseLeave();
+    await sleep(150);
     expect(driver.isContentExists()).toBeFalsy();
   });
 

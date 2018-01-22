@@ -1,4 +1,5 @@
 import * as eyes from 'eyes.it';
+import * as eventually from 'wix-eventually';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {tooltipTestkitFactory} from '../../testkit/protractor';
@@ -8,19 +9,19 @@ describe('Tooltip', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  eyes.it('should display content when hover', () => {
+  eyes.fit('should display content when hover', () => {
     const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Tooltip')
-      .then(() => {
+      .then(async () => {
         expect(driver.isTooltipExists()).toBeFalsy();
         expect(driver.getElementText()).toBe('I need a tooltip');
         driver.onMouseOver();
         expect(driver.isTooltipExists()).toBeTruthy();
-        expect(driver.getTooltipText()).toBe('This is my tooltip!');
+        expect(driver.getTooltipText()).toBe('This is my tooltip!\n');
         driver.onMouseLeave();
-        expect(driver.isTooltipExists()).toBeFalsy();
+        await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
       });
   });
 });
