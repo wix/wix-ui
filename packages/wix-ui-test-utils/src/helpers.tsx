@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Simulate} from 'react-dom/test-utils';
+import {Simulate, SyntheticEventData} from 'react-dom/test-utils';
+import { EventSimulator } from './index';
 
 export interface ControlledComponentState {
   value: string;
@@ -27,12 +28,9 @@ export function makeControlled(Component) {
       value: ''
     };
 
-    constructor(props) {
-      super(props);
-      this.state = {value: props.value};
-    }
+    state = {value: this.props.value as string};
 
-    _onChange = e => {
+    _onChange = (e) => {
       const {
         onChange
       } = this.props;
@@ -67,21 +65,26 @@ export function makeControlled(Component) {
   };
 }
 
-export const reactEventTrigger = () => {
-  const simulate = Simulate;
-  return {
-    click: (element) => simulate.click(element),
-    doubleClick: (element) => simulate.doubleClick(element),
-    mousedown: (element) => simulate.mouseDown(element),
-    change: (element, handler) => simulate.change(element, handler),
-    mouseEnter: (element) => simulate.mouseEnter(element),
-    mouseLeave: (element) => simulate.mouseLeave(element),
-    focus: (element) => simulate.focus(element),
-    blur: (element) => simulate.blur(element),
-    keyUp: (element, handler) => simulate.keyUp(element, handler),
-    keyDown: (element, handler) => simulate.keyDown(element, handler),
-    compositionStart: (element) => simulate.compositionStart(element),
-    compositionEnd: (element) => simulate.compositionEnd(element),
-    trigger: (event, element, handler = () => null) => simulate[event](element, handler)
-  };
-};
+// interface EventTrigger {
+//   trigger: (event: string, element: Element, handler?: SyntheticEventData) => void;
+//   [key: string]: Partial<EventSimulator>;
+// }
+
+// export const reactEventTrigger: () => EventTrigger = () => {
+//   const simulate = Simulate;
+//   return {
+//     click: (element: Element) => simulate.click(element),
+//     doubleClick: (element: Element) => simulate.doubleClick(element),
+//     mousedown: (element: Element) => simulate.mouseDown(element),
+//     change: (element: Element, handler: SyntheticEventData) => simulate.change(element, handler),
+//     mouseEnter: (element: Element) => simulate.mouseEnter(element),
+//     mouseLeave: (element: Element) => simulate.mouseLeave(element),
+//     focus: (element: Element) => simulate.focus(element),
+//     blur: (element: Element) => simulate.blur(element),
+//     keyUp: (element: Element, handler: SyntheticEventData) => simulate.keyUp(element, handler),
+//     keyDown: (element: Element, handler: SyntheticEventData) => simulate.keyDown(element, handler),
+//     compositionStart: (element: Element) => simulate.compositionStart(element),
+//     compositionEnd: (element: Element) => simulate.compositionEnd(element),
+//     trigger: (event, element: Element, handler = () => null) => simulate[event](element, handler)
+//   } ;
+// };

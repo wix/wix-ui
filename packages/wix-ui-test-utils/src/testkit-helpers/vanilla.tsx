@@ -8,7 +8,7 @@ export const testkitFactoryCreator = driverFactory => ({wrapper, dataHook}) => {
   return driverFactory({element, wrapper, eventTrigger});
 };
 
-export const isTestkitExists = (Element, testkitFactory) => {
+export const isTestkitExists = (Element: React.ReactElement<any>, testkitFactory) => {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
 
