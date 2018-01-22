@@ -1,7 +1,8 @@
 .root {}
 
-.divider {}
+.divider {
+}
 
 .vertical {
-  height: auto
+  height: auto;
 }

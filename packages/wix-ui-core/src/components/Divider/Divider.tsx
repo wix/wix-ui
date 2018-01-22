@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 import style from './DividerStyle.st.css';
 import {bool, any} from 'prop-types';
 
@@ -11,11 +10,12 @@ export interface DividerProps {
 /**
  * Divider
  */
-export const Divider: React.SFC<DividerProps> = ({children, vertical}) => (
-    children ?
-        <div>{children}</div> :
-        <div className={classNames(style.divider, {[style.vertical]: vertical})} />
-);
+export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
+    const {children, vertical} = props;
+    return children ?
+        <div {...style('root', {}, props)}>{children}</div> :
+        <div {...style(`root ${style.divider} ${vertical ? style.vertical : ''}`.trim(), {}, props)} />;
+};
 
 Divider.displayName = 'Divider';
 Divider.propTypes = {

@@ -3,6 +3,10 @@
   -st-default: Divider;
 }
 
+:import {
+  -st-from: "./DividerVars.st.css";
+}
+
 :vars {
   height: 2px;
   backgroundColor: black;
