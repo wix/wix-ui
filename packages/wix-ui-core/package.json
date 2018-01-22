@@ -43,6 +43,7 @@
     "prop-types": "^15.6.0",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.7.4",
+    "react-transition-group": "^2.2.1",
     "stylable": "^5.1.0",
     "wix-storybook-utils": "^1.0.22",
     "wix-ui-jss": "^1.0.0"

@@ -37,7 +37,7 @@
 }
 
 .root::popoverContentContainer {
-  transition: opacity 0.15s ease-in;
+  transition: opacity 2s linear;
 }
 
 .root::popoverContentContainer[data-placement="right"] {
