@@ -4,7 +4,7 @@ import {mount} from 'enzyme';
 
 describe('isTestkitExists', () => {
   const MyComp: React.SFC = () => (<div></div>);
-  const driver = element => {
+  const driver = (element: Element) => {
     return {
       exists: () => !!element
     };

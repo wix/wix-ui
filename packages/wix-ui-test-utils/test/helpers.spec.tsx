@@ -34,7 +34,7 @@ describe('helpers', () => {
   });
 
   describe('makeControlled function', () => {
-    const UncontrolledInput = props => <input {...props}/>;
+    const UncontrolledInput = (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props}/>;
 
     it('should init uncontrolled component with initial value', () => {
       const ControlledInput = makeControlled(UncontrolledInput);
@@ -66,7 +66,7 @@ describe('helpers', () => {
       const NotifyOnEnter: React.SFC<any> = ({onEnter, ...passedProps}) => (
         <UncontrolledInput
           {...passedProps}
-          onKeyPress={e => e.key === 'Enter' && onEnter()}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onEnter()}
         />
       );
 
