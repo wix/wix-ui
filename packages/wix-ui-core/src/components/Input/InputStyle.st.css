@@ -19,16 +19,15 @@
   borderColorFocus: black;
   hoverBorderColor: black;
   borderRadius: 6px;
+  fontSize: 16px;
+  border: 1px solid;
 }
 
 .root {
   -st-extends: Input;
   font-family: "HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "メイリオ, meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif";
-  font-size: 16px;
+  font-size: value(fontSize);
   line-height: 24px;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: none;
 
   height: 36px;
   padding: 0 12px;
@@ -37,13 +36,7 @@
   background-color: value(backgroundColor);
   border-color: value(borderColor);
   border-radius: value(borderRadius);
-  
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  text-align: left;
-  border: 1px solid;
-  cursor: text;
-  outline: none;
+  border: value(border);
 }
 
 .root:hover {
