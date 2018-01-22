@@ -36,9 +36,7 @@
   padding: value(contentPadding);
 }
 
-.root::popoverContentContainer {
-  transition: opacity 2s linear;
-}
+.root::popoverContentContainer {}
 
 .root::popoverContentContainer[data-placement="right"] {
   padding-left: value(contentArrowSize);

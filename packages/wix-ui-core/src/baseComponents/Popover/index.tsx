@@ -43,7 +43,7 @@ const transitionStyles = {
 const Fade = ({inProp, children}) => (
   <Transition in={inProp} timeout={duration} unmountOnExit={true}>
     {state => (
-      <div key="muffins"
+      <div key="fade-container"
         style={{
         ...defaultStyle,
         ...transitionStyles[state]

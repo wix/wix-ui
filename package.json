@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
-  "homepage": "https://github.com/wix/wix-ui#readme"
+  "homepage": "https://github.com/wix/wix-ui#readme",
+  "dependencies": {}
 }
