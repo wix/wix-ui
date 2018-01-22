@@ -209,13 +209,13 @@ describe('Input', () => {
     });
   });
 
-  describe.skip('testkit', () => {
+  describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);
     });
   });
 
-  describe.skip('enzyme testkit', () => {
+  describe('enzyme testkit', () => {
     it('should exist', () => {
       expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory, mount)).toBe(true);
     });
