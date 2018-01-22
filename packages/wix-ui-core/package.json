@@ -86,7 +86,7 @@
   "jest": {
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
-      "\\.(css)$": "./jest.js"
+      "\\.(css)$": "stylable-integration/jest"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
     "setupFiles": [
