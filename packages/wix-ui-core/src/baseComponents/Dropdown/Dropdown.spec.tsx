@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {createDriverFactory, sleep} from 'wix-ui-test-utils';
+import * as eventually from 'wix-eventually';
+import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
 import {HOVER, CLICK} from './constants';
@@ -45,8 +46,7 @@ describe('Dropdown', () => {
       driver.mouseEnter();
       expect(driver.isContentElementExists()).toBeTruthy();
       driver.mouseLeave();
-      await sleep(150);
-      expect(driver.isContentElementExists()).toBeFalsy();
+      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
     });
   });
 
