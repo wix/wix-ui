@@ -1,0 +1,32 @@
+:import {
+  -st-from: "./Divider.st.css";
+  -st-default: Divider;
+}
+
+:import {
+  -st-from: "./DividerVars.st.css";
+}
+
+:vars {
+  height: 2px;
+  backgroundColor: black;
+  opacity: 0.5;
+  marginTop: 0;
+  marginBottom: 0;
+}
+
+.root {
+  -st-extends: Divider;
+}
+
+.root::divider {
+  height: value(height);
+  background-color: value(backgroundColor);
+  opacity: value(opacity);
+  margin-top: marginTop;
+  margin-bottom: marginBottom
+}
+
+.root::vertical {
+  width: value(height);
+}

@@ -10,8 +10,8 @@ export const enzymeTestkitFactoryCreator = driverFactory => ({wrapper, dataHook}
 };
 
 export const isEnzymeTestkitExists = (Element, testkitFactory, mount, options = {withoutDataHook: false}) => {
-  const dataHook = 'myDataHook';
-  const elementToRender = React.cloneElement(Element, {dataHook: options.withoutDataHook ? '' : dataHook});
+  const dataHook = options.withoutDataHook ? '' : 'myDataHook';
+  const elementToRender = React.cloneElement(Element, {dataHook, 'data-hook': dataHook});
   const wrapper = mount(elementToRender);
   const testkit = testkitFactory({wrapper, dataHook});
   return testkit.exists();

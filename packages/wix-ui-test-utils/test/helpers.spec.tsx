@@ -42,7 +42,7 @@ describe('helpers', () => {
 
       const component = mount(<ControlledInput value={initialValue}/>);
 
-      expect(component.find('input').getDOMNode().value).toBe(initialValue);
+      expect((component.find('input').getDOMNode() as HTMLInputElement).value).toBe(initialValue);
     });
 
     it('should invoke onChange callback', () => {
@@ -59,7 +59,7 @@ describe('helpers', () => {
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange.mock.calls[0][0].target.value).toBe(enteredValue);
-      expect(input.getDOMNode().value).toBe(enteredValue);
+      expect((component.find('input').getDOMNode() as HTMLInputElement).value).toBe(enteredValue);
     });
 
     it('should bind passed prop-functions to *this*', () => {
@@ -86,7 +86,7 @@ describe('helpers', () => {
 
       const input = component.find('input');
       input.simulate('keypress', {key: 'Enter'});
-      expect(input.getDOMNode().value).toBe('');
+      expect((input.getDOMNode() as HTMLInputElement).value).toBe('');
     });
   });
 });

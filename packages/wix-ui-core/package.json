@@ -45,7 +45,6 @@
     "react-popper": "^0.7.4",
     "react-transition-group": "^2.2.1",
     "stylable": "^5.1.0",
-    "wix-storybook-utils": "^1.0.22",
     "wix-ui-jss": "^1.0.0"
   },
   "devDependencies": {
@@ -69,7 +68,8 @@
     "ts-jest": "^21.2.4",
     "typescript": "^2.6.2",
     "wix-eventually": "^2.1.0",
-    "wix-ui-test-utils": "^1.0.30"
+    "wix-ui-test-utils": "^1.0.0",
+    "wix-storybook-utils": "^1.0.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -88,7 +88,7 @@
   "jest": {
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
-      "\\.(css)$": "./jest.js"
+      "\\.(css)$": "stylable-integration/jest"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
     "setupFiles": [

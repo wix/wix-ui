@@ -46,8 +46,8 @@ export interface InputWithOptionsState {
 export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptionsProps & P, InputWithOptionsState> {
   static displayName = 'InputWithOptions';
   static defaultProps = {
-    openTrigger: CLICK,
-    placement: 'bottom-start',
+    openTrigger: CLICK as any,
+    placement: 'bottom-start' as any,
     closeOnSelect: true,
     initialSelectedIds: [],
     onSelect: () => null,

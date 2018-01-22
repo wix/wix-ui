@@ -12,7 +12,7 @@ export const isTestkitExists = (Element, testkitFactory) => {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
 
-  const elementToRender = React.cloneElement(Element, {dataHook});
+  const elementToRender = React.cloneElement(Element, {'data-hook': dataHook, dataHook});
   const renderedElement = ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>);
   const wrapper = div.appendChild((renderedElement as any));
   const testkit = testkitFactory({wrapper, dataHook});

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import {paginationDriverFactory} from './Pagination.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists, sleep} from 'wix-ui-test-utils';
 import {Pagination} from './';
-import {sleep} from 'wix-ui-test-utils';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
-import {Simulate} from 'react-dom/test-utils';
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
@@ -266,28 +264,28 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 13});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 13});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 32});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 32});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {});
       await sleep(10);
       expect(onChange).not.toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 13});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 13});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 32});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 32});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {});
       await sleep(10);
       expect(onChange).not.toBeCalled();
       onChange.mockClear();
@@ -297,11 +295,11 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      Simulate.click(pagination.getNavButton('previous'));
+      pagination.simulate.click(pagination.getNavButton('previous'));
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.click(pagination.getPageByNumber(1));
+      pagination.simulate.click(pagination.getPageByNumber(1));
       expect(onChange).toBeCalled();
       onChange.mockClear();
     });

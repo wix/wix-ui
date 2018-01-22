@@ -66,7 +66,7 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of haveing one within it
+  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of having one within it
   //See issue https://github.com/wix/wix-ui/issues/38
   describe('toggleIcon', () => {
     it('should be the checked icon when the toggleSwitch is checked', () => {

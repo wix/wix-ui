@@ -1,8 +1,6 @@
-import {Simulate} from 'react-dom/test-utils';
-
 type NavButtonName = 'first' | 'previous' | 'next' | 'last';
 
-export const paginationDriverFactory = ({element: root}: {element: Element}) => {
+export const paginationDriverFactory = ({element: root, eventTrigger: simulate}) => {
   const pageStrip: Element = root.querySelector('[data-hook="page-strip"]');
 
   const getNavButton = (name: NavButtonName): Element | null => (
@@ -22,6 +20,8 @@ export const paginationDriverFactory = ({element: root}: {element: Element}) => 
     root,
     /** Returns whether the element exists */
     exists: (): boolean => !!root,
+    /** Simulates events */
+    simulate,
     /** Returns the container of page elements */
     getPageStrip: () => root.querySelector('[data-hook="page-strip"]'),
     /** Returns displayed page elements */
@@ -41,18 +41,18 @@ export const paginationDriverFactory = ({element: root}: {element: Element}) => 
     /** Returns the total amount of pages displayed in "input" mode */
     getTotalPagesField: (): Element | null => root.querySelector('[data-hook="total-pages"]'),
     /** Simulates clicking a nav button */
-    clickNavButton: (name: NavButtonName): void => Simulate.click(getNavButton(name)),
+    clickNavButton: (name: NavButtonName): void => simulate.click(getNavButton(name)),
     /** Simulates clicking a page in "pages" mode */
-    clickPage: (page: number): void => Simulate.click(getPageByNumber(page)),
+    clickPage: (page: number): void => simulate.click(getPageByNumber(page)),
     /** Simulates changing the value of the input field in "input" mode */
     changeInput: (newValue: string): void => {
       const input = getInput();
       input.value = newValue;
-      Simulate.change(input);
+      simulate.change(input);
     },
     /** Simulates committing the input field value in "input" mode */
-    commitInput: (): void => Simulate.keyDown(getInput(), {keyCode: 13}),
+    commitInput: (): void => simulate.keyDown(getInput(), {keyCode: 13}),
     /** Simulates blur in the input field in "input" mode */
-    blurInput: (): void => Simulate.blur(getInput())
+    blurInput: (): void => simulate.blur(getInput())
   };
 };
