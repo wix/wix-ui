@@ -15,6 +15,13 @@
     contentArrowSize;
 }
 
+:vars {
+  contentBackgroundColor: white;
+  contentBorderColor: black;
+  contentBorderStyle: solid;
+  contentBorderWidth: 1px;
+}
+
 .root {
   -st-mixin: Popover(
     contentBackgroundColor value(contentBackgroundColor),

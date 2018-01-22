@@ -63,8 +63,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 
   _listenToSpace = e => {
-    const SPACEBAR = 32;
-    if (e.keyCode === SPACEBAR) {
+    if (e.key === ' ') {
       e.preventDefault();
       this._handleChange(e);
     }
