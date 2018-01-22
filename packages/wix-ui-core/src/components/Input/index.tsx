@@ -150,7 +150,6 @@ export class Input extends React.Component<InputProps, InputState> {
         tabIndex={tabIndex}
         type={type}
         value={value}
-        onMouseOver={console.log}
         {...ariaAttributes}
       />
     );
