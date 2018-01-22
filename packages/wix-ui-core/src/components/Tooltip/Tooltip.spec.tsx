@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as eventually from 'wix-eventually';
 import {tooltipDriverFactory} from './Tooltip.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists, sleep} from 'wix-ui-test-utils';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
@@ -32,8 +33,7 @@ describe('Tooltip', () => {
     driver.mouseEnter();
     expect(driver.isContentExists()).toBeTruthy();
     driver.mouseLeave();
-    await sleep(150);
-    expect(driver.isContentExists()).toBeFalsy();
+    await eventually(() => expect(driver.isContentExists()).toBeFalsy());
   });
 
   describe('testkit', () => {
