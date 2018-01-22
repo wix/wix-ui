@@ -9,7 +9,6 @@ export type BadgeState = Partial<{
 export type BadgeTheme = Partial<BadgeState & {
   display: string;
   justifyContent: string;
-  flexDirection: string;
   minWidth: string;
   width: string;
   height: string;
@@ -18,6 +17,7 @@ export type BadgeTheme = Partial<BadgeState & {
   borderRadius: string;
   border: string;
   cursor: string;
+  alignItems: string;
 }>;
 
 const stateStyle = {
@@ -33,7 +33,7 @@ export const core: BadgeTheme = {
   borderRadius: '2px',
   cursor: 'default',
   display: 'flex',
-  flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'center',
   ...stateStyle,
 };

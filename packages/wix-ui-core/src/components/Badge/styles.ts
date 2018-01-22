@@ -19,8 +19,8 @@ export const styles = (theme: BadgeTheme) => {
       borderColor: theme.borderColor,
       cursor: theme.cursor,
       display: theme.display,
-      flexDirection: theme.flexDirection,
       justifyContent: theme.justifyContent,
+      alignItems: theme.alignItems,
       boxSizing: 'border-box',
 
       [contentSelector]: {
