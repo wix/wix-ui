@@ -17,9 +17,7 @@ export type BadgeTheme = Partial<BadgeState & {
   contentPadding: string;
   borderRadius: string;
   border: string;
-  opacity: string;
   cursor: string;
-  hover: BadgeState;
 }>;
 
 const stateStyle = {
@@ -38,5 +36,4 @@ export const core: BadgeTheme = {
   flexDirection: 'column',
   justifyContent: 'center',
   ...stateStyle,
-  hover: stateStyle
 };
