@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './DividerStyle.st.css';
+import style from './Divider.st.css';
 import {bool, any} from 'prop-types';
 
 export interface DividerProps {
