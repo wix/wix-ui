@@ -14,28 +14,14 @@ export const styles = (theme: BadgeTheme) => {
       padding: theme.padding,
       border: theme.border,
       borderRadius: theme.borderRadius,
-      outline: theme.outline,
-      opacity: theme.opacity,
-
-      fontFamily: theme.fontFamily,
-      fontSize: theme.fontSize,
-      lineHeight: theme.lineHeight,
-      fontStyle: theme.fontStyle,
-      fontWeight: theme.fontWeight,
-      textDecoration: theme.textDecoration,
-
       color: theme.color,
       background: theme.backgroundColor,
       borderColor: theme.borderColor,
-
       cursor: theme.cursor,
-      display: 'flex',
-      justifyContent: 'center',
-      '-webkit-font-smoothing': 'antialiased',
+      display: theme.display,
+      justifyContent: theme.justifyContent,
+      alignItems: theme.alignItems,
       boxSizing: 'border-box',
-      textAlign: 'center',
-
-      '&:hover': theme.hover,
 
       [contentSelector]: {
         color: theme.color
