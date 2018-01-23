@@ -5,6 +5,8 @@ export const badgeDriverFactory = ({element}) => {
     /** returns elements type attribute */
     getType: () => element.getAttribute('type'),
     /** returns elements innerHtml */
-    getContent: () => element.innerHTML
+    getContent: () => element.innerHTML,
+    /** returns elements innerText */
+    getContentText: element.innerText,
   };
 };
