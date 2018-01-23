@@ -7,7 +7,7 @@ export interface ControlledComponentState {
 
 export interface ControlledComponentProps {
   value?: string;
-  onChange?: (e: React.ChangeEvent<any>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLElement>) => void;
   [otherProps: string]: any;
 }
 
@@ -27,10 +27,8 @@ export const sleep = (ms: number): Promise<void> => {
 };
 
 // HOC that makes underlying component "controlled"
-export function makeControlled(Component: React.SFC<React.AllHTMLAttributes<any>>) {
+export function makeControlled<T extends ControlledComponentProps> (Component: React.SFC<T>) {
   return class ControlledComponent extends React.Component<ControlledComponentProps, ControlledComponentState> {
-    static displayName = `Controlled${Component.name}`;
-
     static defaultProps = {
       value: ''
     };

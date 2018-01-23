@@ -9,7 +9,7 @@ export const scrollToElement = (element: ElementArrayFinder) => {
   }, element.getWebElement());
 };
 
-export const waitForVisibilityOf = (elements: Array<ElementFinder>, errorMsg?: string, timeout = 10000) => {
+export const waitForVisibilityOf = (elements: Array<ElementFinder> | ElementFinder, errorMsg?: string, timeout = 10000) => {
   const arrayOfElements = Array.isArray(elements) ? [...elements] : [elements];
 
   return promise.all(arrayOfElements.map(elem =>
