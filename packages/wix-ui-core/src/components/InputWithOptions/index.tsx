@@ -28,6 +28,10 @@ export interface InputWithOptionsProps {
   fixedFooter?: React.ReactNode;
   /** Maximum height of the options */
   optionsMaxHeight?: number;
+  /** Input value */
+  inputValue?: string;
+  /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list, this function will return a suggested option as the second parameter if found one */
+  onManualInput?: (value: string) => void;
   /** Event handler for when the input changes */
   onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
   /** Event handler for when the input loses focus */
@@ -43,7 +47,7 @@ export interface InputWithOptionsState {
 /**
  * InputWithOptions
  */
-export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptionsProps & P, InputWithOptionsState> {
+export class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: CLICK as any,
@@ -75,6 +79,10 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
     fixedFooter: node,
     /** Maximum height of the options */
     optionsMaxHeight: number,
+    /** Input value */
+    inputValue: string,
+    /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list, this function will return a suggested option as the second parameter if found one */
+    onManualInput: func,
     /** Event handler for when the input changes */
     onInputChange: func,
     /** Event handler for when the input loses focus */
@@ -83,13 +91,19 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
     onFocus: func
   };
 
-  constructor() {
-    super();
+  constructor(props: InputWithOptionsProps) {
+    super(props);
 
-    this.onSelect = this.onSelect.bind(this);
-    this.onDeselect = this.onDeselect.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
-    this.state = {inputValue: ''};
+    this.state = {inputValue: props.inputValue || ''};
+  }
+
+  componentWillReceiveProps(nextProps: InputWithOptionsProps) {
+    if (this.state.inputValue !== nextProps.inputValue) {
+      this.setState({
+        inputValue: nextProps.inputValue
+      });
+    }
   }
 
   onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -101,24 +115,13 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
     onInputChange && onInputChange(event);
   }
 
-  onDeselect(option: Option) {
-    const {onDeselect} = this.props;
-    const {inputValue} = this.state;
-    this.setState({
-      inputValue: (inputValue || '').split(' ').filter(x => x !== option.value).join(' ').trim()
-    });
-
-    onDeselect(option);
-  }
-
-  onSelect(option: Option) {
-    const {onSelect, closeOnSelect} = this.props;
-    const {inputValue} = this.state;
-    this.setState({
-      inputValue: closeOnSelect ? option.value : [...((inputValue || '').split(' ')), option.value].join(' ').trim()
-    });
-
-    onSelect(option);
+  onInputKeyDown(event: React.KeyboardEvent<HTMLElement>, onDropdownKeyDown: (evt: React.KeyboardEvent<HTMLElement>) => void) {
+    onDropdownKeyDown(event);
+    switch (event.key) {
+      case 'Enter':
+      case 'Tab':
+      default:
+    }
   }
 
   render () {
@@ -132,7 +135,9 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
       fixedHeader,
       optionsMaxHeight,
       onFocus,
-      onBlur} = this.props;
+      onBlur,
+      onSelect,
+      onDeselect} = this.props;
     const {inputValue} = this.state;
 
     return (
@@ -140,12 +145,12 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
         {...style('root', {}, this.props)}
         placement={placement}
         openTrigger={openTrigger}
-        onSelect={this.onSelect}
+        onSelect={onSelect}
         showArrow={false}
         optionsMaxHeight={optionsMaxHeight}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
-        onDeselect={this.onDeselect}
+        onDeselect={onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
@@ -157,7 +162,7 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
               onBlur={onBlur}
               value={inputValue}
               onChange={this.onInputChange}
-              onKeyDown={onKeyDown}/>
+              onKeyDown={event => this.onInputKeyDown(event, onKeyDown)}/>
         }
       </Dropdown>
     );
