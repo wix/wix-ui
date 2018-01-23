@@ -3,9 +3,28 @@ import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
+export type Point = {
+  x: number;
+  y: number;
+};
+
 export interface TooltipProps {
   /** The location to display the content */
   placement?: Placement;
+
+  textAlign?: string;
+  children?: any;
+  content?: any; // isRequired
+  showDelay?: number;
+  hideDelay?: number;
+  maxWidth?: string | number;
+  minWidth?: string | number;
+  color?: string;
+  lineHeight?: string;
+  zIndex?: number;
+  moveBy?: Point;
+  moveArrowTo?: number;
+  padding?: string | number;
 }
 
 export interface TooltipState {
@@ -53,25 +72,28 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, children} = this.props;
+    const {placement, children, textAlign, maxWidth,
+           minWidth, color, lineHeight, zIndex, padding} = this.props;
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isOpen} = this.state;
 
     return (
-      <Popover
-        {...style('root', {}, this.props)}
-        placement={placement}
-        shown={isOpen}
-        showArrow={true}
-        onMouseEnter={this.open}
-        onMouseLeave={this.close}>
-        <Popover.Element>
-          {childrenObject.Element}
-        </Popover.Element>
-        <Popover.Content>
-          {childrenObject.Content}
-        </Popover.Content>
-      </Popover>
+      <div style={{textAlign, maxWidth, minWidth, color, lineHeight, zIndex, padding}}>
+        <Popover
+          {...style('root', {}, this.props)}
+          placement={placement}
+          shown={isOpen}
+          showArrow={true}
+          onMouseEnter={this.open}
+          onMouseLeave={this.close}>
+          <Popover.Element>
+            {childrenObject.Element}
+          </Popover.Element>
+          <Popover.Content>
+            {childrenObject.Content}
+          </Popover.Content>
+        </Popover>
+      </div>
     );
   }
 }
