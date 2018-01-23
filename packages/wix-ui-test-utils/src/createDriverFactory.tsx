@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {render} from 'react-dom';
-import {EventSimulator} from 'react-dom/test-utils';
+import {Simulate} from 'react-dom/test-utils';
 import {reactEventTrigger} from './helpers';
 import {ReactWrapper} from 'enzyme';
 
-export type DriverFactory = (compFactory: ComponentFactory) => Driver;
+export type DriverFactory<T> = (compFactory: ComponentFactory) => T;
 
-export interface Driver {
-  [key: string]: any;
+export interface BaseDriver {
+  exists: () => boolean;
 }
 
 export interface ComponentFactory {
@@ -15,10 +15,10 @@ export interface ComponentFactory {
   wrapper: HTMLElement | ReactWrapper;
   component?: React.ReactElement<any>;
   componentInstance?: React.ReactInstance | undefined;
-  eventTrigger: { [key: string]: EventSimulator};
+  eventTrigger: typeof Simulate;
 }
 
-const componentFactory: (Component: React.ReactElement<any>) => ComponentFactory = (Component: React.ReactElement<any>) => {
+const componentFactory: (Component: React.ReactElement<any>) => ComponentFactory = Component => {
   let element: HTMLDivElement | null;
   let componentInstance;
   const eventTrigger = reactEventTrigger();
@@ -26,8 +26,9 @@ const componentFactory: (Component: React.ReactElement<any>) => ComponentFactory
   const wrapperDiv = document.createElement('div');
   const ClonedComponent = React.cloneElement(Component, {ref: (r: Element) => componentInstance = r});
   render(<div ref={r => element = r}>{ClonedComponent}</div>, wrapperDiv);
-  return {element: element! && element!.childNodes[0], wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger} as ComponentFactory;
+  return {element: element! && element!.childNodes[0], wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
 };
 
-export const createDriverFactory: (DriverFactory: DriverFactory) => Driver = (driverFactory: DriverFactory) =>
-  (Component: React.ReactElement<any>) => driverFactory(componentFactory(Component));
+export function createDriverFactory<T>(driverFactory: DriverFactory<T>) {
+  return (Component: React.ReactElement<any>) => driverFactory(componentFactory(Component));
+}

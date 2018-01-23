@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "sourceMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
     "lib": ["dom", "es2016"],
-    "allowJs": true,
     "strict": true
   },
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
-    "./src/**/*.js",
     "./test/**/*.tsx"
   ],
   "files": [

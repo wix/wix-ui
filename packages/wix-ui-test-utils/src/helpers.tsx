@@ -12,11 +12,11 @@ export interface ControlledComponentProps {
   [otherProps: string]: any;
 }
 
-interface ControlledEventTarget extends EventTarget {
+export interface ControlledEventTarget extends EventTarget {
   value: string;
 }
 
-interface ControlledChangeEvent<T> extends React.ChangeEvent<T> {
+export interface ControlledChangeEvent<T> extends React.ChangeEvent<T> {
   target: ControlledEventTarget & T;
 }
 
