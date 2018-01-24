@@ -21,6 +21,18 @@ describe('Badge', () => {
       const driver = createDriver(<Badge>{content}</Badge>);
       expect(driver.getContent()).toContain(mount(content).html());
     });
+
+    it('should get the content text', () => {
+      const content = (
+        <div>
+          <span>Delete</span>
+          <i>?</i>
+        </div>
+      );
+      const driver = createDriver(<Badge>{content}</Badge>);
+
+      expect(driver.getContentText()).toMatch('Delete?');
+    });
   });
 
   describe('testkit', () => {

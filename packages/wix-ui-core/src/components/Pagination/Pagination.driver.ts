@@ -1,4 +1,4 @@
-type NavButtonName = 'first' | 'previous' | 'next' | 'last';
+export type NavButtonName = 'first' | 'previous' | 'next' | 'last';
 
 export const paginationDriverFactory = ({element: root, eventTrigger: simulate}) => {
   const pageStrip: Element = root.querySelector('[data-hook="page-strip"]');

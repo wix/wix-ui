@@ -7,6 +7,6 @@ export const badgeDriverFactory = ({element}) => {
     /** returns elements innerHtml */
     getContent: () => element.innerHTML,
     /** returns elements innerText */
-    getContentText: element.innerText,
+    getContentText: () => element.textContent,
   };
 };

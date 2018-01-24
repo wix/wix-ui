@@ -12,6 +12,7 @@
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
+    "./test/**/*.ts",
     "./test/**/*.tsx"
   ],
   "files": [

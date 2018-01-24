@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {paginationDriverFactory} from './Pagination.driver';
+import {paginationDriverFactory, NavButtonName} from './Pagination.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists, sleep} from 'wix-ui-test-utils';
 import {Pagination} from './';
 import {paginationTestkitFactory} from '../../testkit';
@@ -189,7 +189,7 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination totalPages={5} currentPage={3} showFirstLastNavButtons onChange={onChange}/>);
 
       for (const [button, page] of [['first', 1], ['previous', 2], ['next', 4], ['last', 5]]) {
-        pagination.clickNavButton(button);
+        pagination.clickNavButton(button as NavButtonName);
         expect(onChange).toBeCalledWith(expect.objectContaining({page}));
         onChange.mockClear();
       }

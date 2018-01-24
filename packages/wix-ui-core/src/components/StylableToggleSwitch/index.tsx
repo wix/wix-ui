@@ -1,13 +1,21 @@
 import * as React from 'react';
-import {bool, func, string} from 'prop-types';
 import * as uniqueId from 'lodash/uniqueId';
+import {bool, func, object, string} from 'prop-types';
 import {getViewBox, getPathDescription} from '../ToggleSwitch/utils';
 import style from './ToggleSwitch.st.css';
+
+export type ToggleSwitchStyles = {
+  root?: object;
+  outerLabel?: object;
+  innerLabel?: object;
+  toggleIcon?: object;
+};
 
 export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  styles?: ToggleSwitchStyles;
   id?: string;
 }
 
@@ -18,7 +26,7 @@ export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps 
   static displayName = 'ToggleSwitch';
   id: string = this.props.id || uniqueId('ToggleSwitch');
 
-  private toggle: HTMLDivElement;
+  private toggle: HTMLLabelElement;
 
   static propTypes = {
     /** Is the toggleSwitch checked or not */
@@ -27,11 +35,13 @@ export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps 
     onChange: func.isRequired,
     /** Is the toggleSwitch disabled or not */
     disabled: bool,
+    /** Styles object */
+    styles: object,
     /** Component ID, will be generated automatically if not provided */
-    id: string,
+    id: string
   };
 
-  static defaultProps = {checked: false};
+  static defaultProps = {checked: false, styles: {}};
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this._listenToSpace);
@@ -42,8 +52,7 @@ export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps 
   }
 
   _listenToSpace = e => {
-    const SPACEBAR = 32;
-    if (e.keyCode === SPACEBAR) {
+    if (e.key === ' ') {
       e.preventDefault();
       this._handleChange(e);
     }
@@ -56,11 +65,11 @@ export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps 
   }
 
   render() {
-    const {checked, disabled} = this.props;
+    const {checked, disabled, styles} = this.props;
     const {id} = this;
 
     return (
-      <div {...style('root', {checked, disabled}, this.props)} tabIndex={0} ref={ref => this.toggle = ref}>
+      <label {...style('root', {checked, disabled}, this.props)} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
         <input
           type="checkbox"
           id={id}
@@ -69,13 +78,13 @@ export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps 
           onChange={e => this._handleChange(e)}
         />
 
-        <label htmlFor={id} className={style.outerLabel}/>
-        <label htmlFor={id} className={style.innerLabel}>
+        <div className={style.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
+        <div className={style.innerLabel} style={styles.innerLabel}>
           <svg className={style.toggleIcon} viewBox={getViewBox(checked)}>
             <path d={getPathDescription(checked)}/>
           </svg>
-        </label>
-      </div>
+        </div>
+      </label>
     );
   }
 }
