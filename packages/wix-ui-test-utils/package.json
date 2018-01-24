@@ -67,9 +67,9 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup.ts",
     "setupFiles": [
-      "<rootDir>/test/enzyme-setup"
+      "<rootDir>/test/enzyme-setup.ts"
     ]
   },
   "haste": {
