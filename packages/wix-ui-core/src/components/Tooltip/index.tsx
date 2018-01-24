@@ -77,24 +77,22 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     const {isOpen} = this.state;
 
     return (
-      <div style={{textAlign, maxWidth, color, lineHeight, zIndex, padding}}>
-        <Popover
-          {...style('root', {}, this.props)}
-          placement={placement}
-          shown={isOpen}
-          showArrow={true}
-          onMouseEnter={this.open}
-          onMouseLeave={this.close}>
-          <Popover.Element>
-            {children}
-          </Popover.Element>
-          <Popover.Content>
-            <div style={{minWidth}}>
-              {content}
-            </div>
-          </Popover.Content>
-        </Popover>
-      </div>
+      <Popover
+        {...style('root', {}, this.props)}
+        placement={placement}
+        shown={isOpen}
+        showArrow={true}
+        onMouseEnter={this.open}
+        onMouseLeave={this.close}>
+        <Popover.Element>
+          {children}
+        </Popover.Element>
+        <Popover.Content>
+          <div style={{minWidth, textAlign, maxWidth, color, lineHeight, zIndex, padding}}>
+            {content}
+          </div>
+        </Popover.Content>
+      </Popover>
     );
   }
 }
