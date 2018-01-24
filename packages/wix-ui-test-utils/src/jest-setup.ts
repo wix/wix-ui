@@ -1,7 +1,7 @@
 const originConsoleError = console.error;
-let errors = [];
+let errors: any[] = [];
 
-console.error = (...args) => {
+console.error = (...args: any[]) => {
   errors.push(args);
   originConsoleError.apply(console, args);
 };

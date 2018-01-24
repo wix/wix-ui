@@ -1,0 +1,12 @@
+:vars {
+  /** Height of the divider */
+  height: initial;
+  /** Background color of the divider */
+  backgroundColor: initial;
+  /** Opacity of the divider */
+  opacity: initial;
+  /** Margin top of the divider */
+  marginTop: initial;
+  /** Margin bottom of the divider */
+  marginBottom: initial;
+}

@@ -32,7 +32,7 @@ export class DividerStory extends React.PureComponent {
                 <h3>Horizontal Example:</h3>
                 <div style={horizontalDemo}>
                     <p>Component 1</p>
-                    <Divider dataHook="story-divider"/>
+                    <Divider data-hook="story-divider"/>
                     <p>Component 2</p>
                 </div>
                 <br/>

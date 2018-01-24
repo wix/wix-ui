@@ -11,7 +11,8 @@ export const styles = (theme: TextTheme) => {
       lineHeight: theme.lineHeight,
       color: theme.color,
       textTransform: theme.textTransform,
-      letterSpacing: theme.letterSpacing
+      letterSpacing: theme.letterSpacing,
+      margin: theme.margin
     },
     ellipsis : {
       textOverflow: 'ellipsis',

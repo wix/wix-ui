@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "sourceMap": true,
-    "noImplicitAny": false,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
-    "noUnusedLocals": true,
     "jsx": "react",
     "lib": ["dom", "es2016"],
-    "allowJs": true
+    "strict": true
   },
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
-    "./src/**/*.js",
+    "./test/**/*.ts",
     "./test/**/*.tsx"
   ],
   "files": [

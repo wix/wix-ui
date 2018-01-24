@@ -11,7 +11,8 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "clean": "lerna clean --yes",
-    "rebuild": "find ./packages/* -name \"package-lock.json\" -maxdepth 1 | xargs rm && npm run clean && npm run bootstrap && npm run build"
+    "rebuild": "find ./packages/* -name \"package-lock.json\" -maxdepth 1 | xargs rm && npm run clean && npm run bootstrap && npm run build",
+    "start": "cd packages/wix-ui-core/ && npm start"
   },
   "repository": {
     "type": "git",

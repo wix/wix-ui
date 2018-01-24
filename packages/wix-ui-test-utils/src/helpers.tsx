@@ -7,8 +7,16 @@ export interface ControlledComponentState {
 
 export interface ControlledComponentProps {
   value?: string;
-  onChange?: (e: Event) => void;
+  onChange?: (e: React.ChangeEvent<HTMLElement>) => void;
   [otherProps: string]: any;
+}
+
+export interface ControlledEventTarget extends EventTarget {
+  value: string;
+}
+
+export interface ControlledChangeEvent<T> extends React.ChangeEvent<T> {
+  target: ControlledEventTarget & T;
 }
 
 export const isClassExists = (element: HTMLElement, className: String): Boolean =>
@@ -19,20 +27,15 @@ export const sleep = (ms: number): Promise<void> => {
 };
 
 // HOC that makes underlying component "controlled"
-export function makeControlled(Component) {
+export function makeControlled<T extends ControlledComponentProps> (Component: React.SFC<T>) {
   return class ControlledComponent extends React.Component<ControlledComponentProps, ControlledComponentState> {
-    static displayName = `Controlled${Component.name}`;
-
     static defaultProps = {
       value: ''
     };
 
-    constructor(props) {
-      super(props);
-      this.state = {value: props.value};
-    }
+    state = {value: this.props.value as string};
 
-    _onChange = e => {
+    _onChange = (e: ControlledChangeEvent<any>) => {
       const {
         onChange
       } = this.props;
@@ -45,7 +48,7 @@ export function makeControlled(Component) {
     }
 
     render() {
-      const bindedPropMethods = {};
+      const bindedPropMethods: {[key: string]: any} = {};
 
       for (const propName of Object.keys(this.props)) {
         const propValue = this.props[propName];
@@ -67,21 +70,4 @@ export function makeControlled(Component) {
   };
 }
 
-export const reactEventTrigger = () => {
-  const simulate = Simulate;
-  return {
-    click: (element) => simulate.click(element),
-    doubleClick: (element) => simulate.doubleClick(element),
-    mousedown: (element) => simulate.mouseDown(element),
-    change: (element, handler) => simulate.change(element, handler),
-    mouseEnter: (element) => simulate.mouseEnter(element),
-    mouseLeave: (element) => simulate.mouseLeave(element),
-    focus: (element) => simulate.focus(element),
-    blur: (element) => simulate.blur(element),
-    keyUp: (element, handler) => simulate.keyUp(element, handler),
-    keyDown: (element, handler) => simulate.keyDown(element, handler),
-    compositionStart: (element) => simulate.compositionStart(element),
-    compositionEnd: (element) => simulate.compositionEnd(element),
-    trigger: (event, element, handler = () => null) => simulate[event](element, handler)
-  };
-};
+export const reactEventTrigger = () => Simulate;

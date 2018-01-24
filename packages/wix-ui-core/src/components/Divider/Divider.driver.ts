@@ -3,8 +3,9 @@ export const dividerDriverFactory = ({element}) => ({
   exists: () => !!element,
 
   /** checks if the divider is vertical */
-  isVertical: () => window.getComputedStyle(element).height === 'auto',
+  isVertical: () => element.className.includes('vertical'),
 
   /** gets text content */
-  textContent: () => element.textContent
+  textContent: () => element.textContent,
+  element
 });
