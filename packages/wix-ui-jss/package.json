@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Render style tags to the Dom and provide the relevant classes to the wix-ui-core components, using jss",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
@@ -23,7 +23,7 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path testkit",
+    "build": "haste build",
     "pretest": "npm run build",
     "test": "haste test --jest",
     "posttest": "haste lint",
@@ -38,11 +38,9 @@
   "devDependencies": {
     "@types/jest": "^21.1.8",
     "@types/react": "^15.6.0",
-    "@types/react-dom": "^15.5.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "haste-preset-yoshi": "^1.0.19",
-    "import-path": "^1.0.0",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^21.2.3",
     "typescript": "^2.4.0",
@@ -77,7 +75,9 @@
     ],
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
-    "setupFiles": ["<rootDir>/test/enzyme-setup"]
+    "setupFiles": [
+      "<rootDir>/test/enzyme-setup"
+    ]
   },
   "haste": {
     "preset": "yoshi"

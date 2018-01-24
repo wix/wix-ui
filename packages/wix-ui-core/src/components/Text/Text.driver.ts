@@ -12,7 +12,7 @@ export const textDriverFactory = ({element}) => {
     /** check if element exists */
     exists: () => !!element,
     /** check if component has ellipsis */
-    isEllipsis: className => getClasses(element).indexOf('ellipsis') !== -1,
+    isEllipsis: () => getClasses(element).indexOf('ellipsis') !== -1,
     /** check if element has title attribute */
     hasTitleAttribute: () => element.getAttribute('title') !== null,
     /** return text font-family value */

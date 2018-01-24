@@ -28,6 +28,6 @@
   background-color: value(optionSelectedBackgroundColor);
 }
 
-.root::optionSelected.root::optionHover {
+.root::optionSelectedAndHovered {
   background-color: value(optionSelectedHoverBackgroundColor);
 }

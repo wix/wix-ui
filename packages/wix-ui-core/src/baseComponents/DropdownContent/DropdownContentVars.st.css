@@ -1,10 +1,10 @@
 :vars {
   /** Option background color when hovered */
-  optionHoverBackgroundColor: initial;
+  optionHoverBackgroundColor: lightgrey;
   /** Option background color when selected */
-  optionSelectedBackgroundColor: initial;
+  optionSelectedBackgroundColor: grey;
   /** Option background color when selected & hovered */
-  optionSelectedHoverBackgroundColor: initial;
+  optionSelectedHoverBackgroundColor: dimgrey;
   /** Option background color when disabled */
-  optionDisabledBackgroundColor: initial;
+  optionDisabledBackgroundColor: black;
 }
