@@ -1,9 +1,6 @@
-export interface BoxDriverFactoryInput {
-  element: HTMLElement;
-  componentInstance: any;
-}
+import {ComponentFactory} from 'wix-ui-test-utils';
 
-export const boxDriverFactory = ({element}: BoxDriverFactoryInput) => ({
+export const boxDriverFactory = ({element}: ComponentFactory) => ({
     /** check if element exists */
     exists: () => !!element,
     /** return box flex direction value */

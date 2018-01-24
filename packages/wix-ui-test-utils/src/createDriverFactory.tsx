@@ -11,7 +11,7 @@ export interface BaseDriver {
 }
 
 export interface ComponentFactory {
-  element: Node | Element | undefined;
+  element: Element | undefined;
   wrapper: HTMLElement | ReactWrapper;
   component?: React.ReactElement<any>;
   componentInstance?: any;
@@ -26,7 +26,7 @@ const componentFactory: (Component: React.ReactElement<any>) => ComponentFactory
   const wrapperDiv = document.createElement('div');
   const ClonedComponent = React.cloneElement(Component, {ref: (r: any) => componentInstance = r});
   render(<div ref={r => element = r}>{ClonedComponent}</div>, wrapperDiv);
-  return {element: element! && element!.childNodes[0], wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
+  return {element: element! && element!.childNodes[0] as Element, wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
 };
 
 export function createDriverFactory<TDriver extends BaseDriver>(driverFactory: DriverFactory<TDriver>) {
