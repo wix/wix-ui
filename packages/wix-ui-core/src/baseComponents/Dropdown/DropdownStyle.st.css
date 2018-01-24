@@ -37,10 +37,10 @@
 }
 
 .dropdownContent {
-  /* -st-mixin: DropdownContent(
+  -st-mixin: DropdownContent(
     optionHoverBackgroundColor value(optionHoverBackgroundColor),
     optionSelectedBackgroundColor value(optionSelectedBackgroundColor),
     optionSelectedHoverBackgroundColor value(optionSelectedHoverBackgroundColor),
     optionDisabledBackgroundColor value(optionDisabledBackgroundColor)
-  ); */
+  );
 }
