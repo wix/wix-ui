@@ -3,8 +3,8 @@
   "name": "wix-ui-test-utils",
   "version": "1.0.0",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"

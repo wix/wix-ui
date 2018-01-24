@@ -4,8 +4,8 @@
   "license": "MIT",
   "private": false,
   "author": {
-    "name": "Ronen Stern",
-    "email": "ronens@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "main": "./dist/src/index.js",
   "files": [

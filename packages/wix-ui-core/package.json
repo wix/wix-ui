@@ -4,8 +4,8 @@
   "description": "wix-ui-core",
   "version": "1.0.0",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.js",

@@ -17,7 +17,10 @@
     "type": "git",
     "url": "git+https://github.com/wix/wix-ui.git"
   },
-  "author": "Wix",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
