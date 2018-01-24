@@ -19,7 +19,7 @@ describe('helpers', () => {
     describe('none existing classes', () => {
       [undefined, 'cla', 'class4'].forEach(className =>
         it(`should return false for className ${className}`, () => {
-          expect(isClassExists(element, className)).toBe(false);
+          expect(isClassExists(element, className as String)).toBe(false);
         })
       );
     });
@@ -34,7 +34,7 @@ describe('helpers', () => {
   });
 
   describe('makeControlled function', () => {
-    const UncontrolledInput = props => <input {...props}/>;
+    const UncontrolledInput = (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props}/>;
 
     it('should init uncontrolled component with initial value', () => {
       const ControlledInput = makeControlled(UncontrolledInput);
@@ -66,7 +66,7 @@ describe('helpers', () => {
       const NotifyOnEnter: React.SFC<any> = ({onEnter, ...passedProps}) => (
         <UncontrolledInput
           {...passedProps}
-          onKeyPress={e => e.key === 'Enter' && onEnter()}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onEnter()}
         />
       );
 
@@ -75,11 +75,10 @@ describe('helpers', () => {
       const component = mount(
         <ControlledInput
           value="some value"
-          onEnter={function () {
+          onEnter={function (this: any) {
             // NOTE: don't use arrow functions by purpose
-            /* tslint:disable */
+            /* tslint:disable-next-line */
             this.setState({value: ''});
-            /* tslint:enable */
           }}
         />
       );

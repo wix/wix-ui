@@ -1,15 +1,15 @@
-import {browser, promise, ExpectedConditions} from 'protractor';
+import {browser, promise, ExpectedConditions, ElementFinder, ElementArrayFinder} from 'protractor';
 
-export const getStoryUrl = (kind, story) => `iframe.html?selectedKind=${kind}&selectedStory=${story}`;
+export const getStoryUrl = (kind: string, story: string) => `iframe.html?selectedKind=${kind}&selectedStory=${story}`;
 
-export const scrollToElement = element => {
-  browser.executeScript(el => {
+export const scrollToElement = (element: ElementArrayFinder) => {
+  browser.executeScript((el: HTMLElement)  => {
     const offset = el.offsetTop;
     window.scroll(0, offset);
   }, element.getWebElement());
 };
 
-export const waitForVisibilityOf = (elements, errorMsg, timeout = 10000) => {
+export const waitForVisibilityOf = (elements: Array<ElementFinder> | ElementFinder, errorMsg?: string, timeout = 10000) => {
   const arrayOfElements = Array.isArray(elements) ? [...elements] : [elements];
 
   return promise.all(arrayOfElements.map(elem =>
