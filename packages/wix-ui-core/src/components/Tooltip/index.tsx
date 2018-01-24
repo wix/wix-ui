@@ -72,7 +72,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, textAlign, maxWidth, content, children,
+    const {placement, textAlign, maxWidth, content, children, moveBy,
            minWidth, color, lineHeight, zIndex, padding} = this.props;
     const {isOpen} = this.state;
 
@@ -83,7 +83,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         shown={isOpen}
         showArrow={true}
         onMouseEnter={this.open}
-        onMouseLeave={this.close}>
+        onMouseLeave={this.close}
+        moveBy={moveBy}>
         <Popover.Element>
           {children}
         </Popover.Element>

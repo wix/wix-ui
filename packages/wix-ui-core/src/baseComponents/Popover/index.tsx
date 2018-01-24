@@ -21,6 +21,8 @@ export interface PopoverProps {
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   /** Show show arrow from the content */
   showArrow?: boolean;
+  /** Moves poppover relative to the parent */
+  moveBy?: {x: number, y: number};
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
@@ -58,12 +60,12 @@ const Fade = ({inProp, children}) => (
  * Popover
  */
 export const Popover: PopoverType = props => {
-  const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children} = props;
+  const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children, moveBy} = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
   const modifiers = {
     offset: {
-      offset: '100px'
+      offset: `${moveBy ? moveBy.x : 0}px ${moveBy ? moveBy.y : 0}px`
     }
   };
 
