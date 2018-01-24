@@ -10,7 +10,11 @@ export const styles = (theme: SliderTheme) => {
     position: 'relative',
     top: handleMarginTop,
     '-webkit-appearance': 'none',
-    border: theme.handleBorder,
+    border: {
+      width: theme.handleBorderWidth,
+      color: theme.handleBorderColor,
+      style: 'solid'
+    },
     height: theme.handleSize,
     width: theme.handleSize,
     'border-radius': theme.handleRadius,

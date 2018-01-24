@@ -8,6 +8,7 @@ export interface SliderProps {
     onChange?: () => any;
     onInput?: () => any;
     classes?: any;
+    scaleMarks?: boolean;
 }
 
 class Slider extends React.PureComponent<SliderProps> {

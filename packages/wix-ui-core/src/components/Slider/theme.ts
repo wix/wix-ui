@@ -1,7 +1,8 @@
 export type SliderTheme = Partial<{
   color: string;
   handleSize: number;
-  handleBorder: string;
+  handleBorderColor: string;
+  handleBorderWidth: string;
   handleMarginTop: string;
   handleRadius: string;
   handleBackground: string;
@@ -16,7 +17,8 @@ export type SliderTheme = Partial<{
 export const core: SliderTheme = {
   color: 'red',
   handleSize: 25,
-  handleBorder: '2px solid blue',
+  handleBorderColor: 'blue',
+  handleBorderWidth: '2px',
   handleMarginTop: '',
   handleRadius: '50%',
   handleBackground: 'green',
