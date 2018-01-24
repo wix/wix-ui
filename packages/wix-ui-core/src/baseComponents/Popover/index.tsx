@@ -61,6 +61,12 @@ export const Popover: PopoverType = props => {
   const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children} = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
+  const modifiers = {
+    offset: {
+      offset: '100px'
+    }
+  };
+
   return (
     <Manager
       {...style('root', {}, props)}
@@ -72,6 +78,7 @@ export const Popover: PopoverType = props => {
       <Fade inProp={shown}>
         <Popper
           data-hook="popover-content"
+          modifiers={modifiers}
           placement={placement}
           className={classNames(style.popoverContentContainer, {[style.popoverContent]: !showArrow})}>
           {showArrow && <Arrow data-hook="popover-arrow" className={style.arrow}/>}
