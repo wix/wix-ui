@@ -5,7 +5,7 @@ import {mount} from 'enzyme';
 
 describe('isTestkitExists', () => {
   const MyComp: React.StatelessComponent = () => (<div></div>);
-  const driver: DriverFactory<{exists: () => boolean}> = element => {
+  const driver: DriverFactory<{exists: () => boolean}, typeof MyComp> = element => {
     return {
       exists: () => !!element
     };

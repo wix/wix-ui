@@ -3,7 +3,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../helpers';
 import {DriverFactory, BaseDriver} from '../createDriverFactory';
 
-export function testkitFactoryCreator<T extends BaseDriver> (driverFactory: DriverFactory<T>) {
+export function testkitFactoryCreator<T extends BaseDriver, TComponent> (driverFactory: DriverFactory<T, TComponent>) {
   return (obj: {wrapper: HTMLDivElement, dataHook: string}) => {
     const eventTrigger = reactEventTrigger();
     const element = obj.wrapper.querySelector(`[data-hook='${obj.dataHook}']`) as Element;
