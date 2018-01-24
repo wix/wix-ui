@@ -147,7 +147,7 @@
 }
 
 .root:disabled::innerLabel, .root:disabled:hover::innerLabel, .root:disabled:checked::innerLabel, .root:disabled:checked:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorDisabled);
+  background-color: value(innerLabelBackgroundColorDisabled);
   cursor: default;
   border-width: value(innerLabelBorderSizeDisabled);
   border-color: value(innerLabelBorderColorDisabled)
@@ -170,19 +170,19 @@
 }
 
 .root:checked:hover::outerLabel {
-  backgroundColor: value(backgroundColorHoverChecked);
+  background-color: value(backgroundColorHoverChecked);
   border-width: value(outerLabelBorderSizeHoverChecked);
   border-color: value(outerLabelBorderColorHoverChecked);
 }
 
 .root:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorHover);
+  background-color: value(innerLabelBackgroundColorHover);
   border-width: value(innerLabelBorderSizeHover);
   border-color: value(innerLabelBorderColorHover);
 }
 
 .root:checked:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorHoverChecked);
+  background-color: value(innerLabelBackgroundColorHoverChecked);
   border-width: value(innerLabelBorderSizeHoverChecked);
   border-color: value(innerLabelBorderColorHoverChecked);
 }
