@@ -1,4 +1,4 @@
-export {createDriverFactory, DriverFactory, BaseDriver} from './createDriverFactory';
+export {createDriverFactory, DriverFactory, BaseDriver, ComponentFactory} from './createDriverFactory';
 export {isClassExists, makeControlled, sleep} from './helpers';
 export {getStoryUrl, scrollToElement, waitForVisibilityOf} from './protractor-helpers';
 
