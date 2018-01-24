@@ -8,36 +8,67 @@
   rootHeight: initial;
 
   transitionSpeed: 0.3s;
-  borderRadius: 50px;
   labelMovementRange: 23px;
 
   outerLabelWidth: 45px;
   outerLabelHeight: 24px;
 
-  innerLabelWidth: 21px;
-  innerLabelHeight: 22px;
-  innerLabelBackgroundColor: white;
+  borderRadius: 50px;
+  outerLabelBorderSize: 0;
+  outerLabelBorderSizeChecked: 0;
+  outerLabelBorderSizeDisabled: 0;
+  outerLabelBorderSizeHover: 0;
+  outerLabelBorderSizeHoverChecked: 0;
 
   backgroundColor: grey;
   backgroundColorChecked: grey;
-  backgroundColorDisabled: #cbd3dc;
+  backgroundColorDisabled: grey;
   backgroundColorHover: grey;
+  backgroundColorHoverChecked: grey;
   backgroundColorFocus: grey;
 
-  focusOutline: none;
+  outerLabelBorderColor: white;
+  outerLabelBorderColorChecked: white;
+  outerLabelBorderColorDisabled: white;
+  outerLabelBorderColorHover: white;
+  outerLabelBorderColorHoverChecked: white;
+
+  innerLabelWidth: 21px;
+  innerLabelHeight: 22px;
+
+  innerLabelBorderRadius: 50px;
+  innerLabelBorderSize: 0;
+  innerLabelBorderSizeChecked: 0;
+  innerLabelBorderSizeDisabled: 0;
+  innerLabelBorderSizeHover: 0;
+  innerLabelBorderSizeHoverChecked: 0;
+
+  innerLabelBackgroundColor: white;
+  innerLabelBackgroundColorChecked: white;
+  innerLabelBackgroundColorDisabled: white;
+  innerLabelBackgroundColorHover: white;
+  innerLabelBackgroundColorHoverChecked: white;
 
   color: white;
   colorChecked: white;
   colorDisabled: white;
   colorCheckedDisabled:white;
   colorHover: white;
+  colorHoverChecked: white;
   colorFocus:  white;
+
+  innerLabelBorderColor: white;
+  innerLabelBorderColorChecked: white;
+  innerLabelBorderColorDisabled: white;
+  innerLabelBorderColorHover: white;
+  innerLabelBorderColorHoverChecked: white;
 
   toggleIconWidth: 8px;
   toggleIconHeight: 6px;
   toggleIconDisplay: none;
-}
 
+  focusOutline: none;
+}
 
 .root {
   -st-extends: ToggleSwitch;
@@ -54,6 +85,10 @@
   width: value(outerLabelWidth);
   height: value(outerLabelHeight);
   background-color: value(backgroundColor);
+  border-width: value(outerLabelBorderSize);
+  border-color: value(outerLabelBorderColor);
+  border-style: solid;
+  box-sizing: border-box;
 }
 
 .root::innerLabel {
@@ -61,6 +96,10 @@
   height: value(innerLabelHeight);
   background-color: value(innerLabelBackgroundColor);
   box-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
+  border-width: value(innerLabelBorderSize);
+  border-color: value(innerLabelBorderColor);
+  border-style: solid;
+  box-sizing: border-box;
 }
 
 .root::toggleIcon {
@@ -79,9 +118,14 @@
 
 .root:checked::outerLabel {
   background-color: value(backgroundColorChecked);
+  border-width: value(outerLabelBorderSizeChecked);
+  border-color: value(outerLabelBorderColorChecked);
 }
 
 .root:checked::innerLabel {
+  background-color: value(innerLabelBackgroundColorChecked);
+  border-width: value(innerLabelBorderSizeChecked);
+  border-color: value(innerLabelBorderColorChecked);
   left: value(labelMovementRange);
 }
 
@@ -98,10 +142,15 @@
 .root:disabled::outerLabel, .root:disabled:hover::outerLabel, .root:disabled:checked::outerLabel, .root:disabled:checked:hover::outerLabel {
   background-color: value(backgroundColorDisabled);
   cursor: default;
+  border-width: value(outerLabelBorderSizeDisabled);
+  border-color: value(outerLabelBorderColorDisabled);
 }
 
 .root:disabled::innerLabel, .root:disabled:hover::innerLabel, .root:disabled:checked::innerLabel, .root:disabled:checked:hover::innerLabel {
+  backgroundColor: value(innerLabelBackgroundColorDisabled);
   cursor: default;
+  border-width: value(innerLabelBorderSizeDisabled);
+  border-color: value(innerLabelBorderColorDisabled)
 }
 
 .root:disabled::toggleIconPath, .root:disabled:hover::toggleIconPath {
@@ -114,12 +163,36 @@
 
 /* hover state */
 
-.root:hover::outerLabel, .root:checked:hover::outerLabel {
+.root:hover::outerLabel {
   background-color: value(backgroundColorHover);
+  border-width: value(outerLabelBorderSizeHover);
+  border-color: value(outerLabelBorderColorHover);
 }
 
-.root:hover::toggleIconPath, .root:checked:hover::toggleIconPath {
+.root:checked:hover::outerLabel {
+  backgroundColor: value(backgroundColorHoverChecked);
+  border-width: value(outerLabelBorderSizeHoverChecked);
+  border-color: value(outerLabelBorderColorHoverChecked);
+}
+
+.root:hover::innerLabel {
+  backgroundColor: value(innerLabelBackgroundColorHover);
+  border-width: value(innerLabelBorderSizeHover);
+  border-color: value(innerLabelBorderColorHover);
+}
+
+.root:checked:hover::innerLabel {
+  backgroundColor: value(innerLabelBackgroundColorHoverChecked);
+  border-width: value(innerLabelBorderSizeHoverChecked);
+  border-color: value(innerLabelBorderColorHoverChecked);
+}
+
+.root:hover::toggleIconPath {
   fill: value(colorHover);
+}
+
+.root:checked:hover::toggleIconPath {
+  fill: value(colorHoverChecked);
 }
 
 /* focus state */
