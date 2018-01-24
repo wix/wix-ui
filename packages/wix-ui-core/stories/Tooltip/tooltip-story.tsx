@@ -2,14 +2,10 @@ import * as React from 'react';
 import {Tooltip} from '../../src/components/Tooltip';
 
 function createTooltip(direction) {
-  return <Tooltip data-hook={`story-tooltip-${direction}`} placement={direction}>
-    <Tooltip.Element>
-      <span>I need a tooltip</span>
-    </Tooltip.Element>
-    <Tooltip.Content>
-      <span>This is my tooltip!</span>
-    </Tooltip.Content>
-  </Tooltip>;
+  return <Tooltip data-hook={`story-tooltip-${direction}`} placement={direction}
+          content={<p>This is my tooltip</p>}>
+            <span>Hover me for a tooltip!</span>
+          </Tooltip>;
 }
 
 const tooltipDemo: React.CSSProperties = {

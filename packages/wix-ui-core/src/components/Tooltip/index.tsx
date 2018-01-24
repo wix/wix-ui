@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
-import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
+import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 export type Point = {
   x: number;
@@ -14,7 +14,7 @@ export interface TooltipProps {
 
   textAlign?: string;
   children?: any;
-  content?: any; // isRequired
+  content?: any;
   showDelay?: number;
   hideDelay?: number;
   maxWidth?: string | number;
@@ -72,13 +72,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, children, textAlign, maxWidth,
+    const {placement, textAlign, maxWidth, content, children,
            minWidth, color, lineHeight, zIndex, padding} = this.props;
-    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const {isOpen} = this.state;
 
     return (
-      <div style={{textAlign, maxWidth, minWidth, color, lineHeight, zIndex, padding}}>
+      <div style={{textAlign, maxWidth, color, lineHeight, zIndex, padding}}>
         <Popover
           {...style('root', {}, this.props)}
           placement={placement}
@@ -87,10 +86,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
           onMouseEnter={this.open}
           onMouseLeave={this.close}>
           <Popover.Element>
-            {childrenObject.Element}
+            {children}
           </Popover.Element>
           <Popover.Content>
-            {childrenObject.Content}
+            <div style={{minWidth}}>
+              {content}
+            </div>
           </Popover.Content>
         </Popover>
       </div>
