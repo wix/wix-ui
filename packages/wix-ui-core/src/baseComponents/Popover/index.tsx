@@ -23,6 +23,10 @@ export interface PopoverProps {
   showArrow?: boolean;
   /** Moves poppover relative to the parent */
   moveBy?: {x: number, y: number};
+  /** Fade Delay */
+  hideDelay?: number;
+  /** Show Delay */
+  showDelay?: number;
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
@@ -37,12 +41,13 @@ const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`
 };
 
-const transitionStyles = {
-  entering: {opacity: 0},
+const transitionStylesFactory = (showDelay = duration, hideDelay = duration) => ({
+  entering: {opacity: 0, transitionDuration: `${showDelay}ms`},
   entered: {opacity: 1},
-};
+  exiting: {transitionDuration: `${hideDelay}ms`}
+});
 
-const Fade = ({inProp, children}) => (
+const Fade = ({inProp, children, transitionStyles}) => (
   <Transition in={inProp} timeout={duration} unmountOnExit={true}>
     {state => (
       <div key="fade-container"
@@ -60,7 +65,8 @@ const Fade = ({inProp, children}) => (
  * Popover
  */
 export const Popover: PopoverType = props => {
-  const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children, moveBy} = props;
+  const {placement, shown, onMouseEnter, onMouseLeave, showArrow,
+         children, moveBy, showDelay, hideDelay}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
   const modifiers = {
@@ -68,6 +74,8 @@ export const Popover: PopoverType = props => {
       offset: `${moveBy ? moveBy.x : 0}px ${moveBy ? moveBy.y : 0}px`
     }
   };
+
+  const transitionStyles = transitionStylesFactory(showDelay, hideDelay);
 
   return (
     <Manager
@@ -77,7 +85,7 @@ export const Popover: PopoverType = props => {
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Fade inProp={shown}>
+      <Fade inProp={shown} transitionStyles={transitionStyles}>
         <Popper
           data-hook="popover-content"
           modifiers={modifiers}

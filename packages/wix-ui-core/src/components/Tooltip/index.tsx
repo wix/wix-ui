@@ -25,6 +25,8 @@ export interface TooltipProps {
   moveBy?: Point;
   moveArrowTo?: number;
   padding?: string | number;
+  onShow?: Function;
+  onHide?: Function;
 }
 
 export interface TooltipState {
@@ -40,7 +42,11 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   static displayName = 'Tooltip';
   static defaultProps = {
-    placement: 'top'
+    placement: 'top',
+    onShow: () => {},
+    onHide: () => {},
+    showDelay: 150,
+    hideDelay: 150
   };
 
   static propTypes = {
@@ -61,19 +67,21 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   open() {
     if (!this.state.isOpen) {
+      this.props.onShow();
       this.setState({isOpen: true});
     }
   }
 
   close() {
     if (this.state.isOpen) {
+      this.props.onHide();
       this.setState({isOpen: false});
     }
   }
 
   render () {
     const {placement, textAlign, maxWidth, content, children, moveBy,
-           minWidth, color, lineHeight, zIndex, padding} = this.props;
+           minWidth, color, lineHeight, zIndex, padding, showDelay, hideDelay} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -84,6 +92,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         showArrow={true}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
+        showDelay={showDelay}
+        hideDelay={hideDelay}
         moveBy={moveBy}>
         <Popover.Element>
           {children}

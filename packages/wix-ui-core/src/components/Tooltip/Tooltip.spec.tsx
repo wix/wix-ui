@@ -10,17 +10,10 @@ import {mount} from 'enzyme';
 describe('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
   const createTooltip = (props = {}) =>
-  <Tooltip placement="top" {...props}>
-    <Tooltip.Element>
+  <Tooltip placement="top" {...props} content="Hovered Content">
       <div>
         Element
       </div>
-    </Tooltip.Element>
-    <Tooltip.Content>
-      <div>
-        Content
-      </div>
-    </Tooltip.Content>
   </Tooltip>;
 
   it('should not display content by default', () => {
@@ -38,13 +31,13 @@ describe('Tooltip', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<Tooltip/>, tooltipTestkitFactory)).toBe(true);
+      expect(isTestkitExists(createTooltip(), tooltipTestkitFactory)).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Tooltip/>, enzymeTooltipTestkitFactory, mount)).toBe(true);
+      expect(isEnzymeTestkitExists(createTooltip(), enzymeTooltipTestkitFactory, mount)).toBe(true);
     });
   });
 });
