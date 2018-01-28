@@ -6,12 +6,12 @@ import Badge from '../src/components/Badge';
 import Input from '../src/components/Input';
 import Box from '../src/components/Box';
 import Tooltip from '../src/components/Tooltip';
-import Slider from '../src/components/Slider';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import IconWithOptions from '../src/components/IconWithOptions';
+import {SliderStory} from './Slider/Slider-story';
 
 const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
   id: x,
@@ -102,7 +102,5 @@ storiesOf('Components', module)
     <DividerStory />
   ))
   .add('Slider', () => (
-    <div style={{width: '100%', height: '25px'}}>
-      <Slider min={1} max={10} value={2}/>
-    </div>
+    <SliderStory/>
   ));

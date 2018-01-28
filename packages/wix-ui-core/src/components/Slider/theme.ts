@@ -11,7 +11,8 @@ export type SliderTheme = Partial<{
   trackBackground: string;
   trackOpacity: string;
   trackRadius: string;
-  trackBorder: string;
+  trackBorderColor: string;
+  trackBorderWidth: string;
 }>;
 
 export const core: SliderTheme = {
@@ -19,13 +20,13 @@ export const core: SliderTheme = {
   handleSize: 25,
   handleBorderColor: 'blue',
   handleBorderWidth: '2px',
-  handleMarginTop: '',
   handleRadius: '50%',
   handleBackground: 'green',
   trackWidth: '100%',
-  trackHeight: '50%',
+  trackHeight: '100%',
   trackBackground: '#282d32',
-  trackOpacity: '0.3',
+  trackOpacity: '1',
   trackRadius: '8px',
-  trackBorder: '2px solid brown',
+  trackBorderColor: '#ffbaea',
+  trackBorderWidth: '2px',
 };

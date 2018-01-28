@@ -4,22 +4,9 @@ import * as defaultsDeep from 'lodash/defaultsDeep';
 export const styles = (theme: SliderTheme) => {
   theme = (defaultsDeep(theme, core) as SliderTheme);
 
-  const handleMarginTop = theme.handleMarginTop || `calc(50% - ${theme.handleSize / 2}px)`;
-
   const handle = {
-    position: 'relative',
-    top: handleMarginTop,
     '-webkit-appearance': 'none',
-    border: {
-      width: theme.handleBorderWidth,
-      color: theme.handleBorderColor,
-      style: 'solid'
-    },
-    height: theme.handleSize,
-    width: theme.handleSize,
-    'border-radius': theme.handleRadius,
-    background: theme.handleBackground,
-    cursor: 'pointer',
+    opacity: 0,
   };
 
   const track = {
@@ -29,17 +16,52 @@ export const styles = (theme: SliderTheme) => {
     background: theme.trackBackground,
     opacity: theme.trackOpacity,
     'border-radius': theme.trackRadius,
-    border: theme.trackBorder
+    border: {
+      width: theme.trackBorderWidth,
+      color: theme.trackBorderColor,
+      style: 'solid'
+    }
   };
 
   return {
     root: {
+      position: 'relative',
+      padding: theme.trackBorderWidth
+    },
+    vertical: {
+      '& $slider': {
+        'writing-mode': 'bt-lr', /* IE */
+        '-webkit-appearance': 'slider-vertical' /* WebKit */
+      }
+    },
+    handleWrapper: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none'
+    },
+    handle: {
+      position: 'absolute',
+      boxSizing: 'border-box',
+      background: theme.handleBackground,
+      'border-radius': theme.handleRadius,
+      borderRadius: '50%',
+      pointerEvents: 'none',
+      border: {
+        width: theme.handleBorderWidth,
+        color: theme.handleBorderColor,
+        style: 'solid'
+      },
+      cursor: 'pointer',
     },
     slider: {
       //reset styles
-      '-webkit-appearance': 'none',
+      position: 'absolute',
+      top: 0,
+      left: 0,
       background: 'transparent',
       padding: 0,
+      margin: 0,
       'box-sizing': 'border-box',
       cursor: 'pointer',
       height: '100%',
@@ -75,13 +97,13 @@ export const styles = (theme: SliderTheme) => {
       '&::-ms-fill-lower': {
         background: theme.trackBackground,
         'border-radius': theme.trackRadius,
-        border: theme.trackBorder
+        border: track.border
       },
 
       '&::-ms-fill-upper': {
         background: theme.trackBackground,
         'border-radius': theme.trackRadius,
-        border: theme.trackBorder
+        border: track.border
       },
 
       '&::-ms-tooltip': {
