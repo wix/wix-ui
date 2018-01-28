@@ -1,0 +1,38 @@
+@namespace "Checkbox";
+
+.root {
+    -st-states: checked, disabled, indeterminate, readonly, focus, error;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.box {
+    display: inline-block;
+    position: relative;
+    height: 1rem;
+    width: 1rem;
+}
+
+.icon {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: no-repeat 0 0 / 100%;
+}
+
+.tickIcon {}
+.indeterminateIcon {}
+.root:disabled .tickIcon {}
+.root:disabled .indeterminateIcon {}
+
+
+.nativeCheckbox {
+    position: fixed;
+    top: -100%;
+    opacity: 0;
+}
+
+.childContainer {
+    display: inline;
+}

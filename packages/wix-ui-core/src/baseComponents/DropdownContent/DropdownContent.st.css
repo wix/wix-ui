@@ -1,0 +1,18 @@
+.root {
+  outline: 0;
+}
+
+.optionsContainer {
+  outline: 0;
+  overflow: auto;
+}
+
+.option {}
+
+.optionHover {}
+
+.optionSelected {}
+
+.optionDisabled {}
+
+.optionSelectedAndHovered {}

@@ -9,6 +9,10 @@ module.exports = {
       // and here we... hack a little to try and support more
       const parsers = [
         {
+          rule: value => value.toString() === '[object Object]',
+          parser: value => value
+        },
+        {
           rule: value => typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
           parser: value => eval(`(${value})`) // eslint-disable-line no-eval
         },

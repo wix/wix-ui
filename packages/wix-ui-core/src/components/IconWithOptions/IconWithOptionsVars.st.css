@@ -1,0 +1,20 @@
+:import {
+  -st-from: "../../baseComponents/Dropdown/DropdownVars.st.css";
+  -st-named:
+    contentBackgroundColor,
+    contentBorderWidth,
+    contentBorderStyle,
+    contentBorderColor,
+    contentBorderRadius,
+    contentPadding,
+    contentArrowSize,
+    optionHoverBackgroundColor,
+    optionDisabledBackgroundColor,
+    optionSelectedBackgroundColor,
+    optionSelectedHoverBackgroundColor,
+    dividerHeight,
+    dividerBackgroundColor,
+    dividerOpacity,
+    dividerMarginTop,
+    dividerMarginBottom;
+}

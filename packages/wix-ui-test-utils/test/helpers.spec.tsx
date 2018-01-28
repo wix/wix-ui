@@ -19,7 +19,7 @@ describe('helpers', () => {
     describe('none existing classes', () => {
       [undefined, 'cla', 'class4'].forEach(className =>
         it(`should return false for className ${className}`, () => {
-          expect(isClassExists(element, className)).toBe(false);
+          expect(isClassExists(element, className as String)).toBe(false);
         })
       );
     });
@@ -34,7 +34,7 @@ describe('helpers', () => {
   });
 
   describe('makeControlled function', () => {
-    const UncontrolledInput = props => <input {...props}/>;
+    const UncontrolledInput = (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props}/>;
 
     it('should init uncontrolled component with initial value', () => {
       const ControlledInput = makeControlled(UncontrolledInput);
@@ -42,7 +42,7 @@ describe('helpers', () => {
 
       const component = mount(<ControlledInput value={initialValue}/>);
 
-      expect(component.find('input').getDOMNode().value).toBe(initialValue);
+      expect((component.find('input').getDOMNode() as HTMLInputElement).value).toBe(initialValue);
     });
 
     it('should invoke onChange callback', () => {
@@ -59,14 +59,14 @@ describe('helpers', () => {
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange.mock.calls[0][0].target.value).toBe(enteredValue);
-      expect(input.getDOMNode().value).toBe(enteredValue);
+      expect((component.find('input').getDOMNode() as HTMLInputElement).value).toBe(enteredValue);
     });
 
     it('should bind passed prop-functions to *this*', () => {
       const NotifyOnEnter: React.SFC<any> = ({onEnter, ...passedProps}) => (
         <UncontrolledInput
           {...passedProps}
-          onKeyPress={e => e.key === 'Enter' && onEnter()}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onEnter()}
         />
       );
 
@@ -75,18 +75,17 @@ describe('helpers', () => {
       const component = mount(
         <ControlledInput
           value="some value"
-          onEnter={function () {
+          onEnter={function (this: any) {
             // NOTE: don't use arrow functions by purpose
-            /* tslint:disable */
+            /* tslint:disable-next-line */
             this.setState({value: ''});
-            /* tslint:enable */
           }}
         />
       );
 
       const input = component.find('input');
       input.simulate('keypress', {key: 'Enter'});
-      expect(input.getDOMNode().value).toBe('');
+      expect((input.getDOMNode() as HTMLInputElement).value).toBe('');
     });
   });
 });

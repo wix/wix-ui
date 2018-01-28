@@ -30,7 +30,7 @@ export const theme = {
     backgroundColor: '#455A64',
     color: '#CFD8DC'
   },
-  ellipsis: {
+  gap: {
     ...button,
     backgroundColor: '#CFD8DC'
   },

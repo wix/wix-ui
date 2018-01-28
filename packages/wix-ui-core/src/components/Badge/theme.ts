@@ -8,27 +8,17 @@ export type BadgeState = Partial<{
 
 export type BadgeTheme = Partial<BadgeState & {
   display: string;
-  justifyContent: string;
   minWidth: string;
   width: string;
   height: string;
+  lineHeight: string;
   padding: string;
   contentPadding: string;
   borderRadius: string;
   border: string;
-  outline: string;
-  opacity: string;
-
-  fontFamily: string;
-  fontSize: string;
-  lineHeight: string;
-  fontStyle: string;
-  fontWeight: string;
-  textDecoration: string;
-
   cursor: string;
-
-  hover: BadgeState;
+  textAlign: string;
+  verticalAlign: string;
 }>;
 
 const stateStyle = {
@@ -39,19 +29,13 @@ const stateStyle = {
 
 export const core: BadgeTheme = {
   height: '24px',
-  padding: '6px 12px',
+  lineHeight: '1',
+  padding: '4px 12px',
   border: '1px solid',
   borderRadius: '2px',
-
-  fontFamily: `“HelveticaNeueW01-65Medi”, “HelveticaNeueW02-65Medi”, “HelveticaNeueW10-65Medi”, "sans-serif"`,
-  fontSize: '10px',
-  lineHeight: '12px',
-  fontStyle: 'normal',
-  fontWeight: 'normal',
-  textDecoration: 'none',
-
   cursor: 'default',
-
+  display: 'inline-block',
+  textAlign: 'center',
+  verticalAlign: 'middle',
   ...stateStyle,
-  hover: stateStyle
 };

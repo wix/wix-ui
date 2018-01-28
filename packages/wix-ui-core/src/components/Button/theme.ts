@@ -62,6 +62,10 @@ export const core: ButtonTheme = {
   borderColor: palette.black,
 
   hover: stateStyle,
-  disabled: stateStyle,
+  disabled: {
+    color: palette.grey,
+    backgroundColor: palette.black,
+    borderColor: palette.grey,
+  },
   active: stateStyle
 };

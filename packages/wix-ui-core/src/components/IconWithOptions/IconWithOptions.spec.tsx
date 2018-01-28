@@ -5,7 +5,6 @@ import {IconWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 
 describe('IconWithOptions', () => {
-
   const createDriver = createDriverFactory(iconWithOptionsDriverFactory);
   const options =
     Array.from(Array(5))

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as eventually from 'wix-eventually';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
@@ -39,13 +40,13 @@ describe('Dropdown', () => {
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
-    it('should show content on hover', () => {
+    it('should show content on hover', async () => {
       const driver = createDriver(createDropdown({openTrigger: HOVER}));
 
       driver.mouseEnter();
       expect(driver.isContentElementExists()).toBeTruthy();
       driver.mouseLeave();
-      expect(driver.isContentElementExists()).toBeFalsy();
+      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
     });
   });
 

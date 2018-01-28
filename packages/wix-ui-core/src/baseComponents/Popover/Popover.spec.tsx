@@ -44,10 +44,4 @@ describe('Popover', () => {
     driver.mouseLeave();
     expect(onMouseLeave).toBeCalled();
   });
-
-  it('should show arrowStyle class on Arrow', () => {
-    const arrowStyle = 'arrowStyle';
-    const driver = createDriver(createPopover({shown: true, arrowStyle}));
-    expect(driver.getArrowClasses()).toContain(arrowStyle);
-  });
 });

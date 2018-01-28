@@ -1,12 +1,10 @@
 import * as React from 'react';
-import {paginationDriverFactory} from './Pagination.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {paginationDriverFactory, NavButtonName} from './Pagination.driver';
+import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists, sleep} from 'wix-ui-test-utils';
 import {Pagination} from './';
-import {sleep} from 'wix-ui-test-utils';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
-import {Simulate} from 'react-dom/test-utils';
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
@@ -191,7 +189,7 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination totalPages={5} currentPage={3} showFirstLastNavButtons onChange={onChange}/>);
 
       for (const [button, page] of [['first', 1], ['previous', 2], ['next', 4], ['last', 5]]) {
-        pagination.clickNavButton(button);
+        pagination.clickNavButton(button as NavButtonName);
         expect(onChange).toBeCalledWith(expect.objectContaining({page}));
         onChange.mockClear();
       }
@@ -239,10 +237,10 @@ describe('Pagination', () => {
           totalPages={3}
           showFirstLastNavButtons
           replaceArrowsWithText
-          firstText="oh"
-          previousText="my"
-          nextText="god"
-          lastText="!!!"/>
+          firstLabel="oh"
+          previousLabel="my"
+          nextLabel="god"
+          lastLabel="!!!"/>
       );
       expect(pagination.getNavButton('first').textContent).toEqual('oh');
       expect(pagination.getNavButton('previous').textContent).toEqual('my');
@@ -266,28 +264,28 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 13});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 13});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 32});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 32});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getNavButton('previous'), {});
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {});
       await sleep(10);
       expect(onChange).not.toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 13});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 13});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 32});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 32});
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.keyDown(pagination.getPageByNumber(1), {});
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {});
       await sleep(10);
       expect(onChange).not.toBeCalled();
       onChange.mockClear();
@@ -297,11 +295,11 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
 
-      Simulate.click(pagination.getNavButton('previous'));
+      pagination.simulate.click(pagination.getNavButton('previous'));
       expect(onChange).toBeCalled();
       onChange.mockClear();
 
-      Simulate.click(pagination.getPageByNumber(1));
+      pagination.simulate.click(pagination.getPageByNumber(1));
       expect(onChange).toBeCalled();
       onChange.mockClear();
     });
@@ -320,6 +318,13 @@ describe('Pagination', () => {
   it('does not add ID to the root if ID prefix is not provided', () => {
     const pagination = createDriver(<Pagination totalPages={3} />);
     expect(pagination.root.getAttribute('id')).toBe(null);
+  });
+
+  it('allows to customize gap text', () => {
+    const pagination = createDriver(
+      <Pagination totalPages={5} maxPagesToShow={4} showLastPage gapLabel={<em>*</em>} />
+    );
+    expect(pagination.getPageLabels()).toEqual(['1', '2', '*', '5']);
   });
 
   it('adds URLs to the pages according to desired format', () => {

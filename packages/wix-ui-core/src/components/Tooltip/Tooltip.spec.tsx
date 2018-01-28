@@ -1,10 +1,10 @@
 import * as React from 'react';
+import * as eventually from 'wix-eventually';
 import {tooltipDriverFactory} from './Tooltip.driver';
 import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
 import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
-import {core, TooltipTheme} from './theme';
 import {mount} from 'enzyme';
 
 describe('Tooltip', () => {
@@ -28,47 +28,12 @@ describe('Tooltip', () => {
     expect(driver.isContentExists()).toBeFalsy();
   });
 
-  it('should display content on hover and hide it on leave', () => {
+  it('should display content on hover and hide it on leave', async () => {
     const driver = createDriver(createTooltip());
     driver.mouseEnter();
     expect(driver.isContentExists()).toBeTruthy();
     driver.mouseLeave();
-    expect(driver.isContentExists()).toBeFalsy();
-  });
-
-  describe('style', () => {
-    it('should have default styles', () => {
-      const driver = createDriver(createTooltip());
-      driver.mouseEnter();
-
-      expect(driver.styles.getBackgroundColor()).toBe(core.backgroundColor);
-      expect(driver.styles.getBorderColor()).toBe(core.borderColor);
-      expect(driver.styles.getBorderRadius()).toBe(core.borderRadius);
-      expect(driver.styles.getBorderWidth()).toBe(core.borderWidth);
-      expect(driver.styles.getBorderStyle()).toBe(core.borderStyle);
-      expect(driver.styles.getContentPadding()).toBe(core.contentPadding);
-    });
-
-    it('should override default theme', () => {
-      const theme: TooltipTheme = {
-        contentPadding: '10px',
-        borderStyle: 'dotted',
-        borderWidth: '5px',
-        borderColor: 'red',
-        borderRadius: '50%',
-        backgroundColor: 'yellow'
-      };
-
-      const driver = createDriver(createTooltip({theme}));
-      driver.mouseEnter();
-
-      expect(driver.styles.getBackgroundColor()).toBe(theme.backgroundColor);
-      expect(driver.styles.getBorderColor()).toBe(theme.borderColor);
-      expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
-      expect(driver.styles.getBorderWidth()).toBe(theme.borderWidth);
-      expect(driver.styles.getBorderStyle()).toBe(theme.borderStyle);
-      expect(driver.styles.getContentPadding()).toBe(theme.contentPadding);
-    });
+    await eventually(() => expect(driver.isContentExists()).toBeFalsy());
   });
 
   describe('testkit', () => {

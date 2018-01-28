@@ -185,11 +185,10 @@ export default class extends Component {
     enum: ({type}) =>
       <List values={type.value.map(({value}) => stripQuotes(value))}/>,
 
-    node: ({propKey}) => {
-      if (this.props.exampleProps[propKey]) {
-        return <NodesList values={this.props.exampleProps[propKey]}/>;
-      }
-    },
+    node: ({propKey}) =>
+      this.props.exampleProps[propKey] ?
+        <NodesList values={this.props.exampleProps[propKey]}/> :
+        <Input/>,
 
     func: ({propKey}) => {
       let classNames = styles.example;

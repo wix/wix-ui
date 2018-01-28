@@ -2,7 +2,10 @@
   "name": "wix-storybook-utils",
   "version": "1.0.0",
   "description": "Utilities for automated component documentation within Storybook",
-  "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
   "license": "MIT",
   "files": [
     "src",
@@ -50,13 +53,14 @@
     "highlight.js": "^9.12.0",
     "import-path": "^1.0.0",
     "jsx-to-string": "^1.3.0",
+    "loader-utils": "^1.1.0",
     "path": "^0.12.7",
+    "react-autodocs-utils": "^1.0.0",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",
     "react-motion": "^0.5.2",
     "react-remarkable": "^1.1.3",
-    "wix-style-react": "^2.0.1",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-style-react": "^2.0.1"
   },
   "devDependencies": {
     "eslint-config-wix": "^1.1.16",
@@ -72,7 +76,8 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.0"
+    "react-test-renderer": "^15.6.0",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "babel": {
     "plugins": [

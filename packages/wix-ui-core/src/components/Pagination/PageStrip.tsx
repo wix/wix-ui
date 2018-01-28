@@ -11,21 +11,22 @@ export interface PageStripClasses {
   pageStrip: string;
   pageButton: string;
   currentPage: string;
-  ellipsis: string;
+  gap: string;
 }
 
 export interface PageStripProps {
+  id?: string;
+  classes: PageStripClasses;
   totalPages: number;
   currentPage: number;
   maxPagesToShow: number;
   showFirstPage: boolean;
   showLastPage: boolean;
   responsive: boolean;
-  id?: string;
-  classes: PageStripClasses;
+  pageUrl?: (pageNumber: number) => string;
+  gapLabel: React.ReactNode;
   onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
   onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
-  pageUrl?: (pageNumber: number) => string;
 }
 
 export enum ResponsiveLayoutPhase {
@@ -93,8 +94,8 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
         return (
-          <span key={index} className={classes.ellipsis}>
-            ...
+          <span key={index} className={classes.gap}>
+            {this.props.gapLabel}
           </span>
         );
       }

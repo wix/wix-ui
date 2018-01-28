@@ -1,0 +1,13 @@
+.root {
+  display: inline-block;
+  position: relative;
+}
+
+.popoverContentContainer {
+  z-index: 1000;
+  min-width: 100%;
+}
+
+.popoverContent {}
+
+.arrow {}
