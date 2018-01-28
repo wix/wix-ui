@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils';
-import InputWithAffixes from './';
+import {InputWithAffixes} from './';
 import {inputWithAffixesDriverFactory} from './InputWithAffixes.driver';
 
 describe('InputWithAffixes', () => {
