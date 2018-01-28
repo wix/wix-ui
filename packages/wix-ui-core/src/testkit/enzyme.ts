@@ -24,3 +24,6 @@ export const paginationTestkitFactory = enzymeTestkitFactoryCreator(paginationDr
 
 import {dividerDriverFactory} from '../components/Divider/Divider.driver';
 export const dividerTestkitFactory = enzymeTestkitFactoryCreator(dividerDriverFactory);
+
+import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
+export const checkboxTestkitFactory = enzymeTestkitFactoryCreator(checkboxDriverFactory);

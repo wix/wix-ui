@@ -16,7 +16,12 @@
     optionHoverBackgroundColor,
     optionDisabledBackgroundColor,
     optionSelectedBackgroundColor,
-    optionSelectedHoverBackgroundColor;
+    optionSelectedHoverBackgroundColor,
+    dividerHeight,
+    dividerBackgroundColor,
+    dividerOpacity,
+    dividerMarginTop,
+    dividerMarginBottom;
 }
 
 .root {
@@ -31,6 +36,11 @@
     optionHoverBackgroundColor value(optionHoverBackgroundColor),
     optionSelectedBackgroundColor value(optionSelectedBackgroundColor),
     optionSelectedHoverBackgroundColor value(optionSelectedHoverBackgroundColor),
-    optionDisabledBackgroundColor value(optionDisabledBackgroundColor)
+    optionDisabledBackgroundColor value(optionDisabledBackgroundColor),
+    dividerHeight value(dividerHeight),
+    dividerBackgroundColor value(dividerBackgroundColor),
+    dividerOpacity value(dividerOpacity),
+    dividerMarginTop value(dividerMarginTop),
+    dividerMarginBottom value(dividerMarginBottom)
   );
 }

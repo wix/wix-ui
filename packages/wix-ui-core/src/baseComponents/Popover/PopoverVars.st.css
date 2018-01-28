@@ -1,12 +1,12 @@
 :vars {
   /** Background color of the content */
-  contentBackgroundColor: initial;
+  contentBackgroundColor: white;
   /** Border width of the content */
-  contentBorderWidth: initial;
+  contentBorderWidth: 1px;
   /** Border style of the content */
-  contentBorderStyle: initial;
+  contentBorderStyle: solid;
   /** Border color of the content */
-  contentBorderColor: initial;
+  contentBorderColor: black;
   /** Border radius of the content */
   contentBorderRadius: initial;
   /** Content padding for the content */

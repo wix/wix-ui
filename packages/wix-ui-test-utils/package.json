@@ -3,8 +3,8 @@
   "name": "wix-ui-test-utils",
   "version": "1.0.0",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
@@ -42,16 +42,17 @@
     "enzyme-adapter-react-15": "^1.0.5",
     "express": "^4.16.2",
     "haste-preset-yoshi": "^1.0.19",
-    "protractor": "^5.2.2",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^21.2.3",
     "typescript": "^2.6.2"
   },
-  "peerDependencies": {
-    "react": ">=15",
-    "react-dom": ">=15"
+  "yoshi": {
+    "externals": {
+      "react": "React",
+      "react-dom": "ReactDOM"
+    }
   },
   "jest": {
     "transform": {

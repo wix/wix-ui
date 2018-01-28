@@ -1,11 +1,10 @@
 {
   "devDependencies": {
-    "lerna": "^2.5.0"
+    "lerna": "^2.7.1"
   },
   "name": "wix-ui",
   "version": "1.0.0",
   "description": "wix-ui-monorepo",
-  "main": "index.js",
   "scripts": {
     "test": "lerna run test --parallel false --concurrency 1",
     "bootstrap": "lerna bootstrap",
@@ -18,7 +17,10 @@
     "type": "git",
     "url": "git+https://github.com/wix/wix-ui.git"
   },
-  "author": "",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"

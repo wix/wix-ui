@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash/uniqueId';
-import {oneOf, bool, func, string, number, object} from 'prop-types';
-import {createHOC} from '../../createHOC';
+import {oneOf, bool, func, string, number} from 'prop-types';
+import style from './Input.st.css';
 
 const createAriaAttributes = props => {
   const aria = 'aria';
@@ -15,12 +15,7 @@ const createAriaAttributes = props => {
 
 const NUMBER_REGEX = /^[\d.,\-+]*$/;
 
-export type InputClasses = {
-  input: string
-};
-
 export interface InputProps {
-  classes?: InputClasses;
   disabled?: boolean;
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
@@ -48,7 +43,7 @@ export interface InputState {
 /**
  * Input
  */
-class Input extends React.Component<InputProps, InputState> {
+export class Input extends React.Component<InputProps, InputState> {
   static displayName = 'Input';
 
   static defaultProps = {
@@ -56,8 +51,6 @@ class Input extends React.Component<InputProps, InputState> {
   };
 
   static propTypes = {
-    /** Classes object */
-    classes: object.isRequired,
     /** Inputs value */
     value: string,
     /** Makes the component disabled */
@@ -116,7 +109,6 @@ class Input extends React.Component<InputProps, InputState> {
 
   render() {
     const {
-      classes,
       disabled,
       autoComplete,
       autoFocus,
@@ -139,7 +131,7 @@ class Input extends React.Component<InputProps, InputState> {
 
     return (
       <input
-        className={classes.input}
+        {...style('root', {disabled}, this.props)}
         disabled={disabled}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
@@ -163,5 +155,3 @@ class Input extends React.Component<InputProps, InputState> {
     );
   }
 }
-
-export default createHOC(Input);

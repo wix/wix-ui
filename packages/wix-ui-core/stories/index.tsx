@@ -9,13 +9,15 @@ import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {IconWithOptions} from '../src/components/IconWithOptions';
 import {InputWithOptions} from '../src/components/InputWithOptions';
+import {MultiCheckbox} from '../src/components/MultiCheckbox';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
+import {CheckboxStory} from './Checkbox/Checkbox-story';
 
 const dropdownOptions =
   Array.from(Array(20))
     .map((x, index) =>
-      index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
+      index === 5 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
 require('./Badge').story();
 require('./Button').story();
@@ -37,6 +39,11 @@ storiesOf('Components', module)
     <InputWithOptions
       closeOnSelect={false}
       data-hook="story-input-with-options-multi"
+      options={dropdownOptions}/>
+  ))
+  .add('MultiCheckbox', () => (
+    <MultiCheckbox
+      data-hook="story-multi-checkbox"
       options={dropdownOptions}/>
   ))
   .add('ToggleSwitch', () => (
@@ -92,5 +99,8 @@ storiesOf('Components', module)
     <GoogleMapsIframeClientStory/>
   ))
   .add('Divider', () => (
-    <DividerStory/>
+    <DividerStory />
+  ))
+  .add('Checkbox', () => (
+    <CheckboxStory />
   ));

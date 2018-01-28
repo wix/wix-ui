@@ -11,5 +11,10 @@
     optionHoverBackgroundColor,
     optionDisabledBackgroundColor,
     optionSelectedBackgroundColor,
-    optionSelectedHoverBackgroundColor;
+    optionSelectedHoverBackgroundColor,
+    dividerHeight,
+    dividerBackgroundColor,
+    dividerOpacity,
+    dividerMarginTop,
+    dividerMarginBottom;
 }

@@ -85,7 +85,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     }
   }
 
-  setKeyboardEvent(evt: React.KeyboardEvent<HTMLElement>) {
+  dropdownContentOnKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     this.open();
     this.dropdownContentRef.onKeyDown(evt);
   }
@@ -95,14 +95,20 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       case 'Enter':
       case 'ArrowUp':
       case 'ArrowDown': {
-        return this.setKeyboardEvent(evt);
+        this.dropdownContentOnKeyDown(evt);
+        break;
       }
-      case 'Tab':
+      case 'Tab': {
+        this.dropdownContentOnKeyDown(evt);
+        this.close();
+        break;
+      }
       case 'Escape': {
-        return this.close();
+        this.close();
+        break;
       }
       default: {
-        return;
+        break;
       }
     }
   }
@@ -157,7 +163,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
-            className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             options={options}
             fixedFooter={fixedFooter}

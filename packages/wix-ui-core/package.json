@@ -4,8 +4,8 @@
   "description": "wix-ui-core",
   "version": "1.0.0",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.js",
@@ -31,14 +31,9 @@
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
     "storybook": "start-storybook -p 6006"
   },
-  "peerDependencies": {
-    "react": "^15.4.0"
-  },
   "dependencies": {
     "classnames": "^2.2.5",
     "hoist-non-react-statics": "^2.3.1",
-    "jss": "^9.3.3",
-    "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react-onclickoutside": "^6.7.0",
@@ -51,11 +46,8 @@
   "devDependencies": {
     "@storybook/addon-options": "^3.3.7",
     "@storybook/react": "^3.3.7",
-    "@storybook/storybook-deployer": "^2.0.0",
     "@types/jest": "^21.1.8",
     "@types/react": "^15.6.8",
-    "@types/react-dom": "^15.5.6",
-    "css": "^2.2.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eyes.it": "^2.0.1",

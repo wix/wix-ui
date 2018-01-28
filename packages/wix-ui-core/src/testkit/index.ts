@@ -23,3 +23,6 @@ export const tooltipTestkitFactory = testkitFactoryCreator(tooltipDriverFactory)
 
 import {dividerDriverFactory} from '../components/Divider/Divider.driver';
 export const dividerTestkitFactory = testkitFactoryCreator(dividerDriverFactory);
+
+import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
+export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactory);

@@ -1,15 +1,10 @@
 :import {
-  -st-from: "../Popover/PopoverStyle.st.css";
-  -st-default: Popover;
+  -st-from: "../InputWithOptions/InputWithOptionsStyle.st.css";
+  -st-default: InputWithOptions;
 }
 
 :import {
-  -st-from: "../DropdownContent/DropdownContentStyle.st.css";
-  -st-default: DropdownContent;
-}
-
-:import {
-  -st-from: "./DropdownVars.st.css";
+  -st-from: "./MultiCheckboxVars.st.css";
   -st-named:
     contentBackgroundColor,
     contentBorderWidth,
@@ -17,33 +12,25 @@
     contentBorderColor,
     contentBorderRadius,
     contentPadding,
-    contentArrowSize,
     optionHoverBackgroundColor,
     optionDisabledBackgroundColor,
     optionSelectedBackgroundColor,
     optionSelectedHoverBackgroundColor,
     dividerHeight,
+    dividerBackgroundColor,
     dividerOpacity,
     dividerMarginTop,
     dividerMarginBottom;
 }
 
-
-
 .root {
-  -st-mixin: Popover(
+  -st-mixin: InputWithOptions(
     contentBackgroundColor value(contentBackgroundColor),
     contentBorderWidth value(contentBorderWidth),
     contentBorderStyle value(contentBorderStyle),
     contentBorderColor value(contentBorderColor),
     contentBorderRadius value(contentBorderRadius),
     contentPadding value(contentPadding),
-    contentArrowSize value(contentArrowSize)
-  );
-}
-
-[data-hook="dropdown-content"] {
-  -st-mixin: DropdownContent(
     optionHoverBackgroundColor value(optionHoverBackgroundColor),
     optionSelectedBackgroundColor value(optionSelectedBackgroundColor),
     optionSelectedHoverBackgroundColor value(optionSelectedHoverBackgroundColor),

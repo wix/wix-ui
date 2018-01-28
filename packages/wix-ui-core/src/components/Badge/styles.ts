@@ -8,9 +8,10 @@ export const styles = (theme: BadgeTheme) => {
 
   return {
     badge: {
-      minWidth: theme.minWidth,
       width: theme.width,
+      minWidth: theme.minWidth,
       height: theme.height,
+      lineHeight: theme.lineHeight,
       padding: theme.padding,
       border: theme.border,
       borderRadius: theme.borderRadius,
@@ -19,8 +20,8 @@ export const styles = (theme: BadgeTheme) => {
       borderColor: theme.borderColor,
       cursor: theme.cursor,
       display: theme.display,
-      justifyContent: theme.justifyContent,
-      alignItems: theme.alignItems,
+      textAlign: theme.textAlign,
+      verticalAlign: theme.verticalAlign,
       boxSizing: 'border-box',
 
       [contentSelector]: {

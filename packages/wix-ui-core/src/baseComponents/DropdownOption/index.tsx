@@ -11,7 +11,8 @@ export interface Option {
 }
 
 export enum OptionType {
-  Simple
+  Simple,
+  Checkbox
 }
 
 const createOption: Function = (
@@ -38,6 +39,14 @@ export const OptionFactory = {
     type: OptionType = OptionType.Simple): Option {
 
     switch (type) {
+      case OptionType.Checkbox:
+        return createOption(
+          id,
+          isDisabled,
+          isSelectable,
+          value,
+          () => <input />
+        );
       case OptionType.Simple:
       default:
         return createOption(
@@ -45,7 +54,8 @@ export const OptionFactory = {
           isDisabled,
           isSelectable,
           value,
-          () => <span>{value}</span>);
+          () => <span>{value}</span>
+        );
     }
   },
   createDivider(value: string = null): Option {

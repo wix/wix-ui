@@ -4,8 +4,8 @@
   "license": "MIT",
   "private": false,
   "author": {
-    "name": "Ronen Stern",
-    "email": "ronens@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "main": "./dist/src/index.js",
   "files": [
@@ -33,33 +33,11 @@
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.0",
-    "@types/mocha": "^2.2.0",
-    "@types/prop-types": "^15.5.0",
-    "@types/react": "^15.6.0",
-    "@types/react-dom": "^15.5.0",
-    "chai": "^4.1.0",
-    "enzyme": "^2.9.0",
-    "fs-extra": "^5.0.0",
-    "gh-pages-auto-release": "^1.1.0",
     "haste-preset-yoshi": "^1.0.19",
-    "husky": "^0.14.0",
-    "import-path": "^1.0.0",
-    "jsdom": "^11.1.0",
-    "prop-types": "^15.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.0",
     "svg2react-icon": "^1.0.51",
     "typescript": "^2.4.0"
   },
   "haste": {
     "preset": "yoshi"
-  },
-  "yoshi": {
-    "externals": {
-      "react": "React",
-      "react-dom": "ReactDOM"
-    }
   }
 }
