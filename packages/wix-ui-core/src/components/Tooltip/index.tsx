@@ -3,6 +3,8 @@ import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
+const noop = () => {};
+
 export type Point = {
   x: number;
   y: number;
@@ -27,6 +29,9 @@ export interface TooltipProps {
   padding?: string | number;
   onShow?: Function;
   onHide?: Function;
+  shouldCloseOnOutsideClick?: boolean;
+  onClickOutside?: Function;
+
 }
 
 export interface TooltipState {
@@ -43,8 +48,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static displayName = 'Tooltip';
   static defaultProps = {
     placement: 'top',
-    onShow: () => {},
-    onHide: () => {},
+    onShow: noop,
+    onHide: noop,
+    onClickOutside: noop,
     showDelay: 150,
     hideDelay: 150
   };
@@ -73,7 +79,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   close() {
-    if (this.state.isOpen) {
+    if (!this.props.shouldCloseOnOutsideClick && this.state.isOpen) {
       this.props.onHide();
       this.setState({isOpen: false});
     }
