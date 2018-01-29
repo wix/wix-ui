@@ -50,30 +50,29 @@ export class GoogleInput extends React.PureComponent<GoogleInputProps, GoogleInp
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const {onSelect} = this.props;
-    const lowerValue = event.target.value.toLowerCase();
-
+  setValue(value: string) {
     this.setState({
-      inputValue: event.target.value
+      inputValue: value
     });
 
-    this.props.onSelect(event.target.value);
+    const {onSelect} = this.props;
+    onSelect(value);
+  }
+
+  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setValue(event.target.value);
   }
 
   onSelect(option: Option) {
-    this.setState({
-      inputValue: option.value
-    });
-
-    this.props.onSelect(option.value);
+    this.setValue(option.value);
   }
 
   render() {
     const {inputValue} = this.state;
+    const lowerValue = inputValue.toLowerCase();
     const displayedOptions =
       fruit
-        .filter(x => x.toLowerCase().includes(inputValue.toLowerCase()))
+        .filter(x => x.toLowerCase().includes(lowerValue))
         .map((value, index) => OptionFactory.create(index, false, true, value));
 
     return (
