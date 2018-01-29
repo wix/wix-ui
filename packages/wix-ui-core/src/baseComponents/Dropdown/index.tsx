@@ -146,7 +146,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={isOpen && options.length > 0}
         showArrow={showArrow}
         onMouseEnter={openTrigger === HOVER ? this.open : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>

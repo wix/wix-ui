@@ -68,7 +68,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Maximum height of the options */
     optionsMaxHeight: number,
     /** Input prop types */
-    inputProps: Input.propTypes
+    inputProps: object
   };
 
   render () {
