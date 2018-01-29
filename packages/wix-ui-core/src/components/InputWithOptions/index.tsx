@@ -40,14 +40,10 @@ export interface InputWithOptionsProps {
   onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
 }
 
-export interface InputWithOptionsState {
-  inputValue: string;
-}
-
 /**
  * InputWithOptions
  */
-export class InputWithOptions extends React.PureComponent<InputWithOptionsProps, InputWithOptionsState> {
+export class InputWithOptions extends React.PureComponent<InputWithOptionsProps> {
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: CLICK as any,
@@ -91,34 +87,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
     onFocus: func
   };
 
-  constructor(props: InputWithOptionsProps) {
-    super(props);
-
-    this.onInputChange = this.onInputChange.bind(this);
-    this.state = {inputValue: props.inputValue || ''};
-  }
-
-  componentWillReceiveProps(nextProps: InputWithOptionsProps) {
-    if (this.state.inputValue !== nextProps.inputValue) {
-      this.setState({
-        inputValue: nextProps.inputValue
-      });
-    }
-  }
-
-  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      inputValue: event.target.value
-    });
-
-    const {onInputChange} = this.props;
-    onInputChange && onInputChange(event);
-  }
-
-  onInputKeyDown(event: React.KeyboardEvent<HTMLElement>, onDropdownKeyDown: (evt: React.KeyboardEvent<HTMLElement>) => void) {
-    onDropdownKeyDown(event);
-  }
-
   render () {
     const {
       placement,
@@ -130,10 +98,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
       fixedHeader,
       optionsMaxHeight,
       onFocus,
+      inputValue,
+      onInputChange,
       onBlur,
       onSelect,
       onDeselect} = this.props;
-    const {inputValue} = this.state;
 
     return (
       <Dropdown
@@ -156,8 +125,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps,
               onFocus={onFocus}
               onBlur={onBlur}
               value={inputValue}
-              onChange={this.onInputChange}
-              onKeyDown={event => this.onInputKeyDown(event, onKeyDown)}/>
+              onChange={onInputChange}
+              onKeyDown={onKeyDown}/>
         }
       </Dropdown>
     );
