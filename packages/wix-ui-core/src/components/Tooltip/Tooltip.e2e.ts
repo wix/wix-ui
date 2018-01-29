@@ -16,10 +16,10 @@ describe('Tooltip', () => {
     return waitForVisibilityOf(driver.element(), 'Cannot find Tooltip')
       .then(async () => {
         expect(driver.isTooltipExists()).toBeFalsy();
-        expect(driver.getElementText()).toBe('I need a tooltip');
+        expect(driver.getElementText()).toBe('Hover me for a tooltip!');
         driver.onMouseOver();
         expect(driver.isTooltipExists()).toBeTruthy();
-        expect(driver.getTooltipText()).toBe('This is my tooltip!\n');
+        expect(driver.getTooltipText()).toBe('This is my tooltip\n\n');
         driver.onMouseLeave();
         await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
       });

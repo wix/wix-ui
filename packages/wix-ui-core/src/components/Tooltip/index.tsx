@@ -3,7 +3,7 @@ import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
-const noop = () => {};
+const noop = () => { return; };
 
 export type Point = {
   x: number;
