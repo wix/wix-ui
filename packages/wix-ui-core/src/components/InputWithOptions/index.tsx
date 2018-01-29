@@ -1,11 +1,11 @@
 import * as React from 'react';
 import style from './InputWithOptionsStyle.st.css';
-import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf} from 'prop-types';
-import {Input} from '../Input';
+import {Input, InputProps} from '../Input';
 
 export interface InputWithOptionsProps {
   /** The location to display the content */
@@ -28,16 +28,8 @@ export interface InputWithOptionsProps {
   fixedFooter?: React.ReactNode;
   /** Maximum height of the options */
   optionsMaxHeight?: number;
-  /** Input value */
-  inputValue?: string;
-  /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list, this function will return a suggested option as the second parameter if found one */
-  onManualInput?: (value: string) => void;
-  /** Event handler for when the input changes */
-  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  /** Event handler for when the input loses focus */
-  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-  /** Event handler for when the input gains focus */
-  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+  /** Input prop types */
+  inputProps?: InputProps;
 }
 
 /**
@@ -75,16 +67,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     fixedFooter: node,
     /** Maximum height of the options */
     optionsMaxHeight: number,
-    /** Input value */
-    inputValue: string,
-    /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list, this function will return a suggested option as the second parameter if found one */
-    onManualInput: func,
-    /** Event handler for when the input changes */
-    onInputChange: func,
-    /** Event handler for when the input loses focus */
-    onBlur: func,
-    /** Event handler for when the input gains focus */
-    onFocus: func
+    /** Input prop types */
+    inputProps: object
   };
 
   render () {
@@ -97,12 +81,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       fixedFooter,
       fixedHeader,
       optionsMaxHeight,
-      onFocus,
-      inputValue,
-      onInputChange,
-      onBlur,
       onSelect,
-      onDeselect} = this.props;
+      onDeselect,
+      inputProps} = this.props;
 
     return (
       <Dropdown
@@ -118,16 +99,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
-        {
-          ({onKeyDown}: TriggerElementProps) =>
-            <Input
-              data-hook="dropdown-input"
-              onFocus={onFocus}
-              onBlur={onBlur}
-              value={inputValue}
-              onChange={onInputChange}
-              onKeyDown={onKeyDown}/>
-        }
+        <Input data-hook="dropdown-input" {...inputProps} />
       </Dropdown>
     );
   }

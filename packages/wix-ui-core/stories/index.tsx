@@ -13,6 +13,7 @@ import {MultiCheckbox} from '../src/components/MultiCheckbox';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
+import {GoogleInput} from '../src/components/GoogleInput';
 
 const dropdownOptions =
   Array.from(Array(20))
@@ -24,6 +25,9 @@ require('./Button').story();
 require('./Input').story();
 
 storiesOf('Components', module)
+  .add('GoogleInput', () => (
+    <GoogleInput onSelect={() => null} />
+  ))
   .add('IconWithOptions', () => (
     <IconWithOptions
       iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"

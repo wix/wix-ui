@@ -6,17 +6,13 @@ import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
-export interface TriggerElementProps {
-  onKeyDown(evt: React.KeyboardEvent<HTMLElement>);
-}
-
 export interface DropdownProps {
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
   showArrow?: boolean;
   /** render function that renders the target element with the state */
-  children: (triggerElementProps: TriggerElementProps) => React.ReactNode;
+  children: React.ReactNode;
   /** The dropdown options array */
   options: Array<Option>;
   /** Trigger type to open the content */
@@ -150,15 +146,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={isOpen && options.length > 0}
         showArrow={showArrow}
         onMouseEnter={openTrigger === HOVER ? this.open : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           <div
+            onKeyDown={this.onKeyDown}
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
-            {children({onKeyDown: this.onKeyDown})}
+            {children}
           </div>
         </Popover.Element>
         <Popover.Content>

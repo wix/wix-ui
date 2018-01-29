@@ -34,14 +34,14 @@ describe('Dropdown', () => {
 
   describe('openTrigger', () => {
     it('should show content on click', () => {
-      const driver = createDriver(createDropdown());
+      const driver = createDriver(createDropdown({options}));
 
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
     it('should show content on hover', async () => {
-      const driver = createDriver(createDropdown({openTrigger: HOVER}));
+      const driver = createDriver(createDropdown({options, openTrigger: HOVER}));
 
       driver.mouseEnter();
       expect(driver.isContentElementExists()).toBeTruthy();
