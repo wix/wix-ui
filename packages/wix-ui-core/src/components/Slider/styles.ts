@@ -26,7 +26,8 @@ export const styles = (theme: SliderTheme) => {
   return {
     root: {
       position: 'relative',
-      padding: theme.trackBorderWidth
+      padding: theme.trackBorderWidth,
+      boxSizing: 'border-box'
     },
     vertical: {
       '& $slider': {

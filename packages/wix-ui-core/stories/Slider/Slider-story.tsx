@@ -20,11 +20,11 @@ export class SliderStory extends React.Component {
 
         <br/>
 
-        <div style={{width: '100%', height: 80}}>
+        <div style={{width: '100%', height: 80, background: 'red'}}>
           <StatefulSlider min={1} max={100} value={2} handleSize={this.state.handleSize}/>
         </div>
         <br/>
-        <div style={{transform: 'translate(500px)', width: 50, height: 400}}>
+        <div style={{transform: 'translate(500px)', width: 50, height: 400, background: 'blue'}}>
           <StatefulSlider vertical min={1} max={50} value={2} handleSize={this.state.handleSize}/>
         </div>
       </div>

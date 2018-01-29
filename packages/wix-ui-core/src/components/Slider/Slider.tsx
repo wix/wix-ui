@@ -58,7 +58,7 @@ class Slider extends React.PureComponent<SliderProps> {
     const {classes, vertical, handleSize} = this.props;
 
     return (
-      <div className={classNames(classes.root, {
+      <div data-hook="wixui-slider" className={classNames(classes.root, {
           [classes.vertical]: vertical
         })}
         style={{width: '100%', height: '100%'}}>
