@@ -72,8 +72,8 @@ export class GoogleInput extends React.PureComponent<GoogleInputProps, GoogleInp
     const lowerValue = inputValue.toLowerCase();
     const displayedOptions =
       fruit
-        .filter(x => x.toLowerCase().includes(lowerValue))
-        .map((value, index) => OptionFactory.create(index, false, true, value));
+        .filter((x: string) => x.toLowerCase().includes(lowerValue))
+        .map((value: string, index: number) => OptionFactory.create(index, false, true, value));
 
     return (
       <InputWithOptions
