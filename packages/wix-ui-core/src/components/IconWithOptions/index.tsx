@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './IconWithOptionsStyle.st.css';
-import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
@@ -64,13 +64,9 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       fixedHeader={fixedHeader}
       onDeselect={onDeselect}
       initialSelectedIds={initialSelectedIds}>
-      {
-        ({onKeyDown}: TriggerElementProps) =>
-          <img
-            src={iconUrl}
-            tabIndex={5}
-            onKeyDown={onKeyDown}/>
-      }
+      <img
+        src={iconUrl}
+        tabIndex={5}/>
     </Dropdown>);
   };
 
