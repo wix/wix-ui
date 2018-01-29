@@ -26,7 +26,7 @@ require('./Input').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (
-    <GoogleInput onSelect={value => console.log(value)} />
+    <GoogleInput onSelect={() => null} />
   ))
   .add('IconWithOptions', () => (
     <IconWithOptions
