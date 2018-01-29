@@ -65,6 +65,9 @@ export type ToggleSwitchTheme = Partial<{
   innerLabelBorderColorDisabled: string;
   innerLabelBorderColorHover: string;
   innerLabelBorderColorHoverChecked: string;
+
+  innerLabelBoxShadow: string;
+  outerLabelBoxShadow: string;
 }>;
 
 export const core: ToggleSwitchTheme = {
@@ -131,5 +134,8 @@ export const core: ToggleSwitchTheme = {
   innerLabelBorderColorChecked: '#ffffff',
   innerLabelBorderColorDisabled: '#ffffff',
   innerLabelBorderColorHover: '#ffffff',
-  innerLabelBorderColorHoverChecked: '#ffffff'
+  innerLabelBorderColorHoverChecked: '#ffffff',
+
+  innerLabelBoxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
+  outerLabelBoxShadow: 'none'
 };
