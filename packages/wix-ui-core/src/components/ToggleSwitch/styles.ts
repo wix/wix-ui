@@ -162,6 +162,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
       borderColor: theme.outerLabelBorderColor,
       borderStyle: 'solid',
       boxSizing: 'border-box',
+      boxShadow: theme.outerLabelBoxShadow
     },
 
     innerLabel: {
@@ -181,7 +182,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
       cursor: 'pointer',
       backgroundColor: theme.innerLabelBackgroundColor,
-      boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
+      boxShadow: theme.innerLabelBoxShadow,
 
       top: '50%',
       transform: 'translate(0, -50%)',
