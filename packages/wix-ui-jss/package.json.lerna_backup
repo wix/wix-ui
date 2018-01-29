@@ -1,0 +1,85 @@
+{
+  "private": false,
+  "name": "wix-ui-jss",
+  "version": "1.0.0",
+  "description": "Render style tags to the Dom and provide the relevant classes to the wix-ui-core components, using jss",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
+  "bugs": {
+    "url": "https://github.com/wix/wix-ui/issues"
+  },
+  "homepage": "https://github.com/wix/wix-ui#readme",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.js",
+  "files": [
+    "dist",
+    "*.js",
+    "!wallaby.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wix/wix-ui.git"
+  },
+  "scripts": {
+    "build": "haste build",
+    "pretest": "npm run build",
+    "test": "haste test --jest",
+    "posttest": "haste lint",
+    "test:watch": "haste test --jest --watch",
+    "start": "haste start --no-test",
+    "release": "haste release"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "@types/react": "^15.6.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "haste-preset-yoshi": "^1.0.19",
+    "react-test-renderer": "^15.6.0",
+    "ts-jest": "^21.2.3",
+    "typescript": "^2.4.0",
+    "wix-ui-test-utils": "^1.0.0"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^2.3.1",
+    "jss": "^9.3.3",
+    "jss-preset-default": "^4.0.1",
+    "lodash.uniqueid": "^4.0.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "yoshi": {
+    "externals": {
+      "react": "React",
+      "react-dom": "ReactDOM"
+    }
+  },
+  "jest": {
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ],
+    "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "setupFiles": [
+      "<rootDir>/test/enzyme-setup"
+    ]
+  },
+  "haste": {
+    "preset": "yoshi"
+  }
+}
