@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash/uniqueId';
 import {Divider} from '../../components/Divider';
+import {Highlighter} from '../Highlighter';
 
 export interface Option {
   id: number | string;
@@ -11,8 +12,7 @@ export interface Option {
 }
 
 export enum OptionType {
-  Simple,
-  Checkbox
+  Simple
 }
 
 const createOption: Function = (
@@ -34,7 +34,7 @@ const hightlightMatches = (value: string, searchTerm: string): Array<String | Re
   const hightlightString = value.replace(new RegExp(searchTerm, 'gi'), x => '<b>' + x + '</b>');
   const parts: Array<String | React.ReactNode> = hightlightString.split(/<b>|<\/b>/gi);
   for (let i = 1; i < parts.length; i += 2) {
-    parts[i] = <b>{parts[i]}</b>;
+    parts[i] = <Highlighter>{parts[i]}</Highlighter>;
   }
   return parts;
 };
@@ -48,14 +48,6 @@ export const OptionFactory = {
     type: OptionType = OptionType.Simple): Option {
 
     switch (type) {
-      case OptionType.Checkbox:
-        return createOption(
-          id,
-          isDisabled,
-          isSelectable,
-          value,
-          () => <input />
-        );
       case OptionType.Simple:
       default:
         return createOption(
