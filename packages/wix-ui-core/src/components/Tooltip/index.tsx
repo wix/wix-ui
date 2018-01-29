@@ -13,23 +13,14 @@ export type Point = {
 export interface TooltipProps {
   /** The location to display the content */
   placement?: Placement;
-
-  textAlign?: string;
   children?: any;
   content?: any;
   showDelay?: number;
   hideDelay?: number;
-  maxWidth?: string | number;
-  minWidth?: string | number;
-  color?: string;
-  lineHeight?: string;
-  zIndex?: number;
   moveBy?: Point;
   moveArrowTo?: number;
-  padding?: string | number;
   onShow?: Function;
   onHide?: Function;
-
 }
 
 export interface TooltipState {
@@ -51,11 +42,6 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     onClickOutside: noop,
     showDelay: 150,
     hideDelay: 150
-  };
-
-  static propTypes = {
-    /** The location to display the content */
-    placement: PlacementPropType,
   };
 
   constructor(props) {
@@ -84,8 +70,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, textAlign, maxWidth, content, children, moveBy,
-           minWidth, color, lineHeight, zIndex, padding, showDelay, hideDelay} = this.props;
+    const {placement, content, children, moveBy, showDelay, hideDelay} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -103,9 +88,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
           {children}
         </Popover.Element>
         <Popover.Content>
-          <div style={{minWidth, textAlign, maxWidth, color, lineHeight, zIndex, padding}}>
-            {content}
-          </div>
+          {content}
         </Popover.Content>
       </Popover>
     );

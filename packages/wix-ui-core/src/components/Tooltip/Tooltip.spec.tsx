@@ -10,7 +10,7 @@ import {mount} from 'enzyme';
 describe('Tooltip', () => {
   const createDriver = createDriverFactory(tooltipDriverFactory);
   const createTooltip = (props = {}) =>
-  <Tooltip placement="top" {...props} content="Hovered Content">
+    <Tooltip placement="top" {...props} content={<span>Hovered Content</span>}>
       <div>
         Element
       </div>
