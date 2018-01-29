@@ -14,6 +14,7 @@ export interface OnClickEvent extends React.MouseEvent<HTMLDivElement> {
 export interface OnKeydownEvent extends React.KeyboardEvent<HTMLDivElement> {
   checked: boolean;
 }
+
 export interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
@@ -39,7 +40,7 @@ export interface CheckboxState {
 /**
  * Checkbox
  */
-export default class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+export default class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
   public static displayName: string = 'Checkbox';
 
   public static propTypes: Object = {
@@ -95,7 +96,6 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
     tabIndex: 0
   };
 
-  public state: CheckboxState;
   public id: string;
   private checkbox: HTMLInputElement;
 
