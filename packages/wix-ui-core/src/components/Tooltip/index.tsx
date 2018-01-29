@@ -29,8 +29,6 @@ export interface TooltipProps {
   padding?: string | number;
   onShow?: Function;
   onHide?: Function;
-  shouldCloseOnOutsideClick?: boolean;
-  onClickOutside?: Function;
 
 }
 
@@ -79,7 +77,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   close() {
-    if (!this.props.shouldCloseOnOutsideClick && this.state.isOpen) {
+    if (this.state.isOpen) {
       this.props.onHide();
       this.setState({isOpen: false});
     }
