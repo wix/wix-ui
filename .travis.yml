@@ -14,11 +14,9 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
  
 script:
+ - echo "This is the value of storybook_dist:"
+ - echo $STORYBOOK_DIST
  - npm run bootstrap && npm run test
- - echo $TRAVIS_BRANCH
- - echo $TRAVIS_PULL_REQUEST
- - echo $TRAVIS_PULL_REQUEST_BRANCH
- - echo $TRAVIS_PULL_REQUEST_SLUG
 #  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/travis-on-pull-request.sh; fi'
  - npm install surge
  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/surge-deploy.sh; fi'

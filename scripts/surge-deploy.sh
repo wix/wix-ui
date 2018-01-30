@@ -3,7 +3,9 @@
 REPO_SLUG_ARRAY=(${TRAVIS_REPO_SLUG//\// })
 REPO_OWNER=${REPO_SLUG_ARRAY[0]}
 REPO_NAME=${REPO_SLUG_ARRAY[1]}
-DEPLOY_PATH="/home/travis/build/wix/wix-ui/packages/wix-ui-core/storybook-static"
+# DEPLOY_PATH="/home/travis/build/wix/wix-ui/packages/wix-ui-core/storybook-static"
+
+DEPLOY_PATH="/home/travis/build/${REPO_OWNER}/${REPO_NAME}/${STORYBOOK_DIST}"
 
 
 DEPLOY_SUBDOMAIN_UNFORMATTED_LIST=()
@@ -20,7 +22,7 @@ do
   # The length is limited to 253 characters
   # https://en.wikipedia.org/wiki/Domain_Name_System#Domain_name_syntax
   DEPLOY_SUBDOMAIN=`echo "$DEPLOY_SUBDOMAIN_UNFORMATTED" | sed -r 's/[\/|\.]+/\-/g'`
-  DEPLOY_DOMAIN=https://${DEPLOY_SUBDOMAIN}-${REPO_OWNER}-${REPO_NAME}.surge.sh
+  DEPLOY_DOMAIN=https://${REPO_OWNER}-${REPO_NAME}-${DEPLOY_SUBDOMAIN}.surge.sh
   surge --project ${DEPLOY_PATH} --domain $DEPLOY_DOMAIN;
   if [ "$TRAVIS_PULL_REQUEST" != "false" ]
   then
