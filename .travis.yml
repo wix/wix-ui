@@ -20,6 +20,7 @@ script:
  - echo $TRAVIS_PULL_REQUEST_BRANCH
  - echo $TRAVIS_PULL_REQUEST_SLUG
 #  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/travis-on-pull-request.sh; fi'
+ - npm install surge
  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/surge-deploy.sh; fi'
 
 # deploy:
