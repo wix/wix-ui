@@ -15,8 +15,22 @@ before_install:
  
 script:
  - npm run bootstrap && npm run test
+ - echo $TRAVIS_BRANCH
+ - echo $TRAVIS_PULL_REQUEST
+ - echo $TRAVIS_PULL_REQUEST_BRANCH
+ - echo $TRAVIS_PULL_REQUEST_SLUG
  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/travis-on-pull-request.sh; fi'
 
+# deploy:
+#   provider: s3
+#   access_key_id: $AWS_ACCESS_KEY_ID
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+#   bucket: $S3_BUCKET
+#   skip_cleanup: true
+#   upload-dir: '/home/travis/build/wix/wix-ui/packages/wix-ui-core/storybook-static'
+#   on:
+#     all_branches: true
+#     condition: $TRAVIS_PULL_REQUEST" != "false"
 
 notifications:
   email:
