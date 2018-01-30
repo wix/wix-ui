@@ -1,5 +1,3 @@
-@custom-selector :--toggleIconPath .toggleIcon path;
-
 .root {
   -st-states: checked, disabled;
   display: inline-flex;

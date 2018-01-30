@@ -131,9 +131,6 @@
 
 .root:checked::toggleIcon {
   transition: all value(transitionSpeed) cubic-bezier(0,1,0,1);
-}
-
-.root:checked::toggleIconPath {
   fill: value(colorChecked);
 }
 
@@ -153,11 +150,11 @@
   border-color: value(innerLabelBorderColorDisabled)
 }
 
-.root:disabled::toggleIconPath, .root:disabled:hover::toggleIconPath {
+.root:disabled::toggleIcon, .root:disabled:hover::toggleIcon {
   fill: value(colorDisabled);
 }
 
-.root:disabled:checked::toggleIconPath, .root:disabled:checked:hover::toggleIconPath {
+.root:disabled:checked::toggleIcon, .root:disabled:checked:hover::toggleIcon {
   fill: value(colorCheckedDisabled);
 }
 
@@ -187,11 +184,11 @@
   border-color: value(innerLabelBorderColorHoverChecked);
 }
 
-.root:hover::toggleIconPath {
+.root:hover::toggleIcon {
   fill: value(colorHover);
 }
 
-.root:checked:hover::toggleIconPath {
+.root:checked:hover::toggleIcon {
   fill: value(colorHoverChecked);
 }
 

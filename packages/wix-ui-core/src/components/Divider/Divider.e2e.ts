@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {dividerTestkitFactory} from '../../testkit/protractor';
 
-describe('Divider', () => {
+xdescribe('Divider', () => {
   const storyUrl = getStoryUrl('Components', 'Divider');
 
   beforeEach(() => browser.get(storyUrl));
