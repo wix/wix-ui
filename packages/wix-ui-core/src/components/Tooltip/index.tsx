@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
-import {oneOf, bool, func, string, number, node, object} from 'prop-types';
+import {func, number, node, object} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 const noop = () => { return; };
@@ -32,95 +32,94 @@ export interface TooltipState {
  * Tooltip
  */
 
-export class Tooltip extends React.PureComponent {
-  render() {
-    return <div>Muffinss</div>;
-  }
-}
-
-
-// export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
-//   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
-//   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
-//
-//   static displayName = 'Tooltip';
-//   static defaultProps = {
-//     placement: 'top',
-//     onShow: noop,
-//     onHide: noop,
-//     onClickOutside: noop,
-//     showDelay: 150,
-//     hideDelay: 150
-//   };
-//
-//   static propTypes = {
-//     /** tooltip's placement in relation to the target element */
-//     placement: PlacementPropType,
-//     /** children to render that will be the target of the tooltip */
-//     children: node,
-//     /** the content to put inside the tooltip */
-//     content: node,
-//     /** time it takes to show the tooltip in ms */
-//     showDelay: number,
-//     /** time it takes to hdie the tooltip in ms */
-//     hideDelay: number,
-//     /** object that describes re-positioning of the tooltip */
-//     moveBy: object,
-//     /** offset for the arrow */
-//     moveArrowTo: number,
-//     /** callback to call when the tooltip is shown */
-//     onShow: func,
-//     /** callback to call when the tooltip is being hidden */
-//     onHide: func
-//   };
-//
-//   constructor(props) {
-//     super(props);
-//
-//     this.open = this.open.bind(this);
-//     this.close = this.close.bind(this);
-//
-//     this.state = {
-//       isOpen: false
-//     };
-//   }
-//
-//   open() {
-//     if (!this.state.isOpen) {
-//       this.props.onShow();
-//       this.setState({isOpen: true});
-//     }
-//   }
-//
-//   close() {
-//     if (this.state.isOpen) {
-//       this.props.onHide();
-//       this.setState({isOpen: false});
-//     }
-//   }
-//
-//   render () {
-//     const {placement, content, children, moveBy, showDelay, hideDelay} = this.props;
-//     const {isOpen} = this.state;
-//
-//     return (
-//       <Popover
-//         {...style('root', {}, this.props)}
-//         placement={placement}
-//         shown={isOpen}
-//         showArrow={true}
-//         onMouseEnter={this.open}
-//         onMouseLeave={this.close}
-//         showDelay={showDelay}
-//         hideDelay={hideDelay}
-//         moveBy={moveBy}>
-//         <Popover.Element>
-//           {children}
-//         </Popover.Element>
-//         <Popover.Content>
-//           {content}
-//         </Popover.Content>
-//       </Popover>
-//     );
+// export class Tooltip extends React.PureComponent {
+//   render() {
+//     return <div>Muffinss</div>;
 //   }
 // }
+
+
+export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
+  static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
+  static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
+
+  static displayName = 'Tooltip';
+  static defaultProps = {
+    placement: 'top',
+    onShow: noop,
+    onHide: noop,
+    showDelay: 150,
+    hideDelay: 150
+  };
+
+  static propTypes = {
+    /** tooltip's placement in relation to the target element */
+    placement: PlacementPropType,
+    /** children to render that will be the target of the tooltip */
+    children: node,
+    /** the content to put inside the tooltip */
+    content: node,
+    /** time it takes to show the tooltip in ms */
+    showDelay: number,
+    /** time it takes to hide the tooltip in ms */
+    hideDelay: number,
+    /** object that describes re-positioning of the tooltip */
+    moveBy: object,
+    /** offset for the arrow */
+    moveArrowTo: number,
+    /** callback to call when the tooltip is shown */
+    onShow: func,
+    /** callback to call when the tooltip is being hidden */
+    onHide: func
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  open() {
+    if (!this.state.isOpen) {
+      this.props.onShow();
+      this.setState({isOpen: true});
+    }
+  }
+
+  close() {
+    if (this.state.isOpen) {
+      this.props.onHide();
+      this.setState({isOpen: false});
+    }
+  }
+
+  render () {
+    const {placement, content, children, moveBy, showDelay, hideDelay} = this.props;
+    const {isOpen} = this.state;
+
+    return (
+      <Popover
+        {...style('root', {}, this.props)}
+        placement={placement}
+        shown={isOpen}
+        showArrow={true}
+        onMouseEnter={this.open}
+        onMouseLeave={this.close}
+        showDelay={showDelay}
+        hideDelay={hideDelay}
+        moveBy={moveBy}>
+        <Popover.Element>
+          {children}
+        </Popover.Element>
+        <Popover.Content>
+          {content}
+        </Popover.Content>
+      </Popover>
+    );
+  }
+}

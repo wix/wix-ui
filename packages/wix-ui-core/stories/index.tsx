@@ -22,7 +22,7 @@ const dropdownOptions =
 require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
-// require('./Tooltip').story();
+require('./Tooltip').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (
