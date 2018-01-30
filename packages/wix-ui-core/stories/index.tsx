@@ -4,7 +4,6 @@ import {Text} from '../src/components/Text';
 import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
-import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {IconWithOptions} from '../src/components/IconWithOptions';
@@ -23,6 +22,7 @@ const dropdownOptions =
 require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
+// require('./Tooltip').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (
@@ -55,9 +55,6 @@ storiesOf('Components', module)
   ))
   .add('StylableToggleSwitchStory', () => (
     <StylableToggleSwitchStory/>
-  ))
-  .add('Tooltip', () => (
-    <TooltipStory/>
   ))
   .add('Text', () => (
     <Text ellipsis>
