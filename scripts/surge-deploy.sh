@@ -3,7 +3,7 @@
 REPO_SLUG_ARRAY=(${TRAVIS_REPO_SLUG//\// })
 REPO_OWNER=${REPO_SLUG_ARRAY[0]}
 REPO_NAME=${REPO_SLUG_ARRAY[1]}
-DEPLOY_PATH=./dist
+DEPLOY_PATH="/home/travis/build/wix/wix-ui/packages/wix-ui-core/storybook-static"
 
 
 DEPLOY_SUBDOMAIN_UNFORMATTED_LIST=()
@@ -31,8 +31,10 @@ do
     GITHUB_PR_COMMENTS=https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments
     # curl -H "Authorization: token ${GITHUB_API_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"Travis automatic deployment: '${DEPLOY_DOMAIN}'"}'
     echo ${DEPLOY_DOMAIN}
-    echo $DEPLOY_DOMAIN
     echo ${DEPLOY_PATH}
-    echo $DEPLOY_PATH
+    echo pwd
+    echo $REPO_SLUG_ARRAY
+    echo $REPO_SLUG_ARRAY[0]
+    echo $REPO_SLUG_ARRAY[1]
   fi
 done
