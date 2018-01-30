@@ -4,9 +4,7 @@ import createStory from '../create-story';
 import {Tooltip} from '../../src/components/Tooltip';
 import * as TooltipSource from '!raw-loader!../../src/components/Tooltip/index.tsx';
 
-export const story = () => {
-  debugger;
-  return createStory({
+export const story = () => createStory({
     category: 'Components',
     name: 'Tooltip',
     storyName: 'Tooltip',
@@ -19,4 +17,3 @@ export const story = () => {
     }),
     source: TooltipSource
   });
-}
