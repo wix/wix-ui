@@ -7,4 +7,5 @@ pwd
 mkdir temp
 cp -R storybook-static/* temp
 echo ls -l | grep temp
+echo 'testing push on PR'
 echo 'finished storybook copy'
