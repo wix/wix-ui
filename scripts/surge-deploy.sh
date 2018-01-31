@@ -24,5 +24,5 @@ then
 else
   GITHUB_COMMENTS=https://api.github.com/repos/${TRAVIS_REPO_SLUG}/commits/${TRAVIS_COMMIT}/comments
 fi
-  curl -H "Authorization: token ${GITHUB_API_TOKEN}" --request POST ${GITHUB_COMMENTS} --data '{"body":"Travis automatic deployment completed successfully. Share storybook using this link: '${DEPLOY_DOMAIN}'"}'
+  curl -H "Authorization: token ${GITHUB_API_TOKEN}" --request POST ${GITHUB_COMMENTS} --data '{"body":"View storybook at: '${DEPLOY_DOMAIN}'"}'
 done
