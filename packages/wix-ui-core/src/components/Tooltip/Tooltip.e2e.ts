@@ -19,7 +19,7 @@ describe('Tooltip', () => {
         expect(driver.getElementText()).toBe('Hover me for a tooltip!');
         driver.onMouseOver();
         expect(driver.isTooltipExists()).toBeTruthy();
-        expect(driver.getTooltipText()).toBe('This is my tooltip\n\n');
+        expect(driver.getTooltipText()).toBe('This is my tooltip\n');
         driver.onMouseLeave();
         await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
       });

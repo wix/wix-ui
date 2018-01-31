@@ -32,13 +32,6 @@ export interface TooltipState {
  * Tooltip
  */
 
-// export class Tooltip extends React.PureComponent {
-//   render() {
-//     return <div>Muffinss</div>;
-//   }
-// }
-
-
 export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
@@ -99,7 +92,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, content, children, moveBy, showDelay, hideDelay} = this.props;
+    const {placement, content, children, showDelay, moveBy, moveArrowTo, hideDelay} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -112,7 +105,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         onMouseLeave={this.close}
         showDelay={showDelay}
         hideDelay={hideDelay}
-        moveBy={moveBy}>
+        moveBy={moveBy}
+        moveArrowTo={moveArrowTo || 5}>
         <Popover.Element>
           {children}
         </Popover.Element>
