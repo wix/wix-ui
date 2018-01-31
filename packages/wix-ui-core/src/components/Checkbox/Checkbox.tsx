@@ -30,6 +30,7 @@ export interface CheckboxProps {
   required?: boolean;
   indeterminate?: boolean;
   autoFocus?: boolean;
+  dataHook?: string;
   ['aria-controls']?: string[];
 }
 
@@ -146,7 +147,7 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
 
     return (
       <div {...style('root', {checked, disabled}, this.props) }
-        data-automation-id="CHECKBOX_ROOT"
+        data-hook={this.props.dataHook}
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
