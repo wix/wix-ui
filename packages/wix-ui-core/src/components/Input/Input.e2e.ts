@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {inputTestkitFactory} from '../../testkit/protractor';
 
-xdescribe('Input', () => {
+describe('Input', () => {
   const storyUrl = getStoryUrl('Components', 'Input');
 
   beforeEach(() => {

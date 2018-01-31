@@ -17,7 +17,6 @@ export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
   return (
     <div
       {...style('root', {vertical: vertical && !customDivider, customDivider}, props)}
-      data-hook="divider"
       >
         {children}
     </div>);
