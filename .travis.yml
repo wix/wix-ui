@@ -15,6 +15,8 @@ before_install:
  
 script:
  - npm run bootstrap && npm run test
+ - npm install surge
+ - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/surge-deploy.sh; fi'
 
 notifications:
   email:
