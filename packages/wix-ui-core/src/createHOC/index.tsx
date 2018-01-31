@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {string} from 'prop-types';
-const hoistNonReactStatics = require('hoist-non-react-statics');
+import hoistNonReactMethods from 'hoist-non-react-methods';
 
 export interface WixComponentProps {
   dataHook?: string;
@@ -30,9 +30,9 @@ export const createHOC = Component => {
     }
 
     render() {
-      return <Component {...this.props}/>;
+      return <Component ref='wrappedComponent' {...this.props}/>;
     }
   }
 
-  return hoistNonReactStatics(WixComponent, Component, {inner: true});
+  return hoistNonReactMethods(WixComponent, Component, {delegateTo: c => c.refs.wrappedComponent, hoistStatics: true});
 };
