@@ -14,6 +14,7 @@ import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {GoogleInput} from '../src/components/GoogleInput';
+import {ControlledInputWithOptions} from './InputWithOptions';
 
 const dropdownOptions =
   Array.from(Array(20))
@@ -35,9 +36,7 @@ storiesOf('Components', module)
       options={dropdownOptions}/>
   ))
   .add('InputWithOptions Single select', () => (
-    <InputWithOptions
-      data-hook="story-input-with-options-single"
-      options={dropdownOptions}/>
+    <ControlledInputWithOptions />
   ))
   .add('InputWithOptions Multi select', () => (
     <InputWithOptions

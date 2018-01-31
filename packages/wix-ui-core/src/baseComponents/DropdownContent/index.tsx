@@ -98,8 +98,10 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     }
 
     this.setHoveredIndex(hoveredIndex);
+    return true;
   }
 
+  // returns true if event was handled
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     switch (evt.key) {
       case 'Tab':
@@ -108,8 +110,10 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         const {hoveredIndex} = this.state;
         if (hoveredIndex >= 0 && hoveredIndex < options.length) {
           this.onOptionClick(options[hoveredIndex]);
+          return true;
         }
-        return;
+
+        break;
       }
       case 'ArrowUp': {
         return this.hoverNextItem(-1);
@@ -117,8 +121,10 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       case 'ArrowDown': {
         return this.hoverNextItem(1);
       }
-      default: return;
+      default: break;
     }
+
+    return false;
   }
 
   generateOptionClasses(option: Option, index: number) {

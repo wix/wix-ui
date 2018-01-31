@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './InputWithOptionsStyle.st.css';
-import {Dropdown} from '../../baseComponents/Dropdown';
+import {Dropdown, DropdownComponent} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
@@ -28,6 +28,8 @@ export interface InputWithOptionsProps {
   fixedFooter?: React.ReactNode;
   /** Maximum height of the options */
   optionsMaxHeight?: number;
+  /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
+  onManualInput?: (value: string) => void;
   /** Input prop types */
   inputProps?: InputProps;
 }
@@ -71,6 +73,30 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     inputProps: object
   };
 
+  private dropdownRef: {getInstance: () => DropdownComponent};
+
+  constructor() {
+    super();
+
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  onKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
+    const {inputProps, onManualInput} = this.props;
+    if (!this.dropdownRef.getInstance().onKeyDown(evt)) {
+      switch (evt.key) {
+        case 'Enter':
+        case 'Tab': {
+          onManualInput && inputProps && inputProps.value && onManualInput(inputProps.value);
+          break;
+        }
+        default: break;
+      }
+    }
+
+    inputProps && inputProps.onKeyDown && inputProps.onKeyDown(evt);
+  }
+
   render () {
     const {
       placement,
@@ -88,6 +114,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     return (
       <Dropdown
         {...style('root', {}, this.props)}
+        ref={dropdown => this.dropdownRef = dropdown}
         placement={placement}
         openTrigger={openTrigger}
         onSelect={onSelect}
@@ -99,7 +126,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
-        <Input data-hook="dropdown-input" {...inputProps} />
+        <Input
+          {...inputProps}
+          data-hook="dropdown-input"
+          onKeyDown={this.onKeyDown}
+        />
       </Dropdown>
     );
   }

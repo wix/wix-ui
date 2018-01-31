@@ -81,32 +81,24 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     }
   }
 
-  dropdownContentOnKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    this.open();
-    this.dropdownContentRef.onKeyDown(evt);
-  }
-
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
+    this.open();
+    const isHandled = this.dropdownContentRef.onKeyDown(evt);
     switch (evt.key) {
       case 'Enter':
-      case 'ArrowUp':
-      case 'ArrowDown': {
-        this.dropdownContentOnKeyDown(evt);
-        break;
-      }
       case 'Tab': {
-        this.dropdownContentOnKeyDown(evt);
-        this.close();
+        const {closeOnSelect} = this.props;
+        closeOnSelect && this.close();
         break;
       }
       case 'Escape': {
         this.close();
         break;
       }
-      default: {
-        break;
-      }
+      default: break;
     }
+
+    return isHandled;
   }
 
   onOptionClick(option: Option) {
@@ -152,7 +144,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           <div
-            onKeyDown={this.onKeyDown}
             data-hook="dropdown-element"
             onClick={openTrigger === CLICK ? this.open : null}>
             {children}
