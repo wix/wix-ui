@@ -22,6 +22,8 @@ export interface TooltipProps {
   moveArrowTo?: number;
   onShow?: Function;
   onHide?: Function;
+  appendToParent?: boolean;
+  appendTo?: node;
 }
 
 export interface TooltipState {
@@ -92,21 +94,25 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, content, children, showDelay, moveBy, moveArrowTo, hideDelay} = this.props;
+    const {placement, content, children, showDelay, moveBy,
+           moveArrowTo, hideDelay, appendTo, appendToParent} = this.props;
     const {isOpen} = this.state;
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={true}
         showArrow={true}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
         showDelay={showDelay}
         hideDelay={hideDelay}
         moveBy={moveBy}
-        moveArrowTo={moveArrowTo || 5}>
+        moveArrowTo={moveArrowTo}
+        appendTo={appendTo}
+        appendToParent={appendToParent}
+      >
         <Popover.Element>
           {children}
         </Popover.Element>

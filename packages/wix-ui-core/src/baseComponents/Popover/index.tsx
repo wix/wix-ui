@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
@@ -29,6 +30,9 @@ export interface PopoverProps {
   showDelay?: number;
   /** Moves arrow by amount */
   moveArrowTo?: number;
+
+  appendTo?: any;
+  appendToParent?: boolean;
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
@@ -77,9 +81,11 @@ const getArrowShift = (shift, direction) => {
 /**
  * Popover
  */
+
 export const Popover: PopoverType = props => {
   const {placement, shown, onMouseEnter, onMouseLeave, showArrow,
-         children, moveBy, showDelay, hideDelay, moveArrowTo}  = props;
+         children, moveBy, showDelay, hideDelay, moveArrowTo,
+         appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
   const modifiers = {
@@ -90,8 +96,18 @@ export const Popover: PopoverType = props => {
 
   const transitionStyles = transitionStylesFactory(showDelay, hideDelay);
 
+  const target = appendToParent ? null : appendTo  || null;
+
+  const onRef = mgr => {
+    if (mgr && target) {
+      mgr._setTargetNode(target);
+      setTimeout(() => console.log(mgr._getTargetNode()), 500);
+    }
+  };
+
   return (
     <Manager
+      ref={mgr => onRef(mgr)}
       {...style('root', {}, props)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
@@ -105,10 +121,10 @@ export const Popover: PopoverType = props => {
           placement={placement}
           className={classNames(style.popoverContentContainer, {[style.popoverContent]: !showArrow})}>
           {showArrow &&
-            <Arrow data-hook="popover-arrow"
-                   className={style.arrow}
-                   style={getArrowShift(moveArrowTo, placement)}
-            />}
+          <Arrow data-hook="popover-arrow"
+                 className={style.arrow}
+                 style={getArrowShift(moveArrowTo, placement)}
+          />}
           {showArrow && <div className={style.popoverContent}>
             {childrenObject.Content}
           </div>}
