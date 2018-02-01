@@ -72,21 +72,31 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     this.props.onChange(ev);
   }
 
+  clamp(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+  }
+
   handleTrackClick = (ev) => {
     const {min, max, step, vertical} = this.props;
+    const handleSize = this.getHandleSize();
     const totalSteps = Math.ceil((max - min) / step);
     const rect = this.track.getBoundingClientRect();
-    let value;
+
+    let value, pxStep, sliderPos;
 
     if (vertical) {
-      const sliderY = rect.bottom - ev.clientY;
-      const pxStep = rect.height / totalSteps;
-      value = min + step * Math.round(sliderY / pxStep);
+      sliderPos = rect.bottom - ev.clientY - handleSize / 2;
+      pxStep = (rect.height - handleSize) / totalSteps;
     } else {
-      const sliderX = ev.clientX - rect.left;
-      const pxStep = rect.width / totalSteps;
-      value = min + step * Math.round(sliderX / pxStep);
+      sliderPos = ev.clientX - (rect.left + handleSize / 2);
+      pxStep = (rect.width - handleSize) / totalSteps;
     }
+
+    value = min + step * Math.round(sliderPos / pxStep);
+
+    value = this.clamp(value, min, max);
+
+    // console.log({value, s: step * Math.round(sliderPos / pxStep), pxStep, sliderPos});
 
     this.handleChange({target: {value}});
   }
