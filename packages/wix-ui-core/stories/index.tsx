@@ -24,6 +24,7 @@ require('./Video').story();
 require('./Slider').story();
 require('./StylableToggleSwitch/index.story.ts');
 require('./AddressInput/E2E');
+require('./TimePicker').story();
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
