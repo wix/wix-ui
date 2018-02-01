@@ -84,7 +84,7 @@ export class Input extends React.Component<InputProps, InputState> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: oneOf(['number', 'text'])
+    type: oneOf(['number', 'text', 'time'])
   };
 
   constructor(props) {
