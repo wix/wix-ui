@@ -23,7 +23,7 @@ export const core: SliderTheme = {
   handleRadius: '50%',
   handleBackground: 'green',
   trackWidth: '100%',
-  trackHeight: '100%',
+  trackHeight: '25%',
   trackBackground: '#282d32',
   trackOpacity: '1',
   trackRadius: '8px',

@@ -12,11 +12,13 @@ export interface SliderProps {
   scaleMarks?: boolean;
   vertical?: boolean;
   handleSize?: number;
+  step?: any;
 }
 
 class Slider extends React.PureComponent<SliderProps> {
   static defaultProps = {
-    handleSize: 66
+    handleSize: 66,
+    step: 'any'
   };
 
   handleChange(ev) {
@@ -54,6 +56,32 @@ class Slider extends React.PureComponent<SliderProps> {
     return {left: progressVal, top: crossVal};
   }
 
+  renderTicks() {
+    if (this.props.step === 'any') {
+      return null;
+    }
+
+    const step = Number(this.props.step);
+    const ticks = [];
+
+    for (let i = this.props.min; i <= this.props.max; i += step) {
+      const pct = (i - this.props.min) / (this.props.max - this.props.min);
+      const handleSize = this.getHandleSize();
+      const left = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
+
+      const tick = (
+        <div style={{display: 'inline-block', position: 'absolute', left, width: 1, background: '#000', height: 6}}/>
+      );
+      ticks.push(tick);
+    }
+
+    return (
+      <div data-hook="ticks-wrapper">
+        {ticks}
+      </div>
+    );
+  }
+
   render() {
     const {classes, vertical, handleSize} = this.props;
 
@@ -64,6 +92,7 @@ class Slider extends React.PureComponent<SliderProps> {
         style={{width: '100%', height: '100%'}}>
         <input
           className={classes.slider}
+          step={this.props.step}
           type="range"
           value={this.props.value}
           min={this.props.min}
@@ -80,6 +109,7 @@ class Slider extends React.PureComponent<SliderProps> {
               height: handleSize
             }}
           />
+          {this.renderTicks()}
         </div>
       </div>
     );
