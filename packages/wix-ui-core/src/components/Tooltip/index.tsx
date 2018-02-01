@@ -102,7 +102,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={true}
+        shown={isOpen}
         showArrow={true}
         onMouseEnter={this.open}
         onMouseLeave={this.close}

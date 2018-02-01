@@ -88,26 +88,28 @@ export const Popover: PopoverType = props => {
          appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
+  const target = appendToParent ? null : appendTo  || null;
+
   const modifiers = {
     offset: {
       offset: `${moveBy ? moveBy.y : 0}px, ${moveBy ? moveBy.x : 0}px`
     }
   };
 
+  if (target) {
+    modifiers['preventOverflow'] = {
+      boundariesElement: target
+    };
+    modifiers['flip'] = {
+      boundariesElement: target,
+      behavior: ['left', 'bottom', 'top']
+    };
+  }
+
   const transitionStyles = transitionStylesFactory(showDelay, hideDelay);
-
-  const target = appendToParent ? null : appendTo  || null;
-
-  const onRef = mgr => {
-    if (mgr && target) {
-      mgr._setTargetNode(target);
-      setTimeout(() => console.log(mgr._getTargetNode()), 500);
-    }
-  };
 
   return (
     <Manager
-      ref={mgr => onRef(mgr)}
       {...style('root', {}, props)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
