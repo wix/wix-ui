@@ -53,14 +53,13 @@ describe('DropdownContent', () => {
   });
 
   describe('keyboardEvent', () => {
-    it.only('should move down when ArrowDown is sent', async () => {
+    it('should move down when ArrowDown is sent', async () => {
       const onOptionClick = jest.fn();
       const driver = createDriver(createDropdownContent({options, onOptionClick}));
       driver.onKeyDown('ArrowDown');
       await sleep(10);
 
-      console.log(driver.optionAt(0).amir());
-      expect(driver.optionAt(0).containsClass('Hover')).toBeTruthy();
+      expect(driver.optionAt(0).isHovered()).toBeTruthy();
     });
 
     it('should move to last when ArrowUp is sent', async () => {
@@ -69,7 +68,7 @@ describe('DropdownContent', () => {
       driver.onKeyDown('ArrowUp');
       await sleep(10);
 
-      expect(driver.optionAt(4).containsClass('Hover')).toBeTruthy();
+      expect(driver.optionAt(4).isHovered()).toBeTruthy();
     });
 
     it('should not hover over seperator with arrow up', async () => {
@@ -78,7 +77,7 @@ describe('DropdownContent', () => {
       driver.onKeyDown('ArrowUp');
       await sleep(10);
 
-      expect(driver.optionAt(0).containsClass('Hover')).toBeFalsy();
+      expect(driver.optionAt(0).isHovered()).toBeFalsy();
     });
 
     it('should not hover over seperator with arrow down', async () => {
@@ -87,7 +86,7 @@ describe('DropdownContent', () => {
       driver.onKeyDown('ArrowDown');
       await sleep(10);
 
-      expect(driver.optionAt(0).containsClass('Hover')).toBeFalsy();
+      expect(driver.optionAt(0).isHovered()).toBeFalsy();
     });
   });
 });

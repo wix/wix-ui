@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "haste build && import-path --path src/components --dts",
-    "pretest": "npm run build && build-storybook",
+    "pretest": "npm run build",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
     "test:watch": "haste test --jest --watch",

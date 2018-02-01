@@ -10,7 +10,7 @@ jest.mock('./IframesManager/IframesManager');
 const frameManager = require('./IframesManager/IframesManager');
 const iframeManagerPrototype = frameManager.IframesManager.prototype;
 
-describe.skip('GoogleMapsIframeClient', () => {
+describe('GoogleMapsIframeClient', () => {
   it('should return a resolved promise once the status sent by iframesManager is OK', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({

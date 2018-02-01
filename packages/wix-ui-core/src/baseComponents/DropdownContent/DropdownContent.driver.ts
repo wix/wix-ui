@@ -10,8 +10,7 @@ export const dropdownContentDriverFactory = ({element, componentInstance, eventT
     const option = getOptionAt(element, index);
     return {
       click: () => eventTrigger.click(option),
-      isHovered: () => isAttributeExists(element, attribute => attribute.name.includes('hover') && attribute.value === 'true'),
-      containsClass: className => option.className.includes(className)
+      isHovered: () => isAttributeExists(option, attribute => attribute.name.includes('hover') && attribute.value === 'true')
     };
   }
 });
