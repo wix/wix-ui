@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import style from './DropdownContent.st.css';
-import {Option} from '../DropdownOption';
+import {Option, DropdownOption} from '../DropdownOption';
 
 const NOT_HOVERED_INDEX = -1;
 
 export interface DropdownContentProps {
+  /** Component class name */
+  className?: string;
   /** The dropdown options array */
   options: Array<Option>;
   /** A callback for when clicking an option */
@@ -145,12 +147,12 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, maxHeight} = this.props;
+    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds} = this.props;
+    const {hoveredIndex} = this.state;
 
     return (
       <div
         {...style('root', {}, this.props)}
-        data-hook="dropdown-content"
         tabIndex={1000}>
         {fixedHeader}
         {
@@ -160,14 +162,17 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
             ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
             {
               (options || []).map((option, index) => (
-                <div
+                <DropdownOption
+                  className={style.dropdownOption}
                   data-hook="option"
                   key={option.id}
-                  className={this.generateOptionClasses(option, index)}
-                  onClick={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
-                  onMouseEnter={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}>
-                  {option.render()}
-                </div>
+                  option={option}
+                  index={index}
+                  hoveredIndex={hoveredIndex}
+                  selectedIds={selectedIds}
+                  onClickHandler={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
+                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}
+                />
               ))
             }
           </div>

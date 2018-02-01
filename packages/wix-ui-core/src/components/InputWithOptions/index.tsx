@@ -1,6 +1,6 @@
 import * as React from 'react';
-import style from './InputWithOptionsStyle.st.css';
-import {Dropdown, DropdownComponent} from '../../baseComponents/Dropdown';
+import style from './InputWithOptions.st.css';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
@@ -73,7 +73,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     inputProps: object
   };
 
-  private dropdownRef: {getInstance: () => DropdownComponent};
+  private dropdownRef;
 
   constructor() {
     super();

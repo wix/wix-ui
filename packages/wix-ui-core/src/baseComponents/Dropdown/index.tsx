@@ -1,6 +1,6 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import style from './DropdownStyle.st.css';
+import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
@@ -42,6 +42,7 @@ export interface DropdownState {
  * Dropdown
  */
 export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+  static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent;
 
   constructor(props) {
@@ -151,6 +152,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
+            className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             options={options}
             fixedFooter={fixedFooter}
@@ -164,5 +166,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 }
 
-export const Dropdown = onClickOutside(DropdownComponent);
-Dropdown.displayName = 'Dropdown';
+export type DropdownType = React.ComponentClass<DropdownProps> & {
+  getInstance: () => DropdownComponent
+};
+
+export const Dropdown: DropdownType = onClickOutside(DropdownComponent);
