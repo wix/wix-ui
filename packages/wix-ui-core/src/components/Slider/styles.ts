@@ -10,8 +10,8 @@ export const styles = (theme: SliderTheme) => {
   };
 
   const track = {
-    width: theme.trackWidth,
-    height: theme.trackHeight,
+    width: '100%',
+    height: theme.trackSize,
     cursor: 'pointer',
     background: theme.trackBackground,
     opacity: theme.trackOpacity,
@@ -32,8 +32,12 @@ export const styles = (theme: SliderTheme) => {
     vertical: {
       '& $slider': {
         'writing-mode': 'bt-lr', /* IE */
-        '-webkit-appearance': 'slider-vertical' /* WebKit */
-      }
+        '-webkit-appearance': 'slider-vertical', /* WebKit */
+        '&::-webkit-slider-runnable-track': {
+          width: theme.trackSize,
+          height: '100%'
+        }
+      },
     },
     handleWrapper: {
         position: 'relative',

@@ -24,8 +24,8 @@ export class SliderStory extends React.Component {
           <StatefulSlider step={10} min={0} max={100} value={0} handleSize={this.state.handleSize}/>
         </div>
         <br/>
-        <div style={{transform: 'translate(500px)', width: 50, height: 400, background: 'blue'}}>
-          <StatefulSlider vertical min={1} max={50} value={2} handleSize={this.state.handleSize}/>
+        <div style={{transform: 'translate(500px)', width: 80, height: 400, background: '#f2e8e8'}}>
+          <StatefulSlider vertical step={10} min={0} max={100} value={0} handleSize={this.state.handleSize}/>
         </div>
       </div>
     );
@@ -33,7 +33,13 @@ export class SliderStory extends React.Component {
 }
 
 class StatefulSlider extends React.Component<any, {value: number}> {
-  state = {value: 4};
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: props.value
+    };
+  }
 
   handleChange(ev) {
     this.setState({value: ev.target.value});

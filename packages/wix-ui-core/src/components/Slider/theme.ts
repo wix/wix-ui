@@ -6,8 +6,7 @@ export type SliderTheme = Partial<{
   handleMarginTop: string;
   handleRadius: string;
   handleBackground: string;
-  trackWidth: string;
-  trackHeight: string;
+  trackSize: string;
   trackBackground: string;
   trackOpacity: string;
   trackRadius: string;
@@ -22,8 +21,7 @@ export const core: SliderTheme = {
   handleBorderWidth: '2px',
   handleRadius: '50%',
   handleBackground: 'green',
-  trackWidth: '100%',
-  trackHeight: '25%',
+  trackSize: '25%',
   trackBackground: '#282d32',
   trackOpacity: '1',
   trackRadius: '8px',

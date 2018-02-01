@@ -67,11 +67,24 @@ class Slider extends React.PureComponent<SliderProps> {
     for (let i = this.props.min; i <= this.props.max; i += step) {
       const pct = (i - this.props.min) / (this.props.max - this.props.min);
       const handleSize = this.getHandleSize();
-      const left = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
+      const val = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
 
-      const tick = (
-        <div style={{display: 'inline-block', position: 'absolute', left, width: 1, background: '#000', height: 6}}/>
-      );
+      const tick = React.createElement('div', {
+        style: Object.assign({}, {
+          display: 'inline-block',
+          position: 'absolute',
+          background: '#000',
+        }, this.props.vertical ? {
+          top: val,
+          height: 1,
+          width: 6
+        } : {
+          left: val,
+          height: 6,
+          width: 1
+        })
+      });
+
       ticks.push(tick);
     }
 
@@ -79,7 +92,7 @@ class Slider extends React.PureComponent<SliderProps> {
       <div data-hook="ticks-wrapper">
         {ticks}
       </div>
-    );
+      );
   }
 
   render() {
@@ -87,7 +100,7 @@ class Slider extends React.PureComponent<SliderProps> {
 
     return (
       <div data-hook="wixui-slider" className={classNames(classes.root, {
-          [classes.vertical]: vertical
+        [classes.vertical]: vertical
         })}
         style={{width: '100%', height: '100%'}}>
         <input
@@ -104,16 +117,16 @@ class Slider extends React.PureComponent<SliderProps> {
           <div data-hook="sliderThumb"
             className={classes.handle}
             style={{
-              ...this.calcHandlePosition(),
-              width: handleSize,
-              height: handleSize
+            ...this.calcHandlePosition(),
+            width: handleSize,
+            height: handleSize
             }}
           />
           {this.renderTicks()}
         </div>
       </div>
-    );
-  }
+      );
+}
 }
 
 export default createHOC(Slider);
