@@ -44,17 +44,15 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     this.state = {responsiveLayout: null};
   }
 
-  public componentWillMount() {
+  public componentDidMount() {
     if (this.props.updateResponsiveLayout) {
+      // We can't do this in componentWillMount because the caller might need to access DOM here,
+      // and SSR wouldn't work.
       this.props.updateResponsiveLayout(() => {
         this.responsiveLayoutIsFresh = false;
         this.updateLayoutIfNeeded();
       });
-    }
-  }
-
-  public componentDidMount() {
-    if (!this.props.updateResponsiveLayout) {
+    } else  {
       this.updateLayoutIfNeeded();
     }
   }
