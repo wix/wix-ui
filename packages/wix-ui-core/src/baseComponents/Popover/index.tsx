@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
@@ -30,8 +29,9 @@ export interface PopoverProps {
   showDelay?: number;
   /** Moves arrow by amount */
   moveArrowTo?: number;
-
+  /** Enables calculations in relation to a dom element */
   appendTo?: any;
+  /** Enables calculations in relation to the parent element*/
   appendToParent?: boolean;
 }
 
