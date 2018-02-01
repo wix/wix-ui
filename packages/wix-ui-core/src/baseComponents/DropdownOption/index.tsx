@@ -68,6 +68,14 @@ export const OptionFactory = {
       null,
       value ? () => <Divider>{value}</Divider> : () => <Divider/>);
   },
+  createCustomDivider(divider: React.SFC): Option {
+    return createOption(
+      uniqueId('Divider'),
+      false,
+      false,
+      null,
+      divider);
+  },
   createHighlighted(
     id: number | string,
     isDisabled: boolean,
