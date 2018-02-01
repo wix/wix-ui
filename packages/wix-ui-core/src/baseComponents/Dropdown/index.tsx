@@ -141,17 +141,15 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         placement={placement}
         shown={isOpen && options.length > 0}
         showArrow={showArrow}
+        onClick={openTrigger === CLICK ? this.open : null}
         onMouseEnter={openTrigger === HOVER ? this.open : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
-          <div
-            data-hook="dropdown-element"
-            onClick={openTrigger === CLICK ? this.open : null}>
-            {children}
-          </div>
+          {children}
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
+            data-hook="dropdown-content"
             className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             options={options}

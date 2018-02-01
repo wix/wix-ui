@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 import style from './DropdownContent.st.css';
 import {Option, DropdownOption} from '../DropdownOption';
 
@@ -127,23 +126,6 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     }
 
     return false;
-  }
-
-  generateOptionClasses(option: Option, index: number) {
-    const {selectedIds} = this.props;
-    const {hoveredIndex} = this.state;
-
-    const isDisabled = option.isDisabled;
-    const isHovered = !isDisabled && hoveredIndex === index;
-    const isSelected = !isDisabled && (selectedIds || []).includes(option.id);
-    const isSelectedAndHovered = isHovered && isSelected;
-
-    return classNames(style.option, {
-      [style.optionSelected]: isSelected,
-      [style.optionHover]: isHovered,
-      [style.optionDisabled]: isDisabled,
-      [style.optionSelectedAndHovered]: isSelectedAndHovered
-    });
   }
 
   render() {

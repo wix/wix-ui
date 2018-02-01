@@ -53,12 +53,13 @@ describe('DropdownContent', () => {
   });
 
   describe('keyboardEvent', () => {
-    it('should move down when ArrowDown is sent', async () => {
+    it.only('should move down when ArrowDown is sent', async () => {
       const onOptionClick = jest.fn();
       const driver = createDriver(createDropdownContent({options, onOptionClick}));
       driver.onKeyDown('ArrowDown');
       await sleep(10);
 
+      console.log(driver.optionAt(0).amir());
       expect(driver.optionAt(0).containsClass('Hover')).toBeTruthy();
     });
 

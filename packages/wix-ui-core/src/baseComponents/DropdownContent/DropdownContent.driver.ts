@@ -10,6 +10,7 @@ export const dropdownContentDriverFactory = ({element, componentInstance, eventT
     const option = getOptionAt(element, index);
     return {
       click: () => eventTrigger.click(option),
+      amir: () => option.attributes,
       containsClass: className => option.className.includes(className)
     };
   }
