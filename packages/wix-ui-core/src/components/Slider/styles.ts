@@ -114,6 +114,13 @@ export const styles = (theme: SliderTheme) => {
       '&::-ms-tooltip': {
         display: 'none'
       }
+    },
+    tooltipWrapper: {
+      background: 'navy',
+      color: '#fff',
+      padding: '2px',
+      width: '20px',
+      textAlign: 'center'
     }
   };
 };

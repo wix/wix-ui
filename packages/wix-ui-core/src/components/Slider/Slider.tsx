@@ -17,7 +17,6 @@ export interface SliderProps {
 
 class Slider extends React.PureComponent<SliderProps> {
   static defaultProps = {
-    handleSize: 66,
     step: 'any'
   };
 
@@ -31,6 +30,10 @@ class Slider extends React.PureComponent<SliderProps> {
 
   getHandleSize() {
     return this.props.handleSize;
+  }
+
+  shouldShowTooltip() {
+    return true;
   }
 
   calcHandleProgressPosition() {
@@ -92,7 +95,33 @@ class Slider extends React.PureComponent<SliderProps> {
       <div data-hook="ticks-wrapper">
         {ticks}
       </div>
-      );
+    );
+  }
+
+  renderTooltip() {
+    if (!this.shouldShowTooltip()) {
+      return null;
+    }
+
+    const handlePos = this.calcHandlePosition();
+    const handleSize = this.getHandleSize();
+    const margin = this.props.vertical ? {
+      marginLeft: -24 - 2, //tooltip width
+      marginBottom: handleSize / 2 - 9.5 //half of tooltip height
+    } : {
+      marginTop: -handleSize / 2 - 2,
+      marginLeft: handleSize / 2 - 12 //half of tooltip width
+    };
+
+    return React.createElement('div', {
+      children: this.props.value,
+      className: this.props.classes.tooltipWrapper,
+      style: {
+        position: 'absolute',
+        ...handlePos,
+        ...margin
+      }
+    });
   }
 
   render() {
@@ -101,12 +130,12 @@ class Slider extends React.PureComponent<SliderProps> {
     return (
       <div data-hook="wixui-slider" className={classNames(classes.root, {
         [classes.vertical]: vertical
-        })}
+      })}
         style={{width: '100%', height: '100%'}}>
         <input
+          type="range"
           className={classes.slider}
           step={this.props.step}
-          type="range"
           value={this.props.value}
           min={this.props.min}
           max={this.props.max}
@@ -117,16 +146,17 @@ class Slider extends React.PureComponent<SliderProps> {
           <div data-hook="sliderThumb"
             className={classes.handle}
             style={{
-            ...this.calcHandlePosition(),
-            width: handleSize,
-            height: handleSize
+              ...this.calcHandlePosition(),
+              width: handleSize,
+              height: handleSize
             }}
           />
           {this.renderTicks()}
+          {this.renderTooltip()}
         </div>
       </div>
-      );
-}
+    );
+  }
 }
 
 export default createHOC(Slider);
