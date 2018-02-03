@@ -17,21 +17,28 @@ export interface SliderProps {
 
 interface SliderState {
   dragging: boolean;
+  mouseDown: boolean;
+  thumbHover: boolean;
 }
 
 class Slider extends React.PureComponent<SliderProps, SliderState> {
   track: HTMLDivElement;
 
   static defaultProps = {
-    step: 'any',
-    dragging: false
+    handleSize: 35,
+    step: 0.1,
+    mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
+    dragging: false,
+    thumbHover: false
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      dragging: false
+      dragging: false,
+      mouseDown: false,
+      thumbHover: false
     };
   }
 
@@ -51,14 +58,18 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleMouseDown = () => {
-    this.setState({dragging: true});
+    this.setState({mouseDown: true});
   }
 
   handleMouseUp = () => {
-    this.setState({dragging: false});
+    this.setState({mouseDown: false, dragging: false});
   }
 
   handleMouseMove = ev => {
+    if (this.state.mouseDown && !this.state.dragging) {
+      this.setState({dragging: true});
+    }
+
     if (this.state.dragging) {
       this.handleTrackClick(ev);
     }
@@ -70,6 +81,14 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   handleInput(ev) {
     this.props.onChange(ev);
+  }
+
+  handleThumbEnter = () => {
+    this.setState({thumbHover: true});
+  }
+
+  handleThumbLeave = () => {
+    this.setState({thumbHover: false});
   }
 
   clamp(val, min, max) {
@@ -106,7 +125,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   shouldShowTooltip() {
-    return true;
+    return this.state.dragging || this.state.thumbHover;
   }
 
   calcHandleProgressPosition() {
@@ -172,6 +191,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
       <div ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick} />
       <div data-hook="sliderThumb"
         className={classes.handle}
+        onMouseEnter={this.handleThumbEnter}
+        onMouseLeave={this.handleThumbLeave}
         style={{
           ...this.calcHandlePosition(),
           width: handleSize,
@@ -183,7 +204,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         max={max}
         handleSize={handleSize}
         vertical={vertical}
-        trackSize={vertical ? trackRect.height : trackRect.width}
+        trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
       />
       {this.renderTooltip()}
       </div>
@@ -203,17 +224,22 @@ interface TicksProps {
 class Ticks extends React.PureComponent<TicksProps> {
   MaximumTicksDensity = 0.1;
 
+  calcStep() {
+    const {step, min, max, trackSize} = this.props;
+    const totalTickCount = (max - min) / Number(step);
+    const density = Math.min(totalTickCount / trackSize, this.MaximumTicksDensity);
+    const adjustedStep = (max - min) / (trackSize * density);
+    return adjustedStep;
+  }
+
   render() {
-    let {step, min, max, handleSize, vertical, trackSize} = this.props;
+    const {min, max, handleSize, vertical, trackSize} = this.props;
 
     if (!trackSize) {
       return null;
     }
 
-    step = Number(step);
-    const totalTickCount = (max - min) / step;
-    const density = Math.min(totalTickCount / trackSize, this.MaximumTicksDensity);
-    step = (max - min) / (trackSize * density);
+    const step = this.calcStep();
 
     const ticks = [];
 

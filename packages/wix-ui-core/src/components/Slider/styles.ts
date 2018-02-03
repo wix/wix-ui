@@ -27,8 +27,6 @@ export const styles = (theme: SliderTheme) => {
       }
     },
     vertical: {
-      '& $slider': {
-      },
       '& $track': {
         width: theme.trackSize,
         height: '100%'
