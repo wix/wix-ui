@@ -22,9 +22,9 @@ export const core: SliderTheme = {
   handleRadius: '50%',
   handleBackground: 'green',
   trackSize: '25%',
-  trackBackground: '#282d32',
+  trackBackground: '#dadada',
   trackOpacity: '1',
   trackRadius: '8px',
-  trackBorderColor: '#ffbaea',
+  trackBorderColor: 'transparent',
   trackBorderWidth: '2px',
 };

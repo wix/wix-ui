@@ -20,16 +20,27 @@ export const styles = (theme: SliderTheme) => {
       background: theme.trackBackground,
       opacity: theme.trackOpacity,
       'border-radius': theme.trackRadius,
+      overflow: 'hidden',
       border: {
         width: theme.trackBorderWidth,
         color: theme.trackBorderColor,
         style: 'solid'
-      }
+      },
+      position: 'relative'
+    },
+    highlightedTrack: {
+      position: 'absolute',
+      background: 'linear-gradient(to right, #4992e3, #70bff3)',
+      height: '100%',
+      width: '100%'
     },
     vertical: {
       '& $track': {
         width: theme.trackSize,
         height: '100%'
+      },
+      '& $highlightedTrack': {
+        background: 'linear-gradient(to top, #4992e3, #70bff3)',
       }
     },
     handleWrapper: {
@@ -59,6 +70,11 @@ export const styles = (theme: SliderTheme) => {
       padding: '2px',
       width: '20px',
       textAlign: 'center'
+    },
+    tick: {
+      display: 'inline-block',
+      position: 'absolute',
+      background: '#000'
     }
   };
 };

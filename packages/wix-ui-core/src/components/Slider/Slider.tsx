@@ -135,6 +135,12 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     return `calc(${pct} * calc(100% - ${handleSize}px))`;
   }
 
+  calcHighlightedTrackPosition() {
+    const {value, min, max} = this.props;
+    const pct = (value - min) / (max - min);
+    return pct * 100 + '%';
+  }
+
   calcHandleCrossPosition() {
     const handleSize = this.getHandleSize();
     return `calc(50% - ${handleSize / 2}px)`;
@@ -180,6 +186,13 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   render() {
     const {classes, step, min, max, handleSize, vertical} = this.props;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
+    const handlePosition: any = this.calcHandlePosition();
+    const highlightedTrackPosition = vertical ? {
+        bottom: 0,
+        height: this.calcHighlightedTrackPosition()
+    } : {
+        width: this.calcHighlightedTrackPosition()
+    };
 
     return (
       <div data-hook="wixui-slider" className={classNames(classes.root, {
@@ -188,18 +201,24 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         style={{width: '100%', height: '100%'}}
         onMouseDown={this.handleMouseDown}
     >
-      <div ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick} />
+      <div ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick}>
+        <div className={classes.highlightedTrack} style={{
+          ...highlightedTrackPosition
+        }}/>
+      </div>
       <div data-hook="sliderThumb"
         className={classes.handle}
         onMouseEnter={this.handleThumbEnter}
         onMouseLeave={this.handleThumbLeave}
         style={{
-          ...this.calcHandlePosition(),
+          ...handlePosition,
           width: handleSize,
           height: handleSize
         }}
       />
-      <Ticks step={step}
+      <Ticks 
+        classes={classes}
+        step={step}
         min={min}
         max={max}
         handleSize={handleSize}
@@ -213,6 +232,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 }
 
 interface TicksProps {
+  classes: any,
   step: number;
   min: number;
   max: number;
@@ -233,7 +253,7 @@ class Ticks extends React.PureComponent<TicksProps> {
   }
 
   render() {
-    const {min, max, handleSize, vertical, trackSize} = this.props;
+    const {min, max, handleSize, vertical, trackSize, classes} = this.props;
 
     if (!trackSize) {
       return null;
@@ -248,11 +268,8 @@ class Ticks extends React.PureComponent<TicksProps> {
       const val = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
 
       const tick = React.createElement('div', {
-        style: Object.assign({}, {
-          display: 'inline-block',
-          position: 'absolute',
-          background: '#000',
-        }, vertical ? {
+        className: classes.tick,
+        style: Object.assign({}, vertical ? {
           top: val,
           height: 1,
           width: 6
