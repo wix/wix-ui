@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {string} from 'prop-types';
-const hoistNonReactStatics = require('hoist-non-react-statics');
+import hoistNonReactMethods from 'hoist-non-react-methods';
 
 export interface WixComponentProps {
   dataHook?: string;
   dataClass?: string;
 }
+
+const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
@@ -30,9 +32,14 @@ export const createHOC = Component => {
     }
 
     render() {
-      return <Component {...this.props}/>;
+      // Can't pass refs to stateless components (and also there's nothing to hoist)
+      return isStatelessComponent(Component)
+        ? (<Component {...this.props}/>)
+        : (<Component ref="wrappedComponent" {...this.props}/>);
     }
   }
 
-  return hoistNonReactStatics(WixComponent, Component, {inner: true});
+  return isStatelessComponent(Component)
+    ? WixComponent
+    : hoistNonReactMethods(WixComponent, Component, {delegateTo: c => c.refs.wrappedComponent, hoistStatics: true});
 };
