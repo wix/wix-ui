@@ -1,6 +1,6 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import style from './DropdownStyle.st.css';
+import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
@@ -42,6 +42,7 @@ export interface DropdownState {
  * Dropdown
  */
 export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+  static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent;
 
   constructor(props) {
@@ -81,32 +82,24 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     }
   }
 
-  dropdownContentOnKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    this.open();
-    this.dropdownContentRef.onKeyDown(evt);
-  }
-
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
+    this.open();
+    const isHandled = this.dropdownContentRef.onKeyDown(evt);
     switch (evt.key) {
       case 'Enter':
-      case 'ArrowUp':
-      case 'ArrowDown': {
-        this.dropdownContentOnKeyDown(evt);
-        break;
-      }
       case 'Tab': {
-        this.dropdownContentOnKeyDown(evt);
-        this.close();
+        const {closeOnSelect} = this.props;
+        closeOnSelect && this.close();
         break;
       }
       case 'Escape': {
         this.close();
         break;
       }
-      default: {
-        break;
-      }
+      default: break;
     }
+
+    return isHandled;
   }
 
   onOptionClick(option: Option) {
@@ -148,18 +141,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         placement={placement}
         shown={isOpen && options.length > 0}
         showArrow={showArrow}
+        onClick={openTrigger === CLICK ? this.open : null}
         onMouseEnter={openTrigger === HOVER ? this.open : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
-          <div
-            onKeyDown={this.onKeyDown}
-            data-hook="dropdown-element"
-            onClick={openTrigger === CLICK ? this.open : null}>
-            {children}
-          </div>
+          {children}
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
+            data-hook="dropdown-content"
+            className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             options={options}
             fixedFooter={fixedFooter}
@@ -173,5 +164,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 }
 
-export const Dropdown = onClickOutside(DropdownComponent);
-Dropdown.displayName = 'Dropdown';
+export type DropdownType = React.ComponentClass<DropdownProps> & {
+  getInstance: () => DropdownComponent
+};
+
+export const Dropdown: DropdownType = onClickOutside(DropdownComponent);

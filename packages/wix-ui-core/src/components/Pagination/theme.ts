@@ -1,26 +1,28 @@
 export type PaginationTheme = {
-  root: React.CSSProperties,
+  root: React.CSSProperties;
 
   // Nav buttons
-  navButton: React.CSSProperties,
-  navButtonFirst: React.CSSProperties,
-  navButtonPrevious: React.CSSProperties,
-  navButtonNext: React.CSSProperties,
-  navButtonLast: React.CSSProperties,
+  navButton: React.CSSProperties;
+  navButtonFirst: React.CSSProperties;
+  navButtonPrevious: React.CSSProperties;
+  navButtonNext: React.CSSProperties;
+  navButtonLast: React.CSSProperties;
 
   // Mode: pages
-  pageStrip: React.CSSProperties,
-  pageButton: React.CSSProperties,
-  currentPage: React.CSSProperties,
-  gap: React.CSSProperties,
+  pageStrip: React.CSSProperties;
+  pageStripInner: React.CSSProperties;
+  pageStripTemplate: React.CSSProperties;
+  pageButton: React.CSSProperties;
+  currentPage: React.CSSProperties;
+  gap: React.CSSProperties;
 
   // Mode: input
-  pageForm: React.CSSProperties,
-  pageInput: React.CSSProperties,
-  totalPages: React.CSSProperties,
+  pageForm: React.CSSProperties;
+  pageInput: React.CSSProperties;
+  totalPages: React.CSSProperties;
 
   // Modifiers
-  disabled: React.CSSProperties
+  disabled: React.CSSProperties;
 };
 
 // Responsive layout logic depends on styling defined here and may not work correctly with different styling.
@@ -41,9 +43,14 @@ export const core: PaginationTheme = {
   navButtonNext: {order: 4},
   navButtonLast: {order: 5},
   pageStrip: {
-    display: 'flex',
     order: 3,
-    justifyContent: 'center',
+    overflowX: 'hidden'
+  },
+  pageStripInner: {
+    display: 'flex'
+  },
+  pageStripTemplate: {
+    height: 0,
     overflow: 'hidden'
   },
   pageButton: {

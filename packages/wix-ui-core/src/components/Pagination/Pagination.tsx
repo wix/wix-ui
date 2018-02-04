@@ -26,6 +26,8 @@ export interface PaginationClasses {
 
   // Mode: pages
   pageStrip: string;
+  pageStripInner: string;
+  pageStripTemplate: string;
   pageButton: string;
   currentPage: string;
   gap: string;
@@ -54,6 +56,7 @@ export interface PaginationProps {
   nextLabel?: React.ReactNode;
   lastLabel?: React.ReactNode;
   gapLabel?: React.ReactNode;
+  slashLabel?: React.ReactNode;
   rtl?: boolean;
   width?: number;
   showFirstPage?: boolean;
@@ -63,6 +66,7 @@ export interface PaginationProps {
   maxPagesToShow?: number;
   classes?: PaginationClasses;
   id?: string;
+  updateResponsiveLayout?: (callback: () => void) => void;
 }
 
 interface PaginationState {
@@ -70,7 +74,7 @@ interface PaginationState {
 }
 
 class Pagination extends React.Component<PaginationProps, PaginationState> {
-  // this is a techincal debt - remove once we have support for typescript props in autodocs
+  // this is a technical debt - remove once we have support for typescript props in autodocs
   static propTypes = {
     /** The number of pages available to paginate */
     totalPages: number.isRequired,
@@ -96,6 +100,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     lastLabel: node,
     /** Text to appear in the gap between page numbers */
     gapLabel: node,
+    /** Text to appear between the input and the total number of pages in paginationMode="input" */
+    slashLabel: node,
     /**  Whether the component layout is right to left */
     rtl: bool,
     /** The pixel width the component will render in  */
@@ -113,7 +119,9 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Classes object */
     classes: object,
     /** Component ID */
-    id: string
+    id: string,
+    /** Allows to trigger responsive layout update on window dimensions change, font load, etc. */
+    updateResponsiveLayout: func
   };
 
   public static defaultProps: Partial<PaginationProps> = {
@@ -129,7 +137,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     lastLabel: 'Last',
     previousLabel: 'Previous',
     nextLabel: 'Next',
-    gapLabel: '...'
+    gapLabel: '...',
+    slashLabel: '\u00A0/\u00A0'
   };
 
   private getId(elementName: string = ''): string | null {
@@ -165,6 +174,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         gapLabel={this.props.gapLabel}
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
+        updateResponsiveLayout={this.props.updateResponsiveLayout}
       />
     );
   }
@@ -214,11 +224,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
-        {this.props.showInputModeTotalPages && (
+        {this.props.showInputModeTotalPages &&
           <span data-hook="total-pages" className={this.props.classes.totalPages}>
-            {`\u00A0/\u00A0${this.props.totalPages}`}
+            {this.props.slashLabel}
+            {this.props.totalPages}
           </span>
-        )}
+        }
       </div>
     );
   }

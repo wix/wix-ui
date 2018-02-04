@@ -21,7 +21,7 @@ describe('Dropdown', () => {
       initialSelectedIds: [],
       closeOnSelect: true
     }, props)}>
-      {() => ''}
+      <span>Dropdown</span>
     </Dropdown>
   );
 

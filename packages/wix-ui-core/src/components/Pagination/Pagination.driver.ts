@@ -15,6 +15,8 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
     pageStrip.querySelector(`[data-hook~=page-${n}]`)
   );
 
+  const getPageElements = () => Array.from(pageStrip.firstElementChild.children);
+
   return {
     /** Returns the root element*/
     root,
@@ -25,11 +27,11 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
     /** Returns the container of page elements */
     getPageStrip: () => root.querySelector('[data-hook="page-strip"]'),
     /** Returns displayed page elements */
-    getPages: () => Array.from(pageStrip.children),
+    getPages: () => getPageElements(),
     /** Returns the text content of the displayed pages in "pages" mode */
-    getPageLabels: (): string[] => Array.from(pageStrip.children).map(p => p.textContent),
+    getPageLabels: (): string[] => getPageElements().map(p => p.textContent),
     /** Returns the page element given its index in the page strip */
-    getPageByIndex: (idx?: number): Element | null => (idx < pageStrip.children.length) ? pageStrip.children[idx] : null,
+    getPageByIndex: (idx?: number): Element | null => getPageElements()[idx] || null,
     /** Returns the page element given page number */
     getPageByNumber,
     /** Returns the page element currently selected */

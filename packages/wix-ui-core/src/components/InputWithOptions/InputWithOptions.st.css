@@ -1,5 +1,10 @@
 :import {
-  -st-from: "../Popover/PopoverVars.st.css";
+  -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
+  -st-default: Dropdown;
+}
+
+:import {
+  -st-from: "./InputWithOptionsVars.st.css";
   -st-named:
     contentBackgroundColor,
     contentBorderWidth,
@@ -8,4 +13,8 @@
     contentBorderRadius,
     contentPadding,
     contentArrowSize;
+}
+
+.root {
+  -st-extends: Dropdown;
 }

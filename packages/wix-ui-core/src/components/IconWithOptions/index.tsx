@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './IconWithOptionsStyle.st.css';
+import style from './IconWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';

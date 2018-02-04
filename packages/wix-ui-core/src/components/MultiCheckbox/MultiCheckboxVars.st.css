@@ -7,14 +7,5 @@
     contentBorderColor,
     contentBorderRadius,
     contentPadding,
-    contentArrowSize,
-    optionHoverBackgroundColor,
-    optionDisabledBackgroundColor,
-    optionSelectedBackgroundColor,
-    optionSelectedHoverBackgroundColor,
-    dividerHeight,
-    dividerBackgroundColor,
-    dividerOpacity,
-    dividerMarginTop,
-    dividerMarginBottom;
+    contentArrowSize;
 }

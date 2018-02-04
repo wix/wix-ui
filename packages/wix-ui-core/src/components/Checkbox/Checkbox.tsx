@@ -146,7 +146,6 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
 
     return (
       <div {...style('root', {checked, disabled}, this.props) }
-        data-automation-id="CHECKBOX_ROOT"
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
@@ -173,7 +172,7 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
 
           <span
             className={style.box}
-            data-automation-id="CHECKBOX_BOX"
+            data-hook="CHECKBOX_BOX"
           >
             {this.props.indeterminate ?
               this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}

@@ -21,6 +21,9 @@ export const theme = {
       backgroundColor: 'transparent'
     }
   },
+  pageStripInner: {
+    justifyContent: 'center'
+  },
   pageButton: {
     ...button,
     backgroundColor: '#CFD8DC'

@@ -15,6 +15,8 @@ export interface PopoverProps {
   placement: Placement;
   /** Is the content shown or not */
   shown: boolean;
+  /** onClick on the component */
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseEnter on the component */
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseLeave on the component */
@@ -83,7 +85,7 @@ const getArrowShift = (shift, direction) => {
  */
 
 export const Popover: PopoverType = props => {
-  const {placement, shown, onMouseEnter, onMouseLeave, showArrow,
+  const {placement, shown, onMouseEnter, onMouseLeave, onClick, showArrow,
          children, moveBy, showDelay, hideDelay, moveArrowTo,
          appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -100,10 +102,6 @@ export const Popover: PopoverType = props => {
     modifiers['preventOverflow'] = {
       boundariesElement: target
     };
-    modifiers['flip'] = {
-      boundariesElement: target,
-      behavior: ['left', 'bottom', 'top']
-    };
   }
 
   const transitionStyles = transitionStylesFactory(showDelay, hideDelay);
@@ -111,6 +109,7 @@ export const Popover: PopoverType = props => {
   return (
     <Manager
       {...style('root', {}, props)}
+      onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       <Target data-hook="popover-element">

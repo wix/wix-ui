@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
 import {dividerTestkitFactory} from '../../testkit/protractor';
 
-xdescribe('Divider', () => {
+describe('Divider', () => {
   const storyUrl = getStoryUrl('Components', 'Divider');
 
   beforeEach(() => browser.get(storyUrl));
@@ -13,8 +13,8 @@ xdescribe('Divider', () => {
     const driver = dividerTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Divider')
-      .then(async () => {
-        await expect(driver.exists()).toBe(true);
+      .then(() => {
+        expect(driver.exists()).toBe(true);
       });
   });
 });

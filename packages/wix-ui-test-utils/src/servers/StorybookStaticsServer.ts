@@ -4,7 +4,7 @@ import * as express from 'express';
 const storybookPath = './storybook-static';
 
 export default class StorybookStaticsServer {
-  private server: Server;
+  private server: Server | null = null;
 
   start({port}: {port: 6006}) {
     return new Promise(resolve => {
@@ -16,7 +16,7 @@ export default class StorybookStaticsServer {
 
   stop() {
     return new Promise(resolve => {
-      this.server.close(resolve);
+      this.server && this.server.close(resolve);
     });
   }
 }
