@@ -346,6 +346,23 @@ describe('Pagination', () => {
     expect(pagination.getPageByNumber(3).getAttribute('href')).toEqual('https://example.com/3/');
   });
 
+  describe('Numbering logic', () => {
+    it('Renders up to 5 pages during SSR in responsive mode', () => {
+      const pagination = createDriver(
+        <Pagination
+          responsive
+          totalPages={9}
+          currentPage={5}
+          showFirstPage
+          showLastPage
+          // Hack against Haste trying to mock browser environment, e.g. triggering componentDidMount on the server.
+          updateResponsiveLayout={() => null}
+        />
+      );
+      expect(pagination.getPageLabels()).toEqual(['1', '...', '5', '...', '9']);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Pagination totalPages={3} />, paginationTestkitFactory)).toBe(true);
