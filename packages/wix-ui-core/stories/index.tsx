@@ -5,6 +5,7 @@ import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {TooltipStory} from './Tooltip/tooltip-story';
+import {ImageStory} from './Image/image-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {IconWithOptions} from '../src/components/IconWithOptions';
@@ -93,4 +94,7 @@ storiesOf('Components', module)
   ))
   .add('Divider', () => (
     <DividerStory/>
+  ))
+  .add('Image', () => (
+    <ImageStory />
   ));

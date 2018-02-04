@@ -1,0 +1,17 @@
+.root {
+  -st-states: loaded, loading, error;
+  display: inline-block;
+}
+
+.hiddenImage {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.imageWrapper {
+
+
+}
+
