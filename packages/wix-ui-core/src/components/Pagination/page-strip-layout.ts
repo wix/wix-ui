@@ -203,30 +203,38 @@ function createLayout({
     });
 
   return (
-    // Can we show the entire range?
+    // Try to show the entire range.
     (lowerBound === 1 || !showFirstPage) && (upperBound === totalPages || !showLastPage) &&
     expand(lowerBound, upperBound, false, false) ||
 
-    // Apparently, no. Let's prioritize showing the previous and the next page,
-    // then the first and the last page if requested, then the rest.
-    // Also let's try to have a gap only on one side.
-
-    // Gap only before the last page.
+    // Ellipsis only in the end. Show at least one page after the current.
     (showLastPage && lowerBound === 1) &&
     expand(lowerBound, nextOrUpperBound, false, true) ||
 
-    // Gap only after the first page.
+    // Ellipsis only in the beginning. Show at least one page before the current.
     (showFirstPage && upperBound === totalPages) &&
     expand(prevOrLowerBound, upperBound, true, false) ||
 
-    // Gap after the first page and before the last.
+    // Ellipses on both sides. Show at least one page before the current and one after.
     (showFirstPage && showLastPage) &&
     expand(prevOrLowerBound, nextOrUpperBound, true, true) ||
 
-    // Cut off both sides, don't show the first and last page.
-    expand(prevOrLowerBound, nextOrUpperBound, false, false) ||
+    // Ellipsis only in the end. Don't try to include the next page.
+    (showLastPage && lowerBound === 1) &&
+    expand(lowerBound, currentPage, false, true) ||
 
-    // Oh well.
+    // Ellipsis only in the beginning. Don't try to include the previous page.
+    (showFirstPage && upperBound === totalPages) &&
+    expand(currentPage, upperBound, true, false) ||
+
+    // Ellipses on both sides. Don't try to include the previous and the next page.
+    (showFirstPage && showLastPage) &&
+    expand(currentPage, currentPage, true, true) ||
+
+    // Cut off both sides without adding ellipses.
+    expand(currentPage, currentPage, false, false) ||
+
+    // If there's not enough space even for the current page, still show it.
     [currentPage]
   );
 }

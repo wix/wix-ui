@@ -73,10 +73,16 @@ describe('Pagination', () => {
       expect(pagination.getPageList()).toEqual(['1', '...', '4', '5', '6', '...', '9']);
     });
 
+    eyes.it(`gives higher priority to first and last page than to prev and next`, () => {
+      const pagination = paginationTestkitFactory({dataHook: 'responsive-no-space-for-ellipsis-and-prev-next'});
+      waitForVisibilityOf(pagination.element());
+      expect(pagination.getPageList()).toEqual(['1', '...', '5', '...', '9']);
+    });
+
     eyes.it(`doesn't show ellipses if there's too little space for them`, () => {
       const pagination = paginationTestkitFactory({dataHook: 'responsive-no-space-for-ellipsis'});
       waitForVisibilityOf(pagination.element());
-      expect(pagination.getPageList()).toEqual(['3', '4', '5', '6', '7']);
+      expect(pagination.getPageList()).toEqual(['4', '5', '6']);
     });
 
     eyes.it(`always shows the current page even if there's not enough space for it`, () => {

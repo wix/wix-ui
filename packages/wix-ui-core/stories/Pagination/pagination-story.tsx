@@ -144,11 +144,23 @@ export function PaginationStory() {
         />
       </div>
       <div>
+        <h3>Not enough space for both ellipses and prev and next</h3>
+        <UncontrolledPagination
+          dataHook="responsive-no-space-for-ellipsis-and-prev-next"
+          responsive
+          width={spaceForPages(5)}
+          showFirstPage
+          showLastPage
+          currentPage={5}
+          totalPages={9}
+        />
+      </div>
+      <div>
         <h3>Not enough space for ellipses</h3>
         <UncontrolledPagination
           dataHook="responsive-no-space-for-ellipsis"
           responsive
-          width={spaceForPages(5)}
+          width={spaceForPages(3)}
           showFirstPage
           showLastPage
           currentPage={5}
