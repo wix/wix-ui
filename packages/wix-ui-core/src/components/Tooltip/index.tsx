@@ -14,8 +14,8 @@ export type Point = {
 export interface TooltipProps {
   /** The location to display the content */
   placement?: Placement;
-  children?: node;
-  content?: node;
+  children?: React.ReactNode;
+  content?: React.ReactNode;
   showDelay?: number;
   hideDelay?: number;
   moveBy?: Point;
@@ -23,7 +23,7 @@ export interface TooltipProps {
   onShow?: Function;
   onHide?: Function;
   appendToParent?: boolean;
-  appendTo?: node;
+  appendTo?: React.ReactNode;
 }
 
 export interface TooltipState {
