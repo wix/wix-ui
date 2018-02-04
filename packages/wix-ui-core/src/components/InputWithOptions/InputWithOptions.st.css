@@ -1,3 +1,6 @@
+@custom-selector :--contentContainer .root::popoverContentContainer;
+@custom-selector :--option .root::dropdownContent::dropdownOption;
+
 :import {
   -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
   -st-default: Dropdown;
