@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './TooltipStyle.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
-import {func, boolean, number, node, object} from 'prop-types';
+import {func, bool, number, node, object} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 const noop = () => { return; };
@@ -69,7 +69,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     /** Enables calculations in relation to a dom element */
     appendTo: node,
     /** Enables calculations in relation to the parent element*/
-    appendToParent: boolean
+    appendToParent: bool
   };
 
   constructor(props) {

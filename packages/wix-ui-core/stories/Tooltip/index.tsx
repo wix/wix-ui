@@ -13,10 +13,10 @@ export const story = () => createStory({
       'data-hook': 'story-tooltip-right',
       content: <span>This is my tooltip</span>,
       children: <span>Hover me for a tooltip!</span>,
-      placement: 'bottom'
+      placement: 'right'
     }),
     exampleProps: {
-      placement: 'bottom'
+      placement: 'right'
     },
     source: TooltipSource
   });
