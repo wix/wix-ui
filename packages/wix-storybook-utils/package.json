@@ -2,7 +2,10 @@
   "name": "wix-storybook-utils",
   "version": "1.0.0",
   "description": "Utilities for automated component documentation within Storybook",
-  "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
   "license": "MIT",
   "files": [
     "src",

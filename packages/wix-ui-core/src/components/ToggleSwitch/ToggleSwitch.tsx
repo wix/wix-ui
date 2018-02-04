@@ -25,6 +25,7 @@ export interface ToggleSwitchProps {
   classes?: ToggleSwitchClasses;
   styles?: ToggleSwitchStyles;
   id?: string;
+  previewState?: string;
 }
 
 /**
@@ -50,9 +51,11 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     styles: object,
     /** Component ID, will be generated automatically if not provided */
     id: string,
+    /** Preview state, initiate hover, focus, etc. synthetically */
+    previewState: string
   };
 
-  static defaultProps = {checked: false, styles: {}};
+  static defaultProps = {checked: false, styles: {}, previewState: ''};
 
   componentDidMount() {
     this.toggle.addEventListener('keydown', this._listenToSpace);
@@ -76,11 +79,11 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   }
 
   render() {
-    const {checked, disabled, classes, styles} = this.props;
+    const {checked, disabled, classes, styles, previewState} = this.props;
     const {id} = this;
 
     return (
-      <label className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
+      <label className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref} data-preview={previewState}>
         <input
           type="checkbox"
           id={id}

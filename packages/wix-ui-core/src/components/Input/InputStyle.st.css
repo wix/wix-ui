@@ -1,0 +1,75 @@
+:import {
+  -st-from: "./Input.st.css";
+  -st-default: Input;
+}
+
+:vars {
+  color: black;
+  colorDisabled: black;
+  colorHover: black;
+  colorFocus: black;
+  colorPlaceholder: white;
+  backgroundColor: grey;
+  backgroundColorDisabled: grey;
+  backgroundColorHover: grey;
+  backgroundColorFocus: grey;
+  borderColor: black;
+  borderColorDisabled: black;
+  borderColorHover: black;
+  borderColorFocus: black;
+  hoverBorderColor: black;
+  borderRadius: 6px;
+  fontSize: 16px;
+  border: 1px solid;
+}
+
+.root {
+  -st-extends: Input;
+  font-size: value(fontSize);
+  line-height: 24px;
+
+  height: 36px;
+  padding: 0 12px;
+
+  color: value(color);
+  background-color: value(backgroundColor);
+  border-color: value(borderColor);
+  border-radius: value(borderRadius);
+  border: value(border);
+}
+
+.root:hover {
+  color: value(colorHover);
+  background-color: value(backgroundColorHover);
+  border-color: value(borderColorHover);
+}
+
+.root:focus {
+  color: value(colorFocus);
+  background-color: value(backgroundColorFocus);
+  border-color: value(borderColorFocus);
+}
+
+.root:disabled {
+  color: value(colorDisabled);
+  background-color: value(backgroundColorDisabled);
+  border-color: value(borderColorDisabled);
+}
+
+.root:disabled:hover {
+  border-color: value(hoverBorderColor);
+}
+
+/* Placeholder color */
+.root::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: value(colorPlaceholder);
+}
+.root:-moz-placeholder { /* Firefox 18- */
+  color: value(colorPlaceholder);
+}
+.root::-moz-placeholder { /* Firefox 19+ */
+  color: value(colorPlaceholder);
+}
+.root:-ms-input-placeholder { /* IE 10+ */
+  color: value(colorPlaceholder);
+}

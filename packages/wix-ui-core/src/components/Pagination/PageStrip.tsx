@@ -9,6 +9,8 @@ import {
 
 export interface PageStripClasses {
   pageStrip: string;
+  pageStripInner: string;
+  pageStripTemplate: string;
   pageButton: string;
   currentPage: string;
   gap: string;
@@ -27,49 +29,42 @@ export interface PageStripProps {
   gapLabel: React.ReactNode;
   onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
   onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
-}
-
-export enum ResponsiveLayoutPhase {
-  // When using responsive layout we initially want to render identical tree
-  // on the server and in the browser so that React doesn't freak out.
-  Initial,
-
-  // Once the component is mounted we need to determine how much space various buttons
-  // occupy to decide which of them we have enough space for. The users should never
-  // see this layout, we only use it to take measurements.
-  Template,
-
-  // Once we have the measurements, we can render the final responsive layout.
-  Final
+  updateResponsiveLayout: (callback: () => void) => void;
 }
 
 export interface PageStripState {
-  responsiveLayout: PageStripLayout;
-  responsiveLayoutPhase: ResponsiveLayoutPhase;
+  responsiveLayout: PageStripLayout | null;
 }
 
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
-  constructor() {
-    super();
-    this.state = {
-      responsiveLayout: null,
-      responsiveLayoutPhase: ResponsiveLayoutPhase.Initial
-    };
-  }
+  private responsiveLayoutIsFresh: boolean = false;
 
-  public componentWillReceiveProps() {
-    this.setState({
-      responsiveLayout: null,
-      responsiveLayoutPhase: ResponsiveLayoutPhase.Template
-    });
+  public constructor() {
+    super();
+    this.state = {responsiveLayout: null};
   }
 
   public componentDidMount() {
-    this.updateLayoutIfNeeded();
+    if (this.props.updateResponsiveLayout) {
+      // We can't do this in componentWillMount because the caller might need to access DOM here,
+      // and SSR wouldn't work.
+      this.props.updateResponsiveLayout(() => {
+        this.responsiveLayoutIsFresh = false;
+        this.updateLayoutIfNeeded();
+      });
+    } else  {
+      this.updateLayoutIfNeeded();
+    }
+  }
+
+  public componentWillReceiveProps() {
+    this.responsiveLayoutIsFresh = false;
   }
 
   public componentDidUpdate() {
-    this.updateLayoutIfNeeded();
+    if (!this.props.updateResponsiveLayout) {
+      this.updateLayoutIfNeeded();
+    }
   }
 
   public render() {
@@ -79,18 +74,25 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={this.props.classes.pageStrip}
       >
-        {this.renderLayout(this.getLayout())}
+        <div className={this.props.classes.pageStripInner}>
+          {this.renderLayout(this.getLayout(), false)}
+        </div>
+
+        {this.isResponsive() &&
+          <div className={this.props.classes.pageStripInner + ' ' + this.props.classes.pageStripTemplate}>
+            {this.renderLayout(createResponsiveLayoutTemplate(this.props), true)}
+          </div>
+        }
       </div>
     );
   }
 
-  private renderLayout(layout: PageStripLayout): JSX.Element[] {
+  // We can't use page numbers as keys, because we might need to render the same page twice
+  // for responsive layout. We also can't use index as a key, because React might reuse the
+  // node for another page, and keep keyboard focus on it, which we don't want.
+  private renderLayout(layout: PageStripLayout, isDummy: boolean): JSX.Element[] {
     const {currentPage, pageUrl, classes} = this.props;
 
-    // We can't use page number as a key, because we might need to render the same page twice
-    // for responsive layout.
-    // We also can't use index as a key, because React might reuse the node for another page,
-    // and keep keyboard focus on it.
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
         return (
@@ -111,6 +113,10 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
             {pageNumber}
           </span>
         );
+      }
+
+      if (isDummy) {
+        return <a key={pageNumber + '-' + index} className={classes.pageButton}>{pageNumber}</a>;
       }
 
       return (
@@ -139,11 +145,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       return createStaticLayout(this.props);
     }
 
-    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
-      return createResponsiveLayoutTemplate(this.props);
-    }
-
-    if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Final) {
+    if (this.state.responsiveLayout) {
       return this.state.responsiveLayout;
     }
 
@@ -151,22 +153,20 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   private updateLayoutIfNeeded(): void {
-    if (this.isResponsive()) {
-      if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Initial) {
-        this.setState({responsiveLayoutPhase: ResponsiveLayoutPhase.Template});
-      } else if (this.state.responsiveLayoutPhase === ResponsiveLayoutPhase.Template) {
-        this.setState({
-          responsiveLayout: createResponsiveLayout({
-            container: ReactDOM.findDOMNode(this),
-            totalPages: this.props.totalPages,
-            currentPage: this.props.currentPage,
-            maxPagesToShow: this.props.maxPagesToShow,
-            showFirstPage: this.props.showFirstPage,
-            showLastPage: this.props.showLastPage
-          }),
-          responsiveLayoutPhase: ResponsiveLayoutPhase.Final
-        });
-      }
+    if (!this.isResponsive() || this.responsiveLayoutIsFresh) {
+      return;
     }
+
+    this.responsiveLayoutIsFresh = true;
+    this.setState({
+      responsiveLayout: createResponsiveLayout({
+        container: ReactDOM.findDOMNode(this).children[1],
+        totalPages: this.props.totalPages,
+        currentPage: this.props.currentPage,
+        maxPagesToShow: this.props.maxPagesToShow,
+        showFirstPage: this.props.showFirstPage,
+        showLastPage: this.props.showLastPage
+      })
+    });
   }
 }

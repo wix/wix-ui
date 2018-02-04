@@ -2,7 +2,7 @@ import 'react';
 import createStory from '../create-story';
 
 import {Input} from '../../src/components/Input';
-import * as InputSource from '!raw-loader!../../src/components/Input/Input.tsx';
+import * as InputSource from '!raw-loader!../../src/components/Input/index.tsx';
 
 export const story = () => createStory({
   category: 'Components',
@@ -10,7 +10,7 @@ export const story = () => createStory({
   storyName: 'Input',
   component: Input,
   componentProps: (setState) => ({
-    dataHook: 'storybook-input',
+    'data-hook': 'storybook-input',
     value: '',
     onChange: ({target: {value}}) => setState({value}),
   }),

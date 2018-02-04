@@ -15,6 +15,8 @@ export interface PopoverProps {
   placement: Placement;
   /** Is the content shown or not */
   shown: boolean;
+  /** onClick on the component */
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseEnter on the component */
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseLeave on the component */
@@ -60,7 +62,11 @@ const Fade = ({inProp, children}) => (
  * Popover
  */
 export const Popover: PopoverType = props => {
+<<<<<<< HEAD
   const {placement, shown, onMouseEnter, onMouseLeave, showArrow, children, moveBy} = props;
+=======
+  const {placement, shown, onMouseEnter, onMouseLeave, onClick, showArrow, children} = props;
+>>>>>>> b13ba0411bf18780125b2ac11c772bf2c951eae5
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
   const modifiers = {
@@ -72,6 +78,7 @@ export const Popover: PopoverType = props => {
   return (
     <Manager
       {...style('root', {}, props)}
+      onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       <Target data-hook="popover-element">

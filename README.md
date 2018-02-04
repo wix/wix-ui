@@ -1,6 +1,8 @@
 # wix-ui
 > Wix's React component library
 
+> Storybook: [here](https://wix.github.io/wix-ui)
+
 ## Getting started
 ```
 git clone git@github.com:wix/wix-ui.git

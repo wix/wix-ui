@@ -131,9 +131,6 @@
 
 .root:checked::toggleIcon {
   transition: all value(transitionSpeed) cubic-bezier(0,1,0,1);
-}
-
-.root:checked::toggleIconPath {
   fill: value(colorChecked);
 }
 
@@ -147,17 +144,17 @@
 }
 
 .root:disabled::innerLabel, .root:disabled:hover::innerLabel, .root:disabled:checked::innerLabel, .root:disabled:checked:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorDisabled);
+  background-color: value(innerLabelBackgroundColorDisabled);
   cursor: default;
   border-width: value(innerLabelBorderSizeDisabled);
   border-color: value(innerLabelBorderColorDisabled)
 }
 
-.root:disabled::toggleIconPath, .root:disabled:hover::toggleIconPath {
+.root:disabled::toggleIcon, .root:disabled:hover::toggleIcon {
   fill: value(colorDisabled);
 }
 
-.root:disabled:checked::toggleIconPath, .root:disabled:checked:hover::toggleIconPath {
+.root:disabled:checked::toggleIcon, .root:disabled:checked:hover::toggleIcon {
   fill: value(colorCheckedDisabled);
 }
 
@@ -170,28 +167,28 @@
 }
 
 .root:checked:hover::outerLabel {
-  backgroundColor: value(backgroundColorHoverChecked);
+  background-color: value(backgroundColorHoverChecked);
   border-width: value(outerLabelBorderSizeHoverChecked);
   border-color: value(outerLabelBorderColorHoverChecked);
 }
 
 .root:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorHover);
+  background-color: value(innerLabelBackgroundColorHover);
   border-width: value(innerLabelBorderSizeHover);
   border-color: value(innerLabelBorderColorHover);
 }
 
 .root:checked:hover::innerLabel {
-  backgroundColor: value(innerLabelBackgroundColorHoverChecked);
+  background-color: value(innerLabelBackgroundColorHoverChecked);
   border-width: value(innerLabelBorderSizeHoverChecked);
   border-color: value(innerLabelBorderColorHoverChecked);
 }
 
-.root:hover::toggleIconPath {
+.root:hover::toggleIcon {
   fill: value(colorHover);
 }
 
-.root:checked:hover::toggleIconPath {
+.root:checked:hover::toggleIcon {
   fill: value(colorHoverChecked);
 }
 

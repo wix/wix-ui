@@ -1,11 +1,11 @@
 import * as React from 'react';
-import style from './InputWithOptionsStyle.st.css';
-import {Dropdown, TriggerElementProps} from '../../baseComponents/Dropdown';
+import style from './InputWithOptions.st.css';
+import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf} from 'prop-types';
-import {Input} from '../Input';
+import {Input, InputProps} from '../Input';
 
 export interface InputWithOptionsProps {
   /** The location to display the content */
@@ -28,22 +28,16 @@ export interface InputWithOptionsProps {
   fixedFooter?: React.ReactNode;
   /** Maximum height of the options */
   optionsMaxHeight?: number;
-  /** Event handler for when the input changes */
-  onInputChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  /** Event handler for when the input loses focus */
-  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-  /** Event handler for when the input gains focus */
-  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-}
-
-export interface InputWithOptionsState {
-  inputValue: string;
+  /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
+  onManualInput?: (value: string) => void;
+  /** Input prop types */
+  inputProps?: InputProps;
 }
 
 /**
  * InputWithOptions
  */
-export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptionsProps & P, InputWithOptionsState> {
+export class InputWithOptions extends React.PureComponent<InputWithOptionsProps> {
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: CLICK as any,
@@ -75,50 +69,32 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
     fixedFooter: node,
     /** Maximum height of the options */
     optionsMaxHeight: number,
-    /** Event handler for when the input changes */
-    onInputChange: func,
-    /** Event handler for when the input loses focus */
-    onBlur: func,
-    /** Event handler for when the input gains focus */
-    onFocus: func
+    /** Input prop types */
+    inputProps: object
   };
+
+  private dropdownRef;
 
   constructor() {
     super();
 
-    this.onSelect = this.onSelect.bind(this);
-    this.onDeselect = this.onDeselect.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.state = {inputValue: ''};
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
-  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      inputValue: event.target.value
-    });
+  onKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
+    const {inputProps, onManualInput} = this.props;
+    if (!this.dropdownRef.getInstance().onKeyDown(evt)) {
+      switch (evt.key) {
+        case 'Enter':
+        case 'Tab': {
+          onManualInput && inputProps && inputProps.value && onManualInput(inputProps.value);
+          break;
+        }
+        default: break;
+      }
+    }
 
-    const {onInputChange} = this.props;
-    onInputChange && onInputChange(event);
-  }
-
-  onDeselect(option: Option) {
-    const {onDeselect} = this.props;
-    const {inputValue} = this.state;
-    this.setState({
-      inputValue: (inputValue || '').split(' ').filter(x => x !== option.value).join(' ').trim()
-    });
-
-    onDeselect(option);
-  }
-
-  onSelect(option: Option) {
-    const {onSelect, closeOnSelect} = this.props;
-    const {inputValue} = this.state;
-    this.setState({
-      inputValue: closeOnSelect ? option.value : [...((inputValue || '').split(' ')), option.value].join(' ').trim()
-    });
-
-    onSelect(option);
+    inputProps && inputProps.onKeyDown && inputProps.onKeyDown(evt);
   }
 
   render () {
@@ -131,34 +107,30 @@ export class InputWithOptions<P = {}> extends React.PureComponent<InputWithOptio
       fixedFooter,
       fixedHeader,
       optionsMaxHeight,
-      onFocus,
-      onBlur} = this.props;
-    const {inputValue} = this.state;
+      onSelect,
+      onDeselect,
+      inputProps} = this.props;
 
     return (
       <Dropdown
         {...style('root', {}, this.props)}
+        ref={dropdown => this.dropdownRef = dropdown}
         placement={placement}
         openTrigger={openTrigger}
-        onSelect={this.onSelect}
+        onSelect={onSelect}
         showArrow={false}
         optionsMaxHeight={optionsMaxHeight}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
-        onDeselect={this.onDeselect}
+        onDeselect={onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
-        {
-          ({onKeyDown}: TriggerElementProps) =>
-            <Input
-              dataHook="dropdown-input"
-              onFocus={onFocus}
-              onBlur={onBlur}
-              value={inputValue}
-              onChange={this.onInputChange}
-              onKeyDown={onKeyDown}/>
-        }
+        <Input
+          {...inputProps}
+          data-hook="dropdown-input"
+          onKeyDown={this.onKeyDown}
+        />
       </Dropdown>
     );
   }

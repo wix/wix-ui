@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Enhance the wix-ui-core component with a custom theme",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
@@ -34,15 +34,14 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^22.1.1",
     "@types/react": "^15.6.0",
-    "@types/react-dom": "^15.5.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
-    "react-test-renderer": "^15.6.0",
-    "ts-jest": "^21.2.3",
-    "typescript": "^2.4.0",
     "haste-preset-yoshi": "^1.0.19",
+    "react-test-renderer": "^15.6.0",
+    "ts-jest": "^22.0.3",
+    "typescript": "^2.4.0",
     "wix-ui-test-utils": "^1.0.0"
   },
   "dependencies": {
@@ -71,7 +70,9 @@
     ],
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$",
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
-    "setupFiles": ["<rootDir>/test/enzyme-setup"]
+    "setupFiles": [
+      "<rootDir>/test/enzyme-setup"
+    ]
   },
   "haste": {
     "preset": "yoshi"
