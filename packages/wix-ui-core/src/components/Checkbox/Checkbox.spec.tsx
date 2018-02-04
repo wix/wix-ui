@@ -369,5 +369,11 @@ describe('Checkbox', () => {
         expect(onChange).not.toHaveBeenCalled();
       }, 10);
     });
+
+    it('gets indeterminate style state', async () => {
+      const checkbox = createDriver(<Checkbox indeterminate />);
+
+      expect(utils.hasStyleState(checkbox.element(), 'indeterminate')).toBe(true);
+    });
   });
 });
