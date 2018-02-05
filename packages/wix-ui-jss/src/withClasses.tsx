@@ -40,7 +40,7 @@ export function withClasses<P extends {ref?: string}>(CoreComponent: React.Compo
 
       return isStatelessComponent(CoreComponent)
         ? (<CoreComponent {...coreProps} classes={this.state.classes}/>)
-        : (<CoreComponent ref={ref => this.wrappedComponentRef = ref} {...this.props}/>);
+        : (<CoreComponent ref={ref => this.wrappedComponentRef = ref} {...coreProps} classes={this.state.classes} />);
     }
   }
 
