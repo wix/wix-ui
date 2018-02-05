@@ -46,6 +46,9 @@ export const theme = {
     height: 30,
     textAlign: 'center',
     font: '12px/1 Arial, sans-serif',
-    color: 'inherit'
+    color: 'inherit',
+    '&$error': {
+      borderColor: '#F44336'
+    }
   }
 };

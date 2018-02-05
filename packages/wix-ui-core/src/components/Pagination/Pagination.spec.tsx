@@ -152,6 +152,16 @@ describe('Pagination', () => {
       });
     });
 
+    it('adds error state to the input with an invalid numeric value after pressing ENTER and removes it on change', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination paginationMode="input" totalPages={3} onChange={onChange} />);
+      pagination.changeInput('4');
+      pagination.commitInput();
+      expect(pagination.getPageInput().className).toMatch('error');
+      pagination.changeInput('5');
+      expect(pagination.getPageInput().className).not.toMatch('error');
+    });
+
     describe('Input mode accessibility',  () => {
       it('has aria-label for the input field', () => {
         const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={42}/>);

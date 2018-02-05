@@ -39,6 +39,7 @@ export interface PaginationClasses {
 
   // Modifiers
   disabled: string;
+  error: string;
 }
 
 export interface PaginationProps {
@@ -71,6 +72,7 @@ export interface PaginationProps {
 
 interface PaginationState {
   pageInputValue: string;
+  pageInputHasError: boolean;
 }
 
 class Pagination extends React.Component<PaginationProps, PaginationState> {
@@ -156,7 +158,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   public state = {
-    pageInputValue: String(this.props.currentPage)
+    pageInputValue: String(this.props.currentPage),
+    pageInputHasError: false
   };
 
   private renderPageStrip(): JSX.Element {
@@ -180,18 +183,21 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({pageInputValue: e.target.value});
+    this.setState({
+      pageInputValue: e.target.value,
+      pageInputHasError: false
+    });
   }
 
   private handlePageInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     // Enter
     if (event.keyCode === 13) {
       const page = Number(this.state.pageInputValue);
-      if (page && page !== this.props.currentPage) {
+      if (page !== this.props.currentPage) {
         if (1 <= page && page <= this.props.totalPages) {
           this.props.onChange({event, page});
         } else {
-          // Error state not implemented.
+          this.setState({pageInputHasError: true});
         }
       }
     }
@@ -216,7 +222,10 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         <input
           data-hook="page-input"
           type="number"
-          className={this.props.classes.pageInput}
+          className={classNames({
+            [this.props.classes.pageInput]: true,
+            [this.props.classes.error]: this.state.pageInputHasError
+          })}
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
@@ -270,7 +279,8 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   public componentWillReceiveProps(nextProps) {
     this.setState({
-      pageInputValue: String(nextProps.currentPage)
+      pageInputValue: String(nextProps.currentPage),
+      pageInputHasError: false
     });
   }
 
