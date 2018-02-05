@@ -27,7 +27,7 @@ export class GoogleMapsIframeClient {
     }
 
     const requestId = generateID();
-    const requestPromise = new Promise((resolve, reject) => {
+    const requestPromise = new Promise<object[] | any>((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });
 
@@ -44,7 +44,7 @@ export class GoogleMapsIframeClient {
     }
 
     const requestId = generateID();
-    const requestPromise = new Promise((resolve, reject) => {
+    const requestPromise = new Promise<object[] | any>((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });
 
@@ -61,7 +61,7 @@ export class GoogleMapsIframeClient {
     }
 
     const requestId = generateID();
-    const requestPromise = new Promise((resolve, reject) => {
+    const requestPromise = new Promise<object[] | any>((resolve, reject) => {
       this._promisesMap.set(requestId, {requestPromise, resolve, reject});
     });
     requestIframe.postMessage({request, requestId, method: placeDetailsHandlerName}, '*');

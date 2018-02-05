@@ -4,7 +4,7 @@ import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
+import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {oneOf} from 'prop-types';
 
 export type Placement = PopperJS.Placement;
@@ -42,8 +42,8 @@ export interface PopoverProps {
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
-  Element?: React.SFC;
-  Content?: React.SFC;
+  Element?: React.SFC<ElementProps>;
+  Content?: React.SFC<ElementProps>;
 };
 
 const Animation = ({inProp, children, timeout = 150}) =>
