@@ -42,9 +42,7 @@ const hightlightMatches = (option: Option, searchTerm: string): Option => {
     option.isDisabled,
     option.isSelectable,
     option.value,
-    () => (
-      <span>{parts}</span>
-    )
+    () => parts
   );
 };
 
@@ -64,7 +62,7 @@ export const OptionFactory = {
           isDisabled,
           isSelectable,
           value,
-          () => <span>{value}</span>
+          () => value
         );
     }
   },
@@ -76,17 +74,17 @@ export const OptionFactory = {
       null,
       value ? () => <Divider>{value}</Divider> : () => <Divider/>);
   },
-  createCustomDivider(divider: React.SFC): Option {
+  createCustomDivider(divider: React.ReactElement<any>): Option {
     return createOption(
       uniqueId('Divider'),
       false,
       false,
       null,
-      divider);
+      () => divider);
   },
   createHighlighted(
     option: Option,
     hightlightValue: string): Option {
-      return option.value ? hightlightMatches(option, hightlightValue) : option;
+      return option.value && hightlightValue ? hightlightMatches(option, hightlightValue) : option;
     }
 };

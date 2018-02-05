@@ -9,7 +9,7 @@ describe('OptionFactory', () => {
     expect(option.id).toEqual(1);
     expect(option.isDisabled).toBeTruthy();
     expect(option.isSelectable).toBeTruthy();
-    expect(option.render()).toEqual(<span>value</span>);
+    expect(option.render()).toEqual('value');
   });
 
   it('should create simple Option', () => {
@@ -17,7 +17,7 @@ describe('OptionFactory', () => {
     expect(option.id).toEqual(1);
     expect(option.isDisabled).toBeTruthy();
     expect(option.isSelectable).toBeTruthy();
-    expect(option.render()).toEqual(<span>value</span>);
+    expect(option.render()).toEqual('value');
   });
 
   it('should create divider without content', () => {
@@ -37,12 +37,12 @@ describe('OptionFactory', () => {
   });
 
   it('should create custom divider', () => {
-    const customDivider = () => (<div>CustomDivider</div>);
-    const option = OptionFactory.createCustomDivider(customDivider);
+    const CustomDivider = () => (<div>CustomDivider</div>);
+    const option = OptionFactory.createCustomDivider(<CustomDivider />);
     expect(option.id).toContain('Divider');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeFalsy();
-    expect(option.render()).toEqual(<div>CustomDivider</div>);
+    expect(option.render()).toEqual(<CustomDivider />);
   });
 
   it('should create highlighted option', () => {
@@ -51,7 +51,7 @@ describe('OptionFactory', () => {
     expect(option.id).toEqual(1);
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
-    expect(option.render()).toEqual(<span>va<Highlighter key={1}>lu</Highlighter>e</span>);
+    expect(option.render()).toEqual(['va', <Highlighter key={1}>lu</Highlighter>, 'e']);
   });
 
   it('should create highlighted option with divider', () => {

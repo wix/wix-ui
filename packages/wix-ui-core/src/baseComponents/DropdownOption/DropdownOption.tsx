@@ -22,6 +22,7 @@ export const DropdownOption: React.SFC<DropdownOptionProps> = (props: DropdownOp
     <div
       {...style('root', {disabled, hovered, selected}, props)}
       onClick={onClickHandler}
+      title={option.value}
       onMouseEnter={onMouseEnterHandler}>
       {option.render()}
     </div>
