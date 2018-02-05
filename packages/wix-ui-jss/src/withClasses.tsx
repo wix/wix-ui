@@ -3,7 +3,7 @@ import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
 import hoistNonReactMethods from 'hoist-non-react-methods';
 
-const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
+const isStatelessComponent = Component => true;
 
 export interface ThemedComponentProps {
   theme?: object;
