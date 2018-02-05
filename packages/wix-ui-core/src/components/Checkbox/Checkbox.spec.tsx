@@ -84,7 +84,7 @@ describe('Checkbox', () => {
 
     checkbox.focus();
 
-    expect(checkbox.hasStyleState('focus')).toBe(true);
+    expect(checkbox.hasFocusState()).toBe(true);
 });
 
   it('Accepts "name" prop', async () => {
@@ -181,7 +181,7 @@ describe('Checkbox', () => {
       checkbox.click();
 
       expect(document.activeElement).toBe(checkbox.input());
-      expect(checkbox.hasStyleState('focus')).toBe(false);
+      expect(checkbox.hasFocusState()).toBe(false);
     });
 
     it('loses focused style state after click', async () => {
@@ -189,11 +189,11 @@ describe('Checkbox', () => {
 
       checkbox.focus();
 
-      expect(checkbox.hasStyleState('focus')).toBe(true);
+      expect(checkbox.hasFocusState()).toBe(true);
 
       checkbox.click();
 
-      expect(checkbox.hasStyleState('focus')).toBe(false);
+      expect(checkbox.hasFocusState()).toBe(false);
     });
   });
 
@@ -243,7 +243,7 @@ describe('Checkbox', () => {
     it('gets disabled style state', async () => {
       const checkbox = createDriver(<Checkbox disabled />);
 
-      expect(checkbox.hasStyleState('disabled')).toBe(true);
+      expect(checkbox.hasDisabledState()).toBe(true);
     });
   });
 
@@ -281,7 +281,7 @@ describe('Checkbox', () => {
     it('gets readOnly style state', async () => {
       const checkbox = createDriver(<Checkbox readOnly />);
 
-      expect(checkbox.hasStyleState('readonly')).toBe(true);
+      expect(checkbox.hasReadOnlyState()).toBe(true);
     });
   });
 
@@ -289,7 +289,7 @@ describe('Checkbox', () => {
     it('has error style state', async () => {
       const checkbox = createDriver(<Checkbox error />);
 
-      expect(checkbox.hasStyleState('error')).toBe(true);
+      expect(checkbox.hasErrorState()).toBe(true);
     });
   });
 
@@ -373,7 +373,7 @@ describe('Checkbox', () => {
     it('gets indeterminate style state', async () => {
       const checkbox = createDriver(<Checkbox indeterminate />);
 
-      expect(checkbox.hasStyleState('indeterminate')).toBe(true);
+      expect(checkbox.hasIndeterminateState()).toBe(true);
     });
   });
 });
