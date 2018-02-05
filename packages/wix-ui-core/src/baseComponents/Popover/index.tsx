@@ -32,7 +32,7 @@ export interface PopoverProps {
   /** Moves arrow by amount */
   moveArrowTo?: number;
   /** Enables calculations in relation to a dom element */
-  appendTo?: any;
+  appendTo?: React.ReactNode;
   /** Enables calculations in relation to the parent element*/
   appendToParent?: boolean;
 }
@@ -59,7 +59,7 @@ const transitionStylesFactory = (showDelay = duration, hideDelay = duration) => 
 const Fade = ({inProp, children, transitionStyles}) => (
   <Transition in={inProp} timeout={duration} unmountOnExit={true}>
     {state => (
-      <div key="fade-container"
+      <div key="animation-container"
         style={{
         ...defaultStyle,
         ...transitionStyles[state]

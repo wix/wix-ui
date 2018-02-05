@@ -12,17 +12,27 @@ export type Point = {
 };
 
 export interface TooltipProps {
-  /** The location to display the content */
+  /** tooltip's placement in relation to the target element */
   placement?: Placement;
+  /** children to render that will be the target of the tooltip */
   children?: React.ReactNode;
+  /** the content to put inside the tooltip */
   content?: React.ReactNode;
+  /** time it takes to show the tooltip in ms */
   showDelay?: number;
+  /** time it takes to hide the tooltip in ms */
   hideDelay?: number;
+  /** object that describes re-positioning of the tooltip */
   moveBy?: Point;
+  /** offset for the arrow */
   moveArrowTo?: number;
+  /** callback to call when the tooltip is shown */
   onShow?: Function;
+  /** callback to call when the tooltip is being hidden */
   onHide?: Function;
+  /** Enables calculations in relation to a dom element */
   appendToParent?: boolean;
+  /** Enables calculations in relation to the parent element*/
   appendTo?: React.ReactNode;
 }
 

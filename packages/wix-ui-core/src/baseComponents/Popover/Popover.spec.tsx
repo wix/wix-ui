@@ -3,7 +3,7 @@ import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import {Popover} from './';
 
-describe('Popover', () => {
+describe.only('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
   const createPopover = (props = {}) =>
     <Popover placement="top" showArrow={true} shown={false} {...props}>
@@ -43,5 +43,12 @@ describe('Popover', () => {
     const driver = createDriver(createPopover({onMouseLeave}));
     driver.mouseLeave();
     expect(onMouseLeave).toBeCalled();
+  });
+
+  it.only('moves arrow according to provided offset', () => {
+    const driver = createDriver(createPopover({shown: true, moveArrowTo: 10}));
+    expect(driver.isElementExists()).toBeTruthy();
+    const arrowLeft = driver.getArrow().style.left;
+    expect(arrowLeft).toEqual('10px');
   });
 });
