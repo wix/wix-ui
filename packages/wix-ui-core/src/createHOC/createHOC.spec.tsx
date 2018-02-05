@@ -64,6 +64,25 @@ describe('createHOC function', () => {
       const wrapper = renderIntoDocument(<HOCComponent dataClass="my-data-class"/>);
       expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-class')).toBe('my-data-class');
     });
+
+    describe('hoisting', () => {
+      it('should hoist static methods', () => {
+        expect(HOCComponent.staticMethod).toBeDefined();
+        expect(HOCComponent.staticMethod()).toEqual('staticMethod');
+      });
+
+      it('should hoist static variables', () => {
+        expect(HOCComponent.staticVariable).toEqual('staticVariable');
+      });
+
+      it('should hoist prototype methods from child to HOC and bind them', () => {
+        const wrapper = renderIntoDocument(<HOCComponent id="some_id"/>);
+        expect(wrapper.unboundMethod).toBeDefined();
+        expect(wrapper.unboundMethod()).toEqual('unboundMethod');
+        expect(wrapper.boundMethod).toBeDefined();
+        expect(wrapper.boundMethod()).toEqual('some_id');
+      });
+    });
   });
 
   describe('Pure components', () => {
@@ -84,6 +103,24 @@ describe('createHOC function', () => {
       expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-class')).toBe('my-data-class');
     });
 
+    describe('hoisting', () => {
+      it('should hoist static methods', () => {
+        expect(HOCComponent.staticMethod).toBeDefined();
+        expect(HOCComponent.staticMethod()).toEqual('staticMethod');
+      });
+
+      it('should hoist static variables', () => {
+        expect(HOCComponent.staticVariable).toEqual('staticVariable');
+      });
+
+      it('should hoist prototype methods from child to HOC and bind them', () => {
+        const wrapper = renderIntoDocument(<HOCComponent id="some_id" />);
+        expect(wrapper.unboundMethod).toBeDefined();
+        expect(wrapper.unboundMethod()).toEqual('unboundMethod');
+        expect(wrapper.boundMethod).toBeDefined();
+        expect(wrapper.boundMethod()).toEqual('some_id');
+      });
+    });
   });
 
   describe('Stateless components', () => {

@@ -8,7 +8,7 @@ export interface WixComponentProps {
   dataClass?: string;
 }
 
-const isStatelessComponent = Component => true;
+const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
