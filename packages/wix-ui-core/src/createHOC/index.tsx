@@ -12,6 +12,8 @@ const isStatelessComponent = Component => !(Component.prototype && Component.pro
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
+    private wrappedComponentRef: React.Component = null;
+
     static propTypes = {
       ...Component.propTypes,
       dataHook: string,
@@ -35,11 +37,11 @@ export const createHOC = Component => {
       // Can't pass refs to stateless components (and also there's nothing to hoist)
       return isStatelessComponent(Component)
         ? (<Component {...this.props}/>)
-        : (<Component ref="wrappedComponent" {...this.props}/>);
+        : (<Component ref={ref => this.wrappedComponentRef = ref} {...this.props}/>);
     }
   }
 
   return isStatelessComponent(Component)
     ? WixComponent
-    : hoistNonReactMethods(WixComponent, Component, {delegateTo: c => c.refs.wrappedComponent, hoistStatics: true});
+    : hoistNonReactMethods(WixComponent, Component, {delegateTo: c => c.wrappedComponentRef, hoistStatics: true});
 };

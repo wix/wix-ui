@@ -16,6 +16,7 @@ export interface HasClasses {
 export function withClasses<P extends {ref?: string}>(CoreComponent: React.ComponentType<P & HasClasses>, styles: Function): React.ComponentClass<P & ThemedComponentProps> {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps & P, HasClasses> {
     private id;
+    private wrappedComponentRef: React.Component = null;
     static displayName = CoreComponent.displayName || 'ThemedComponent';
 
     constructor(props) {
@@ -39,7 +40,7 @@ export function withClasses<P extends {ref?: string}>(CoreComponent: React.Compo
 
       return isStatelessComponent(CoreComponent)
         ? (<CoreComponent {...coreProps} classes={this.state.classes}/>)
-        : (<CoreComponent ref="wrappedComponent" {...coreProps} classes={this.state.classes} />);
+        : (<CoreComponent ref={ref => this.wrappedComponentRef = ref} {...this.props}/>);
     }
   }
 
