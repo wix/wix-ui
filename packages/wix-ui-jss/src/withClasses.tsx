@@ -46,5 +46,5 @@ export function withClasses<P extends {ref?: string}>(CoreComponent: React.Compo
 
   return isStatelessComponent(CoreComponent)
     ? ThemedComponent
-    : hoistNonReactMethods(ThemedComponent, CoreComponent, {delegateTo: c => c.refs.wrappedComponent, hoistStatics: true});
+    : hoistNonReactMethods(ThemedComponent, CoreComponent, {delegateTo: c => c.wrappedComponentRef, hoistStatics: true});
 }
