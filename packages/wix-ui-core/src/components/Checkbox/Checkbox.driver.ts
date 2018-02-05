@@ -2,6 +2,8 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const getCheckboxStyle = () => window.getComputedStyle(element);
 
   return {
+    /** returns the element */
+    element: () => element,
     /** checks if element exists */
     exists: () => !!element,
     /** click on the element */
@@ -10,6 +12,8 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     mouseEnter: () => eventTrigger.mouseEnter(element),
     /** trigger mouseleave on the element */
     mouseLeave: () => eventTrigger.mouseLeave(element),
+    /** trigger focus on the element */
+    focus: () => eventTrigger.focus(element.querySelector('[data-hook="NATIVE_CHECKBOX"]')),
     /** returns elements type attribute */
     getType: () => element.getAttribute('type'),
     /** checks if the tickmark exists, i.e. the checkbox is checked */

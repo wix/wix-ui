@@ -14,14 +14,12 @@ describe('Tooltip', () => {
     const driver = tooltipTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Tooltip')
-      .then(async () => {
+      .then(() => {
         expect(driver.isTooltipExists()).toBeFalsy();
         expect(driver.getElementText()).toBe('Hover me for a tooltip!');
         driver.onMouseOver();
         expect(driver.isTooltipExists()).toBeTruthy();
         expect(driver.getTooltipText()).toBe('This is my tooltip\n');
-        driver.onMouseLeave();
-        await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
       });
   });
 });

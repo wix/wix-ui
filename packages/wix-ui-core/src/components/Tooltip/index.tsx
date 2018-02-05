@@ -1,10 +1,10 @@
 import * as React from 'react';
-import style from './TooltipStyle.st.css';
+import style from './Tooltip.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {func, bool, number, node, object} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
-const noop = () => { return; };
+const noop = () => null;
 
 export type Point = {
   x: number;

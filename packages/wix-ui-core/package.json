@@ -37,7 +37,7 @@
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react-onclickoutside": "^6.7.0",
-    "react-popper": "^0.7.4",
+    "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
     "stylable": "^5.1.2",
     "wix-ui-jss": "^1.0.0",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@storybook/addon-options": "^3.3.7",
     "@storybook/react": "^3.3.7",
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^22.1.1",
     "@types/react": "^15.6.8",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
@@ -58,7 +58,7 @@
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
     "stylable-integration": "^6.0.5",
-    "ts-jest": "^21.2.4",
+    "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
     "wix-eventually": "^2.1.0",
     "wix-storybook-utils": "^1.0.0"

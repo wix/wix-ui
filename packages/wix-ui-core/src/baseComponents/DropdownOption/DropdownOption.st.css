@@ -6,7 +6,7 @@
   /** Option background color when selected & hovered */
   selectedHoverBackgroundColor: dimgrey;
   /** Option background color when disabled */
-  disabledBackgroundColor: black;
+  disabledBackgroundColor: white;
 }
 
 .root {

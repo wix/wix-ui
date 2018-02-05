@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
+import style from './Checkbox.st.css';
 import {createDriverFactory} from 'wix-ui-test-utils';
 import Checkbox from './Checkbox';
+import {StylableDOMUtil} from 'stylable/test-utils';
 
 const tickSVG: React.ReactNode = (
   <svg
@@ -27,6 +29,7 @@ const IndeterminateSVG: React.ReactNode = (
 
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
+  const utils = new StylableDOMUtil(style);
 
   it('Renders with default values', async () => {
     const checkbox = createDriver(<Checkbox />);
@@ -75,6 +78,14 @@ describe('Checkbox', () => {
     expect(onChange).toBeCalled();
     expect(onChange.mock.calls[0][0].checked).toBe(false);
   });
+
+  it('Switches to focus state when focused', async () => {
+    const checkbox = createDriver(<Checkbox checked />);
+
+    checkbox.focus();
+
+    expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(true);
+});
 
   it('Accepts "name" prop', async () => {
     const checkbox = createDriver(
@@ -165,13 +176,24 @@ describe('Checkbox', () => {
     });
 
     it('gets focus after click (should not be in focused style state)', async () => {
-      const checkbox = createDriver(
-        <Checkbox />
-      );
+      const checkbox = createDriver(<Checkbox />);
 
       checkbox.click();
 
       expect(document.activeElement).toBe(checkbox.input());
+      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(false);
+    });
+
+    it('loses focused style state after click', async () => {
+      const checkbox = createDriver(<Checkbox />);
+
+      checkbox.focus();
+
+      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(true);
+
+      checkbox.click();
+
+      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(false);
     });
   });
 
@@ -217,6 +239,12 @@ describe('Checkbox', () => {
 
       expect(checkbox.isIndeterminate()).toBe(true);
     });
+
+    it('gets disabled style state', async () => {
+      const checkbox = createDriver(<Checkbox disabled />);
+
+      expect(utils.hasStyleState(checkbox.element(), 'disabled')).toBe(true);
+    });
   });
 
   describe('When readonly', () => {
@@ -248,6 +276,20 @@ describe('Checkbox', () => {
       );
 
       expect(checkbox.isChecked()).toBe(true);
+    });
+
+    it('gets readOnly style state', async () => {
+      const checkbox = createDriver(<Checkbox readOnly />);
+
+      expect(utils.hasStyleState(checkbox.element(), 'readonly')).toBe(true);
+    });
+  });
+
+  describe('When error', () => {
+    it('has error style state', async () => {
+      const checkbox = createDriver(<Checkbox error />);
+
+      expect(utils.hasStyleState(checkbox.element(), 'error')).toBe(true);
     });
   });
 
@@ -326,6 +368,12 @@ describe('Checkbox', () => {
       setTimeout(() => {
         expect(onChange).not.toHaveBeenCalled();
       }, 10);
+    });
+
+    it('gets indeterminate style state', async () => {
+      const checkbox = createDriver(<Checkbox indeterminate />);
+
+      expect(utils.hasStyleState(checkbox.element(), 'indeterminate')).toBe(true);
     });
   });
 });

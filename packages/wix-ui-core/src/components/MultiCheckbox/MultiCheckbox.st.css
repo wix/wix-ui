@@ -3,24 +3,6 @@
   -st-default: InputWithOptions;
 }
 
-:import {
-  -st-from: "./MultiCheckboxVars.st.css";
-  -st-named:
-    contentBackgroundColor,
-    contentBorderWidth,
-    contentBorderStyle,
-    contentBorderColor,
-    contentBorderRadius,
-    contentPadding;
-}
-
 .root {
-  -st-mixin: InputWithOptions(
-    contentBackgroundColor value(contentBackgroundColor),
-    contentBorderWidth value(contentBorderWidth),
-    contentBorderStyle value(contentBorderStyle),
-    contentBorderColor value(contentBorderColor),
-    contentBorderRadius value(contentBorderRadius),
-    contentPadding value(contentPadding)
-  );
+  -st-extends: InputWithOptions;
 }

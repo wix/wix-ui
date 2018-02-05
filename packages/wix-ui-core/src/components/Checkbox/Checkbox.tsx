@@ -142,16 +142,17 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
   }
 
   render()  {
-    const {checked, disabled} = this.props;
+    const {checked, disabled, readOnly: readonly, error, indeterminate} = this.props;
+    const focus = this.state.isFocused;
 
     return (
-      <div {...style('root', {checked, disabled}, this.props) }
+      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
         tabIndex={0}
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
-        >
+      >
           <input
             data-hook="NATIVE_CHECKBOX"
             type="checkbox"

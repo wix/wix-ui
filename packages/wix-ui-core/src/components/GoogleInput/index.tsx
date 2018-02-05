@@ -73,7 +73,8 @@ export class GoogleInput extends React.PureComponent<GoogleInputProps, GoogleInp
     const displayedOptions =
       fruit
         .filter((x: string) => x.toLowerCase().includes(lowerValue))
-        .map((value: string, index: number) => OptionFactory.createHighlighted(index, false, true, value, inputValue));
+        .map((value: string, index: number) =>
+          OptionFactory.createHighlighted(OptionFactory.create(index, false, true, value), inputValue));
 
     return (
       <InputWithOptions

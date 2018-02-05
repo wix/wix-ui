@@ -13,5 +13,5 @@ export const tooltipDriverFactory = component => ({
   },
   isTooltipExists: () => getTooltip(component).isPresent(),
   onMouseOver: () => hover(getElement(component)),
-  onMouseLeave: () => hover({x: 100, y: 100})
+  onMouseLeave: () => hover({x: 1000, y: 1000})
 });

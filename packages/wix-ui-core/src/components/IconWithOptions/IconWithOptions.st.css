@@ -3,18 +3,6 @@
   -st-default: Dropdown;
 }
 
-:import {
-  -st-from: "./IconWithOptionsVars.st.css";
-  -st-named:
-    contentBackgroundColor,
-    contentBorderWidth,
-    contentBorderStyle,
-    contentBorderColor,
-    contentBorderRadius,
-    contentPadding,
-    contentArrowSize;
-}
-
 .root {
   -st-extends: Dropdown;
 }

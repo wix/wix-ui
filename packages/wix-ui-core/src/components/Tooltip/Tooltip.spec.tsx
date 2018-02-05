@@ -14,7 +14,7 @@ describe('Tooltip', () => {
       <div>
         Element
       </div>
-  </Tooltip>;
+    </Tooltip>;
 
   it('should not display content by default', () => {
     const driver = createDriver(createTooltip());
