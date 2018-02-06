@@ -1,0 +1,17 @@
+:import {
+  -st-from: "../Popover/Popover.st.css";
+  -st-default: Popover;
+}
+
+:import {
+  -st-from: "../DropdownContent/DropdownContent.st.css";
+  -st-default: DropdownContent;
+}
+
+.root {
+  -st-extends: Popover;
+}
+
+.dropdownContent {
+  -st-extends: DropdownContent;
+}

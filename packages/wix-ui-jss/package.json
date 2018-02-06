@@ -36,13 +36,13 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^22.1.1",
     "@types/react": "^15.6.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "haste-preset-yoshi": "^1.0.19",
     "react-test-renderer": "^15.6.0",
-    "ts-jest": "^21.2.3",
+    "ts-jest": "^22.0.3",
     "typescript": "^2.4.0",
     "wix-ui-test-utils": "^1.0.0"
   },

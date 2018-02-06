@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 import style from './DropdownContent.st.css';
-import {Option} from '../DropdownOption';
+import {Option, DropdownOption} from '../DropdownOption';
 
 const NOT_HOVERED_INDEX = -1;
 
 export interface DropdownContentProps {
+  /** Component class name */
+  className?: string;
   /** The dropdown options array */
   options: Array<Option>;
   /** A callback for when clicking an option */
@@ -35,17 +36,15 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   };
 
   private optionsContainerRef: HTMLDivElement;
+  private mouseCoords = {screenX: -1, screenY: -1};
 
   constructor(props) {
     super(props);
 
+    this.onMouseMove = this.onMouseMove.bind(this);
     this.state = {
       hoveredIndex: NOT_HOVERED_INDEX
     };
-  }
-
-  onOptionClick(option: Option) {
-    this.props.onOptionClick(option);
   }
 
   setHoveredIndex(index: number) {
@@ -100,16 +99,14 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     this.setHoveredIndex(hoveredIndex);
   }
 
-  onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    switch (evt.key) {
+  onKeyDown(eventKey: string) {
+    switch (eventKey) {
       case 'Tab':
       case 'Enter': {
-        const {options} = this.props;
+        const {options, onOptionClick} = this.props;
         const {hoveredIndex} = this.state;
-        if (hoveredIndex >= 0 && hoveredIndex < options.length) {
-          this.onOptionClick(options[hoveredIndex]);
-        }
-        return;
+        const isValidIndex = hoveredIndex >= 0 && hoveredIndex < options.length;
+        return onOptionClick(isValidIndex ? options[hoveredIndex] : null);
       }
       case 'ArrowUp': {
         return this.hoverNextItem(-1);
@@ -117,34 +114,31 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       case 'ArrowDown': {
         return this.hoverNextItem(1);
       }
-      default: return;
+      case 'ArrowLeft':
+      case 'ArrowRight': return;
+      default: this.setHoveredIndex(NOT_HOVERED_INDEX);
     }
   }
 
-  generateOptionClasses(option: Option, index: number) {
-    const {selectedIds} = this.props;
-    const {hoveredIndex} = this.state;
+  onMouseMove(evt: React.MouseEvent<HTMLDivElement>) {
+    this.mouseCoords.screenX = evt.screenX;
+    this.mouseCoords.screenY = evt.screenY;
+  }
 
-    const isDisabled = option.isDisabled;
-    const isHovered = !isDisabled && hoveredIndex === index;
-    const isSelected = !isDisabled && (selectedIds || []).includes(option.id);
-    const isSelectedAndHovered = isHovered && isSelected;
-
-    return classNames(style.option, {
-      [style.optionSelected]: isSelected,
-      [style.optionHover]: isHovered,
-      [style.optionDisabled]: isDisabled,
-      [style.optionSelectedAndHovered]: isSelectedAndHovered
-    });
+  onMouseEnter(evt: React.MouseEvent<HTMLDivElement>, index: number) {
+    if (this.mouseCoords.screenX !== evt.screenX || this.mouseCoords.screenY !== evt.screenY) {
+      this.setHoveredIndex(index);
+    }
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, maxHeight} = this.props;
+    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds, onOptionClick} = this.props;
+    const {hoveredIndex} = this.state;
 
     return (
       <div
         {...style('root', {}, this.props)}
-        data-hook="dropdown-content"
+        onMouseMove={this.onMouseMove}
         tabIndex={1000}>
         {fixedHeader}
         {
@@ -154,14 +148,17 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
             ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
             {
               (options || []).map((option, index) => (
-                <div
+                <DropdownOption
+                  className={style.dropdownOption}
                   data-hook="option"
                   key={option.id}
-                  className={this.generateOptionClasses(option, index)}
-                  onClick={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
-                  onMouseEnter={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}>
-                  {option.render()}
-                </div>
+                  option={option}
+                  index={index}
+                  hoveredIndex={hoveredIndex}
+                  selectedIds={selectedIds}
+                  onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : null}
+                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : null}
+                />
               ))
             }
           </div>

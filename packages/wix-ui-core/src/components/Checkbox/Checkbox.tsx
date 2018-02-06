@@ -14,6 +14,7 @@ export interface OnClickEvent extends React.MouseEvent<HTMLDivElement> {
 export interface OnKeydownEvent extends React.KeyboardEvent<HTMLDivElement> {
   checked: boolean;
 }
+
 export interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
@@ -39,7 +40,7 @@ export interface CheckboxState {
 /**
  * Checkbox
  */
-export default class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+export default class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
   public static displayName: string = 'Checkbox';
 
   public static propTypes: Object = {
@@ -95,7 +96,6 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
     tabIndex: 0
   };
 
-  public state: CheckboxState;
   public id: string;
   private checkbox: HTMLInputElement;
 
@@ -142,17 +142,17 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
   }
 
   render()  {
-    const {checked, disabled} = this.props;
+    const {checked, disabled, readOnly: readonly, error, indeterminate} = this.props;
+    const focus = this.state.isFocused;
 
     return (
-      <div {...style('root', {checked, disabled}, this.props) }
-        data-automation-id="CHECKBOX_ROOT"
+      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
         tabIndex={0}
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
-        >
+      >
           <input
             data-hook="NATIVE_CHECKBOX"
             type="checkbox"
@@ -173,7 +173,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 
           <span
             className={style.box}
-            data-automation-id="CHECKBOX_BOX"
+            data-hook="CHECKBOX_BOX"
           >
             {this.props.indeterminate ?
               this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}

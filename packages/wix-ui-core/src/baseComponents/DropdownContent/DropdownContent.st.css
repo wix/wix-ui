@@ -1,3 +1,8 @@
+:import {
+  -st-from: "../DropdownOption/DropdownOption.st.css";
+  -st-default: DropdownOption;
+}
+
 .root {
   outline: 0;
 }
@@ -7,12 +12,6 @@
   overflow: auto;
 }
 
-.option {}
-
-.optionHover {}
-
-.optionSelected {}
-
-.optionDisabled {}
-
-.optionSelectedAndHovered {}
+.dropdownOption {
+  -st-extends: DropdownOption;
+}

@@ -13,8 +13,8 @@ describe('Divider', () => {
     const driver = dividerTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Divider')
-      .then(async () => {
-        await expect(driver.exists()).toBe(true);
+      .then(() => {
+        expect(driver.exists()).toBe(true);
       });
   });
 });

@@ -10,7 +10,7 @@ export const paginationDriverFactory = component => ({
 
   /** Get the text content of pages shown in "pages" mode  */
   getPageList(): Promise<string[]> {
-    const pages = component.$$('[data-hook="page-strip"] > *');
+    const pages = component.$$('[data-hook="page-strip"] > :first-child > *');
     return pages.map(p => p.getText());
   }
 });

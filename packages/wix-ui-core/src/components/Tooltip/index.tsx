@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './TooltipStyle.st.css';
+import style from './Tooltip.st.css';
 import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 

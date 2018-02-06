@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './MultiCheckboxStyle.st.css';
+import style from './MultiCheckbox.st.css';
 import {arrayOf, object, func} from 'prop-types';
 import {InputWithOptions} from '../InputWithOptions';
 import {Option} from '../../baseComponents/DropdownOption';
@@ -84,9 +84,7 @@ export class MultiCheckbox extends React.PureComponent<MultiCheckboxProps, Multi
       <InputWithOptions
         {...style('root', {}, this.props)}
         closeOnSelect={false}
-        inputValue={inputValue}
         options={displayedOptions}
-        onInputChange={this.onInputChange}
         onSelect={this.onSelect}
         onDeselect={this.onDeselect}
         />

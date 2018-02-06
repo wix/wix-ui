@@ -4,5 +4,7 @@ export const checkboxDriverFactory = component => ({
   /** Simulates a click on the component */
   click: () => component.click(),
   /** Indicates whether the component is disabled or not */
-  isDisabled: () => !!component.getAttribute('disabled')
+  isDisabled: () => component.getAttribute('disabled') === '',
+  /** Indicates whether the component is checked */
+  isChecked: () => component.$('[data-hook="CHECKBOX_TICKMARK"]').isPresent()
 });

@@ -1,16 +1,17 @@
-import {GoogleMapsIframeClient} from './GoogleMapsIframeClient';
-import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
-
-let client;
-
-const mockApiKey = 'a';
-const mockLang = 'en';
-
+// mock must be first to allow wallaby to run the tests
 jest.mock('./IframesManager/IframesManager');
+
+// using require cause we have to
+const {GoogleMapsIframeClient} = require('./GoogleMapsIframeClient');
+const {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} = require('./handlersName');
 const frameManager = require('./IframesManager/IframesManager');
 const iframeManagerPrototype = frameManager.IframesManager.prototype;
 
 describe('GoogleMapsIframeClient', () => {
+  let client;
+  const mockApiKey = 'a';
+  const mockLang = 'en';
+
   it('should return a resolved promise once the status sent by iframesManager is OK', async () => {
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({

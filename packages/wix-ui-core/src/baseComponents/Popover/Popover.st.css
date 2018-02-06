@@ -1,6 +1,40 @@
+:vars {
+  /** Background color of the content */
+  contentBackgroundColor: white;
+  /** Border width of the content */
+  contentBorderWidth: 1px;
+  /** Border style of the content */
+  contentBorderStyle: solid;
+  /** Border color of the content */
+  contentBorderColor: black;
+  /** Border radius of the content */
+  contentBorderRadius: initial;
+  /** Content padding for the content */
+  contentPadding: initial;
+  /** Size of the arrow of the content */
+  contentArrowSize: 5px;
+}
+
 .root {
   display: inline-block;
   position: relative;
+}
+
+.popoverContent {
+  background-color: value(contentBackgroundColor);
+  border-width: value(contentBorderWidth);
+  border-style: value(contentBorderStyle);
+  border-color: value(contentBorderColor);
+  border-radius: value(contentBorderRadius);
+  padding: value(contentPadding);
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: value(contentArrowSize);
 }
 
 .popoverContentContainer {
@@ -8,6 +42,51 @@
   min-width: 100%;
 }
 
-.popoverContent {}
+.popoverContentContainer[data-placement="right"] {
+  padding-left: value(contentArrowSize);
+}
 
-.arrow {}
+
+.popoverContentContainer[data-placement="right"] .arrow {
+  border-width: value(contentArrowSize) value(contentArrowSize) value(contentArrowSize) 0;
+  left: calc(-1 * value(contentArrowSize));
+  margin-left: value(contentArrowSize);
+  margin-right: 0;
+  border-color: transparent value(contentBorderColor) transparent transparent;
+}
+
+.popoverContentContainer[data-placement="left"] {
+  padding-right: value(contentArrowSize);
+}
+
+.popoverContentContainer[data-placement="left"] .arrow {
+  border-width: value(contentArrowSize) 0 value(contentArrowSize) value(contentArrowSize);
+  right: calc(-1 * value(contentArrowSize));
+  margin-left: 0;
+  margin-right: value(contentArrowSize);
+  border-color: transparent transparent transparent value(contentBorderColor);
+}
+
+.popoverContentContainer[data-placement="bottom"] {
+  padding-top: value(contentArrowSize);
+}
+
+.popoverContentContainer[data-placement="bottom"] .arrow {
+  border-width: 0 value(contentArrowSize) value(contentArrowSize) value(contentArrowSize);
+  top: calc(-1 * value(contentArrowSize));
+  margin-top: value(contentArrowSize);
+  margin-bottom: 0;
+  border-color: transparent transparent value(contentBorderColor) transparent;
+}
+
+.popoverContentContainer[data-placement="top"] {
+  padding-bottom: value(contentArrowSize);
+}
+
+.popoverContentContainer[data-placement="top"] .arrow {
+  border-width: value(contentArrowSize) value(contentArrowSize) 0 value(contentArrowSize);
+  bottom: calc(-1 * value(contentArrowSize));
+  margin-top: 0;
+  margin-bottom: value(contentArrowSize);
+  border-color: value(contentBorderColor) transparent transparent transparent;
+} 

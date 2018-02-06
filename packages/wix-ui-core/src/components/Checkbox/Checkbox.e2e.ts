@@ -9,7 +9,7 @@ describe('Checkbox', () => {
   beforeEach(() => browser.get(storyUrl));
 
   eyes.it('should display correct content', () => {
-    const dataHook = 'story-checkbox';
+    const dataHook = 'storybook-checkbox';
     const driver = checkboxTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');

@@ -9,7 +9,7 @@ describe('Tooltip', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  eyes.fit('should display content when hover', () => {
+  eyes.it('should display content when hover', () => {
     const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
 
