@@ -233,20 +233,11 @@ describe('Pagination', () => {
       expect(onChange).not.toBeCalled();
     });
 
-    it('shows button text with replaceArrowsWithText prop', () => {
-      const pagination = createDriver(<Pagination totalPages={3} showFirstLastNavButtons replaceArrowsWithText/>);
-      expect(pagination.getNavButton('first').textContent).toEqual('First');
-      expect(pagination.getNavButton('last').textContent).toEqual('Last');
-      expect(pagination.getNavButton('previous').textContent).toEqual('Previous');
-      expect(pagination.getNavButton('next').textContent).toEqual('Next');
-    });
-
-    it('replaces buttons text if provided along with replaceArrowsWithText prop', () => {
+    it('allows to customize button text', () => {
       const pagination = createDriver(
         <Pagination
           totalPages={3}
           showFirstLastNavButtons
-          replaceArrowsWithText
           firstLabel="oh"
           previousLabel="my"
           nextLabel="god"

@@ -51,7 +51,6 @@ export interface PaginationProps {
   onChange?: (event: {event: React.SyntheticEvent<Element>, page: number}) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
-  replaceArrowsWithText?: boolean;
   firstLabel?: React.ReactNode;
   previousLabel?: React.ReactNode;
   nextLabel?: React.ReactNode;
@@ -90,15 +89,13 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     paginationMode: oneOf(['pages' , 'input']),
     /** Shows the 'first' and 'last' navigation buttons. defaults to false */
     showFirstLastNavButtons: bool,
-    /** Allows replacing navigation arrows with textual buttons */
-    replaceArrowsWithText: bool,
-    /** Text to appear for the 'first' navigation button when prop 'replaceArrowsWithText' is true */
+    /** Text to appear for the 'first' navigation button */
     firstLabel: node,
-    /** Text to appear for the 'previous' navigation button when prop 'replaceArrowsWithText' is true */
+    /** Text to appear for the 'previous' navigation button */
     previousLabel: node,
-    /** Text to appear for the 'next' navigation button when prop 'replaceArrowsWithText' is true */
+    /** Text to appear for the 'next' navigation button */
     nextLabel: node,
-    /** Text to appear for the 'last' navigation button when prop 'replaceArrowsWithText' is true */
+    /** Text to appear for the 'last' navigation button */
     lastLabel: node,
     /** Text to appear in the gap between page numbers */
     gapLabel: node,
@@ -129,16 +126,18 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   public static defaultProps: Partial<PaginationProps> = {
     currentPage: 1,
     showFirstLastNavButtons: false,
-    replaceArrowsWithText: false,
     showFirstPage: false,
     showLastPage: false,
     responsive: false,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
-    firstLabel: 'First',
-    lastLabel: 'Last',
-    previousLabel: 'Previous',
-    nextLabel: 'Next',
+
+    // dir="rtl" automatically flips the direction of less-than and more-than signs.
+    // If we decide to use different labels we need to add conditional logic.
+    firstLabel: '<<',
+    lastLabel: '>>',
+    previousLabel: '<',
+    nextLabel: '>',
     gapLabel: '...',
     slashLabel: '\u00A0/\u00A0'
   };
@@ -248,15 +247,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
       ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
-    // dir="rtl" automatically flips the direction of less-than and more-than signs.
-    // If we decide to use different characters we need to add conditional logic here.
-
-    const [btnClass, label, symbol, page] = {
-      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousLabel, '<',  currentPage - 1],
-      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextLabel,     '>',  currentPage + 1],
-      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstLabel,    '<<', 1],
-      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastLabel,     '>>', totalPages]
-    }[type] as [string, string, string, number];
+    const [btnClass, label, page] = {
+      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousLabel, currentPage - 1],
+      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextLabel,     currentPage + 1],
+      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstLabel,    1],
+      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastLabel,     totalPages]
+    }[type] as [string, string, number];
 
     return (
       <a
@@ -269,7 +265,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         onKeyDown={disabled ? null : event => this.handlePageKeyDown(event, page)}
         href={!disabled && pageUrl ? pageUrl(page) : null}
       >
-        {this.props.replaceArrowsWithText ? label : symbol}
+        {label}
       </a>
     );
   }

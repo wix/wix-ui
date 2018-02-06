@@ -5,7 +5,8 @@ const button = {
   padding: 5,
   minWidth: 20,
   minHeight: 20,
-  font: '12px/1 Arial, sans-serif'
+  font: '12px/1 Arial, sans-serif',
+  textDecoration: 'none'
 };
 
 export const theme = {

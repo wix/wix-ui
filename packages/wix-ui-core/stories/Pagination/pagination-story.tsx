@@ -39,7 +39,21 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>Limited number of pages with first and last always visible</h3>
+        <h3>Buttons with custom text</h3>
+        <UncontrolledPagination
+          dataHook="story-pagination-custom-text"
+          totalPages={9}
+          maxPagesToShow={9}
+          currentPage={5}
+          showFirstLastNavButtons
+          firstLabel="First"
+          previousLabel="Previous"
+          nextLabel="Next"
+          lastLabel="Last"
+        />
+      </div>
+      <div>
+        <h3>Limited number of pages with first and last page always visible</h3>
         <UncontrolledPagination
           dataHook="story-pagination-show-first-and-last"
           totalPages={9}
@@ -50,7 +64,7 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>RTL with "first" and "last" buttons</h3>
+        <h3>Right to left</h3>
         <UncontrolledPagination
           dataHook="story-pagination-rtl"
           rtl
@@ -61,30 +75,17 @@ export function PaginationStory() {
         />
       </div>
       <div>
-        <h3>RTL with text</h3>
+        <h3>Input mode</h3>
         <UncontrolledPagination
-          rtl
-          totalPages={9}
-          maxPagesToShow={9}
-          currentPage={5}
-          showFirstLastNavButtons
-          replaceArrowsWithText
-        />
-      </div>
-      <div>
-        <h3>RTL Input Mode</h3>
-        <UncontrolledPagination
-          rtl
           totalPages={1000000}
           currentPage={500000}
           paginationMode="input"
           showInputModeTotalPages
           showFirstLastNavButtons
-          replaceArrowsWithText
         />
       </div>
 
-      <h2>Responsive Layout</h2>
+      <h2>Responsive layout</h2>
       <div>
         <h3>Full range</h3>
         <UncontrolledPagination
