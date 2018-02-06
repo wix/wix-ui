@@ -11,7 +11,7 @@ describe('createHOC function', () => {
     dataHook?: string
   };
 
-  const render = (Comp: any) => mount(Comp, { attachTo: document.createElement('div') });
+  const render = (Comp: any) => mount(Comp, {attachTo: document.createElement('div')});
 
   // Regular component with state
   class ChildComponent extends React.Component<ComponentProps, {id: string}> {
