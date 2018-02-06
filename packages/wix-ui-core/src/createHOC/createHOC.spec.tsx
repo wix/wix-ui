@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {createHOC} from './';
-import {renderIntoDocument, findRenderedComponentWithType} from 'react-dom/test-utils';
 import {mount} from 'enzyme';
 
 describe('createHOC function', () => {
@@ -11,6 +10,8 @@ describe('createHOC function', () => {
     dataClass?: string,
     dataHook?: string
   };
+
+  const render = (Comp: any) => mount(Comp, { attachTo: document.createElement('div') });
 
   // Regular component with state
   class ChildComponent extends React.Component<ComponentProps, {id: string}> {
@@ -51,23 +52,22 @@ describe('createHOC function', () => {
     const HOCComponent = createHOC(ChildComponent);
 
     it('should render the wrapped component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent/>);
-      expect(findRenderedComponentWithType(wrapper, ChildComponent)).toBeTruthy();
+      const wrapper = render(<HOCComponent />);
+      expect(wrapper.children().instance()).toBeInstanceOf(ChildComponent);
     });
 
     it('should place data-hook on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataHook="my-data-hook"/>);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-hook')).toBe('my-data-hook');
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
     });
 
     it('should place data-class on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataClass="my-data-class"/>);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-class')).toBe('my-data-class');
+      const wrapper = render(<HOCComponent dataClass="my-data-class" />);
+      expect(wrapper.getDOMNode().getAttribute('data-class')).toBe('my-data-class');
     });
 
     describe('hoisting', () => {
       it('should hoist static methods', () => {
-        expect(HOCComponent.staticMethod).toBeDefined();
         expect(HOCComponent.staticMethod()).toEqual('staticMethod');
       });
 
@@ -76,11 +76,9 @@ describe('createHOC function', () => {
       });
 
       it('should hoist prototype methods from child to HOC and bind them', () => {
-        const wrapper = renderIntoDocument(<HOCComponent id="some_id"/>);
-        expect(wrapper.unboundMethod).toBeDefined();
-        expect(wrapper.unboundMethod()).toEqual('unboundMethod');
-        expect(wrapper.boundMethod).toBeDefined();
-        expect(wrapper.boundMethod()).toEqual('some_id');
+        const wrapper = render(<HOCComponent id="some_id" />);
+        expect(wrapper.instance().unboundMethod()).toEqual('unboundMethod');
+        expect(wrapper.instance().boundMethod()).toEqual('some_id');
       });
     });
   });
@@ -89,23 +87,22 @@ describe('createHOC function', () => {
     const HOCComponent = createHOC(PureChildComponent);
 
     it('should render the wrapped component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent />);
-      expect(findRenderedComponentWithType(wrapper, PureChildComponent)).toBeTruthy();
+      const wrapper = render(<HOCComponent />);
+      expect(wrapper.children().instance()).toBeInstanceOf(PureChildComponent);
     });
 
     it('should place data-hook on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataHook="my-data-hook" />);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-hook')).toBe('my-data-hook');
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
     });
 
     it('should place data-class on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataClass="my-data-class" />);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-class')).toBe('my-data-class');
+      const wrapper = render(<HOCComponent dataClass="my-data-class" />);
+      expect(wrapper.getDOMNode().getAttribute('data-class')).toBe('my-data-class');
     });
 
     describe('hoisting', () => {
       it('should hoist static methods', () => {
-        expect(HOCComponent.staticMethod).toBeDefined();
         expect(HOCComponent.staticMethod()).toEqual('staticMethod');
       });
 
@@ -114,11 +111,9 @@ describe('createHOC function', () => {
       });
 
       it('should hoist prototype methods from child to HOC and bind them', () => {
-        const wrapper = renderIntoDocument(<HOCComponent id="some_id" />);
-        expect(wrapper.unboundMethod).toBeDefined();
-        expect(wrapper.unboundMethod()).toEqual('unboundMethod');
-        expect(wrapper.boundMethod).toBeDefined();
-        expect(wrapper.boundMethod()).toEqual('some_id');
+        const wrapper = render(<HOCComponent id="some_id" />);
+        expect(wrapper.instance().unboundMethod()).toEqual('unboundMethod');
+        expect(wrapper.instance().boundMethod()).toEqual('some_id');
       });
     });
   });
@@ -127,18 +122,21 @@ describe('createHOC function', () => {
     const HOCComponent = createHOC(StatelessChildComponent);
 
     it('should render the wrapped component', () => {
-      const wrapper = mount(<HOCComponent />);
-      expect(wrapper.containsMatchingElement(<StatelessChildComponent/>)).toBeTruthy();
+      const wrapper = render(<HOCComponent />);
+      // This doesn't work - it is actually an instance of React.StatelessComponent
+      // expect(wrapper.children().instance()).toBeInstanceOf(StatelessChildComponent);
+      expect(wrapper.children().length).toEqual(1);
+      expect(wrapper.children().contains(<StatelessChildComponent/>)).toBeTruthy();
     });
 
     it('should place data-hook on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataHook="my-data-hook" />);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-hook')).toBe('my-data-hook');
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
     });
 
     it('should place data-class on the root of the component', () => {
-      const wrapper = renderIntoDocument(<HOCComponent dataClass="my-data-class" />);
-      expect(ReactDOM.findDOMNode(wrapper).getAttribute('data-class')).toBe('my-data-class');
+      const wrapper = render(<HOCComponent dataClass="my-data-class" />);
+      expect(wrapper.getDOMNode().getAttribute('data-class')).toBe('my-data-class');
     });
 
     // Nothing to hoist on stateless components
