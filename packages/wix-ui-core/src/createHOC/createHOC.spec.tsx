@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import {createHOC} from './';
 import {mount} from 'enzyme';
 
