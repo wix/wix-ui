@@ -13,7 +13,7 @@ export class InputWithAffixes extends React.Component<InputWithAffixesProps> {
         return (
         <div {...style('root', {}, this.props)}>
             {this.props.prefix && <div data-hook="input-prefix">{prefix}</div>}
-            <Input {...props}/>
+            <Input {...props} data-hook="input"/>
             {this.props.suffix && <div data-hook="input-suffix">{suffix}</div>}
         </div>);
     }

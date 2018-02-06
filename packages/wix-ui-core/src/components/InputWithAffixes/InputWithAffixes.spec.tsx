@@ -22,31 +22,25 @@ describe('InputWithAffixes', () => {
     });
 
     it('should allow adding a custom prefix component', () => {
-        const driver = createDriver(<InputWithAffixes prefix={<div data-automation-id="prefix"/>}/>);
+        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="prefix"/>}/>);
 
         expect(driver.hasPrefix()).toBeTruthy();
-        expect(driver.getPrefix().querySelector('[data-automation-id="prefix"]')).toBeTruthy();
+        expect(driver.getPrefix().querySelector('[data-hook="prefix"]')).toBeTruthy();
     });
 
     it('should allow adding a custom suffix component', () => {
-        const driver = createDriver(<InputWithAffixes suffix={<div data-automation-id="suffix"/>}/>);
+        const driver = createDriver(<InputWithAffixes suffix={<div data-hook="suffix"/>}/>);
 
         expect(driver.hasSuffix()).toBeTruthy();
-        expect(driver.getSuffix().querySelector('[data-automation-id="suffix"]')).toBeTruthy();
+        expect(driver.getSuffix().querySelector('[data-hook="suffix"]')).toBeTruthy();
     });
 
     it('should allow adding a custom prefix and suffix components', () => {
-        const driver = createDriver(<InputWithAffixes prefix={<div data-automation-id="prefix"/>} suffix={<div data-automation-id="suffix"/>}/>);
+        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="prefix"/>} suffix={<div data-hook="suffix"/>}/>);
 
         expect(driver.hasSuffix()).toBeTruthy();
         expect(driver.hasPrefix()).toBeTruthy();
-        expect(driver.getPrefix().querySelector('[data-automation-id="prefix"]')).toBeTruthy();
-        expect(driver.getSuffix().querySelector('[data-automation-id="suffix"]')).toBeTruthy();
-    });
-
-    it('renders the internal Input comp with the correct props', () => {
-        const driver = createDriver(<InputWithAffixes prefix={<div/>} readOnly/>);
-
-        expect(driver.isReadOnly()).toBeTruthy();
+        expect(driver.getPrefix().querySelector('[data-hook="prefix"]')).toBeTruthy();
+        expect(driver.getSuffix().querySelector('[data-hook="suffix"]')).toBeTruthy();
     });
 });
