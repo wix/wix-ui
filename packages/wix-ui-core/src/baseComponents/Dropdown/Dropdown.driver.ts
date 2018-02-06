@@ -1,9 +1,10 @@
+import {ComponentFactory} from 'wix-ui-test-utils';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
 
-const getElement = element => element.querySelector('[data-hook="popover-element"]');
-const getContent = element => element.querySelector('[data-hook="popover-content"]');
+const getElement = (element: Element | undefined) => (element).querySelector('[data-hook="popover-element"]');
+const getContent = (element: Element | undefined) => element.querySelector('[data-hook="popover-content"]');
 
-export const dropdownDriverFactory = (args) => {
+export const dropdownDriverFactory = (args: ComponentFactory<any>) => {
   const {element, eventTrigger} = args;
   const dropdownContentDriver =  dropdownContentDriverFactory(args);
 
@@ -15,6 +16,6 @@ export const dropdownDriverFactory = (args) => {
     mouseLeave: () => eventTrigger.mouseLeave(element),
     click: () => eventTrigger.click(getElement(element)),
     targetElement: () => getElement(element),
-    clickOptionAt: index => dropdownContentDriver.optionAt(index).click()
+    clickOptionAt: (index: number) => dropdownContentDriver.optionAt(index).click()
   };
 };

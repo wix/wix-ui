@@ -6,8 +6,8 @@
     "moduleResolution": "node",
 
     "strict": true,
-    "alwaysStrict": false,
-    "noImplicitAny": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
     "strictNullChecks": false,
 
     "target": "es5",

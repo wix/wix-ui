@@ -1,12 +1,12 @@
 import * as React from 'react';
-import onClickOutside from 'react-onclickoutside';
+import onClickOutside , {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
-export interface DropdownProps {
+export interface DropdownProps extends InjectedOnClickOutProps {
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
@@ -45,7 +45,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent;
 
-  constructor(props) {
+  constructor(props: DropdownProps) {
     super(props);
 
     this.close = this.close.bind(this);
@@ -170,8 +170,4 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 }
 
-export type DropdownType = React.ComponentClass<DropdownProps> & {
-  getInstance: () => DropdownComponent
-};
-
-export const Dropdown: DropdownType = onClickOutside(DropdownComponent);
+export const Dropdown = onClickOutside(DropdownComponent);

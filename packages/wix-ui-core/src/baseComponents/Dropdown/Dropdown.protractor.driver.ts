@@ -1,11 +1,12 @@
+import {ElementFinder} from 'protractor';
 import {dropdownContentTestkitFactory} from '../../testkit/protractor';
 
-export const dropdownDriverFactory = component => {
+export const dropdownDriverFactory = (component: ElementFinder) => {
 
   const getDropdownContentDriver = () => dropdownContentTestkitFactory({dataHook: 'dropdown-content'});
 
   return {
     element: () => component,
-    selectOption: index => getDropdownContentDriver().selectOption(index)
+    selectOption: (index: number) => getDropdownContentDriver().selectOption(index)
   };
 };
