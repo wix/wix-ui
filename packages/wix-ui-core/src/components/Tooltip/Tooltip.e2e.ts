@@ -1,7 +1,7 @@
 import * as eyes from 'eyes.it';
 import * as eventually from 'wix-eventually';
 import {browser} from 'protractor';
-import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
+import {getStoryUrl, waitForVisibilityOf, sleep} from 'wix-ui-test-utils';
 import {tooltipTestkitFactory} from '../../testkit/protractor';
 
 describe('Tooltip', () => {
@@ -19,6 +19,7 @@ describe('Tooltip', () => {
     expect(driver.isTooltipExists()).toBeTruthy();
     expect(driver.getTooltipText()).toBe('This is my tooltip\n');
     driver.onMouseLeave();
+    await sleep(500);
     await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
   });
 });

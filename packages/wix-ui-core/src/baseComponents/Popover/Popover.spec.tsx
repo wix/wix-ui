@@ -52,12 +52,11 @@ describe('Popover', () => {
     expect(arrowLeft).toEqual('10px');
   });
 
-  it('moves the content according to the provided offset', () => {
-    const driverMoved = createDriver(createPopover({shown: true, moveBy: {x: 10, y: 10}}));
-    const driverOriginal = createDriver(createPopover({shown: true}));
-
-    const movedAnchorX = driverMoved.getContentElement();
-    console.log('movedAnchorX: ', movedAnchorX.parentNode.innerHTML);
-    // console.log('originalAnchorX: ', originalAnchorX);
-  });
+  // it('moves the content according to the provided offset', () => {
+  //   const driverMoved = createDriver(createPopover({shown: true, moveBy: {x: 10, y: 10}}));
+  //   const driverOriginal = createDriver(createPopover({shown: true}));
+  //
+  //   const movedAnchorX = driverMoved.getContentElement().style.cssText
+  //   console.log('movedAnchorX: ', movedAnchorX);
+  // });
 });

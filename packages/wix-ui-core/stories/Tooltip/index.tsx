@@ -2,7 +2,7 @@ import * as React from 'react';
 import createStory from '../create-story';
 
 import {Tooltip} from '../../src/components/Tooltip';
-import * as TooltipSource from '!raw-loader!../../src/components/Tooltip/index.tsx';
+import * as TooltipSource from '!raw-loader!../../src/components/Tooltip/Tooltip.tsx';
 
 export const story = () => createStory({
     category: 'Components',
