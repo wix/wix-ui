@@ -222,10 +222,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
         <input
           data-hook="page-input"
           type="number"
-          className={classNames({
-            [this.props.classes.pageInput]: true,
-            [this.props.classes.error]: this.state.pageInputHasError
-          })}
+          className={classNames(classes.pageInput, {[classes.error]: this.state.pageInputHasError})}
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
@@ -234,7 +231,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages &&
-          <span data-hook="total-pages" className={this.props.classes.totalPages}>
+          <span data-hook="total-pages" className={classes.totalPages}>
             {this.props.slashLabel}
             {this.props.totalPages}
           </span>

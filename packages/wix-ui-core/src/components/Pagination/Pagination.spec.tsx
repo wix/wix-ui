@@ -157,9 +157,9 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination paginationMode="input" totalPages={3} onChange={onChange} />);
       pagination.changeInput('4');
       pagination.commitInput();
-      expect(pagination.getPageInput().className).toMatch('error');
+      expect(pagination.inputHasError()).toBe(true);
       pagination.changeInput('5');
-      expect(pagination.getPageInput().className).not.toMatch('error');
+      expect(pagination.inputHasError()).toBe(false);
     });
 
     describe('Input mode accessibility',  () => {
