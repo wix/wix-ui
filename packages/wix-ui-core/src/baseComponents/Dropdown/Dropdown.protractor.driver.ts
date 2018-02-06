@@ -1,4 +1,4 @@
-import {ElementFinder} from 'protractor';
+import {ElementFinder, promise} from 'protractor';
 import {dropdownContentTestkitFactory} from '../../testkit/protractor';
 
 export const dropdownDriverFactory = (component: ElementFinder) => {

@@ -32,7 +32,7 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   private optionsContainerRef: HTMLDivElement;
   private mouseCoords = {screenX: -1, screenY: -1};
 
-  constructor(props) {
+  constructor(props: DropdownContentProps) {
     super(props);
 
     this.onMouseMove = this.onMouseMove.bind(this);
