@@ -36,9 +36,9 @@ export interface TooltipProps {
   /** Enables calculations in relation to the parent element*/
   appendTo?: React.ReactNode;
   /** Provides callback to invoke when outside of tooltip is clicked */
-  onClickOutside: Function;
+  onClickOutside?: Function;
   /** If true, makes tooltip close when clicked outside (incase it was open) */
-  shouldCloseOnClickOutside: boolean;
+  shouldCloseOnClickOutside?: boolean;
 }
 
 export interface TooltipState {
@@ -119,7 +119,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   close() {
-    if (this.state.isOpen) {
+    if (this.state.isOpen && !this.props.shouldCloseOnClickOutside) {
       this.props.onHide();
       this.setState({isOpen: false});
     }
