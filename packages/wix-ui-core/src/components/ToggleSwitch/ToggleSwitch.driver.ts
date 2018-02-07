@@ -26,7 +26,7 @@ export const toggleSwitchDriverFactory = ({componentInstance, element, eventTrig
     /** Returns the computed styles object of the toggle icon component */
     getToggleIconStyles: () => window.getComputedStyle(element.querySelector('.toggleIcon')),
     /** Returns a boolean indicating whether the toggle switch is focused or not */
-    isFocused: () => element.querySelector('input') === document.activeElement,
+    isFocused: () => toggleSwitch === document.activeElement,
     /** Invokes the focus method on the toggle switch */
     focus: () => componentInstance.focus(),
     /** Invokes the blur method on the toggle switch */
