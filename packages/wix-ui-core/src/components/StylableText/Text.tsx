@@ -11,15 +11,17 @@ export interface TextProps {
 /**
  * Text
  */
-export const Text: React.SFC<TextProps> = ({children, ellipsis, tagName, forceHideTitle}) =>
-  React.createElement(
+export const Text: React.SFC<TextProps> = props => {
+  const {children, ellipsis, tagName, forceHideTitle} = props;
+  return React.createElement(
     tagName,
     {
       title: typeof children === 'string' && ellipsis && !forceHideTitle ? children : null,
-      ...style('root', {ellipsis}, this.props)
+      ...style('root', {ellipsis}, props)
     },
     children
   );
+};
 
 Text.displayName = 'Text';
 Text.defaultProps = {

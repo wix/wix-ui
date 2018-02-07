@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {textDriverFactory} from './Text.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {Text} from './';
 import {stylableTextTestkitFactory as textTestkitFactory} from '../../testkit';
 import {stylableTextTestkitFactory as enzymeTextTestkitFactory} from '../../testkit/enzyme';
