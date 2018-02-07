@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory, sleep} from 'wix-ui-test-utils';
 import {Popover} from './';
 
 describe('Popover', () => {
@@ -51,12 +51,4 @@ describe('Popover', () => {
     const arrowLeft = driver.getArrow().style.left;
     expect(arrowLeft).toEqual('10px');
   });
-
-  // it('moves the content according to the provided offset', () => {
-  //   const driverMoved = createDriver(createPopover({shown: true, moveBy: {x: 10, y: 10}}));
-  //   const driverOriginal = createDriver(createPopover({shown: true}));
-  //
-  //   const movedAnchorX = driverMoved.getContentElement().style.cssText
-  //   console.log('movedAnchorX: ', movedAnchorX);
-  // });
 });

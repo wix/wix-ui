@@ -20,6 +20,8 @@
   position: relative;
 }
 
+.contentWrap {}
+
 .popoverContent {
   background-color: value(contentBackgroundColor);
   border-width: value(contentBorderWidth);
