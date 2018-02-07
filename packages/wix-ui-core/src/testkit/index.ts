@@ -15,6 +15,9 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
 
+import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
+
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFactory);
 

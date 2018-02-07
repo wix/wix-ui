@@ -16,6 +16,9 @@ export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFacto
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
 
+import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTextDriverFactory);
+
 import {badgeDriverFactory} from '../components/Badge/Badge.driver';
 export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
 
