@@ -23,6 +23,7 @@ const dropdownOptions =
 
 require('./Badge').story();
 require('./Button').story();
+require('./StylableButton').story();
 require('./Input').story();
 
 storiesOf('Components', module)
