@@ -24,6 +24,7 @@ const dropdownOptions =
 require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
+require('./InputWithAffixes').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (
