@@ -23,9 +23,3 @@
   letter-spacing: value(letterSpacing);
   margin: value(margin);
 }
-
-/* ellipsis state */
-
-.root:ellipsis {
-
-}
