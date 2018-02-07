@@ -133,4 +133,21 @@ describe('ToggleSwitch', () => {
       expect(driver.getToggleIconStyles().color).toBe('black');
     });
   });
+
+  describe('focus and blur', () => {
+    it('should expose a focus() method', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      expect(driver.isFocused()).toBe(false);
+      driver.focus();
+      expect(driver.isFocused()).toBe(true);
+    });
+
+    it('should expose a blur() method', () => {
+      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      driver.focus();
+      expect(driver.isFocused()).toBe(true);
+      driver.blur();
+      expect(driver.isFocused()).toBe(false);
+    });
+  });
 });

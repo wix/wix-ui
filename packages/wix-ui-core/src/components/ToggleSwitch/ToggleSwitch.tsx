@@ -34,6 +34,7 @@ export interface ToggleSwitchProps {
 class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
   static displayName = 'ToggleSwitch';
   id: string = this.props.id || uniqueId('ToggleSwitch');
+  inputRef: HTMLInputElement;
 
   private toggle: HTMLLabelElement;
 
@@ -78,6 +79,14 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     }
   }
 
+  focus() {
+    this.inputRef.focus();
+  }
+
+  blur() {
+    this.inputRef.blur();
+  }
+
   render() {
     const {checked, disabled, classes, styles, previewState} = this.props;
     const {id} = this;
@@ -90,6 +99,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           checked={checked}
           disabled={disabled}
           onChange={e => this._handleChange(e)}
+          ref={el => this.inputRef = el}
         />
 
         <div className={classes.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
