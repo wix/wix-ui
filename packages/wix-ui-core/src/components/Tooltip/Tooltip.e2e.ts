@@ -23,3 +23,18 @@ describe('Tooltip', () => {
     await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
   });
 });
+
+describe('Tooltip Custom', () => {
+  const storyUrl = getStoryUrl('Components', 'Tooltip Custom');
+
+  beforeEach(() => browser.get(storyUrl));
+
+  eyes.it('moves tooltip relative to anchor according to props', async () => {
+    const dataHook = 'story-tooltip-right';
+    const driver = tooltipTestkitFactory({dataHook});
+    await waitForVisibilityOf(driver.element(), 'Cannot find Tooltip');
+    driver.onMouseOver();
+    await sleep(500);
+    expect(driver.isTooltipExists()).toBeTruthy();
+  });
+});

@@ -14,6 +14,7 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {GoogleInput} from '../src/components/GoogleInput';
 import {ControlledInputWithOptions} from './InputWithOptions';
+import {TooltipStory} from './Tooltip/custom';
 
 const dropdownOptions =
   Array.from(Array(20))
@@ -103,4 +104,7 @@ storiesOf('Components', module)
   ))
   .add('Checkbox', () => (
     <CheckboxStory />
+  ))
+  .add('Tooltip Custom', () => (
+    <TooltipStory />
   ));
