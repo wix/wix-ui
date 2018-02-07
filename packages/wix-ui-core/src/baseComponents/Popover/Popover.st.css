@@ -91,4 +91,24 @@
   margin-top: 0;
   margin-bottom: value(contentArrowSize);
   border-color: value(contentBorderColor) transparent transparent transparent;
-} 
+}
+
+.popover {}
+
+.popover-enter {
+  opacity: 0;
+}
+
+.popover-enter.popover-enter-active {
+  opacity: 1;
+  transition: opacity 150ms ease-in-out;
+}
+
+.popover-exit {
+  opacity: 1;
+}
+
+.popover-exit.popover-exit-active {
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}

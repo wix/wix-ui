@@ -3,7 +3,7 @@ import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
-import Transition from 'react-transition-group/Transition';
+import {CSSTransition} from 'react-transition-group';
 import {buildChildrenObject, createComponentThatRendersItsChildren} from '../../utils';
 import {oneOf} from 'prop-types';
 
@@ -42,33 +42,10 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
-const duration = 150;
-
-const defaultStyle = {
-  opacity: 0,
-  transition: `opacity ${duration}ms ease-in-out`
-};
-
-const transitionStylesFactory = (showDelay = duration, hideDelay = duration) => ({
-  entering: {opacity: 0, transitionDuration: `${showDelay}ms`},
-  entered: {opacity: 1, transitionDuration: `${showDelay}ms`},
-  exiting: {transitionDuration: `${hideDelay}ms`},
-  exited: {transitionDuration: `${hideDelay}ms`}
-});
-
-const Fade = ({inProp, children, transitionStyles}) => (
-  <Transition in={inProp} timeout={duration} unmountOnExit={true}>
-    {state => (
-      <div key="animation-container"
-        style={{
-        ...defaultStyle,
-        ...transitionStyles[state]
-      }}>
-        {[children]}
-      </div>
-    )}
-  </Transition>
-);
+const Fade = ({inProp, children}) =>
+  <CSSTransition in={inProp} timeout={500} unmountOnExit={true} classNames={style.popover}>
+      {children}
+  </CSSTransition>;
 
 const getArrowShift = (shift, direction) => {
   if (!shift) {
@@ -86,7 +63,7 @@ const getArrowShift = (shift, direction) => {
 
 export const Popover: PopoverType = props => {
   const {placement, shown, onMouseEnter, onMouseLeave, onClick, showArrow,
-         children, moveBy, showDelay, hideDelay, moveArrowTo,
+         children, moveBy, moveArrowTo,
          appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
@@ -104,8 +81,6 @@ export const Popover: PopoverType = props => {
     };
   }
 
-  const transitionStyles = transitionStylesFactory(showDelay, hideDelay);
-
   return (
     <Manager
       {...style('root', {}, props)}
@@ -115,7 +90,7 @@ export const Popover: PopoverType = props => {
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Fade inProp={shown} transitionStyles={transitionStyles}>
+      <Fade inProp={shown}>
         <Popper
           data-hook="popover-content"
           modifiers={modifiers}

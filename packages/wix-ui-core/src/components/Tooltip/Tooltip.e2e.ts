@@ -7,26 +7,6 @@ import {tooltipTestkitFactory} from '../../testkit/protractor';
 const movedX = 10;
 
 describe('Tooltip', () => {
-  const storyUrl = getStoryUrl('Components', 'Tooltip');
-
-  beforeEach(() => browser.get(storyUrl));
-
-  eyes.it('should display content when hover', async () => {
-    const dataHook = 'story-tooltip-right';
-    const driver = tooltipTestkitFactory({dataHook});
-    await waitForVisibilityOf(driver.element(), 'Cannot find Tooltip');
-    expect(driver.isTooltipExists()).toBeFalsy();
-    expect(driver.getElementText()).toBe('Hover me for a tooltip!');
-    driver.onMouseOver();
-    expect(driver.isTooltipExists()).toBeTruthy();
-    expect(driver.getTooltipText()).toBe('This is my tooltip\n');
-    driver.onMouseLeave();
-    await sleep(500);
-    await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
-  });
-});
-
-describe('Tooltip Custom', () => {
   const storyUrl = getStoryUrl('Components', 'Tooltip Custom');
 
   beforeEach(() => browser.get(storyUrl));
@@ -51,5 +31,11 @@ describe('Tooltip Custom', () => {
     const location = await tooltip.getLocation();
 
     expect(locationMoved.x - (location.x + movedX)).toBeLessThan(1e-3);
+
+    expect(driver.getElementText()).toBe('Hover me for a tooltip!');
+    expect(driver.getTooltipText()).toBe('This is my tooltip\n');
+    driver.onMouseLeave();
+    await sleep(2000);
+    await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
   });
 });
