@@ -153,9 +153,8 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
                   data-hook="option"
                   key={option.id}
                   option={option}
-                  index={index}
-                  hoveredIndex={hoveredIndex}
-                  selectedIds={selectedIds}
+                  isHovered={hoveredIndex === index}
+                  isSelected={(selectedIds || []).includes(option.id)}
                   onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : null}
                   onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : null}
                 />

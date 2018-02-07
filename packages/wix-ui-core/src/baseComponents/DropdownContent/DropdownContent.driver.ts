@@ -1,4 +1,5 @@
-import {ComponentFactory, isAttributeExists} from 'wix-ui-test-utils';
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
+import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
 import {DropdownContent} from './';
 
 const getOptionAt = (element, index) => element.querySelectorAll('[data-hook="option"]')[index];

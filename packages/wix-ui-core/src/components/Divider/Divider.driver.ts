@@ -1,4 +1,4 @@
-import {isAttributeExists} from 'wix-ui-test-utils';
+import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
 
 export const dividerDriverFactory = ({element}) => ({
   /** checks if the element exists */

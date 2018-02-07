@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Popover} from './';
 
 describe('Popover', () => {

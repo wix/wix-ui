@@ -55,6 +55,8 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
     /** Simulates committing the input field value in "input" mode */
     commitInput: (): void => simulate.keyDown(getInput(), {keyCode: 13}),
     /** Simulates blur in the input field in "input" mode */
-    blurInput: (): void => simulate.blur(getInput())
+    blurInput: (): void => simulate.blur(getInput()),
+    /** Checks if the input has an error */
+    inputHasError: () => getInput().className.includes('error')
   };
 };

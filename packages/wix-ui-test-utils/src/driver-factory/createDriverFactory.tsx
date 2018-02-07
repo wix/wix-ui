@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {render} from 'react-dom';
 import {Simulate} from 'react-dom/test-utils';
-import {reactEventTrigger} from './helpers';
 import {ReactWrapper} from 'enzyme';
+import {reactEventTrigger} from '../react-helpers';
 
 export type DriverFactory<TDriver extends BaseDriver, TComponent> = (compFactory: ComponentFactory<TComponent>) => TDriver;
 

@@ -1,6 +1,6 @@
 import {browser} from 'protractor';
 
-import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
+import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {googleMapsIframeClientTestkitFactory} from '../../testkit/protractor';
 
 describe('Google Maps Iframe client', () => {

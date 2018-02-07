@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactTestUtils from 'react-dom/test-utils';
-import {reactEventTrigger} from '../helpers';
-import {DriverFactory, BaseDriver} from '../createDriverFactory';
+import {reactEventTrigger} from '../react-helpers';
+import {DriverFactory, BaseDriver} from '../driver-factory';
 
 export function testkitFactoryCreator<T extends BaseDriver, TComponent> (driverFactory: DriverFactory<T, TComponent>) {
   return (obj: {wrapper: HTMLDivElement, dataHook: string}) => {

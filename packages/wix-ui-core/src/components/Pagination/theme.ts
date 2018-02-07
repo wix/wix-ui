@@ -23,6 +23,7 @@ export type PaginationTheme = {
 
   // Modifiers
   disabled: React.CSSProperties;
+  error: React.CSSProperties;
 };
 
 // Responsive layout logic depends on styling defined here and may not work correctly with different styling.
@@ -72,5 +73,6 @@ export const core: PaginationTheme = {
   },
   pageInput: {},
   totalPages: {},
-  disabled: {}
+  disabled: {},
+  error: {}
 };

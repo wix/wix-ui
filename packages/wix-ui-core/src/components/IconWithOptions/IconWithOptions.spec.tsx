@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {iconWithOptionsDriverFactory} from './IconWithOptions.driver';
 import {IconWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';

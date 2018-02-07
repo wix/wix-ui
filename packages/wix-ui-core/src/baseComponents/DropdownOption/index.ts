@@ -1,2 +1,2 @@
 export {DropdownOption} from './DropdownOption';
-export {OptionFactory, Option, OptionType} from './OptionFactory';
+export {OptionFactory, Option} from './OptionFactory';

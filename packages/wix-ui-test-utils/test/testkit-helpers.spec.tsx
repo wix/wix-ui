@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {isTestkitExists, testkitFactoryCreator, enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src';
-import {DriverFactory} from '../src/createDriverFactory';
+import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src/enzyme';
+import {isTestkitExists, testkitFactoryCreator} from '../src/vanilla';
+import {DriverFactory} from '../src/driver-factory';
 import {mount} from 'enzyme';
 
 describe('isTestkitExists', () => {

@@ -149,7 +149,14 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       return this.state.responsiveLayout;
     }
 
-    return [this.props.currentPage];
+    return createStaticLayout({
+      totalPages: this.props.totalPages,
+      currentPage: this.props.currentPage,
+      showFirstPage: this.props.showFirstPage,
+      showLastPage: this.props.showLastPage,
+      // This is pretty arbitrary. 5 is the minimum space required to show the first, current, and last page.
+      maxPagesToShow: 5
+    });
   }
 
   private updateLayoutIfNeeded(): void {
