@@ -1,4 +1,6 @@
 import {ComponentFactory} from 'wix-ui-test-utils';
+import {DropdownComponent} from './Dropdown';
+import {DropdownContent} from '../DropdownContent';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
 
 const getElement = (element: Element | undefined) => (element).querySelector('[data-hook="popover-element"]');

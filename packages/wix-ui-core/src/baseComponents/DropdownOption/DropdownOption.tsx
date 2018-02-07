@@ -11,7 +11,9 @@ export interface DropdownOptionProps {
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export const DropdownOption: React.SFC<DropdownOptionProps> = (props: DropdownOptionProps) => {
+export type DropdownOptionType = React.SFC<DropdownOptionProps>;
+
+export const DropdownOption: DropdownOptionType = (props: DropdownOptionProps) => {
   const {option, isSelected, isHovered, onClickHandler, onMouseEnterHandler} = props;
   const disabled = option.isDisabled;
   const hovered = !disabled && isHovered;

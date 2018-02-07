@@ -26,7 +26,7 @@ const createOption = (
       };
   };
 
-const escapeRegExp = s => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 const hightlightMatches = (option: Option, searchTerm: string): Option => {
   const parts: Array<React.ReactNode> = option.value.split(new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi'));
   for (let i = 1; i < parts.length; i += 2) {

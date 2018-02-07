@@ -1,7 +1,9 @@
-import {DropdownOption} from './';
+import * as React from 'React';
+import {DropdownOptionType, DropdownOptionProps} from './';
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
 
-export const dropdownOptionDriverFactory = ({element, eventTrigger}) => ({
+export const dropdownOptionDriverFactory = ({element, eventTrigger}: ComponentFactory<DropdownOptionType>) => ({
   exists: () => !!element,
   click: () => eventTrigger.click(element),
   mouseEnter: () => eventTrigger.mouseEnter(element),
