@@ -6,6 +6,7 @@ const getTooltip = component => component.$('[data-hook="popover-content"]');
 
 export const tooltipDriverFactory = component => ({
   element: () => component,
+  getTooltip: async () => await getTooltip(component).getWebElement(),
   getElementText: () => getElement(component).getText(),
   getTooltipText: async () => {
     const elem = await getTooltip(component).getWebElement();
