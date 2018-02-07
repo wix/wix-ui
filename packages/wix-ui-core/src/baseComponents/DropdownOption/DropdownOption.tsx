@@ -5,18 +5,17 @@ import {Option} from './';
 export interface DropdownOptionProps {
   className: string;
   option: Option;
-  index: number;
-  hoveredIndex: string | number;
-  selectedIds: Array<string | number>;
+  isSelected: boolean;
+  isHovered: boolean;
   onClickHandler: React.MouseEventHandler<HTMLDivElement>;
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const DropdownOption: React.SFC<DropdownOptionProps> = (props: DropdownOptionProps) => {
-  const {option, index, hoveredIndex, selectedIds, onClickHandler, onMouseEnterHandler} = props;
+  const {option, isSelected, isHovered, onClickHandler, onMouseEnterHandler} = props;
   const disabled = option.isDisabled;
-  const hovered = !disabled && hoveredIndex === index;
-  const selected = !disabled && (selectedIds || []).includes(option.id);
+  const hovered = !disabled && isHovered;
+  const selected = !disabled && isSelected;
 
   return (
     <div
@@ -24,7 +23,7 @@ export const DropdownOption: React.SFC<DropdownOptionProps> = (props: DropdownOp
       onClick={onClickHandler}
       title={option.value}
       onMouseEnter={onMouseEnterHandler}>
-      {option.render()}
+      {option.render(option.value)}
     </div>
   );
 };

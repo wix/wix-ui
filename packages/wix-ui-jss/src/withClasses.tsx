@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
-const hoistNonReactStatics = require('hoist-non-react-statics');
+import hoistNonReactMethods from 'hoist-non-react-methods';
+
+const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
 
 export interface ThemedComponentProps {
   theme?: object;
@@ -11,9 +13,10 @@ export interface HasClasses {
   classes?: object;
 }
 
-export function withClasses<P>(CoreComponent: React.ComponentType<P & HasClasses>, styles: Function): React.ComponentClass<P & ThemedComponentProps> {
+export function withClasses<P extends {ref?: string}>(CoreComponent: React.ComponentType<P & HasClasses>, styles: Function): React.ComponentClass<P & ThemedComponentProps> {
   class ThemedComponent extends React.PureComponent<ThemedComponentProps & P, HasClasses> {
     private id;
+    private wrappedComponentRef: React.Component = null;
     static displayName = CoreComponent.displayName || 'ThemedComponent';
 
     constructor(props) {
@@ -35,11 +38,13 @@ export function withClasses<P>(CoreComponent: React.ComponentType<P & HasClasses
     render() {
       let coreProps = Object.assign({}, this.props, {theme: undefined});
 
-      return (
-        <CoreComponent {...coreProps} classes={this.state.classes}/>
-      );
+      return isStatelessComponent(CoreComponent)
+        ? (<CoreComponent {...coreProps} classes={this.state.classes}/>)
+        : (<CoreComponent ref={ref => this.wrappedComponentRef = ref} {...coreProps} classes={this.state.classes} />);
     }
   }
 
-  return hoistNonReactStatics(ThemedComponent, CoreComponent, {inner: true});
+  return isStatelessComponent(CoreComponent)
+    ? ThemedComponent
+    : hoistNonReactMethods(ThemedComponent, CoreComponent, {delegateTo: c => c.wrappedComponentRef, hoistStatics: true});
 }

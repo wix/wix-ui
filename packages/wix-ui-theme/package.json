@@ -69,7 +69,7 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
       "<rootDir>/test/enzyme-setup"
     ]

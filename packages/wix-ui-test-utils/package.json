@@ -13,14 +13,17 @@
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.js",
   "files": [
-    "dist"
+    "dist",
+    "*.js",
+    "*.d.ts",
+    "!wallaby.js"
   ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build",
+    "build": "haste build && import-path --path src --dts",
     "pretest": "npm run build",
     "test": "haste test --jest",
     "posttest": "haste lint",
@@ -33,15 +36,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.7",
     "@types/express": "^4.0.39",
     "@types/jest": "^22.1.1",
+    "@types/puppeteer": "^1.0.0",
     "@types/react": "^15.6.7",
     "@types/react-dom": "^15.5.6",
-    "@types/enzyme": "^3.1.7",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "express": "^4.16.2",
     "haste-preset-yoshi": "^1.0.19",
+    "import-path": "^1.0.0",
+    "puppeteer": "^1.0.0",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
@@ -68,7 +74,7 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup.ts",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup/index.ts",
     "setupFiles": [
       "<rootDir>/test/enzyme-setup.ts"
     ]

@@ -36,17 +36,15 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   };
 
   private optionsContainerRef: HTMLDivElement;
+  private mouseCoords = {screenX: -1, screenY: -1};
 
   constructor(props) {
     super(props);
 
+    this.onMouseMove = this.onMouseMove.bind(this);
     this.state = {
       hoveredIndex: NOT_HOVERED_INDEX
     };
-  }
-
-  onOptionClick(option: Option) {
-    this.props.onOptionClick(option);
   }
 
   setHoveredIndex(index: number) {
@@ -99,22 +97,16 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     }
 
     this.setHoveredIndex(hoveredIndex);
-    return true;
   }
 
-  // returns true if event was handled
-  onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    switch (evt.key) {
+  onKeyDown(eventKey: string) {
+    switch (eventKey) {
       case 'Tab':
       case 'Enter': {
-        const {options} = this.props;
+        const {options, onOptionClick} = this.props;
         const {hoveredIndex} = this.state;
-        if (hoveredIndex >= 0 && hoveredIndex < options.length) {
-          this.onOptionClick(options[hoveredIndex]);
-          return true;
-        }
-
-        break;
+        const isValidIndex = hoveredIndex >= 0 && hoveredIndex < options.length;
+        return onOptionClick(isValidIndex ? options[hoveredIndex] : null);
       }
       case 'ArrowUp': {
         return this.hoverNextItem(-1);
@@ -122,19 +114,31 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       case 'ArrowDown': {
         return this.hoverNextItem(1);
       }
-      default: break;
+      case 'ArrowLeft':
+      case 'ArrowRight': return;
+      default: this.setHoveredIndex(NOT_HOVERED_INDEX);
     }
+  }
 
-    return false;
+  onMouseMove(evt: React.MouseEvent<HTMLDivElement>) {
+    this.mouseCoords.screenX = evt.screenX;
+    this.mouseCoords.screenY = evt.screenY;
+  }
+
+  onMouseEnter(evt: React.MouseEvent<HTMLDivElement>, index: number) {
+    if (this.mouseCoords.screenX !== evt.screenX || this.mouseCoords.screenY !== evt.screenY) {
+      this.setHoveredIndex(index);
+    }
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds} = this.props;
+    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds, onOptionClick} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
       <div
         {...style('root', {}, this.props)}
+        onMouseMove={this.onMouseMove}
         tabIndex={1000}>
         {fixedHeader}
         {
@@ -149,11 +153,10 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
                   data-hook="option"
                   key={option.id}
                   option={option}
-                  index={index}
-                  hoveredIndex={hoveredIndex}
-                  selectedIds={selectedIds}
-                  onClickHandler={this.isValidOptionForSelection(option) ? () => this.onOptionClick(option) : null}
-                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? () => this.setHoveredIndex(index) : null}
+                  isHovered={hoveredIndex === index}
+                  isSelected={(selectedIds || []).includes(option.id)}
+                  onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : null}
+                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : null}
                 />
               ))
             }

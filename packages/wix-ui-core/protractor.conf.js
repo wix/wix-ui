@@ -1,3 +1,3 @@
-const {baseProtractorConfig} = require('wix-ui-test-utils');
+const {baseProtractorConfig} = require('wix-ui-test-utils/protractor');
 
 exports.config = baseProtractorConfig;

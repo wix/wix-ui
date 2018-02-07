@@ -1,9 +1,9 @@
 import {browser} from 'protractor';
-import StorybookStaticsServer from '../servers/StorybookStaticsServer';
+import {StorybookStaticsServer} from '../servers/StorybookStaticsServer';
 
 const storybookStaticsServer = new StorybookStaticsServer();
 
-export default {
+export const baseProtractorConfig = {
   baseUrl: 'http://localhost:6006/',
   specs: ['src/**/*.e2e.ts', 'src/**/*.e2e.js'],
   beforeLaunch() {

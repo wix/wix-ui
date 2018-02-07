@@ -48,9 +48,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   constructor(props) {
     super(props);
 
-    this.open = this.open.bind(this);
     this.close = this.close.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
@@ -70,9 +68,11 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     this.close();
   }
 
-  open() {
-    if (!this.state.isOpen) {
-      this.setState({isOpen: true});
+  open(onOpen: () => void = null) {
+    if (this.state.isOpen) {
+      onOpen && onOpen();
+    } else {
+      this.setState({isOpen: true}, onOpen);
     }
   }
 
@@ -83,23 +83,23 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
-    this.open();
-    const isHandled = this.dropdownContentRef.onKeyDown(evt);
-    switch (evt.key) {
-      case 'Enter':
-      case 'Tab': {
-        const {closeOnSelect} = this.props;
-        closeOnSelect && this.close();
-        break;
+    const eventKey = evt.key;
+    this.open(() => {
+      this.dropdownContentRef.onKeyDown(eventKey);
+      switch (eventKey) {
+        case 'Enter': {
+          const {closeOnSelect} = this.props;
+          closeOnSelect && this.close();
+          break;
+        }
+        case 'Tab':
+        case 'Escape': {
+          this.close();
+          break;
+        }
+        default: break;
       }
-      case 'Escape': {
-        this.close();
-        break;
-      }
-      default: break;
-    }
-
-    return isHandled;
+    });
   }
 
   onOptionClick(option: Option) {
@@ -108,22 +108,27 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     let callback = onSelect;
     const newState = {
       isOpen: !closeOnSelect,
-      selectedIds: [],
-      keyboardEvent: null
+      selectedIds
     };
 
     if (closeOnSelect) {
-      if (selectedIds.includes(option.id)) {
-        return this.close();
+      if (option) {
+        if (selectedIds.includes(option.id)) {
+          return this.close();
+        } else {
+          newState.selectedIds = [option.id];
+        }
       } else {
-        newState.selectedIds = [option.id];
+        newState.selectedIds = [];
       }
     } else {
-      if (selectedIds.includes(option.id)) {
-        newState.selectedIds = selectedIds.filter(x => x !== option.id);
-        callback = onDeselect;
-      } else {
-        newState.selectedIds = [...selectedIds, option.id];
+      if (option) {
+        if (selectedIds.includes(option.id)) {
+          newState.selectedIds = selectedIds.filter(x => x !== option.id);
+          callback = onDeselect;
+        } else {
+          newState.selectedIds = [...selectedIds, option.id];
+        }
       }
     }
 
@@ -141,8 +146,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         placement={placement}
         shown={isOpen && options.length > 0}
         showArrow={showArrow}
-        onClick={openTrigger === CLICK ? this.open : null}
-        onMouseEnter={openTrigger === HOVER ? this.open : null}
+        onClick={openTrigger === CLICK ? () => this.open() : null}
+        onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           {children}

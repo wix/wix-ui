@@ -22,7 +22,7 @@ export const buttonDriverFactory = ({element, eventTrigger}) => ({
 // Button.spec.js
 
 import React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {buttonDriverFactory} from './Button.driver';
 import Button from './';
 

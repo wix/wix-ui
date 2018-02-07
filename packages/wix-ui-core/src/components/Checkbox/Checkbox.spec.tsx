@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
 import style from './Checkbox.st.css';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import Checkbox from './Checkbox';
 import {StylableDOMUtil} from 'stylable/test-utils';
 
@@ -84,7 +84,7 @@ describe('Checkbox', () => {
 
     checkbox.focus();
 
-    expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(true);
+    expect(checkbox.hasFocusState()).toBe(true);
 });
 
   it('Accepts "name" prop', async () => {
@@ -181,7 +181,7 @@ describe('Checkbox', () => {
       checkbox.click();
 
       expect(document.activeElement).toBe(checkbox.input());
-      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(false);
+      expect(checkbox.hasFocusState()).toBe(false);
     });
 
     it('loses focused style state after click', async () => {
@@ -189,11 +189,11 @@ describe('Checkbox', () => {
 
       checkbox.focus();
 
-      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(true);
+      expect(checkbox.hasFocusState()).toBe(true);
 
       checkbox.click();
 
-      expect(utils.hasStyleState(checkbox.element(), 'focus')).toBe(false);
+      expect(checkbox.hasFocusState()).toBe(false);
     });
   });
 
@@ -243,7 +243,7 @@ describe('Checkbox', () => {
     it('gets disabled style state', async () => {
       const checkbox = createDriver(<Checkbox disabled />);
 
-      expect(utils.hasStyleState(checkbox.element(), 'disabled')).toBe(true);
+      expect(checkbox.hasDisabledState()).toBe(true);
     });
   });
 
@@ -281,7 +281,7 @@ describe('Checkbox', () => {
     it('gets readOnly style state', async () => {
       const checkbox = createDriver(<Checkbox readOnly />);
 
-      expect(utils.hasStyleState(checkbox.element(), 'readonly')).toBe(true);
+      expect(checkbox.hasReadOnlyState()).toBe(true);
     });
   });
 
@@ -289,7 +289,7 @@ describe('Checkbox', () => {
     it('has error style state', async () => {
       const checkbox = createDriver(<Checkbox error />);
 
-      expect(utils.hasStyleState(checkbox.element(), 'error')).toBe(true);
+      expect(checkbox.hasErrorState()).toBe(true);
     });
   });
 
@@ -373,7 +373,7 @@ describe('Checkbox', () => {
     it('gets indeterminate style state', async () => {
       const checkbox = createDriver(<Checkbox indeterminate />);
 
-      expect(utils.hasStyleState(checkbox.element(), 'indeterminate')).toBe(true);
+      expect(checkbox.hasIndeterminateState()).toBe(true);
     });
   });
 });

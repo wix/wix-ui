@@ -8,19 +8,15 @@ export interface Option {
   isDisabled: boolean;
   isSelectable: boolean;
   value: string;
-  render: () => React.ReactNode;
+  render: (value: React.ReactNode) => React.ReactNode;
 }
 
-export enum OptionType {
-  Simple
-}
-
-const createOption: Function = (
+const createOption = (
   id: number | string,
   isDisabled: boolean,
   isSelectable: boolean,
   value: string,
-  render: () => React.ReactNode): Option => {
+  render: (val: React.ReactNode) => React.ReactNode = val => val): Option => {
     return {
         id,
         isDisabled,
@@ -42,30 +38,12 @@ const hightlightMatches = (option: Option, searchTerm: string): Option => {
     option.isDisabled,
     option.isSelectable,
     option.value,
-    () => parts
+    () => option.render(parts)
   );
 };
 
 export const OptionFactory = {
-  create(
-    id: number | string,
-    isDisabled: boolean,
-    isSelectable: boolean,
-    value: string,
-    type: OptionType = OptionType.Simple): Option {
-
-    switch (type) {
-      case OptionType.Simple:
-      default:
-        return createOption(
-          id,
-          isDisabled,
-          isSelectable,
-          value,
-          () => value
-        );
-    }
-  },
+  create: createOption,
   createDivider(value: string = null): Option {
     return createOption(
       uniqueId('Divider'),

@@ -3,7 +3,7 @@ import * as express from 'express';
 
 const storybookPath = './storybook-static';
 
-export default class StorybookStaticsServer {
+export class StorybookStaticsServer {
   private server: Server | null = null;
 
   start({port}: {port: 6006}) {

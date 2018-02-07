@@ -1,5 +1,6 @@
 import {DropdownOption} from './';
-import {ComponentFactory, isAttributeExists} from 'wix-ui-test-utils';
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
+import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
 
 export const dropdownOptionDriverFactory = ({element, eventTrigger}) => ({
   exists: () => !!element,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as eventually from 'wix-eventually';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
 import {HOVER, CLICK} from './constants';

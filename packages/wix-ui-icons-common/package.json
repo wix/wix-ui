@@ -33,9 +33,12 @@
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist"
   },
   "devDependencies": {
+    "fs-extra": "^5.0.0",
     "haste-preset-yoshi": "^1.0.19",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.1",
     "svg2react-icon": "^1.0.51",
-    "typescript": "^2.4.0"
+    "typescript": "^2.6.2"
   },
   "haste": {
     "preset": "yoshi"

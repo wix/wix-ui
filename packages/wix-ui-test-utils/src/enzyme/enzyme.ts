@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {reactEventTrigger} from '../helpers';
-import {DriverFactory, BaseDriver} from '../createDriverFactory';
+import {reactEventTrigger} from '../react-helpers';
+import {DriverFactory, BaseDriver} from '../driver-factory';
 import {MountRendererProps, ReactWrapper} from 'enzyme';
 
 export interface WrapperData {

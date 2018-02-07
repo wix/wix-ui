@@ -1,3 +1,9 @@
+import {StylableDOMUtil} from 'stylable/test-utils';
+import styles from './Checkbox.st.css';
+
+const utils = new StylableDOMUtil(styles);
+const hasStyleState = (element, state) => utils.hasStyleState(element, state);
+
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const getCheckboxStyle = () => window.getComputedStyle(element);
 
@@ -32,6 +38,16 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     input: () => element.querySelector('[data-hook="NATIVE_CHECKBOX"]'),
     /** returns if the element is disabled */
     isDisabled: () => element.getAttribute('disabled') === '',
+    /** returns true if the element has error state */
+    hasErrorState: () => hasStyleState(element, 'error'),
+    /** returns true if the element has indeterminate state */
+    hasIndeterminateState: () => hasStyleState(element, 'indeterminate'),
+    /** returns true if the element has focus state */
+    hasFocusState: () => hasStyleState(element, 'focus'),
+    /** returns true if the element has disabled state */
+    hasDisabledState: () => hasStyleState(element, 'disabled'),
+    /** returns true if the element has error state */
+    hasReadOnlyState: () => hasStyleState(element, 'readonly'),
     styles: {
       /** returns elements min-width css property */
       getMinWidth: () => getCheckboxStyle().minWidth,

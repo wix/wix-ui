@@ -78,23 +78,23 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   constructor() {
     super();
 
+    this.onSelect = this.onSelect.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
-    const {inputProps, onManualInput} = this.props;
-    if (!this.dropdownRef.getInstance().onKeyDown(evt)) {
-      switch (evt.key) {
-        case 'Enter':
-        case 'Tab': {
-          onManualInput && inputProps && inputProps.value && onManualInput(inputProps.value);
-          break;
-        }
-        default: break;
-      }
-    }
-
+    this.dropdownRef.getInstance().onKeyDown(evt);
+    const {inputProps} = this.props;
     inputProps && inputProps.onKeyDown && inputProps.onKeyDown(evt);
+  }
+
+  onSelect(option: Option) {
+    const {onSelect, onManualInput, inputProps} = this.props;
+    if (option) {
+      onSelect && onSelect(option);
+    } else {
+      onManualInput && inputProps && inputProps.value && onManualInput(inputProps.value);
+    }
   }
 
   render () {
@@ -107,7 +107,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       fixedFooter,
       fixedHeader,
       optionsMaxHeight,
-      onSelect,
       onDeselect,
       inputProps} = this.props;
 
@@ -117,7 +116,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         ref={dropdown => this.dropdownRef = dropdown}
         placement={placement}
         openTrigger={openTrigger}
-        onSelect={onSelect}
+        onSelect={this.onSelect}
         showArrow={false}
         optionsMaxHeight={optionsMaxHeight}
         fixedFooter={fixedFooter}

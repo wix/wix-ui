@@ -1,4 +1,4 @@
-import {ComponentFactory} from 'wix-ui-test-utils';
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 
 export const boxDriverFactory = ({element}: ComponentFactory<any>) => ({
     /** check if element exists */

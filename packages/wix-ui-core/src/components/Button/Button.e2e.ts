@@ -1,6 +1,6 @@
 import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
-import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils';
+import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {buttonTestkitFactory} from '../../testkit/protractor';
 
 describe('Button', () => {

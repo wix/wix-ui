@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {buttonDriverFactory} from './Button.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {core, ButtonTheme} from './theme';
 import {mount} from 'enzyme';
 import {buttonTestkitFactory} from '../../testkit';
