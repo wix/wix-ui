@@ -47,9 +47,12 @@
   "devDependencies": {
     "@storybook/addon-options": "^3.3.7",
     "@storybook/react": "^3.3.7",
+    "@types/classnames": "^2.2.3",
     "@types/jest": "^22.1.1",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^15.6.12",
     "@types/react-onclickoutside": "^6.0.2",
+    "@types/react-transition-group": "^2.0.6",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eyes.it": "latest",

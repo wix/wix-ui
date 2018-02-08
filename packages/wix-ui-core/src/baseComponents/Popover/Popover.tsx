@@ -5,7 +5,7 @@ import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import {oneOf} from 'prop-types';
+import {oneOf, Requireable} from 'prop-types';
 
 export type Placement = PopperJS.Placement;
 export const PlacementPropType = oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']);

@@ -1,8 +1,11 @@
-const getTargetElement = element => element.querySelector('[data-hook="popover-element"]');
-const getContentElement = element => element.querySelector('[data-hook="popover-content"]');
-const getArrowElement = element => element.querySelector('[data-hook="popover-arrow"]');
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
+import {PopoverType} from './';
 
-export const popoverDriverFactory = ({element, eventTrigger}) => ({
+const getTargetElement = (element: Element | undefined) => element.querySelector('[data-hook="popover-element"]');
+const getContentElement = (element: Element | undefined) => element.querySelector('[data-hook="popover-content"]');
+const getArrowElement = (element: Element | undefined) => element.querySelector('[data-hook="popover-arrow"]');
+
+export const popoverDriverFactory = ({element, eventTrigger}: ComponentFactory<PopoverType>) => ({
   exists: () => !!element,
   getTargetElement: () => getTargetElement(element),
   getContentElement: () => getContentElement(element),
