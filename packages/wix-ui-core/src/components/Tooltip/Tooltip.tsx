@@ -19,10 +19,6 @@ export interface TooltipProps {
   children?: React.ReactNode;
   /** the content to put inside the tooltip */
   content?: React.ReactNode;
-  /** time it takes to show the tooltip in ms */
-  showDelay?: number;
-  /** time it takes to hide the tooltip in ms */
-  hideDelay?: number;
   /** object that describes re-positioning of the tooltip */
   moveBy?: Point;
   /** offset for the arrow */
@@ -39,6 +35,8 @@ export interface TooltipProps {
   onClickOutside?: Function;
   /** If true, makes tooltip close when clicked outside (incase it was open) */
   shouldCloseOnClickOutside?: boolean;
+  /** Animation timer */
+  timeout?: number;
 }
 
 export interface TooltipState {
@@ -58,8 +56,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     placement: 'top',
     onShow: noop,
     onHide: noop,
-    showDelay: 150,
-    hideDelay: 150
+    timer: 150
   };
 
   static propTypes = {
@@ -69,10 +66,6 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     children: node,
     /** the content to put inside the tooltip */
     content: node,
-    /** time it takes to show the tooltip in ms */
-    showDelay: number,
-    /** time it takes to hide the tooltip in ms */
-    hideDelay: number,
     /** object that describes re-positioning of the tooltip */
     moveBy: object,
     /** offset for the arrow */
@@ -89,6 +82,8 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     onClickOutside: func,
     /** If true, makes tooltip close when clicked outside (incase it was open) */
     shouldCloseOnClickOutside: bool,
+    /** Animation timer */
+    timeout: number
   };
 
   constructor(props) {
@@ -126,8 +121,8 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, content, children, showDelay, moveBy,
-           moveArrowTo, hideDelay, appendTo, appendToParent} = this.props;
+    const {placement, content, children, moveBy, timeout,
+           moveArrowTo, appendTo, appendToParent} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -138,8 +133,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
         showArrow={true}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
-        showDelay={showDelay}
-        hideDelay={hideDelay}
+        timeout={timeout}
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}

@@ -35,6 +35,8 @@ export interface PopoverProps {
   appendTo?: React.ReactNode;
   /** Enables calculations in relation to the parent element*/
   appendToParent?: boolean;
+  /** Animation timer */
+  timeout?: number;
 }
 
 export type PopoverType = React.SFC<PopoverProps> & {
@@ -42,8 +44,8 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
-const Fade = ({inProp, children}) =>
-  <CSSTransition in={inProp} timeout={500} unmountOnExit={true} classNames={style.popover}>
+const Fade = ({inProp, children, timeout = 150}) =>
+  <CSSTransition in={inProp} timeout={timeout} unmountOnExit={true} classNames={style.popover}>
       {children}
   </CSSTransition>;
 
@@ -63,8 +65,7 @@ const getArrowShift = (shift, direction) => {
 
 export const Popover: PopoverType = props => {
   const {placement, shown, onMouseEnter, onMouseLeave, onClick, showArrow,
-         children, moveBy, moveArrowTo,
-         appendToParent, appendTo}  = props;
+         children, moveBy, moveArrowTo, timeout, appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 
   const target = appendToParent ? null : appendTo  || null;
@@ -90,7 +91,7 @@ export const Popover: PopoverType = props => {
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Fade inProp={shown}>
+      <Fade inProp={shown} timeout={timeout}>
         <Popper
           data-hook="popover-content"
           modifiers={modifiers}
