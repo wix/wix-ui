@@ -7,12 +7,16 @@ import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '..
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 import {mount} from 'enzyme';
 
-const getRefExpose = (Child, props, refs) => {
+const getRefExpose = (Child, props) => {
   return class RefExpose extends React.Component {
     childRef: HTMLElement;
 
-    componentDidMount() {
-      refs.childRef = this.childRef;
+    focus() {
+      this.childRef.focus();
+    }
+
+    blur() {
+      this.childRef.blur();
     }
 
     render() {
@@ -149,28 +153,29 @@ describe('ToggleSwitch', () => {
   });
 
   describe('focus and blur', () => {
-    let refs;
+    let driver, wrapper;
 
-    beforeEach(() => refs = {});
-    afterEach(() => refs = null);
+    const focus = () => wrapper.instance().focus();
+    const blur = () => wrapper.instance().blur();
+
+    beforeEach(() => {
+      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}});
+      wrapper = mount(<RefExpose />);
+      const element = wrapper.getDOMNode();
+      driver = toggleSwitchDriverFactory({element, eventTrigger: {}});
+    });
 
     it('should expose a focus() method', () => {
-      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}}, refs);
-      const wrapper = mount(<RefExpose />);
-      const input = wrapper.find('input').getDOMNode();
-      expect(input).not.toBe(document.activeElement);
-      refs.childRef.focus();
-      expect(input).toBe(document.activeElement);
+      expect(driver.isFocused()).toBeFalsy();
+      focus();
+      expect(driver.isFocused()).toBeTruthy();
     });
 
     it('should expose a blur() method', () => {
-      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}}, refs);
-      const wrapper = mount(<RefExpose />);
-      const input = wrapper.find('input').getDOMNode();
-      refs.childRef.focus();
-      expect(input).toBe(document.activeElement);
-      refs.childRef.blur();
-      expect(input).not.toBe(document.activeElement);
+      focus();
+      expect(driver.isFocused()).toBeTruthy();
+      blur();
+      expect(driver.isFocused()).toBeFalsy();
     });
   });
 });
