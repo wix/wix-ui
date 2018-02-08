@@ -7,6 +7,20 @@ import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '..
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 import {mount} from 'enzyme';
 
+const getRefExpose = (Child, props, refs) => {
+  return class RefExpose extends React.Component {
+    childRef: HTMLElement;
+
+    componentDidMount() {
+      refs.childRef = this.childRef;
+    }
+
+    render() {
+      return <Child {...props} ref={e => this.childRef = e}/>;
+    }
+  };
+};
+
 describe('ToggleSwitch', () => {
 
   const createDriver = createDriverFactory(toggleSwitchDriverFactory);
@@ -135,19 +149,28 @@ describe('ToggleSwitch', () => {
   });
 
   describe('focus and blur', () => {
+    let refs;
+
+    beforeEach(() => refs = {});
+    afterEach(() => refs = null);
+
     it('should expose a focus() method', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.isFocused()).toBe(false);
-      driver.focus();
-      expect(driver.isFocused()).toBe(true);
+      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}}, refs);
+      const wrapper = mount(<RefExpose />);
+      const input = wrapper.find('input').getDOMNode();
+      expect(input).not.toBe(document.activeElement);
+      refs.childRef.focus();
+      expect(input).toBe(document.activeElement);
     });
 
     it('should expose a blur() method', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      driver.focus();
-      expect(driver.isFocused()).toBe(true);
-      driver.blur();
-      expect(driver.isFocused()).toBe(false);
+      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}}, refs);
+      const wrapper = mount(<RefExpose />);
+      const input = wrapper.find('input').getDOMNode();
+      refs.childRef.focus();
+      expect(input).toBe(document.activeElement);
+      refs.childRef.blur();
+      expect(input).not.toBe(document.activeElement);
     });
   });
 });

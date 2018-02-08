@@ -1,4 +1,4 @@
-export const toggleSwitchDriverFactory = ({componentInstance, element, eventTrigger}) => {
+export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
   const toggleSwitch = element.querySelector('input');
 
   return {
@@ -25,12 +25,6 @@ export const toggleSwitchDriverFactory = ({componentInstance, element, eventTrig
     getInnerLabelStyles: () => window.getComputedStyle(element.querySelector('.innerLabel')),
     /** Returns the computed styles object of the toggle icon component */
     getToggleIconStyles: () => window.getComputedStyle(element.querySelector('.toggleIcon')),
-    /** Returns a boolean indicating whether the toggle switch is focused or not */
-    isFocused: () => toggleSwitch === document.activeElement,
-    /** Invokes the focus method on the toggle switch */
-    focus: () => componentInstance.focus(),
-    /** Invokes the blur method on the toggle switch */
-    blur: () => componentInstance.blur(),
 
     /** returns elements innerHtml */
     styles: {
