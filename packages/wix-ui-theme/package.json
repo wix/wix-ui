@@ -38,7 +38,7 @@
     "@types/react": "^15.6.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
-    "haste-preset-yoshi": "^1.0.19",
+    "haste-preset-yoshi": "latest",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^22.0.3",
     "typescript": "^2.4.0",
