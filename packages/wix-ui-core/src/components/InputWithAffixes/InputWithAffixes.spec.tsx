@@ -22,25 +22,25 @@ describe('InputWithAffixes', () => {
     });
 
     it('should allow adding a custom prefix component', () => {
-        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="prefix"/>}/>);
+        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="test"/>}/>);
 
         expect(driver.hasPrefix()).toBeTruthy();
-        expect(driver.getPrefix().querySelector('[data-hook="prefix"]')).toBeTruthy();
+        expect(driver.getPrefix().querySelector('[data-hook="test"]')).toBeTruthy();
     });
 
     it('should allow adding a custom suffix component', () => {
-        const driver = createDriver(<InputWithAffixes suffix={<div data-hook="suffix"/>}/>);
+        const driver = createDriver(<InputWithAffixes suffix={<div data-hook="test"/>}/>);
 
         expect(driver.hasSuffix()).toBeTruthy();
-        expect(driver.getSuffix().querySelector('[data-hook="suffix"]')).toBeTruthy();
+        expect(driver.getSuffix().querySelector('[data-hook="test"]')).toBeTruthy();
     });
 
     it('should allow adding a custom prefix and suffix components', () => {
-        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="prefix"/>} suffix={<div data-hook="suffix"/>}/>);
+        const driver = createDriver(<InputWithAffixes prefix={<div data-hook="test1"/>} suffix={<div data-hook="test2"/>}/>);
 
         expect(driver.hasSuffix()).toBeTruthy();
         expect(driver.hasPrefix()).toBeTruthy();
-        expect(driver.getPrefix().querySelector('[data-hook="prefix"]')).toBeTruthy();
-        expect(driver.getSuffix().querySelector('[data-hook="suffix"]')).toBeTruthy();
+        expect(driver.getPrefix().querySelector('[data-hook="test1"]')).toBeTruthy();
+        expect(driver.getSuffix().querySelector('[data-hook="test2"]')).toBeTruthy();
     });
 });

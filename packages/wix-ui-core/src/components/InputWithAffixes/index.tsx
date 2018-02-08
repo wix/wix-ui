@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Input, InputProps} from '../Input';
-import {ReactNode} from 'prop-types';
+import {node} from 'prop-types';
 import style from './InputWithAffixes.st.css';
 
 export interface InputWithAffixesProps extends InputProps {
@@ -16,9 +16,9 @@ export class InputWithAffixes extends React.Component<InputWithAffixesProps, {}>
 
     static propTypes = {
         /** Prefix */
-        prefix: ReactNode,
+        prefix: node,
         /** Suffix */
-        suffix: ReactNode
+        suffix: node
     };
 
     render() {
