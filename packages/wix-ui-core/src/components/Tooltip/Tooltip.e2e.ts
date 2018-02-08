@@ -1,7 +1,7 @@
 import * as eyes from 'eyes.it';
 import * as eventually from 'wix-eventually';
 import {browser} from 'protractor';
-import {getStoryUrl, waitForVisibilityOf, sleep} from 'wix-ui-test-utils';
+import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {tooltipTestkitFactory} from '../../testkit/protractor';
 
 const movedX = 10;
@@ -33,7 +33,7 @@ describe('Tooltip', () => {
     expect(driver.getElementText()).toBe('Hover me for a tooltip!');
     expect(driver.getTooltipText()).toBe('This is my tooltip\n');
     driver.onMouseLeave();
-    await sleep(2000);
+    await browser.sleep(2000);
     await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
   });
 });
