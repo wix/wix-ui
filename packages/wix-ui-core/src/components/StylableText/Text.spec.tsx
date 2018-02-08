@@ -19,14 +19,19 @@ describe('Text', () => {
       expect(driver.exists()).toBeTruthy();
     });
 
+    it('should not have title attribute by default', () => {
+      const driver = createDriver(<Text>Hello World</Text>);
+      expect(driver.hasTitleAttribute()).toBeFalsy();
+    });
+
+    it('should not have ellipsis by default', () => {
+      const driver = createDriver(<Text>Hello World</Text>);
+      expect(driver.isEllipsis()).toBeFalsy();
+    });
+
     it('should have ellipsis', () => {
       const driver = createDriver(<Text ellipsis>Hello World</Text>);
       expect(driver.isEllipsis()).toBeTruthy();
-    });
-
-    it('should not have title attribute by default', () => {
-      const driver = createDriver(<Text ellipsis>Hello World</Text>);
-      expect(driver.hasTitleAttribute()).toBeTruthy();
     });
 
     it('should have title attribute when has ellipsis', () => {

@@ -2,7 +2,7 @@ import 'react';
 import createStory from '../create-story';
 
 import {Text} from '../../src/components/StylableText';
-import * as TextSource from '!raw-loader!../../src/components/StylableText/Text.tsx';
+import * as TextSource from '!raw-loader!../../src/components/StylableText/index.tsx';
 
 export const story = () => createStory({
   category: 'Components',
@@ -14,7 +14,5 @@ export const story = () => createStory({
     ellipsis: true,
     children: 'hello'
   }),
-  exampleProps: {
-  },
   source: TextSource
 });
