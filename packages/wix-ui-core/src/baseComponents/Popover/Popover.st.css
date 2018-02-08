@@ -21,6 +21,7 @@
 }
 
 .contentWrap {}
+.popover {}
 
 .popoverContent {
   background-color: value(contentBackgroundColor);
@@ -92,8 +93,6 @@
   margin-bottom: value(contentArrowSize);
   border-color: value(contentBorderColor) transparent transparent transparent;
 }
-
-.popover {}
 
 .popover-enter {
   opacity: 0;
