@@ -3,7 +3,6 @@ import createStory from '../create-story';
 
 import {StylableButton} from '../../src/components/StylableButton';
 import * as StylableButtonSource from '!raw-loader!../../src/components/StylableButton/index.tsx';
-import commonStyle from '../../src/components/StylableButton/StylableButtonStyle.st.css';
 
 export const story = () => createStory({
   category: 'Components',
@@ -11,7 +10,6 @@ export const story = () => createStory({
   storyName: 'StylableButton',
   component: StylableButton,
   componentProps: () => ({
-    ...commonStyle('root'),
     disabled: false,
     type: 'button',
     children: 'I\'m a Stylable Button!',
