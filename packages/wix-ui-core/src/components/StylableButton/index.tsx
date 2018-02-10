@@ -19,17 +19,20 @@ export interface StylableButtonProps {
 /**
  * Stylable Button
  */
-export const StylableButton: React.SFC<StylableButtonProps> = ({type, disabled, onClick, onMouseEnter, onMouseLeave, children}) => (
-  <button {...style('root', {disabled}, this.props)}
-    onClick={onClick}
-    onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}
-    disabled={disabled}
-    type={type}
-    >
-    {children}
-  </button>
-);
+export const StylableButton: React.SFC<StylableButtonProps> = props => {
+  const {type, disabled, onClick, onMouseEnter, onMouseLeave, children} = props;
+  return (
+    <button {...style('root', {disabled}, props)}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      disabled={disabled}
+      type={type}
+      >
+      {children}
+    </button>
+  );
+};
 
 StylableButton.displayName = 'Button';
 StylableButton.propTypes = {
