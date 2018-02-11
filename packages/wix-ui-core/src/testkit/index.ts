@@ -9,6 +9,9 @@ export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylable
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
 
+import {stylableButtonDriverFactory} from '../components/StylableButton/StylableButton.driver';
+export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButtonDriverFactory);
+
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 

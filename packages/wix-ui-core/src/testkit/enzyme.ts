@@ -9,6 +9,9 @@ export const stylableToggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(st
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = enzymeTestkitFactoryCreator(buttonDriverFactory);
 
+import {stylableButtonDriverFactory} from '../components/StylableButton/StylableButton.driver';
+export const stylableButtonTestkitFactory = enzymeTestkitFactoryCreator(stylableButtonDriverFactory);
+
 import {inputDriverFactory} from '../components/Input/Input.driver';
 //Ugly workaround for now
 export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFactoryCreator(inputDriverFactory);
