@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {isClassExists, makeControlled, sleep} from '../src';
+import {isClassExists, makeControlled, sleep} from './';
 
 describe('helpers', () => {
   describe('isClassExists function', () => {

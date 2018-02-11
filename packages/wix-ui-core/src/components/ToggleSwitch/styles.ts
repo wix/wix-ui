@@ -174,7 +174,6 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
       position: 'absolute',
       left: '1px',
-      zIndex: 1,
 
       textAlign: 'center',
       alignItems: 'center',

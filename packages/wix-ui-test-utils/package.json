@@ -9,9 +9,9 @@
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
-  "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.js",
+  "homepage": "https://github.com/wix/wix-ui#readme",
   "files": [
     "dist",
     "*.js",
@@ -45,8 +45,8 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "express": "^4.16.2",
-    "haste-preset-yoshi": "^1.0.19",
-    "import-path": "^1.0.0",
+    "haste-preset-yoshi": "latest",
+    "import-path": "latest",
     "puppeteer": "^1.0.0",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",
