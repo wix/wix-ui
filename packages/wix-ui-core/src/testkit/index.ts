@@ -1,10 +1,8 @@
 import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 
+//JSS
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
-
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
-export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
 
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
@@ -14,9 +12,6 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
-
-import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
-export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
 
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFactory);
@@ -32,3 +27,13 @@ export const dividerTestkitFactory = testkitFactoryCreator(dividerDriverFactory)
 
 import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactory);
+
+//Stylable
+import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
+export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
+
+import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
+
+import {stylableButtonDriverFactory} from '../components/StylableButton/StylableButton.driver';
+export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButtonDriverFactory);

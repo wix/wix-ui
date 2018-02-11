@@ -26,6 +26,7 @@ require('./Button').story();
 require('./Input').story();
 require('./Tooltip').story();
 require('./StylableText').story();
+require('./StylableButton').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (

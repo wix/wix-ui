@@ -1,10 +1,8 @@
 import {enzymeTestkitFactoryCreator, WrapperData} from 'wix-ui-test-utils/enzyme';
 
+// JSS
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(toggleSwitchDriverFactory);
-
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
-export const stylableToggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(stylableToggleSwitchDriverFactory);
 
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = enzymeTestkitFactoryCreator(buttonDriverFactory);
@@ -15,9 +13,6 @@ export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFacto
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
-
-import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
-export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTextDriverFactory);
 
 import {badgeDriverFactory} from '../components/Badge/Badge.driver';
 export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
@@ -33,3 +28,13 @@ export const dividerTestkitFactory = enzymeTestkitFactoryCreator(dividerDriverFa
 
 import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = enzymeTestkitFactoryCreator(checkboxDriverFactory);
+
+// Stylable
+import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
+export const stylableToggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(stylableToggleSwitchDriverFactory);
+
+import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTextDriverFactory);
+
+import {stylableButtonDriverFactory} from '../components/StylableButton/StylableButton.driver';
+export const stylableButtonTestkitFactory = enzymeTestkitFactoryCreator(stylableButtonDriverFactory);
