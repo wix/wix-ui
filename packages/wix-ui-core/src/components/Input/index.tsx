@@ -34,6 +34,7 @@ export interface InputProps {
   tabIndex?: number;
   type?: string;
   value?: string;
+  className?: string;
 }
 
 export interface InputState {
@@ -84,7 +85,8 @@ export class Input extends React.Component<InputProps, InputState> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: oneOf(['number', 'text'])
+    type: oneOf(['number', 'text']),
+    className: string
   };
 
   constructor(props) {
