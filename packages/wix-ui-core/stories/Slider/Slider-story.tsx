@@ -41,8 +41,8 @@ class StatefulSlider extends React.Component<any, {value: number}> {
     };
   }
 
-  handleChange(ev) {
-    this.setState({value: ev.target.value});
+  handleChange(value) {
+    this.setState({value});
   }
 
   render() {
