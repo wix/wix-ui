@@ -3,7 +3,6 @@ import createStory from '../create-story';
 
 import {StylableButton} from '../../src/components/StylableButton';
 import * as StylableButtonSource from '!raw-loader!../../src/components/StylableButton/index.tsx';
-import {withStylable} from 'wix-ui-core';
 
 export const story = () => createStory({
   category: 'Components',
