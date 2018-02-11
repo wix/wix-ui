@@ -17,16 +17,14 @@ describe('Tooltip', () => {
     await waitForVisibilityOf(driverMoved.element(), 'Cannot find Tooltip Moved');
     driverMoved.onMouseOver();
     expect(driverMoved.isTooltipExists()).toBeTruthy();
-    const tooltipMoved = await driverMoved.getTooltip();
-    const locationMoved = await tooltipMoved.getLocation();
+    const locationMoved = await driverMoved.getTooltipLocation();
 
     const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Tooltip');
     driver.onMouseOver();
     expect(driver.isTooltipExists()).toBeTruthy();
-    const tooltip = await driver.getTooltip();
-    const location = await tooltip.getLocation();
+    const location = await driver.getTooltipLocation();
 
     expect(locationMoved.x - (location.x + movedX)).toBeLessThan(1e-3);
 
