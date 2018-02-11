@@ -4,9 +4,6 @@ import createStory from '../create-story';
 import {InputWithAffixes} from '../../src/components/InputWithAffixes';
 import * as InputSource from '!raw-loader!../../src/components/InputWithAffixes/index.tsx';
 
-const prefix = <span>prefix</span>;
-const suffix = <span>suffix</span>;
-
 export const story = () => createStory({
   category: 'Components',
   name: 'InputWithAffixes',
@@ -15,9 +12,11 @@ export const story = () => createStory({
   componentProps: (setState) => ({
     'data-hook': 'storybook-input-affix',
     value: '',
-    onChange: ({target: {value}}) => setState({value}),
-    prefix,
-    suffix
+    onChange: ({target: {value}}) => setState({value})
   }),
+  exampleProps: {
+    prefix: ['prefix', ''],
+    suffix: ['suffix', '']
+  },
   source: InputSource
 });
