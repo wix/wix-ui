@@ -49,4 +49,3 @@ StylableButton.propTypes = {
   /** Any node to be rendered (usually text node) */
   children: any
 };
-
