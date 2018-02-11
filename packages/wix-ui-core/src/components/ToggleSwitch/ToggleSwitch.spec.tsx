@@ -159,7 +159,7 @@ describe('ToggleSwitch', () => {
     const blur = () => wrapper.instance().blur();
 
     beforeEach(() => {
-      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => {}});
+      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => null});
       wrapper = mount(<RefExpose />);
       const element = wrapper.getDOMNode();
       driver = toggleSwitchDriverFactory({element, eventTrigger: {}});
