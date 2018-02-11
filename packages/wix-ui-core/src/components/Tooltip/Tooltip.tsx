@@ -37,6 +37,8 @@ export interface TooltipProps {
   shouldCloseOnClickOutside?: boolean;
   /** Animation timer */
   timeout?: number;
+  /** If true, shows the tooltip arrow */
+  showArrow?: boolean;
 }
 
 export interface TooltipState {
@@ -56,7 +58,8 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     placement: 'top',
     onShow: noop,
     onHide: noop,
-    timer: 150
+    timer: 150,
+    showArrow: true
   };
 
   static propTypes = {
@@ -83,7 +86,9 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     /** If true, makes tooltip close when clicked outside (incase it was open) */
     shouldCloseOnClickOutside: bool,
     /** Animation timer */
-    timeout: number
+    timeout: number,
+    /** If true, shows the tooltip arrow */
+    showArrow: bool
   };
 
   constructor(props) {
@@ -121,7 +126,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
   }
 
   render () {
-    const {placement, content, children, moveBy, timeout,
+    const {placement, content, children, moveBy, timeout, showArrow,
            moveArrowTo, appendTo, appendToParent} = this.props;
     const {isOpen} = this.state;
 
@@ -130,7 +135,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
         {...style('root', {}, this.props)}
         placement={placement}
         shown={isOpen}
-        showArrow={true}
+        showArrow={showArrow}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
         timeout={timeout}

@@ -48,7 +48,7 @@ describe('Popover', () => {
   it('moves arrow according to provided offset', () => {
     const driver = createDriver(createPopover({shown: true, moveArrowTo: 10}));
     expect(driver.isElementExists()).toBeTruthy();
-    const arrowLeft = driver.getArrow().style.left;
+    const arrowLeft = driver.getArrowLeft();
     expect(arrowLeft).toEqual('10px');
   });
 });
