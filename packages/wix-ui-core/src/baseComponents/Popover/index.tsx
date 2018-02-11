@@ -44,7 +44,7 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC;
 };
 
-const Fade = ({inProp, children, timeout = 150}) =>
+const Animation = ({inProp, children, timeout = 150}) =>
   <CSSTransition in={inProp} timeout={timeout} unmountOnExit={true} classNames={style.popover}>
       {children}
   </CSSTransition>;
@@ -91,7 +91,7 @@ export const Popover: PopoverType = props => {
       <Target data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Fade inProp={shown} timeout={timeout}>
+      <Animation inProp={shown} timeout={timeout}>
         <Popper
           data-hook="popover-content"
           modifiers={modifiers}
@@ -107,7 +107,7 @@ export const Popover: PopoverType = props => {
           </div>}
           {!showArrow && childrenObject.Content}
         </Popper>
-      </Fade>
+      </Animation>
     </Manager>
   );
 };

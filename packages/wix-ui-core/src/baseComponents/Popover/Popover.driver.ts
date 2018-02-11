@@ -10,6 +10,8 @@ export const popoverDriverFactory = ({element, eventTrigger}) => ({
   isContentExists: () => !!getContentElement(element),
   mouseEnter: () => eventTrigger.mouseEnter(element),
   mouseLeave: () => eventTrigger.mouseLeave(element),
-  getArrowLeft: () => getArrowElement(element).style.left,
-  getArrowClasses: () => getArrowElement(element).className
+  getArrowOffset: () => {
+    const {top, left, right, bottom} = getArrowElement(element).style;
+    return {top, left, right, bottom};
+  }
 });

@@ -49,7 +49,6 @@
   padding-left: value(contentArrowSize);
 }
 
-
 .popoverContentContainer[data-placement="right"] .arrow {
   border-width: value(contentArrowSize) value(contentArrowSize) value(contentArrowSize) 0;
   left: calc(-1 * value(contentArrowSize));
@@ -94,20 +93,10 @@
   border-color: value(contentBorderColor) transparent transparent transparent;
 }
 
-.popover-enter {
-  opacity: 0;
-}
+.popover-enter {}
 
-.popover-enter.popover-enter-active {
-  opacity: 1;
-  transition: opacity 150ms ease-in-out;
-}
+.popover-enter.popover-enter-active {}
 
-.popover-exit {
-  opacity: 1;
-}
+.popover-exit {}
 
-.popover-exit.popover-exit-active {
-  opacity: 0;
-  transition: opacity 150ms ease-in-out;
-}
+.popover-exit.popover-exit-active {}
