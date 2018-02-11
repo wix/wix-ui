@@ -85,4 +85,11 @@ describe('Slider', () => {
     driver.clickTick(7);
     sinon.assert.calledWith(onChange, 8);
   });
+
+  it('should change the value when clicking the slider', () => {
+    const onChange = sinon.spy();
+    const driver = createDriver(<Slider step={1} min={1} max={10} value={3} onChange={onChange}/>);
+    driver.clickSlider(9);
+    sinon.assert.calledWith(onChange, 9);
+  });
 });

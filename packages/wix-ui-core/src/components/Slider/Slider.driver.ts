@@ -17,6 +17,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     thumb: () => getByDataHook('thumb'),
     tooltip: () => getByDataHook('tooltip'),
     ticks: () => getAllByDataHook('tick'),
+    track: () => element.querySelector('[data-hook=\'track\']'),
 
     mouseMove(value) {
       const mouseMove = new Event('mousemove');
@@ -39,17 +40,13 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       document.dispatchEvent(mouseUp);
     },
 
-    getTrack() {
-      return element.querySelector('[data-hook=\'track\']');
-    },
-
     stubTrackBoundingRect(rect) {
-      const trackElement = driver.getTrack();
+      const trackElement = driver.track();
       trackElement.getBoundingClientRect = () => rect;
     },
 
     getTrackBoundingRect() {
-      return driver.getTrack().getBoundingClientRect();
+      return driver.track().getBoundingClientRect();
     },
 
     getOffsetByValue(value) {
@@ -88,6 +85,11 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       const tick = driver.ticks()[tickIdx];
       const offset = driver.getOffsetByValue(driver.min() + tickIdx);
       eventTrigger.click(tick, {clientX: offset});
+    },
+
+    clickSlider(value) {
+      const offset = driver.getOffsetByValue(value);
+      eventTrigger.click(driver.track(), {clientX: offset});
     },
 
     forceUpdate() {

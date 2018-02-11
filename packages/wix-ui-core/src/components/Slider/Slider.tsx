@@ -6,10 +6,8 @@ export interface SliderProps {
   min?: number;
   max?: number;
   value?: number;
-  onChange?: (any) => any;
-  onInput?: () => any;
+  onChange?: (any) => void;
   classes?: any;
-  scaleMarks?: boolean;
   vertical?: boolean;
   handleSize?: number;
   step?: any;
