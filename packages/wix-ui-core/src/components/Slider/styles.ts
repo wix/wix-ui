@@ -74,7 +74,8 @@ export const styles = (theme: SliderTheme) => {
     tick: {
       display: 'inline-block',
       position: 'absolute',
-      background: '#000'
+      background: '#000',
+      cursor: 'pointer'
     }
   };
 };

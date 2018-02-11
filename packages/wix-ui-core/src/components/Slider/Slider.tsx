@@ -229,6 +229,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
           handleSize={handleSize}
           vertical={vertical}
           trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
+          onTickClick={this.handleTrackClick}
         />)}
 
       {this.renderTooltip()}
@@ -245,6 +246,7 @@ interface TicksProps {
   handleSize: number;
   vertical: boolean;
   trackSize: number;
+  onTickClick: (any) => void;
 }
 
 class Ticks extends React.PureComponent<TicksProps> {
@@ -277,6 +279,7 @@ class Ticks extends React.PureComponent<TicksProps> {
         className: classes.tick,
         key: i,
         'data-hook': 'tick',
+        onClick: this.props.onTickClick,
         style: Object.assign({}, vertical ? {
           top: val,
           height: 1,

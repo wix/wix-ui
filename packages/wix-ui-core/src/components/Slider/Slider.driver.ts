@@ -84,6 +84,12 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       return driver.tooltip().textContent;
     },
 
+    clickTick(tickIdx) {
+      const tick = driver.ticks()[tickIdx];
+      const offset = driver.getOffsetByValue(driver.min() + tickIdx);
+      eventTrigger.click(tick, {clientX: offset});
+    },
+
     forceUpdate() {
       driver.hoverThumb();
     },
