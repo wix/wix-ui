@@ -70,4 +70,12 @@ describe('Slider', () => {
 
     expect(driver.ticks().length).toEqual(10);
   });
+
+  it('should not render ticks in continuous mode', () => {
+    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+
+    driver.stubTrackBoundingRect({width: 500});
+
+    expect(driver.ticks().length).toEqual(0);
+  });
 });

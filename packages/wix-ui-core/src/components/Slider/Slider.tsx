@@ -19,6 +19,7 @@ interface SliderState {
   dragging: boolean;
   mouseDown: boolean;
   thumbHover: boolean;
+  step: number;
 }
 
 class Slider extends React.PureComponent<SliderProps, SliderState> {
@@ -26,7 +27,6 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   static defaultProps = {
     handleSize: 35,
-    step: 0.1,
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
     dragging: false,
     thumbHover: false
@@ -36,6 +36,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     super(props);
 
     this.state = {
+      step: props.step || 0.1,
       dragging: false,
       mouseDown: false,
       thumbHover: false
@@ -92,7 +93,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleTrackClick = (ev) => {
-    const {min, max, step, vertical} = this.props;
+    const {min, max, vertical} = this.props;
+    const step = this.state.step;
     const handleSize = this.getHandleSize();
     const totalSteps = Math.ceil((max - min) / step);
     const rect = this.track.getBoundingClientRect();
@@ -179,7 +181,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {classes, value, step, min, max, handleSize, vertical} = this.props;
+    const {classes, value, min, max, handleSize, vertical} = this.props;
+    const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
     const highlightedTrackPosition = vertical ? {
@@ -216,15 +219,18 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
           height: handleSize
         }}
       />
-      <Ticks
-        classes={classes}
-        step={step}
-        min={min}
-        max={max}
-        handleSize={handleSize}
-        vertical={vertical}
-        trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
-      />
+
+      {this.props.step && (
+        <Ticks
+          classes={classes}
+          step={step}
+          min={min}
+          max={max}
+          handleSize={handleSize}
+          vertical={vertical}
+          trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
+        />)}
+
       {this.renderTooltip()}
       </div>
     );
