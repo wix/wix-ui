@@ -1,7 +1,9 @@
 import * as React from 'react';
-import {stylableButtonDriverFactory} from './StylableButton.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
 import {mount} from 'enzyme';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {stylableButtonDriverFactory} from './StylableButton.driver';
 import {stylableButtonTestkitFactory} from '../../testkit';
 import {stylableButtonTestkitFactory as enzymeStylableButtonTestkitFactory} from '../../testkit/enzyme';
 import {StylableButton} from './';
