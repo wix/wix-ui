@@ -1,0 +1,46 @@
+{
+  "name": "wix-ui-icons-common",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
+  "main": "./dist/src/index.js",
+  "files": [
+    "dist",
+    "system",
+    "*.js",
+    "!wallaby.js",
+    "!protractor.conf.js"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "precommit": "haste lint",
+    "pretest": "npm run buildIcons && haste build && npm run create-aliases",
+    "test": "haste test",
+    "posttest": "haste lint",
+    "start": "npm run buildIcons && haste start",
+    "release": "haste release",
+    "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
+    "buildGeneralIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
+    "buildSystemIcons": "svg2react-icon 'src/system/raw' 'src/system/dist' true",
+    "create-aliases": "npm run create-general-aliases && npm run create-system-aliases",
+    "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
+    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist"
+  },
+  "devDependencies": {
+    "fs-extra": "^5.0.0",
+    "haste-preset-yoshi": "latest",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.1",
+    "svg2react-icon": "^1.0.51",
+    "typescript": "^2.6.2"
+  },
+  "haste": {
+    "preset": "yoshi"
+  }
+}

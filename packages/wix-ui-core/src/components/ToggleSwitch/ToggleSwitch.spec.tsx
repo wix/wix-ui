@@ -1,10 +1,13 @@
 import * as React from 'react';
 import {toggleSwitchDriverFactory} from './ToggleSwitch.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import ToggleSwitch from './index';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {ToggleSwitch} from './';
 import {toggleSwitchTestkitFactory} from '../../testkit';
 import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
+import {mount} from 'enzyme';
 
 describe('ToggleSwitch', () => {
 
@@ -65,7 +68,7 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of haveing one within it
+  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of having one within it
   //See issue https://github.com/wix/wix-ui/issues/38
   describe('toggleIcon', () => {
     it('should be the checked icon when the toggleSwitch is checked', () => {
@@ -102,7 +105,7 @@ describe('ToggleSwitch', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
     });
   });
 

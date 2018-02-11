@@ -1,10 +1,13 @@
 import * as React from 'react';
-import {paginationDriverFactory} from './Pagination.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Pagination from './index';
-import {sleep} from 'wix-ui-test-utils';
+import {paginationDriverFactory, NavButtonName} from './Pagination.driver';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {sleep} from 'wix-ui-test-utils/react-helpers';
+import {Pagination} from './';
 import {paginationTestkitFactory} from '../../testkit';
 import {paginationTestkitFactory as enzymePaginationTestkitFactory} from '../../testkit/enzyme';
+import {mount} from 'enzyme';
 
 describe('Pagination', () => {
   const createDriver = createDriverFactory(paginationDriverFactory);
@@ -24,13 +27,28 @@ describe('Pagination', () => {
       const pagination = createDriver(<Pagination totalPages={5}/>);
       expect(pagination.root.getAttribute('aria-label')).toEqual('Pagination Navigation');
     });
+
+    it('has correct DOM elements order for screen reader', () => {
+      // this test is used to lock down the order of "elements of interest" for screen reader flow. This also determines native tab focus
+      // note - the actual visual order of the elements could be different (using css ordering)
+      const pagination = createDriver(<Pagination totalPages={5} showFirstLastNavButtons/>);
+      const nextBtn = pagination.getNavButton('next');
+      const prevBtn = pagination.getNavButton('previous');
+      const firstBtn = pagination.getNavButton('first');
+      const lastBtn = pagination.getNavButton('last');
+      const pageStrip = pagination.getPageStrip();
+
+      expect(nextBtn.compareDocumentPosition(prevBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(prevBtn.compareDocumentPosition(pageStrip)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(pageStrip.compareDocumentPosition(firstBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(firstBtn.compareDocumentPosition(lastBtn)).toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+    });
   });
 
   describe('Page numbers mode', () => {
     it('displays all pages for a small number of pages', () => {
       const pagination = createDriver(<Pagination totalPages={3}/>);
-      expect(pagination.amountOfPages).toBe(3);
-      expect(pagination.getPagesList()).toEqual(['1', '2', '3']);
+      expect(pagination.getPageLabels()).toEqual(['1', '2', '3']);
     });
 
     it('marks page 1 as selected by default', () => {
@@ -43,48 +61,35 @@ describe('Pagination', () => {
       expect(pagination.getCurrentPage().textContent).toBe('2');
     });
 
-    it('if currentPage is higher than the number of pages - current page is the last one', () => {
-      const pagination = createDriver(<Pagination totalPages={34} currentPage={56}/>);
-      expect(pagination.getCurrentPage().textContent).toBe('34');
-    });
-
-    it('if currentPage is lower than 1 - current page is set to 1', () => {
-      const pagination = createDriver(<Pagination totalPages={34} currentPage={0}/>);
-      expect(pagination.getCurrentPage().textContent).toBe('1');
-    });
-
     it('pages send onChange with page number', () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={10} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={10} maxPagesToShow={10} onChange={onChange}/>);
 
-      pagination.click(pagination.getPage(2));
-      expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '3'});
-
+      pagination.clickPage(3);
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({page: 3}));
       onChange.mockClear();
 
-      pagination.click(pagination.getPage(8));
-      expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '9'});
+      pagination.clickPage(9);
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({page: 9}));
     });
 
     it('does not call onChange on clicking the current page', async () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={15} currentPage={8} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={15}  maxPagesToShow={15} currentPage={8} onChange={onChange}/>);
 
-      pagination.click(pagination.getCurrentPage());
-
+      pagination.clickPage(8);
       await sleep(10);
-      expect(onChange.mock.calls.length).toBe(0);
+      expect(onChange).not.toBeCalled();
     });
 
     describe('Page numbers mode accessibility', () => {
       it('has aria-label attribute on pages', () => {
-        const pagination = createDriver(<Pagination totalPages={8} currentPage={4}/>);
-        Array.from(Array(pagination.amountOfPages)).forEach((n, idx) => {
-          const page = pagination.getPage(idx);
-          expect(page.getAttribute('aria-label')).toEqual('Page ' + page.textContent);
-        });
+        const pagination = createDriver(<Pagination totalPages={3} currentPage={1}/>);
+        expect(pagination.getPageByNumber(1).getAttribute('aria-label')).toEqual('Page 1');
+        expect(pagination.getPageByNumber(2).getAttribute('aria-label')).toEqual('Page 2');
+        expect(pagination.getPageByNumber(3).getAttribute('aria-label')).toEqual('Page 3');
       });
     });
   });
@@ -100,7 +105,7 @@ describe('Pagination', () => {
     it('shows the total amount of pages if showInputModeTotalPages is true', () => {
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4} showInputModeTotalPages/>);
       expect(pagination.getTotalPagesField()).toBeTruthy();
-      expect(pagination.getTotalPagesField().textContent).toEqual('/ 15');
+      expect(pagination.getTotalPagesField().textContent).toMatch(/\b15\b/);
     });
 
     it('accepts numbers in page input', () => {
@@ -109,34 +114,33 @@ describe('Pagination', () => {
       expect(pagination.getPageInput().value).toEqual('6');
     });
 
-    it('does not accept non natural numbers in page input', () => {
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15}/>);
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('ko');
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('3.4');
-      expect(pagination.getPageInput().value).toEqual('1');
-      pagination.changeInput('-2');
-      expect(pagination.getPageInput().value).toEqual('1');
-    });
-
     it('calls onChange with new numeric value after pressing ENTER', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
       pagination.changeInput('5');
-      pagination.inputKeyDown(13);
-      expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
+      pagination.commitInput();
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({page: 5}));
     });
 
     it('does not call onChange with empty value after pressing ENTER', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('');
-      pagination.inputKeyDown(13);
+      pagination.commitInput();
 
       return sleep(10).then(() => {
-        expect(onChange.mock.calls.length).toBe(0);
+        expect(onChange).not.toBeCalled();
+      });
+    });
+
+    it('does not call onChange with an invalid numeric value after pressing ENTER', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
+      pagination.changeInput('16');
+      pagination.commitInput();
+      return sleep(10).then(() => {
+        expect(onChange).not.toBeCalled();
       });
     });
 
@@ -144,38 +148,27 @@ describe('Pagination', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={8} onChange={onChange}/>);
       pagination.changeInput('8');
-      pagination.inputKeyDown(13);
+      pagination.commitInput();
 
       return sleep(10).then(() => {
-        expect(onChange.mock.calls.length).toBe(0);
+        expect(onChange).not.toBeCalled();
       });
     });
 
-    it('calls onChange with the last page if input value is higher than the last page', () => {
+    it('adds error state to the input with an invalid numeric value after pressing ENTER and removes it on change', () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={8} onChange={onChange}/>);
-      pagination.changeInput('34');
-      pagination.inputKeyDown(13);
-
-      return sleep(10).then(() => {
-          expect(onChange.mock.calls.length).toBe(1);
-          expect(onChange.mock.calls[0][0]).toEqual({page: '15'});
-      });
-    });
-
-    it('calls onChange with new numeric value after BLUR', () => {
-      const onChange = jest.fn();
-      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
+      const pagination = createDriver(<Pagination paginationMode="input" totalPages={3} onChange={onChange} />);
+      pagination.changeInput('4');
+      pagination.commitInput();
+      expect(pagination.inputHasError()).toBe(true);
       pagination.changeInput('5');
-      pagination.inputBlur();
-      expect(onChange.mock.calls.length).toBe(1);
-      expect(onChange.mock.calls[0][0]).toEqual({page: '5'});
+      expect(pagination.inputHasError()).toBe(false);
     });
 
     describe('Input mode accessibility',  () => {
       it('has aria-label for the input field', () => {
         const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={42}/>);
-        expect(pagination.getPageInput().getAttribute('aria-label')).toEqual('Page Number, select number between 1 to 42');
+        expect(pagination.getPageInput().getAttribute('aria-label')).toEqual('Page number, select a number between 1 and 42');
       });
     });
   });
@@ -206,63 +199,52 @@ describe('Pagination', () => {
 
     it('calls onChange on previous, next, first, last buttons', () => {
       const onChange = jest.fn();
-      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} showFirstLastNavButtons onChange={onChange}/>);
+      const pagination = createDriver(<Pagination totalPages={5} currentPage={3} showFirstLastNavButtons onChange={onChange}/>);
 
-      ['first', 'last', 'previous', 'next'].forEach(btnName => {
-        pagination.clickOnNavButton(btnName);
-        expect(onChange.mock.calls[0][0]).toEqual({page: btnName});
+      for (const [button, page] of [['first', 1], ['previous', 2], ['next', 4], ['last', 5]]) {
+        pagination.clickNavButton(button as NavButtonName);
+        expect(onChange).toBeCalledWith(expect.objectContaining({page}));
         onChange.mockClear();
-      });
+      }
     });
 
     it('disables "first" & "prevoius" buttons when current page is the first', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={1} showFirstLastNavButtons onChange={onChange}/>);
 
-      pagination.clickOnNavButton('first');
-
+      pagination.clickNavButton('first');
       await sleep(10);
-      expect(onChange.mock.calls.length).toBe(0);
+      expect(onChange).not.toBeCalled();
       onChange.mockClear();
-      pagination.clickOnNavButton('previous');
 
+      pagination.clickNavButton('previous');
       await sleep(10);
-      expect(onChange.mock.calls.length).toBe(0);
+      expect(onChange).not.toBeCalled();
     });
 
     it('disables "last" & "next" button when current page is the last', async () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination totalPages={3} currentPage={3} showFirstLastNavButtons onChange={onChange}/>);
 
-      pagination.clickOnNavButton('last');
-
+      pagination.clickNavButton('last');
       await sleep(10);
-      expect(onChange.mock.calls.length).toBe(0);
+      expect(onChange).not.toBeCalled();
       onChange.mockClear();
-      pagination.clickOnNavButton('next');
 
+      pagination.clickNavButton('next');
       await sleep(10);
-      expect(onChange.mock.calls.length).toBe(0);
+      expect(onChange).not.toBeCalled();
     });
 
-    it('shows button text with replaceArrowsWithText prop', () => {
-      const pagination = createDriver(<Pagination totalPages={3} showFirstLastNavButtons replaceArrowsWithText/>);
-      expect(pagination.getNavButton('first').textContent).toEqual('First');
-      expect(pagination.getNavButton('last').textContent).toEqual('Last');
-      expect(pagination.getNavButton('previous').textContent).toEqual('Previous');
-      expect(pagination.getNavButton('next').textContent).toEqual('Next');
-    });
-
-    it('replaces buttons text if provided along with replaceArrowsWithText prop', () => {
+    it('allows to customize button text', () => {
       const pagination = createDriver(
         <Pagination
           totalPages={3}
           showFirstLastNavButtons
-          replaceArrowsWithText
-          firstText="oh"
-          previousText="my"
-          nextText="god"
-          lastText="!!!"/>
+          firstLabel="oh"
+          previousLabel="my"
+          nextLabel="god"
+          lastLabel="!!!"/>
       );
       expect(pagination.getNavButton('first').textContent).toEqual('oh');
       expect(pagination.getNavButton('previous').textContent).toEqual('my');
@@ -281,6 +263,110 @@ describe('Pagination', () => {
     });
   });
 
+  describe('Keyboard and mouse interaction', () => {
+    it('calls onChange when Enter or Space is pressed on a button', async () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
+
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 13});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {keyCode: 32});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.keyDown(pagination.getNavButton('previous'), {});
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 13});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {keyCode: 32});
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.keyDown(pagination.getPageByNumber(1), {});
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+      onChange.mockClear();
+    });
+
+    it('calls onChange when the left mouse button is pressed', async () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination totalPages={3} currentPage={2} onChange={onChange} />);
+
+      pagination.simulate.click(pagination.getNavButton('previous'));
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+
+      pagination.simulate.click(pagination.getPageByNumber(1));
+      expect(onChange).toBeCalled();
+      onChange.mockClear();
+    });
+  });
+
+  it('adds IDs to the elements if ID prefix is provided', () => {
+    const pagination = createDriver(<Pagination id="$" totalPages={3} showFirstLastNavButtons />);
+    expect(pagination.root.getAttribute('id')).toBe('$root');
+    expect(pagination.getNavButton('first').getAttribute('id')).toBe('$navButtonFirst');
+    expect(pagination.getNavButton('previous').getAttribute('id')).toBe('$navButtonPrevious');
+    expect(pagination.getNavButton('next').getAttribute('id')).toBe('$navButtonNext');
+    expect(pagination.getNavButton('last').getAttribute('id')).toBe('$navButtonLast');
+    expect(pagination.getPageStrip().getAttribute('id')).toBe('$pageStrip');
+  });
+
+  it('does not add ID to the root if ID prefix is not provided', () => {
+    const pagination = createDriver(<Pagination totalPages={3} />);
+    expect(pagination.root.getAttribute('id')).toBe(null);
+  });
+
+  it('allows to customize gap text', () => {
+    const pagination = createDriver(
+      <Pagination totalPages={5} maxPagesToShow={4} showLastPage gapLabel={<em>*</em>} />
+    );
+    expect(pagination.getPageLabels()).toEqual(['1', '2', '*', '5']);
+  });
+
+  it('adds URLs to the pages according to desired format', () => {
+    const pagination = createDriver(
+      <Pagination
+        totalPages={3}
+        currentPage={1}
+        pageUrl={n => `https://example.com/${n}/`}
+        showFirstLastNavButtons
+      />
+    );
+
+    expect(pagination.getNavButton('first').getAttribute('href')).toBe(null);
+    expect(pagination.getNavButton('previous').getAttribute('href')).toBe(null);
+    expect(pagination.getNavButton('next').getAttribute('href')).toEqual('https://example.com/2/');
+    expect(pagination.getNavButton('last').getAttribute('href')).toEqual('https://example.com/3/');
+    expect(pagination.getPageByNumber(1).getAttribute('href')).toEqual(null);
+    expect(pagination.getPageByNumber(2).getAttribute('href')).toEqual('https://example.com/2/');
+    expect(pagination.getPageByNumber(3).getAttribute('href')).toEqual('https://example.com/3/');
+  });
+
+  describe('Numbering logic', () => {
+    it('Renders up to 5 pages during SSR in responsive mode', () => {
+      const pagination = createDriver(
+        <Pagination
+          responsive
+          totalPages={9}
+          currentPage={5}
+          showFirstPage
+          showLastPage
+          // Hack against Haste trying to mock browser environment, e.g. triggering componentDidMount on the server.
+          updateResponsiveLayout={() => null}
+        />
+      );
+      expect(pagination.getPageLabels()).toEqual(['1', '...', '5', '...', '9']);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Pagination totalPages={3} />, paginationTestkitFactory)).toBe(true);
@@ -289,7 +375,7 @@ describe('Pagination', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Pagination totalPages={3} />, enzymePaginationTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Pagination totalPages={3} />, enzymePaginationTestkitFactory, mount)).toBe(true);
     });
   });
 });

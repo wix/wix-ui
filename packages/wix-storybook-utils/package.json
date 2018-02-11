@@ -2,7 +2,10 @@
   "name": "wix-storybook-utils",
   "version": "1.0.0",
   "description": "Utilities for automated component documentation within Storybook",
-  "author": "Arijus Šukys <argshook@gmail.com> (http://arijus.net)",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
   "license": "MIT",
   "files": [
     "src",
@@ -44,34 +47,35 @@
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
+    "classnames": "^2.2.5",
     "copy-to-clipboard": "^3.0.8",
     "deep-eql": "^3.0.1",
-    "eslint-config-wix": "^1.1.16",
     "github-markdown-css": "^2.9.0",
     "highlight.js": "^9.12.0",
-    "import-path": "^0.0.13",
+    "import-path": "latest",
     "jsx-to-string": "^1.3.0",
-    "path": "^0.12.7",
+    "loader-utils": "^1.1.0",
+    "react-autodocs-utils": "^1.0.0",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",
     "react-motion": "^0.5.2",
     "react-remarkable": "^1.1.3",
-    "wix-style-react": "^2.0.1",
-    "wix-ui-test-utils": "^1.0.0"
+    "recast": "^0.13.0",
+    "wix-style-react": "latest"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.2.16",
     "@storybook/react": "^3.2.16",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "enzyme": "^2.9.0",
-    "haste-preset-yoshi": "^1.0.19",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "eslint-config-wix": "latest",
+    "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.0"
+    "react-test-renderer": "^15.6.0",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "babel": {
     "plugins": [
@@ -99,9 +103,9 @@
   },
   "jest": {
     "setupFiles": [
-      "<rootDir>/node_modules/babel-polyfill"
+      "<rootDir>/test/enzyme-setup"
     ],
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/dist/src/jest-setup",
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy"
     },

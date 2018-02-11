@@ -5,7 +5,7 @@ const selectors = {
   toggleIconPath: '& ~ $innerLabel > $toggleIcon path',
   outerLabel: '& + $outerLabel',
   innerLabel: '& ~ $innerLabel',
-  state: state => `& > input[type=checkbox]:${state}`
+  state: state => `& > input[type=checkbox]:${state}, &[data-preview~="${state}"] > input[type=checkbox][type=checkbox]`
 };
 
 const borderRadius = radius => ({
@@ -99,7 +99,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.toggleIconPath]: {fill: theme.colorHover}
       },
 
-      [selectors.state('hover:checked')]: {
+      [selectors.state('checked:hover')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorHoverChecked,
           borderWidth: theme.outerLabelBorderSizeHoverChecked,
@@ -113,7 +113,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.toggleIconPath]: {fill: theme.colorHoverChecked}
       },
 
-      [selectors.state('hover:disabled')]: {
+      [selectors.state('disabled:hover')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
@@ -129,7 +129,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
         [selectors.toggleIconPath]: {fill: theme.colorDisabled}
       },
 
-      [selectors.state('hover:checked:disabled')]: {
+      [selectors.state('checked:disabled:hover')]: {
         [selectors.outerLabel]: {
           backgroundColor: theme.backgroundColorDisabled,
           cursor: 'default',
@@ -162,6 +162,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
       borderColor: theme.outerLabelBorderColor,
       borderStyle: 'solid',
       boxSizing: 'border-box',
+      boxShadow: theme.outerLabelBoxShadow
     },
 
     innerLabel: {
@@ -173,7 +174,6 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
       position: 'absolute',
       left: '1px',
-      zIndex: 1,
 
       textAlign: 'center',
       alignItems: 'center',
@@ -181,7 +181,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
 
       cursor: 'pointer',
       backgroundColor: theme.innerLabelBackgroundColor,
-      boxShadow: '1.5px 1.5px 1px rgba(0,0,0,0.2)',
+      boxShadow: theme.innerLabelBoxShadow,
 
       top: '50%',
       transform: 'translate(0, -50%)',

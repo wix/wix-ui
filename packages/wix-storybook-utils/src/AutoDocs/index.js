@@ -28,7 +28,6 @@ const failSafe = type => () =>
   </span>;
 
 const renderPropType = (type = {}) => {
-
   const typeHandlers = {
     custom: () => wrap('custom')(),
 
@@ -68,7 +67,13 @@ const renderPropType = (type = {}) => {
 };
 
 const AutoDocs = ({source = '', parsedSource, showTitle}) => {
-  const {description, displayName, props, composes = [], methods = []} = parsedSource ? parsedSource : parser(source);
+  const {
+    description,
+    displayName,
+    props,
+    composes = [],
+    methods = []
+  } = parsedSource || parser(source);
 
   const propRow = (prop, index) =>
     <tr key={index}>
@@ -135,7 +140,7 @@ const AutoDocs = ({source = '', parsedSource, showTitle}) => {
         </tbody>
       </table>
 
-      { methods.length > 0 && <h2>Available <code>methods</code></h2> }
+      { methods.filter(({name}) => !name.startsWith('_')).length > 0 && <h2>Available <code>methods</code></h2> }
       { methods.length > 0 && <Markdown source={methodsToMarkdown(methods)}/> }
     </div>
   );

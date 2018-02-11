@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from './index';
+import {buildChildrenObject, createComponentThatRendersItsChildren} from './';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {

@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Render style tags to the Dom and provide the relevant classes to the wix-ui-core components, using jss",
   "author": {
-    "name": "Lior Belinsky",
-    "email": "liorbe@wix.com"
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
   },
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
@@ -23,7 +23,7 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path testkit",
+    "build": "haste build",
     "pretest": "npm run build",
     "test": "haste test --jest",
     "posttest": "haste lint",
@@ -36,18 +36,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^22.1.1",
     "@types/react": "^15.6.0",
-    "@types/react-dom": "^15.5.0",
-    "enzyme": "^2.9.0",
-    "haste-preset-yoshi": "^1.0.19",
-    "import-path": "^0.0.13",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "haste-preset-yoshi": "latest",
     "react-test-renderer": "^15.6.0",
-    "ts-jest": "^21.2.3",
-    "typescript": "^2.4.0"
+    "ts-jest": "^22.0.3",
+    "typescript": "^2.4.0",
+    "wix-ui-test-utils": "^1.0.0"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^2.3.1",
+    "hoist-non-react-methods": "^1.1.0",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "lodash.uniqueid": "^4.0.1",
@@ -74,7 +74,10 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup"
+    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
+    "setupFiles": [
+      "<rootDir>/test/enzyme-setup"
+    ]
   },
   "haste": {
     "preset": "yoshi"

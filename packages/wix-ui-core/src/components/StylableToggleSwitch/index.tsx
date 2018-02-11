@@ -1,29 +1,90 @@
 import * as React from 'react';
-import ToggleSwitch from './ToggleSwitch';
+import * as uniqueId from 'lodash/uniqueId';
+import {bool, func, object, string} from 'prop-types';
+import {getViewBox, getPathDescription} from '../ToggleSwitch/utils';
 import style from './ToggleSwitch.st.css';
 
-// Generic adapter to add the root class and it's css states
-export function withStylable(CoreComponent: React.ComponentClass<any>, stylesheet: RuntimeStylesheet, getState: (object) => StateMap) {
-  return class StylableComponent extends CoreComponent {
-    render() {
-      this.props = {...this.props, classes: stylesheet};
-      const root = super.render();
+export type ToggleSwitchStyles = {
+  root?: object;
+  outerLabel?: object;
+  innerLabel?: object;
+  toggleIcon?: object;
+};
 
-      if (!root) {
-        return null;
-      }
-
-      const className = root.props.className && root.props.className.indexOf(stylesheet.root) === -1 ?
-        'root ' + root.props.className :
-        root.props.className;
-
-      return React.cloneElement(root, stylesheet(className, getState(this.props), this.props));
-    }
-  };
+export interface ToggleSwitchProps {
+  checked?: boolean;
+  disabled?: boolean;
+  onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+  styles?: ToggleSwitchStyles;
+  id?: string;
 }
 
-export const StylableToggleSwitch = withStylable(
-  ToggleSwitch,
-  style,
-  ({checked, disabled}) => ({checked, disabled})
-);
+/**
+ * Toggle Switch
+ */
+export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps & P> {
+  static displayName = 'ToggleSwitch';
+  id: string = this.props.id || uniqueId('ToggleSwitch');
+
+  private toggle: HTMLLabelElement;
+
+  static propTypes = {
+    /** Is the toggleSwitch checked or not */
+    checked: bool,
+    /** Callback function when user changes the value of the component */
+    onChange: func.isRequired,
+    /** Is the toggleSwitch disabled or not */
+    disabled: bool,
+    /** Styles object */
+    styles: object,
+    /** Component ID, will be generated automatically if not provided */
+    id: string
+  };
+
+  static defaultProps = {checked: false, styles: {}};
+
+  componentDidMount() {
+    this.toggle.addEventListener('keydown', this._listenToSpace);
+  }
+
+  componentWillUnmount() {
+    this.toggle.removeEventListener('keydown', this._listenToSpace);
+  }
+
+  _listenToSpace = e => {
+    if (e.key === ' ') {
+      e.preventDefault();
+      this._handleChange(e);
+    }
+  }
+
+  _handleChange = e => {
+    if (!this.props.disabled) {
+      this.props.onChange(e);
+    }
+  }
+
+  render() {
+    const {checked, disabled, styles} = this.props;
+    const {id} = this;
+
+    return (
+      <label {...style('root', {checked, disabled}, this.props)} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
+        <input
+          type="checkbox"
+          id={id}
+          checked={checked}
+          disabled={disabled}
+          onChange={e => this._handleChange(e)}
+        />
+
+        <div className={style.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
+        <div className={style.innerLabel} style={styles.innerLabel}>
+          <svg className={style.toggleIcon} viewBox={getViewBox(checked)}>
+            <path d={getPathDescription(checked)}/>
+          </svg>
+        </div>
+      </label>
+    );
+  }
+}

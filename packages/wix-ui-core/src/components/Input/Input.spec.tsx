@@ -1,9 +1,12 @@
 import * as React from 'react';
 import {inputDriverFactory} from './Input.driver';
-import {createDriverFactory, isTestkitExists, isEnzymeTestkitExists} from 'wix-ui-test-utils';
-import Input from './index';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {Input} from './';
 import {inputTestkitFactory} from '../../testkit';
 import {inputTestkitFactory as enzymeInputTestkitFactory} from '../../testkit/enzyme';
+import {mount} from 'enzyme';
 
 describe('Input', () => {
 
@@ -216,7 +219,7 @@ describe('Input', () => {
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory)).toBe(true);
+      expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory, mount)).toBe(true);
     });
   });
 });

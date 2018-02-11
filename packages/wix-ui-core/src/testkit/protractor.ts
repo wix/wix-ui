@@ -1,6 +1,6 @@
-import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils';
+import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
 
-import inputDriverFactory from '../components/Input/Input.protractor.driver';
+import {inputDriverFactory} from '../components/Input/Input.protractor.driver';
 export const inputTestkitFactory = protractorTestkitFactoryCreator(inputDriverFactory);
 
 import {buttonDriverFactory} from '../components/Button/Button.protractor.driver';
@@ -20,3 +20,18 @@ export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriv
 
 import {dividerDriverFactory} from '../components/Divider/Divider.protractor.driver';
 export const dividerTestkitFactory = protractorTestkitFactoryCreator(dividerDriverFactory);
+
+import {googleMapsIframeClientDriverFactory} from '../clients/GoogleMaps/GoogleMapsIframeClient.protractor.driver';
+export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(googleMapsIframeClientDriverFactory);
+
+import {inputWithOptionsDriverFactory} from '../components/InputWithOptions/InputWithOptions.protractor.driver';
+export const inputWithOptionsTestkitFactory = protractorTestkitFactoryCreator(inputWithOptionsDriverFactory);
+
+import {dropdownContentDriverFactory} from '../baseComponents/DropdownContent/DropdownContent.protractor.driver';
+export const dropdownContentTestkitFactory = protractorTestkitFactoryCreator(dropdownContentDriverFactory);
+
+import {dropdownDriverFactory} from '../baseComponents/Dropdown/Dropdown.protractor.driver';
+export const dropdownTestkitFactory = protractorTestkitFactoryCreator(dropdownDriverFactory);
+
+import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.protractor.driver';
+export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDriverFactory);

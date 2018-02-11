@@ -1,15 +1,17 @@
 # wix-ui-test-utils
 
-> A common test utils used in `wix-ui` packages
+> A common test utils used within the different `wix-ui` packages
 
 ## Generic test utils
+
+The following helper functions can be used within the different `wix-ui` packages:
 
 ### `isClassExists`
 
 Returns `true` if a certain class exists on an element.
 
 ```javascript
-import {isClassExists} from 'wix-ui-test-utils';
+import {isClassExists} from 'wix-ui-test-utils/react-helpers';
 
 const element = document.createElement('div');
 element.classList.add('big');
@@ -23,7 +25,7 @@ isClassExists(element, 'small'); // false
 Returns a promise that resolves after a given timeout.
 
 ```javascript
-import {sleep} from 'wix-ui-test-utils';
+import {sleep} from 'wix-ui-test-utils/react-helpers';
 
 sleep(5000)
   .then(() => console.log('Hello world'));
@@ -42,7 +44,7 @@ prop functions.
 
 ```javascript
 import {mount} from 'enzyme';
-import {makeControlled} from 'wix-ui-test-utils';
+import {makeControlled} from 'wix-ui-test-utils/react-helpers';
 
 const UncontrolledInput = props => (
   <input {...props}/>
@@ -65,7 +67,7 @@ const component = mount(
 Returns the iframe URL of a storybook's story.
 
 ```javascript
-import {getStoryUrl} from 'wix-ui-test-utils';
+import {getStoryUrl} from 'wix-ui-test-utils/protractor';
 
 const storyUrl = getStoryUrl('Components', 'DatePicker'); // 'iframe.html?selectedKind=...'
 browser.get(storyUrl);
@@ -76,7 +78,7 @@ browser.get(storyUrl);
 Scroll the window to a given element location.
 
 ```javascript
-import {scrollToElement} from 'wix-ui-test-utils';
+import {scrollToElement} from 'wix-ui-test-utils/protractor';
 
 // `el` is a DOM node
 scrollToElement(el);
@@ -87,7 +89,7 @@ scrollToElement(el);
 Wait until an element is visible.
 
 ```javascript
-import {waitForVisibilityOf} from 'wix-ui-test-utils';
+import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 
 waitForVisibilityOf(
   element,
@@ -98,6 +100,27 @@ waitForVisibilityOf(
 
 ## Testkit helpers
 
+### `createDriverFactory`
+
+Accepts a component driver. Returns a new driver factory. An explanation of drivers can be viewd
+[here](./docs/COMPONENT_DRIVERS.md).
+
+```javascript
+import React from 'react';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {buttonDriverFactory} from './Button.driver';
+import Button from './';
+
+const createDriver = createDriverFactory(buttonDriverFactory);
+
+describe('Button', () => {
+  it('should exist', () => {
+    const driver = createDriver(<Button />);
+    expect(driver.exists()).toBe(true);
+  });
+});
+```
+
 ### Vanilla (react-test-utils)
 
 #### `testkitFactoryCreator`
@@ -105,7 +128,7 @@ waitForVisibilityOf(
 Accepts a component driver. Returns a testkit factory.
 
 ```javascript
-import {testkitFactoryCreator} from 'wix-ui-test-utils';
+import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 import datePickerDriverFactory './driver';
 
 const driverFactory = testkitFactoryCreator(datePickerDriverFactory);
@@ -120,11 +143,12 @@ driver.exists();
 
 #### `isTestkitExists`
 
-Accepts an React Element and a testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript
-import {testkitFactoryCreator, isTestkitExists} from 'wix-ui-test-utils';
+import {testkitFactoryCreator, isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import datePickerDriverFactory './driver';
 
 const driverFactory = testkitFactoryCreator(datePickerDriverFactory);
@@ -142,7 +166,7 @@ isTestkitExists(
 Accepts a component driver. Returns a testkit factory based on enzyme.
 
 ```javascript
-import {enzymeTestkitFactoryCreator} from 'wix-ui-test-utils';
+import {enzymeTestkitFactoryCreator} from 'wix-ui-test-utils/enzyme';
 import datePickerDriverFactory './driver';
 
 const driverFactory = enzymeTestkitFactoryCreator(datePickerDriverFactory);
@@ -157,18 +181,21 @@ driver.exists();
 
 #### `isEnzymeTestkitExists`
 
-Accepts an React Element and an enzyme testkit factory. Returns `true` if the driver
+This function should be used inside the component tests in order to to perform a sanity check for the exposed testkit.
+It accepts a React Element and a testkit factory. Returns `true` if the driver
 works as expected.
 
 ```javascript
-import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from 'wix-ui-test-utils';
+import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import datePickerDriverFactory './driver';
+import {mount} from 'enzyme';
 
 const driverFactory = enzymeTestkitFactoryCreator(datePickerDriverFactory);
 
 isEnzymeTestkitExists(
   <DatePicker />,
-  driverFactory
+  driverFactory,
+  mount
 ); // true
 ```
 
@@ -179,7 +206,7 @@ isEnzymeTestkitExists(
 Accepts a component driver. Returns a testkit factory for protractor.
 
 ```javascript
-import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils';
+import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
 import datePickerDriverFactory './driver';
 
 const driverFactory = protractorTestkitFactoryCreator(datePickerDriverFactory);

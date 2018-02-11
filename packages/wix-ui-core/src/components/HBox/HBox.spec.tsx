@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import HBox from './';
+import {HBox} from './';
 
 describe('HBox', () => {
   let wrapper;

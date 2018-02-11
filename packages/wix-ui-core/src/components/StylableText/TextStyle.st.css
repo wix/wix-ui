@@ -1,0 +1,25 @@
+:import {
+  -st-from: "./Text.st.css";
+  -st-default: Text;
+}
+
+:vars {
+  fontFamily: Arial;
+  fontSize: 12px;
+  lineHeight: normal;
+  color: #000;
+  textTransform: none;
+  letterSpacing: normal;
+  margin: 0;
+}
+
+.root {
+  -st-extends: Text;
+  font-family: value(fontFamily);
+  font-size: value(fontSize);
+  line-height: value(lineHeight);
+  color: value(color);
+  text-transform: value(textTransform);
+  letter-spacing: value(letterSpacing);
+  margin: value(margin);
+}

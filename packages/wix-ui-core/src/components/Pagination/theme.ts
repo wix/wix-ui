@@ -1,112 +1,78 @@
-const buttonMinWidth = 20;
-const buttonMinHeight = 20;
-const buttonPadding = 3;
-const buttonMargin = 3;
-const buttonFont = '12px/1 Helvetica';
-
 export type PaginationTheme = {
-  paginationRoot: React.CSSProperties,
-  currentPage: React.CSSProperties,
-  pageNumber: React.CSSProperties,
-  inputField: React.CSSProperties,
-  inputTotalPages: React.CSSProperties
-  ellipsis: React.CSSProperties,
-  rtl: React.CSSProperties,
-  pagesSelection: React.CSSProperties,
-  navButton: React.CSSProperties,
-  navButtonRtl: React.CSSProperties,
-  disabledNavButton: React.CSSProperties
+  root: React.CSSProperties;
+
+  // Nav buttons
+  navButton: React.CSSProperties;
+  navButtonFirst: React.CSSProperties;
+  navButtonPrevious: React.CSSProperties;
+  navButtonNext: React.CSSProperties;
+  navButtonLast: React.CSSProperties;
+
+  // Mode: pages
+  pageStrip: React.CSSProperties;
+  pageStripInner: React.CSSProperties;
+  pageStripTemplate: React.CSSProperties;
+  pageButton: React.CSSProperties;
+  currentPage: React.CSSProperties;
+  gap: React.CSSProperties;
+
+  // Mode: input
+  pageForm: React.CSSProperties;
+  pageInput: React.CSSProperties;
+  totalPages: React.CSSProperties;
+
+  // Modifiers
+  disabled: React.CSSProperties;
+  error: React.CSSProperties;
 };
 
-const buttonCommon: React.CSSProperties = {
-  minWidth: buttonMinWidth,
-  minHeight: buttonMinHeight,
-  padding: buttonPadding,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  margin: buttonMargin,
-  font: buttonFont,
-  userSelect: 'none'
-};
-
+// Responsive layout logic depends on styling defined here and may not work correctly with different styling.
 export const core: PaginationTheme = {
-  paginationRoot: {
-    background: '#fff',
+  root: {
     display: 'inline-flex',
-  },
-  rtl: {
-    flexDirection: 'row-reverse'
-  },
-  pagesSelection: {
-    display: 'inline-flex'
-  },
-  currentPage: {
-    ...buttonCommon,
-    cursor: 'default',
-    color: '#607D8B',
-    fontWeight: 'bold',
-    border: '1px solid transparent',
-    outline: 'none'
-  },
-  pageNumber: {
-    ...buttonCommon,
-    cursor: 'pointer',
-    color: '#2196F3',
-    border: '1px solid #BBDEFB',
-
-    '&:hover': {
-      backgroundColor: '#E1F5FE'
-    },
-    '&:active': {
-      outline: 'none'
-    }
-  },
-  inputField: {
-    width: '40px',
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#2196F3',
-    userSelect: 'none'
-  },
-  inputTotalPages: {
-    width: '40px',
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#2196F3',
-    userSelect: 'none'
-  },
-  ellipsis: {
-    minWidth: buttonMinWidth,
-    minHeight: buttonMinHeight,
-    padding: buttonPadding,
-    cursor: 'default',
-    display: 'inline-flex',
-    border: '1px solid transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: buttonMargin,
-    font: buttonFont,
-    color: '#78909C',
     userSelect: 'none'
   },
   navButton: {
-    ...buttonCommon,
-    cursor: 'pointer',
-    color: '#2196F3',
-    border: '1px solid #BBDEFB',
+    display: 'inline-flex',
+    flexShrink: 0,
+    '&:not($disabled)': {
+      cursor: 'pointer'
+    }
   },
-  navButtonRtl: {
-    transform: 'scaleX(-1)'
+  navButtonFirst: {order: 1},
+  navButtonPrevious: {order: 2},
+  navButtonNext: {order: 4},
+  navButtonLast: {order: 5},
+  pageStrip: {
+    order: 3,
+    overflowX: 'hidden'
   },
-  disabledNavButton: {
-    ...buttonCommon,
-    color: 'grey',
-    border: 'none',
-    pointer: 'default'
-  }
+  pageStripInner: {
+    display: 'flex'
+  },
+  pageStripTemplate: {
+    height: 0,
+    overflow: 'hidden'
+  },
+  pageButton: {
+    display: 'inline-flex',
+    flexShrink: 0,
+    cursor: 'pointer'
+  },
+  currentPage: {
+    display: 'inline-flex',
+    flexShrink: 0
+  },
+  gap: {
+    display: 'inline-flex',
+    flexShrink: 0
+  },
+  pageForm: {
+    display: 'flex',
+    order: 3
+  },
+  pageInput: {},
+  totalPages: {},
+  disabled: {},
+  error: {}
 };

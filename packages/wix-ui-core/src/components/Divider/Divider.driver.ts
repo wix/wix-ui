@@ -1,10 +1,14 @@
+import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
+
 export const dividerDriverFactory = ({element}) => ({
   /** checks if the element exists */
   exists: () => !!element,
 
   /** checks if the divider is vertical */
-  isVertical: () => window.getComputedStyle(element).height === 'auto',
+  isVertical: () =>
+    isAttributeExists(element, attribute => attribute.name.includes('vertical') && attribute.value === 'true'),
 
   /** gets text content */
-  textContent: () => element.textContent
+  textContent: () => element.textContent,
+  element
 });

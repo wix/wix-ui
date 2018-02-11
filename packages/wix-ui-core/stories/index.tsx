@@ -1,71 +1,73 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import Text from '../src/components/Text';
-import Button from '../src/components/Button';
-import Badge from '../src/components/Badge';
-import Input from '../src/components/Input';
-import Box from '../src/components/Box';
-import Tooltip from '../src/components/Tooltip';
+import {Text} from '../src/components/Text';
+import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
+import {TooltipStory} from './Tooltip/tooltip-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
-import {StylableToggleSwitchStory, BOStylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
-import IconWithOptions from '../src/components/IconWithOptions';
+import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
+import {IconWithOptions} from '../src/components/IconWithOptions';
+import {InputWithOptions} from '../src/components/InputWithOptions';
+import {MultiCheckbox} from '../src/components/MultiCheckbox';
+import {OptionFactory} from '../src/baseComponents/DropdownOption';
+import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
+import {CheckboxStory} from './Checkbox/Checkbox-story';
+import {GoogleInput} from '../src/components/GoogleInput';
+import {ControlledInputWithOptions} from './InputWithOptions';
 import {SliderStory} from './Slider/Slider-story';
 
-const dropdownOptions = [1, 2, 3, 4, 5].map(x => ({
-  id: x,
-  value: `value${x}`,
-  displayName: `value ${x}`,
-  type: x === 3 ? 'separator' : 'option',
-  isDisabled: x === 4
-}));
+const dropdownOptions =
+  Array.from(Array(20))
+    .map((x, index) =>
+      index === 5 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
+
+require('./Badge').story();
+require('./Button').story();
+require('./Input').story();
+require('./StylableText').story();
 
 storiesOf('Components', module)
-  .add('Badge', () => (
-    <div style={{width: '50px'}}><Badge dataHook="story-badge">Hello</Badge></div>
-  ))
-  .add('Button', () => (
-    <Button dataHook="story-button">Hello</Button>
+  .add('GoogleInput', () => (
+    <GoogleInput onSelect={() => null} />
   ))
   .add('IconWithOptions', () => (
-    <div style={{padding: '50px'}}>
-      <IconWithOptions
-        iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
-        dataHook="story-icon-with-options"
-        options={dropdownOptions}/>
-    </div>
+    <IconWithOptions
+      iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
+      data-hook="story-icon-with-options"
+      options={dropdownOptions}/>
   ))
-  .add('Input', () => (
-    <Input dataHook="story-input" />
+  .add('InputWithOptions Single select', () => (
+    <ControlledInputWithOptions />
+  ))
+  .add('InputWithOptions Multi select', () => (
+    <InputWithOptions
+      closeOnSelect={false}
+      data-hook="story-input-with-options-multi"
+      options={dropdownOptions}/>
+  ))
+  .add('MultiCheckbox', () => (
+    <MultiCheckbox
+      data-hook="story-multi-checkbox"
+      options={dropdownOptions}/>
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
-  ))
-  .add('BOStylableToggleSwitchStory', () => (
-    <BOStylableToggleSwitchStory/>
   ))
   .add('StylableToggleSwitchStory', () => (
     <StylableToggleSwitchStory/>
   ))
   .add('Tooltip', () => (
-    <Tooltip dataHook="story-tooltip" placement="right">
-      <Tooltip.Element>
-        <span>I need a tooltip</span>
-      </Tooltip.Element>
-      <Tooltip.Content>
-        <span>This is my tooltip!</span>
-      </Tooltip.Content>
-    </Tooltip>
+    <TooltipStory/>
   ))
   .add('Text', () => (
     <Text ellipsis>
-        Hello World
+      Hello World
     </Text>
   ))
   .add('Box', () => (
     <div>
-    <Box vertical>
+      <Box vertical>
         <div>v</div>
         <div>e</div>
         <div>r</div>
@@ -74,9 +76,9 @@ storiesOf('Components', module)
         <div>c</div>
         <div>a</div>
         <div>l</div>
-    </Box>
-    <hr />
-    <Box>
+      </Box>
+      <hr/>
+      <Box>
         <div>h</div>
         <div>o</div>
         <div>r</div>
@@ -87,19 +89,25 @@ storiesOf('Components', module)
         <div>t</div>
         <div>a</div>
         <div>l</div>
-    </Box>
-    <hr />
-    <Box lastItemTakesRemainingWidth>
-      <div>label (input should take remaining width)</div>
-      <input/>
-    </Box>
+      </Box>
+      <hr/>
+      <Box lastItemTakesRemainingWidth>
+        <div>label (input should take remaining width)</div>
+        <input/>
+      </Box>
     </div>
   ))
   .add('Pagination', () => (
-    <PaginationStory />
+    <PaginationStory/>
+  ))
+  .add('GoogleMapsIframeClient', () => (
+    <GoogleMapsIframeClientStory/>
   ))
   .add('Divider', () => (
     <DividerStory />
+  ))
+  .add('Checkbox', () => (
+    <CheckboxStory />
   ))
   .add('Slider', () => (
     <SliderStory/>

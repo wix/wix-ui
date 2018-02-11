@@ -1,9 +1,12 @@
 import * as React from 'react';
-import {isTestkitExists, testkitFactoryCreator, enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src';
+import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src/enzyme';
+import {isTestkitExists, testkitFactoryCreator} from '../src/vanilla';
+import {DriverFactory} from '../src/driver-factory';
+import {mount} from 'enzyme';
 
 describe('isTestkitExists', () => {
-  const MyComp: React.SFC = () => (<div></div>);
-  const driver = element => {
+  const MyComp: React.StatelessComponent = () => (<div></div>);
+  const driver: DriverFactory<{exists: () => boolean}, typeof MyComp> = element => {
     return {
       exists: () => !!element
     };
@@ -14,6 +17,6 @@ describe('isTestkitExists', () => {
   });
 
   it('enzyme should exist', () => {
-    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver))).toEqual(true);
+    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount)).toEqual(true);
   });
 });

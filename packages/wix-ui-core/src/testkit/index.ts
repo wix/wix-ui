@@ -1,7 +1,10 @@
-import {testkitFactoryCreator} from 'wix-ui-test-utils';
+import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
+
+import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
+export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
 
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
@@ -11,6 +14,9 @@ export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
 import {textDriverFactory} from '../components/Text/Text.driver';
 export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
+
+import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
 
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFactory);
@@ -23,3 +29,6 @@ export const tooltipTestkitFactory = testkitFactoryCreator(tooltipDriverFactory)
 
 import {dividerDriverFactory} from '../components/Divider/Divider.driver';
 export const dividerTestkitFactory = testkitFactoryCreator(dividerDriverFactory);
+
+import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
+export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactory);
