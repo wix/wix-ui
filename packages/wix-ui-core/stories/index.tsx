@@ -25,6 +25,7 @@ require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
 require('./StylableText').story();
+require('./StylableButton').story();
 
 storiesOf('Components', module)
   .add('GoogleInput', () => (
