@@ -87,7 +87,6 @@ export class MultiCheckbox extends React.PureComponent<MultiCheckboxProps, Multi
         options={displayedOptions}
         onSelect={this.onSelect}
         onDeselect={this.onDeselect}
-        inputProps={{}}
         />
     );
   }

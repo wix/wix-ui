@@ -4,7 +4,7 @@ import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf, element} from 'prop-types';
+import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf} from 'prop-types';
 import {Input, InputProps} from '../Input';
 
 export interface InputWithOptionsProps {
@@ -31,7 +31,7 @@ export interface InputWithOptionsProps {
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?: (value: string) => void;
   /** Input prop types */
-  inputProps: InputProps;
+  inputProps?: InputProps;
   /** Input component */
   InputComponent?: React.ComponentClass<InputProps>;
 }
@@ -74,7 +74,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Maximum height of the options */
     optionsMaxHeight: number,
     /** Input prop types */
-    inputProps: object.isRequired,
+    inputProps: object,
     /** Input component */
     InputComponent: func
   };
