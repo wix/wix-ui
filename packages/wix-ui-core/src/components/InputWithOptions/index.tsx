@@ -92,7 +92,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     if (option) {
       onSelect(option);
     } else {
-       inputProps.value && onManualInput(inputProps.value);
+      inputProps && inputProps.value && onManualInput(inputProps.value);
     }
   }
 
