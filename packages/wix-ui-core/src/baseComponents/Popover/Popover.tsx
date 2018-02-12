@@ -66,7 +66,7 @@ const getArrowShift = (shift, direction) => {
  */
 
 export const Popover: PopoverType = props => {
-  const {placement, shown, onMouseEnter, onMouseLeave, onClick, showArrow,
+  const {placement, shown, onMouseEnter, onMouseLeave, onKeyDown, onClick, showArrow,
          children, moveBy, moveArrowTo, timeout, appendToParent, appendTo}  = props;
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
 

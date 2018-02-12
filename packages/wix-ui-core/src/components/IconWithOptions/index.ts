@@ -1,0 +1,1 @@
+export {IconWithOptions} from './IconWithOptions';
