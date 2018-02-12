@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {bool, func, object, any, oneOf} from 'prop-types';
-import style from './StylableButton.st.css';
+import style from './Button.st.css';
 
 export interface StylableButtonProps {
   type?: string;

@@ -1,6 +1,6 @@
 :import {
-    -st-from: "./StylableButton.st.css";
-    -st-default: StylableButton;
+    -st-from: "./Button.st.css";
+    -st-default: Button;
 }
 
 .root {
@@ -27,7 +27,7 @@
 }
 
 .root {
-    -st-extends: StylableButton;
+    -st-extends: Button;
     height: value(height);
     padding: value(padding);
     border-radius: value(borderRadius);
