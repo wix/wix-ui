@@ -14,7 +14,7 @@ export interface StylableButtonProps {
 /**
  * Stylable Button
  */
-export const StylableButton: React.SFC<StylableButtonProps> = props => {
+export const Button: React.SFC<StylableButtonProps> = props => {
   const {type, disabled, onClick, onMouseEnter, onMouseLeave, children} = props;
 
   return (
@@ -30,8 +30,8 @@ export const StylableButton: React.SFC<StylableButtonProps> = props => {
   );
 };
 
-StylableButton.displayName = 'Button';
-StylableButton.propTypes = {
+Button.displayName = 'Button';
+Button.propTypes = {
   /** Type of the button - submit / button / reset */
   type: oneOf(['submit', 'button', 'reset']),
   /** Makes the button disabled */
