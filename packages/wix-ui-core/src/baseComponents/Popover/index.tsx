@@ -21,6 +21,8 @@ export interface PopoverProps {
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseLeave on the component */
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  /** onKeyDown on the target component */
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   /** Show show arrow from the content */
   showArrow?: boolean;
   /** Moves poppover relative to the parent */
