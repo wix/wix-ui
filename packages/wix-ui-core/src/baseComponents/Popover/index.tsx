@@ -88,7 +88,7 @@ export const Popover: PopoverType = props => {
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
-      <Target data-hook="popover-element">
+      <Target onKeyDown={onKeyDown} data-hook="popover-element">
         {childrenObject.Element}
       </Target>
       <Animation inProp={shown} timeout={timeout}>

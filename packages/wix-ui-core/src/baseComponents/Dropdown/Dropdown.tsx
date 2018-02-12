@@ -49,6 +49,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     super(props);
 
     this.close = this.close.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
@@ -148,6 +149,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
         showArrow={showArrow}
         onClick={openTrigger === CLICK ? () => this.open() : null}
         onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
+        onKeyDown={this.onKeyDown}
         onMouseLeave={openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           {children}

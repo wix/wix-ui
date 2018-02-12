@@ -45,6 +45,7 @@ storiesOf('Components', module)
   .add('InputWithOptions Multi select', () => (
     <InputWithOptions
       closeOnSelect={false}
+      inputProps={{}}
       data-hook="story-input-with-options-multi"
       options={dropdownOptions}/>
   ))
