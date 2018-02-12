@@ -1,1 +1,1 @@
-export {Input, InputProps} from './input';
+export {Input, InputProps} from './Input';
