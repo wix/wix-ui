@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
+import * as uniqueId from 'lodash.uniqueid';
 import {Divider} from '../../components/Divider';
 import {Highlighter} from '../Highlighter';
 
@@ -18,7 +18,7 @@ const createOption = (
   value: string,
   render: (val: React.ReactNode) => React.ReactNode = val => val): Option => {
     return {
-        id,
+        id: (id || id === 0) ? id : uniqueId('Option'),
         isDisabled,
         isSelectable,
         value,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as times from 'lodash/times';
+import * as times from 'lodash.times';
 import {mount} from 'enzyme';
 import {boxDriverFactory} from './Box.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';

@@ -1,5 +1,5 @@
 import {core, ButtonTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import * as defaultsDeep from 'lodash.defaultsdeep';
 
 const contentSelector = '& [data-class="button-content"]';
 

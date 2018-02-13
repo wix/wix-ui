@@ -1,5 +1,5 @@
 import {horizontalCore, verticalCore, BoxTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import * as defaultsDeep from 'lodash.defaultsdeep';
 
 export const styles = (theme: BoxTheme) => {
   const verticalTheme = defaultsDeep({...theme}, verticalCore);

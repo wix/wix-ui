@@ -2,7 +2,7 @@ import * as React from 'react';
 import createStory from '../create-story';
 
 import {InputWithAffixes} from '../../src/components/InputWithAffixes';
-import * as InputSource from '!raw-loader!../../src/components/InputWithAffixes/index.tsx';
+import * as InputSource from '!raw-loader!../../src/components/InputWithAffixes/InputWithAffixes.tsx';
 
 export const story = () => createStory({
   category: 'Components',

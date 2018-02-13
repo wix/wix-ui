@@ -1,13 +1,9 @@
 import * as React from 'react';
 import {InputWithOptions} from '../../src/components/InputWithOptions';
-import {OptionFactory} from '../../src/baseComponents/DropdownOption';
-
-const dropdownOptions =
-  Array.from(Array(20))
-    .map((x, index) =>
-      index === 5 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
+import {Option} from '../../src/baseComponents/DropdownOption';
 
 export interface ControlledInputWithOptionsProps {
+  options: Array<Option>;
 }
 
 export interface ControlledInputWithOptionsState {
@@ -21,9 +17,10 @@ export class ControlledInputWithOptions extends React.PureComponent<ControlledIn
   }
 
   render() {
+    const {options} = this.props;
     return (
       <InputWithOptions
-        options={dropdownOptions}
+        options={options}
         onSelect={option => this.setState({value: option.value})}
         inputProps={{
           value: this.state.value,

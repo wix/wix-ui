@@ -29,8 +29,8 @@ export interface DropdownProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
-  /** Maximum height of the options */
-  optionsMaxHeight?: number;
+  /** Makes the component disabled */
+  disabled?: boolean;
 }
 
 export interface DropdownState {
@@ -49,6 +49,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     super(props);
 
     this.close = this.close.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
@@ -137,18 +138,19 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, optionsMaxHeight, fixedFooter, fixedHeader} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled} = this.props;
     const {isOpen, selectedIds} = this.state;
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen && options.length > 0}
+        shown={isOpen && !disabled}
         showArrow={showArrow}
-        onClick={openTrigger === CLICK ? () => this.open() : null}
-        onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
-        onMouseLeave={openTrigger === HOVER ? this.close : null}>
+        onClick={!disabled && openTrigger === CLICK ? () => this.open() : null}
+        onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : null}
+        onKeyDown={!disabled ? this.onKeyDown : null}
+        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : null}>
         <Popover.Element>
           {children}
         </Popover.Element>
@@ -160,7 +162,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
-            maxHeight={optionsMaxHeight}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick} />
         </Popover.Content>

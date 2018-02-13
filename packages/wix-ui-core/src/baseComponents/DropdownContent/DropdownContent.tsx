@@ -17,8 +17,6 @@ export interface DropdownContentProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
-  /** Maximum height of the component */
-  maxHeight?: number;
 }
 
 export interface DropdownContentState {
@@ -31,10 +29,6 @@ export interface DropdownContentState {
 export class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
 
   static displayName = 'DropdownContent';
-  static defaultProps = {
-    maxHeight: 260
-  };
-
   private optionsContainerRef: HTMLDivElement;
   private mouseCoords = {screenX: -1, screenY: -1};
 
@@ -132,7 +126,7 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds, onOptionClick} = this.props;
+    const {fixedHeader, fixedFooter, options, selectedIds, onOptionClick} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
@@ -143,7 +137,6 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         {fixedHeader}
         {
           <div
-            style={{maxHeight: `${maxHeight}px`}}
             className={style.optionsContainer}
             ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
             {

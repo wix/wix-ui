@@ -25,6 +25,8 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     getInnerLabelStyles: () => window.getComputedStyle(element.querySelector('.innerLabel')),
     /** Returns the computed styles object of the toggle icon component */
     getToggleIconStyles: () => window.getComputedStyle(element.querySelector('.toggleIcon')),
+    /** Returns true if the ToggleSwitch is currently focused */
+    isFocused: () => toggleSwitch === document.activeElement,
 
     /** returns elements innerHtml */
     styles: {

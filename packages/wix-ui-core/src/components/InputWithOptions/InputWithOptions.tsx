@@ -26,12 +26,16 @@ export interface InputWithOptionsProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
-  /** Maximum height of the options */
-  optionsMaxHeight?: number;
+  /** Callback for when the editing is changed */
+  onEditingChanged?: (isEditing: boolean) => void;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?: (value: string) => void;
   /** Input prop types */
-  inputProps?: InputProps;
+  inputProps: InputProps;
+  /** Input component */
+  InputComponent?: React.ComponentClass<InputProps>;
+  /** Makes the component disabled */
+  disabled?: boolean;
 }
 
 /**
@@ -45,7 +49,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     closeOnSelect: true,
     initialSelectedIds: [],
     onSelect: () => null,
-    onDeselect: () => null
+    onDeselect: () => null,
+    onManualInput: () => null,
+    InputComponent: Input
   };
 
   static propTypes = {
@@ -67,10 +73,12 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     fixedHeader: node,
     /** An element that always appears at the bottom of the options */
     fixedFooter: node,
-    /** Maximum height of the options */
-    optionsMaxHeight: number,
+    /** Callback for when the editing is changed */
+    onEditingChanged: func,
     /** Input prop types */
-    inputProps: object
+    inputProps: object.isRequired,
+    /** Input component */
+    InputComponent: func
   };
 
   private dropdownRef;
@@ -78,23 +86,36 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   constructor() {
     super();
 
+    this.onFocus = this.onFocus.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  onKeyDown(evt: React.KeyboardEvent<HTMLInputElement>) {
-    this.dropdownRef.getInstance().onKeyDown(evt);
-    const {inputProps} = this.props;
-    inputProps && inputProps.onKeyDown && inputProps.onKeyDown(evt);
   }
 
   onSelect(option: Option) {
     const {onSelect, onManualInput, inputProps} = this.props;
     if (option) {
-      onSelect && onSelect(option);
+      onSelect(option);
     } else {
-      onManualInput && inputProps && inputProps.value && onManualInput(inputProps.value);
+      inputProps.value && onManualInput(inputProps.value);
     }
+  }
+
+  onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+      const {onEditingChanged} = this.props;
+      onEditingChanged && onEditingChanged(true);
+    }
+
+    const {onKeyDown} = this.props.inputProps;
+    onKeyDown && onKeyDown(event);
+  }
+
+  onFocus(event) {
+    const {onEditingChanged} = this.props;
+    onEditingChanged && onEditingChanged(false);
+
+    const {onFocus} = this.props.inputProps;
+    onFocus && onFocus(event);
   }
 
   render () {
@@ -106,8 +127,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       closeOnSelect,
       fixedFooter,
       fixedHeader,
-      optionsMaxHeight,
       onDeselect,
+      disabled,
+      InputComponent,
       inputProps} = this.props;
 
     return (
@@ -118,17 +140,17 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         openTrigger={openTrigger}
         onSelect={this.onSelect}
         showArrow={false}
-        optionsMaxHeight={optionsMaxHeight}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
         onDeselect={onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
-        <Input
+        <InputComponent
           {...inputProps}
-          data-hook="dropdown-input"
           onKeyDown={this.onKeyDown}
+          onFocus={this.onFocus}
+          disabled={disabled}
         />
       </Dropdown>
     );

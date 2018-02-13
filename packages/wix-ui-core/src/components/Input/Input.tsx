@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
+import * as uniqueId from 'lodash.uniqueid';
 import {oneOf, bool, func, string, number} from 'prop-types';
 import style from './Input.st.css';
 

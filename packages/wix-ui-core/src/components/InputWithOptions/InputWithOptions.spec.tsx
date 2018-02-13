@@ -14,7 +14,8 @@ describe('InputWithOptions', () => {
 
   const createInputWithOptions = (props = {}) => (
     <InputWithOptions {...Object.assign({
-      options: []
+      options: [],
+      inputProps: {}
     }, props)}/>
   );
 

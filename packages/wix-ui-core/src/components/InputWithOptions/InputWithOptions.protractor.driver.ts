@@ -1,7 +1,7 @@
 import {inputTestkitFactory, dropdownTestkitFactory} from '../../testkit/protractor';
 
 export const inputWithOptionsDriverFactory = component => {
-  const inputDriver = inputTestkitFactory({dataHook: 'dropdown-input'});
+  const inputDriver = inputTestkitFactory({dataHook: 'popover-element'});
   const getDropdownDriver = () => dropdownTestkitFactory({dataHook: 'dropdown'});
 
   return {

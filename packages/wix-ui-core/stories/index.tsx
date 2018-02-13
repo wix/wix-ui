@@ -8,11 +8,10 @@ import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {IconWithOptions} from '../src/components/IconWithOptions';
 import {InputWithOptions} from '../src/components/InputWithOptions';
-import {MultiCheckbox} from '../src/components/MultiCheckbox';
+import {MultiCheckbox} from './Multiselect';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
-import {GoogleInput} from '../src/components/GoogleInput';
 import {ControlledInputWithOptions} from './InputWithOptions';
 import {TooltipStory} from './Tooltip/custom';
 
@@ -30,9 +29,6 @@ require('./StylableText').story();
 require('./StylableButton').story();
 
 storiesOf('Components', module)
-  .add('GoogleInput', () => (
-    <GoogleInput onSelect={() => null} />
-  ))
   .add('IconWithOptions', () => (
     <IconWithOptions
       iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
@@ -40,18 +36,10 @@ storiesOf('Components', module)
       options={dropdownOptions}/>
   ))
   .add('InputWithOptions Single select', () => (
-    <ControlledInputWithOptions />
-  ))
-  .add('InputWithOptions Multi select', () => (
-    <InputWithOptions
-      closeOnSelect={false}
-      data-hook="story-input-with-options-multi"
-      options={dropdownOptions}/>
+    <ControlledInputWithOptions options={dropdownOptions} />
   ))
   .add('MultiCheckbox', () => (
-    <MultiCheckbox
-      data-hook="story-multi-checkbox"
-      options={dropdownOptions}/>
+    <MultiCheckbox options={dropdownOptions}/>
   ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
+import * as uniqueId from 'lodash.uniqueid';
 import style from './Checkbox.st.css';
 import {bool, func, string, number, array, node} from 'prop-types';
 
