@@ -14,7 +14,7 @@ export const popoverDriverFactory = ({element, eventTrigger}: ComponentFactory<P
   mouseEnter: () => eventTrigger.mouseEnter(element),
   mouseLeave: () => eventTrigger.mouseLeave(element),
   getArrowOffset: () => {
-    const {top, left, right, bottom} = getArrowElement(element).style;
+    const {top, left, right, bottom} = (getArrowElement(element) as HTMLElement).style;
     return {top, left, right, bottom};
   }
 });

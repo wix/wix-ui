@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash.uniqueid';
+import uniqueId = require('lodash.uniqueid');
 import {bool, func, object, string} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';

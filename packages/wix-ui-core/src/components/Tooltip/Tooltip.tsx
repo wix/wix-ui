@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
-import onClickOutside from 'react-onclickoutside';
-import {Popover, Placement, PlacementPropType} from '../../baseComponents/Popover';
+import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
+import {Popover, Placement, PlacementPropType, AppendTo, AppendToPropType} from '../../baseComponents/Popover';
 import {func, bool, number, node, object} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
@@ -30,7 +30,7 @@ export interface TooltipProps {
   /** Enables calculations in relation to a dom element */
   appendToParent?: boolean;
   /** Enables calculations in relation to the parent element*/
-  appendTo?: React.ReactNode;
+  appendTo?: AppendTo;
   /** Provides callback to invoke when outside of tooltip is clicked */
   onClickOutside?: Function;
   /** If true, makes tooltip close when clicked outside (incase it was open) */
@@ -49,7 +49,7 @@ export interface TooltipState {
  * Tooltip
  */
 
-class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
+class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClickOutProps, TooltipState> {
   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
 
@@ -78,7 +78,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     /** callback to call when the tooltip is being hidden */
     onHide: func,
     /** Enables calculations in relation to a dom element */
-    appendTo: node,
+    appendTo: AppendToPropType,
     /** Enables calculations in relation to the parent element*/
     appendToParent: bool,
     /** Provides callback to invoke when outside of tooltip is clicked */
@@ -91,7 +91,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
     showArrow: bool
   };
 
-  constructor(props) {
+  constructor(props: TooltipProps & InjectedOnClickOutProps) {
     super(props);
 
     this.open = this.open.bind(this);
@@ -155,4 +155,4 @@ class TooltipComponent extends React.PureComponent<TooltipProps, TooltipState> {
   }
 }
 
-export const Tooltip = onClickOutside(TooltipComponent);
+export const Tooltip = onClickOutside<any>(TooltipComponent);

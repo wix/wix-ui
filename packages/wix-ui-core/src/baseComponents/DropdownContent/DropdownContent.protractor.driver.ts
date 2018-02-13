@@ -1,4 +1,4 @@
-import {ElementFinder, promise} from 'protractor';
+import {ElementFinder, promise} from 'wix-ui-test-utils/protractor';
 
 export const dropdownContentDriverFactory = (component: ElementFinder) => {
   return {

@@ -6,7 +6,7 @@ import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
-export interface DropdownProps extends InjectedOnClickOutProps {
+export interface DropdownProps {
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
@@ -41,11 +41,11 @@ export interface DropdownState {
 /**
  * Dropdown
  */
-export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+export class DropdownComponent extends React.PureComponent<DropdownProps & InjectedOnClickOutProps, DropdownState> {
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent;
 
-  constructor(props: DropdownProps) {
+  constructor(props: DropdownProps & InjectedOnClickOutProps) {
     super(props);
 
     this.close = this.close.bind(this);

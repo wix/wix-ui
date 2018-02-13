@@ -7,7 +7,7 @@
 
     "strict": true,
     "alwaysStrict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": false,
 
     "target": "es5",

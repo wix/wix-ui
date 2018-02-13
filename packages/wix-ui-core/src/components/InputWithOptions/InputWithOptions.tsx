@@ -4,7 +4,7 @@ import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement, PlacementPropType} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
-import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf} from 'prop-types';
+import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf, Requireable} from 'prop-types';
 import {Input, InputProps} from '../Input';
 
 export interface InputWithOptionsProps {

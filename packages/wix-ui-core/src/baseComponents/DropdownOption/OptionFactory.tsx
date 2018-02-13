@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash.uniqueid';
+import uniqueId = require('lodash.uniqueid');
 import {Divider} from '../../components/Divider';
 import {Highlighter} from '../Highlighter';
 

@@ -1,5 +1,5 @@
 import {core, TextTheme} from './theme';
-import * as defaultsDeep from 'lodash.defaultsdeep';
+import defaultsDeep = require('lodash.defaultsdeep');
 
 export const styles = (theme: TextTheme) => {
   theme = (defaultsDeep(theme, core) as TextTheme);

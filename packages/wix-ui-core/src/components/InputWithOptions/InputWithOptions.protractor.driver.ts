@@ -1,3 +1,4 @@
+import {promise} from 'wix-ui-test-utils/protractor';
 import {inputTestkitFactory, dropdownTestkitFactory} from '../../testkit/protractor';
 
 export const inputWithOptionsDriverFactory = component => {

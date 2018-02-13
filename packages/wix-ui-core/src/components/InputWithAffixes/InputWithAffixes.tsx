@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Input, InputProps} from '../Input';
-import {node} from 'prop-types';
+import {node, Requireable} from 'prop-types';
 import style from './InputWithAffixes.st.css';
 
 export interface InputWithAffixesProps extends InputProps {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash.uniqueid';
-import {oneOf, bool, func, string, number} from 'prop-types';
+import uniqueId = require('lodash.uniqueid');
+import {oneOf, bool, func, string, number, Requireable} from 'prop-types';
 import style from './Input.st.css';
 
 const createAriaAttributes = props => {
