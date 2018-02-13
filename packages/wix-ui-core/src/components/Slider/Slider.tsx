@@ -21,10 +21,10 @@ interface SliderState {
 }
 
 class Slider extends React.PureComponent<SliderProps, SliderState> {
+  root: HTMLDivElement;
   track: HTMLDivElement;
 
   static defaultProps = {
-    handleSize: 35,
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
     dragging: false,
     thumbHover: false
@@ -49,6 +49,11 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   componentWillUnmount() {
     document.removeEventListener('mouseup', this.handleMouseUp);
     document.removeEventListener('mousemove', this.handleMouseMove);
+  }
+
+  setRootNode = (root) => {
+    !this.root && this.forceUpdate();
+    this.root = root;
   }
 
   setTrackNode = (track) => {
@@ -115,7 +120,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   getHandleSize() {
-    return this.props.handleSize;
+    const rootRect = this.root ? this.root.getBoundingClientRect() : {width: 0, height: 0};
+    return this.props.vertical ? rootRect.width : rootRect.height;
   }
 
   shouldShowTooltip() {
@@ -145,10 +151,10 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     const crossVal = this.calcHandleCrossPosition();
 
     if (this.props.vertical) {
-      return {bottom: progressVal, left: crossVal};
+      return {bottom: progressVal, left: 0};
     }
 
-    return {left: progressVal, top: crossVal};
+    return {left: progressVal, top: 0};
   }
 
   renderTooltip() {
@@ -179,7 +185,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {classes, value, min, max, handleSize, vertical} = this.props;
+    const {classes, value, min, max, vertical} = this.props;
+    const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
@@ -191,10 +198,9 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     };
 
     return (
-      <div className={classNames(classes.root, {
+      <div ref={this.setRootNode} className={classNames(classes.root, {
         [classes.vertical]: vertical
       })}
-        style={{width: '100%', height: '100%'}}
         onMouseDown={this.handleMouseDown}
         data-value={value}
         data-min={min}

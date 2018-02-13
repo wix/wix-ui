@@ -7,6 +7,8 @@ export const styles = (theme: SliderTheme) => {
   return {
     root: {
       position: 'relative',
+      width: '100%',
+      height: '100%',
       padding: theme.trackBorderWidth,
       boxSizing: 'border-box',
       display: 'flex',

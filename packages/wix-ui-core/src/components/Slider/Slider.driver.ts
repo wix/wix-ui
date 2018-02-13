@@ -1,3 +1,5 @@
+import * as eventually from 'wix-eventually';
+
 export const sliderDriverFactory = ({element, eventTrigger}) => {
   function getByDataHook(hook) {
     return element.querySelector(`[data-hook=\'${hook}\']`);
@@ -18,6 +20,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     tooltip: () => getByDataHook('tooltip'),
     ticks: () => getAllByDataHook('tick'),
     track: () => element.querySelector('[data-hook=\'track\']'),
+    root: () => element,
 
     mouseMove(value) {
       const mouseMove = new Event('mousemove');
@@ -40,20 +43,50 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       document.dispatchEvent(mouseUp);
     },
 
-    stubTrackBoundingRect(rect) {
-      const trackElement = driver.track();
-      trackElement.getBoundingClientRect = () => rect;
+    stubTrackBoundingRect(rect: any = {
+      bottom: 0,
+      top: 0,
+      left: 0,
+      right: 0,
+      width: 400,
+      height: 50
+    }) {
+      const el = driver.track();
+      el.getBoundingClientRect = () => rect;
+      driver.forceUpdate();
+    },
+
+    stubRootBoundingRect(rect: any = {
+      bottom: 0,
+      top: 0,
+      left: 0,
+      right: 0,
+      width: 400,
+      height: 100
+    }) {
+      const el = driver.root();
+      el.getBoundingClientRect = () => rect;
+      driver.forceUpdate();
     },
 
     getTrackBoundingRect() {
       return driver.track().getBoundingClientRect();
     },
 
+    getRootBoundingRect() {
+      return driver.root().getBoundingClientRect();
+    },
+
+    getThumbSize() {
+      return driver.root().getBoundingClientRect().height;
+    },
+
     getOffsetByValue(value) {
       const rect = driver.getTrackBoundingRect();
       const min = driver.min();
       const max = driver.max();
-      const offset = (value - min) * (rect.width / (max - min));
+      const handleSize = driver.getRootBoundingRect().height;
+      const offset = (value - min) * ((rect.width + handleSize / 2) / (max - min + 1));
       return offset;
     },
 
@@ -99,15 +132,6 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     styles: {
     }
   };
-
-  driver.stubTrackBoundingRect({
-    bottom: 0,
-    top: 0,
-    left: 0,
-    right: 0,
-    width: 400,
-    height: 50
-  });
 
   return driver;
 };
