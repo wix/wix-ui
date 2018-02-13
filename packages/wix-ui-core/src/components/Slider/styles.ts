@@ -9,11 +9,10 @@ export const styles = (theme: SliderTheme) => {
       position: 'relative',
       width: '100%',
       height: '100%',
-      padding: theme.trackBorderWidth,
       boxSizing: 'border-box',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      '& *': {
+        boxSizing: 'border-box',
+      },
     },
     track: {
       width: '100%',
@@ -30,11 +29,25 @@ export const styles = (theme: SliderTheme) => {
       },
       position: 'relative'
     },
+    inner: {
+      display: 'flex',
+      position: 'relative',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%'
+    },
     highlightedTrack: {
       position: 'absolute',
       background: 'linear-gradient(to right, #4992e3, #70bff3)',
       height: '100%',
       width: '100%'
+    },
+    withTicks: {
+      '& $inner': {
+        height: '88.888%',
+        width: '100%'
+      }
     },
     vertical: {
       '& $track': {
@@ -43,18 +56,17 @@ export const styles = (theme: SliderTheme) => {
       },
       '& $highlightedTrack': {
         background: 'linear-gradient(to top, #4992e3, #70bff3)',
-      }
-    },
-    handleWrapper: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none'
+      },
+      '&$withTicks': {
+        '& $inner': {
+          width: '88.888%',
+          height: '100%'
+        }
+      },
     },
     handle: {
       position: 'absolute',
+      zIndex: 1,
       boxSizing: 'border-box',
       background: theme.handleBackground,
       'border-radius': theme.handleRadius,

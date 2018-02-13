@@ -21,8 +21,9 @@ interface SliderState {
 }
 
 class Slider extends React.PureComponent<SliderProps, SliderState> {
-  root: HTMLDivElement;
+  inner: HTMLDivElement;
   track: HTMLDivElement;
+  ContinuousStep = 0.1;
 
   static defaultProps = {
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
@@ -34,11 +35,19 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     super(props);
 
     this.state = {
-      step: props.step || 0.1,
+      step: props.step || this.ContinuousStep,
       dragging: false,
       mouseDown: false,
       thumbHover: false
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.step !== this.props.step) {
+      this.setState({
+        step: nextProps.step || this.ContinuousStep
+      }, () => this.forceUpdate());
+    }
   }
 
   componentDidMount() {
@@ -51,9 +60,14 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     document.removeEventListener('mousemove', this.handleMouseMove);
   }
 
-  setRootNode = (root) => {
-    !this.root && this.forceUpdate();
-    this.root = root;
+  getHandleSize() {
+    const rect = this.inner ? this.inner.getBoundingClientRect() : {width: 0, height: 0};
+    return this.props.vertical ? rect.width : rect.height;
+  }
+
+  setInnerNode = (inner) => {
+    !this.inner && this.forceUpdate();
+    this.inner = inner;
   }
 
   setTrackNode = (track) => {
@@ -105,7 +119,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     let value, pxStep, sliderPos;
 
     if (vertical) {
-      sliderPos = rect.bottom - ev.clientY - handleSize / 2;
+      sliderPos = rect.bottom - (ev.clientY + handleSize / 2);
       pxStep = (rect.height - handleSize) / totalSteps;
     } else {
       sliderPos = ev.clientX - (rect.left + handleSize / 2);
@@ -119,12 +133,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     this.handleChange(value);
   }
 
-  getHandleSize() {
-    const rootRect = this.root ? this.root.getBoundingClientRect() : {width: 0, height: 0};
-    return this.props.vertical ? rootRect.width : rootRect.height;
-  }
-
   shouldShowTooltip() {
+    // return true;
     return this.state.dragging || this.state.thumbHover;
   }
 
@@ -190,6 +200,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
+    const showTicks = !!this.props.step;
     const highlightedTrackPosition = vertical ? {
         bottom: 0,
         height: this.calcHighlightedTrackPosition()
@@ -198,8 +209,9 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     };
 
     return (
-      <div ref={this.setRootNode} className={classNames(classes.root, {
-        [classes.vertical]: vertical
+      <div className={classNames(classes.root, {
+        [classes.vertical]: vertical,
+        [classes.withTicks]: showTicks
       })}
         onMouseDown={this.handleMouseDown}
         data-value={value}
@@ -208,23 +220,25 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-vertical={vertical}
         data-hook="wixui-slider"
     >
-      <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick}>
-        <div className={classes.highlightedTrack} style={{
-          ...highlightedTrackPosition
-        }}/>
+      <div ref={this.setInnerNode} className={classes.inner}>
+        <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick}>
+          <div className={classes.highlightedTrack} style={{
+            ...highlightedTrackPosition
+          }}/>
+        </div>
+        <div data-hook="thumb"
+          className={classes.handle}
+          onMouseEnter={this.handleThumbEnter}
+          onMouseLeave={this.handleThumbLeave}
+          style={{
+            ...handlePosition,
+            width: handleSize,
+            height: handleSize
+          }}
+        />
       </div>
-      <div data-hook="thumb"
-        className={classes.handle}
-        onMouseEnter={this.handleThumbEnter}
-        onMouseLeave={this.handleThumbLeave}
-        style={{
-          ...handlePosition,
-          width: handleSize,
-          height: handleSize
-        }}
-      />
 
-      {this.props.step && (
+      {showTicks && (
         <Ticks
           classes={classes}
           step={step}
@@ -287,12 +301,14 @@ class Ticks extends React.PureComponent<TicksProps> {
         style: Object.assign({}, vertical ? {
           top: val,
           height: 1,
-          width: 6
+          width: '25%',
+          right: 0
         } : {
           left: val,
-          height: 6,
+          height: '25%',
           width: 1,
-          marginTop: 12
+          bottom: 0,
+          marginTop: '10%'
         })
       });
 
