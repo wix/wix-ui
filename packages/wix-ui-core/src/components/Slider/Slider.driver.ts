@@ -43,6 +43,26 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       document.dispatchEvent(mouseUp);
     },
 
+    focus() {
+      eventTrigger.focus(element);
+    },
+
+    arrowLeft() {
+      eventTrigger.keyDown(element, {key: 'ArrowLeft'});
+    },
+
+    arrowRight() {
+      eventTrigger.keyDown(element, {key: 'ArrowRight'});
+    },
+
+    arrowUp() {
+      eventTrigger.keyDown(element, {key: 'ArrowUp'});
+    },
+
+    arrowDown() {
+      eventTrigger.keyDown(element, {key: 'ArrowDown'});
+    },
+
     stubTrackBoundingRect(rect: any = {
       bottom: 0,
       top: 0,

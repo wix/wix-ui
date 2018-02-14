@@ -119,7 +119,46 @@ describe('Slider', () => {
     });
 
     driver.clickSlider(3);
-    sinon.assert.calledWith(onChange, 2); //i know it's not true
+    sinon.assert.calledWith(onChange, 3);
+  });
+
+  describe('key presses, given focused', () => {
+    let onChange, driver;
+
+    beforeEach(() => {
+      onChange = sinon.spy();
+
+      driver = render({
+        step: 0.1,
+        min: 1,
+        max: 10,
+        value: 3,
+        onChange
+      });
+
+      driver.focus();
+    });
+
+    it('should increase the value when clicking the right arrow', () => {
+      driver.arrowRight();
+      sinon.assert.calledWith(onChange, 3.1);
+    });
+
+    it('should increase the value when clicking the up arrow', () => {
+      driver.arrowRight();
+      sinon.assert.calledWith(onChange, 3.1);
+    });
+
+    it('should decrease the value when clicking the left arrow', () => {
+      driver.arrowLeft();
+      sinon.assert.calledWith(onChange, 2.9);
+    });
+
+    it('should decrease the value when clicking the down arrow', () => {
+      driver.arrowDown();
+      sinon.assert.calledWith(onChange, 2.9);
+    });
+
   });
 
   function render(props) {

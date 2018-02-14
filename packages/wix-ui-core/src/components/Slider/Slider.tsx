@@ -42,7 +42,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
       step: props.step || this.ContinuousStep,
       dragging: false,
       mouseDown: false,
-      thumbHover: false
+      thumbHover: false,
     };
   }
 
@@ -87,6 +87,30 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     this.setState({mouseDown: false, dragging: false});
   }
 
+  handleKeyDown = (ev) => {
+    const step = this.state.step;
+    let nextValue;
+
+    switch (ev.key) {
+      case 'ArrowDown':
+      case 'ArrowLeft':
+        nextValue = this.props.value - step;
+        break;
+
+      case 'ArrowUp':
+      case 'ArrowRight':
+        nextValue = this.props.value + step;
+        break;
+
+      default:
+        nextValue = this.props.value;
+    }
+
+    if (nextValue !== this.props.value) {
+      this.handleChange(nextValue);
+    }
+  }
+
   handleMouseMove = ev => {
     if (this.state.mouseDown && !this.state.dragging) {
       this.setState({dragging: true});
@@ -103,6 +127,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   handleThumbEnter = () => {
     this.setState({thumbHover: true});
+    this.forceUpdate();
   }
 
   handleThumbLeave = () => {
@@ -219,6 +244,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-max={max}
         data-vertical={vertical}
         data-hook="wixui-slider"
+        tabIndex={0}
+        onKeyDown={this.handleKeyDown}
     >
       <div ref={this.setInnerNode} className={classes.inner}>
         <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick}>

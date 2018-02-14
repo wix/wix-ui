@@ -13,6 +13,7 @@ export const styles = (theme: SliderTheme) => {
       '& *': {
         boxSizing: 'border-box',
       },
+      outline: 'none !important'
     },
     track: {
       width: '100%',
