@@ -26,6 +26,7 @@ require('./InputWithOptions').story();
 require('./StylableText').story();
 require('./StylableButton').story();
 require('./Tooltip').story();
+require('./Video').story();
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
