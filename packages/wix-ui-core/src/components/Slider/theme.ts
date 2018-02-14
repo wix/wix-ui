@@ -12,6 +12,7 @@ export type SliderTheme = Partial<{
   trackRadius: string;
   trackBorderColor: string;
   trackBorderWidth: string;
+  tooltipBackground: string;
 }>;
 
 export const core: SliderTheme = {
@@ -27,4 +28,5 @@ export const core: SliderTheme = {
   trackRadius: '8px',
   trackBorderColor: 'transparent',
   trackBorderWidth: '2px',
+  tooltipBackground: '#363636'
 };

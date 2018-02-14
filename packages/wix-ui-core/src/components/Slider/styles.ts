@@ -78,12 +78,40 @@ export const styles = (theme: SliderTheme) => {
       },
       cursor: 'pointer',
     },
-    tooltipWrapper: {
-      background: 'navy',
+    tooltip: {
+      position: 'absolute',
+      background: theme.tooltipBackground,
       color: '#fff',
-      padding: '2px',
-      width: '20px',
-      textAlign: 'center'
+      padding: '4px 12px',
+      textAlign: 'center',
+      fontSize: 14,
+      lineHeight: 1.5,
+      borderRadius: 3,
+      left: '50%',
+      top: -7,
+      transform: 'translate(-50%, -100%)',
+      '&::after': {
+          content: '\' \'',
+          position: 'absolute',
+          top: '100%', /* At the bottom of the tooltip */
+          left: '50%',
+          'margin-left': -5,
+          'border-width': 5,
+          'border-style': 'solid',
+          'border-color': `${theme.tooltipBackground} transparent transparent transparent`
+      },
+      '$vertical &': {
+        transform: 'translate(-100%, -50%)',
+        top: '50%',
+        left: -7,
+        '&::after': {
+          top: '50%',
+          left: '100%',
+          'margin-top': -5,
+          'margin-left': 0,
+          'border-color': `transparent transparent transparent ${theme.tooltipBackground}`
+        }
+      }
     },
     tick: {
       display: 'inline-block',

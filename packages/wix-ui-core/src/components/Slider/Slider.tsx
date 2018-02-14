@@ -174,23 +174,11 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
-    const margin = this.props.vertical ? {
-      marginLeft: -24 - 2, //tooltip width
-      marginBottom: handleSize / 2 - 9.5 //half of tooltip height
-    } : {
-      marginTop: -handleSize / 2 - 2,
-      marginLeft: handleSize / 2 - 12 //half of tooltip width
-    };
 
     return React.createElement('div', {
       'data-hook': 'tooltip',
       children: this.props.value,
-      className: this.props.classes.tooltipWrapper,
-      style: {
-        position: 'absolute',
-        ...handlePos,
-        ...margin
-      }
+      className: this.props.classes.tooltip
     });
   }
 
@@ -235,7 +223,9 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
             width: handleSize,
             height: handleSize
           }}
-        />
+        >
+          {this.renderTooltip()}
+        </div>
       </div>
 
       {showTicks && (
@@ -249,8 +239,6 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
           trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
           onTickClick={this.handleTrackClick}
         />)}
-
-      {this.renderTooltip()}
       </div>
     );
   }
@@ -268,7 +256,7 @@ interface TicksProps {
 }
 
 class Ticks extends React.PureComponent<TicksProps> {
-  MaximumTicksDensity = 0.1;
+  MaximumTicksDensity = 0.25;
 
   calcStep() {
     const {step, min, max, trackSize} = this.props;
