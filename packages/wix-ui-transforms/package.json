@@ -1,0 +1,29 @@
+{
+  "name": "wix-ui-transforms",
+  "version": "1.0.0",
+  "description": "A collection of codemods to ",
+  "author": "Andrii Popovych <andriip@wix.com>",
+  "license": "WTFPL",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "bin": {
+    "wix-ui-replace-icons": "./bin/replace-icons.js"
+  },
+  "dependencies": {
+    "jscodeshift": "^0.4.0",
+    "replace-in-files": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.0.4",
+    "jest": "^22.0.4"
+  },
+  "jest": {
+    "roots": [
+      "lib/__tests__"
+    ]
+  }
+}
