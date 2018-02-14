@@ -1,4 +1,4 @@
-import * as React from 'React';
+import * as React from 'react';
 import {DropdownOptionType, DropdownOptionProps} from './';
 import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
