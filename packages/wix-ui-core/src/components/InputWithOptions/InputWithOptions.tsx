@@ -61,27 +61,27 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     options: arrayOf(object).isRequired,
     /** Trigger type to open the content */
     openTrigger: oneOf(['click', 'hover']),
-    // /** Handler for when an option is selected */
+    /** Handler for when an option is selected */
     onSelect: func,
-    // /** Handler for when an option is deselected */
+    /** Handler for when an option is deselected */
     onDeselect: func,
-    // /** initial selected option ids */
+    /** initial selected option ids */
     initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
-    // /** Should close content on select */
+    /** Should close content on select */
     closeOnSelect: bool,
-    // /** An element that always appears at the top of the options */
+    /** An element that always appears at the top of the options */
     fixedHeader: node,
-    // /** An element that always appears at the bottom of the options */
+    /** An element that always appears at the bottom of the options */
     fixedFooter: node,
-    // /** Callback for when the editing is changed */
+    /** Callback for when the editing is changed */
     onEditingChanged: func,
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
     onManualInput: func,
-    // /** Input prop types */
+    /** Input prop types */
     inputProps: object.isRequired,
-    // /** Input component */
+    /** Input component */
     InputComponent: func,
-    // /** Makes the component disabled */
+    /** Makes the component disabled */
     disabled: bool
   };
 
@@ -136,27 +136,27 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       InputComponent,
       inputProps} = this.props;
 
-      return (
-        <Dropdown
-          {...style('root', {}, this.props)}
-          ref={dropdown => this.dropdownRef = dropdown}
-          placement={placement}
-          openTrigger={openTrigger}
-          onSelect={this.onSelect}
-          showArrow={false}
-          fixedFooter={fixedFooter}
-          fixedHeader={fixedHeader}
-          onDeselect={onDeselect}
-          initialSelectedIds={initialSelectedIds}
-          options={options}
-          closeOnSelect={closeOnSelect}>
-          <InputComponent
-            {...inputProps}
-            onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}
-            disabled={disabled}
-          />
-        </Dropdown>
-      );
+    return (
+      <Dropdown
+        {...style('root', {}, this.props)}
+        ref={dropdown => this.dropdownRef = dropdown}
+        placement={placement}
+        openTrigger={openTrigger}
+        onSelect={this.onSelect}
+        showArrow={false}
+        fixedFooter={fixedFooter}
+        fixedHeader={fixedHeader}
+        onDeselect={onDeselect}
+        initialSelectedIds={initialSelectedIds}
+        options={options}
+        closeOnSelect={closeOnSelect}>
+        <InputComponent
+          {...inputProps}
+          onKeyDown={this.onKeyDown}
+          onFocus={this.onFocus}
+          disabled={disabled}
+        />
+      </Dropdown>
+    );
   }
 }
