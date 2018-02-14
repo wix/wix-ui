@@ -9,12 +9,12 @@ export const story = () => createStory({
     name: 'Tooltip',
     storyName: 'Tooltip',
     component: Tooltip,
-    componentProps: () => ({
+    componentProps: {
       'data-hook': 'story-tooltip-right',
       content: <span>This is my tooltip</span>,
       children: <span>Hover me for a tooltip!</span>,
       placement: 'right'
-    }),
+    },
     exampleProps: {
       placement: 'right'
     },

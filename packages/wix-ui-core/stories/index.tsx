@@ -6,9 +6,7 @@ import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
-import {IconWithOptions} from '../src/components/IconWithOptions';
 import {InputWithOptions} from '../src/components/InputWithOptions';
-import {MultiCheckbox} from './Multiselect';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
@@ -22,22 +20,14 @@ const dropdownOptions =
 require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
-require('./Tooltip').story();
+require('./IconWithOptions').story();
 require('./InputWithAffixes').story();
 require('./InputWithOptions').story();
 require('./StylableText').story();
 require('./StylableButton').story();
+require('./Tooltip').story();
 
 storiesOf('Components', module)
-  .add('IconWithOptions', () => (
-    <IconWithOptions
-      iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
-      data-hook="story-icon-with-options"
-      options={dropdownOptions}/>
-  ))
-  .add('MultiCheckbox', () => (
-    <MultiCheckbox options={dropdownOptions}/>
-  ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
   ))

@@ -82,7 +82,7 @@ IconWithOptions.propTypes = {
   /** The dropdown options array */
   options: arrayOf(object).isRequired,
   /** Trigger type to open the content */
-  openTrigger: oneOf([CLICK, HOVER]),
+  openTrigger: oneOf(['click', 'hover']),
   /** Handler for when an option is selected */
   onSelect: func,
   /** Handler for when an option is deselected */
