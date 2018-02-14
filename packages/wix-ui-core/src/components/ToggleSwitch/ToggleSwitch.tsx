@@ -58,21 +58,6 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
   static defaultProps = {checked: false, styles: {}, previewState: ''};
 
-  componentDidMount() {
-    this.toggle.addEventListener('keydown', this._listenToSpace);
-  }
-
-  componentWillUnmount() {
-    this.toggle.removeEventListener('keydown', this._listenToSpace);
-  }
-
-  _listenToSpace = e => {
-    if (e.key === ' ') {
-      e.preventDefault();
-      this._handleChange(e);
-    }
-  }
-
   _handleChange = e => {
     if (!this.props.disabled) {
       this.props.onChange(e);
