@@ -10,7 +10,7 @@ export interface DropdownContentProps {
   /** The dropdown options array */
   options: Array<Option>;
   /** A callback for when clicking an option */
-  onOptionClick: (option: Option) => void;
+  onOptionClick: (option: Option | null) => void;
   /** Array of the selected ids */
   selectedIds: Array<string | number>;
   /** An element that always appears at the top of the options */
@@ -29,7 +29,7 @@ export interface DropdownContentState {
 export class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
 
   static displayName = 'DropdownContent';
-  private optionsContainerRef: HTMLDivElement;
+  private optionsContainerRef: HTMLDivElement | null = null;
   private mouseCoords = {screenX: -1, screenY: -1};
 
   constructor(props: DropdownContentProps) {
@@ -148,8 +148,8 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
                   option={option}
                   isHovered={hoveredIndex === index}
                   isSelected={(selectedIds || []).includes(option.id)}
-                  onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : null}
-                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : null}
+                  onClickHandler={this.isValidOptionForSelection(option) ? (event) => onOptionClick(option) : undefined}
+                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : undefined}
                 />
               ))
             }

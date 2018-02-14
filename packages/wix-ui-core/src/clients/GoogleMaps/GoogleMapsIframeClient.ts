@@ -10,7 +10,7 @@ export class GoogleMapsIframeClient {
     window.addEventListener('message', this.handleMessage, false);
   }
 
-  handleMessage = event => {
+  handleMessage = (event: MessageEvent) => {
     const {data} = event;
     if (data.requestId && this._promisesMap.has(data.requestId)) {
       const promise = this._promisesMap.get(data.requestId);
@@ -18,7 +18,7 @@ export class GoogleMapsIframeClient {
     }
   }
 
-  autocomplete(apiKey, lang, request) {
+  autocomplete(apiKey: string, lang: string, request: object) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);
@@ -35,7 +35,7 @@ export class GoogleMapsIframeClient {
     return requestPromise;
   }
 
-  geocode(apiKey, lang, request) {
+  geocode(apiKey: string, lang: string, request: object) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);
@@ -52,7 +52,7 @@ export class GoogleMapsIframeClient {
     return requestPromise;
   }
 
-  placeDetails(apiKey, lang, request) {
+  placeDetails(apiKey: string, lang: string, request: object) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);

@@ -57,7 +57,7 @@ const Animation = ({inProp, children, timeout = 150}) =>
       {children}
   </CSSTransition>;
 
-const getArrowShift = (shift: number, direction: string) => {
+const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift) {
     return {};
   }

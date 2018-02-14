@@ -1,6 +1,6 @@
 import {IframesManager} from './IframesManager';
 import {getIframes, getIframeWithLangAndApiKey, isIframeVisible} from '../IframeTestUtils';
-let iframesManager;
+let iframesManager: IframesManager;
 
 describe('IframesManager', () => {
   beforeEach(() => {

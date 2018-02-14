@@ -1,4 +1,6 @@
-export const googleMapsIframeClientDriverFactory = component => {
+import {ElementFinder} from 'wix-ui-test-utils/protractor';
+
+export const googleMapsIframeClientDriverFactory = (component: ElementFinder) => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');
@@ -9,10 +11,13 @@ export const googleMapsIframeClientDriverFactory = component => {
       return JSON.parse(results);
     },
     getResultsElementWrapper: () => resultsElementWrapper,
-    enterText: text => input.clear().sendKeys(text),
-    selectByValue: value => {
-      return getButtons().getText()
-        .then(names => {
+    enterText: (text: string) => {
+      input.clear();
+      input.sendKeys(text);
+    },
+    selectByValue: async (value: string) => {
+      return await getButtons().getText()
+        .then((names: string) => {
           const btnIdx = names.indexOf(value);
           getButtons().get(btnIdx).click();
         });

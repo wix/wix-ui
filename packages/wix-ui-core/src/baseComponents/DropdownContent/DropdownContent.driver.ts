@@ -7,10 +7,10 @@ const getOptionAt = (element: Element, index: number) => element.querySelectorAl
 export const dropdownContentDriverFactory = ({element, eventTrigger}: ComponentFactory<DropdownContent>) => ({
   exists: () => !!element,
   optionAt: (index: number) => {
-    const option = getOptionAt(element, index);
+    const option = element ? getOptionAt(element, index) : null;
     return {
-      click: () => eventTrigger.click(option),
-      isHovered: () => isAttributeExists(option, attribute => attribute.name.includes('hover') && attribute.value === 'true')
+      click: () => option && eventTrigger.click(option),
+      isHovered: () => option && isAttributeExists(option, attribute => attribute.name.includes('hover') && attribute.value === 'true')
     };
   }
 });

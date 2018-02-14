@@ -44,12 +44,12 @@ const hightlightMatches = (option: Option, searchTerm: string): Option => {
 
 export const OptionFactory = {
   create: createOption,
-  createDivider(value: string = null): Option {
+  createDivider(value: string = ''): Option {
     return createOption(
       uniqueId('Divider'),
       false,
       false,
-      null,
+      '',
       value ? () => <Divider>{value}</Divider> : () => <Divider/>);
   },
   createCustomDivider(divider: React.ReactElement<any>): Option {
@@ -57,7 +57,7 @@ export const OptionFactory = {
       uniqueId('Divider'),
       false,
       false,
-      null,
+      '',
       () => divider);
   },
   createHighlighted(
