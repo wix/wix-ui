@@ -102,10 +102,10 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         nextValue = this.props.value + step;
         break;
       case 'PageDown':
-        nextValue = this.props.value - 0.1 * max;
+        nextValue = this.props.value - 0.1 * (max - min);
         break;
       case 'PageUp':
-        nextValue = this.props.value + 0.1 * max;
+        nextValue = this.props.value + 0.1 * (max - min);
         break;
       case 'Home':
         nextValue = min;

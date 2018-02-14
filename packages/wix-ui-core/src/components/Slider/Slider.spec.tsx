@@ -130,9 +130,9 @@ describe('Slider', () => {
 
       driver = render({
         step: 0.1,
-        min: 1,
-        max: 10,
-        value: 3,
+        min: 50,
+        max: 100,
+        value: 60,
         onChange
       });
 
@@ -141,42 +141,42 @@ describe('Slider', () => {
 
     it('should increase the value when clicking the right arrow', () => {
       driver.arrowRight();
-      sinon.assert.calledWith(onChange, 3.1);
+      sinon.assert.calledWith(onChange, 60.1);
     });
 
     it('should increase the value when clicking the up arrow', () => {
       driver.arrowRight();
-      sinon.assert.calledWith(onChange, 3.1);
+      sinon.assert.calledWith(onChange, 60.1);
     });
 
     it('should decrease the value when clicking the left arrow', () => {
       driver.arrowLeft();
-      sinon.assert.calledWith(onChange, 2.9);
+      sinon.assert.calledWith(onChange, 59.9);
     });
 
     it('should decrease the value when clicking the down arrow', () => {
       driver.arrowDown();
-      sinon.assert.calledWith(onChange, 2.9);
+      sinon.assert.calledWith(onChange, 59.9);
     });
 
-    it('should increase the value by 0.1 * max when clicking Page Up', () => {
+    it('should increase the value by 0.1 * (max - min) when clicking Page Up', () => {
       driver.pageUp();
-      sinon.assert.calledWith(onChange, 4);
+      sinon.assert.calledWith(onChange, 65);
     });
 
-    it('should decrease the value by 0.1 * max when clicking Page Down', () => {
+    it('should decrease the value by 0.1 * (max - min) when clicking Page Down', () => {
       driver.pageDown();
-      sinon.assert.calledWith(onChange, 2);
+      sinon.assert.calledWith(onChange, 55);
     });
 
     it('should set the value to maximum when clicking End', () => {
       driver.end();
-      sinon.assert.calledWith(onChange, 10);
+      sinon.assert.calledWith(onChange, 100);
     });
 
     it('should set the value to minimum when clicking Home', () => {
       driver.home();
-      sinon.assert.calledWith(onChange, 1);
+      sinon.assert.calledWith(onChange, 50);
     });
 
     it('should not decrease below the minimum', () => {
