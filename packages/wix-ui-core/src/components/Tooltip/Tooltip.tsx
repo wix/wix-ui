@@ -55,7 +55,7 @@ class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClic
 
   static displayName = 'Tooltip';
   static defaultProps = {
-    placement: 'top',
+    placement: 'top' as Placement,
     onShow: noop,
     onHide: noop,
     timeout: 150,
@@ -155,4 +155,4 @@ class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClic
   }
 }
 
-export const Tooltip = onClickOutside(TooltipComponent);
+export const Tooltip = onClickOutside<any>(TooltipComponent);
