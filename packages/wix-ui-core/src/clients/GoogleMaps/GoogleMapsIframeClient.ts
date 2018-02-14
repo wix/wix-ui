@@ -18,7 +18,7 @@ export class GoogleMapsIframeClient {
     }
   }
 
-  autocomplete(apiKey: string, lang: string, request: object) {
+  autocomplete(apiKey: string, lang: string, request: string) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);
@@ -35,7 +35,7 @@ export class GoogleMapsIframeClient {
     return requestPromise;
   }
 
-  geocode(apiKey: string, lang: string, request: object) {
+  geocode(apiKey: string, lang: string, request: string) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);
@@ -52,7 +52,7 @@ export class GoogleMapsIframeClient {
     return requestPromise;
   }
 
-  placeDetails(apiKey: string, lang: string, request: object) {
+  placeDetails(apiKey: string, lang: string, request: string) {
     let requestIframe;
     if (this._iframesManager.hasIframe(apiKey, lang)) {
       requestIframe = this._iframesManager.getIframe(apiKey, lang);
