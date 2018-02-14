@@ -114,7 +114,7 @@ describe('Slider', () => {
       step: 1,
       min: 1,
       max: 10,
-      value: 3,
+      value: 7,
       onChange
     });
 
@@ -122,7 +122,7 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 3);
   });
 
-  describe('key presses, given focused', () => {
+  describe('key presses', () => {
     let onChange, driver;
 
     beforeEach(() => {
@@ -159,6 +159,37 @@ describe('Slider', () => {
       sinon.assert.calledWith(onChange, 2.9);
     });
 
+    it('should not decrease below the minimum', () => {
+      driver = render({
+        step: 0.1,
+        min: 1,
+        max: 10,
+        value: 1,
+        onChange
+      });
+
+      driver.focus();
+
+      driver.arrowLeft();
+
+      sinon.assert.notCalled(onChange);
+    });
+
+    it('should not increase above the maximum', () => {
+      driver = render({
+        step: 0.1,
+        min: 1,
+        max: 10,
+        value: 10,
+        onChange
+      });
+
+      driver.focus();
+
+      driver.arrowRight();
+
+      sinon.assert.notCalled(onChange);
+    });
   });
 
   function render(props) {

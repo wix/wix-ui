@@ -106,9 +106,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         nextValue = this.props.value;
     }
 
-    if (nextValue !== this.props.value) {
-      this.handleChange(nextValue);
-    }
+    this.handleChange(nextValue);
   }
 
   handleMouseMove = ev => {
@@ -122,7 +120,11 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleChange(value) {
-    this.props.onChange(value);
+    value = this.clamp(value, this.props.min, this.props.max);
+
+    if (value !== this.props.value) {
+      this.props.onChange(value);
+    }
   }
 
   handleThumbEnter = () => {
@@ -156,8 +158,6 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     }
 
     value = min + step * Math.round(sliderPos / pxStep);
-
-    value = this.clamp(value, min, max);
 
     this.handleChange(value);
   }
