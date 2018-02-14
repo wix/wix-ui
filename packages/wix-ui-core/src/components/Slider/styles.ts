@@ -78,6 +78,28 @@ export const styles = (theme: SliderTheme) => {
       },
       cursor: 'pointer',
     },
+    tooltipTop: {
+      top: -7,
+      transform: 'translate(-50%, -100%)',
+      '&::after': {
+        'border-color': `${theme.tooltipBackground} transparent transparent transparent`,
+        top: '100%', /* At the bottom of the tooltip */
+        left: '50%'
+      }
+    },
+    tooltipBottom: {
+      bottom: -7,
+      transform: 'translate(-50%, 100%)',
+      '&::after': {
+        'border-color': `transparent transparent ${theme.tooltipBackground} transparent`,
+        bottom: '100%', /* At the bottom of the tooltip */
+        left: '50%'
+      }
+    },
+    tooltipRight: {
+    },
+    tooltipLeft: {
+    },
     tooltip: {
       position: 'absolute',
       background: theme.tooltipBackground,
@@ -88,28 +110,35 @@ export const styles = (theme: SliderTheme) => {
       lineHeight: 1.5,
       borderRadius: 3,
       left: '50%',
-      top: -7,
-      transform: 'translate(-50%, -100%)',
       '&::after': {
-          content: '\' \'',
-          position: 'absolute',
-          top: '100%', /* At the bottom of the tooltip */
-          left: '50%',
-          'margin-left': -5,
-          'border-width': 5,
-          'border-style': 'solid',
-          'border-color': `${theme.tooltipBackground} transparent transparent transparent`
+        content: '\' \'',
+        position: 'absolute',
+        'margin-left': -5,
+        'border-width': 5,
+        'border-style': 'solid'
       },
       '$vertical &': {
-        transform: 'translate(-100%, -50%)',
         top: '50%',
-        left: -7,
         '&::after': {
           top: '50%',
-          left: '100%',
           'margin-top': -5,
-          'margin-left': 0,
-          'border-color': `transparent transparent transparent ${theme.tooltipBackground}`
+          'margin-left': 0
+        },
+        '&$tooltipLeft': {
+          left: -7,
+          transform: 'translate(-100%, -50%)',
+          '&::after': {
+            left: '100%',
+            'border-color': `transparent transparent transparent ${theme.tooltipBackground}`
+          }
+        },
+        '&$tooltipRight': {
+          right: -7,
+          transform: 'translate(100%, -50%)',
+          '&::after': {
+            right: '100%',
+            'border-color': `transparent ${theme.tooltipBackground} transparent transparent`
+          }
         }
       }
     },

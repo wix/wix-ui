@@ -11,6 +11,7 @@ export interface SliderProps {
   vertical?: boolean;
   handleSize?: number;
   step?: any;
+  tooltipPosition?: string;
 }
 
 interface SliderState {
@@ -19,6 +20,9 @@ interface SliderState {
   thumbHover: boolean;
   step: number;
 }
+
+const DefaultTooltipPosition = 'top';
+const DefaultVerticalTooltipPosition = 'left';
 
 class Slider extends React.PureComponent<SliderProps, SliderState> {
   inner: HTMLDivElement;
@@ -174,9 +178,17 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
+    const {tooltipPosition, vertical, classes} = this.props;
+    const position: string = tooltipPosition ||
+      vertical ? DefaultVerticalTooltipPosition : DefaultTooltipPosition;
 
     return (
-      <div data-hook="tooltip" className={this.props.classes.tooltip}>
+      <div data-hook="tooltip" className={classNames(this.props.classes.tooltip, {
+        [classes.tooltipTop]: position === 'top',
+        [classes.tooltipBottom]: position === 'bottom',
+        [classes.tooltipLeft]: position === 'left',
+        [classes.tooltipRight]: position === 'right'
+      })}>
         {this.props.value}
       </div>
     );
