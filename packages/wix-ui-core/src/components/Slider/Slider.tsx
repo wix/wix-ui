@@ -88,7 +88,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleKeyDown = (ev) => {
-    const step = this.state.step;
+    const {step} = this.state;
+    const {max, min} = this.props;
     let nextValue;
 
     switch (ev.key) {
@@ -96,17 +97,30 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
       case 'ArrowLeft':
         nextValue = this.props.value - step;
         break;
-
       case 'ArrowUp':
       case 'ArrowRight':
         nextValue = this.props.value + step;
         break;
-
+      case 'PageDown':
+        nextValue = this.props.value - 0.1 * max;
+        break;
+      case 'PageUp':
+        nextValue = this.props.value + 0.1 * max;
+        break;
+      case 'Home':
+        nextValue = min;
+        break;
+      case 'End':
+        nextValue = max;
+        break;
       default:
-        nextValue = this.props.value;
+        nextValue = undefined;
     }
 
-    this.handleChange(nextValue);
+    if (typeof nextValue !== 'undefined') {
+      this.handleChange(nextValue);
+      ev.preventDefault();
+    }
   }
 
   handleMouseMove = ev => {

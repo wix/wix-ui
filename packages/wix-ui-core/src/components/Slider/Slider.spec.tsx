@@ -159,6 +159,26 @@ describe('Slider', () => {
       sinon.assert.calledWith(onChange, 2.9);
     });
 
+    it('should increase the value by 0.1 * max when clicking Page Up', () => {
+      driver.pageUp();
+      sinon.assert.calledWith(onChange, 4);
+    });
+
+    it('should decrease the value by 0.1 * max when clicking Page Down', () => {
+      driver.pageDown();
+      sinon.assert.calledWith(onChange, 2);
+    });
+
+    it('should set the value to maximum when clicking End', () => {
+      driver.end();
+      sinon.assert.calledWith(onChange, 10);
+    });
+
+    it('should set the value to minimum when clicking Home', () => {
+      driver.home();
+      sinon.assert.calledWith(onChange, 1);
+    });
+
     it('should not decrease below the minimum', () => {
       driver = render({
         step: 0.1,

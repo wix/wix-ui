@@ -63,6 +63,22 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       eventTrigger.keyDown(element, {key: 'ArrowDown'});
     },
 
+    pageUp() {
+      eventTrigger.keyDown(element, {key: 'PageUp'});
+    },
+
+    pageDown() {
+      eventTrigger.keyDown(element, {key: 'PageDown'});
+    },
+
+    home() {
+      eventTrigger.keyDown(element, {key: 'Home'});
+    },
+
+    end() {
+      eventTrigger.keyDown(element, {key: 'End'});
+    },
+
     stubTrackBoundingRect(rect: any = {
       bottom: 0,
       top: 0,
