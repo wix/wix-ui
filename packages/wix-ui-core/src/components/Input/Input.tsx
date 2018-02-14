@@ -1,5 +1,5 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
+const uniqueId = require('lodash.uniqueid');
 import {oneOf, bool, func, string, number, Requireable} from 'prop-types';
 import style from './Input.st.css';
 
