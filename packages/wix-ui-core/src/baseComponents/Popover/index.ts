@@ -1,1 +1,1 @@
-export {Popover, PopoverType, Placement, PlacementPropType, AppendTo, AppendToPropType} from './Popover';
+export {Popover, PopoverType, Placement, AppendTo, AppendToPropType} from './Popover';

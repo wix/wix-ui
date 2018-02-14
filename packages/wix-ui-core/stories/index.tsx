@@ -12,7 +12,6 @@ import {MultiCheckbox} from './Multiselect';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
-import {ControlledInputWithOptions} from './InputWithOptions';
 import {TooltipStory} from './Tooltip/custom';
 
 const dropdownOptions =
@@ -25,6 +24,7 @@ require('./Button').story();
 require('./Input').story();
 require('./Tooltip').story();
 require('./InputWithAffixes').story();
+require('./InputWithOptions').story();
 require('./StylableText').story();
 require('./StylableButton').story();
 
@@ -34,9 +34,6 @@ storiesOf('Components', module)
       iconUrl="https://cdn3.iconfinder.com/data/icons/caps-hats/512/Ladies_cap-128.png"
       data-hook="story-icon-with-options"
       options={dropdownOptions}/>
-  ))
-  .add('InputWithOptions Single select', () => (
-    <ControlledInputWithOptions options={dropdownOptions} />
   ))
   .add('MultiCheckbox', () => (
     <MultiCheckbox options={dropdownOptions}/>

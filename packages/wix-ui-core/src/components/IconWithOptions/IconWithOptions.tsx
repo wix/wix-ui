@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './IconWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
-import {Placement, PlacementPropType} from '../../baseComponents/Popover';
+import {Placement} from '../../baseComponents/Popover';
 import {Option} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
@@ -78,7 +78,7 @@ IconWithOptions.defaultProps = {
 
 IconWithOptions.propTypes = {
   /** The location to display the content */
-  placement: PlacementPropType,
+  placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
   /** The dropdown options array */
   options: arrayOf(object).isRequired,
   /** Trigger type to open the content */

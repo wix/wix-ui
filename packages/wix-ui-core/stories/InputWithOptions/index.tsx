@@ -1,32 +1,27 @@
 import * as React from 'react';
+import createStory from '../create-story';
 import {InputWithOptions} from '../../src/components/InputWithOptions';
-import {Option} from '../../src/baseComponents/DropdownOption';
+import * as InputWithOptionsSource from '!raw-loader!../../src/components/InputWithOptions/InputWithOptions.tsx';
+import {OptionFactory} from '../../src/baseComponents/DropdownOption';
 
-export interface ControlledInputWithOptionsProps {
-  options: Array<Option>;
-}
+const dropdownOptions =
+  Array.from(Array(20))
+    .map((x, index) =>
+      index === 5 ?
+        OptionFactory.createDivider() :
+        OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
-export interface ControlledInputWithOptionsState {
-  value: string;
-}
+dropdownOptions.forEach(x => x.render = null);
 
-export class ControlledInputWithOptions extends React.PureComponent<ControlledInputWithOptionsProps, ControlledInputWithOptionsState> {
-  constructor() {
-    super();
-    this.state = {value: ''};
+export const story = () => createStory({
+  category: 'Components',
+  name: 'InputWithOptions',
+  storyName: 'InputWithOptions',
+  component: InputWithOptions,
+  source: InputWithOptionsSource,
+  componentProps: {
+    'data-hook': 'storybook-inputwithoptions',
+    options: dropdownOptions,
+    inputProps: {}
   }
-
-  render() {
-    const {options} = this.props;
-    return (
-      <InputWithOptions
-        options={options}
-        onSelect={option => this.setState({value: option.value})}
-        inputProps={{
-          value: this.state.value,
-          onChange: event => this.setState({value: event.target.value})
-        }}
-      />
-    );
-  }
-}
+});
