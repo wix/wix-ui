@@ -175,11 +175,11 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
 
-    return React.createElement('div', {
-      'data-hook': 'tooltip',
-      children: this.props.value,
-      className: this.props.classes.tooltip
-    });
+    return (
+      <div data-hook="tooltip" className={this.props.classes.tooltip}>
+        {this.props.value}
+      </div>
+    );
   }
 
   render() {
@@ -295,8 +295,7 @@ class Ticks extends React.PureComponent<TicksProps> {
           left: val,
           height: '25%',
           width: 1,
-          bottom: 0,
-          marginTop: '10%'
+          bottom: 0
         })
       });
 
