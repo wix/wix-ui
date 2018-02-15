@@ -1,0 +1,14 @@
+:import {
+  -st-from: "../Input/Input.st.css";
+  -st-default: Input;
+}
+
+.root {}
+
+.input {
+  -st-extends: Input;
+}
+
+.prefix {}
+
+.suffix {}

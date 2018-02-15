@@ -58,6 +58,12 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     }
   }
 
+  public componentWillUnmount() {
+    if (this.props.updateResponsiveLayout) {
+      this.props.updateResponsiveLayout(() => null);
+    }
+  }
+
   public render() {
     return (
       <div

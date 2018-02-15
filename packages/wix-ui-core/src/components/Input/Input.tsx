@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
-import {oneOf, bool, func, string, number} from 'prop-types';
+const uniqueId = require('lodash.uniqueid');
+import {oneOf, bool, func, string, number, Requireable} from 'prop-types';
 import style from './Input.st.css';
 
 const createAriaAttributes = props => {
@@ -34,6 +34,7 @@ export interface InputProps {
   tabIndex?: number;
   type?: string;
   value?: string;
+  className?: string;
 }
 
 export interface InputState {
@@ -84,7 +85,8 @@ export class Input extends React.Component<InputProps, InputState> {
     /** Standard component tabIndex */
     tabIndex: number,
     /** The type of the input - number / text */
-    type: oneOf(['number', 'text'])
+    type: oneOf(['number', 'text']),
+    className: string
   };
 
   constructor(props) {

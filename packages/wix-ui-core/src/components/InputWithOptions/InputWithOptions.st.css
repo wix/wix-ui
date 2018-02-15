@@ -1,4 +1,4 @@
-@custom-selector :--contentContainer .root::popoverContentContainer;
+@custom-selector :--contentContainer .root::popover;
 @custom-selector :--option .root::dropdownContent::dropdownOption;
 
 :import {

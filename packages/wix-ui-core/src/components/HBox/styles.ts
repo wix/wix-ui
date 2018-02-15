@@ -1,5 +1,5 @@
 import {core, HBoxTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import defaultsDeep = require('lodash.defaultsdeep');
 
 export const styles = (theme: HBoxTheme) => {
   theme = (defaultsDeep(theme, core) as HBoxTheme);

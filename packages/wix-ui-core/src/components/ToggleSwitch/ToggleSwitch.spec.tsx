@@ -9,6 +9,24 @@ import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '..
 import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 import {mount} from 'enzyme';
 
+const getRefExpose = (Child, props) => {
+  return class RefExpose extends React.Component {
+    childRef: HTMLElement;
+
+    focus() {
+      this.childRef.focus();
+    }
+
+    blur() {
+      this.childRef.blur();
+    }
+
+    render() {
+      return <Child {...props} ref={e => this.childRef = e}/>;
+    }
+  };
+};
+
 describe('ToggleSwitch', () => {
 
   const createDriver = createDriverFactory(toggleSwitchDriverFactory);
@@ -133,6 +151,33 @@ describe('ToggleSwitch', () => {
     it('should apply inline styles for toggleIcon element', () => {
       const driver = createDriver(<ToggleSwitch onChange={noop} styles={{toggleIcon: {color: 'black'}}}/>);
       expect(driver.getToggleIconStyles().color).toBe('black');
+    });
+  });
+
+  describe('focus and blur', () => {
+    let driver, wrapper;
+
+    const focus = () => wrapper.instance().focus();
+    const blur = () => wrapper.instance().blur();
+
+    beforeEach(() => {
+      const RefExpose = getRefExpose(ToggleSwitch, {onChange: () => null});
+      wrapper = mount(<RefExpose />);
+      const element = wrapper.getDOMNode();
+      driver = toggleSwitchDriverFactory({element, eventTrigger: {}});
+    });
+
+    it('should expose a focus() method', () => {
+      expect(driver.isFocused()).toBeFalsy();
+      focus();
+      expect(driver.isFocused()).toBeTruthy();
+    });
+
+    it('should expose a blur() method', () => {
+      focus();
+      expect(driver.isFocused()).toBeTruthy();
+      blur();
+      expect(driver.isFocused()).toBeFalsy();
     });
   });
 });

@@ -10,6 +10,7 @@
 .optionsContainer {
   outline: 0;
   overflow: auto;
+  max-height: 260px;
 }
 
 .dropdownOption {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import onClickOutside from 'react-onclickoutside';
+import onClickOutside , {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
@@ -18,9 +18,9 @@ export interface DropdownProps {
   /** Trigger type to open the content */
   openTrigger: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
-  onSelect: (option: Option) => void;
+  onSelect: (option: Option | null) => void;
   /** Handler for when an option is deselected */
-  onDeselect: (option: Option) => void;
+  onDeselect: (option: Option | null) => void;
   /** initial selected option ids */
   initialSelectedIds: Array<string | number>;
   /** Should close content on select */
@@ -29,8 +29,8 @@ export interface DropdownProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
-  /** Maximum height of the options */
-  optionsMaxHeight?: number;
+  /** Makes the component disabled */
+  disabled?: boolean;
 }
 
 export interface DropdownState {
@@ -41,26 +41,27 @@ export interface DropdownState {
 /**
  * Dropdown
  */
-export class DropdownComponent extends React.PureComponent<DropdownProps, DropdownState> {
+export class DropdownComponent extends React.PureComponent<DropdownProps & InjectedOnClickOutProps, DropdownState> {
   static displayName = 'Dropdown';
-  private dropdownContentRef: DropdownContent;
+  private dropdownContentRef: DropdownContent | null = null;
 
-  constructor(props) {
+  constructor(props: DropdownProps & InjectedOnClickOutProps) {
     super(props);
 
     this.close = this.close.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
 
     const {initialSelectedIds, options} = props;
     const selectedIds =
        (initialSelectedIds || [])
          .map(id => options.find(option => id === option.id))
-         .filter(option => !!option && !option.isDisabled && option.isSelectable)
-         .map(x => x.id);
+         .filter(option => option && !option.isDisabled && option.isSelectable)
+         .map(x => x && x.id);
 
     this.state = {
       isOpen: false,
-      selectedIds
+      selectedIds: selectedIds as Array<string | number>
     };
   }
 
@@ -68,7 +69,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     this.close();
   }
 
-  open(onOpen: () => void = null) {
+  open(onOpen: () => void = () => null) {
     if (this.state.isOpen) {
       onOpen && onOpen();
     } else {
@@ -85,7 +86,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     const eventKey = evt.key;
     this.open(() => {
-      this.dropdownContentRef.onKeyDown(eventKey);
+      this.dropdownContentRef && this.dropdownContentRef.onKeyDown(eventKey);
       switch (eventKey) {
         case 'Enter': {
           const {closeOnSelect} = this.props;
@@ -102,7 +103,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
     });
   }
 
-  onOptionClick(option: Option) {
+  onOptionClick(option: Option | null) {
     const {onSelect, onDeselect, closeOnSelect} = this.props;
     const {selectedIds} = this.state;
     let callback = onSelect;
@@ -137,18 +138,19 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, optionsMaxHeight, fixedFooter, fixedHeader} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled} = this.props;
     const {isOpen, selectedIds} = this.state;
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen && options.length > 0}
+        shown={isOpen && !disabled}
         showArrow={showArrow}
-        onClick={openTrigger === CLICK ? () => this.open() : null}
-        onMouseEnter={openTrigger === HOVER ? () => this.open() : null}
-        onMouseLeave={openTrigger === HOVER ? this.close : null}>
+        onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
+        onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
+        onKeyDown={!disabled ? this.onKeyDown : undefined}
+        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}>
         <Popover.Element>
           {children}
         </Popover.Element>
@@ -160,7 +162,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
-            maxHeight={optionsMaxHeight}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick} />
         </Popover.Content>
@@ -169,8 +170,4 @@ export class DropdownComponent extends React.PureComponent<DropdownProps, Dropdo
   }
 }
 
-export type DropdownType = React.ComponentClass<DropdownProps> & {
-  getInstance: () => DropdownComponent
-};
-
-export const Dropdown: DropdownType = onClickOutside(DropdownComponent);
+export const Dropdown = onClickOutside(DropdownComponent);

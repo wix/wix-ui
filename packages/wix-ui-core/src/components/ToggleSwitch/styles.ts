@@ -1,5 +1,5 @@
 import {core, ToggleSwitchTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import defaultsDeep = require('lodash.defaultsdeep');
 
 const selectors = {
   toggleIconPath: '& ~ $innerLabel > $toggleIcon path',
@@ -32,7 +32,10 @@ export const styles = (theme: ToggleSwitchTheme) => {
       outline: 'none',
 
       '& > input[type=checkbox]': {
-        display: 'none'
+        width: 0,
+        height: 0,
+        opacity: 0,
+        margin: 0
       },
 
       [selectors.state('checked')]: {

@@ -1,1 +1,1 @@
-export {DropdownContent} from './DropdownContent';
+export {DropdownContent, DropdownContentProps} from './DropdownContent';

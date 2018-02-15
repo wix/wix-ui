@@ -14,7 +14,7 @@ declare module '*.css' {
 }
 
 interface StateMap {
-  [key: string]: boolean;
+  [key: string]: boolean | number | string;
 }
 
 interface Stylesheet {

@@ -10,15 +10,13 @@ export interface DropdownContentProps {
   /** The dropdown options array */
   options: Array<Option>;
   /** A callback for when clicking an option */
-  onOptionClick: (option: Option) => void;
+  onOptionClick: (option: Option | null) => void;
   /** Array of the selected ids */
   selectedIds: Array<string | number>;
   /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
-  /** Maximum height of the component */
-  maxHeight?: number;
 }
 
 export interface DropdownContentState {
@@ -31,14 +29,10 @@ export interface DropdownContentState {
 export class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
 
   static displayName = 'DropdownContent';
-  static defaultProps = {
-    maxHeight: 260
-  };
-
-  private optionsContainerRef: HTMLDivElement;
+  private optionsContainerRef: HTMLDivElement | null = null;
   private mouseCoords = {screenX: -1, screenY: -1};
 
-  constructor(props) {
+  constructor(props: DropdownContentProps) {
     super(props);
 
     this.onMouseMove = this.onMouseMove.bind(this);
@@ -132,7 +126,7 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, maxHeight, selectedIds, onOptionClick} = this.props;
+    const {fixedHeader, fixedFooter, options, selectedIds, onOptionClick} = this.props;
     const {hoveredIndex} = this.state;
 
     return (
@@ -143,7 +137,6 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         {fixedHeader}
         {
           <div
-            style={{maxHeight: `${maxHeight}px`}}
             className={style.optionsContainer}
             ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
             {
@@ -155,8 +148,8 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
                   option={option}
                   isHovered={hoveredIndex === index}
                   isSelected={(selectedIds || []).includes(option.id)}
-                  onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : null}
-                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : null}
+                  onClickHandler={this.isValidOptionForSelection(option) ? (event) => onOptionClick(option) : undefined}
+                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : undefined}
                 />
               ))
             }
