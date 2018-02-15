@@ -142,6 +142,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         ref={dropdown => this.dropdownRef = dropdown}
         placement={placement}
         openTrigger={openTrigger}
+        disabled={disabled}
         onSelect={this.onSelect}
         showArrow={false}
         fixedFooter={fixedFooter}

@@ -40,7 +40,7 @@ export interface CheckboxState {
 /**
  * Checkbox
  */
-export default class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
+export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
   public static displayName: string = 'Checkbox';
 
   public static propTypes: Object = {

@@ -23,5 +23,9 @@ export const story = () => createStory({
     'data-hook': 'storybook-inputwithoptions',
     options: dropdownOptions,
     inputProps: {}
+  },
+  exampleProps: {
+    fixedFooter: [null, <div>Fixed Footer</div>],
+    fixedHeader: [null, <div>Fixed Header</div>]
   }
 });

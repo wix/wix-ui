@@ -2,7 +2,7 @@ import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
 import style from './Checkbox.st.css';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import Checkbox from './Checkbox';
+import {Checkbox} from './Checkbox';
 import {StylableDOMUtil} from 'stylable/test-utils';
 
 const tickSVG: React.ReactNode = (
