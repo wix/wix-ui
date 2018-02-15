@@ -1,6 +1,6 @@
 export const palette = {
   disabledButton: '#cbd3dc', //GR40
-  white: '#ffffff', //D80
+  white: '#ffffff',
   transparent: 'transparent',
   grey: 'grey',
   black: 'black'
