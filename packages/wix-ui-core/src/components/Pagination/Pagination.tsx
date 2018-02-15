@@ -188,7 +188,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         <input
           data-hook="page-input"
           type="number"
-          className={classNames(style.pageInput, {[style.error]: this.state.pageInputHasError})}
+          className={style.pageInput}
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
@@ -247,6 +247,10 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   public render() {
     const {showFirstLastNavButtons, paginationMode, width} = this.props;
 
+    const styleStates = {
+      error: this.state.pageInputHasError
+    };
+
     return (
       <nav
         id={this.getId('root')}
@@ -254,7 +258,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         aria-label="Pagination Navigation"
         dir={this.props.rtl ? 'rtl' : null}
         style={width ? {width} : null}
-        {...style('root', {}, this.props)}
+        {...style('root', styleStates, this.props)}
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}

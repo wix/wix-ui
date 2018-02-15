@@ -4,6 +4,7 @@
 }
 
 .root {
+    -st-states: error;
     display: inline-flex;
     user-select: none;
 }
@@ -56,4 +57,3 @@
 .pageInput {}
 .totalPages {}
 .disabled {}
-.error {}

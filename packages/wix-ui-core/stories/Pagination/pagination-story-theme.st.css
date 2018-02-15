@@ -72,6 +72,6 @@
     color: inherit;
 }
 
-.root::pageInput.error {
+.root:error::pageInput {
     border-color: value(materialRed500);
 }

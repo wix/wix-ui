@@ -1,3 +1,9 @@
+import {StylableDOMUtil} from 'stylable/test-utils';
+import styles from './Pagination.st.css';
+
+const utils = new StylableDOMUtil(styles);
+const hasStyleState = (element, state) => utils.hasStyleState(element, state);
+
 export type NavButtonName = 'first' | 'previous' | 'next' | 'last';
 
 export const paginationDriverFactory = ({element: root, eventTrigger: simulate}) => {
@@ -57,6 +63,6 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
     /** Simulates blur in the input field in "input" mode */
     blurInput: (): void => simulate.blur(getInput()),
     /** Checks if the input has an error */
-    inputHasError: () => getInput().className.includes('error')
+    inputHasError: () => hasStyleState(root, 'error')
   };
 };
