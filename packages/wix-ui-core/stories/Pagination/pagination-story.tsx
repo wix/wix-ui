@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Pagination as CorePagination, PaginationProps} from '../../src/components/Pagination';
 import style from './pagination-story-theme.st.css';
-import {withStylable} from "../../src/withStylable";
+import {withStylable} from '../../src/withStylable';
 
 // Assuming we use pagination-story-theme
 const spaceForPages = (n) => (n + 2) * 40;

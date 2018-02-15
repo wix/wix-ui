@@ -46,7 +46,7 @@ export interface PaginationState {
 
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
   // this is a technical debt - remove once we have support for typescript props in autodocs
-  static propTypes = {
+  static propTypes: Object = {
     /** The number of pages available to paginate */
     totalPages: number.isRequired,
     /** Current page to be shown as current. defaults to 1 */
@@ -56,7 +56,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
     onChange: func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
-    paginationMode: oneOf(['pages' , 'input']),
+    paginationMode: oneOf(['pages', 'input']),
     /** Shows the 'first' and 'last' navigation buttons. defaults to false */
     showFirstLastNavButtons: bool,
     /** Text to appear for the 'first' navigation button */
@@ -197,9 +197,9 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages &&
-          <span data-hook="total-pages" className={style.totalPages}>
+        <span data-hook="total-pages" className={style.totalPages}>
             {this.props.slashLabel}
-            {this.props.totalPages}
+          {this.props.totalPages}
           </span>
         }
       </div>
@@ -211,14 +211,14 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
 
     const disabled = (
       ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
+      ((type === ButtonType.Last || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
     const [btnClass, label, page] = {
-      [ButtonType.Prev]:  [style.navButtonPrevious, this.props.previousLabel, currentPage - 1],
-      [ButtonType.Next]:  [style.navButtonNext,     this.props.nextLabel,     currentPage + 1],
-      [ButtonType.First]: [style.navButtonFirst,    this.props.firstLabel,    1],
-      [ButtonType.Last]:  [style.navButtonLast,     this.props.lastLabel,     totalPages]
+      [ButtonType.Prev]: [style.navButtonPrevious, this.props.previousLabel, currentPage - 1],
+      [ButtonType.Next]: [style.navButtonNext, this.props.nextLabel, currentPage + 1],
+      [ButtonType.First]: [style.navButtonFirst, this.props.firstLabel, 1],
+      [ButtonType.Last]: [style.navButtonLast, this.props.lastLabel, totalPages]
     }[type] as [string, string, number];
 
     return (
@@ -254,7 +254,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         aria-label="Pagination Navigation"
         dir={this.props.rtl ? 'rtl' : null}
         style={width ? {width} : null}
-        {...style('root')}
+        {...style('root', {}, this.props)}
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}
