@@ -11,8 +11,6 @@ const dropdownOptions =
         OptionFactory.createDivider() :
         OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
 
-dropdownOptions.forEach(x => x.render = null);
-
 export const story = () => createStory({
   category: 'Components',
   name: 'IconWithOptions',
