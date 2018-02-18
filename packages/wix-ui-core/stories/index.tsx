@@ -31,7 +31,7 @@ require('./Tooltip').story();
 storiesOf('Components', module)
   .add('StylableBadge', () => (
     <StylableBadgeStory/>
-  ))  
+  ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
   ))
