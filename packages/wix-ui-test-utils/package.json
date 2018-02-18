@@ -54,12 +54,6 @@
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2"
   },
-  "yoshi": {
-    "externals": {
-      "react": "React",
-      "react-dom": "ReactDOM"
-    }
-  },
   "jest": {
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"

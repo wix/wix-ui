@@ -7,8 +7,6 @@
     "name": "Wix",
     "email": "fed-infra@wix.com"
   },
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.js",
   "files": [
     "dist",
     "*.js",
@@ -21,7 +19,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts",
+    "build": "haste build && import-path --path src/components --dts && import-path --path src/withStylable --dts",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -79,10 +77,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "yoshi": {
-    "externals": {
-      "react": "react",
-      "react-dom": "reactDOM"
-    },
     "exports": {
       "root": "wix-ui-core",
       "commonjs": "wix-ui-core"

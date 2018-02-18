@@ -122,13 +122,6 @@
       "cdn": {
         "port": 3201
       }
-    },
-    "entry": {
-      "app": "index.js"
-    },
-    "externals": {
-      "react": "React",
-      "react-dom": "ReactDOM"
     }
   }
 }
