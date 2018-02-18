@@ -5,7 +5,6 @@ import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
-import {StylableBadgeStory} from './StylableBadge';
 import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {InputWithOptions} from '../src/components/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
@@ -26,12 +25,10 @@ require('./InputWithAffixes').story();
 require('./InputWithOptions').story();
 require('./StylableText').story();
 require('./StylableButton').story();
+require('./StylableBadge').story();
 require('./Tooltip').story();
 
 storiesOf('Components', module)
-  .add('StylableBadge', () => (
-    <StylableBadgeStory/>
-  ))
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
   ))

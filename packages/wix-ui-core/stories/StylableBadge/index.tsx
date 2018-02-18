@@ -1,16 +1,17 @@
 import * as React from 'react';
-import {Badge as StylableBadge} from '../../src/components/StylableBadge';
-import commonStyle from '../../src/components/StylableBadge/BadgeStyle.st.css';
+import createStory from '../create-story';
 
-export class StylableBadgeStory extends React.Component<{}, {}> {
-  render() {
-    return (
-        <StylableBadge
-            {...commonStyle('root')}
-            data-hook="storybook-badge"
-            >
-            I'm a Badge!
-        </StylableBadge>
-    );
-  }
-}
+import {Badge} from '../../src/components/StylableBadge';
+import * as StylableBadgeSource from '!raw-loader!../../src/components/StylableBadge/Badge.tsx';
+
+export const story = () => createStory({
+  category: 'Components',
+  name: 'StylableBadge',
+  storyName: 'StylableBadge',
+  component: Badge,
+  componentProps: () => ({
+    children: 'I\'m a Badge!',
+    'data-hook': "storybook-badge"
+  }),
+  source: StylableBadgeSource
+});
