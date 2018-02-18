@@ -11,7 +11,7 @@ export const story = () => createStory({
   component: Badge,
   componentProps: () => ({
     children: 'I\'m a Badge!',
-    'data-hook': "storybook-badge"
+    'data-hook': 'storybook-badge'
   }),
   source: StylableBadgeSource
 });

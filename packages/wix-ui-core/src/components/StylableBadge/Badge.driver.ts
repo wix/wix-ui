@@ -10,4 +10,3 @@ export const badgeDriverFactory = ({element}) => {
       getContentText: () => element.textContent,
     };
   };
-  
