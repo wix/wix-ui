@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {timePickerDriverFactory} from './TimePicker.driver';
-import {createDriverFactory} from 'wix-ui-test-utils';
+import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {TimePicker, FIELD} from './index';
 import {convertToAmPm} from './utils';
 import {renderIntoDocument, findRenderedDOMComponentWithTag} from 'react-dom/test-utils';

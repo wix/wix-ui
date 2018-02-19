@@ -1,4 +1,4 @@
-import {ComponentFactory} from 'wix-ui-test-utils';
+import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 import {FIELD} from './';
 
 // Typescript was yelling at using ComponentFactory<TimePicker> for some reason and this makes it go away
