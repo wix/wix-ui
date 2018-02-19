@@ -17,7 +17,6 @@ export const styles = (theme: SliderTheme) => {
     },
     track: {
       width: '100%',
-      height: theme.trackSize,
       cursor: 'pointer',
       background: theme.trackBackground,
       opacity: theme.trackOpacity,

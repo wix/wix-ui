@@ -13,6 +13,9 @@ export interface SliderProps {
   handleSize?: number;
   step?: any;
   tooltipPosition?: string;
+  trackSize?: number;
+  width?: number;
+  height?: number;
 }
 
 interface SliderState {
@@ -51,7 +54,19 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     if (nextProps.step !== this.props.step) {
       this.setState({
         step: nextProps.step || this.ContinuousStep
-      }, () => this.forceUpdate());
+      });
+    }
+  }
+
+  //need to force update after DOM changes, as some layouts are based upon DOM
+  //measurements
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.vertical !== this.props.vertical ||
+      prevProps.step !== this.props.step ||
+      prevProps.width !== this.props.width ||
+      prevProps.height !== this.props.height
+    ) {
+      this.forceUpdate();
     }
   }
 
@@ -67,7 +82,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   getHandleSize() {
     const rect = this.inner ? this.inner.getBoundingClientRect() : {width: 0, height: 0};
-    return this.props.vertical ? rect.width : rect.height;
+    return Math.min(rect.width, rect.height);
   }
 
   setInnerNode = (inner) => {
@@ -235,7 +250,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {classes, value, min, max, vertical} = this.props;
+    const {classes, value, min, max, vertical, trackSize} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -247,6 +262,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     } : {
         width: this.calcHighlightedTrackPosition()
     };
+
+    const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
 
     return (
       <div className={classNames(classes.root, {
@@ -263,7 +280,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
         onKeyDown={this.handleKeyDown}
     >
       <div ref={this.setInnerNode} className={classes.inner}>
-        <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick}>
+        <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick} style={trackStyle}>
           <div className={classes.highlightedTrack} style={{
             ...highlightedTrackPosition
           }}/>
