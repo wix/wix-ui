@@ -1,11 +1,10 @@
 import {ComponentFactory} from 'wix-ui-test-utils';
 import {FIELD} from './';
-import {func} from 'prop-types';
 
 // Typescript was yelling at using ComponentFactory<TimePicker> for some reason and this makes it go away
 export interface TimePickerShell {
-  increment: func;
-  decrement: func;
+  increment: Function;
+  decrement: Function;
 }
 
 export const timePickerDriverFactory = ({element, eventTrigger, componentInstance}: ComponentFactory<TimePickerShell>) => {

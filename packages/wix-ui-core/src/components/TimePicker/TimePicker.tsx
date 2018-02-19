@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as omit from 'lodash/omit';
 import {bool, func, object, string} from 'prop-types';
+const omit = require('lodash.omit');
 import {Input, InputProps} from '../Input';
 import {
   FIELD,
@@ -16,7 +16,7 @@ import {
 } from './utils';
 
 export interface TimePickerProps extends InputProps {
-  onChange?: func;
+  onChange?: (value: any) => any;
   useNativeInteraction?: boolean;
   useAmPm?: boolean;
   step?: number;
@@ -34,7 +34,7 @@ export interface TimePickerState {
 /**
  * Time Picker - following the Chrome on Mac behavior (mostly)
  */
-export class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
+export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerState> {
   static displayName = 'TimePicker';
 
   /**
@@ -65,7 +65,7 @@ export class TimePicker extends React.Component<TimePickerProps, TimePickerState
     valueWhenNull        : NULL_TIME,
   };
 
-  static propTypes = {
+  static propTypes: Object = {
     ...Input.propTypes,
 
     /**
