@@ -87,6 +87,9 @@
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
       "\\.(css)$": "stylable-integration/jest"
     },
+    "transformIgnorePatterns": [
+      "\/node_modules\/.*(?<!\\.st\\.css)$"
+    ],
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
       "<rootDir>/test/enzyme-setup"
