@@ -95,7 +95,8 @@
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
-      "<rootDir>/test/enzyme-setup"
+      "<rootDir>/test/enzyme-setup",
+      "<rootDir>/test/polyfill"
     ],
     "moduleFileExtensions": [
       "ts",
