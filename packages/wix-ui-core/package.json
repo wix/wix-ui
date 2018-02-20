@@ -21,7 +21,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts",
+    "build": "haste build && import-path --path src/components --dts && stc --srcDir=\"./dist\" --diagnostics",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
