@@ -32,10 +32,11 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
-    "lodash.uniqueid": "^4.0.0",
-    "lodash.isundefined": "^3.0.0",
     "lodash.defaultsdeep": "^4.0.0",
+    "lodash.isundefined": "^3.0.0",
     "lodash.times": "^4.0.0",
+    "lodash.uniqueid": "^4.0.0",
+    "playable": "^1.2.0",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
@@ -89,7 +90,8 @@
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
-      "<rootDir>/test/enzyme-setup"
+      "<rootDir>/test/enzyme-setup",
+      "<rootDir>/test/polyfill"
     ],
     "moduleFileExtensions": [
       "ts",

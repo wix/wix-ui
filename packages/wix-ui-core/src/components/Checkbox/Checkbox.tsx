@@ -142,7 +142,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
   }
 
   render()  {
-    const {checked, disabled, readOnly: readonly, error, indeterminate} = this.props;
+    const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
     const focus = this.state.isFocused;
 
     return (
@@ -169,6 +169,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             name={this.props.name}
             aria-controls={this.props['aria-controls']}
             ref={ref => this.checkbox = ref!}
+            required={required}
           />
 
           <span

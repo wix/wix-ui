@@ -95,6 +95,14 @@ describe('Checkbox', () => {
     expect(checkbox.input().getAttribute('name')).toBe('shlomi');
   });
 
+  it('Accepts "required" prop', async () => {
+    const checkbox = createDriver(
+      <Checkbox required={true} />
+    );
+
+    expect(checkbox.input().required).toBe(true);
+  });
+
   it('Accepts "autofocus" prop', async () => {
     if (document.hasFocus()) {
 

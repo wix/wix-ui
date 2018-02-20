@@ -27,6 +27,7 @@ require('./StylableText').story();
 require('./StylableButton').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
+require('./Video').story();
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
