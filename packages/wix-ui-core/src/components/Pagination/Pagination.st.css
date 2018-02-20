@@ -11,6 +11,7 @@
 
 .navButton {
     -st-mixin: button-common-mixin;
+    -st-states: disabled;
 }
 
 .navButton:not(.disabled) {
