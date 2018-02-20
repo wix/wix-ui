@@ -1,4 +1,3 @@
-import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 import {DropdownComponent} from './Dropdown';
 import {DropdownContent} from '../DropdownContent';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
@@ -6,7 +5,7 @@ import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.d
 const getElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-element"]');
 const getContent = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-content"]');
 
-export const dropdownDriverFactory = (args: ComponentFactory<any>) => {
+export const dropdownDriverFactory = args => {
   const {element, eventTrigger} = args;
   const dropdownContentDriver =  dropdownContentDriverFactory(args);
 

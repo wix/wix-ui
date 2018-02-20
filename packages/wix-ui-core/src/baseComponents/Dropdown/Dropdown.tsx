@@ -140,12 +140,13 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   render() {
     const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled} = this.props;
     const {isOpen, selectedIds} = this.state;
+    const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen && !disabled}
+        shown={isOpen && !disabled && hasContent}
         showArrow={showArrow}
         onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}

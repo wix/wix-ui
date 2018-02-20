@@ -1,6 +1,4 @@
 import * as React from 'react';
-import commonStyle from '../components/Checkbox/CheckboxStyle.st.css';
-import {Checkbox, CheckboxProps} from '../components/Checkbox';
 
 function isReactClassComponent(value: any): value is React.ComponentClass<any> {
   return value && isComponentInstance(value.prototype);

@@ -10,6 +10,10 @@ export const textDriverFactory = ({element}) => {
     /** check if component has ellipsis */
     isEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis'),
     /** check if element has title attribute */
-    hasTitleAttribute: () => element.getAttribute('title') !== null
+    hasTitleAttribute: () => element.getAttribute('title') !== null,
+    /** get the rendered tag name */
+    getTagName: () => element.tagName,
+    /** get the rendered content */
+    getChildren: () => element.innerHTML
   };
 };

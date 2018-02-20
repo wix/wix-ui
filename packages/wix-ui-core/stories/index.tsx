@@ -25,6 +25,7 @@ require('./InputWithAffixes').story();
 require('./InputWithOptions').story();
 require('./StylableText').story();
 require('./StylableButton').story();
+require('./StylableBadge').story();
 require('./Tooltip').story();
 
 storiesOf('Components', module)

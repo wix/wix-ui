@@ -25,7 +25,7 @@ export const DropdownOption: DropdownOptionType = (props: DropdownOptionProps) =
       onClick={onClickHandler}
       title={option.value}
       onMouseEnter={onMouseEnterHandler}>
-      {option.render ? option.render(option.value) : option.value}
+      {option.render(option.value)}
     </div>
   );
 };

@@ -23,6 +23,10 @@ InputStyle{}
 InputWithAffixes{}
 :import {-st-from: "./dist/src/components/InputWithOptions/InputWithOptions.st.css";-st-default:InputWithOptions;}
 InputWithOptions{}
+:import {-st-from: "./dist/src/components/StylableBadge/Badge.st.css";-st-default:Badge;}
+Badge{}
+:import {-st-from: "./dist/src/components/StylableBadge/BadgeStyle.st.css";-st-default:BadgeStyle;}
+BadgeStyle{}
 :import {-st-from: "./dist/src/components/StylableButton/Button.st.css";-st-default:Button;}
 Button{}
 :import {-st-from: "./dist/src/components/StylableButton/ButtonStyle.st.css";-st-default:ButtonStyle;}
