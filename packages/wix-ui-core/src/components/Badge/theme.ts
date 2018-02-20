@@ -23,8 +23,8 @@ export type BadgeTheme = Partial<BadgeState & {
 
 const stateStyle = {
   color: palette.white,
-  backgroundColor: palette.defaultBadge,
-  borderColor: palette.defaultBadge
+  backgroundColor: palette.grey,
+  borderColor: palette.grey
 };
 
 export const core: BadgeTheme = {

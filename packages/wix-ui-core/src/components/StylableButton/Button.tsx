@@ -2,7 +2,7 @@ import * as React from 'react';
 import {bool, func, object, any, oneOf} from 'prop-types';
 import style from './Button.st.css';
 
-export interface StylableButtonProps {
+export interface ButtonProps {
   type?: string;
   disabled?: boolean;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
@@ -14,7 +14,7 @@ export interface StylableButtonProps {
 /**
  * Stylable Button
  */
-export const Button: React.SFC<StylableButtonProps> = props => {
+export const Button: React.SFC<ButtonProps> = props => {
   const {type, disabled, onClick, onMouseEnter, onMouseLeave, children} = props;
 
   return (

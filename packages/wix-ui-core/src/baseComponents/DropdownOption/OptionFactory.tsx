@@ -63,6 +63,6 @@ export const OptionFactory = {
   createHighlighted(
     option: Option,
     hightlightValue: string): Option {
-      return option.value && hightlightValue && option.render ? hightlightMatches(option, hightlightValue) : option;
+      return option.value && hightlightValue ? hightlightMatches(option, hightlightValue) : option;
     }
 };

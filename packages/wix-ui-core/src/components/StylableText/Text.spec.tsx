@@ -12,18 +12,7 @@ describe('Text', () => {
 
   const createDriver = createDriverFactory(textDriverFactory);
 
-  describe('checked prop', () => {
-
-    it('should exist', () => {
-      const driver = createDriver(<Text>Hello World</Text>);
-      expect(driver.exists()).toBeTruthy();
-    });
-
-    it('should not have title attribute by default', () => {
-      const driver = createDriver(<Text>Hello World</Text>);
-      expect(driver.hasTitleAttribute()).toBeFalsy();
-    });
-
+  describe('ellipsis attribute', () => {
     it('should not have ellipsis by default', () => {
       const driver = createDriver(<Text>Hello World</Text>);
       expect(driver.isEllipsis()).toBeFalsy();
@@ -32,6 +21,13 @@ describe('Text', () => {
     it('should have ellipsis', () => {
       const driver = createDriver(<Text ellipsis>Hello World</Text>);
       expect(driver.isEllipsis()).toBeTruthy();
+    });
+  });
+
+  describe('title attribute', () => {
+    it('should not have title attribute by default', () => {
+      const driver = createDriver(<Text>Hello World</Text>);
+      expect(driver.hasTitleAttribute()).toBeFalsy();
     });
 
     it('should have title attribute when has ellipsis', () => {
@@ -47,6 +43,32 @@ describe('Text', () => {
     it('should not have title attribute when has ellipsis and forceHideTitle is true', () => {
       const driver = createDriver(<Text ellipsis forceHideTitle>Hello World</Text>);
       expect(driver.hasTitleAttribute()).toBeFalsy();
+    });
+  });
+
+  describe('tagName prop', () => {
+    it('should be span by default', () => {
+      const driver = createDriver(<Text>Hello</Text>);
+      expect(driver.getTagName()).toBe('SPAN');
+    });
+
+    it('should be configueable', () => {
+      const driver = createDriver(<Text tagName="h1">Hello</Text>);
+      expect(driver.getTagName()).toBe('H1');
+    });
+  });
+
+  describe('children prop', () => {
+    it('should be rendered when given as a string', () => {
+      const children = 'Hello World';
+      const driver = createDriver(<Text>{children}</Text>);
+      expect(driver.getChildren()).toBe(children);
+    });
+
+    it('should be rendered when given as an element', () => {
+      const children = <div>Hello World</div>;
+      const driver = createDriver(<Text>{children}</Text>);
+      expect(driver.getChildren()).toBe('<div>Hello World</div>');
     });
   });
 

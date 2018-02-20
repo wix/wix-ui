@@ -1,0 +1,32 @@
+:import {
+    -st-from: "./Badge.st.css";
+    -st-default: Badge;
+  }
+  
+:vars {
+    height: 24px;
+    padding: 4px 12px;
+    border: 1px solid;
+    borderRadius: 2px;
+    backgroundColor: grey;
+    borderColor: grey;
+}
+
+.root {
+    -st-extends: Badge;
+    height: value(height);
+    padding: value(padding);
+    
+    border: value(border);
+    border-radius: value(borderRadius);
+    border-color: value(borderColor);
+    
+    background: value(backgroundColor);
+    
+    display: inline-block;
+    box-sizing: border-box;
+
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+}
