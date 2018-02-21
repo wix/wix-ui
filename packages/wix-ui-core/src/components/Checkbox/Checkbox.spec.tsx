@@ -95,12 +95,28 @@ describe('Checkbox', () => {
     expect(checkbox.input().getAttribute('name')).toBe('shlomi');
   });
 
+  it('Accepts "id" prop', async () => {
+    const checkbox = createDriver(
+      <Checkbox id="5" />
+    );
+
+    expect(checkbox.input().getAttribute('id')).toBe('5');
+  });
+
   it('Accepts "required" prop', async () => {
     const checkbox = createDriver(
       <Checkbox required={true} />
     );
 
     expect(checkbox.input().required).toBe(true);
+  });
+
+  it('Creates an id if there is no "id" prop', async () => {
+    const checkbox = createDriver(
+      <Checkbox />
+    );
+
+    expect(checkbox.input().getAttribute('id')).toBeTruthy();
   });
 
   it('Accepts "autofocus" prop', async () => {
