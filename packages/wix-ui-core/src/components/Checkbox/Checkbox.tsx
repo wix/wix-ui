@@ -97,7 +97,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
   };
 
   public id: string;
-  private checkbox: HTMLInputElement;
+  private checkbox: HTMLInputElement | null;
 
   constructor(props: CheckboxProps) {
     super(props);
@@ -167,7 +167,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             autoFocus={this.props.autoFocus}
             name={this.props.name}
             aria-controls={this.props['aria-controls']}
-            ref={ref => this.checkbox = ref!}
+            ref={ref => this.checkbox = ref}
             required={required}
           />
 
