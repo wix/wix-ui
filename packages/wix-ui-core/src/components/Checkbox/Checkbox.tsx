@@ -150,7 +150,6 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
-        tabIndex={0}
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
           <input
@@ -163,7 +162,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            id={this.props.id}
+            id={this.id}
             tabIndex={this.props.tabIndex}
             autoFocus={this.props.autoFocus}
             name={this.props.name}
