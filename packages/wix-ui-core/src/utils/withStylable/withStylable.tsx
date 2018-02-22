@@ -60,8 +60,8 @@ export function withStylable<CoreProps, ExtendedProps = {}>(
   getState: (p?: any, s?: any, c?: any) => StateMap,
   extendedDefaultProps: object = {}): React.ComponentClass<CoreProps & ExtendedProps> | React.SFC<CoreProps & ExtendedProps> {
     if (isReactClassComponent(Component)) {
-      return withStylableStateful<CoreProps, ExtendedProps>(Component as React.ComponentClass<CoreProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateful<CoreProps & {className?: string}, ExtendedProps>(Component as React.ComponentClass<CoreProps>, stylesheet, getState, extendedDefaultProps);
     } else {
-      return withStylableStateless<CoreProps, ExtendedProps>(Component as React.SFC<CoreProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateless<CoreProps & {className?: string}, ExtendedProps>(Component as React.SFC<CoreProps>, stylesheet, getState, extendedDefaultProps);
     }
 }
