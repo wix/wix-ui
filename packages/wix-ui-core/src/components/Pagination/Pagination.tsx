@@ -255,7 +255,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
 
     return (
       <nav
-        id={this.getId('root')}
+        id={this.getId('')}
         role="navigation"
         aria-label="Pagination Navigation"
         dir={this.props.rtl ? 'rtl' : null}
