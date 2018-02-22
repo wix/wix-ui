@@ -1,8 +1,12 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
 import styles from './Checkbox.st.css';
+import {BaseDriver} from 'wix-ui-test-utils';
 
 const utils = new StylableDOMUtil(styles);
 const hasStyleState = (element, state) => utils.hasStyleState(element, state);
+
+interface CheckboxDriver extends BaseDriver {
+}
 
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const getCheckboxStyle = () => window.getComputedStyle(element);
@@ -23,17 +27,13 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** returns elements type attribute */
     getType: () => element.getAttribute('type'),
     /** checks if the tickmark exists, i.e. the checkbox is checked */
-    isChecked: () => !!element.querySelector('[data-hook="CHECKBOX_TICKMARK"]'),
+    isChecked: () => hasStyleState(element, 'checked'),
     /** returns elements textContent */
     getTextContent: () => element.textContent,
     /** returns the checkbox children */
     children: () => element.querySelectorAll('[data-hook="CHECKBOX_CHILD_CONTAINER"]'),
     /** returns the checkbox tickmark */
-    tickmark: () => element.querySelector('[data-hook="CHECKBOX_TICKMARK"]'),
-    /** returns the indeterminate icon */
-    indeterminateMark: () => element.querySelector('[data-hook="CHECKBOX_INDETERMINATE"]'),
-    /** returns a boolean indicating whether the checkbox is in indeterminate state */
-    isIndeterminate: () => !!element.querySelector('[data-hook="CHECKBOX_INDETERMINATE"]'),
+    tickmark: () => element.querySelector('[data-hook="CHECKBOX_BOX"]').firstChild,
     /** returns the checkbox native input */
     input: () => element.querySelector('[data-hook="NATIVE_CHECKBOX"]'),
     /** returns if the element is disabled */

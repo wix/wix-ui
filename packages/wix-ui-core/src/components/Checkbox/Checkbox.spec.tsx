@@ -6,25 +6,7 @@ import {Checkbox} from './Checkbox';
 import {StylableDOMUtil} from 'stylable/test-utils';
 
 const tickSVG: React.ReactNode = (
-  <svg
-    data-hook="CHECKBOX_TICKMARK"
-    data-name="custom-tickmark"
-    height="1em"
-    width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path stroke="black" strokeLinecap="square" strokeWidth="1.5" d="M5 8.685l2.496 1.664M8 10.685L11.748 6" />
-  </svg>
-);
-
-const IndeterminateSVG: React.ReactNode = (
-  <svg
-    data-hook="CHECKBOX_INDETERMINATE"
-    data-name="custom-indeterminate"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M5 0h8v2H0z" />
-  </svg>
+  <span data-name="custom-tickmark">1</span>
 );
 
 describe('Checkbox', () => {
@@ -245,7 +227,7 @@ describe('Checkbox', () => {
         />
       );
 
-      expect(checkbox.isIndeterminate()).toBe(true);
+      expect(checkbox.hasIndeterminateState()).toBe(true);
     });
 
     it('gets disabled style state', async () => {
@@ -311,7 +293,7 @@ describe('Checkbox', () => {
       );
 
       expect(checkbox.exists()).toBe(true);
-      expect(checkbox.isIndeterminate()).toBe(true);
+      expect(checkbox.hasIndeterminateState()).toBe(true);
       expect(checkbox.isChecked()).toBe(false);
     });
 
@@ -324,7 +306,7 @@ describe('Checkbox', () => {
       );
 
       expect(checkbox.exists()).toBe(true);
-      expect(checkbox.isIndeterminate()).toBe(true);
+      expect(checkbox.hasIndeterminateState()).toBe(true);
     });
 
     it('click calls onChange with value true', async () => {
@@ -350,12 +332,12 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           indeterminate
-          indeterminateIcon={IndeterminateSVG}
+          indeterminateIcon={tickSVG}
         />
       );
 
-      expect(checkbox.isIndeterminate()).toBe(true);
-      expect(checkbox.indeterminateMark().getAttribute('data-name')).toBe('custom-indeterminate');
+      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
     });
 
     it('does not call onChange when disabled', async () => {
