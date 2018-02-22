@@ -197,11 +197,12 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
-        {this.props.showInputModeTotalPages &&
-        <span data-hook="total-pages" className={pStyle.totalPages}>
-            {this.props.slashLabel}
-          {this.props.totalPages}
-          </span>
+        {this.props.showInputModeTotalPages && [
+            <span key="slash" className={pStyle.slash}>{this.props.slashLabel}</span>,
+            <span key="total-pages" data-hook="total-pages" className={pStyle.totalPages}>
+            {this.props.totalPages}
+            </span>
+          ]
         }
       </div>
     );
