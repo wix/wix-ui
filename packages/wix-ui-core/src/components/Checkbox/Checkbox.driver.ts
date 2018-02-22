@@ -1,12 +1,8 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
 import styles from './Checkbox.st.css';
-import {BaseDriver} from 'wix-ui-test-utils';
 
 const utils = new StylableDOMUtil(styles);
 const hasStyleState = (element, state) => utils.hasStyleState(element, state);
-
-interface CheckboxDriver extends BaseDriver {
-}
 
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const getCheckboxStyle = () => window.getComputedStyle(element);
