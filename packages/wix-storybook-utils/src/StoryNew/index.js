@@ -18,10 +18,10 @@ export default ({
   componentProps,
   examples,
   exampleProps,
-  _config: config,
-  _metadata: metadata
+  _config,
+  _metadata
 }) =>
-  config.storiesOf(category, module).add(storyName || metadata.displayName, () => {
+  _config.storiesOf(category, module).add(storyName || _metadata.displayName, () => {
     if (isE2E) {
       return (
         <div>
@@ -30,7 +30,7 @@ export default ({
             ref={ref => global.autoexample = ref}
             component={component}
             componentProps={componentProps}
-            parsedSource={metadata}
+            parsedSource={_metadata}
             />
 
           {examples}
@@ -41,22 +41,22 @@ export default ({
     const tabs = [
       'Usage',
       'API',
-      ...(metadata.readmeTestkit ? ['Testkit'] : []),
-      ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
+      ...(_metadata.readmeTestkit ? ['Testkit'] : []),
+      ...(_metadata.readmeAccessibility ? ['Accessibility'] : [])
     ];
 
     return (
       <TabbedView tabs={tabs}>
         <div className={styles.usage}>
-          {metadata.readme ?
-            <Markdown source={metadata.readme}/> :
-            <Markdown source={`# \`<${metadata.displayName}/>\``}/>
+          {_metadata.readme ?
+            <Markdown source={_metadata.readme}/> :
+            <Markdown source={`# \`<${_metadata.displayName}/>\``}/>
           }
 
-          {metadata.displayName &&
+          {_metadata.displayName &&
             <div className={styles.githubLink}>
               <TextLink
-                link={`${config.repoBaseURL}${metadata.displayName}`}
+                link={`${_config.repoBaseURL}${_metadata.displayName}`}
                 target="_blank"
                 >
                 View source
@@ -64,11 +64,11 @@ export default ({
             </div>
           }
 
-          {metadata.displayName && <CodeBlock source={`import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`}/>}
+          {_metadata.displayName && <CodeBlock source={`import ${_metadata.displayName} from '${_config.moduleName}/${_metadata.displayName}';`}/>}
 
           <AutoExample
             component={component}
-            parsedSource={metadata}
+            parsedSource={_metadata}
             componentProps={componentProps}
             exampleProps={exampleProps}
             />
@@ -76,11 +76,11 @@ export default ({
           {examples}
         </div>
 
-        <AutoDocs parsedSource={metadata}/>
+        <AutoDocs parsedSource={_metadata}/>
 
-        { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+        { _metadata.readmeTestkit && <Markdown source={_metadata.readmeTestkit}/> }
 
-        { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
+        { _metadata.readmeAccessibility && <Markdown source={_metadata.readmeAccessibility}/> }
       </TabbedView>
     );
   });
