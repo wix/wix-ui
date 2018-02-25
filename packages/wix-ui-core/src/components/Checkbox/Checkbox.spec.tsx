@@ -227,7 +227,7 @@ describe('Checkbox', () => {
         />
       );
 
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
     });
 
     it('gets disabled style state', async () => {
@@ -293,7 +293,7 @@ describe('Checkbox', () => {
       );
 
       expect(checkbox.exists()).toBe(true);
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
       expect(checkbox.isChecked()).toBe(false);
     });
 
@@ -306,7 +306,7 @@ describe('Checkbox', () => {
       );
 
       expect(checkbox.exists()).toBe(true);
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
     });
 
     it('click calls onChange with value true', async () => {
@@ -336,7 +336,7 @@ describe('Checkbox', () => {
         />
       );
 
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
       expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
     });
 
@@ -363,7 +363,7 @@ describe('Checkbox', () => {
     it('gets indeterminate style state', async () => {
       const checkbox = createDriver(<Checkbox indeterminate />);
 
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
     });
   });
 });
