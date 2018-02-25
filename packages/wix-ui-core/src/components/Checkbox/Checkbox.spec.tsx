@@ -233,7 +233,7 @@ describe('Checkbox', () => {
     it('gets disabled style state', async () => {
       const checkbox = createDriver(<Checkbox disabled />);
 
-      expect(checkbox.hasDisabledState()).toBe(true);
+      expect(checkbox.isDisabled()).toBe(true);
     });
   });
 

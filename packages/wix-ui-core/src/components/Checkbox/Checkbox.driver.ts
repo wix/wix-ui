@@ -26,6 +26,8 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     isChecked: () => hasStyleState(element, 'checked'),
     /** returns true if the element has indeterminate state */
     isIndeterminate: () => hasStyleState(element, 'indeterminate'),
+    /** returns if the element is disabled */
+    isDisabled: () => hasStyleState(element, 'disabled'),
     /** returns elements textContent */
     getTextContent: () => element.textContent,
     /** returns the checkbox children */
@@ -34,14 +36,10 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     tickmark: () => element.querySelector('[data-hook="CHECKBOX_BOX"]').firstChild,
     /** returns the checkbox native input */
     input: () => element.querySelector('[data-hook="NATIVE_CHECKBOX"]'),
-    /** returns if the element is disabled */
-    isDisabled: () => element.getAttribute('disabled') === '',
     /** returns true if the element has error state */
     hasErrorState: () => hasStyleState(element, 'error'),
     /** returns true if the element has focus state */
     hasFocusState: () => hasStyleState(element, 'focus'),
-    /** returns true if the element has disabled state */
-    hasDisabledState: () => hasStyleState(element, 'disabled'),
     /** returns true if the element has error state */
     hasReadOnlyState: () => hasStyleState(element, 'readonly'),
   };
