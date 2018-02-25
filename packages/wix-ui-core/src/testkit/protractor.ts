@@ -40,3 +40,6 @@ export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDr
 //Stylable
 import {textDriverFactory} from '../components/StylableText/Text.protractor.driver';
 export const textTestkitFactory = protractorTestkitFactoryCreator(textDriverFactory);
+
+import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.protractor.driver';
+export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(stylableBadgeDriverFactory);
