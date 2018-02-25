@@ -7,6 +7,7 @@ export interface TextProps {
   ellipsis?: boolean;
   forceHideTitle?: boolean;
   tagName?: string;
+  className?: string;
 }
 /**
  * Text
