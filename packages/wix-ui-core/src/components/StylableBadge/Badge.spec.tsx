@@ -33,7 +33,7 @@ describe('Badge', () => {
       );
       const driver = createDriver(<Badge>{content}</Badge>);
 
-      expect(driver.getContentText()).toMatch('Delete?');
+      expect(driver.text()).toMatch('Delete?');
     });
   });
 
