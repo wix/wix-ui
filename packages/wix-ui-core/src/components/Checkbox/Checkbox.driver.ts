@@ -27,9 +27,9 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** returns the checkbox children */
     children: () => utils.select('.childContainer'),
     /** returns the checkbox tickmark */
-    tickmark: () => utils.select('.box').firstChild,
+    tickmark: () => utils.select('.box').firstElementChild,
     /** returns the checkbox native input */
-    input: () => utils.select('.nativeCheckbox'),
+    input: () => utils.select('.nativeCheckbox') as HTMLInputElement,
     /** returns true if the element has error state */
     hasErrorState: () => hasStyleState('error'),
     /** returns true if the element has focus state */
