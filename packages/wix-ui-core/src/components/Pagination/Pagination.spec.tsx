@@ -311,7 +311,6 @@ describe('Pagination', () => {
 
   it('adds IDs to the elements if ID prefix is provided', () => {
     const pagination = createDriver(<Pagination id="$" totalPages={3} showFirstLastNavButtons />);
-    expect(pagination.root.getAttribute('id')).toBe('$root');
     expect(pagination.getNavButton('first').getAttribute('id')).toBe('$navButtonFirst');
     expect(pagination.getNavButton('previous').getAttribute('id')).toBe('$navButtonPrevious');
     expect(pagination.getNavButton('next').getAttribute('id')).toBe('$navButtonNext');

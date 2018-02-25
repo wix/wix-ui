@@ -25,7 +25,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
       if (!root) { return null; }
       const className = root.props && root.props.className || '';
       const statesMap = getState(this.props, this.state, this.context);
-      const props = stylesheet(`root ${className}`.trim(), statesMap);
+      const props = stylesheet(`root ${className ? className : ''}`.trim(), statesMap);
       return React.cloneElement(root, props);
     }
   } as any;
@@ -41,7 +41,7 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
       if (!root) { return null; }
       const className = root.props && root.props.className || '';
       const statesMap = getState(props);
-      const stylableProps = stylesheet(`root ${className}`.trim(), statesMap);
+      const stylableProps = stylesheet(`root ${className ? className : ''}`.trim(), statesMap);
       return React.cloneElement(root, stylableProps);
     };
 
@@ -59,9 +59,11 @@ export function withStylable<CoreProps, ExtendedProps = {}>(
   stylesheet: RuntimeStylesheet,
   getState: (p?: any, s?: any, c?: any) => StateMap,
   extendedDefaultProps: object = {}): React.ComponentClass<CoreProps & ExtendedProps> | React.SFC<CoreProps & ExtendedProps> {
+    type BaseProps = CoreProps & {className?: string};
+
     if (isReactClassComponent(Component)) {
-      return withStylableStateful<CoreProps, ExtendedProps>(Component as React.ComponentClass<CoreProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateful<BaseProps, ExtendedProps>(Component as React.ComponentClass<BaseProps>, stylesheet, getState, extendedDefaultProps);
     } else {
-      return withStylableStateless<CoreProps, ExtendedProps>(Component as React.SFC<CoreProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateless<BaseProps, ExtendedProps>(Component as React.SFC<BaseProps>, stylesheet, getState, extendedDefaultProps);
     }
 }

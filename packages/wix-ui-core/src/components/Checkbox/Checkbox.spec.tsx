@@ -6,25 +6,7 @@ import {Checkbox} from './Checkbox';
 import {StylableDOMUtil} from 'stylable/test-utils';
 
 const tickSVG: React.ReactNode = (
-  <svg
-    data-hook="CHECKBOX_TICKMARK"
-    data-name="custom-tickmark"
-    height="1em"
-    width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path stroke="black" strokeLinecap="square" strokeWidth="1.5" d="M5 8.685l2.496 1.664M8 10.685L11.748 6" />
-  </svg>
-);
-
-const IndeterminateSVG: React.ReactNode = (
-  <svg
-    data-hook="CHECKBOX_INDETERMINATE"
-    data-name="custom-indeterminate"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M5 0h8v2H0z" />
-  </svg>
+  <span data-name="custom-tickmark">1</span>
 );
 
 describe('Checkbox', () => {
@@ -45,7 +27,7 @@ describe('Checkbox', () => {
       </Checkbox>
     );
 
-    expect(checkbox.children()[0].textContent).toContain('covfefe');
+    expect(checkbox.children().textContent).toContain('covfefe');
   });
 
   it('Displays custom tick mark when value is true', async () => {
@@ -251,7 +233,7 @@ describe('Checkbox', () => {
     it('gets disabled style state', async () => {
       const checkbox = createDriver(<Checkbox disabled />);
 
-      expect(checkbox.hasDisabledState()).toBe(true);
+      expect(checkbox.isDisabled()).toBe(true);
     });
   });
 
@@ -312,7 +294,6 @@ describe('Checkbox', () => {
 
       expect(checkbox.exists()).toBe(true);
       expect(checkbox.isIndeterminate()).toBe(true);
-      expect(checkbox.isChecked()).toBe(false);
     });
 
     it('renders indeterminate icon when value is false', async () => {
@@ -350,12 +331,12 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           indeterminate
-          indeterminateIcon={IndeterminateSVG}
+          indeterminateIcon={tickSVG}
         />
       );
 
       expect(checkbox.isIndeterminate()).toBe(true);
-      expect(checkbox.indeterminateMark().getAttribute('data-name')).toBe('custom-indeterminate');
+      expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
     });
 
     it('does not call onChange when disabled', async () => {
@@ -381,7 +362,7 @@ describe('Checkbox', () => {
     it('gets indeterminate style state', async () => {
       const checkbox = createDriver(<Checkbox indeterminate />);
 
-      expect(checkbox.hasIndeterminateState()).toBe(true);
+      expect(checkbox.isIndeterminate()).toBe(true);
     });
   });
 });

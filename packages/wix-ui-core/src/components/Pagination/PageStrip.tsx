@@ -6,19 +6,10 @@ import {
   createResponsiveLayout,
   createResponsiveLayoutTemplate
 } from './page-strip-layout';
-
-export interface PageStripClasses {
-  pageStrip: string;
-  pageStripInner: string;
-  pageStripTemplate: string;
-  pageButton: string;
-  currentPage: string;
-  gap: string;
-}
+import style from './Pagination.st.css';
 
 export interface PageStripProps {
   id?: string;
-  classes: PageStripClasses;
   totalPages: number;
   currentPage: number;
   maxPagesToShow: number;
@@ -78,14 +69,14 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       <div
         data-hook="page-strip"
         id={this.props.id ? this.props.id + 'pageStrip' : null}
-        className={this.props.classes.pageStrip}
+        className={style.pageStrip}
       >
-        <div className={this.props.classes.pageStripInner}>
+        <div className={style.pageStripInner}>
           {this.renderLayout(this.getLayout(), false)}
         </div>
 
         {this.isResponsive() &&
-          <div className={this.props.classes.pageStripInner + ' ' + this.props.classes.pageStripTemplate}>
+          <div className={style.pageStripInner + ' ' + style.pageStripTemplate}>
             {this.renderLayout(createResponsiveLayoutTemplate(this.props), true)}
           </div>
         }
@@ -97,12 +88,12 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   // for responsive layout. We also can't use index as a key, because React might reuse the
   // node for another page, and keep keyboard focus on it, which we don't want.
   private renderLayout(layout: PageStripLayout, isDummy: boolean): JSX.Element[] {
-    const {currentPage, pageUrl, classes} = this.props;
+    const {currentPage, pageUrl} = this.props;
 
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
         return (
-          <span key={index} className={classes.gap}>
+          <span key={index} className={style.gap}>
             {this.props.gapLabel}
           </span>
         );
@@ -114,7 +105,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
             key={pageNumber + '-' + index}
             data-hook={`page-${pageNumber} current-page`}
             aria-label={`Page ${pageNumber}`}
-            className={classes.currentPage}
+            className={style.currentPage}
           >
             {pageNumber}
           </span>
@@ -122,7 +113,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       }
 
       if (isDummy) {
-        return <a key={pageNumber + '-' + index} className={classes.pageButton}>{pageNumber}</a>;
+        return <a key={pageNumber + '-' + index} className={style.pageButton}>{pageNumber}</a>;
       }
 
       return (
@@ -130,7 +121,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           key={pageNumber + '-' + index}
           data-hook={`page-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
-          className={classes.pageButton}
+          className={style.pageButton}
           tabIndex={pageUrl ? null : 0}
           onClick={e => this.props.onPageClick(e, pageNumber)}
           onKeyDown={e => this.props.onPageKeyDown(e, pageNumber)}

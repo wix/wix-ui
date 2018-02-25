@@ -97,7 +97,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
   };
 
   public id: string;
-  private checkbox: HTMLInputElement;
+  private checkbox: HTMLInputElement | null;
 
   constructor(props: CheckboxProps) {
     super(props);
@@ -150,11 +150,9 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
-        tabIndex={0}
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
           <input
-            data-hook="NATIVE_CHECKBOX"
             type="checkbox"
             className={style.nativeCheckbox}
             checked={this.props.checked}
@@ -163,28 +161,22 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            id={this.props.id}
+            id={this.id}
             tabIndex={this.props.tabIndex}
             autoFocus={this.props.autoFocus}
             name={this.props.name}
             aria-controls={this.props['aria-controls']}
-            ref={ref => this.checkbox = ref!}
+            ref={ref => this.checkbox = ref}
             required={required}
           />
 
-          <span
-            className={style.box}
-            data-hook="CHECKBOX_BOX"
-          >
+          <span className={style.box}>
             {this.props.indeterminate ?
               this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}
           </span>
 
           {this.props.children ? (
-            <div
-              data-hook="CHECKBOX_CHILD_CONTAINER"
-              className={style.childContainer}
-            >
+            <div className={style.childContainer}>
               {this.props.children}
             </div>
           ) : null

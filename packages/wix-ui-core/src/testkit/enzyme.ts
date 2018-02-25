@@ -38,3 +38,6 @@ export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTe
 
 import {stylableButtonDriverFactory} from '../components/StylableButton/Button.driver';
 export const stylableButtonTestkitFactory = enzymeTestkitFactoryCreator(stylableButtonDriverFactory);
+
+import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
+export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator(stylableBadgeDriverFactory);

@@ -32,10 +32,6 @@ export interface InputWithOptionsProps {
   onManualInput?: (value: string) => void;
   /** Input prop types */
   inputProps: InputProps;
-  /** Input component */
-  InputComponent?: React.ComponentClass<InputProps> | React.SFC<InputProps>;
-  /** Makes the component disabled */
-  disabled?: boolean;
 }
 
 /**
@@ -50,8 +46,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     initialSelectedIds: [],
     onSelect: () => null,
     onDeselect: () => null,
-    onManualInput: () => null,
-    InputComponent: Input
+    onManualInput: () => null
   };
 
   static propTypes = {
@@ -78,11 +73,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
     onManualInput: func,
     /** Input prop types */
-    inputProps: object.isRequired,
-    /** Input component */
-    InputComponent: func,
-    /** Makes the component disabled */
-    disabled: bool
+    inputProps: object.isRequired
   };
 
   dropdownRef;
@@ -132,8 +123,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       fixedFooter,
       fixedHeader,
       onDeselect,
-      disabled,
-      InputComponent,
       inputProps} = this.props;
 
     return (
@@ -142,7 +131,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         ref={dropdown => this.dropdownRef = dropdown}
         placement={placement}
         openTrigger={openTrigger}
-        disabled={disabled}
+        disabled={inputProps.disabled}
         onSelect={this.onSelect}
         showArrow={false}
         fixedFooter={fixedFooter}
@@ -151,11 +140,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         initialSelectedIds={initialSelectedIds}
         options={options}
         closeOnSelect={closeOnSelect}>
-        <InputComponent
+        <Input
           {...inputProps}
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
-          disabled={disabled}
+          className={`${style.input} ${inputProps.className ? inputProps.className : ''}`.trim()}
         />
       </Dropdown>
     );

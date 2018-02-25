@@ -21,9 +21,10 @@ export interface VideoState {}
 const noop = () => null;
 
 const mapPropsToMethods = {
-  title: 'setTitle',
+  src: 'setSrc',
   width: 'setWidth',
   height: 'setHeight',
+  title: 'setTitle',
   poster: 'setPoster',
   playing: (instance, player, nextPlaying) => {
     if (!instance.props.playing && nextPlaying && !instance._isPlaying()) {

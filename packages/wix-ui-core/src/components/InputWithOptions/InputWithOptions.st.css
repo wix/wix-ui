@@ -9,3 +9,5 @@
 .root {
   -st-extends: Dropdown;
 }
+
+.input {}

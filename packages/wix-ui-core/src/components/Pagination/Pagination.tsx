@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import {createHOC} from '../../createHOC';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
+import pStyle from './Pagination.st.css';
 
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
 
@@ -11,35 +11,6 @@ enum ButtonType {
   Next = 'next',
   First = 'first',
   Last = 'last'
-}
-
-// TODO: should be automatically derived from styles somehow.
-export interface PaginationClasses {
-  root: string;
-
-  // Nav buttons
-  navButton: string;
-  navButtonFirst: string;
-  navButtonPrevious: string;
-  navButtonNext: string;
-  navButtonLast: string;
-
-  // Mode: pages
-  pageStrip: string;
-  pageStripInner: string;
-  pageStripTemplate: string;
-  pageButton: string;
-  currentPage: string;
-  gap: string;
-
-  // Mode: input
-  pageForm: string;
-  pageInput: string;
-  totalPages: string;
-
-  // Modifiers
-  disabled: string;
-  error: string;
 }
 
 export interface PaginationProps {
@@ -64,19 +35,19 @@ export interface PaginationProps {
   showInputModeTotalPages?: boolean;
   responsive?: boolean;
   maxPagesToShow?: number;
-  classes?: PaginationClasses;
   id?: string;
   updateResponsiveLayout?: (callback: () => void) => void;
+  style?: React.CSSProperties;
 }
 
-interface PaginationState {
+export interface PaginationState {
   pageInputValue: string;
   pageInputHasError: boolean;
 }
 
-class Pagination extends React.Component<PaginationProps, PaginationState> {
+export class Pagination extends React.Component<PaginationProps, PaginationState> {
   // this is a technical debt - remove once we have support for typescript props in autodocs
-  static propTypes = {
+  static propTypes: Object = {
     /** The number of pages available to paginate */
     totalPages: number.isRequired,
     /** Current page to be shown as current. defaults to 1 */
@@ -86,7 +57,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
     onChange: func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
-    paginationMode: oneOf(['pages' , 'input']),
+    paginationMode: oneOf(['pages', 'input']),
     /** Shows the 'first' and 'last' navigation buttons. defaults to false */
     showFirstLastNavButtons: bool,
     /** Text to appear for the 'first' navigation button */
@@ -165,7 +136,6 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     return (
       <PageStrip
         id={this.props.id}
-        classes={this.props.classes}
         totalPages={this.props.totalPages}
         currentPage={this.props.currentPage}
         maxPagesToShow={this.maxPagesToShow}
@@ -214,14 +184,12 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   private renderPageForm(): JSX.Element {
-    const {classes} = this.props;
-
     return (
-      <div data-hook="page-form" id={this.getId('pageForm')} className={classes.pageForm} dir="ltr">
+      <div data-hook="page-form" id={this.getId('pageForm')} className={pStyle.pageForm} dir="ltr">
         <input
           data-hook="page-input"
           type="number"
-          className={classNames(classes.pageInput, {[classes.error]: this.state.pageInputHasError})}
+          className={pStyle.pageInput}
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
@@ -229,36 +197,37 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
-        {this.props.showInputModeTotalPages &&
-          <span data-hook="total-pages" className={classes.totalPages}>
-            {this.props.slashLabel}
+        {this.props.showInputModeTotalPages && [
+            <span key="slash" className={pStyle.slash}>{this.props.slashLabel}</span>,
+            <span key="total-pages" data-hook="total-pages" className={pStyle.totalPages}>
             {this.props.totalPages}
-          </span>
+            </span>
+          ]
         }
       </div>
     );
   }
 
   private renderNavButton(type: ButtonType): JSX.Element {
-    const {classes, currentPage, totalPages, pageUrl} = this.props;
+    const {currentPage, totalPages, pageUrl} = this.props;
 
     const disabled = (
       ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
-      ((type === ButtonType.Last  || type === ButtonType.Next) && currentPage >= totalPages)
+      ((type === ButtonType.Last || type === ButtonType.Next) && currentPage >= totalPages)
     );
 
     const [btnClass, label, page] = {
-      [ButtonType.Prev]:  [classes.navButtonPrevious, this.props.previousLabel, currentPage - 1],
-      [ButtonType.Next]:  [classes.navButtonNext,     this.props.nextLabel,     currentPage + 1],
-      [ButtonType.First]: [classes.navButtonFirst,    this.props.firstLabel,    1],
-      [ButtonType.Last]:  [classes.navButtonLast,     this.props.lastLabel,     totalPages]
+      [ButtonType.Prev]: [pStyle.navButtonPrevious, this.props.previousLabel, currentPage - 1],
+      [ButtonType.Next]: [pStyle.navButtonNext, this.props.nextLabel, currentPage + 1],
+      [ButtonType.First]: [pStyle.navButtonFirst, this.props.firstLabel, 1],
+      [ButtonType.Last]: [pStyle.navButtonLast, this.props.lastLabel, totalPages]
     }[type] as [string, string, number];
 
     return (
       <a
         data-hook={type}
         id={this.getId('navButton' + upperCaseFirst(type))}
-        className={classNames(classes.navButton, btnClass, {[classes.disabled]: disabled})}
+        {...pStyle('navButton ' + btnClass, {disabled})}
         aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
@@ -278,16 +247,20 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
   }
 
   public render() {
-    const {showFirstLastNavButtons, paginationMode, classes, width} = this.props;
+    const {showFirstLastNavButtons, paginationMode, width, style} = this.props;
+
+    const styleStates = {
+      error: this.state.pageInputHasError
+    };
 
     return (
       <nav
-        id={this.getId('root')}
+        id={this.getId('')}
         role="navigation"
         aria-label="Pagination Navigation"
-        className={classes.root}
         dir={this.props.rtl ? 'rtl' : null}
-        style={width ? {width} : null}
+        style={style || {width}}
+        {...pStyle('root', styleStates, this.props)}
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}
@@ -298,5 +271,3 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     );
   }
 }
-
-export default createHOC(Pagination);

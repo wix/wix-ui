@@ -12,14 +12,15 @@
     "*.js",
     "*.d.ts",
     "!wallaby.js",
-    "!protractor.conf.js"
+    "!protractor.conf.js",
+    "index.st.css"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts",
+    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist\" --diagnostics",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -68,6 +69,7 @@
     "react-dom": "^15.5.0",
     "react-test-renderer": "^15.5.4",
     "stylable": "latest",
+    "stylable-integration": "latest",
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
     "wix-eventually": "latest",
@@ -85,8 +87,10 @@
   },
   "jest": {
     "transform": {
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
-      "\\.(css)$": "stylable-integration/jest"
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleNameMapper": {
+      "\\.(st.css)$": "wix-ui-test-utils/stylable-proxy"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
