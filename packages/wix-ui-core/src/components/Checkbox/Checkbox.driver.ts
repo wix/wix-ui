@@ -20,16 +20,12 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     mouseLeave: () => eventTrigger.mouseLeave(element),
     /** trigger focus on the element */
     focus: () => eventTrigger.focus(element.querySelector('[data-hook="NATIVE_CHECKBOX"]')),
-    /** returns elements type attribute */
-    getType: () => element.getAttribute('type'),
     /** checks if the tickmark exists, i.e. the checkbox is checked */
     isChecked: () => hasStyleState(element, 'checked'),
     /** returns true if the element has indeterminate state */
     isIndeterminate: () => hasStyleState(element, 'indeterminate'),
     /** returns if the element is disabled */
     isDisabled: () => hasStyleState(element, 'disabled'),
-    /** returns elements textContent */
-    getTextContent: () => element.textContent,
     /** returns the checkbox children */
     children: () => element.querySelectorAll('[data-hook="CHECKBOX_CHILD_CONTAINER"]'),
     /** returns the checkbox tickmark */
