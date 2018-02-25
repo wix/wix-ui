@@ -1,1 +1,1 @@
-export {RadioButton} from './RadioButton';
+export {RadioButton, RadioButtonChangeEvent, RadioButtonHoverEvent} from './RadioButton';

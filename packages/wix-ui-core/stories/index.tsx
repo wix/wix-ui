@@ -11,6 +11,7 @@ import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
+import {RadioButtonStory} from './RadioButton';
 
 const dropdownOptions =
   Array.from(Array(20))
@@ -27,7 +28,6 @@ require('./StylableText').story();
 require('./StylableButton').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
-require('./RadioButton').story();
 require('./Video').story();
 
 storiesOf('Components', module)
@@ -88,4 +88,7 @@ storiesOf('Components', module)
   ))
   .add('Tooltip Custom', () => (
     <TooltipStory />
+  ))
+  .add('RadioButton', () => (
+    <RadioButtonStory />
   ));

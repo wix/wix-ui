@@ -9,7 +9,7 @@ describe('RadioButton', () => {
   beforeEach(() => browser.get(storyUrl));
 
   eyes.it('RadioButton renders correctly', () => {
-    const dataHook = 'radio-story';
+    const dataHook = 'radio-story-1';
     const radio = radioButtonTestkitFactory({dataHook});
     return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton');
   });

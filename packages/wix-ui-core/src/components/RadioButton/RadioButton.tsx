@@ -1,6 +1,19 @@
 import * as React from 'react';
-import {string, func, node, bool} from 'prop-types';
 import style from './RadioButton.st.css';
+
+const noop = () => null;
+
+export interface RadioButtonChangeEvent extends React.MouseEvent<HTMLDivElement> {
+  value: string;
+}
+
+export interface RadioButtonClickEvent extends React.MouseEvent<HTMLDivElement> {
+  value: string;
+}
+
+export interface RadioButtonHoverEvent extends React.MouseEvent<HTMLSpanElement> {
+  value: string;
+}
 
 export interface RadioButtonProps {
   /** Sets checked status of the radio */
@@ -10,9 +23,9 @@ export interface RadioButtonProps {
   /** The group name which the button belongs to */
   name?: string;
   /** A callback to invoke on change */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: RadioButtonChangeEvent | RadioButtonClickEvent) => void;
   /** A callback to invoke on hover */
-  onHover?: (event: React.MouseEvent<HTMLElement>) => void;
+  onHover?: (event: RadioButtonHoverEvent) => void;
   /** A callback to invoke on blur */
   onIconBlur?: (event: React.MouseEvent<HTMLElement>) => void;
   /** The checked icon */
@@ -33,41 +46,19 @@ export interface RadioButtonState {
 
 export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      focused: false
-    };
-  }
+  state = {
+    focused: false
+  };
 
-  static propTypes: Object = {
-    /** The value which the radio represents */
-    value: string,
-    /** The group name which the button belongs to */
-    name: string,
-    /** A callback to invoke on change */
-    onChange: func,
-    /** A callback to invoke on hover */
-    onHover: func,
-    /** A callback to invoke on blur */
-    onIconBlur: func,
-    /** The checked icon */
-    checkedIcon: node,
-    /** The unchecked icon */
-    uncheckedIcon: node,
-    /** The label */
-    label: node,
-    /** Sets checked status of the radio */
-    checked: bool,
-    /** Sets the disabled status of the radio */
-    disabled: bool,
-    /** Sets the required status of the radio */
-    required: bool
+  static defaultProps = {
+    onChange: noop,
+    onHover: noop,
+    onBlur: noop
   };
 
   render() {
-    const {value, name, checkedIcon, uncheckedIcon,
-      label, checked, disabled, required, onIconBlur} = this.props;
+    const {value, name, checkedIcon, uncheckedIcon, label, checked,
+           disabled, required, onIconBlur} = this.props;
     const focused = this.state.focused;
 
     return (
@@ -85,11 +76,14 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
     );
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!this.props.disabled) {
-      event.value = this.props.value;
-      this.props.onChange(event);
+      this.props.onChange({value: this.props.value, ...event});
     }
+  }
+
+  onHover = (event: React.MouseEvent<HTMLSpanElement>) => {
+    this.props.onHover({value: this.props.value, ...event});
   }
 
   onFocus = () => {
@@ -98,10 +92,5 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
 
   onInputBlur = () => {
     this.setState({focused: false});
-  }
-
-  onHover = event => {
-    event.value = this.props.value;
-    this.props.onHover(event);
   }
 }

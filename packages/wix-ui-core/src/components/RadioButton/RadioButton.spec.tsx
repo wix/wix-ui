@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {radioButtonDriverFactory} from './RadioButton.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {RadioButton} from './RadioButton';
+import {RadioButton, RadioButtonProps} from './RadioButton';
 
-function createRadio(props = {}) {
-  return <RadioButton data-hook="radio-spec" label={<span>Horsie</span>}
+function createRadio(props: RadioButtonProps = {}) {
+  return <RadioButton label={<span>Horsie</span>}
                       checkedIcon={<span>🦄</span>} uncheckedIcon={<span>🦄</span>} value="horsie" {...props}/>;
 }
 
