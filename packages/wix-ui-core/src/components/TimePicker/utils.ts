@@ -19,13 +19,15 @@ export const parseTime = (timeStr: string) => ({
   minute: timeStr.substr(3, 5)
 });
 
-export const isValidTime = (timeStr: string) => {
+export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
   const {hour, minute} = parseTime(timeStr);
+  const nHour = parseInt(hour);
+  const nMinute = parseInt(minute);
   return (
     timeStr.length === 5
     && timeStr[2] === ':'
-    && !isNaN(parseInt(hour))
-    && !isNaN(parseInt(minute))
+    && nHour <= (useAmPm ? 12 : 24)
+    && nMinute <= 59
   );
 };
 

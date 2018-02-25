@@ -2,6 +2,7 @@ import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 const omit = require('lodash.omit');
 import {Input, InputProps} from '../Input';
+import style from '../Input/Input.st.css';
 import {
   FIELD,
   BLANK,
@@ -175,8 +176,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     // Validate on blur and call onChange if needed
     let {value} = this.state;
-    const {onChange} = this.props;
-    if (isValidTime(value) || value === NULL_TIME) {
+    const {onChange, useAmPm} = this.props;
+    if (isValidTime(value, useAmPm) || value === NULL_TIME) {
       if (value !== this.props.value) { onChange(value === NULL_TIME ? null : value); }
     } else {
       const {hour, minute} = parseTime(value);
@@ -364,6 +365,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     return (
       <Input
+        {...style('root', {}, this.props)}
         {...passThroughProps}
         value       = {value}
         type        = {useNativeInteraction ? 'time' : 'text'}
