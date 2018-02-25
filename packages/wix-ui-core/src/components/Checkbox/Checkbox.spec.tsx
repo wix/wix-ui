@@ -27,7 +27,7 @@ describe('Checkbox', () => {
       </Checkbox>
     );
 
-    expect(checkbox.children()[0].textContent).toContain('covfefe');
+    expect(checkbox.children().textContent).toContain('covfefe');
   });
 
   it('Displays custom tick mark when value is true', async () => {
