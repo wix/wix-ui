@@ -153,7 +153,6 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
           <input
-            data-hook="NATIVE_CHECKBOX"
             type="checkbox"
             className={style.nativeCheckbox}
             checked={this.props.checked}
@@ -171,19 +170,13 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             required={required}
           />
 
-          <span
-            className={style.box}
-            data-hook="CHECKBOX_BOX"
-          >
+          <span className={style.box}>
             {this.props.indeterminate ?
               this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}
           </span>
 
           {this.props.children ? (
-            <div
-              data-hook="CHECKBOX_CHILD_CONTAINER"
-              className={style.childContainer}
-            >
+            <div className={style.childContainer}>
               {this.props.children}
             </div>
           ) : null
