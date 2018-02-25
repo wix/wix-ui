@@ -3,8 +3,8 @@ import {badgeDriverFactory} from './Badge.driver';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {badgeTestkitFactory} from '../../testkit';
-import {badgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
+import {stylableBadgeTestkitFactory as badgeTestkitFactory} from '../../testkit';
+import {stylableBadgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
 import {Badge} from './';
 

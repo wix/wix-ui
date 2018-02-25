@@ -37,3 +37,6 @@ export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriv
 
 import {stylableButtonDriverFactory} from '../components/StylableButton/Button.driver';
 export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButtonDriverFactory);
+
+import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
+export const stylableBadgeTestkitFactory = testkitFactoryCreator(stylableBadgeDriverFactory);
