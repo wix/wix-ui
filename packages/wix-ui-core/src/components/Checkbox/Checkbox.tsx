@@ -146,7 +146,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
     const focus = this.state.isFocused;
 
     return (
-      <div {...style('root', {checked: indeterminate ? false : checked, disabled, focus, readonly, error, indeterminate}, this.props) }
+      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"

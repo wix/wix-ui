@@ -294,7 +294,6 @@ describe('Checkbox', () => {
 
       expect(checkbox.exists()).toBe(true);
       expect(checkbox.isIndeterminate()).toBe(true);
-      expect(checkbox.isChecked()).toBe(false);
     });
 
     it('renders indeterminate icon when value is false', async () => {
