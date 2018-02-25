@@ -6,7 +6,7 @@ import {withStylable} from '../../src/utils/withStylable';
 // Assuming we use pagination-story-theme
 const spaceForPages = (n) => (n + 2) * 40;
 
-const Pagination = withStylable<PaginationProps, {}>(CorePagination, style , () => ({}));
+const Pagination = withStylable<PaginationProps, {}>(CorePagination, style, () => ({}));
 
 class UncontrolledPagination extends React.Component<PaginationProps, {currentPage: number}> {
   state = {

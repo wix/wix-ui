@@ -227,8 +227,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
       <a
         data-hook={type}
         id={this.getId('navButton' + upperCaseFirst(type))}
-        {...pStyle('', {disabled})}
-        className={classNames(pStyle.navButton, btnClass)}
+        {...pStyle('navButton ' + btnClass, {disabled})}
         aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
