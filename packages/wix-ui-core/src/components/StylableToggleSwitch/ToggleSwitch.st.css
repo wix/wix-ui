@@ -1,34 +1,28 @@
 .root {
-  -st-states: checked, disabled;
+  -st-states: checked, disabled, focus;
   display: inline-flex;
   align-items: center;
   position: relative;
-  outline: none
+  outline: none;
 }
 
-.root > input[type=checkbox] {
+.root:not(:disabled) {
+  cursor: pointer;
+}
+
+.nativeInput {
   display: none;
 }
 
-.outerLabel {
-  display: inline-block;
-  cursor: pointer;
-}
+.track {}
 
-.innerLabel {
+.knob {
   display: flex;
-
-  position: absolute;
-  left: 1px;
-
-  text-align: center;
   align-items: center;
   justify-content: center;
-
-  cursor: pointer;
-
-  top: 50%;
-  transform: translate(0, -50%);
+  position: absolute;
+  left: 1px;
+  top: 1px;
 }
 
-.toggleIcon {}
+.knobIcon {}

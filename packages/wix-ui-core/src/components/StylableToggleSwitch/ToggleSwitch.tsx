@@ -1,90 +1,125 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
-import {bool, func, object, string, Requireable} from 'prop-types';
-import {getViewBox, getPathDescription} from '../ToggleSwitch/utils';
-import style from './ToggleSwitch.st.css';
-
-export type ToggleSwitchStyles = {
-  root?: object;
-  outerLabel?: object;
-  innerLabel?: object;
-  toggleIcon?: object;
-};
+import * as propTypes from 'prop-types';
+import tsStyle from './ToggleSwitch.st.css';
 
 export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
-  onChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  styles?: ToggleSwitchStyles;
+  tabIndex?: number;
+  onChange: () => void;
+  style?: React.CSSProperties;
   id?: string;
+  checkedIcon?: React.ReactNode;
+  uncheckedIcon?: React.ReactNode;
+}
+
+export interface ToggleSwitchState {
+  focus: boolean;
 }
 
 /**
  * Toggle Switch
  */
-export class ToggleSwitch<P = {}> extends React.PureComponent<ToggleSwitchProps & P> {
+export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleSwitchState> {
   static displayName = 'ToggleSwitch';
-  id: string = this.props.id || uniqueId('ToggleSwitch');
-
-  private toggle: HTMLLabelElement;
 
   static propTypes = {
     /** Is the toggleSwitch checked or not */
-    checked: bool,
-    /** Callback function when user changes the value of the component */
-    onChange: func.isRequired,
+    checked: propTypes.bool,
     /** Is the toggleSwitch disabled or not */
-    disabled: bool,
+    disabled: propTypes.bool,
+    /** Tab index */
+    tabIndex: propTypes.number,
+    /** Callback function when user changes the value of the component */
+    onChange: propTypes.func.isRequired,
     /** Styles object */
-    styles: object,
+    styles: propTypes.object,
     /** Component ID, will be generated automatically if not provided */
-    id: string
+    id: propTypes.string
   };
 
-  static defaultProps = {checked: false, styles: {}};
+  static defaultProps = {
+    checked: false,
+    tabIndex: 0
+  };
 
-  componentDidMount() {
-    this.toggle.addEventListener('keydown', this._listenToSpace);
-  }
+  public state = {
+    focus: false
+  };
 
-  componentWillUnmount() {
-    this.toggle.removeEventListener('keydown', this._listenToSpace);
-  }
-
-  _listenToSpace = e => {
-    if (e.key === ' ') {
-      e.preventDefault();
-      this._handleChange(e);
-    }
-  }
-
-  _handleChange = e => {
-    if (!this.props.disabled) {
-      this.props.onChange(e);
-    }
-  }
+  // We don't want to show outline when the component is focused by mouse.
+  private holdingMouseButton = false;
 
   render() {
-    const {checked, disabled, styles} = this.props;
-    const {id} = this;
+    const {checked, disabled} = this.props;
 
     return (
-      <label {...style('root', {checked, disabled}, this.props)} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref}>
+      <label
+        {...tsStyle('root', {checked, disabled, focus: this.state.focus}, this.props)}
+        style={this.props.style}
+        tabIndex={disabled ? null : this.props.tabIndex}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+        onMouseDown={this.handleMouseDown}
+        onMouseUp={this.handleMouseUp}
+        onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
+      >
+        <div className={tsStyle.track} />
+        <div className={tsStyle.knob}>
+          <div className={tsStyle.knobIcon}>
+            {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
+          </div>
+        </div>
         <input
+          className={tsStyle.nativeInput}
           type="checkbox"
-          id={id}
+          id={this.props.id}
           checked={checked}
           disabled={disabled}
-          onChange={e => this._handleChange(e)}
+          onChange={this.handleChange}
         />
-
-        <div className={style.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
-        <div className={style.innerLabel} style={styles.innerLabel}>
-          <svg className={style.toggleIcon} viewBox={getViewBox(checked)}>
-            <path d={getPathDescription(checked)}/>
-          </svg>
-        </div>
       </label>
     );
   }
+
+  private handleKeyDown: React.KeyboardEventHandler<HTMLElement> = e => {
+    if (e.key === ' ' && !this.props.disabled) {
+      e.preventDefault(); // block page scroll
+      this.setState({focus: true});
+    }
+  };
+
+  // Firefox doesn't handle Space press on checkboxes
+  private handleKeyUp: React.KeyboardEventHandler<HTMLElement> = e => {
+    if (e.key === ' ' && !this.props.disabled) {
+      this.props.onChange();
+    }
+  };
+
+  private handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    this.props.onChange();
+  };
+
+  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
+    if (e.button === 0) {
+      this.holdingMouseButton = true;
+    }
+  };
+
+  private handleMouseUp: React.MouseEventHandler<HTMLElement> = e => {
+    if (e.button === 0) {
+      this.holdingMouseButton = false;
+    }
+  };
+
+  private handleFocus: React.FocusEventHandler<HTMLElement> = e => {
+    if (!this.holdingMouseButton) {
+      this.setState({focus: true});
+    }
+  };
+
+  private handleBlur: React.FocusEventHandler<HTMLElement> = e => {
+    this.setState({focus: false});
+  };
 }

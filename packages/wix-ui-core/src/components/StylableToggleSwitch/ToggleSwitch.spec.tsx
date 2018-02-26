@@ -6,7 +6,6 @@ import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {ToggleSwitch} from './';
 import {stylableToggleSwitchTestkitFactory as toggleSwitchTestkitFactory} from '../../testkit';
 import {stylableToggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
-import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 import {mount} from 'enzyme';
 
 describe('ToggleSwitch', () => {
@@ -64,22 +63,6 @@ describe('ToggleSwitch', () => {
       driver.click();
       expect(onChange).toHaveBeenCalledTimes(0);
       expect(driver.isChecked()).toBe(true);
-    });
-  });
-
-  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of having one within it
-  //See issue https://github.com/wix/wix-ui/issues/38
-  describe('toggleIcon', () => {
-    it('should be the checked icon when the toggleSwitch is checked', () => {
-      const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(activeViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(activePathD);
-    });
-
-    it('should be the unchecked icon when the toggleSwitch is unchecked', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(inactiveViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(inactivePathD);
     });
   });
 
