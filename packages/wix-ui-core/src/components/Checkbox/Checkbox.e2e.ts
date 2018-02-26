@@ -14,15 +14,4 @@ describe('Checkbox', () => {
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
   });
-
-  eyes.it('should become checked', () => {
-    const dataHook = 'storybook-checkbox';
-    const driver = checkboxTestkitFactory({dataHook});
-
-    expect(driver.isChecked()).toBe(false);
-
-    driver.click();
-
-    expect(driver.isChecked()).toBe(true);
-  });
 });
