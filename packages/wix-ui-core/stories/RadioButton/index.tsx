@@ -26,7 +26,7 @@ export class RadioButtonStory extends React.Component<{}, {checkedIdx: string}> 
         </div>
         <div style={{display: 'flex', flexDirection: 'column'}}>
           <h3>Radio Buttons - disabled</h3>
-          {['unchecked','checked']
+          {['unchecked', 'checked']
             .map((value, idx) => this.createRadio({checked: !!idx, label: `Disabled ${value}`, value: '1', disabled: true}))}
         </div>
       </div>
