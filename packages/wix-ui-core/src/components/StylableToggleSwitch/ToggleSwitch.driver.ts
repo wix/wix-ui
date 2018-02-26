@@ -9,10 +9,7 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     /** checks if element exists */
     exists: () => !!element,
     /** triggers toggleSwitch change */
-    click: () => {
-      toggleSwitch.click();
-      eventTrigger.change(toggleSwitch);
-    },
+    click: () => eventTrigger.click(element),
     /** returns a boolean indicating if the toggleSwitch is checked */
     isChecked: () => toggleSwitch.checked,
     /** returns a boolean indicating if the toggleSwitch is disabled */

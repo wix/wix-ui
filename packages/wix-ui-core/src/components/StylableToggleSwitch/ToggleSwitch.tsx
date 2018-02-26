@@ -54,7 +54,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     const {checked, disabled} = this.props;
 
     return (
-      <label
+      <div
         {...tsStyle('root', {checked, disabled, focus: this.state.focus}, this.props)}
         style={this.props.style}
         tabIndex={disabled ? null : this.props.tabIndex}
@@ -62,6 +62,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
         onBlur={this.handleBlur}
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
+        onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
       >
@@ -79,7 +80,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           disabled={disabled}
           onChange={this.handleChange}
         />
-      </label>
+      </div>
     );
   }
 
@@ -88,38 +89,44 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
       e.preventDefault(); // block page scroll
       this.setState({focus: true});
     }
-  };
+  }
 
   // Firefox doesn't handle Space press on checkboxes
   private handleKeyUp: React.KeyboardEventHandler<HTMLElement> = e => {
     if (e.key === ' ' && !this.props.disabled) {
       this.props.onChange();
     }
-  };
+  }
 
   private handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     this.props.onChange();
-  };
+  }
+
+  private handleClick: React.MouseEventHandler<HTMLElement> = e => {
+    if (!this.props.disabled) {
+      this.props.onChange();
+    }
+  }
 
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
     if (e.button === 0) {
       this.holdingMouseButton = true;
     }
-  };
+  }
 
   private handleMouseUp: React.MouseEventHandler<HTMLElement> = e => {
     if (e.button === 0) {
       this.holdingMouseButton = false;
     }
-  };
+  }
 
   private handleFocus: React.FocusEventHandler<HTMLElement> = e => {
     if (!this.holdingMouseButton) {
       this.setState({focus: true});
     }
-  };
+  }
 
   private handleBlur: React.FocusEventHandler<HTMLElement> = e => {
     this.setState({focus: false});
-  };
+  }
 }
