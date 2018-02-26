@@ -40,3 +40,6 @@ export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButton
 
 import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
 export const stylableBadgeTestkitFactory = testkitFactoryCreator(stylableBadgeDriverFactory);
+
+import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.driver';
+export const radioButtonTestkitFactory = testkitFactoryCreator(radioButtonDriverFactory);

@@ -41,3 +41,6 @@ export const stylableButtonTestkitFactory = enzymeTestkitFactoryCreator(stylable
 
 import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
 export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator(stylableBadgeDriverFactory);
+
+import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.driver';
+export const radioButtonTestkitFactory = enzymeTestkitFactoryCreator(radioButtonDriverFactory);

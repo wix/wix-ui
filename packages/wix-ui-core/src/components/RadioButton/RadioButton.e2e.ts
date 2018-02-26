@@ -8,9 +8,14 @@ describe('RadioButton', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  eyes.it('RadioButton renders correctly', () => {
-    const dataHook = 'radio-story-1';
+  eyes.it('RadioButton renders and selected upon click', async () => {
+    const dataHook = 'radio-story-2';
     const radio = radioButtonTestkitFactory({dataHook});
-    return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton');
+    return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton')
+      .then(async () => {
+        await expect(radio.isSelected()).toBeFalsy();
+        radio.select();
+        await expect(radio.isSelected()).toBeTruthy();
+      });
   });
 });

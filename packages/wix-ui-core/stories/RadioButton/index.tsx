@@ -8,6 +8,7 @@ export class RadioButtonStory extends React.Component<{}, {checkedIdx: string}> 
 
   createRadio(props: RadioButtonProps = {}) {
     return <RadioButton
+              key={props.label + props.value}
               label={<span>props.label</span>}
               checkedIcon={<span>⭐</span>}
               uncheckedIcon={<span>★</span>}
