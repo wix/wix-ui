@@ -1,5 +1,4 @@
-export const checkboxDriverFactory = component => {
-  return {
+export const checkboxDriverFactory = component => ({
     /** Returns the component instance */
     element: () => component,
     /** Simulates a click on the component */
@@ -7,6 +6,5 @@ export const checkboxDriverFactory = component => {
     /** Indicates whether the component is disabled or not */
     isDisabled: () => component.getAttribute('disabled') === '',
     /** Indicates whether the component is checked */
-    isChecked: async () => await component.getAttribute('aria-checked') !== 'false'
-  };
-};
+    isChecked: () => component.getAttribute('aria-checked') !== 'false'
+  });
