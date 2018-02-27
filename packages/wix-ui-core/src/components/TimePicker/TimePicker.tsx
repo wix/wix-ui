@@ -23,7 +23,7 @@ export interface TimePickerProps extends InputProps {
   step?: number;
   separateSteps?: boolean;
   value?: string;
-  valueWhenNull?: string;
+  placeholder?: string;
 }
 
 export interface TimePickerState {
@@ -63,7 +63,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     step                 : 1,
     separateSteps        : false,
     value                : null,
-    valueWhenNull        : NULL_TIME,
+    placeholder        : NULL_TIME,
   };
 
   static propTypes: Object = {
@@ -98,7 +98,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     value: string,
 
     /** What to display when value is null */
-    valueWhenNull: string,
+    placeholder: string,
   };
 
   constructor(props) {
@@ -110,7 +110,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     let {value} = props;
     if (!value || !isValidTime(value)) {
-      value = isValidTime(props.valueWhenNull) ? props.valueWhenNull : NULL_TIME;
+      value = isValidTime(props.placeholder) ? props.placeholder : NULL_TIME;
     }
 
     this.state = {value};
@@ -134,7 +134,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     let {value} = nextProps;
     if (this.props.value !== value) {
       if (!value || !isValidTime(value)) {
-        value = isValidTime(nextProps.valueWhenNull) ? nextProps.valueWhenNull : NULL_TIME;
+        value = isValidTime(nextProps.placeholder) ? nextProps.placeholder : NULL_TIME;
       }
       this.setState({value});
     }

@@ -258,7 +258,7 @@ describe('TimePicker', () => {
     });
   });
 
-  describe('valueWhenNull prop', () => {
+  describe('placeholder prop', () => {
     const SOME_VALUE_WHEN_NULL = '14:42';
 
     it('should default to "--:--"', () => {
@@ -266,13 +266,13 @@ describe('TimePicker', () => {
       expect(driver.getValue()).toEqual('--:--');
     });
 
-    it('should set the value to valueWhenNull when actual value is null', () => {
-      const driver = createDriver(<TimePicker value = {null} valueWhenNull = {SOME_VALUE_WHEN_NULL} />);
+    it('should set the value to placeholder when actual value is null', () => {
+      const driver = createDriver(<TimePicker value = {null} placeholder = {SOME_VALUE_WHEN_NULL} />);
       expect(driver.getValue()).toEqual(SOME_VALUE_WHEN_NULL);
     });
 
     it('should ignore this prop when value is set', () => {
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} valueWhenNull = {SOME_VALUE_WHEN_NULL} />);
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} placeholder = {SOME_VALUE_WHEN_NULL} />);
       expect(driver.getValue()).toEqual(SOME_VALUE);
     });
   });
