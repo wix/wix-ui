@@ -18,6 +18,10 @@ export interface InputProps {
   onBlur?: React.FocusEventHandler<HTMLElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLElement>;
+  onMouseDown?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onMouseUp?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onMouseMove?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+  onDragStart?: React.EventHandler<React.DragEvent<HTMLInputElement>>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
@@ -50,6 +54,10 @@ export class Input extends React.Component<InputProps, InputState> {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onMouseUp: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onDragStart: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyPress: PropTypes.func,
     onKeyUp: PropTypes.func,
@@ -83,6 +91,10 @@ export class Input extends React.Component<InputProps, InputState> {
       autoComplete,
       autoFocus,
       onChange,
+      onMouseDown,
+      onMouseUp,
+      onMouseMove,
+      onDragStart,
       onKeyDown,
       onKeyPress,
       onKeyUp,
@@ -113,6 +125,10 @@ export class Input extends React.Component<InputProps, InputState> {
           onBlur={this.handleBlur}
           onChange={onChange}
           onFocus={this.handleFocus}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          onDragStart={onDragStart}
           onKeyDown={onKeyDown}
           onKeyPress={onKeyPress}
           onKeyUp={onKeyUp}
