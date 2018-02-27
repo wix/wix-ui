@@ -20,10 +20,12 @@ describe('RadioButton', () => {
   it('invokes callback for onChange with the correct value', () => {
     const onChange = jest.fn();
     const radio = createDriver(createRadio({onChange}));
+    expect(radio.isInputFocused()).toBeFalsy();
 
     radio.select();
     expect(onChange.mock.calls.length).toEqual(1);
     expect(onChange.mock.calls[0][0].value).toEqual('horsie');
+    expect(radio.isInputFocused()).toBeTruthy();
   });
 
   it('is checked correctly', () => {

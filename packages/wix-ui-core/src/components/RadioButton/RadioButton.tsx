@@ -46,8 +46,6 @@ export interface RadioButtonState {
 
 export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
 
-  radioRef = undefined;
-
   state = {
     focused: false
   };
@@ -99,4 +97,6 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
   onInputBlur = () => {
     this.setState({focused: false});
   }
+
+  private radioRef = undefined;
 }

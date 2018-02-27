@@ -13,6 +13,7 @@ export const radioButtonDriverFactory = ({element, eventTrigger}) => {
     select: () => eventTrigger.change(element, {target: element}),
     value: () => getInput().getAttribute('value'),
     name: () => getInput().getAttribute('name'),
+    isInputFocused: () => document.activeElement === getInput(),
     isRequired: () => getInput().hasAttribute('required'),
     iconExists: () => !!getIcon(),
     labelExists: () => !!getLabel(),
