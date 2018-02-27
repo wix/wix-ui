@@ -11,7 +11,6 @@ import {mount} from 'enzyme';
 describe('ToggleSwitch', () => {
 
   const createDriver = createDriverFactory(toggleSwitchDriverFactory);
-  const noop = () => null;
 
   describe('checked prop', () => {
     it('should be controlled', () => {
@@ -24,12 +23,12 @@ describe('ToggleSwitch', () => {
 
     it('should pass down to input when checked', () => {
       const driver = createDriver(<ToggleSwitch checked />);
-      expect(driver.isChecked()).toBeTruthy();
+      expect(driver.isChecked()).toBe(true);
     });
 
     it('should pass down to input when not checked', () => {
       const driver = createDriver(<ToggleSwitch checked={false} />);
-      expect(driver.isChecked()).toBeFalsy();
+      expect(driver.isChecked()).toBe(false);
     });
   });
 
@@ -66,11 +65,16 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  describe('id prop', () => {
+  describe('attributes', () => {
     it('should apply user specified id', () => {
       const testId = 'testId';
-      const driver = createDriver(<ToggleSwitch  id={testId}/>);
+      const driver = createDriver(<ToggleSwitch id={testId}/>);
       expect(driver.getId()).toBe(testId);
+    });
+
+    it('should apply user specified tabIndex', () => {
+      const driver = createDriver(<ToggleSwitch tabIndex={7} />);
+      expect(driver.getTabIndex()).toBe(7);
     });
   });
 

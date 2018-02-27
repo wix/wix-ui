@@ -24,6 +24,7 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     /** Returns the toggle icon inside the knob */
     getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
     /** Returns the id of the input component */
-    getId: () => checkbox.id
+    getId: () => checkbox.id,
+    getTabIndex: () => checkbox.tabIndex
   };
 };
