@@ -6,5 +6,5 @@ export const checkboxDriverFactory = component => ({
     /** Indicates whether the component is disabled or not */
     isDisabled: () => component.getAttribute('disabled') === '',
     /** Indicates whether the component is checked */
-    isChecked: () => component.getAttribute('aria-checked') !== 'false'
+    isChecked: () => component.getAttribute('aria-checked').then(val => val === 'true')
   });
