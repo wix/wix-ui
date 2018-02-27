@@ -15,7 +15,7 @@ describe('ToggleSwitch', () => {
 
   describe('checked prop', () => {
     it('should be controlled', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch />);
       expect(driver.isChecked()).toBe(false);
       driver.click();
 
@@ -23,12 +23,12 @@ describe('ToggleSwitch', () => {
     });
 
     it('should pass down to input when checked', () => {
-      const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch checked />);
       expect(driver.isChecked()).toBeTruthy();
     });
 
     it('should pass down to input when not checked', () => {
-      const driver = createDriver(<ToggleSwitch checked={false} onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch checked={false} />);
       expect(driver.isChecked()).toBeFalsy();
     });
   });
@@ -45,7 +45,7 @@ describe('ToggleSwitch', () => {
 
   describe('disabled prop', () => {
     it('should not be disabled by default', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch />);
       expect(driver.isDisabled()).toBe(false);
     });
 
@@ -68,26 +68,26 @@ describe('ToggleSwitch', () => {
 
   describe('id prop', () => {
     it('should apply arbitrary unique id be default', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch />);
       expect(driver.getId()).toBeDefined();
     });
 
     it('should apply user specified id', () => {
       const testId = 'testId';
-      const driver = createDriver(<ToggleSwitch onChange={noop} id={testId}/>);
+      const driver = createDriver(<ToggleSwitch  id={testId}/>);
       expect(driver.getId()).toBe(testId);
     });
   });
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<ToggleSwitch onChange={noop}/>, toggleSwitchTestkitFactory)).toBe(true);
+      expect(isTestkitExists(<ToggleSwitch />, toggleSwitchTestkitFactory)).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
+      expect(isEnzymeTestkitExists(<ToggleSwitch />, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
     });
   });
 });

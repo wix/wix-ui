@@ -13,8 +13,8 @@ export class StylableToggleSwitchStory extends React.Component<{}, {checked: boo
           checked={this.state.checked}
           onChange={() => this.setState({checked: !this.state.checked})}
           data-hook="story-StylableToggleSwitch"
-          />
-        </div>
+        />
+      </div>
     );
   }
 }

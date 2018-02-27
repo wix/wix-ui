@@ -6,7 +6,7 @@ export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   tabIndex?: number;
-  onChange: () => void;
+  onChange?: () => void;
   style?: React.CSSProperties;
   id?: string;
   checkedIcon?: React.ReactNode;
@@ -15,6 +15,7 @@ export interface ToggleSwitchProps {
 
 export interface ToggleSwitchState {
   focus: boolean;
+  focusVisible: boolean;
 }
 
 /**
@@ -31,11 +32,15 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     /** Tab index */
     tabIndex: propTypes.number,
     /** Callback function when user changes the value of the component */
-    onChange: propTypes.func.isRequired,
-    /** Styles object */
-    styles: propTypes.object,
-    /** Component ID, will be generated automatically if not provided */
-    id: propTypes.string
+    onChange: propTypes.func,
+    /** Inline style for the root */
+    style: propTypes.object,
+    /** The ID attribute to put on the toggle */
+    id: propTypes.string,
+    /** Icon inside of the knob when checked */
+    checkedIcon: propTypes.node,
+    /** Icon inside of the knob when unchecked */
+    uncheckedIcon: propTypes.node
   };
 
   static defaultProps = {
@@ -44,27 +49,25 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
   };
 
   public state = {
-    focus: false
+    focus: false,
+    focusVisible: false
   };
 
   // We don't want to show outline when the component is focused by mouse.
-  private holdingMouseButton = false;
+  private focusedByMouse = false;
 
   render() {
     const {checked, disabled} = this.props;
 
     return (
       <div
-        {...tsStyle('root', {checked, disabled, focus: this.state.focus}, this.props)}
+        {...tsStyle('root', {
+          checked,
+          disabled,
+          focus: this.state.focus,
+          focusVisible: this.state.focusVisible
+        }, this.props)}
         style={this.props.style}
-        tabIndex={disabled ? null : this.props.tabIndex}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-        onClick={this.handleClick}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
       >
         <div className={tsStyle.track} />
         <div className={tsStyle.knob}>
@@ -73,60 +76,47 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           </div>
         </div>
         <input
-          className={tsStyle.nativeInput}
-          type="checkbox"
           id={this.props.id}
+          className={tsStyle.input}
+          type="checkbox"
           checked={checked}
           disabled={disabled}
+          tabIndex={this.props.tabIndex}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          onMouseDown={this.handleMouseDown}
+          onKeyDown={this.handleKeyDown}
         />
       </div>
     );
   }
 
   private handleKeyDown: React.KeyboardEventHandler<HTMLElement> = e => {
-    if (e.key === ' ' && !this.props.disabled) {
-      e.preventDefault(); // block page scroll
-      this.setState({focus: true});
-    }
-  }
-
-  // Firefox doesn't handle Space press on checkboxes
-  private handleKeyUp: React.KeyboardEventHandler<HTMLElement> = e => {
-    if (e.key === ' ' && !this.props.disabled) {
-      this.props.onChange();
-    }
+    // Pressing any key should make the focus visible, even if the checkbox
+    // was initially focused by mouse.
+    this.setState({focusVisible: true});
   }
 
   private handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    this.props.onChange();
-  }
-
-  private handleClick: React.MouseEventHandler<HTMLElement> = e => {
-    if (!this.props.disabled) {
+    if (this.props.onChange) {
       this.props.onChange();
     }
   }
 
+  // Doesn't get invoked if the input is disabled.
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
-    if (e.button === 0) {
-      this.holdingMouseButton = true;
-    }
-  }
-
-  private handleMouseUp: React.MouseEventHandler<HTMLElement> = e => {
-    if (e.button === 0) {
-      this.holdingMouseButton = false;
+    if (e.button === 0 && !this.state.focus) {
+      this.focusedByMouse = true;
     }
   }
 
   private handleFocus: React.FocusEventHandler<HTMLElement> = e => {
-    if (!this.holdingMouseButton) {
-      this.setState({focus: true});
-    }
+    this.setState({focus: true, focusVisible: !this.focusedByMouse});
   }
 
   private handleBlur: React.FocusEventHandler<HTMLElement> = e => {
-    this.setState({focus: false});
+    this.setState({focus: false, focusVisible: false});
+    this.focusedByMouse = false;
   }
 }

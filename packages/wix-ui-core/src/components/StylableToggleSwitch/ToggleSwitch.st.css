@@ -1,28 +1,29 @@
 .root {
-  -st-states: checked, disabled, focus;
+  /* Info on focusVisible: https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
+  -st-states: checked, disabled, focus, focusVisible;
   display: inline-flex;
-  align-items: center;
   position: relative;
-  outline: none;
 }
 
 .root:not(:disabled) {
   cursor: pointer;
 }
 
-.nativeInput {
-  display: none;
+/* We're relying on the input to handle mouse events, that's why we need it to cover the entire component */
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  cursor: inherit;
 }
 
 .track {}
 
-.knob {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-}
+.knob {}
 
 .knobIcon {}
