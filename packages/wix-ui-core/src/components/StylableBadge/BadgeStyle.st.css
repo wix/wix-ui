@@ -23,10 +23,9 @@
     
     background: value(backgroundColor);
     
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     box-sizing: border-box;
 
     line-height: 1;
-    text-align: center;
-    vertical-align: middle;
 }
