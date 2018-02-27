@@ -67,11 +67,6 @@ describe('ToggleSwitch', () => {
   });
 
   describe('id prop', () => {
-    it('should apply arbitrary unique id be default', () => {
-      const driver = createDriver(<ToggleSwitch />);
-      expect(driver.getId()).toBeDefined();
-    });
-
     it('should apply user specified id', () => {
       const testId = 'testId';
       const driver = createDriver(<ToggleSwitch  id={testId}/>);
