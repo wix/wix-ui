@@ -68,15 +68,17 @@ export const styles = (theme: SliderTheme) => {
       position: 'absolute',
       zIndex: 1,
       boxSizing: 'border-box',
+      cursor: 'pointer',
+    },
+    thumbShape: {
+      width: '100%',
+      height: '100%',
       background: theme.handleBackground,
-      'border-radius': theme.handleRadius,
-      borderRadius: '50%',
       border: {
         width: theme.handleBorderWidth,
         color: theme.handleBorderColor,
         style: 'solid'
       },
-      cursor: 'pointer',
     },
     tooltipTop: {
       top: -7,

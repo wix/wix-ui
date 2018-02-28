@@ -16,7 +16,6 @@ export type SliderTheme = Partial<{
 }>;
 
 export const core: SliderTheme = {
-  color: 'red',
   handleSize: 25,
   handleBorderColor: 'blue',
   handleBorderWidth: '2px',

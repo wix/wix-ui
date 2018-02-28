@@ -2,6 +2,7 @@ import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import * as classNames from 'classnames';
 import {Ticks} from './Ticks';
+import {Thumb} from './Thumb';
 
 export interface SliderProps {
   min?: number;
@@ -16,6 +17,7 @@ export interface SliderProps {
   trackSize?: number;
   width?: number;
   height?: number;
+  thumbShape?: string;
 }
 
 interface SliderState {
@@ -36,7 +38,8 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   static defaultProps = {
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
     dragging: false,
-    thumbHover: false
+    thumbHover: false,
+    thumbShape: 'circle'
   };
 
   constructor(props) {
@@ -285,18 +288,16 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
             ...highlightedTrackPosition
           }}/>
         </div>
-        <div data-hook="thumb"
-          className={classes.handle}
+        <Thumb
+          shape={this.props.thumbShape}
+          handlePosition={handlePosition}
+          handleSize={handleSize}
           onMouseEnter={this.handleThumbEnter}
           onMouseLeave={this.handleThumbLeave}
-          style={{
-            ...handlePosition,
-            width: handleSize,
-            height: handleSize
-          }}
+          classes={classes}
         >
           {this.renderTooltip()}
-        </div>
+        </Thumb>
       </div>
 
       {showTicks && (
