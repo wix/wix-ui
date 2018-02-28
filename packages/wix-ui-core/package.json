@@ -37,7 +37,7 @@
     "lodash.isundefined": "^3.0.0",
     "lodash.times": "^4.0.0",
     "lodash.uniqueid": "^4.0.0",
-    "playable": "^1.2.0",
+    "playable": "^1.5.0",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
