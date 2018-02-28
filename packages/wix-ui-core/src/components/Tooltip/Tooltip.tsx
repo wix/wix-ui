@@ -48,7 +48,6 @@ export interface TooltipState {
 /**
  * Tooltip
  */
-
 export class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClickOutProps, TooltipState> {
   static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');

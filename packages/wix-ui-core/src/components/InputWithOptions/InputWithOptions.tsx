@@ -26,6 +26,8 @@ export interface InputWithOptionsProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
+  /** Animation timer */
+  timeout?: number;
   /** Callback for when the editing is changed */
   onEditingChanged?: (isEditing: boolean) => void;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
@@ -68,6 +70,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     fixedHeader: node,
     /** An element that always appears at the bottom of the options */
     fixedFooter: node,
+    /** Animation timer */
+    timeout: number,
     /** Callback for when the editing is changed */
     onEditingChanged: func,
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list. If the component is controlled then the value will be the Input value. if not it will be `undefined`  */
@@ -122,6 +126,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       closeOnSelect,
       fixedFooter,
       fixedHeader,
+      timeout,
       onDeselect,
       inputProps} = this.props;
 
@@ -139,6 +144,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         onDeselect={onDeselect}
         initialSelectedIds={initialSelectedIds}
         options={options}
+        timeout={timeout}
         closeOnSelect={closeOnSelect}>
         <Input
           {...inputProps}

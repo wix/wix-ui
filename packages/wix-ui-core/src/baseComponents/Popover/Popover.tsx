@@ -50,16 +50,6 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC<ElementProps>;
 };
 
-const Animation = ({shown, children, timeout = 150}) => {
-  if (timeout) {
-    return (<CSSTransition in={shown} timeout={timeout} unmountOnExit={true} classNames={style.popoverAnimation}>
-        {children}
-    </CSSTransition>);
-  }
-
-  return shown ? children : null;
-};
-
 const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift) {
     return {};
@@ -70,28 +60,63 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-/**
- * Popover
- */
-
-export const Popover: PopoverType = props => {
-  const {placement, shown, onMouseEnter, onMouseLeave, onKeyDown, onClick, showArrow,
-         children, moveBy, moveArrowTo, timeout, appendToParent, appendTo}  = props;
-  const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-
-  const target = appendToParent ? null : appendTo  || null;
-
+const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   const modifiers: PopperJS.Modifiers = {
     offset: {
       offset: `${moveBy ? moveBy.y : 0}px, ${moveBy ? moveBy.x : 0}px`
     }
   };
 
+  const target = appendToParent ? null : appendTo  || null;
   if (target) {
     modifiers.preventOverflow = {
       boundariesElement: target
     };
   }
+
+  return modifiers;
+};
+
+const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => (
+  <Popper
+    data-hook="popover-content"
+    modifiers={modifiers}
+    placement={placement}
+    className={classNames(style.popover, style.contentWrap, {[style.popoverContent]: !showArrow})}>
+    {showArrow &&
+    <Arrow data-hook="popover-arrow"
+            className={style.arrow}
+            style={getArrowShift(moveArrowTo, placement)}
+    />}
+    {showArrow && <div className={style.popoverContent}>
+      {childrenObject.Content}
+    </div>}
+    {!showArrow && childrenObject.Content}
+  </Popper>
+);
+
+/**
+ * Popover
+ */
+export const Popover: PopoverType = props => {
+  const {
+    placement,
+    shown,
+    onMouseEnter,
+    onMouseLeave,
+    onKeyDown,
+    onClick,
+    showArrow,
+    children,
+    moveBy,
+    moveArrowTo,
+    timeout,
+    appendToParent,
+    appendTo
+  }  = props;
+
+  const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
+  const modifiers = createModifiers({moveBy, appendToParent, appendTo});
 
   return (
     <Manager
@@ -102,23 +127,16 @@ export const Popover: PopoverType = props => {
       <Target onKeyDown={onKeyDown} data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Animation shown={shown} timeout={timeout}>
-        <Popper
-          data-hook="popover-content"
-          modifiers={modifiers}
-          placement={placement}
-          className={classNames(style.popover, style.contentWrap, {[style.popoverContent]: !showArrow})}>
-          {showArrow &&
-          <Arrow data-hook="popover-arrow"
-                 className={style.arrow}
-                 style={getArrowShift(moveArrowTo, placement)}
-          />}
-          {showArrow && <div className={style.popoverContent}>
-            {childrenObject.Content}
-          </div>}
-          {!showArrow && childrenObject.Content}
-        </Popper>
-      </Animation>
+      {
+        timeout &&
+          <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
+            {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
+          </CSSTransition>
+      }
+      {
+        !timeout && shown &&
+        renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})
+      }
     </Manager>
   );
 };
@@ -126,3 +144,6 @@ export const Popover: PopoverType = props => {
 Popover.displayName = 'Popover';
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
 Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
+Popover.defaultProps = {
+  timeout: 150
+};
