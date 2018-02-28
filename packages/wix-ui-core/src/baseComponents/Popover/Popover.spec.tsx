@@ -57,7 +57,7 @@ describe('Popover', () => {
   it('should animate by default', () => {
     const wrapper = mount(createPopover({shown: true}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    wrapper.setProps({shown:false});
+    wrapper.setProps({shown: false});
     expect(driver.isContentExists()).toBeTruthy();
     return eventually(() => expect(driver.isContentExists()).toBeFalsy());
   });
@@ -65,7 +65,7 @@ describe('Popover', () => {
   it('should not animate in case timeout is set to 0', async () => {
     const wrapper = mount(createPopover({shown: true, timeout: 0}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    wrapper.setProps({shown:false});
+    wrapper.setProps({shown: false});
     expect(driver.isContentExists()).toBeFalsy();
   });
 });
