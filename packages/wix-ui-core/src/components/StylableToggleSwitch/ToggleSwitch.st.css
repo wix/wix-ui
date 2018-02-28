@@ -1,6 +1,6 @@
 .root {
-  /* Info on focusVisible: https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
-  -st-states: checked, disabled, focus, focusVisible;
+  /* Info on focus-visible: https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
+  -st-states: checked, disabled, focus, focus-visible;
   display: inline-flex;
   position: relative;
 }

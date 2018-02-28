@@ -72,9 +72,36 @@ describe('ToggleSwitch', () => {
       expect(driver.getId()).toBe(testId);
     });
 
+    it('should have tabIndex=0 by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getTabIndex()).toBe(0);
+    });
+
     it('should apply user specified tabIndex', () => {
       const driver = createDriver(<ToggleSwitch tabIndex={7} />);
       expect(driver.getTabIndex()).toBe(7);
+    });
+  });
+
+  describe('icons', () => {
+    it('should not have unchecked icon by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getKnobIcon().innerHTML).toBe('');
+    });
+
+    it('should not have checked icon by default', () => {
+      const driver = createDriver(<ToggleSwitch checked />);
+      expect(driver.getKnobIcon().innerHTML).toBe('');
+    });
+
+    it('should show uncheckedIcon when unchecked', () => {
+      const driver = createDriver(<ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />);
+      expect(driver.getKnobIcon().innerHTML).toBe('❎');
+    });
+
+    it('should show checkedIcon when checked', () => {
+      const driver = createDriver(<ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />);
+      expect(driver.getKnobIcon().innerHTML).toBe('✅');
     });
   });
 

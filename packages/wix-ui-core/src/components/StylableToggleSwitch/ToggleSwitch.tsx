@@ -2,12 +2,22 @@ import * as React from 'react';
 import * as propTypes from 'prop-types';
 import tsStyle from './ToggleSwitch.st.css';
 
+// The only reason this exists is that Santa currently doesn't support boolean and number types
+// in the style panel, and some of the styling options have to live in the layout panel,
+// and we pass them down as inline styles.
+export interface ToggleSwitchStyles {
+  root?: React.CSSProperties;
+  track?: React.CSSProperties;
+  knob?: React.CSSProperties;
+  knobIcon?: React.CSSProperties;
+}
+
 export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   tabIndex?: number;
   onChange?: () => void;
-  style?: React.CSSProperties;
+  styles?: ToggleSwitchStyles;
   id?: string;
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
@@ -33,8 +43,8 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     tabIndex: propTypes.number,
     /** Callback function when user changes the value of the component */
     onChange: propTypes.func,
-    /** Inline style for the root */
-    style: propTypes.object,
+    /** Inline styles for various parts of the switch */
+    styles: propTypes.object,
     /** The ID attribute to put on the toggle */
     id: propTypes.string,
     /** Icon inside of the knob when checked */
@@ -45,7 +55,9 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
 
   static defaultProps = {
     checked: false,
-    tabIndex: 0
+    styles: {},
+    tabIndex: 0,
+    onChange: () => null
   };
 
   public state = {
@@ -57,7 +69,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
   private focusedByMouse = false;
 
   render() {
-    const {checked, disabled} = this.props;
+    const {checked, disabled, styles} = this.props;
 
     return (
       <div
@@ -65,13 +77,13 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           checked,
           disabled,
           focus: this.state.focus,
-          focusVisible: this.state.focusVisible
+          'focus-visible': this.state.focusVisible
         }, this.props)}
-        style={this.props.style}
+        style={styles.root}
       >
-        <div className={tsStyle.track} />
-        <div className={tsStyle.knob}>
-          <div className={tsStyle.knobIcon}>
+        <div className={tsStyle.track} style={styles.track} />
+        <div className={tsStyle.knob} style={styles.knob}>
+          <div className={tsStyle.knobIcon} style={styles.knobIcon}>
             {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
           </div>
         </div>
@@ -82,7 +94,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           checked={checked}
           disabled={disabled}
           tabIndex={this.props.tabIndex}
-          onChange={this.handleChange}
+          onChange={this.props.onChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onMouseDown={this.handleMouseDown}
@@ -98,15 +110,9 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     this.setState({focusVisible: true});
   }
 
-  private handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    if (this.props.onChange) {
-      this.props.onChange();
-    }
-  }
-
   // Doesn't get invoked if the input is disabled.
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
-    if (e.button === 0 && !this.state.focus) {
+    if (e.button === 0) {
       this.focusedByMouse = true;
     }
   }

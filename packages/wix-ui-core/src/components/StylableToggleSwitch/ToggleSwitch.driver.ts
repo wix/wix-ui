@@ -6,9 +6,9 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   return {
-    /** checks if element exists */
+    /** Checks if element exists */
     exists: () => !!element,
-    /** triggers toggleSwitch change */
+    /** Triggers change */
     click: () => {
       // jsdom doesn't simulate checkboxes well: checkbox.click() updates .checked even
       // if the component is controlled, it also doesn't generate onChange() and doesn't
@@ -17,14 +17,23 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
         eventTrigger.change(checkbox);
       }
     },
-    /** returns a boolean indicating if the toggleSwitch is checked */
+    /** Returns a boolean indicating if the toggleSwitch is checked */
     isChecked: () => checkbox.checked,
-    /** returns a boolean indicating if the toggleSwitch is disabled */
+    /** Returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => checkbox.disabled,
     /** Returns the toggle icon inside the knob */
     getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
-    /** Returns the id of the input component */
+    /** Returns the id of the input */
     getId: () => checkbox.id,
-    getTabIndex: () => checkbox.tabIndex
+    /** Returns the tab index */
+    getTabIndex: () => checkbox.tabIndex,
+    /** Returns the computed styles object of the root component */
+    getRootStyles: () => window.getComputedStyle(element),
+    /** Returns the computed styles object of the track */
+    getTrackStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.track'))),
+    /** Returns the computed styles object of the knob */
+    getKnobStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knob'))),
+    /** Returns the computed styles object of the knob icon */
+    getKnobIconStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')))
   };
 };

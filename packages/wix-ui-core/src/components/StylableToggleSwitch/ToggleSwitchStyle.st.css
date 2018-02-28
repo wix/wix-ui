@@ -98,8 +98,8 @@
   justify-content: center;
   position: absolute;
   left: 1px;
-  top: 1px; /* Shouldn't be needed because we have align-items:center on the root, but Firefox has a glitch:
-               until the first click the alignment behaves as if the root's height is zero. */
+  top: 50%;
+  transform: translate(0, -50%);
 
   width: value(innerLabelWidth);
   height: value(innerLabelHeight);
@@ -198,6 +198,6 @@
 }
 
 /* focus state */
-.root:focusVisible {
+.root:focus-visible {
   outline: value(focusOutline);
 }
