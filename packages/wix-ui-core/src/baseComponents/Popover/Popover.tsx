@@ -50,10 +50,15 @@ export type PopoverType = React.SFC<PopoverProps> & {
   Content?: React.SFC<ElementProps>;
 };
 
-const Animation = ({inProp, children, timeout = 150}) =>
-  <CSSTransition in={inProp} timeout={timeout} unmountOnExit={true} classNames={style.popoverAnimation}>
-      {children}
-  </CSSTransition>;
+const Animation = ({shown, children, timeout = 150}) => {
+  if (timeout) {
+    return (<CSSTransition in={shown} timeout={timeout} unmountOnExit={true} classNames={style.popoverAnimation}>
+        {children}
+    </CSSTransition>);
+  }
+
+  return shown ? children : null;
+};
 
 const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift) {
@@ -97,7 +102,7 @@ export const Popover: PopoverType = props => {
       <Target onKeyDown={onKeyDown} data-hook="popover-element">
         {childrenObject.Element}
       </Target>
-      <Animation inProp={shown} timeout={timeout}>
+      <Animation shown={shown} timeout={timeout}>
         <Popper
           data-hook="popover-content"
           modifiers={modifiers}

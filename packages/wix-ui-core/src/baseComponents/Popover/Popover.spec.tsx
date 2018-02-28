@@ -2,6 +2,8 @@ import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Popover} from './';
+import {mount} from 'enzyme';
+import * as eventually from 'wix-eventually';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
@@ -50,5 +52,20 @@ describe('Popover', () => {
     expect(driver.isElementExists()).toBeTruthy();
     const arrowLeft = driver.getArrowOffset().left;
     expect(arrowLeft).toEqual('10px');
+  });
+
+  it('should animate by default', () => {
+    const wrapper = mount(createPopover({shown: true}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    wrapper.setProps({shown:false});
+    expect(driver.isContentExists()).toBeTruthy();
+    return eventually(() => expect(driver.isContentExists()).toBeFalsy());
+  });
+
+  it('should not animate in case timeout is set to 0', async () => {
+    const wrapper = mount(createPopover({shown: true, timeout: 0}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    wrapper.setProps({shown:false});
+    expect(driver.isContentExists()).toBeFalsy();
   });
 });
