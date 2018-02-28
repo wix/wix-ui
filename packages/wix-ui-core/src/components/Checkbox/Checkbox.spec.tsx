@@ -308,7 +308,7 @@ describe('Checkbox', () => {
       expect(checkbox.isIndeterminate()).toBe(true);
     });
 
-    it('click calls onChange with value true', async () => {
+    it('click calls onChange with correct value', async () => {
       const onChange = jest.fn();
 
       const checkbox = createDriver(
@@ -324,7 +324,7 @@ describe('Checkbox', () => {
       checkbox.click();
 
       expect(onChange).toBeCalled();
-      expect(onChange.mock.calls[0][0].checked).toBe(true);
+      expect(onChange.mock.calls[0][0].checked).toBe(false);
     });
 
     it('renders custom indeterminate icon', async () => {
