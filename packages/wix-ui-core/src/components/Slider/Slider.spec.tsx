@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {sliderDriverFactory} from './Slider.driver';
 import {createDriverFactory} from 'wix-ui-test-utils';
-import Slider from './index';
+import {Slider} from './index';
 import * as sinon from 'sinon';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';

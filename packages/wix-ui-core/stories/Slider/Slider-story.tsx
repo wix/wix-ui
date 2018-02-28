@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Slider from '../../src/components/Slider';
+import {Slider} from '../../src/components/Slider';
 
 export class SliderStory extends React.Component {
   state = {wrapperSize: 80, continuous: false, vertical: false};

@@ -1,15 +1,14 @@
 import * as React from 'react';
 import {createHOC} from '../../createHOC';
-import * as classNames from 'classnames';
 import {Ticks} from './Ticks';
 import {Thumb} from './Thumb';
+import classes from './Slider.st.css';
 
 export interface SliderProps {
   min?: number;
   max?: number;
   value?: number;
   onChange?: (any) => void;
-  classes?: any;
   vertical?: boolean;
   handleSize?: number;
   step?: any;
@@ -20,7 +19,7 @@ export interface SliderProps {
   thumbShape?: string;
 }
 
-interface SliderState {
+export interface SliderState {
   dragging: boolean;
   mouseDown: boolean;
   thumbHover: boolean;
@@ -30,7 +29,7 @@ interface SliderState {
 const DefaultTooltipPosition = 'top';
 const DefaultVerticalTooltipPosition = 'left';
 
-class Slider extends React.PureComponent<SliderProps, SliderState> {
+export class Slider extends React.PureComponent<SliderProps, SliderState> {
   inner: HTMLDivElement;
   track: HTMLDivElement;
   ContinuousStep = 0.1;
@@ -236,16 +235,16 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
-    const {tooltipPosition, vertical, classes} = this.props;
+    const {tooltipPosition, vertical} = this.props;
     const position: string = tooltipPosition ||
       vertical ? DefaultVerticalTooltipPosition : DefaultTooltipPosition;
 
     return (
-      <div data-hook="tooltip" className={classNames(this.props.classes.tooltip, {
-        [classes.tooltipTop]: position === 'top',
-        [classes.tooltipBottom]: position === 'bottom',
-        [classes.tooltipLeft]: position === 'left',
-        [classes.tooltipRight]: position === 'right'
+      <div data-hook="tooltip" {...classes('tooltip', {
+        tooltipTop: position === 'top',
+        tooltipBottom: position === 'bottom',
+        tooltipLeft: position === 'left',
+        tooltipRight: position === 'right'
       })}>
         {this.props.value}
       </div>
@@ -253,7 +252,7 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {classes, value, min, max, vertical, trackSize} = this.props;
+    const {value, min, max, vertical, trackSize} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -269,9 +268,9 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
 
     return (
-      <div className={classNames(classes.root, {
-        [classes.vertical]: vertical,
-        [classes.withTicks]: showTicks
+      <div {...classes('root', {
+          vertical,
+          showTicks
       })}
         onMouseDown={this.handleMouseDown}
         data-value={value}
@@ -315,5 +314,3 @@ class Slider extends React.PureComponent<SliderProps, SliderState> {
     );
   }
 }
-
-export default createHOC(Slider);
