@@ -4,6 +4,7 @@ import styles from './Checkbox.st.css';
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const utils = new StylableDOMUtil(styles, element);
   const hasStyleState = (state) => utils.hasStyleState(element, state);
+  const getStyleState = (state) => utils.getStyleState(element, state);
 
   return {
     /** returns the element */
@@ -19,9 +20,9 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** trigger focus on the element */
     focus: () => eventTrigger.focus(utils.select('.nativeCheckbox')),
     /** checks if the tickmark exists, i.e. the checkbox is checked */
-    isChecked: () => hasStyleState('checked'),
+    isChecked: () => getStyleState('checked') === 'true',
     /** returns true if the element has indeterminate state */
-    isIndeterminate: () => hasStyleState('indeterminate'),
+    isIndeterminate: () => getStyleState('checked') === 'indeterminate',
     /** returns if the element is disabled */
     isDisabled: () => hasStyleState('disabled'),
     /** returns the checkbox children */
