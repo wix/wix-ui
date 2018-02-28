@@ -2,7 +2,7 @@ import 'react';
 import createStory from '../create-story';
 
 import {Input} from '../../src/components/Input';
-import * as InputSource from '!raw-loader!../../src/components/Input/index.tsx';
+import * as InputSource from '!raw-loader!../../src/components/Input/Input.tsx';
 
 export const story = () => createStory({
   category: 'Components',

@@ -4,24 +4,34 @@ import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {tooltipTestkitFactory} from '../../testkit/protractor';
 
+const movedX = 10;
+
 describe('Tooltip', () => {
-  const storyUrl = getStoryUrl('Components', 'Tooltip');
+  const storyUrl = getStoryUrl('Components', 'Tooltip Custom');
 
   beforeEach(() => browser.get(storyUrl));
 
-  eyes.it('should display content when hover', () => {
+  eyes.it('moves tooltip relative to anchor according to props', async () => {
+    const dataHookMoved = 'story-tooltip-right-moved';
+    const driverMoved = tooltipTestkitFactory({dataHook: dataHookMoved});
+    await waitForVisibilityOf(driverMoved.element(), 'Cannot find Tooltip Moved');
+    driverMoved.onMouseOver();
+    expect(driverMoved.isTooltipExists()).toBeTruthy();
+    const locationMoved = await driverMoved.getTooltipLocation();
+
     const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
+    await waitForVisibilityOf(driver.element(), 'Cannot find Tooltip');
+    driver.onMouseOver();
+    expect(driver.isTooltipExists()).toBeTruthy();
+    const location = await driver.getTooltipLocation();
 
-    return waitForVisibilityOf(driver.element(), 'Cannot find Tooltip')
-      .then(async () => {
-        expect(driver.isTooltipExists()).toBeFalsy();
-        expect(driver.getElementText()).toBe('I need a tooltip');
-        driver.onMouseOver();
-        expect(driver.isTooltipExists()).toBeTruthy();
-        expect(driver.getTooltipText()).toBe('This is my tooltip!\n');
-        driver.onMouseLeave();
-        await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
-      });
+    expect(locationMoved.x - (location.x + movedX)).toBeLessThan(1e-3);
+
+    expect(driver.getElementText()).toBe('Hover me for a tooltip!');
+    expect(driver.getTooltipText()).toBe('This is my tooltip\n');
+    driver.onMouseLeave();
+    await browser.sleep(2000);
+    await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
   });
 });

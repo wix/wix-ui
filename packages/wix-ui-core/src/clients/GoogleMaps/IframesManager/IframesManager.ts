@@ -4,11 +4,11 @@ import * as handlerNames from '../handlersName';
 export class IframesManager {
     _iframeMap = new Map();
 
-    static getKey(apiKey, lang) {
+    static getKey(apiKey: string, lang: string) {
         return `${apiKey}-${lang}`;
     }
 
-    addIframe(apiKey, lang) {
+    addIframe(apiKey: string, lang: string) {
         if (this.hasIframe(apiKey, lang)) {
             return this.getIframe(apiKey, lang);
         }
@@ -35,12 +35,12 @@ export class IframesManager {
         return iframe.contentWindow;
     }
 
-    getIframe(apiKey, lang) {
+    getIframe(apiKey: string, lang: string) {
         const iframeKey = IframesManager.getKey(apiKey, lang);
         return this._iframeMap.get(iframeKey).contentWindow;
     }
 
-    hasIframe(apiKey, lang) {
+    hasIframe(apiKey: string, lang: string) {
         const iframeKey = IframesManager.getKey(apiKey, lang);
         return this._iframeMap.has(iframeKey);
     }

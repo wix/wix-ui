@@ -1,5 +1,5 @@
 import {core, SliderTheme} from './theme';
-import * as defaultsDeep from 'lodash/defaultsDeep';
+import defaultsDeep = require('lodash.defaultsdeep');
 
 export const styles = (theme: SliderTheme) => {
   theme = (defaultsDeep(theme, core) as SliderTheme);

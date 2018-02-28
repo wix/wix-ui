@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
+import uniqueId = require('lodash.uniqueid');
 import {Divider} from '../../components/Divider';
 import {Highlighter} from '../Highlighter';
 
@@ -18,7 +18,7 @@ const createOption = (
   value: string,
   render: (val: React.ReactNode) => React.ReactNode = val => val): Option => {
     return {
-        id,
+        id: (id || id === 0) ? id : uniqueId('Option'),
         isDisabled,
         isSelectable,
         value,
@@ -26,7 +26,7 @@ const createOption = (
       };
   };
 
-const escapeRegExp = s => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 const hightlightMatches = (option: Option, searchTerm: string): Option => {
   const parts: Array<React.ReactNode> = option.value.split(new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi'));
   for (let i = 1; i < parts.length; i += 2) {
@@ -44,12 +44,12 @@ const hightlightMatches = (option: Option, searchTerm: string): Option => {
 
 export const OptionFactory = {
   create: createOption,
-  createDivider(value: string = null): Option {
+  createDivider(value: string = ''): Option {
     return createOption(
       uniqueId('Divider'),
       false,
       false,
-      null,
+      '',
       value ? () => <Divider>{value}</Divider> : () => <Divider/>);
   },
   createCustomDivider(divider: React.ReactElement<any>): Option {
@@ -57,7 +57,7 @@ export const OptionFactory = {
       uniqueId('Divider'),
       false,
       false,
-      null,
+      '',
       () => divider);
   },
   createHighlighted(

@@ -4,6 +4,9 @@
     "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "target": "es5",
     "jsx": "react",
     "lib": ["dom", "es2016"]
@@ -11,8 +14,5 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx"
-  ],
-  "files": [
-    "./src/index.ts"
   ]
 }

@@ -22,7 +22,7 @@ export const inputDriverFactory = ({element, eventTrigger}) => ({
   /** focuses the element */
   focus: () => eventTrigger.focus(element),
   /** triggers the keyDown event */
-  keyDown: () => eventTrigger.keyDown(element),
+  keyDown: key => eventTrigger.keyDown(element, {key}),
   /** triggers the keyUp event */
   keyUp: () => eventTrigger.keyUp(element),
   /** returns the element tab index */

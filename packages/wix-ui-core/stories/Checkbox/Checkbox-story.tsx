@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Checkbox from '../../src/components/Checkbox/Checkbox';
+import {Checkbox} from '../../src/components/Checkbox/Checkbox';
 import commonStyle from '../../src/components/Checkbox/CheckboxStyle.st.css';
 
 export class CheckboxStory extends React.Component<{}, { checked: boolean }> {

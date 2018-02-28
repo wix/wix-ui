@@ -186,8 +186,8 @@ describe('Input', () => {
       const onKeyDown = jest.fn();
       const driver = createDriver(<Input onKeyDown={onKeyDown}/>);
 
-      driver.keyDown();
-      expect(onKeyDown).toBeCalled();
+      driver.keyDown('a');
+      expect(onKeyDown).toBeCalledWith(expect.objectContaining({key: 'a'}));
     });
   });
 

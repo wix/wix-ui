@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const buildChildrenObject = <T>(children: Object, childrenObject: T) => {
+export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject: T) => {
   return React.Children.toArray(children).reduce((acc, child) => {
     if (!React.isValidElement(child)) {
       return acc;
@@ -17,7 +17,7 @@ export const buildChildrenObject = <T>(children: Object, childrenObject: T) => {
 };
 
 export interface ElementProps { children: any; }
-export const createComponentThatRendersItsChildren = displayName => {
+export const createComponentThatRendersItsChildren = (displayName: string) => {
   const Element: React.SFC<ElementProps> = ({children}) => children;
   Element.displayName = displayName;
   return Element;

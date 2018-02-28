@@ -5,6 +5,8 @@ import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
 import {HOVER, CLICK} from './constants';
 import {OptionFactory} from '../DropdownOption';
+import {mount} from 'enzyme';
+import {Simulate} from 'react-dom/test-utils';
 
 describe('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
@@ -18,6 +20,7 @@ describe('Dropdown', () => {
       options: [],
       onSelect: () => null,
       onDeselect: () => null,
+      onInitialSelectedOptionsSet: () => null,
       initialSelectedIds: [],
       closeOnSelect: true
     }, props)}>
@@ -96,6 +99,56 @@ describe('Dropdown', () => {
       driver.click();
       driver.clickOptionAt(0);
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
+    });
+  });
+
+  describe('Dropdown content edge cases', () => {
+    it('should not open dropdown content if options list is empty', () => {
+      const driver = createDriver(createDropdown({options: []}));
+
+      driver.click();
+
+      expect(driver.isContentElementExists()).toBeFalsy();
+    });
+
+    it('should open dropdown content if options list is empty and fixedHeader exists', () => {
+      const driver = createDriver(createDropdown({options: [], fixedHeader: 'Fixed'}));
+
+      driver.click();
+
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('should open dropdown content if options list is empty and fixedFooter exists', () => {
+      const driver = createDriver(createDropdown({options: [], fixedFooter: 'Fixed'}));
+
+      driver.click();
+
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('Should display options when they exist', () => {
+      const wrapper = mount(<Dropdown
+        closeOnSelect={true}
+        onSelect={() => null}
+        initialSelectedIds={[]}
+        onDeselect={() => null}
+        onInitialSelectedOptionsSet={() => null}
+        placement="top"
+        openTrigger={CLICK}
+        options={[]}>
+        <span>Dropdown</span>
+      </Dropdown>);
+
+      const driver = dropdownDriverFactory({
+        element: wrapper.children().at(0).getDOMNode(),
+        eventTrigger: Simulate});
+
+      driver.click();
+      expect(driver.isContentElementExists()).toBeFalsy();
+
+      wrapper.setProps({options});
+      expect(driver.isContentElementExists()).toBeTruthy();
     });
   });
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash/uniqueId';
+import uniqueId = require('lodash.uniqueid');
 import style from './Checkbox.st.css';
 import {bool, func, string, number, array, node} from 'prop-types';
 
@@ -40,7 +40,7 @@ export interface CheckboxState {
 /**
  * Checkbox
  */
-export default class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
+export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
   public static displayName: string = 'Checkbox';
 
   public static propTypes: Object = {
@@ -97,7 +97,7 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
   };
 
   public id: string;
-  private checkbox: HTMLInputElement;
+  private checkbox: HTMLInputElement | null;
 
   constructor(props: CheckboxProps) {
     super(props);
@@ -142,7 +142,7 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
   }
 
   render()  {
-    const {checked, disabled, readOnly: readonly, error, indeterminate} = this.props;
+    const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
     const focus = this.state.isFocused;
 
     return (
@@ -150,11 +150,9 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
-        tabIndex={0}
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
           <input
-            data-hook="NATIVE_CHECKBOX"
             type="checkbox"
             className={style.nativeCheckbox}
             checked={this.props.checked}
@@ -163,27 +161,22 @@ export default class Checkbox extends React.PureComponent<CheckboxProps, Checkbo
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            id={this.props.id}
+            id={this.id}
             tabIndex={this.props.tabIndex}
             autoFocus={this.props.autoFocus}
             name={this.props.name}
             aria-controls={this.props['aria-controls']}
-            ref={ref => this.checkbox = ref!}
+            ref={ref => this.checkbox = ref}
+            required={required}
           />
 
-          <span
-            className={style.box}
-            data-hook="CHECKBOX_BOX"
-          >
+          <span className={style.box}>
             {this.props.indeterminate ?
               this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}
           </span>
 
           {this.props.children ? (
-            <div
-              data-hook="CHECKBOX_CHILD_CONTAINER"
-              className={style.childContainer}
-            >
+            <div className={style.childContainer}>
               {this.props.children}
             </div>
           ) : null

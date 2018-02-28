@@ -10,21 +10,21 @@ export interface BaseDriver {
   exists: () => boolean;
 }
 
-export interface ComponentFactory<T> {
+export interface ComponentFactory<TComponent> {
   element: Element | undefined;
   wrapper: HTMLElement | ReactWrapper;
   component?: React.ReactElement<any>;
-  componentInstance?: T;
+  componentInstance?: TComponent;
   eventTrigger: typeof Simulate;
 }
 
-function componentFactory<T>(Component: React.ReactElement<any>): ComponentFactory<T> {
+function componentFactory<TComponent>(Component: React.ReactElement<any>): ComponentFactory<TComponent> {
   let element: HTMLDivElement | null;
   let componentInstance;
   const eventTrigger = reactEventTrigger();
 
   const wrapperDiv = document.createElement('div');
-  const ClonedComponent = React.cloneElement(Component, {ref: (r: T) => componentInstance = r});
+  const ClonedComponent = React.cloneElement(Component, {ref: (r: TComponent) => componentInstance = r});
   render(<div ref={r => element = r}>{ClonedComponent}</div>, wrapperDiv);
   return {element: element! && element!.childNodes[0] as Element, wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
 }
