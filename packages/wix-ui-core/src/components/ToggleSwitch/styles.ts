@@ -149,7 +149,21 @@ export const styles = (theme: ToggleSwitchTheme) => {
       },
 
       [selectors.state('focus')]: {
-        outline: theme.focusOutline
+        outline: theme.focusOutline,
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorFocus,
+          borderWidth: theme.outerLabelBorderSizeFocus,
+          borderColor: theme.outerLabelBorderColorFocus
+        }
+      },
+
+      [selectors.state('checked:focus')]: {
+        outline: theme.focusOutline,
+        [selectors.outerLabel]: {
+          backgroundColor: theme.backgroundColorFocus,
+          borderWidth: theme.outerLabelBorderSizeFocus,
+          borderColor: theme.outerLabelBorderColorFocus
+        }
       },
     },
 

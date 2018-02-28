@@ -47,12 +47,14 @@ export type ToggleSwitchTheme = Partial<{
   outerLabelBorderSizeDisabled: number;
   outerLabelBorderSizeHover: number;
   outerLabelBorderSizeHoverChecked: number;
+  outerLabelBorderSizeFocus: number;
 
   outerLabelBorderColor: string;
   outerLabelBorderColorChecked: string;
   outerLabelBorderColorDisabled: string;
   outerLabelBorderColorHover: string;
   outerLabelBorderColorHoverChecked: string;
+  outerLabelBorderColorFocus: string;
 
   innerLabelBorderSize: number;
   innerLabelBorderSizeChecked: number;
@@ -117,12 +119,14 @@ export const core: ToggleSwitchTheme = {
   outerLabelBorderSizeDisabled: 0,
   outerLabelBorderSizeHover: 0,
   outerLabelBorderSizeHoverChecked: 0,
+  outerLabelBorderSizeFocus: 0,
 
   outerLabelBorderColor: '#ffffff',
   outerLabelBorderColorChecked: '#ffffff',
   outerLabelBorderColorDisabled: '#ffffff',
   outerLabelBorderColorHover: '#ffffff',
   outerLabelBorderColorHoverChecked: '#ffffff',
+  outerLabelBorderColorFocus: '#ffffff',
 
   innerLabelBorderSize: 0,
   innerLabelBorderSizeChecked: 0,
