@@ -10,6 +10,7 @@
     borderRadius: 2px;
     backgroundColor: grey;
     borderColor: grey;
+    color: white;
 }
 
 .root {
@@ -20,6 +21,7 @@
     border: value(border);
     border-radius: value(borderRadius);
     border-color: value(borderColor);
+    color: value(color);
     
     background: value(backgroundColor);
     
