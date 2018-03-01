@@ -79,13 +79,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     tickIcon: (
       <span
         className={`${style.icon} ${style.tickIcon}`}
-        data-hook="CHECKBOX_TICKMARK"
       />
     ),
     indeterminateIcon: (
       <span
         className={`${style.icon} ${style.indeterminateIcon}`}
-        data-hook="CHECKBOX_INDETERMINATE"
       />
     ),
     // tslint:disable-next-line:no-empty
@@ -96,12 +94,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   private checkbox: HTMLInputElement | null;
-
-  constructor(props: CheckboxProps) {
-    super(props);
-
-    this.state = {isFocused: false};
-  }
+  state = {isFocused: false};
 
   render()  {
     const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
