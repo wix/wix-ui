@@ -5,10 +5,10 @@
     height: 100%;
     box-sizing: border-box;
     outline: none !important;
+}
 
-    *: {
-        box-sizing: border-box;
-    }
+.root * {
+    box-sizing: border-box;
 }
 
 .track {
@@ -60,7 +60,6 @@
 .handle {
     position: absolute;
     z-index: 1;
-    box-sizing: border-box;
     cursor: pointer;
 }
 
@@ -69,7 +68,6 @@
     height: 100%;
     background: green;
     border: 2px solid blue;
-    box-sizing: border-box;
 }
 
 .tooltip:tooltipTop {
