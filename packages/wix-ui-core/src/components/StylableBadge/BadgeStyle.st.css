@@ -27,6 +27,7 @@
     
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 
     line-height: 1;
