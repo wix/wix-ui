@@ -96,7 +96,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   private checkbox: HTMLInputElement | null;
   state = {isFocused: false};
 
-  render()  {
+  public render()  {
     const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
     const focus = this.state.isFocused;
 
