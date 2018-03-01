@@ -258,14 +258,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
     const showTicks = !!this.props.step;
+    const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const highlightedTrackPosition = vertical ? {
         bottom: 0,
         height: this.calcHighlightedTrackPosition()
     } : {
         width: this.calcHighlightedTrackPosition()
     };
-
-    const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
 
     return (
       <div {...classes('root', {

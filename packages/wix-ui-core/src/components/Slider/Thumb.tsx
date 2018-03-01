@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export interface ThumbProps {
   shape: string;
@@ -11,12 +12,12 @@ export interface ThumbProps {
 
 export class Thumb extends React.Component<ThumbProps> {
   static propTypes = {
-    shape: React.PropTypes.string.isRequired,
-    handlePosition: React.PropTypes.string.isRequired,
-    handleSize: React.PropTypes.number.isRequired,
-    onMouseEnter: React.PropTypes.func.isRequired,
-    onMouseLeave: React.PropTypes.func.isRequired,
-    classes: React.PropTypes.object.isRequired
+    shape: PropTypes.string.isRequired,
+    handlePosition: PropTypes.string.isRequired,
+    handleSize: PropTypes.number.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired
   };
 
   constructor(props) {
