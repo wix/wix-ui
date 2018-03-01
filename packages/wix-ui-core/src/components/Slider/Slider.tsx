@@ -17,6 +17,7 @@ export interface SliderProps {
   width?: number;
   height?: number;
   thumbShape?: string;
+  className?: string;
 }
 
 export interface SliderState {
@@ -252,7 +253,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize} = this.props;
+    const {value, min, max, vertical, trackSize, className} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -267,9 +268,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     };
 
     return (
-      <div {...classes('root', {
+      <div {...classes('root ' + className, {
           vertical,
-          showTicks
+          showTicks,
       })}
         onMouseDown={this.handleMouseDown}
         data-value={value}
