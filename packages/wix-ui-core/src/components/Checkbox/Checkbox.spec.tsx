@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
-import style from './Checkbox.st.css';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Checkbox} from './Checkbox';
-import {StylableDOMUtil} from 'stylable/test-utils';
 
 const tickSVG: React.ReactNode = (
   <span data-name="custom-tickmark">1</span>
@@ -11,7 +9,6 @@ const tickSVG: React.ReactNode = (
 
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
-  const utils = new StylableDOMUtil(style);
 
   it('Renders with default values', async () => {
     const checkbox = createDriver(<Checkbox />);
