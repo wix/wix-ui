@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as propTypes from 'prop-types';
-import tsStyle from './ToggleSwitch.st.css';
+import style from './ToggleSwitch.st.css';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
 // in the style panel, and some of the styling options have to live in the layout panel,
@@ -69,27 +69,27 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
   private focusedByMouse = false;
 
   render() {
-    const {checked, disabled, styles} = this.props;
+    const {checked, disabled, styles: inlineStyles} = this.props;
 
     return (
       <div
-        {...tsStyle('root', {
+        {...style('root', {
           checked,
           disabled,
           focus: this.state.focus,
           'focus-visible': this.state.focusVisible
         }, this.props)}
-        style={styles.root}
+        style={inlineStyles.root}
       >
-        <div className={tsStyle.track} style={styles.track} />
-        <div className={tsStyle.knob} style={styles.knob}>
-          <div className={tsStyle.knobIcon} style={styles.knobIcon}>
+        <div className={style.track} style={inlineStyles.track} />
+        <div className={style.knob} style={inlineStyles.knob}>
+          <div className={style.knobIcon} style={inlineStyles.knobIcon}>
             {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
           </div>
         </div>
         <input
           id={this.props.id}
-          className={tsStyle.input}
+          className={style.input}
           type="checkbox"
           checked={checked}
           disabled={disabled}
