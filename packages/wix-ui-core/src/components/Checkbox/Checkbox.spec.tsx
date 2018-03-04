@@ -71,20 +71,10 @@ describe('Checkbox', () => {
     expect(checkbox.input().required).toBe(true);
   });
 
-  it('Accepts "autofocus" prop', async () => {
-    if (document.hasFocus()) {
+  it('Accepts "autofocus" prop', () => {
+    const checkbox = createDriver(<Checkbox autoFocus />);
 
-      const checkbox = createDriver(
-        <Checkbox autoFocus />
-      );
-
-      expect(document.activeElement).toBe(checkbox.input());
-
-    } else {
-      console.error(// tslint:disable-line no-console
-        'Checkbox autofocus test wasn\'t run since document doesn\'t have focus'
-      );
-    }
+    expect(document.activeElement).toBe(checkbox.input());
   });
 
   describe('Accessibility features', () => {
