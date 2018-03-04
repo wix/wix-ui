@@ -101,7 +101,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     const focus = this.state.isFocused;
 
     return (
-      <div {...style('root', {checked: indeterminate ? 'indeterminate' : checked, disabled, focus, readonly, error}, this.props) }
+      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"

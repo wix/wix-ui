@@ -39,8 +39,8 @@
     border: value(borderDefault);
 }
 
-.root:checked(true)::box,
-.root:checked(indeterminate)::box {
+.root:checked::box,
+.root:indeterminate::box {
     background: value(color_Default);
 }
 
