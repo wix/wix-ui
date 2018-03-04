@@ -67,5 +67,6 @@ describe('Popover', () => {
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentExists()).toBeFalsy();
+    expect(wrapper.text()).toBe('Element');
   });
 });

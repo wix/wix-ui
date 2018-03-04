@@ -128,7 +128,7 @@ export const Popover: PopoverType = props => {
         {childrenObject.Element}
       </Target>
       {
-        timeout &&
+        !!timeout &&
           <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
             {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
           </CSSTransition>
