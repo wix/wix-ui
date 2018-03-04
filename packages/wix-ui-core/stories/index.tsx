@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import {Text} from '../src/components/Text';
 import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
@@ -15,14 +14,13 @@ import {RadioButtonStory} from './RadioButton';
 
 require('./InputWithOptions').story();
 require('./Autocomplete').story();
-require('./Badge').story();
 require('./Button').story();
 require('./Input').story();
 require('./IconWithOptions').story();
 require('./InputWithAffixes').story();
-require('./StylableText').story();
+require('./Text').story();
 require('./StylableButton').story();
-require('./StylableBadge').story();
+require('./Badge').story();
 require('./Tooltip').story();
 require('./Video').story();
 
@@ -32,11 +30,6 @@ storiesOf('Components', module)
   ))
   .add('StylableToggleSwitchStory', () => (
     <StylableToggleSwitchStory/>
-  ))
-  .add('Text', () => (
-    <Text ellipsis>
-      Hello World
-    </Text>
   ))
   .add('Box', () => (
     <div>

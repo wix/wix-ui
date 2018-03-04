@@ -3,30 +3,31 @@ import {textDriverFactory} from './Text.driver';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {core, TextTheme} from './theme';
-import {mount} from 'enzyme';
+import {Text} from './';
 import {textTestkitFactory} from '../../testkit';
 import {textTestkitFactory as enzymeTextTestkitFactory} from '../../testkit/enzyme';
-import {Text} from './index';
+import {mount} from 'enzyme';
 
 describe('Text', () => {
 
   const createDriver = createDriverFactory(textDriverFactory);
 
-  describe('checked prop', () => {
-    it('should render', () => {
+  describe('ellipsis attribute', () => {
+    it('should not have ellipsis by default', () => {
       const driver = createDriver(<Text>Hello World</Text>);
-      expect(driver.exists()).toBeTruthy();
+      expect(driver.isEllipsis()).toBeFalsy();
     });
 
     it('should have ellipsis', () => {
       const driver = createDriver(<Text ellipsis>Hello World</Text>);
       expect(driver.isEllipsis()).toBeTruthy();
     });
+  });
 
+  describe('title attribute', () => {
     it('should not have title attribute by default', () => {
-      const driver = createDriver(<Text ellipsis>Hello World</Text>);
-      expect(driver.hasTitleAttribute()).toBeTruthy();
+      const driver = createDriver(<Text>Hello World</Text>);
+      expect(driver.hasTitleAttribute()).toBeFalsy();
     });
 
     it('should have title attribute when has ellipsis', () => {
@@ -43,19 +44,31 @@ describe('Text', () => {
       const driver = createDriver(<Text ellipsis forceHideTitle>Hello World</Text>);
       expect(driver.hasTitleAttribute()).toBeFalsy();
     });
-
   });
 
-  describe('style', () => {
-    it('should have default font-family', () => {
-      const driver = createDriver(<Text>Hello World</Text>);
-      expect(driver.getFontFamily()).toBe(core.fontFamily);
+  describe('tagName prop', () => {
+    it('should be span by default', () => {
+      const driver = createDriver(<Text>Hello</Text>);
+      expect(driver.getTagName()).toBe('SPAN');
     });
 
-    it('should have override default font-family', () => {
-      const theme: TextTheme = {fontFamily: 'David'};
-      const driver = createDriver(<Text theme={theme}>Hello World</Text>);
-      expect(driver.getFontFamily()).toBe('David');
+    it('should be configueable', () => {
+      const driver = createDriver(<Text tagName="h1">Hello</Text>);
+      expect(driver.getTagName()).toBe('H1');
+    });
+  });
+
+  describe('children prop', () => {
+    it('should be rendered when given as a string', () => {
+      const children = 'Hello World';
+      const driver = createDriver(<Text>{children}</Text>);
+      expect(driver.getChildren()).toBe(children);
+    });
+
+    it('should be rendered when given as an element', () => {
+      const children = <div>Hello World</div>;
+      const driver = createDriver(<Text>{children}</Text>);
+      expect(driver.getChildren()).toBe('<div>Hello World</div>');
     });
   });
 

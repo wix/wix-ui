@@ -4,7 +4,7 @@ import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {textTestkitFactory} from '../../testkit/protractor';
 
 describe('Text', () => {
-  const storyUrl = getStoryUrl('Components', 'StylableText');
+  const storyUrl = getStoryUrl('Components', 'Text');
 
   beforeEach(() => browser.get(storyUrl));
   eyes.it('should display correct content', () => {
