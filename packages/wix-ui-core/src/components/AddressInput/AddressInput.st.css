@@ -1,0 +1,8 @@
+:import {
+    -st-from: "../../baseComponents/InputWithOptions/InputWithOptions.st.css";
+    -st-default: InputWithOptions;
+}
+
+.root {
+    -st-extends: InputWithOptions;
+}
