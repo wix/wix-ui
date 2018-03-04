@@ -1,17 +1,17 @@
 import * as React from 'react';
 import createStory from '../create-story';
 
-import {Badge} from '../../src/components/StylableBadge';
-import * as StylableBadgeSource from '!raw-loader!../../src/components/StylableBadge/Badge.tsx';
+import {Badge} from '../../src/components/Badge';
+import * as BadgeSource from '!raw-loader!../../src/components/Badge/Badge.tsx';
 
 export const story = () => createStory({
   category: 'Components',
-  name: 'StylableBadge',
-  storyName: 'StylableBadge',
+  name: 'Badge',
+  storyName: 'Badge',
   component: Badge,
   componentProps: () => ({
     children: 'I\'m a Badge!',
     'data-hook': 'storybook-badge'
   }),
-  source: StylableBadgeSource
+  source: BadgeSource
 });

@@ -10,9 +10,6 @@ export const buttonTestkitFactory = protractorTestkitFactoryCreator(buttonDriver
 import {paginationDriverFactory} from '../components/Pagination/Pagination.protractor.driver';
 export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginationDriverFactory);
 
-import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
-export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
-
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
 export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
 
@@ -35,14 +32,14 @@ import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.protractor.
 export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDriverFactory);
 
 //Stylable
-import {textDriverFactory} from '../components/StylableText/Text.protractor.driver';
+import {textDriverFactory} from '../components/Text/Text.protractor.driver';
 export const textTestkitFactory = protractorTestkitFactoryCreator(textDriverFactory);
 
 import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.protractor.driver';
 export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioButtonDriverFactory);
 
-import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.protractor.driver';
-export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(stylableBadgeDriverFactory);
+import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
+export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
 
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.protractor.driver';
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);

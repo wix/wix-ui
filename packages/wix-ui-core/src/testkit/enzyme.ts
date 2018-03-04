@@ -11,12 +11,6 @@ import {inputDriverFactory} from '../components/Input/Input.driver';
 //Ugly workaround for now
 export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFactoryCreator(inputDriverFactory);
 
-import {textDriverFactory} from '../components/Text/Text.driver';
-export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
-
-import {badgeDriverFactory} from '../components/Badge/Badge.driver';
-export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
-
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(tooltipDriverFactory);
 
@@ -33,14 +27,14 @@ export const checkboxTestkitFactory = enzymeTestkitFactoryCreator(checkboxDriver
 import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
 export const stylableToggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(stylableToggleSwitchDriverFactory);
 
-import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
-export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTextDriverFactory);
+import {textDriverFactory} from '../components/Text/Text.driver';
+export const textTestkitFactory = enzymeTestkitFactoryCreator(textDriverFactory);
 
 import {stylableButtonDriverFactory} from '../components/StylableButton/Button.driver';
 export const stylableButtonTestkitFactory = enzymeTestkitFactoryCreator(stylableButtonDriverFactory);
 
-import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
-export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator(stylableBadgeDriverFactory);
+import {badgeDriverFactory} from '../components/Badge/Badge.driver';
+export const badgeTestkitFactory = enzymeTestkitFactoryCreator(badgeDriverFactory);
 
 import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.driver';
 export const radioButtonTestkitFactory = enzymeTestkitFactoryCreator(radioButtonDriverFactory);

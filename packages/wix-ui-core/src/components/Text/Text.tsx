@@ -1,34 +1,28 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
-import {bool, string, any} from 'prop-types';
-import {createHOC} from '../../createHOC';
-
-export type TextClasses = {
-  root: string;
-  ellipsis: string;
-};
+import {bool, func, object, string, any} from 'prop-types';
+import style from './Text.st.css';
 
 export interface TextProps {
-  classes?: TextClasses;
   children?: React.ReactNode;
   ellipsis?: boolean;
   forceHideTitle?: boolean;
   tagName?: string;
+  className?: string;
 }
-
 /**
  * Text
  */
-const Text: React.SFC<TextProps> = ({classes, children, ellipsis, tagName, forceHideTitle}) => (
-  React.createElement(
+export const Text: React.SFC<TextProps> = props => {
+  const {children, ellipsis, tagName, forceHideTitle} = props;
+  return React.createElement(
     tagName,
     {
-      className: classnames(classes.root, {[classes.ellipsis] : ellipsis}),
-      title: typeof children === 'string' && ellipsis && !forceHideTitle ? children : null
+      title: typeof children === 'string' && ellipsis && !forceHideTitle ? children : null,
+      ...style('root', {ellipsis}, props)
     },
     children
-  )
-);
+  );
+};
 
 Text.displayName = 'Text';
 Text.defaultProps = {
@@ -45,5 +39,3 @@ Text.propTypes = {
   /** any nodes to be rendered (usually text nodes) */
   children: any
 };
-
-export default createHOC(Text);

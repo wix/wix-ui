@@ -10,14 +10,8 @@ export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
-import {textDriverFactory} from '../components/Text/Text.driver';
-export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
-
 import {paginationDriverFactory} from '../components/Pagination/Pagination.driver';
 export const paginationTestkitFactory = testkitFactoryCreator(paginationDriverFactory);
-
-import {badgeDriverFactory} from '../components/Badge/Badge.driver';
-export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
 
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = testkitFactoryCreator(tooltipDriverFactory);
@@ -32,14 +26,14 @@ export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactor
 import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
 export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
 
-import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
-export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
+import {textDriverFactory} from '../components/Text/Text.driver';
+export const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
 
 import {stylableButtonDriverFactory} from '../components/StylableButton/Button.driver';
 export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButtonDriverFactory);
 
-import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
-export const stylableBadgeTestkitFactory = testkitFactoryCreator(stylableBadgeDriverFactory);
+import {badgeDriverFactory} from '../components/Badge/Badge.driver';
+export const badgeTestkitFactory = testkitFactoryCreator(badgeDriverFactory);
 
 import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.driver';
 export const radioButtonTestkitFactory = testkitFactoryCreator(radioButtonDriverFactory);
