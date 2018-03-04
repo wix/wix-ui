@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ToggleSwitch as StylableToggleSwitch} from '../../src/components/StylableToggleSwitch';
-import commonStyle from '../../src/components/StylableToggleSwitch/ToggleSwitchStyle.st.css';
+import style from './style.st.css';
 
 export class StylableToggleSwitchStory extends React.Component<{}, {checked: boolean}> {
   state = {checked: false};
@@ -9,7 +9,7 @@ export class StylableToggleSwitchStory extends React.Component<{}, {checked: boo
     return (
       <div style={{height: '100px', width: '100px'}}>
         <StylableToggleSwitch
-          {...commonStyle('root')}
+          {...style('root')}
           checked={this.state.checked}
           onChange={() => this.setState({checked: !this.state.checked})}
           data-hook="story-StylableToggleSwitch"

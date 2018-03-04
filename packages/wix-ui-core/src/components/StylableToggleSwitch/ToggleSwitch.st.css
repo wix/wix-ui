@@ -5,10 +5,6 @@
   position: relative;
 }
 
-.root:not(:disabled) {
-  cursor: pointer;
-}
-
 /* We're relying on the input to handle mouse events, that's why we need it to cover the entire component */
 .input {
   position: absolute;
