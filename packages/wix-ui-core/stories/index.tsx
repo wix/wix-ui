@@ -21,7 +21,6 @@ require('./Input').story();
 require('./IconWithOptions').story();
 require('./InputWithAffixes').story();
 require('./StylableText').story();
-require('./StylableButton').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();

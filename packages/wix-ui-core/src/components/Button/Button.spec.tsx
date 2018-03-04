@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {buttonDriverFactory} from './Button.driver';
+import {mount} from 'enzyme';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {core, ButtonTheme} from './theme';
-import {mount} from 'enzyme';
+import {buttonDriverFactory} from './Button.driver';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
 import {Button} from './';
@@ -68,32 +67,6 @@ describe('Button', () => {
       const content = 'Click me';
       const driver = createDriver(<Button>{content}</Button>);
       expect(driver.getTextContent()).toBe(content);
-    });
-  });
-
-  describe('style', () => {
-    it('should have default styles', () => {
-      const driver = createDriver(<Button/>);
-      expect(driver.styles.getHeight()).toBe(core.height);
-      expect(driver.styles.getPadding()).toBe(core.padding);
-      expect(driver.styles.getBorderRadius()).toBe(core.borderRadius);
-    });
-
-    it('should override default height', () => {
-      const theme: ButtonTheme = {
-        minWidth: '15px',
-        width: '15px',
-        height: '78px',
-        padding: '15px',
-        contentPadding: '16px',
-        borderRadius: '3px'
-      };
-      const driver = createDriver(<Button theme={theme}></Button>);
-      expect(driver.styles.getMinWidth()).toBe(theme.minWidth);
-      expect(driver.styles.getWidth()).toBe(theme.width);
-      expect(driver.styles.getHeight()).toBe(theme.height);
-      expect(driver.styles.getPadding()).toBe(theme.padding);
-      expect(driver.styles.getBorderRadius()).toBe(theme.borderRadius);
     });
   });
 
