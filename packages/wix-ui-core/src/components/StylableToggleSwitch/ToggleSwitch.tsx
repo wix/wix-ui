@@ -72,7 +72,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
   private focusedByMouse = false;
 
   render() {
-    const {checked, disabled, styles: inlineStyles} = this.props;
+    const {checked, disabled, styles: inlineStyles, dir} = this.props;
 
     return (
       <div
@@ -80,10 +80,11 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           checked,
           disabled,
           focus: this.state.focus,
-          'focus-visible': this.state.focusVisible
+          'focus-visible': this.state.focusVisible,
+          ...(dir ? {dir} : {})
         }, this.props)}
         style={inlineStyles.root}
-        dir={this.props.dir}
+        dir={dir}
       >
         <div className={style.track} style={inlineStyles.track} />
         <div className={style.knob} style={inlineStyles.knob}>
