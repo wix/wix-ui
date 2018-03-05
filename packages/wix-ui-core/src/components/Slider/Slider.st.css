@@ -32,7 +32,7 @@
     height: 100%;
 }
 
-.highlightedTrack {
+.trackFill {
     position: absolute;
     background: linear-gradient(to right, #4992e3, #70bff3);
     height: 100%;
@@ -49,7 +49,7 @@
     height: 100%;
 }
 
-.root:vertical .highlightedTrack {
+.root:vertical .trackFill {
     background: linear-gradient(to top, #4992e3, #70bff3);
 }
 

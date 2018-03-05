@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb} from './Thumb';
-import classes from './Slider.st.css';
+import pStyle from './Slider.st.css';
 
 export interface SliderProps {
   min?: number;
@@ -18,6 +18,7 @@ export interface SliderProps {
   height?: number;
   thumbShape?: string;
   className?: string;
+  previewState?: string;
 }
 
 export interface SliderState {
@@ -207,7 +208,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return `calc(${pct} * calc(100% - ${handleSize}px))`;
   }
 
-  calcHighlightedTrackPosition() {
+  calcTrackFillPosition() {
     const {value, min, max} = this.props;
     const pct = (value - min) / (max - min);
     return pct * 100 + '%';
@@ -241,7 +242,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       vertical ? DefaultVerticalTooltipPosition : DefaultTooltipPosition;
 
     return (
-      <div data-hook="tooltip" {...classes('tooltip', {
+      <div data-hook="tooltip" {...pStyle('tooltip', {
         tooltipTop: position === 'top',
         tooltipBottom: position === 'bottom',
         tooltipLeft: position === 'left',
@@ -253,25 +254,25 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, className} = this.props;
+    const {value, min, max, vertical, trackSize, className, previewState} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
     const showTicks = !!this.props.step;
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
-    const highlightedTrackPosition = vertical ? {
+    const trackFillPosition = vertical ? {
         bottom: 0,
-        height: this.calcHighlightedTrackPosition()
+        height: this.calcTrackFillPosition()
     } : {
-        width: this.calcHighlightedTrackPosition()
+        width: this.calcTrackFillPosition()
     };
 
     return (
-      <div {...classes('root ' + className, {
+      <div {...pStyle('root', {
           vertical,
-          showTicks,
-      })}
+          showTicks
+      }, this.props)}
         onMouseDown={this.handleMouseDown}
         data-value={value}
         data-min={min}
@@ -281,10 +282,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         tabIndex={0}
         onKeyDown={this.handleKeyDown}
     >
-      <div ref={this.setInnerNode} className={classes.inner}>
-        <div data-hook="track" ref={this.setTrackNode} className={classes.track} onClick={this.handleTrackClick} style={trackStyle}>
-          <div className={classes.highlightedTrack} style={{
-            ...highlightedTrackPosition
+      <div ref={this.setInnerNode} className={pStyle.inner}>
+        <div data-hook="track" ref={this.setTrackNode} className={pStyle.track} onClick={this.handleTrackClick} style={trackStyle}>
+          <div className={pStyle.trackFill} style={{
+            ...trackFillPosition
           }}/>
         </div>
         <Thumb
@@ -293,7 +294,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           handleSize={handleSize}
           onMouseEnter={this.handleThumbEnter}
           onMouseLeave={this.handleThumbLeave}
-          classes={classes}
+          classes={pStyle}
         >
           {this.renderTooltip()}
         </Thumb>
@@ -301,7 +302,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
       {showTicks && (
         <Ticks
-          classes={classes}
+          classes={pStyle}
           step={step}
           min={min}
           max={max}
