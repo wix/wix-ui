@@ -48,12 +48,14 @@ describe('AddressInput', () => {
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
     });
 
-    it.skip('Should debounce calls to MapsClient.autocomplete', () => {
+    it('Should throttle calls to MapsClient.autocomplete', async () => {
         driver.change('n');
         driver.change('ne');
         driver.change('new');
+        await helper.sleep(151);
+        expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
-        expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledTimes(1);
+        expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledTimes(2);
     });
 
     it('Should call MapsClient.autocomplete upon typing, with types', () => {
@@ -77,7 +79,7 @@ describe('AddressInput', () => {
         expect(driver.getOptions()).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
-    it('Should empty suggestion list if string is empty', async () => {
+    it('Should empty suggestion immediately list if string is empty', async () => {
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
         driver.click();
         driver.change('n');
@@ -184,7 +186,7 @@ describe('AddressInput', () => {
 
         it('Should ignore stale requests - geocode', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
-            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1, 100);
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1, 1000);
             driver.click();
             driver.change('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
@@ -208,7 +210,7 @@ describe('AddressInput', () => {
         it('Should ignore stale requests - placeDetails', async () => {
             init({handler: Handler.places});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
-            GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_1, 100);
+            GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_1, 1000);
             driver.click();
             driver.change('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);

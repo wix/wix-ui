@@ -37,6 +37,7 @@
     "lodash.includes": "^4.3.0",
     "lodash.intersection": "^4.4.0",
     "lodash.isundefined": "^3.0.0",
+    "lodash.throttle": "^4.1.1",
     "lodash.times": "^4.0.0",
     "lodash.uniqueid": "^4.0.0",
     "playable": "^1.2.0",

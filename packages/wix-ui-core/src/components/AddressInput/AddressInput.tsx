@@ -3,6 +3,7 @@ import * as map from 'lodash.map';
 import * as first from 'lodash.first';
 import * as filter from 'lodash.filter';
 import * as intersection from 'lodash.intersection';
+import * as throttle from 'lodash.throttle';
 import style from './AddressInput.st.css';
 import * as propTypes from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
@@ -119,6 +120,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.addressRequestId = 0;
         this.geocodeRequestId = 0;
         this.placeDetailsRequestId = 0;
+
+        this.getAddressOptions = throttle(this.getAddressOptions, 150);
+        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     componentDidMount() {
@@ -126,10 +130,6 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     async getAddressOptions(input) {
-        if (!input) {
-            return this.setState({options: []});
-        }
-
         const requestId = ++this.addressRequestId;
         const {apiKey, lang, filterTypes, countryCode} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
@@ -171,12 +171,26 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         }
     }
 
+    handleOnChange(e) {
+        const {onChange} = this.props;
+        const {value} = e.target;
+        if (typeof onChange === 'function') {
+            this.props.onChange(e);
+        }
+
+        if (value) {
+            this.getAddressOptions(value);
+        } else {
+            this.setState({options: []});
+        }
+    }
+
     render() {
-        const {placeHolder, onChange, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, onManualInput, value} = this.props;
+        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, onManualInput, value} = this.props;
         const {options} = this.state;
 
         const inputProps = {
-            onChange: (e) => { onChange && onChange(e); this.getAddressOptions(e.target.value) },
+            onChange: this.handleOnChange,
             onKeyDown: (e) => { onKeyDown && onKeyDown(e); },
             onFocus: () => { onFocus && onFocus(); },
             onBlur: () => { onBlur && onBlur(); clearSuggestionsOnBlur && this.setState({options: []}) },
