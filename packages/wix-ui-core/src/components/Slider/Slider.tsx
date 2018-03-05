@@ -19,6 +19,7 @@ export interface SliderProps {
   thumbShape?: string;
   className?: string;
   previewState?: string;
+  disabled?: boolean;
 }
 
 export interface SliderState {
@@ -40,7 +41,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
     dragging: false,
     thumbHover: false,
-    thumbShape: 'circle'
+    thumbShape: 'circle',
+    disabled: false
   };
 
   constructor(props) {
@@ -108,8 +110,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleKeyDown = (ev) => {
+    const {max, min, disabled} = this.props;
+
+    if (disabled) {
+      return;
+    }
+
     const {step} = this.state;
-    const {max, min} = this.props;
     let nextValue;
 
     switch (ev.key) {
@@ -175,7 +182,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleTrackClick = (ev) => {
-    const {min, max, vertical} = this.props;
+    const {min, max, vertical, disabled} = this.props;
+
+    if (disabled) {
+      return;
+    }
+
     const step = this.state.step;
     const handleSize = this.getHandleSize();
     const totalSteps = Math.ceil((max - min) / step);
@@ -254,7 +266,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, className, previewState} = this.props;
+    const {value, min, max, vertical, trackSize, className, previewState, disabled} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -271,7 +283,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div {...pStyle('root', {
           vertical,
-          showTicks
+          showTicks,
+          disabled
       }, this.props)}
         onMouseDown={this.handleMouseDown}
         data-value={value}

@@ -212,6 +212,25 @@ describe('Slider', () => {
     });
   });
 
+  it('cannot move handle, given disabled', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      step: 0.1,
+      min: 1,
+      max: 10,
+      value: 1,
+      disabled: true,
+      onChange
+    });
+
+    driver.focus();
+    driver.arrowRight();
+    driver.clickSlider(3);
+
+    sinon.assert.notCalled(onChange);
+  });
+
   function render(props) {
     const driver = createDriver(<Slider {...props}/>);
 

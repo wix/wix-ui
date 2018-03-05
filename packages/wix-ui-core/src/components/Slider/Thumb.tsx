@@ -13,11 +13,11 @@ export interface ThumbProps {
 export class Thumb extends React.Component<ThumbProps> {
   static propTypes = {
     shape: PropTypes.string.isRequired,
-    handlePosition: PropTypes.string.isRequired,
+    handlePosition: PropTypes.object.isRequired,
     handleSize: PropTypes.number.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.any.isRequired
   };
 
   constructor(props) {

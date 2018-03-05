@@ -1,5 +1,5 @@
 .root {
-    -st-states: vertical, showTicks;
+    -st-states: vertical, showTicks, disabled;
     position: relative;
     width: 100%;
     height: 100%;
