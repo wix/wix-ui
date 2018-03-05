@@ -51,7 +51,9 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     /** Icon inside of the knob when checked */
     checkedIcon: propTypes.node,
     /** Icon inside of the knob when unchecked */
-    uncheckedIcon: propTypes.node
+    uncheckedIcon: propTypes.node,
+    /** Direction */
+    dir: propTypes.oneOf(['ltr', 'rtl'])
   };
 
   static defaultProps = {
