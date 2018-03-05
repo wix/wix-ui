@@ -21,6 +21,7 @@ export interface ToggleSwitchProps {
   id?: string;
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
+  dir?: 'ltr' | 'rtl';
 }
 
 export interface ToggleSwitchState {
@@ -80,6 +81,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           'focus-visible': this.state.focusVisible
         }, this.props)}
         style={inlineStyles.root}
+        dir={this.props.dir}
       >
         <div className={style.track} style={inlineStyles.track} />
         <div className={style.knob} style={inlineStyles.knob}>
