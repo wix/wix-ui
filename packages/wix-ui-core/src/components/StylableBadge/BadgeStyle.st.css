@@ -4,10 +4,6 @@
   }
   
 :vars {
-    height: 24px;
-    padding: 4px 12px;
-    border: 1px solid;
-    borderRadius: 2px;
     backgroundColor: grey;
     borderColor: grey;
     color: white;
@@ -15,11 +11,11 @@
 
 .root {
     -st-extends: Badge;
-    height: value(height);
-    padding: value(padding);
+    height: 24px;
+    padding: 4px 12px;
     
-    border: value(border);
-    border-radius: value(borderRadius);
+    border: 1px solid;
+    border-radius: 2px;
     border-color: value(borderColor);
     color: value(color);
     
