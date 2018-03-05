@@ -13,6 +13,7 @@ export interface SliderProps {
   handleSize?: number;
   step?: any;
   tooltipPosition?: string;
+  tooltipTrigger?: string; //none, always, hover
   trackSize?: number;
   width?: number;
   height?: number;
@@ -42,7 +43,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     dragging: false,
     thumbHover: false,
     thumbShape: 'circle',
-    disabled: false
+    disabled: false,
+    tooltipTrigger: 'hover'
   };
 
   constructor(props) {
@@ -209,8 +211,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   shouldShowTooltip() {
-    // return true;
-    return this.state.dragging || this.state.thumbHover;
+    switch (this.props.tooltipTrigger) {
+        case 'always':
+          return true;
+        case 'none':
+          return false;
+        default:
+        case 'hover':
+          return this.state.dragging || this.state.thumbHover;
+    }
   }
 
   calcHandleProgressPosition() {

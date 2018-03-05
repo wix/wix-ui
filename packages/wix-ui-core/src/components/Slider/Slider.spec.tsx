@@ -70,6 +70,30 @@ describe('Slider', () => {
     expect(driver.thumbTooltipValue()).toEqual('3');
   });
 
+  it('does not show tooltip, given tooltipTrigger=none', () => {
+    const driver = createDriver(<Slider tooltipTrigger="none" min={1} max={10} value={3} onChange={noop}/>);
+
+    driver.hoverThumb();
+
+    expect(driver.tooltip()).not.toBeTruthy();
+  });
+
+  it('shows tooltip only on hover, given tooltipTrigger=hover', () => {
+    const driver = createDriver(<Slider tooltipTrigger="hover" min={1} max={10} value={3} onChange={noop}/>);
+
+    expect(driver.tooltip()).toBeFalsy();
+
+    driver.hoverThumb();
+
+    expect(driver.tooltip()).toBeTruthy();
+  });
+
+  it('shows tooltip by default, given tooltipTrigger=always', () => {
+    const driver = createDriver(<Slider tooltipTrigger="always" min={1} max={10} value={3} onChange={noop}/>);
+
+    expect(driver.tooltip()).toBeTruthy();
+  });
+
   it('should render ticks', () => {
     const driver = render({
       min: 1,
