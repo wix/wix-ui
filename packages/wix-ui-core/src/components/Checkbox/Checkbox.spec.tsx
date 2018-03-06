@@ -8,33 +8,45 @@ const tickSVG = (<span data-name="custom-tickmark">1</span>);
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
 
-  it('should render', () => {
-    const checkbox = createDriver(<Checkbox />);
+  describe('Basic behavior', () => {
+    it('should render', () => {
+      const checkbox = createDriver(<Checkbox />);
 
-    expect(checkbox.exists()).toBe(true);
+      expect(checkbox.exists()).toBe(true);
+    });
+
+    it('is not checked by default', () => {
+      const checkbox = createDriver(<Checkbox />);
+
+      expect(checkbox.isChecked()).toBe(false);
+    });
+
+    it('is checked when passing the checked prop', () => {
+      const checkbox = createDriver(<Checkbox checked />);
+
+      expect(checkbox.isChecked()).toBe(true);
+    });
+
+    it('renders given children', () => {
+      const checkbox = createDriver(
+        <Checkbox>
+          <span>covfefe</span>
+        </Checkbox>
+      );
+
+      expect(checkbox.children().textContent).toContain('covfefe');
+    });
+
+    it('calls onChange when clicked', () => {
+      const onChange = jest.fn();
+      const checkbox = createDriver(<Checkbox onChange={onChange}/>);
+
+      checkbox.click();
+
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange.mock.calls[0][0].checked).toBe(true);
+    });
   });
-
-  it('is not checked by default', () => {
-    const checkbox = createDriver(<Checkbox />);
-
-    expect(checkbox.isChecked()).toBe(false);
-  });
-
-  it('is checked when passing the checked prop', () => {
-    const checkbox = createDriver(<Checkbox checked />);
-
-    expect(checkbox.isChecked()).toBe(true);
-  });
-
-//   it('Displays children', async () => {
-//     const checkbox = createDriver(
-//       <Checkbox>
-//         <span>covfefe</span>
-//       </Checkbox>
-//     );
-
-//     expect(checkbox.children().textContent).toContain('covfefe');
-//   });
 
 //   it('Displays custom tick mark when value is true', async () => {
 //     const checkbox = createDriver(
@@ -46,18 +58,6 @@ describe('Checkbox', () => {
 
 //     expect(checkbox.tickmark()).toBeDefined();
 //     expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-//   });
-
-//   it('Calls onChange when clicked', async () => {
-//     const onChange = jest.fn();
-//     const checkbox = createDriver(<Checkbox onChange={onChange}/>);
-
-//     expect(checkbox.exists()).toBe(true);
-
-//     checkbox.click();
-
-//     expect(onChange).toHaveBeenCalledTimes(1);
-//     expect(onChange.mock.calls[0][0].checked).toBe(true);
 //   });
 
 //   it('Switches to focus state when focused', async () => {
