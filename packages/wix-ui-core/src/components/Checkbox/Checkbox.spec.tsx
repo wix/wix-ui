@@ -46,6 +46,30 @@ describe('Checkbox', () => {
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
     });
+
+    it('displays the given custom tick icon when checked', () => {
+      const checkbox = createDriver(
+        <Checkbox
+          tickIcon={tickSVG}
+          checked
+        />
+      );
+
+      expect(checkbox.tickmark()).toBeDefined();
+      expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
+    });
+
+    it('displays the given custom tick icon when indeterminate', () => {
+      const checkbox = createDriver(
+        <Checkbox
+          indeterminateIcon={tickSVG}
+          indeterminate
+        />
+      );
+
+      expect(checkbox.tickmark()).toBeDefined();
+      expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
+    });
   });
 
   describe('Accessibility', () => {
@@ -116,17 +140,79 @@ describe('Checkbox', () => {
     });
   });
 
-//   it('Displays custom tick mark when value is true', async () => {
-//     const checkbox = createDriver(
-//       <Checkbox
-//         tickIcon={tickSVG}
-//         checked={true}
-//       />
-//     );
+  describe('Disabled', () => {
+    it('does not call onChange when disabled', async () => {
+      const onChange = jest.fn();
+      const checkbox = createDriver(
+        <Checkbox
+          disabled
+          onChange={onChange}
+        />
+      );
 
-//     expect(checkbox.tickmark()).toBeDefined();
-//     expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-//   });
+      checkbox.click();
+
+      setTimeout(() => {
+        expect(onChange).not.toHaveBeenCalled();
+      }, 10);
+    });
+
+    it('is can be checked when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled checked />);
+
+      expect(checkbox.isChecked()).toBe(true);
+      expect(checkbox.input().checked).toBe(true);
+    });
+
+    it('is can be indeterminate when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled indeterminate />);
+
+      expect(checkbox.isIndeterminate()).toBe(true);
+    });
+
+    it('has disable css state when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled />);
+
+      expect(checkbox.isDisabled()).toBe(true);
+    });
+  });
+
+  describe('Readonly', () => {
+    it('does not call onChange when readonly', async () => {
+      const onChange = jest.fn();
+      const checkbox = createDriver(
+        <Checkbox
+          readOnly
+          onChange={onChange}
+        />
+      );
+
+      checkbox.click();
+
+      setTimeout(() => {
+        expect(onChange).not.toHaveBeenCalled();
+      }, 10);
+    });
+
+    it('is can be checked when readonly', () => {
+      const checkbox = createDriver(<Checkbox readOnly checked />);
+
+      expect(checkbox.isChecked()).toBe(true);
+      expect(checkbox.input().checked).toBe(true);
+    });
+
+    it('is can be indeterminate when readonly', () => {
+      const checkbox = createDriver(<Checkbox readOnly indeterminate />);
+
+      expect(checkbox.isIndeterminate()).toBe(true);
+    });
+
+    it('has disable css state when readonly', () => {
+      const checkbox = createDriver(<Checkbox readOnly />);
+
+      expect(checkbox.hasReadOnlyState()).toBe(true);
+    });
+  });
 
 //   it('Switches to focus state when focused', async () => {
 //     const checkbox = createDriver(<Checkbox/>);
@@ -155,56 +241,6 @@ describe('Checkbox', () => {
 //       checkbox.click();
 
 //       expect(checkbox.hasFocusState()).toBe(false);
-//     });
-//   });
-
-//   describe('When disabled', () => {
-//     it('doesn\'t call onChange when clicked', async () => {
-//       const onChange = jest.fn();
-
-//       const checkbox = createDriver(
-//         <Checkbox
-//           disabled
-//           onChange={onChange}
-//         />
-//       );
-
-//       expect(checkbox.exists()).toBe(true);
-
-//       checkbox.click();
-
-//       setTimeout(() => {
-//         expect(onChange).not.toHaveBeenCalled();
-//       }, 10);
-//     });
-
-//     it('displays tickmark if value is true', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           disabled
-//           checked
-//         />
-//       );
-
-//       expect(checkbox.isChecked()).toBe(true);
-//     });
-
-//     it('displays indeterminate icon', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           indeterminate
-//           disabled
-//           checked
-//         />
-//       );
-
-//       expect(checkbox.isIndeterminate()).toBe(true);
-//     });
-
-//     it('gets disabled style state', async () => {
-//       const checkbox = createDriver(<Checkbox disabled />);
-
-//       expect(checkbox.isDisabled()).toBe(true);
 //     });
 //   });
 
