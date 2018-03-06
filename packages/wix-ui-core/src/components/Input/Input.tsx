@@ -1,5 +1,4 @@
 import * as React from 'react';
-const uniqueId = require('lodash.uniqueid');
 import style from './Input.st.css';
 
 const createAriaAttributes = props => {
@@ -67,16 +66,14 @@ export interface InputProps {
 
   /** Inputs value */
   value?: string;
-}
 
-export interface InputState {
-  id: string;
+  id?: string;
 }
 
 /**
  * Input
  */
-export class Input extends React.Component<InputProps, InputState> {
+export class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
@@ -85,9 +82,6 @@ export class Input extends React.Component<InputProps, InputState> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      id: uniqueId('Input')
-    };
     this._onChange = this._onChange.bind(this);
   }
 
@@ -120,7 +114,8 @@ export class Input extends React.Component<InputProps, InputState> {
       required,
       tabIndex,
       type,
-      value
+      value,
+      id
     } = this.props;
 
     const ariaAttributes = createAriaAttributes(this.props);
@@ -131,7 +126,7 @@ export class Input extends React.Component<InputProps, InputState> {
         disabled={disabled}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
-        id={this.state.id}
+        id={id}
         name={name}
         onChange={this._onChange}
         onClick={onClick}
