@@ -13,7 +13,9 @@ export interface SliderProps {
   handleSize?: number;
   step?: any;
   tooltipPosition?: string;
-  tooltipTrigger?: string; //none, always, hover
+  tooltipVisibility?: string; //none, always, hover
+  tooltipPrefix?: string;
+  tooltipSuffix?: string;
   trackSize?: number;
   width?: number;
   height?: number;
@@ -44,7 +46,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     thumbHover: false,
     thumbShape: 'circle',
     disabled: false,
-    tooltipTrigger: 'hover'
+    tooltipVisibility: 'hover',
+    tooltipPrefix: '',
+    tooltipSuffix: ''
   };
 
   constructor(props) {
@@ -211,7 +215,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   shouldShowTooltip() {
-    switch (this.props.tooltipTrigger) {
+    switch (this.props.tooltipVisibility) {
         case 'always':
           return true;
         case 'none':
@@ -269,7 +273,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         tooltipLeft: position === 'left',
         tooltipRight: position === 'right'
       })}>
-        {this.props.value}
+        {this.props.tooltipPrefix}{this.props.value}{this.props.tooltipSuffix}
       </div>
     );
   }
@@ -305,7 +309,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         onKeyDown={this.handleKeyDown}
     >
       <div ref={this.setInnerNode} className={pStyle.inner}>
-        <div data-hook="track" ref={this.setTrackNode} className={pStyle.track} onClick={this.handleTrackClick} style={trackStyle}>
+        <div data-hook="track"
+          ref={this.setTrackNode}
+          className={pStyle.track}
+          onClick={this.handleTrackClick}
+          style={trackStyle}
+        >
           <div className={pStyle.trackFill} style={{
             ...trackFillPosition
           }}/>

@@ -70,16 +70,16 @@ describe('Slider', () => {
     expect(driver.thumbTooltipValue()).toEqual('3');
   });
 
-  it('does not show tooltip, given tooltipTrigger=none', () => {
-    const driver = createDriver(<Slider tooltipTrigger="none" min={1} max={10} value={3} onChange={noop}/>);
+  it('does not show tooltip, given tooltipVisibility=none', () => {
+    const driver = createDriver(<Slider tooltipVisibility="none" min={1} max={10} value={3} onChange={noop}/>);
 
     driver.hoverThumb();
 
     expect(driver.tooltip()).not.toBeTruthy();
   });
 
-  it('shows tooltip only on hover, given tooltipTrigger=hover', () => {
-    const driver = createDriver(<Slider tooltipTrigger="hover" min={1} max={10} value={3} onChange={noop}/>);
+  it('shows tooltip only on hover, given tooltipVisibility=hover', () => {
+    const driver = createDriver(<Slider tooltipVisibility="hover" min={1} max={10} value={3} onChange={noop}/>);
 
     expect(driver.tooltip()).toBeFalsy();
 
@@ -88,10 +88,46 @@ describe('Slider', () => {
     expect(driver.tooltip()).toBeTruthy();
   });
 
-  it('shows tooltip by default, given tooltipTrigger=always', () => {
-    const driver = createDriver(<Slider tooltipTrigger="always" min={1} max={10} value={3} onChange={noop}/>);
+  it('shows tooltip by default, given tooltipVisibility=always', () => {
+    const driver = createDriver(<Slider tooltipVisibility="always" min={1} max={10} value={3} onChange={noop}/>);
 
     expect(driver.tooltip()).toBeTruthy();
+  });
+
+  it('should render tooltip prefix', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      step: 0.1,
+      min: 1,
+      max: 10,
+      value: 1,
+      disabled: true,
+      tooltipPrefix: '$',
+      onChange
+    });
+
+    driver.hoverThumb();
+
+    expect(driver.thumbTooltipValue()).toBe('$1');
+  });
+
+  it('should render tooltip suffix', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      step: 0.1,
+      min: 1,
+      max: 10,
+      value: 1,
+      disabled: true,
+      tooltipSuffix: '$',
+      onChange
+    });
+
+    driver.hoverThumb();
+
+    expect(driver.thumbTooltipValue()).toBe('1$');
   });
 
   it('should render ticks', () => {
@@ -260,11 +296,6 @@ describe('Slider', () => {
 
     driver.stubRootBoundingRect();
     driver.stubTrackBoundingRect();
-
-    // await eventually(() => {
-    //   const rect = driver.getRootBoundingRect();
-    //   expect(rect.width).toBeGreaterThan(0);
-    // });
 
     return driver;
   }
