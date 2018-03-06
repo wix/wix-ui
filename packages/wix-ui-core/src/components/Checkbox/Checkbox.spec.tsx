@@ -8,326 +8,337 @@ const tickSVG = (<span data-name="custom-tickmark">1</span>);
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
 
-  it('Renders with default values', async () => {
+  it('should render', () => {
     const checkbox = createDriver(<Checkbox />);
 
     expect(checkbox.exists()).toBe(true);
+  });
+
+  it('is not checked by default', () => {
+    const checkbox = createDriver(<Checkbox />);
+
     expect(checkbox.isChecked()).toBe(false);
   });
 
-  it('Displays children', async () => {
-    const checkbox = createDriver(
-      <Checkbox>
-        <span>covfefe</span>
-      </Checkbox>
-    );
+  it('is checked when passing the checked prop', () => {
+    const checkbox = createDriver(<Checkbox checked />);
 
-    expect(checkbox.children().textContent).toContain('covfefe');
+    expect(checkbox.isChecked()).toBe(true);
   });
 
-  it('Displays custom tick mark when value is true', async () => {
-    const checkbox = createDriver(
-      <Checkbox
-        tickIcon={tickSVG}
-        checked={true}
-      />
-    );
+//   it('Displays children', async () => {
+//     const checkbox = createDriver(
+//       <Checkbox>
+//         <span>covfefe</span>
+//       </Checkbox>
+//     );
 
-    expect(checkbox.tickmark()).toBeDefined();
-    expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-  });
+//     expect(checkbox.children().textContent).toContain('covfefe');
+//   });
 
-  it('Calls onChange when clicked', async () => {
-    const onChange = jest.fn();
-    const checkbox = createDriver(<Checkbox onChange={onChange}/>);
+//   it('Displays custom tick mark when value is true', async () => {
+//     const checkbox = createDriver(
+//       <Checkbox
+//         tickIcon={tickSVG}
+//         checked={true}
+//       />
+//     );
 
-    expect(checkbox.exists()).toBe(true);
+//     expect(checkbox.tickmark()).toBeDefined();
+//     expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
+//   });
 
-    checkbox.click();
+//   it('Calls onChange when clicked', async () => {
+//     const onChange = jest.fn();
+//     const checkbox = createDriver(<Checkbox onChange={onChange}/>);
 
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange.mock.calls[0][0].checked).toBe(true);
-  });
+//     expect(checkbox.exists()).toBe(true);
 
-  it('Switches to focus state when focused', async () => {
-    const checkbox = createDriver(<Checkbox/>);
+//     checkbox.click();
 
-    checkbox.focus();
+//     expect(onChange).toHaveBeenCalledTimes(1);
+//     expect(onChange.mock.calls[0][0].checked).toBe(true);
+//   });
 
-    expect(checkbox.hasFocusState()).toBe(true);
-});
+//   it('Switches to focus state when focused', async () => {
+//     const checkbox = createDriver(<Checkbox/>);
 
-  it('Accepts "name" prop', async () => {
-    const checkbox = createDriver(
-      <Checkbox name="shlomi" />
-    );
+//     checkbox.focus();
 
-    expect(checkbox.input().getAttribute('name')).toBe('shlomi');
-  });
+//     expect(checkbox.hasFocusState()).toBe(true);
+// });
 
-  it('Accepts "required" prop', async () => {
-    const checkbox = createDriver(<Checkbox required/>);
+//   it('Accepts "name" prop', async () => {
+//     const checkbox = createDriver(
+//       <Checkbox name="shlomi" />
+//     );
 
-    expect(checkbox.input().required).toBe(true);
-  });
+//     expect(checkbox.input().getAttribute('name')).toBe('shlomi');
+//   });
 
-  it('Accepts "autofocus" prop', () => {
-    const checkbox = createDriver(<Checkbox autoFocus />);
+//   it('Accepts "required" prop', async () => {
+//     const checkbox = createDriver(<Checkbox required/>);
 
-    expect(document.activeElement).toBe(checkbox.input());
-  });
+//     expect(checkbox.input().required).toBe(true);
+//   });
 
-  describe('Accessibility features', () => {
-    it('Renders a native input and pass on checked state', async () => {
-      const checkbox = createDriver(
-        <Checkbox checked />
-      );
+//   it('Accepts "autofocus" prop', () => {
+//     const checkbox = createDriver(<Checkbox autoFocus />);
 
-      const nativeInput = checkbox.input();
+//     expect(document.activeElement).toBe(checkbox.input());
+//   });
 
-      expect(nativeInput).toBeDefined();
-      expect(nativeInput).toBeInstanceOf(HTMLInputElement);
-      expect(nativeInput.getAttribute('type')).toBe('checkbox');
-      expect(nativeInput.checked).toBe(true);
-    });
+//   describe('Accessibility features', () => {
+//     it('Renders a native input and pass on checked state', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox checked />
+//       );
 
-    it('native input gets disabled state', async () => {
-      const checkbox = createDriver(<Checkbox disabled />);
+//       const nativeInput = checkbox.input();
 
-      const nativeInput = checkbox.input();
+//       expect(nativeInput).toBeDefined();
+//       expect(nativeInput).toBeInstanceOf(HTMLInputElement);
+//       expect(nativeInput.getAttribute('type')).toBe('checkbox');
+//       expect(nativeInput.checked).toBe(true);
+//     });
 
-      expect(nativeInput.disabled).toBe(true);
-    });
+//     it('native input gets disabled state', async () => {
+//       const checkbox = createDriver(<Checkbox disabled />);
 
-    it('native input gets id prop if supplied by user', async () => {
-      const checkbox = createDriver(<Checkbox id="covfefe" />);
+//       const nativeInput = checkbox.input();
 
-      const nativeInput = checkbox.input();
+//       expect(nativeInput.disabled).toBe(true);
+//     });
 
-      expect(nativeInput.getAttribute('id')).toBe('covfefe');
-    });
+//     it('native input gets id prop if supplied by user', async () => {
+//       const checkbox = createDriver(<Checkbox id="covfefe" />);
 
-    it('component gets tabIndex 0 by default', async () => {
-      const checkbox = createDriver(<Checkbox />);
+//       const nativeInput = checkbox.input();
 
-      const nativeInput = checkbox.input();
+//       expect(nativeInput.getAttribute('id')).toBe('covfefe');
+//     });
 
-      expect(nativeInput.getAttribute('tabIndex')).toBe('0');
-    });
+//     it('component gets tabIndex 0 by default', async () => {
+//       const checkbox = createDriver(<Checkbox />);
 
-    it('component gets tabIndex supplied by the user', async () => {
-      const checkbox = createDriver(<Checkbox tabIndex={666} />);
+//       const nativeInput = checkbox.input();
 
-      const nativeInput = checkbox.input();
+//       expect(nativeInput.getAttribute('tabIndex')).toBe('0');
+//     });
 
-      expect(nativeInput.getAttribute('tabIndex')).toBe('666');
-    });
+//     it('component gets tabIndex supplied by the user', async () => {
+//       const checkbox = createDriver(<Checkbox tabIndex={666} />);
 
-    it('takes "aria-controls" property', async () => {
-      const checkbox = createDriver(
-        <Checkbox aria-controls={['123', '345']} />
-      );
+//       const nativeInput = checkbox.input();
 
-      const nativeInput = checkbox.input();
+//       expect(nativeInput.getAttribute('tabIndex')).toBe('666');
+//     });
 
-      expect(nativeInput.getAttribute('aria-controls')).toBe('123,345');
-    });
+//     it('takes "aria-controls" property', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox aria-controls={['123', '345']} />
+//       );
 
-    it('gets focus after click (should not be in focused style state)', async () => {
-      const checkbox = createDriver(<Checkbox />);
+//       const nativeInput = checkbox.input();
 
-      checkbox.click();
+//       expect(nativeInput.getAttribute('aria-controls')).toBe('123,345');
+//     });
 
-      expect(document.activeElement).toBe(checkbox.input());
-      expect(checkbox.hasFocusState()).toBe(false);
-    });
+//     it('gets focus after click (should not be in focused style state)', async () => {
+//       const checkbox = createDriver(<Checkbox />);
 
-    it('loses focused style state after click', async () => {
-      const checkbox = createDriver(<Checkbox />);
+//       checkbox.click();
 
-      checkbox.focus();
+//       expect(document.activeElement).toBe(checkbox.input());
+//       expect(checkbox.hasFocusState()).toBe(false);
+//     });
 
-      expect(checkbox.hasFocusState()).toBe(true);
+//     it('loses focused style state after click', async () => {
+//       const checkbox = createDriver(<Checkbox />);
 
-      checkbox.click();
+//       checkbox.focus();
 
-      expect(checkbox.hasFocusState()).toBe(false);
-    });
-  });
+//       expect(checkbox.hasFocusState()).toBe(true);
 
-  describe('When disabled', () => {
-    it('doesn\'t call onChange when clicked', async () => {
-      const onChange = jest.fn();
-
-      const checkbox = createDriver(
-        <Checkbox
-          disabled
-          onChange={onChange}
-        />
-      );
+//       checkbox.click();
 
-      expect(checkbox.exists()).toBe(true);
-
-      checkbox.click();
-
-      setTimeout(() => {
-        expect(onChange).not.toHaveBeenCalled();
-      }, 10);
-    });
-
-    it('displays tickmark if value is true', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          disabled
-          checked
-        />
-      );
-
-      expect(checkbox.isChecked()).toBe(true);
-    });
-
-    it('displays indeterminate icon', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          indeterminate
-          disabled
-          checked
-        />
-      );
-
-      expect(checkbox.isIndeterminate()).toBe(true);
-    });
-
-    it('gets disabled style state', async () => {
-      const checkbox = createDriver(<Checkbox disabled />);
-
-      expect(checkbox.isDisabled()).toBe(true);
-    });
-  });
-
-  describe('When readonly', () => {
-    it('doesn\'t call onChange when clicked', async () => {
-      const onChange = jest.fn();
-
-      const checkbox = createDriver(
-        <Checkbox
-          readOnly
-          onChange={onChange}
-        />
-      );
-
-      expect(checkbox.exists()).toBe(true);
-
-      checkbox.click();
-
-      setTimeout(() => {
-        expect(onChange).not.toHaveBeenCalled();
-      }, 10);
-    });
-
-    it('displays tickmark if value is true', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          readOnly
-          checked
-        />
-      );
-
-      expect(checkbox.isChecked()).toBe(true);
-    });
-
-    it('gets readOnly style state', async () => {
-      const checkbox = createDriver(<Checkbox readOnly />);
-
-      expect(checkbox.hasReadOnlyState()).toBe(true);
-    });
-  });
-
-  describe('When error', () => {
-    it('has error style state', async () => {
-      const checkbox = createDriver(<Checkbox error />);
-
-      expect(checkbox.hasErrorState()).toBe(true);
-    });
-  });
-
-  describe('When indeterminate', () => {
-    it('renders indeterminate icon when value is true', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          indeterminate
-          checked
-        />
-      );
-
-      expect(checkbox.isIndeterminate()).toBe(true);
-    });
-
-    it('renders indeterminate icon when value is false', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          indeterminate
-        />
-      );
-
-      expect(checkbox.isIndeterminate()).toBe(true);
-    });
-
-    it('click calls onChange with correct value', async () => {
-      const onChange = jest.fn();
-
-      const checkbox = createDriver(
-        <Checkbox
-          indeterminate
-          checked
-          onChange={onChange}
-        />
-      );
-
-      expect(checkbox.exists()).toBe(true);
-
-      checkbox.click();
-
-      expect(onChange).toBeCalled();
-      expect(onChange.mock.calls[0][0].checked).toBe(false);
-    });
-
-    it('renders custom indeterminate icon', async () => {
-      const checkbox = createDriver(
-        <Checkbox
-          indeterminate
-          indeterminateIcon={tickSVG}
-        />
-      );
-
-      expect(checkbox.isIndeterminate()).toBe(true);
-      expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-    });
-
-    it('does not call onChange when disabled', async () => {
-      const onChange = jest.fn();
-
-      const checkbox = createDriver(
-        <Checkbox
-          disabled
-          indeterminate
-          onChange={onChange}
-        />
-      );
-
-      expect(checkbox.exists()).toBe(true);
-
-      checkbox.click();
-
-      setTimeout(() => {
-        expect(onChange).not.toHaveBeenCalled();
-      }, 10);
-    });
-
-    it('gets indeterminate style state', async () => {
-      const checkbox = createDriver(<Checkbox indeterminate />);
-
-      expect(checkbox.isIndeterminate()).toBe(true);
-    });
-  });
+//       expect(checkbox.hasFocusState()).toBe(false);
+//     });
+//   });
+
+//   describe('When disabled', () => {
+//     it('doesn\'t call onChange when clicked', async () => {
+//       const onChange = jest.fn();
+
+//       const checkbox = createDriver(
+//         <Checkbox
+//           disabled
+//           onChange={onChange}
+//         />
+//       );
+
+//       expect(checkbox.exists()).toBe(true);
+
+//       checkbox.click();
+
+//       setTimeout(() => {
+//         expect(onChange).not.toHaveBeenCalled();
+//       }, 10);
+//     });
+
+//     it('displays tickmark if value is true', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           disabled
+//           checked
+//         />
+//       );
+
+//       expect(checkbox.isChecked()).toBe(true);
+//     });
+
+//     it('displays indeterminate icon', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           indeterminate
+//           disabled
+//           checked
+//         />
+//       );
+
+//       expect(checkbox.isIndeterminate()).toBe(true);
+//     });
+
+//     it('gets disabled style state', async () => {
+//       const checkbox = createDriver(<Checkbox disabled />);
+
+//       expect(checkbox.isDisabled()).toBe(true);
+//     });
+//   });
+
+//   describe('When readonly', () => {
+//     it('doesn\'t call onChange when clicked', async () => {
+//       const onChange = jest.fn();
+
+//       const checkbox = createDriver(
+//         <Checkbox
+//           readOnly
+//           onChange={onChange}
+//         />
+//       );
+
+//       expect(checkbox.exists()).toBe(true);
+
+//       checkbox.click();
+
+//       setTimeout(() => {
+//         expect(onChange).not.toHaveBeenCalled();
+//       }, 10);
+//     });
+
+//     it('displays tickmark if value is true', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           readOnly
+//           checked
+//         />
+//       );
+
+//       expect(checkbox.isChecked()).toBe(true);
+//     });
+
+//     it('gets readOnly style state', async () => {
+//       const checkbox = createDriver(<Checkbox readOnly />);
+
+//       expect(checkbox.hasReadOnlyState()).toBe(true);
+//     });
+//   });
+
+//   describe('When error', () => {
+//     it('has error style state', async () => {
+//       const checkbox = createDriver(<Checkbox error />);
+
+//       expect(checkbox.hasErrorState()).toBe(true);
+//     });
+//   });
+
+//   describe('When indeterminate', () => {
+//     it('renders indeterminate icon when value is true', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           indeterminate
+//           checked
+//         />
+//       );
+
+//       expect(checkbox.isIndeterminate()).toBe(true);
+//     });
+
+//     it('renders indeterminate icon when value is false', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           indeterminate
+//         />
+//       );
+
+//       expect(checkbox.isIndeterminate()).toBe(true);
+//     });
+
+//     it('click calls onChange with correct value', async () => {
+//       const onChange = jest.fn();
+
+//       const checkbox = createDriver(
+//         <Checkbox
+//           indeterminate
+//           checked
+//           onChange={onChange}
+//         />
+//       );
+
+//       expect(checkbox.exists()).toBe(true);
+
+//       checkbox.click();
+
+//       expect(onChange).toBeCalled();
+//       expect(onChange.mock.calls[0][0].checked).toBe(false);
+//     });
+
+//     it('renders custom indeterminate icon', async () => {
+//       const checkbox = createDriver(
+//         <Checkbox
+//           indeterminate
+//           indeterminateIcon={tickSVG}
+//         />
+//       );
+
+//       expect(checkbox.isIndeterminate()).toBe(true);
+//       expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
+//     });
+
+//     it('does not call onChange when disabled', async () => {
+//       const onChange = jest.fn();
+
+//       const checkbox = createDriver(
+//         <Checkbox
+//           disabled
+//           indeterminate
+//           onChange={onChange}
+//         />
+//       );
+
+//       expect(checkbox.exists()).toBe(true);
+
+//       checkbox.click();
+
+//       setTimeout(() => {
+//         expect(onChange).not.toHaveBeenCalled();
+//       }, 10);
+//     });
+
+//     it('gets indeterminate style state', async () => {
+//       const checkbox = createDriver(<Checkbox indeterminate />);
+
+//       expect(checkbox.isIndeterminate()).toBe(true);
+//     });
+//   });
 });
