@@ -17,7 +17,7 @@ require('./InputWithOptions').story();
 require('./Autocomplete').story();
 require('./Badge').story();
 require('./Button').story();
-require('./Input').story();
+require('./Input.story.js');
 require('./IconWithOptions').story();
 require('./InputWithAffixes').story();
 require('./StylableText').story();

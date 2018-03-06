@@ -1,6 +1,5 @@
 import * as React from 'react';
 const uniqueId = require('lodash.uniqueid');
-import {oneOf, bool, func, string, number, Requireable} from 'prop-types';
 import style from './Input.st.css';
 
 const createAriaAttributes = props => {
@@ -16,25 +15,58 @@ const createAriaAttributes = props => {
 const NUMBER_REGEX = /^[\d.,\-+]*$/;
 
 export interface InputProps {
-  disabled?: boolean;
+  /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
   autoComplete?: 'on' | 'off';
+
+  /** Standard React Input autoFocus (focus the element on mount) */
   autoFocus?: boolean;
-  name?: string;
-  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
-  //Breaks wix-style-react - used to be named onInputClicked
-  onClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onDoubleClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
-  onKeyUp?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
-  placeholder?: string;
-  readOnly?: boolean;
-  required?: boolean;
-  tabIndex?: number;
-  type?: string;
-  value?: string;
+
   className?: string;
+
+  /** Makes the component disabled */
+  disabled?: boolean;
+
+  /** Name for the input */
+  name?: string;
+
+  /** Standard input onBlur callback */
+  onBlur?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+
+  /** Standard input onChange callback */
+  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+
+  /** Standard input onClick callback */
+  onClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+
+  /** Standard input onDoubleClick callback */
+  onDoubleClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
+
+  /** Standard input onFocus callback */
+  onFocus?: React.EventHandler<React.FocusEvent<HTMLInputElement>>;
+
+  /** Standard input onKeyDown callback */
+  onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+
+  /** Standard input onKeyUp callback */
+  onKeyUp?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+
+  /** Placeholder to display */
+  placeholder?: string;
+
+  /** Sets the input to readOnly */
+  readOnly?: boolean;
+
+  /** Sets the input to be required */
+  required?: boolean;
+
+  /** Standard component tabIndex */
+  tabIndex?: number;
+
+  /** The type of the input - number / text */
+  type?: string;
+
+  /** Inputs value */
+  value?: string;
 }
 
 export interface InputState {
@@ -49,44 +81,6 @@ export class Input extends React.Component<InputProps, InputState> {
 
   static defaultProps = {
     type: 'text'
-  };
-
-  static propTypes = {
-    /** Inputs value */
-    value: string,
-    /** Makes the component disabled */
-    disabled: bool,
-    /** Turns on or off autocomplete property, which is responsible for default browser autocomplete suggestion */
-    autoComplete: string,
-    /** Standard React Input autoFocus (focus the element on mount) */
-    autoFocus: bool,
-    /** Name for the input */
-    name: string,
-    /** Standard input onBlur callback */
-    onBlur: func,
-    /** Standard input onChange callback */
-    onChange: func,
-    /** Standard input onClick callback */
-    onClick: func,
-    /** Standard input onDoubleClick callback */
-    onDoubleClick: func,
-    /** Standard input onFocus callback */
-    onFocus: func,
-    /** Standard input onKeyDown callback */
-    onKeyDown: func,
-    /** Standard input onKeyUp callback */
-    onKeyUp: func,
-    /** Placeholder to display */
-    placeholder: string,
-    /** Sets the input to readOnly */
-    readOnly: bool,
-    /** Sets the input to be required */
-    required: bool,
-    /** Standard component tabIndex */
-    tabIndex: number,
-    /** The type of the input - number / text */
-    type: oneOf(['number', 'text']),
-    className: string
   };
 
   constructor(props) {
