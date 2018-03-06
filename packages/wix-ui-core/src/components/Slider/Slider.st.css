@@ -1,5 +1,5 @@
 .root {
-    -st-states: vertical, showTicks, disabled;
+    -st-states: vertical, showTicks, disabled, tickMarksPosition-default, tickMarksPosition-middle, tickMarksPosition-across;
     position: relative;
     width: 100%;
     height: 100%;
@@ -44,6 +44,14 @@
     width: 100%;
 }
 
+.root:showTicks:tickMarksPosition-across .inner {
+  top: 11.112%;
+}
+
+.root:showTicks:tickMarksPosition-middle .inner {
+  height: 100%;
+}
+
 .root:vertical .track {
     width: 25%;
     height: 100%;
@@ -54,8 +62,17 @@
 }
 
 .root:vertical:showTicks .inner {
+    top: 0;
     width: 88.888%;
     height: 100%;
+}
+
+.root:vertical:showTicks:tickMarksPosition-across .inner {
+  left: 11.112%;
+}
+
+.root:vertical:showTicks:tickMarksPosition-middle .inner {
+  width: 100%;
 }
 
 .handle {
@@ -149,4 +166,35 @@
     position: absolute;
     background: #000;
     cursor: pointer;
+    width: 1px;
+    height: 25%;
+}
+
+.root:vertical .tick {
+  height: 1px;
+  width: 25%;
+}
+
+.root:tickMarksPosition-default .tick {
+  bottom: 0;
+}
+
+.root:vertical:tickMarksPosition-default .tick {
+  right: 0;
+}
+
+.root:tickMarksPosition-middle .tick {
+  bottom: 37.5%;
+}
+
+.root:vertical:tickMarksPosition-middle .tick {
+  left: 37.5%;
+}
+
+.root:tickMarksPosition-across .tick {
+  top: 0;
+}
+
+.root:vertical:tickMarksPosition-across .tick {
+  left: 0;
 }

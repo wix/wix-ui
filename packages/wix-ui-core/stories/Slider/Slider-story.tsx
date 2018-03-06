@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Slider} from '../../src/components/Slider';
 
 export class SliderStory extends React.Component {
-  state = {wrapperSize: 80, continuous: false, vertical: false};
+  state = {wrapperSize: 80, continuous: false, vertical: false, tickMarksPosition: 'default'};
 
   render() {
     const vertical = this.state.vertical;
@@ -36,17 +36,27 @@ export class SliderStory extends React.Component {
             <td>
               <input type="checkbox" onClick={() => this.setState({vertical: !this.state.vertical})} checked={this.state.vertical}/>
             </td>
+            <td>
+              Tick Marks Position
+            </td>
+            <td>
+              <select value={this.state.tickMarksPosition} onChange={ev => this.setState({tickMarksPosition: ev.target.value})}>
+                <option value="default">Default</option>
+                <option value="middle">Middle</option>
+                <option value="across">Across</option>
+              </select>
+            </td>
           </tr>
         </table>
 
         <br/>
 
         <div key="horiz" style={vertical ? verticalStyle : horizontalStyle}>
-          <StatefulSlider vertical={this.state.vertical} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
+          <StatefulSlider vertical={this.state.vertical} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <br/>
         <div key="vert" style={!vertical ? verticalStyle : horizontalStyle}>
-          <StatefulSlider vertical={!this.state.vertical} step={this.state.continuous ? null : 1} min={0} max={100} value={0}/>
+          <StatefulSlider vertical={!this.state.vertical} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 1} min={0} max={100} value={0}/>
         </div>
       </div>
     );

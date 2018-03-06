@@ -1,4 +1,5 @@
 import * as React from 'react';
+import some = require('lodash.some');
 import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb} from './Thumb';
@@ -24,6 +25,7 @@ export interface SliderProps {
   className?: string;
   previewState?: string;
   disabled?: boolean;
+  tickMarksPosition?: string; //default, middle, across
 }
 
 export interface SliderState {
@@ -48,7 +50,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipVisibility: 'hover',
     tooltipPosition: 'default',
     tooltipPrefix: '',
-    tooltipSuffix: ''
+    tooltipSuffix: '',
+    tickMarksPosition: 'default'
   };
 
   constructor(props) {
@@ -79,13 +82,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   //need to force update after DOM changes, as some layouts are based upon DOM
   //measurements
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.vertical !== this.props.vertical ||
-      prevProps.step !== this.props.step ||
-      prevProps.width !== this.props.width ||
-      prevProps.height !== this.props.height
-    ) {
+    if (this.hasSomePropsChanged(prevProps, this.props, [
+      'vertical', 'step', 'width', 'height', 'tickMarksPosition'
+    ])) {
       this.forceUpdate();
     }
+  }
+
+  hasSomePropsChanged(prevProps, currProps, propsList) {
+    return some(propsList, p => prevProps[p] !== currProps[p]);
   }
 
   componentDidMount() {
@@ -287,6 +292,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
     const showTicks = !!this.props.step;
+    const tickMarksPosition = 'tickMarksPosition-' + this.props.tickMarksPosition;
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const trackFillPosition = vertical ? {
         bottom: 0,
@@ -299,7 +305,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       <div {...pStyle('root', {
           vertical,
           showTicks,
-          disabled
+          disabled,
+          [tickMarksPosition]: true
       }, this.props)}
         onMouseDown={this.handleMouseDown}
         data-value={value}
@@ -335,7 +342,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
       {showTicks && (
         <Ticks
-          classes={pStyle}
+          pStyle={pStyle}
           step={step}
           min={min}
           max={max}

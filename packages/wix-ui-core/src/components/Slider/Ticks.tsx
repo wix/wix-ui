@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface TicksProps {
-  classes: any;
+  pStyle: any;
   step: number;
   min: number;
   max: number;
@@ -23,7 +23,7 @@ export class Ticks extends React.PureComponent<TicksProps> {
   }
 
   render() {
-    const {min, max, handleSize, vertical, trackSize, classes} = this.props;
+    const {min, max, handleSize, vertical, trackSize, pStyle} = this.props;
 
     if (!trackSize) {
       return null;
@@ -38,21 +38,11 @@ export class Ticks extends React.PureComponent<TicksProps> {
       const val = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
 
       const tick = React.createElement('div', {
-        className: classes.tick,
+        className: pStyle.tick,
         key: i,
         'data-hook': 'tick',
         onClick: this.props.onTickClick,
-        style: Object.assign({}, vertical ? {
-          top: val,
-          height: 1,
-          width: '25%',
-          right: 0
-        } : {
-          left: val,
-          height: '25%',
-          width: 1,
-          bottom: 0
-        })
+        style: vertical ? {top: val} : {left: val}
       });
 
       ticks.push(tick);
