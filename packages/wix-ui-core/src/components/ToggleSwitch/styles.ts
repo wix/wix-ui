@@ -18,7 +18,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
   theme = (defaultsDeep(theme, core) as ToggleSwitchTheme);
 
   const labelCommon = {
-    transition: `all ${theme.transitionSpeed} ease`,
+    transition: `all ${theme.transitionSpeed} ease, visibility 0s`,
     ...borderRadius(theme.borderRadius)
   };
 
@@ -50,7 +50,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
           borderColor: theme.innerLabelBorderColorChecked,
           left: theme.labelMovementRange,
           '& > $toggleIcon': {
-            transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1)`,
+            transition: `all ${theme.transitionSpeed} cubic-bezier(0,1,0,1), visibility 0s`,
             '& path': {fill: theme.colorChecked}
           }
         },
@@ -213,7 +213,7 @@ export const styles = (theme: ToggleSwitchTheme) => {
       display: theme.toggleIconDisplay,
       width: theme.toggleIconWidth,
       height: theme.toggleIconHeight,
-      transition: `all ${theme.transitionSpeed} cubic-bezier(1,0,1,0)`,
+      transition: `all ${theme.transitionSpeed} cubic-bezier(1,0,1,0), visibility 0s`,
 
       '& path': {fill: theme.color}
     }
