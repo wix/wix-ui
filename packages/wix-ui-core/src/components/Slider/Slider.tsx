@@ -67,11 +67,14 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      step: this.calcStepValue(nextProps.min, nextProps.max, nextProps.stepType, nextProps.step)
+      step: this.calcStepValue(nextProps.min, nextProps.max, nextProps.stepType,
+        nextProps.step)
     });
   }
 
-  calcStepValue(min, max, stepType, step = this.ContinuousStep) {
+  calcStepValue(min, max, stepType, step) {
+    step = step || this.ContinuousStep;
+
     if (stepType === 'count') {
       return (max - min) / step;
     }

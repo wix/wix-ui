@@ -322,6 +322,22 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 2);
   });
 
+  it('continuous mode - step is 0.1', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      min: 0,
+      max: 6,
+      value: 0,
+      step: null,
+      onChange
+    });
+
+    driver.focus();
+    driver.arrowRight();
+    sinon.assert.calledWith(onChange, 0.1);
+  });
+
   function render(props) {
     const driver = createDriver(<Slider {...props}/>);
 
