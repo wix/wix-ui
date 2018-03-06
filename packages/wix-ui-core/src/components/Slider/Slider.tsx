@@ -11,7 +11,8 @@ export interface SliderProps {
   onChange?: (any) => void;
   vertical?: boolean;
   handleSize?: number;
-  step?: any;
+  step?: any; //if stepType == value, step determines the value of a single jump. if stepType == count, step determines the total number of jumps
+  stepType?: string; //value, count
   tooltipPosition?: string;
   tooltipVisibility?: string; //none, always, hover
   tooltipPrefix?: string;
@@ -41,6 +42,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   ContinuousStep = 0.1;
 
   static defaultProps = {
+    stepType: 'value',
     mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
     dragging: false,
     thumbHover: false,
@@ -55,7 +57,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     super(props);
 
     this.state = {
-      step: props.step || this.ContinuousStep,
+      step: this.calcStepValue(props.min, props.max, props.stepType, props.step),
       dragging: false,
       mouseDown: false,
       thumbHover: false,
@@ -63,11 +65,17 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.step !== this.props.step) {
-      this.setState({
-        step: nextProps.step || this.ContinuousStep
-      });
+    this.setState({
+      step: this.calcStepValue(nextProps.min, nextProps.max, nextProps.stepType, nextProps.step)
+    });
+  }
+
+  calcStepValue(min, max, stepType, step = this.ContinuousStep) {
+    if (stepType === 'count') {
+      return (max - min) / step;
     }
+
+    return step;
   }
 
   //need to force update after DOM changes, as some layouts are based upon DOM

@@ -291,6 +291,23 @@ describe('Slider', () => {
     sinon.assert.notCalled(onChange);
   });
 
+  it('should have 3 steps, given stepType = \'count\' and step = 3', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      min: 0,
+      max: 6,
+      value: 0,
+      step: 3,
+      stepType: 'count',
+      onChange
+    });
+
+    driver.focus();
+    driver.arrowRight();
+    sinon.assert.calledWith(onChange, 2);
+  });
+
   function render(props) {
     const driver = createDriver(<Slider {...props}/>);
 
