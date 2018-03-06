@@ -72,6 +72,50 @@ describe('Checkbox', () => {
     });
   });
 
+  describe('Form element', () => {
+    it('passes the name prop to the input', () => {
+      const checkbox = createDriver(<Checkbox name="shlomi" />);
+
+      expect(checkbox.input().getAttribute('name')).toBe('shlomi');
+    });
+
+    it('passes the id prop to the input', () => {
+      const checkbox = createDriver(<Checkbox id="covfefe" />);
+
+      expect(checkbox.input().getAttribute('id')).toBe('covfefe');
+    });
+
+    it('passes tabindex 0 to the input by default', () => {
+      const checkbox = createDriver(<Checkbox />);
+
+      expect(checkbox.input().getAttribute('tabIndex')).toBe('0');
+    });
+
+    it('passes the tabindex value to the input', () => {
+      const checkbox = createDriver(<Checkbox tabIndex={666} />);
+
+      expect(checkbox.input().getAttribute('tabIndex')).toBe('666');
+    });
+
+    it('passes the required value to the input', () => {
+      const checkbox = createDriver(<Checkbox required/>);
+
+      expect(checkbox.input().required).toBe(true);
+    });
+
+    it('focuses the native input if autofocus is passed', () => {
+      const checkbox = createDriver(<Checkbox autoFocus />);
+
+      expect(document.activeElement).toBe(checkbox.input());
+    });
+
+    it('disables the input when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled/>);
+
+      expect(checkbox.input().disabled).toBe(true);
+    });
+  });
+
 //   it('Displays custom tick mark when value is true', async () => {
 //     const checkbox = createDriver(
 //       <Checkbox
@@ -91,58 +135,6 @@ describe('Checkbox', () => {
 
 //     expect(checkbox.hasFocusState()).toBe(true);
 // });
-
-//   it('Accepts "name" prop', async () => {
-//     const checkbox = createDriver(
-//       <Checkbox name="shlomi" />
-//     );
-
-//     expect(checkbox.input().getAttribute('name')).toBe('shlomi');
-//   });
-
-//   it('Accepts "required" prop', async () => {
-//     const checkbox = createDriver(<Checkbox required/>);
-
-//     expect(checkbox.input().required).toBe(true);
-//   });
-
-//   it('Accepts "autofocus" prop', () => {
-//     const checkbox = createDriver(<Checkbox autoFocus />);
-
-//     expect(document.activeElement).toBe(checkbox.input());
-//   });
-
-//     it('native input gets disabled state', async () => {
-//       const checkbox = createDriver(<Checkbox disabled />);
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput.disabled).toBe(true);
-//     });
-
-//     it('native input gets id prop if supplied by user', async () => {
-//       const checkbox = createDriver(<Checkbox id="covfefe" />);
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput.getAttribute('id')).toBe('covfefe');
-//     });
-
-//     it('component gets tabIndex 0 by default', async () => {
-//       const checkbox = createDriver(<Checkbox />);
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput.getAttribute('tabIndex')).toBe('0');
-//     });
-
-//     it('component gets tabIndex supplied by the user', async () => {
-//       const checkbox = createDriver(<Checkbox tabIndex={666} />);
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput.getAttribute('tabIndex')).toBe('666');
-//     });
 
 //     it('gets focus after click (should not be in focused style state)', async () => {
 //       const checkbox = createDriver(<Checkbox />);
