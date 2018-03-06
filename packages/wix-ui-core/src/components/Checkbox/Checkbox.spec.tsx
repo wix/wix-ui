@@ -44,7 +44,31 @@ describe('Checkbox', () => {
       checkbox.click();
 
       expect(onChange).toHaveBeenCalledTimes(1);
-      expect(onChange.mock.calls[0][0].checked).toBe(true);
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('renders a native input behind the scene', () => {
+      const checkbox = createDriver(<Checkbox />);
+      const nativeInput = checkbox.input();
+
+      expect(nativeInput).toBeDefined();
+      expect(nativeInput).toBeInstanceOf(HTMLInputElement);
+      expect(nativeInput.getAttribute('type')).toBe('checkbox');
+      expect(nativeInput.checked).toBe(false);
+    });
+
+    it('passes the checked value to the input', () => {
+      const checkbox = createDriver(<Checkbox checked />);
+
+      expect(checkbox.input().checked).toBe(true);
+    });
+
+    it('passes "aria-controls" value to the intput', () => {
+      const checkbox = createDriver(<Checkbox aria-controls={['123', '345']} />);
+
+      expect(checkbox.input().getAttribute('aria-controls')).toBe('123,345');
     });
   });
 
@@ -88,20 +112,6 @@ describe('Checkbox', () => {
 //     expect(document.activeElement).toBe(checkbox.input());
 //   });
 
-//   describe('Accessibility features', () => {
-//     it('Renders a native input and pass on checked state', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox checked />
-//       );
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput).toBeDefined();
-//       expect(nativeInput).toBeInstanceOf(HTMLInputElement);
-//       expect(nativeInput.getAttribute('type')).toBe('checkbox');
-//       expect(nativeInput.checked).toBe(true);
-//     });
-
 //     it('native input gets disabled state', async () => {
 //       const checkbox = createDriver(<Checkbox disabled />);
 
@@ -132,16 +142,6 @@ describe('Checkbox', () => {
 //       const nativeInput = checkbox.input();
 
 //       expect(nativeInput.getAttribute('tabIndex')).toBe('666');
-//     });
-
-//     it('takes "aria-controls" property', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox aria-controls={['123', '345']} />
-//       );
-
-//       const nativeInput = checkbox.input();
-
-//       expect(nativeInput.getAttribute('aria-controls')).toBe('123,345');
 //     });
 
 //     it('gets focus after click (should not be in focused style state)', async () => {
