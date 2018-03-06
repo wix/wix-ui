@@ -13,7 +13,7 @@ export interface SliderProps {
   handleSize?: number;
   step?: any; //if stepType == value, step determines the value of a single jump. if stepType == count, step determines the total number of jumps
   stepType?: string; //value, count
-  tooltipPosition?: string;
+  tooltipPosition?: string; //default, across
   tooltipVisibility?: string; //none, always, hover
   tooltipPrefix?: string;
   tooltipSuffix?: string;
@@ -33,9 +33,6 @@ export interface SliderState {
   step: number;
 }
 
-const DefaultTooltipPosition = 'top';
-const DefaultVerticalTooltipPosition = 'left';
-
 export class Slider extends React.PureComponent<SliderProps, SliderState> {
   inner: HTMLDivElement;
   track: HTMLDivElement;
@@ -49,6 +46,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     thumbShape: 'circle',
     disabled: false,
     tooltipVisibility: 'hover',
+    tooltipPosition: 'default',
     tooltipPrefix: '',
     tooltipSuffix: ''
   };
@@ -270,16 +268,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
-    const {tooltipPosition, vertical} = this.props;
-    const position: string = tooltipPosition ||
-      vertical ? DefaultVerticalTooltipPosition : DefaultTooltipPosition;
+    const {tooltipPosition} = this.props;
+    const positionClassname = tooltipPosition + 'Position'; //defaultPosition, acrossPosition
 
     return (
       <div data-hook="tooltip" {...pStyle('tooltip', {
-        tooltipTop: position === 'top',
-        tooltipBottom: position === 'bottom',
-        tooltipLeft: position === 'left',
-        tooltipRight: position === 'right'
+        [positionClassname]: true
       })}>
         {this.props.tooltipPrefix}{this.props.value}{this.props.tooltipSuffix}
       </div>

@@ -71,23 +71,23 @@
     border: 2px solid blue;
 }
 
-.tooltip:tooltipTop {
+.tooltip:defaultPosition {
     top: -7px;
     transform: translate(-50%, -100%);
 }
 
-.tooltip:tooltipTop::after {
+.tooltip:defaultPosition::after {
     border-color: #363636 transparent transparent transparent;
     top: 100%; /* At the bottom of the tooltip */
     left: 50%;
 }
 
-.tooltip:tooltipBottom {
+.tooltip:acrossPosition {
     bottom: -7px;
     transform: translate(-50%, 100%);
 }
 
-.tooltip:tooltipBottom::after {
+.tooltip:acrossPosition::after {
     border-color: transparent transparent #363636 transparent;
     bottom: 100%; /* At the bottom of the tooltip */
     left: 50%;
@@ -103,28 +103,28 @@
     margin-left: 0;
 }
 
-.root:vertical .tooltip:tooltipLeft {
+.root:vertical .tooltip:defaultPosition {
     left: -7px;
     transform: translate(-100%, -50%);
 }
 
-.root:vertical .tooltip:tooltipLeft::after {
+.root:vertical .tooltip:defaultPosition::after {
     left: 100%;
     border-color: transparent transparent transparent #363636;
 }
 
-.root:vertical .tooltip:tooltipRight {
+.root:vertical .tooltip:acrossPosition {
     right: -7px;
     transform: translate(100%, -50%);
 }
 
-.root:vertical .tooltip:tooltipRight::after {
+.root:vertical .tooltip:acrossPosition::after {
     right: 100%;
     border-color: transparent #363636 transparent transparent;
 }
 
 .tooltip {
-    -st-states: tooltipTop, tooltipBottom, tooltipLeft, tooltipRight;
+    -st-states: defaultPosition, acrossPosition;
     position: absolute;
     background: #363636;
     color: #fff;
