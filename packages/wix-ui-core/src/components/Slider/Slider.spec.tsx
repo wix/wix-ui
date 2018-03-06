@@ -144,6 +144,20 @@ describe('Slider', () => {
     expect(driver.ticks().length).toEqual(10);
   });
 
+  it('should render the max tick, given max % step !== 0', () => {
+    const driver = render({
+      min: 1,
+      step: 5,
+      max: 20,
+      value: 3,
+      onChange: noop
+    });
+
+    driver.stubTrackBoundingRect({width: 500});
+
+    expect(driver.ticks().length).toEqual(5);
+  });
+
   it('should not render ticks in continuous mode', () => {
     const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
 

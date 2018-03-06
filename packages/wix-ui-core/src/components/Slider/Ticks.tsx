@@ -22,6 +22,19 @@ export class Ticks extends React.PureComponent<TicksProps> {
     return adjustedStep;
   }
 
+  renderTick(i, min, max, vertical, handleSize, pStyle) {
+    const pct = (i - min) / (max - min);
+    const val = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
+
+    return React.createElement('div', {
+      className: pStyle.tick,
+      key: i,
+      'data-hook': 'tick',
+      onClick: this.props.onTickClick,
+      style: vertical ? {bottom: val} : {left: val}
+    });
+  }
+
   render() {
     const {min, max, handleSize, vertical, trackSize, pStyle} = this.props;
 
@@ -33,20 +46,11 @@ export class Ticks extends React.PureComponent<TicksProps> {
 
     const ticks = [];
 
-    for (let i = min; i <= max; i += step) {
-      const pct = (i - min) / (max - min);
-      const val = `calc(${pct} * calc(100% - ${handleSize}px) + ${handleSize / 2}px)`;
-
-      const tick = React.createElement('div', {
-        className: pStyle.tick,
-        key: i,
-        'data-hook': 'tick',
-        onClick: this.props.onTickClick,
-        style: vertical ? {top: val} : {left: val}
-      });
-
-      ticks.push(tick);
+    for (let i = min; i < max; i += step) {
+      ticks.push(this.renderTick(i, min, max, vertical, handleSize, pStyle));
     }
+
+    ticks.push(this.renderTick(max, min, max, vertical, handleSize, pStyle));
 
     return (
       <div data-hook="ticks-wrapper">
