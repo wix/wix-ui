@@ -1,5 +1,5 @@
 .root {
-    -st-states: vertical, showTicks, disabled, tickMarksPosition-default, tickMarksPosition-middle, tickMarksPosition-across;
+    -st-states: vertical, horizontal, showTicks, disabled, rtl, ltr, tickMarksPosition-default, tickMarksPosition-middle, tickMarksPosition-across;
     position: relative;
     width: 100%;
     height: 100%;
@@ -166,8 +166,11 @@
     position: absolute;
     background: #000;
     cursor: pointer;
-    width: 1px;
-    height: 25%;
+}
+
+.root:horizontal .tick {
+  width: 1px;
+  height: 25%;
 }
 
 .root:vertical .tick {
@@ -175,7 +178,7 @@
   width: 25%;
 }
 
-.root:tickMarksPosition-default .tick {
+.root:horizontal:tickMarksPosition-default .tick {
   bottom: 0;
 }
 
@@ -183,7 +186,7 @@
   right: 0;
 }
 
-.root:tickMarksPosition-middle .tick {
+.root:horizontal:tickMarksPosition-middle .tick {
   bottom: 37.5%;
 }
 
@@ -191,8 +194,8 @@
   left: 37.5%;
 }
 
-.root:tickMarksPosition-across .tick {
-  bottom: 0;
+.root:horizontal:tickMarksPosition-across .tick {
+  top: 0;
 }
 
 .root:vertical:tickMarksPosition-across .tick {

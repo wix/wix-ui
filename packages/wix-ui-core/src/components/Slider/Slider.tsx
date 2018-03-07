@@ -26,6 +26,7 @@ export interface SliderProps {
   previewState?: string;
   disabled?: boolean;
   tickMarksPosition?: string; //default, middle, across
+  rtl?: boolean;
 }
 
 export interface SliderState {
@@ -51,7 +52,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipPosition: 'default',
     tooltipPrefix: '',
     tooltipSuffix: '',
-    tickMarksPosition: 'default'
+    tickMarksPosition: 'default',
+    rtl: false
   };
 
   constructor(props) {
@@ -72,16 +74,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     });
   }
 
-  calcStepValue(min, max, stepType, step) {
-    step = step || this.ContinuousStep;
-
-    if (stepType === 'count') {
-      return (max - min) / step;
-    }
-
-    return step;
-  }
-
   //need to force update after DOM changes, as some layouts are based upon DOM
   //measurements
   componentDidUpdate(prevProps, prevState) {
@@ -90,6 +82,16 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     ])) {
       this.forceUpdate();
     }
+  }
+
+  calcStepValue(min, max, stepType, step) {
+    step = step || this.ContinuousStep;
+
+    if (stepType === 'count') {
+      return (max - min) / step;
+    }
+
+    return step;
   }
 
   hasSomePropsChanged(prevProps, currProps, propsList) {
@@ -289,7 +291,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, className, previewState, disabled} = this.props;
+    const {value, min, max, vertical, trackSize, className, previewState, disabled, rtl} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -307,9 +309,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div {...pStyle('root', {
           vertical,
+          horizontal: !vertical,
           showTicks,
           disabled,
-          [tickMarksPosition]: true
+          [tickMarksPosition]: true,
+          rtl,
+          ltr: !rtl
       }, this.props)}
         onMouseDown={this.handleMouseDown}
         data-value={value}
