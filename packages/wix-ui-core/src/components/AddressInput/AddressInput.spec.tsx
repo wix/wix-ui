@@ -171,7 +171,7 @@ describe('AddressInput', () => {
         }), {timeout: 1000});
     });
 
-    describe.only('Fallback to manual', () => {
+    describe('Fallback to manual', () => {
         it('Should call onSet (with handler) with raw input if there are no suggestions', () => {
             init({fallbackToManual: true});
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
