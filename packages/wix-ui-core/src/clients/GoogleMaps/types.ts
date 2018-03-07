@@ -1,7 +1,7 @@
 export interface Address {
-    place_id: string,
-    description: string,
-    types: Array<string>
+    place_id: string;
+    description: string;
+    types: Array<string>;
 }
 
 export interface Location {
@@ -16,7 +16,7 @@ export interface Geometry {
 export interface Geocode {
     address_components: Array<AddressComponent>;
     formatted_address: string;
-    geometry: Geometry,
+    geometry: Geometry;
     place_id: string;
     types: Array<string>;
 }
@@ -24,11 +24,11 @@ export interface Geocode {
 export interface AddressComponent {
     long_name: string;
     short_name: string;
-    types: Array<string>
+    types: Array<string>;
 }
 
 export interface PlaceDetails {
-    address_components: Array<AddressComponent>
+    address_components: Array<AddressComponent>;
     adr_address: string;
     formatted_address: string;
     geometry: Geometry;
@@ -60,8 +60,8 @@ export interface InternalAddress {
 
 export interface AddressOutput {
     originValue: string;
-    googleResult: Geocode|PlaceDetails,
-    address: InternalAddress
+    googleResult: Geocode|PlaceDetails;
+    address: InternalAddress;
 }
 
 export interface MapsClientConstructor {

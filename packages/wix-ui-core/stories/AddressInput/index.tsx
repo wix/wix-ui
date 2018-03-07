@@ -4,10 +4,9 @@ import {AddressInput} from '../../src/components/AddressInput';
 import * as AddressInputSource from '!raw-loader!../../src/components/AddressInput/AddressInput.tsx';
 import {GoogleMapsIframeClient} from '../../src/clients/GoogleMaps/GoogleMapsIframeClient';
 import {MapsClientConstructor} from '../../src/clients/GoogleMaps/types';
-console.log('AddressInputSource', AddressInputSource);
 
 export const story = () => {
-    const Client:MapsClientConstructor = GoogleMapsIframeClient as MapsClientConstructor;
+    const Client: MapsClientConstructor = GoogleMapsIframeClient as MapsClientConstructor;
 
     return createStory({
         category: 'Components',
@@ -18,7 +17,7 @@ export const story = () => {
             apiKey: '',
             lang: 'en',
             Client,
-            onSelect: () => {}
+            onSelect: () => null
         }),
         source: AddressInputSource
     });

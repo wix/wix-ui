@@ -54,7 +54,7 @@ function createOptionFromAddress(address) {
     });
 }
 
-function filterAddressesByType(addresses:Array<Address>, filterTypes?:Array<string>) {
+function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
     return filterTypes ? filter(addresses, address => intersection(address.types, filterTypes).length > 0) : addresses;
 }
 
@@ -65,12 +65,12 @@ function formatAddressOutput(google: Geocode|PlaceDetails, description: string, 
         originValue: description,
         googleResult: google,
         address: google2address(google)
-    }
+    };
 }
 
-function createAutocompleteRequest(input:string, props:AddressInputProps) {
+function createAutocompleteRequest(input: string, props: AddressInputProps) {
     const {countryCode, types} = props;
-    const result:any = {input};
+    const result: any = {input};
 
     if (typeof countryCode === 'string') {
         result.componentRestrictions = {country: countryCode.toLowerCase()};
@@ -139,7 +139,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async getAddressOptions(input) {
         const requestId = ++this.addressRequestId;
-        let resolveCurrentAddressRequest = () => {};
+        let resolveCurrentAddressRequest = () => null;
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
         const {apiKey, lang, filterTypes} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
@@ -222,7 +222,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onChange: this.handleOnChange,
             onKeyDown: (e) => { onKeyDown && onKeyDown(e); },
             onFocus: () => { onFocus && onFocus(); },
-            onBlur: () => { onBlur && onBlur(); clearSuggestionsOnBlur && this.setState({options: []}) },
+            onBlur: () => { onBlur && onBlur(); clearSuggestionsOnBlur && this.setState({options: []}); },
             placeholder: placeHolder,
             disabled: this.props.readOnly,
             value

@@ -11,7 +11,7 @@ describe('AddressInput', () => {
     const createDriver = createDriverFactory(addressInputDriverFactory);
     let driver, onSelectSpy;
 
-    const init = ({handler, ...rest}:any = {}) => {
+    const init = ({handler, ...rest}: any = {}) => {
         GoogleMapsClientStub.reset();
         (GoogleMapsClientStub.prototype.autocomplete as any).mockClear();
         (GoogleMapsClientStub.prototype.geocode as any).mockClear();
@@ -330,7 +330,7 @@ describe('AddressInput', () => {
             init({value: 'value'});
             expect(driver.getValue()).toBe('value');
         });
-        
+
         it('Should pass placeHolder prop', () => {
             init({placeHolder: 'place-holder'});
             expect(driver.getPlaceHolder()).toBe('place-holder');
