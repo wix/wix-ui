@@ -5,7 +5,6 @@ import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
-import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
 import {InputWithOptions} from '../src/baseComponents/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
@@ -24,13 +23,11 @@ require('./StylableText').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
+require('./StylableToggleSwitch/index.story.ts');
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
-  ))
-  .add('StylableToggleSwitchStory', () => (
-    <StylableToggleSwitchStory/>
   ))
   .add('Text', () => (
     <Text ellipsis>
