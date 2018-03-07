@@ -14,7 +14,7 @@ import {
     AddressOutput, Geocode, MapsClient, MapsClientConstructor,
     PlaceDetails, Handler
 } from '../../clients/GoogleMaps/types';
-import {google2address} from './google2address';
+import {google2address, trySetStreetNumberIfNotReceived} from './google2address';
 
 export {Handler};
 
@@ -58,7 +58,9 @@ function filterAddressesByType(addresses:Array<Address>, filterTypes?:Array<stri
     return filterTypes ? filter(addresses, address => intersection(address.types, filterTypes).length > 0) : addresses;
 }
 
-function formatAddressOutput(google: Geocode|PlaceDetails, description: string): AddressOutput {
+function formatAddressOutput(google: Geocode|PlaceDetails, description: string, rawInputValue: string): AddressOutput {
+    trySetStreetNumberIfNotReceived(google, rawInputValue);
+
     return {
         originValue: description,
         googleResult: google,
@@ -137,38 +139,36 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async getAddressOptions(input) {
         const requestId = ++this.addressRequestId;
-        let resolveCurrentAddressRequest;
+        let resolveCurrentAddressRequest = () => {};
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
-        const {apiKey, lang, filterTypes, countryCode} = this.props;
+        const {apiKey, lang, filterTypes} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
         const options = map(filteredResults, createOptionFromAddress);
 
         if (requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);
-        } else {
-            resolveCurrentAddressRequest('stale ' + requestId + ' ' + this.addressRequestId);
         }
     }
 
     async getGeocode(placeId, description, rawInputValue) {
         const requestId = ++this.geocodeRequestId;
         const {apiKey, lang, countryCode: region} = this.props;
-        const request = rawInputValue ? {address: rawInputValue} : {placeId, region};
+        const request = placeId ? {placeId, region} : {address: rawInputValue};
         const geocode = await this.client.geocode(apiKey, lang, request);
 
         if (requestId === this.geocodeRequestId) {
-            this.props.onSelect(formatAddressOutput(first(geocode), description));
+            this.props.onSelect(formatAddressOutput(first(geocode), description, rawInputValue));
         }
     }
 
-    async getPlaceDetails(placeId, description) {
+    async getPlaceDetails(placeId, description, rawInputValue) {
         const requestId = ++this.placeDetailsRequestId;
         const {apiKey, lang} = this.props;
         const placeDetails = await this.client.placeDetails(apiKey, lang, {placeId});
 
         if (requestId === this.placeDetailsRequestId) {
-            this.props.onSelect(formatAddressOutput(placeDetails, description));
+            this.props.onSelect(formatAddressOutput(placeDetails, description, rawInputValue));
         }
     }
 
@@ -180,7 +180,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         } else if (handler === Handler.geocode || !option.id) {
             this.getGeocode(option.id, option.value, rawInputValue);
         } else if (handler === Handler.places) {
-            this.getPlaceDetails(option.id, option.value);
+            this.getPlaceDetails(option.id, option.value, rawInputValue);
         }
     }
 
@@ -215,7 +215,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, onManualInput, value} = this.props;
+        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value} = this.props;
         const {options} = this.state;
 
         const inputProps = {
@@ -233,7 +233,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
         return <InputWithOptions
             {...style('root', states, this.props)}
-            onSelect={(option) => this.onSelect(option, null)}
+            onSelect={(option) => this.onSelect(option, this.state.inputValue)}
             options={options}
             inputProps={inputProps}
             onManualInput={this.handleOnManualInput}

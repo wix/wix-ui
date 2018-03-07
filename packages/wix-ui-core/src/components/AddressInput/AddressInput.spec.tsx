@@ -171,6 +171,32 @@ describe('AddressInput', () => {
         }), {timeout: 1000});
     });
 
+    it('Should try and street number', async () => {
+        init();
+        GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+        GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
+
+        driver.click();
+        driver.change('11 n');
+
+        await waitForCond(() => driver.isContentElementExists());
+
+        driver.clickOptionAt(0);
+
+        return eventually(() => {
+            const firstCallArgument = onSelectSpy.mock.calls[0][0];
+            const {address_components} = firstCallArgument.googleResult;
+            expect(firstCallArgument.address.number).toBe('11');
+            expect(address_components).toEqual([{
+                long_name: '11',
+                short_name: '11',
+                types: [
+                    'street_number'
+                ]
+            }]);
+        }, {timeout: 1000});
+    });
+
     describe('Fallback to manual', () => {
         it('Should call onSet (with handler) with raw input if there are no suggestions', () => {
             init({fallbackToManual: true});
