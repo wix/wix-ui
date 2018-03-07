@@ -171,6 +171,73 @@ describe('AddressInput', () => {
         }), {timeout: 1000});
     });
 
+    describe.only('Fallback to manual', () => {
+        it('Should call onSet (with handler) with raw input if there are no suggestions', () => {
+            init({fallbackToManual: true});
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+            driver.click();
+            driver.change('n');
+            driver.keyDown('Enter');
+
+            return eventually(() => {
+                expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {address: 'n'});
+                expect(onSelectSpy).toHaveBeenCalledWith(expect.objectContaining({
+                    googleResult: helper.GEOCODE_1
+                }));
+            }, {timeout: 1000});
+        });
+
+        it('Should call onSet with null if there are no suggestions and user input is empty', () => {
+            init({fallbackToManual: true});
+            driver.click();
+            driver.change('');
+            driver.keyDown('Enter');
+
+            return eventually(() => {
+                expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalledWith();
+                expect(onSelectSpy).toHaveBeenCalledWith(null);
+            });
+        });
+
+        it('Should not should fall back to geocode when places api is selected and using raw input', () => {
+            init({fallbackToManual: true, handler: Handler.places});
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+            driver.click();
+            driver.change('n');
+            driver.keyDown('Enter');
+            return eventually(() => {
+                expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {address: 'n'});
+                expect(onSelectSpy).toHaveBeenCalledWith(expect.objectContaining({
+                    googleResult: helper.GEOCODE_1
+                }));
+            }, {timeout: 1000});
+        });
+
+        it('Should not call onSet in case there are suggestions', async () => {
+            init({fallbackToManual: true});
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+            driver.click();
+            driver.change('n');
+            await waitForCond(() => driver.isContentElementExists());
+            driver.keyDown('Enter');
+            expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
+            expect(onSelectSpy).not.toHaveBeenCalled();
+        });
+
+        it('Should not call onSet in case there are pending suggestions', async () => {
+            init({fallbackToManual: true});
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+            driver.click();
+            driver.change('n');
+            driver.keyDown('Enter');
+            await helper.sleep(200);
+            expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
+            expect(onSelectSpy).not.toHaveBeenCalled();
+        });
+    });
+
     describe('Stale requests', () => {
         it('Should ignore stale requests - autocomplete', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
