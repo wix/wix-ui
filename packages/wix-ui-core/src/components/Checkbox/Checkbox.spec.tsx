@@ -61,6 +61,14 @@ describe('Checkbox', () => {
       expect(checkbox.tickmark()).toBeDefined();
       expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
     });
+  });
+
+  describe('Indeterminate', () => {
+    it('has indeterminate state when indeterminate', () => {
+      const checkbox = createDriver(<Checkbox indeterminate />);
+
+      expect(checkbox.isIndeterminate()).toBe(true);
+    });
 
     it('displays the given custom tick icon when indeterminate', () => {
       const checkbox = createDriver(
@@ -141,6 +149,12 @@ describe('Checkbox', () => {
 
       expect(checkbox.input().disabled).toBe(true);
     });
+
+    it('has error style state', async () => {
+      const checkbox = createDriver(<Checkbox error />);
+
+      expect(checkbox.hasErrorState()).toBe(true);
+    });
   });
 
   describe('Disabled', () => {
@@ -215,101 +229,28 @@ describe('Checkbox', () => {
     });
   });
 
-//   it('Switches to focus state when focused', async () => {
-//     const checkbox = createDriver(<Checkbox/>);
+  describe('Focus', () => {
+    it('has focus css state when focused', () => {
+      const checkbox = createDriver(<Checkbox />);
 
-//     checkbox.focus();
+      checkbox.focus();
+      expect(checkbox.hasFocusState()).toBe(true);
+    });
 
-//     expect(checkbox.hasFocusState()).toBe(true);
-// });
+    it('focuses the native input after click but is not in focus state', () => {
+      const checkbox = createDriver(<Checkbox />);
 
-//     it('gets focus after click (should not be in focused style state)', async () => {
-//       const checkbox = createDriver(<Checkbox />);
+      checkbox.click();
+      expect(document.activeElement).toBe(checkbox.input());
+      expect(checkbox.hasFocusState()).toBe(false);
+    });
 
-//       checkbox.click();
+    it('loses focus state after being focused and clicked on', () => {
+      const checkbox = createDriver(<Checkbox />);
 
-//       expect(document.activeElement).toBe(checkbox.input());
-//       expect(checkbox.hasFocusState()).toBe(false);
-//     });
-
-//     it('loses focused style state after click', async () => {
-//       const checkbox = createDriver(<Checkbox />);
-
-//       checkbox.focus();
-
-//       expect(checkbox.hasFocusState()).toBe(true);
-
-//       checkbox.click();
-
-//       expect(checkbox.hasFocusState()).toBe(false);
-//     });
-//   });
-
-//   describe('When error', () => {
-//     it('has error style state', async () => {
-//       const checkbox = createDriver(<Checkbox error />);
-
-//       expect(checkbox.hasErrorState()).toBe(true);
-//     });
-//   });
-
-//   describe('When indeterminate', () => {
-//     it('renders indeterminate icon when value is true', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           indeterminate
-//           checked
-//         />
-//       );
-
-//       expect(checkbox.isIndeterminate()).toBe(true);
-//     });
-
-//     it('renders indeterminate icon when value is false', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           indeterminate
-//         />
-//       );
-
-//       expect(checkbox.isIndeterminate()).toBe(true);
-//     });
-
-//     it('click calls onChange with correct value', async () => {
-//       const onChange = jest.fn();
-
-//       const checkbox = createDriver(
-//         <Checkbox
-//           indeterminate
-//           checked
-//           onChange={onChange}
-//         />
-//       );
-
-//       expect(checkbox.exists()).toBe(true);
-
-//       checkbox.click();
-
-//       expect(onChange).toBeCalled();
-//       expect(onChange.mock.calls[0][0].checked).toBe(false);
-//     });
-
-//     it('renders custom indeterminate icon', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           indeterminate
-//           indeterminateIcon={tickSVG}
-//         />
-//       );
-
-//       expect(checkbox.isIndeterminate()).toBe(true);
-//       expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-//     });
-
-//     it('gets indeterminate style state', async () => {
-//       const checkbox = createDriver(<Checkbox indeterminate />);
-
-//       expect(checkbox.isIndeterminate()).toBe(true);
-//     });
-//   });
+      checkbox.focus();
+      checkbox.click();
+      expect(checkbox.hasFocusState()).toBe(false);
+    });
+  });
 });
