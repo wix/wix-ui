@@ -124,6 +124,16 @@ describe('TimePicker', () => {
         });
       });
     });
+
+    describe('focus', () => {
+      it('should focus the input element', () => {
+        const container = renderIntoDocument(<TimePicker/>);
+        const element = findRenderedDOMComponentWithTag(container, 'input');
+        expect(document.activeElement === element).toBeFalsy();
+        container.focus();
+        expect(document.activeElement === element).toBeTruthy();
+      });
+    });
   });
 
   describe('onChange prop', () => {
