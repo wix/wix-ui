@@ -87,7 +87,6 @@ export class Input extends React.Component<InputProps, InputState> {
 
   constructor(props) {
     super(props);
-    this.inputRef = null;
     this.state = {
       id: uniqueId('Input')
     };
