@@ -39,6 +39,10 @@
     width: 100%;
 }
 
+.root:rtl .trackFill {
+  right: 0;
+}
+
 .root:showTicks .inner {
     height: 88.888%;
     width: 100%;

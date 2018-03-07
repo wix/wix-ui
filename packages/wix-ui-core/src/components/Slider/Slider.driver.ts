@@ -20,6 +20,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     tooltip: () => getByDataHook('tooltip'),
     ticks: () => getAllByDataHook('tick'),
     track: () => element.querySelector('[data-hook=\'track\']'),
+    rtl: () => element.getAttribute('data-dir') === 'rtl',
     root: () => element,
 
     mouseMove(value) {
@@ -123,7 +124,12 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       const max = driver.max();
       const handleSize = driver.getRootBoundingRect().height;
       const offset = (value - min) * ((rect.width + handleSize / 2) / (max - min + 1));
-      return offset;
+
+      if (driver.rtl()) {
+        return rect.width - offset;
+      } else {
+        return offset;
+      }
     },
 
     change(value?: number) {

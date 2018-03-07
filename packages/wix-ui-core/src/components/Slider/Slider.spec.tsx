@@ -196,10 +196,30 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 3);
   });
 
+  it('should change the value when clicking the slider, given rtl', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      step: 1,
+      min: 1,
+      max: 10,
+      value: 7,
+      rtl: true,
+      onChange
+    });
+
+    driver.clickSlider(3);
+    sinon.assert.calledWith(onChange, 3);
+  });
+
   describe('key presses', () => {
     let onChange, driver;
 
     beforeEach(() => {
+      _render();
+    });
+
+    function _render(mixin = {}) {
       onChange = sinon.spy();
 
       driver = render({
@@ -207,15 +227,22 @@ describe('Slider', () => {
         min: 50,
         max: 100,
         value: 60,
-        onChange
+        onChange,
+        ...mixin
       });
 
       driver.focus();
-    });
+    }
 
-    it('should increase the value when clicking the right arrow', () => {
+    it('should increase the value when clicking the right arrow, given ltr', () => {
       driver.arrowRight();
       sinon.assert.calledWith(onChange, 60.1);
+    });
+
+    it('should decrease the value when clicking the right arrow, given rtl', () => {
+      _render({rtl: true});
+      driver.arrowRight();
+      sinon.assert.calledWith(onChange, 59.9);
     });
 
     it('should increase the value when clicking the up arrow', () => {
@@ -223,9 +250,15 @@ describe('Slider', () => {
       sinon.assert.calledWith(onChange, 60.1);
     });
 
-    it('should decrease the value when clicking the left arrow', () => {
+    it('should decrease the value when clicking the left arrow, given ltr', () => {
       driver.arrowLeft();
       sinon.assert.calledWith(onChange, 59.9);
+    });
+
+    it('should increase the value when clicking the left arrow, given rtl', () => {
+      _render({rtl: true});
+      driver.arrowLeft();
+      sinon.assert.calledWith(onChange, 60.1);
     });
 
     it('should decrease the value when clicking the down arrow', () => {

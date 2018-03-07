@@ -7,7 +7,7 @@ export class SliderStory extends React.Component {
   render() {
     const vertical = this.state.vertical;
     const horizontalStyle = {
-      width: '100%', height: this.state.wrapperSize, background: '#f2e8e8'
+      width: '100%', height: this.state.wrapperSize, background: '#f2e8e8', marginTop: 20
     };
 
     const verticalStyle = {
@@ -53,6 +53,9 @@ export class SliderStory extends React.Component {
 
         <div key="horiz" style={vertical ? verticalStyle : horizontalStyle}>
           <StatefulSlider vertical={this.state.vertical} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
+        </div>
+        <div key="horiz-rtl" style={horizontalStyle}>
+          <StatefulSlider rtl tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <br/>
         <div key="vert" style={!vertical ? verticalStyle : horizontalStyle}>

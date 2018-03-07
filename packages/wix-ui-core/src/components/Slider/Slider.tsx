@@ -84,6 +84,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     }
   }
 
+  getStartPos() {
+    return this.props.rtl ? 'right' : 'left';
+  }
+
   calcStepValue(min, max, stepType, step) {
     step = step || this.ContinuousStep;
 
@@ -132,29 +136,43 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleKeyDown = (ev) => {
-    const {max, min, disabled} = this.props;
+    const {min, max, value, disabled, rtl} = this.props;
+    const ltr = !rtl;
 
     if (disabled) {
       return;
     }
 
     const {step} = this.state;
+
     let nextValue;
 
     switch (ev.key) {
       case 'ArrowDown':
+        nextValue = value - step;
+        break;
       case 'ArrowLeft':
-        nextValue = this.props.value - step;
+        if (ltr) {
+          nextValue = value - step;
+        } else {
+          nextValue = value + step;
+        }
         break;
       case 'ArrowUp':
+        nextValue = value + step;
+        break;
       case 'ArrowRight':
-        nextValue = this.props.value + step;
+        if (ltr) {
+          nextValue = value + step;
+        } else {
+          nextValue = value - step;
+        }
         break;
       case 'PageDown':
-        nextValue = this.props.value - 0.1 * (max - min);
+        nextValue = value - 0.1 * (max - min);
         break;
       case 'PageUp':
-        nextValue = this.props.value + 0.1 * (max - min);
+        nextValue = value + 0.1 * (max - min);
         break;
       case 'Home':
         nextValue = min;
@@ -204,7 +222,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleTrackClick = (ev) => {
-    const {min, max, vertical, disabled} = this.props;
+    const {min, max, vertical, disabled, rtl} = this.props;
 
     if (disabled) {
       return;
@@ -221,7 +239,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       sliderPos = rect.bottom - (ev.clientY + handleSize / 2);
       pxStep = (rect.height - handleSize) / totalSteps;
     } else {
-      sliderPos = ev.clientX - (rect.left + handleSize / 2);
+      if (rtl) {
+        sliderPos = (rect.left + rect.width - handleSize / 2) - ev.clientX;
+      } else {
+        sliderPos = ev.clientX - (rect.left + handleSize / 2);
+      }
+
       pxStep = (rect.width - handleSize) / totalSteps;
     }
 
@@ -268,7 +291,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       return {bottom: progressVal, left: 0};
     }
 
-    return {left: progressVal, top: 0};
+    return {[this.getStartPos()]: progressVal, top: 0};
   }
 
   renderTooltip() {
@@ -321,6 +344,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-min={min}
         data-max={max}
         data-vertical={vertical}
+        data-dir={rtl ? 'rtl' : 'ltr'}
         data-hook="wixui-slider"
         tabIndex={0}
         onKeyDown={this.handleKeyDown}
