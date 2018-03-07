@@ -1,5 +1,4 @@
 import * as React from 'react';
-import some = require('lodash.some');
 import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb} from './Thumb';
@@ -99,7 +98,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   hasSomePropsChanged(prevProps, currProps, propsList) {
-    return some(propsList, p => prevProps[p] !== currProps[p]);
+    for (let i = 0; i < propsList.length; i++) {
+      let p = propsList[i];
+
+      if (prevProps[p] !== currProps[p]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   componentDidMount() {
@@ -319,7 +326,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const handlePosition: any = this.calcHandlePosition();
-    const showTicks = !!this.props.step;
+    const showTicks = this.props.tickMarksPosition !== 'none';
     const tickMarksPosition = 'tickMarksPosition-' + this.props.tickMarksPosition;
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const trackFillPosition = vertical ? {

@@ -158,12 +158,27 @@ describe('Slider', () => {
     expect(driver.ticks().length).toEqual(5);
   });
 
-  it('should not render ticks in continuous mode', () => {
-    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+  it('should not render the ticks, given tickMarksPosition = none', () => {
+    const driver = render({
+      min: 1,
+      step: 5,
+      max: 20,
+      value: 3,
+      tickMarksPosition: 'none',
+      onChange: noop
+    });
 
     driver.stubTrackBoundingRect({width: 500});
 
     expect(driver.ticks().length).toEqual(0);
+  });
+
+  it('should render ticks in continuous mode, with a density of 1 tick per 4 pixels', () => {
+    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+
+    driver.stubTrackBoundingRect({width: 400});
+
+    expect(driver.ticks().length).toEqual(92);
   });
 
   it('should change the value when clicking a tick', () => {

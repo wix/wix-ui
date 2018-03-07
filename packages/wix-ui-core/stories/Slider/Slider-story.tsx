@@ -41,6 +41,7 @@ export class SliderStory extends React.Component {
             </td>
             <td>
               <select value={this.state.tickMarksPosition} onChange={ev => this.setState({tickMarksPosition: ev.target.value})}>
+                <option value="none">None</option>
                 <option value="default">Default</option>
                 <option value="middle">Middle</option>
                 <option value="across">Across</option>
