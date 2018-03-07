@@ -77,7 +77,8 @@ export class Input extends React.Component<InputProps> {
   static displayName = 'Input';
 
   static defaultProps = {
-    type: 'text'
+    type: 'text',
+    id: ''
   };
 
   constructor(props) {
