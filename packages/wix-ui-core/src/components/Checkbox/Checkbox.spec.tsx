@@ -4,6 +4,9 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Checkbox} from './Checkbox';
 
 const tickSVG = (<span data-name="custom-tickmark">1</span>);
+function sleep(millis: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, millis));
+}
 
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
@@ -152,9 +155,8 @@ describe('Checkbox', () => {
 
       checkbox.click();
 
-      setTimeout(() => {
-        expect(onChange).not.toHaveBeenCalled();
-      }, 10);
+      await sleep(10);
+      expect(onChange).not.toHaveBeenCalled();
     });
 
     it('is can be checked when disabled', () => {
@@ -189,9 +191,8 @@ describe('Checkbox', () => {
 
       checkbox.click();
 
-      setTimeout(() => {
-        expect(onChange).not.toHaveBeenCalled();
-      }, 10);
+      await sleep(10);
+      expect(onChange).not.toHaveBeenCalled();
     });
 
     it('is can be checked when readonly', () => {
@@ -241,44 +242,6 @@ describe('Checkbox', () => {
 //       checkbox.click();
 
 //       expect(checkbox.hasFocusState()).toBe(false);
-//     });
-//   });
-
-//   describe('When readonly', () => {
-//     it('doesn\'t call onChange when clicked', async () => {
-//       const onChange = jest.fn();
-
-//       const checkbox = createDriver(
-//         <Checkbox
-//           readOnly
-//           onChange={onChange}
-//         />
-//       );
-
-//       expect(checkbox.exists()).toBe(true);
-
-//       checkbox.click();
-
-//       setTimeout(() => {
-//         expect(onChange).not.toHaveBeenCalled();
-//       }, 10);
-//     });
-
-//     it('displays tickmark if value is true', async () => {
-//       const checkbox = createDriver(
-//         <Checkbox
-//           readOnly
-//           checked
-//         />
-//       );
-
-//       expect(checkbox.isChecked()).toBe(true);
-//     });
-
-//     it('gets readOnly style state', async () => {
-//       const checkbox = createDriver(<Checkbox readOnly />);
-
-//       expect(checkbox.hasReadOnlyState()).toBe(true);
 //     });
 //   });
 
@@ -341,26 +304,6 @@ describe('Checkbox', () => {
 
 //       expect(checkbox.isIndeterminate()).toBe(true);
 //       expect(checkbox.tickmark().getAttribute('data-name')).toBe('custom-tickmark');
-//     });
-
-//     it('does not call onChange when disabled', async () => {
-//       const onChange = jest.fn();
-
-//       const checkbox = createDriver(
-//         <Checkbox
-//           disabled
-//           indeterminate
-//           onChange={onChange}
-//         />
-//       );
-
-//       expect(checkbox.exists()).toBe(true);
-
-//       checkbox.click();
-
-//       setTimeout(() => {
-//         expect(onChange).not.toHaveBeenCalled();
-//       }, 10);
 //     });
 
 //     it('gets indeterminate style state', async () => {
