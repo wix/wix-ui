@@ -30,12 +30,14 @@ export const styles = (theme: ToggleSwitchTheme) => {
       height: theme.rootHeight,
       position: 'relative',
       outline: 'none',
+      '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)',
 
       '& > input[type=checkbox]': {
         width: 0,
         height: 0,
         opacity: 0,
-        margin: 0
+        margin: 0,
+        position: 'absolute'
       },
 
       [selectors.state('checked')]: {
