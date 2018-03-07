@@ -5,7 +5,7 @@ module.exports = (config, env) => {
   const newConfig = wixStorybookConfig(genDefaultConfig(config, env));
 
   newConfig.module.rules.push({
-    test: /\.story\.js$/,
+    test: /\.story\.[j|t]sx?$/,
     loader: 'wix-storybook-utils/loader',
     options: {
       storyConfig: {
