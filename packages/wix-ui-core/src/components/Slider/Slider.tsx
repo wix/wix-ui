@@ -344,12 +344,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const handleSize = this.getHandleSize();
     const {tooltipPosition} = this.props;
     const positionClassname = tooltipPosition + 'Position';
+    const shortenedValue = this.props.value.toString().substr(0, 3);
 
     return (
       <div data-hook="tooltip" {...pStyle('tooltip', {
         [positionClassname]: true
       })}>
-        {this.props.tooltipPrefix}{this.props.value}{this.props.tooltipSuffix}
+        {this.props.tooltipPrefix}{shortenedValue}{this.props.tooltipSuffix}
       </div>
     );
   }

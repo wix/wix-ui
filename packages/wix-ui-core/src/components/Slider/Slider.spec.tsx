@@ -386,6 +386,20 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 0.1);
   });
 
+  it('tooltip numeric value should be clamped to 3 chars', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      min: 0,
+      max: 6,
+      value: 0.444,
+      step: null,
+      onChange
+    });
+
+    expect(driver.thumbTooltipValue()).toEqual('0.4');
+  });
+
   function render(props) {
     const driver = createDriver(<Slider {...props}/>);
 
