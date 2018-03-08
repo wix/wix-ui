@@ -44,7 +44,7 @@ module.exports = {
       });
     };
 
-    browser.executeScript(script, props);
+    return browser.executeScript(script, props);
   },
   reset: () =>
     browser.executeScript('window.autoexample.resetState()')
