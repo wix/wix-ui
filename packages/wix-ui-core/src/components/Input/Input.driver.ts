@@ -34,6 +34,6 @@ export const inputDriverFactory = ({element, eventTrigger}) => ({
   /** sets the element's value */
   setValue: value => {
     element.value = value;
-    eventTrigger.change(element);
+    eventTrigger.change(element, {target: {value}});
   }
 });

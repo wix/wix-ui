@@ -44,14 +44,14 @@ describe('AddressInput', () => {
     });
 
     it('Should call MapsClient.autocomplete upon typing', () => {
-        driver.change('n');
+        driver.setValue('n');
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
     });
 
     it('Should throttle calls to MapsClient.autocomplete', async () => {
-        driver.change('n');
-        driver.change('ne');
-        driver.change('new');
+        driver.setValue('n');
+        driver.setValue('ne');
+        driver.setValue('new');
         await helper.sleep(151);
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
@@ -61,7 +61,7 @@ describe('AddressInput', () => {
     it('Should call MapsClient.autocomplete upon typing, with types', () => {
         const types = ['hello', 'world'];
         init({types});
-        driver.change('n');
+        driver.setValue('n');
         expect(GoogleMapsClientStub.prototype.autocomplete)
             .toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n', types});
     });
@@ -74,17 +74,17 @@ describe('AddressInput', () => {
     it('Should display results', async () => {
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
         await waitForCond(() => driver.isContentElementExists());
-        expect(driver.getOptions()).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
+        expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
     it('Should empty suggestion immediately list if string is empty', async () => {
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
         await waitForCond(() => driver.isContentElementExists());
-        driver.change('');
+        driver.setValue('');
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledTimes(1);
         expect(driver.isContentElementExists()).toBeFalsy();
     });
@@ -93,9 +93,9 @@ describe('AddressInput', () => {
         init({filterTypes: ['airport']});
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
         await waitForCond(() => driver.isContentElementExists());
-        expect(driver.getOptions()).toEqual([helper.ADDRESS_DESC_2]);
+        expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
     });
 
     it('Should issue a geocode request once an option is chosen', async () => {
@@ -103,7 +103,7 @@ describe('AddressInput', () => {
         GoogleMapsClientStub.setGeocode(helper.GEOCODE_2);
 
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
 
         await waitForCond(() => driver.isContentElementExists());
 
@@ -122,7 +122,7 @@ describe('AddressInput', () => {
         GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
 
         expect(GoogleMapsClientStub.prototype.autocomplete)
             .toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n', componentRestrictions: {country: 'il'}});
@@ -142,7 +142,7 @@ describe('AddressInput', () => {
         GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_1);
 
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
 
         await waitForCond(() => driver.isContentElementExists());
 
@@ -158,7 +158,7 @@ describe('AddressInput', () => {
         GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_2);
 
         driver.click();
-        driver.change('n');
+        driver.setValue('n');
 
         await waitForCond(() => driver.isContentElementExists());
 
@@ -177,7 +177,7 @@ describe('AddressInput', () => {
         GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
 
         driver.click();
-        driver.change('11 n');
+        driver.setValue('11 n');
 
         await waitForCond(() => driver.isContentElementExists());
 
@@ -202,7 +202,7 @@ describe('AddressInput', () => {
             init({fallbackToManual: true});
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             driver.keyDown('Enter');
 
             return eventually(() => {
@@ -216,7 +216,7 @@ describe('AddressInput', () => {
         it('Should call onSet with null if there are no suggestions and user input is empty', () => {
             init({fallbackToManual: true});
             driver.click();
-            driver.change('');
+            driver.setValue('');
             driver.keyDown('Enter');
 
             return eventually(() => {
@@ -229,7 +229,7 @@ describe('AddressInput', () => {
             init({fallbackToManual: true, handler: Handler.places});
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             driver.keyDown('Enter');
             return eventually(() => {
                 expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {address: 'n'});
@@ -244,7 +244,7 @@ describe('AddressInput', () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             await waitForCond(() => driver.isContentElementExists());
             driver.keyDown('Enter');
             expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
@@ -256,7 +256,7 @@ describe('AddressInput', () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             driver.keyDown('Enter');
             await helper.sleep(200);
             expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
@@ -268,26 +268,26 @@ describe('AddressInput', () => {
         it('Should ignore stale requests - autocomplete', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2], 1);
-            driver.change('ne');
+            driver.setValue('ne');
 
             await helper.sleep(250);
-            expect(driver.getOptions()).toEqual([helper.ADDRESS_DESC_2]);
+            expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
         });
 
         it('Should ignore stale requests - geocode', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1, 1000);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
             driver.clickOptionAt(0);
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_2, 1);
-            driver.change('ne');
+            driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.clickOptionAt(0);
 
@@ -305,13 +305,13 @@ describe('AddressInput', () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
             GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_1, 1000);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
             driver.clickOptionAt(0);
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_2, 1);
-            driver.change('ne');
+            driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.clickOptionAt(0);
 
@@ -333,7 +333,7 @@ describe('AddressInput', () => {
 
         it('Should pass placeHolder prop', () => {
             init({placeHolder: 'place-holder'});
-            expect(driver.getPlaceHolder()).toBe('place-holder');
+            expect(driver.getPlaceholder()).toBe('place-holder');
         });
 
         it('Should pass readOnly prop', () => {
@@ -344,7 +344,7 @@ describe('AddressInput', () => {
         it('Should handle onChange event', () => {
             const onChange = jest.fn();
             init({onChange});
-            driver.change('a');
+            driver.setValue('a');
             expect(onChange).toHaveBeenCalledWith(expect.objectContaining({target: {value: 'a'}}));
         });
 
@@ -374,7 +374,7 @@ describe('AddressInput', () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
             driver.click();
-            driver.change('n');
+            driver.setValue('n');
             await waitForCond(() => driver.isContentElementExists());
             driver.clickOptionAt(0);
             driver.blur();
@@ -386,7 +386,7 @@ describe('AddressInput', () => {
         it('Should handle onManualInput', async () => {
             const onManualInput = jest.fn();
             init({onManualInput});
-            driver.change('n');
+            driver.setValue('n');
             driver.keyDown('Enter');
             expect(onManualInput).toHaveBeenCalled();
         });

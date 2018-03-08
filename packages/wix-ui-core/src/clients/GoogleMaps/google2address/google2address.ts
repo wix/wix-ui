@@ -93,3 +93,17 @@ export function google2address(google) {
 
     return result;
 }
+
+export const trySetStreetNumberIfNotReceived = (google, inputValue) => {
+    const addressParts = inputValue.match(/^\d+[ -/]*\d*[^\D]/);
+    const hasStreetNumber = google.address_components.some(address => address.types.some(t => t === 'street_number'));
+    if (hasStreetNumber || !addressParts) {
+        return google;
+    }
+    google.address_components.unshift({
+        long_name: addressParts.join(),
+        short_name: addressParts.join(),
+        types: ['street_number']
+    });
+    return google;
+};

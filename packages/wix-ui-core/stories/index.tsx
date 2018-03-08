@@ -12,8 +12,8 @@ import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
-require('./AddressInput').story();
 require('./InputWithOptions').story();
+require('./AddressInput').story();
 require('./Autocomplete').story();
 require('./Badge').story();
 require('./Button').story();
