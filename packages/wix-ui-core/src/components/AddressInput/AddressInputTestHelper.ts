@@ -61,5 +61,5 @@ export const waitForSingleOption = (option, driver) => {
 };
 
 export const getOptionsText = driver => {
-    return Array.from(driver.getOptions()).map((option: HTMLElement) => option.textContent);
+    return Array.from(driver.getOptions()).map((option: any) => option.textContent);
 };
