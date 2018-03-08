@@ -15,19 +15,19 @@ describe('Slider', () => {
   it('should change the slider value by clicking the track', async () => {
     const driver = createDriver();
     driver.clickTrack({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('15.9');
+    expect(await driver.getTooltipValue()).toEqual('2.3');
   });
 
   it('should move the thumb by dragging it', async () => {
     const driver = createDriver();
     driver.dragThumb({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('17.2');
+    expect(await driver.getTooltipValue()).toEqual('4.6');
   });
 
   it('should move the thumb by dragging it', async () => {
     const driver = createDriver();
     driver.dragThumb({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('17.2');
+    expect(await driver.getTooltipValue()).toEqual('4.6');
   });
 
   it('should not move the thumb when the mouse moves, given the thumb was dropped', async () => {
