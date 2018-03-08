@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {number, func, oneOf, bool, string, object} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb} from './Thumb';
@@ -11,20 +12,16 @@ export interface SliderProps {
   onChange?: (any) => void;
   vertical?: boolean;
   handleSize?: number;
-  step?: any; //if stepType == value, step determines the value of a single jump. if stepType == count, step determines the total number of jumps
-  stepType?: string; //value, count
-  tooltipPosition?: string; //default, across
-  tooltipVisibility?: string; //none, always, hover
+  step?: number;
+  stepType?: 'value' | 'count';
+  tooltipPosition?: 'default' | 'across';
+  tooltipVisibility?: 'none' | 'always' | 'hover';
+  tickMarksPosition?: 'none' | 'default' | 'middle' | 'across';
   tooltipPrefix?: string;
   tooltipSuffix?: string;
   trackSize?: number;
-  width?: number;
-  height?: number;
   thumbShape?: string;
-  className?: string;
-  previewState?: string;
   disabled?: boolean;
-  tickMarksPosition?: string; //default, middle, across
   rtl?: boolean;
 }
 
@@ -39,6 +36,43 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   inner: HTMLDivElement;
   track: HTMLDivElement;
   ContinuousStep = 0.1;
+
+  static propTypes: Object = {
+    /** The minimum value of the slider */
+    min: number,
+    /** The maximum value of the slider */
+    max: number,
+    /** The current value of the slider */
+    value: number,
+    /** Callback for handling value changes */
+    onChange: func,
+    /** Vertical layout */
+    vertical: bool,
+    /** Size of the slider thumb */
+    handleSize: number,
+    /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
+    step: number,
+    /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
+    stepType: oneOf(['value', 'count']),
+    /** Determines the tooltip position */
+    tooltipPosition: oneOf(['default', 'across']),
+    /** Determines what triggers the tooltip pop */
+    tooltipVisibility: oneOf(['none', 'always', 'hover']),
+    /** Determines the tick marks position */
+    tickMarksPosition: oneOf(['none', 'default', 'middle', 'across']),
+    /** A prefix for the value inside the tooltip */
+    tooltipPrefix: string,
+    /** A suffix for the value inside the tooltip */
+    tooltipSuffix: string,
+    /** The track size as a percentage of the bounding box height */
+    trackSize: number,
+    /** The shape of the thumb */
+    thumbShape: string,
+    /** Determines whether the slider is disabled or not */
+    disabled: bool,
+    /** Determines whether values go from right to left in a horizontal position */
+    rtl: bool
+  };
 
   static defaultProps = {
     stepType: 'value',
@@ -203,7 +237,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     }
 
     if (this.state.dragging) {
-      this.handleTrackClick(ev);
+      this.moveThumbByMouse(ev);
     }
   }
 
@@ -228,7 +262,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return Math.min(Math.max(val, min), max);
   }
 
-  handleTrackClick = (ev) => {
+  moveThumbByMouse = (ev) => {
     const {min, max, vertical, disabled, rtl} = this.props;
 
     if (disabled) {
@@ -321,7 +355,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, className, previewState, disabled, rtl} = this.props;
+    const {value, min, max, vertical, trackSize, disabled, rtl} = this.props;
     const handleSize = this.getHandleSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -360,12 +394,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         <div data-hook="track"
           ref={this.setTrackNode}
           className={pStyle.track}
-          onClick={this.handleTrackClick}
+          onClick={this.moveThumbByMouse}
           style={trackStyle}
         >
-          <div className={pStyle.trackFill} style={{
-            ...trackFillPosition
-          }}/>
+          <div className={pStyle.trackFill} style={trackFillPosition}/>
         </div>
         <Thumb
           shape={this.props.thumbShape}
@@ -388,7 +420,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           handleSize={handleSize}
           vertical={vertical}
           trackSize={vertical ? trackRect.height - handleSize : trackRect.width - handleSize}
-          onTickClick={this.handleTrackClick}
+          onTickClick={this.moveThumbByMouse}
         />)}
       </div>
     );
