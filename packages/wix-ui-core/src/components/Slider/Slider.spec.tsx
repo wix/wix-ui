@@ -394,10 +394,12 @@ describe('Slider', () => {
       max: 6,
       value: 0.444,
       step: null,
+      tooltipPrefix: '$',
+      tooltipSuffix: '%',
       onChange
     });
 
-    expect(driver.thumbTooltipValue()).toEqual('0.4');
+    expect(driver.thumbTooltipValue()).toEqual('$0.4%');
   });
 
   function render(props) {
