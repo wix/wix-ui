@@ -46,3 +46,6 @@ export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioBu
 
 import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.protractor.driver';
 export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(stylableBadgeDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
+export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);

@@ -343,7 +343,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const handlePos = this.calcHandlePosition();
     const handleSize = this.getHandleSize();
     const {tooltipPosition} = this.props;
-    const positionClassname = tooltipPosition + 'Position'; //defaultPosition, acrossPosition
+    const positionClassname = tooltipPosition + 'Position';
 
     return (
       <div data-hook="tooltip" {...pStyle('tooltip', {
