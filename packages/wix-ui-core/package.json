@@ -74,6 +74,7 @@
     "stylable-integration": "latest",
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
+    "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
     "wix-storybook-utils": "^1.0.0"
   },
