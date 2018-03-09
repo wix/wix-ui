@@ -13,6 +13,10 @@ module.exports = {
           parser: value => value
         },
         {
+          rule: value => !isNaN(Date.parse(value)),
+          parser: value => new Date(value)
+        },
+        {
           rule: value => typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
           parser: value => eval(`(${value})`) // eslint-disable-line no-eval
         },
@@ -38,7 +42,7 @@ module.exports = {
         );
 
       // this is possible because:
-      // <AutoComplete ref={ref => window.autoexample = ref}/>
+      // <AutoExample ref={ref => window.autoexample = ref}/>
       window.autoexample.setState({
         propsState: Object.assign({}, window.autoexample.state.propsState, args)
       });
