@@ -36,6 +36,8 @@ export interface InputWithOptionsProps {
   highlightMatches?: boolean;
   /** Input prop types */
   inputProps: InputProps;
+  /** If set to true, content element will always be visible, used for preview mode */
+  forceContentElementVisibility?: boolean;
 }
 
 /**
@@ -83,7 +85,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Should mark the text that matched the filter */
     highlightMatches: bool,
     /** Input prop types */
-    inputProps: object.isRequired
+    inputProps: object.isRequired,
+    /** If set to true, content element will always be visible, used for preview mode */
+    forceContentElementVisibility: bool
   };
 
   isEditing: boolean = false;
@@ -152,7 +156,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       fixedHeader,
       timeout,
       onDeselect,
-      inputProps} = this.props;
+      inputProps,
+      forceContentElementVisibility} = this.props;
 
     return (
       <Dropdown
@@ -169,7 +174,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         onInitialSelectedOptionsSet={onInitialSelectedOptionsSet}
         options={this._filterOptions()}
         timeout={timeout}
-        closeOnSelect={closeOnSelect}>
+        closeOnSelect={closeOnSelect}
+        forceContentElementVisibility={forceContentElementVisibility}>
         <Input
           {...inputProps}
           onKeyDown={this._onKeyDown}

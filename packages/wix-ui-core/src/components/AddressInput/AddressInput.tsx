@@ -55,6 +55,10 @@ export interface AddressInputProps {
     value?: string;
     /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
     fallbackToManual?: boolean;
+    /** If set to true, content element will always be visible, used for preview mode */
+    forceContentElementVisibility?: boolean;
+    /** Options to override default one, used for preview mode */
+    forceOptions?: Array<Option>;
 }
 
 export interface AddressInputState {
@@ -145,7 +149,11 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Inputs value */
         value: propTypes.string,
         /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
-        fallbackToManual: propTypes.bool
+        fallbackToManual: propTypes.bool,
+        /** If set to true, content element will always be visible, used for preview mode */
+        forceContentElementVisibility: propTypes.bool,
+        /** Options to override default one, used for preview mode */
+        forceOptions: propTypes.array
     };
 
     static defaultProps = {
@@ -253,8 +261,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value} = this.props;
-        const {options} = this.state;
+        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility} = this.props;
+        const options = this.props.forceOptions || this.state.options;
 
         const inputProps = {
             onChange: this._handleOnChange,
@@ -276,6 +284,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             inputProps={inputProps}
             onManualInput={this._handleOnManualInput}
             timeout={timeout}
+            forceContentElementVisibility={forceContentElementVisibility}
         />;
     }
 }

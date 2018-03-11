@@ -6,6 +6,7 @@ import {GoogleMapsClientStub} from './GoogleMapsClientStub';
 import * as waitForCond from 'wait-for-cond';
 import * as eventually from 'wix-eventually';
 import * as helper from './AddressInputTestHelper';
+import {OptionFactory} from '../../baseComponents/DropdownOption/OptionFactory';
 
 describe('AddressInput', () => {
     const createDriver = createDriverFactory(addressInputDriverFactory);
@@ -390,6 +391,22 @@ describe('AddressInput', () => {
             driver.setValue('n');
             driver.keyDown('Enter');
             expect(onManualInput).toHaveBeenCalled();
+        });
+    });
+
+    describe('Preview states', () => {
+        it('Should display content element', () => {
+            init({forceContentElementVisibility: true});
+            expect(driver.isContentElementExists()).toBeTruthy();
+        });
+
+        it('Should display content element', async () => {
+            init({forceOptions: [OptionFactory.create({id: 0, value: 'a'})]});
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+            driver.click();
+            driver.setValue('n');
+            await waitForCond(() => driver.isContentElementExists());
+            expect(helper.getOptionsText(driver)).toEqual(['a']);
         });
     });
 });
