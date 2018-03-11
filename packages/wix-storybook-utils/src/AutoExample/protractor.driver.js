@@ -51,7 +51,6 @@ module.exports = {
     return browser.executeScript(script, props);
   },
   reset: () => {
-    browser.$('body').click();
     return browser.executeScript('window.autoexample.resetState()');
   }
 };
