@@ -107,7 +107,7 @@ describe('AddressInput', () => {
 
         await waitForCond(() => driver.isContentElementExists());
 
-        driver.clickOptionAt(1);
+        driver.optionAt(1).click();
         expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {placeId: helper.ADDRESS_2.place_id});
         return eventually(() => expect(onSelectSpy).toHaveBeenCalledWith({
             originValue: helper.ADDRESS_DESC_2,
@@ -129,7 +129,7 @@ describe('AddressInput', () => {
 
         await waitForCond(() => driver.isContentElementExists());
 
-        driver.clickOptionAt(0);
+        driver.optionAt(0).click();
         expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {
             placeId: helper.ADDRESS_1.place_id,
             region: 'IL'
@@ -146,7 +146,7 @@ describe('AddressInput', () => {
 
         await waitForCond(() => driver.isContentElementExists());
 
-        driver.clickOptionAt(0);
+        driver.optionAt(0).click();
         expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(helper.API_KEY, 'en', {
             placeId: helper.ADDRESS_1.place_id
         });
@@ -162,7 +162,7 @@ describe('AddressInput', () => {
 
         await waitForCond(() => driver.isContentElementExists());
 
-        driver.clickOptionAt(1);
+        driver.optionAt(1).click();
         expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(helper.API_KEY, 'en', {placeId: helper.ADDRESS_2.place_id});
         return eventually(() => expect(onSelectSpy).toHaveBeenCalledWith({
             originValue: helper.ADDRESS_DESC_2,
@@ -181,7 +181,7 @@ describe('AddressInput', () => {
 
         await waitForCond(() => driver.isContentElementExists());
 
-        driver.clickOptionAt(0);
+        driver.optionAt(0).click();
 
         return eventually(() => {
             const firstCallArgument = onSelectSpy.mock.calls[0][0];
@@ -283,13 +283,13 @@ describe('AddressInput', () => {
             driver.click();
             driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
-            driver.clickOptionAt(0);
+            driver.optionAt(0).click();
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             GoogleMapsClientStub.setGeocode(helper.GEOCODE_2, 1);
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
-            driver.clickOptionAt(0);
+            driver.optionAt(0).click();
 
             await helper.sleep(250);
             expect(onSelectSpy).toHaveBeenCalledWith({
@@ -307,13 +307,13 @@ describe('AddressInput', () => {
             driver.click();
             driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
-            driver.clickOptionAt(0);
+            driver.optionAt(0).click();
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_2, 1);
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
-            driver.clickOptionAt(0);
+            driver.optionAt(0).click();
 
             await helper.sleep(250);
             expect(onSelectSpy).toHaveBeenCalledWith({
@@ -376,7 +376,7 @@ describe('AddressInput', () => {
             driver.click();
             driver.setValue('n');
             await waitForCond(() => driver.isContentElementExists());
-            driver.clickOptionAt(0);
+            driver.optionAt(0).click();
             driver.blur();
             await waitForCond(() => !driver.isContentElementExists());
             driver.click();
@@ -386,6 +386,7 @@ describe('AddressInput', () => {
         it('Should handle onManualInput', async () => {
             const onManualInput = jest.fn();
             init({onManualInput});
+            driver.click();
             driver.setValue('n');
             driver.keyDown('Enter');
             expect(onManualInput).toHaveBeenCalled();

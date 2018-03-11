@@ -20,7 +20,7 @@ describe('AddressInput', () => {
         const $lagLng = $('[data-hook="lat-lng"]');
         await waitForVisibilityOf(driver.element(), 'Cannot find Input');
         driver.enterText('n');
-        driver.selectOption(0);
+        driver.dropdownContent().optionAt(0).click();
         await waitForVisibilityOf($lagLng, 'Cannot find lat/lng');
         const latLngTextContent = await $lagLng.getText();
         expect(latLngTextContent).toEqual('{"lat":40.7127753,"lng":-74.0059728}');

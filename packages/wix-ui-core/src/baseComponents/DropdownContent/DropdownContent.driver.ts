@@ -5,6 +5,7 @@ export const dropdownContentDriverFactory = ({element, eventTrigger}) => {
   return {
     exists: () => !!element,
     getOptionsCount: () => getOptions().length,
+    getOptions,
     optionAt: (index: number) => {
       const option = element ? getOptions()[index] : null;
       return dropdownOptionDriverFactory({element: option, eventTrigger});
