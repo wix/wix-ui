@@ -3,7 +3,7 @@ import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {addressInputTestkitFactory} from '../../testkit/protractor';
 import {browser, $} from 'protractor';
 
-fdescribe('AddressInput', () => {
+describe('AddressInput', () => {
     const storyUrl = getStoryUrl('Components', 'AddressInputE2E');
     const dataHook = 'storybook-addressInput';
 
