@@ -42,3 +42,11 @@ export const waitForVisibilityOf = (
     )
   );
 };
+
+export function isFocused(element: ElementFinder) {
+  return element.equals(browser.driver.switchTo().activeElement());
+}
+
+export function resetFocus() {
+  return browser.executeScript('document.activeElement.blur()');
+}
