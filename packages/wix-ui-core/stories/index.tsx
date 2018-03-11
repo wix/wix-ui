@@ -11,6 +11,9 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
+import {AddressInputE2E} from './AddressInput/E2E';
+
+const isE2E = (global as any).self === (global as any).top;
 
 require('./InputWithOptions').story();
 require('./AddressInput').story();
@@ -86,3 +89,10 @@ storiesOf('Components', module)
   .add('RadioButton', () => (
     <RadioButtonStory />
   ));
+
+if (isE2E) {
+    storiesOf('Components', module)
+        .add('AddressInputE2E', () => (
+            <AddressInputE2E />
+        ));
+}

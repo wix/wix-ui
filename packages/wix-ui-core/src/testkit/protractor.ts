@@ -40,3 +40,6 @@ export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autoco
 
 import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.protractor.driver';
+export const addressInputTestkitFactory = protractorTestkitFactoryCreator(addressInputDriverFactory);
