@@ -8,11 +8,31 @@ import {
 
 const encode = global.encodeURIComponent;
 
-export const getStoryUrl = (
-  kind: string,
-  story: string
-): string =>
-  `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}`;
+// TODO: import from `wix-storybook-utils` or move getStoryUrl() to
+// `wix-storybook-utils` and import/export it here.
+const  WITH_EXAMPLES_PARAM_NAME = 'withExamples';
+
+export interface StoryUrlParams {
+  kind: string;
+  story: string;
+  withExamples?: boolean;
+}
+
+/**
+ * @deprecated
+ * @see createStoryUrl
+ */
+export const getStoryUrl = (kind: string, story: string): string =>
+  createStoryUrl({kind, story});
+
+/**
+ *
+ * @param {StoryUrlParams} params withExamples defaults to true
+ */
+export const createStoryUrl = (params: StoryUrlParams): string => {
+  const {kind, story, withExamples = true} = params;
+  return `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}${withExamples ? `&${WITH_EXAMPLES_PARAM_NAME}=` : ''}`;
+};
 
 export const scrollToElement = (element: ElementArrayFinder) =>
   browser.executeScript(
