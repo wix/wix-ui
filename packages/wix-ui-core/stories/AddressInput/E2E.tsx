@@ -35,4 +35,4 @@ export class AddressInputE2E extends React.Component<any, any> {
             </div>
         );
     }
-};
+}
