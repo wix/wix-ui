@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './Checkbox.st.css';
-import {bool, func, string, number, array, node} from 'prop-types';
+import {noop} from 'lodash';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -35,8 +35,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         className={`${style.icon} ${style.indeterminateIcon}`}
       />
     ),
-    // tslint:disable-next-line:no-empty
-    onChange: () => { },
+
+    onChange: noop,
     checked: false,
     indeterminate: false,
     tabIndex: 0
