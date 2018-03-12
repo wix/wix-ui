@@ -6,14 +6,6 @@ export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
 }
 
-export interface OnClickEvent extends React.MouseEvent<HTMLDivElement> {
-  checked: boolean;
-}
-
-export interface OnKeydownEvent extends React.KeyboardEvent<HTMLDivElement> {
-  checked: boolean;
-}
-
 export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
   onChange?: React.EventHandler<OnChangeEvent>;
   tickIcon?: React.ReactNode;
@@ -57,7 +49,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     return (
       <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
-        onMouseDown={this.handleClick}
+        onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
@@ -67,6 +59,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             className={style.nativeCheckbox}
             checked={this.props.checked}
             disabled={this.props.disabled}
+            onClick={this.handleInputClick}
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
@@ -107,9 +100,9 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
-    if (this.isInteractable()) {
-      this.checkbox && this.checkbox.focus();
+    if (e.button === 0 && this.isInteractable()) {
       this.checkbox.click();
+      this.checkbox.focus();
       this.setState({isFocused: false});
     }
   }
@@ -118,6 +111,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     if (this.isInteractable()) {
       this.props.onChange({checked: !this.props.checked, ...e});
     }
+  }
+
+  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
+    e.stopPropagation();
+    this.setState({isFocused: true});
   }
 
   private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {

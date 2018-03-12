@@ -11,7 +11,7 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** checks if element exists */
     exists: () => !!element,
     /** click on the element */
-    click: () => eventTrigger.mouseDown(element),
+    click: () => eventTrigger.click(element),
     /** trigger mouseenter on the element */
     mouseEnter: () => eventTrigger.mouseEnter(element),
     /** trigger mouseleave on the element */
