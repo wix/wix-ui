@@ -2,6 +2,7 @@ import * as eyes from 'eyes.it';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {autocompleteTestkitFactory} from '../../testkit/protractor';
 import {browser} from 'protractor';
+import * as eventually from 'wix-eventually';
 
 describe('Autocomplete', () => {
   const storyUrl = getStoryUrl('Components', 'Autocomplete');
@@ -13,25 +14,25 @@ describe('Autocomplete', () => {
     const driver = autocompleteTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
-    expect(driver.isOpen()).toBe(false);
+    expect(driver.isContentElementExists()).toBe(false);
 
-    driver.focusInput();
+    driver.focus();
 
-    expect(driver.isOpen()).toBe(true);
-    expect(driver.getOptionsCount()).toEqual(20);
+    expect(driver.isContentElementExists()).toBe(true);
+    expect(driver.dropdownContent().getOptionsCount()).toEqual(20);
 
     driver.enterText('very');
-    expect(driver.getOptionsCount()).toEqual(1);
+    expect(driver.dropdownContent().getOptionsCount()).toEqual(1);
 
-    expect(driver.getOptionText(0)).toBe('This is a very very very very very long option');
+    expect(driver.dropdownContent().optionAt(0).getText()).toBe('This is a very very very very very long option');
   });
 
   eyes.it('should choose one of autocomplete items', async () => {
     const driver = autocompleteTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
-    driver.focusInput();
-    driver.selectOption(1);
+    driver.focus();
+    driver.dropdownContent().optionAt(1).click();
 
     expect(driver.getText()).toBe('value1');
   });

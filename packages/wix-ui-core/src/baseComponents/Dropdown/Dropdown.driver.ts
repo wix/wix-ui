@@ -1,28 +1,9 @@
-import {DropdownComponent} from './Dropdown';
-import {DropdownContent} from '../DropdownContent';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
-
-const getElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-element"]');
-const getContent = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-content"]');
+import {popoverDriverFactory} from '../Popover/Popover.driver';
 
 export const dropdownDriverFactory = args => {
-  const {element, eventTrigger} = args;
   const dropdownContentDriver =  dropdownContentDriverFactory(args);
+  const popoverDriver = popoverDriverFactory(args);
 
-  return {
-    exists: () => !!element,
-    isTargetElementExists: () => !!getElement(element),
-    isContentElementExists: () => !!getContent(element),
-    mouseEnter: () => element && eventTrigger.mouseEnter(element),
-    mouseLeave: () => element && eventTrigger.mouseLeave(element),
-    click: () => {
-      if (element) {
-        const targetElment = getElement(element);
-        targetElment && eventTrigger.click(targetElment);
-      }
-    },
-    targetElement: () => getElement(element),
-    clickOptionAt: (index: number) => dropdownContentDriver.optionAt(index).click(),
-    getOptionsCount: () => dropdownContentDriver.getOptionsCount()
-  };
+  return Object.assign({}, dropdownContentDriver, popoverDriver);
 };

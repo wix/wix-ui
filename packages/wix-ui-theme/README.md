@@ -10,8 +10,8 @@ This package provides a nice API for creating a themed component from a core com
 
 ## Themed libraries
 The themes we currently have at Wix (WIP):
-- [Backoffice](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-backoffice)
-- [Tpa](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-tpa)
+- [Backoffice](https://github.com/wix/wix-ui-backoffice)
+- [Tpa](https://github.com/wix/wix-ui-tpa)
 
 ## Creating a new theme
 A theme is simply an object that we need to pass to the core component as a prop. The core component has no style by definition, or at least only a basic one.

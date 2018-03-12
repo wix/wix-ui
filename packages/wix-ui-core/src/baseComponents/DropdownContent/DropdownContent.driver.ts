@@ -1,17 +1,13 @@
-import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
-import {DropdownContent} from './';
+import {dropdownOptionDriverFactory} from '../DropdownOption/DropdownOption.driver';
 
-const getOptions = (element: Element) => element.querySelectorAll('[data-hook="option"]');
-const getOptionAt = (element: Element, index: number) => getOptions(element)[index];
-
-export const dropdownContentDriverFactory = ({element, eventTrigger}) => ({
-  exists: () => !!element,
-  getOptionsCount: () => getOptions(element).length,
-  optionAt: (index: number) => {
-    const option = element ? getOptionAt(element, index) : null;
-    return {
-      click: () => option && eventTrigger.click(option),
-      isHovered: () => option && isAttributeExists(option, attribute => attribute.name.includes('hover') && attribute.value === 'true')
-    };
-  }
-});
+export const dropdownContentDriverFactory = ({element, eventTrigger}) => {
+  const getOptions = () => element.querySelectorAll('[data-hook="option"]');
+  return {
+    exists: () => !!element,
+    getOptionsCount: () => getOptions().length,
+    optionAt: (index: number) => {
+      const option = element ? getOptions()[index] : null;
+      return dropdownOptionDriverFactory({element: option, eventTrigger});
+    }
+  };
+};

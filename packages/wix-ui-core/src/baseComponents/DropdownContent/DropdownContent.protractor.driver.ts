@@ -1,8 +1,13 @@
+import {dropdownOptionDriverFactory} from '../DropdownOption/DropdownOption.protractor.driver';
+
 export const dropdownContentDriverFactory = component => {
+  const getOptions = () => component.$$('[data-hook="option"]');
   return {
     element: () => component,
-    getOptionsCount: async () => await component.$$('[data-hook="option"]').count(),
-    selectOption: async (index: number) => await component.$$('[data-hook="option"]').get(index).click(),
-    getOptionText: async (index: number) => await component.$$('[data-hook="option"]').get(index).$('div').getInnerHtml()
+    getOptionsCount: async () => await getOptions().count(),
+    optionAt: (index: number) => {
+      const option = getOptions().get(index);
+      return dropdownOptionDriverFactory(option);
+    }
   };
 };

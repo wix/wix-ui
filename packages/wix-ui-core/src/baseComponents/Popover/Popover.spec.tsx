@@ -23,14 +23,14 @@ describe('Popover', () => {
 
   it('should not display content by default', () => {
     const driver = createDriver(createPopover());
-    expect(driver.isContentExists()).toBeFalsy();
-    expect(driver.isElementExists()).toBeTruthy();
+    expect(driver.isContentElementExists()).toBeFalsy();
+    expect(driver.isTargetElementExists()).toBeTruthy();
   });
 
   it('should display content when shown is true', () => {
     const driver = createDriver(createPopover({shown: true}));
-    expect(driver.isContentExists()).toBeTruthy();
-    expect(driver.isElementExists()).toBeTruthy();
+    expect(driver.isContentElementExists()).toBeTruthy();
+    expect(driver.isTargetElementExists()).toBeTruthy();
   });
 
   it('should call mouse enter callback', () => {
@@ -49,7 +49,7 @@ describe('Popover', () => {
 
   it('moves arrow according to provided offset', () => {
     const driver = createDriver(createPopover({shown: true, moveArrowTo: 10}));
-    expect(driver.isElementExists()).toBeTruthy();
+    expect(driver.isTargetElementExists()).toBeTruthy();
     const arrowLeft = driver.getArrowOffset().left;
     expect(arrowLeft).toEqual('10px');
   });
@@ -58,15 +58,15 @@ describe('Popover', () => {
     const wrapper = mount(createPopover({shown: true}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
-    expect(driver.isContentExists()).toBeTruthy();
-    return eventually(() => expect(driver.isContentExists()).toBeFalsy());
+    expect(driver.isContentElementExists()).toBeTruthy();
+    return eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 
   it('should not animate in case timeout is set to 0', async () => {
     const wrapper = mount(createPopover({shown: true, timeout: 0}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
-    expect(driver.isContentExists()).toBeFalsy();
+    expect(driver.isContentElementExists()).toBeFalsy();
     expect(wrapper.text()).toBe('Element');
   });
 });

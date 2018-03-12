@@ -13,16 +13,16 @@ module.exports = {
           parser: value => value
         },
         {
-          rule: value => !isNaN(Date.parse(value)),
-          parser: value => new Date(value)
-        },
-        {
           rule: value => typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
           parser: value => eval(`(${value})`) // eslint-disable-line no-eval
         },
         {
           rule: value => typeof value === 'string' || Array.isArray(value),
           parser: value => value
+        },
+        {
+          rule: value => typeof value === 'string' && !isNaN(Date.parse(value)),
+          parser: value => new Date(value)
         },
         { // default
           rule: () => true,
@@ -51,7 +51,6 @@ module.exports = {
     return browser.executeScript(script, props);
   },
   reset: () => {
-    browser.$('body').click();
     return browser.executeScript('window.autoexample.resetState()');
   }
 };

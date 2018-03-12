@@ -15,23 +15,23 @@ describe('Tooltip', () => {
     const dataHookMoved = 'story-tooltip-right-moved';
     const driverMoved = tooltipTestkitFactory({dataHook: dataHookMoved});
     await waitForVisibilityOf(driverMoved.element(), 'Cannot find Tooltip Moved');
-    driverMoved.onMouseOver();
-    expect(driverMoved.isTooltipExists()).toBeTruthy();
+    driverMoved.mouseEnter();
+    expect(driverMoved.isContentElementExists()).toBeTruthy();
     const locationMoved = await driverMoved.getTooltipLocation();
 
     const dataHook = 'story-tooltip-right';
     const driver = tooltipTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Tooltip');
-    driver.onMouseOver();
-    expect(driver.isTooltipExists()).toBeTruthy();
+    driver.mouseEnter();
+    expect(driver.isContentElementExists()).toBeTruthy();
     const location = await driver.getTooltipLocation();
 
     expect(locationMoved.x - (location.x + movedX)).toBeLessThan(1e-3);
 
-    expect(driver.getElementText()).toBe('Hover me for a tooltip!');
-    expect(driver.getTooltipText()).toBe('This is my tooltip\n');
-    driver.onMouseLeave();
-    await browser.sleep(2000);
-    await eventually(() => expect(driver.isTooltipExists()).toBeFalsy());
+    expect(driver.getTargetElement().getText()).toBe('Hover me for a tooltip!');
+    expect(driver.getContentElement().getText()).toBe('This is my tooltip');
+    driver.mouseLeave();
+    await browser.sleep(1000);
+    await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 });

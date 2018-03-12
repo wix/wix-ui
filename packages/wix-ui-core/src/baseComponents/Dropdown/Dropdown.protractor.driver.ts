@@ -1,14 +1,13 @@
+import {popoverDriverFactory} from '../Popover/Popover.protractor.driver';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.protractor.driver';
-import {ElementFinder} from 'protractor';
 
 export const dropdownDriverFactory = component => {
-  const getDropdownContentDriver = () => dropdownContentDriverFactory(component.$('[data-hook="popover-content"]'));
+  const popoverDriver = popoverDriverFactory(component);
 
-  return {
-    element: () => component,
-    isOpen: () => getDropdownContentDriver().element().isPresent(),
-    getOptionsCount: () => getDropdownContentDriver().getOptionsCount(),
-    selectOption: (index: number) => getDropdownContentDriver().selectOption(index),
-    getOptionText: (index: number) => getDropdownContentDriver().getOptionText(index)
+  return Object.assign(
+    {},
+    popoverDriver,
+    {
+      dropdownContent: () => dropdownContentDriverFactory(popoverDriver.getContentElement())
+    });
   };
-};
