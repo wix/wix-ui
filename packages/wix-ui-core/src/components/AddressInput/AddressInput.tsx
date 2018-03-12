@@ -1,9 +1,9 @@
 import * as React from 'react';
-import * as map from 'lodash.map';
-import * as first from 'lodash.first';
-import * as filter from 'lodash.filter';
-import * as intersection from 'lodash.intersection';
-import * as throttle from 'lodash.throttle';
+import map = require('lodash/map');
+import first = require('lodash/first');
+import filter = require('lodash/filter');
+import intersection = require('lodash/intersection');
+import throttle = require('lodash/throttle');
 import style from './AddressInput.st.css';
 import * as propTypes from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
