@@ -4,6 +4,7 @@ import styles from './Checkbox.st.css';
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const utils = new StylableDOMUtil(styles, element);
   const hasStyleState = (state) => utils.hasStyleState(element, state);
+  const input = utils.select('.nativeCheckbox') as HTMLInputElement;
 
   return {
     /** returns the element */
@@ -29,7 +30,7 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** returns the checkbox tickmark */
     tickmark: () => utils.select('.box').firstElementChild,
     /** returns the checkbox native input */
-    input: () => utils.select('.nativeCheckbox') as HTMLInputElement,
+    input: () => input,
     /** returns true if the element has error state */
     hasErrorState: () => hasStyleState('error'),
     /** returns true if the element has focus state */

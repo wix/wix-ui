@@ -138,19 +138,7 @@ describe('Checkbox', () => {
 
       checkbox.click();
 
-      expect(document.activeElement).toBe(checkbox.input());
-      expect(checkbox.hasFocusState()).toBe(false);
-    });
-
-    it('loses focused style state after click', async () => {
-      const checkbox = createDriver(<Checkbox />);
-
-      checkbox.focus();
-
-      expect(checkbox.hasFocusState()).toBe(true);
-
-      checkbox.click();
-
+      expect(document.activeElement).toEqual(checkbox.input());
       expect(checkbox.hasFocusState()).toBe(false);
     });
   });

@@ -114,7 +114,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
-    e.stopPropagation();
     this.setState({isFocused: true});
   }
 
