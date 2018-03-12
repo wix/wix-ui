@@ -1,5 +1,3 @@
-import * as eventually from 'wix-eventually';
-
 export const sliderDriverFactory = ({element, eventTrigger}) => {
   function getByDataHook(hook) {
     return element.querySelector(`[data-hook=\'${hook}\']`);

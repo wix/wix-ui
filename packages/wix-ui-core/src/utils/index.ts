@@ -22,26 +22,3 @@ export const createComponentThatRendersItsChildren = (displayName: string) => {
   Element.displayName = displayName;
   return Element;
 };
-
-export function waitFor(fn, timeout, message) {
-    let elapsed = 0;
-
-    return new Promise((resolve, reject) => {
-        function recur() {
-            if (fn()) {
-                return resolve();
-            }
-
-            if (elapsed > timeout) {
-              return reject(message || 'timeout');
-            }
-
-          setTimeout(() => {
-                elapsed += 10;
-                recur();
-            }, 10);
-        }
-
-        recur();
-    });
-}
