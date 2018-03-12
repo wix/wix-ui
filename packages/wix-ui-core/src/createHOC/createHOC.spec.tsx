@@ -76,8 +76,8 @@ describe('createHOC function', () => {
 
       it('should hoist prototype methods from child to HOC and bind them', () => {
         const wrapper = render(<HOCComponent id="some_id" />);
-        expect(wrapper.instance().unboundMethod()).toEqual('unboundMethod');
-        expect(wrapper.instance().boundMethod()).toEqual('some_id');
+        expect((wrapper.instance() as typeof HOCComponent).unboundMethod()).toEqual('unboundMethod');
+        expect((wrapper.instance() as typeof HOCComponent).boundMethod()).toEqual('some_id');
       });
     });
   });
@@ -111,8 +111,8 @@ describe('createHOC function', () => {
 
       it('should hoist prototype methods from child to HOC and bind them', () => {
         const wrapper = render(<HOCComponent id="some_id" />);
-        expect(wrapper.instance().unboundMethod()).toEqual('unboundMethod');
-        expect(wrapper.instance().boundMethod()).toEqual('some_id');
+        expect((wrapper.instance() as typeof HOCComponent).unboundMethod()).toEqual('unboundMethod');
+        expect((wrapper.instance() as typeof HOCComponent).boundMethod()).toEqual('some_id');
       });
     });
   });

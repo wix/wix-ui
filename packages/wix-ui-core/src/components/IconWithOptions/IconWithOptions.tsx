@@ -2,7 +2,7 @@ import * as React from 'react';
 import style from './IconWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Placement} from '../../baseComponents/Popover';
-import {Option} from '../../baseComponents/DropdownOption';
+import {Option, optionPropType} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
 
@@ -81,7 +81,7 @@ IconWithOptions.propTypes = {
   /** The location to display the content */
   placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
   /** The dropdown options array */
-  options: arrayOf(object).isRequired,
+  options: arrayOf(optionPropType).isRequired,
   /** Trigger type to open the content */
   openTrigger: oneOf(['click', 'hover']),
   /** Handler for when an option is selected */
@@ -89,7 +89,7 @@ IconWithOptions.propTypes = {
   /** Handler for when an option is deselected */
   onDeselect: func,
   /** initial selected option ids */
-  initialSelectedIds: oneOfType([arrayOf(number), arrayOf(string)]),
+  initialSelectedIds: arrayOf(oneOfType([number, string])),
   /** Should close content on select */
   closeOnSelect: bool,
   /** An element that always appears at the top of the options */

@@ -1,17 +1,12 @@
 import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
-import style from './Checkbox.st.css';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Checkbox} from './Checkbox';
-import {StylableDOMUtil} from 'stylable/test-utils';
 
-const tickSVG: React.ReactNode = (
-  <span data-name="custom-tickmark">1</span>
-);
+const tickSVG = (<span data-name="custom-tickmark">1</span>);
 
 describe('Checkbox', () => {
   const createDriver = createDriverFactory(checkboxDriverFactory);
-  const utils = new StylableDOMUtil(style);
 
   it('Renders with default values', async () => {
     const checkbox = createDriver(<Checkbox />);
@@ -44,25 +39,18 @@ describe('Checkbox', () => {
 
   it('Calls onChange when clicked', async () => {
     const onChange = jest.fn();
-
-    const checkbox = createDriver(
-      <Checkbox
-        tickIcon={tickSVG}
-        checked={true}
-        onChange={onChange}
-      />
-    );
+    const checkbox = createDriver(<Checkbox onChange={onChange}/>);
 
     expect(checkbox.exists()).toBe(true);
 
     checkbox.click();
 
-    expect(onChange).toBeCalled();
-    expect(onChange.mock.calls[0][0].checked).toBe(false);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0].checked).toBe(true);
   });
 
   it('Switches to focus state when focused', async () => {
-    const checkbox = createDriver(<Checkbox checked />);
+    const checkbox = createDriver(<Checkbox/>);
 
     checkbox.focus();
 
@@ -78,27 +66,15 @@ describe('Checkbox', () => {
   });
 
   it('Accepts "required" prop', async () => {
-    const checkbox = createDriver(
-      <Checkbox required={true} />
-    );
+    const checkbox = createDriver(<Checkbox required/>);
 
     expect(checkbox.input().required).toBe(true);
   });
 
-  it('Accepts "autofocus" prop', async () => {
-    if (document.hasFocus()) {
+  it('Accepts "autofocus" prop', () => {
+    const checkbox = createDriver(<Checkbox autoFocus />);
 
-      const checkbox = createDriver(
-        <Checkbox autoFocus />
-      );
-
-      expect(document.activeElement).toBe(checkbox.input());
-
-    } else {
-      console.warn(// tslint:disable-line no-console
-        'Checkbox autofocus test wasn\'t run since document doesn\'t have focus'
-      );
-    }
+    expect(document.activeElement).toBe(checkbox.input());
   });
 
   describe('Accessibility features', () => {
@@ -116,9 +92,7 @@ describe('Checkbox', () => {
     });
 
     it('native input gets disabled state', async () => {
-      const checkbox = createDriver(
-        <Checkbox disabled />
-      );
+      const checkbox = createDriver(<Checkbox disabled />);
 
       const nativeInput = checkbox.input();
 
@@ -126,9 +100,7 @@ describe('Checkbox', () => {
     });
 
     it('native input gets id prop if supplied by user', async () => {
-      const checkbox = createDriver(
-        <Checkbox id="covfefe" />
-      );
+      const checkbox = createDriver(<Checkbox id="covfefe" />);
 
       const nativeInput = checkbox.input();
 
@@ -136,9 +108,7 @@ describe('Checkbox', () => {
     });
 
     it('component gets tabIndex 0 by default', async () => {
-      const checkbox = createDriver(
-        <Checkbox />
-      );
+      const checkbox = createDriver(<Checkbox />);
 
       const nativeInput = checkbox.input();
 
@@ -146,9 +116,7 @@ describe('Checkbox', () => {
     });
 
     it('component gets tabIndex supplied by the user', async () => {
-      const checkbox = createDriver(
-        <Checkbox tabIndex={666} />
-      );
+      const checkbox = createDriver(<Checkbox tabIndex={666} />);
 
       const nativeInput = checkbox.input();
 
@@ -211,7 +179,7 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           disabled
-          checked={true}
+          checked
         />
       );
 
@@ -223,7 +191,7 @@ describe('Checkbox', () => {
         <Checkbox
           indeterminate
           disabled
-          checked={true}
+          checked
         />
       );
 
@@ -261,7 +229,7 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           readOnly
-          checked={true}
+          checked
         />
       );
 
@@ -288,11 +256,10 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           indeterminate
-          checked={true}
+          checked
         />
       );
 
-      expect(checkbox.exists()).toBe(true);
       expect(checkbox.isIndeterminate()).toBe(true);
     });
 
@@ -300,21 +267,19 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox
           indeterminate
-          checked={false}
         />
       );
 
-      expect(checkbox.exists()).toBe(true);
       expect(checkbox.isIndeterminate()).toBe(true);
     });
 
-    it('click calls onChange with value true', async () => {
+    it('click calls onChange with correct value', async () => {
       const onChange = jest.fn();
 
       const checkbox = createDriver(
         <Checkbox
           indeterminate
-          checked={true}
+          checked
           onChange={onChange}
         />
       );
@@ -324,7 +289,7 @@ describe('Checkbox', () => {
       checkbox.click();
 
       expect(onChange).toBeCalled();
-      expect(onChange.mock.calls[0][0].checked).toBe(true);
+      expect(onChange.mock.calls[0][0].checked).toBe(false);
     });
 
     it('renders custom indeterminate icon', async () => {

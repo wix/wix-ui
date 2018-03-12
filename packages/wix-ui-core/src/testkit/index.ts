@@ -4,9 +4,6 @@ import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
 
-import {buttonDriverFactory} from '../components/Button/Button.driver';
-export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
-
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
@@ -35,11 +32,14 @@ export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylable
 import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
 export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
 
-import {stylableButtonDriverFactory} from '../components/StylableButton/Button.driver';
-export const stylableButtonTestkitFactory = testkitFactoryCreator(stylableButtonDriverFactory);
+import {buttonDriverFactory} from '../components/Button/Button.driver';
+export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
 
 import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.driver';
 export const stylableBadgeTestkitFactory = testkitFactoryCreator(stylableBadgeDriverFactory);
 
 import {radioButtonDriverFactory} from '../components/RadioButton/RadioButton.driver';
 export const radioButtonTestkitFactory = testkitFactoryCreator(radioButtonDriverFactory);
+
+import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.driver';
+export const autocompleteTestkitFactory = testkitFactoryCreator(autocompleteDriverFactory);

@@ -211,6 +211,37 @@ describe('Input', () => {
     });
   });
 
+  describe('exposed input functions', () => {
+    let wrapper, ReactElement, DOMElement;
+
+    beforeEach(() => {
+      wrapper = mount(<Input value="12345"/>);
+      ReactElement = wrapper.instance() as Input;
+      DOMElement = wrapper.find('input').getDOMNode() as HTMLInputElement;
+    });
+
+    it('should focus the element when the focus method is called', () => {
+      expect(document.activeElement === DOMElement).toBeFalsy();
+      ReactElement.focus();
+      expect(document.activeElement === DOMElement).toBeTruthy();
+    });
+
+    it('should blur the element when the blur method is called', () => {
+      ReactElement.focus();
+      expect(document.activeElement === DOMElement).toBeTruthy();
+      ReactElement.blur();
+      expect(document.activeElement === DOMElement).toBeFalsy();
+    });
+
+    it('should select the element when the select method is called', () => {
+      expect(DOMElement.selectionStart).toBe(0);
+      expect(DOMElement.selectionEnd).toBe(0);
+      ReactElement.select();
+      expect(DOMElement.selectionStart).toBe(0);
+      expect(DOMElement.selectionEnd).toBe(5);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);

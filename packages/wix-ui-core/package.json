@@ -20,7 +20,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist\" --diagnostics",
+    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist/src\" --diagnostics",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -34,10 +34,11 @@
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
     "lodash.defaultsdeep": "^4.0.0",
+    "lodash.isequal": "^4.0.0",
     "lodash.isundefined": "^3.0.0",
     "lodash.times": "^4.0.0",
     "lodash.uniqueid": "^4.0.0",
-    "playable": "^1.2.0",
+    "playable": "^1.5.0",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
@@ -48,6 +49,7 @@
     "@storybook/addon-options": "^3.3.7",
     "@storybook/react": "^3.3.7",
     "@types/classnames": "^2.2.3",
+    "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
     "@types/lodash.defaultsdeep": "^4.6.3",
     "@types/lodash.isundefined": "^3.0.3",
@@ -72,6 +74,7 @@
     "stylable-integration": "latest",
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
+    "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
     "wix-storybook-utils": "^1.0.0"
   },

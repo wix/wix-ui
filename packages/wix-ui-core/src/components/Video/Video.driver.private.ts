@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount, ReactWrapper} from 'enzyme';
 
 export const createDriver = (Component) => {
   let player;

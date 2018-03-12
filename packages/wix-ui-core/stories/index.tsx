@@ -5,8 +5,7 @@ import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
-import {StylableToggleSwitchStory} from './StylableToggleSwitch/StylableToggleSwitch-story';
-import {InputWithOptions} from '../src/components/InputWithOptions';
+import {InputWithOptions} from '../src/baseComponents/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
@@ -14,29 +13,22 @@ import {SliderStory} from './Slider/Slider-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
-const dropdownOptions =
-  Array.from(Array(20))
-    .map((x, index) =>
-      index === 5 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, index === 15 ? 'fdsf sdf sdf sdf sdf sdfsd fsdf sdf ds' : `value${index}`));
-
+require('./InputWithOptions').story();
+require('./Autocomplete').story();
 require('./Badge').story();
 require('./Button').story();
-require('./Input').story();
+require('./Input.story.js');
 require('./IconWithOptions').story();
 require('./InputWithAffixes').story();
-require('./InputWithOptions').story();
 require('./StylableText').story();
-require('./StylableButton').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
+require('./StylableToggleSwitch/index.story.ts');
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
     <ToggleSwitchStory/>
-  ))
-  .add('StylableToggleSwitchStory', () => (
-    <StylableToggleSwitchStory/>
   ))
   .add('Text', () => (
     <Text ellipsis>

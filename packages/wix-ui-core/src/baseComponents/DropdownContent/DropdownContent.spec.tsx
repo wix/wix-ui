@@ -4,14 +4,11 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
 import {OptionFactory} from '../DropdownOption';
 import {DropdownContent} from './';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('DropdownContent', () => {
   const createDriver = createDriverFactory(dropdownContentDriverFactory);
-  const options =
-    Array.from(Array(5))
-      .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
-
+  const options = generateOptions();
   const createDropdownContent = (props = {}) => (
     <DropdownContent {...Object.assign({
       options: [],
@@ -47,7 +44,7 @@ describe('DropdownContent', () => {
       driver.optionAt(2).click();
       expect(onOptionClick).not.toHaveBeenCalled();
 
-      driver.optionAt(3).click();
+      driver.optionAt(5).click();
       expect(onOptionClick).not.toHaveBeenCalled();
     });
   });

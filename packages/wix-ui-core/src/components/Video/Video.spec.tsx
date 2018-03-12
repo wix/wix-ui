@@ -14,6 +14,11 @@ describe('Video', () => {
         expect(driver.getSrc()).toBe('https://example.com/video.mp4');
       });
 
+      it('should set array for src', () => {
+        const driver = createDriver(<Video src={['https://example.com/video.mp4']}/>);
+        expect(driver.getSrc()).toEqual(['https://example.com/video.mp4']);
+      });
+
       it('should update value', () => {
         const driver = createDriver(<Video src="https://example.com/video.mp4"/>);
         expect(driver.getSrc()).toBe('https://example.com/video.mp4');

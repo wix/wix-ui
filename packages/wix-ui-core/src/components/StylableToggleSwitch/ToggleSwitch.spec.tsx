@@ -6,17 +6,15 @@ import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {ToggleSwitch} from './';
 import {stylableToggleSwitchTestkitFactory as toggleSwitchTestkitFactory} from '../../testkit';
 import {stylableToggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
-import {activeViewBox, activePathD, inactiveViewBox, inactivePathD} from './utils';
 import {mount} from 'enzyme';
 
 describe('ToggleSwitch', () => {
 
   const createDriver = createDriverFactory(toggleSwitchDriverFactory);
-  const noop = () => null;
 
   describe('checked prop', () => {
     it('should be controlled', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch />);
       expect(driver.isChecked()).toBe(false);
       driver.click();
 
@@ -24,13 +22,13 @@ describe('ToggleSwitch', () => {
     });
 
     it('should pass down to input when checked', () => {
-      const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
-      expect(driver.isChecked()).toBeTruthy();
+      const driver = createDriver(<ToggleSwitch checked />);
+      expect(driver.isChecked()).toBe(true);
     });
 
     it('should pass down to input when not checked', () => {
-      const driver = createDriver(<ToggleSwitch checked={false} onChange={noop}/>);
-      expect(driver.isChecked()).toBeFalsy();
+      const driver = createDriver(<ToggleSwitch checked={false} />);
+      expect(driver.isChecked()).toBe(false);
     });
   });
 
@@ -46,7 +44,7 @@ describe('ToggleSwitch', () => {
 
   describe('disabled prop', () => {
     it('should not be disabled by default', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
+      const driver = createDriver(<ToggleSwitch />);
       expect(driver.isDisabled()).toBe(false);
     });
 
@@ -67,44 +65,55 @@ describe('ToggleSwitch', () => {
     });
   });
 
-  //TODO: This should be removed/modified when the ToggleSwitch will receive an svg instead of having one within it
-  //See issue https://github.com/wix/wix-ui/issues/38
-  describe('toggleIcon', () => {
-    it('should be the checked icon when the toggleSwitch is checked', () => {
-      const driver = createDriver(<ToggleSwitch checked onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(activeViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(activePathD);
+  describe('attributes', () => {
+    it('should apply user specified id', () => {
+      const testId = 'testId';
+      const driver = createDriver(<ToggleSwitch id={testId}/>);
+      expect(driver.getId()).toBe(testId);
     });
 
-    it('should be the unchecked icon when the toggleSwitch is unchecked', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.getToggleIcon().getAttribute('viewBox')).toBe(inactiveViewBox);
-      expect(driver.getToggleIcon().querySelector('path').getAttribute('d')).toBe(inactivePathD);
+    it('should have tabIndex=0 by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getTabIndex()).toBe(0);
+    });
+
+    it('should apply user specified tabIndex', () => {
+      const driver = createDriver(<ToggleSwitch tabIndex={7} />);
+      expect(driver.getTabIndex()).toBe(7);
     });
   });
 
-  describe('id prop', () => {
-    it('should apply arbitrary unique id be default', () => {
-      const driver = createDriver(<ToggleSwitch onChange={noop}/>);
-      expect(driver.getId()).toBeDefined();
+  describe('icons', () => {
+    it('should not have unchecked icon by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getKnobIcon().innerHTML).toBe('');
     });
 
-    it('should apply user specified id', () => {
-      const testId = 'testId';
-      const driver = createDriver(<ToggleSwitch onChange={noop} id={testId}/>);
-      expect(driver.getId()).toBe(testId);
+    it('should not have checked icon by default', () => {
+      const driver = createDriver(<ToggleSwitch checked />);
+      expect(driver.getKnobIcon().innerHTML).toBe('');
+    });
+
+    it('should show uncheckedIcon when unchecked', () => {
+      const driver = createDriver(<ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />);
+      expect(driver.getKnobIcon().innerHTML).toBe('❎');
+    });
+
+    it('should show checkedIcon when checked', () => {
+      const driver = createDriver(<ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />);
+      expect(driver.getKnobIcon().innerHTML).toBe('✅');
     });
   });
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<ToggleSwitch onChange={noop}/>, toggleSwitchTestkitFactory)).toBe(true);
+      expect(isTestkitExists(<ToggleSwitch />, toggleSwitchTestkitFactory)).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch onChange={noop}/>, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
+      expect(isEnzymeTestkitExists(<ToggleSwitch />, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
     });
   });
 });

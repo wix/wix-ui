@@ -2,6 +2,15 @@ import * as React from 'react';
 import uniqueId = require('lodash.uniqueid');
 import {Divider} from '../../components/Divider';
 import {Highlighter} from '../Highlighter';
+import {shape, string, number, func, bool, oneOfType, Requireable} from 'prop-types';
+
+export const optionPropType = shape({
+  id: oneOfType([string, number]).isRequired,
+  isDisabled: bool,
+  isSelectable: bool,
+  value: string,
+  render: func.isRequired
+});
 
 export interface Option {
   id: number | string;
@@ -11,20 +20,16 @@ export interface Option {
   render: (value: React.ReactNode) => React.ReactNode;
 }
 
-const createOption = (
-  id: number | string,
-  isDisabled: boolean,
-  isSelectable: boolean,
-  value: string,
-  render: (val: React.ReactNode) => React.ReactNode = val => val): Option => {
-    return {
-        id: (id || id === 0) ? id : uniqueId('Option'),
-        isDisabled,
-        isSelectable,
-        value,
-        render
-      };
-  };
+const createOption = (option: Partial<Option> = null): Option =>
+  Object.assign({},
+    {
+      id: option && (option.id || option.id === 0) ? option.id : uniqueId('Option'),
+      isDisabled: false,
+      isSelectable: true,
+      value: null,
+      render: val => val
+    },
+    option);
 
 const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 const hightlightMatches = (option: Option, searchTerm: string): Option => {
@@ -33,32 +38,29 @@ const hightlightMatches = (option: Option, searchTerm: string): Option => {
     parts[i] = <Highlighter key={i}>{parts[i]}</Highlighter>;
   }
 
-  return createOption(
-    option.id,
-    option.isDisabled,
-    option.isSelectable,
-    option.value,
-    () => option.render(parts)
-  );
+  return createOption({
+    id: option.id,
+    isDisabled: option.isDisabled,
+    isSelectable: option.isSelectable,
+    value: option.value,
+    render: () => option.render(parts)
+  });
+};
+
+export type DividerArgs = {
+  className: string;
+  value: React.ReactNode;
 };
 
 export const OptionFactory = {
   create: createOption,
-  createDivider(value: string = ''): Option {
-    return createOption(
-      uniqueId('Divider'),
-      false,
-      false,
-      '',
-      value ? () => <Divider>{value}</Divider> : () => <Divider/>);
-  },
-  createCustomDivider(divider: React.ReactElement<any>): Option {
-    return createOption(
-      uniqueId('Divider'),
-      false,
-      false,
-      '',
-      () => divider);
+  createDivider({className, value}: Partial<DividerArgs> = {}): Option {
+    return createOption({
+      id: uniqueId('Divider'),
+      isDisabled: false,
+      isSelectable: false,
+      render: value ? () => <Divider className={className}>{value}</Divider> : () => <Divider className={className}/>
+    });
   },
   createHighlighted(
     option: Option,

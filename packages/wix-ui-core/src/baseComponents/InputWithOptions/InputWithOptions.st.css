@@ -6,8 +6,15 @@
   -st-default: Dropdown;
 }
 
+:import {
+  -st-from: "../../components/Input/Input.st.css";
+  -st-default: Input;
+}
+
 .root {
   -st-extends: Dropdown;
 }
 
-.input {}
+.input {
+  -st-extends: Input;
+}

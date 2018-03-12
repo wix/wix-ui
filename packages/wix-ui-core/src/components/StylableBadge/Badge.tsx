@@ -4,6 +4,7 @@ import style from './Badge.st.css';
 
 export interface BadgeProps {
   children?: React.ReactNode;
+  className?: string;
 }
 
 /**
@@ -18,5 +19,8 @@ export const Badge: React.SFC<BadgeProps> = props => (
 Badge.displayName = 'Badge';
 Badge.propTypes = {
   /** Any node to be rendered (usually text node) */
-  children: any
+  children: any,
+
+  /** className to place on the root of the rendered element */
+  className: any
 };

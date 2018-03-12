@@ -1,0 +1,20 @@
+@custom-selector :--contentContainer .root::popover;
+@custom-selector :--option .root::dropdownContent::dropdownOption;
+
+:import {
+  -st-from: "../../baseComponents/InputWithOptions/InputWithOptions.st.css";
+  -st-default: InputWithOptions;
+}
+
+:import {
+  -st-from: "../Divider/Divider.st.css";
+  -st-default: Divider;
+}
+
+.root {
+  -st-extends: InputWithOptions;
+}
+
+.divider {
+  -st-extends: Divider;
+}

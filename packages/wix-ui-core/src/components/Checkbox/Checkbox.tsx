@@ -1,5 +1,4 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
 import style from './Checkbox.st.css';
 import {bool, func, string, number, array, node} from 'prop-types';
 
@@ -40,7 +39,7 @@ export interface CheckboxState {
 /**
  * Checkbox
  */
-export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> {
+export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   public static displayName: string = 'Checkbox';
 
   public static propTypes: Object = {
@@ -80,13 +79,11 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
     tickIcon: (
       <span
         className={`${style.icon} ${style.tickIcon}`}
-        data-hook="CHECKBOX_TICKMARK"
       />
     ),
     indeterminateIcon: (
       <span
         className={`${style.icon} ${style.indeterminateIcon}`}
-        data-hook="CHECKBOX_INDETERMINATE"
       />
     ),
     // tslint:disable-next-line:no-empty
@@ -96,52 +93,10 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
     tabIndex: 0
   };
 
-  public id: string;
   private checkbox: HTMLInputElement | null;
+  state = {isFocused: false};
 
-  constructor(props: CheckboxProps) {
-    super(props);
-
-    this.state = {isFocused: false};
-    this.id = this.props.id || uniqueId('Checkbox');
-  }
-
-  private handleKeydown: React.KeyboardEventHandler<HTMLDivElement> = e => {
-    const SPACEBAR = ' ';
-    const LEGACY_SPACEBAR = 'Spacebar';
-    if (e.key === SPACEBAR || e.key === LEGACY_SPACEBAR) {
-      e.preventDefault();
-      this.handleChange(e);
-    }
-  }
-
-  private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
-    this.handleChange(e);
-    this.checkbox && this.checkbox.focus();
-    this.setState({isFocused: false});
-  }
-
-  private handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-    if (!this.props.disabled && !this.props.readOnly) {
-      this.props.onChange({checked: this.props.indeterminate ? true : !this.props.checked, ...e});
-    }
-  }
-
-  // handleInputClick will be called only on pressing "space" key when nativeInput has focus
-  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
-    e.stopPropagation();
-    this.setState({isFocused: true});
-  }
-
-  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
-    this.state.isFocused && this.setState({isFocused: false});
-  }
-
-  private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
-    !this.state.isFocused && this.setState({isFocused: true});
-  }
-
-  render()  {
+  public render()  {
     const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
     const focus = this.state.isFocused;
 
@@ -161,7 +116,7 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            id={this.id}
+            id={this.props.id}
             tabIndex={this.props.tabIndex}
             autoFocus={this.props.autoFocus}
             name={this.props.name}
@@ -183,5 +138,40 @@ export class Checkbox extends React.PureComponent<CheckboxProps, CheckboxState> 
           }
       </div>
     );
+  }
+
+  private handleKeydown: React.KeyboardEventHandler<HTMLDivElement> = e => {
+    const SPACEBAR = ' ';
+    const LEGACY_SPACEBAR = 'Spacebar';
+    if (e.key === SPACEBAR || e.key === LEGACY_SPACEBAR) {
+      e.preventDefault();
+      this.handleChange(e);
+    }
+  }
+
+  private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    this.handleChange(e);
+    this.checkbox && this.checkbox.focus();
+    this.setState({isFocused: false});
+  }
+
+  private handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+    if (!this.props.disabled && !this.props.readOnly) {
+      this.props.onChange({checked: !this.props.checked, ...e});
+    }
+  }
+
+  // handleInputClick will be called only on pressing "space" key when nativeInput has focus
+  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
+    e.stopPropagation();
+    this.setState({isFocused: true});
+  }
+
+  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+    this.state.isFocused && this.setState({isFocused: false});
+  }
+
+  private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
+    !this.state.isFocused && this.setState({isFocused: true});
   }
 }

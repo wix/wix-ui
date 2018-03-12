@@ -4,29 +4,27 @@
   }
   
 :vars {
-    height: 24px;
-    padding: 4px 12px;
-    border: 1px solid;
-    borderRadius: 2px;
     backgroundColor: grey;
     borderColor: grey;
+    color: white;
 }
 
 .root {
     -st-extends: Badge;
-    height: value(height);
-    padding: value(padding);
+    height: 24px;
+    padding: 4px 12px;
     
-    border: value(border);
-    border-radius: value(borderRadius);
+    border: 1px solid;
+    border-radius: 2px;
     border-color: value(borderColor);
+    color: value(color);
     
     background: value(backgroundColor);
     
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 
     line-height: 1;
-    text-align: center;
-    vertical-align: middle;
 }

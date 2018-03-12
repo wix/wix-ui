@@ -1,11 +1,8 @@
-import {protractorTestkitFactoryCreator, ElementFinder} from 'wix-ui-test-utils/protractor';
+import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
 
 //JSS
 import {inputDriverFactory} from '../components/Input/Input.protractor.driver';
 export const inputTestkitFactory = protractorTestkitFactoryCreator(inputDriverFactory);
-
-import {buttonDriverFactory} from '../components/Button/Button.protractor.driver';
-export const buttonTestkitFactory = protractorTestkitFactoryCreator(buttonDriverFactory);
 
 import {paginationDriverFactory} from '../components/Pagination/Pagination.protractor.driver';
 export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginationDriverFactory);
@@ -25,15 +22,6 @@ export const dividerTestkitFactory = protractorTestkitFactoryCreator(dividerDriv
 import {googleMapsIframeClientDriverFactory} from '../clients/GoogleMaps/GoogleMapsIframeClient.protractor.driver';
 export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(googleMapsIframeClientDriverFactory);
 
-import {inputWithOptionsDriverFactory} from '../components/InputWithOptions/InputWithOptions.protractor.driver';
-export const inputWithOptionsTestkitFactory = protractorTestkitFactoryCreator(inputWithOptionsDriverFactory);
-
-import {dropdownContentDriverFactory} from '../baseComponents/DropdownContent/DropdownContent.protractor.driver';
-export const dropdownContentTestkitFactory = protractorTestkitFactoryCreator(dropdownContentDriverFactory);
-
-import {dropdownDriverFactory} from '../baseComponents/Dropdown/Dropdown.protractor.driver';
-export const dropdownTestkitFactory = protractorTestkitFactoryCreator(dropdownDriverFactory);
-
 import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.protractor.driver';
 export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDriverFactory);
 
@@ -46,6 +34,9 @@ export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioBu
 
 import {badgeDriverFactory as stylableBadgeDriverFactory} from '../components/StylableBadge/Badge.protractor.driver';
 export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(stylableBadgeDriverFactory);
+
+import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.protractor.driver';
+export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);
 
 import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);

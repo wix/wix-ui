@@ -47,6 +47,7 @@
     "express": "^4.16.2",
     "haste-preset-yoshi": "latest",
     "import-path": "latest",
+    "protractor": "^5.3.0",
     "puppeteer": "^1.0.0",
     "react": "^15.5.0",
     "react-dom": "^15.6.2",

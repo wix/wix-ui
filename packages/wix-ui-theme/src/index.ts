@@ -1,1 +1,1 @@
-export {ThemedComponent} from './ThemedComponent';
+export {ThemedComponent, ThemedComponentProps} from './ThemedComponent';

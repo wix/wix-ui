@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {string, number, func, bool, Requireable} from 'prop-types';
+import {string, number, func, bool, array, oneOfType, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 
 export interface VideoProps {
-  src?: string;
+  src?: string | Array<string>;
   width?: number;
   height?: number;
   title?: string;
@@ -51,7 +51,10 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
   static propTypes = {
     /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */
-    src: string,
+    src: oneOfType([
+      string,
+      array,
+    ]),
     /** Width of video player */
     width: number,
     /** Height of video player */

@@ -7,14 +7,11 @@ import {HOVER, CLICK} from './constants';
 import {OptionFactory} from '../DropdownOption';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
-  const options =
-    Array.from(Array(5))
-      .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
-
+  const options = generateOptions();
   const createDropdown = (props = {}) => (
     <Dropdown placement="top" openTrigger={CLICK} {...Object.assign({
       options: [],
@@ -59,7 +56,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
@@ -68,7 +65,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(2);
+      driver.optionAt(2).click();
       expect(onSelect).not.toHaveBeenCalled();
     });
 
@@ -77,7 +74,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(3);
+      driver.optionAt(5).click();
       expect(onSelect).not.toHaveBeenCalled();
     });
 
@@ -86,7 +83,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
   });
@@ -97,7 +94,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({initialSelectedIds: [0], options, onDeselect, closeOnSelect: false}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
     });
   });

@@ -12,7 +12,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
   Component: React.ComponentClass<CoreProps>,
   stylesheet: RuntimeStylesheet,
   getState: (p?: any, s?: any, c?: any) => StateMap,
-  extendedDefaultProps: object = {}): React.ComponentClass<CoreProps & ExtendedProps> {
+  extendedDefaultProps: object): React.ComponentClass<CoreProps & ExtendedProps> {
 
   return class StylableComponent extends Component implements React.PureComponent<CoreProps & ExtendedProps> {
 
@@ -35,7 +35,7 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
   Component: React.SFC<CoreProps>,
   stylesheet: RuntimeStylesheet,
   getState: (p?: any) => StateMap,
-  extendedDefaultProps: object = {}): React.SFC<CoreProps & ExtendedProps> {
+  extendedDefaultProps: object): React.SFC<CoreProps & ExtendedProps> {
     const WrapperComponent: React.SFC<CoreProps & ExtendedProps> = (props: CoreProps & ExtendedProps) => {
       const root = Component(props);
       if (!root) { return null; }
@@ -57,13 +57,11 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
 export function withStylable<CoreProps, ExtendedProps = {}>(
   Component: React.ComponentClass<CoreProps> | React.SFC<CoreProps>,
   stylesheet: RuntimeStylesheet,
-  getState: (p?: any, s?: any, c?: any) => StateMap,
+  getState: (p?: any, s?: any, c?: any) => StateMap = () => ({}),
   extendedDefaultProps: object = {}): React.ComponentClass<CoreProps & ExtendedProps> | React.SFC<CoreProps & ExtendedProps> {
-    type BaseProps = CoreProps & {className?: string};
-
     if (isReactClassComponent(Component)) {
-      return withStylableStateful<BaseProps, ExtendedProps>(Component as React.ComponentClass<BaseProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateful<CoreProps, ExtendedProps>(Component as React.ComponentClass<CoreProps>, stylesheet, getState, extendedDefaultProps);
     } else {
-      return withStylableStateless<BaseProps, ExtendedProps>(Component as React.SFC<BaseProps>, stylesheet, getState, extendedDefaultProps);
+      return withStylableStateless<CoreProps, ExtendedProps>(Component as React.SFC<CoreProps>, stylesheet, getState, extendedDefaultProps);
     }
 }

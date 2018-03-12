@@ -1,4 +1,4 @@
-import 'react';
+import * as React from 'react';
 import createStory from '../create-story';
 
 import {Button} from '../../src/components/Button';
@@ -13,7 +13,7 @@ export const story = () => createStory({
     disabled: false,
     type: 'button',
     children: 'I\'m a Button!',
-    dataHook: 'storybook-button'
+    dataHook: 'storybook-Button'
   }),
   exampleProps: {
     onClick: () => 'Clicked!',

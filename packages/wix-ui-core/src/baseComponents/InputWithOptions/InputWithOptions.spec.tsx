@@ -3,14 +3,12 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
+import {generateOptions} from '../DropdownOption/OptionsExample';
+import * as waitForCond from 'wait-for-cond';
 
 describe('InputWithOptions', () => {
   const createDriver = createDriverFactory(inputWithOptionsDriverFactory);
-  const options =
-    Array.from(Array(5))
-      .map((x, index) =>
-        index === 2 ? OptionFactory.createDivider() : OptionFactory.create(index, index === 3, true, `value${index}`));
-
+  const options = generateOptions();
   const createInputWithOptions = (props = {}) => (
     <InputWithOptions {...Object.assign({
       options: [],
@@ -46,6 +44,7 @@ describe('InputWithOptions', () => {
       }
     }));
 
+    driver.click();
     driver.keyDown('Enter');
     expect(onManualInput).toHaveBeenCalledWith('a');
   });
@@ -62,7 +61,22 @@ describe('InputWithOptions', () => {
       }
     }));
 
+    driver.click();
     driver.keyDown('Enter');
     expect(onManualInput).toHaveBeenCalledWith('a');
+  });
+
+  it('should not show options element upon blur', async () => {
+    const onSelect = jest.fn();
+    const driver = createDriver(createInputWithOptions({options, onSelect}));
+    driver.click();
+    await waitForCond(() => driver.isContentElementExists());
+    driver.keyDown('ArrowDown');
+    driver.keyDown('Enter');
+    await waitForCond(() => !driver.isContentElementExists());
+    driver.keyDown('Escape');
+    await waitForCond.assertHold(() => {
+      expect(driver.isContentElementExists()).toBeFalsy();
+    }, 1000);
   });
 });

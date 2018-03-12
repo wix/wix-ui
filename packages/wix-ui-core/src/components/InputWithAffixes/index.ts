@@ -1,1 +1,1 @@
-export {InputWithAffixes} from './InputWithAffixes';
+export {InputWithAffixes, InputWithAffixesProps} from './InputWithAffixes';

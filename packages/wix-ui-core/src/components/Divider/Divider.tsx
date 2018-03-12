@@ -1,8 +1,9 @@
 import * as React from 'react';
 import style from './Divider.st.css';
-import {bool, any} from 'prop-types';
+import {bool, any, string} from 'prop-types';
 
 export interface DividerProps {
+  className?: string;
   vertical?: boolean;
   children?: any;
 }
@@ -24,6 +25,8 @@ export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
 
 Divider.displayName = 'Divider';
 Divider.propTypes = {
+  /** Class name */
+  className: string,
   /** Is the direction of the divider vertical */
   vertical: bool,
   /** Optional custom divider */

@@ -1,8 +1,13 @@
-import {ElementFinder} from 'wix-ui-test-utils/protractor';
+import {dropdownOptionDriverFactory} from '../DropdownOption/DropdownOption.protractor.driver';
 
-export const dropdownContentDriverFactory = (component: ElementFinder) => {
+export const dropdownContentDriverFactory = component => {
+  const getOptions = () => component.$$('[data-hook="option"]');
   return {
     element: () => component,
-    selectOption: async (index: number) => await component.$$('[data-hook="option"]').get(index).click()
+    getOptionsCount: async () => await getOptions().count(),
+    optionAt: (index: number) => {
+      const option = getOptions().get(index);
+      return dropdownOptionDriverFactory(option);
+    }
   };
 };

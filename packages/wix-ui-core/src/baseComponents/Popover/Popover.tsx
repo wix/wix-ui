@@ -82,7 +82,7 @@ const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObj
     data-hook="popover-content"
     modifiers={modifiers}
     placement={placement}
-    className={classNames(style.popover, style.contentWrap, {[style.popoverContent]: !showArrow})}>
+    className={classNames(style.popover, {[style.popoverContent]: !showArrow})}>
     {showArrow &&
     <Arrow data-hook="popover-arrow"
             className={style.arrow}
@@ -113,7 +113,7 @@ export const Popover: PopoverType = props => {
     timeout,
     appendToParent,
     appendTo
-  }  = props;
+  } = props;
 
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
   const modifiers = createModifiers({moveBy, appendToParent, appendTo});
@@ -128,7 +128,7 @@ export const Popover: PopoverType = props => {
         {childrenObject.Element}
       </Target>
       {
-        timeout &&
+        !!timeout &&
           <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
             {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
           </CSSTransition>

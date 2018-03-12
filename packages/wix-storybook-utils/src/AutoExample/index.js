@@ -167,11 +167,12 @@ export default class extends Component {
       props;
 
 
-  mapControllableProps = fn =>
-    Object
+  mapControllableProps = fn => {
+    return Object
       .keys(this.parsedComponent.props)
       .filter(key => Object.keys(this.controllableComponentGetters).includes(this.parsedComponent.props[key].type.name))
       .map(key => fn(this.parsedComponent.props[key], key));
+  };
 
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
@@ -201,6 +202,11 @@ export default class extends Component {
         return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
       }
     },
+
+    union: ({propKey}) =>
+      this.props.exampleProps[propKey] ?
+        <NodesList values={this.props.exampleProps[propKey]}/> :
+        <Input/>,
 
     arrayOf: ({propKey}) => {
       if (this.props.exampleProps[propKey]) {
