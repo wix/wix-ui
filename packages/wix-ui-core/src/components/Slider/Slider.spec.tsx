@@ -386,20 +386,20 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 0.1);
   });
 
-  it('tooltip numeric value should be clamped to 3 chars', () => {
+  it('tooltip numeric value precision should be clamped to 3 decimal places', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      min: 0,
-      max: 6,
-      value: 0.444,
+      min: 1000,
+      max: 1300,
+      value: 1200.444,
       step: null,
       tooltipPrefix: '$',
       tooltipSuffix: '%',
       onChange
     });
 
-    expect(driver.thumbTooltipValue()).toEqual('$0.4%');
+    expect(driver.thumbTooltipValue()).toEqual('$1200.4%');
   });
 
   function render(props) {

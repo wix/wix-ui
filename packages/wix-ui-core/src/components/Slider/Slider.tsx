@@ -344,13 +344,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const thumbSize = this.getThumbSize();
     const {tooltipPosition} = this.props;
     const positionClassname = tooltipPosition + 'Position';
-    const shortenedValue = this.props.value.toString().substr(0, 3);
+    const clampedValue = Math.floor(10 * this.props.value) / 10;
 
     return (
       <div data-hook="tooltip" {...pStyle('tooltip', {
         [positionClassname]: true
       })}>
-        {this.props.tooltipPrefix}{shortenedValue}{this.props.tooltipSuffix}
+        {this.props.tooltipPrefix}{clampedValue}{this.props.tooltipSuffix}
       </div>
     );
   }
