@@ -14,22 +14,12 @@ export interface OnKeydownEvent extends React.KeyboardEvent<HTMLDivElement> {
   checked: boolean;
 }
 
-export interface CheckboxProps {
-  checked?: boolean;
-  disabled?: boolean;
-  onChange?: React.EventHandler<OnChangeEvent | OnClickEvent | OnKeydownEvent>;
-  id?: string;
-  tabIndex?: number;
+export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
+  onChange?: React.EventHandler<OnChangeEvent>;
   tickIcon?: React.ReactNode;
   indeterminateIcon?: React.ReactNode;
-  children?: React.ReactNode;
   error?: boolean;
-  name?: string;
-  readOnly?: boolean;
-  required?: boolean;
   indeterminate?: boolean;
-  autoFocus?: boolean;
-  ['aria-controls']?: string[];
 }
 
 export interface CheckboxState {
@@ -40,41 +30,6 @@ export interface CheckboxState {
  * Checkbox
  */
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
-  public static displayName: string = 'Checkbox';
-
-  public static propTypes: Object = {
-    /** Whether the checkbox is checked or not */
-    checked: bool,
-    /** Disabled */
-    disabled: bool,
-    /** The onChange function will be called with a new checked value */
-    onChange: func,
-    /** The component ID */
-    id: string,
-    /** The tab-index of the component */
-    tabIndex: number,
-    /** An element to be displayed when the checkbox is checked */
-    tickIcon: node,
-    /** An element to be displayed when the checkbox is in indeterminate state */
-    indeterminateIcon: node,
-    /** Children to be rendered (usually a label) */
-    children: node,
-    /** Whether checkbox should be in error state */
-    error: bool,
-    /** Name of the checkbox */
-    name: string,
-    /** Whether the checkbox is readOnly */
-    readOnly: bool,
-    /** Whether the checkbox is required */
-    required: bool,
-    /** Whether the checkbox is indeterminate */
-    indeterminate: bool,
-    /** Whether the checkbox should be auto focused */
-    autoFocus: bool,
-    /** An string array of ARIA controls to be placed on the native checkbox */
-    ['aria-controls']: array
-  };
-
   public static defaultProps: Partial<CheckboxProps> = {
     tickIcon: (
       <span
@@ -102,7 +57,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     return (
       <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
-        onClick={this.handleClick}
+        onMouseDown={this.handleClick}
         onKeyDown={this.handleKeydown}
         role="checkbox"
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
@@ -112,7 +67,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             className={style.nativeCheckbox}
             checked={this.props.checked}
             disabled={this.props.disabled}
-            onClick={this.handleInputClick}
             onChange={this.handleChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
@@ -141,30 +95,29 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private handleKeydown: React.KeyboardEventHandler<HTMLDivElement> = e => {
-    const SPACEBAR = ' ';
-    const LEGACY_SPACEBAR = 'Spacebar';
-    if (e.key === SPACEBAR || e.key === LEGACY_SPACEBAR) {
-      e.preventDefault();
-      this.handleChange(e);
+    if (this.isInteractable()) {
+      const SPACEBAR = ' ';
+      const LEGACY_SPACEBAR = 'Spacebar';
+      if (e.key === SPACEBAR || e.key === LEGACY_SPACEBAR) {
+        e.preventDefault();
+        this.checkbox.click();
+      }
+      !this.state.isFocused && this.setState({isFocused: true});
     }
   }
 
   private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
-    this.handleChange(e);
-    this.checkbox && this.checkbox.focus();
-    this.setState({isFocused: false});
-  }
-
-  private handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-    if (!this.props.disabled && !this.props.readOnly) {
-      this.props.onChange({checked: !this.props.checked, ...e});
+    if (this.isInteractable()) {
+      this.checkbox && this.checkbox.focus();
+      this.checkbox.click();
+      this.setState({isFocused: false});
     }
   }
 
-  // handleInputClick will be called only on pressing "space" key when nativeInput has focus
-  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
-    e.stopPropagation();
-    this.setState({isFocused: true});
+  private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (this.isInteractable()) {
+      this.props.onChange({checked: !this.props.checked, ...e});
+    }
   }
 
   private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
@@ -173,5 +126,9 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
   private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
     !this.state.isFocused && this.setState({isFocused: true});
+  }
+
+  private isInteractable() {
+    return !this.props.disabled && !this.props.readOnly;
   }
 }
