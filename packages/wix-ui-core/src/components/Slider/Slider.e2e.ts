@@ -4,35 +4,37 @@ import {browser} from 'protractor';
 import * as eyes from 'eyes.it';
 
 describe('Slider', () => {
+  let driver;
+
   const storyUrl = getStoryUrl('Components', 'Slider');
 
   beforeEach(() => browser.get(storyUrl));
 
   function createDriver() {
-    return sliderTestkitFactory({dataHook: 'wixui-slider'});
+    driver = sliderTestkitFactory({dataHook: 'wixui-slider'});
   }
 
   it('should change the slider value by clicking the track', async () => {
-    const driver = createDriver();
+    createDriver();
     driver.clickTrack({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('2.3');
+    await assertTooltipValueApproximately(2.3);
   });
 
   it('should move the thumb by dragging it', async () => {
-    const driver = createDriver();
+    createDriver();
     driver.dragThumb({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('4.6');
+    await assertTooltipValueApproximately(4.6);
   });
 
   it('should move the thumb by dragging it', async () => {
-    const driver = createDriver();
+    createDriver();
     driver.dragThumb({x: 200});
-    expect(await driver.getTooltipValue()).toEqual('4.6');
+    await assertTooltipValueApproximately(4.6);
   });
 
   it('should not move the thumb when the mouse moves, given the thumb was dropped', async () => {
     //Given
-    const driver = createDriver();
+    createDriver();
     await driver.dragAndDropThumb({x: 200});
     const valueAfterDrop = await driver.getSliderValue();
 
@@ -43,4 +45,10 @@ describe('Slider', () => {
     const valueAfterDropAndMove = await driver.getSliderValue();
     expect(valueAfterDropAndMove).toEqual(valueAfterDrop);
   });
+
+  async function assertTooltipValueApproximately(approxValue) {
+    const value = parseInt(await driver.getTooltipValue());
+    expect(value).toBeGreaterThanOrEqual(approxValue - 1);
+    expect(value).toBeLessThanOrEqual(approxValue + 1);
+  }
 });
