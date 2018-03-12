@@ -167,6 +167,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
 
     forceUpdate() {
       driver.hoverThumb();
+      driver.unhoverThumb();
     },
 
     styles: {

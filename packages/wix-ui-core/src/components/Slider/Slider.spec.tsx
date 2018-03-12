@@ -18,7 +18,14 @@ describe('Slider', () => {
   });
 
   it('should render props', () => {
-    const driver = createDriver(<Slider vertical min={4} max={20} value={7} onChange={noop}/>);
+    const driver = render({
+      vertical: true,
+      min: 4,
+      max: 20,
+      value: 7,
+      onChange: noop
+    });
+
     expect(driver.value()).toBe(7);
     expect(driver.min()).toBe(4);
     expect(driver.max()).toBe(20);
@@ -27,7 +34,7 @@ describe('Slider', () => {
 
   it('should trigger onChange', () => {
     const onChange = sinon.spy();
-    const driver = createDriver(<Slider min={4} max={20} value={7} onChange={onChange}/>);
+    const driver = render({onChange});
     driver.change();
     sinon.assert.called(onChange);
   });
@@ -35,13 +42,7 @@ describe('Slider', () => {
   it('should change to a specific value', () => {
     const onChange = sinon.spy();
 
-    const driver = render({
-      min: 1,
-      max: 10,
-      value: 1,
-      step: 1,
-      onChange
-    });
+    const driver = render({onChange, step: 1});
 
     driver.change(5);
 
@@ -49,7 +50,7 @@ describe('Slider', () => {
   });
 
   it('should show tooltip upon thumb hover', () => {
-    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({value: 3});
 
     driver.hoverThumb();
 
@@ -57,13 +58,13 @@ describe('Slider', () => {
   });
 
   it('should not show tooltip if thumb is not hovered or dragged', () => {
-    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render();
 
     expect(driver.tooltip()).toEqual(null);
   });
 
   it('should show tooltip when dragging', () => {
-    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({value: 3});
 
     driver.dragThumb(1);
 
@@ -71,7 +72,7 @@ describe('Slider', () => {
   });
 
   it('does not show tooltip, given tooltipVisibility=none', () => {
-    const driver = createDriver(<Slider tooltipVisibility="none" min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({tooltipVisibility: 'none'});
 
     driver.hoverThumb();
 
@@ -79,7 +80,7 @@ describe('Slider', () => {
   });
 
   it('shows tooltip only on hover, given tooltipVisibility=hover', () => {
-    const driver = createDriver(<Slider tooltipVisibility="hover" min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({tooltipVisibility: 'hover'});
 
     expect(driver.tooltip()).toBeFalsy();
 
@@ -89,7 +90,7 @@ describe('Slider', () => {
   });
 
   it('shows tooltip by default, given tooltipVisibility=always', () => {
-    const driver = createDriver(<Slider tooltipVisibility="always" min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({tooltipVisibility: 'always'});
 
     expect(driver.tooltip()).toBeTruthy();
   });
@@ -98,36 +99,24 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      step: 0.1,
-      min: 1,
-      max: 10,
-      value: 1,
-      disabled: true,
-      tooltipPrefix: '$',
-      onChange
+      tooltipPrefix: '$'
     });
 
     driver.hoverThumb();
 
-    expect(driver.thumbTooltipValue()).toBe('$1');
+    expect(driver.thumbTooltipValue()).toBe('$0');
   });
 
   it('should render tooltip suffix', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      step: 0.1,
-      min: 1,
-      max: 10,
-      value: 1,
-      disabled: true,
-      tooltipSuffix: '$',
-      onChange
+      tooltipSuffix: '$'
     });
 
     driver.hoverThumb();
 
-    expect(driver.thumbTooltipValue()).toBe('1$');
+    expect(driver.thumbTooltipValue()).toBe('0$');
   });
 
   it('should render ticks', () => {
@@ -135,8 +124,7 @@ describe('Slider', () => {
       min: 1,
       step: 1,
       max: 10,
-      value: 3,
-      onChange: noop
+      value: 3
     });
 
     driver.stubTrackBoundingRect({width: 500});
@@ -149,8 +137,7 @@ describe('Slider', () => {
       min: 1,
       step: 5,
       max: 20,
-      value: 3,
-      onChange: noop
+      value: 3
     });
 
     driver.stubTrackBoundingRect({width: 500});
@@ -164,8 +151,7 @@ describe('Slider', () => {
       step: 5,
       max: 20,
       value: 3,
-      tickMarksPosition: 'none',
-      onChange: noop
+      tickMarksPosition: 'none'
     });
 
     driver.stubTrackBoundingRect({width: 500});
@@ -174,7 +160,7 @@ describe('Slider', () => {
   });
 
   it('should render ticks in continuous mode, with a density of 1 tick per 4 pixels', () => {
-    const driver = createDriver(<Slider min={1} max={10} value={3} onChange={noop}/>);
+    const driver = render({min: 1, max: 10, value: 3, onChange: noop});
 
     driver.stubTrackBoundingRect({width: 400});
 
@@ -201,9 +187,6 @@ describe('Slider', () => {
 
     const driver = render({
       step: 1,
-      min: 1,
-      max: 10,
-      value: 7,
       onChange
     });
 
@@ -215,11 +198,8 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      step: 1,
-      min: 1,
-      max: 10,
-      value: 7,
       rtl: true,
+      step: 1,
       onChange
     });
 
@@ -338,10 +318,6 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      step: 0.1,
-      min: 1,
-      max: 10,
-      value: 1,
       disabled: true,
       onChange
     });
@@ -399,10 +375,21 @@ describe('Slider', () => {
       onChange
     });
 
+    driver.hoverThumb();
+
     expect(driver.thumbTooltipValue()).toEqual('$1200.4%');
   });
 
-  function render(props) {
+  function render(props = {}) {
+    props = {
+      min: 0,
+      max: 6,
+      value: 0,
+      step: null,
+      onChange: noop,
+      ...props
+    };
+
     const driver = createDriver(<Slider {...props}/>);
 
     driver.stubRootBoundingRect();
