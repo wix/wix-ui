@@ -3,7 +3,8 @@ import {
   promise,
   ExpectedConditions,
   ElementFinder,
-  ElementArrayFinder
+  ElementArrayFinder,
+  WebElement
 } from 'protractor';
 
 const encode = global.encodeURIComponent;
@@ -43,5 +44,11 @@ export const waitForVisibilityOf = (
   );
 };
 
-export const mouseEnter = async (element: any) => await browser.actions().mouseMove(element).perform();
+// This interface is copied over from protractor because it isn't exported
+export interface ILocation {
+  x: number;
+  y: number;
+}
+
+export const mouseEnter = async (element: WebElement | ILocation) => await browser.actions().mouseMove(element).perform();
 export const mouseLeave = () => mouseEnter({x: 1000, y: 1000});
