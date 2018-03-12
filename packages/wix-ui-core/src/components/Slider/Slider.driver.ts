@@ -122,8 +122,8 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       const rect = driver.getTrackBoundingRect();
       const min = driver.min();
       const max = driver.max();
-      const handleSize = driver.getRootBoundingRect().height;
-      const offset = (value - min) * ((rect.width + handleSize / 2) / (max - min + 1));
+      const thumbSize = driver.getRootBoundingRect().height;
+      const offset = (value - min) * ((rect.width + thumbSize / 2) / (max - min + 1));
 
       if (driver.rtl()) {
         return rect.width - offset;

@@ -334,7 +334,7 @@ describe('Slider', () => {
     });
   });
 
-  it('cannot move handle, given disabled', () => {
+  it('cannot move thumb, given disabled', () => {
     const onChange = sinon.spy();
 
     const driver = render({
