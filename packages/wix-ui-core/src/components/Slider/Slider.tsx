@@ -10,6 +10,8 @@ export interface SliderProps {
   max?: number;
   value?: number;
   onChange?: (any) => void;
+  onBlur?: (any) => void;
+  onFocus?: (any) => void;
   vertical?: boolean;
   thumbSize?: number;
   step?: number;
@@ -46,6 +48,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     value: number,
     /** Callback for handling value changes */
     onChange: func,
+    /** Callback for handling focus events */
+    onFocus: func,
+    /** Callback for handling blur events */
+    onBlur: func,
     /** Vertical layout */
     vertical: bool,
     /** Size of the slider thumb */
@@ -356,7 +362,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, disabled, rtl} = this.props;
+    const {value, min, max, vertical, trackSize, disabled, rtl, onFocus, onBlur} = this.props;
     const thumbSize = this.getThumbSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
@@ -390,6 +396,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-hook="wixui-slider"
         tabIndex={0}
         onKeyDown={this.handleKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
     >
       <div ref={this.setInnerNode} className={pStyle.inner}>
         <div data-hook="track"

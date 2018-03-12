@@ -46,6 +46,10 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       eventTrigger.focus(element);
     },
 
+    blur() {
+      eventTrigger.blur(element);
+    },
+
     arrowLeft() {
       eventTrigger.keyDown(element, {key: 'ArrowLeft'});
     },

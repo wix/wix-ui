@@ -380,6 +380,33 @@ describe('Slider', () => {
     expect(driver.thumbTooltipValue()).toEqual('$1200.4%');
   });
 
+  it('should propagate onFocus when slider is focused', () => {
+    const onFocus = sinon.spy();
+
+    const driver = render({
+      onFocus
+    });
+
+    driver.focus();
+
+    sinon.assert.called(onFocus);
+  });
+
+  it('should propagate onBlur when slider is blurred', () => {
+    const onFocus = sinon.spy();
+    const onBlur = sinon.spy();
+
+    const driver = render({
+      onFocus,
+      onBlur
+    });
+
+    driver.focus();
+    driver.blur();
+
+    sinon.assert.called(onBlur);
+  });
+
   function render(props = {}) {
     props = {
       min: 0,
