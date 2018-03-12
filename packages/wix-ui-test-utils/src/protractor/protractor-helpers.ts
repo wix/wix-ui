@@ -42,3 +42,6 @@ export const waitForVisibilityOf = (
     )
   );
 };
+
+export const mouseEnter = async (element: any) => await browser.actions().mouseMove(element).perform();
+export const mouseLeave = () => mouseEnter({x: 1000, y: 1000});
