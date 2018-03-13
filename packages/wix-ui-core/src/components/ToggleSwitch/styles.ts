@@ -33,8 +33,8 @@ export const styles = (theme: ToggleSwitchTheme) => {
       '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)',
 
       '& > input[type=checkbox]': {
-        width: 0,
-        height: 0,
+        width: '1px',
+        height: '1px',
         opacity: 0,
         margin: 0,
         position: 'absolute'
