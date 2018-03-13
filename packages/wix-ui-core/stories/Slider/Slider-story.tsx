@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Slider} from '../../src/components/Slider';
 
 export class SliderStory extends React.Component {
-  state = {wrapperSize: 80, continuous: false, vertical: false, tickMarksPosition: 'default'};
+  state = {wrapperSize: 80, continuous: false, vertical: false, tickMarksPosition: 'default', tooltipPosition: 'default'};
 
   render() {
     const vertical = this.state.vertical;
@@ -47,20 +47,29 @@ export class SliderStory extends React.Component {
                 <option value="across">Across</option>
               </select>
             </td>
+            <td>
+              Tooltip position
+            </td>
+            <td>
+              <select value={this.state.tooltipPosition} onChange={ev => this.setState({tooltipPosition: ev.target.value})}>
+                <option value="default">Default</option>
+                <option value="across">Across</option>
+              </select>
+            </td>
           </tr>
         </table>
 
         <br/>
 
         <div key="horiz" style={vertical ? verticalStyle : horizontalStyle}>
-          <StatefulSlider vertical={this.state.vertical} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
+          <StatefulSlider vertical={this.state.vertical} tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <div key="horiz-rtl" style={horizontalStyle}>
-          <StatefulSlider rtl tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
+          <StatefulSlider rtl tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <br/>
         <div key="vert" style={!vertical ? verticalStyle : horizontalStyle}>
-          <StatefulSlider vertical={!this.state.vertical} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 1} min={0} max={100} value={0}/>
+          <StatefulSlider vertical={!this.state.vertical} tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 1} min={0} max={100} value={0}/>
         </div>
       </div>
     );

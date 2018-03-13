@@ -362,13 +362,26 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   render() {
-    const {value, min, max, vertical, trackSize, disabled, rtl, onFocus, onBlur} = this.props;
+    const {
+        value,
+        min,
+        max,
+        vertical,
+        trackSize,
+        disabled,
+        rtl,
+        onFocus,
+        onBlur,
+        tickMarksPosition,
+        thumbShape
+    } = this.props;
+
     const thumbSize = this.getThumbSize();
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const thumbPosition: any = this.calcThumbPosition();
-    const showTicks = this.props.tickMarksPosition !== 'none';
-    const tickMarksPosition = 'tickMarksPosition-' + this.props.tickMarksPosition;
+    const showTicks = tickMarksPosition !== 'none';
+    const tickMarksPositionClass = 'tickMarksPosition-' + tickMarksPosition;
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const trackFillPosition = vertical ? {
         bottom: 0,
@@ -383,7 +396,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           horizontal: !vertical,
           showTicks,
           disabled,
-          [tickMarksPosition]: true,
+          [tickMarksPositionClass]: true,
           rtl,
           ltr: !rtl
       }, this.props)}
@@ -409,7 +422,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           <div className={pStyle.trackFill} style={trackFillPosition}/>
         </div>
         <Thumb
-          shape={this.props.thumbShape}
+          shape={thumbShape}
           thumbPosition={thumbPosition}
           thumbSize={thumbSize}
           onMouseEnter={this.handleThumbEnter}
