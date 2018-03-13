@@ -111,8 +111,17 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     this.onOptionClick(selectedOption);
   }
 
+  isClosingKey(key) {
+    return key === 'Tab' || key === 'Enter' || key === 'Escape';
+  }
+
   onKeyDown(evt: React.KeyboardEvent<HTMLElement>) {
     const eventKey = evt.key;
+
+    if (!this.state.isOpen && this.isClosingKey(eventKey)) {
+      return;
+    }
+
     this.open(() => {
       this.dropdownContentRef && this.dropdownContentRef.onKeyDown(eventKey);
       switch (eventKey) {
@@ -191,7 +200,6 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         </Popover.Element>
         <Popover.Content>
           <DropdownContent
-            data-hook="dropdown-content"
             className={style.dropdownContent}
             ref={dropdownContent => this.dropdownContentRef = dropdownContent}
             options={options}

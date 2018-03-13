@@ -22,12 +22,6 @@ export const dividerTestkitFactory = protractorTestkitFactoryCreator(dividerDriv
 import {googleMapsIframeClientDriverFactory} from '../clients/GoogleMaps/GoogleMapsIframeClient.protractor.driver';
 export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(googleMapsIframeClientDriverFactory);
 
-import {dropdownContentDriverFactory} from '../baseComponents/DropdownContent/DropdownContent.protractor.driver';
-export const dropdownContentTestkitFactory = protractorTestkitFactoryCreator(dropdownContentDriverFactory);
-
-import {dropdownDriverFactory} from '../baseComponents/Dropdown/Dropdown.protractor.driver';
-export const dropdownTestkitFactory = protractorTestkitFactoryCreator(dropdownDriverFactory);
-
 import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.protractor.driver';
 export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDriverFactory);
 

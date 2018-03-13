@@ -20,15 +20,15 @@ describe('Tooltip', () => {
 
   it('should not display content by default', () => {
     const driver = createDriver(createTooltip());
-    expect(driver.isContentExists()).toBeFalsy();
+    expect(driver.isContentElementExists()).toBeFalsy();
   });
 
   it('should display content on hover and hide it on leave', async () => {
     const driver = createDriver(createTooltip());
     driver.mouseEnter();
-    expect(driver.isContentExists()).toBeTruthy();
+    expect(driver.isContentElementExists()).toBeTruthy();
     driver.mouseLeave();
-    await eventually(() => expect(driver.isContentExists()).toBeFalsy());
+    await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 
   describe('testkit', () => {

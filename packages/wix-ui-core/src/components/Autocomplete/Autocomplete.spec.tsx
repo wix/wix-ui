@@ -3,22 +3,16 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {autocompleteDriverFactory} from './Autocomplete.driver';
 import {Autocomplete} from '.';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
+import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
 import {autocompleteTestkitFactory} from '../../testkit';
 import {autocompleteTestkitFactory as enzymeAutocompleteTestkitFactory} from '../../testkit/enzyme';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
-
-const options =
-  Array.from(Array(20))
-    .map((x, index) => Autocomplete.createOption({id: index, value: `value${index}`}));
-
-options[2] = Autocomplete.createOption({id: 2, isDisabled: true, value: `Disabled item`});
-options[5] = Autocomplete.createDivider();
-options[8].value = 'This is a very very very very very long option';
-options[12] = Autocomplete.createDivider('Divider');
+import {DividerArgs} from '../../baseComponents/DropdownOption/OptionFactory';
 
 describe('Autocomplete', () => {
+  const options = generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value));
   const createDriver = createDriverFactory(autocompleteDriverFactory);
 
   it('should render autocomplete', () => {
@@ -30,6 +24,27 @@ describe('Autocomplete', () => {
   it('should initialize autocomplete with value', () => {
     const driver = createDriver(<Autocomplete initialSelectedId={1} options={options} />);
     expect(driver.getValue()).toEqual('value1');
+  });
+
+  it('should not filter anything without predicate function', () => {
+    const driver = createDriver(<Autocomplete options={options}/>);
+    driver.click();
+    expect(driver.getOptionsCount()).toBe(options.length);
+  });
+
+  ['ArrowUp', 'ArrowDown'].forEach(key => {
+    it(`should not filter items according to predicate function when pressing ${key}`, () => {
+      const driver = createDriver(<Autocomplete options={options}/>);
+      driver.keyDown(key);
+      expect(driver.getOptionsCount()).toBe(options.length);
+    });
+  });
+
+  it('should show all items when focusing even if some text exist', () => {
+    const driver = createDriver(<Autocomplete options={options}/>);
+    driver.setValue('very');
+    driver.click();
+    expect(driver.getOptionsCount()).toBe(options.length);
   });
 
   describe('testkit', () => {

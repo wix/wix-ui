@@ -31,6 +31,7 @@ export interface AutocompleteState {
 }
 
 export class Autocomplete extends React.PureComponent<AutocompleteProps, AutocompleteState> {
+  static displayName = 'Autocomplete';
   static propTypes = {
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,

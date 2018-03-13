@@ -4,6 +4,7 @@ import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 import {generateOptions} from '../DropdownOption/OptionsExample';
+import * as waitForCond from 'wait-for-cond';
 
 describe('InputWithOptions', () => {
   const createDriver = createDriverFactory(inputWithOptionsDriverFactory);
@@ -43,6 +44,7 @@ describe('InputWithOptions', () => {
       }
     }));
 
+    driver.click();
     driver.keyDown('Enter');
     expect(onManualInput).toHaveBeenCalledWith('a');
   });
@@ -59,7 +61,22 @@ describe('InputWithOptions', () => {
       }
     }));
 
+    driver.click();
     driver.keyDown('Enter');
     expect(onManualInput).toHaveBeenCalledWith('a');
+  });
+
+  it('should not show options element upon blur', async () => {
+    const onSelect = jest.fn();
+    const driver = createDriver(createInputWithOptions({options, onSelect}));
+    driver.click();
+    await waitForCond(() => driver.isContentElementExists());
+    driver.keyDown('ArrowDown');
+    driver.keyDown('Enter');
+    await waitForCond(() => !driver.isContentElementExists());
+    driver.keyDown('Escape');
+    await waitForCond.assertHold(() => {
+      expect(driver.isContentElementExists()).toBeFalsy();
+    }, 1000);
   });
 });
