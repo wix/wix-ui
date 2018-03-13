@@ -414,7 +414,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           thumbSize={thumbSize}
           onMouseEnter={this.handleThumbEnter}
           onMouseLeave={this.handleThumbLeave}
-          classes={pStyle}
         >
           {this.renderTooltip()}
         </Thumb>

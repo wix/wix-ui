@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import pStyle from './Slider.st.css';
 
 export interface ThumbProps {
   shape: string;
@@ -7,7 +8,6 @@ export interface ThumbProps {
   thumbSize: number;
   onMouseEnter: any;
   onMouseLeave: any;
-  classes: any;
 }
 
 export class Thumb extends React.Component<ThumbProps> {
@@ -17,20 +17,15 @@ export class Thumb extends React.Component<ThumbProps> {
     thumbSize: PropTypes.number.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
-    classes: PropTypes.any.isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const {shape, classes} = this.props;
+    const {shape} = this.props;
     const ThumbShape = thumbShapeMap[shape];
 
     return (
       <div data-hook="thumb"
-        className={classes.thumb}
+        className={pStyle.thumb}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         style={{
@@ -39,9 +34,7 @@ export class Thumb extends React.Component<ThumbProps> {
           height: this.props.thumbSize
         }}
       >
-        {React.createElement(ThumbShape, {
-            classes
-        })}
+        <ThumbShape/>
         {this.props.children}
       </div>
     );
@@ -51,7 +44,7 @@ export class Thumb extends React.Component<ThumbProps> {
 class CircleThumb extends React.Component<any> {
   render() {
     return (
-      <div className={this.props.classes.thumbShape} style={{borderRadius: '50%'}}/>
+      <div className={pStyle.thumbShape} style={{borderRadius: '50%'}}/>
     );
   }
 }

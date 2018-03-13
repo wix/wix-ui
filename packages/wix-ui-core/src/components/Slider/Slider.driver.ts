@@ -8,17 +8,27 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
   }
 
   const driver = {
-    /** checks if element exists */
+    /** Checks if element exists */
     exists: () => !!element,
+    /** Returns the current slider value */
     value: () => Number(element.getAttribute('data-value')),
+    /** Returns the minimum slider value */
     min: () => Number(element.getAttribute('data-min')),
+    /** Returns the maximum slider value */
     max: () => Number(element.getAttribute('data-max')),
+    /** Returns whether the slider is vertical or not */
     vertical: () => Boolean(element.getAttribute('data-vertical')),
+    /** Returns the thumb element */
     thumb: () => getByDataHook('thumb'),
+    /** Returns the tooltip element */
     tooltip: () => getByDataHook('tooltip'),
+    /** Returns the tick mark elements */
     ticks: () => getAllByDataHook('tick'),
-    track: () => element.querySelector('[data-hook=\'track\']'),
+    /** Returns the track elements */
+    track: () => getByDataHook('track'),
+    /** Returns whether the slider goes from right to left */
     rtl: () => element.getAttribute('data-dir') === 'rtl',
+    /** Returns the root element */
     root: () => element,
 
     mouseMove(value) {
