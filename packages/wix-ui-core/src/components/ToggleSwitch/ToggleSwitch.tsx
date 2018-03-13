@@ -82,7 +82,7 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
           style={styles.root}
           ref={ref => this.toggle = ref}
           data-preview={previewState}
-          onClick={() => {this.inputRef && this.inputRef.focus()}}
+          onClick={() => this.inputRef && this.inputRef.focus()}
       >
         <input
           type="checkbox"
