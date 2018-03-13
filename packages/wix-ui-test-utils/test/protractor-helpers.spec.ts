@@ -20,7 +20,7 @@ describe('protractor-helpers', () => {
 
     it('Should create story url without examples', () => {
       expect(createStoryUrl({kind, story, withExamples: false}))
-      .toEqual(`${EXPECTED_URL_BASE}`);
+      .toEqual(EXPECTED_URL_BASE);
     });
 
     it('Should create story url with examples', () => {

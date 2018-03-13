@@ -29,8 +29,7 @@ export const getStoryUrl = (kind: string, story: string): string =>
  *
  * @param {StoryUrlParams} params withExamples defaults to true
  */
-export const createStoryUrl = (params: StoryUrlParams): string => {
-  const {kind, story, withExamples = true} = params;
+export const createStoryUrl = ({kind, story, withExamples = true}: StoryUrlParams): string => {
   return `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}${withExamples ? `&${WITH_EXAMPLES_PARAM_NAME}=` : ''}`;
 };
 
