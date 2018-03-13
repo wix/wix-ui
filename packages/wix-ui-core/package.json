@@ -43,7 +43,8 @@
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
     "wix-ui-jss": "^1.0.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-ui-test-utils": "^1.0.0",
+    "popper.js": "1.12"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.3.7",
