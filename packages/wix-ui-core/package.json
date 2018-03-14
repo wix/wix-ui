@@ -33,7 +33,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
-    "lodash": "^4.17.5",
     "lodash.defaultsdeep": "^4.0.0",
     "lodash.first": "^3.0.0",
     "lodash.includes": "^4.3.0",
