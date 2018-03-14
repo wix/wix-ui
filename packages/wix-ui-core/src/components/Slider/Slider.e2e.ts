@@ -23,13 +23,13 @@ describe('Slider', () => {
   it('should move the thumb by dragging it', async () => {
     createDriver();
     driver.dragThumb({x: 200});
-    await assertTooltipValueApproximately(4.6);
+    await assertTooltipValueApproximately(6);
   });
 
   it('should move the thumb by dragging it', async () => {
     createDriver();
     driver.dragThumb({x: 200});
-    await assertTooltipValueApproximately(4.6);
+    await assertTooltipValueApproximately(6);
   });
 
   it('should not move the thumb when the mouse moves, given the thumb was dropped', async () => {
