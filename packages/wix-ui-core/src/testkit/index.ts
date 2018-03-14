@@ -43,3 +43,6 @@ export const radioButtonTestkitFactory = testkitFactoryCreator(radioButtonDriver
 
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.driver';
 export const autocompleteTestkitFactory = testkitFactoryCreator(autocompleteDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.driver';
+export const sliderTestkitFactory = testkitFactoryCreator(sliderDriverFactory);

@@ -37,10 +37,3 @@ export const sliderDriverFactory = component => ({
       .perform();
   }
 });
-
-function addPositions(pos1, pos2) {
-  return {
-    x: pos1.x || 0 + pos2.x || 0,
-    y: pos1.y || 0 + pos2.y || 0
-  };
-}

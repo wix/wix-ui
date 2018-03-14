@@ -44,3 +44,6 @@ export const radioButtonTestkitFactory = enzymeTestkitFactoryCreator(radioButton
 
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.driver';
 export const autocompleteTestkitFactory = enzymeTestkitFactoryCreator(autocompleteDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.driver';
+export const sliderTestkitFactory = enzymeTestkitFactoryCreator(sliderDriverFactory);
