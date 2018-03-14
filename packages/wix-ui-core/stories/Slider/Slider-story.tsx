@@ -65,7 +65,7 @@ export class SliderStory extends React.Component {
           <StatefulSlider vertical={this.state.vertical} tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <div key="horiz-rtl" style={horizontalStyle}>
-          <StatefulSlider rtl tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
+          <StatefulSlider dir="rtl" tooltipPosition={this.state.tooltipPosition} tickMarksPosition={this.state.tickMarksPosition} step={this.state.continuous ? null : 0.1} min={1} max={10} value={3} />
         </div>
         <br/>
         <div key="vert" style={!vertical ? verticalStyle : horizontalStyle}>

@@ -198,7 +198,7 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      rtl: true,
+      dir: 'rtl',
       step: 1,
       onChange
     });
@@ -235,7 +235,7 @@ describe('Slider', () => {
     });
 
     it('should decrease the value when clicking the right arrow, given rtl', () => {
-      _render({rtl: true});
+      _render({dir: 'rtl'});
       driver.arrowRight();
       sinon.assert.calledWith(onChange, 59.9);
     });
@@ -251,7 +251,7 @@ describe('Slider', () => {
     });
 
     it('should increase the value when clicking the left arrow, given rtl', () => {
-      _render({rtl: true});
+      _render({dir: 'rtl'});
       driver.arrowLeft();
       sinon.assert.calledWith(onChange, 60.1);
     });

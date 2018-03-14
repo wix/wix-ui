@@ -24,7 +24,7 @@ export interface SliderProps {
   trackSize?: number;
   thumbShape?: string;
   disabled?: boolean;
-  rtl?: boolean;
+  dir?: string;
 }
 
 export interface SliderState {
@@ -77,7 +77,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     /** Determines whether the slider is disabled or not */
     disabled: bool,
     /** Determines whether values go from right to left in a horizontal position */
-    rtl: bool
+    dir: oneOf(['rtl', 'ltr'])
   };
 
   static defaultProps = {
@@ -92,7 +92,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipPrefix: '',
     tooltipSuffix: '',
     tickMarksPosition: 'default',
-    rtl: false
+    dir: 'ltr'
   };
 
   constructor(props) {
@@ -124,7 +124,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   getStartPos() {
-    return this.props.rtl ? 'right' : 'left';
+    return this.props.dir === 'rtl' ? 'right' : 'left';
   }
 
   calcStepValue(min, max, stepType, step) {
@@ -183,8 +183,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleKeyDown = (ev) => {
-    const {min, max, value, disabled, rtl} = this.props;
-    const ltr = !rtl;
+    const {min, max, value, disabled, dir} = this.props;
+    const ltr = dir === 'ltr';
 
     if (disabled) {
       return;
@@ -268,8 +268,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return Math.min(Math.max(val, min), max);
   }
 
+  isRtl() {
+    return this.props.dir === 'rtl';
+  }
+
   moveThumbByMouse = (ev) => {
-    const {min, max, vertical, disabled, rtl} = this.props;
+    const {min, max, vertical, disabled, dir} = this.props;
+    const rtl = this.isRtl();
 
     if (disabled) {
       return;
@@ -369,7 +374,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         vertical,
         trackSize,
         disabled,
-        rtl,
+        dir,
         onFocus,
         onBlur,
         tickMarksPosition,
@@ -392,7 +397,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div {...pStyle('root', {
           layout: vertical ? 'vertical' : 'horizontal',
-          dir: rtl ? 'rtl' : 'ltr',
+          dir,
           tickMarksPosition,
           disabled,
           showTicks
@@ -402,7 +407,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-min={min}
         data-max={max}
         data-vertical={vertical}
-        data-dir={rtl ? 'rtl' : 'ltr'}
+        data-dir={dir}
         data-hook="wixui-slider"
         tabIndex={0}
         onKeyDown={this.handleKeyDown}
