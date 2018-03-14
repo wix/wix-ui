@@ -11,7 +11,7 @@ describe('Slider', () => {
   beforeEach(() => browser.get(storyUrl));
 
   function createDriver() {
-    driver = sliderTestkitFactory({dataHook: 'wixui-slider'});
+    driver = sliderTestkitFactory({dataHook: 'storybook-slider'});
   }
 
   it('should change the slider value by clicking the track', async () => {

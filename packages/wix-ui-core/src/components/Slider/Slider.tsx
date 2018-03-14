@@ -74,7 +74,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     /** Determines whether the slider is disabled or not */
     disabled: bool,
     /** Determines whether values go from right to left in a horizontal position */
-    dir: oneOf(['rtl', 'ltr'])
+    dir: oneOf(['rtl', 'ltr']),
+    /** A custom data-hook */
+    'data-hook': string
   };
 
   static defaultProps = {
@@ -89,7 +91,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipPrefix: '',
     tooltipSuffix: '',
     tickMarksPosition: 'default',
-    dir: 'ltr'
+    dir: 'ltr',
+    'data-hook': 'wixui-slider'
   };
 
   constructor(props) {
@@ -405,7 +408,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-max={max}
         data-vertical={vertical}
         data-dir={dir}
-        data-hook="wixui-slider"
         tabIndex={0}
         onKeyDown={this.handleKeyDown}
         onFocus={onFocus}

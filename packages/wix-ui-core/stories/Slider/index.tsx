@@ -10,7 +10,7 @@ export const story = () => createStory({
   component: SliderStory,
   source,
   componentProps: setState => ({
-    'data-hook': 'storybook-input',
+    'data-hook': 'storybook-slider',
     value: 4,
     onChange: (value) => setState({value}),
   }),
