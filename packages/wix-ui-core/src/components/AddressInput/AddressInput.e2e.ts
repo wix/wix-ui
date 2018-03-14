@@ -15,7 +15,6 @@ describe('AddressInput', () => {
         await waitForVisibilityOf(driver.element(), 'Cannot find Input');
         driver.enterText('n');
         driver.dropdownContent().optionAt(0).click();
-        await waitForVisibilityOf($lagLng, 'Cannot find lat/lng');
         const latLngTextContent = await $lagLng.getText();
         expect(latLngTextContent).toEqual('{"lat":40.7127753,"lng":-74.0059728}');
     });
