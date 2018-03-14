@@ -26,13 +26,15 @@ export class Ticks extends React.PureComponent<TicksProps> {
     const pct = (i - min) / (max - min);
     const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize / 2}px)`;
 
-    return React.createElement('div', {
-      className: pStyle.tick,
-      key: i,
-      'data-hook': 'tick',
-      onClick: this.props.onTickClick,
-      style: vertical ? {bottom: val} : {left: val}
-    });
+    return (
+      <div
+        className={pStyle.tick}
+        key={i}
+        data-hook="tick"
+        onClick={this.props.onTickClick}
+        style={vertical ? {bottom: val} : {left: val}}
+      />
+    );
   }
 
   render() {

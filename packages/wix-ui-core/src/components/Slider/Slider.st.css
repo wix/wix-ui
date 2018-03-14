@@ -11,6 +11,27 @@
     box-sizing: border-box;
 }
 
+.tooltip {
+    -st-states: defaultPosition, acrossPosition;
+    position: absolute;
+    background: #363636;
+    color: #fff;
+    padding: 4px 12px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
+    left: 50%;
+}
+
+.tooltip::after {
+    content: ' ';
+    position: absolute;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+}
+
 .track {
     width: 100%;
     height: 25%;
@@ -142,27 +163,6 @@
 .root:layout(vertical) .tooltip:acrossPosition::after {
     right: 100%;
     border-color: transparent #363636 transparent transparent;
-}
-
-.tooltip {
-    -st-states: defaultPosition, acrossPosition;
-    position: absolute;
-    background: #363636;
-    color: #fff;
-    padding: 4px 12px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-    border-radius: 3px;
-    left: 50%;
-}
-
-.tooltip::after {
-    content: ' ';
-    position: absolute;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
 }
 
 .tick {

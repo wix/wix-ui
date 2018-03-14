@@ -49,34 +49,6 @@ class CircleThumb extends React.Component<any> {
   }
 }
 
-class SquareThumb extends React.Component {
-  render() {
-    return null;
-  }
-}
-
-class RectThumb extends React.Component {
-  render() {
-    return null;
-  }
-}
-
-class TriangleThumb extends React.Component {
-  render() {
-    return null;
-  }
-}
-
-class DiamondThumb extends React.Component {
-  render() {
-    return null;
-  }
-}
-
 const thumbShapeMap = {
-  circle: CircleThumb,
-  square: SquareThumb,
-  rectangle: RectThumb,
-  triangle: TriangleThumb,
-  diamond: DiamondThumb
+  circle: CircleThumb
 };
