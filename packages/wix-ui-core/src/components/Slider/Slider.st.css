@@ -1,5 +1,5 @@
 .root {
-    -st-states: vertical, horizontal, showTicks, disabled, rtl, ltr, tickMarksPosition-default, tickMarksPosition-middle, tickMarksPosition-across;
+    -st-states: layout(string), tickMarksPosition(string), dir(string), showTicks, disabled;
     position: relative;
     width: 100%;
     height: 100%;
@@ -39,7 +39,7 @@
     width: 100%;
 }
 
-.root:rtl .trackFill {
+.root:dir(rtl) .trackFill {
   right: 0;
 }
 
@@ -48,34 +48,34 @@
     width: 100%;
 }
 
-.root:showTicks:tickMarksPosition-across .inner {
+.root:showTicks:tickMarksPosition(across) .inner {
   top: 11.112%;
 }
 
-.root:showTicks:tickMarksPosition-middle .inner {
+.root:showTicks:tickMarksPosition(middle) .inner {
   height: 100%;
 }
 
-.root:vertical .track {
+.root:layout(vertical) .track {
     width: 25%;
     height: 100%;
 }
 
-.root:vertical .trackFill {
+.root:layout(vertical) .trackFill {
     background: linear-gradient(to top, #4992e3, #70bff3);
 }
 
-.root:vertical:showTicks .inner {
+.root:layout(vertical):showTicks .inner {
     top: 0;
     width: 88.888%;
     height: 100%;
 }
 
-.root:vertical:showTicks:tickMarksPosition-across .inner {
+.root:layout(vertical):showTicks:tickMarksPosition(across) .inner {
   left: 11.112%;
 }
 
-.root:vertical:showTicks:tickMarksPosition-middle .inner {
+.root:layout(vertical):showTicks:tickMarksPosition(middle) .inner {
   width: 100%;
 }
 
@@ -92,54 +92,54 @@
     border: 2px solid blue;
 }
 
-.root:horizontal .tooltip:defaultPosition {
+.root:layout(horizontal) .tooltip:defaultPosition {
     top: -7px;
     transform: translate(-50%, -100%);
 }
 
-.root:horizontal .tooltip:defaultPosition::after {
+.root:layout(horizontal) .tooltip:defaultPosition::after {
     border-color: #363636 transparent transparent transparent;
     top: 100%; /* At the bottom of the tooltip */
     left: 50%;
 }
 
-.root:horizontal .tooltip:acrossPosition {
+.root:layout(horizontal) .tooltip:acrossPosition {
     bottom: -7px;
     transform: translate(-50%, 100%);
 }
 
-.root:horizontal .tooltip:acrossPosition::after {
+.root:layout(horizontal) .tooltip:acrossPosition::after {
     border-color: transparent transparent #363636 transparent;
     bottom: 100%; /* At the bottom of the tooltip */
     left: 50%;
 }
 
-.root:vertical .tooltip {
+.root:layout(vertical) .tooltip {
     top: 50%;
 }
 
-.root:vertical .tooltip::after {
+.root:layout(vertical) .tooltip::after {
     top: 50%;
     margin-top: -5px;
 }
 
-.root:vertical .tooltip:defaultPosition {
+.root:layout(vertical) .tooltip:defaultPosition {
     left: -7px;
     transform: translate(-100%, -50%);
 }
 
-.root:vertical .tooltip:defaultPosition::after {
+.root:layout(vertical) .tooltip:defaultPosition::after {
     left: 100%;
     margin-left: 0;
     border-color: transparent transparent transparent #363636;
 }
 
-.root:vertical .tooltip:acrossPosition {
+.root:layout(vertical) .tooltip:acrossPosition {
     right: -7px;
     transform: translate(100%, -50%);
 }
 
-.root:vertical .tooltip:acrossPosition::after {
+.root:layout(vertical) .tooltip:acrossPosition::after {
     right: 100%;
     border-color: transparent #363636 transparent transparent;
 }
@@ -172,36 +172,36 @@
     cursor: pointer;
 }
 
-.root:horizontal .tick {
+.root:layout(horizontal) .tick {
   width: 1px;
   height: 25%;
 }
 
-.root:vertical .tick {
+.root:layout(vertical) .tick {
   height: 1px;
   width: 25%;
 }
 
-.root:horizontal:tickMarksPosition-default .tick {
+.root:layout(horizontal):tickMarksPosition(default) .tick {
   bottom: 0;
 }
 
-.root:vertical:tickMarksPosition-default .tick {
+.root:layout(vertical):tickMarksPosition(default) .tick {
   right: 0;
 }
 
-.root:horizontal:tickMarksPosition-middle .tick {
+.root:layout(horizontal):tickMarksPosition(middle) .tick {
   bottom: 37.5%;
 }
 
-.root:vertical:tickMarksPosition-middle .tick {
+.root:layout(vertical):tickMarksPosition(middle) .tick {
   left: 37.5%;
 }
 
-.root:horizontal:tickMarksPosition-across .tick {
+.root:layout(horizontal):tickMarksPosition(across) .tick {
   top: 0;
 }
 
-.root:vertical:tickMarksPosition-across .tick {
+.root:layout(vertical):tickMarksPosition(across) .tick {
   left: 0;
 }

@@ -381,7 +381,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const thumbPosition: any = this.calcThumbPosition();
     const showTicks = tickMarksPosition !== 'none';
-    const tickMarksPositionClass = 'tickMarksPosition-' + tickMarksPosition;
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const trackFillPosition = vertical ? {
         bottom: 0,
@@ -392,13 +391,11 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     return (
       <div {...pStyle('root', {
-          vertical,
-          horizontal: !vertical,
-          showTicks,
+          layout: vertical ? 'vertical' : 'horizontal',
+          dir: rtl ? 'rtl' : 'ltr',
+          tickMarksPosition,
           disabled,
-          [tickMarksPositionClass]: true,
-          rtl,
-          ltr: !rtl
+          showTicks
       }, this.props)}
         onMouseDown={this.handleMouseDown}
         data-value={value}
