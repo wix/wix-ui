@@ -49,11 +49,10 @@ export const INTERNAL_ADDRESS_PLACE_DETAILS_2 = {
     approximate: true
 };
 
-export const sleep = n => new Promise(resolve => setTimeout(resolve, n));
 export const waitForSingleOption = (option, driver) => {
     return waitForCond(() => {
         try {
-            return first(getOptionsText(driver)) === option && driver.getOptions().length === 1;
+            return first(getOptionsText(driver)) === option && driver.getOptionsCount() === 1;
         } catch (e) {
             return false;
         }
@@ -61,5 +60,6 @@ export const waitForSingleOption = (option, driver) => {
 };
 
 export const getOptionsText = driver => {
-    return Array.from(driver.getOptions()).map((option: any) => option.textContent);
+    const indices = Array(driver.getOptionsCount()).fill(null).map((v, i) => i);
+    return indices.map(index => driver.optionAt(index).getText());
 };

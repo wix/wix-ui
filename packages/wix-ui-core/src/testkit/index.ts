@@ -46,3 +46,6 @@ export const autocompleteTestkitFactory = testkitFactoryCreator(autocompleteDriv
 
 import {sliderDriverFactory} from '../components/Slider/Slider.driver';
 export const sliderTestkitFactory = testkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
+export const addressInputTestkitFactory = testkitFactoryCreator(addressInputDriverFactory);

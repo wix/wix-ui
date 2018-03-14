@@ -1,5 +1,5 @@
 import * as React from 'react';
-import createStory from '../create-story';
+import {storiesOf} from '@storybook/react';
 import {AddressInput} from '../../src/components/AddressInput';
 import {GoogleMapsClientStub} from '../../src/components/AddressInput/GoogleMapsClientStub';
 import {MapsClientConstructor} from '../../src/clients/GoogleMaps/types';
@@ -30,9 +30,18 @@ export class AddressInputE2E extends React.Component<any, any> {
                     apiKey=""
                     Client={Client}
                     lang="en"
-                    data-hook="storybook-addressInput"/>
+                    data-hook="storybook-address-input"/>
                 {this.state.lagLng && <div data-hook="lat-lng">{this.state.lagLng}</div>}
             </div>
         );
     }
+}
+
+const isE2E = (global as any).self === (global as any).top;
+
+if (isE2E) {
+    storiesOf('Components', module)
+        .add('AddressInputE2E', () => (
+            <AddressInputE2E />
+        ));
 }

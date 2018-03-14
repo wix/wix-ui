@@ -5,15 +5,9 @@ import {browser, $} from 'protractor';
 
 describe('AddressInput', () => {
     const storyUrl = getStoryUrl('Components', 'AddressInputE2E');
-    const dataHook = 'storybook-addressInput';
+    const dataHook = 'storybook-address-input';
 
     beforeEach(() => browser.get(storyUrl));
-
-    eyes.it('should render', () => {
-        const driver = addressInputTestkitFactory({dataHook});
-
-        expect(driver.element()).toBeDefined();
-    });
 
     eyes.it('should display and select option', async () => {
         const driver = addressInputTestkitFactory({dataHook});

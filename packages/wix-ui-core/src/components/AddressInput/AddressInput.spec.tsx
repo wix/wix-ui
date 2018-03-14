@@ -7,6 +7,12 @@ import * as waitForCond from 'wait-for-cond';
 import * as eventually from 'wix-eventually';
 import * as helper from './AddressInputTestHelper';
 import {OptionFactory} from '../../baseComponents/DropdownOption/OptionFactory';
+import {sleep} from 'wix-ui-test-utils/react-helpers';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {mount} from 'enzyme';
+import {addressInputTestkitFactory} from '../../testkit';
+import {addressInputTestkitFactory as enzymeAddressInputTestkitFactory} from '../../testkit/enzyme';
 
 describe('AddressInput', () => {
     const createDriver = createDriverFactory(addressInputDriverFactory);
@@ -53,9 +59,10 @@ describe('AddressInput', () => {
         driver.setValue('n');
         driver.setValue('ne');
         driver.setValue('new');
-        await helper.sleep(151);
-        expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
-        expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
+        await eventually(() => {
+            expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
+            expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
+        });
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledTimes(2);
     });
 
@@ -97,6 +104,15 @@ describe('AddressInput', () => {
         driver.setValue('n');
         await waitForCond(() => driver.isContentElementExists());
         expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
+    });
+
+    it('Should return all addresses in case filterTypes is an empty array', async () => {
+        init({filterTypes: []});
+        GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+        driver.click();
+        driver.setValue('n');
+        await waitForCond(() => driver.isContentElementExists());
+        expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
     it('Should issue a geocode request once an option is chosen', async () => {
@@ -259,7 +275,7 @@ describe('AddressInput', () => {
             driver.click();
             driver.setValue('n');
             driver.keyDown('Enter');
-            await helper.sleep(200);
+            await sleep(200);
             expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
             expect(onSelectSpy).not.toHaveBeenCalled();
         });
@@ -274,7 +290,7 @@ describe('AddressInput', () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2], 1);
             driver.setValue('ne');
 
-            await helper.sleep(250);
+            await sleep(250);
             expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
         });
 
@@ -292,7 +308,7 @@ describe('AddressInput', () => {
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
 
-            await helper.sleep(250);
+            await sleep(250);
             expect(onSelectSpy).toHaveBeenCalledWith({
                 originValue: helper.ADDRESS_DESC_2,
                 googleResult: helper.GEOCODE_2,
@@ -316,7 +332,7 @@ describe('AddressInput', () => {
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
 
-            await helper.sleep(250);
+            await sleep(250);
             expect(onSelectSpy).toHaveBeenCalledWith({
                 originValue: helper.ADDRESS_DESC_2,
                 googleResult: helper.PLACE_DETAILS_2,
@@ -407,6 +423,28 @@ describe('AddressInput', () => {
             driver.setValue('n');
             await waitForCond(() => driver.isContentElementExists());
             expect(helper.getOptionsText(driver)).toEqual(['a']);
+        });
+    });
+
+    describe('testkit', () => {
+        it('should exist', () => {
+            expect(isTestkitExists(<AddressInput
+                lang="en"
+                Client={GoogleMapsClientStub}
+                apiKey=""
+                onSelect={() => null}
+            />, addressInputTestkitFactory)).toBe(true);
+        });
+    });
+
+    describe('enzyme testkit', () => {
+        it('should exist', () => {
+            expect(isEnzymeTestkitExists(<AddressInput
+                lang="en"
+                Client={GoogleMapsClientStub}
+                apiKey=""
+                onSelect={() => null}
+            />, enzymeAddressInputTestkitFactory, mount)).toBe(true);
         });
     });
 });

@@ -47,3 +47,6 @@ export const autocompleteTestkitFactory = enzymeTestkitFactoryCreator(autocomple
 
 import {sliderDriverFactory} from '../components/Slider/Slider.driver';
 export const sliderTestkitFactory = enzymeTestkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
+export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(addressInputDriverFactory);

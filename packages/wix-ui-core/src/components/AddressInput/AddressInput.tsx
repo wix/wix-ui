@@ -1,11 +1,6 @@
 import * as React from 'react';
-import map = require('lodash/map');
-import first = require('lodash/first');
-import filter = require('lodash/filter');
-import intersection = require('lodash/intersection');
-import throttle = require('lodash/throttle');
 import style from './AddressInput.st.css';
-import * as propTypes from 'prop-types';
+import {func, string, array, bool, oneOf, arrayOf, Requireable} from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
 
 import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
@@ -16,13 +11,19 @@ import {
 } from '../../clients/GoogleMaps/types';
 import {google2address, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
 
+import * as first from 'lodash.first';
+import * as map from 'lodash.map';
+import * as filter from 'lodash.filter';
+import * as intersection from 'lodash.intersection';
+import * as throttle from 'lodash.throttle';
+
 export {Handler};
 
 export interface AddressInputProps {
     /** Maps client, should implement autocomplete, geocode and placeDetails methods */
     Client: MapsClientConstructor;
     /** Handler for when an option is selected */
-    onSelect: (raw: AddressOutput) => any;
+    onSelect: (raw: AddressOutput) => void;
     /** Maps API key */
     apiKey: string;
     /** Maps language */
@@ -40,13 +41,13 @@ export interface AddressInputProps {
     /** Standard input onKeyDown callback */
     onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
     /** Standard input onFocus callback */
-    onFocus?: () => any;
+    onFocus?: () => void;
     /** Standard input onBlur callback */
-    onBlur?: () => any;
+    onBlur?: () => void;
     /** Remove previously fetched addresses upon blur */
     clearSuggestionsOnBlur?: boolean;
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-    onManualInput?: (value: string) => any;
+    onManualInput?: (value: string) => void;
     /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list)  */
     filterTypes?: Array<string>;
     /** Limit the autocomplete to specific types (see [here](https://developers.google.com/places/supported_types#table3) for list) */
@@ -69,15 +70,12 @@ export interface AddressInputState {
 function createOptionFromAddress(address) {
     return OptionFactory.create({
         id: address.place_id,
-        isDisabled: false,
-        isSelectable: true,
-        value: address.description,
-        render: () => address.description
+        value: address.description
     });
 }
 
 function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
-    return filterTypes ? filter(addresses, address => intersection(address.types, filterTypes).length > 0) : addresses;
+    return (filterTypes && filterTypes.length > 0) ? filter(addresses, address => intersection(address.types, filterTypes).length > 0) : addresses;
 }
 
 function formatAddressOutput(google: Geocode|PlaceDetails, description: string, rawInputValue: string): AddressOutput {
@@ -105,8 +103,6 @@ function createAutocompleteRequest(input: string, props: AddressInputProps) {
     return result;
 }
 
-const EMPTY_OPTION = OptionFactory.create({id: null});
-
 /**
  * AddressInput
  */
@@ -115,45 +111,45 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     static propTypes = {
         /** Maps client, should implement autocomplete, geocode and placeDetails methods */
-        Client: propTypes.func,
+        Client: func.isRequired,
         /** Handler for when an option is selected */
-        onSelect: propTypes.func,
+        onSelect: func.isRequired,
         /** Maps API key */
-        apiKey: propTypes.string,
+        apiKey: string.isRequired,
         /** Maps language */
-        lang: propTypes.string,
+        lang: string.isRequired,
         /** Address handler - geocode or places */
-        handler: propTypes.oneOf([Handler.geocode, Handler.places]),
+        handler: oneOf([Handler.geocode, Handler.places]),
         /** Limit addresses to certain country */
-        countryCode: propTypes.string,
+        countryCode: string,
         /** Placeholder to display */
-        placeHolder: propTypes.string,
+        placeHolder: string,
         /** Sets the input to readOnly */
-        readOnly: propTypes.bool,
+        readOnly: bool,
         /** Standard input onChange callback */
-        onChange: propTypes.func,
+        onChange: func,
         /** Standard input onKeyDown callback */
-        onKeyDown: propTypes.func,
+        onKeyDown: func,
         /** Standard input onFocus callback */
-        onFocus: propTypes.func,
+        onFocus: func,
         /** Standard input onBlur callback */
-        onBlur: propTypes.func,
+        onBlur: func,
         /** Remove previously fetched addresses upon blur */
-        clearSuggestionsOnBlur: propTypes.bool,
+        clearSuggestionsOnBlur: bool,
         /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-        onManualInput: propTypes.func,
+        onManualInput: func,
         /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list)  */
-        filterTypes: propTypes.arrayOf(propTypes.string),
+        filterTypes: arrayOf(string),
         /** Limit the autocomplete to specific types (see [here](https://developers.google.com/places/supported_types#table3) for list) */
-        types: propTypes.arrayOf(propTypes.string),
+        types: arrayOf(string),
         /** Inputs value */
-        value: propTypes.string,
+        value: string,
         /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
-        fallbackToManual: propTypes.bool,
+        fallbackToManual: bool,
         /** If set to true, content element will always be visible, used for preview mode */
-        forceContentElementVisibility: propTypes.bool,
+        forceContentElementVisibility: bool,
         /** Options to override default one, used for preview mode */
-        forceOptions: propTypes.array
+        forceOptions: array
     };
 
     static defaultProps = {
@@ -176,6 +172,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._getAddressOptions = throttle(this._getAddressOptions, 150);
         this._handleOnChange = this._handleOnChange.bind(this);
         this._handleOnManualInput = this._handleOnManualInput.bind(this);
+        this._onSelect = this._onSelect.bind(this);
+        this._handleOnBlur = this._handleOnBlur.bind(this);
         this.currentAddressRequest = Promise.resolve();
     }
 
@@ -218,15 +216,18 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         }
     }
 
-    _onSelect(option: Option, rawInputValue: string) {
+    _onSelect(option: Option|null) {
         const {handler} = this.props;
+        const {inputValue} = this.state;
 
-        if (!option.id && !rawInputValue) {
+        if (!option && !inputValue) {
             this.props.onSelect(null);
-        } else if (handler === Handler.geocode || !option.id) {
-            this._getGeocode(option.id, option.value, rawInputValue);
+        } else if (!option) {
+            this._getGeocode(null, null, inputValue);
+        } else if (handler === Handler.geocode && option) {
+            this._getGeocode(option.id, option.value, inputValue);
         } else if (handler === Handler.places) {
-            this._getPlaceDetails(option.id, option.value, rawInputValue);
+            this._getPlaceDetails(option.id, option.value, inputValue);
         }
     }
 
@@ -234,9 +235,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const {onChange} = this.props;
         const {value} = e.target;
 
-        if (typeof onChange === 'function') {
-            this.props.onChange(e);
-        }
+        onChange && onChange(e);
 
         this.setState({inputValue: value});
 
@@ -249,28 +248,34 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async _handleOnManualInput(value: string) {
         const {onManualInput, fallbackToManual} = this.props;
-        if (typeof onManualInput === 'function') {
-            onManualInput(value);
-        }
+        onManualInput && onManualInput(value);
 
         await this.currentAddressRequest;
 
         if (fallbackToManual && this.state.options.length === 0) {
-            this._onSelect(EMPTY_OPTION, this.state.inputValue);
+            this._onSelect(null);
+        }
+    }
+
+    _handleOnBlur() {
+        const {onBlur, clearSuggestionsOnBlur} = this.props;
+        onBlur && onBlur();
+        if (clearSuggestionsOnBlur) {
+            this.setState({options: []});
         }
     }
 
     render() {
-        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility} = this.props;
-        const options = this.props.forceOptions || this.state.options;
+        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, forceOptions, readOnly} = this.props;
+        const options = forceOptions || this.state.options;
 
         const inputProps = {
             onChange: this._handleOnChange,
-            onKeyDown: (e) => { onKeyDown && onKeyDown(e); },
-            onFocus: () => { onFocus && onFocus(); },
-            onBlur: () => { onBlur && onBlur(); clearSuggestionsOnBlur && this.setState({options: []}); },
+            onKeyDown,
+            onFocus,
+            onBlur: this._handleOnBlur,
             placeholder: placeHolder,
-            disabled: this.props.readOnly,
+            disabled: readOnly,
             value
         };
 
@@ -279,7 +284,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
         return <InputWithOptions
             {...style('root', states, this.props)}
-            onSelect={(option) => this._onSelect(option, this.state.inputValue)}
+            onSelect={this._onSelect}
             options={options}
             inputProps={inputProps}
             onManualInput={this._handleOnManualInput}
