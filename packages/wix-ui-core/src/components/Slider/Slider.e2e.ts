@@ -17,7 +17,7 @@ describe('Slider', () => {
   it('should change the slider value by clicking the track', async () => {
     createDriver();
     driver.clickTrack({x: 200});
-    await assertTooltipValueApproximately(2.3);
+    await assertTooltipValueApproximately(1.3);
   });
 
   it('should move the thumb by dragging it', async () => {

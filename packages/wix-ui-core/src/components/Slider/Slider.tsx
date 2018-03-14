@@ -9,11 +9,10 @@ export interface SliderProps {
   min?: number;
   max?: number;
   value?: number;
-  onChange?: (any) => void;
-  onBlur?: (any) => void;
-  onFocus?: (any) => void;
+  onChange?: (x: any) => void;
+  onBlur?: (x: any) => void;
+  onFocus?: (x: any) => void;
   vertical?: boolean;
-  thumbSize?: number;
   step?: number;
   stepType?: 'value' | 'count';
   tooltipPosition?: 'default' | 'across';
@@ -54,8 +53,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     onBlur: func,
     /** Vertical layout */
     vertical: bool,
-    /** Size of the slider thumb */
-    thumbSize: number,
     /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
     step: number,
     /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
@@ -81,10 +78,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   };
 
   static defaultProps = {
+    min: 0,
+    max: 10,
+    value: 5,
     stepType: 'value',
-    mouseDown: false, //we need both mouseDown and dragging, because just clicking the track shouldn't toggle the tooltip
-    dragging: false,
-    thumbHover: false,
     thumbShape: 'circle',
     disabled: false,
     tooltipVisibility: 'hover',

@@ -9,7 +9,6 @@ import {InputWithOptions} from '../src/baseComponents/InputWithOptions';
 import {OptionFactory} from '../src/baseComponents/DropdownOption';
 import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-story';
 import {CheckboxStory} from './Checkbox/Checkbox-story';
-import {SliderStory} from './Slider/Slider-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
@@ -24,6 +23,7 @@ require('./StylableText').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
+require('./Slider').story();
 require('./StylableToggleSwitch/index.story.ts');
 
 storiesOf('Components', module)
@@ -78,9 +78,6 @@ storiesOf('Components', module)
   ))
   .add('Checkbox', () => (
     <CheckboxStory />
-  ))
-  .add('Slider', () => (
-    <SliderStory/>
   ))
   .add('Tooltip Custom', () => (
     <TooltipStory />
