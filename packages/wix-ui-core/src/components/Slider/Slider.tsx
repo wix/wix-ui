@@ -75,8 +75,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     disabled: bool,
     /** Determines whether values go from right to left in a horizontal position */
     dir: oneOf(['rtl', 'ltr']),
-    /** A custom data-hook */
-    'data-hook': string
   };
 
   static defaultProps = {
@@ -91,8 +89,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipPrefix: '',
     tooltipSuffix: '',
     tickMarksPosition: 'default',
-    dir: 'ltr',
-    'data-hook': 'wixui-slider'
+    dir: 'ltr'
   };
 
   constructor(props) {
