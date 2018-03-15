@@ -1,7 +1,7 @@
 import * as waitForCond from 'wait-for-cond';
 import {createAddress, createGeocode, createPlaceDetails} from './GoogleMapsClientStub';
-import {first} from 'lodash';
 import {Address, Geocode, PlaceDetails} from '../../clients/GoogleMaps/types';
+const first = require('lodash/first');
 
 export const API_KEY = 'api-key';
 export const ADDRESS_DESC_1 = '1 East Broadway, New York, NY, USA';

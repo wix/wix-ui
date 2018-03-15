@@ -1,8 +1,8 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
 import {bool, func, object, string} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
+const uniqueId = require('lodash/uniqueId');
 
 export type ToggleSwitchClasses = {
   root: string;

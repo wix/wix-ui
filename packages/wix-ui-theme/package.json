@@ -33,21 +33,22 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
   "devDependencies": {
     "@types/jest": "^22.1.1",
+    "@types/lodash": "^4.14.104",
     "@types/react": "^15.6.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "haste-preset-yoshi": "latest",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^22.0.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "typescript": "^2.4.0",
     "wix-ui-test-utils": "^1.0.0"
-  },
-  "dependencies": {
-    "lodash": "^4.17.5",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
   },
   "jest": {
     "transform": {
@@ -70,33 +71,5 @@
   },
   "haste": {
     "preset": "yoshi"
-  },
-  "yoshi": {
-    "features": {
-      "externalizeRelativeLodash": true
-    },
-    "externals": {
-      "react": {
-        "amd": "react",
-        "umd": "react",
-        "commonjs": "react",
-        "commonjs2": "react",
-        "root": "React"
-      },
-      "react-dom": {
-        "amd": "reactDOM",
-        "umd": "react-dom",
-        "commonjs": "react-dom",
-        "commonjs2": "react-dom",
-        "root": "ReactDOM"
-      },
-      "lodash": {
-        "amd": "lodash",
-        "umd": "lodash",
-        "commonjs": "lodash",
-        "commonjs2": "lodash",
-        "root": "_"
-      }
-    }
   }
 }

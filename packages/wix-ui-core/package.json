@@ -33,16 +33,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
-    "lodash.defaultsdeep": "^4.0.0",
-    "lodash.filter": "^4.6.0",
-    "lodash.first": "^3.0.0",
-    "lodash.includes": "^4.3.0",
-    "lodash.intersection": "^4.4.0",
-    "lodash.isundefined": "^3.0.0",
-    "lodash.map": "^4.6.0",
-    "lodash.throttle": "^4.1.1",
-    "lodash.times": "^4.0.0",
-    "lodash.uniqueid": "^4.0.0",
+    "lodash": "^4.17.5",
     "playable": "^1.2.0",
     "popper.js": "1.12",
     "react-onclickoutside": "^6.7.0",
@@ -57,10 +48,7 @@
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
-    "@types/lodash.defaultsdeep": "^4.6.3",
-    "@types/lodash.isundefined": "^3.0.3",
-    "@types/lodash.times": "^4.3.3",
-    "@types/lodash.uniqueid": "^4.0.3",
+    "@types/lodash": "^4.14.104",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^15.6.12",
     "@types/react-onclickoutside": "^6.0.2",
@@ -88,12 +76,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "yoshi": {
-    "exports": {
-      "root": "wix-ui-core",
-      "commonjs": "wix-ui-core"
-    }
-  },
   "jest": {
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
@@ -119,5 +101,11 @@
   },
   "haste": {
     "preset": "yoshi"
+  },
+  "yoshi": {
+    "exports": {
+      "root": "wix-ui-core",
+      "commonjs": "wix-ui-core"
+    }
   }
 }

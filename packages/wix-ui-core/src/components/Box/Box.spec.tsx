@@ -1,9 +1,9 @@
 import * as React from 'react';
-import times = require('lodash.times');
 import {mount} from 'enzyme';
 import {boxDriverFactory} from './Box.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Box} from './';
+const times = require('lodash/times');
 
 describe('Box', () => {
   let wrapper;
