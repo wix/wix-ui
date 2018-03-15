@@ -3,7 +3,6 @@ import style from './VBox.st.css';
 
 export interface VBoxProps {
   children?: React.ReactNode;
-  className?: string;
   horizontalAlignment?: 'left' | 'center' | 'right';
   spacing?: number;
 }
@@ -36,5 +35,5 @@ const addSpacing = (children, spacing) => {
  */
 export const VBox: React.SFC<VBoxProps> = props => {
   const {horizontalAlignment, spacing} = props;
-  return <div className={props.className} {...style('root', {horizontalAlignment})}>{addSpacing(props.children, spacing)}</div>;
+  return <div {...style('root', {horizontalAlignment})}>{addSpacing(props.children, spacing)}</div>;
 };

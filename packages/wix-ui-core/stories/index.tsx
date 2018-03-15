@@ -85,4 +85,7 @@ storiesOf('Components', module)
   ))
   .add('RadioButton', () => (
     <RadioButtonStory />
+  ))
+  .add('VBox', () => (
+    <VBoxStory />
   ));
