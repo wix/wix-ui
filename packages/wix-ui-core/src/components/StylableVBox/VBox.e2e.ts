@@ -10,8 +10,7 @@ describe('VBox', () => {
   eyes.it('should display correct content', () => {
     const dataHook = 'storybook-vbox';
     const driver = vboxTestkitFactory({dataHook});
-    console.log('driver', driver.element());
-    return waitForVisibilityOf(driver.element(), 'Cannot find VBox')
-      .then(() => expect(driver.getChildren()[1].html()).toBe('<div>hello</div>'));
+
+    return waitForVisibilityOf(driver.element(), 'Cannot find VBox');
   });
 });

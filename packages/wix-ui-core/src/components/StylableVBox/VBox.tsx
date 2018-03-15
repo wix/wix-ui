@@ -35,5 +35,5 @@ const addSpacing = (children, spacing) => {
  */
 export const VBox: React.SFC<VBoxProps> = props => {
   const {horizontalAlignment, spacing} = props;
-  return <div {...style('root', {horizontalAlignment})}>{addSpacing(props.children, spacing)}</div>;
+  return <div {...style('root', {horizontalAlignment}, props)}>{addSpacing(props.children, spacing)}</div>;
 };
