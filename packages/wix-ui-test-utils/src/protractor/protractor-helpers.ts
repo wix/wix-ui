@@ -15,14 +15,8 @@ export const getStoryUrl = (
 ): string =>
   `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}`;
 
-export const scrollToElement = (element: ElementArrayFinder) =>
-  browser.executeScript(
-    (el: HTMLElement)  => {
-      const offset = el.offsetTop;
-      window.scroll(0, offset);
-    },
-    element.getWebElement()
-  );
+export const scrollToElement = (element: ElementFinder) =>
+  browser.executeScript('arguments[0].scrollIntoView(true)', element.getWebElement());
 
 export const waitForVisibilityOf = (
   elements: Array<ElementFinder> | ElementFinder,
