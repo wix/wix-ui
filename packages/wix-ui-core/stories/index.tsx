@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Text} from '../src/components/Text';
-import {Box} from '../src/components/Box';
 import {PaginationStory} from './Pagination/pagination-story';
 import {DividerStory} from './Divider/divider-story';
 import {ToggleSwitchStory} from './ToggleSwitch/ToggleSwitch-story';
@@ -34,38 +33,6 @@ storiesOf('Components', module)
     <Text ellipsis>
       Hello World
     </Text>
-  ))
-  .add('Box', () => (
-    <div>
-      <Box vertical>
-        <div>v</div>
-        <div>e</div>
-        <div>r</div>
-        <div>t</div>
-        <div>i</div>
-        <div>c</div>
-        <div>a</div>
-        <div>l</div>
-      </Box>
-      <hr/>
-      <Box>
-        <div>h</div>
-        <div>o</div>
-        <div>r</div>
-        <div>i</div>
-        <div>z</div>
-        <div>o</div>
-        <div>n</div>
-        <div>t</div>
-        <div>a</div>
-        <div>l</div>
-      </Box>
-      <hr/>
-      <Box lastItemTakesRemainingWidth>
-        <div>label (input should take remaining width)</div>
-        <input/>
-      </Box>
-    </div>
   ))
   .add('Pagination', () => (
     <PaginationStory/>
