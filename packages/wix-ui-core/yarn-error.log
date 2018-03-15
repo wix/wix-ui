@@ -1,0 +1,160 @@
+Arguments: 
+  /usr/local/Cellar/node/9.7.1_1/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.7.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "private": false,
+    "name": "wix-ui-core",
+    "description": "wix-ui-core",
+    "version": "1.0.0",
+    "author": {
+      "name": "Wix",
+      "email": "fed-infra@wix.com"
+    },
+    "files": [
+      "dist",
+      "*.js",
+      "*.d.ts",
+      "!wallaby.js",
+      "!protractor.conf.js",
+      "index.st.css"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/wix/wix-ui.git"
+    },
+    "scripts": {
+      "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist/src\" --diagnostics",
+      "pretest": "npm run build && build-storybook",
+      "test": "haste test --jest && npm run test:e2e",
+      "posttest": "haste lint",
+      "test:watch": "haste test --jest --watch",
+      "test:e2e": "haste test --protractor",
+      "start": "haste start --no-test & npm run storybook",
+      "release": "haste release && gh-pages-auto-release --dist=storybook-static",
+      "storybook": "start-storybook -p 6006"
+    },
+    "dependencies": {
+      "classnames": "^2.2.5",
+      "hoist-non-react-methods": "^1.1.0",
+      "lodash.defaultsdeep": "^4.0.0",
+      "lodash.filter": "^4.6.0",
+      "lodash.first": "^3.0.0",
+      "lodash.includes": "^4.3.0",
+      "lodash.intersection": "^4.4.0",
+      "lodash.isundefined": "^3.0.0",
+      "lodash.map": "^4.6.0",
+      "lodash.throttle": "^4.1.1",
+      "lodash.times": "^4.0.0",
+      "lodash.uniqueid": "^4.0.0",
+      "playable": "^1.2.0",
+      "popper.js": "1.12",
+      "react-onclickoutside": "^6.7.0",
+      "react-popper": "^0.8.0",
+      "react-transition-group": "^2.2.1",
+      "wix-ui-jss": "^1.0.0",
+      "wix-ui-test-utils": "^1.0.0"
+    },
+    "devDependencies": {
+      "@storybook/addon-options": "^3.3.7",
+      "@storybook/react": "^3.3.7",
+      "@types/classnames": "^2.2.3",
+      "@types/enzyme": "^3.1.9",
+      "@types/jest": "^22.1.1",
+      "@types/lodash.defaultsdeep": "^4.6.3",
+      "@types/lodash.isundefined": "^3.0.3",
+      "@types/lodash.times": "^4.3.3",
+      "@types/lodash.uniqueid": "^4.0.3",
+      "@types/prop-types": "^15.5.2",
+      "@types/react": "^15.6.12",
+      "@types/react-onclickoutside": "^6.0.2",
+      "@types/react-transition-group": "^2.0.6",
+      "enzyme": "^3.0.0",
+      "enzyme-adapter-react-15": "^1.0.5",
+      "eyes.it": "latest",
+      "gh-pages-auto-release": "latest",
+      "haste-preset-yoshi": "latest",
+      "import-path": "latest",
+      "prop-types": "^15.6.0",
+      "protractor": "^5.3.0",
+      "react": "^15.5.0",
+      "react-dom": "^15.5.0",
+      "react-test-renderer": "^15.5.4",
+      "stylable": "latest",
+      "stylable-integration": "latest",
+      "ts-jest": "^22.0.3",
+      "typescript": "^2.6.2",
+      "wait-for-cond": "^1.5.1",
+      "wix-eventually": "latest",
+      "wix-storybook-utils": "^1.0.0"
+    },
+    "license": "MIT",
+    "publishConfig": {
+      "registry": "https://registry.npmjs.org/"
+    },
+    "yoshi": {
+      "exports": {
+        "root": "wix-ui-core",
+        "commonjs": "wix-ui-core"
+      }
+    },
+    "jest": {
+      "transform": {
+        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      },
+      "moduleNameMapper": {
+        "\\.(st.css)$": "wix-ui-test-utils/stylable-proxy"
+      },
+      "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
+      "setupFiles": [
+        "<rootDir>/test/enzyme-setup",
+        "<rootDir>/test/polyfill"
+      ],
+      "moduleFileExtensions": [
+        "ts",
+        "tsx",
+        "js"
+      ],
+      "testPathIgnorePatterns": [
+        "<rootDir>/dist/",
+        "<rootDir>/node_modules/"
+      ],
+      "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
+    },
+    "haste": {
+      "preset": "yoshi"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 1
+  Command: sh
+  Arguments: -c haste test --jest && npm run test:e2e
+  Directory: /Users/kieran/Documents/core3/wix-ui/packages/wix-ui-core
+  Output:
+  
+      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:30281:17)
+      at ChildProcess.emit (events.js:127:13)
+      at maybeClose (internal/child_process.js:936:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:220:5)

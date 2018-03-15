@@ -43,3 +43,6 @@ export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriver
 
 import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.protractor.driver';
 export const addressInputTestkitFactory = protractorTestkitFactoryCreator(addressInputDriverFactory);
+
+import {vboxDriverFactory} from '../components/StylableVBox/VBox.protractor.driver';
+export const vboxTestkitFactory = protractorTestkitFactoryCreator(vboxDriverFactory);

@@ -9,6 +9,7 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
+import {VBoxStory} from './VBox/VBox-story';
 
 require('./InputWithOptions').story();
 require('./AddressInput').story();
