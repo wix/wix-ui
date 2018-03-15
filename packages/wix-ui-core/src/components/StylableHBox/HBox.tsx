@@ -13,6 +13,10 @@ const addSpacing = (children, spacing) => {
     return null;
   }
 
+  if (!spacing) {
+    return children;
+  }
+
   const spacedChildren = [];
   for (let i = 0; i < children.length - 1; i++) {
     spacedChildren.push(
@@ -32,5 +36,5 @@ const addSpacing = (children, spacing) => {
  */
 export const HBox: React.SFC<HBoxProps> = props => {
   const {verticalAlignment, spacing} = props;
-  return <div className={props.className} {...style('root', {verticalAlignment})}>{addSpacing(props.children, spacing)}</div>;
+  return <div className={props.className} {...style('root', {verticalAlignment}, props)}>{addSpacing(props.children, spacing)}</div>;
 };
