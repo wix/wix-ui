@@ -11,6 +11,7 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
+import {HBoxStory} from './HBox/HBox-story';
 
 require('./InputWithOptions').story();
 require('./Autocomplete').story();
@@ -24,6 +25,7 @@ require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
 require('./StylableToggleSwitch/index.story.ts');
+require('./StylableHBox/index.story.ts');
 
 storiesOf('Components', module)
   .add('ToggleSwitch', () => (
@@ -83,4 +85,7 @@ storiesOf('Components', module)
   ))
   .add('RadioButton', () => (
     <RadioButtonStory />
+  ))
+  .add('HBox', () => (
+    <HBoxStory />
   ));
