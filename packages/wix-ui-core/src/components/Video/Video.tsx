@@ -171,12 +171,18 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
         ref={el => this.containerRef = el}
         id={id}
         {...styles('root', {}, this.props)}>
-        {!this.state.hasBeenPlayed && <div className={styles.cover} style={coverStyles} onClick={this._play}>
-          <div className={styles.overlay}>
-            {title && <div title={title} className={styles.title}>{title}</div>}
-            <button type="button" className={styles.playButton}>{playButtonIcon}</button>
+        {!this.state.hasBeenPlayed && (
+          <div
+            className={styles.cover}
+            style={coverStyles}
+            onClick={this._play}
+            data-hook="cover">
+            <div className={styles.overlay}>
+              {title && <div data-hook="title" title={title} className={styles.title}>{title}</div>}
+              <button type="button" className={styles.playButton}>{playButtonIcon}</button>
+            </div>
           </div>
-        </div>}
+        )}
       </div>
     );
   }

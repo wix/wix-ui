@@ -86,4 +86,18 @@ describe('Video', () => {
         expect(driver.isMuted()).toBe(true);
       });
     });
+
+    describe('cover', () => {
+      it('should be present', () => {
+        const driver = createDriver(<Video poster="https://example.com/image.png"/>);
+        expect(driver.hasCover()).toBe(true);
+      });
+    });
+
+    describe('title', () => {
+      it('should be present', () => {
+        const driver = createDriver(<Video title="Awesome"/>);
+        expect(driver.getTitle()).toBe('Awesome');
+      });
+    });
 });
