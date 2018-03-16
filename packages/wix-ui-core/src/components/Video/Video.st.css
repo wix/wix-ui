@@ -1,0 +1,36 @@
+.root {
+    position: relative;
+    z-index: 0;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 101;
+    background: #000;
+    cursor: pointer;
+}
+
+.overlay {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.title {
+    margin: 0 15px 15px;
+    font: 20px sans-serif;
+    text-align: center;
+    color: #fff;
+}
+
+.playButton {
+    display: block;
+    width: 34px;
+}

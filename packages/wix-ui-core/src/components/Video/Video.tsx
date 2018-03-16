@@ -1,8 +1,11 @@
 import * as React from 'react';
-import {string, number, func, bool, array, oneOfType, Requireable} from 'prop-types';
+import {string, number, func, object, bool, array, oneOfType, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
+import styles from './Video.st.css';
+import {playButtonIcon} from './playButtonIcon';
 
 export interface VideoProps {
+  id?: string;
   src?: string | Array<string>;
   width?: number;
   height?: number;
@@ -16,7 +19,9 @@ export interface VideoProps {
   playableRef?: Function;
 }
 
-export interface VideoState {}
+export interface VideoState {
+  hasBeenPlayed: boolean;
+}
 
 const noop = () => null;
 
@@ -25,7 +30,6 @@ const mapPropsToMethods = {
   width: 'setWidth',
   height: 'setHeight',
   title: 'setTitle',
-  poster: 'setPoster',
   playing: (instance, player, nextPlaying) => {
     if (!instance.props.playing && nextPlaying && !instance._isPlaying()) {
       player.play();
@@ -50,6 +54,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   player: any;
 
   static propTypes = {
+    id: string,
     /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */
     src: oneOfType([
       string,
@@ -86,6 +91,11 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      hasBeenPlayed: false,
+    };
+
     this.player = create({
       src: props.src,
       autoPlay: !!props.playing,
@@ -97,15 +107,9 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
       title: {
         text: props.title
       },
-      overlay: {
-        poster: props.poster,
-      },
+      overlay: false,
     });
     props.playableRef(this.player);
-  }
-
-  _isPlaying() {
-    return this.player.getCurrentPlaybackState() === ENGINE_STATES.PLAYING;
   }
 
   componentDidMount() {
@@ -113,12 +117,14 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
     this.player.on(VIDEO_EVENTS.STATE_CHANGED, ({nextState}) => {
       if (nextState === ENGINE_STATES.PLAYING) {
+        this.setState({hasBeenPlayed: true});
         this.props.onPlay();
       }
       if (nextState === ENGINE_STATES.PAUSED) {
         this.props.onPause();
       }
       if (nextState === ENGINE_STATES.ENDED) {
+        this.setState({hasBeenPlayed: false});
         this.props.onEnd();
       }
     });
@@ -146,9 +152,32 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     this.player.destroy();
   }
 
+  _isPlaying() {
+    return this.player.getCurrentPlaybackState() === ENGINE_STATES.PLAYING;
+  }
+
+  _play = (): void => {
+    this.player.play();
+  }
+
   render() {
+    const {id, title, poster} = this.props;
+    const coverStyles = {
+      backgroundImage: poster ? `url(${poster})` : 'none'
+    };
+
     return (
-      <div ref={el => this.containerRef = el}></div>
+      <div
+        ref={el => this.containerRef = el}
+        id={id}
+        {...styles('root', {}, this.props)}>
+        {!this.state.hasBeenPlayed && <div className={styles.cover} style={coverStyles} onClick={this._play}>
+          <div className={styles.overlay}>
+            {title && <div className={styles.title}>{title}</div>}
+            <div className={styles.playButton}>{playButtonIcon}</div>
+          </div>
+        </div>}
+      </div>
     );
   }
 }
