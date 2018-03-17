@@ -10,6 +10,9 @@ export interface VideoProps {
   width?: number;
   height?: number;
   title?: string;
+  fillAllSpace?: boolean;
+  loop?: boolean;
+  volume?: number;
   poster?: string;
   playing?: boolean;
   muted?: boolean;
@@ -30,6 +33,9 @@ const mapPropsToMethods = {
   width: 'setWidth',
   height: 'setHeight',
   title: 'setTitle',
+  fillAllSpace: 'setFillAllSpace',
+  loop: 'setLoop',
+  volume: 'setVolume',
   playing: (instance, player, nextPlaying) => {
     if (!instance.props.playing && nextPlaying && !instance._isPlaying()) {
       player.play();
@@ -66,6 +72,12 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     height: number,
     /** String that would be shown as title of video. */
     title: string,
+    /** Pass `true` to alow player fill all space of it container. */
+    fillAllSpace: bool,
+    /** Loop video playback. */
+    loop: bool,
+    /** Start value of volume for audio, `0..100`. */
+    volume: number,
     /** URL to image that would be used as poster on overlay */
     poster: string,
     /** Set to `true` or `false` to pause or play the media */
@@ -107,7 +119,10 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
       title: {
         text: props.title
       },
-      overlay: false,
+      fillAllSpace: props.fillAllSpace,
+      loop: props.loop,
+      volume: props.volume,
+      overlay: false
     });
     props.playableRef(this.player);
   }
@@ -152,7 +167,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     this.player.destroy();
   }
 
-  _isPlaying() {
+  _isPlaying(): boolean {
     return this.player.getCurrentPlaybackState() === ENGINE_STATES.PLAYING;
   }
 
@@ -161,7 +176,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   render() {
-    const {id, title, poster} = this.props;
+    const {id, title, poster, width, height} = this.props;
     const coverStyles = {
       backgroundImage: poster ? `url(${poster})` : 'none'
     };
@@ -170,6 +185,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
       <div
         ref={el => this.containerRef = el}
         id={id}
+        style={{width, height}}
         {...styles('root', {}, this.props)}>
         {!this.state.hasBeenPlayed && (
           <div
