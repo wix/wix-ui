@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
-const omit = require('lodash.omit');
+const omit = require('lodash/omit');
 import {Input, InputProps} from '../Input';
 import style from '../Input/Input.st.css';
 import {
