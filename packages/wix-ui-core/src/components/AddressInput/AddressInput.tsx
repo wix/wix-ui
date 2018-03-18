@@ -33,7 +33,7 @@ export interface AddressInputProps {
     /** Limit addresses to certain country */
     countryCode?: string;
     /** Placeholder to display */
-    placeHolder?: string;
+    placeholder?: string;
     /** Sets the input to readOnly */
     readOnly?: boolean;
     /** Standard input onChange callback */
@@ -123,7 +123,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Limit addresses to certain country */
         countryCode: string,
         /** Placeholder to display */
-        placeHolder: string,
+        placeholder: string,
         /** Sets the input to readOnly */
         readOnly: bool,
         /** Standard input onChange callback */
@@ -266,7 +266,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeHolder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, forceOptions, readOnly} = this.props;
+        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, forceOptions, readOnly} = this.props;
         const options = forceOptions || this.state.options;
 
         const inputProps = {
@@ -274,7 +274,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onKeyDown,
             onFocus,
             onBlur: this._handleOnBlur,
-            placeholder: placeHolder,
+            placeholder,
             disabled: readOnly,
             value
         };

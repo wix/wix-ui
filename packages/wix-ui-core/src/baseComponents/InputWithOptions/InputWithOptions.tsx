@@ -177,6 +177,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         closeOnSelect={closeOnSelect}
         forceContentElementVisibility={forceContentElementVisibility}>
         <Input
+          data-hook="input"
           {...inputProps}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}

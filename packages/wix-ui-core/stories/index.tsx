@@ -17,7 +17,6 @@ require('./Badge').story();
 require('./Button').story();
 require('./Input.story.js');
 require('./IconWithOptions').story();
-require('./InputWithAffixes').story();
 require('./StylableText').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
