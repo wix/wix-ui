@@ -6,7 +6,6 @@ export interface InputProps {
   className?: string;
   error?: boolean;
   prefix?: JSX.Element;
-  style?: React.CSSProperties;
   suffix?: JSX.Element;
 
   // Props passed down to the native input, add more as needed.
@@ -38,8 +37,6 @@ export class Input extends React.Component<InputProps, InputState> {
   static propTypes = {
     /** Wrapper class name */
     className: PropTypes.string,
-    /** Wrapper style */
-    style: PropTypes.object,
     /** Error state */
     error: PropTypes.bool,
     /** Prefix */
@@ -74,7 +71,7 @@ export class Input extends React.Component<InputProps, InputState> {
         <input
           ref={input => this.input = input}
           autoComplete={this.props.autoComplete}
-          autoFocus={true}
+          autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
           onBlur={this.handleBlur}
           onChange={this.props.onChange}
