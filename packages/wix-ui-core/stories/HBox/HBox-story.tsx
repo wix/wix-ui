@@ -44,7 +44,7 @@ export class HBoxStory extends React.Component<{}, {}> {
           <HBox
             {...commonStyle('root') }
             verticalAlignment="top"
-            spacing={200}
+            spacing={20}
           >
             <div style={{height: '50px', width: '50px', backgroundColor: 'lightgrey'}}>hello</div>
             <div style={{height: '50px', width: '50px', backgroundColor: 'lightgrey'}}>hello</div>
