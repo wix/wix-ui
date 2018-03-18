@@ -42,7 +42,23 @@ export class Input extends React.Component<InputProps, InputState> {
     /** Prefix */
     prefix: PropTypes.node,
     /** Suffix */
-    suffix: PropTypes.node
+    suffix: PropTypes.node,
+
+    autoComplete: PropTypes.oneOf(['on', 'off']),
+    autoFocus: PropTypes.bool,
+    disabled: PropTypes.bool,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onKeyPress: PropTypes.func,
+    onKeyUp: PropTypes.func,
+    placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    tabIndex: PropTypes.number,
+    type: PropTypes.string,
+    value: PropTypes.string
   };
 
   static defaultProps: InputProps = {
