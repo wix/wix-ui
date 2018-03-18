@@ -3,7 +3,6 @@ import style from './HBox.st.css';
 
 export interface HBoxProps {
   children?: React.ReactNode;
-  className?: string;
   verticalAlignment?: 'top' | 'center' | 'bottom';
   spacing?: number;
 }
@@ -36,5 +35,5 @@ const addSpacing = (children, spacing) => {
  */
 export const HBox: React.SFC<HBoxProps> = props => {
   const {verticalAlignment, spacing} = props;
-  return <div className={props.className} {...style('root', {verticalAlignment}, props)}>{addSpacing(props.children, spacing)}</div>;
+  return <div {...style('root', {verticalAlignment}, props)}>{addSpacing(props.children, spacing)}</div>;
 };
