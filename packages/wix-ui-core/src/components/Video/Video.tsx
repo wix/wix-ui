@@ -183,11 +183,11 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
     return (
       <div
-        ref={el => this.containerRef = el}
         id={id}
         style={{width, height}}
         {...styles('root', {}, this.props)}>
-        {!this.state.hasBeenPlayed && (
+        <div ref={el => this.containerRef = el}></div>
+        {!this.state.hasBeenPlayed && poster && (
           <div
             className={styles.cover}
             style={coverStyles}

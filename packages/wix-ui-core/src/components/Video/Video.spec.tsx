@@ -96,7 +96,7 @@ describe('Video', () => {
 
     describe('title', () => {
       it('should be present', () => {
-        const driver = createDriver(<Video title="Awesome"/>);
+        const driver = createDriver(<Video title="Awesome" poster="https://example.com/image.png"/>);
         expect(driver.getTitle()).toBe('Awesome');
       });
     });
