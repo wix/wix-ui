@@ -4,12 +4,8 @@
 }
 
 :vars {
-  rootWidth: initial;
-  rootHeight: initial;
 }
 
 .root {
   -st-extends: HBox;
-  width: value(rootWidth);
-  height: value(rootHeight);
 }
