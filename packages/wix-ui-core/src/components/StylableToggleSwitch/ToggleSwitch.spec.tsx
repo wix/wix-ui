@@ -81,6 +81,16 @@ describe('ToggleSwitch', () => {
       const driver = createDriver(<ToggleSwitch tabIndex={7} />);
       expect(driver.getTabIndex()).toBe(7);
     });
+
+    it('should have dir=ltr by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getDir()).toBe('ltr');
+    });
+
+    it('should apply user specified dir', () => {
+      const driver = createDriver(<ToggleSwitch dir="rtl" />);
+      expect(driver.getDir()).toBe('rtl');
+    });
   });
 
   describe('icons', () => {

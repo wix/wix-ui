@@ -63,3 +63,11 @@
 .root:checked::knob {
   transform: translateX(calc(value(knobMovementRange) / 2));
 }
+
+.root:dir(rtl)::knob {
+  transform: translateX(calc(value(knobMovementRange) / 2));
+}
+
+.root:dir(rtl):checked::knob {
+  transform: translateX(calc(value(knobMovementRange) / -2));
+}

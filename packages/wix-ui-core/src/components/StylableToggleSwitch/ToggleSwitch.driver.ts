@@ -29,6 +29,8 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     getId: () => checkbox.id,
     /** Returns the tab index */
     getTabIndex: () => checkbox.tabIndex,
+    /* Returns the dir attribute */
+    getDir: () => element.getAttribute('dir'),
     /** Returns the computed styles object of the root component */
     getRootStyles: () => window.getComputedStyle(element),
     /** Returns the computed styles object of the track */
