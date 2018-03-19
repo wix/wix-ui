@@ -120,7 +120,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       option.isSelectable && option.value ? OptionFactory.createHighlighted(option, inputProps.value) : option);
   }
 
-  _onSelect(option: Option) {
+  _onSelect(option: Option | null) {
     const {onSelect, onManualInput, inputProps} = this.props;
     if (option) {
       onSelect(option);

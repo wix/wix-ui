@@ -37,9 +37,9 @@ export interface AddressInputProps {
     /** Sets the input to readOnly */
     readOnly?: boolean;
     /** Standard input onChange callback */
-    onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
     /** Standard input onKeyDown callback */
-    onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLInputElement>>;
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
     /** Standard input onFocus callback */
     onFocus?: () => void;
     /** Standard input onBlur callback */

@@ -27,8 +27,8 @@ export interface InputProps {
   tabIndex?: number;
   type?: string;
   value?: string;
-}
 
+<<<<<<< HEAD
 export interface InputState {
   focus: boolean;
 }
@@ -67,6 +67,34 @@ export class Input extends React.Component<InputProps, InputState> {
     onBlur: () => null,
     onChange: () => null
   };
+=======
+  id?: string;
+}
+
+/**
+ * Input
+ */
+export class Input extends React.Component<InputProps> {
+  static displayName = 'Input';
+
+  private inputRef: HTMLInputElement;
+
+  static defaultProps = {
+    type: 'text',
+    id: ''
+  };
+
+  constructor(props) {
+    super(props);
+    this._onChange = this._onChange.bind(this);
+    this.focus = this.focus.bind(this);
+    this.blur = this.blur.bind(this);
+    this.select = this.select.bind(this);
+  }
+
+  _onChange(e) {
+    const {type, disabled, readOnly} = this.props;
+>>>>>>> master
 
   state: InputState = {
     focus: false,
@@ -116,8 +144,59 @@ export class Input extends React.Component<InputProps, InputState> {
     this.props.onFocus(event);
   }
 
+<<<<<<< HEAD
   private handleBlur: React.FocusEventHandler<HTMLElement> = event => {
     this.setState({focus: false});
     this.props.onBlur(event);
+=======
+  render() {
+    const {
+      disabled,
+      autoComplete,
+      autoFocus,
+      name,
+      onBlur,
+      onFocus,
+      onClick,
+      onDoubleClick,
+      onKeyDown,
+      onKeyUp,
+      placeholder,
+      readOnly,
+      required,
+      tabIndex,
+      type,
+      value,
+      id
+    } = this.props;
+
+    const ariaAttributes = createAriaAttributes(this.props);
+
+    return (
+      <input
+        ref = {ref => this.inputRef = ref}
+        {...style('root', {disabled}, this.props)}
+        disabled={disabled}
+        autoComplete={autoComplete}
+        autoFocus={autoFocus}
+        id={id}
+        name={name}
+        onChange={this._onChange}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        required={required}
+        tabIndex={tabIndex}
+        type={type}
+        value={value}
+        {...ariaAttributes}
+      />
+    );
+>>>>>>> master
   }
 }
