@@ -100,4 +100,12 @@ describe('Video', () => {
         expect(driver.getTitle()).toBe('Awesome');
       });
     });
+
+    describe('fillAllSpace', () => {
+      it('should should set width and height in 100%', () => {
+        const driver = createDriver(<Video fillAllSpace/>);
+        expect(driver.getRootDOMNode().style.width).toBe('100%');
+        expect(driver.getRootDOMNode().style.height).toBe('100%');
+      });
+    });
 });

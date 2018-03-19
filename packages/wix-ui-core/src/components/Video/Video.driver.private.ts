@@ -16,6 +16,7 @@ export const createDriver = (Component) => {
 
   return {
     hasCover: () => wrapper.find('[data-hook="cover"]').length === 1,
+    getRootDOMNode: () => wrapper.getDOMNode() as HTMLElement,
     getSrc: () => player.getSrc(),
     getTitle: () => wrapper.find('[data-hook="title"]').text(),
     getWidth: () => player.getWidth(),

@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.playerContainer {
+    position: relative;
+}
+
 .cover {
     position: absolute;
     top: 0;
@@ -24,9 +28,7 @@
 
 .title {
     margin: 0 15px 15px;
-    font: 20px sans-serif;
     text-align: center;
-    color: #fff;
 }
 
 .playButton {

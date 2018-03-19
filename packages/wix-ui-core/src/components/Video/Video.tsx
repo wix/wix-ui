@@ -7,8 +7,8 @@ import {playButtonIcon} from './playButtonIcon';
 export interface VideoProps {
   id?: string;
   src?: string | Array<string>;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   title?: string;
   fillAllSpace?: boolean;
   loop?: boolean;
@@ -67,9 +67,15 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
       array,
     ]),
     /** Width of video player */
-    width: number,
+    width: oneOfType([
+      string,
+      number,
+    ]),
     /** Height of video player */
-    height: number,
+    height: oneOfType([
+      string,
+      number,
+    ]),
     /** String that would be shown as title of video. */
     title: string,
     /** Pass `true` to alow player fill all space of it container. */
@@ -176,17 +182,23 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   render() {
-    const {id, title, poster, width, height} = this.props;
+    const {id, title, poster} = this.props;
     const coverStyles = {
       backgroundImage: poster ? `url(${poster})` : 'none'
     };
+    let {width, height} = this.props;
+
+    if (this.props.fillAllSpace) {
+      width = '100%';
+      height = '100%';
+    }
 
     return (
       <div
         id={id}
         style={{width, height}}
         {...styles('root', {}, this.props)}>
-        <div ref={el => this.containerRef = el}></div>
+        <div ref={el => this.containerRef = el} style={{width, height}} className={styles.playerContainer}></div>
         {!this.state.hasBeenPlayed && poster && (
           <div
             className={styles.cover}
