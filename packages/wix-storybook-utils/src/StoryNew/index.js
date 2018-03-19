@@ -6,12 +6,9 @@ import Markdown from '../Markdown';
 import CodeBlock from '../CodeBlock';
 import AutoExample from '../AutoExample';
 import AutoDocs from '../AutoDocs';
-import * as queryString from 'query-string';
 import styles from '../Story/styles.scss';
-
+import {isStoryUrlWithExamples} from '../storyUtils';
 const isE2E = global.self === global.top;
-
-export const IS_EXAMPLES_VISIBLE_PARAM_NAME = 'withExamples';
 
 export default ({
   category,
@@ -35,7 +32,7 @@ export default ({
             parsedSource={_metadata}
             />
 
-          {queryString.parse(window.location.search)[IS_EXAMPLES_VISIBLE_PARAM_NAME] !== undefined && examples}
+          {isStoryUrlWithExamples(window.location.search) && examples}
         </div>
       );
     }

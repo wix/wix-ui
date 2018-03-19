@@ -5,18 +5,8 @@ import {
   ElementFinder,
   ElementArrayFinder
 } from 'protractor';
-
+import {createStoryUrl} from 'wix-storybook-utils';
 const encode = global.encodeURIComponent;
-
-// TODO: import from `wix-storybook-utils` or move getStoryUrl() to
-// `wix-storybook-utils` and import/export it here.
-const  WITH_EXAMPLES_PARAM_NAME = 'withExamples';
-
-export interface StoryUrlParams {
-  kind: string;
-  story: string;
-  withExamples?: boolean;
-}
 
 /**
  * @deprecated
@@ -24,14 +14,6 @@ export interface StoryUrlParams {
  */
 export const getStoryUrl = (kind: string, story: string): string =>
   createStoryUrl({kind, story});
-
-/**
- *
- * @param {StoryUrlParams} params withExamples defaults to true
- */
-export const createStoryUrl = ({kind, story, withExamples = true}: StoryUrlParams): string => {
-  return `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}${withExamples ? `&${WITH_EXAMPLES_PARAM_NAME}=` : ''}`;
-};
 
 export const scrollToElement = (element: ElementArrayFinder) =>
   browser.executeScript(
