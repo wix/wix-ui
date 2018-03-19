@@ -27,6 +27,7 @@ export interface InputProps {
   tabIndex?: number;
   type?: string;
   value?: string;
+}
 
 export interface InputState {
   focus: boolean;
