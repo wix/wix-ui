@@ -160,7 +160,7 @@ describe('Checkbox', () => {
       expect(checkbox.input().disabled).toBe(true);
     });
 
-    it('has error style state', async () => {
+    it('has error style state', () => {
       const checkbox = createDriver(<Checkbox error />);
 
       expect(checkbox.hasErrorState()).toBe(true);
