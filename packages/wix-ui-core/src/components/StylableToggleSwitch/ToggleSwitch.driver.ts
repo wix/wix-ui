@@ -25,7 +25,7 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     isDisabled: () => checkbox.disabled,
     /** Returns the toggle icon inside the knob */
     getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
-     /** Returns whether the toggle has an icon */
+    /** Returns whether the toggle has an icon */
     hasKnobIcon: () => !!element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')).innerHTML,
     /** Returns the id of the input */
     getId: () => checkbox.id,
