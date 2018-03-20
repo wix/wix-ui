@@ -14,11 +14,3 @@ if (!global.requestAnimationFrame || !global.cancelAnimationFrame) {
     clearTimeout(id);
   };
 }
-
-if (!document.createRange) {
-  document.createRange = () => ({
-    setStart: () => {},
-    setEnd: () => {},
-    commonAncestorContainer: document.documentElement.querySelector('body')
-  });
-}

@@ -8,6 +8,15 @@ import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps
 import {oneOf, oneOfType, element, Requireable} from 'prop-types';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
+if (isTestEnv) {
+  if (!document.createRange) {
+    document.createRange = () => ({
+      setStart: () => null,
+      setEnd: () => null,
+      commonAncestorContainer: document.documentElement.querySelector('body')
+    } as any);
+  }
+}
 
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | Element;
