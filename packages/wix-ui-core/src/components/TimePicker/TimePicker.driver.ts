@@ -1,4 +1,5 @@
 import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
+import {inputDriverFactory} from '../../components/Input/Input.driver';
 import {FIELD} from './';
 
 // Typescript was yelling at using ComponentFactory<TimePicker> for some reason and this makes it go away
@@ -8,28 +9,28 @@ export interface TimePickerShell {
 }
 
 export const timePickerDriverFactory = ({element, eventTrigger, componentInstance}: ComponentFactory<TimePickerShell>) => {
-  const timePicker = element as HTMLInputElement;
+  const timePickerInput = inputDriverFactory({element, eventTrigger});
 
   return {
     /** checks if element exists */
     exists: () => !!element,
     /** returns a boolean indicating if the timePicker is disabled */
-    isDisabled: () => timePicker.disabled,
+    isDisabled: () => timePickerInput.isDisabled(),
     /** returns the input type attribute */
-    getInputType: () => timePicker.type,
+    getInputType: () => timePickerInput.getInput().type,
     /** returns the value (corresponds to state.value) */
-    getValue: () => timePicker.value,
+    getValue: () => timePickerInput.getValue(),
 
     /** calls the increment function on the timePicker component */
     increment: (field?: FIELD) => componentInstance.increment(field),
     /** calls the decrement function on the timePicker component */
     decrement: (field?: FIELD) => componentInstance.decrement(field),
     /** simulates a keyDown event on the input element */
-    keyDown: key => eventTrigger.keyDown(timePicker, {key}),
+    keyDown: key => timePickerInput.keyDown(key),
     /** simulates a focus event on the input element */
-    focus: () => eventTrigger.focus(timePicker),
+    focus: () => timePickerInput.focus(),
     /** simulates a blur event on the input element */
-    blur: () => eventTrigger.blur(timePicker),
+    blur: () => timePickerInput.blur(),
 
     /** returns elements innerHtml */
     styles: {
