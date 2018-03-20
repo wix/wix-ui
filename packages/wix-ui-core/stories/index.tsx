@@ -8,7 +8,6 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
-import {HBoxStory} from './HBox/HBox-story';
 
 require('./InputWithOptions').story();
 require('./AddressInput').story();
@@ -18,12 +17,12 @@ require('./Button').story();
 require('./Input.story.js');
 require('./IconWithOptions').story();
 require('./StylableText').story();
+require('./HBox').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
 require('./Slider').story();
 require('./StylableToggleSwitch/index.story.ts');
-require('./StylableHBox/index.story.ts');
 require('./AddressInput/E2E');
 
 storiesOf('Components', module)
@@ -52,7 +51,4 @@ storiesOf('Components', module)
   ))
   .add('RadioButton', () => (
     <RadioButtonStory />
-  ))
-  .add('HBox', () => (
-    <HBoxStory />
   ));

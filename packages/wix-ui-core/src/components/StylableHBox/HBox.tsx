@@ -1,11 +1,14 @@
 import * as React from 'react';
+import {number, any, oneOf, arrayOf} from 'prop-types';
 import style from './HBox.st.css';
 
 export interface HBoxProps {
   children?: React.ReactNode;
-  verticalAlignment?: 'top' | 'center' | 'bottom';
+  verticalAlignment?: AlignmentOptions;
   spacing?: number;
 }
+
+export type AlignmentOptions = 'top' | 'center' | 'bottom';
 
 /**
  * HBox
@@ -35,3 +38,9 @@ function addSpacing (children, spacing, direction) {
 
   return spacedChildren;
 }
+
+HBox.propTypes = {
+  children: any,
+  verticalAlignment: oneOf(['top', 'center', 'bottom']),
+  spacing: number
+};
