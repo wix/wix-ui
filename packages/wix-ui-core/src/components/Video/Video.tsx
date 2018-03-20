@@ -113,40 +113,44 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     this.state = {
       hasBeenPlayed: false,
     };
-
-    this.player = create({
-      src: props.src,
-      autoPlay: !!props.playing,
-      muted: props.muted,
-      size: {
-        width: props.width,
-        height: props.height,
-      },
-      title: {
-        text: props.title
-      },
-      fillAllSpace: props.fillAllSpace,
-      loop: props.loop,
-      volume: props.volume,
-      overlay: false
-    });
-    props.playableRef(this.player);
   }
 
   componentDidMount() {
+    const {src, playing, muted, width, height, title, fillAllSpace, loop, volume} = this.props;
+    const {playableRef, onPlay, onPause, onEnd} = this.props;
+
+    this.player = create({
+      src,
+      autoPlay: !!playing,
+      muted,
+      size: {
+        width,
+        height,
+      },
+      title: {
+        text: title
+      },
+      fillAllSpace,
+      loop,
+      volume,
+      overlay: false
+    });
+
+    playableRef(this.player);
+
     this.player.attachToElement(this.containerRef);
 
     this.player.on(VIDEO_EVENTS.STATE_CHANGED, ({nextState}) => {
       if (nextState === ENGINE_STATES.PLAYING) {
         this.setState({hasBeenPlayed: true});
-        this.props.onPlay();
+        onPlay();
       }
       if (nextState === ENGINE_STATES.PAUSED) {
-        this.props.onPause();
+        onPause();
       }
       if (nextState === ENGINE_STATES.ENDED) {
         this.setState({hasBeenPlayed: false});
-        this.props.onEnd();
+        onEnd();
       }
     });
   }
