@@ -22,6 +22,11 @@ describe('InputWithOptions', () => {
     expect(driver.isContentElementExists()).toBeFalsy();
   });
 
+  it('should display content element', () => {
+    const driver = createDriver(createInputWithOptions({options, forceContentElementVisibility: true}));
+    expect(driver.isContentElementExists()).toBeTruthy();
+  });
+
   it('should trigger onManualInput', () => {
     const onManualInput = jest.fn();
 

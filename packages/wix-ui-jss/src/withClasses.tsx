@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as uniqueId from 'lodash.uniqueid';
 import {generateClasses, detachStyleSheetFromDom} from './domStyleRenderer';
 import hoistNonReactMethods from 'hoist-non-react-methods';
+const uniqueId = require('lodash/uniqueId');
 
 const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
 

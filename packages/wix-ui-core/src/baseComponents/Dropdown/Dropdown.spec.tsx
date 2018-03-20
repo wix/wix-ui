@@ -32,6 +32,11 @@ describe('Dropdown', () => {
     expect(driver.isContentElementExists()).toBeFalsy();
   });
 
+  it('should display content element', () => {
+    const driver = createDriver(createDropdown({forceContentElementVisibility: true}));
+    expect(driver.isContentElementExists()).toBeTruthy();
+  });
+
   describe('openTrigger', () => {
     it('should show content on click', () => {
       const driver = createDriver(createDropdown({options}));

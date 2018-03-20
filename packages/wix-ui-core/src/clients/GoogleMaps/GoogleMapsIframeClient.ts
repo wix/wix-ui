@@ -1,8 +1,9 @@
 import {IframesManager} from './IframesManager/IframesManager';
 import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
 import {generateID} from './utils';
+import {MapsClient} from './types';
 
-export class GoogleMapsIframeClient {
+export class GoogleMapsIframeClient implements MapsClient {
   _iframesManager = new IframesManager();
   _promisesMap = new Map();
 

@@ -40,3 +40,9 @@ export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autoco
 
 import {hboxDriverFactory} from '../components/StylableHBox/HBox.protractor.driver';
 export const hboxTestkitFactory = protractorTestkitFactoryCreator(hboxDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
+export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.protractor.driver';
+export const addressInputTestkitFactory = protractorTestkitFactoryCreator(addressInputDriverFactory);
