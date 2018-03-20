@@ -7,19 +7,25 @@ export interface HBoxProps {
   spacing?: number;
 }
 
-const addSpacing = (children, spacing) => {
-  if (!children) {
-    return null;
-  }
+/**
+ * HBox
+ */
+export const HBox: React.SFC<HBoxProps> = props => {
+  const {verticalAlignment, spacing, children} = props;
+  return <div {...style('root', {verticalAlignment}, props)}>{addSpacing(children, spacing, 'right')}</div>;
+};
 
-  if (!spacing) {
+function addSpacing (children, spacing, direction) {
+  if (!children || !spacing) {
     return children;
   }
+
+  const marginDirection = direction === 'right' ? 'marginRight' : direction === 'bottom' ? 'marginBottom' : 'marginRight';
 
   const spacedChildren = [];
   for (let i = 0; i < children.length - 1; i++) {
     spacedChildren.push(
-      <div style={{marginRight: spacing}}>
+      <div style={{marginDirection: spacing}}>
         {children[i]}
       </div>
     );
@@ -28,12 +34,4 @@ const addSpacing = (children, spacing) => {
   spacedChildren.push(children[children.length - 1]);
 
   return spacedChildren;
-};
-
-/**
- * HBox
- */
-export const HBox: React.SFC<HBoxProps> = props => {
-  const {verticalAlignment, spacing} = props;
-  return <div {...style('root', {verticalAlignment}, props)}>{addSpacing(props.children, spacing)}</div>;
-};
+}
