@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {string, number, func, object, bool, array, oneOfType, Requireable} from 'prop-types';
+import {string, number, func, object, bool, array, node, oneOfType, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import styles from './Video.st.css';
-import {playButtonIcon} from './playButtonIcon';
 
 export interface VideoProps {
   id?: string;
@@ -10,6 +9,7 @@ export interface VideoProps {
   width?: number | string;
   height?: number | string;
   title?: string;
+  playButton?: React.ReactNode;
   fillAllSpace?: boolean;
   loop?: boolean;
   volume?: number;
@@ -78,6 +78,8 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     ]),
     /** String that would be shown as title of video. */
     title: string,
+    /** React Component to appear for the "Play" button on poster */
+    playButton: node,
     /** Pass `true` to alow player fill all space of it container. */
     fillAllSpace: bool,
     /** Loop video playback. */
@@ -186,7 +188,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   render() {
-    const {id, title, poster} = this.props;
+    const {id, title, poster, playButton} = this.props;
     const coverStyles = {
       backgroundImage: poster ? `url(${poster})` : 'none'
     };
@@ -211,7 +213,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
             data-hook="cover">
             <div className={styles.overlay}>
               {title && <div data-hook="title" title={title} className={styles.title}>{title}</div>}
-              <button type="button" className={styles.playButton}>{playButtonIcon}</button>
+              {playButton}
             </div>
           </div>
         )}

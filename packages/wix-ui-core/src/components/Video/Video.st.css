@@ -30,14 +30,3 @@
     margin: 0 15px 15px;
     text-align: center;
 }
-
-.playButton {
-    display: block;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    box-sizing: border-box;
-    cursor: pointer;
-}

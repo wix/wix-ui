@@ -102,10 +102,22 @@ describe('Video', () => {
     });
 
     describe('fillAllSpace', () => {
-      it('should should set width and height in 100%', () => {
+      it('should set width and height in 100%', () => {
         const driver = createDriver(<Video fillAllSpace/>);
         expect(driver.getRootDOMNode().style.width).toBe('100%');
         expect(driver.getRootDOMNode().style.height).toBe('100%');
+      });
+    });
+
+    describe('playButton', () => {
+      it('should be presented', () => {
+        const driver = createDriver(
+          <Video
+            poster="https://example.com/image.png"
+            playButton={<div data-hook="play-button">Play</div>}
+            />
+        );
+        expect(driver.getRootDOMNode().querySelector('[data-hook="play-button"]')).toBeTruthy();
       });
     });
 });
