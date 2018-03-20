@@ -9,7 +9,6 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
-import {VBoxStory} from './VBox/VBox-story';
 
 require('./InputWithOptions').story();
 require('./AddressInput').story();
@@ -23,6 +22,7 @@ require('./StylableText').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
+require('./VBox').story();
 require('./Slider').story();
 require('./StylableToggleSwitch/index.story.ts');
 require('./AddressInput/E2E');
@@ -85,7 +85,4 @@ storiesOf('Components', module)
   ))
   .add('RadioButton', () => (
     <RadioButtonStory />
-  ))
-  .add('VBox', () => (
-    <VBoxStory />
   ));
