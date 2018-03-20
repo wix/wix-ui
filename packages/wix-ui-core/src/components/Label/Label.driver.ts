@@ -1,9 +1,4 @@
-import {StylableDOMUtil} from 'stylable/test-utils';
-import style from './Label.st.css';
-
 export const labelDriverFactory = ({element}) => {
-  const stylableDOMUtil = new StylableDOMUtil(style);
-
   return {
     /** check if element exists */
     exists: () => !!element,
