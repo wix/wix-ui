@@ -83,6 +83,18 @@ describe('ToggleSwitch', () => {
     });
   });
 
+  describe('dir prop', () => {
+    it('should be ltr by default', () => {
+      const driver = createDriver(<ToggleSwitch />);
+      expect(driver.getDirection()).toBe('ltr');
+    });
+
+    it('should be ltr by default', () => {
+      const driver = createDriver(<ToggleSwitch dir="rtl" />);
+      expect(driver.getDirection()).toBe('rtl');
+    });
+  });
+
   describe('icons', () => {
     it('should not have unchecked icon by default', () => {
       const driver = createDriver(<ToggleSwitch />);

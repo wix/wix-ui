@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as propTypes from 'prop-types';
 import style from './ToggleSwitch.st.css';
 
+export type Direction = 'ltr' | 'rtl';
+
 // The only reason this exists is that Santa currently doesn't support boolean and number types
 // in the style panel, and some of the styling options have to live in the layout panel,
 // and we pass them down as inline styles.
@@ -21,6 +23,7 @@ export interface ToggleSwitchProps {
   id?: string;
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
+  dir?: Direction;
 }
 
 export interface ToggleSwitchState {
@@ -50,14 +53,17 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     /** Icon inside of the knob when checked */
     checkedIcon: propTypes.node,
     /** Icon inside of the knob when unchecked */
-    uncheckedIcon: propTypes.node
+    uncheckedIcon: propTypes.node,
+    /** The direction of the component */
+    dir: propTypes.oneOf(['ltr', 'rtl'])
   };
 
   static defaultProps = {
     checked: false,
     styles: {},
     tabIndex: 0,
-    onChange: () => null
+    onChange: () => null,
+    dir: 'ltr'
   };
 
   public state = {
@@ -69,7 +75,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
   private focusedByMouse = false;
 
   render() {
-    const {checked, disabled, styles: inlineStyles} = this.props;
+    const {checked, disabled, styles: inlineStyles, dir} = this.props;
 
     return (
       <div
@@ -77,7 +83,8 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           checked,
           disabled,
           focus: this.state.focus,
-          'focus-visible': this.state.focusVisible
+          'focus-visible': this.state.focusVisible,
+          dir
         }, this.props)}
         style={inlineStyles.root}
       >

@@ -17,14 +17,14 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
         eventTrigger.change(checkbox);
       }
     },
+    /** Returns a boolean indicating if the toggleSwitch has rtl direction */
+    getDirection: () => stylableDOMUtil.getStyleState(element, 'dir'),
     /** Returns a boolean indicating if the toggleSwitch is checked */
     isChecked: () => checkbox.checked,
     /** Returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => checkbox.disabled,
     /** Returns the toggle icon inside the knob */
     getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
-    /** Returns whether the toggle has an icon */
-    hasKnobIcon: () => !!element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')).innerHTML,
     /** Returns the id of the input */
     getId: () => checkbox.id,
     /** Returns the tab index */
