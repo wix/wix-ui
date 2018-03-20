@@ -6,14 +6,15 @@ import {
   ElementArrayFinder,
   WebElement
 } from 'protractor';
-
+import {createStoryUrl} from 'wix-storybook-utils';
 const encode = global.encodeURIComponent;
 
-export const getStoryUrl = (
-  kind: string,
-  story: string
-): string =>
-  `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}`;
+/**
+ * @deprecated
+ * @see createStoryUrl
+ */
+export const getStoryUrl = (kind: string, story: string): string =>
+  createStoryUrl({kind, story});
 
 export const scrollToElement = (element: ElementArrayFinder) =>
   browser.executeScript(

@@ -6,9 +6,8 @@ import Markdown from '../Markdown';
 import CodeBlock from '../CodeBlock';
 import AutoExample from '../AutoExample';
 import AutoDocs from '../AutoDocs';
-
 import styles from '../Story/styles.scss';
-
+import {isStoryUrlWithExamples} from '../storyUtils';
 const isE2E = global.self === global.top;
 
 export default ({
@@ -33,7 +32,7 @@ export default ({
             parsedSource={_metadata}
             />
 
-          {examples}
+          {isStoryUrlWithExamples(window.location.search) && examples}
         </div>
       );
     }
