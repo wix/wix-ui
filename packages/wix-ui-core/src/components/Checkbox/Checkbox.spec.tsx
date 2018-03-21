@@ -4,7 +4,7 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Checkbox} from './Checkbox';
 
 const tickSVG = (<span data-name="custom-tickmark">1</span>);
-function sleep(millis: number): Promise<void> {
+function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
@@ -54,7 +54,7 @@ describe('Checkbox', () => {
       const onChange = jest.fn();
       const checkbox = createDriver(<Checkbox onChange={onChange}/>);
 
-      checkbox.press(' ');
+      checkbox.keyDown(' ');
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
@@ -168,7 +168,7 @@ describe('Checkbox', () => {
   });
 
   describe('Disabled', () => {
-    it('does not call onChange when disabled', async () => {
+    it('does not call onChange when disabled', () => {
       const onChange = jest.fn();
       const checkbox = createDriver(
         <Checkbox
@@ -179,18 +179,17 @@ describe('Checkbox', () => {
 
       checkbox.click();
 
-      await sleep(10);
       expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('is can be checked when disabled', () => {
+    it('can be checked when disabled', () => {
       const checkbox = createDriver(<Checkbox disabled checked />);
 
       expect(checkbox.isChecked()).toBe(true);
       expect(checkbox.input().checked).toBe(true);
     });
 
-    it('is can be indeterminate when disabled', () => {
+    it('can be indeterminate when disabled', () => {
       const checkbox = createDriver(<Checkbox disabled indeterminate />);
 
       expect(checkbox.isIndeterminate()).toBe(true);
@@ -204,7 +203,7 @@ describe('Checkbox', () => {
   });
 
   describe('Readonly', () => {
-    it('does not call onChange when readonly', async () => {
+    it('does not call onChange when readonly', () => {
       const onChange = jest.fn();
       const checkbox = createDriver(
         <Checkbox
@@ -215,7 +214,6 @@ describe('Checkbox', () => {
 
       checkbox.click();
 
-      await sleep(10);
       expect(onChange).not.toHaveBeenCalled();
     });
 
@@ -252,14 +250,6 @@ describe('Checkbox', () => {
 
       checkbox.click();
       expect(document.activeElement).toBe(checkbox.input());
-      expect(checkbox.hasFocusState()).toBe(false);
-    });
-
-    it('loses focus state after being focused and clicked on', () => {
-      const checkbox = createDriver(<Checkbox />);
-
-      checkbox.focus();
-      checkbox.click();
       expect(checkbox.hasFocusState()).toBe(false);
     });
   });

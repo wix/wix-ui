@@ -13,7 +13,7 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** click on the element */
     click: () => eventTrigger.click(element),
     /** presses on the elemet */
-    press: (key: string) => eventTrigger.keyDown(element, {key}),
+    keyDown: (key: string) => eventTrigger.keyDown(element, {key}),
     /** trigger mouseenter on the element */
     mouseEnter: () => eventTrigger.mouseEnter(element),
     /** trigger mouseleave on the element */
