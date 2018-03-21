@@ -1,6 +1,6 @@
 .root {
   /* Info on focus-visible: https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
-  -st-states: checked, disabled, focus, focus-visible;
+  -st-states: checked, disabled, focus, focus-visible, dir(enum(ltr, rtl));
   display: inline-flex;
   position: relative;
 }
