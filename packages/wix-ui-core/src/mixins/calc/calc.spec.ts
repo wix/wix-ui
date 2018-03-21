@@ -10,11 +10,8 @@ describe('calc mixin', () => {
     expect(calc('12 / 2%')).toBe('6%');
   });
 
-  it('should calculate an expression with px units', () => {
+  it('should calculate an expression with same units', () => {
     expect(calc('12px / 2px')).toBe('6px');
-  });
-
-  it('should calculate an expression with px units', () => {
     expect(calc('12% / 2%')).toBe('6%');
   });
 
