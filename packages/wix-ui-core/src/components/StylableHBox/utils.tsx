@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export function addSpacing (children, spacing, direction: 'Right' | 'Bottom') {
   if (!children || !spacing) {
     return children;
