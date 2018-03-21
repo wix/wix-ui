@@ -49,10 +49,6 @@
   margin: auto;
 }
 
-:global([dir="rtl"]) .root::knob {
-  transform: translateX(calc(value(knobMovementRange) / 2));
-}
-
 .root::knobIcon {
   width: calc(value(knobHeight) / 2);
   height: calc(value(knobHeight) / 2);
@@ -64,7 +60,8 @@
   height: 100%;
 }
 
-.root:checked::knob {
+.root:checked::knob, 
+:global([dir="rtl"]) .root::knob {
   transform: translateX(calc(value(knobMovementRange) / 2));
 }
 
