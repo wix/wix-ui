@@ -281,7 +281,7 @@ describe('AddressInput', () => {
         });
     });
 
-    describe('Stale requests', () => {
+    describe.skip('Stale requests', () => {
         it('Should ignore stale requests - autocomplete', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
             driver.click();
