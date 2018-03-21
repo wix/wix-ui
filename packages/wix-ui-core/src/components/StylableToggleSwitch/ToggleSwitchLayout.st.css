@@ -3,6 +3,11 @@
   -st-default: ToggleSwitch;
 }
 
+:import {
+  -st-from: "../../mixins/calc";
+  -st-default: calc
+}
+
 :vars {
   rootWidth: 48px;
   rootHeight: 24px;
