@@ -5,6 +5,7 @@ import {Option, OptionFactory, optionPropType} from '../../baseComponents/Dropdo
 import {Divider} from '../Divider';
 import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
 import {InputProps} from '../Input';
+import ArrowDown from 'wix-ui-icons-common/ArrowDown';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -22,16 +23,28 @@ export interface AutocompleteProps {
   fixedFooter?: React.ReactNode;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?: (value: string) => void;
-  /** Input prop types */
-  inputProps?: InputProps;
+  /** Standard React Input autoFocus (focus the element on mount) */
+  autoFocus?: boolean;
+  /** Makes the component disabled */
+  disabled?: boolean;
+  /** Standard input onBlur callback */
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  /** Standard input onChange callback */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /** Standard input onFocus callback */
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  /** Placeholder to display */
+  placeholder?: string;
+  /** Inputs value */
+  value?: string;
 }
 
 export interface AutocompleteState {
   inputValue: string;
-  isEditing: boolean;
 }
 
 export class Autocomplete extends React.PureComponent<AutocompleteProps, AutocompleteState> {
+  static displayName = 'Autocomplete';
   static propTypes = {
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,
@@ -45,8 +58,20 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     fixedFooter: node,
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
     onManualInput: func,
-    /** Input prop types */
-    inputProps: object
+    /** Standard React Input autoFocus (focus the element on mount) */
+    autoFocus: bool,
+    /** Makes the component disabled */
+    disabled: bool,
+    /** Standard input onBlur callback */
+    onBlur: func,
+    /** Standard input onChange callback */
+    onChange: func,
+    /** Standard input onFocus callback */
+    onFocus: func,
+    /** Placeholder to display */
+    placeholder: string,
+    /** Inputs value */
+    value: string
   };
 
   static createOption = OptionFactory.create;
@@ -56,14 +81,20 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     super(props);
 
     this.state = {
-      isEditing: false,
-      inputValue: (props.inputProps && props.inputProps.value) || ''
+      inputValue: props.value || ''
     };
 
     this._onSelect = this._onSelect.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
-    this._onEditingChanged = this._onEditingChanged.bind(this);
     this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps: AutocompleteProps) {
+    if (this.state.inputValue !== nextProps.value) {
+      this.setState({
+        inputValue: nextProps.value
+      });
+    }
   }
 
   _onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -71,6 +102,9 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       this.setState({
         inputValue: event.target.value
       });
+
+      const {onChange} = this.props;
+      onChange && onChange(event);
     }
   }
 
@@ -85,35 +119,24 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     }
   }
 
-  _onEditingChanged(isEditing: boolean) {
-    if (this.state.isEditing !== isEditing) {
-      this.setState({isEditing});
-    }
-  }
-
-  _filterOptions(inputValue: string, options: Array<Option>): Array<Option> {
-    const lowerValue = inputValue.toLowerCase();
-    return options
-    .filter((option: Option) =>
-      (!option.isSelectable && option.value) ||
-      (option.isSelectable && option.value && option.value.toLowerCase().includes(lowerValue)))
-    .map((option: Option) =>
-      option.isSelectable && option.value ? OptionFactory.createHighlighted(option, inputValue) : option);
-  }
-
   _createInputProps() {
-    let {inputProps} = this.props;
     const {inputValue} = this.state;
-
-    inputProps = inputProps || {};
-    inputProps.value = inputValue;
-    inputProps.onChange = this._onInputChange;
-    return inputProps;
+    const {autoFocus, disabled, onBlur, onFocus, placeholder} = this.props;
+    return {
+      value: inputValue,
+      onChange: this._onInputChange,
+      autoFocus,
+      disabled,
+      onBlur,
+      onFocus,
+      placeholder,
+      suffix: <ArrowDown className={style.icon} />
+    };
   }
 
   _onInitialSelectedOptionsSet(options: Array<Option>) {
     const selectedValue = options.length ? options[0].value : '';
-    if (this.state.inputValue !== selectedValue) {
+    if (selectedValue && this.state.inputValue !== selectedValue) {
       this.setState({
         inputValue: selectedValue
       });
@@ -122,10 +145,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   render() {
     const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
-    const {inputValue, isEditing} = this.state;
     const inputProps = this._createInputProps();
-    const displayedOptions =
-      inputValue && isEditing ? this._filterOptions(inputValue, options) : options;
 
     return (
       <InputWithOptions
@@ -136,8 +156,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
         fixedHeader={fixedHeader}
         fixedFooter={fixedFooter}
         onManualInput={onManualInput}
-        options={displayedOptions}
-        onEditingChanged={this._onEditingChanged}
+        options={options}
         inputProps={inputProps}
       />
     );

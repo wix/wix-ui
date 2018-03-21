@@ -20,6 +20,10 @@ module.exports = {
           rule: value => typeof value === 'string' || Array.isArray(value),
           parser: value => value
         },
+        {
+          rule: value => typeof value === 'string' && !isNaN(Date.parse(value)),
+          parser: value => new Date(value)
+        },
         { // default
           rule: () => true,
           parser: value => JSON.parse(value)
@@ -38,14 +42,15 @@ module.exports = {
         );
 
       // this is possible because:
-      // <AutoComplete ref={ref => window.autoexample = ref}/>
+      // <AutoExample ref={ref => window.autoexample = ref}/>
       window.autoexample.setState({
         propsState: Object.assign({}, window.autoexample.state.propsState, args)
       });
     };
 
-    browser.executeScript(script, props);
+    return browser.executeScript(script, props);
   },
-  reset: () =>
-    browser.executeScript('window.autoexample.resetState()')
+  reset: () => {
+    return browser.executeScript('window.autoexample.resetState()');
+  }
 };

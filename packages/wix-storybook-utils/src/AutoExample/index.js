@@ -177,6 +177,10 @@ export default class extends Component {
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
 
+  nodePropController = ({propKey}) =>
+    this.props.exampleProps[propKey] ?
+      <NodesList values={this.props.exampleProps[propKey]}/> :
+      <Input/>;
 
   controllableComponentGetters = {
     string: () => <Input/>,
@@ -186,10 +190,8 @@ export default class extends Component {
     enum: ({type}) =>
       <List values={type.value.map(({value}) => stripQuotes(value))}/>,
 
-    node: ({propKey}) =>
-      this.props.exampleProps[propKey] ?
-        <NodesList values={this.props.exampleProps[propKey]}/> :
-        <Input/>,
+    ReactNode: this.nodePropController,
+    node: this.nodePropController,
 
     func: ({propKey}) => {
       let classNames = styles.example;
@@ -234,12 +236,17 @@ export default class extends Component {
 
   render() {
     const component = this.props.component;
-    const componentPropsState = {
+
+    const functionExampleProps = Object.keys(this.props.exampleProps).filter(
+      prop =>
+        this.parsedComponent.props[prop] &&
+        this.parsedComponent.props[prop].type.name === 'func'
+    );
+
+    const componentProps = {
       ...this.state.propsState,
       ...(
-        Object
-          .keys(this.props.exampleProps)
-          .filter(prop => this.parsedComponent.props[prop].type.name === 'func')
+        functionExampleProps
           .reduce((acc, prop) => {
             acc[prop] = (...rest) => {
               if (this.state.propsState[prop]) {
@@ -258,9 +265,7 @@ export default class extends Component {
     const codeProps = {
       ...this.state.propsState,
       ...(
-        Object
-          .keys(this.props.exampleProps)
-          .filter(prop => this.parsedComponent.props[prop].type.name === 'func')
+        functionExampleProps
           .reduce((acc, key) => {
             acc[key] = this.props.exampleProps[key];
             return acc;
@@ -269,7 +274,7 @@ export default class extends Component {
     };
 
     if (!this.props.isInteractive) {
-      return React.createElement(component, componentPropsState);
+      return React.createElement(component, componentProps);
     }
 
     return (
@@ -280,7 +285,7 @@ export default class extends Component {
               {...{
                 key,
                 label: key,
-                value: componentPropsState[key],
+                value: componentProps[key],
                 onChange: value => this.setProp(key, value),
                 children: this.getPropControlComponent(key, prop.type)
               }}
@@ -294,7 +299,7 @@ export default class extends Component {
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
           >
-          {React.createElement(component, componentPropsState)}
+          {React.createElement(component, componentProps)}
         </Preview>
 
         <Code source={this.componentToString(React.createElement(component, codeProps))}/>

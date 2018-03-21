@@ -17,7 +17,7 @@ export const core = {
 ### wix-ui-core/src/Components/styles.ts (Returns a style definition of the component)
 ```
 import {core} from './theme';
-import defaultsDeep from './lodash/defaultsDeep'
+const defaultsDeep = require('lodash.defaultsdeep');
 
 export const styles = theme => {
   theme = defaultsDeep(theme, core); //a theme can be partial, so fill it with the default core theme

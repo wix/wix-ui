@@ -1,8 +1,8 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
 import {bool, func, object, string} from 'prop-types';
 import {createHOC} from '../../createHOC';
 import {getViewBox, getPathDescription} from './utils';
+const uniqueId = require('lodash/uniqueId');
 
 export type ToggleSwitchClasses = {
   root: string;
@@ -58,21 +58,6 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
 
   static defaultProps = {checked: false, styles: {}, previewState: ''};
 
-  componentDidMount() {
-    this.toggle.addEventListener('keydown', this._listenToSpace);
-  }
-
-  componentWillUnmount() {
-    this.toggle.removeEventListener('keydown', this._listenToSpace);
-  }
-
-  _listenToSpace = e => {
-    if (e.key === ' ') {
-      e.preventDefault();
-      this._handleChange(e);
-    }
-  }
-
   _handleChange = e => {
     if (!this.props.disabled) {
       this.props.onChange(e);
@@ -92,7 +77,13 @@ class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
     const {id} = this;
 
     return (
-      <label className={classes.root} style={styles.root} tabIndex={0} ref={ref => this.toggle = ref} data-preview={previewState}>
+      <label
+          className={classes.root}
+          style={styles.root}
+          ref={ref => this.toggle = ref}
+          data-preview={previewState}
+          onClick={() => this.inputRef && this.inputRef.focus()}
+      >
         <input
           type="checkbox"
           id={id}

@@ -1,6 +1,4 @@
-import {ElementFinder} from 'wix-ui-test-utils/protractor';
-
-export const googleMapsIframeClientDriverFactory = (component: ElementFinder) => {
+export const googleMapsIframeClientDriverFactory = component => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');

@@ -3,16 +3,32 @@ import {
   promise,
   ExpectedConditions,
   ElementFinder,
-  ElementArrayFinder
+  ElementArrayFinder,
+  WebElement
 } from 'protractor';
 
 const encode = global.encodeURIComponent;
 
-export const getStoryUrl = (
-  kind: string,
-  story: string
-): string =>
-  `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}`;
+export interface StoryUrlParams {
+  kind: string;
+  story: string;
+  withExamples?: boolean;
+}
+
+/**
+ * @deprecated
+ * @see createStoryUrl
+ */
+export const getStoryUrl = (kind: string, story: string): string =>
+  createStoryUrl({kind, story});
+
+/**
+ *
+ * @param {StoryUrlParams} params withExamples defaults to true
+ */
+export const createStoryUrl = ({kind, story, withExamples = true}: StoryUrlParams): string => {
+  return `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}${withExamples ? `&withExamples` : ''}`;
+};
 
 export const scrollToElement = (element: ElementArrayFinder) =>
   browser.executeScript(
@@ -42,3 +58,16 @@ export const waitForVisibilityOf = (
     )
   );
 };
+
+export function isFocused(element: ElementFinder) {
+  return element.equals(browser.driver.switchTo().activeElement());
+}
+
+// This interface is copied over from protractor because it isn't exported
+export interface ILocation {
+  x: number;
+  y: number;
+}
+
+export const mouseEnter = async (element: WebElement | ILocation) => await browser.actions().mouseMove(element).perform();
+export const mouseLeave = () => mouseEnter({x: 1000, y: 1000});

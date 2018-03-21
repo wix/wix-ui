@@ -32,6 +32,11 @@ describe('Dropdown', () => {
     expect(driver.isContentElementExists()).toBeFalsy();
   });
 
+  it('should display content element', () => {
+    const driver = createDriver(createDropdown({forceContentElementVisibility: true}));
+    expect(driver.isContentElementExists()).toBeTruthy();
+  });
+
   describe('openTrigger', () => {
     it('should show content on click', () => {
       const driver = createDriver(createDropdown({options}));
@@ -56,7 +61,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
@@ -65,7 +70,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(2);
+      driver.optionAt(2).click();
       expect(onSelect).not.toHaveBeenCalled();
     });
 
@@ -74,7 +79,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
-      driver.clickOptionAt(5);
+      driver.optionAt(5).click();
       expect(onSelect).not.toHaveBeenCalled();
     });
 
@@ -83,7 +88,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
   });
@@ -94,7 +99,7 @@ describe('Dropdown', () => {
       const driver = createDriver(createDropdown({initialSelectedIds: [0], options, onDeselect, closeOnSelect: false}));
 
       driver.click();
-      driver.clickOptionAt(0);
+      driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
     });
   });

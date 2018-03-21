@@ -18,3 +18,11 @@
 .divider {
   -st-extends: Divider;
 }
+
+.root::input::input {
+  padding-right: 16px;
+}
+
+.icon {
+  margin: 0 -16px -2px;
+}

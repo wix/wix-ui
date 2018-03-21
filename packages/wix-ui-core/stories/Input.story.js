@@ -1,19 +1,18 @@
-import 'react';
-import createStory from '../create-story';
+import {Input} from '../src/components/Input';
 
-import {Input} from '../../src/components/Input';
-import * as InputSource from '!raw-loader!../../src/components/Input/Input.tsx';
-
-export const story = () => createStory({
+export default {
   category: 'Components',
-  name: 'Input',
   storyName: 'Input',
+
   component: Input,
-  componentProps: (setState) => ({
+  componentPath: '../src/components/Input',
+
+  componentProps: setState => ({
     'data-hook': 'storybook-input',
     value: '',
     onChange: ({target: {value}}) => setState({value}),
   }),
+
   exampleProps: {
     onClick: () => 'Triggered onClick',
     onChange: () => 'Triggered onChange',
@@ -22,6 +21,5 @@ export const story = () => createStory({
     onFocus: () => 'Triggered onFocus',
     onKeyDown: () => 'Triggered onKeyDown',
     onKeyUp: () => 'Triggered onKeyUp'
-  },
-  source: InputSource
-});
+  }
+};

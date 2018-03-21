@@ -1,0 +1,11 @@
+@custom-selector :--contentContainer .root::popover;
+@custom-selector :--option .root::dropdownContent::dropdownOption;
+
+:import {
+    -st-from: "../../baseComponents/InputWithOptions/InputWithOptions.st.css";
+    -st-default: InputWithOptions;
+}
+
+.root {
+    -st-extends: InputWithOptions;
+}

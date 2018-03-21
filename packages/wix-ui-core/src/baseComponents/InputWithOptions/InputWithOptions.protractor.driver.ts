@@ -1,15 +1,12 @@
-import {ElementFinder} from 'wix-ui-test-utils/protractor';
-import {inputTestkitFactory, dropdownTestkitFactory} from '../../testkit/protractor';
+import {inputDriverFactory} from '../../components/Input/Input.protractor.driver';
+import {dropdownDriverFactory} from '../Dropdown/Dropdown.protractor.driver';
 
-export const inputWithOptionsDriverFactory = (component: ElementFinder) => {
-  const inputDriver = inputTestkitFactory({dataHook: 'popover-element'});
-  const getDropdownDriver = () => dropdownTestkitFactory({dataHook: 'dropdown'});
+export const inputWithOptionsDriverFactory = component => {
+  const dropdownDriver = dropdownDriverFactory(component);
+  const inputDriver = inputDriverFactory(dropdownDriver.getTargetElement().$('[data-hook=input]'));
 
-  return {
-    element: () => component,
-    focusInput: inputDriver.focus,
-    enterText: inputDriver.enterText,
-    getText: inputDriver.getText,
-    selectOption: (index: number) => getDropdownDriver().selectOption(index)
-  };
+  return Object.assign(
+    {},
+    dropdownDriver,
+    inputDriver);
 };

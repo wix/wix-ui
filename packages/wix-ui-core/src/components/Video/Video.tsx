@@ -1,12 +1,18 @@
 import * as React from 'react';
-import {string, number, func, bool, array, oneOfType, Requireable} from 'prop-types';
+import {string, number, func, object, bool, array, node, oneOfType, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
+import styles from './Video.st.css';
 
 export interface VideoProps {
+  id?: string;
   src?: string | Array<string>;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   title?: string;
+  playButton?: React.ReactNode;
+  fillAllSpace?: boolean;
+  loop?: boolean;
+  volume?: number;
   poster?: string;
   playing?: boolean;
   muted?: boolean;
@@ -16,7 +22,9 @@ export interface VideoProps {
   playableRef?: Function;
 }
 
-export interface VideoState {}
+export interface VideoState {
+  hasBeenPlayed: boolean;
+}
 
 const noop = () => null;
 
@@ -25,7 +33,9 @@ const mapPropsToMethods = {
   width: 'setWidth',
   height: 'setHeight',
   title: 'setTitle',
-  poster: 'setPoster',
+  fillAllSpace: 'setFillAllSpace',
+  loop: 'setLoop',
+  volume: 'setVolume',
   playing: (instance, player, nextPlaying) => {
     if (!instance.props.playing && nextPlaying && !instance._isPlaying()) {
       player.play();
@@ -50,17 +60,32 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   player: any;
 
   static propTypes = {
+    id: string,
     /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */
     src: oneOfType([
       string,
       array,
     ]),
     /** Width of video player */
-    width: number,
+    width: oneOfType([
+      string,
+      number,
+    ]),
     /** Height of video player */
-    height: number,
+    height: oneOfType([
+      string,
+      number,
+    ]),
     /** String that would be shown as title of video. */
     title: string,
+    /** React Component to appear for the "Play" button on poster */
+    playButton: node,
+    /** Pass `true` to alow player fill all space of it container. */
+    fillAllSpace: bool,
+    /** Loop video playback. */
+    loop: bool,
+    /** Start value of volume for audio, `0..100`. */
+    volume: number,
     /** URL to image that would be used as poster on overlay */
     poster: string,
     /** Set to `true` or `false` to pause or play the media */
@@ -86,40 +111,48 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
   constructor(props) {
     super(props);
-    this.player = create({
-      src: props.src,
-      autoPlay: !!props.playing,
-      muted: props.muted,
-      size: {
-        width: props.width,
-        height: props.height,
-      },
-      title: {
-        text: props.title
-      },
-      overlay: {
-        poster: props.poster,
-      },
-    });
-    props.playableRef(this.player);
-  }
 
-  _isPlaying() {
-    return this.player.getCurrentPlaybackState() === ENGINE_STATES.PLAYING;
+    this.state = {
+      hasBeenPlayed: false,
+    };
   }
 
   componentDidMount() {
+    const {src, playing, muted, width, height, title, fillAllSpace, loop, volume} = this.props;
+    const {playableRef, onPlay, onPause, onEnd} = this.props;
+
+    this.player = create({
+      src,
+      autoPlay: !!playing,
+      muted,
+      size: {
+        width,
+        height,
+      },
+      title: {
+        text: title
+      },
+      fillAllSpace,
+      loop,
+      volume,
+      overlay: false
+    });
+
+    playableRef(this.player);
+
     this.player.attachToElement(this.containerRef);
 
     this.player.on(VIDEO_EVENTS.STATE_CHANGED, ({nextState}) => {
       if (nextState === ENGINE_STATES.PLAYING) {
-        this.props.onPlay();
+        this.setState({hasBeenPlayed: true});
+        onPlay();
       }
       if (nextState === ENGINE_STATES.PAUSED) {
-        this.props.onPause();
+        onPause();
       }
       if (nextState === ENGINE_STATES.ENDED) {
-        this.props.onEnd();
+        this.setState({hasBeenPlayed: false});
+        onEnd();
       }
     });
   }
@@ -146,9 +179,45 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     this.player.destroy();
   }
 
+  _isPlaying(): boolean {
+    return this.player.getCurrentPlaybackState() === ENGINE_STATES.PLAYING;
+  }
+
+  _play = (): void => {
+    this.player.play();
+  }
+
   render() {
+    const {id, title, poster, playButton} = this.props;
+    const coverStyles = {
+      backgroundImage: poster ? `url(${poster})` : 'none'
+    };
+    let {width, height} = this.props;
+
+    if (this.props.fillAllSpace) {
+      width = '100%';
+      height = '100%';
+    }
+
     return (
-      <div ref={el => this.containerRef = el}></div>
+      <div
+        id={id}
+        style={{width, height}}
+        {...styles('root', {}, this.props)}>
+        <div ref={el => this.containerRef = el} style={{width, height}} className={styles.playerContainer}></div>
+        {!this.state.hasBeenPlayed && poster && (
+          <div
+            className={styles.cover}
+            style={coverStyles}
+            onClick={this._play}
+            data-hook="cover">
+            <div className={styles.overlay}>
+              {title && <div data-hook="title" title={title} className={styles.title}>{title}</div>}
+              {playButton}
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
 }

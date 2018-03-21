@@ -8,5 +8,6 @@ export const dropdownOptionDriverFactory = ({element, eventTrigger}) => ({
   className: () => element && element.className,
   isHovered: () => element && isAttributeExists(element, (attribute: Attr) => attribute.name.includes('hover') && attribute.value === 'true'),
   isSelected: () => element && isAttributeExists(element, (attribute: Attr) => attribute.name.includes('select') && attribute.value === 'true'),
-  isDisabled: () => element && isAttributeExists(element, (attribute: Attr) => attribute.name.includes('disabled') && attribute.value === 'true')
+  isDisabled: () => element && isAttributeExists(element, (attribute: Attr) => attribute.name.includes('disabled') && attribute.value === 'true'),
+  getText: () => element && element.textContent
 });

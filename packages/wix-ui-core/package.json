@@ -20,7 +20,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist\" --diagnostics",
+    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist/src\" --diagnostics",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -33,15 +33,13 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
-    "lodash.defaultsdeep": "^4.0.0",
-    "lodash.isequal": "^4.0.0",
-    "lodash.isundefined": "^3.0.0",
-    "lodash.times": "^4.0.0",
-    "lodash.uniqueid": "^4.0.0",
-    "playable": "^1.5.0",
+    "lodash": "^4.17.5",
+    "playable": "^1.7.4",
+    "popper.js": "^1.12",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
+    "wix-ui-icons-common": "^1.0.0",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },
@@ -51,10 +49,7 @@
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
-    "@types/lodash.defaultsdeep": "^4.6.3",
-    "@types/lodash.isundefined": "^3.0.3",
-    "@types/lodash.times": "^4.3.3",
-    "@types/lodash.uniqueid": "^4.0.3",
+    "@types/lodash": "^4.14.104",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^15.6.12",
     "@types/react-onclickoutside": "^6.0.2",
@@ -74,6 +69,7 @@
     "stylable-integration": "latest",
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
+    "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
     "wix-storybook-utils": "^1.0.0"
   },
@@ -81,18 +77,12 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "yoshi": {
-    "exports": {
-      "root": "wix-ui-core",
-      "commonjs": "wix-ui-core"
-    }
-  },
   "jest": {
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "moduleNameMapper": {
-      "\\.(st.css)$": "wix-ui-test-utils/stylable-proxy"
+      "\\.(st.css|scss)$": "wix-ui-test-utils/stylable-proxy"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
@@ -112,5 +102,11 @@
   },
   "haste": {
     "preset": "yoshi"
+  },
+  "yoshi": {
+    "exports": {
+      "root": "wix-ui-core",
+      "commonjs": "wix-ui-core"
+    }
   }
 }
