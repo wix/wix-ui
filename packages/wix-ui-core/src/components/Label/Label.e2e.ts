@@ -12,6 +12,6 @@ describe('Label', () => {
     const driver = labelTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Label')
-      .then(() => expect(driver.getLabelContent()).toBe('HELLO'));
+      .then(() => expect(driver.getLabelText()).toBe('hello'));
   });
 });

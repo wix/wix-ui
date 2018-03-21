@@ -1,9 +1,9 @@
 import * as React from 'react';
-import * as propTypes from 'prop-types';
+import {string} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
-  children?: React.ReactNode;
+  children?: string;
   for?: string;
   id?: string;
 }
@@ -16,10 +16,10 @@ export const Label: React.SFC<LabelProps> = props => {
 };
 
 Label.propTypes = {
-  /** Label children */
-  children: propTypes.node,
+  /** children */
+  children: string,
   /** For property */
-  for: propTypes.string,
+  for: string,
   /** ID of element */
-  id: propTypes.string
+  id: string
 };
