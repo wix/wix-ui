@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export function addSpacing (children, spacing: number, direction: 'Right' | 'Bottom', rtl?: boolean) {
+export function addSpacing (children, spacing: number, rtl?: boolean) {
   if (!children || !spacing) {
     return children;
   }
@@ -20,7 +20,7 @@ export function addSpacing (children, spacing: number, direction: 'Right' | 'Bot
   } else {
     for (let i = 0; i < children.length - 1; i++) {
       spacedChildren.push(
-        <div style={{[`margin${direction}`]: spacing}}>
+        <div style={{marginRight: spacing}}>
           {children[i]}
         </div>
       );
