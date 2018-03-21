@@ -1,36 +1,26 @@
-import {ComponentFactory} from 'wix-ui-test-utils/driver-factory';
 import {inputDriverFactory} from '../../components/Input/Input.driver';
 import {FIELD} from './';
 
-// Typescript was yelling at using ComponentFactory<TimePicker> for some reason and this makes it go away
-export interface TimePickerShell {
-  increment: Function;
-  decrement: Function;
-}
-
-export const timePickerDriverFactory = ({element, eventTrigger, componentInstance}: ComponentFactory<TimePickerShell>) => {
-  const timePickerInput = inputDriverFactory({element, eventTrigger});
+export const timePickerDriverFactory = ({element, eventTrigger}) => {
+  const inputDriver = inputDriverFactory({element, eventTrigger});
 
   return {
     /** checks if element exists */
     exists: () => !!element,
+    /** returns the input element */
+    getInputElement: () => inputDriver.getInput(),
     /** returns a boolean indicating if the timePicker is disabled */
-    isDisabled: () => timePickerInput.isDisabled(),
+    isDisabled: () => inputDriver.isDisabled(),
     /** returns the input type attribute */
-    getInputType: () => timePickerInput.getInput().type,
+    getInputType: () => inputDriver.getInput().type,
     /** returns the value (corresponds to state.value) */
-    getValue: () => timePickerInput.getValue(),
-
-    /** calls the increment function on the timePicker component */
-    increment: (field?: FIELD) => componentInstance.increment(field),
-    /** calls the decrement function on the timePicker component */
-    decrement: (field?: FIELD) => componentInstance.decrement(field),
+    getValue: () => inputDriver.getValue(),
     /** simulates a keyDown event on the input element */
-    keyDown: key => timePickerInput.keyDown(key),
+    keyDown: key => inputDriver.keyDown(key),
     /** simulates a focus event on the input element */
-    focus: () => timePickerInput.focus(),
+    focus: () => inputDriver.focus(),
     /** simulates a blur event on the input element */
-    blur: () => timePickerInput.blur(),
+    blur: () => inputDriver.blur(),
 
     /** returns elements innerHtml */
     styles: {

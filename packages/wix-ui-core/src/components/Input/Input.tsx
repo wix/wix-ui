@@ -18,6 +18,7 @@ export interface InputProps {
   onBlur?: React.FocusEventHandler<HTMLElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLElement>;
+  onClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
   onMouseDown?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
   onMouseUp?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
   onMouseMove?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
@@ -54,6 +55,7 @@ export class Input extends React.Component<InputProps, InputState> {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    onClick: PropTypes.func,
     onMouseDown: PropTypes.func,
     onMouseUp: PropTypes.func,
     onMouseMove: PropTypes.func,
@@ -91,6 +93,7 @@ export class Input extends React.Component<InputProps, InputState> {
       autoComplete,
       autoFocus,
       onChange,
+      onClick,
       onMouseDown,
       onMouseUp,
       onMouseMove,
@@ -125,6 +128,7 @@ export class Input extends React.Component<InputProps, InputState> {
           onBlur={this.handleBlur}
           onChange={onChange}
           onFocus={this.handleFocus}
+          onClick={onClick}
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}

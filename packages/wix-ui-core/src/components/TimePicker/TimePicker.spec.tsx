@@ -1,68 +1,87 @@
 import * as React from 'react';
-import {timePickerDriverFactory} from './TimePicker.driver';
+import {mount} from 'enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {TimePicker, FIELD} from './index';
 import {convertToAmPm} from './utils';
-import {renderIntoDocument, findRenderedDOMComponentWithTag} from 'react-dom/test-utils';
+import {timePickerDriverFactory} from './TimePicker.driver';
 
 describe('TimePicker', () => {
-
-  const createDriver = createDriverFactory(timePickerDriverFactory);
   const SOME_VALUE = '10:04';
+  const createDriver = createDriverFactory(timePickerDriverFactory);
+  /**
+   * Since the usual driver factory doesn't expose the React component, we need this
+   * to use and test imperative API
+   */
+  const createDriverWithComponent = (props?) => {
+    const container = mount(<TimePicker value="10:30" {...props} />);
+    const reactTimePicker = container.instance() as TimePicker;
+    const reactInput = container.find('input');
+    const inputElement = reactInput.getDOMNode() as HTMLInputElement;
+    return {
+      callIncrement: (field?: FIELD) => reactTimePicker.increment(field),
+      callDecrement: (field?: FIELD) => reactTimePicker.decrement(field),
+      callFocus: () => reactTimePicker.focus(),
+      focus: () => reactInput.simulate('focus'),
+      blur: () => reactInput.simulate('blur'),
+      tab: () => reactInput.simulate('keyDown', {key: 'Tab'}),
+      getValue: () => inputElement.value,
+      getInputElement: () => inputElement
+    };
+  };
 
-  describe('external functions', () => {
+  describe('imperative API', () => {
     describe('increment', () => {
       it('should default to minute increments', () => {
-        const driver = createDriver(<TimePicker value = "10:30" />);
-        driver.increment();
+        const driver = createDriverWithComponent();
+        driver.callIncrement();
         expect(driver.getValue()).toEqual('10:31');
       });
 
       describe('last focused field', () => {
         it('should increment the value by 1 hour when last focused field was hour', () => {
-          const driver = createDriver(<TimePicker value = "10:30"/>);
+          const driver = createDriverWithComponent();
           driver.focus();
           driver.blur();
-          driver.increment();
+          driver.callIncrement();
           expect(driver.getValue()).toEqual('11:30');
         });
 
         it('should increment the value by 1 minute when last focused field was minute', () => {
-          const driver = createDriver(<TimePicker value = "10:30"/>);
+          const driver = createDriverWithComponent();
           driver.focus();
-          driver.keyDown('Tab');
+          driver.tab();
           driver.blur();
-          driver.increment();
+          driver.callIncrement();
           expect(driver.getValue()).toEqual('10:31');
         });
 
         it('should increment the value by 12 hours when last focused field was ampm', () => {
-          const driver = createDriver(<TimePicker value = "10:30" useAmPm/>);
+          const driver = createDriverWithComponent({useAmPm: true});
           driver.focus();
-          driver.keyDown('Tab');
-          driver.keyDown('Tab');
+          driver.tab();
+          driver.tab();
           driver.blur();
-          driver.increment();
+          driver.callIncrement();
           expect(driver.getValue()).toEqual('10:30 PM');
         });
       });
 
       describe('calling with field arguments', () => {
         it('should increment the value by 1 minute when passing FIELD.MINUTE as argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30"/>);
-          driver.increment(FIELD.MINUTE);
+          const driver = createDriverWithComponent();
+          driver.callIncrement(FIELD.MINUTE);
           expect(driver.getValue()).toEqual('10:31');
         });
 
         it('should increment the value by 1 hour when passing FIELD.HOUR as argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30"/>);
-          driver.increment(FIELD.HOUR);
+          const driver = createDriverWithComponent();
+          driver.callIncrement(FIELD.HOUR);
           expect(driver.getValue()).toEqual('11:30');
         });
 
         it('should increment the value by 12 hours when passing FIELD.AMPM argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30" useAmPm/>);
-          driver.increment(FIELD.AMPM);
+          const driver = createDriverWithComponent({useAmPm: true});
+          driver.callIncrement(FIELD.AMPM);
           expect(driver.getValue()).toEqual('10:30 PM');
         });
       });
@@ -70,56 +89,56 @@ describe('TimePicker', () => {
 
     describe('decrement', () => {
       it('should default to minute decrements', () => {
-        const driver = createDriver(<TimePicker value = "10:30" />);
-        driver.decrement();
+        const driver = createDriverWithComponent();
+        driver.callDecrement();
         expect(driver.getValue()).toEqual('10:29');
       });
 
       describe('last focused field', () => {
         it('should decrement the value by 1 hour when last focused field was hour', () => {
-          const driver = createDriver(<TimePicker value = "10:30" />);
+          const driver = createDriverWithComponent();
           driver.focus();
           driver.blur();
-          driver.decrement();
+          driver.callDecrement();
           expect(driver.getValue()).toEqual('09:30');
         });
 
         it('should decrement the value by 1 minute when last focused field was minute', () => {
-          const driver = createDriver(<TimePicker value = "10:30" />);
+          const driver = createDriverWithComponent();
           driver.focus();
-          driver.keyDown('Tab');
+          driver.tab();
           driver.blur();
-          driver.decrement();
+          driver.callDecrement();
           expect(driver.getValue()).toEqual('10:29');
         });
 
         it('should decrement the value by 12 hours when last focused field was ampm', () => {
-          const driver = createDriver(<TimePicker value = "10:30" useAmPm />);
+          const driver = createDriverWithComponent({useAmPm: true});
           driver.focus();
-          driver.keyDown('Tab');
-          driver.keyDown('Tab');
+          driver.tab();
+          driver.tab();
           driver.blur();
-          driver.decrement();
+          driver.callDecrement();
           expect(driver.getValue()).toEqual('10:30 PM');
         });
       });
 
       describe('calling with field arguments', () => {
         it('should decrement the value by 1 minute when passing FIELD.MINUTE as argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30" />);
-          driver.decrement(FIELD.MINUTE);
+          const driver = createDriverWithComponent();
+          driver.callDecrement(FIELD.MINUTE);
           expect(driver.getValue()).toEqual('10:29');
         });
 
         it('should decrement the value by 1 hour when passing FIELD.HOUR as argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30" />);
-          driver.decrement(FIELD.HOUR);
+          const driver = createDriverWithComponent();
+          driver.callDecrement(FIELD.HOUR);
           expect(driver.getValue()).toEqual('09:30');
         });
 
         it('should decrement the value by 12 hours when passing FIELD.AMPM argument', () => {
-          const driver = createDriver(<TimePicker value = "10:30" useAmPm />);
-          driver.decrement(FIELD.AMPM);
+          const driver = createDriverWithComponent({useAmPm: true});
+          driver.callDecrement(FIELD.AMPM);
           expect(driver.getValue()).toEqual('10:30 PM');
         });
       });
@@ -127,11 +146,10 @@ describe('TimePicker', () => {
 
     describe('focus', () => {
       it('should focus the input element', () => {
-        const container = renderIntoDocument(<TimePicker/>);
-        const element = findRenderedDOMComponentWithTag(container, 'input');
-        expect(document.activeElement === element).toBeFalsy();
-        container.focus();
-        expect(document.activeElement === element).toBeTruthy();
+        const driver = createDriverWithComponent();
+        expect(document.activeElement).not.toBe(driver.getInputElement());
+        driver.callFocus();
+        expect(document.activeElement).toBe(driver.getInputElement());
       });
     });
   });
@@ -205,34 +223,34 @@ describe('TimePicker', () => {
 
   describe('step prop', () => {
     it('should default to 1', () => {
-      const driver = createDriver(<TimePicker value = "10:30" />);
-      driver.increment();
+      const driver = createDriverWithComponent();
+      driver.callIncrement();
       expect(driver.getValue()).toEqual('10:31');
     });
 
     it('should increment value by 5 minutes when step is set to 5', () => {
-      const driver = createDriver(<TimePicker value = "10:30" step = {5}/>);
-      driver.increment();
+      const driver = createDriverWithComponent({step: 5});
+      driver.callIncrement();
       expect(driver.getValue()).toEqual('10:35');
     });
   });
 
   describe('separateSteps prop', () => {
     it('should default to false', () => {
-      const driver = createDriver(<TimePicker value = "10:59" />);
-      driver.increment();
+      const driver = createDriverWithComponent({value: '10:59'});
+      driver.callIncrement();
       expect(driver.getValue()).toEqual('11:00');
     });
 
     it('should increment hour when incrementing one minute over 59, when false', () => {
-      const driver = createDriver(<TimePicker value = "10:59" separateSteps = {false}/>);
-      driver.increment();
+      const driver = createDriverWithComponent({value: '10:59', separateSteps: false});
+      driver.callIncrement();
       expect(driver.getValue()).toEqual('11:00');
     });
 
     it('should not increment hour when incrementing one minute over 59, when true', () => {
-      const driver = createDriver(<TimePicker value = "10:59" separateSteps = {true} />);
-      driver.increment();
+      const driver = createDriverWithComponent({value: '10:59', separateSteps: true});
+      driver.callIncrement();
       expect(driver.getValue()).toEqual('10:00');
     });
   });
@@ -256,15 +274,15 @@ describe('TimePicker', () => {
           this.setValue = this.setValue.bind(this);
         }
         setValue(value) { this.setState({value}); }
-        getValue() { return this.refs.timePicker; }
-        render() { return (<TimePicker ref= "timePicker" value={this.state.value}/>); }
+        render() { return (<TimePicker ref="timePicker" value={this.state.value}/>); }
       }
 
-      const container = renderIntoDocument(<ValueContainer value = {SOME_VALUE}/>);
-      const element   = findRenderedDOMComponentWithTag(container, 'input');
+      const container = mount(<ValueContainer value = {SOME_VALUE}/>);
+      const inputElement = container.find('input').getDOMNode() as HTMLInputElement;
+      expect(inputElement.value).toEqual(SOME_VALUE);
       const NEW_VALUE = '13:13';
-      container.setValue(NEW_VALUE);
-      expect(element.value).toEqual(NEW_VALUE);
+      (container.instance() as ValueContainer).setValue(NEW_VALUE);
+      expect(inputElement.value).toEqual(NEW_VALUE);
     });
   });
 
