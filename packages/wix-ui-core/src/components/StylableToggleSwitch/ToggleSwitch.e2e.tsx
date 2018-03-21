@@ -1,7 +1,7 @@
 import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {toggleSwitchTestkitFactory} from '../../testkit/protractor';
+import {stylableToggleSwitchTestkitFactory as toggleSwitchTestkitFactory} from '../../testkit/protractor';
 import {Key} from 'selenium-webdriver';
 
 describe('ToggleSwitch', () => {
@@ -15,13 +15,13 @@ describe('ToggleSwitch', () => {
 
     return waitForVisibilityOf(driver.element(), 'Cannot find ToggleSwitch')
     .then(() => {
-      expect(driver.isChecked()).toBeFalsy();
+      expect(driver.checked()).toBeFalsy();
 
       driver.click();
-      expect(driver.isChecked()).toBeTruthy();
+      expect(driver.checked()).toBeTruthy();
 
       driver.click();
-      expect(driver.isChecked()).toBeFalsy();
+      expect(driver.checked()).toBeFalsy();
     });
   });
 
@@ -30,16 +30,16 @@ describe('ToggleSwitch', () => {
 
     return waitForVisibilityOf(driver.element(), 'Cannot find ToggleSwitch')
     .then(() => {
-      expect(driver.isChecked()).toBe(false);
+      expect(driver.checked()).toBe(false);
 
       browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
-      expect(driver.isChecked()).toBe(true);
+      expect(driver.checked()).toBe(true);
 
       browser.actions().sendKeys(Key.SPACE).perform();
-      expect(driver.isChecked()).toBe(false);
+      expect(driver.checked()).toBe(false);
 
       browser.actions().sendKeys(Key.CONTROL).perform();
-      expect(driver.isChecked()).toBe(false);
+      expect(driver.checked()).toBe(false);
     });
   });
 });
