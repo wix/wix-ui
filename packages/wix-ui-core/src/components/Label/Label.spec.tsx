@@ -13,7 +13,7 @@ describe('Label', () => {
   it('Renders children', async () => {
     const label = createDriver(<Label>HELLO</Label>);
 
-    expect(label.getChildren()).toBe('HELLO');
+    expect(label.getLabelText()).toBe('HELLO');
   });
 
   it('takes an id prop', async () => {
