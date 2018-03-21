@@ -49,3 +49,6 @@ export const sliderTestkitFactory = testkitFactoryCreator(sliderDriverFactory);
 
 import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
 export const addressInputTestkitFactory = testkitFactoryCreator(addressInputDriverFactory);
+
+import {labelDriverFactory} from '../components/Label/Label.driver';
+export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);

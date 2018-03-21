@@ -181,7 +181,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
           {...inputProps}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
-          className={style.input}
+          className={style.inputComponent}
         />
       </Dropdown>
     );

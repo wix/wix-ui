@@ -55,6 +55,7 @@
     "import-path": "latest",
     "jsx-to-string": "git+https://github.com/amiryonatan/jsx-to-string.git#release_branch",
     "loader-utils": "^1.1.0",
+    "query-string": "^5.1.0",
     "react-autodocs-utils": "^2.0.1",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",

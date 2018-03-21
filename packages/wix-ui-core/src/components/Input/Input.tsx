@@ -89,6 +89,7 @@ export class Input extends React.Component<InputProps, InputState> {
           autoComplete={this.props.autoComplete}
           autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
+          className={style.nativeInput}
           onBlur={this.handleBlur}
           onChange={this.props.onChange}
           onFocus={this.handleFocus}

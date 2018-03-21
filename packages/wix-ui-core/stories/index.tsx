@@ -18,6 +18,7 @@ require('./Input.story.js');
 require('./IconWithOptions').story();
 require('./StylableText').story();
 require('./HBox').story();
+require('./Label').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();

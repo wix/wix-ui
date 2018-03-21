@@ -13,8 +13,17 @@
 
 .root {
   -st-extends: InputWithOptions;
+  -st-states: disabled, error;
 }
 
 .divider {
   -st-extends: Divider;
+}
+
+.root::inputComponent::nativeInput {
+  padding-right: 16px;
+}
+
+.icon {
+  margin: 0 -16px -2px;
 }

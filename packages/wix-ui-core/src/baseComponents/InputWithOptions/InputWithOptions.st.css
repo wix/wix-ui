@@ -15,6 +15,6 @@
   -st-extends: Dropdown;
 }
 
-.input {
+.inputComponent {
   -st-extends: Input;
 }

@@ -15,6 +15,7 @@ export const story = () => createStory({
     width: 400,
     height: 225,
     title: 'Awesome title',
+    playButton: 'Play',
     onPlay: () => setState({playing: true}),
     onPause: () => setState({playing: false}),
   }),

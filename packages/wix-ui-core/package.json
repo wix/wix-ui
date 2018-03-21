@@ -34,8 +34,7 @@
     "classnames": "^2.2.5",
     "hoist-non-react-methods": "^1.1.0",
     "lodash": "^4.17.5",
-    "playable": "^1.2.0",
-    "popper.js": "^1.12",
+    "playable": "^1.7.4",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
@@ -82,7 +81,7 @@
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "moduleNameMapper": {
-      "\\.(st.css)$": "wix-ui-test-utils/stylable-proxy"
+      "\\.(st.css|scss)$": "wix-ui-test-utils/stylable-proxy"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [

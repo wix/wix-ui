@@ -2,7 +2,7 @@ import {StylableDOMUtil} from 'stylable/test-utils';
 import style from './Input.st.css';
 
 export const inputDriverFactory = ({element, eventTrigger}) => {
-  const input = element.querySelector('input');
+  const input = element && element.querySelector('input');
   const styleUtil = new StylableDOMUtil(style);
 
   return {

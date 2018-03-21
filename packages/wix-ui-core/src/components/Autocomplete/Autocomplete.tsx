@@ -5,6 +5,7 @@ import {Option, OptionFactory, optionPropType} from '../../baseComponents/Dropdo
 import {Divider} from '../Divider';
 import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
 import {InputProps} from '../Input';
+import ArrowDown from 'wix-ui-icons-common/ArrowDown';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -36,6 +37,8 @@ export interface AutocompleteProps {
   placeholder?: string;
   /** Inputs value */
   value?: string;
+  /** Is in error state */
+  error?: boolean;
 }
 
 export interface AutocompleteState {
@@ -70,7 +73,9 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     /** Placeholder to display */
     placeholder: string,
     /** Inputs value */
-    value: string
+    value: string,
+    /** Is in error state */
+    error: bool
   };
 
   static createOption = OptionFactory.create;
@@ -120,7 +125,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   _createInputProps() {
     const {inputValue} = this.state;
-    const {autoFocus, disabled, onBlur, onFocus, placeholder} = this.props;
+    const {autoFocus, disabled, onBlur, onFocus, placeholder, error} = this.props;
     return {
       value: inputValue,
       onChange: this._onInputChange,
@@ -128,7 +133,9 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       disabled,
       onBlur,
       onFocus,
-      placeholder
+      placeholder,
+      error,
+      suffix: <ArrowDown className={style.icon} />
     };
   }
 
@@ -142,12 +149,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   }
 
   render() {
-    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
+    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput, disabled, error} = this.props;
     const inputProps = this._createInputProps();
 
     return (
       <InputWithOptions
-        {...style('root', {}, this.props)}
+        {...style('root', {disabled, error}, this.props)}
         onSelect={this._onSelect}
         initialSelectedIds={initialSelectedId || initialSelectedId === 0 ? [initialSelectedId] : null}
         onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}

@@ -50,3 +50,6 @@ export const sliderTestkitFactory = enzymeTestkitFactoryCreator(sliderDriverFact
 
 import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
 export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(addressInputDriverFactory);
+
+import {labelDriverFactory} from '../components/Label/Label.driver';
+export const labelTestkitFactory = enzymeTestkitFactoryCreator(labelDriverFactory);
