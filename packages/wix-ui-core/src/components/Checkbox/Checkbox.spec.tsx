@@ -244,13 +244,5 @@ describe('Checkbox', () => {
       checkbox.focus();
       expect(checkbox.hasFocusState()).toBe(true);
     });
-
-    it('focuses the native input after click but is not in focus state', () => {
-      const checkbox = createDriver(<Checkbox />);
-
-      checkbox.click();
-      expect(document.activeElement).toBe(checkbox.input());
-      expect(checkbox.hasFocusState()).toBe(false);
-    });
   });
 });
