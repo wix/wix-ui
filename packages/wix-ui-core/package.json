@@ -57,6 +57,8 @@
     "@types/react": "^15.6.12",
     "@types/react-onclickoutside": "^6.0.2",
     "@types/react-transition-group": "^2.0.6",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eyes.it": "latest",
@@ -111,5 +113,10 @@
       "root": "wix-ui-core",
       "commonjs": "wix-ui-core"
     }
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }
