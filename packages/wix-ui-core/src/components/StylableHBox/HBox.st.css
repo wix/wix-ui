@@ -1,5 +1,5 @@
 .root {
-    -st-states: verticalAlignment(enum(bottom, center, top)), rtl;
+    -st-states: verticalAlignment(enum(bottom, center, top)), dir(enum(rtl));
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -18,6 +18,6 @@
     align-items: flex-start;
 }
 
-.root:rtl {
+/* .root:dir(rtl) {
     flex-direction: row-reverse;
-}
+} */

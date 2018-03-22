@@ -7,7 +7,7 @@ export interface HBoxProps {
   children?: React.ReactNode;
   verticalAlignment?: AlignmentOptions;
   spacing?: number;
-  rtl?: boolean;
+  dir?: 'rtl' | 'ltr';
 }
 
 export type AlignmentOptions = 'top' | 'center' | 'bottom';
@@ -16,13 +16,13 @@ export type AlignmentOptions = 'top' | 'center' | 'bottom';
  * HBox
  */
 export const HBox: React.SFC<HBoxProps> = props => {
-  const {children, verticalAlignment, spacing, rtl} = props;
-  return <div {...style('root', {verticalAlignment, rtl}, props)}>{addSpacing(children, spacing, rtl)}</div>;
+  const {children, verticalAlignment, spacing, dir} = props;
+  return <div {...style('root', {verticalAlignment, dir}, props)}>{addSpacing(children, spacing, dir)}</div>;
 };
 
 HBox.propTypes = {
   children: any,
   verticalAlignment: oneOf(['top', 'center', 'bottom']),
   spacing: number,
-  rtl: bool
+  dir: oneOf(['ltr', 'rtl'])
 };
