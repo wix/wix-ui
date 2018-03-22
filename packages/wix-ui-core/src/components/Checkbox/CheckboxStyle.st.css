@@ -13,6 +13,7 @@
     height: 1rem;
     align-items: center;
     justify-content: center;
+    vertical-align: bottom;
     background-color: #fff;
     border: 1px solid #c8c8c8;
 }
