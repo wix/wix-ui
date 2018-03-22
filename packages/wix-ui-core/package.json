@@ -20,7 +20,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && npm run import-path && npm run generate-stylable-index && npm run transpile-mixins",
+    "build": "haste build && npm run generate-stylable-index && npm run transpile-mixins",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -28,6 +28,7 @@
     "test:e2e": "haste test --protractor",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
+    "prepublish": "npm run import-path",
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
