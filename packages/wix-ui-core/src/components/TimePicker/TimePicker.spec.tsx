@@ -305,12 +305,4 @@ describe('TimePicker', () => {
     });
   });
 
-  // TODO
-  describe('styles', () => {
-    it('root should be inline-flex', () => {
-      // const driver = createDriver(<TimePicker onChange={noop}/>);
-      // expect(driver.styles.getRootDisplay()).toBe('inline-flex');
-      expect(true).toBe(true);
-    });
-  });
 });
