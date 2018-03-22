@@ -1,12 +1,10 @@
 module.exports = function(expression) {
-  const parts = expression.match(/(\d+)[a-z%]+/g);
+  const units = expression.match(/[a-z%]+/g);
 
   // All values are unitless, reduce to a single number.
-  if (!parts) {
+  if (!units) {
     return eval(expression).toString();
   }
-
-  const units = parts.map(val => val.replace(/(\d+)(.*)/, "$2"));
 
   // All values have the same unit, reduce to a single number
   // followed by the unit.
