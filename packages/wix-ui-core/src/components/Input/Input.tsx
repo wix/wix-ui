@@ -75,35 +75,55 @@ export class Input extends React.Component<InputProps, InputState> {
   private input: HTMLInputElement;
 
   render() {
+    const {focus} = this.state;
+    const {
+      error,
+      disabled,
+      prefix,
+      autoComplete,
+      autoFocus,
+      onChange,
+      onKeyDown,
+      onKeyPress,
+      onKeyUp,
+      placeholder,
+      readOnly,
+      tabIndex,
+      required,
+      type,
+      value,
+      suffix
+    } = this.props;
+
     return (
       <div
         {...style(
           'root',
-          {disabled: this.props.disabled, error: this.props.error, focus: this.state.focus},
+          {disabled, error, focus},
           this.props
         )}
       >
-        {this.props.prefix}
+        {prefix}
         <input
           ref={input => this.input = input}
-          autoComplete={this.props.autoComplete}
-          autoFocus={this.props.autoFocus}
-          disabled={this.props.disabled}
+          autoComplete={autoComplete}
+          autoFocus={autoFocus}
+          disabled={disabled}
           className={style.nativeInput}
           onBlur={this.handleBlur}
-          onChange={this.props.onChange}
+          onChange={onChange}
           onFocus={this.handleFocus}
-          onKeyDown={this.props.onKeyDown}
-          onKeyPress={this.props.onKeyPress}
-          onKeyUp={this.props.onKeyUp}
-          placeholder={this.props.placeholder}
-          readOnly={this.props.readOnly}
-          required={this.props.required}
-          tabIndex={this.props.tabIndex}
-          type={this.props.type}
-          value={this.props.value}
+          onKeyDown={onKeyDown}
+          onKeyPress={onKeyPress}
+          onKeyUp={onKeyUp}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          required={required}
+          tabIndex={tabIndex}
+          type={type}
+          value={value}
         />
-        {this.props.suffix}
+        {suffix}
       </div>
     );
   }

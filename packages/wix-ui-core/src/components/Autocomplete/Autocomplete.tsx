@@ -5,7 +5,6 @@ import {Option, OptionFactory, optionPropType} from '../../baseComponents/Dropdo
 import {Divider} from '../Divider';
 import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
 import {InputProps} from '../Input';
-import ArrowDown from 'wix-ui-icons-common/ArrowDown';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -39,6 +38,8 @@ export interface AutocompleteProps {
   value?: string;
   /** Is in error state */
   error?: boolean;
+  /** Arrow Icon */
+  ArrowIcon?: JSX.Element;
 }
 
 export interface AutocompleteState {
@@ -75,7 +76,9 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     /** Inputs value */
     value: string,
     /** Is in error state */
-    error: bool
+    error: bool,
+    /** Arrow Icon */
+    ArrowIcon: node
   };
 
   static createOption = OptionFactory.create;
@@ -125,7 +128,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   _createInputProps() {
     const {inputValue} = this.state;
-    const {autoFocus, disabled, onBlur, onFocus, placeholder, error} = this.props;
+    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, ArrowIcon} = this.props;
     return {
       value: inputValue,
       onChange: this._onInputChange,
@@ -135,7 +138,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       onFocus,
       placeholder,
       error,
-      suffix: <ArrowDown className={style.icon} />
+      suffix: ArrowIcon
     };
   }
 

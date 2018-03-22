@@ -60,6 +60,11 @@
   height: 100%;
 }
 
-.root:checked::knob {
+.root:checked::knob, 
+:global([dir="rtl"]) .root::knob {
   transform: translateX(calc(value(knobMovementRange) / 2));
+}
+
+:global([dir="rtl"]) .root:checked::knob {
+  transform: translateX(calc(value(knobMovementRange) / -2));
 }
