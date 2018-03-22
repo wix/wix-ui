@@ -66,7 +66,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     step                 : 1,
     separateSteps        : false,
     value                : null,
-    placeholder        : NULL_TIME,
+    placeholder          : NULL_TIME,
   };
 
   static propTypes: Object = {
@@ -135,10 +135,10 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   componentWillReceiveProps(nextProps) {
-    let {value} = nextProps;
-    if (this.props.value !== value) {
+    let {value, placeholder} = nextProps;
+    if (this.props.value !== value || this.props.placeholder !== placeholder) {
       if (!value || !isValidTime(value)) {
-        value = isValidTime(nextProps.placeholder) ? nextProps.placeholder : NULL_TIME;
+        value = placeholder ? placeholder : NULL_TIME;
       }
       this.setState({value});
     }
