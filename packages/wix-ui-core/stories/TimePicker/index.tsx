@@ -10,7 +10,7 @@ export const story = () => createStory({
   storyName: 'TimePicker',
   component: TimePicker,
   componentProps: (setState) => ({
-    dataHook: 'storybook-timepicker',
+    'data-hook': 'storybook-timepicker',
     onChange: value => setState({value}),
   }),
   exampleProps: {

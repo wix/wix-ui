@@ -53,3 +53,6 @@ export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(addressInp
 
 import {labelDriverFactory} from '../components/Label/Label.driver';
 export const labelTestkitFactory = enzymeTestkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
+export const timePickerTestkitFactory = enzymeTestkitFactoryCreator(timePickerDriverFactory);

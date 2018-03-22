@@ -52,3 +52,6 @@ export const addressInputTestkitFactory = testkitFactoryCreator(addressInputDriv
 
 import {labelDriverFactory} from '../components/Label/Label.driver';
 export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
+export const timePickerTestkitFactory = testkitFactoryCreator(timePickerDriverFactory);
