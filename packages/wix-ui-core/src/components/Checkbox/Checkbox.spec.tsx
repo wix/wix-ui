@@ -28,7 +28,7 @@ describe('Checkbox', () => {
   it('Displays custom tick mark when value is true', async () => {
     const checkbox = createDriver(
       <Checkbox
-        tickIcon={tickSVG}
+        checkedIcon={tickSVG}
         checked={true}
       />
     );
