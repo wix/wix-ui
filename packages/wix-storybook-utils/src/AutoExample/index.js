@@ -21,6 +21,9 @@ const stripQuotes = string => {
   return quoted ? quoted[1] : string;
 };
 
+const matchFuncProp = typeName =>
+  typeName === 'func' || typeName.match(/event/);
+
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
   * and, optionally, `componentProps`,`AutoExample` will render:
@@ -170,7 +173,14 @@ export default class extends Component {
   mapControllableProps = fn => {
     return Object
       .keys(this.parsedComponent.props)
-      .filter(key => Object.keys(this.controllableComponentGetters).includes(this.parsedComponent.props[key].type.name))
+      .filter(key => {
+        const typeName = this.parsedComponent.props[key].type.name;
+
+        return [
+          Object.keys(this.propControllers).includes(typeName),
+          matchFuncProp(typeName)
+        ].some(i => i);
+      })
       .map(key => fn(this.parsedComponent.props[key], key));
   };
 
@@ -182,7 +192,7 @@ export default class extends Component {
       <NodesList values={this.props.exampleProps[propKey]}/> :
       <Input/>;
 
-  controllableComponentGetters = {
+  propControllers = {
     string: () => <Input/>,
     number: () => <Input/>,
     bool: () => <Toggle/>,
@@ -217,12 +227,23 @@ export default class extends Component {
     }
   }
 
-  getPropControlComponent = (propKey, type) => {
-    return (this.controllableComponentGetters[type.name] || (() => null))({propKey, type});
-  }
+  getPropControlComponent = (propKey, type) =>
+    [
+      {
+        rule: matchFuncProp(type.name),
+        controller: this.propControllers.func
+      },
+
+      // default
+      {
+        rule: true,
+        controller: this.propControllers[type.name] || (() => null)
+      }
+    ].find(({rule}) => rule).controller({propKey, type})
 
   componentToString = component =>
     jsxToString(component, {
+      displayName: this.parsedComponent.displayName,
       useFunctionCode: true,
       functionNameOnly: false,
       shortBooleanSyntax: true,
@@ -232,7 +253,7 @@ export default class extends Component {
           {}
         )
       }
-    })
+    });
 
   render() {
     const component = this.props.component;
@@ -240,7 +261,7 @@ export default class extends Component {
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
       prop =>
         this.parsedComponent.props[prop] &&
-        this.parsedComponent.props[prop].type.name === 'func'
+        matchFuncProp(this.parsedComponent.props[prop].type.name)
     );
 
     const componentProps = {
