@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
@@ -113,6 +114,18 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     slashLabel: '\u00A0/\u00A0'
   };
 
+  updatePageStrip = () => null;
+
+  public componentDidMount() {
+    if (this.props.updateResponsiveLayout) {
+      this.props.updateResponsiveLayout(this.updateLayout);
+    }
+  }
+
+  public componentWillUnmount() {
+    this.props.updateResponsiveLayout && this.props.updateResponsiveLayout(() => null);
+  }
+
   private getId(elementName: string = ''): string | null {
     return this.props.id ? this.props.id + elementName : null;
   }
@@ -146,9 +159,62 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         gapLabel={this.props.gapLabel}
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
-        updateResponsiveLayout={this.props.updateResponsiveLayout}
+        updateResponsiveLayout={this.props.updateResponsiveLayout && (cb => this.updatePageStrip = cb)}
       />
     );
+  }
+
+  private measureAndSetRootMinWidth() {
+    const compNode = ReactDOM.findDOMNode(this);
+      compNode.style.minWidth = '';
+
+      const getWidthWithMargins = elmnt => {
+        if (!elmnt) {return 0; }
+        const style = window.getComputedStyle(elmnt);
+        return parseInt(style.marginRight, 10) +
+        parseInt(style.paddingRight, 10) +
+        parseInt(style.width, 10) +
+        parseInt(style.paddingLeft, 10) +
+        parseInt(style.marginLeft, 10);
+    };
+
+      const getMinWidth = elmnt => {
+          if (!elmnt) {return 0; }
+          return parseInt(window.getComputedStyle(elmnt).minWidth, 10);
+      };
+
+      const nextBtnNode = compNode.querySelector(`#${this.getId('navButtonNext')}`);
+      const prevBtnNode = compNode.querySelector(`#${this.getId('navButtonPrevious')}`);
+      const firstBtnNode = compNode.querySelector(`#${this.getId('navButtonFirst')}`);
+      const lastBtnNode = compNode.querySelector(`#${this.getId('navButtonLast')}`);
+      const btnsMinWidth = getWidthWithMargins(nextBtnNode) +
+      getWidthWithMargins(prevBtnNode) +
+      getWidthWithMargins(firstBtnNode) +
+      getWidthWithMargins(lastBtnNode);
+
+      const pageStripNode = compNode.querySelector(`#${this.getId('pageStrip')}`);
+      const slashNode = compNode.querySelector(`#${this.getId('slash')}`);
+      const totalPagesNode = compNode.querySelector(`#${this.getId('totalPages')}`);
+      const pageInputNode = compNode.querySelector(`#${this.getId('pageInput')}`);
+
+      let selectionMinWidth = 0;
+
+      if (pageStripNode) {
+          // means we're in "pages" pagination mode
+          selectionMinWidth = getMinWidth(pageStripNode);
+      } else {
+          // means we're in "input" pagination mode
+          selectionMinWidth = getWidthWithMargins(totalPagesNode) +
+          getWidthWithMargins(slashNode) +
+          getWidthWithMargins(pageInputNode);
+      }
+
+      compNode.style.minWidth = btnsMinWidth + selectionMinWidth + 'px';
+  }
+
+  private updateLayout = ()  => {
+      this.measureAndSetRootMinWidth();
+      this.updatePageStrip();
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -187,6 +253,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     return (
       <div data-hook="page-form" id={this.getId('pageForm')} className={pStyle.pageForm} dir="ltr">
         <input
+          id={this.getId('pageInput')}
           data-hook="page-input"
           type="number"
           className={pStyle.pageInput}
@@ -198,8 +265,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && [
-            <span key="slash" className={pStyle.slash}>{this.props.slashLabel}</span>,
-            <span key="total-pages" data-hook="total-pages" className={pStyle.totalPages}>
+            <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,
+            <span key="total-pages" id={this.getId('totalPages')} data-hook="total-pages" className={pStyle.totalPages}>
             {this.props.totalPages}
             </span>
           ]
