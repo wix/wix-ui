@@ -3,8 +3,7 @@ import * as eventually from 'wix-eventually';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
-import {HOVER, CLICK} from './constants';
-import {OptionFactory} from '../DropdownOption';
+import {CLICK, HOVER} from './constants';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
 import {generateOptions} from '../DropdownOption/OptionsExample';
@@ -43,6 +42,13 @@ describe('Dropdown', () => {
 
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('should hide content on another click', async () => {
+      const driver = createDriver(createDropdown({options}));
+      driver.click();
+      driver.click();
+      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
     });
 
     it('should show content on hover', async () => {
@@ -96,9 +102,15 @@ describe('Dropdown', () => {
   describe('onDeselect', () => {
     it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [0], options, onDeselect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({
+        initialSelectedIds: [0],
+        options,
+        onDeselect,
+        closeOnSelect: false
+      }));
 
       driver.click();
+
       driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
     });
@@ -144,7 +156,8 @@ describe('Dropdown', () => {
 
       const driver = dropdownDriverFactory({
         element: wrapper.children().at(0).getDOMNode(),
-        eventTrigger: Simulate});
+        eventTrigger: Simulate
+      });
 
       driver.click();
       expect(driver.isContentElementExists()).toBeFalsy();

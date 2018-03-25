@@ -1,10 +1,11 @@
 import * as React from 'react';
-import onClickOutside , {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
+import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
+
 const isEqual = require('lodash/isEqual');
 
 export interface DropdownProps {
@@ -142,7 +143,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
           this.close();
           break;
         }
-        default: break;
+        default:
+          break;
       }
     });
   }
@@ -181,6 +183,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     callback(option);
   }
 
+  onClick = () => {
+    const {disabled, openTrigger, closeOnSelect} = this.props;
+    const {isOpen} = this.state;
+
+    if (disabled || openTrigger !== CLICK) {
+      return;
+    }
+    isOpen ? (closeOnSelect && this.close()) : this.open();
+  };
+
   render() {
     const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility} = this.props;
     const {isOpen, selectedIds} = this.state;
@@ -193,7 +205,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
         showArrow={showArrow}
         timeout={timeout}
-        onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
+        onClick={this.onClick}
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}>
@@ -208,7 +220,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
             selectedIds={selectedIds}
-            onOptionClick={this.onOptionClick} />
+            onOptionClick={this.onOptionClick}/>
         </Popover.Content>
       </Popover>
     );

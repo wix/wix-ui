@@ -1,0 +1,22 @@
+:import {
+  -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
+  -st-default: Dropdown;
+}
+
+:import {
+  -st-from: "../Label/Label.st.css";
+  -st-default: Label;
+}
+
+.root {
+  -st-extends: Dropdown;
+}
+
+.label {
+  -st-extends: Label;
+  -st-states: invalid;
+}
+
+.selection {
+  -st-states: required, invalid, disabled;
+}

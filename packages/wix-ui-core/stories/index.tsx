@@ -19,6 +19,7 @@ require('./Badge').story();
 require('./Button.story');
 require('./Input/Input.story');
 require('./IconWithOptions.story');
+require('./LabelWithOptions').story();
 require('./Label').story();
 require('./Slider').story();
 require('./StylableBadge').story();
