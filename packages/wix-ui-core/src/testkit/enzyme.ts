@@ -1,9 +1,5 @@
 import {enzymeTestkitFactoryCreator, WrapperData} from 'wix-ui-test-utils/enzyme';
 
-// JSS
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
-export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {inputDriverFactory} from '../components/Input/Input.driver';
 //Ugly workaround for now
 export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFactoryCreator(inputDriverFactory);
