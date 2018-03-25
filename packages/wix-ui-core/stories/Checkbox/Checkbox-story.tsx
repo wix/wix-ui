@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Checkbox} from '../../src/components/Checkbox/Checkbox';
-import commonStyle from '../../src/components/Checkbox/CheckboxStyle.st.css';
+import style from '../../src/components/Checkbox/CheckboxStyle.st.css';
+import {CheckboxChecked, CheckboxIndeterminate} from 'wix-ui-icons-common/system';
 
 export class CheckboxStory extends React.Component<{}, { checked: boolean }> {
   state = {checked: false};
@@ -9,8 +10,10 @@ export class CheckboxStory extends React.Component<{}, { checked: boolean }> {
     return (
       <div style={{height: '100px', width: '100px'}}>
         <Checkbox
-          {...commonStyle('root') }
+          {...style('root')}
           checked={this.state.checked}
+          checkedIcon={<CheckboxChecked />}
+          indeterminateIcon={<CheckboxIndeterminate />}
           onChange={() => this.setState({checked: !this.state.checked})}
           data-hook="storybook-checkbox"
         />

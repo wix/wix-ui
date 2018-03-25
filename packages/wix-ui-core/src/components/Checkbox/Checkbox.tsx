@@ -1,7 +1,6 @@
 import * as React from 'react';
 import style from './Checkbox.st.css';
 import {bool, func, string, number, array, node} from 'prop-types';
-import {CheckboxChecked, CheckboxIndeterminate} from 'wix-ui-icons-common/system';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -80,8 +79,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   public static defaultProps: Partial<CheckboxProps> = {
-    checkedIcon: <CheckboxChecked />, // TODO: remove after adding icon in wix-ui-backoffice
-    indeterminateIcon: <CheckboxIndeterminate />, // TODO: remove after adding icon in wix-ui-backoffice
     onChange: () => null,
     checked: false,
     indeterminate: false,
