@@ -8,6 +8,7 @@
     "email": "fed-infra@wix.com"
   },
   "files": [
+    "src",
     "dist",
     "*.js",
     "*.d.ts",
