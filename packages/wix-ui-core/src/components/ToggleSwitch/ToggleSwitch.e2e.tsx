@@ -1,11 +1,11 @@
 import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {stylableToggleSwitchTestkitFactory as toggleSwitchTestkitFactory} from '../../testkit/protractor';
+import {toggleSwitchTestkitFactory} from '../../testkit/protractor';
 import {Key} from 'selenium-webdriver';
 
 describe('ToggleSwitch', () => {
-  const storyUrl = getStoryUrl('Components', 'StylableToggleSwitch');
+  const storyUrl = getStoryUrl('Components', 'ToggleSwitch');
   const dataHook = 'story-toggleswitch';
 
   beforeEach(() => browser.get(storyUrl));

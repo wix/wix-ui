@@ -1,4 +1,4 @@
-import {ToggleSwitch} from '../../src/components/StylableToggleSwitch';
+import {ToggleSwitch} from '../../src/components/ToggleSwitch';
 import style from './style.st.css';
 
 export default {

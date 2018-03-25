@@ -22,8 +22,8 @@ import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactory);
 
 //Stylable
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
-export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
+export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
 
 import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
 export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);

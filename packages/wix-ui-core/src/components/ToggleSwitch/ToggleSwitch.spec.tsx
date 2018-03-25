@@ -4,8 +4,8 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {ToggleSwitch} from './';
-import {stylableToggleSwitchTestkitFactory as toggleSwitchTestkitFactory} from '../../testkit';
-import {stylableToggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
+import {toggleSwitchTestkitFactory} from '../../testkit';
+import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
 
 describe('ToggleSwitch', () => {
