@@ -4,7 +4,7 @@ export default {
   category: 'Components',
   storyName: 'StylableText',
   component: Text,
-  componentPath: '../src/components/StylableText',
+  componentPath: '../src/components/StylableText/Text.tsx',
 
   componentProps: {
     'data-hook': 'storybook-text',
