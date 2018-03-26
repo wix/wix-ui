@@ -1,49 +1,36 @@
 import {getId} from './Pagination';
 
-export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode: 'pages' | 'input', idPrefix: string = '') => {
+export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode: 'pages' | 'input', idPrefix: string = ''): void => {
     compNode.style.minWidth = '';
 
-    const getIds = (name: string) => getId(idPrefix, name);
+    const getById = (id: string): HTMLElement => compNode.querySelector(`#${getId(idPrefix, id)}`);
 
-    const getWidthWithMargins = elmnt => {
+    const getMinWidth = (elmnt: HTMLElement): number => elmnt ? parseInt(window.getComputedStyle(elmnt).minWidth, 10) : 0;
+
+    const getWidthWithMargins = (elmnt: HTMLElement): number => {
         if (!elmnt) {return 0; }
         const style = window.getComputedStyle(elmnt);
         return parseInt(style.marginRight, 10) +
-        parseInt(style.paddingRight, 10) +
-        parseInt(style.width, 10) +
-        parseInt(style.paddingLeft, 10) +
+        elmnt.offsetWidth +
         parseInt(style.marginLeft, 10);
     };
 
-    const getMinWidth = elmnt => {
-        if (!elmnt) {return 0; }
-        return parseInt(window.getComputedStyle(elmnt).minWidth, 10);
-    };
-
-    const nextBtnNode = compNode.querySelector(`#${getIds('navButtonNext')}`);
-    const prevBtnNode = compNode.querySelector(`#${getIds('navButtonPrevious')}`);
-    const firstBtnNode = compNode.querySelector(`#${getIds('navButtonFirst')}`);
-    const lastBtnNode = compNode.querySelector(`#${getIds('navButtonLast')}`);
-    const btnsMinWidth = getWidthWithMargins(nextBtnNode) +
-    getWidthWithMargins(prevBtnNode) +
-    getWidthWithMargins(firstBtnNode) +
-    getWidthWithMargins(lastBtnNode);
+    const navButtonsMinWidth = getWidthWithMargins(getById('navButtonNext')) +
+    getWidthWithMargins(getById('navButtonPrevious')) +
+    getWidthWithMargins(getById('navButtonFirst')) +
+    getWidthWithMargins(getById('navButtonLast'));
 
     let selectionMinWidth = 0;
 
     if (paginationMode === 'pages') {
         // means we're in "pages" pagination mode
-        const pageStripNode = compNode.querySelector(`#${getIds('pageStrip')}`);
-        selectionMinWidth = getMinWidth(pageStripNode);
+        selectionMinWidth = getMinWidth(getById('pageStrip'));
     } else {
         // means we're in "input" pagination mode
-        const slashNode = compNode.querySelector(`#${getIds('slash')}`);
-        const totalPagesNode = compNode.querySelector(`#${getIds('totalPages')}`);
-        const pageInputNode = compNode.querySelector(`#${getIds('pageInput')}`);
-        selectionMinWidth = getWidthWithMargins(totalPagesNode) +
-        getWidthWithMargins(slashNode) +
-        getWidthWithMargins(pageInputNode);
+        selectionMinWidth = getWidthWithMargins(getById('totalPages')) +
+        getWidthWithMargins(getById('slash')) +
+        getWidthWithMargins(getById('pageInput'));
     }
 
-    compNode.style.minWidth = btnsMinWidth + selectionMinWidth + 'px';
+    compNode.style.minWidth = navButtonsMinWidth + selectionMinWidth + 'px';
 };
