@@ -4,8 +4,11 @@ import * as classNames from 'classnames';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';
+import {measureAndSetRootMinWidth} from './root-min-width';
 
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
+
+export const getId = (idPrefix: string = '', name: string = '') => idPrefix ? idPrefix + name : null;
 
 enum ButtonType {
   Prev = 'previous',
@@ -127,7 +130,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   }
 
   private getId(elementName: string = ''): string | null {
-    return this.props.id ? this.props.id + elementName : null;
+    return getId(this.props.id, elementName);
   }
 
   private get maxPagesToShow(): number {
@@ -164,56 +167,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     );
   }
 
-  private measureAndSetRootMinWidth() {
-    const compNode = ReactDOM.findDOMNode(this);
-      compNode.style.minWidth = '';
-
-      const getWidthWithMargins = elmnt => {
-        if (!elmnt) {return 0; }
-        const style = window.getComputedStyle(elmnt);
-        return parseInt(style.marginRight, 10) +
-        parseInt(style.paddingRight, 10) +
-        parseInt(style.width, 10) +
-        parseInt(style.paddingLeft, 10) +
-        parseInt(style.marginLeft, 10);
-    };
-
-      const getMinWidth = elmnt => {
-          if (!elmnt) {return 0; }
-          return parseInt(window.getComputedStyle(elmnt).minWidth, 10);
-      };
-
-      const nextBtnNode = compNode.querySelector(`#${this.getId('navButtonNext')}`);
-      const prevBtnNode = compNode.querySelector(`#${this.getId('navButtonPrevious')}`);
-      const firstBtnNode = compNode.querySelector(`#${this.getId('navButtonFirst')}`);
-      const lastBtnNode = compNode.querySelector(`#${this.getId('navButtonLast')}`);
-      const btnsMinWidth = getWidthWithMargins(nextBtnNode) +
-      getWidthWithMargins(prevBtnNode) +
-      getWidthWithMargins(firstBtnNode) +
-      getWidthWithMargins(lastBtnNode);
-
-      const pageStripNode = compNode.querySelector(`#${this.getId('pageStrip')}`);
-      const slashNode = compNode.querySelector(`#${this.getId('slash')}`);
-      const totalPagesNode = compNode.querySelector(`#${this.getId('totalPages')}`);
-      const pageInputNode = compNode.querySelector(`#${this.getId('pageInput')}`);
-
-      let selectionMinWidth = 0;
-
-      if (pageStripNode) {
-          // means we're in "pages" pagination mode
-          selectionMinWidth = getMinWidth(pageStripNode);
-      } else {
-          // means we're in "input" pagination mode
-          selectionMinWidth = getWidthWithMargins(totalPagesNode) +
-          getWidthWithMargins(slashNode) +
-          getWidthWithMargins(pageInputNode);
-      }
-
-      compNode.style.minWidth = btnsMinWidth + selectionMinWidth + 'px';
-  }
-
   private updateLayout = ()  => {
-      this.measureAndSetRootMinWidth();
+      measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
       this.updatePageStrip();
   }
 
