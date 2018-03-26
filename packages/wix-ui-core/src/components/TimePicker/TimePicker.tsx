@@ -237,18 +237,18 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
           } else {
             this._hasStartedTyping = true;
           }
-          hour = leftpad(e.key);
+          hour = e.key;
         }
       } else if (currentField === FIELD.MINUTE) {
           if (this._hasStartedTyping) {
             minute = `${parseInt(`${minute[1]}${num}`)}`;
           } else {
             this._hasStartedTyping = true;
-            minute = leftpad(e.key);
+            minute = e.key;
           }
       }
 
-      value = `${hour}:${minute}`;
+      value = `${leftpad(hour)}:${leftpad(minute)}`;
       this.setState({value}, () => {
         this._highlightField(elem, currentField);
         if (isValidTime(value)) { onChange(value); }
