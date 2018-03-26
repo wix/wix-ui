@@ -33,21 +33,23 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
   "devDependencies": {
+    "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
+    "@types/lodash": "^4.14.104",
     "@types/react": "^15.6.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "haste-preset-yoshi": "latest",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^22.0.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "typescript": "^2.4.0",
     "wix-ui-test-utils": "^1.0.0"
-  },
-  "dependencies": {
-    "lodash.pickby": "^4.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
   },
   "jest": {
     "transform": {

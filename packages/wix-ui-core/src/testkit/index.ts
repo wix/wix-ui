@@ -1,9 +1,5 @@
 import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 
-//JSS
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
-export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
@@ -43,3 +39,15 @@ export const radioButtonTestkitFactory = testkitFactoryCreator(radioButtonDriver
 
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.driver';
 export const autocompleteTestkitFactory = testkitFactoryCreator(autocompleteDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.driver';
+export const sliderTestkitFactory = testkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
+export const addressInputTestkitFactory = testkitFactoryCreator(addressInputDriverFactory);
+
+import {labelDriverFactory} from '../components/Label/Label.driver';
+export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
+export const timePickerTestkitFactory = testkitFactoryCreator(timePickerDriverFactory);

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import uniqueId = require('lodash.uniqueid');
 import {Divider} from '../../components/Divider';
 import {Highlighter} from '../Highlighter';
 import {shape, string, number, func, bool, oneOfType, Requireable} from 'prop-types';
+const uniqueId = require('lodash/uniqueId');
 
 export const optionPropType = shape({
   id: oneOfType([string, number]).isRequired,

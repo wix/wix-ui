@@ -5,7 +5,7 @@ import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
-import isEqual = require('lodash.isequal');
+const isEqual = require('lodash/isEqual');
 
 export interface DropdownProps {
   /** The location to display the content */
@@ -36,6 +36,8 @@ export interface DropdownProps {
   disabled?: boolean;
   /** Animation timer */
   timeout?: number;
+  /** If set to true, content element will always be visible, used for preview mode */
+  forceContentElementVisibility?: boolean;
 }
 
 export interface DropdownState {
@@ -180,7 +182,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
 
@@ -188,7 +190,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen && !disabled && hasContent}
+        shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
         showArrow={showArrow}
         timeout={timeout}
         onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}

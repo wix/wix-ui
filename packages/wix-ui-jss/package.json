@@ -37,10 +37,13 @@
   },
   "devDependencies": {
     "@types/jest": "^22.1.1",
+    "@types/lodash": "^4.14.104",
     "@types/react": "^15.6.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "haste-preset-yoshi": "latest",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.0",
     "ts-jest": "^22.0.3",
     "typescript": "^2.4.0",
@@ -50,9 +53,7 @@
     "hoist-non-react-methods": "^1.1.0",
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
-    "lodash.uniqueid": "^4.0.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "lodash": "^4.17.5"
   },
   "jest": {
     "transform": {

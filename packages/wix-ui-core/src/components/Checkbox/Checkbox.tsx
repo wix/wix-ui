@@ -9,10 +9,12 @@ export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
 export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
   /** The onChange function will be called with a new checked value */
   onChange?: React.EventHandler<OnChangeEvent>;
+  /** An element to be displayed when the checkbox is unchecked */
+  uncheckedIcon?: JSX.Element;
   /** An element to be displayed when the checkbox is checked */
-  tickIcon?: React.ReactNode;
+  checkedIcon?: JSX.Element;
   /** An element to be displayed when the checkbox is in indeterminate state */
-  indeterminateIcon?: React.ReactNode;
+  indeterminateIcon?: JSX.Element;
   /** Whether checkbox should be in error state */
   error?: boolean;
   /** Whether the checkbox is indeterminate */
@@ -21,21 +23,11 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
 
 export interface CheckboxState {
   isFocused: boolean;
+  focusVisible: boolean;
 }
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   public static defaultProps: Partial<CheckboxProps> = {
-    tickIcon: (
-      <span
-        className={`${style.icon} ${style.tickIcon}`}
-      />
-    ),
-    indeterminateIcon: (
-      <span
-        className={`${style.icon} ${style.indeterminateIcon}`}
-      />
-    ),
-
     onChange: noop,
     checked: false,
     indeterminate: false,
@@ -43,16 +35,18 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   private checkbox: HTMLInputElement | null;
-  state = {isFocused: false};
+  private focusedByMouse = false;
+  state = {isFocused: false, focusVisible: false};
 
   public render()  {
     const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
     const focus = this.state.isFocused;
 
     return (
-      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate}, this.props) }
+      <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
         onClick={this.handleClick}
         onKeyDown={this.handleKeydown}
+        onBlur={this.test}
         role="checkbox"
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
@@ -75,8 +69,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           />
 
           <span className={style.box}>
-            {this.props.indeterminate ?
-              this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}
+            {
+              this.props.indeterminate ? this.props.indeterminateIcon :
+              this.props.checked ? this.props.checkedIcon :
+              this.props.uncheckedIcon
+            }
           </span>
 
           {this.props.children ? (
@@ -97,15 +94,15 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         e.preventDefault();
         this.checkbox.click();
       }
-      !this.state.isFocused && this.setState({isFocused: true});
+      this.setState({focusVisible: true});
     }
   }
 
   private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    // this.checkbox.focus();
     if (e.button === 0 && this.isInteractable()) {
+      this.focusedByMouse = !this.state.isFocused && true;
       this.checkbox.click();
-      this.checkbox.focus();
-      this.setState({isFocused: false});
     }
   }
 
@@ -119,12 +116,20 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     this.setState({isFocused: true});
   }
 
-  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
-    this.state.isFocused && this.setState({isFocused: false});
+  private test = (e) => {
+    // console.log('blur', e.nativeEvent);
+    // this.state.isFocused && this.setState({isFocused: false, focusVisible: false});
+    // this.focusedByMouse = false;
+  }
+
+  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    console.log('input blur', e.nativeEvent.currentTarget);
+    this.state.isFocused && this.setState({isFocused: false, focusVisible: false});
+    this.focusedByMouse = false;
   }
 
   private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
-    !this.state.isFocused && this.setState({isFocused: true});
+    this.setState({isFocused: true, focusVisible: !this.focusedByMouse});
   }
 
   private isInteractable() {

@@ -25,6 +25,9 @@
 
 .root {
   -st-extends: Input;
+}
+
+.root::nativeInput {
   font-size: value(fontSize);
   line-height: 24px;
 
@@ -38,38 +41,38 @@
   border: value(border);
 }
 
-.root:hover {
+.root:hover::nativeInput {
   color: value(colorHover);
   background-color: value(backgroundColorHover);
   border-color: value(borderColorHover);
 }
 
-.root:focus {
+.root:focus::nativeInput {
   color: value(colorFocus);
   background-color: value(backgroundColorFocus);
   border-color: value(borderColorFocus);
 }
 
-.root:disabled {
+.root:disabled::nativeInput {
   color: value(colorDisabled);
   background-color: value(backgroundColorDisabled);
   border-color: value(borderColorDisabled);
 }
 
-.root:disabled:hover {
+.root:disabled:hover::nativeInput {
   border-color: value(hoverBorderColor);
 }
 
 /* Placeholder color */
-.root::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.root::nativeInput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: value(colorPlaceholder);
 }
-.root:-moz-placeholder { /* Firefox 18- */
+.root::nativeInput::-moz-placeholder { /* Firefox 18- */
   color: value(colorPlaceholder);
 }
-.root::-moz-placeholder { /* Firefox 19+ */
+.root::nativeInput::-moz-placeholder { /* Firefox 19+ */
   color: value(colorPlaceholder);
 }
-.root:-ms-input-placeholder { /* IE 10+ */
+.root::nativeInput::-ms-input-placeholder { /* IE 10+ */
   color: value(colorPlaceholder);
 }

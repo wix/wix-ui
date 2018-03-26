@@ -1,9 +1,5 @@
 import {enzymeTestkitFactoryCreator, WrapperData} from 'wix-ui-test-utils/enzyme';
 
-// JSS
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
-export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {inputDriverFactory} from '../components/Input/Input.driver';
 //Ugly workaround for now
 export const inputTestkitFactory: (obj: WrapperData) => any = enzymeTestkitFactoryCreator(inputDriverFactory);
@@ -44,3 +40,15 @@ export const radioButtonTestkitFactory = enzymeTestkitFactoryCreator(radioButton
 
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.driver';
 export const autocompleteTestkitFactory = enzymeTestkitFactoryCreator(autocompleteDriverFactory);
+
+import {sliderDriverFactory} from '../components/Slider/Slider.driver';
+export const sliderTestkitFactory = enzymeTestkitFactoryCreator(sliderDriverFactory);
+
+import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
+export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(addressInputDriverFactory);
+
+import {labelDriverFactory} from '../components/Label/Label.driver';
+export const labelTestkitFactory = enzymeTestkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
+export const timePickerTestkitFactory = enzymeTestkitFactoryCreator(timePickerDriverFactory);
