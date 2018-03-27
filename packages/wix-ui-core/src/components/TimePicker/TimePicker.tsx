@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {bool, func, object, string} from 'prop-types';
 const omit = require('lodash/omit');
+import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
 import style from '../Input/Input.st.css';
 import {
@@ -22,6 +23,7 @@ export interface TimePickerProps extends InputProps {
   useAmPm?: boolean;
   step?: number;
   separateSteps?: boolean;
+  showTickers?: boolean;
   value?: string;
   placeholder?: string;
 }
@@ -65,6 +67,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     useAmPm              : false,
     step                 : 1,
     separateSteps        : false,
+    showTickers          : true,
     value                : null,
     placeholder          : NULL_TIME,
   };
@@ -96,6 +99,9 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     /** When true, does not tie hour to minute when incrementing / decrementing (i.e, inc on 00:59 will go to 00:00 instead of 01:00) */
     separateSteps: bool,
+
+    /** Show the up/down tickers */
+    showTickers: bool,
 
     /** Time in 24hour format (00:00 - 23:59). Can be null */
     value: string,
@@ -363,7 +369,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   render() {
-    const {useNativeInteraction, useAmPm, ...rest} = this.props;
+    const {useNativeInteraction, useAmPm, showTickers, ...rest} = this.props;
     const passThroughProps = omit(rest, Object.keys(TimePicker.propTypes));
 
     let {value} = this.state;
@@ -371,12 +377,20 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       value = convertToAmPm(value);
     }
 
+    const tickers = !showTickers ? null : (
+      <Tickers
+        onIncrement = {() => this.increment()}
+        onDecrement = {() => this.decrement()}
+      />
+    );
+
     return (
       <Input
-        ref         = {ref => this._inputRef = ref}
         {...style('root', {}, this.props)}
         {...passThroughProps}
+        ref         = {ref => this._inputRef = ref}
         value       = {value}
+        prefix      = {tickers}
         type        = {useNativeInteraction ? 'time' : 'text'}
         onKeyDown   = {this._onKeyDown}
         onFocus     = {this._onFocus}
@@ -385,7 +399,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         onMouseUp   = {this._onMouseUp}
         onMouseMove = {this._onMouseMove}
         onClick     = {this._onClick}
-        onDragStart = {e => { e.preventDefault(); e.stopPropagation(); }}
+        onDragStart = {e => {e.preventDefault(); e.stopPropagation();}}
       />
     );
   }
