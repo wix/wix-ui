@@ -1,6 +1,6 @@
 :vars {
   tickerInset: 6px;
-  borderWidth: 1px;
+  borderWidth: 0px;
 }
 
 .root {
