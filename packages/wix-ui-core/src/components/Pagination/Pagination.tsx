@@ -1,10 +1,14 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';
+import {measureAndSetRootMinWidth} from './root-min-width';
 
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
+
+export const getId = (idPrefix: string = '', name: string = '') => idPrefix ? idPrefix + name : null;
 
 enum ButtonType {
   Prev = 'previous',
@@ -113,8 +117,20 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     slashLabel: '\u00A0/\u00A0'
   };
 
+  updatePageStrip = () => null;
+
+  public componentDidMount() {
+    if (this.props.updateResponsiveLayout) {
+      this.props.updateResponsiveLayout(this.updateLayout);
+    }
+  }
+
+  public componentWillUnmount() {
+    this.props.updateResponsiveLayout && this.props.updateResponsiveLayout(() => null);
+  }
+
   private getId(elementName: string = ''): string | null {
-    return this.props.id ? this.props.id + elementName : null;
+    return getId(this.props.id, elementName);
   }
 
   private get maxPagesToShow(): number {
@@ -146,9 +162,14 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         gapLabel={this.props.gapLabel}
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
-        updateResponsiveLayout={this.props.updateResponsiveLayout}
+        updateResponsiveLayout={this.props.updateResponsiveLayout && (cb => this.updatePageStrip = cb)}
       />
     );
+  }
+
+  private updateLayout = ()  => {
+      measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
+      this.updatePageStrip();
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -187,6 +208,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     return (
       <div data-hook="page-form" id={this.getId('pageForm')} className={pStyle.pageForm} dir="ltr">
         <input
+          id={this.getId('pageInput')}
           data-hook="page-input"
           type="number"
           className={pStyle.pageInput}
@@ -198,8 +220,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
         />
         {this.props.showInputModeTotalPages && [
-            <span key="slash" className={pStyle.slash}>{this.props.slashLabel}</span>,
-            <span key="total-pages" data-hook="total-pages" className={pStyle.totalPages}>
+            <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,
+            <span key="total-pages" id={this.getId('totalPages')} data-hook="total-pages" className={pStyle.totalPages}>
             {this.props.totalPages}
             </span>
           ]

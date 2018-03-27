@@ -5,7 +5,6 @@ import {Option, OptionFactory, optionPropType} from '../../baseComponents/Dropdo
 import {Divider} from '../Divider';
 import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
 import {InputProps} from '../Input';
-import ArrowDown from 'wix-ui-icons-common/ArrowDown';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -35,10 +34,12 @@ export interface AutocompleteProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Placeholder to display */
   placeholder?: string;
-  /** Inputs value */
-  value?: string;
   /** Is in error state */
   error?: boolean;
+  /** Prefix */
+  prefix?: JSX.Element;
+  /** Suffix */
+  suffix?: JSX.Element;
 }
 
 export interface AutocompleteState {
@@ -72,10 +73,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     onFocus: func,
     /** Placeholder to display */
     placeholder: string,
-    /** Inputs value */
-    value: string,
     /** Is in error state */
-    error: bool
+    error: bool,
+    /** Prefix */
+    prefix: node,
+    /** Suffix */
+    suffix: node,
   };
 
   static createOption = OptionFactory.create;
@@ -85,20 +88,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     super(props);
 
     this.state = {
-      inputValue: props.value || ''
+      inputValue: ''
     };
 
     this._onSelect = this._onSelect.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
     this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps: AutocompleteProps) {
-    if (this.state.inputValue !== nextProps.value) {
-      this.setState({
-        inputValue: nextProps.value
-      });
-    }
   }
 
   _onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -125,7 +120,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   _createInputProps() {
     const {inputValue} = this.state;
-    const {autoFocus, disabled, onBlur, onFocus, placeholder, error} = this.props;
+    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, prefix, suffix} = this.props;
     return {
       value: inputValue,
       onChange: this._onInputChange,
@@ -135,7 +130,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       onFocus,
       placeholder,
       error,
-      suffix: <ArrowDown className={style.icon} />
+      suffix,
+      prefix
     };
   }
 
@@ -149,12 +145,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   }
 
   render() {
-    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput, disabled, error} = this.props;
+    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
     const inputProps = this._createInputProps();
 
     return (
       <InputWithOptions
-        {...style('root', {disabled, error}, this.props)}
+        {...style('root', {}, this.props)}
         onSelect={this._onSelect}
         initialSelectedIds={initialSelectedId || initialSelectedId === 0 ? [initialSelectedId] : null}
         onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}

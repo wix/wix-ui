@@ -10,9 +10,6 @@ export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginati
 import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
 
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
-export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
 export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);
 
@@ -49,3 +46,9 @@ export const addressInputTestkitFactory = protractorTestkitFactoryCreator(addres
 
 import {labelDriverFactory} from '../components/Label/Label.protractor.driver';
 export const labelTestkitFactory = protractorTestkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.protractor.driver';
+export const timePickerTestkitFactory = protractorTestkitFactoryCreator(timePickerDriverFactory);
+
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
+export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);

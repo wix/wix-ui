@@ -1,39 +1,41 @@
+import {StylableDOMUtil} from 'stylable/test-utils';
+import style from './ToggleSwitch.st.css';
+
 export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
-  const toggleSwitch = element.querySelector('input');
+  const checkbox = element.querySelector('input');
+  const stylableDOMUtil = new StylableDOMUtil(style);
 
   return {
-    /** checks if element exists */
+    /** Checks if element exists */
     exists: () => !!element,
-    /** triggers toggleSwitch change */
+    /** Triggers change */
     click: () => {
-      toggleSwitch.click();
-      eventTrigger.change(toggleSwitch);
+      // jsdom doesn't simulate checkboxes well: checkbox.click() updates .checked even
+      // if the component is controlled, it also doesn't generate onChange() and doesn't
+      // respect .disabled
+      if (!checkbox.disabled) {
+        eventTrigger.change(checkbox);
+      }
     },
-    /** returns a boolean indicating if the toggleSwitch is checked */
-    isChecked: () => toggleSwitch.checked,
-    /** returns a boolean indicating if the toggleSwitch is disabled */
-    isDisabled: () => toggleSwitch.disabled,
+    /** Returns a boolean indicating if the toggleSwitch is checked */
+    isChecked: () => checkbox.checked,
+    /** Returns a boolean indicating if the toggleSwitch is disabled */
+    isDisabled: () => checkbox.disabled,
     /** Returns the toggle icon inside the knob */
-    getToggleIcon: () => element.querySelector('.toggleIcon'),
-    /** Returns the id of the input component */
-    getId: () => element.querySelector('input').getAttribute('id'),
+    getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
+    /** Returns whether the toggle has an icon */
+    hasKnobIcon: () => !!element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')).innerHTML,
+    /** Returns the id of the input */
+    getId: () => checkbox.id,
+    /** Returns the tab index */
+    getTabIndex: () => checkbox.tabIndex,
     /** Returns the computed styles object of the root component */
     getRootStyles: () => window.getComputedStyle(element),
-    /** Returns the computed styles object of the outer label component */
-    getOuterLabelStyles: () => window.getComputedStyle(element.querySelector('.outerLabel')),
-    /** Returns the computed styles object of the inner label component */
-    getInnerLabelStyles: () => window.getComputedStyle(element.querySelector('.innerLabel')),
-    /** Returns the computed styles object of the toggle icon component */
-    getToggleIconStyles: () => window.getComputedStyle(element.querySelector('.toggleIcon')),
-    /** Returns true if the ToggleSwitch is currently focused */
-    isFocused: () => toggleSwitch === document.activeElement,
-
-    /** returns elements innerHtml */
-    styles: {
-      /** returns elements display css property */
-      getRootDisplay: () => window.getComputedStyle(element).display,
-      /** returns elements border-radius css property */
-      getBorderRadius: () => window.getComputedStyle(element.querySelector('.outerLabel')).borderRadius
-    }
+    /** Returns the computed styles object of the track */
+    getTrackStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.track'))),
+    /** Returns the computed styles object of the knob */
+    getKnobStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knob'))),
+    /** Returns the computed styles object of the knob icon */
+    getKnobIconStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')))
   };
 };

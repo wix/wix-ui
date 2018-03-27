@@ -1,16 +1,16 @@
-import {ToggleSwitch} from '../../src/components/StylableToggleSwitch';
+import {ToggleSwitch} from '../../src/components/ToggleSwitch';
 import style from './style.st.css';
 
 export default {
   category: 'Components',
-  storyName: 'StylableToggleSwitchStory',
+  storyName: 'ToggleSwitch',
   component: ToggleSwitch,
-  componentPath: '../../src/components/StylableToggleSwitch',
+  componentPath: '../../src/components/ToggleSwitch',
 
   componentProps: (setState, getState) => ({
     ...style('root'),
     checked: false,
     onChange: () => setState({checked: !getState().checked}),
-    'data-hook': 'story-StylableToggleSwitch'
+    'data-hook': 'story-toggleswitch'
   })
 };

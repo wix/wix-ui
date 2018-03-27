@@ -188,7 +188,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
 
     return (
       <Popover
-        {...style('root', {}, this.props)}
+        {...style('root', {disabled}, this.props)}
         placement={placement}
         shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
         showArrow={showArrow}

@@ -23,7 +23,7 @@ export const story = () => createStory({
 });
 
 const SliderStory = ({children, ...rest}) => (
-  <div style={{height: rest.vertical ? 400 : 80, width: rest.vertical ? 80 : '100%'}}>
+  <div style={{height: rest.orientation === 'vertical' ? 400 : 80, width: rest.orientation === 'vertical' ? 80 : '100%'}}>
     <Slider {...rest}/>
   </div>
 );

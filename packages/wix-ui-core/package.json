@@ -8,6 +8,7 @@
     "email": "fed-infra@wix.com"
   },
   "files": [
+    "src",
     "dist",
     "*.js",
     "*.d.ts",
@@ -20,7 +21,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src/components --dts && import-path --path src/utils --dts && stc --srcDir=\"./dist/src\" --diagnostics",
+    "build": "haste build && npm run generate-stylable-index && npm run transpile-mixins",
     "pretest": "npm run build && build-storybook",
     "test": "haste test --jest && npm run test:e2e",
     "posttest": "haste lint",
@@ -28,7 +29,11 @@
     "test:e2e": "haste test --protractor",
     "start": "haste start --no-test & npm run storybook",
     "release": "haste release && gh-pages-auto-release --dist=storybook-static",
-    "storybook": "start-storybook -p 6006"
+    "prepublish": "npm run import-path",
+    "storybook": "start-storybook -p 6006",
+    "import-path": "node scripts/import-path.js",
+    "transpile-mixins": "babel src/mixins -d dist/src/mixins",
+    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -53,11 +58,14 @@
     "@types/react": "^15.6.12",
     "@types/react-onclickoutside": "^6.0.2",
     "@types/react-transition-group": "^2.0.6",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eyes.it": "latest",
     "gh-pages-auto-release": "latest",
     "haste-preset-yoshi": "latest",
+    "identity-obj-proxy": "^3.0.0",
     "import-path": "latest",
     "prop-types": "^15.6.0",
     "protractor": "^5.3.0",
@@ -81,7 +89,7 @@
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "moduleNameMapper": {
-      "\\.(st.css|scss)$": "wix-ui-test-utils/stylable-proxy"
+      "\\.(scss)$": "identity-obj-proxy"
     },
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
@@ -107,5 +115,10 @@
       "root": "wix-ui-core",
       "commonjs": "wix-ui-core"
     }
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }

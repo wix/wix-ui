@@ -20,8 +20,9 @@ export interface CheckboxProps {
   onChange?: React.EventHandler<OnChangeEvent | OnClickEvent | OnKeydownEvent>;
   id?: string;
   tabIndex?: number;
-  tickIcon?: React.ReactNode;
-  indeterminateIcon?: React.ReactNode;
+  checkedIcon?: JSX.Element;
+  uncheckedIcon?: JSX.Element;
+  indeterminateIcon?: JSX.Element;
   children?: React.ReactNode;
   error?: boolean;
   name?: string;
@@ -53,9 +54,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     id: string,
     /** The tab-index of the component */
     tabIndex: number,
-    /** An element to be displayed when the checkbox is checked */
-    tickIcon: node,
-    /** An element to be displayed when the checkbox is in indeterminate state */
+    /** An icon to be displayed when the checkbox is checked */
+    checkedIcon: node,
+    /** An icon to be displayed when the checkbox is not checked */
+    uncheckedIcon: node,
+    /** An icon to be displayed when the checkbox is in indeterminate state */
     indeterminateIcon: node,
     /** Children to be rendered (usually a label) */
     children: node,
@@ -76,18 +79,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   public static defaultProps: Partial<CheckboxProps> = {
-    tickIcon: (
-      <span
-        className={`${style.icon} ${style.tickIcon}`}
-      />
-    ),
-    indeterminateIcon: (
-      <span
-        className={`${style.icon} ${style.indeterminateIcon}`}
-      />
-    ),
-    // tslint:disable-next-line:no-empty
-    onChange: () => { },
+    onChange: () => null,
     checked: false,
     indeterminate: false,
     tabIndex: 0
@@ -126,8 +118,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           />
 
           <span className={style.box}>
-            {this.props.indeterminate ?
-              this.props.indeterminateIcon : (this.props.checked && this.props.tickIcon)}
+            {
+              this.props.indeterminate ? this.props.indeterminateIcon :
+              this.props.checked ? this.props.checkedIcon :
+              this.props.uncheckedIcon
+            }
           </span>
 
           {this.props.children ? (
