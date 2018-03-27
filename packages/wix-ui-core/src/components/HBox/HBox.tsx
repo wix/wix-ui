@@ -17,7 +17,7 @@ export type AlignmentOptions = 'top' | 'center' | 'bottom';
  */
 export const HBox: React.SFC<HBoxProps> = props => {
   const {children, verticalAlignment, spacing, dir} = props;
-  return <div {...style('root', {verticalAlignment, dir}, props)}>{addSpacing(children, spacing, dir)}</div>;
+  return <div {...style('root', {verticalAlignment}, props)}>{addSpacing(children, spacing, dir)}</div>;
 };
 
 HBox.propTypes = {
