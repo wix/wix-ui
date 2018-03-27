@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../src/components/StylableHBox/HBox.st.css";
+  -st-from: "../../src/components/HBox/HBox.st.css";
   -st-default: HBox;
 }
 

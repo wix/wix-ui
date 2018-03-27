@@ -1,7 +1,7 @@
 import * as React from 'react';
 import createStory from '../create-story';
 
-import {HBox} from '../../src/components/StylableHBox';
+import {HBox} from '../../src/components/HBox';
 import * as HBoxSource from '!raw-loader!../../src/components/HBox/HBox.tsx';
 import style from './style.st.css';
 
