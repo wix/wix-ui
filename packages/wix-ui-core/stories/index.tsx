@@ -21,7 +21,7 @@ require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
 require('./Slider').story();
-require('./ToggleSwitch');
+require('./ToggleSwitch/index.story');
 require('./AddressInput/E2E');
 require('./TimePicker').story();
 
