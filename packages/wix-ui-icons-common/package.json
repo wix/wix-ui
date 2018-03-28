@@ -45,12 +45,10 @@
     "stylable": "latest",
     "stylable-integration": "latest",
     "svg2react-icon": "^1.0.51",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "wix-storybook-utils": "^1.0.54"
   },
   "haste": {
     "preset": "yoshi"
-  },
-  "dependencies": {
-    "wix-storybook-utils": "^1.0.54"
   }
 }

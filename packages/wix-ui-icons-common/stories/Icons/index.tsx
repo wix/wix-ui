@@ -1,11 +1,8 @@
 import * as React from 'react';
 import Markdown from 'wix-storybook-utils/Markdown';
-import CodeExample from 'wix-storybook-utils/CodeExample';
 import style from './icons.st.css';
 import * as generalIcons from '../../src/general';
 import * as systemIcons from '../../src/system';
-
-import {Favorite} from '../../src/general';
 
 const IconList = ({icons}) => (
   <div className={style.iconList}>
