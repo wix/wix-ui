@@ -24,6 +24,9 @@ const stripQuotes = string => {
 const matchFuncProp = typeName =>
   typeName === 'func' || typeName.match(/event/);
 
+const ensureRegexp = a =>
+  a instanceof RegExp ? a : new RegExp(a);
+
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
   * and, optionally, `componentProps`,`AutoExample` will render:
@@ -170,76 +173,83 @@ export default class extends Component {
       props;
 
 
-  mapControllableProps = fn => {
-    return Object
+  mapControllableProps = fn =>
+    Object
       .keys(this.parsedComponent.props)
-      .filter(key => {
-        const typeName = this.parsedComponent.props[key].type.name;
-
-        return [
-          Object.keys(this.propControllers).includes(typeName),
-          matchFuncProp(typeName)
-        ].some(i => i);
-      })
       .map(key => fn(this.parsedComponent.props[key], key));
-  };
 
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
 
-  nodePropController = ({propKey}) =>
-    this.props.exampleProps[propKey] ?
-      <NodesList values={this.props.exampleProps[propKey]}/> :
-      <Input/>;
+  propControllers = [
+    {
+      types: ['bool', 'Boolean'],
+      controller: () => <Toggle/>
+    },
 
-  propControllers = {
-    string: () => <Input/>,
-    number: () => <Input/>,
-    bool: () => <Toggle/>,
+    {
+      types: ['string', 'number'],
+      controller: () => <Input/>
+    },
 
-    enum: ({type}) =>
-      <List values={type.value.map(({value}) => stripQuotes(value))}/>,
+    {
+      types: ['func', /event/],
 
-    ReactNode: this.nodePropController,
-    node: this.nodePropController,
+      controller: ({propKey}) => {
+        let classNames = styles.example;
 
-    func: ({propKey}) => {
-      let classNames = styles.example;
-      if (this.state.funcAnimate[propKey]) {
-        classNames += ` ${styles.active}`;
-        setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
-      }
+        if (this.state.funcAnimate[propKey]) {
+          classNames += ` ${styles.active}`;
+          setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
+        }
 
-      if (this.props.exampleProps[propKey]) {
-        return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        if (this.props.exampleProps[propKey]) {
+          return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        }
       }
     },
 
-    union: ({propKey}) =>
-      this.props.exampleProps[propKey] ?
-        <NodesList values={this.props.exampleProps[propKey]}/> :
-        <Input/>,
+    {
+      types: ['union'],
 
-    arrayOf: ({propKey}) => {
-      if (this.props.exampleProps[propKey]) {
-        return <NodesList values={this.props.exampleProps[propKey]}/>;
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['node', 'ReactNode'],
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['enum'],
+      controller: ({type}) =>
+        <List values={type.value.map(({value}) => stripQuotes(value))}/>
+    },
+
+    {
+      types: ['arrayOf'],
+      controller: ({propKey}) => {
+        if (this.props.exampleProps[propKey]) {
+          return <NodesList values={this.props.exampleProps[propKey]}/>;
+        }
       }
     }
+  ]
+
+  getPropControlComponent = (propKey, type) => {
+    const pretender =
+      this.propControllers.find(({types}) =>
+        types.some(t => ensureRegexp(t).test(type.name))
+      );
+
+    return pretender ? pretender.controller({propKey, type}) : null;
   }
-
-  getPropControlComponent = (propKey, type) =>
-    [
-      {
-        rule: matchFuncProp(type.name),
-        controller: this.propControllers.func
-      },
-
-      // default
-      {
-        rule: true,
-        controller: this.propControllers[type.name] || (() => null)
-      }
-    ].find(({rule}) => rule).controller({propKey, type})
 
   componentToString = component =>
     jsxToString(component, {
