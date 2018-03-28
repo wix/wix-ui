@@ -118,15 +118,18 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   };
 
   updatePageStrip = () => null;
+  updateRootMinWidth = () => measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
 
   public componentDidMount() {
-    if (this.props.updateResponsiveLayout) {
-      this.props.updateResponsiveLayout(this.updateLayout);
-    }
+    this.props.updateResponsiveLayout && this.props.updateResponsiveLayout(this.updateLayout);
   }
 
   public componentWillUnmount() {
     this.props.updateResponsiveLayout && this.props.updateResponsiveLayout(() => null);
+  }
+
+  public componentDidUpdate() {
+    this.props.updateResponsiveLayout && this.updateRootMinWidth();
   }
 
   private getId(elementName: string = ''): string | null {
@@ -168,7 +171,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   }
 
   private updateLayout = ()  => {
-      measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
+      this.updateRootMinWidth();
       this.updatePageStrip();
   }
 
