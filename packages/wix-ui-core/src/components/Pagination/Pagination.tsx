@@ -193,6 +193,13 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     }
   }
 
+  private handlePageInputBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
+    this.setState({
+      pageInputValue: String(this.props.currentPage),
+      pageInputHasError: false
+    });
+  }
+
   private handlePageClick = (event: React.MouseEvent<Element>, page: number): void => {
     this.props.onChange({event, page});
   }
@@ -218,6 +225,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
+          onBlur={this.handlePageInputBlur}
         />
         {this.props.showInputModeTotalPages && [
             <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,
