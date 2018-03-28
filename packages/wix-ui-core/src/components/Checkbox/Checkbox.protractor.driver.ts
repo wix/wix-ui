@@ -1,10 +1,4 @@
-import {StylableDOMUtil} from 'stylable/test-utils';
-import styles from './Checkbox.st.css';
-
 export const checkboxDriverFactory = component => {
-  const utils = new StylableDOMUtil(styles, component);
-  // const hasStyleState = (state) => utils.hasStyleState(component, state);
-  const input = utils.select('.nativeCheckbox') as HTMLInputElement;
   return {
     /** Returns the component instance */
     element: () => component,

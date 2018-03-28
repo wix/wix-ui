@@ -15,18 +15,4 @@ describe('Checkbox', () => {
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
   });
-
-  it('checks the box if space bar is pressed', () => {
-    const dataHook = 'storybook-checkbox';
-    const driver = checkboxTestkitFactory({dataHook});
-
-    return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox')
-    .then(() => {
-      expect(driver.isChecked()).toBe(false);
-
-      // browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
-      driver.click();
-      expect(driver.isChecked()).toBe(true);
-    });
-  });
 });
