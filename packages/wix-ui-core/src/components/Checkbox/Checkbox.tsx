@@ -45,8 +45,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     return (
       <div {...style('root', {checked, disabled, focus, readonly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
         onClick={this.handleClick}
-        onKeyDown={this.handleKeydown}
-        onBlur={this.test}
+        onMouseDown={this.handleMouseDown}
         role="checkbox"
         aria-checked={this.props.indeterminate ? 'mixed' : this.props.checked}
       >
@@ -57,6 +56,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             disabled={this.props.disabled}
             onClick={this.handleInputClick}
             onChange={this.handleChange}
+            onKeyDown={this.handleInputKeyDown}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             id={this.props.id}
@@ -86,24 +86,16 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     );
   }
 
-  private handleKeydown: React.KeyboardEventHandler<HTMLDivElement> = e => {
-    if (this.isInteractable()) {
-      const SPACEBAR = ' ';
-      const LEGACY_SPACEBAR = 'Spacebar';
-      if (e.key === SPACEBAR || e.key === LEGACY_SPACEBAR) {
-        e.preventDefault();
-        this.checkbox.click();
-      }
-      this.setState({focusVisible: true});
+  private handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (e.button === 0 && this.isInteractable()) {
+      this.checkbox.click();
     }
   }
 
-  private handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
-    // this.checkbox.focus();
-    if (e.button === 0 && this.isInteractable()) {
-      this.focusedByMouse = !this.state.isFocused && true;
-      this.checkbox.click();
-    }
+  private handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    this.focusedByMouse = !this.state.isFocused;
+    this.checkbox.focus();
   }
 
   private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,24 +104,23 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     }
   }
 
-  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = e => {
+  private handleInputClick: React.MouseEventHandler<HTMLInputElement> = (e) => {
+    e.stopPropagation();
     this.setState({isFocused: true});
   }
 
-  private test = (e) => {
-    // console.log('blur', e.nativeEvent);
-    // this.state.isFocused && this.setState({isFocused: false, focusVisible: false});
-    // this.focusedByMouse = false;
+  private handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = () => {
+    this.setState({focusVisible: true});
   }
 
-  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
-    console.log('input blur', e.nativeEvent.currentTarget);
+  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
     this.state.isFocused && this.setState({isFocused: false, focusVisible: false});
     this.focusedByMouse = false;
   }
 
   private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
     this.setState({isFocused: true, focusVisible: !this.focusedByMouse});
+    this.focusedByMouse = false;
   }
 
   private isInteractable() {
