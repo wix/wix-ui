@@ -41,7 +41,7 @@ If one core component contains another, there’s a question of how to provide i
 
 There are a few things to consider:
 
-Suppose the core checkbox component uses `context.icons.checkmark`. Someone wants to create a theme where checkboxes have an “✕” icon instead, and changes `context.icons.checkmark accordingly`. Suddenly text inputs begin to show “✕” as an indicator of successful validation, because they also use `context.icons.checkmark`
+Suppose the core checkbox component uses `context.icons.checkmark`. Someone wants to create a theme where checkboxes have an “✕” icon instead, and changes `context.icons.checkmark` accordingly. Suddenly text inputs begin to show “✕” as an indicator of successful validation, because they also use `context.icons.checkmark`.
 
 Even if components use semantic names for icons the problem still exists. Imagine two components that have a button for incrementing their value. They both use `context.icons.increment`, but in one component it should look like “+”, and in the other like “▴”.
 
