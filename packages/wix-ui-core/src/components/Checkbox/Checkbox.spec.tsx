@@ -50,16 +50,6 @@ describe('Checkbox', () => {
       expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
     });
 
-    // it('calls onChange when spacebar is passed', () => {
-    //   const onChange = jest.fn();
-    //   const checkbox = createDriver(<Checkbox onChange={onChange}/>);
-
-    //   checkbox.keyDown(' ');
-
-    //   expect(onChange).toHaveBeenCalledTimes(1);
-    //   expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
-    // });
-
     it('displays the given custom tick icon when checked', () => {
       const checkbox = createDriver(
         <Checkbox
