@@ -32,6 +32,10 @@
     outline: 4px solid rgba(92, 180, 255, 0.5);
 }
 
+.root:focus::box {
+    border: 1px solid red;
+}
+
 .root::box > svg {
     display: block;
     width: 60%;

@@ -10,8 +10,9 @@
 .box {}
 
 .nativeCheckbox {
-    position: fixed;
-    top: -100%;
+    position: absolute;
+    cursor: inherit;
+    pointer-events: none;
     opacity: 0;
 }
 

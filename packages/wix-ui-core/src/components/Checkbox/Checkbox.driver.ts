@@ -12,7 +12,14 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     /** checks if element exists */
     exists: () => !!element,
     /** click on the element */
-    click: () => eventTrigger.change(input),
+    click: () => {
+     // jsdom doesn't simulate checkboxes well: checkbox.click() updates .checked even
+      // if the component is controlled, it also doesn't generate onChange() and doesn't
+      // respect .disabled
+      if (!input.disabled && !input.readOnly) {
+        eventTrigger.change(input);
+      }
+    },
     /** presses on the elemet */
     keyDown: (key: string) => eventTrigger.keyDown(input, {key}),
     /** trigger mouseenter on the element */
