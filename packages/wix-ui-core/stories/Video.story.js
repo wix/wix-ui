@@ -2,7 +2,7 @@ import {Video} from '../src/components/Video';
 
 export default {
   category: 'Components',
-  storyName: 'Video-2',
+  storyName: 'Video',
   component: Video,
   componentPath: '../src/components/Video/Video.tsx',
 
