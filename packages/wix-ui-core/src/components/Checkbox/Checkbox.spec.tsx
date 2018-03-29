@@ -111,7 +111,7 @@ describe('Checkbox', () => {
     });
 
     it('passes "aria-controls" value to the intput', () => {
-      const checkbox = createDriver(<Checkbox aria-controls={['123', '345']} />);
+      const checkbox = createDriver(<Checkbox aria-controls={'123,345'} />);
 
       expect(checkbox.input().getAttribute('aria-controls')).toBe('123,345');
     });

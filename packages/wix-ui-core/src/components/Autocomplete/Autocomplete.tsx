@@ -34,14 +34,12 @@ export interface AutocompleteProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Placeholder to display */
   placeholder?: string;
-  /** Inputs value */
-  value?: string;
   /** Is in error state */
   error?: boolean;
   /** Prefix */
-  prefix?: JSX.Element;
+  prefix?: React.ReactNode;
   /** Suffix */
-  suffix?: JSX.Element;
+  suffix?: React.ReactNode;
 }
 
 export interface AutocompleteState {
@@ -75,8 +73,6 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     onFocus: func,
     /** Placeholder to display */
     placeholder: string,
-    /** Inputs value */
-    value: string,
     /** Is in error state */
     error: bool,
     /** Prefix */
@@ -92,20 +88,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     super(props);
 
     this.state = {
-      inputValue: props.value || ''
+      inputValue: ''
     };
 
     this._onSelect = this._onSelect.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
     this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps: AutocompleteProps) {
-    if (this.state.inputValue !== nextProps.value) {
-      this.setState({
-        inputValue: nextProps.value
-      });
-    }
   }
 
   _onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -157,12 +145,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   }
 
   render() {
-    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput, disabled, error} = this.props;
+    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
     const inputProps = this._createInputProps();
 
     return (
       <InputWithOptions
-        {...style('root', {disabled, error}, this.props)}
+        {...style('root', {}, this.props)}
         onSelect={this._onSelect}
         initialSelectedIds={initialSelectedId || initialSelectedId === 0 ? [initialSelectedId] : null}
         onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}

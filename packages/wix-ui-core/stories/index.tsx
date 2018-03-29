@@ -15,13 +15,13 @@ require('./Badge').story();
 require('./Button').story();
 require('./Input/Input.story');
 require('./IconWithOptions').story();
-require('./StylableText').story();
+require('./StylableText.story.js');
 require('./Label').story();
 require('./StylableBadge').story();
 require('./Tooltip').story();
 require('./Video').story();
 require('./Slider').story();
-require('./StylableToggleSwitch/index.story.ts');
+require('./ToggleSwitch/index.story');
 require('./AddressInput/E2E');
 require('./TimePicker').story();
 

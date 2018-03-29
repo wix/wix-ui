@@ -172,6 +172,10 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
         }
       }
     }
+
+    if (nextProps.src !== currentProps.src) {
+      this.setState({hasBeenPlayed: false});
+    }
   }
 
   componentWillUnmount() {

@@ -47,5 +47,5 @@ export const labelTestkitFactory = protractorTestkitFactoryCreator(labelDriverFa
 import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.protractor.driver';
 export const timePickerTestkitFactory = protractorTestkitFactoryCreator(timePickerDriverFactory);
 
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.protractor.driver';
-export const stylableToggleSwitchTestkitFactory = protractorTestkitFactoryCreator(stylableToggleSwitchDriverFactory);
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
+export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);

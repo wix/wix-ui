@@ -23,8 +23,8 @@ import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = enzymeTestkitFactoryCreator(checkboxDriverFactory);
 
 // Stylable
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
-export const stylableToggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(stylableToggleSwitchDriverFactory);
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
+export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(toggleSwitchDriverFactory);
 
 import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
 export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator(stylableTextDriverFactory);

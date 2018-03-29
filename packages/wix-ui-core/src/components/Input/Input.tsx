@@ -5,8 +5,8 @@ import style from './Input.st.css';
 export interface InputProps {
   className?: string;
   error?: boolean;
-  prefix?: JSX.Element;
-  suffix?: JSX.Element;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 
   // Props passed down to the native input, add more as needed.
   // We cannot simply extend React.InputHTMLAttributes
@@ -114,7 +114,7 @@ export class Input extends React.Component<InputProps, InputState> {
       <div
         {...style(
           'root',
-          {disabled, error, focus},
+          {disabled, error: error && !disabled, focus},
           this.props
         )}
       >

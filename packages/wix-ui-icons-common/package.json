@@ -21,6 +21,7 @@
   "scripts": {
     "precommit": "haste lint",
     "build": "npm run buildIcons && haste build && npm run create-aliases",
+    "pretest": "npm run build",
     "test": "haste test",
     "posttest": "haste lint",
     "start": "npm run buildIcons && haste start",

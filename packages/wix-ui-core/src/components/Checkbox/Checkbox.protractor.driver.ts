@@ -1,4 +1,5 @@
 export const checkboxDriverFactory = component => {
+  const input = component.$('input');
   return {
     /** Returns the component instance */
     element: () => component,
@@ -6,7 +7,7 @@ export const checkboxDriverFactory = component => {
     click: () => component.click(),
     /** Indicates whether the component is disabled or not */
     isDisabled: () => component.getAttribute('disabled') === '',
-    /** Indicates whether the component is checked */
-    isChecked: () => component.getAttribute('aria-checked') !== 'false'
+    /** returns a boolean indicating if the toggleSwitch is checked */
+    checked: () => input.isSelected(),
   };
 };
