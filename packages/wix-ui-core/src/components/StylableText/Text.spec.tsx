@@ -15,12 +15,12 @@ describe('Text', () => {
   describe('ellipsis attribute', () => {
     it('should not have ellipsis by default', () => {
       const driver = createDriver(<Text>Hello World</Text>);
-      expect(driver.isEllipsis()).toBeFalsy();
+      expect(driver.hasEllipsis()).toBeFalsy();
     });
 
     it('should have ellipsis', () => {
       const driver = createDriver(<Text ellipsis>Hello World</Text>);
-      expect(driver.isEllipsis()).toBeTruthy();
+      expect(driver.hasEllipsis()).toBeTruthy();
     });
   });
 
@@ -33,6 +33,7 @@ describe('Text', () => {
     it('should have title attribute when has ellipsis', () => {
       const driver = createDriver(<Text ellipsis>Hello World</Text>);
       expect(driver.hasTitleAttribute()).toBeTruthy();
+      expect(driver.getTitle()).toBe('Hello World');
     });
 
     it('should not have title attribute when has ellipsis and children is an element', () => {
@@ -49,12 +50,12 @@ describe('Text', () => {
   describe('tagName prop', () => {
     it('should be span by default', () => {
       const driver = createDriver(<Text>Hello</Text>);
-      expect(driver.getTagName()).toBe('SPAN');
+      expect(driver.getTagName()).toBe('span');
     });
 
     it('should be configueable', () => {
       const driver = createDriver(<Text tagName="h1">Hello</Text>);
-      expect(driver.getTagName()).toBe('H1');
+      expect(driver.getTagName()).toBe('h1');
     });
   });
 
@@ -62,13 +63,13 @@ describe('Text', () => {
     it('should be rendered when given as a string', () => {
       const children = 'Hello World';
       const driver = createDriver(<Text>{children}</Text>);
-      expect(driver.getChildren()).toBe(children);
+      expect(driver.getText()).toBe(children);
     });
 
     it('should be rendered when given as an element', () => {
       const children = <div>Hello World</div>;
       const driver = createDriver(<Text>{children}</Text>);
-      expect(driver.getChildren()).toBe('<div>Hello World</div>');
+      expect(driver.getText()).toBe('<div>Hello World</div>');
     });
   });
 

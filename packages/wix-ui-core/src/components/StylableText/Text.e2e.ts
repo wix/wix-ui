@@ -12,6 +12,6 @@ describe('Text', () => {
     const driver = textTestkitFactory({dataHook});
 
     return waitForVisibilityOf(driver.element(), 'Cannot find Text')
-      .then(() => expect(driver.getTextContent()).toBe('hello'));
+      .then(() => expect(driver.getText()).toBe('hello'));
   });
 });
