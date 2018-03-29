@@ -188,7 +188,7 @@ export default class extends Component {
     },
 
     {
-      types: ['string', 'number'],
+      types: ['string', 'number', 'ReactText'],
       controller: () => <Input/>
     },
 
