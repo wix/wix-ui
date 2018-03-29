@@ -12,7 +12,7 @@ require('./InputWithOptions').story();
 require('./AddressInput').story();
 require('./Autocomplete').story();
 require('./Badge').story();
-require('./Button').story();
+require('./Button.story');
 require('./Input/Input.story');
 require('./IconWithOptions').story();
 require('./StylableText.story.js');
