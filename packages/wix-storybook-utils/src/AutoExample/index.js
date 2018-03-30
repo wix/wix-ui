@@ -188,12 +188,12 @@ export default class extends Component {
     },
 
     {
-      types: ['string', 'number', 'ReactText'],
+      types: ['string', 'number', /ReactText/],
       controller: () => <Input/>
     },
 
     {
-      types: ['func', /event/],
+      types: ['func', /event/, /\) => void$/],
 
       controller: ({propKey}) => {
         let classNames = styles.example;
