@@ -8,11 +8,11 @@ import {CLICK} from '../../baseComponents/Dropdown/constants';
 
 export interface LabelWithOptionsProps {
   /** rendered when no options are selected */
-  placeholder?: string,
+  placeholder?: string;
   /** The dropdown options array */
   options: Array<Option>;
   /** If set to true, content element will always be visible, used for preview mode */
-  forceContentElementVisibility?: boolean,
+  forceContentElementVisibility?: boolean;
   /** initial selected option ids */
   initialSelectedIds?: Array<string | number>;
   /** Handler for when an option is selected */
@@ -88,7 +88,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       selectedOptions: selectedOptions.concat(option),
       isDirty: true
     }, () => onSelect(option));
-  };
+  }
 
   handleDeselect = (option) => {
     const {selectedOptions} = this.state;
@@ -98,7 +98,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       selectedOptions: modifiedOptions,
       isDirty: true
     }, () => onDeselect(option));
-  };
+  }
 
   render() {
     const {
@@ -125,13 +125,13 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     return (
       <Dropdown
         {...style('root', {}, this.props)}
-        placement='bottom'
+        multi={true}
+        placement="bottom"
         initialSelectedIds={initialSelectedIds}
         options={options}
         openTrigger={CLICK}
         onSelect={this.handleSelect}
         onInitialSelectedOptionsSet={onInitialSelectedOptionsSet}
-        closeOnSelect={false}
         onDeselect={this.handleDeselect}
         disabled={disabled}
         forceContentElementVisibility={forceContentElementVisibility}>
@@ -147,4 +147,3 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     );
   }
 }
-

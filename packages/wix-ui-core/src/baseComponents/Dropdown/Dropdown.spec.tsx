@@ -18,7 +18,6 @@ describe('Dropdown', () => {
       onDeselect: () => null,
       onInitialSelectedOptionsSet: () => null,
       initialSelectedIds: [],
-      closeOnSelect: true
     }, props)}>
       <span>Dropdown</span>
     </Dropdown>
@@ -91,7 +90,7 @@ describe('Dropdown', () => {
 
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
       driver.optionAt(0).click();
@@ -106,13 +105,52 @@ describe('Dropdown', () => {
         initialSelectedIds: [0],
         options,
         onDeselect,
-        closeOnSelect: false
       }));
 
       driver.click();
 
       driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
+    });
+  });
+
+  describe('Initially selected options', () => {
+    it('should be selected', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        initialSelectedIds: [0, 1],
+        forceContentElementVisibility: true,
+      }));
+      expect(driver.optionAt(0).isSelected()).toBeTruthy();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(2);
+    });
+  });
+
+  describe('multiple selection', () => {
+    it('when enabled should allow selection of more than one option', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        multi: true,
+        forceContentElementVisibility: true,
+      }));
+      driver.optionAt(0).click();
+      driver.optionAt(1).click();
+      expect(driver.optionAt(0).isSelected()).toBeTruthy();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(2);
+    });
+
+    it('when disabled should NOT allow selection of more than one option', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        multi: false,
+        initialSelectedIds: [0],
+        forceContentElementVisibility: true,
+      }));
+      driver.optionAt(1).click();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(1);
     });
   });
 
@@ -143,7 +181,6 @@ describe('Dropdown', () => {
 
     it('Should display options when they exist', () => {
       const wrapper = mount(<Dropdown
-        closeOnSelect={true}
         onSelect={() => null}
         initialSelectedIds={[]}
         onDeselect={() => null}

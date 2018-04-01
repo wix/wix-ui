@@ -180,7 +180,7 @@ describe('LabelWithOptions', () => {
       ;
       driver.optionAt(0).click();
       driver.optionAt(1).click();
-    })
+    });
 
     it('should apply invalid style', () => {
       expect(driver.isInvalid()).toBeTruthy();

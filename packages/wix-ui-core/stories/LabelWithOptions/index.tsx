@@ -11,7 +11,7 @@ export const story = () => createStory({
   component: LabelWithOptions,
   source: LabelWithOptionsSource,
   componentProps: {
-    renderSuffix: isInvalid => <span>{isInvalid? '☹️' : '😁'}</span>,
+    renderSuffix: isInvalid => <span>{isInvalid ? '☹️' : '😁'}</span>,
     options: generateOptions(),
     placeholder: 'Click to select',
   }

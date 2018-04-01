@@ -22,8 +22,8 @@ export interface InputWithOptionsProps {
   initialSelectedIds?: Array<string | number>;
   /** A callback for when initial selected options are set */
   onInitialSelectedOptionsSet?: (options: Array<Option>) => void;
-  /** Should close content on select */
-  closeOnSelect?: boolean;
+  /** set true for multiple selection, false for single */
+  multi?: boolean;
   /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
@@ -48,7 +48,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   static defaultProps = {
     openTrigger: 'click',
     placement: 'bottom-start',
-    closeOnSelect: true,
+    multi: false,
     initialSelectedIds: [],
     highlightMatches: true,
     onSelect: () => null,
@@ -72,8 +72,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     initialSelectedIds: arrayOf(oneOfType([number, string])),
     /** A callback for when initial selected options are set */
     onInitialSelectedOptionsSet: func,
-    /** Should close content on select */
-    closeOnSelect: bool,
+    /** set true for multiple selection, false for single */
+    multi: bool,
     /** An element that always appears at the top of the options */
     fixedHeader: node,
     /** An element that always appears at the bottom of the options */
@@ -151,7 +151,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       openTrigger,
       initialSelectedIds,
       onInitialSelectedOptionsSet,
-      closeOnSelect,
+      multi,
       fixedFooter,
       fixedHeader,
       timeout,
@@ -174,7 +174,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         onInitialSelectedOptionsSet={onInitialSelectedOptionsSet}
         options={this._filterOptions()}
         timeout={timeout}
-        closeOnSelect={closeOnSelect}
+        multi={multi}
         forceContentElementVisibility={forceContentElementVisibility}>
         <Input
           data-hook="input"

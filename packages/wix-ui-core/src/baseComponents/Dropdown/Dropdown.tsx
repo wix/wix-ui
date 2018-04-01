@@ -27,8 +27,8 @@ export interface DropdownProps {
   initialSelectedIds: Array<string | number>;
   /** A callback for when initial selected options are set */
   onInitialSelectedOptionsSet: (options: Array<Option>) => void;
-  /** Should close content on select */
-  closeOnSelect: boolean;
+  /** set true for multiple selection, false for single */
+  multi?: boolean;
   /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
@@ -130,8 +130,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
       switch (eventKey) {
         case 'Enter': {
           this.onKeyboardSelect();
-          const {closeOnSelect} = this.props;
-          closeOnSelect && this.close();
+          const {multi} = this.props;
+          !multi && this.close();
           break;
         }
         case 'Tab': {
@@ -150,48 +150,41 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   onOptionClick(option: Option | null) {
-    const {onSelect, onDeselect, closeOnSelect} = this.props;
+    const {onSelect, onDeselect, multi} = this.props;
     const {selectedIds} = this.state;
-    let callback = onSelect;
     const newState = {
-      isOpen: !closeOnSelect,
+      isOpen: multi,
       selectedIds
     };
+    let callback;
 
-    if (closeOnSelect) {
-      if (option) {
-        if (selectedIds.includes(option.id)) {
-          return this.close();
-        } else {
-          newState.selectedIds = [option.id];
-        }
+    if (option) {
+      if (selectedIds.includes(option.id)) {
+        callback = onDeselect;
+        newState.selectedIds = multi ?
+          selectedIds.filter(x => x !== option.id) :
+          [];
       } else {
-        newState.selectedIds = [];
+        callback = onSelect;
+        newState.selectedIds = multi ?
+          [...selectedIds, option.id] :
+          [option.id];
       }
     } else {
-      if (option) {
-        if (selectedIds.includes(option.id)) {
-          newState.selectedIds = selectedIds.filter(x => x !== option.id);
-          callback = onDeselect;
-        } else {
-          newState.selectedIds = [...selectedIds, option.id];
-        }
-      }
+      callback = onSelect;
     }
-
-    this.setState(newState);
-    callback(option);
+    this.setState(newState, () => callback(option));
   }
 
   onClick = () => {
-    const {disabled, openTrigger, closeOnSelect} = this.props;
+    const {disabled, openTrigger, multi} = this.props;
     const {isOpen} = this.state;
 
     if (disabled || openTrigger !== CLICK) {
       return;
     }
-    isOpen ? (closeOnSelect && this.close()) : this.open();
-  };
+    isOpen ? (!multi && this.close()) : this.open();
+  }
 
   render() {
     const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility} = this.props;
