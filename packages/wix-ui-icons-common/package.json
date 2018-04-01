@@ -42,8 +42,6 @@
     "react": "^15.6.1",
     "@storybook/addon-options": "^3.3.15",
     "@storybook/react": "^3.3.15",
-    "stylable": "latest",
-    "stylable-integration": "latest",
     "svg2react-icon": "^1.0.51",
     "typescript": "^2.6.2",
     "wix-storybook-utils": "^1.0.54"
