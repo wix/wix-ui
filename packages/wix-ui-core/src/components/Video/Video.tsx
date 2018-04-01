@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string, number, func, object, bool, array, node, oneOfType, Requireable} from 'prop-types';
+import {string, number, func, object, bool, array, node, oneOfType, oneOf, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import styles from './Video.st.css';
 
@@ -13,6 +13,11 @@ export interface VideoProps {
   fillAllSpace?: boolean;
   loop?: boolean;
   volume?: number;
+  logoUrl?: string;
+  onLogoClick?: Function;
+  alwaysShowLogo?: boolean;
+  controls?: boolean;
+  preload?: 'auto' | 'metadata' | 'none';
   poster?: string;
   playing?: boolean;
   muted?: boolean;
@@ -35,7 +40,27 @@ const mapPropsToMethods = {
   title: 'setTitle',
   fillAllSpace: 'setFillAllSpace',
   loop: 'setLoop',
+  logoUrl: 'setLogo',
+  alwaysShowLogo: 'setLogoAlwaysShowFlag',
+  onLogoClick: 'setLogoClickCallback',
   volume: 'setVolume',
+  controls: (instance, player, isShow) => {
+    // TODO: replace it after playable API update
+    if (isShow) {
+      player.showPlayControl();
+      player.showVolumeControl();
+      player.showTimeControl();
+      player.showFullScreenControl();
+      player.showProgressControl();
+    } else {
+      player.hidePlayControl();
+      player.hideVolumeControl();
+      player.hideTimeControl();
+      player.hideFullScreenControl();
+      player.hideProgressControl();
+    }
+  },
+  preload: 'setPreload',
   playing: (instance, player, nextPlaying) => {
     if (!instance.props.playing && nextPlaying && !instance._isPlaying()) {
       player.play();
@@ -60,6 +85,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   player: any;
 
   static propTypes = {
+    /** Element ID */
     id: string,
     /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */
     src: oneOfType([
@@ -86,6 +112,16 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     loop: bool,
     /** Start value of volume for audio, `0..100`. */
     volume: number,
+    /** URL to image that would be used as logo on video */
+    logoUrl: string,
+    /** Function that will be evaluated after click on logo */
+    onLogoClick: func,
+    /** Pass true to alow logo be visible no matter or what */
+    alwaysShowLogo: bool,
+    /** Pass false to hide controls */
+    controls: bool,
+    /** Type of preloading. For more info check [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) */
+    preload: oneOf(['auto', 'metadata', 'none']),
     /** URL to image that would be used as poster on overlay */
     poster: string,
     /** Set to `true` or `false` to pause or play the media */
@@ -103,6 +139,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   };
 
   static defaultProps = {
+    controls: true,
     onPlay: noop,
     onPause: noop,
     onEnd: noop,
@@ -118,8 +155,18 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   componentDidMount() {
-    const {src, playing, muted, width, height, title, fillAllSpace, loop, volume} = this.props;
+    const {src, playing, muted, width, height, title, fillAllSpace, loop, volume, controls, preload} = this.props;
+    const {logoUrl, onLogoClick, alwaysShowLogo} = this.props;
     const {playableRef, onPlay, onPause, onEnd} = this.props;
+    let logo;
+
+    if (logoUrl || onLogoClick || alwaysShowLogo) {
+      logo = {
+        src: logoUrl,
+        callback: onLogoClick,
+        showAlways: alwaysShowLogo,
+      };
+    }
 
     this.player = create({
       src,
@@ -130,8 +177,11 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
         height,
       },
       title: {
-        text: title
+        text: title,
       },
+      controls,
+      preload,
+      logo,
       fillAllSpace,
       loop,
       volume,
@@ -141,6 +191,10 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     playableRef(this.player);
 
     this.player.attachToElement(this.containerRef);
+
+    this.player.on(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, () => {
+      this.setState({hasBeenPlayed: true});
+    });
 
     this.player.on(VIDEO_EVENTS.STATE_CHANGED, ({nextState}) => {
       if (nextState === ENGINE_STATES.PLAYING) {
