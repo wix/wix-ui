@@ -143,7 +143,6 @@ describe('Checkbox', () => {
 
       expect(document.activeElement).toEqual(checkbox.input());
       expect(checkbox.hasFocusState()).toBe(false);
-      expect(document.activeElement).toBe(checkbox.input());
     });
 
     it('has error style state', () => {

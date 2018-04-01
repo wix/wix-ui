@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Checkbox.st.css';
+import styles from './Checkbox.st.css';
 import {noop} from 'lodash';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
@@ -39,41 +39,36 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   state = {isFocused: false, focusVisible: false};
 
   public render()  {
-    const {checked, disabled, readOnly: readonly, error, indeterminate, required} = this.props;
-    const focus = this.state.isFocused;
+    const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon,
+      //These variables were not meant to be used
+      onChange, children, className, ...rest} = this.props;
 
     return (
-      <label {...style('root', {checked, disabled, focus, readonly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
+      <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
         onMouseDown={this.handleMouseDown}>
           <input
             type="checkbox"
-            className={style.nativeCheckbox}
+            className={styles.nativeCheckbox}
             checked={this.props.checked}
             disabled={this.props.disabled}
-            readOnly={this.props.readOnly}
             onChange={this.handleChange}
             onKeyDown={this.handleInputKeyDown}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            id={this.props.id}
-            tabIndex={this.props.tabIndex}
-            autoFocus={this.props.autoFocus}
-            name={this.props.name}
-            aria-controls={this.props['aria-controls']}
             ref={ref => this.checkbox = ref}
-            required={required}
+            {...rest}
           />
 
-          <span className={style.box}>
+          <span className={styles.box}>
             {
-              this.props.indeterminate ? this.props.indeterminateIcon :
-              this.props.checked ? this.props.checkedIcon :
-              this.props.uncheckedIcon
+              this.props.indeterminate ? indeterminateIcon :
+              this.props.checked ? checkedIcon :
+              uncheckedIcon
             }
           </span>
 
           {this.props.children ? (
-            <div className={style.childContainer}>
+            <div className={styles.childContainer}>
               {this.props.children}
             </div>
           ) : null
@@ -103,6 +98,5 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
   private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
     this.setState({isFocused: true, focusVisible: !this.focusedByMouse});
-    this.focusedByMouse = false;
   }
 }

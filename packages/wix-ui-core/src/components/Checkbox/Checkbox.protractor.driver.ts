@@ -7,7 +7,7 @@ export const checkboxDriverFactory = component => {
     click: () => component.click(),
     /** Indicates whether the component is disabled or not */
     isDisabled: () => component.getAttribute('disabled') === '',
-    /** returns a boolean indicating if the toggleSwitch is checked */
-    checked: () => input.isSelected(),
+    /** returns a boolean indicating if the checkbox is checked */
+    isChecked: () => input.isSelected(),
   };
 };
