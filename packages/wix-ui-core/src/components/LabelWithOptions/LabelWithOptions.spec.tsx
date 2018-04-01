@@ -84,16 +84,15 @@ describe('LabelWithOptions', () => {
     });
   });
 
-  describe('when focused', () => {
+  describe('when hitting Arrow Down key', () => {
     let driver;
 
     beforeEach(() => {
-      driver = createDriver(createLabelWithOptions({options, disabled: true}));
-      driver.focus();
+      driver = createDriver(createLabelWithOptions({options}));
+      driver.arrowDown();
     });
 
-    it('should open dropdown using keyboard', () => {
-      driver.arrowDown();
+    it('should open dropdown if closed', () => {
       expect(driver.isContentElementExists()).toBeTruthy();
     });
   });
