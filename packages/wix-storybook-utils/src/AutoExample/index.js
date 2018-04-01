@@ -113,6 +113,7 @@ export default class extends Component {
       */
     componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     exampleProps: PropTypes.object,
+    shouldHideExampleCode: PropTypes.bool,
 
     /**
       * when true, display only component preview without interactive props nor code example
@@ -266,7 +267,7 @@ export default class extends Component {
     });
 
   render() {
-    const component = this.props.component;
+    const {component, shouldHideExampleCode} = this.props;
 
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
       prop =>
@@ -333,7 +334,10 @@ export default class extends Component {
           {React.createElement(component, componentProps)}
         </Preview>
 
-        <Code source={this.componentToString(React.createElement(component, codeProps))}/>
+        {
+          !shouldHideExampleCode &&
+            <Code source={this.componentToString(React.createElement(component, codeProps))}/>
+        }
       </Wrapper>
     );
   }

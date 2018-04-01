@@ -14,6 +14,7 @@ export const story = () => createStory({
   storyName: 'Autocomplete',
   component: Autocomplete,
   source: AutocompleteSource,
+  shouldHideExampleCode: true,
   componentProps: {
     'data-hook': 'storybook-autocomplete',
     options: generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value))
