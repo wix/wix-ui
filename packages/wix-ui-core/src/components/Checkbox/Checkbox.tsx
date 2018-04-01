@@ -78,6 +78,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
+    //When clicking on the label, the input loses focus and then gains it again. To prevent this we disable the default mouse down behavior
     e.preventDefault();
     this.focusedByMouse = !this.state.isFocused;
     this.setState({isFocused: true});
