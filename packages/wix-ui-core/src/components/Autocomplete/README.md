@@ -1,6 +1,3 @@
-# Autocomplete usage
-
-```ts
 import {Autocomplete} from 'wix-ui-core/Autocomplete';
 
 const options = [
@@ -8,7 +5,7 @@ const options = [
   Autocomplete.createOption({id: 1, value: `value1`}),                                  // generates an option with id, value
   Autocomplete.createOption({id: 2, value: `value2`, isDisabled: true}),                // genrates a disabled option
   Autocomplete.createOption({id: 3, value: `value3`, isSelectable: false}),             // generates an unselectable option
-  Autocomplete.createOption({id: 4, value: `value4`, render: value => {value + 's'}}),  // generates an option with a custom render function
+  Autocomplete.createOption({id: 4, value: `value4`, render: value => value + 's'}),    // generates an option with a custom render function
 
   Autocomplete.createDivider(),                                                         // generates default divider
   Autocomplete.createDivider('Value')                                                   // generates a divider with value
@@ -27,8 +24,7 @@ const options = [
   onChange={event => null}
   onFocus={event => null}
   placeholder={'This is a placeholder'}
-  error={false | 'Error message'}
+  error={false || 'Error message'}
   prefix={null}
   suffix={null}
 />
-```

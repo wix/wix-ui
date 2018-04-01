@@ -6,7 +6,7 @@ import {OptionFactory, Option, DividerArgs} from '../../src/baseComponents/Dropd
 import {Divider} from '../../src/components/Divider';
 import {generateOptions} from '../../src/baseComponents/DropdownOption/OptionsExample';
 import Markdown from 'wix-storybook-utils/Markdown';
-const Readme = require('../../src/components/Autocomplete/README.md');
+const CodeExample = require('../../src/components/Autocomplete/CodeExample.md');
 
 export const story = () => createStory({
   category: 'Components',
@@ -14,7 +14,7 @@ export const story = () => createStory({
   storyName: 'Autocomplete',
   component: Autocomplete,
   source: AutocompleteSource,
-  shouldHideExampleCode: true,
+  codeBlockSource: CodeExample,
   componentProps: {
     'data-hook': 'storybook-autocomplete',
     options: generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value))
@@ -28,8 +28,5 @@ export const story = () => createStory({
     onBlur: () => 'Triggered onBlur',
     onFocus: () => 'Triggered onFocus',
     onChange: evt => evt.target.value
-  },
-  examples: [
-    <Markdown source={Readme}/>
-  ]
+  }
 });
