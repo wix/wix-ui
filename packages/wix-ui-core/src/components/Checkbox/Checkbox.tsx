@@ -40,8 +40,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
   public render()  {
     const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon,
-      //These variables were not meant to be used
-      onChange, children, className, ...rest} = this.props;
+      //These vars are not used on purpose. We do this so that they will not be in inputProps and won't overwrite the vars we are passing to the native input
+      onChange, children, className, ...inputProps} = this.props;
 
     return (
       <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
@@ -56,7 +56,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             ref={ref => this.checkbox = ref}
-            {...rest}
+            {...inputProps}
           />
 
           <span className={styles.box}>
@@ -78,9 +78,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
-    //When clicking on the label, the input loses focus and then gains it again. To prevent this we disable the default mouse down behavior
+    //When clicking on the label, the input loses focus style state and then gains it again.
+    //To prevent this we disable the default mouse down behavior and set the state to true
     e.preventDefault();
-    this.focusedByMouse = !this.state.isFocused;
+    this.focusedByMouse = true;
     this.setState({isFocused: true});
   }
 
