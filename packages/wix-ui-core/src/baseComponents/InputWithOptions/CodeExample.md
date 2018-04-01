@@ -1,8 +1,3 @@
-# InputWithOptions usage
-
-This is an internal component, which should not be imported outside the core library
-
-```ts
 import {InputWithOptions} from 'wix-ui-core/InputWithOptions';
 import {OptionFactory} from 'wix-ui-core/dist/src/baseComponents/DropdownOption';
 
@@ -18,9 +13,9 @@ const options = [
 ];
 
 <InputWithOptions
-  placement={'top' | 'bottom' ...}
+  placement={'top' || 'bottom' ...}
   options={options}
-  openTrigger={'click' | 'hover'}
+  openTrigger={'click' || 'hover'}
   onSelect={option => null}
   onDeselect={option => null}
   initialSelectedIds={null || [1]}
@@ -36,4 +31,3 @@ const options = [
     {...inputProps}
   }
 />
-```

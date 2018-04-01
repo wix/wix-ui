@@ -5,7 +5,7 @@ import * as InputWithOptionsSource from '!raw-loader!../../src/baseComponents/In
 import {Option} from '../../src/baseComponents/DropdownOption';
 import {generateOptions} from '../../src/baseComponents/DropdownOption/OptionsExample';
 import Markdown from 'wix-storybook-utils/Markdown';
-const Readme = require('../../src/baseComponents/InputWithOptions/README.md');
+const CodeExample = require('../../src/baseComponents/InputWithOptions/CodeExample.md');
 
 export const story = () => createStory({
   category: 'Base Components',
@@ -13,6 +13,7 @@ export const story = () => createStory({
   storyName: 'InputWithOptions',
   component: InputWithOptions,
   source: InputWithOptionsSource,
+  codeBlockSource: CodeExample,
   componentProps: {
     'data-hook': 'storybook-inputwithoptions',
     options: generateOptions(),
@@ -24,8 +25,5 @@ export const story = () => createStory({
     initialSelectedIds: [[], [1]],
     onSelect: (option: Option) => option.value,
     onDeselect: (option: Option) => option.value
-  },
-  examples: [
-    <Markdown source={Readme}/>
-  ]
+  }
 });
