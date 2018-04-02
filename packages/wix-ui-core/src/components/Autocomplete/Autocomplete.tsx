@@ -35,11 +35,11 @@ export interface AutocompleteProps {
   /** Placeholder to display */
   placeholder?: string;
   /** Is in error state */
-  error?: boolean;
+  error?: string | boolean;
   /** Prefix */
-  prefix?: JSX.Element;
+  prefix?: React.ReactNode;
   /** Suffix */
-  suffix?: JSX.Element;
+  suffix?: React.ReactNode;
 }
 
 export interface AutocompleteState {
@@ -73,8 +73,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     onFocus: func,
     /** Placeholder to display */
     placeholder: string,
-    /** Is in error state */
-    error: bool,
+    /** Is in error state / error message */
+    error: oneOfType([string, bool]),
     /** Prefix */
     prefix: node,
     /** Suffix */

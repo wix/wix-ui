@@ -20,26 +20,31 @@
   },
   "scripts": {
     "precommit": "haste lint",
-    "build": "npm run buildIcons && haste build && npm run create-aliases",
-    "pretest": "npm run build",
+    "build": "npm run buildIcons && haste build && npm run create-aliases && npm run generate-stylable-index",
+    "pretest": "npm run build && build-storybook",
     "test": "haste test",
     "posttest": "haste lint",
-    "start": "npm run buildIcons && haste start",
+    "start": "npm run buildIcons && haste start --no-test & npm run storybook",
     "release": "haste release",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
     "buildGeneralIcons": "svg2react-icon 'src/general/raw' 'src/general/dist' true",
     "buildSystemIcons": "svg2react-icon 'src/system/raw' 'src/system/dist' true",
     "create-aliases": "npm run create-general-aliases && npm run create-system-aliases",
     "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
-    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist"
+    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
+    "storybook": "start-storybook -p 6006",
+    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics"
   },
   "devDependencies": {
     "fs-extra": "^5.0.0",
     "haste-preset-yoshi": "latest",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "@storybook/addon-options": "^3.3.15",
+    "@storybook/react": "^3.3.15",
     "svg2react-icon": "^1.0.51",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "wix-storybook-utils": "^1.0.54"
   },
   "haste": {
     "preset": "yoshi"

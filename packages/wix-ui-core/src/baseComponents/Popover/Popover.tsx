@@ -75,7 +75,7 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
 const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   const modifiers: PopperJS.Modifiers = {
     offset: {
-      offset: `${moveBy ? moveBy.y : 0}px, ${moveBy ? moveBy.x : 0}px`
+      offset: `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`
     }
   };
 

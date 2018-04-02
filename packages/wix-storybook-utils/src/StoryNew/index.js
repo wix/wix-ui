@@ -19,6 +19,7 @@ export default ({
   examples,
   exampleProps,
   _config,
+  codeBlockSource,
   _metadata
 }) =>
   _config.storiesOf(category, module).add(storyName || _metadata.displayName, () => {
@@ -71,6 +72,7 @@ export default ({
             parsedSource={_metadata}
             componentProps={componentProps}
             exampleProps={exampleProps}
+            codeBlockSource={codeBlockSource}
             />
 
           {examples}

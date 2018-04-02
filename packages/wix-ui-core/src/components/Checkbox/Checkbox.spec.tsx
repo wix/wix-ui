@@ -50,16 +50,6 @@ describe('Checkbox', () => {
       expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
     });
 
-    it('calls onChange when spacebar is passed', () => {
-      const onChange = jest.fn();
-      const checkbox = createDriver(<Checkbox onChange={onChange}/>);
-
-      checkbox.keyDown(' ');
-
-      expect(onChange).toHaveBeenCalledTimes(1);
-      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({checked: true}));
-    });
-
     it('displays the given custom tick icon when checked', () => {
       const checkbox = createDriver(
         <Checkbox
@@ -111,7 +101,7 @@ describe('Checkbox', () => {
     });
 
     it('passes "aria-controls" value to the intput', () => {
-      const checkbox = createDriver(<Checkbox aria-controls={['123', '345']} />);
+      const checkbox = createDriver(<Checkbox aria-controls={'123,345'} />);
 
       expect(checkbox.input().getAttribute('aria-controls')).toBe('123,345');
     });
@@ -151,13 +141,8 @@ describe('Checkbox', () => {
     it('focuses the native input if autofocus is passed', () => {
       const checkbox = createDriver(<Checkbox autoFocus />);
 
-      expect(document.activeElement).toBe(checkbox.input());
-    });
-
-    it('disables the input when disabled', () => {
-      const checkbox = createDriver(<Checkbox disabled/>);
-
-      expect(checkbox.input().disabled).toBe(true);
+      expect(document.activeElement).toEqual(checkbox.input());
+      expect(checkbox.hasFocusState()).toBe(false);
     });
 
     it('has error style state', () => {
@@ -182,6 +167,12 @@ describe('Checkbox', () => {
       expect(onChange).not.toHaveBeenCalled();
     });
 
+    it('disables the input when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled/>);
+
+      expect(checkbox.input().disabled).toBe(true);
+    });
+
     it('can be checked when disabled', () => {
       const checkbox = createDriver(<Checkbox disabled checked />);
 
@@ -199,6 +190,13 @@ describe('Checkbox', () => {
       const checkbox = createDriver(<Checkbox disabled />);
 
       expect(checkbox.isDisabled()).toBe(true);
+    });
+
+    it('can not be focused when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled />);
+
+      checkbox.mouseDown();
+      expect(checkbox.hasFocusState()).toBe(false);
     });
   });
 

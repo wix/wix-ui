@@ -4,9 +4,9 @@ import style from './Input.st.css';
 
 export interface InputProps {
   className?: string;
-  error?: boolean;
-  prefix?: JSX.Element;
-  suffix?: JSX.Element;
+  error?: string | boolean;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 
   // Props passed down to the native input, add more as needed.
   // We cannot simply extend React.InputHTMLAttributes
@@ -42,8 +42,8 @@ export class Input extends React.Component<InputProps, InputState> {
   static propTypes = {
     /** Wrapper class name */
     className: PropTypes.string,
-    /** Error state */
-    error: PropTypes.bool,
+    /** Error state / Error message */
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     /** Prefix */
     prefix: PropTypes.node,
     /** Suffix */
@@ -114,7 +114,7 @@ export class Input extends React.Component<InputProps, InputState> {
       <div
         {...style(
           'root',
-          {disabled, error: error && !disabled, focus},
+          {disabled, error: !!error && !disabled, focus},
           this.props
         )}
       >

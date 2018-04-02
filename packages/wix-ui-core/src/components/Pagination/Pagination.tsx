@@ -117,16 +117,14 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     slashLabel: '\u00A0/\u00A0'
   };
 
-  updatePageStrip = () => null;
+  updateRootMinWidth = () => measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
 
   public componentDidMount() {
-    if (this.props.updateResponsiveLayout) {
-      this.props.updateResponsiveLayout(this.updateLayout);
-    }
+    this.props.updateResponsiveLayout && this.updateRootMinWidth();
   }
 
-  public componentWillUnmount() {
-    this.props.updateResponsiveLayout && this.props.updateResponsiveLayout(() => null);
+  public componentDidUpdate() {
+    this.props.updateResponsiveLayout && this.updateRootMinWidth();
   }
 
   private getId(elementName: string = ''): string | null {
@@ -162,14 +160,9 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         gapLabel={this.props.gapLabel}
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
-        updateResponsiveLayout={this.props.updateResponsiveLayout && (cb => this.updatePageStrip = cb)}
+        updateResponsiveLayout={this.props.updateResponsiveLayout}
       />
     );
-  }
-
-  private updateLayout = ()  => {
-      measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
-      this.updatePageStrip();
   }
 
   private handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -191,6 +184,13 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         }
       }
     }
+  }
+
+  private handlePageInputBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
+    this.setState({
+      pageInputValue: String(this.props.currentPage),
+      pageInputHasError: false
+    });
   }
 
   private handlePageClick = (event: React.MouseEvent<Element>, page: number): void => {
@@ -218,6 +218,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
+          onBlur={this.handlePageInputBlur}
         />
         {this.props.showInputModeTotalPages && [
             <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,

@@ -43,7 +43,6 @@
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",
-    "wix-ui-icons-common": "^1.0.0",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },
@@ -78,6 +77,7 @@
     "typescript": "^2.6.2",
     "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
+    "wix-ui-icons-common": "^1.0.0",    
     "wix-storybook-utils": "^1.0.0"
   },
   "license": "MIT",

@@ -3,8 +3,7 @@ import * as eventually from 'wix-eventually';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
-import {HOVER, CLICK} from './constants';
-import {OptionFactory} from '../DropdownOption';
+import {CLICK, HOVER} from './constants';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
 import {generateOptions} from '../DropdownOption/OptionsExample';
@@ -19,7 +18,6 @@ describe('Dropdown', () => {
       onDeselect: () => null,
       onInitialSelectedOptionsSet: () => null,
       initialSelectedIds: [],
-      closeOnSelect: true
     }, props)}>
       <span>Dropdown</span>
     </Dropdown>
@@ -43,6 +41,13 @@ describe('Dropdown', () => {
 
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('should not hide content on another click', async () => {
+      const driver = createDriver(createDropdown({options}));
+      driver.click();
+      driver.click();
+      await eventually(() => expect(driver.isContentElementExists()).toBeTruthy());
     });
 
     it('should show content on hover', async () => {
@@ -85,7 +90,7 @@ describe('Dropdown', () => {
 
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({options, onSelect}));
 
       driver.click();
       driver.optionAt(0).click();
@@ -96,11 +101,56 @@ describe('Dropdown', () => {
   describe('onDeselect', () => {
     it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({initialSelectedIds: [0], options, onDeselect, closeOnSelect: false}));
+      const driver = createDriver(createDropdown({
+        initialSelectedIds: [0],
+        options,
+        onDeselect,
+      }));
 
       driver.click();
+
       driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
+    });
+  });
+
+  describe('Initially selected options', () => {
+    it('should be selected', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        initialSelectedIds: [0, 1],
+        forceContentElementVisibility: true,
+      }));
+      expect(driver.optionAt(0).isSelected()).toBeTruthy();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(2);
+    });
+  });
+
+  describe('multiple selection', () => {
+    it('when enabled should allow selection of more than one option', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        multi: true,
+        forceContentElementVisibility: true,
+      }));
+      driver.optionAt(0).click();
+      driver.optionAt(1).click();
+      expect(driver.optionAt(0).isSelected()).toBeTruthy();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(2);
+    });
+
+    it('when disabled should NOT allow selection of more than one option', () => {
+      const driver = createDriver(createDropdown({
+        options,
+        multi: false,
+        initialSelectedIds: [0],
+        forceContentElementVisibility: true,
+      }));
+      driver.optionAt(1).click();
+      expect(driver.optionAt(1).isSelected()).toBeTruthy();
+      expect(driver.getSelectedOptionsCount()).toEqual(1);
     });
   });
 
@@ -131,7 +181,6 @@ describe('Dropdown', () => {
 
     it('Should display options when they exist', () => {
       const wrapper = mount(<Dropdown
-        closeOnSelect={true}
         onSelect={() => null}
         initialSelectedIds={[]}
         onDeselect={() => null}
@@ -144,7 +193,8 @@ describe('Dropdown', () => {
 
       const driver = dropdownDriverFactory({
         element: wrapper.children().at(0).getDOMNode(),
-        eventTrigger: Simulate});
+        eventTrigger: Simulate
+      });
 
       driver.click();
       expect(driver.isContentElementExists()).toBeFalsy();

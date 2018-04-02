@@ -1,14 +1,16 @@
-import {isAttributeExists} from 'wix-ui-test-utils/vanilla';
+import {StylableDOMUtil} from 'stylable/test-utils';
+import style from './Divider.st.css';
 
-export const dividerDriverFactory = ({element}) => ({
-  /** checks if the element exists */
-  exists: () => !!element,
+export const dividerDriverFactory = ({element}) => {
+  const domUtils = new StylableDOMUtil(style, element);
+  return {
+    /** checks if the element exists */
+    exists: () => !!element,
 
-  /** checks if the divider is vertical */
-  isVertical: () =>
-    isAttributeExists(element, attribute => attribute.name.includes('vertical') && attribute.value === 'true'),
+    /** checks if the divider is vertical */
+    isVertical: () => element && domUtils.hasStyleState(element, 'vertical'),
 
-  /** gets text content */
-  textContent: () => element.textContent,
-  element
-});
+    /** gets text content */
+    textContent: () => element.textContent
+  };
+};

@@ -26,7 +26,6 @@ describe('DropdownContent', () => {
     it('should select selectable options', () => {
       const onOptionClick = jest.fn();
       const driver = createDriver(createDropdownContent({options, onOptionClick}));
-
       driver.optionAt(0).click();
       expect(onOptionClick).toHaveBeenCalledWith(options[0]);
 

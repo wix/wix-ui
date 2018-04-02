@@ -8,23 +8,27 @@ import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
+// baseComponents
 require('./InputWithOptions').story();
+
+// components
 require('./AddressInput').story();
+require('./AddressInput/E2E');
 require('./Autocomplete').story();
 require('./Badge').story();
-require('./Button').story();
+require('./Button.story');
 require('./Input/Input.story');
-require('./IconWithOptions').story();
-require('./StylableText.story.js');
+require('./IconWithOptions.story');
+require('./LabelWithOptions').story();
 require('./HBox').story();
 require('./Label').story();
-require('./StylableBadge').story();
-require('./Tooltip').story();
-require('./Video').story();
 require('./Slider').story();
-require('./ToggleSwitch/index.story');
-require('./AddressInput/E2E');
+require('./StylableBadge').story();
+require('./StylableText.story.js');
 require('./TimePicker').story();
+require('./ToggleSwitch/index.story');
+require('./Tooltip').story();
+require('./Video.story');
 
 storiesOf('Components', module)
   .add('Text', () => (
