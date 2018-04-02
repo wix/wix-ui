@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styles from './Checkbox.st.css';
 import {noop} from '../../utils';
-const omit = require('lodash/omit');
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -40,7 +39,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   state = {isFocused: false, focusVisible: false};
 
   public render()  {
-    const inputProps = omit(this.props, ['onChange', 'children', 'className', 'data-hook', 'error', 'indeterminate', 'indeterminateIcon', 'checkedIcon', 'uncheckedIcon']);
     const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon} = this.props;
 
     return (
