@@ -26,6 +26,8 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     mouseEnter: () => eventTrigger.mouseEnter(element),
     /** trigger mouseleave on the element */
     mouseLeave: () => eventTrigger.mouseLeave(element),
+    /** trigger mousedown on the element */
+    mouseDown: () => eventTrigger.mouseDown(element),
     /** trigger focus on the element */
     focus: () => eventTrigger.focus(utils.select('.nativeCheckbox')),
     /** checks if the tickmark exists, i.e. the checkbox is checked */

@@ -191,6 +191,13 @@ describe('Checkbox', () => {
 
       expect(checkbox.isDisabled()).toBe(true);
     });
+
+    it('can not be focused when disabled', () => {
+      const checkbox = createDriver(<Checkbox disabled />);
+
+      checkbox.mouseDown();
+      expect(checkbox.hasFocusState()).toBe(false);
+    });
   });
 
   describe('Readonly', () => {

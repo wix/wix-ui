@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './Checkbox.st.css';
 import {noop} from '../../utils';
+const omit = require('lodash/omit');
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -39,9 +40,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   state = {isFocused: false, focusVisible: false};
 
   public render()  {
-    const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon,
-      //These vars are not used on purpose. We do this so that they will not be in inputProps and won't overwrite the vars we are passing to the native input
-      onChange, children, className, ...inputProps} = this.props;
+    const inputProps = omit(this.props, ['onChange', 'children', 'className', 'data-hook', 'error', 'indeterminate', 'indeterminateIcon', 'checkedIcon', 'uncheckedIcon']);
+    const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon} = this.props;
 
     return (
       <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
@@ -49,8 +49,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           <input
             type="checkbox"
             className={styles.nativeCheckbox}
-            checked={this.props.checked}
-            disabled={this.props.disabled}
             onChange={this.handleChange}
             onKeyDown={this.handleInputKeyDown}
             onFocus={this.handleInputFocus}
@@ -80,9 +78,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   private handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
     //When clicking on the label, the input loses focus style state and then gains it again.
     //To prevent this we disable the default mouse down behavior and set the state to true
-    e.preventDefault();
-    this.focusedByMouse = true;
-    this.setState({isFocused: true});
+    if (!this.props.disabled) {
+      e.preventDefault();
+      this.focusedByMouse = true;
+      this.setState({isFocused: true});
+    }
   }
 
   private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
