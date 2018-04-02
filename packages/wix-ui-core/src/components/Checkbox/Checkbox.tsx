@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './Checkbox.st.css';
-import {noop} from 'lodash';
+import {noop} from '../../utils';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;

@@ -16,36 +16,32 @@ describe('Checkbox', () => {
     return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
   });
 
-  eyes.it('should toggle', () => {
+  eyes.it('should toggle', async () => {
     const driver = checkboxTestkitFactory({dataHook});
 
-    return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox')
-    .then(() => {
-      expect(driver.isChecked()).toBe(false);
+    await waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
+    expect(driver.isChecked()).toBe(false);
 
-      driver.click();
-      expect(driver.isChecked()).toBe(true);
+    driver.click();
+    expect(driver.isChecked()).toBe(true);
 
-      driver.click();
-      expect(driver.isChecked()).toBe(false);
-    });
+    driver.click();
+    expect(driver.isChecked()).toBe(false);
   });
 
-  it('should support accessiblility features', () => {
+  it('should support accessiblility features', async () => {
     const driver = checkboxTestkitFactory({dataHook});
 
-    return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox')
-    .then(() => {
-      expect(driver.isChecked()).toBe(false);
+    await waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
+    expect(driver.isChecked()).toBe(false);
 
-      browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
-      expect(driver.isChecked()).toBe(true);
+    browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
+    expect(driver.isChecked()).toBe(true);
 
-      browser.actions().sendKeys(Key.SPACE).perform();
-      expect(driver.isChecked()).toBe(false);
+    browser.actions().sendKeys(Key.SPACE).perform();
+    expect(driver.isChecked()).toBe(false);
 
-      browser.actions().sendKeys(Key.ENTER).perform();
-      expect(driver.isChecked()).toBe(false);
-    });
+    browser.actions().sendKeys(Key.ENTER).perform();
+    expect(driver.isChecked()).toBe(false);
   });
 });
