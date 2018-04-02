@@ -54,7 +54,16 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             ref={ref => this.checkbox = ref}
-            {...inputProps}
+            //temp fix
+            checked={checked}
+            disabled={disabled}
+            readOnly={this.props.readOnly}
+            tabIndex={this.props.tabIndex}
+            id={this.props.id}
+            required={this.props.required}
+            autoFocus={this.props.autoFocus}
+            name={this.props.name}
+            aria-controls={this.props['aria-controls']}
           />
 
           <span className={styles.box}>
