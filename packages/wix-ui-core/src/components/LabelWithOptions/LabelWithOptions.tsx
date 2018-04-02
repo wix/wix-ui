@@ -5,10 +5,13 @@ import {Dropdown} from '../../baseComponents/Dropdown';
 import {Option, optionPropType} from '../../baseComponents/DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../../baseComponents/Dropdown/constants';
+import {Placement} from '../../baseComponents/Popover';
 
 export interface LabelWithOptionsProps {
   /** rendered when no options are selected */
   placeholder?: string;
+  /** The location to display the content */
+  placement?: Placement;
   /** The dropdown options array */
   options: Array<Option>;
   /** If set to true, content element will always be visible, used for preview mode */
@@ -40,6 +43,7 @@ export interface LabelWithOptionsState {
 export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps, LabelWithOptionsState> {
   static propTypes = {
     placeholder: string,
+    placement: string,
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,
     forceContentElementVisibility: bool,
@@ -60,6 +64,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     initialSelectedIds: [],
     forceContentElementVisibility: false,
     placeholder: '',
+    placement: 'bottom',
     onSelect: () => null,
     onDeselect: () => null,
     onInitialSelectedOptionsSet: () => null,
@@ -110,6 +115,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       disabled,
       required,
       renderSuffix,
+      placement,
     } = this.props;
 
     const {
@@ -126,7 +132,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       <Dropdown
         {...style('root', {}, this.props)}
         multi={true}
-        placement="bottom"
+        placement={placement}
         initialSelectedIds={initialSelectedIds}
         options={options}
         openTrigger={CLICK}
