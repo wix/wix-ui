@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {Direction} from './HBox';
 
-export function addSpacing (children, spacing: number, dir?: 'rtl' | 'ltr') {
+export function addSpacing (children, spacing: number, dir?: Direction) {
   if (!children || !spacing) {
     return children;
   }
@@ -10,9 +11,7 @@ export function addSpacing (children, spacing: number, dir?: 'rtl' | 'ltr') {
 
   for (let i = 0; i < children.length - 1; i++) {
     spacedChildren.push(
-      <div style={{[marginProperty]: spacing}}>
-        {children[i]}
-      </div>
+      React.cloneElement(children[i], {style: {[marginProperty]: spacing}})
     );
   }
 

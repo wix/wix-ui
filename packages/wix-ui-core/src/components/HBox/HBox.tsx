@@ -5,12 +5,20 @@ import {addSpacing} from './utils';
 
 export interface HBoxProps {
   children?: React.ReactNode;
-  verticalAlignment?: AlignmentOptions;
+  verticalAlignment?: Alignment;
   spacing?: number;
-  dir?: 'rtl' | 'ltr';
+  dir?: Direction;
 }
 
-export type AlignmentOptions = 'top' | 'center' | 'bottom';
+export type Alignment = 'top' | 'center' | 'bottom';
+export type Direction = 'ltr' | 'rtl';
+
+const defaultProps: HBoxProps = {
+  children: null,
+  verticalAlignment: 'top',
+  spacing: 0,
+  dir: 'ltr'
+};
 
 /**
  * HBox
@@ -19,6 +27,8 @@ export const HBox: React.SFC<HBoxProps> = props => {
   const {children, verticalAlignment, spacing, dir} = props;
   return <div {...style('root', {verticalAlignment}, props)}>{addSpacing(children, spacing, dir)}</div>;
 };
+
+HBox.defaultProps = defaultProps;
 
 HBox.propTypes = {
   children: any,
