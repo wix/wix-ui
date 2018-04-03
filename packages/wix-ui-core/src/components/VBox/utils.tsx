@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-export function addSpacing (children, spacing, direction: 'Right' | 'Bottom') {
+export function addSpacing (children, spacing: number) {
   if (!children || !spacing) {
     return children;
   }
 
   const spacedChildren = [];
+
   for (let i = 0; i < children.length - 1; i++) {
     spacedChildren.push(
-      <div style={{[`margin${direction}`]: spacing}}>
-        {children[i]}
-      </div>
+      React.cloneElement(children[i], {style: {marginBottom: spacing}})
     );
   }
 

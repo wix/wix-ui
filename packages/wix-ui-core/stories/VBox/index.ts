@@ -1,8 +1,8 @@
 import * as React from 'react';
 import createStory from '../create-story';
 
-import {VBox} from '../../src/components/StylableVBox';
-import * as VBoxSource from '!raw-loader!../../src/components/StylableVBox/VBox.tsx';
+import {VBox} from '../../src/components/VBox';
+import * as VBoxSource from '!raw-loader!../../src/components/VBox/VBox.tsx';
 import style from './style.st.css';
 
 const children = new Array(5).fill(undefined).map(() => React.createElement('div', {}, 'hello'));
@@ -10,7 +10,7 @@ const children = new Array(5).fill(undefined).map(() => React.createElement('div
 export const story = () => createStory({
   category: 'Components',
   name: 'VBox',
-  storyName: 'StylableVBox',
+  storyName: 'VBox',
   component: VBox,
   componentProps: (setState) => ({
     ...style('root'),

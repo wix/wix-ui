@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../src/components/StylableVBox/VBox.st.css";
+  -st-from: "../../src/components/VBox/VBox.st.css";
   -st-default: VBox;
 }
 

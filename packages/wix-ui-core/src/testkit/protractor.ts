@@ -53,5 +53,5 @@ export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggle
 import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.protractor.driver';
 export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(labelWithOptionsDriverFactory);
 
-import {vBoxDriverFactory} from '../components/StylableVBox/VBox.protractor.driver';
+import {vBoxDriverFactory} from '../components/VBox/VBox.protractor.driver';
 export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);
