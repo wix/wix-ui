@@ -15,6 +15,7 @@ export interface InputProps {
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
   disabled?: boolean;
+  maxLength?: number;
   onBlur?: React.FocusEventHandler<HTMLElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLElement>;
@@ -52,6 +53,7 @@ export class Input extends React.Component<InputProps, InputState> {
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autoFocus: PropTypes.bool,
     disabled: PropTypes.bool,
+    maxLength: PropTypes.number,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -107,7 +109,8 @@ export class Input extends React.Component<InputProps, InputState> {
       required,
       type,
       value,
-      suffix
+      suffix,
+      maxLength
     } = this.props;
 
     return (
@@ -125,6 +128,7 @@ export class Input extends React.Component<InputProps, InputState> {
           autoFocus={autoFocus}
           disabled={disabled}
           className={style.nativeInput}
+          maxLength={maxLength}
           onBlur={this.handleBlur}
           onChange={onChange}
           onFocus={this.handleFocus}
