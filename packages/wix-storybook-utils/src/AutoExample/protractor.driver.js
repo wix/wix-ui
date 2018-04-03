@@ -17,12 +17,16 @@ module.exports = {
           parser: value => eval(`(${value})`) // eslint-disable-line no-eval
         },
         {
-          rule: value => typeof value === 'string' || Array.isArray(value),
+          rule: value => Array.isArray(value),
           parser: value => value
         },
         {
           rule: value => typeof value === 'string' && !isNaN(Date.parse(value)),
           parser: value => new Date(value)
+        },
+        {
+          rule: value => typeof value === 'string',
+          parser: value => value
         },
         { // default
           rule: () => true,

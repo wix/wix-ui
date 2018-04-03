@@ -1,39 +1,47 @@
-export const inputDriverFactory = ({element, eventTrigger}) => ({
-  /** checks if element exists */
-  exists: () => !!element,
-  /** returns if the element is disabled */
-  isDisabled: () => element.disabled,
-  /** returns if the element is focused */
-  isFocus: () => document.activeElement === element,
-  /** returns if the element is readOnly */
-  isReadOnly: () => element.readOnly,
-  /** returns the placeholder text */
-  getPlaceholder: () => element.placeholder,
-  /** returns the autocomplete value */
-  getAutocomplete: () => element.getAttribute('autocomplete'),
-  /** returns if the element is required */
-  isRequired: () => element.required,
-  /** blurs the element */
-  blur: () => eventTrigger.blur(element),
-  /** triggers the click event on the element */
-  click: () => eventTrigger.click(element),
-  /** triggers the double clicks event on the element */
-  doubleClick: () => eventTrigger.doubleClick(element),
-  /** focuses the element */
-  focus: () => eventTrigger.focus(element),
-  /** triggers the keyDown event */
-  keyDown: key => eventTrigger.keyDown(element, {key}),
-  /** triggers the keyUp event */
-  keyUp: () => eventTrigger.keyUp(element),
-  /** returns the element tab index */
-  getTabIndex: () => element.tabIndex,
-  /** returns the element's type attribute */
-  getType: () => element.type,
-  /** returns the element's value */
-  getValue: () => element.value,
-  /** sets the element's value */
-  setValue: value => {
-    element.value = value;
-    eventTrigger.change(element, {target: {value}});
-  }
-});
+import {StylableDOMUtil} from 'stylable/test-utils';
+import style from './Input.st.css';
+
+export const inputDriverFactory = ({element, eventTrigger}) => {
+  const input = element && element.querySelector('input');
+  const styleUtil = new StylableDOMUtil(style);
+
+  return {
+    /** checks if element exists */
+    exists: () => !!element,
+
+    hasStyleState: stateName => styleUtil.hasStyleState(element, stateName),
+
+    /** get input element */
+    getInput: () => input,
+
+    /** get value */
+    getValue: () => input.value,
+
+    /** get placeholder */
+    getPlaceholder: () => input.placeholder,
+
+    /** get prefix */
+    getPrefix: () => input.previousSibling,
+
+    /** get suffix */
+    getSuffix: () => input.nextSibling,
+
+    /** is disabled */
+    isDisabled: () => input.disabled,
+
+    /** set value */
+    setValue: value => {
+      input.value = value;
+      eventTrigger.change(input, {target: {value}});
+    },
+
+    /** trigger focus */
+    focus: () => eventTrigger.focus(input),
+
+    /** trigger blur */
+    blur: () => eventTrigger.blur(input),
+
+    /** trigger keyDown */
+    keyDown: key => eventTrigger.keyDown(input, {key})
+  };
+};

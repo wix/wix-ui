@@ -17,7 +17,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     /** Returns the maximum slider value */
     max: () => Number(element.getAttribute('data-max')),
     /** Returns whether the slider is vertical or not */
-    vertical: () => Boolean(element.getAttribute('data-vertical')),
+    vertical: () => element.getAttribute('data-orientation') === 'vertical',
     /** Returns the thumb element */
     thumb: () => getByDataHook('thumb'),
     /** Returns the tooltip element */
@@ -34,11 +34,7 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     mouseMove(value) {
       const mouseMove = new Event('mousemove');
 
-      if (driver.vertical()) {
-        mouseMove['clientY'] = value;
-      } else {
-        mouseMove['clientX'] = value;
-      }
+      mouseMove[driver.vertical() ? 'clientY' : 'clientX'] = value;
 
       document.dispatchEvent(mouseMove);
     },

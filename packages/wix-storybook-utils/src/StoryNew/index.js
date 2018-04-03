@@ -6,7 +6,7 @@ import Markdown from '../Markdown';
 import CodeBlock from '../CodeBlock';
 import AutoExample from '../AutoExample';
 import AutoDocs from '../AutoDocs';
-
+import * as queryString from 'query-string';
 import styles from '../Story/styles.scss';
 
 const isE2E = global.self === global.top;
@@ -19,6 +19,7 @@ export default ({
   examples,
   exampleProps,
   _config,
+  codeBlockSource,
   _metadata
 }) =>
   _config.storiesOf(category, module).add(storyName || _metadata.displayName, () => {
@@ -33,7 +34,7 @@ export default ({
             parsedSource={_metadata}
             />
 
-          {examples}
+          {queryString.parse(window.location.search).withExamples !== undefined && examples}
         </div>
       );
     }
@@ -71,6 +72,7 @@ export default ({
             parsedSource={_metadata}
             componentProps={componentProps}
             exampleProps={exampleProps}
+            codeBlockSource={codeBlockSource}
             />
 
           {examples}

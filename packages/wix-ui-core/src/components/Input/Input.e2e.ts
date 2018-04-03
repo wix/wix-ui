@@ -14,12 +14,9 @@ describe('Input', () => {
     const dataHook = 'storybook-input';
     const driver = inputTestkitFactory({dataHook});
 
-    return waitForVisibilityOf(driver.element(), 'Cannot find Input')
-      .then(async () => {
-        const value = 'value';
-        await expect(driver.getText()).toBe('');
-        await driver.enterText(value);
-        await expect(driver.getText()).toBe(value);
-      });
+    waitForVisibilityOf(driver.element(), 'Cannot find Input');
+    expect(driver.getText()).toBe('');
+    driver.enterText('foobar');
+    expect(driver.getText()).toBe('foobar');
   });
 });

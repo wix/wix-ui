@@ -1,10 +1,14 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';
+import {measureAndSetRootMinWidth} from './root-min-width';
 
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
+
+export const getId = (idPrefix: string = '', name: string = '') => idPrefix ? idPrefix + name : null;
 
 enum ButtonType {
   Prev = 'previous',
@@ -113,8 +117,18 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     slashLabel: '\u00A0/\u00A0'
   };
 
+  updateRootMinWidth = () => measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
+
+  public componentDidMount() {
+    this.props.updateResponsiveLayout && this.updateRootMinWidth();
+  }
+
+  public componentDidUpdate() {
+    this.props.updateResponsiveLayout && this.updateRootMinWidth();
+  }
+
   private getId(elementName: string = ''): string | null {
-    return this.props.id ? this.props.id + elementName : null;
+    return getId(this.props.id, elementName);
   }
 
   private get maxPagesToShow(): number {
@@ -172,6 +186,13 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     }
   }
 
+  private handlePageInputBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
+    this.setState({
+      pageInputValue: String(this.props.currentPage),
+      pageInputHasError: false
+    });
+  }
+
   private handlePageClick = (event: React.MouseEvent<Element>, page: number): void => {
     this.props.onChange({event, page});
   }
@@ -187,6 +208,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     return (
       <div data-hook="page-form" id={this.getId('pageForm')} className={pStyle.pageForm} dir="ltr">
         <input
+          id={this.getId('pageInput')}
           data-hook="page-input"
           type="number"
           className={pStyle.pageInput}
@@ -196,10 +218,11 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
+          onBlur={this.handlePageInputBlur}
         />
         {this.props.showInputModeTotalPages && [
-            <span key="slash" className={pStyle.slash}>{this.props.slashLabel}</span>,
-            <span key="total-pages" data-hook="total-pages" className={pStyle.totalPages}>
+            <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,
+            <span key="total-pages" id={this.getId('totalPages')} data-hook="total-pages" className={pStyle.totalPages}>
             {this.props.totalPages}
             </span>
           ]

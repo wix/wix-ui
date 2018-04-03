@@ -1,9 +1,5 @@
 import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 
-//JSS
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
-export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {inputDriverFactory} from '../components/Input/Input.driver';
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
 
@@ -26,8 +22,8 @@ import {checkboxDriverFactory} from '../components/Checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactory);
 
 //Stylable
-import {toggleSwitchDriverFactory as stylableToggleSwitchDriverFactory} from '../components/StylableToggleSwitch/ToggleSwitch.driver';
-export const stylableToggleSwitchTestkitFactory = testkitFactoryCreator(stylableToggleSwitchDriverFactory);
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
+export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
 
 import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
 export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
@@ -49,3 +45,12 @@ export const sliderTestkitFactory = testkitFactoryCreator(sliderDriverFactory);
 
 import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.driver';
 export const addressInputTestkitFactory = testkitFactoryCreator(addressInputDriverFactory);
+
+import {labelDriverFactory} from '../components/Label/Label.driver';
+export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
+export const timePickerTestkitFactory = testkitFactoryCreator(timePickerDriverFactory);
+
+import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.driver';
+export const labelWithOptionsTestkitFactory = testkitFactoryCreator(labelWithOptionsDriverFactory);

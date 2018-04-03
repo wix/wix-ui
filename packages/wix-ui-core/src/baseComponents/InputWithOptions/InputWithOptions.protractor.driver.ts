@@ -3,7 +3,7 @@ import {dropdownDriverFactory} from '../Dropdown/Dropdown.protractor.driver';
 
 export const inputWithOptionsDriverFactory = component => {
   const dropdownDriver = dropdownDriverFactory(component);
-  const inputDriver = inputDriverFactory(dropdownDriver.getTargetElement().$('input'));
+  const inputDriver = inputDriverFactory(dropdownDriver.getTargetElement().$('[data-hook=input]'));
 
   return Object.assign(
     {},

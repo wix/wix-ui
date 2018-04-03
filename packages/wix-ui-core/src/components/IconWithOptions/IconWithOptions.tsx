@@ -19,8 +19,8 @@ export interface IconWithOptionsProps {
   onDeselect?: (option: Option) => void;
   /** initial selected option ids */
   initialSelectedIds?: Array<string | number>;
-  /** Should close content on select */
-  closeOnSelect?: boolean;
+  /** set true for multiple selection, false for single */
+  multi?: boolean;
   /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
@@ -41,7 +41,7 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       onSelect,
       onDeselect,
       initialSelectedIds,
-      closeOnSelect,
+      multi,
       iconUrl,
       fixedHeader,
       fixedFooter,
@@ -53,7 +53,7 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       options={options}
       placement={placement}
       openTrigger={openTrigger}
-      closeOnSelect={closeOnSelect}
+      multi={multi}
       onSelect={onSelect}
       onInitialSelectedOptionsSet={() => null}
       showArrow={true}
@@ -71,7 +71,7 @@ IconWithOptions.displayName = 'IconWithOptions';
 IconWithOptions.defaultProps = {
   openTrigger: HOVER,
   placement: 'bottom',
-  closeOnSelect: true,
+  multi: false,
   initialSelectedIds: [],
   onSelect: () => null,
   onDeselect: () => null
@@ -90,8 +90,8 @@ IconWithOptions.propTypes = {
   onDeselect: func,
   /** initial selected option ids */
   initialSelectedIds: arrayOf(oneOfType([number, string])),
-  /** Should close content on select */
-  closeOnSelect: bool,
+  /** set true for multiple selection, false for single */
+  multi: bool,
   /** An element that always appears at the top of the options */
   fixedHeader: node,
   /** An element that always appears at the bottom of the options */

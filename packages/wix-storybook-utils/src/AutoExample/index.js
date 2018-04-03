@@ -21,6 +21,12 @@ const stripQuotes = string => {
   return quoted ? quoted[1] : string;
 };
 
+const matchFuncProp = typeName =>
+  typeName === 'func' || typeName.match(/event/) || typeName.match(/\) => void$/);
+
+const ensureRegexp = a =>
+  a instanceof RegExp ? a : new RegExp(a);
+
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
   * and, optionally, `componentProps`,`AutoExample` will render:
@@ -107,6 +113,7 @@ export default class extends Component {
       */
     componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     exampleProps: PropTypes.object,
+    codeBlockSource: PropTypes.string,
 
     /**
       * when true, display only component preview without interactive props nor code example
@@ -167,60 +174,90 @@ export default class extends Component {
       props;
 
 
-  mapControllableProps = fn => {
-    return Object
+  mapControllableProps = fn =>
+    Object
       .keys(this.parsedComponent.props)
-      .filter(key => Object.keys(this.controllableComponentGetters).includes(this.parsedComponent.props[key].type.name))
       .map(key => fn(this.parsedComponent.props[key], key));
-  };
 
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
 
+  propControllers = [
+    {
+      types: ['func', /event/, /\) => void$/],
 
-  controllableComponentGetters = {
-    string: () => <Input/>,
-    number: () => <Input/>,
-    bool: () => <Toggle/>,
+      controller: ({propKey}) => {
+        let classNames = styles.example;
 
-    enum: ({type}) =>
-      <List values={type.value.map(({value}) => stripQuotes(value))}/>,
+        if (this.state.funcAnimate[propKey]) {
+          classNames += ` ${styles.active}`;
+          setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
+        }
 
-    node: ({propKey}) =>
-      this.props.exampleProps[propKey] ?
-        <NodesList values={this.props.exampleProps[propKey]}/> :
-        <Input/>,
-
-    func: ({propKey}) => {
-      let classNames = styles.example;
-      if (this.state.funcAnimate[propKey]) {
-        classNames += ` ${styles.active}`;
-        setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
-      }
-
-      if (this.props.exampleProps[propKey]) {
-        return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        if (this.props.exampleProps[propKey]) {
+          return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        }
       }
     },
 
-    union: ({propKey}) =>
-      this.props.exampleProps[propKey] ?
-        <NodesList values={this.props.exampleProps[propKey]}/> :
-        <Input/>,
+    {
+      types: ['string', 'number', /ReactText/],
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
 
-    arrayOf: ({propKey}) => {
-      if (this.props.exampleProps[propKey]) {
-        return <NodesList values={this.props.exampleProps[propKey]}/>;
+    {
+      types: ['bool', 'Boolean'],
+      controller: () => <Toggle/>
+    },
+
+    {
+      types: ['union'],
+
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['node', 'ReactNode'],
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['enum'],
+      controller: ({type}) =>
+        <List values={type.value.map(({value}) => stripQuotes(value))}/>
+    },
+
+    {
+      types: ['arrayOf'],
+      controller: ({propKey}) => {
+        if (this.props.exampleProps[propKey]) {
+          return <NodesList values={this.props.exampleProps[propKey]}/>;
+        }
       }
     }
-  }
+  ]
 
   getPropControlComponent = (propKey, type) => {
-    return (this.controllableComponentGetters[type.name] || (() => null))({propKey, type});
+    const pretender =
+      this.propControllers.find(({types}) =>
+        types.some(t => ensureRegexp(t).test(type.name))
+      );
+
+    return pretender ? pretender.controller({propKey, type}) : null;
   }
 
   componentToString = component =>
     jsxToString(component, {
+      displayName: this.parsedComponent.displayName,
       useFunctionCode: true,
       functionNameOnly: false,
       shortBooleanSyntax: true,
@@ -230,16 +267,21 @@ export default class extends Component {
           {}
         )
       }
-    })
+    });
 
   render() {
     const component = this.props.component;
-    const componentPropsState = {
+
+    const functionExampleProps = Object.keys(this.props.exampleProps).filter(
+      prop =>
+        this.parsedComponent.props[prop] &&
+        matchFuncProp(this.parsedComponent.props[prop].type.name)
+    );
+
+    const componentProps = {
       ...this.state.propsState,
       ...(
-        Object
-          .keys(this.props.exampleProps)
-          .filter(prop => this.parsedComponent.props[prop].type.name === 'func')
+        functionExampleProps
           .reduce((acc, prop) => {
             acc[prop] = (...rest) => {
               if (this.state.propsState[prop]) {
@@ -258,9 +300,7 @@ export default class extends Component {
     const codeProps = {
       ...this.state.propsState,
       ...(
-        Object
-          .keys(this.props.exampleProps)
-          .filter(prop => this.parsedComponent.props[prop].type.name === 'func')
+        functionExampleProps
           .reduce((acc, key) => {
             acc[key] = this.props.exampleProps[key];
             return acc;
@@ -269,7 +309,7 @@ export default class extends Component {
     };
 
     if (!this.props.isInteractive) {
-      return React.createElement(component, componentPropsState);
+      return React.createElement(component, componentProps);
     }
 
     return (
@@ -280,7 +320,7 @@ export default class extends Component {
               {...{
                 key,
                 label: key,
-                value: componentPropsState[key],
+                value: componentProps[key],
                 onChange: value => this.setProp(key, value),
                 children: this.getPropControlComponent(key, prop.type)
               }}
@@ -294,10 +334,11 @@ export default class extends Component {
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
           >
-          {React.createElement(component, componentPropsState)}
+          {React.createElement(component, componentProps)}
         </Preview>
 
-        <Code source={this.componentToString(React.createElement(component, codeProps))}/>
+        <Code source={this.props.codeBlockSource || this.componentToString(React.createElement(component, codeProps))}/>
+
       </Wrapper>
     );
   }

@@ -8,12 +8,14 @@ export const textDriverFactory = ({element}) => {
     /** check if element exists */
     exists: () => !!element,
     /** check if component has ellipsis */
-    isEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis'),
+    hasEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis'),
     /** check if element has title attribute */
     hasTitleAttribute: () => element.getAttribute('title') !== null,
+    /** check if element has title attribute */
+    getTitle: () => element.title,
     /** get the rendered tag name */
-    getTagName: () => element.tagName,
+    getTagName: () => element.tagName.toLowerCase(),
     /** get the rendered content */
-    getChildren: () => element.innerHTML
+    getText: () => element.innerHTML
   };
 };

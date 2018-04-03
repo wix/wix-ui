@@ -22,8 +22,24 @@ export interface AutocompleteProps {
   fixedFooter?: React.ReactNode;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?: (value: string) => void;
-  /** Input prop types */
-  inputProps?: InputProps;
+  /** Standard React Input autoFocus (focus the element on mount) */
+  autoFocus?: boolean;
+  /** Makes the component disabled */
+  disabled?: boolean;
+  /** Standard input onBlur callback */
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  /** Standard input onChange callback */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /** Standard input onFocus callback */
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  /** Placeholder to display */
+  placeholder?: string;
+  /** Is in error state */
+  error?: string | boolean;
+  /** Prefix */
+  prefix?: React.ReactNode;
+  /** Suffix */
+  suffix?: React.ReactNode;
 }
 
 export interface AutocompleteState {
@@ -45,8 +61,24 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     fixedFooter: node,
     /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
     onManualInput: func,
-    /** Input prop types */
-    inputProps: object
+    /** Standard React Input autoFocus (focus the element on mount) */
+    autoFocus: bool,
+    /** Makes the component disabled */
+    disabled: bool,
+    /** Standard input onBlur callback */
+    onBlur: func,
+    /** Standard input onChange callback */
+    onChange: func,
+    /** Standard input onFocus callback */
+    onFocus: func,
+    /** Placeholder to display */
+    placeholder: string,
+    /** Is in error state / error message */
+    error: oneOfType([string, bool]),
+    /** Prefix */
+    prefix: node,
+    /** Suffix */
+    suffix: node,
   };
 
   static createOption = OptionFactory.create;
@@ -56,7 +88,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     super(props);
 
     this.state = {
-      inputValue: (props.inputProps && props.inputProps.value) || ''
+      inputValue: ''
     };
 
     this._onSelect = this._onSelect.bind(this);
@@ -69,6 +101,9 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       this.setState({
         inputValue: event.target.value
       });
+
+      const {onChange} = this.props;
+      onChange && onChange(event);
     }
   }
 
@@ -85,18 +120,24 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   _createInputProps() {
     const {inputValue} = this.state;
-    return Object.assign(
-      {},
-      this.props.inputProps,
-      {
-        value: inputValue,
-        onChange: this._onInputChange
-      });
+    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, prefix, suffix} = this.props;
+    return {
+      value: inputValue,
+      onChange: this._onInputChange,
+      autoFocus,
+      disabled,
+      onBlur,
+      onFocus,
+      placeholder,
+      error,
+      suffix,
+      prefix
+    };
   }
 
   _onInitialSelectedOptionsSet(options: Array<Option>) {
     const selectedValue = options.length ? options[0].value : '';
-    if (this.state.inputValue !== selectedValue) {
+    if (selectedValue && this.state.inputValue !== selectedValue) {
       this.setState({
         inputValue: selectedValue
       });
@@ -105,7 +146,6 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
 
   render() {
     const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
-    const {inputValue} = this.state;
     const inputProps = this._createInputProps();
 
     return (

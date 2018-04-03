@@ -1,7 +1,7 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
 import style from './VBox.st.css';
 
-export const vboxDriverFactory = ({element}) => {
+export const vBoxDriverFactory = ({element}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   return {

@@ -5,11 +5,13 @@ import {addSpacing} from './utils';
 
 export interface VBoxProps {
   children?: React.ReactNode;
-  horizontalAlignment?: VBoxAlignmentOptions;
+  horizontalAlignment?: Alignment;
   spacing?: number;
+  direction?: Direction;
 }
 
-export type VBoxAlignmentOptions = 'left' | 'center' | 'right';
+export type Alignment = 'left' | 'center' | 'right';
+export type Direction = 'rtl' | 'ltr';
 
 /**
  * VBox

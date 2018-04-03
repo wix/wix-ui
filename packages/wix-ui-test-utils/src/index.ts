@@ -6,7 +6,7 @@ export {createDriverFactory, DriverFactory, BaseDriver, ComponentFactory} from '
 export {isClassExists, makeControlled, sleep} from './react-helpers';
 export {getStoryUrl, scrollToElement, waitForVisibilityOf, protractorTestkitFactoryCreator} from './protractor';
 
-export {testkitFactoryCreator, isTestkitExists, isAttributeExists} from './vanilla';
+export {testkitFactoryCreator, isTestkitExists} from './vanilla';
 export {enzymeTestkitFactoryCreator, isEnzymeTestkitExists, WrapperData} from './enzyme';
 export {puppeteerTestkitFactoryCreator} from './puppeteer';
 export {baseProtractorConfig} from './protractor';

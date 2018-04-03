@@ -1,6 +1,3 @@
-@custom-selector :--contentContainer .root::popover;
-@custom-selector :--option .root::dropdownContent::dropdownOption;
-
 :import {
   -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
   -st-default: Dropdown;
@@ -15,6 +12,6 @@
   -st-extends: Dropdown;
 }
 
-.input {
+.inputComponent {
   -st-extends: Input;
 }

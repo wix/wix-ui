@@ -5,7 +5,7 @@ const pickBy = require('lodash/pickBy');
 export type Theme = ((props: any) => Object) | Object;
 
 export interface ThemedComponentState {
-  calculatedTheme: Object;
+  calculatedTheme: Object | undefined;
 }
 
 export interface ThemedComponentProps {
@@ -17,16 +17,16 @@ export interface ThemedComponentProps {
 export class ThemedComponent extends React.PureComponent<ThemedComponentProps, ThemedComponentState> {
   static defaultProps = {theme: () => ({})};
 
-  constructor(props) {
+  constructor(props: ThemedComponentProps) {
     super(props);
     const {children, theme, ...propsForTheme} = props;
     this.state = {calculatedTheme: getTheme(theme, propsForTheme)};
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: ThemedComponentProps) {
     const {children, theme, ...propsForTheme} = nextProps;
 
-    const changedProps = pickBy({theme, ...propsForTheme}, (value, key) => this.props[key] !== value);
+    const changedProps = pickBy({theme, ...propsForTheme}, (value: string, key: any) => this.props[key] !== value);
 
     if (Object.keys(changedProps).length > 0) {
       this.setState({calculatedTheme: getTheme(theme, propsForTheme)});
@@ -39,6 +39,6 @@ export class ThemedComponent extends React.PureComponent<ThemedComponentProps, T
   }
 }
 
-function getTheme(theme: Theme, params?: Object): Object {
+function getTheme(theme: Theme | undefined, params?: Object): Object | undefined {
   return typeof theme === 'function' ? theme(params) : theme;
 }

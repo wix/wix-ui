@@ -21,17 +21,3 @@ export function isTestkitExists<T extends BaseDriver> (Element: React.ReactEleme
   const testkit = testkitFactory({wrapper, dataHook});
   return testkit.exists();
 }
-
-export function isAttributeExists(element: Element, predicate: (attribute: Attr) => boolean) {
-  if (!element || !element.attributes) {
-    return false;
-  }
-
-  for (let i = 0; i < element.attributes.length; ++i) {
-    const attribute = element.attributes.item(i);
-    if (predicate(attribute)) {
-      return true;
-    }
-  }
-  return false;
-}

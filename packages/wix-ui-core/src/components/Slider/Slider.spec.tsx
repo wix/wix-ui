@@ -19,7 +19,7 @@ describe('Slider', () => {
 
   it('should render props', () => {
     const driver = render({
-      vertical: true,
+      orientation: 'vertical',
       min: 4,
       max: 20,
       value: 7,

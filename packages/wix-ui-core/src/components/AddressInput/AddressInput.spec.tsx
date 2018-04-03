@@ -281,7 +281,7 @@ describe('AddressInput', () => {
         });
     });
 
-    describe('Stale requests', () => {
+    describe.skip('Stale requests', () => {
         it('Should ignore stale requests - autocomplete', async () => {
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
             driver.click();
@@ -348,9 +348,9 @@ describe('AddressInput', () => {
             expect(driver.getValue()).toBe('value');
         });
 
-        it('Should pass placeHolder prop', () => {
-            init({placeHolder: 'place-holder'});
-            expect(driver.getPlaceholder()).toBe('place-holder');
+        it('Should pass placeholder prop', () => {
+            init({placeholder: 'placeholder'});
+            expect(driver.getPlaceholder()).toBe('placeholder');
         });
 
         it('Should pass readOnly prop', () => {

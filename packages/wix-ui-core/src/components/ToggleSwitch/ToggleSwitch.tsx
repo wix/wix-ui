@@ -1,107 +1,128 @@
 import * as React from 'react';
-import {bool, func, object, string} from 'prop-types';
-import {createHOC} from '../../createHOC';
-import {getViewBox, getPathDescription} from './utils';
-const uniqueId = require('lodash/uniqueId');
+import * as propTypes from 'prop-types';
+import style from './ToggleSwitch.st.css';
 
-export type ToggleSwitchClasses = {
-  root: string;
-  outerLabel: string;
-  innerLabel: string;
-  toggleIcon: string;
-};
-
-export type ToggleSwitchStyles = {
-  root?: object;
-  outerLabel?: object;
-  innerLabel?: object;
-  toggleIcon?: object;
-};
+// The only reason this exists is that Santa currently doesn't support boolean and number types
+// in the style panel, and some of the styling options have to live in the layout panel,
+// and we pass them down as inline styles.
+export interface ToggleSwitchStyles {
+  root?: React.CSSProperties;
+  track?: React.CSSProperties;
+  knob?: React.CSSProperties;
+  knobIcon?: React.CSSProperties;
+}
 
 export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
-  onChange?: React.EventHandler<React.ChangeEvent<HTMLInputElement>>;
-  classes?: ToggleSwitchClasses;
+  tabIndex?: number;
+  onChange?: () => void;
   styles?: ToggleSwitchStyles;
   id?: string;
-  previewState?: string;
+  checkedIcon?: React.ReactNode;
+  uncheckedIcon?: React.ReactNode;
+}
+
+export interface ToggleSwitchState {
+  focus: boolean;
+  focusVisible: boolean;
 }
 
 /**
  * Toggle Switch
  */
-class ToggleSwitch extends React.PureComponent<ToggleSwitchProps> {
+export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleSwitchState> {
   static displayName = 'ToggleSwitch';
-  id: string = this.props.id || uniqueId('ToggleSwitch');
-  inputRef: HTMLInputElement;
-
-  private toggle: HTMLLabelElement;
 
   static propTypes = {
     /** Is the toggleSwitch checked or not */
-    checked: bool,
-    /** Callback function when user changes the value of the component */
-    onChange: func.isRequired,
+    checked: propTypes.bool,
     /** Is the toggleSwitch disabled or not */
-    disabled: bool,
-    /** Classes object */
-    classes: object.isRequired,
-    /** Component ID, will be generated automatically if not provided */
-    /** Styles object */
-    styles: object,
-    /** Component ID, will be generated automatically if not provided */
-    id: string,
-    /** Preview state, initiate hover, focus, etc. synthetically */
-    previewState: string
+    disabled: propTypes.bool,
+    /** Tab index */
+    tabIndex: propTypes.number,
+    /** Callback function when user changes the value of the component */
+    onChange: propTypes.func,
+    /** Inline styles for various parts of the switch */
+    styles: propTypes.object,
+    /** The ID attribute to put on the toggle */
+    id: propTypes.string,
+    /** Icon inside of the knob when checked */
+    checkedIcon: propTypes.node,
+    /** Icon inside of the knob when unchecked */
+    uncheckedIcon: propTypes.node
   };
 
-  static defaultProps = {checked: false, styles: {}, previewState: ''};
+  static defaultProps = {
+    checked: false,
+    styles: {},
+    tabIndex: 0,
+    onChange: () => null
+  };
 
-  _handleChange = e => {
-    if (!this.props.disabled) {
-      this.props.onChange(e);
+  public state = {
+    focus: false,
+    focusVisible: false
+  };
+
+  // We don't want to show outline when the component is focused by mouse.
+  private focusedByMouse = false;
+
+  render() {
+    const {checked, disabled, styles: inlineStyles} = this.props;
+
+    return (
+      <div
+        {...style('root', {
+          checked,
+          disabled,
+          focus: this.state.focus,
+          'focus-visible': this.state.focusVisible
+        }, this.props)}
+        style={inlineStyles.root}
+      >
+        <div className={style.track} style={inlineStyles.track} />
+        <div className={style.knob} style={inlineStyles.knob}>
+          <div className={style.knobIcon} style={inlineStyles.knobIcon}>
+            {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
+          </div>
+        </div>
+        <input
+          id={this.props.id}
+          className={style.input}
+          type="checkbox"
+          checked={checked}
+          disabled={disabled}
+          tabIndex={this.props.tabIndex}
+          onChange={this.props.onChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          onMouseDown={this.handleMouseDown}
+          onKeyDown={this.handleKeyDown}
+        />
+      </div>
+    );
+  }
+
+  private handleKeyDown: React.KeyboardEventHandler<HTMLElement> = e => {
+    // Pressing any key should make the focus visible, even if the checkbox
+    // was initially focused by mouse.
+    this.setState({focusVisible: true});
+  }
+
+  // Doesn't get invoked if the input is disabled.
+  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
+    if (e.button === 0) {
+      this.focusedByMouse = true;
     }
   }
 
-  focus() {
-    this.inputRef.focus();
+  private handleFocus: React.FocusEventHandler<HTMLElement> = e => {
+    this.setState({focus: true, focusVisible: !this.focusedByMouse});
   }
 
-  blur() {
-    this.inputRef.blur();
-  }
-
-  render() {
-    const {checked, disabled, classes, styles, previewState} = this.props;
-    const {id} = this;
-
-    return (
-      <label
-          className={classes.root}
-          style={styles.root}
-          ref={ref => this.toggle = ref}
-          data-preview={previewState}
-          onClick={() => this.inputRef && this.inputRef.focus()}
-      >
-        <input
-          type="checkbox"
-          id={id}
-          checked={checked}
-          disabled={disabled}
-          onChange={e => this._handleChange(e)}
-          ref={el => this.inputRef = el}
-        />
-
-        <div className={classes.outerLabel} style={styles.outerLabel} aria-label="Toggle"/>
-        <div className={classes.innerLabel} style={styles.innerLabel}>
-          <svg className={classes.toggleIcon} style={styles.toggleIcon} viewBox={getViewBox(checked)}>
-            <path d={getPathDescription(checked)}/>
-          </svg>
-        </div>
-      </label>
-    );
+  private handleBlur: React.FocusEventHandler<HTMLElement> = e => {
+    this.setState({focus: false, focusVisible: false});
+    this.focusedByMouse = false;
   }
 }
-
-export default createHOC(ToggleSwitch);

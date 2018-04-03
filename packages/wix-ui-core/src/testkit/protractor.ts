@@ -10,9 +10,6 @@ export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginati
 import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
 
-import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
-export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
-
 import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
 export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);
 
@@ -44,5 +41,17 @@ export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriver
 import {addressInputDriverFactory} from '../components/AddressInput/AddressInput.protractor.driver';
 export const addressInputTestkitFactory = protractorTestkitFactoryCreator(addressInputDriverFactory);
 
-import {vboxDriverFactory} from '../components/StylableVBox/VBox.protractor.driver';
-export const vboxTestkitFactory = protractorTestkitFactoryCreator(vboxDriverFactory);
+import {labelDriverFactory} from '../components/Label/Label.protractor.driver';
+export const labelTestkitFactory = protractorTestkitFactoryCreator(labelDriverFactory);
+
+import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.protractor.driver';
+export const timePickerTestkitFactory = protractorTestkitFactoryCreator(timePickerDriverFactory);
+
+import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
+export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
+
+import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.protractor.driver';
+export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(labelWithOptionsDriverFactory);
+
+import {vBoxDriverFactory} from '../components/StylableVBox/VBox.protractor.driver';
+export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);

@@ -1,11 +1,6 @@
 .root {
-    -st-states: disabled;
-    font-family: "HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "メイリオ, meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif";
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    
-    box-sizing: border-box;
-    cursor: text;
-    outline: none;
-  }
+  -st-states: disabled, error, focus;
+  position: relative;
+}
+
+.nativeInput {}

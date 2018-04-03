@@ -1,12 +1,10 @@
 import * as React from 'react';
-import {storiesOf} from '@storybook/react';
 import {Autocomplete} from '../../src/components/Autocomplete';
 import * as AutocompleteSource from '!raw-loader!../../src/components/Autocomplete/Autocomplete.tsx';
 import createStory from '../create-story';
-import {OptionFactory, Option} from '../../src/baseComponents/DropdownOption';
-import {Divider} from '../../src/components/Divider';
+import {Option, DividerArgs} from '../../src/baseComponents/DropdownOption';
 import {generateOptions} from '../../src/baseComponents/DropdownOption/OptionsExample';
-import {DividerArgs} from '../../src/baseComponents/DropdownOption/OptionFactory';
+const CodeExample = require('../../src/components/Autocomplete/CodeExample.md');
 
 export const story = () => createStory({
   category: 'Components',
@@ -14,6 +12,7 @@ export const story = () => createStory({
   storyName: 'Autocomplete',
   component: Autocomplete,
   source: AutocompleteSource,
+  codeBlockSource: CodeExample,
   componentProps: {
     'data-hook': 'storybook-autocomplete',
     options: generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value))
@@ -23,6 +22,9 @@ export const story = () => createStory({
     fixedHeader: [null, <div>Fixed Header</div>],
     onSelect: (option: Option) => option.value,
     initialSelectedId: [null, 1],
-    onManualInput: (value: string) => `Manual input: ${value}`
+    onManualInput: (value: string) => `Manual input: ${value}`,
+    onBlur: () => 'Triggered onBlur',
+    onFocus: () => 'Triggered onFocus',
+    onChange: evt => evt.target.value
   }
 });

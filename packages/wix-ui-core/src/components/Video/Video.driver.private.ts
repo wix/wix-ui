@@ -15,7 +15,10 @@ export const createDriver = (Component) => {
   const wrapper = mount(ClonedComponent);
 
   return {
+    hasCover: () => wrapper.find('[data-hook="cover"]').length === 1,
+    getRootDOMNode: () => wrapper.getDOMNode() as HTMLElement,
     getSrc: () => player.getSrc(),
+    getTitle: () => wrapper.find('[data-hook="title"]').text(),
     getWidth: () => player.getWidth(),
     getHeight: () => player.getHeight(),
     isAutoPlaying: () => player.getAutoPlay(),

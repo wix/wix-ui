@@ -2,14 +2,13 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {autocompleteDriverFactory} from './Autocomplete.driver';
 import {Autocomplete} from '.';
-import {OptionFactory} from '../../baseComponents/DropdownOption';
+import {OptionFactory, DividerArgs} from '../../baseComponents/DropdownOption';
 import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
 import {autocompleteTestkitFactory} from '../../testkit';
 import {autocompleteTestkitFactory as enzymeAutocompleteTestkitFactory} from '../../testkit/enzyme';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
-import {DividerArgs} from '../../baseComponents/DropdownOption/OptionFactory';
 
 describe('Autocomplete', () => {
   const options = generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value));
