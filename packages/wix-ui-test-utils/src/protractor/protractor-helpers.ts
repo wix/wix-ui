@@ -16,7 +16,7 @@ export const getStoryUrl = (
   `iframe.html?selectedKind=${encode(kind)}&selectedStory=${encode(story)}`;
 
 export const scrollToElement = (element: ElementFinder) =>
-  browser.executeScript(element => element.scrollIntoView, element.getWebElement())
+  browser.executeScript(element => element.scrollIntoView(), element.getWebElement())
 
 export const waitForVisibilityOf = (
   elements: Array<ElementFinder> | ElementFinder,
