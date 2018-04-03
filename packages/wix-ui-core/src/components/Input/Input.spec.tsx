@@ -34,6 +34,7 @@ describe('Input', () => {
       <Input
         autoComplete="on"
         disabled={true}
+        maxLength={10}
         placeholder="placeholder"
         readOnly={true}
         required={true}
@@ -45,6 +46,7 @@ describe('Input', () => {
 
     expect(input.getInput().autocomplete).toBe('on');
     expect(input.getInput().disabled).toBe(true);
+    expect(input.getInput().maxLength).toBe(10);
     expect(input.getInput().placeholder).toBe('placeholder');
     expect(input.getInput().readOnly).toBe(true);
     expect(input.getInput().required).toBe(true);
