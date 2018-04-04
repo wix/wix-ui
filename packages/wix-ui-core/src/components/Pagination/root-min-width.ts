@@ -2,6 +2,7 @@ import {getId} from './Pagination';
 
 export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode: 'pages' | 'input', idPrefix: string = ''): void => {
     compNode.style.minWidth = '';
+    compNode.style.minHeight = '';
 
     const getById = (id: string): HTMLElement => compNode.querySelector(`#${getId(idPrefix, id)}`);
 
@@ -15,22 +16,35 @@ export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode:
         parseInt(style.marginLeft, 10);
     };
 
+    const getHeightWithMargins = (elmnt: HTMLElement): number => {
+        if (!elmnt) {return 0; }
+        const style = window.getComputedStyle(elmnt);
+        return parseInt(style.marginBottom, 10) +
+        elmnt.offsetHeight +
+        parseInt(style.marginTop, 10);
+    };
+
     const navButtonsMinWidth = getWidthWithMargins(getById('navButtonNext')) +
     getWidthWithMargins(getById('navButtonPrevious')) +
     getWidthWithMargins(getById('navButtonFirst')) +
     getWidthWithMargins(getById('navButtonLast'));
 
     let selectionMinWidth = 0;
+    let minHeight = 0;
 
     if (paginationMode === 'pages') {
         // means we're in "pages" pagination mode
         selectionMinWidth = getMinWidth(getById('pageStrip'));
+        minHeight = Math.max(getHeightWithMargins(getById('pageStrip')), getHeightWithMargins(getById('navButtonNext')));
     } else {
         // means we're in "input" pagination mode
         selectionMinWidth = getWidthWithMargins(getById('totalPages')) +
         getWidthWithMargins(getById('slash')) +
         getWidthWithMargins(getById('pageInput'));
+
+        minHeight = Math.max(getHeightWithMargins(getById('pageInput')), getHeightWithMargins(getById('navButtonNext')));
     }
 
     compNode.style.minWidth = navButtonsMinWidth + selectionMinWidth + 'px';
+    compNode.style.minHeight = minHeight + 'px';
 };
