@@ -8,9 +8,17 @@
   -st-default: Label;
 }
 
+:import {
+  -st-from: "../Divider/Divider.st.css";
+  -st-default: Divider;
+}
+
 .root {
   -st-extends: Dropdown;
   -st-states: required, error, disabled;
+}
+
+.selection {
 }
 
 .label {
@@ -18,4 +26,5 @@
 }
 
 .divider {
+  -st-extends: Divider;
 }

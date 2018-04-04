@@ -156,23 +156,36 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
       isOpen: multi,
       selectedIds
     };
-    let callback;
 
-    if (option) {
-      if (selectedIds.includes(option.id)) {
-        callback = onDeselect;
-        newState.selectedIds = multi ?
-          selectedIds.filter(x => x !== option.id) :
-          [];
-      } else {
-        callback = onSelect;
-        newState.selectedIds = multi ?
-          [...selectedIds, option.id] :
-          [option.id];
+    let callback = onSelect;
+    if (multi) { // Multi select
+      if (option) {
+        // if option was clicked (could be null when Autocomplete receives a new string)
+        if (selectedIds.includes(option.id)) {
+          // if clicked a selected option, unselect it
+          newState.selectedIds = selectedIds.filter(x => x !== option.id);
+          callback = onDeselect;
+        } else {
+          // if clicked a new option, add it to selection
+          newState.selectedIds = [...selectedIds, option.id];
+        }
       }
-    } else {
-      callback = onSelect;
+    } else { // Single select
+      if (option) {
+        // if option was clicked (could be null when Autocomplete receives a new string)
+        if (selectedIds.includes(option.id)) {
+          // if clicked on the selected item, exit and do nothing
+          return this.close();
+        } else {
+          // if clicked on a new option, make it the selected
+          newState.selectedIds = [option.id];
+        }
+      } else {
+        // if non existing option selected, unselect existing ones
+        newState.selectedIds = [];
+      }
     }
+
     this.setState(newState, () => callback(option));
   }
 
@@ -183,7 +196,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
 
     return (
       <Popover
-        {...style('root', {disabled}, this.props)}
+        {...style('root', {}, this.props)}
         placement={placement}
         shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
         showArrow={showArrow}

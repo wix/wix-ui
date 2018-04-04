@@ -105,6 +105,7 @@ describe('Dropdown', () => {
         initialSelectedIds: [0],
         options,
         onDeselect,
+        multi: true
       }));
 
       driver.click();

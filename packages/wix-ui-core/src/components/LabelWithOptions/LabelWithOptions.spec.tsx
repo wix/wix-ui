@@ -3,14 +3,19 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {labelWithOptionsDriverFactory} from './LabelWithOptions.driver';
 import {LabelWithOptions} from './';
 import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
+import {labelWithOptionsTestkitFactory} from '../../testkit';
+import {labelWithOptionsTestkitFactory as enzymeLabelWithOptionsTestkitFactory} from '../../testkit/enzyme';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {mount} from 'enzyme';
 
 describe('LabelWithOptions', () => {
   const createDriver = createDriverFactory(labelWithOptionsDriverFactory);
   const options = generateOptions();
   const createLabelWithOptions = props => (
     <LabelWithOptions
-      renderSuffix={isInvalid => (
-        <div data-hook="suffix">{isInvalid ? 'error!' : 'no errors'}</div>
+      renderSuffix={isError => (
+        <div data-hook="suffix">{isError ? 'error!' : 'no errors'}</div>
       )}
       {...props}/>
   );
@@ -177,6 +182,18 @@ describe('LabelWithOptions', () => {
 
     it('should render suffix with error', () => {
       expect(driver.getSuffix().innerHTML).toEqual('error!');
+    });
+  });
+
+  describe('testkit', () => {
+    it('should exist', () => {
+      expect(isTestkitExists(<LabelWithOptions options={[]}/>, labelWithOptionsTestkitFactory)).toBe(true);
+    });
+  });
+
+  describe('enzyme testkit', () => {
+    it('should exist', () => {
+      expect(isEnzymeTestkitExists(<LabelWithOptions options={[]}/>, enzymeLabelWithOptionsTestkitFactory, mount)).toBe(true);
     });
   });
 });

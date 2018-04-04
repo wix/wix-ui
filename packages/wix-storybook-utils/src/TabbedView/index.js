@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'wix-style-react/Tabs';
 
-class TabbedView extends Component {
+const createTab = id => ({title: id, id});
+
+export default class TabbedView extends Component {
   static propTypes = {
     tabs: PropTypes.arrayOf(PropTypes.string),
     children: PropTypes.oneOfType([
@@ -13,39 +15,33 @@ class TabbedView extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {activeTabId: props.tabs[0]};
-    this.tabsProps = this.getTabsProps();
+
+    this.state = {
+      activeTabId: props.tabs[0]
+    };
   }
 
-  onTabClicked = tab => {
+  onTabClick = tab =>
     this.setState({activeTabId: tab.id});
-  };
-
-  getTabsProps = () => {
-    return {
-      items: this.props.tabs.map(tab => {
-        return {
-          title: tab,
-          id: tab
-        };
-      }),
-      onClick: this.onTabClicked
-    };
-  };
 
   render() {
     const shouldHideForE2E = global.self === global.top;
 
     return (
       <div>
-        {!shouldHideForE2E ? <Tabs activeId={this.state.activeTabId} {...this.tabsProps}/> : null}
+        {!shouldHideForE2E &&
+          <Tabs
+            activeId={this.state.activeTabId}
+            onClick={this.onTabClick}
+            items={this.props.tabs.map(createTab)}
+            />
+        }
+
         {React.Children.map(
-            this.props.children,
-            (child, index) => this.state.activeTabId === this.props.tabs[index] ? child : null
+          this.props.children,
+          (child, index) => this.state.activeTabId === this.props.tabs[index] ? child : null
         )}
       </div>
     );
   }
 }
-
-export default TabbedView;

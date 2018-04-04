@@ -40,6 +40,7 @@
     "hoist-non-react-methods": "^1.1.0",
     "lodash": "^4.17.5",
     "playable": "^1.7.4",
+    "popper.js": "1.14.1",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "^0.8.0",
     "react-transition-group": "^2.2.1",

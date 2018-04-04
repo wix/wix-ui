@@ -121,6 +121,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   }
 
   _onSelect(option: Option | null) {
+    this.isEditing = false;
     const {onSelect, onManualInput, inputProps} = this.props;
     if (option) {
       onSelect(option);
@@ -130,7 +131,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   }
 
   _onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+    if (!event.key.startsWith('Arrow')) {
       this.isEditing = true;
     }
 

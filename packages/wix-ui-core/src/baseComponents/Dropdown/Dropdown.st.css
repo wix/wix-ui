@@ -10,7 +10,6 @@
 
 .root {
   -st-extends: Popover;
-  -st-states: disabled;
 }
 
 .dropdownContent {

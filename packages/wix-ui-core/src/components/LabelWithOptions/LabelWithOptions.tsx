@@ -5,7 +5,6 @@ import {Dropdown} from '../../baseComponents/Dropdown';
 import {Option, optionPropType, OptionFactory} from '../../baseComponents/DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../../baseComponents/Dropdown/constants';
-import {Placement} from '../../baseComponents/Popover';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -30,7 +29,7 @@ export interface LabelWithOptionsProps {
   /** if set to true an error will be rendered when no options are selected */
   required?: boolean;
   /** Suffix */
-  renderSuffix?: (isInvalid: boolean) => React.ReactNode;
+  renderSuffix?: (isError: boolean) => React.ReactNode;
 }
 
 export interface LabelWithOptionsState {
@@ -149,7 +148,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         onSelect={this._onSelect}
         onDeselect={this._onDeselect}
         disabled={disabled}>
-        <div>
+        <div className={style.selection}>
           <Label
             className={style.label}
             data-hook="label">

@@ -52,3 +52,6 @@ export const labelTestkitFactory = enzymeTestkitFactoryCreator(labelDriverFactor
 
 import {timePickerDriverFactory} from '../components/TimePicker/TimePicker.driver';
 export const timePickerTestkitFactory = enzymeTestkitFactoryCreator(timePickerDriverFactory);
+
+import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.driver';
+export const labelWithOptionsTestkitFactory = enzymeTestkitFactoryCreator(labelWithOptionsDriverFactory);
