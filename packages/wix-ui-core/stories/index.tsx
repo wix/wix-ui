@@ -9,7 +9,7 @@ import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
 // baseComponents
-require('./InputWithOptions').story();
+require('./InputWithOptions.story');
 
 // components
 require('./AddressInput').story();
