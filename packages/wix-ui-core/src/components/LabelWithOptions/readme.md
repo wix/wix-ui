@@ -1,3 +1,8 @@
+# `<LabelWithOptions/>`
+
+A dropdown like component, where trigger is text
+
+```js
 import {LabelWithOptions} from 'wix-ui-core/LabelWithOptions';
 
 const options = [
@@ -6,7 +11,6 @@ const options = [
   LabelWithOptions.createOption({id: 2, value: `value2`, isDisabled: true}),                // genrates a disabled option
   LabelWithOptions.createOption({id: 3, value: `value3`, isSelectable: false}),             // generates an unselectable option
   LabelWithOptions.createOption({id: 4, value: `value4`, render: value => value + 's'}),    // generates an option with a custom render function
-
   LabelWithOptions.createDivider(),                                                         // generates default divider
   LabelWithOptions.createDivider('Value')                                                   // generates a divider with value
 ];
@@ -23,3 +27,4 @@ const options = [
   required={false}
   renderSuffix={isError => 'Error!'}
 />
+```
