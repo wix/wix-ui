@@ -2,6 +2,7 @@ import * as React from 'react';
 import {number, bool, any, oneOf, arrayOf} from 'prop-types';
 import style from './HBox.st.css';
 import {addSpacing} from './utils';
+import {Direction} from '../types';
 
 export interface HBoxProps {
   children?: React.ReactNode;
@@ -11,7 +12,6 @@ export interface HBoxProps {
 }
 
 export type Alignment = 'top' | 'center' | 'bottom';
-export type Direction = 'ltr' | 'rtl';
 
 const defaultProps: HBoxProps = {
   children: null,
