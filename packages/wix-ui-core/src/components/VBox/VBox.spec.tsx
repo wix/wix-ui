@@ -9,6 +9,6 @@ describe('VBox', () => {
 
   it('should render the passed children', () => {
     wrapper = mount(<VBox><div>1</div></VBox>, {attachTo: document.createElement('div')});
-    expect(wrapper.html()) .toContain('<div>1</div>');
+    expect(wrapper.html()).toContain('<div>1</div>');
   });
 });
