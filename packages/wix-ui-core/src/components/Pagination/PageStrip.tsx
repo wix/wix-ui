@@ -70,6 +70,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         data-hook="page-strip"
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={style.pageStrip}
+        data-aid="qa-page-strip"
       >
         <div className={style.pageStripInner}>
           {this.renderLayout(this.getLayout(), false)}

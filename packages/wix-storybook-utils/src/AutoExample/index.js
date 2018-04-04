@@ -58,6 +58,12 @@ export default class extends Component {
 
   static propTypes = {
     /**
+      * DEPRECATED
+      *
+      * use react-autodocs-utils to parse and pass its output to `parsedSource`.
+      *
+      * ---
+      *
       * raw string of component source.
       *
       * uses `AutoDocs` under the hood. Read doc covering `AutoDocs` to learn more.

@@ -11,6 +11,7 @@ package-lock.json
 .yo-rc.json
 npm-debug.log
 yarn.lock
+yarn-error.log
 storybook-static
 
 # Untill webpack pure modules will be released, we ignore all *.js in root folder to avoid comitting component export
