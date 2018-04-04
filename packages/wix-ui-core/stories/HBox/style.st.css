@@ -1,0 +1,10 @@
+:import {
+  -st-from: "../../src/components/HBox/HBox.st.css";
+  -st-default: HBox;
+}
+
+.root {
+  -st-extends: HBox;
+  border: solid green 2px;
+  height: 100px;
+}

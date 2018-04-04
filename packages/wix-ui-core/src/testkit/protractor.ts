@@ -35,6 +35,9 @@ export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(styla
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.protractor.driver';
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);
 
+import {hBoxDriverFactory} from '../components/HBox/HBox.protractor.driver';
+export const hBoxTestkitFactory = protractorTestkitFactoryCreator(hBoxDriverFactory);
+
 import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
 
