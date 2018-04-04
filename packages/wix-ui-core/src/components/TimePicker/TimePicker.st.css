@@ -1,0 +1,10 @@
+:import {
+    -st-from: "../Input/Input.st.css";
+    -st-default: Input;
+}
+
+.root {
+    -st-extends: Input;
+}
+
+.tickers {}

@@ -3,7 +3,7 @@ import {bool, func, object, string} from 'prop-types';
 const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
-import style from '../Input/Input.st.css';
+import style from './TimePicker.st.css';
 import {
   FIELD,
   BLANK,
@@ -379,6 +379,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     const tickers = !showTickers ? null : (
       <Tickers
+        className   = {style.tickers}
         onIncrement = {() => this.increment()}
         onDecrement = {() => this.decrement()}
       />

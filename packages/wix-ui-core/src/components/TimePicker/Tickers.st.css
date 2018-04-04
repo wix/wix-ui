@@ -14,7 +14,7 @@
   z-index: 1;
 }
 
-:global(html[dir="rtl"]) .root {
+:global([dir="rtl"]) .root {
   right: auto;
   left: value(tickerInset);
 }

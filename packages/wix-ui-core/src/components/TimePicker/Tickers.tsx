@@ -17,6 +17,7 @@ const ArrowDown = props => (
 );
 
 export interface TickersProps {
+  className?: string;
   /** increment handler */
   onIncrement?: React.MouseEventHandler<HTMLButtonElement>;
   /** decrement handler */
