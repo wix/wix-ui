@@ -119,7 +119,6 @@ export default class extends Component {
       */
     componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     exampleProps: PropTypes.object,
-    codeBlockSource: PropTypes.string,
 
     /**
       * when true, display only component preview without interactive props nor code example

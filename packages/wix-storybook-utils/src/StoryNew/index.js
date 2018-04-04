@@ -14,7 +14,6 @@ export default ({
   examples,
   exampleProps,
   _config,
-  codeBlockSource,
   _metadata
 }) =>
   _config
@@ -41,7 +40,6 @@ export default ({
               componentProps,
               exampleProps,
               examples,
-              codeBlockSource,
               metadata: _metadata,
               config: _config
             }}

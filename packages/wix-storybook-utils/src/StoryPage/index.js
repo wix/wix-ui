@@ -17,8 +17,7 @@ const StoryPage = ({
   component,
   componentProps,
   exampleProps,
-  examples,
-  codeBlockSource
+  examples
 }) => {
   const tabs = [
     'Usage',
@@ -53,7 +52,6 @@ const StoryPage = ({
           parsedSource={metadata}
           componentProps={componentProps}
           exampleProps={exampleProps}
-          codeBlockSource={codeBlockSource}
           />
 
         {examples}
@@ -74,8 +72,7 @@ StoryPage.propTypes = {
   component: PropTypes.any,
   componentProps: PropTypes.object,
   exampleProps: PropTypes.object,
-  examples: PropTypes.node,
-  codeBlockSource: PropTypes.string
+  examples: PropTypes.node
 };
 
 export default StoryPage;

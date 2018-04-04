@@ -15,8 +15,7 @@ class Driver {
     component: () => <div/>,
     componentProps: {},
     exampleProps: {},
-    examples: null,
-    codeBlockSource: ''
+    examples: null
   }
 
   when = {
