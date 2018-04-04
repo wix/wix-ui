@@ -2,7 +2,7 @@ import * as React from 'react';
 import {number, bool, any, oneOf, arrayOf} from 'prop-types';
 import style from './HBox.st.css';
 import {addSpacing} from './utils';
-import {Direction} from '../types';
+import {Direction} from '../../types/index';
 
 export interface HBoxProps {
   children?: React.ReactNode;
