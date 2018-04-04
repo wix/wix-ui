@@ -8,19 +8,19 @@ export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode:
 
     const getMinWidth = (elmnt: HTMLElement): number => elmnt ? parseInt(window.getComputedStyle(elmnt).minWidth, 10) : 0;
 
-    const getWidthWithMargins = (elmnt: HTMLElement): number => {
-        if (!elmnt) {return 0; }
-        const style = window.getComputedStyle(elmnt);
+    const getWidthWithMargins = (element: HTMLElement): number => {
+        if (!element) {return 0; }
+        const style = window.getComputedStyle(element);
         return parseInt(style.marginRight, 10) +
-        elmnt.offsetWidth +
+        element.offsetWidth +
         parseInt(style.marginLeft, 10);
     };
 
-    const getHeightWithMargins = (elmnt: HTMLElement): number => {
-        if (!elmnt) {return 0; }
-        const style = window.getComputedStyle(elmnt);
+    const getHeightWithMargins = (element: HTMLElement): number => {
+        if (!element) {return 0; }
+        const style = window.getComputedStyle(element);
         return parseInt(style.marginBottom, 10) +
-        elmnt.offsetHeight +
+        element.offsetHeight +
         parseInt(style.marginTop, 10);
     };
 
