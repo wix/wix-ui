@@ -14,7 +14,7 @@ require('./InputWithOptions.story');
 // components
 require('./AddressInput').story();
 require('./AddressInput/E2E');
-require('./Autocomplete').story();
+require('./Autocomplete.story');
 require('./Badge').story();
 require('./Button.story');
 require('./Input/Input.story');
