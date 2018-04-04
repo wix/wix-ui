@@ -17,6 +17,7 @@ const StoryPage = ({
   component,
   componentProps,
   exampleProps,
+  exampleImport,
   examples
 }) => {
   const tabs = [
@@ -45,7 +46,12 @@ const StoryPage = ({
           </div>
         }
 
-        {metadata.displayName && <CodeBlock source={`import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`}/>}
+        { metadata.displayName &&
+          <CodeBlock
+            dataHook="metadata-import"
+            source={exampleImport || `import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`}
+            />
+        }
 
         <AutoExample
           component={component}
@@ -72,6 +78,11 @@ StoryPage.propTypes = {
   component: PropTypes.any,
   componentProps: PropTypes.object,
   exampleProps: PropTypes.object,
+
+  /** custom string to be displayed in place of import example
+   * usually something like `import Component from 'module/Component';`
+   */
+  exampleImport: PropTypes.string,
   examples: PropTypes.node
 };
 

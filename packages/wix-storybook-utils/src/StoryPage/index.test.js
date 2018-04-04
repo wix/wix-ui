@@ -1,37 +1,18 @@
-import React from 'react';
-import {mount} from 'enzyme';
+import Testkit from './index.testkit';
 
-import StoryPage from './';
-
-class Driver {
-  component;
-
-  defaultProps = {
-    metadata: {
-      displayName: 'componentName',
-      props: {}
-    },
-    config: {},
-    component: () => <div/>,
-    componentProps: {},
-    exampleProps: {},
-    examples: null
-  }
-
-  when = {
-    created: props => this.component = mount(<StoryPage {...{...this.defaultProps, ...props}}/>)
-  }
-
-  get = {
-    readme: () => this.component.find('[dataHook="metadata-readme"]')
-  }
-}
-
-const driver = new Driver();
+const testkit = new Testkit();
 
 describe('StoryPage', () => {
   it('should render readme', () => {
-    driver.when.created();
-    expect(driver.get.readme().prop('source')).toMatch(/componentName/);
+    testkit.when.created();
+    expect(testkit.get.readme().prop('source')).toMatch(/componentName/);
+  });
+
+  describe('given `exampleImport`', () => {
+    it('should render it', () => {
+      const exampleImport = 'hello there';
+      testkit.when.created({exampleImport});
+      expect(testkit.get.import()).toMatch(exampleImport);
+    });
   });
 });
