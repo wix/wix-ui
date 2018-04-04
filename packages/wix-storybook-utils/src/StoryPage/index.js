@@ -76,7 +76,7 @@ StoryPage.propTypes = {
   metadata: PropTypes.object,
   config: PropTypes.object,
   component: PropTypes.any,
-  componentProps: PropTypes.object,
+  componentProps: PropTypes.oneOf([PropTypes.func, PropTypes.object]),
   exampleProps: PropTypes.object,
 
   /** custom string to be displayed in place of import example
