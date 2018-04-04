@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Direction} from './HBox';
+import {Direction} from '../../types/index';
 
 export function addSpacing (children, spacing: number, dir?: Direction) {
   if (!children || !spacing) {
