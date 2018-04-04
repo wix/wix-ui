@@ -23,7 +23,7 @@ export interface TickersProps {
   onDecrement?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Tickers:React.SFC<TickersProps> = (props) => (
+export const Tickers: React.SFC<TickersProps> = (props) => (
   <div {...style('root', {}, props)}>
     <button onClick={props.onIncrement} className={style.ticker}>
       <ArrowUp />

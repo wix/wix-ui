@@ -399,7 +399,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         onMouseUp   = {this._onMouseUp}
         onMouseMove = {this._onMouseMove}
         onClick     = {this._onClick}
-        onDragStart = {e => {e.preventDefault(); e.stopPropagation();}}
+        onDragStart = {e => {e.preventDefault(); e.stopPropagation(); }}
       />
     );
   }
