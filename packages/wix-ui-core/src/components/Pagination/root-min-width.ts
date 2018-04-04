@@ -35,6 +35,7 @@ export const measureAndSetRootMinWidth = (compNode: HTMLElement, paginationMode:
     if (paginationMode === 'pages') {
         // means we're in "pages" pagination mode
         selectionMinWidth = getMinWidth(getById('pageStrip'));
+
         minHeight = Math.max(getHeightWithMargins(getById('pageStrip')), getHeightWithMargins(getById('navButtonNext')));
     } else {
         // means we're in "input" pagination mode
