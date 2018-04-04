@@ -21,6 +21,8 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     focus: () => inputDriver.focus(),
     /** simulates a blur event on the input element */
     blur: () => inputDriver.blur(),
+    /** returns the ticker group element */
+    getTickers: () => inputDriver.getPrefix(),
 
     /** returns elements innerHtml */
     styles: {

@@ -5,6 +5,7 @@
 
 .root {
     -st-extends: Input;
+    display: inline-block;
 }
 
 .tickers {}
