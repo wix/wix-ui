@@ -10,6 +10,7 @@ export default {
   componentProps: () => ({
     'data-hook': 'storybook-text-link',
     children: 'I want you to click',
+    target: '_blank',
     href: 'https://wix.com'
   })
 };

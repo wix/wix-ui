@@ -5,7 +5,6 @@ import {Text} from '../Text/index';
 import {createHOC} from '../../createHOC';
 
 export interface TextLinkProps {
-  className?: string;
   disabled?: boolean;
   href?: string;
   target?: '_blank' | '_self' | '_parent' | '_top';
