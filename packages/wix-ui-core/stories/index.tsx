@@ -21,7 +21,7 @@ require('./Input/Input.story');
 require('./IconWithOptions.story');
 require('./HBox').story();
 require('./LabelWithOptions.story');
-require('./Label').story();
+require('./Label.story');
 require('./Slider').story();
 require('./StylableBadge').story();
 require('./StylableText.story.js');
