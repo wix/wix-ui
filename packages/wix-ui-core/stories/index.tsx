@@ -22,7 +22,7 @@ require('./IconWithOptions.story');
 require('./HBox').story();
 require('./LabelWithOptions.story');
 require('./Label').story();
-require('./Slider').story();
+require('./Slider.story');
 require('./StylableBadge').story();
 require('./StylableText.story.js');
 require('./TimePicker').story();
