@@ -12,7 +12,7 @@ import {RadioButtonStory} from './RadioButton';
 require('./InputWithOptions.story');
 
 // components
-require('./AddressInput').story();
+require('./AddressInput/index.story');
 require('./AddressInput/E2E');
 require('./Autocomplete.story');
 require('./Badge').story();
