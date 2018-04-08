@@ -27,7 +27,7 @@ require('./StylableBadge.story');
 require('./StylableText.story.js');
 require('./TimePicker').story();
 require('./ToggleSwitch/index.story');
-require('./Tooltip').story();
+require('./Tooltip/index.story');
 require('./Video.story');
 require('./VBox').story();
 
