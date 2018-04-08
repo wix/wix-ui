@@ -23,13 +23,13 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "haste build && import-path --path src --dts",
+    "build": "yoshi build && import-path --path src --dts",
     "pretest": "npm run build",
-    "test": "haste test --jest",
-    "posttest": "haste lint",
-    "test:watch": "haste test --jest --watch",
-    "start": "haste start --no-test",
-    "release": "haste release"
+    "test": "yoshi test --jest",
+    "posttest": "yoshi lint",
+    "test:watch": "yoshi test --jest --watch",
+    "start": "yoshi start --no-test",
+    "release": "yoshi release"
   },
   "license": "MIT",
   "publishConfig": {
@@ -45,7 +45,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "express": "^4.16.2",
-    "haste-preset-yoshi": "latest",
     "import-path": "latest",
     "protractor": "^5.3.0",
     "puppeteer": "^1.0.0",
@@ -53,7 +52,8 @@
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.5.4",
     "ts-jest": "^22.0.3",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "yoshi": "^1.2.0"
   },
   "jest": {
     "transform": {
@@ -73,8 +73,5 @@
     "setupFiles": [
       "<rootDir>/test/enzyme-setup.ts"
     ]
-  },
-  "haste": {
-    "preset": "yoshi"
   }
 }

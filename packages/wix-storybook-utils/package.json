@@ -19,12 +19,12 @@
   "main": "./dist/src/index.js",
   "scripts": {
     "pretest": "npm run build && build-storybook",
-    "test": "haste test --jest",
-    "test:watch": "haste test --jest --watch",
-    "posttest": "haste lint",
-    "start": "haste start --no-test & npm run storybook",
-    "release": "haste release",
-    "build": "haste build && import-path --path src",
+    "test": "yoshi test --jest",
+    "test:watch": "yoshi test --jest --watch",
+    "posttest": "yoshi lint",
+    "start": "yoshi start --no-test & npm run storybook",
+    "release": "yoshi release",
+    "build": "yoshi build && import-path --path src",
     "storybook": "start-storybook -p 6006"
   },
   "repository": {
@@ -70,13 +70,13 @@
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eslint-config-wix": "latest",
-    "haste-preset-yoshi": "latest",
     "identity-obj-proxy": "^3.0.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-ui-test-utils": "^1.0.0",
+    "yoshi": "^1.2.0"
   },
   "babel": {
     "plugins": [
@@ -114,9 +114,6 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ]
-  },
-  "haste": {
-    "preset": "yoshi"
   },
   "yoshi": {
     "servers": {
