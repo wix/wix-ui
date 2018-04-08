@@ -312,7 +312,7 @@ describe('TimePicker', () => {
       const driver = createDriver(<TimePicker/>);
       expect(driver.getTickers()).not.toBe(undefined);
     });
-    
+
     it('should hide tickers when set to false', () => {
       const driver = createDriver(<TimePicker showTickers={false}/>);
       expect(driver.getTickers()).toBe(null);
