@@ -44,7 +44,7 @@
     "react": "^15.6.1",
     "svg2react-icon": "^2.0.0",
     "typescript": "^2.6.2",
-    "wix-storybook-utils": "^1.0.54",
+    "wix-storybook-utils": "^1.0.0",
     "yoshi": "^1.2.0"
   }
 }
