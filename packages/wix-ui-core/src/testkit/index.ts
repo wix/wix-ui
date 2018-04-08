@@ -54,3 +54,6 @@ export const timePickerTestkitFactory = testkitFactoryCreator(timePickerDriverFa
 
 import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.driver';
 export const labelWithOptionsTestkitFactory = testkitFactoryCreator(labelWithOptionsDriverFactory);
+
+import {textLinkDriverFactory} from '../components/TextLink/TextLink.driver';
+export const textLinkTestkitFactory = testkitFactoryCreator(textLinkDriverFactory);

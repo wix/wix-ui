@@ -30,6 +30,7 @@ require('./ToggleSwitch/index.story');
 require('./Tooltip').story();
 require('./Video.story');
 require('./VBox').story();
+require('./TextLink/TextLink.story');
 
 storiesOf('Components', module)
   .add('Text', () => (
