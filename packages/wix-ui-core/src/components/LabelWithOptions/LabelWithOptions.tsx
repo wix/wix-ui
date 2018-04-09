@@ -86,21 +86,18 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   }
 
   onSelect = (option: Option) => {
-    const {selectedOptions} = this.state;
-    const {onSelect} = this.props;
     this.setState({
-      selectedOptions: [...selectedOptions, option],
+      selectedOptions: [...this.state.selectedOptions, option],
       isDirty: true
-    }, () => onSelect(option));
+    }, () => this.props.onSelect(option));
   }
 
   onDeselect = (option: Option) => {
     const {selectedOptions} = this.state;
-    const {onDeselect} = this.props;
     this.setState({
       selectedOptions: selectedOptions.filter(_option => option.id !== _option.id),
       isDirty: true
-    }, () => onDeselect(option));
+    }, () => this.props.onDeselect(option));
   }
 
   createOptions = () => {
@@ -109,7 +106,10 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     }
     return this.props.options.map(option => {
       let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
-      newOption.render = value => <div className={style.optionCotainer}><Checkbox className={style.checkbox}></Checkbox>{option.render(value)}</div>;
+
+      newOption.render = option.isSelectable ?
+                         value => <div className={style.optionCotainer}><Checkbox className={style.checkbox}></Checkbox>{option.render(value)}</div>
+                         : option.render;
       return newOption;
     });
   }

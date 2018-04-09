@@ -192,6 +192,20 @@ describe('LabelWithOptions', () => {
       driver.click();
       expect(driver.hasCheckbox()).toBe(true);
     });
+
+    it('does not display a checkbox by default', () => {
+      const driver = createDriver(<LabelWithOptions options={generateOptions()} />);
+
+      driver.click();
+      expect(driver.hasCheckbox()).toBe(false);
+    });
+
+    it('does not display a checkbox next to a non selectable item', () => {
+      const driver = createDriver(<LabelWithOptions checkbox options={[{id: 'fake', value: 'bla', isSelectable: false, isDisabled: false, render: () => <span>bla</span>}]} />);
+
+      driver.click();
+      expect(driver.hasCheckbox()).toBe(false);
+    });
   });
 
   describe('testkit', () => {
