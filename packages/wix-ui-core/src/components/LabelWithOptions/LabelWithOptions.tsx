@@ -32,6 +32,7 @@ export interface LabelWithOptionsProps {
   required?: boolean;
   /** Suffix */
   renderSuffix?: (isError: boolean) => React.ReactNode;
+  checkbox?: boolean;
 }
 
 export interface LabelWithOptionsState {
@@ -103,9 +104,12 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   }
 
   createOptions = () => {
+    if (!this.props.checkbox) {
+      return this.props.options;
+    }
     return this.props.options.map(option => {
       let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
-      newOption.render = value => <Checkbox className={style.checkbox}>{option.render(value)}</Checkbox>;
+      newOption.render = value => <div className={style.optionCotainer}><Checkbox className={style.checkbox}></Checkbox>{option.render(value)}</div>;
       return newOption;
     });
   }
@@ -138,8 +142,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         multi={true}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
-        // options={this.createOptions()}
-        options={options}
+        options={this.createOptions()}
+        // options={options}
         openTrigger={CLICK}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}

@@ -7,7 +7,7 @@ export const labelWithOptionsDriverFactory = (args) => {
   const dropdownDriver = dropdownDriverFactory(args);
   const labelElement = args.element.querySelector('[data-hook="label"]');
   const suffixElement = args.element.querySelector('[data-hook="suffix"]');
-  const domUtils = new StylableDOMUtil(styles, labelElement);
+  const domUtils = new StylableDOMUtil(styles, args.element);
 
   const labelDriver = labelDriverFactory({
     element: labelElement,
@@ -18,6 +18,7 @@ export const labelWithOptionsDriverFactory = (args) => {
     getSuffix: () => suffixElement,
     isRequired: () => domUtils.hasStyleState(args.element, 'required'),
     isError: () => domUtils.hasStyleState(args.element, 'error'),
-    isDisabled: () => domUtils.hasStyleState(args.element, 'disabled')
+    isDisabled: () => domUtils.hasStyleState(args.element, 'disabled'),
+    hasCheckbox: () => domUtils.selectAll('.checkbox').length > 0
   });
 };

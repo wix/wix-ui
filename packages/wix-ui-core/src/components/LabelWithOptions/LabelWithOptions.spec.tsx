@@ -185,6 +185,15 @@ describe('LabelWithOptions', () => {
     });
   });
 
+  describe('checkbox', () => {
+    it('displays a checkbox when given the prop', () => {
+      const driver = createDriver(<LabelWithOptions checkbox options={generateOptions()} />);
+
+      driver.click();
+      expect(driver.hasCheckbox()).toBe(true);
+    });
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<LabelWithOptions options={[]}/>, labelWithOptionsTestkitFactory)).toBe(true);
