@@ -15,4 +15,42 @@ describe('StoryPage', () => {
       expect(testkit.get.import()).toMatch(exampleImport);
     });
   });
+
+  describe('given config with `importFormat`', () => {
+    it('should format and render it in story', () => {
+      const config = {
+        importFormat: 'hey %moduleName, what\'s your name, %moduleName?',
+        moduleName: 'dork'
+
+      };
+      testkit.when.created({config});
+      expect(testkit.get.import()).toMatch('hey dork, what\'s your name, dork?');
+    });
+
+    it('should allow any other config name to be used', () => {
+      const config = {
+        importFormat: 'good %daytime, %person, where is my %thing at?',
+        daytime: 'evening',
+        person: 'Homer',
+        thing: 'money'
+      };
+      testkit.when.created({config});
+      expect(testkit.get.import()).toMatch('good evening, Homer, where is my money at?');
+    });
+
+    it('should replace %componentName with metadata.displayName', () => {
+      const props = {
+        config: {
+          importFormat: `import {%componentName} from '%moduleName/%componentName';`,
+          moduleName: 'wix-ui-core'
+        },
+        metadata: {
+          displayName: 'BesterestestComponent',
+          props: {}
+        }
+      };
+      testkit.when.created(props);
+      expect(testkit.get.import()).toMatch(`import {BesterestestComponent} from 'wix-ui-core/BesterestestComponent';`);
+    });
+  });
 });
