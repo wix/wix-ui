@@ -9,49 +9,36 @@ import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
 // baseComponents
-require('./InputWithOptions.story');
+import './InputWithOptions.story';
 
 // components
-require('./AddressInput/index.story');
-require('./AddressInput/E2E');
-require('./Autocomplete.story');
-require('./Badge').story();
-require('./Button.story');
-require('./Input/Input.story');
-require('./IconWithOptions.story');
-require('./HBox/index.story');
-require('./VBox/index.story');
-require('./LabelWithOptions.story');
-require('./Slider.story');
-require('./Label.story');
-require('./StylableBadge.story');
-require('./StylableText.story');
-require('./TimePicker.story');
-require('./ToggleSwitch/index.story');
-require('./Tooltip/index.story');
-require('./Video.story');
+import './AddressInput/index.story';
+import './AddressInput/E2E';
+import './Autocomplete.story';
+import './Button.story';
+import './Input/Input.story';
+import './IconWithOptions.story';
+import './HBox/index.story';
+import './VBox/index.story';
+import './LabelWithOptions.story';
+import './Slider.story';
+import './Label.story';
+import './StylableBadge.story';
+import './StylableText.story';
+import './TimePicker.story';
+import './ToggleSwitch/index.story';
+import './Tooltip/index.story';
+import './Video.story';
 
 storiesOf('Components', module)
-  .add('Text', () => (
+  .add('Text', () =>
     <Text ellipsis>
       Hello World
     </Text>
-  ))
-  .add('Pagination', () => (
-    <PaginationStory/>
-  ))
-  .add('GoogleMapsIframeClient', () => (
-    <GoogleMapsIframeClientStory/>
-  ))
-  .add('Divider', () => (
-    <DividerStory />
-  ))
-  .add('Checkbox', () => (
-    <CheckboxStory />
-  ))
-  .add('Tooltip Custom', () => (
-    <TooltipStory />
-  ))
-  .add('RadioButton', () => (
-    <RadioButtonStory />
-  ));
+  )
+  .add('Pagination', () => <PaginationStory/>)
+  .add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>)
+  .add('Divider', () => <DividerStory/>)
+  .add('Checkbox', () => <CheckboxStory/>)
+  .add('Tooltip Custom', () => <TooltipStory/>)
+  .add('RadioButton', () => <RadioButtonStory/>);
