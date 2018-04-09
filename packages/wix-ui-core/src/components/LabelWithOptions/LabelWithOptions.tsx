@@ -2,9 +2,11 @@ import * as React from 'react';
 import style from './LabelWithOptions.st.css';
 import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 'prop-types';
 import {Dropdown} from '../../baseComponents/Dropdown';
+import {Checkbox} from '../Checkbox';
 import {Option, optionPropType, OptionFactory} from '../../baseComponents/DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../../baseComponents/Dropdown/constants';
+import {noop} from '../../utils';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -67,34 +69,22 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   static defaultProps = {
     initialSelectedIds: [],
-    onSelect: () => null,
-    onDeselect: () => null,
-    renderSuffix: () => null
+    onSelect: noop,
+    onDeselect: noop,
+    renderSuffix: noop
   };
 
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
+  public state = {isDirty: false, selectedOptions: []};
 
-  constructor() {
-    super();
-
-    this.state = {
-      isDirty: false,
-      selectedOptions: []
-    };
-
-    this._onSelect = this._onSelect.bind(this);
-    this._onDeselect = this._onDeselect.bind(this);
-    this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
-  }
-
-  _onInitialSelectedOptionsSet(options: Array<Option>) {
+  onInitialSelectedOptionsSet = (options: Array<Option>) => {
     this.setState({
       selectedOptions: options
     });
   }
 
-  _onSelect(option: Option) {
+  onSelect = (option: Option) => {
     const {selectedOptions} = this.state;
     const {onSelect} = this.props;
     this.setState({
@@ -103,13 +93,21 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     }, () => onSelect(option));
   }
 
-  _onDeselect(option: Option) {
+  onDeselect = (option: Option) => {
     const {selectedOptions} = this.state;
     const {onDeselect} = this.props;
     this.setState({
       selectedOptions: selectedOptions.filter(_option => option.id !== _option.id),
       isDirty: true
     }, () => onDeselect(option));
+  }
+
+  createOptions = () => {
+    return this.props.options.map(option => {
+      let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
+      newOption.render = value => <Checkbox className={style.checkbox}>{option.render(value)}</Checkbox>;
+      return newOption;
+    });
   }
 
   render() {
@@ -140,13 +138,14 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         multi={true}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
+        // options={this.createOptions()}
         options={options}
         openTrigger={CLICK}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
-        onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}
-        onSelect={this._onSelect}
-        onDeselect={this._onDeselect}
+        onInitialSelectedOptionsSet={this.onInitialSelectedOptionsSet}
+        onSelect={this.onSelect}
+        onDeselect={this.onDeselect}
         disabled={disabled}>
         <div className={style.selection}>
           <Label
