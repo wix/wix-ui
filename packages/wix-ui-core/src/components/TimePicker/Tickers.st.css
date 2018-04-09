@@ -4,7 +4,6 @@
 }
 
 .root {
-  -st-states: rtl;
   position: absolute;
   right: value(tickerInset);
   top: value(borderWidth);
@@ -15,11 +14,6 @@
 }
 
 :global([dir="rtl"]) .root {
-  right: auto;
-  left: value(tickerInset);
-}
-
-.root:rtl {
   right: auto;
   left: value(tickerInset);
 }

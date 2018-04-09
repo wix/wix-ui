@@ -1,20 +1,7 @@
 import * as React from 'react';
 import {func} from 'prop-types';
 import style from './Tickers.st.css';
-
-const ArrowUp = props => (
-  <svg width="10" height="5" viewBox="0 0 10 4" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 4L5 0 1 4" fill="none" fillRule="evenodd">
-    </path>
-  </svg>
-);
-
-const ArrowDown = props => (
-  <svg width="10" height="5" viewBox="0 0 10 4" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 0L5 4 1 0" fill="none" fillRule="evenodd">
-    </path>
-  </svg>
-);
+import {TickerUp, TickerDown} from 'wix-ui-icons-common';
 
 export interface TickersProps {
   className?: string;
@@ -27,10 +14,10 @@ export interface TickersProps {
 export const Tickers: React.SFC<TickersProps> = (props) => (
   <div {...style('root', {}, props)}>
     <button onClick={props.onIncrement} className={style.ticker}>
-      <ArrowUp />
+      <TickerUp width={10} height={5} fill="none"/>
     </button>
     <button onClick={props.onDecrement} className={style.ticker}>
-      <ArrowDown />
+      <TickerDown width={10} height={5} fill="none"/>
     </button>
   </div>
 );
