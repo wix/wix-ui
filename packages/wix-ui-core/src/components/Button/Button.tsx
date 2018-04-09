@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, func, object, any, oneOf} from 'prop-types';
+import {bool, func, object, any, oneOf, string} from 'prop-types';
 import style from './Button.st.css';
 
 export interface ButtonProps {
@@ -34,7 +34,7 @@ export const Button: React.SFC<ButtonProps> = props => {
 Button.displayName = 'Button';
 Button.propTypes = {
   /** Wrapper class name */
-  className: PropTypes.string,
+  className: string,
   /** Type of the button - submit / button / reset */
   type: oneOf(['submit', 'button', 'reset']),
   /** Makes the button disabled */
