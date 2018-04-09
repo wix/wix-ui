@@ -13,6 +13,7 @@ export default ({
   componentProps,
   examples,
   exampleProps,
+  exampleImport,
   _config,
   _metadata
 }) =>
@@ -39,6 +40,7 @@ export default ({
               component,
               componentProps,
               exampleProps,
+              exampleImport,
               examples,
               metadata: _metadata,
               config: _config
