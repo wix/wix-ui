@@ -19,11 +19,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "precommit": "yoshi lint",
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index",
-    "pretest": "npm run build && build-storybook",
-    "test": "yoshi test",
-    "posttest": "yoshi lint",
+    "test": "npm run build && build-storybook",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
     "release": "yoshi release",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
