@@ -34,6 +34,7 @@
   line-height: 1.5;
   border-radius: 3px;
   left: 50%;
+  white-space: nowrap;
 }
 
 .tooltip::after {
