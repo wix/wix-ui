@@ -10,7 +10,7 @@ export class GoogleMapsIframeClientStory extends React.Component<{}, { inputValu
     state = {result: [], inputValue: ''};
     client = new GoogleMapsIframeClient();
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
     }
 
