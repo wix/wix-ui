@@ -55,13 +55,13 @@
     "import-path": "latest",
     "jsx-to-string": "^1.3.1",
     "loader-utils": "^1.1.0",
-    "query-string": "^5.1.0",
+    "query-string": "^6.0.0",
     "react-autodocs-utils": "^2.0.1",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",
     "react-motion": "^0.5.2",
     "react-remarkable": "^1.1.3",
-    "recast": "^0.13.0",
+    "recast": "^0.14.7",
     "wix-style-react": "latest"
   },
   "devDependencies": {
@@ -72,9 +72,9 @@
     "eslint-config-wix": "latest",
     "identity-obj-proxy": "^3.0.0",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-test-renderer": "^16.3.1",
     "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^1.2.0"
   },

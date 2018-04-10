@@ -92,8 +92,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
   isEditing: boolean = false;
 
-  constructor() {
-    super();
+  constructor(props: InputWithOptionsProps) {
+    super(props);
 
     this._onFocus = this._onFocus.bind(this);
     this._onSelect = this._onSelect.bind(this);

@@ -75,8 +75,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 
-  constructor() {
-    super();
+  constructor(props: LabelWithOptionsProps) {
+    super(props);
 
     this.state = {
       isDirty: false,

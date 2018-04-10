@@ -30,8 +30,8 @@ export interface PageStripState {
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private responsiveLayoutIsFresh: boolean = false;
 
-  public constructor() {
-    super();
+  public constructor(props: PageStripProps) {
+    super(props);
     this.state = {responsiveLayout: null};
   }
 
