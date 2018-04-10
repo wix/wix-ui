@@ -18,7 +18,7 @@
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "scripts": {
-    "pretest": "build-storybook",	
+    "pretest": "build-storybook",
     "test": "yoshi test --jest",
     "test:watch": "yoshi test --jest --watch",
     "posttest": "yoshi lint",
