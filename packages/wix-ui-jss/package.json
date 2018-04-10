@@ -24,10 +24,11 @@
   },
   "scripts": {
     "build": "yoshi build",
-    "test": "yoshi test --jest",
-    "posttest": "yoshi lint",
+    "test": "npm run test:unit",
+    "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
-    "start": "yoshi start --no-test",
+    "test:unit": "yoshi test --jest",
+    "lint": "yoshi lint",
     "release": "yoshi release"
   },
   "license": "MIT",
