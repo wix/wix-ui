@@ -95,18 +95,6 @@ describe('Slider', () => {
     expect(driver.tooltip()).toBeTruthy();
   });
 
-  it('shows tooltip when previewState=hover and tooltipVisibility != none', () => {
-    const driver = render({previewState: 'hover', tooltipVisibility: 'hover'});
-
-    expect(driver.tooltip()).toBeTruthy();
-  });
-
-  it('does not show the tooltip when previewState=hover and tooltipVisibility == none', () => {
-    const driver = render({previewState: 'hover', tooltipVisibility: 'none'});
-
-    expect(driver.tooltip()).toBeFalsy();
-  });
-
   it('should render tooltip prefix', () => {
     const onChange = sinon.spy();
 
