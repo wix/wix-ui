@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {number, func, oneOf, bool, string, object} from 'prop-types';
-import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb, getThumbSize} from './Thumb';
 import pStyle from './Slider.st.css';
