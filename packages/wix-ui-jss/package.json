@@ -40,7 +40,7 @@
     "@types/lodash": "^4.14.104",
     "@types/react": "^16.3.6",
     "enzyme": "^3.0.0",
-    "enzyme-adapter-react-15": "^1.0.5",
+    "enzyme-adapter-react-16": "^1.0.5",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",

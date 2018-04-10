@@ -68,7 +68,7 @@
     "@storybook/addon-options": "^3.2.16",
     "@storybook/react": "^3.2.16",
     "enzyme": "^3.0.0",
-    "enzyme-adapter-react-15": "^1.0.5",
+    "enzyme-adapter-react-16": "^1.0.5",
     "eslint-config-wix": "latest",
     "identity-obj-proxy": "^3.0.0",
     "prop-types": "^15.6.0",
