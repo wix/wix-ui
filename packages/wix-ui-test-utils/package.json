@@ -48,6 +48,7 @@
     "import-path": "latest",
     "protractor": "^5.3.0",
     "puppeteer": "^1.0.0",
+    "raf": "^3.4.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
@@ -71,6 +72,7 @@
     "testRegex": "/test/.*\\.spec\\.(ts|tsx)$",
     "setupTestFrameworkScriptFile": "<rootDir>/src/jest-setup/index.ts",
     "setupFiles": [
+      "raf/polyfill",
       "<rootDir>/test/enzyme-setup.ts"
     ]
   }
