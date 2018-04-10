@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
-  "homepage": "https://github.com/wix/wix-ui#readme"
+  "homepage": "https://github.com/wix/wix-ui#readme",
+  "dependencies": {
+    "surge-github-autorelease": "^1.0.23"
+  }
 }
