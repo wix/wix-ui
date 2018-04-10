@@ -24,7 +24,6 @@
   },
   "scripts": {
     "build": "yoshi build && import-path --path src --dts",
-    "pretest": "npm run build",
     "test": "yoshi test --jest",
     "posttest": "yoshi lint",
     "test:watch": "yoshi test --jest --watch",

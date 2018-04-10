@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index",
-    "test": "npm run build && build-storybook",
+    "test": "build-storybook",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
     "release": "yoshi release",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
