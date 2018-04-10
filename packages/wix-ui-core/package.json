@@ -21,7 +21,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && npm run generate-stylable-index && npm run transpile-mixins",
+    "build": "yoshi build && npm run generate-stylable-index && npm run transpile-mixins && npm run build-surge",
     "pretest": "npm run build && build-storybook",
     "test": "yoshi test --jest && npm run test:e2e",
     "posttest": "yoshi lint",
@@ -33,7 +33,8 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics"
+    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
+    "build-surge": "npm install surge && ./surge-ci.sh ./storybook-static"
   },
   "dependencies": {
     "classnames": "^2.2.5",
