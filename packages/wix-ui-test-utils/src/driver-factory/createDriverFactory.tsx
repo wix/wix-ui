@@ -4,6 +4,14 @@ import {Simulate} from 'react-dom/test-utils';
 import {ReactWrapper} from 'enzyme';
 import {reactEventTrigger} from '../react-helpers';
 
+function isReactClassComponent(value: any): value is React.ComponentClass<any> {
+  return value && isComponentInstance(value.prototype);
+}
+
+function isComponentInstance(value: any): value is React.Component {
+  return value && value instanceof React.Component;
+}
+
 export type DriverFactory<TDriver extends BaseDriver, TComponent> = (compFactory: ComponentFactory<TComponent>) => TDriver;
 
 export interface BaseDriver {
@@ -24,7 +32,10 @@ function componentFactory<TComponent>(Component: React.ReactElement<any>): Compo
   const eventTrigger = reactEventTrigger();
 
   const wrapperDiv = document.createElement('div');
-  const ClonedComponent = React.cloneElement(Component, {ref: (r: TComponent) => componentInstance = r});
+  let ClonedComponent = Component;
+  if (isReactClassComponent(Component)) {
+    ClonedComponent = React.cloneElement(Component, {ref: (r: TComponent) => componentInstance = r});
+  }
   render(<div ref={r => element = r}>{ClonedComponent}</div>, wrapperDiv);
   return {element: element! && element!.childNodes[0] as Element, wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
 }
