@@ -46,7 +46,7 @@
     "raf": "^3.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^16.3.1",
+    "react-test-renderer": "^15.6.0",
     "ts-jest": "^22.0.3",
     "typescript": "^2.4.0",
     "wix-ui-test-utils": "^1.0.0",
