@@ -137,7 +137,6 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   }
 
   private onDeselect = (option: Option) => {
-    const {selectedOptions} = this.state;
     this.setState({
       selectedIds: this.state.selectedIds.filter(id => id !== option.id),
       isDirty: true

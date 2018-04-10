@@ -43,6 +43,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     return (
       <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
+        onClick={this.handleClick}
         onMouseDown={this.handleMouseDown}>
           <input
             type="checkbox"
@@ -90,6 +91,9 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
       this.focusedByMouse = true;
       this.setState({isFocused: true});
     }
+  }
+  private handleClick = (e) => {
+    e.stopPropagation();
   }
 
   private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
