@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "lerna": "^2.8.0"
+    "lerna": "^2.8.0",
+    "surge-github-autorelease": "^1.0.23"
   },
   "name": "wix-ui",
   "version": "1.0.0",
@@ -25,8 +26,5 @@
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
-  "homepage": "https://github.com/wix/wix-ui#readme",
-  "dependencies": {
-    "surge-github-autorelease": "^1.0.23"
-  }
+  "homepage": "https://github.com/wix/wix-ui#readme"
 }
