@@ -47,7 +47,7 @@ export function getThumbSize(shape: string, ...rest) {
 class CircleThumb extends React.PureComponent<any> {
   render() {
     return (
-      <div {...pStyle('thumbShape', {shapeType: 'circle'})}/>
+      <div {...pStyle('thumbShape', {shapeType: 'circle'})} style={{borderRadius: '50%'}}/>
     );
   }
 }

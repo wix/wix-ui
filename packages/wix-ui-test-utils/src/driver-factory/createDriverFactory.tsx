@@ -4,6 +4,14 @@ import {Simulate} from 'react-dom/test-utils';
 import {ReactWrapper} from 'enzyme';
 import {reactEventTrigger} from '../react-helpers';
 
+function isReactClassComponent(value: any): value is React.ComponentClass<any> {
+  return value && isComponentInstance(value.prototype);
+}
+
+function isComponentInstance(value: any): value is React.Component {
+  return value && value instanceof React.Component;
+}
+
 export type DriverFactory<TDriver extends BaseDriver, TComponent> = (compFactory: ComponentFactory<TComponent>) => TDriver;
 
 export interface BaseDriver {

@@ -19,4 +19,3 @@ storybook-e2e
 !wallaby.js
 !protractor.conf.js
 /system/*.js
-/index.st.css

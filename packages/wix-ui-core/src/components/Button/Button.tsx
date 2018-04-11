@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {bool, func, object, any, oneOf} from 'prop-types';
+import {bool, func, object, any, oneOf, string} from 'prop-types';
 import style from './Button.st.css';
 
 export interface ButtonProps {
+  className?: string;
   type?: string;
   disabled?: boolean;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
@@ -32,6 +33,8 @@ export const Button: React.SFC<ButtonProps> = props => {
 
 Button.displayName = 'Button';
 Button.propTypes = {
+  /** Wrapper class name */
+  className: string,
   /** Type of the button - submit / button / reset */
   type: oneOf(['submit', 'button', 'reset']),
   /** Makes the button disabled */

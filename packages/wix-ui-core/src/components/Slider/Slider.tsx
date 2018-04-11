@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {number, func, oneOf, bool, string, object} from 'prop-types';
-import {createHOC} from '../../createHOC';
 import {Ticks} from './Ticks';
 import {Thumb, getThumbSize} from './Thumb';
 import pStyle from './Slider.st.css';
@@ -15,14 +14,16 @@ export interface SliderProps {
   orientation?: 'horizontal' | 'vertical';
   step?: number;
   stepType?: 'value' | 'count';
-  tooltipPosition?: 'default' | 'across';
+  tooltipPosition?: 'normal' | 'across';
   tooltipVisibility?: 'none' | 'always' | 'hover';
-  tickMarksPosition?: 'none' | 'default' | 'middle' | 'across';
+  tickMarksPosition?: 'normal' | 'middle' | 'across';
+  tickMarksShape?: 'none' | 'line' | 'dot';
   tooltipPrefix?: string;
   tooltipSuffix?: string;
   trackSize?: number;
   thumbShape?: 'circle' | 'square' | 'rectangle' | 'bar';
   disabled?: boolean;
+  readOnly?: boolean;
   dir?: string;
 }
 
@@ -58,11 +59,11 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
     stepType: oneOf(['value', 'count']),
     /** Determines the tooltip position */
-    tooltipPosition: oneOf(['default', 'across']),
+    tooltipPosition: oneOf(['normal', 'across']),
     /** Determines what triggers the tooltip pop */
     tooltipVisibility: oneOf(['none', 'always', 'hover']),
     /** Determines the tick marks position */
-    tickMarksPosition: oneOf(['none', 'default', 'middle', 'across']),
+    tickMarksPosition: oneOf(['normal', 'middle', 'across']),
     /** A prefix for the value inside the tooltip */
     tooltipPrefix: string,
     /** A suffix for the value inside the tooltip */
@@ -71,8 +72,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     trackSize: number,
     /** The shape of the thumb */
     thumbShape: oneOf(['circle', 'square', 'rectangle', 'bar']),
+    /** The shape of the tick marks */
+    tickMarksShape: oneOf(['none', 'line', 'dot']),
     /** Determines whether the slider is disabled or not */
     disabled: bool,
+    /** Determines whether the slider is in read-only mode or not (disabled is temporary, readOnly is permanent) */
+    readOnly: bool,
     /** Determines whether values go from right to left in a horizontal position */
     dir: oneOf(['rtl', 'ltr']),
   };
@@ -85,11 +90,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     thumbShape: 'circle',
     orientation: 'horizontal',
     disabled: false,
+    readOnly: false,
     tooltipVisibility: 'hover',
-    tooltipPosition: 'default',
+    tooltipPosition: 'normal',
     tooltipPrefix: '',
     tooltipSuffix: '',
-    tickMarksPosition: 'default',
+    tickMarksPosition: 'normal',
+    tickMarksShape: 'line',
     dir: 'ltr'
   };
 
@@ -160,7 +167,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   getSliderSize() {
     const rect = this.inner ? this.inner.getBoundingClientRect() : {width: 0, height: 0};
     const isVertical = this.isVertical();
-    return isVertical ? rect.width : rect.height;
+    const val = isVertical ? rect.width : rect.height;
+    return Math.min(val, Math.min(rect.width, rect.height));
   }
 
   getThumbSize() {
@@ -196,10 +204,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleKeyDown = (ev) => {
-    const {min, max, value, disabled, dir} = this.props;
+    const {min, max, value, disabled, readOnly, dir} = this.props;
     const ltr = dir === 'ltr';
 
-    if (disabled) {
+    if (disabled || readOnly) {
       return;
     }
 
@@ -289,11 +297,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return this.props.orientation === 'vertical';
   }
 
+  isContinuous() {
+    return !this.props.step;
+  }
+
   moveThumbByMouse = (ev) => {
-    const {min, max, disabled, dir} = this.props;
+    const {min, max, disabled, readOnly, dir} = this.props;
     const rtl = this.isRtl();
 
-    if (disabled) {
+    if (disabled || readOnly) {
       return;
     }
 
@@ -393,6 +405,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         onFocus,
         onBlur,
         tickMarksPosition,
+        tickMarksShape,
         thumbShape,
         orientation
     } = this.props;
@@ -404,7 +417,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.state.step;
     const trackRect = this.track ? this.track.getBoundingClientRect() : {height: 0, width: 0};
     const thumbPosition: any = this.calcThumbPosition();
-    const showTicks = tickMarksPosition !== 'none';
+    const showTicks = !this.isContinuous() && tickMarksShape !== 'none';
     const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
     const trackFillPosition = vertical ? {
         bottom: 0,
@@ -418,6 +431,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           orientation: vertical ? 'vertical' : 'horizontal',
           dir,
           tickMarksPosition,
+          tickMarksShape,
           disabled,
           showTicks
       }, this.props)}
@@ -432,37 +446,37 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         onFocus={onFocus}
         onBlur={onBlur}
     >
-      <div ref={this.setInnerNode} className={pStyle.inner}>
-        <div data-hook="track"
-          ref={this.setTrackNode}
-          className={pStyle.track}
-          onClick={this.moveThumbByMouse}
-          style={trackStyle}
-        >
-          <div className={pStyle.trackFill} style={trackFillPosition}/>
+        <div ref={this.setInnerNode} className={pStyle.inner}>
+          <div data-hook="track"
+            ref={this.setTrackNode}
+            className={pStyle.track}
+            onClick={this.moveThumbByMouse}
+            style={trackStyle}
+          >
+            <div className={pStyle.trackFill} style={trackFillPosition}/>
+          </div>
+          <Thumb
+            shape={thumbShape}
+            thumbPosition={thumbPosition}
+            thumbSize={thumbSize}
+            onMouseEnter={this.handleThumbEnter}
+            onMouseLeave={this.handleThumbLeave}
+          >
+            {this.renderTooltip()}
+          </Thumb>
         </div>
-        <Thumb
-          shape={thumbShape}
-          thumbPosition={thumbPosition}
-          thumbSize={thumbSize}
-          onMouseEnter={this.handleThumbEnter}
-          onMouseLeave={this.handleThumbLeave}
-        >
-          {this.renderTooltip()}
-        </Thumb>
-      </div>
-
-      {showTicks && (
-        <Ticks
-          pStyle={pStyle}
-          step={step}
-          min={min}
-          max={max}
-          thumbSize={mainThumbSize}
-          vertical={vertical}
-          trackSize={vertical ? trackRect.height - mainThumbSize : trackRect.width - crossThumbSize}
-          onTickClick={this.moveThumbByMouse}
-        />)}
+        {showTicks && (
+          <Ticks
+            pStyle={pStyle}
+            step={step}
+            min={min}
+            max={max}
+            thumbSize={mainThumbSize}
+            vertical={vertical}
+            trackSize={vertical ? trackRect.height - mainThumbSize : trackRect.width - crossThumbSize}
+            tickMarksShape={tickMarksShape}
+            onTickClick={this.moveThumbByMouse}
+          />)}
       </div>
     );
   }
