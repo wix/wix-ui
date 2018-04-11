@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import jsxToString from 'jsx-to-string';
+import reactElementToJSXString from 'react-element-to-jsx-string';
 import CodeBlock from '../CodeBlock';
 
+import functionToString from './function-to-string';
+
+const componentToJSX = ({component, displayName}) =>
+  reactElementToJSXString(
+    component,
+    {
+      displayName: () => displayName,
+      showDefaultProps: false,
+      showFunctions: false,
+      functionValue: functionToString
+    }
+  );
+
 /**
-  * given react component, render a soure example
+  * given react component, render a source example
   */
-const ComponentSource = ({component, displayName}) =>
-  <CodeBlock
-    source={jsxToString(component, {
-      displayName,
-      useFunctionCode: true,
-      functionNameOnly: false,
-      shortBooleanSyntax: true,
-      keyValueOverride: {
-        ...(component.props.value && component.props.value._isAMomentObject ?
-          {value: `'${component.props.value.format(component.props.dateFormat || 'YYYY/MM/DD')}'`} :
-          {}
-        )
-      }
-    })}
-    />;
+const ComponentSource = props =>
+  <CodeBlock source={componentToJSX(props)}/>;
 
 ComponentSource.propTypes = {
   component: PropTypes.node.isRequired,
