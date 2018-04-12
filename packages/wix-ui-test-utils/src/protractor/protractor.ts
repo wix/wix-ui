@@ -7,10 +7,10 @@ export function protractorTestkitFactoryCreator<T> (driverFactory: (e: ElementFi
   return (obj: {dataHook: string}) => driverFactory($(`[data-hook='${obj.dataHook}']`));
 }
 
-export function byDataHook({wrapper, dataHook}: {wrapper: ElementFinder, dataHook: string}) {
+export function byDataHook({element, dataHook}: {element: ElementFinder, dataHook: string}) {
   const selector = `[data-hook='${dataHook}']`;
-  if (wrapper) {
-    return wrapper.$(selector);
+  if (element) {
+    return element.$(selector);
   } else {
     return $(selector);
   }
