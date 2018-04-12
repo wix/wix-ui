@@ -5,6 +5,7 @@ export interface TicksProps {
   step: number;
   min: number;
   max: number;
+  tickMarksShape: string;
   thumbSize: number;
   vertical: boolean;
   trackSize: number;
@@ -23,12 +24,13 @@ export class Ticks extends React.PureComponent<TicksProps> {
   }
 
   renderTick(i, min, max, vertical, thumbSize, pStyle) {
+    const {tickMarksShape} = this.props;
     const pct = (i - min) / (max - min);
     const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize / 2}px)`;
 
     return (
       <div
-        className={pStyle.tick}
+        {...pStyle('tick', {tickMarksShape})}
         key={i}
         data-hook="tick"
         onClick={this.props.onTickClick}

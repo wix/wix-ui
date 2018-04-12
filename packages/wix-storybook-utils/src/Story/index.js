@@ -56,8 +56,7 @@ function Story(props) {
     exampleProps,
     storiesOf, // eslint-disable-line
     contextualImport, // eslint-disable-line
-    rawContextualImport, // eslint-disable-line
-    codeBlockSource
+    rawContextualImport // eslint-disable-line
   } = props;
 
   if (typeof componentSrcFolder === 'undefined') {
@@ -159,7 +158,6 @@ function Story(props) {
                   componentProps={componentProps}
                   parsedSource={parsedSource}
                   exampleProps={exampleProps}
-                  codeBlockSource={codeBlockSource}
                   />
                 }
 
@@ -326,8 +324,7 @@ Story.propTypes = {
    * Usually this holds more examples.
    */
   examples: PropTypes.element,
-  exampleProps: PropTypes.object,
-  codeBlockSource: PropTypes.string
+  exampleProps: PropTypes.object
 };
 
 Story.defaultProps = {

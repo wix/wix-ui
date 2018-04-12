@@ -4,7 +4,7 @@ import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {stylablebadgeTestkitFactory as badgeTestkitFactory} from '../../testkit/protractor';
 
 describe('Badge', () => {
-  const storyUrl = getStoryUrl('Components', 'Badge');
+  const storyUrl = getStoryUrl('Components', 'StylableBadge');
 
   beforeEach(() => browser.get(storyUrl));
   eyes.it('should display correct content', () => {

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as classNames from 'classnames';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';

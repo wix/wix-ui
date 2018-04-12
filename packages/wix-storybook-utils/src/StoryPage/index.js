@@ -11,71 +11,111 @@ import AutoDocs from '../AutoDocs';
 
 import styles from '../Story/styles.scss';
 
-const StoryPage = ({
-  metadata,
-  config,
-  component,
-  componentProps,
-  exampleProps,
-  examples,
-  codeBlockSource
-}) => {
-  const tabs = [
+const tabs = metadata =>
+  [
     'Usage',
     'API',
     ...(metadata.readmeTestkit ? ['Testkit'] : []),
     ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
   ];
 
-  return (
-    <TabbedView tabs={tabs}>
-      <div className={styles.usage}>
-        <Markdown
-          dataHook="metadata-readme"
-          source={metadata.readme || `# \`<${metadata.displayName}/>\``}
-          />
+const importString = ({metadata, config, exampleImport}) =>
+  [
+    {
+      when: () => exampleImport,
+      make: () => exampleImport
+    },
+    {
+      when: () => config.importFormat,
+      make: () =>
+        config.importFormat
+          .replace(/%componentName/g, metadata.displayName)
+          .replace(
+            new RegExp('%(' + Object.keys(config).join('|') + ')', 'g'),
+            (match, configKey) => config[configKey] || ''
+          )
+    },
+    { // default
+      when: () => true,
+      make: () => `import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`
+    }
+  ].find(({when}) => when()).make();
 
-        {metadata.displayName &&
-          <div className={styles.githubLink}>
-            <TextLink
-              link={`${config.repoBaseURL}${metadata.displayName}`}
-              target="blank"
-              >
-              View source
-            </TextLink>
-          </div>
-        }
+const StoryPage = ({
+  metadata,
+  config,
+  component,
+  componentProps,
+  exampleProps,
+  exampleImport,
+  examples
+}) =>
+  <TabbedView tabs={tabs(metadata)}>
+    <div className={styles.usage}>
+      <Markdown
+        dataHook="metadata-readme"
+        source={metadata.readme || `# \`<${metadata.displayName}/>\``}
+        />
 
-        {metadata.displayName && <CodeBlock source={`import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`}/>}
+      {metadata.displayName &&
+        <div className={styles.githubLink}>
+          <TextLink
+            link={`${config.repoBaseURL}${metadata.displayName}`}
+            target="blank"
+            >
+            View source
+          </TextLink>
+        </div>
+      }
 
-        <AutoExample
-          component={component}
-          parsedSource={metadata}
-          componentProps={componentProps}
-          exampleProps={exampleProps}
-          codeBlockSource={codeBlockSource}
-          />
+      <CodeBlock
+        dataHook="metadata-import"
+        source={importString({
+          config,
+          metadata,
+          exampleImport
+        })}
+        />
 
-        {examples}
-      </div>
+      <AutoExample
+        component={component}
+        parsedSource={metadata}
+        componentProps={componentProps}
+        exampleProps={exampleProps}
+        />
 
-      <AutoDocs parsedSource={metadata}/>
+      {examples}
+    </div>
 
-      { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+    <AutoDocs parsedSource={metadata}/>
 
-      { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
-    </TabbedView>
-  );
-};
+    { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+
+    { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
+  </TabbedView>;
 
 StoryPage.propTypes = {
   metadata: PropTypes.object,
-  config: PropTypes.object,
+  config: PropTypes.shape({
+    importFormat: PropTypes.string,
+    moduleName: PropTypes.string,
+    repoBaseURL: PropTypes.string
+  }),
   component: PropTypes.any,
-  componentProps: PropTypes.object,
+  componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   exampleProps: PropTypes.object,
-  examples: PropTypes.node,
-  codeBlockSource: PropTypes.string
+
+  /** custom string to be displayed in place of import example
+   * usually something like `import Component from 'module/Component';`
+   */
+  exampleImport: PropTypes.string,
+  examples: PropTypes.node
+};
+
+StoryPage.defaultProps = {
+  config: {
+    importFormat: ''
+  }
 };
 
 export default StoryPage;

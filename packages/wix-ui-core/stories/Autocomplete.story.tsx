@@ -1,22 +1,20 @@
 import * as React from 'react';
-import {Autocomplete} from '../../src/components/Autocomplete';
-import * as AutocompleteSource from '!raw-loader!../../src/components/Autocomplete/Autocomplete.tsx';
-import createStory from '../create-story';
-import {Option, DividerArgs} from '../../src/baseComponents/DropdownOption';
-import {generateOptions} from '../../src/baseComponents/DropdownOption/OptionsExample';
-const CodeExample = require('../../src/components/Autocomplete/CodeExample.md');
 
-export const story = () => createStory({
+import {Autocomplete} from '../src/components/Autocomplete';
+import {Option, DividerArgs} from '../src/baseComponents/DropdownOption';
+import {generateOptions} from '../src/baseComponents/DropdownOption/OptionsExample';
+
+export default {
   category: 'Components',
-  name: 'Autocomplete',
   storyName: 'Autocomplete',
   component: Autocomplete,
-  source: AutocompleteSource,
-  codeBlockSource: CodeExample,
+  componentPath: '../src/components/Autocomplete',
+
   componentProps: {
     'data-hook': 'storybook-autocomplete',
     options: generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value))
   },
+
   exampleProps: {
     fixedFooter: [null, <div>Fixed Footer</div>],
     fixedHeader: [null, <div>Fixed Header</div>],
@@ -27,4 +25,4 @@ export const story = () => createStory({
     onFocus: () => 'Triggered onFocus',
     onChange: evt => evt.target.value
   }
-});
+};

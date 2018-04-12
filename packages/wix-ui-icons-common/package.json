@@ -19,13 +19,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "precommit": "haste lint",
-    "build": "npm run buildIcons && haste build && npm run create-aliases && npm run generate-stylable-index",
-    "pretest": "npm run build && build-storybook",
-    "test": "haste test",
-    "posttest": "haste lint",
-    "start": "npm run buildIcons && haste start --no-test & npm run storybook",
-    "release": "haste release",
+    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index",
+    "test": "build-storybook",
+    "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
+    "release": "yoshi release",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
     "buildGeneralIcons": "svg2react-icon --typescript --monochrome src/general/raw src/general/dist",
     "buildSystemIcons": "svg2react-icon --typescript --monochrome  src/system/raw src/system/dist",
@@ -38,16 +35,14 @@
   "devDependencies": {
     "@storybook/addon-options": "^3.3.15",
     "@storybook/react": "^3.3.15",
-    "@types/react": "^15.6.15",
+    "@types/react": "^16.3.5",
     "fs-extra": "^5.0.0",
-    "haste-preset-yoshi": "latest",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
     "svg2react-icon": "^2.0.0",
     "typescript": "^2.6.2",
-    "wix-storybook-utils": "^1.0.54"
-  },
-  "haste": {
-    "preset": "yoshi"
+    "wix-storybook-utils": "^1.0.0",
+    "yoshi": "^1.2.0"
   }
 }

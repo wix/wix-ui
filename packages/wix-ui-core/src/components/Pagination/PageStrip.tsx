@@ -29,9 +29,10 @@ export interface PageStripState {
 
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private responsiveLayoutIsFresh: boolean = false;
+  private unmounted: boolean = false;
 
-  public constructor() {
-    super();
+  public constructor(props: PageStripProps) {
+    super(props);
     this.state = {responsiveLayout: null};
   }
 
@@ -41,7 +42,14 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       // and SSR wouldn't work.
       this.props.updateResponsiveLayout(() => {
         this.responsiveLayoutIsFresh = false;
-        this.updateLayoutIfNeeded();
+
+        // Even though we register a noop callback for `this.props.updateResponsiveLayout`
+        // in `componentWillUnmount`, we cannot guarantee that the user will not hold onto
+        // the old callback and invoke it after unmount, which is the reason for checking
+        // `this.unmounted`.
+        if (!this.unmounted) {
+          this.updateLayoutIfNeeded();
+        }
       });
     } else  {
       this.updateLayoutIfNeeded();
@@ -59,6 +67,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   public componentWillUnmount() {
+    this.unmounted = true;
     if (this.props.updateResponsiveLayout) {
       this.props.updateResponsiveLayout(() => null);
     }

@@ -1,63 +1,77 @@
+:import {
+  -st-from: "../../mixins/calc";
+  -st-default: calc
+}
+
+:vars {
+  tickLineWidth: 1px;
+  tickLineHeight: 10px;
+  tickDotSize: 3px;
+  tickMarksGap: 12px;
+}
+
 .root {
-    -st-states: orientation(enum(vertical, horizontal)), tickMarksPosition(enum(default, middle, across)), dir(enum(ltr, rtl)), showTicks, disabled;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    outline: none !important;
+  -st-states: orientation(enum(vertical, horizontal)), tickMarksPosition(enum(normal, middle, across)), tickMarksShape(enum(line, dot)), dir(enum(ltr, rtl)), showTicks, disabled;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  outline: none !important;
 }
 
 .root * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .tooltip {
-    -st-states: defaultPosition, acrossPosition;
-    position: absolute;
-    background: #363636;
-    color: #fff;
-    padding: 4px 12px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-    border-radius: 3px;
-    left: 50%;
+  -st-states: normalPosition, acrossPosition;
+  position: absolute;
+  background: #363636;
+  color: #fff;
+  padding: 4px 12px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 3px;
+  left: 50%;
+  white-space: nowrap;
 }
 
 .tooltip::after {
-    content: ' ';
-    position: absolute;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
+  content: ' ';
+  position: absolute;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
 }
 
 .track {
-    width: 100%;
-    height: 25%;
-    position: relative;
-    cursor: pointer;
-    background: #dadada;
-    opacity: 1;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid transparent;
+  width: 100%;
+  height: 25%;
+  position: relative;
+  cursor: pointer;
+  background: #dadada;
+  opacity: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  min-height: 1px;
 }
 
 .inner {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .trackFill {
-    position: absolute;
-    background: linear-gradient(to right, #4992e3, #70bff3);
-    height: 100%;
-    width: 100%;
+  position: absolute;
+  background: linear-gradient(to right, #4992e3, #70bff3);
+  height: 100%;
+  width: 100%;
 }
 
 .root:dir(rtl) .trackFill {
@@ -65,12 +79,12 @@
 }
 
 .root:showTicks .inner {
-    height: 88.888%;
-    width: 100%;
+  height: calc(100% - value(tickMarksGap));
+  width: 100%;
 }
 
 .root:showTicks:tickMarksPosition(across) .inner {
-  top: 11.112%;
+  top: value(tickMarksGap);
 }
 
 .root:showTicks:tickMarksPosition(middle) .inner {
@@ -78,22 +92,22 @@
 }
 
 .root:orientation(vertical) .track {
-    width: 25%;
-    height: 100%;
+  width: 25%;
+  height: 100%;
 }
 
 .root:orientation(vertical) .trackFill {
-    background: linear-gradient(to top, #4992e3, #70bff3);
+  background: linear-gradient(to top, #4992e3, #70bff3);
 }
 
 .root:orientation(vertical):showTicks .inner {
-    top: 0;
-    width: 88.888%;
-    height: 100%;
+  top: 0;
+  width: calc(100% - value(tickMarksGap));
+  height: 100%;
 }
 
 .root:orientation(vertical):showTicks:tickMarksPosition(across) .inner {
-  left: 11.112%;
+  left: value(tickMarksGap);
 }
 
 .root:orientation(vertical):showTicks:tickMarksPosition(middle) .inner {
@@ -101,17 +115,17 @@
 }
 
 .thumb {
-    position: absolute;
-    z-index: 1;
-    cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .thumbShape {
-    -st-states: shapeType(enum(circle, square, rectangle, bar));
-    width: 100%;
-    height: 100%;
-    background: green;
-    border: 2px solid blue;
+  -st-states: shapeType(enum(circle, square, rectangle, bar));
+  width: 100%;
+  height: 100%;
+  background: green;
+  border: 2px solid blue;
 }
 
 .thumbShape:shapeType(circle) {
@@ -130,89 +144,98 @@
   border-radius: 7px;
 }
 
-.root:orientation(horizontal) .tooltip:defaultPosition {
-    top: -7px;
-    transform: translate(-50%, -100%);
+.root:orientation(horizontal) .tooltip:normalPosition {
+  top: -7px;
+  transform: translate(-50%, -100%);
 }
 
-.root:orientation(horizontal) .tooltip:defaultPosition::after {
-    border-color: #363636 transparent transparent transparent;
-    top: 100%; /* At the bottom of the tooltip */
-    left: 50%;
+.root:orientation(horizontal) .tooltip:normalPosition::after {
+  border-color: #363636 transparent transparent transparent;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
 }
 
 .root:orientation(horizontal) .tooltip:acrossPosition {
-    bottom: -7px;
-    transform: translate(-50%, 100%);
+  bottom: -7px;
+  transform: translate(-50%, 100%);
 }
 
 .root:orientation(horizontal) .tooltip:acrossPosition::after {
-    border-color: transparent transparent #363636 transparent;
-    bottom: 100%; /* At the bottom of the tooltip */
-    left: 50%;
+  border-color: transparent transparent #363636 transparent;
+  bottom: 100%; /* At the bottom of the tooltip */
+  left: 50%;
 }
 
 .root:orientation(vertical) .tooltip {
-    top: 50%;
+  top: 50%;
 }
 
 .root:orientation(vertical) .tooltip::after {
-    top: 50%;
-    margin-top: -5px;
+  top: 50%;
+  margin-top: -5px;
+  transform: translateY(-12%);
 }
 
-.root:orientation(vertical) .tooltip:defaultPosition {
-    left: -7px;
-    transform: translate(-100%, -50%);
+.root:orientation(vertical) .tooltip:normalPosition {
+  left: -7px;
+  transform: translate(-100%, -50%);
 }
 
-.root:orientation(vertical) .tooltip:defaultPosition::after {
-    left: 100%;
-    margin-left: 0;
-    border-color: transparent transparent transparent #363636;
+.root:orientation(vertical) .tooltip:normalPosition::after {
+  left: 100%;
+  margin-left: 0;
+  border-color: transparent transparent transparent #363636;
 }
 
 .root:orientation(vertical) .tooltip:acrossPosition {
-    right: -7px;
-    transform: translate(100%, -50%);
+  right: -7px;
+  transform: translate(100%, -50%);
 }
 
 .root:orientation(vertical) .tooltip:acrossPosition::after {
-    right: 100%;
-    border-color: transparent #363636 transparent transparent;
+  right: 100%;
+  border-color: transparent #363636 transparent transparent;
 }
 
 .tick {
-    display: inline-block;
-    position: absolute;
-    background: #000;
-    cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  background: #000;
+  cursor: pointer;
 }
 
-.root:orientation(horizontal) .tick {
-  width: 1px;
-  height: 25%;
+.root:orientation(horizontal):tickMarksShape(line) .tick {
+  width: value(tickLineWidth);
+  height: value(tickLineHeight);
 }
 
-.root:orientation(vertical) .tick {
-  height: 1px;
-  width: 25%;
+.root:orientation(vertical):tickMarksShape(line) .tick {
+  height: value(tickLineWidth);
+  width: value(tickLineHeight);
 }
 
-.root:orientation(horizontal):tickMarksPosition(default) .tick {
+.root:tickMarksShape(dot) .tick {
+  width: value(tickDotSize);
+  height: value(tickDotSize);
+  border-radius: 50%;
+}
+
+.root:orientation(horizontal):tickMarksPosition(normal) .tick {
   bottom: 0;
 }
 
-.root:orientation(vertical):tickMarksPosition(default) .tick {
+.root:orientation(vertical):tickMarksPosition(normal) .tick {
   right: 0;
 }
 
 .root:orientation(horizontal):tickMarksPosition(middle) .tick {
-  bottom: 37.5%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .root:orientation(vertical):tickMarksPosition(middle) .tick {
-  left: 37.5%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .root:orientation(horizontal):tickMarksPosition(across) .tick {

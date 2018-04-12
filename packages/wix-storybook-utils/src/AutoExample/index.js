@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import jsxToString from 'jsx-to-string';
+
 import styles from './styles.scss';
 import componentParser from '../AutoDocs/parser';
 
@@ -119,7 +119,6 @@ export default class extends Component {
       */
     componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     exampleProps: PropTypes.object,
-    codeBlockSource: PropTypes.string,
 
     /**
       * when true, display only component preview without interactive props nor code example
@@ -261,20 +260,6 @@ export default class extends Component {
     return pretender ? pretender.controller({propKey, type}) : null;
   }
 
-  componentToString = component =>
-    jsxToString(component, {
-      displayName: this.parsedComponent.displayName,
-      useFunctionCode: true,
-      functionNameOnly: false,
-      shortBooleanSyntax: true,
-      keyValueOverride: {
-        ...(component.props.value && component.props.value._isAMomentObject ?
-          {value: `'${component.props.value.format(component.props.dateFormat || 'YYYY/MM/DD')}'`} :
-          {}
-        )
-      }
-    });
-
   render() {
     const component = this.props.component;
 
@@ -339,12 +324,13 @@ export default class extends Component {
           isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
-          >
-          {React.createElement(component, componentProps)}
-        </Preview>
+          children={React.createElement(component, componentProps)}
+          />
 
-        <Code source={this.props.codeBlockSource || this.componentToString(React.createElement(component, codeProps))}/>
-
+        <Code
+          component={React.createElement(component, codeProps)}
+          displayName={this.parsedComponent.displayName}
+          />
       </Wrapper>
     );
   }

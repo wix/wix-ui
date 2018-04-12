@@ -28,3 +28,6 @@
 .divider {
   -st-extends: Divider;
 }
+
+.placeholder {
+}

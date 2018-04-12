@@ -21,7 +21,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
     public props: Readonly<CoreProps & ExtendedProps>;
 
     render() {
-      const root = super.render();
+      const root = super.render() as React.ReactElement<any>;
       if (!root) { return null; }
       const className = root.props && root.props.className || '';
       const statesMap = getState(this.props, this.state, this.context);

@@ -27,6 +27,7 @@ class Driver {
 }
 
 const parsedSource = {
+  displayName: 'TestComponent',
   props: {
     test: {type: 'string'}
   }

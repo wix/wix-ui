@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
@@ -98,16 +97,24 @@ const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObj
     data-hook="popover-content"
     modifiers={modifiers}
     placement={placement}
-    className={classNames(style.popover, {[style.popoverContent]: !showArrow})}>
-    {showArrow &&
-    <Arrow data-hook="popover-arrow"
+    className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
+    {
+      showArrow &&
+        <Arrow data-hook="popover-arrow"
             className={style.arrow}
             style={getArrowShift(moveArrowTo, placement)}
-    />}
-    {showArrow && <div className={style.popoverContent}>
-      {childrenObject.Content}
-    </div>}
-    {!showArrow && childrenObject.Content}
+        />
+    }
+    {
+      showArrow &&
+        <div className={style.popoverContent}>
+          {childrenObject.Content}
+        </div>
+    }
+    {
+      !showArrow &&
+        childrenObject.Content
+    }
   </Popper>
 );
 

@@ -4,31 +4,28 @@ import {Simulate} from 'react-dom/test-utils';
 import {ReactWrapper} from 'enzyme';
 import {reactEventTrigger} from '../react-helpers';
 
-export type DriverFactory<TDriver extends BaseDriver, TComponent> = (compFactory: ComponentFactory<TComponent>) => TDriver;
+export type DriverFactory<TDriver extends BaseDriver> = (compFactory: ComponentFactory) => TDriver;
 
 export interface BaseDriver {
   exists: () => boolean;
 }
 
-export interface ComponentFactory<TComponent> {
+export interface ComponentFactory {
   element: Element | undefined;
   wrapper: HTMLElement | ReactWrapper;
   component?: React.ReactElement<any>;
-  componentInstance?: TComponent;
   eventTrigger: typeof Simulate;
 }
 
-function componentFactory<TComponent>(Component: React.ReactElement<any>): ComponentFactory<TComponent> {
+function componentFactory(Component: React.ReactElement<any>): ComponentFactory {
   let element: HTMLDivElement | null;
-  let componentInstance;
   const eventTrigger = reactEventTrigger();
 
   const wrapperDiv = document.createElement('div');
-  const ClonedComponent = React.cloneElement(Component, {ref: (r: TComponent) => componentInstance = r});
-  render(<div ref={r => element = r}>{ClonedComponent}</div>, wrapperDiv);
-  return {element: element! && element!.childNodes[0] as Element, wrapper: wrapperDiv, component: ClonedComponent, componentInstance, eventTrigger};
+  render(<div ref={r => element = r}>{Component}</div>, wrapperDiv);
+  return {element: element! && element!.childNodes[0] as Element, wrapper: wrapperDiv, component: Component, eventTrigger};
 }
 
-export function createDriverFactory<TDriver extends BaseDriver, TComponent>(driverFactory: DriverFactory<TDriver, TComponent>) {
+export function createDriverFactory<TDriver extends BaseDriver>(driverFactory: DriverFactory<TDriver>) {
   return (Component: React.ReactElement<any>) => driverFactory(componentFactory(Component));
 }

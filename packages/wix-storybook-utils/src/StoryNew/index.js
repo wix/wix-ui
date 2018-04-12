@@ -13,8 +13,8 @@ export default ({
   componentProps,
   examples,
   exampleProps,
+  exampleImport,
   _config,
-  codeBlockSource,
   _metadata
 }) =>
   _config
@@ -40,8 +40,8 @@ export default ({
               component,
               componentProps,
               exampleProps,
+              exampleImport,
               examples,
-              codeBlockSource,
               metadata: _metadata,
               config: _config
             }}

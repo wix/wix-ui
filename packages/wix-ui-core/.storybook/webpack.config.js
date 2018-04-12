@@ -1,5 +1,5 @@
 const genDefaultConfig = require('@storybook/react/dist/server/config/defaults/webpack.config.js');
-const wixStorybookConfig = require('haste-preset-yoshi/config/webpack.config.storybook');
+const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
 
 module.exports = (config, env) => {
   const newConfig = wixStorybookConfig(genDefaultConfig(config, env));
@@ -10,7 +10,8 @@ module.exports = (config, env) => {
     options: {
       storyConfig: {
         moduleName: 'wix-ui-core',
-        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/'
+        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/',
+        importFormat: "import {%componentName} from '%moduleName/%componentName'"
       }
     }
   });

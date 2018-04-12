@@ -11,7 +11,7 @@ import Dropdown from 'wix-style-react/Dropdown';
 import Text from 'wix-style-react/Text';
 
 import Markdown from '../Markdown';
-import CodeBlock from '../CodeBlock';
+import ComponentSource from '../ComponentSource';
 
 import styles from './styles.scss';
 
@@ -205,17 +205,18 @@ Input.propTypes = {
   onChange: PropTypes.func
 };
 
-const Code = ({source}) =>
+const Code = ({component, displayName}) =>
   <Col span={12}>
     <div className={styles.title}>
       <Text appearance="H2">Code</Text>
     </div>
 
-    <CodeBlock source={source}/>
+    <ComponentSource {...{component, displayName}}/>
   </Col>;
 
 Code.propTypes = {
-  source: PropTypes.string
+  component: PropTypes.node.isRequired,
+  displayName: PropTypes.string.isRequired
 };
 
 export {

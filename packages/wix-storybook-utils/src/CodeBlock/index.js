@@ -1,37 +1,40 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TextButton from '../TextButton';
 import copy from 'copy-to-clipboard';
-import Markdown from '../Markdown';
+
 import Notification from 'wix-style-react/Notification';
+
+import TextButton from '../TextButton';
+import Markdown from '../Markdown';
 
 const toCodeBlock = (code, type = 'js') =>
   ['```' + type, code.trim(), '```'].join('\n');
 
 export default class CodeBlock extends Component {
-
   static propTypes = {
     source: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    dataHook: PropTypes.string
   };
 
   static defaultProps = {
     type: 'js'
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {showNotification: false};
-  }
+  state = {
+    showNotification: false
+  };
+
+  onCopyClick = () => {
+    copy(this.props.source);
+    this.setState({showNotification: true});
+  };
 
   render() {
-    const {source, type} = this.props;
-    const copyToClipboardClicked = () => {
-      copy(source);
-      this.setState({showNotification: true});
-    };
+    const {source, type, dataHook} = this.props;
+
     return (
-      <div>
+      <div data-hook={dataHook}>
         <Notification
           onClose={() => this.setState({showNotification: false})}
           show={this.state.showNotification}
@@ -44,10 +47,12 @@ export default class CodeBlock extends Component {
           <Notification.TextLabel>
             Copied!
           </Notification.TextLabel>
+
           <Notification.CloseButton/>
         </Notification>
 
-        <TextButton onClick={copyToClipboardClicked}>Copy to clipboard</TextButton>
+        <TextButton onClick={this.onCopyClick}>Copy to clipboard</TextButton>
+
         <Markdown source={toCodeBlock(source, type)}/>
       </div>
     );

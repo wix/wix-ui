@@ -89,7 +89,7 @@ describe('Slider', () => {
     expect(driver.tooltip()).toBeTruthy();
   });
 
-  it('shows tooltip by default, given tooltipVisibility=always', () => {
+  it('shows tooltip by normal, given tooltipVisibility=always', () => {
     const driver = render({tooltipVisibility: 'always'});
 
     expect(driver.tooltip()).toBeTruthy();
@@ -145,13 +145,13 @@ describe('Slider', () => {
     expect(driver.ticks().length).toEqual(5);
   });
 
-  it('should not render the ticks, given tickMarksPosition = none', () => {
+  it('should not render the ticks, given tickMarksShape = none', () => {
     const driver = render({
       min: 1,
       step: 5,
       max: 20,
       value: 3,
-      tickMarksPosition: 'none'
+      tickMarksShape: 'none'
     });
 
     driver.stubTrackBoundingRect({width: 500});
@@ -159,12 +159,31 @@ describe('Slider', () => {
     expect(driver.ticks().length).toEqual(0);
   });
 
-  it('should render ticks in continuous mode, with a density of 1 tick per 4 pixels', () => {
-    const driver = render({min: 1, max: 10, value: 3, onChange: noop});
+  it('should not render the ticks, given tickMarksShape = none', () => {
+    const driver = render({
+      min: 1,
+      step: 5,
+      max: 20,
+      value: 3,
+      tickMarksShape: 'none'
+    });
 
-    driver.stubTrackBoundingRect({width: 400});
+    driver.stubTrackBoundingRect({width: 500});
 
-    expect(driver.ticks().length).toEqual(92);
+    expect(driver.ticks().length).toEqual(0);
+  });
+
+  it('should not render the ticks, given a continuous slider', () => {
+    const driver = render({
+      min: 1,
+      step: undefined,
+      max: 20,
+      value: 3
+    });
+
+    driver.stubTrackBoundingRect({width: 500});
+
+    expect(driver.ticks().length).toEqual(0);
   });
 
   it('should change the value when clicking a tick', () => {
@@ -187,6 +206,19 @@ describe('Slider', () => {
 
     const driver = render({
       step: 1,
+      onChange
+    });
+
+    driver.clickSlider(3);
+    sinon.assert.calledWith(onChange, 3);
+  });
+
+  it('should change the value when clicking the slider, given vertical orientation', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      step: 1,
+      orientation: 'vertical',
       onChange
     });
 
@@ -319,6 +351,21 @@ describe('Slider', () => {
 
     const driver = render({
       disabled: true,
+      onChange
+    });
+
+    driver.focus();
+    driver.arrowRight();
+    driver.clickSlider(3);
+
+    sinon.assert.notCalled(onChange);
+  });
+
+  it('cannot move thumb, given readonly', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      readOnly: true,
       onChange
     });
 
