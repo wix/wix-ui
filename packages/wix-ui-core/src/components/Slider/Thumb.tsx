@@ -4,8 +4,8 @@ import pStyle from './Slider.st.css';
 
 export interface ThumbProps {
   shape: string;
-  thumbPosition: Object;
-  thumbSize: Object;
+  thumbPosition: React.CSSProperties;
+  thumbSize: React.CSSProperties;
   onMouseEnter: any;
   onMouseLeave: any;
 }
