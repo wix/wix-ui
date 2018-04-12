@@ -126,7 +126,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       required,
       renderSuffix,
       fixedFooter,
-      fixedHeader
+      fixedHeader,
+      multi
     } = this.props;
 
     const {
@@ -142,7 +143,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     return (
       <Dropdown
         {...style('root', {required: required && !disabled, error, disabled}, this.props)}
-        multi={this.props.multi}
+        multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
         options={options}
