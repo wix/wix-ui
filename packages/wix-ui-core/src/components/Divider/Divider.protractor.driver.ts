@@ -5,5 +5,5 @@ export const dividerDriverFactory = (component: ElementFinder) => ({
   element: () => component,
 
   /** checks if the element exists */
-  exists: () => !!component.isPresent()
+  exists: () => component.isPresent()
 });
