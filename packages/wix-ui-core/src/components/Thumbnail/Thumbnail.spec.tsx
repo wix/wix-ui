@@ -14,11 +14,7 @@ describe('Thumbnail', () => {
   describe('children prop', () => {
     it('should be rendered', () => {
       const driver = createDriver(<Thumbnail><div>hello</div></Thumbnail>);
-      expect(driver.getContent()).toBe('<div>hello</div>');
-    });
-
-    it ('should have only one child element', () => {
-      const driver = createDriver(<Thumbnail><div>hello</div><div>world</div></Thumbnail>);
+      expect(driver.getContent().innerHTML).toBe('hello');
     });
   });
 
@@ -38,8 +34,25 @@ describe('Thumbnail', () => {
     });
 
     it('should be selected', () => {
-      const driver = createDriver(<Thumbnail><div/></Thumbnail>);
+      const driver = createDriver(<Thumbnail selected><div/></Thumbnail>);
       expect(driver.isSelected()).toEqual(true);
+    });
+  });
+
+  describe('selectedIcon prop', () => {
+    it('should not have icon by default', () => {
+      const driver = createDriver(<Thumbnail><div/></Thumbnail>);
+      expect(driver.hasSelectedIcon()).toEqual(false);
+    });
+
+    it('should not display icon when not selected', () => {
+      const driver = createDriver(<Thumbnail selectedIcon="✅"><div/></Thumbnail>);
+      expect(driver.hasSelectedIcon()).toEqual(false);
+    });
+
+    it('should display icon when selected', () => {
+      const driver = createDriver(<Thumbnail selected selectedIcon="✅"><div/></Thumbnail>);
+      expect(driver.hasSelectedIcon()).toEqual(true);
     });
   });
 

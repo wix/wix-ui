@@ -1,60 +1,20 @@
-:import {
-    -st-from: "../../colors.st.css";
-    -st-named: B3, D1, D7, W1;
-}
-
-:import {
-    -st-from: "../../fonts.st.css";
-    -st-named: helvetica-75, small-font-size;
-}
-
-:import {
-    -st-from: "../../utils/index";
-    -st-named: hexToRgba;
-}
-
 .root {
-    -st-states: selected;
-    position: relative;
-    margin: 19px 0;
-    border: 1px solid value(D7);
-    transition: transform 0.6s;
-    cursor: pointer;
-    display: flex;
+  -st-states: selected;
+  position: relative;
+  border: 1px solid grey;
 }
 
-.root:selected {
-    cursor: default;
-    border-color: value(B3);
-    box-shadow: 0px 0px 0px 1px value(B3);
-}
-
-.root:not(:selected):hover {
-    transform: scale(1.06);
-    transition: transform 0.6s;
-}
-
-.root:hover > .banner {
-    display: flex;
-}
-
-.banner {
-    cursor: pointer;
-    height: 28px;
-    background-color: hexToRgba(value(D1), 0.8);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
+.root:not(:selected) .selectedIcon {
+  display: none;
 }
 
 .selectedIcon {
-    color: value(B3);
-    position: absolute;
-    top: -10px;
-    right: -10px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+:global([dir="rtl"]) .selectedIcon {
+  left: -10px;
+  right: unset;
 }

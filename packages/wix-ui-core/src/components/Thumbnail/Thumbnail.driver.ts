@@ -9,7 +9,7 @@ export const thumbnailDriverFactory = ({element, eventTrigger}) => {
     /** checks if the element exists */
     exists: () => !!element,
     /** checks if the selected icon element exists */
-    selectedIconExists: () => !!selectedIcon,
+    hasSelectedIcon: () => window.getComputedStyle(selectedIcon).getPropertyValue('display') !== 'none',
     /** triggers a click event on the element */
     click: () => eventTrigger.click(element),
     /** check if component is selected */
