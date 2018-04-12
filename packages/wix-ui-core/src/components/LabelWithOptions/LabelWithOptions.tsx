@@ -12,6 +12,8 @@ const createDivider = (value = null) =>
 export interface LabelWithOptionsProps {
   /** The dropdown options array */
   options: Array<Option>;
+  /** set true for multiple selection, false for single */
+  multi?: boolean;
   /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
   /** Handler for when an option is deselected */
@@ -45,6 +47,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   static propTypes = {
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,
+    /** set true for multiple selection, false for single */
+    multi: bool,
     /** Handler for when an option is selected */
     onSelect: func,
     /** Handler for when an option is deselected */
@@ -67,6 +71,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   static defaultProps = {
     initialSelectedIds: [],
+    multi: false,
     onSelect: () => null,
     onDeselect: () => null,
     renderSuffix: () => null
@@ -96,9 +101,9 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   _onSelect(option: Option) {
     const {selectedOptions} = this.state;
-    const {onSelect} = this.props;
+    const {onSelect, multi} = this.props;
     this.setState({
-      selectedOptions: [...selectedOptions, option],
+      selectedOptions: multi ? [...selectedOptions, option] : [option],
       isDirty: true
     }, () => onSelect(option));
   }
@@ -121,7 +126,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       required,
       renderSuffix,
       fixedFooter,
-      fixedHeader
+      fixedHeader,
+      multi
     } = this.props;
 
     const {
@@ -137,7 +143,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     return (
       <Dropdown
         {...style('root', {required: required && !disabled, error, disabled}, this.props)}
-        multi={true}
+        multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
         options={options}

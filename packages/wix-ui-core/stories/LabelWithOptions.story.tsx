@@ -14,6 +14,7 @@ export default {
     'data-hook': 'storybook-labelwithoptions',
     renderSuffix: isError => <span>{isError ? '☹️' : '😁'}</span>,
     options: generateOptions(),
+    multi: true,
     placeholder: 'With placeholder'
   },
 
