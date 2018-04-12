@@ -14,7 +14,7 @@ describe('Thumbnail', () => {
   describe('children prop', () => {
     it('should be rendered', () => {
       const driver = createDriver(<Thumbnail><div>hello</div></Thumbnail>);
-      expect(driver.getContent().innerHTML).toBe('hello');
+      expect(driver.getContent().outerHTML).toBe('<div>hello</div>');
     });
   });
 
