@@ -71,7 +71,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   static defaultProps = {
     initialSelectedIds: [],
-    multi: true,
+    multi: false,
     onSelect: () => null,
     onDeselect: () => null,
     renderSuffix: () => null
