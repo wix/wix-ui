@@ -7,7 +7,11 @@ export function protractorTestkitFactoryCreator<T> (driverFactory: (e: ElementFi
   return (obj: {dataHook: string}) => driverFactory($(`[data-hook='${obj.dataHook}']`));
 }
 
-export function byDataHook({element, dataHook}: {element: ElementFinder, dataHook: string}) {
+export function byDataHook({element, dataHook}: {element?: ElementFinder, dataHook: string}) {
+  if (!dataHook) {
+    throw new Error('byDataHook(): dataHook must be a non empty string');
+  }
+
   const selector = `[data-hook='${dataHook}']`;
   if (element) {
     return element.$(selector);
