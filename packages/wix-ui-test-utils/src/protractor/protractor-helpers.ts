@@ -1,3 +1,7 @@
+/**
+ * We should put in this file utilities which generic to protractor.
+ * (Not Wix specific)
+ */
 import {
   browser,
   promise,
