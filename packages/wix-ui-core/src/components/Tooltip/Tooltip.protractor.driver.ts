@@ -1,11 +1,11 @@
-import {browser} from 'protractor';
+import {browser, ElementFinder} from 'protractor';
 import {popoverDriverFactory} from '../../baseComponents/Popover/Popover.protractor.driver';
 
-export const tooltipDriverFactory = component => {
+export const tooltipDriverFactory = (component: ElementFinder) => {
   const popoverDriver = popoverDriverFactory(component);
   return Object.assign(
     {},
     popoverDriver, {
-    getTooltipLocation: async () => (await popoverDriver.getContentElement().getWebElement()).getLocation()
+    getTooltipLocation: () =>  popoverDriver.getContentElement().getWebElement().getLocation()
   });
 };

@@ -1,10 +1,15 @@
-export const inputDriverFactory = component => {
+import {ElementFinder} from 'protractor';
+
+export const inputDriverFactory = (component: ElementFinder) => {
   const input = component.$('input');
 
   return {
     element: () => component,
-    enterText: text => input.clear().sendKeys(text),
-    focus: () => input.click(),
-    getText: () => input.getAttribute('value')
+    enterText: async (text) => {
+      await input.clear();
+      await input.sendKeys(text);
+    },
+    focus: async () => input.click(),
+    getText: async () => input.getAttribute('value')
   };
 };

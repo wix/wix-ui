@@ -1,7 +1,9 @@
-export const dropdownOptionDriverFactory = component => {
+import {ElementFinder} from 'protractor';
+
+export const dropdownOptionDriverFactory = (component: ElementFinder) => {
   return {
     element: () => component,
-    click: () => component.click(),
-    getText: () => component.getText()
+    click: async () => component.click(),
+    getText: async () => component.getText()
   };
 };
