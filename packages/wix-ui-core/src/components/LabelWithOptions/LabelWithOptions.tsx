@@ -101,9 +101,9 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   _onSelect(option: Option) {
     const {selectedOptions} = this.state;
-    const {onSelect} = this.props;
+    const {onSelect, multi} = this.props;
     this.setState({
-      selectedOptions: this.props.multi ? [...selectedOptions, option] : [option],
+      selectedOptions: multi ? [...selectedOptions, option] : [option],
       isDirty: true
     }, () => onSelect(option));
   }
