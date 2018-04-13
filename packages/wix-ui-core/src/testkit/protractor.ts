@@ -1,4 +1,5 @@
 import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
+import {ElementFinder} from 'protractor';
 
 //JSS
 import {popoverDriverFactory} from '../baseComponents/Popover/Popover.protractor.driver';
@@ -13,7 +14,7 @@ export const paginationTestkitFactory = protractorTestkitFactoryCreator(paginati
 import {badgeDriverFactory} from '../components/Badge/Badge.protractor.driver';
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(badgeDriverFactory);
 
-import {tooltipDriverFactory} from '../components/Tooltip/Tooltip.protractor.driver';
+import {tooltipDriverFactory, ILocation} from '../components/Tooltip/Tooltip.protractor.driver';
 export const tooltipTestkitFactory = protractorTestkitFactoryCreator(tooltipDriverFactory);
 
 import {dividerDriverFactory} from '../components/Divider/Divider.protractor.driver';
