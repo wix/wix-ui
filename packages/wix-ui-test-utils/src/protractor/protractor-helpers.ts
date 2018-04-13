@@ -1,3 +1,10 @@
+/**
+ * We should put in this file utilities which generic to protractor.
+ * (Not Wix specific)
+ * NOTICE: We have in wix such a library already.
+ * @See @wix/protractor-helpers (https://github.com/wix/protractor-helpers)
+ * But it is not in Typescript.
+ */
 import {
   browser,
   promise,
