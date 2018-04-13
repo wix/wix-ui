@@ -44,6 +44,8 @@
     "@types/puppeteer": "^1.0.0",
     "@types/react": "^16.3.8",
     "@types/react-dom": "^16.0.5",
+    "@types/selenium-webdriver": "^3.0.8",
+    "@wix/protractor-helpers": "^1.1.439",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "express": "^4.16.2",
@@ -77,5 +79,6 @@
       "raf/polyfill",
       "<rootDir>/test/enzyme-setup.ts"
     ]
-  }
+  },
+  "dependencies": {}
 }
