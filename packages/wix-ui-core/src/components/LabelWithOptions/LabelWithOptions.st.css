@@ -28,13 +28,13 @@
   -st-states: required, error, disabled, checkbox;
 }
 
-@custom-selector :--selection .root:checkbox DropdownOption:selected;
+@custom-selector :--selected .root:checkbox DropdownOption:selected;
 
-.selection {
-}
-
-:--selection {
+:--selected {
   background-color: white; 
+}
+.selection {
+
 }
 
 .label {
@@ -54,15 +54,9 @@
 
 .checkbox {
   -st-extends: Checkbox;
-  margin-right: 5px;
-  min-width: 1em;
-  min-height: 1em;
-  max-height: 1em;
+  width: 1em;
+  height: 1em;
   border: 1px solid black;
-}
-
-.checkbox:disabled {
-  border: 1px solid grey;
 }
 
 .checkbox:checked {
