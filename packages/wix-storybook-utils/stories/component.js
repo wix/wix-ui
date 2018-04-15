@@ -10,19 +10,21 @@ const disabledStyle = {
   color: 'grey'
 };
 
-const Component = ({enabled, children}) =>
-  <div style={enabled ? enabledStyle : disabledStyle}>
+const Component = ({enabled, children, onClick}) =>
+  <div style={enabled ? enabledStyle : disabledStyle} onClick={onClick}>
     {children}
   </div>;
 
 Component.propTypes = {
   children: PropTypes.node,
-  enabled: PropTypes.bool
+  enabled: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Component.defaultProps = {
   children: 'Hello dummy component!',
-  enabled: true
+  enabled: true,
+  onClick: () => 'you clicked!'
 };
 
 Component.displayName = 'DummyComponent';

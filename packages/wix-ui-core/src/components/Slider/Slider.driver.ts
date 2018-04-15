@@ -88,27 +88,45 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       eventTrigger.keyDown(element, {key: 'End'});
     },
 
-    stubTrackBoundingRect(rect: any = {
-      bottom: 0,
-      top: 0,
-      left: 0,
-      right: 0,
-      width: 400,
-      height: 50
-    }) {
+    stubTrackBoundingRect(rect?: any) {
+      rect = rect || (driver.vertical() ? {
+        bottom: 400,
+        top: 0,
+        left: 0,
+        right: 0,
+        width: 50,
+        height: 400
+      } : {
+        bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        width: 400,
+        height: 50
+      });
+
       const el = driver.track();
       el.getBoundingClientRect = () => rect;
       driver.forceUpdate();
     },
 
-    stubRootBoundingRect(rect: any = {
-      bottom: 0,
-      top: 0,
-      left: 0,
-      right: 0,
-      width: 400,
-      height: 100
-    }) {
+    stubRootBoundingRect(rect?: any) {
+      rect = rect || (driver.vertical() ? {
+        bottom: 400,
+        top: 0,
+        left: 0,
+        right: 100,
+        width: 100,
+        height: 400
+      } : {
+        bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        width: 400,
+        height: 100
+      });
+
       const el = driver.root();
       el.getBoundingClientRect = () => rect;
       driver.forceUpdate();
@@ -130,12 +148,19 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
       const rect = driver.getTrackBoundingRect();
       const min = driver.min();
       const max = driver.max();
-      const thumbSize = driver.getRootBoundingRect().height;
-      const offset = (value - min) * ((rect.width + thumbSize / 2) / (max - min + 1));
 
-      if (driver.rtl()) {
-        return rect.width - offset;
+      if (!driver.vertical()) {
+        const thumbSize = driver.getRootBoundingRect().height;
+        const offset = (value - min) * ((rect.width + thumbSize / 2) / (max - min + 1));
+
+        if (driver.rtl()) {
+          return rect.width - offset;
+        } else {
+          return offset;
+        }
       } else {
+        const thumbSize = driver.getRootBoundingRect().width;
+        const offset = (value - min) * ((rect.height + thumbSize / 2) / (max - min + 1));
         return offset;
       }
     },
@@ -167,12 +192,12 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     clickTick(tickIdx) {
       const tick = driver.ticks()[tickIdx];
       const offset = driver.getOffsetByValue(driver.min() + tickIdx);
-      eventTrigger.click(tick, {clientX: offset});
+      eventTrigger.click(tick, {[driver.vertical() ? 'clientY' : 'clientX']: offset});
     },
 
     clickSlider(value) {
       const offset = driver.getOffsetByValue(value);
-      eventTrigger.click(driver.track(), {clientX: offset});
+      eventTrigger.click(driver.track(), {[driver.vertical() ? 'clientY' : 'clientX']: offset});
     },
 
     forceUpdate() {

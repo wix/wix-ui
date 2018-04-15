@@ -14,6 +14,8 @@ const createDivider = (value = null) =>
 export interface LabelWithOptionsProps {
   /** The dropdown options array */
   options: Array<Option>;
+  /** set true for multiple selection, false for single */
+  multi?: boolean;
   /** Handler for when an option is selected */
   onSelect?: (option: Option) => void;
   /** Handler for when an option is deselected */
@@ -48,6 +50,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   static propTypes = {
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,
+    /** set true for multiple selection, false for single */
+    multi: bool,
     /** Handler for when an option is selected */
     onSelect: func,
     /** Handler for when an option is deselected */
@@ -70,6 +74,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   static defaultProps = {
     initialSelectedIds: [],
+    multi: false,
     onSelect: noop,
     onDeselect: noop,
     renderSuffix: noop
@@ -88,7 +93,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       required,
       renderSuffix,
       fixedFooter,
-      fixedHeader
+      fixedHeader,
+      multi
     } = this.props;
 
     const {
@@ -100,7 +106,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     return (
       <Dropdown
         {...style('root', {required: required && !disabled, error, disabled}, this.props)}
-        multi={true}
+        multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
         options={this.createOptions()}
@@ -113,7 +119,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         disabled={disabled}>
         <div className={style.selection}>
           <Label
-            className={`${style.label} ${selectedIds.length ? '' : style.placeholder}`.trim()}
+            className={`${style.label} ${selectedIds && selectedIds.length ? '' : style.placeholder}`.trim()}
             data-hook="label">
             {this.createLabel()}
           </Label>
@@ -130,10 +136,12 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   }
 
   private onSelect = (option: Option) => {
+    const {selectedIds} = this.state;
+    const {onSelect, multi} = this.props;
     this.setState({
-      selectedIds: [...this.state.selectedIds, option.id],
+      selectedIds: multi ? [...selectedIds, option.id] : [option.id],
       isDirty: true
-    }, () => this.props.onSelect(option));
+    }, () => onSelect(option));
   }
 
   private onDeselect = (option: Option) => {
@@ -149,6 +157,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     }
     return this.props.options.map(option => {
       let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
+      debugger;
       const checked = this.state.selectedIds.includes(option.id);
       newOption.render = option.isSelectable ?
                          value => <div className={style.optionCotainer}><Checkbox checked={checked} className={style.checkbox}></Checkbox>{option.render(value)}</div>

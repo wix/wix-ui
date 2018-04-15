@@ -74,8 +74,8 @@ describe('ThemedComponent', () => {
       interface AppState extends WrappedComponentProps {}
 
       class App extends React.Component<{}, AppState> {
-        constructor() {
-          super();
+        constructor(props: any) {
+          super(props);
           this.state = {color: 'green', theme: mockedTheme};
         }
 

@@ -10,7 +10,8 @@ module.exports = (config, env) => {
     options: {
       storyConfig: {
         moduleName: 'wix-ui-core',
-        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/'
+        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/',
+        importFormat: "import {%componentName} from '%moduleName/%componentName'"
       }
     }
   });

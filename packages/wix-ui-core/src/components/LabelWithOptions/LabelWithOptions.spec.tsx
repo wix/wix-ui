@@ -107,7 +107,8 @@ describe('LabelWithOptions', () => {
   describe('when selecting options', () => {
     it('should display selected options in label', () => {
       const driver = createDriver(createLabelWithOptions({
-        options
+        options,
+        multi: true
       }));
       const selectedOptions = [options[0], options[4]];
       driver.click();
@@ -124,6 +125,14 @@ describe('LabelWithOptions', () => {
       driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
+
+    it('allows picking only one option when multi prop is flase', () => {
+      const driver = createDriver(<LabelWithOptions options={generateOptions()} multi={false}/>);
+      driver.click();
+      driver.optionAt(0).click();
+      driver.optionAt(4).click();
+      expect(driver.getLabelText()).toEqual(options[4].value);
+    });
   });
 
   describe('when deselecting options', () => {
@@ -131,6 +140,7 @@ describe('LabelWithOptions', () => {
       const selectedOptions = [options[0], options[1]];
       const driver = createDriver(createLabelWithOptions({
         options,
+        multi: true,
         initialSelectedIds: selectedOptions.map(option => option.id)
       }));
       driver.click();
@@ -141,7 +151,7 @@ describe('LabelWithOptions', () => {
 
     it('should call onDeselect', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createLabelWithOptions({options, onDeselect, initialSelectedIds: [0]}));
+      const driver = createDriver(createLabelWithOptions({options, multi: true, onDeselect, initialSelectedIds: [0]}));
       driver.click();
       driver.optionAt(0).click();
       expect(onDeselect).toHaveBeenCalledWith(options[0]);
@@ -170,7 +180,7 @@ describe('LabelWithOptions', () => {
   describe('when invalid', () => {
     let driver;
     beforeEach(() => {
-      driver = createDriver(createLabelWithOptions({options, required: true, initialSelectedIds: [0, 1]}));
+      driver = createDriver(createLabelWithOptions({options, multi: true, required: true, initialSelectedIds: [0, 1]}));
       driver.click();
       driver.optionAt(0).click();
       driver.optionAt(1).click();

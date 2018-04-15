@@ -8,6 +8,7 @@ import {measureAndSetRootMinWidth} from './root-min-width';
 const upperCaseFirst = (str: string): string => str[0].toUpperCase() + str.slice(1);
 
 export const getId = (idPrefix: string = '', name: string = '') => idPrefix ? idPrefix + name : null;
+export const calculateWidth = (totalPages: number) => `${totalPages.toString().length}em`;
 
 enum ButtonType {
   Prev = 'previous',
@@ -218,6 +219,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
           onBlur={this.handlePageInputBlur}
+          style={{width: calculateWidth(this.props.totalPages)}}
         />
         {this.props.showInputModeTotalPages && [
             <span key="slash" id={this.getId('slash')} className={pStyle.slash}>{this.props.slashLabel}</span>,

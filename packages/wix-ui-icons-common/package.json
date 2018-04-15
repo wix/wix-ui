@@ -19,11 +19,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "precommit": "yoshi lint",
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index",
-    "pretest": "npm run build && build-storybook",
-    "test": "yoshi test",
-    "posttest": "yoshi lint",
+    "test": "build-storybook",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
     "release": "yoshi release",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
@@ -38,10 +35,11 @@
   "devDependencies": {
     "@storybook/addon-options": "^3.3.15",
     "@storybook/react": "^3.3.15",
-    "@types/react": "^15.6.15",
+    "@types/react": "^16.3.5",
     "fs-extra": "^5.0.0",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
     "svg2react-icon": "^2.0.0",
     "typescript": "^2.6.2",
     "wix-storybook-utils": "^1.0.0",

@@ -43,8 +43,9 @@
 
 .checkbox {
   -st-extends: Checkbox;
-  width: 1em;
-  height: 1em;
+  min-width: 1em;
+  min-height: 1em;
+  max-height: 1em;
   border: 1px solid black;
 }
 

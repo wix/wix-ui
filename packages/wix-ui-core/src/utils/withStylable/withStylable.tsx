@@ -21,7 +21,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
     public props: Readonly<CoreProps & ExtendedProps>;
 
     render() {
-      const root = super.render();
+      const root = super.render() as React.ReactElement<any>;
       if (!root) { return null; }
       const className = root.props && root.props.className || '';
       const statesMap = getState(this.props, this.state, this.context);
@@ -53,6 +53,18 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
     WrapperComponent.defaultProps = Object.assign({}, Component.defaultProps, extendedDefaultProps);
     return WrapperComponent;
 }
+
+export function withStylable<CoreProps, ExtendedProps = {}>(
+  Component: React.ComponentClass<CoreProps>,
+  stylesheet: RuntimeStylesheet,
+  getState: (p?: any, s?: any, c?: any) => StateMap,
+  extendedDefaultProps?: object): React.ComponentClass<CoreProps & ExtendedProps>;
+
+export function withStylable<CoreProps, ExtendedProps = {}>(
+  Component: React.SFC<CoreProps>,
+  stylesheet: RuntimeStylesheet,
+  getState: (p?: any) => StateMap,
+  extendedDefaultProps?: object): React.SFC<CoreProps & ExtendedProps>;
 
 export function withStylable<CoreProps, ExtendedProps = {}>(
   Component: React.ComponentClass<CoreProps> | React.SFC<CoreProps>,
