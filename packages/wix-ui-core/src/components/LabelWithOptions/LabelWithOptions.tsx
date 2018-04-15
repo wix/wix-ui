@@ -157,7 +157,6 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     }
     return this.props.options.map(option => {
       let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
-      debugger;
       const checked = this.state.selectedIds.includes(option.id);
       newOption.render = option.isSelectable ?
                          value => <div className={style.optionCotainer}><Checkbox checked={checked} className={style.checkbox}></Checkbox>{option.render(value)}</div>
