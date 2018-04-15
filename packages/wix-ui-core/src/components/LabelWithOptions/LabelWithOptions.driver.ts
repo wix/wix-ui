@@ -24,6 +24,5 @@ export const labelWithOptionsDriverFactory = ({element, eventTrigger}) => {
       const checkbox = domUtils.selectAll('.checkbox')[index];
       return checkboxDriverFactory({element: checkbox, eventTrigger});
     },
-    hasCheckbox: () => domUtils.selectAll('.checkbox').length > 0
   });
 };

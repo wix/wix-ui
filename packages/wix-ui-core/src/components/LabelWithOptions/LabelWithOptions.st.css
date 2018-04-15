@@ -4,6 +4,11 @@
 }
 
 :import {
+  -st-from: "../../baseComponents/DropdownOption/DropdownOption.st.css";
+  -st-default: DropdownOption;
+}
+
+:import {
   -st-from: "../Checkbox/Checkbox.st.css";
   -st-default: Checkbox;
 }
@@ -20,10 +25,16 @@
 
 .root {
   -st-extends: Dropdown;
-  -st-states: required, error, disabled;
+  -st-states: required, error, disabled, checkbox;
 }
 
+@custom-selector :--selection .root:checkbox DropdownOption:selected;
+
 .selection {
+}
+
+:--selection {
+  background-color: white; 
 }
 
 .label {
@@ -43,10 +54,15 @@
 
 .checkbox {
   -st-extends: Checkbox;
+  margin-right: 5px;
   min-width: 1em;
   min-height: 1em;
   max-height: 1em;
   border: 1px solid black;
+}
+
+.checkbox:disabled {
+  border: 1px solid grey;
 }
 
 .checkbox:checked {

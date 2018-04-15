@@ -217,6 +217,13 @@ describe('LabelWithOptions', () => {
       driver.optionAt(0).click();
       expect(driver.checkboxAt(0).isChecked()).toBe(true);
     });
+
+    it('marks the checkbox as disabled if the option is disabled', () => {
+      const driver = createDriver(<LabelWithOptions checkbox options={[{id: 'test', value: 'test', isSelectable: true, isDisabled: true, render: () => <span>test</span>}]} />);
+
+      driver.click();
+      expect(driver.checkboxAt(0).isDisabled()).toBe(true);
+    });
   });
 
   describe('testkit', () => {

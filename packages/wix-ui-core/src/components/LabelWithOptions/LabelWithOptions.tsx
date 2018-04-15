@@ -82,7 +82,10 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
 
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
-  public state = {isDirty: false, selectedOptions: [], selectedIds: []};
+  public constructor(props, context?) {
+    super(props, context);
+    this.state = {isDirty: false, selectedIds: []};
+  }
 
   public render() {
     const {
@@ -94,7 +97,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       renderSuffix,
       fixedFooter,
       fixedHeader,
-      multi
+      multi,
+      checkbox
     } = this.props;
 
     const {
@@ -105,7 +109,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     const error = !disabled && required && isDirty && selectedIds.length === 0;
     return (
       <Dropdown
-        {...style('root', {required: required && !disabled, error, disabled}, this.props)}
+        {...style('root', {required: required && !disabled, error, disabled, checkbox}, this.props)}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
@@ -159,7 +163,10 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       let newOption = {id: option.id, isDisabled: option.isDisabled, isSelectable: option.isSelectable, value: option.value, render: null};
       const checked = this.state.selectedIds.includes(option.id);
       newOption.render = option.isSelectable ?
-                         value => <div className={style.optionCotainer}><Checkbox checked={checked} className={style.checkbox}></Checkbox>{option.render(value)}</div>
+                         value => (
+                          <div className={style.optionCotainer}>
+                            <Checkbox disabled={option.isDisabled} checked={checked} className={style.checkbox}/>{option.render(value)}
+                          </div>)
                          : option.render;
       return newOption;
     });
