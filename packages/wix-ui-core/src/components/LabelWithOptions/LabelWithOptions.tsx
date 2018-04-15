@@ -173,8 +173,9 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
   }
 
   private createLabel = () => {
-    return this.state.selectedIds.length ?
-      this.props.options.filter(option => this.state.selectedIds.includes(option.id)).map(option => option.value).join(', ') :
+    const {selectedIds} = this.state;
+    return (selectedIds && selectedIds.length) ?
+      this.props.options.filter(option => selectedIds.includes(option.id)).map(option => option.value).join(', ') :
       this.props.placeholder;
   }
 }
