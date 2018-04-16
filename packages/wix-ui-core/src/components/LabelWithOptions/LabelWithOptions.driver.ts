@@ -20,7 +20,7 @@ export const labelWithOptionsDriverFactory = ({element, eventTrigger}) => {
     isRequired: () => domUtils.hasStyleState(element, 'required'),
     isError: () => domUtils.hasStyleState(element, 'error'),
     isDisabled: () => domUtils.hasStyleState(element, 'disabled'),
-    checkboxAt: (index: number) => {
+    checkboxDriverAt: (index: number) => {
       const checkbox = domUtils.selectAll('.checkbox')[index];
       return checkboxDriverFactory({element: checkbox, eventTrigger});
     },
