@@ -7,6 +7,9 @@ export interface ControlledClosableProps {
 }
 
 export interface ClosableInjectedProps {
+  content: React.ReactNode;
+}
+export interface ClosableActions {
   onClose: () => void;
 }
 
@@ -16,6 +19,7 @@ export interface ClosableProps {
   onOpen?: () => void;
   onClose?: () => void;
   toggleOnHover?: boolean;
+  content: (closable: ClosableActions) => React.ReactNode;
 }
 
 export interface ClosableState {
@@ -55,6 +59,7 @@ export function withClosable<TOriginalProps extends ControlledClosableProps>(
     // TODO: HOC displayName, propTypes, hoisting
 
     render() {
+      const {shown, content} = this.props;
       const open = this.isControlled ? this.props.shown : this.state.open;
 
       // TODO: omit open from props
@@ -62,12 +67,10 @@ export function withClosable<TOriginalProps extends ControlledClosableProps>(
         <Component
           {...this.props}
           shown={open}
-          onClose={this.close}
+          content={content({onClose: this.close})}
           onMouseEnter={this.open}
           onMouseLeave={this.close}
-          
           />
-
       );
     }
 
@@ -96,7 +99,5 @@ export function withClosable<TOriginalProps extends ControlledClosableProps>(
         this.setState({open: false});
       }
     }
-
   };
-
 }

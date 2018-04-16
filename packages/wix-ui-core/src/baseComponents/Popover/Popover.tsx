@@ -31,6 +31,8 @@ export interface PopoverOwnProps {
   placement: Placement;
   /** Is the content shown or not */
   shown: boolean;
+  /** The content of the popover */
+  content: React.ReactNode;
   /** onClick on the component */
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseEnter on the component */
@@ -88,11 +90,7 @@ const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   return modifiers;
 };
 
-const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose}) => {
-  // TODO: is cloning a performance concern?
-  //
-  const content = React.cloneElement(<childrenObject.Content/>, {onClose});
-
+const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, content}) => {
   return (
   <Popper
     data-hook="popover-content"
@@ -126,6 +124,7 @@ const PopoverBase: React.SFC<PopoverOwnProps & ClosableInjectedProps> = props =>
   const {
     placement,
     shown,
+    content,
     onMouseEnter,
     onMouseLeave,
     onKeyDown,
@@ -155,12 +154,12 @@ const PopoverBase: React.SFC<PopoverOwnProps & ClosableInjectedProps> = props =>
       {
         !!timeout &&
           <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-            {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose})}
+            {renderPopper({modifiers, placement, showArrow, moveArrowTo, content})}
           </CSSTransition>
       }
       {
         !timeout && shown &&
-        renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose})
+        renderPopper({modifiers, placement, showArrow, moveArrowTo, content})
       }
     </Manager>
   );
@@ -173,13 +172,9 @@ PopoverBase.defaultProps = {
 export type PopoverProps = PopoverOwnProps & ClosableProps;
 export type PopoverType = React.ComponentClass<PopoverProps> & {
   Element?: React.SFC<ElementProps>;
-  Content?: React.SFC<ElementProps>; // TODO: validate Single child
 };
 
 export const Popover = withClosable<PopoverOwnProps>(PopoverBase) as PopoverType;
 
 Popover.displayName = 'Popover';
 Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
-// TODO: concider having the content as a component without children, instead with a renderProp that accepts the Closable.onClose callback.
-Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
-Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
