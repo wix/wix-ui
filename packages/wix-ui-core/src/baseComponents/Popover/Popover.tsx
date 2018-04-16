@@ -3,8 +3,10 @@ import PopperJS from 'popper.js';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
+import {Portal} from 'react-portal';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {oneOf, oneOfType, element, Requireable} from 'prop-types';
+const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -92,31 +94,52 @@ const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   return modifiers;
 };
 
-const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => (
-  <Popper
-    data-hook="popover-content"
-    modifiers={modifiers}
-    placement={placement}
-    className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
-    {
-      showArrow &&
-        <Arrow data-hook="popover-arrow"
-            className={style.arrow}
-            style={getArrowShift(moveArrowTo, placement)}
-        />
-    }
-    {
-      showArrow &&
-        <div className={style.popoverContent}>
-          {childrenObject.Content}
-        </div>
-    }
-    {
-      !showArrow &&
-        childrenObject.Content
-    }
-  </Popper>
-);
+const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => {
+  let appendToElement = null;
+  const boundariesElement = modifiers.preventOverflow && modifiers.preventOverflow.boundariesElement ;
+
+  if (boundariesElement === 'window' || boundariesElement === 'viewport') {
+    appendToElement = document.body;
+  } else if (isElement(boundariesElement)) {
+    appendToElement = boundariesElement;
+  }
+
+  const popper = (
+    <Popper
+      data-hook="popover-content"
+      modifiers={modifiers}
+      placement={placement}
+      className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
+      {
+        showArrow &&
+          <Arrow data-hook="popover-arrow"
+              className={style.arrow}
+              style={getArrowShift(moveArrowTo, placement)}
+          />
+      }
+      {
+        showArrow &&
+          <div className={style.popoverContent}>
+            {childrenObject.Content}
+          </div>
+      }
+      {
+        !showArrow &&
+          childrenObject.Content
+      }
+    </Popper>
+  );
+
+  if (!appendToElement) {
+    return popper;
+  }
+
+  return (
+    <Portal node={appendToElement}>
+      {popper}
+    </Portal>
+  );
+};
 
 /**
  * Popover

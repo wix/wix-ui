@@ -1,5 +1,6 @@
+const queryDocumentOrElement = (element, query) => (document && document.querySelector(query)) || (element && element.querySelector(query));
 const getTargetElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-element"]');
-const getContentElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-content"]');
+const getContentElement = (element: Element | undefined) => queryDocumentOrElement(element, '[data-hook="popover-content"]');
 const getArrowElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-arrow"]');
 
 export const popoverDriverFactory = ({element, eventTrigger}) => ({

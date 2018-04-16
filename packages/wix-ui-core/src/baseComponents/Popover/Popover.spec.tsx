@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {Popover} from './';
+import {Popover, PopoverProps} from './';
 import {mount} from 'enzyme';
 import * as eventually from 'wix-eventually';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
-  const createPopover = (props = {}) =>
+  const createPopover = (props: Partial<PopoverProps> = {}) =>
     <Popover placement="top" showArrow={true} shown={false} {...props}>
       <Popover.Element>
         <div>
@@ -54,12 +54,13 @@ describe('Popover', () => {
     expect(arrowLeft).toEqual('10px');
   });
 
-  it('should animate by default', () => {
+  it('should animate by default', async () => {
     const wrapper = mount(createPopover({shown: true}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeTruthy();
-    return eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
+    await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
+    wrapper.unmount();
   });
 
   it('should not animate in case timeout is set to 0', async () => {
@@ -68,5 +69,37 @@ describe('Popover', () => {
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeFalsy();
     expect(wrapper.text()).toBe('Element');
+    wrapper.unmount();
+  });
+
+  it('should append popover to body when appendTo is window', () => {
+    const wrapper = mount(createPopover({shown: true, appendTo: 'window'}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    const contentElement = driver.getContentElement();
+    const bodyElement = document.body;
+
+    expect(contentElement.parentElement).toBe(bodyElement);
+    wrapper.unmount();
+  });
+
+  it('should append popover to body when appendTo is viewport', () => {
+    const wrapper = mount(createPopover({shown: true, appendTo: 'viewport'}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    const contentElement = driver.getContentElement();
+    const bodyElement = document.body;
+
+    expect(contentElement.parentElement).toBe(bodyElement);
+    wrapper.unmount();
+  });
+
+  it('should append popover to given element when appendTo is an element', () => {
+    const element = document.createElement('div');
+    document.body.appendChild(element);
+    const wrapper = mount(createPopover({shown: true, appendTo: element}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    const contentElement = driver.getContentElement();
+
+    expect(contentElement.parentElement).toBe(element);
+    wrapper.unmount();
   });
 });
