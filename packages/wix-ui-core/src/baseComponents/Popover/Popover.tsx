@@ -5,6 +5,7 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 import {oneOf, oneOfType, element, Requireable} from 'prop-types';
+import {withClosable, ClosableProps, ClosableState, ClosableInjectedProps} from '../Closable/ClosableHOC';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -25,7 +26,7 @@ export const AppendToPropType = oneOfType([
   element
 ]);
 
-export interface PopoverProps {
+export interface PopoverOwnProps {
   /** The location to display the content */
   placement: Placement;
   /** Is the content shown or not */
@@ -55,11 +56,6 @@ export interface PopoverProps {
   /** Animation timer */
   timeout?: number;
 }
-
-export type PopoverType = React.SFC<PopoverProps> & {
-  Element?: React.SFC<ElementProps>;
-  Content?: React.SFC<ElementProps>;
-};
 
 const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift && !isTestEnv) {
@@ -92,7 +88,12 @@ const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   return modifiers;
 };
 
-const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => (
+const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose}) => {
+  // TODO: is cloning a performance concern?
+  //
+  const content = React.cloneElement(<childrenObject.Content/>, {onClose});
+
+  return (
   <Popper
     data-hook="popover-content"
     modifiers={modifiers}
@@ -108,20 +109,20 @@ const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObj
     {
       showArrow &&
         <div className={style.popoverContent}>
-          {childrenObject.Content}
+          {content}
         </div>
     }
     {
-      !showArrow &&
-        childrenObject.Content
+      !showArrow && content
     }
   </Popper>
-);
+  );
+};
 
 /**
  * Popover
  */
-export const Popover: PopoverType = props => {
+const PopoverBase: React.SFC<PopoverOwnProps & ClosableInjectedProps> = props => {
   const {
     placement,
     shown,
@@ -135,7 +136,8 @@ export const Popover: PopoverType = props => {
     moveArrowTo,
     timeout,
     appendToParent,
-    appendTo
+    appendTo,
+    onClose
   } = props;
 
   const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -153,20 +155,31 @@ export const Popover: PopoverType = props => {
       {
         !!timeout &&
           <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-            {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
+            {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose})}
           </CSSTransition>
       }
       {
         !timeout && shown &&
-        renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})
+        renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, onClose})
       }
     </Manager>
   );
 };
 
-Popover.displayName = 'Popover';
-Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
-Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
-Popover.defaultProps = {
+PopoverBase.defaultProps = {
   timeout: 150
 };
+
+export type PopoverProps = PopoverOwnProps & ClosableProps;
+export type PopoverType = React.ComponentClass<PopoverProps> & {
+  Element?: React.SFC<ElementProps>;
+  Content?: React.SFC<ElementProps>; // TODO: validate Single child
+};
+
+export const Popover = withClosable<PopoverOwnProps>(PopoverBase) as PopoverType;
+
+Popover.displayName = 'Popover';
+Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
+// TODO: concider having the content as a component without children, instead with a renderProp that accepts the Closable.onClose callback.
+Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
+Popover.Content = createComponentThatRendersItsChildren('Popover.Content');

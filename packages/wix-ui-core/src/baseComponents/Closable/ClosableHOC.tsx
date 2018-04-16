@@ -1,20 +1,20 @@
 import * as React from 'react';
 
 export interface ControlledClosableProps {
-  open: boolean;
-  onMouseEnter: React.MouseEventHandler<HTMLDivElement>;
-  onMouseLeave: React.MouseEventHandler<HTMLDivElement>;
+  shown: boolean;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export interface InjectedProps {
+export interface ClosableInjectedProps {
   onClose: () => void;
 }
 
-export interface ExternalProps {
-  open?: boolean;
+export interface ClosableProps {
+  shown?: boolean; // Aka - 'open'
   initiallyOpen?: boolean;
   onOpen?: () => void;
-  onClose: () => void;
+  onClose?: () => void;
   toggleOnHover?: boolean;
 }
 
@@ -28,14 +28,14 @@ export interface ClosableState {
  * toggleOnHoverTimeDelay, Esc to close,...
  */
 // Inspired by : https://dev.to/danhomola/react-higher-order-components-in-typescript-made-simple
-function withClosable<TOriginalProps extends ControlledClosableProps>(
-  Component: React.ComponentClass<TOriginalProps & InjectedProps> |
-             React.StatelessComponent<TOriginalProps & InjectedProps>) {
+export function withClosable<TOriginalProps extends ControlledClosableProps>(
+  Component: React.ComponentClass<TOriginalProps & ClosableInjectedProps> |
+             React.StatelessComponent<TOriginalProps & ClosableInjectedProps>) {
 
-  type ResultProps = TOriginalProps & ExternalProps;
+  type ResultProps = TOriginalProps & ClosableProps;
 
   return class ClosableHoc extends React.Component<ResultProps, ClosableState> {
-    private isControlled = null;
+    isControlled = null;
     state: ClosableState = {};
 
     // TODO: add types
@@ -43,9 +43,9 @@ function withClosable<TOriginalProps extends ControlledClosableProps>(
       toggleOnHover: false
     };
 
-    constructor(props: ResultProps ) {
+    constructor(props: ResultProps) {
       super(props);
-      this.isControlled = props.open !== null;
+      this.isControlled = props.shown !== null;
       if (!this.isControlled) {
         // not controlled, use internal state
         this.state.open = this.props.initiallyOpen || false;
@@ -55,28 +55,29 @@ function withClosable<TOriginalProps extends ControlledClosableProps>(
     // TODO: HOC displayName, propTypes, hoisting
 
     render() {
-      const open = this.isControlled ? this.props.open : this.state.open;
+      const open = this.isControlled ? this.props.shown : this.state.open;
 
       // TODO: omit open from props
       return (
         <Component
           {...this.props}
-          open={open}
+          shown={open}
           onClose={this.close}
           onMouseEnter={this.open}
           onMouseLeave={this.close}
+          
           />
 
       );
     }
 
-    private handleMouseEneter() {
+    handleMouseEneter() {
       if (this.props.toggleOnHover) {
         this.open();
       }
     }
 
-    private handleMouseLeave() {
+    handleMouseLeave() {
       if (this.props.toggleOnHover) {
         this.close();
       }
