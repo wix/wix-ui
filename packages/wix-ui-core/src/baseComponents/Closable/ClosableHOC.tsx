@@ -10,7 +10,7 @@ export interface ClosableInjectedProps {
   content: React.ReactNode;
 }
 export interface ClosableActions {
-  onClose: () => void;
+  close: () => void;
 }
 
 export interface ClosableProps {
@@ -67,7 +67,7 @@ export function withClosable<TOriginalProps extends ControlledClosableProps>(
         <Component
           {...this.props}
           shown={open}
-          content={content({onClose: this.close})}
+          content={content({close: this.close})}
           onMouseEnter={this.open}
           onMouseLeave={this.close}
           />
