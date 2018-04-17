@@ -6,7 +6,7 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import {oneOf, oneOfType, element} from 'prop-types';
+import {oneOf, oneOfType, element, Requireable} from 'prop-types';
 const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
