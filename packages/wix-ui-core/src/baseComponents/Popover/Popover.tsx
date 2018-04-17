@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
+import {getScrollParent} from 'popper.js/dist/umd/popper-utils';
 import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
@@ -58,7 +59,11 @@ export interface PopoverProps {
   timeout?: number;
 }
 
-export type PopoverType = React.SFC<PopoverProps> & {
+export type PopoverState = {
+  isMounted: boolean;
+}
+
+export type PopoverType = PopoverProps & {
   Element?: React.SFC<ElementProps>;
   Content?: React.SFC<ElementProps>;
 };
@@ -94,12 +99,14 @@ const createModifiers = ({moveBy, appendToParent, appendTo}) => {
   return modifiers;
 };
 
-const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => {
+const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef}) => {
   let appendToElement = null;
   const boundariesElement = modifiers.preventOverflow && modifiers.preventOverflow.boundariesElement ;
 
   if (boundariesElement === 'window' || boundariesElement === 'viewport') {
     appendToElement = document.body;
+  } else if (boundariesElement === 'scrollParent'){
+    appendToElement = getScrollParent(targetRef);
   } else if (isElement(boundariesElement)) {
     appendToElement = boundariesElement;
   }
@@ -144,52 +151,71 @@ const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObj
 /**
  * Popover
  */
-export const Popover: PopoverType = props => {
-  const {
-    placement,
-    shown,
-    onMouseEnter,
-    onMouseLeave,
-    onKeyDown,
-    onClick,
-    showArrow,
-    children,
-    moveBy,
-    moveArrowTo,
-    timeout,
-    appendToParent,
-    appendTo
-  } = props;
+export class Popover extends React.Component<PopoverType, PopoverState> {
+  static Element = createComponentThatRendersItsChildren('Popover.Element');
+  static Content = createComponentThatRendersItsChildren('Popover.Content');
+  static defaultProps = {
+    timeout: 150
+  };
+  
+  targetRef: HTMLElement = null;
 
-  const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-  const modifiers = createModifiers({moveBy, appendToParent, appendTo});
+  constructor(props: PopoverProps) {
+    super(props);
 
-  return (
-    <Manager
-      {...style('root', {}, props)}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
-      <Target onKeyDown={onKeyDown} data-hook="popover-element">
-        {childrenObject.Element}
-      </Target>
-      {
-        !!timeout &&
-          <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-            {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
-          </CSSTransition>
-      }
-      {
-        !timeout && shown &&
-        renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})
-      }
-    </Manager>
-  );
-};
+    this.state = {
+      isMounted: false
+    };
+  }
 
-Popover.displayName = 'Popover';
-Popover.Element = createComponentThatRendersItsChildren('Popover.Element');
-Popover.Content = createComponentThatRendersItsChildren('Popover.Content');
-Popover.defaultProps = {
-  timeout: 150
-};
+  componentDidMount() {
+    this.setState({isMounted: true});
+  }
+
+  render() {
+    const {
+      placement,
+      shown,
+      onMouseEnter,
+      onMouseLeave,
+      onKeyDown,
+      onClick,
+      showArrow,
+      children,
+      moveBy,
+      moveArrowTo,
+      timeout,
+      appendToParent,
+      appendTo
+    } = this.props;
+    
+    const {isMounted} = this.state;
+
+    const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
+    const modifiers = createModifiers({moveBy, appendToParent, appendTo});
+  
+    return (
+      <Manager
+        {...style('root', {}, this.props)}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}>
+        <Target onKeyDown={onKeyDown} data-hook="popover-element">
+          <div ref={(element) => this.targetRef = element}>
+            {childrenObject.Element}
+          </div>
+        </Target>
+        {
+          !!timeout && isMounted &&
+            <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
+              {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef: this.targetRef})}
+            </CSSTransition>
+        }
+        {
+          !timeout && shown && isMounted &&
+          renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef: this.targetRef})
+        }
+      </Manager>
+    );
+  }
+}

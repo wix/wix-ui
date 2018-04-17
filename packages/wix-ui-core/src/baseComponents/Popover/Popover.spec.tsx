@@ -102,4 +102,22 @@ describe('Popover', () => {
     expect(contentElement.parentElement).toBe(element);
     wrapper.unmount();
   });
+
+  it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
+    const scrollableParent = document.createElement('div');
+    scrollableParent.style.overflow = 'auto';
+    const childElement = document.createElement('div');
+    scrollableParent.appendChild(childElement);
+    document.body.appendChild(scrollableParent);
+
+    const wrapper = mount(
+      createPopover({shown: true, appendTo: 'scrollParent'}),
+      {attachTo: scrollableParent}
+    );
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+
+    const contentElement = driver.getContentElement();
+    expect(contentElement.parentElement).toBe(scrollableParent);
+    wrapper.detach();
+  });
 });
