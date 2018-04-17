@@ -1,7 +1,7 @@
 @namespace "Checkbox";
 
 .root {
-    -st-states: checked, disabled, indeterminate, readonly, focus, error;
+    -st-states: checked, disabled, indeterminate, readonly, focus, focus-visible, error;
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -10,8 +10,10 @@
 .box {}
 
 .nativeCheckbox {
-    position: fixed;
-    top: -100%;
+    margin: 0;
+    position: absolute;
+    cursor: inherit;
+    pointer-events: none;
     opacity: 0;
 }
 

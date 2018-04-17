@@ -2,7 +2,6 @@ import * as React from 'react';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
-import {OptionFactory} from '../../baseComponents/DropdownOption';
 import {generateOptions} from '../DropdownOption/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 

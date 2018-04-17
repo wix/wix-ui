@@ -8,44 +8,38 @@ import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
 
-require('./InputWithOptions').story();
-require('./AddressInput').story();
-require('./Autocomplete').story();
-require('./Badge').story();
-require('./Button').story();
-require('./Input/Input.story');
-require('./IconWithOptions').story();
-require('./StylableText.story.js');
-require('./Label').story();
-require('./StylableBadge').story();
-require('./Tooltip').story();
-require('./Video').story();
-require('./Slider').story();
-require('./ToggleSwitch/index.story');
-require('./AddressInput/E2E');
-require('./TimePicker').story();
+// baseComponents
+import './InputWithOptions.story';
+
+// components
+import './AddressInput/index.story';
+import './AddressInput/E2E';
+import './Autocomplete.story';
+import './Button.story';
+import './Input/Input.story';
+import './IconWithOptions.story';
+import './HBox/index.story';
+import './VBox/index.story';
+import './LabelWithOptions.story';
+import './Slider.story';
+import './Label.story';
+import './StylableBadge.story';
+import './StylableText.story';
+import './TimePicker.story';
+import './ToggleSwitch/index.story';
+import './Tooltip/index.story';
+import './Video.story';
+import './Thumbnail.story';
 
 storiesOf('Components', module)
-  .add('Text', () => (
+  .add('Text', () =>
     <Text ellipsis>
       Hello World
     </Text>
-  ))
-  .add('Pagination', () => (
-    <PaginationStory/>
-  ))
-  .add('GoogleMapsIframeClient', () => (
-    <GoogleMapsIframeClientStory/>
-  ))
-  .add('Divider', () => (
-    <DividerStory />
-  ))
-  .add('Checkbox', () => (
-    <CheckboxStory />
-  ))
-  .add('Tooltip Custom', () => (
-    <TooltipStory />
-  ))
-  .add('RadioButton', () => (
-    <RadioButtonStory />
-  ));
+  )
+  .add('Pagination', () => <PaginationStory/>)
+  .add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>)
+  .add('Divider', () => <DividerStory/>)
+  .add('Checkbox', () => <CheckboxStory/>)
+  .add('Tooltip Custom', () => <TooltipStory/>)
+  .add('RadioButton', () => <RadioButtonStory/>);

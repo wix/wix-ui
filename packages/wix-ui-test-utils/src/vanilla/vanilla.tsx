@@ -3,7 +3,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
 
-export function testkitFactoryCreator<T extends BaseDriver, TComponent> (driverFactory: DriverFactory<T, TComponent>) {
+export function testkitFactoryCreator<T extends BaseDriver> (driverFactory: DriverFactory<T>) {
   return (obj: {wrapper: HTMLDivElement, dataHook: string}) => {
     const eventTrigger = reactEventTrigger();
     const element = obj.wrapper.querySelector(`[data-hook='${obj.dataHook}']`) as Element;
@@ -20,18 +20,4 @@ export function isTestkitExists<T extends BaseDriver> (Element: React.ReactEleme
   const wrapper = div.appendChild((renderedElement as any));
   const testkit = testkitFactory({wrapper, dataHook});
   return testkit.exists();
-}
-
-export function isAttributeExists(element: Element, predicate: (attribute: Attr) => boolean) {
-  if (!element || !element.attributes) {
-    return false;
-  }
-
-  for (let i = 0; i < element.attributes.length; ++i) {
-    const attribute = element.attributes.item(i);
-    if (predicate(attribute)) {
-      return true;
-    }
-  }
-  return false;
 }

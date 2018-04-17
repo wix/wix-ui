@@ -134,6 +134,15 @@ describe('Pagination', () => {
       });
     });
 
+    it('cannot leave empty value in the input field when blurring out', () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} currentPage={4} onChange={onChange}/>);
+      pagination.changeInput('');
+      pagination.blurInput();
+
+      expect(pagination.getPageInput().value).toEqual('4');
+    });
+
     it('does not call onChange with an invalid numeric value after pressing ENTER', () => {
       const onChange = jest.fn();
       const pagination = createDriver(<Pagination paginationMode={'input'} totalPages={15} onChange={onChange}/>);
@@ -163,6 +172,9 @@ describe('Pagination', () => {
       expect(pagination.inputHasError()).toBe(true);
       pagination.changeInput('5');
       expect(pagination.inputHasError()).toBe(false);
+      pagination.changeInput('');
+      pagination.commitInput();
+      expect(pagination.inputHasError()).toBe(true);
     });
 
     describe('Input mode accessibility',  () => {

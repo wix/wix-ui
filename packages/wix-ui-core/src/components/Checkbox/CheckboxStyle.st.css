@@ -28,8 +28,12 @@
     background-color: #f1f1f1;
 }
 
-.root:focus::box {
+.root:focus-visible::box {
     outline: 4px solid rgba(92, 180, 255, 0.5);
+}
+
+.root:focus::box {
+    border: 1px solid red;
 }
 
 .root::box > svg {

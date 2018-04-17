@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import jsxToString from 'jsx-to-string';
+
 import styles from './styles.scss';
 import componentParser from '../AutoDocs/parser';
 
@@ -22,7 +22,10 @@ const stripQuotes = string => {
 };
 
 const matchFuncProp = typeName =>
-  typeName === 'func' || typeName.match(/event/);
+  typeName === 'func' || typeName.match(/event/) || typeName.match(/\) => void$/);
+
+const ensureRegexp = a =>
+  a instanceof RegExp ? a : new RegExp(a);
 
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
@@ -55,6 +58,12 @@ export default class extends Component {
 
   static propTypes = {
     /**
+      * DEPRECATED
+      *
+      * use react-autodocs-utils to parse and pass its output to `parsedSource`.
+      *
+      * ---
+      *
       * raw string of component source.
       *
       * uses `AutoDocs` under the hood. Read doc covering `AutoDocs` to learn more.
@@ -170,90 +179,86 @@ export default class extends Component {
       props;
 
 
-  mapControllableProps = fn => {
-    return Object
+  mapControllableProps = fn =>
+    Object
       .keys(this.parsedComponent.props)
-      .filter(key => {
-        const typeName = this.parsedComponent.props[key].type.name;
-
-        return [
-          Object.keys(this.propControllers).includes(typeName),
-          matchFuncProp(typeName)
-        ].some(i => i);
-      })
       .map(key => fn(this.parsedComponent.props[key], key));
-  };
 
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
 
-  nodePropController = ({propKey}) =>
-    this.props.exampleProps[propKey] ?
-      <NodesList values={this.props.exampleProps[propKey]}/> :
-      <Input/>;
+  propControllers = [
+    {
+      types: ['func', /event/, /\) => void$/],
 
-  propControllers = {
-    string: () => <Input/>,
-    number: () => <Input/>,
-    bool: () => <Toggle/>,
+      controller: ({propKey}) => {
+        let classNames = styles.example;
 
-    enum: ({type}) =>
-      <List values={type.value.map(({value}) => stripQuotes(value))}/>,
+        if (this.state.funcAnimate[propKey]) {
+          classNames += ` ${styles.active}`;
+          setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
+        }
 
-    ReactNode: this.nodePropController,
-    node: this.nodePropController,
-
-    func: ({propKey}) => {
-      let classNames = styles.example;
-      if (this.state.funcAnimate[propKey]) {
-        classNames += ` ${styles.active}`;
-        setTimeout(() => this.setState({funcAnimate: {...this.state.funcAnimate, [propKey]: false}}), 2000);
-      }
-
-      if (this.props.exampleProps[propKey]) {
-        return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        if (this.props.exampleProps[propKey]) {
+          return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+        }
       }
     },
 
-    union: ({propKey}) =>
-      this.props.exampleProps[propKey] ?
-        <NodesList values={this.props.exampleProps[propKey]}/> :
-        <Input/>,
+    {
+      types: ['string', 'number', /ReactText/],
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
 
-    arrayOf: ({propKey}) => {
-      if (this.props.exampleProps[propKey]) {
-        return <NodesList values={this.props.exampleProps[propKey]}/>;
+    {
+      types: ['bool', 'Boolean'],
+      controller: () => <Toggle/>
+    },
+
+    {
+      types: ['union'],
+
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['node', 'ReactNode'],
+      controller: ({propKey}) =>
+        this.props.exampleProps[propKey] ?
+          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <Input/>
+    },
+
+    {
+      types: ['enum'],
+      controller: ({type}) =>
+        <List values={type.value.map(({value}) => stripQuotes(value))}/>
+    },
+
+    {
+      types: ['arrayOf'],
+      controller: ({propKey}) => {
+        if (this.props.exampleProps[propKey]) {
+          return <NodesList values={this.props.exampleProps[propKey]}/>;
+        }
       }
     }
+  ]
+
+  getPropControlComponent = (propKey, type) => {
+    const pretender =
+      this.propControllers.find(({types}) =>
+        types.some(t => ensureRegexp(t).test(type.name))
+      );
+
+    return pretender ? pretender.controller({propKey, type}) : null;
   }
-
-  getPropControlComponent = (propKey, type) =>
-    [
-      {
-        rule: matchFuncProp(type.name),
-        controller: this.propControllers.func
-      },
-
-      // default
-      {
-        rule: true,
-        controller: this.propControllers[type.name] || (() => null)
-      }
-    ].find(({rule}) => rule).controller({propKey, type})
-
-  componentToString = component =>
-    jsxToString(component, {
-      displayName: this.parsedComponent.displayName,
-      useFunctionCode: true,
-      functionNameOnly: false,
-      shortBooleanSyntax: true,
-      keyValueOverride: {
-        ...(component.props.value && component.props.value._isAMomentObject ?
-          {value: `'${component.props.value.format(component.props.dateFormat || 'YYYY/MM/DD')}'`} :
-          {}
-        )
-      }
-    });
 
   render() {
     const component = this.props.component;
@@ -319,11 +324,13 @@ export default class extends Component {
           isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
-          >
-          {React.createElement(component, componentProps)}
-        </Preview>
+          children={React.createElement(component, componentProps)}
+          />
 
-        <Code source={this.componentToString(React.createElement(component, codeProps))}/>
+        <Code
+          component={React.createElement(component, codeProps)}
+          displayName={this.parsedComponent.displayName}
+          />
       </Wrapper>
     );
   }

@@ -35,11 +35,11 @@ export interface AutocompleteProps {
   /** Placeholder to display */
   placeholder?: string;
   /** Is in error state */
-  error?: boolean;
+  error?: string | boolean;
   /** Prefix */
-  prefix?: JSX.Element;
+  prefix?: React.ReactNode;
   /** Suffix */
-  suffix?: JSX.Element;
+  suffix?: React.ReactNode;
 }
 
 export interface AutocompleteState {
@@ -73,8 +73,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     onFocus: func,
     /** Placeholder to display */
     placeholder: string,
-    /** Is in error state */
-    error: bool,
+    /** Is in error state / error message */
+    error: oneOfType([string, bool]),
     /** Prefix */
     prefix: node,
     /** Suffix */
@@ -145,12 +145,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   }
 
   render() {
-    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput} = this.props;
+    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput, disabled} = this.props;
     const inputProps = this._createInputProps();
 
     return (
       <InputWithOptions
-        {...style('root', {}, this.props)}
+        {...style('root', {disabled}, this.props)}
         onSelect={this._onSelect}
         initialSelectedIds={initialSelectedId || initialSelectedId === 0 ? [initialSelectedId] : null}
         onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}

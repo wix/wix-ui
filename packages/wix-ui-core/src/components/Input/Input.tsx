@@ -4,9 +4,9 @@ import style from './Input.st.css';
 
 export interface InputProps {
   className?: string;
-  error?: boolean;
-  prefix?: JSX.Element;
-  suffix?: JSX.Element;
+  error?: string | boolean;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 
   // Props passed down to the native input, add more as needed.
   // We cannot simply extend React.InputHTMLAttributes
@@ -15,6 +15,7 @@ export interface InputProps {
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
   disabled?: boolean;
+  maxLength?: number;
   onBlur?: React.FocusEventHandler<HTMLElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLElement>;
@@ -42,8 +43,8 @@ export class Input extends React.Component<InputProps, InputState> {
   static propTypes = {
     /** Wrapper class name */
     className: PropTypes.string,
-    /** Error state */
-    error: PropTypes.bool,
+    /** Error state / Error message */
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     /** Prefix */
     prefix: PropTypes.node,
     /** Suffix */
@@ -52,6 +53,7 @@ export class Input extends React.Component<InputProps, InputState> {
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autoFocus: PropTypes.bool,
     disabled: PropTypes.bool,
+    maxLength: PropTypes.number,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -107,14 +109,15 @@ export class Input extends React.Component<InputProps, InputState> {
       required,
       type,
       value,
-      suffix
+      suffix,
+      maxLength
     } = this.props;
 
     return (
       <div
         {...style(
           'root',
-          {disabled, error: error && !disabled, focus},
+          {disabled, error: !!error && !disabled, focus},
           this.props
         )}
       >
@@ -125,6 +128,7 @@ export class Input extends React.Component<InputProps, InputState> {
           autoFocus={autoFocus}
           disabled={disabled}
           className={style.nativeInput}
+          maxLength={maxLength}
           onBlur={this.handleBlur}
           onChange={onChange}
           onFocus={this.handleFocus}

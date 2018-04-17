@@ -1,6 +1,9 @@
 import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
 
 //JSS
+import {popoverDriverFactory} from '../baseComponents/Popover/Popover.protractor.driver';
+export const popoverTestkitFactory = protractorTestkitFactoryCreator(popoverDriverFactory);
+
 import {inputDriverFactory} from '../components/Input/Input.protractor.driver';
 export const inputTestkitFactory = protractorTestkitFactoryCreator(inputDriverFactory);
 
@@ -35,6 +38,9 @@ export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(styla
 import {autocompleteDriverFactory} from '../components/Autocomplete/Autocomplete.protractor.driver';
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);
 
+import {hBoxDriverFactory} from '../components/HBox/HBox.protractor.driver';
+export const hBoxTestkitFactory = protractorTestkitFactoryCreator(hBoxDriverFactory);
+
 import {sliderDriverFactory} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
 
@@ -49,3 +55,12 @@ export const timePickerTestkitFactory = protractorTestkitFactoryCreator(timePick
 
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.protractor.driver';
 export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(toggleSwitchDriverFactory);
+
+import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.protractor.driver';
+export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(labelWithOptionsDriverFactory);
+
+import {vBoxDriverFactory} from '../components/VBox/VBox.protractor.driver';
+export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);
+
+import {thumbnailDriverFactory} from '../components/Thumbnail/Thumbnail.protractor.driver';
+export const thumbnailTestkitFactory = protractorTestkitFactoryCreator(thumbnailDriverFactory);

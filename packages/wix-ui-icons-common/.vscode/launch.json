@@ -4,14 +4,14 @@
     "name": "Launch Mocha",
     "type": "node",
     "request": "launch",
-    "program": "${workspaceRoot}/node_modules/haste-preset-yoshi/debug/mocha",
+    "program": "${workspaceRoot}/node_modules/yoshi/debug/mocha",
     "cwd": "${workspaceRoot}"
   },
   {
     "name": "Launch Protractor",
     "type": "node",
     "request": "launch",
-    "program": "${workspaceRoot}/node_modules/haste-preset-yoshi/debug/protractor",
+    "program": "${workspaceRoot}/node_modules/yoshi/debug/protractor",
     "cwd": "${workspaceRoot}"
   }]
 }

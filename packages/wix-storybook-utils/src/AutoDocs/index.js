@@ -147,7 +147,7 @@ const AutoDocs = ({source = '', parsedSource, showTitle}) => {
 };
 
 AutoDocs.propTypes = {
-  source: PropTypes.string.isRequired,
+  source: PropTypes.string,
   parsedSource: PropTypes.object,
   showTitle: PropTypes.bool
 };

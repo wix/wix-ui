@@ -135,26 +135,24 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         onMouseMove={this.onMouseMove}
         tabIndex={1000}>
         {fixedHeader}
-        {
-          <div
-            className={style.optionsContainer}
-            ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
-            {
-              (options || []).map((option, index) => (
-                <DropdownOption
-                  className={style.dropdownOption}
-                  data-hook="option"
-                  key={option.id}
-                  option={option}
-                  isHovered={hoveredIndex === index}
-                  isSelected={(selectedIds || []).includes(option.id)}
-                  onClickHandler={this.isValidOptionForSelection(option) ? (event) => onOptionClick(option) : undefined}
-                  onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : undefined}
-                />
-              ))
-            }
-          </div>
-        }
+        <div
+          className={style.optionsContainer}
+          ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
+          {
+            (options || []).map((option, index) => (
+              <DropdownOption
+                className={style.dropdownOption}
+                data-hook="option"
+                key={option.id}
+                option={option}
+                isHovered={hoveredIndex === index}
+                isSelected={(selectedIds || []).includes(option.id)}
+                onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : undefined}
+                onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : undefined}
+              />
+            ))
+          }
+        </div>
         {fixedFooter}
       </div>
     );

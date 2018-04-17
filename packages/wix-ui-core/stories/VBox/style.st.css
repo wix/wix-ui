@@ -1,0 +1,10 @@
+:import {
+  -st-from: "../../src/components/VBox/VBox.st.css";
+  -st-default: VBox;
+}
+
+.root {
+  -st-extends: VBox;
+  border: solid green 2px;
+  width: 100px;
+}

@@ -22,3 +22,5 @@ export const createComponentThatRendersItsChildren = (displayName: string) => {
   Element.displayName = displayName;
   return Element;
 };
+
+export const noop = () => null;
