@@ -4,7 +4,7 @@ import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
 
 export function testkitFactoryCreator<T extends BaseDriver> (driverFactory: DriverFactory<T>) {
-  return (obj: {wrapper: HTMLDivElement, dataHook: string}) => {
+  return (obj: {wrapper: HTMLElement, dataHook: string}) => {
     const eventTrigger = reactEventTrigger();
     const element = obj.wrapper.querySelector(`[data-hook='${obj.dataHook}']`) as Element;
     return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
