@@ -15,7 +15,6 @@ before_install:
  
 script:
  - npm run bootstrap && npm run build && npm run test
- -  'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npx surge-github-autorelease -r $TRAVIS_REPO_SLUG -s $STORYBOOK_DIST -p $TRAVIS_PULL_REQUEST -b $TRAVIS_BUILD_DIR -t $GITHUB_API_TOKEN; fi'
 
 notifications:
   email:
