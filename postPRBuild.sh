@@ -8,4 +8,4 @@ fi
 
 echo "Now using node $(node -v) (npm v$(npm -v))"
 
-npm run postPRBuild
+npm run --if-present postPRBuild
