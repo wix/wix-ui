@@ -351,7 +351,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const thumbSize = this.getThumbSizeMainAxis();
     const {value, min, max} = this.props;
     const pct = (value - min) / (max - min);
-    return `calc(${pct} * calc(100% - ${thumbSize}px))`;
+    return `calc(${pct} *(100% - ${thumbSize}px))`;
   }
 
   calcTrackFillPosition() {
