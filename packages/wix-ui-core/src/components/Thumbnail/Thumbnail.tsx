@@ -21,7 +21,7 @@ export const Thumbnail: React.SFC<ThumbnailProps> = props => {
     <div {...style('root', {selected}, props)} onClick={onClick}>
       {children}
 
-      <div className={style.selectedIcon} data-hook="selectedIcon">
+      <div className={style.selectedIcon} data-hook="selected-icon">
         {selectedIcon}
       </div>
     </div>

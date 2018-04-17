@@ -3,7 +3,7 @@ import style from './Thumbnail.st.css';
 
 export const thumbnailDriverFactory = ({element, eventTrigger}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
-  const selectedIcon = element.querySelector('[data-hook="selectedIcon"]');
+  const selectedIcon = element.querySelector('[data-hook="selected-icon"]');
 
   return {
     /** checks if the element exists */
@@ -15,6 +15,8 @@ export const thumbnailDriverFactory = ({element, eventTrigger}) => {
     /** check if component is selected */
     isSelected: () => stylableDOMUtil.hasStyleState(element, 'selected'),
     /** returns the components's children */
-    getContent: () => element.childNodes[0]
+    getContent: () => element.childNodes[0],
+    /** returns the components's selected icon */
+    getSelectedIcon: () => selectedIcon.childNodes[0]
   };
 };

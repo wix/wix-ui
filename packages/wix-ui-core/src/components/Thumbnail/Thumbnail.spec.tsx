@@ -54,6 +54,11 @@ describe('Thumbnail', () => {
       const driver = createDriver(<Thumbnail selected selectedIcon="✅"><div/></Thumbnail>);
       expect(driver.hasSelectedIcon()).toEqual(true);
     });
+
+    it('should render the given icon when selected', () => {
+      const driver = createDriver(<Thumbnail selected selectedIcon={<div>hey</div>}><div/></Thumbnail>);
+      expect(driver.getSelectedIcon().outerHTML).toBe(mount(<div>hey</div>).html());
+    });
   });
 
   describe('testkit', () => {
