@@ -7,5 +7,6 @@ if [ -f .nvmrc ]; then
 fi
 
 echo "Now using node $(node -v) (npm v$(npm -v))"
+echo "pwd:" `pwd`
 
 npm run --if-present postPRBuild
