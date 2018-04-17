@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, node, func, any} from 'prop-types';
+import {bool, node, func} from 'prop-types';
 import style from './Thumbnail.st.css';
 
 export interface ThumbnailProps {
