@@ -6,7 +6,7 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import {oneOf, oneOfType, element, Requireable} from 'prop-types';
+import {oneOf, oneOfType, element} from 'prop-types';
 const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
@@ -61,7 +61,7 @@ export interface PopoverProps {
 
 export type PopoverState = {
   isMounted: boolean;
-}
+};
 
 export type PopoverType = PopoverProps & {
   Element?: React.SFC<ElementProps>;
@@ -105,7 +105,7 @@ const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObj
 
   if (boundariesElement === 'window' || boundariesElement === 'viewport') {
     appendToElement = document.body;
-  } else if (boundariesElement === 'scrollParent'){
+  } else if (boundariesElement === 'scrollParent') {
     appendToElement = getScrollParent(targetRef);
   } else if (isElement(boundariesElement)) {
     appendToElement = boundariesElement;
@@ -157,7 +157,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   static defaultProps = {
     timeout: 150
   };
-  
+
   targetRef: HTMLElement = null;
 
   constructor(props: PopoverProps) {
@@ -188,12 +188,12 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       appendToParent,
       appendTo
     } = this.props;
-    
+
     const {isMounted} = this.state;
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const modifiers = createModifiers({moveBy, appendToParent, appendTo});
-  
+
     return (
       <Manager
         {...style('root', {}, this.props)}
@@ -201,7 +201,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}>
         <Target onKeyDown={onKeyDown} data-hook="popover-element">
-          <div ref={(element) => this.targetRef = element}>
+          <div ref={r => this.targetRef = r}>
             {childrenObject.Element}
           </div>
         </Target>
