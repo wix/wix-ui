@@ -30,6 +30,8 @@ export interface LabelWithOptionsProps {
   placeholder?: string;
   /** if set to true an error will be rendered when no options are selected */
   required?: boolean;
+  /** If set to true, the label will display an ellipsis when overflowing */
+  ellipsis?: boolean;
   /** Suffix */
   renderSuffix?: (isError: boolean) => React.ReactNode;
 }
@@ -65,6 +67,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     placeholder: string,
     /** if set to true an error will be rendered when no options are selected */
     required: bool,
+    /** If set to true, the label will display an ellipsis when overflowing */
+    ellipsis: bool,
     /** Suffix */
     renderSuffix: func
   };
@@ -127,7 +131,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       renderSuffix,
       fixedFooter,
       fixedHeader,
-      multi
+      multi,
+      ellipsis
     } = this.props;
 
     const {
@@ -142,7 +147,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     const error = !disabled && required && isDirty && selectedOptions.length === 0;
     return (
       <Dropdown
-        {...style('root', {required: required && !disabled, error, disabled}, this.props)}
+        {...style('root', {required: required && !disabled, error, disabled, ellipsis}, this.props)}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}

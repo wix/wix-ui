@@ -24,6 +24,7 @@ export default {
     onSelect: (option: Option) => option.value,
     onDeselect: (option: Option) => option.value,
     initialSelectedIds: [null, [1]],
-    placeholder: ['With placeholder', null]
+    placeholder: ['With placeholder', null],
+    ellipsis: false
   }
 };

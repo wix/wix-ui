@@ -15,7 +15,8 @@
 
 .root {
   -st-extends: Dropdown;
-  -st-states: required, error, disabled;
+  -st-states: required, error, disabled, ellipsis;
+  width: 100%
 }
 
 .selection {
@@ -23,6 +24,13 @@
 
 .label {
   -st-extends: Label;
+}
+
+.root:ellipsis .label {
+  display: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .divider {
