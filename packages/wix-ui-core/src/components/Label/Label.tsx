@@ -4,9 +4,13 @@ import style from './Label.st.css';
 
 export interface LabelProps {
   className?: string;
+  /** Children */
   children?: string;
+  /** For property */
   for?: string;
+  /** ID of element */
   id?: string;
+  /** Is the Label disabled */
   disabled?: boolean;
 }
 
@@ -27,6 +31,6 @@ Label.propTypes = {
   for: string,
   /** ID of element */
   id: string,
-  /** is disabled? */
+  /** Is the Label disabled */
   disabled: bool
 };
