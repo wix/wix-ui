@@ -34,6 +34,12 @@ describe('Label', () => {
     expect(label.isDisabled()).toBe(true);
   });
 
+  it('should not be disabled by default', async () => {
+    const label = createDriver(<Label />);
+
+    expect(label.isDisabled()).toBe(false);
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Label />, labelTestkitFactory)).toBe(true);

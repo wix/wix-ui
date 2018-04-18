@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string} from 'prop-types';
+import {string, bool} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
@@ -14,7 +14,8 @@ export interface LabelProps {
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  return <label {...style('root', {disabled: props.disabled}, props)} htmlFor={props.for} id={props.id}>{props.children}</label>;
+  const {disabled, id, children} = props;
+  return <label {...style('root', {disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
 };
 
 Label.propTypes = {
@@ -25,5 +26,7 @@ Label.propTypes = {
   /** For property */
   for: string,
   /** ID of element */
-  id: string
+  id: string,
+  /** is disabled? */
+  disabled: bool
 };
