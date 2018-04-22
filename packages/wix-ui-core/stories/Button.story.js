@@ -10,7 +10,7 @@ export default {
     disabled: false,
     type: 'button',
     children: 'I\'m a Button!',
-    dataHook: 'storybook-Button'
+    'data-hook': 'storybook-button'
   },
 
   exampleProps: {
