@@ -300,8 +300,8 @@ describe('AddressInput', () => {
             firstRequest.resolve();
 
             await waitForCond.assertHold(() => {
-                expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2])
-            }, 1000 ,'Address description changed');
+                expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
+            }, 1000, 'Address description changed');
         });
 
         it('Should ignore stale requests - geocode', async () => {
