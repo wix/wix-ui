@@ -1,2 +1,10 @@
 .root {
+    -st-states: ellipsis;
+}
+
+.root:ellipsis {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

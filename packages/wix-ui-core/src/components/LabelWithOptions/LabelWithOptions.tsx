@@ -147,7 +147,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     const error = !disabled && required && isDirty && selectedOptions.length === 0;
     return (
       <Dropdown
-        {...style('root', {required: required && !disabled, error, disabled, ellipsis}, this.props)}
+        {...style('root', {required: required && !disabled, error, disabled}, this.props)}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
@@ -162,6 +162,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         <div className={style.selection}>
           <Label
             className={`${style.label} ${selectedOptions.length ? '' : style.placeholder}`.trim()}
+            ellipsis={ellipsis}
             data-hook="label">
             {labelValue}
           </Label>

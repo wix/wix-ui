@@ -7,13 +7,14 @@ export interface LabelProps {
   children?: string;
   for?: string;
   id?: string;
+  ellipsis?: boolean;
 }
 
 /**
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  return <label {...style('root', {}, props)} htmlFor={props.for} id={props.id}>{props.children}</label>;
+  return <label {...style('root', {ellipsis: props.ellipsis}, props)} htmlFor={props.for} id={props.id}>{props.children}</label>;
 };
 
 Label.propTypes = {
