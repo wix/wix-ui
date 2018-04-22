@@ -1,6 +1,8 @@
-export const textDriverFactory = component => ({
+import {ElementFinder} from 'protractor';
+
+export const textDriverFactory = (component: ElementFinder) => ({
     /** returns the component element */
     element: () => component,
     /** returns the component text */
-    getText: () => component.getText()
+    getText: async () => component.getText()
   });

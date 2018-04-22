@@ -1,9 +1,9 @@
-import {browser} from 'protractor';
+import {browser, ElementFinder} from 'protractor';
 import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 
-export const sliderDriverFactory = component => ({
+export const sliderDriverFactory = (component: ElementFinder) => ({
   element: () => component,
-  getSliderValue: () => {
+  getSliderValue: async () => {
     return component.getAttribute('data-value');
   },
   getTooltipValue: async () => {

@@ -1,7 +1,8 @@
+import {ElementFinder} from 'protractor';
 import {inputDriverFactory} from '../../components/Input/Input.protractor.driver';
 import {dropdownDriverFactory} from '../Dropdown/Dropdown.protractor.driver';
 
-export const inputWithOptionsDriverFactory = component => {
+export const inputWithOptionsDriverFactory = (component: ElementFinder) => {
   const dropdownDriver = dropdownDriverFactory(component);
   const inputDriver = inputDriverFactory(dropdownDriver.getTargetElement().$('[data-hook=input]'));
 

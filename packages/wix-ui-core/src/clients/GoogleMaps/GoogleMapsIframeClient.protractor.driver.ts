@@ -1,4 +1,6 @@
-export const googleMapsIframeClientDriverFactory = component => {
+import {ElementFinder} from 'protractor';
+
+export const googleMapsIframeClientDriverFactory = (component: ElementFinder) => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');
