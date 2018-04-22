@@ -1,4 +1,4 @@
-import {popoverDriverFactory} from '../../baseComponents/Popover/Popover.driver';
+import {popoverDriverFactory} from '../Popover/Popover.driver';
 
 export const tooltipDriverFactory = (args) => {
   const popoverDriver = popoverDriverFactory(args);

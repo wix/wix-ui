@@ -21,8 +21,18 @@
 }
 
 .root {
-  display: inline-block;
+}
+
+.root.manager {
+  /*popper sets tooltip in absolute position according to this container*/
   position: relative;
+  /*popper adds an extra div that needs to be measured without stretching*/
+  display: inline-block;
+}
+
+.trigger {
+  /*Needed in case when popover is calculated relatively to the body*/
+  display: inline-block;
 }
 
 .popoverAnimation {}
@@ -54,7 +64,6 @@
 
 .popover {
   z-index: 1000;
-  min-width: 100%;
 }
 
 .popover[data-placement*="right"].withArrow {

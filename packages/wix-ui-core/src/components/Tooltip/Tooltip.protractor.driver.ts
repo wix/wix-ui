@@ -1,5 +1,5 @@
 import {browser} from 'protractor';
-import {popoverDriverFactory} from '../../baseComponents/Popover/Popover.protractor.driver';
+import {popoverDriverFactory} from '../Popover/Popover.protractor.driver';
 
 export const tooltipDriverFactory = component => {
   const popoverDriver = popoverDriverFactory(component);

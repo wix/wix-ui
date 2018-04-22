@@ -1,4 +1,4 @@
-import {popoverDriverFactory} from '../Popover/Popover.protractor.driver';
+import {popoverDriverFactory} from '../../components/Popover/Popover.protractor.driver';
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.protractor.driver';
 
 export const dropdownDriverFactory = component => {

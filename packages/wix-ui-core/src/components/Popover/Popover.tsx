@@ -6,8 +6,9 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import {oneOf, oneOfType, element, Requireable} from 'prop-types';
-const isElement = require('lodash/isElement');
+import camelCase = require('lodash/camelCase');
+import isElement = require('lodash/isElement');
+import * as classNames from 'classnames';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -23,12 +24,9 @@ if (isTestEnv) {
 
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | Element;
-export const AppendToPropType = oneOfType([
-  oneOf(['scrollParent', 'viewport', 'window']),
-  element
-]);
 
 export interface PopoverProps {
+  className?: string;
   /** The location to display the content */
   placement: Placement;
   /** Is the content shown or not */
@@ -53,8 +51,6 @@ export interface PopoverProps {
   moveArrowTo?: number;
   /** Enables calculations in relation to a dom element */
   appendTo?: AppendTo;
-  /** Enables calculations in relation to the parent element*/
-  appendToParent?: boolean;
   /** Animation timer */
   timeout?: number;
 }
@@ -78,7 +74,7 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-const createModifiers = ({moveBy, appendToParent, appendTo}) => {
+const createModifiers = ({moveBy, appendTo}) => {
   const modifiers: PopperJS.Modifiers = {
     offset: {
       offset: `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`
@@ -89,63 +85,49 @@ const createModifiers = ({moveBy, appendToParent, appendTo}) => {
     modifiers.computeStyle = {enabled: false};
   }
 
-  const target = appendToParent ? null : appendTo  || null;
-  if (target) {
+  if (appendTo) {
     modifiers.preventOverflow = {
-      boundariesElement: target
+      boundariesElement: appendTo
     };
   }
 
   return modifiers;
 };
 
-const renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef}) => {
-  let appendToElement = null;
-  const boundariesElement = modifiers.preventOverflow && modifiers.preventOverflow.boundariesElement ;
-
-  if (boundariesElement === 'window' || boundariesElement === 'viewport') {
-    appendToElement = document.body;
-  } else if (boundariesElement === 'scrollParent') {
-    appendToElement = getScrollParent(targetRef);
-  } else if (isElement(boundariesElement)) {
-    appendToElement = boundariesElement;
+const getMountingNode = ({appendTo, targetRef}) => {
+  let mountingNode;
+  if (appendTo === 'window' || appendTo === 'viewport') {
+    mountingNode = document.body;
+  } else if (appendTo === 'scrollParent') {
+    mountingNode = getScrollParent(targetRef);
+  } else if (isElement(appendTo)) {
+    mountingNode = appendTo;
+  } else {
+    mountingNode = null;
   }
+  return mountingNode;
+};
 
-  const popper = (
-    <Popper
-      data-hook="popover-content"
-      modifiers={modifiers}
-      placement={placement}
-      className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
-      {
-        showArrow &&
-          <Arrow data-hook="popover-arrow"
-              className={style.arrow}
-              style={getArrowShift(moveArrowTo, placement)}
-          />
-      }
-      {
-        showArrow &&
-          <div className={style.popoverContent}>
-            {childrenObject.Content}
-          </div>
-      }
-      {
-        !showArrow &&
-          childrenObject.Content
-      }
-    </Popper>
-  );
-
-  if (!appendToElement) {
-    return popper;
+//TODO - needs some refactoring
+const attachStylesToNode = ({node, stylesObj}) => {
+  if (node) {
+    node.classList.add(stylesObj.className);
+    Object.keys(stylesObj)
+      .filter(key => key.startsWith('data-'))
+      .map(key => key.replace(/$data-/, ''))
+      .forEach(key => node.dataset[camelCase(key)] = stylesObj[key]);
   }
+};
 
-  return (
-    <Portal node={appendToElement}>
-      {popper}
-    </Portal>
-  );
+//TODO - needs some refactoring
+const detachStylesFromNode = ({node, stylesObj}) => {
+  if (node) {
+    node.classList.remove(stylesObj.className);
+    Object.keys(stylesObj)
+      .filter(key => key.startsWith('data-'))
+      .map(key => key.replace(/$data-/, ''))
+      .forEach(key => delete node.dataset[camelCase(key)]);
+  }
 };
 
 /**
@@ -158,7 +140,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     timeout: 150
   };
 
-  targetRef: HTMLElement = null;
+  targetRef = null;
+  mountingNode: HTMLElement = null;
+  stylesObj: any = null;
 
   constructor(props: PopoverProps) {
     super(props);
@@ -168,8 +152,47 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     };
   }
 
+  renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => {
+    const popper = (
+      <Popper
+        data-hook="popover-content"
+        modifiers={modifiers}
+        placement={placement}
+        className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
+        {
+          showArrow &&
+          <Arrow data-hook="popover-arrow" className={style.arrow} style={getArrowShift(moveArrowTo, placement)}/>
+        }
+        {
+          showArrow &&
+          <div className={style.popoverContent}>
+            {childrenObject.Content}
+          </div>
+        }
+        {
+          !showArrow &&
+          childrenObject.Content
+        }
+      </Popper>
+    );
+
+    attachStylesToNode({node: this.mountingNode, stylesObj: this.stylesObj});
+
+    return (
+      this.mountingNode ?
+        <Portal node={this.mountingNode}>
+          {popper}
+        </Portal> :
+        popper
+    );
+  };
+
   componentDidMount() {
     this.setState({isMounted: true});
+  }
+
+  componentWillUnmount() {
+    detachStylesFromNode({node: this.mountingNode, stylesObj: this.stylesObj});
   }
 
   render() {
@@ -185,35 +208,36 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       moveBy,
       moveArrowTo,
       timeout,
-      appendToParent,
       appendTo
     } = this.props;
 
     const {isMounted} = this.state;
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-    const modifiers = createModifiers({moveBy, appendToParent, appendTo});
+    const modifiers = createModifiers({moveBy, appendTo});
+    this.stylesObj = style('root', {}, this.props);
+    this.mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
 
     return (
       <Manager
-        {...style('root', {}, this.props)}
+        {...style('root manager', {}, this.props)}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}>
-        <Target onKeyDown={onKeyDown} data-hook="popover-element">
-          <div ref={r => this.targetRef = r}>
+        <Target onKeyDown={onKeyDown} data-hook="popover-element" className={style.trigger}>
+          <span ref={r => this.targetRef = r}>
             {childrenObject.Element}
-          </div>
+          </span>
         </Target>
         {
           !!timeout && isMounted &&
-            <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-              {renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef: this.targetRef})}
-            </CSSTransition>
+          <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
+            {this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
+          </CSSTransition>
         }
         {
           !timeout && shown && isMounted &&
-          renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, targetRef: this.targetRef})
+          this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})
         }
       </Manager>
     );

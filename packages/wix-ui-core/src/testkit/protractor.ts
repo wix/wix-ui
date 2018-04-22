@@ -1,7 +1,7 @@
 import {protractorTestkitFactoryCreator} from 'wix-ui-test-utils/protractor';
 
 //JSS
-import {popoverDriverFactory} from '../baseComponents/Popover/Popover.protractor.driver';
+import {popoverDriverFactory} from '../components/Popover/Popover.protractor.driver';
 export const popoverTestkitFactory = protractorTestkitFactoryCreator(popoverDriverFactory);
 
 import {inputDriverFactory} from '../components/Input/Input.protractor.driver';
