@@ -29,6 +29,7 @@ import './TimePicker.story';
 import './ToggleSwitch/index.story';
 import './Tooltip/index.story';
 import './Video.story';
+import './Thumbnail.story';
 
 storiesOf('Components', module)
   .add('Text', () =>

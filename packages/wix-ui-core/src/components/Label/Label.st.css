@@ -5,7 +5,7 @@
 
 
 .root {
-    -st-states: ellipsis;
+    -st-states: ellipsis, disabled;
 }
 
 .root:ellipsis {

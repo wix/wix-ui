@@ -4,10 +4,16 @@ import style from './Label.st.css';
 
 export interface LabelProps {
   className?: string;
+  /** Children */
   children?: string;
+  /** For property */
   for?: string;
+  /** ID of element */
   id?: string;
+  /** should the text be ellipsed or not */
   ellipsis?: boolean;
+  /** Is the Label disabled */
+  disabled?: boolean;
 }
 
 const defaultProps: LabelProps = {
@@ -18,8 +24,8 @@ const defaultProps: LabelProps = {
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  const {id, children, ellipsis} = props;
-  return <label {...style('root', {ellipsis}, props)} htmlFor={props.for} id={id}>{children}</label>;
+  const {id, children, ellipsis, disabled} = props;
+  return <label {...style('root', {ellipsis, disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
 };
 
 Label.propTypes = {
@@ -32,7 +38,9 @@ Label.propTypes = {
   /** ID of element */
   id: string,
   /** should the text be ellipsed or not */
-  ellipsis: bool
+  ellipsis: bool,
+  /** Is the Label disabled */
+  disabled: bool
 };
 
 Label.defaultProps = defaultProps;

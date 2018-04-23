@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {func, string, array, bool, oneOf, arrayOf, Requireable} from 'prop-types';
+import {func, string, array, number, bool, oneOf, arrayOf, Requireable} from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
 
 import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
@@ -60,6 +60,8 @@ export interface AddressInputProps {
     forceContentElementVisibility?: boolean;
     /** Options to override default one, used for preview mode */
     forceOptions?: Array<Option>;
+    /** Options to override default throttle value, 0 used to disable throttle */
+    throttleInterval?: number;
 }
 
 export interface AddressInputState {
@@ -149,11 +151,14 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** If set to true, content element will always be visible, used for preview mode */
         forceContentElementVisibility: bool,
         /** Options to override default one, used for preview mode */
-        forceOptions: array
+        forceOptions: array,
+        /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
+        throttleInterval: number
     };
 
     static defaultProps = {
-        handler: Handler.geocode
+        handler: Handler.geocode,
+        throttleInterval: 150
     };
 
     client: MapsClient;
@@ -169,7 +174,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.geocodeRequestId = 0;
         this.placeDetailsRequestId = 0;
 
-        this._getAddressOptions = throttle(this._getAddressOptions, 150);
+        this._getAddressOptions = props.throttleInterval === 0 ? this._getAddressOptions.bind(this) : throttle(this._getAddressOptions, 150);
         this._handleOnChange = this._handleOnChange.bind(this);
         this._handleOnManualInput = this._handleOnManualInput.bind(this);
         this._onSelect = this._onSelect.bind(this);

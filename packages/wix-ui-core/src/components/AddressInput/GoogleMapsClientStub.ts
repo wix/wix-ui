@@ -51,26 +51,50 @@ export function createPlaceDetails(placeId: string, formattedAddress: string): P
 export class GoogleMapsClientStub implements MapsClient {
     static addresses: Array<Address> = [];
     static addressesDelay: number;
+    static addressesPromise: Promise<any>;
     static geocode: Array<Geocode> = [];
     static geocodeDelay: number;
+    static geocodePromise: Promise<any>;
     static placeDetails: PlaceDetails = null;
     static placeDetailsDelay: number;
+    static placeDetailsPromise: Promise<any>;
 
     autocomplete(apiKey: string, lang: string, request: string) {
         const addresses = GoogleMapsClientStub.addresses;
         const delay = GoogleMapsClientStub.addressesDelay;
+
+        if (GoogleMapsClientStub.addressesPromise) {
+            const promise = GoogleMapsClientStub.addressesPromise;
+            GoogleMapsClientStub.addressesPromise = null;
+            return promise.then(() => addresses);
+        }
+
         return new Promise<Array<Address>>((resolve, reject) => setTimeout(() => resolve(addresses), delay));
     }
 
     geocode(apiKey: string, lang: string, request: string) {
         const geocode = GoogleMapsClientStub.geocode;
         const delay = GoogleMapsClientStub.geocodeDelay;
+
+        if (GoogleMapsClientStub.geocodePromise) {
+            const promise = GoogleMapsClientStub.geocodePromise;
+            GoogleMapsClientStub.geocodePromise = null;
+            return promise.then(() => geocode);
+        }
+
         return new Promise<Array<Geocode>>((resolve, reject) => setTimeout(() => resolve(geocode), delay));
     }
 
     placeDetails(apiKey: string, lang: string, request: string) {
         const placeDetails = GoogleMapsClientStub.placeDetails;
         const delay = GoogleMapsClientStub.placeDetailsDelay;
+
+        if (GoogleMapsClientStub.placeDetailsPromise) {
+            const promise = GoogleMapsClientStub.placeDetailsPromise;
+            GoogleMapsClientStub.placeDetailsPromise = null;
+            return promise.then(() => placeDetails);
+        }
+
         return new Promise<PlaceDetails>((resolve, reject) => setTimeout(() => resolve(placeDetails), delay));
     }
 
@@ -79,14 +103,44 @@ export class GoogleMapsClientStub implements MapsClient {
         GoogleMapsClientStub.addressesDelay = addressesDelay;
     }
 
+    static setAddressesPromise(addresses: Array<Address>) {
+        let resolve = null, reject = null;
+        GoogleMapsClientStub.setAddresses(addresses);
+        GoogleMapsClientStub.addressesPromise = new Promise((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
+        return {resolve, reject};
+    }
+
     static setGeocode(geocode: Geocode, geocodeDelay: number = 0) {
         GoogleMapsClientStub.geocode = [geocode];
         GoogleMapsClientStub.geocodeDelay = geocodeDelay;
     }
 
+    static setGeocodePromise(geocode: Geocode) {
+        let resolve = null, reject = null;
+        GoogleMapsClientStub.setGeocode(geocode);
+        GoogleMapsClientStub.geocodePromise = new Promise((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
+        return {resolve, reject};
+    }
+
     static setPlaceDetails(placeDetails: PlaceDetails, placeDetailsDelay: number = 0) {
         GoogleMapsClientStub.placeDetails = placeDetails;
         GoogleMapsClientStub.placeDetailsDelay = placeDetailsDelay;
+    }
+
+    static setPlaceDetailsPromise(placeDetails: PlaceDetails) {
+        let resolve = null, reject = null;
+        GoogleMapsClientStub.setPlaceDetails(placeDetails);
+        GoogleMapsClientStub.placeDetailsPromise = new Promise((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
+        return {resolve, reject};
     }
 
     static reset() {
