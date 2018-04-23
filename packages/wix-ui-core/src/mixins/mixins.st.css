@@ -1,4 +1,4 @@
-.ellipsis {
+.ellipsisMixin {
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;

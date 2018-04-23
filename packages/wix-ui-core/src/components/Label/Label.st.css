@@ -1,6 +1,6 @@
 :import {
     -st-from: '../../mixins/mixins.st.css';
-    -st-named: ellipsis;
+    -st-named: ellipsisMixin;
 }
 
 
@@ -9,5 +9,5 @@
 }
 
 .root:ellipsis {
-  -st-mixin: ellipsis;
+  -st-mixin: ellipsisMixin;
 }
