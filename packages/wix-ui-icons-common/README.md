@@ -13,4 +13,5 @@
 * Run `npm run build`
 * You can now import your icon by name from the `wix-ui-icons-common` folder! For example: `import {Add} from 'wix-ui-icons-common/Add';`
 
+
 **Notice that during `npm run build` the SVG files go through various optimizations hence it is recommended to validate the outcome of the icons in storybook!**
