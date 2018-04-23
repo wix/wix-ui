@@ -5,10 +5,14 @@ import style from './Popover.st.css';
 import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
-import {buildChildrenObject, createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-import camelCase = require('lodash/camelCase');
+import {
+  attachStylesToNode,
+  buildChildrenObject,
+  createComponentThatRendersItsChildren,
+  detachStylesFromNode,
+  ElementProps
+} from '../../utils';
 import isElement = require('lodash/isElement');
-import * as classNames from 'classnames';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -42,7 +46,7 @@ export interface PopoverProps {
   /** Show show arrow from the content */
   showArrow?: boolean;
   /** Moves poppover relative to the parent */
-  moveBy?: {x: number, y: number};
+  moveBy?: { x: number, y: number };
   /** Fade Delay */
   hideDelay?: number;
   /** Show Delay */
@@ -108,28 +112,6 @@ const getMountingNode = ({appendTo, targetRef}) => {
   return mountingNode;
 };
 
-//TODO - needs some refactoring
-const attachStylesToNode = ({node, stylesObj}) => {
-  if (node) {
-    node.classList.add(stylesObj.className);
-    Object.keys(stylesObj)
-      .filter(key => key.startsWith('data-'))
-      .map(key => key.replace(/$data-/, ''))
-      .forEach(key => node.dataset[camelCase(key)] = stylesObj[key]);
-  }
-};
-
-//TODO - needs some refactoring
-const detachStylesFromNode = ({node, stylesObj}) => {
-  if (node) {
-    node.classList.remove(stylesObj.className);
-    Object.keys(stylesObj)
-      .filter(key => key.startsWith('data-'))
-      .map(key => key.replace(/$data-/, ''))
-      .forEach(key => delete node.dataset[camelCase(key)]);
-  }
-};
-
 /**
  * Popover
  */
@@ -142,7 +124,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   targetRef = null;
   mountingNode: HTMLElement = null;
-  stylesObj: any = null;
+  stylesObj = null;
 
   constructor(props: PopoverProps) {
     super(props);
@@ -152,7 +134,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     };
   }
 
-  renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject}) => {
+  renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode}) => {
     const popper = (
       <Popper
         data-hook="popover-content"
@@ -176,23 +158,17 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       </Popper>
     );
 
-    attachStylesToNode({node: this.mountingNode, stylesObj: this.stylesObj});
-
     return (
-      this.mountingNode ?
-        <Portal node={this.mountingNode}>
+      mountingNode ?
+        <Portal node={mountingNode}>
           {popper}
         </Portal> :
         popper
     );
-  };
+  }
 
   componentDidMount() {
     this.setState({isMounted: true});
-  }
-
-  componentWillUnmount() {
-    detachStylesFromNode({node: this.mountingNode, stylesObj: this.stylesObj});
   }
 
   render() {
@@ -215,8 +191,14 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const modifiers = createModifiers({moveBy, appendTo});
-    this.stylesObj = style('root', {}, this.props);
-    this.mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
+    const stylesObj = style('root', {}, this.props);
+    const mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
+
+    if (shown) {
+      attachStylesToNode(mountingNode, stylesObj);
+    } else {
+      detachStylesFromNode(mountingNode, stylesObj);
+    }
 
     return (
       <Manager
@@ -232,12 +214,12 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         {
           !!timeout && isMounted &&
           <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-            {this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})}
+            {this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode})}
           </CSSTransition>
         }
         {
           !timeout && shown && isMounted &&
-          this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject})
+          this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode})
         }
       </Manager>
     );

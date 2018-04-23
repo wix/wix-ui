@@ -1,5 +1,10 @@
 import * as React from 'react';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from './';
+import {
+  buildChildrenObject,
+  attachStylesToNode,
+  createComponentThatRendersItsChildren,
+  detachStylesFromNode
+} from './';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {
@@ -19,7 +24,9 @@ describe('Utils', () => {
     it('should return a children object when rendered with component', () => {
       const displayName = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component><div/></Component>;
+      const children = <Component>
+        <div/>
+      </Component>;
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayName].type.displayName).toEqual(displayName);
@@ -29,7 +36,9 @@ describe('Utils', () => {
       const displayName = 'a.b.c.b.componentName';
       const displayNameWithoutNamespace = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component><div/></Component>;
+      const children = <Component>
+        <div/>
+      </Component>;
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayNameWithoutNamespace].type.displayName).toEqual(displayName);
@@ -45,8 +54,12 @@ describe('Utils', () => {
       const SecondComponent = createComponentThatRendersItsChildren(secondComponentDisplayName);
 
       const children = [];
-      children.push(<FirstComponent><div/></FirstComponent>);
-      children.push(<SecondComponent><div/></SecondComponent>);
+      children.push(<FirstComponent>
+        <div/>
+      </FirstComponent>);
+      children.push(<SecondComponent>
+        <div/>
+      </SecondComponent>);
 
       const childrenObject = buildChildrenObject(children, {});
 
@@ -70,5 +83,30 @@ describe('Utils', () => {
       const props = {children: {prop: 'value'}};
       expect(component(props)).toEqual(props.children);
     });
-   });
+  });
+
+  describe('node styles attachment', () => {
+    const attributeName = 'data-att';
+    const stylesObj = {
+      className: 'CN',
+      [attributeName]: 'ribute'
+    };
+
+    it('should attach styles to node', () => {
+      const node = document.createElement('div');
+      attachStylesToNode(node, stylesObj);
+      expect(node.classList.contains(stylesObj.className)).toBeTruthy();
+      expect(node.getAttribute(attributeName)).toBe(stylesObj[attributeName]);
+    });
+
+    it('should remove styles from node', () => {
+      const node = document.createElement('div');
+      node.className = stylesObj.className;
+      node.setAttribute(attributeName, stylesObj[attributeName]);
+
+      detachStylesFromNode(node, stylesObj);
+      expect(node.classList.contains(stylesObj.className)).toBeFalsy();
+      expect(node.getAttribute(attributeName)).not.toBe(stylesObj[attributeName]);
+    });
+  });
 });
