@@ -61,3 +61,6 @@ export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(la
 
 import {vBoxDriverFactory} from '../components/VBox/VBox.protractor.driver';
 export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);
+
+import {thumbnailDriverFactory} from '../components/Thumbnail/Thumbnail.protractor.driver';
+export const thumbnailTestkitFactory = protractorTestkitFactoryCreator(thumbnailDriverFactory);

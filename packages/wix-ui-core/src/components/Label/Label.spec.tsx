@@ -28,6 +28,18 @@ describe('Label', () => {
     expect(label.getForAttribute()).toBe('hey');
   });
 
+  it('takes a disabled prop', async () => {
+    const label = createDriver(<Label disabled />);
+
+    expect(label.isDisabled()).toBe(true);
+  });
+
+  it('should not be disabled by default', async () => {
+    const label = createDriver(<Label />);
+
+    expect(label.isDisabled()).toBe(false);
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Label />, labelTestkitFactory)).toBe(true);

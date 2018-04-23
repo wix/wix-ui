@@ -281,64 +281,83 @@ describe('AddressInput', () => {
         });
     });
 
-    describe.skip('Stale requests', () => {
+    describe('Stale requests', () => {
         it('Should ignore stale requests - autocomplete', async () => {
-            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1], 100);
+            init({throttleInterval: 0});
+            const firstRequest = GoogleMapsClientStub.setAddressesPromise([helper.ADDRESS_1]);
             driver.click();
             driver.setValue('n');
 
-            GoogleMapsClientStub.setAddresses([helper.ADDRESS_2], 1);
+            const secondRequest = GoogleMapsClientStub.setAddressesPromise([helper.ADDRESS_2]);
             driver.setValue('ne');
 
-            await sleep(250);
+            secondRequest.resolve();
+
+            await waitForCond(() => driver.isContentElementExists());
+
             expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
+
+            firstRequest.resolve();
+
+            await waitForCond.assertHold(() => {
+                expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
+            }, 1000, 'Address description changed');
         });
 
         it('Should ignore stale requests - geocode', async () => {
+            init({throttleInterval: 0});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
-            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1, 1000);
+            const firstRequest = GoogleMapsClientStub.setGeocodePromise(helper.GEOCODE_1);
             driver.click();
             driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
             driver.optionAt(0).click();
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
-            GoogleMapsClientStub.setGeocode(helper.GEOCODE_2, 1);
+            const secondRequest = GoogleMapsClientStub.setGeocodePromise(helper.GEOCODE_2);
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
 
-            await sleep(250);
-            expect(onSelectSpy).toHaveBeenCalledWith({
-                originValue: helper.ADDRESS_DESC_2,
-                googleResult: helper.GEOCODE_2,
-                address: helper.INTERNAL_ADDRESS_GEOCODE_2
+            secondRequest.resolve();
+            firstRequest.resolve();
+
+            return eventually(() => {
+                expect(onSelectSpy).toHaveBeenCalledWith({
+                    originValue: helper.ADDRESS_DESC_2,
+                    googleResult: helper.GEOCODE_2,
+                    address: helper.INTERNAL_ADDRESS_GEOCODE_2
+                });
+                expect(onSelectSpy).toHaveBeenCalledTimes(1);
             });
-            expect(onSelectSpy).toHaveBeenCalledTimes(1);
         });
 
         it('Should ignore stale requests - placeDetails', async () => {
             init({handler: Handler.places});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
-            GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_1, 1000);
+            const firstRequest = GoogleMapsClientStub.setPlaceDetailsPromise(helper.PLACE_DETAILS_1);
             driver.click();
             driver.setValue('n');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_1, driver);
             driver.optionAt(0).click();
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
-            GoogleMapsClientStub.setPlaceDetails(helper.PLACE_DETAILS_2, 1);
+            const secondRequest = GoogleMapsClientStub.setPlaceDetailsPromise(helper.PLACE_DETAILS_2);
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
 
-            await sleep(250);
-            expect(onSelectSpy).toHaveBeenCalledWith({
-                originValue: helper.ADDRESS_DESC_2,
-                googleResult: helper.PLACE_DETAILS_2,
-                address: helper.INTERNAL_ADDRESS_PLACE_DETAILS_2
+            secondRequest.resolve();
+            firstRequest.resolve();
+
+            return eventually(() => {
+                expect(onSelectSpy).toHaveBeenCalledWith({
+                    originValue: helper.ADDRESS_DESC_2,
+                    googleResult: helper.PLACE_DETAILS_2,
+                    address: helper.INTERNAL_ADDRESS_PLACE_DETAILS_2
+                });
+                expect(onSelectSpy).toHaveBeenCalledTimes(1);
             });
-            expect(onSelectSpy).toHaveBeenCalledTimes(1);
         });
     });
 

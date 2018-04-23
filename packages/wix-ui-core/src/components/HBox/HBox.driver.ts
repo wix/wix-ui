@@ -1,4 +1,4 @@
-export const hboxDriverFactory = ({element}) => {
+export const hBoxDriverFactory = ({element}) => {
   return {
     /** check if element exists */
     exists: () => !!element,
