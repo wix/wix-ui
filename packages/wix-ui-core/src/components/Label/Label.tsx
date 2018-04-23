@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string} from 'prop-types';
+import {string, bool} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
@@ -10,11 +10,16 @@ export interface LabelProps {
   ellipsis?: boolean;
 }
 
+const defaultProps: LabelProps = {
+  ellipsis: false
+};
+
 /**
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  return <label {...style('root', {ellipsis: props.ellipsis}, props)} htmlFor={props.for} id={props.id}>{props.children}</label>;
+  const {id, children, ellipsis} = props;
+  return <label {...style('root', {ellipsis}, props)} htmlFor={props.for} id={id}>{children}</label>;
 };
 
 Label.propTypes = {
@@ -25,5 +30,9 @@ Label.propTypes = {
   /** For property */
   for: string,
   /** ID of element */
-  id: string
+  id: string,
+  /** should the text be ellipsed or not */
+  ellipsis: bool
 };
+
+Label.defaultProps = defaultProps;
