@@ -1,33 +1,13 @@
-:import {
-  -st-from: "../../mixins/calc";
-  -st-default: calc
-}
-
-:vars {
-  tickerInset: 6px;
-  borderWidth: 0px;
-}
-
 .root {
-  position: absolute;
-  right: value(tickerInset);
-  top: value(borderWidth);
-  height: calc(100% - 2 * value(borderWidth));
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  z-index: 1;
-}
-
-:global([dir="rtl"]) .root {
-  right: auto;
-  left: value(tickerInset);
+  vertical-align: top;
 }
 
 .ticker {
   border: none;
   outline: none;
   cursor: pointer;
-  stroke: black;
   background-color: transparent;
   padding: 0;
   margin: 0;

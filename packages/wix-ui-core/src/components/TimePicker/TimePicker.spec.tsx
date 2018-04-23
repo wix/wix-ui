@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {TimePicker, FIELD} from './index';
+import {TimePicker} from './index';
+import {FIELD} from './constants';
 import {convertToAmPm} from './utils';
 import {timePickerDriverFactory} from './TimePicker.driver';
 
@@ -20,7 +21,6 @@ describe('TimePicker', () => {
     return {
       callIncrement: (field?: FIELD) => reactTimePicker.increment(field),
       callDecrement: (field?: FIELD) => reactTimePicker.decrement(field),
-      callFocus: () => reactTimePicker.focus(),
       focus: () => reactInput.simulate('focus'),
       blur: () => reactInput.simulate('blur'),
       tab: () => reactInput.simulate('keyDown', {key: 'Tab'}),
@@ -143,15 +143,6 @@ describe('TimePicker', () => {
         });
       });
     });
-
-    describe('focus', () => {
-      it('should focus the input element', () => {
-        const driver = createDriverWithComponent();
-        expect(document.activeElement).not.toBe(driver.getInputElement());
-        driver.callFocus();
-        expect(document.activeElement).toBe(driver.getInputElement());
-      });
-    });
   });
 
   describe('onChange prop', () => {
@@ -235,26 +226,6 @@ describe('TimePicker', () => {
     });
   });
 
-  describe('separateSteps prop', () => {
-    it('should default to false', () => {
-      const driver = createDriverWithComponent({value: '10:59'});
-      driver.callIncrement();
-      expect(driver.getValue()).toEqual('11:00');
-    });
-
-    it('should increment hour when incrementing one minute over 59, when false', () => {
-      const driver = createDriverWithComponent({value: '10:59', separateSteps: false});
-      driver.callIncrement();
-      expect(driver.getValue()).toEqual('11:00');
-    });
-
-    it('should not increment hour when incrementing one minute over 59, when true', () => {
-      const driver = createDriverWithComponent({value: '10:59', separateSteps: true});
-      driver.callIncrement();
-      expect(driver.getValue()).toEqual('10:00');
-    });
-  });
-
   describe('value prop', () => {
     it('should use blank "--:--" as default', () => {
       const driver = createDriver(<TimePicker />);
@@ -304,18 +275,6 @@ describe('TimePicker', () => {
     it('should ignore this prop when value is set', () => {
       const driver = createDriver(<TimePicker value = {SOME_VALUE} placeholder = {SOME_VALUE_WHEN_NULL} />);
       expect(driver.getValue()).toEqual(SOME_VALUE);
-    });
-  });
-
-  describe('showTickers prop', () => {
-    it('should default to true', () => {
-      const driver = createDriver(<TimePicker/>);
-      expect(driver.getTickers()).not.toBe(undefined);
-    });
-
-    it('should hide tickers when set to false', () => {
-      const driver = createDriver(<TimePicker showTickers={false}/>);
-      expect(driver.getTickers()).toBe(null);
     });
   });
 

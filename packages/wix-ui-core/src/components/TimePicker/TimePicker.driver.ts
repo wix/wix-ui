@@ -1,5 +1,4 @@
 import {inputDriverFactory} from '../../components/Input/Input.driver';
-import {FIELD} from './';
 
 export const timePickerDriverFactory = ({element, eventTrigger}) => {
   const inputDriver = inputDriverFactory({element, eventTrigger});
@@ -23,13 +22,5 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     blur: () => inputDriver.blur(),
     /** returns the ticker group element */
     getTickers: () => inputDriver.getPrefix(),
-
-    /** returns elements innerHtml */
-    styles: {
-      /** returns elements display css property */
-      getRootDisplay: () => window.getComputedStyle(element).display,
-      /** returns elements border-radius css property */
-      getBorderRadius: () => window.getComputedStyle(element.querySelector('.outerLabel')).borderRadius
-    }
   };
 };
