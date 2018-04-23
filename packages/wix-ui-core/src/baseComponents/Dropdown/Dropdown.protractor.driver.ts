@@ -1,8 +1,13 @@
-import {popoverDriverFactory} from '../Popover/Popover.protractor.driver';
-import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.protractor.driver';
+import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
+import {popoverDriverFactory, PopoverDriver} from '../Popover/Popover.protractor.driver';
+import {dropdownContentDriverFactory, DropdownContentDriver} from '../DropdownContent/DropdownContent.protractor.driver';
 
-export const dropdownDriverFactory = component => {
-  const popoverDriver = popoverDriverFactory(component);
+export interface DropdownDriver extends PopoverDriver {
+  dropdownContent: () => DropdownContentDriver;
+}
+
+export const dropdownDriverFactory: DriverFactory<DropdownDriver> = component => {
+  const popoverDriver: PopoverDriver = popoverDriverFactory(component);
 
   return Object.assign(
     {},

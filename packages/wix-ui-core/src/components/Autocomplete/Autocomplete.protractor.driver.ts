@@ -1,1 +1,4 @@
-export {inputWithOptionsDriverFactory as autocompleteDriverFactory} from '../../baseComponents/InputWithOptions/InputWithOptions.protractor.driver';
+export {
+  inputWithOptionsDriverFactory as autocompleteDriverFactory,
+  InputWithOptionsDriver as AutocompleteDriver
+} from '../../baseComponents/InputWithOptions/InputWithOptions.protractor.driver';
