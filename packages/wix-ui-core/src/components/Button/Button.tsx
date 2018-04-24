@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {bool, func, object, any, oneOf, string} from 'prop-types';
 import style from './Button.st.css';
-import {BaseProps} from '../../common/BaseProps';
+import {BaseProps} from '../../types/BaseProps';
 
 export interface ButtonProps extends BaseProps, React.ButtonHTMLAttributes<any> {
   /** Type of the button - submit / button / reset */
