@@ -9,7 +9,6 @@ export interface ButtonDriver {
    click: () => Promise<void>;
    /** checks wether the button is disabled */
    isButtonDisabled: () => Promise<boolean>;
-
 }
 
 export const buttonDriverFactory: (element: ElementFinder  ) => ButtonDriver = element => ({
