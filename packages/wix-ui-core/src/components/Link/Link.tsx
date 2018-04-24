@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string, Requireable} from 'prop-types';
+import {node, string, Requireable} from 'prop-types';
 
 import style from './Link.st.css';
 
@@ -10,17 +10,19 @@ export interface LinkProps {
   /* children to be rendered inside Link */
   children?: any;
 
-  dataHook: string;
+  dataHook?: string;
 }
 
 /**
  * Link
  */
-export class Link extends React.PureComponent<LinkProps> {
+export class Link extends React.PureComponent<LinkProps & React.AnchorHTMLAttributes<HTMLElement>> {
   static displayName = 'Link';
 
   static propTypes = {
-    src: string
+    src: string,
+    children: node,
+    dataHook: string
   };
 
   static defaultProps: Partial<LinkProps> = {

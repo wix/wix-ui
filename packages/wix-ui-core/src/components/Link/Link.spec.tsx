@@ -69,7 +69,7 @@ describe('Link', () => {
       const link = createDriver(
         <Link
           target="wix"
-          data-hook="hooked"
+          dataHook="hooked"
           onFocus={onFocusSpy}
           onBlur={onBlurSpy}
           onKeyDown={onKeyDownSpy}
