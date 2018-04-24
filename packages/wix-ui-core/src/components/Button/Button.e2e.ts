@@ -2,8 +2,7 @@ import * as eyes from 'eyes.it';
 import {browser, ExpectedConditions as EC} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
-import {buttonTestkitFactory} from '../../testkit/protractor';
-import {ButtonDriver} from './Button.protractor.driver';
+import {buttonTestkitFactory, ButtonDriver} from '../../testkit/protractor';
 
 describe('Button', () => {
   const storyUrl = getStoryUrl('Components', 'Button');
@@ -17,13 +16,19 @@ describe('Button', () => {
     await autoExampleDriver.reset();
   });
 
-  it('should not be disabled by default', async () => {
-    expect(await driver.isButtonDisabled()).toBeFalsy();
+  eyes.it('should display correct text content', async () => {
+    expect(await driver.getButtonTextContent()).toBe('I\'m a Button!');
   });
 
-  it('should be disabled', async () => {
-    await autoExampleDriver.setProps({disabled: true});
-    expect(await driver.isButtonDisabled()).toBeTruthy();
+  describe('disabled', () => {
+    it('should not be disabled by default', async () => {
+      expect(await driver.isButtonDisabled()).toBeFalsy();
+    });
+
+    it('should be disabled', async () => {
+      await autoExampleDriver.setProps({disabled: true});
+      expect(await driver.isButtonDisabled()).toBeTruthy();
+    });
   });
 
   it('should call onClicked when clicked', async () => {
@@ -33,9 +38,5 @@ describe('Button', () => {
       .then(() => {
         browser.switchTo().alert().accept();
       });
-  });
-
-  eyes.it('should display correct text content', async () => {
-    expect(await driver.getButtonTextContent()).toBe('I\'m a Button!');
   });
 });
