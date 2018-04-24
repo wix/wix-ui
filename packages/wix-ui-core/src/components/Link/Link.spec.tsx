@@ -25,15 +25,14 @@ describe('Link', () => {
     expect(link.isAnchor()).toBe(true);
   });
 
-  describe('`src` prop', () => {
-    it('should render anchor with href from `src`', () => {
-      const link = createDriver(<Link src="test"/>);
-      expect(link.getSrc()).toBe('test');
+  describe('`href` prop', () => {
+    it('should render `href` attribute', () => {
+      const link = createDriver(<Link href="test"/>);
+      expect(link.getAttribute('href')).toBe('test');
     });
 
-    it('should not add `href` when not `src` prop missing', () => {
+    it('should not add `href` attribute when prop missing', () => {
       const link = createDriver(<Link/>);
-      expect(link.getSrc()).toBe(undefined);
       expect(link.getAttribute('href')).toBe(undefined);
     });
   });
@@ -69,7 +68,7 @@ describe('Link', () => {
       const link = createDriver(
         <Link
           target="wix"
-          dataHook="hooked"
+          data-hook="hooked"
           onFocus={onFocusSpy}
           onBlur={onBlurSpy}
           onKeyDown={onKeyDownSpy}
@@ -78,8 +77,8 @@ describe('Link', () => {
         </Link>
       );
 
-      expect(link.getAttribute('target').value).toEqual('wix');
-      expect(link.getAttribute('data-hook').value).toEqual('hooked');
+      expect(link.getAttribute('target')).toEqual('wix');
+      expect(link.getAttribute('data-hook')).toEqual('hooked');
 
       link.trigger('focus');
       link.trigger('blur');

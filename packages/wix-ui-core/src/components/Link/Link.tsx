@@ -1,28 +1,21 @@
 import * as React from 'react';
-import {node, string, Requireable} from 'prop-types';
+import {node, Requireable} from 'prop-types';
 
 import style from './Link.st.css';
 
-export interface LinkProps {
-  /* a url to be opened on link click */
-  src?: string;
-
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLElement> {
   /* children to be rendered inside Link */
   children?: any;
-
-  dataHook?: string;
 }
 
 /**
  * Link
  */
-export class Link extends React.PureComponent<LinkProps & React.AnchorHTMLAttributes<HTMLElement>> {
+export class Link extends React.PureComponent<LinkProps> {
   static displayName = 'Link';
 
   static propTypes = {
-    src: string,
-    children: node,
-    dataHook: string
+    children: node
   };
 
   static defaultProps: Partial<LinkProps> = {
@@ -30,14 +23,12 @@ export class Link extends React.PureComponent<LinkProps & React.AnchorHTMLAttrib
   };
 
   render() {
-    const {src: href, children, dataHook, ...rest} = this.props;
+    const {children, ...rest} = this.props;
 
     return React.createElement(
       children.type === 'a' ? 'span' : 'a',
       {
-        href,
         children,
-        'data-hook': dataHook,
         ...style('root', {}, this.props),
         ...rest
       }
