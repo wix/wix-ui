@@ -12,6 +12,7 @@ import {
   detachStylesFromNode,
   ElementProps
 } from '../../utils';
+import * as classNames from 'classnames';
 import isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
@@ -131,88 +132,96 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     };
   }
 
-  renderPopper = ({modifiers, childrenObject, mountingNode, stylesObj, shouldAnimate}) => {
-    const {placement, showArrow, moveArrowTo, timeout, shown} = this.props;
+  getPopperContentStructure(childrenObject) {
+    const {appendTo, placement, showArrow, moveArrowTo} = this.props;
+    const modifiers = createModifiers({moveBy, appendTo});
+
     let popper = (
       <Popper
         data-hook="popover-content"
         modifiers={modifiers}
         placement={placement}
-        className={`${style.popover} ${showArrow ? style.withArrow : style.popoverContent}`}>
+        className={classNames(style.popover, {[style.withArrow]: showArrow, [style.popoverContent]: !showArrow})}>
         {
-          showArrow &&
-          <Arrow data-hook="popover-arrow" className={style.arrow} style={getArrowShift(moveArrowTo, placement)}/>
-        }
-        {
-          showArrow &&
-          <div className={style.popoverContent}>
-            {childrenObject.Content}
-          </div>
-        }
-        {
-          !showArrow &&
-          childrenObject.Content
+          showArrow ?
+            [
+              <Arrow data-hook="popover-arrow" className={style.arrow} style={getArrowShift(moveArrowTo, placement)}/>,
+              <div className={style.popoverContent}>{childrenObject.Content}</div>
+            ] :
+            childrenObject.Content
         }
       </Popper>
     );
 
-    if (shouldAnimate) {
-      popper = (
-        <CSSTransition
-          in={shown}
-          timeout={Number(timeout)}
-          unmountOnExit={true}
-          classNames={style.popoverAnimation}
-          onExited={() => detachStylesFromNode(mountingNode, stylesObj)}
-        >
-          {popper}
-        </CSSTransition>
-      );
+    return this.wrapWithAnimations(popper);
+  }
+
+  attachOrDetachStyles(props) {
+    const {shown, timeout} = props;
+    const shouldAnimate = !!timeout;
+
+    if (this.mountingNode) {
+      if (shouldAnimate) {
+        attachStylesToNode(this.mountingNode, this.stylesObj);
+      } else if (shown) {
+        attachStylesToNode(this.mountingNode, this.stylesObj);
+      } else {
+        detachStylesFromNode(this.mountingNode, this.stylesObj);
+      }
     }
+  }
+
+  wrapWithAnimations(popper) {
+    const {timeout, shown} = this.props;
+    const shouldAnimate = !!timeout;
+    return shouldAnimate ?
+      <CSSTransition
+        in={shown}
+        timeout={Number(timeout)}
+        unmountOnExit={true}
+        classNames={style.popoverAnimation}
+        onExited={() => detachStylesFromNode(this.mountingNode, this.stylesObj)}
+      >
+        {popper}
+      </CSSTransition> :
+      popper;
+  }
+
+  renderPopperContent(childrenObject) {
+    const popper = this.getPopperContentStructure(childrenObject);
 
     return (
-      mountingNode ?
-        <Portal node={mountingNode}>
+      this.mountingNode ?
+        <Portal node={this.mountingNode}>
           {popper}
         </Portal> :
         popper
     );
   }
 
+  defineMountingNode(props) {
+    const {appendTo} = props;
+    this.mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
+    this.stylesObj = style('root', {}, props);
+    this.attachOrDetachStyles(props);
+  }
+
   componentDidMount() {
+    this.defineMountingNode(this.props);
     this.setState({isMounted: true});
   }
 
-  render() {
-    const {
-      shown,
-      onMouseEnter,
-      onMouseLeave,
-      onKeyDown,
-      onClick,
-      children,
-      moveBy,
-      timeout,
-      appendTo
-    } = this.props;
+  componentWillReceiveProps(nextProps) {
+    this.defineMountingNode(this.props);
+  }
 
+  render() {
+    const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, timeout, shown} = this.props;
     const {isMounted} = this.state;
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
-    const modifiers = createModifiers({moveBy, appendTo});
-    const stylesObj = style('root', {}, this.props);
-    const mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
     const shouldAnimate = !!timeout;
-    const shouldRenderPopper = shouldAnimate || shown;
-
-    //TODO - refactor this area
-    if (isMounted) {
-      if (shouldRenderPopper) {
-        attachStylesToNode(mountingNode, stylesObj);
-      } else if (!shouldAnimate) {
-        detachStylesFromNode(mountingNode, stylesObj);
-      }
-    }
+    const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
       <Manager
@@ -225,15 +234,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
             {childrenObject.Element}
           </span>
         </Target>
-        {
-          isMounted && shouldRenderPopper && this.renderPopper({
-            modifiers,
-            childrenObject,
-            mountingNode,
-            stylesObj,
-            shouldAnimate
-          })
-        }
+        {shouldRenderPopper && this.renderPopperContent(childrenObject)}
       </Manager>
     );
   }
