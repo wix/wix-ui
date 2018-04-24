@@ -23,6 +23,7 @@ import './VBox/index.story';
 import './LabelWithOptions.story';
 import './Slider.story';
 import './Label.story';
+import './Link.story';
 import './StylableBadge.story';
 import './StylableText.story';
 import './TimePicker.story';

@@ -89,3 +89,7 @@ export {VBoxDriver};
 import {thumbnailDriverFactory, ThumbnailDriver} from '../components/Thumbnail/Thumbnail.protractor.driver';
 export const thumbnailTestkitFactory = protractorTestkitFactoryCreator(thumbnailDriverFactory);
 export {ThumbnailDriver};
+
+import {linkDriverFactory, LinkDriver} from '../components/Link/Link.protractor.driver';
+export const linkTestkitFactory = protractorTestkitFactoryCreator(linkDriverFactory);
+export {LinkDriver};
