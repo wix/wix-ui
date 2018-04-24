@@ -9,15 +9,14 @@ export interface LinkProps {
 
   /* children to be rendered inside Link */
   children?: any;
-}
 
-export interface LinkState {
+  dataHook: string;
 }
 
 /**
  * Link
  */
-export class Link extends React.PureComponent<LinkProps, LinkState> {
+export class Link extends React.PureComponent<LinkProps> {
   static displayName = 'Link';
 
   static propTypes = {
@@ -37,6 +36,7 @@ export class Link extends React.PureComponent<LinkProps, LinkState> {
         href,
         children,
         'data-hook': dataHook,
+        ...style('root', {}, this.props),
         ...rest
       }
     );
