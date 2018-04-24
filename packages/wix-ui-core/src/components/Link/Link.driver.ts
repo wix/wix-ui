@@ -1,4 +1,4 @@
-export const linkDriverFactory = ({element}) => {
+export const linkDriverFactory = ({element, eventTrigger}) => {
   const getAttribute = attribute => element.attributes[attribute];
 
   return {
@@ -11,6 +11,7 @@ export const linkDriverFactory = ({element}) => {
       return href && href.value;
     },
 
-    getChildren: () => element.innerHTML
+    getChildren: () => element.innerHTML,
+    trigger: (eventName, event = {}) => eventTrigger[eventName](element, event)
   };
 };

@@ -1,4 +1,4 @@
-/* global describe it expect */
+/* global describe it expect jest */
 
 import * as React from 'react';
 // import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
@@ -48,6 +48,47 @@ describe('Link', () => {
       const link = createDriver(<Link><a>hello</a></Link>);
       expect(link.getChildren()).toBe('<a>hello</a>');
       expect(link.isAnchor()).toBe(false);
+    });
+  });
+
+  describe('`onClick` prop', () => {
+    it('should call given function', () => {
+      const spy = jest.fn();
+      const link = createDriver(<Link onClick={spy}/>);
+      link.trigger('click');
+      expect(spy.mock.calls.length).toBe(1);
+    });
+  });
+
+  describe('other props', () => {
+    it('should be passed without modification', () => {
+      const onFocusSpy = jest.fn();
+      const onBlurSpy = jest.fn();
+      const onKeyDownSpy = jest.fn();
+
+      const link = createDriver(
+        <Link
+          target="wix"
+          data-hook="hooked"
+          onFocus={onFocusSpy}
+          onBlur={onBlurSpy}
+          onKeyDown={onKeyDownSpy}
+          >
+          hello
+        </Link>
+      );
+
+      expect(link.getAttribute('target').value).toEqual('wix');
+      expect(link.getAttribute('data-hook').value).toEqual('hooked');
+
+      link.trigger('focus');
+      link.trigger('blur');
+      link.trigger('keyDown', {keyCode: 13});
+
+      expect(onFocusSpy.mock.calls.length).toEqual(1);
+      expect(onBlurSpy.mock.calls.length).toEqual(1);
+      expect(onKeyDownSpy.mock.calls[0][0].keyCode).toEqual(13);
+
     });
   });
 });
