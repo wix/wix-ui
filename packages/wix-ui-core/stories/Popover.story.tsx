@@ -10,11 +10,9 @@ export default {
   componentProps: {
     'data-hook': 'storybook-popover',
     children: [<Popover.Element>element</Popover.Element>, <Popover.Content>Content</Popover.Content>],
-    appendTo: 'window',
+    appendTo: 'window', //null, 'scrollParent', 'viewport'
     shown: true,
-    showArrow: true
-  },
-  exampleProps: {
-    appendTo: [null, 'scrollParent', 'viewport', 'window']  //TODO - should display in storybook somehow
+    showArrow: true,
+    timeout: 150
   }
 };

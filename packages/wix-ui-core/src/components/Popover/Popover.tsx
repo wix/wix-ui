@@ -118,9 +118,6 @@ const getMountingNode = ({appendTo, targetRef}) => {
 export class Popover extends React.Component<PopoverType, PopoverState> {
   static Element = createComponentThatRendersItsChildren('Popover.Element');
   static Content = createComponentThatRendersItsChildren('Popover.Content');
-  static defaultProps = {
-    timeout: 150
-  };
 
   targetRef = null;
   mountingNode: HTMLElement = null;
@@ -134,8 +131,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     };
   }
 
-  renderPopper = ({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode}) => {
-    const popper = (
+  renderPopper = ({modifiers, childrenObject, mountingNode, stylesObj, shouldAnimate}) => {
+    const {placement, showArrow, moveArrowTo, timeout, shown} = this.props;
+    let popper = (
       <Popper
         data-hook="popover-content"
         modifiers={modifiers}
@@ -158,6 +156,20 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       </Popper>
     );
 
+    if (shouldAnimate) {
+      popper = (
+        <CSSTransition
+          in={shown}
+          timeout={Number(timeout)}
+          unmountOnExit={true}
+          classNames={style.popoverAnimation}
+          onExited={() => detachStylesFromNode(mountingNode, stylesObj)}
+        >
+          {popper}
+        </CSSTransition>
+      );
+    }
+
     return (
       mountingNode ?
         <Portal node={mountingNode}>
@@ -173,16 +185,13 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   render() {
     const {
-      placement,
       shown,
       onMouseEnter,
       onMouseLeave,
       onKeyDown,
       onClick,
-      showArrow,
       children,
       moveBy,
-      moveArrowTo,
       timeout,
       appendTo
     } = this.props;
@@ -193,11 +202,16 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const modifiers = createModifiers({moveBy, appendTo});
     const stylesObj = style('root', {}, this.props);
     const mountingNode = getMountingNode({appendTo, targetRef: this.targetRef});
+    const shouldAnimate = !!timeout;
+    const shouldRenderPopper = shouldAnimate || shown;
 
-    if (shown) {
-      attachStylesToNode(mountingNode, stylesObj);
-    } else {
-      detachStylesFromNode(mountingNode, stylesObj);
+    //TODO - refactor this area
+    if (isMounted) {
+      if (shouldRenderPopper) {
+        attachStylesToNode(mountingNode, stylesObj);
+      } else if (!shouldAnimate) {
+        detachStylesFromNode(mountingNode, stylesObj);
+      }
     }
 
     return (
@@ -212,14 +226,13 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
           </span>
         </Target>
         {
-          !!timeout && isMounted &&
-          <CSSTransition in={shown} timeout={Number(timeout)} unmountOnExit={true} classNames={style.popoverAnimation}>
-            {this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode})}
-          </CSSTransition>
-        }
-        {
-          !timeout && shown && isMounted &&
-          this.renderPopper({modifiers, placement, showArrow, moveArrowTo, childrenObject, mountingNode})
+          isMounted && shouldRenderPopper && this.renderPopper({
+            modifiers,
+            childrenObject,
+            mountingNode,
+            stylesObj,
+            shouldAnimate
+          })
         }
       </Manager>
     );
