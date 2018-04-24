@@ -212,7 +212,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.defineMountingNode(this.props);
+    this.defineMountingNode(nextProps);
   }
 
   render() {
