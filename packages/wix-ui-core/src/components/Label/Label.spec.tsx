@@ -28,6 +28,30 @@ describe('Label', () => {
     expect(label.getForAttribute()).toBe('hey');
   });
 
+  describe('ellipsis attribute', () => {
+    it('should not have ellipsis by default', () => {
+      const driver = createDriver(<Label>Hello World</Label>);
+      expect(driver.hasEllipsis()).toBeFalsy();
+    });
+
+    it('should have ellipsis', () => {
+      const driver = createDriver(<Label ellipsis>Hello World</Label>);
+      expect(driver.hasEllipsis()).toBeTruthy();
+    });
+  });
+
+  it('takes a disabled prop', async () => {
+    const label = createDriver(<Label disabled />);
+
+    expect(label.isDisabled()).toBe(true);
+  });
+
+  it('should not be disabled by default', async () => {
+    const label = createDriver(<Label />);
+
+    expect(label.isDisabled()).toBe(false);
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Label />, labelTestkitFactory)).toBe(true);

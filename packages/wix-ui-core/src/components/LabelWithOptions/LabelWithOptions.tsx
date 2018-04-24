@@ -32,6 +32,8 @@ export interface LabelWithOptionsProps {
   placeholder?: string;
   /** if set to true an error will be rendered when no options are selected */
   required?: boolean;
+  /** If set to true, the label will display an ellipsis when overflowing */
+  ellipsis?: boolean;
   /** Suffix */
   renderSuffix?: (isError: boolean) => React.ReactNode;
   checkbox?: boolean;
@@ -68,6 +70,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     placeholder: string,
     /** if set to true an error will be rendered when no options are selected */
     required: bool,
+    /** If set to true, the label will display an ellipsis when overflowing */
+    ellipsis: bool,
     /** Suffix */
     renderSuffix: func
   };
@@ -98,7 +102,8 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
       fixedFooter,
       fixedHeader,
       multi,
-      checkbox
+      checkbox,
+      ellipsis
     } = this.props;
 
     const {
@@ -124,6 +129,7 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         <div className={style.selection}>
           <Label
             className={`${style.label} ${selectedIds && selectedIds.length ? '' : style.placeholder}`.trim()}
+            ellipsis={ellipsis}
             data-hook="label">
             {this.createLabel()}
           </Label>

@@ -1,12 +1,14 @@
+:import {
+    -st-from: '../../mixins/mixins.st.css';
+    -st-named: ellipsisMixin;
+}
+
 .root {
     -st-states: ellipsis;
 }
 
 /* ellipsis state */
 .root:ellipsis {
-    text-overflow: ellipsis;
-    display: inline-block;
+    -st-mixin: ellipsisMixin;
     width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
 }

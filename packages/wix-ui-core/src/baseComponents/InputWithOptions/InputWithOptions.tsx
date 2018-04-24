@@ -176,7 +176,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         options={this._filterOptions()}
         timeout={timeout}
         multi={multi}
-        forceContentElementVisibility={forceContentElementVisibility}>
+        forceContentElementVisibility={true}>
         <Input
           data-hook="input"
           {...inputProps}
