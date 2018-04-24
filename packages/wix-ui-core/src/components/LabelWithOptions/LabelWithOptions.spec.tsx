@@ -126,10 +126,11 @@ describe('LabelWithOptions', () => {
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
-    it('allows picking only one option when multi prop is flase', () => {
+    it('allows picking only one option when multi prop is false', () => {
       const driver = createDriver(<LabelWithOptions options={generateOptions()} multi={false}/>);
       driver.click();
       driver.optionAt(0).click();
+      driver.click();
       driver.optionAt(4).click();
       expect(driver.getLabelText()).toEqual(options[4].value);
     });

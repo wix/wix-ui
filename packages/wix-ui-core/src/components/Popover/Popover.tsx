@@ -145,8 +145,8 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         {
           showArrow ?
             [
-              <Arrow data-hook="popover-arrow" className={style.arrow} style={getArrowShift(moveArrowTo, placement)}/>,
-              <div className={style.popoverContent}>{childrenObject.Content}</div>
+              <Arrow key={1} data-hook="popover-arrow" className={style.arrow} style={getArrowShift(moveArrowTo, placement)}/>,
+              <div key={2} className={style.popoverContent}>{childrenObject.Content}</div>
             ] :
             childrenObject.Content
         }

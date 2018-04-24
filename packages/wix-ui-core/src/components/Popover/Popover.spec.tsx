@@ -54,8 +54,8 @@ describe('Popover', () => {
     expect(arrowLeft).toEqual('10px');
   });
 
-  it('should animate by default', async () => {
-    const wrapper = mount(createPopover({shown: true}));
+  it('should animate given timeout', async () => {
+    const wrapper = mount(createPopover({shown: true, timeout: 100}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeTruthy();
