@@ -1,19 +1,41 @@
 import * as eyes from 'eyes.it';
-import {browser} from 'protractor';
+import {browser, ExpectedConditions as EC} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
+import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import {buttonTestkitFactory} from '../../testkit/protractor';
+import {ButtonDriver} from './Button.protractor.driver';
 
 describe('Button', () => {
   const storyUrl = getStoryUrl('Components', 'Button');
+  const dataHook = 'storybook-button';
+  let driver: ButtonDriver;
 
-  beforeEach(() => browser.get(storyUrl));
-
-  eyes.it('should display correct content', async () => {
-    const dataHook = 'storybook-button';
-    const driver = buttonTestkitFactory({dataHook});
-
+  beforeEach(async () => {
+    await browser.get(storyUrl);
+    driver = buttonTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Button');
+    await autoExampleDriver.reset();
+  });
 
-    expect(await driver.getTextContent()).toBe('I\'m a Button!');
+  it('should not be disabled by default', async () => {
+    expect(await driver.isButtonDisabled()).toBeFalsy();
+  });
+
+  it('should be disabled', async () => {
+    await autoExampleDriver.setProps({disabled: true});
+    expect(await driver.isButtonDisabled()).toBeTruthy();
+  });
+
+  it('should call onClicked when clicked', async () => {
+    await autoExampleDriver.setProps({onClick: () => {alert('clicked'); }});
+    driver.click();
+    browser.wait(EC.alertIsPresent(), 2000, 'Alert is not getting present :(')
+      .then(() => {
+        browser.switchTo().alert().accept();
+      });
+  });
+
+  eyes.it('should display correct text content', async () => {
+    expect(await driver.getButtonTextContent()).toBe('I\'m a Button!');
   });
 });
