@@ -4,7 +4,7 @@ import {autocompleteTestkitFactory} from '../../testkit/protractor';
 import {browser} from 'protractor';
 import * as eventually from 'wix-eventually';
 
-fdescribe('Autocomplete', () => {
+describe('Autocomplete', () => {
   const storyUrl = getStoryUrl('Components', 'Autocomplete');
   const dataHook = 'storybook-autocomplete';
 
