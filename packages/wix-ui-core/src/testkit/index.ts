@@ -60,3 +60,6 @@ export const thumbnailTestkitFactory = testkitFactoryCreator(thumbnailDriverFact
 
 import {popoverDriverFactory} from '../components/Popover/Popover.driver';
 export const popoverTestkitFactory = testkitFactoryCreator(popoverDriverFactory);
+
+import {linkDriverFactory} from '../components/Link/Link.driver';
+export const linkTestkitFactory = testkitFactoryCreator(linkDriverFactory);

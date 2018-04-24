@@ -29,13 +29,14 @@ export class Link extends React.PureComponent<LinkProps, LinkState> {
   };
 
   render() {
-    const {src: href, children, ...rest} = this.props;
+    const {src: href, children, dataHook, ...rest} = this.props;
 
     return React.createElement(
       children.type === 'a' ? 'span' : 'a',
       {
         href,
         children,
+        'data-hook': dataHook,
         ...rest
       }
     );

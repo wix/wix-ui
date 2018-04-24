@@ -1,16 +1,16 @@
 /* global describe it expect jest */
 
 import * as React from 'react';
-// import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-// import {mount} from 'enzyme';
+import {mount} from 'enzyme';
 
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {linkDriverFactory} from './Link.driver';
 import {Link} from './Link';
 
-// import {linkTestkitFactory} from '../../testkit';
-// import {linkTestkitFactory as enzymeLinkFactory} from '../../testkit/enzyme';
+import {linkTestkitFactory} from '../../testkit';
+import {linkTestkitFactory as enzymeLinkTestkitFactory} from '../../testkit/enzyme';
 
 const createDriver = createDriverFactory(linkDriverFactory);
 
@@ -88,7 +88,14 @@ describe('Link', () => {
       expect(onFocusSpy.mock.calls.length).toEqual(1);
       expect(onBlurSpy.mock.calls.length).toEqual(1);
       expect(onKeyDownSpy.mock.calls[0][0].keyCode).toEqual(13);
-
     });
+  });
+
+  it('should expose teskit', () => {
+    expect(isTestkitExists(<Link/>, linkTestkitFactory)).toBe(true);
+  });
+
+  it('should expose enzyme testkit', () => {
+    expect(isEnzymeTestkitExists(<Link/>, enzymeLinkTestkitFactory, mount)).toBe(true);
   });
 });
