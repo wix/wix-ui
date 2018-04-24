@@ -27,24 +27,6 @@ describe('Button', () => {
     });
   });
 
-  describe('onMouseEnter prop', () => {
-    it('should be called on mouse enter', () => {
-      const onMouseEnter = jest.fn();
-      const driver = createDriver(<Button onMouseEnter={onMouseEnter}/>);
-      driver.mouseEnter();
-      expect(onMouseEnter).toBeCalled();
-    });
-  });
-
-  describe('onMouseLeave prop', () => {
-    it('should be called on mouse leave', () => {
-      const onMouseLeave = jest.fn();
-      const driver = createDriver(<Button onMouseLeave={onMouseLeave}/>);
-      driver.mouseLeave();
-      expect(onMouseLeave).toBeCalled();
-    });
-  });
-
   describe('disabled prop', () => {
     it('should be falsy by default', () => {
       const driver = createDriver(<Button/>);

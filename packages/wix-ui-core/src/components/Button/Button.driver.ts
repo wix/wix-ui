@@ -6,10 +6,6 @@ export const buttonDriverFactory = ({element, eventTrigger}) => {
     exists: () => !!element,
     /** click on the element */
     click: () => eventTrigger.click(element),
-    /** trigger mouseenter on the element */
-    mouseEnter: () => eventTrigger.mouseEnter(element),
-    /** trigger mouseleave on the element */
-    mouseLeave: () => eventTrigger.mouseLeave(element),
     /** returns elements type attribute */
     getType: () => element.getAttribute('type'),
     /** returns elements textContent */
