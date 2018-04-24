@@ -12,15 +12,12 @@ export interface ButtonProps extends BaseProps, React.ButtonHTMLAttributes<any> 
  * Button
  */
 export const Button: React.SFC<ButtonProps> = props => {
-  const {disabled, children, ...rest} = props;
+  const {disabled} = props;
 
   return (
     <button {...style('root', {disabled}, props)}
-      {...rest}
-      disabled={disabled}
-    >
-      {children}
-    </button>
+      {...props}
+    />
   );
 };
 
