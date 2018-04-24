@@ -74,7 +74,6 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
-    "teamcity-surge-autorelease": "^1.0.6",
     "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
     "wait-for-cond": "^1.5.1",
@@ -120,5 +119,8 @@
     "presets": [
       "env"
     ]
+  },
+  "optionalDependencies": {
+    "teamcity-surge-autorelease": "^1.0.7"
   }
 }

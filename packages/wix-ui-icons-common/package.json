@@ -42,9 +42,11 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "svg2react-icon": "^2.0.0",
-    "teamcity-surge-autorelease": "^1.0.6",
     "typescript": "^2.6.2",
     "wix-storybook-utils": "^1.0.0",
     "yoshi": "^1.2.0"
+  },
+  "optionalDependencies": {
+    "teamcity-surge-autorelease": "^1.0.7"
   }
 }
