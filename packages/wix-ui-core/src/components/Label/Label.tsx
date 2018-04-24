@@ -10,16 +10,22 @@ export interface LabelProps {
   for?: string;
   /** ID of element */
   id?: string;
+  /** should the text be ellipsed or not */
+  ellipsis?: boolean;
   /** Is the Label disabled */
   disabled?: boolean;
 }
+
+const defaultProps: LabelProps = {
+  ellipsis: false
+};
 
 /**
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  const {disabled, id, children} = props;
-  return <label {...style('root', {disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
+  const {id, children, ellipsis, disabled} = props;
+  return <label {...style('root', {ellipsis, disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
 };
 
 Label.propTypes = {
@@ -31,6 +37,10 @@ Label.propTypes = {
   for: string,
   /** ID of element */
   id: string,
+  /** should the text be ellipsed or not */
+  ellipsis: bool,
   /** Is the Label disabled */
   disabled: bool
 };
+
+Label.defaultProps = defaultProps;

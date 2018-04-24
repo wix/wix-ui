@@ -1,3 +1,13 @@
+:import {
+    -st-from: '../../mixins/mixins.st.css';
+    -st-named: ellipsisMixin;
+}
+
+
 .root {
-  -st-states: disabled;
+    -st-states: ellipsis, disabled;
+}
+
+.root:ellipsis {
+  -st-mixin: ellipsisMixin;
 }

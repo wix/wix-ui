@@ -1,4 +1,14 @@
-export const googleMapsIframeClientDriverFactory = component => {
+import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
+import {ElementFinder} from 'protractor';
+
+export interface GoogleMapsIframeClientDriver extends BaseDriver {
+  getParsedResults: () => Promise<any>;
+  getResultsElementWrapper: () => ElementFinder;
+  enterText: (text: string) => Promise<void>;
+  selectByValue: (value: string) => Promise<void>;
+}
+
+export const googleMapsIframeClientDriverFactory: DriverFactory<GoogleMapsIframeClientDriver> = component => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');
@@ -9,9 +19,9 @@ export const googleMapsIframeClientDriverFactory = component => {
       return JSON.parse(results);
     },
     getResultsElementWrapper: () => resultsElementWrapper,
-    enterText: (text: string) => {
-      input.clear();
-      input.sendKeys(text);
+    enterText: async (text: string) => {
+      await input.clear();
+      await input.sendKeys(text);
     },
     selectByValue: async (value: string) => {
       return await getButtons().getText()

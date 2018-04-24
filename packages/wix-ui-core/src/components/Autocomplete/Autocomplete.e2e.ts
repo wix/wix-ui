@@ -14,17 +14,17 @@ describe('Autocomplete', () => {
     const driver = autocompleteTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
-    expect(driver.isContentElementExists()).toBe(false);
+    expect(await driver.isContentElementExists()).toBe(false);
 
-    driver.focus();
+    await driver.focus();
 
-    expect(driver.isContentElementExists()).toBe(true);
-    expect(driver.dropdownContent().getOptionsCount()).toEqual(20);
+    expect(await driver.isContentElementExists()).toBe(true);
+    expect(await driver.dropdownContent().getOptionsCount()).toEqual(20);
 
-    driver.enterText('very');
-    expect(driver.dropdownContent().getOptionsCount()).toEqual(1);
+    await driver.enterText('very');
+    expect(await driver.dropdownContent().getOptionsCount()).toEqual(1);
 
-    expect(driver.dropdownContent().optionAt(0).getText()).toBe('This is a very very very very very long option');
+    expect(await driver.dropdownContent().optionAt(0).getText()).toBe('This is a very very very very very long option');
   });
 
   eyes.it('should choose one of autocomplete items', async () => {

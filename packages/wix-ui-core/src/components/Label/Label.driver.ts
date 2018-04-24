@@ -1,8 +1,8 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
-import style from './Label.st.css';
+import styles from './Label.st.css';
 
 export const labelDriverFactory = ({element, eventTrigger}) => {
-  const stylableDOMUtil = new StylableDOMUtil(style);
+  const stylableDOMUtil = new StylableDOMUtil(styles, element);
 
   return {
     /** check if element exists */
@@ -18,6 +18,8 @@ export const labelDriverFactory = ({element, eventTrigger}) => {
     /** click the label */
     click: () => eventTrigger.click(element),
     /** send key down on the label */
-    keyDown: key => eventTrigger.keyDown(element, {key})
+    keyDown: key => eventTrigger.keyDown(element, {key}),
+    /** returns true if the label is in ellipsis state */
+    hasEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis')
   };
 };
