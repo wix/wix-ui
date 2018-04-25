@@ -1,24 +1,22 @@
 import {ElementFinder} from 'protractor';
+import {DriverFactory, BaseDriver} from '../../common/BaseDriver.protractor';
 
-export interface ButtonDriver {
-   /** returns the root element of the component */
-   element: () => ElementFinder;
-   /** returns the Button's text content */
-   getButtonTextContent: () => Promise<string>;
-   /** click the button */
-   click: () => Promise<void>;
-   /** checks wether the button is disabled */
-   isButtonDisabled: () => Promise<boolean>;
+export interface ButtonDriver extends BaseDriver {
+  /** returns true if the root element is present */
+  exists: () => Promise<boolean>;
+  /** returns the Button's text content */
+  getButtonTextContent: () => Promise<string>;
+  /** click the button */
+  click: () => Promise<void>;
+  /** checks wether the button is disabled */
+  isButtonDisabled: () => Promise<boolean>;
 }
 
-export const buttonDriverFactory: (element: ElementFinder  ) => ButtonDriver = element => ({
-  /** returns the root element of the component */
+export const buttonDriverFactory: DriverFactory<ButtonDriver> = element => ({
   element: () => element,
-  /** returns the Button's text content */
+  exists: async () => element.isPresent(),
   getButtonTextContent: async () => element.getText(),
-  /** click the button */
   click: async () => element.click(),
-  /** checks wether the button is disabled */
   isButtonDisabled: () => hasAttribute(element, 'disabled'),
 });
 
