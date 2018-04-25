@@ -24,5 +24,5 @@ type RuntimeStylesheet = StylesheetLocals & (
 );
 type RuntimeStylesheetBaseProps = {
   className?: string;
-}
+};
 type RuntimeStylesheetProps = RuntimeStylesheetBaseProps & { [key: string]: any};
