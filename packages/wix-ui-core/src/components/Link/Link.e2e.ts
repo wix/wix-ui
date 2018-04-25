@@ -4,7 +4,15 @@ import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 
 import {linkTestkitFactory} from '../../testkit/protractor';
 
+const dataHook = 'storybook-link';
+
 describe('Link', () => {
-  const storyUrl = getStoryUrl('Components', 'Link');
-  const dataHook = 'storybook-link';
+  browser.get(getStoryUrl('Components', 'Link'));
+
+  eyes.it('should render', async () => {
+    const driver = linkTestkitFactory({dataHook});
+    await waitForVisibilityOf(driver.element(), 'Cannot find <Link/>');
+
+    expect(driver.element()).not.toBe(undefined);
+  });
 });

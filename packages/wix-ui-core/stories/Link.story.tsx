@@ -9,6 +9,7 @@ export default {
 
   componentProps: {
     children: 'hello',
-    src: 'http://wix.com'
+    src: 'http://wix.com',
+    'data-hook': 'storybook-link'
   }
 };
