@@ -1,10 +1,7 @@
 import {mount} from 'enzyme';
-import {
-  isEnzymeTestkitExists,
-  WrapperData,
-  isTestkitExists,
-  BaseDriver
-} from 'wix-ui-test-utils';
+import {isEnzymeTestkitExists,  WrapperData} from 'wix-ui-test-utils/enzyme';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {BaseDriver} from 'wix-ui-test-utils/driver-factory';
 
 export interface TestkitSuiteParams<T extends BaseDriver> {
   Element: React.ReactElement<any>;
