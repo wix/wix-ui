@@ -4,7 +4,7 @@ import {buttonDriverFactory} from './Button.driver';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
 import {Button} from './';
-import {runTestkitExistsSuite} from '../../common/TestkitTests2';
+import {runTestkitExistsSuite} from '../../common/testkitTests';
 
 describe('Button', () => {
 
