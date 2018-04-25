@@ -6,3 +6,17 @@
 .root {
     -st-extends: InputWithOptions;
 }
+
+.addressOption {
+    display: flex;
+}
+
+.addressIconWrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.addressIcon {
+
+}
