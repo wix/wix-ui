@@ -11,6 +11,7 @@ import {Link} from './Link';
 
 import {linkTestkitFactory} from '../../testkit';
 import {linkTestkitFactory as enzymeLinkTestkitFactory} from '../../testkit/enzyme';
+import {runTestkitExistsSuite} from '../../common/testkitTests';
 
 const createDriver = createDriverFactory(linkDriverFactory);
 
@@ -90,11 +91,9 @@ describe('Link', () => {
     });
   });
 
-  it('should expose teskit', () => {
-    expect(isTestkitExists(<Link/>, linkTestkitFactory)).toBe(true);
-  });
-
-  it('should expose enzyme testkit', () => {
-    expect(isEnzymeTestkitExists(<Link/>, enzymeLinkTestkitFactory, mount)).toBe(true);
+  runTestkitExistsSuite({
+    Element: <Link/>,
+    testkitFactory: linkTestkitFactory,
+    enzymeTestkitFactory: enzymeLinkTestkitFactory
   });
 });
