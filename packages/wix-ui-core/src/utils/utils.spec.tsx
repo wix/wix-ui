@@ -87,26 +87,52 @@ describe('Utils', () => {
 
   describe('node styles attachment', () => {
     const attributeName = 'data-att';
-    const stylesObj = {
-      className: 'CN',
-      [attributeName]: 'ribute'
-    };
+    const classA = 'CN';
+    const classB = 'NC';
+    let node;
+    let stylesObj;
 
-    it('should attach styles to node', () => {
-      const node = document.createElement('div');
-      attachStylesToNode(node, stylesObj);
-      expect(node.classList.contains(stylesObj.className)).toBeTruthy();
-      expect(node.getAttribute(attributeName)).toBe(stylesObj[attributeName]);
+    beforeEach(() => {
+      node = document.createElement('div');
+      stylesObj = {
+        className: classA,
+        [attributeName]: 'ribute'
+      };
     });
 
-    it('should remove styles from node', () => {
-      const node = document.createElement('div');
-      node.className = stylesObj.className;
-      node.setAttribute(attributeName, stylesObj[attributeName]);
+    describe('attach', () => {
+      it('should attach styles to node', () => {
+        attachStylesToNode(node, stylesObj);
+        expect(node.classList.contains(stylesObj.className)).toBeTruthy();
+        expect(node.getAttribute(attributeName)).toBe(stylesObj[attributeName]);
+      });
 
-      detachStylesFromNode(node, stylesObj);
-      expect(node.classList.contains(stylesObj.className)).toBeFalsy();
-      expect(node.getAttribute(attributeName)).not.toBe(stylesObj[attributeName]);
+      it('should attach more than one classname', () => {
+        stylesObj.className += ` ${classB}`;
+        attachStylesToNode(node, stylesObj);
+        expect(node.classList.contains(classA)).toBeTruthy();
+        expect(node.classList.contains(classB)).toBeTruthy();
+      });
+    });
+
+    describe('remove', () => {
+      it('should remove styles from node', () => {
+        node.className = stylesObj.className;
+        node.setAttribute(attributeName, stylesObj[attributeName]);
+
+        detachStylesFromNode(node, stylesObj);
+        expect(node.classList.contains(stylesObj.className)).toBeFalsy();
+        expect(node.getAttribute(attributeName)).not.toBe(stylesObj[attributeName]);
+      });
+
+      it('should remove more than one classname', () => {
+        stylesObj.className += ` ${classB}`;
+        node.setAttribute(attributeName, stylesObj[attributeName]);
+
+        detachStylesFromNode(node, stylesObj);
+        expect(node.classList.contains(classA)).toBeFalsy();
+        expect(node.classList.contains(classB)).toBeFalsy();
+      });
     });
   });
 });

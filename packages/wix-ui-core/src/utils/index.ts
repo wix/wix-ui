@@ -25,7 +25,9 @@ export const createComponentThatRendersItsChildren = (displayName: string) => {
 
 export const attachStylesToNode = (node: Element, stylesObj) => {
   if (node) {
-    node.classList.add(stylesObj.className);
+    stylesObj.className.split(' ')
+      .forEach(className => node.classList.add(className));
+
     Object.keys(stylesObj)
       .filter(key => key.startsWith('data-'))
       .forEach(key => node.setAttribute(key, stylesObj[key]));
@@ -34,7 +36,9 @@ export const attachStylesToNode = (node: Element, stylesObj) => {
 
 export const detachStylesFromNode = (node: Element, stylesObj) => {
   if (node) {
-    node.classList.remove(stylesObj.className);
+    stylesObj.className.split(' ')
+      .forEach(className => node.classList.remove(className));
+
     Object.keys(stylesObj)
       .filter(key => key.startsWith('data-'))
       .forEach(key => node.removeAttribute(key));
