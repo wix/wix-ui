@@ -6,12 +6,15 @@ import {Manager, Target, Popper, Arrow} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import {
-  attachStylesToNode,
   buildChildrenObject,
   createComponentThatRendersItsChildren,
-  detachStylesFromNode,
   ElementProps
 } from '../../utils';
+import {
+  attachStylesToNode,
+  detachStylesFromNode
+} from '../../utils/stylableUtils';
+
 import * as classNames from 'classnames';
 import isElement = require('lodash/isElement');
 

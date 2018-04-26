@@ -1,10 +1,13 @@
 import * as React from 'react';
 import {
   buildChildrenObject,
-  attachStylesToNode,
   createComponentThatRendersItsChildren,
-  detachStylesFromNode
 } from './';
+
+import {
+  attachStylesToNode,
+  detachStylesFromNode
+} from './stylableUtils';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {

@@ -23,26 +23,4 @@ export const createComponentThatRendersItsChildren = (displayName: string) => {
   return Element;
 };
 
-export const attachStylesToNode = (node: Element, stylesObj) => {
-  if (node) {
-    stylesObj.className.split(' ')
-      .forEach(className => node.classList.add(className));
-
-    Object.keys(stylesObj)
-      .filter(key => key.startsWith('data-'))
-      .forEach(key => node.setAttribute(key, stylesObj[key]));
-  }
-};
-
-export const detachStylesFromNode = (node: Element, stylesObj) => {
-  if (node) {
-    stylesObj.className.split(' ')
-      .forEach(className => node.classList.remove(className));
-
-    Object.keys(stylesObj)
-      .filter(key => key.startsWith('data-'))
-      .forEach(key => node.removeAttribute(key));
-  }
-};
-
 export const noop = () => null;
