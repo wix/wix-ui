@@ -122,7 +122,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   //measurements
   componentDidUpdate(prevProps, prevState) {
     if (this.hasSomePropsChanged(prevProps, this.props, [
-      'orientation', 'step', 'width', 'height', 'tickMarksPosition', 'thumbShape'
+      'orientation', 'step', 'width', 'height', 'tickMarksPosition', 'thumbShape',
+      'tickMarksShape'
     ])) {
       this.forceUpdate();
     }
@@ -351,13 +352,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const thumbSize = this.getThumbSizeMainAxis();
     const {value, min, max} = this.props;
     const pct = (value - min) / (max - min);
-    return `calc(${pct} *(100% - ${thumbSize}px))`;
+    const clampedPct = this.clamp(pct, 0, 1);
+    return `calc(${clampedPct} *(100% - ${thumbSize}px))`;
   }
 
   calcTrackFillPosition() {
     const {value, min, max} = this.props;
     const pct = (value - min) / (max - min);
-    return pct * 100 + '%';
+    const clampedPct = this.clamp(pct, 0, 1);
+    return clampedPct * 100 + '%';
   }
 
   calcThumbCrossPosition() {
@@ -456,19 +459,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
             <div className={pStyle.trackFill} style={trackFillPosition}/>
           </div>
 
-          {showTicks && (
-            <Ticks
-              pStyle={pStyle}
-              step={step}
-              min={min}
-              max={max}
-              thumbSize={mainThumbSize}
-              vertical={vertical}
-              trackSize={vertical ? trackRect.height - mainThumbSize : trackRect.width - crossThumbSize}
-              tickMarksShape={tickMarksShape}
-              onTickClick={this.moveThumbByMouse}
-            />)}
-
           <Thumb
             shape={thumbShape}
             thumbPosition={thumbPosition}
@@ -479,6 +469,19 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
             {this.renderTooltip()}
           </Thumb>
         </div>
+
+        {showTicks && (
+          <Ticks
+            pStyle={pStyle}
+            step={step}
+            min={min}
+            max={max}
+            thumbSize={mainThumbSize}
+            vertical={vertical}
+            trackSize={vertical ? trackRect.height - mainThumbSize : trackRect.width - crossThumbSize}
+            tickMarksShape={tickMarksShape}
+            onTickClick={this.moveThumbByMouse}
+          />)}
       </div>
     );
   }

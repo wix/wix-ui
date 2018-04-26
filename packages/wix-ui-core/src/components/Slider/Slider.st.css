@@ -8,6 +8,7 @@
   tickLineHeight: 10px;
   tickDotSize: 3px;
   tickMarksGap: 12px;
+  tooltipGap: 8px;
 }
 
 .root {
@@ -37,7 +38,8 @@
   white-space: nowrap;
 }
 
-.tooltip::after {
+.tooltip::after,
+.tooltip::before {
   content: ' ';
   position: absolute;
   margin-left: -8px;
@@ -79,12 +81,36 @@
 }
 
 .root:showTicks .inner {
-  height: calc(100% - value(tickMarksGap));
   width: 100%;
 }
 
-.root:showTicks:tickMarksPosition(across) .inner {
-  top: value(tickMarksGap);
+.root:orientation(horizontal):showTicks:tickMarksShape(line):tickMarksPosition(normal) .inner {
+  height: calc(100% - value(tickLineHeight) - value(tickMarksGap));
+}
+.root:orientation(horizontal):showTicks:tickMarksShape(dot):tickMarksPosition(normal) .inner {
+  height: calc(100% - value(tickDotSize) - value(tickMarksGap));
+}
+.root:orientation(horizontal):showTicks:tickMarksShape(line):tickMarksPosition(across) .inner {
+  top: calc(value(tickLineHeight) + value(tickMarksGap));
+  height: calc(100% - value(tickLineHeight) - value(tickMarksGap));
+}
+.root:orientation(horizontal):showTicks:tickMarksShape(dot):tickMarksPosition(across) .inner {
+  top: calc(value(tickDotSize) + value(tickMarksGap));
+  height: calc(100% - value(tickDotSize) - value(tickMarksGap));
+}
+.root:orientation(vertical):showTicks:tickMarksShape(line):tickMarksPosition(normal) .inner {
+  width: calc(100% - value(tickLineHeight) - value(tickMarksGap));
+}
+.root:orientation(vertical):showTicks:tickMarksShape(dot):tickMarksPosition(normal) .inner {
+  width: calc(100% - value(tickDotSize) - value(tickMarksGap));
+}
+.root:orientation(vertical):showTicks:tickMarksShape(line):tickMarksPosition(across) .inner {
+  left: calc(value(tickLineHeight) + value(tickMarksGap));
+  width: calc(100% - value(tickLineHeight) - value(tickMarksGap));
+}
+.root:orientation(vertical):showTicks:tickMarksShape(dot):tickMarksPosition(across) .inner {
+  left: calc(value(tickDotSize) + value(tickMarksGap));
+  width: calc(100% - value(tickDotSize) - value(tickMarksGap));
 }
 
 .root:showTicks:tickMarksPosition(middle) .inner {
@@ -144,22 +170,31 @@
 }
 
 .root:orientation(horizontal) .tooltip:normalPosition {
-  top: -7px;
+  top: calc(-7px - value(tooltipGap));
   transform: translate(-50%, -100%);
 }
+.root:orientation(horizontal) .tooltip:acrossPosition {
+  bottom: calc(-7px - value(tooltipGap));
+  transform: translate(-50%, 100%);
+}
+.root:orientation(vertical) .tooltip:normalPosition {
+  left: calc(-7px - value(tooltipGap));
+  transform: translate(-100%, -50%);
+}
+.root:orientation(vertical) .tooltip:acrossPosition {
+  right: calc(-7px - value(tooltipGap));
+  transform: translate(100%, -50%);
+}
 
-.root:orientation(horizontal) .tooltip:normalPosition::after {
+.root:orientation(horizontal) .tooltip:normalPosition::after,
+.root:orientation(horizontal) .tooltip:normalPosition::before {
   border-color: #363636 transparent transparent transparent;
   top: 100%; /* At the bottom of the tooltip */
   left: 50%;
 }
 
-.root:orientation(horizontal) .tooltip:acrossPosition {
-  bottom: -7px;
-  transform: translate(-50%, 100%);
-}
-
-.root:orientation(horizontal) .tooltip:acrossPosition::after {
+.root:orientation(horizontal) .tooltip:acrossPosition::after,
+.root:orientation(horizontal) .tooltip:acrossPosition::before {
   border-color: transparent transparent #363636 transparent;
   bottom: 100%; /* At the bottom of the tooltip */
   left: 50%;
@@ -169,29 +204,21 @@
   top: 50%;
 }
 
-.root:orientation(vertical) .tooltip::after {
+.root:orientation(vertical) .tooltip::after,
+.root:orientation(vertical) .tooltip::before {
   top: 50%;
-  margin-top: -5px;
-  transform: translateY(-12%);
+  transform: translateY(-50%);
 }
 
-.root:orientation(vertical) .tooltip:normalPosition {
-  left: -7px;
-  transform: translate(-100%, -50%);
-}
-
-.root:orientation(vertical) .tooltip:normalPosition::after {
+.root:orientation(vertical) .tooltip:normalPosition::after,
+.root:orientation(vertical) .tooltip:normalPosition::before {
   left: 100%;
   margin-left: 0;
   border-color: transparent transparent transparent #363636;
 }
 
-.root:orientation(vertical) .tooltip:acrossPosition {
-  right: -7px;
-  transform: translate(100%, -50%);
-}
-
-.root:orientation(vertical) .tooltip:acrossPosition::after {
+.root:orientation(vertical) .tooltip:acrossPosition::after,
+.root:orientation(vertical) .tooltip:acrossPosition::before {
   right: 100%;
   border-color: transparent #363636 transparent transparent;
 }

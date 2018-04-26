@@ -13,12 +13,18 @@ export interface TicksProps {
 }
 
 export class Ticks extends React.PureComponent<TicksProps> {
-  MaximumTicksDensity = 0.25;
+  calcMaximumTickDensity() {
+    if (this.props.tickMarksShape === 'line') {
+      return 1 / 8;
+    }
+
+    return 1 / 16;
+  }
 
   calcStep() {
     const {step, min, max, trackSize} = this.props;
     const totalTickCount = (max - min) / Number(step);
-    const density = Math.min(totalTickCount / trackSize, this.MaximumTicksDensity);
+    const density = Math.min(totalTickCount / trackSize, this.calcMaximumTickDensity());
     const adjustedStep = (max - min) / (trackSize * density);
     return adjustedStep;
   }
