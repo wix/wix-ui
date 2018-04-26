@@ -166,12 +166,10 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const {shown} = props;
     const shouldAnimate = shouldAnimatePopover(props);
 
-    if (this.appendToNode && this.stylesObj) {
-      if (shouldAnimate || shown) {
-        attachStylesToNode(this.appendToNode, this.stylesObj);
-      } else {
-        detachStylesFromNode(this.appendToNode, this.stylesObj);
-      }
+    if (shouldAnimate || shown) {
+      attachStylesToNode(this.appendToNode, this.stylesObj);
+    } else {
+      detachStylesFromNode(this.appendToNode, this.stylesObj);
     }
   }
 
@@ -225,7 +223,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
-    this.applyStylesToAppendedNode(this.props);
+    if (this.appendToNode) {
+      this.applyStylesToAppendedNode(this.props);
+    }
 
     return (
       <Manager
@@ -233,10 +233,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}>
-        <Target onKeyDown={onKeyDown} data-hook="popover-element" className={style.trigger}>
-          <span ref={r => this.targetRef = r}>
-            {childrenObject.Element}
-          </span>
+        <Target onKeyDown={onKeyDown} data-hook="popover-element" className={style.trigger}
+                innerRef={r => this.targetRef = r}>
+          {childrenObject.Element}
         </Target>
         {shouldRenderPopper && this.renderPopperContent(childrenObject)}
       </Manager>
