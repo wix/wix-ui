@@ -1,5 +1,5 @@
-import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
-import {browser, ElementFinder} from 'protractor';
+import {BaseDriver, DriverFactory} from '../../common/BaseDriver.protractor';
+import {$, browser, ElementFinder} from 'protractor';
 import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
 
 export interface PopoverDriver extends BaseDriver {
@@ -13,8 +13,8 @@ export interface PopoverDriver extends BaseDriver {
 }
 
 export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
-  const getTargetElement = () => component.$('[data-hook="popover-element"]');
-  const getContentElement = () => component.$('[data-hook="popover-content"]');
+  const getTargetElement = () => $('[data-hook="popover-element"]');
+  const getContentElement = () => $('[data-hook="popover-content"]');
 
   return {
     element: () => component,

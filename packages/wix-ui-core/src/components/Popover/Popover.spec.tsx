@@ -4,6 +4,10 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {Popover, PopoverProps} from './';
 import {mount} from 'enzyme';
 import * as eventually from 'wix-eventually';
+import {popoverTestkitFactory as enzymePopoverTestkitFactory} from '../../testkit/enzyme';
+import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
+import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+import {popoverTestkitFactory} from '../../testkit';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
@@ -72,52 +76,66 @@ describe('Popover', () => {
     wrapper.unmount();
   });
 
-  it('should append popover to body when appendTo is window', () => {
-    const wrapper = mount(createPopover({shown: true, appendTo: 'window'}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    const contentElement = driver.getContentElement();
-    const bodyElement = document.body;
+  describe('appendTo', () => {
+    it('should append popover to body when appendTo is window', () => {
+      const wrapper = mount(createPopover({shown: true, appendTo: 'window'}));
+      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      const contentElement = driver.getContentElement();
+      const bodyElement = document.body;
 
-    expect(contentElement.parentElement).toBe(bodyElement);
-    wrapper.unmount();
+      expect(contentElement.parentElement).toBe(bodyElement);
+      wrapper.unmount();
+    });
+
+    it('should append popover to body when appendTo is viewport', () => {
+      const wrapper = mount(createPopover({shown: true, appendTo: 'viewport'}));
+      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      const contentElement = driver.getContentElement();
+      const bodyElement = document.body;
+
+      expect(contentElement.parentElement).toBe(bodyElement);
+      wrapper.unmount();
+    });
+
+    it('should append popover to given element when appendTo is an element', () => {
+      const element = document.createElement('div');
+      document.body.appendChild(element);
+      const wrapper = mount(createPopover({shown: true, appendTo: element}));
+      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      const contentElement = driver.getContentElement();
+
+      expect(contentElement.parentElement).toBe(element);
+      wrapper.unmount();
+    });
+
+    it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
+      const scrollableParent = document.createElement('div');
+      scrollableParent.style.overflow = 'auto';
+      const childElement = document.createElement('div');
+      scrollableParent.appendChild(childElement);
+      document.body.appendChild(scrollableParent);
+
+      const wrapper = mount(
+        createPopover({shown: true, appendTo: 'scrollParent'}),
+        {attachTo: scrollableParent}
+      );
+      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+
+      const contentElement = driver.getContentElement();
+      expect(contentElement.parentElement).toBe(scrollableParent);
+      wrapper.detach();
+    });
   });
 
-  it('should append popover to body when appendTo is viewport', () => {
-    const wrapper = mount(createPopover({shown: true, appendTo: 'viewport'}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    const contentElement = driver.getContentElement();
-    const bodyElement = document.body;
-
-    expect(contentElement.parentElement).toBe(bodyElement);
-    wrapper.unmount();
+  describe('testkit', () => {
+    it('should exist', () => {
+      expect(isTestkitExists(createPopover(), popoverTestkitFactory)).toBe(true);
+    });
   });
 
-  it('should append popover to given element when appendTo is an element', () => {
-    const element = document.createElement('div');
-    document.body.appendChild(element);
-    const wrapper = mount(createPopover({shown: true, appendTo: element}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    const contentElement = driver.getContentElement();
-
-    expect(contentElement.parentElement).toBe(element);
-    wrapper.unmount();
-  });
-
-  it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
-    const scrollableParent = document.createElement('div');
-    scrollableParent.style.overflow = 'auto';
-    const childElement = document.createElement('div');
-    scrollableParent.appendChild(childElement);
-    document.body.appendChild(scrollableParent);
-
-    const wrapper = mount(
-      createPopover({shown: true, appendTo: 'scrollParent'}),
-      {attachTo: scrollableParent}
-    );
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-
-    const contentElement = driver.getContentElement();
-    expect(contentElement.parentElement).toBe(scrollableParent);
-    wrapper.detach();
+  describe('enzyme testkit', () => {
+    it('should exist', () => {
+      expect(isEnzymeTestkitExists(createPopover(), enzymePopoverTestkitFactory, mount)).toBe(true);
+    });
   });
 });

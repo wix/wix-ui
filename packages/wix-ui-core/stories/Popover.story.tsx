@@ -11,7 +11,7 @@ export default {
     'data-hook': 'storybook-popover',
     children: [<Popover.Element>element</Popover.Element>, <Popover.Content>Content</Popover.Content>],
     appendTo: 'window', //null, 'scrollParent', 'viewport'
-    shown: true,
+    // shown: true,
     showArrow: true,
     timeout: 150
   }

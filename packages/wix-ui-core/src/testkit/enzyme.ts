@@ -58,3 +58,6 @@ export const labelWithOptionsTestkitFactory = enzymeTestkitFactoryCreator(labelW
 
 import {thumbnailDriverFactory} from '../components/Thumbnail/Thumbnail.driver';
 export const thumbnailTestkitFactory = enzymeTestkitFactoryCreator(thumbnailDriverFactory);
+
+import {popoverDriverFactory} from '../components/Popover/Popover.driver';
+export const popoverTestkitFactory = enzymeTestkitFactoryCreator(popoverDriverFactory);
