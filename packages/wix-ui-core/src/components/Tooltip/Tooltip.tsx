@@ -1,13 +1,9 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo} from '../Popover';
-import {func, bool, oneOf, number, node, object, Requireable, oneOfType, element} from 'prop-types';
+import {Popover, Placement, AppendTo, AppendToPropType} from '../Popover';
+import {func, bool, oneOf, number, node, object, Requireable} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
-export const AppendToPropType = oneOfType([
-  oneOf(['scrollParent', 'viewport', 'window']),
-  element
-]);
 
 const noop = () => null;
 
