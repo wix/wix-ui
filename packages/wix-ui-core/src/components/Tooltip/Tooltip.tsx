@@ -27,9 +27,9 @@ export interface TooltipProps {
   onShow?: Function;
   /** callback to call when the tooltip is being hidden */
   onHide?: Function;
-  /** Enables calculations in relation to a dom element */
-  appendToParent?: boolean;
   /** Enables calculations in relation to the parent element*/
+  appendToParent?: boolean;
+  /** Enables calculations in relation to a dom element */
   appendTo?: AppendTo;
   /** Provides callback to invoke when outside of tooltip is clicked */
   onClickOutside?: Function;
