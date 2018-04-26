@@ -1,8 +1,7 @@
-const genDefaultConfig = require('@storybook/react/dist/server/config/defaults/webpack.config.js');
 const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
 
-module.exports = (config, env) => {
-  const newConfig = wixStorybookConfig(genDefaultConfig(config, env));
+module.exports = (config, env, defaultConfig) => {
+  const newConfig = wixStorybookConfig(defaultConfig);
 
   newConfig.module.rules.push({
     test: /\.story\.[j|t]sx?$/,
