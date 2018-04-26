@@ -1,8 +1,7 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {func, string, array, number, bool, oneOf, arrayOf, Requireable} from 'prop-types';
+import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable} from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
-import {AddressIcon} from './AddressIcon'
 
 import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
 import {
@@ -64,7 +63,7 @@ export interface AddressInputProps {
     /** Options to override default throttle value, 0 used to disable throttle */
     throttleInterval?: number;
     /** If set to `true`, location icon will be displayed next to each suggested address */
-    showLocationIcon?: boolean;
+    locationIcon?: React.ReactNode;
 }
 
 export interface AddressInputState {
@@ -72,14 +71,12 @@ export interface AddressInputState {
     inputValue: string;
 }
 
-function createOptionFromAddress(address, showLocationIcon) {
+function createOptionFromAddress(address, locationIcon) {
     return OptionFactory.create({
         id: address.place_id,
         value: address.description,
         render: val => <div className={style.addressOption}>
-            {showLocationIcon && <div className={style.addressIconWrapper}>
-                <AddressIcon className={style.addressIcon}/>
-            </div>}
+            {locationIcon && <div className={style.addressIconWrapper}>{locationIcon}</div>}
             <div>{val}</div>
         </div>
     });
@@ -164,15 +161,12 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
         throttleInterval: number,
         /** If set to `true`, location icon will be displayed next to each suggested address */
-        showLocationIcon: bool
+        locationIcon: node
     };
 
     static defaultProps = {
         handler: Handler.geocode,
-        throttleInterval: 150,
-
-        forceContentElementVisibility: true,
-        showLocationIcon: true
+        throttleInterval: 150
     };
 
     client: MapsClient;
@@ -204,10 +198,10 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const requestId = ++this.addressRequestId;
         let resolveCurrentAddressRequest = () => null;
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
-        const {apiKey, lang, filterTypes, showLocationIcon} = this.props;
+        const {apiKey, lang, filterTypes, locationIcon} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
-        const options = map(filteredResults, address => createOptionFromAddress(address, showLocationIcon));
+        const options = map(filteredResults, address => createOptionFromAddress(address, locationIcon));
 
         if (requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);

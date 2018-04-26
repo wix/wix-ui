@@ -87,6 +87,16 @@ describe('AddressInput', () => {
         expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
+    it('Should render location icon if provided', async () => {
+        init({locationIcon: <div data-hook="location-icon"/>});
+        GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+        driver.click();
+        driver.setValue('n');
+        await waitForCond(() => driver.isContentElementExists());
+        const element = driver.optionAt(0).getElement();
+        expect(element.querySelector('[data-hook="location-icon"]')).not.toBe(null);
+    });
+
     it('Should empty suggestion immediately list if string is empty', async () => {
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
         driver.click();
