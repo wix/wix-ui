@@ -8,7 +8,7 @@ describe('Popover', () => {
   const storyUrl = createStoryUrl({kind: 'Components', story: 'Popover'});
 
   beforeEach(() => browser.get(storyUrl));
-  eyes.fit('should exist', async () => {
+  eyes.it('should exist', async () => {
     const dataHook = 'storybook-popover';
     const driver = popoverTestkitFactory({dataHook});
 
