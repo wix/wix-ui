@@ -60,6 +60,13 @@ describe('Link', () => {
     });
   });
 
+  describe('`className` prop', () => {
+    it('should be ignored', () => {
+      const link = createDriver(<Link className="hello"/>);
+      expect(link.getAttribute('class')).not.toBe('hello');
+    });
+  });
+
   describe('other props', () => {
     it('should be passed without modification', () => {
       const onFocusSpy = jest.fn();

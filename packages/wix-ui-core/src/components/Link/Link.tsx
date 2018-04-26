@@ -23,7 +23,11 @@ export class Link extends React.PureComponent<LinkProps> {
   };
 
   render() {
-    const {children, ...rest} = this.props;
+    const {
+      children,
+      className, // eslint-disable-line no-unused-vars
+      ...rest
+    } = this.props;
 
     return React.createElement(
       children.type === 'a' ? 'span' : 'a',
