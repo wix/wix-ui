@@ -8,6 +8,7 @@ import {popoverTestkitFactory as enzymePopoverTestkitFactory} from '../../testki
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {popoverTestkitFactory} from '../../testkit';
+import styles from './Popover.st.css';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
@@ -77,54 +78,96 @@ describe('Popover', () => {
   });
 
   describe('appendTo', () => {
-    it('should append popover to body when appendTo is window', () => {
-      const wrapper = mount(createPopover({shown: true, appendTo: 'window'}));
-      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-      const contentElement = driver.getContentElement();
-      const bodyElement = document.body;
+    let wrapper, driver;
 
-      expect(contentElement.parentElement).toBe(bodyElement);
+    afterEach(() => {
+      driver = null;
       wrapper.unmount();
     });
 
-    it('should append popover to body when appendTo is viewport', () => {
-      const wrapper = mount(createPopover({shown: true, appendTo: 'viewport'}));
-      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-      const contentElement = driver.getContentElement();
-      const bodyElement = document.body;
+    describe('window', () => {
+      beforeEach(() => {
+        wrapper = mount(createPopover({shown: true, appendTo: 'window'}));
+        driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      });
 
-      expect(contentElement.parentElement).toBe(bodyElement);
-      wrapper.unmount();
+      it('should append popover to body when appendTo is window', () => {
+        const contentElement = driver.getContentElement();
+        expect(contentElement.parentElement).toBe(document.body);
+      });
+
+      it('should attach and detach styles to body when appended to window', () => {
+        expect(document.body.className).toBe(styles.root);
+        wrapper.setProps({shown: false});
+        expect(document.body.className).not.toBe(styles.root);
+      });
     });
 
-    it('should append popover to given element when appendTo is an element', () => {
-      const element = document.createElement('div');
-      document.body.appendChild(element);
-      const wrapper = mount(createPopover({shown: true, appendTo: element}));
-      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-      const contentElement = driver.getContentElement();
+    describe('viewport', () => {
+      beforeEach(() => {
+        wrapper = mount(createPopover({shown: true, appendTo: 'viewport'}));
+        driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      });
 
-      expect(contentElement.parentElement).toBe(element);
-      wrapper.unmount();
+      it('should append popover to body when appendTo is viewport', () => {
+        const contentElement = driver.getContentElement();
+        expect(contentElement.parentElement).toBe(document.body);
+      });
+
+      it('should attach and detach styles to body when appended to viewport', () => {
+        expect(document.body.className).toBe(styles.root);
+        wrapper.setProps({shown: false});
+        expect(document.body.className).not.toBe(styles.root);
+        wrapper.unmount();
+      });
     });
 
-    it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
-      const scrollableParent = document.createElement('div');
-      scrollableParent.style.overflow = 'auto';
-      const childElement = document.createElement('div');
-      scrollableParent.appendChild(childElement);
-      document.body.appendChild(scrollableParent);
+    describe('node', () => {
+      let appendToNode;
+      beforeEach(() => {
+        appendToNode = document.createElement('div');
+        document.body.appendChild(appendToNode);
+        wrapper = mount(createPopover({shown: true, appendTo: appendToNode}));
+        driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      });
 
-      const wrapper = mount(
-        createPopover({shown: true, appendTo: 'scrollParent'}),
-        {attachTo: scrollableParent}
-      );
-      const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      it('should append popover to given element when appendTo is an element', () => {
+        const contentElement = driver.getContentElement();
+        expect(contentElement.parentElement).toBe(appendToNode);
+      });
 
-      const contentElement = driver.getContentElement();
-      expect(contentElement.parentElement).toBe(scrollableParent);
-      wrapper.detach();
+      it('should attach and detach styles to the element appended to', () => {
+        expect(appendToNode.className).toBe(styles.root);
+        wrapper.setProps({shown: false});
+        expect(appendToNode.className).not.toBe(styles.root);
+      });
     });
+
+    describe('scrollParent', () => {
+      let scrollableParent;
+      beforeEach(() => {
+        scrollableParent = document.createElement('div');
+        scrollableParent.style.overflow = 'auto';
+        const childElement = document.createElement('div');
+        scrollableParent.appendChild(childElement);
+        document.body.appendChild(scrollableParent);
+        wrapper = mount(createPopover({shown: true, appendTo: 'scrollParent'}), {attachTo: scrollableParent});
+        driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+      });
+
+      it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
+        const contentElement = driver.getContentElement();
+        expect(contentElement.parentElement).toBe(scrollableParent);
+      });
+
+      it('should attach and detach styles to the scrollable parent container', () => {
+        expect(scrollableParent.className).toBe(styles.root);
+        wrapper.setProps({shown: false});
+        expect(scrollableParent.className).not.toBe(styles.root);
+        wrapper.unmount();
+      });
+    });
+
   });
 
   describe('testkit', () => {
