@@ -25,7 +25,6 @@ export class Link extends React.PureComponent<LinkProps> {
   render() {
     const {
       children,
-      className, // eslint-disable-line no-unused-vars
       ...rest
     } = this.props;
 
@@ -33,8 +32,8 @@ export class Link extends React.PureComponent<LinkProps> {
       children.type === 'a' ? 'span' : 'a',
       {
         children,
-        ...style('root', {}, this.props),
-        ...rest
+        ...rest,
+        ...style('root', {}, this.props)
       }
     );
   }
