@@ -63,24 +63,13 @@ export interface AddressInputProps {
     forceOptions?: Array<Partial<Option>>;
     /** Options to override default throttle value, 0 used to disable throttle */
     throttleInterval?: number;
-    /** If set to `true`, location icon will be displayed next to each suggested address */
+    /** Node to be rendered in front of each suggestion */
     locationIcon?: React.ReactNode;
 }
 
 export interface AddressInputState {
     options: Array<Option>;
     inputValue: string;
-}
-
-function createOptionFromAddress(address, locationIcon) {
-    return OptionFactory.create({
-        id: address.place_id,
-        value: address.description,
-        render: val => <div className={style.addressOption}>
-            {locationIcon && <div className={style.addressIconWrapper}>{locationIcon}</div>}
-            <div>{val}</div>
-        </div>
-    });
 }
 
 function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
@@ -161,7 +150,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         forceOptions: array,
         /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
         throttleInterval: number,
-        /** If set to `true`, location icon will be displayed next to each suggested address */
+        /** Node to be rendered in front of each suggestion */
         locationIcon: node
     };
 
@@ -188,6 +177,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._handleOnManualInput = this._handleOnManualInput.bind(this);
         this._onSelect = this._onSelect.bind(this);
         this._handleOnBlur = this._handleOnBlur.bind(this);
+        this._renderOption = this._renderOption.bind(this);
+        this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
         this.currentAddressRequest = Promise.resolve();
     }
 
@@ -202,7 +193,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const {apiKey, lang, filterTypes, locationIcon} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
-        const options = map(filteredResults, address => createOptionFromAddress(address, locationIcon));
+        const options = map(filteredResults, this._createOptionFromAddress);
 
         if (requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);
@@ -279,11 +270,27 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         }
     }
 
+    _renderOption(val) {
+        const {locationIcon} = this.props;
+        return (<div className={style.option}>
+            {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
+            <div>{val}</div>
+        </div>);
+    }
+
+    _createOptionFromAddress(address) {
+        return OptionFactory.create({
+            id: address.place_id,
+            value: address.description,
+            render: this._renderOption
+        });
+    }
+
     _options() {
         const {forceOptions, locationIcon} = this.props;
 
         if (isArray(forceOptions) && forceOptions.length > 0) {
-            return map(forceOptions, address => createOptionFromAddress(address, locationIcon));
+            return map(forceOptions, this._createOptionFromAddress);
         } else {
             return this.state.options;
         }

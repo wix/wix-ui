@@ -7,16 +7,16 @@
     -st-extends: InputWithOptions;
 }
 
-.addressOption {
+.option {
     display: flex;
 }
 
-.addressIconWrapper {
+.iconWrapper {
     display: flex;
     align-items: center;
     padding: 0 6px;
 }
 
-.addressIcon {
+.icon {
 
 }
