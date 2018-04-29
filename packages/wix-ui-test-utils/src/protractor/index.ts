@@ -1,4 +1,3 @@
-import './external-types.d.ts';
 export * from './protractor-helpers-global';
 export * from './protractor-helpers';
 export * from './protractor-helpers-extra';
