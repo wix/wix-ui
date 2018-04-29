@@ -446,7 +446,7 @@ describe('AddressInput', () => {
         });
 
         it('Should display content element', async () => {
-            init({forceOptions: [OptionFactory.create({id: 0, value: 'a'})]});
+            init({forceOptions: [{place_id: 0, description: 'a'}]});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
             driver.click();
             driver.setValue('n');

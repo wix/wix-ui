@@ -16,6 +16,7 @@ const map = require('lodash/map');
 const filter = require('lodash/filter');
 const intersection = require('lodash/intersection');
 const throttle = require('lodash/throttle');
+const isArray = require('lodash/isArray');
 
 export {Handler};
 
@@ -59,7 +60,7 @@ export interface AddressInputProps {
     /** If set to true, content element will always be visible, used for preview mode */
     forceContentElementVisibility?: boolean;
     /** Options to override default one, used for preview mode */
-    forceOptions?: Array<Option>;
+    forceOptions?: Array<Partial<Option>>;
     /** Options to override default throttle value, 0 used to disable throttle */
     throttleInterval?: number;
     /** If set to `true`, location icon will be displayed next to each suggested address */
@@ -278,9 +279,19 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         }
     }
 
+    _options() {
+        const {forceOptions, locationIcon} = this.props;
+
+        if (isArray(forceOptions) && forceOptions.length > 0) {
+            return map(forceOptions, address => createOptionFromAddress(address, locationIcon));
+        } else {
+            return this.state.options;
+        }
+    }
+
     render() {
-        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, forceOptions, readOnly} = this.props;
-        const options = forceOptions || this.state.options;
+        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, readOnly} = this.props;
+        const options = this._options();
 
         const inputProps = {
             onChange: this._handleOnChange,
