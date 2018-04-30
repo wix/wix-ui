@@ -357,10 +357,11 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   calcTrackFillPosition() {
+    const thumbSize = this.getThumbSizeMainAxis();
     const {value, min, max} = this.props;
     const pct = (value - min) / (max - min);
     const clampedPct = this.clamp(pct, 0, 1);
-    return clampedPct * 100 + '%';
+    return `calc(${clampedPct} *(100% - ${thumbSize}px) + ${thumbSize}px - 2px)`;
   }
 
   calcThumbCrossPosition() {

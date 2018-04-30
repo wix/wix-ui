@@ -95,7 +95,7 @@ const thumbShapes = {
   bar: {
     component: BarThumb,
     getThumbSize: (sliderSize, isVertical) => ({
-      [isVertical ? 'height' : 'width']: 0.25 * sliderSize,
+      [isVertical ? 'height' : 'width']: 0.5 * sliderSize,
       [isVertical ? 'width' : 'height']: sliderSize
     })
   }

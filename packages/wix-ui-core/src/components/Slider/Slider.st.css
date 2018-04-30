@@ -61,6 +61,7 @@
 }
 
 .inner {
+  z-index: 1;
   display: flex;
   position: relative;
   align-items: center;
@@ -244,6 +245,13 @@
   width: value(tickDotSize);
   height: value(tickDotSize);
   border-radius: 50%;
+}
+
+.root:orientation(horizontal):tickMarksShape(dot) .tick {
+  transform: translateX(calc(- value(tickDotSize) / 2));
+}
+.root:orientation(vertical):tickMarksShape(dot) .tick {
+  transform: translateY(calc(value(tickDotSize) / 2));
 }
 
 .root:orientation(horizontal):tickMarksPosition(normal) .tick {

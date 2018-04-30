@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {func, string, array, number, bool, oneOf, arrayOf, Requireable} from 'prop-types';
+import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable} from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
 
 import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
@@ -16,6 +16,7 @@ const map = require('lodash/map');
 const filter = require('lodash/filter');
 const intersection = require('lodash/intersection');
 const throttle = require('lodash/throttle');
+const isArray = require('lodash/isArray');
 
 export {Handler};
 
@@ -59,21 +60,16 @@ export interface AddressInputProps {
     /** If set to true, content element will always be visible, used for preview mode */
     forceContentElementVisibility?: boolean;
     /** Options to override default one, used for preview mode */
-    forceOptions?: Array<Option>;
+    forceOptions?: Array<Partial<Option>>;
     /** Options to override default throttle value, 0 used to disable throttle */
     throttleInterval?: number;
+    /** Node to be rendered in front of each suggestion */
+    locationIcon?: React.ReactNode;
 }
 
 export interface AddressInputState {
     options: Array<Option>;
     inputValue: string;
-}
-
-function createOptionFromAddress(address) {
-    return OptionFactory.create({
-        id: address.place_id,
-        value: address.description
-    });
 }
 
 function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
@@ -153,7 +149,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Options to override default one, used for preview mode */
         forceOptions: array,
         /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
-        throttleInterval: number
+        throttleInterval: number,
+        /** Node to be rendered in front of each suggestion */
+        locationIcon: node
     };
 
     static defaultProps = {
@@ -179,6 +177,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._handleOnManualInput = this._handleOnManualInput.bind(this);
         this._onSelect = this._onSelect.bind(this);
         this._handleOnBlur = this._handleOnBlur.bind(this);
+        this._renderOption = this._renderOption.bind(this);
+        this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
         this.currentAddressRequest = Promise.resolve();
     }
 
@@ -190,10 +190,10 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const requestId = ++this.addressRequestId;
         let resolveCurrentAddressRequest = () => null;
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
-        const {apiKey, lang, filterTypes} = this.props;
+        const {apiKey, lang, filterTypes, locationIcon} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
-        const options = map(filteredResults, createOptionFromAddress);
+        const options = map(filteredResults, this._createOptionFromAddress);
 
         if (requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);
@@ -270,9 +270,35 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         }
     }
 
+    _renderOption(val) {
+        const {locationIcon} = this.props;
+        return (<div className={style.option}>
+            {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
+            <div>{val}</div>
+        </div>);
+    }
+
+    _createOptionFromAddress(address) {
+        return OptionFactory.create({
+            id: address.place_id,
+            value: address.description,
+            render: this._renderOption
+        });
+    }
+
+    _options() {
+        const {forceOptions, locationIcon} = this.props;
+
+        if (isArray(forceOptions) && forceOptions.length > 0) {
+            return map(forceOptions, this._createOptionFromAddress);
+        } else {
+            return this.state.options;
+        }
+    }
+
     render() {
-        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, forceOptions, readOnly} = this.props;
-        const options = forceOptions || this.state.options;
+        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, readOnly} = this.props;
+        const options = this._options();
 
         const inputProps = {
             onChange: this._handleOnChange,
