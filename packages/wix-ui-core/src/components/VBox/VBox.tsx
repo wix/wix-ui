@@ -25,10 +25,10 @@ export const VBox: React.SFC<VBoxProps> = props => {
   return <div {...style('root', {horizontalAlignment}, props)}>{addSpacing(children, spacing)}</div>;
 };
 
-VBox.defaultProps = defaultProps;
-
 VBox.propTypes = {
   children: any,
   horizontalAlignment: oneOf(['left', 'center', 'right']),
   spacing: number
 };
+
+VBox.defaultProps = defaultProps;
