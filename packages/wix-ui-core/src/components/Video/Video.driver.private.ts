@@ -5,7 +5,7 @@
 import * as React from 'react';
 import {mount, ReactWrapper} from 'enzyme';
 
-export const createDriver = (Component) => {
+export const createDriver = Component => {
   let player;
 
   const ClonedComponent = React.cloneElement(Component, {

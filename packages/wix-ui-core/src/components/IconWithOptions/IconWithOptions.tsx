@@ -56,14 +56,16 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       multi={multi}
       onSelect={onSelect}
       onInitialSelectedOptionsSet={() => null}
-      showArrow={true}
+      showArrow
       fixedFooter={fixedFooter}
       fixedHeader={fixedHeader}
       onDeselect={onDeselect}
-      initialSelectedIds={initialSelectedIds}>
+      initialSelectedIds={initialSelectedIds}
+    >
       <img
         src={iconUrl}
-        tabIndex={5}/>
+        tabIndex={5}
+      />
     </Dropdown>);
   };
 

@@ -24,7 +24,8 @@ export class Thumb extends React.Component<ThumbProps> {
     const ThumbShape = thumbShapes[shape];
 
     return (
-      <div data-hook="thumb"
+      <div 
+        data-hook="thumb"
         className={pStyle.thumb}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}

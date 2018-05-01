@@ -33,11 +33,11 @@ import './Thumbnail.story';
 import './Popover.story';
 
 storiesOf('Components', module)
-  .add('Text', () =>
+  .add('Text', () => (
     <Text ellipsis>
       Hello World
     </Text>
-  )
+  ))
   .add('Pagination', () => <PaginationStory/>)
   .add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>)
   .add('Divider', () => <DividerStory/>)

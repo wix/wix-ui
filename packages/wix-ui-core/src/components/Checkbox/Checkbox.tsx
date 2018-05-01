@@ -42,47 +42,49 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon} = this.props;
 
     return (
-      <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
-        onMouseDown={this.handleMouseDown}>
-          <input
-            type="checkbox"
-            className={styles.nativeCheckbox}
-            onChange={this.handleChange}
-            onKeyDown={this.handleInputKeyDown}
-            onFocus={this.handleInputFocus}
-            onBlur={this.handleInputBlur}
-            ref={ref => this.checkbox = ref}
-            //temp fix
-            checked={checked}
-            disabled={disabled}
-            readOnly={this.props.readOnly}
-            tabIndex={this.props.tabIndex}
-            id={this.props.id}
-            required={this.props.required}
-            autoFocus={this.props.autoFocus}
-            name={this.props.name}
-            aria-controls={this.props['aria-controls']}
-          />
+      <label 
+        {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props)}
+        onMouseDown={this.handleMouseDown}
+      >
+        <input
+          type="checkbox"
+          className={styles.nativeCheckbox}
+          onChange={this.handleChange}
+          onKeyDown={this.handleInputKeyDown}
+          onFocus={this.handleInputFocus}
+          onBlur={this.handleInputBlur}
+          ref={ref => this.checkbox = ref}
+          //temp fix
+          checked={checked}
+          disabled={disabled}
+          readOnly={this.props.readOnly}
+          tabIndex={this.props.tabIndex}
+          id={this.props.id}
+          required={this.props.required}
+          autoFocus={this.props.autoFocus}
+          name={this.props.name}
+          aria-controls={this.props['aria-controls']}
+        />
 
-          <span className={styles.box}>
-            {
-              this.props.indeterminate ? indeterminateIcon :
-              this.props.checked ? checkedIcon :
-              uncheckedIcon
-            }
-          </span>
-
-          {this.props.children ? (
-            <div className={styles.childContainer}>
-              {this.props.children}
-            </div>
-          ) : null
+        <span className={styles.box}>
+          {
+            this.props.indeterminate ? indeterminateIcon :
+            this.props.checked ? checkedIcon :
+            uncheckedIcon
           }
+        </span>
+
+        {this.props.children ? (
+          <div className={styles.childContainer}>
+            {this.props.children}
+          </div>
+        ) : null
+        }
       </label>
     );
   }
 
-  private handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
+  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
     //When clicking on the label, the input loses focus style state and then gains it again.
     //To prevent this we disable the default mouse down behavior and set the state to true
     if (!this.props.disabled) {

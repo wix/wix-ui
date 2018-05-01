@@ -17,7 +17,8 @@ describe('LabelWithOptions', () => {
       renderSuffix={isError => (
         <div data-hook="suffix">{isError ? 'error!' : 'no errors'}</div>
       )}
-      {...props}/>
+      {...props}
+    />
   );
 
   it('should render the label in default state', () => {

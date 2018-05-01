@@ -24,13 +24,14 @@ describe('AddressInput', () => {
         (GoogleMapsClientStub.prototype.geocode as any).mockClear();
         (GoogleMapsClientStub.prototype.placeDetails as any).mockClear();
         onSelectSpy = jest.fn();
-        driver = createDriver(<AddressInput
-            apiKey={helper.API_KEY}
-            lang="en"
-            Client={GoogleMapsClientStub}
-            onSelect={onSelectSpy}
-            handler={handler || Handler.geocode}
-            {...rest}
+        driver = createDriver(
+        <AddressInput
+          apiKey={helper.API_KEY}
+          lang="en"
+          Client={GoogleMapsClientStub}
+          onSelect={onSelectSpy}
+          handler={handler || Handler.geocode}
+          {...rest}
         />);
     };
 
@@ -466,22 +467,24 @@ describe('AddressInput', () => {
 
     describe('testkit', () => {
         it('should exist', () => {
-            expect(isTestkitExists(<AddressInput
-                lang="en"
-                Client={GoogleMapsClientStub}
-                apiKey=""
-                onSelect={() => null}
+            expect(isTestkitExists(
+            <AddressInput
+              lang="en"
+              Client={GoogleMapsClientStub}
+              apiKey=""
+              onSelect={() => null}
             />, addressInputTestkitFactory)).toBe(true);
         });
     });
 
     describe('enzyme testkit', () => {
         it('should exist', () => {
-            expect(isEnzymeTestkitExists(<AddressInput
-                lang="en"
-                Client={GoogleMapsClientStub}
-                apiKey=""
-                onSelect={() => null}
+            expect(isEnzymeTestkitExists(
+            <AddressInput
+              lang="en"
+              Client={GoogleMapsClientStub}
+              apiKey=""
+              onSelect={() => null}
             />, enzymeAddressInputTestkitFactory, mount)).toBe(true);
         });
     });

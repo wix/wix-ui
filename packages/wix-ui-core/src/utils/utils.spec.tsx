@@ -27,9 +27,11 @@ describe('Utils', () => {
     it('should return a children object when rendered with component', () => {
       const displayName = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component>
-        <div/>
-      </Component>;
+      const children = (
+        <Component>
+          <div/>
+        </Component>
+      );
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayName].type.displayName).toEqual(displayName);
@@ -39,9 +41,11 @@ describe('Utils', () => {
       const displayName = 'a.b.c.b.componentName';
       const displayNameWithoutNamespace = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component>
-        <div/>
-      </Component>;
+      const children = (
+        <Component>
+          <div/>
+        </Component>
+      );
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayNameWithoutNamespace].type.displayName).toEqual(displayName);
@@ -57,12 +61,8 @@ describe('Utils', () => {
       const SecondComponent = createComponentThatRendersItsChildren(secondComponentDisplayName);
 
       const children = [];
-      children.push(<FirstComponent>
-        <div/>
-      </FirstComponent>);
-      children.push(<SecondComponent>
-        <div/>
-      </SecondComponent>);
+      children.push(<FirstComponent><div/></FirstComponent>);
+      children.push(<SecondComponent><div/></SecondComponent>);
 
       const childrenObject = buildChildrenObject(children, {});
 

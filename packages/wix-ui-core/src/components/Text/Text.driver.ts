@@ -1,4 +1,4 @@
-const getClasses = (element) => {
+const getClasses = element => {
   const rawCssClasses = element.getAttribute('class');
   let cssClasses = [];
   if (rawCssClasses !== null) {

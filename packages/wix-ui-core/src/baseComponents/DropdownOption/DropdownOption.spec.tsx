@@ -21,11 +21,12 @@ describe('DropdownOption', () => {
   const createDropdownOption = (option: Option) => (
     <DropdownOption
       option={option}
-      isHovered={true}
-      isSelected={true}
+      isHovered
+      isSelected
       onClickHandler={onClickHandler}
       className="className"
-      onMouseEnterHandler={onMouseEnterHandler} />
+      onMouseEnterHandler={onMouseEnterHandler}
+    />
   );
 
   it('should render default component', () => {

@@ -198,12 +198,17 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         data-hook="popover-content"
         modifiers={modifiers}
         placement={placement}
-        className={classNames(style.popover, {[style.withArrow]: showArrow, [style.popoverContent]: !showArrow})}>
+        className={classNames(style.popover, {[style.withArrow]: showArrow, [style.popoverContent]: !showArrow})}
+      >
         {
           showArrow ?
             [
-              <Arrow key="popover-arrow" data-hook="popover-arrow" className={style.arrow}
-                     style={getArrowShift(moveArrowTo, placement)}/>,
+              <Arrow 
+                key="popover-arrow"
+                data-hook="popover-arrow"
+                className={style.arrow}
+                style={getArrowShift(moveArrowTo, placement)}
+              />,
               <div key="popover-content" className={style.popoverContent}>{childrenObject.Content}</div>
             ] :
             childrenObject.Content
@@ -228,16 +233,17 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   wrapWithAnimations(popper) {
     const {timeout, shown} = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
-    return shouldAnimate ?
+    return shouldAnimate ? (
       <CSSTransition
         in={shown}
         timeout={Number(timeout)}
-        unmountOnExit={true}
+        unmountOnExit
         classNames={style.popoverAnimation}
         onExited={() => detachStylesFromNode(this.appendToNode, this.stylesObj)}
       >
         {popper}
-      </CSSTransition> :
+      </CSSTransition>
+    ) :
       popper;
   }
 
@@ -245,10 +251,11 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const popper = this.getPopperContentStructure(childrenObject);
 
     return (
-      this.appendToNode ?
+      this.appendToNode ? (
         <Portal node={this.appendToNode}>
           {popper}
-        </Portal> :
+        </Portal> 
+      ) :
         popper
     );
   }
@@ -284,7 +291,8 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         {...style('root manager', {}, this.props)}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}>
+        onMouseLeave={onMouseLeave}
+      >
         <Target onKeyDown={onKeyDown} data-hook="popover-element" innerRef={r => this.targetRef = r}>
           {childrenObject.Element}
         </Target>

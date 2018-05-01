@@ -25,7 +25,8 @@ export const DropdownOption: DropdownOptionType = (props: DropdownOptionProps) =
       {...style('root', {disabled, selectable, hovered, selected}, props)}
       onClick={onClickHandler}
       title={option.value}
-      onMouseEnter={onMouseEnterHandler}>
+      onMouseEnter={onMouseEnterHandler}
+    >
       {option.render(option.value)}
     </div>
   );

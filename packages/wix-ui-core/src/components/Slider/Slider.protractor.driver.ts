@@ -20,7 +20,7 @@ export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
     await waitForVisibilityOf(tooltip);
     return tooltip.getText();
   },
-  clickTrack: async (position) => {
+  clickTrack: async position => {
     const track = component.$(`[data-hook='track']`);
     await browser.driver
       .actions()
@@ -28,7 +28,7 @@ export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
       .click()
       .perform();
   },
-  dragThumb: async (position) => {
+  dragThumb: async position => {
     const thumb = component.$(`[data-hook='thumb']`);
     await browser.driver
       .actions()
@@ -36,7 +36,7 @@ export const sliderDriverFactory: DriverFactory<SliderDriver> = component => ({
       .mouseMove(position)
       .perform();
   },
-  dragAndDropThumb: async (position) => {
+  dragAndDropThumb: async position => {
     const thumb = component.$(`[data-hook='thumb']`);
     return browser.driver
       .actions()

@@ -272,10 +272,12 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     _renderOption(val) {
         const {locationIcon} = this.props;
-        return (<div className={style.option}>
+        return (
+          <div className={style.option}>
             {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
             <div>{val}</div>
-        </div>);
+          </div>
+        );
     }
 
     _createOptionFromAddress(address) {
@@ -313,7 +315,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const states = {};
         const timeout = options.length > 0 ? 150 : 0;
 
-        return <InputWithOptions
+        return ( 
+          <InputWithOptions
             {...style('root', states, this.props)}
             onSelect={this._onSelect}
             options={options}
@@ -321,6 +324,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onManualInput={this._handleOnManualInput}
             timeout={timeout}
             forceContentElementVisibility={forceContentElementVisibility}
-        />;
+          />
+        );
     }
 }

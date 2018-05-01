@@ -9,10 +9,12 @@ describe('InputWithOptions', () => {
   const createDriver = createDriverFactory(inputWithOptionsDriverFactory);
   const options = generateOptions();
   const createInputWithOptions = (props = {}) => (
-    <InputWithOptions {...Object.assign({
-      options: [],
-      inputProps: {}
-    }, props)}/>
+    <InputWithOptions 
+      {...Object.assign({
+        options: [],
+        inputProps: {}
+      }, props)}
+    />
   );
 
   it('should render default component', () => {

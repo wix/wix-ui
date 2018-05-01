@@ -92,7 +92,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
     });
   }
 
-  const initRequestHandler = (googleInstance) => {
+  const initRequestHandler = googleInstance => {
     context.googleInstance = googleInstance;
 
     context._autocomplete = new googleInstance.maps.places.AutocompleteService();

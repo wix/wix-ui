@@ -3,7 +3,7 @@ import {labelDriverFactory} from '../Label/Label.driver';
 import {StylableDOMUtil} from 'stylable/test-utils';
 import styles from './LabelWithOptions.st.css';
 
-export const labelWithOptionsDriverFactory = (args) => {
+export const labelWithOptionsDriverFactory = args => {
   const dropdownDriver = dropdownDriverFactory(args);
   const labelElement = args.element.querySelector('[data-hook="label"]');
   const suffixElement = args.element.querySelector('[data-hook="suffix"]');

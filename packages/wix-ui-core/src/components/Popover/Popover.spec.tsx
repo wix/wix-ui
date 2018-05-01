@@ -12,8 +12,8 @@ import styles from './Popover.st.css';
 
 describe('Popover', () => {
   const createDriver = createDriverFactory(popoverDriverFactory);
-  const createPopover = (props: Partial<PopoverProps> = {}) =>
-    <Popover placement="top" showArrow={true} shown={false} {...props}>
+  const createPopover = (props: Partial<PopoverProps> = {}) => (
+    <Popover placement="top" showArrow shown={false} {...props}>
       <Popover.Element>
         <div>
           Element
@@ -24,7 +24,8 @@ describe('Popover', () => {
           Content
         </div>
       </Popover.Content>
-    </Popover>;
+    </Popover>
+  );
 
   it('should not display content by default', () => {
     const driver = createDriver(createPopover());
