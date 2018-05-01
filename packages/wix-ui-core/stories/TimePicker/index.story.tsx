@@ -1,5 +1,5 @@
 import {TimePicker} from '../../src/components/TimePicker';
-import style from './TimePicker.st.css';
+import style from './style.st.css';
 
 export default {
   category: 'Components',
@@ -7,7 +7,7 @@ export default {
   component: TimePicker,
   componentPath: '../../src/components/TimePicker',
 
-  componentProps: (setState) => ({
+  componentProps: setState => ({
     ...style('root'),
     'data-hook': 'storybook-timepicker',
     onChange: value => setState({value}),
