@@ -1,5 +1,5 @@
 .root {
-  -st-states: selected;
+  -st-states: selected, disabled;
   position: relative;
   border: 1px solid grey;
 }
@@ -17,4 +17,8 @@
 :global([dir="rtl"]) .selectedIcon {
   left: -10px;
   right: unset;
+}
+
+.root:disabled {
+  cursor: default;
 }

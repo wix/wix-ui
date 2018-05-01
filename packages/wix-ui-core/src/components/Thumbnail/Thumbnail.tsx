@@ -11,14 +11,16 @@ export interface ThumbnailProps {
   selectedIcon?: React.ReactNode;
   /** Item to sit inside the Thumbnail */
   children?: React.ReactNode;
+  /** Is the thumbnail disabled */
+  disabled?: boolean;
 }
 
 export const Thumbnail: React.SFC<ThumbnailProps> = props => {
   const children = React.Children.only(props.children);
-  const {selected, selectedIcon, onClick} = props;
+  const {selected, selectedIcon, onClick, disabled} = props;
 
   return (
-    <div {...style('root', {selected}, props)} onClick={onClick}>
+    <div {...style('root', {selected, disabled}, props)} onClick={onClick}>
       {children}
 
       <div className={style.selectedIcon} data-hook="selected-icon">
@@ -38,9 +40,12 @@ Thumbnail.propTypes = {
   /** Icon to display in when thumbnail is selected */
   selectedIcon: node,
   /** Item to sit inside the Thumbnail */
-  children: node
+  children: node,
+  /** Is the thumbnail disabled */
+  disabled: bool
 };
 
 Thumbnail.defaultProps = {
-  onClick: () => null
+  onClick: () => null,
+  disabled: false
 };
