@@ -7,7 +7,9 @@ import {linkTestkitFactory} from '../../testkit/protractor';
 const dataHook = 'storybook-link';
 
 describe('Link', () => {
-  browser.get(getStoryUrl('Components', 'Link'));
+  beforeAll(() =>
+    browser.get(getStoryUrl('Components', 'Link'))
+  )
 
   eyes.it('should render', async () => {
     const driver = linkTestkitFactory({dataHook});
