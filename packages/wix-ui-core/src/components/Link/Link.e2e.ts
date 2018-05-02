@@ -13,6 +13,6 @@ describe('Link', () => {
     const driver = linkTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find <Link/>');
 
-    expect(driver.element()).not.toBe(undefined);
+    expect(await driver.element()).not.toBe(undefined);
   });
 });
