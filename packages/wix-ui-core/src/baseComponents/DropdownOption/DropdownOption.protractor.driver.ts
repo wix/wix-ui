@@ -1,7 +1,14 @@
-export const dropdownOptionDriverFactory = component => {
+import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
+
+export interface DropdownOptionDriver extends BaseDriver {
+  click: () =>  Promise<void>;
+  getText: () => Promise<string>;
+}
+
+export const dropdownOptionDriverFactory: DriverFactory<DropdownOptionDriver> = component => {
   return {
     element: () => component,
-    click: () => component.click(),
-    getText: () => component.getText()
+    click: async () => component.click(),
+    getText: async () => component.getText()
   };
 };

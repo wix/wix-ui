@@ -28,30 +28,32 @@ const snailSeperator = <div>🐌🐌🐌🐌🐌</div>;
 
 export class DividerStory extends React.PureComponent {
     render() {
-        return <div>
-                <h3>Horizontal Example:</h3>
-                <div style={horizontalDemo}>
-                    <p>Component 1</p>
-                    <Divider/>
-                    <p>Component 2</p>
-                </div>
-                <br/>
-                <h3>Horizontal Example:</h3>
-                <div style={verticalDemo}>
-                    <p>West</p>
-                    <Divider vertical/>
-                    <p>East</p>
-                </div>
-                <h3>Custom Divider Example:</h3>
-                <div style={customDemo}>
-                  <p>One</p>
-                    {unicornSeparator}
-                  <p>Two</p>
-                  <Divider data-hook="story-divider">
-                    {snailSeperator}
-                  </Divider>
-                  <p>Three</p>
-                </div>
-            </div>;
+        return (
+          <div>
+            <h3>Horizontal Example:</h3>
+            <div style={horizontalDemo}>
+              <p>Component 1</p>
+              <Divider/>
+              <p>Component 2</p>
+            </div>
+            <br/>
+            <h3>Horizontal Example:</h3>
+            <div style={verticalDemo}>
+              <p>West</p>
+              <Divider vertical/>
+              <p>East</p>
+            </div>
+            <h3>Custom Divider Example:</h3>
+            <div style={customDemo}>
+              <p>One</p>
+              {unicornSeparator}
+              <p>Two</p>
+              <Divider data-hook="story-divider">
+                {snailSeperator}
+              </Divider>
+                <p>Three</p>
+            </div>
+          </div>
+        );
     }
 }

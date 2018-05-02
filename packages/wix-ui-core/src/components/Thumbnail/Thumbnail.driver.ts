@@ -17,6 +17,8 @@ export const thumbnailDriverFactory = ({element, eventTrigger}) => {
     /** returns the components's children */
     getContent: () => element.childNodes[0],
     /** returns the components's selected icon */
-    getSelectedIcon: () => selectedIcon.childNodes[0]
+    getSelectedIcon: () => selectedIcon.childNodes[0],
+    /** check if component is disabled */
+    isDisabled: () => stylableDOMUtil.hasStyleState(element, 'disabled'),
   };
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
-import {Popover, Placement} from '../Popover';
+import {Popover, Placement} from '../../components/Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
@@ -204,7 +204,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
-        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}>
+        onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
+      >
         <Popover.Element>
           {children}
         </Popover.Element>
@@ -216,7 +217,8 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
             selectedIds={selectedIds}
-            onOptionClick={this.onOptionClick}/>
+            onOptionClick={this.onOptionClick}
+          />
         </Popover.Content>
       </Popover>
     );

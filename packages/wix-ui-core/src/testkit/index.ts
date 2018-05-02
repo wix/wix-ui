@@ -57,3 +57,6 @@ export const labelWithOptionsTestkitFactory = testkitFactoryCreator(labelWithOpt
 
 import {thumbnailDriverFactory} from '../components/Thumbnail/Thumbnail.driver';
 export const thumbnailTestkitFactory = testkitFactoryCreator(thumbnailDriverFactory);
+
+import {popoverDriverFactory} from '../components/Popover/Popover.driver';
+export const popoverTestkitFactory = testkitFactoryCreator(popoverDriverFactory);

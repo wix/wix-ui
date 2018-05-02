@@ -7,15 +7,18 @@ export class RadioButtonStory extends React.Component<{}, {checkedIdx: string}> 
   };
 
   createRadio(props: RadioButtonProps = {}) {
-    return <RadioButton
-              key={props.label + props.value}
-              label={<span>props.label</span>}
-              checkedIcon={<span>🔘</span>}
-              uncheckedIcon={<span>⚪</span>}
-              checked={this.state.checkedIdx === props.value}
-              onChange={() => this.setState({checkedIdx: props.value})}
-              data-hook={`radio-story-${props.value}`}
-              {...props}/>;
+    return (
+      <RadioButton
+        key={props.label + props.value}
+        label={<span>props.label</span>}
+        checkedIcon={<span>🔘</span>}
+        uncheckedIcon={<span>⚪</span>}
+        checked={this.state.checkedIdx === props.value}
+        onChange={() => this.setState({checkedIdx: props.value})}
+        data-hook={`radio-story-${props.value}`}
+        {...props}
+      />
+    );
   }
 
   render() {

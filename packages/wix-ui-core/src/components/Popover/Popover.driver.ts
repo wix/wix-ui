@@ -1,6 +1,7 @@
-const getTargetElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-element"]');
-const getContentElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-content"]');
-const getArrowElement = (element: Element | undefined) => element && element.querySelector('[data-hook="popover-arrow"]');
+const queryDocumentOrElement = (element, query) => ((element && element.querySelectorAll(query)[0]) || document && document.querySelector(query));
+const getTargetElement = (element: Element | undefined) => element && element.querySelectorAll('[data-hook="popover-element"]')[0];
+const getContentElement = (element: Element | undefined) => queryDocumentOrElement(element, '[data-hook="popover-content"]');
+const getArrowElement = (element: Element | undefined) => element && element.querySelectorAll('[data-hook="popover-arrow"]')[0];
 
 export const popoverDriverFactory = ({element, eventTrigger}) => ({
   exists: () => !!element,

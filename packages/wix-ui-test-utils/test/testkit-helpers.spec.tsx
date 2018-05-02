@@ -16,7 +16,19 @@ describe('isTestkitExists', () => {
     expect(isTestkitExists(<MyComp/>, testkitFactoryCreator(driver))).toEqual(true);
   });
 
+  it('vanilla should exist using data-hook only', () => {
+    expect(isTestkitExists(<MyComp/>, testkitFactoryCreator(driver), {dataHookPropName: 'data-hook'})).toEqual(true);
+  });
+
   it('enzyme should exist', () => {
     expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount)).toEqual(true);
+  });
+
+  it('enzyme should exist without data-hook value', () => {
+    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount, {withoutDataHook: true})).toEqual(true);
+  });
+
+  it('enzyme should exist using data-hook prop name only', () => {
+    expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount, {dataHookPropName: 'data-hook'})).toEqual(true);
   });
 });

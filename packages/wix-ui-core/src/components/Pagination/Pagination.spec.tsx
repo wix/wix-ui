@@ -256,7 +256,8 @@ describe('Pagination', () => {
           firstLabel="oh"
           previousLabel="my"
           nextLabel="god"
-          lastLabel="!!!"/>
+          lastLabel="!!!"
+        />
       );
       expect(pagination.getNavButton('first').textContent).toEqual('oh');
       expect(pagination.getNavButton('previous').textContent).toEqual('my');

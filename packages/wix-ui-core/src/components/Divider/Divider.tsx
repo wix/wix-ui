@@ -18,9 +18,10 @@ export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
   return (
     <div
       {...style('root', {vertical: vertical && !customDivider, customDivider}, props)}
-      >
-        {children}
-    </div>);
+    >
+      {children}
+    </div>
+  );
 };
 
 Divider.displayName = 'Divider';

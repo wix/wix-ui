@@ -115,7 +115,7 @@ describe('Video', () => {
           <Video
             poster="https://example.com/image.png"
             playButton={<div data-hook="play-button">Play</div>}
-            />
+          />
         );
         expect(driver.getRootDOMNode().querySelector('[data-hook="play-button"]')).toBeTruthy();
       });

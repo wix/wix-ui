@@ -16,8 +16,8 @@ export default {
   },
 
   exampleProps: {
-    fixedFooter: [null, <div>Fixed Footer</div>],
-    fixedHeader: [null, <div>Fixed Header</div>],
+    fixedFooter: [null, <div key="1">Fixed Footer</div>],
+    fixedHeader: [null, <div key="2">Fixed Header</div>],
     onSelect: (option: Option) => option.value,
     initialSelectedId: [null, 1],
     onManualInput: (value: string) => `Manual input: ${value}`,

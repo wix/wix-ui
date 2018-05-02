@@ -39,6 +39,18 @@ describe('Thumbnail', () => {
     });
   });
 
+  describe('disabled prop', () => {
+    it('should not be disabled by default', () => {
+      const driver = createDriver(<Thumbnail><div/></Thumbnail>);
+      expect(driver.isDisabled()).toEqual(false);
+    });
+
+    it('should be disabled', () => {
+      const driver = createDriver(<Thumbnail disabled><div/></Thumbnail>);
+      expect(driver.isDisabled()).toEqual(true);
+    });
+  });
+
   describe('selectedIcon prop', () => {
     it('should not have icon by default', () => {
       const driver = createDriver(<Thumbnail><div/></Thumbnail>);

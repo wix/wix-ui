@@ -10,11 +10,13 @@ describe('DropdownContent', () => {
   const createDriver = createDriverFactory(dropdownContentDriverFactory);
   const options = generateOptions();
   const createDropdownContent = (props = {}) => (
-    <DropdownContent {...Object.assign({
-      options: [],
-      onOptionClick: () => null,
-      selectedIds: []
-    }, props)}/>
+    <DropdownContent
+      {...Object.assign({
+        options: [],
+        onOptionClick: () => null,
+        selectedIds: []
+      }, props)}
+    />
   );
 
   it('should render default dropdown content', () => {

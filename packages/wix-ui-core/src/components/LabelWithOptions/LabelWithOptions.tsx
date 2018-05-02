@@ -125,12 +125,14 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
         onInitialSelectedOptionsSet={this.onInitialSelectedOptionsSet}
         onSelect={this.onSelect}
         onDeselect={this.onDeselect}
-        disabled={disabled}>
+        disabled={disabled}
+      >
         <div className={style.selection}>
           <Label
             className={`${style.label} ${selectedIds && selectedIds.length ? '' : style.placeholder}`.trim()}
             ellipsis={ellipsis}
-            data-hook="label">
+            data-hook="label"
+          >
             {this.createLabel()}
           </Label>
           {renderSuffix(error)}

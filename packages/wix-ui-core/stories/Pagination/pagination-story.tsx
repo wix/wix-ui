@@ -4,7 +4,7 @@ import style from './pagination-story-theme.st.css';
 import {withStylable} from '../../src/utils/withStylable';
 
 // Assuming we use pagination-story-theme
-const spaceForPages = (n) => (n + 2) * 40;
+const spaceForPages = n => (n + 2) * 40;
 
 const Pagination = withStylable<PaginationProps, {}>(CorePagination, style, () => ({}));
 

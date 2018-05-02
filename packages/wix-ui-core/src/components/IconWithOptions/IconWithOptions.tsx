@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './IconWithOptions.st.css';
 import {Dropdown} from '../../baseComponents/Dropdown';
-import {Placement} from '../../baseComponents/Popover';
+import {Placement} from '../Popover';
 import {Option, optionPropType} from '../../baseComponents/DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../../baseComponents/Dropdown/constants';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
@@ -56,14 +56,16 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       multi={multi}
       onSelect={onSelect}
       onInitialSelectedOptionsSet={() => null}
-      showArrow={true}
+      showArrow
       fixedFooter={fixedFooter}
       fixedHeader={fixedHeader}
       onDeselect={onDeselect}
-      initialSelectedIds={initialSelectedIds}>
+      initialSelectedIds={initialSelectedIds}
+    >
       <img
         src={iconUrl}
-        tabIndex={5}/>
+        tabIndex={5}
+      />
     </Dropdown>);
   };
 

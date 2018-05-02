@@ -3,7 +3,7 @@ import styles from './Checkbox.st.css';
 
 export const checkboxDriverFactory = ({element, eventTrigger}) => {
   const utils = new StylableDOMUtil(styles, element);
-  const hasStyleState = (state) => utils.hasStyleState(element, state);
+  const hasStyleState = state => utils.hasStyleState(element, state);
   const input = utils.select('.nativeCheckbox') as HTMLInputElement;
 
   return {

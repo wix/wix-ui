@@ -17,7 +17,8 @@ describe('LabelWithOptions', () => {
       renderSuffix={isError => (
         <div data-hook="suffix">{isError ? 'error!' : 'no errors'}</div>
       )}
-      {...props}/>
+      {...props}
+    />
   );
 
   it('should render the label in default state', () => {
@@ -126,10 +127,11 @@ describe('LabelWithOptions', () => {
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
 
-    it('allows picking only one option when multi prop is flase', () => {
+    it('allows picking only one option when multi prop is false', () => {
       const driver = createDriver(<LabelWithOptions options={generateOptions()} multi={false}/>);
       driver.click();
       driver.optionAt(0).click();
+      driver.click();
       driver.optionAt(4).click();
       expect(driver.getLabelText()).toEqual(options[4].value);
     });
@@ -211,7 +213,7 @@ describe('LabelWithOptions', () => {
     });
 
     it('marks the checkbox as checked when an option is selected', () => {
-      const driver = createDriver(<LabelWithOptions checkbox options={generateOptions()} />);
+      const driver = createDriver(<LabelWithOptions checkbox multi options={generateOptions()} />);
 
       driver.click();
       driver.optionAt(0).click();

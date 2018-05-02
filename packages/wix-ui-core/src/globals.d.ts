@@ -34,6 +34,10 @@ type RuntimeStylesheet = StylesheetLocals & (
   (
       className: string,
       states?: StateMap,
-      props?: {className?: string, [key: string]: any}
+      props?: RuntimeStylesheetProps
   ) => {[key: string]: string}
 );
+type RuntimeStylesheetBaseProps = {
+  className?: string;
+};
+type RuntimeStylesheetProps = RuntimeStylesheetBaseProps & { [key: string]: any};

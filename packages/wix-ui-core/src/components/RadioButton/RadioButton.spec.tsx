@@ -4,8 +4,15 @@ import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {RadioButton, RadioButtonProps} from './RadioButton';
 
 function createRadio(props: RadioButtonProps = {}) {
-  return <RadioButton label={<span>Horsie</span>}
-                      checkedIcon={<span>🦄</span>} uncheckedIcon={<span>🦄</span>} value="horsie" {...props}/>;
+  return (
+    <RadioButton
+      label={<span>Horsie</span>}
+      checkedIcon={<span>🦄</span>}
+      uncheckedIcon={<span>🦄</span>}
+      value="horsie"
+      {...props}
+    />
+  );
 }
 
 describe('RadioButton', () => {

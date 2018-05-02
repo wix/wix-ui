@@ -6,7 +6,7 @@ export default {
   component: TimePicker,
   componentPath: '../src/components/TimePicker',
 
-  componentProps: (setState) => ({
+  componentProps: setState => ({
     'data-hook': 'storybook-timepicker',
     onChange: value => setState({value}),
   }),
