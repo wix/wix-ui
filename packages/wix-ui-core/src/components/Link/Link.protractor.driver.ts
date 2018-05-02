@@ -1,18 +1,19 @@
 /* global Promise */
 
-import {mouseEnter} from 'wix-ui-test-utils/protractor';
 import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
 
 export interface LinkDriver extends BaseDriver {
   click: () => Promise<void>;
-  mouseEnter: () => Promise<void>;
+  isPresent: () => Promise<boolean>;
 }
 
-export const linkDriverFactory: DriverFactory<LinkDriver> = component => ({
-  /** returns the component element */
-  element: () => component,
-  /** triggers a mouseEnter event on the compomnent */
-  mouseEnter: () => mouseEnter(component),
-  /** triggers a click event on the component */
-  click: async () => component.click()
+export const linkDriverFactory: DriverFactory<LinkDriver> = element => ({
+  /** return rendered element */
+  element: () => element,
+
+  /** check if element is part of document */
+  isPresent: async () => await element.isPresent(),
+
+  /** trigger click event */
+  click: async () => element.click()
 });
