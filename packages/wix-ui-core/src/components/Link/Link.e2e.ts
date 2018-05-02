@@ -15,6 +15,6 @@ describe('Link', () => {
     const driver = linkTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find <Link/>');
 
-    expect(await driver.isPresent()).toBe(true);
+    expect(await driver.exists()).toBe(true);
   });
 });
