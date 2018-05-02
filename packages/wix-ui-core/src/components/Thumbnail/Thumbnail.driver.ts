@@ -1,7 +1,17 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
 import style from './Thumbnail.st.css';
+import {BaseDriver, DriverFactory} from 'wix-ui-test-utils/driver-factory';
 
-export const thumbnailDriverFactory = ({element, eventTrigger}) => {
+export interface ThumbnailDriver extends BaseDriver {
+  hasSelectedIcon: () => boolean;
+  click: () => void;
+  isSelected: () => boolean;
+  getContent: () => HTMLElement;
+  getSelectedIcon: () => HTMLElement;
+  isDisabled: () => boolean;
+}
+
+export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({element, eventTrigger}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
   const selectedIcon = element.querySelector('[data-hook="selected-icon"]');
 
@@ -15,9 +25,9 @@ export const thumbnailDriverFactory = ({element, eventTrigger}) => {
     /** check if component is selected */
     isSelected: () => stylableDOMUtil.hasStyleState(element, 'selected'),
     /** returns the components's children */
-    getContent: () => element.childNodes[0],
+    getContent: () => <HTMLElement>element.childNodes[0],
     /** returns the components's selected icon */
-    getSelectedIcon: () => selectedIcon.childNodes[0],
+    getSelectedIcon: () => <HTMLElement>selectedIcon.childNodes[0],
     /** check if component is disabled */
     isDisabled: () => stylableDOMUtil.hasStyleState(element, 'disabled'),
   };

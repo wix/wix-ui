@@ -55,8 +55,9 @@ export const timePickerTestkitFactory = testkitFactoryCreator(timePickerDriverFa
 import {labelWithOptionsDriverFactory} from '../components/LabelWithOptions/LabelWithOptions.driver';
 export const labelWithOptionsTestkitFactory = testkitFactoryCreator(labelWithOptionsDriverFactory);
 
-import {thumbnailDriverFactory} from '../components/Thumbnail/Thumbnail.driver';
-export const thumbnailTestkitFactory = testkitFactoryCreator(thumbnailDriverFactory);
+import {thumbnailDriverFactory, ThumbnailDriver} from '../components/Thumbnail/Thumbnail.driver';
+export const thumbnailTestkitFactory = testkitFactoryCreator<ThumbnailDriver>(thumbnailDriverFactory);
+export {ThumbnailDriver};
 
 import {popoverDriverFactory} from '../components/Popover/Popover.driver';
 export const popoverTestkitFactory = testkitFactoryCreator(popoverDriverFactory);
