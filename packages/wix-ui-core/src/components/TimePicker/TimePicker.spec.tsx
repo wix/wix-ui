@@ -207,7 +207,7 @@ describe('TimePicker', () => {
     });
 
     it('should display time in 12-hour format when true', () => {
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {true} />);
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm />);
       expect(driver.getValue()).toEqual(convertToAmPm({value: SOME_VALUE}));
     });
   });
@@ -239,15 +239,15 @@ describe('TimePicker', () => {
 
     it('should set the value when a new value is sent', () => {
       class ValueContainer extends React.Component<{value: string}, {value: string}> {
+        timePickerRef: React.RefObject<TimePicker>;
         constructor(props) {
           super(props);
+          this.timePickerRef = React.createRef();
           this.state = {value: props.value};
           this.setValue = this.setValue.bind(this);
         }
         setValue(value) { this.setState({value}); }
-        /* tslint:disable jsx-no-string-ref */
-        render() { return (<TimePicker ref="timePicker" value={this.state.value}/>); }
-        /* tslint:enable jsx-no-string-ref*/
+        render() { return (<TimePicker ref={this.timePickerRef} value={this.state.value}/>); }
       }
 
       const container = mount(<ValueContainer value = {SOME_VALUE}/>);
