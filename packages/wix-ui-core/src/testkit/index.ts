@@ -26,7 +26,7 @@ import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch
 export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
 
 import {textDriverFactory as stylableTextDriverFactory, TextDriver} from '../components/StylableText/Text.driver';
-export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
+export const stylableTextTestkitFactory = testkitFactoryCreator<TextDriver>(stylableTextDriverFactory);
 export {TextDriver};
 
 import {buttonDriverFactory} from '../components/Button/Button.driver';
