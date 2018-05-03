@@ -1,7 +1,16 @@
 import {StylableDOMUtil} from 'stylable/test-utils';
 import style from './Text.st.css';
+import {BaseDriver, DriverFactory} from 'wix-ui-test-utils/driver-factory';
 
-export const textDriverFactory = ({element}) => {
+export interface TextDriver extends BaseDriver {
+  hasEllipsis: () => boolean;
+  hasTitleAttribute: () => boolean;
+  getTitle: () => string;
+  getTagName: () => string;
+  getText: () => string;
+}
+
+export const textDriverFactory: DriverFactory<TextDriver> = ({element}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   return {
@@ -12,7 +21,7 @@ export const textDriverFactory = ({element}) => {
     /** check if element has title attribute */
     hasTitleAttribute: () => element.getAttribute('title') !== null,
     /** check if element has title attribute */
-    getTitle: () => element.title,
+    getTitle: () => (element as HTMLElement).title,
     /** get the rendered tag name */
     getTagName: () => element.tagName.toLowerCase(),
     /** get the rendered content */

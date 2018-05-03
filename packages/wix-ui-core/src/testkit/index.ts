@@ -25,8 +25,9 @@ export const checkboxTestkitFactory = testkitFactoryCreator(checkboxDriverFactor
 import {toggleSwitchDriverFactory} from '../components/ToggleSwitch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = testkitFactoryCreator(toggleSwitchDriverFactory);
 
-import {textDriverFactory as stylableTextDriverFactory} from '../components/StylableText/Text.driver';
+import {textDriverFactory as stylableTextDriverFactory, TextDriver} from '../components/StylableText/Text.driver';
 export const stylableTextTestkitFactory = testkitFactoryCreator(stylableTextDriverFactory);
+export {TextDriver};
 
 import {buttonDriverFactory} from '../components/Button/Button.driver';
 export const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
