@@ -1,14 +1,51 @@
-Components are devided into 2 groups:
+# Contributing components
 
-UX blocks:
+Components are divided into 2 groups:
+
+## UX blocks:
 very simple stateless components used for creating the same compositions across our different applications.
 
-Actual components:
-Components with logic.
+## Actual components:
+Components with logic. (and in many cases state)
 
-it is much easier to write UX blocks. 
+## How do i decide if to write a UX block or component
+
+it is much easier to write UX blocks, so if you can, please do.
+
+in a UX block you can:
+- render a structure of html and components
+- hide and show nodes
+
+### Example UX Block
+
+```jsx
+import {DropDown, DropDownProps} from '../drop-down'
+import {HTMLLabelProps} from 'react';
+import {styles} from './component-name.st.css';
+
+export interface BlockProps {
+  label:?HTMLLabelProps;
+  dropDown:DropDownProps;
+  className:string;
+}
+
+export const ComponentName = (props:BlockProps)=><div styles('root',{},props)>
+  {props.label ? <label {...props.label} {...styles('label')}/> : null}
+  <DropDown {...props.dropDown} {...styles('drop-down')}/>
+</div>
+```
 
 
+
+
+## Getting started
+```
+git clone git@github.com:wix/wix-ui.git
+cd wix-ui
+npm install
+npm run rebuild
+code .
+```
 
 Example UX Block:
 
