@@ -1,5 +1,6 @@
 # wix-ui
 > Wix's React component library
+contains components and tools work testing components and applications.
 
 ## Documentation
 Project documentation can be found here
