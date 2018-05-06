@@ -35,7 +35,7 @@
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "postPRBuild": "teamcity-surge-autorelease"
+    "postprbuild": "teamcity-surge-autorelease"
   },
   "dependencies": {
     "classnames": "^2.2.5",
