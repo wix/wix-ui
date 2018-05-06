@@ -16,10 +16,10 @@ export interface TickersProps {
 
 export const Tickers: React.SFC<TickersProps> = props => (
   <div {...style('root', {}, props)}>
-    <button type="button" onClick={props.onIncrement} className={style.ticker}>
+    <button tabIndex={-1} type="button" onClick={props.onIncrement} className={style.ticker}>
       {props.tickerUpIcon}
     </button>
-    <button type="button" onClick={props.onDecrement} className={style.ticker}>
+    <button tabIndex={-1} type="button" onClick={props.onDecrement} className={style.ticker}>
       {props.tickerDownIcon}
     </button>
   </div>

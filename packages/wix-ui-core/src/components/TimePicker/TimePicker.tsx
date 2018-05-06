@@ -34,9 +34,6 @@ export interface TimePickerProps extends InputProps {
   /** Time in 24hour format (00:00 - 23:59). Can be null */
   value?: string;
 
-  /** What to display when value is null */
-  placeholder?: string;
-
   /** What to display for the up ticker. Will only be shown if tickerDownIcon is also provided */
   tickerUpIcon?: React.ReactNode;
 
@@ -79,8 +76,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     useNativeInteraction : false,
     useAmPm              : false,
     step                 : 1,
-    value                : null,
-    placeholder          : NULL_TIME,
   };
 
   static propTypes: Object = {
@@ -111,9 +106,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     /** Time in 24hour format (00:00 - 23:59). Can be null */
     value: string,
 
-    /** What to display when value is null */
-    placeholder: string,
-
     /** What to display for the up ticker. Will only be shown if tickerDownIcon is also provided */
     tickerUpIcon: node,
 
@@ -130,12 +122,11 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     let {value} = props;
     if (!value || !isValidTime(value)) {
-      value = isValidTime(props.placeholder) ? props.placeholder : NULL_TIME;
+      value = NULL_TIME;
     }
 
     this.state = {value};
 
-    // Internal functions
     this._highlightField = this._highlightField.bind(this);
     this._onMouseDown    = this._onMouseDown.bind(this);
     this._onMouseUp      = this._onMouseUp.bind(this);
@@ -144,17 +135,15 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._onBlur         = this._onBlur.bind(this);
     this._onFocus        = this._onFocus.bind(this);
     this._onKeyDown      = this._onKeyDown.bind(this);
-
-    // External functions (for ticker buttons)
-    this.increment       = this.increment.bind(this);
-    this.decrement       = this.decrement.bind(this);
+    this._increment      = this._increment.bind(this);
+    this._decrement      = this._decrement.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    let {value, placeholder} = nextProps;
-    if (this.props.value !== value || this.props.placeholder !== placeholder) {
+    let {value} = nextProps;
+    if (this.props.value !== value) {
       if (!value || !isValidTime(value)) {
-        value = placeholder ? placeholder : NULL_TIME;
+        value = NULL_TIME;
       }
       this.setState({value});
     }
@@ -197,8 +186,15 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     // Validate on blur and call onTimeChange if needed
     let {value} = this.state;
     const {onTimeChange, useAmPm} = this.props;
-    if (isValidTime(value, useAmPm) || value === NULL_TIME) {
-      if (value !== this.props.value) { onTimeChange(value === NULL_TIME ? null : value); }
+
+    if (value === NULL_TIME) {
+      if (!!this.props.value) {
+        onTimeChange(null); 
+      }
+    } else if (isValidTime(value, useAmPm)) {
+      if (this.props.value !== value) {
+        onTimeChange(value);
+      }
     } else {
       const {hour, minute} = parseTime(value);
       const nHour          = parseInt(hour)   || 0;
@@ -219,12 +215,13 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   _onKeyDown(e) {
     /*
       Respond to:
+      - tab
       - numbers
       - case-insensitive A, P (for am/pm)
       - arrow keys
       - delete and backspace
-      - tab
     */
+    
     if (e.altKey || e.ctrlKey || e.metaKey) { return; }
 
     const elem                    = e.target;
@@ -232,10 +229,24 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const {useAmPm, onTimeChange} = this.props;
     let {value}                   = this.state;
     let currentField              = getFieldFromPos(startPos);
+    
+    // Checking for TAB first because it's the only key that might have default behavior
+    // Shift focus between fields if tab is pressed, or use regular behavior if the field is on the edge
+    // i.e., tabbing while on AM/PM or shift+tab on hour
+    if (e.key === 'Tab') {
+      currentField += e.shiftKey ? -1 : 1;
+      if (currentField === FIELD.HOUR || currentField === FIELD.MINUTE || currentField === FIELD.AMPM && useAmPm) {
+        e.preventDefault();
+        this._highlightField(elem, currentField);
+      }
+      return;
+    }
+
+    // Block other input default behavior
+    e.preventDefault();
 
     // Handle numeric input
     if (/^[0-9]$/.test(e.key)) {
-      e.preventDefault();
       const num = parseInt(e.key);
       let {hour, minute} = parseTime(value);
 
@@ -278,7 +289,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     switch (e.key) {
       // Change focus on arrow left or right
       case 'ArrowLeft': {
-        e.preventDefault();
         currentField -= 1;
         if (currentField === FIELD.BEFORE) { currentField = FIELD.HOUR; }
         this._highlightField(elem, currentField);
@@ -286,7 +296,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       }
 
       case 'ArrowRight': {
-        e.preventDefault();
         currentField += 1;
         if (currentField === FIELD.AMPM && !useAmPm) { currentField = FIELD.MINUTE; }
         if (currentField === FIELD.AFTER)            { currentField = FIELD.AMPM; }
@@ -297,7 +306,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       // Increment or decrement for up/down arrows
       case 'ArrowUp':
       case 'ArrowDown': {
-        e.preventDefault();
         const {step} = this.props;
         value = e.key === 'ArrowUp'
           ? increment({value, field: currentField, step})
@@ -310,15 +318,15 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       }
 
       // AM / PM only if on relevant field
-      case 'a': // keycode 65
+      case 'a':
       case 'A':
-      case 'p': // keycode 80
+      case 'p':
       case 'P': {
-        e.preventDefault();
         if (currentField !== FIELD.AMPM) { break; }
         const {hour} = parseTime(value);
         const nHour = parseInt(hour);
-        if (nHour < 12 && e.keyCode === 80 || nHour > 11 && e.keyCode === 65) {
+        if (nHour < 12 && (e.key === 'p' || e.key === 'P') || 
+            nHour > 11 && (e.key === 'a' || e.key === 'A')) {
           value = increment({value, field: FIELD.AMPM});
           this.setState({value}, () => {
             this._highlightField(elem, FIELD.AMPM);
@@ -331,7 +339,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       // Change field to BLANK on delete or backspace. Ignore if field is AM/PM
       case 'Delete':
       case 'Backspace': {
-        e.preventDefault();
         const {hour, minute} = parseTime(value);
         const callback = () => {
           if (this.state.value === NULL_TIME) { onTimeChange(null); }
@@ -342,32 +349,18 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         break;
       }
 
-      // Shift focus between fields if tab is pressed, or use regular behavior if the field is on the edge
-      // i.e., tabbing while on AM/PM or shift+tab on hour
-      case 'Tab': {
-        currentField += e.shiftKey ? -1 : 1;
-        if (currentField === FIELD.HOUR || currentField === FIELD.MINUTE || currentField === FIELD.AMPM && useAmPm) {
-          e.preventDefault();
-          this._highlightField(elem, currentField);
-        }
-        break;
-      }
-
-      // Disallow other keyboard inputs
-      default: {
-        e.preventDefault();
-      }
+      default:
     }
   }
 
-  increment(field?: FIELD) {
+  _increment(field?: FIELD) {
     let {value} = this.state;
     const {step} = this.props;
     value = increment({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
     this.setState({value});
   }
 
-  decrement(field?: FIELD) {
+  _decrement(field?: FIELD) {
     let {value} = this.state;
     const {step} = this.props;
     value = decrement({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
@@ -380,8 +373,20 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       'onTimeChange',
       'step',
       'value',
-      'placeholder',
     ]);
+
+    if (useNativeInteraction) {
+      const {value: propsValue = NULL_TIME, onTimeChange} = this.props;
+      return (
+        <Input
+          {...style('root', {}, this.props)}
+          {...passThroughProps}
+          type        = "time"
+          value       = {propsValue}
+          onChange    = {e => onTimeChange(e.target.value)}
+        />
+      );
+    }
 
     let {value} = this.state;
     if (useAmPm) {
@@ -391,8 +396,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const tickers = tickerUpIcon && tickerDownIcon && (
       <Tickers
         className      = {style.tickers}
-        onIncrement    = {() => this.increment()}
-        onDecrement    = {() => this.decrement()}
+        onIncrement    = {() => this._increment()}
+        onDecrement    = {() => this._decrement()}
         tickerUpIcon   = {tickerUpIcon}
         tickerDownIcon = {tickerDownIcon}
       />
@@ -402,9 +407,9 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       <Input
         {...style('root', {}, this.props)}
         {...passThroughProps}
+        type        = "text"
         value       = {value}
         suffix      = {tickers}
-        type        = {useNativeInteraction ? 'time' : 'text'}
         onKeyDown   = {this._onKeyDown}
         onFocus     = {this._onFocus}
         onBlur      = {this._onBlur}
@@ -412,7 +417,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         onMouseUp   = {this._onMouseUp}
         onMouseMove = {this._onMouseMove}
         onClick     = {this._onClick}
-        onDragStart = {e => { e.preventDefault(); e.stopPropagation(); }}
+        onDragStart = {e => e.stopPropagation()}
       />
     );
   }
