@@ -275,7 +275,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         return (
           <div className={style.option}>
             {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
-            <div>{val}</div>
+            <div className={style.optionContent}>{val}</div>
           </div>
         );
     }
