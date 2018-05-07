@@ -65,6 +65,8 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     if (!this.props.updateResponsiveLayout) {
       this.updateLayoutIfNeeded();
     }
+
+    this.forceRepaintInMsEdge();
   }
 
   public componentWillUnmount() {
@@ -93,6 +95,16 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         }
       </div>
     );
+  }
+
+  private forceRepaintInMsEdge() {
+    // MS Edge has a glitch that makes page numbers invisible when switching to the preview
+    // mode in Santa editor. As a workaround we need to force text re-rendering.
+    // Changing font-variant to small-caps should do the trick without actually affecting
+    // the appearance of digits.
+
+    const inlineStyle = ReactDOM.findDOMNode(this).style;
+    inlineStyle.fontVariant = inlineStyle.fontVariant ? '' : 'small-caps';
   }
 
   // We can't use page numbers as keys, because we might need to render the same page twice
