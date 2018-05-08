@@ -34,3 +34,5 @@
 .root:not(:selectable) {
   cursor: default;
 }
+
+.highlight {}
