@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, func, object, string, node} from 'prop-types';
+import {bool, func, object, string, node, shape} from 'prop-types';
 const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
@@ -15,6 +15,11 @@ import {
   isValidTime
 } from './utils';
 
+export interface AmPmStrings {
+  am: string;
+  pm: string;
+}
+
 export interface TimePickerProps extends InputProps {
   /**
    *  Callback function when user changes the value of the component.
@@ -27,6 +32,9 @@ export interface TimePickerProps extends InputProps {
 
   /** Display and interact as AM/PM instead of 24 hour */
   useAmPm?: boolean;
+
+  /** The "AM" and "PM" strings to display */
+  amPmStrings?: AmPmStrings;
 
   /** Interval in minutes to increase / decrease the time when on minutes or external */
   step?: number;
@@ -75,6 +83,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     onTimeChange         : () => null,
     useNativeInteraction : false,
     useAmPm              : false,
+    amPmStrings          : {am: 'AM', pm: 'PM'},
     step                 : 1,
   };
 
@@ -92,6 +101,12 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     /** Display and interact as AM/PM instead of 24 hour */
     useAmPm: bool,
+
+    /** The "AM" and "PM" strings to display */
+    amPmStrings: shape({
+      am: string,
+      pm: string
+    }),
 
     /** Interval in minutes to increase / decrease the time when on minutes or external */
     step: (props, propName, componentName) => {
@@ -368,7 +383,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   render() {
-    const {useNativeInteraction, useAmPm, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
+    const {useNativeInteraction, useAmPm, amPmStrings, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
     const passThroughProps = omit(rest, [
       'onTimeChange',
       'step',
@@ -390,7 +405,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     let {value} = this.state;
     if (useAmPm) {
-      value = convertToAmPm({value});
+      value = convertToAmPm({value, strings: amPmStrings});
     }
 
     const tickers = tickerUpIcon && tickerDownIcon && (
