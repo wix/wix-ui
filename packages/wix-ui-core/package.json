@@ -30,12 +30,12 @@
     "test:e2e": "yoshi test --protractor",
     "lint": "yoshi lint",
     "start": "yoshi start --no-test & npm run storybook",
-    "release": "yoshi release && gh-pages-auto-release --dist=storybook-static && teamcity-surge-autorelease",
+    "release": "yoshi release && teamcity-surge-autorelease --dist=storybook-static",
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "pr-release": "teamcity-surge-autorelease"
+    "pr-release": "teamcity-surge-autorelease --dist=storybook-static"
   },
   "dependencies": {
     "classnames": "^2.2.5",
