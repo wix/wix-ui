@@ -54,10 +54,6 @@ import {autocompleteDriverFactory, AutocompleteDriver} from '../components/Autoc
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);
 export {AutocompleteDriver};
 
-import {hBoxDriverFactory, HBoxDriver} from '../components/HBox/HBox.protractor.driver';
-export const hBoxTestkitFactory = protractorTestkitFactoryCreator(hBoxDriverFactory);
-export {HBoxDriver};
-
 import {sliderDriverFactory, SliderDriver} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
 export {SliderDriver};
@@ -81,10 +77,6 @@ export {ToggleSwitchDriver};
 import {labelWithOptionsDriverFactory, LabelWithOptionsDriver} from '../components/LabelWithOptions/LabelWithOptions.protractor.driver';
 export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(labelWithOptionsDriverFactory);
 export {LabelWithOptionsDriver};
-
-import {vBoxDriverFactory, VBoxDriver} from '../components/VBox/VBox.protractor.driver';
-export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);
-export {VBoxDriver};
 
 import {thumbnailDriverFactory, ThumbnailDriver} from '../components/Thumbnail/Thumbnail.protractor.driver';
 export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<ThumbnailDriver>(thumbnailDriverFactory);

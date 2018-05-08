@@ -18,8 +18,6 @@ import './Autocomplete.story';
 import './Button.story';
 import './Input/Input.story';
 import './IconWithOptions.story';
-import './HBox/index.story';
-import './VBox/index.story';
 import './LabelWithOptions.story';
 import './Slider.story';
 import './Label.story';
