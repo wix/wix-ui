@@ -54,7 +54,7 @@ describe('TimePicker utils', () => {
         expect(increment({value: '00:00', field: FIELD.HOUR})).toEqual('01:00');
       });
 
-      it('should return "01:00" for input of "00:00", step = 20', () => {
+      it('should increment by one hour for any step value', () => {
         expect(increment({value: '00:00', field: FIELD.HOUR, step: 20})).toEqual('01:00');
       });
     });
@@ -181,6 +181,7 @@ describe('TimePicker utils', () => {
       it('should return false for 00:00:00', () => expect(isValidTime('00:0:000')).toBeFalsy());
       it('should return false for z0:00', () => expect(isValidTime('00z00')).toBeFalsy());
       it('should return false for 24:00', () => expect(isValidTime('24:00')).toBeFalsy());
+      it('should return false for --:--', () => expect(isValidTime('--:--')).toBeFalsy());
     });
 
     describe('12-hour values', () => {
@@ -192,6 +193,7 @@ describe('TimePicker utils', () => {
       it('should return false for z0:00', () => expect(isValidTime('00z00', true)).toBeFalsy());
       it('should return false for 13:00', () => expect(isValidTime('13:00', true)).toBeFalsy());
       it('should return false for 00:00', () => expect(isValidTime('00:00', true)).toBeFalsy());
+      it('should return false for --:--', () => expect(isValidTime('--:--', true)).toBeFalsy());
     });
   });
 
