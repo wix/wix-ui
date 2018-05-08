@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {bool, func, object, string, node, shape} from 'prop-types';
+import {bool, func, object, string, node, oneOf} from 'prop-types';
 const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
 import style from './TimePicker.st.css';
-import {FIELD, BLANK, NULL_TIME} from './constants';
+import {FIELD, BLANK, NULL_TIME, AmPmOptions, AmPmStrings} from './constants';
 import {
   increment,
   decrement,
@@ -14,11 +14,6 @@ import {
   parseTime,
   isValidTime
 } from './utils';
-
-export interface AmPmStrings {
-  am: string;
-  pm: string;
-}
 
 export interface TimePickerProps extends InputProps {
   /**
@@ -31,10 +26,7 @@ export interface TimePickerProps extends InputProps {
   useNativeInteraction?: boolean;
 
   /** Display and interact as AM/PM instead of 24 hour */
-  useAmPm?: boolean;
-
-  /** The "AM" and "PM" strings to display */
-  amPmStrings?: AmPmStrings;
+  useAmPm?: AmPmOptions;
 
   /** Interval in minutes to increase / decrease the time when on minutes or external */
   step?: number;
@@ -82,8 +74,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   static defaultProps = {
     onTimeChange         : () => null,
     useNativeInteraction : false,
-    useAmPm              : false,
-    amPmStrings          : {am: 'AM', pm: 'PM'},
+    useAmPm              : AmPmOptions.None,
     step                 : 1,
   };
 
@@ -100,13 +91,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     useNativeInteraction: bool,
 
     /** Display and interact as AM/PM instead of 24 hour */
-    useAmPm: bool,
-
-    /** The "AM" and "PM" strings to display */
-    amPmStrings: shape({
-      am: string,
-      pm: string
-    }),
+    useAmPm: oneOf([AmPmOptions.None, AmPmOptions.Lowercase, AmPmOptions.Uppercase, AmPmOptions.Capitalized]),
 
     /** Interval in minutes to increase / decrease the time when on minutes or external */
     step: (props, propName, componentName) => {
@@ -206,7 +191,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       if (!!this.props.value) {
         onTimeChange(null); 
       }
-    } else if (isValidTime(value, useAmPm)) {
+    } else if (isValidTime(value, useAmPm !== AmPmOptions.None)) {
       if (this.props.value !== value) {
         onTimeChange(value);
       }
@@ -244,13 +229,14 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const {useAmPm, onTimeChange} = this.props;
     let {value}                   = this.state;
     let currentField              = getFieldFromPos(startPos);
+    const isAmPm                  = useAmPm !== AmPmOptions.None;
     
     // Checking for TAB first because it's the only key that might have default behavior
     // Shift focus between fields if tab is pressed, or use regular behavior if the field is on the edge
     // i.e., tabbing while on AM/PM or shift+tab on hour
     if (e.key === 'Tab') {
       currentField += e.shiftKey ? -1 : 1;
-      if (currentField === FIELD.HOUR || currentField === FIELD.MINUTE || currentField === FIELD.AMPM && useAmPm) {
+      if (currentField === FIELD.HOUR || currentField === FIELD.MINUTE || currentField === FIELD.AMPM && isAmPm) {
         e.preventDefault();
         this._highlightField(elem, currentField);
       }
@@ -268,13 +254,13 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       if (currentField === FIELD.HOUR) {
         if (this._hasStartedTyping) {
           let nHour = parseInt(`${hour[1]}${num}`);
-          if (nHour > 12 && useAmPm) { nHour = 12; }
-          if (nHour > 23)            { nHour = 23; }
+          if (nHour > 12 && isAmPm) { nHour = 12; }
+          if (nHour > 23)           { nHour = 23; }
           hour = `${nHour}`;
           currentField = FIELD.MINUTE;
           this._hasStartedTyping = false;
         } else {
-          if ((num > 1 && useAmPm) || num > 2) {
+          if ((num > 1 && isAmPm) || num > 2) {
             currentField = FIELD.MINUTE;
           } else {
             this._hasStartedTyping = true;
@@ -312,8 +298,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
       case 'ArrowRight': {
         currentField += 1;
-        if (currentField === FIELD.AMPM && !useAmPm) { currentField = FIELD.MINUTE; }
-        if (currentField === FIELD.AFTER)            { currentField = FIELD.AMPM; }
+        if (currentField === FIELD.AMPM && !isAmPm) { currentField = FIELD.MINUTE; }
+        if (currentField === FIELD.AFTER)           { currentField = FIELD.AMPM; }
         this._highlightField(elem, currentField);
         break;
       }
@@ -383,7 +369,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   render() {
-    const {useNativeInteraction, useAmPm, amPmStrings, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
+    const {useNativeInteraction, useAmPm, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
     const passThroughProps = omit(rest, [
       'onTimeChange',
       'step',
@@ -404,8 +390,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     }
 
     let {value} = this.state;
-    if (useAmPm) {
-      value = convertToAmPm({value, strings: amPmStrings});
+    if (useAmPm !== AmPmOptions.None) {
+      value = convertToAmPm({value, strings: AmPmStrings[useAmPm]});
     }
 
     const tickers = tickerUpIcon && tickerDownIcon && (

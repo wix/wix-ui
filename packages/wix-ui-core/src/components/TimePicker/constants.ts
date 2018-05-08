@@ -9,3 +9,16 @@ export enum FIELD {
 export const BLANK = '--';
 
 export const NULL_TIME = `${BLANK}:${BLANK}`;
+
+export enum AmPmOptions {
+    None,
+    Lowercase,
+    Uppercase,
+    Capitalized,
+}
+
+export const AmPmStrings = {
+    [AmPmOptions.Lowercase] : {am: 'am', pm: 'pm'},
+    [AmPmOptions.Uppercase] : {am: 'AM', pm: 'PM'},
+    [AmPmOptions.Capitalized] : {am: 'Am', pm: 'Pm'},
+}

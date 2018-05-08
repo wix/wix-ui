@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import {TimePicker} from './index';
-import {FIELD} from './constants';
+import {FIELD, AmPmOptions, AmPmStrings} from './constants';
 import {convertToAmPm} from './utils';
 import {timePickerDriverFactory} from './TimePicker.driver';
 
@@ -78,19 +78,29 @@ describe('TimePicker', () => {
   });
 
   describe('useAmPm prop', () => {
-    it('should use false as default', () => {
+    it('should use none as default', () => {
       const driver = createDriver(<TimePicker value = {SOME_VALUE} />);
       expect(driver.getValue()).toEqual(SOME_VALUE);
     });
 
-    it('should display time in 24-hour format when false', () => {
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {false}/>);
+    it('should display time in 24-hour format when AmPmOptions.None', () => {
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {AmPmOptions.None}/>);
       expect(driver.getValue()).toEqual(SOME_VALUE);
     });
 
-    it('should display time in 12-hour format when true', () => {
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm />);
-      expect(driver.getValue()).toEqual(convertToAmPm({value: SOME_VALUE}));
+    it('should display time in lowercase 12-hour format when AmPmOptions.Lowercase', () => {
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {AmPmOptions.Lowercase} />);
+      expect(driver.getValue()).toEqual(convertToAmPm({value: SOME_VALUE, strings: AmPmStrings[AmPmOptions.Lowercase]}));
+    });
+
+    it('should display time in uppercase 12-hour format when AmPmOptions.Uppercase', () => {
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {AmPmOptions.Uppercase} />);
+      expect(driver.getValue()).toEqual(convertToAmPm({value: SOME_VALUE, strings: AmPmStrings[AmPmOptions.Uppercase]}));
+    });
+
+    it('should display time in capitalized 12-hour format when AmPmOptions.Capitalized', () => {
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} useAmPm = {AmPmOptions.Capitalized} />);
+      expect(driver.getValue()).toEqual(convertToAmPm({value: SOME_VALUE, strings: AmPmStrings[AmPmOptions.Capitalized]}));
     });
   });
 

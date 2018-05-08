@@ -59,7 +59,7 @@ export const increment = ({value, field, step = 1}) =>
   changeTime({
     value,
     field,
-    step
+    step: +step
   });
 
 export const decrement = ({value, field, step = 1}) =>
