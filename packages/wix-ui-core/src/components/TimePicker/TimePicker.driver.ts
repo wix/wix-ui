@@ -23,6 +23,6 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     /** simulates a blur event on the input element */
     blur: () => inputDriver.blur(),
     /** returns the ticker group element */
-    getTickers: () => inputDriver.getPrefix(),
+    getTickers: () => inputDriver.getSuffix(),
   };
 };
