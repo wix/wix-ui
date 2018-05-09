@@ -52,7 +52,7 @@ const StoryPage = ({
   examples
 }) => {
   const visibleDisplayName = displayName || metadata.displayName;
-  const visibleMetadata = { ...metadata, displayName: visibleDisplayName };
+  const visibleMetadata = {...metadata, displayName: visibleDisplayName};
 
   return (
     <TabbedView tabs={tabs(metadata)}>
