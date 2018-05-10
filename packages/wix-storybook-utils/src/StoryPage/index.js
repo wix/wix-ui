@@ -46,53 +46,60 @@ const StoryPage = ({
   config,
   component,
   componentProps,
+  displayName,
   exampleProps,
   exampleImport,
   examples
-}) =>
-  <TabbedView tabs={tabs(metadata)}>
-    <div className={styles.usage}>
-      <Markdown
-        dataHook="metadata-readme"
-        source={metadata.readme || `# \`<${metadata.displayName}/>\``}
-        />
+}) => {
+  const visibleDisplayName = displayName || metadata.displayName;
+  const visibleMetadata = {...metadata, displayName: visibleDisplayName};
 
-      {metadata.displayName &&
-        <div className={styles.githubLink}>
-          <TextLink
-            link={`${config.repoBaseURL}${metadata.displayName}`}
-            target="blank"
-            >
-            View source
-          </TextLink>
-        </div>
-      }
+  return (
+    <TabbedView tabs={tabs(metadata)}>
+      <div className={styles.usage}>
+        <Markdown
+          dataHook="metadata-readme"
+          source={metadata.readme || `# \`<${visibleDisplayName}/>\``}
+          />
 
-      <CodeBlock
-        dataHook="metadata-import"
-        source={importString({
-          config,
-          metadata,
-          exampleImport
-        })}
-        />
+        { (displayName || metadata.displayName) &&
+          <div className={styles.githubLink}>
+            <TextLink
+              link={`${config.repoBaseURL}${visibleDisplayName}`}
+              target="blank"
+              >
+              View source
+            </TextLink>
+          </div>
+        }
 
-      <AutoExample
-        component={component}
-        parsedSource={metadata}
-        componentProps={componentProps}
-        exampleProps={exampleProps}
-        />
+        <CodeBlock
+          dataHook="metadata-import"
+          source={importString({
+            config,
+            metadata: visibleMetadata,
+            exampleImport
+          })}
+          />
 
-      {examples}
-    </div>
+        <AutoExample
+          component={component}
+          parsedSource={visibleMetadata}
+          componentProps={componentProps}
+          exampleProps={exampleProps}
+          />
 
-    <AutoDocs parsedSource={metadata}/>
+        {examples}
+      </div>
 
-    { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+      <AutoDocs parsedSource={metadata}/>
 
-    { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
-  </TabbedView>;
+      { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+
+      { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
+    </TabbedView>
+  );
+};
 
 StoryPage.propTypes = {
   metadata: PropTypes.object,
@@ -103,6 +110,7 @@ StoryPage.propTypes = {
   }),
   component: PropTypes.any,
   componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  displayName: PropTypes.string,
   exampleProps: PropTypes.object,
 
   /** custom string to be displayed in place of import example

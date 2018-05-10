@@ -4,7 +4,7 @@
 
 | propName | propType | defaultValue | isRequired | description |
 |----------|----------|--------------|------------|-------------|
-| size | string | 1em | - | Set the size of the icon |
+| size | string | 1em | - | Shorthand for setting width and height attributes of the SVG to the same value |
 | ***All other Props are passed to the SVG element*** | | | | |
 
 ## Adding a new Icon

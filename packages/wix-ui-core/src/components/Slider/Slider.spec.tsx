@@ -476,6 +476,29 @@ describe('Slider', () => {
     sinon.assert.called(onFocus);
   });
 
+  it('should focus', () => {
+    const onFocus = sinon.spy();
+
+    const wrapper = mount(<Slider onFocus={onFocus}/>);
+
+    (wrapper.instance() as any).focus();
+
+    expect(document.activeElement).toEqual(wrapper.getDOMNode());
+    sinon.assert.called(onFocus);
+  });
+
+  it('should blur', () => {
+    const onBlur = sinon.spy();
+
+    const wrapper = mount(<Slider onBlur={onBlur}/>);
+
+    (wrapper.instance() as any).focus();
+    (wrapper.instance() as any).blur();
+
+    expect(document.activeElement).not.toEqual(wrapper.getDOMNode());
+    sinon.assert.called(onBlur);
+  });
+
   it('should propagate onBlur when slider is blurred', () => {
     const onFocus = sinon.spy();
     const onBlur = sinon.spy();

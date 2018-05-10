@@ -5,7 +5,7 @@ const testkit = new Testkit();
 describe('StoryPage', () => {
   it('should render readme', () => {
     testkit.when.created();
-    expect(testkit.get.readme().prop('source')).toMatch(/componentName/);
+    expect(testkit.get.readme()).toMatch(/componentName/);
   });
 
   describe('given `exampleImport`', () => {
@@ -41,7 +41,7 @@ describe('StoryPage', () => {
     it('should replace %componentName with metadata.displayName', () => {
       const props = {
         config: {
-          importFormat: `import {%componentName} from '%moduleName/%componentName';`,
+          importFormat: 'import {%componentName} from \'%moduleName/%componentName\';',
           moduleName: 'wix-ui-core'
         },
         metadata: {
@@ -50,7 +50,26 @@ describe('StoryPage', () => {
         }
       };
       testkit.when.created(props);
-      expect(testkit.get.import()).toMatch(`import {BesterestestComponent} from 'wix-ui-core/BesterestestComponent';`);
+      expect(testkit.get.import()).toMatch('import {BesterestestComponent} from \'wix-ui-core/BesterestestComponent\';');
+    });
+  });
+
+  describe('given explicit displayName', () => {
+    it('should show it instead of using one from `metadata`', () => {
+      const props = {
+        metadata: {
+          props: {}
+        },
+        config: {},
+        displayName: 'well hello there'
+      };
+
+      testkit.when.created(props);
+
+      expect(testkit.get.readme()).toMatch(/<well hello there\/>/);
+      expect(testkit.get.import()).toMatch(/well hello there/);
+
+      expect(testkit.get.codeBlock()).toMatch(/<well hello there \/>/);
     });
   });
 });

@@ -11,8 +11,8 @@ export interface SliderProps {
   max?: number;
   value?: number;
   onChange?: (x: any) => void;
-  onBlur?: (x: any) => void;
-  onFocus?: (x: any) => void;
+  onBlur?: () => void;
+  onFocus?: () => void;
   orientation?: 'horizontal' | 'vertical';
   step?: number;
   stepType?: 'value' | 'count';
@@ -48,6 +48,7 @@ export interface SliderState {
 }
 
 export class Slider extends React.PureComponent<SliderProps, SliderState> {
+  root: HTMLDivElement;
   inner: HTMLDivElement;
   track: HTMLDivElement;
   ContinuousStep = 0.1;
@@ -110,7 +111,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     tooltipSuffix: '',
     tickMarksPosition: 'normal',
     tickMarksShape: 'line',
-    dir: 'ltr'
+    dir: 'ltr',
+    onFocus: noop,
+    onBlur: noop
   };
 
   constructor(props) {
@@ -156,6 +159,16 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     )) {
       this.updateLayout();
     }
+  }
+
+  focus() {
+    this.root.focus();
+    this.props.onFocus();
+  }
+
+  blur() {
+    this.root.blur();
+    this.props.onBlur();
   }
 
   getStartPos() {
@@ -496,6 +509,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         onKeyDown={this.handleKeyDown}
         onFocus={onFocus}
         onBlur={onBlur}
+        ref={root => this.root = root}
       >
         <div ref={this.setInnerNode} className={pStyle.inner}>
           <div 

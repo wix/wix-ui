@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {OptionFactory} from './';
 import {Divider} from '../../components/Divider';
-import {Highlighter} from '../Highlighter';
+import style from './DropdownOption.st.css';
 
 describe('OptionFactory', () => {
   const value = 'value';
@@ -83,7 +83,7 @@ describe('OptionFactory', () => {
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
-    expect(option.render(value)).toEqual(['va', <Highlighter key={1}>lu</Highlighter>, 'e']);
+    expect(option.render(value)).toEqual(['va', <mark className={style.highlight} key={1}>lu</mark>, 'e']);
   });
 
   it('should create highlighted option with divider', () => {
