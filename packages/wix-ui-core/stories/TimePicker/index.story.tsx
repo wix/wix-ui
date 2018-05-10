@@ -10,10 +10,10 @@ export default {
   componentProps: setState => ({
     ...style('root'),
     'data-hook': 'storybook-timepicker',
-    onTimeChange: value => setState({value}),
+    onChange: value => setState({value}),
   }),
 
   exampleProps: {
-    onTimeChange: () => 'Triggered onTimeChange'
+    onChange: () => 'Triggered onChange'
   }
 };

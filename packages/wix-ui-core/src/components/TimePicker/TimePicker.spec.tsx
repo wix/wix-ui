@@ -27,36 +27,36 @@ describe('TimePicker', () => {
     };
   };
 
-  describe('onTimeChange prop', () => {
+  describe('onChange prop', () => {
     it('should be called with a new time when a new valid time is set', () => {
-      const onTimeChange = jest.fn();
-      const driver = createDriver(<TimePicker value = "10:00" onTimeChange = {onTimeChange} />);
+      const onChange = jest.fn();
+      const driver = createDriver(<TimePicker value = "10:00" onChange = {onChange} />);
       driver.keyDown('ArrowDown');
-      expect(onTimeChange).toBeCalledWith('09:00');
+      expect(onChange).toBeCalledWith('09:00');
     });
 
     it('should be called with null when deleting a valid time to "--:--"', () => {
-      const onTimeChange = jest.fn();
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} onTimeChange={onTimeChange} />);
+      const onChange = jest.fn();
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} onChange={onChange} />);
       driver.keyDown('Delete');
       driver.keyDown('Tab');
       driver.keyDown('Delete');
-      expect(onTimeChange).toBeCalledWith(null);
+      expect(onChange).toBeCalledWith(null);
     });
 
     it('should not be called when only one field is deleted', () => {
-      const onTimeChange = jest.fn();
-      const driver = createDriver(<TimePicker value = {SOME_VALUE} onTimeChange={onTimeChange} />);
+      const onChange = jest.fn();
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} onChange={onChange} />);
       driver.keyDown('Delete');
-      expect(onTimeChange).not.toBeCalled();
+      expect(onChange).not.toBeCalled();
     });
 
     it('should be called when only one field is deleted and then blurred', () => {
-      const onTimeChange = jest.fn();
-      const driver = createDriver(<TimePicker value = "10:00" onTimeChange={onTimeChange} />);
+      const onChange = jest.fn();
+      const driver = createDriver(<TimePicker value = "10:00" onChange={onChange} />);
       driver.keyDown('Delete');
       driver.blur();
-      expect(onTimeChange).toBeCalledWith('00:00');
+      expect(onChange).toBeCalledWith('00:00');
     });
   });
 

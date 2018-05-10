@@ -15,12 +15,12 @@ import {
   isValidTime
 } from './utils';
 
-export interface TimePickerProps extends InputProps {
+export interface TimePickerProps {
   /**
    *  Callback function when user changes the value of the component.
    *  Will be called only with valid values (this component is semi-controlled)
    */
-  onTimeChange?: (value: string) => void;
+  onChange?: (value: string) => void;
 
   /** Use native (input type = 'time') interaction */
   useNativeInteraction?: boolean;
@@ -72,7 +72,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   _lastFocusedField: FIELD;
 
   static defaultProps = {
-    onTimeChange         : () => null,
+    onChange         : () => null,
     useNativeInteraction : false,
     useAmPm              : AmPmOptions.None,
     step                 : 1,
@@ -85,7 +85,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
      *  Callback function when user changes the value of the component.
      *  Will be called only with valid values (this component is semi-controlled)
      */
-    onTimeChange: func,
+    onChange: func,
 
     /** Use native (input type = 'time') interaction */
     useNativeInteraction: bool,
@@ -183,17 +183,17 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._hasStartedTyping = false;
     this._lastFocusedField = getFieldFromPos(e.target.selectionStart);
 
-    // Validate on blur and call onTimeChange if needed
+    // Validate on blur and call onChange if needed
     let {value} = this.state;
-    const {onTimeChange, useAmPm} = this.props;
+    const {onChange, useAmPm} = this.props;
 
     if (value === NULL_TIME) {
       if (!!this.props.value) {
-        onTimeChange(null); 
+        onChange(null); 
       }
     } else if (isValidTime(value, useAmPm !== AmPmOptions.None)) {
       if (this.props.value !== value) {
-        onTimeChange(value);
+        onChange(value);
       }
     } else {
       const {hour, minute} = parseTime(value);
@@ -201,7 +201,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       let   nMinute        = parseInt(minute) || 0;
       if (nMinute > 59) { nMinute = 59; }
       value = `${leftpad(nHour)}:${leftpad(nMinute)}`;
-      this.setState({value}, () => { if (value !== this.props.value) { onTimeChange(value); } });
+      this.setState({value}, () => { if (value !== this.props.value) { onChange(value); } });
     }
   }
 
@@ -226,7 +226,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     const elem                    = e.target;
     const startPos                = elem.selectionStart;
-    const {useAmPm, onTimeChange} = this.props;
+    const {useAmPm, onChange} = this.props;
     let {value}                   = this.state;
     let currentField              = getFieldFromPos(startPos);
     const isAmPm                  = useAmPm !== AmPmOptions.None;
@@ -279,7 +279,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       value = `${leftpad(hour)}:${leftpad(minute)}`;
       this.setState({value}, () => {
         this._highlightField(elem, currentField);
-        if (isValidTime(value)) { onTimeChange(value); }
+        if (isValidTime(value)) { onChange(value); }
       });
       return;
     }
@@ -313,7 +313,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
           : decrement({value, field: currentField, step});
         this.setState({value}, () => {
           this._highlightField(elem, currentField);
-          if (isValidTime(value)) { onTimeChange(value); }
+          if (isValidTime(value)) { onChange(value); }
         });
         break;
       }
@@ -331,7 +331,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
           value = increment({value, field: FIELD.AMPM});
           this.setState({value}, () => {
             this._highlightField(elem, FIELD.AMPM);
-            onTimeChange(value);
+            onChange(value);
           });
         }
         break;
@@ -342,7 +342,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       case 'Backspace': {
         const {hour, minute} = parseTime(value);
         const callback = () => {
-          if (this.state.value === NULL_TIME) { onTimeChange(null); }
+          if (this.state.value === NULL_TIME) { onChange(null); }
           this._highlightField(elem, currentField);
         };
         if (currentField === FIELD.HOUR)   { this.setState({value: `${BLANK}:${minute}`}, callback); }
@@ -371,20 +371,20 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   render() {
     const {useNativeInteraction, useAmPm, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
     const passThroughProps = omit(rest, [
-      'onTimeChange',
+      'onChange',
       'step',
       'value',
     ]);
 
     if (useNativeInteraction) {
-      const {value: propsValue = NULL_TIME, onTimeChange} = this.props;
+      const {value: propsValue = NULL_TIME, onChange} = this.props;
       return (
         <Input
           {...style('root', {}, this.props)}
           {...passThroughProps}
           type        = "time"
           value       = {propsValue}
-          onChange    = {e => onTimeChange(e.target.value)}
+          onChange    = {e => onChange(e.target.value)}
         />
       );
     }
