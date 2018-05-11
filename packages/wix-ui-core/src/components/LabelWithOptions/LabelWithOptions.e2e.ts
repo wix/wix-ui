@@ -1,6 +1,7 @@
 import * as eyes from 'eyes.it';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {labelWithOptionsTestkitFactory} from '../../testkit/protractor';
+import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import {browser} from 'protractor';
 
 describe('LabelWithOptions', () => {
@@ -27,4 +28,13 @@ describe('LabelWithOptions', () => {
     driver.dropdownContent().optionAt(1).click();
     expect(driver.getLabelText()).toBe('value0');
   });
+
+  eyes.it('should open in checkbox mode', async () => {
+    const driver = labelWithOptionsTestkitFactory({dataHook});
+    await autoExampleDriver.setProps({checkbox: true});
+
+    await waitForVisibilityOf(driver.element(), 'Cannot find LabelWithOptions');
+    expect(await driver.isCheckboxModeOn()).toBeTruthy();
+  })
+
 });
