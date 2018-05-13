@@ -38,10 +38,6 @@ export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDr
 export {CheckboxDriver};
 
 //Stylable
-import {textDriverFactory, TextDriver} from '../components/StylableText/Text.protractor.driver';
-export const textTestkitFactory = protractorTestkitFactoryCreator<TextDriver>(textDriverFactory);
-export {TextDriver};
-
 import {radioButtonDriverFactory, RadioButtonDriver} from '../components/RadioButton/RadioButton.protractor.driver';
 export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioButtonDriverFactory);
 export {RadioButtonDriver};

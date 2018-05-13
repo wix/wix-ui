@@ -33,15 +33,6 @@ export const toggleSwitchTestkitFactory = testkitFactoryCreator(
 );
 
 import {
-  textDriverFactory as stylableTextDriverFactory,
-  TextDriver
-} from "../components/StylableText/Text.driver";
-export const stylableTextTestkitFactory = testkitFactoryCreator<TextDriver>(
-  stylableTextDriverFactory
-);
-export { TextDriver };
-
-import {
   buttonDriverFactory,
   ButtonDriver
 } from "../components/Button/Button.driver";

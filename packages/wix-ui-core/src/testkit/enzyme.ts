@@ -41,15 +41,6 @@ export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(
 );
 
 import {
-  textDriverFactory as stylableTextDriverFactory,
-  TextDriver
-} from "../components/StylableText/Text.driver";
-export const stylableTextTestkitFactory = enzymeTestkitFactoryCreator<
-  TextDriver
->(stylableTextDriverFactory);
-export { TextDriver };
-
-import {
   buttonDriverFactory,
   ButtonDriver
 } from "../components/Button/Button.driver";
