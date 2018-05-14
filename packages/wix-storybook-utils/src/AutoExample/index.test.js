@@ -7,18 +7,9 @@ import AutoExample from './';
 class Driver {
   component;
 
-  constructor(parsedSource) {
-    this.parsedSource = parsedSource;
-  }
-
   when = {
     created: props =>
-      this.component = mount(
-        <AutoExample
-          parsedSource={this.parsedSource}
-          {...props}
-          />
-      )
+      this.component = mount(<AutoExample {...props}/>)
   }
 
   get = {
@@ -26,18 +17,59 @@ class Driver {
   }
 }
 
-const parsedSource = {
-  displayName: 'TestComponent',
-  props: {
-    test: {type: 'string'}
-  }
-};
-
-const driver = new Driver(parsedSource);
-
 describe('AutoExample', () => {
-  it('should have one option', () => {
-    driver.when.created();
-    expect(driver.get.options().length).toBe(1);
+  it('should have two options', () => {
+    const driver = new Driver();
+    driver.when.created({
+      parsedSource: {
+        displayName: 'TestComponent',
+        props: {
+          stringProp: {type: {name: 'string'}},
+          functionProp: {type: {name: 'func'}}
+        }
+      }
+    });
+    const [prop1, prop2] = driver.get.options();
+
+    expect(prop1.props.label).toBe('stringProp');
+    expect(prop2.props.label).toBe('functionProp');
+  });
+
+  describe('exampleProps', () => {
+    it('should display "Interaction preview" for function type', () => {
+      const driver = new Driver();
+      driver.when.created({
+        parsedSource: {
+          displayName: 'TestComponent',
+          props: {
+            functionProp: {type: {name: 'func'}}
+          }
+        },
+        exampleProps: {
+          functionProp: () => {}
+        }
+      });
+
+      const option = driver.get.options().props();
+      expect(option.children.props.children).toBe('Interaction preview');
+    });
+
+    it.skip('should display NodesList regardless of type in parsedSource', () => {
+      const driver = new Driver();
+      driver.when.created({
+        parsedSource: {
+          displayName: 'TestComponent',
+          props: {
+            someProp: {type: {name: 'unknown type name, something really obscure'}}
+          }
+        },
+        exampleProps: {
+          someProp: [1, 2, 3]
+        }
+      });
+
+      const option = driver.get.options().props();
+      expect(option.children).not.toBe(null);
+    });
   });
 });
