@@ -178,12 +178,6 @@ export default class extends Component {
       ) :
       props;
 
-
-  mapControllableProps = fn =>
-    Object
-      .keys(this.parsedComponent.props)
-      .map(key => fn(this.parsedComponent.props[key], key));
-
   setProp = (key, value) =>
     this.setState({propsState: {...this.state.propsState, [key]: value}});
 
@@ -200,7 +194,11 @@ export default class extends Component {
         }
 
         if (this.props.exampleProps[propKey]) {
-          return <div className={classNames}>{this.state.funcValues[propKey] || 'Interaction preview'}</div>;
+          return (
+            <div className={classNames}>
+              {this.state.funcValues[propKey] || 'Interaction preview'}
+            </div>
+          );
         }
       }
     },
@@ -261,8 +259,6 @@ export default class extends Component {
   }
 
   render() {
-    const component = this.props.component;
-
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
       prop =>
         this.parsedComponent.props[prop] &&
@@ -300,22 +296,24 @@ export default class extends Component {
     };
 
     if (!this.props.isInteractive) {
-      return React.createElement(component, componentProps);
+      return React.createElement(this.props.component, componentProps);
     }
 
     return (
       <Wrapper dataHook="auto-example">
         <Options>
-          { this.mapControllableProps((prop, key) =>
-            <Option
-              {...{
-                key,
-                label: key,
-                value: componentProps[key],
-                onChange: value => this.setProp(key, value),
-                children: this.getPropControlComponent(key, prop.type)
-              }}
-              />
+          { Object
+              .entries(this.parsedComponent.props)
+              .map(([key, prop]) =>
+                <Option
+                  key={key}
+                  {...{
+                    label: key,
+                    value: componentProps[key],
+                    onChange: value => this.setProp(key, value),
+                    children: this.getPropControlComponent(key, prop.type)
+                  }}
+                  />
           ) }
         </Options>
 
@@ -324,12 +322,12 @@ export default class extends Component {
           isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
-          children={React.createElement(component, componentProps)}
+          children={React.createElement(this.props.component, componentProps)}
           />
 
         <Code
           dataHook="metadata-codeblock"
-          component={React.createElement(component, codeProps)}
+          component={React.createElement(this.props.component, codeProps)}
           displayName={this.parsedComponent.displayName}
           />
       </Wrapper>

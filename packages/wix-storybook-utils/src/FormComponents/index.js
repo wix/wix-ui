@@ -49,7 +49,7 @@ const Option = ({label, value, children, onChange}) => {
       </Col>
 
       <Col span={6}>
-        {React.cloneElement(children, {value, onChange})}
+        {React.cloneElement(children, {value: value && value.toString(), onChange})}
       </Col>
     </Row>) : null;
 };
