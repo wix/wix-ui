@@ -19,6 +19,7 @@ export default {
   },
 
   exampleProps: {
-    onClick: () => 'hai'
+    onClick: () => 'hai',
+    enabled: [true, false]
   }
 };

@@ -54,7 +54,7 @@ describe('AutoExample', () => {
       expect(option.children.props.children).toBe('Interaction preview');
     });
 
-    it.skip('should display NodesList regardless of type in parsedSource', () => {
+    it('should display NodesList regardless of type in parsedSource', () => {
       const driver = new Driver();
       driver.when.created({
         parsedSource: {

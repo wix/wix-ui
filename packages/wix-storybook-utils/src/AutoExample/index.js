@@ -22,7 +22,11 @@ const stripQuotes = string => {
 };
 
 const matchFuncProp = typeName =>
-  typeName === 'func' || typeName.match(/event/) || typeName.match(/\) => void$/);
+  [
+    /^func/,
+    /event/,
+    /\) => void$/
+  ].some(needle => typeName.match(needle));
 
 const ensureRegexp = a =>
   a instanceof RegExp ? a : new RegExp(a);
@@ -204,7 +208,7 @@ export default class extends Component {
     },
 
     {
-      types: ['string', 'number', /ReactText/],
+      types: ['string', 'number', /ReactText/, 'arrayOf', 'union', 'node', 'ReactNode'],
       controller: ({propKey}) =>
         this.props.exampleProps[propKey] ?
           <NodesList values={this.props.exampleProps[propKey]}/> :
@@ -217,39 +221,17 @@ export default class extends Component {
     },
 
     {
-      types: ['union'],
-
-      controller: ({propKey}) =>
-        this.props.exampleProps[propKey] ?
-          <NodesList values={this.props.exampleProps[propKey]}/> :
-          <Input/>
-    },
-
-    {
-      types: ['node', 'ReactNode'],
-      controller: ({propKey}) =>
-        this.props.exampleProps[propKey] ?
-          <NodesList values={this.props.exampleProps[propKey]}/> :
-          <Input/>
-    },
-
-    {
       types: ['enum'],
       controller: ({type}) =>
         <List values={type.value.map(({value}) => stripQuotes(value))}/>
-    },
-
-    {
-      types: ['arrayOf'],
-      controller: ({propKey}) => {
-        if (this.props.exampleProps[propKey]) {
-          return <NodesList values={this.props.exampleProps[propKey]}/>;
-        }
-      }
     }
   ]
 
   getPropControlComponent = (propKey, type) => {
+    if (!matchFuncProp(type.name) && this.props.exampleProps[propKey]) {
+      return <NodesList values={this.props.exampleProps[propKey]}/>;
+    }
+
     const pretender =
       this.propControllers.find(({types}) =>
         types.some(t => ensureRegexp(t).test(type.name))
