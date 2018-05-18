@@ -116,7 +116,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     logoUrl: string,
     /** Function that will be evaluated after click on logo */
     onLogoClick: func,
-    /** Pass true to alow logo be visible no matter or what */
+    /** Pass true to set the logo to be visible no matter what */
     alwaysShowLogo: bool,
     /** Pass false to hide controls */
     controls: bool,
@@ -155,9 +155,10 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   componentDidMount() {
-    const {src, playing, muted, width, height, title, fillAllSpace, loop, volume, controls, preload} = this.props;
-    const {logoUrl, onLogoClick, alwaysShowLogo} = this.props;
-    const {playableRef, onPlay, onPause, onEnd} = this.props;
+    const {
+      src, playing, muted, width, height, title, fillAllSpace, loop, volume, controls, preload,
+      logoUrl, onLogoClick, alwaysShowLogo, playableRef, onPlay, onPause, onEnd
+    } = this.props;
     let logo;
 
     if (logoUrl || onLogoClick || alwaysShowLogo) {

@@ -13,16 +13,24 @@ export const createDriver = Component => {
   });
 
   const wrapper = mount(ClonedComponent);
+  const rootDOMNode = wrapper.getDOMNode() as HTMLElement;
+  const companyLogoNode = rootDOMNode.querySelector('[data-hook="company-logo"]');
 
   return {
     hasCover: () => wrapper.find('[data-hook="cover"]').length === 1,
-    getRootDOMNode: () => wrapper.getDOMNode() as HTMLElement,
+    getRootDOMNode: () => rootDOMNode,
     getSrc: () => player.getSrc(),
     getTitle: () => wrapper.find('[data-hook="title"]').text(),
     getWidth: () => player.getWidth(),
     getHeight: () => player.getHeight(),
+    getLogoSrc: () => companyLogoNode.getAttribute('src'),
     isAutoPlaying: () => player.getAutoPlay(),
     isMuted: () => player.getMute(),
-    setProp: (prop, value) => wrapper.setProps({[prop]: value})
+    setProp: (prop, value) => wrapper.setProps({[prop]: value}),
+    clickLogo: () => {
+      const event = new MouseEvent('click', {bubbles: true});
+
+      companyLogoNode.dispatchEvent(event);
+    }
   };
 };

@@ -120,4 +120,35 @@ describe('Video', () => {
         expect(driver.getRootDOMNode().querySelector('[data-hook="play-button"]')).toBeTruthy();
       });
     });
+
+    describe('logo', () => {
+      it('should be hidden by default', () => {
+        const driver = createDriver(
+          <Video />
+        );
+
+        expect(driver.getLogoSrc()).toBeFalsy();
+      });
+
+      it('should be shown and clickable if callback passed', () => {
+        const callback = jest.fn();
+        const driver = createDriver(
+          <Video onLogoClick={callback} />
+        );
+
+        driver.clickLogo();
+
+        expect(callback).toBeCalled();
+      });
+
+      it('should be presented', () => {
+        const driver = createDriver(
+          <Video
+            logoUrl="https://example.com/image.png"
+          />
+        );
+
+        expect(driver.getLogoSrc()).toBe('https://example.com/image.png');
+      });
+    });
 });
