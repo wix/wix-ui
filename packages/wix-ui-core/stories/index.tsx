@@ -6,6 +6,7 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
+import {PopStory} from './Pop';
 
 // baseComponents
 import './InputWithOptions.story';
@@ -35,4 +36,5 @@ storiesOf('Components', module)
   .add('Divider', () => <DividerStory/>)
   .add('Checkbox', () => <CheckboxStory/>)
   .add('Tooltip Custom', () => <TooltipStory/>)
-  .add('RadioButton', () => <RadioButtonStory/>);
+  .add('RadioButton', () => <RadioButtonStory/>)
+  .add('Pop', PopStory);
