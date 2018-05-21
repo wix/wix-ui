@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'deep-eql';
 import classnames from 'classnames';
 
 import {Container, Row, Col} from 'wix-style-react/Grid';
 import {default as WixInput} from 'wix-style-react/Input';
 import ToggleSwitch from 'wix-style-react/ToggleSwitch';
-import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
-import Dropdown from 'wix-style-react/Dropdown';
 import Text from 'wix-style-react/Text';
 
 import Markdown from '../Markdown';
 import ComponentSource from '../ComponentSource';
+import List from './list';
 
 import styles from './styles.scss';
 
@@ -41,26 +39,33 @@ Options.propTypes = {
 };
 
 
-const Option = ({label, value, children, onChange}) => {
-  return children ?
-    (<Row className={styles.option}>
+const Option = ({label, value, children, onChange, defaultValue}) =>
+  children ?
+    <Row className={styles.option}>
       <Col span={6}>
         <Markdown source={`\`${label}\``}/>
       </Col>
 
       <Col span={6}>
-        {React.cloneElement(children, {value: value && value.toString(), onChange})}
+        { React.cloneElement(
+          children,
+          {
+            value: children.type === 'div' ? value.toString() : value,
+            defaultValue,
+            onChange
+          }
+        ) }
       </Col>
-    </Row>) : null;
-};
+    </Row> :
+    null;
 
 Option.propTypes = {
   label: PropTypes.string,
   value: PropTypes.any,
+  defaultValue: PropTypes.any,
   children: PropTypes.node,
   onChange: PropTypes.func
 };
-
 
 const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackground}) =>
   <Col span={6}>
@@ -128,71 +133,6 @@ Toggle.propTypes = {
   onChange: PropTypes.func
 };
 
-
-const List = ({value, values = [], onChange, ...props}) =>
-  values.length > 3 ?
-    <Dropdown
-      options={values.map(v => ({id: v, value: v}))}
-      selectedId={value}
-      onSelect={({value}) => onChange(value)}
-      /> :
-    <WixRadioGroup
-      value={value}
-      onChange={onChange}
-      {...props}
-      >
-      {values.map((value, i) =>
-        <WixRadioGroup.Radio
-          key={i}
-          value={value}
-          >
-          <Markdown source={`\`${value}\``}/>
-        </WixRadioGroup.Radio>
-      )}
-    </WixRadioGroup>;
-
-List.propTypes = {
-  value: PropTypes.string,
-  values: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func
-};
-
-class NodesList extends React.Component {
-  view = e => typeof e === 'function' ? React.createElement(e) : e;
-
-  render() {
-    const {value = {}, values = [], onChange} = this.props;
-
-    return values.length > 3 ?
-      <Dropdown
-        options={values.map((value, id) => ({id, value: this.view(value)}))}
-        selectedId={values.findIndex(({type}) => isEqual(type, value.type)) || 0}
-        onSelect={({value}) => onChange(value)}
-        valueParser={({value}) => typeof value.type === 'string' ? value.type : value.type.name}
-        /> :
-        <WixRadioGroup
-          value={this.state && this.state.selected}
-          onChange={ev => {
-            this.setState({selected: ev});
-            onChange(this.view(values[ev]));
-          }}
-          >
-          {values.map((value, i) =>
-            <WixRadioGroup.Radio key={i} value={i}>
-              {this.view(values[i])}
-            </WixRadioGroup.Radio>
-          )}
-        </WixRadioGroup>;
-  }
-}
-
-NodesList.propTypes = {
-  value: PropTypes.node,
-  values: PropTypes.arrayOf(PropTypes.any),
-  onChange: PropTypes.func
-};
-
-
 const Input = ({value, onChange, ...props}) =>
   <WixInput
     value={value}
@@ -227,6 +167,5 @@ export {
   Toggle,
   Input,
   List,
-  Code,
-  NodesList
+  Code
 };
