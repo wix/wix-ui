@@ -21,6 +21,7 @@ export interface PageStripProps {
   onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
   onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
   updateResponsiveLayout: (callback: () => void) => void;
+  disabled: boolean;
 }
 
 export interface PageStripState {
@@ -98,7 +99,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   // for responsive layout. We also can't use index as a key, because React might reuse the
   // node for another page, and keep keyboard focus on it, which we don't want.
   private renderLayout(layout: PageStripLayout, isDummy: boolean): JSX.Element[] {
-    const {currentPage, pageUrl} = this.props;
+    const {currentPage, pageUrl, disabled} = this.props;
 
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
@@ -132,10 +133,10 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           data-hook={`page-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
           className={style.pageButton}
-          tabIndex={pageUrl ? null : 0}
-          onClick={e => this.props.onPageClick(e, pageNumber)}
-          onKeyDown={e => this.props.onPageKeyDown(e, pageNumber)}
-          href={pageUrl ? pageUrl(pageNumber) : null}
+          tabIndex={disabled || pageUrl ? null : 0}
+          onClick={disabled ? null : (e => this.props.onPageClick(e, pageNumber))}
+          onKeyDown={disabled ? null : (e => this.props.onPageKeyDown(e, pageNumber))}
+          href={!disabled && pageUrl ? pageUrl(pageNumber) : null}
         >
           {pageNumber}
         </a>

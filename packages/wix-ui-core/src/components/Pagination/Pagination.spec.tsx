@@ -84,6 +84,29 @@ describe('Pagination', () => {
       expect(onChange).not.toBeCalled();
     });
 
+    it('does not call onChange when disabled', async () => {
+      const onChange = jest.fn();
+      const pagination = createDriver(
+        <Pagination
+          totalPages={3}
+          maxPagesToShow={3}
+          currentPage={1}
+          onChange={onChange}
+          showFirstLastNavButtons
+          disabled
+        />
+      );
+
+      pagination.clickPage(2);
+      pagination.clickPage(3);
+      pagination.clickNavButton('first');
+      pagination.clickNavButton('previous');
+      pagination.clickNavButton('next');
+      pagination.clickNavButton('last');
+      await sleep(10);
+      expect(onChange).not.toBeCalled();
+    });
+
     describe('Page numbers mode accessibility', () => {
       it('has aria-label attribute on pages', () => {
         const pagination = createDriver(<Pagination totalPages={3} currentPage={1}/>);
@@ -162,6 +185,11 @@ describe('Pagination', () => {
       return sleep(10).then(() => {
         expect(onChange).not.toBeCalled();
       });
+    });
+
+    it('disables input in disabled mode', () => {
+      const pagination = createDriver(<Pagination paginationMode="input" totalPages={3} currentPage={1} disabled />);
+      expect(pagination.getPageInput().disabled).toBe(true);
     });
 
     it('adds error state to the input with an invalid numeric value after pressing ENTER and removes it on change', () => {

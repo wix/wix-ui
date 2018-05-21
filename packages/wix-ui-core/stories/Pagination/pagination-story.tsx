@@ -78,6 +78,17 @@ export function PaginationStory() {
         />
       </div>
       <div>
+        <h3>Disabled</h3>
+        <UncontrolledPagination
+          data-hook="story-pagination-disabled"
+          totalPages={9}
+          maxPagesToShow={9}
+          currentPage={5}
+          showFirstLastNavButtons
+          disabled
+        />
+      </div>
+      <div>
         <h3>Input mode</h3>
         <UncontrolledPagination
           totalPages={1000000}

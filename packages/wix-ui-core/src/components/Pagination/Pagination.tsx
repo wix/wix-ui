@@ -45,6 +45,7 @@ export interface PaginationProps {
   id?: string;
   updateResponsiveLayout?: (callback: () => void) => void;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
 export interface PaginationState {
@@ -104,7 +105,9 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     /** Component ID */
     id: string,
     /** Allows to trigger responsive layout update on window dimensions change, font load, etc. */
-    updateResponsiveLayout: func
+    updateResponsiveLayout: func,
+    /** Makes pagination non-interactive */
+    disabled: bool
   };
 
   public static defaultProps: Partial<PaginationProps> = {
@@ -115,6 +118,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     responsive: false,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
+    disabled: false,
 
     // dir="rtl" automatically flips the direction of less-than and more-than signs.
     // If we decide to use different labels we need to add conditional logic.
@@ -170,6 +174,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         onPageClick={this.handlePageClick}
         onPageKeyDown={this.handlePageKeyDown}
         updateResponsiveLayout={this.props.updateResponsiveLayout}
+        disabled={this.props.disabled}
       />
     );
   }
@@ -224,6 +229,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
+          disabled={this.props.disabled}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
           aria-label={'Page number, select a number between 1 and ' + this.props.totalPages}
@@ -244,7 +250,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   private renderNavButton(type: ButtonType): JSX.Element {
     const {currentPage, totalPages, pageUrl} = this.props;
 
-    const disabled = (
+    const disabled = this.props.disabled || (
       ((type === ButtonType.First || type === ButtonType.Prev) && currentPage <= 1) ||
       ((type === ButtonType.Last || type === ButtonType.Next) && currentPage >= totalPages)
     );
@@ -283,6 +289,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     const {showFirstLastNavButtons, paginationMode, width, style} = this.props;
 
     const styleStates = {
+      disabled: this.props.disabled,
       error: this.state.pageInputHasError
     };
 

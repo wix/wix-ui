@@ -18,7 +18,7 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
   );
 
   const getPageByNumber = (n: number): Element | null => (
-    pageStrip.querySelector(`[data-hook~=page-${n}]`)
+    pageStrip.firstElementChild.querySelector(`[data-hook~=page-${n}]`)
   );
 
   const getPageElements = () => Array.from(pageStrip.firstElementChild.children);

@@ -4,7 +4,7 @@
 }
 
 .root {
-    -st-states: error;
+    -st-states: disabled, error;
     display: inline-flex;
     user-select: none;
 }
