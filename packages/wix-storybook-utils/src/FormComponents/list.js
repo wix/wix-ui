@@ -28,15 +28,14 @@ export default class List extends React.Component {
   }
 
   componentWillMount() {
-    const options = this.createOptions(this.props.values);
-    this.setState({options});
+    this.setState({options: this.createOptions()});
   }
 
   view = e => typeof e === 'function' ? React.createElement(e) : e;
 
-  createOptions = values =>
+  createOptions = () =>
     (this.props.defaultValue ? [this.props.defaultValue] : [])
-      .concat(values)
+      .concat(this.props.values)
       .map((option, id) => ({
         id: option.id || id,
 
@@ -44,7 +43,7 @@ export default class List extends React.Component {
         // however, it's possible `value` is complex react component. instead of
         // displaying that component, we save it in `realValue` and
         // show `value` as some string representation of component instead
-        value: option.label || '' + option,
+        value: option.label || (option.type && option.type.name) || '' + option,
         realValue: isUndefined(option.value) ? option : option.value
       }));
 
@@ -100,6 +99,7 @@ export default class List extends React.Component {
         selectedId={this.getSelectedId()}
         onSelect={this.onOptionChange}
         onChange={this.onFilterChange}
+        placeholder={this.props.defaultValue || ''}
         {...(this.state.currentFilter ? {suffix: this.clearButton} : {})}
         />
     );
