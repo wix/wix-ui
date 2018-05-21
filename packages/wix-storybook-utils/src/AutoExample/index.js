@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 import componentParser from '../AutoDocs/parser';
+import NO_VALUE_TYPE from './no-value-type';
 
 import {
   Wrapper,
@@ -12,8 +13,7 @@ import {
   Code,
   Toggle,
   Input,
-  List,
-  NodesList
+  List
 } from '../FormComponents';
 
 const stripQuotes = string => {
@@ -182,8 +182,15 @@ export default class extends Component {
       ) :
       props;
 
-  setProp = (key, value) =>
-    this.setState({propsState: {...this.state.propsState, [key]: value}});
+  setProp = (key, value) => {
+    if (value === NO_VALUE_TYPE) {
+      // eslint-disable-next-line no-unused-vars
+      const {[key]: deletedKey, ...propsState} = this.state.propsState;
+      this.setState({propsState});
+    } else {
+      this.setState({propsState: {...this.state.propsState, [key]: value}});
+    }
+  }
 
   propControllers = [
     {
@@ -211,7 +218,7 @@ export default class extends Component {
       types: ['string', 'number', /ReactText/, 'arrayOf', 'union', 'node', 'ReactNode'],
       controller: ({propKey}) =>
         this.props.exampleProps[propKey] ?
-          <NodesList values={this.props.exampleProps[propKey]}/> :
+          <List values={this.props.exampleProps[propKey]}/> :
           <Input/>
     },
 
@@ -229,15 +236,15 @@ export default class extends Component {
 
   getPropControlComponent = (propKey, type) => {
     if (!matchFuncProp(type.name) && this.props.exampleProps[propKey]) {
-      return <NodesList values={this.props.exampleProps[propKey]}/>;
+      return <List values={this.props.exampleProps[propKey]}/>;
     }
 
-    const pretender =
+    const {controller = () => null} =
       this.propControllers.find(({types}) =>
         types.some(t => ensureRegexp(t).test(type.name))
       );
 
-    return pretender ? pretender.controller({propKey, type}) : null;
+    return controller({propKey, type});
   }
 
   render() {
@@ -292,6 +299,7 @@ export default class extends Component {
                   {...{
                     label: key,
                     value: componentProps[key],
+                    defaultValue: this.props.componentProps[key],
                     onChange: value => this.setProp(key, value),
                     children: this.getPropControlComponent(key, prop.type)
                   }}

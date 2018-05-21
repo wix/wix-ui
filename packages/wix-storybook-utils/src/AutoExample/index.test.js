@@ -64,7 +64,7 @@ describe('AutoExample', () => {
           }
         },
         exampleProps: {
-          someProp: [1, 2, 3]
+          someProp: [1, 2, 3, 4, 5]
         }
       });
 
