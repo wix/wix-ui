@@ -215,14 +215,6 @@ export default class extends Component {
     },
 
     {
-      types: ['string', 'number', /ReactText/, 'arrayOf', 'union', 'node', 'ReactNode'],
-      controller: ({propKey}) =>
-        this.props.exampleProps[propKey] ?
-          <List values={this.props.exampleProps[propKey]}/> :
-          <Input/>
-    },
-
-    {
       types: ['bool', 'Boolean'],
       controller: () => <Toggle/>
     },
@@ -231,6 +223,11 @@ export default class extends Component {
       types: ['enum'],
       controller: ({type}) =>
         <List values={type.value.map(({value}) => stripQuotes(value))}/>
+    },
+
+    {
+      types: ['string', 'number', /ReactText/, 'arrayOf', 'union', 'node', 'ReactNode'],
+      controller: () => <Input/>
     }
   ]
 
@@ -239,12 +236,14 @@ export default class extends Component {
       return <List values={this.props.exampleProps[propKey]}/>;
     }
 
-    const {controller = () => null} =
-      this.propControllers.find(({types}) =>
+    const propControllerCandidate = this.propControllers
+      .find(({types}) =>
         types.some(t => ensureRegexp(t).test(type.name))
       );
 
-    return controller({propKey, type});
+    return propControllerCandidate && propControllerCandidate.controller ?
+      propControllerCandidate.controller({propKey, type}) :
+      <Input/>;
   }
 
   render() {
