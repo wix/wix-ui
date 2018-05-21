@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from 'wix-style-react/dist/src/Icons/dist/components/CloseThin';
 import InputWithOptions from 'wix-style-react/InputWithOptions';
 import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
+import Button from 'wix-style-react/Button';
 
 import NO_VALUE_TYPE from '../AutoExample/no-value-type';
 
@@ -30,8 +31,6 @@ export default class List extends React.Component {
   componentWillMount() {
     this.setState({options: this.createOptions()});
   }
-
-  view = e => typeof e === 'function' ? React.createElement(e) : e;
 
   createOptions = () =>
     (this.props.defaultValue ? [this.props.defaultValue] : [])
@@ -63,16 +62,26 @@ export default class List extends React.Component {
       () => this.props.onChange(NO_VALUE_TYPE)
     );
 
-  clearButton =
+  clearIcon =
     <span
       onClick={this.clearValue}
       style={{color: '#3899ec', cursor: 'pointer'}}
       children={<CloseIcon size="8px"/>}
       />;
 
+  clearButton =
+    <div style={{padding: '1em 0'}}>
+      <Button
+        height="x-small"
+        theme="transparent"
+        children="Clear"
+        onClick={this.clearValue}
+        />
+    </div>;
+
   getSelectedId = () => {
-    const id = this.state.options.find(option => option.id === this.state.currentValue.id);
-    return id || 0;
+    const selectedOption = this.state.options.find(option => option.id === this.state.currentValue.id) || {};
+    return selectedOption.id || 0;
   }
 
   onOptionChange = ({id}) => {
@@ -100,30 +109,29 @@ export default class List extends React.Component {
         onSelect={this.onOptionChange}
         onChange={this.onFilterChange}
         placeholder={this.props.defaultValue || ''}
-        {...(this.state.currentFilter ? {suffix: this.clearButton} : {})}
+        {...(this.state.currentFilter ? {suffix: this.clearIcon} : {})}
         />
     );
   }
 
   radios() {
-    const {values, onChange} = this.props;
-
     return (
-      <WixRadioGroup
-        value={this.state && this.state.selected}
-        onChange={ev => {
-          this.setState({selected: ev});
-          onChange(this.view(values[ev]));
-        }}
-        >
-        {values.map((value, i) =>
-          <WixRadioGroup.Radio
-            key={i}
-            value={i}
-            children={this.view(values[i])}
-            />
-        )}
-      </WixRadioGroup>
+      <div>
+        <WixRadioGroup
+          value={this.state.currentValue.id}
+          onChange={id => this.onOptionChange({id})}
+          >
+          {this.state.options.map(({id, realValue}) =>
+            <WixRadioGroup.Radio
+              key={id}
+              value={id}
+              children={typeof realValue === 'function' ? React.createElement(realValue) : realValue}
+              />
+          )}
+        </WixRadioGroup>
+
+        { this.state.currentValue.value && this.clearButton }
+      </div>
     );
   }
 
@@ -131,4 +139,3 @@ export default class List extends React.Component {
     return this.props.values.length > 3 ? this.dropdown() : this.radios();
   }
 }
-
