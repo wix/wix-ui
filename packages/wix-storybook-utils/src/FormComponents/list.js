@@ -32,9 +32,8 @@ export default class List extends React.Component {
   }
 
   createOptions = () =>
-    (this.props.defaultValue ? [this.props.defaultValue] : [])
-      .concat(this.props.values)
-      .map((option, id) => ({
+    this.props.values
+      .map((option = {}, id) => ({
         id: option.id || id,
 
         // `value` is used in InputWithOptions as displayed value in dropdown
@@ -120,11 +119,11 @@ export default class List extends React.Component {
           value={this.state.currentValue.id}
           onChange={id => this.onOptionChange({id})}
           >
-          {this.state.options.map(({id, realValue}) =>
+          {this.state.options.map(({id, value}) =>
             <WixRadioGroup.Radio
               key={id}
               value={id}
-              children={typeof realValue === 'function' ? React.createElement(realValue) : realValue}
+              children={value}
               />
           )}
         </WixRadioGroup>
