@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CloseIcon from 'wix-ui-icons-common/system/Close';
 import InputWithOptions from 'wix-style-react/InputWithOptions';
 import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
 import Button from 'wix-style-react/Button';
@@ -64,7 +65,7 @@ export default class List extends React.Component {
     <span
       onClick={this.clearValue}
       style={{color: '#3899ec', cursor: 'pointer'}}
-      children="&times;"
+      children={<CloseIcon size="7px"/>}
       />;
 
   clearButton =
