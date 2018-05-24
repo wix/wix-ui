@@ -402,7 +402,7 @@ describe('Pagination', () => {
       expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onDoubcleClick when clicking on the component', () => {
+  it('calls onDoubcleClick when double clicking on the component', () => {
     const onDoubleClick = jest.fn();
     const pagination = createDriver(
       <Pagination
