@@ -47,7 +47,6 @@ export interface PaginationProps {
   updateResponsiveLayout?: (callback: () => void) => void;
   style?: React.CSSProperties;
   disabled?: boolean;
-  
 }
 
 export interface PaginationState {

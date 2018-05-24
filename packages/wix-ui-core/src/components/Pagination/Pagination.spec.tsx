@@ -402,6 +402,18 @@ describe('Pagination', () => {
       expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it('calls onDoubcleClick when clicking on the component', () => {
+    const onDoubleClick = jest.fn();
+    const pagination = createDriver(
+      <Pagination
+        totalPages={3}
+        onDoubleClick={onDoubleClick}
+      />);
+
+      pagination.simulate.doubleClick(pagination.root);
+      expect(onDoubleClick).toHaveBeenCalledTimes(1);
+  });
+
   describe('Numbering logic', () => {
     it('Renders up to 5 pages during SSR in responsive mode', () => {
       const pagination = createDriver(
