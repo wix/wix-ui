@@ -25,6 +25,7 @@ export interface PaginationProps {
   pageUrl?: (pageNumber: number) => string;
   onChange?: (event: {event: React.SyntheticEvent<Element>, page: number}) => void;
   onClick?: (event: React.SyntheticEvent<Element>) => void;
+  onDoubleClick?: (event: React.SyntheticEvent<Element>) => void;
   onMouseEnter?: (event: React.SyntheticEvent<Element>) => void;
   onMouseLeave?: (event: React.SyntheticEvent<Element>) => void;
   paginationMode?: 'pages' | 'input';
@@ -67,6 +68,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     onChange: func,
     /** Called when the pagination is clicked*/
     onClick: func,
+    /** Called when the pagination is double clicked*/
+    onDoubleClick: func,
     /** Called when mouse enters pagination*/
     onMouseEnter: func,
     /** Called when mouse leaves pagination*/
@@ -301,6 +304,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         aria-label="Pagination Navigation"
         dir={this.props.rtl ? 'rtl' : null}
         onClick={this.props.onClick}
+        onDoubleClick={this.props.onDoubleClick}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         style={style || {width}}
