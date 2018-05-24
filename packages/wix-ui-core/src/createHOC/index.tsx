@@ -26,7 +26,7 @@ export const createHOC = Component => {
       const {dataHook, dataClass} = this.props;
       if (dataHook || dataClass) {
         const domNode = ReactDOM.findDOMNode(this);
-        if (domNode) {
+        if (domNode && 'setAttribute' in domNode) {
           dataHook && domNode.setAttribute('data-hook', dataHook);
           dataClass && domNode.setAttribute('data-class', dataClass);
         }

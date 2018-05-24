@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import {
   PageStripLayout,
   createStaticLayout,
@@ -31,6 +30,7 @@ export interface PageStripState {
 export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private responsiveLayoutIsFresh: boolean = false;
   private unmounted: boolean = false;
+  private rootNode: HTMLElement;
 
   public constructor(props: PageStripProps) {
     super(props);
@@ -79,6 +79,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   public render() {
     return (
       <div
+        ref={el => this.rootNode = el}
         data-hook="page-strip"
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={style.pageStrip}
@@ -103,7 +104,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     // Changing font-variant to small-caps should do the trick without actually affecting
     // the appearance of digits.
 
-    const inlineStyle = ReactDOM.findDOMNode(this).style;
+    const inlineStyle = this.rootNode.style;
     inlineStyle.fontVariant = inlineStyle.fontVariant ? '' : 'small-caps';
   }
 
@@ -187,7 +188,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     this.responsiveLayoutIsFresh = true;
     this.setState({
       responsiveLayout: createResponsiveLayout({
-        container: ReactDOM.findDOMNode(this).children[1],
+        container: this.rootNode.children[1],
         totalPages: this.props.totalPages,
         currentPage: this.props.currentPage,
         maxPagesToShow: this.props.maxPagesToShow,

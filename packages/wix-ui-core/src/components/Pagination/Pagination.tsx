@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';
@@ -133,7 +132,11 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     slashLabel: '\u00A0/\u00A0'
   };
 
-  updateRootMinWidth = () => measureAndSetRootMinWidth(ReactDOM.findDOMNode(this), this.props.paginationMode, this.props.id);
+  private rootNode: HTMLElement;
+
+  private updateRootMinWidth() {
+    measureAndSetRootMinWidth(this.rootNode, this.props.paginationMode, this.props.id);
+  }
 
   public componentDidMount() {
     this.props.updateResponsiveLayout && this.updateRootMinWidth();
@@ -298,6 +301,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
 
     return (
       <nav
+        ref={el => this.rootNode = el}
         id={this.getId('')}
         role="navigation"
         aria-label="Pagination Navigation"
