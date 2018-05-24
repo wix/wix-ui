@@ -10,29 +10,28 @@ import {RadioButtonStory} from './RadioButton';
 // baseComponents
 import './InputWithOptions.story';
 
-// components
+// components (ordered alphabetically)
 import './AddressInput/index.story';
 import './AddressInput/E2E';
 import './Autocomplete.story';
 import './Button.story';
+storiesOf('Components', module).add('Checkbox', () => <CheckboxStory/>);
+storiesOf('Components', module).add('Divider', () => <DividerStory/>);
+storiesOf('Components', module).add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>);
 import './Input/Input.story';
 import './IconWithOptions.story';
-import './LabelWithOptions.story';
-import './Slider.story';
 import './Label.story';
+import './LabelWithOptions.story';
 import './Link.story';
+storiesOf('Components', module).add('Pagination', () => <PaginationStory/>);
+import './Popover.story';
+storiesOf('Components', module).add('RadioButton', () => <RadioButtonStory/>);
+import './Slider.story';
 import './StylableBadge.story';
+import './Thumbnail.story';
 import './TimePicker/index.story';
 import './ToggleSwitch/index.story';
 import './Tooltip/index.story';
+storiesOf('Components', module).add('Tooltip Custom', () => <TooltipStory/>);
 import './Video.story';
-import './Thumbnail.story';
-import './Popover.story';
 
-storiesOf('Components', module)
-  .add('Pagination', () => <PaginationStory/>)
-  .add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>)
-  .add('Divider', () => <DividerStory/>)
-  .add('Checkbox', () => <CheckboxStory/>)
-  .add('Tooltip Custom', () => <TooltipStory/>)
-  .add('RadioButton', () => <RadioButtonStory/>);

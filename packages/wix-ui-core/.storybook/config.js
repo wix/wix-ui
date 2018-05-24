@@ -11,6 +11,6 @@ configure(loadStories, module);
 setOptions({
   showDownPanel: false,
   name: 'wix-ui-core',
-  url: 'https://github.com/wix/wix-ui/packages/wix-ui-core',
+  url: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core',
   sidebarAnimations: true
 });
