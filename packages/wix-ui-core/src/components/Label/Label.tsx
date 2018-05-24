@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {string, bool} from 'prop-types';
+import {string, bool, node} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
   className?: string;
   /** Children */
-  children?: string;
+  children?: React.ReactNode;
   /** For property */
   for?: string;
   /** ID of element */
@@ -32,7 +32,7 @@ Label.propTypes = {
   /** class name */
   className: string,
   /** children */
-  children: string,
+  children: node,
   /** For property */
   for: string,
   /** ID of element */
