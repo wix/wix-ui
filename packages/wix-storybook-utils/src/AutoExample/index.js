@@ -299,6 +299,7 @@ export default class extends Component {
                     label: key,
                     value: componentProps[key],
                     defaultValue: this.props.componentProps[key],
+                    isRequired: prop.required || false,
                     onChange: value => this.setProp(key, value),
                     children: this.getPropControlComponent(key, prop.type)
                   }}

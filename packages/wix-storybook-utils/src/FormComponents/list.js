@@ -15,7 +15,8 @@ export default class List extends React.Component {
     value: PropTypes.any,
     defaultValue: PropTypes.any,
     values: PropTypes.arrayOf(PropTypes.any),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    isRequired: PropTypes.bool
   };
 
   constructor(props) {
@@ -24,16 +25,13 @@ export default class List extends React.Component {
     this.state = {
       currentValue: {},
       currentFilter: props.defaultValue || '',
-      isFiltering: false
+      isFiltering: false,
+      options: this.createOptions(props.values || [])
     };
   }
 
-  componentWillMount() {
-    this.setState({options: this.createOptions()});
-  }
-
-  createOptions = () =>
-    this.props.values
+  createOptions = values =>
+    values
       .map((option = {}, id) => ({
         id: option.id || id,
 
@@ -108,7 +106,7 @@ export default class List extends React.Component {
         onSelect={this.onOptionChange}
         onChange={this.onFilterChange}
         placeholder={this.props.defaultValue || ''}
-        {...(this.state.currentFilter ? {suffix: this.clearIcon} : {})}
+        {...(this.state.currentFilter && !this.props.isRequired ? {suffix: this.clearIcon} : {})}
         />
     );
   }
@@ -129,7 +127,7 @@ export default class List extends React.Component {
           )}
         </WixRadioGroup>
 
-        { this.state.currentValue.value && this.clearButton }
+        { !this.props.isRequired && this.state.currentValue.value && this.clearButton }
       </div>
     );
   }

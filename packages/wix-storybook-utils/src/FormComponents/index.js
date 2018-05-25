@@ -38,12 +38,11 @@ Options.propTypes = {
   children: PropTypes.node
 };
 
-
-const Option = ({label, value, children, onChange, defaultValue}) =>
+const Option = ({label, value, children, onChange, defaultValue, isRequired}) =>
   children ?
     <Row className={styles.option}>
       <Col span={6}>
-        <Markdown source={`\`${label}\``}/>
+        <Markdown source={`\`${label}${isRequired ? '*' : ''}\``}/>
       </Col>
 
       <Col span={6}>
@@ -52,7 +51,8 @@ const Option = ({label, value, children, onChange, defaultValue}) =>
           {
             value: children.type === 'div' ? value.toString() : value,
             defaultValue,
-            onChange
+            onChange,
+            ...(children.type === 'div' ? {} : {isRequired}) // this is a hack to prevent warning im sorry, hopefully temporary,TODO
           }
         ) }
       </Col>
@@ -64,7 +64,8 @@ Option.propTypes = {
   value: PropTypes.any,
   defaultValue: PropTypes.any,
   children: PropTypes.node,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  isRequired: PropTypes.bool
 };
 
 const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackground}) =>
