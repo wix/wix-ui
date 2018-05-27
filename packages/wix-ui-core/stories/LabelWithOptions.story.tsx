@@ -4,6 +4,8 @@ import {LabelWithOptions} from '../src/components/LabelWithOptions';
 import {generateOptions} from '../src/baseComponents/DropdownOption/OptionsExample';
 import {Option} from '../src/baseComponents/DropdownOption';
 
+const options = generateOptions();
+
 export default {
   category: 'Components',
   name: 'LabelWithOptions',
@@ -13,17 +15,25 @@ export default {
   componentProps: {
     'data-hook': 'storybook-labelwithoptions',
     renderSuffix: isError => <span>{isError ? '☹️' : '😁'}</span>,
-    options: generateOptions(),
+    options,
     multi: true,
-    placeholder: 'With placeholder'
+    placeholder: 'With placeholder',
+    fixedFooter: 'Fixed Footer',
+    fixedHeader: 'Fixed Header'
   },
 
   exampleProps: {
-    fixedFooter: [null, <div key="1">Fixed Footer</div>],
-    fixedHeader: [null, <div key="2">Fixed Header</div>],
     onSelect: (option: Option) => option.value,
     onDeselect: (option: Option) => option.value,
-    initialSelectedIds: [null, [1]],
-    placeholder: ['With placeholder', null]
+    initialSelectedId: [
+      {value: [1], label: '[1]'},
+      {value: [1, 2, 3], label: '[1, 2, 3]'}
+    ],
+
+    options: [
+      {value: options.slice(0, 1), label: '1 example option'},
+      {value: options.slice(0, 5), label: '5 example options'},
+      {value: options, label: '20 example options'}
+    ]
   }
 };
