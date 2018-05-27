@@ -7,9 +7,9 @@ import {default as WixInput} from 'wix-style-react/Input';
 import ToggleSwitch from 'wix-style-react/ToggleSwitch';
 import Heading from 'wix-style-react/Heading';
 
-import Markdown from '../Markdown';
 import ComponentSource from '../ComponentSource';
 import List from './list';
+import Option from './option';
 
 import styles from './styles.scss';
 
@@ -36,36 +36,6 @@ const Options = ({children}) =>
 
 Options.propTypes = {
   children: PropTypes.node
-};
-
-const Option = ({label, value, children, onChange, defaultValue, isRequired}) =>
-  children ?
-    <Row className={styles.option}>
-      <Col span={6}>
-        <Markdown source={`\`${label}${isRequired ? '*' : ''}\``}/>
-      </Col>
-
-      <Col span={6}>
-        { React.cloneElement(
-          children,
-          {
-            value: children.type === 'div' ? value.toString() : value,
-            defaultValue,
-            onChange,
-            ...(children.type === 'div' ? {} : {isRequired}) // this is a hack to prevent warning im sorry, hopefully temporary,TODO
-          }
-        ) }
-      </Col>
-    </Row> :
-    null;
-
-Option.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.any,
-  defaultValue: PropTypes.any,
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-  isRequired: PropTypes.bool
 };
 
 const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackground}) =>
