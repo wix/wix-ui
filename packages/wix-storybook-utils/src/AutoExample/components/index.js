@@ -7,7 +7,7 @@ import {default as WixInput} from 'wix-style-react/Input';
 import ToggleSwitch from 'wix-style-react/ToggleSwitch';
 import Heading from 'wix-style-react/Heading';
 
-import ComponentSource from '../ComponentSource';
+import ComponentSource from '../../ComponentSource';
 import List from './list';
 import Option from './option';
 

@@ -14,7 +14,7 @@ import {
   Toggle,
   Input,
   List
-} from '../FormComponents';
+} from './components';
 
 const stripQuotes = string => {
   const quoted = string.match(/^['"](.*?)['"]$/);

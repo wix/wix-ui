@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col} from 'wix-style-react/Grid';
 
-import Markdown from '../Markdown';
+import Markdown from '../../Markdown';
 import styles from './styles.scss';
 
 const Option = ({
@@ -28,7 +28,9 @@ const Option = ({
           value: children.type === 'div' ? value.toString() : value,
           defaultValue,
           onChange,
-          ...(children.type === 'div' ? {} : { isRequired }) // this is a hack to prevent warning im sorry, hopefully temporary,TODO
+
+          // this is a hack to prevent warning im sorry, hopefully temporary,TODO
+          ...(children.type === 'div' ? {} : {isRequired})
         })}
       </Col>
     </Row>

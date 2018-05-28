@@ -6,7 +6,7 @@ import InputWithOptions from 'wix-style-react/InputWithOptions';
 import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
 import Button from 'wix-style-react/Button';
 
-import NO_VALUE_TYPE from '../AutoExample/no-value-type';
+import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
 
 const isUndefined = a => typeof a === 'undefined';
 
