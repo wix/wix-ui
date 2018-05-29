@@ -5,10 +5,10 @@ import {Popover, PopoverProps} from './';
 import {mount} from 'enzyme';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
-import {popoverTestkitFactory as enzymePopoverTestkitFactory} from '../../testkit/enzyme';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {popoverTestkitFactory} from '../../testkit';
+import { popoverTestkitFactory as enzymePopoverTestkitFactory } from '../../testkit/enzyme';
+import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { isTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { popoverTestkitFactory } from '../../testkit';
 import styles from './Popover.st.css';
 
 describe('Popover', () => {
@@ -173,7 +173,6 @@ describe('Popover', () => {
         wrapper.unmount();
       });
     });
-
   });
 
   describe('testkit', () => {

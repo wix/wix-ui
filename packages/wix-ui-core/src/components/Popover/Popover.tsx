@@ -139,6 +139,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   targetRef: HTMLElement = null;
   appendToNode: HTMLElement = null;
   stylesObj: { [key: string]: string } = null;
+  defaultNode: HTMLElement = null;
 
   constructor(props: PopoverProps) {
     super(props);
@@ -180,10 +181,12 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     style: object
   };
 
-  getAppendedNode({appendTo, targetRef}) {
+  getOrCreateAppendToNode({appendTo, targetRef}) {
     let appendToNode;
     if (appendTo === 'window' || appendTo === 'viewport') {
-      appendToNode = document.body;
+      this.defaultNode = document.createElement('div');
+      document.body.appendChild(this.defaultNode);
+      appendToNode = this.defaultNode;
     } else if (appendTo === 'scrollParent') {
       appendToNode = getScrollParent(targetRef);
     } else if (isElement(appendTo)) {
@@ -267,8 +270,12 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   initAppendToNode() {
     const {appendTo} = this.props;
-    this.appendToNode = this.getAppendedNode({appendTo, targetRef: this.targetRef});
+    this.appendToNode = this.getOrCreateAppendToNode({appendTo, targetRef: this.targetRef});
+    // TODO: I think we should throw an error is this.appendToNode is undefined, since 
+    // react-portal will attach it to a new default div under document.body,
+    // and we could not add the stylable styles to that div.
     if (this.appendToNode) {
+      // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
       // TODO: remove this, it is called in render
       this.applyStylesToAppendedNode(this.props);
@@ -278,6 +285,13 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   componentDidMount() {
     this.initAppendToNode();
     this.setState({isMounted: true});
+  }
+  
+  componentWillUnmount() {
+    if (this.defaultNode) {
+      document.body.removeChild(this.defaultNode);
+    }
+    this.defaultNode = null;
   }
 
   render() {
