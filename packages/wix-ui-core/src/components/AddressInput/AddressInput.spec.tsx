@@ -6,7 +6,6 @@ import {GoogleMapsClientStub} from './GoogleMapsClientStub';
 import * as waitForCond from 'wait-for-cond';
 import * as eventually from 'wix-eventually';
 import * as helper from './AddressInputTestHelper';
-import {OptionFactory} from '../../baseComponents/DropdownOption/OptionFactory';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
@@ -447,6 +446,12 @@ describe('AddressInput', () => {
             driver.keyDown('Enter');
             expect(onManualInput).toHaveBeenCalled();
         });
+
+        it('Should pass inline styles', () => {
+            const style = {backgroundColor: 'green'};
+            init({style});
+            expect(driver.inlineStyles()['background-color']).toBe('green')
+        })
     });
 
     describe('Preview states', () => {

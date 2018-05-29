@@ -38,6 +38,8 @@ export interface InputWithOptionsProps {
   forceContentElementVisibility?: boolean;
   /** Input prop types */
   inputProps: InputProps;
+  /** Inline styles */
+  style?: object;
 }
 
 /**
@@ -87,7 +89,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** If set to true, content element will always be visible, used for preview mode */
     forceContentElementVisibility: bool,
     /** Input prop types */
-    inputProps: object.isRequired
+    inputProps: object.isRequired,
+    /** Inline styles */
+    style: object
   };
 
   isEditing: boolean = false;
@@ -158,7 +162,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       timeout,
       onDeselect,
       inputProps,
-      forceContentElementVisibility} = this.props;
+      forceContentElementVisibility,
+      style: inlineStyles} = this.props;
 
     return (
       <Dropdown
@@ -177,6 +182,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         timeout={timeout}
         multi={multi}
         forceContentElementVisibility={forceContentElementVisibility}
+        style={inlineStyles}
       >
         <Input
           data-hook="input"

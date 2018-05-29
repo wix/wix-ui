@@ -18,7 +18,7 @@ import {
 import * as classNames from 'classnames';
 import isElement = require('lodash/isElement');
 
-import {oneOf, oneOfType, any, Requireable, string, bool, func, number, shape} from 'prop-types';
+import {oneOf, oneOfType, any, Requireable, string, bool, func, number, shape, object} from 'prop-types';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -83,6 +83,8 @@ export interface PopoverProps {
   appendTo?: AppendTo;
   /** Animation timer */
   timeout?: number;
+  /** Inline style */
+  style?: object;
 }
 
 export type PopoverState = {
@@ -186,7 +188,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     /** Enables calculations in relation to a dom element */
     appendTo: AppendToPropType,
     /** Animation timer */
-    timeout: number
+    timeout: number,
+    /** Inline styles */
+    style: object
   };
 
   getPopperContentStructure(childrenObject) {
@@ -275,7 +279,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   }
 
   render() {
-    const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, shown} = this.props;
+    const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, shown, style: inlineStyles} = this.props;
     const {isMounted} = this.state;
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -292,6 +296,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        style={inlineStyles}
       >
         <Target onKeyDown={onKeyDown} data-hook="popover-element" innerRef={r => this.targetRef = r}>
           {childrenObject.Element}

@@ -39,6 +39,8 @@ export interface DropdownProps {
   timeout?: number;
   /** If set to true, content element will always be visible, used for preview mode */
   forceContentElementVisibility?: boolean;
+  /** Inline styles */
+  style?: object;
 }
 
 export interface DropdownState {
@@ -190,7 +192,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
 
@@ -205,6 +207,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
+        style={inlineStyles}
       >
         <Popover.Element>
           {children}

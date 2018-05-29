@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable} from 'prop-types';
+import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable, object} from 'prop-types';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
 
 import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
@@ -65,6 +65,8 @@ export interface AddressInputProps {
     throttleInterval?: number;
     /** Node to be rendered in front of each suggestion */
     locationIcon?: React.ReactNode;
+    /** Inline styles */
+    style?: object;
 }
 
 export interface AddressInputState {
@@ -151,7 +153,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
         throttleInterval: number,
         /** Node to be rendered in front of each suggestion */
-        locationIcon: node
+        locationIcon: node,
+        /** Inline styles */
+        style: object
     };
 
     static defaultProps = {
@@ -299,7 +303,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, onBlur, clearSuggestionsOnBlur, value, forceContentElementVisibility, readOnly} = this.props;
+        const {placeholder, onKeyDown, onFocus, value, forceContentElementVisibility, readOnly, style: inlineStyles} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -324,6 +328,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onManualInput={this._handleOnManualInput}
             timeout={timeout}
             forceContentElementVisibility={forceContentElementVisibility}
+            style={inlineStyles}
           />
         );
     }
