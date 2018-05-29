@@ -265,17 +265,18 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     );
   }
 
-  handlePortaledPopoverNode() {
+  initAppendToNode() {
     const {appendTo} = this.props;
     this.appendToNode = this.getAppendedNode({appendTo, targetRef: this.targetRef});
     if (this.appendToNode) {
       this.stylesObj = style('root', {}, this.props);
+      // TODO: remove this, it is called in render
       this.applyStylesToAppendedNode(this.props);
     }
   }
 
   componentDidMount() {
-    this.handlePortaledPopoverNode();
+    this.initAppendToNode();
     this.setState({isMounted: true});
   }
 
@@ -287,6 +288,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
+    // TODO: Should we do this also if shouldRenderPopper === false ?
     if (this.appendToNode) {
       this.applyStylesToAppendedNode(this.props);
     }
