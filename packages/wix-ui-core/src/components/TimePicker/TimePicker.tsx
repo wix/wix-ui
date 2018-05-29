@@ -189,7 +189,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     if (value === NULL_TIME) {
       if (!!this.props.value) {
-        onChange(null); 
+        onChange(null);
       }
     } else if (isValidTime(value, useAmPm !== AmPmOptions.None)) {
       if (this.props.value !== value) {
@@ -221,7 +221,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       - arrow keys
       - delete and backspace
     */
-    
+
     if (e.altKey || e.ctrlKey || e.metaKey) { return; }
 
     const elem                    = e.target;
@@ -230,7 +230,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     let {value}                   = this.state;
     let currentField              = getFieldFromPos(startPos);
     const isAmPm                  = useAmPm !== AmPmOptions.None;
-    
+
     // Checking for TAB first because it's the only key that might have default behavior
     // Shift focus between fields if tab is pressed, or use regular behavior if the field is on the edge
     // i.e., tabbing while on AM/PM or shift+tab on hour
@@ -326,7 +326,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         if (currentField !== FIELD.AMPM) { break; }
         const {hour} = parseTime(value);
         const nHour = parseInt(hour);
-        if (nHour < 12 && (e.key === 'p' || e.key === 'P') || 
+        if (nHour < 12 && (e.key === 'p' || e.key === 'P') ||
             nHour > 11 && (e.key === 'a' || e.key === 'A')) {
           value = increment({value, field: FIELD.AMPM});
           this.setState({value}, () => {
@@ -406,8 +406,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     return (
       <Input
-        {...style('root', {}, this.props)}
         {...passThroughProps}
+        {...style('root', {}, this.props)}
         type        = "text"
         value       = {value}
         suffix      = {tickers}
