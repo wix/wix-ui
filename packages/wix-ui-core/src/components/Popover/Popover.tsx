@@ -126,19 +126,6 @@ const createModifiers = ({moveBy, appendTo}) => {
   return modifiers;
 };
 
-const getAppendedNode = ({appendTo, targetRef}) => {
-  let appendToNode;
-  if (appendTo === 'window' || appendTo === 'viewport') {
-    appendToNode = document.body;
-  } else if (appendTo === 'scrollParent') {
-    appendToNode = getScrollParent(targetRef);
-  } else if (isElement(appendTo)) {
-    appendToNode = appendTo;
-  } else {
-    appendToNode = null;
-  }
-  return appendToNode;
-};
 
 const shouldAnimatePopover = ({timeout}: PopoverProps) => !!timeout;
 
@@ -193,6 +180,20 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     style: object
   };
 
+  getAppendedNode({appendTo, targetRef}) {
+    let appendToNode;
+    if (appendTo === 'window' || appendTo === 'viewport') {
+      appendToNode = document.body;
+    } else if (appendTo === 'scrollParent') {
+      appendToNode = getScrollParent(targetRef);
+    } else if (isElement(appendTo)) {
+      appendToNode = appendTo;
+    } else {
+      appendToNode = null;
+    }
+    return appendToNode;
+  };
+  
   getPopperContentStructure(childrenObject) {
     const {appendTo, placement, showArrow, moveArrowTo} = this.props;
     const modifiers = createModifiers({moveBy, appendTo});
@@ -264,17 +265,17 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     );
   }
 
-  handlePortaledPopoverNode(props) {
-    const {appendTo} = props;
-    this.appendToNode = getAppendedNode({appendTo, targetRef: this.targetRef});
+  handlePortaledPopoverNode() {
+    const {appendTo} = this.props;
+    this.appendToNode = this.getAppendedNode({appendTo, targetRef: this.targetRef});
     if (this.appendToNode) {
-      this.stylesObj = style('root', {}, props);
-      this.applyStylesToAppendedNode(props);
+      this.stylesObj = style('root', {}, this.props);
+      this.applyStylesToAppendedNode(this.props);
     }
   }
 
   componentDidMount() {
-    this.handlePortaledPopoverNode(this.props);
+    this.handlePortaledPopoverNode();
     this.setState({isMounted: true});
   }
 
