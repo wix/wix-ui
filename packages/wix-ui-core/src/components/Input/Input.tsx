@@ -71,7 +71,7 @@ export class Input extends React.Component<InputProps, InputState> {
     tabIndex: PropTypes.number,
     type: PropTypes.string,
     value: PropTypes.string,
-    id: PropTypes.oneOf([PropTypes.string, PropTypes.number])
+    id: PropTypes.string
   };
 
   static defaultProps: InputProps = {
