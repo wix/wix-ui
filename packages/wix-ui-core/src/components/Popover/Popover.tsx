@@ -302,7 +302,6 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
-    // TODO: Should we do this also if shouldRenderPopper === false ?
     if (this.appendToNode) {
       this.applyStylesToAppendedNode();
     }
