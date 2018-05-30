@@ -211,9 +211,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     return this.wrapWithAnimations(popper);
   }
 
-  applyStylesToAppendedNode(props) {
-    const {shown} = props;
-    const shouldAnimate = shouldAnimatePopover(props);
+  applyStylesToAppendedNode() {
+    const {shown} = this.props;
+    const shouldAnimate = shouldAnimatePopover(this.props);
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.appendToNode, this.stylesObj);
@@ -267,7 +267,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
       // TODO: remove this, it is called in render
-      this.applyStylesToAppendedNode(this.props);
+      this.applyStylesToAppendedNode();
     }
   }
 
@@ -304,7 +304,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
     // TODO: Should we do this also if shouldRenderPopper === false ?
     if (this.appendToNode) {
-      this.applyStylesToAppendedNode(this.props);
+      this.applyStylesToAppendedNode();
     }
 
     return (
