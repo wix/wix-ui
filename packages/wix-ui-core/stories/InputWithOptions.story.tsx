@@ -17,8 +17,8 @@ export default {
   },
 
   exampleProps: {
-    fixedFooter: [null, <div>Fixed Footer</div>],
-    fixedHeader: [null, <div>Fixed Header</div>],
+    fixedFooter: [null, <div key="1">Fixed Footer</div>],
+    fixedHeader: [null, <div key="2">Fixed Header</div>],
     initialSelectedIds: [[], [1]],
     onSelect: (option: Option) => option.value,
     onDeselect: (option: Option) => option.value

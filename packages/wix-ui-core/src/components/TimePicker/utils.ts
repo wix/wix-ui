@@ -1,14 +1,8 @@
-export enum FIELD {
-  NONE = 0,
-  HOUR = 1,
-  MINUTE = 2,
-  AMPM = 3,
-  AFTER = 4,
-}
-
-export const BLANK = '--';
-
-export const NULL_TIME = `${BLANK}:${BLANK}`;
+import {
+  FIELD,
+  BLANK,
+  NULL_TIME
+} from './constants';
 
 export const leftpad = str => ('00' + str).slice(-2);
 
@@ -20,74 +14,70 @@ export const parseTime = (timeStr: string) => ({
 });
 
 export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
-  const {hour, minute} = parseTime(timeStr);
-  const nHour = parseInt(hour);
-  const nMinute = parseInt(minute);
-  return (
-    timeStr.length === 5
-    && timeStr[2] === ':'
-    && nHour <= (useAmPm ? 12 : 24)
-    && nMinute <= 59
-  );
+  const test12 = /^(0[1-9]|1[0-2]):([0-5][0-9])$/;
+  const test24 = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+  return useAmPm
+    ? test12.test(timeStr)
+    : test24.test(timeStr);
 };
 
-const changeTime = ({value, field, minuteStep = 1, hourStep = 1, separateSteps = false}) => {
-  let hour = value.substr(0, 2);
-  let minute = value.substr(3, 5);
+const parseIntOrZero = str => parseInt(str) || 0;
+
+const changeTime = ({value, field, step = 1}) => {
+  let {hour, minute} = parseTime(value);
 
   switch (field) {
     case FIELD.HOUR:
-      if (hour === BLANK) { hour = 0; }
-      hour = (parseInt(hour) + 24 + hourStep) % 24;
+      hour = `${(parseIntOrZero(hour) + 24 + Math.sign(step)) % 24}`;
       break;
 
     case FIELD.AMPM:
-      if (hour !== BLANK) { hour = (parseInt(hour) + 12) % 24; }
+      if (hour !== BLANK) { hour = `${(parseIntOrZero(hour) + 12) % 24}`; }
       break;
 
     case FIELD.MINUTE:
-      minute = (parseInt(minute) || 0) + minuteStep;
-      if (minute > 59) {
-        if (!separateSteps && hour !== BLANK) { hour = ((parseInt(hour) || 0) + 1) % 24; }
-        minute -= 60;
-      } else if (minute < 0) {
-        if (!separateSteps && hour !== BLANK) { hour = ((parseInt(hour) || 0) + 23) % 24; }
-        minute += 60;
+      let nMinute = parseIntOrZero(minute);
+      nMinute += step;
+      if (nMinute > 59) {
+        nMinute -= 60;
+        hour = `${(parseIntOrZero(hour) + 1) % 24}`;
+      } else if (nMinute < 0) {
+        nMinute += 60;
+        hour = `${(parseIntOrZero(hour) + 23) % 24}`;
       }
+      minute = `${nMinute}`;
       break;
 
     default:
   }
 
   return `${leftpad(hour)}:${leftpad(minute)}`;
+
 };
 
-export const increment = ({value, field, step = 1, separateSteps = false}) =>
+export const increment = ({value, field, step = 1}) =>
   changeTime({
     value,
     field,
-    minuteStep: step,
-    hourStep: Math.floor(step / 60) || 1,
-    separateSteps
+    step: +step
   });
 
-export const decrement = ({value, field, step = 1, separateSteps = false}) =>
+export const decrement = ({value, field, step = 1}) =>
   changeTime({
     value,
     field,
-    minuteStep: -step,
-    hourStep: -(Math.floor(step / 60) || 1),
-    separateSteps
+    step: -step
   });
 
-export const convertToAmPm = value => {
-  let hour = value.substr(0, 2);
-  let ampm = 'AM';
+export const convertToAmPm = ({value, strings = {am: 'AM', pm: 'PM'}}) => {
+  let {hour, minute} = parseTime(value);
+  let ampm = strings.am;
   if (hour !== BLANK) {
-    hour = parseInt(hour);
-    if (hour > 11) { ampm = 'PM'; }
-    hour = hour % 12;
-    if (hour === 0) { hour = 12; }
+    let nHour = parseInt(hour);
+    if (nHour > 11) { ampm = strings.pm; }
+    nHour = nHour % 12;
+    if (nHour === 0) { nHour = 12; }
+    hour = leftpad(nHour);
   }
-  return `${leftpad(hour)}:${value.substr(-2)} ${ampm}`;
+  return `${hour}:${minute} ${ampm}`;
 };

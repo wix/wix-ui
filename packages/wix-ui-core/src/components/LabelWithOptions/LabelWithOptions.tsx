@@ -2,9 +2,11 @@ import * as React from 'react';
 import style from './LabelWithOptions.st.css';
 import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 'prop-types';
 import {Dropdown} from '../../baseComponents/Dropdown';
+import {Checkbox} from '../Checkbox';
 import {Option, optionPropType, OptionFactory} from '../../baseComponents/DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../../baseComponents/Dropdown/constants';
+import {noop} from '../../utils';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -34,10 +36,12 @@ export interface LabelWithOptionsProps {
   ellipsis?: boolean;
   /** Suffix */
   renderSuffix?: (isError: boolean) => React.ReactNode;
+  /** Display checkbox items in the dropdown menu*/
+  checkbox?: boolean;
 }
 
 export interface LabelWithOptionsState {
-  selectedOptions: Array<Option>;
+  selectedIds: Array<string | number>;
   isDirty: boolean;
 }
 
@@ -70,105 +74,127 @@ export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps,
     /** If set to true, the label will display an ellipsis when overflowing */
     ellipsis: bool,
     /** Suffix */
-    renderSuffix: func
+    renderSuffix: func,
+    /** Display checkbox items in the dropdown menu*/
+    checkbox: bool
   };
 
   static defaultProps = {
     initialSelectedIds: [],
     multi: false,
-    onSelect: () => null,
-    onDeselect: () => null,
-    renderSuffix: () => null
+    onSelect: noop,
+    onDeselect: noop,
+    renderSuffix: noop
   };
 
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 
-  constructor(props: LabelWithOptionsProps) {
-    super(props);
-
-    this.state = {
-      isDirty: false,
-      selectedOptions: []
-    };
-
-    this._onSelect = this._onSelect.bind(this);
-    this._onDeselect = this._onDeselect.bind(this);
-    this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
+  public constructor(props, context?) {
+    super(props, context);
+    this.state = {isDirty: false, selectedIds: []};
   }
 
-  _onInitialSelectedOptionsSet(options: Array<Option>) {
-    this.setState({
-      selectedOptions: options
-    });
-  }
-
-  _onSelect(option: Option) {
-    const {selectedOptions} = this.state;
-    const {onSelect, multi} = this.props;
-    this.setState({
-      selectedOptions: multi ? [...selectedOptions, option] : [option],
-      isDirty: true
-    }, () => onSelect(option));
-  }
-
-  _onDeselect(option: Option) {
-    const {selectedOptions} = this.state;
-    const {onDeselect} = this.props;
-    this.setState({
-      selectedOptions: selectedOptions.filter(_option => option.id !== _option.id),
-      isDirty: true
-    }, () => onDeselect(option));
-  }
-
-  render() {
+  public render() {
     const {
       initialSelectedIds,
-      options,
-      placeholder,
       disabled,
       required,
       renderSuffix,
       fixedFooter,
       fixedHeader,
       multi,
+      checkbox,
       ellipsis
     } = this.props;
 
     const {
-      selectedOptions,
+      selectedIds,
       isDirty
     } = this.state;
 
-    const labelValue = selectedOptions.length ?
-      selectedOptions.map(option => option.value).join(', ') :
-      placeholder;
-
-    const error = !disabled && required && isDirty && selectedOptions.length === 0;
+    const error = !disabled && required && isDirty && selectedIds.length === 0;
     return (
       <Dropdown
-        {...style('root', {required: required && !disabled, error, disabled}, this.props)}
+        {...style('root', {required: required && !disabled, error, disabled, checkbox}, this.props)}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
-        options={options}
+        options={this.createOptions()}
         openTrigger={CLICK}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
-        onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}
-        onSelect={this._onSelect}
-        onDeselect={this._onDeselect}
-        disabled={disabled}>
+        onInitialSelectedOptionsSet={this.onInitialSelectedOptionsSet}
+        onSelect={this.onSelect}
+        onDeselect={this.onDeselect}
+        disabled={disabled}
+      >
         <div className={style.selection}>
           <Label
-            className={`${style.label} ${selectedOptions.length ? '' : style.placeholder}`.trim()}
+            className={`${style.label} ${selectedIds && selectedIds.length ? '' : style.placeholder}`.trim()}
             ellipsis={ellipsis}
-            data-hook="label">
-            {labelValue}
+            data-hook="label"
+          >
+            {this.createLabel()}
           </Label>
           {renderSuffix(error)}
         </div>
       </Dropdown>
     );
+  }
+
+  private onInitialSelectedOptionsSet = (options: Array<Option>) => {
+    this.setState({
+      selectedIds: this.props.initialSelectedIds
+    });
+  }
+
+  private onSelect = (option: Option) => {
+    const {selectedIds} = this.state;
+    const {onSelect, multi} = this.props;
+    this.setState({
+      selectedIds: multi ? [...selectedIds, option.id] : [option.id],
+      isDirty: true
+    }, () => onSelect(option));
+  }
+
+  private onDeselect = (option: Option) => {
+    this.setState({
+      selectedIds: this.state.selectedIds.filter(id => id !== option.id),
+      isDirty: true
+    }, () => this.props.onDeselect(option));
+  }
+
+  private createOptions = () => {
+    if (!this.props.checkbox) {
+      return this.props.options;
+    }
+
+    return this.props.options.map(option => {
+      const newOption: Option = {
+        id: option.id,
+        isDisabled: option.isDisabled,
+        isSelectable: option.isSelectable,
+        value: option.value,
+        render: null
+      };
+
+      const checked = this.state.selectedIds.includes(option.id);
+
+      newOption.render = option.isSelectable ?
+        value => (
+          <div className={style.optionContainer} data-hook="checkbox-option-container">
+            <Checkbox disabled={option.isDisabled} checked={checked} className={style.checkbox}/>{option.render(value)}
+          </div>)
+        : option.render;
+      return newOption;
+    });
+  }
+
+  private createLabel = () => {
+    const {selectedIds} = this.state;
+    return (selectedIds && selectedIds.length) ?
+      this.props.options.filter(option => selectedIds.includes(option.id)).map(option => option.value).join(', ') :
+      this.props.placeholder;
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Divider} from '../../components/Divider';
-import {Highlighter} from '../Highlighter';
 import {shape, string, number, func, bool, oneOfType, Requireable} from 'prop-types';
+import style from './DropdownOption.st.css';
 const uniqueId = require('lodash/uniqueId');
 
 export const optionPropType = shape({
@@ -21,7 +21,7 @@ export interface Option {
 }
 
 const createOption = (option: Partial<Option> = null): Option =>
-  Object.assign({},
+  Object.assign(
     {
       id: option && (option.id || option.id === 0) ? option.id : uniqueId('Option'),
       isDisabled: false,
@@ -29,14 +29,16 @@ const createOption = (option: Partial<Option> = null): Option =>
       value: null,
       render: val => val
     },
-    option);
+    option
+  );
 
 const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
 const hightlightMatches = (option: Option, searchTerm: string): Option => {
-  const parts: Array<React.ReactNode> = option.value.split(new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi'));
-  for (let i = 1; i < parts.length; i += 2) {
-    parts[i] = <Highlighter key={i}>{parts[i]}</Highlighter>;
-  }
+  const re = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+  const parts = option.value.split(re).map((part, i) =>
+    i % 2 ? <mark className={style.highlight} key={i}>{part}</mark> : part
+  );
 
   return createOption({
     id: option.id,
@@ -62,9 +64,7 @@ export const OptionFactory = {
       render: value ? () => <Divider className={className}>{value}</Divider> : () => <Divider className={className}/>
     });
   },
-  createHighlighted(
-    option: Option,
-    hightlightValue: string): Option {
-      return option.value && hightlightValue ? hightlightMatches(option, hightlightValue) : option;
-    }
+  createHighlighted(option: Option, hightlightValue: string): Option {
+    return option.value && hightlightValue ? hightlightMatches(option, hightlightValue) : option;
+  }
 };

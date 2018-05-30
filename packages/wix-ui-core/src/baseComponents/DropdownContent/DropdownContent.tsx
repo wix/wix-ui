@@ -133,11 +133,13 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       <div
         {...style('root', {}, this.props)}
         onMouseMove={this.onMouseMove}
-        tabIndex={1000}>
+        tabIndex={1000}
+      >
         {fixedHeader}
         <div
           className={style.optionsContainer}
-          ref={optionsContainer => this.optionsContainerRef = optionsContainer}>
+          ref={optionsContainer => this.optionsContainerRef = optionsContainer}
+        >
           {
             (options || []).map((option, index) => (
               <DropdownOption

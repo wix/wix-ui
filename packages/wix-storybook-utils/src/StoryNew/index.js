@@ -10,6 +10,7 @@ export default ({
   category,
   component,
   storyName,
+  displayName,
   componentProps,
   examples,
   exampleProps,
@@ -41,6 +42,7 @@ export default ({
               componentProps,
               exampleProps,
               exampleImport,
+              displayName,
               examples,
               metadata: _metadata,
               config: _config

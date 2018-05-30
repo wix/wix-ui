@@ -6,3 +6,21 @@
 .root {
     -st-extends: InputWithOptions;
 }
+
+.option {
+    display: flex;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.icon {
+
+}
+
+.optionContent {
+    flex: 1;
+}

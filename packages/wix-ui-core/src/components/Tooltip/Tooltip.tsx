@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo, AppendToPropType} from '../../baseComponents/Popover';
+import {Popover, Placement, AppendTo, AppendToPropType, PlacementsType} from '../Popover';
 import {func, bool, oneOf, number, node, object, Requireable} from 'prop-types';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
@@ -27,8 +27,6 @@ export interface TooltipProps {
   onShow?: Function;
   /** callback to call when the tooltip is being hidden */
   onHide?: Function;
-  /** Enables calculations in relation to a dom element */
-  appendToParent?: boolean;
   /** Enables calculations in relation to the parent element*/
   appendTo?: AppendTo;
   /** Provides callback to invoke when outside of tooltip is clicked */
@@ -63,7 +61,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
 
   static propTypes = {
     /** tooltip's placement in relation to the target element */
-    placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
+    placement: PlacementsType,
     /** children to render that will be the target of the tooltip */
     children: node,
     /** the content to put inside the tooltip */
@@ -78,8 +76,6 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     onHide: func,
     /** Enables calculations in relation to a dom element */
     appendTo: AppendToPropType,
-    /** Enables calculations in relation to the parent element*/
-    appendToParent: bool,
     /** Provides callback to invoke when outside of tooltip is clicked */
     onClickOutside: func,
     /** If true, makes tooltip close when clicked outside (incase it was open) */
@@ -124,9 +120,8 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     }
   }
 
-  render () {
-    const {placement, content, children, moveBy, timeout, showArrow,
-           moveArrowTo, appendTo, appendToParent} = this.props;
+  render() {
+    const {placement, content, children, moveBy, timeout, showArrow, moveArrowTo, appendTo} = this.props;
     const {isOpen} = this.state;
 
     return (
@@ -141,7 +136,6 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
-        appendToParent={appendToParent}
       >
         <Popover.Element>
           {children}

@@ -33,11 +33,11 @@ describe('Input', () => {
     const input = createDriver(
       <Input
         autoComplete="on"
-        disabled={true}
+        disabled
         maxLength={10}
         placeholder="placeholder"
-        readOnly={true}
-        required={true}
+        readOnly
+        required
         tabIndex={1}
         type="password"
         value="hunter2"

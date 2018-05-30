@@ -5,7 +5,7 @@ export const buttonTestkitFactory = protractorTestkitFactoryCreator(buttonDriver
 export {ButtonDriver};
 
 //JSS
-import {popoverDriverFactory, PopoverDriver} from '../baseComponents/Popover/Popover.protractor.driver';
+import {popoverDriverFactory, PopoverDriver} from '../components/Popover/Popover.protractor.driver';
 export const popoverTestkitFactory = protractorTestkitFactoryCreator(popoverDriverFactory);
 export {PopoverDriver};
 
@@ -38,10 +38,6 @@ export const checkboxTestkitFactory = protractorTestkitFactoryCreator(checkboxDr
 export {CheckboxDriver};
 
 //Stylable
-import {textDriverFactory, TextDriver} from '../components/StylableText/Text.protractor.driver';
-export const textTestkitFactory = protractorTestkitFactoryCreator(textDriverFactory);
-export {TextDriver};
-
 import {radioButtonDriverFactory, RadioButtonDriver} from '../components/RadioButton/RadioButton.protractor.driver';
 export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioButtonDriverFactory);
 export {RadioButtonDriver};
@@ -53,10 +49,6 @@ export {StylableBadgeDriver};
 import {autocompleteDriverFactory, AutocompleteDriver} from '../components/Autocomplete/Autocomplete.protractor.driver';
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(autocompleteDriverFactory);
 export {AutocompleteDriver};
-
-import {hBoxDriverFactory, HBoxDriver} from '../components/HBox/HBox.protractor.driver';
-export const hBoxTestkitFactory = protractorTestkitFactoryCreator(hBoxDriverFactory);
-export {HBoxDriver};
 
 import {sliderDriverFactory, SliderDriver} from '../components/Slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(sliderDriverFactory);
@@ -82,10 +74,10 @@ import {labelWithOptionsDriverFactory, LabelWithOptionsDriver} from '../componen
 export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(labelWithOptionsDriverFactory);
 export {LabelWithOptionsDriver};
 
-import {vBoxDriverFactory, VBoxDriver} from '../components/VBox/VBox.protractor.driver';
-export const vBoxTestkitFactory = protractorTestkitFactoryCreator(vBoxDriverFactory);
-export {VBoxDriver};
-
 import {thumbnailDriverFactory, ThumbnailDriver} from '../components/Thumbnail/Thumbnail.protractor.driver';
-export const thumbnailTestkitFactory = protractorTestkitFactoryCreator(thumbnailDriverFactory);
+export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<ThumbnailDriver>(thumbnailDriverFactory);
 export {ThumbnailDriver};
+
+import {linkDriverFactory, LinkDriver} from '../components/Link/Link.protractor.driver';
+export const linkTestkitFactory = protractorTestkitFactoryCreator(linkDriverFactory);
+export {LinkDriver};

@@ -2,10 +2,12 @@ import * as React from 'react';
 import {Slider} from '../src/components/Slider';
 
 const SliderStory = ({children, ...rest}) => (
-  <div style={{
-    height: rest.orientation === 'vertical' ? 400 : 80,
-    width: rest.orientation === 'vertical' ? 80 : '100%'
-  }}>
+  <div 
+    style={{
+      height: rest.orientation === 'vertical' ? 400 : 80,
+      width: rest.orientation === 'vertical' ? 80 : '100%'
+    }}
+  >
     <Slider {...rest}/>
   </div>
 );
@@ -20,7 +22,7 @@ export default {
   componentProps: setState => ({
     'data-hook': 'storybook-slider',
     value: 4,
-    onChange: (value) => setState({value}),
+    onChange: value => setState({value}),
   }),
 
   exampleProps: {

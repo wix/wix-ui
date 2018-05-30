@@ -52,6 +52,7 @@ export const paginationDriverFactory = ({element: root, eventTrigger: simulate})
     clickNavButton: (name: NavButtonName): void => simulate.click(getNavButton(name)),
     /** Simulates clicking a page in "pages" mode */
     clickPage: (page: number): void => simulate.click(getPageByNumber(page)),
+    click: () => simulate.click(root),
     /** Simulates changing the value of the input field in "input" mode */
     changeInput: (newValue: string): void => {
       const input = getInput();

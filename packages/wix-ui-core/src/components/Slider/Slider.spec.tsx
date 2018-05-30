@@ -71,6 +71,23 @@ describe('Slider', () => {
     expect(driver.thumbTooltipValue()).toEqual('3');
   });
 
+  it('should show tooltip when pressing keys', () => {
+    const driver = render({ value: 3 });
+
+    driver.arrowRight();
+
+    expect(driver.thumbTooltipValue()).toEqual('3');
+  });
+
+  it('should hide the tooltip upon blur, given key pressed', () => {
+    const driver = render({ value: 3 });
+
+    driver.arrowRight();
+    driver.blur();
+
+    expect(driver.thumbTooltipValue()).toBeFalsy();
+  });
+
   it('does not show tooltip, given tooltipVisibility=none', () => {
     const driver = render({tooltipVisibility: 'none'});
 
@@ -393,20 +410,57 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 2);
   });
 
-  it('continuous mode - step is 0.1', () => {
+  it('continuous mode - horizontal orientation - step is determined by the formula: (max - min) / (sliderLength / 5)', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      min: 0,
+      min: 1,
       max: 6,
-      value: 0,
+      value: 1,
       step: null,
+      onChange
+    });
+
+    driver.stubTrackBoundingRect({width: 500});
+    driver.focus();
+    driver.arrowRight();
+    const expectedStepValue = floorValue((6 - 1) / (500 / 5), 2);
+    sinon.assert.calledWith(onChange, 1 + expectedStepValue);
+  });
+
+  it('continuous mode - vertical orientation - step is determined by the formula: (max - min) / (sliderLength / 5)', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      min: 1,
+      max: 6,
+      value: 1,
+      step: null,
+      orientation: 'vertical',
+      onChange
+    });
+
+    driver.stubTrackBoundingRect({height: 500});
+    driver.focus();
+    driver.arrowRight();
+    const expectedStepValue = floorValue((6 - 1) / (500 / 5), 2);
+    sinon.assert.calledWith(onChange, 1 + expectedStepValue);
+  });
+
+  it('onChange value is clamped by 2 decimal points', () => {
+    const onChange = sinon.spy();
+
+    const driver = render({
+      min: 1,
+      max: 6,
+      value: 1,
+      step: 0.123456,
       onChange
     });
 
     driver.focus();
     driver.arrowRight();
-    sinon.assert.calledWith(onChange, 0.1);
+    sinon.assert.calledWith(onChange, 1.12);
   });
 
   it('tooltip numeric value precision should be clamped to 3 decimal places', () => {
@@ -439,6 +493,29 @@ describe('Slider', () => {
     sinon.assert.called(onFocus);
   });
 
+  it('should focus', () => {
+    const onFocus = sinon.spy();
+
+    const wrapper = mount(<Slider onFocus={onFocus}/>);
+
+    (wrapper.instance() as any).focus();
+
+    expect(document.activeElement).toEqual(wrapper.getDOMNode());
+    sinon.assert.called(onFocus);
+  });
+
+  it('should blur', () => {
+    const onBlur = sinon.spy();
+
+    const wrapper = mount(<Slider onBlur={onBlur}/>);
+
+    (wrapper.instance() as any).focus();
+    (wrapper.instance() as any).blur();
+
+    expect(document.activeElement).not.toEqual(wrapper.getDOMNode());
+    sinon.assert.called(onBlur);
+  });
+
   it('should propagate onBlur when slider is blurred', () => {
     const onFocus = sinon.spy();
     const onBlur = sinon.spy();
@@ -453,6 +530,10 @@ describe('Slider', () => {
 
     sinon.assert.called(onBlur);
   });
+
+  function floorValue(value, precision = 1) {
+    return Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision);
+  }
 
   function render(props = {}) {
     props = {

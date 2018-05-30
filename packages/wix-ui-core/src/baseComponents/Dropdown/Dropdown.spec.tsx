@@ -12,13 +12,17 @@ describe('Dropdown', () => {
   const createDriver = createDriverFactory(dropdownDriverFactory);
   const options = generateOptions();
   const createDropdown = (props = {}) => (
-    <Dropdown placement="top" openTrigger={CLICK} {...Object.assign({
+    <Dropdown 
+      placement="top"
+      openTrigger={CLICK}
+      {...Object.assign({
       options: [],
       onSelect: () => null,
       onDeselect: () => null,
       onInitialSelectedOptionsSet: () => null,
       initialSelectedIds: [],
-    }, props)}>
+    }, props)}
+    >
       <span>Dropdown</span>
     </Dropdown>
   );
@@ -181,14 +185,16 @@ describe('Dropdown', () => {
     });
 
     it('Should display options when they exist', () => {
-      const wrapper = mount(<Dropdown
+      const wrapper = mount(
+      <Dropdown
         onSelect={() => null}
         initialSelectedIds={[]}
         onDeselect={() => null}
         onInitialSelectedOptionsSet={() => null}
         placement="top"
         openTrigger={CLICK}
-        options={[]}>
+        options={[]}
+      >
         <span>Dropdown</span>
       </Dropdown>);
 

@@ -1,15 +1,19 @@
 # wix-ui
 > Wix's React component library
 
-> Storybook: [here](https://wix.github.io/wix-ui)
+## Documentation
+Project documentation can be found here
+- [wix-ui-core](http://wix-wix-ui-core.surge.sh)
+- [wix-ui-icons-common](http://wix-wix-ui-icons-common.surge.sh)
+
 
 ## Getting started
+start development on `wix-ui-core`:
 ```
 git clone git@github.com:wix/wix-ui.git
-cd wix-ui
+cd wix-ui/packages/wix-ui-core
 npm install
-npm run rebuild
-code .
+npm start
 ```
 
 ## **What themes are?**

@@ -14,10 +14,10 @@ export const paginationDriverFactory: DriverFactory<PaginationDriver> = componen
   element: () => component,
 
   /** Returns x & y coordinates for the element found with data-hook */
-  getElementLocation: async (dataHook) => component.$(`[data-hook="${dataHook}"]`).getLocation(),
+  getElementLocation: async dataHook => component.$(`[data-hook="${dataHook}"]`).getLocation(),
 
   /** Returns width & height for the element found with data-hook */
-  getElementSize: async (dataHook) => component.$(`[data-hook="${dataHook}"]`).getSize(),
+  getElementSize: async dataHook => component.$(`[data-hook="${dataHook}"]`).getSize(),
 
   /** Get the text content of pages shown in "pages" mode  */
   getPageList: async (): Promise<string[]> => {

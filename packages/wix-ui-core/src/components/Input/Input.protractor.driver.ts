@@ -11,7 +11,7 @@ export const inputDriverFactory: DriverFactory<InputDriver> = component => {
 
   return {
     element: () => component,
-    enterText: async (text) => {
+    enterText: async text => {
       await input.clear();
       await input.sendKeys(text);
     },

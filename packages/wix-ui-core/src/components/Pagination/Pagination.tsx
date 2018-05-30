@@ -24,6 +24,9 @@ export interface PaginationProps {
   // props
   pageUrl?: (pageNumber: number) => string;
   onChange?: (event: {event: React.SyntheticEvent<Element>, page: number}) => void;
+  onClick?: (event: React.SyntheticEvent<Element>) => void;
+  onFocus?: (event: React.SyntheticEvent<Element>) => void;
+  onBlur?: (event: React.SyntheticEvent<Element>) => void;
   paginationMode?: 'pages' | 'input';
   showFirstLastNavButtons?: boolean;
   firstLabel?: React.ReactNode;
@@ -60,6 +63,12 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     pageUrl: func,
     /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
     onChange: func,
+    /** Called when the pagination is clicked*/
+    onClick: func,
+    /** Called when the pagination is blurred*/
+    onBlur: func,
+    /** Called when the pagination is focused*/
+    onFocus: func,
     /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
     paginationMode: oneOf(['pages', 'input']),
     /** Shows the 'first' and 'last' navigation buttons. defaults to false */
@@ -283,6 +292,9 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         role="navigation"
         aria-label="Pagination Navigation"
         dir={this.props.rtl ? 'rtl' : null}
+        onClick={this.props.onClick}
+        onBlur={this.props.onBlur}
+        onFocus={this.props.onFocus}
         style={style || {width}}
         {...pStyle('root', styleStates, this.props)}
       >

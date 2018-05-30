@@ -62,13 +62,26 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
     const focused = this.state.focused;
 
     return (
-      <div {...style('root', {checked, disabled, focused}, this.props)}
-           onChange={this.handleInputChange} onClick={this.handleInputChange}
-           role="radio" aria-checked={checked}>
-        <input type="radio" className={style.hiddenRadio} disabled={disabled} required={required}
-               onFocus={this.onFocus} onBlur={this.onInputBlur} checked={checked}
-               value={value} name={name} onChange={() => null}
-               ref={radio => this.radioRef = radio}/>
+      <div 
+        {...style('root', {checked, disabled, focused}, this.props)}
+        onChange={this.handleInputChange} 
+        onClick={this.handleInputChange}
+        role="radio" 
+        aria-checked={checked}
+      >
+        <input 
+          type="radio"
+          className={style.hiddenRadio}
+          disabled={disabled}
+          required={required}
+          onFocus={this.onFocus}
+          onBlur={this.onInputBlur}
+          checked={checked}
+          value={value} 
+          name={name}
+          onChange={() => null}
+          ref={radio => this.radioRef = radio}
+        />
         <span className={style.icon} onMouseEnter={this.onHover} onMouseLeave={onIconBlur}>
           {checked ? checkedIcon : uncheckedIcon}
         </span>

@@ -1,5 +1,13 @@
 import * as React from 'react';
-import {buildChildrenObject, createComponentThatRendersItsChildren} from './';
+import {
+  buildChildrenObject,
+  createComponentThatRendersItsChildren,
+} from './';
+
+import {
+  attachStylesToNode,
+  detachStylesFromNode
+} from './stylableUtils';
 
 describe('Utils', () => {
   describe('buildChildrenObject', () => {
@@ -19,7 +27,11 @@ describe('Utils', () => {
     it('should return a children object when rendered with component', () => {
       const displayName = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component><div/></Component>;
+      const children = (
+        <Component>
+          <div/>
+        </Component>
+      );
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayName].type.displayName).toEqual(displayName);
@@ -29,7 +41,11 @@ describe('Utils', () => {
       const displayName = 'a.b.c.b.componentName';
       const displayNameWithoutNamespace = 'componentName';
       const Component = createComponentThatRendersItsChildren(displayName);
-      const children = <Component><div/></Component>;
+      const children = (
+        <Component>
+          <div/>
+        </Component>
+      );
       const childrenObject = buildChildrenObject(children, {});
 
       expect(childrenObject[displayNameWithoutNamespace].type.displayName).toEqual(displayName);
@@ -70,5 +86,56 @@ describe('Utils', () => {
       const props = {children: {prop: 'value'}};
       expect(component(props)).toEqual(props.children);
     });
-   });
+  });
+
+  describe('node styles attachment', () => {
+    const attributeName = 'data-att';
+    const classA = 'CN';
+    const classB = 'NC';
+    let node;
+    let stylesObj;
+
+    beforeEach(() => {
+      node = document.createElement('div');
+      stylesObj = {
+        className: classA,
+        [attributeName]: 'ribute'
+      };
+    });
+
+    describe('attach', () => {
+      it('should attach styles to node', () => {
+        attachStylesToNode(node, stylesObj);
+        expect(node.classList.contains(stylesObj.className)).toBeTruthy();
+        expect(node.getAttribute(attributeName)).toBe(stylesObj[attributeName]);
+      });
+
+      it('should attach more than one classname', () => {
+        stylesObj.className += ` ${classB}`;
+        attachStylesToNode(node, stylesObj);
+        expect(node.classList.contains(classA)).toBeTruthy();
+        expect(node.classList.contains(classB)).toBeTruthy();
+      });
+    });
+
+    describe('remove', () => {
+      it('should remove styles from node', () => {
+        node.className = stylesObj.className;
+        node.setAttribute(attributeName, stylesObj[attributeName]);
+
+        detachStylesFromNode(node, stylesObj);
+        expect(node.classList.contains(stylesObj.className)).toBeFalsy();
+        expect(node.getAttribute(attributeName)).not.toBe(stylesObj[attributeName]);
+      });
+
+      it('should remove more than one classname', () => {
+        stylesObj.className += ` ${classB}`;
+        node.setAttribute(attributeName, stylesObj[attributeName]);
+
+        detachStylesFromNode(node, stylesObj);
+        expect(node.classList.contains(classA)).toBeFalsy();
+        expect(node.classList.contains(classB)).toBeFalsy();
+      });
+    });
+  });
 });

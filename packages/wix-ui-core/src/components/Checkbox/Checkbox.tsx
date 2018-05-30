@@ -42,11 +42,14 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon} = this.props;
 
     return (
-      <label {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
-        onMouseDown={this.handleMouseDown}>
+      <label
+        {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
+        onMouseDown={this.handleMouseDown}
+      >
           <input
             type="checkbox"
             className={styles.nativeCheckbox}
+            onClick={e => e.stopPropagation()}
             onChange={this.handleChange}
             onKeyDown={this.handleInputKeyDown}
             onFocus={this.handleInputFocus}
@@ -64,25 +67,25 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             aria-controls={this.props['aria-controls']}
           />
 
-          <span className={styles.box}>
-            {
-              this.props.indeterminate ? indeterminateIcon :
-              this.props.checked ? checkedIcon :
-              uncheckedIcon
-            }
-          </span>
-
-          {this.props.children ? (
-            <div className={styles.childContainer}>
-              {this.props.children}
-            </div>
-          ) : null
+        <span className={styles.box}>
+          {
+            this.props.indeterminate ? indeterminateIcon :
+            this.props.checked ? checkedIcon :
+            uncheckedIcon
           }
+        </span>
+
+        {this.props.children ? (
+          <div className={styles.childContainer}>
+            {this.props.children}
+          </div>
+        ) : null
+        }
       </label>
     );
   }
 
-  private handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
+  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
     //When clicking on the label, the input loses focus style state and then gains it again.
     //To prevent this we disable the default mouse down behavior and set the state to true
     if (!this.props.disabled) {

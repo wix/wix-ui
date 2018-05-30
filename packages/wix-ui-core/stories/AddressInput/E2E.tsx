@@ -30,7 +30,8 @@ export class AddressInputE2E extends React.Component<any, any> {
                     apiKey=""
                     Client={Client}
                     lang="en"
-                    data-hook="storybook-address-input"/>
+                    data-hook="storybook-address-input"
+                />
                 {this.state.lagLng && <div data-hook="lat-lng">{this.state.lagLng}</div>}
             </div>
         );

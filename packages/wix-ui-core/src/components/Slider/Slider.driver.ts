@@ -186,7 +186,8 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     },
 
     thumbTooltipValue() {
-      return driver.tooltip().textContent;
+      const tooltip = driver.tooltip();
+      return tooltip && tooltip.textContent;
     },
 
     clickTick(tickIdx) {

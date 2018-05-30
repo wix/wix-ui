@@ -9,10 +9,12 @@ describe('IconWithOptions', () => {
   const createDriver = createDriverFactory(iconWithOptionsDriverFactory);
   const options = generateOptions();
   const createIconWithOptions = (props = {}) => (
-    <IconWithOptions {...Object.assign({
-      options: [],
-      iconUrl: ''
-    }, props)}/>
+    <IconWithOptions
+      {...Object.assign({
+        options: [],
+        iconUrl: ''
+      }, props)}
+    />
   );
 
   it('should render default component', () => {

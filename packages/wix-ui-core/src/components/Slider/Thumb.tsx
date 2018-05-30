@@ -24,7 +24,8 @@ export class Thumb extends React.Component<ThumbProps> {
     const ThumbShape = thumbShapes[shape];
 
     return (
-      <div data-hook="thumb"
+      <div 
+        data-hook="thumb"
         className={pStyle.thumb}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
@@ -95,7 +96,7 @@ const thumbShapes = {
   bar: {
     component: BarThumb,
     getThumbSize: (sliderSize, isVertical) => ({
-      [isVertical ? 'height' : 'width']: 0.25 * sliderSize,
+      [isVertical ? 'height' : 'width']: 0.5 * sliderSize,
       [isVertical ? 'width' : 'height']: sliderSize
     })
   }

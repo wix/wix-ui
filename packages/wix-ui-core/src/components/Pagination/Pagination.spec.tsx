@@ -256,7 +256,8 @@ describe('Pagination', () => {
           firstLabel="oh"
           previousLabel="my"
           nextLabel="god"
-          lastLabel="!!!"/>
+          lastLabel="!!!"
+        />
       );
       expect(pagination.getNavButton('first').textContent).toEqual('oh');
       expect(pagination.getNavButton('previous').textContent).toEqual('my');
@@ -361,6 +362,18 @@ describe('Pagination', () => {
     expect(pagination.getPageByNumber(3).getAttribute('href')).toEqual('https://example.com/3/');
   });
 
+  it('calls onClick when clicking on the component', () => {
+    const onClick = jest.fn();
+    const pagination = createDriver(
+      <Pagination
+        totalPages={3}
+        onClick={onClick}
+      />);
+
+      pagination.click();
+      expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   describe('Numbering logic', () => {
     it('Renders up to 5 pages during SSR in responsive mode', () => {
       const pagination = createDriver(
@@ -374,6 +387,7 @@ describe('Pagination', () => {
           updateResponsiveLayout={() => null}
         />
       );
+      
       expect(pagination.getPageLabels()).toEqual(['1', '...', '5', '...', '9']);
     });
   });
