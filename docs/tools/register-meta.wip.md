@@ -1,6 +1,6 @@
-# Component meta data
+# Component meta data (WIP)
 
-component meta data helps us create automatics tests and tooling for the component.
+component meta data helps us create automatic tests and tooling for the component.
 
 every component in wix-ui-core must be registered with meta data.
 

@@ -1,4 +1,4 @@
-# State override HOC
+# State override HOC (WIP)
 
 this useful utility wraps a component allowing its state to be overriden, this is usefull for visual tests and editing interaction.
 

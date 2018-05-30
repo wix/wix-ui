@@ -26,7 +26,7 @@ npm start
 Read what are themes [here](./docs/WHAT_ARE_THEMES.md)
 
 
-## contributing
+## Contributing
 Read the component contribution guide here: [here](./docs/contributing-components.md)
 
 

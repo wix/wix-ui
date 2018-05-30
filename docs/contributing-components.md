@@ -12,30 +12,9 @@ Components with logic. (and in many cases state)
 
 it is much easier to write UX blocks, so if you can, please do.
 
-in a UX block you can:
-- render a structure of html and components
+in a UX block you can ONLY:
+- render a structure of native HTML nodes and Custom component nodes
 - hide and show nodes
-
-### Example UX Block
-
-```jsx
-import {DropDown, DropDownProps} from '../drop-down'
-import {HTMLLabelProps} from 'react';
-import {styles} from './component-name.st.css';
-
-export interface BlockProps {
-  label:?HTMLLabelProps;
-  dropDown:DropDownProps;
-  className:string;
-}
-
-export const ComponentName = (props:BlockProps)=><div styles('root',{},props)>
-  {props.label ? <label {...props.label} {...styles('label')}/> : null}
-  <DropDown {...props.dropDown} {...styles('drop-down')}/>
-</div>
-```
-
-
 
 
 ## Getting started
@@ -67,10 +46,12 @@ export interface BlockProps {
   className:string;
 }
 
-export const ComponentName = (props:BlockProps)=><div styles('root',{},props)>
-  <label {...props.label} {...styles('label')}/>
-  <DropDown {...props.dropDown} {...styles('drop-down')}/>
-</div>
+export const ComponentName = (props: BlockProps)=> (
+  <div {...styles('root', {}, props)}>
+    <label {...props.label} className={styles.label}/>
+    <DropDown {...props.dropDown} className={styles['drop-down']}/>
+  </div>
+);
 ```
 
 component-name.st.css
@@ -86,15 +67,29 @@ component-name.st.css
 }
 ```
 
-component-name.meta.ts
+component-name.meta.ts (WIP)
 ```tsx
-import {registerMeta} from '../../utils/register-meta';
-import {ComponentName} from './component-name.tsx';
+import {registerMeta} from '../../tools/register-meta';
+import {MyComponent} from './my-component';
 
-registerMeta.for(componentName).
-      
+
+registerMeta(MyComponent)
+    .addSimulation('with short text',()=>{
+        return {
+            props:{
+                text:'blah'
+            }
+        }
+    })
+    .addSimulation('opened with long text', ()=>{
+        return {
+            props:{
+                text:'blah'
+            },
+            state:{
+                opened:true
+            }
+        }
+    })
 
 ```
-
-
-
