@@ -1,4 +1,4 @@
-import {getStoryUrl, createStoryUrl} from '../src/protractor/protractor-helpers';
+import {getStoryUrl, createStoryUrl} from '../src/protractor';
 
 describe('protractor-helpers', () => {
 
