@@ -181,22 +181,6 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     style: object
   };
 
-  getOrCreateAppendToNode({appendTo, targetRef}) {
-    let appendToNode;
-    if (appendTo === 'window' || appendTo === 'viewport') {
-      this.defaultNode = document.createElement('div');
-      document.body.appendChild(this.defaultNode);
-      appendToNode = this.defaultNode;
-    } else if (appendTo === 'scrollParent') {
-      appendToNode = getScrollParent(targetRef);
-    } else if (isElement(appendTo)) {
-      appendToNode = appendTo;
-    } else {
-      appendToNode = null;
-    }
-    return appendToNode;
-  };
-  
   getPopperContentStructure(childrenObject) {
     const {appendTo, placement, showArrow, moveArrowTo} = this.props;
     const modifiers = createModifiers({moveBy, appendTo});
@@ -268,6 +252,11 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     );
   }
 
+  componentDidMount() {
+    this.initAppendToNode();
+    this.setState({isMounted: true});
+  }
+
   initAppendToNode() {
     const {appendTo} = this.props;
     this.appendToNode = this.getOrCreateAppendToNode({appendTo, targetRef: this.targetRef});
@@ -282,11 +271,22 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     }
   }
 
-  componentDidMount() {
-    this.initAppendToNode();
-    this.setState({isMounted: true});
-  }
-  
+  getOrCreateAppendToNode({appendTo, targetRef}) {
+    let appendToNode;
+    if (appendTo === 'window' || appendTo === 'viewport') {
+      this.defaultNode = document.createElement('div');
+      document.body.appendChild(this.defaultNode);
+      appendToNode = this.defaultNode;
+    } else if (appendTo === 'scrollParent') {
+      appendToNode = getScrollParent(targetRef);
+    } else if (isElement(appendTo)) {
+      appendToNode = appendTo;
+    } else {
+      appendToNode = null;
+    }
+    return appendToNode;
+  };
+
   componentWillUnmount() {
     if (this.defaultNode) {
       document.body.removeChild(this.defaultNode);
