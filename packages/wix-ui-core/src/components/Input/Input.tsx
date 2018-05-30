@@ -12,6 +12,7 @@ export interface InputProps {
   // We cannot simply extend React.InputHTMLAttributes
   // because types of property 'prefix' are incompatible.
 
+  /** Turns on the autocomplete functionality of the native input */
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
   disabled?: boolean;
