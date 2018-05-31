@@ -33,6 +33,7 @@ export interface InputProps {
   type?: string;
   value?: string;
   id?: string;
+  name?: string;
 }
 
 export interface InputState {
@@ -71,7 +72,8 @@ export class Input extends React.Component<InputProps, InputState> {
     tabIndex: PropTypes.number,
     type: PropTypes.string,
     value: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    name: PropTypes.string
   };
 
   static defaultProps: InputProps = {
@@ -112,7 +114,8 @@ export class Input extends React.Component<InputProps, InputState> {
       value,
       suffix,
       maxLength,
-      id
+      id,
+      name
     } = this.props;
 
     return (
@@ -149,6 +152,7 @@ export class Input extends React.Component<InputProps, InputState> {
           type={type}
           value={value}
           id={id}
+          name={name}
         />
         {suffix}
       </div>
