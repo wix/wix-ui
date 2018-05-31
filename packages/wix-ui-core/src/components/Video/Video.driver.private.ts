@@ -1,3 +1,4 @@
+import { VideoProps } from './Video';
 /**
  * Private driver, will not be exposed in testkit
  */
@@ -5,7 +6,7 @@
 import * as React from 'react';
 import {mount, ReactWrapper} from 'enzyme';
 
-export const createDriver = Component => {
+export const createDriver = (Component: React.ReactElement<VideoProps>) => {
   let player;
 
   const ClonedComponent = React.cloneElement(Component, {
