@@ -126,6 +126,19 @@ const createModifiers = ({moveBy, appendTo}) => {
   return modifiers;
 };
 
+function getAppendToNode({appendTo, targetRef}) {
+  let appendToNode;
+  if (appendTo === 'window' || appendTo === 'viewport') {
+    appendToNode = document.body;
+  } else if (appendTo === 'scrollParent') {
+    appendToNode = getScrollParent(targetRef);
+  } else if (isElement(appendTo)) {
+    appendToNode = appendTo;
+  } else {
+    appendToNode = null;
+  }
+  return appendToNode;
+};
 
 const shouldAnimatePopover = ({timeout}: PopoverProps) => !!timeout;
 
@@ -137,9 +150,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   static Content = createComponentThatRendersItsChildren('Popover.Content');
 
   targetRef: HTMLElement = null;
-  appendToNode: HTMLElement = null;
+  portalNode: HTMLElement = null;
   stylesObj: { [key: string]: string } = null;
-  defaultNode: HTMLElement = null;
+  appendToNode: HTMLElement = null;
 
   constructor(props: PopoverProps) {
     super(props);
@@ -202,9 +215,9 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
 
     if (shouldAnimate || shown) {
-      attachStylesToNode(this.appendToNode, this.stylesObj);
+      attachStylesToNode(this.portalNode, this.stylesObj);
     } else {
-      detachStylesFromNode(this.appendToNode, this.stylesObj);
+      detachStylesFromNode(this.portalNode, this.stylesObj);
     }
   }
 
@@ -217,7 +230,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         timeout={Number(timeout)}
         unmountOnExit
         classNames={style.popoverAnimation}
-        onExited={() => detachStylesFromNode(this.appendToNode, this.stylesObj)}
+        onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
       >
         {popper}
       </CSSTransition>
@@ -229,8 +242,8 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const popper = this.getPopperContentStructure(childrenObject);
 
     return (
-      this.appendToNode ? (
-        <Portal node={this.appendToNode}>
+      this.portalNode ? (
+        <Portal node={this.portalNode}>
           {popper}
         </Portal> 
       ) :
@@ -245,8 +258,10 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   initAppendToNode() {
     const {appendTo} = this.props;
-    this.appendToNode = this.getOrCreateAppendToNode({appendTo, targetRef: this.targetRef});
+    this.appendToNode = getAppendToNode({appendTo, targetRef: this.targetRef});
     if (this.appendToNode) {
+      this.portalNode = document.createElement('div');
+      this.appendToNode.appendChild(this.portalNode);
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
       // TODO: remove this, it is called in render
@@ -254,27 +269,11 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     }
   }
 
-  getOrCreateAppendToNode({appendTo, targetRef}) {
-    let appendToNode;
-    if (appendTo === 'window' || appendTo === 'viewport') {
-      this.defaultNode = document.createElement('div');
-      document.body.appendChild(this.defaultNode);
-      appendToNode = this.defaultNode;
-    } else if (appendTo === 'scrollParent') {
-      appendToNode = getScrollParent(targetRef);
-    } else if (isElement(appendTo)) {
-      appendToNode = appendTo;
-    } else {
-      appendToNode = null;
-    }
-    return appendToNode;
-  };
-
   componentWillUnmount() {
-    if (this.defaultNode) {
-      document.body.removeChild(this.defaultNode);
+    if (this.portalNode) {
+      this.appendToNode.removeChild(this.portalNode);
     }
-    this.defaultNode = null;
+    this.portalNode = null;
   }
 
   render() {
@@ -285,7 +284,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
-    if (this.appendToNode) {
+    if (this.portalNode) {
       this.applyStylesToAppendedNode();
     }
 

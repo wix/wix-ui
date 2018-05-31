@@ -106,6 +106,7 @@ describe('Popover', () => {
         expect(document.body.classList).not.toContain(styles.root);
         wrapper.unmount();
       });
+
     });
 
     describe('viewport', () => {
