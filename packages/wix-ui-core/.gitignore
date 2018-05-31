@@ -7,7 +7,6 @@ maven
 .history
 test/e2e/screenshots
 package-lock.json
-.vscode
 .yo-rc.json
 npm-debug.log
 yarn.lock
