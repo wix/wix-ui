@@ -33,7 +33,6 @@ export interface SliderProps {
 export interface Style {
   width?: number;
   height?: number;
-  style?: any;
 }
 
 export interface SliderState {
