@@ -151,33 +151,19 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   static propTypes = {
     className: string,
-    /** The location to display the content */
     placement: PlacementsType,
-    /** Is the content shown or not */
     shown: bool,
-    /** onClick on the component */
     onClick: func,
-    /** onMouseEnter on the component */
     onMouseEnter: func,
-    /** onMouseLeave on the component */
     onMouseLeave: func,
-    /** onKeyDown on the target component */
     onKeyDown: func,
-    /** Show show arrow from the content */
     showArrow: bool,
-    /** Moves popover relative to the parent */
     moveBy: shape({x: number, y: number}),
-    /** Fade Delay */
     hideDelay: number,
-    /** Show Delay */
     showDelay: number,
-    /** Moves arrow by amount */
     moveArrowTo: number,
-    /** Enables calculations in relation to a dom element */
     appendTo: AppendToPropType,
-    /** Animation timer */
     timeout: number,
-    /** Inline styles */
     style: object
   };
 
@@ -260,9 +246,6 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   initAppendToNode() {
     const {appendTo} = this.props;
     this.appendToNode = this.getOrCreateAppendToNode({appendTo, targetRef: this.targetRef});
-    // TODO: I think we should throw an error is this.appendToNode is undefined, since 
-    // react-portal will attach it to a new default div under document.body,
-    // and we could not add the stylable styles to that div.
     if (this.appendToNode) {
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
