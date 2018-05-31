@@ -141,10 +141,12 @@ describe('Slider', () => {
       min: 1,
       step: 1,
       max: 10,
-      value: 3
+      value: 3,
+      style: {
+        width: 500,
+        height: 40
+      }
     });
-
-    driver.stubTrackBoundingRect({width: 500});
 
     expect(driver.ticks().length).toEqual(10);
   });
@@ -154,10 +156,12 @@ describe('Slider', () => {
       min: 1,
       step: 5,
       max: 20,
-      value: 3
+      value: 3,
+      style: {
+        width: 500,
+        height: 40
+      }
     });
-
-    driver.stubTrackBoundingRect({width: 500});
 
     expect(driver.ticks().length).toEqual(5);
   });
@@ -211,6 +215,10 @@ describe('Slider', () => {
       min: 1,
       max: 10,
       value: 3,
+      style: {
+        width: 100,
+        height: 20
+      },
       onChange
     });
 
@@ -410,7 +418,7 @@ describe('Slider', () => {
     sinon.assert.calledWith(onChange, 2);
   });
 
-  it('continuous mode - horizontal orientation - step is determined by the formula: (max - min) / (sliderLength / 5)', () => {
+  it('continuous mode - step is 0.01', () => {
     const onChange = sinon.spy();
 
     const driver = render({
@@ -424,27 +432,7 @@ describe('Slider', () => {
     driver.stubTrackBoundingRect({width: 500});
     driver.focus();
     driver.arrowRight();
-    const expectedStepValue = floorValue((6 - 1) / (500 / 5), 2);
-    sinon.assert.calledWith(onChange, 1 + expectedStepValue);
-  });
-
-  it('continuous mode - vertical orientation - step is determined by the formula: (max - min) / (sliderLength / 5)', () => {
-    const onChange = sinon.spy();
-
-    const driver = render({
-      min: 1,
-      max: 6,
-      value: 1,
-      step: null,
-      orientation: 'vertical',
-      onChange
-    });
-
-    driver.stubTrackBoundingRect({height: 500});
-    driver.focus();
-    driver.arrowRight();
-    const expectedStepValue = floorValue((6 - 1) / (500 / 5), 2);
-    sinon.assert.calledWith(onChange, 1 + expectedStepValue);
+    sinon.assert.calledWith(onChange, 1.01);
   });
 
   it('onChange value is clamped by 2 decimal points', () => {

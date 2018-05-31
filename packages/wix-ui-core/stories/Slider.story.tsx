@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {Slider} from '../src/components/Slider';
 
-const SliderStory = ({children, ...rest}) => (
-  <div 
-    style={{
-      height: rest.orientation === 'vertical' ? 400 : 80,
-      width: rest.orientation === 'vertical' ? 80 : '100%'
-    }}
-  >
-    <Slider {...rest}/>
-  </div>
-);
+const SliderStory = ({children, ...rest}) => {
+  const height = rest.orientation === 'vertical' ? 400 : 80;
+  const width = rest.orientation === 'vertical' ? 80 : 400;
+
+  return (
+    <div style={{height, width}}>
+      <Slider {...rest} style={{width, height}}/>
+    </div>
+  );
+};
 
 export default {
   category: 'Components',
