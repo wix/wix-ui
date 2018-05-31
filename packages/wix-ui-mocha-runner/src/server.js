@@ -10,7 +10,7 @@ const headless = process.argv.some(arg => arg === '--headless');
 const packageDir = path.resolve(__dirname, '..');
 const projectDir = process.cwd();
 const specDir = path.join(projectDir, 'src');
-const specPattern = '*.test.ts?(x)';
+const specPattern = '*.spec.ts?(x)';
 const specFiles = glob.sync(path.join(specDir, '**', specPattern));
 const serveDir = path.join(packageDir, 'public');
 const host = 'localhost';

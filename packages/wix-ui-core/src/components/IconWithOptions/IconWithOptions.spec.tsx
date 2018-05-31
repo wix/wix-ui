@@ -1,12 +1,16 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {iconWithOptionsDriverFactory} from './IconWithOptions.driver';
 import {IconWithOptions} from './';
 import {OptionFactory} from '../../baseComponents/DropdownOption';
 import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
 
 describe('IconWithOptions', () => {
-  const createDriver = createDriverFactory(iconWithOptionsDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(iconWithOptionsDriverFactory);
+
   const options = generateOptions();
   const createIconWithOptions = (props = {}) => (
     <IconWithOptions

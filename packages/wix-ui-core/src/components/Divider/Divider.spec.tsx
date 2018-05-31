@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {dividerDriverFactory} from './Divider.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {Divider} from './';
 
 describe('Divider', () => {
 
-    const createDriver = createDriverFactory(dividerDriverFactory);
+    const createDriver =
+        new ReactDOMTestContainer()
+        .unmountAfterEachTest()
+        .createLegacyRenderer(dividerDriverFactory);
 
     it('renders to the screen', () => {
         const driver = createDriver(<Divider />);

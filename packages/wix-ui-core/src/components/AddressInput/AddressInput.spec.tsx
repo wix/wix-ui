@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {addressInputDriverFactory} from './AddressInput.driver';
 import {AddressInput, Handler} from './AddressInput';
 import {GoogleMapsClientStub} from './GoogleMapsClientStub';
@@ -14,7 +14,9 @@ import {addressInputTestkitFactory} from '../../testkit';
 import {addressInputTestkitFactory as enzymeAddressInputTestkitFactory} from '../../testkit/enzyme';
 
 describe('AddressInput', () => {
-    const createDriver = createDriverFactory(addressInputDriverFactory);
+    const container = new ReactDOMTestContainer().unmountAfterEachTest();
+    const createDriver = container.createLegacyRenderer(addressInputDriverFactory);
+
     let driver, onSelectSpy;
 
     const init = ({handler, ...rest}: any = {}) => {
@@ -40,10 +42,6 @@ describe('AddressInput', () => {
         jest.spyOn(GoogleMapsClientStub.prototype, 'placeDetails');
     });
 
-    beforeEach(() => {
-        init();
-    });
-
     it('Should instantiate client', () => {
         const Client = jest.fn() as any;
         createDriver(<AddressInput apiKey="api-key" lang="en" Client={Client} onSelect={() => null} />);
@@ -51,11 +49,13 @@ describe('AddressInput', () => {
     });
 
     it('Should call MapsClient.autocomplete upon typing', () => {
+        init();
         driver.setValue('n');
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
     });
 
     it('Should throttle calls to MapsClient.autocomplete', async () => {
+        init();
         driver.setValue('n');
         driver.setValue('ne');
         driver.setValue('new');
@@ -75,11 +75,13 @@ describe('AddressInput', () => {
     });
 
     it('Should not display results until user typed', () => {
+        init();
         driver.click();
         expect(driver.isContentElementExists()).toBeFalsy();
     });
 
     it('Should display results', async () => {
+        init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
         driver.click();
         driver.setValue('n');
@@ -88,6 +90,7 @@ describe('AddressInput', () => {
     });
 
     it('Should not render location icon by default', async () => {
+        init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
         driver.click();
         driver.setValue('n');
@@ -107,6 +110,7 @@ describe('AddressInput', () => {
     });
 
     it('Should empty suggestion immediately list if string is empty', async () => {
+        init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
         driver.click();
         driver.setValue('n');
@@ -135,6 +139,7 @@ describe('AddressInput', () => {
     });
 
     it('Should issue a geocode request once an option is chosen', async () => {
+        init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
         GoogleMapsClientStub.setGeocode(helper.GEOCODE_2);
 
@@ -320,7 +325,7 @@ describe('AddressInput', () => {
 
             await waitForCond.assertHold(() => {
                 expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_2]);
-            }, 1000, 'Address description changed');
+            }, 10, 'Address description changed');
         });
 
         it('Should ignore stale requests - geocode', async () => {

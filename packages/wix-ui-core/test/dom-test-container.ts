@@ -1,12 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import {Simulate} from 'react-dom/test-utils';
 
-// Works with our Mocha test runner which has a #root element specifically
-// for use in tests.
+// At the moment our tests support both Jsdom and browser environment.
+// The browser test runner provides #root element to render into, and
+// in Jsdom we're going to add the container into the body.
 export function createDOMContainer(): HTMLElement {
-  const container = document.createElement('div');
-  document.getElementById('root').appendChild(container);
-  return container;
+  const root = document.querySelector('#root') || document.body;
+  const div = document.createElement('div');
+  root.appendChild(div);
+  return div;
 }
 
 // A wrapper around createDOMContainer to reduce boilerplate when working with
@@ -18,8 +21,10 @@ export class ReactDOMTestContainer {
     return this.node.firstElementChild as HTMLElement;
   }
 
-  // Don't implicitly create the node during instantiation because it usually
-  // happens outside of the before test hook.
+  // The container is usually created outside of before() test hook, and the
+  // constructor runs before any of the tests, globally. Instead of attaching
+  // the DOM element upfront in the constructor and polluting the document we
+  // provide this method.
   public create(): this {
     this.node = createDOMContainer();
     return this;
@@ -36,14 +41,18 @@ export class ReactDOMTestContainer {
     return new Promise(resolve => ReactDOM.render(jsx, this.node, resolve));
   }
 
-  // This function signature should be:
+  public renderSync<P>(jsx: React.ReactElement<P>) {
+    return ReactDOM.render(jsx, this.node);
+  }
+
+  // This function's signature should be:
   // <P, T extends React.Component<P>>(jsx: React.ComponentElement<P, T>): Promise<T>;
   // But TypeScript has this weird bug where it can derive the instance type from
   // React.createElement(Component), but cannot derive it from <Component />.
   public renderWithRef(jsx: JSX.Element): Promise<any> {
-    let ref: any;
-    jsx = React.cloneElement(jsx, {ref: r => ref = r});
-    return this.render(jsx).then(() => ref);
+    const ref = React.createRef();
+    jsx = React.cloneElement(jsx, {ref});
+    return this.render(jsx).then(() => ref.current);
   }
 
   public unmount(): this {
@@ -63,4 +72,23 @@ export class ReactDOMTestContainer {
     afterEach(() => (this.unmount(), this.destroy()));
     return this;
   }
+
+  // Adapter for drivers written for wix-ui-test-utils/createDriverFactory
+  public createLegacyRenderer<T>(driverFactory: (args: LegacyDriverArgs) => T): (element: JSX.Element) => T {
+    return (jsx: JSX.Element) => {
+      this.renderSync(jsx);
+      return driverFactory({
+        element: this.componentNode,
+        wrapper: this.node,
+        eventTrigger: Simulate
+      });
+    };
+  }
+}
+
+export interface LegacyDriverArgs {
+  element: Element | null;
+  wrapper: HTMLElement;
+  component?: JSX.Element;
+  eventTrigger: typeof Simulate;
 }

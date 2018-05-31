@@ -168,6 +168,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     geocodeRequestId;
     placeDetailsRequestId;
     currentAddressRequest;
+    unmounted: boolean = false;
 
     constructor(props) {
         super(props);
@@ -190,16 +191,20 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.client = new this.props.Client();
     }
 
+    componentWillUnmount() {
+        this.unmounted = true;
+    }
+
     async _getAddressOptions(input: string) {
         const requestId = ++this.addressRequestId;
-        let resolveCurrentAddressRequest = () => null;
+        let resolveCurrentAddressRequest;
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
         const {apiKey, lang, filterTypes, locationIcon} = this.props;
         const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
         const options = map(filteredResults, this._createOptionFromAddress);
 
-        if (requestId === this.addressRequestId) {
+        if (!this.unmounted && requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);
         }
     }

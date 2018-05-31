@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {checkboxDriverFactory} from './Checkbox.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {Checkbox} from './Checkbox';
 
 const tickSVG = (<span data-name="custom-tickmark">1</span>);
@@ -9,7 +9,10 @@ function delay(millis: number): Promise<void> {
 }
 
 describe('Checkbox', () => {
-  const createDriver = createDriverFactory(checkboxDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(checkboxDriverFactory);
 
   describe('Basic behavior', () => {
     it('should render', () => {
@@ -138,11 +141,12 @@ describe('Checkbox', () => {
       expect(checkbox.input().required).toBe(true);
     });
 
-    it('focuses the native input if autofocus is passed', () => {
+    it('passes the autoFocus prop to the input', () => {
       const checkbox = createDriver(<Checkbox autoFocus />);
 
-      expect(document.activeElement).toEqual(checkbox.input());
-      expect(checkbox.hasFocusState()).toBe(false);
+      // Elements in inactive windows cannot gain focus, however on .focus()
+      // call they still become the active element.
+      expect(document.activeElement).toBe(checkbox.input());
     });
 
     it('has error style state', () => {

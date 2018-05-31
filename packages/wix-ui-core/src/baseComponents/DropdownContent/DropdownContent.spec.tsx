@@ -1,13 +1,17 @@
 import * as React from 'react';
 import {dropdownContentDriverFactory} from './DropdownContent.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
 import {OptionFactory} from '../DropdownOption';
 import {DropdownContent} from './';
 import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('DropdownContent', () => {
-  const createDriver = createDriverFactory(dropdownContentDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(dropdownContentDriverFactory);
+
   const options = generateOptions();
   const createDropdownContent = (props = {}) => (
     <DropdownContent

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {labelWithOptionsDriverFactory} from './LabelWithOptions.driver';
 import {LabelWithOptions} from './';
 import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
@@ -10,7 +10,11 @@ import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
 
 describe('LabelWithOptions', () => {
-  const createDriver = createDriverFactory(labelWithOptionsDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(labelWithOptionsDriverFactory);
+
   const options = generateOptions();
   const createLabelWithOptions = props => (
     <LabelWithOptions

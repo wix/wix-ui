@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {toggleSwitchDriverFactory} from './ToggleSwitch.driver';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {ToggleSwitch} from './';
 import {toggleSwitchTestkitFactory} from '../../testkit';
@@ -10,7 +10,10 @@ import {mount} from 'enzyme';
 
 describe('ToggleSwitch', () => {
 
-  const createDriver = createDriverFactory(toggleSwitchDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(toggleSwitchDriverFactory);
 
   describe('checked prop', () => {
     it('should be controlled', () => {

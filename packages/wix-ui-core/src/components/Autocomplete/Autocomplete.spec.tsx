@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {autocompleteDriverFactory} from './Autocomplete.driver';
 import {Autocomplete} from '.';
 import {OptionFactory, DividerArgs} from '../../baseComponents/DropdownOption';
@@ -11,8 +11,12 @@ import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
 
 describe('Autocomplete', () => {
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(autocompleteDriverFactory);
+
   const options = generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value));
-  const createDriver = createDriverFactory(autocompleteDriverFactory);
 
   it('should render autocomplete', () => {
     const driver = createDriver(<Autocomplete options={options} />);

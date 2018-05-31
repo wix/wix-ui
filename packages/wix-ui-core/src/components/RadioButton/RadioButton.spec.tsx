@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {radioButtonDriverFactory} from './RadioButton.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {RadioButton, RadioButtonProps} from './RadioButton';
 
 function createRadio(props: RadioButtonProps = {}) {
@@ -16,7 +16,10 @@ function createRadio(props: RadioButtonProps = {}) {
 }
 
 describe('RadioButton', () => {
-  const createDriver = createDriverFactory(radioButtonDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(radioButtonDriverFactory);
 
   it('renders to the screen', () => {
     const radio = createDriver(createRadio());

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as eventually from 'wix-eventually';
 import {tooltipDriverFactory} from './Tooltip.driver';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {Tooltip} from './';
 import {tooltipTestkitFactory} from '../../testkit';
@@ -10,7 +10,11 @@ import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testki
 import {mount} from 'enzyme';
 
 describe('Tooltip', () => {
-  const createDriver = createDriverFactory(tooltipDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(tooltipDriverFactory);
+
   const createTooltip = (props = {}) => (
     <Tooltip placement="top" {...props} content={<span>Hovered Content</span>}>
       <div>

@@ -1,12 +1,16 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
 import {generateOptions} from '../DropdownOption/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 
 describe('InputWithOptions', () => {
-  const createDriver = createDriverFactory(inputWithOptionsDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(inputWithOptionsDriverFactory);
+
   const options = generateOptions();
   const createInputWithOptions = (props = {}) => (
     <InputWithOptions 
@@ -83,6 +87,6 @@ describe('InputWithOptions', () => {
     driver.keyDown('Escape');
     await waitForCond.assertHold(() => {
       expect(driver.isContentElementExists()).toBeFalsy();
-    }, 1000);
+    }, 10);
   });
 });

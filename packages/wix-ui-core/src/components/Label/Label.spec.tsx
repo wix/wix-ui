@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {labelDriverFactory} from './Label.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {labelTestkitFactory} from '../../testkit';
@@ -9,7 +9,11 @@ import {Label} from './Label';
 import {mount} from 'enzyme';
 
 describe('Label', () => {
-  const createDriver = createDriverFactory(labelDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(labelDriverFactory);
+
   it('Renders children', async () => {
     const label = createDriver(<Label>HELLO</Label>);
 

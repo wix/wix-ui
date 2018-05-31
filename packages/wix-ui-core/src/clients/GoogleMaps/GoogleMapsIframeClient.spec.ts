@@ -1,11 +1,15 @@
-// mock must be first to allow wallaby to run the tests
-jest.mock('./IframesManager/IframesManager');
+import {GoogleMapsIframeClient as RealGoogleMapsIframeClient} from './GoogleMapsIframeClient';
+import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
+import {IframesManagerMock} from './IframeTestUtils';
 
-// using require cause we have to
-const {GoogleMapsIframeClient} = require('./GoogleMapsIframeClient');
-const {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} = require('./handlersName');
-const frameManager = require('./IframesManager/IframesManager');
-const iframeManagerPrototype = frameManager.IframesManager.prototype;
+class GoogleMapsIframeClient extends RealGoogleMapsIframeClient {
+  constructor() {
+    super();
+    this._iframesManager = new IframesManagerMock();
+  }
+}
+
+const iframeManagerPrototype = IframesManagerMock.prototype;
 
 describe('GoogleMapsIframeClient', () => {
   let client;
@@ -154,7 +158,7 @@ describe('GoogleMapsIframeClient', () => {
       postMessage: requestObj => {
         const targetOrigin = '*';
         const {requestId, request} = requestObj;
-        const timeout = request === firstRequest ? 200 : 100;
+        const timeout = request === firstRequest ? 20 : 10;
         setTimeout(() => (<any>global).postMessage({requestId, results: [request], status: 'OK'}, targetOrigin), timeout);
       }
     })
@@ -177,7 +181,7 @@ describe('GoogleMapsIframeClient', () => {
       postMessage: requestObj => {
         const targetOrigin = '*';
         const {requestId, request} = requestObj;
-        const timeout = request === firstRequest ? 200 : 100;
+        const timeout = request === firstRequest ? 20 : 10;
         const status = request === firstRequest ? 'OK' : 'ERROR';
         setTimeout(() => (<any>global).postMessage({requestId, results: [request], status}, targetOrigin), timeout);
       }
@@ -201,7 +205,7 @@ describe('GoogleMapsIframeClient', () => {
       postMessage: requestObj => {
         const targetOrigin = '*';
         const {requestId, request} = requestObj;
-        const timeout = request === firstRequest ? 200 : 100;
+        const timeout = request === firstRequest ? 20 : 10;
         const status = request === firstRequest ? 'OK' : 'ERROR';
         setTimeout(() => (<any>global).postMessage({requestId, results: [request], status}, targetOrigin), timeout);
       }

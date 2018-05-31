@@ -3,6 +3,11 @@ import {createDriver} from './Video.driver.private';
 import {Video} from './';
 
 describe('Video', () => {
+  // Since this runs in a browser avoid sending HTTP requests over network.
+  const videoUrl = 'data:video/mp4,never-gonna-give-you-up.mp4';
+  const videoUrl2 = 'data:video/mp4,never-gonna-let-you-down.mp4';
+  const imageUrl = 'data:image/jpeg,never-gonna-run-around.jpg';
+
     describe('src prop', () => {
       it('should not be present by default', () => {
         const driver = createDriver(<Video/>);
@@ -10,21 +15,21 @@ describe('Video', () => {
       });
 
       it('should set initial value', () => {
-        const driver = createDriver(<Video src="https://example.com/video.mp4"/>);
-        expect(driver.getSrc()).toBe('https://example.com/video.mp4');
+        const driver = createDriver(<Video src={videoUrl}/>);
+        expect(driver.getSrc()).toBe(videoUrl);
       });
 
       it('should set array for src', () => {
-        const driver = createDriver(<Video src={['https://example.com/video.mp4']}/>);
-        expect(driver.getSrc()).toEqual(['https://example.com/video.mp4']);
+        const driver = createDriver(<Video src={[videoUrl]}/>);
+        expect(driver.getSrc()).toEqual([videoUrl]);
       });
 
       it('should update value', () => {
-        const driver = createDriver(<Video src="https://example.com/video.mp4"/>);
-        expect(driver.getSrc()).toBe('https://example.com/video.mp4');
+        const driver = createDriver(<Video src={videoUrl}/>);
+        expect(driver.getSrc()).toBe(videoUrl);
 
-        driver.setProp('src', 'https://example.com/video2.mp4');
-        expect(driver.getSrc()).toBe('https://example.com/video2.mp4');
+        driver.setProp('src', videoUrl2);
+        expect(driver.getSrc()).toBe(videoUrl2);
       });
     });
 
@@ -89,14 +94,14 @@ describe('Video', () => {
 
     describe('cover', () => {
       it('should be present', () => {
-        const driver = createDriver(<Video poster="https://example.com/image.png"/>);
+        const driver = createDriver(<Video poster={imageUrl}/>);
         expect(driver.hasCover()).toBe(true);
       });
     });
 
     describe('title', () => {
       it('should be present', () => {
-        const driver = createDriver(<Video title="Awesome" poster="https://example.com/image.png"/>);
+        const driver = createDriver(<Video title="Awesome" poster={imageUrl}/>);
         expect(driver.getTitle()).toBe('Awesome');
       });
     });
@@ -113,7 +118,7 @@ describe('Video', () => {
       it('should be presented', () => {
         const driver = createDriver(
           <Video
-            poster="https://example.com/image.png"
+            poster={imageUrl}
             playButton={<div data-hook="play-button">Play</div>}
           />
         );
@@ -144,11 +149,11 @@ describe('Video', () => {
       it('should be presented', () => {
         const driver = createDriver(
           <Video
-            logoUrl="https://example.com/image.png"
+            logoUrl={imageUrl}
           />
         );
 
-        expect(driver.getLogoSrc()).toBe('https://example.com/image.png');
+        expect(driver.getLogoSrc()).toBe(imageUrl);
       });
     });
 });

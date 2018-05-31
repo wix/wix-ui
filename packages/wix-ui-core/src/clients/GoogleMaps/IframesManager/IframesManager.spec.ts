@@ -2,10 +2,17 @@ import {IframesManager} from './IframesManager';
 import {getIframes, getIframeWithLangAndApiKey, isIframeVisible} from '../IframeTestUtils';
 let iframesManager: IframesManager;
 
+class IframeManagerWithHTTPStub extends IframesManager {
+  populateIframe() { return; }
+}
+
 describe('IframesManager', () => {
   beforeEach(() => {
-    document.body.innerHTML = ''; //remove previous modals from body
-    iframesManager = new IframesManager();
+    iframesManager = new IframeManagerWithHTTPStub();
+  });
+
+  afterEach(() => {
+    iframesManager.removeAllIframes();
   });
 
   it('should add invisible iframe to the DOM when trying to add an iframe with same key', () => {

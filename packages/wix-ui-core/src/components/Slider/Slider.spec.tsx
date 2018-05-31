@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {sliderDriverFactory} from './Slider.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {Slider} from './index';
 import * as sinon from 'sinon';
 import {mount} from 'enzyme';
@@ -8,8 +8,9 @@ import {Simulate} from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
 
 describe('Slider', () => {
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+  const createDriver = container.createLegacyRenderer(sliderDriverFactory);
 
-  const createDriver = createDriverFactory(sliderDriverFactory);
   const noop = () => null;
 
   it('should exist', () => {
@@ -267,10 +268,6 @@ describe('Slider', () => {
   describe('key presses', () => {
     let onChange, driver;
 
-    beforeEach(() => {
-      _render();
-    });
-
     function _render(mixin = {}) {
       onChange = sinon.spy();
 
@@ -287,6 +284,7 @@ describe('Slider', () => {
     }
 
     it('should increase the value when clicking the right arrow, given ltr', () => {
+      _render();
       driver.arrowRight();
       sinon.assert.calledWith(onChange, 60.1);
     });
@@ -298,11 +296,13 @@ describe('Slider', () => {
     });
 
     it('should increase the value when clicking the up arrow', () => {
+      _render();
       driver.arrowRight();
       sinon.assert.calledWith(onChange, 60.1);
     });
 
     it('should decrease the value when clicking the left arrow, given ltr', () => {
+      _render();
       driver.arrowLeft();
       sinon.assert.calledWith(onChange, 59.9);
     });
@@ -314,31 +314,37 @@ describe('Slider', () => {
     });
 
     it('should decrease the value when clicking the down arrow', () => {
+      _render();
       driver.arrowDown();
       sinon.assert.calledWith(onChange, 59.9);
     });
 
     it('should increase the value by 0.1 * (max - min) when clicking Page Up', () => {
+      _render();
       driver.pageUp();
       sinon.assert.calledWith(onChange, 65);
     });
 
     it('should decrease the value by 0.1 * (max - min) when clicking Page Down', () => {
+      _render();
       driver.pageDown();
       sinon.assert.calledWith(onChange, 55);
     });
 
     it('should set the value to maximum when clicking End', () => {
+      _render();
       driver.end();
       sinon.assert.calledWith(onChange, 100);
     });
 
     it('should set the value to minimum when clicking Home', () => {
+      _render();
       driver.home();
       sinon.assert.calledWith(onChange, 50);
     });
 
     it('should not decrease below the minimum', () => {
+      onChange = sinon.spy();
       driver = render({
         step: 0.1,
         min: 1,
@@ -355,6 +361,7 @@ describe('Slider', () => {
     });
 
     it('should not increase above the maximum', () => {
+      onChange = sinon.spy();
       driver = render({
         step: 0.1,
         min: 1,
@@ -373,7 +380,6 @@ describe('Slider', () => {
 
   it('cannot move thumb, given disabled', () => {
     const onChange = sinon.spy();
-
     const driver = render({
       disabled: true,
       onChange
@@ -484,24 +490,30 @@ describe('Slider', () => {
   it('should focus', () => {
     const onFocus = sinon.spy();
 
-    const wrapper = mount(<Slider onFocus={onFocus}/>);
+    const wrapper = mount(<Slider onFocus={onFocus}/>, {
+      attachTo: container.node
+    });
 
     (wrapper.instance() as any).focus();
 
     expect(document.activeElement).toEqual(wrapper.getDOMNode());
     sinon.assert.called(onFocus);
+    wrapper.unmount();
   });
 
   it('should blur', () => {
     const onBlur = sinon.spy();
 
-    const wrapper = mount(<Slider onBlur={onBlur}/>);
+    const wrapper = mount(<Slider onBlur={onBlur}/>, {
+      attachTo: container.node
+    });
 
     (wrapper.instance() as any).focus();
     (wrapper.instance() as any).blur();
 
     expect(document.activeElement).not.toEqual(wrapper.getDOMNode());
     sinon.assert.called(onBlur);
+    wrapper.unmount();
   });
 
   it('should propagate onBlur when slider is blurred', () => {

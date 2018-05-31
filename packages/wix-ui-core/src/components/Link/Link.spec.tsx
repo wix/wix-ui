@@ -5,7 +5,7 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
 
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {linkDriverFactory} from './Link.driver';
 import {Link} from './Link';
 
@@ -13,9 +13,12 @@ import {linkTestkitFactory} from '../../testkit';
 import {linkTestkitFactory as enzymeLinkTestkitFactory} from '../../testkit/enzyme';
 import {runTestkitExistsSuite} from '../../common/testkitTests';
 
-const createDriver = createDriverFactory(linkDriverFactory);
-
 describe('Link', () => {
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(linkDriverFactory);
+
   it('should be defined', () => {
     const link = createDriver(<Link/>);
     expect(link.exists()).toBe(true);

@@ -1,36 +1,24 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {TimePicker} from './index';
 import {FIELD, AmPmOptions, AmPmStrings} from './constants';
 import {convertToAmPm} from './utils';
 import {timePickerDriverFactory} from './TimePicker.driver';
 
 describe('TimePicker', () => {
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(timePickerDriverFactory);
+
   const SOME_VALUE = '10:04';
-  const createDriver = createDriverFactory(timePickerDriverFactory);
-  /**
-   * Since the usual driver factory doesn't expose the React component, we need this
-   * to use and test imperative API
-   */
-  const createDriverWithComponent = (props?) => {
-    const container = mount(<TimePicker value="10:30" {...props} />);
-    const reactTimePicker = container.instance() as TimePicker;
-    const reactInput = container.find('input');
-    const inputElement = reactInput.getDOMNode() as HTMLInputElement;
-    return {
-      focus: () => reactInput.simulate('focus'),
-      blur: () => reactInput.simulate('blur'),
-      tab: () => reactInput.simulate('keyDown', {key: 'Tab'}),
-      getValue: () => inputElement.value,
-      getInputElement: () => inputElement
-    };
-  };
 
   describe('onChange prop', () => {
     it('should be called with a new time when a new valid time is set', () => {
       const onChange = jest.fn();
       const driver = createDriver(<TimePicker value = "10:00" onChange = {onChange} />);
+      driver.focus();
       driver.keyDown('ArrowDown');
       expect(onChange).toBeCalledWith('09:00');
     });
@@ -38,6 +26,7 @@ describe('TimePicker', () => {
     it('should be called with null when deleting a valid time to "--:--"', () => {
       const onChange = jest.fn();
       const driver = createDriver(<TimePicker value = {SOME_VALUE} onChange={onChange} />);
+      driver.focus();
       driver.keyDown('Delete');
       driver.keyDown('Tab');
       driver.keyDown('Delete');
@@ -47,6 +36,7 @@ describe('TimePicker', () => {
     it('should not be called when only one field is deleted', () => {
       const onChange = jest.fn();
       const driver = createDriver(<TimePicker value = {SOME_VALUE} onChange={onChange} />);
+      driver.focus();
       driver.keyDown('Delete');
       expect(onChange).not.toBeCalled();
     });
@@ -54,6 +44,7 @@ describe('TimePicker', () => {
     it('should be called when only one field is deleted and then blurred', () => {
       const onChange = jest.fn();
       const driver = createDriver(<TimePicker value = "10:00" onChange={onChange} />);
+      driver.focus();
       driver.keyDown('Delete');
       driver.blur();
       expect(onChange).toBeCalledWith('00:00');
@@ -107,6 +98,7 @@ describe('TimePicker', () => {
   describe('step prop', () => {
     it('should default to 1 minute', () => {
       const driver = createDriver(<TimePicker value={SOME_VALUE} />);
+      driver.focus();
       driver.keyDown('Tab');
       driver.keyDown('Tab');
       driver.keyDown('ArrowUp');
@@ -115,6 +107,7 @@ describe('TimePicker', () => {
     
     it('should increment value by 5 minutes when step is set to 5', () => {
       const driver = createDriver(<TimePicker value={SOME_VALUE} step={5}/>);
+      driver.focus();
       driver.keyDown('Tab');
       driver.keyDown('Tab');
       driver.keyDown('ArrowUp');
@@ -123,12 +116,14 @@ describe('TimePicker', () => {
 
     it('should increment hour value by 1', () => {
       const driver = createDriver(<TimePicker value={SOME_VALUE}/>);
+      driver.focus();
       driver.keyDown('ArrowUp');
       expect(driver.getValue()).toEqual('11:04');
     });
 
     it('should increment hour value by 1 when step is set to 60', () => {
       const driver = createDriver(<TimePicker value={SOME_VALUE} step={60}/>);
+      driver.focus();
       driver.keyDown('ArrowUp');
       expect(driver.getValue()).toEqual('11:04');
     });

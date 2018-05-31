@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {thumbnailDriverFactory} from './Thumbnail.driver';
 import {Thumbnail} from './';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {mount} from 'enzyme';
@@ -9,7 +9,10 @@ import {thumbnailTestkitFactory} from '../../testkit';
 import {thumbnailTestkitFactory as enzymeThumbnailTestkitFactory} from '../../testkit/enzyme';
 
 describe('Thumbnail', () => {
-  const createDriver = createDriverFactory(thumbnailDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(thumbnailDriverFactory);
 
   describe('children prop', () => {
     it('should be rendered', () => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as eventually from 'wix-eventually';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {dropdownDriverFactory} from './Dropdown.driver';
 import {Dropdown} from './';
 import {CLICK, HOVER} from './constants';
@@ -9,7 +9,11 @@ import {Simulate} from 'react-dom/test-utils';
 import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('Dropdown', () => {
-  const createDriver = createDriverFactory(dropdownDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(dropdownDriverFactory);
+
   const options = generateOptions();
   const createDropdown = (props = {}) => (
     <Dropdown 

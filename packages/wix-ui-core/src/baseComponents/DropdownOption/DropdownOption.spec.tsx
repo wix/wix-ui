@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {DropdownOption, Option} from './';
 import {dropdownOptionDriverFactory} from './DropdownOption.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
 
 describe('DropdownOption', () => {
-  const createDriver = createDriverFactory(dropdownOptionDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(dropdownOptionDriverFactory);
 
   const onClickHandler = jest.fn();
   const onMouseEnterHandler = jest.fn();

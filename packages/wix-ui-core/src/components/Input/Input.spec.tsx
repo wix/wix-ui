@@ -1,36 +1,54 @@
 import * as React from 'react';
-import {inputDriverFactory} from './Input.driver';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {Input} from './';
-import {inputTestkitFactory} from '../../testkit';
-import {inputTestkitFactory as enzymeInputTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import {Simulate} from 'react-dom/test-utils';
+import {StylableDOMUtil} from 'stylable/test-utils';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import {Input} from '.';
+import style from './Input.st.css';
+
+class InputDriver {
+  constructor(public root: HTMLElement, public instance: Input) {}
+
+  get input() {
+    return this.root.querySelector('input');
+  }
+
+  get prefix() {
+    return this.input.previousSibling;
+  }
+
+  get suffix() {
+    return this.input.nextSibling;
+  }
+}
+
+const stylableUtil = new StylableDOMUtil(style);
 
 describe('Input', () => {
-  const createDriver = createDriverFactory(inputDriverFactory);
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+  const render = jsx =>
+    container.renderWithRef(jsx)
+    .then(ref => new InputDriver(container.componentNode, ref));
 
-  describe('style states', () => {
-    it('should support disabled state', () => {
-      const input = createDriver(<Input disabled />);
-      expect(input.hasStyleState('disabled')).toBe(true);
+  describe('Style states', () => {
+    it('should support disabled state', async () => {
+      const input = await render(<Input disabled />);
+      expect(stylableUtil.hasStyleState(input.root, 'disabled')).toBe(true);
     });
 
-    it('should support error state', () => {
-      const input = createDriver(<Input error />);
-      expect(input.hasStyleState('error')).toBe(true);
+    it('should support error state', async () => {
+      const input = await render(<Input error />);
+      expect(stylableUtil.hasStyleState(input.root, 'error')).toBe(true);
     });
 
-    it('should support focus state', () => {
-      const input = createDriver(<Input />);
-      input.focus();
-      expect(input.hasStyleState('focus')).toBe(true);
+    it('should support focus state', async () => {
+      const input = await render(<Input />);
+      Simulate.focus(input.input);
+      expect(stylableUtil.hasStyleState(input.root, 'focus')).toBe(true);
     });
   });
 
-  it('should pass attributes to the native input', () => {
-    const input = createDriver(
+  it('should pass attributes to the native input', async () => {
+    const {input} = await render(
       <Input
         autoComplete="on"
         disabled
@@ -44,70 +62,44 @@ describe('Input', () => {
       />
     );
 
-    expect(input.getInput().autocomplete).toBe('on');
-    expect(input.getInput().disabled).toBe(true);
-    expect(input.getInput().maxLength).toBe(10);
-    expect(input.getInput().placeholder).toBe('placeholder');
-    expect(input.getInput().readOnly).toBe(true);
-    expect(input.getInput().required).toBe(true);
-    expect(input.getInput().tabIndex).toBe(1);
-    expect(input.getInput().type).toBe('password');
-    expect(input.getInput().value).toBe('hunter2');
+    expect(input.autocomplete).toBe('on');
+    expect(input.disabled).toBe(true);
+    expect(input.maxLength).toBe(10);
+    expect(input.placeholder).toBe('placeholder');
+    expect(input.readOnly).toBe(true);
+    expect(input.required).toBe(true);
+    expect(input.tabIndex).toBe(1);
+    expect(input.type).toBe('password');
+    expect(input.value).toBe('hunter2');
   });
 
-  describe('prefix and suffix', () => {
-    it('should render prefix', () => {
-      const input = createDriver(<Input prefix={<div>★</div>} />);
-      expect(input.getPrefix().innerHTML).toMatch(/★/);
-    });
+  it('should render prefix and suffix', async () => {
+    const input = await render(
+      <Input prefix={<div>PREFIX</div>} suffix={<div>SUFFIX</div>} />
+    );
 
-    it('should render suffix', () => {
-      const input = createDriver(<Input suffix={<div>★</div>} />);
-      expect(input.getSuffix().innerHTML).toMatch(/★/);
-    });
+    expect(input.prefix.textContent).toBe('PREFIX');
+    expect(input.suffix.textContent).toBe('SUFFIX');
   });
 
-  describe('imperative API', () => {
-    let wrapper, inputInstance, inputNode;
+  describe('Imperative API', () => {
+    it('should support focus() and blur() methods', async () => {
+      const {input, instance} = await render(<Input />);
 
-    beforeEach(() => {
-      wrapper = mount(<Input value="12345" />);
-      inputInstance = wrapper.instance() as Input;
-      inputNode = wrapper.find('input').getDOMNode() as HTMLInputElement;
-      inputNode.blur();
+      expect(document.activeElement).not.toBe(input);
+      instance.focus();
+      expect(document.activeElement).toBe(input);
+      instance.blur();
+      expect(document.activeElement).not.toBe(input);
     });
 
-    it('should support focus() method', () => {
-      expect(document.activeElement).not.toBe(inputNode);
-      inputInstance.focus();
-      expect(document.activeElement).toBe(inputNode);
-    });
+    it('should support select() method', async () => {
+      const {input, instance} = await render(<Input value="123" />);
 
-    it('should support blur() method', () => {
-      inputInstance.focus();
-      expect(document.activeElement).toBe(inputNode);
-      inputInstance.blur();
-      expect(document.activeElement).not.toBe(inputNode);
-    });
-
-    it('should support select() method', () => {
-      expect(inputNode.selectionStart).toBe(0);
-      expect(inputNode.selectionEnd).toBe(0);
-      inputInstance.select();
-      expect(inputNode.selectionStart).toBe(0);
-      expect(inputNode.selectionEnd).toBe(5);
-    });
-  });
-
-  describe('testkit', () => {
-    it('should exist', () => {
-      expect(isTestkitExists(<Input/>, inputTestkitFactory)).toBe(true);
-    });
-  });
-
-  describe('enzyme testkit', () => {
-    it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Input/>, enzymeInputTestkitFactory, mount)).toBe(true);
+      expect(input.selectionStart).toBe(input.selectionEnd);
+      instance.select();
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(3);
     });
   });
 });

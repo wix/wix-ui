@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {buttonDriverFactory} from './Button.driver';
 import {buttonTestkitFactory} from '../../testkit';
 import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
@@ -7,8 +7,10 @@ import {Button} from './';
 import {runTestkitExistsSuite} from '../../common/testkitTests';
 
 describe('Button', () => {
-
-  const createDriver = createDriverFactory(buttonDriverFactory);
+  const createDriver =
+    new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createLegacyRenderer(buttonDriverFactory);
 
   describe('type prop', () => {
     it('should be passed down', () => {
