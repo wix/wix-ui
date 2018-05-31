@@ -106,7 +106,6 @@ describe('Popover', () => {
         expect(document.body.classList).not.toContain(styles.root);
         wrapper.unmount();
       });
-
     });
 
     describe('viewport', () => {
@@ -173,8 +172,11 @@ describe('Popover', () => {
 
         wrapper.unmount();
       });
+
     });
   });
+
+
 
   describe('testkit', () => {
     it('should exist', () => {
@@ -187,4 +189,5 @@ describe('Popover', () => {
       expect(isEnzymeTestkitExists(createPopover(), enzymePopoverTestkitFactory, mount)).toBe(true);
     });
   });
+
 });
