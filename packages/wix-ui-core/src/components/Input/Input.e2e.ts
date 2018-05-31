@@ -10,13 +10,13 @@ describe('Input', () => {
     browser.get(storyUrl);
   });
 
-  eyes.it('should enter text to input', () => {
+  eyes.it('should enter text to input', async () => {
     const dataHook = 'storybook-input';
     const driver = inputTestkitFactory({dataHook});
 
-    waitForVisibilityOf(driver.element(), 'Cannot find Input');
-    expect(driver.getText()).toBe('');
-    driver.enterText('foobar');
-    expect(driver.getText()).toBe('foobar');
+    await waitForVisibilityOf(driver.element(), 'Cannot find Input');
+    expect(await driver.getText()).toBe('');
+    await driver.enterText('foobar');
+    expect(await driver.getText()).toBe('foobar');
   });
 });
