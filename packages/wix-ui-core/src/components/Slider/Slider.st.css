@@ -14,8 +14,6 @@
 .root {
   -st-states: orientation(enum(vertical, horizontal)), tickMarksPosition(enum(normal, middle, across)), tickMarksShape(enum(line, dot)), dir(enum(ltr, rtl)), disabled;
   position: relative;
-  width: 100%;
-  height: 100%;
   box-sizing: border-box;
   outline: none !important;
 }

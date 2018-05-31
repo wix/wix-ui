@@ -509,7 +509,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         tickMarksPosition,
         tickMarksShape,
         thumbShape,
-        orientation
+        orientation,
+        style
     } = this.props;
 
     const vertical = this.isVertical();
@@ -547,6 +548,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-orientation={orientation}
         data-dir={dir}
         tabIndex={0}
+        style={style}
         ref={root => this.root = root}
       >
         <div className={pStyle.inner} style={this.getInnerDims()}>
