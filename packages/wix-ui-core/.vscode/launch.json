@@ -8,7 +8,7 @@
       "name": "Unit Test Debug",
       "type": "node",
       "request": "launch",
-      "args" : ["test", "--jest", "--debug"],
+      "args" : ["test", "--jest", "--debug-brk"],
       "port": 9229,
       "program": "${workspaceFolder}/node_modules/.bin/yoshi"
     },
@@ -16,7 +16,7 @@
       "name": "e2e Test Debug",
       "type": "node",
       "request": "launch",
-      "args" : ["test", "--protractor", "--debug"],
+      "args" : ["test", "--protractor", "--debug-brk"],
       "port": 9229,
       "program": "${workspaceFolder}/node_modules/.bin/yoshi"
     }
