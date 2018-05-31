@@ -37,7 +37,8 @@
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "pr-release": "teamcity-surge-autorelease --dist=storybook-static"
+    "pr-release": "teamcity-surge-autorelease --dist=storybook-static",
+    "test:browser": "wix-ui-mocha-runner"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -88,6 +89,7 @@
     "wix-eventually": "latest",
     "wix-storybook-utils": "^1.0.0",
     "wix-ui-icons-common": "^1.0.0",
+    "wix-ui-mocha-runner": "^0.1.0",
     "yoshi": "^2.6.1"
   },
   "license": "MIT",

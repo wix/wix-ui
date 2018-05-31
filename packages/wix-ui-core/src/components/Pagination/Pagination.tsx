@@ -42,6 +42,7 @@ export interface PaginationProps {
   showInputModeTotalPages?: boolean;
   responsive?: boolean;
   maxPagesToShow?: number;
+  className?: string;
   id?: string;
   updateResponsiveLayout?: (callback: () => void) => void;
   style?: React.CSSProperties;
@@ -102,8 +103,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     responsive: bool,
     /** In 'pages' mode defines the maximum number of pages to show */
     maxPagesToShow: number,
-    /** Classes object */
-    classes: object,
+    /** Component class name */
+    className: string,
     /** Component ID */
     id: string,
     /** Allows to trigger responsive layout update on window dimensions change, font load, etc. */
