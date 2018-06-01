@@ -57,7 +57,8 @@ const webpackConfig = {
         exclude: /node_modules/
       },
       {
-        test: /(?<!\.st)\.css$/,
+        test: /\.css$/,
+        exclude: /\.st\.css$/,
         use: ['style-loader', 'css-loader']
       }
     ]
@@ -66,8 +67,12 @@ const webpackConfig = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     modules: [
       'node_modules',
-      // Don't use our own copies of testing libraries, require them from the
-      // project.
+      // Dirty hack. Bundling should totally be done in the project, and not in
+      // the test runner. There's no guarantee anything will work since the
+      // runner might bundle incompatible versions of the testing libraries,
+      // use a different Webpack setup with different plugins, etc.
+      // But until we figure out how to entirely move bundling to the project
+      // let's at least load runtime dependencies from it.
       path.join(projectDir, 'node_modules')
     ]
   }
