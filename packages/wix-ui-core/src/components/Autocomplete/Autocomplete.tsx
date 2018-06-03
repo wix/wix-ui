@@ -3,7 +3,7 @@ import style from './Autocomplete.st.css';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions';
 import {Option, OptionFactory, optionPropType} from '../../baseComponents/DropdownOption/OptionFactory';
 import {Divider} from '../Divider';
-import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
+import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable, Validator} from 'prop-types';
 import {InputProps} from '../Input';
 
 const createDivider = (value = null) =>
