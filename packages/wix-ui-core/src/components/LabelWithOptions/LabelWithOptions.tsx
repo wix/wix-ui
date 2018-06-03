@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './LabelWithOptions.st.css';
-import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 'prop-types';
+import {arrayOf, bool, number, func, oneOfType, string, node, Requireable, Validator} from 'prop-types';
 import {Dropdown} from '../../baseComponents/Dropdown';
 import {Checkbox} from '../Checkbox';
 import {Option, optionPropType, OptionFactory} from '../../baseComponents/DropdownOption';
