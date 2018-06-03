@@ -32,6 +32,7 @@ describe('AddressInput', () => {
           Client={GoogleMapsClientStub}
           onSelect={onSelectSpy}
           handler={handler || Handler.geocode}
+          throttleInterval={0}
           {...rest}
         />);
     };
@@ -55,14 +56,14 @@ describe('AddressInput', () => {
     });
 
     it('Should throttle calls to MapsClient.autocomplete', async () => {
-        init();
+        init({throttleInterval: 10});
         driver.setValue('n');
         driver.setValue('ne');
         driver.setValue('new');
         await eventually(() => {
             expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
             expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
-        });
+        }, {interval: 5});
         expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledTimes(2);
     });
 
@@ -150,11 +151,13 @@ describe('AddressInput', () => {
 
         driver.optionAt(1).click();
         expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {placeId: helper.ADDRESS_2.place_id});
-        return eventually(() => expect(onSelectSpy).toHaveBeenCalledWith({
-            originValue: helper.ADDRESS_DESC_2,
-            googleResult: helper.GEOCODE_2,
-            address: helper.INTERNAL_ADDRESS_GEOCODE_2
-        }), {timeout: 1000});
+        return eventually(() => {
+            expect(onSelectSpy).toHaveBeenCalledWith({
+                originValue: helper.ADDRESS_DESC_2,
+                googleResult: helper.GEOCODE_2,
+                address: helper.INTERNAL_ADDRESS_GEOCODE_2
+            });
+         }, {interval: 5});
     });
 
     it('Should append region to geocode request if countryCode prop is set', async () => {
@@ -205,11 +208,13 @@ describe('AddressInput', () => {
 
         driver.optionAt(1).click();
         expect(GoogleMapsClientStub.prototype.placeDetails).toHaveBeenCalledWith(helper.API_KEY, 'en', {placeId: helper.ADDRESS_2.place_id});
-        return eventually(() => expect(onSelectSpy).toHaveBeenCalledWith({
-            originValue: helper.ADDRESS_DESC_2,
-            googleResult: helper.PLACE_DETAILS_2,
-            address: helper.INTERNAL_ADDRESS_PLACE_DETAILS_2
-        }), {timeout: 1000});
+        return eventually(() => {
+            expect(onSelectSpy).toHaveBeenCalledWith({
+                originValue: helper.ADDRESS_DESC_2,
+                googleResult: helper.PLACE_DETAILS_2,
+                address: helper.INTERNAL_ADDRESS_PLACE_DETAILS_2
+            });
+         }, {interval: 5});
     });
 
     it('Should try and street number', async () => {
@@ -235,7 +240,7 @@ describe('AddressInput', () => {
                     'street_number'
                 ]
             }]);
-        }, {timeout: 1000});
+        }, {interval: 5});
     });
 
     describe('Fallback to manual', () => {
@@ -251,7 +256,7 @@ describe('AddressInput', () => {
                 expect(onSelectSpy).toHaveBeenCalledWith(expect.objectContaining({
                     googleResult: helper.GEOCODE_1
                 }));
-            }, {timeout: 1000});
+            }, {interval: 5});
         });
 
         it('Should call onSet with null if there are no suggestions and user input is empty', () => {
@@ -263,7 +268,7 @@ describe('AddressInput', () => {
             return eventually(() => {
                 expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalledWith();
                 expect(onSelectSpy).toHaveBeenCalledWith(null);
-            });
+            }, {interval: 5});
         });
 
         it('Should not should fall back to geocode when places api is selected and using raw input', () => {
@@ -277,7 +282,7 @@ describe('AddressInput', () => {
                 expect(onSelectSpy).toHaveBeenCalledWith(expect.objectContaining({
                     googleResult: helper.GEOCODE_1
                 }));
-            }, {timeout: 1000});
+            }, {interval: 5});
         });
 
         it('Should not call onSet in case there are suggestions', async () => {
@@ -299,7 +304,7 @@ describe('AddressInput', () => {
             driver.click();
             driver.setValue('n');
             driver.keyDown('Enter');
-            await sleep(200);
+            await sleep(10);
             expect(GoogleMapsClientStub.prototype.geocode).not.toHaveBeenCalled();
             expect(onSelectSpy).not.toHaveBeenCalled();
         });
@@ -313,6 +318,7 @@ describe('AddressInput', () => {
             driver.setValue('n');
 
             const secondRequest = GoogleMapsClientStub.setAddressesPromise([helper.ADDRESS_2]);
+            driver.click();
             driver.setValue('ne');
 
             secondRequest.resolve();
@@ -339,6 +345,7 @@ describe('AddressInput', () => {
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             const secondRequest = GoogleMapsClientStub.setGeocodePromise(helper.GEOCODE_2);
+            driver.click();
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
@@ -353,7 +360,7 @@ describe('AddressInput', () => {
                     address: helper.INTERNAL_ADDRESS_GEOCODE_2
                 });
                 expect(onSelectSpy).toHaveBeenCalledTimes(1);
-            });
+            }, {interval: 5});
         });
 
         it('Should ignore stale requests - placeDetails', async () => {
@@ -367,6 +374,7 @@ describe('AddressInput', () => {
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             const secondRequest = GoogleMapsClientStub.setPlaceDetailsPromise(helper.PLACE_DETAILS_2);
+            driver.click();
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);
             driver.optionAt(0).click();
@@ -381,7 +389,7 @@ describe('AddressInput', () => {
                     address: helper.INTERNAL_ADDRESS_PLACE_DETAILS_2
                 });
                 expect(onSelectSpy).toHaveBeenCalledTimes(1);
-            });
+            }, {interval: 5});
         });
     });
 

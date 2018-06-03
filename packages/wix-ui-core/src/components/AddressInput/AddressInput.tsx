@@ -177,7 +177,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.geocodeRequestId = 0;
         this.placeDetailsRequestId = 0;
 
-        this._getAddressOptions = props.throttleInterval === 0 ? this._getAddressOptions.bind(this) : throttle(this._getAddressOptions, 150);
+        this._getAddressOptions = props.throttleInterval === 0 ? this._getAddressOptions.bind(this) : throttle(this._getAddressOptions, props.throttleInterval);
         this._handleOnChange = this._handleOnChange.bind(this);
         this._handleOnManualInput = this._handleOnManualInput.bind(this);
         this._onSelect = this._onSelect.bind(this);
