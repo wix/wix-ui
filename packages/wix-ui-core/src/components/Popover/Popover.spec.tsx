@@ -11,9 +11,8 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {popoverTestkitFactory} from '../../testkit';
 import styles from './Popover.st.css';
-import {PopoverDriver} from '../../testkit/protractor';
 
-fdescribe('Popover', () => {
+describe('Popover', () => {
   let wrapper;
   
   afterEach(() => {
