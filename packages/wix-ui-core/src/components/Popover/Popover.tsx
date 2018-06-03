@@ -210,7 +210,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     return this.wrapWithAnimations(popper);
   }
 
-  applyStylesToAppendedNode() {
+  applyStylesToPortaledNode() {
     const {shown} = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -265,12 +265,14 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
       // TODO: remove this, it is called in render
-      this.applyStylesToAppendedNode();
+      this.applyStylesToPortaledNode();
     }
   }
 
   componentWillUnmount() {
     if (this.portalNode) {
+      // FIXME: What if component is updated with a different appendTo? It is a far-fetched use-case,
+      // but we would need to remove the portaled node, and created another one.
       this.appendToNode.removeChild(this.portalNode);
     }
     this.portalNode = null;
@@ -285,7 +287,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     if (this.portalNode) {
-      this.applyStylesToAppendedNode();
+      this.applyStylesToPortaledNode();
     }
 
     return (
