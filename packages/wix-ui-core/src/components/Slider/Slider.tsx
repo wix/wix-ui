@@ -42,10 +42,11 @@ export interface SliderState {
   inKeyPress: boolean;
 }
 
+const CONTINUOUS_STEP = 0.01;
+
 export class Slider extends React.PureComponent<SliderProps, SliderState> {
   root: HTMLDivElement;
   track: HTMLDivElement;
-  ContinuousStep = 0.01;
 
   static propTypes: Object = {
     /** The minimum value of the slider */
@@ -172,7 +173,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       return this.calcDiscreteStepValue(min, max, step, stepType);
     }
 
-    return this.ContinuousStep;
+    return CONTINUOUS_STEP;
   }
 
   isShallowEqual(v, o) {
