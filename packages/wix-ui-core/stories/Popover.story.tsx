@@ -50,7 +50,7 @@ export default {
       <div>
         <h2>AppendTo = 'window'</h2>
         <p>If you inspect the content, you'll see it is attached to a new div under the body.</p>
-        <PopoverWithState appendTo="window"/>
+        <PopoverWithState appendTo="window" data-hook="popover-appendto-window"/>
       </div>
       <div>
         <h2>AppendTo = 'scrollParent'</h2>
@@ -58,7 +58,7 @@ export default {
         <div style={{overflow: 'auto', height: '100px', width: '400px', border: '1px solid black'}}>
           <ul>
             <li>item</li>
-            <PopoverWithState appendTo="scrollParent"/>
+            <PopoverWithState appendTo="scrollParent" data-hook="popover-appendto-scroll-parent"/>
             <li>item</li>
             <li>item</li>
             <li>item</li>
