@@ -203,8 +203,6 @@ describe('Popover', () => {
     });
   });
 
-
-
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(createPopover(), popoverTestkitFactory)).toBe(true);
