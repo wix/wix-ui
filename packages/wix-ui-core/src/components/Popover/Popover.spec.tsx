@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {popoverDriverFactory} from './Popover.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {Popover, PopoverProps} from './';
-import {mount} from 'enzyme';
+import {Popover, PopoverProps, AppendTo} from './';
+import {Boundary} from 'popper.js';
+import {mount, ReactWrapper} from 'enzyme';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
 import {popoverTestkitFactory as enzymePopoverTestkitFactory} from '../../testkit/enzyme';
@@ -10,14 +11,23 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
 import {popoverTestkitFactory} from '../../testkit';
 import styles from './Popover.st.css';
+import {PopoverDriver} from '../../testkit/protractor';
 
-describe('Popover', () => {
+fdescribe('Popover', () => {
+  let wrapper;
+  
+  afterEach(() => {
+    if (wrapper) {
+      wrapper.unmount();
+    }
+  });
+
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
   const render = container.createLegacyRenderer(popoverDriverFactory);
 
-  const renderWithEnzyme = jsx => {
-    const wrapper = mount(jsx, {attachTo: container.node});
+  const renderWithEnzyme = (jsx, {attachTo}) => {
+    wrapper = mount<PopoverProps,{}>(jsx, {attachTo});
     const driver = popoverDriverFactory({
       element: wrapper.find(Popover).getDOMNode(),
       eventTrigger: null
@@ -74,15 +84,16 @@ describe('Popover', () => {
   });
 
   it('should animate given timeout', async () => {
-    const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, timeout: 100}));
+    wrapper = mount(createPopover({shown: true, timeout: 100}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeTruthy();
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
-    wrapper.unmount();
   });
 
   it('should not animate in case timeout is set to 0', async () => {
-    const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, timeout: 0}));
+    wrapper = mount(createPopover({shown: true, timeout: 0}));
+    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeFalsy();
     expect(wrapper.text()).toBe('Element');
@@ -91,88 +102,107 @@ describe('Popover', () => {
 
   describe('appendTo', () => {
 
-    describe('window', () => {
-      it('should append popover to body when appendTo is window', () => {
-        const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, appendTo: 'window'}));
-        const contentElement = driver.getContentElement();
-        expect(contentElement.parentElement).toBe(document.body);
-        wrapper.unmount();
+    const runAppendToTests = (
+      appendTo: AppendTo,
+      getExpectedAppendToElement: () => Element,
+      getExpectedContentParent: () => Element,
+      mountPopover: (props: Partial<PopoverProps>) => {wrapper: ReactWrapper<PopoverProps,{}>, driver}
+    ) => {
+      it('should append new div when initially open', () => {
+        const prevChildren = getExpectedAppendToElement().children.length;
+        const {driver} = mountPopover({shown: true});
+        const g = getExpectedAppendToElement().children.length;
+        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
+        expect(driver.getContentElement().parentElement).toBe(getExpectedContentParent());
       });
 
-      it('should attach and detach styles to body when appended to window', () => {
-        const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, appendTo: 'window'}));
-        expect(document.body.classList).toContain(styles.root);
+      it('should append new div when initially closed', () => {
+        const prevChildren = getExpectedAppendToElement().children.length;
+        mountPopover({shown: false});
+        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
+      });
+
+      it('should attach styles to content parent when initially open', () => {
+        mountPopover({shown: true});
+        expect(getExpectedContentParent().className).toBe(styles.root);
+      });
+
+      it('should remove styles from content parent when closed', () => {
+        mountPopover({shown: true});
         wrapper.setProps({shown: false});
-        expect(document.body.classList).not.toContain(styles.root);
-        wrapper.unmount();
-      });
-    });
-
-    describe('viewport', () => {
-      it('should append popover to body when appendTo is viewport', () => {
-        const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, appendTo: 'viewport'}));
-        const contentElement = driver.getContentElement();
-        expect(contentElement.parentElement).toBe(document.body);
-        wrapper.unmount();
+        expect(getExpectedContentParent().className).not.toBe(styles.root);
       });
 
-      it('should attach and detach styles to body when appended to viewport', () => {
-        const {wrapper, driver} = renderWithEnzyme(createPopover({shown: true, appendTo: 'viewport'}));
-        expect(document.body.classList).toContain(styles.root);
-        wrapper.setProps({shown: false});
-        expect(document.body.classList).not.toContain(styles.root);
-        wrapper.unmount();
-      });
-    });
-
-    describe('node', () => {
-      it('should append popover to given element when appendTo is an element', () => {
-        const {wrapper, driver} = renderWithEnzyme(
-          createPopover({shown: true, appendTo: container.node})
-        );
-        const contentElement = driver.getContentElement();
-        expect(contentElement.parentElement).toBe(container.node);
-        wrapper.unmount();
+      it('should NOT attach styles to content parent when initially closed', () => {
+        mountPopover({shown: false});
+        expect(getExpectedContentParent().className).not.toBe(styles.root);
       });
 
-      it('should attach and detach styles to the element appended to', () => {
-        const {wrapper, driver} = renderWithEnzyme(createPopover(
-          {shown: true, appendTo: container.node}
-        ));
-        expect(container.node.classList).toContain(styles.root);
-        wrapper.setProps({shown: false});
-        expect(container.node.classList).not.toContain(styles.root);
+      it('should remove default div when unmounted', () => {
+        const prevChildren = getExpectedAppendToElement().children.length;
+        mountPopover({shown: false});
+        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
         wrapper.unmount();
+        wrapper = null;
+        expect(getExpectedAppendToElement().children.length).toBe(prevChildren);
+      });
+    };
+
+    describe('window & viewport :', () => {
+      const boundaryValues: Boundary[] = ['window'];//, 'viewport'];
+      boundaryValues.forEach(boundary => {
+        describe(boundary, () => {
+          const appendTo = boundary;
+          let popoverContainer: HTMLElement;
+          const getExpectedAppendToElement = () => document.body;
+          const getExpectedContentParent = () => document.body.children[1];
+          const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
+          
+          beforeEach(() => {
+            popoverContainer = document.createElement('div');
+            container.node.appendChild(popoverContainer);
+          });
+
+          runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
+        });
       });
     });
 
     describe('scrollParent', () => {
-      const intoScrollable = jsx =>
-        <div style={{overflow: 'auto'}}><div>{jsx}</div></div>;
+      const appendTo = 'scrollParent';
+      let popoverContainer: HTMLElement;
+      let scrollContainer: HTMLElement;
+      const getExpectedAppendToElement = () => scrollContainer;
+      const getExpectedContentParent = () => scrollContainer.children[1];
+      const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
 
-      it('should append popover to first scrollable parent when appendTo is scrollParent', () => {
-        const {wrapper, driver} = renderWithEnzyme(intoScrollable(
-          createPopover({shown: true, appendTo: 'scrollParent'})
-        ));
-        const contentElement = driver.getContentElement();
-        expect(contentElement.parentElement).toBe(wrapper.getDOMNode());
-        wrapper.unmount();
+      beforeEach(() => {
+        popoverContainer = document.createElement('div');
+        scrollContainer = document.createElement('div');
+        scrollContainer.style.overflow ='auto';
+        scrollContainer.appendChild(popoverContainer);
+        container.node.appendChild(scrollContainer);
       });
 
-      it('should attach and detach styles to the scrollable parent container', () => {
-        let {wrapper} = renderWithEnzyme(intoScrollable(
-          createPopover({shown: true, appendTo: 'scrollParent'})
-        ));
-        expect(wrapper.getDOMNode().className).toBe(styles.root);
+      runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
+    });
 
-        ({wrapper} = renderWithEnzyme(intoScrollable(
-          createPopover({shown: false, appendTo: 'scrollParent'})
-        )));
-        expect(wrapper.getDOMNode().className).toBe('');
+    describe('node', () => {
+      let appendTo: HTMLElement;
+      let popoverContainer: HTMLElement;
+      const getExpectedAppendToElement = () => popoverContainer;
+      const getExpectedContentParent = () => appendTo.children[0];
+      const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
 
-        wrapper.unmount();
+      beforeEach(() => {
+        popoverContainer = document.createElement('div');
+        container.node.appendChild(popoverContainer);
+
+        appendTo = document.createElement('div');
+        container.node.appendChild(appendTo);
       });
 
+      runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
     });
   });
 
