@@ -25,7 +25,7 @@ describe('Popover', () => {
 
   const render = container.createLegacyRenderer(popoverDriverFactory);
 
-  const renderWithEnzyme = (jsx, {attachTo}) => {
+  const renderWithEnzyme = (jsx, {attachTo} = {attachTo: container.node}) => {
     wrapper = mount<PopoverProps,{}>(jsx, {attachTo});
     const driver = popoverDriverFactory({
       element: wrapper.find(Popover).getDOMNode(),
@@ -83,20 +83,18 @@ describe('Popover', () => {
   });
 
   it('should animate given timeout', async () => {
-    wrapper = mount(createPopover({shown: true, timeout: 100}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    const {driver} = renderWithEnzyme(createPopover({shown: true, timeout: 100}));
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeTruthy();
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 
   it('should not animate in case timeout is set to 0', async () => {
-    wrapper = mount(createPopover({shown: true, timeout: 0}));
+    renderWithEnzyme(createPopover({shown: true, timeout: 0}));
     const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeFalsy();
     expect(wrapper.text()).toBe('Element');
-    wrapper.unmount();
   });
 
   describe('appendTo', () => {
