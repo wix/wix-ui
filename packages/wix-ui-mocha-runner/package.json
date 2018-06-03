@@ -26,7 +26,7 @@
     "stylable-webpack-plugin": "^1.0.18",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.3.0",
-    "typescript": "^2.8.3",
+    "typescript": "~2.8.3",
     "webpack": "^4.9.1",
     "webpack-serve": "^1.0.2"
   }

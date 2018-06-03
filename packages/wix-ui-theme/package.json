@@ -50,7 +50,7 @@
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
     "ts-jest": "^22.0.3",
-    "typescript": "^2.4.0",
+    "typescript": "~2.8.3",
     "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^1.2.0"
   },
