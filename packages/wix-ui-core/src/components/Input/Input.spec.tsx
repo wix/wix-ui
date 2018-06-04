@@ -2,24 +2,9 @@ import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
 import {StylableDOMUtil} from 'stylable/test-utils';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {Input} from '.';
+import {Input} from './Input';
+import {InputDriver} from './Input.private.driver';
 import style from './Input.st.css';
-
-class InputDriver {
-  constructor(public root: HTMLElement, public instance: Input) {}
-
-  get input() {
-    return this.root.querySelector('input');
-  }
-
-  get prefix() {
-    return this.input.previousSibling;
-  }
-
-  get suffix() {
-    return this.input.nextSibling;
-  }
-}
 
 const stylableUtil = new StylableDOMUtil(style);
 

@@ -41,17 +41,19 @@ export class IframesManager {
 
     populateIframe(iframe: HTMLIFrameElement, apiKey: string, lang: string): void {
         const iframeBody = iframe.contentWindow.document.body;
+        iframeBody.appendChild(this.createInitializationScript());
+        iframeBody.appendChild(this.createGoogleMapsScript(apiKey, lang));
+    }
 
-        {
-            const script = document.createElement('script');
-            script.innerText = 'window.initAutoComplete = (' + googleRequestHandler.toString() + ')(window, ' + JSON.stringify(handlerNames) + '); window.googleReady = () => window.initAutoComplete(window.google);';
-            iframeBody.appendChild(script);
-        }
+    private createInitializationScript() {
+        const script = document.createElement('script');
+        script.innerText = 'window.initAutoComplete = (' + googleRequestHandler.toString() + ')(window, ' + JSON.stringify(handlerNames) + '); window.googleReady = () => window.initAutoComplete(window.google);';
+        return script;
+    }
 
-        {
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?libraries=places&key=${apiKey}&language=${lang}&callback=googleReady`;
-            iframeBody.appendChild(script);
-        }
+    private createGoogleMapsScript(apiKey, lang) {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?libraries=places&key=${apiKey}&language=${lang}&callback=googleReady`;
+        return script;
     }
 }
