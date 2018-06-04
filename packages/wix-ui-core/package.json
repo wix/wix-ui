@@ -26,7 +26,7 @@
     "test": "npm run test:unit && npm run test:e2e",
     "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
-    "test:unit": "yoshi test --jest",
+    "test:unit": "wix-ui-mocha-runner --headless",
     "test:e2e": "yoshi test --protractor",
     "lint": "yoshi lint",
     "yoshi-start": "yoshi start --no-test",
