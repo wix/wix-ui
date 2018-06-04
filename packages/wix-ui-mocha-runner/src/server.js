@@ -1,4 +1,5 @@
 const path = require('path');
+const readline = require('readline');
 const glob = require('glob');
 const webpack = require('webpack');
 const serve = require('webpack-serve');
@@ -19,8 +20,8 @@ const testPageUrl = `http://${host}:${port}`;
 
 function webpackLogProgress(percentage) {
   if (webpackLogProgress.enabled) {
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
+    readline.clearLine(process.stdout, 0);
+    readline.cursorTo(process.stdout, 0);
     if (percentage < 1) {
       process.stdout.write(`Webpack... ${Math.round(100 * percentage)}%`);
     }
