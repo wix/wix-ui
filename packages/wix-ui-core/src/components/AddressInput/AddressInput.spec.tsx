@@ -56,10 +56,16 @@ describe('AddressInput', () => {
     });
 
     it('Should throttle calls to MapsClient.autocomplete', async () => {
-        init({throttleInterval: 10});
+        init({throttleInterval: 30});
+
+        // For some reason updating the component takes a long time, and we need
+        // to use a large throttle interval to make sure it doesn't expire faster
+        // than it takes us to update three times.
+
         driver.setValue('n');
         driver.setValue('ne');
         driver.setValue('new');
+
         await eventually(() => {
             expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'n'});
             expect(GoogleMapsClientStub.prototype.autocomplete).toHaveBeenCalledWith(helper.API_KEY, 'en', {input: 'new'});
