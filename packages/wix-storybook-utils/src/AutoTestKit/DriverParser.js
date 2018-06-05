@@ -1,6 +1,6 @@
 const FunctionScope = require('./FunctionScope');
 const GlobalScope = require('./GlobalScope');
-const parse = require('recast').parse;
+const parse = require('../Parser').parse;
 
 class DriverParser {
   /**
@@ -13,16 +13,13 @@ class DriverParser {
    */
   constructor(files) {
     this.files = files;
-    const fileContents = files[files.entry];
-    this.recastedDriver = parse(fileContents);
   }
 
   parse() {
-    const topParentScope = new GlobalScope(this.recastedDriver.program.body, this.files);
-
-    // We only case about what this file exports..
-    //TODO: Parse non-default exports
-    return this.parseDefaultExport(topParentScope);
+    const fileContents = this.files[this.files.entry];
+    this.ast = parse(fileContents);
+    this.topParentScope = new GlobalScope(this.ast.program.body, this.files);
+    return this.parseDefaultExport(this.topParentScope);
   }
 
   _parseDeclaration(scope, declaration, comments) {
@@ -32,6 +29,12 @@ class DriverParser {
     const {type} = declaration;
     let returnValue = null;
     switch (type) {
+      case 'CallExpression':
+        {
+          const returnData = scope.getIdentifierValue(declaration.callee.name);
+          returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
+        }
+        break;
       case 'ArrowFunctionExpression':
         returnValue = this._parseArrowFunctionExpression(declaration, scope);
         break;
@@ -44,6 +47,9 @@ class DriverParser {
           returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
         }
         break;
+      case 'FunctionExpression':
+        // TODO: support non-arrow function syntax (e.g. DropDownLayout.driver, see optionById method)
+        return null;
       case 'UnaryExpression':
       case 'LogicalExpression':
         // TODO: Do something smart if possible
@@ -66,7 +72,7 @@ class DriverParser {
      * Maybe we should parse it in the future and add them to the result of the parse output
      */
     const isValidComment = comment => {
-      return comment.type === 'Block' && comment.value.indexOf('*') === 0;
+      return comment.type === 'CommentBlock' && comment.value.indexOf('*') === 0;
     };
 
     const parseCommentValue = commentValue => {
@@ -76,6 +82,14 @@ class DriverParser {
     return comments.reduce((description, comment) => {
       return isValidComment(comment) ? description + parseCommentValue(comment.value) : description;
     }, '');
+  }
+
+  _getGlobalScope(scope) {
+    if (scope.files) {
+      return scope;
+    } else if (scope.parentScope) {
+      return this._getGlobalScope(scope.parentScope);
+    }
   }
 
   _parseArrowFunctionExpression(declaration, scope) {
@@ -88,6 +102,12 @@ class DriverParser {
       description: declaration.description,
       params: arrParams
     };
+
+    const globalScope = this._getGlobalScope(scope);
+    if (globalScope && globalScope.files.entry !== globalScope.files.origin) {
+      returnValue.origin = globalScope.files.entry;
+    }
+
     if (functionReturnValue) {
       returnValue.returns = this._parseDeclaration(functionScope, functionReturnValue);
     }
@@ -99,8 +119,26 @@ class DriverParser {
     const returnObject = {};
 
     properties.forEach(property => {
-      const {key: {name}, value, comments} = property;
-      returnObject[name] = this._parseDeclaration(scope, value, comments);
+      switch (property.type) {
+        case 'Property':
+          returnObject[property.key.name] =
+            this._parseDeclaration(scope, property.value, property.leadingComments);
+          break;
+        case 'SpreadProperty':
+          {
+            const propertyToSpread = this._parseDeclaration(scope, property.argument);
+
+            // Flaten imported methods
+            if (propertyToSpread && propertyToSpread.returns) {
+              Object.keys(propertyToSpread.returns).forEach(methodName => {
+                returnObject[methodName] = propertyToSpread.returns[methodName];
+              });
+            }
+            // TODO: also flaten locally defined method container?
+          }
+          break;
+        default: break;
+      }
     });
 
     return returnObject;
@@ -108,7 +146,8 @@ class DriverParser {
 
   parseDefaultExport(scope) {
     const exportDeclaration = scope.getDefaultExportStatement();
-    return this._parseDeclaration(scope, exportDeclaration.declaration);
+    return exportDeclaration ?
+      this._parseDeclaration(scope, exportDeclaration.declaration) : null;
   }
 }
 

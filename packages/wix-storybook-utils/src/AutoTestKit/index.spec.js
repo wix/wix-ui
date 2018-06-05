@@ -9,6 +9,8 @@ import AutoTestKit from './';
 
 const fakeTestKitsPaths = {
   InputWithOptions: 'mock-testkits/InputWithOptions.driver.txt',
+  IconWithOptions: 'mock-testkits/IconWithOptions.driver.txt',
+  LanguagePicker: 'mock-testkits/LanguagePicker.driver.txt',
   Input: 'mock-testkits/Input.driver.txt',
   DropdownLayout: 'mock-testkits/DropdownLayout.driver.txt',
   Badge: 'mock-testkits/Badge.driver.txt',
@@ -21,14 +23,18 @@ const getFakeTestKitFile = fileName =>
 const getFiles = () => ({
   '../InputWithOptions/InputWithOptions.driver': getFakeTestKitFile(fakeTestKitsPaths.InputWithOptions),
   './Input.driver': getFakeTestKitFile(fakeTestKitsPaths.Input),
-  '../DropdownLayout/DropdownLayout.driver': getFakeTestKitFile(fakeTestKitsPaths.DropdownLayout)
+  '../DropdownLayout.driver': getFakeTestKitFile(fakeTestKitsPaths.DropdownLayout)
 });
 
+const fileContent = getFiles();
+
 const parseTestKit = testKit => {
+
   const entryTestKitFile = getFakeTestKitFile(testKit);
   const files = {
     entry: testKit,
-    ...getFiles,
+    origin: testKit,
+    ...fileContent,
     [testKit]: entryTestKitFile
   };
   return new DriverParser(files).parse();
@@ -48,7 +54,8 @@ const createDriver = wrapper => {
       const method = byHook(wrapper, 'method').at(index);
       return {
         getName: () => byHook(method, 'name').text(),
-        getDescription: () => byHook(method, 'description').text()
+        getDescription: () => byHook(method, 'description').text(),
+        getOrigin: () => byHook(method, 'origin').text()
       };
     }
   };
@@ -72,11 +79,25 @@ describe('AutoTestKit', () => {
     });
   });
 
+  describe('IconWithOptions testKit', () => {
+    it('should have fourty two nested methods', () => {
+      const driver = createDriver(render(fakeTestKitsPaths.IconWithOptions));
+      expect(driver.getMethodsCount()).toEqual(42);
+      expect(driver.getMethodAt(2).getName()).toEqual('driver.mouseLeave');
+      expect(driver.getMethodAt(41).getName()).toEqual('dropdownLayoutDriver.isDropDirectionUp');
+    });
+
+    it('should have imported methods with correct origin', () => {
+      const driver = createDriver(render(fakeTestKitsPaths.IconWithOptions));
+      expect(driver.getMethodAt(40).getName()).toEqual('dropdownLayoutDriver.optionByHook');
+      expect(driver.getMethodAt(40).getOrigin()).toEqual('DropdownLayout.driver');
+    });
+  });
+
   describe('parsing', () => {
     it('should return json', () => {
       expect(parseTestKit(fakeTestKitsPaths.Badge)).toEqual(BadgeDriverJson);
     });
   });
 });
-
 

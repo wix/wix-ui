@@ -1,5 +1,5 @@
 const Scope = require('./Scope');
-const parse = require('recast').parse;
+const parse = require('../Parser').parse;
 
 class GlobalScope extends Scope {
   constructor(globalScope, files) {
@@ -11,10 +11,11 @@ class GlobalScope extends Scope {
     if (declaration.specifiers.some(specifier => specifier.local.name === name)) {
       const fileContents = this.files[declaration.source.value];
       const recastedContent = parse(fileContents);
+      const files = Object.assign({}, this.files, {entry: declaration.source.value});
       // We return a new scope because we return a new file contents which has its own scope
       return {
         identifierValue: this._getDefaultExportStatement(recastedContent.program.body).declaration,
-        scope: new GlobalScope(recastedContent.program.body, this.files)
+        scope: new GlobalScope(recastedContent.program.body, files)
       };
     }
   }

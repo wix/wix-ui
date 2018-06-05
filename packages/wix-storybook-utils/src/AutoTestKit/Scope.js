@@ -5,20 +5,10 @@ class Scope {
   }
 
   _getIdentifierValueFromCurrentScope(name) {
-    let identifierValue = null;
-    const allDeclarations = this.scope.filter(value => {
-      return value.type.endsWith('Declaration');
-    });
-    if (Array.isArray(allDeclarations) && allDeclarations.length) {
-      for (let index = 0; index < allDeclarations.length; index++) {
-        const declaration = allDeclarations[index];
-        identifierValue = this._getIdentifierValueFromDeclaration(name, declaration);
-        if (identifierValue) {
-          break;
-        }
-      }
-    }
-    return identifierValue;
+    const identifierValues = this.scope.filter(value => value.type.endsWith('Declaration'))
+      .map(declaration => this._getIdentifierValueFromDeclaration(name, declaration))
+      .filter(identifierValue => !!identifierValue);
+    return identifierValues.length > 0 ? identifierValues[0] : null;
   }
 
   getIdentifierValue(name) {
@@ -46,6 +36,8 @@ class Scope {
         break;
       case 'ImportDeclaration':
         identifierValue = this._getIdentifierValueFromImport(name, declaration);
+        break;
+      case 'ExportDefaultDeclaration':
         break;
       default:
         throw new Error(`Unknown declaration ${type}`);

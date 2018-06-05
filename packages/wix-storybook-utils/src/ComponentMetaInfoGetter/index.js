@@ -1,9 +1,13 @@
 import path, {normalize} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import parser from '../AutoDocs/parser';
-import {parse} from 'recast';
+import {parse} from '../Parser';
+import recast from 'recast';
 import {DriverParser} from '../AutoTestKit/DriverParser';
+
+const visit = recast.visit.bind(recast);
 
 export default class ComponentMetaInfoGetter extends React.PureComponent {
   static propTypes = {
@@ -68,27 +72,33 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     return this.props.showStoryContent(this.state);
   }
 
+  getActualSourcePath(source, path) {
+    const sourceContainsOneLine = source.trim().split('\n').length === 1;
+    const onlyDefaultExportPresent = source.startsWith('export {default} from');
+
+    if (sourceContainsOneLine && onlyDefaultExportPresent) {
+      let newSourcePath = '';
+      source.replace(/['"]([./a-zA-Z0-9-]+)['"]/gi, (match, p1) => {
+        newSourcePath = p1;
+      });
+
+      return newSourcePath.replace(/^\.\//, '/');
+    }
+
+    return path;
+  }
+
   getComponentSource(additionalPath = '') {
     const {componentSrcFolder} = this.props;
 
     const resolvedPath = normalize(additionalPath ? `${componentSrcFolder}/${additionalPath}` : componentSrcFolder);
 
     return this.rawContextualImport(`./${resolvedPath}`).then(source => {
-      const sourceContainsOneLine = source.trim().split('\n').length === 1;
-      const onlyDefaultExportPresent = source.startsWith('export {default} from');
+      const actualSourcePath = this.getActualSourcePath(source, resolvedPath);
 
-      if (sourceContainsOneLine && onlyDefaultExportPresent) {
-        let newSourcePath = '';
-        source.replace(/['"]([./a-zA-Z0-9-]+)['"]/gi, (match, p1) => {
-          newSourcePath = p1;
-        });
-
-        newSourcePath = newSourcePath.replace(/^\.\//, '/');
-
-        return this.getComponentSource(`${additionalPath}${newSourcePath}`);
-      }
-
-      return source;
+      return actualSourcePath === resolvedPath ?
+          source :
+          this.getComponentSource(`${additionalPath}${actualSourcePath}`);
     });
   }
 
@@ -145,15 +155,46 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
     return this.loadMdFile('README');
   }
 
+  traverseAst(ast, declarationHandlers) {
+    visit(ast, {
+      visitImportDeclaration(declaration) {
+        const {value} = declaration.value.source;
+        if (value.startsWith('.') && value.includes('.driver')) {
+          declarationHandlers[declaration.value.type](value);
+        }
+        this.traverse(declaration);
+      },
+      visitExportNamedDeclaration(declaration) {
+        if (ast.length === 1) {
+          const {value} = declaration.value.source;
+          declarationHandlers[declaration.value.type](value);
+          this.abort();
+        } else {
+          this.traverse(declaration);
+        }
+      }
+    });
+  }
+
+  getComponentPathBySrcFolder = srcFolder => {
+    const [dirName, componentName] = srcFolder.split('/');
+
+    if (dirName && componentName) {
+      return path.join(`./${dirName}/${componentName}`, `${componentName}.driver.js`);
+    }
+
+    return path.join(`./${srcFolder}`, `${srcFolder}.driver.js`);
+  };
+
   /**
    * This method will get all file contents from all imported files.
    * Then if will try to parse them to build an auto generated doc
    */
   getTestkitSource() {
-    const {componentSrcFolder, storyName} = this.props;
-    let filePath = path.join(`./${componentSrcFolder}`, `${storyName}.driver.js`);
+    const {componentSrcFolder} = this.props;
+    let filePath = this.getComponentPathBySrcFolder(componentSrcFolder);
     filePath = '.' + path.resolve(filePath);
-    const files = {entry: filePath};
+    let files = {entry: filePath, origin: filePath};
 
     const getFileContent = (fileName, basePath, originalPath) => {
       if (fileName.endsWith('css')) {
@@ -163,28 +204,37 @@ export default class ComponentMetaInfoGetter extends React.PureComponent {
       let filePath = path.join(basePath, fileName);
       filePath = '.' + path.resolve(filePath);
 
-      return this.getTestKitFilePromise(filePath).then(fileContents => {
+      const processFileContents = fileContents => {
         files[originalPath] = fileContents;
         const programBody = parse(fileContents).program.body;
         const promises = [];
-        programBody.forEach(declaration => {
-          if (declaration.type === 'ImportDeclaration') {
-            if (declaration.source.value[0] === '.') {
-              const nextFileName = path.basename(declaration.source.value);
-              const nextBasePath = path.dirname(declaration.source.value);
 
-              promises.push(getFileContent(nextFileName, nextBasePath, declaration.source.value));
-            }
+        this.traverseAst(programBody, {
+          ImportDeclaration: filePath => {
+            promises.push(getFileContent(path.basename(filePath), path.dirname(filePath), filePath));
+          },
+          ExportNamedDeclaration: filePath => {
+
+            // Remove the file that contains a single export line from files
+            const {[originalPath]: val, ...rest} = files;
+            console.log(val, ' removed'); // linter barks on unused val
+            files = rest;
+
+            // Replace the entry by the export target
+            files.entry = filePath;
+            promises.push(getFileContent(path.basename(filePath), path.dirname(filePath), filePath));
           }
         });
+
         return Promise.all(promises);
-      });
+      };
+
+      return this.getTestKitFilePromise(filePath)
+        .then(content => processFileContents(content));
     };
 
-    return getFileContent(`${storyName}.driver.js`, `./${componentSrcFolder}`, filePath)
-      .then(() => {
-        return new DriverParser(files).parse();
-      })
+    return getFileContent(path.basename(filePath), path.dirname(filePath), filePath)
+      .then(() => new DriverParser(files).parse())
       .catch(() => {
         // TODO remove this if you want to see all failing cases
         return null;
