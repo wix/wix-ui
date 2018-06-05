@@ -89,7 +89,7 @@
     "wix-storybook-utils": "^1.0.0",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.0",
-    "yoshi": "^2.6.1"
+    "yoshi": "~2.7.0"
   },
   "license": "MIT",
   "publishConfig": {
