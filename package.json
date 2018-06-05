@@ -8,7 +8,7 @@
   "description": "wix-ui-monorepo",
   "scripts": {
     "test": "lerna run test --parallel false --concurrency 1",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "clean": "lerna clean --yes",
     "rebuild": "find ./packages/* -name \"package-lock.json\" -maxdepth 1 | xargs rm && npm run clean && npm run bootstrap && npm run build",
