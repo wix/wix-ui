@@ -13,20 +13,12 @@ import {popoverTestkitFactory} from '../../testkit';
 import styles from './Popover.st.css';
 
 describe('Popover', () => {
-  let wrapper;
-  
-  afterEach(() => {
-    if (wrapper) {
-      wrapper.unmount();
-    }
-  });
-
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
   const render = container.createLegacyRenderer(popoverDriverFactory);
 
   const renderWithEnzyme = (jsx, {attachTo} = {attachTo: container.node}) => {
-    wrapper = mount<PopoverProps,{}>(jsx, {attachTo});
+    const wrapper = mount<PopoverProps,{}>(jsx, {attachTo});
     const driver = popoverDriverFactory({
       element: wrapper.find(Popover).getDOMNode(),
       eventTrigger: null
@@ -83,18 +75,19 @@ describe('Popover', () => {
   });
 
   it('should animate given timeout', async () => {
-    const {driver} = renderWithEnzyme(createPopover({shown: true, timeout: 100}));
+    const {driver, wrapper} = renderWithEnzyme(createPopover({shown: true, timeout: 100}));
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeTruthy();
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
+    wrapper.unmount();
   });
 
   it('should not animate in case timeout is set to 0', async () => {
-    renderWithEnzyme(createPopover({shown: true, timeout: 0}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
+    const {driver, wrapper} = renderWithEnzyme(createPopover({shown: true, timeout: 0}));
     wrapper.setProps({shown: false});
     expect(driver.isContentElementExists()).toBeFalsy();
     expect(wrapper.text()).toBe('Element');
+    wrapper.unmount();
   });
 
   describe('appendTo', () => {
@@ -107,40 +100,44 @@ describe('Popover', () => {
     ) => {
       it('should append new div when initially open', () => {
         const prevChildren = getExpectedAppendToElement().children.length;
-        const {driver} = mountPopover({shown: true});
+        const {driver, wrapper} = mountPopover({shown: true});
         const g = getExpectedAppendToElement().children.length;
         expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
         expect(driver.getContentElement().parentElement).toBe(getExpectedContentParent());
+        wrapper.unmount();
       });
 
       it('should append new div when initially closed', () => {
         const prevChildren = getExpectedAppendToElement().children.length;
-        mountPopover({shown: false});
+        const {driver, wrapper} =mountPopover({shown: false});
         expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
+        wrapper.unmount();
       });
 
       it('should attach styles to content parent when initially open', () => {
-        mountPopover({shown: true});
-        expect(getExpectedContentParent().className).toBe(styles.root);
+        const {wrapper} = mountPopover({shown: true});
+        expect(getExpectedContentParent().classList).toContain(styles.root);
+        wrapper.unmount();
       });
 
       it('should remove styles from content parent when closed', () => {
-        mountPopover({shown: true});
+        const {wrapper} = mountPopover({shown: true});
         wrapper.setProps({shown: false});
-        expect(getExpectedContentParent().className).not.toBe(styles.root);
+        expect(getExpectedContentParent().classList).not.toContain(styles.root);
+        wrapper.unmount();
       });
 
       it('should NOT attach styles to content parent when initially closed', () => {
-        mountPopover({shown: false});
+        const {wrapper} = mountPopover({shown: false});
         expect(getExpectedContentParent().className).not.toBe(styles.root);
+        wrapper.unmount();
       });
 
       it('should remove default div when unmounted', () => {
         const prevChildren = getExpectedAppendToElement().children.length;
-        mountPopover({shown: false});
+        const {wrapper} = mountPopover({shown: false});
         expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
         wrapper.unmount();
-        wrapper = null;
         expect(getExpectedAppendToElement().children.length).toBe(prevChildren);
       });
     };
