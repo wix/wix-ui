@@ -261,6 +261,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     this.appendToNode = getAppendToNode({appendTo, targetRef: this.targetRef});
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
+      this.portalNode.setAttribute('data-hook', 'popover-portal');
       this.appendToNode.appendChild(this.portalNode);
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);

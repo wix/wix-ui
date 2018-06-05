@@ -1,218 +1,211 @@
 import * as React from 'react';
-import {popoverDriverFactory} from './Popover.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {Popover, PopoverProps, AppendTo} from './';
-import {Boundary} from 'popper.js';
-import {mount, ReactWrapper} from 'enzyme';
+import {Simulate} from 'react-dom/test-utils';
+import {queryHook} from 'wix-ui-test-utils/dom';
+import {Popover, PopoverProps} from './';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
-import {popoverTestkitFactory as enzymePopoverTestkitFactory} from '../../testkit/enzyme';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {popoverTestkitFactory} from '../../testkit';
 import styles from './Popover.st.css';
 
+const popoverWithProps = (props: PopoverProps) => (
+  <Popover {...props}>
+    <Popover.Element>
+      <div>Element</div>
+    </Popover.Element>
+    <Popover.Content>
+      <div>Content</div>
+    </Popover.Content>
+  </Popover>
+);
+
+// Since Popover.Content can render outside the component's root, let's query
+// the entire document with the assumption that we don't render more than one
+// popover at a time.
+const queryPopoverElement = () => queryHook<HTMLElement>(document, 'popover-element');
+const queryPopoverContent = () => queryHook<HTMLElement>(document, 'popover-content');
+const queryPopoverArrow   = () => queryHook<HTMLElement>(document, 'popover-arrow');
+const queryPopoverPortal  = () => queryHook<HTMLElement>(document, 'popover-portal');
+
 describe('Popover', () => {
-  let wrapper;
+  describe('Display', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+
+    it(`doesn't display popup by default`, async () => {
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: false
+      }));
   
-  afterEach(() => {
-    if (wrapper) {
-      wrapper.unmount();
-    }
+      expect(queryPopoverElement()).toBeTruthy();
+      expect(queryPopoverContent()).toBeNull();
+    });
+
+    it(`displays popup when shown={true}`, async () => {
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true
+      }));
+      
+      expect(queryPopoverContent()).toBeTruthy();
+    });
   });
 
-  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+  describe('Events', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
 
-  const render = container.createLegacyRenderer(popoverDriverFactory);
+    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
+      const onMouseEnter = jest.fn();
+      const onMouseLeave = jest.fn();
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: false,
+        onMouseEnter,
+        onMouseLeave,
+      }));
 
-  const renderWithEnzyme = (jsx, {attachTo} = {attachTo: container.node}) => {
-    wrapper = mount<PopoverProps,{}>(jsx, {attachTo});
-    const driver = popoverDriverFactory({
-      element: wrapper.find(Popover).getDOMNode(),
-      eventTrigger: null
+      Simulate.mouseEnter(container.componentNode);
+      Simulate.mouseLeave(container.componentNode);
+      expect(onMouseEnter).toBeCalled();
+      expect(onMouseLeave).toBeCalled();
     });
-    return {wrapper, driver};
-  };
+  });
 
-  const createPopover = (props: Partial<PopoverProps> = {}) => (
-    <Popover placement="top" showArrow shown={false} {...props}>
-      <Popover.Element>
-        <div>
-          Element
+  describe('Position', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+
+    it(`offsets the arrow by specified amount`, async () => {
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        showArrow: true,
+        moveArrowTo: 10
+      }));
+
+      expect(queryPopoverArrow().style.left).toBe('10px');
+    });
+  });
+
+  describe('Animation', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+
+    it(`animates on close given a timeout`, async () => {
+      await container.render(popoverWithProps(
+        {placement: 'bottom', shown: true, timeout: 10}
+      ));
+  
+      await container.render(popoverWithProps(
+        {placement: 'bottom', shown: false, timeout: 10}
+      ));
+  
+      expect(queryPopoverContent()).toBeTruthy();
+      await eventually(() => {
+        expect(queryPopoverContent()).toBeNull();
+      }, {interval: 1});
+    });
+  
+    it(`doesn't animate on close when timeout={0}`, async () => {
+      await container.render(popoverWithProps(
+        {placement: 'bottom', shown: true, timeout: 0}
+      ));
+  
+      await container.render(popoverWithProps(
+        {placement: 'bottom', shown: false, timeout: 0}
+      ));
+  
+      expect(queryPopoverContent()).toBeNull();
+    });
+  });
+
+  describe('Portal', () => {
+    const popoverContainer = new ReactDOMTestContainer().destroyAfterEachTest();
+    const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
+
+    it(`by default renders the popup directly into the Popover root`, async() => {
+      await popoverContainer.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true
+      }));
+  
+      expect(queryPopoverContent().parentElement).toBe(popoverContainer.componentNode);
+    });
+
+    it(`if a container is provided, renders the popup into a portal inside of that container`, async() => {
+      await popoverContainer.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        appendTo: portalContainer.node
+      }));
+
+      expect(queryPopoverContent().parentElement).toBe(queryPopoverPortal());
+      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
+      expect(queryPopoverPortal().classList).toContain(styles.root);
+    });
+
+    it(`if the popup is hidden, renders the portal without a popup`, async() => {
+      await popoverContainer.render(popoverWithProps({
+        placement: 'bottom',
+        shown: false,
+        appendTo: portalContainer.node
+      }));
+
+      expect(queryPopoverContent()).toBeNull();
+      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
+      expect(queryPopoverPortal().classList).not.toContain(styles.root);
+    });
+
+    it(`removes the portal on unmount`, async() => {
+      await popoverContainer.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        appendTo: portalContainer.node
+      }));
+
+      expect(queryPopoverPortal()).toBeTruthy();
+      expect(portalContainer.node.firstChild).toBe(queryPopoverPortal());
+      popoverContainer.unmount();
+      expect(portalContainer.node.firstChild).toBeNull();
+    });
+  });
+
+  describe('Containment Boundaries', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+
+    it(`appendTo="window" adds the portal to the body`, async () => {
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        appendTo: 'window',
+        shown: true
+      }));
+
+      expect(queryPopoverPortal().parentElement).toBe(document.body);
+    });
+
+    it(`appendTo="scrollParent" adds the portal to the closest scrollable element`, async () => {
+      await container.render(
+        <div style={{overflow: 'scroll'}}>
+          <div style={{overflow: 'visible'}}>
+            {popoverWithProps({
+              placement: 'bottom',
+              appendTo: 'scrollParent',
+              shown: true
+            })}
+          </div>
         </div>
-      </Popover.Element>
-      <Popover.Content>
-        <div>
-          Content
-        </div>
-      </Popover.Content>
-    </Popover>
-  );
+      );
 
-  it('should not display content by default', () => {
-    const driver = render(createPopover());
-    expect(driver.isContentElementExists()).toBeFalsy();
-    expect(driver.isTargetElementExists()).toBeTruthy();
-  });
-
-  it('should display content when shown is true', () => {
-    const driver = render(createPopover({shown: true}));
-    expect(driver.isContentElementExists()).toBeTruthy();
-    expect(driver.isTargetElementExists()).toBeTruthy();
-  });
-
-  it('should call mouse enter callback', () => {
-    const onMouseEnter = jest.fn();
-    const driver = render(createPopover({onMouseEnter}));
-    driver.mouseEnter();
-    expect(onMouseEnter).toBeCalled();
-  });
-
-  it('should call mouse leave callback', () => {
-    const onMouseLeave = jest.fn();
-    const driver = render(createPopover({onMouseLeave}));
-    driver.mouseLeave();
-    expect(onMouseLeave).toBeCalled();
-  });
-
-  it('moves arrow according to provided offset', () => {
-    const driver = render(createPopover({shown: true, moveArrowTo: 10}));
-    expect(driver.isTargetElementExists()).toBeTruthy();
-    const arrowLeft = driver.getArrowOffset().left;
-    expect(arrowLeft).toEqual('10px');
-  });
-
-  it('should animate given timeout', async () => {
-    const {driver} = renderWithEnzyme(createPopover({shown: true, timeout: 100}));
-    wrapper.setProps({shown: false});
-    expect(driver.isContentElementExists()).toBeTruthy();
-    await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
-  });
-
-  it('should not animate in case timeout is set to 0', async () => {
-    renderWithEnzyme(createPopover({shown: true, timeout: 0}));
-    const driver = popoverDriverFactory({element: wrapper.children().at(0).getDOMNode(), eventTrigger: null});
-    wrapper.setProps({shown: false});
-    expect(driver.isContentElementExists()).toBeFalsy();
-    expect(wrapper.text()).toBe('Element');
-  });
-
-  describe('appendTo', () => {
-
-    const runAppendToTests = (
-      appendTo: AppendTo,
-      getExpectedAppendToElement: () => Element,
-      getExpectedContentParent: () => Element,
-      mountPopover: (props: Partial<PopoverProps>) => {wrapper: ReactWrapper<PopoverProps,{}>, driver}
-    ) => {
-      it('should append new div when initially open', () => {
-        const prevChildren = getExpectedAppendToElement().children.length;
-        const {driver} = mountPopover({shown: true});
-        const g = getExpectedAppendToElement().children.length;
-        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
-        expect(driver.getContentElement().parentElement).toBe(getExpectedContentParent());
-      });
-
-      it('should append new div when initially closed', () => {
-        const prevChildren = getExpectedAppendToElement().children.length;
-        mountPopover({shown: false});
-        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
-      });
-
-      it('should attach styles to content parent when initially open', () => {
-        mountPopover({shown: true});
-        expect(getExpectedContentParent().className).toBe(styles.root);
-      });
-
-      it('should remove styles from content parent when closed', () => {
-        mountPopover({shown: true});
-        wrapper.setProps({shown: false});
-        expect(getExpectedContentParent().className).not.toBe(styles.root);
-      });
-
-      it('should NOT attach styles to content parent when initially closed', () => {
-        mountPopover({shown: false});
-        expect(getExpectedContentParent().className).not.toBe(styles.root);
-      });
-
-      it('should remove default div when unmounted', () => {
-        const prevChildren = getExpectedAppendToElement().children.length;
-        mountPopover({shown: false});
-        expect(getExpectedAppendToElement().children.length).toBe(prevChildren + 1);
-        wrapper.unmount();
-        wrapper = null;
-        expect(getExpectedAppendToElement().children.length).toBe(prevChildren);
-      });
-    };
-
-    describe('window & viewport :', () => {
-      const boundaryValues: Boundary[] = ['window'];//, 'viewport'];
-      boundaryValues.forEach(boundary => {
-        describe(boundary, () => {
-          const appendTo = boundary;
-          let popoverContainer: HTMLElement;
-          const getExpectedAppendToElement = () => document.body;
-          const getExpectedContentParent = () => document.body.children[1];
-          const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
-          
-          beforeEach(() => {
-            popoverContainer = document.createElement('div');
-            container.node.appendChild(popoverContainer);
-          });
-
-          runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
-        });
-      });
+      expect(queryPopoverPortal().parentElement).toBe(container.componentNode);
     });
 
-    describe('scrollParent', () => {
-      const appendTo = 'scrollParent';
-      let popoverContainer: HTMLElement;
-      let scrollContainer: HTMLElement;
-      const getExpectedAppendToElement = () => scrollContainer;
-      const getExpectedContentParent = () => scrollContainer.children[1];
-      const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
+    it(`appendTo={element} adds the portal to the specified element`, async () => {
+      const portalContainer = new ReactDOMTestContainer().create();
 
-      beforeEach(() => {
-        popoverContainer = document.createElement('div');
-        scrollContainer = document.createElement('div');
-        scrollContainer.style.overflow ='auto';
-        scrollContainer.appendChild(popoverContainer);
-        container.node.appendChild(scrollContainer);
-      });
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        appendTo: portalContainer.node,
+        shown: true
+      }));
 
-      runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
-    });
-
-    describe('node', () => {
-      let appendTo: HTMLElement;
-      let popoverContainer: HTMLElement;
-      const getExpectedAppendToElement = () => popoverContainer;
-      const getExpectedContentParent = () => appendTo.children[0];
-      const mountPopover = (props: Partial<PopoverProps>) => renderWithEnzyme(createPopover({...props, appendTo}), {attachTo: popoverContainer});
-
-      beforeEach(() => {
-        popoverContainer = document.createElement('div');
-        container.node.appendChild(popoverContainer);
-
-        appendTo = document.createElement('div');
-        container.node.appendChild(appendTo);
-      });
-
-      runAppendToTests(appendTo, getExpectedAppendToElement, getExpectedContentParent, mountPopover);
+      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
+      portalContainer.destroy();
     });
   });
-
-  describe('testkit', () => {
-    it('should exist', () => {
-      expect(isTestkitExists(createPopover(), popoverTestkitFactory)).toBe(true);
-    });
-  });
-
-  describe('enzyme testkit', () => {
-    it('should exist', () => {
-      expect(isEnzymeTestkitExists(createPopover(), enzymePopoverTestkitFactory, mount)).toBe(true);
-    });
-  });
-
 });
