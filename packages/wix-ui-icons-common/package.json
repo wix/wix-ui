@@ -45,8 +45,8 @@
     "protractor": "^5.3.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "svg2react-icon": "^2.0.0",
     "typescript": "~2.8.3",
+    "svg2react-icon": "^3.0.1",
     "wix-storybook-utils": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^1.2.0"
