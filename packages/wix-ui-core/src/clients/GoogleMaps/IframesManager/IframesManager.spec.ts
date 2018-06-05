@@ -3,7 +3,11 @@ import {getIframes, getIframeWithLangAndApiKey, isIframeVisible} from '../Iframe
 let iframesManager: IframesManager;
 
 class IframeManagerWithHTTPStub extends IframesManager {
-  populateIframe() { return; }
+  // Override the method that injects scripts into the iframe, because we
+  // don't want to fetch HTTP resources over the network in the tests.
+  populateIframe() {
+    return;
+  }
 }
 
 describe('IframesManager', () => {
