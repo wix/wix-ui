@@ -29,7 +29,7 @@ describe('Popover', () => {
   const container = new ReactDOMTestContainer().destroyAfterEachTest();
 
   describe('Display', () => {
-    it(`doesn't display popup by default`, async () => {
+    it(`doesn't display popup when shown={false}`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         shown: false
@@ -68,7 +68,7 @@ describe('Popover', () => {
   });
 
   describe('Position', () => {
-    it(`offsets the arrow by specified amount`, async () => {
+    it(`offsets the popup arrow by specified amount`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -109,10 +109,10 @@ describe('Popover', () => {
     });
   });
 
-  describe('Portal', () => {
+  describe('Portal and containment', () => {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
-    it(`by default renders the popup directly into the Popover root`, async() => {
+    it(`renders the popup directly into the popover root by default`, async() => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true
@@ -121,7 +121,7 @@ describe('Popover', () => {
       expect(queryPopoverContent().parentElement).toBe(container.componentNode);
     });
 
-    it(`if a container is provided, renders the popup into a portal inside of that container`, async() => {
+    it(`renders the popup into a portal when given appendTo prop`, async() => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -133,7 +133,7 @@ describe('Popover', () => {
       expect(queryPopoverPortal().classList).toContain(styles.root);
     });
 
-    it(`if the popup is hidden, renders the portal without a popup`, async() => {
+    it(`renders an empty portal when closed`, async() => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         shown: false,
@@ -156,14 +156,12 @@ describe('Popover', () => {
       container.unmount();
       expect(queryPopoverPortal()).toBeNull();
     });
-  });
 
-  describe('Containment Boundaries', () => {
     it(`adds the portal to the body when appendTo="window"`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
-        appendTo: 'window',
-        shown: true
+        shown: true,
+        appendTo: 'window'
       }));
 
       expect(queryPopoverPortal().parentElement).toBe(document.body);
@@ -182,19 +180,17 @@ describe('Popover', () => {
         </div>
       );
 
-      expect(queryPopoverPortal().parentElement).toBe(container.componentNode);
+      expect(queryPopoverPortal().parentElement).toBe(container.node.firstChild);
     });
 
     it(`adds the portal to the specified element when appendTo={element}`, async () => {
-      const portalContainer = new ReactDOMTestContainer().create();
       await container.render(popoverWithProps({
         placement: 'bottom',
-        appendTo: portalContainer.node,
-        shown: true
+        shown: true,
+        appendTo: portalContainer.node
       }));
 
       expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-      portalContainer.destroy();
     });
   });
 });
