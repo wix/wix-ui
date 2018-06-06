@@ -19,8 +19,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index",
-    "test": "build-storybook",
+    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index && build-storybook",
+    "test": "yoshi test --protractor",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
     "release": "yoshi release && teamcity-surge-autorelease --dist=storybook-static",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
@@ -31,19 +31,24 @@
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
     "storybook": "start-storybook -p 6006",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "pr-release": "teamcity-surge-autorelease --dist=storybook-static"
+    "pr-postbuild": "teamcity-surge-autorelease --dist=storybook-static"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.3.15",
     "@storybook/react": "^3.3.15",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^8.9.1",
     "@types/react": "^16.3.5",
+    "eyes.it": "^1.0.0",
     "fs-extra": "^5.0.0",
     "prop-types": "^15.6.0",
+    "protractor": "^5.3.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "svg2react-icon": "^2.0.0",
     "typescript": "~2.8.3",
     "wix-storybook-utils": "^1.0.0",
+    "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^1.2.0"
   },
   "optionalDependencies": {

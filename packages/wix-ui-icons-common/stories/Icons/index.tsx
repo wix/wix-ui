@@ -5,7 +5,7 @@ import * as generalIcons from '../../src/general';
 import * as systemIcons from '../../src/system';
 
 const IconList = ({icons}) => (
-  <div className={style.iconList}>
+  <div data-hook="icons-list" className={style.iconList}>
     {Object.keys(icons).map(iconName =>
       <div key={iconName} className={style.iconWithName}>
         {React.createElement(icons[iconName], {className: style.icon})}
