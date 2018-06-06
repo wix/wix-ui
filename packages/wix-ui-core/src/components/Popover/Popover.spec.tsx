@@ -182,15 +182,5 @@ describe('Popover', () => {
 
       expect(queryPopoverPortal().parentElement).toBe(container.node.firstChild);
     });
-
-    it(`adds the portal to the specified element when appendTo={element}`, async () => {
-      await container.render(popoverWithProps({
-        placement: 'bottom',
-        shown: true,
-        appendTo: portalContainer.node
-      }));
-
-      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-    });
   });
 });
