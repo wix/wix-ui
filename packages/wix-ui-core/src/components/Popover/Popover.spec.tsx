@@ -26,9 +26,9 @@ const queryPopoverArrow   = () => queryHook<HTMLElement>(document, 'popover-arro
 const queryPopoverPortal  = () => queryHook<HTMLElement>(document, 'popover-portal');
 
 describe('Popover', () => {
-  describe('Display', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+  const container = new ReactDOMTestContainer().destroyAfterEachTest();
 
+  describe('Display', () => {
     it(`doesn't display popup by default`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
@@ -50,8 +50,6 @@ describe('Popover', () => {
   });
 
   describe('Events', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
-
     it(`calls mouseEnter and mouseLeave callbacks`, async () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
@@ -70,8 +68,6 @@ describe('Popover', () => {
   });
 
   describe('Position', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
-
     it(`offsets the arrow by specified amount`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
@@ -85,8 +81,6 @@ describe('Popover', () => {
   });
 
   describe('Animation', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
-
     it(`animates on close given a timeout`, async () => {
       await container.render(popoverWithProps(
         {placement: 'bottom', shown: true, timeout: 10}
@@ -116,20 +110,19 @@ describe('Popover', () => {
   });
 
   describe('Portal', () => {
-    const popoverContainer = new ReactDOMTestContainer().destroyAfterEachTest();
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
     it(`by default renders the popup directly into the Popover root`, async() => {
-      await popoverContainer.render(popoverWithProps({
+      await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true
       }));
   
-      expect(queryPopoverContent().parentElement).toBe(popoverContainer.componentNode);
+      expect(queryPopoverContent().parentElement).toBe(container.componentNode);
     });
 
     it(`if a container is provided, renders the popup into a portal inside of that container`, async() => {
-      await popoverContainer.render(popoverWithProps({
+      await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: portalContainer.node
@@ -141,7 +134,7 @@ describe('Popover', () => {
     });
 
     it(`if the popup is hidden, renders the portal without a popup`, async() => {
-      await popoverContainer.render(popoverWithProps({
+      await container.render(popoverWithProps({
         placement: 'bottom',
         shown: false,
         appendTo: portalContainer.node
@@ -153,23 +146,20 @@ describe('Popover', () => {
     });
 
     it(`removes the portal on unmount`, async() => {
-      await popoverContainer.render(popoverWithProps({
+      await container.render(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: portalContainer.node
       }));
 
       expect(queryPopoverPortal()).toBeTruthy();
-      expect(portalContainer.node.firstChild).toBe(queryPopoverPortal());
-      popoverContainer.unmount();
-      expect(portalContainer.node.firstChild).toBeNull();
+      container.unmount();
+      expect(queryPopoverPortal()).toBeNull();
     });
   });
 
   describe('Containment Boundaries', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
-
-    it(`appendTo="window" adds the portal to the body`, async () => {
+    it(`adds the portal to the body when appendTo="window"`, async () => {
       await container.render(popoverWithProps({
         placement: 'bottom',
         appendTo: 'window',
@@ -179,7 +169,7 @@ describe('Popover', () => {
       expect(queryPopoverPortal().parentElement).toBe(document.body);
     });
 
-    it(`appendTo="scrollParent" adds the portal to the closest scrollable element`, async () => {
+    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
       await container.render(
         <div style={{overflow: 'scroll'}}>
           <div style={{overflow: 'visible'}}>
@@ -195,9 +185,8 @@ describe('Popover', () => {
       expect(queryPopoverPortal().parentElement).toBe(container.componentNode);
     });
 
-    it(`appendTo={element} adds the portal to the specified element`, async () => {
+    it(`adds the portal to the specified element when appendTo={element}`, async () => {
       const portalContainer = new ReactDOMTestContainer().create();
-
       await container.render(popoverWithProps({
         placement: 'bottom',
         appendTo: portalContainer.node,
