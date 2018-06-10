@@ -1,7 +1,6 @@
 {
   "devDependencies": {
-    "lerna": "^2.8.0",
-    "surge-github-autorelease": "^1.0.23"
+    "lerna": "^2.8.0"
   },
   "name": "wix-ui",
   "version": "1.0.0",
