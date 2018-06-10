@@ -22,7 +22,7 @@
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index && build-storybook",
     "test": "yoshi test --protractor",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
-    "release": "yoshi release && teamcity-surge-autorelease --dist=storybook-static",
+    "release": "yoshi release && teamcity-surge-autorelease@^1.0.0",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
     "buildGeneralIcons": "svg2react-icon --typescript --monochrome src/general/raw src/general/dist",
     "buildSystemIcons": "svg2react-icon --typescript --monochrome  src/system/raw src/system/dist",
@@ -31,7 +31,7 @@
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
     "storybook": "start-storybook -p 6006",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "pr-postbuild": "teamcity-surge-autorelease --dist=storybook-static"
+    "pr-postbuild": "teamcity-surge-autorelease@^1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.3.15",
@@ -50,8 +50,5 @@
     "wix-storybook-utils": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^1.2.0"
-  },
-  "optionalDependencies": {
-    "teamcity-surge-autorelease": "^1.0.7"
   }
 }
