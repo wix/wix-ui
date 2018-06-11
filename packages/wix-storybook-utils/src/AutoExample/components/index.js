@@ -27,10 +27,6 @@ Wrapper.propTypes = {
 
 const Options = ({children}) =>
   <Col span={6}>
-    <div className={styles.title}>
-      <Heading appearance="H2">Props</Heading>
-    </div>
-
     {children}
   </Col>;
 
