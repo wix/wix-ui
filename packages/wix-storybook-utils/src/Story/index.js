@@ -110,7 +110,7 @@ function Story(props) {
           const tabs = [
             'Usage',
             'API',
-            ...(actualReadmeTestKit ? ['Testkit'] : []),
+            ...(actualReadmeTestKit || testkitSource ? ['Testkit'] : []),
             ...(actualReadmeAccessibility ? ['Accessibility'] : [])
           ];
 
