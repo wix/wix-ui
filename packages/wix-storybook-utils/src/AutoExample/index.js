@@ -16,6 +16,8 @@ import {
   List
 } from './components';
 
+import SectionCollapse from './components/section-collapse';
+
 const stripQuotes = string => {
   const quoted = string.match(/^['"](.*?)['"]$/);
   return quoted ? quoted[1] : string;
@@ -290,20 +292,19 @@ export default class extends Component {
     return (
       <Wrapper dataHook="auto-example">
         <Options>
-          { Object
-              .entries(this.parsedComponent.props)
-              .map(([key, prop]) =>
-                <Option
-                  key={key}
-                  {...{
-                    label: key,
-                    value: componentProps[key],
-                    defaultValue: this.props.componentProps[key],
-                    isRequired: prop.required || false,
-                    onChange: value => this.setProp(key, value),
-                    children: this.getPropControlComponent(key, prop.type)
-                  }}
-                  />
+          { this.getPropsCategories().map(category =>
+            <SectionCollapse
+              key={category.title}
+              title={category.title}
+              isOpen={category.isOpen || false}
+              >
+              { this.renderPropControllers({
+                dataHook: category.name,
+                props: category.props,
+                allProps: componentProps // TODO: ideally this should not be here
+              })
+              }
+            </SectionCollapse>
           ) }
         </Options>
 
