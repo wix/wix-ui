@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.scss';
 import componentParser from '../AutoDocs/parser';
 import NO_VALUE_TYPE from './no-value-type';
+import categorizeProps from './categorize-props.js';
 
 import {
   Wrapper,
@@ -32,6 +33,15 @@ const matchFuncProp = typeName =>
 
 const ensureRegexp = a =>
   a instanceof RegExp ? a : new RegExp(a);
+
+const propCategoryMatchers = {
+  // aria- props
+  accessibility: name =>
+    name.toLowerCase().startsWith('aria'),
+
+  events: name =>
+    name.toLowerCase().startsWith('on')
+};
 
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
@@ -159,6 +169,7 @@ export default class extends Component {
     };
 
     this._initialPropsState = this.state.propsState;
+    this.categorizedProps = categorizeProps(this.parsedComponent.props, propCategoryMatchers);
   }
 
   resetState = () =>
@@ -247,6 +258,42 @@ export default class extends Component {
       propControllerCandidate.controller({propKey, type}) :
       <Input/>;
   }
+
+  renderPropControllers = ({dataHook, props, allProps}) =>
+    Object
+      .entries(props)
+      .map(([key, prop]) =>
+        <Option
+          key={key}
+          data-hook={dataHook}
+          {...{
+            label: key,
+            value: allProps[key],
+            defaultValue: this.props.componentProps[key],
+            isRequired: prop.required || false,
+            onChange: value => this.setProp(key, value),
+            children: this.getPropControlComponent(key, prop.type)
+          }}
+          />
+      )
+
+  getPropsCategories = () => [
+    {
+      title: 'Component Props',
+      props: this.categorizedProps.other,
+      isOpen: true
+    },
+
+    {
+      title: 'Callback Props',
+      props: this.categorizedProps.events
+    },
+
+    {
+      title: 'Accessibility Props',
+      props: this.categorizedProps.accessibility
+    }
+  ]
 
   render() {
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(

@@ -18,21 +18,41 @@ class Driver {
 }
 
 describe('AutoExample', () => {
-  it('should have two options', () => {
-    const driver = new Driver();
-    driver.when.created({
-      parsedSource: {
-        displayName: 'TestComponent',
-        props: {
-          stringProp: {type: {name: 'string'}},
-          functionProp: {type: {name: 'func'}}
+  describe('options list', () => {
+    it('should display two options', () => {
+      const driver = new Driver();
+      driver.when.created({
+        parsedSource: {
+          displayName: 'TestComponent',
+          props: {
+            stringProp: {type: {name: 'string'}},
+            functionProp: {type: {name: 'func'}}
+          }
         }
-      }
-    });
-    const [prop1, prop2] = driver.get.options();
+      });
+      const [prop1, prop2] = driver.get.options();
 
-    expect(prop1.props.label).toBe('stringProp');
-    expect(prop2.props.label).toBe('functionProp');
+      expect(prop1.props.label).toBe('stringProp');
+      expect(prop2.props.label).toBe('functionProp');
+    });
+
+    it('should categorize aria props', () => {
+      const driver = new Driver();
+      driver.when.created({
+        parsedSource: {
+          displayName: 'TestComponent',
+          props: {
+            'aria-label': {type: {name: 'string'}},
+            'Aria-required': {type: {name: 'string'}},
+            ariaDisabled: {type: {name: 'string'}},
+            'anything-else': {type: {name: 'string'}}
+          }
+        }
+      });
+
+      // expeting only 1 because others should be collapsed
+      expect(driver.get.options().length).toEqual(1);
+    });
   });
 
   describe('exampleProps', () => {
