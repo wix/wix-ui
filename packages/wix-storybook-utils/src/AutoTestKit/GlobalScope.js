@@ -1,5 +1,5 @@
 const Scope = require('./Scope');
-const parse = require('recast').parse;
+const parse = require('../Parser').parse;
 
 class GlobalScope extends Scope {
   constructor(globalScope, files) {
