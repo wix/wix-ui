@@ -307,19 +307,22 @@ export default class extends Component {
     return (
       <Wrapper dataHook="auto-example">
         <Options>
-          { this.getPropsCategories().map(category =>
-            <SectionCollapse
-              key={category.title}
-              title={category.title}
-              isOpen={category.isOpen || false}
-              >
-              { this.renderPropControllers({
-                dataHook: category.name,
-                props: category.props,
-                allProps: componentProps // TODO: ideally this should not be here
-              })
-              }
-            </SectionCollapse>
+          { this
+              .getPropsCategories()
+              .filter(({props}) => props)
+              .map(category =>
+                <SectionCollapse
+                  key={category.title}
+                  title={category.title}
+                  isOpen={category.isOpen || false}
+                  >
+                  { this.renderPropControllers({
+                    dataHook: category.name,
+                    props: category.props,
+                    allProps: componentProps // TODO: ideally this should not be here
+                  })
+                  }
+                </SectionCollapse>
           ) }
         </Options>
 

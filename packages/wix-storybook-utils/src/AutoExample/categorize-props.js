@@ -25,8 +25,8 @@ const categorizeProps = (props = {}, matchers = {}) => {
           };
         },
 
-        // initial value, just to ensure object shape
-        Object.keys(allMatchers).reduce((acc, key) => ({...acc, [key]: {}}), {})
+        // initial value, ensuring there's always `other`
+        {other: {}}
       );
 
   return categorized;

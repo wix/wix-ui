@@ -43,5 +43,24 @@ describe('categorizeProps', () => {
         }
       });
     });
+
+    it('should return object including only existing categories', () => {
+      const props = {
+        // 1. this do not include any aria nor event properties
+        something: 'else'
+      };
+
+      const matchers = {
+        accessibility: name => name.startsWith('aria'),
+        events: name => name.startsWith('on')
+      };
+
+      expect(categorizeProps(props, matchers)).toEqual({
+        // 2. this should not include events nor accessibility properties
+        other: {
+          something: 'else'
+        }
+      });
+    });
   });
 });
