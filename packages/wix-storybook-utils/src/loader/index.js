@@ -22,7 +22,7 @@ module.exports = function (source) {
     // 3. merge component metadata with storybook config
     .then(metadataMerger(source))
 
-    // 4. import and wrap with `storyNew` function
+    // 4. import and wrap with `story` function
     .then(prepareStory(storyConfig))
 
     // 5. succeed with augmented source

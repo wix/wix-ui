@@ -9,7 +9,7 @@ import CodeBlock from '../CodeBlock';
 import AutoExample from '../AutoExample';
 import AutoDocs from '../AutoDocs';
 
-import styles from '../Story/styles.scss';
+import styles from './styles.scss';
 
 const tabs = metadata =>
   [
