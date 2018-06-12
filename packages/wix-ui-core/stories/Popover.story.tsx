@@ -2,6 +2,23 @@ import * as React from 'react';
 import {Popover, PopoverProps} from '../src/components/Popover';
 import {Option} from '../src/baseComponents/DropdownOption';
 
+export const placementValues = [
+  'auto-start',
+  'auto',
+  'auto-end',
+  'top-start',
+  'top',
+  'top-end',
+  'right-start',
+  'right',
+  'right-end',
+  'bottom-end',
+  'bottom',
+  'bottom-start',
+  'left-end',
+  'left',
+  'left-start'];
+
 // Click target to open close
 class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boolean}> {
   state = {shown: true};
@@ -27,7 +44,6 @@ class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boo
   }
 }
 
-
 export default {
   category: 'Components',
   storyName: 'Popover',
@@ -36,12 +52,15 @@ export default {
   componentProps: {
     'data-hook': 'storybook-popover',
     children: [
-      <Popover.Element key="1">element</Popover.Element>,
+      <Popover.Element key="1">This is the target element</Popover.Element>,
       <Popover.Content key="2">Content</Popover.Content>
     ],
     appendTo: null, // window, null, 'scrollParent', 'viewport'
     showArrow: true,
     timeout: 150
+  },
+  exampleProps: {
+    placement: placementValues
   },
   examples: (
     <div>
