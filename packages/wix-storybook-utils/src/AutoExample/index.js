@@ -100,6 +100,7 @@ export default class extends Component {
   }
 
   _initialPropsState = {};
+  _categorizedProps = [];
 
   constructor(props) {
     super(props);
@@ -118,7 +119,11 @@ export default class extends Component {
     };
 
     this._initialPropsState = this.state.propsState;
-    this.categorizedProps = categorizeProps(this.parsedComponent.props, propCategoryMatchers);
+
+    this._categorizedProps = Object
+      .entries(categorizeProps(this.parsedComponent.props, this.propsCategories))
+      .map(([, category]) => category)
+      .sort(({order: aOrder = -1}, {order: bOrder = -1}) => aOrder - bOrder);
   }
 
   resetState = () =>
@@ -208,41 +213,64 @@ export default class extends Component {
       <Input/>;
   }
 
-  renderPropControllers = ({dataHook, props, allProps}) =>
-    Object
+  renderPropControllers = ({props, allProps}) => {
+    return Object
       .entries(props)
       .map(([key, prop]) =>
         <Option
           key={key}
-          data-hook={dataHook}
           {...{
             label: key,
             value: allProps[key],
-            defaultValue: this.props.componentProps[key],
+            defaultValue: typeof this.props.componentProps === 'function' ? undefined : this.props.componentProps[key],
             isRequired: prop.required || false,
             onChange: value => this.setProp(key, value),
             children: this.getPropControlComponent(key, prop.type)
           }}
           />
-      )
+      );
+  }
 
-  getPropsCategories = () => [
-    {
-      title: 'Component Props',
-      props: this.categorizedProps.other,
-      isOpen: true
-    },
-
-    {
+  propsCategories = {
+    events: {
       title: 'Callback Props',
-      props: this.categorizedProps.events
+      order: 1,
+      matcher: name =>
+        name.toLowerCase().startsWith('on')
     },
 
-    {
+    other: {
+      title: 'Misc. Props',
+      order: 2,
+      matcher: name =>
+        name.toLowerCase().startsWith('data')
+    },
+
+    html: {
+      title: 'HTML Props',
+      order: 3,
+      matcher: name =>
+        HTMLPropsList.some(i => name === i)
+    },
+
+    accessibility: {
       title: 'Accessibility Props',
-      props: this.categorizedProps.accessibility
+      order: 4,
+      matcher: name =>
+        name.toLowerCase().startsWith('aria')
+    },
+
+    primary: {
+      title: 'Primary Props',
+      order: 0,
+      isOpen: true,
+      matcher: name =>
+        Object
+          .keys(this.state.propsState)
+          .filter(name => !name.startsWith('on'))
+          .some(propName => propName === name)
     }
-  ]
+  }
 
   render() {
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
@@ -271,7 +299,7 @@ export default class extends Component {
     };
 
     const codeProps = {
-      ...this.state.propsState,
+      ...omit(this.state.propsState, key => key.startsWith('data')),
       ...(
         functionExampleProps
           .reduce((acc, key) => {
@@ -289,22 +317,20 @@ export default class extends Component {
       <Wrapper dataHook="auto-example">
         <Options>
           { this
-              .getPropsCategories()
-              .filter(({props}) => props)
-              .map(category =>
-                <SectionCollapse
-                  key={category.title}
-                  title={category.title}
-                  isOpen={category.isOpen || false}
-                  >
-                  { this.renderPropControllers({
-                    dataHook: category.name,
-                    props: category.props,
+              ._categorizedProps
+              .reduce((components, {title, isOpen, props}) => {
+                const renderablePropControllers = this
+                  .renderPropControllers({
+                    props,
                     allProps: componentProps // TODO: ideally this should not be here
                   })
-                  }
-                </SectionCollapse>
-          ) }
+                  .filter(({props: {children}}) => children);
+
+                return renderablePropControllers.length ?
+                  components.concat(React.createElement(SectionCollapse, {key: title, title, isOpen, children: renderablePropControllers})) :
+                  components;
+              }, [])
+           }
         </Options>
 
         <Preview

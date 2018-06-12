@@ -28,6 +28,9 @@ describe('AutoExample', () => {
             stringProp: {type: {name: 'string'}},
             functionProp: {type: {name: 'func'}}
           }
+        },
+        exampleProps: {
+          functionProp: () => ''
         }
       });
       const [prop1, prop2] = driver.get.options();
