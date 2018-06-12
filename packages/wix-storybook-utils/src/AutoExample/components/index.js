@@ -89,7 +89,7 @@ Preview.propTypes = {
 
 const Toggle = ({value, onChange, ...props}) =>
   <ToggleSwitch
-    size="medium"
+    size="large"
     checked={value}
     onChange={({target: {checked}}) => onChange(checked)}
     {...props}

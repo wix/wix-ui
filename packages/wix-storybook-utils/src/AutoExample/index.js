@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 import NO_VALUE_TYPE from './no-value-type';
-import categorizeProps from './categorize-props.js';
+import categorizeProps from './categorize-props';
 
 import {
   Wrapper,
@@ -15,32 +15,13 @@ import {
   Input,
   List
 } from './components';
-
 import SectionCollapse from './components/section-collapse';
 
-const stripQuotes = string => {
-  const quoted = string.match(/^['"](.*?)['"]$/);
-  return quoted ? quoted[1] : string;
-};
-
-const matchFuncProp = typeName =>
-  [
-    /^func/i,
-    /event/,
-    /\) => void$/
-  ].some(needle => typeName.match(needle));
-
-const ensureRegexp = a =>
-  a instanceof RegExp ? a : new RegExp(a);
-
-const propCategoryMatchers = {
-  // aria- props
-  accessibility: name =>
-    name.toLowerCase().startsWith('aria'),
-
-  events: name =>
-    name.toLowerCase().startsWith('on')
-};
+import matchFuncProp from './utils/match-func-prop';
+import stripQuotes from './utils/strip-quotes';
+import omit from './utils/omit';
+import ensureRegexp from './utils/ensure-regexp';
+import HTMLPropsList from './utils/html-props-list';
 
 /**
   * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference

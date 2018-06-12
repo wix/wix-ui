@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Collapse from 'react-collapse';
-import Text from 'wix-style-react/Text';
+import Heading from 'wix-style-react/Heading';
 
 import styles from './styles.scss';
 
@@ -37,9 +37,9 @@ export default class PropsCollapse extends React.Component {
           onClick={this.toggleCollapse}
           className={styles.head}
           >
-          <Text appearance="H2">
+          <Heading appearance="H2">
             {this.props.title}
-          </Text>
+          </Heading>
 
           <div className={styles.headSub}>
             { this.state.isOpen ? 'Hide' : 'Expand' }
