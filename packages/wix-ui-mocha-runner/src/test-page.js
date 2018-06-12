@@ -31,7 +31,9 @@ window.jest = require('jest-mock');
 require('mocha/mocha.css');
 require('mocha/mocha.js');
 
-require('./mocha-prettier.css');
+if (!__HEADLESS__) {
+  require('./mocha-prettier.css');
+}
 
 mocha.setup({
   ui: 'bdd',
@@ -45,10 +47,19 @@ mocha.setup({
 window.beforeAll = window.before;
 window.afterAll = window.after;
 
+// This needs to be accessible by Puppeteer.
+
+window.mochaStatus = {
+  numCompletedTests: 0,
+  numFailedTests: 0,
+  finished: false
+};
+
 // Start Mocha in the next tick because we haven't yet included the test files.
-// When __MOCHA_RESULT__ gets defined it's a signal to Puppeteer that the test
-// suite has completed.
 
 setTimeout(() => {
-  mocha.run(failures => window.__MOCHA_RESULT__ = failures);
+  mocha.run()
+    .on('test end', () => window.mochaStatus.numCompletedTests++)
+    .on('fail',     () => window.mochaStatus.numFailedTests++)
+    .on('end',      () => window.mochaStatus.finished = true);
 }, 0);

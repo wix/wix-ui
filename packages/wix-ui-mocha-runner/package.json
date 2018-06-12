@@ -19,6 +19,7 @@
     "wix-ui-mocha-runner": "bin/runner.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
     "puppeteer": "1.3.0",
@@ -28,6 +29,6 @@
     "ts-loader": "^4.3.0",
     "typescript": "~2.8.3",
     "webpack": "^4.9.1",
-    "webpack-serve": "^1.0.2"
+    "webpack-serve": "^1.0.4"
   }
 }

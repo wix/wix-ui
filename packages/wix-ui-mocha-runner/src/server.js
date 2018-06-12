@@ -1,29 +1,38 @@
 const path = require('path');
 const readline = require('readline');
 const glob = require('glob');
+const chalk = require('chalk');
 const webpack = require('webpack');
 const serve = require('webpack-serve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StylableWebpackPlugin = require('stylable-webpack-plugin');
-const runHeadless = require('./run-headless');
+const runTestsInPuppeteer = require('./run-headless');
 
-const headless = process.argv.some(arg => arg === '--headless');
+const watchMode = process.argv.some(arg => arg === '--watch');
 const packageDir = path.resolve(__dirname, '..');
 const projectDir = process.cwd();
 const specDir = path.join(projectDir, 'src');
 const specPattern = '*.spec.ts?(x)';
 const specFiles = glob.sync(path.join(specDir, '**', specPattern));
 const serveDir = path.join(packageDir, 'public');
-const host = 'localhost';
+
+// Don't use 'localhost' because it can either mean IPv4 or IPv6 address. If
+// something is listening on the same port on ::1, then `testPageUrl` will be
+// ambiguous, and the browser will default to IPv6, and load the wrong page.
+const host = '127.0.0.1';
 const port = 7357;
 const testPageUrl = `http://${host}:${port}`;
 
+let webpackProgressLoggingEnabled = false;
+
 function webpackLogProgress(percentage) {
-  if (webpackLogProgress.enabled) {
+  if (webpackProgressLoggingEnabled) {
     readline.clearLine(process.stdout, 0);
     readline.cursorTo(process.stdout, 0);
     if (percentage < 1) {
       process.stdout.write(`Webpack... ${Math.round(100 * percentage)}%`);
+    } else {
+      process.stdout.write(`Ready`);
     }
   }
 }
@@ -46,7 +55,7 @@ const webpackConfig = {
     }),
     new webpack.DefinePlugin({
       '__REACT_DEVTOOLS_GLOBAL_HOOK__': '({isDisabled: true})',
-      '__HEADLESS__': headless
+      '__HEADLESS__': !watchMode
     }),
     new webpack.ProgressPlugin(webpackLogProgress)
   ],
@@ -84,22 +93,88 @@ const webpackServeConfig = {
   host,
   port,
   content: serveDir,
-  hot: headless ? false : {hot: false, reload: true, logLevel: 'info'},
+  hot: watchMode ? {
+    hot: false,
+    reload: true,
+    logLevel: 'warn'
+  } : false,
   clipboard: false,
-  logLevel: headless ? 'warn' : 'info',
+  logLevel: 'warn',
   dev: {
     logLevel: 'warn'
   }
 };
 
-serve(webpackServeConfig).then(server => {
-  server.on('listening', () => {
-    webpackLogProgress.enabled = true;
-    if (headless) {
-      runHeadless(testPageUrl).then(failures => {
-        server.close();
-        process.exitCode = failures ? 1 : 0;
-      });
-    }
+function waitForServerListening(server) {
+  return new Promise((resolve, reject) => {
+    server.on('listening', ({options}) => {
+      // The authors of webpack-serve decided it would be cute to silently
+      // switch to a random port if the one we requested is in use ಠ_ಠ
+      if (options.port === port) {
+        resolve();
+      } else {
+        reject(new Error(`Address ${host}:${port} is in use`));
+      }
+    });
   });
-});
+}
+
+function waitForCompilation(server) {
+  return new Promise((resolve, reject) => {
+    server.on('compiler-error', () => {
+      reject(new Error('Compilation failed'));
+    });
+
+    server.on('build-finished', () => {
+      resolve();
+    });
+  });
+}
+
+async function runAndQuit() {
+  let server;
+  try {
+    const server = await serve(webpackServeConfig);
+
+    server.on('build-started',  () => console.log('Webpack build started'));
+    server.on('build-finished', () => console.log('Webpack build finished'));
+
+    await Promise.all([
+      waitForServerListening(server),
+      waitForCompilation(server)
+    ]);
+
+    const numFailedTests = await runTestsInPuppeteer(testPageUrl);
+    process.exitCode = numFailedTests ? 1 : 0;
+    server.close();
+  } catch (error) {
+    process.exitCode = 1;
+    console.error(error);
+    server.close();
+  } finally {
+    // Terminate explicitly in case we have any dangling sockets or timers.
+    process.exit();
+  }
+}
+
+async function runInWatchMode() {
+  try {
+    console.log(`Starting on ${chalk.blue(testPageUrl)}`);
+    const server = await serve(webpackServeConfig);
+    server.on('compiler-error', () => server.close());
+    await waitForServerListening(server);
+
+    // Let's start logging only after the server is listening so we don't get
+    // the logger output mixed with the server output.
+    webpackProgressLoggingEnabled = true;
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+}
+
+if (watchMode) {
+  runInWatchMode();
+} else {
+  runAndQuit();
+}

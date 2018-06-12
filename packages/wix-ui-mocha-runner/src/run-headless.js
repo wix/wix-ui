@@ -1,28 +1,89 @@
 const puppeteer = require('puppeteer');
 
-const colorRed = '\x1b[31m';
-const colorReset = '\x1b[0m';
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-module.exports = async (url) => {
-  const browser = await puppeteer.launch({headless: true});
-  const [page] = await browser.pages();
-  await page.setViewport({
-    width: 800,
-    height: 600,
-    deviceScaleFactor: 1
+async function loadTestPage(page, testPageUrl, timeout) {
+  // This can keep the process from terminating for upto `timeout` if an error
+  // occurs on the page before page load event. But the problem should not occur
+  // in headless mode.
+  // Bug: https://github.com/GoogleChrome/puppeteer/issues/2721
+  await page.goto(testPageUrl, {timeout});
+
+  if (await page.evaluate(`typeof mochaStatus === 'undefined'`)) {
+    throw new Error(`Variable mochaStatus not found on ${testPageUrl}`);
+  }
+}
+
+async function waitForTestResults(page) {
+  await page.waitForFunction('mochaStatus.finished');
+  return page.evaluate('mochaStatus.numFailedTests');
+}
+
+async function failIfTestsStall(page, timeout) {
+  let numCompletedTests = 0;
+
+  while (true) {
+    await sleep(timeout);
+    const newVal = await page.evaluate('mochaStatus.numCompletedTests');
+    if (newVal > numCompletedTests) {
+      numCompletedTests = newVal;
+    } else {
+      throw new Error(`Tests are stuck for ${timeout}ms`);
+    }
+  }
+}
+
+function failOnPageError(page) {
+  return new Promise((_, reject) => {
+    // We don't need to handle `disconnected`, Puppeteer will throw anyway.
+
+    page.on('pageerror', errorText => {
+      reject(errorText);
+    });
+
+    page.on('error', () => {
+      reject(new Error('Page crashed'));
+    });
   });
-  page.on('console', async msg => {
-    const args = await Promise.all(msg.args().map(a => a.jsonValue()));
-    console.log(...args);
-  });
-  page.on('pageerror', err => {
-    console.error(colorRed + err + colorReset);
-    process.exit(1);
-  });
-  page.on('dialog', dialog => dialog.dismiss());
-  await page.goto(url);
-  await page.waitForFunction(() => '__MOCHA_RESULT__' in window);
-  const failures = await page.evaluate('window.__MOCHA_RESULT__');
-  await browser.close();
-  return failures;
+}
+
+module.exports = async (testPageUrl) => {
+  const loadTimeout = 20000;
+  const testTimeout = 5000;
+  const viewportWidth = 800;
+  const viewportHeight = 600;
+
+  let browser;
+  try {
+    browser = await puppeteer.launch({headless: true});
+    const page = await browser.newPage();
+    await page.setViewport({width: viewportWidth, height: viewportHeight});
+
+    page.on('dialog', dialog => {
+      dialog.dismiss();
+    });
+
+    page.on('console', async msg => {
+      const args = await Promise.all(msg.args().map(a => a.jsonValue()));
+      console.log(...args);
+    });
+
+    const numFailedTests = await Promise.race([
+      failOnPageError(page),
+      loadTestPage(page, testPageUrl, loadTimeout).then(() =>
+        Promise.race([
+          waitForTestResults(page),
+          failIfTestsStall(page, testTimeout)
+        ])
+      )
+    ]);
+
+    return numFailedTests;
+  } finally {
+    try {
+      await browser.close();
+    } catch (_) { }
+  }
 };
