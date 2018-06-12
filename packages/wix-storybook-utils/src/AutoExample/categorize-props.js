@@ -1,35 +1,30 @@
-const defaultMatchers = {
-  // fallthrough for props without specific category
-  other: () => true
-};
+const falsy = () => false;
 
-const categorizeProps = (props = {}, matchers = {}) => {
-  const allMatchers = {...matchers, ...defaultMatchers};
+const categorizeProps = (props = {}, categories = {}) =>
+  Object
+    .entries(props)
+    .reduce(
+      (result, [propName, prop]) => {
+        const [categoryName] =
+          Object
+            .entries(categories)
+            .find(([, {matcher = falsy}]) => matcher(propName, prop)) || ['primary'];
 
-  const categorized =
-    Object
-      .entries(props)
-      .reduce(
-        (categories, [propName, prop]) => {
-          const [categoryName = 'other'] =
-            Object
-              .entries(allMatchers)
-              .find(([, matcher]) => matcher(propName, prop));
+        const category = result[categoryName] || categories[categoryName] || {};
 
-          return {
-            ...categories,
-            [categoryName]: {
-              ...categories[categoryName],
+        return {
+          ...result,
+          [categoryName]: {
+            ...category,
+            props: {
+              ...(category.props || {}),
               [propName]: prop
             }
-          };
-        },
+          }
+        };
+      },
 
-        // initial value, ensuring there's always `other`
-        {other: {}}
-      );
-
-  return categorized;
-};
+      {}
+    );
 
 export default categorizeProps;
