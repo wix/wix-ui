@@ -96,11 +96,13 @@ export type PopoverType = PopoverProps & {
   Content?: React.SFC<ElementProps>;
 };
 
+// TODO: rename direction argument to placement
 const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift && !isTestEnv) {
     return {};
   }
 
+  // FIXME: check if durection contains 'top' not ==='top', in order to support 'top-end', etc...
   return {
     [direction === 'top' || direction === 'bottom' ? 'left' : 'top']: `${shift}px`
   };
