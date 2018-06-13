@@ -318,7 +318,7 @@ export default class extends Component {
         <Options>
           { this
               ._categorizedProps
-              .reduce((components, {title, isOpen, props}) => {
+              .reduce((components, {title, isOpen, props}, i) => {
                 const renderablePropControllers = this
                   .renderPropControllers({
                     props,
@@ -327,7 +327,15 @@ export default class extends Component {
                   .filter(({props: {children}}) => children);
 
                 return renderablePropControllers.length ?
-                  components.concat(React.createElement(SectionCollapse, {key: title, title, isOpen, children: renderablePropControllers})) :
+                  components.concat(React.createElement(
+                    SectionCollapse,
+                    {
+                      key: title,
+                      title,
+                      isOpen: isOpen || i === 0,
+                      children: renderablePropControllers
+                    }
+                  )) :
                   components;
               }, [])
            }
