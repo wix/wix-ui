@@ -1,13 +1,21 @@
 const falsy = () => false;
 
-const categorizeProps = (props = {}, categories = {}) =>
-  Object
+const categorizeProps = (props = {}, categories = {}) => {
+  const sortedCategories = Object
+    .entries(categories)
+    .sort((
+      [, {order: aOrder = -1}],
+      [, {order: bOrder = -1}]
+    ) =>
+      aOrder - bOrder
+    );
+
+  return Object
     .entries(props)
     .reduce(
       (result, [propName, prop]) => {
         const [categoryName] =
-          Object
-            .entries(categories)
+          sortedCategories
             .find(([, {matcher = falsy}]) => matcher(propName, prop)) || ['primary'];
 
         const category = result[categoryName] || categories[categoryName] || {};
@@ -26,5 +34,6 @@ const categorizeProps = (props = {}, categories = {}) =>
 
       {}
     );
+};
 
 export default categorizeProps;

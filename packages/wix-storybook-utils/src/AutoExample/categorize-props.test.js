@@ -91,5 +91,25 @@ describe('categorizeProps', () => {
         }
       });
     });
+
+    it('should categorize props in given order', () => {
+      const props = {
+        hello: 'is it me',
+        you: 'are looking for'
+      };
+
+      const matcher = () => true;
+
+      const categories = {
+        first: {order: 1, matcher},
+        realFirst: {order: 0, matcher}
+      };
+
+      expect(categorizeProps(props, categories)).toEqual({
+        realFirst: expect.objectContaining({
+          props: {hello: 'is it me', you: 'are looking for'}
+        })
+      });
+    });
   });
 });
