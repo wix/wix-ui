@@ -29,6 +29,9 @@ describe('AutoExample', () => {
             functionProp: {type: {name: 'func'}}
           }
         },
+        componentProps: {
+          stringProp: ''
+        },
         exampleProps: {
           functionProp: () => ''
         }
@@ -46,10 +49,13 @@ describe('AutoExample', () => {
           displayName: 'TestComponent',
           props: {
             'aria-label': {type: {name: 'string'}},
-            'Aria-required': {type: {name: 'string'}},
-            ariaDisabled: {type: {name: 'string'}},
+            'Aria-required': {type: {name: 'bool'}},
+            ariaDisabled: {type: {name: 'bool'}},
             'anything-else': {type: {name: 'string'}}
           }
+        },
+        componentProps: {
+          'anything-else': 'test'
         }
       });
 

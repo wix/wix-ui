@@ -106,11 +106,12 @@ export default class extends Component {
     super(props);
 
     this.parsedComponent = props.parsedSource;
+    this.preparedComponentProps = this.prepareComponentProps(this.props.componentProps);
 
     this.state = {
       propsState: {
         ...(this.props.component.defaultProps || {}),
-        ...(this.prepareComponentProps(this.props.componentProps))
+        ...this.preparedComponentProps
       },
       funcValues: {},
       funcAnimate: {},
@@ -232,6 +233,17 @@ export default class extends Component {
   }
 
   propsCategories = {
+    primary: {
+      title: 'Primary Props',
+      order: 0,
+      isOpen: true,
+      matcher: name =>
+        Object
+          .keys({...this.props.exampleProps, ...this.preparedComponentProps})
+          .filter(name => !name.startsWith('on'))
+          .some(propName => propName === name)
+    },
+
     events: {
       title: 'Callback Props',
       order: 1,
@@ -241,9 +253,8 @@ export default class extends Component {
 
     other: {
       title: 'Misc. Props',
-      order: 2,
-      matcher: name =>
-        name.toLowerCase().startsWith('data')
+      order: 5,
+      matcher: () => true
     },
 
     html: {
@@ -258,17 +269,6 @@ export default class extends Component {
       order: 4,
       matcher: name =>
         name.toLowerCase().startsWith('aria')
-    },
-
-    primary: {
-      title: 'Primary Props',
-      order: 0,
-      isOpen: true,
-      matcher: name =>
-        Object
-          .keys(this.state.propsState)
-          .filter(name => !name.startsWith('on'))
-          .some(propName => propName === name)
     }
   }
 
@@ -299,7 +299,7 @@ export default class extends Component {
     };
 
     const codeProps = {
-      ...omit(this.state.propsState, key => key.startsWith('data')),
+      ...omit(this.state.propsState)(key => key.startsWith('data')),
       ...(
         functionExampleProps
           .reduce((acc, key) => {
