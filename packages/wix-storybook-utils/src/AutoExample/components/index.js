@@ -100,15 +100,17 @@ Toggle.propTypes = {
   onChange: PropTypes.func
 };
 
-const Input = ({value, onChange, ...props}) =>
+const Input = ({value, onChange, defaultValue, ...props}) =>
   <WixInput
     value={value}
     onChange={({target: {value}}) => onChange(value)}
+    placeholder={defaultValue}
     {...props}
     />;
 
 Input.propTypes = {
   value: PropTypes.string,
+  defaultValue: PropTypes.string,
   onChange: PropTypes.func
 };
 
