@@ -181,7 +181,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   };
 
   getPopperContentStructure(childrenObject) {
-    const {appendTo, placement, showArrow, moveArrowTo} = this.props;
+    const {moveBy, appendTo, placement, showArrow, moveArrowTo} = this.props;
     const modifiers = createModifiers({moveBy, appendTo});
 
     let popper = (

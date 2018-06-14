@@ -5,10 +5,10 @@ import {Option} from '../src/baseComponents/DropdownOption';
 // Click target to open close
 class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boolean}> {
   state = {shown: true};
-  
+
   render() {
     const props: PopoverProps & {children?: any} = {
-      ...this.props, 
+      ...this.props,
       placement: 'right',
       showArrow: true,
       shown: this.state.shown,
@@ -71,6 +71,22 @@ export default {
             <li>item</li>
           </ul>
         </div>
+      </div>
+      <div>
+        <h2>moveBy={'{x:50, y:100}'}</h2>
+        <p>
+          <em>x</em> and <em>y</em> axis orientation is relative to the placement of the popover.<br/>
+          If the <em>placement</em> is <code>"top"</code> or <code>"bottom"</code>, <em>x</em> represents offset in the horizontal axis and <em>y</em> in the vertical axis.<br/>
+          If the <em>placement</em> is <code>"left"</code> or <code>"right"</code>, <em>x</em> represents offset in the vertical axis and <em>y</em> in the horizontal axis.
+        </p>
+        <Popover placement='left' shown={true} moveBy={{ x: 50, y: 100 }} showArrow={true}>
+          <Popover.Element>
+            <div style={{ height: '80px' }}>The element</div>
+          </Popover.Element>
+          <Popover.Content>
+            The content
+          </Popover.Content>
+        </Popover>
       </div>
     </div>
   )
