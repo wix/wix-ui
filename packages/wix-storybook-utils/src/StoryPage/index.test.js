@@ -68,8 +68,6 @@ describe('StoryPage', () => {
 
       expect(testkit.get.readme()).toMatch(/<well hello there\/>/);
       expect(testkit.get.import()).toMatch(/well hello there/);
-
-      expect(testkit.get.codeBlock()).toMatch(/<well hello there \/>/);
     });
   });
 });
