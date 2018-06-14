@@ -23,13 +23,14 @@ export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriv
   const stylableDOMUtil = new StylableDOMUtil(style);
   
   const getElement = dataHook => element.querySelector(`[data-hook="${dataHook}"]`)
-  const getProgressBarForegroundStyle = () => !element ? {} as any : window.getComputedStyle(getElement('progressbar-foreground'));
-  const getProgressBarBackgroundStyle = () => !element ? {} as any : window.getComputedStyle(getElement('progressbar-background'));
   const getValue = () => !element ? null : getElement('progress-percentages').querySelector('span').innerHTML;
 
   const driver = {
     exists: () => !!element,
-    getWidth: () => getProgressBarForegroundStyle().width,
+    getWidth: () => {
+      const el = getElement('progressbar-foreground') as HTMLElement;
+      return el ? el.style.width : '0';
+    },
     isSuccessIconDisplayed: () => !!getElement('success-icon'),
     isErrorIconDisplayed: () => !!getElement('error-icon'),
     isPercentagesProgressDisplayed: () => !!getElement('progress-percentages'),
