@@ -352,7 +352,6 @@ export default class extends Component {
         <Code
           dataHook="metadata-codeblock"
           component={React.createElement(this.props.component, codeProps)}
-          displayName={this.parsedComponent.displayName}
           />
       </Wrapper>
     );

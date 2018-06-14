@@ -5,11 +5,10 @@ import CodeBlock from '../CodeBlock';
 
 import functionToString from './function-to-string';
 
-const componentToJSX = ({component, displayName}) =>
+const componentToJSX = component =>
   reactElementToJSXString(
     component,
     {
-      displayName: () => displayName,
       showDefaultProps: false,
       showFunctions: false,
       functionValue: functionToString
@@ -19,12 +18,11 @@ const componentToJSX = ({component, displayName}) =>
 /**
   * given react component, render a source example
   */
-const ComponentSource = props =>
-  <CodeBlock source={componentToJSX(props)}/>;
+const ComponentSource = ({component}) =>
+  <CodeBlock source={componentToJSX(component)}/>;
 
 ComponentSource.propTypes = {
-  component: PropTypes.node.isRequired,
-  displayName: PropTypes.string
+  component: PropTypes.node.isRequired
 };
 
 export default ComponentSource;

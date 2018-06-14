@@ -114,18 +114,17 @@ Input.propTypes = {
   onChange: PropTypes.func
 };
 
-const Code = ({component, displayName}) =>
+const Code = ({component}) =>
   <Col span={12}>
     <div className={styles.title}>
       <Heading appearance="H2">Code</Heading>
     </div>
 
-    <ComponentSource {...{component, displayName}}/>
+    <ComponentSource component={component}/>
   </Col>;
 
 Code.propTypes = {
-  component: PropTypes.node.isRequired,
-  displayName: PropTypes.string.isRequired
+  component: PropTypes.node.isRequired
 };
 
 export {
