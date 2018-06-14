@@ -26,7 +26,7 @@
     "test": "npm run test:unit && npm run test:e2e",
     "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
-    "test:unit": "yoshi test --jest",
+    "test:unit": "yoshi test --jest --karma",
     "test:e2e": "yoshi test --protractor",
     "lint": "yoshi lint",
     "yoshi-start": "yoshi start --no-test",
@@ -37,7 +37,7 @@
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "test:browser": "wix-ui-mocha-runner"
+    "test:browser": "yoshi test --karma"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -88,7 +88,6 @@
     "wix-eventually": "latest",
     "wix-storybook-utils": "^1.0.0",
     "wix-ui-icons-common": "^1.0.0",
-    "wix-ui-mocha-runner": "^0.1.0",
     "yoshi": "^2.7.0"
   },
   "license": "MIT",
