@@ -8,6 +8,10 @@ export default {
   componentPath: './component.js',
 
   componentProps: {
+    // test should be visible even though it's not part of component propTypes
+    test: 'im a test',
+
+    enabled: true,
     bigFunction(argument1, argument2, ...rest) {
       const text = `${argument1} with ${argument2} are good friends`;
 
@@ -19,7 +23,6 @@ export default {
   },
 
   exampleProps: {
-    onClick: () => 'hai',
-    enabled: [true, false]
+    onClick: () => 'hai'
   }
 };

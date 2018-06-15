@@ -122,7 +122,7 @@ export default class extends Component {
     this._initialPropsState = this.state.propsState;
 
     this._categorizedProps = Object
-      .entries(categorizeProps(this.parsedComponent.props, this.propsCategories))
+      .entries(categorizeProps({...this.preparedComponentProps, ...this.parsedComponent.props}, this.propsCategories))
       .map(([, category]) => category)
       .sort(({order: aOrder = -1}, {order: bOrder = -1}) => aOrder - bOrder);
   }
@@ -199,7 +199,7 @@ export default class extends Component {
     }
   ]
 
-  getPropControlComponent = (propKey, type) => {
+  getPropControlComponent = (propKey, type = {}) => {
     if (!matchFuncProp(type.name) && this.props.exampleProps[propKey]) {
       return <List values={this.props.exampleProps[propKey]}/>;
     }
