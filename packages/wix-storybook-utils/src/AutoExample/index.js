@@ -238,9 +238,12 @@ export default class extends Component {
       order: 0,
       isOpen: true,
       matcher: name =>
+        // primary props are all those set in componentProps and exampleProps
+        // except for callback (starts with `on`) and data attributes (starts
+        // with `data`, including data-hook or dataHook)
         Object
           .keys({...this.props.exampleProps, ...this.preparedComponentProps})
-          .filter(name => !name.startsWith('on'))
+          .filter(name => !['on', 'data'].some(i => name.startsWith(i)))
           .some(propName => propName === name)
     },
 
@@ -249,12 +252,6 @@ export default class extends Component {
       order: 1,
       matcher: name =>
         name.toLowerCase().startsWith('on')
-    },
-
-    other: {
-      title: 'Misc. Props',
-      order: 5,
-      matcher: () => true
     },
 
     html: {
@@ -269,6 +266,13 @@ export default class extends Component {
       order: 4,
       matcher: name =>
         name.toLowerCase().startsWith('aria')
+    },
+
+    other: {
+      // miscellaneous props are everything that doesn't fit in other categories
+      title: 'Misc. Props',
+      order: 5,
+      matcher: () => true
     }
   }
 
