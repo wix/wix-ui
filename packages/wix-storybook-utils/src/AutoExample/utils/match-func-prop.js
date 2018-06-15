@@ -1,6 +1,6 @@
-export default haystack =>
+export default (string = '') =>
   [
     /^func/i,
     /event/,
     /\) => void$/
-  ].some(needle => haystack.match(needle));
+  ].some(needle => string.match(needle));
