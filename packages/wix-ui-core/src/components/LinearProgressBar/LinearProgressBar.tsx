@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {bool, element, number} from 'prop-types';
+import {bool, element, oneOf, number, string} from 'prop-types';
 import style from './LinearProgressBar.st.css';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
-  value: number;
+  value: number | string;
   /** should be true if had failure during the progress */
   error?: boolean;
   /** when set to true, an indication of the progress state will be presented along side the progress bar */
@@ -33,7 +33,7 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
   return wrapped('progress-percentages', <span className={style.value} >{`${props.value}%`}</span>);
 }
 
-const renderBarSection = (value: number) => {
+const renderBarSection = (value: number | string) => {
   const progressWidth = { width: `${value}%` };
   return (
     <div className={style.barContainer}>
@@ -75,7 +75,7 @@ export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (props: Line
 }
 
 LinearProgressBar.propTypes = {
-  value: number,
+  value: oneOf([number, string]),
   error: bool,
   showProgressIndication: bool,
   errorIcon: element,
