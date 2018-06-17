@@ -81,3 +81,7 @@ LinearProgressBar.propTypes = {
   errorIcon: element,
   successIcon: element,
 }
+
+LinearProgressBar.defaultProps = {
+  value: 0,
+}
