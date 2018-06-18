@@ -18,8 +18,9 @@ export interface CircularProgressBarProps {
 
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
-const FULL_PROGRESS_ANGLE = 360;
+const FULL_PROGRESS_ANGLE = 359;
 const NO_PROGRESS_ANGLE = 0;
+const DEFAULT_SIZE = 54;
 
 const resolveIndicationElement = (props: CircularProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) =>
@@ -37,14 +38,11 @@ const resolveIndicationElement = (props: CircularProgressBarProps) => {
 }
 
 const renderBarSection = (value: number | string) => {
-  // const progressWidth = { width: `${value}%` };
   const normalizedValue = typeof value === 'number' ? value : parseInt(value, 10);
   return (
-    <div className={style.arcsContainer}>
-      {/* <div data-hook="progressbar-background" className={style.barBackground} />
-      <div data-hook="progressbar-foreground" style={progressWidth} className={style.barForeground} /> */}
-      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={30} />
-      <Arc angle={normalizedValue} className={style.foreArc} strokeWidth={4} viewBoxSize={30} />
+    <div className={style.arcsContainer} style={{width: `${DEFAULT_SIZE}px`, height: `${DEFAULT_SIZE}px`}}>
+      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
+      <Arc angle={normalizedValue} className={style.foreArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
     </div>
   )
 }
@@ -69,14 +67,11 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
   const success = _props.value === FULL_PROGRESS;
 
   return (
-    <div {...style('root', {error, success}, _props)} >
-
+    <div {...style('root', {error, success}, _props)}>
       {renderBarSection(_props.value)}
-
       {showProgressIndication && <div data-hook="progress-indicator" className={style.progressIndicationSection}>
         {resolveIndicationElement(_props)}
       </div>}
-
     </div>);
 }
 
