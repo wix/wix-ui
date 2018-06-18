@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, element, oneOf, number, string} from 'prop-types';
+import {bool, element, oneOfType, number, string} from 'prop-types';
 import style from './LinearProgressBar.st.css';
 
 export interface LinearProgressBarProps {
@@ -75,7 +75,7 @@ export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (props: Line
 }
 
 LinearProgressBar.propTypes = {
-  value: oneOf([number, string]),
+  value: oneOfType([number, string]),
   error: bool,
   showProgressIndication: bool,
   errorIcon: element,
