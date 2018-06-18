@@ -18,6 +18,7 @@ import './AddressInput/E2E';
 import './Autocomplete.story';
 import './Button.story';
 Components.add('Checkbox', () => <CheckboxStory/>);
+import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory/>);
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>);
 import './Input/Input.story';

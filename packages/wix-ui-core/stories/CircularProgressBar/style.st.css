@@ -1,0 +1,34 @@
+:import {
+  -st-from: "../../src/components/CircularProgressBar/CircularProgressBar.st.css";
+  -st-default: CircularProgressBar;
+}
+
+:import {
+  -st-from: "../../src/components/CircularProgressBar/CircularProgressBar.st.css";
+  -st-named: barBackground, barForeground;
+}
+
+.root {
+  -st-extends: CircularProgressBar;
+}
+
+.barForeground, .barBackground {
+  height: 4px;
+  border-radius: 2px;
+}
+
+.barBackground {
+  background: rgb(227, 228, 227);
+}
+
+.barForeground {
+  background: rgb(0, 0, 0);
+}
+
+.root:error::barForeground {
+  background: rgb(223, 61, 61);
+}
+
+.root:error::barBackground {
+  background: rgb(231, 182, 182);
+}
