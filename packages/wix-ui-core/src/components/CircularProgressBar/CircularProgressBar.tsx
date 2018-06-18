@@ -18,7 +18,7 @@ export interface CircularProgressBarProps {
 
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
-const FULL_PROGRESS_ANGLE = 359;
+const FULL_PROGRESS_ANGLE = 359.9;
 const NO_PROGRESS_ANGLE = 0;
 const DEFAULT_SIZE = 54;
 
@@ -39,10 +39,11 @@ const resolveIndicationElement = (props: CircularProgressBarProps) => {
 
 const renderBarSection = (value: number | string) => {
   const normalizedValue = typeof value === 'number' ? value : parseInt(value, 10);
+  const angleValue = (normalizedValue * 3.6) - 0.1;
   return (
     <div className={style.arcsContainer} style={{width: `${DEFAULT_SIZE}px`, height: `${DEFAULT_SIZE}px`}}>
       <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
-      <Arc angle={normalizedValue} className={style.foreArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
+      <Arc angle={angleValue} className={style.foreArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
     </div>
   )
 }
