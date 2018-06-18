@@ -1,11 +1,13 @@
 .root {
   -st-states: error, success;
   width: 100%;
-  display: flex;
+  /* display: flex; */
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.progressIndicationSection {
+/* .progressIndicationSection {
   position: relative;
   height: 100%;
   float: left;
@@ -13,15 +15,15 @@
   justify-content: center;
   align-items: center;
   padding-left: 18px;
-}
+} */
 
-.barContainer {
+.arcsContainer {
   width: 100%;
   position: relative;
   height: 100%;
 }
 
-.barBackground, .barForeground{
+/* .barBackground, .barForeground{
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
@@ -29,6 +31,24 @@
 
 .barBackground {
   width: 100%;
+} */
+.foreArc,
+.backArc {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.indicationContainer {}
+.backArc {
+  stroke: black;
+}
+
+.foreArc {
+  stroke: blueviolet;
+}
+
+/* .indicationContainer {} */

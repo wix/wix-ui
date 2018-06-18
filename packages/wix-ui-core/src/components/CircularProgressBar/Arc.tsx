@@ -26,7 +26,7 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
 }
 
 export interface ArcProps {
-  angle: string;
+  angle: number;
   className: string;
   strokeWidth: number;
   viewBoxSize: number;

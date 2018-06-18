@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {bool, element, oneOfType, number, string} from 'prop-types';
 import style from './CircularProgressBar.st.css';
+import Arc from './Arc';
 
 export interface CircularProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -17,6 +18,8 @@ export interface CircularProgressBarProps {
 
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
+const FULL_PROGRESS_ANGLE = 360;
+const NO_PROGRESS_ANGLE = 0;
 
 const resolveIndicationElement = (props: CircularProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) =>
@@ -34,11 +37,14 @@ const resolveIndicationElement = (props: CircularProgressBarProps) => {
 }
 
 const renderBarSection = (value: number | string) => {
-  const progressWidth = { width: `${value}%` };
+  // const progressWidth = { width: `${value}%` };
+  const normalizedValue = typeof value === 'number' ? value : parseInt(value, 10);
   return (
-    <div className={style.barContainer}>
-      <div data-hook="progressbar-background" className={style.barBackground} />
-      <div data-hook="progressbar-foreground" style={progressWidth} className={style.barForeground} />
+    <div className={style.arcsContainer}>
+      {/* <div data-hook="progressbar-background" className={style.barBackground} />
+      <div data-hook="progressbar-foreground" style={progressWidth} className={style.barForeground} /> */}
+      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={30} />
+      <Arc angle={normalizedValue} className={style.foreArc} strokeWidth={4} viewBoxSize={30} />
     </div>
   )
 }
