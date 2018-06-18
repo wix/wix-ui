@@ -4,7 +4,7 @@ import style from './LinearProgressBar.st.css';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
-  value: number | string;
+  value?: number | string;
   /** should be true if had failure during the progress */
   error?: boolean;
   /** when set to true, an indication of the progress state will be presented along side the progress bar */

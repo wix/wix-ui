@@ -85,6 +85,11 @@ describe('ProgressBar', () => {
       expect(driver.getValue()).toBe('0%');
     })
 
+    it('should show percentages value of 0 when not passing a value', () => {
+      driver = createDriver(<LinearProgressBar {...{ showProgressIndication: true}} />);
+      expect(driver.getValue()).toBe('0%');
+    })
+
     it('should show value in percentages rounded down', () => {
       const floatValue = 3.9;
       const floatValueRoundDown = Math.floor(floatValue);
