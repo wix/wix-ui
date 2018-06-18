@@ -51,6 +51,15 @@ export const linearProgressBarTestkitFactory = testkitFactoryCreator<LinearProgr
 export { LinearProgressBarDriver };
 
 import {
+  circularProgressBarDriverFactory,
+  CircularProgressBarDriver
+} from "../components/CircularProgressBar/CircularProgressBar.driver";
+export const circularProgressBarTestkitFactory = testkitFactoryCreator<CircularProgressBarDriver>(
+  circularProgressBarDriverFactory
+);
+export { CircularProgressBarDriver };
+
+import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver
 } from "../components/StylableBadge/Badge.driver";

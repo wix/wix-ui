@@ -41,6 +41,10 @@ import {linearProgressBarDriverFactory, LinearProgressBarDriver} from '../compon
 export const linearProgressBarTestkitFactory = protractorTestkitFactoryCreator(linearProgressBarDriverFactory);
 export {LinearProgressBarDriver};
 
+import {circularProgressBarDriverFactory, CircularProgressBarDriver} from '../components/CircularProgressBar/CircularProgressBar.protractor.driver';
+export const circularProgressBarTestkitFactory = protractorTestkitFactoryCreator(circularProgressBarDriverFactory);
+export {CircularProgressBarDriver};
+
 //Stylable
 import {radioButtonDriverFactory, RadioButtonDriver} from '../components/RadioButton/RadioButton.protractor.driver';
 export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(radioButtonDriverFactory);

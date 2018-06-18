@@ -25,6 +25,12 @@ export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<Linea
 );
 export { LinearProgressBarDriver };
 
+import { circularProgressBarDriverFactory, CircularProgressBarDriver } from "../components/CircularProgressBar/CircularProgressBar.driver";
+export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<CircularProgressBarDriver>(
+  circularProgressBarDriverFactory
+);
+export { CircularProgressBarDriver };
+
 import { paginationDriverFactory } from "../components/Pagination/Pagination.driver";
 export const paginationTestkitFactory = enzymeTestkitFactoryCreator(
   paginationDriverFactory
