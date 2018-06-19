@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const serve = require('webpack-serve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StylableWebpackPlugin = require('stylable-webpack-plugin');
-const runTestsInPuppeteer = require('./run-headless');
+const runTestsInPuppeteer = require('./run-in-puppeteer');
 
 const watchMode = process.argv.some(arg => arg === '--watch');
 const packageDir = path.resolve(__dirname, '..');
@@ -63,8 +63,21 @@ const webpackConfig = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              // wix-ui-core emits TypeScript errors related to Protractor
+              // during transpilation if wix-ui-test-utils is a linked
+              // dependency. Yoshi ts-loader config silences those errors,
+              // which allows the project to compile. Let's do the same here
+              // to get this thing up and running, and fix the repo in the
+              // distant future.
+              happyPackMode: true
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
