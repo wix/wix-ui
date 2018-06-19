@@ -12,16 +12,16 @@
   -st-extends: LinearProgressBar;
 }
 
-.barForeground, .barBackground {
+.root::barForeground, .root::barBackground {
   height: 4px;
   border-radius: 2px;
 }
 
-.barBackground {
+.root::barBackground {
   background: rgb(227, 228, 227);
 }
 
-.barForeground {
+.root::barForeground {
   background: rgb(0, 0, 0);
 }
 
