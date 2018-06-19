@@ -3,8 +3,6 @@ import { StylableDOMUtil } from 'stylable/test-utils';
 import style from './CircularProgressBar.st.css';
 
 export interface CircularProgressBarDriver extends BaseDriver {
-  /** Get the width of the foreground bar (the progress) */
-  getWidth: () => string;
   /** Returns boolean that indicates if the success icon exists */
   isSuccessIconDisplayed: () => boolean;
   /** Returns boolean that indicates if the error icon exists */
@@ -21,16 +19,12 @@ export interface CircularProgressBarDriver extends BaseDriver {
 
 export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBarDriver> = ({ element }: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
-  
+
   const getElement = dataHook => element.querySelector(`[data-hook="${dataHook}"]`)
   const getValue = () => !element ? null : getElement('progress-percentages').querySelector('span').innerHTML;
 
   const driver = {
     exists: () => !!element,
-    getWidth: () => {
-      const el = getElement('progressbar-foreground') as HTMLElement;
-      return el ? el.style.width : '0';
-    },
     isSuccessIconDisplayed: () => !!getElement('success-icon'),
     isErrorIconDisplayed: () => !!getElement('error-icon'),
     isPercentagesProgressDisplayed: () => !!getElement('progress-percentages'),

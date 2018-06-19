@@ -27,20 +27,28 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
 
 export interface ArcProps {
   angle: number;
+  value?: number;
   className: string;
   strokeWidth: number;
   viewBoxSize: number;
 }
 
 const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
-	const {angle, className, strokeWidth, viewBoxSize} = props;
+	const {angle, value, className, strokeWidth, viewBoxSize} = props;
   const d = describeArc(0, 0, (viewBoxSize - strokeWidth) / 2, 0, angle);
   const viewBox = `-${viewBoxSize / 2} -${viewBoxSize / 2} ${viewBoxSize} ${viewBoxSize}`;
+  const dataProps = value ? {
+    'data-value': value,
+    'data-hook': 'progressarc-foreground',
+  } : {
+    'data-hook': 'progressarc-background',
+  };
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={viewBox}
       className={className}
+      {...dataProps}
     >
       <path
         strokeWidth={strokeWidth}
@@ -52,6 +60,7 @@ const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
 
 Arc.propTypes = {
   angle: PropTypes.number,
+  value: PropTypes.number,
   className: PropTypes.string,
   strokeWidth: PropTypes.number,
   viewBoxSize: PropTypes.number

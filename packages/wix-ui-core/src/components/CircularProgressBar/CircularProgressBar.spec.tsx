@@ -21,24 +21,19 @@ describe('CircularProgressBar', () => {
     expect(driver.exists()).toBe(true);
   })
 
-  it(`should set the foreground progress bar layer to ${defaultProps.value}%`, () => {
-    const driver = createDriver(<CircularProgressBar {...defaultProps} />);
-    expect(driver.getWidth()).toBe(`${defaultProps.value}%`);
+  it('should show success icon when reaching 100%', () => {
+    const driver = createDriver(<CircularProgressBar {...{ ...defaultProps, value: 100, successIcon: <div /> }} />);
+    expect(driver.isSuccessIconDisplayed()).toBe(true);
   })
 
-  it('should not show success icon when reaching 100%', () => {
-    const driver = createDriver(<CircularProgressBar {...{ ...defaultProps, value: 100 }} />);
-    expect(driver.isSuccessIconDisplayed()).toBe(false);
-  })
-
-  it('should not show percentages value while in progress', () => {
+  it('should not show percentages value when showProgressIndication is false', () => {
     const driver = createDriver(<CircularProgressBar {...{ ...defaultProps, value: 50 }} />);
     expect(driver.isPercentagesProgressDisplayed()).toBe(false);
   })
 
-  it('should not show error icon while in progress', () => {
-    const driver = createDriver(<CircularProgressBar {...{ ...defaultProps, error: true }} />);
-    expect(driver.isErrorIconDisplayed()).toBe(false);
+  it('should show error icon on failure', () => {
+    const driver = createDriver(<CircularProgressBar {...{ ...defaultProps, error: true, errorIcon: <div /> }} />);
+    expect(driver.isErrorIconDisplayed()).toBe(true);
   })
 
   describe('when with progress indication', () => {
@@ -49,30 +44,39 @@ describe('CircularProgressBar', () => {
       props = { ...defaultProps, showProgressIndication: true };
     });
 
-    it('should show success icon when reaching 100%', () => {
-      driver = createDriver(<CircularProgressBar {...{ ...props, value: 100, successIcon: <div /> }} />);
-      expect(driver.isSuccessIconDisplayed()).toBe(true);
-    })
-
     it('should show success icon when reaching 100% and value passed as string', () => {
       driver = createDriver(<CircularProgressBar {...{ ...props, value: '100' as any, successIcon: <div /> }} />);
       expect(driver.isSuccessIconDisplayed()).toBe(true);
     })
 
-    it('should show percentages value when reaching 100% and success icon not provided', () => {
-      driver = createDriver(<CircularProgressBar {...{ ...props, value: 100 }} />);
+    it('should show success icon and percentage when reaching 100%', () => {
+      driver = createDriver(<CircularProgressBar {...{ ...props, value: 100, successIcon: <div /> }} />);
+      expect(driver.isSuccessIconDisplayed()).toBe(true);
       expect(driver.getValue()).toBe('100%');
     })
 
-    it('should show error icon on failure', () => {
-      driver = createDriver(<CircularProgressBar {...{ ...props, error: true, errorIcon: <div /> }} />);
-      expect(driver.isErrorIconDisplayed()).toBe(true);
-    })
-
-    it('should show percentages value when error icon not provided', () => {
+    it('should show percentage when error label and icon are not provided', () => {
       driver = createDriver(<CircularProgressBar {...{ ...props, value: 33, error: true, errorIcon: null }} />);
       expect(driver.isErrorIconDisplayed()).toBe(false);
       expect(driver.getValue()).toBe('33%');
+    })
+
+    it('should show errorLabel when error icon is not provided', () => {
+      driver = createDriver(<CircularProgressBar {...{ ...props, value: 33, error: true, errorLabel: 'Failed', errorIcon: null }} />);
+      expect(driver.isErrorIconDisplayed()).toBe(false);
+      expect(driver.getValue()).toBe('Failed');
+    })
+
+    it('should show error icon and percentage when encountering an error without an errorLabel', () => {
+      driver = createDriver(<CircularProgressBar {...{ ...props, value: 100, error: true, errorIcon: <div /> }} />);
+      expect(driver.isErrorIconDisplayed()).toBe(true);
+      expect(driver.getValue()).toBe('100%');
+    })
+
+    it('should show error icon and errorLabel when encountering an error', () => {
+      driver = createDriver(<CircularProgressBar {...{ ...props, value: 100, error: true, errorLabel: 'Failed', errorIcon: <div /> }} />);
+      expect(driver.isErrorIconDisplayed()).toBe(true);
+      expect(driver.getValue()).toBe('Failed');
     })
 
     it('should show percentages value while in progress', () => {
@@ -80,7 +84,7 @@ describe('CircularProgressBar', () => {
       expect(driver.getValue()).toBe('50%');
     })
 
-    it('should show percentages value of 0 when passing value lesser than 0', () => {
+    it('should show percentages value of 0 when passing value below 0', () => {
       driver = createDriver(<CircularProgressBar {...{ ...props, value: -1 }} />);
       expect(driver.getValue()).toBe('0%');
     })

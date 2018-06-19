@@ -5,30 +5,30 @@
 
 :import {
   -st-from: "../../src/components/CircularProgressBar/CircularProgressBar.st.css";
-  -st-named: barBackground, barForeground;
+  -st-named: progressIndicator, statusIndicator, foreArc, backArc;
 }
 
 .root {
   -st-extends: CircularProgressBar;
 }
 
-.barForeground, .barBackground {
-  height: 4px;
-  border-radius: 2px;
+.root::statusIndicator, .root::progressIndicator {
+  color: rgb(50,83,106);
 }
 
-.barBackground {
-  background: rgb(227, 228, 227);
+.root::backArc {
+  stroke: rgb(193,228,254);
 }
 
-.barForeground {
-  background: rgb(0, 0, 0);
+.root::foreArc {
+  stroke: rgb(43,129,203);
 }
 
-.root:error::barForeground {
-  background: rgb(223, 61, 61);
+.root:error::backArc {
+  stroke: rgb(231, 182, 182);
 }
 
-.root:error::barBackground {
-  background: rgb(231, 182, 182);
+.root:error::foreArc {
+  stroke: rgb(223, 61, 61);
 }
+

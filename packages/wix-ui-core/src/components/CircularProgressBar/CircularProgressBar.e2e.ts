@@ -22,7 +22,7 @@ describe('CircularProgressBar', () => {
     return autoExampleDriver.reset();
   });
 
-  eyes.it('should progress as value increase', async () => {
+  eyes.it('should progress as value increases', async () => {
     const expectedProgress = 90;
 
     await autoExampleDriver.setProps({value: expectedProgress});

@@ -6,14 +6,27 @@
   align-items: center;
 }
 
-.progressIndicationSection {
+.progressIndicator {
   position: relative;
   height: 100%;
-  float: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 18px;
+  margin-top: 18px;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.statusIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.indicationIconContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .arcsContainer {
@@ -31,12 +44,4 @@
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.backArc {
-  stroke: black;
-}
-
-.foreArc {
-  stroke: blueviolet;
 }
