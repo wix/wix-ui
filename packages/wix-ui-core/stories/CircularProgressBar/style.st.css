@@ -3,11 +3,6 @@
   -st-default: CircularProgressBar;
 }
 
-:import {
-  -st-from: "../../src/components/CircularProgressBar/CircularProgressBar.st.css";
-  -st-named: progressIndicator, statusIndicator, foreArc, backArc;
-}
-
 .root {
   -st-extends: CircularProgressBar;
 }
