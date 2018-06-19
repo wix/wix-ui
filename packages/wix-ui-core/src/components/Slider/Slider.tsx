@@ -45,6 +45,8 @@ export interface SliderState {
 const CONTINUOUS_STEP = 0.01;
 
 export class Slider extends React.PureComponent<SliderProps, SliderState> {
+  static displayName = 'Slider';
+
   root: HTMLDivElement;
   track: HTMLDivElement;
 

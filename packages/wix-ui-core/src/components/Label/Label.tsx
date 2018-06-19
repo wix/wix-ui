@@ -28,6 +28,8 @@ export const Label: React.SFC<LabelProps> = props => {
   return <label {...style('root', {ellipsis, disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
 };
 
+Label.displayName = 'Label';
+
 Label.propTypes = {
   /** class name */
   className: string,

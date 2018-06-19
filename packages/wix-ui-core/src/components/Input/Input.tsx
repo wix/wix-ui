@@ -41,6 +41,8 @@ export interface InputState {
 }
 
 export class Input extends React.Component<InputProps, InputState> {
+  static displayName = 'Input';
+
   static propTypes = {
     /** Wrapper class name */
     className: PropTypes.string,

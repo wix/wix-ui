@@ -80,6 +80,7 @@ const mapPropsToMethods = {
 };
 
 export class Video extends React.PureComponent<VideoProps, VideoState> {
+  static displayName = 'Video';
 
   containerRef: HTMLDivElement;
   player: any;

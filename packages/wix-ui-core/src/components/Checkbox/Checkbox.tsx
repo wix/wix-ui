@@ -27,6 +27,8 @@ export interface CheckboxState {
 }
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+  static displayName = 'Checkbox';
+
   public static defaultProps: Partial<CheckboxProps> = {
     onChange: noop,
     checked: false,
