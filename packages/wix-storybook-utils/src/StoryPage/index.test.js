@@ -1,3 +1,4 @@
+import React from 'react';
 import Testkit from './index.testkit';
 
 const testkit = new Testkit();
@@ -68,6 +69,34 @@ describe('StoryPage', () => {
 
       expect(testkit.get.readme()).toMatch(/<well hello there\/>/);
       expect(testkit.get.import()).toMatch(/well hello there/);
+    });
+  });
+
+  describe('code example', () => {
+    it('should show displayName without HOC', () => {
+      const component = ({children}) => <div>{children}</div>; // eslint-disable-line react/prop-types
+      component.displayName = 'someHOC(componentName)';
+
+      const IShouldBeTheName = () => null;
+
+      const props = {
+        component,
+        componentProps: {
+          children: <div><IShouldBeTheName/></div>
+        },
+        exampleProps: {
+          children: []
+        }
+      };
+
+      testkit.when.created(props);
+      expect(testkit.get.codeBlock()).toEqual(`\`\`\`js
+<componentName>
+  <div>
+    <IShouldBeTheName />
+  </div>
+</componentName>
+\`\`\``);
     });
   });
 });
