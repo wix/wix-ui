@@ -44,10 +44,7 @@ describe('createHOC function', () => {
     render() { return <div>Hello</div>; }
   }
 
-  // Stateless component
-  const StatelessChildComponent = () => (<div>stateless</div>);
-
-  describe('Regular components', () => {
+  describe('Stateful components', () => {
     const HOCComponent = createHOC(ChildComponent);
 
     it('should render the wrapped component', () => {
@@ -118,6 +115,7 @@ describe('createHOC function', () => {
   });
 
   describe('Stateless components', () => {
+    const StatelessChildComponent = () => (<div>stateless</div>);
     const HOCComponent = createHOC(StatelessChildComponent);
 
     it('should render the wrapped component', () => {
@@ -139,5 +137,39 @@ describe('createHOC function', () => {
     });
 
     // Nothing to hoist on stateless components
+  });
+
+  describe('displayName', () => {
+    it('should be inheritted from ChildComponent', () => {
+      class Component extends React.Component {
+        static displayName = "i'm batman";
+        render() {
+          return null;
+        }
+      }
+
+      const HocComponent = createHOC(Component);
+      const wrapper = render(<HocComponent/>);
+      expect(wrapper.name()).toEqual("i'm batman");
+    });
+
+    it('should be className when displayName is undefined', () => {
+      class Spiderman extends React.Component {
+        render() {
+          return null;
+        }
+      }
+
+      const HocComponent = createHOC(Spiderman);
+      const wrapper = render(<HocComponent/>);
+      expect(wrapper.name()).toEqual('Spiderman');
+    });
+
+    it('should fallback to `WixComponent` when neither displayName nor className available', () => {
+      // component as anonymous function
+      const HocComponent = createHOC(() => null);
+      const wrapper = render(<HocComponent/>)
+      expect(wrapper.name()).toEqual('WixComponent');
+    });
   });
 });

@@ -20,7 +20,7 @@ export const createHOC = Component => {
       dataClass: string
     };
 
-    static displayName = Component.displayName || 'WixComponent';
+    static displayName = Component.displayName || Component.name || 'WixComponent';
 
     componentDidMount() {
       const {dataHook, dataClass} = this.props;
