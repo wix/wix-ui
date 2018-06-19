@@ -98,6 +98,26 @@ waitForVisibilityOf(
 );
 ```
 
+### `mouseEnter`
+
+Move the mouse on the element.
+
+```javascript
+import {mouseEnter} from 'wix-ui-test-utils/protractor';
+
+mouseEnter(element);
+```
+
+### `mouseLeave`
+
+Move the mouse out of the element.
+
+```javascript
+import {mouseLeave} from 'wix-ui-test-utils/protractor';
+
+mouseLeave(element);
+```
+
 ## Testkit helpers
 
 ### `createDriverFactory`
