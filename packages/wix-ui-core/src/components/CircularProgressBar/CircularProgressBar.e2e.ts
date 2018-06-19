@@ -26,11 +26,9 @@ describe('CircularProgressBar', () => {
     const expectedProgress = 90;
 
     await autoExampleDriver.setProps({value: expectedProgress});
-    const foregroundBarWidth = await driver.getForegroundBarWidth();
-    const backgroundBarWidth = await driver.getBackgroundBarWidth();
-    const actualProgress = Math.round((foregroundBarWidth/backgroundBarWidth) * 100);
+    const foregroundArcValue = await driver.getArcValue();
 
-    expect(actualProgress).toBe(expectedProgress);
+    expect(foregroundArcValue).toBe(expectedProgress);
   });
 
   eyes.it('should show empty progress as value less than 0', async () => {
@@ -38,9 +36,9 @@ describe('CircularProgressBar', () => {
     const valueLessThan0 = -1;
 
     await autoExampleDriver.setProps({value: valueLessThan0});
-    const foregroundBarWidth = await driver.getForegroundBarWidth();
+    const foregroundArcValue = await driver.getArcValue();
 
-    expect(foregroundBarWidth).toBe(0);
+    expect(foregroundArcValue).toBe(0);
   });
 
   eyes.it('should show exactly full progress as value greater than 100', async () => {
@@ -48,11 +46,9 @@ describe('CircularProgressBar', () => {
     const valueGreaterThan100 = 101;
 
     await autoExampleDriver.setProps({value: valueGreaterThan100});
-    const foregroundBarWidth = await driver.getForegroundBarWidth();
-    const backgroundBarWidth = await driver.getBackgroundBarWidth();
-    const actualProgress = Math.round((foregroundBarWidth/backgroundBarWidth) * 100);
+    const foregroundArcValue = await driver.getArcValue();
 
-    expect(actualProgress).toBe(expectedProgress);
+    expect(foregroundArcValue).toBe(expectedProgress);
   });
 
   eyes.it('should show progress indicator percentages', async () => {
