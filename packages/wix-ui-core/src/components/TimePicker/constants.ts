@@ -11,10 +11,10 @@ export const BLANK = '--';
 export const NULL_TIME = `${BLANK}:${BLANK}`;
 
 export enum AmPmOptions {
-    None,
-    Lowercase,
-    Uppercase,
-    Capitalized,
+    None = 'none',
+    Lowercase = 'lowercase',
+    Uppercase = 'uppercase',
+    Capitalized = 'capitalized',
 }
 
 export const AmPmStrings = {

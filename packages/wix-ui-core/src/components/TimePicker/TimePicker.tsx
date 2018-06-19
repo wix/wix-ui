@@ -39,6 +39,9 @@ export interface TimePickerProps {
 
   /** What to display for the down ticker. Will only be shown if tickerUpIcon is also provided */
   tickerDownIcon?: React.ReactNode;
+
+  /** Is it an error state */
+  error?: boolean;
 }
 
 export interface TimePickerState {
