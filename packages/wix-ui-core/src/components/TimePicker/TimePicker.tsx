@@ -42,6 +42,8 @@ export interface TimePickerProps {
 
   /** Is it an error state */
   error?: boolean;
+
+  disabled?: boolean;
 }
 
 export interface TimePickerState {
