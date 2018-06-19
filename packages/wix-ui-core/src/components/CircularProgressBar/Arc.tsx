@@ -37,7 +37,7 @@ const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
 	const {angle, value, className, strokeWidth, viewBoxSize} = props;
   const d = describeArc(0, 0, (viewBoxSize - strokeWidth) / 2, 0, angle);
   const viewBox = `-${viewBoxSize / 2} -${viewBoxSize / 2} ${viewBoxSize} ${viewBoxSize}`;
-  const dataProps = value ? {
+  const dataProps = value !== undefined ? {
     'data-value': value,
     'data-hook': 'progressarc-foreground',
   } : {

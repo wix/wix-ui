@@ -8,7 +8,7 @@ import {CircularProgressBarProps} from './CircularProgressBar';
 
 describe('CircularProgressBar', () => {
   const storyUrl = getStoryUrl('Components', 'CircularProgressBar');
-  const dataHook = 'progress-bar';
+  const dataHook = 'circular-progress-bar';
   let driver: CircularProgressBarDriver;
 
   beforeAll(async () => {
@@ -38,7 +38,7 @@ describe('CircularProgressBar', () => {
     await autoExampleDriver.setProps({value: valueLessThan0});
     const foregroundArcValue = await driver.getArcValue();
 
-    expect(foregroundArcValue).toBe(0);
+    expect(foregroundArcValue).toBe(expectedProgress);
   });
 
   eyes.it('should show exactly full progress as value greater than 100', async () => {
