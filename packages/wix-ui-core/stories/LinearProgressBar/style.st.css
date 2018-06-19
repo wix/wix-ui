@@ -3,11 +3,6 @@
   -st-default: LinearProgressBar;
 }
 
-:import {
-  -st-from: "../../src/components/LinearProgressBar/LinearProgressBar.st.css";
-  -st-named: barBackground, barForeground;
-}
-
 .root {
   -st-extends: LinearProgressBar;
 }
