@@ -46,6 +46,8 @@ export interface RadioButtonState {
 }
 
 export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
+  static displayName = 'RadioButton';
+  
   private focusedByMouse: boolean = false;
 
   state = {
