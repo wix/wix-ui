@@ -85,6 +85,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
           value={value} 
           name={name}
           onChange={() => null}
+          onKeyDown={this.handleInputKeyDown}
           ref={radio => this.radioRef = radio}
         />
         <span className={style.icon} onMouseEnter={this.onHover} onMouseLeave={onIconBlur}>
@@ -122,5 +123,9 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
     this.focusedByMouse = false;
   }
 
+  handleInputKeyDown = () => {
+    this.setState({focusVisible: true})
+  }
+  
   private radioRef = undefined;
 }
