@@ -6,9 +6,7 @@ export interface CircularProgressBarDriver extends BaseDriver {
   /** Returns true if the root element is present */
   exists: () => promise.Promise<boolean>;
   /** Get the foreground arc value (percentage) */
-  getArcValue: () => promise.Promise<number>;
-  /** Returns true if the progress indication element is displayed */
-  isProgressIndicationDisplayed: () => promise.Promise<boolean>;
+  getValue: () => promise.Promise<number>;
   /** Get the progress indication element value */
   progressIndicationValue: () => promise.Promise<string>;
 }
@@ -24,8 +22,7 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
   return {
     element: () => element,
     exists: () => element.isPresent(),
-    getArcValue: () => getElementIntAttribute(foregroundArc(), 'data-value'),
-    isProgressIndicationDisplayed: () => progressIndication().isPresent(),
+    getValue: () => getElementIntAttribute(foregroundArc(), 'data-value'),
     progressIndicationValue: () => progressIndication().getText()
   };
 };

@@ -26,17 +26,7 @@ describe('CircularProgressBar', () => {
     const expectedProgress = 90;
 
     await autoExampleDriver.setProps({value: expectedProgress});
-    const foregroundArcValue = await driver.getArcValue();
-
-    expect(foregroundArcValue).toBe(expectedProgress);
-  });
-
-  eyes.it('should show empty progress as value less than 0', async () => {
-    const expectedProgress = 0;
-    const valueLessThan0 = -1;
-
-    await autoExampleDriver.setProps({value: valueLessThan0});
-    const foregroundArcValue = await driver.getArcValue();
+    const foregroundArcValue = await driver.getValue();
 
     expect(foregroundArcValue).toBe(expectedProgress);
   });
@@ -46,7 +36,7 @@ describe('CircularProgressBar', () => {
     const valueGreaterThan100 = 101;
 
     await autoExampleDriver.setProps({value: valueGreaterThan100});
-    const foregroundArcValue = await driver.getArcValue();
+    const foregroundArcValue = await driver.getValue();
 
     expect(foregroundArcValue).toBe(expectedProgress);
   });

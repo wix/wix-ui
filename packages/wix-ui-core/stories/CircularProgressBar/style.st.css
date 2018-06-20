@@ -7,16 +7,12 @@
   -st-extends: CircularProgressBar;
 }
 
-.root::statusIndicator, .root::progressIndicator {
-  color: rgb(50,83,106);
-}
-
 .root::backArc {
-  stroke: rgb(193,228,254);
+  stroke: rgb(227, 228, 227);
 }
 
 .root::foreArc {
-  stroke: rgb(43,129,203);
+  stroke: rgb(0, 0, 0);
 }
 
 .root:error::backArc {

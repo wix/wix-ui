@@ -16,12 +16,14 @@ export interface CircularProgressBarProps {
   errorIcon?: JSX.Element;
   /** an indication icon (any react component) that will be presented when 'showProgressIndication' are set to true and 'value' is 100 */
   successIcon?: JSX.Element;
+  /** circle size in pixels */
+  size?: number | string;
 }
 
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
 
-const DEFAULT_SIZE = 54;
+const VIEWBOX = 54;
 
 const ANGLE_NORMALIZE_VAL = 0.1;
 const FULL_PROGRESS_ANGLE = 360 - ANGLE_NORMALIZE_VAL;
@@ -44,14 +46,20 @@ const normalizedValue = (value: string | number) => {
   return typeof value === 'number' ? value : parseInt(value, 10) ? parseInt(value, 10) : NO_PROGRESS;
 }
 
+const normalizedSize = (size: string | number) => {
+  const intSize = typeof size === 'number' ? size : parseInt(size, 10);
+  return intSize && intSize > 0 ? intSize : VIEWBOX;
+}
+
 const renderArcs = (props: CircularProgressBarProps) => {
-  const { value } = props;
+  const { value, size } = props;
+  const angleSize = normalizedSize(size);
   const angleValue = (normalizedValue(value) * ANGLE_COEFFICIENT) - ANGLE_NORMALIZE_VAL;
   return (
-    <div className={style.arcsContainer} style={{width: `${DEFAULT_SIZE}px`, height: `${DEFAULT_SIZE}px`}}>
+    <div className={style.arcsContainer}>
       {resolveIndicationElement(props)}
-      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
-      <Arc angle={angleValue} value={normalizedValue(value)} className={style.foreArc} strokeWidth={4} viewBoxSize={DEFAULT_SIZE} />
+      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={angleSize} />
+      <Arc angle={angleValue} value={normalizedValue(value)} className={style.foreArc} strokeWidth={4} viewBoxSize={angleSize} />
     </div>
   )
 }
@@ -81,9 +89,7 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
       {renderArcs(_props)}
       {showProgressIndication &&
         <div data-hook="progress-indicator" className={style.progressIndicator}>
-          <div data-hook="progress-percentages" className={style.indicationContainer} >
-            <span className={style.value}>{value}</span>
-          </div>
+          <div data-hook="progress-percentages" className={style.indicationContainer}>{value}</div>
         </div>
       }
     </div>);
@@ -96,8 +102,10 @@ CircularProgressBar.propTypes = {
   showProgressIndication: bool,
   errorIcon: element,
   successIcon: element,
+  size: oneOfType([number, string]),
 }
 
 CircularProgressBar.defaultProps = {
   value: NO_PROGRESS,
+  size: VIEWBOX,
 }

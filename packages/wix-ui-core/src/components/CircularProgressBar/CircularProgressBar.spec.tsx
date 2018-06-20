@@ -55,6 +55,12 @@ describe('CircularProgressBar', () => {
       expect(driver.getValue()).toBe('100%');
     })
 
+    it('should show percentages value of 100 when passing value above 100', () => {
+      driver = createDriver(<CircularProgressBar {...{ ...props, value: 140, successIcon: <div /> }} />);
+      expect(driver.isSuccessIconDisplayed()).toBe(true);
+      expect(driver.getValue()).toBe('100%');
+    })
+
     it('should show percentage when error label and icon are not provided', () => {
       driver = createDriver(<CircularProgressBar {...{ ...props, value: 33, error: true, errorIcon: null }} />);
       expect(driver.isErrorIconDisplayed()).toBe(false);

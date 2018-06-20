@@ -21,7 +21,7 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook => element.querySelector(`[data-hook="${dataHook}"]`)
-  const getValue = () => !element ? null : getElement('progress-percentages').querySelector('span').innerHTML;
+  const getValue = () => !element ? null : getElement('progress-percentages').innerHTML;
 
   const driver = {
     exists: () => !!element,
