@@ -88,19 +88,19 @@ describe('RadioButton', () => {
     expect(radio.iconExists()).toBeTruthy();
   });
 
-  it('get NON VISIBLE focus if clicked', () => {
+  it('gets NON VISIBLE focus if clicked', () => {
     const radio = createDriver(createRadio());
     radio.click();
     
     expect(radio.isFocused()).toBeTruthy();
-    expect(radio.isFocuseVisible()).toBeFalsy();
-  })
+    expect(radio.isFocusVisible()).toBeFalsy();
+  });
 
   it('gets VISIBLE focus if changed without clicking', () => {
     const radio = createDriver(createRadio());
     radio.select();
 
     expect(radio.isFocused()).toBeTruthy();
-    expect(radio.isFocuseVisible()).toBeTruthy();
+    expect(radio.isFocusVisible()).toBeTruthy();
   });
 });

@@ -21,6 +21,6 @@ export const radioButtonDriverFactory = ({element, eventTrigger}) => {
     isChecked: () => domUtils.hasStyleState(element, 'checked'),
     isFocused: () => domUtils.hasStyleState(element, 'focused'),
     isDisabled: () => domUtils.hasStyleState(element, 'disabled'),
-    isFocuseVisible: () => domUtils.hasStyleState(element, 'focus-visible')
+    isFocusVisible: () => domUtils.hasStyleState(element, 'focus-visible')
   };
 };

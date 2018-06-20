@@ -124,8 +124,8 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
   }
 
   handleInputKeyDown = () => {
-    this.setState({focusVisible: true})
+    this.setState({focusVisible: true});
   }
-  
+
   private radioRef = undefined;
 }
