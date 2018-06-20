@@ -74,6 +74,8 @@ export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (props: Line
     </div>);
 }
 
+LinearProgressBar.displayName = 'LinearProgressBar';
+
 LinearProgressBar.propTypes = {
   value: oneOfType([number, string]),
   error: bool,

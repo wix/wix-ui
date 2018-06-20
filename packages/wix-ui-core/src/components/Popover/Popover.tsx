@@ -146,6 +146,8 @@ const shouldAnimatePopover = ({timeout}: PopoverProps) => !!timeout;
  * Popover
  */
 export class Popover extends React.Component<PopoverType, PopoverState> {
+  static displayName = 'Popover';
+
   static Element = createComponentThatRendersItsChildren('Popover.Element');
   static Content = createComponentThatRendersItsChildren('Popover.Content');
 

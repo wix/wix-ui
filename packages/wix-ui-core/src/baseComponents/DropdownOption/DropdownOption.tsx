@@ -31,3 +31,5 @@ export const DropdownOption: DropdownOptionType = (props: DropdownOptionProps) =
     </div>
   );
 };
+
+DropdownOption.displayName = 'DropdownOption';

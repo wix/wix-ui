@@ -55,6 +55,8 @@ export interface PaginationState {
 }
 
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
+  static displayName = 'Pagination';
+
   // this is a technical debt - remove once we have support for typescript props in autodocs
   static propTypes: Object = {
     /** The number of pages available to paginate */
