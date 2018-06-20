@@ -1,7 +1,7 @@
 {
   "name": "wix-ui-mocha-runner",
   "description": "wix-ui-mocha-runner",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "author": {
     "name": "Wix",
@@ -19,6 +19,7 @@
     "wix-ui-mocha-runner": "bin/runner.js"
   },
   "dependencies": {
+    "awesome-typescript-loader": "^5.1.1",
     "chalk": "^2.4.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
@@ -26,7 +27,6 @@
     "stylable": "^5.3.9",
     "stylable-webpack-plugin": "^1.0.18",
     "style-loader": "^0.21.0",
-    "ts-loader": "^4.3.0",
     "typescript": "~2.8.3",
     "webpack": "^4.9.1",
     "webpack-serve": "^1.0.4"

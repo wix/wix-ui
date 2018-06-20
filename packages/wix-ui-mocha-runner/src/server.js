@@ -64,20 +64,12 @@ const webpackConfig = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              // wix-ui-core emits TypeScript errors related to Protractor
-              // during transpilation if wix-ui-test-utils is a linked
-              // dependency. Yoshi ts-loader config silences those errors,
-              // which allows the project to compile. Let's do the same here
-              // to get this thing up and running, and fix the repo in the
-              // distant future.
-              happyPackMode: true
-            }
+        use: {
+          loader: 'awesome-typescript-loader',
+          options: {
+            silent: true
           }
-        ]
+        }
       },
       {
         test: /\.css$/,
