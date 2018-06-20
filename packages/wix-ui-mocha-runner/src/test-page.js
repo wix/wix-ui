@@ -9,6 +9,12 @@ if (__HEADLESS__) {
   require('./patch-console')();
 }
 
+// Provide source map support for stack traces to give nicer error messages for
+// failed tests. This is unrelated to source map support in DevTools, and works
+// only in V8 because other engines do not support stack trace API.
+
+require('source-map-support').install();
+
 // Our tests rely on global `expect` and `jest` variables provided by Jest.
 // Since Jest doesn't support browser environment we provide the same
 // functionality using standalone packages. We could import them in each test

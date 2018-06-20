@@ -39,6 +39,7 @@ function webpackLogProgress(percentage) {
 
 const webpackConfig = {
   mode: 'development',
+  devtool: 'source-map',
   context: packageDir,
   entry: [
     path.join(packageDir, 'src', 'test-page.js'),
@@ -90,6 +91,13 @@ const webpackConfig = {
       // let's at least load runtime dependencies from it.
       path.join(projectDir, 'node_modules')
     ]
+  },
+  // source-map-support attempts to resolve these, which results in a Webpack
+  // warning, but it doesn't actually need them to work in browser, so let's
+  // use stubs.
+  node: {
+    fs: 'empty',
+    module: 'empty'
   }
 };
 
