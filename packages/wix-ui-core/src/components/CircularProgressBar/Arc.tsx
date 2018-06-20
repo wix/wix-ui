@@ -1,67 +1,48 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-// taken from https://stackoverflow.com/a/18473154
-const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-  const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-
-  return {
-    x: centerX + (radius * Math.cos(angleInRadians)),
-    y: centerY + (radius * Math.sin(angleInRadians))
-  };
-}
-
-const describeArc = (x, y, radius, startAngle, endAngle) => {
-  const start = polarToCartesian(x, y, radius, endAngle);
-  const end = polarToCartesian(x, y, radius, startAngle);
-
-  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
-
-  const d = [
-    'M', start.x, start.y,
-    'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
-  ].join(' ');
-
-  return d;
+const arc = (r, value) => {
+  value /= 100;
+  const angle = 2 * Math.PI * (value - 1/4);
+  const x = r * Math.cos(angle);
+  const y = r * Math.sin(angle);
+  const sweep = Math.round(value);
+  return `M .01 ${-r} A ${r} ${r} 0 ${sweep} 1 ${x} ${y}`;
 }
 
 export interface ArcProps {
-  angle: number;
-  value?: number;
-  className: string;
+  value: number;
+  title?: string;
   strokeWidth: number;
-  viewBoxSize: number;
+  size: number;
+  className: string;
 }
 
-const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
-	const {angle, value, className, strokeWidth, viewBoxSize} = props;
-  const d = describeArc(0, 0, (viewBoxSize - strokeWidth) / 2, 0, angle);
-  const viewBox = `-${viewBoxSize / 2} -${viewBoxSize / 2} ${viewBoxSize} ${viewBoxSize}`;
+export const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
+  const {value, strokeWidth, size, title, className} = props;
+  const viewBox = `${-size / 2} ${-size / 2} ${size} ${size}`;
+  const d = arc((size - strokeWidth) / 2, value);
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox={viewBox}
       className={className}
-      data-hook={value !== undefined ? 'progressarc-foreground' : 'progressarc-background'}
+      width={size}
+      height={size}
+      viewBox={viewBox}
+      data-hook={title !== undefined ? 'progressarc-foreground' : 'progressarc-background'}
     >
-      {value !== undefined && <title>{`Arc percentage ${value}%`}</title>}
-      <path
-        strokeWidth={strokeWidth}
-        d={d}
-      />
-    </svg>
+      {title && <title>{title}</title>}
+      <path d={d} strokeWidth={strokeWidth} />
+    </svg>  
   );
-};
+}
 
 Arc.propTypes = {
-  angle: PropTypes.number,
   value: PropTypes.number,
-  className: PropTypes.string,
+  title: PropTypes.string,
   strokeWidth: PropTypes.number,
-  viewBoxSize: PropTypes.number
+  size: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Arc.displayName = 'Arc';
-
-export default Arc;

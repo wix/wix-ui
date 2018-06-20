@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {bool, element, oneOfType, number, string} from 'prop-types';
 import style from './CircularProgressBar.st.css';
-import Arc from './Arc';
+import {Arc} from './Arc';
 
 export interface CircularProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -22,12 +22,7 @@ export interface CircularProgressBarProps {
 
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
-
-const VIEWBOX = 54;
-
-const ANGLE_NORMALIZE_VAL = 0.1;
-const FULL_PROGRESS_ANGLE = 360 - ANGLE_NORMALIZE_VAL;
-const ANGLE_COEFFICIENT = 3.6;
+const VIEWBOX_SIZE = 54;
 
 const resolveIndicationElement = (props: CircularProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) =>
@@ -42,32 +37,30 @@ const resolveIndicationElement = (props: CircularProgressBarProps) => {
   }
 }
 
-const normalizedValue = (value: string | number) => {
+const normalizeValue = (value: string | number) => {
   return typeof value === 'number' ? value : parseInt(value, 10) ? parseInt(value, 10) : NO_PROGRESS;
 }
 
-const normalizedSize = (size: string | number) => {
+const normalizeSize = (size: string | number) => {
   const intSize = typeof size === 'number' ? size : parseInt(size, 10);
-  return intSize && intSize > 0 ? intSize : VIEWBOX;
+  return intSize && intSize > 0 ? intSize : VIEWBOX_SIZE;
 }
-
-export const percentToAngle = (percent: number) => (percent * ANGLE_COEFFICIENT) - ANGLE_NORMALIZE_VAL;
 
 const renderArcs = (props: CircularProgressBarProps) => {
   const { value, size } = props;
-  const angleSize = normalizedSize(size);
-  const angleValue = percentToAngle(normalizedValue(value));
+  const normalizedSize = normalizeSize(size);
+  const normalizedValue = normalizeValue(value);
   return (
     <div className={style.arcsContainer}>
       {resolveIndicationElement(props)}
-      <Arc angle={FULL_PROGRESS_ANGLE} className={style.backArc} strokeWidth={4} viewBoxSize={angleSize} />
-      <Arc angle={angleValue} value={normalizedValue(value)} className={style.foreArc} strokeWidth={4} viewBoxSize={angleSize} />
+      <Arc value={FULL_PROGRESS} className={style.backArc} strokeWidth={4} size={normalizedSize} />
+      <Arc value={normalizedValue} title={`${normalizedValue}%`} className={style.foreArc} strokeWidth={4} size={normalizedSize} />
     </div>
   )
 }
 
 const normalizeProps = (props: CircularProgressBarProps) => {
-  const value = normalizedValue(props.value);
+  const value = normalizeValue(props.value);
 
   if (value >= FULL_PROGRESS) {
     return {...props, value: FULL_PROGRESS};
@@ -85,7 +78,6 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   const value = error && _props.errorLabel ? _props.errorLabel : `${Math.floor(_props.value)}%`;
-
   return (
     <div {...style('root', {error, success}, _props)}>
       {renderArcs(_props)}
@@ -109,5 +101,5 @@ CircularProgressBar.propTypes = {
 
 CircularProgressBar.defaultProps = {
   value: NO_PROGRESS,
-  size: VIEWBOX,
+  size: VIEWBOX_SIZE,
 }
