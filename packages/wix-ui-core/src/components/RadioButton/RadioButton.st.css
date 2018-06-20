@@ -1,6 +1,6 @@
 .root {
   display: inline-block;
-  -st-states: disabled, checked, focused;
+  -st-states: disabled, checked, focused, focus-visible;
 }
 
 .icon {

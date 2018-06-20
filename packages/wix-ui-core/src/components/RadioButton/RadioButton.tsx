@@ -42,12 +42,15 @@ export interface RadioButtonProps {
 
 export interface RadioButtonState {
   focused: boolean;
+  focusVisible: boolean
 }
 
 export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
+  private focusedByMouse: boolean = false;
 
   state = {
-    focused: false
+    focused: false,
+    focusVisible: false
   };
 
   static defaultProps = {
@@ -63,9 +66,9 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
 
     return (
       <div 
-        {...style('root', {checked, disabled, focused}, this.props)}
+        {...style('root', {checked, disabled, focused, 'focus-visible': this.state.focusVisible}, this.props)}
         onChange={this.handleInputChange} 
-        onClick={this.handleInputChange}
+        onClick={this.handleClick}
         role="radio" 
         aria-checked={checked}
       >
@@ -90,6 +93,11 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
     );
   }
 
+  handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    this.focusedByMouse = true;
+    this.handleInputChange(event);
+  }
+
   handleInputChange = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!this.props.disabled) {
       this.props.onChange({value: this.props.value, ...event});
@@ -104,11 +112,12 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
   }
 
   onFocus = () => {
-    this.setState({focused: true});
+    this.setState({focused: true, focusVisible: !this.focusedByMouse});
   }
 
   onInputBlur = () => {
-    this.setState({focused: false});
+    this.setState({focused: false, focusVisible: false});
+    this.focusedByMouse = false;
   }
 
   private radioRef = undefined;
