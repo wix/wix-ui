@@ -1,6 +1,5 @@
 import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
-import {promise, ElementFinder} from 'protractor';
-import { GlobalsNumber } from 'csstype';
+import { promise, ElementFinder, browser } from 'protractor';
 
 export interface CircularProgressBarDriver extends BaseDriver {
   /** Returns true if the root element is present */
@@ -15,14 +14,21 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
 
   const findByDataHook = dataHook => element.$(`[data-hook="${dataHook}"]`);
   const foregroundArc = () => findByDataHook('progressarc-foreground');
-  const getElementAttribute = (e: ElementFinder, attr) => e.getAttribute(attr);
+  const elementTitle = (e: ElementFinder) => e.$('title').getAttribute('innerHTML');
   const progressIndication = () => findByDataHook('progress-indicator');
-  const getElementIntAttribute = (e: ElementFinder, attr) => new promise.Promise<number>(async resolve => resolve(parseInt(await getElementAttribute(e, attr))));
+  const elementTitleNumberValue = (e: ElementFinder) => {
+    return new promise.Promise<number>(async resolve => {
+      resolve(
+        (await elementTitle(e)).match(/\d+/g).map(Number)[0]
+      )
+    }
+    );
+  }
 
   return {
     element: () => element,
     exists: () => element.isPresent(),
-    getValue: () => getElementIntAttribute(foregroundArc(), 'data-value'),
+    getValue: () => elementTitleNumberValue(foregroundArc()),
     progressIndicationValue: () => progressIndication().getText()
   };
 };

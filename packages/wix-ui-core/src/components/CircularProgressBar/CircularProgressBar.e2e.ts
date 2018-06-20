@@ -22,28 +22,22 @@ describe('CircularProgressBar', () => {
     return autoExampleDriver.reset();
   });
 
-  eyes.it('should progress as value increases', async () => {
-    const expectedProgress = 90;
+  eyes.it('should update arc according to progress', async () => {
+    const progress = 90;
+    const props = {value: progress};
 
-    await autoExampleDriver.setProps({value: expectedProgress});
+    await autoExampleDriver.setProps(props);
     const foregroundArcValue = await driver.getValue();
 
-    expect(foregroundArcValue).toBe(expectedProgress);
-  });
-
-  eyes.it('should show exactly full progress as value greater than 100', async () => {
-    const expectedProgress = 100;
-    const valueGreaterThan100 = 101;
-
-    await autoExampleDriver.setProps({value: valueGreaterThan100});
-    const foregroundArcValue = await driver.getValue();
-
-    expect(foregroundArcValue).toBe(expectedProgress);
+    expect(foregroundArcValue).toBe(progress);
   });
 
   eyes.it('should show progress indicator percentages', async () => {
-    const props: CircularProgressBarProps = {showProgressIndication: true, value: 10};
+    const progress = 10;
+    const props = {showProgressIndication: true, value: progress};
+
     await autoExampleDriver.setProps(props);
-    expect(await driver.progressIndicationValue()).toBe('10%');
+
+    expect(await driver.progressIndicationValue()).toBe(`${progress}%`);
   });
 });

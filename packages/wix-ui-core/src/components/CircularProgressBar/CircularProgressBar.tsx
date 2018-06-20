@@ -51,10 +51,12 @@ const normalizedSize = (size: string | number) => {
   return intSize && intSize > 0 ? intSize : VIEWBOX;
 }
 
+export const percentToAngle = (percent: number) => (percent * ANGLE_COEFFICIENT) - ANGLE_NORMALIZE_VAL;
+
 const renderArcs = (props: CircularProgressBarProps) => {
   const { value, size } = props;
   const angleSize = normalizedSize(size);
-  const angleValue = (normalizedValue(value) * ANGLE_COEFFICIENT) - ANGLE_NORMALIZE_VAL;
+  const angleValue = percentToAngle(normalizedValue(value));
   return (
     <div className={style.arcsContainer}>
       {resolveIndicationElement(props)}
