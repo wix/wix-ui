@@ -34,6 +34,7 @@ export interface InputProps {
   value?: string;
   id?: string;
   name?: string;
+  width?: string;
 }
 
 export interface InputState {
@@ -73,7 +74,8 @@ export class Input extends React.Component<InputProps, InputState> {
     type: PropTypes.string,
     value: PropTypes.string,
     id: PropTypes.string,
-    name: PropTypes.string
+    name: PropTypes.string,
+    width: PropTypes.string,
   };
 
   static defaultProps: InputProps = {
@@ -115,8 +117,11 @@ export class Input extends React.Component<InputProps, InputState> {
       suffix,
       maxLength,
       id,
-      name
+      name,
+      width
     } = this.props;
+
+    const inlineStyle = width !== undefined ? {width} : undefined;
 
     return (
       <div
@@ -125,6 +130,7 @@ export class Input extends React.Component<InputProps, InputState> {
           {disabled, error: !!error && !disabled, focus},
           this.props
         )}
+        style={inlineStyle}
       >
         {prefix}
         <input
