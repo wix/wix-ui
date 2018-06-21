@@ -28,7 +28,7 @@ describe('CircularProgressBar', () => {
 
     await autoExampleDriver.setProps(props);
 
-    return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
+    return waitForVisibilityOf(driver.element(), 'Cannot find CircularProgressBar');
   });
 
   eyes.it('should show progress indication percentage value', async () => {
