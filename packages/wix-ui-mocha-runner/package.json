@@ -1,7 +1,7 @@
 {
   "name": "wix-ui-mocha-runner",
   "description": "wix-ui-mocha-runner",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "author": {
     "name": "Wix",
@@ -23,6 +23,7 @@
     "chalk": "^2.4.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
+    "mocha-teamcity-reporter": "^2.4.0",
     "puppeteer": "^1.5.0",
     "source-map-support": "^0.5.6",
     "stylable": "^5.3.9",

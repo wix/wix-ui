@@ -56,7 +56,8 @@ const webpackConfig = {
     }),
     new webpack.DefinePlugin({
       '__REACT_DEVTOOLS_GLOBAL_HOOK__': '({isDisabled: true})',
-      '__HEADLESS__': !watchMode
+      '__HEADLESS__': !watchMode,
+      '__TEAMCITY__': process.env.TEAMCITY_VERSION !== undefined
     }),
     new webpack.ProgressPlugin(webpackLogProgress)
   ],

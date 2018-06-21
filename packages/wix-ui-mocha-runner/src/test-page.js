@@ -41,9 +41,15 @@ if (!__HEADLESS__) {
   require('./mocha-prettier.css');
 }
 
+if (__TEAMCITY__) {
+  require('mocha-teamcity-reporter/lib/teamcityBrowser');
+}
+
 mocha.setup({
   ui: 'bdd',
-  reporter: __HEADLESS__ ? 'spec' : 'html',
+  reporter: __TEAMCITY__ ? 'teamcity' :
+            __HEADLESS__ ? 'spec' :
+            'html',
   useColors: true
 });
 
