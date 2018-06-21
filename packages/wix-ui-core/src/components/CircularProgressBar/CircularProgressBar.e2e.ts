@@ -22,13 +22,13 @@ describe('CircularProgressBar', () => {
     return autoExampleDriver.reset();
   });
 
-  eyes.it('should update arc value according to progress', async () => {
+  eyes.it('should update arc according to progress', async () => {
     const progress = 90;
     const props = {value: progress};
 
     await autoExampleDriver.setProps(props);
 
-    expect(await driver.getValue()).toBe(progress);
+    return waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
   });
 
   eyes.it('should show progress indication percentage value', async () => {

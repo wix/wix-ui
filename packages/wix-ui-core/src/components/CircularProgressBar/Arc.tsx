@@ -12,14 +12,13 @@ const arc = (r, value) => {
 
 export interface ArcProps {
   value: number;
-  title?: string;
   strokeWidth: number;
   size: number;
   className: string;
 }
 
 export const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
-  const {value, strokeWidth, size, title, className} = props;
+  const {value, strokeWidth, size, className} = props;
   const viewBox = `${-size / 2} ${-size / 2} ${size} ${size}`;
   const d = arc((size - strokeWidth) / 2, value);
 
@@ -29,20 +28,17 @@ export const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
       width={size}
       height={size}
       viewBox={viewBox}
-      data-hook={title !== undefined ? 'progressarc-foreground' : 'progressarc-background'}
     >
-      {title && <title>{title}</title>}
       <path d={d} strokeWidth={strokeWidth} />
     </svg>  
   );
 }
 
 Arc.propTypes = {
-  value: PropTypes.number,
-  title: PropTypes.string,
-  strokeWidth: PropTypes.number,
-  size: PropTypes.number,
-  className: PropTypes.string,
+  value: PropTypes.number.isRequired,
+  strokeWidth: PropTypes.number.isRequired,
+  size: PropTypes.number.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 Arc.displayName = 'Arc';

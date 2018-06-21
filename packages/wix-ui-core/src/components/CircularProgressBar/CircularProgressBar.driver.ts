@@ -21,13 +21,13 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook => element.querySelector(`[data-hook="${dataHook}"]`)
-  const getValue = () => !element ? null : getElement('progress-percentages').innerHTML;
+  const getValue = () => !element ? null : getElement('progress-indicator').innerHTML;
 
   const driver = {
     exists: () => !!element,
     isSuccessIconDisplayed: () => !!getElement('success-icon'),
     isErrorIconDisplayed: () => !!getElement('error-icon'),
-    isPercentagesProgressDisplayed: () => !!getElement('progress-percentages'),
+    isPercentagesProgressDisplayed: () => !!getElement('progress-indicator'),
     getValue: () => getValue(),
     isCompleted: () => getValue() === '100',
     hasError: () => stylableDOMUtil.hasStyleState(element, 'error'),

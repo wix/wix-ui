@@ -53,8 +53,8 @@ const renderArcs = (props: CircularProgressBarProps) => {
   return (
     <div className={style.arcsContainer}>
       {resolveIndicationElement(props)}
-      <Arc value={FULL_PROGRESS} className={style.backArc} strokeWidth={4} size={normalizedSize} />
-      <Arc value={normalizedValue} title={`${normalizedValue}%`} className={style.foreArc} strokeWidth={4} size={normalizedSize} />
+      <Arc data-hook='progressarc-background' value={FULL_PROGRESS} className={style.backArc} strokeWidth={4} size={normalizedSize} />
+      <Arc data-hook='progressarc-foreground' value={normalizedValue} className={style.foreArc} strokeWidth={4} size={normalizedSize} />
     </div>
   )
 }
@@ -82,9 +82,7 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
     <div {...style('root', {error, success}, _props)}>
       {renderArcs(_props)}
       {showProgressIndication &&
-        <div data-hook="progress-indicator" className={style.progressIndicator}>
-          <div data-hook="progress-percentages" className={style.indicationContainer}>{value}</div>
-        </div>
+        <div data-hook="progress-indicator" className={style.progressIndicator}>{value}</div>
       }
     </div>);
 }
