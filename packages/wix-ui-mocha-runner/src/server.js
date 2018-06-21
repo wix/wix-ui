@@ -15,6 +15,7 @@ const specDir = path.join(projectDir, 'src');
 const specPattern = '*.spec.ts?(x)';
 const specFiles = glob.sync(path.join(specDir, '**', specPattern));
 const serveDir = path.join(packageDir, 'public');
+const isTeamcity = process.env.TEAMCITY_VERSION !== undefined;
 
 // Don't use 'localhost' because it can either mean IPv4 or IPv6 address. If
 // something is listening on the same port on ::1, then `testPageUrl` will be
@@ -57,7 +58,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       '__REACT_DEVTOOLS_GLOBAL_HOOK__': '({isDisabled: true})',
       '__HEADLESS__': !watchMode,
-      '__TEAMCITY__': process.env.TEAMCITY_VERSION !== undefined
+      '__TEAMCITY__': isTeamcity
     }),
     new webpack.ProgressPlugin(webpackLogProgress)
   ],
@@ -158,7 +159,13 @@ async function runAndQuit() {
       waitForCompilation(server)
     ]);
 
-    const numFailedTests = await runTestsInPuppeteer(testPageUrl);
+    // Some of the EC2 instances we run TeamCity on have an older kernel or a
+    // wrong configuration or something.
+    const noSandbox = isTeamcity;
+    if (noSandbox) {
+      console.warn(chalk.red('Warning: running Puppeteer without sandbox'));
+    }
+    const numFailedTests = await runTestsInPuppeteer({testPageUrl, noSandbox});
     process.exitCode = numFailedTests ? 1 : 0;
     server.close();
   } catch (error) {

@@ -49,7 +49,7 @@ function failOnPageError(page) {
   });
 }
 
-module.exports = async (testPageUrl) => {
+module.exports = async ({testPageUrl, noSandbox}) => {
   const loadTimeout = 20000;
   const testTimeout = 5000;
   const viewportWidth = 800;
@@ -57,7 +57,8 @@ module.exports = async (testPageUrl) => {
 
   let browser;
   try {
-    browser = await puppeteer.launch({headless: true});
+    const args = noSandbox ? ['--no-sandbox', '--disable-setuid-sandbox'] : [];
+    browser = await puppeteer.launch({headless: true, args});
     const page = await browser.newPage();
     await page.setViewport({width: viewportWidth, height: viewportHeight});
 
