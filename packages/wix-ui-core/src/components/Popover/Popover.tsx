@@ -21,6 +21,7 @@ import isElement = require('lodash/isElement');
 import {oneOf, oneOfType, any, Requireable, string, bool, func, number, shape, object} from 'prop-types';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
+// FIXME: This document.createRange mock cuases placement 'bottom-end' not to work in jsdom tests.
 const isTestEnv = process.env.NODE_ENV === 'test';
 if (isTestEnv) {
   if (!document.createRange) {
@@ -96,11 +97,13 @@ export type PopoverType = PopoverProps & {
   Content?: React.SFC<ElementProps>;
 };
 
+// TODO: rename direction argument to placement
 const getArrowShift = (shift: number | undefined, direction: string) => {
   if (!shift && !isTestEnv) {
     return {};
   }
 
+  // FIXME: check if durection contains 'top' not ==='top', in order to support 'top-end', etc...
   return {
     [direction === 'top' || direction === 'bottom' ? 'left' : 'top']: `${shift}px`
   };
