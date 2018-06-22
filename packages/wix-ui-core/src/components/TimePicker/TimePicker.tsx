@@ -15,7 +15,7 @@ import {
   isValidTime
 } from './utils';
 
-export type TimePickerProps = Pick<InputProps, 'width'> & {
+export type TimePickerProps = Pick<InputProps, 'width' | 'disabled'> & {
   /**
    *  Callback function when user changes the value of the component.
    *  Will be called only with valid values (this component is semi-controlled)
@@ -42,8 +42,6 @@ export type TimePickerProps = Pick<InputProps, 'width'> & {
 
   /** Is it an error state */
   error?: boolean;
-
-  disabled?: boolean;
 }
 
 export interface TimePickerState {
