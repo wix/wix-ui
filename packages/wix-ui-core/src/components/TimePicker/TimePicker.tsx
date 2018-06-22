@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {bool, func, object, string, node, oneOf} from 'prop-types';
+import {bool, func, string, node, oneOf} from 'prop-types';
 const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
