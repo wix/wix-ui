@@ -1,3 +1,5 @@
+/* global describe it expect */
+
 import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
 import {StylableDOMUtil} from 'stylable/test-utils';
@@ -56,6 +58,11 @@ describe('Input', () => {
     expect(input.tabIndex).toBe(1);
     expect(input.type).toBe('password');
     expect(input.value).toBe('hunter2');
+  });
+
+  it('should support width prop', async () => {
+    const driver = await render(<Input width="100px"/>);
+    expect(driver.root.style.width).toEqual('100px');
   });
 
   it('should render prefix and suffix', async () => {
