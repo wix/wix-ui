@@ -87,7 +87,10 @@ export default class extends Component {
     exampleProps: PropTypes.object,
 
     /** when true, display only component preview without interactive props nor code example */
-    isInteractive: PropTypes.bool
+    isInteractive: PropTypes.bool,
+
+    /** currently only `false` possible. later same property shall be used for configuring code example */
+    codeExample: PropTypes.bool
   }
 
   static defaultProps = {
@@ -96,7 +99,8 @@ export default class extends Component {
     componentProps: {},
     parsedSource: {},
     exampleProps: {},
-    isInteractive: true
+    isInteractive: true,
+    codeExample: true
   }
 
   _initialPropsState = {};
@@ -353,10 +357,12 @@ export default class extends Component {
           children={React.createElement(this.props.component, componentProps)}
           />
 
-        <Code
-          dataHook="metadata-codeblock"
-          component={React.createElement(this.props.component, codeProps)}
-          />
+        { this.props.codeExample &&
+          <Code
+            dataHook="metadata-codeblock"
+            component={React.createElement(this.props.component, codeProps)}
+            />
+        }
       </Wrapper>
     );
   }

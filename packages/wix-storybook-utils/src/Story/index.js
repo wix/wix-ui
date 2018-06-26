@@ -15,6 +15,7 @@ export default ({
   examples,
   exampleProps,
   exampleImport,
+  codeExample,
   _config,
   _metadata
 }) =>
@@ -44,6 +45,7 @@ export default ({
               exampleImport,
               displayName,
               examples,
+              codeExample,
               metadata: _metadata,
               config: _config
             }}

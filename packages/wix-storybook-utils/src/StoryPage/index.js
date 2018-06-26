@@ -49,7 +49,8 @@ const StoryPage = ({
   displayName,
   exampleProps,
   exampleImport,
-  examples
+  examples,
+  codeExample
 }) => {
   const visibleDisplayName = displayName || metadata.displayName;
   const visibleMetadata = {...metadata, displayName: visibleDisplayName};
@@ -87,6 +88,7 @@ const StoryPage = ({
           parsedSource={visibleMetadata}
           componentProps={componentProps}
           exampleProps={exampleProps}
+          codeExample={codeExample}
           />
 
         {examples}
@@ -117,7 +119,10 @@ StoryPage.propTypes = {
    * usually something like `import Component from 'module/Component';`
    */
   exampleImport: PropTypes.string,
-  examples: PropTypes.node
+  examples: PropTypes.node,
+
+  /** currently only `false` possible. later same property shall be used for configuring code example */
+  codeExample: PropTypes.bool
 };
 
 StoryPage.defaultProps = {

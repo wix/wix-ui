@@ -22,7 +22,6 @@ describe('StoryPage', () => {
       const config = {
         importFormat: 'hey %moduleName, what\'s your name, %moduleName?',
         moduleName: 'dork'
-
       };
       testkit.when.created({config});
       expect(testkit.get.import()).toMatch('hey dork, what\'s your name, dork?');
@@ -90,13 +89,22 @@ describe('StoryPage', () => {
       };
 
       testkit.when.created(props);
-      expect(testkit.get.codeBlock()).toEqual(`\`\`\`js
+      expect(testkit.get.codeBlock().prop('source')).toEqual(`\`\`\`js
 <componentName>
   <div>
     <IShouldBeTheName />
   </div>
 </componentName>
 \`\`\``);
+    });
+
+    it('should not be rendered given `codeExample: false`', () => {
+      testkit.when.created({
+        component: () => '',
+        codeExample: false
+      });
+
+      expect(testkit.get.codeBlock().length).toEqual(0);
     });
   });
 });

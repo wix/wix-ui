@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
 
-import {Option} from './components';
+import {Option, Code} from './components';
 import AutoExample from './';
 
 class Driver {
@@ -13,7 +13,8 @@ class Driver {
   }
 
   get = {
-    options: () => this.component.find(Option)
+    options: () => this.component.find(Option),
+    codeBlock: () => this.component.find(Code)
   }
 }
 
@@ -99,6 +100,16 @@ describe('AutoExample', () => {
 
       const option = driver.get.options().props();
       expect(option.children).not.toBe(null);
+    });
+  });
+
+  describe('codeExample', () => {
+    it('should not render when `false`', () => {
+      const driver = new Driver();
+      driver.when.created({
+        codeExample: false
+      });
+      expect(driver.get.codeBlock().length).toEqual(0);
     });
   });
 });

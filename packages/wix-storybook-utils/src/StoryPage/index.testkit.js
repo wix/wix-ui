@@ -31,6 +31,6 @@ export default class {
       this.component.find('[dataHook="metadata-import"]').find(Markdown).prop('source'),
 
     codeBlock: () =>
-      this.component.find('[dataHook="metadata-codeblock"]').find(Markdown).prop('source')
+      this.component.find('[dataHook="metadata-codeblock"]').find(Markdown)
   }
 }
