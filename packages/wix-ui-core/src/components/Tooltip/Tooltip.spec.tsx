@@ -36,6 +36,12 @@ describe('Tooltip', () => {
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 
+  it('should not display content on hover if visible is false', async () => {
+    const driver = createDriver(createTooltip({visible: false}));
+    driver.mouseEnter();
+    expect(driver.isContentElementExists()).toBeFalsy();
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(createTooltip(), tooltipTestkitFactory)).toBe(true);

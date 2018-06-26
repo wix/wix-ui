@@ -37,6 +37,8 @@ export interface TooltipProps {
   timeout?: number;
   /** If true, shows the tooltip arrow */
   showArrow?: boolean;
+  /** If false, will prevent tooltip from been showing */
+  visible?: boolean;
 }
 
 export interface TooltipState {
@@ -56,7 +58,8 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     onShow: noop,
     onHide: noop,
     timeout: 150,
-    showArrow: true
+    showArrow: true,
+    visible: true
   };
 
   static propTypes = {
@@ -83,7 +86,9 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     /** Animation timer */
     timeout: number,
     /** If true, shows the tooltip arrow */
-    showArrow: bool
+    showArrow: bool,
+    /** If false, will prevent tooltip from been showing */
+    visible: bool
   };
 
   constructor(props: TooltipProps & InjectedOnClickOutProps) {
@@ -128,7 +133,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={this.props.visible && isOpen}
         showArrow={showArrow}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
