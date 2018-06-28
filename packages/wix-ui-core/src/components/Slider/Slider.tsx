@@ -119,18 +119,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     }
   };
 
-  constructor(props) {
-    super(props);
-
-    const {width, height} = this.props.style;
-
-    this.state = {
-      dragging: false,
-      mouseDown: false,
-      thumbHover: false,
-      inKeyPress: false,
-    };
-  }
+  state = {
+    dragging: false,
+    mouseDown: false,
+    thumbHover: false,
+    inKeyPress: false,
+  };
 
   componentDidMount() {
     document.addEventListener('mouseup', this.handleMouseUp);

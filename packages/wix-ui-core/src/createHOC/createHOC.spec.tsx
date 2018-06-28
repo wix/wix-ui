@@ -16,9 +16,10 @@ describe('createHOC function', () => {
   class ChildComponent extends React.Component<ComponentProps, {id: string}> {
     constructor(props) {
       super(props);
-      this.state = {id : props.id};
       this.boundMethod = this.boundMethod.bind(this);
     }
+
+  state = {id : this.props.id};
 
     static staticVariable = 'staticVariable';
     static staticMethod() { return 'staticMethod'; }

@@ -123,13 +123,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._mouseDown              = false;
     this._lastFocusedField       = FIELD.BEFORE;
 
-    let {value} = props;
-    if (!value || !isValidTime(value)) {
-      value = NULL_TIME;
-    }
-
-    this.state = {value};
-
     this._highlightField = this._highlightField.bind(this);
     this._onMouseDown    = this._onMouseDown.bind(this);
     this._onMouseUp      = this._onMouseUp.bind(this);
@@ -141,6 +134,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._increment      = this._increment.bind(this);
     this._decrement      = this._decrement.bind(this);
   }
+
+  state = {value: this.props.value && isValidTime(this.props.value) ? this.props.value : NULL_TIME};
 
   componentWillReceiveProps(nextProps) {
     let {value} = nextProps;

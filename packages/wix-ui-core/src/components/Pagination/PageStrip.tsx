@@ -32,10 +32,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private unmounted: boolean = false;
   private rootNode: HTMLElement;
 
-  public constructor(props: PageStripProps) {
-    super(props);
-    this.state = {responsiveLayout: null};
-  }
+  state = {responsiveLayout: null};
 
   public componentDidMount() {
     if (this.props.updateResponsiveLayout) {

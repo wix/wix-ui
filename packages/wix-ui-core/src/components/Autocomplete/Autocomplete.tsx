@@ -87,14 +87,12 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   constructor(props: AutocompleteProps) {
     super(props);
 
-    this.state = {
-      inputValue: ''
-    };
-
     this._onSelect = this._onSelect.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
     this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
   }
+
+  state = {inputValue: ''};
 
   _onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (this.state.inputValue !== event.target.value) {

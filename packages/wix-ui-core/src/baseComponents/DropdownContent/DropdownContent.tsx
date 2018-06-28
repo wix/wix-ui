@@ -36,10 +36,9 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     super(props);
 
     this.onMouseMove = this.onMouseMove.bind(this);
-    this.state = {
-      hoveredIndex: NOT_HOVERED_INDEX
-    };
   }
+
+  state = {hoveredIndex: NOT_HOVERED_INDEX};
 
   setHoveredIndex(index: number) {
     if (this.state.hoveredIndex !== index) {

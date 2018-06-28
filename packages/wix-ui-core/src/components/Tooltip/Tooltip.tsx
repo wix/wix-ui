@@ -91,11 +91,9 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
-
-    this.state = {
-      isOpen: false
-    };
   }
+
+  state = {isOpen: false};
 
   handleClickOutside() {
     if (this.props.onClickOutside) {

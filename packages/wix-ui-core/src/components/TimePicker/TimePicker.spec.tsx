@@ -146,9 +146,11 @@ describe('TimePicker', () => {
         constructor(props) {
           super(props);
           this.timePickerRef = React.createRef();
-          this.state = {value: props.value};
           this.setValue = this.setValue.bind(this);
         }
+
+        state = {value: this.props.value};
+
         setValue(value) { this.setState({value}); }
         render() { return (<TimePicker ref={this.timePickerRef} value={this.state.value}/>); }
       }

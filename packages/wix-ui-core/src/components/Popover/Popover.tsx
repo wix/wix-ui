@@ -156,13 +156,8 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   stylesObj: { [key: string]: string } = null;
   appendToNode: HTMLElement = null;
 
-  constructor(props: PopoverProps) {
-    super(props);
 
-    this.state = {
-      isMounted: false
-    };
-  }
+  state = {isMounted: false};
 
   static propTypes = {
     className: string,

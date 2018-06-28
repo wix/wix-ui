@@ -172,7 +172,6 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     constructor(props) {
         super(props);
-        this.state = {options: [], inputValue: ''};
         this.addressRequestId = 0;
         this.geocodeRequestId = 0;
         this.placeDetailsRequestId = 0;
@@ -186,6 +185,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
         this.currentAddressRequest = Promise.resolve();
     }
+
+    state = {options: [], inputValue: ''};
 
     componentDidMount() {
         this.client = new this.props.Client();

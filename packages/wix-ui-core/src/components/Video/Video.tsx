@@ -147,13 +147,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
     playableRef: noop,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasBeenPlayed: false,
-    };
-  }
+  state = {hasBeenPlayed: false};
 
   componentDidMount() {
     const {

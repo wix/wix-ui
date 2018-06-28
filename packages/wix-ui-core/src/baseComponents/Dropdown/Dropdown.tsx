@@ -61,12 +61,9 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     this.close = this.close.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
-
-    this.state = {
-      isOpen: false,
-      selectedIds: []
-    };
   }
+
+  state = {isOpen: false, selectedIds: []};
 
   componentWillMount() {
     this.initializeSelectedOptions(this.props);
