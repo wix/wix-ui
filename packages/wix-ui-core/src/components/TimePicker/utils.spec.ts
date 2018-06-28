@@ -68,8 +68,8 @@ describe('TimePicker utils', () => {
         expect(increment({value: `${BLANK}:00`, field: FIELD.MINUTE})).toEqual(`${BLANK}:01`);
       });
 
-      it('should return "01:00" for input of "--:59", default step', () => {
-        expect(increment({value: `${BLANK}:59`, field: FIELD.MINUTE})).toEqual('01:00');
+      it('should return "--:00" for input of "--:59", default step', () => {
+        expect(increment({value: `${BLANK}:59`, field: FIELD.MINUTE})).toEqual(`${BLANK}:00`);
       });
 
       it('should return "10:40" for input of "10:20", step = 20', () => {
@@ -128,12 +128,12 @@ describe('TimePicker utils', () => {
     });
 
     describe('field = minute', () => {
-      it('should return "23:59" for input of "--:--", default step', () => {
-        expect(decrement({value: NULL_TIME, field: FIELD.MINUTE})).toEqual('23:59');
+      it('should return "--:59" for input of "--:--", default step', () => {
+        expect(decrement({value: NULL_TIME, field: FIELD.MINUTE})).toEqual(`${BLANK}:59`);
       });
 
-      it('should return "23:59" for input of "--:00", default step', () => {
-        expect(decrement({value: `${BLANK}:00`, field: FIELD.MINUTE})).toEqual('23:59');
+      it('should return "--:59" for input of "--:00", default step', () => {
+        expect(decrement({value: `${BLANK}:00`, field: FIELD.MINUTE})).toEqual(`${BLANK}:59`);
       });
 
       it('should return "--:58" for input of "--:59", default step', () => {

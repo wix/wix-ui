@@ -224,7 +224,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     const elem                    = e.target;
     const startPos                = elem.selectionStart;
-    const {useAmPm, onChange} = this.props;
+    const {useAmPm, onChange}     = this.props;
     let {value}                   = this.state;
     let currentField              = getFieldFromPos(startPos);
     const isAmPm                  = useAmPm !== AmPmOptions.None;
@@ -354,16 +354,18 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
   _increment(field?: FIELD) {
     let {value} = this.state;
-    const {step} = this.props;
+    const {step, onChange} = this.props;
     value = increment({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
     this.setState({value});
+    if (isValidTime(value)) { onChange(value); }
   }
 
   _decrement(field?: FIELD) {
     let {value} = this.state;
-    const {step} = this.props;
+    const {step, onChange} = this.props;
     value = decrement({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
     this.setState({value});
+    if (isValidTime(value)) { onChange(value); }
   }
 
   render() {

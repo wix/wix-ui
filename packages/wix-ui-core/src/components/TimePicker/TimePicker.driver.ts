@@ -24,7 +24,9 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     blur: () => inputDriver.blur(),
     /** returns the ticker group element */
     getTickers: () => inputDriver.getSuffix(),
-    /** Returns the computed styles object of the root component */
-    getRootStyles: () => window.getComputedStyle(element),
+    /** clicks on the ticker up button */
+    clickTickerUp: () => eventTrigger.click(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-up"]')),
+    /** clicks on the ticker down button */
+    clickTickerDown: () => eventTrigger.click(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-down"]'))
   };
 };

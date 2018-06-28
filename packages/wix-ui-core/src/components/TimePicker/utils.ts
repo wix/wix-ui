@@ -40,10 +40,10 @@ const changeTime = ({value, field, step = 1}) => {
       nMinute += step;
       if (nMinute > 59) {
         nMinute -= 60;
-        hour = `${(parseIntOrZero(hour) + 1) % 24}`;
+        if (hour !== BLANK) { hour = `${(parseIntOrZero(hour) + 1) % 24}`; }
       } else if (nMinute < 0) {
         nMinute += 60;
-        hour = `${(parseIntOrZero(hour) + 23) % 24}`;
+        if (hour !== BLANK) { hour = `${(parseIntOrZero(hour) + 23) % 24}`; }
       }
       minute = `${nMinute}`;
       break;

@@ -16,15 +16,15 @@ export interface TickersProps {
 
 export const Tickers: React.SFC<TickersProps> = props => (
   <div {...style('root', {}, props)}>
-    <button tabIndex={-1} type="button" onClick={props.onIncrement} className={style.ticker}>
+    <button tabIndex={-1} type="button" onClick={props.onIncrement} className={style.ticker} data-hook="ticker-button-up">
       {props.tickerUpIcon}
     </button>
-    <button tabIndex={-1} type="button" onClick={props.onDecrement} className={style.ticker}>
+    <button tabIndex={-1} type="button" onClick={props.onDecrement} className={style.ticker} data-hook="ticker-button-down">
       {props.tickerDownIcon}
     </button>
   </div>
 );
-  
+
 Tickers.displayName = 'Tickers';
 
 Tickers.propTypes = {

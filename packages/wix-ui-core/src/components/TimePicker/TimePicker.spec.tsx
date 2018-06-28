@@ -104,7 +104,7 @@ describe('TimePicker', () => {
       driver.keyDown('ArrowUp');
       expect(driver.getValue()).toEqual('10:05');
     });
-    
+
     it('should increment value by 5 minutes when step is set to 5', () => {
       const driver = createDriver(<TimePicker value={SOME_VALUE} step={5}/>);
       driver.focus();
@@ -161,6 +161,51 @@ describe('TimePicker', () => {
       const NEW_VALUE = '13:13';
       (container.instance() as ValueContainer).setValue(NEW_VALUE);
       expect(inputElement.value).toEqual(NEW_VALUE);
+    });
+  });
+
+  describe('tickers', () => {
+    const tickerUpIcon = <div data-hook="ticker-up"/>;
+    const tickerDownIcon = <div data-hook="ticker-down"/>;
+
+    it('should render tickers when both tickerUpIcon and tickerDownIcon are supplied', () => {
+      const driver = createDriver(<TimePicker tickerUpIcon = {tickerUpIcon} tickerDownIcon = {tickerDownIcon}/>);
+      expect(driver.getTickers()).toBeTruthy();
+    });
+
+    it('should NOT render tickers if both tickerUpIcon and tickerDownIcon are not supplied', () => {
+      const driver = createDriver(<TimePicker tickerDownIcon = {tickerDownIcon} />);
+      expect(driver.getTickers()).toBeFalsy();
+    });
+
+    it('should call onChange with correct value when up ticker is clicked and valid time is set', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} tickerUpIcon = {tickerUpIcon} tickerDownIcon = {tickerDownIcon} onChange = {onChangeSpy}/>);
+      driver.clickTickerUp();
+      expect(onChangeSpy).toHaveBeenCalledWith('10:05');
+    });
+
+    it('should call onChange with correct value when down ticker is clicked and valid time is set', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker value = {SOME_VALUE} tickerUpIcon = {tickerUpIcon} tickerDownIcon = {tickerDownIcon} onChange = {onChangeSpy} />);
+      driver.clickTickerDown();
+      expect(onChangeSpy).toHaveBeenCalledWith('10:03');
+    });
+
+    it('should NOT call onChange with correct value when up ticker is clicked and invalid time is set, but should update the display', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker tickerUpIcon = {tickerUpIcon} tickerDownIcon = {tickerDownIcon} onChange = {onChangeSpy}/>);
+      driver.clickTickerUp();
+      expect(onChangeSpy).not.toHaveBeenCalled();
+      expect(driver.getValue()).toEqual('--:01');
+    });
+
+    it('should NOT call onChange with correct value when down ticker is clicked and invalid time is set, but should update the display', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker tickerUpIcon = {tickerUpIcon} tickerDownIcon = {tickerDownIcon} onChange = {onChangeSpy} />);
+      driver.clickTickerDown();
+      expect(onChangeSpy).not.toHaveBeenCalled();
+      expect(driver.getValue()).toEqual('--:59');
     });
   });
 });
