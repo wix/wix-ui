@@ -30,7 +30,7 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
     return wrapped('success-icon', props.successIcon);
   }
 
-  return wrapped('progress-percentages', <span className={style.value} >{`${props.value}%`}</span>);
+  return wrapped('progress-percentages', <span>{`${props.value}%`}</span>);
 }
 
 const renderBarSection = (value: number | string) => {
