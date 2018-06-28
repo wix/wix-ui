@@ -8,11 +8,9 @@
 .progressIndicationSection {
   position: relative;
   height: 100%;
-  float: left;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 18px;
 }
 
 .barContainer {
