@@ -10,6 +10,7 @@ export default {
   componentProps: (setState, getState) => ({
     ...style('root'),
     checked: false,
+    disabled: false,
     onChange: () => setState({checked: !getState().checked}),
     'data-hook': 'story-toggleswitch'
   })
