@@ -27,6 +27,26 @@ class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boo
   }
 }
 
+const children = [
+  {label: 'Default example',
+    value:
+    [
+      <Popover.Element key="1">element</Popover.Element>,
+      <Popover.Content key="2">Content</Popover.Content>
+    ]
+  },
+  {label: 'Long content example',
+    value: [
+      <Popover.Element key="1">Long content Popover</Popover.Element>,
+      (
+        <Popover.Content key="2">
+          Lorem autem ipsam eveniet atque officiis Facere voluptatem eius vitae distinctio dolorem
+          quo eveniet? Adipisci hic ut adipisci architecto sunt
+        </Popover.Content>
+      )
+    ]
+  }
+];
 
 export default {
   category: 'Components',
@@ -35,14 +55,24 @@ export default {
   componentPath: '../src/components/Popover/Popover.tsx',
   componentProps: {
     'data-hook': 'storybook-popover',
-    children: [
-      <Popover.Element key="1">element</Popover.Element>,
-      <Popover.Content key="2">Content</Popover.Content>
-    ],
-    appendTo: null, // window, null, 'scrollParent', 'viewport'
+    children: children[0].value,
+    appendTo: null,
     showArrow: true,
-    timeout: 150
+    timeout: 150,
+    shown: false
   },
+
+  exampleProps: {
+    children,
+
+    appendTo: [
+      {label: 'window', value: window},
+      {label: 'scrollParent', value: 'scrollParent'},
+      {label: 'viewport', value: 'viewport'},
+      {label: 'null', value: null},
+    ]
+  },
+
   examples: (
     <div>
       <h1>Examples</h1>
@@ -91,5 +121,3 @@ export default {
     </div>
   )
 };
-
-
