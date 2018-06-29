@@ -95,7 +95,7 @@ describe('Input', () => {
       const styles = {
         width: '100px',
         background: 'blue',
-        position: 'relative',
+        position: 'relative' as 'relative',
         display: 'inline-flex'
       };
       const driver = await render(<Input style={styles}/>);

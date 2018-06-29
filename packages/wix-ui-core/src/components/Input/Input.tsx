@@ -34,7 +34,7 @@ export interface InputProps {
   value?: string;
   id?: string;
   name?: string;
-  style?: object;
+  style?: React.CSSProperties;
 }
 
 export interface InputState {
