@@ -60,11 +60,6 @@ describe('Input', () => {
     expect(input.value).toBe('hunter2');
   });
 
-  it('should support width prop', async () => {
-    const driver = await render(<Input width="100px"/>);
-    expect(driver.root.style.width).toEqual('100px');
-  });
-
   it('should render prefix and suffix', async () => {
     const input = await render(
       <Input prefix={<div>PREFIX</div>} suffix={<div>SUFFIX</div>} />
@@ -92,6 +87,19 @@ describe('Input', () => {
       instance.select();
       expect(input.selectionStart).toBe(0);
       expect(input.selectionEnd).toBe(3);
+    });
+  });
+
+  describe('`style` prop', () => {
+    it('should set inline style on input', async () => {
+      const styles = {
+        width: '100px',
+        background: 'blue',
+        position: 'relative',
+        display: 'inline-flex'
+      };
+      const driver = await render(<Input style={styles}/>);
+      expect(driver.root.style).toEqual(expect.objectContaining(styles));
     });
   });
 });
