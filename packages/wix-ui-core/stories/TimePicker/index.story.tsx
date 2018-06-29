@@ -1,4 +1,5 @@
 import {TimePicker} from '../../src/components/TimePicker';
+import {AmPmOptions} from '../../src/components/TimePicker/constants';
 import style from './style.st.css';
 
 export default {
@@ -11,9 +12,11 @@ export default {
     ...style('root'),
     'data-hook': 'storybook-timepicker',
     onChange: value => setState({value}),
+    step: 1
   }),
 
   exampleProps: {
-    onChange: () => 'Triggered onChange'
+    onChange: () => 'Triggered onChange',
+    useAmPm: Object.keys(AmPmOptions).map(key => AmPmOptions[key])
   }
 };
