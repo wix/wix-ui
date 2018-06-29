@@ -19,9 +19,25 @@ export default {
   },
 
   exampleProps: {
-    initialSelectedIds: [[], [1]],
     onSelect: (option: Option) => option.value,
     onDeselect: (option: Option) => option.value,
+    placement: [
+      'auto-start',
+      'auto',
+      'auto-end',
+      'top-start',
+      'top',
+      'top-end',
+      'right-start',
+      'right',
+      'right-end',
+      'bottom-end',
+      'bottom',
+      'bottom-start',
+      'left-end',
+      'left',
+      'left-start'
+    ],
 
     options: [
       {value: options.slice(0, 1), label: '1 example option'},
@@ -29,9 +45,9 @@ export default {
       {value: options, label: '20 example options'}
     ],
 
-    initialSelectedId: [
+    initialSelectedIds: [
       {value: [1], label: '[1]'},
-      {value: [1, 2, 3], label: '[1, 2, 3]'}
+      {value: [1, 3, 4], label: '[1, 3, 4]'}
     ]
   }
 };
