@@ -13,6 +13,8 @@ export default {
   componentProps: setState => ({
     ...style('root'),
     'data-hook': 'circular-progress-bar',
-    value: 10
+    value: 10,
+    showProgressIndication: false,
+    error: false
   }),
 }

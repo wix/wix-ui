@@ -87,6 +87,8 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
     </div>);
 }
 
+CircularProgressBar.displayName = 'CircularProgressBar';
+
 CircularProgressBar.propTypes = {
   value: oneOfType([number, string]),
   error: bool,
