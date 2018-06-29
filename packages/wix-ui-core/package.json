@@ -86,7 +86,7 @@
     "typescript": "~2.8.3",
     "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
-    "wix-storybook-utils": "^1.0.0",
+    "wix-storybook-utils": "^2.0.5",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^2.7.0"
