@@ -9,6 +9,7 @@ export default {
 
   componentProps: {
     'data-hook': 'storybook-label',
-    children: 'hello'
+    children: 'hello',
+    ellipsis: false
   }
 };
