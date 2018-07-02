@@ -489,6 +489,44 @@ describe('AddressInput', () => {
         });
     });
 
+    describe('suffix', () => {
+        it('Should show suffix', () => {
+            init({suffix: <div/>});
+            expect(driver.getSuffix()).toBeTruthy();
+        });
+
+        it('Should NOT show suffix', () => {
+            init();
+            expect(driver.getSuffix()).toBeFalsy();
+        });
+    });
+
+    describe('fixedFooter', () => {
+        it('Should show fixedFooter', async () => {
+            init({fixedFooter: <div data-hook="fixed-footer"/>});
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+            driver.click();
+            driver.setValue('n');
+            await waitForCond(() => driver.isContentElementExists());
+            expect(driver.getContentElement().querySelector('[data-hook="fixed-footer"]')).toBeTruthy();
+        });
+
+        it('Should NOT show fixedFooter', async () => {
+            init();
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+            driver.click();
+            driver.setValue('n');
+            await waitForCond(() => driver.isContentElementExists());
+            expect(driver.getContentElement().querySelector('[data-hook="fixed-footer"]')).toBeFalsy();
+        });
+
+        it('Should not show fixedFooter when there are no options', () => {
+            init({fixedFooter: <div data-hook="fixed-footer"/>});
+            driver.click();
+            expect(driver.isContentElementExists()).toBeFalsy();
+        });
+    });
+
     describe('testkit', () => {
         it('should exist', () => {
             expect(isTestkitExists(

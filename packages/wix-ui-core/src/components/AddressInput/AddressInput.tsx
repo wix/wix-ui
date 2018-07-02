@@ -67,6 +67,10 @@ export interface AddressInputProps {
     locationIcon?: React.ReactNode;
     /** Inline styles */
     style?: object;
+    /** Suffix for input */
+    suffix?: React.ReactNode;
+    /** Fixed footer in content element */
+    fixedFooter?: React.ReactNode;
 }
 
 export interface AddressInputState {
@@ -155,7 +159,11 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Node to be rendered in front of each suggestion */
         locationIcon: node,
         /** Inline styles */
-        style: object
+        style: object,
+        /** Suffix for input */
+        suffix: node,
+        /** Fixed footer in content element */
+        fixedFooter: node
     };
 
     static defaultProps = {
@@ -309,7 +317,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, value, forceContentElementVisibility, readOnly, style: inlineStyles} = this.props;
+        const {placeholder, onKeyDown, onFocus, value, forceContentElementVisibility, readOnly, style: inlineStyles, suffix, fixedFooter} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -319,11 +327,13 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onBlur: this._handleOnBlur,
             placeholder,
             disabled: readOnly,
-            value
+            value,
+            suffix
         };
 
         const states = {};
-        const timeout = options.length > 0 ? 150 : 0;
+        const hasOptions = options.length > 0;
+        const timeout = hasOptions ? 150 : 0;
 
         return ( 
           <InputWithOptions
@@ -335,6 +345,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             timeout={timeout}
             forceContentElementVisibility={forceContentElementVisibility}
             style={inlineStyles}
+            fixedFooter={hasOptions && fixedFooter}
           />
         );
     }
