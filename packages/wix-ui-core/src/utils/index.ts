@@ -24,3 +24,10 @@ export const createComponentThatRendersItsChildren = (displayName: string) => {
 };
 
 export const noop = () => null;
+
+export const isReactElement = <T>(
+  child: any,
+  Element: React.ComponentType<T>
+): child is React.ReactElement<T> => {
+  return child && child.type === Element;
+}
