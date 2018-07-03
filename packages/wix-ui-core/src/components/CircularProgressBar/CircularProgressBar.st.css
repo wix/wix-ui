@@ -1,7 +1,6 @@
 .root {
   -st-states: error, success;
-  width: 100%;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
 }
