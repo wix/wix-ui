@@ -1,4 +1,5 @@
-import {NavStepper} from '../src/components/NavStepper';
+import * as React from 'react';
+import {NavStepper} from '../src/components/NavStepper/NavStepper'
 
 export default {
   category: 'Components',
@@ -8,7 +9,7 @@ export default {
   componentPath: '../src/components/NavStepper/NavStepper.tsx',
 
   componentProps: {
-    children: <NavStepper.Step>First Step</NavStepper.Step><NavStepper.Step>Second Step</NavStepper.Step>,
+  children: <React.Fragment><NavStepper.Step>First Step</NavStepper.Step><NavStepper.Step>Second Step</NavStepper.Step></React.Fragment>,
     activeStep: 0,
     'data-hook': 'storybook-navstepper'
   }

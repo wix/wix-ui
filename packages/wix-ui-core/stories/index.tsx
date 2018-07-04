@@ -27,7 +27,7 @@ import './Label.story';
 import './LabelWithOptions.story';
 import './LinearProgressBar/index.story';
 import './Link.story';
-import './NavStepper';
+import './NavStepper.story';
 Components.add('Pagination', () => <PaginationStory/>);
 import './Popover.story';
 Components.add('RadioButton', () => <RadioButtonStory/>);
