@@ -28,7 +28,7 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
                             {
                                 React.Children.map(children, (child, index) => {
                                     if (React.isValidElement(child)) {
-                                        return React.cloneElement(child, getStepProps(index));
+                                        return React.cloneElement(child, getStepProps(index, {...child.props, className: style.step}));
                                     }   
                                     return child;
                                 })

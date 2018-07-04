@@ -1,7 +1,13 @@
+:import {
+    -st-from: "./NavStep.st.css";
+    -st-default: NavStep;
+}
 .root {
 
 }
-
 .steps-list {
     
+}
+.step {
+    -st-extends: NavStep;
 }

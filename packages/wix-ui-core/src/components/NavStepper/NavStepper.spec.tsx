@@ -29,8 +29,8 @@ describe('NavStepper', () => {
                 <NavStepper.Step>Second Step</NavStepper.Step>
             </NavStepper>
         );
-        expect(driver.isStepActive(0)).toBe(true)
-        expect(driver.isStepActive(1)).toBe(false)
+        expect(driver.isStepActive(0)).toBe(true);
+        expect(driver.isStepActive(1)).toBe(false);
     });
     
     it('should set aria-current attribute to active step child', async () => {
@@ -39,7 +39,7 @@ describe('NavStepper', () => {
                 <NavStepper.Step>First Step</NavStepper.Step>
             </NavStepper>
         );
-        expect(driver.activeStep.attributes['aria-current'].value).toBe('page')
+        expect(driver.activeStep.attributes['aria-current'].value).toBe('page');
     });
 
     it('should pass disabled state to disabled children', async () => {
@@ -49,8 +49,8 @@ describe('NavStepper', () => {
                 <NavStepper.Step disabled>Second Step</NavStepper.Step>
             </NavStepper>
         );
-        expect(driver.isStepDisabled(0)).toBe(false)
-        expect(driver.isStepDisabled(1)).toBe(true)
+        expect(driver.isStepDisabled(0)).toBe(false);
+        expect(driver.isStepDisabled(1)).toBe(true);
     });
     
     it('should pass visited state to children', async () => {
@@ -60,7 +60,17 @@ describe('NavStepper', () => {
                 <NavStepper.Step>Second Step</NavStepper.Step>
             </NavStepper>
         );
-        expect(driver.isStepVisited(0)).toBe(true)
-        expect(driver.isStepVisited(1)).toBe(false)
+        expect(driver.isStepVisited(0)).toBe(true);
+        expect(driver.isStepVisited(1)).toBe(false);
+    });
+
+    it('should allow child to override its own state', async () => {
+        const driver = await render(
+            <NavStepper activeStep={1}>
+                <NavStepper.Step visited={false}>First Step</NavStepper.Step>
+                <NavStepper.Step>Second Step</NavStepper.Step>
+            </NavStepper>
+        );
+        expect(driver.isStepVisited(0)).toBe(false);
     });
 });

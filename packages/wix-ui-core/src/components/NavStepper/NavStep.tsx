@@ -3,7 +3,7 @@ import style from './NavStep.st.css';
 import {StepProps} from '../../baseComponents/Stepper';
 import {bool, Requireable} from 'prop-types';
 
-export interface ExternalNavStepProps  {
+export type ExternalNavStepProps = Partial<StepProps> & {
     disabled?: boolean;
     children: React.ReactNode;
 }

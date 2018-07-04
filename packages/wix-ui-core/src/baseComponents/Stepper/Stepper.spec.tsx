@@ -70,4 +70,20 @@ describe('Stepper', () => {
         expect(first.textContent).toEqual('not visited');
         expect(second.textContent).toEqual('not visited');
     });
+
+    it('should accecpt overrides for step props', async() => {
+        const root = await render(
+            <Stepper activeStep={0}>
+                {
+                    ({getStepProps}) =>  {
+                        const stepProps = getStepProps(0, {className: 'custom-step', active: false});
+                        return (<div className={stepProps.className}>{stepProps.active ? 'active' : 'inactive'}</div>)
+                    }
+                }
+            </Stepper>
+        );
+
+        expect(root.className).toBe('custom-step');
+        expect(root.textContent).toBe('inactive');
+    })
 });
