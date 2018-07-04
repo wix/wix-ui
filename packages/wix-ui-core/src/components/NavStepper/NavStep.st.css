@@ -1,3 +1,15 @@
 .root {
     -st-states: active, visited, disabled;
 }
+
+.root:visited {
+    color: green;
+}
+
+.root:disabled {
+    color: grey;
+}
+
+.root:active {
+    color: blue;
+}

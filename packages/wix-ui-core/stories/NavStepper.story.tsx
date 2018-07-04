@@ -9,8 +9,16 @@ export default {
   componentPath: '../src/components/NavStepper/NavStepper.tsx',
 
   componentProps: {
-  children: <React.Fragment><NavStepper.Step>First Step</NavStepper.Step><NavStepper.Step>Second Step</NavStepper.Step></React.Fragment>,
+  children: [
+      (<NavStepper.Step>Active</NavStepper.Step>),
+      (<NavStepper.Step>Not visited</NavStepper.Step>),
+      (<NavStepper.Step>Not visited</NavStepper.Step>),
+      (<NavStepper.Step disabled>Disabled</NavStepper.Step>)
+    ],
     activeStep: 0,
     'data-hook': 'storybook-navstepper'
+  },
+  exampleProps: {
+      activeStep: [0,1,2,3]
   }
 };
