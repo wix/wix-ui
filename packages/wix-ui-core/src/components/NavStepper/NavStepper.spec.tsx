@@ -10,7 +10,7 @@ describe('NavStepper', () => {
       container.render(jsx)
       .then(() => new NavStepperDriverFactory(container.componentNode));
 
-    it('renders a <nav> with an ordered list of items', async () => {
+    it('should render a <nav> with an ordered list of items', async () => {
         const driver = await render(
             <NavStepper activeStep={0}>
                 <NavStepper.Step>First Step</NavStepper.Step>
@@ -22,7 +22,7 @@ describe('NavStepper', () => {
         expect(driver.stepContentAt(0)).toBe('First Step');
     });
 
-    it('passes active state to active step child', async () => {
+    it('should pass active state to active step child', async () => {
         const driver = await render(
             <NavStepper activeStep={0}>
                 <NavStepper.Step>First Step</NavStepper.Step>
@@ -33,7 +33,7 @@ describe('NavStepper', () => {
         expect(driver.isStepActive(1)).toBe(false)
     });
     
-    it('sets aria-current attribute to active step child', async () => {
+    it('should set aria-current attribute to active step child', async () => {
         const driver = await render(
             <NavStepper activeStep={0}>
                 <NavStepper.Step>First Step</NavStepper.Step>
@@ -42,7 +42,7 @@ describe('NavStepper', () => {
         expect(driver.activeStep.attributes['aria-current'].value).toBe('page')
     });
 
-    it('passes disabled state to disabled children', async () => {
+    it('should pass disabled state to disabled children', async () => {
         const driver = await render(
             <NavStepper activeStep={0}>
                 <NavStepper.Step>First Step</NavStepper.Step>
@@ -53,7 +53,7 @@ describe('NavStepper', () => {
         expect(driver.isStepDisabled(1)).toBe(true)
     });
     
-    it('passes visited state to children', async () => {
+    it('should pass visited state to children', async () => {
         const driver = await render(
             <NavStepper activeStep={1}>
                 <NavStepper.Step>First Step</NavStepper.Step>

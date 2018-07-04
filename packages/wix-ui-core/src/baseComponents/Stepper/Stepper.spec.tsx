@@ -4,12 +4,12 @@ import {Stepper} from "./Stepper";
 
 describe('Stepper', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();
-    
-    const render = jsx =>
-      container.render(jsx)
-      .then(() => container.componentNode);
 
-      it('marks a step as active', async () => {
+    const render = jsx =>
+        container.render(jsx)
+        .then(() => container.componentNode);
+
+    it('should mark a step as active', async () => {
         const root = await render(
             <Stepper activeStep={0}>
                 {
@@ -17,15 +17,15 @@ describe('Stepper', () => {
                 }
             </Stepper>
         );
-  
+
         expect(root.textContent).toEqual('active');
-      });
-      
-      it('marks steps as inactive', async () => {
+    });
+
+    it('should mark steps as inactive', async () => {
         const root = await render(
             <Stepper activeStep={1}>
                 {
-                    ({getStepProps}) =>  <div>
+                    ({getStepProps}) => <div>
                         <div>{getStepProps(0).active ? 'active' : 'inactive'}</div>
                         <div>{getStepProps(2).active ? 'active' : 'inactive'}</div>
                     </div>
@@ -35,26 +35,26 @@ describe('Stepper', () => {
         const [first, second] = Array.from(root.getElementsByTagName('div'));
         expect(first.textContent).toEqual('inactive');
         expect(second.textContent).toEqual('inactive');
-      });
+    });
 
-      it('marks all previous steps as visited', async () => {
+    it('should mark all previous steps as visited', async () => {
         const root = await render(
             <Stepper activeStep={2}>
                 {
-                    ({getStepProps}) =>  <div>
+                    ({getStepProps}) => <div>
                         <div>{getStepProps(0).visited ? 'visited' : 'not visited'}</div>
                         <div>{getStepProps(1).visited ? 'visited' : 'not visited'}</div>
                     </div>
                 }
             </Stepper>
         );
-  
+
         const [first, second] = Array.from(root.getElementsByTagName('div'));
         expect(first.textContent).toEqual('visited');
         expect(second.textContent).toEqual('visited');
-      });
-      
-      it('marks all next steps as not visited', async () => {
+    });
+
+    it('should mark all next steps as not visited', async () => {
         const root = await render(
             <Stepper activeStep={0}>
                 {
@@ -65,9 +65,9 @@ describe('Stepper', () => {
                 }
             </Stepper>
         );
-  
+
         const [first, second] = Array.from(root.getElementsByTagName('div'));
         expect(first.textContent).toEqual('not visited');
         expect(second.textContent).toEqual('not visited');
-      });
+    });
 });

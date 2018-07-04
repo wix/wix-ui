@@ -1,1 +1,1 @@
-export {NavStepper, NavStepperProps} from './NavStepper';
+export * from './NavStepper';
