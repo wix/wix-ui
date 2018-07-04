@@ -59,7 +59,8 @@ export default {
     appendTo: null,
     showArrow: true,
     timeout: 150,
-    shown: false
+    shown: false,
+    placement: ''
   },
 
   exampleProps: {
