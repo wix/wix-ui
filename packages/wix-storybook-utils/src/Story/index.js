@@ -16,6 +16,7 @@ export default ({
   exampleProps,
   exampleImport,
   codeExample,
+  renderStory,
   _config,
   _metadata
 }) =>
@@ -23,31 +24,52 @@ export default ({
     .storiesOf(category, module)
     .add(
       storyName || _metadata.displayName,
-      () =>
-        isE2E ?
-          <div>
-            <AutoExample
-              isInteractive={false}
-              ref={ref => global.autoexample = ref}
-              component={component}
-              componentProps={componentProps}
-              parsedSource={_metadata}
+      () => {
+        const manualStory = renderStory({
+          isTestMode: isE2E,
+          component,
+          displayName,
+          componentProps,
+          examples,
+          exampleProps,
+          exampleImport,
+          codeExample,
+          _config,
+          _metadata
+        });
+        if (manualStory) {
+          return manualStory;
+        }
+        if (isE2E) {
+          return (
+            <div>
+              <AutoExample
+                isInteractive={false}
+                ref={ref => global.autoexample = ref}
+                component={component}
+                componentProps={componentProps}
+                parsedSource={_metadata}
+                />
+
+              {queryString.parse(window.location.search).withExamples !== undefined && examples}
+            </div>
+          );
+        } else {
+          return (
+            <StoryPage
+              {...{
+                component,
+                componentProps,
+                exampleProps,
+                exampleImport,
+                displayName,
+                examples,
+                codeExample,
+                metadata: _metadata,
+                config: _config
+              }}
               />
-
-            {queryString.parse(window.location.search).withExamples !== undefined && examples}
-          </div> :
-
-          <StoryPage
-            {...{
-              component,
-              componentProps,
-              exampleProps,
-              exampleImport,
-              displayName,
-              examples,
-              codeExample,
-              metadata: _metadata,
-              config: _config
-            }}
-            />
+          );
+        }
+      }
       );
