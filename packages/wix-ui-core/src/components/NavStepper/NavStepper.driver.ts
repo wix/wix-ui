@@ -1,12 +1,13 @@
+import { BaseDriver, ComponentFactory, DriverFactory } from 'wix-ui-test-utils/driver-factory';
 import {StylableDOMUtil} from 'stylable/test-utils';
 import stepStyle from './NavStep.st.css';
 
-export class NavStepperDriverFactory {
+export class NavStepperDriver implements BaseDriver {
     private styleUtil = new StylableDOMUtil(stepStyle);
     private hasStyleState = (step: HTMLLIElement, state: 'active' | 'disabled' | 'visited') => this.styleUtil.hasStyleState(step, state)
     private stepAt = (index: number) => this.element.getElementsByTagName('li')[index];
     
-    constructor(private readonly element: HTMLElement) {
+    constructor(private readonly element: Element) {
     }
     
     /**  returns the root element */
@@ -15,7 +16,7 @@ export class NavStepperDriverFactory {
     }
 
     /** checks if the stepper exists */
-    get exists() {
+    exists() {
         return !!this.element;
     }
 
@@ -36,3 +37,6 @@ export class NavStepperDriverFactory {
         return Array.from<HTMLLIElement>(this.element.getElementsByTagName('li')).find(step => this.hasStyleState(step, 'active')) 
     }
 };
+
+export const navStepperDriverFactory: DriverFactory<NavStepperDriver> = 
+                ({element}: ComponentFactory): NavStepperDriver => new NavStepperDriver(element);

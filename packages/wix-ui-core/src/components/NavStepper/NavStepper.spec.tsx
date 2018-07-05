@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import {NavStepperDriverFactory} from "./NavStepper.driver";
+import {NavStepperDriver} from "./NavStepper.driver";
 import {NavStepper} from "./NavStepper";
 
 describe('NavStepper', () => {
@@ -8,7 +8,7 @@ describe('NavStepper', () => {
     
     const render = jsx =>
       container.render(jsx)
-      .then(() => new NavStepperDriverFactory(container.componentNode));
+      .then(() => new NavStepperDriver(container.componentNode));
 
     it('should render a <nav> with an ordered list of items', async () => {
         const driver = await render(

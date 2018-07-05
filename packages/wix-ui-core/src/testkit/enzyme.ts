@@ -123,3 +123,7 @@ import { linkDriverFactory } from "../components/Link/Link.driver";
 export const linkTestkitFactory = enzymeTestkitFactoryCreator(
   linkDriverFactory
 );
+
+import {navStepperDriverFactory, NavStepperDriver} from '../components/NavStepper/NavStepper.driver';
+export const navStepperTestkitFactory = enzymeTestkitFactoryCreator(navStepperDriverFactory);
+export {NavStepperDriver};

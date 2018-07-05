@@ -6,6 +6,8 @@ import {isReactElement} from '../../utils';
 import {childrenOfType, nonNegativeInteger} from 'airbnb-prop-types';
 import {arrayOf} from 'prop-types';
 
+export {ExternalNavStepProps} from './NavStep';
+
 export interface NavStepperProps {
     activeStep: number;
 }
