@@ -24,7 +24,7 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
             <nav {...style('root', {}, this.props)}>
                 <Stepper activeStep={activeStep}>
                     {({getStepProps}) => (
-                        <ol className={style.stepsList}>
+                        <ol className={style.steps}>
                             {
                                 React.Children.map(children, (child, index) => {
                                     if (React.isValidElement(child)) {

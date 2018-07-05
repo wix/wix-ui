@@ -5,8 +5,10 @@
 .root {
 
 }
-.steps-list {
-    
+.steps {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 .step {
     -st-extends: NavStep;
