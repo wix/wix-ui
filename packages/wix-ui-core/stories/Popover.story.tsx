@@ -60,7 +60,7 @@ export default {
     showArrow: true,
     timeout: 150,
     shown: false,
-    placement: ''
+    placement: 'top'
   },
 
   exampleProps: {
@@ -71,7 +71,9 @@ export default {
       {label: 'scrollParent', value: 'scrollParent'},
       {label: 'viewport', value: 'viewport'},
       {label: 'null', value: null},
-    ]
+    ],
+
+    placement: ['top', 'right', 'left', 'bottom']
   },
 
   examples: (
