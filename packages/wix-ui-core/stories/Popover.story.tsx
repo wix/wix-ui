@@ -31,7 +31,7 @@ const children = [
   {label: 'Default example',
     value:
     [
-      <Popover.Element key="1">element</Popover.Element>,
+      <Popover.Element key="1">This is the Popover.Element</Popover.Element>,
       <Popover.Content key="2">Content</Popover.Content>
     ]
   },
