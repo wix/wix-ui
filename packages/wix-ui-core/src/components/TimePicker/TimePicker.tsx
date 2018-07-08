@@ -80,6 +80,9 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   /** To keep track of where to increment / decrement externally (ticker) */
   _lastFocusedField: FIELD;
 
+  /** Reference to the input component */
+  _inputRef: Input;
+
   static defaultProps = {
     onChange         : () => null,
     useNativeInteraction : false,
@@ -134,6 +137,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._hasStartedTyping       = false;
     this._mouseDown              = false;
     this._lastFocusedField       = FIELD.BEFORE;
+    this._inputRef               = null;
 
     this._highlightField = this._highlightField.bind(this);
     this._onMouseDown    = this._onMouseDown.bind(this);
@@ -384,6 +388,14 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     if (isValidTime(value)) { onChange(value); }
   }
 
+  focus() {
+    this._inputRef.focus();
+  }
+
+  blur() {
+    this._inputRef.blur();
+  }
+
   render() {
     const {useNativeInteraction, useAmPm, tickerUpIcon, tickerDownIcon, ...rest} = this.props;
     const passThroughProps = omit(rest, [
@@ -424,6 +436,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       <Input
         {...passThroughProps}
         {...style('root', {}, this.props)}
+        ref         = {ref => this._inputRef = ref}
         type        = "text"
         value       = {value}
         suffix      = {tickers}
