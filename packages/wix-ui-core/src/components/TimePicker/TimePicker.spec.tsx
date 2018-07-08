@@ -51,6 +51,23 @@ describe('TimePicker', () => {
     });
   });
 
+  describe('onFocus and onBlur props', () => {
+    it('should call the onFocus prop when focused', () => {
+      const onFocus = jest.fn();
+      const driver = createDriver(<TimePicker onFocus={onFocus} />);
+      driver.focus();
+      expect(onFocus).toHaveBeenCalled();
+    });
+
+    it('should call the onBlur prop when blurred', () => {
+      const onBlur = jest.fn();
+      const driver = createDriver(<TimePicker onBlur={onBlur} />);
+      driver.focus();
+      driver.blur();
+      expect(onBlur).toHaveBeenCalled();
+    });
+  });
+
   describe('useNativeInteraction prop', () => {
     it('should default to false', () => {
       const driver = createDriver(<TimePicker />);

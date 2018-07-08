@@ -22,6 +22,12 @@ export type TimePickerProps = Pick<InputProps, 'disabled'> & {
    */
   onChange?: (value: string) => void;
 
+  /** Standard input onFocus callback */
+  onFocus?: () => void;
+
+  /** Standard input onBlur callback */
+  onBlur?: () => void;
+
   /** Use native (input type = 'time') interaction */
   useNativeInteraction?: boolean;
 
@@ -89,6 +95,12 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
      *  Will be called only with valid values (this component is semi-controlled)
      */
     onChange: func,
+
+    /** Standard input onFocus callback */
+    onFocus: func,
+
+    /** Standard input onBlur callback */
+    onBlur: func,
 
     /** Use native (input type = 'time') interaction */
     useNativeInteraction: bool,
@@ -201,6 +213,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       value = `${leftpad(nHour)}:${leftpad(nMinute)}`;
       this.setState({value}, () => { if (value !== this.props.value) { onChange(value); } });
     }
+
+    this.props.onBlur && this.props.onBlur();
   }
 
   _onFocus(e) {
@@ -208,6 +222,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const elem = e.target;
     this._highlightField(elem, FIELD.HOUR);
     this._hasStartedTyping = false;
+    this.props.onFocus && this.props.onFocus();
   }
 
   _onKeyDown(e) {
