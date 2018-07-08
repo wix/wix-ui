@@ -218,10 +218,11 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   _onFocus(e) {
-    if (!this._shouldHighlightOnFocus) { return; }
-    const elem = e.target;
-    this._highlightField(elem, FIELD.HOUR);
-    this._hasStartedTyping = false;
+    if (this._shouldHighlightOnFocus) {
+      const elem = e.target;
+      this._highlightField(elem, FIELD.HOUR);
+      this._hasStartedTyping = false;
+    }
     this.props.onFocus && this.props.onFocus();
   }
 
