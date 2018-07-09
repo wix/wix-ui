@@ -164,6 +164,13 @@ describe('TimePicker', () => {
     });
   });
 
+  describe('width prop', () => {
+    it('should set inline style on input', () => {
+      const driver = createDriver(<TimePicker width="123px"/>);
+      expect(driver.getInlineWidth()).toEqual('123px');
+    });
+  });
+
   describe('tickers', () => {
     const tickerUpIcon = <div data-hook="ticker-up"/>;
     const tickerDownIcon = <div data-hook="ticker-down"/>;
