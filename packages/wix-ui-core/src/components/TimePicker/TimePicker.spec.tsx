@@ -166,11 +166,7 @@ describe('TimePicker', () => {
 
   describe('style prop', () => {
     it('should set inline style on input', () => {
-      const style = {
-        width: '123px',
-        background: 'blue'
-      };
-
+      const style = {width: '123px'};
       const driver = createDriver(<TimePicker style={style}/>);
       expect(driver.getInlineStyle()).toEqual(expect.objectContaining(style));
     });
