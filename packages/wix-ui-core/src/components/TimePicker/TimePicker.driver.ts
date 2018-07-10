@@ -11,7 +11,7 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     getInputElement: () => inputDriver.getInput(),
 
     /** returns inline style width of TimePicker */
-    getInlineWidth: () => inputDriver.getInput().parentNode.style.width,
+    getInlineStyle: () => window.getComputedStyle(inputDriver.getInput().parentNode),
 
     /** returns a boolean indicating if the timePicker is disabled */
     isDisabled: () => inputDriver.isDisabled(),

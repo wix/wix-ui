@@ -164,10 +164,15 @@ describe('TimePicker', () => {
     });
   });
 
-  describe('width prop', () => {
+  describe('style prop', () => {
     it('should set inline style on input', () => {
-      const driver = createDriver(<TimePicker width="123px"/>);
-      expect(driver.getInlineWidth()).toEqual('123px');
+      const style = {
+        width: '123px',
+        background: 'blue'
+      };
+
+      const driver = createDriver(<TimePicker style={style}/>);
+      expect(driver.getInlineStyle()).toEqual(expect.objectContaining(style));
     });
   });
 
