@@ -2,6 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": true,
+    "importHelpers": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
