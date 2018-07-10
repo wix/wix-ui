@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import {NavStepperDriver} from "./NavStepper.driver";
 import {NavStepper} from "./NavStepper";
@@ -72,5 +73,51 @@ describe('NavStepper', () => {
             </NavStepper>
         );
         expect(driver.isStepVisited(0)).toBe(false);
+    });
+    
+    it('should allow child to pass props to the dom element', async () => {
+        const driver = await render(
+            <NavStepper activeStep={0}>
+                <NavStepper.Step value={5}>First Step</NavStepper.Step>
+            </NavStepper>
+        );
+        expect(driver.activeStep.value).toBe(5);
+    });
+
+    it('notifies on step click', async () => {
+        const spy = jest.fn();
+        const driver = await render(
+            <NavStepper activeStep={0} onStepClick={spy}>
+                <NavStepper.Step>First Step</NavStepper.Step>
+                <NavStepper.Step>Second Step</NavStepper.Step>
+            </NavStepper>
+        );
+        expect(spy).not.toHaveBeenCalled();
+        driver.clickOnStep(1)
+        expect(spy.mock.calls[0]).toEqual(expect.arrayContaining([1]));
+    });
+    
+    it('should not notify when clicking on the active step', async () => {
+        const spy = jest.fn();
+        const driver = await render(
+            <NavStepper activeStep={0} onStepClick={spy}>
+                <NavStepper.Step>First Step</NavStepper.Step>
+                <NavStepper.Step>Second Step</NavStepper.Step>
+            </NavStepper>
+        );
+        driver.clickOnStep(0)
+        expect(spy).not.toHaveBeenCalled();
+    });
+    
+    it('should not notify when clicking on a disabled step', async () => {
+        const spy = jest.fn();
+        const driver = await render(
+            <NavStepper activeStep={0} onStepClick={spy}>
+                <NavStepper.Step>First Step</NavStepper.Step>
+                <NavStepper.Step disabled>Second Step</NavStepper.Step>
+            </NavStepper>
+        );
+        driver.clickOnStep(1)
+        expect(spy).not.toHaveBeenCalled();
     });
 });

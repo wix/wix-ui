@@ -14,12 +14,12 @@ export class NavStep extends React.PureComponent<NavStepProps> {
         disabled: bool
     }
     render () {
-        const {active, disabled, visited, children} = this.props;
+        const {active, disabled, visited, children, ...rest} = this.props;
         const ariaProps: any = {}
         active && (ariaProps['aria-current'] = 'page');
 
         return (
-            <li {...style('root', {active, visited, disabled}, this.props)} {...ariaProps}>
+            <li {...ariaProps} {...rest} {...style('root', {active, visited, disabled}, this.props)}>
                 {children}
             </li>
         );

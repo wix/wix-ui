@@ -1,4 +1,5 @@
 import { BaseDriver, ComponentFactory, DriverFactory } from 'wix-ui-test-utils/driver-factory';
+import {Simulate} from 'react-dom/test-utils';
 import {StylableDOMUtil} from 'stylable/test-utils';
 import stepStyle from './NavStep.st.css';
 
@@ -31,6 +32,8 @@ export class NavStepperDriver implements BaseDriver {
 
     /** returns text content of a step */
     stepContentAt = (index: number) => this.stepAt(index).textContent
+
+    clickOnStep = (index: number) => Simulate.click(this.stepAt(index));
 
     /** returns the active step element */
     get activeStep() { 

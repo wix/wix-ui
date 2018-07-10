@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './NavStepper.st.css';
-import {Stepper} from '../../baseComponents/Stepper';
+import {Stepper, StepProps} from '../../baseComponents/Stepper';
 import {NavStep, ExternalNavStepProps} from './NavStep';
 import {isReactElement} from '../../utils';
 import {childrenOfType, nonNegativeInteger} from 'airbnb-prop-types';
@@ -10,6 +10,7 @@ export {ExternalNavStepProps} from './NavStep';
 
 export interface NavStepperProps {
     activeStep: number;
+    onStepClick?: (stepIndex: number, e: any) => void
 }
 
 export class NavStepper extends React.PureComponent<NavStepperProps> {
@@ -30,7 +31,12 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
                             {
                                 React.Children.map(children, (child, index) => {
                                     if (React.isValidElement(child)) {
-                                        return React.cloneElement(child, getStepProps(index, {...child.props, className: style.step}));
+                                        const stepProps: any = getStepProps(index, {...child.props, className: style.step});
+
+                                        if (this.props.onStepClick && !(stepProps.active || stepProps.disabled)) {
+                                            stepProps.onClick = (e: any) => this.props.onStepClick(index, e)
+                                        }
+                                        return React.cloneElement(child, stepProps);
                                     }   
                                     return child;
                                 })
