@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import {NavStepperDriver} from "./NavStepper.driver";
 import {NavStepper} from "./NavStepper";
