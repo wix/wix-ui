@@ -41,6 +41,19 @@ const importString = ({metadata, config, exampleImport}) =>
     }
   ].find(({when}) => when()).make();
 
+const Section = ({title, children}) => (
+  <div>
+    <Markdown
+      source={`## ${title}`}
+      />
+    {children}
+  </div>
+);
+Section.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.any
+};
+
 const StoryPage = ({
   metadata,
   config,
@@ -82,16 +95,21 @@ const StoryPage = ({
             exampleImport
           })}
           />
+        <Section title="Playground">
+          <AutoExample
+            component={component}
+            parsedSource={visibleMetadata}
+            componentProps={componentProps}
+            exampleProps={exampleProps}
+            codeExample={codeExample}
+            />
+        </Section>
 
-        <AutoExample
-          component={component}
-          parsedSource={visibleMetadata}
-          componentProps={componentProps}
-          exampleProps={exampleProps}
-          codeExample={codeExample}
-          />
-
-        {examples}
+        { examples &&
+          <Section title="Examples">
+            {examples}
+          </Section>
+         }
       </div>
 
       <AutoDocs parsedSource={metadata}/>

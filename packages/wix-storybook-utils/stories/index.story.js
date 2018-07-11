@@ -1,3 +1,4 @@
+import React from 'react';
 import Component from './component';
 
 export default {
@@ -24,5 +25,8 @@ export default {
 
   exampleProps: {
     onClick: () => 'hai'
-  }
+  },
+  examples: (
+    <div>This is my examples free content space </div>
+  )
 };
