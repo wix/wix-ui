@@ -23,10 +23,10 @@ export type TimePickerProps = Pick<InputProps, 'disabled'> & {
   onChange?: (value: string) => void;
 
   /** Standard input onFocus callback */
-  onFocus?: () => void;
+  onFocus?: React.FocusEventHandler<HTMLElement>;
 
   /** Standard input onBlur callback */
-  onBlur?: () => void;
+  onBlur?: React.FocusEventHandler<HTMLElement>;
 
   /** Use native (input type = 'time') interaction */
   useNativeInteraction?: boolean;
@@ -55,6 +55,7 @@ export type TimePickerProps = Pick<InputProps, 'disabled'> & {
 
 export interface TimePickerState {
   value: string;
+  focus: boolean;
 }
 
 // TODO: make all _prefix private when the parser won't choke on it
@@ -154,7 +155,10 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._decrement      = this._decrement.bind(this);
   }
 
-  state = {value: this.props.value && isValidTime(this.props.value) ? this.props.value : NULL_TIME};
+  state = {
+    value: this.props.value && isValidTime(this.props.value) ? this.props.value : NULL_TIME,
+    focus: false
+  };
 
   componentWillReceiveProps(nextProps) {
     let {value} = nextProps;
@@ -221,7 +225,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       this.setState({value}, () => { if (value !== this.props.value) { onChange(value); } });
     }
 
-    this.props.onBlur && this.props.onBlur();
+    this.setState({focus: false});
+    this.props.onBlur && this.props.onBlur(e);
   }
 
   _onFocus(e) {
@@ -230,7 +235,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       this._highlightField(elem, FIELD.HOUR);
       this._hasStartedTyping = false;
     }
-    this.props.onFocus && this.props.onFocus();
+    this.setState({focus: true});
+    this.props.onFocus && this.props.onFocus(e);
   }
 
   _onKeyDown(e) {
@@ -428,7 +434,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       );
     }
 
-    let {value} = this.state;
+    let {value, focus} = this.state;
     if (useAmPm !== AmPmOptions.None) {
       value = convertToAmPm({value, strings: AmPmStrings[useAmPm]});
     }
@@ -446,7 +452,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     return (
       <Input
         {...passThroughProps}
-        {...style('root', {}, this.props)}
+        {...style('root', {focus}, this.props)}
         ref         = {ref => this._inputRef = ref}
         type        = "text"
         value       = {value}
