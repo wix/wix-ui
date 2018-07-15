@@ -241,9 +241,9 @@ describe('TimePicker', () => {
   it('should support focus state', () => {
     const driver = createDriver(<TimePicker/>);
     driver.focus();
-    expect(stylableUtil.hasStyleState(driver.element(), 'focus')).toBe(true);
+    expect(stylableUtil.hasStyleState(driver.getTimePickerElement(), 'focus')).toBe(true);
     driver.blur();
-    expect(stylableUtil.hasStyleState(driver.element(), 'focus')).not.toBe(true);
+    expect(stylableUtil.hasStyleState(driver.getTimePickerElement(), 'focus')).not.toBe(true);
   });
 
 });
