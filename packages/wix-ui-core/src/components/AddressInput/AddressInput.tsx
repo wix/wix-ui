@@ -192,9 +192,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._renderOption = this._renderOption.bind(this);
         this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
         this.currentAddressRequest = Promise.resolve();
-    }
 
-    state = {options: [], inputValue: ''};
+        this.state = {options: [], inputValue: props.value || ''};
+    }
 
     componentDidMount() {
         this.client = new this.props.Client();
@@ -202,6 +202,12 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     componentWillUnmount() {
         this.unmounted = true;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value) {
+            this.setState({inputValue: nextProps.value});
+        }
     }
 
     async _getAddressOptions(input: string) {
@@ -317,7 +323,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, value, forceContentElementVisibility, readOnly, style: inlineStyles, suffix, fixedFooter} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, style: inlineStyles, suffix, fixedFooter} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -327,7 +333,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onBlur: this._handleOnBlur,
             placeholder,
             disabled: readOnly,
-            value,
+            value: this.state.inputValue,
             suffix
         };
 

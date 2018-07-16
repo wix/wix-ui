@@ -15,11 +15,11 @@ export default {
   component: AddressInput,
   componentPath: '../../src/components/AddressInput',
 
-  componentProps: {
+  componentProps: setState => ({
     apiKey: '',
     lang: 'en',
     Client,
-    onSelect: () => null,
+    onSelect: (value) => setState({value: value.address.formatted}),
     'data-hook': 'storybook-addressInput'
-  }
+  })
 };
