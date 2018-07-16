@@ -19,7 +19,7 @@ export default {
     apiKey: '',
     lang: 'en',
     Client,
-    onSelect: (value) => setState({value: value.address.formatted}),
+    onSelect: value => setState({value: value.address.formatted}),
     'data-hook': 'storybook-addressInput'
   })
 };

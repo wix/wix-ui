@@ -258,23 +258,26 @@ describe('AddressInput', () => {
         });
         
         it('Should update input value upon value prop change', () => {
-            const wrapper = mount(<AddressInput
-                Client={GoogleMapsClientStub}
-                apiKey="a"
-                lang="en"
-                onSelect={() => null} value="123 Ibn Gabirol st."
-            />);
+            const wrapper = mount(
+                <AddressInput
+                    Client={GoogleMapsClientStub}
+                    apiKey="a"
+                    lang="en"
+                    onSelect={() => null}
+                    value="123 Ibn Gabirol st."
+                />
+            );
             
-            const driver = addressInputDriverFactory({element: wrapper.getDOMNode(), eventTrigger: Simulate});
-            driver.setValue('n');
-            expect(driver.getValue()).toBe('n');
+            const addressInputDriver = addressInputDriverFactory({element: wrapper.getDOMNode(), eventTrigger: Simulate});
+            addressInputDriver.setValue('n');
+            expect(addressInputDriver.getValue()).toBe('n');
             const newValue = '321 Ibn Gabirol st.';
             wrapper.setProps({value: newValue});
-            expect(driver.getValue()).toBe(newValue);
-            driver.setValue('n');
-            expect(driver.getValue()).toBe('n');
+            expect(addressInputDriver.getValue()).toBe(newValue);
+            addressInputDriver.setValue('n');
+            expect(addressInputDriver.getValue()).toBe('n');
             wrapper.setProps({value: newValue});
-            expect(driver.getValue()).toBe('n');
+            expect(addressInputDriver.getValue()).toBe('n');
         });
     });
 
