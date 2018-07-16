@@ -8,7 +8,7 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     exists: () => !!element,
 
     /** returns the time picker element */
-    getTimePickerElement: () => element,
+    element: () => element,
 
     /** returns the input element */
     getInputElement: () => inputDriver.getInput(),
