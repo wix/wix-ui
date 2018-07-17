@@ -475,6 +475,26 @@ describe('AddressInput', () => {
             expect(onBlur).toHaveBeenCalled();
         });
 
+        it('Should have a focus and blur method', () => {
+            const wrapper = mount(
+                <AddressInput
+                    Client={GoogleMapsClientStub}
+                    apiKey="a"
+                    lang="en"
+                    onSelect={() => null}
+                />
+            );
+
+            const input = wrapper.find('input').getDOMNode();
+            const instance = wrapper.instance() as AddressInput;
+
+            expect(document.activeElement).not.toBe(input);
+            instance.focus();
+            expect(document.activeElement).toBe(input);
+            instance.blur();
+            expect(document.activeElement).not.toBe(input);
+        });
+
         it('Should clear suggestions on blur', async () => {
             init({clearSuggestionsOnBlur: true});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
