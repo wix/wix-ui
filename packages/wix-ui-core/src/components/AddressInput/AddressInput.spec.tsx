@@ -483,7 +483,7 @@ describe('AddressInput', () => {
                     lang="en"
                     onSelect={() => null}
                 />
-            );
+            , {attachTo: document.body.querySelector('#root')});
 
             const input = wrapper.find('input').getDOMNode();
             const instance = wrapper.instance() as AddressInput;
