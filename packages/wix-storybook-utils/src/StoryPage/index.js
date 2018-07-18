@@ -8,6 +8,7 @@ import Markdown from '../Markdown';
 import CodeBlock from '../CodeBlock';
 import AutoExample from '../AutoExample';
 import AutoDocs from '../AutoDocs';
+import omit from '../AutoExample/utils/omit';
 
 import styles from './styles.scss';
 
@@ -59,6 +60,7 @@ const StoryPage = ({
   config,
   component,
   componentProps,
+  hiddenProps,
   displayName,
   exampleProps,
   exampleImport,
@@ -66,7 +68,11 @@ const StoryPage = ({
   codeExample
 }) => {
   const visibleDisplayName = displayName || metadata.displayName;
-  const visibleMetadata = {...metadata, displayName: visibleDisplayName};
+  const visibleMetadata = {
+    ...metadata,
+    displayName: visibleDisplayName,
+    props: omit(metadata.props)(prop => hiddenProps.includes(prop))
+  };
 
   return (
     <TabbedView tabs={tabs(metadata)}>
@@ -95,6 +101,7 @@ const StoryPage = ({
             exampleImport
           })}
           />
+
         <Section title="Playground">
           <AutoExample
             component={component}
@@ -112,7 +119,7 @@ const StoryPage = ({
          }
       </div>
 
-      <AutoDocs parsedSource={metadata}/>
+      <AutoDocs parsedSource={visibleMetadata}/>
 
       { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
 
@@ -146,7 +153,8 @@ StoryPage.propTypes = {
 StoryPage.defaultProps = {
   config: {
     importFormat: ''
-  }
+  },
+  hiddenProps: []
 };
 
 export default StoryPage;

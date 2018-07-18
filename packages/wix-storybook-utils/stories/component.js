@@ -18,7 +18,8 @@ const Component = ({enabled, children, onClick}) =>
 Component.propTypes = {
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  propNotVisibleInStorybook: PropTypes.bool
 };
 
 Component.defaultProps = {

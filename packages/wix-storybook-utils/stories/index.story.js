@@ -26,6 +26,9 @@ export default {
   exampleProps: {
     onClick: () => 'hai'
   },
+
+  hiddenProps: ['propNotVisibleInStorybook'],
+
   examples: (
     <div>This is my examples free content space </div>
   )

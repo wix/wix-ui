@@ -24,7 +24,10 @@ const componentToJSX = component =>
   * given react component, render a source example
   */
 const ComponentSource = ({component}) =>
-  <CodeBlock source={componentToJSX(component)}/>;
+  <CodeBlock
+    dataHook="metadata-codeblock"
+    source={componentToJSX(component)}
+    />;
 
 ComponentSource.propTypes = {
   component: PropTypes.node.isRequired
