@@ -16,14 +16,15 @@ export const createDriver = (Component: React.ReactElement<VideoProps>) => {
   const wrapper = mount(ClonedComponent);
   const rootDOMNode = wrapper.getDOMNode() as HTMLElement;
   const companyLogoNode = rootDOMNode.querySelector('[data-hook="company-logo"]');
+  const containerNode = rootDOMNode.querySelector('[data-hook="player-container"]') as HTMLElement;
 
   return {
     hasCover: () => wrapper.find('[data-hook="cover"]').length === 1,
     getRootDOMNode: () => rootDOMNode,
     getSrc: () => player.getSrc(),
     getTitle: () => wrapper.find('[data-hook="title"]').text(),
-    getWidth: () => player.getWidth(),
-    getHeight: () => player.getHeight(),
+    getWidth: () => containerNode.style.width,
+    getHeight: () => containerNode.style.height,
     getLogoSrc: () => companyLogoNode.getAttribute('src'),
     isAutoPlaying: () => player.getAutoPlay(),
     isMuted: () => player.getMute(),

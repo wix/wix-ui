@@ -41,7 +41,7 @@ describe('Video', () => {
 
       it('should set initial value', () => {
         const driver = createDriver(<Video width={400}/>);
-        expect(driver.getWidth()).toBe(400);
+        expect(driver.getWidth()).toBe('400px');
       });
     });
 
@@ -53,7 +53,7 @@ describe('Video', () => {
 
       it('should set initial value', () => {
         const driver = createDriver(<Video height={225}/>);
-        expect(driver.getHeight()).toBe(225);
+        expect(driver.getHeight()).toBe('225px');
       });
     });
 

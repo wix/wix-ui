@@ -192,18 +192,26 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
       this.setState({hasBeenPlayed: true});
     });
 
-    this.player.on(VIDEO_EVENTS.STATE_CHANGED, ({nextState}) => {
-      if (nextState === ENGINE_STATES.PLAYING) {
-        this.setState({hasBeenPlayed: true});
-        onPlay();
-      }
-      if (nextState === ENGINE_STATES.PAUSED) {
-        onPause();
-      }
-      if (nextState === ENGINE_STATES.ENDED) {
-        this.setState({hasBeenPlayed: false});
-        onEnd();
-      }
+    this.player.on(ENGINE_STATES.PLAYING, () => {
+      this.setState({hasBeenPlayed: true});
+      onPlay();
+    });
+
+    this.player.on(ENGINE_STATES.PAUSED, () => {
+      onPause();
+    });
+
+    this.player.on(ENGINE_STATES.ENDED, () => {
+      this.setState({hasBeenPlayed: false});
+      onEnd();
+    });
+
+    this.player.on(ENGINE_STATES.SRC_SET, () => {
+      this.setState({hasBeenPlayed: false});
+    });
+
+    this.player.on(VIDEO_EVENTS.RESET, () => {
+      this.setState({hasBeenPlayed: false});
     });
   }
 
@@ -222,14 +230,9 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
         }
       }
     }
-
-    if (nextProps.src !== currentProps.src) {
-      this.setState({hasBeenPlayed: false});
-    }
   }
 
   componentWillUnmount() {
-    this.player.off(VIDEO_EVENTS.STATE_CHANGED);
     this.player.destroy();
   }
 
