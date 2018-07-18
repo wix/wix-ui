@@ -10,6 +10,7 @@
   "files": [
     "src",
     "dist",
+    "docs",
     "*.js"
   ],
   "bugs": {
