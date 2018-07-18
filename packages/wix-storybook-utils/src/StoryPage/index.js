@@ -137,6 +137,7 @@ StoryPage.propTypes = {
   }),
   component: PropTypes.any,
   componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  hiddenProps: PropTypes.array,
   displayName: PropTypes.string,
   exampleProps: PropTypes.object,
 
