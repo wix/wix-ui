@@ -3,7 +3,7 @@
 **story** is a term we use to describe single page which contains all documentation about component.
 These pages can be done manually or automatically. To do it automatically, a small configuration is required.
 
-Here's an [example of `<RadioGroup/>` story configuration](https://github.com/wix/wix-style-react/blob/master/stories/RadioGroup.story.js).
+Here's an [example of `<RadioGroup/>` story configuration](https://wix-wix-style-react.surge.sh/?selectedKind=4.%20Selection&selectedStory=4.3%20Radio%20Button%20Group&full=0&addons=0&stories=1&panelRight=0) in wix-style-react ([and source of it](https://github.com/wix/wix-style-react/blob/master/stories/RadioGroup.story.js)).
 
 What you see in that link is generated from component source: props list, preview area and code examples.
 
@@ -32,7 +32,9 @@ export default { // 2
     dataHook: 'storybook-radiogroup'
   }),
 
-  exampleProps: { // 8
+  hiddenProps: ['dataHook'], // 8
+
+  exampleProps: { // 9
     children: exampleChildren,
     onChange: value => value
   }
@@ -46,6 +48,7 @@ export default { // 2
 1. `component` a reference to component which is to be documented
 1. `componentPath` a path to component. This is for parser to know where to start parsing your component
 1. `componentProps` an object (or function returning object) which outlines props to be given to `5.` - a component
+1. `hiddenProps` **optional** array of props that should not appear in storybook
 1. `exampleProps` **optional** object of the same shape as component props used to configure possible prop values (explained below)
 
 ## Long example
@@ -90,224 +93,261 @@ export default {
 }
 ```
 
-#### `category` - `string` required
+<details>
+  <summary>`category` - `string` required</summary>
 
-Name of Storybook "section" under which this story will be placed (e.g. `Core`, `6. Navigation`, `3. Inputs`)
-
----
-
-#### `storyName` - `string`
-
-Name of the story in sidebar. If omitted, it will use `displayName` of
-the component.
+  Name of Storybook "section" under which this story will be placed (e.g. `Core`, `6. Navigation`, `3. Inputs`)
+</details>
 
 ---
 
-#### `component` - `ReactNode` required
+<details>
+  <summary>`storyName` - `string`</summary>
 
-Reference to react component which will be used in interactive example.
-Most often it will be imported component:
-
-```js
-import MyComponent from 'wix-style-react/Component';
-
-export default {
-  // ... other config
-  component: MyComponent
-}
-```
+  Name of the story in sidebar. If omitted, it will use `displayName` of
+  the component.
+</details>
 
 ---
 
-#### `componentPath` - `string` required
+<details>
+  <summary>`component` - `ReactNode` required</summary>
 
-A string of relative path to component source. This is required in order
-for automatic documentation to know where to start parsing.
+  Reference to react component which will be used in interactive example.
+  Most often it will be imported component:
 
-Even though just folder is enough, it is better to provide exact path to file.
+  ```js
+  import MyComponent from 'wix-style-react/Component';
 
-```js
-import MyComponent from './src/components/MyComponent';
-
-export default {
-  // ... other config
-  component: MyComponent,
-  componentPath: './src/components/MyComponent/index.js'
-}
-```
-
-NOTE: when proxying component from another library (e.g. wix-ui-backoffice -> wix-style-react), give path using `node_modules` to original source file.
-
----
-
-#### `exampleImport` - `string`
-
-An example of an import statement to be used to import the component. (appears in a code block between the README and the Playground.)
-When supplied, then it overwrites the automatic import statement.
-
----
-
-#### `displayName` - `string`
-
-use this string as components displayName. There may be a case when
-parsed displayName is incorrect (for example some HOC changed it).
-
----
-
-#### `componentProps` - `object` or `function`
-
-Props that will be passed to `component`. Either given as-is with
-`object` or computed in `function`. Imagine it as `<Component
-{...componentProps}/>`. This is the place to set required props.
-
-* when `object`, it will be passed to `component` as props.
-* when `function`, its signature is `(setState, getState) => props` where:
-  * `setState` - `function`: accepts one argument - object. When called this object will be set as `componentProps`
-  * `getState` - `function`: does not accept anything. When called it will return an object containing currently used props
-  * `props` - return value `object`: whatever is returned will be used as new `componentProps`
-
-For example:
-
-```js
-// `componentProps` as object
-export default {
-  component: ToggleSwitch,
-  // ...other config
-  componentProps: {
-    onChange: () => console.log('wooo onChange called!')
+  export default {
+    // ... other config
+    component: MyComponent
   }
-}
-
-// This is equivalent to the following
-<ToggleSwitch onChange={() => console.log('wooo onChange called!')}/>
-```
-
-Function is used to allow dynamic changes from within `component`.
-The return value of that function will be used as new `component` props.
-
-When component calls `onChange` it will
-first take `checked` (which initially is set to `false`) and invert it.
-
-This is how you can imitate surrounding state without managing it yourself:
-```js
-// `componentProps` as function
-export default {
-  component: ToggleSwitch,
-  // ...other config
-  componentProps: (setState, getState) => ({
-    checked: false,
-    onChange: () => setProps({checked: !getProps().checked})
-  }),
-}
-```
+  ```
+</details>
 
 ---
 
-#### `examples` - `ReactNode`
+<details>
+  <summary>`componentPath` - `string` required</summary>
 
-Automatically generated story page might not include all possible
-examples. In that case use `examples` and pass a `ReactNode`. It will be
-rendered without modification at the bottom of story page.
+  A string of relative path to component source. This is required in order
+  for automatic documentation to know where to start parsing.
 
-For example:
+  Even though just folder is enough, it is better to provide exact path to file.
 
-```js
-export default {
-  // ... other config
-  examples: (
-    <div>
-      Hello, I am custom example
-    </div>
-  )
-}
-```
+  ```js
+  import MyComponent from './src/components/MyComponent';
 
----
+  export default {
+    // ... other config
+    component: MyComponent,
+    componentPath: './src/components/MyComponent/index.js'
+  }
+  ```
 
-#### `exampleImport` - `string`
-
-at the top of the page there is code showing how to import component,
-something like `import Component from 'module/Component';`
-
-However, due to various reasons story may not show correct import example. In that case use `exampleImport` and pass
-hardcoded string of import example
+  NOTE: when proxying component from another library (e.g. wix-ui-backoffice -> wix-style-react), give path using `node_modules` to original source file.
+</details>
 
 ---
 
-#### `exampleProps` - `object`
+<details>
+  <summary>`exampleImport` - `string`</summary>
 
-`exampleProps` is an optional object of same shape as `componentProps`.
-It's purpose is to configure how interactive props in storybook are displayed.
+  An example of an import statement to be used to import the component. (appears in a code block between the README and the Playground.)
+  When supplied, then it overwrites the automatic import statement.
+</details>
 
-automated process tries to derive how a prop is controlled from it's
-type (e.g. a boolean prop is controlled with `<ToggleSwitch/>`, a string with `<Input/>` etc.)
+---
 
-however, it's not always possible to derive controller from prop type
-and in those cases you are able to configure it manually:
+<details>
+  <summary>`displayName` - `string`</summary>
 
-```js
-exampleProps: {
-  children: ['a', 'list', 'of', 'possible', 'children']
-}
-```
+  use this string as components displayName. There may be a case when
+  parsed displayName is incorrect (for example some HOC changed it).
+</details>
 
-the above would show `children` prop with a dropdown.
+---
 
-Below are possible ways to set `exampleProps`
+<details>
+  <summary>`componentProps` - `object` or `function`</summary>
+
+  Props that will be passed to `component`. Either given as-is with
+  `object` or computed in `function`. Imagine it as `<Component
+  {...componentProps}/>`. This is the place to set required props.
+
+  * when `object`, it will be passed to `component` as props.
+  * when `function`, its signature is `(setState, getState) => props` where:
+    * `setState` - `function`: accepts one argument - object. When called this object will be set as `componentProps`
+    * `getState` - `function`: does not accept anything. When called it will return an object containing currently used props
+    * `props` - return value `object`: whatever is returned will be used as new `componentProps`
+
+  For example:
+
+  ```js
+  // `componentProps` as object
+  export default {
+    component: ToggleSwitch,
+    // ...other config
+    componentProps: {
+      onChange: () => console.log('wooo onChange called!')
+    }
+  }
+
+  // This is equivalent to the following
+  <ToggleSwitch onChange={() => console.log('wooo onChange called!')}/>
+  ```
+
+  Function is used to allow dynamic changes from within `component`.
+  The return value of that function will be used as new `component` props.
+
+  When component calls `onChange` it will
+  first take `checked` (which initially is set to `false`) and invert it.
+
+  This is how you can imitate surrounding state without managing it yourself:
+  ```js
+  // `componentProps` as function
+  export default {
+    component: ToggleSwitch,
+    // ...other config
+    componentProps: (setState, getState) => ({
+      checked: false,
+      onChange: () => setProps({checked: !getProps().checked})
+    }),
+  }
+  ```
+</details>
+
+---
+
+<details>
+  <summary>`examples` - `ReactNode`</summary>
+
+  Automatically generated story page might not include all possible
+  examples. In that case use `examples` and pass a `ReactNode`. It will be
+  rendered without modification at the bottom of story page.
+
+  For example:
+
+  ```js
+  export default {
+    // ... other config
+    examples: (
+      <div>
+        Hello, I am custom example
+      </div>
+    )
+  }
+  ```
+</details>
+
+---
+
+<details>
+  <summary>`exampleImport` - `string`</summary>
+
+  at the top of the page there is code showing how to import component,
+  something like `import Component from 'module/Component';`
+
+  However, due to various reasons story may not show correct import example. In that case use `exampleImport` and pass
+  hardcoded string of import example
+</details>
+
+---
+
+<details>
+  <summary>`exampleProps` - `object`</summary>
+
+  `exampleProps` is an optional object of same shape as `componentProps`.
+  It's purpose is to configure how interactive props in storybook are displayed.
+
+  automated process tries to derive how a prop is controlled from it's
+  type (e.g. a boolean prop is controlled with `<ToggleSwitch/>`, a string with `<Input/>` etc.)
+
+  however, it's not always possible to derive controller from prop type
+  and in those cases you are able to configure it manually:
+
+  ```js
+  exampleProps: {
+    children: ['a', 'list', 'of', 'possible', 'children']
+  }
+  ```
+
+  the above would show `children` prop with a dropdown.
+
+  Below are possible ways to set `exampleProps`
 
 ##### Using list
 
-this will create a dropdown for `placement` prop with `bottom`,`top`,`right` & `left` options
+  this will create a dropdown for `placement` prop with `bottom`,`top`,`right` & `left` options
 
-```js
-export default {
-  // ... other config
-  exampleProps: {
-    placement: ['bottom','top','right','left']
+  ```js
+  export default {
+    // ... other config
+    exampleProps: {
+      placement: ['bottom','top','right','left']
+    }
   }
-}
-```
+  ```
 
 ##### Using list of objects
 
-objects are of `{label, value}` shape. They are useful when example
-value can't be represented as string (for example if value is a component or a function)
+  objects are of `{label, value}` shape. They are useful when example
+  value can't be represented as string (for example if value is a component or a function)
 
-```js
-export default {
-  // ... other config
-  exampleProps: {
-    children: [
-      { label: 'just a string', value: 'hello' },
-      { label: 'simple component', value: <div>hello</div> },
-      { label: 'another component', value: <MaybeImportedComponent/> },
-      {
-        label: 'nested components',
-        value: (
-          <div>
-            <SomeComponent/>
-            <SomeOtherComponent/>
-          </div>
-        )
-      },
-    ]
+  ```js
+  export default {
+    // ... other config
+    exampleProps: {
+      children: [
+        { label: 'just a string', value: 'hello' },
+        { label: 'simple component', value: <div>hello</div> },
+        { label: 'another component', value: <MaybeImportedComponent/> },
+        {
+          label: 'nested components',
+          value: (
+            <div>
+              <SomeComponent/>
+              <SomeOtherComponent/>
+            </div>
+          )
+        },
+      ]
+    }
   }
-}
-```
+  ```
 
-the above would show `children` prop with a dropdown having 4 options.
+  the above would show `children` prop with a dropdown having 4 options.
 
 ##### Using functions
 
-when exampleProp is a function, it's return value will be displayed in
-storybook when that function was called. It will also glow blue. Very
-useful to indicate when callbacks happen.
+  when exampleProp is a function, it's return value will be displayed in
+  storybook when that function was called. It will also glow blue. Very
+  useful to indicate when callbacks happen.
 
-```js
-export default {
-  // ... other config
-  exampleProps: {
-    onClick: () => 'i was called!'
+  ```js
+  export default {
+    // ... other config
+    exampleProps: {
+      onClick: () => 'i was called!'
+    }
   }
-}
-```
+  ```
+</details>
+
+---
+
+
+<details>
+  <summary>`hiddenProps` - `array`</summary>
+
+  there can be many reasons why some props should not appear in
+  documentation. In such cases, list those props in `hiddenProps` array:
+
+  ```js
+  export default {
+    // ... other config
+    hiddenProps: ['dataHook', 'className']
+  }
+  ```
+</details>
