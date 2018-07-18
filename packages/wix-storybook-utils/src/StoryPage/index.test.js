@@ -1,5 +1,5 @@
 import React from 'react';
-import Testkit from './index.testkit';
+import Testkit from './testkit';
 
 const testkit = new Testkit();
 

@@ -1,28 +1,11 @@
-import React from 'react';
-import {mount} from 'enzyme';
-
-import {Option, Code} from './components';
 import AutoExample from './';
-
-class Driver {
-  component;
-
-  when = {
-    created: props =>
-      this.component = mount(<AutoExample {...props}/>)
-  }
-
-  get = {
-    options: () => this.component.find(Option),
-    codeBlock: () => this.component.find(Code)
-  }
-}
+import Testkit from './testkit';
 
 describe('AutoExample', () => {
   describe('options list', () => {
     it('should display two options', () => {
-      const driver = new Driver();
-      driver.when.created({
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
         parsedSource: {
           displayName: 'TestComponent',
           props: {
@@ -37,15 +20,15 @@ describe('AutoExample', () => {
           functionProp: () => ''
         }
       });
-      const [prop1, prop2] = driver.get.options();
+      const [prop1, prop2] = testkit.get.options();
 
       expect(prop1.props.label).toBe('stringProp');
       expect(prop2.props.label).toBe('functionProp');
     });
 
     it('should categorize aria props', () => {
-      const driver = new Driver();
-      driver.when.created({
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
         parsedSource: {
           displayName: 'TestComponent',
           props: {
@@ -61,14 +44,14 @@ describe('AutoExample', () => {
       });
 
       // expeting only 1 because others should be collapsed
-      expect(driver.get.options().length).toEqual(1);
+      expect(testkit.get.options().length).toEqual(1);
     });
   });
 
   describe('exampleProps', () => {
     it('should display "Interaction preview" for function type', () => {
-      const driver = new Driver();
-      driver.when.created({
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
         parsedSource: {
           displayName: 'TestComponent',
           props: {
@@ -80,13 +63,13 @@ describe('AutoExample', () => {
         }
       });
 
-      const option = driver.get.options().props();
+      const option = testkit.get.options().props();
       expect(option.children.props.children).toBe('Interaction preview');
     });
 
     it('should display NodesList regardless of type in parsedSource', () => {
-      const driver = new Driver();
-      driver.when.created({
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
         parsedSource: {
           displayName: 'TestComponent',
           props: {
@@ -98,18 +81,18 @@ describe('AutoExample', () => {
         }
       });
 
-      const option = driver.get.options().props();
+      const option = testkit.get.options().props();
       expect(option.children).not.toBe(null);
     });
   });
 
   describe('codeExample', () => {
     it('should not render when `false`', () => {
-      const driver = new Driver();
-      driver.when.created({
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
         codeExample: false
       });
-      expect(driver.get.codeBlock().length).toEqual(0);
+      expect(testkit.get.codeBlock().length).toEqual(0);
     });
   });
 });
