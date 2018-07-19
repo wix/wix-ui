@@ -149,7 +149,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onFocus && onFocus(event);
   }
 
-  render () {
+  render() {
     const {
       placement,
       options,
@@ -181,6 +181,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         options={this._filterOptions()}
         timeout={timeout}
         multi={multi}
+        role='combobox'
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
       >

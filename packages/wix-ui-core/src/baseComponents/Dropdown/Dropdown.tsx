@@ -41,6 +41,7 @@ export interface DropdownProps {
   forceContentElementVisibility?: boolean;
   /** Inline styles */
   style?: object;
+  role?: string;
 }
 
 export interface DropdownState {

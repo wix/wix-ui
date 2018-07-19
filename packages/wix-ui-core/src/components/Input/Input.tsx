@@ -2,39 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import style from './Input.st.css';
 
-export interface InputProps {
+// type ExcludedProperties = 
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'prefix'> {
   className?: string;
   error?: string | boolean;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
-
-  // Props passed down to the native input, add more as needed.
-  // We cannot simply extend React.InputHTMLAttributes
-  // because types of property 'prefix' are incompatible.
-  autoComplete?: 'on' | 'off';
-  autoFocus?: boolean;
-  disabled?: boolean;
-  maxLength?: number;
-  onBlur?: React.FocusEventHandler<HTMLElement>;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  onFocus?: React.FocusEventHandler<HTMLElement>;
-  onClick?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onMouseDown?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onMouseUp?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onMouseMove?: React.EventHandler<React.MouseEvent<HTMLInputElement>>;
-  onDragStart?: React.EventHandler<React.DragEvent<HTMLInputElement>>;
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
-  placeholder?: string;
-  readOnly?: boolean;
-  required?: boolean;
-  tabIndex?: number;
-  type?: string;
   value?: string;
-  id?: string;
-  name?: string;
-  style?: React.CSSProperties;
 }
 
 export interface InputState {
