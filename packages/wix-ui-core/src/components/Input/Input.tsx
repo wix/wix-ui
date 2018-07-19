@@ -143,12 +143,12 @@ export class Input extends React.Component<InputProps, InputState> {
   blur() { this.input.blur(); }
   select() { this.input.select(); }
 
-  private handleFocus: React.FocusEventHandler<HTMLElement> = event => {
+  private handleFocus: React.FocusEventHandler<HTMLInputElement> = event => {
     this.setState({focus: true});
     this.props.onFocus(event);
   }
 
-  private handleBlur: React.FocusEventHandler<HTMLElement> = event => {
+  private handleBlur: React.FocusEventHandler<HTMLInputElement> = event => {
     this.setState({focus: false});
     this.props.onBlur(event);
   }
