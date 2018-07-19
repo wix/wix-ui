@@ -1,153 +1,70 @@
 /*eslint camelcase: off*/
-import {google2address} from './google2address';
+import {convertToFullAddress} from './google2address';
+import {googleResponse, partialGoogleResponse} from './consts';
 
-describe('google 2 address', () => {
-  const aComponent = (long_name, short_name, ...types) => ({
-    long_name, short_name, types
-  });
-
-  const aGeometry = (lng, lat) => ({
-    location: {
-      lat: () => lng,
-      lng: () => lat
-    }
-  });
-
-  interface AGoogleResponseInput {
-    components?: object[];
-    formatted?: string;
-    geometry?: {
-      location: {
-        lat: number | Function;
-        lng: number| Function;
-      }
-    };
-    types?: string[];
-    adr_address?: any;
-  }
-
-  const aGoogleResponse = ({components, formatted, geometry, types, adr_address}: AGoogleResponseInput) => ({
-    geometry: geometry || aGeometry(1, 2),
-    address_components: components || [],
-    formatted_address: formatted || '',
-    types: types || [],
-    adr_address
-  });
-
-  it('should set state according to administrative_area_level_1', () => {
-    const someState = 'some-state';
-    const component = aComponent(null, someState, 'administrative_area_level_1');
-
-    expect(google2address(aGoogleResponse({components: [component]})).state).toEqual(someState);
-  });
-
-  it('should set the subpremise', () => {
-    const aptNumber = '16';
-    const component = aComponent(aptNumber, null, 'subpremise');
-    expect(google2address(aGoogleResponse({components: [component]})).subpremise).toEqual(aptNumber);
-  });
-
-  describe('city', () => {
-    const someLocality = 'some-locality';
-    const someSublocality = 'some-sublocality';
-    const somePostalTown = 'some-postal_town';
-    const localityComponent = aComponent(someLocality, null, 'locality');
-    const subLocalityComponent = aComponent(someSublocality, null, 'sublocality');
-    const postalTownComponent = aComponent(somePostalTown, null, 'postal_town');
-
-    it('should be according to locality, ignore sublocality and postal_town', () => {
-      const components = [localityComponent, subLocalityComponent, postalTownComponent];
-      expect(google2address(aGoogleResponse({components})).city).toEqual(someLocality);
+describe('google 2 full address', () => {
+    it('should transform raw google response to full address format', () => {
+        const fullAddress = convertToFullAddress(googleResponse);
+        expect(fullAddress).toEqual({
+            formatted: '137 Lexington Ave, New York, NY 10016, USA',
+            street_number: {short: '137', long: '137'},
+            route: {short: 'Lexington Ave', long: 'Lexington Avenue'},
+            locality: {short: 'New York', long: 'New York'},
+            admin_area_4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
+            admin_area_3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
+            admin_area_2: {short: 'New York County', long: 'New York County'},
+            admin_area_1: {short: 'NY', long: 'New York'},
+            country: {short: 'US', long: 'United States'},
+            postal_code: {short: '10016', long: '10016'},
+            location: {lat: 40.7432934, lng: -73.98182050000003}
+        });
     });
 
-    it('should be according to sublocality if locality is missing, ignore postal_town', () => {
-      const components = [subLocalityComponent, postalTownComponent];
-      expect(google2address(aGoogleResponse({components})).city).toEqual(someSublocality);
+    it('should skip undefined fields', () => {
+        const singleAddressComponent = JSON.parse(JSON.stringify(googleResponse));
+        singleAddressComponent.address_components = [{
+            long_name: '137',
+            short_name: '137',
+            types: ['street_number']
+        }];
+
+        const fullAddress = convertToFullAddress(singleAddressComponent);
+        expect(fullAddress).toEqual({
+            formatted: '137 Lexington Ave, New York, NY 10016, USA',
+            street_number: {short: '137', long: '137'},
+            location: {lat: 40.7432934, lng: -73.98182050000003}
+        });
     });
 
-    it('should be according to postal_town if locality and sublocality are missing', () => {
-      expect(google2address(aGoogleResponse({components: [postalTownComponent]})).city).toEqual(somePostalTown);
+    it('should handle no lat/lng gracefully', () => {
+        const noLatLngAddress = JSON.parse(JSON.stringify(googleResponse));
+        noLatLngAddress.geometry = null;
+
+        const fullAddress = convertToFullAddress(noLatLngAddress);
+        expect(fullAddress).toEqual({
+            formatted: '137 Lexington Ave, New York, NY 10016, USA',
+            street_number: {short: '137', long: '137'},
+            route: {short: 'Lexington Ave', long: 'Lexington Avenue'},
+            locality: {short: 'New York', long: 'New York'},
+            admin_area_4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
+            admin_area_3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
+            admin_area_2: {short: 'New York County', long: 'New York County'},
+            admin_area_1: {short: 'NY', long: 'New York'},
+            country: {short: 'US', long: 'United States'},
+            postal_code: {short: '10016', long: '10016'}
+        });
     });
-  });
 
-  it('should set street according to route', () => {
-    const someStreet = 'some-street';
-    const component = aComponent(someStreet, null, 'route');
-
-    expect(google2address(aGoogleResponse({components: [component]})).street).toEqual(someStreet);
-  });
-
-  it('should set country according to country - long name', () => {
-    const someCountry = 'some-country';
-    const component = aComponent(someCountry, null, 'country');
-
-    expect(google2address(aGoogleResponse({components: [component]})).country).toEqual(someCountry);
-  });
-
-  it('should set country code according to country - short name', () => {
-    const someCountryCode = 'some-country-code';
-    const component = aComponent(null, someCountryCode, 'country');
-
-    expect(google2address(aGoogleResponse({components: [component]})).countryCode).toEqual(someCountryCode);
-  });
-
-  it('should set postal code according to postal_code', () => {
-    const somePostalCode = 'some-postal-code';
-    const component = aComponent(somePostalCode, null, 'postal_code');
-
-    expect(google2address(aGoogleResponse({components: [component]})).postalCode).toEqual(somePostalCode);
-  });
-
-  it('should set street number according to street_number', () => {
-    const someStreetNumber = 'some-street-number';
-    const component = aComponent(someStreetNumber, null, 'street_number');
-
-    expect(google2address(aGoogleResponse({components: [component]})).number).toEqual(someStreetNumber);
-  });
-
-  it('should set formatted according to formatted_address', () => {
-    const someFormattedAddress = 'some-formatted-address';
-    expect(google2address(aGoogleResponse({formatted: someFormattedAddress})).formatted).toEqual(someFormattedAddress);
-  });
-
-  it('should set latLng according to geometry when they are functions', () => {
-    const someGeometry = aGeometry(100, 22);
-    expect(google2address(aGoogleResponse({geometry: someGeometry})).latLng).toEqual({lng: 22, lat: 100});
-  });
-
-  it('should be able to accept lagLng as numbers', () => {
-    const geometry = {
-      location: {
-        lat: 777,
-        lng: 666
-      }
-    };
-
-    expect(google2address(aGoogleResponse({geometry})).latLng).toEqual({lng: 666, lat: 777});
-  });
-
-  it('should set approximate if street_address is not in types', () => {
-    expect(google2address(aGoogleResponse({types: ['street_address']})).approximate).toBe(false);
-    expect(google2address(aGoogleResponse({types: ['anything else']})).approximate).toBe(true);
-  });
-
-  it('should set approximate if premise is not in types', () => {
-    expect(google2address(aGoogleResponse({types: ['premise']})).approximate).toBe(false);
-    expect(google2address(aGoogleResponse({types: ['anything else']})).approximate).toBe(true);
-  });
-
-  it('should omit any undefined field', () => {
-    expect(google2address(aGoogleResponse({}))).toEqual({
-      approximate: true,
-      latLng: {
-        lat: 1, lng: 2
-      },
-      formatted: ''
+    it('should handle no lat/lng gracefully', () => {
+        const fullAddress = convertToFullAddress(partialGoogleResponse);
+        expect(fullAddress).toEqual({
+            formatted: '5th Ave, New York, NY, USA',
+            route: {short: '5th Ave', long: '5th Avenue'},
+            locality: {short: 'New York', long: 'New York'},
+            admin_area_2: {short: 'New York County', long: 'New York County'},
+            admin_area_1: {short: 'NY', long: 'New York'},
+            country: {short: 'US', long: 'United States'},
+            location: {lat: 40.7750545, lng: -73.96515099999999}
+        });
     });
-  });
-
-  it('should extract the formatted street address if available', () => {
-    const address = '<span class="street-address">Ha-Namal St 40</span>, <span class="locality">Tel Aviv</span>, <span class="country-name">Israel</span>';
-    expect(google2address(aGoogleResponse({adr_address: address})).formattedStreetAddress).toEqual('Ha-Namal St 40');
-  });
 });

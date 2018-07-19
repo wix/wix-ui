@@ -15,38 +15,34 @@ export const PLACE_DETAILS_2: PlaceDetails = createPlaceDetails(ADDRESS_2.place_
 
 export const INTERNAL_ADDRESS_GEOCODE_1 = {
     formatted: '1 East Broadway, New York, NY, USA',
-    latLng: {
+    location: {
         lat: 40.7127753,
         lng: -74.0059728
-    },
-    approximate: true
+    }
 };
 
 export const INTERNAL_ADDRESS_GEOCODE_2 = {
     formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
-    latLng: {
+    location: {
         lat: 40.7127753,
         lng: -74.0059728
-    },
-    approximate: true
+    }
 };
 
 export const INTERNAL_ADDRESS_PLACE_DETAILS_1 = {
     formatted: '1 East Broadway, New York, NY, USA',
-    latLng: {
+    location: {
         lat: 1,
         lng: -1
-    },
-    approximate: true
+    }
 };
 
 export const INTERNAL_ADDRESS_PLACE_DETAILS_2 = {
     formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
-    latLng: {
+    location: {
         lat: 1,
         lng: -1
-    },
-    approximate: true
+    }
 };
 
 export const waitForSingleOption = (option, driver) => {

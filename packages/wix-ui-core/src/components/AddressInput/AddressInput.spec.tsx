@@ -157,6 +157,7 @@ describe('AddressInput', () => {
         await waitForCond(() => driver.isContentElementExists());
 
         driver.optionAt(1).click();
+
         expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(helper.API_KEY, 'en', {placeId: helper.ADDRESS_2.place_id});
         return eventually(() => {
             expect(onSelectSpy).toHaveBeenCalledWith({
@@ -224,7 +225,7 @@ describe('AddressInput', () => {
          }, {interval: 5});
     });
 
-    it('Should try and street number', async () => {
+    it('Should try add street number', async () => {
         init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
         GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
@@ -239,7 +240,7 @@ describe('AddressInput', () => {
         return eventually(() => {
             const firstCallArgument = onSelectSpy.mock.calls[0][0];
             const {address_components} = firstCallArgument.googleResult;
-            expect(firstCallArgument.address.number).toBe('11');
+            expect(firstCallArgument.address.street_number.short).toBe('11');
             expect(address_components).toEqual([{
                 long_name: '11',
                 short_name: '11',

@@ -27,6 +27,11 @@ export interface AddressComponent {
     types: Array<string>;
 }
 
+export interface InternalAddressComponent {
+    long: string;
+    short: string;
+}
+
 export interface PlaceDetails {
     address_components: Array<AddressComponent>;
     adr_address: string;
@@ -46,17 +51,20 @@ export interface PlaceDetails {
 }
 
 export interface InternalAddress {
-    formatted: string;
-    latLng: Location;
-    approximate: boolean;
-    city: string;
-    state: string;
-    country: string;
-    countryCode: string;
-    street: string;
-    number: string;
-    postalCode: string;
+    locale?: string;
+    formatted?: string;
+    street_number?: InternalAddressComponent;
+    route?: InternalAddressComponent;
+    locality?: InternalAddressComponent;
+    admin_area_4?: InternalAddressComponent;
+    admin_area_3?: InternalAddressComponent;
+    admin_area_2?: InternalAddressComponent;
+    admin_area_1?: InternalAddressComponent;
+    country?: InternalAddressComponent;
+    postal_code?: InternalAddressComponent;
+    location?: Location
 }
+
 
 export interface AddressOutput {
     originValue: string;

@@ -9,7 +9,7 @@ import {
     AddressOutput, Geocode, MapsClient, MapsClientConstructor,
     PlaceDetails, Handler
 } from '../../clients/GoogleMaps/types';
-import {google2address, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
+import {convertToFullAddress, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
 
 const first = require('lodash/first');
 const map = require('lodash/map');
@@ -88,7 +88,7 @@ function formatAddressOutput(google: Geocode|PlaceDetails, description: string, 
     return {
         originValue: description,
         googleResult: google,
-        address: google2address(google)
+        address: convertToFullAddress(google)
     };
 }
 
