@@ -82,9 +82,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     /** Input Properties */
     inputProps: object,
   };
-  static defaultProps = {
-    onChange: () => null
-  };
+
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 
@@ -95,8 +93,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       this.setState({
         inputValue: event.target.value
       });
-
-      this.props.onChange(event);
+      const {onChange} = this.props;
+      onChange && onChange(event);
     }
   }
 
@@ -105,8 +103,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       this.setState({
         inputValue: option.value
       });
-
-      this.props.onSelect(option);
+      const {onSelect} = this.props;
+      onSelect && onSelect(option);
     }
   }
 

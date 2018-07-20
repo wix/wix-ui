@@ -10,6 +10,7 @@ export default {
     'data-hook': 'storybook-input',
     value: '',
     onChange: ({ target: { value } }) => setState({ value }),
+    onFocus: () => null,
   }),
 
   exampleProps: {
