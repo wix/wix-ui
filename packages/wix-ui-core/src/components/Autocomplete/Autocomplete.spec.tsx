@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {autocompleteDriverFactory} from './Autocomplete.driver';
 import {Autocomplete} from '.';
-import {OptionFactory, DividerArgs} from '../../baseComponents/DropdownOption';
+import {DividerArgs} from '../../baseComponents/DropdownOption';
 import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
 import {autocompleteTestkitFactory} from '../../testkit';
 import {autocompleteTestkitFactory as enzymeAutocompleteTestkitFactory} from '../../testkit/enzyme';

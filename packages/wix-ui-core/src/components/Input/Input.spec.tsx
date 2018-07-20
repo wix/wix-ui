@@ -44,6 +44,7 @@ describe('Input', () => {
         readOnly
         required
         tabIndex={1}
+        aria-hidden
         type="password"
         value="hunter2"
       />
@@ -53,6 +54,7 @@ describe('Input', () => {
     expect(input.disabled).toBe(true);
     expect(input.maxLength).toBe(10);
     expect(input.placeholder).toBe('placeholder');
+    expect(input.getAttribute('aria-hidden')).toBe('true');
     expect(input.readOnly).toBe(true);
     expect(input.required).toBe(true);
     expect(input.tabIndex).toBe(1);

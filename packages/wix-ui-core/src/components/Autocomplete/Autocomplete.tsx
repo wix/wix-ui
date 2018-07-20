@@ -2,8 +2,7 @@ import * as React from 'react';
 import style from './Autocomplete.st.css';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions';
 import {Option, OptionFactory, optionPropType} from '../../baseComponents/DropdownOption/OptionFactory';
-import {Divider} from '../Divider';
-import {func , bool, object, arrayOf, number, string, oneOfType, node, oneOf, Requireable} from 'prop-types';
+import {func , bool, object, arrayOf, number, string, oneOfType, node} from 'prop-types';
 import {InputProps} from '../Input';
 
 const createDivider = (value = null) =>
@@ -40,6 +39,7 @@ export interface AutocompleteProps {
   prefix?: React.ReactNode;
   /** Suffix */
   suffix?: React.ReactNode;
+  inputProps?: InputProps;
 }
 
 export interface AutocompleteState {
@@ -79,47 +79,42 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     prefix: node,
     /** Suffix */
     suffix: node,
+    /** Input Properties */
+    inputProps: object,
   };
-
+  static defaultProps = {
+    onChange: () => null
+  };
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 
-  constructor(props: AutocompleteProps) {
-    super(props);
-
-    this._onSelect = this._onSelect.bind(this);
-    this._onInputChange = this._onInputChange.bind(this);
-    this._onInitialSelectedOptionsSet = this._onInitialSelectedOptionsSet.bind(this);
-  }
-
   state = {inputValue: ''};
 
-  _onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  _onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (this.state.inputValue !== event.target.value) {
       this.setState({
         inputValue: event.target.value
       });
 
-      const {onChange} = this.props;
-      onChange && onChange(event);
+      this.props.onChange(event);
     }
   }
 
-  _onSelect(option: Option) {
+  _onSelect = (option: Option) => {
     if (this.state.inputValue !== option.value) {
       this.setState({
         inputValue: option.value
       });
 
-      const {onSelect} = this.props;
-      onSelect && onSelect(option);
+      this.props.onSelect(option);
     }
   }
 
   _createInputProps() {
     const {inputValue} = this.state;
-    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, prefix, suffix} = this.props;
+    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, prefix, suffix, inputProps} = this.props;
     return {
+      ...inputProps,
       value: inputValue,
       onChange: this._onInputChange,
       autoFocus,
@@ -133,7 +128,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     };
   }
 
-  _onInitialSelectedOptionsSet(options: Array<Option>) {
+  _onInitialSelectedOptionsSet = (options: Array<Option>) => {
     const selectedValue = options.length ? options[0].value : '';
     if (selectedValue && this.state.inputValue !== selectedValue) {
       this.setState({
