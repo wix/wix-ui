@@ -1,5 +1,4 @@
-import {Input} from '../../src/components/Input';
-
+import { Input } from '../../src/components/Input';
 export default {
   category: 'Components',
   storyName: 'Input',
@@ -10,7 +9,7 @@ export default {
   componentProps: setState => ({
     'data-hook': 'storybook-input',
     value: '',
-    onChange: ({target: {value}}) => setState({value}),
+    onChange: ({ target: { value } }) => setState({ value }),
   }),
 
   exampleProps: {

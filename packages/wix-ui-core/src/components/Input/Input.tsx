@@ -1,11 +1,11 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import style from './Input.st.css';
-
-const  omit = require('lodash/omit');
+const omit = require('lodash/omit');
 
 const ommitedInputProps = ['style', 'error'];
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'prefix'> {
+type OmittedInputProps = 'value' | 'prefix'
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   className?: string;
   error?: string | boolean;
   prefix?: React.ReactNode;
