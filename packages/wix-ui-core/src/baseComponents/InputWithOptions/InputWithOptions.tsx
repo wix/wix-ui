@@ -37,7 +37,7 @@ export interface InputWithOptionsProps {
   /** If set to true, content element will always be visible, used for preview mode */
   forceContentElementVisibility?: boolean;
   /** Input prop types */
-  inputProps: InputProps;
+  inputProps?: InputProps;
   /** Inline styles */
   style?: object;
 }
@@ -56,9 +56,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onSelect: () => null,
     onDeselect: () => null,
     onManualInput: () => null,
-    onInitialSelectedOptionsSet: () => null,
-    onFocus: () => null,
-    onKeyDown: () => null
+    onInitialSelectedOptionsSet: () => null
   };
 
   static propTypes = {
@@ -134,13 +132,13 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     }
 
     const {onKeyDown} = this.props.inputProps;
-    onKeyDown(event);
+    onKeyDown && onKeyDown(event);
   }
 
   _onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     this.isEditing = false;
     const {onFocus} = this.props.inputProps;
-    onFocus(event);
+    onFocus && onFocus(event);
   }
 
   render() {
