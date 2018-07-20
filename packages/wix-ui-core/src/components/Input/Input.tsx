@@ -1,8 +1,10 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import style from './Input.st.css';
 
-// type ExcludedProperties = 
+const  omit = require('lodash/omit');
+
+const ommitedInputProps = ['style', 'error'];
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'prefix'> {
   className?: string;
   error?: string | boolean;
@@ -68,32 +70,12 @@ export class Input extends React.Component<InputProps, InputState> {
   private input: HTMLInputElement;
 
   render() {
-    const {focus} = this.state;
+    const { focus } = this.state;
     const {
       error,
       disabled,
       prefix,
-      autoComplete,
-      autoFocus,
-      onChange,
-      onClick,
-      onMouseDown,
-      onMouseUp,
-      onMouseMove,
-      onDragStart,
-      onKeyDown,
-      onKeyPress,
-      onKeyUp,
-      placeholder,
-      readOnly,
-      tabIndex,
-      required,
-      type,
-      value,
       suffix,
-      maxLength,
-      id,
-      name,
       style: inlineStyle
     } = this.props;
 
@@ -101,38 +83,18 @@ export class Input extends React.Component<InputProps, InputState> {
       <div
         {...style(
           'root',
-          {disabled, error: !!error && !disabled, focus},
+          { disabled, error: !!error && !disabled, focus },
           this.props
         )}
         style={inlineStyle}
       >
         {prefix}
         <input
+          {...omit(this.props, ommitedInputProps)}
           ref={input => this.input = input}
-          autoComplete={autoComplete}
-          autoFocus={autoFocus}
-          disabled={disabled}
           className={style.nativeInput}
-          maxLength={maxLength}
           onBlur={this.handleBlur}
-          onChange={onChange}
           onFocus={this.handleFocus}
-          onClick={onClick}
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
-          onMouseMove={onMouseMove}
-          onDragStart={onDragStart}
-          onKeyDown={onKeyDown}
-          onKeyPress={onKeyPress}
-          onKeyUp={onKeyUp}
-          placeholder={placeholder}
-          readOnly={readOnly}
-          required={required}
-          tabIndex={tabIndex}
-          type={type}
-          value={value}
-          id={id}
-          name={name}
         />
         {suffix}
       </div>
@@ -144,12 +106,12 @@ export class Input extends React.Component<InputProps, InputState> {
   select() { this.input.select(); }
 
   private handleFocus: React.FocusEventHandler<HTMLInputElement> = event => {
-    this.setState({focus: true});
+    this.setState({ focus: true });
     this.props.onFocus(event);
   }
 
   private handleBlur: React.FocusEventHandler<HTMLInputElement> = event => {
-    this.setState({focus: false});
+    this.setState({ focus: false });
     this.props.onBlur(event);
   }
 }
