@@ -425,8 +425,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       const {value: propsValue = NULL_TIME, onChange} = this.props;
       return (
         <Input
-          {...style('root', {}, this.props)}
           {...passThroughProps}
+          {...style('root', {}, this.props)}
           type        = "time"
           value       = {propsValue}
           onChange    = {e => onChange(e.target.value)}
