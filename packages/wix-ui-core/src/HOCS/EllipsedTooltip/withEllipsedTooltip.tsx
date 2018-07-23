@@ -54,7 +54,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
     return React.cloneElement(
       component,
       {
-        ...style('root', {}, {...this.props.component.props}),
+        ...style('root', {}, this.props.component.props),
         style: {whiteSpace: 'nowrap'},
         forwardedRef: n => this.textNode = n
       }
