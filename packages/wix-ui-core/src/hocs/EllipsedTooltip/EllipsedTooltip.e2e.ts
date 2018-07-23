@@ -31,7 +31,7 @@ describe('EllipsedTooltip', () => {
 
     expect(hasEllipsis(textElementFinder)).toEqual(true);
 
-    mouseEnter(textElementFinder);
+    await mouseEnter(textElementFinder);
     const tooltipTestkit = tooltipTestkitFactory({dataHook});
     expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
   });
@@ -44,7 +44,7 @@ describe('EllipsedTooltip', () => {
 
     expect(hasEllipsis(textElementFinder)).toBe(false);
 
-    mouseEnter(textElementFinder);
+    await mouseEnter(textElementFinder);
     const tooltipTestkit = tooltipTestkitFactory({dataHook});
 
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
@@ -63,14 +63,14 @@ describe('EllipsedTooltip', () => {
 
     const originalWindowSize = await browser.driver.manage().window().getSize();
 
-    browser.driver.manage().window().setSize(250, 900);
+    await browser.driver.manage().window().setSize(250, 900);
     expect(hasEllipsis(textElementFinder)).toBe(true);
 
-    mouseEnter(textElementFinder);
+    await mouseEnter(textElementFinder);
     expect(tooltipTestkit.isContentElementExists()).toEqual(true);
-    mouseLeave();
+    await mouseLeave();
 
-    browser.driver.manage().window().setSize(originalWindowSize.width, originalWindowSize.height);
+    await browser.driver.manage().window().setSize(originalWindowSize.width, originalWindowSize.height);
 
     expect(hasEllipsis(textElementFinder)).toBe(false);
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
