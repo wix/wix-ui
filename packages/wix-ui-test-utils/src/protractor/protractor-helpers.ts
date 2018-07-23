@@ -33,6 +33,8 @@ export const createStoryUrl = ({kind, story, withExamples = true}: StoryUrlParam
 export const scrollToElement = (element: ElementFinder) =>
   browser.executeScript((el: HTMLElement) => el.scrollIntoView(), element.getWebElement());
 
+export const hasEllipsis = (element: ElementFinder) => browser.executeScript('return arguments[0].offsetWidth < arguments[0].scrollWidth', element);
+
 export const waitForVisibilityOf = (
   elements: Array<ElementFinder> | ElementFinder,
   errorMsg?: string, timeout = 10000

@@ -84,6 +84,17 @@ import {scrollToElement} from 'wix-ui-test-utils/protractor';
 scrollToElement(el);
 ```
 
+### `hasEllipsis`
+
+Checks if the element's text has overflowed and displays ellipsis
+
+```javascript
+import {hasEllipsis} from 'wix-ui-test-utils/protractor';
+
+// `el` is a DOM node
+expect(hasEllipsis(el)).toEqual(true);
+```
+
 ### `waitForVisibilityOf`
 
 Wait until an element is visible.
