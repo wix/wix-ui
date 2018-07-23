@@ -6,5 +6,5 @@ const Text = ({forwardedRef, children, ...rest}) => <span {...rest} ref={forward
 const EllipsedText = withEllipsedTooltip({showTooltip: true})(Text);
 
 export default () => (
-  <div style={{width: '170px'}}><EllipsedText data-hook="ellipsedTooltip-with-tooltip">This text is going to get ellipsed</EllipsedText></div>
+  <div style={{width: '170px', background: 'azure'}}><EllipsedText data-hook="ellipsedTooltip-with-tooltip">This text is going to get ellipsed</EllipsedText></div>
 );

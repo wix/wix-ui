@@ -5,6 +5,10 @@ import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
 import {tooltipTestkitFactory} from './../../testkit/protractor';
 
+// TODO: USE THE ADDED UTIL FROM wix-ui-test-utils
+// import {hasEllipsis} from 'wix-ui-test-utils/protractor';
+const hasEllipsis = textElementFinder => browser.executeScript('return arguments[0].offsetWidth < arguments[0].scrollWidth', textElementFinder);
+
 describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl('HOCS', 'EllipsedTooltip');
 
@@ -16,8 +20,7 @@ describe('EllipsedTooltip', () => {
     
     expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
 
-    const hasEllipsis = browser.executeScript('return arguments[0].offsetWidth < arguments[0].scrollWidth', textElementFinder);
-    expect(hasEllipsis).toEqual(true);
+    expect(hasEllipsis(textElementFinder)).toEqual(true);
   });
 
   eyes.it('should have show the full text inside the tooltip', async () => {
@@ -26,11 +29,22 @@ describe('EllipsedTooltip', () => {
     
     expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
     
-    const hasEllipsis = browser.executeScript('return arguments[0].offsetWidth < arguments[0].scrollWidth', textElementFinder);
-    expect(hasEllipsis).toEqual(true);
+    expect(hasEllipsis(textElementFinder)).toEqual(true);
 
     mouseEnter(textElementFinder);
     const tooltipTestkit = tooltipTestkitFactory({dataHook: 'ellipsedTooltip-with-tooltip'});
     expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
+  });
+
+  eyes.it('should work when resizing the window', async () => {
+    const textElementFinder = $('[data-hook="ellipsedTooltip-not-ellipsed"]');
+    await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
+
+    expect(hasEllipsis(textElementFinder)).toBe(false);
+    browser.driver.manage().window().setSize(250, 900);
+    expect(hasEllipsis(textElementFinder)).toBe(true);
+
+    browser.driver.manage().window().maximize();
+    expect(hasEllipsis(textElementFinder)).toBe(false);
   });
 });
