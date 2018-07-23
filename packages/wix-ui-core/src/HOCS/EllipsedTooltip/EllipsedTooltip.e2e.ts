@@ -4,10 +4,7 @@ import {$, browser, element} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
 import {tooltipTestkitFactory} from './../../testkit/protractor';
-
-// TODO: USE THE ADDED UTIL FROM wix-ui-test-utils
-// import {hasEllipsis} from 'wix-ui-test-utils/protractor';
-const hasEllipsis = textElementFinder => browser.executeScript('return arguments[0].offsetWidth < arguments[0].scrollWidth', textElementFinder);
+import {hasEllipsis} from 'wix-ui-test-utils/protractor';
 
 describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl('HOCS', 'EllipsedTooltip');
