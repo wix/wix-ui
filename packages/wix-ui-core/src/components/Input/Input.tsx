@@ -5,7 +5,7 @@ const omit = require('lodash/omit');
 
 const ommitedInputProps = ['style', 'error'];
 type OmittedInputProps = 'value' | 'prefix'
-export type AriaAutoComplete = 'list' | 'none' | 'both';
+export type AriaAutoCompleteType = 'list' | 'none' | 'both';
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   className?: string;
   error?: string | boolean;
@@ -23,7 +23,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
-  'aria-autocomplete'?: AriaAutoComplete
+  'aria-autocomplete'?: AriaAutoCompleteType
 }
 
 export interface InputState {

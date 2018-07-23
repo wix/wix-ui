@@ -3,7 +3,7 @@ import style from './Autocomplete.st.css';
 import {InputWithOptions} from '../../baseComponents/InputWithOptions';
 import {Option, OptionFactory, optionPropType} from '../../baseComponents/DropdownOption/OptionFactory';
 import {func , bool, object, arrayOf, number, string, oneOfType, node} from 'prop-types';
-import {InputProps, AriaAutoComplete} from '../Input';
+import {InputProps, AriaAutoCompleteType} from '../Input';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({className: style.divider, value});
@@ -123,7 +123,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       error,
       suffix,
       prefix,
-      'aria-autocomplete': 'both' as AriaAutoComplete
+      'aria-autocomplete': 'both' as AriaAutoCompleteType
     };
   }
 
