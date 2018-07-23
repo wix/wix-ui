@@ -31,7 +31,12 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   textNode: HTMLElement;
 
   componentDidMount() {
+    window.addEventListener('resize', this._updateEllipsisState);
     this._updateEllipsisState();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._updateEllipsisState);
   }
 
   componentDidUpdate(prevProps) {
@@ -54,7 +59,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
     return React.cloneElement(
       component,
       {
-        ...style('root', {}, this.props.component.props),
+        ...style('root text', {}, this.props.component.props),
         style: {whiteSpace: 'nowrap'},
         forwardedRef: n => this.textNode = n
       }
@@ -68,7 +73,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
 
     return (
       <Tooltip
-        {...style('root')}
+        {...style('root tooltip')}
         appendTo="scrollParent"
         content={<div className={style.tooltipContent}>{this.props.component.props.children}</div>}
         showArrow

@@ -1,4 +1,8 @@
-.root {
+.root.tooltip {
+  display: inherit;
+}
+
+.root.text {
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
