@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-wix-style-react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Wix Style React Lint Plugin",
   "keywords": [
     "eslint",
