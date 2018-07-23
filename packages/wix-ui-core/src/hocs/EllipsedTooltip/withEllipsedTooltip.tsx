@@ -32,8 +32,6 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
 
   textNode: HTMLElement;
 
-  debounceTimerId: any;
-
   componentDidMount() {
     window.addEventListener('resize', this._debouncedUpdate);
     this._updateEllipsisState();
