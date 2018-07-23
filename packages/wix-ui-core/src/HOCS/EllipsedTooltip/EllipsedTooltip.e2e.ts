@@ -61,6 +61,8 @@ describe('EllipsedTooltip', () => {
     expect(hasEllipsis(textElementFinder)).toBe(false);
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
 
+    const originalWindowSize = await browser.driver.manage().window().getSize();
+
     browser.driver.manage().window().setSize(250, 900);
     expect(hasEllipsis(textElementFinder)).toBe(true);
 
@@ -68,7 +70,8 @@ describe('EllipsedTooltip', () => {
     expect(tooltipTestkit.isContentElementExists()).toEqual(true);
     mouseLeave();
 
-    browser.driver.manage().window().maximize();
+    browser.driver.manage().window().setSize(originalWindowSize.width, originalWindowSize.height);
+
     expect(hasEllipsis(textElementFinder)).toBe(false);
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
   });
