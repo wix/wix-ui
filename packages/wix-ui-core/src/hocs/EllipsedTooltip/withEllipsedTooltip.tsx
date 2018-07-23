@@ -5,6 +5,7 @@ import * as shallowequal from 'shallowequal';
 import {Tooltip} from 'wix-ui-core/Tooltip';
 import style from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';
+import debounce = require('lodash/debounce');
 
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>,
@@ -34,12 +35,13 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   debounceTimerId: any;
 
   componentDidMount() {
-    window.addEventListener('resize', this._updateEllipsisState);
+    window.addEventListener('resize', this._debouncedUpdate);
     this._updateEllipsisState();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._updateEllipsisState);
+    this._debouncedUpdate.cancel();
+    window.removeEventListener('resize', this._debouncedUpdate);
   }
 
   componentDidUpdate(prevProps) {
@@ -51,15 +53,13 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 
   _updateEllipsisState = () => {
-    // small debounce to prevent _updateEllipsisState to be called to often
-    clearTimeout(this.debounceTimerId);
-    this.debounceTimerId = setTimeout(() => {
-      this.setTextNodeRef();
-      this.setState({
-        isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
-      });
-    }, 30);
+    this.setTextNodeRef();
+    this.setState({
+      isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
+    });
   };
+
+  _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
   setTextNodeRef = (linkToDom?: any) => {
     if (this.state.isEllipsisActive && linkToDom) {
