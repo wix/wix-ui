@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {withEllipsedTooltip} from '../../src/HOCS/EllipsedTooltip';
 
-const Text = ({forwardedRef, children, ...rest}) => <span {...rest} ref={forwardedRef}>{children}</span>;
+const Text = ({forwardedRef, children, ...rest}) => <span {...rest}>{children}</span>;
 
 const EllipsedText = withEllipsedTooltip({showTooltip: true})(Text);
 
