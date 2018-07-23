@@ -2,7 +2,7 @@
   "name": "tslint-plugin-wix-style-react",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/",
+  "main": "tslint.json",
   "scripts": {
     "build": "tsc",
     "test": "jest"
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "tslint": "^5.10.0"
   },
   "devDependencies": {

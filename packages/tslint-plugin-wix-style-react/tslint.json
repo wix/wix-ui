@@ -1,0 +1,7 @@
+{
+  "rulesDirectory": ["dist"],
+  "rules": {
+    "no-full-wsr-lib": true,
+    "no-console": false
+  }
+}
