@@ -6,7 +6,7 @@ import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
 import {tooltipTestkitFactory} from './../../testkit/protractor';
 import {hasEllipsis} from 'wix-ui-test-utils/protractor';
 
-fdescribe('EllipsedTooltip', () => {
+describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl('HOCS', 'EllipsedTooltip');
 
   beforeEach(() => browser.get(storyUrl));
@@ -66,7 +66,7 @@ fdescribe('EllipsedTooltip', () => {
 
     mouseEnter(textElementFinder);
     expect(tooltipTestkit.isContentElementExists()).toEqual(true);
-    mouseLeave(textElementFinder);
+    mouseLeave();
 
     browser.driver.manage().window().maximize();
     expect(hasEllipsis(textElementFinder)).toBe(false);
