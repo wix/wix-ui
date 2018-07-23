@@ -31,6 +31,8 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
 
   textNode: HTMLElement;
 
+  debounceTimerId: any;
+
   componentDidMount() {
     window.addEventListener('resize', this._updateEllipsisState);
     this._updateEllipsisState();
@@ -49,10 +51,14 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 
   _updateEllipsisState = () => {
-    this.setTextNodeRef();
-    this.setState({
-      isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
-    });
+    // small debounce to prevent _updateEllipsisState to be called to often
+    clearTimeout(this.debounceTimerId);
+    this.debounceTimerId = setTimeout(() => {
+      this.setTextNodeRef();
+      this.setState({
+        isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
+      });
+    }, 30);
   };
 
   setTextNodeRef = (linkToDom?: any) => {
