@@ -7,7 +7,7 @@ import {tooltipTestkitFactory} from './../../testkit/protractor';
 import {hasEllipsis} from 'wix-ui-test-utils/protractor';
 
 describe('EllipsedTooltip', () => {
-  const storyUrl = getStoryUrl('HOCS', 'EllipsedTooltip');
+  const storyUrl = getStoryUrl('HOCs', 'EllipsedTooltip');
 
   beforeEach(() => browser.get(storyUrl));
 

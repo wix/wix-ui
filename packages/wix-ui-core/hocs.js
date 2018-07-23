@@ -1,1 +1,1 @@
-export {withEllipsedTooltip} from './src/HOCS/EllipsedTooltip';
+export {withEllipsedTooltip} from './src/hocs/EllipsedTooltip';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {withEllipsedTooltip} from '../../src/HOCS/EllipsedTooltip';
+import {withEllipsedTooltip} from '../../src/hocs/EllipsedTooltip';
 
 const Text = ({children, ...rest}) => <span {...rest}>{children}</span>;
 

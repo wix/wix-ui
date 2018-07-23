@@ -4,7 +4,7 @@ import {node, bool} from 'prop-types';
 import * as shallowequal from 'shallowequal';
 import {Tooltip} from 'wix-ui-core/Tooltip';
 import style from './EllipsedTooltip.st.css';
-import {getDisplayName} from '../../HOCS/utils';
+import {getDisplayName} from '../utils';
 
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>,
