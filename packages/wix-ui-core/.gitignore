@@ -20,3 +20,6 @@ storybook-static
 !wallaby.js
 !protractor.conf.js
 index.st.css
+
+# Don't ignore the meta.webpack.config.js file, necessary for sanity testing
+!meta.webpack.config.js
