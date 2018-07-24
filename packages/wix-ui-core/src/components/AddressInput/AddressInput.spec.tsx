@@ -476,7 +476,6 @@ describe('AddressInput', () => {
         });
 
         it('Should have a focus and blur method', () => {
-            const domContainer = createDOMContainer();
             const wrapper = mount(
                 <AddressInput
                     Client={GoogleMapsClientStub}
@@ -484,7 +483,7 @@ describe('AddressInput', () => {
                     lang="en"
                     onSelect={() => null}
                 />
-            , {attachTo: domContainer});
+            , {attachTo: container.node});
 
             const input = wrapper.find('input').getDOMNode();
             const instance = wrapper.instance() as AddressInput;
@@ -494,8 +493,6 @@ describe('AddressInput', () => {
             expect(document.activeElement).toBe(input);
             instance.blur();
             expect(document.activeElement).not.toBe(input);
-
-            domContainer.remove();
         });
 
         it('Should clear suggestions on blur', async () => {
