@@ -1,5 +1,4 @@
 import * as eyes from 'eyes.it';
-import * as eventually from 'wix-eventually';
 import {$, browser, element} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
