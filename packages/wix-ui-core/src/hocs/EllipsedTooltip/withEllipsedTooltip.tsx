@@ -20,6 +20,20 @@ export type WrapperComponentProps = {
   showTooltip?: boolean;
 }
 
+/*
+  React 15 can have refs just on StateFull components,
+  and as we need a ref of unknown children it required to proxy it with StateFullComponent
+*/
+class StateFullComponentWrap extends React.Component {
+  render() {
+    const { children, ...props } = this.props;
+    return React.cloneElement(
+      children,
+      props
+    );
+  }
+}
+
 class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
   static propTypes = {
     component: node.isRequired,
@@ -51,7 +65,6 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 
   _updateEllipsisState = () => {
-    this.setTextNodeRef();
     this.setState({
       isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
     });
@@ -59,23 +72,16 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
 
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
-  setTextNodeRef = (linkToDom?: any) => {
-    if (this.state.isEllipsisActive && linkToDom) {
-      this.textNode = linkToDom;
-    } else {
-      this.textNode = ReactDOM.findDOMNode(this) as HTMLElement;
-    }
-  };
-
   _renderText() {
     const {component} = this.props;
-
-    return React.cloneElement(
-      component,
-      {
-        ...style('root text', {}, this.props.component.props),
-        style: {whiteSpace: 'nowrap'},
-      }
+    return (
+      <StateFullComponentWrap
+        {...style('root text', {}, component.props)}
+        style={{ whiteSpace: 'nowrap' }}
+        ref={n => this.textNode = ReactDOM.findDOMNode(n)}
+      >
+        {component}
+      </StateFullComponentWrap>
     );
   }
 
@@ -88,7 +94,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
       <Tooltip
         {...style('root tooltip')}
         appendTo="scrollParent"
-        content={<div className={style.tooltipContent} ref={this.setTextNodeRef}>{this.props.component.props.children}</div>}
+        content={<div className={style.tooltipContent}>{this.props.component.props.children}</div>}
         showArrow
       >
         {this._renderText()}

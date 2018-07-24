@@ -1,5 +1,5 @@
 .root.tooltip {
-  display: inherit;
+  display: inherit !important; /* some strange things with order of rules */
 }
 
 .root.text {
