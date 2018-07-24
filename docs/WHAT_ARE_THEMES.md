@@ -14,14 +14,3 @@ Sometimes there might be components and composition of components which does not
 
 ## Themed Component
 A component that wraps a core component and pass to is a **theme object** that defines its styles.
-
-## Theme Object
-An object that defines certain customizable properties for the core component.
-
-* Theme object is defined per component.
-* These properties will be translated into css when passed to the core component.
-* A theme can be a function that depends on the props of the themed component.
-* A component theme must follow the core component theme’s properties, so it can be a subset of it but not have properties that core theme doesn’t support.
-
-## Themes Structure
-Read more about it [here](./THEMES_STRUCTURE.md)
