@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import {ReactDOMTestContainer, createDOMContainer} from '../../../test/dom-test-container';
 import {addressInputDriverFactory} from './AddressInput.driver';
 import {AddressInput, Handler} from './AddressInput';
 import {GoogleMapsClientStub} from './GoogleMapsClientStub';
@@ -476,6 +476,7 @@ describe('AddressInput', () => {
         });
 
         it('Should have a focus and blur method', () => {
+            const domContainer = createDOMContainer();
             const wrapper = mount(
                 <AddressInput
                     Client={GoogleMapsClientStub}
@@ -483,7 +484,7 @@ describe('AddressInput', () => {
                     lang="en"
                     onSelect={() => null}
                 />
-            , {attachTo: document.body.querySelector('#root')});
+            , {attachTo: domContainer});
 
             const input = wrapper.find('input').getDOMNode();
             const instance = wrapper.instance() as AddressInput;
@@ -493,6 +494,8 @@ describe('AddressInput', () => {
             expect(document.activeElement).toBe(input);
             instance.blur();
             expect(document.activeElement).not.toBe(input);
+
+            domContainer.remove();
         });
 
         it('Should clear suggestions on blur', async () => {
