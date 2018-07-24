@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
-import {ReactDOMTestContainer, createDOMContainer} from '../../../test/dom-test-container';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {addressInputDriverFactory} from './AddressInput.driver';
 import {AddressInput, Handler} from './AddressInput';
 import {GoogleMapsClientStub} from './GoogleMapsClientStub';
