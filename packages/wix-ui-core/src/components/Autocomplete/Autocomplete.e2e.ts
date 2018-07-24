@@ -11,11 +11,13 @@ describe('Autocomplete', () => {
   beforeEach(() => browser.get(storyUrl));
 
   eyes.it('should open autocomplete when it focused', async () => {
+    console.log('starting test');
     const driver = autocompleteTestkitFactory({dataHook});
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
     expect(await driver.isContentElementExists()).toBe(false);
 
+    console.log('before focus');
     await driver.focus();
 
     expect(await driver.isContentElementExists()).toBe(true);
@@ -25,6 +27,7 @@ describe('Autocomplete', () => {
     expect(await driver.dropdownContent().getOptionsCount()).toEqual(1);
 
     expect(await driver.dropdownContent().optionAt(0).getText()).toBe('This is a very very very very very long option');
+    console.log('ending test');
   });
 
   eyes.it('should choose one of autocomplete items', async () => {
