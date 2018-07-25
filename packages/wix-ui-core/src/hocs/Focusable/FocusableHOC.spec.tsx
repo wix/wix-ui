@@ -48,7 +48,9 @@ describe('FocusableHOC', () => {
 
     beforeEach(() => {
       // Reseting modules, in order to reset the FocusableHOC.InputMethod.method state.
-      jest.resetModules();
+      if (typeof jest.resetModules === 'function') {
+        jest.resetModules();
+      }
       focusableModule = require('./FocusableHOC');
       WithFocusableComp2 = focusableModule.withFocusable(PureChildComponent);
       // TODO: find a way to reset the eventHandlers which are added to the window.
@@ -100,15 +102,6 @@ describe('FocusableHOC', () => {
 
       driver.click();
       expectMouseFocused(driver, 'after click');
-    });
-
-    it('should have focus but not focus-visible [when] focused programatically [given] current input method is mouse', () => {
-      // This test must be here , after a test which finishes with the input method = mouse.
-      // this test is only to test that we are reseting the FocusableHOC global state proparely,
-      // usin the jest.resetModules() call.
-      const driver = createDriver(<WithFocusableComp2/>);
-      driver.focus();
-      expectKeyboardFocused(driver, 'after click');
     });
 
     /**
