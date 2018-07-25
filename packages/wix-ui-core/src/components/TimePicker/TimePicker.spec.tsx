@@ -78,6 +78,11 @@ describe('TimePicker', () => {
       expect(driver.getInputType()).toEqual('text');
     });
 
+    it('should send empty string value instead of null value', () => {
+      const driver = createDriver(<TimePicker useNativeInteraction value = {null} />);
+      expect(driver.getValue()).toEqual('');
+    });
+
     it('should use type = "text" for false', () => {
       const driver = createDriver(<TimePicker useNativeInteraction = {false} />);
       expect(driver.getInputType()).toEqual('text');
@@ -86,6 +91,11 @@ describe('TimePicker', () => {
     it('should use type = "time" for true', () => {
       const driver = createDriver(<TimePicker useNativeInteraction />);
       expect(driver.getInputType()).toEqual('time');
+    });
+
+    it('should crop the time value to HH:MM format', () => {
+      const driver = createDriver(<TimePicker useNativeInteraction value = "12:12:12" />);
+      expect(driver.getValue()).toEqual('12:12');
     });
   });
 
@@ -156,9 +166,19 @@ describe('TimePicker', () => {
       expect(driver.getValue()).toEqual('--:--');
     });
 
-    it('should set the value according to the value prop', () => {
+    it('should set the value according to the value prop HH:MM format', () => {
       const driver = createDriver(<TimePicker value = {SOME_VALUE}/>);
       expect(driver.getValue()).toEqual(SOME_VALUE);
+    });
+
+    it('should set the value according to the value prop HH:MM:SS format', () => {
+      const driver = createDriver(<TimePicker value = "12:34:56"/>);
+      expect(driver.getValue()).toEqual('12:34');
+    });
+
+    it('should set the value according to the value prop HH:MM:SS.mmm format', () => {
+      const driver = createDriver(<TimePicker value = "12:34:56.789"/>);
+      expect(driver.getValue()).toEqual('12:34');
     });
 
     it('should set the value when a new value is sent', () => {
@@ -182,6 +202,32 @@ describe('TimePicker', () => {
       const NEW_VALUE = '13:13';
       (container.instance() as ValueContainer).setValue(NEW_VALUE);
       expect(inputElement.value).toEqual(NEW_VALUE);
+    });
+
+    describe('invalid values', () => {
+      let stub;
+      beforeEach(() => stub = jest.spyOn(console, 'error').mockImplementation(() => null));
+      afterEach(() => stub.mockRestore());
+
+      it('should validate the prop and console.error if not valid', () => {
+        const driver = createDriver(<TimePicker value = 'a' />);
+        expect(stub).toHaveBeenCalled();
+      });
+
+      it('should show blank when value is invalid', () => {
+        const driver = createDriver(<TimePicker value = 'a'/>);
+        expect(driver.getValue()).toEqual('--:--');
+      });
+
+      it('should show blank when value is invalid time', () => {
+        const driver = createDriver(<TimePicker value = '12:60'/>);
+        expect(driver.getValue()).toEqual('--:--');
+      });
+
+      it('should send empty string value instead of invalid value when using native interaction', () => {
+        const driver = createDriver(<TimePicker useNativeInteraction value="a" />);
+        expect(driver.getValue()).toEqual('');
+      });
     });
   });
 
