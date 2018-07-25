@@ -9,7 +9,7 @@ declare global {
   interface Window { Event: any; }
 }
 
-interface IPureChildComponentProps {
+export interface IPureChildComponentProps {
   id: string;
   focusableOnFocus: any;
   focusableOnBlur: any;
