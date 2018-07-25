@@ -444,6 +444,11 @@ describe('AddressInput', () => {
 
         it('Should pass readOnly prop', () => {
             init({readOnly: true});
+            expect(driver.isReadOnly()).toBeTruthy();
+        });
+
+        it('Should pass disabled prop', () => {
+            init({disabled: true});
             expect(driver.isDisabled()).toBeTruthy();
         });
 
