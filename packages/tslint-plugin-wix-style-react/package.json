@@ -5,7 +5,8 @@
   "main": "tslint.json",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "release": "wnpm-release --no-shrinkwrap"
   },
   "files": [
     "dist/",
@@ -25,7 +26,8 @@
     "jest": "^23.1.0",
     "ts-jest": "^22.4.6",
     "typescript": "^2.9.2",
-    "tslint": "^5.0.0"
+    "tslint": "^5.0.0",
+    "wnpm-ci": "latest"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -10,14 +10,16 @@
   "author": "yairhaimo",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha tests --recursive"
+    "test": "mocha tests --recursive",
+    "release": "wnpm-release --no-shrinkwrap"
   },
   "dependencies": {
     "requireindex": "~1.1.0"
   },
   "devDependencies": {
     "eslint": "~3.9.1",
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "wnpm-ci": "latest"
   },
   "engines": {
     "node": ">=0.10.0"
