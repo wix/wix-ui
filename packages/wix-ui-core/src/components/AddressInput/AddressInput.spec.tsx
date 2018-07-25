@@ -442,14 +442,24 @@ describe('AddressInput', () => {
             expect(driver.getPlaceholder()).toBe('placeholder');
         });
 
-        it('Should pass readOnly prop', () => {
+        it('Should pass readOnly prop (true)', () => {
             init({readOnly: true});
             expect(driver.isReadOnly()).toBeTruthy();
         });
 
-        it('Should pass disabled prop', () => {
+        it('Should pass readOnly prop (false)', () => {
+            init({});
+            expect(driver.isReadOnly()).toBeFalsy();
+        });
+
+        it('Should pass disabled prop (true)', () => {
             init({disabled: true});
             expect(driver.isDisabled()).toBeTruthy();
+        });
+
+        it('Should pass disabled prop (false)', () => {
+            init({});
+            expect(driver.isDisabled()).toBeFalsy();
         });
 
         it('Should handle onChange event', () => {
