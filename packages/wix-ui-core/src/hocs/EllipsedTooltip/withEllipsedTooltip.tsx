@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom';
 import {node, bool} from 'prop-types';
 import * as shallowequal from 'shallowequal';
 import {Tooltip} from 'wix-ui-core/Tooltip';
-import style from './EllipsedTooltip.st.css';
+import TextStyle from './Text.st.css';
+import TooltipStyle from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';
 import debounce = require('lodash/debounce');
 
@@ -78,7 +79,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
     const {component} = this.props;
     return (
       <StateFullComponentWrap
-        {...style('root text', {}, component.props)}
+        {...TextStyle('root', {}, component.props)}
         style={{ whiteSpace: 'nowrap' }}
         ref={n => this.textNode = ReactDOM.findDOMNode(n) as HTMLElement}
       >
@@ -94,9 +95,9 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
 
     return (
       <Tooltip
-        {...style('root tooltip')}
+        {...TooltipStyle('root')}
         appendTo="scrollParent"
-        content={<div className={style.tooltipContent}>{this.props.component.props.children}</div>}
+        content={<div className={TooltipStyle.tooltipContent}>{this.props.component.props.children}</div>}
         showArrow
       >
         {this._renderText()}

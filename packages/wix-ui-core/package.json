@@ -51,6 +51,7 @@
     "react-portal": "^4.1.5",
     "react-transition-group": "^2.2.1",
     "shallowequal": "1.1.0",
+    "wix-ui-backoffice": "^1.0.285",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },
