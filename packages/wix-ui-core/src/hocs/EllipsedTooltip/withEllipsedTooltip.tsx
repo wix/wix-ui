@@ -24,7 +24,9 @@ export type WrapperComponentProps = {
   React 15 can have refs just on StateFull components,
   and as we need a ref of unknown children it required to proxy it with StateFullComponent
 */
-class StateFullComponentWrap extends React.Component<any> {
+type StateFullComponentWrapProps = {children?: any, [propName: string]: any}
+
+class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps> {
   render() {
     const { children, ...props } = this.props;
     return React.cloneElement(
@@ -78,7 +80,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
       <StateFullComponentWrap
         {...style('root text', {}, component.props)}
         style={{ whiteSpace: 'nowrap' }}
-        ref={n => this.textNode = ReactDOM.findDOMNode(n)}
+        ref={n => this.textNode = ReactDOM.findDOMNode(n) as HTMLElement}
       >
         {component}
       </StateFullComponentWrap>
