@@ -10,7 +10,7 @@ const Example: React.SFC = () => (
   <div>
     <Markdown source={Readme}/>
 
-    <CodeExample title="Ellipsis Without Tooltip Example" code={ExampleFocusableButtonRaw}>
+    <CodeExample title="Focusable Input Example" code={ExampleFocusableButtonRaw}>
       <ExampleFocusableButton/>
     </CodeExample>
   </div>

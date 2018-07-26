@@ -16,13 +16,15 @@ export function focusableStates(props) {
   };
 }
 
+type SubscribeCb = () => void;
+
 /**
  * Singleton for managing current input method (keyboard or mouse).
  */
 const inputMethod = new class {
   // Default is keyboard in case an element is focused programmatically.
-  method = 'keyboard';
-  subscribers = new Map();
+  method: 'mouse' | 'keyboard' = 'keyboard';
+  subscribers: Map<any, SubscribeCb> = new Map();
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -34,18 +36,9 @@ const inputMethod = new class {
     }
   }
 
-  /**
-   * Subscribe to inputMethod change events
-   * @param {*} target used as a key to the subscribers map
-   * @param {*} callback optional to be called when the input method changes
-   */
-  subscribe = (target, callback) => this.subscribers.set(target, callback);
+  subscribe = (target: any, callback: SubscribeCb) => this.subscribers.set(target, callback);
 
-  /**
-   * Unsubscribe to inputMethod change events
-   * @param {*} target used as a key to the subscribers map
-   */
-  unsubscribe = target => this.subscribers.delete(target)
+  unsubscribe = (target: any) => this.subscribers.delete(target)
 
   /**
    * Is the current input method `keyboard`. if `false` is means it is `mouse`
@@ -79,7 +72,7 @@ export const withFocusable = Component => {
     focusVisible: boolean;
   }
 
-  class FocusableHOC extends React.PureComponent<any, IFocusableHOCState> {
+  class FocusableHOC extends React.Component<any, IFocusableHOCState> {
     static displayName = wrapDisplayName(Component, 'WithFocusable');
     static propTypes = Component.propTypes;
     static defaultProps = Component.defaultProps;
