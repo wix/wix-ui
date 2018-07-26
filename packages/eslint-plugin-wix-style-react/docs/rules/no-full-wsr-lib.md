@@ -1,5 +1,9 @@
 # Fail if importing all of WSR (no-full-wsr-lib)
 
+## Why
+
+`wix-style-react` does not yet support tree shaking and thus when importing a component you will get the whole library. As a result your bundle will contain the entire `wix-style-react` component library which will increase your bundle size significantly (more than 2 MB). By following this rule you will include only the components you actually use.
+
 ## Rule Details
 
 This rule aims to prevent importing all of WSR.
