@@ -79,7 +79,7 @@
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
     "wix-ui-test-utils": "^1.0.0",
-    "yoshi": "^1.2.0"
+    "yoshi": "^2.13.0"
   },
   "babel": {
     "plugins": [
