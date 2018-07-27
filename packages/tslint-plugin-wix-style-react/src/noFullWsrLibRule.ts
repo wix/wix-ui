@@ -72,6 +72,7 @@ class Walk extends Lint.RuleWalker {
   // const Button2 = require('wix-style-react').Button;
   private isWSRRequireWithProperty(variableDeclaration: ts.VariableDeclaration) {
     return (
+      variableDeclaration.initializer &&
       ts.isPropertyAccessExpression(variableDeclaration.initializer) &&
       ts.isCallExpression(variableDeclaration.initializer.expression) &&
       variableDeclaration.initializer.expression.expression.getText() === 'require' &&
@@ -93,6 +94,7 @@ class Walk extends Lint.RuleWalker {
 
   private isWSRRequireStatement(variableDeclaration: ts.VariableDeclaration) {
     return (
+      variableDeclaration.initializer &&
       ts.isCallExpression(variableDeclaration.initializer) &&
       ts.isIdentifier(variableDeclaration.initializer.expression) &&
       variableDeclaration.initializer.expression.getText() === 'require' &&
@@ -129,11 +131,13 @@ class Walk extends Lint.RuleWalker {
     variableDeclarationNode: ts.VariableDeclaration
   ): Lint.Fix {
     if (
+      variableDeclarationNode.initializer &&
       ts.isPropertyAccessExpression(variableDeclarationNode.initializer) &&
       ts.isIdentifier(variableDeclarationNode.initializer.name)
     ) {
       const identifier = variableDeclarationNode.name.getText();
-      const specifier = variableDeclarationNode.initializer.name.getText();
+      const specifier = variableDeclarationNode.initializer &&
+        variableDeclarationNode.initializer.name.getText();
       return new Lint.Replacement(
         variableStatementNode.getStart(),
         variableStatementNode.getWidth(),

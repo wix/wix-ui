@@ -72,4 +72,18 @@ describe('no-full-wsr-lib', () => {
     expect(result.errorCount).toBe(1);
     expect(getFixedResult({ src, rule })).toEqual(output);
   });
+
+  describe('regression tests', () => {
+    it(`should not throw an error`, () => {
+      /*
+        for some reason errors from ts core not thrown in tests,
+        they just shown as warns, so we listen to console.warn
+      */
+      const spy = jest.spyOn(console, 'warn');
+      const src = `let variableWithoutInit;`;
+      helper({ src, rule });
+      expect(spy).toHaveBeenCalledTimes(0);
+      spy.mockRestore();
+    });
+  })
 });

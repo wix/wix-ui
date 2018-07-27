@@ -30,6 +30,7 @@
     "wnpm-ci": "latest"
   },
   "jest": {
+    "testEnvironment": "node",
     "moduleFileExtensions": [
       "ts",
       "tsx",
