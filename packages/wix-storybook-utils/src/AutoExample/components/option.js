@@ -18,7 +18,7 @@ const Option = ({
     <Row
       dataHook={dataHook}
       className={styles.option}
-      >
+    >
       <Col span={6}>
         <Markdown source={`\`${label}${isRequired ? '*' : ''}\``}/>
       </Col>

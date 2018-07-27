@@ -46,7 +46,7 @@ const Section = ({title, children}) => (
   <div>
     <Markdown
       source={`## ${title}`}
-      />
+    />
     {children}
   </div>
 );
@@ -80,14 +80,14 @@ const StoryPage = ({
         <Markdown
           dataHook="metadata-readme"
           source={metadata.readme || `# \`<${visibleDisplayName}/>\``}
-          />
+        />
 
         { (displayName || metadata.displayName) &&
           <div className={styles.githubLink}>
             <TextLink
               link={`${config.repoBaseURL}${visibleDisplayName}`}
               target="blank"
-              >
+            >
               View source
             </TextLink>
           </div>
@@ -100,7 +100,7 @@ const StoryPage = ({
             metadata: visibleMetadata,
             exampleImport
           })}
-          />
+        />
 
         <Section title="Playground">
           <AutoExample
@@ -109,14 +109,14 @@ const StoryPage = ({
             componentProps={componentProps}
             exampleProps={exampleProps}
             codeExample={codeExample}
-            />
+          />
         </Section>
 
         { examples &&
           <Section title="Examples">
             {examples}
           </Section>
-         }
+        }
       </div>
 
       <AutoDocs parsedSource={visibleMetadata}/>

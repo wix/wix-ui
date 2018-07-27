@@ -27,7 +27,7 @@ const ComponentSource = ({component}) =>
   <CodeBlock
     dataHook="metadata-codeblock"
     source={componentToJSX(component)}
-    />;
+  />;
 
 ComponentSource.propTypes = {
   component: PropTypes.node.isRequired

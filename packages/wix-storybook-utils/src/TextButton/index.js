@@ -40,7 +40,7 @@ export default class TextButton extends Component {
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
         onClick={this.props.onClick}
-        >
+      >
         {this.props.children}
       </button>
     );

@@ -67,7 +67,7 @@ export default class List extends React.Component {
       onClick={this.clearValue}
       style={{color: '#3899ec', cursor: 'pointer'}}
       children={<CloseIcon size="7px"/>}
-      />;
+    />;
 
   clearButton =
     <div style={{padding: '1em 0'}}>
@@ -76,7 +76,7 @@ export default class List extends React.Component {
         theme="transparent"
         children="Clear"
         onClick={this.clearValue}
-        />
+      />
     </div>;
 
   getSelectedId = () => {
@@ -110,7 +110,7 @@ export default class List extends React.Component {
         onChange={this.onFilterChange}
         placeholder={this.props.defaultValue || ''}
         {...(this.state.currentFilter && !this.props.isRequired ? {suffix: this.clearIcon} : {})}
-        />
+      />
     );
   }
 
@@ -120,13 +120,13 @@ export default class List extends React.Component {
         <WixRadioGroup
           value={this.state.currentValue.id}
           onChange={id => this.onOptionChange({id})}
-          >
+        >
           {this.state.options.map(({id, value}) =>
             <WixRadioGroup.Radio
               key={id}
               value={id}
               children={value}
-              />
+            />
           )}
         </WixRadioGroup>
 

@@ -95,6 +95,12 @@
       "jest": true
     },
     "rules": {
+      "react/jsx-closing-bracket-location": [
+        "error", {
+        "nonEmpty": "tag-aligned",
+        "selfClosing": false
+        }
+      ],
       "react/jsx-handler-names": 0,
       "react/no-find-dom-node": 0,
       "react/no-string-refs": 0,
