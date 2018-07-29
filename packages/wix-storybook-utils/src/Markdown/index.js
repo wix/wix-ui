@@ -34,6 +34,16 @@ hljs.registerLanguage(
   require('highlight.js/lib/languages/bash.js')
 );
 
+hljs.registerLanguage(
+  'markdown',
+  require('highlight.js/lib/languages/markdown.js')
+);
+
+hljs.registerLanguage(
+  'django',
+  require('highlight.js/lib/languages/django.js')
+);
+
 export default class Markdown extends Component {
   static propTypes = {
     source: PropTypes.string
