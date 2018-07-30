@@ -1,20 +1,7 @@
 import * as React from 'react';
 import hoistNonReactMethods from 'hoist-non-react-methods';
 import {wrapDisplayName, getDisplayName, isStatelessComponent} from '../utils';
-
-/**
- * Use this method to spread the focusable focus states onto the a component's root element.
- * @param {object} props
- */
-export function focusableStates(props) {
-  if (!props) {
-    throw new Error('FocusableHOC.focusableStates(props): props must be defined');
-  }
-  return {
-    'data-focus': props.focusableIsFocused,
-    'data-focus-visible': props.focusableIsFocusVisible
-  };
-}
+import styles from './Focusable.st.css';
 
 type SubscribeCb = () => void;
 
@@ -110,8 +97,7 @@ export const withFocusable = Component => {
           {...this.props}
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
-          focusableIsFocused={this.state.focus || null}
-          focusableIsFocusVisible={this.state.focusVisible || null}
+          {...styles('root', {focus: this.state.focus, 'focus-visible': this.state.focusVisible}, this.props)}
         />
       );
     }

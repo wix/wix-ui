@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {StylableDOMUtil} from 'stylable/test-utils';
 
-import {withFocusable, focusableStates} from './FocusableHOC';
+import {withFocusable} from './FocusableHOC';
+import style from './Focusable.st.css';
 
 declare global {
   interface Window { Event: any; }
@@ -14,6 +15,11 @@ export interface IPureChildComponentProps {
   focusableOnFocus: any;
   focusableOnBlur: any;
 }
+
+const stylableUtil = new StylableDOMUtil(style);
+
+const hasFocusState = element => stylableUtil.hasStyleState(element, 'focus');
+const hasFocusVisibleState = element => stylableUtil.hasStyleState(element, 'focus-visible');
 
 export class PureChildComponent extends React.PureComponent<IPureChildComponentProps> {
   private id: string;
@@ -36,7 +42,7 @@ export class PureChildComponent extends React.PureComponent<IPureChildComponentP
       <div
         onFocus={this.props.focusableOnFocus}
         onBlur={this.props.focusableOnBlur}
-        {...focusableStates(this.props)}
+        {...style('root', {}, this.props)}
       >
         Hello
       </div>
@@ -49,8 +55,8 @@ const focusableDriverFactory = ({ element, eventTrigger }) => {
     exists: () => true,
     focus: () => eventTrigger.focus(element),
     blur: () => eventTrigger.blur(element),
-    hasFocusState: () => !!element.getAttribute('data-focus'),
-    hasFocusVisibleState: () => !!element.getAttribute('data-focus-visible')
+    hasFocusState: () => hasFocusState(element),
+    hasFocusVisibleState: () => hasFocusVisibleState(element)
   };
 };
 

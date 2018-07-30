@@ -1,0 +1,18 @@
+:import {
+  -st-from: "../../src/hocs/Focusable/Focusable.st.css";
+  -st-default: Focusable;
+  -st-named: focus-box;
+}
+
+.root {
+  -st-extends: Focusable;
+}
+
+.root:focus {
+  -st-mixin: focus-box;
+  border: 2px solid red;
+}
+
+.root:focus-visible {
+  border: 2px solid green;
+}

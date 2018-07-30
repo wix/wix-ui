@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {withFocusable} from '../../src/hocs/Focusable';
+import styles from './ExampleFocusableButton.st.css';
 
 interface IInputProps {
   children: React.ReactNode;
@@ -13,17 +14,11 @@ class Input extends React.Component<IInputProps> {
   render() {
     const {children, ...rest} = this.props;
     return (
-      <div>
-        <div>
-          Is focus: {Boolean(rest.focusableIsFocused).toString()}
-          <br/>
-          Is focus visible: {Boolean(rest.focusableIsFocusVisible).toString()}
-        </div>
-        <input
-          onFocus={rest.focusableOnFocus} // For some reason eslint react/prop-types rule doesn't work here ?!#$
-          onBlur={rest.focusableOnBlur}
-        />
-      </div>
+      <input
+        onFocus={rest.focusableOnFocus}
+        onBlur={rest.focusableOnBlur}
+        {...styles('root', {}, this.props)}
+      />
     );
   }
 }

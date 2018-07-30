@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-
 import {createDriver, WithFocusableComp, PureChildComponent} from './FocusableHOC.driver';
 
-import {withFocusable, focusableStates} from './FocusableHOC';
+import {withFocusable} from './FocusableHOC';
+
 describe('FocusableHOC', () => {
   const render = Comp => mount(Comp, {attachTo: document.createElement('div')});
 
@@ -141,5 +141,4 @@ describe('FocusableHOC', () => {
       expectKeyboardFocused(driver, 'after pressing space');
     });
   });
-
 });
