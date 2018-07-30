@@ -22,11 +22,14 @@ export default class List extends React.Component {
   constructor(props) {
     super(props);
 
+    const options = this.createOptions(props.values || []);
+    const currentValue = options.find(option => option.value === props.value) || {};
+
     this.state = {
-      currentValue: {},
+      currentValue,
       currentFilter: props.defaultValue || '',
       isFiltering: false,
-      options: this.createOptions(props.values || [])
+      options
     };
   }
 
@@ -81,7 +84,7 @@ export default class List extends React.Component {
 
   getSelectedId = () => {
     const selectedOption = this.state.options.find(option => option.id === this.state.currentValue.id) || {};
-    return selectedOption.id || 0;
+    return selectedOption.id || undefined;
   }
 
   onOptionChange = ({id}) => {
