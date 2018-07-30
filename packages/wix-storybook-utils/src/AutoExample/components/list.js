@@ -84,7 +84,7 @@ export default class List extends React.Component {
 
   getSelectedId = () => {
     const selectedOption = this.state.options.find(option => option.id === this.state.currentValue.id) || {};
-    return selectedOption.id || undefined;
+    return selectedOption.id;
   }
 
   onOptionChange = ({id}) => {
