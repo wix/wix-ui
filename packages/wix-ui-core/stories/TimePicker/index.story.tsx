@@ -12,6 +12,8 @@ export default {
     ...style('root'),
     'data-hook': 'storybook-timepicker',
     onChange: value => setState({value}),
+    tickerUpIcon: '+',
+    tickerDownIcon: '-',
     step: 1
   }),
 

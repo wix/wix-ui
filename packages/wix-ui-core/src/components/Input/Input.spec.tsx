@@ -88,6 +88,24 @@ describe('Input', () => {
       expect(input.selectionStart).toBe(0);
       expect(input.selectionEnd).toBe(3);
     });
+
+    it('should support getSelectionStart() and getSelectionEnd() methods', async () => {
+      const {input, instance} = await render(<Input value="1234" />);
+      instance.select();
+      expect(instance.getSelectionStart()).toBe(0);
+      expect(instance.getSelectionEnd()).toBe(4);
+
+      input.setSelectionRange(1, 3);
+      expect(instance.getSelectionStart()).toBe(1);
+      expect(instance.getSelectionEnd()).toBe(3);
+    });
+
+    it('should support setSelectionRange() method', async () => {
+      const {input, instance} = await render(<Input value="1234" />);
+      instance.setSelectionRange(1, 3);
+      expect(instance.getSelectionStart()).toBe(1);
+      expect(instance.getSelectionEnd()).toBe(3);
+    });
   });
 
   describe('`style` prop', () => {

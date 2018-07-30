@@ -168,6 +168,9 @@ export class Input extends React.Component<InputProps, InputState> {
   focus() { this.input.focus(); }
   blur() { this.input.blur(); }
   select() { this.input.select(); }
+  getSelectionStart() { return this.input.selectionStart; }
+  getSelectionEnd() { return this.input.selectionEnd; }
+  setSelectionRange(start: number, end: number) { this.input.setSelectionRange(start, end); }
 
   private handleFocus: React.FocusEventHandler<HTMLElement> = event => {
     this.setState({focus: true});

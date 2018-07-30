@@ -9,10 +9,15 @@ export interface TimePickerDriver extends BaseDriver {
   mouseEnter: () => Promise<void>;
   pressKeyArrowRight: () => Promise<void>;
   pressKeyArrowLeft: () => Promise<void>;
+  clickTickerUp: () => Promise<void>;
+  clickTickerDown: () => Promise<void>;
+  getText: () => Promise<string>;
 }
 
 export const timePickerDriverFactory: DriverFactory<TimePickerDriver> = component => {
   const inputDriver = inputDriverFactory(component)
+  const tickerUp = component.$('[data-hook="ticker-button-up"]');
+  const tickerDown = component.$('[data-hook="ticker-button-down"]');
 
   return {
     /** returns the component element */
@@ -29,5 +34,8 @@ export const timePickerDriverFactory: DriverFactory<TimePickerDriver> = componen
     mouseEnter: async () => mouseEnter(component),
     pressKeyArrowRight: () => inputDriver.pressKey(protractor.Key.ARROW_RIGHT),
     pressKeyArrowLeft: () => inputDriver.pressKey(protractor.Key.ARROW_LEFT),
+    clickTickerUp: async () => tickerUp.click(),
+    clickTickerDown: async () => tickerDown.click(),
+    getText: () => inputDriver.getText(),
   }
 };

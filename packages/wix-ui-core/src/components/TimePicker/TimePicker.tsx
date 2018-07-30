@@ -160,8 +160,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     this._onBlur         = this._onBlur.bind(this);
     this._onFocus        = this._onFocus.bind(this);
     this._onKeyDown      = this._onKeyDown.bind(this);
-    this._increment      = this._increment.bind(this);
-    this._decrement      = this._decrement.bind(this);
+    this._tick           = this._tick.bind(this);
   }
 
   state = {
@@ -179,10 +178,10 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     }
   }
 
-  _highlightField(DOMelement: HTMLInputElement, field: FIELD) {
+  _highlightField(input: HTMLInputElement | Input, field: FIELD) {
     const startPos = (field - 1) * 3;
     if (startPos < 0) { return; }
-    DOMelement.setSelectionRange(startPos, startPos + 2);
+    input.setSelectionRange(startPos, startPos + 2);
   }
 
   _onMouseDown(e) {
@@ -390,20 +389,20 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     }
   }
 
-  _increment(field?: FIELD) {
-    let {value} = this.state;
-    const {step, onChange} = this.props;
-    value = increment({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
-    this.setState({value});
-    if (isValidTime(value)) { onChange(value); }
-  }
+  _tick(action: Function) {
+    const startPos = this._inputRef.getSelectionStart();
+    const currentField = getFieldFromPos(startPos);
+    let { value } = this.state;
+    const { step, onChange } = this.props;
+    const field = this.state.focus
+      ? currentField
+      : (this._lastFocusedField || FIELD.MINUTE);
 
-  _decrement(field?: FIELD) {
-    let {value} = this.state;
-    const {step, onChange} = this.props;
-    value = decrement({value, field: field || this._lastFocusedField || FIELD.MINUTE, step});
-    this.setState({value});
-    if (isValidTime(value)) { onChange(value); }
+    value = action({ value, field, step });
+    this.setState({ value }, () => {
+      this._highlightField(this._inputRef, currentField);
+      if (isValidTime(value)) { onChange(value); }
+    });
   }
 
   focus() {
@@ -453,8 +452,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const tickers = tickerUpIcon && tickerDownIcon && (
       <Tickers
         className      = {style.tickers}
-        onIncrement    = {() => this._increment()}
-        onDecrement    = {() => this._decrement()}
+        onIncrement    = {() => this._tick(increment)}
+        onDecrement    = {() => this._tick(decrement)}
         tickerUpIcon   = {tickerUpIcon}
         tickerDownIcon = {tickerDownIcon}
       />

@@ -41,9 +41,9 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     getTickers: () => inputDriver.getSuffix(),
 
     /** clicks on the ticker up button */
-    clickTickerUp: () => eventTrigger.click(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-up"]')),
+    clickTickerUp: () => eventTrigger.mouseDown(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-up"]')),
 
     /** clicks on the ticker down button */
-    clickTickerDown: () => eventTrigger.click(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-down"]'))
+    clickTickerDown: () => eventTrigger.mouseDown(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-down"]'))
   };
 };

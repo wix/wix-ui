@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string, func, node} from 'prop-types';
+import {string, func, node, Requireable} from 'prop-types';
 import style from './Tickers.st.css';
 
 export interface TickersProps {
@@ -14,27 +14,40 @@ export interface TickersProps {
   tickerDownIcon?: React.ReactNode;
 }
 
-export const Tickers: React.SFC<TickersProps> = props => (
-  <div {...style('root', {}, props)}>
-    <button tabIndex={-1} type="button" onClick={props.onIncrement} className={style.ticker} data-hook="ticker-button-up">
-      {props.tickerUpIcon}
-    </button>
-    <button tabIndex={-1} type="button" onClick={props.onDecrement} className={style.ticker} data-hook="ticker-button-down">
-      {props.tickerDownIcon}
-    </button>
-  </div>
-);
+export class Tickers extends React.PureComponent<TickersProps> {
+  static propTypes = {
+    className: string,
+    /** increment handler */
+    onIncrement: func,
+    /** decrement handler */
+    onDecrement: func,
+    /** up ticker icon */
+    tickerUpIcon: node,
+    /** down ticker icon */
+    tickerDownIcon: node
+  };
 
-Tickers.displayName = 'Tickers';
+  handleIncrement = e => {
+    e.preventDefault();
+    this.props.onIncrement(e);
+  }
 
-Tickers.propTypes = {
-  className: string,
-  /** increment handler */
-  onIncrement: func,
-  /** decrement handler */
-  onDecrement: func,
-  /** up ticker icon */
-  tickerUpIcon: node,
-  /** down ticker icon */
-  tickerDownIcon: node
+  handleDecrement = e => {
+    e.preventDefault();
+    this.props.onDecrement(e);
+  }
+
+  render() {
+    return (
+      <div {...style('root', {}, this.props)}>
+      <button tabIndex={-1} type="button" onMouseDown={this.handleIncrement} className={style.ticker} data-hook="ticker-button-up">
+        {this.props.tickerUpIcon}
+      </button>
+      <button tabIndex={-1} type="button" onMouseDown={this.handleDecrement} className={style.ticker} data-hook="ticker-button-down">
+        {this.props.tickerDownIcon}
+      </button>
+    </div>
+    );
+  }
 };
+
