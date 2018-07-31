@@ -28,7 +28,7 @@
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
     "test:e2e": "yoshi test --protractor",
-    "autotools": "npx autotools sanity",
+    "autotools": "autotools sanity",
     "lint": "yoshi lint",
     "yoshi-start": "yoshi start --no-test",
     "storybook-start": "npm run storybook",
