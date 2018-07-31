@@ -33,7 +33,7 @@ export default ({
               component={component}
               componentProps={componentProps}
               parsedSource={_metadata}
-              />
+            />
 
             {queryString.parse(window.location.search).withExamples !== undefined && examples}
           </div> :
@@ -51,5 +51,5 @@ export default ({
               metadata: _metadata,
               config: _config
             }}
-            />
-      );
+          />
+    );

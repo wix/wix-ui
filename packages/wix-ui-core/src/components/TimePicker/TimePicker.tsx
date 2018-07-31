@@ -37,7 +37,7 @@ export type TimePickerProps = Pick<InputProps, 'disabled'> & {
   /** Interval in minutes to increase / decrease the time when on minutes or external */
   step?: number;
 
-  /** Time in 24hour format (00:00 - 23:59). Can be null */
+  /** Time in 24hour format according to the spec 23:59(:59(.999)) (https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#times). Can be null */
   value?: string;
 
   /** What to display for the up ticker. Will only be shown if tickerDownIcon is also provided */
@@ -88,10 +88,11 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   _inputRef: Input;
 
   static defaultProps = {
-    onChange         : () => null,
+    onChange             : () => null,
     useNativeInteraction : false,
     useAmPm              : AmPmOptions.None,
     step                 : 1,
+    value                : null
   };
 
   static propTypes: Object = {
@@ -125,8 +126,16 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       if (integerStep < 1 || integerStep > 60) { return new Error(`Invalid prop '${propName}' supplied to '${componentName}': [${step}] is not in range 1-60.`); }
     },
 
-    /** Time in 24hour format (00:00 - 23:59). Can be null */
-    value: string,
+    /** Time in 24hour format according to the spec 23:59(:59(.999)) (https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#times). Can be null */
+    value: (props, propName, componentName) => {
+      const value = props[propName];
+      if (value !== null && !isValidTime(value)) {
+        return new Error(
+          `Invalid prop '${propName}' supplied to '${componentName}': [${value}] is not valid, must be in 23:59(:59(.999)) format.
+          For details see https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#times`
+        );
+      }
+    },
 
     /** What to display for the up ticker. Will only be shown if tickerDownIcon is also provided */
     tickerUpIcon: node,
@@ -156,7 +165,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   state = {
-    value: this.props.value && isValidTime(this.props.value) ? this.props.value : NULL_TIME,
+    value: this.props.value && isValidTime(this.props.value) ? this.props.value.substr(0, 5) : NULL_TIME,
     focus: false
   };
 
@@ -166,7 +175,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       if (!value || !isValidTime(value)) {
         value = NULL_TIME;
       }
-      this.setState({value});
+      this.setState({value: value.substr(0, 5)});
     }
   }
 
@@ -422,13 +431,15 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     ]);
 
     if (useNativeInteraction) {
-      const {value: propsValue = NULL_TIME, onChange} = this.props;
+      const {value: propsValue, onChange} = this.props;
+      const sanitizedValue = propsValue && isValidTime(propsValue) ? propsValue.substr(0, 5) : '';
+
       return (
         <Input
           {...passThroughProps}
           {...style('root', {}, this.props)}
           type        = "time"
-          value       = {propsValue}
+          value       = {sanitizedValue}
           onChange    = {e => onChange(e.target.value)}
         />
       );

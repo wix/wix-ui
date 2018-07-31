@@ -14,7 +14,8 @@
     "*.d.ts",
     "!wallaby.js",
     "!protractor.conf.js",
-    "index.st.css"
+    "index.st.css",
+    "hocs.js"
   ],
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
     "react-popper": "0.10.1",
     "react-portal": "^4.1.5",
     "react-transition-group": "^2.2.1",
+    "shallowequal": "1.1.0",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },

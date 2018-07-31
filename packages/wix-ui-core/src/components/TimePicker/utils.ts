@@ -14,8 +14,9 @@ export const parseTime = (timeStr: string) => ({
 });
 
 export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
-  const test12 = /^(0[1-9]|1[0-2]):([0-5][0-9])$/;
-  const test24 = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+  // HH:MM with optional HH:MM:SS and optional HH:MM:SS.mmm
+  const test12 = /^(0[1-9]|1[0-2]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{3})?)?$/;
+  const test24 = /^([0-1][0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{3})?)?$/;
   return useAmPm
     ? test12.test(timeStr)
     : test24.test(timeStr);

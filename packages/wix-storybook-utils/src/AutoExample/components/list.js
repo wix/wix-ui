@@ -9,6 +9,7 @@ import Button from 'wix-style-react/Button';
 import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
 
 const isUndefined = a => typeof a === 'undefined';
+const isFunction = a => typeof a === 'function';
 
 export default class List extends React.Component {
   static propTypes = {
@@ -22,11 +23,16 @@ export default class List extends React.Component {
   constructor(props) {
     super(props);
 
+    const options = this.createOptions(props.values || []);
+    const currentValue = options.find(option => option.realValue === props.value) || {};
+
     this.state = {
-      currentValue: {},
-      currentFilter: props.defaultValue || '',
+      currentValue,
+      currentFilter: isFunction(props.defaultValue) ?
+        currentValue.value :
+        props.defaultValue || '',
       isFiltering: false,
-      options: this.createOptions(props.values || [])
+      options
     };
   }
 
@@ -67,7 +73,7 @@ export default class List extends React.Component {
       onClick={this.clearValue}
       style={{color: '#3899ec', cursor: 'pointer'}}
       children={<CloseIcon size="7px"/>}
-      />;
+    />;
 
   clearButton =
     <div style={{padding: '1em 0'}}>
@@ -76,12 +82,12 @@ export default class List extends React.Component {
         theme="transparent"
         children="Clear"
         onClick={this.clearValue}
-        />
+      />
     </div>;
 
   getSelectedId = () => {
     const selectedOption = this.state.options.find(option => option.id === this.state.currentValue.id) || {};
-    return selectedOption.id || 0;
+    return selectedOption.id;
   }
 
   onOptionChange = ({id}) => {
@@ -110,7 +116,7 @@ export default class List extends React.Component {
         onChange={this.onFilterChange}
         placeholder={this.props.defaultValue || ''}
         {...(this.state.currentFilter && !this.props.isRequired ? {suffix: this.clearIcon} : {})}
-        />
+      />
     );
   }
 
@@ -120,13 +126,13 @@ export default class List extends React.Component {
         <WixRadioGroup
           value={this.state.currentValue.id}
           onChange={id => this.onOptionChange({id})}
-          >
+        >
           {this.state.options.map(({id, value}) =>
             <WixRadioGroup.Radio
               key={id}
               value={id}
               children={value}
-              />
+            />
           )}
         </WixRadioGroup>
 
