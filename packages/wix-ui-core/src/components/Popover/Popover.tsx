@@ -85,8 +85,6 @@ export interface PopoverProps {
   timeout?: number;
   /** Inline style */
   style?: object;
-  /** Id */
-  id?: string;
 }
 
 export type PopoverState = {
@@ -176,8 +174,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     moveArrowTo: number,
     appendTo: AppendToPropType,
     timeout: number,
-    style: object,
-    id: string
+    style: object
   };
 
   getPopperContentStructure(childrenObject) {
@@ -280,7 +277,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
   }
 
   render() {
-    const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, shown, style: inlineStyles, id} = this.props;
+    const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, shown, style: inlineStyles} = this.props;
     const {isMounted} = this.state;
 
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
@@ -298,7 +295,6 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={inlineStyles}
-        id={id}
       >
         <Target onKeyDown={onKeyDown} data-hook="popover-element" innerRef={r => this.targetRef = r}>
           {childrenObject.Element}
