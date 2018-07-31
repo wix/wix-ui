@@ -1,9 +1,12 @@
 import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
 import {queryHook} from 'wix-ui-test-utils/dom';
-import {Popover, PopoverProps} from './';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
+import {runBaseDriverTests} from '../../common/BaseDriver.tests';
+import {Popover, PopoverProps} from './';
+import {popoverDriverFactory, PopoverDriver} from './Popover.driver';
+import {PopoverDriverPrivate} from './Popover.driver.private';
+import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import styles from './Popover.st.css';
 
 const popoverWithProps = (props: PopoverProps) => (
@@ -17,16 +20,14 @@ const popoverWithProps = (props: PopoverProps) => (
   </Popover>
 );
 
-// Since Popover.Content can render outside the component's root, let's query
-// the entire document with the assumption that we don't render more than one
-// popover at a time.
-const queryPopoverElement = () => queryHook<HTMLElement>(document, 'popover-element');
-const queryPopoverContent = () => queryHook<HTMLElement>(document, 'popover-content');
-const queryPopoverArrow   = () => queryHook<HTMLElement>(document, 'popover-arrow');
-const queryPopoverPortal  = () => queryHook<HTMLElement>(document, 'popover-portal');
-
 describe('Popover', () => {
   const container = new ReactDOMTestContainer().destroyAfterEachTest();
+
+  const createDriver = ()=> new PopoverDriverPrivate(
+    {
+      element: container.componentNode
+    }
+  );
 
   describe('Display', () => {
     it(`doesn't display popup when shown={false}`, async () => {
@@ -34,9 +35,9 @@ describe('Popover', () => {
         placement: 'bottom',
         shown: false
       }));
-  
-      expect(queryPopoverElement()).toBeTruthy();
-      expect(queryPopoverContent()).toBeNull();
+      const driver = createDriver();
+      expect(driver.isTargetElementExists()).toBeTruthy();
+      expect(driver.isContentElementExists()).toBeFalsy();
     });
 
     it(`displays popup when shown={true}`, async () => {
@@ -44,8 +45,8 @@ describe('Popover', () => {
         placement: 'bottom',
         shown: true
       }));
-      
-      expect(queryPopoverContent()).toBeTruthy();
+      const driver = createDriver();
+      expect(driver.isContentElementExists()).toBeTruthy();
     });
   });
 
@@ -59,9 +60,9 @@ describe('Popover', () => {
         onMouseEnter,
         onMouseLeave,
       }));
-
-      Simulate.mouseEnter(container.componentNode);
-      Simulate.mouseLeave(container.componentNode);
+      const driver = createDriver();
+      driver.mouseEnter();
+      driver.mouseLeave();
       expect(onMouseEnter).toBeCalled();
       expect(onMouseLeave).toBeCalled();
     });
@@ -75,8 +76,8 @@ describe('Popover', () => {
         showArrow: true,
         moveArrowTo: 10
       }));
-
-      expect(queryPopoverArrow().style.left).toBe('10px');
+      const driver = createDriver();
+      expect(driver.getArrowOffset().left).toBe('10px');
     });
   });
 
@@ -89,10 +90,10 @@ describe('Popover', () => {
       await container.render(popoverWithProps(
         {placement: 'bottom', shown: false, timeout: 10}
       ));
-  
-      expect(queryPopoverContent()).toBeTruthy();
+      const driver = createDriver();
+      expect(driver.isContentElementExists()).toBeTruthy();
       await eventually(() => {
-        expect(queryPopoverContent()).toBeNull();
+        expect(driver.isContentElementExists()).toBeFalsy();
       }, {interval: 1});
     });
   
@@ -105,7 +106,8 @@ describe('Popover', () => {
         {placement: 'bottom', shown: false, timeout: 0}
       ));
   
-      expect(queryPopoverContent()).toBeNull();
+      const driver = createDriver();
+      expect(driver.isContentElementExists()).toBeFalsy();
     });
   });
 
@@ -117,8 +119,8 @@ describe('Popover', () => {
         placement: 'bottom',
         shown: true
       }));
-  
-      expect(queryPopoverContent().parentElement).toBe(container.componentNode);
+      const driver = createDriver();
+      expect(driver.getContentElement().parentElement).toBe(container.componentNode);
     });
 
     it(`renders the popup into a portal when given appendTo prop`, async() => {
@@ -128,9 +130,11 @@ describe('Popover', () => {
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverContent().parentElement).toBe(queryPopoverPortal());
-      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-      expect(queryPopoverPortal().classList).toContain(styles.root);
+      const driver = createDriver();
+      const privateDriver = createDriver();
+      expect(driver.getContentElement().parentElement).toBe(privateDriver.getPortalElement());
+      expect(privateDriver.getPortalElement().parentElement).toBe(portalContainer.node);
+      expect(privateDriver.getPortalElement().classList).toContain(styles.root);
     });
 
     it(`renders an empty portal when closed`, async() => {
@@ -140,9 +144,11 @@ describe('Popover', () => {
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverContent()).toBeNull();
-      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-      expect(queryPopoverPortal().classList).not.toContain(styles.root);
+      const driver = createDriver();
+      const privateDriver = createDriver();
+      expect(driver.isContentElementExists()).toBeFalsy();
+      expect(privateDriver.getPortalElement().parentElement).toBe(portalContainer.node);
+      expect(privateDriver.getPortalElement().classList).not.toContain(styles.root);
     });
 
     it(`removes the portal on unmount`, async() => {
@@ -152,9 +158,10 @@ describe('Popover', () => {
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverPortal()).toBeTruthy();
+      const privateDriver = createDriver();
+      expect(privateDriver.getPortalElement()).toBeTruthy();
       container.unmount();
-      expect(queryPopoverPortal()).toBeNull();
+      expect(privateDriver.getPortalElement()).toBeNull();
     });
 
     it(`adds the portal to the body when appendTo="window"`, async () => {
@@ -164,7 +171,8 @@ describe('Popover', () => {
         appendTo: 'window'
       }));
 
-      expect(queryPopoverPortal().parentElement).toBe(document.body);
+      const privateDriver = createDriver();
+      expect(privateDriver.getPortalElement().parentElement).toBe(document.body);
     });
 
     it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
@@ -179,8 +187,93 @@ describe('Popover', () => {
           </div>
         </div>
       );
+      
+      const privateDriver = createDriver();
+      expect(privateDriver.getPortalElement().parentElement).toBe(container.node.firstChild);
+    });
+  });
 
-      expect(queryPopoverPortal().parentElement).toBe(container.node.firstChild);
+  describe('public driver', () => {
+    const createElement = () => {
+        container.render(popoverWithProps({
+          placement: 'bottom',
+          shown: false
+        }));
+        return container.componentNode;
+    }
+
+    runBaseDriverTests(createElement);
+
+    const createPublicDriver = ()=> popoverDriverFactory(
+      {
+        element: container.componentNode
+      }
+    );
+
+    const render = (props?:Partial<PopoverProps>) => container.render(popoverWithProps({
+      placement: 'bottom',
+      shown: false,
+      ...props
+    }));
+
+    it('PopoverDriver class sanity', async () => {
+      render();  
+      const driver = new PopoverDriver({
+        element: container.componentNode
+      });
+      expect(driver.getTargetElement()).toBeDefined();
+    });
+
+    it('getTargetElement', async () => {
+      render();  
+      const driver = createPublicDriver();
+      expect(driver.getTargetElement()).toBeDefined();
+    });
+
+    it('getContentElement', async () => {
+      render();  
+      const driver = createPublicDriver();
+      expect(driver.getContentElement()).toBeDefined();
+    });
+
+    it('isTargetElementExists', async () => {
+      render();  
+      const driver = createPublicDriver();
+      expect(driver.isTargetElementExists()).toBeTruthy();
+    });
+
+    it('isContentElementExists', async () => {
+      render({shown:true});  
+      const driver = createPublicDriver();
+      expect(driver.isContentElementExists()).toBeTruthy();
+    });
+
+    it('isTargetElementExists', async () => {
+      render();  
+      const driver = createPublicDriver();
+      expect(driver.inlineStyles()).toBeTruthy();
+    });
+
+    it('inlineStyles', async () => {
+      const style = {backgroundColor: 'green'};
+      render({style});  
+      const driver = createPublicDriver();
+      expect(driver.inlineStyles()['background-color']).toBe('green')
+    });
+
+    it('mouseEnter', () => {
+      const driver = createPublicDriver();
+      expect(driver.mouseEnter).toBeDefined();
+    });
+
+    it('mouseLeave', () => {
+      const driver = createPublicDriver();
+      expect(driver.mouseLeave).toBeDefined();
+    });
+
+    it('click', () => {
+      const driver = createPublicDriver();
+      expect(driver.click).toBeDefined();
     });
   });
 });

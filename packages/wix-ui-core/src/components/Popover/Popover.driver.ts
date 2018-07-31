@@ -1,20 +1,29 @@
-const queryDocumentOrElement = (element, query) => ((element && element.querySelectorAll(query)[0]) || document && document.querySelector(query));
-const getTargetElement = (element: Element | undefined) => element && element.querySelectorAll('[data-hook="popover-element"]')[0];
-const getContentElement = (element: Element | undefined) => queryDocumentOrElement(element, '[data-hook="popover-content"]');
-const getArrowElement = (element: Element | undefined) => element && element.querySelectorAll('[data-hook="popover-arrow"]')[0];
+import { queryHook } from 'wix-ui-test-utils/dom';
+import {BaseDriver, DriverBuilderParams} from '../../common/BaseDriver';
 
-export const popoverDriverFactory = ({element, eventTrigger}) => ({
-  exists: () => !!element,
-  getTargetElement: () => getTargetElement(element),
-  getContentElement: () => getContentElement(element),
-  isTargetElementExists: () => !!getTargetElement(element),
-  isContentElementExists: () => !!getContentElement(element),
-  mouseEnter: () => eventTrigger.mouseEnter(element),
-  mouseLeave: () => eventTrigger.mouseLeave(element),
-  click: () => eventTrigger.click(element),
-  getArrowOffset: () => {
-    const {top, left, right, bottom} = (getArrowElement(element) as HTMLElement).style;
-    return {top, left, right, bottom};
-  },
-  inlineStyles: () => element.style
-});
+export class PopoverDriver extends BaseDriver {
+
+  constructor(driverArgs: DriverBuilderParams) {
+    super(driverArgs);
+  }
+
+  private byHook(dataHook: string) {
+    return queryHook<HTMLElement>(this.element, dataHook) || queryHook<HTMLElement>(document, dataHook) ;
+  }
+
+  getTargetElement = () =>  this.byHook('popover-element');
+  getContentElement = () =>  this.byHook('popover-content');
+  isTargetElementExists = () =>  !!this.getTargetElement();
+  isContentElementExists = () =>  !!this.getContentElement();
+  
+  inlineStyles = () => this.element.style;
+  mouseEnter = () =>  this.eventTrigger.mouseEnter(this.element);
+  mouseLeave = () =>  this.eventTrigger.mouseLeave(this.element);
+  click = () => this.eventTrigger.click(this.element);
+}
+
+export const popoverDriverFactory = (driverArgs: DriverBuilderParams) => {
+  return {
+    ...new PopoverDriver(driverArgs)
+  };
+};
