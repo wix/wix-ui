@@ -184,7 +184,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     const {moveBy, appendTo, placement, showArrow, moveArrowTo} = this.props;
     const modifiers = createModifiers({moveBy, appendTo});
 
-    let popper = (
+    const popper = (
       <Popper
         data-hook="popover-content"
         modifiers={modifiers}
@@ -202,7 +202,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
               />,
               <div key="popover-content" className={style.popoverContent}>{childrenObject.Content}</div>
             ] :
-            childrenObject.Content
+            <div key="popover-content">{childrenObject.Content}</div>
         }
       </Popper>
     );
