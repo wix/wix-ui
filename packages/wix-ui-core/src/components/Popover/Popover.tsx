@@ -204,7 +204,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
               />,
               renderContent()
             ] :
-            renderContent()
+            childrenObject.Content
         }
       </Popper>
     );
