@@ -191,7 +191,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         data-hook="popover-content"
         modifiers={modifiers}
         placement={placement}
-        className={classNames(style.popover, {[style.withArrow]: showArrow, [style.popoverContent]: !showArrow})}
+        className={classNames(style.popover, {[style.withArrow]: showArrow})}
       >
         {
           showArrow ?
@@ -204,7 +204,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
               />,
               renderContent()
             ] :
-            childrenObject.Content
+            renderContent()
         }
       </Popper>
     );
