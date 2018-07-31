@@ -20,6 +20,8 @@ export const labelDriverFactory = ({element, eventTrigger}) => {
     /** send key down on the label */
     keyDown: key => eventTrigger.keyDown(element, {key}),
     /** returns true if the label is in ellipsis state */
-    hasEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis')
+    hasEllipsis: () => stylableDOMUtil.hasStyleState(element, 'ellipsis'),
+    /** returns width of label */
+    maxWidth: () => window.getComputedStyle(element)['max-width']
   };
 };

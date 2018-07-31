@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {string, bool, node} from 'prop-types';
+import {string, bool, oneOfType, node, number} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
@@ -14,6 +14,8 @@ export interface LabelProps {
   ellipsis?: boolean;
   /** Is the Label disabled */
   disabled?: boolean;
+  /** Label max width */
+  maxWidth?: number | string;
 }
 
 const defaultProps: LabelProps = {
@@ -25,7 +27,16 @@ const defaultProps: LabelProps = {
  */
 export const Label: React.SFC<LabelProps> = props => {
   const {id, children, ellipsis, disabled} = props;
-  return <label {...style('root', {ellipsis, disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
+  return (
+    <label
+      {...style('root', {ellipsis, disabled}, props)}
+      htmlFor={props.for}
+      id={id}
+      style={{maxWidth: props.maxWidth}}
+    >
+      {children}
+    </label>
+  );
 };
 
 Label.displayName = 'Label';
@@ -42,7 +53,9 @@ Label.propTypes = {
   /** should the text be ellipsed or not */
   ellipsis: bool,
   /** Is the Label disabled */
-  disabled: bool
+  disabled: bool,
+  /** Label max width */
+  maxWidth: oneOfType([number, string]),
 };
 
 Label.defaultProps = defaultProps;

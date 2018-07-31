@@ -56,6 +56,12 @@ describe('Label', () => {
     expect(label.isDisabled()).toBe(false);
   });
 
+  it('should have maxWidth', async () => {
+    const label = createDriver(<Label maxWidth={50}/>);
+
+    expect(label.maxWidth()).toBe('50px');
+  });
+
   describe('testkit', () => {
     it('should exist', () => {
       expect(isTestkitExists(<Label />, labelTestkitFactory)).toBe(true);

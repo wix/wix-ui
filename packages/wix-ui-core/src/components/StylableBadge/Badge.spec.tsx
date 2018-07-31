@@ -38,6 +38,21 @@ describe('Stylable Badge', () => {
 
       expect(driver.text()).toMatch('Delete?');
     });
+
+    it('should display full content on hover and hide it on leave in tooltip', async () => {
+      const content = (
+        <div>
+          <span>Delete this super awesome thing</span>
+          <i>?</i>
+        </div>
+      );
+      const component = mount(<Badge maxWidth={0}>{content}</Badge>);
+
+      expect(component.find('[data-hook="popover-content"]').length).toBe(0);
+      component.setState({isEllipsisActive: true});
+      component.simulate('mouseEnter');
+      expect(component.find('[data-hook="popover-content"]').at(0).text()).toBe('Delete this super awesome thing?');
+    });
   });
 
   describe('testkit', () => {
