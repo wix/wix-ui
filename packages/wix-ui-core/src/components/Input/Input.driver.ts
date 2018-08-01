@@ -29,6 +29,9 @@ export const inputDriverFactory = ({element, eventTrigger}) => {
     /** is disabled */
     isDisabled: () => input.disabled,
 
+    /** is read only */
+    isReadOnly: () => input.readOnly,
+
     /** set value */
     setValue: value => {
       input.value = value;
