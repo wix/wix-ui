@@ -1,5 +1,6 @@
 const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
-const packagePath = __dirname;
+const path = require('path');
+const packagePath = path.join(__dirname, '..');
 
 const config = {
   context: packagePath,
