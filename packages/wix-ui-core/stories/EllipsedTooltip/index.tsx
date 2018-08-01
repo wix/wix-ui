@@ -15,7 +15,7 @@ import * as ExampleNotEllipsedRaw from '!raw-loader!./ExampleNotEllipsed';
 const Example: React.SFC = () => (
   <div>
     <Markdown source={Readme}/>
-    
+
     <CodeExample title="Ellipsis Without Tooltip Example" code={ExampleWithoutTooltipRaw}>
       <ExampleWithoutTooltip/>
     </CodeExample>

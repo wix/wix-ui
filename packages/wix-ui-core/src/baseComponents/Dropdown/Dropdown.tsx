@@ -41,6 +41,8 @@ export interface DropdownProps {
   forceContentElementVisibility?: boolean;
   /** Inline styles */
   style?: object;
+  /** Id */
+  id?: string;
 }
 
 export interface DropdownState {
@@ -189,7 +191,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
 
@@ -205,6 +207,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         onKeyDown={!disabled ? this.onKeyDown : undefined}
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
         style={inlineStyles}
+        id={id}
       >
         <Popover.Element>
           {children}

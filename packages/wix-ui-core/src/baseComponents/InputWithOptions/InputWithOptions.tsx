@@ -40,6 +40,8 @@ export interface InputWithOptionsProps {
   inputProps: InputProps;
   /** Inline styles */
   style?: object;
+  /** Id */
+  id?: string;
 }
 
 /**
@@ -91,7 +93,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Input prop types */
     inputProps: object.isRequired,
     /** Inline styles */
-    style: object
+    style: object,
+    /** Id */
+    Id: string
   };
 
   isEditing: boolean = false;
@@ -163,7 +167,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       onDeselect,
       inputProps,
       forceContentElementVisibility,
-      style: inlineStyles} = this.props;
+      style: inlineStyles,
+      id} = this.props;
 
     return (
       <Dropdown
@@ -183,6 +188,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         multi={multi}
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
+        id={id}
       >
         <Input
           data-hook="input"

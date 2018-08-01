@@ -59,6 +59,9 @@ export function isFocused(element: ElementFinder) {
   return element.equals(browser.driver.switchTo().activeElement());
 }
 
+export const hasAttribute = (elementFinder: ElementFinder, attributeName: string) =>
+  elementFinder.getAttribute(attributeName).then(value => value !== null);
+
 // This interface is copied over from protractor because it isn't exported
 export interface ILocation {
   x: number;
