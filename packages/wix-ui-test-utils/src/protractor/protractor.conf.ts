@@ -16,6 +16,6 @@ export const baseProtractorConfig = {
     return storybookStaticsServer.stop();
   },
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 60000
+    defaultTimeoutInterval: 10000
   }
 };
