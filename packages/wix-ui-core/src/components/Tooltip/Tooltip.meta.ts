@@ -5,6 +5,11 @@
 // tooltipMetadata
 //   .addSim({
 //     title: 'tooltipSim',
-//     props: {}
+//     props: {
+//       // tslint:disable-next-line:no-empty
+//       disableOnClickOutside: () => {},
+//       // tslint:disable-next-line:no-empty
+//       enableOnClickOutside: () => {}
+//     }
 //   });
   

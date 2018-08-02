@@ -51,7 +51,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
   static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
 
   static displayName = 'Tooltip';
-  static defaultProps = {
+  static defaultProps: Partial<TooltipProps & InjectedOnClickOutProps> = {
     placement: 'top',
     onShow: noop,
     onHide: noop,

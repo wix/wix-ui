@@ -95,7 +95,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     style: object.isRequired
   };
 
-  static defaultProps = {
+  static defaultProps: Partial<SliderProps> = {
     min: 0,
     max: 10,
     value: 5,
