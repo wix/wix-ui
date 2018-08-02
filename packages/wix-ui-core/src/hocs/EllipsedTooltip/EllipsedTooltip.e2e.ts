@@ -49,7 +49,7 @@ describe('EllipsedTooltip', () => {
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
   });
 
-  eyes.it('should work when resizing the window', async () => {
+  xit('should work when resizing the window', async () => {
     const dataHook = 'ellipsedTooltip-not-ellipsed';
     const textElementFinder = $(`[data-hook="${dataHook}"]`);
 
