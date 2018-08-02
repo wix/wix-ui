@@ -4,7 +4,7 @@ import Registry from '@ui-autotools/registry';
 const dropdownContentMetadata = Registry.getComponentMetadata(DropdownContent);
 dropdownContentMetadata
   .addSim({
-    title: 'dropdownContentSim',
+    title: 'Simulation with default props',
     props: {
       options: [],
       // tslint:disable-next-line:no-empty

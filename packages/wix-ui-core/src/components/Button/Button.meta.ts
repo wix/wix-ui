@@ -4,6 +4,6 @@ import Registry from '@ui-autotools/registry';
 const buttonMetadata = Registry.getComponentMetadata(Button);
 buttonMetadata
   .addSim({
-    title: 'buttonSim',
+    title: 'Simulation with default props',
     props: {}
   });

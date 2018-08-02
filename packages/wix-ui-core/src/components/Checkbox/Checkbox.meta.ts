@@ -4,6 +4,6 @@ import Registry from '@ui-autotools/registry';
 const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 checkboxMetadata
   .addSim({
-    title: 'checkboxSim',
+    title: 'Simulation with default props',
     props: {}
   });

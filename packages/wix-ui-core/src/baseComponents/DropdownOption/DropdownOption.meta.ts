@@ -4,7 +4,7 @@ import Registry from '@ui-autotools/registry';
 const dropdownOptionMetadata = Registry.getComponentMetadata(DropdownOption);
 dropdownOptionMetadata
   .addSim({
-    title: 'dropdownOptionSim',
+    title: 'Simulation with default props',
     props: {
       className: '',
       option: {

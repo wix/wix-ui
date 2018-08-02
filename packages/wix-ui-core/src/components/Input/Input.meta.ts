@@ -4,6 +4,6 @@ import Registry from '@ui-autotools/registry';
 const inputMetadata = Registry.getComponentMetadata(Input);
 inputMetadata
   .addSim({
-    title: 'inputSim',
+    title: 'Simulation with default props',
     props: {}
   });

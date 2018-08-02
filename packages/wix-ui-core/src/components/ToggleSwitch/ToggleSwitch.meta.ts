@@ -4,6 +4,6 @@ import Registry from '@ui-autotools/registry';
 const toggleSwitchMetadata = Registry.getComponentMetadata(ToggleSwitch);
 toggleSwitchMetadata
   .addSim({
-    title: 'toggleSwitchSim',
+    title: 'Simulation with default props',
     props: {}
   });

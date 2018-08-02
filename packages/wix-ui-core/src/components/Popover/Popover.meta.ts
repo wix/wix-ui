@@ -4,7 +4,7 @@ import Registry from '@ui-autotools/registry';
 const popoverMetadata = Registry.getComponentMetadata(Popover);
 popoverMetadata
   .addSim({
-    title: 'popoverSim',
+    title: 'Simulation with default props',
     props: {
       placement: 'auto',
       shown: true
