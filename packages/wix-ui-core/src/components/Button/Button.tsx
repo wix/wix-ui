@@ -2,13 +2,8 @@ import * as React from 'react';
 import {bool, func, object, any, oneOf, string} from 'prop-types';
 import style from './Button.st.css';
 import {BaseProps} from '../../types/BaseProps';
-import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 
 export interface ButtonProps extends BaseProps, React.ButtonHTMLAttributes<any> {
-  /* prop from withFocusable hoc */
-  focusableOnFocus: () => void;
-  /* prop from withFocusable hoc */
-  focusableOnBlur: () => void;
   /** Type of the button - submit / button / reset */
   type?: 'submit' | 'button' | 'reset';
 }
@@ -16,30 +11,13 @@ export interface ButtonProps extends BaseProps, React.ButtonHTMLAttributes<any> 
 /**
  * Button
  */
-class ButtonCore extends React.Component<ButtonProps> {
-  static displayName = 'Button';
-  static propTypes = {
-    /** Wrapper class name */
-    className: string,
-    /** Type of the button - submit / button / reset */
-    type: oneOf(['submit', 'button', 'reset']),
-  }
+export const Button: React.SFC<ButtonProps> = props => {
+  const {disabled} = props;
 
-  render() {
-    const {focusableOnFocus, focusableOnBlur, ...other} = this.props;
-
-    return (
-      <button
-        onFocus={focusableOnFocus}
-        onBlur={focusableOnBlur}
-        {...other}
-        {...style('root', {disabled: other.disabled}, this.props)}
-      />
-    );
-  }
-}
-
-export const Button = withFocusable(ButtonCore)
+  return (
+    <button {...props} {...style('root', {disabled}, props)}/>
+  );
+};
 
 Button.displayName = 'Button';
 Button.propTypes = {

@@ -4,6 +4,6 @@ import Registry from '@ui-autotools/registry';
 const circularProgressBarMetadata = Registry.getComponentMetadata(CircularProgressBar);
 circularProgressBarMetadata
   .addSim({
-    title: 'circularProgressBarSim',
+    title: 'Simulation with default props',
     props: {}
   });
