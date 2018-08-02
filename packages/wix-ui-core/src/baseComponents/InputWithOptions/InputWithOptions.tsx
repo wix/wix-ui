@@ -49,7 +49,7 @@ export interface InputWithOptionsProps {
  */
 export class InputWithOptions extends React.PureComponent<InputWithOptionsProps> {
   static displayName = 'InputWithOptions';
-  static defaultProps: Partial<InputWithOptionsProps> = {
+  static defaultProps = {
     openTrigger: 'click',
     placement: 'bottom-start',
     multi: false,
