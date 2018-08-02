@@ -3,6 +3,7 @@ import React from 'react';
 import AutoExample from '../AutoExample';
 import * as queryString from 'query-string';
 import StoryPage from '../StoryPage';
+import Remount from './RemountHoc';
 
 const isE2E = global.self === global.top;
 
@@ -27,14 +28,15 @@ export default ({
       () =>
         isE2E ?
           <div>
-            <AutoExample
-              isInteractive={false}
-              ref={ref => global.autoexample = ref}
-              component={component}
-              componentProps={componentProps}
-              parsedSource={_metadata}
-            />
-
+            <Remount>
+              <AutoExample
+                isInteractive={false}
+                ref={ref => global.autoexample = ref}
+                component={component}
+                componentProps={componentProps}
+                parsedSource={_metadata}
+              />
+            </Remount>
             {queryString.parse(window.location.search).withExamples !== undefined && examples}
           </div> :
 
