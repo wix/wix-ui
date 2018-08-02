@@ -69,7 +69,7 @@
     "@types/react-onclickoutside": "^6.0.2",
     "@types/react-transition-group": "^2.0.6",
     "@ui-autotools/registry": "^1.0.5",
-    "@ui-autotools/scripts": "^1.0.9",
+    "@ui-autotools/scripts": "^1.0.11",
     "airbnb-prop-types": "^2.10.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",

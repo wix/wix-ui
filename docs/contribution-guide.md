@@ -1,7 +1,7 @@
 # Contribution guide
 wix-ui aims to be a one stop shop for all the components composing our products and our users sites.
 
-we believe this library should be a group effort across all teams in wix. and wuld love to help anyone contibute.
+we believe this library should be a group effort across all teams in wix. and would love to help anyone contibute.
 
 ## Ownership and contribiution process
 Altough we want eveybody to contribute to this repo, we also believe we need to keep watch making sure that project quality and constitant API's are kept.
