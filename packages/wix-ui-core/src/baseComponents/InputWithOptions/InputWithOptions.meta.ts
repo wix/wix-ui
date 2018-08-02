@@ -2,9 +2,11 @@ import {InputWithOptions} from './InputWithOptions';
 import Registry from '@ui-autotools/registry';
 
 const inputWithOptionsMetadata = Registry.getComponentMetadata(InputWithOptions);
+inputWithOptionsMetadata.reactStrictModeCompliant = false;
+
 inputWithOptionsMetadata
   .addSim({
-    title: 'inputWithOptionsSim',
+    title: 'Simulation with default props',
     props: {
       options: [
         {
