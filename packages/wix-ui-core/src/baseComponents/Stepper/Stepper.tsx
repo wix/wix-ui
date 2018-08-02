@@ -25,7 +25,6 @@ export class Stepper extends React.PureComponent<StepperProps> {
     }
     render() {
         const {children} = this.props;
-        // return <div />;
         return children({getStepProps: this.getStepProps()});
     }
 }
