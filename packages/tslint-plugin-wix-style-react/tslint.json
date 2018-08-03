@@ -1,6 +1,0 @@
-{
-  "rulesDirectory": ["dist"],
-  "rules": {
-    "no-full-wsr-lib": true
-  }
-}

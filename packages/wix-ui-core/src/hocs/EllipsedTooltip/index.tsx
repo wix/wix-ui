@@ -1,1 +1,0 @@
-export {withEllipsedTooltip} from './withEllipsedTooltip';

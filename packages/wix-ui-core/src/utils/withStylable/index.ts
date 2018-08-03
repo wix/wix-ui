@@ -1,1 +1,0 @@
-export {withStylable} from './withStylable';
