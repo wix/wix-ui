@@ -11,7 +11,7 @@ export interface TimePickerDriver extends BaseDriver {
   pressKeyArrowLeft: () => Promise<void>;
   clickTickerUp: () => Promise<void>;
   clickTickerDown: () => Promise<void>;
-  getText: () => Promise<string>;
+  getValue: () => Promise<string>;
 }
 
 export const timePickerDriverFactory: DriverFactory<TimePickerDriver> = component => {
