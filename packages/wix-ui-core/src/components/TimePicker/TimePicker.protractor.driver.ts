@@ -36,6 +36,6 @@ export const timePickerDriverFactory: DriverFactory<TimePickerDriver> = componen
     pressKeyArrowLeft: () => inputDriver.pressKey(protractor.Key.ARROW_LEFT),
     clickTickerUp: async () => tickerUp.click(),
     clickTickerDown: async () => tickerDown.click(),
-    getText: () => inputDriver.getText(),
+    getValue: () => inputDriver.getText(),
   }
 };

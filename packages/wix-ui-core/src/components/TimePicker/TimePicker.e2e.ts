@@ -22,7 +22,7 @@ describe('TimePicker', () => {
         const driver = timePickerTestkitFactory({dataHook});
         await waitForVisibilityOf(await driver.element(), 'Cannot find TimePicker');
         await driver.clickTickerUp();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:01');
       });
 
@@ -32,7 +32,7 @@ describe('TimePicker', () => {
         await driver.focus();
         await driver.pressKeyArrowRight();
         await driver.clickTickerUp();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:01');
       });
 
@@ -42,7 +42,7 @@ describe('TimePicker', () => {
         await driver.focus();
         await driver.pressKeyArrowLeft();
         await driver.clickTickerUp();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('01:--');
       });
 
@@ -53,7 +53,7 @@ describe('TimePicker', () => {
         await driver.pressKeyArrowRight();
         await driver.blur();
         await driver.clickTickerUp();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:01');
       });
 
@@ -64,7 +64,7 @@ describe('TimePicker', () => {
         await driver.pressKeyArrowLeft();
         await driver.blur();
         await driver.clickTickerUp();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('01:--');
       });
     });
@@ -74,7 +74,7 @@ describe('TimePicker', () => {
         const driver = timePickerTestkitFactory({ dataHook });
         await waitForVisibilityOf(await driver.element(), 'Cannot find TimePicker');
         await driver.clickTickerDown();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:59');
       });
 
@@ -84,7 +84,7 @@ describe('TimePicker', () => {
         await driver.focus();
         await driver.pressKeyArrowRight();
         await driver.clickTickerDown();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:59');
       });
 
@@ -94,7 +94,7 @@ describe('TimePicker', () => {
         await driver.focus();
         await driver.pressKeyArrowLeft();
         await driver.clickTickerDown();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('23:--');
       });
 
@@ -105,7 +105,7 @@ describe('TimePicker', () => {
         await driver.pressKeyArrowRight();
         await driver.blur();
         await driver.clickTickerDown();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('--:59');
       });
 
@@ -116,7 +116,7 @@ describe('TimePicker', () => {
         await driver.pressKeyArrowLeft();
         await driver.blur();
         await driver.clickTickerDown();
-        const result = await driver.getText()
+        const result = await driver.getValue()
         expect(result).toEqual('23:--');
       });
     });
