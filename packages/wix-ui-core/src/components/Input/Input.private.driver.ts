@@ -15,5 +15,7 @@ export class InputDriver {
     return this.input.nextSibling;
   }
 
-  getAttribute: (attr: string) => this.input.getAttribute(attr)
+  getAttribute(attr: string) {
+     return this.input.getAttribute(attr);
+  }
 }
