@@ -80,6 +80,7 @@ export interface AddressInputProps {
 export interface AddressInputState {
     options: Array<Option>;
     inputValue: string;
+    isDirty: boolean;
 }
 
 function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
@@ -202,7 +203,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
         this.currentAddressRequest = Promise.resolve();
 
-        this.state = {options: [], inputValue: props.value || ''};
+        this.state = {options: [], inputValue: props.value || '', isDirty: false};
     }
 
     componentDidMount() {
@@ -214,8 +215,10 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({inputValue: nextProps.value});
+        // If user interacted, meaning the value is "dirty",
+        // we want to update it in any case.
+        if (nextProps.value !== this.props.value || this.state.isDirty) {
+            this.setState({inputValue: nextProps.value, isDirty: false});
         }
     }
 
@@ -248,7 +251,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const geocode = await this.client.geocode(apiKey, lang, request);
 
         if (requestId === this.geocodeRequestId) {
-            this.props.onSelect(formatAddressOutput(first(geocode), description, rawInputValue));
+            this._invokeOnChange(formatAddressOutput(first(geocode), description, rawInputValue));
         }
     }
 
@@ -258,8 +261,15 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const placeDetails = await this.client.placeDetails(apiKey, lang, {placeId});
 
         if (requestId === this.placeDetailsRequestId) {
-            this.props.onSelect(formatAddressOutput(placeDetails, description, rawInputValue));
+            this._invokeOnChange(formatAddressOutput(placeDetails, description, rawInputValue));
         }
+    }
+
+    _invokeOnChange(value) {
+        if (!this.unmounted) {
+            this.setState({isDirty: true});
+        }
+        this.props.onSelect(value);
     }
 
     _onSelect(option: Option|null) {
@@ -267,7 +277,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const {inputValue} = this.state;
 
         if (!option && !inputValue) {
-            this.props.onSelect(null);
+            this._invokeOnChange(null);
         } else if (!option) {
             this._getGeocode(null, null, inputValue);
         } else if (handler === Handler.geocode && option) {

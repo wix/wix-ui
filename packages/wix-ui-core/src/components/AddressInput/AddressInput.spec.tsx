@@ -257,7 +257,7 @@ describe('AddressInput', () => {
             expect(driver.getValue()).toBe('n');
         });
         
-        it('Should update input value upon value prop change', () => {
+        it('Should not update the input if the same value was passed twice', () => {
             const wrapper = mount(
                 <AddressInput
                     Client={GoogleMapsClientStub}
@@ -279,6 +279,41 @@ describe('AddressInput', () => {
             wrapper.setProps({value: newValue});
             expect(addressInputDriver.getValue()).toBe('n');
         });
+
+        it('Should update the input if the same value was passed twice via user interaction', async () => {
+            const _onSelectSpy = jest.fn();
+            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+            GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+
+            const wrapper = mount(
+                <AddressInput
+                    Client={GoogleMapsClientStub}
+                    apiKey="a"
+                    lang="en"
+                    onSelect={_onSelectSpy}
+                    value=""
+                />
+            );
+
+            const addressInputDriver = addressInputDriverFactory({element: wrapper.getDOMNode(), eventTrigger: Simulate});
+            const newValue = '321 Ibn Gabirol st.';
+            wrapper.setProps({value: newValue});
+            expect(addressInputDriver.getValue()).toBe(newValue);
+            addressInputDriver.click();
+            addressInputDriver.setValue('n');
+            expect(addressInputDriver.getValue()).toBe('n');
+            await waitForCond(() => addressInputDriver.isContentElementExists());
+            addressInputDriver.optionAt(0).click();
+
+            await eventually(() => {
+                expect(_onSelectSpy).toHaveBeenCalledWith(expect.objectContaining({
+                    googleResult: helper.GEOCODE_1
+                }));
+            });
+
+            wrapper.setProps({value: newValue});
+            expect(addressInputDriver.getValue()).toBe(newValue);
+        })
     });
 
     describe('Fallback to manual', () => {
