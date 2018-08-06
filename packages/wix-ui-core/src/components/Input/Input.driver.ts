@@ -20,9 +20,6 @@ export const inputDriverFactory = ({element, eventTrigger}) => {
     /** get placeholder */
     getPlaceholder: () => input.placeholder,
 
-    /** get attribute of input */
-    getAttribute: (attr: string) => input.getAttribute(attr),
-
     /** get prefix */
     getPrefix: () => input.previousSibling,
 

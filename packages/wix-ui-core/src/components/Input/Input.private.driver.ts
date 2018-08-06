@@ -14,4 +14,6 @@ export class InputDriver {
   get suffix() {
     return this.input.nextSibling;
   }
+
+  getAttribute: (attr: string) => this.input.getAttribute(attr)
 }
