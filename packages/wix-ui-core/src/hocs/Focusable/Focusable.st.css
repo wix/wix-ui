@@ -1,0 +1,19 @@
+.root {
+  -st-states: focus, focus-visible;
+}
+
+.root:focus {
+ /* need to be extended and implemented by consumers of focusableHoc */
+}
+
+.root:focus-visible {
+  /* need to be extended and implemented by consumers of focusableHoc */
+}
+
+.focus-box {
+	outline: none;
+}
+
+.focus-box-error {
+	outline: none;
+}

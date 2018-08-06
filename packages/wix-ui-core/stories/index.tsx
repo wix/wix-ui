@@ -6,8 +6,11 @@ import {GoogleMapsIframeClientStory} from './clients/GoogleMapsIframeClient-stor
 import {CheckboxStory} from './Checkbox/Checkbox-story';
 import {TooltipStory} from './Tooltip/custom';
 import {RadioButtonStory} from './RadioButton';
+import EllipsedText from './EllipsedTooltip';
+import Focusable from './Focusable';
 
 const Components = storiesOf('Components', module);
+const HOCs = storiesOf('HOCs', module);
 
 // baseComponents
 import './InputWithOptions.story';
@@ -39,3 +42,5 @@ import './ToggleSwitch/index.story';
 import './Tooltip/index.story';
 Components.add('Tooltip Custom', () => <TooltipStory/>);
 import './Video.story';
+HOCs.add('EllipsedTooltip', EllipsedText);
+HOCs.add('Focusable', Focusable);

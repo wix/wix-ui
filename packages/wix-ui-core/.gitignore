@@ -19,4 +19,5 @@ storybook-static
 /*.d.ts
 !wallaby.js
 !protractor.conf.js
+!hocs.js
 index.st.css

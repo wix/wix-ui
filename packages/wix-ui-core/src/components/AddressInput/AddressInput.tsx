@@ -35,6 +35,8 @@ export interface AddressInputProps {
     countryCode?: string;
     /** Placeholder to display */
     placeholder?: string;
+    /** Sets the input to disabled */
+    disabled?: boolean;
     /** Sets the input to readOnly */
     readOnly?: boolean;
     /** Standard input onChange callback */
@@ -71,6 +73,8 @@ export interface AddressInputProps {
     suffix?: React.ReactNode;
     /** Fixed footer in content element */
     fixedFooter?: React.ReactNode;
+    /** Id */
+    id?: string;
 }
 
 export interface AddressInputState {
@@ -112,6 +116,7 @@ function createAutocompleteRequest(input: string, props: AddressInputProps) {
  */
 export class AddressInput extends React.PureComponent<AddressInputProps, AddressInputState> {
     static displayName = 'AddressInput';
+    inputRef;
 
     static propTypes = {
         /** Maps client, should implement autocomplete, geocode and placeDetails methods */
@@ -128,6 +133,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         countryCode: string,
         /** Placeholder to display */
         placeholder: string,
+        /** Sets the input to disabled */
+        disabled: bool,
         /** Sets the input to readOnly */
         readOnly: bool,
         /** Standard input onChange callback */
@@ -163,7 +170,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Suffix for input */
         suffix: node,
         /** Fixed footer in content element */
-        fixedFooter: node
+        fixedFooter: node,
+        /** Id */
+        id: string
     };
 
     static defaultProps = {
@@ -208,6 +217,14 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         if (nextProps.value !== this.props.value) {
             this.setState({inputValue: nextProps.value});
         }
+    }
+
+    focus() {
+        this.inputRef.focus();
+    }
+
+    blur() {
+        this.inputRef.blur();
     }
 
     async _getAddressOptions(input: string) {
@@ -323,7 +340,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, style: inlineStyles, suffix, fixedFooter} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, suffix, fixedFooter, id} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -332,9 +349,11 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onFocus,
             onBlur: this._handleOnBlur,
             placeholder,
-            disabled: readOnly,
+            readOnly,
+            disabled,
             value: this.state.inputValue,
-            suffix
+            suffix,
+            ref: ref => this.inputRef = ref
         };
 
         const states = {};
@@ -352,6 +371,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             forceContentElementVisibility={forceContentElementVisibility}
             style={inlineStyles}
             fixedFooter={hasOptions && fixedFooter}
+            id={id}
           />
         );
     }

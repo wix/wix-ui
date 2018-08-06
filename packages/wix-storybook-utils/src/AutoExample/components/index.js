@@ -47,7 +47,7 @@ const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackgr
             size="small"
             checked={isRtl}
             onChange={e => onToggleRtl(e.target.checked)}
-            />
+          />
         </div>
 
         <div className={styles.previewControl}>
@@ -57,7 +57,7 @@ const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackgr
             size="small"
             checked={isDarkBackground}
             onChange={e => onToggleBackground(e.target.checked)}
-            />
+          />
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@ const Preview = ({children, isRtl, onToggleRtl, isDarkBackground, onToggleBackgr
         ),
         ...(isRtl ? {dir: 'rtl'} : {})
       }}
-      >
+    >
       {children}
     </div>
   </Col>;
@@ -93,7 +93,7 @@ const Toggle = ({value, onChange, ...props}) =>
     checked={value}
     onChange={({target: {checked}}) => onChange(checked)}
     {...props}
-    />;
+  />;
 
 Toggle.propTypes = {
   value: PropTypes.bool,
@@ -106,7 +106,7 @@ const Input = ({value, onChange, defaultValue, ...props}) =>
     onChange={({target: {value}}) => onChange(value)}
     placeholder={defaultValue}
     {...props}
-    />;
+  />;
 
 Input.propTypes = {
   value: PropTypes.string,

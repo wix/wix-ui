@@ -1,0 +1,11 @@
+.focus-box {
+	outline: none;
+	border-color: $B10;
+	box-shadow: 0 0 0 3px $F00;
+}
+
+.focus-box-error {
+	outline: none;
+	border-color: $R10;
+	box-shadow: 0 0 0 3px $R30;
+}

@@ -1,0 +1,9 @@
+:import {
+  -st-from: "../../components/Tooltip/Tooltip.st.css";
+  -st-default: Tooltip;
+}
+
+.root {
+  -st-extends: Tooltip;
+  display: inherit;
+}

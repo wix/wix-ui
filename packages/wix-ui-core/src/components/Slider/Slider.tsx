@@ -95,7 +95,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     style: object.isRequired
   };
 
-  static defaultProps = {
+  static defaultProps: Partial<SliderProps> = {
     min: 0,
     max: 10,
     value: 5,
@@ -547,6 +547,10 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         tabIndex={0}
         style={style}
         ref={root => this.root = root}
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
       >
         <div className={pStyle.inner} style={this.getInnerDims()}>
           <div 

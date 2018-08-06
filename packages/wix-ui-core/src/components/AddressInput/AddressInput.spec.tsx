@@ -442,9 +442,24 @@ describe('AddressInput', () => {
             expect(driver.getPlaceholder()).toBe('placeholder');
         });
 
-        it('Should pass readOnly prop', () => {
+        it('Should pass readOnly prop (true)', () => {
             init({readOnly: true});
+            expect(driver.isReadOnly()).toBeTruthy();
+        });
+
+        it('Should pass readOnly prop (false)', () => {
+            init({});
+            expect(driver.isReadOnly()).toBeFalsy();
+        });
+
+        it('Should pass disabled prop (true)', () => {
+            init({disabled: true});
             expect(driver.isDisabled()).toBeTruthy();
+        });
+
+        it('Should pass disabled prop (false)', () => {
+            init({});
+            expect(driver.isDisabled()).toBeFalsy();
         });
 
         it('Should handle onChange event', () => {
@@ -475,6 +490,26 @@ describe('AddressInput', () => {
             expect(onBlur).toHaveBeenCalled();
         });
 
+        it('Should have a focus and blur method', () => {
+            const wrapper = mount(
+                <AddressInput
+                    Client={GoogleMapsClientStub}
+                    apiKey="a"
+                    lang="en"
+                    onSelect={() => null}
+                />
+            , {attachTo: container.node});
+
+            const input = wrapper.find('input').getDOMNode();
+            const instance = wrapper.instance() as AddressInput;
+
+            expect(document.activeElement).not.toBe(input);
+            instance.focus();
+            expect(document.activeElement).toBe(input);
+            instance.blur();
+            expect(document.activeElement).not.toBe(input);
+        });
+
         it('Should clear suggestions on blur', async () => {
             init({clearSuggestionsOnBlur: true});
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
@@ -502,6 +537,12 @@ describe('AddressInput', () => {
             const style = {backgroundColor: 'green'};
             init({style});
             expect(driver.inlineStyles()['background-color']).toBe('green')
+        });
+
+        it('Should pass ID prop', () => {
+            const id = 'my-address-input-id';
+            init({id});
+            expect(driver.getElementId()).toBe(id);
         })
     });
 

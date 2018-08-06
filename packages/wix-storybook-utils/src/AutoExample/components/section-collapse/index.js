@@ -36,7 +36,7 @@ export default class PropsCollapse extends React.Component {
         <div
           onClick={this.toggleCollapse}
           className={styles.head}
-          >
+        >
           <Heading appearance="H2">
             {this.props.title}
           </Heading>

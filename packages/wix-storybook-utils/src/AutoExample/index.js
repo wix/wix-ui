@@ -232,7 +232,7 @@ export default class extends Component {
             onChange: value => this.setProp(key, value),
             children: this.getPropControlComponent(key, prop.type)
           }}
-          />
+        />
       );
   }
 
@@ -325,28 +325,28 @@ export default class extends Component {
       <Wrapper dataHook="auto-example">
         <Options>
           { this
-              ._categorizedProps
-              .reduce((components, {title, isOpen, props}, i) => {
-                const renderablePropControllers = this
-                  .renderPropControllers({
-                    props,
-                    allProps: componentProps // TODO: ideally this should not be here
-                  })
-                  .filter(({props: {children}}) => children);
+            ._categorizedProps
+            .reduce((components, {title, isOpen, props}, i) => {
+              const renderablePropControllers = this
+                .renderPropControllers({
+                  props,
+                  allProps: componentProps // TODO: ideally this should not be here
+                })
+                .filter(({props: {children}}) => children);
 
-                return renderablePropControllers.length ?
-                  components.concat(React.createElement(
-                    SectionCollapse,
-                    {
-                      key: title,
-                      title,
-                      isOpen: isOpen || i === 0,
-                      children: renderablePropControllers
-                    }
-                  )) :
-                  components;
-              }, [])
-           }
+              return renderablePropControllers.length ?
+                components.concat(React.createElement(
+                  SectionCollapse,
+                  {
+                    key: title,
+                    title,
+                    isOpen: isOpen || i === 0,
+                    children: renderablePropControllers
+                  }
+                )) :
+                components;
+            }, [])
+          }
         </Options>
 
         <Preview
@@ -355,13 +355,13 @@ export default class extends Component {
           onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground => this.setState({isDarkBackground})}
           children={React.createElement(this.props.component, componentProps)}
-          />
+        />
 
         { this.props.codeExample &&
           <Code
             dataHook="metadata-codeblock"
             component={React.createElement(this.props.component, codeProps)}
-            />
+          />
         }
       </Wrapper>
     );

@@ -34,7 +34,7 @@ export default class TabbedView extends Component {
             activeId={this.state.activeTabId}
             onClick={this.onTabClick}
             items={this.props.tabs.map(createTab)}
-            />
+          />
         }
 
         {React.Children.map(

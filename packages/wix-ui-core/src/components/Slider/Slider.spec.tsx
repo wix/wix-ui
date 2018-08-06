@@ -531,6 +531,28 @@ describe('Slider', () => {
     sinon.assert.called(onBlur);
   });
 
+  describe('a11y', () => {
+    it('should have a slider role', () => {
+      const driver = render();
+      expect(driver.role()).toEqual('slider');
+    });
+
+    it('should have an aria-valuemin attribute', () => {
+      const driver = render();
+      expect(driver.ariaValueMin()).toEqual(driver.min().toString());
+    });
+
+    it('should have an aria-valuemax attribute', () => {
+      const driver = render();
+      expect(driver.ariaValueMax()).toEqual(driver.max().toString());
+    });
+
+    it('should have an aria-valuenow attribute', () => {
+      const driver = render();
+      expect(driver.ariaValueNow()).toEqual(driver.value().toString());
+    });
+  });
+
   function floorValue(value, precision = 1) {
     return Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision);
   }

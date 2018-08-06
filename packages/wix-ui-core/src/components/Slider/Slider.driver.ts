@@ -30,6 +30,10 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     rtl: () => element.getAttribute('data-dir') === 'rtl',
     /** Returns the root element */
     root: () => element,
+    role: () => element.getAttribute('role'),
+    ariaValueMin: () => element.getAttribute('aria-valuemin'),
+    ariaValueMax: () => element.getAttribute('aria-valuemax'),
+    ariaValueNow: () => element.getAttribute('aria-valuenow'),
 
     mouseMove(value) {
       const mouseMove = new Event('mousemove');

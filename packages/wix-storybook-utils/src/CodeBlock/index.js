@@ -43,7 +43,7 @@ export default class CodeBlock extends Component {
           timeout={3000}
           type="sticky"
           zIndex={10000}
-          >
+        >
           <Notification.TextLabel>
             Copied!
           </Notification.TextLabel>
