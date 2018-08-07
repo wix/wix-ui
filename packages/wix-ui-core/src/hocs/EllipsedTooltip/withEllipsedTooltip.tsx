@@ -10,7 +10,8 @@ import debounce = require('lodash/debounce');
 
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>,
-  showTooltip?: boolean
+  showTooltip?: boolean,
+  [propName: string]: any
 }
 
 type EllipsedTooltipState = {
@@ -76,11 +77,14 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
   _renderText() {
-    const {component} = this.props;
+    const {component, style} = this.props;
     return (
       <StateFullComponentWrap
         {...textStyle('root', {}, component.props)}
-        style={{ whiteSpace: 'nowrap' }}
+        style={{
+          ...style,
+          whiteSpace: 'nowrap' 
+        }}
         ref={n => this.textNode = ReactDOM.findDOMNode(n) as HTMLElement}
       >
         {component}
