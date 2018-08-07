@@ -300,7 +300,12 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         style={inlineStyles}
         id={id}
       >
-        <Target onKeyDown={onKeyDown} data-hook="popover-element" innerRef={r => this.targetRef = r}>
+        <Target
+          onKeyDown={onKeyDown}
+          data-hook="popover-element"
+          className={style.popoverElement}
+          innerRef={r => this.targetRef = r}
+        >
           {childrenObject.Element}
         </Target>
         {shouldRenderPopper && this.renderPopperContent(childrenObject)}

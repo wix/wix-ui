@@ -108,3 +108,5 @@
   margin-bottom: value(contentArrowSize);
   border-color: value(contentBorderColor) transparent transparent transparent;
 }
+
+.popoverElement {}

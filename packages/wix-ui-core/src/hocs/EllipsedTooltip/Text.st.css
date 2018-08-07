@@ -2,5 +2,5 @@
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 100%;
+  max-width: 100%;
 }
