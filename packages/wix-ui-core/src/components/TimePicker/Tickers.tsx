@@ -1,9 +1,11 @@
 import * as React from 'react';
-import {string, func, node, Requireable} from 'prop-types';
+import {string, func, node, bool, Requireable} from 'prop-types';
 import style from './Tickers.st.css';
 
 export interface TickersProps {
   className?: string;
+  /** set buttons as disabled */
+  disabled?: boolean;
   /** increment handler */
   onIncrement?: React.MouseEventHandler<HTMLButtonElement>;
   /** decrement handler */
@@ -17,6 +19,8 @@ export interface TickersProps {
 export class Tickers extends React.PureComponent<TickersProps> {
   static propTypes = {
     className: string,
+    /** set buttons as disabled */
+    disabled: bool,
     /** increment handler */
     onIncrement: func,
     /** decrement handler */
@@ -40,10 +44,10 @@ export class Tickers extends React.PureComponent<TickersProps> {
   render() {
     return (
       <div {...style('root', {}, this.props)}>
-      <button tabIndex={-1} type="button" onMouseDown={this.handleIncrement} className={style.ticker} data-hook="ticker-button-up">
+      <button tabIndex={-1} type="button" onMouseDown={this.handleIncrement} className={style.ticker} disabled={this.props.disabled} data-hook="ticker-button-up">
         {this.props.tickerUpIcon}
       </button>
-      <button tabIndex={-1} type="button" onMouseDown={this.handleDecrement} className={style.ticker} data-hook="ticker-button-down">
+      <button tabIndex={-1} type="button" onMouseDown={this.handleDecrement} className={style.ticker} disabled={this.props.disabled} data-hook="ticker-button-down">
         {this.props.tickerDownIcon}
       </button>
     </div>

@@ -15,7 +15,7 @@ import {
   isValidTime
 } from './utils';
 
-export type TimePickerProps = Pick<InputProps, 'disabled'> & {
+export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly'> & {
   /**
    *  Callback function when user changes the value of the component.
    *  Will be called only with valid values (this component is semi-controlled)
@@ -92,7 +92,8 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     useNativeInteraction : false,
     useAmPm              : AmPmOptions.None,
     step                 : 1,
-    value                : null
+    value                : null,
+    disabled             : false
   };
 
   static propTypes: Object = {
@@ -257,7 +258,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       - delete and backspace
     */
 
-    if (e.altKey || e.ctrlKey || e.metaKey) { return; }
+    if (e.altKey || e.ctrlKey || e.metaKey || this.props.readOnly) { return; }
 
     const elem                    = e.target;
     const startPos                = elem.selectionStart;
@@ -390,6 +391,10 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
   }
 
   _tick(action: Function) {
+    if (this.props.readOnly) {
+      return;
+    }
+
     const startPos = this._inputRef.getSelectionStart();
     const currentField = getFieldFromPos(startPos);
     let { value } = this.state;
@@ -420,14 +425,20 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       tickerUpIcon,
       tickerDownIcon,
       style: inlineStyle,
+      disabled,
+      readOnly,
       ...rest
     } = this.props;
 
-    const passThroughProps = omit(rest, [
-      'onChange',
-      'step',
-      'value',
-    ]);
+    const passThroughProps = {
+      ...omit(rest, [
+        'onChange',
+        'step',
+        'value',
+      ]),
+      disabled,
+      readOnly,
+    };
 
     if (useNativeInteraction) {
       const {value: propsValue, onChange} = this.props;
@@ -452,6 +463,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     const tickers = tickerUpIcon && tickerDownIcon && (
       <Tickers
         className      = {style.tickers}
+        disabled       = {disabled}
         onIncrement    = {() => this._tick(increment)}
         onDecrement    = {() => this._tick(decrement)}
         tickerUpIcon   = {tickerUpIcon}

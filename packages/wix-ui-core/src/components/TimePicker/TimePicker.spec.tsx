@@ -282,6 +282,33 @@ describe('TimePicker', () => {
       expect(onChangeSpy).not.toHaveBeenCalled();
       expect(driver.getValue()).toEqual('--:59');
     });
+
+    it('should not call onChange when clicking on tickers if disabled', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker disabled tickerUpIcon={tickerUpIcon} tickerDownIcon={tickerDownIcon} onChange={onChangeSpy} />);
+      driver.clickTickerDown();
+      expect(onChangeSpy).not.toHaveBeenCalled();
+      expect(driver.getValue()).toEqual('--:--');
+    });
+
+    it('should not call onChange when clicking on tickers if readOnly', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker readOnly tickerUpIcon={tickerUpIcon} tickerDownIcon={tickerDownIcon} onChange={onChangeSpy} />);
+      driver.clickTickerDown();
+      expect(onChangeSpy).not.toHaveBeenCalled();
+      expect(driver.getValue()).toEqual('--:--');
+    });
+  });
+
+  describe('readOnly props', () => {
+    it('should not update value when typing if readOnly', () => {
+      const onChangeSpy = jest.fn();
+      const driver = createDriver(<TimePicker readOnly onChange={onChangeSpy} />);
+      driver.focus();
+      driver.keyDown('ArrowDown');
+      expect(onChangeSpy).not.toHaveBeenCalled();
+      expect(driver.getValue()).toEqual('--:--');
+    });
   });
 
   it('should support focus state', () => {
