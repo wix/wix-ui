@@ -11,7 +11,7 @@ import debounce = require('lodash/debounce');
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>,
   showTooltip?: boolean,
-  [propName: string]: any
+  style?: object
 }
 
 type EllipsedTooltipState = {
