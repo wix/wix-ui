@@ -1,6 +1,6 @@
 /*eslint camelcase: off*/
 import {convertToFullAddress} from './google2address';
-import {googleResponse, partialGoogleResponse} from './consts';
+import {googleResponse, partialGoogleResponse} from './fixtures';
 
 describe('google 2 full address', () => {
     it('should transform raw google response to full address format', () => {

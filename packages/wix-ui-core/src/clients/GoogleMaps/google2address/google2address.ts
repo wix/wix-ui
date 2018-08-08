@@ -1,6 +1,6 @@
 /*eslint camelcase: off*/
-const intersection = require('lodash/intersection');
-const first = require('lodash/first');
+import intersection = require('lodash/intersection');
+import first = require('lodash/first');
 
 export const trySetStreetNumberIfNotReceived = (google, inputValue) => {
     const addressParts = inputValue.match(/^\d+[ -/]*\d*[^\D]/);
