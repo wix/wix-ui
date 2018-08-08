@@ -251,7 +251,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const geocode = await this.client.geocode(apiKey, lang, request);
 
         if (requestId === this.geocodeRequestId) {
-            this._invokeOnChange(formatAddressOutput(first(geocode), description, rawInputValue));
+            this._invokeOnSelect(formatAddressOutput(first(geocode), description, rawInputValue));
         }
     }
 
@@ -261,11 +261,11 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const placeDetails = await this.client.placeDetails(apiKey, lang, {placeId});
 
         if (requestId === this.placeDetailsRequestId) {
-            this._invokeOnChange(formatAddressOutput(placeDetails, description, rawInputValue));
+            this._invokeOnSelect(formatAddressOutput(placeDetails, description, rawInputValue));
         }
     }
 
-    _invokeOnChange(value) {
+    _invokeOnSelect(value) {
         if (!this.unmounted) {
             this.setState({isDirty: true});
         }
@@ -277,7 +277,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const {inputValue} = this.state;
 
         if (!option && !inputValue) {
-            this._invokeOnChange(null);
+            this._invokeOnSelect(null);
         } else if (!option) {
             this._getGeocode(null, null, inputValue);
         } else if (handler === Handler.geocode && option) {
