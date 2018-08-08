@@ -5,7 +5,7 @@
 
 .root {
   -st-extends: Tooltip;
-  display: inherit;
+  display: inline;
   overflow: hidden;
 }
 
