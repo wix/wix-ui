@@ -28,7 +28,7 @@ export default class List extends React.Component {
 
     this.state = {
       currentValue,
-      currentFilter: isFunction(props.defaultValue) ?
+      currentFilter: (props.defaultValue && [props.defaultValue, props.defaultValue.type].some(isFunction)) ?
         currentValue.value :
         props.defaultValue || '',
       isFiltering: false,
