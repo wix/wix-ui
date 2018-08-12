@@ -31,7 +31,7 @@
     "test:e2e": "yoshi test --protractor",
     "sanity": "autotools sanity",
     "a11y": "autotools a11y",
-    "website": "autotools website",
+    "showcase": "autotools showcase",
     "lint": "yoshi lint",
     "yoshi-start": "yoshi start --no-test",
     "storybook-start": "npm run storybook",
