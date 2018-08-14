@@ -12,8 +12,6 @@ import Focusable from './Focusable';
 const Components = storiesOf('Components', module);
 const HOCs = storiesOf('HOCs', module);
 
-// baseComponents
-import './InputWithOptions.story';
 
 // components (ordered alphabetically)
 import './AddressInput/index.story';
@@ -25,6 +23,7 @@ import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory/>);
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory/>);
 import './Input/Input.story';
+import './InputWithOptions.story';
 import './IconWithOptions.story';
 import './Label.story';
 import './LabelWithOptions.story';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Divider} from '../../components/Divider';
+import {Divider} from '../Divider';
 import {shape, string, number, func, bool, oneOfType, Requireable} from 'prop-types';
 import style from './DropdownOption.st.css';
 const uniqueId = require('lodash/uniqueId');

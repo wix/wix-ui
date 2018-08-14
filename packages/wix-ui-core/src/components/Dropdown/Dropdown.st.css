@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../components/Popover/Popover.st.css";
+  -st-from: "../Popover/Popover.st.css";
   -st-default: Popover;
 }
 

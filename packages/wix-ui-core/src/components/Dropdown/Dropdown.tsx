@@ -1,7 +1,7 @@
 import * as React from 'react';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
-import {Popover, Placement} from '../../components/Popover';
+import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';

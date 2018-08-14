@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {LabelWithOptions} from '../src/components/LabelWithOptions';
-import {generateOptions} from '../src/baseComponents/DropdownOption/OptionsExample';
-import {Option} from '../src/baseComponents/DropdownOption';
+import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
+import {Option} from '../src/components/DropdownOption';
 
 const options = generateOptions();
 

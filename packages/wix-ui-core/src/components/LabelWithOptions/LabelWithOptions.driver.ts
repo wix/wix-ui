@@ -1,4 +1,4 @@
-import {dropdownDriverFactory} from '../../baseComponents/Dropdown/Dropdown.driver';
+import {dropdownDriverFactory} from '../Dropdown/Dropdown.driver';
 import {labelDriverFactory} from '../Label/Label.driver';
 import {checkboxDriverFactory} from '../Checkbox/Checkbox.driver';
 import {StylableDOMUtil} from 'stylable/test-utils';
