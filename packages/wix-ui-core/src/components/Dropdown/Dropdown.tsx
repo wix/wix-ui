@@ -195,12 +195,13 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
+    const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
 
     return (
       <Popover
-        {...style('root', {}, this.props)}
+        {...style('root', {'content-visible': shown}, this.props)}
         placement={placement}
-        shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
+        shown={shown}
         showArrow={showArrow}
         timeout={timeout}
         onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
