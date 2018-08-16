@@ -1,10 +1,10 @@
 :import {
-  -st-from: "../../components/Popover/Popover.st.css";
+  -st-from: "../Popover/Popover.st.css";
   -st-default: Popover;
 }
 
 :import {
-  -st-from: "../DropdownContent/DropdownContent.st.css";
+  -st-from: "../../baseComponents/DropdownContent/DropdownContent.st.css";
   -st-default: DropdownContent;
 }
 

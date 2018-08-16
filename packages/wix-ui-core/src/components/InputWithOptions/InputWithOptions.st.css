@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../baseComponents/Dropdown/Dropdown.st.css";
+  -st-from: "../Dropdown/Dropdown.st.css";
   -st-default: Dropdown;
 }
 
