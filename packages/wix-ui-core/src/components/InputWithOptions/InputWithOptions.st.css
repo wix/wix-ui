@@ -4,7 +4,7 @@
 }
 
 :import {
-  -st-from: "../../components/Input/Input.st.css";
+  -st-from: "../Input/Input.st.css";
   -st-default: Input;
 }
 
