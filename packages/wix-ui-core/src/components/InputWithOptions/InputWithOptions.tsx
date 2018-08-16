@@ -42,6 +42,8 @@ export interface InputWithOptionsProps {
   style?: object;
   /** Id */
   id?: string;
+  /** Allow onSelect event to be triggered upon re-selecting an option */
+  allowReselect?: boolean;
 }
 
 /**
@@ -96,7 +98,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Inline styles */
     style: object,
     /** Id */
-    id: string
+    id: string,
+    /** Allow onSelect event to be triggered upon re-selecting an option */
+    allowReselect: bool
   };
 
   isEditing: boolean = false;
@@ -169,7 +173,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       inputProps,
       forceContentElementVisibility,
       style: inlineStyles,
-      id} = this.props;
+      id,
+      allowReselect} = this.props;
 
     return (
       <Dropdown
@@ -191,7 +196,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         style={inlineStyles}
         id={id}
         ref={ref => this.dropDownRef = ref}
-        enableReselect
+        allowReselect={allowReselect}
       >
         <Input
           data-hook="input"

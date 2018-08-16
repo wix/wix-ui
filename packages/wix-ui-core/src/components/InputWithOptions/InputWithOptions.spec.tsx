@@ -44,10 +44,22 @@ describe('InputWithOptions', () => {
     expect(onManualInput).toHaveBeenCalled();
   });
 
-  it('should trigger onSelect, even if item is selected', () => {
+  it('should trigger not onSelect by default, if item is selected', () => {
     const onSelect = jest.fn();
 
     const driver = createDriver(createInputWithOptions({options, onSelect}));
+    driver.click();
+    driver.optionAt(0).click();
+    driver.click();
+    driver.optionAt(0).click();
+
+    expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it('should trigger onSelect even if item is selected, if allowReselect is set', () => {
+    const onSelect = jest.fn();
+
+    const driver = createDriver(createInputWithOptions({options, onSelect, allowReselect: true}));
     driver.click();
     driver.optionAt(0).click();
     driver.click();

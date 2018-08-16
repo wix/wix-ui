@@ -404,6 +404,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             fixedFooter={hasOptions && fixedFooter}
             id={id}
             ref={ref => this.inputWithOptionsRef = ref}
+            allowReselect
           />
         );
     }

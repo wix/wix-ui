@@ -118,7 +118,7 @@ describe('Dropdown', () => {
 
     it('should be called when re-selecting a selected item when opted-in', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, enableReselect: true}));
+      const driver = createDriver(createDropdown({options, onSelect, allowReselect: true}));
 
       driver.click();
       driver.optionAt(0).click();
