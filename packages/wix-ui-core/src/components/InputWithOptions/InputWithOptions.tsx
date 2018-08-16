@@ -191,6 +191,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         style={inlineStyles}
         id={id}
         ref={ref => this.dropDownRef = ref}
+        enableReselect
       >
         <Input
           data-hook="input"

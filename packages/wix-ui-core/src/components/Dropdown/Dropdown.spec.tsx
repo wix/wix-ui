@@ -104,6 +104,28 @@ describe('Dropdown', () => {
       driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
     });
+
+    it('should not be called when re-selecting a selected item', () => {
+      const onSelect = jest.fn();
+      const driver = createDriver(createDropdown({options, onSelect}));
+
+      driver.click();
+      driver.optionAt(0).click();
+      driver.click();
+      driver.optionAt(0).click();
+      expect(onSelect).toHaveBeenCalledTimes(1);
+    });
+
+    it('should be called when re-selecting a selected item when opted-in', () => {
+      const onSelect = jest.fn();
+      const driver = createDriver(createDropdown({options, onSelect, enableReselect: true}));
+
+      driver.click();
+      driver.optionAt(0).click();
+      driver.click();
+      driver.optionAt(0).click();
+      expect(onSelect).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('onDeselect', () => {

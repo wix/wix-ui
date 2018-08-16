@@ -44,6 +44,8 @@ export interface DropdownProps {
   role?: string;
   /** Id */
   id?: string;
+  /** Allow onSelect event to be triggered upon re-selecting an option */
+  enableReselect?: boolean;
 }
 
 export interface DropdownState {
@@ -159,7 +161,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   onOptionClick(option: Option | null) {
-    const {onSelect, onDeselect, multi} = this.props;
+    const {onSelect, onDeselect, multi, enableReselect} = this.props;
     const {selectedIds} = this.state;
     const newState = {
       isOpen: multi,
@@ -183,8 +185,11 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
       if (option) {
         // if option was clicked (could be null when Autocomplete receives a new string)
         if (selectedIds.includes(option.id)) {
-          // if clicked on the selected item, exit and do nothing
-          return this.close();
+          this.close();
+          if (!enableReselect) {
+            // if clicked on the selected item, exit and do nothing
+            return;
+          }
         } else {
           // if clicked on a new option, make it the selected
           newState.selectedIds = [option.id];

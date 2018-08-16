@@ -44,6 +44,18 @@ describe('InputWithOptions', () => {
     expect(onManualInput).toHaveBeenCalled();
   });
 
+  it('should trigger onSelect, even if item is selected', () => {
+    const onSelect = jest.fn();
+
+    const driver = createDriver(createInputWithOptions({options, onSelect}));
+    driver.click();
+    driver.optionAt(0).click();
+    driver.click();
+    driver.optionAt(0).click();
+
+    expect(onSelect).toHaveBeenCalledTimes(2);
+  });
+
   it('should trigger onManualInput with the actual value', () => {
     const onManualInput = jest.fn();
     let inputValue = 'a';
