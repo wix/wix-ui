@@ -1,6 +1,6 @@
 import { BaseDriver, ComponentFactory, DriverFactory } from 'wix-ui-test-utils/driver-factory';
 import {Simulate} from 'react-dom/test-utils';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import stepStyle from './NavStep.st.css';
 
 export class NavStepperDriver implements BaseDriver {

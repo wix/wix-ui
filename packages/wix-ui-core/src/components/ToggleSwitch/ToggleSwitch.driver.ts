@@ -1,4 +1,4 @@
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './ToggleSwitch.st.css';
 
 export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {

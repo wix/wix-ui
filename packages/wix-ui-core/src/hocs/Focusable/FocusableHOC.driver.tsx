@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 
 import {withFocusable} from './FocusableHOC';
 import style from './Focusable.st.css';

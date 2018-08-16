@@ -1,5 +1,5 @@
 import { BaseDriver, ComponentFactory, DriverFactory } from 'wix-ui-test-utils/driver-factory';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './LinearProgressBar.st.css';
 
 export interface LinearProgressBarDriver extends BaseDriver {

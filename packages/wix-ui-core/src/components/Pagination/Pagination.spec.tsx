@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Simulate} from 'react-dom/test-utils';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
 import {Pagination} from './Pagination';
 import {PaginationDriver} from './Pagination.private.driver';

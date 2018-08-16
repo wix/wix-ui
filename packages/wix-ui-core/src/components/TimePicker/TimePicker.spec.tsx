@@ -5,7 +5,7 @@ import {TimePicker} from './index';
 import {FIELD, AmPmOptions, AmPmStrings} from './constants';
 import {convertToAmPm} from './utils';
 import {timePickerDriverFactory} from './TimePicker.driver';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './TimePicker.st.css';
 
 const stylableUtil = new StylableDOMUtil(style);

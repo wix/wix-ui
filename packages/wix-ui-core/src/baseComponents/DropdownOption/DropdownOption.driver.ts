@@ -1,4 +1,4 @@
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import styles from './DropdownOption.st.css';
 
 export const dropdownOptionDriverFactory = ({element, eventTrigger}) => {

@@ -1,4 +1,4 @@
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import styles from './Label.st.css';
 
 export const labelDriverFactory = ({element, eventTrigger}) => {
