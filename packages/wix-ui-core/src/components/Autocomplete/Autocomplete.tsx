@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './Autocomplete.st.css';
-import {InputWithOptions} from '../../baseComponents/InputWithOptions';
+import {InputWithOptions} from '../InputWithOptions';
 import {Option, OptionFactory, optionPropType} from '../../baseComponents/DropdownOption/OptionFactory';
 import {func , bool, object, arrayOf, number, string, oneOfType, node} from 'prop-types';
 import {InputProps, AriaAutoCompleteType} from '../Input';
