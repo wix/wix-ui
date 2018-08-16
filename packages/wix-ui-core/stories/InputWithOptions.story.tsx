@@ -8,7 +8,7 @@ export default {
   category: 'Base Components',
   storyName: 'InputWithOptions',
   component: InputWithOptions,
-  componentPath: '../src/baseComponents/InputWithOptions',
+  componentPath: '../src/components/InputWithOptions',
 
   componentProps: {
     'data-hook': 'storybook-inputwithoptions',
