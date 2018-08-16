@@ -155,7 +155,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
-  stylesObj: { [key: string]: string } = null;
+  stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
 
 

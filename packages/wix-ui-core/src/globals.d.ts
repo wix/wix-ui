@@ -1,43 +1,32 @@
-declare module '*.st.css' {
-  const stylesheet: RuntimeStylesheet;
-  export default stylesheet;
-}
-
-declare module '*.svg' {
-  const urlToFile: string;
-  export default urlToFile;
-}
-
-declare module '*.css' {
-  const stylesheet: void;
-  export default stylesheet;
-}
+type StateValue = boolean | number | string;
 
 interface StateMap {
-  [key: string]: boolean | number | string;
+    [stateName: string]: StateValue;
 }
 
-interface Stylesheet {
-  namespace: string;
-  root: string;
-  get: (localName: string) => string;
-  cssStates: (stateMapping: StateMap) => StateMap;
+interface AttributeMap {
+    className?: string;
+    [attributeName: string]: StateValue | undefined;
 }
 
-interface RuntimeHelpers {
-  $get: (localName: string) => string;
-  $cssStates: (stateMapping: StateMap) => StateMap;
+interface InheritedAttributes {
+    className?: string;
+    [props: string]: any;
 }
 
-type StylesheetLocals = {[key: string]: string} & {$stylesheet: Stylesheet} & RuntimeHelpers;
-type RuntimeStylesheet = StylesheetLocals & (
-  (
-      className: string,
-      states?: StateMap,
-      props?: RuntimeStylesheetProps
-  ) => {[key: string]: string}
-);
-type RuntimeStylesheetBaseProps = {
-  className?: string;
-};
-type RuntimeStylesheetProps = RuntimeStylesheetBaseProps & { [key: string]: any};
+type RuntimeStylesheet = {
+    (className: string, states?: StateMap, inheritedAttributes?: InheritedAttributes): AttributeMap
+    $root: string,
+    $namespace: string,
+    $depth: number,
+    $id: string | number,
+    $css?: string,
+
+    $get(localName: string): string | undefined;
+    $cssStates(stateMapping?: StateMap | null): StateMap;
+} & { [localName: string]: string };
+
+declare module '*.st.css' {
+    const stylesheet: RuntimeStylesheet;
+    export default stylesheet;
+}

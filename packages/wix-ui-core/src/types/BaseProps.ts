@@ -1,6 +1,6 @@
 /**
  * Base props for any core component
  */
-export interface BaseProps extends RuntimeStylesheetBaseProps {
+export interface BaseProps extends InheritedAttributes {
 
 }
