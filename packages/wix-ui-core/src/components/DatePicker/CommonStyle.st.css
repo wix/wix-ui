@@ -1,0 +1,13 @@
+:vars {
+    kierenGray: #d0dade;
+    alexeyGray: #74848b;
+    JonathanBlue: #1aa1df;
+    DanielDarkGreay: #536066;
+    mediumFont: 20px;
+    smallFont: 7px;
+}
+
+.smallTextElement {
+    font: value(smallFont);
+    color: value(DanielDarkGreay)
+}

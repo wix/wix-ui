@@ -1,0 +1,38 @@
+:import {
+    -st-from: "./CommonStyle.st.css";
+    -st-named: smallTextElement, kierenGray, alexeyGray, JonathanBlue, DanielDarkGreay, mediumFont, smallFont;
+}
+.root {
+  -st-states: isCurrent, isHovered, isSelected;
+}
+.root{
+  width: 25px;
+  height: 25px;
+  font-family: Helvetica;
+  font-weight: 300;
+  vertical-align: middle;
+  background-color: value(kierenGray);
+  text-align: center;
+  border:none;
+  font-size: value(smallFont);
+}
+
+.root:focus {
+  outline:0;
+}
+
+.root:isCurrent {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.root:isHovered {
+  background-color: value(JonathanBlue);
+  color: rgb(31, 25, 25);
+}
+
+.root:isSelected {
+  background-color: pink;
+  color: black;
+}
+

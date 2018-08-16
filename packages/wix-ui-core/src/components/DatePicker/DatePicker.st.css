@@ -1,0 +1,26 @@
+:import {
+    -st-from: "./CommonStyle.st.css";
+    -st-named: kierenGray, alexeyGray, JonathanBlue, DanielDarkGreay, mediumFont, smallFont;
+}
+
+.root {
+    width: 150px;
+}
+
+.displayDate {
+    font-family: Helvetica;
+    font-size: value(mediumFont);
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+    color: value(DanielDarkGreay);
+    background-color: aliceblue;
+    margin-bottom: 5px;
+    border-width: 4px;
+    border-color: black;
+}
+
+.day{
+
+}
+
