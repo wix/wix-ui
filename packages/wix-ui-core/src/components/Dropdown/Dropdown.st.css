@@ -4,7 +4,7 @@
 }
 
 :import {
-  -st-from: "../../baseComponents/DropdownContent/DropdownContent.st.css";
+  -st-from: "../DropdownContent/DropdownContent.st.css";
   -st-default: DropdownContent;
 }
 

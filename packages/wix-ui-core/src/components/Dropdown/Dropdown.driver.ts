@@ -1,4 +1,4 @@
-import {dropdownContentDriverFactory} from '../../baseComponents/DropdownContent/DropdownContent.driver';
+import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
 import {popoverDriverFactory} from '../Popover/Popover.driver';
 
 export const dropdownDriverFactory = args => {
