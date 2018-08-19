@@ -194,7 +194,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         {
           showArrow ?
             [
-              <Arrow 
+              <Arrow
                 key="popover-arrow"
                 data-hook="popover-arrow"
                 className={style.arrow}
@@ -245,7 +245,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
       this.portalNode ? (
         <Portal node={this.portalNode}>
           {popper}
-        </Portal> 
+        </Portal>
       ) :
         popper
     );
@@ -294,7 +294,6 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
     return (
       <Manager
         {...style('root manager', {}, this.props)}
-        onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={inlineStyles}
@@ -303,6 +302,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
         <Target
           onKeyDown={onKeyDown}
           data-hook="popover-element"
+          onClick={onClick}
           className={style.popoverElement}
           innerRef={r => this.targetRef = r}
         >

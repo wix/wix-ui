@@ -16,7 +16,7 @@ describe('Dropdown', () => {
 
   const options = generateOptions();
   const createDropdown = (props = {}) => (
-    <Dropdown 
+    <Dropdown
       placement="top"
       openTrigger={CLICK}
       {...Object.assign({
@@ -51,11 +51,11 @@ describe('Dropdown', () => {
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
-    it('should not hide content on another click', async () => {
+    it('should hide content on another click', async () => {
       const driver = createDriver(createDropdown({options}));
       driver.click();
       driver.click();
-      await eventually(() => expect(driver.isContentElementExists()).toBeTruthy());
+      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
     });
 
     it('should show content on hover', async () => {

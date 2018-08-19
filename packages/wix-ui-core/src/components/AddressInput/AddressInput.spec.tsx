@@ -258,7 +258,7 @@ describe('AddressInput', () => {
             driver.setValue('n');
             expect(driver.getValue()).toBe('n');
         });
-        
+
         it('Should update input value upon value prop change', () => {
             const wrapper = mount(
                 <AddressInput
@@ -269,7 +269,7 @@ describe('AddressInput', () => {
                     value="123 Ibn Gabirol st."
                 />
             );
-            
+
             const addressInputDriver = addressInputDriverFactory({element: wrapper.getDOMNode(), eventTrigger: Simulate});
             addressInputDriver.setValue('n');
             expect(addressInputDriver.getValue()).toBe('n');
@@ -359,6 +359,7 @@ describe('AddressInput', () => {
 
             const secondRequest = GoogleMapsClientStub.setAddressesPromise([helper.ADDRESS_2]);
             driver.click();
+            driver.click();
             driver.setValue('ne');
 
             secondRequest.resolve();
@@ -385,6 +386,7 @@ describe('AddressInput', () => {
 
             GoogleMapsClientStub.setAddresses([helper.ADDRESS_2]);
             const secondRequest = GoogleMapsClientStub.setGeocodePromise(helper.GEOCODE_2);
+            driver.click();
             driver.click();
             driver.setValue('ne');
             await helper.waitForSingleOption(helper.ADDRESS_DESC_2, driver);

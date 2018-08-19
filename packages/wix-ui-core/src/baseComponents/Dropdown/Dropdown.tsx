@@ -62,6 +62,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     super(props);
 
     this.close = this.close.bind(this);
+    this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
   }
@@ -105,10 +106,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     }
   }
 
-  close() {
+  onPopoverClick() {
     if (this.state.isOpen) {
-      this.setState({isOpen: false});
+        this.close();
+    } else {
+        this.open();
     }
+  }
+
+  close() {
+      this.setState({isOpen: false});
   }
 
   onKeyboardSelect() {
@@ -203,7 +210,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
         showArrow={showArrow}
         timeout={timeout}
-        onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
+        onClick={!disabled && openTrigger === CLICK ? () => this.onPopoverClick() : undefined}
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
