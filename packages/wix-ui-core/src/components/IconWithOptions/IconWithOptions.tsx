@@ -2,7 +2,7 @@ import * as React from 'react';
 import style from './IconWithOptions.st.css';
 import {Dropdown} from '../Dropdown';
 import {Placement} from '../Popover';
-import {Option, optionPropType} from '../../baseComponents/DropdownOption';
+import {Option, optionPropType} from '../DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../Dropdown/constants';
 import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
 

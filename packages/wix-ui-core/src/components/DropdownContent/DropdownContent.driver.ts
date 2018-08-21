@@ -1,4 +1,4 @@
-import {dropdownOptionDriverFactory} from '../../baseComponents/DropdownOption/DropdownOption.driver';
+import {dropdownOptionDriverFactory} from '../DropdownOption/DropdownOption.driver';
 
 export const dropdownContentDriverFactory = ({element, eventTrigger}) => {
   const getOptions = () => element.querySelectorAll('[data-hook="option"]');

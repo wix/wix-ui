@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
-import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';

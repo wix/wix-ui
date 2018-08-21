@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './DropdownContent.st.css';
-import {Option, DropdownOption} from '../../baseComponents/DropdownOption';
+import {Option, DropdownOption} from '../DropdownOption';
 
 const NOT_HOVERED_INDEX = -1;
 

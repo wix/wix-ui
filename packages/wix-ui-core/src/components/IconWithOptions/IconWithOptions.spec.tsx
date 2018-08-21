@@ -2,8 +2,8 @@ import * as React from 'react';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {iconWithOptionsDriverFactory} from './IconWithOptions.driver';
 import {IconWithOptions} from './';
-import {OptionFactory} from '../../baseComponents/DropdownOption';
-import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
+import {OptionFactory} from '../DropdownOption';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('IconWithOptions', () => {
   const createDriver =

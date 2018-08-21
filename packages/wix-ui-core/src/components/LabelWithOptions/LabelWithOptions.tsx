@@ -3,7 +3,7 @@ import style from './LabelWithOptions.st.css';
 import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 'prop-types';
 import {Dropdown} from '../Dropdown';
 import {Checkbox} from '../Checkbox';
-import {Option, optionPropType, OptionFactory} from '../../baseComponents/DropdownOption';
+import {Option, optionPropType, OptionFactory} from '../DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../Dropdown/constants';
 import {noop} from '../../utils';

@@ -3,7 +3,7 @@ import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-on
 import style from './Dropdown.st.css';
 import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
-import {Option} from '../../baseComponents/DropdownOption';
+import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
 const isEqual = require('lodash/isEqual');

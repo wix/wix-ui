@@ -1,6 +1,6 @@
 import {InputWithOptions} from '../src/components/InputWithOptions';
-import {Option} from '../src/baseComponents/DropdownOption';
-import {generateOptions} from '../src/baseComponents/DropdownOption/OptionsExample';
+import {Option} from '../src/components/DropdownOption';
+import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
 
 const options = generateOptions();
 

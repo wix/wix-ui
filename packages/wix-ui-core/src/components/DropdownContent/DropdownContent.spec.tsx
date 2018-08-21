@@ -2,9 +2,9 @@ import * as React from 'react';
 import {dropdownContentDriverFactory} from './DropdownContent.driver';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {sleep} from 'wix-ui-test-utils/react-helpers';
-import {OptionFactory} from '../../baseComponents/DropdownOption';
+import {OptionFactory} from '../DropdownOption';
 import {DropdownContent} from './';
-import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 
 describe('DropdownContent', () => {
   const createDriver =
