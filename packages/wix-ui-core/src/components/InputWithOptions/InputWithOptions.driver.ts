@@ -1,5 +1,5 @@
-import {dropdownDriverFactory} from '../../baseComponents/Dropdown/Dropdown.driver';
-import {inputDriverFactory} from '../../components/Input/Input.driver';
+import {dropdownDriverFactory} from '../Dropdown/Dropdown.driver';
+import {inputDriverFactory} from '../Input/Input.driver';
 
 export const inputWithOptionsDriverFactory = ({element, eventTrigger}) => {
   const inputDriver = inputDriverFactory({

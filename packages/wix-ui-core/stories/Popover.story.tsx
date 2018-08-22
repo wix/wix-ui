@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Popover, PopoverProps} from '../src/components/Popover';
-import {Option} from '../src/baseComponents/DropdownOption';
+import {Option} from '../src/components/DropdownOption';
 
 // Click target to open close
 class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boolean}> {

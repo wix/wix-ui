@@ -1,5 +1,5 @@
 import {IconWithOptions} from '../src/components/IconWithOptions';
-import {generateOptions} from '../src/baseComponents/DropdownOption/OptionsExample';
+import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
 
 const options = generateOptions();
 

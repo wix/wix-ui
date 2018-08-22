@@ -242,4 +242,23 @@ describe('Dropdown', () => {
           expect(driver.isContentElementExists()).toBeFalsy();
       });
   });
+
+  describe('Style states', () => {
+    it('Should append "content-visible" state when content element is visible', () => {
+      const driver = createDriver(createDropdown({options}));
+      expect(driver.hasStyleState('content-visible')).toBeFalsy();
+      driver.click();
+      expect(driver.isContentElementExists()).toBeTruthy();
+      expect(driver.hasStyleState('content-visible')).toBeTruthy();
+    });
+
+    it('Should remove "content-visible" state when content element is not visible', () => {
+      const driver = createDriver(createDropdown({options}));
+      driver.click();
+      expect(driver.hasStyleState('content-visible')).toBeTruthy();
+      driver.optionAt(0).click();
+      expect(driver.isContentElementExists()).toBeFalsy();
+      expect(driver.hasStyleState('content-visible')).toBeFalsy();
+    });
+  });
 });

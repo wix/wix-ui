@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {labelWithOptionsDriverFactory} from './LabelWithOptions.driver';
 import {LabelWithOptions} from './';
-import {generateOptions} from '../../baseComponents/DropdownOption/OptionsExample';
+import {generateOptions} from '../DropdownOption/OptionsExample';
 import {labelWithOptionsTestkitFactory} from '../../testkit';
 import {labelWithOptionsTestkitFactory as enzymeLabelWithOptionsTestkitFactory} from '../../testkit/enzyme';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';

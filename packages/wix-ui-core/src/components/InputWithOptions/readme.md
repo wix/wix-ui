@@ -6,7 +6,7 @@ A dropdown like component, where trigger is input
 
 ```js
 import {InputWithOptions} from 'wix-ui-core/InputWithOptions';
-import {OptionFactory} from 'wix-ui-core/dist/src/baseComponents/DropdownOption';
+import {OptionFactory} from 'wix-ui-core/dist/src/components/DropdownOption';
 
 const options = [
   OptionFactory.create({value: 'value0'}),                                         // generates an option with a unique id
