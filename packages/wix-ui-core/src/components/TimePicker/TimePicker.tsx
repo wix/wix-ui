@@ -51,6 +51,9 @@ export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly'> & {
 
   /** custom width of component. Goes into inline style so any css distance value allowed */
   style?: React.CSSProperties;
+
+  /** aria-label - Accessibility */
+  'aria-label'?: string;
 }
 
 export interface TimePickerState {
@@ -142,7 +145,10 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     tickerUpIcon: node,
 
     /** What to display for the down ticker. Will only be shown if tickerUpIcon is also provided */
-    tickerDownIcon: node
+    tickerDownIcon: node,
+
+    /** aria-label - Accessibility */
+    'aria-label': string
   };
 
   constructor(props) {
@@ -488,7 +494,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         onClick     = {this._onClick}
         onDragStart = {e => e.stopPropagation()}
         style       = {inlineStyle}
-        aria-label  = {this.props["aria-label"]}
       />
     );
   }
