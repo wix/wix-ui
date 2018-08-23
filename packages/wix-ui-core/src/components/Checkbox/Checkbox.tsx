@@ -67,6 +67,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             autoFocus={this.props.autoFocus}
             name={this.props.name}
             aria-controls={this.props['aria-controls']}
+            aria-label={this.props["aria-label"]}
           />
 
         <span className={styles.box}>

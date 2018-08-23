@@ -38,6 +38,8 @@ export interface RadioButtonProps {
   disabled?: boolean;
   /** Sets the required status of the radio */
   required?: boolean;
+  /** aria-label - Accessibility */
+  'aria-label'?: string;
 }
 
 export interface RadioButtonState {
@@ -87,6 +89,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
           ref={radio => this.radioRef = radio}
+          aria-label={this.props["aria-label"]}
         />
         <span className={style.icon} onMouseEnter={this.onHover} onMouseLeave={onIconBlur}>
           {checked ? checkedIcon : uncheckedIcon}

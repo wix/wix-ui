@@ -5,5 +5,7 @@ const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 checkboxMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      'aria-label': 'Checkbox'
+    }
   });

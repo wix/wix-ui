@@ -21,7 +21,7 @@ export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly'> & {
    *  Will be called only with valid values (this component is semi-controlled)
    */
   onChange?: (value: string) => void;
-
+  
   /** Standard input onFocus callback */
   onFocus?: React.FocusEventHandler<HTMLElement>;
 
@@ -488,6 +488,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
         onClick     = {this._onClick}
         onDragStart = {e => e.stopPropagation()}
         style       = {inlineStyle}
+        aria-label  = {this.props["aria-label"]}
       />
     );
   }

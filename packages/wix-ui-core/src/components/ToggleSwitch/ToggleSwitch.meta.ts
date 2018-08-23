@@ -5,5 +5,7 @@ const toggleSwitchMetadata = Registry.getComponentMetadata(ToggleSwitch);
 toggleSwitchMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      'aria-label': 'ToggleSwitch'
+    }
   });

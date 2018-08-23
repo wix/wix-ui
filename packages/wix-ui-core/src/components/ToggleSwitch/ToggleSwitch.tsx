@@ -21,6 +21,7 @@ export interface ToggleSwitchProps {
   id?: string;
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
+  'aria-label'?: string;
 }
 
 export interface ToggleSwitchState {
@@ -50,7 +51,9 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     /** Icon inside of the knob when checked */
     checkedIcon: propTypes.node,
     /** Icon inside of the knob when unchecked */
-    uncheckedIcon: propTypes.node
+    uncheckedIcon: propTypes.node,
+    /** aria-label - Accessibility */
+    'aria-label': propTypes.string
   };
 
   static defaultProps = {
@@ -99,6 +102,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           onBlur={this.handleBlur}
           onMouseDown={this.handleMouseDown}
           onKeyDown={this.handleKeyDown}
+          aria-label={this.props["aria-label"]}
         />
       </div>
     );

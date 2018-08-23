@@ -5,5 +5,7 @@ const buttonMetadata = Registry.getComponentMetadata(Button);
 buttonMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      'aria-label': 'Button'
+    }
   });

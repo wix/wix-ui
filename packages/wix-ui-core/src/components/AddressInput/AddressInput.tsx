@@ -75,6 +75,8 @@ export interface AddressInputProps {
     fixedFooter?: React.ReactNode;
     /** Id */
     id?: string;
+    /** aria-label - accessibility*/
+    'aria-label'?: string;
 }
 
 export interface AddressInputState {
@@ -173,7 +175,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Fixed footer in content element */
         fixedFooter: node,
         /** Id */
-        id: string
+        id: string,
+        /** aria-label */
+        'aria-label': string
     };
 
     static defaultProps = {
@@ -377,6 +381,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             style={inlineStyles}
             fixedFooter={hasOptions && fixedFooter}
             id={id}
+            aria-label={this.props["aria-label"]}
             ref={ref => this.inputWithOptionsRef = ref}
           />
         );

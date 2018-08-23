@@ -7,5 +7,7 @@ timePickerMetadata.reactStrictModeCompliant = false;
 timePickerMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      'aria-label': 'TimePicker'
+    }
   });

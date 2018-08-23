@@ -5,5 +5,7 @@ const inputMetadata = Registry.getComponentMetadata(Input);
 inputMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      'aria-label': 'input'
+    }
   });

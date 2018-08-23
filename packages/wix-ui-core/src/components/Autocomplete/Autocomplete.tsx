@@ -40,6 +40,8 @@ export interface AutocompleteProps {
   /** Suffix */
   suffix?: React.ReactNode;
   inputProps?: InputProps;
+  /** aria-label - Accessibility */
+  'aria-label'?: string;
 }
 
 export interface AutocompleteState {
@@ -81,6 +83,8 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     suffix: node,
     /** Input Properties */
     inputProps: object,
+    /** aria-label - Accessibility */
+    'aria-label': string
   };
 
   static createOption = OptionFactory.create;
@@ -150,6 +154,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
         onManualInput={onManualInput}
         options={options}
         inputProps={inputProps}
+        aria-label={this.props["aria-label"]}
       />
     );
   }

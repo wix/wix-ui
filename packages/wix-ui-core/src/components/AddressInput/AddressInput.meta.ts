@@ -18,6 +18,7 @@ addressInputMeta
       apiKey: '',
       lang: 'en',
       Client,
-      onSelect: noop
+      onSelect: noop,
+      'aria-label': 'adressinput'
     }
   });
