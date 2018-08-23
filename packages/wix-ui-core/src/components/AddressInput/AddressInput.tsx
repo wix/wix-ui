@@ -1,9 +1,9 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
 import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable, object} from 'prop-types';
-import {InputWithOptions} from '../../baseComponents/InputWithOptions/InputWithOptions';
+import {InputWithOptions} from '../InputWithOptions/InputWithOptions';
 
-import {Option, OptionFactory} from '../../baseComponents/DropdownOption';
+import {Option, OptionFactory} from '../DropdownOption';
 import {
     Address,
     AddressOutput, Geocode, MapsClient, MapsClientConstructor,

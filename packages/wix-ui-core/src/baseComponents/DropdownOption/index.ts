@@ -1,2 +1,2 @@
-export {DropdownOption, DropdownOptionType, DropdownOptionProps} from './DropdownOption';
-export {OptionFactory, Option, optionPropType, DividerArgs} from './OptionFactory';
+// Backward compatibility. This file will be removed along with it's folder after fixing TPA's broken build.
+export * from '../../components/DropdownOption';

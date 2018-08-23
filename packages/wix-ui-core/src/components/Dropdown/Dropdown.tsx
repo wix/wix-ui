@@ -1,7 +1,7 @@
 import * as React from 'react';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
-import {Popover, Placement} from '../../components/Popover';
+import {Popover, Placement} from '../Popover';
 import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
@@ -62,6 +62,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     super(props);
 
     this.close = this.close.bind(this);
+    this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
   }
@@ -105,10 +106,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     }
   }
 
-  close() {
+  onPopoverClick() {
     if (this.state.isOpen) {
-      this.setState({isOpen: false});
+        this.close();
+    } else {
+        this.open();
     }
+  }
+
+  close() {
+      this.setState({isOpen: false});
   }
 
   onKeyboardSelect() {
@@ -195,15 +202,16 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
+    const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
 
     return (
       <Popover
-        {...style('root', {}, this.props)}
+        {...style('root', {'content-visible': shown}, this.props)}
         placement={placement}
-        shown={forceContentElementVisibility || (isOpen && !disabled && hasContent)}
+        shown={shown}
         showArrow={showArrow}
         timeout={timeout}
-        onClick={!disabled && openTrigger === CLICK ? () => this.open() : undefined}
+        onClick={!disabled && openTrigger === CLICK ? () => this.onPopoverClick() : undefined}
         onMouseEnter={!disabled && openTrigger === HOVER ? () => this.open() : undefined}
         onKeyDown={!disabled ? this.onKeyDown : undefined}
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}

@@ -1,1 +1,1 @@
-export {inputWithOptionsDriverFactory as addressInputDriverFactory} from '../../baseComponents/InputWithOptions/InputWithOptions.driver';
+export {inputWithOptionsDriverFactory as addressInputDriverFactory} from '../InputWithOptions/InputWithOptions.driver';
