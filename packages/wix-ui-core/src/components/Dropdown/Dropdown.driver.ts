@@ -1,6 +1,6 @@
 import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
 import {popoverDriverFactory} from '../Popover/Popover.driver';
-import {StylableDOMUtil} from 'stylable/test-utils';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './Dropdown.st.css';
 
 const stylableUtil = new StylableDOMUtil(style);
