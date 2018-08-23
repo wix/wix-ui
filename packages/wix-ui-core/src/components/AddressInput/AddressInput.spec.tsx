@@ -13,6 +13,7 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {mount} from 'enzyme';
 import {addressInputTestkitFactory} from '../../testkit';
 import {addressInputTestkitFactory as enzymeAddressInputTestkitFactory} from '../../testkit/enzyme';
+import {AddressInputPrivateDriver} from "./AddressInput.private.driver";
 
 describe('AddressInput', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -688,6 +689,59 @@ describe('AddressInput', () => {
             init({fixedFooter: <div data-hook="fixed-footer"/>});
             driver.click();
             expect(driver.isContentElementExists()).toBeFalsy();
+        });
+    });
+
+    describe('AddressInput integration tests', () => {
+        class Wrapper extends React.Component<any, any> {
+            constructor(props) {
+                super(props);
+                this.state = {value: ''};
+            }
+
+            handleOnSelect = (e) => {
+                const {address} = e;
+                this.setState({value: address.formatted});
+                this.props.onSelect && this.props.onSelect(e);
+            };
+
+            render() {
+                return (<div>
+                    <AddressInput
+                        value={this.state.value}
+                        Client={GoogleMapsClientStub}
+                        onSelect={this.handleOnSelect}
+                        apiKey="a"
+                        lang="en"
+                        data-hook="address-input"
+                    />
+                </div>);
+            }
+        }
+
+        const container = new ReactDOMTestContainer().unmountAfterEachTest();
+        const onSelectSpy = jest.fn();
+        beforeEach(() => {
+            onSelectSpy.mockReset();
+        });
+
+        describe('Controlled component behavior', () => {
+            it('Should get value from parent component', async () => {
+                GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+                GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+
+                await container.render(<Wrapper onSelect={onSelectSpy}/>);
+                const driver = new AddressInputPrivateDriver(container.node);
+                driver.type('n');
+                await driver.waitForContentElement();
+                driver.selectOption(0);
+                await driver.waitForValue(helper.ADDRESS_1.description);
+                driver.type('n');
+                await driver.waitForContentElement();
+                driver.selectOption(0);
+                await driver.waitForValue(helper.ADDRESS_1.description);
+                expect(onSelectSpy).toHaveBeenCalledTimes(2);
+            });
         });
     });
 
