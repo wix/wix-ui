@@ -24,7 +24,7 @@
   "scripts": {
     "build": "yoshi build && npm run generate-stylable-index && npm run transpile-mixins && npm run import-path && build-storybook",
     "pr-postbuild": "npx teamcity-surge-autorelease@^1.0.0",
-    "test": "npm run test:unit && npm run sanity && npm run test:e2e",
+    "test": "npm run test:unit && npm run sanity && npm run test:e2e && npm run a11y",
     "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
