@@ -81,8 +81,6 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
     suffix: node,
     /** Input Properties */
     inputProps: object,
-    /** aria-label - Accessibility */
-    'aria-label': string
   };
 
   static createOption = OptionFactory.create;

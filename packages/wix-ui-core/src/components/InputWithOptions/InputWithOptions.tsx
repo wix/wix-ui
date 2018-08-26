@@ -96,7 +96,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Inline styles */
     style: object,
     /** Id */
-    Id: string,
+    Id: string
   };
 
   isEditing: boolean = false;

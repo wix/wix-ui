@@ -6,6 +6,6 @@ buttonMetadata
   .addSim({
     title: 'Simulation with default props',
     props: {
-      'aria-label': 'Button'
+      'aria-label': 'Click button'
     }
   });

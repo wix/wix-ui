@@ -142,7 +142,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     tickerUpIcon: node,
 
     /** What to display for the down ticker. Will only be shown if tickerUpIcon is also provided */
-    tickerDownIcon: node,
+    tickerDownIcon: node
   };
 
   constructor(props) {

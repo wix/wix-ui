@@ -19,6 +19,6 @@ addressInputMeta
       lang: 'en',
       Client,
       onSelect: noop,
-      'aria-label': 'adressinput'
+      'aria-label': 'Insert you address here'
     }
   });

@@ -9,6 +9,6 @@ autocompleteMetadata
     title: 'Simulation with default props',
     props: {
       options: [],
-      inputProps: {"aria-label": 'Autocomplete'}
+      inputProps: {"aria-label": 'Start typing to see options'}
     }
   });
