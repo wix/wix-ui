@@ -42,8 +42,6 @@ export interface InputWithOptionsProps {
   style?: object;
   /** Id */
   id?: string;
-  /** aria-label for accessibility */
-  'aria-label'?: string
 }
 
 /**
@@ -99,8 +97,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     style: object,
     /** Id */
     Id: string,
-    /** aria-label for accessibility */
-    'aria-label': string
   };
 
   isEditing: boolean = false;
@@ -202,7 +198,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
           className={style.inputComponent}
-          aria-label={this.props["aria-label"]}
         />
       </Dropdown>
     );

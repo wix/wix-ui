@@ -353,6 +353,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const options = this._options();
 
         const inputProps = {
+            'aria-label': this.props["aria-label"],
             onChange: this._handleOnChange,
             onKeyDown,
             onFocus,
@@ -381,7 +382,6 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             style={inlineStyles}
             fixedFooter={hasOptions && fixedFooter}
             id={id}
-            aria-label={this.props["aria-label"]}
             ref={ref => this.inputWithOptionsRef = ref}
           />
         );
