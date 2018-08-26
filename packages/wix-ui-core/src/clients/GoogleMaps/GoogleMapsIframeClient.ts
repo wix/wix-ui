@@ -6,6 +6,7 @@ import {MapsClient} from './types';
 export class GoogleMapsIframeClient implements MapsClient {
   _iframesManager = new IframesManager();
   _promisesMap = new Map();
+  _useClientId = false;
 
   constructor() {
     window.addEventListener('message', this.handleMessage, false);
@@ -19,12 +20,18 @@ export class GoogleMapsIframeClient implements MapsClient {
     }
   }
 
-  autocomplete(apiKey: string, lang: string, request: string) {
+  useClientId() {
+    this._useClientId = true;
+  }
+
+  autocomplete(key: string, lang: string, request: string) {
     let requestIframe;
-    if (this._iframesManager.hasIframe(apiKey, lang)) {
-      requestIframe = this._iframesManager.getIframe(apiKey, lang);
+    if (this._iframesManager.hasIframe(key, lang)) {
+      requestIframe = this._iframesManager.getIframe(key, lang);
+    } else if (this._useClientId) {
+        requestIframe = this._iframesManager.addIframe(null, lang, key);
     } else {
-      requestIframe = this._iframesManager.addIframe(apiKey, lang);
+        requestIframe = this._iframesManager.addIframe(key, lang);
     }
 
     const requestId = generateID();

@@ -1,5 +1,6 @@
 import {googleRequestHandler} from '../GoogleRequestHandler/GoogleRequestHandler';
 import * as handlerNames from '../handlersName';
+import {string} from "prop-types";
 
 export class IframesManager {
     private _iframeMap: Map<string, HTMLIFrameElement> = new Map();
@@ -8,7 +9,7 @@ export class IframesManager {
         return `${apiKey}-${lang}`;
     }
 
-    addIframe(apiKey: string, lang: string) {
+    addIframe(apiKey: string, lang: string, clientId?: string) {
         if (this.hasIframe(apiKey, lang)) {
             return this.getIframe(apiKey, lang);
         }
@@ -16,10 +17,10 @@ export class IframesManager {
         const iframeKey = IframesManager.getKey(apiKey, lang);
         const iframe = document.createElement('iframe');
         iframe.setAttribute('data-lang', lang);
-        iframe.setAttribute('data-api-key', apiKey);
+        iframe.setAttribute('data-api-key', clientId || apiKey);
         iframe.style.display = 'none';
         document.body.appendChild(iframe);
-        this.populateIframe(iframe, apiKey, lang);
+        this.populateIframe(iframe, apiKey, lang, clientId);
         this._iframeMap.set(iframeKey, iframe);
         return iframe.contentWindow;
     }
@@ -39,10 +40,10 @@ export class IframesManager {
         this._iframeMap.clear();
     }
 
-    populateIframe(iframe: HTMLIFrameElement, apiKey: string, lang: string): void {
+    populateIframe(iframe: HTMLIFrameElement, apiKey: string, lang: string, clientId: string): void {
         const iframeBody = iframe.contentWindow.document.body;
         iframeBody.appendChild(this.createInitializationScript());
-        iframeBody.appendChild(this.createGoogleMapsScript(apiKey, lang));
+        iframeBody.appendChild(this.createGoogleMapsScript(apiKey, lang, clientId));
     }
 
     private createInitializationScript() {
@@ -51,9 +52,17 @@ export class IframesManager {
         return script;
     }
 
-    private createGoogleMapsScript(apiKey, lang) {
+    private createGoogleMapsScript(apiKey, lang, clientId) {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?libraries=places&key=${apiKey}&language=${lang}&callback=googleReady`;
+        script.src = IframesManager.generateUrl({apiKey, lang, clientId});
         return script;
+    }
+
+    static generateUrl({apiKey, clientId, lang}: {apiKey?:string, clientId?:string, lang}):string {
+        if (clientId) {
+            return `https://maps.googleapis.com/maps/api/js?libraries=places&client=${clientId}&language=${lang}&callback=googleReady`;
+        } else {
+            return `https://maps.googleapis.com/maps/api/js?libraries=places&key=${apiKey}&language=${lang}&callback=googleReady`;
+        }
     }
 }

@@ -2,6 +2,10 @@ import {IframesManager} from './IframesManager';
 import {getIframes, getIframeWithLangAndApiKey, isIframeVisible} from '../IframeTestUtils';
 let iframesManager: IframesManager;
 
+const URL_WITH_API_KEY = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=api-key&language=en&callback=googleReady';
+const URL_WITH_CLIENT_ID = 'https://maps.googleapis.com/maps/api/js?libraries=places&client=client-id&language=en&callback=googleReady';
+
+
 class IframeManagerWithHTTPStub extends IframesManager {
   // Override the method that injects scripts into the iframe, because we
   // don't want to fetch HTTP resources over the network in the tests.
@@ -83,4 +87,52 @@ describe('IframesManager', () => {
     expect(getIframeWithLangAndApiKey(firstLang, firstApiKey)).toBeDefined();
     expect(getIframeWithLangAndApiKey(secondLang, secondApiKey)).toBeDefined();
   });
+
+  describe('URLs', () => {
+      const srcSpy = jest.fn(() => null);
+
+      beforeAll(() => {
+          const createElement = document.createElement.bind(document);
+          jest.spyOn(document, 'createElement').mockImplementation(tag => {
+              // monkey patch src setter
+              const element = createElement(tag);
+
+              if (tag === 'script') {
+                  Object.defineProperty(element, 'src', {
+                      set: srcSpy
+                  });
+              }
+
+              return element;
+          });
+      });
+
+      beforeEach(() => {
+          iframesManager = new IframesManager();
+      });
+
+      afterEach(() => srcSpy.mockReset());
+
+      it('should generate URL using apiKey', () => {
+          const url = IframesManager.generateUrl({apiKey: 'api-key', lang: 'en'});
+          expect(url).toBe(URL_WITH_API_KEY);
+      });
+
+      it('should generate URL using clientId', () => {
+          const url = IframesManager.generateUrl({clientId: 'client-id', lang: 'en'});
+          expect(url).toBe(URL_WITH_CLIENT_ID);
+      });
+
+      it('should create a script with src based on clientId', () => {
+          iframesManager.addIframe(null, 'en', 'client-id');
+          expect(srcSpy).toHaveBeenCalledWith(URL_WITH_CLIENT_ID);
+      });
+
+      it('should create a script with src based on apiKey', () => {
+          iframesManager.addIframe('api-key', 'en');
+          expect(srcSpy).toHaveBeenCalledWith(URL_WITH_API_KEY);
+      });
+  })
+
+
 });
