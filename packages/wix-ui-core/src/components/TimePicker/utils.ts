@@ -10,7 +10,7 @@ export const getFieldFromPos = (pos: number) => Math.floor(pos / 3) + 1;
 
 export const parseTime = (timeStr: string) => ({
   hour: timeStr.substr(0, 2),
-  minute: timeStr.substr(3, 5)
+  minute: timeStr.substr(3, 2)
 });
 
 export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {

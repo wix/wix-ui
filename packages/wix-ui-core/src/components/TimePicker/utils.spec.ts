@@ -202,11 +202,13 @@ describe('TimePicker utils', () => {
 
   describe('convertToAmPm', () => {
     it('should return "12:00 AM" for "00:00"', () => expect(convertToAmPm({value: '00:00'})).toEqual('12:00 AM'));
-    it('should return "11:59 AM" for "11:59"', () => expect(convertToAmPm({value: '11:59'})).toEqual('11:59 AM'));
-    it('should return "12:00 PM" for "12:00"', () => expect(convertToAmPm({value: '12:00'})).toEqual('12:00 PM'));
-    it('should return "11:59 PM" for "23:59"', () => expect(convertToAmPm({value: '23:59'})).toEqual('11:59 PM'));
-    it('should return "12:00 am" for "00:00" with lowercase strings', () => expect(convertToAmPm({value: '00:00', strings: {am: 'am', pm: 'pm'}})).toEqual('12:00 am'));
-    it('should return "12:00 pm" for "12:00" with lowercase strings', () => expect(convertToAmPm({value: '12:00', strings: {am: 'am', pm: 'pm'}})).toEqual('12:00 pm'));
+    it('should return "12:00 AM" for "00:00:00"', () => expect(convertToAmPm({value: '00:00.000'})).toEqual('12:00 AM'));
+    it('should return "12:00 AM" for "00:00:00.000"', () => expect(convertToAmPm({value: '00:00:00.000'})).toEqual('12:00 AM'));
+    it('should return "11:59 AM" for "11:59:00.000"', () => expect(convertToAmPm({value: '11:59:00.000'})).toEqual('11:59 AM'));
+    it('should return "12:00 PM" for "12:00:00.000"', () => expect(convertToAmPm({value: '12:00:00.000'})).toEqual('12:00 PM'));
+    it('should return "11:59 PM" for "23:59:00.000"', () => expect(convertToAmPm({value: '23:59:00.000'})).toEqual('11:59 PM'));
+    it('should return "12:00 am" for "00:00:00.000" with lowercase strings', () => expect(convertToAmPm({value: '00:00:00.000', strings: {am: 'am', pm: 'pm'}})).toEqual('12:00 am'));
+    it('should return "12:00 pm" for "12:00:00.000" with lowercase strings', () => expect(convertToAmPm({value: '12:00:00.000', strings: {am: 'am', pm: 'pm'}})).toEqual('12:00 pm'));
   });
 
   describe('getFieldFromPos', () => {
