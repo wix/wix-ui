@@ -6,6 +6,6 @@ checkboxMetadata
   .addSim({
     title: 'Simulation with default props',
     props: {
-      'aria-label': 'Checkbox'
+      'aria-label': 'Check to choose the option'
     }
   });
