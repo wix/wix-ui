@@ -15,7 +15,7 @@ import {
   isValidTime
 } from './utils';
 
-export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly'> & {
+export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly' | 'aria-label'> & {
   /**
    *  Callback function when user changes the value of the component.
    *  Will be called only with valid values (this component is semi-controlled)
@@ -51,9 +51,6 @@ export type TimePickerProps = Pick<InputProps, 'disabled' | 'readOnly'> & {
 
   /** custom width of component. Goes into inline style so any css distance value allowed */
   style?: React.CSSProperties;
-
-  /** aria-label - Accessibility */
-  'aria-label'?: string;
 }
 
 export interface TimePickerState {
@@ -146,9 +143,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
 
     /** What to display for the down ticker. Will only be shown if tickerUpIcon is also provided */
     tickerDownIcon: node,
-
-    /** aria-label - Accessibility */
-    'aria-label': string
   };
 
   constructor(props) {
