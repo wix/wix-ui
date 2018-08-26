@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import style from './Input.st.css';
 const omit = require('lodash/omit');
+import {Omit} from 'type-zoo';
 
 const ommitedInputProps = ['style', 'error'];
 type OmittedInputProps = 'value' | 'prefix'
