@@ -86,10 +86,6 @@ import {thumbnailDriverFactory, ThumbnailDriver} from '../components/Thumbnail/T
 export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<ThumbnailDriver>(thumbnailDriverFactory);
 export {ThumbnailDriver};
 
-import {linkDriverFactory, LinkDriver} from '../components/Link/Link.protractor.driver';
-export const linkTestkitFactory = protractorTestkitFactoryCreator(linkDriverFactory);
-export {LinkDriver};
-
 import {navStepperDriverFactory, NavStepperDriver} from '../components/NavStepper/NavStepper.protractor.driver';
 export const navStepperTestkitFactory = protractorTestkitFactoryCreator(navStepperDriverFactory);
 export {NavStepperDriver};
