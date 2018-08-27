@@ -31,7 +31,7 @@
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
     "storybook": "start-storybook -p 6006",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
-    "pr-postbuild": "npx teamcity-surge-autorelease@^1.0.0"
+    "pr-postbuild": "npx teamcity-surge-autorelease@^1.0.0 --verbose -dist=storybook-static"
   },
   "devDependencies": {
     "@storybook/addon-options": "^3.3.15",
