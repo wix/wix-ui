@@ -26,8 +26,8 @@ describe('IframesManager', () => {
   it('should add invisible iframe to the DOM when trying to add an iframe with same key', () => {
     const apiKey = 'a';
     const lang = 'en';
-    iframesManager.addIframe(apiKey, lang);
-    iframesManager.addIframe(apiKey, lang);
+    iframesManager.addIframe({apiKey, lang});
+    iframesManager.addIframe({apiKey, lang});
 
     const iframe = getIframeWithLangAndApiKey(lang, apiKey);
 
@@ -39,7 +39,7 @@ describe('IframesManager', () => {
   it('should return an postMessageable object when calling adding of getting iframe', () => {
     const apiKey = 'a';
     const lang = 'en';
-    let eventEmitter = iframesManager.addIframe(apiKey, lang);
+    let eventEmitter = iframesManager.addIframe({apiKey, lang});
 
     expect(eventEmitter.postMessage).toBeDefined();
     eventEmitter = iframesManager.getIframe(apiKey, lang);
@@ -51,8 +51,8 @@ describe('IframesManager', () => {
     const secondApiKey = 'b';
     const lang = 'en';
 
-    iframesManager.addIframe(firstApiKey, lang);
-    iframesManager.addIframe(secondApiKey, lang);
+    iframesManager.addIframe({ apiKey: firstApiKey, lang });
+    iframesManager.addIframe({ apiKey: secondApiKey, lang });
 
     expect(getIframes().length).toEqual(2);
     expect(getIframeWithLangAndApiKey(lang, firstApiKey)).toBeDefined();
@@ -64,8 +64,8 @@ describe('IframesManager', () => {
     const firstLang = 'en';
     const secondLang = 'fr';
 
-    iframesManager.addIframe(apiKey, firstLang);
-    iframesManager.addIframe(apiKey, secondLang);
+    iframesManager.addIframe({ apiKey, lang: firstLang});
+    iframesManager.addIframe({ apiKey, lang: secondLang});
 
     expect(getIframes().length).toEqual(2);
 
@@ -79,8 +79,8 @@ describe('IframesManager', () => {
     const firstLang = 'en';
     const secondLang = 'fr';
 
-    iframesManager.addIframe(firstApiKey, firstLang);
-    iframesManager.addIframe(secondApiKey, secondLang);
+    iframesManager.addIframe({ apiKey: firstApiKey, lang: firstLang });
+    iframesManager.addIframe({ apiKey: secondApiKey, lang: secondLang });
 
     expect(getIframes().length).toEqual(2);
 
@@ -124,12 +124,12 @@ describe('IframesManager', () => {
       });
 
       it('should create a script with src based on clientId', () => {
-          iframesManager.addIframe(null, 'en', 'client-id');
+          iframesManager.addIframe({lang: 'en', clientId: 'client-id' });
           expect(srcSpy).toHaveBeenCalledWith(URL_WITH_CLIENT_ID);
       });
 
       it('should create a script with src based on apiKey', () => {
-          iframesManager.addIframe('api-key', 'en');
+          iframesManager.addIframe({ apiKey: 'api-key', lang: 'en' });
           expect(srcSpy).toHaveBeenCalledWith(URL_WITH_API_KEY);
       });
   })

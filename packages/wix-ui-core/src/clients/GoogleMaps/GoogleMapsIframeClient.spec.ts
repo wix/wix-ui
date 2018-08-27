@@ -247,20 +247,38 @@ describe('GoogleMapsIframeClient', () => {
     expect(targetOrigin).toBe('*');
   });
 
-  it('should create iframe with clientId instead of apiKey', () => {
-    const postMessageMock = jest.fn();
+  ['autocomplete', 'geocode', 'placeDetails'].forEach(method => {
+    it(`should create iframe with apiKey (${method})`, () => {
+      const postMessageMock = jest.fn();
 
-    iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
-    iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
-    }));
+      iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
+      iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
+        postMessage: postMessageMock
+      }));
 
-    client = new GoogleMapsIframeClient();
-    client.useClientId();
+      client = new GoogleMapsIframeClient();
 
-    client.autocomplete(mockApiKey, mockLang);
+      client[method](mockApiKey, mockLang);
 
-    expect(iframeManagerPrototype.addIframe).toHaveBeenCalledTimes(1);
-    expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith(null, 'en', 'a');
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledTimes(1);
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({ apiKey: 'a', lang: 'en' });
+    });
+
+    it(`should create iframe with clientId instead of apiKey (${method})`, () => {
+      const postMessageMock = jest.fn();
+
+      iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
+      iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
+        postMessage: postMessageMock
+      }));
+
+      client = new GoogleMapsIframeClient();
+      client.useClientId();
+
+      client[method](mockApiKey, mockLang);
+
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledTimes(1);
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({ clientId: 'a', lang: 'en' });
+    });
   });
 });

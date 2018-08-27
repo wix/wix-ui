@@ -9,7 +9,7 @@ export class IframesManager {
         return `${apiKey}-${lang}`;
     }
 
-    addIframe(apiKey: string, lang: string, clientId?: string) {
+    addIframe({apiKey, lang, clientId}: {apiKey?: string, lang: string, clientId?: string}) {
         if (this.hasIframe(apiKey, lang)) {
             return this.getIframe(apiKey, lang);
         }
@@ -25,13 +25,13 @@ export class IframesManager {
         return iframe.contentWindow;
     }
 
-    getIframe(apiKey: string, lang: string) {
-        const iframeKey = IframesManager.getKey(apiKey, lang);
+    getIframe(key: string, lang: string) {
+        const iframeKey = IframesManager.getKey(key, lang);
         return this._iframeMap.get(iframeKey).contentWindow;
     }
 
-    hasIframe(apiKey: string, lang: string) {
-        const iframeKey = IframesManager.getKey(apiKey, lang);
+    hasIframe(key: string, lang: string) {
+        const iframeKey = IframesManager.getKey(key, lang);
         return this._iframeMap.has(iframeKey);
     }
 
