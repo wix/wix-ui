@@ -99,7 +99,7 @@ export class GoogleMapsClientStub implements MapsClient {
     }
 
     useClientId() {
-
+        return null;
     }
 
     static setAddresses(addresses: Array<Address>, addressesDelay: number = 0) {

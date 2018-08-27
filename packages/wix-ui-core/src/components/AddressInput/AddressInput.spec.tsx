@@ -13,7 +13,6 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {mount} from 'enzyme';
 import {addressInputTestkitFactory} from '../../testkit';
 import {addressInputTestkitFactory as enzymeAddressInputTestkitFactory} from '../../testkit/enzyme';
-import {InputDriver} from "../Input/Input.private.driver";
 
 describe('AddressInput', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -48,7 +47,7 @@ describe('AddressInput', () => {
         (GoogleMapsClientStub.prototype.geocode as any).mockClear();
         (GoogleMapsClientStub.prototype.placeDetails as any).mockClear();
         (GoogleMapsClientStub.prototype.useClientId as any).mockClear();
-    })
+    });
 
     it('Should instantiate client', () => {
         const Client = jest.fn() as any;
@@ -58,23 +57,13 @@ describe('AddressInput', () => {
 
     it('Should call useClientId on client', () => {
         const Client = jest.fn() as any;
-        createDriver(<AddressInput
-            clientId="client-id"
-            lang="en"
-            Client={GoogleMapsClientStub}
-            onSelect={() => null}
-        />);
+        createDriver(<AddressInput clientId="client-id" lang="en" Client={GoogleMapsClientStub} onSelect={() => null}/>);
         expect(GoogleMapsClientStub.prototype.useClientId).toHaveBeenCalled();
     });
 
     it('Should not call useClientId on client when the useClientId prop is not supplied', () => {
         const Client = jest.fn() as any;
-        createDriver(<AddressInput
-            apiKey="api-key"
-            lang="en"
-            Client={GoogleMapsClientStub}
-            onSelect={() => null}
-        />);
+        createDriver(<AddressInput apiKey="api-key" lang="en" Client={GoogleMapsClientStub} onSelect={() => null}/>);
         expect(GoogleMapsClientStub.prototype.useClientId).not.toHaveBeenCalled();
     });
 
