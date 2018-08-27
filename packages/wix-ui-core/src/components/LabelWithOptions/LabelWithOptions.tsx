@@ -50,7 +50,7 @@ export interface LabelWithOptionsState {
  */
 export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps, LabelWithOptionsState> {
   static displayName = 'LabelWithOptions';
-  static propTypes = {
+  static propTypes: React.ValidationMap<LabelWithOptionsProps> = {
     /** The dropdown options array */
     options: arrayOf(optionPropType).isRequired,
     /** set true for multiple selection, false for single */

@@ -34,7 +34,7 @@ export interface InputState {
 export class Input extends React.Component<InputProps, InputState> {
   static displayName = 'Input';
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<InputProps> = {
     /** Wrapper class name */
     className: PropTypes.string,
     /** Error state / Error message */

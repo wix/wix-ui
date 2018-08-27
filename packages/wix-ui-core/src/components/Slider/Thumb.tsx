@@ -11,7 +11,7 @@ export interface ThumbProps {
 }
 
 export class Thumb extends React.Component<ThumbProps> {
-  static propTypes = {
+  static propTypes: React.ValidationMap<ThumbProps> = {
     shape: PropTypes.string.isRequired,
     thumbPosition: PropTypes.object.isRequired,
     thumbSize: PropTypes.object.isRequired,

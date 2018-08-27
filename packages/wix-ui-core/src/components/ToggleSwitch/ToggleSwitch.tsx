@@ -35,7 +35,7 @@ export interface ToggleSwitchState {
 export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleSwitchState> {
   static displayName = 'ToggleSwitch';
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<ToggleSwitchProps> = {
     /** Is the toggleSwitch checked or not */
     checked: propTypes.bool,
     /** Is the toggleSwitch disabled or not */

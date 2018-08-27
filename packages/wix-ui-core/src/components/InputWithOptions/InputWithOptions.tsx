@@ -62,7 +62,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onInitialSelectedOptionsSet: () => null
   };
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<InputWithOptionsProps> = {
     /** The location to display the content */
     placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
     /** The dropdown options array */
@@ -96,7 +96,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Inline styles */
     style: object,
     /** Id */
-    Id: string
+    id: string
   };
 
   isEditing: boolean = false;

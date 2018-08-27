@@ -14,7 +14,7 @@ export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
     private wrappedComponentRef: React.Component = null;
 
-    static propTypes = {
+    static propTypes: React.ValidationMap<WixComponentProps> = {
       ...Component.propTypes,
       dataHook: string,
       dataClass: string

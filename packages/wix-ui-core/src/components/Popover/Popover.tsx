@@ -147,7 +147,7 @@ const shouldAnimatePopover = ({timeout}: PopoverProps) => !!timeout;
 /**
  * Popover
  */
-export class Popover extends React.Component<PopoverType, PopoverState> {
+export class Popover extends React.Component<PopoverProps, PopoverState> {
   static displayName = 'Popover';
 
   static Element = createComponentThatRendersItsChildren('Popover.Element');
@@ -161,7 +161,7 @@ export class Popover extends React.Component<PopoverType, PopoverState> {
 
   state = {isMounted: false};
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<PopoverProps> = {
     className: string,
     placement: PlacementsType,
     shown: bool,

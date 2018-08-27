@@ -59,7 +59,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     showArrow: true
   };
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<TooltipProps & InjectedOnClickOutProps> = {
     /** tooltip's placement in relation to the target element */
     placement: PlacementsType,
     /** children to render that will be the target of the tooltip */

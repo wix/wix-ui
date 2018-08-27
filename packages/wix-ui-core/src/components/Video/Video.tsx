@@ -85,7 +85,7 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
   containerRef: HTMLDivElement;
   player: any;
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<VideoProps> = {
     /** Element ID */
     id: string,
     /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */

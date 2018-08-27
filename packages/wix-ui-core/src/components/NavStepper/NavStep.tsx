@@ -10,7 +10,7 @@ export type ExternalNavStepProps = Partial<StepProps> & {
 export type NavStepProps = StepProps & ExternalNavStepProps;
 
 export class NavStep extends React.PureComponent<NavStepProps> {
-    static propTypes = {
+    static propTypes: React.ValidationMap<NavStepProps> = {
         disabled: bool
     }
     render () {

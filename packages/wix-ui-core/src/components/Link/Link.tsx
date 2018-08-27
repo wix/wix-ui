@@ -14,7 +14,7 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLElement> {
 export class Link extends React.PureComponent<LinkProps> {
   static displayName = 'Link';
 
-  static propTypes = {
+  static propTypes: React.ValidationMap<LinkProps> = {
     children: node
   };
 

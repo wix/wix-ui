@@ -39,7 +39,7 @@ class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps
 }
 
 class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
-  static propTypes = {
+  static propTypes: React.ValidationMap<EllipsedTooltipProps> = {
     component: node.isRequired,
     showTooltip: bool
   };

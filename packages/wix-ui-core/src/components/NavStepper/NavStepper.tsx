@@ -16,7 +16,7 @@ export interface NavStepperProps {
 export class NavStepper extends React.PureComponent<NavStepperProps> {
     public static Step: React.ComponentClass<ExternalNavStepProps> = NavStep as any;
 
-    static propTypes = {
+    static propTypes: React.ValidationMap<NavStepperProps & {children: any}> = {
         activeStep: nonNegativeInteger,
         children: childrenOfType(NavStep)
     }

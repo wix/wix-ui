@@ -121,7 +121,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     inputRef;
     inputWithOptionsRef;
 
-    static propTypes = {
+    static propTypes: React.ValidationMap<AddressInputProps> = {
         /** Maps client, should implement autocomplete, geocode and placeDetails methods */
         Client: func.isRequired,
         /** Handler for when an option is selected */

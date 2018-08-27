@@ -17,7 +17,7 @@ export interface TickersProps {
 }
 
 export class Tickers extends React.PureComponent<TickersProps> {
-  static propTypes = {
+  static propTypes: React.ValidationMap<TickersProps> = {
     className: string,
     /** set buttons as disabled */
     disabled: bool,
