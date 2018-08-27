@@ -98,6 +98,10 @@ export class GoogleMapsClientStub implements MapsClient {
         return new Promise<PlaceDetails>((resolve, reject) => setTimeout(() => resolve(placeDetails), delay));
     }
 
+    useClientId() {
+
+    }
+
     static setAddresses(addresses: Array<Address>, addressesDelay: number = 0) {
         GoogleMapsClientStub.addresses = addresses;
         GoogleMapsClientStub.addressesDelay = addressesDelay;

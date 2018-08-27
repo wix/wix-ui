@@ -26,7 +26,9 @@ export interface AddressInputProps {
     /** Handler for when an option is selected */
     onSelect: (raw: AddressOutput) => void;
     /** Maps API key */
-    apiKey: string;
+    apiKey?: string;
+    /** Maps client ID */
+    clientId?: string;
     /** Maps language */
     lang: string;
     /** Address handler - geocode or places */
@@ -127,7 +129,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Handler for when an option is selected */
         onSelect: func.isRequired,
         /** Maps API key */
-        apiKey: string.isRequired,
+        apiKey: string,
+        /** Maps client ID */
+        clientId: string,
         /** Maps language */
         lang: string.isRequired,
         /** Address handler - geocode or places */
@@ -212,6 +216,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     componentDidMount() {
         this.client = new this.props.Client();
+        if (this.props.clientId) {
+            this.client.useClientId();
+        }
     }
 
     componentWillUnmount() {
@@ -236,12 +243,16 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.inputWithOptionsRef.close();
     }
 
+    _getKey() {
+        return this.props.clientId || this.props.apiKey;
+    }
+
     async _getAddressOptions(input: string) {
         const requestId = ++this.addressRequestId;
         let resolveCurrentAddressRequest;
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
-        const {apiKey, lang, filterTypes, locationIcon} = this.props;
-        const results = await this.client.autocomplete(apiKey, lang, createAutocompleteRequest(input, this.props));
+        const {lang, filterTypes} = this.props;
+        const results = await this.client.autocomplete(this._getKey(), lang, createAutocompleteRequest(input, this.props));
         const filteredResults = filterAddressesByType(results, filterTypes);
         const options = map(filteredResults, this._createOptionFromAddress);
 
@@ -252,9 +263,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async _getGeocode(placeId: string | number, description: string, rawInputValue: string) {
         const requestId = ++this.geocodeRequestId;
-        const {apiKey, lang, countryCode: region} = this.props;
+        const {lang, countryCode: region} = this.props;
         const request = placeId ? {placeId, region} : {address: rawInputValue};
-        const geocode = await this.client.geocode(apiKey, lang, request);
+        const geocode = await this.client.geocode(this._getKey(), lang, request);
 
         if (requestId === this.geocodeRequestId) {
             this.props.onSelect(formatAddressOutput(first(geocode), description, rawInputValue));
@@ -263,8 +274,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async _getPlaceDetails(placeId: string | number, description: string, rawInputValue: string) {
         const requestId = ++this.placeDetailsRequestId;
-        const {apiKey, lang} = this.props;
-        const placeDetails = await this.client.placeDetails(apiKey, lang, {placeId});
+        const {lang} = this.props;
+        const placeDetails = await this.client.placeDetails(this._getKey(), lang, {placeId});
 
         if (requestId === this.placeDetailsRequestId) {
             this.props.onSelect(formatAddressOutput(placeDetails, description, rawInputValue));

@@ -80,6 +80,7 @@ export interface MapsClient {
     autocomplete: (apiKey: string, lang: string, request: any) => Promise<Array<Address>>;
     geocode: (apiKey: string, lang: string, request: any) => Promise<Array<Geocode>>;
     placeDetails: (apiKey: string, lang: string, request: any) => Promise<PlaceDetails>;
+    useClientId: () => void
 }
 
 export enum Handler {
