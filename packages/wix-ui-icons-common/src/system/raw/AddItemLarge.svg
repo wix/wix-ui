@@ -1,3 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="63" height="63">
+<svg width="63" height="63" viewBox="0 0 63 63" 
+    xmlns="http://www.w3.org/2000/svg">
     <path d="M31 31V0h1v31h31v1H32v31h-1V32H0v-1z"/>
 </svg>
