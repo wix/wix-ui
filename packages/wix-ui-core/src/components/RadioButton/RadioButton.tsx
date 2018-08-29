@@ -74,7 +74,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
         onChange={this.handleInputChange} 
         onClick={this.handleClick}
         role="radio" 
-        aria-checked={checked}
+        aria-checked={checked ? checked : false}
       >
         <input 
           type="radio"

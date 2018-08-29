@@ -31,12 +31,6 @@ describe('Pagination', () => {
       expect(p.root.tagName).toEqual('NAV');
     });
 
-    it('has role=navigation', async () => {
-      const p = await render(<Pagination totalPages={5} />);
-
-      expect(p.root.getAttribute('role')).toEqual('navigation');
-    });
-
     it('has aria-label', async () => {
       const p = await render(<Pagination totalPages={5} />);
 
