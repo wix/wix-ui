@@ -30,7 +30,7 @@ export interface AddressInputProps {
     /** Maps client ID */
     clientId?: string;
     /** Maps language */
-    lang: string;
+    lang?: string;
     /** Address handler - geocode or places */
     handler?: Handler;
     /** Limit addresses to certain country */
@@ -133,7 +133,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Maps client ID */
         clientId: string,
         /** Maps language */
-        lang: string.isRequired,
+        lang: string,
         /** Address handler - geocode or places */
         handler: oneOf([Handler.geocode, Handler.places]),
         /** Limit addresses to certain country */
@@ -186,7 +186,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     static defaultProps = {
         handler: Handler.geocode,
-        throttleInterval: 150
+        throttleInterval: 150,
+        lang: 'en'
     };
 
     client: MapsClient;
