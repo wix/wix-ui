@@ -3,6 +3,7 @@ import * as flushPromises from 'flush-promises';
 
 const LANG = 'en';
 const CLIENT_ID = 'client-id';
+const EXPECTED_URL = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
 
 describe('GoogleMapsBasicClient', () => {
   const appendChildSpy = jest
@@ -60,8 +61,7 @@ describe('GoogleMapsBasicClient', () => {
       client.loadScript(CLIENT_ID, LANG);
 
       const firstCall = appendChildSpy.mock.calls[0][0];
-      const expected = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
-      expect(firstCall.src.indexOf(expected)).not.toBe(-1);
+      expect(firstCall.src.indexOf(EXPECTED_URL)).not.toBe(-1);
     });
 
     it('should not append google maps api script tag in cased it is already loaded', () => {
@@ -93,7 +93,7 @@ describe('GoogleMapsBasicClient', () => {
     it('should instantiate inner objects if google maps api is already loaded (only once)', () => {
       const client = new GoogleMapsBasicClient();
       const { mock } = setUpGoogleMapsMock();
-      
+
       client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
       expect(mock.maps.places.AutocompleteService).toHaveBeenCalled();
       expect(mock.maps.Geocoder).toHaveBeenCalled();
@@ -101,6 +101,13 @@ describe('GoogleMapsBasicClient', () => {
       client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
       expect(mock.maps.places.AutocompleteService).toHaveBeenCalledTimes(1);
       expect(mock.maps.Geocoder).toHaveBeenCalledTimes(1);
+    });
+
+    it('should append script tag only once', () => {
+      const client = new GoogleMapsBasicClient();
+      client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
+      client.autocomplete(CLIENT_ID, LANG, 'tel aviv yafo');
+      expect(appendChildSpy).toHaveBeenCalledTimes(1);
     });
   });
 

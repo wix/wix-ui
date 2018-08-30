@@ -28,6 +28,7 @@ const serializeResult = results =>
 export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
   _autocomplete;
   _geocoder;
+  _loadScriptPromise;
 
   _initServices() {
     if (!this._autocomplete) {
@@ -40,6 +41,10 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
   }
 
   loadScript(clientId, lang) {
+    if (this._loadScriptPromise) {
+        return this._loadScriptPromise;
+    }
+
     if ((window as any).google && (window as any).google.maps) {
       this._initServices();
       return;
@@ -55,6 +60,8 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
     const script = document.createElement('script');
     script.src = `//maps.googleapis.com/maps/api/js?libraries=places&client=${clientId}&callback=initMap&language=${lang}`;
     document.body.appendChild(script);
+
+    this._loadScriptPromise = promise;
 
     return promise;
   }
