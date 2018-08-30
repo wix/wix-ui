@@ -699,30 +699,32 @@ describe('AddressInput', () => {
                 this.state = {value: ''};
             }
 
-            handleOnSelect = (e) => {
+            handleOnSelect = e => {
                 const {address} = e;
                 this.setState({value: address.formatted});
                 this.props.onSelect && this.props.onSelect(e);
             };
 
             render() {
-                return (<div>
-                    <AddressInput
-                        value={this.state.value}
-                        Client={GoogleMapsClientStub}
-                        onSelect={this.handleOnSelect}
-                        apiKey="a"
-                        lang="en"
-                        data-hook="address-input"
-                    />
-                </div>);
+                return (
+                    <div>
+                        <AddressInput
+                            value={this.state.value}
+                            Client={GoogleMapsClientStub}
+                            onSelect={this.handleOnSelect}
+                            apiKey="a"
+                            lang="en"
+                            data-hook="address-input"
+                        />
+                    </div>
+                );
             }
         }
 
-        const container = new ReactDOMTestContainer().unmountAfterEachTest();
-        const onSelectSpy = jest.fn();
+        const reactContainer = new ReactDOMTestContainer().unmountAfterEachTest();
+        const onSelectWrapperSpy = jest.fn();
         beforeEach(() => {
-            onSelectSpy.mockReset();
+            onSelectWrapperSpy.mockReset();
         });
 
         describe('Controlled component behavior', () => {
@@ -730,17 +732,17 @@ describe('AddressInput', () => {
                 GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
                 GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 
-                await container.render(<Wrapper onSelect={onSelectSpy}/>);
-                const driver = new AddressInputPrivateDriver(container.node);
-                driver.type('n');
-                await driver.waitForContentElement();
-                driver.selectOption(0);
-                await driver.waitForValue(helper.ADDRESS_1.description);
-                driver.type('n');
-                await driver.waitForContentElement();
-                driver.selectOption(0);
-                await driver.waitForValue(helper.ADDRESS_1.description);
-                expect(onSelectSpy).toHaveBeenCalledTimes(2);
+                await reactContainer.render(<Wrapper onSelect={onSelectWrapperSpy}/>);
+                const privateDriver = new AddressInputPrivateDriver(reactContainer.node);
+                privateDriver.type('n');
+                await privateDriver.waitForContentElement();
+                privateDriver.selectOption(0);
+                await privateDriver.waitForValue(helper.ADDRESS_1.description);
+                privateDriver.type('n');
+                await privateDriver.waitForContentElement();
+                privateDriver.selectOption(0);
+                await privateDriver.waitForValue(helper.ADDRESS_1.description);
+                expect(onSelectWrapperSpy).toHaveBeenCalledTimes(2);
             });
         });
     });
