@@ -29,16 +29,26 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
   _autocomplete;
   _geocoder;
 
+  _initServices() {
+    if (!this._autocomplete) {
+      this._autocomplete = new (window as any).google.maps.places.AutocompleteService();
+    }
+
+    if (!this._geocoder) {
+      this._geocoder = new (window as any).google.maps.Geocoder();
+    }
+  }
+
   loadScript(clientId, lang) {
     if ((window as any).google && (window as any).google.maps) {
+      this._initServices();
       return;
     }
 
     const { promise, resolve } = defer();
 
     (window as any).initMap = () => {
-      this._autocomplete = new (window as any).google.maps.places.AutocompleteService();
-      this._geocoder = new (window as any).google.maps.Geocoder();
+      this._initServices();
       resolve();
     };
 

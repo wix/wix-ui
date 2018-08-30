@@ -89,6 +89,20 @@ describe('GoogleMapsBasicClient', () => {
       expect(mock.maps.places.AutocompleteService).toHaveBeenCalled();
       expect(mock.maps.Geocoder).toHaveBeenCalled();
     });
+
+    it('should instantiate inner objects if google maps api is already loaded (only once)', () => {
+      const client = new GoogleMapsBasicClient();
+      const { mock } = setUpGoogleMapsMock();
+      client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
+
+      expect(mock.maps.places.AutocompleteService).toHaveBeenCalled();
+      expect(mock.maps.Geocoder).toHaveBeenCalled();
+
+        client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
+
+        expect(mock.maps.places.AutocompleteService).toHaveBeenCalledTimes(1);
+        expect(mock.maps.Geocoder).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('Functionality', () => {
