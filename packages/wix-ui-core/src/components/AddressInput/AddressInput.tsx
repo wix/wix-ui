@@ -288,8 +288,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     _invokeOnSelect(value) {
         if (!this.unmounted) {
             this.setState({isDirty: true});
+            this.props.onSelect(value);
         }
-        this.props.onSelect(value);
     }
 
     _onSelect(option: Option|null) {
