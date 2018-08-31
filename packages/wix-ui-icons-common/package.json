@@ -22,7 +22,7 @@
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index && build-storybook",
     "test": "yoshi test --protractor",
     "start": "npm run buildIcons && yoshi start --no-test & npm run storybook",
-    "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
+    "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 && teamcity-surge-autorelease",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
     "buildGeneralIcons": "svg2react-icon --typescript --monochrome src/general/raw src/general/dist",
     "buildSystemIcons": "svg2react-icon --typescript --monochrome  src/system/raw src/system/dist",
