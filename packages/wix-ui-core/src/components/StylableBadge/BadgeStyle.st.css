@@ -1,30 +1,27 @@
 :import {
     -st-from: "./Badge.st.css";
     -st-default: Badge;
-  }
-  
+}
+
+:import {
+    -st-from: "./BadgeStyleMixins.st.css";
+    -st-named: BadgeLayoutStyle, BadgeColorStyle;
+}
+
 :vars {
     backgroundColor: grey;
     borderColor: grey;
     color: white;
+    padding: 5px 12px;
 }
 
 .root {
     -st-extends: Badge;
-    height: 24px;
-    padding: 4px 12px;
-    
-    border: 1px solid;
-    border-radius: 2px;
-    border-color: value(borderColor);
-    color: value(color);
-    
-    background: value(backgroundColor);
-    
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-
-    line-height: 1;
+    -st-mixin:
+            BadgeColorStyle(
+                    borderColor value(borderColor),
+                    backgroundColor value(backgroundColor),
+                    color value(color)
+            ),
+            BadgeLayoutStyle(padding value(padding), uppercase value(uc));
 }
