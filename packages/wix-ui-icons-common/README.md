@@ -27,9 +27,10 @@ import SomeSystemIcon from 'wix-ui-icons-common/system/SomeSystemIcon';
 Before adding a new icon, please consult with your relevant UX. Not from Wix? Please open a [github issue](https://github.com/wix/wix-ui/issues/new) and we'll be happy to help
 
 ### Guidelines
-* SVG icons will be transformed into their monochrome version and be stripped from redundant data.
-* As Icons should be as lean as possbile, make sure you remove all `id`s, `def`s, `mask`s. They should contain only `path`s and `shape`s.
-* `transform`, `mirror`, `border thickness` and other similar attributes should be removed as well
+* SVG icons will be transformed into their monochrome version and be stripped from redundant data they should be as lean as possible and should contain only `path`s and `shape`s.
+* Make sure to remove `def`, `mask` `stroke`, `fill`, `transform`, `mirror`, `border thickness` and any other similar attributes that doesn't make the component flat.
+* the `id` attribute should be removed as well.
 * Make sure SVGs are correctly exported from Illustrator/Sketch/Figma, meaning they should merge all layers into one, and apply the masks, which will result in an SVG with a single path.
 * Use a descriptive name since it'll be used as the React component name.
+* If the icon has multiple variations (small, large, outlined, filled), specify the variation at the end of the file name, e.g. `FormFieldErrorSmall.svg`.
 * Add the new SVG file to the `src/general/raw` or `src/system/raw` folder according to its purpose of usage (internal or external)
