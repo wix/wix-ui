@@ -1,0 +1,16 @@
+.BadgeColorStyle {
+	border-color: value(borderColor);
+	color: value(color);
+	background: value(backgroundColor);
+}
+
+.BadgeLayoutStyle {
+	padding: value(padding);
+	border: 1px solid;
+	border-radius: 2px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	line-height: 1;
+}
