@@ -23,5 +23,5 @@
                     backgroundColor value(backgroundColor),
                     color value(color)
             ),
-            BadgeLayoutStyle(padding value(padding), uppercase value(uc));
+            BadgeLayoutStyle(padding value(padding);
 }
