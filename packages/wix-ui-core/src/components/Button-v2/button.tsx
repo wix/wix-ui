@@ -29,39 +29,25 @@ export class Button extends React.Component<ButtonProps> {
     error: bool
   };
 
-  addPrefix = prefixIcon =>
-    prefixIcon &&
-    React.cloneElement(prefixIcon, {
-      className: style.prefix,
-      "data-hook": "prefix"
-    });
+  addPrefix = () =>
+    this.props.prefixIcon &&
+    React.cloneElement(this.props.prefixIcon, { className: style.prefix });
 
-  addSuffix = suffixIcon =>
-    suffixIcon &&
-    React.cloneElement(suffixIcon, {
-      className: style.suffix,
-      "data-hook": "suffix"
-    });
+  addSuffix = () =>
+    this.props.suffixIcon &&
+    React.cloneElement(this.props.suffixIcon, { className: style.suffix });
 
   render() {
-    const {
-      suffixIcon,
-      prefixIcon,
-      children,
-      onClick,
-      disabled,
-      error,
-      ...rest
-    } = this.props;
+    const { children, onClick, disabled, error, ...rest } = this.props;
     return (
       <button
         {...rest}
         onClick={disabled ? null : onClick}
         {...style("root", { error }, this.props)}
       >
-        {this.addPrefix(prefixIcon)}
+        {this.addPrefix()}
         <span className={style.content}>{children}</span>
-        {this.addSuffix(suffixIcon)}
+        {this.addSuffix()}
       </button>
     );
   }
