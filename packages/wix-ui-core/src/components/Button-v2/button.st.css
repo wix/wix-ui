@@ -1,0 +1,12 @@
+@namespace "core-button";
+
+.root {
+  -st-states: error;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.root:disabled {
+  cursor: default;
+}
