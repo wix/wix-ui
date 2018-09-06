@@ -1,5 +1,4 @@
 import {
-  BaseDriver,
   ComponentFactory,
   DriverFactory
 } from "wix-ui-test-utils/driver-factory";
