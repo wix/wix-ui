@@ -1,4 +1,4 @@
-import Button from "./buttonv2/buttonv2.st.css";
+import Button from "./buttonv2/base-buttonv2.st.css";
 import TextButton from "./button/text-button.st.css";
 import IconButton from "./button/icon-button.st.css";
 import BOTheme from "./theme.st.css";
