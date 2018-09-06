@@ -1,0 +1,60 @@
+:import {
+  -st-from: "../theme.st.css";
+  -st-default: BOTheme;
+}
+
+:import {
+  -st-from: "./buttonv2.st.css";
+  -st-named: iconButton, success, premium;
+}
+
+BOTheme .iconButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  padding: 0;
+
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  border: 1px solid;
+  outline: none;
+  transition: all 100ms linear;
+
+  background-color: #3899ec;
+  border-color: #3899ec;
+  color: white;
+}
+
+BOTheme .iconButton::content {
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+}
+
+BOTheme .iconButton:hover {
+  background-color: rgb(78, 183, 245);
+  border-color: rgb(78, 183, 245);
+}
+
+BOTheme .success.iconButton {
+  background-color: #60bc57;
+  border-color: #60bc57;
+  color: white;
+}
+
+BOTheme .success.iconButton:hover {
+  background-color: #80c979;
+  border-color: #80c979;
+}
+
+BOTheme .premium.iconButton {
+  background-color: #aa4dc8;
+  border-color: #aa4dc8;
+  color: white;
+}
+
+BOTheme .premium.iconButton:hover {
+  background-color: #cd68ed;
+  border-color: #cd68ed;
+}

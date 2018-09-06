@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import { buttonDriverFactory } from "./button.driver";
-import { buttonPrivateDriverFactory } from "./button.driver.private";
-import { Button } from "./";
+import { buttonDriverFactory } from "./buttonv2.driver";
+import { buttonPrivateDriverFactory } from "./buttonv2.driver.private";
+import { ButtonV2 } from "./";
 
 describe("Button", () => {
   const createDriver = new ReactDOMTestContainer()
@@ -16,7 +16,7 @@ describe("Button", () => {
   describe("onClick prop", () => {
     it("should be called on click", () => {
       const onClick = jest.fn();
-      const driver = createDriver(<Button onClick={onClick} />);
+      const driver = createDriver(<ButtonV2 onClick={onClick} />);
       driver.click();
       expect(onClick).toBeCalled();
     });
@@ -26,13 +26,13 @@ describe("Button", () => {
     const suffix = <div>suffix</div>;
     const prefix = <div>prefix</div>;
     it("should render suffix when given", () => {
-      const driver = createPrivateDriver(<Button suffixIcon={suffix} />);
+      const driver = createPrivateDriver(<ButtonV2 suffixIcon={suffix} />);
       expect(driver.suffixExists()).toBeTruthy();
       expect(driver.prefixExists()).toBeFalsy();
     });
 
     it("should render prefix when given", () => {
-      const driver = createPrivateDriver(<Button prefixIcon={prefix} />);
+      const driver = createPrivateDriver(<ButtonV2 prefixIcon={prefix} />);
       expect(driver.prefixExists()).toBeTruthy();
       expect(driver.suffixExists()).toBeFalsy();
     });

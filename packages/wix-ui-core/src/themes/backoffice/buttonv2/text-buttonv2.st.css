@@ -1,0 +1,69 @@
+:import {
+  -st-from: "../theme.st.css";
+  -st-default: BOTheme;
+}
+
+:import {
+  -st-from: "./buttonv2.st.css";
+  -st-named: textButton, success, premium, small, large;
+}
+
+BOTheme .textButton {
+  color: rgb(56, 153, 236);
+  background: transparent;
+  border: none;
+
+  font-size: 16px;
+}
+
+BOTheme .textButton:hover {
+  background: transparent;
+  border: none;
+  color: #4eb7f5;
+}
+
+/* disabled */
+BOTheme .textButton:disabled {
+  color: #cbd3dc;
+  background: transparent;
+  border: none;
+}
+
+/* error */
+BOTheme .textButton:error {
+  color: #ee5951;
+  background: transparent;
+  border: none;
+}
+
+BOTheme .textButton:error:hover {
+  color: #ff6666;
+  background: transparent;
+  border: none;
+}
+
+/* sizes */
+BOTheme .small.textButton {
+  font-size: 12px;
+}
+
+BOTheme .large.textButton {
+  font-size: 20px;
+}
+
+/* skins */
+BOTheme .premium.textButton {
+  color: #aa4dc8;
+}
+
+BOTheme .premium.textButton:hover {
+  color: #cd68ed;
+}
+
+BOTheme .success.textButton {
+  color: #60bc57;
+}
+
+BOTheme .success.textButton:hover {
+  color: #80c979;
+}

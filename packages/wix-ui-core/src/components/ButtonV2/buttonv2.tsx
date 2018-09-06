@@ -1,6 +1,6 @@
 import * as React from "react";
 import { string, node, bool } from "prop-types";
-import style from "./button.st.css";
+import style from "./buttonv2.st.css";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -13,8 +13,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 /**
  * Button
  */
-export class Button extends React.Component<ButtonProps> {
-  static displayName = "Button";
+export class ButtonV2 extends React.Component<ButtonProps> {
+  static displayName = "ButtonV2";
 
   static defaultProps = {
     disabled: false,
