@@ -4,7 +4,7 @@
 }
 
 :import {
-  -st-from: "./buttonv2.st.css";
+  -st-from: "./buttontwo.st.css";
   -st-named: textButton, success, premium, small, large;
 }
 

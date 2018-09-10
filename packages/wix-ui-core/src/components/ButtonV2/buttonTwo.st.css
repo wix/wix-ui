@@ -7,6 +7,12 @@
   cursor: pointer;
 }
 
+.content {}
+
+.prefix {}
+
+.suffix {}
+
 .root:disabled {
   cursor: default;
 }

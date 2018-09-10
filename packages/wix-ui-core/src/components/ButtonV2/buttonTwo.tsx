@@ -1,9 +1,11 @@
 import * as React from "react";
 import { string, node, bool } from "prop-types";
-import style from "./buttonv2.st.css";
+import { BaseProps } from "../../types/BaseProps";
+import style from "./buttonTwo.st.css";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
+export interface ButtonProps
+  extends BaseProps,
+    React.ButtonHTMLAttributes<any> {
   prefixIcon?: React.ReactElement<any>;
   suffixIcon?: React.ReactElement<any>;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
@@ -13,8 +15,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 /**
  * Button
  */
-export class ButtonV2 extends React.Component<ButtonProps> {
-  static displayName = "ButtonV2";
+export class ButtonTwo extends React.Component<ButtonProps> {
+  static displayName = "ButtonTwo";
 
   static defaultProps = {
     disabled: false,
@@ -57,7 +59,7 @@ export class ButtonV2 extends React.Component<ButtonProps> {
       <button
         {...rest}
         onClick={disabled ? null : onClick}
-        {...style("root", { error }, this.props)}
+        {...style("root", { disabled }, this.props)}
       >
         {this.addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>

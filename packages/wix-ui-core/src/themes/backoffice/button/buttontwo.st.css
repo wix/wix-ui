@@ -1,16 +1,17 @@
-@namespace "bo-button";
 
-:import {
-  -st-from: "../../../components/ButtonV2/buttonv2.st.css";
-  -st-default: ButtonV2;
-}
+@namespace "bo-buttontwo";
 
 :import {
   -st-from: "../theme.st.css";
   -st-default: BOTheme;
 }
 
-BOTheme button {
+:import {
+  -st-from: "../../../components/ButtonV2/buttonTwo.st.css";
+  -st-default: Button;
+}
+
+BOTheme Button {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   text-align: center;
@@ -28,37 +29,37 @@ BOTheme button {
   color: white;
 }
 
-BOTheme button:hover {
+BOTheme Button:hover {
   background-color: #4eb7f5;
   border-color: #4eb7f5;
 }
 
 /* affixes */
-BOTheme button :not(:last-child) {
+BOTheme Button :not(:last-child) {
   margin-right: 12px;
 }
 
 /* rtl */
-BOTheme :global([dir="rtl"]) button :not(:last-child),
-:global([dir="rtl"]) BOTheme button :not(:last-child),
-:global([dir="rtl"])BOTheme button :not(:last-child) {
+BOTheme :global([dir="rtl"]) Button :not(:last-child),
+:global([dir="rtl"]) BOTheme Button :not(:last-child),
+:global([dir="rtl"])BOTheme Button :not(:last-child) {
   margin-left: 12px;
   margin-right: 0;
 }
 
 /* disabled */
-BOTheme button:disabled {
+BOTheme Button:disabled {
   background-color: #cbd3dc;
   border-color: #cbd3dc;
 }
 
 /* error */
-BOTheme button:error {
+BOTheme Button:error {
   background-color: #ee5951;
   border-color: #ee5951;
 }
 
-BOTheme button:error:hover {
+BOTheme Button:error:hover {
   background-color: #ff6666;
   border-color: #ff6666;
 }
