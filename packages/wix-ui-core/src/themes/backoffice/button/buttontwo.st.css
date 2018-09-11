@@ -2,6 +2,12 @@
 @namespace "bo-buttontwo";
 
 :import {
+  -st-from: "../../../../src/hocs/Focusable/Focusable.st.css";
+  -st-default: Focusable;
+  -st-named: focus-box;
+}
+
+:import {
   -st-from: "../theme.st.css";
   -st-default: BOTheme;
 }
@@ -18,12 +24,14 @@
   -st-extends: Button;
 }
 
+
 BOTheme Button {
+  -st-extends: Focusable;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   text-align: center;
-  border: 1px solid;
-
+  border: 2px solid;
+  
   outline: none;
   transition: all 100ms linear;
 
@@ -35,6 +43,16 @@ BOTheme Button {
   border-color: #3899ec;
   color: white;
 }
+
+BOTheme Button:focus {
+     -st-mixin: focus-box;
+     border: solid 2px #aadbfc;
+}
+
+BOTheme Button:focus-visible {
+      border: solid 2px #aadbfc;
+}
+
 
 BOTheme Button:hover {
   background-color: #4eb7f5;
