@@ -11,6 +11,13 @@
   -st-default: Button;
 }
 
+.textButton {
+  -st-extends: Button;
+}
+.iconButton {
+  -st-extends: Button;
+}
+
 BOTheme Button {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -62,13 +69,6 @@ BOTheme Button:error {
 BOTheme Button:error:hover {
   background-color: #ff6666;
   border-color: #ff6666;
-}
-
-.textButton {
-  -st-extends: Button;
-}
-.iconButton {
-  -st-extends: Button;
 }
 
 /* sizes */
