@@ -1,6 +1,6 @@
 import { ButtonNext } from "./button-next";
 import Registry from "@ui-autotools/registry";
-import { Icon } from "./mocks/Icon";
+import { Icon } from "./meta-components/Icon";
 
 const buttonMetadata = Registry.getComponentMetadata(ButtonNext);
 
