@@ -17,6 +17,11 @@
   -st-default: Button;
 }
 
+:import {
+    -st-from: '../colors.st.css';
+    -st-named: B10, F00, B20, D55,R10,R20,P10,P20, G10, G20,D80
+}
+
 .textButton {
   -st-extends: Button;
 }
@@ -39,24 +44,24 @@ BOTheme Button {
   border-radius: 18px;
   padding: 0 23px;
 
-  background-color: #3899ec;
-  border-color: #3899ec;
-  color: white;
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
 }
 
 BOTheme Button:focus {
      -st-mixin: focus-box;
-     border: solid 2px #aadbfc;
+     border: solid 2px value(F00);
 }
 
 BOTheme Button:focus-visible {
-      border: solid 2px #aadbfc;
+      border: solid 2px value(F00);
 }
 
 
 BOTheme Button:hover {
-  background-color: #4eb7f5;
-  border-color: #4eb7f5;
+  background-color: value(B20);
+  border-color: value(B20);
 }
 
 /* affixes */
@@ -74,19 +79,19 @@ BOTheme :global([dir="rtl"]) Button :not(:last-child),
 
 /* disabled */
 BOTheme Button:disabled {
-  background-color: #cbd3dc;
-  border-color: #cbd3dc;
+  background-color: value(D55);
+  border-color: value(D55);
 }
 
 /* error */
 BOTheme Button:error {
-  background-color: #ee5951;
-  border-color: #ee5951;
+  background-color: value(R10);
+  border-color: value(R10);
 }
 
 BOTheme Button:error:hover {
-  background-color: #ff6666;
-  border-color: #ff6666;
+  background-color: value(R20);
+  border-color: value(R20);
 }
 
 /* sizes */
@@ -104,23 +109,23 @@ BOTheme .small {
 
 /* skins */
 BOTheme .premium {
-  background-color: #aa4dc8;
-  border-color: #aa4dc8;
-  color: white;
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
 }
 
 BOTheme .premium:hover {
-  background-color: #cd68ed;
-  border-color: #cd68ed;
+  background-color: value(P20);
+  border-color: value(P20);
 }
 
 BOTheme .success {
-  background-color: #60bc57;
-  border-color: #60bc57;
-  color: white;
+  background-color: value(G10);
+  border-color: value(G10);
+  color: value(D80);
 }
 
 BOTheme .success:hover {
-  background-color: #80c979;
-  border-color: #80c979;
+  background-color: value(G20);
+  border-color: value(G20);
 }
