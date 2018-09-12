@@ -1,31 +1,19 @@
+const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
 
-const union = require('lodash/union');
-const StylableWebpackPlugin = require('stylable-webpack-plugin');
-const webpackCommonConfig = require('./webpack.config.common');
-const projectConfig = require('yoshi-config');
+module.exports = (config, env, defaultConfig) => {
+  const newConfig = wixStorybookConfig(defaultConfig);
 
-module.exports = config => {
-  const projectName = projectConfig.name;
-  const cssModules = projectConfig.cssModules;
+  newConfig.module.rules.push({
+    test: /\.story\.[j|t]sx?$/,
+    loader: 'wix-storybook-utils/loader',
+    options: {
+      storyConfig: {
+        moduleName: 'wix-ui-core',
+        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/',
+        importFormat: "import {%componentName} from '%moduleName/%componentName'"
+      }
+    }
+  });
 
-  config.resolve.extensions = union(
-    config.resolve.extensions,
-    webpackCommonConfig.resolve.extensions,
-  );
-
-  config.module.rules = [
-    ...webpackCommonConfig.module.rules,
-    ...require('../src/loaders/sass')({
-      separateCss: false,
-      cssModules,
-      tpaStyle: false,
-      projectName,
-      hmr: false,
-      min: false,
-    }).client,
-  ];
-
-  config.plugins = [...(config.plugins || []), new StylableWebpackPlugin()];
-
-  return config;
+  return newConfig;
 };
