@@ -1,7 +1,7 @@
 @namespace "core-button";
 
 .root {
-  -st-states: error, disable;
+  -st-states: error, disabled;
   display: inline-flex;
   align-items: center;
   cursor: pointer;

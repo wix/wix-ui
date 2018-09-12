@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import { buttonDriverFactory } from "./buttonTwo.driver";
 import { buttonPrivateDriverFactory } from "./buttonTwo.driver.private";
-import { ButtonTwo } from "./";
+import ButtonTwo from "./buttonTwo";
 
 describe("ButtonTwo", () => {
   const createDriver = new ReactDOMTestContainer()

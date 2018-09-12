@@ -1,7 +1,7 @@
-import { ButtonTwo } from "./buttonTwo";
+import ButtonTwo from "./buttonTwo";
 import Registry from "@ui-autotools/registry";
-import { boTheme } from "../../themes/backoffice";
-import { Icon } from "./components/Icon";
+import { backOfficeTheme } from "../../themes/backoffice";
+import { Icon } from "./mocks/Icon";
 
 const buttonMetadata = Registry.getComponentMetadata(ButtonTwo);
 
@@ -37,7 +37,7 @@ buttonMetadata.exportedFrom({
 });
 
 // Themes can be registered like so:
-buttonMetadata.addStyle(boTheme, {
+buttonMetadata.addStyle(backOfficeTheme, {
   name: "boTheme",
   path: "../../themes/backoffice/theme.st.css"
 });

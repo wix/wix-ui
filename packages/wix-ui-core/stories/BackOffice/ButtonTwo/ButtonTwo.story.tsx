@@ -3,7 +3,7 @@ import { Sizes, Skins, Misq } from "./Examples/Examples";
 
 export default {
   category: "BackOffice",
-  storyName: "Buttons",
+  storyName: "ButtonTwo",
   component: ButtonTwo,
   componentPath: "../../../src/components/ButtonV2/buttonTwo.tsx",
 

@@ -18,7 +18,7 @@ export interface ButtonProps
   error?: boolean;
 }
 /**
- * Button
+ * ButtonTwo
  */
 export class ButtonTwo extends React.Component<ButtonProps> {
   static displayName = "ButtonTwo";
@@ -31,9 +31,9 @@ export class ButtonTwo extends React.Component<ButtonProps> {
   static propTypes = {
     className: string,
     disabled: bool,
+    error: bool,
     prefixIcon: node,
-    suffixIcon: node,
-    error: bool
+    suffixIcon: node
   };
 
   addPrefix = prefixIcon =>
@@ -76,6 +76,4 @@ export class ButtonTwo extends React.Component<ButtonProps> {
   }
 }
 
-const FocusableButtonTwo = withFocusable(ButtonTwo);
-
-export default () => <FocusableButtonTwo />;
+export default withFocusable(ButtonTwo);
