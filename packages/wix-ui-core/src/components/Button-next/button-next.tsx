@@ -1,7 +1,7 @@
 import * as React from "react";
 import { string, node, bool } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
-import style from "./button-v2.st.css";
+import style from "./button-next.st.css";
 
 export interface ButtonProps
   extends BaseProps,
@@ -15,8 +15,8 @@ export interface ButtonProps
 /**
  * ButtonTwo
  */
-export class ButtonV2 extends React.Component<ButtonProps> {
-  static displayName = "ButtonV2";
+export class ButtonNext extends React.Component<ButtonProps> {
+  static displayName = "ButtonNext";
 
   static defaultProps = {
     disabled: false,

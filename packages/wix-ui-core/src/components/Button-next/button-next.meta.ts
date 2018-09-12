@@ -1,8 +1,8 @@
-import { ButtonV2 } from "./button-v2";
+import { ButtonNext } from "./button-next";
 import Registry from "@ui-autotools/registry";
 import { Icon } from "./mocks/Icon";
 
-const buttonMetadata = Registry.getComponentMetadata(ButtonV2);
+const buttonMetadata = Registry.getComponentMetadata(ButtonNext);
 
 buttonMetadata.addSim({
   title: "Simulation with suffix icon",
