@@ -12,6 +12,8 @@ export interface ButtonProps
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
   focusableOnFocus: any;
   focusableOnBlur: any;
+  focusableIsFocusVisible: boolean;
+  focusableIsFocused: boolean;
   disabled?: boolean;
   error?: boolean;
 }
@@ -64,7 +66,7 @@ export class ButtonTwo extends React.Component<ButtonProps> {
         onFocus={rest.focusableOnFocus}
         onBlur={rest.focusableOnBlur}
         onClick={disabled ? null : onClick}
-        {...style("root", { disabled }, this.props)}
+        {...style("root", { disabled, error }, this.props)}
       >
         {this.addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>

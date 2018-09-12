@@ -4,7 +4,7 @@ import { ButtonTwo } from "../../../../src/components/ButtonV2";
 import { button, backOfficeTheme } from "../../../../src/themes/backoffice";
 
 export const Sizes = (
-  <CodeExample>
+  <CodeExample title="Size">
     <div className={backOfficeTheme}>
       <ButtonTwo className={button.small}>small</ButtonTwo>
       <ButtonTwo className={button.medium}>medium</ButtonTwo>
@@ -27,7 +27,7 @@ export const Misq = (
   <CodeExample title="Misq">
     <div className={backOfficeTheme}>
       <ButtonTwo className={button.disable}>Disable</ButtonTwo>
-      <ButtonTwo className={button.error}>Error</ButtonTwo>
+      <ButtonTwo error>Error</ButtonTwo>
     </div>
   </CodeExample>
 );
