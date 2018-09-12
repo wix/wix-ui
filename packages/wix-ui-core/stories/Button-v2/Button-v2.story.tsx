@@ -1,10 +1,10 @@
-import { ButtonTwo } from "../../src/components/ButtonV2/";
+import { ButtonV2 } from "../../src/components/Button-v2/";
 
 export default {
   category: "Components",
-  storyName: "ButtonTwo",
-  component: ButtonTwo,
-  componentPath: "../../src/components/ButtonV2/buttonTwo.tsx",
+  storyName: "ButtonV2",
+  component: ButtonV2,
+  componentPath: "../../src/components/Button-v2/button-v2.tsx",
 
   componentProps: {
     disabled: false,

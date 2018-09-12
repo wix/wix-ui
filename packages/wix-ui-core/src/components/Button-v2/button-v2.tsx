@@ -1,8 +1,7 @@
 import * as React from "react";
 import { string, node, bool } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
-import { withFocusable } from "../../hocs/Focusable";
-import style from "./buttonTwo.st.css";
+import style from "./button-v2.st.css";
 
 export interface ButtonProps
   extends BaseProps,
@@ -10,18 +9,14 @@ export interface ButtonProps
   prefixIcon?: React.ReactElement<any>;
   suffixIcon?: React.ReactElement<any>;
   onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
-  focusableOnFocus: any;
-  focusableOnBlur: any;
-  focusableIsFocusVisible: boolean;
-  focusableIsFocused: boolean;
   disabled?: boolean;
   error?: boolean;
 }
 /**
  * ButtonTwo
  */
-export class ButtonTwo extends React.Component<ButtonProps> {
-  static displayName = "ButtonTwo";
+export class ButtonV2 extends React.Component<ButtonProps> {
+  static displayName = "ButtonV2";
 
   static defaultProps = {
     disabled: false,
@@ -63,8 +58,6 @@ export class ButtonTwo extends React.Component<ButtonProps> {
     return (
       <button
         {...rest}
-        onFocus={rest.focusableOnFocus}
-        onBlur={rest.focusableOnBlur}
         onClick={disabled ? null : onClick}
         {...style("root", { disabled, error }, this.props)}
       >
@@ -76,4 +69,3 @@ export class ButtonTwo extends React.Component<ButtonProps> {
   }
 }
 
-export default withFocusable(ButtonTwo);
