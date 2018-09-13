@@ -1,13 +1,10 @@
-const log = (...msgs) => a => {
-  console.log(...msgs, a);
-  return a;
-};
 import * as React from 'react';
 import Downshift from 'downshift';
 import Popper from 'popper.js';
 const get = require('lodash/get');
 
 import style from './Select.st.css';
+import {Menu} from './Menu';
 
 export interface SelectProps {
   toggle?: Function;
@@ -55,28 +52,33 @@ export class Select extends React.PureComponent<SelectProps> {
 
         <div ref={ref => (this.menuRef = ref)} className={style.menu}>
           <div {...downshift.getMenuProps()}>
-            {downshift.isOpen &&
-              filteredChildren.map((child, key) => {
-                const childProps = (child as React.ReactElement<any>).props;
+            {downshift.isOpen && (
+              <Menu>
+                {filteredChildren.map((child, key) => {
+                  const childProps = (child as React.ReactElement<any>).props;
 
-                return React.cloneElement(
-                  child as React.ReactElement<any>,
-                  downshift.getItemProps({
-                    item: childProps,
-                    disabled: childProps.disabled,
-                    style: {
-                      backgroundColor:
-                        downshift.highlightedIndex === key ? 'lightgray' : null,
+                  return React.cloneElement(
+                    child as React.ReactElement<any>,
+                    downshift.getItemProps({
+                      item: childProps,
+                      disabled: childProps.disabled,
+                      style: {
+                        backgroundColor:
+                          downshift.highlightedIndex === key
+                            ? 'lightgray'
+                            : null,
 
-                      fontWeight:
-                        get(downshift, 'selectedItem.children', '') ===
-                        childProps.children
-                          ? 'bold'
-                          : 'normal'
-                    }
-                  })
-                );
-              })}
+                        fontWeight:
+                          get(downshift, 'selectedItem.children', '') ===
+                          childProps.children
+                            ? 'bold'
+                            : 'normal'
+                      }
+                    })
+                  );
+                })}
+              </Menu>
+            )}
           </div>
         </div>
       </div>
