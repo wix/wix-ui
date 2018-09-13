@@ -8,12 +8,10 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<any> {
   prefixIcon?: React.ReactElement<any>;
   suffixIcon?: React.ReactElement<any>;
-  onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
-  disabled?: boolean;
   error?: boolean;
 }
 /**
- * ButtonTwo
+ * ButtonNext
  */
 export class ButtonNext extends React.Component<ButtonProps> {
   static displayName = "ButtonNext";
@@ -21,7 +19,7 @@ export class ButtonNext extends React.Component<ButtonProps> {
   static defaultProps = {
     disabled: false,
     error: false,
-    type: 'button'
+    type: "button"
   };
 
   static propTypes = {
@@ -30,8 +28,7 @@ export class ButtonNext extends React.Component<ButtonProps> {
     error: bool,
     prefixIcon: node,
     suffixIcon: node,
-      /** Type of the button - submit / button / reset */
-    type: oneOf(['submit', 'button', 'reset']),
+    type: oneOf(["submit", "button", "reset"])
   };
 
   addPrefix = prefixIcon =>
@@ -73,4 +70,3 @@ export class ButtonNext extends React.Component<ButtonProps> {
     );
   }
 }
-

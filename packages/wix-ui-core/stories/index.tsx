@@ -17,7 +17,7 @@ import "./AddressInput/index.story";
 import "./AddressInput/E2E";
 import "./Autocomplete.story";
 import "./Button.story";
-import "./Button-next/Button-next.story";
+import "./button-next/button-next.story";
 Components.add("Checkbox", () => <CheckboxStory />);
 import "./CircularProgressBar/index.story";
 Components.add("Divider", () => <DividerStory />);

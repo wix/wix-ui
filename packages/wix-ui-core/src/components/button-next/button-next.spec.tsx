@@ -1,13 +1,16 @@
 import * as React from "react";
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import { buttonDriverFactory } from "./button-next.driver";
+import { buttonNextDriverFactory } from "./button-next.driver";
 import { buttonPrivateDriverFactory } from "./button-next.driver.private";
+import { buttonNextTestkitFactory } from "../../testkit";
+import { buttonNextTestkitFactory as enzymeButtonNextTestkitFactory } from "../../testkit/enzyme";
+import { runTestkitExistsSuite } from "../../common/testkitTests";
 import { ButtonNext } from "./";
 
 describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
-    .createLegacyRenderer(buttonDriverFactory);
+    .createLegacyRenderer(buttonNextDriverFactory);
 
   const createPrivateDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
@@ -19,6 +22,13 @@ describe("ButtonNext", () => {
       const driver = createDriver(<ButtonNext onClick={onClick} />);
       driver.click();
       expect(onClick).toBeCalled();
+    });
+
+    it(`should not call onClick when 'disabled'`, () => {
+      const onClick = jest.fn();
+      const driver = createDriver(<ButtonNext onClick={onClick} disabled />);
+      driver.click();
+      expect(onClick).not.toBeCalled();
     });
   });
 
@@ -36,5 +46,19 @@ describe("ButtonNext", () => {
       expect(driver.prefixExists()).toBeTruthy();
       expect(driver.suffixExists()).toBeFalsy();
     });
+  });
+
+  describe(`'children' prop`, () => {
+    it("should render text", () => {
+      const text = "button";
+      const driver = createDriver(<ButtonNext children={text} />);
+      expect(driver.getTextContent()).toBe(text);
+    });
+  });
+
+  runTestkitExistsSuite({
+    Element: <ButtonNext />,
+    testkitFactory: buttonNextTestkitFactory,
+    enzymeTestkitFactory: enzymeButtonNextTestkitFactory
   });
 });
