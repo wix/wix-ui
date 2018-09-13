@@ -22,7 +22,7 @@ import {oneOf, oneOfType, any, Requireable, string, bool, func, number, shape, o
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
-if (isTestEnv) {
+if (isTestEnv && typeof document !== 'undefined') {
   if (!document.createRange) {
     document.createRange = () => ({
       setStart: () => null,
