@@ -1,5 +1,14 @@
 .root {
-  -st-states: disabled, selected;
+  -st-states: disabled, highlighted, selected;
+  cursor: pointer;
+}
+
+.root:hover {
+  background: lightgrey 
+}
+
+.root:highlighted {
+  background: darkgrey;
 }
 
 .root:disabled {

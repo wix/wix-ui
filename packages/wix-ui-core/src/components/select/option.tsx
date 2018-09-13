@@ -8,11 +8,12 @@ export interface OptionProps {
   onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>;
   selected?: boolean;
   disabled?: boolean;
+  highlighted?: boolean;
 }
 
 export class Option extends React.PureComponent<OptionProps> {
   render() {
-    const {selected, disabled} = this.props;
-    return <div {...style('root', {selected, disabled})} {...this.props} />;
+    const {selected, highlighted, disabled} = this.props;
+    return <div {...style('root', {selected, highlighted, disabled})} {...this.props} />;
   }
 }
