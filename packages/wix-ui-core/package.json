@@ -46,6 +46,7 @@
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",
     "classnames": "^2.2.5",
+    "downshift": "^2.2.2",
     "hoist-non-react-methods": "^1.1.0",
     "lodash": "^4.17.5",
     "playable": "1.13.0",
