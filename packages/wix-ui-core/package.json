@@ -40,7 +40,7 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
+    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics --indexFile=index.st.css",
     "test:browser": "wix-ui-mocha-runner"
   },
   "dependencies": {
