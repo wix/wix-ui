@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import style from './Option.st.css';
+import style from './option.st.css';
 
 export interface OptionProps {
   children: React.ReactNode;

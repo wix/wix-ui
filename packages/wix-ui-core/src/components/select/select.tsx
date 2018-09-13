@@ -3,8 +3,8 @@ import Downshift from 'downshift';
 import Popper from 'popper.js';
 const get = require('lodash/get');
 
-import style from './Select.st.css';
-import {Menu} from './Menu';
+import style from './select.st.css';
+import {Menu} from './menu';
 
 export interface SelectProps {
   toggle?: Function;

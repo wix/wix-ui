@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Select, Option} from '../src/components/Select';
+import {Select, Option} from '../src/components/select';
 import {Input} from '../src/components/Input';
 
 const items = [
@@ -15,7 +15,7 @@ export default {
   category: 'Components',
   storyName: 'Select',
   component: Select,
-  componentPath: '../src/components/Select',
+  componentPath: '../src/components/select',
   componentProps: {},
 
   examples: (
