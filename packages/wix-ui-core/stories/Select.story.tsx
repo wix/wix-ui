@@ -1,6 +1,10 @@
 import * as React from 'react';
+import CodeShowcase from 'wix-storybook-utils/dist/src/CodeShowcase/CodeShowcase';
+import ComponentSource from 'wix-storybook-utils/ComponentSource';
 import {Select, Option} from '../src/components/select';
+import {Menu} from '../src/components/select/menu';
 import {Input} from '../src/components/Input';
+import Heading from 'wix-style-react/Heading';
 
 const items = [
   {value: 'first'},
@@ -20,6 +24,13 @@ export default {
 
   examples: (
     <div>
+      Just a menu:
+      <Menu>
+        {items.map(item => (
+          <Menu.Item {...item}>{item.value}</Menu.Item>
+        ))}
+      </Menu>
+      <hr />
       <Select>
         {items.map(item => (
           <Option
@@ -32,9 +43,7 @@ export default {
           </Option>
         ))}
       </Select>
-
-      <hr/>
-
+      <hr />
       <Select
         toggle={({getInputProps, openMenu}) => (
           <Input {...getInputProps()} onFocus={openMenu} />

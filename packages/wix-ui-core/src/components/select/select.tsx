@@ -10,6 +10,7 @@ export interface SelectProps {
   toggle?: Function;
   children: React.ReactNode;
   placement?: Popper.Placement;
+  onChange?: React.EventHandler<OnChangeEvent>;
 }
 
 export class Select extends React.PureComponent<SelectProps> {
@@ -57,25 +58,16 @@ export class Select extends React.PureComponent<SelectProps> {
                 {filteredChildren.map((child, key) => {
                   const childProps = (child as React.ReactElement<any>).props;
 
-                  return React.cloneElement(
-                    child as React.ReactElement<any>,
-                    downshift.getItemProps({
+                  return React.cloneElement(child as React.ReactElement<any>, {
+                    ...downshift.getItemProps({
                       item: childProps,
-                      disabled: childProps.disabled,
-                      style: {
-                        backgroundColor:
-                          downshift.highlightedIndex === key
-                            ? 'lightgray'
-                            : null,
-
-                        fontWeight:
-                          get(downshift, 'selectedItem.children', '') ===
-                          childProps.children
-                            ? 'bold'
-                            : 'normal'
-                      }
-                    })
-                  );
+                      disabled: childProps.disabled
+                    }),
+                    selected:
+                      get(downshift, 'selectedItem.children', '') ===
+                      childProps.children,
+                    highlighted: downshift.highlightedIndex === key
+                  });
                 })}
               </Menu>
             )}
@@ -90,7 +82,7 @@ export class Select extends React.PureComponent<SelectProps> {
       <div {...style('root')}>
         <Downshift
           itemToString={item => (item ? item.children : '')}
-          onChange={selection => console.log('item changed to', selection)}
+          onChange={this.props.onChange}
           children={this._renderDownshiftChildren}
         />
       </div>
