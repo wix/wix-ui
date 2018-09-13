@@ -5,9 +5,9 @@ import {
 } from "wix-ui-test-utils/driver-factory";
 
 export interface ButtonNextDriver extends BaseDriver {
-  /** click on the button root element */
+  /** click on the button */
   click: () => void;
-  /** returns elements textContent */
+  /** returns button text */
   getTextContent: () => any;
 }
 
