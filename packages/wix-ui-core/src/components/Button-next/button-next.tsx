@@ -1,5 +1,5 @@
 import * as React from "react";
-import { string, node, bool } from "prop-types";
+import { string, node, bool, oneOf } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
 import style from "./button-next.st.css";
 
@@ -20,7 +20,8 @@ export class ButtonNext extends React.Component<ButtonProps> {
 
   static defaultProps = {
     disabled: false,
-    error: false
+    error: false,
+    type: 'button'
   };
 
   static propTypes = {
@@ -28,7 +29,9 @@ export class ButtonNext extends React.Component<ButtonProps> {
     disabled: bool,
     error: bool,
     prefixIcon: node,
-    suffixIcon: node
+    suffixIcon: node,
+      /** Type of the button - submit / button / reset */
+    type: oneOf(['submit', 'button', 'reset']),
   };
 
   addPrefix = prefixIcon =>
@@ -53,11 +56,13 @@ export class ButtonNext extends React.Component<ButtonProps> {
       onClick,
       disabled,
       error,
+      type,
       ...rest
     } = this.props;
     return (
       <button
         {...rest}
+        type={type}
         onClick={disabled ? null : onClick}
         {...style("root", { disabled, error }, this.props)}
       >
