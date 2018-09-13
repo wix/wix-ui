@@ -8,7 +8,7 @@ export interface ButtonNextDriver extends BaseDriver {
   /** click on the button */
   click: () => void;
   /** returns button text */
-  getTextContent: () => any;
+  getTextContent: () => string;
 }
 
 export const buttonNextDriverFactory: DriverFactory<ButtonNextDriver> = ({
