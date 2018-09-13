@@ -1,0 +1,11 @@
+.root {
+  -st-states: disabled, selected;
+}
+
+.root:disabled {
+  color: grey;
+}
+
+.root:selected {
+  font-weight: bold;
+}

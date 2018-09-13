@@ -1,0 +1,8 @@
+.root {
+  display: inline-block;
+}
+
+.menu {
+  z-index: 1000;
+  background: #fff;
+}
