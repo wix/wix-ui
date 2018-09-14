@@ -19,7 +19,7 @@ describe("ButtonNext", () => {
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextTestkit);
 
-  describe("onClick prop", () => {
+  describe(`'onClick' prop`, () => {
     it("should be called on click", async () => {
       const onClick = jest.fn();
       const driver = createDriver(<ButtonNext onClick={onClick} />);
@@ -27,7 +27,7 @@ describe("ButtonNext", () => {
       expect(onClick).toBeCalled();
     });
 
-    it(`should not call onClick when 'disabled'`, async () => {
+    it(`should not call 'onClick' when 'disabled'`, async () => {
       const onClick = jest.fn();
       const driver = createDriver(<ButtonNext onClick={onClick} disabled />);
       await driver.click();
@@ -43,17 +43,17 @@ describe("ButtonNext", () => {
     });
   });
 
-  describe("suffixIcon and prefixIcon props", () => {
+  describe(`'suffixIcon' and 'prefixIcon' props`, () => {
     const suffix = <div>suffix</div>;
     const prefix = <div>prefix</div>;
 
-    it("should render suffix when given", async () => {
+    it(`should render 'suffix' when given`, async () => {
       const driver = createPrivateDriver(<ButtonNext suffixIcon={suffix} />);
       expect(await driver.suffixExists()).toBeTruthy();
       expect(await driver.prefixExists()).toBeFalsy();
     });
 
-    it("should render prefix when given", async () => {
+    it(`should render 'prefix' when given`, async () => {
       const driver = createPrivateDriver(<ButtonNext prefixIcon={prefix} />);
       expect(await driver.prefixExists()).toBeTruthy();
       expect(await driver.suffixExists()).toBeFalsy();
