@@ -1,11 +1,11 @@
 import { ButtonNext } from "./button-next";
-import { Sizes, Skins, Misq } from "./Examples/Examples";
+import { Sizes, Skins, Misq } from "./examples/examples";
 
 export default {
   category: "BackOffice",
   storyName: "ButtonNext",
   component: ButtonNext,
-  componentPath: "../../../src/components/button-next/button-next.tsx",
+  componentPath: "../../src/components/button-next/button-next.tsx",
 
   componentProps: {
     disabled: false,

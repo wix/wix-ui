@@ -1,11 +1,11 @@
 import * as React from "react";
-import { backOfficeTheme } from "../../../src/themes/backoffice";
-import { ButtonTwo as ButtonTwoCore } from "../../../src/components/ButtonV2/";
+import { backOfficeTheme } from "../../src/themes/backoffice";
+import { ButtonNext as ButtonNextCore } from "../../src/components/button-next/";
 
-export function ButtonTwo(props) {
+export function ButtonNext(props) {
   return (
     <div className={backOfficeTheme}>
-      <ButtonTwoCore {...props} />
+      <ButtonNextCore {...props} />
     </div>
   );
 }
