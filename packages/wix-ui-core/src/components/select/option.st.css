@@ -3,7 +3,7 @@
   cursor: pointer;
 }
 
-.root:hover {
+.root:hover:not(:disabled) {
   background: lightgrey 
 }
 
@@ -13,6 +13,7 @@
 
 .root:disabled {
   color: grey;
+  cursor: default;
 }
 
 .root:selected {

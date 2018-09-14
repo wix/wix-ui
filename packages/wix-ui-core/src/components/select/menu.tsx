@@ -7,7 +7,10 @@ export interface MenuProps {
   children: React.ReactNode;
 }
 
+Option.displayName = 'Menu.Item';
+
 export class Menu extends React.PureComponent<MenuProps> {
+  static displayName = 'Menu';
   static Item = Option;
 
   render() {

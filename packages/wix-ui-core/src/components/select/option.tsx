@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import style from './option.st.css';
 
-export interface OptionProps {
+export interface Props {
   children: React.ReactNode;
   value: any;
   onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>;

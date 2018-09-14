@@ -41,4 +41,5 @@ Components.add('Tooltip Custom', () => <TooltipStory/>);
 import './Video.story';
 HOCs.add('EllipsedTooltip', EllipsedText);
 HOCs.add('Focusable', Focusable);
-import './Select.story';
+import './Select/select.story';
+import './Select/menu.story';
