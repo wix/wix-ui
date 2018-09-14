@@ -9,7 +9,7 @@ export interface ButtonNextDriver extends BaseDriver {
   /** click the button */
   click: () => Promise<void>;
   /** checks wether the button is disabled */
-  isButtonDisabled: () => any;
+  isButtonDisabled: () => Promise<boolean>;
 }
 
 export const buttonNextDriverFactory: DriverFactory<
@@ -19,5 +19,5 @@ export const buttonNextDriverFactory: DriverFactory<
   click: async () => element.click(),
   exists: async () => element.isPresent(),
   getButtonTextContent: async () => element.getText(),
-  isButtonDisabled: () => hasAttribute(element, "disabled")
+  isButtonDisabled: async () => await hasAttribute(element, "disabled")
 });
