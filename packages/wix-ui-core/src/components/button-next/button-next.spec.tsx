@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import { buttonNextTestkit } from "../../testkit";
@@ -8,12 +7,6 @@ import { buttonNextPrivateDriver } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
 describe("ButtonNext", () => {
-  const renderApp = (element: JSX.Element) => {
-    const div = document.createElement("div");
-    ReactDOM.render(element, div);
-    return div;
-  };
-
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextDriver);
