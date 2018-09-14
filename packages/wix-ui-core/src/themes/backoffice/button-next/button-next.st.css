@@ -1,1 +1,113 @@
 @namespace "backoffice-button";
+
+:import {
+  -st-from: "../backoffice.st.css";
+  -st-default: BackOffice;
+}
+
+:import {
+  -st-from: "../../../components/button-next/button-next.st.css";
+  -st-default: ButtonNext;
+}
+
+:import {
+    -st-from: '../colors.st.css';
+    -st-named: B10, F00, B20, D55,R10,R20,P10,P20, G10, G20,D80
+}
+
+.textButton {
+  -st-extends: ButtonNext;
+}
+.iconButton {
+  -st-extends: ButtonNext;
+}
+
+
+BackOffice ButtonNext {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  border: 2px solid;
+  
+  outline: none;
+  transition: all 100ms linear;
+
+  height: 36px;
+  border-radius: 18px;
+  padding: 0 23px;
+
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackOffice ButtonNext:hover {
+  background-color: value(B20);
+  border-color: value(B20);
+}
+
+/* affixes */
+BackOffice ButtonNext :not(:last-child) {
+  margin-right: 12px;
+}
+
+/* rtl */
+BackOffice :global([dir="rtl"]) ButtonNext :not(:last-child),
+:global([dir="rtl"]) BackOffice ButtonNext :not(:last-child),
+:global([dir="rtl"]) BackOffice ButtonNext :not(:last-child) {
+  margin-left: 12px;
+  margin-right: 0;
+}
+
+/* disabled */
+BackOffice ButtonNext:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+}
+
+/* error */
+BackOffice ButtonNext:error {
+  background-color: value(R10);
+  border-color: value(R10);
+}
+
+BackOffice ButtonNext:error:hover {
+  background-color: value(R20);
+  border-color: value(R20);
+}
+
+/* sizes */
+BackOffice .large {
+  height: 42px;
+  border-radius: 21px;
+  padding: 0 29px;
+}
+
+BackOffice .small {
+  height: 30px;
+  border-radius: 15px;
+  padding: 0 17px;
+}
+
+/* skins */
+BackOffice .premium {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+BackOffice .premium:hover {
+  background-color: value(P20);
+  border-color: value(P20);
+}
+
+BackOffice .success {
+  background-color: value(G10);
+  border-color: value(G10);
+  color: value(D80);
+}
+
+BackOffice .success:hover {
+  background-color: value(G20);
+  border-color: value(G20);
+}
