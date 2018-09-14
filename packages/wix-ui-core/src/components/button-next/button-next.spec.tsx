@@ -4,7 +4,7 @@ import { reactUniDriver } from "unidriver";
 
 import { buttonNextTestkit } from "../../testkit";
 import { buttonNextDriver } from "./button-next.driver";
-import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
+import { buttonNextPrivateDriver } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
 describe("ButtonNext", () => {
@@ -14,6 +14,7 @@ describe("ButtonNext", () => {
     return div;
   };
 
+  //TODO abstract these to support unmounting etc.
   const createDriver = (element: JSX.Element) => {
     const app = renderApp(element);
     const base = reactUniDriver(app);
@@ -23,7 +24,7 @@ describe("ButtonNext", () => {
   const createPrivateDriver = (element: JSX.Element) => {
     const app = renderApp(element);
     const base = reactUniDriver(app);
-    return buttonNextPrivateDriverFactory(base);
+    return buttonNextPrivateDriver(base);
   };
 
   const createTestkitDriver = (element: JSX.Element) => {

@@ -5,7 +5,7 @@ export interface ButtonNextPrivateDriver {
   prefixExists: () => Promise<boolean>;
 }
 
-export const buttonNextPrivateDriverFactory = (
+export const buttonNextPrivateDriver = (
   base: UniDriver
 ): ButtonNextPrivateDriver => {
   return {
