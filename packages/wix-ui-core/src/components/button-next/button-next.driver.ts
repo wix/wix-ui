@@ -1,23 +1,18 @@
-import {
-  ComponentFactory,
-  DriverFactory,
-  BaseDriver
-} from "wix-ui-test-utils/driver-factory";
+import { UniDriver } from "unidriver";
 
-export interface ButtonNextDriver extends BaseDriver {
+export interface ButtonNextDriver {
+  /** returns true if button exists */
+  exists: () => Promise<boolean>;
   /** click on the button */
-  click: () => void;
+  click: () => Promise<void>;
   /** returns button text */
-  getTextContent: () => string;
+  getTextContent: () => Promise<string>;
 }
 
-export const buttonNextDriverFactory: DriverFactory<ButtonNextDriver> = ({
-  element,
-  eventTrigger
-}: ComponentFactory): ButtonNextDriver => {
+export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
   return {
-    exists: () => !!element,
-    getTextContent: () => element.textContent,
-    click: () => eventTrigger.click(element)
+    exists: async () => await base.$("button").exists(),
+    click: async () => await base.$("button").click(),
+    getTextContent: async () => await base.$("button").text()
   };
 };
