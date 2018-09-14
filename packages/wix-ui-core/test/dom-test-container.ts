@@ -1,13 +1,14 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {Simulate} from 'react-dom/test-utils';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Simulate } from "react-dom/test-utils";
+import { reactUniDriver, UniDriver } from "unidriver";
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and
 // in Jsdom we're going to add the container into the body.
 export function createDOMContainer(): HTMLElement {
-  const root = document.querySelector('#root') || document.body;
-  const div = document.createElement('div');
+  const root = document.querySelector("#root") || document.body;
+  const div = document.createElement("div");
   root.appendChild(div);
   return div;
 }
@@ -51,7 +52,7 @@ export class ReactDOMTestContainer {
   // React.createElement(Component), but cannot derive it from <Component />.
   public renderWithRef(jsx: JSX.Element): Promise<any> {
     const ref = React.createRef();
-    jsx = React.cloneElement(jsx, {ref});
+    jsx = React.cloneElement(jsx, { ref });
     return this.render(jsx).then(() => ref.current);
   }
 
@@ -74,7 +75,9 @@ export class ReactDOMTestContainer {
   }
 
   // Adapter for drivers written for wix-ui-test-utils/createDriverFactory
-  public createLegacyRenderer<T>(driverFactory: (args: LegacyDriverArgs) => T): (element: JSX.Element) => T {
+  public createLegacyRenderer<T>(
+    driverFactory: (args: LegacyDriverArgs) => T
+  ): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       return driverFactory({
@@ -82,6 +85,16 @@ export class ReactDOMTestContainer {
         wrapper: this.node,
         eventTrigger: Simulate
       });
+    };
+  }
+
+  // Adapter for react based uni driver
+  public createUniRenderer<T>(
+    driver: (args: UniDriver) => T
+  ): (element: JSX.Element) => T {
+    return (jsx: JSX.Element) => {
+      this.renderSync(jsx);
+      return driver(reactUniDriver(this.node));
     };
   }
 }

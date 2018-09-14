@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { reactUniDriver } from "unidriver";
 
+import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import { buttonNextTestkit } from "../../testkit";
 import { buttonNextDriver } from "./button-next.driver";
 import { buttonNextPrivateDriver } from "./button-next.driver.private";
@@ -14,24 +14,17 @@ describe("ButtonNext", () => {
     return div;
   };
 
-  //TODO abstract these to support unmounting etc.
-  const createDriver = (element: JSX.Element) => {
-    const app = renderApp(element);
-    const base = reactUniDriver(app);
-    return buttonNextDriver(base);
-  };
+  const createDriver = new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createUniRenderer(buttonNextDriver);
 
-  const createPrivateDriver = (element: JSX.Element) => {
-    const app = renderApp(element);
-    const base = reactUniDriver(app);
-    return buttonNextPrivateDriver(base);
-  };
+  const createPrivateDriver = new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createUniRenderer(buttonNextPrivateDriver);
 
-  const createTestkitDriver = (element: JSX.Element) => {
-    const app = renderApp(element);
-    const base = reactUniDriver(app);
-    return buttonNextTestkit(base);
-  };
+  const createTestkitDriver = new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createUniRenderer(buttonNextTestkit);
 
   describe("onClick prop", () => {
     it("should be called on click", async () => {
@@ -60,6 +53,7 @@ describe("ButtonNext", () => {
   describe("suffixIcon and prefixIcon props", () => {
     const suffix = <div>suffix</div>;
     const prefix = <div>prefix</div>;
+
     it("should render suffix when given", async () => {
       const driver = createPrivateDriver(<ButtonNext suffixIcon={suffix} />);
       expect(await driver.suffixExists()).toBeTruthy();
