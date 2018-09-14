@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ReactDOMTestContainer } from "../../../test/dom-test-container";
+
 import { buttonNextDriverFactory } from "./button-next.driver";
-import { buttonPrivateDriverFactory } from "./button-next.driver.private";
+import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { reactUniDriver } from "unidriver";
 import { ButtonNext } from "./";
 
@@ -13,29 +13,29 @@ describe("ButtonNext", () => {
     return div;
   };
 
-  const renderAppAndCreateDriver = (element: JSX.Element) => {
+  const createDriver = (element: JSX.Element) => {
     const app = renderApp(element);
     const base = reactUniDriver(app);
     return buttonNextDriverFactory(base);
   };
 
-  const createPrivateDriver = new ReactDOMTestContainer()
-    .unmountAfterEachTest()
-    .createLegacyRenderer(buttonPrivateDriverFactory);
+  const createPrivateDriver = (element: JSX.Element) => {
+    const app = renderApp(element);
+    const base = reactUniDriver(app);
+    return buttonNextPrivateDriverFactory(base);
+  };
 
   describe("onClick prop", () => {
     it("should be called on click", async () => {
       const onClick = jest.fn();
-      const driver = renderAppAndCreateDriver(<ButtonNext onClick={onClick} />);
+      const driver = createDriver(<ButtonNext onClick={onClick} />);
       await driver.click();
       expect(onClick).toBeCalled();
     });
 
     it(`should not call onClick when 'disabled'`, async () => {
       const onClick = jest.fn();
-      const driver = renderAppAndCreateDriver(
-        <ButtonNext onClick={onClick} disabled />
-      );
+      const driver = createDriver(<ButtonNext onClick={onClick} disabled />);
       await driver.click();
       expect(onClick).not.toBeCalled();
     });
@@ -44,12 +44,12 @@ describe("ButtonNext", () => {
   describe(`'children' prop`, () => {
     it("should render text", async () => {
       const text = "button";
-      const driver = renderAppAndCreateDriver(<ButtonNext children={text} />);
+      const driver = createDriver(<ButtonNext children={text} />);
       expect(await driver.getTextContent()).toBe(text);
     });
   });
 
-  describe.skip("suffixIcon and prefixIcon props", () => {
+  describe("suffixIcon and prefixIcon props", () => {
     const suffix = <div>suffix</div>;
     const prefix = <div>prefix</div>;
     it("should render suffix when given", async () => {

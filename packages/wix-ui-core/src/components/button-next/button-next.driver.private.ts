@@ -1,16 +1,15 @@
-import { BaseDriver, DriverFactory } from "wix-ui-test-utils/driver-factory";
+import { UniDriver } from "unidriver";
 
-export interface ButtonPrivateDriver extends BaseDriver {
-  suffixExists: () => boolean;
-  prefixExists: () => boolean;
+export interface ButtonNextPrivateDriver {
+  suffixExists: () => Promise<boolean>;
+  prefixExists: () => Promise<boolean>;
 }
 
-export const buttonPrivateDriverFactory: DriverFactory<ButtonPrivateDriver> = ({
-  element
-}): ButtonPrivateDriver => {
+export const buttonNextPrivateDriverFactory = (
+  base: UniDriver
+): ButtonNextPrivateDriver => {
   return {
-    exists: () => !!element,
-    suffixExists: () => !!element.querySelector('[data-hook="suffix"]'),
-    prefixExists: () => !!element.querySelector('[data-hook="prefix"]')
+    suffixExists: async () => await base.$('[data-hook="suffix"]').exists(),
+    prefixExists: async () => await base.$('[data-hook="prefix"]').exists()
   };
 };
