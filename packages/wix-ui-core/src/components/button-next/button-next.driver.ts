@@ -9,7 +9,7 @@ export interface ButtonNextDriver {
   getTextContent: () => Promise<string>;
 }
 
-export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
+export const buttonNextDriver = (base: UniDriver): ButtonNextDriver => {
   return {
     exists: async () => await base.$("button").exists(),
     click: async () => await base.$("button").click(),

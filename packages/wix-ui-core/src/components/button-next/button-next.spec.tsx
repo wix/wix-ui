@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-import { buttonNextDriverFactory } from "./button-next.driver";
-import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { reactUniDriver } from "unidriver";
+
+import { buttonNextTestkit } from "../../testkit";
+import { buttonNextDriver } from "./button-next.driver";
+import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
 describe("ButtonNext", () => {
@@ -16,13 +17,19 @@ describe("ButtonNext", () => {
   const createDriver = (element: JSX.Element) => {
     const app = renderApp(element);
     const base = reactUniDriver(app);
-    return buttonNextDriverFactory(base);
+    return buttonNextDriver(base);
   };
 
   const createPrivateDriver = (element: JSX.Element) => {
     const app = renderApp(element);
     const base = reactUniDriver(app);
     return buttonNextPrivateDriverFactory(base);
+  };
+
+  const createTestkitDriver = (element: JSX.Element) => {
+    const app = renderApp(element);
+    const base = reactUniDriver(app);
+    return buttonNextTestkit(base);
   };
 
   describe("onClick prop", () => {
@@ -65,10 +72,10 @@ describe("ButtonNext", () => {
     });
   });
 
-  // TODO: for unidriver we need need new teskit check method
-  // runTestkitExistsSuite({
-  //   Element: <ButtonNext />,
-  //   testkitFactory: buttonNextTestkitFactory,
-  //   enzymeTestkitFactory: enzymeButtonNextTestkitFactory
-  // });
+  describe("Testkit", () => {
+    it("should exist", async () => {
+      const driver = createTestkitDriver(<ButtonNext />);
+      expect(await driver.exists()).toBeTruthy();
+    });
+  });
 });
