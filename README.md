@@ -3,6 +3,8 @@
 
 ## Documentation
 Project documentation can be found here
+- [usage guide](/docs/usage-guide.md)
+- [contribution guide](/docs/contribution-guide.md)
 - [wix-ui-core](http://wix-wix-ui-core.surge.sh)
 - [wix-ui-icons-common](http://wix-wix-ui-icons-common.surge.sh)
 

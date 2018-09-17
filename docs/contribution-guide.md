@@ -1,37 +1,39 @@
-# Contribution guide
-wix-ui aims to be a one stop shop for all the components composing our products and our users sites.
+# Contribution Guide
+The **wix-ui** repository is a one-stop-shop for all the components that compose our products and our users' sites.
 
-we believe this library should be a group effort across all teams in wix. and would love to help anyone contibute.
+This library is a group effort across all Wix teams. We welcome everyone to contibute.
 
 ## Ownership and contribiution process
-Altough we want eveybody to contribute to this repo, we also believe we need to keep watch making sure that project quality and constitant API's are kept.
+
+While we do want eveyone to contribute to this repo, we also have to ensure that we maintain the quality and constitency of the project's APIs.
 
 @shachar -> add contribution process
 
 ## Discussions
-We aim to keep all project discussion inside GitHub issues. This is to make sure valuable discussion is accessible via search. If you have questions about how to use the library, or how the project is running - GitHub issues are the goto tool for this project.
+
+To ensure that all project discussion is accessible via search, all issues and questions should be entered as GitHub issues inside the repo. If you have questions about how to use the library, or how the project is running, GitHub issues is the go-to tool for this project.
 
 
 ## Best practices
 
-since we want a lot of developers to work on this project together we believe all expected practices should be written, clear and enforced.
+Our goal is for lots of developers to work on this project together so we want all best practices clearly documented and enforced.
 
-we hope to send many contributers to RTFM.
+We anticipate sending many contributers to RTFM ;-).
 
+### General guidlines
 
-### general guidlines
+You should write all component logic using strictly-typed [TypeScript](http://www.typescriptlang.org/) code. 
+//ALR - repeated below? Assuming you're adding to this list? What about using Stylable st.css?//
 
-- All logic must be written using strictly-typed TypeScript code.
+### Project structure
 
-
-#### Project structure
-
-Files and folders will be kebab cased “my-button.tsx” as opposed to “myButton.tsx”. This solves an issue with git in windows ( git cares about casing, windows doesn’t)
+Files and folders must be named in kebab-case, like “my-button.tsx” (and not camel cased like "myButton.tsx"). This solves an issue with Git in Windows. Git cares about case, Windows doesn’t.
 
 @shachar -> i currently only did ui-core (according to what we discussed).
 
+All component assets are saved in the same folder as the component, except for style variants. The components folder remains style agnostic so it can be used with any theme. The relevant component files are then replicated in a folder under a specific theme. 
 
-All component assets will be placed in the same folder as the component, except for style variants, these are located in  a folder structure replicating the components directories and located under the specific theme.
+In this example the button component files are under a `components` folder with no styles applied and under the `themes` folder, the `adi` theme includes the button component files.
 
 ##### Example
 - src
@@ -46,84 +48,82 @@ All component assets will be placed in the same folder as the component, except 
         - adi
             - button
                 - button.st.css
+
+For more details, take a look at [Create a Stylable Component Library](https://stylable.io/docs/guides/stylable-component-library).
         
+## Creating new components
 
-## Contributing components
+Components are great building blocks. But not every element has to be a new component. Before creating a new component, consider the option of creating a new reusable style for an existing component or for an HTML element. It's faster, and costs less on your runtime
 
-components are great building blocks. but they're not the only ones we have.
+When you create a component, you must have component logic using strictly-typed [TypeScript](http://www.typescriptlang.org/) code. And a style API using [Stylable](https://stylable.io/).
 
-before creating a new component please consider the option of just creating a new reusable style for an existing component or for an HTML element.
+### Component logic
 
-it's faster, and cheaper on your runtime
-
-### Component Logic
 **component.tsx**
+//ALR - add example code here for button?//
 
-All component APIs must be strongly typed, with `any` not accepted. it might be harder to write, but its much easier to use.
+All component APIs must be strongly typed, no accepting the `any` object. It may be harder to write, but it's much easier to use.
 
-All components will also define react-prop-types. In order to support our friends that still use vanilla JS.
+All components define `react-prop-types`. This is to support our friends who still use vanilla JS.
 
-### Component Style API
+### Component style API
 
-**Component.st.css**
+**component.st.css**
 
-Component st.css files define the components style API.
+Component `st.css` files define the component's style API.
 
-a component importing the following stylable file:
+A component imports the following **[Stylable](https://stylable.io/)** file:
 ```css
-.btn1{
+.button1{
 
 }
 
-.btn2{
+.button2{
 
 }
-
 ```
+exposing both the `button1` class and `button2` class to **Stylable** so they can be customized.
 
-is exposing both the `btn1` class and `btn2` class to stylable so they can be customized.
+#### Include essential rules only
 
-#### Essential rules only
+Although it may be tempting to add rules to a component's CSS, for it to be truly reusable and customizable, its CSS should be as devoid of rules as possible. Add only rules that are essential to the component's functionality and leave the rest open to customizations and themes.
 
-while its tempting to add rules to a component's CSS. for it to be truly reusable and customizable its CSS should be as devoid of rules as possible.
-adding only ones that are essential to the components functionality.
-and leaving the rest to open customizations.
-
-when working on a component, its always good to create a style variant of it for development processes
+When working on a component, it's always good to create a style variant of it for development purposes.
 
 #### Expose the API
 
 Unlike normal component properties, which result in runtime costs, CSS APIs have very little runtime cost.
 
-you should always open up the API as much as possible, Put special attention to clear naming of CSS classes since these form the component's style API. Later changes in these could result in major version update.
+You should always open up the API as much as possible, Put special attention to clear naming of CSS classes since these form the component's style API. Later changes in these could result in major version update.
 
 ##### Expose all meaningfull nodes
 
-Even if your design use case does not need to customize a node. if you believe someone else might, create a class for it and expose it.
+If you believe someone else might need to customize a node, create a class for it and expose it even if your design use case does not need to customize the node.
 
-##### Define each class as well as possible
+##### Define each class well
 
-If this class is assigned to a component, specify this in its st.css.
+If a class is assigned to a component, specify this in its `st.css` stylesheet.
 
 ```css
 :import{
     -st-from: "../button/button.st.css";
     -st-default: Button;
 }
-.btn1{
+.button1{
   -st-extends:Button;
 }
 ```
 
-this will allow customization of the button internals on the `btn1` class
+This allows customization of the button internal parts of the `button1` [class](https://stylable.io/docs/references/class-selectors).
 
 ##### Add Stylable states
 
-Stylable states are a way for a component do define its different visual states to stylable.
+**Stylable** [states](https://stylable.io/docs/references/pseudo-classes) are a way for a component to define its different visual states.
 
-for instance, a drop down component might expose an "open" state, so it can be customized differently while open.
+For example, a drop down component might expose an "open" state, so it can be customized differently while open.
+//ALR - add example?//
 
-in a calander scenario, we might want many states for the day:
+In a calander scenario, we might want several different states to potentially be applied to a day:
 
 ```css
 
@@ -151,23 +151,23 @@ export const day = (props:{date:number})=>{
 
 Exposing states allows richer style variants for each component.
 
-### Component Tests
+### Component tests
 
 **component.spec.tsx**
 
 Each component must have its full functionality covered in unit tests.
 
-these tests run in the browser. in order to support unit tests for components that measure dom elements.
+These tests run in the browser to support unit tests for components that measure DOM elements.
 
-### Component Driver
+### Component driver
 
 **component.driver.ts**
 
-All component drivers in this library should be built on top of [Unidriver](https://github.com/wix-incubator/unidriver), this makes them fit well in E2E and Unit test scenarios
+All component drivers in this library should be built on top of [Unidriver](https://github.com/wix-incubator/unidriver). This enables end-to-end and unit test scenarios for the component.
 
-The component driver is a tool for the component end user. and should be built with that thought in mind.
+The component driver is a tool for the component end user and should be built for the needs of that end user.
 
-For instance, when testing an application containing a drop down, all the API a developer needs is `setSelectedIdx`. this API method should click the dropdown open, find the provided item by index, and click it. 
+For example, when testing an application containing a drop down, the developer needs the `setSelectedIdx` API. This API method should click the dropdown open, find an item using its index, and click it. 
 
 ```tsx
 import styles from './dropdown.st.css';
@@ -184,19 +184,18 @@ const DropDownDriver = (container: UniDriver) => {
 
 By providing a single method which causes a chain of actions, rather than separate `open()` and `clickIdx()` methods, we reduce development efforts when testing applications that contain the component.
 
-the component tests must provide full test coverage for the component driver.
+The component tests must provide full test coverage for the component driver.
 With that in mind, avoid implementing "test helpers" in the driver since the driver is to be consumed externally and its API should remain constant and minimal.
 
 ### Component meta.ts
+**component.meta.ts**
 
-Component meta files add metadata to the component. this metadata is consumed by various tools from the auto-tools repo.
+Component meta files add metadata to the component. This metadata is consumed by various tools from the [auto-tools](https://github.com/wix-incubator/ui-autotools) repo.
 
-this allows us to run some sanity tests for all components, create a documentation site and create a good dev environment.
+This enables you to run sanity tests for all components, create a documentation site, and create a good dev environment.
 
-
-the meta file should provide prop simulations for the component.
+The meta file should provide prop simulations for the component.
 ```ts
-
 import Registry from 'ui-autotools';
 import {Button} from './button';
 Registry.getComponentMetadata(Button)
@@ -210,16 +209,10 @@ Registry.getComponentMetadata(Button)
       children: ['🧒', '👶', '🐊']
     }
   });
-
 ```
-
-
-the meta files should also provide state simulations, used in snapshooting tool.
-this allows us to make sure no style variant of the component has changed from a change in the component.
-
+The meta files should also provide state simulations, used in a snapshotting tool, enabling you to make sure no style variant of the component changes as a result of a change in the component.
 
 ```ts
-
 import Registry from 'ui-autotools';
 import {DropDown} from './drop-down';
 Registry.getComponentMetadata(DropDown)
@@ -227,8 +220,8 @@ Registry.getComponentMetadata(DropDown)
       return {open:true}
   })
   .addStateSim("focusedItem",(props)=>{
-      // in this use case the state simulation is derived from the props.
-      // if the method returns undefined, the simulation will not be tested with these props
+      //In this use case the state simulation is derived from the props.
+      // If the method returns undefined, the simulation is not tested with these props
       if(props.items && props.items.length){
           return {
               open:true,
@@ -236,29 +229,21 @@ Registry.getComponentMetadata(DropDown)
           }
       }
   });
-
 ```
 
-
-## Contributing Component Style Variants.
+## Contributing component style variants
 
 Style variants define a look for a specific component.
 
-becuse our themes are used in many different environemts the writing guidelines differ between themes.
-
-
-
+Becuse our themes are used in many different environemts, the writing guidelines differ between themes.
 
 ### ADI and Backoffice
 
+All styles should be indexed according to the respective design system.
 
-all styles should be indexed according to the respective design system.
+Style variants should be created (sometimes many in a single file)in a folder with the component name, under the respective theme.
 
-
-style variants should be created ( sometimes many in a single file ) in a folder with the component name, under the respective theme.
-
-i.e:
-
+For example:
 **themes/adi/button/button.st.css**
 ```css
 :import{
@@ -274,7 +259,7 @@ i.e:
 }
 ```
 
-all styles should be exported for easy use from a the respective theme file.
+All styles should be exported for easy use from their respective theme file.
 
 
 **themes/adi/theme.st.css**
@@ -284,19 +269,19 @@ all styles should be exported for easy use from a the respective theme file.
     -st-named:largeButton, smallButton;
 }
 
-.largeBtn{}
+.largeButton{}
 
 .smallButton{}
 ```
 
 
-### studio
+### Studio
 
-style variants should be created ( one in a file ) in a folder with the component name, under the studio folder.
+Style variants should be created, one per file, in a folder with the component name, under the **studio** folder.
 
-all variants should be exported as "main"
+All variants should be exported as `main`.
 
-i.e:
+For example:
 
 **themes/studio/button/button-3d.st.css**
 ```css
