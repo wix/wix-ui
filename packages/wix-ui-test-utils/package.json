@@ -77,5 +77,8 @@
       "raf/polyfill",
       "<rootDir>/test/enzyme-setup.ts"
     ]
+  },
+  "dependencies": {
+    "unidriver": "^1.0.0-alpha"
   }
 }
