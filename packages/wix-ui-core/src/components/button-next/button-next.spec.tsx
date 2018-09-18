@@ -6,7 +6,7 @@ import { buttonNextDriverFactory } from "./button-next.driver";
 import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
-describe.only("ButtonNext", () => {
+describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextDriverFactory);
@@ -47,7 +47,7 @@ describe.only("ButtonNext", () => {
       const driver = createDriver(
         <ButtonNext dataHook={dataHook} children={text} />
       );
-      expect(await driver.getTextContent()).toBe(text);
+      expect(await driver.getButtonTextContent()).toBe(text);
     });
   });
 

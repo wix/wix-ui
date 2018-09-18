@@ -1,13 +1,13 @@
-import { ButtonNext } from "../../src/components/button-next/";
+import { ButtonNext } from "./";
 
 export default {
   category: "Components",
   storyName: "ButtonNext",
   component: ButtonNext,
-  componentPath: "../../src/components/button-next/button-next.tsx",
+  componentPath: "./button-next.tsx",
 
   componentProps: {
-    disabled: false,
+    disabled: true,
     children: "I'm a Button!",
     "data-hook": "storybook-button"
   },

@@ -6,13 +6,19 @@ export interface ButtonNextDriver {
   /** click on the button */
   click: () => Promise<void>;
   /** returns button text */
-  getTextContent: () => Promise<string>;
+  getButtonTextContent: () => Promise<string>;
+  /** returns true if button disabled */
+  isButtonDisabled: () => Promise<any>;
+
+  getAttribute: (atr: string) => Promise<string>;
 }
 
 export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
   return {
-    exists: async () => await base.$("button").exists(),
-    click: async () => await base.$("button").click(),
-    getTextContent: async () => await base.$("button").text()
+    exists: async () => await base.exists(),
+    click: async () => await base.click(),
+    getButtonTextContent: async () => await base.text(),
+    isButtonDisabled: async () => !!(await base.attr("disabled")),
+    getAttribute: async (atr: string) => await base.attr(atr)
   };
 };

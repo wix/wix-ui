@@ -54,13 +54,11 @@ export class ButtonNext extends React.Component<ButtonProps> {
       onClick,
       disabled,
       error,
-      type,
       ...rest
     } = this.props;
     return (
       <button
         {...rest}
-        type={type}
         data-hook={dataHook}
         onClick={disabled ? null : onClick}
         {...style("root", { disabled, error }, this.props)}
