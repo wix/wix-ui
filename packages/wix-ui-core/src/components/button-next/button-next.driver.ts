@@ -9,7 +9,7 @@ export interface ButtonNextDriver {
   getButtonTextContent: () => Promise<string>;
   /** returns true if button disabled */
   isButtonDisabled: () => Promise<any>;
-
+  /** returns attribute value */
   getAttribute: (atr: string) => Promise<string>;
 }
 

@@ -1,12 +1,10 @@
 import * as eyes from "eyes.it";
-import * as React from "react";
 import { browser, ExpectedConditions as EC } from "protractor";
-import Add from "wix-ui-icons-common";
 import { getStoryUrl } from "wix-ui-test-utils/protractor";
 import * as autoExampleDriver from "wix-storybook-utils/AutoExampleDriver";
 import { buttonNextTestkitFactory } from "../../testkit/protractor";
 
-fdescribe("ButtonNext", () => {
+describe("ButtonNext", () => {
   const storyUrl = getStoryUrl("Components", "ButtonNext");
   const dataHook = "storybook-button";
   const driver = buttonNextTestkitFactory({ dataHook });
