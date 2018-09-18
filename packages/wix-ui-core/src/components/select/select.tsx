@@ -1,34 +1,32 @@
 import * as React from 'react';
 import Downshift from 'downshift';
-import Popper from 'popper.js';
+import PopperJS from 'popper.js';
+import {Manager, Target, Popper} from 'react-popper';
 const get = require('lodash/get');
 
 import style from './select.st.css';
 import {Menu} from './menu';
 
+type OptionId = number | string;
+
 export interface SelectProps {
   toggle?: Function;
   children: React.ReactNode;
-  placement?: Popper.Placement;
-  onChange?: React.EventHandler<OnChangeEvent>;
+  placement?: PopperJS.Placement;
+  onChange?: React.EventHandler<React.ChangeEvent<any>>;
+  selected?: OptionId | Array<OptionId>;
 }
 
 export class Select extends React.PureComponent<SelectProps> {
   toggleRef: Element;
   menuRef: Element;
-  popper: Popper;
+  popper: PopperJS;
 
   static defaultProps = {
     toggle: ({getToggleButtonProps}) => (
       <button {...getToggleButtonProps()}>menu</button>
     )
   };
-
-  componentDidMount() {
-    this.popper = new Popper(this.toggleRef, this.menuRef, {
-      placement: this.props.placement || 'bottom-start'
-    });
-  }
 
   _renderDownshiftChildren = downshift => {
     const children = React.Children.toArray(this.props.children);
@@ -47,11 +45,15 @@ export class Select extends React.PureComponent<SelectProps> {
         )
       : children;
 
+    const selected = this.props.selected
+      ? ensureArray(this.props.selected)
+      : [];
+
     return (
       <div>
-        <div ref={ref => (this.toggleRef = ref)} children={toggleComponent} />
+        <Target children={toggleComponent} />
 
-        <div ref={ref => (this.menuRef = ref)} className={style.menu}>
+        <Popper placement="bottom-start" className={style.menu}>
           <div {...downshift.getMenuProps()}>
             {downshift.isOpen && (
               <Menu>
@@ -64,28 +66,32 @@ export class Select extends React.PureComponent<SelectProps> {
                       disabled: childProps.disabled
                     }),
                     selected:
-                      get(downshift, 'selectedItem.children', '') ===
-                      childProps.children,
+                      get(downshift, 'selectedItem.value', '') ===
+                        childProps.value || selected.includes(childProps.id),
                     highlighted: downshift.highlightedIndex === key
                   });
                 })}
               </Menu>
             )}
           </div>
-        </div>
+        </Popper>
       </div>
     );
   };
 
   render() {
     return (
-      <div {...style('root')}>
+      <Manager {...style('root')}>
         <Downshift
           itemToString={item => (item ? item.children : '')}
           onChange={this.props.onChange}
           children={this._renderDownshiftChildren}
         />
-      </div>
+      </Manager>
     );
   }
+}
+
+function ensureArray(n) {
+  return Array.isArray(n) ? n : [n];
 }

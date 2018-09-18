@@ -11,9 +11,14 @@ export interface Props {
   highlighted?: boolean;
 }
 
-export class Option extends React.PureComponent<OptionProps> {
+export class Option extends React.PureComponent<Props> {
+  static displayName = 'Option';
+
   render() {
-    const {selected, highlighted, disabled} = this.props;
-    return <div {...style('root', {selected, highlighted, disabled})} {...this.props} />;
+    const {selected, disabled} = this.props;
+    const {highlighted, ...rest} = this.props;
+    return (
+      <div {...style('root', {selected, highlighted, disabled})} {...rest} />
+    );
   }
 }
