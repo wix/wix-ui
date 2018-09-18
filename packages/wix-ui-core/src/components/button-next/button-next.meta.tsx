@@ -1,13 +1,14 @@
+import * as React from "react";
 import { ButtonNext } from "./button-next";
+import { Add } from "wix-ui-icons-common";
 import Registry from "@ui-autotools/registry";
-import { Icon } from "./meta-components/Icon";
 
 const buttonMetadata = Registry.getComponentMetadata(ButtonNext);
 
 buttonMetadata.addSim({
   title: "Simulation with suffix icon",
   props: {
-    suffixIcon: Icon,
+    suffixIcon: <Add />,
     children: "Button"
   }
 });
@@ -15,7 +16,7 @@ buttonMetadata.addSim({
 buttonMetadata.addSim({
   title: "Simulation with prefix icon",
   props: {
-    prefixIcon: Icon,
+    prefixIcon: <Add />,
     children: "Button"
   }
 });
@@ -23,8 +24,8 @@ buttonMetadata.addSim({
 buttonMetadata.addSim({
   title: "Simulation with prefix and suffix icon",
   props: {
-    prefixIcon: Icon,
-    suffixIcon: Icon,
+    prefixIcon: <Add />,
+    suffixIcon: <Add />,
     children: "Button"
   }
 });
