@@ -57,7 +57,8 @@
     "shallowequal": "1.1.0",
     "type-zoo": "3.1.1",
     "wix-ui-jss": "^1.0.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-ui-test-utils": "^1.0.0",
+    "unidriver": "^1.0.0-alpha"
   },
   "devDependencies": {
     "@storybook/addon-options": "4.0.0-alpha.14",
@@ -95,7 +96,6 @@
     "tslint-config-prettier": "^1.12.0",
     "tslint-react": "^3.5.1",
     "typescript": "2.9.2",
-    "unidriver": "^1.0.0-alpha",
     "wait-for-cond": "^1.5.1",
     "wix-eventually": "latest",
     "wix-storybook-utils": "^2.0.5",

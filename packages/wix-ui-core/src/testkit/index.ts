@@ -41,8 +41,8 @@ export const buttonTestkitFactory = testkitFactoryCreator<ButtonDriver>(
 );
 export { ButtonDriver };
 
-import { buttonNextDriver } from "../components/button-next/button-next.driver";
-export { buttonNextDriver as buttonNextTestkit };
+import { buttonNextDriverFactory } from "../components/button-next/button-next.driver";
+export { buttonNextDriverFactory as buttonNextTestkit };
 
 import {
   linearProgressBarDriverFactory,
