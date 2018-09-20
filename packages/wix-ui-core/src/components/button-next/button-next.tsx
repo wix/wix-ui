@@ -8,7 +8,6 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<any> {
   prefixIcon?: React.ReactElement<any>;
   suffixIcon?: React.ReactElement<any>;
-  dataHook?: string;
   error?: boolean;
 }
 /**
@@ -25,7 +24,6 @@ export class ButtonNext extends React.Component<ButtonProps> {
 
   static propTypes = {
     className: string,
-    dataHook: string,
     disabled: bool,
     error: bool,
     prefixIcon: node,
@@ -49,7 +47,6 @@ export class ButtonNext extends React.Component<ButtonProps> {
     const {
       suffixIcon,
       prefixIcon,
-      dataHook,
       children,
       onClick,
       disabled,
@@ -59,9 +56,8 @@ export class ButtonNext extends React.Component<ButtonProps> {
     return (
       <button
         {...rest}
-        data-hook={dataHook}
         onClick={disabled ? null : onClick}
-        {...style("root", { disabled, error }, this.props)}
+        {...style("root", { error }, this.props)}
       >
         {this.addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>

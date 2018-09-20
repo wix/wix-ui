@@ -14,8 +14,6 @@ describe("ButtonNext", () => {
   //   .unmountAfterEachTest()
   //   .createUniRenderer(buttonNextTestkit);
 
-  const dataHook = "button-next";
-
   describe(`'onClick' prop`, () => {
     it("should be called on click", async () => {
       const onClick = jest.fn();
