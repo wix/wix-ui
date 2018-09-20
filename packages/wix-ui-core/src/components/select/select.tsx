@@ -56,8 +56,12 @@ export class Select extends React.PureComponent<SelectProps> {
         <Popper placement="bottom-start" className={style.menu}>
           <div {...downshift.getMenuProps()}>
             {downshift.isOpen && (
-              <Menu>
+              <Menu dataHook="select-menu">
                 {filteredChildren.map((child, key) => {
+                  if (!React.isValidElement(child)) {
+                    return null;
+                  }
+
                   const childProps = (child as React.ReactElement<any>).props;
 
                   return React.cloneElement(child as React.ReactElement<any>, {

@@ -50,4 +50,15 @@ describe('Select', () => {
       });
     });
   });
+
+  describe('`children` prop', () => {
+    it('should be rendered after click', () => {
+      const select = createDriver(<Select children="hello" />);
+      select.getToggle().click();
+      expect(select.getMenu()).toBeTruthy();
+
+      select.getToggle().click();
+      expect(select.getMenu()).toBeFalsy();
+    });
+  });
 });

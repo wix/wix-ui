@@ -7,7 +7,9 @@ export const selectDriverFactory = ({element}) => {
 
       toggle.isButton = () => toggle.children[0].localName === 'button';
       toggle.isInput = () => toggle.children[0].localName === 'input';
+      toggle.click = () => toggle.children[0].click();
       return toggle;
-    }
+    },
+    getMenu: () => byHook('select-menu')
   };
 };
