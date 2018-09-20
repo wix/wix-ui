@@ -2,16 +2,11 @@ import * as React from "react";
 
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 // import { buttonNextTestkit } from "../../testkit";
-import { buttonNextDriverFactory } from "./button-next.driver";
 import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
 describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
-    .unmountAfterEachTest()
-    .createUniRenderer(buttonNextDriverFactory);
-
-  const createPrivateDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
 
@@ -50,13 +45,13 @@ describe("ButtonNext", () => {
     const prefix = <div data-hook="prefix">prefix</div>;
 
     it(`should render 'suffix' when given`, async () => {
-      const driver = createPrivateDriver(<ButtonNext suffixIcon={suffix} />);
+      const driver = createDriver(<ButtonNext suffixIcon={suffix} />);
       expect(await driver.suffixExists()).toBeTruthy();
       expect(await driver.prefixExists()).toBeFalsy();
     });
 
     it(`should render 'prefix' when given`, async () => {
-      const driver = createPrivateDriver(<ButtonNext prefixIcon={prefix} />);
+      const driver = createDriver(<ButtonNext prefixIcon={prefix} />);
       expect(await driver.prefixExists()).toBeTruthy();
       expect(await driver.suffixExists()).toBeFalsy();
     });
