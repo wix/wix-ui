@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
@@ -6,7 +7,17 @@ import {DriverFactory, BaseDriver} from '../driver-factory';
 export function testkitFactoryCreator<T extends BaseDriver> (driverFactory: DriverFactory<T>) {
   return (obj: {wrapper: HTMLElement, dataHook: string}) => {
     const eventTrigger = reactEventTrigger();
-    const element = obj.wrapper.querySelector(`[data-hook='${obj.dataHook}']`) as Element;
+    let element;
+    const domInstance = ReactDOM.findDOMNode(obj.wrapper) as Element;
+    if (domInstance) {
+      const dataHookOnInstance = domInstance.attributes.getNamedItem('data-hook');
+      element = dataHookOnInstance && dataHookOnInstance.value === obj.dataHook
+          ? domInstance
+          : domInstance.querySelector('[data-hook=\'' + obj.dataHook + '\']') as Element;
+    } else {
+      element = obj.wrapper.querySelector(`[data-hook='${obj.dataHook}']`) as Element;
+    }
+
     return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
   };
 }
