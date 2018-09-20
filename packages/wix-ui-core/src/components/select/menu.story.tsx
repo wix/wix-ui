@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Menu} from '../../src/components/select/menu';
+import {Menu} from './menu';
 
 const menuItems = [
   {id: 0, value: 'first'},
@@ -10,7 +10,9 @@ const menuItems = [
 ];
 
 const mapItems = items =>
-  items.map(item => <Menu.Item key={item.id} {...item} children={item.value} />);
+  items.map(item => (
+    <Menu.Item key={item.id} {...item} children={item.value} />
+  ));
 
 const exampleChildren = [
   {
@@ -27,7 +29,7 @@ export default {
   category: 'Components/Dropdown',
   storyName: 'Menu',
   component: Menu,
-  componentPath: '../../src/components/select/menu.tsx',
+  componentPath: './menu.tsx',
   componentProps: {
     children: exampleChildren[0].value
   },

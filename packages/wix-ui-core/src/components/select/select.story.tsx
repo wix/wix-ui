@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Select, Option} from '../../src/components/select';
-import {Input} from '../../src/components/Input';
+import {Select, Option} from './';
+import {Input} from '../Input';
 
 const menuItems = [
   {id: 0, value: 'first'},
@@ -29,7 +29,7 @@ export default {
   category: 'Components/Dropdown',
   storyName: 'Select',
   component: Select,
-  componentPath: '../../src/components/select',
+  componentPath: './',
   componentProps: {
     selected: [0],
     children: exampleChildren[0].value
