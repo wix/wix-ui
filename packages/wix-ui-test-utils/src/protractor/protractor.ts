@@ -1,6 +1,7 @@
 import {$, ElementFinder} from 'protractor';
 import {protractorUniDriver} from './protractor-adapter';
 import {UniDriver} from 'unidriver';
+import {BaseUniDriver} from '../driver-factory/createDriverFactory';
 
 export function protractorTestkitFactoryCreator<T>(
   driverFactory: (e: ElementFinder) => T
@@ -11,7 +12,7 @@ export function protractorTestkitFactoryCreator<T>(
       : driverFactory($(`[data-hook='${obj.dataHook}']`));
 }
 
-export function protractorUniTestkitFactoryCreator<T>(
+export function protractorUniTestkitFactoryCreator<T extends BaseUniDriver>(
   driverFactory: (base: UniDriver) => T
 ) {
   return (obj: { dataHook: string }) => {
