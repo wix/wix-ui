@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {reactEventTrigger} from '../react-helpers';
-import {DriverFactory, BaseDriver} from '../driver-factory';
+import {BaseDriver, BaseUniDriver} from '../driver-factory';
 import {MountRendererProps, ReactWrapper} from 'enzyme';
+import {UniDriver, reactUniDriver} from 'unidriver';
 
 export interface WrapperData {
   wrapper: ReactWrapper;
@@ -18,6 +19,16 @@ export function enzymeTestkitFactoryCreator<T extends BaseDriver> (driverFactory
     const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
     const element = component.length > 0 ? component.first().getDOMNode() : undefined;
     return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
+  };
+}
+
+export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver> (driverFactory: (base: UniDriver) => T) {
+  return (obj: WrapperData) => {
+    const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
+    const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
+    const element = component.length > 0 ? component.first().getDOMNode() : undefined;
+    const base = reactUniDriver(element as Element);
+    return driverFactory(base);
   };
 }
 
@@ -42,6 +53,18 @@ export function isEnzymeTestkitExists<T extends BaseDriver> (
   mount: MountFunctionType,
   options: Options = {}) {
     return isEnzymeTestkitExistsInternal({Element, testkitFactory, mount, ...options});
+}
+
+export function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
+  Element: React.ReactElement<any>,
+  testkitFactory: (obj: WrapperData) => T,
+  mount: MountFunctionType
+  ) {
+    const dataHook = 'myDataHook';
+    const elementToRender = React.cloneElement(Element , {'data-hook': dataHook});
+    const wrapper = mount(elementToRender);
+    const testkit = testkitFactory({wrapper, dataHook});
+    return testkit.exists();
 }
 
 /**
