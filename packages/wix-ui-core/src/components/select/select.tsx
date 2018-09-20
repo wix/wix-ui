@@ -51,7 +51,7 @@ export class Select extends React.PureComponent<SelectProps> {
 
     return (
       <div>
-        <Target children={toggleComponent} />
+        <Target data-hook="select-toggle" children={toggleComponent} />
 
         <Popper placement="bottom-start" className={style.menu}>
           <div {...downshift.getMenuProps()}>
