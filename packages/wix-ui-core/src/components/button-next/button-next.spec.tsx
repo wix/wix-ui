@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import { buttonNextTestkit } from "../../testkit";
+// import { buttonNextTestkit } from "../../testkit";
 import { buttonNextDriverFactory } from "./button-next.driver";
 import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
@@ -15,9 +15,9 @@ describe("ButtonNext", () => {
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
 
-  const createTestkitDriver = new ReactDOMTestContainer()
-    .unmountAfterEachTest()
-    .createUniRenderer(buttonNextTestkit);
+  // const createTestkitDriver = new ReactDOMTestContainer()
+  //   .unmountAfterEachTest()
+  //   .createUniRenderer(buttonNextTestkit);
 
   const dataHook = "button-next";
 
@@ -62,10 +62,10 @@ describe("ButtonNext", () => {
     });
   });
 
-  describe("Testkit", () => {
-    it("should exist", async () => {
-      const driver = createTestkitDriver(<ButtonNext />);
-      expect(await driver.exists()).toBeTruthy();
-    });
-  });
+  // describe("Testkit", () => {
+  //   it("should exist", async () => {
+  //     const driver = createTestkitDriver(<ButtonNext />);
+  //     expect(await driver.exists()).toBeTruthy();
+  //   });
+  // });
 });
