@@ -89,12 +89,11 @@ export class ReactDOMTestContainer {
   }
 
   // Adapter for react based uni driver
-  public createUniRenderer<T>(
-    driver: (args: UniDriver) => T
-  ): (element: JSX.Element) => T {
+  public createUniRenderer<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
-      return driver(reactUniDriver(this.node));
+      const base = reactUniDriver(this.componentNode);
+      return driverFactory(base);
     };
   }
 }
