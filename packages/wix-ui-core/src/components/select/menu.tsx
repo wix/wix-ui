@@ -5,6 +5,7 @@ import {Option} from './option';
 
 export interface MenuProps {
   children: React.ReactNode;
+  dataHook?: string;
 }
 
 Option.displayName = 'Menu.Item';
@@ -14,6 +15,7 @@ export class Menu extends React.PureComponent<MenuProps> {
   static Item = Option;
 
   render() {
-    return <div {...style('root')} {...this.props} />;
+    const {dataHook, ...rest} = this.props;
+    return <div {...style('root')} data-hook={dataHook} {...rest} />;
   }
 }
