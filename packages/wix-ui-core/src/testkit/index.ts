@@ -1,4 +1,7 @@
-import { testkitFactoryCreator } from "wix-ui-test-utils/vanilla";
+import {
+  testkitFactoryCreator,
+  uniTestkitFactoryCreator
+} from "wix-ui-test-utils/vanilla";
 
 import { inputDriverFactory } from "../components/Input/Input.driver";
 export const inputTestkitFactory = testkitFactoryCreator(inputDriverFactory);
@@ -41,8 +44,14 @@ export const buttonTestkitFactory = testkitFactoryCreator<ButtonDriver>(
 );
 export { ButtonDriver };
 
-import { buttonNextDriverFactory } from "../components/button-next/button-next.driver";
-export { buttonNextDriverFactory as buttonNextTestkit };
+import {
+  buttonNextDriverFactory,
+  ButtonNextDriver
+} from "../components/button-next/button-next.driver";
+export const buttonNextTestkitFactory = uniTestkitFactoryCreator<
+  ButtonNextDriver
+>(buttonNextDriverFactory);
+export { ButtonNextDriver };
 
 import {
   linearProgressBarDriverFactory,

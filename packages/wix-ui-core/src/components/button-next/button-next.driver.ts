@@ -1,6 +1,7 @@
+import { BaseUniDriver } from "wix-ui-test-utils/driver-factory";
 import { UniDriver } from "unidriver";
 
-export interface ButtonNextDriver {
+export interface ButtonNextDriver extends BaseUniDriver {
   /** returns true if button exists */
   exists: () => Promise<boolean>;
   /** click on the button */
