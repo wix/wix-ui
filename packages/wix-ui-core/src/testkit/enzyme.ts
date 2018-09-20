@@ -67,14 +67,14 @@ export const buttonTestkitFactory = enzymeTestkitFactoryCreator<ButtonDriver>(
 );
 export { ButtonDriver };
 
-import {
-  buttonNextDriverFactory,
-  ButtonNextDriver
-} from "../components/button-next/button-next.driver";
-export const buttonNextTestkitFactory = enzymeTestkitFactoryCreator<
-  ButtonNextDriver
->(buttonNextDriverFactory);
-export { ButtonNextDriver };
+// import {
+//   buttonNextDriverFactory,
+//   ButtonNextDriver
+// } from "../components/button-next/button-next.driver";
+// export const buttonNextTestkitFactory = enzymeTestkitFactoryCreator<
+//   ButtonNextDriver
+// >(buttonNextDriverFactory);
+// export { ButtonNextDriver };
 
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
