@@ -1,12 +1,12 @@
 import * as React from "react";
 
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-// import { buttonNextTestkit } from "../../testkit";
+import { buttonNextTestkit } from "../../testkit";
 import { buttonNextDriverFactory } from "./button-next.driver";
 import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
-describe("ButtonNext", () => {
+describe.only("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextDriverFactory);
@@ -15,27 +15,23 @@ describe("ButtonNext", () => {
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
 
-  // const createTestkitDriver = new ReactDOMTestContainer()
-  //   .unmountAfterEachTest()
-  //   .createUniRenderer(buttonNextTestkit);
+  const createTestkitDriver = new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createUniRenderer(buttonNextTestkit);
 
   const dataHook = "button-next";
 
   describe(`'onClick' prop`, () => {
     it("should be called on click", async () => {
       const onClick = jest.fn();
-      const driver = createDriver(
-        <ButtonNext dataHook={dataHook} onClick={onClick} />
-      );
+      const driver = createDriver(<ButtonNext onClick={onClick} />);
       await driver.click();
       expect(onClick).toBeCalled();
     });
 
     it(`should not call 'onClick' when 'disabled'`, async () => {
       const onClick = jest.fn();
-      const driver = createDriver(
-        <ButtonNext dataHook={dataHook} onClick={onClick} disabled />
-      );
+      const driver = createDriver(<ButtonNext onClick={onClick} disabled />);
       await driver.click();
       expect(onClick).not.toBeCalled();
     });
@@ -44,9 +40,7 @@ describe("ButtonNext", () => {
   describe(`'children' prop`, () => {
     it("should render text", async () => {
       const text = "button";
-      const driver = createDriver(
-        <ButtonNext dataHook={dataHook} children={text} />
-      );
+      const driver = createDriver(<ButtonNext children={text} />);
       expect(await driver.getButtonTextContent()).toBe(text);
     });
   });
@@ -68,10 +62,10 @@ describe("ButtonNext", () => {
     });
   });
 
-  // describe("Testkit", () => {
-  //   it("should exist", async () => {
-  //     const driver = createTestkitDriver(<ButtonNext />);
-  //     expect(await driver.exists()).toBeTruthy();
-  //   });
-  // });
+  describe("Testkit", () => {
+    it("should exist", async () => {
+      const driver = createTestkitDriver(<ButtonNext />);
+      expect(await driver.exists()).toBeTruthy();
+    });
+  });
 });

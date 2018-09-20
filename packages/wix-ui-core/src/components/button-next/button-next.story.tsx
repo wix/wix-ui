@@ -7,7 +7,7 @@ export default {
   componentPath: "./button-next.tsx",
 
   componentProps: {
-    disabled: true,
+    disabled: false,
     children: "I'm a Button!",
     "data-hook": "storybook-button"
   },
