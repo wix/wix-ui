@@ -1,5 +1,6 @@
 import {
   enzymeTestkitFactoryCreator,
+  enzymeUniTestkitFactoryCreator,
   WrapperData
 } from "wix-ui-test-utils/enzyme";
 
@@ -67,14 +68,14 @@ export const buttonTestkitFactory = enzymeTestkitFactoryCreator<ButtonDriver>(
 );
 export { ButtonDriver };
 
-// import {
-//   buttonNextDriverFactory,
-//   ButtonNextDriver
-// } from "../components/button-next/button-next.driver";
-// export const buttonNextTestkitFactory = enzymeTestkitFactoryCreator<
-//   ButtonNextDriver
-// >(buttonNextDriverFactory);
-// export { ButtonNextDriver };
+import {
+  buttonNextDriverFactory,
+  ButtonNextDriver
+} from "../components/button-next/button-next.driver";
+export const buttonNextTestkitFactory = enzymeUniTestkitFactoryCreator<
+  ButtonNextDriver
+>(buttonNextDriverFactory);
+export { ButtonNextDriver };
 
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,

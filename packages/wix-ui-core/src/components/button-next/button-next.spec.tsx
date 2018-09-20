@@ -1,18 +1,17 @@
 import * as React from "react";
-
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-// import { buttonNextTestkit } from "../../testkit";
-import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
+import { buttonNextTestkitFactory } from "../../testkit";
+import { buttonNextTestkitFactory as enzymeButtonNextTestkitFactory } from "../../testkit/enzyme";
 import { ButtonNext } from "./";
+import { isUniTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { isUniEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { mount } from 'enzyme';
+import { buttonNextPrivateDriverFactory } from './button-next.driver.private';
 
 describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
-
-  // const createTestkitDriver = new ReactDOMTestContainer()
-  //   .unmountAfterEachTest()
-  //   .createUniRenderer(buttonNextTestkit);
 
   describe(`'onClick' prop`, () => {
     it("should be called on click", async () => {
@@ -55,10 +54,17 @@ describe("ButtonNext", () => {
     });
   });
 
-  // describe("Testkit", () => {
-  //   it("should exist", async () => {
-  //     const driver = createTestkitDriver(<ButtonNext />);
-  //     expect(await driver.exists()).toBeTruthy();
-  //   });
-  // });
+  describe('testkits', () => {
+    describe('vanilla', () => {
+      it('should exist', async () => {
+        expect(await isUniTestkitExists(<ButtonNext/>, buttonNextTestkitFactory)).toBe(true);
+      });
+    });
+
+    describe('enzyme', () => {
+      it('should exist', async () => {
+        expect(await isUniEnzymeTestkitExists(<ButtonNext/>, enzymeButtonNextTestkitFactory, mount)).toBe(true);
+      });
+    });
+  });
 });
