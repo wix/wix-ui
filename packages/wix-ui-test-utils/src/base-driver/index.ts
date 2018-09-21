@@ -5,10 +5,6 @@ export interface BaseUniDriver {
   click: () => Promise<void>;
 }
 
-export interface BaseDriver {
-  exists: () => boolean;
-}
-
 export const BaseUniDriverFactory = (base: UniDriver): BaseUniDriver => {
   return {
     exists: async () => await base.exists(),
