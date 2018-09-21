@@ -11,6 +11,6 @@ export class MenuItem extends React.PureComponent<Props> {
   static displayName = 'Menu.Item';
 
   render() {
-    return <div {...style('root', {}, this.props)} />;
+    return <div {...style('root', {}, this.props)} {...this.props} />;
   }
 }
