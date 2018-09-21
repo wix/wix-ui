@@ -3,7 +3,7 @@ import {UniDriver} from 'unidriver';
 export interface BaseUniDriver {
   /** returns true if component exists */
   exists: () => Promise<boolean>;
-  /** click on the button */
+  /** click on the element */
   click: () => Promise<void>;
 }
 
