@@ -6,8 +6,11 @@ import style from "./button-next.st.css";
 export interface ButtonProps
   extends BaseProps,
     React.ButtonHTMLAttributes<any> {
+  /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
+  /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
+  /** sets error state */
   error?: boolean;
 }
 /**
