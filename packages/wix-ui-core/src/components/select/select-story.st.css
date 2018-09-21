@@ -1,0 +1,9 @@
+:import {
+  -st-from: "./select.st.css"
+  -st-default: Select;
+}
+
+Select::menu {
+  font-size: 20px;
+  padding: 20px;
+}

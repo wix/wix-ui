@@ -1,8 +1,13 @@
+:import {
+  -st-from: "./menu.st.css";
+  -st-named: Menu;
+}
+
 .root {
   display: inline-block;
 }
 
 .menu {
+  -st-extends: Menu;
   z-index: 1000;
-  background: #fff;
 }

@@ -53,10 +53,10 @@ export class Select extends React.PureComponent<SelectProps> {
       <div>
         <Target data-hook="select-toggle" children={toggleComponent} />
 
-        <Popper placement="bottom-start" className={style.menu}>
+        <Popper placement="bottom-start">
           <div {...downshift.getMenuProps()}>
             {downshift.isOpen && (
-              <Menu dataHook="select-menu">
+              <Menu dataHook="select-menu" className={style.menu}>
                 {filteredChildren.map((child, key) => {
                   if (!React.isValidElement(child)) {
                     return null;

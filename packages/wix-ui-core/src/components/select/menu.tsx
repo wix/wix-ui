@@ -6,6 +6,7 @@ import {Option} from './option';
 export interface MenuProps {
   children: React.ReactNode;
   dataHook?: string;
+  className?: string;
 }
 
 Option.displayName = 'Menu.Item';
@@ -16,6 +17,8 @@ export class Menu extends React.PureComponent<MenuProps> {
 
   render() {
     const {dataHook, ...rest} = this.props;
-    return <div {...style('root')} data-hook={dataHook} {...rest} />;
+    return (
+      <div {...style('root', {}, this.props)} data-hook={dataHook} {...rest} />
+    );
   }
 }

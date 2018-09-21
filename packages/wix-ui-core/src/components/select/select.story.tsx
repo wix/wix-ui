@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Select, Option} from './';
 import {Input} from '../Input';
 
+import styles from './select-story.st.css';
+
 const menuItems = [
   {id: 0, value: 'first'},
   {id: 1, value: 'second', selected: true},
@@ -37,5 +39,18 @@ export default {
 
   exampleProps: {
     children: exampleChildren
-  }
+  },
+
+  examples: (
+    <div className={styles.root}>
+      <h3>Simple Dropdown</h3>
+      <Select>{mapItems(menuItems)}</Select>
+      <hr />
+
+      <h3>Input Dropdown</h3>
+      <Select toggle={({getInputProps}) => <Input {...getInputProps()} />}>
+        {mapItems(menuItems)}
+      </Select>
+    </div>
+  )
 };
