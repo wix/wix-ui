@@ -1,8 +1,7 @@
 import * as React from "react";
-
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
+import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 
 describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
