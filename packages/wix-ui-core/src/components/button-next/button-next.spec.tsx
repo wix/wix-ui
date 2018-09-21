@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-// import { buttonNextTestkit } from "../../testkit";
 import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
 import { ButtonNext } from "./";
 
@@ -9,10 +8,6 @@ describe("ButtonNext", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
-
-  // const createTestkitDriver = new ReactDOMTestContainer()
-  //   .unmountAfterEachTest()
-  //   .createUniRenderer(buttonNextTestkit);
 
   describe(`'onClick' prop`, () => {
     it("should be called on click", async () => {
@@ -54,11 +49,4 @@ describe("ButtonNext", () => {
       expect(await driver.suffixExists()).toBeFalsy();
     });
   });
-
-  // describe("Testkit", () => {
-  //   it("should exist", async () => {
-  //     const driver = createTestkitDriver(<ButtonNext />);
-  //     expect(await driver.exists()).toBeTruthy();
-  //   });
-  // });
 });

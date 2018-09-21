@@ -1,6 +1,6 @@
 import {
   BaseUniDriver,
-  BaseUniDriverFactory
+  baseUniDriverFactory
 } from "wix-ui-test-utils/base-driver";
 import { UniDriver } from "unidriver";
 
@@ -13,7 +13,7 @@ export interface ButtonNextDriver extends BaseUniDriver {
 
 export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
   return {
-    ...BaseUniDriverFactory(base),
+    ...baseUniDriverFactory(base),
     getButtonTextContent: async () => await base.text(),
     isButtonDisabled: async () => !!(await base.attr("disabled"))
   };

@@ -31,13 +31,13 @@ export class ButtonNext extends React.Component<ButtonProps> {
     type: oneOf(["submit", "button", "reset"])
   };
 
-  addPrefix = prefixIcon =>
+  _addPrefix = prefixIcon =>
     prefixIcon &&
     React.cloneElement(prefixIcon, {
       className: style.prefix
     });
 
-  addSuffix = suffixIcon =>
+  _addSuffix = suffixIcon =>
     suffixIcon &&
     React.cloneElement(suffixIcon, {
       className: style.suffix
@@ -59,9 +59,9 @@ export class ButtonNext extends React.Component<ButtonProps> {
         onClick={disabled ? null : onClick}
         {...style("root", { error }, this.props)}
       >
-        {this.addPrefix(prefixIcon)}
+        {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
-        {this.addSuffix(suffixIcon)}
+        {this._addSuffix(suffixIcon)}
       </button>
     );
   }
