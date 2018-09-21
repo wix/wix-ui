@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ButtonNext } from "./button-next";
-import { Add } from "wix-ui-icons-common/Add";
+import Add from "wix-ui-icons-common/Add";
 import Registry from "@ui-autotools/registry";
 
 const buttonMetadata = Registry.getComponentMetadata(ButtonNext);
