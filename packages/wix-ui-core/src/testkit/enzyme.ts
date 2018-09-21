@@ -19,16 +19,22 @@ export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(
   tooltipDriverFactory
 );
 
-import { linearProgressBarDriverFactory, LinearProgressBarDriver } from "../components/LinearProgressBar/LinearProgressBar.driver";
-export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<LinearProgressBarDriver>(
-  linearProgressBarDriverFactory
-);
+import {
+  linearProgressBarDriverFactory,
+  LinearProgressBarDriver
+} from "../components/LinearProgressBar/LinearProgressBar.driver";
+export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
+  LinearProgressBarDriver
+>(linearProgressBarDriverFactory);
 export { LinearProgressBarDriver };
 
-import { circularProgressBarDriverFactory, CircularProgressBarDriver } from "../components/CircularProgressBar/CircularProgressBar.driver";
-export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<CircularProgressBarDriver>(
-  circularProgressBarDriverFactory
-);
+import {
+  circularProgressBarDriverFactory,
+  CircularProgressBarDriver
+} from "../components/CircularProgressBar/CircularProgressBar.driver";
+export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
+  CircularProgressBarDriver
+>(circularProgressBarDriverFactory);
 export { CircularProgressBarDriver };
 
 import { paginationDriverFactory } from "../components/Pagination/Pagination.driver";
@@ -60,6 +66,15 @@ export const buttonTestkitFactory = enzymeTestkitFactoryCreator<ButtonDriver>(
   buttonDriverFactory
 );
 export { ButtonDriver };
+
+import {
+  buttonNextDriverFactory,
+  ButtonNextDriver
+} from "../components/button-next/button-next.driver";
+export const buttonNextTestkitFactory = enzymeTestkitFactoryCreator<
+  ButtonNextDriver
+>(buttonNextDriverFactory);
+export { ButtonNextDriver };
 
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
@@ -119,6 +134,11 @@ export const popoverTestkitFactory = enzymeTestkitFactoryCreator(
   popoverDriverFactory
 );
 
-import {navStepperDriverFactory, NavStepperDriver} from '../components/NavStepper/NavStepper.driver';
-export const navStepperTestkitFactory = enzymeTestkitFactoryCreator(navStepperDriverFactory);
-export {NavStepperDriver};
+import {
+  navStepperDriverFactory,
+  NavStepperDriver
+} from "../components/NavStepper/NavStepper.driver";
+export const navStepperTestkitFactory = enzymeTestkitFactoryCreator(
+  navStepperDriverFactory
+);
+export { NavStepperDriver };
