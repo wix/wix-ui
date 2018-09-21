@@ -10,10 +10,6 @@ export interface BaseDriver {
   exists: () => boolean;
 }
 
-export interface BaseUniDriver {
-  exists: () => Promise<boolean>;
-}
-
 export interface ComponentFactory {
   element: Element | undefined;
   wrapper: HTMLElement | ReactWrapper;
