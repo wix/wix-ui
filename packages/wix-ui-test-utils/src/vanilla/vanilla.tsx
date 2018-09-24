@@ -1,18 +1,34 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
 import {BaseUniDriver} from '../base-driver';
 import {UniDriver, reactUniDriver} from 'unidriver';
 
+const getElementByDataHook = (wrapper: HTMLElement, dataHook: string ) => {
+  const domInstance = ReactDom.findDOMNode(wrapper) as HTMLElement;
+  if (domInstance) {
+    const dataHookOnInstance = domInstance.attributes.getNamedItem('data-hook') || {value: ''};
+
+    return dataHook === dataHookOnInstance.value
+      ? domInstance
+      : domInstance.querySelector(`[data-hook='${dataHook}']`);
+  }
+};
+
 export function testkitFactoryCreator<T extends BaseDriver>(
   driverFactory: DriverFactory<T>
 ) {
   return (obj: { wrapper: HTMLElement; dataHook: string }) => {
     const eventTrigger = reactEventTrigger();
-    const element = obj.wrapper.querySelector(
-      `[data-hook='${obj.dataHook}']`
-    ) as Element;
+    /*
+      https://github.com/facebook/react/commit/4070c4ca20b1d08a00fe278d561642e87373c09f
+      https://github.com/facebook/react/issues/4692#issuecomment-133897672
+      as react allow to user TestUtils.findAllInRenderedTree only on composite components, we need to
+      support wrappers that are composite components
+    */
+    const element = getElementByDataHook(obj.wrapper, obj.dataHook) as Element;
     return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
   };
 }
