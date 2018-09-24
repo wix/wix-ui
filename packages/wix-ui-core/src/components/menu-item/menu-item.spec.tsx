@@ -1,4 +1,4 @@
-/* global describe it expect */
+/* global describe it expect jest */
 import * as React from 'react';
 import {MenuItem} from './menu-item';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
@@ -22,6 +22,17 @@ describe('MenuItem', () => {
     it('should be rendered', async () => {
       const driver = createDriver(<MenuItem children="hello" />);
       expect(await driver.getText()).toEqual('hello');
+    });
+  });
+
+  describe('`onClick` prop', () => {
+    it('should be invoked on click', async () => {
+      const onClick = jest.fn();
+      const driver = createDriver(
+        <MenuItem children="hello" onClick={onClick} />
+      );
+      await driver.click();
+      expect(onClick.mock.calls.length).toEqual(1);
     });
   });
 });

@@ -4,6 +4,7 @@ import style from './menu-item.st.css';
 
 export interface Props {
   children?: React.ReactNode;
+  onClick?: React.EventHandler<React.MouseEvent<HTMLDivElement>>;
   dataHook?: string;
 }
 
