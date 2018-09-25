@@ -25,8 +25,8 @@ export function testkitFactoryCreator<T extends BaseDriver>(
     /*
       https://github.com/facebook/react/commit/4070c4ca20b1d08a00fe278d561642e87373c09f
       https://github.com/facebook/react/issues/4692#issuecomment-133897672
-      as react allow to user TestUtils.findAllInRenderedTree only on composite components, we need to
-      support wrappers that are composite components
+      as react allows to use TestUtils.findAllInRenderedTree only on composite components, we need to
+      support composite wrappers
     */
     const element = getElementByDataHook(obj.wrapper, obj.dataHook) as Element;
     return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
