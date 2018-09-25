@@ -15,7 +15,7 @@ const exampleChildren = [
 ];
 
 export default {
-  category: 'Components/Dropdown',
+  category: 'Components',
   storyName: 'MenuItem',
   component: MenuItem,
   componentPath: './menu-item.tsx',
