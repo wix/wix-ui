@@ -1,4 +1,3 @@
-/* global describe it expect jest */
 import * as React from 'react';
 import {Menu} from './menu';
 import {MenuItem} from '../menu-item/menu-item';
@@ -10,11 +9,6 @@ const createDriver = new ReactDOMTestContainer()
   .createUniRenderer(menuItemPrivateDriverFactory);
 
 describe('Menu', () => {
-  it('should render', async () => {
-    const driver = createDriver(<Menu />);
-    expect(await driver.exists()).toBeTruthy();
-  });
-
   it('should have Menu as displayName', () => {
     expect(Menu.displayName).toBe('Menu');
   });
@@ -33,7 +27,7 @@ describe('Menu', () => {
       expect(await driver.assertChildren()).toBeTruthy();
     });
 
-    it('should not render not MenuItem components', async () => {
+    it('should not render MenuItem components', async () => {
       const children = [
         <Menu.Item key="first">first</Menu.Item>,
         'hello',
