@@ -1,4 +1,3 @@
-/* global describe it expect jest */
 import * as React from 'react';
 import {MenuItem} from './menu-item';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
@@ -9,11 +8,6 @@ const createDriver = new ReactDOMTestContainer()
   .createUniRenderer(menuItemPrivateDriverFactory);
 
 describe('MenuItem', () => {
-  it('should render', async () => {
-    const driver = createDriver(<MenuItem />);
-    expect(await driver.exists()).toBeTruthy();
-  });
-
   it('should have Menu.Item as displayName', () => {
     expect(MenuItem.displayName).toBe('Menu.Item');
   });
@@ -35,4 +29,24 @@ describe('MenuItem', () => {
       expect(onClick.mock.calls.length).toEqual(1);
     });
   });
+
+  [
+    ['selected', 'isSelected'],
+    ['highlighted', 'isHighlighted'],
+    ['disabled', 'isDisabled']
+  ].map(([prop, method]) =>
+    describe(`\`${prop}\` prop`, async () => {
+      it('should be false by default', async () => {
+        const driver = createDriver(<MenuItem children="hello" />);
+        expect(await driver[method]()).toBe(false);
+      });
+
+      it('should set state when true', async () => {
+        const driver = createDriver(
+          <MenuItem children="hello" {...{[prop]: true}} />
+        );
+        expect(await driver[method]()).toBe(true);
+      });
+    })
+  );
 });

@@ -9,6 +9,15 @@ export interface Props {
 
   /** mouse click callback */
   onClick?: React.EventHandler<React.MouseEvent<HTMLDivElement>>;
+
+  /** define if MenuItem is in selected state */
+  selected?: boolean;
+
+  /** define if MenuItem is in highlighted state */
+  highlighted?: boolean;
+
+  /** define if MenuItem is in disabled state */
+  disabled?: boolean;
 }
 
 export class MenuItem extends React.PureComponent<Props> {
@@ -16,10 +25,19 @@ export class MenuItem extends React.PureComponent<Props> {
 
   static propTypes = {
     children: PropTypes.node,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    selected: PropTypes.bool,
+    highlighted: PropTypes.bool,
+    disabled: PropTypes.bool
   };
 
   render() {
-    return <div {...style('root', {}, this.props)} {...this.props} />;
+    const {selected, highlighted, disabled, ...rest} = this.props;
+    return (
+      <div
+        {...style('root', {selected, highlighted, disabled}, this.props)}
+        {...rest}
+      />
+    );
   }
 }
