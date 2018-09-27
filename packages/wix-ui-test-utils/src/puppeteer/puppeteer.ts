@@ -1,7 +1,7 @@
 import {Page, ElementHandle} from 'puppeteer';
 import {BaseUniDriver} from '../base-driver';
 import {UniDriver} from 'unidriver';
-import {pupUniDriver} from 'unidriver/dist/lib/puppeteer';
+import {pupUniDriver} from 'unidriver/puppeteer';
 //TODO: change it to import {pupUniDriver} from 'unidriver/puppeteer';
 // Waiting for https://github.com/wix-incubator/unidriver/pull/7 to be merged
 

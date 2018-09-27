@@ -4,7 +4,8 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
 import {BaseUniDriver} from '../base-driver';
-import {UniDriver, reactUniDriver} from 'unidriver';
+import {UniDriver} from 'unidriver';
+import {reactUniDriver} from 'unidriver/react';
 
 const getElementByDataHook = (wrapper: HTMLElement, dataHook: string ) => {
   const domInstance = ReactDom.findDOMNode(wrapper) as HTMLElement;

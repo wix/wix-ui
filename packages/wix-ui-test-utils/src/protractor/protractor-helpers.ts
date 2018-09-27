@@ -3,7 +3,6 @@ import {
   promise,
   ExpectedConditions,
   ElementFinder,
-  ElementArrayFinder,
   WebElement
 } from 'protractor';
 

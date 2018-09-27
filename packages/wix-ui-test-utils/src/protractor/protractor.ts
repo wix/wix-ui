@@ -1,5 +1,5 @@
 import {$, ElementFinder} from 'protractor';
-import {protractorUniDriver} from './protractor-adapter';
+import {protractorUniDriver} from 'unidriver/protractor';
 import {UniDriver} from 'unidriver';
 import {BaseUniDriver} from '../base-driver';
 
