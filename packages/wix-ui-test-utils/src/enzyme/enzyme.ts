@@ -3,7 +3,8 @@ import {reactEventTrigger} from '../react-helpers';
 import {BaseDriver} from '../driver-factory';
 import {BaseUniDriver} from '../base-driver';
 import {MountRendererProps, ReactWrapper} from 'enzyme';
-import {UniDriver, reactUniDriver} from 'unidriver';
+import {UniDriver} from 'unidriver';
+import {reactUniDriver} from 'unidriver/react';
 
 export interface WrapperData {
   wrapper: ReactWrapper;
