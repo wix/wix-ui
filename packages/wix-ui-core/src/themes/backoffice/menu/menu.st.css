@@ -1,0 +1,50 @@
+:import {
+  -st-from: '../../../components/menu/menu.st.css'
+  -st-default: Menu;
+}
+
+:import {
+  -st-from: '../colors.st.css'
+  -st-named: WHITE, B10, B50;
+}
+
+:import {
+  -st-from: '../shadows.st.css'
+  -st-named: shadow30;
+}
+
+:vars {
+  border-radius: 8px;
+}
+
+Menu {
+  background: value(WHITE);
+  box-shadow: value(shadow30);
+  border-radius: value(border-radius);
+}
+
+Menu::item {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 24px;
+  cursor: pointer;
+}
+
+Menu::item:hover {
+  background: value(B50);
+}
+
+Menu::item:first-child {
+  border-radius: value(border-radius) value(border-radius) 0 0;
+}
+
+Menu::item:last-child {
+  border-radius: 0 0 value(border-radius) value(border-radius);
+}
+
+
+Menu::item:selected {
+  color: value(WHITE);
+  background: value(B10);
+}

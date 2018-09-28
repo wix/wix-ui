@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Menu} from './menu';
 
+import backofficeTheme from '../../themes/backoffice/menu/menu.st.css';
+
 const exampleChildren = [
   {
     label: 'Four items',
@@ -32,5 +34,16 @@ export default {
 
   exampleProps: {
     children: exampleChildren
-  }
+  },
+
+  examples: (
+    <div className={backofficeTheme.root} style={{width: 270}}>
+      <Menu>
+        <Menu.Item>Item</Menu.Item>
+        <Menu.Item selected>Selected Item</Menu.Item>
+        <Menu.Item highlighted>Highlighted Item</Menu.Item>
+        <Menu.Item disabled>Disabled Item</Menu.Item>
+      </Menu>
+    </div>
+  )
 };

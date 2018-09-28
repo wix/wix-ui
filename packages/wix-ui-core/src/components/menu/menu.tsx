@@ -27,13 +27,15 @@ export class Menu extends React.PureComponent<Props> {
       .filter(
         child => (child as React.ReactElement<MenuItemProps>).type === MenuItem
       )
-      .map((child, index) =>
-        React.cloneElement(child as React.ReactElement<any>, {
+      .map((child, index) => {
+        const props = (child as React.ReactElement<MenuItemProps>).props;
+        const {selected, highlighted, disabled} = props;
+        return React.cloneElement(child as React.ReactElement<any>, {
+          ...style('item', {selected, highlighted, disabled}, props),
           'data-hook': `menu-item-${index}`,
-          onClick: () =>
-            onChange((child as React.ReactElement<MenuItemProps>).props)
-        })
-      );
+          onClick: () => onChange(props)
+        });
+      });
 
     return (
       <div {...style('root', {}, this.props)} {...rest}>

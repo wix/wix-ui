@@ -1,0 +1,13 @@
+:vars {
+    s1: rgba(22, 45, 61, 0.12);
+    s2: rgba(22, 45, 61, 0.48);
+    s3: rgba(22, 45, 61, 0.06);
+    s4: rgba(22, 45, 61, 0.18);
+}
+
+:vars {
+    shadow10: 0 2px 1px 0 value(s2), 0 0 3px 0 value(s1);
+    shadow20: 0 2px 4px 0 value(s1), 0 0 6px 0 value(s1);
+    shadow30: 0 6px 6px 0 value(s3), 0 0 18px 0 value(s1);
+    shadow40: 0 8px 8px 0 value(s1), 0 3px 24px 0 value(s4);
+}

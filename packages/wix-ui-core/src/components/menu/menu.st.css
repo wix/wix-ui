@@ -1,1 +1,10 @@
+:import {
+  -st-from: '../menu-item/menu-item.st.css'
+  -st-default: MenuItem;
+}
+
 .root {}
+
+.item {
+  -st-extends: MenuItem;
+}
