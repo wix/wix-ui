@@ -14,7 +14,7 @@ export const menuItemPrivateDriverFactory = (
   ...publicMenuDriver(base),
   getText: async () => await base.text(),
   assertChildren: async () => {
-    const menuItems = await base.$$('[data-hook="menu-item"]');
+    const menuItems = await base.$$('[data-hook^="menu-item"]');
     const allChildren = await base.$$('*');
     return (await menuItems.count()) === (await allChildren.count());
   }

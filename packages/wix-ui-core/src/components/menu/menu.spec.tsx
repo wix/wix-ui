@@ -19,15 +19,16 @@ describe('Menu', () => {
 
   describe('`children` prop', () => {
     it('should render MenuItem components', async () => {
-      const children = [
-        <Menu.Item key="first">first</Menu.Item>,
-        <Menu.Item key="second">second</Menu.Item>
-      ];
-      const driver = createDriver(<Menu children={children} />);
+      const driver = createDriver(
+        <Menu>
+          <Menu.Item>first</Menu.Item>
+          <Menu.Item>second</Menu.Item>
+        </Menu>
+      );
       expect(await driver.assertChildren()).toBeTruthy();
     });
 
-    it('should not render MenuItem components', async () => {
+    it('should not render not MenuItem components', async () => {
       const children = [
         <Menu.Item key="first">first</Menu.Item>,
         'hello',
@@ -36,6 +37,37 @@ describe('Menu', () => {
       // @ts-ignore: test case for non ts consumers who pass unexpected children
       const driver = createDriver(<Menu children={children} />);
       expect(await driver.assertChildren()).toBeTruthy();
+    });
+  });
+
+  describe('`onChange` prop', () => {
+    it('should be invoked when clicking MenuItem child', async () => {
+      const onChange = jest.fn();
+      const driver = createDriver(
+        <Menu onChange={onChange}>
+          <Menu.Item>first</Menu.Item>
+          <Menu.Item>second</Menu.Item>
+        </Menu>
+      );
+      await driver.clickItemAtIndex(0);
+      expect(onChange.mock.calls.length).toBe(1);
+    });
+
+    it('should be invoked with MenuItem props', async () => {
+      const onChange = jest.fn();
+      const driver = createDriver(
+        <Menu onChange={onChange}>
+          <Menu.Item selected disabled highlighted children="batman" />
+        </Menu>
+      );
+      await driver.clickItemAtIndex(0);
+
+      expect(onChange.mock.calls[0][0]).toMatchObject({
+        selected: true,
+        disabled: true,
+        highlighted: true,
+        children: 'batman'
+      });
     });
   });
 });
