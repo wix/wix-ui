@@ -33,6 +33,7 @@ Components.add("Pagination", () => <PaginationStory />);
 import "./Popover.story";
 Components.add("RadioButton", () => <RadioButtonStory />);
 import "./Slider.story";
+import "./SocialPlayer.story";
 import "./StylableBadge.story";
 import "./Thumbnail.story";
 import "./TimePicker/index.story";

@@ -51,6 +51,7 @@
     "playable": "1.13.0",
     "popper.js": "1.14.3",
     "react-onclickoutside": "^6.7.0",
+    "react-player": "1.6.6",
     "react-popper": "0.10.1",
     "react-portal": "^4.1.5",
     "react-transition-group": "^2.2.1",
