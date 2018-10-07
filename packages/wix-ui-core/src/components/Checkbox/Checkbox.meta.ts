@@ -6,7 +6,7 @@ const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 
 checkboxMetadata.exportedFrom({
   path: 'src/components/Checkbox/Checkbox',
-  exportName: 'ButtonNext',
+  exportName: 'Checkbox',
   baseStylePath: 'src/components/Checkbox/Checkbox.st.css'
 });
 
