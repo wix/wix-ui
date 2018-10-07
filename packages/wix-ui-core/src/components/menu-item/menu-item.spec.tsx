@@ -1,20 +1,16 @@
 import * as React from 'react';
 import {MenuItem} from './menu-item';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {menuItemPrivateDriverFactory} from './menu-item.driver.private';
+import {menuItemDriverFactory} from './menu-item.driver';
 
 const createDriver = new ReactDOMTestContainer()
   .unmountAfterEachTest()
-  .createUniRenderer(menuItemPrivateDriverFactory);
+  .createUniRenderer(menuItemDriverFactory);
 
 describe('MenuItem', () => {
-  it('should have Menu.Item as displayName', () => {
-    expect(MenuItem.displayName).toBe('Menu.Item');
-  });
-
   describe('`children` prop', () => {
     it('should be rendered', async () => {
-      const driver = createDriver(<MenuItem children="hello" />);
+      const driver = createDriver(<MenuItem>hello</MenuItem>);
       expect(await driver.getText()).toEqual('hello');
     });
   });
@@ -27,6 +23,15 @@ describe('MenuItem', () => {
       );
       await driver.click();
       expect(onClick.mock.calls.length).toEqual(1);
+    });
+
+    it('should not be invoked on click when disabled', async () => {
+      const onClick = jest.fn();
+      const driver = createDriver(
+        <MenuItem children="hello" onClick={onClick} disabled/>
+      );
+      await driver.click();
+      expect(onClick.mock.calls.length).toEqual(0);
     });
   });
 

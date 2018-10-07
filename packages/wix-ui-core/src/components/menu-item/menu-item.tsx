@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import style from './menu-item.st.css';
 
 export interface Props {
-  /** any node to be rendered inside Menu.Item */
+  /** any node to be rendered inside MenuItem */
   children?: React.ReactNode;
 
   /** mouse click callback */
@@ -32,11 +31,12 @@ export class MenuItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const {selected, highlighted, disabled, ...rest} = this.props;
+    const {selected, highlighted, disabled, onClick, ...rest} = this.props;
     return (
       <div
         {...style('root', {selected, highlighted, disabled}, this.props)}
         {...rest}
+        onClick={disabled ? onClick : () => null}
       />
     );
   }
