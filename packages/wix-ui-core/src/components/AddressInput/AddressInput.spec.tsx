@@ -747,6 +747,36 @@ describe('AddressInput', () => {
         });
     });
 
+    describe('Events', () => {
+        it('should support onClick event', () => {
+            const onClick = jest.fn();
+            init({onClick});
+            driver.clickInput();
+            expect(onClick).toHaveBeenCalledTimes(1);
+        });
+
+        it('should support onDoubleClick event', () => {
+            const onDoubleClick = jest.fn();
+            init({onDoubleClick});
+            driver.doubleClickInput();
+            expect(onDoubleClick).toHaveBeenCalledTimes(1);
+        });
+
+        it('should support onMouseEnter event', () => {
+            const onMouseEnter = jest.fn();
+            init({onMouseEnter});
+            driver.mouseEnterInput();
+            expect(onMouseEnter).toHaveBeenCalledTimes(1);
+        });
+
+        it('should support onMouseLeave event', () => {
+            const onMouseLeave = jest.fn();
+            init({onMouseLeave});
+            driver.mouseLeaveInput();
+            expect(onMouseLeave).toHaveBeenCalledTimes(1);
+        });
+    });
+
     describe('testkit', () => {
         it('should exist', () => {
             expect(isTestkitExists(
