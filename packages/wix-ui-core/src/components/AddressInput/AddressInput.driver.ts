@@ -6,7 +6,7 @@ export const addressInputDriverFactory = ({element, eventTrigger}) => {
         eventTrigger
     });
     
-    const input = element.querySelector('input');
+    const input = element.querySelector('[data-hook="input"] input');
 
     const driver = {
         clickInput: () => eventTrigger.click(input),
