@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Checkbox} from '../../src/components/Checkbox/Checkbox';
-import style from '../../src/components/Checkbox/CheckboxStyle.st.css';
+import style from './style.st.css';
 import {CheckboxChecked, CheckboxIndeterminate} from 'wix-ui-icons-common/system';
 
 export class CheckboxStory extends React.Component<{}, { checked: boolean }> {
