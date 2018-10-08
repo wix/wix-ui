@@ -79,6 +79,14 @@ export interface AddressInputProps {
     id?: string;
     /** aria-label - accessibility*/
     'aria-label'?: string;
+    /** Standard input onClick callback */
+    onClick?: () => void;
+    /** Standard input onDoubleClick callback */
+    onDoubleClick?: () => void;
+    /** Standard input onMouseEnter callback */
+    onMouseEnter?: () => void;
+    /** Standard input onMouseLeave callback */
+    onMouseLeave?: () => void;
 }
 
 export interface AddressInputState {
@@ -182,7 +190,15 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         /** Id */
         id: string,
         /** aria-label */
-        'aria-label': string
+        'aria-label': string,
+        /** Standard input onClick callback */
+        onClick: func,
+        /** Standard input onDoubleClick callback */
+        onDoubleClick: func,
+        /** Standard input onMouseEnter callback */
+        onMouseEnter: func,
+        /** Standard input onMouseLeave callback */
+        onMouseLeave: func
     };
 
     static defaultProps = {
@@ -384,7 +400,11 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             disabled,
             value: this.state.inputValue,
             suffix,
-            ref: ref => this.inputRef = ref
+            ref: ref => this.inputRef = ref,
+            onClick: this.props.onClick,
+            onDoubleClick: this.props.onDoubleClick,
+            onMouseEnter: this.props.onMouseEnter,
+            onMouseLeave: this.props.onMouseLeave
         };
 
         const states = {};
