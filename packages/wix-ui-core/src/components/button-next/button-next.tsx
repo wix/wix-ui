@@ -25,8 +25,6 @@ export class ButtonNext extends React.Component<ButtonProps> {
 
   static propTypes = {
     className: string,
-    disabled: bool,
-    error: bool,
     prefixIcon: node,
     suffixIcon: node,
     type: oneOf(["submit", "button", "reset"])
