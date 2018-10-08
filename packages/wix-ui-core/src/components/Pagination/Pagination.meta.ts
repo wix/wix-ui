@@ -1,8 +1,18 @@
 import {Pagination} from './Pagination';
 import Registry from '@ui-autotools/registry';
+import style from './PaginationTest.st.css';
+
 
 const paginationMetadata = Registry.getComponentMetadata(Pagination);
 paginationMetadata.reactStrictModeCompliant = false;
+
+paginationMetadata.exportedFrom({
+  path: 'src/components/Pagination/Pagination',
+  exportName: 'Pagination',
+  baseStylePath: 'src/components/Pagination/Pagination.st.css'
+});
+
+paginationMetadata.addStyle(style, {name: 'style', path: 'src/components/Pagination/PaginationTest.st.css'});
 
 paginationMetadata
   .addSim({
