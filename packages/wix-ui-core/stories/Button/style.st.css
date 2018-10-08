@@ -1,5 +1,5 @@
 :import {
-    -st-from: "./Button.st.css";
+    -st-from: "../../src/components/Button/Button.st.css";
     -st-default: Button;
 }
 
