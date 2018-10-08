@@ -1,5 +1,5 @@
 .root {
-  -st-states: error;
+  -st-states: disabled;
   display: inline-flex;
   align-items: center;
   cursor: pointer;

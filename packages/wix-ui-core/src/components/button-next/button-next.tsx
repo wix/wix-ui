@@ -20,8 +20,6 @@ export class ButtonNext extends React.Component<ButtonProps> {
   static displayName = "ButtonNext";
 
   static defaultProps = {
-    disabled: false,
-    error: false,
     type: "button"
   };
 
@@ -53,14 +51,13 @@ export class ButtonNext extends React.Component<ButtonProps> {
       children,
       onClick,
       disabled,
-      error,
       ...rest
     } = this.props;
     return (
       <button
         {...rest}
         onClick={disabled ? null : onClick}
-        {...style("root", { error }, this.props)}
+        {...style("root", { disabled }, this.props)}
       >
         {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
