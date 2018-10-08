@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import style from './menu-item.st.css';
 
-export interface Props {
+export interface MenuItemProps {
   /** any node to be rendered inside MenuItem */
   children?: React.ReactNode;
 
@@ -19,25 +19,24 @@ export interface Props {
   disabled?: boolean;
 }
 
-export class MenuItem extends React.PureComponent<Props> {
-  static displayName = 'MenuItem';
+export const MenuItem : React.SFC<MenuItemProps> = props => {
+  const {selected, highlighted, disabled, onSelect, ...rest} = props;
 
-  static propTypes = {
-    children: PropTypes.node,
-    onSelect: PropTypes.func,
-    selected: PropTypes.bool,
-    highlighted: PropTypes.bool,
-    disabled: PropTypes.bool
-  };
+  return (
+    <div
+      {...style('root', {selected, highlighted, disabled}, props)}
+      {...rest}
+      onClick={disabled ? () => null : onSelect}
+    />
+  );
+};
 
-  render() {
-    const {selected, highlighted, disabled, onSelect, ...rest} = this.props;
-    return (
-      <div
-        {...style('root', {selected, highlighted, disabled}, this.props)}
-        {...rest}
-        onClick={disabled ? () => null : onSelect}
-      />
-    );
-  }
-}
+MenuItem.propTypes = {
+  children: PropTypes.node,
+  onSelect: PropTypes.func,
+  selected: PropTypes.bool,
+  highlighted: PropTypes.bool,
+  disabled: PropTypes.bool
+};
+
+MenuItem.displayName = 'MenuItem';
