@@ -41,21 +41,9 @@ export class ButtonNext extends React.Component<ButtonProps> {
     });
 
   render() {
-    const {
-      suffixIcon,
-      prefixIcon,
-      children,
-      onClick,
-      disabled,
-      ...rest
-    } = this.props;
+    const { suffixIcon, prefixIcon, children, onClick, ...rest } = this.props;
     return (
-      <button
-        {...rest}
-        disabled={disabled}
-        onClick={onClick}
-        {...style("root", {}, this.props)}
-      >
+      <button {...rest} onClick={onClick} {...style("root", {}, this.props)}>
         {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
         {this._addSuffix(suffixIcon)}
