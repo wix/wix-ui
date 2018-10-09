@@ -7,13 +7,13 @@ export default {
   component: Button,
   componentPath: '../../src/components/Button/Button.tsx',
 
-  componentProps: {
+  componentProps: setState => ({
     ...style('root'),
     disabled: false,
     type: 'button',
     children: 'I\'m a Button!',
     'data-hook': 'storybook-button'
-  },
+  }),
 
   exampleProps: {
     onClick: () => 'Clicked!',
