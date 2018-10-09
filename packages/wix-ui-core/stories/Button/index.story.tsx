@@ -1,5 +1,4 @@
 import {Button} from '../../src/components/Button';
-import style from './style.st.css';
 
 export default {
   category: 'Components',
@@ -7,13 +6,12 @@ export default {
   component: Button,
   componentPath: '../../src/components/Button/Button.tsx',
 
-  componentProps: setState => ({
-    ...style('root'),
+  componentProps: {
     disabled: false,
     type: 'button',
     children: 'I\'m a Button!',
     'data-hook': 'storybook-button'
-  }),
+  },
 
   exampleProps: {
     onClick: () => 'Clicked!',
