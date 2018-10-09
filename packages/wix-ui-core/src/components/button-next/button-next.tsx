@@ -1,5 +1,5 @@
 import * as React from "react";
-import { string, node, bool, oneOf } from "prop-types";
+import { string, node, oneOf } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
 import style from "./button-next.st.css";
 
