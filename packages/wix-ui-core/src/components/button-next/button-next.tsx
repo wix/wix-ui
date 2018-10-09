@@ -55,7 +55,7 @@ export class ButtonNext extends React.Component<ButtonProps> {
       <button
         {...rest}
         disabled={disabled}
-        onClick={disabled ? null : onClick}
+        onClick={onClick}
         {...style("root", {}, this.props)}
       >
         {this._addPrefix(prefixIcon)}
