@@ -425,6 +425,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             id={id}
             ref={ref => this.inputWithOptionsRef = ref}
             allowReselect
+            filterPredicate={() => true}
           />
         );
     }

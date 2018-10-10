@@ -120,6 +120,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   }
 
   _filterOptions(): Array<Option> {
+
     const {highlightMatches, inputProps, options, filterPredicate} = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
