@@ -154,6 +154,7 @@ describe('InputWithOptions', () => {
       const {wrapper, driver} = setup(props);
       driver.click();
       expect(driver.getOptionsCount()).toBe(4);
+      // Using keyDown in order to trigger isEditing mode
       driver.keyDown('a');
       wrapper.setProps({inputProps: {value: 'a'}});
       expect(driver.getOptionsCount()).toBe(1);
@@ -165,6 +166,7 @@ describe('InputWithOptions', () => {
       const {wrapper, driver} = setup(props);
       driver.click();
       expect(driver.getOptionsCount()).toBe(4);
+      // Using keyDown in order to trigger isEditing mode
       driver.keyDown('a');
       wrapper.setProps({inputProps: {value: 'a'}});
       expect(driver.getOptionsCount()).toBe(2);
