@@ -35,12 +35,15 @@
   border-radius: 3px;
   font-size: .9em;
   border: 1px solid #eee;
+
 }
 
 .code {
   width: auto;
   display: block;
   overflow: auto;
+  border-radius: 0;
+  border-top: 1px dashed #ebedf0;
 }
 
 .codeHide {
@@ -73,6 +76,8 @@
 
 .description {
   display: block;
+  line-height: 2;
+  font-size: 14px;
 }
 
 .title {
