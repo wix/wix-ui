@@ -1,6 +1,6 @@
 :import {
   -st-from: "../theme.st.css";
-  -st-default: BackOfficeTheme;
+  -st-default: BackofficeTheme;
 }
 
 
@@ -37,7 +37,7 @@
 }
 
 
-BackOfficeTheme Button {
+BackofficeTheme Button {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   text-align: center;
@@ -60,54 +60,54 @@ BackOfficeTheme Button {
   color: value(D80);
 }
 
-BackOfficeTheme Button:focus {
+/* BackofficeTheme Button:focus {
   box-shadow: 0 0 0 3px value(F00);
-}
+} */
 
-BackOfficeTheme button.inverted {
+BackofficeTheme button.inverted {
   border: none;
   background-color: value(D80);
   color: value(B20);
 }
 
-BackOfficeThemeTheme button.underlined {
+BackofficeThemeTheme button.underlined {
     color:value(P10);
 }
 
-BackOfficeThemeTheme button.normal {
+BackofficeThemeTheme button.normal {
     font-family: value(fontRoman);
 }
 
-BackOfficeTheme button.secondary {
+BackofficeTheme button.secondary {
   border: solid 1px value(B10);
   background: transparent;
   color: value(B10);
 }
 
-BackOfficeTheme Button:disabled { 
+BackofficeTheme Button:disabled { 
   color: value(D80);
   background-color: value(D55);
   border-color: value(D55);
 }
 
-BackOfficeTheme Button:hover:not(:disabled)  {
+BackofficeTheme Button:hover:not(:disabled)  {
   background-color: value(B20);
   border-color: value(B20);
 }
 
-BackOfficeTheme Button:active:not(:disabled){
+BackofficeTheme Button:active:not(:disabled){
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackOfficeTheme button.secondary:active:not(:disabled) {
+BackofficeTheme button.secondary:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackOfficeTheme button.secondary:hover:not(:disabled),
+BackofficeTheme button.secondary:hover:not(:disabled),
 button.inverted:hover:not(:disabled),
 button.inverted:hover:not(:disabled) {
     color: value(D80);
@@ -117,48 +117,48 @@ button.inverted:hover:not(:disabled) {
 
 /* skin Light */
 /* here we have css specifity problem with icon button*/
-BackOfficeTheme button.light {
+BackofficeTheme button.light {
   border: none;
   background-color: value(D80);
   color: value(B20);
 }
 
-BackOfficeTheme button.light.secondary {
+BackofficeTheme button.light.secondary {
   border: solid 1px value(D80);
   background: transparent;
   color: value(D80);
 }
 
-BackOfficeTheme button.light:hover:not(:disabled) {
+BackofficeTheme button.light:hover:not(:disabled) {
    background-color: value(B50);
    color:  value(B10);
    border-color:value(B50);
 }
 
-BackOfficeTheme button.light.secondary:hover:not(:disabled) {
+BackofficeTheme button.light.secondary:hover:not(:disabled) {
    background-color: value(B50);
    color:  value(B10);
    border-color:value(B50);
 }
 
-BackOfficeTheme button.light:disabled {
+BackofficeTheme button.light:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
 }
 
-BackOfficeTheme button.light.secondary:disabled {
+BackofficeTheme button.light.secondary:disabled {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
 }
 
-BackOfficeTheme button.light:active:not(:disabled) {
+BackofficeTheme button.light:active:not(:disabled) {
   background-color: value(B40);
   color: value(B10);
 }
 
-BackOfficeTheme button.light.secondary:active:not(:disabled){
+BackofficeTheme button.light.secondary:active:not(:disabled){
   background-color: value(B40);
   border: solid 1px value(B40);
   color: value(B10);
@@ -166,37 +166,37 @@ BackOfficeTheme button.light.secondary:active:not(:disabled){
 
 /* skin Destructive */
 
-BackOfficeTheme button.destructive {
+BackofficeTheme button.destructive {
   background-color: value(R10);
   border-color: value(R10);
   color: value(D80);
 }
 
-BackOfficeTheme button.destructive.secondary {
+BackofficeTheme button.destructive.secondary {
   border: solid 1px value(R10);
   background: transparent;
   color: value(R10);
 }
 
-BackOfficeTheme button.destructive:hover:not(:disabled) {
+BackofficeTheme button.destructive:hover:not(:disabled) {
   background-color: value(R20);
   border-color: value(R20);
   color: value(D80);
 }
 
-BackOfficeTheme button.destructive:disabled {
+BackofficeTheme button.destructive:disabled {
   color: value(D80);
   background-color: value(D55);
   border-color: value(D55);
 }
 
-BackOfficeTheme button.destructive.secondary:disabled {
+BackofficeTheme button.destructive.secondary:disabled {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
 }
 
-BackOfficeTheme button.destructive:active:not(:disabled),
+BackofficeTheme button.destructive:active:not(:disabled),
 button.destructive.secondary:active:not(:disabled) {
   background-color: value(R10);
   border-color: value(R10);
@@ -205,38 +205,38 @@ button.destructive.secondary:active:not(:disabled) {
 
 /* skin Premium */
 
-BackOfficeTheme button.premium {
+BackofficeTheme button.premium {
   background-color: value(P10);
   border-color: value(P10);
   color: value(D80);
 }
 
-BackOfficeTheme button.premium.secondary {
+BackofficeTheme button.premium.secondary {
   border: solid 1px value(P10);
   background: transparent;
   color: value(P10);
 }
 
-BackOfficeTheme button.premium:hover:not(:disabled),
+BackofficeTheme button.premium:hover:not(:disabled),
 .premium.secondary:hover:not(:disabled) {
   background-color: value(P20);
   border-color: value(P20);
   color: value(D80);
 }
 
-BackOfficeTheme button.premium:disabled {
+BackofficeTheme button.premium:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
 }
 
-BackOfficeTheme button.premium.secondary:disabled {
+BackofficeTheme button.premium.secondary:disabled {
   border-color: value(D55);
   background-color: transparent;
   color: value(D55);
 }
 
-BackOfficeTheme button.premium:active:not(:disabled),
+BackofficeTheme button.premium:active:not(:disabled),
 button.premium.secondary:active:not(:disabled) {
   background-color: value(P10);
   border-color: value(P10);
@@ -245,27 +245,27 @@ button.premium.secondary:active:not(:disabled) {
 
 /* skin Dark */
 
-BackOfficeTheme button.dark,button.dark.secondary {
+BackofficeTheme button.dark,button.dark.secondary {
   background-color: transparent;
   border: solid 1px value(D40);
   color: value(D10);
 }
 
-BackOfficeTheme button.dark:hover:not(:disabled),
+BackofficeTheme button.dark:hover:not(:disabled),
 button.dark.secondary:hover:not(:disabled) {
   color: value(D80);
   background-color: value(D20);
   border-color: value(D20);
 }
 
-BackOfficeTheme button.dark:disabled, 
+BackofficeTheme button.dark:disabled, 
  button.dark.secondary:disabled {
   background-color: transparent;
   border: solid 1px value(D55);
   color: value(D55);
 }
 
-BackOfficeTheme button.dark:active:not(:disabled),
+BackofficeTheme button.dark:active:not(:disabled),
 button.darksecondary:active:not(:disabled) {
   background-color: value(D10);
   border-color: value(D10);
@@ -273,32 +273,32 @@ button.darksecondary:active:not(:disabled) {
 
 /* skin Transparent */
 
-BackOfficeTheme button.transparent, 
+BackofficeTheme button.transparent, 
 button.transparent.secondary {
   border-color: transparent;
   background-color: value(s5);
   color: value(D80);
 }
 
-BackOfficeTheme button.transparent:hover:not(:disabled), 
+BackofficeTheme button.transparent:hover:not(:disabled), 
 button.transparent.secondary:hover:not(:disabled) {
   border-color: transparent;
   background-color: value(s6);
   color: value(D80);
 }
 
-BackOfficeTheme button.transparent:disabled {
+BackofficeTheme button.transparent:disabled {
   background-color: value(D55);
   border-color: value(D55);
 }
 
-BackOfficeTheme button.transparent.secondary:disabled {
+BackofficeTheme button.transparent.secondary:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color:value(D80);
 }
 
-BackOfficeTheme button.transparent:active:not(:disabled),
+BackofficeTheme button.transparent:active:not(:disabled),
 button.transparent:active:not(:disabled) {
   background-color: value(s7);
   border-color: value(s7);
@@ -307,7 +307,7 @@ button.transparent:active:not(:disabled) {
 
 /* sizes */
 
-BackOfficeTheme .large {
+BackofficeTheme .large {
   height: 42px;
   font-size: 16px;
   line-height: 1.5;
@@ -315,7 +315,7 @@ BackOfficeTheme .large {
   padding: 0 30px;
 }
 
-BackOfficeTheme .small {
+BackofficeTheme .small {
   height: 30px;
   font-size: 14px;
   line-height: 1.29;
@@ -323,7 +323,7 @@ BackOfficeTheme .small {
   padding: 0 18px;
 }
 
-BackOfficeTheme .tiny {
+BackofficeTheme .tiny {
   height: 24px;
   font-size: 12px;
   line-height: 1.25;
@@ -333,83 +333,83 @@ BackOfficeTheme .tiny {
 
 /* Suffix and prefix */
 
-BackOfficeTheme .tiny .suffix {
+BackofficeTheme .tiny .suffix {
   margin: 0 -6px 0 0;
   width: 18px;
   height: 18px;
 }
 
-BackOfficeTheme .tiny .prefix {
+BackofficeTheme .tiny .prefix {
   margin: 0 0 0 -6px;
   width: 18px;
   height: 18px;
 }
 
-BackOfficeTheme .small .suffix {
+BackofficeTheme .small .suffix {
   margin: 0 -6px 0 6px;
   width: 18px;
   height: 18px;
 }
 
-BackOfficeTheme .small .prefix {
+BackofficeTheme .small .prefix {
   margin: 0 6px 0 -6px;
   width: 18px;
   height: 18px;
 }
 
-BackOfficeTheme .suffix {
+BackofficeTheme .suffix {
   margin: 0 -12px 0 6px;
   width: 24px;
   height: 24px;
 }
 
-BackOfficeTheme .prefix {
+BackofficeTheme .prefix {
   margin: 0 6px 0 -12px;
   width: 24px;
   height: 24px;
 }
 
-BackOfficeTheme  .large .suffix {
+BackofficeTheme  .large .suffix {
   margin: 0 -12px 0 12px;
   width: 24px;
   height: 24px;
 }
 
-BackOfficeTheme  .large .prefix {
+BackofficeTheme  .large .prefix {
   margin: 0 12px 0 -12px;
   width: 24px;
   height: 24px;
 }
 
 /* rtl */
-BackOfficeTheme :global([dir="rtl"]) .large .suffix {
+BackofficeTheme :global([dir="rtl"]) .large .suffix {
   margin: 0 12px 0 -12px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .large .prefix {
+BackofficeTheme :global([dir="rtl"]) .large .prefix {
   margin: 0 -12px 0 12px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .small .suffix {
+BackofficeTheme :global([dir="rtl"]) .small .suffix {
   margin: 0 6px 0 -6px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .small .prefix {
+BackofficeTheme :global([dir="rtl"]) .small .prefix {
   margin: 0 -6px 0 6px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .suffix {
+BackofficeTheme :global([dir="rtl"]) .suffix {
   margin: 0 12px 0 -12px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .prefix {
+BackofficeTheme :global([dir="rtl"]) .prefix {
   margin: 0 -12px 0 12px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .tiny .suffix {
+BackofficeTheme :global([dir="rtl"]) .tiny .suffix {
   margin: 0 0 0 -6px;
 }
 
-BackOfficeTheme :global([dir="rtl"]) .tiny .prefix {
+BackofficeTheme :global([dir="rtl"]) .tiny .prefix {
   margin: 0 -6px 0 0;
 }

@@ -44,4 +44,4 @@ HOCs.add("EllipsedTooltip", EllipsedText);
 HOCs.add("Focusable", Focusable);
 
 // BackOffice Theme
-import "./BackOffice/Button/button-next.story";
+import "./backoffice/button-next/button-next.story";

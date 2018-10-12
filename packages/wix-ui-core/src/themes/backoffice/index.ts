@@ -1,10 +1,10 @@
 import ButtonNext from "./button/button.st.css";
-import BackOfficeTheme from "./theme.st.css";
+import BackofficeTheme from "./theme.st.css";
 
 export default {
-  BackOfficeTheme,
+  BackofficeTheme: BackofficeTheme.root,
   ButtonNext
 };
 
 export const buttonNext = ButtonNext;
-export const backOfficeTheme = BackOfficeTheme;
+export const backofficeTheme = BackofficeTheme.root;

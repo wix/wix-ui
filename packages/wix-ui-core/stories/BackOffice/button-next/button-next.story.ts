@@ -1,5 +1,5 @@
 import { ButtonNext } from "./button-next";
-import { Sizes, Skins, Misq } from "./examples/examples";
+import { Skins, Props } from "./showcase/showcase";
 
 export default {
   category: "BackOffice",
@@ -17,5 +17,5 @@ export default {
     onClick: () => "Clicked!"
   },
 
-  examples: [Sizes, Skins, Misq]
+  examples: [Skins, Props]
 };

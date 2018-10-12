@@ -6,11 +6,18 @@ const showcase = `<button className={button.one}>one</button>
 <button className={button.two}>two</button>
 <button className={button.three}>three</button>`;
 
+const description = (
+  <div>
+    Button supports four main sizes: <code>tiny</code>, <code>small</code>,
+    <code>medium</code>, <code>large</code>. Default size is <code>medium</code>
+    .Hello hello hello hello hello.
+  </div>
+);
 const ExampleShowcase = (
-  <CodeShowcase title="CodeShowcase" code={showcase}>
-    <button style={{marginRight: '5px'}}>one</button>
-    <button style={{marginRight: '5px'}}>two</button>
-    <button style={{marginRight: '5px'}}>three</button>
+  <CodeShowcase title="button" code={showcase} description={description}>
+    <button>one</button>
+    <button>two</button>
+    <button>three</button>
   </CodeShowcase>
 );
 
