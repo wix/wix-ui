@@ -1,32 +1,17 @@
 import React from 'react';
-
-import {string, node, bool, object} from 'prop-types';
-import styleclass from './CodeShowcase.st.css';
+import {string, node, bool, object, oneOfType} from 'prop-types';
 import SyntaxHighlighter, {
   registerLanguage
 } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import vs from 'react-syntax-highlighter/styles/prism/vs';
+
+import styleclass from './CodeShowcase.st.css';
+import List from './components/List';
 import {iconShow} from './components/Show';
 import {iconHide} from './components/Hide';
 
 registerLanguage('jsx', jsx);
-
-const List = ({children}) => (
-  <div className={styleclass.demoItems}>
-    {Array.isArray(children) ?
-      children.map((child, index) => (
-        <div key={index} style={{marginRight: '8px', marginBottom: '12px'}}>
-          {child}
-        </div>
-      )) :
-      children}
-  </div>
-);
-
-List.propTypes = {
-  children: node
-};
 
 const customHighlighterStyle = {
   padding: '16px 32px',
@@ -101,7 +86,7 @@ CodeShowcase.propTypes = {
   children: node,
   code: string,
   inverted: bool,
-  description: string,
+  description: oneOfType([string, object]),
   link: string,
   theme: string,
   style: object,
