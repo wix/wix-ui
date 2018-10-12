@@ -95,7 +95,7 @@ BackofficeTheme Button:hover:not(:disabled)  {
   border-color: value(B20);
 }
 
-BackofficeTheme Button:active:not(:disabled){
+BackofficeTheme Button:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -307,14 +307,14 @@ button.transparent:active:not(:disabled) {
 
 /* sizes */
 
- BackOfficeTheme .large {
+ BackofficeTheme .large {
   height: 42px;
   font-size: 16px;
   line-height: 1.5;
   border-radius: 21px;
   padding: 0 30px;
 }
- BackOfficeTheme .small {
+ BackofficeTheme .small {
   height: 30px;
   font-size: 14px;
   line-height: 1.29;

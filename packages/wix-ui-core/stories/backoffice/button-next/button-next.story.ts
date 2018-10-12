@@ -5,7 +5,7 @@ export default {
   category: "BackOffice",
   storyName: "ButtonNext",
   component: ButtonNext,
-  componentPath: "./button-next.tsx",
+  componentPath: "../../../src/components/button-next/button-next.tsx",
 
   componentProps: {
     disabled: false,
