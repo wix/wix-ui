@@ -1,4 +1,4 @@
-import ButtonNext from "./button/button.st.css";
+import ButtonNext from "./button/button-temp.st.css";
 import BackofficeTheme from "./theme.st.css";
 
 export default {
