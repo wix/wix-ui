@@ -307,15 +307,14 @@ button.transparent:active:not(:disabled) {
 
 /* sizes */
 
-BackofficeTheme .large {
+ BackOfficeTheme .large {
   height: 42px;
   font-size: 16px;
   line-height: 1.5;
   border-radius: 21px;
   padding: 0 30px;
 }
-
-BackofficeTheme .small {
+ BackOfficeTheme .small {
   height: 30px;
   font-size: 14px;
   line-height: 1.29;
