@@ -9,8 +9,7 @@ import { example } from "./affixes-example";
 const description = (
   <div>
     Suffix and prefix icons can be added to a button by setting
-    <code>prefixIcon</code>
-    and <code>suffixIcon</code> props.
+    <code>prefixIcon</code> or <code>suffixIcon</code> props.
   </div>
 );
 

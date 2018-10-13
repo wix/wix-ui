@@ -11,9 +11,9 @@ import { example } from "./skin-secondary-example";
 
 const description = (
   <div>
-    There are <code>primary</code> button, <code>default</code> button,
-    <code>dashed</code> button and <code>danger</code> button in antd.
-  </div>
+  Secondary skins <code>default</code>,<code>destructive</code>,
+  <code>premium</code>,<code>dark</code>, <code>light</code>, <code>transparent</code>.
+</div>
 );
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
@@ -33,7 +33,7 @@ const SkinsSecondary = ({ style }) => (
     description={description}
     theme={backofficeTheme}
   >
-    <ButtonNext className={secondary}>standard</ButtonNext>
+    <ButtonNext className={secondary}>default</ButtonNext>
     <ButtonNext className={destructiveSecondary}>destructive</ButtonNext>
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>

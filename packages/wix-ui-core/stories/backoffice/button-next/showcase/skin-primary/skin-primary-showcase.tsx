@@ -10,22 +10,22 @@ import { example } from "./skin-primary-example";
 
 const SkinsPrimaryDscrpt = (
   <div>
-    There are <code>primary</code> button, <code>default</code> button,
-    <code>dashed</code> button and <code>danger</code> button in antd.
-  </div>
+  Primary skins <code>default</code>,<code>destructive</code>,
+  <code>premium</code>,<code>dark</code>, <code>light</code>, <code>transparent</code>.
+</div>
 );
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
 
 const SkinsPrimary = ({ style }) => (
   <CodeShowcase
-    title="Default"
+    title="Primary"
     style={style}
     code={example}
     description={SkinsPrimaryDscrpt}
     theme={backofficeTheme}
   >
-    <ButtonNext>standard</ButtonNext>
+    <ButtonNext>default</ButtonNext>
     <ButtonNext className={destructive}>destructive</ButtonNext>
     <ButtonNext className={premium}>premium</ButtonNext>
     <ButtonNext className={dark}>dark</ButtonNext>
