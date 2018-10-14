@@ -16,6 +16,6 @@ buttonMetadata.addSim({
   title: 'Simulation with default props',
   props: {
     'aria-label': 'Click button',
-    children: 'Button SimA:FLKJDS:FLKJSDF:LSDJF:LDSJF:LSDKJHFl;kj'
+    children: 'Button Sim'
   }
 });
