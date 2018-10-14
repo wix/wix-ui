@@ -140,7 +140,7 @@ describe('InputWithOptions', () => {
       OptionFactory.create({id: 'd', value: 'd'}),
     ];
 
-    const setup = (props) => {
+    const setup = props => {
       const wrapper = mount(createInputWithOptions(props));
       const driver = inputWithOptionsDriverFactory({
         element: wrapper.children().at(0).getDOMNode(),
