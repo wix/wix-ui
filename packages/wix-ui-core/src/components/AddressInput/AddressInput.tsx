@@ -71,6 +71,8 @@ export interface AddressInputProps {
     locationIcon?: React.ReactNode;
     /** Inline styles */
     style?: object;
+    /** Prefix for input */
+    prefix?: React.ReactNode;
     /** Suffix for input */
     suffix?: React.ReactNode;
     /** Fixed footer in content element */
@@ -183,6 +185,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         locationIcon: node,
         /** Inline styles */
         style: object,
+        /** Prefix for input */
+        prefix: node,
         /** Suffix for input */
         suffix: node,
         /** Fixed footer in content element */
@@ -386,7 +390,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, suffix, fixedFooter, id} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -399,6 +403,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             readOnly,
             disabled,
             value: this.state.inputValue,
+            prefix,
             suffix,
             ref: ref => this.inputRef = ref,
             onClick: this.props.onClick,

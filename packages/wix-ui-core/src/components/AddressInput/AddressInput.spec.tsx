@@ -666,6 +666,18 @@ describe('AddressInput', () => {
         });
     });
 
+    describe('prefix', () => {
+        it('Should show prefix', () => {
+            init({prefix: <div/>});
+            expect(driver.getPrefix()).toBeTruthy();
+        });
+
+        it('Should NOT show prefix', () => {
+            init();
+            expect(driver.getPrefix()).toBeFalsy();
+        });
+    });
+
     describe('fixedFooter', () => {
         it('Should show fixedFooter', async () => {
             init({fixedFooter: <div data-hook="fixed-footer"/>});
