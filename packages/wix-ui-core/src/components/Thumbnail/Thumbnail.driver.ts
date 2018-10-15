@@ -13,13 +13,13 @@ export interface ThumbnailDriver extends BaseDriver {
 
 export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({element, eventTrigger}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
-  const selectedIcon = element.querySelector('[data-hook="selected-icon"]');
+  const getSelectedIconWrapper = () => element.querySelector('[data-hook="selected-icon"]');
 
   return {
     /** checks if the element exists */
     exists: () => !!element,
     /** checks if the selected icon element exists */
-    hasSelectedIcon: () => window.getComputedStyle(selectedIcon).getPropertyValue('display') !== 'none',
+    hasSelectedIcon: () => !!getSelectedIconWrapper(),
     /** triggers a click event on the element */
     click: () => eventTrigger.click(element),
     /** check if component is selected */
@@ -27,7 +27,7 @@ export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({element,
     /** returns the components's children */
     getContent: () => <HTMLElement>element.childNodes[0],
     /** returns the components's selected icon */
-    getSelectedIcon: () => <HTMLElement>selectedIcon.childNodes[0],
+    getSelectedIcon: () => <HTMLElement>getSelectedIconWrapper().childNodes[0],
     /** check if component is disabled */
     isDisabled: () => stylableDOMUtil.hasStyleState(element, 'disabled'),
   };

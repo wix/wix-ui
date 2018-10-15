@@ -1,5 +1,5 @@
 import * as React from "react";
-import { string, node, bool, oneOf } from "prop-types";
+import { string, node, oneOf } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
 import style from "./button-next.st.css";
 
@@ -10,8 +10,6 @@ export interface ButtonProps
   prefixIcon?: React.ReactElement<any>;
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
-  /** sets error state */
-  error?: boolean;
 }
 /**
  * ButtonNext
@@ -20,15 +18,11 @@ export class ButtonNext extends React.Component<ButtonProps> {
   static displayName = "ButtonNext";
 
   static defaultProps = {
-    disabled: false,
-    error: false,
     type: "button"
   };
 
   static propTypes = {
     className: string,
-    disabled: bool,
-    error: bool,
     prefixIcon: node,
     suffixIcon: node,
     type: oneOf(["submit", "button", "reset"])
@@ -47,21 +41,9 @@ export class ButtonNext extends React.Component<ButtonProps> {
     });
 
   render() {
-    const {
-      suffixIcon,
-      prefixIcon,
-      children,
-      onClick,
-      disabled,
-      error,
-      ...rest
-    } = this.props;
+    const { suffixIcon, prefixIcon, children, onClick, ...rest } = this.props;
     return (
-      <button
-        {...rest}
-        onClick={disabled ? null : onClick}
-        {...style("root", { error }, this.props)}
-      >
+      <button {...rest} onClick={onClick} {...style("root", {}, this.props)}>
         {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
         {this._addSuffix(suffixIcon)}

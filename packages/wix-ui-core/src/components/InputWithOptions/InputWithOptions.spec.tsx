@@ -6,6 +6,7 @@ import {generateOptions} from '../DropdownOption/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
+import {OptionFactory} from "../DropdownOption";
 
 describe('InputWithOptions', () => {
   const createDriver =
@@ -130,4 +131,47 @@ describe('InputWithOptions', () => {
       (wrapper.instance() as any).close();
       expect(driver.isContentElementExists()).toBeFalsy();
   });
+
+  describe('Filter', () => {
+    const numericOptions = [
+      OptionFactory.create({id: 'a', value: 'a'}),
+      OptionFactory.create({id: 'b', value: 'b'}),
+      OptionFactory.create({id: 'c', value: 'c'}),
+      OptionFactory.create({id: 'd', value: 'd'}),
+    ];
+
+    const setup = props => {
+      const wrapper = mount(createInputWithOptions(props));
+      const driver = inputWithOptionsDriverFactory({
+        element: wrapper.children().at(0).getDOMNode(),
+        eventTrigger: Simulate
+      });
+      return {wrapper, driver};
+    };
+
+    it('should filter by typed string by default', async () => {
+      const props = {options: numericOptions, inputProps: {value: ''}};
+      const {wrapper, driver} = setup(props);
+      driver.click();
+      expect(driver.getOptionsCount()).toBe(4);
+      // Using keyDown in order to trigger isEditing mode
+      driver.keyDown('a');
+      wrapper.setProps({inputProps: {value: 'a'}});
+      expect(driver.getOptionsCount()).toBe(1);
+    });
+
+    it('should support custom filtering', () => {
+      const filterPredicate = (inputValue, optionValue) => optionValue === 'b' || optionValue === 'c';
+      const props = {options: numericOptions, inputProps: {value: ''}, filterPredicate};
+      const {wrapper, driver} = setup(props);
+      driver.click();
+      expect(driver.getOptionsCount()).toBe(4);
+      // Using keyDown in order to trigger isEditing mode
+      driver.keyDown('a');
+      wrapper.setProps({inputProps: {value: 'a'}});
+      expect(driver.getOptionsCount()).toBe(2);
+      expect(driver.optionAt(0).getText()).toBe('b');
+      expect(driver.optionAt(1).getText()).toBe('c');
+    });
+  })
 });

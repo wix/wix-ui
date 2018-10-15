@@ -44,6 +44,8 @@ export interface InputWithOptionsProps {
   id?: string;
   /** Allow onSelect event to be triggered upon re-selecting an option */
   allowReselect?: boolean;
+  /** Filter by predicate */
+  filterPredicate?: (inputValue: string, optionValue: string) => Boolean;
 }
 
 /**
@@ -61,7 +63,8 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onSelect: () => null,
     onDeselect: () => null,
     onManualInput: () => null,
-    onInitialSelectedOptionsSet: () => null
+    onInitialSelectedOptionsSet: () => null,
+    filterPredicate: (inputValue, optionValue) => optionValue.toLowerCase().includes(inputValue.toLowerCase())
   };
 
   static propTypes: React.ValidationMap<InputWithOptionsProps> = {
@@ -100,7 +103,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     /** Id */
     id: string,
     /** Allow onSelect event to be triggered upon re-selecting an option */
-    allowReselect: bool
+    allowReselect: bool,
+    /** Filter by predicate */
+    filterPredicate: func
   };
 
   isEditing: boolean = false;
@@ -115,16 +120,16 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
   }
 
   _filterOptions(): Array<Option> {
-    const {highlightMatches, inputProps, options} = this.props;
+
+    const {highlightMatches, inputProps, options, filterPredicate} = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
     }
 
-    const lowerValue = inputProps.value.toLowerCase();
     const filteredOptions = options
       .filter((option: Option) =>
         (!option.isSelectable && option.value) ||
-        (option.isSelectable && option.value && option.value.toLowerCase().includes(lowerValue)));
+        (option.isSelectable && option.value && filterPredicate(inputProps.value, option.value)));
 
     if (!highlightMatches) {
       return filteredOptions;
