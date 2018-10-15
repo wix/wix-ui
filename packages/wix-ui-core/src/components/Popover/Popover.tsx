@@ -240,7 +240,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   renderPopperContent(childrenObject) {
     const popper = this.getPopperContentStructure(childrenObject);
-    
+
     return (
       this.portalNode ? (
         <Portal node={this.portalNode}>
