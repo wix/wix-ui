@@ -9,26 +9,25 @@ const controlledWidth = {
   maxWidth: "1254px",
   height: "auto",
   width: "100%",
-  display: 'flex'
+  display: "flex"
 };
 
 const halfColumn = {
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '10px',
+  display: "flex",
+  flexDirection: "column",
+  padding: "10px",
   width: "48%"
 };
 
 export const Examples = (
   <div style={controlledWidth}>
-  <div style={halfColumn}>
-    <SkinsPrimary />
-    <Size  />
-  </div>
-  <div style={halfColumn}>
-    <SkinsSecondary />
-    <Affixes  />
-  </div>
+    <div style={halfColumn}>
+      <SkinsPrimary />
+      <Size />
+    </div>
+    <div style={halfColumn}>
+      <SkinsSecondary />
+      <Affixes />
+    </div>
   </div>
 );
-

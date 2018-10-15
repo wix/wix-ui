@@ -37,6 +37,7 @@ const SkinsSecondary = ({ style }: SkinsSecondaryProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
+    inverted
   >
     <ButtonNext className={secondary}>default</ButtonNext>
     <ButtonNext className={destructiveSecondary}>destructive</ButtonNext>
