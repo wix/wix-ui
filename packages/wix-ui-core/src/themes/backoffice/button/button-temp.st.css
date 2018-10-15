@@ -3,7 +3,6 @@
   -st-default: BackofficeTheme;
 }
 
-
 :import {
   -st-from: "../../../components/button-next/button-next.st.css";
   -st-default: Button;
@@ -25,7 +24,6 @@
   -st-named: fontRoman;
 }
 
-
 .textButton {
   -st-extends: Button;
 }
@@ -35,7 +33,6 @@
 .closeButton {
    -st-extends: Button;
 }
-
 
 BackofficeTheme Button {
   box-sizing: border-box;
@@ -59,10 +56,6 @@ BackofficeTheme Button {
   border-color: value(B10);
   color: value(D80);
 }
-
-/* BackofficeTheme Button:focus {
-  box-shadow: 0 0 0 3px value(F00);
-} */
 
 BackofficeTheme button.inverted {
   border: none;
@@ -126,7 +119,7 @@ BackofficeTheme button.secondary:active:not(:disabled) {
 }
 
 /* skin Light */
-/* here we have css specifity problem with icon button*/
+
 BackofficeTheme button.light {
   border: none;
   background-color: value(D80);
@@ -140,15 +133,15 @@ BackofficeTheme button.light.secondary {
 }
 
 BackofficeTheme button.light:hover:not(:disabled) {
-   background-color: value(B50);
-   color:  value(B10);
-   border-color:value(B50);
+  background-color: value(B50);
+  color:  value(B10);
+  border-color:value(B50);
 }
 
 BackofficeTheme button.light.secondary:hover:not(:disabled) {
-   background-color: value(B50);
-   color:  value(B10);
-   border-color:value(B50);
+  background-color: value(B50);
+  color:  value(B10);
+  border-color:value(B50);
 }
 
 BackofficeTheme button.light:disabled {
@@ -317,14 +310,15 @@ button.transparent:active:not(:disabled) {
 
 /* sizes */
 
- BackofficeTheme .large {
+BackofficeTheme .large {
   height: 42px;
   font-size: 16px;
   line-height: 1.5;
   border-radius: 21px;
   padding: 0 30px;
 }
- BackofficeTheme .small {
+
+BackofficeTheme .small {
   height: 30px;
   font-size: 14px;
   line-height: 1.29;
@@ -391,6 +385,7 @@ BackofficeTheme  .large .prefix {
 }
 
 /* rtl */
+
 BackofficeTheme :global([dir="rtl"]) .large .suffix {
   margin: 0 12px 0 -12px;
 }
