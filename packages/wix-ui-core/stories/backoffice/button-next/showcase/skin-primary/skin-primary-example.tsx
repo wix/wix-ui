@@ -7,6 +7,7 @@ const { premium, dark, light, transparent, destructive } = buttonNext;
 export default () => (
   <React.Fragment>
     <ButtonNext>standard</ButtonNext>
+    <ButtonNext className={inverted}>inverted</ButtonNext>
     <ButtonNext className={destructive}>destructive</ButtonNext>
     <ButtonNext className={premium}>premium</ButtonNext>
     <ButtonNext className={dark}>dark</ButtonNext>

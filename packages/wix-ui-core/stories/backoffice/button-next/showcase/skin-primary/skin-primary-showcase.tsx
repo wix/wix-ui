@@ -12,12 +12,13 @@ const SkinsPrimaryDscrpt = (
   <div>
     Primary skins <code>default</code>,<code>destructive</code>,
     <code>premium</code>,<code>dark</code>, <code>light</code>,{" "}
-    <code>transparent</code>.
+    <code>transparent</code>. <code>Inverted</code> value is supported only on
+    default button.
   </div>
 );
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
-
+const { inverted } = buttonNext;
 interface SkinsPrimaryProps {
   style?: object;
 }
@@ -31,6 +32,7 @@ const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
     theme={backofficeTheme}
   >
     <ButtonNext>default</ButtonNext>
+    <ButtonNext className={inverted}>inverted</ButtonNext>
     <ButtonNext className={destructive}>destructive</ButtonNext>
     <ButtonNext className={premium}>premium</ButtonNext>
     <ButtonNext className={dark}>dark</ButtonNext>

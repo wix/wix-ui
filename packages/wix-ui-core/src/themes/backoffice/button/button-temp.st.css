@@ -70,18 +70,24 @@ BackofficeTheme button.inverted {
   color: value(B20);
 }
 
+BackofficeTheme button.inverted:hover:not(:disabled) {
+    color: value(D80);
+    border-color: transparent;
+    background-color: value(B20);
+}
+
+BackofficeTheme button.inverted:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
 BackofficeThemeTheme button.underlined {
     color:value(P10);
 }
 
 BackofficeThemeTheme button.normal {
     font-family: value(fontRoman);
-}
-
-BackofficeTheme button.secondary {
-  border: solid 1px value(B10);
-  background: transparent;
-  color: value(B10);
 }
 
 BackofficeTheme Button:disabled { 
@@ -101,18 +107,22 @@ BackofficeTheme Button:active:not(:disabled) {
   color: value(D80);
 }
 
+BackofficeTheme button.secondary {
+  border: solid 1px value(B10);
+  background: transparent;
+  color: value(B10);
+}
+
+BackofficeTheme button.secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
 BackofficeTheme button.secondary:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
-}
-
-BackofficeTheme button.secondary:hover:not(:disabled),
-button.inverted:hover:not(:disabled),
-button.inverted:hover:not(:disabled) {
-    color: value(D80);
-    border-color: transparent;
-    background-color: value(B20);
 }
 
 /* skin Light */
