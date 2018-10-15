@@ -21,9 +21,6 @@
 }
 
 .root {
-}
-
-.root.manager {
   /*popper sets tooltip in absolute position according to this container*/
   position: relative;
   /*popper adds an extra div that needs to be measured without stretching*/
