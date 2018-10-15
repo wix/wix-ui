@@ -12,8 +12,6 @@ const controlledWidth = {
 };
 
 const halfColumn = {
-  display: "inlince-block",
-  verticalAlign: "top",
   width: "48%"
 };
 
