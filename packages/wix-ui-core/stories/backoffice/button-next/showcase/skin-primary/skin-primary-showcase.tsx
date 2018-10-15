@@ -10,14 +10,19 @@ import { example } from "./skin-primary-example";
 
 const SkinsPrimaryDscrpt = (
   <div>
-  Primary skins <code>default</code>,<code>destructive</code>,
-  <code>premium</code>,<code>dark</code>, <code>light</code>, <code>transparent</code>.
-</div>
+    Primary skins <code>default</code>,<code>destructive</code>,
+    <code>premium</code>,<code>dark</code>, <code>light</code>,{" "}
+    <code>transparent</code>.
+  </div>
 );
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
 
-const SkinsPrimary = ({ style = {} }) => (
+interface SkinsPrimaryProps {
+  style?: object;
+}
+
+const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
   <CodeShowcase
     title="Primary"
     style={style}

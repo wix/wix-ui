@@ -14,8 +14,11 @@ const description = (
     .
   </div>
 );
+interface SizeProps {
+  style?: object;
+}
 
-const Size = ({ style = {} }) => (
+const Size = ({ style }: SizeProps) => (
   <CodeShowcase
     title="Size"
     style={style}

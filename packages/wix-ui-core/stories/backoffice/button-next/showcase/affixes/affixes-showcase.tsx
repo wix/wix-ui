@@ -13,7 +13,11 @@ const description = (
   </div>
 );
 
-const Affixes = ({ style }) => (
+interface AffixesProps {
+  style?: object;
+}
+
+const Affixes = ({ style }: AffixesProps) => (
   <CodeShowcase
     title="Affixes"
     style={style}

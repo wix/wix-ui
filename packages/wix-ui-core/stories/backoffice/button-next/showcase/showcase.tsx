@@ -13,10 +13,10 @@ const controlledWidth = {
 };
 
 const halfColumn = {
-  padding: '10px',
-  width: "48%",
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  padding: '10px',
+  width: "48%"
 };
 
 export const Examples = (

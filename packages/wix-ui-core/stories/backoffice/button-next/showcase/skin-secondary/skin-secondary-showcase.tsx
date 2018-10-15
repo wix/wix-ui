@@ -11,9 +11,10 @@ import { example } from "./skin-secondary-example";
 
 const description = (
   <div>
-  Secondary skins <code>default</code>,<code>destructive</code>,
-  <code>premium</code>,<code>dark</code>, <code>light</code>, <code>transparent</code>.
-</div>
+    Secondary skins <code>default</code>,<code>destructive</code>,
+    <code>premium</code>,<code>dark</code>, <code>light</code>,{" "}
+    <code>transparent</code>.
+  </div>
 );
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
@@ -25,7 +26,11 @@ const lightSecondary = classNames(light, secondary);
 const transparentSecondary = classNames(transparent, secondary);
 const destructiveSecondary = classNames(destructive, secondary);
 
-const SkinsSecondary = ({ style = {} }) => (
+interface SkinsSecondaryProps {
+  style?: object;
+}
+
+const SkinsSecondary = ({ style }: SkinsSecondaryProps) => (
   <CodeShowcase
     title="Secondary"
     style={style}
