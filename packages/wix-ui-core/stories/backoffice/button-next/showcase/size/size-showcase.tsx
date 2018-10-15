@@ -15,7 +15,7 @@ const description = (
   </div>
 );
 
-const Size = ({ style }) => (
+const Size = ({ style = {} }) => (
   <CodeShowcase
     title="Size"
     style={style}

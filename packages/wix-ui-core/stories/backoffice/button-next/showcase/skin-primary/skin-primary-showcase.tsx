@@ -17,7 +17,7 @@ const SkinsPrimaryDscrpt = (
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
 
-const SkinsPrimary = ({ style }) => (
+const SkinsPrimary = ({ style = {} }) => (
   <CodeShowcase
     title="Primary"
     style={style}

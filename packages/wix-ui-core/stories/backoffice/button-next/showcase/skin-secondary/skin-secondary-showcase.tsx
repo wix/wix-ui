@@ -25,7 +25,7 @@ const lightSecondary = classNames(light, secondary);
 const transparentSecondary = classNames(transparent, secondary);
 const destructiveSecondary = classNames(destructive, secondary);
 
-const SkinsSecondary = ({ style }) => (
+const SkinsSecondary = ({ style = {} }) => (
   <CodeShowcase
     title="Secondary"
     style={style}

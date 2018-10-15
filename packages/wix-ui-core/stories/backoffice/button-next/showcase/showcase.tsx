@@ -8,23 +8,27 @@ import SkinsPrimary from "./skin-primary/skin-primary-showcase";
 const controlledWidth = {
   maxWidth: "1254px",
   height: "auto",
-  width: "100%"
+  width: "100%",
+  display: 'flex'
 };
 
 const halfColumn = {
-  width: "48%"
+  padding: '10px',
+  width: "48%",
+  display: 'flex',
+  flexDirection: 'column'
 };
 
-export const Skins = (
+export const Examples = (
   <div style={controlledWidth}>
-    <SkinsPrimary style={halfColumn} />
-    <SkinsSecondary style={halfColumn} />
+  <div style={halfColumn}>
+    <SkinsPrimary />
+    <Size  />
+  </div>
+  <div style={halfColumn}>
+    <SkinsSecondary />
+    <Affixes  />
+  </div>
   </div>
 );
 
-export const Props = (
-  <div style={controlledWidth}>
-    <Size style={halfColumn} />
-    <Affixes style={halfColumn} />
-  </div>
-);
