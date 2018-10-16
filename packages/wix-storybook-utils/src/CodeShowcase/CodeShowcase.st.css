@@ -10,6 +10,7 @@
 }
 
 .demo {
+  -st-states:inverted;
   padding: 42px 24px 50px;
   border-bottom: 1px solid #ebedf0;
 } 
@@ -22,7 +23,13 @@
 }
 
 .demoItems:inverted {
+  padding: 6px;
   background: rgb(190, 200, 200);
+}
+
+.demo:inverted {
+  padding: 36px 18px 44px;
+  border-bottom: 1px solid #ebedf0;
 }
 
 .meta {

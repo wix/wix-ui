@@ -46,7 +46,7 @@ class CodeShowcase extends React.Component {
     const {show} = this.state;
     return (
       <div style={style} {...styleclass('root', {}, {className: theme})}>
-        <section className={styleclass.demo}>
+        <section {...styleclass('demo', {inverted})}>
           <List inverted={inverted}>{children}</List>
         </section>
         <section className={styleclass.meta}>
