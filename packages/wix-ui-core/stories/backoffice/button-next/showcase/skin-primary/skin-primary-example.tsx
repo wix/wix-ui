@@ -3,6 +3,7 @@ import { ButtonNext } from "wix-ui";
 import { buttonNext } from "wix-ui/themes/backoffice";
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
+const { inverted } = buttonNext;
 
 export default () => (
   <React.Fragment>
