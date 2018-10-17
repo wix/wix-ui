@@ -1,1 +1,2 @@
-export {Divider, DividerProps} from './Divider';
+// Backward compatibility for deprecated components
+export * from '../../components/deprecated/Divider';

@@ -19,7 +19,7 @@ export const tooltipTestkitFactory = testkitFactoryCreator(
   tooltipDriverFactory
 );
 
-import { dividerDriverFactory } from "../components/Divider/Divider.driver";
+import { dividerDriverFactory } from "../components/deprecated/Divider/Divider.driver";
 export const dividerTestkitFactory = testkitFactoryCreator(
   dividerDriverFactory
 );

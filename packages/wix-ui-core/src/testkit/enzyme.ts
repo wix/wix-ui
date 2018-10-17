@@ -43,7 +43,7 @@ export const paginationTestkitFactory = enzymeTestkitFactoryCreator(
   paginationDriverFactory
 );
 
-import { dividerDriverFactory } from "../components/Divider/Divider.driver";
+import { dividerDriverFactory } from "../components/deprecated/Divider/Divider.driver";
 export const dividerTestkitFactory = enzymeTestkitFactoryCreator(
   dividerDriverFactory
 );
