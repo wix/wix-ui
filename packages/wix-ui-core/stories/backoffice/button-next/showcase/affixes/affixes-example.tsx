@@ -1,5 +1,5 @@
 export const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui/button-next";
+import { ButtonNext } from "wix-ui";
 import Sound from "wix-ui/icons/Sound";
 
 export default () => (
