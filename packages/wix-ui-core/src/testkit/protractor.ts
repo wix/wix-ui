@@ -52,7 +52,7 @@ export { PaginationDriver };
 import {
   badgeDriverFactory,
   BadgeDriver
-} from "../components/Badge/Badge.protractor.driver";
+} from "../components/deprecated/Badge/Badge.protractor.driver";
 export const badgeTestkitFactory = protractorTestkitFactoryCreator(
   badgeDriverFactory
 );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {object, any} from 'prop-types';
-import {createHOC} from '../../createHOC';
+import {createHOC} from '../../../createHOC';
 
 export type BadgeClasses = {
   badge: string;
