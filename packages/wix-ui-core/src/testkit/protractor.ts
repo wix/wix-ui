@@ -6,7 +6,7 @@ import {
 import {
   buttonDriverFactory,
   ButtonDriver
-} from "../components/Button/Button.protractor.driver";
+} from "../components/deprecated/Button/Button.protractor.driver";
 export const buttonTestkitFactory = protractorTestkitFactoryCreator(
   buttonDriverFactory
 );
