@@ -1,1 +1,2 @@
-export {Label, LabelProps} from './Label';
+// Backward compatibility for deprecated components
+export * from '../../components/deprecated/Label';

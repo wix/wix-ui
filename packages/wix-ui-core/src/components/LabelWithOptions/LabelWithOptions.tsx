@@ -4,7 +4,7 @@ import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 
 import {Dropdown} from '../Dropdown';
 import {Checkbox} from '../Checkbox';
 import {Option, optionPropType, OptionFactory} from '../DropdownOption';
-import {Label} from '../Label';
+import {Label} from '../deprecated/Label';
 import {CLICK} from '../Dropdown/constants';
 import {noop} from '../../utils';
 

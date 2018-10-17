@@ -1,5 +1,5 @@
 :import {
-    -st-from: '../../mixins/mixins.st.css';
+    -st-from: '../../../mixins/mixins.st.css';
     -st-named: ellipsisMixin;
 }
 

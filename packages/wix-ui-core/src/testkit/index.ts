@@ -98,7 +98,7 @@ export const addressInputTestkitFactory = testkitFactoryCreator(
   addressInputDriverFactory
 );
 
-import { labelDriverFactory } from "../components/Label/Label.driver";
+import { labelDriverFactory } from "../components/deprecated/Label/Label.driver";
 export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
 
 import { timePickerDriverFactory } from "../components/TimePicker/TimePicker.driver";

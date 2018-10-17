@@ -106,7 +106,7 @@ export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(
   addressInputDriverFactory
 );
 
-import { labelDriverFactory } from "../components/Label/Label.driver";
+import { labelDriverFactory } from "../components/deprecated/Label/Label.driver";
 export const labelTestkitFactory = enzymeTestkitFactoryCreator(
   labelDriverFactory
 );
