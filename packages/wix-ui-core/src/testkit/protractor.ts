@@ -125,7 +125,7 @@ export { RadioButtonDriver };
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver
-} from "../components/StylableBadge/Badge.protractor.driver";
+} from "../components/deprecated/StylableBadge/Badge.protractor.driver";
 export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(
   stylableBadgeDriverFactory
 );

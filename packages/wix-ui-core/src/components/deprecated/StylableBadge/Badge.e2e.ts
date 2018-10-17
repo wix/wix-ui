@@ -1,7 +1,7 @@
 import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {stylablebadgeTestkitFactory as badgeTestkitFactory} from '../../testkit/protractor';
+import {stylablebadgeTestkitFactory as badgeTestkitFactory} from '../../../testkit/protractor';
 
 describe('Badge', () => {
   const storyUrl = getStoryUrl('Components', 'StylableBadge');
