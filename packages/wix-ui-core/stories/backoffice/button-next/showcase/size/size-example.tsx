@@ -7,6 +7,6 @@ export default () => (
     <ButtonNext className={buttonNext('tiny')}>tiny</ButtonNext>
     <ButtonNext className={buttonNext('small')}>small</ButtonNext>
     <ButtonNext className={buttonNext('medium')}>medium</ButtonNext>
-    <ButtonNext className={buttonNext('large)}>large</ButtonNext>
+    <ButtonNext className={buttonNext('large')}>large</ButtonNext>
   </React.Fragment>
 );`;

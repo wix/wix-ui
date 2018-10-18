@@ -47,15 +47,15 @@ BackofficeTheme Button {
   color: value(D80);
 }
 
-BackofficeTheme Button:active:not(:disabled) {
-  background-color: value(B10);
-  border-color: value(B10);
-  color: value(D80);
-}
-
 BackofficeTheme Button:hover:not(:disabled) {
   background-color: value(B20);
   border-color: value(B20);
+  color: value(D80);
+}
+
+BackofficeTheme Button:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
   color: value(D80);
 }
 
