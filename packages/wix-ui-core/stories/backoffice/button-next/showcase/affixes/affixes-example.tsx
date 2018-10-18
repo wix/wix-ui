@@ -1,6 +1,6 @@
 export const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui";
-import Sound from "wix-ui/icons/Sound";
+import { ButtonNext } from "wix-ui-core";
+import Sound from "wix-ui-core/icons/Sound";
 
 export default () => (
   <React.Fragment>

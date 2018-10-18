@@ -1,5 +1,5 @@
-import * as React from "react";
-import { ButtonNext } from "wix-ui-core/button-next";
+export const example = `import * as React from "react";
+import { ButtonNext } from "wix-ui-core";
 import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
@@ -16,3 +16,4 @@ export default () => (
     <ButtonNext className={transparent}>transparent</ButtonNext>
   </React.Fragment>
 );
+`;

@@ -1,6 +1,6 @@
 export const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui";
-import { buttonNext } from "wix-ui/themes/backoffice";
+import { ButtonNext } from "wix-ui-core";
+import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 const { tiny, small, medium, large } = buttonNext;
 

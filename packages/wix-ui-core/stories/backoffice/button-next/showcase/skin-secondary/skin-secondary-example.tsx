@@ -1,7 +1,7 @@
 export const example = `import * as React from "react";
 import classNames from "classnames";
-import { ButtonNext } from "wix-ui";
-import { buttonNext } from "wix-ui/themes/backoffice";
+import { ButtonNext } from "wix-ui-core";
+import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 const { premium, dark, light, transparent, destructive } = buttonNext;
 const { secondary } = buttonNext;

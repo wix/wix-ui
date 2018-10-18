@@ -6,7 +6,7 @@ import {
   buttonNext,
   backofficeTheme
 } from "../../../../../src/themes/backoffice";
-import example from "!raw-loader!./skin-primary-example";
+import { example } from "./skin-primary-example";
 
 const SkinsPrimaryDscrpt = (
   <div>
