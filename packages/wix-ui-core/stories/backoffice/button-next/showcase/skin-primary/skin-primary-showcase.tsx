@@ -30,7 +30,7 @@ const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
     theme={backofficeTheme}
     inverted
   >
-    <ButtonNext>default</ButtonNext>
+    <ButtonNext>standard</ButtonNext>
     <ButtonNext className={buttonNext(`inverted`)}>inverted</ButtonNext>
     <ButtonNext className={buttonNext(`destructive`)}>destructive</ButtonNext>
     <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>

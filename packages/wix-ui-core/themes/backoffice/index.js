@@ -1,1 +1,1 @@
-module.exports = require('./dist/src/themes/backoffice');
+module.exports = require('../../dist/src/themes/backoffice');
