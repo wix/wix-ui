@@ -1,30 +1,12 @@
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob');
 
-module.exports = ()=> {
-  const componentsPath = path.resolve('dist', 'components/');
+const fileContent = glob.sync('./src/components/**/*.driver.*').map(p => 'export * from "' + p.replace(p.slice(p.lastIndexOf('.')),'') + '";\n').join('')
+console.log(fileContent)
+const filepath = "drivers.js";
 
-  if (fs.existsSync(componentsPath)) {
-    fs
-      .readdirSync(componentsPath)
-      .map(name => [name, path.resolve(componentsPath, name)])
-      .filter(([, absolutePath]) =>
-        fs.lstatSync(absolutePath).isDirectory() && fs.readdirSync(absolutePath).includes('.driver')
-      )
-      .map(([name, absolutePath]) => {
-        const componentPath = path.relative('./', absolutePath);
-        const files = [
-          {path: `./${name}.js`, source: `module.exports = require('./${componentPath}');\n`},
-        ];
-        return files;
-      })
-      .map(files => files.forEach(({path, source}) => {
-        fs.writeFileSync(path, source);
-      }));
-  }
-};
-
-
-function importComponentDriverPath(componentPath){
-  
-};
+fs.writeFile(filepath, fileContent, (err) => {
+    if (err) throw err;
+    console.log("The file was succesfully saved!");
+}); 
