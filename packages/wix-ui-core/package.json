@@ -15,7 +15,8 @@
     "!wallaby.js",
     "!protractor.conf.js",
     "index.st.css",
-    "hocs.js"
+    "hocs.js",
+    "themes"
   ],
   "repository": {
     "type": "git",
