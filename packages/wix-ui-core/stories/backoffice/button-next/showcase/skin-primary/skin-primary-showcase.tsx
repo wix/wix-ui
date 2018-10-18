@@ -6,7 +6,7 @@ import {
   buttonNext,
   backofficeTheme
 } from "../../../../../src/themes/backoffice";
-import { example } from "./skin-primary-example";
+import example from "!raw-loader!./skin-primary-example";
 
 const SkinsPrimaryDscrpt = (
   <div>
@@ -17,8 +17,6 @@ const SkinsPrimaryDscrpt = (
   </div>
 );
 
-const { premium, dark, light, transparent, destructive } = buttonNext;
-const { inverted } = buttonNext;
 interface SkinsPrimaryProps {
   style?: object;
 }
@@ -33,12 +31,12 @@ const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
     inverted
   >
     <ButtonNext>default</ButtonNext>
-    <ButtonNext className={inverted}>inverted</ButtonNext>
-    <ButtonNext className={destructive}>destructive</ButtonNext>
-    <ButtonNext className={premium}>premium</ButtonNext>
-    <ButtonNext className={dark}>dark</ButtonNext>
-    <ButtonNext className={light}>light</ButtonNext>
-    <ButtonNext className={transparent}>transparent</ButtonNext>
+    <ButtonNext className={buttonNext(`inverted`)}>inverted</ButtonNext>
+    <ButtonNext className={buttonNext(`destructive`)}>destructive</ButtonNext>
+    <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>
+    <ButtonNext className={buttonNext(`dark`)}>dark</ButtonNext>
+    <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
+    <ButtonNext className={buttonNext(`transparent`)}>transparent</ButtonNext>
   </CodeShowcase>
 );
 

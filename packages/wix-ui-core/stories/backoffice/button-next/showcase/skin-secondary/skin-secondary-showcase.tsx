@@ -1,5 +1,4 @@
 import * as React from "react";
-import classNames from "classnames";
 
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../../src/components/button-next";
@@ -17,14 +16,11 @@ const description = (
   </div>
 );
 
-const { premium, dark, light, transparent, destructive } = buttonNext;
-const { secondary } = buttonNext;
-
-const premiumSecondary = classNames(premium, secondary);
-const darkSecondary = classNames(dark, secondary);
-const lightSecondary = classNames(light, secondary);
-const transparentSecondary = classNames(transparent, secondary);
-const destructiveSecondary = classNames(destructive, secondary);
+const premiumSecondary = buttonNext(`premium`, "secondary");
+const darkSecondary = buttonNext(`dark`, "secondary");
+const lightSecondary = buttonNext(`light`, "secondary");
+const transparentSecondary = buttonNext(`transparent`, "secondary");
+const destructiveSecondary = buttonNext(`destructive`, "secondary");
 
 interface SkinsSecondaryProps {
   style?: object;
@@ -39,7 +35,7 @@ const SkinsSecondary = ({ style }: SkinsSecondaryProps) => (
     theme={backofficeTheme}
     inverted
   >
-    <ButtonNext className={secondary}>default</ButtonNext>
+    <ButtonNext className={buttonNext(`secondary`)}>default</ButtonNext>
     <ButtonNext className={destructiveSecondary}>destructive</ButtonNext>
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>

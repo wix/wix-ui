@@ -1,10 +1,13 @@
+import classNames from "classnames";
 import ButtonNext from "./button/button-temp.st.css";
 import BackofficeTheme from "./theme.st.css";
 
-export default {
-  BackofficeTheme: BackofficeTheme.root,
-  ButtonNext
+const getClassNames = (values, stylesheet) => {
+  const classNamesArray = values.map(
+    cls => (stylesheet[cls] ? stylesheet[cls] : null)
+  );
+  return classNames(classNamesArray);
 };
 
-export const buttonNext = ButtonNext;
+export const buttonNext = (...values) => getClassNames(values, ButtonNext);
 export const backofficeTheme = BackofficeTheme.root;
