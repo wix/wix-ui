@@ -34,8 +34,9 @@ BackofficeTheme .iconButton {
 }
 
 BackofficeTheme .iconButton:hover:not(:disabled) {
-  background-color: rgb(78, 183, 245);
-  border-color: rgb(78, 183, 245);
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
 }
 
 BackofficeTheme .iconButton:active:not(:disabled) {
