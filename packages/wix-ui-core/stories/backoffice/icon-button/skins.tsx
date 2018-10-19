@@ -13,14 +13,14 @@ import More from "wix-ui-icons-common/More";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={iconButton()}>
-      <More />
-    </ButtonNext>
-    <ButtonNext className={iconButton("secondary")}>
-      <More />
-    </ButtonNext>
-    <ButtonNext className={iconButton("inverted")}>
-      <More />
+   <ButtonNext className={iconButton()}>
+      <More width="24" height="24" />
+   </ButtonNext>
+   <ButtonNext className={iconButton("secondary")}>
+      <More width="24" height="24" />
+   </ButtonNext>
+   <ButtonNext className={iconButton("inverted")}>
+      <More width="24" height="24" />
     </ButtonNext>
   </React.Fragment>
 );`;
@@ -48,13 +48,13 @@ export const SkinStandard = ({ style }: SkinStandardProps) => (
     inverted
   >
     <ButtonNext className={iconButton()}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton("secondary")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton("inverted")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
   </CodeShowcase>
 );
@@ -67,10 +67,10 @@ import More from "wix-ui-icons-common/More";
 export default () => (
   <React.Fragment>
     <ButtonNext className={iconButton("light")}>
-      <More />
+      <More width="24" height="24"/>
     </ButtonNext>
     <ButtonNext className={iconButton("light", "secondary")}>
-      <More />
+      <More width="24" height="24"/>
     </ButtonNext>
   </React.Fragment>
 );`;
@@ -96,10 +96,10 @@ export const SkinLight = ({ style }: SkinLightProps) => (
     inverted
   >
     <ButtonNext className={iconButton("light")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton("light", "secondary")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
   </CodeShowcase>
 );
