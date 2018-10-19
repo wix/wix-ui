@@ -9,6 +9,7 @@ import More from "wix-ui-icons-common/More";
 const exampleStandard = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
 import { iconButton } from "wix-ui-core/themes/backoffice";
+import More from "wix-ui-icons-common/More";
 
 export default () => (
   <React.Fragment>
@@ -61,6 +62,7 @@ export const SkinStandard = ({ style }: SkinStandardProps) => (
 const exampleLight = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
 import { iconButton } from "wix-ui-core/themes/backoffice";
+import More from "wix-ui-icons-common/More";
 
 export default () => (
   <React.Fragment>

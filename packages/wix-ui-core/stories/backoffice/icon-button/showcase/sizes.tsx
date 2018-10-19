@@ -9,6 +9,7 @@ import More from "wix-ui-icons-common/More";
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
 import { iconButton } from "wix-ui-core/themes/backoffice";
+import More from "wix-ui-icons-common/More";
 
 export default () => (
   <React.Fragment>
