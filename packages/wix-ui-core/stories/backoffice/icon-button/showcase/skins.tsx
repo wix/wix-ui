@@ -5,12 +5,31 @@ import { ButtonNext } from "../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../src/themes/backoffice";
 import { iconButton } from "../../../../src/themes/backoffice";
 import More from "wix-ui-icons-common/More";
-import { example } from "./skins-example";
+
+const exampleStandard = `import * as React from "react";
+import { ButtonNext } from "wix-ui-core";
+import { iconButton } from "wix-ui-core/themes/backoffice";
+
+export default () => (
+  <React.Fragment>
+    <ButtonNext className={iconButton()}>
+      <More />
+    </ButtonNext>
+    <ButtonNext className={iconButton("secondary")}>
+      <More />
+    </ButtonNext>
+    <ButtonNext className={iconButton("inverted")}>
+      <More />
+    </ButtonNext>
+  </React.Fragment>
+);`;
 
 const description = (
   <div>
-    Suffix and prefix icons can be added to a button by setting
-    <code>prefixIcon</code> or <code>suffixIcon</code> props.
+    Skin <code>standard</code> is set by default. This is both priority{" "}
+    <code>primary</code> and <code>secondary</code>
+    button. On white based background additional class <code>inverted</code> can
+    be used.
   </div>
 );
 
@@ -20,14 +39,17 @@ interface SkinStandardProps {
 
 export const SkinStandard = ({ style }: SkinStandardProps) => (
   <CodeShowcase
-    title="Skin standard"
+    title="Skin Standard"
     style={style}
-    code={example}
+    code={exampleStandard}
     theme={backofficeTheme}
     description={description}
     inverted
   >
     <ButtonNext className={iconButton()}>
+      <More />
+    </ButtonNext>
+    <ButtonNext className={iconButton("secondary")}>
       <More />
     </ButtonNext>
     <ButtonNext className={iconButton("inverted")}>
@@ -36,17 +58,39 @@ export const SkinStandard = ({ style }: SkinStandardProps) => (
   </CodeShowcase>
 );
 
+const exampleLight = `import * as React from "react";
+import { ButtonNext } from "wix-ui-core";
+import { iconButton } from "wix-ui-core/themes/backoffice";
+
+export default () => (
+  <React.Fragment>
+    <ButtonNext className={iconButton("light")}>
+      <More />
+    </ButtonNext>
+    <ButtonNext className={iconButton("light", "secondary")}>
+      <More />
+    </ButtonNext>
+  </React.Fragment>
+);`;
+
+const descriptionLight = (
+  <div>
+    Skin <code>light</code> is used on colorful backgrounds. Both{" "}
+    <code>primary</code> and <code>secondary</code> priorities available.
+  </div>
+);
+
 interface SkinLightProps {
   style?: object;
 }
 
 export const SkinLight = ({ style }: SkinLightProps) => (
   <CodeShowcase
-    title="Skin light"
+    title="Skin Light"
     style={style}
-    code={example}
+    code={exampleLight}
     theme={backofficeTheme}
-    description={description}
+    description={descriptionLight}
     inverted
   >
     <ButtonNext className={iconButton("light")}>

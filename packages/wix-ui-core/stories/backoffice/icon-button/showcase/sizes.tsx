@@ -5,12 +5,26 @@ import { ButtonNext } from "../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../src/themes/backoffice";
 import { iconButton } from "../../../../src/themes/backoffice";
 import More from "wix-ui-icons-common/More";
-import { example } from "./skins-example";
+
+const example = `import * as React from "react";
+import { ButtonNext } from "wix-ui-core";
+import { iconButton } from "wix-ui-core/themes/backoffice";
+
+export default () => (
+  <React.Fragment>
+    <ButtonNext className={iconButton("small")}>
+      <More />
+    </ButtonNext>
+    <ButtonNext className={iconButton()}>
+      <More />
+    </ButtonNext>
+  </React.Fragment>
+);`;
 
 const description = (
   <div>
-    Suffix and prefix icons can be added to a button by setting
-    <code>prefixIcon</code> or <code>suffixIcon</code> props.
+    IconButton supports only <code>small</code> and <code>medium</code> sizes.
+    The default value is <code>medium</code>
   </div>
 );
 
@@ -20,7 +34,7 @@ interface SizesProps {
 
 export const Sizes = ({ style }: SizesProps) => (
   <CodeShowcase
-    title="Skin standard"
+    title="Sizes"
     style={style}
     code={example}
     theme={backofficeTheme}
