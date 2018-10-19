@@ -45,3 +45,4 @@ HOCs.add("Focusable", Focusable);
 
 // BackOffice Theme
 import "./backoffice/button-next/button-next.story";
+import "./backoffice/icon-button/icon-button.story.tsx";
