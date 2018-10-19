@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import Affixes from "./showcase/affixes/affixes-showcase";
-import Size from "./showcase/size/size-showcase";
-import SkinsSecondary from "./showcase/skin-secondary/skin-secondary-showcase";
-import SkinsPrimary from "./showcase/skin-primary/skin-primary-showcase";
+import Affixes from "./showcase/affixes";
+import Size from "./showcase/size";
+import SkinsSecondary from "./showcase/skin-secondary";
+import SkinsPrimary from "./showcase/skin-primary";
 
 const controlledWidth = {
   maxWidth: "1254px",
