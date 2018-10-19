@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import { BaseProps } from '../../types/BaseProps';
 import style from './button-next.st.css';
 
@@ -13,7 +14,7 @@ export interface ButtonProps
 /**
  * ButtonNext
  */
-export class ButtonNext extends React.Component<ButtonProps> {
+export class ButtonNextRaw extends React.Component<ButtonProps> {
   static displayName = 'ButtonNext';
 
   static defaultProps = {
@@ -33,9 +34,23 @@ export class ButtonNext extends React.Component<ButtonProps> {
     });
 
   render() {
-    const { suffixIcon, prefixIcon, children, onClick, ...rest } = this.props;
+    const {
+      suffixIcon,
+      prefixIcon,
+      children,
+      onClick,
+      focusableOnFocus,
+      focusableOnBlur,
+      ...rest
+    } = this.props;
     return (
-      <button {...rest} onClick={onClick} {...style('root', {}, this.props)}>
+      <button
+        {...rest}
+        onFocus={focusableOnFocus}
+        onBlur={focusableOnBlur}
+        onClick={onClick}
+        {...style('root', {}, this.props)}
+      >
         {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
         {this._addSuffix(suffixIcon)}
@@ -43,3 +58,5 @@ export class ButtonNext extends React.Component<ButtonProps> {
     );
   }
 }
+
+export const ButtonNext = withFocusable(ButtonNextRaw);
