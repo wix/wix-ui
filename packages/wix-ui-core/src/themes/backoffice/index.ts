@@ -3,9 +3,9 @@ import ButtonNext from "./button/button-temp.st.css";
 import IconButton from "./icon-button/icon-button.st.css";
 import BackofficeTheme from "./theme.st.css";
 
-const getClassNames = (values, stylesheet, main) => {
-  const classNamesArray = values.map(cls => stylesheet[cls] || null);
-  return classNames(stylesheet[main], classNamesArray);
+const getClassNames = (values, stylesheet, rootcls) => {
+  const clsArray = values.map(cls => stylesheet[cls] || null);
+  return classNames(stylesheet[rootcls], clsArray);
 };
 
 export const buttonNext = (...values) =>

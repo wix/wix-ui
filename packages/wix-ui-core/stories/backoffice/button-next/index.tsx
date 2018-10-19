@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import Affixes from "./affixes/affixes-showcase";
-import Size from "./size/size-showcase";
-import SkinsSecondary from "./skin-secondary/skin-secondary-showcase";
-import SkinsPrimary from "./skin-primary/skin-primary-showcase";
+import Affixes from "./showcase/affixes/affixes-showcase";
+import Size from "./showcase/size/size-showcase";
+import SkinsSecondary from "./showcase/skin-secondary/skin-secondary-showcase";
+import SkinsPrimary from "./showcase/skin-primary/skin-primary-showcase";
 
 const controlledWidth = {
   maxWidth: "1254px",
@@ -19,7 +19,7 @@ const halfColumn = {
   width: "48%"
 };
 
-export const Examples = (
+const ButtonNextStory = () => (
   <div style={controlledWidth}>
     <div style={halfColumn}>
       <SkinsPrimary />
@@ -31,3 +31,5 @@ export const Examples = (
     </div>
   </div>
 );
+
+export default ButtonNextStory;
