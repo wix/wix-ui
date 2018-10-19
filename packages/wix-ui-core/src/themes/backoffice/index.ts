@@ -4,9 +4,7 @@ import IconButton from "./icon-button/icon-button.st.css";
 import BackofficeTheme from "./theme.st.css";
 
 const getClassNames = (values, stylesheet, main) => {
-  const classNamesArray = values.map(
-    cls => (stylesheet[cls] ? stylesheet[cls] : null)
-  );
+  const classNamesArray = values.map(cls => stylesheet[cls] || null);
   return classNames(stylesheet[main], classNamesArray);
 };
 
