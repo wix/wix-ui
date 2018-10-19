@@ -6,7 +6,12 @@ import { GoogleMapsIframeClientStory } from "./clients/GoogleMapsIframeClient-st
 import { CheckboxStory } from "./Checkbox/Checkbox-story";
 import { TooltipStory } from "./Tooltip/custom";
 import { RadioButtonStory } from "./RadioButton";
+<<<<<<< HEAD
 import ButtonsStory from "./backoffice/button-next";
+=======
+import IconButtonStory from "./backoffice/icon-button";
+import ButtonNextStory from "./backoffice/button-next";
+>>>>>>> Move stories to simple showcase app
 import EllipsedText from "./EllipsedTooltip";
 import Focusable from "./Focusable";
 

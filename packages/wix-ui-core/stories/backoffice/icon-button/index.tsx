@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { SkinStandard, SkinLight } from "./skins";
-import { Sizes } from "./sizes";
+import { SkinStandard, SkinLight } from "./showcase/skins";
+import { Sizes } from "./showcase/sizes";
 
 const controlledWidth = {
   maxWidth: "1254px",
@@ -17,7 +17,7 @@ const halfColumn = {
   width: "48%"
 };
 
-export const Examples = (
+const IconButtonStory = () => (
   <div style={controlledWidth}>
     <div style={halfColumn}>
       <SkinStandard />
@@ -28,3 +28,5 @@ export const Examples = (
     </div>
   </div>
 );
+
+export default IconButtonStory;
