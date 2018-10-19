@@ -82,6 +82,32 @@ BackofficeTheme .inverted:disabled {
   color: value(D80);
 }
 
+/* Priority */
+
+BackofficeTheme .secondary {
+  border: solid 1px value(B10);
+  background: transparent;
+  color: value(B10);
+}
+
+BackofficeTheme .secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
+BackofficeTheme .secondary:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .secondary:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
 /* skin Light */
 
 BackofficeTheme .light {

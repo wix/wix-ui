@@ -14,10 +14,10 @@ import More from "wix-ui-icons-common/More";
 export default () => (
   <React.Fragment>
     <ButtonNext className={iconButton("small")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton()}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
   </React.Fragment>
 );`;
@@ -42,10 +42,10 @@ export const Sizes = ({ style }: SizesProps) => (
     description={description}
   >
     <ButtonNext className={iconButton("small")}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton()}>
-      <More />
+      <More width="24" height="24" />
     </ButtonNext>
   </CodeShowcase>
 );
