@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Sound from "wix-ui-icons-common/Sound";
+import Add from "wix-ui-icons-common/Add";
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../src/themes/backoffice";
@@ -35,8 +35,8 @@ const Affixes = ({ style }: AffixesProps) => (
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext prefixIcon={<Sound />}>prefix</ButtonNext>
-    <ButtonNext suffixIcon={<Sound />}>suffix</ButtonNext>
+    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
+    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
   </CodeShowcase>
 );
 
