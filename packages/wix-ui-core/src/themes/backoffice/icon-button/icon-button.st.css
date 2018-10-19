@@ -1,3 +1,5 @@
+
+
 :import {
   -st-from: "../theme.st.css";
   -st-default: BackofficeTheme;
@@ -6,6 +8,7 @@
 :import {
   -st-from: '../../../components/button-next/button-next.st.css';
   -st-default: Button;
+  -st-named: content;
 }
 
 :import {
@@ -14,7 +17,6 @@
 }
 
 BackofficeTheme .iconButton {
-  -st-extends: Button;
   width: 36px;
   height: 36px;
   border-radius: 18px;
@@ -50,7 +52,7 @@ BackofficeTheme .iconButton:disabled {
   color: value(D80);
 }
 
-BackofficeTheme .iconButton::content {
+BackofficeTheme .iconButton .content {
   line-height: 0;
   width: 100%;
   height: 100%;
@@ -65,9 +67,9 @@ BackofficeTheme .inverted {
 }
 
 BackofficeTheme .inverted:hover:not(:disabled) {
-    color: value(D80);
-    border-color: transparent;
-    background: value(B20);
+  color: value(D80);
+  border-color: transparent;
+  background: value(B20);
 }
 
 BackofficeTheme .inverted:active:not(:disabled) {
