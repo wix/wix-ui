@@ -2,7 +2,6 @@
   max-width: 1254px;
   width: 100%;
   display: inline-block;
-  border: 1px solid #ebedf0;
   border-radius: 2px;
   margin: 8px 8px 16px;
   transition: all .2s;
@@ -10,31 +9,18 @@
 }
 
 .demo {
-  -st-states:inverted;
-  padding: 42px 24px 50px;
-  border-bottom: 1px solid #ebedf0;
+  padding: 42px 0px 50px;
 } 
 
 .demoItems {
-  -st-states:inverted;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.demoItems:inverted {
-  padding: 6px;
-  background-color: #eeeeee;
-}
-
-.demo:inverted {
-  padding: 36px 18px 44px;
-  border-bottom: 1px solid #ebedf0;
-}
-
 .meta {
   position: relative;
-  padding: 18px 32px;
+  padding: 18px 0 32px;
   border-radius: 0 0 2px 2px;
   transition: background-color .4s;
   font-size: 14px;
@@ -64,7 +50,7 @@
 
 .iconShow {
   position: absolute;
-  right: 16px;
+  right: 20px;
   bottom: 16px;
   cursor: pointer;
   width: 16px;
@@ -90,6 +76,7 @@
   display: block;
   line-height: 2;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .title {
