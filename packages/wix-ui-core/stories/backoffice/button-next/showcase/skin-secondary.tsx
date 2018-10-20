@@ -27,7 +27,7 @@ export default () => (
 const description = (
   <div>
     Secondary skins <code>default</code>,<code>destructive</code>,
-    <code>premium</code>,<code>dark</code>, and <code>light</code>.
+    <code>premium</code>,<code>dark</code> and <code>light</code>.
   </div>
 );
 

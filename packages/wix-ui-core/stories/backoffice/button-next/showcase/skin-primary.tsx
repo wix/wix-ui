@@ -21,7 +21,7 @@ export default () => (
 const SkinsPrimaryDscrpt = (
   <div>
     Primary skins <code>default</code>,<code>destructive</code>,
-    <code>premium</code>,<code>dark</code>, <code>light</code>,
+    <code>premium</code>,<code>dark</code>, <code>light</code> and
     <code>transparent</code>.
   </div>
 );
@@ -43,7 +43,7 @@ const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
     <ButtonNext className={buttonNext(`destructive`)}>destructive</ButtonNext>
     <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>
     <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
-    <ButtonNext className={buttonNext(`transparent`)}>transparent</ButtonNext>
+    <ButtonNext className={buttonNext(`transparent`)}>transp.</ButtonNext>
   </CodeShowcase>
 );
 
