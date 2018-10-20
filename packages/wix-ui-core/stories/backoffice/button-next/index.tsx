@@ -54,7 +54,7 @@ const Container = ({ children }) => (
 const Box = ({ children }) => <div style={halfColumn}>{children}</div>;
 
 const ButtonsStory = () => (
-  <div style={{ margin: "32px 0 16px", paddingLeft: "20px" }}>
+  <div style={{ margin: "0px 0 16px", paddingLeft: "20px" }}>
     <Box>
       <Title />
     </Box>
