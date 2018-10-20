@@ -66,7 +66,7 @@ class CodeShowcase extends React.Component {
             customStyle={customHighlighterStyle}
             language="jsx"
             codeTagProps={{
-              style: {fontFamily: `monospace`}
+              style: {fontFamily: `monospace`, padding: '16px 0'}
             }}
             style={vs}
           >
