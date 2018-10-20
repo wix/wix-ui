@@ -5,7 +5,7 @@ import { ButtonNext } from "../../../../src/components/button-next";
 import { buttonNext, backofficeTheme } from "../../../../src/themes/backoffice";
 
 export const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui-core";
+import { ButtonNext } from "wix-ui-core/button-next";
 import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 const premiumSecondary = buttonNext('premium', 'secondary');
@@ -21,15 +21,13 @@ export default () => (
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>
     <ButtonNext className={lightSecondary}>light</ButtonNext>
-    <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
   </React.Fragment>
 );`;
 
 const description = (
   <div>
     Secondary skins <code>default</code>,<code>destructive</code>,
-    <code>premium</code>,<code>dark</code>, <code>light</code>,
-    <code>transparent</code>.
+    <code>premium</code>,<code>dark</code>, and <code>light</code>.
   </div>
 );
 
@@ -45,7 +43,7 @@ interface SkinsSecondaryProps {
 
 const SkinsSecondary = ({ style }: SkinsSecondaryProps) => (
   <CodeShowcase
-    title="Secondary"
+    title="Ghost buttons (secondary)"
     style={style}
     code={example}
     description={description}
@@ -57,7 +55,6 @@ const SkinsSecondary = ({ style }: SkinsSecondaryProps) => (
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>
     <ButtonNext className={lightSecondary}>light</ButtonNext>
-    <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
   </CodeShowcase>
 );
 

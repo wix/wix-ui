@@ -4,7 +4,7 @@ import { ButtonNext } from "../../../../src/components/button-next";
 import { buttonNext, backofficeTheme } from "../../../../src/themes/backoffice";
 
 const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui-core";
+import { ButtonNext } from "wix-ui-core/button-next";
 import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 export default () => (
@@ -23,6 +23,11 @@ const description = (
     .
   </div>
 );
+
+const dependencies = [
+  { component: "ButtonNext", path: "button-next", module: "named" }
+];
+
 interface SizeProps {
   style?: object;
 }
@@ -34,6 +39,7 @@ const Size = ({ style }: SizeProps) => (
     code={example}
     theme={backofficeTheme}
     description={description}
+    dependencies={dependencies}
   >
     <ButtonNext className={buttonNext("tiny")}>tiny</ButtonNext>
     <ButtonNext className={buttonNext("small")}>small</ButtonNext>

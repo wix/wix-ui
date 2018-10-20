@@ -60,7 +60,7 @@ export const SkinStandard = ({ style }: SkinStandardProps) => (
 );
 
 const exampleLight = `import * as React from "react";
-import { ButtonNext } from "wix-ui-core";
+import { ButtonNext } from "wix-ui-core/button-next";
 import { iconButton } from "wix-ui-core/themes/backoffice";
 import More from "wix-ui-icons-common/More";
 
