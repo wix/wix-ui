@@ -14,7 +14,7 @@ import {iconHide} from './components/Hide';
 registerLanguage('jsx', jsx);
 
 const customHighlighterStyle = {
-  padding: '16px 32px',
+  padding: '16px 0',
   border: 'none',
   fontFamily: `"HelveticaNeueW01-45Ligh","sans-serif"`,
   fontSize: '1.2em'
@@ -66,7 +66,7 @@ class CodeShowcase extends React.Component {
             customStyle={customHighlighterStyle}
             language="jsx"
             codeTagProps={{
-              style: {fontFamily: `monospace`, padding: '16px 0'}
+              style: {fontFamily: `monospace`}
             }}
             style={vs}
           >
