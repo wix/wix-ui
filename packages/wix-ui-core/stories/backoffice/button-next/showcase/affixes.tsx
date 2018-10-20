@@ -6,13 +6,13 @@ import { ButtonNext } from "../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../src/themes/backoffice";
 
 const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui-core";
-import Sound from "wix-ui-icons-common/Sound";
+import { ButtonNext } from "wix-ui-core/button-next";
+import Add from "wix-ui-icons-common/Add";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext prefixIcon={<Sound />}>prefix</ButtonNext>
-    <ButtonNext suffixIcon={<Sound />}>suffix</ButtonNext>
+    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
+    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
   </React.Fragment>
 );`;
 
