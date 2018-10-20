@@ -16,21 +16,15 @@ export default () => (
    <ButtonNext className={iconButton()}>
       <More width="24" height="24" />
    </ButtonNext>
-   <ButtonNext className={iconButton("secondary")}>
+   <ButtonNext className={iconButton('light')}>
       <More width="24" height="24" />
    </ButtonNext>
-   <ButtonNext className={iconButton("inverted")}>
-      <More width="24" height="24" />
-    </ButtonNext>
   </React.Fragment>
 );`;
 
 const description = (
   <div>
-    Skin <code>standard</code> is set by default. This is both priority{" "}
-    <code>primary</code> and <code>secondary</code>
-    button. On white based background additional class <code>inverted</code> can
-    be used.
+    Primary skins <code>standard</code> and <code>light</code>.
   </div>
 );
 
@@ -40,7 +34,7 @@ interface SkinStandardProps {
 
 export const SkinStandard = ({ style }: SkinStandardProps) => (
   <CodeShowcase
-    title="Skin Standard"
+    title="Icon Buttons (primary)"
     style={style}
     code={exampleStandard}
     theme={backofficeTheme}
@@ -50,10 +44,7 @@ export const SkinStandard = ({ style }: SkinStandardProps) => (
     <ButtonNext className={iconButton()}>
       <More width="24" height="24" />
     </ButtonNext>
-    <ButtonNext className={iconButton("secondary")}>
-      <More width="24" height="24" />
-    </ButtonNext>
-    <ButtonNext className={iconButton("inverted")}>
+    <ButtonNext className={iconButton("light")}>
       <More width="24" height="24" />
     </ButtonNext>
   </CodeShowcase>
@@ -66,8 +57,8 @@ import More from "wix-ui-icons-common/More";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={iconButton("light")}>
-      <More width="24" height="24"/>
+    <ButtonNext className={iconButton("secondary")}>
+      <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton("light", "secondary")}>
       <More width="24" height="24"/>
@@ -77,8 +68,7 @@ export default () => (
 
 const descriptionLight = (
   <div>
-    Skin <code>light</code> is used on colorful backgrounds. Both{" "}
-    <code>primary</code> and <code>secondary</code> priorities available.
+    Secondary skins <code>standard</code> and <code>light</code>
   </div>
 );
 
@@ -88,14 +78,14 @@ interface SkinLightProps {
 
 export const SkinLight = ({ style }: SkinLightProps) => (
   <CodeShowcase
-    title="Skin Light"
+    title="Icon Buttons (secondary)"
     style={style}
     code={exampleLight}
     theme={backofficeTheme}
     description={descriptionLight}
     inverted
   >
-    <ButtonNext className={iconButton("light")}>
+    <ButtonNext className={iconButton("secondary")}>
       <More width="24" height="24" />
     </ButtonNext>
     <ButtonNext className={iconButton("light", "secondary")}>
