@@ -8,5 +8,7 @@ videoMetadata.nonA11yCompliant = true;
 videoMetadata
   .addSim({
     title: 'Simulation with default props',
-    props: {}
+    props: {
+      src: 'video.mp4'
+    }
   });

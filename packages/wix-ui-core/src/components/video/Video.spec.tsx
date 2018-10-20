@@ -1,159 +1,222 @@
 import * as React from 'react';
-import {createDriver} from './Video.driver.private';
-import {Video} from './';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { Video } from './';
+import { videoPrivateDriverFactory } from './Video.driver.private';
 
 describe('Video', () => {
-  // Since this runs in a browser avoid sending HTTP requests over network.
-  const videoUrl = 'data:video/mp4,never-gonna-give-you-up.mp4';
-  const videoUrl2 = 'data:video/mp4,never-gonna-let-you-down.mp4';
-  const imageUrl = 'data:image/jpeg,never-gonna-run-around.jpg';
+  const createDriver = new ReactDOMTestContainer()
+    .unmountAfterEachTest()
+    .createUniRenderer(videoPrivateDriverFactory);
 
-    describe('src prop', () => {
-      it('should not be present by default', () => {
-        const driver = createDriver(<Video/>);
-        expect(driver.getSrc()).toBeFalsy();
-      });
+  const VIDEO_SRC = 'data:video/mp4,never-gonna-give-you-up.mp4';
+  const IMAGE_SRC = 'data:image/jpeg,never-gonna-run-around.jpg';
+  const PLAYABLE_LINK = VIDEO_SRC;
+  const YOUTUBE_LINK = 'https://www.youtube.com/watch?v=oUFJJNQGwhk';
+  const DAILYMOTION_LINK = 'https://www.dailymotion.com/video/x5e9eog';
+  const FACEBOOK_LINK = 'https://www.facebook.com/facebook/videos/10153231379946729/';
+  const TWITCH_LINK = 'https://www.twitch.tv/videos/106400740';
+  const VIMEO_LINK = 'https://vimeo.com/90509568';
 
-      it('should set initial value', () => {
-        const driver = createDriver(<Video src={videoUrl}/>);
-        expect(driver.getSrc()).toBe(videoUrl);
-      });
-
-      it('should set array for src', () => {
-        const driver = createDriver(<Video src={[videoUrl]}/>);
-        expect(driver.getSrc()).toEqual([videoUrl]);
-      });
-
-      it('should update value', () => {
-        const driver = createDriver(<Video src={videoUrl}/>);
-        expect(driver.getSrc()).toBe(videoUrl);
-
-        driver.setProp('src', videoUrl2);
-        expect(driver.getSrc()).toBe(videoUrl2);
-      });
-    });
-
+  describe('Wrapper', () => {
     describe('width prop', () => {
-      it('should not be present by default', () => {
-        const driver = createDriver(<Video/>);
-        expect(driver.getWidth()).toBeFalsy();
+      it('should not be present by default', async () => {
+        const driver = createDriver(<Video src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
+
+        expect(native.style.width).toBeFalsy();
       });
 
-      it('should set initial value', () => {
-        const driver = createDriver(<Video width={400}/>);
-        expect(driver.getWidth()).toBe('400px');
+      it('should set given value', async () => {
+        const driver = createDriver(<Video width={400} src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
+
+        expect(native.style.width).toBe('400px');
       });
     });
 
     describe('height prop', () => {
-      it('should not be present by default', () => {
-        const driver = createDriver(<Video/>);
-        expect(driver.getHeight()).toBeFalsy();
+      it('should not be present by default', async () => {
+        const driver = createDriver(<Video src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
+
+        expect(native.style.height).toBeFalsy();
       });
 
-      it('should set initial value', () => {
-        const driver = createDriver(<Video height={225}/>);
-        expect(driver.getHeight()).toBe('225px');
-      });
-    });
+      it('should set given value', async () => {
+        const driver = createDriver(<Video height={225} src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
 
-    describe('playing prop', () => {
-      it('should not playing by default', () => {
-        const driver = createDriver(<Video/>);
-        expect(driver.isAutoPlaying()).toBe(false);
-      });
-
-      it('should set initial value', () => {
-        const driver = createDriver(<Video playing/>);
-        expect(driver.isAutoPlaying()).toBe(true);
+        expect(native.style.height).toBe('225px');
       });
     });
 
-    describe('muted prop', () => {
-      it('should not be muted by default', () => {
-        const driver = createDriver(<Video/>);
-        expect(driver.isMuted()).toBe(false);
+    describe('fillAllSpace prop', () => {
+      it('should set width and height as 100%', async () => {
+        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
+
+        expect(native.style.width).toBe('100%');
+        expect(native.style.height).toBe('100%');
+      });
+    });
+
+    describe('fillAllSpace prop', () => {
+      it('should set width and height as 100%', async () => {
+        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC}/>);
+        const native = await driver.getNative();
+
+        expect(native.style.width).toBe('100%');
+        expect(native.style.height).toBe('100%');
+      });
+    });
+
+    describe('player name', () => {
+      it('should change player name when src url changes', async () => {
+        class VideoWrapper extends React.Component<any> {
+          state = {src : PLAYABLE_LINK}
+
+          setUrl(url) {
+            this.setState({src: url});
+          }
+
+          render() {
+            return (
+              <Video src={this.state.src}/>
+            );
+          }
+        }
+
+        let wrapper;
+        const driver = createDriver(<VideoWrapper ref={ref => wrapper = ref}/>);
+
+        expect(await driver.getPlayerName()).toBe('Playable');
+
+        wrapper.setUrl(YOUTUBE_LINK);
+
+        expect(await driver.getPlayerName()).toBe('YouTube');
+      });
+    });
+  });
+
+  describe('Playable', () => {
+    describe('player name', () => {
+      it('should set video url to Playable player', async () => {
+        const driver = createDriver(<Video src={PLAYABLE_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('Playable');
       });
 
-      it('should set initial value', () => {
-        const driver = createDriver(<Video muted/>);
-        expect(driver.isMuted()).toBe(true);
-      });
+      it('should set array of video source to Playable player', async () => {
+        const driver = createDriver(<Video src={[PLAYABLE_LINK]}/>);
 
-      it('should update value', () => {
-        const driver = createDriver(<Video muted/>);
-        expect(driver.isMuted()).toBe(true);
-
-        driver.setProp('muted', false);
-        expect(driver.isMuted()).toBe(false);
-
-        driver.setProp('muted', true);
-        expect(driver.isMuted()).toBe(true);
+        expect(await driver.getPlayerName()).toBe('Playable');
       });
     });
 
     describe('cover', () => {
-      it('should be present', () => {
-        const driver = createDriver(<Video poster={imageUrl}/>);
-        expect(driver.hasCover()).toBe(true);
+      it('should exist', async () => {
+        const driver = createDriver(
+          <Video
+            config={{
+              playable: {
+                poster: IMAGE_SRC
+              }
+            }}
+            src={PLAYABLE_LINK}
+          />
+        );
+
+        expect(await driver.hasCover()).toBeTruthy();
       });
     });
 
     describe('title', () => {
-      it('should be present', () => {
-        const driver = createDriver(<Video title="Awesome" poster={imageUrl}/>);
-        expect(driver.getTitle()).toBe('Awesome');
-      });
-    });
+      it('should has appropriate title', async () => {
+        const TITLE = 'Awesome';
+        const driver = createDriver(
+          <Video
+            config={{
+              playable: {
+                poster: IMAGE_SRC,
+                title: TITLE
+              }
+            }}
+            src={PLAYABLE_LINK}
+          />
+        );
 
-    describe('fillAllSpace', () => {
-      it('should set width and height in 100%', () => {
-        const driver = createDriver(<Video fillAllSpace/>);
-        expect(driver.getRootDOMNode().style.width).toBe('100%');
-        expect(driver.getRootDOMNode().style.height).toBe('100%');
+        expect(await driver.hasTitle()).toBeTruthy();
+        expect(await driver.getTitle()).toBe(TITLE);
       });
     });
 
     describe('playButton', () => {
-      it('should be presented', () => {
+      it('should exist', async () => {
         const driver = createDriver(
           <Video
-            poster={imageUrl}
-            playButton={<div data-hook="play-button">Play</div>}
-          />
-        );
-        expect(driver.getRootDOMNode().querySelector('[data-hook="play-button"]')).toBeTruthy();
-      });
-    });
-
-    describe('logo', () => {
-      it('should be hidden by default', () => {
-        const driver = createDriver(
-          <Video />
-        );
-
-        expect(driver.getLogoSrc()).toBeFalsy();
-      });
-
-      it('should be shown and clickable if callback passed', () => {
-        const callback = jest.fn();
-        const driver = createDriver(
-          <Video onLogoClick={callback} />
-        );
-
-        driver.clickLogo();
-
-        expect(callback).toBeCalled();
-      });
-
-      it('should be presented', () => {
-        const driver = createDriver(
-          <Video
-            logoUrl={imageUrl}
+            config={{
+              playable: {
+                poster: IMAGE_SRC,
+                title: 'Awesome',
+                playButton: <div data-hook="play-button">Play</div>
+              }
+            }}
+            src={PLAYABLE_LINK}
           />
         );
 
-        expect(driver.getLogoSrc()).toBe(imageUrl);
+        expect(await driver.hasPlayButton()).toBeTruthy();
       });
     });
+  });
+
+  describe('DailyMotion', () => {
+    describe('player name', () => {
+      it('should set DailyMotion link to appropriate player', async () => {
+        const driver = createDriver(<Video src={DAILYMOTION_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('DailyMotion');
+      });
+    });
+  });
+
+  describe('Facebook', () => {
+    describe('player type', () => {
+      it('should set Facebook link to appropriate player', async () => {
+        const driver = createDriver(<Video src={FACEBOOK_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('Facebook');
+      });
+    });
+  });
+
+  describe('Twitch', () => {
+    describe('player type', () => {
+      it('should set Twitch link to appropriate player', async () => {
+        const driver = createDriver(<Video src={TWITCH_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('Twitch');
+      });
+    });
+  });
+
+  describe('Vimeo', () => {
+    describe('player type', () => {
+      it('should set Vimeo link to appropriate player', async () => {
+        const driver = createDriver(<Video src={VIMEO_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('Vimeo');
+      });
+    });
+  });
+
+  describe('Youtube', () => {
+    describe('player type', () => {
+      it('should set Youtube link to appropriate player', async () => {
+        const driver = createDriver(<Video src={YOUTUBE_LINK}/>);
+
+        expect(await driver.getPlayerName()).toBe('YouTube');
+      });
+    });
+  });
 });

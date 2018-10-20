@@ -211,3 +211,12 @@ export const navStepperTestkitFactory = protractorTestkitFactoryCreator(
   navStepperDriverFactory
 );
 export { NavStepperDriver };
+
+import {
+  videoPrivateDriverFactory,
+  IVideoPrivateDriver
+} from '../components/Video/Video.driver.private';
+export const videoTestkitFactory = protractorUniTestkitFactoryCreator(
+  videoPrivateDriverFactory
+);
+export { IVideoPrivateDriver };

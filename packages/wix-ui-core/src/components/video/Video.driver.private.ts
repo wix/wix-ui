@@ -1,38 +1,28 @@
-import { VideoProps } from './Video';
-/**
- * Private driver, will not be exposed in testkit
- */
+import { UniDriver } from 'unidriver';
+import {
+  videoDriverFactory as publicVideoDriver,
+  IVideoDriver
+} from './Video.driver';
 
-import * as React from 'react';
-import {mount, ReactWrapper} from 'enzyme';
+export interface IVideoPrivateDriver extends IVideoDriver {
+  getNative: () => Promise<any>;
+  hasCover: () => Promise<boolean>;
+  hasTitle: () => Promise<boolean>;
+  getTitle: () => Promise<string>;
+  getLogoSrc: () => Promise<string>;
+  hasPlayButton: () => Promise<boolean>;
+}
 
-export const createDriver = (Component: React.ReactElement<VideoProps>) => {
-  let player;
-
-  const ClonedComponent = React.cloneElement(Component, {
-    playableRef: r => player = r,
-  });
-
-  const wrapper = mount(ClonedComponent);
-  const rootDOMNode = wrapper.getDOMNode() as HTMLElement;
-  const companyLogoNode = rootDOMNode.querySelector('[data-hook="company-logo"]');
-  const containerNode = rootDOMNode.querySelector('[data-hook="player-container"]') as HTMLElement;
-
+export const videoPrivateDriverFactory = (
+  base: UniDriver
+): IVideoPrivateDriver => {
   return {
-    hasCover: () => wrapper.find('[data-hook="cover"]').length === 1,
-    getRootDOMNode: () => rootDOMNode,
-    getSrc: () => player.getSrc(),
-    getTitle: () => wrapper.find('[data-hook="title"]').text(),
-    getWidth: () => containerNode.style.width,
-    getHeight: () => containerNode.style.height,
-    getLogoSrc: () => companyLogoNode.getAttribute('src'),
-    isAutoPlaying: () => player.getAutoPlay(),
-    isMuted: () => player.getMute(),
-    setProp: (prop, value) => wrapper.setProps({[prop]: value}),
-    clickLogo: () => {
-      const event = new MouseEvent('click', {bubbles: true});
-
-      companyLogoNode.dispatchEvent(event);
-    }
+    ...publicVideoDriver(base),
+    getNative: async () => await base.getNative(),
+    hasCover: async () => await base.$('[data-hook="cover"]').exists(),
+    hasTitle: async () => await base.$('[data-hook="title"]').exists(),
+    getTitle: async () => await base.$('[data-hook="title"]').text(),
+    getLogoSrc: async () => await base.$('[data-hook="company-logo"]').attr('src'),
+    hasPlayButton: async () => await base.$('[data-hook="play-button"]').exists(),
   };
 };
