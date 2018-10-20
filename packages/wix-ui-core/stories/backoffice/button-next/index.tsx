@@ -22,10 +22,13 @@ const halfColumn = {
 };
 
 const Title = () => (
-  <div style={{ paddingBottom: "10px" }}>
+  <div style={{ padding: "10px" }}>
     <h1 style={{ fontSize: "2.75rem", fontWeight: "300" }}>Buttons</h1>
     <p style={{ fontSize: "1.2rem", fontWeight: "300" }}>
-      A Button indicates a possible user action.
+      A Button indicates a possible user action. The Text Buttons, Filled
+      Buttons, Ghost Button, Icon Buttons and Close Buttons are built on top of
+      the same component: the ButtonNext. You can take advantage of this lower
+      level component to build custom interactions.
     </p>
   </div>
 );
@@ -55,9 +58,8 @@ const Box = ({ children }) => <div style={halfColumn}>{children}</div>;
 
 const ButtonsStory = () => (
   <div style={{ margin: "0px 0 16px", paddingLeft: "20px" }}>
-    <Box>
-      <Title />
-    </Box>
+    <Title />
+
     <Container>
       <Box>
         <SubTitle>Filled Buttons</SubTitle>
