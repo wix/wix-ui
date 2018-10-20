@@ -4,8 +4,8 @@ import {node, bool} from 'prop-types';
 
 const spacing = {marginRight: '8px', marginBottom: '8px', marginTop: '8px'};
 
-const List = ({children}) => (
-  <div {...styleclass('demoItems')}>
+const List = ({children, inverted}) => (
+  <div {...styleclass('demoItems', {inverted})}>
     {Array.isArray(children) ?
       children.map((child, index) => (
         <div key={index} style={spacing}>
