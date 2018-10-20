@@ -31,14 +31,22 @@ const Title = () => (
 );
 
 const SubTitle = ({ children }) => (
-  <h2 h2 style={{ fontSize: "1.75rem", fontWeight: "300" }}>
+  <h2
+    style={{
+      fontSize: "1.75rem",
+      fontWeight: "300"
+    }}
+  >
     {children}
   </h2>
 );
 
 const SubParagraph = ({ children }) => (
-  <p style={{ fontSize: "1rem", fontWeight: "300" }}>{children}</p>
+  <p style={{ fontSize: "1rem", fontWeight: "300", marginBottom: "0" }}>
+    {children}
+  </p>
 );
+
 const Container = ({ children }) => (
   <div style={controlledWidth}>{children}</div>
 );
