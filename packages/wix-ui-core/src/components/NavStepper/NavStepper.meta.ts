@@ -6,7 +6,6 @@ navStepperMetadata
   .addSim({
     title: 'Simulation with default props',
     props: {
-      activeStep: 0,
-      children: null
+      activeStep: 0
     }
   });
