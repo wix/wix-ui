@@ -10,7 +10,8 @@ export {ExternalNavStepProps} from './NavStep';
 
 export interface NavStepperProps {
     activeStep: number;
-    onStepClick?: (stepIndex: number, e: any) => void
+    onStepClick?: (stepIndex: number, e: any) => void;
+    children: any;
 }
 
 export class NavStepper extends React.PureComponent<NavStepperProps> {
