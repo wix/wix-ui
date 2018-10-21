@@ -27,10 +27,9 @@ const Title = () => (
   <div style={{ padding: "10px" }}>
     <h1 style={{ fontSize: "2.75rem", fontWeight: "300" }}>Buttons</h1>
     <p style={{ fontSize: "1.2rem", fontWeight: "300" }}>
-      A Button indicates a possible user action. The Text Buttons, Filled
-      Buttons, Ghost Buttons, Icon Buttons and Close Buttons are built on top of
-      the same component: the ButtonNext. You can take advantage of this lower
-      level component to build custom interactions.
+      The Text Buttons, Filled Buttons, Ghost Buttons, Icon Buttons and Close
+      Buttons are built on top of the same component: the ButtonNext. You can
+      take advantage of this lower level component to build custom interactions.
     </p>
   </div>
 );
