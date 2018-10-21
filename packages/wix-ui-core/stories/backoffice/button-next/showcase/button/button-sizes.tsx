@@ -1,7 +1,11 @@
 import * as React from "react";
+
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../src/components/button-next";
-import { buttonNext, backofficeTheme } from "../../../../src/themes/backoffice";
+import { ButtonNext } from "../../../../../src/components/button-next";
+import {
+  buttonNext,
+  backofficeTheme
+} from "../../../../../src/themes/backoffice";
 
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -24,22 +28,17 @@ const description = (
   </div>
 );
 
-const dependencies = [
-  { component: "ButtonNext", path: "button-next", module: "named" }
-];
-
-interface SizeProps {
+interface ButtonSizesProps {
   style?: object;
 }
 
-const Size = ({ style }: SizeProps) => (
+export const ButtonSizes = ({ style }: ButtonSizesProps) => (
   <CodeShowcase
     title="Size"
     style={style}
     code={example}
     theme={backofficeTheme}
     description={description}
-    dependencies={dependencies}
   >
     <ButtonNext className={buttonNext("tiny")}>tiny</ButtonNext>
     <ButtonNext className={buttonNext("small")}>small</ButtonNext>
@@ -47,5 +46,3 @@ const Size = ({ style }: SizeProps) => (
     <ButtonNext className={buttonNext("large")}>large</ButtonNext>
   </CodeShowcase>
 );
-
-export default Size;

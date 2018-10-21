@@ -2,8 +2,8 @@ import * as React from "react";
 
 import Add from "wix-ui-icons-common/Add";
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../src/components/button-next";
-import { backofficeTheme } from "../../../../src/themes/backoffice";
+import { ButtonNext } from "../../../../../src/components/button-next";
+import { backofficeTheme } from "../../../../../src/themes/backoffice";
 
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -23,11 +23,10 @@ const description = (
   </div>
 );
 
-interface AffixesProps {
+interface ButtonAffixesProps {
   style?: object;
 }
-
-const Affixes = ({ style }: AffixesProps) => (
+export const ButtonAffixes = ({ style }: ButtonAffixesProps) => (
   <CodeShowcase
     title="Affixes"
     style={style}
@@ -39,5 +38,3 @@ const Affixes = ({ style }: AffixesProps) => (
     <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
   </CodeShowcase>
 );
-
-export default Affixes;
