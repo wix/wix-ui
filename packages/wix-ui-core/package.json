@@ -39,7 +39,7 @@
     "start": "run-p yoshi-start storybook-start",
     "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
-    "import-path": "node scripts/import-path.js",
+    "import-path": "node scripts/import-path.js && node scripts/create-drivers-export-file.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics --indexFile=index.st.css",
     "test:browser": "wix-ui-mocha-runner"
