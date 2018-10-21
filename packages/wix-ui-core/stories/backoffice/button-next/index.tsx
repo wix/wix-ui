@@ -1,11 +1,13 @@
 import * as React from "react";
 
-import Affixes from "./showcase/affixes";
-import Size from "./showcase/size";
-import SkinsSecondary from "./showcase/skin-secondary";
-import SkinsPrimary from "./showcase/skin-primary";
-import { SkinStandard, SkinLight } from "./showcase/icon-skins";
-import { Sizes } from "./showcase/icon-sizes";
+import { IconButtonPrimary } from "./showcase/iconButton/iconButton-primary";
+import { IconButtonSecondary } from "./showcase/iconButton/iconButton-secondary";
+import { IconButtonSizes } from "./showcase/iconButton/iconButton-sizes";
+
+import { ButtonPrimary } from "./showcase/button/button-primary";
+import { ButtonSecondary } from "./showcase/button/button-secondary";
+import { ButtonSizes } from "./showcase/button/button-sizes";
+import { ButtonAffixes } from "./showcase/button/button-affixes";
 
 const controlledWidth = {
   maxWidth: "1254px",
@@ -26,7 +28,7 @@ const Title = () => (
     <h1 style={{ fontSize: "2.75rem", fontWeight: "300" }}>Buttons</h1>
     <p style={{ fontSize: "1.2rem", fontWeight: "300" }}>
       A Button indicates a possible user action. The Text Buttons, Filled
-      Buttons, Ghost Button, Icon Buttons and Close Buttons are built on top of
+      Buttons, Ghost Buttons, Icon Buttons and Close Buttons are built on top of
       the same component: the ButtonNext. You can take advantage of this lower
       level component to build custom interactions.
     </p>
@@ -64,18 +66,18 @@ const ButtonsStory = () => (
       <Box>
         <SubTitle>Filled Buttons</SubTitle>
         <SubParagraph>
-          Use filled buttons to give more prominence to actions in layouts with
+          Use primary buttons to give more prominence to actions in layouts with
           a lot of varying content.
         </SubParagraph>
-        <SkinsPrimary />
+        <ButtonPrimary />
       </Box>
       <Box>
         <SubTitle>Ghost Buttons</SubTitle>
         <SubParagraph>
-          Ghost button is best used for secondary or tertiary content, since it
-          should not compete with your primary call to action.
+          Secondary button is best used for secondary or tertiary content, since
+          it should not compete with your primary call to action.
         </SubParagraph>
-        <SkinsSecondary />
+        <ButtonSecondary />
       </Box>
     </Container>
 
@@ -88,27 +90,27 @@ const ButtonsStory = () => (
     </Box>
     <Container>
       <Box>
-        <SkinStandard />
+        <IconButtonPrimary />
       </Box>
       <Box>
-        <SkinLight />
+        <IconButtonSecondary />
       </Box>
     </Container>
 
     <SubTitle>Sizes</SubTitle>
     <Container>
       <Box>
-        <Size />
+        <ButtonSizes />
       </Box>
       <Box>
-        <Sizes />
+        <IconButtonSizes />
       </Box>
     </Container>
 
     <SubTitle>Affixes</SubTitle>
     <Container>
       <Box>
-        <Affixes />
+        <ButtonAffixes />
       </Box>
     </Container>
   </div>

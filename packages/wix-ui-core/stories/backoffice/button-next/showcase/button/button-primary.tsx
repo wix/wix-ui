@@ -1,8 +1,11 @@
 import * as React from "react";
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 
-import { ButtonNext } from "../../../../src/components/button-next";
-import { buttonNext, backofficeTheme } from "../../../../src/themes/backoffice";
+import { ButtonNext } from "../../../../../src/components/button-next";
+import {
+  buttonNext,
+  backofficeTheme
+} from "../../../../../src/themes/backoffice";
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -18,7 +21,7 @@ export default () => (
   </React.Fragment>
 );`;
 
-const SkinsPrimaryDscrpt = (
+const description = (
   <div>
     Primary skins <code>default</code>,<code>destructive</code>,
     <code>premium</code>,<code>dark</code>, <code>light</code> and
@@ -26,16 +29,16 @@ const SkinsPrimaryDscrpt = (
   </div>
 );
 
-interface SkinsPrimaryProps {
+interface ButtonPrimaryProps {
   style?: object;
 }
 
-const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
+export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
   <CodeShowcase
     title="Filled buttons (primary)"
     style={style}
     code={example}
-    description={SkinsPrimaryDscrpt}
+    description={description}
     theme={backofficeTheme}
     inverted
   >
@@ -46,5 +49,3 @@ const SkinsPrimary = ({ style }: SkinsPrimaryProps) => (
     <ButtonNext className={buttonNext(`transparent`)}>transp.</ButtonNext>
   </CodeShowcase>
 );
-
-export default SkinsPrimary;
