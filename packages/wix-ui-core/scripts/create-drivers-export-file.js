@@ -17,7 +17,7 @@ function createExports(fileName, pattern){
   
   const exportedDriversPaths = exportedDrivers.map(p => './' + path.join('dist',path.parse(p).dir, path.parse(p).name))
  
-  const jsfilePath = `${fileName}.js `;
+  const jsfilePath = `${fileName}.js`;
   const typeScriptFilePath =  `${fileName}.d.ts`; // created in the root of ui-core
   const jsFileContent = camelCasedExportNames.map((exportName, i) => `module.exports.${exportName} = require('${exportedDriversPaths[i]}');`).join('\n')
   const typeScriptFileContent = exportedDriversPaths.map(p =>`export * from '${p}';`).join('\n')
