@@ -1,12 +1,14 @@
 import React from 'react';
 import styleclass from '../CodeShowcase.st.css';
-import {node} from 'prop-types';
+import {node, bool} from 'prop-types';
 
-const List = ({children}) => (
-  <div className={styleclass.demoItems}>
+const spacing = {marginRight: '8px', marginBottom: '8px', marginTop: '8px'};
+
+const List = ({children, inverted}) => (
+  <div {...styleclass('demoItems', {inverted})}>
     {Array.isArray(children) ?
       children.map((child, index) => (
-        <div key={index} style={{marginRight: '8px', marginBottom: '12px'}}>
+        <div key={index} style={spacing}>
           {child}
         </div>
       )) :
@@ -15,7 +17,12 @@ const List = ({children}) => (
 );
 
 List.propTypes = {
-  children: node
+  children: node,
+  inverted: bool
+};
+
+List.defaultProps = {
+  inverted: false
 };
 
 export default List;

@@ -42,3 +42,6 @@ Components.add("Tooltip Custom", () => <TooltipStory />);
 import "./Video.story";
 HOCs.add("EllipsedTooltip", EllipsedText);
 HOCs.add("Focusable", Focusable);
+
+// BackOffice Theme
+import "./backoffice/button-next/button-next.story";

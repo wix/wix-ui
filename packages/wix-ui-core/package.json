@@ -15,7 +15,8 @@
     "!wallaby.js",
     "!protractor.conf.js",
     "index.st.css",
-    "hocs.js"
+    "hocs.js",
+    "themes"
   ],
   "repository": {
     "type": "git",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "build": "yoshi build && npm run generate-stylable-index && npm run transpile-mixins && npm run import-path && build-storybook",
-    "pr-postbuild": "npx teamcity-surge-autorelease@^1.0.0",
+    "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y && npm run snap",
     "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
@@ -75,8 +76,8 @@
     "@types/react-dom": "^16.0.5",
     "@types/react-onclickoutside": "^6.0.2",
     "@types/react-transition-group": "^2.0.6",
-    "@ui-autotools/registry": "^2.0.1",
-    "@ui-autotools/scripts": "^2.0.1",
+    "@ui-autotools/registry": "2.0.1",
+    "@ui-autotools/scripts": "2.0.3",
     "airbnb-prop-types": "^2.10.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",

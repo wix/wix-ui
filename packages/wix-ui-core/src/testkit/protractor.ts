@@ -50,15 +50,6 @@ export const paginationTestkitFactory = protractorTestkitFactoryCreator(
 export { PaginationDriver };
 
 import {
-  badgeDriverFactory,
-  BadgeDriver
-} from "../components/Badge/Badge.protractor.driver";
-export const badgeTestkitFactory = protractorTestkitFactoryCreator(
-  badgeDriverFactory
-);
-export { BadgeDriver };
-
-import {
   tooltipDriverFactory,
   TooltipDriver
 } from "../components/Tooltip/Tooltip.protractor.driver";

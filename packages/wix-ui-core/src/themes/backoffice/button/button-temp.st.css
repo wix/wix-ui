@@ -1,0 +1,481 @@
+:import {
+  -st-from: '../theme.st.css';
+  -st-default: BackofficeTheme;
+}
+
+:import {
+  -st-from: '../../../components/button-next/button-next.st.css';
+  -st-default: Button;
+  -st-named: suffix, prefix;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: B10, F00, B20, D55, R10, R20, P10, P20, G10, G20, D80, B50, D40,
+    D10, D20, B40, F00;
+}
+
+:import {
+  -st-from: '../shadows.st.css';
+  -st-named: s5, s6, s7;
+}
+
+:import {
+  -st-from: '../typography.st.css';
+  -st-named: fontRoman;
+}
+
+BackofficeTheme Button {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  border: 1px solid;
+
+  font-family: value(fontRoman);
+  font-size: 16px;
+  line-height: 1.5;
+
+  outline: none;
+  transition: all 100ms linear;
+
+  height: 36px;
+  border-radius: 18px;
+  padding: 0 23px;
+
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme Button:hover:not(:disabled) {
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
+}
+
+BackofficeTheme Button:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme Button:disabled {
+  color: value(D80);
+  background-color: value(D55);
+  border-color: value(D55);
+}
+
+/* Special cases */
+
+BackofficeTheme .inverted {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+BackofficeTheme .inverted:hover:not(:disabled) {
+    color: value(D80);
+    border-color: transparent;
+    background-color: value(B20);
+}
+
+BackofficeTheme .inverted:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .inverted:disabled {
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
+}
+
+/* Priority */
+
+BackofficeTheme .secondary {
+  border: solid 1px value(B10);
+  background: transparent;
+  color: value(B10);
+}
+
+BackofficeTheme .secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
+BackofficeTheme .secondary:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+/* skin Light */
+
+BackofficeTheme .light {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+BackofficeTheme .light:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+BackofficeTheme .light:active:not(:disabled) {
+  background-color: value(B40);
+  color: value(B10);
+}
+
+BackofficeTheme .light:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Light secondary */
+
+BackofficeTheme .light.secondary {
+  border: solid 1px value(D80);
+  background: transparent;
+  color: value(D80);
+}
+
+BackofficeTheme .light.secondary:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+BackofficeTheme .light.secondary:active:not(:disabled) {
+  background-color: value(B40);
+  border: solid 1px value(B40);
+  color: value(B10);
+}
+
+BackofficeTheme .light.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* skin Destructive */
+
+BackofficeTheme .destructive {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+BackofficeTheme .destructive:hover:not(:disabled) {
+  background-color: value(R20);
+  border-color: value(R20);
+  color: value(D80);
+}
+
+BackofficeTheme .destructive:disabled {
+  color: value(D80);
+  background-color: value(D55);
+  border-color: value(D55);
+}
+
+BackofficeTheme .destructive:active:not(:disabled) {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+/* skin Destructive secondary */
+
+BackofficeTheme .destructive.secondary {
+  border: solid 1px value(R10);
+  background: transparent;
+  color: value(R10);
+}
+
+BackofficeTheme .destructive.secondary:hover:not(:disabled) {
+  background-color: value(R20);
+  border-color: value(R20);
+  color: value(D80);
+}
+
+BackofficeTheme .destructive.secondary:active:not(:disabled) {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+BackofficeTheme .destructive.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* skin Premium */
+
+BackofficeTheme .premium {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+BackofficeTheme .premium:hover:not(:disabled) {
+  background-color: value(P20);
+  border-color: value(P20);
+  color: value(D80);
+}
+
+BackofficeTheme .premium:active:not(:disabled) {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+BackofficeTheme .premium:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Premium secondary */
+
+BackofficeTheme .premium.secondary {
+  border: solid 1px value(P10);
+  background: transparent;
+  color: value(P10);
+}
+
+BackofficeTheme .premium.secondary:hover:not(:disabled) {
+  background-color: value(P20);
+  border-color: value(P20);
+  color: value(D80);
+}
+
+BackofficeTheme .premium.secondary:active:not(:disabled) {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+BackofficeTheme .premium.secondary:disabled {
+  border-color: value(D55);
+  background-color: transparent;
+  color: value(D55);
+}
+
+/* skin Dark */
+
+BackofficeTheme .dark {
+  background-color: transparent;
+  border: solid 1px value(D40);
+  color: value(D10);
+}
+
+BackofficeTheme .dark:hover:not(:disabled) {
+  color: value(D80);
+  background-color: value(D20);
+  border-color: value(D20);
+}
+
+BackofficeTheme .dark:active:not(:disabled) {
+  background-color: value(D10);
+  border-color: value(D10);
+  color: value(D80);
+}
+
+BackofficeTheme .dark:disabled {
+  background-color: transparent;
+  border: solid 1px value(D55);
+  color: value(D55);
+}
+
+/* skin Dark secondary */
+
+BackofficeTheme .dark.secondary {
+  background-color: transparent;
+  border: solid 1px value(D40);
+  color: value(D10);
+}
+
+BackofficeTheme .dark.secondary:hover:not(:disabled) {
+  color: value(D80);
+  background-color: value(D20);
+  border-color: value(D20);
+}
+
+BackofficeTheme .dark.secondary:active:not(:disabled) {
+  background-color: value(D10);
+  border-color: value(D10);
+  color: value(D80);
+}
+
+BackofficeTheme .dark.secondary:disabled {
+  background-color: transparent;
+  border: solid 1px value(D55);
+  color: value(D55);
+}
+
+/* skin Transparent */
+
+BackofficeTheme .transparent {
+  border-color: transparent;
+  background-color: value(s5);
+  color: value(D80);
+}
+
+BackofficeTheme .transparent:hover:not(:disabled) {
+  border-color: transparent;
+  background-color: value(s6);
+  color: value(D80);
+}
+
+BackofficeTheme .transparent:active:not(:disabled) {
+  background-color: value(s7);
+  border-color: value(s7);
+  border-color: transparent;
+}
+
+BackofficeTheme .transparent:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Transparent secondary */
+
+BackofficeTheme .transparent.secondary {
+  border-color: transparent;
+  background-color: value(s5);
+  color: value(D80);
+}
+
+BackofficeTheme .transparent.secondary:hover:not(:disabled) {
+  border-color: transparent;
+  background-color: value(s6);
+  color: value(D80);
+}
+
+BackofficeTheme .transparent.secondary:active:not(:disabled) {
+  background-color: value(s7);
+  border-color: value(s7);
+  border-color: transparent;
+}
+
+BackofficeTheme .transparent.secondary:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* sizes */
+
+BackofficeTheme .large {
+  height: 42px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 21px;
+  padding: 0 30px;
+}
+
+BackofficeTheme .small {
+  height: 30px;
+  font-size: 14px;
+  line-height: 1.29;
+  border-radius: 15px;
+  padding: 0 18px;
+}
+
+BackofficeTheme .tiny {
+  height: 24px;
+  font-size: 12px;
+  line-height: 1.25;
+  border-radius: 18px;
+  padding: 0 12px;
+}
+
+/* Suffix and prefix */
+
+BackofficeTheme .tiny .suffix {
+  margin: 0 -6px 0 0;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .tiny .prefix {
+  margin: 0 0 0 -6px;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .small .suffix {
+  margin: 0 -6px 0 6px;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .small .prefix {
+  margin: 0 6px 0 -6px;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .suffix {
+  margin: 0 -12px 0 6px;
+  width: 24px;
+  height: 24px;
+}
+
+BackofficeTheme .prefix {
+  margin: 0 6px 0 -12px;
+  width: 24px;
+  height: 24px;
+}
+
+BackofficeTheme .large .suffix {
+  margin: 0 -12px 0 12px;
+  width: 24px;
+  height: 24px;
+}
+
+BackofficeTheme .large .prefix {
+  margin: 0 12px 0 -12px;
+  width: 24px;
+  height: 24px;
+}
+
+/* rtl */
+
+BackofficeTheme :global([dir='rtl']) .large .suffix {
+  margin: 0 12px 0 -12px;
+}
+
+BackofficeTheme :global([dir='rtl']) .large .prefix {
+  margin: 0 -12px 0 12px;
+}
+
+BackofficeTheme :global([dir='rtl']) .small .suffix {
+  margin: 0 6px 0 -6px;
+}
+
+BackofficeTheme :global([dir='rtl']) .small .prefix {
+  margin: 0 -6px 0 6px;
+}
+
+BackofficeTheme :global([dir='rtl']) .suffix {
+  margin: 0 12px 0 -12px;
+}
+
+BackofficeTheme :global([dir='rtl']) .prefix {
+  margin: 0 -12px 0 12px;
+}
+
+BackofficeTheme :global([dir='rtl']) .tiny .suffix {
+  margin: 0 0 0 -6px;
+}
+
+BackofficeTheme :global([dir='rtl']) .tiny .prefix {
+  margin: 0 -6px 0 0;
+}

@@ -262,6 +262,20 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');
+      /**
+       * reset overlay wrapping layer
+       * so that styles from copied classnames
+       * won't break the overlay:
+       * - content is position relative to body
+       * - overlay layer is hidden
+       */
+      Object.assign(this.portalNode.style, {
+        position: 'static',
+        top: 0,
+        left: 0,
+        width: 0,
+        height:0
+      });
       this.appendToNode.appendChild(this.portalNode);
       // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
       this.stylesObj = style('root', {}, this.props);
@@ -293,7 +307,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager
-        {...style('root manager', {}, this.props)}
+        {...style('root', {}, this.props)}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={inlineStyles}

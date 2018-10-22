@@ -2,27 +2,33 @@
   max-width: 1254px;
   width: 100%;
   display: inline-block;
-  border: 1px solid #ebedf0;
   border-radius: 2px;
-  margin: 8px 8px 16px;
   transition: all .2s;
   box-sizing: border-box;
 }
 
 .demo {
-  padding: 42px 24px 50px;
-  border-bottom: 1px solid #ebedf0;
+  padding: 30px 0px 30px;
 } 
 
 .demoItems {
+  -st-states: inverted;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
+.demoItems:inverted {
+  background: linear-gradient(45deg, #eff2f6 25%, transparent 25%, transparent 75%, #eff2f6 75%, #eff2f6 0), linear-gradient(45deg, #eff2f6 25%, transparent 5%, transparent 75%, #eff2f6 75%, #eff2f6 0), #fff;
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+  background-clip: border-box;
+  background-origin: padding-box;
+}
+
 .meta {
   position: relative;
-  padding: 18px 32px;
+  padding: 18px 10px 32px 0;
   border-radius: 0 0 2px 2px;
   transition: background-color .4s;
   font-size: 14px;
@@ -78,6 +84,7 @@
   display: block;
   line-height: 2;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .title {
