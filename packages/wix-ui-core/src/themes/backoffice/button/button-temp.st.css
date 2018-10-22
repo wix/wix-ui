@@ -27,7 +27,6 @@
 
 BackofficeTheme Button {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
   text-align: center;
   border: 1px solid;
 
@@ -74,9 +73,9 @@ BackofficeTheme .inverted {
 }
 
 BackofficeTheme .inverted:hover:not(:disabled) {
-    color: value(D80);
-    border-color: transparent;
-    background-color: value(B20);
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
 }
 
 BackofficeTheme .inverted:active:not(:disabled) {

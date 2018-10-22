@@ -21,7 +21,6 @@ BackofficeTheme .iconButton {
   padding: 0;
 
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
   text-align: center;
   
   border: 1px solid;
