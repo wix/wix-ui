@@ -38,10 +38,16 @@ export const TextButtonPrimary = ({ style }: TextButtonPrimaryProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
-    inverted
   >
     <ButtonNext className={textButton()}>standard</ButtonNext>
-    <ButtonNext className={textButton(`light`)}>light</ButtonNext>
+    <div
+      style={{
+        background: "rgb(91, 127, 164)",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={textButton(`light`)}>light</ButtonNext>
+    </div>
     <ButtonNext className={textButton(`premium`)}>premium</ButtonNext>
     <ButtonNext className={textButton(`dark`)}>dark</ButtonNext>
   </CodeShowcase>

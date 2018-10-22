@@ -39,13 +39,19 @@ export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
     code={examplePrimary}
     theme={backofficeTheme}
     description={descriptionPrimary}
-    inverted
   >
     <ButtonNext className={iconButton()}>
       <More width="24" height="24" />
     </ButtonNext>
-    <ButtonNext className={iconButton("light")}>
-      <More width="24" height="24" />
-    </ButtonNext>
+    <div
+      style={{
+        background: "rgb(91, 127, 164)",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={iconButton("light")}>
+        <More width="24" height="24" />
+      </ButtonNext>
+    </div>
   </CodeShowcase>
 );

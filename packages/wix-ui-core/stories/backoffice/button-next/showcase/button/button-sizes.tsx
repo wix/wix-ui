@@ -34,7 +34,7 @@ interface ButtonSizesProps {
 
 export const ButtonSizes = ({ style }: ButtonSizesProps) => (
   <CodeShowcase
-    title="Size"
+    title="Filled Buttons (sizes)"
     style={style}
     code={example}
     theme={backofficeTheme}

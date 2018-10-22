@@ -48,10 +48,16 @@ export const TextButtonUnderlined = ({ style }: TextButtonUnderlinedProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
-    inverted
   >
     <ButtonNext className={underlined}>standard</ButtonNext>
-    <ButtonNext className={lightUnderlined}>light</ButtonNext>
+    <div
+      style={{
+        background: "rgb(91, 127, 164)",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={lightUnderlined}>light</ButtonNext>
+    </div>
     <ButtonNext className={premiumUnderlined}>premium</ButtonNext>
     <ButtonNext className={darkUnderlined}>dark</ButtonNext>
   </CodeShowcase>

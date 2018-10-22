@@ -29,7 +29,7 @@ interface TextButtonSizesProps {
 
 export const TextButtonSizes = ({ style }: TextButtonSizesProps) => (
   <CodeShowcase
-    title="Sizes"
+    title="Text Buttons (sizes)"
     style={style}
     code={example}
     theme={backofficeTheme}

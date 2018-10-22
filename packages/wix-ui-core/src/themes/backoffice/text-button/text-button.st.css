@@ -6,7 +6,7 @@
 :import {
   -st-from: '../../../components/button-next/button-next.st.css';
   -st-default: Button;
-  -st-named: prefix, suffix;
+  -st-named: prefix, suffix, content;
 }
 
 :import {
@@ -309,13 +309,6 @@ BackofficeTheme .small {
   line-height: 1.29;
 }
 
-BackofficeTheme .small .prefix {
-  padding-right: 6px;
-  margin: 0;
-  width: 18px;
-  height: 18px;
-}
-
 BackofficeTheme .textButton .prefix {
   padding-right: 6px;
   margin: 0;
@@ -326,16 +319,10 @@ BackofficeTheme .textButton .prefix {
 BackofficeTheme .textButton .suffix {
   padding-left: 6px;
   margin: 0;
-  width: 18px;
-  height: 18px;
-}
-
-BackofficeTheme .textButton .suffix {
-  padding-left: 6px;
-  margin: 0;
   width: 24px;
   height: 24px;
 }
+
 
 
 

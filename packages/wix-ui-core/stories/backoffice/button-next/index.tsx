@@ -13,6 +13,7 @@ import { TextButtonPrimary } from "./showcase/textButton/textButton-primary";
 import { TextButtonSecondary } from "./showcase/textButton/textButton-secondary";
 import { TextButtonUnderlined } from "./showcase/textButton/textButton-underlined";
 import { TextButtonSizes } from "./showcase/textButton/textButton-sizes";
+import { TextButtonAffixes } from "./showcase/textButton/textButton-affixes";
 
 const controlledWidth = {
   maxWidth: "1254px",
@@ -162,6 +163,9 @@ const ButtonsStory = () => (
     <Container>
       <Box>
         <ButtonAffixes />
+      </Box>
+      <Box>
+        <TextButtonAffixes />
       </Box>
     </Container>
   </div>

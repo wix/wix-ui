@@ -35,7 +35,7 @@ interface IconButtonSizesProps {
 
 export const IconButtonSizes = ({ style }: IconButtonSizesProps) => (
   <CodeShowcase
-    title="Sizes"
+    title="Icon Buttons (sizes)"
     style={style}
     code={example}
     theme={backofficeTheme}
