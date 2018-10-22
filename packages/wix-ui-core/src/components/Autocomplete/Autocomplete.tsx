@@ -1,8 +1,7 @@
 import * as React from 'react';
 import style from './Autocomplete.st.css';
 import {InputWithOptions} from '../InputWithOptions';
-import {Option, OptionFactory, optionPropType} from '../DropdownOption/OptionFactory';
-import {func , bool, object, arrayOf, number, string, oneOfType, node} from 'prop-types';
+import {Option, OptionFactory} from '../DropdownOption/OptionFactory';
 import {InputProps, AriaAutoCompleteType} from '../Input';
 
 const createDivider = (value = null) =>
@@ -48,41 +47,7 @@ export interface AutocompleteState {
 
 export class Autocomplete extends React.PureComponent<AutocompleteProps, AutocompleteState> {
   static displayName = 'Autocomplete';
-  static propTypes: React.ValidationMap<AutocompleteProps> = {
-    /** The dropdown options array */
-    options: arrayOf(optionPropType).isRequired,
-    /** Handler for when an option is selected */
-    onSelect: func,
-    /** initial selected option id */
-    initialSelectedId: oneOfType([number, string]),
-    /** An element that always appears at the top of the options */
-    fixedHeader: node,
-    /** An element that always appears at the bottom of the options */
-    fixedFooter: node,
-    /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-    onManualInput: func,
-    /** Standard React Input autoFocus (focus the element on mount) */
-    autoFocus: bool,
-    /** Makes the component disabled */
-    disabled: bool,
-    /** Standard input onBlur callback */
-    onBlur: func,
-    /** Standard input onChange callback */
-    onChange: func,
-    /** Standard input onFocus callback */
-    onFocus: func,
-    /** Placeholder to display */
-    placeholder: string,
-    /** Is in error state / error message */
-    error: oneOfType([string, bool]),
-    /** Prefix */
-    prefix: node,
-    /** Suffix */
-    suffix: node,
-    /** Input Properties */
-    inputProps: object,
-  };
-
+  
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 

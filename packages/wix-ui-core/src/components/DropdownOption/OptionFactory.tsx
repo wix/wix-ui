@@ -1,16 +1,7 @@
 import * as React from 'react';
 import {Divider} from '../../components/Divider';
-import {shape, string, number, func, bool, oneOfType, Requireable} from 'prop-types';
 import style from './DropdownOption.st.css';
 const uniqueId = require('lodash/uniqueId');
-
-export const optionPropType = shape({
-  id: oneOfType([string, number]).isRequired,
-  isDisabled: bool,
-  isSelectable: bool,
-  value: string,
-  render: func.isRequired
-});
 
 export interface Option {
   id: number | string;

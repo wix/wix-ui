@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {string, bool, node} from 'prop-types';
 import style from './Label.st.css';
 
 export interface LabelProps {
@@ -29,20 +28,5 @@ export const Label: React.SFC<LabelProps> = props => {
 };
 
 Label.displayName = 'Label';
-
-Label.propTypes = {
-  /** class name */
-  className: string,
-  /** children */
-  children: node,
-  /** For property */
-  for: string,
-  /** ID of element */
-  id: string,
-  /** should the text be ellipsed or not */
-  ellipsis: bool,
-  /** Is the Label disabled */
-  disabled: bool
-};
 
 Label.defaultProps = defaultProps;

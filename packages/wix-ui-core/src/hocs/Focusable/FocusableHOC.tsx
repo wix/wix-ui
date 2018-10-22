@@ -61,7 +61,6 @@ export const withFocusable = Component => {
 
   class FocusableHOC extends React.Component<any, IFocusableHOCState> {
     static displayName = wrapDisplayName(Component, 'WithFocusable');
-    static propTypes: React.ValidationMap<any> = Component.propTypes;
     static defaultProps = Component.defaultProps;
 
     wrappedComponentRef = null;

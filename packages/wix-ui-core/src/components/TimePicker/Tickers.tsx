@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {string, func, node, bool, Requireable} from 'prop-types';
 import style from './Tickers.st.css';
 
 export interface TickersProps {
@@ -17,20 +16,6 @@ export interface TickersProps {
 }
 
 export class Tickers extends React.PureComponent<TickersProps> {
-  static propTypes: React.ValidationMap<TickersProps> = {
-    className: string,
-    /** set buttons as disabled */
-    disabled: bool,
-    /** increment handler */
-    onIncrement: func,
-    /** decrement handler */
-    onDecrement: func,
-    /** up ticker icon */
-    tickerUpIcon: node,
-    /** down ticker icon */
-    tickerDownIcon: node
-  };
-
   handleIncrement = e => {
     e.preventDefault();
     this.props.onIncrement(e);

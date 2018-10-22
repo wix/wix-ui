@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 const arc = (r, value) => {
   value /= 100;
@@ -33,12 +32,5 @@ export const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
     </svg>  
   );
 }
-
-Arc.propTypes = {
-  value: PropTypes.number.isRequired,
-  strokeWidth: PropTypes.number.isRequired,
-  size: PropTypes.number.isRequired,
-  className: PropTypes.string.isRequired,
-};
 
 Arc.displayName = 'Arc';

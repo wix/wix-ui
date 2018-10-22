@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import pStyle from './Slider.st.css';
 
 export interface ThumbProps {
@@ -11,14 +10,6 @@ export interface ThumbProps {
 }
 
 export class Thumb extends React.Component<ThumbProps> {
-  static propTypes: React.ValidationMap<ThumbProps> = {
-    shape: PropTypes.string.isRequired,
-    thumbPosition: PropTypes.object.isRequired,
-    thumbSize: PropTypes.object.isRequired,
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-  };
-
   render() {
     const {shape, thumbSize} = this.props;
     const ThumbShape = thumbShapes[shape];

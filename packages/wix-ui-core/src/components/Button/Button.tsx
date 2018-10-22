@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {bool, func, object, any, oneOf, string} from 'prop-types';
 import style from './Button.st.css';
 import {BaseProps} from '../../types/BaseProps';
 
@@ -20,9 +19,3 @@ export const Button: React.SFC<ButtonProps> = props => {
 };
 
 Button.displayName = 'Button';
-Button.propTypes = {
-  /** Wrapper class name */
-  className: string,
-  /** Type of the button - submit / button / reset */
-  type: oneOf(['submit', 'button', 'reset']),
-};

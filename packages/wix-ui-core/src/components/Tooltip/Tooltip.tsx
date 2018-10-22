@@ -1,8 +1,7 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo, AppendToPropType, PlacementsType} from '../Popover';
-import {func, bool, oneOf, number, node, object, Requireable} from 'prop-types';
+import {Popover, Placement, AppendTo} from '../Popover';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 const noop = () => null;
@@ -57,33 +56,6 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     onHide: noop,
     timeout: 150,
     showArrow: true
-  };
-
-  static propTypes: React.ValidationMap<TooltipProps & InjectedOnClickOutProps> = {
-    /** tooltip's placement in relation to the target element */
-    placement: PlacementsType,
-    /** children to render that will be the target of the tooltip */
-    children: node,
-    /** the content to put inside the tooltip */
-    content: node,
-    /** object that describes re-positioning of the tooltip */
-    moveBy: object,
-    /** offset for the arrow */
-    moveArrowTo: number,
-    /** callback to call when the tooltip is shown */
-    onShow: func,
-    /** callback to call when the tooltip is being hidden */
-    onHide: func,
-    /** Enables calculations in relation to a dom element */
-    appendTo: AppendToPropType,
-    /** Provides callback to invoke when outside of tooltip is clicked */
-    onClickOutside: func,
-    /** If true, makes tooltip close when clicked outside (incase it was open) */
-    shouldCloseOnClickOutside: bool,
-    /** Animation timer */
-    timeout: number,
-    /** If true, shows the tooltip arrow */
-    showArrow: bool
   };
 
   constructor(props: TooltipProps & InjectedOnClickOutProps) {

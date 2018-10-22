@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import style from './menu-item.st.css';
 
 export interface MenuItemProps {
@@ -29,14 +28,6 @@ export const MenuItem : React.SFC<MenuItemProps> = props => {
       onClick={disabled ? () => null : onSelect}
     />
   );
-};
-
-MenuItem.propTypes = {
-  children: PropTypes.node,
-  onSelect: PropTypes.func,
-  selected: PropTypes.bool,
-  highlighted: PropTypes.bool,
-  disabled: PropTypes.bool
 };
 
 MenuItem.displayName = 'MenuItem';

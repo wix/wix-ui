@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {string, number, func, object, bool, array, node, oneOfType, oneOf, Requireable} from 'prop-types';
 import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import styles from './Video.st.css';
 
@@ -84,60 +83,6 @@ export class Video extends React.PureComponent<VideoProps, VideoState> {
 
   containerRef: HTMLDivElement;
   player: any;
-
-  static propTypes: React.ValidationMap<VideoProps> = {
-    /** Element ID */
-    id: string,
-    /** A string or array with source of the video. For more information see this [page](https://wix.github.io/playable/video-source) */
-    src: oneOfType([
-      string,
-      array,
-    ]),
-    /** Width of video player */
-    width: oneOfType([
-      string,
-      number,
-    ]),
-    /** Height of video player */
-    height: oneOfType([
-      string,
-      number,
-    ]),
-    /** String that would be shown as title of video. */
-    title: string,
-    /** React Component to appear for the "Play" button on poster */
-    playButton: node,
-    /** Pass `true` to alow player fill all space of it container. */
-    fillAllSpace: bool,
-    /** Loop video playback. */
-    loop: bool,
-    /** Start value of volume for audio, `0..100`. */
-    volume: number,
-    /** URL to image that would be used as logo on video */
-    logoUrl: string,
-    /** Function that will be evaluated after click on logo */
-    onLogoClick: func,
-    /** Pass true to set the logo to be visible no matter what */
-    alwaysShowLogo: bool,
-    /** Pass false to hide controls */
-    controls: bool,
-    /** Type of preloading. For more info check [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) */
-    preload: oneOf(['auto', 'metadata', 'none']),
-    /** URL to image that would be used as poster on overlay */
-    poster: string,
-    /** Set to `true` or `false` to pause or play the media */
-    playing: bool,
-    /** Mutes the player */
-    muted: bool,
-    /** Called when media starts or resumes playing after pausing or buffering */
-    onPlay: func,
-    /** Called when media is paused */
-    onPause: func,
-    /** Called when media finishes playing */
-    onEnd: func,
-    /** Use `playableRef` to call instance methods on the [playable](https://wix.github.io/playable/api). */
-    playableRef: func,
-  };
 
   static defaultProps = {
     controls: true,

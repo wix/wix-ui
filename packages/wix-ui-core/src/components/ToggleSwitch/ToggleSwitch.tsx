@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as propTypes from 'prop-types';
 import style from './ToggleSwitch.st.css';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
@@ -34,27 +33,6 @@ export interface ToggleSwitchState {
  */
 export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleSwitchState> {
   static displayName = 'ToggleSwitch';
-
-  static propTypes: React.ValidationMap<ToggleSwitchProps> = {
-    /** Is the toggleSwitch checked or not */
-    checked: propTypes.bool,
-    /** Is the toggleSwitch disabled or not */
-    disabled: propTypes.bool,
-    /** Tab index */
-    tabIndex: propTypes.number,
-    /** Callback function when user changes the value of the component */
-    onChange: propTypes.func,
-    /** Inline styles for various parts of the switch */
-    styles: propTypes.object,
-    /** The ID attribute to put on the toggle */
-    id: propTypes.string,
-    /** Icon inside of the knob when checked */
-    checkedIcon: propTypes.node,
-    /** Icon inside of the knob when unchecked */
-    uncheckedIcon: propTypes.node,
-    /** aria-label - Accessibility */
-    'aria-label': propTypes.string
-  };
 
   static defaultProps = {
     checked: false,

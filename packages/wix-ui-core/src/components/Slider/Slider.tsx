@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {number, func, oneOf, bool, string, object} from 'prop-types';
 import {Ticks} from './Ticks';
 import {Thumb, getThumbSize} from './Thumb';
 import pStyle from './Slider.st.css';
@@ -49,51 +48,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   root: HTMLDivElement;
   track: HTMLDivElement;
-
-  static propTypes: Object = {
-    /** The minimum value of the slider */
-    min: number,
-    /** The maximum value of the slider */
-    max: number,
-    /** The current value of the slider */
-    value: number,
-    /** Callback for handling value changes */
-    onChange: func,
-    /** Callback for handling focus events */
-    onFocus: func,
-    /** Callback for handling blur events */
-    onBlur: func,
-    /** Whether the slider has a horizontal or a vertical layout */
-    orientation: oneOf(['horizontal', 'vertical']),
-    /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
-    step: number,
-    /** If stepType = 'value', 'step' determines the value of each slider step. If stepType = 'count', 'step' determines the total number of jumps */
-    stepType: oneOf(['value', 'count']),
-    /** Determines the tooltip position */
-    tooltipPosition: oneOf(['normal', 'across']),
-    /** Determines what triggers the tooltip pop */
-    tooltipVisibility: oneOf(['none', 'always', 'hover']),
-    /** Determines the tick marks position */
-    tickMarksPosition: oneOf(['normal', 'middle', 'across']),
-    /** A prefix for the value inside the tooltip */
-    tooltipPrefix: string,
-    /** A suffix for the value inside the tooltip */
-    tooltipSuffix: string,
-    /** The track size as a percentage of the bounding box height */
-    trackSize: number,
-    /** The shape of the thumb */
-    thumbShape: oneOf(['circle', 'square', 'rectangle', 'bar']),
-    /** The shape of the tick marks */
-    tickMarksShape: oneOf(['none', 'line', 'dot']),
-    /** Determines whether the slider is disabled or not */
-    disabled: bool,
-    /** Determines whether the slider is in read-only mode or not (disabled is temporary, readOnly is permanent) */
-    readOnly: bool,
-    /** Determines whether values go from right to left in a horizontal position */
-    dir: oneOf(['rtl', 'ltr']),
-    /** Sets the width and height of the slider */
-    style: object.isRequired
-  };
 
   static defaultProps: Partial<SliderProps> = {
     min: 0,

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {bool, func, string, node, oneOf} from 'prop-types';
 const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
@@ -94,55 +93,6 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
     step                 : 1,
     value                : null,
     disabled             : false
-  };
-
-  static propTypes: Object = {
-    ...Input.propTypes,
-
-    /**
-     *  Callback function when user changes the value of the component.
-     *  Will be called only with valid values (this component is semi-controlled)
-     */
-    onChange: func,
-
-    /** Standard input onFocus callback */
-    onFocus: func,
-
-    /** Standard input onBlur callback */
-    onBlur: func,
-
-    /** Use native (input type = 'time') interaction */
-    useNativeInteraction: bool,
-
-    /** Display and interact as AM/PM instead of 24 hour */
-    useAmPm: oneOf([AmPmOptions.None, AmPmOptions.Lowercase, AmPmOptions.Uppercase, AmPmOptions.Capitalized]),
-
-    /** Interval in minutes to increase / decrease the time when on minutes or external */
-    step: (props, propName, componentName) => {
-      const step = props[propName];
-      if (typeof step === 'undefined' || step === null) { return null; }
-      if (typeof step !== 'number')            { return new Error(`Invalid prop '${propName}' supplied to '${componentName}': [${step}] is not a number.`); }
-      const integerStep = Math.trunc(step);
-      if (integerStep !== step)                { return new Error(`Invalid prop '${propName}' supplied to '${componentName}': [${step}] is not an integer.`); }
-      if (integerStep < 1 || integerStep > 60) { return new Error(`Invalid prop '${propName}' supplied to '${componentName}': [${step}] is not in range 1-60.`); }
-    },
-
-    /** Time in 24hour format according to the spec 23:59(:59(.999)) (https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#times). Can be null */
-    value: (props, propName, componentName) => {
-      const value = props[propName];
-      if (value !== null && !isValidTime(value)) {
-        return new Error(
-          `Invalid prop '${propName}' supplied to '${componentName}': [${value}] is not valid, must be in 23:59(:59(.999)) format.
-          For details see https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#times`
-        );
-      }
-    },
-
-    /** What to display for the up ticker. Will only be shown if tickerDownIcon is also provided */
-    tickerUpIcon: node,
-
-    /** What to display for the down ticker. Will only be shown if tickerUpIcon is also provided */
-    tickerDownIcon: node
   };
 
   constructor(props) {

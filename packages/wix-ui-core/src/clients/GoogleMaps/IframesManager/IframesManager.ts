@@ -1,6 +1,5 @@
 import {googleRequestHandler} from '../GoogleRequestHandler/GoogleRequestHandler';
 import * as handlerNames from '../handlersName';
-import {string} from "prop-types";
 
 export class IframesManager {
     private _iframeMap: Map<string, HTMLIFrameElement> = new Map();

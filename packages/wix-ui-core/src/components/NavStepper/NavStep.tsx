@@ -1,7 +1,6 @@
 import * as React from 'react';
 import style from './NavStep.st.css';
 import {StepProps} from '../Stepper';
-import {bool, Requireable} from 'prop-types';
 
 export type ExternalNavStepProps = Partial<StepProps> & {
     disabled?: boolean;
@@ -10,9 +9,6 @@ export type ExternalNavStepProps = Partial<StepProps> & {
 export type NavStepProps = StepProps & ExternalNavStepProps;
 
 export class NavStep extends React.PureComponent<NavStepProps> {
-    static propTypes: React.ValidationMap<NavStepProps> = {
-        disabled: bool
-    }
     render () {
         const {active, disabled, visited, children, ...rest} = this.props;
         const ariaProps: any = {}

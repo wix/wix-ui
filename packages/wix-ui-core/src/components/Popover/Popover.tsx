@@ -18,8 +18,6 @@ import {
 import * as classNames from 'classnames';
 import isElement = require('lodash/isElement');
 
-import {oneOf, oneOfType, any, Requireable, string, bool, func, number, shape, object} from 'prop-types';
-
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
 if (isTestEnv && typeof document !== 'undefined') {
@@ -34,26 +32,6 @@ if (isTestEnv && typeof document !== 'undefined') {
 
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | Element;
-export const AppendToPropType = oneOfType([
-  oneOf(['scrollParent', 'viewport', 'window']),
-  any
-]);
-
-export const PlacementsType = oneOf(['auto-start',
-  'auto',
-  'auto-end',
-  'top-start',
-  'top',
-  'top-end',
-  'right-start',
-  'right',
-  'right-end',
-  'bottom-end',
-  'bottom',
-  'bottom-start',
-  'left-end',
-  'left',
-  'left-start']);
 
 export interface PopoverProps {
   className?: string;
@@ -160,25 +138,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
 
   state = {isMounted: false};
-
-  static propTypes: React.ValidationMap<PopoverProps> = {
-    className: string,
-    placement: PlacementsType,
-    shown: bool,
-    onClick: func,
-    onMouseEnter: func,
-    onMouseLeave: func,
-    onKeyDown: func,
-    showArrow: bool,
-    moveBy: shape({x: number, y: number}),
-    hideDelay: number,
-    showDelay: number,
-    moveArrowTo: number,
-    appendTo: AppendToPropType,
-    timeout: number,
-    style: object,
-    id: string
-  };
 
   getPopperContentStructure(childrenObject) {
     const {moveBy, appendTo, placement, showArrow, moveArrowTo} = this.props;

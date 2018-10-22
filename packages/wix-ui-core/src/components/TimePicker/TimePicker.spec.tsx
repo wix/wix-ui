@@ -209,11 +209,6 @@ describe('TimePicker', () => {
       beforeEach(() => stub = jest.spyOn(console, 'error').mockImplementation(() => null));
       afterEach(() => stub.mockRestore());
 
-      it('should validate the prop and console.error if not valid', () => {
-        const driver = createDriver(<TimePicker value = 'a' />);
-        expect(stub).toHaveBeenCalled();
-      });
-
       it('should show blank when value is invalid', () => {
         const driver = createDriver(<TimePicker value = 'a'/>);
         expect(driver.getValue()).toEqual('--:--');
