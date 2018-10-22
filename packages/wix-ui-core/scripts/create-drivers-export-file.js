@@ -10,7 +10,6 @@ function toCamelCase( str ){
 }
 
 function createExports(fileName, pattern){
-  //const exportedDrivers = glob.sync('./src/components/**/*.driver.*').filter(p => !p.includes('.private'))
   const exportedDrivers = glob.sync(`./src/components/**/*.${pattern}.*`).filter(p => !p.includes('.private'))
 
   const exportNames = exportedDrivers.map(p => path.basename(p, '.ts'))
@@ -25,14 +24,12 @@ function createExports(fileName, pattern){
   
   fs.writeFileSync(jsfilePath, jsFileContent, (err) => {
       if (err) throw err;
-      console.log("The js extansions file was succesfully saved!");
   }); 
   
   fs.writeFileSync(typeScriptFilePath, typeScriptFileContent, (err) => {
     if (err) throw err;
-    console.log("The ts extansions file was succesfully saved!");
   }); 
 };
 
-// createExports('drivers', 'driver')
+createExports('drivers', 'driver')
 createExports('protractorDrivers', 'protractor.driver');
