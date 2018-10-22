@@ -144,12 +144,6 @@ const ButtonsStory = () => (
 
     <SubContainer>
       <SubTitle>Sizes</SubTitle>
-      <SubParagraph>
-        The major benefit of text buttons is pretty simple — they minimize
-        distraction from content. For example, text buttons are usually used for
-        actions within a card or modal so there aren't too many overlapping
-        shadows.
-      </SubParagraph>
     </SubContainer>
 
     <Container>
