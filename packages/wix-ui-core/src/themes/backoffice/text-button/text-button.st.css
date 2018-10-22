@@ -1,0 +1,344 @@
+:import {
+  -st-from: "../theme.st.css";
+  -st-default: BackofficeTheme;
+}
+
+:import {
+  -st-from: '../../../components/button-next/button-next.st.css';
+  -st-default: Button;
+  -st-named: prefix, suffix;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: P10, D55, D80,B10, D10;
+}
+
+:import {
+  -st-from: '../typography.st.css';
+  -st-named: fontThin, fontRoman;
+}
+
+BackofficeTheme .textButton {
+  color: value(B10);
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  
+  padding: 0;
+  height: 24px;
+  
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  font-family: value(fontThin);
+}
+
+BackofficeTheme .textButton:hover:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+}
+
+BackofficeTheme .textButton:active:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+}
+
+BackofficeTheme .textButton:disabled {
+  color: value(D55);
+  background: transparent;
+  border: none;
+  text-decoration: none;
+}
+
+/* Secondary */
+
+BackofficeTheme .secondary {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+}
+
+BackofficeTheme .secondary:hover:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+  text-decoration: underline;
+}
+
+BackofficeTheme .secondary:active:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+  text-decoration: underline;
+}
+
+
+/* Underlined */
+
+BackofficeTheme .underlined {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined:hover:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined:active:not(:disabled) {
+  background-color: transparent;
+  border: none;
+  color: value(B10);
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined:disabled {
+  color: value(D55);
+  background: transparent;
+  border: none;
+  text-decoration: none;
+}
+
+/* Premium */
+
+BackofficeTheme .premium {
+  color:value(P10);
+}
+
+BackofficeTheme .premium:hover:not(:disabled) {
+  background-color: transparent; 
+  color:value(P10);
+}
+
+BackofficeTheme .premium:active:not(:disabled) {
+  background-color: transparent; 
+  color:value(P10);
+}
+
+BackofficeTheme .premium:disabled {
+  background-color: transparent; 
+  color:value(D55);
+}
+
+/* Premium secondary */
+
+BackofficeTheme .secondary.premium {
+  color:value(P10);
+  border: none;
+}
+
+BackofficeTheme .secondary.premium:hover:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.premium:active:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.premium:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* Premium underlined */
+
+BackofficeTheme .underlined.premium {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.premium:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.premium:active:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.premium:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* Light */
+
+BackofficeTheme .light {
+  background-color: transparent;
+  color:value(D80);
+}
+
+BackofficeTheme .light:hover:not(:disabled) {
+  background-color: transparent; 
+  color:value(D80);
+}
+
+BackofficeTheme .light:active:not(:disabled) {
+  background-color: transparent; 
+  color:value(D80);
+}
+
+BackofficeTheme .light:disabled {
+  background-color: transparent; 
+  color:value(D55);
+}
+
+/* Light secondary */
+
+BackofficeTheme .secondary.light {
+  color:value(D80);
+  border: none;
+}
+
+BackofficeTheme .secondary.light:hover:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.light:active:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.light:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* Light underlined */
+
+BackofficeTheme .underlined.light {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.light:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.light:active:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.light:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* Dark */
+
+BackofficeTheme .dark {
+  background-color: transparent;
+  border:none;
+  color:value(D10);
+}
+
+BackofficeTheme .dark:hover:not(:disabled) {
+  background-color: transparent; 
+  border:none;
+  color:value(D10);
+}
+
+BackofficeTheme .dark:active:not(:disabled) {
+  background-color: transparent; 
+  color:value(D10);
+}
+
+BackofficeTheme .dark:disabled {
+  background-color: transparent; 
+  color:value(D55);
+}
+
+/* Dark secondary */
+
+BackofficeTheme .secondary.dark {
+  color:value(D10);
+  border: none;
+}
+
+BackofficeTheme .secondary.dark:hover:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.dark:active:not(:disabled) {
+  text-decoration: underline;
+  border: none;
+}
+
+BackofficeTheme .secondary.dark:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* Dark underlined */
+
+BackofficeTheme .underlined.dark {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.dark:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.dark:active:not(:disabled) {
+  text-decoration: underline;
+}
+
+BackofficeTheme .underlined.dark:disabled {
+  background-color: transparent;
+  text-decoration: none;
+  color:value(D55);
+}
+
+/* sizes */
+
+BackofficeTheme .small {
+  font-size: 14px;
+  line-height: 1.29;
+}
+
+BackofficeTheme .small .prefix {
+  padding-right: 6px;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .textButton .prefix {
+  padding-right: 6px;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+BackofficeTheme .textButton .suffix {
+  padding-left: 6px;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .textButton .suffix {
+  padding-left: 6px;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+
+
+
+
+

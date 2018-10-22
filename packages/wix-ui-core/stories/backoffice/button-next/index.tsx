@@ -9,6 +9,11 @@ import { ButtonSecondary } from "./showcase/button/button-secondary";
 import { ButtonSizes } from "./showcase/button/button-sizes";
 import { ButtonAffixes } from "./showcase/button/button-affixes";
 
+import { TextButtonPrimary } from "./showcase/textButton/textButton-primary";
+import { TextButtonSecondary } from "./showcase/textButton/textButton-secondary";
+import { TextButtonUnderlined } from "./showcase/textButton/textButton-underlined";
+import { TextButtonSizes } from "./showcase/textButton/textButton-sizes";
+
 const controlledWidth = {
   maxWidth: "1254px",
   height: "auto",
@@ -24,7 +29,7 @@ const halfColumn = {
 };
 
 const Title = () => (
-  <div style={{ padding: "10px" }}>
+  <div style={{ padding: "10px", maxWidth: "1254px" }}>
     <h1 style={{ fontSize: "2.75rem", fontWeight: "300" }}>Buttons</h1>
     <p style={{ fontSize: "1.2rem", fontWeight: "300" }}>
       The Text Buttons, Filled Buttons, Ghost Buttons, Icon Buttons and Close
@@ -96,6 +101,27 @@ const ButtonsStory = () => (
       </Box>
     </Container>
 
+    <Box>
+      <SubTitle>Text Buttons</SubTitle>
+      <SubParagraph>
+        The major benefit of text buttons is pretty simple — they minimize
+        distraction from content.
+      </SubParagraph>
+    </Box>
+    <Container>
+      <Box>
+        <TextButtonPrimary />
+      </Box>
+      <Box>
+        <TextButtonSecondary />
+      </Box>
+    </Container>
+    <Container>
+      <Box>
+        <TextButtonUnderlined />
+      </Box>
+    </Container>
+
     <SubTitle>Sizes</SubTitle>
     <Container>
       <Box>
@@ -103,6 +129,11 @@ const ButtonsStory = () => (
       </Box>
       <Box>
         <IconButtonSizes />
+      </Box>
+    </Container>
+    <Container>
+      <Box>
+        <TextButtonSizes />
       </Box>
     </Container>
 
