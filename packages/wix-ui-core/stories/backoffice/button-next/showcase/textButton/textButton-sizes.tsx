@@ -4,27 +4,21 @@ import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../../src/themes/backoffice";
 import { textButton } from "../../../../../src/themes/backoffice";
-import More from "wix-ui-icons-common/More";
 
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
-import { iconButton } from "wix-ui-core/themes/backoffice";
-import More from "wix-ui-icons-common/More";
+import { textButton } from "wix-ui-core/themes/backoffice";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={iconButton("small")}>
-      <More width="24" height="24" />
-    </ButtonNext>
-    <ButtonNext className={iconButton()}>
-      <More width="24" height="24" />
-    </ButtonNext>
+    <ButtonNext className={textButton("small")}>small</ButtonNext>
+    <ButtonNext className={textButton()}>medium</ButtonNext>
   </React.Fragment>
 );`;
 
 const description = (
   <div>
-    IconButton supports only <code>small</code> and <code>medium</code> sizes.
+    Text Button supports only <code>small</code> and <code>medium</code> sizes.
     The default value is <code>medium</code>
   </div>
 );
