@@ -37,7 +37,7 @@ const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 const hightlightMatches = (option: Option, searchTerm: string): Option => {
   const re = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
   const parts = option.value.split(re).map((part, i) =>
-    i % 2 ? <mark className={style.highlight} key={i}>{part}</mark> : part
+    i % 2 ? <mark className={style.highlight} key={i}>{part}</mark> : <span className={style.nonHighlight} key={i}>{part}</span>
   );
 
   return createOption({

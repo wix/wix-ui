@@ -83,7 +83,11 @@ describe('OptionFactory', () => {
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
-    expect(option.render(value)).toEqual(['va', <mark className={style.highlight} key={1}>lu</mark>, 'e']);
+    expect(option.render(value)).toEqual([
+      <span className={style.nonHighlight} key={0}>va</span>,
+      <mark className={style.highlight} key={1}>lu</mark>,
+      <span className={style.nonHighlight} key={2}>e</span>
+    ]);
   });
 
   it('should create highlighted option with divider', () => {
