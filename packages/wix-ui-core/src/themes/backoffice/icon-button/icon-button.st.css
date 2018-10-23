@@ -1,0 +1,167 @@
+:import {
+  -st-from: "../theme.st.css";
+  -st-default: BackofficeTheme;
+}
+
+:import {
+  -st-from: '../../../components/button-next/button-next.st.css';
+  -st-default: Button;
+  -st-named: content;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: B10, D55, D80, B20, B50, B40;
+}
+
+BackofficeTheme .iconButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  padding: 0;
+
+  box-sizing: border-box;
+  text-align: center;
+  
+  border: 1px solid;
+  outline: none;
+  transition: all 100ms linear;
+
+  background-color: value(B10);
+  border-color: value(B10);
+  color: white;
+}
+
+BackofficeTheme .iconButton:hover:not(:disabled) {
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
+}
+
+BackofficeTheme .iconButton:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .iconButton:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+BackofficeTheme .iconButton .content {
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* special cases */
+
+BackofficeTheme .inverted {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+BackofficeTheme .inverted:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background: value(B20);
+}
+
+BackofficeTheme .inverted:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .inverted:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* Priority */
+
+BackofficeTheme .secondary {
+  border: solid 1px value(B10);
+  background: transparent;
+  color: value(B10);
+}
+
+BackofficeTheme .secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
+BackofficeTheme .secondary:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .secondary:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Light */
+
+BackofficeTheme .light {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+BackofficeTheme .light:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+BackofficeTheme .light:active:not(:disabled) {
+  background-color: value(B40);
+  color: value(B10);
+}
+
+BackofficeTheme .light:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Light secondary */
+
+BackofficeTheme .light.secondary {
+  border: solid 1px value(D80);
+  background: transparent;
+  color: value(D80);
+}
+
+BackofficeTheme .light.secondary:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+BackofficeTheme .light.secondary:active:not(:disabled) {
+  background-color: value(B40);
+  border: solid 1px value(B40);
+  color: value(B10);
+}
+
+BackofficeTheme .light.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* sizes */
+
+BackofficeTheme .small {
+  width: 30px;
+  height: 30px;
+}

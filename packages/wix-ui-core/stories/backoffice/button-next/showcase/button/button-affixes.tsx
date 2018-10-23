@@ -1,10 +1,20 @@
 import * as React from "react";
 
-import Sound from "wix-ui-icons-common/Sound";
+import Add from "wix-ui-icons-common/Add";
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../../src/themes/backoffice";
-import { example } from "./affixes-example";
+
+const example = `import * as React from "react";
+import { ButtonNext } from "wix-ui-core/button-next";
+import Add from "wix-ui-icons-common/Add";
+
+export default () => (
+  <React.Fragment>
+    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
+    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
+  </React.Fragment>
+);`;
 
 const description = (
   <div>
@@ -13,11 +23,10 @@ const description = (
   </div>
 );
 
-interface AffixesProps {
+interface ButtonAffixesProps {
   style?: object;
 }
-
-const Affixes = ({ style }: AffixesProps) => (
+export const ButtonAffixes = ({ style }: ButtonAffixesProps) => (
   <CodeShowcase
     title="Affixes"
     style={style}
@@ -25,12 +34,7 @@ const Affixes = ({ style }: AffixesProps) => (
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext prefixIcon={<Sound />}>prefix</ButtonNext>
-    <ButtonNext suffixIcon={<Sound />}>suffix</ButtonNext>
-    <ButtonNext prefixIcon={<Sound />} suffixIcon={<Sound />}>
-      both
-    </ButtonNext>
+    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
+    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
   </CodeShowcase>
 );
-
-export default Affixes;
