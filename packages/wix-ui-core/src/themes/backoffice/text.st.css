@@ -1,10 +1,6 @@
 :import {
   -st-from: "./typography.st.css";
-  -st-named: fontLight, fontRoman;
-}
-
-.textLight {
-  font-family: value(fontLight);
+  -st-named: fontLight, fontRoman, fontMedium;
 }
 
 .textMedium {
@@ -17,6 +13,19 @@
   line-height: 18px;
 }
 
-.textBold {
+.textTiny {
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.textThin {
+  font-family: value(fontLight);
+}
+
+.textNormal {
   font-family: value(fontRoman);
+}
+
+.textBold {
+   font-family: value(fontMedium);
 }
