@@ -97,6 +97,7 @@ const ButtonsStory = () => (
     </Container>
 
     <SubTitle>Sizes</SubTitle>
+
     <Container>
       <Box>
         <ButtonSizes />
@@ -107,6 +108,7 @@ const ButtonsStory = () => (
     </Container>
 
     <SubTitle>Affixes</SubTitle>
+
     <Container>
       <Box>
         <ButtonAffixes />
