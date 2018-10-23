@@ -9,7 +9,7 @@ const getClassNames = (values, stylesheet, rootcls) => {
 };
 
 export const buttonNext = (...values) =>
-  getClassNames(values, ButtonNext, "button");
+  getClassNames(values, ButtonNext, null);
 export const iconButton = (...values) =>
   getClassNames(values, IconButton, "iconButton");
 export const backofficeTheme = BackofficeTheme.root;

@@ -14,10 +14,6 @@
   -st-named: B10, D55, D80, B20, B50, B40;
 }
 
-.iconButton {
-  -st-extends: Button;
-}
-
 BackofficeTheme .iconButton {
   width: 36px;
   height: 36px;

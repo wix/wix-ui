@@ -25,21 +25,14 @@
   -st-named: fontRoman;
 }
 
-:import {
-  -st-from: "../text-temp.st.css";
-  -st-named: textMedium, textNormal;
-}
-
-.button {
-  -st-extends: Button;
-}
-
-BackofficeTheme .button {
+BackofficeTheme Button {
   box-sizing: border-box;
   text-align: center;
   border: 1px solid;
 
-  -st-mixin: textMedium, textNormal;
+  font-family: value(fontRoman);
+  font-size: 16px;
+  line-height: 1.5;
 
   outline: none;
   transition: all 100ms linear;
@@ -53,19 +46,19 @@ BackofficeTheme .button {
   color: value(D80);
 }
 
-BackofficeTheme .button:hover:not(:disabled) {
+BackofficeTheme Button:hover:not(:disabled) {
   background-color: value(B20);
   border-color: value(B20);
   color: value(D80);
 }
 
-BackofficeTheme .button:active:not(:disabled) {
+BackofficeTheme Button:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackofficeTheme .button:disabled {
+BackofficeTheme Button:disabled {
   color: value(D80);
   background-color: value(D55);
   border-color: value(D55);
