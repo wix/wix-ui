@@ -75,7 +75,6 @@ BackofficeTheme .secondary:active:not(:disabled) {
   text-decoration: underline;
 }
 
-
 /* Underlined */
 
 BackofficeTheme .underlined {
@@ -322,6 +321,7 @@ BackofficeTheme .textButton .suffix {
   width: 24px;
   height: 24px;
 }
+
 
 
 
