@@ -3,16 +3,23 @@ import * as React from "react";
 import Add from "wix-ui-icons-common/Add";
 import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../../src/components/button-next";
-import { backofficeTheme } from "../../../../../src/themes/backoffice";
+import {
+  backofficeTheme,
+  buttonNext
+} from "../../../../../src/themes/backoffice";
 
 const example = `import * as React from "react";
-import { ButtonNext } from "wix-ui-core/button-next";
+import { ButtonNext, buttonNext } from "wix-ui-core/button-next";
 import Add from "wix-ui-icons-common/Add";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
-    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
+    <ButtonNext className={buttonNext()} prefixIcon={<Add />}>
+      prefix
+    </ButtonNext>
+    <ButtonNext className={buttonNext()} suffixIcon={<Add />}>
+      suffix
+    </ButtonNext>
   </React.Fragment>
 );`;
 
@@ -28,13 +35,17 @@ interface ButtonAffixesProps {
 }
 export const ButtonAffixes = ({ style }: ButtonAffixesProps) => (
   <CodeShowcase
-    title="Filled Buttons (affixes)"
+    title="Affixes"
     style={style}
     code={example}
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext prefixIcon={<Add />}>prefix</ButtonNext>
-    <ButtonNext suffixIcon={<Add />}>suffix</ButtonNext>
+    <ButtonNext className={buttonNext()} prefixIcon={<Add />}>
+      prefix
+    </ButtonNext>
+    <ButtonNext className={buttonNext()} suffixIcon={<Add />}>
+      suffix
+    </ButtonNext>
   </CodeShowcase>
 );

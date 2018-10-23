@@ -13,7 +13,7 @@ import { buttonNext } from "wix-ui-core/themes/backoffice";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext>default</ButtonNext>
+    <ButtonNext className={buttonNext()}>default</ButtonNext>
     <ButtonNext className={buttonNext("destructive")}>destructive</ButtonNext>
     <ButtonNext className={buttonNext("premium")}>premium</ButtonNext>
     <ButtonNext className={buttonNext("light")}>light</ButtonNext>
@@ -40,18 +40,12 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
+    inverted
   >
-    <ButtonNext>standard</ButtonNext>
+    <ButtonNext className={buttonNext()}>standard</ButtonNext>
     <ButtonNext className={buttonNext(`destructive`)}>destructive</ButtonNext>
     <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>
-    <div
-      style={{
-        background: "rgb(91, 127, 164)",
-        padding: "2px"
-      }}
-    >
-      <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
-    </div>
+    <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
     <ButtonNext className={buttonNext(`transparent`)}>transp.</ButtonNext>
   </CodeShowcase>
 );

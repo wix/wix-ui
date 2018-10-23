@@ -21,11 +21,6 @@
 }
 
 :import {
-  -st-from: '../typography.st.css';
-  -st-named: fontRoman;
-}
-
-:import {
   -st-from: "../text-temp.st.css";
   -st-named: sizeMedium, weightNormal;
 }

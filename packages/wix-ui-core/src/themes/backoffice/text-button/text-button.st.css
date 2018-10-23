@@ -15,8 +15,8 @@
 }
 
 :import {
-  -st-from: '../typography.st.css';
-  -st-named: fontThin, fontRoman;
+  -st-from: "../text.st.css";
+  -st-named: textThin, textMedium, textSmall;
 }
 
 .textButton {
@@ -29,14 +29,11 @@ BackofficeTheme .textButton {
   text-decoration: none;
   border: none;
   border-radius: 2px;
+
+  -st-mixin: textThin, textMedium;
   
   padding: 0;
   height: 24px;
-  
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.5;
-  font-family: value(fontThin);
 }
 
 BackofficeTheme .textButton:hover:not(:disabled) {
@@ -362,8 +359,7 @@ BackofficeTheme .underlined.dark:disabled {
 /* sizes */
 
 BackofficeTheme .small {
-  font-size: 14px;
-  line-height: 1.29;
+  -st-mixin: textSmall;
 }
 
 BackofficeTheme .textButton .prefix {
