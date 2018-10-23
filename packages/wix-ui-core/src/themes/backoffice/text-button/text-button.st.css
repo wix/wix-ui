@@ -11,7 +11,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: P10, D55, D80,B10, D10;
+  -st-named: P10, D55, D80,B10, B20, D10, D20;
 }
 
 :import {
@@ -37,13 +37,13 @@ BackofficeTheme .textButton {
 BackofficeTheme .textButton:hover:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
 }
 
 BackofficeTheme .textButton:active:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
 }
 
 BackofficeTheme .textButton:disabled {
@@ -64,14 +64,14 @@ BackofficeTheme .secondary {
 BackofficeTheme .secondary:hover:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
   text-decoration: underline;
 }
 
 BackofficeTheme .secondary:active:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
   text-decoration: underline;
 }
 
@@ -87,14 +87,14 @@ BackofficeTheme .underlined {
 BackofficeTheme .underlined:hover:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
   text-decoration: underline;
 }
 
 BackofficeTheme .underlined:active:not(:disabled) {
   background-color: transparent;
   border: none;
-  color: value(B10);
+  color: value(B20);
   text-decoration: underline;
 }
 
@@ -245,7 +245,7 @@ BackofficeTheme .dark {
 BackofficeTheme .dark:hover:not(:disabled) {
   background-color: transparent; 
   border:none;
-  color:value(D10);
+  color:value(D20);
 }
 
 BackofficeTheme .dark:active:not(:disabled) {
@@ -267,10 +267,12 @@ BackofficeTheme .secondary.dark {
 
 BackofficeTheme .secondary.dark:hover:not(:disabled) {
   text-decoration: underline;
+  color: value(D20);
   border: none;
 }
 
 BackofficeTheme .secondary.dark:active:not(:disabled) {
+  color:value(D10);
   text-decoration: underline;
   border: none;
 }
@@ -284,14 +286,17 @@ BackofficeTheme .secondary.dark:disabled {
 /* Dark underlined */
 
 BackofficeTheme .underlined.dark {
+  color:value(D10);
   text-decoration: underline;
 }
 
 BackofficeTheme .underlined.dark:hover:not(:disabled) {
+  color:value(D20);
   text-decoration: underline;
 }
 
 BackofficeTheme .underlined.dark:active:not(:disabled) {
+  color:value(D10);
   text-decoration: underline;
 }
 
