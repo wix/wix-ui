@@ -26,7 +26,7 @@
 }
 
 :import {
-  -st-from: "../text.st.css";
+  -st-from: "../text-temp.st.css";
   -st-named: textMedium, textNormal;
 }
 
