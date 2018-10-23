@@ -36,7 +36,7 @@ interface TextButtonAffixesProps {
 }
 export const TextButtonAffixes = ({ style }: TextButtonAffixesProps) => (
   <CodeShowcase
-    title="Filled Buttons (affixes)"
+    title="Text Buttons (affixes)"
     style={style}
     code={example}
     theme={backofficeTheme}
