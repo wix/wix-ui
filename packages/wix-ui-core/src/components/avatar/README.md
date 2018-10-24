@@ -1,7 +1,8 @@
-# Avatar (WIP)
+# Avatar
 
-Avatar is a type of "icon" that represents a user, either as an image, icon or initials.
-
+Avatar is a type of element that visually represents a user, either as an image, icon or initials.
+<br><br>
+![image](./readme-assets/avatar-types.png)
 ## Elements
 
 Elements are "container" and content, which could be classified to either "text", "image" or "icon"
@@ -13,14 +14,13 @@ Elements are "container" and content, which could be classified to either "text"
 | name     | type                | defaultValue | isRequired | description                                                           |
 | -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
 | name     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
-| imgProps | HTMLImageAttributes |              |            | the source url to load image from                                     |
+| imgProps | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
 | icon     | JSX Element         |              |            | an SVG icon component                                                 |
 | tabIndex | number              | 0            |            | the tabIndex value to put on the root                                 |
 
 ## General Behavior
 
-this component will display content based on the props provided. For example, if `imgSrc` is provided (and successfully loaded), it will display an image as content. If more than one type of content prop is provided, it will first attempt to load the image then icon and lastly initials.<br>
-If no fallback exists (or no content prop provided at all) Avatar will still show the container with background styling
+this component will display content based on the props provided. For example, if `imgProps` is provided (and successfully loaded), it will display an image as content. If more than one type of content prop is provided, it will first attempt to load the image then icon and lastly initials.<br>
 
 name conversion examples:
 <br/> John Doe --> JD
@@ -29,10 +29,13 @@ name conversion examples:
 
 ## Technical Considerations
 
-The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided an `onError` handler in `imgProps`, it will be called as well.<br>
-If imgProps are provided, the `alt` value would be replaced with the `name` prop provided.
+The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided adn `onError` handler in `imgProps`, it will be called as well.<br>
 
-additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers. Examples TBD
+<br> The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
+
+<br>`name` prop will also be used as `title` on elements to have native browser description tooltip.  
+
+<br>additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers. Examples TBD
 
 ### React Code Example
 
@@ -57,7 +60,6 @@ export class ComponentsDemo extends React.Component<{}, {}>{
                         srcset="elva-fairy-320w.jpg 320w, elva-fairy-800w.jpg 800w"
                         sizes="(max-width: 320px) 280px, 800px"
                         src="elva-fairy-800w.jpg"
-                        alt="Elva dressed as a fairy"
                     }}
                     icon={<AvatarIcon/>}
                     />
