@@ -451,6 +451,7 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
           type        = "time"
           value       = {sanitizedValue}
           onChange    = {e => onChange(e.target.value)}
+          style       = {inlineStyle}
         />
       );
     }
