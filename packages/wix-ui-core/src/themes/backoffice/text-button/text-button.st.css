@@ -32,6 +32,7 @@ BackofficeTheme .textButton {
 
   -st-mixin: weightThin, sizeMedium;
   
+  outline: none;
   padding: 0;
   height: 24px;
 }
