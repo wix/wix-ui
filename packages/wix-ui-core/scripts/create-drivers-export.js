@@ -17,7 +17,7 @@ const createExports = (fileName, pattern) => {
 
   const compDirPath = './src/components/**/*.driver.*'; // The path for ui-core components.
   const exportedDrivers = glob.sync(compDirPath).filter(filterExports(pattern));
-  const formattedExportedDrivers = exportedDrivers.map(p => './' + path.join('dist',path.parse(p).dir, path.parse(p).name)); // Formatting the path to a module require path pattern.
+  const formattedExportedDrivers = exportedDrivers.map(p => './../' + path.join('dist',path.parse(p).dir, path.parse(p).name)); // Formatting the path to a module require path pattern.
   
   const jsCommonFileContent = `module.exports = {${formattedExportedDrivers.map(exportPath => `...require('${exportPath}')`).join(',\n')}};`
   fs.writeFileSync(`${driversDir}/${fileName}.js`, jsCommonFileContent, throwOnError);
