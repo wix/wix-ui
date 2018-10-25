@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import {Container, Row, Col} from 'wix-style-react/Grid';
 import UIInput from '../../ui/input';
-import ToggleSwitch from 'wix-style-react/ToggleSwitch';
+import ToggleSwitch from '../../ui/toggle-switch';
 import Heading from '../../ui/heading';
 
 import ComponentSource from '../../ComponentSource';
@@ -43,11 +43,7 @@ const Preview = ({
       <div className={styles.previewControls}>
         <div className={styles.previewControl}>
           Imitate RTL:&nbsp;
-          <ToggleSwitch
-            size="small"
-            checked={isRtl}
-            onChange={e => onToggleRtl(e.target.checked)}
-          />
+          <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl}/>
         </div>
 
         <div className={styles.previewControl}>
@@ -55,7 +51,7 @@ const Preview = ({
           <ToggleSwitch
             size="small"
             checked={isDarkBackground}
-            onChange={e => onToggleBackground(e.target.checked)}
+            onChange={onToggleBackground}
           />
         </div>
       </div>
@@ -83,13 +79,8 @@ Preview.propTypes = {
   onToggleBackground: PropTypes.func
 };
 
-const Toggle = ({value, onChange, ...props}) => (
-  <ToggleSwitch
-    size="large"
-    checked={value}
-    onChange={({target: {checked}}) => onChange(checked)}
-    {...props}
-  />
+const Toggle = ({value, onChange}) => (
+  <ToggleSwitch checked={value} onChange={onChange}/>
 );
 
 Toggle.propTypes = {

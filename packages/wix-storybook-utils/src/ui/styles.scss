@@ -56,3 +56,66 @@
   margin: 0;
 }
 
+
+.toggleSwitch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &Small {
+    transform: scale(.7);
+  }
+
+  &Track {
+    box-sizing: border-box;
+    width: 45px;
+    height: 24px;
+    border-radius: 12px;
+    transition: all 300ms ease; 
+    background-color: #DAEFFE;
+  }
+
+  &Checked &Track {
+    background-color: #3899EC;
+  }
+
+  &Knob {
+    cursor: pointer;
+    position: absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transform: translateX(-10.5px);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 rgba(22, 45, 61, 0.48),
+                0 0 3px 0 rgba(22, 45, 61, 0.12);
+    transition: 0.3s ease all;
+
+    svg {
+      color: #DAEFFE;
+    }
+  }
+
+  &Checked &Knob {
+    transform: translateX(10.5px);
+    background-color: #fff;
+
+    svg {
+      color: #3899EC;
+    }
+  }
+}
