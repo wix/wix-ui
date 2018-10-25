@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TextLink from 'wix-style-react/TextLink';
-
 import TabbedView from '../TabbedView';
 import Markdown from '../Markdown';
 import CodeBlock from '../CodeBlock';
@@ -12,13 +10,12 @@ import omit from '../AutoExample/utils/omit';
 
 import styles from './styles.scss';
 
-const tabs = metadata =>
-  [
-    'Usage',
-    'API',
-    ...(metadata.readmeTestkit ? ['Testkit'] : []),
-    ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
-  ];
+const tabs = metadata => [
+  'Usage',
+  'API',
+  ...(metadata.readmeTestkit ? ['Testkit'] : []),
+  ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
+];
 
 const importString = ({metadata, config, exampleImport}) =>
   [
@@ -36,17 +33,21 @@ const importString = ({metadata, config, exampleImport}) =>
             (match, configKey) => config[configKey] || ''
           )
     },
-    { // default
+    {
+      // default
       when: () => true,
-      make: () => `import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`
+      make: () =>
+        `import ${metadata.displayName} from '${config.moduleName}/${
+          metadata.displayName
+        }';`
     }
-  ].find(({when}) => when()).make();
+  ]
+    .find(({when}) => when())
+    .make();
 
 const Section = ({title, children}) => (
   <div>
-    <Markdown
-      source={`## ${title}`}
-    />
+    <Markdown source={`## ${title}`}/>
     {children}
   </div>
 );
@@ -82,16 +83,17 @@ const StoryPage = ({
           source={metadata.readme || `# \`<${visibleDisplayName}/>\``}
         />
 
-        { (displayName || metadata.displayName) &&
+        {(displayName || metadata.displayName) && (
           <div className={styles.githubLink}>
-            <TextLink
-              link={`${config.repoBaseURL}${visibleDisplayName}`}
-              target="blank"
+            <a
+              href={`${config.repoBaseURL}${visibleDisplayName}`}
+              target="wix-style-react-storybook"
+              className={styles.viewSourceLink}
             >
               View source
-            </TextLink>
+            </a>
           </div>
-        }
+        )}
 
         <CodeBlock
           dataHook="metadata-import"
@@ -112,18 +114,16 @@ const StoryPage = ({
           />
         </Section>
 
-        { examples &&
-          <Section title="Examples">
-            {examples}
-          </Section>
-        }
+        {examples && <Section title="Examples">{examples}</Section>}
       </div>
 
       <AutoDocs parsedSource={visibleMetadata}/>
 
-      { metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/> }
+      {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/>}
 
-      { metadata.readmeAccessibility && <Markdown source={metadata.readmeAccessibility}/> }
+      {metadata.readmeAccessibility && (
+        <Markdown source={metadata.readmeAccessibility}/>
+      )}
     </TabbedView>
   );
 };
