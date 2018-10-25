@@ -7,6 +7,12 @@ function filterExports(exportPath,pattern){
   return !exportPath.includes('.private') && (path.parse(exportPath).name).includes(compName + pattern); // Private drivers are not exposed.
 };
 
+function writeToExportsFile(filePathm, fileContent){
+  fs.writeFileSync(filePathm, fileContent, (err) => {
+    if (err) throw err;
+  }); 
+};
+
 function createExports(fileName, pattern){
   const driversDir = './drivers';
   !fs.existsSync(driversDir) && fs.mkdirSync(driversDir); // Creates the drivers folder in the root of ui-core
@@ -17,20 +23,12 @@ function createExports(fileName, pattern){
   
   const jsCommonfilePath = `${driversDir}/${fileName}.js`;
   const jsCommonFileContent = `module.exports = {${formattedExportedDrivers.map(exportPath => `...require('${exportPath}')`).join(',\n')}};`
-  
-  fs.writeFileSync(jsCommonfilePath, jsCommonFileContent, (err) => {
-      if (err) throw err;
-  }); 
+  writeToExportsFile(jsCommonfilePath, jsCommonFileContent);
   
   const typeScriptFilePath =  `${driversDir}/${fileName}.d.ts`; 
   const typeScriptFileContent = formattedExportedDrivers.map(exportPath =>`export * from '${exportPath}';`).join('\n');
-
-  fs.writeFileSync(typeScriptFilePath, typeScriptFileContent, (err) => {
-    if (err) throw err;
-  }); 
+  writeToExportsFile(typeScriptFilePath, typeScriptFileContent);
 };
 
 createExports('drivers', '.driver');
-// createExports('protractorDrivers', '.protractor.driver');
-
-console.log(path.dirname('./src/components/InputWithOptions/InputWithOptions.driver.ts'))
+createExports('protractorDrivers', '.protractor.driver');
