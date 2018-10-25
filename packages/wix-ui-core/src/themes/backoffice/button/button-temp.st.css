@@ -27,7 +27,7 @@
 
 :import {
   -st-from: "../text-temp.st.css";
-  -st-named: textMedium, textNormal;
+  -st-named: sizeMedium, weightNormal;
 }
 
 .button {
@@ -39,7 +39,7 @@ BackofficeTheme .button {
   text-align: center;
   border: 1px solid;
 
-  -st-mixin: textMedium, textNormal;
+  -st-mixin: sizeMedium, weightNormal;
 
   outline: none;
   transition: all 100ms linear;
