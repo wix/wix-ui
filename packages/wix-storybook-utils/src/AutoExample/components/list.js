@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CloseIcon from 'wix-ui-icons-common/system/Close';
 import InputWithOptions from 'wix-style-react/InputWithOptions';
-import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
+import RadioGroup from '../../ui/radio-group';
 import Button from '../../ui/button';
 
 import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
@@ -127,14 +127,11 @@ export default class List extends React.Component {
   radios() {
     return (
       <div>
-        <WixRadioGroup
+        <RadioGroup
           value={this.state.currentValue.id}
           onChange={id => this.onOptionChange({id})}
-        >
-          {this.state.options.map(({id, value}) => (
-            <WixRadioGroup.Radio key={id} value={id} children={value}/>
-          ))}
-        </WixRadioGroup>
+          radios={this.state.options}
+        />
 
         {!this.props.isRequired &&
           this.state.currentValue.value &&

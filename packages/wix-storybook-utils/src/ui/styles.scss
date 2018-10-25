@@ -12,3 +12,31 @@
     background-color: rgba(22, 45, 61, 0.3)
   }
 }
+
+.radioGroup {
+
+}
+
+.radio {
+  display: flex;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+}
+
+.radioBubble {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #3899EC;
+  background-color: #FFF;
+  border-radius: 50%;
+  margin-right: 10px;
+
+  &Checked {
+    background-color: #3899EC;
+    box-shadow: 0 0 0 2px #fff inset;
+  }
+}
