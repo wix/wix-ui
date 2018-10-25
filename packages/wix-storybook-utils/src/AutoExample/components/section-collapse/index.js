@@ -23,7 +23,7 @@ export default class PropsCollapse extends React.Component {
     };
   }
 
-  toggleCollapse = () => this.setState({isOpen: !this.state.isOpen});
+  toggleCollapse = () => this.setState(({isOpen}) => ({isOpen: !isOpen}));
 
   getNumChildren = () => Object.keys(this.props.children).length;
 

@@ -8,7 +8,7 @@ const showcase = `<button className={button.one}>one</button>
 <button className={button.three}>three</button>`;
 
 const exampleScope = {
-  Button: props => <button {...props}/>
+  Button: props => <button {...props} />
 };
 
 const ExampleShowcase = () => (
@@ -49,16 +49,18 @@ export default {
 
   examples: (
     <div>
-      <ExampleShowcase/>
+      <ExampleShowcase />
 
       <LiveCodeExample
         scope={exampleScope}
-        title="Live code example" initialCode={`
+        title="Live code example"
+        initialCode={`
 <div>
   <p>Look at me!</p>
   <Button>I come from the scope!</Button>
 </div>
-      `}/>
+      `}
+      />
 
       <div style={{maxWidth: 440}}>
         <LiveCodeExample
