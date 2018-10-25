@@ -31,4 +31,6 @@ function createExports(fileName, pattern){
 };
 
 createExports('drivers', '.driver');
-createExports('protractorDrivers', '.protractor.driver');
+// createExports('protractorDrivers', '.protractor.driver');
+
+console.log(path.dirname('./src/components/InputWithOptions/InputWithOptions.driver.ts'))
