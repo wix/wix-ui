@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import copy from 'copy-to-clipboard';
 
-import Notification from 'wix-style-react/Notification';
-
 import TextButton from '../TextButton';
 import Markdown from '../Markdown';
 
@@ -27,7 +25,9 @@ export default class CodeBlock extends Component {
 
   onCopyClick = () => {
     copy(this.props.source);
-    this.setState({showNotification: true});
+    this.setState({showNotification: true}, () =>
+      setTimeout(() => this.setState({showNotification: false}), 3000)
+    );
   };
 
   render() {
@@ -35,23 +35,9 @@ export default class CodeBlock extends Component {
 
     return (
       <div data-hook={dataHook}>
-        <Notification
-          onClose={() => this.setState({showNotification: false})}
-          show={this.state.showNotification}
-          size="small"
-          theme="standard"
-          timeout={3000}
-          type="sticky"
-          zIndex={10000}
-        >
-          <Notification.TextLabel>
-            Copied!
-          </Notification.TextLabel>
-
-          <Notification.CloseButton/>
-        </Notification>
-
         <TextButton onClick={this.onCopyClick}>Copy to clipboard</TextButton>
+
+        {this.state.showNotification && 'Copied!'}
 
         <Markdown source={toCodeBlock(source, type)}/>
       </div>
