@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import {Container, Row, Col} from 'wix-style-react/Grid';
 import UIInput from '../../ui/input';
 import ToggleSwitch from 'wix-style-react/ToggleSwitch';
-import Heading from 'wix-style-react/Heading';
+import Heading from '../../ui/heading';
 
 import ComponentSource from '../../ComponentSource';
 import List from './list';
@@ -38,7 +38,7 @@ const Preview = ({
 }) => (
   <Col span={6}>
     <div className={styles.title}>
-      <Heading appearance="H2">Preview</Heading>
+      <Heading>Preview</Heading>
 
       <div className={styles.previewControls}>
         <div className={styles.previewControl}>
@@ -115,7 +115,7 @@ Input.propTypes = {
 const Code = ({component}) => (
   <Col span={12}>
     <div className={styles.title}>
-      <Heading appearance="H2">Code</Heading>
+      <Heading>Code</Heading>
     </div>
 
     <ComponentSource component={component}/>

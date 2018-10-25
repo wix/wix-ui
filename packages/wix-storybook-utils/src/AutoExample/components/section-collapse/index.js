@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Collapse from 'react-collapse';
 
+import Heading from '../../../ui/heading';
+
 import styles from './styles.scss';
 
 export default class PropsCollapse extends React.Component {
@@ -31,7 +33,7 @@ export default class PropsCollapse extends React.Component {
     return (
       <div>
         <div onClick={this.toggleCollapse} className={styles.head}>
-          <h2 className={styles.title}>{this.props.title}</h2>
+          <Heading>{this.props.title}</Heading>
 
           <div className={styles.subtitle}>
             {this.state.isOpen ? 'Hide' : 'Expand'}
