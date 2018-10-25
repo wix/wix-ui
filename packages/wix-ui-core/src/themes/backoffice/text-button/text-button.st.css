@@ -15,8 +15,8 @@
 }
 
 :import {
-  -st-from: "../text.st.css";
-  -st-named: textThin, textMedium, textSmall;
+  -st-from: "../text-temp.st.css";
+  -st-named: weightThin, sizeMedium, sizeSmall;
 }
 
 .textButton {
@@ -30,7 +30,7 @@ BackofficeTheme .textButton {
   border: none;
   border-radius: 2px;
 
-  -st-mixin: textThin, textMedium;
+  -st-mixin: weightThin, sizeMedium;
   
   padding: 0;
   height: 24px;
@@ -359,7 +359,7 @@ BackofficeTheme .underlined.dark:disabled {
 /* sizes */
 
 BackofficeTheme .small {
-  -st-mixin: textSmall;
+  -st-mixin: sizeSmall;
 }
 
 BackofficeTheme .textButton .prefix {

@@ -20,12 +20,15 @@
 
 .weightThin {
   font-family: value(fontLight);
+  font-weight: 300;
 }
 
 .weightNormal {
   font-family: value(fontRoman);
+  font-weight: 400;
 }
 
 .weightBold {
-   font-family: value(fontMedium);
+  font-family: value(fontMedium);
+  font-weight: 500;
 }

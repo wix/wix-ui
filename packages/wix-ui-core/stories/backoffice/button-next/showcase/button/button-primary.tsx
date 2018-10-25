@@ -40,12 +40,18 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
-    inverted
   >
     <ButtonNext className={buttonNext()}>standard</ButtonNext>
     <ButtonNext className={buttonNext(`destructive`)}>destructive</ButtonNext>
     <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>
-    <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
+    <div
+      style={{
+        background: "rgb(91, 127, 164)",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
+    </div>
     <ButtonNext className={buttonNext(`transparent`)}>transp.</ButtonNext>
   </CodeShowcase>
 );
