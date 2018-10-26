@@ -17,11 +17,7 @@ class TabItem extends React.Component {
       ...pick(this.props, dynamicProperties)
     };
 
-    return (
-      <li {...containerProps}>
-        {item.title}
-      </li>
-    );
+    return <li {...containerProps}>{item.title}</li>;
   }
 }
 

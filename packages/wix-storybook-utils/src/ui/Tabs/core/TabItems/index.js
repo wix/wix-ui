@@ -7,9 +7,7 @@ import TabItem from '../TabItem';
 import withItemMaxWidth from '../withItemMaxWidth';
 import styles from '../../styles.scss';
 
-
 class TabItems extends React.Component {
-
   renderItem(item) {
     const {activeId, type, width, onClick, itemMaxWidth} = this.props;
     return (
@@ -22,7 +20,7 @@ class TabItems extends React.Component {
         type={type}
         width={width}
         onItemClick={onClick}
-        />
+      />
     );
   }
 
@@ -35,12 +33,11 @@ class TabItems extends React.Component {
         className={className}
         data-hook={dataHook}
         style={{minWidth: this.props.minWidth}}
-        >
+      >
         {items.map(item => this.renderItem(item))}
       </ul>
     );
   }
-
 }
 
 TabItems.propTypes = {
