@@ -119,3 +119,66 @@
     }
   }
 }
+
+.dropdown {
+  position: relative;
+
+  &Menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 300px;
+    background: #fff;
+    list-style: none;
+    z-index: 1;
+    border-radius: 8px;
+    box-shadow: 0 6px 6px 0 rgba(22, 45, 61, 0.06),
+                0 0 18px 0 rgba(22, 45, 61, 0.12);
+  }
+
+  &MenuItem {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 35px;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding: 6px 20px 6px 24px;
+    font-family: "HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
+    font-size: 16px;
+    color: #162D3D;
+    cursor: pointer;
+  }
+
+  &MenuItemSelected {
+    background: #3899EC;
+    color: #FFFFFF;
+  }
+
+  &MenuItemHighlighted {
+    background: #EAF7FF;
+    color: #162D3D;
+  }
+
+  &MenuItemSelected.dropdownMenuItemHighlighted {
+    background: #4eb7f5;
+    color: #fff;
+  }
+
+  &Clear {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #3899EC;
+    cursor: pointer;
+  }
+}

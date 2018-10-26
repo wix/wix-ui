@@ -37,13 +37,16 @@ describe('StoryPage', () => {
         thing: 'money'
       };
       testkit.when.created({config});
-      expect(testkit.get.import()).toMatch('good evening, Homer, where is my money at?');
+      expect(testkit.get.import()).toMatch(
+        'good evening, Homer, where is my money at?'
+      );
     });
 
     it('should replace %componentName with metadata.displayName', () => {
       const props = {
         config: {
-          importFormat: 'import {%componentName} from \'%moduleName/%componentName\';',
+          importFormat:
+            'import {%componentName} from \'%moduleName/%componentName\';',
           moduleName: 'wix-ui-core'
         },
         metadata: {
@@ -52,7 +55,9 @@ describe('StoryPage', () => {
         }
       };
       testkit.when.created(props);
-      expect(testkit.get.import()).toMatch('import {BesterestestComponent} from \'wix-ui-core/BesterestestComponent\';');
+      expect(testkit.get.import()).toMatch(
+        'import {BesterestestComponent} from \'wix-ui-core/BesterestestComponent\';'
+      );
     });
   });
 
@@ -99,7 +104,11 @@ describe('StoryPage', () => {
       const props = {
         component,
         componentProps: {
-          children: <div><IShouldBeTheName/></div>
+          children: (
+            <div>
+              <IShouldBeTheName/>
+            </div>
+          )
         },
         exampleProps: {
           children: []

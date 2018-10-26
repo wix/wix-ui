@@ -24,10 +24,7 @@ const Option = ({
         {React.cloneElement(children, {
           value: children.type === 'div' ? value.toString() : value,
           defaultValue,
-          onChange,
-
-          // this is a hack to prevent warning im sorry, hopefully temporary,TODO
-          ...(children.type === 'div' ? {} : {isRequired})
+          onChange
         })}
       </Cell>
     </Layout>

@@ -73,7 +73,9 @@ describe('AutoExample', () => {
         parsedSource: {
           displayName: 'TestComponent',
           props: {
-            someProp: {type: {name: 'unknown type name, something really obscure'}}
+            someProp: {
+              type: {name: 'unknown type name, something really obscure'}
+            }
           }
         },
         exampleProps: {

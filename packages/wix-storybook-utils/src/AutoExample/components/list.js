@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CloseIcon from 'wix-ui-icons-common/system/Close';
-import InputWithOptions from 'wix-style-react/InputWithOptions';
+import Dropdown from '../../ui/dropdown';
 import RadioGroup from '../../ui/radio-group';
 import Button from '../../ui/button';
 
 import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
 
-const isUndefined = a => typeof a === 'undefined';
-const isFunction = a => typeof a === 'function';
+const isThing = type => thing => typeof thing === type; // eslint-disable-line
+const isUndefined = isThing('undefined');
+const isFunction = isThing('function');
+const isString = isThing('string');
+const noop = () => {};
 
 export default class List extends React.Component {
   static propTypes = {
@@ -72,7 +75,7 @@ export default class List extends React.Component {
   clearIcon = (
     <span
       onClick={this.clearValue}
-      style={{color: '#3899ec', cursor: 'pointer'}}
+      style={{color: '#3899ec', cursor: 'pointer', marginLeft: '-20px'}}
       children={<CloseIcon size="7px"/>}
     />
   );
@@ -83,12 +86,12 @@ export default class List extends React.Component {
     </div>
   );
 
-  getSelectedId = () => {
+  getSelectedOption = () => {
     const selectedOption =
       this.state.options.find(
         option => option.id === this.state.currentValue.id
       ) || {};
-    return selectedOption.id;
+    return selectedOption;
   };
 
   onOptionChange = ({id}) => {
@@ -105,21 +108,21 @@ export default class List extends React.Component {
     );
   };
 
-  onFilterChange = ({target: {value: currentFilter}}) =>
+  onFilterChange = currentFilter =>
     this.setState({currentFilter, isFiltering: true});
 
   dropdown() {
     return (
-      <InputWithOptions
+      <Dropdown
         value={this.state.currentFilter}
         options={this.getFilteredOptions()}
-        selectedId={this.getSelectedId()}
-        onSelect={this.onOptionChange}
+        selectedOption={this.getSelectedOption()}
+        placeholder={
+          isString(this.props.defaultValue) ? this.props.defaultValue : ''
+        }
+        onSelect={option => (option ? this.onOptionChange(option) : noop)}
         onChange={this.onFilterChange}
-        placeholder={this.props.defaultValue || ''}
-        {...(this.state.currentFilter && !this.props.isRequired ?
-          {suffix: this.clearIcon} :
-          {})}
+        onClear={!this.props.isRequired ? this.clearValue : noop}
       />
     );
   }

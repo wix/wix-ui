@@ -11,7 +11,7 @@ const Layout = ({children, gap, cols, dataHook, className}) => (
     }}
     className={`${styles.root} ${className}`}
     children={children}
-    datta-hook={dataHook}
+    data-hook={dataHook}
   />
 );
 
