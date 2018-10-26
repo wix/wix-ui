@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Row, Col} from 'wix-style-react/Grid';
+import {Layout, Cell} from '../../ui/Layout';
 
 import Markdown from '../../Markdown';
 import styles from './styles.scss';
@@ -15,15 +15,12 @@ const Option = ({
   dataHook
 }) =>
   children ? (
-    <Row
-      dataHook={dataHook}
-      className={styles.option}
-    >
-      <Col span={6}>
+    <Layout dataHook={dataHook} className={styles.option}>
+      <Cell span={5}>
         <Markdown source={`\`${label}${isRequired ? '*' : ''}\``}/>
-      </Col>
+      </Cell>
 
-      <Col span={6}>
+      <Cell span={7}>
         {React.cloneElement(children, {
           value: children.type === 'div' ? value.toString() : value,
           defaultValue,
@@ -32,8 +29,8 @@ const Option = ({
           // this is a hack to prevent warning im sorry, hopefully temporary,TODO
           ...(children.type === 'div' ? {} : {isRequired})
         })}
-      </Col>
-    </Row>
+      </Cell>
+    </Layout>
   ) : null;
 
 Option.propTypes = {

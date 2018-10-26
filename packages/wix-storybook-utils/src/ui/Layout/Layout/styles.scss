@@ -1,0 +1,14 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+// the following is a fallback for IE11,
+// which lacks support for css grid
+@media all and (-ms-high-contrast:none) {
+  .root {
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    -ms-flex-dirextion: row-reverse;
+  }
+}

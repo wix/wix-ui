@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import {Container, Row, Col} from 'wix-style-react/Grid';
+import {Cell} from '../../ui/Layout';
 import UIInput from '../../ui/input';
 import ToggleSwitch from '../../ui/toggle-switch';
 import Heading from '../../ui/heading';
@@ -13,22 +13,6 @@ import Option from './option';
 
 import styles from './styles.scss';
 
-const Wrapper = ({children}) => (
-  <Container>
-    <Row className={styles.wrapper}>{children}</Row>
-  </Container>
-);
-
-Wrapper.propTypes = {
-  children: PropTypes.node
-};
-
-const Options = ({children}) => <Col span={6}>{children}</Col>;
-
-Options.propTypes = {
-  children: PropTypes.node
-};
-
 const Preview = ({
   children,
   isRtl,
@@ -36,7 +20,7 @@ const Preview = ({
   isDarkBackground,
   onToggleBackground
 }) => (
-  <Col span={6}>
+  <Cell span={6}>
     <div className={styles.title}>
       <Heading>Preview</Heading>
 
@@ -68,7 +52,7 @@ const Preview = ({
     >
       {children}
     </div>
-  </Col>
+  </Cell>
 );
 
 Preview.propTypes = {
@@ -104,17 +88,17 @@ Input.propTypes = {
 };
 
 const Code = ({component}) => (
-  <Col span={12}>
+  <Cell>
     <div className={styles.title}>
       <Heading>Code</Heading>
     </div>
 
     <ComponentSource component={component}/>
-  </Col>
+  </Cell>
 );
 
 Code.propTypes = {
   component: PropTypes.node.isRequired
 };
 
-export {Wrapper, Options, Option, Preview, Toggle, Input, List, Code};
+export {Option, Preview, Toggle, Input, List, Code};
