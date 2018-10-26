@@ -65,8 +65,7 @@
     "react-motion": "^0.5.2",
     "react-remarkable": "^1.1.3",
     "react-syntax-highlighter": "^9.0.0",
-    "recast": "^0.14.7",
-    "wix-style-react": "^4.3.0"
+    "recast": "^0.14.7"
   },
   "devDependencies": {
     "@storybook/addon-options": "4.0.0-alpha.9",
