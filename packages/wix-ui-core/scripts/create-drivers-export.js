@@ -11,7 +11,7 @@ const throwOnError = (err) => {
   if (err) throw err;
 };
 
-const createExports = (fileName, pattern) => {
+const createExports = (outputFile, pattern) => {
   const driversDir = './drivers';
   !fs.existsSync(driversDir) && fs.mkdirSync(driversDir); // Creates the drivers folder in the root of ui-core
 
@@ -20,10 +20,10 @@ const createExports = (fileName, pattern) => {
   const formattedExportedDrivers = exportedDrivers.map(p => './../' + path.join('dist',path.parse(p).dir, path.parse(p).name)); // Formatting the path to a module require path pattern.
   
   const jsCommonFileContent = `module.exports = {${formattedExportedDrivers.map(exportPath => `...require('${exportPath}')`).join(',\n')}};`
-  fs.writeFileSync(`${driversDir}/${fileName}.js`, jsCommonFileContent, throwOnError);
+  fs.writeFileSync(`${driversDir}/${outputFile}.js`, jsCommonFileContent, throwOnError);
 
   const typeScriptFileContent = formattedExportedDrivers.map(exportPath =>`export * from '${exportPath}';`).join('\n');
-  fs.writeFileSync(`${driversDir}/${fileName}.d.ts`, typeScriptFileContent, throwOnError);
+  fs.writeFileSync(`${driversDir}/${outputFile}.d.ts`, typeScriptFileContent, throwOnError);
 };
 
 createExports('drivers', '.driver');
