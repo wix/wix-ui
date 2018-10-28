@@ -1,4 +1,5 @@
 @import '../mixins.scss';
+@import '../common.scss';
 
 .wrapper {
   min-width: 894px;
@@ -18,6 +19,7 @@
 }
 
 .header {
+  @extend .commonText;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #DFE5EB;
