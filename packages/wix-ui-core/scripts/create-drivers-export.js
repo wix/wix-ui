@@ -2,14 +2,19 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 
+const getCompName = (exportPath) => {
+  return path.parse(exportPath).name.split('.')[0]; // Gets the component name from the driver path.
+}
+
 const filterExports = pattern => exportPath => {
-  const compName = path.parse(exportPath).name.split('.')[0]; // Gets the component name from the driver path.
-  return !exportPath.includes('.private') && (path.parse(exportPath).name).includes(compName + pattern); // Private drivers are not exposed.
+  return !exportPath.includes('.private') && (path.parse(exportPath).name).includes(getCompName(exportPath) + pattern); // Private drivers are not exposed.
 };
 
 const throwOnError = (err) => {
   if (err) throw err;
 };
+
+
 
 const createExports = (outputFile, pattern) => {
   const driversDir = './drivers';
