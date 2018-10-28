@@ -33,5 +33,5 @@ const createExports = (outputFile, pattern) => {
   fs.writeFileSync(`${driversDir}/${outputFile}.d.ts`, typeScriptFileContent, throwOnError);
 };
 
-createExports('drivers', '.driver');
-createExports('protractorDrivers', '.protractor.driver');
+createExports('vanilla', '.driver');
+createExports('protractor', '.protractor.driver');
