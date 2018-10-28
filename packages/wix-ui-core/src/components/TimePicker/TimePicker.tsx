@@ -390,14 +390,9 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       readOnly,
     };
 
-    let {value, focus} = this.state;
-    if (useAmPm !== AmPmOptions.None) {
-      value = convertToAmPm({value, strings: AmPmStrings[useAmPm]});
-    }
-
     if (useNativeInteraction) {
-      const {onChange} = this.props;
-      const sanitizedValue = isValidTime(this.state.value) ? value : '';
+      const {value: propsValue, onChange} = this.props;
+      const sanitizedValue = propsValue && isValidTime(propsValue) ? propsValue.substr(0, 5) : '';
 
       return (
         <Input
@@ -409,6 +404,11 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
           style       = {inlineStyle}
         />
       );
+    }
+
+    let {value, focus} = this.state;
+    if (useAmPm !== AmPmOptions.None) {
+      value = convertToAmPm({value, strings: AmPmStrings[useAmPm]});
     }
 
     const tickers = tickerUpIcon && tickerDownIcon && (

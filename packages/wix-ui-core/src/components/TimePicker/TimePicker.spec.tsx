@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {TimePicker} from './index';
-import {AmPmOptions, AmPmStrings} from './constants';
+import {FIELD, AmPmOptions, AmPmStrings} from './constants';
 import {convertToAmPm} from './utils';
 import {timePickerDriverFactory} from './TimePicker.driver';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
@@ -96,11 +96,6 @@ describe('TimePicker', () => {
     it('should crop the time value to HH:MM format', () => {
       const driver = createDriver(<TimePicker useNativeInteraction value = "12:12:12" />);
       expect(driver.getValue()).toEqual('12:12');
-    });
-
-    it('should apply am pm formatting', () => {
-      const driver = createDriver(<TimePicker useNativeInteraction value="14:30" useAmPm={AmPmOptions.Capitalized} />);
-      expect(driver.getValue()).toEqual('02:30 Pm');
     });
   });
 
