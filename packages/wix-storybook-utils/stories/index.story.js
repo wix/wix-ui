@@ -1,6 +1,6 @@
 import React from 'react';
 import Component from './component';
-import CodeShowcase from '../src/CodeShowcase/';
+import CodeShowcase from '../src/CodeShowcase';
 import LiveCodeExample from '../src/LiveCodeExample';
 
 const showcase = `<button className={button.one}>one</button>

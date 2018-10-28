@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import styles from './styles.scss';
 
 export default class TextButton extends Component {
 
@@ -40,6 +41,7 @@ export default class TextButton extends Component {
 
     return (
       <button
+        className={styles.root}
         style={style}
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}

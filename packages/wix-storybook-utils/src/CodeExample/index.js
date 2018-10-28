@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Collapse from 'react-collapse';
+import styles from './styles.scss';
 
 import CodeBlock from '../CodeBlock';
 import TextButton from '../TextButton';
@@ -38,7 +39,7 @@ export default class CodeExample extends Component {
   render() {
     return (
       <div>
-        <div style={{display: 'flex'}}>
+        <div className={styles.panelControl} style={{display: 'flex'}}>
           <h2>{this.props.title}</h2>
           <div style={{margin: '22px 24px 0'}}>
             <TextButton onClick={this.toggleCode}>
