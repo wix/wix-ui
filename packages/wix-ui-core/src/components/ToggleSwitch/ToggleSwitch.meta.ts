@@ -1,6 +1,6 @@
 import {ToggleSwitch} from './ToggleSwitch';
 import Registry from '@ui-autotools/registry';
-import style from './ToggleSwitchStyle.st.css';
+import style from '../../../stories/ToggleSwitch/style.st.css';
 
 const toggleSwitchMetadata = Registry.getComponentMetadata(ToggleSwitch);
 
@@ -10,7 +10,7 @@ toggleSwitchMetadata.exportedFrom({
   baseStylePath: 'src/components/ToggleSwitch/ToggleSwitch.st.css'
 });
 
-toggleSwitchMetadata.addStyle(style, {name: 'style', path: 'src/components/ToggleSwitch/ToggleSwitchStyle.st.css'});
+toggleSwitchMetadata.addStyle(style, {name: 'style', path: 'stories/ToggleSwitch/style.st.css'});
 
 toggleSwitchMetadata
 .addSim({
