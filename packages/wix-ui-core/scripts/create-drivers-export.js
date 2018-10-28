@@ -3,8 +3,8 @@ const fs = require('fs');
 const glob = require('glob');
 
 const getCompName = (exportPath) => {
-  return path.parse(exportPath).name.split('.')[0]; // Gets the component name from the driver path.
-}
+  return path.parse(exportPath).name.split('.')[0]; 
+};
 
 const filterExports = pattern => exportPath => {
   return !exportPath.includes('.private') && (path.parse(exportPath).name).includes(getCompName(exportPath) + pattern); // Private drivers are not exposed.
@@ -14,11 +14,13 @@ const throwOnError = (err) => {
   if (err) throw err;
 };
 
-
+const createDriversFolder = (driversDir) => {
+  !fs.existsSync(driversDir) && fs.mkdirSync(driversDir); 
+};
 
 const createExports = (outputFile, pattern) => {
   const driversDir = './drivers';
-  !fs.existsSync(driversDir) && fs.mkdirSync(driversDir); // Creates the drivers folder in the root of ui-core
+  createDriversFolder(driversDir);
 
   const compDirPath = './src/components/**/*.driver.*'; // The path for ui-core components.
   const exportedDrivers = glob.sync(compDirPath).filter(filterExports(pattern));
