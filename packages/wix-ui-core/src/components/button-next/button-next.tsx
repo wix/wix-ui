@@ -1,5 +1,4 @@
 import * as React from "react";
-import { string, node, oneOf } from "prop-types";
 import { BaseProps } from "../../types/BaseProps";
 import style from "./button-next.st.css";
 
@@ -19,13 +18,6 @@ export class ButtonNext extends React.Component<ButtonProps> {
 
   static defaultProps = {
     type: "button"
-  };
-
-  static propTypes = {
-    className: string,
-    prefixIcon: node,
-    suffixIcon: node,
-    type: oneOf(["submit", "button", "reset"])
   };
 
   _addPrefix = prefixIcon =>

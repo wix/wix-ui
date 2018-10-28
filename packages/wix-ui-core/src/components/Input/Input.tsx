@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import style from './Input.st.css';
 const omit = require('lodash/omit');
@@ -33,43 +32,6 @@ export interface InputState {
 
 export class Input extends React.Component<InputProps, InputState> {
   static displayName = 'Input';
-
-  static propTypes: React.ValidationMap<InputProps> = {
-    /** Wrapper class name */
-    className: PropTypes.string,
-    /** Error state / Error message */
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    /** Prefix */
-    prefix: PropTypes.node,
-    /** Suffix */
-    suffix: PropTypes.node,
-
-    autoComplete: PropTypes.oneOf(['on', 'off']),
-    autoFocus: PropTypes.bool,
-    disabled: PropTypes.bool,
-    maxLength: PropTypes.number,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onClick: PropTypes.func,
-    onMouseDown: PropTypes.func,
-    onMouseUp: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onDragStart: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onKeyPress: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    placeholder: PropTypes.string,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    tabIndex: PropTypes.number,
-    type: PropTypes.string,
-    value: PropTypes.string,
-    id: PropTypes.string,
-    name: PropTypes.string,
-    style: PropTypes.object,
-  };
-
   static defaultProps: InputProps = {
     type: 'text',
     onFocus: () => null,

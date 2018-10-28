@@ -3,8 +3,6 @@ import style from './NavStepper.st.css';
 import {Stepper, StepProps} from '../Stepper';
 import {NavStep, ExternalNavStepProps} from './NavStep';
 import {isReactElement} from '../../utils';
-import {childrenOfType, nonNegativeInteger} from 'airbnb-prop-types';
-import {arrayOf} from 'prop-types';
 
 export {ExternalNavStepProps} from './NavStep';
 
@@ -16,10 +14,6 @@ export interface NavStepperProps {
 export class NavStepper extends React.PureComponent<NavStepperProps> {
     public static Step: React.ComponentClass<ExternalNavStepProps> = NavStep as any;
 
-    static propTypes: React.ValidationMap<NavStepperProps & {children: any}> = {
-        activeStep: nonNegativeInteger,
-        children: childrenOfType(NavStep)
-    }
     render() {
         const {activeStep, children} = this.props;
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {func, string, array, number, node, bool, oneOf, arrayOf, Requireable, object} from 'prop-types';
 import {InputWithOptions} from '../InputWithOptions/InputWithOptions';
 
 import {Option, OptionFactory} from '../DropdownOption';
@@ -133,77 +132,6 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     static displayName = 'AddressInput';
     inputRef;
     inputWithOptionsRef;
-
-    static propTypes: React.ValidationMap<AddressInputProps> = {
-        /** Maps client, should implement autocomplete, geocode and placeDetails methods */
-        Client: func.isRequired,
-        /** Handler for when an option is selected */
-        onSelect: func.isRequired,
-        /** Maps API key */
-        apiKey: string,
-        /** Maps client ID */
-        clientId: string,
-        /** Maps language */
-        lang: string,
-        /** Address handler - geocode or places */
-        handler: oneOf([Handler.geocode, Handler.places]),
-        /** Limit addresses to certain country */
-        countryCode: string,
-        /** Placeholder to display */
-        placeholder: string,
-        /** Sets the input to disabled */
-        disabled: bool,
-        /** Sets the input to readOnly */
-        readOnly: bool,
-        /** Standard input onChange callback */
-        onChange: func,
-        /** Standard input onKeyDown callback */
-        onKeyDown: func,
-        /** Standard input onFocus callback */
-        onFocus: func,
-        /** Standard input onBlur callback */
-        onBlur: func,
-        /** Remove previously fetched addresses upon blur */
-        clearSuggestionsOnBlur: bool,
-        /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-        onManualInput: func,
-        /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list)  */
-        filterTypes: arrayOf(string),
-        /** Limit the autocomplete to specific types (see [here](https://developers.google.com/places/supported_types#table3) for list) */
-        types: arrayOf(string),
-        /** Inputs value */
-        value: string,
-        /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
-        fallbackToManual: bool,
-        /** If set to true, content element will always be visible, used for preview mode */
-        forceContentElementVisibility: bool,
-        /** Options to override default one, used for preview mode */
-        forceOptions: array,
-        /** Options to override default throttle value (ms), 0 used to disable throttle. Default value is 150 */
-        throttleInterval: number,
-        /** Node to be rendered in front of each suggestion */
-        locationIcon: node,
-        /** Inline styles */
-        style: object,
-        /** Prefix for input */
-        prefix: node,
-        /** Suffix for input */
-        suffix: node,
-        /** Fixed footer in content element */
-        fixedFooter: node,
-        /** Id */
-        id: string,
-        /** aria-label */
-        'aria-label': string,
-        /** Standard input onClick callback */
-        onClick: func,
-        /** Standard input onDoubleClick callback */
-        onDoubleClick: func,
-        /** Standard input onMouseEnter callback */
-        onMouseEnter: func,
-        /** Standard input onMouseLeave callback */
-        onMouseLeave: func
-    };
 
     static defaultProps = {
         handler: Handler.geocode,

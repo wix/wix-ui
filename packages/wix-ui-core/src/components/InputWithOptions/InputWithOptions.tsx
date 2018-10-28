@@ -2,9 +2,8 @@ import * as React from 'react';
 import style from './InputWithOptions.st.css';
 import {Dropdown} from '../Dropdown';
 import {Placement} from '../../components/Popover';
-import {Option, optionPropType, OptionFactory} from '../DropdownOption';
+import {Option, OptionFactory} from '../DropdownOption';
 import {OPEN_TRIGGER_TYPE} from '../Dropdown/constants';
-import {bool, object, arrayOf, string, func, oneOfType, number, node, oneOf, Requireable} from 'prop-types';
 import {Input, InputProps} from '../Input';
 
 export interface InputWithOptionsProps {
@@ -65,47 +64,6 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onManualInput: () => null,
     onInitialSelectedOptionsSet: () => null,
     filterPredicate: (inputValue, optionValue) => optionValue.toLowerCase().includes(inputValue.toLowerCase())
-  };
-
-  static propTypes: React.ValidationMap<InputWithOptionsProps> = {
-    /** The location to display the content */
-    placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
-    /** The dropdown options array */
-    options: arrayOf(optionPropType).isRequired,
-    /** Trigger type to open the content */
-    openTrigger: oneOf(['click', 'hover']),
-    /** Handler for when an option is selected */
-    onSelect: func,
-    /** Handler for when an option is deselected */
-    onDeselect: func,
-    /** initial selected option ids */
-    initialSelectedIds: arrayOf(oneOfType([number, string])),
-    /** A callback for when initial selected options are set */
-    onInitialSelectedOptionsSet: func,
-    /** set true for multiple selection, false for single */
-    multi: bool,
-    /** An element that always appears at the top of the options */
-    fixedHeader: node,
-    /** An element that always appears at the bottom of the options */
-    fixedFooter: node,
-    /** Animation timer */
-    timeout: number,
-    /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list. If the component is controlled then the value will be the Input value. if not it will be `undefined`  */
-    onManualInput: func,
-    /** Should mark the text that matched the filter */
-    highlightMatches: bool,
-    /** If set to true, content element will always be visible, used for preview mode */
-    forceContentElementVisibility: bool,
-    /** Input prop types */
-    inputProps: object.isRequired,
-    /** Inline styles */
-    style: object,
-    /** Id */
-    id: string,
-    /** Allow onSelect event to be triggered upon re-selecting an option */
-    allowReselect: bool,
-    /** Filter by predicate */
-    filterPredicate: func
   };
 
   isEditing: boolean = false;

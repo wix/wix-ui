@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {bool, element, oneOfType, number, string} from 'prop-types';
 import style from './CircularProgressBar.st.css';
 import {Arc} from './Arc';
 
@@ -88,16 +87,6 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (props: 
 }
 
 CircularProgressBar.displayName = 'CircularProgressBar';
-
-CircularProgressBar.propTypes = {
-  value: oneOfType([number, string]),
-  error: bool,
-  errorLabel: string,
-  showProgressIndication: bool,
-  errorIcon: element,
-  successIcon: element,
-  size: oneOfType([number, string]),
-}
 
 CircularProgressBar.defaultProps = {
   value: NO_PROGRESS,

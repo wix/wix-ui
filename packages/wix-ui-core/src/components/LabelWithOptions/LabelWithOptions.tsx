@@ -1,9 +1,8 @@
 import * as React from 'react';
 import style from './LabelWithOptions.st.css';
-import {arrayOf, bool, number, func, oneOfType, string, node, Requireable} from 'prop-types';
 import {Dropdown} from '../Dropdown';
 import {Checkbox} from '../Checkbox';
-import {Option, optionPropType, OptionFactory} from '../DropdownOption';
+import {Option, OptionFactory} from '../DropdownOption';
 import {Label} from '../Label';
 import {CLICK} from '../Dropdown/constants';
 import {noop} from '../../utils';
@@ -50,35 +49,6 @@ export interface LabelWithOptionsState {
  */
 export class LabelWithOptions extends React.PureComponent<LabelWithOptionsProps, LabelWithOptionsState> {
   static displayName = 'LabelWithOptions';
-  static propTypes: React.ValidationMap<LabelWithOptionsProps> = {
-    /** The dropdown options array */
-    options: arrayOf(optionPropType).isRequired,
-    /** set true for multiple selection, false for single */
-    multi: bool,
-    /** Handler for when an option is selected */
-    onSelect: func,
-    /** Handler for when an option is deselected */
-    onDeselect: func,
-    /** initial selected option ids */
-    initialSelectedIds: arrayOf(oneOfType([number, string])),
-    /** An element that always appears at the top of the options */
-    fixedHeader: node,
-    /** An element that always appears at the bottom of the options */
-    fixedFooter: node,
-    /** Makes the component disabled */
-    disabled: bool,
-    /** Placeholder to display */
-    placeholder: string,
-    /** if set to true an error will be rendered when no options are selected */
-    required: bool,
-    /** If set to true, the label will display an ellipsis when overflowing */
-    ellipsis: bool,
-    /** Suffix */
-    renderSuffix: func,
-    /** Display checkbox items in the dropdown menu*/
-    checkbox: bool
-  };
-
   static defaultProps = {
     initialSelectedIds: [],
     multi: false,

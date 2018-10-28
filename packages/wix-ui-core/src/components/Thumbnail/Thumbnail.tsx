@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {bool, node, func} from 'prop-types';
 import style from './Thumbnail.st.css';
 
 export interface ThumbnailProps {
@@ -32,19 +31,6 @@ export const Thumbnail: React.SFC<ThumbnailProps> = props => {
 };
 
 Thumbnail.displayName = 'Thumbnail';
-
-Thumbnail.propTypes = {
-  /** Is the thumbnail selected */
-  selected: bool,
-  /** Callback when the element is clicked */
-  onClick: func,
-  /** Icon to display in when thumbnail is selected */
-  selectedIcon: node,
-  /** Item to sit inside the Thumbnail */
-  children: node,
-  /** Is the thumbnail disabled */
-  disabled: bool
-};
 
 Thumbnail.defaultProps = {
   onClick: () => null,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {string} from 'prop-types';
 import hoistNonReactMethods from 'hoist-non-react-methods';
 
 export interface WixComponentProps {
@@ -13,12 +12,6 @@ const isStatelessComponent = Component => !(Component.prototype && Component.pro
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
     private wrappedComponentRef: React.Component = null;
-
-    static propTypes: React.ValidationMap<WixComponentProps> = {
-      ...Component.propTypes,
-      dataHook: string,
-      dataClass: string
-    };
 
     static displayName = Component.displayName || Component.name || 'WixComponent';
 

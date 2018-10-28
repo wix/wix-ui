@@ -2,7 +2,12 @@ import React from 'react';
 import styleclass from '../CodeShowcase.st.css';
 import {node, bool} from 'prop-types';
 
-const spacing = {marginRight: '8px', marginBottom: '8px', marginTop: '8px'};
+const spacing = {
+  marginRight: '8px',
+  marginBottom: '8px',
+  marginTop: '8px',
+  display: 'flex'
+};
 
 const List = ({children, inverted}) => (
   <div {...styleclass('demoItems', {inverted})}>

@@ -2,9 +2,8 @@ import * as React from 'react';
 import style from './IconWithOptions.st.css';
 import {Dropdown} from '../Dropdown';
 import {Placement} from '../Popover';
-import {Option, optionPropType} from '../DropdownOption';
+import {Option} from '../DropdownOption';
 import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../Dropdown/constants';
-import {oneOf, string, object, func, arrayOf, bool, oneOfType, number, node} from 'prop-types';
 
 export interface IconWithOptionsProps {
   /** The location to display the content */
@@ -77,27 +76,4 @@ IconWithOptions.defaultProps = {
   initialSelectedIds: [],
   onSelect: () => null,
   onDeselect: () => null
-};
-
-IconWithOptions.propTypes = {
-  /** The location to display the content */
-  placement: oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
-  /** The dropdown options array */
-  options: arrayOf(optionPropType).isRequired,
-  /** Trigger type to open the content */
-  openTrigger: oneOf(['click', 'hover']),
-  /** Handler for when an option is selected */
-  onSelect: func,
-  /** Handler for when an option is deselected */
-  onDeselect: func,
-  /** initial selected option ids */
-  initialSelectedIds: arrayOf(oneOfType([number, string])),
-  /** set true for multiple selection, false for single */
-  multi: bool,
-  /** An element that always appears at the top of the options */
-  fixedHeader: node,
-  /** An element that always appears at the bottom of the options */
-  fixedFooter: node,
-  /** Icon url to display */
-  iconUrl: string.isRequired
 };

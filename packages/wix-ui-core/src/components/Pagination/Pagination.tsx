@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {number, func, oneOf, bool, string, object, node} from 'prop-types';
 import {PageStrip} from './PageStrip';
 import pStyle from './Pagination.st.css';
 import {measureAndSetRootMinWidth} from './root-min-width';
@@ -56,65 +55,6 @@ export interface PaginationState {
 
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
   static displayName = 'Pagination';
-
-  // this is a technical debt - remove once we have support for typescript props in autodocs
-  static propTypes: Object = {
-    /** The number of pages available to paginate */
-    totalPages: number.isRequired,
-    /** Current page to be shown as current. defaults to 1 */
-    currentPage: number,
-    /** Function that generates URLs for page links. If onitted, pages don't link anywhere. */
-    pageUrl: func,
-    /** Callback to be called when pagination happens - structure ({event, page: number}) => void */
-    onChange: func,
-    /** Called when the pagination is clicked*/
-    onClick: func,
-    /** Called when the pagination is double clicked*/
-    onDoubleClick: func,
-    /** Called when mouse enters pagination*/
-    onMouseEnter: func,
-    /** Called when mouse leaves pagination*/
-    onMouseLeave: func,
-    /** Changes page selection mode between page selection and input field. defaults to 'pages'*/
-    paginationMode: oneOf(['pages', 'input']),
-    /** Shows the 'first' and 'last' navigation buttons. defaults to false */
-    showFirstLastNavButtons: bool,
-    /** Text to appear for the 'first' navigation button */
-    firstLabel: node,
-    /** Text to appear for the 'previous' navigation button */
-    previousLabel: node,
-    /** Text to appear for the 'next' navigation button */
-    nextLabel: node,
-    /** Text to appear for the 'last' navigation button */
-    lastLabel: node,
-    /** Text to appear in the gap between page numbers */
-    gapLabel: node,
-    /** Text to appear between the input and the total number of pages in paginationMode="input" */
-    slashLabel: node,
-    /**  Whether the component layout is right to left */
-    rtl: bool,
-    /** The pixel width the component will render in  */
-    width: number,
-    /** Whether the page numbers always show the first page  */
-    showFirstPage: bool,
-    /** Whether the page numbers always show the last page  */
-    showLastPage: bool,
-    /** Whether the to show the total amount of pages next to the input field in "input" paginationMode */
-    showInputModeTotalPages: bool,
-    /** In 'pages' mode automatically limits the number of pages such that they don't overflow the container */
-    responsive: bool,
-    /** In 'pages' mode defines the maximum number of pages to show */
-    maxPagesToShow: number,
-    /** Component class name */
-    className: string,
-    /** Component ID */
-    id: string,
-    /** Allows to trigger responsive layout update on window dimensions change, font load, etc. */
-    updateResponsiveLayout: func,
-    /** Makes pagination non-interactive */
-    disabled: bool
-  };
-
   public static defaultProps: Partial<PaginationProps> = {
     currentPage: 1,
     showFirstLastNavButtons: false,

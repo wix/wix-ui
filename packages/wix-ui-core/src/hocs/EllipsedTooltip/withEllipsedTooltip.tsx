@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {node, bool} from 'prop-types';
 import * as shallowequal from 'shallowequal';
 import {Tooltip} from '../../components/Tooltip';
 import textStyle from './Text.st.css';
@@ -39,11 +38,6 @@ class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps
 }
 
 class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
-  static propTypes: React.ValidationMap<EllipsedTooltipProps> = {
-    component: node.isRequired,
-    showTooltip: bool
-  };
-
   static defaultProps = {showTooltip: true};
 
   state = {isEllipsisActive: false};
