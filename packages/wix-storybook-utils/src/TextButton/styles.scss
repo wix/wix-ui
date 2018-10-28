@@ -3,3 +3,10 @@
 .root {
   @extend .commonText;
 }
+
+.prefix {
+  padding: 0 6px 0 0;
+  line-height: 0 !important;
+  display: inline-block;
+  vertical-align: middle;
+}

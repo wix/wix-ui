@@ -33,10 +33,7 @@ export default class TextButton extends Component {
       outline: 'none',
       border: 'none',
       background: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      lineHeight: 0
+      cursor: 'pointer'
     };
 
     return (
@@ -48,12 +45,7 @@ export default class TextButton extends Component {
         onClick={this.props.onClick}
       >
         {this.props.prefixIcon ? (
-          <div
-            style={{
-              padding: '0 6px 0 0',
-              lineHeight: '0 !important'
-            }}
-          >
+          <div className={styles.prefix}>
             {this.props.prefixIcon}
           </div>
         ) : null}
