@@ -1,14 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import TabbedView from '../TabbedView';
-import Markdown from '../Markdown';
-import CodeBlock from '../CodeBlock';
-import AutoExample from '../AutoExample';
-import AutoDocs from '../AutoDocs';
-import omit from '../AutoExample/utils/omit';
+const TextLink = require('wix-style-react/TextLink').default;
 
-import styles from './styles.scss';
+const TabbedView = require('../TabbedView').default;
+const Markdown = require('../Markdown').default;
+const CodeBlock = require('../CodeBlock').default;
+const AutoExample = require('../AutoExample').default;
+const AutoDocs = require('../AutoDocs').default;
+const omit = require('../AutoExample/utils/omit').default;
+
+const styles = require('./styles.scss');
 
 const tabs = metadata => [
   'Usage',
@@ -17,7 +18,31 @@ const tabs = metadata => [
   ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
 ];
 
-const importString = ({metadata, config, exampleImport}) =>
+type Metadata = {
+  displayName: string;
+  props: {};
+  readme: string;
+  readmeTestkit: string;
+  readmeAccessibility: string;
+};
+
+type Config = {
+  importFormat: string;
+  moduleName: string;
+  repoBaseURL: string;
+};
+
+type ImportString = {
+  metadata: Metadata;
+  config: Config;
+  exampleImport: string;
+};
+
+const importString: (ImportString) => string = ({
+  metadata,
+  config,
+  exampleImport
+}: ImportString) =>
   [
     {
       when: () => exampleImport,
@@ -42,21 +67,46 @@ const importString = ({metadata, config, exampleImport}) =>
         }';`
     }
   ]
-    .find(({when}) => when())
+    .filter(({when}) => when())[0]
     .make();
 
-const Section = ({title, children}) => (
+interface SectionProps {
+  title: string;
+  children: any;
+}
+
+const Section: React.StatelessComponent<SectionProps> = ({
+  title,
+  children
+}: SectionProps) => (
   <div>
-    <Markdown source={`## ${title}`}/>
+    {/* tslint: disable */}
+    <Markdown source={`## ${title}`} />
     {children}
+    {/* tslint: enable */}
   </div>
 );
-Section.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.any
-};
 
-const StoryPage = ({
+interface StoryPageProps {
+  metadata: Metadata;
+  config: Config;
+  component: any;
+  componentProps: any;
+  hiddenProps: string[];
+  displayName: string;
+  exampleProps: any;
+
+  /** custom string to be displayed in place of import example
+   * usually something like `import Component from 'module/Component';`
+   */
+  exampleImport: string;
+  examples: any;
+
+  /** currently only `false` possible. later same property shall be used for configuring code example */
+  codeExample: boolean;
+}
+
+const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   metadata,
   config,
   component,
@@ -67,7 +117,7 @@ const StoryPage = ({
   exampleImport,
   examples,
   codeExample
-}) => {
+}: StoryPageProps) => {
   const visibleDisplayName = displayName || metadata.displayName;
   const visibleMetadata = {
     ...metadata,
@@ -85,13 +135,12 @@ const StoryPage = ({
 
         {(displayName || metadata.displayName) && (
           <div className={styles.githubLink}>
-            <a
-              href={`${config.repoBaseURL}${visibleDisplayName}`}
-              target="wix-style-react-storybook"
-              className={styles.viewSourceLink}
+            <TextLink
+              link={`${config.repoBaseURL}${visibleDisplayName}`}
+              target="blank"
             >
               View source
-            </a>
+            </TextLink>
           </div>
         )}
 
@@ -117,43 +166,20 @@ const StoryPage = ({
         {examples && <Section title="Examples">{examples}</Section>}
       </div>
 
-      <AutoDocs parsedSource={visibleMetadata}/>
-
-      {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/>}
-
+      <AutoDocs parsedSource={visibleMetadata} />
+      {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit} />}
       {metadata.readmeAccessibility && (
-        <Markdown source={metadata.readmeAccessibility}/>
+        <Markdown source={metadata.readmeAccessibility} />
       )}
     </TabbedView>
   );
 };
 
-StoryPage.propTypes = {
-  metadata: PropTypes.object,
-  config: PropTypes.shape({
-    importFormat: PropTypes.string,
-    moduleName: PropTypes.string,
-    repoBaseURL: PropTypes.string
-  }),
-  component: PropTypes.any,
-  componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  hiddenProps: PropTypes.array,
-  displayName: PropTypes.string,
-  exampleProps: PropTypes.object,
-
-  /** custom string to be displayed in place of import example
-   * usually something like `import Component from 'module/Component';`
-   */
-  exampleImport: PropTypes.string,
-  examples: PropTypes.node,
-
-  /** currently only `false` possible. later same property shall be used for configuring code example */
-  codeExample: PropTypes.bool
-};
-
 StoryPage.defaultProps = {
   config: {
-    importFormat: ''
+    importFormat: '',
+    moduleName: '',
+    repoBaseURL: ''
   },
   hiddenProps: []
 };

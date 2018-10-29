@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Testkit from './testkit';
 
 import Option from '../AutoExample/components/option';
@@ -7,7 +7,7 @@ const testkit = new Testkit();
 
 describe('StoryPage', () => {
   it('should render readme', () => {
-    testkit.when.created();
+    testkit.when.created({});
     expect(testkit.get.readme()).toMatch(/componentName/);
   });
 
@@ -22,11 +22,11 @@ describe('StoryPage', () => {
   describe('given config with `importFormat`', () => {
     it('should format and render it in story', () => {
       const config = {
-        importFormat: 'hey %moduleName, what\'s your name, %moduleName?',
+        importFormat: "hey %moduleName, what's your name, %moduleName?",
         moduleName: 'dork'
       };
       testkit.when.created({config});
-      expect(testkit.get.import()).toMatch('hey dork, what\'s your name, dork?');
+      expect(testkit.get.import()).toMatch("hey dork, what's your name, dork?");
     });
 
     it('should allow any other config name to be used', () => {
@@ -46,7 +46,7 @@ describe('StoryPage', () => {
       const props = {
         config: {
           importFormat:
-            'import {%componentName} from \'%moduleName/%componentName\';',
+            "import {%componentName} from '%moduleName/%componentName';",
           moduleName: 'wix-ui-core'
         },
         metadata: {
@@ -56,7 +56,7 @@ describe('StoryPage', () => {
       };
       testkit.when.created(props);
       expect(testkit.get.import()).toMatch(
-        'import {BesterestestComponent} from \'wix-ui-core/BesterestestComponent\';'
+        "import {BesterestestComponent} from 'wix-ui-core/BesterestestComponent';"
       );
     });
   });
@@ -106,7 +106,7 @@ describe('StoryPage', () => {
         componentProps: {
           children: (
             <div>
-              <IShouldBeTheName/>
+              <IShouldBeTheName />
             </div>
           )
         },

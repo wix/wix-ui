@@ -13,7 +13,7 @@ import matchFuncProp from './utils/match-func-prop';
 import stripQuotes from './utils/strip-quotes';
 import omit from './utils/omit';
 import ensureRegexp from './utils/ensure-regexp';
-import HTMLPropsList from './utils/html-props-list';
+import HTMLPropsList from './utils/html-props-list.json';
 
 /**
  * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference

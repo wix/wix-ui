@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import fs from 'fs';
 import path from 'path';
 import {DriverParser} from './DriverParser';
-import BadgeDriverJson from './Badge.driver';
+import BadgeDriverJson from './Badge.driver.json';
 
 import AutoTestKit from './';
 
