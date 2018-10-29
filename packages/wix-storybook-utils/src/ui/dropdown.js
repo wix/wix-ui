@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Downshift from 'downshift';
 import classnames from 'classnames';
 import CloseIcon from 'wix-ui-icons-common/system/Close';
+import DropDownArrowIcon from 'wix-ui-icons-common/system/DropDownArrow';
 
 import styles from './styles.scss';
 import Input from './input';
@@ -43,17 +44,20 @@ const Dropdown = ({
           })}
         />
 
-        {onClear &&
-          inputValue && (
-            <div
-              className={styles.dropdownClear}
-              onClick={() => {
-                clearSelection();
-                onClear();
-              }}
-              children={<CloseIcon size="7px"/>}
-            />
-          )}
+        <div className={styles.dropdownIcons}>
+          <DropDownArrowIcon size="7px" onClick={openMenu}/>
+
+          {onClear &&
+            inputValue && (
+              <CloseIcon
+                onClick={() => {
+                  clearSelection();
+                  onClear();
+                }}
+                size="7px"
+              />
+            )}
+        </div>
 
         <ul className={styles.dropdownMenu} {...getMenuProps()}>
           {isOpen &&

@@ -171,14 +171,19 @@
     color: #fff;
   }
 
-  &Clear {
+  &Icons {
     position: absolute;
     right: 25px;
     top: 0;
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     color: #3899EC;
     cursor: pointer;
+
+    svg:not(:first-child) {
+      margin-left: 10px;
+    }
   }
 }
