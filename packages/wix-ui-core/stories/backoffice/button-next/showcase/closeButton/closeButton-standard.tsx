@@ -30,7 +30,7 @@ export default () => (
 
 const descriptionPrimary = (
   <div>
-    Primary skins <code>standard</code>, <code>light</code>, <code>dark</code>
+    Standard skins <code>standard</code>, <code>light</code>, <code>dark</code>
     and <code>transparent</code>.
   </div>
 );
@@ -76,7 +76,7 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
     </div>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
+        background: "#4eb7f5",
         padding: "2px",
         display: "flex",
         alignItems: "center"

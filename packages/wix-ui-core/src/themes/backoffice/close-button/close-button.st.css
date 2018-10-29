@@ -61,28 +61,28 @@ BackofficeTheme .closeButton::content {
   height: 100%;
 }
 
-/* Inverted
+/* Inverted */
 
 BackofficeTheme .inverted {
   background-color: value(B50);
   color: value(B10);
 }
 
-BackofficeTheme button.inverted.closeButton:hover:not(:disabled) {
-    background-color: value(B40);
-    color: value(B10);
+BackofficeTheme .inverted:hover:not(:disabled) {
+  background-color: value(B40);
+  color: value(B10);
 }
 
-BackofficeTheme button.inverted.closeButton:active:not(:disabled) {
-    background-color: value(B30);
-    color: value(B10);
+BackofficeTheme .inverted:active:not(:disabled) {
+  background-color: value(B30);
+  color: value(B10);
 }
 
-BackofficeTheme button.inverted.closeButton:disabled {
+BackofficeTheme .inverted:disabled {
   border-color: value(D55);
   color:  value(D80);
   background-color: value(D55);
-} */
+}
 
 /* Skin light */
 

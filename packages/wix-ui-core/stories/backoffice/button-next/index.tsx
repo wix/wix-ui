@@ -16,6 +16,8 @@ import { TextButtonSizes } from "./showcase/textButton/textButton-sizes";
 import { TextButtonAffixes } from "./showcase/textButton/textButton-affixes";
 
 import { CloseButtonStandard } from "./showcase/closeButton/closeButton-standard";
+import { CloseButtonInverted } from "./showcase/closeButton/closeButton-inverted";
+import { CloseButtonSizes } from "./showcase/closeButton/closeButton-sizes";
 
 const controlledWidth = {
   height: "auto",
@@ -149,6 +151,9 @@ const ButtonsStory = () => (
       <Box>
         <CloseButtonStandard />
       </Box>
+      <Box>
+        <CloseButtonInverted />
+      </Box>
     </Container>
 
     <SubContainer>
@@ -166,6 +171,9 @@ const ButtonsStory = () => (
     <Container>
       <Box>
         <TextButtonSizes />
+      </Box>
+      <Box>
+        <CloseButtonSizes />
       </Box>
     </Container>
 
