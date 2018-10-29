@@ -5,23 +5,34 @@ Avatar is a type of element that visually represents a user, either as an image,
 ![image](./readme-assets/avatar-types.png)
 ## Elements
 
-Elements are "container" and content, which could be classified to either "text", "image" or "icon"
+Elements are "container" and "content". The conent could be classified to either "text", "image" or "icon".
 
 ## API
 
 #### Component Props
 
-| name     | type                | defaultValue | isRequired | description                                                           |
+| name     | type                | defaultValue | isRequired | description          |
 | -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
-| name*     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
-| imgProps* | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
-| icon     | JSX Element         |              |            | an SVG icon component                                                 |
-| tabIndex* | number              | 0            |            | the tabIndex value to put on the root                                 |
+| name | string |  | Yes        | Will be used as default text value for the html `title` attribute of the root element. Also as default value for `aria-label`. The name of the avatar user. Initials will be generated from the name and used as default content.  |
+| children | string \| JSX Element | | | If string, then renders text, usually initials of the name in the `title`. Should be short 2-3 characters. A JSX Element may be passed for rendering SVG icons. |
+| imgProps | Omit<HTMLImageAttributes,'alt'> |              |            | Image props, in particular image src url |
+| altContent | string \| JSXElement | | An alternate content to be shown in case the content is an image and it hasn't been loaded yet, or there was an error loading it.
+| srcSet | | | | TODO: We should consider how the consumer can provide a set of image sources for different sizes|
+| component | oneOfType([string, func]) | 'div' | | | The component used for the root node. Either a string to use a DOM element or a component. |
+| other* | | | | This is not a prop called `other`, it means that any other (e.g. `{...rest}`) props will be rendered onto the components root |
 
-## General Behavior
+## Name / title / aria-label
 
-this component will display content based on the props provided. For example, if `imgProps` is provided (and successfully loaded), it will display an image as content. If more than one type of content prop is provided, it will first attempt to load the image then icon and lastly initials.<br>
+- `name` prop is used for default values for `title`, `aria-label` and text content.
+- Consumer can use `{...other}` to pass `title` and `aria-label`, in order to override default values.
 
+
+## Content fallback
+
+- The `altContent` will be rendered in case the primary content is an image (`imgProps` passes), and it hasn't been loaded or had a load error.
+- The `altContent` can be either a text or an icon (or any node).
+
+## Auto Initials
 name conversion examples:
 <br/> John Doe --> JD
 <br/> John H. Doe --> JHD
@@ -32,8 +43,6 @@ name conversion examples:
 The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided an `onError` handler in `imgProps`, it will be called as well.<br>
 
 <br> The `alt` property is omitted from `imgProps` interface. Placeholder will be used as `alt` instead.<br>
-
-<br>`name` prop will also be used as `title` on elements to have native browser description tooltip.  
 
 <br>additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers. Examples TBD
 
