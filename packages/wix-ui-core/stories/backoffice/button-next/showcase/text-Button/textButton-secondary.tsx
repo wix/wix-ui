@@ -32,8 +32,8 @@ const darkSecondary = textButton(`dark`, "secondary");
 
 const description = (
   <div>
-    Secondary skins <code>default</code>,<code>light</code>,<code>premium</code>{" "}
-    and <code>dark</code>.
+    Secondary skins <code>standard</code>,<code>light</code>,
+    <code>premium</code> and <code>dark</code>.
   </div>
 );
 

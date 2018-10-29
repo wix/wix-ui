@@ -17,6 +17,7 @@ const darkSecondary = buttonNext('dark', 'secondary');
 const lightSecondary = buttonNext('light', 'secondary');
 const transparentSecondary = buttonNext('transparent, 'secondary');
 const destructiveSecondary = buttonNext('destructive', 'secondary');
+const transparentSecondary = buttonNext('transparent', 'secondary')
 
 export default () => (
   <React.Fragment>
@@ -25,13 +26,15 @@ export default () => (
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>
     <ButtonNext className={lightSecondary}>light</ButtonNext>
+    <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
   </React.Fragment>
 );`;
 
 const description = (
   <div>
-    Secondary skins <code>default</code>,<code>destructive</code>,
-    <code>premium</code>,<code>dark</code> and <code>light</code>.
+    Secondary skins <code>standard</code>,<code>destructive</code>,
+    <code>premium</code>,<code>dark</code>, <code>light</code> and{" "}
+    <code>transparent</code>.
   </div>
 );
 
@@ -57,14 +60,29 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     <ButtonNext className={secondary}>standard</ButtonNext>
     <ButtonNext className={destructiveSecondary}>destructive</ButtonNext>
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
-    <ButtonNext className={darkSecondary}>dark</ButtonNext>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
+        background: "#fef0ba",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={darkSecondary}>dark</ButtonNext>
+    </div>
+    <div
+      style={{
+        background: "#162d3d",
         padding: "2px"
       }}
     >
       <ButtonNext className={lightSecondary}>light</ButtonNext>
+    </div>
+    <div
+      style={{
+        background: "#3899ec",
+        padding: "2px"
+      }}
+    >
+      <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
     </div>
   </CodeShowcase>
 );

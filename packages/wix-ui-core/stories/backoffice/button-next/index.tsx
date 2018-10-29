@@ -1,23 +1,23 @@
 import * as React from "react";
 
-import { IconButtonPrimary } from "./showcase/iconButton/iconButton-primary";
-import { IconButtonSecondary } from "./showcase/iconButton/iconButton-secondary";
-import { IconButtonSizes } from "./showcase/iconButton/iconButton-sizes";
+import { IconButtonPrimary } from "./showcase/icon-Button/iconButton-primary";
+import { IconButtonSecondary } from "./showcase/icon-Button/iconButton-secondary";
+import { IconButtonSizes } from "./showcase/icon-Button/iconButton-sizes";
 
 import { ButtonPrimary } from "./showcase/button/button-primary";
 import { ButtonSecondary } from "./showcase/button/button-secondary";
 import { ButtonSizes } from "./showcase/button/button-sizes";
 import { ButtonAffixes } from "./showcase/button/button-affixes";
 
-import { TextButtonPrimary } from "./showcase/textButton/textButton-primary";
-import { TextButtonSecondary } from "./showcase/textButton/textButton-secondary";
-import { TextButtonUnderlined } from "./showcase/textButton/textButton-underlined";
-import { TextButtonSizes } from "./showcase/textButton/textButton-sizes";
-import { TextButtonAffixes } from "./showcase/textButton/textButton-affixes";
+import { TextButtonPrimary } from "./showcase/text-Button/textButton-primary";
+import { TextButtonSecondary } from "./showcase/text-Button/textButton-secondary";
+import { TextButtonUnderlined } from "./showcase/text-Button/textButton-underlined";
+import { TextButtonSizes } from "./showcase/text-Button/textButton-sizes";
+import { TextButtonAffixes } from "./showcase/text-Button/textButton-affixes";
 
-import { CloseButtonStandard } from "./showcase/closeButton/closeButton-standard";
-import { CloseButtonInverted } from "./showcase/closeButton/closeButton-inverted";
-import { CloseButtonSizes } from "./showcase/closeButton/closeButton-sizes";
+import { CloseButtonStandard } from "./showcase/close-Button/closeButton-standard";
+import { CloseButtonInverted } from "./showcase/close-Button/closeButton-inverted";
+import { CloseButtonSizes } from "./showcase/close-Button/closeButton-sizes";
 
 const controlledWidth = {
   height: "auto",

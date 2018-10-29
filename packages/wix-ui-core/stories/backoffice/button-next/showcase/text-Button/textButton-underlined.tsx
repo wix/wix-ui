@@ -32,7 +32,7 @@ const darkUnderlined = textButton(`dark`, "underlined");
 
 const description = (
   <div>
-    Underlined skins <code>default</code>,<code>light</code>,
+    Underlined skins <code>standard</code>,<code>light</code>,
     <code>premium</code> and <code>dark</code>.
   </div>
 );
