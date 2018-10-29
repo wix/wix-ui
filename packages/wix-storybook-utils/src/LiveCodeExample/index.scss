@@ -8,13 +8,11 @@
   margin-bottom: 20px;
   border: 1px solid #DFE5EB;
   border-radius: 3px;
-  overflow: hidden;
 
   &.compact {
     min-width: auto;
     width: 100%;
     border: 0;
-    overflow: unset;
   }
 }
 
@@ -55,7 +53,6 @@
   .compact & {
     flex-direction: column;
     border-radius: 6px;
-    overflow: hidden;
     box-shadow: 0px 0px 0px 4px #F0F4F7;
     margin-bottom: 5px;
   }
@@ -72,7 +69,6 @@
 
       border-radius: 6px;
       box-shadow: 0px 0px 0px 4px #F0F4F7;
-      overflow: hidden;
     }
   }
 
@@ -82,9 +78,11 @@
 
     .compact & {
       border-right: 0;
+      box-shadow: none;
 
       &.opened {
         margin-bottom: 4px;
+        box-shadow: inherit;
       }
     }
 
