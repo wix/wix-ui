@@ -144,8 +144,7 @@ export default class LiveCodeExample extends Component {
             </Collapse>
 
             <div
-              className={classnames({
-                [styles.preview]: true,
+              className={classnames(styles.preview, {
                 rtl: isRtl,
                 [styles.darkPreview]: isDarkBackground
               })}
