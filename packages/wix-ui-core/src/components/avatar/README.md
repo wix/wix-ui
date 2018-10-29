@@ -13,8 +13,8 @@ Elements are "container" and content, which could be classified to either "text"
 
 | name     | type                | defaultValue | isRequired | description                                                           |
 | -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
-| name     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
-| imgProps | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
+| name*     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
+| imgProps* | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
 | icon     | JSX Element         |              |            | an SVG icon component                                                 |
 | tabIndex | number              | 0            |            | the tabIndex value to put on the root                                 |
 
