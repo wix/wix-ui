@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import Markdown from '../src/Markdown';
@@ -23,19 +24,17 @@ storiesOf('Components', module)
     <div>
       Display data in multiple tabs
       <TabbedView tabs={['A', 'B']}>
-        <div>
-          First Tab
-        </div>
-        <div>
-          Second Tab
-        </div>
+        <div>First Tab</div>
+        <div>Second Tab</div>
       </TabbedView>
     </div>
   ))
   .add('<TextButton/>', () => (
     <div>
       a clickable textual button
-      <TextButton onClick={() => alert('yes, it is clickable')}>This is a clickable button</TextButton>
+      <TextButton onClick={() => alert('yes, it is clickable')}>
+        This is a clickable button
+      </TextButton>
     </div>
   ))
   .add('<Markdown/>', () => (
