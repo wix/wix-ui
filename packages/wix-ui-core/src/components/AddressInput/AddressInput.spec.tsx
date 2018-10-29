@@ -822,4 +822,12 @@ describe('AddressInput', () => {
             />, enzymeAddressInputTestkitFactory, mount)).toBe(true);
         });
     });
+
+    describe('AddressInput export drivers', () => {
+        it('should exist', () => {
+            const driveExport = require('../../../drivers/vanilla');
+            expect(driveExport.addressInputDriver).toBeDefined();
+            //expect(driveExport.addressi).toBeDefined() check protractor drivers as well
+        });
+    });
 });
