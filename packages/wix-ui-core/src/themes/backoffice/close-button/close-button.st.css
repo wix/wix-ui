@@ -11,7 +11,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B10, D55, D80, B20, B50, B40, D55, D80, D10, D20, B30;
+  -st-named: B10, D55, D80, B20, B50, B40, D55, D80, D10, D20, B30, F00;
 }
 
 :import {
@@ -38,6 +38,10 @@ BackofficeTheme .closeButton {
 
   background-color: transparent;
   color: value(B10);
+}
+
+BackofficeTheme .closeButton:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
 }
 
 BackofficeTheme .closeButton:hover:not(:disabled) {

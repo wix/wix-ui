@@ -66,7 +66,7 @@ BackofficeTheme .button:disabled {
   border-color: value(D55);
 }
 
-BackofficeTheme Button:focus-visible {
+BackofficeTheme .button:focus-visible {
   box-shadow: 0 0 0 3px value(F00);
 }
 
