@@ -9,21 +9,21 @@ import Close from "wix-ui-icons-common/system/Close";
 const exampleStandard = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
 import { closeButton } from "wix-ui-core/themes/backoffice";
-import Close from "wix-ui-icons-common/Close";
+import Close from "wix-ui-icons-common/system/Close";
 
 export default () => (
   <React.Fragment>
    <ButtonNext className={closeButton()}>
-      <Close />
+      <Close width="6px" height="6px"/>
    </ButtonNext>
    <ButtonNext className={closeButton('light')}>
-      <Close />
+      <Close width="6px" height="6px"/>
    </ButtonNext>
    <ButtonNext className={closeButton('dark')}>
-      <Close />
+      <Close width="6px" height="6px"/>
    </ButtonNext>
    <ButtonNext className={closeButton('transparent')}>
-      <Close />
+      <Close width="6px" height="6px"/>
    </ButtonNext>
   </React.Fragment>
 );`;

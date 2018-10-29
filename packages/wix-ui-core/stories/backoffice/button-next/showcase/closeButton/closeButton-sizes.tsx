@@ -18,7 +18,7 @@ export default () => (
     <ButtonNext className={closeButton()}>
       <Close width="6px" height="6px" />
     </ButtonNext>
-    <ButtonNext className={closeButton("medium")}>
+    <ButtonNext className={closeButton()}>
       <CloseLarge width="8px" height="8px" />
     </ButtonNext>
   </React.Fragment>
@@ -26,8 +26,10 @@ export default () => (
 
 const description = (
   <div>
-    Close button supports <code>small</code> and <code>medium</code> sizes. The
-    default value is <code>small</code>.
+    Close button size is controlled only by icon width. Default value is small
+    with <code>width="6px</code> and <code>height="6px</code> attributes. Medium
+    size should have icon attributes <code>width="8px"</code> and{" "}
+    <code>height="8px"</code>.
   </div>
 );
 
@@ -46,7 +48,7 @@ export const CloseButtonSizes = ({ style }: CloseButtonSizesProps) => (
     <ButtonNext className={closeButton()}>
       <Close width="6px" height="6px" />
     </ButtonNext>
-    <ButtonNext className={closeButton("medium")}>
+    <ButtonNext className={closeButton()}>
       <CloseLarge width="8px" height="8px" />
     </ButtonNext>
   </CodeShowcase>
