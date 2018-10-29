@@ -15,15 +15,15 @@ import { TextButtonUnderlined } from "./showcase/textButton/textButton-underline
 import { TextButtonSizes } from "./showcase/textButton/textButton-sizes";
 import { TextButtonAffixes } from "./showcase/textButton/textButton-affixes";
 
+import { CloseButtonStandard } from "./showcase/closeButton/closeButton-standard";
+
 const controlledWidth = {
-  maxWidth: "1254px",
   height: "auto",
   width: "100%",
   display: "flex"
 };
 
 const controlledWidthColumn = {
-  maxWidth: "1254px",
   height: "auto",
   width: "100%",
   display: "flex",
@@ -41,7 +41,7 @@ const halfColumn = {
 };
 
 const Title = () => (
-  <div style={{ padding: "10px", maxWidth: "1254px" }}>
+  <div style={{ padding: "10px" }}>
     <h1 style={{ fontSize: "2.75rem", fontWeight: "300" }}>Buttons</h1>
     <p style={{ fontSize: "1.2rem", fontWeight: "300", lineHeight: "1.6" }}>
       The Text Buttons, Filled Buttons, Ghost Buttons, Icon Buttons and Close
@@ -138,6 +138,16 @@ const ButtonsStory = () => (
     <Container>
       <Box>
         <TextButtonUnderlined />
+      </Box>
+    </Container>
+
+    <SubContainer>
+      <SubTitle>Close Buttons</SubTitle>
+    </SubContainer>
+
+    <Container>
+      <Box>
+        <CloseButtonStandard />
       </Box>
     </Container>
 

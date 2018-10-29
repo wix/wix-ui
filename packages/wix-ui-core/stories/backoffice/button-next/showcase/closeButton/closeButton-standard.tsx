@@ -4,7 +4,7 @@ import CodeShowcase from "wix-storybook-utils/CodeShowcase";
 import { ButtonNext } from "../../../../../src/components/button-next";
 import { backofficeTheme } from "../../../../../src/themes/backoffice";
 import { closeButton } from "../../../../../src/themes/backoffice";
-import X from "wix-ui-icons-common/X";
+import Close from "wix-ui-icons-common/system/Close";
 
 const exampleStandard = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
@@ -34,49 +34,55 @@ const descriptionPrimary = (
   </div>
 );
 
-interface IconButtonPrimaryProps {
+interface CloseButtonStandardProps {
   style?: object;
 }
 
-export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
+export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
   <CodeShowcase
-    title="Close Buttons (skins)"
+    title="Close Buttons (standard)"
     style={style}
     code={exampleStandard}
     theme={backofficeTheme}
     description={descriptionPrimary}
   >
     <ButtonNext className={closeButton()}>
-      <X />
+      <Close width="6px" height="6px" />
     </ButtonNext>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
-        padding: "2px"
+        background: "#162d3d",
+        padding: "2px",
+        display: "flex",
+        alignItems: "center"
       }}
     >
       <ButtonNext className={closeButton("light")}>
-        <X />
+        <Close width="6px" height="6px" />
       </ButtonNext>
     </div>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
-        padding: "2px"
+        background: "#fef0ba",
+        padding: "2px",
+        display: "flex",
+        alignItems: "center"
       }}
     >
       <ButtonNext className={closeButton("dark")}>
-        <X />
+        <Close width="6px" height="6px" />
       </ButtonNext>
     </div>
     <div
       style={{
         background: "rgb(91, 127, 164)",
-        padding: "2px"
+        padding: "2px",
+        display: "flex",
+        alignItems: "center"
       }}
     >
       <ButtonNext className={closeButton("transparent")}>
-        <X />
+        <Close width="6px" height="6px" />
       </ButtonNext>
     </div>
   </CodeShowcase>
