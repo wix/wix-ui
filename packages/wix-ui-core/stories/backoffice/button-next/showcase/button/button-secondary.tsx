@@ -15,7 +15,6 @@ const secondary = buttonNext('secondary');
 const premiumSecondary = buttonNext('premium', 'secondary');
 const darkSecondary = buttonNext('dark', 'secondary');
 const lightSecondary = buttonNext('light', 'secondary');
-const transparentSecondary = buttonNext('transparent, 'secondary');
 const destructiveSecondary = buttonNext('destructive', 'secondary');
 const transparentSecondary = buttonNext('transparent', 'secondary')
 
