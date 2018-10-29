@@ -40,12 +40,13 @@ const Dropdown = ({
             value: inputValue,
             placeholder,
             onChange: e => onChange(e.target.value),
-            onClick: openMenu
+            onClick: openMenu,
+            className: styles.dropdownInput
           })}
         />
 
         <div className={styles.dropdownIcons}>
-          <DropDownArrowIcon size="7px" onClick={openMenu}/>
+          <DropDownArrowIcon size="10px" onClick={openMenu}/>
 
           {onClear &&
             inputValue && (
@@ -54,7 +55,7 @@ const Dropdown = ({
                   clearSelection();
                   onClear();
                 }}
-                size="7px"
+                size="8px"
               />
             )}
         </div>

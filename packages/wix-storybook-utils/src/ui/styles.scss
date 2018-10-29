@@ -38,6 +38,8 @@
 }
 
 .input {
+  box-sizing: border-box;
+  width: 100%;
   padding: 0 12px;
   background-color: #FFF;
   border-radius: 6px;
@@ -122,9 +124,15 @@
 
 .dropdown {
   position: relative;
+  display: flex;
+
+  &Input {
+    flex-grow: 1;
+  }
 
   &Menu {
     position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     margin: 0;
@@ -173,7 +181,7 @@
 
   &Icons {
     position: absolute;
-    right: 25px;
+    right: 15px;
     top: 0;
     height: 100%;
     display: flex;
