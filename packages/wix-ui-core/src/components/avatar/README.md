@@ -16,7 +16,7 @@ Elements are "container" and content, which could be classified to either "text"
 | name*     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
 | imgProps* | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
 | icon     | JSX Element         |              |            | an SVG icon component                                                 |
-| tabIndex | number              | 0            |            | the tabIndex value to put on the root                                 |
+| tabIndex* | number              | 0            |            | the tabIndex value to put on the root                                 |
 
 ## General Behavior
 
@@ -29,9 +29,9 @@ name conversion examples:
 
 ## Technical Considerations
 
-The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided adn `onError` handler in `imgProps`, it will be called as well.<br>
+The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided an `onError` handler in `imgProps`, it will be called as well.<br>
 
-<br> The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
+<br> The `alt` property is omitted from `imgProps` interface. Placeholder will be used as `alt` instead.<br>
 
 <br>`name` prop will also be used as `title` on elements to have native browser description tooltip.  
 
