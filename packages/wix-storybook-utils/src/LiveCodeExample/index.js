@@ -6,15 +6,13 @@ import {Collapse} from 'react-collapse';
 import copy from 'copy-to-clipboard';
 import styles from './index.scss';
 
-import Notification from 'wix-style-react/Notification';
-import ToggleSwitch from 'wix-style-react/ToggleSwitch';
+import ToggleSwitch from '../ui/toggle-switch';
 import Revert from 'wix-ui-icons-common/Revert';
 import Code from 'wix-ui-icons-common/Code';
 import Document from 'wix-ui-icons-common/Document';
 import TextButton from '../TextButton';
 
 export default class LiveCodeExample extends Component {
-
   static propTypes = {
     initialCode: PropTypes.string,
     title: PropTypes.string,
@@ -37,13 +35,16 @@ export default class LiveCodeExample extends Component {
   onToggleRtl = isRtl => this.setState({isRtl});
   onToggleBackground = isDarkBackground => this.setState({isDarkBackground});
 
-  onToggleCode = () => this.setState(state => ({
-    isEditorOpened: !state.isEditorOpened
-  }));
+  onToggleCode = () =>
+    this.setState(state => ({
+      isEditorOpened: !state.isEditorOpened
+    }));
 
   onCopyClick = () => {
     copy(this.state.code);
-    this.setState({showNotification: true});
+    this.setState({showNotification: true}, () =>
+      setTimeout(() => this.setState({showNotification: false}), 3000)
+    );
   };
 
   constructor(props) {
@@ -60,7 +61,9 @@ export default class LiveCodeExample extends Component {
 
   renderCopyButton() {
     return (
-      <TextButton onClick={this.onCopyClick} prefixIcon={<Document/>}>Copy to clipboard</TextButton>
+      <TextButton onClick={this.onCopyClick} prefixIcon={<Document/>}>
+        {this.state.showNotification ? 'Copied!' : 'Copy to clipboard'}
+      </TextButton>
     );
   }
 
@@ -74,23 +77,6 @@ export default class LiveCodeExample extends Component {
           [styles.compact]: compact
         })}
       >
-
-        <Notification
-          onClose={() => this.setState({showNotification: false})}
-          show={this.state.showNotification}
-          size="small"
-          theme="standard"
-          timeout={3000}
-          type="sticky"
-          zIndex={10000}
-        >
-          <Notification.TextLabel>
-          Copied!
-          </Notification.TextLabel>
-
-          <Notification.CloseButton/>
-        </Notification>
-
         <div className={styles.header}>
           <h2>{this.props.title}</h2>
 
@@ -98,7 +84,6 @@ export default class LiveCodeExample extends Component {
 
           <div className={styles.headerControl}>
             Imitate RTL:&nbsp;
-
             <ToggleSwitch
               size="small"
               checked={isRtl}
@@ -108,7 +93,6 @@ export default class LiveCodeExample extends Component {
 
           <div className={styles.headerControl}>
             Dark Background:&nbsp;
-
             <ToggleSwitch
               size="small"
               checked={isDarkBackground}
@@ -116,12 +100,12 @@ export default class LiveCodeExample extends Component {
             />
           </div>
 
-          {!compact && (
-            this.renderCopyButton()
-          )}
+          {!compact && this.renderCopyButton()}
 
           {isEditorOpened && (
-            <TextButton onClick={this.resetCode} prefixIcon={<Revert/>}>Reset</TextButton>
+            <TextButton onClick={this.resetCode} prefixIcon={<Revert/>}>
+              Reset
+            </TextButton>
           )}
 
           {compact && (
@@ -131,16 +115,22 @@ export default class LiveCodeExample extends Component {
           )}
         </div>
 
-        <LiveProvider code={code.trim()} scope={this.props.scope} mountStylesheet={false}>
+        <LiveProvider
+          code={code.trim()}
+          scope={this.props.scope}
+          mountStylesheet={false}
+        >
           <div className={styles.liveExampleWrapper}>
-
             <Collapse
               isOpened={isEditorOpened}
               className={classnames(styles.editor, {
                 [styles.opened]: isEditorOpened
               })}
             >
-              <LiveEditor className={styles.editorView} onChange={this.onCodeChange}/>
+              <LiveEditor
+                className={styles.editorView}
+                onChange={this.onCodeChange}
+              />
             </Collapse>
 
             <div
@@ -157,11 +147,8 @@ export default class LiveCodeExample extends Component {
           </div>
         </LiveProvider>
 
-        {(isEditorOpened && compact) && (
-          this.renderCopyButton()
-        )}
+        {isEditorOpened && compact && this.renderCopyButton()}
       </div>
     );
   }
-
 }
