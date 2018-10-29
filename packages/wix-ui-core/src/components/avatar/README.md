@@ -102,4 +102,3 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 
 The root will have `tabIndex = 0` by default meaning it will be focusable and part of the keyboard navigation flow.<br>
 The root should have an `aria-label={"Avatar for "+ name}`<br>
-
