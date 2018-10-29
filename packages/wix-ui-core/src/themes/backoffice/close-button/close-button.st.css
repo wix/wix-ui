@@ -1,0 +1,153 @@
+:import {
+  -st-from: "../theme.st.css";
+  -st-default: BackofficeTheme;
+}
+
+:import {
+  -st-from: '../../../components/button-next/button-next.st.css';
+  -st-default: Button;
+  -st-named: content;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: B10, D55, D80, B20, B50, B40, D55, D80, D10, D20, S60, S70,B30, S80;
+}
+
+.closeButton {
+  -st-extends: Button;
+}
+
+BackofficeTheme .closeButton {
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  padding: 0;
+
+  box-sizing: border-box;
+  text-align: center;
+  
+  border: none;
+  outline: none;
+  transition: all 100ms linear;
+
+  background-color: transparent;
+  color: value(B10);
+}
+
+BackofficeTheme .closeButton:hover:not(:disabled) {
+  color: value(B20);
+  background-color: transparent;
+}
+
+BackofficeTheme .closeButton:active:not(:disabled) {
+  color: value(B10);
+  background-color: transparent;
+}
+
+BackofficeTheme .closeButton:disabled {
+  color: value(D55);
+  background-color: transparent;
+}
+
+BackofficeTheme .closeButton::content {
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Inverted
+
+BackofficeTheme .inverted {
+  background-color: value(B50);
+  color: value(B10);
+}
+
+BackofficeTheme button.inverted.closeButton:hover:not(:disabled) {
+    background-color: value(B40);
+    color: value(B10);
+}
+
+BackofficeTheme button.inverted.closeButton:active:not(:disabled) {
+    background-color: value(B30);
+    color: value(B10);
+}
+
+BackofficeTheme button.inverted.closeButton:disabled {
+  border-color: value(D55);
+  color:  value(D80);
+  background-color: value(D55);
+} */
+
+/* Skin light */
+
+BackofficeTheme button.light.closeButton {
+    background-color: transparent;
+    color: value(D80);
+}
+
+BackofficeTheme button.light.closeButton:hover:not(:disabled) {
+    background-color: transparent;
+    color: value(B50);
+}
+
+BackofficeTheme button.light.closeButton:active:not(:disabled) {
+    background-color: transparent;
+    color: value(B40);
+}
+
+BackofficeTheme button.light.closeButton:disabled {
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* Skin dark */
+
+BackofficeTheme button.dark.closeButton {
+    border-color: transparent;
+    background-color: transparent;
+    color: value(D10);
+}
+
+BackofficeTheme button.dark.closeButton:hover:not(:disabled) {
+    border-color: transparent;
+    background-color: transparent;
+    color: value(D20);
+}
+
+BackofficeTheme button.dark.closeButton:active:not(:disabled) {
+    border-color: transparent;
+    background-color: transparent;
+    color: value(D10);
+}
+
+BackofficeTheme button.dark.closeButton:disabled {
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* Skin transparent */
+
+BackofficeTheme button.transparent.closeButton {
+    border-color: value(S60);
+    background-color: value(S60);
+    color:  value(D80);
+}
+
+BackofficeTheme button.transparent.closeButton:hover:not(:disabled) {
+    border-color: value(S70);
+    background-color: value(S70);
+    color:  value(D80);
+}
+
+BackofficeTheme button.transparent.closeButton:active:not(:disabled) {
+    border-color: value(S80);
+    background-color: value(S80);
+    color:  value(D80);
+}
+
+BackofficeTheme button.transparent.closeButton:disabled {
+  border-color: value(D55);
+  color:  value(D80);
+  background-color: value(D55);
+}
