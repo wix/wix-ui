@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-const TextLink = require('wix-style-react/TextLink').default;
-
 const TabbedView = require('../TabbedView').default;
 const Markdown = require('../Markdown').default;
 const CodeBlock = require('../CodeBlock').default;
@@ -17,20 +15,6 @@ const tabs = metadata => [
   ...(metadata.readmeTestkit ? ['Testkit'] : []),
   ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
 ];
-
-type Metadata = {
-  displayName: string;
-  props: {};
-  readme: string;
-  readmeTestkit: string;
-  readmeAccessibility: string;
-};
-
-type Config = {
-  importFormat: string;
-  moduleName: string;
-  repoBaseURL: string;
-};
 
 type ImportString = {
   metadata: Metadata;
@@ -135,12 +119,13 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
 
         {(displayName || metadata.displayName) && (
           <div className={styles.githubLink}>
-            <TextLink
-              link={`${config.repoBaseURL}${visibleDisplayName}`}
-              target="blank"
+            <a
+              href={`${config.repoBaseURL}${visibleDisplayName}`}
+              target="wix-style-react-storybook"
+              className={styles.viewSourceLink}
             >
               View source
-            </TextLink>
+            </a>
           </div>
         )}
 
