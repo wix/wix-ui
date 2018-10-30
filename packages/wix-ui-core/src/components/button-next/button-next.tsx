@@ -14,7 +14,7 @@ export interface ButtonProps
 /**
  * ButtonNext
  */
-export class ButtonNextRaw extends React.Component<ButtonProps> {
+export class ButtonNextComponent extends React.Component<ButtonProps> {
   static displayName = 'ButtonNext';
 
   static defaultProps = {
@@ -59,4 +59,4 @@ export class ButtonNextRaw extends React.Component<ButtonProps> {
   }
 }
 
-export const ButtonNext = withFocusable(ButtonNextRaw);
+export const ButtonNext = withFocusable(ButtonNextComponent);
