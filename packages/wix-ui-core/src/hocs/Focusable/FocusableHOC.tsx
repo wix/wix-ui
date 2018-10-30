@@ -1,36 +1,48 @@
-import * as React from 'react';
-import hoistNonReactMethods from 'hoist-non-react-methods';
-import {wrapDisplayName, getDisplayName, isStatelessComponent} from '../utils';
-import styles from './Focusable.st.css';
+import * as React from "react";
+import * as hoistNonReactStatics from "hoist-non-react-statics";
+import styles from "./Focusable.st.css";
 
 type SubscribeCb = () => void;
+
+export const getDisplayName = Component => {
+  if (typeof Component === "string") {
+    return Component;
+  }
+
+  if (!Component) {
+    return undefined;
+  }
+
+  return Component.displayName || Component.name || "Component";
+};
 
 /**
  * Singleton for managing current input method (keyboard or mouse).
  */
 const inputMethod = new class {
   // Default is keyboard in case an element is focused programmatically.
-  method: 'mouse' | 'keyboard' = 'keyboard';
+  method: "mouse" | "keyboard" = "keyboard";
   subscribers: Map<any, SubscribeCb> = new Map();
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('mousedown', () => this.setMethod('mouse'));
-      window.addEventListener('keydown', () => this.setMethod('keyboard'));
+    if (typeof window !== "undefined") {
+      window.addEventListener("mousedown", () => this.setMethod("mouse"));
+      window.addEventListener("keydown", () => this.setMethod("keyboard"));
       // We need to listen on keyUp, in case a TAB is made from the browser's address-bar,
       // so the keyDown is not fired, only the keyUp.
-      window.addEventListener('keyup', () => this.setMethod('keyboard'));
+      window.addEventListener("keyup", () => this.setMethod("keyboard"));
     }
   }
 
-  subscribe = (target: any, callback: SubscribeCb) => this.subscribers.set(target, callback);
+  subscribe = (target: any, callback: SubscribeCb) =>
+    this.subscribers.set(target, callback);
 
-  unsubscribe = (target: any) => this.subscribers.delete(target)
+  unsubscribe = (target: any) => this.subscribers.delete(target);
 
   /**
    * Is the current input method `keyboard`. if `false` is means it is `mouse`
    */
-  isKeyboard = () => this.method === 'keyboard'
+  isKeyboard = () => this.method === "keyboard";
 
   setMethod(method) {
     if (method !== this.method) {
@@ -49,21 +61,15 @@ const inputMethod = new class {
  *  - set displayName
  */
 export const withFocusable = Component => {
-
-  if (isStatelessComponent(Component)) {
-    throw new Error(`FocusableHOC does not support stateless components. ${getDisplayName(Component)} is stateless.`);
-  }
-
   interface IFocusableHOCState {
     focus: boolean;
     focusVisible: boolean;
   }
 
   class FocusableHOC extends React.Component<any, IFocusableHOCState> {
-    static displayName = wrapDisplayName(Component, 'WithFocusable');
+    static displayName = getDisplayName(Component);
     static defaultProps = Component.defaultProps;
 
-    wrappedComponentRef = null;
     focusedByMouse = false;
 
     state = {
@@ -89,35 +95,37 @@ export const withFocusable = Component => {
     }
 
     onFocus = () => {
-      this.setState({focus: true, focusVisible: inputMethod.isKeyboard()});
+      this.setState({ focus: true, focusVisible: inputMethod.isKeyboard() });
       inputMethod.subscribe(this, () => {
         if (inputMethod.isKeyboard()) {
-          this.setState({focusVisible: true});
+          this.setState({ focusVisible: true });
         }
       });
     };
 
     onBlur = () => {
       inputMethod.unsubscribe(this);
-      this.setState({focus: false, focusVisible: false});
+      this.setState({ focus: false, focusVisible: false });
     };
 
     render() {
       return (
         <Component
-          ref={ref => this.wrappedComponentRef = ref}
           {...this.props}
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
-          {...styles('root', {focus: this.state.focus, 'focus-visible': this.state.focusVisible}, this.props)}
+          {...styles(
+            "root",
+            {
+              focus: this.state.focus,
+              "focus-visible": this.state.focusVisible
+            },
+            this.props
+          )}
         />
       );
     }
   }
 
-  return hoistNonReactMethods(
-    FocusableHOC,
-    Component,
-    {delegateTo: c => c.wrappedComponentRef, hoistStatics: true}
-  );
+  return hoistNonReactStatics(FocusableHOC, Component);
 };

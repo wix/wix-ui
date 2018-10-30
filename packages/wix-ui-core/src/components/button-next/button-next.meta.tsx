@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ButtonNextComponent } from './button-next';
+import { ButtonNext } from './button-next';
 import Add from 'wix-ui-icons-common/Add';
 import Registry from '@ui-autotools/registry';
 
-const buttonMetadata = Registry.getComponentMetadata(ButtonNextComponent);
+const buttonMetadata = Registry.getComponentMetadata(ButtonNext);
 
 buttonMetadata.addSim({
   title: 'Simulation with suffix icon',

@@ -11,52 +11,43 @@ export interface ButtonProps
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
 }
+
+const _addAffix = (Affix, classname) =>
+  Affix &&
+  React.cloneElement(Affix, {
+    className: style[classname]
+  });
+
 /**
  * ButtonNext
  */
-export class ButtonNextComponent extends React.Component<ButtonProps> {
-  static displayName = 'ButtonNext';
 
-  static defaultProps = {
-    type: 'button'
-  };
+const ButtonNextComponent: React.SFC<ButtonProps> = props => {
+  const {
+    suffixIcon,
+    prefixIcon,
+    children,
+    onClick,
+    focusableOnFocus,
+    focusableOnBlur,
+    ...rest
+  } = props;
+  return (
+    <button
+      {...rest}
+      onFocus={focusableOnFocus}
+      onBlur={focusableOnBlur}
+      onClick={onClick}
+      {...style('root', {}, props)}
+    >
+      {_addAffix(prefixIcon, 'prefix')}
+      <span className={style.content}>{children}</span>
+      {_addAffix(suffixIcon, 'suffix')}
+    </button>
+  );
+};
 
-  _addPrefix = prefixIcon =>
-    prefixIcon &&
-    React.cloneElement(prefixIcon, {
-      className: style.prefix
-    });
-
-  _addSuffix = suffixIcon =>
-    suffixIcon &&
-    React.cloneElement(suffixIcon, {
-      className: style.suffix
-    });
-
-  render() {
-    const {
-      suffixIcon,
-      prefixIcon,
-      children,
-      onClick,
-      focusableOnFocus,
-      focusableOnBlur,
-      ...rest
-    } = this.props;
-    return (
-      <button
-        {...rest}
-        onFocus={focusableOnFocus}
-        onBlur={focusableOnBlur}
-        onClick={onClick}
-        {...style('root', {}, this.props)}
-      >
-        {this._addPrefix(prefixIcon)}
-        <span className={style.content}>{children}</span>
-        {this._addSuffix(suffixIcon)}
-      </button>
-    );
-  }
-}
+ButtonNextComponent.displayName = 'ButtonNext';
+ButtonNextComponent.defaultProps = { type: 'button' };
 
 export const ButtonNext = withFocusable(ButtonNextComponent);
