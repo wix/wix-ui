@@ -1,20 +1,9 @@
 import * as React from "react";
 import * as hoistNonReactStatics from "hoist-non-react-statics";
+import { getDisplayName } from "../utils";
 import styles from "./Focusable.st.css";
 
 type SubscribeCb = () => void;
-
-export const getDisplayName = Component => {
-  if (typeof Component === "string") {
-    return Component;
-  }
-
-  if (!Component) {
-    return undefined;
-  }
-
-  return Component.displayName || Component.name || "Component";
-};
 
 /**
  * Singleton for managing current input method (keyboard or mouse).
