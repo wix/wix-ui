@@ -268,7 +268,7 @@ export default class extends Component {
           ...this.props.exampleProps,
           ...this.preparedComponentProps,
         })
-          .filter(name => !['on', 'data'].some(i => name.startsWith(i)))
+          .filter(n => !['on', 'data'].some(i => n.startsWith(i)))
           .some(propName => propName === name),
     },
 

@@ -44,13 +44,12 @@ const isComponentDefinition = (path, types) =>
 const resolveHOC = (path, types) => {
   const node = path.node;
 
-  if (types.CallExpression.check(node) && !isReactCreateClassCall(path)) {
-    if (node.arguments.length) {
-      return resolveHOC(
-        path.get('arguments', node.arguments.length - 1),
-        types,
-      );
-    }
+  if (
+    types.CallExpression.check(node) &&
+    !isReactCreateClassCall(path) &&
+    node.arguments.length
+  ) {
+    return resolveHOC(path.get('arguments', node.arguments.length - 1), types);
   }
 
   return path;
@@ -82,11 +81,11 @@ export default (ast, recast) => {
 
   const exportDeclaration = path => {
     const definitions = resolveExportDeclaration(path, types).reduce(
-      (acc, definition) => {
-        if (isComponentDefinition(definition, types)) {
-          acc.push(definition);
+      (acc, def) => {
+        if (isComponentDefinition(def, types)) {
+          acc.push(def);
         } else {
-          const resolved = resolveToValue(resolveHOC(definition, types));
+          const resolved = resolveToValue(resolveHOC(def, types));
           if (isComponentDefinition(resolved, types)) {
             acc.push(resolved);
           }

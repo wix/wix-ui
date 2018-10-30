@@ -10,8 +10,7 @@ class Scope {
       return value.type.endsWith('Declaration');
     });
     if (Array.isArray(allDeclarations) && allDeclarations.length) {
-      for (let index = 0; index < allDeclarations.length; index++) {
-        const declaration = allDeclarations[index];
+      for (const declaration of allDeclarations) {
         identifierValue = this._getIdentifierValueFromDeclaration(
           name,
           declaration,
@@ -43,8 +42,7 @@ class Scope {
     let identifierValue = null;
     switch (type) {
       case 'VariableDeclaration':
-        for (let index = 0; index < declarations.length; index++) {
-          const declarator = declarations[index];
+        for (const declarator of declarations) {
           const identifier = this._getIdentifierFromDeclarator(
             name,
             declarator,

@@ -25,10 +25,11 @@ const getFileContent = filePath => {
       const programBody = parse(fileContents).program.body;
       const promises = [];
       programBody.forEach(declaration => {
-        if (declaration.type === 'ImportDeclaration') {
-          if (declaration.source.value[0] === '.') {
-            promises.push(getFileContent(declaration.source.value));
-          }
+        if (
+          declaration.type === 'ImportDeclaration' &&
+          declaration.source.value[0] === '.'
+        ) {
+          promises.push(getFileContent(declaration.source.value));
         }
       });
       return Promise.all(promises);

@@ -83,6 +83,17 @@ const renderPropType = (type = {}) => {
   return <span>{type.name}</span>;
 };
 
+const methodsToMarkdown = methods =>
+  methods
+    .filter(({ name }) => !name.startsWith('_'))
+    .map(
+      method =>
+        `* __${method.name}(${method.params
+          .map(({ name }) => name)
+          .join(', ')})__: ${method.docblock || ''}`,
+    )
+    .join('\n');
+
 const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
   const { description, displayName, props, composes = [], methods = [] } =
     parsedSource || parser(source);
@@ -101,17 +112,6 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
       <td>{prop.description && <Markdown source={prop.description} />}</td>
     </tr>
   );
-
-  const methodsToMarkdown = methods =>
-    methods
-      .filter(({ name }) => !name.startsWith('_'))
-      .map(
-        method =>
-          `* __${method.name}(${method.params
-            .map(({ name }) => name)
-            .join(', ')})__: ${method.docblock || ''}`,
-      )
-      .join('\n');
 
   return (
     !shouldHideForE2E && (

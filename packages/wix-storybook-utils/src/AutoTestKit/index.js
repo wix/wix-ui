@@ -25,9 +25,9 @@ export default class AutoTestKit extends Component {
         (param, i) =>
           `${param.name} (${param.type})${i === params.length - 1 ? '' : '\n'}`,
       );
-    } else {
-      return '---';
     }
+
+    return '---';
   };
 
   render() {

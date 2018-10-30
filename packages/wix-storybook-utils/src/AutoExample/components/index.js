@@ -72,9 +72,9 @@ Toggle.propTypes = {
   onChange: PropTypes.func,
 };
 
-const Input = ({ value, onChange, defaultValue, ...props }) => (
+const Input = ({ value: inputValue, onChange, defaultValue, ...props }) => (
   <UIInput
-    value={value}
+    value={inputValue}
     onChange={({ target: { value } }) => onChange(value)}
     placeholder={defaultValue}
     {...props}

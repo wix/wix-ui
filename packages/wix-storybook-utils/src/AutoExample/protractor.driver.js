@@ -15,7 +15,9 @@ module.exports = {
         {
           rule: value =>
             typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
+          /* tslint:disable */
           parser: value => eval(`(${value})`), // eslint-disable-line no-eval
+          /* tslint:enable */
         },
         {
           rule: value => Array.isArray(value),
@@ -36,10 +38,10 @@ module.exports = {
         },
       ];
 
-      const args = Object.keys(componentProps).reduce((props, key) => {
-        const { parser } = parsers.find(({ rule }) => rule(props[key]));
-        props[key] = parser(props[key]);
-        return props;
+      const args = Object.keys(componentProps).reduce((allProps, key) => {
+        const { parser } = parsers.find(({ rule }) => rule(allProps[key]));
+        props[key] = parser(allProps[key]);
+        return allProps;
       }, componentProps);
 
       // this is possible because:
