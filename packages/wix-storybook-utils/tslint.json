@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "tslint-config-wix",
-    "tslint-react",
-    "tslint-config-prettier"
-  ],
+  "extends": "tslint-config-yoshi",
   "rules": {
     "comma-dangle": ["error", "never"],
     "jsx-no-multiline-js": false,
