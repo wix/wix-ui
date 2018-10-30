@@ -31,4 +31,5 @@ module.exports = (outputFile, pattern) => {
 
   const typeScriptFileContent = formattedExportedDrivers.map(exportPath =>`export * from '${exportPath}';`).join('\n');
   fs.writeFileSync(`${driversDir}/${outputFile}.d.ts`, typeScriptFileContent, throwOnError);
+  console.log(exportedDrivers.length)
 };

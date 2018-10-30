@@ -823,11 +823,13 @@ describe('AddressInput', () => {
         });
     });
 
-    describe('AddressInput export drivers', () => {
-        it('should exist', () => {
-            const driveExport = require('../../../drivers/vanilla');
-            expect(driveExport.addressInputDriver).toBeDefined();
-            //expect(driveExport.addressi).toBeDefined() check protractor drivers as well
-        });
-    });
+    // describe('AddressInput export drivers', () => {
+    //     it('could be imported', async () => {
+    //         const {addressInputDriverFactory: adressInputDriverExport} = await import('../../../drivers/vanilla');
+    //         expect(adressInputDriverExport).toBeDefined();
+
+    //         const {addressInputDriverFactory: adressInputProtractorDriverExport} = await import('../../../drivers/protractor');
+    //         expect(adressInputProtractorDriverExport).toBeDefined();
+    //     });
+    // });
 });
