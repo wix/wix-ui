@@ -20,10 +20,9 @@ describe('AutoExample', () => {
           functionProp: () => '',
         },
       });
-      const [prop1, prop2] = testkit.get.options();
-
-      expect(prop1.props.label).toBe('stringProp');
-      expect(prop2.props.label).toBe('functionProp');
+      const options = testkit.get.options();
+      expect(options.at(0).prop('label')).toBe('stringProp');
+      expect(options.at(1).prop('label')).toBe('functionProp');
     });
 
     it('should categorize aria props', () => {
