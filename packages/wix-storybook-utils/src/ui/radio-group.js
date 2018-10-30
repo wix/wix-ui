@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import styles from './styles.scss';
 
-const RadioGroup = ({value, radios, onChange}) => (
+const RadioGroup = ({ value, radios, onChange }) => (
   <div className={styles.radioGroup}>
     {radios.map(radio => (
       <label key={radio.id} className={styles.radio}>
@@ -15,7 +15,7 @@ const RadioGroup = ({value, radios, onChange}) => (
         />
         <div
           className={classnames(styles.radioBubble, {
-            [styles.radioBubbleChecked]: value === radio.id
+            [styles.radioBubbleChecked]: value === radio.id,
           })}
         />
         <div>{radio.value}</div>
@@ -27,7 +27,7 @@ const RadioGroup = ({value, radios, onChange}) => (
 RadioGroup.propTypes = {
   value: PropTypes.any,
   radios: PropTypes.arrayOf(PropTypes.any),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default RadioGroup;

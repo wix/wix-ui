@@ -2,8 +2,8 @@ const Scope = require('./Scope');
 
 class FunctionScope extends Scope {
   constructor(functionScope, parentScope) {
-    const {body, params} = functionScope;
-    const {type: bodyType} = body;
+    const { body, params } = functionScope;
+    const { type: bodyType } = body;
     let blockScope = [];
     switch (bodyType) {
       case 'BlockStatement':
@@ -43,7 +43,7 @@ class FunctionScope extends Scope {
     this.params.forEach(param => {
       const paramDescriptor = {};
       params.push(paramDescriptor);
-      const {type} = param;
+      const { type } = param;
 
       switch (type) {
         case 'ObjectPattern':
@@ -64,16 +64,19 @@ class FunctionScope extends Scope {
   }
 
   getReturnValue() {
-    const {type} = this.body;
+    const { type } = this.body;
     let returnValue = null;
     switch (type) {
       case 'ObjectExpression':
         returnValue = this.body;
         break;
-      case 'BlockStatement': {
-        const returnStatement = this.body.body.find(statement => statement.type === 'ReturnStatement');
-        returnValue = returnStatement && returnStatement.argument;
-      }
+      case 'BlockStatement':
+        {
+          const returnStatement = this.body.body.find(
+            statement => statement.type === 'ReturnStatement',
+          );
+          returnValue = returnStatement && returnStatement.argument;
+        }
         break;
       case 'CallExpression':
       case 'MemberExpression':
@@ -94,7 +97,8 @@ class FunctionScope extends Scope {
     return returnValue;
   }
 
-  _getIdentifierValueFromParams(name) { // eslint-disable-line no-unused-vars
+  _getIdentifierValueFromParams(name) {
+    // eslint-disable-line no-unused-vars
     /*
       TODO: Currently this method always returns 'undefined'. This is because we can never know the value of the param (maybe we can in the future when we use TypeScript)
 
@@ -103,13 +107,12 @@ class FunctionScope extends Scope {
     const params = this.params;
     const value = undefined;
     (params || []).forEach(param => {
-      const {type} = param;
+      const { type } = param;
       switch (type) {
         case 'ObjectPattern':
           break;
         // TODO: Get the param with the name
         default:
-          break;
       }
     });
 
@@ -117,7 +120,10 @@ class FunctionScope extends Scope {
   }
 
   _getIdentifierValueFromCurrentScope(name) {
-    return this._getIdentifierValueFromParams(name) || super._getIdentifierValueFromCurrentScope(name);
+    return (
+      this._getIdentifierValueFromParams(name) ||
+      super._getIdentifierValueFromCurrentScope(name)
+    );
   }
 }
 

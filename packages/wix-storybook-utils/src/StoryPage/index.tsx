@@ -13,24 +13,24 @@ const tabs = metadata => [
   'Usage',
   'API',
   ...(metadata.readmeTestkit ? ['Testkit'] : []),
-  ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
+  ...(metadata.readmeAccessibility ? ['Accessibility'] : []),
 ];
 
-type ImportString = {
+interface ImportString {
   metadata: Metadata;
   config: Config;
   exampleImport: string;
-};
+}
 
 const importString: (ImportString) => string = ({
   metadata,
   config,
-  exampleImport
+  exampleImport,
 }: ImportString) =>
   [
     {
       when: () => exampleImport,
-      make: () => exampleImport
+      make: () => exampleImport,
     },
     {
       when: () => config.importFormat,
@@ -39,8 +39,8 @@ const importString: (ImportString) => string = ({
           .replace(/%componentName/g, metadata.displayName)
           .replace(
             new RegExp('%(' + Object.keys(config).join('|') + ')', 'g'),
-            (match, configKey) => config[configKey] || ''
-          )
+            (match, configKey) => config[configKey] || '',
+          ),
     },
     {
       // default
@@ -48,10 +48,10 @@ const importString: (ImportString) => string = ({
       make: () =>
         `import ${metadata.displayName} from '${config.moduleName}/${
           metadata.displayName
-        }';`
-    }
+        }';`,
+    },
   ]
-    .filter(({when}) => when())[0]
+    .filter(({ when }) => when())[0]
     .make();
 
 interface SectionProps {
@@ -61,7 +61,7 @@ interface SectionProps {
 
 const Section: React.StatelessComponent<SectionProps> = ({
   title,
-  children
+  children,
 }: SectionProps) => (
   <div>
     {/* tslint: disable */}
@@ -100,13 +100,13 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   exampleProps,
   exampleImport,
   examples,
-  codeExample
+  codeExample,
 }: StoryPageProps) => {
   const visibleDisplayName = displayName || metadata.displayName;
   const visibleMetadata = {
     ...metadata,
     displayName: visibleDisplayName,
-    props: omit(metadata.props)(prop => hiddenProps.includes(prop))
+    props: omit(metadata.props)(prop => hiddenProps.includes(prop)),
   };
 
   return (
@@ -134,7 +134,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
           source={importString({
             config,
             metadata: visibleMetadata,
-            exampleImport
+            exampleImport,
           })}
         />
 
@@ -164,9 +164,9 @@ StoryPage.defaultProps = {
   config: {
     importFormat: '',
     moduleName: '',
-    repoBaseURL: ''
+    repoBaseURL: '',
   },
-  hiddenProps: []
+  hiddenProps: [],
 };
 
 export default StoryPage;

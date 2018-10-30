@@ -20,7 +20,7 @@ export default class List extends React.Component {
     defaultValue: PropTypes.any,
     values: PropTypes.arrayOf(PropTypes.any),
     onChange: PropTypes.func,
-    isRequired: PropTypes.bool
+    isRequired: PropTypes.bool,
   };
 
   constructor(props) {
@@ -34,11 +34,11 @@ export default class List extends React.Component {
       currentValue,
       currentFilter:
         props.defaultValue &&
-        [props.defaultValue, props.defaultValue.type].some(isFunction) ?
-          currentValue.value :
-          props.defaultValue || '',
+        [props.defaultValue, props.defaultValue.type].some(isFunction)
+          ? currentValue.value
+          : props.defaultValue || '',
       isFiltering: false,
-      options
+      options,
     };
   }
 
@@ -53,48 +53,48 @@ export default class List extends React.Component {
         // displaying that component, we save it in `realValue` and
         // show `value` as some string representation of component instead
         value: option.label || (option.type && option.type.name) || '' + option,
-        realValue: isUndefined(option.value) ? option : option.value
+        realValue: isUndefined(option.value) ? option : option.value,
       };
     });
 
   getFilteredOptions = () =>
-    this.state.isFiltering ?
-      this.state.options.filter(
-        ({value}) =>
-          this.state.currentFilter.length ?
-            value.toLowerCase().includes(this.state.currentFilter) :
-            true
-      ) :
-      this.state.options;
+    this.state.isFiltering
+      ? this.state.options.filter(
+          ({ value }) =>
+            this.state.currentFilter.length
+              ? value.toLowerCase().includes(this.state.currentFilter)
+              : true,
+        )
+      : this.state.options;
 
   clearValue = () =>
-    this.setState({currentValue: {}, currentFilter: ''}, () =>
-      this.props.onChange(NO_VALUE_TYPE)
+    this.setState({ currentValue: {}, currentFilter: '' }, () =>
+      this.props.onChange(NO_VALUE_TYPE),
     );
 
   clearIcon = (
     <span
       onClick={this.clearValue}
-      style={{color: '#3899ec', cursor: 'pointer', marginLeft: '-20px'}}
-      children={<CloseIcon size="7px"/>}
+      style={{ color: '#3899ec', cursor: 'pointer', marginLeft: '-20px' }}
+      children={<CloseIcon size="7px" />}
     />
   );
 
   clearButton = (
-    <div style={{padding: '1em 0'}}>
-      <Button children="Clear" onClick={this.clearValue}/>
+    <div style={{ padding: '1em 0' }}>
+      <Button children="Clear" onClick={this.clearValue} />
     </div>
   );
 
   getSelectedOption = () => {
     const selectedOption =
       this.state.options.find(
-        option => option.id === this.state.currentValue.id
+        option => option.id === this.state.currentValue.id,
       ) || {};
     return selectedOption;
   };
 
-  onOptionChange = ({id}) => {
+  onOptionChange = ({ id }) => {
     const currentValue =
       this.state.options.find(option => option.id === id) || {};
 
@@ -102,14 +102,14 @@ export default class List extends React.Component {
       {
         currentValue,
         currentFilter: currentValue.value,
-        isFiltering: false
+        isFiltering: false,
       },
-      () => this.props.onChange(currentValue.realValue)
+      () => this.props.onChange(currentValue.realValue),
     );
   };
 
   onFilterChange = currentFilter =>
-    this.setState({currentFilter, isFiltering: true});
+    this.setState({ currentFilter, isFiltering: true });
 
   dropdown() {
     return (
@@ -132,7 +132,7 @@ export default class List extends React.Component {
       <div>
         <RadioGroup
           value={this.state.currentValue.id}
-          onChange={id => this.onOptionChange({id})}
+          onChange={id => this.onOptionChange({ id })}
           radios={this.state.options}
         />
 

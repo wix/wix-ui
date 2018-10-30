@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 
 import Markdown from '../Markdown';
 import AutoExample from '../AutoExample';
@@ -11,20 +11,20 @@ export default class {
   defaultProps = {
     metadata: {
       displayName: 'componentName',
-      props: {}
+      props: {},
     },
     config: {},
-    component: () => <div/>,
+    component: () => <div />,
     componentProps: {},
     exampleProps: {},
-    examples: null
+    examples: null,
   };
 
   when = {
     created: props =>
       (this.component = mount(
-        <StoryPage {...{...this.defaultProps, ...props}}/>
-      ))
+        <StoryPage {...{ ...this.defaultProps, ...props }} />,
+      )),
   };
 
   get = {
@@ -40,6 +40,6 @@ export default class {
     codeBlock: () =>
       this.component.find('[dataHook="metadata-codeblock"]').find(Markdown),
 
-    autoExample: () => this.component.find(AutoExample)
+    autoExample: () => this.component.find(AutoExample),
   };
 }

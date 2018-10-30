@@ -1,27 +1,27 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../ui/Tabs';
 
-const createTab = id => ({title: id, id});
+const createTab = id => ({ title: id, id });
 
 export default class TabbedView extends Component {
   static propTypes = {
     tabs: PropTypes.arrayOf(PropTypes.string),
     children: PropTypes.oneOfType([
       PropTypes.node,
-      PropTypes.arrayOf(PropTypes.node)
-    ])
+      PropTypes.arrayOf(PropTypes.node),
+    ]),
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      activeTabId: props.tabs[0]
+      activeTabId: props.tabs[0],
     };
   }
 
-  onTabClick = tab => this.setState({activeTabId: tab.id});
+  onTabClick = tab => this.setState({ activeTabId: tab.id });
 
   render() {
     const shouldHideForE2E = global.self === global.top;
@@ -39,7 +39,7 @@ export default class TabbedView extends Component {
         {React.Children.map(
           this.props.children,
           (child, index) =>
-            this.state.activeTabId === this.props.tabs[index] ? child : null
+            this.state.activeTabId === this.props.tabs[index] ? child : null,
         )}
       </div>
     );

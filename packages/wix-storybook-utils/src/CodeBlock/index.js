@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'copy-to-clipboard';
 
@@ -12,26 +12,26 @@ export default class CodeBlock extends Component {
   static propTypes = {
     source: PropTypes.string,
     type: PropTypes.string,
-    dataHook: PropTypes.string
+    dataHook: PropTypes.string,
   };
 
   static defaultProps = {
-    type: 'js'
+    type: 'js',
   };
 
   state = {
-    showNotification: false
+    showNotification: false,
   };
 
   onCopyClick = () => {
     copy(this.props.source);
-    this.setState({showNotification: true}, () =>
-      setTimeout(() => this.setState({showNotification: false}), 3000)
+    this.setState({ showNotification: true }, () =>
+      setTimeout(() => this.setState({ showNotification: false }), 3000),
     );
   };
 
   render() {
-    const {source, type, dataHook} = this.props;
+    const { source, type, dataHook } = this.props;
 
     return (
       <div data-hook={dataHook}>
@@ -39,7 +39,7 @@ export default class CodeBlock extends Component {
 
         {this.state.showNotification && 'Copied!'}
 
-        <Markdown source={toCodeBlock(source, type)}/>
+        <Markdown source={toCodeBlock(source, type)} />
       </div>
     );
   }

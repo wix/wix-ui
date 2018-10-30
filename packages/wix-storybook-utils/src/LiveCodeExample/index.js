@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live';
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
-import {Collapse} from 'react-collapse';
+import { Collapse } from 'react-collapse';
 import copy from 'copy-to-clipboard';
 import styles from './index.scss';
 
@@ -17,33 +17,33 @@ export default class LiveCodeExample extends Component {
     initialCode: PropTypes.string,
     title: PropTypes.string,
     scope: PropTypes.object,
-    compact: PropTypes.bool
+    compact: PropTypes.bool,
   };
 
   static defaultProps = {
-    compact: false
+    compact: false,
   };
 
   resetCode = () => {
     this.setState({
-      code: this.props.initialCode
+      code: this.props.initialCode,
     });
   };
 
-  onCodeChange = code => this.setState({code});
+  onCodeChange = code => this.setState({ code });
 
-  onToggleRtl = isRtl => this.setState({isRtl});
-  onToggleBackground = isDarkBackground => this.setState({isDarkBackground});
+  onToggleRtl = isRtl => this.setState({ isRtl });
+  onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });
 
   onToggleCode = () =>
     this.setState(state => ({
-      isEditorOpened: !state.isEditorOpened
+      isEditorOpened: !state.isEditorOpened,
     }));
 
   onCopyClick = () => {
     copy(this.state.code);
-    this.setState({showNotification: true}, () =>
-      setTimeout(() => this.setState({showNotification: false}), 3000)
+    this.setState({ showNotification: true }, () =>
+      setTimeout(() => this.setState({ showNotification: false }), 3000),
     );
   };
 
@@ -55,32 +55,32 @@ export default class LiveCodeExample extends Component {
       isRtl: false,
       isDarkBackground: false,
       isEditorOpened: !props.compact,
-      showNotification: false
+      showNotification: false,
     };
   }
 
   renderCopyButton() {
     return (
-      <TextButton onClick={this.onCopyClick} prefixIcon={<Document/>}>
+      <TextButton onClick={this.onCopyClick} prefixIcon={<Document />}>
         {this.state.showNotification ? 'Copied!' : 'Copy to clipboard'}
       </TextButton>
     );
   }
 
   render() {
-    const {compact} = this.props;
-    const {code, isRtl, isDarkBackground, isEditorOpened} = this.state;
+    const { compact } = this.props;
+    const { code, isRtl, isDarkBackground, isEditorOpened } = this.state;
 
     return (
       <div
         className={classnames(styles.wrapper, {
-          [styles.compact]: compact
+          [styles.compact]: compact,
         })}
       >
         <div className={styles.header}>
           <h2>{this.props.title}</h2>
 
-          <div className={styles.spacer}/>
+          <div className={styles.spacer} />
 
           <div className={styles.headerControl}>
             Imitate RTL:&nbsp;
@@ -103,13 +103,13 @@ export default class LiveCodeExample extends Component {
           {!compact && this.renderCopyButton()}
 
           {isEditorOpened && (
-            <TextButton onClick={this.resetCode} prefixIcon={<Revert/>}>
+            <TextButton onClick={this.resetCode} prefixIcon={<Revert />}>
               Reset
             </TextButton>
           )}
 
           {compact && (
-            <TextButton onClick={this.onToggleCode} prefixIcon={<Code/>}>
+            <TextButton onClick={this.onToggleCode} prefixIcon={<Code />}>
               {this.state.isEditorOpened ? 'Hide' : 'Show'} code
             </TextButton>
           )}
@@ -124,7 +124,7 @@ export default class LiveCodeExample extends Component {
             <Collapse
               isOpened={isEditorOpened}
               className={classnames(styles.editor, {
-                [styles.opened]: isEditorOpened
+                [styles.opened]: isEditorOpened,
               })}
             >
               <LiveEditor
@@ -136,12 +136,12 @@ export default class LiveCodeExample extends Component {
             <div
               className={classnames(styles.preview, {
                 rtl: isRtl,
-                [styles.darkPreview]: isDarkBackground
+                [styles.darkPreview]: isDarkBackground,
               })}
               dir={isRtl ? 'rtl' : ''}
             >
-              <LivePreview/>
-              <LiveError className={styles.error}/>
+              <LivePreview />
+              <LiveError className={styles.error} />
             </div>
           </div>
         </LiveProvider>

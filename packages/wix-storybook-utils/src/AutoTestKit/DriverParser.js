@@ -18,7 +18,10 @@ class DriverParser {
   }
 
   parse() {
-    const topParentScope = new GlobalScope(this.recastedDriver.program.body, this.files);
+    const topParentScope = new GlobalScope(
+      this.recastedDriver.program.body,
+      this.files,
+    );
 
     // We only case about what this file exports..
     //TODO: Parse non-default exports
@@ -29,7 +32,7 @@ class DriverParser {
     if (!declaration) {
       throw new Error('There is no declaration');
     }
-    const {type} = declaration;
+    const { type } = declaration;
     let returnValue = null;
     switch (type) {
       case 'ArrowFunctionExpression':
@@ -41,7 +44,10 @@ class DriverParser {
       case 'Identifier':
         {
           const returnData = scope.getIdentifierValue(declaration.name);
-          returnValue = this._parseDeclaration(returnData.scope, returnData.identifierValue);
+          returnValue = this._parseDeclaration(
+            returnData.scope,
+            returnData.identifierValue,
+          );
         }
         break;
       case 'UnaryExpression':
@@ -74,7 +80,9 @@ class DriverParser {
     };
 
     return comments.reduce((description, comment) => {
-      return isValidComment(comment) ? description + parseCommentValue(comment.value) : description;
+      return isValidComment(comment)
+        ? description + parseCommentValue(comment.value)
+        : description;
     }, '');
   }
 
@@ -86,20 +94,27 @@ class DriverParser {
       type: 'function',
       name: 'Anonymous',
       description: declaration.description,
-      params: arrParams
+      params: arrParams,
     };
     if (functionReturnValue) {
-      returnValue.returns = this._parseDeclaration(functionScope, functionReturnValue);
+      returnValue.returns = this._parseDeclaration(
+        functionScope,
+        functionReturnValue,
+      );
     }
     return returnValue;
   }
 
   _parseObjectExpression(scope, declaration) {
-    const {properties} = declaration;
+    const { properties } = declaration;
     const returnObject = {};
 
     properties.forEach(property => {
-      const {key: {name}, value, comments} = property;
+      const {
+        key: { name },
+        value,
+        comments,
+      } = property;
       returnObject[name] = this._parseDeclaration(scope, value, comments);
     });
 
