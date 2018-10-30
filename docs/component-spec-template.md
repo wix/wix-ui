@@ -243,3 +243,19 @@ The component may allow a developer to use his own validation patterns where rel
 ## RTL
 
 > We are deciding on how are we going to handle the RTL. Detailed description will be added later.
+
+
+## Public Test Driver
+Alongside the component we usually provide our users with a test driver to simplify testing their app's behavior to interaction with the component.
+
+### Test Driver API
+> Note: test driver API is an API for all intents and purposes, meaning changing this API may result in breaking changes for the component users. To avoid this scenario exclude unneeded methods from the public driver (helper methods for the component's tests can still be implemented in a "private" driver that extends the public one)
+
+| name   | type                    | description |
+|:-------|:------------------------|:------------|
+| select | (value: string) => null | selects the option who's `value` corresponds to the argument |  
+| isSelected | (index: number) => boolean | return `true` when the option who's `value` matches is the option selected | 
+| isDisabled | () => boolean | return `true` the component is disabled |
+
+
+[How to use drivers](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-test-utils#testkit-helpers)
