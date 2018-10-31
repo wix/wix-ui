@@ -30,7 +30,6 @@ Elements are "container" and "content". The conent could be classified to either
 | imgProps | Omit<HTMLImageAttributes,'alt'> |              |            | Image props, in particular image src url |
 | title | string | props.name   | | If undefined but `name` exists, then defaults to value of `name`
 | aria-label | string | "Avatar for ${props.name}"| | |
-| tabIndex | number | 0 | | |
 
 ## Name / title / aria-label
 
@@ -116,7 +115,3 @@ export class ComponentsDemo extends React.Component<{}, {}>{
   color: red;
 }
 ```
-
-## Accessibility & Keyboard Navigation
-
-See `tabIndex` and `aria-label` props.
