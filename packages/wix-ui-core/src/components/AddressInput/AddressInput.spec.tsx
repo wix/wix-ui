@@ -822,14 +822,4 @@ describe('AddressInput', () => {
             />, enzymeAddressInputTestkitFactory, mount)).toBe(true);
         });
     });
-
-    // describe('AddressInput export drivers', () => {
-    //     it('could be imported', async () => {
-    //         const {addressInputDriverFactory: adressInputDriverExport} = await import('../../../drivers/vanilla');
-    //         expect(adressInputDriverExport).toBeDefined();
-
-    //         const {addressInputDriverFactory: adressInputProtractorDriverExport} = await import('../../../drivers/protractor');
-    //         expect(adressInputProtractorDriverExport).toBeDefined();
-    //     });
-    // });
 });
