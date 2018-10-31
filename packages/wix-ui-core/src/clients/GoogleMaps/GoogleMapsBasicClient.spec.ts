@@ -1,5 +1,5 @@
 import { GoogleMapsBasicClient } from './GoogleMapsBasicClient';
-import * as flushPromises from 'flush-promises';
+import {flushPromises} from 'flush-promises';
 
 const LANG = 'en';
 const CLIENT_ID = 'client-id';
