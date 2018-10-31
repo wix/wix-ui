@@ -1,6 +1,6 @@
 # Avatar
 
-Avatar is a type of element that visually represents a user, either as an image, icon or initials.
+Avatar is a type of element that visually represents a user. It renders one of the following content types: image, icon or text (initials).
 <br><br>
 ![image](./readme-assets/avatar-types.png)
 ## Elements
@@ -24,15 +24,13 @@ Elements are "container" and "content". The conent could be classified to either
 
 | name     | type                | defaultValue | isRequired | description          |
 | -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
-| name | string |  |         | Will be used as default text value for the html `title` attribute of the root element. Also as default value for `aria-label`. The name of the avatar user. Initials will be generated from the name and used as default content.  |
-| children | string \| JSX Element | | | If string, then renders text, usually initials of the name in the `title`. Should be short 2-3 characters. A JSX Element may be passed for rendering SVG icons. |
+| name | string |  |  | Usually the user's name. Will be used to generate defaults for: text content, the html `title` attribute and `aria-lable` attribute of the root element. |
+| initials | string | toInitials(props.name) | | Text to be rendered as content, usually initials of the name. Also acts as a fallback while the image is loading (in case there is `icon` is undefined) |
+| icon | JSXElement | | | Icon content. Also acts as a fallback while the image is loading |
 | imgProps | Omit<HTMLImageAttributes,'alt'> |              |            | Image props, in particular image src url |
-| altContent | string \| JSXElement | | An alternate content to be shown in case the content is an image and it hasn't been loaded yet, or there was an error loading it.
-| srcSet | | | | TODO: We should consider how the consumer can provide a set of image sources for different sizes|
-| component | oneOfType([string, func]) | 'div' | | | The component used for the root node. Either a string to use a DOM element or a component. |
-| other* | | | | This is not a prop called `other`, it means that any other (e.g. `{...rest}`) props will be rendered onto the components root |
-| title | string | | | If undefined but `name` exists, then defaults to value of `name`
-| aria-label | string | "Avatar"| | If undefined but `name` exists, then defaults to "`Avatar for ${name}`"
+| title | string | props.name   | | If undefined but `name` exists, then defaults to value of `name`
+| aria-label | string | "Avatar for ${props.name}"| | |
+| tabIndex | number | 0 | | |
 
 ## Name / title / aria-label
 
@@ -97,10 +95,9 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 
 | selector          | description                        | type | children pseudo-states |
 | ----------------- | ---------------------------------- | ---- | ---------------------- |
-| ::container       | Allows styling the background      |      |                        |
-| ::image-container | Allows styling the image container |      |                        |
-| ::icon-container  | Allows styling the icon container  |      |                        |
-| ::initials        | Allows styling the text            | p    |                        |
+| ::contentImage | Allows styling the image container |      |                        |
+| ::contentIcon  | Allows styling the icon container  |      |                        |
+| ::contentInitials | Allows styling the text         |      |                        |
 
 ### Style Code Example
 
@@ -115,12 +112,11 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 .avatar {
   -st-extends: Avatar;
 }
-.avatar::text-container {
+.avatar::contentText {
   color: red;
 }
 ```
 
 ## Accessibility & Keyboard Navigation
 
-The root will have `tabIndex = 0` by default meaning it will be focusable and part of the keyboard navigation flow.<br>
-The root should have an `aria-label={"Avatar for "+ name}`<br>
+See `tabIndex` and `aria-label` props.
