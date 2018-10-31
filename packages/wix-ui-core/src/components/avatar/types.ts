@@ -1,0 +1,1 @@
+export type ContentType = 'initials' | 'icon' | 'image';

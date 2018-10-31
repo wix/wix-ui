@@ -1,14 +1,18 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
+
+// Core Stories
 import { PaginationStory } from "./Pagination/pagination-story";
 import { DividerStory } from "./Divider/divider-story";
 import { GoogleMapsIframeClientStory } from "./clients/GoogleMapsIframeClient-story";
 import { CheckboxStory } from "./Checkbox/Checkbox-story";
 import { TooltipStory } from "./Tooltip/custom";
 import { RadioButtonStory } from "./RadioButton";
-import ButtonsStory from "./backoffice/button-next";
 import EllipsedText from "./EllipsedTooltip";
 import Focusable from "./Focusable";
+
+// Backoffice Stories
+import ButtonsStory from "./backoffice/button-next";
 
 const Components = storiesOf("Components", module);
 const Backoffice = storiesOf("Backoffice", module);
@@ -18,6 +22,7 @@ const HOCs = storiesOf("HOCs", module);
 import "./AddressInput/index.story";
 import "./AddressInput/E2E";
 import "./Autocomplete.story";
+import "./avatar/avatar.story";
 import "./Button.story";
 import "../src/components/button-next/button-next.story";
 Components.add("Checkbox", () => <CheckboxStory />);
