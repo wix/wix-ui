@@ -13,7 +13,7 @@ import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
 import {mount} from 'enzyme';
 import {addressInputTestkitFactory} from '../../testkit';
 import {addressInputTestkitFactory as enzymeAddressInputTestkitFactory} from '../../testkit/enzyme';
-import {AddressInputPrivateDriver} from "./AddressInput.private.driver";
+import {AddressInputPrivateDriver} from './AddressInput.private.driver';
 
 describe('AddressInput', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();

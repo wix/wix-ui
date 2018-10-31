@@ -6,7 +6,7 @@ import {generateOptions} from '../DropdownOption/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
-import {OptionFactory} from "../DropdownOption";
+import {OptionFactory} from '../DropdownOption';
 
 describe('InputWithOptions', () => {
   const createDriver =

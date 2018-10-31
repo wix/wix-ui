@@ -1,8 +1,8 @@
-import { UniDriver } from "unidriver";
+import { UniDriver } from 'unidriver';
 import {
   buttonNextDriverFactory as publicButtonDriver,
   ButtonNextDriver
-} from "./button-next.driver";
+} from './button-next.driver';
 
 export interface ButtonNextPrivateDriver extends ButtonNextDriver {
   suffixExists: () => Promise<boolean>;

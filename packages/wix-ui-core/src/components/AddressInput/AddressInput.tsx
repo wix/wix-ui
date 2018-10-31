@@ -322,7 +322,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const options = this._options();
 
         const inputProps = {
-            'aria-label': this.props["aria-label"],
+            'aria-label': this.props['aria-label'],
             onChange: this._handleOnChange,
             onKeyDown,
             onFocus,

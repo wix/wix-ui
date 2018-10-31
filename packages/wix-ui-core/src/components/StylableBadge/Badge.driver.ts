@@ -1,4 +1,4 @@
-import { ComponentFactory, BaseDriver } from "wix-ui-test-utils/driver-factory";
+import { ComponentFactory, BaseDriver } from 'wix-ui-test-utils/driver-factory';
 
 export interface BadgeDriver extends BaseDriver {
   /** returns elements innerHtml */

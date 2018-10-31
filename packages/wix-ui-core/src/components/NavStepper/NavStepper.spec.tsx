@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import {NavStepperDriver} from "./NavStepper.driver";
-import {NavStepper} from "./NavStepper";
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import {NavStepperDriver} from './NavStepper.driver';
+import {NavStepper} from './NavStepper';
 
 describe('NavStepper', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();

@@ -154,7 +154,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         options={this._filterOptions()}
         timeout={timeout}
         multi={multi}
-        role='combobox'
+        role="combobox"
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
         id={id}

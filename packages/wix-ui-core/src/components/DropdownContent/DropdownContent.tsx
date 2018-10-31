@@ -136,7 +136,7 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       >
         {fixedHeader}
         <div
-          role='listbox'
+          role="listbox"
           className={style.optionsContainer}
           ref={optionsContainer => this.optionsContainerRef = optionsContainer}
         >

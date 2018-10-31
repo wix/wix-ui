@@ -1,11 +1,11 @@
-import * as React from "react";
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
+import * as React from 'react';
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
-import { ButtonNext } from "../../../../../src/components/button-next";
+import { ButtonNext } from '../../../../../src/components/button-next';
 import {
   textButton,
   backofficeTheme
-} from "../../../../../src/themes/backoffice";
+} from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -26,9 +26,9 @@ export default () => (
 );`;
 
 const underlined = textButton(`underlined`);
-const lightUnderlined = textButton(`light`, "underlined");
-const premiumUnderlined = textButton(`premium`, "underlined");
-const darkUnderlined = textButton(`dark`, "underlined");
+const lightUnderlined = textButton(`light`, 'underlined');
+const premiumUnderlined = textButton(`premium`, 'underlined');
+const darkUnderlined = textButton(`dark`, 'underlined');
 
 const description = (
   <div>
@@ -52,8 +52,8 @@ export const TextButtonUnderlined = ({ style }: TextButtonUnderlinedProps) => (
     <ButtonNext className={underlined}>standard</ButtonNext>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
-        padding: "2px"
+        background: 'rgb(91, 127, 164)',
+        padding: '2px'
       }}
     >
       <ButtonNext className={lightUnderlined}>light</ButtonNext>

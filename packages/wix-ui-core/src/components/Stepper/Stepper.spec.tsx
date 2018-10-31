@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import {Stepper} from "./Stepper";
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import {Stepper} from './Stepper';
 
 describe('Stepper', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();
