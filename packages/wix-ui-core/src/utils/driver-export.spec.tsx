@@ -17,14 +17,14 @@ describe('Components drivers exports', () => {
     for (let i = 0; i < exportedDrivers.length; i++) { 
         if (!componentsWithoutDrivers.includes(exportedDrivers[i])){
             it(`include ${exportedDrivers[i]} exported path`, async () => {
-                const { [exportedDrivers[i]]: testedExport } = await import('../../drivers/vanilla');
-                expect(testedExport).toBeDefined();
+                const { [exportedDrivers[i]]: testedVanillaExport } = await import('../../drivers/vanilla');
+                expect(testedVanillaExport).toBeDefined();
             });
     
             if (!componentsWithoutProtractorDrivers.includes(exportedDrivers[i])){
                 it(`include ${exportedDrivers[i]} protractor exported path`, async () => {
-                    const { [exportedDrivers[i]]: testedProtractorDriverExport} = await import('../../drivers/protractor');
-                    expect(testedProtractorDriverExport).toBeDefined();
+                    const { [exportedDrivers[i]]: testedProtractorExport} = await import('../../drivers/protractor');
+                    expect(testedProtractorExport).toBeDefined();
                 });
             };
         };
