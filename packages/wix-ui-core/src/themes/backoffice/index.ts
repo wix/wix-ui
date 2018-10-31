@@ -1,5 +1,6 @@
 import classNames from "classnames";
 
+import Avatar from "./avatar/avatar.st.css";
 import ButtonNext from "./button/button-temp.st.css";
 import IconButton from "./icon-button/icon-button.st.css";
 import TextButton from "./text-button/text-button.st.css";
@@ -11,6 +12,8 @@ const getClassNames = (values, stylesheet, rootcls) => {
   return classNames(stylesheet[rootcls], clsArray);
 };
 
+export const avatar = (...values) =>
+  getClassNames(values, Avatar, "avatar");
 export const buttonNext = (...values) =>
   getClassNames(values, ButtonNext, "button");
 export const iconButton = (...values) =>

@@ -12,6 +12,7 @@ import EllipsedText from "./EllipsedTooltip";
 import Focusable from "./Focusable";
 
 // Backoffice Stories
+import AvatarStory from "./backoffice/avatar";
 import ButtonsStory from "./backoffice/button-next";
 
 const Components = storiesOf("Components", module);
@@ -51,4 +52,5 @@ HOCs.add("EllipsedTooltip", EllipsedText);
 HOCs.add("Focusable", Focusable);
 
 // BackOffice Theme
+Backoffice.add("WIP - Avatar", AvatarStory);
 Backoffice.add("Buttons", ButtonsStory);
