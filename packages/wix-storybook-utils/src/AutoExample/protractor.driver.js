@@ -40,7 +40,7 @@ module.exports = {
 
       const args = Object.keys(componentProps).reduce((allProps, key) => {
         const { parser } = parsers.find(({ rule }) => rule(allProps[key]));
-        props[key] = parser(allProps[key]);
+        allProps[key] = parser(allProps[key]);
         return allProps;
       }, componentProps);
 
