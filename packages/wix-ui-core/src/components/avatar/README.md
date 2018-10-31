@@ -7,19 +7,32 @@ Avatar is a type of element that visually represents a user, either as an image,
 
 Elements are "container" and "content". The conent could be classified to either "text", "image" or "icon".
 
+## Use Cases
+>When stating user crendentials we mean : name, icon (loaded) or imageUrl.
+
+| Consumer scenario | Consumer display options | Image loading | Image loaded |
+|-------------------|-------------------|--|--|
+| no credentials | Placeholder: [ text \| icon \|  image ] | altContent
+| credentials - no imageUrl   | [ text \| icon ] |
+| credentials - with imageUrl  | [ text \| icon \|  image ] | altContent | Image |
+
+> altContent - may be [ text | icon |  image ]
+
 ## API
 
 #### Component Props
 
 | name     | type                | defaultValue | isRequired | description          |
 | -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
-| name | string |  | Yes        | Will be used as default text value for the html `title` attribute of the root element. Also as default value for `aria-label`. The name of the avatar user. Initials will be generated from the name and used as default content.  |
+| name | string |  |         | Will be used as default text value for the html `title` attribute of the root element. Also as default value for `aria-label`. The name of the avatar user. Initials will be generated from the name and used as default content.  |
 | children | string \| JSX Element | | | If string, then renders text, usually initials of the name in the `title`. Should be short 2-3 characters. A JSX Element may be passed for rendering SVG icons. |
 | imgProps | Omit<HTMLImageAttributes,'alt'> |              |            | Image props, in particular image src url |
 | altContent | string \| JSXElement | | An alternate content to be shown in case the content is an image and it hasn't been loaded yet, or there was an error loading it.
 | srcSet | | | | TODO: We should consider how the consumer can provide a set of image sources for different sizes|
 | component | oneOfType([string, func]) | 'div' | | | The component used for the root node. Either a string to use a DOM element or a component. |
 | other* | | | | This is not a prop called `other`, it means that any other (e.g. `{...rest}`) props will be rendered onto the components root |
+| title | string | | | If undefined but `name` exists, then defaults to value of `name`
+| aria-label | string | "Avatar"| | If undefined but `name` exists, then defaults to "`Avatar for ${name}`"
 
 ## Name / title / aria-label
 
