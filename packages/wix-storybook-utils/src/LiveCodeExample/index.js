@@ -87,7 +87,7 @@ export default class LiveCodeExample extends Component {
             <ToggleSwitch
               size="small"
               checked={isRtl}
-              onChange={e => this.onToggleRtl(e.target.checked)}
+              onChange={this.onToggleRtl}
             />
           </div>
 
@@ -96,7 +96,7 @@ export default class LiveCodeExample extends Component {
             <ToggleSwitch
               size="small"
               checked={isDarkBackground}
-              onChange={e => this.onToggleBackground(e.target.checked)}
+              onChange={this.onToggleBackground}
             />
           </div>
 
