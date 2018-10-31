@@ -11,8 +11,9 @@ const formattDriverExport = driverPath => {
 
 describe('Components drivers exports', () => {
     const exportedDrivers = glob.sync('./src/components/*').map(driverPath => formattDriverExport(driverPath))
-    const componentsWithoutDrivers = ['avatarDriverFactory', 'stepperDriverFactory', 'stylableBadgeDriverFactory', 'videoDriverFactory']
-    const componentsWithoutProtractorDrivers = ['iconWithOptionsDriverFactory', 'menuItemDriverFactory', 'buttonNextDriverFactory']
+    const componentsWithoutDrivers = ['avatarDriverFactory', 'stepperDriverFactory', 'stylableBadgeDriverFactory', 'videoDriverFactory'];
+    const componentsWithoutProtractorDrivers = ['iconWithOptionsDriverFactory', 'menuItemDriverFactory', 'buttonNextDriverFactory'];
+
     for (let i = 0; i < exportedDrivers.length; i++) { 
         if (!componentsWithoutDrivers.includes(exportedDrivers[i])){
             it(`include ${exportedDrivers[i]} exported path`, async () => {
@@ -25,7 +26,7 @@ describe('Components drivers exports', () => {
                     const { [exportedDrivers[i]]: testedProtractorDriverExport} = await import('../../drivers/protractor');
                     expect(testedProtractorDriverExport).toBeDefined();
                 });
-            }
-        }
+            };
+        };
      };
 });
