@@ -10,6 +10,6 @@
     "space-in-brackets": ["error", "always"],
     "arrow-parens": [true, "ban-single-arg-parens"],
     "array-bracket-spacing": [true, "never"],
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single", "jsx-double"]
   }
 }
