@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as hoistNonReactStatics from "hoist-non-react-statics";
-import { getDisplayName } from "../utils";
-import styles from "./Focusable.st.css";
+import * as React from 'react';
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
+import { getDisplayName } from '../utils';
+import styles from './Focusable.st.css';
 
 type SubscribeCb = () => void;
 
@@ -10,16 +10,16 @@ type SubscribeCb = () => void;
  */
 const inputMethod = new class {
   // Default is keyboard in case an element is focused programmatically.
-  method: "mouse" | "keyboard" = "keyboard";
+  method: 'mouse' | 'keyboard' = 'keyboard';
   subscribers: Map<any, SubscribeCb> = new Map();
 
   constructor() {
-    if (typeof window !== "undefined") {
-      window.addEventListener("mousedown", () => this.setMethod("mouse"));
-      window.addEventListener("keydown", () => this.setMethod("keyboard"));
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousedown', () => this.setMethod('mouse'));
+      window.addEventListener('keydown', () => this.setMethod('keyboard'));
       // We need to listen on keyUp, in case a TAB is made from the browser's address-bar,
       // so the keyDown is not fired, only the keyUp.
-      window.addEventListener("keyup", () => this.setMethod("keyboard"));
+      window.addEventListener('keyup', () => this.setMethod('keyboard'));
     }
   }
 
@@ -31,7 +31,7 @@ const inputMethod = new class {
   /**
    * Is the current input method `keyboard`. if `false` is means it is `mouse`
    */
-  isKeyboard = () => this.method === "keyboard";
+  isKeyboard = () => this.method === 'keyboard';
 
   setMethod(method) {
     if (method !== this.method) {
@@ -104,10 +104,10 @@ export const withFocusable = Component => {
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
           {...styles(
-            "root",
+            'root',
             {
               focus: this.state.focus,
-              "focus-visible": this.state.focusVisible
+              'focus-visible': this.state.focusVisible
             },
             this.props
           )}

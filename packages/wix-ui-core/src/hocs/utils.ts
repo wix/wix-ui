@@ -1,5 +1,5 @@
 export const getDisplayName = Component => {
-  if (typeof Component === "string") {
+  if (typeof Component === 'string') {
     return Component;
   }
 
@@ -7,5 +7,5 @@ export const getDisplayName = Component => {
     return undefined;
   }
 
-  return Component.displayName || Component.name || "Component";
+  return Component.displayName || Component.name || 'Component';
 };
