@@ -11,16 +11,28 @@ Elements are "container" and content, which could be classified to either "text"
 
 #### Component Props
 
-| name     | type                | defaultValue | isRequired | description                                                           |
-| -------- | ------------------- | ------------ | ---------- | --------------------------------------------------------------------- |
-| name     | string              |              | Yes        | The name of the avatar user. Initials will be generated from the name |
-| imgProps | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                     |
-| icon     | JSX Element         |              |            | an SVG icon component                                                 |
-| tabIndex | number              | 0            |            | the tabIndex value to put on the root                                 |
+| name      | type                             | defaultValue | isRequired | description                                                            |
+|:----------|:---------------------------------|:-------------|:-----------|:-----------------------------------------------------------------------|
+| name      | string                           |              |            | The name of the avatar user. Initials will be generated from the name  |
+| imgProps  | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                      |
+| icon      | JSX Element                      |              |            | an SVG icon component                                                  |
+| text      | string                      |              |            | raw text to display as content                                                  |
+| tabIndex  | number                           | 0            |            | the `tabIndex` value to put on the root                                |
+| title     | string                           | 0            |            | the `title` attribute to put on the root. Defaults to `name` prop      |
+| ariaLabel | string                           | 0            |            | the `aria-label` attribute to put on the root. Defaults to `name` prop |
+
 
 ## General Behavior
 
-this component will display content based on the props provided. For example, if `imgProps` is provided (and successfully loaded), it will display an image as content. If more than one type of content prop is provided, it will first attempt to load the image then icon and lastly initials.<br>
+this component will display content based on the props provided:
+* If `imgProps` is provided (and successfully loaded), it will display an image as content with the provided properties.
+* If an element is provided in `icon` it will display it.
+* If `text` is provided it will display the string.
+* If none of the above props is provided, the component will convert `name` to initials and display that.
+
+Alternative content:<br>
+If image fails to load, the component will display either `icon` or `text` or `name` initials, in that order.
+This alternative will also be shown while image in loading state.
 
 name conversion examples:
 <br/> John Doe --> JD
@@ -29,13 +41,9 @@ name conversion examples:
 
 ## Technical Considerations
 
-The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided adn `onError` handler in `imgProps`, it will be called as well.<br>
+The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
 
-<br> The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
-
-<br>`name` prop will also be used as `title` on elements to have native browser description tooltip.  
-
-<br>additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers. Examples TBD
+<br>additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers.
 
 ### React Code Example
 
@@ -55,7 +63,8 @@ export class ComponentsDemo extends React.Component<{}, {}>{
             <div>
                 <Avatar
                     className={style.avatar}
-                    name="John Doe"
+                    name="John H. Doe"
+                    text="Doe"
                     imgProps={{
                         srcset="elva-fairy-320w.jpg 320w, elva-fairy-800w.jpg 800w"
                         sizes="(max-width: 320px) 280px, 800px"
@@ -74,11 +83,11 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 #### Subcomponents (pseudo-elements)
 
 | selector          | description                        | type | children pseudo-states |
-| ----------------- | ---------------------------------- | ---- | ---------------------- |
-| ::container       | Allows styling the background      |      |                        |
-| ::image-container | Allows styling the image container |      |                        |
-| ::icon-container  | Allows styling the icon container  |      |                        |
-| ::initials        | Allows styling the text            | p    |                        |
+|:------------------|:-----------------------------------|:-----|:-----------------------|
+| root       | Allows styling the background      |      |                        |
+| ::image | Allows styling the image container |      |                        |
+| ::icon  | Allows styling the icon container  |      |                        |
+| ::text  | Allows styling the text            |     |                        |
 
 ### Style Code Example
 
@@ -101,5 +110,4 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 ## Accessibility & Keyboard Navigation
 
 The root will have `tabIndex = 0` by default meaning it will be focusable and part of the keyboard navigation flow.<br>
-The root should have an `aria-label={"Avatar for "+ name}`<br>
-
+If no  `ariaLabel` prop is provided `aria-label={this.props.name}` will be put on the root<br>
