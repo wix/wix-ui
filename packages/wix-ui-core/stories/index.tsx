@@ -23,6 +23,7 @@ const HOCs = storiesOf('HOCs', module);
 import './AddressInput/index.story';
 import './AddressInput/E2E';
 import './Autocomplete.story';
+import '../src/components/avatar/avatar.story';
 import './Button.story';
 import '../src/components/button-next/button-next.story';
 Components.add('Checkbox', () => <CheckboxStory />);

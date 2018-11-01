@@ -23,17 +23,13 @@
   -st-named: h6;
 }
 
-.avatar {
-  -st-extends: Avatar;
-}
-
 :vars {
   gradientRotation: 225deg;
   backgroundGradientBlue: linear-gradient(value(gradientRotation), #389aec, #4ebcf5);
   defaultBackgroundImage: value(backgroundGradientBlue);
 }
 
-BackofficeTheme .avatar {
+BackofficeTheme Avatar {
   outline: none;
 
   background-color: value(B40);
@@ -46,92 +42,92 @@ BackofficeTheme .avatar {
 }
 
 /* Colors */
-BackofficeTheme .avatar.colorBlue {
+BackofficeTheme Avatar.colorBlue {
   background-image: value(backgroundGradientBlue);
 }
 
-BackofficeTheme .avatar.colorGreen {
+BackofficeTheme Avatar.colorGreen {
   background-image: linear-gradient(value(gradientRotation), #4eb968, #5bca90);
 }
 
-BackofficeTheme .avatar.colorGrey {
+BackofficeTheme Avatar.colorGrey {
   background-image: linear-gradient(value(gradientRotation), #6f819d 4%, #829bb0);
 }
 
-BackofficeTheme .avatar.colorRed {
+BackofficeTheme Avatar.colorRed {
   background-image: linear-gradient(value(gradientRotation), #ee6a51, #ff6686);
 }
 
-BackofficeTheme .avatar.colorOrange {
+BackofficeTheme Avatar.colorOrange {
   background-image: linear-gradient(value(gradientRotation), #fb6b33, #ffaf48);
 }
 
 /* Sizes */
-BackofficeTheme .avatar.size90 {
+BackofficeTheme Avatar.size90 {
   height: 90px;
   width: 90px;
   border-radius: 45px;
 }
 
-BackofficeTheme .avatar.size72 {
+BackofficeTheme Avatar.size72 {
   height: 72px;
   width: 72px;
   border-radius: 36px;
 }
 
-BackofficeTheme .avatar.size60 {
+BackofficeTheme Avatar.size60 {
   height: 60px;
   width: 60px;
   border-radius: 36px;
 }
 
-BackofficeTheme .avatar.size48 {
+BackofficeTheme Avatar.size48 {
   height: 48px;
   width: 48px;
   border-radius: 30px;
 }
 
-BackofficeTheme .avatar.size36 {
+BackofficeTheme Avatar.size36 {
   height: 36px;
   width: 36px;
   border-radius: 21px;
 }
 
-BackofficeTheme .avatar.size30 {
+BackofficeTheme Avatar.size30 {
   height: 30px;
   width: 30px;
   border-radius: 15px;
 }
 
-BackofficeTheme .avatar.size24 {
+BackofficeTheme Avatar.size24 {
   height: 24px;
   width: 24px;
   border-radius: 12px;
 }
 
-BackofficeTheme .avatar.size18 {
+BackofficeTheme Avatar.size18 {
   height: 18px;
   width: 18px;
   border-radius: 12px;
 }
 
 /* Sizes text */
-BackofficeTheme .avatar::contentText {
+BackofficeTheme Avatar::contentText {
   -st-mixin: sizeSmall, weightBold;
 }
 
-BackofficeTheme .avatar.size90::contentText,
-BackofficeTheme .avatar.size72::contentText  {
+BackofficeTheme Avatar.size90::contentText,
+BackofficeTheme Avatar.size72::contentText  {
   -st-mixin: sizeMedium;
 }
 
-BackofficeTheme .avatar.size36::contentText,
-BackofficeTheme .avatar.size30::contentText  {
+BackofficeTheme Avatar.size36::contentText,
+BackofficeTheme Avatar.size30::contentText  {
   -st-mixin: h6;
 }
 
-BackofficeTheme .avatar.size24::contentText,
-BackofficeTheme .avatar.size18::contentText  {
+BackofficeTheme Avatar.size24::contentText,
+BackofficeTheme Avatar.size18::contentText  {
   visibility: hidden;
 }
 
