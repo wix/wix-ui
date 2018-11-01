@@ -1,14 +1,13 @@
-import {Avatar} from '../../src/components/avatar';
+import {Avatar} from '.';
 import {
   avatar,
-} from "../../src/themes/default";
-
+} from "../../themes/default";
 
 export default {
   category: 'Components',
   storyName: 'WIP - Avatar',
   component: Avatar,
-  componentPath: '../../src/components/Avatar/Avatar.tsx',
+  componentPath: 'avatar.tsx',
 
   componentProps: {
     name: 'John Doe',
