@@ -1,1 +1,1 @@
-export type ContentType = 'initials' | 'icon' | 'image';
+export type ContentType = 'text' | 'icon' | 'image';

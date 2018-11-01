@@ -13,8 +13,8 @@ describe("Avatar", () => {
   describe(`'name' prop`, () => {
     it("should render generated initials as text content", async () => {
       const driver = createDriver(<Avatar name='John Doe' />);
-      expect(await driver.getInitialsContent()).toBe('JD');
-      expect(await driver.isContentType('initials')).toBe(true);
+      expect(await driver.getTextContent()).toBe('JD');
+      expect(await driver.isContentType('text')).toBe(true);
     });
   });
 
@@ -34,9 +34,9 @@ describe("Avatar", () => {
   });
 
   describe(`content type resolution`, () => {
-    it("should render an initials", async () => {
-      const driver = createDriver(<Avatar initials='JD' />);
-      expect(await driver.isContentType('initials')).toBe(true);
+    it("should render an text", async () => {
+      const driver = createDriver(<Avatar text='JD' />);
+      expect(await driver.isContentType('text')).toBe(true);
     });
 
     it("should render an icon", async () => {

@@ -15,7 +15,7 @@ function getByDataHook(base: UniDriver, dataHook: string) {
 export interface AvatarDriver extends BaseUniDriver {
   /** returns text content driver */
   isContentType: (type: ContentType) => Promise<boolean>;
-  getInitialsContent: ()=> Promise<string>;
+  getTextContent: ()=> Promise<string>;
   getIconContent: ()=> UniDriver<HTMLElement>;
   getImageContent: ()=> UniDriver<HTMLImageElement>;
   isImageTagExists: ()=> Promise<boolean>
@@ -28,7 +28,7 @@ export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
   return {
     ...baseUniDriverFactory(base),
     isContentType: (type: ContentType)=> getContentType(type).exists(),
-    getInitialsContent: () => getContentType('initials').text(),
+    getTextContent: () => getContentType('text').text(),
     getIconContent: () => getContentType('icon'),
     getImageContent: () => getContentType('image'),
     isImageTagExists: () => base.$('img').exists()
