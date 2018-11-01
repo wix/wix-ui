@@ -34,7 +34,7 @@ export const Avatar : React.SFC<AvatarProps> = props =>  {
     undefined;
   
   return (
-      <div {...rest} {...style("root", {}, props)}>
+      <div {...rest} {...style('root', {}, props)}>
         {getContent(contentType, props)}
       </div>
     );
@@ -48,19 +48,26 @@ function getContent(contentType: ContentType, props: AvatarProps): React.ReactEl
       // TODO: Make initials logic more robust and tested.
       const textContent = text || name.split(' ').map(s=>s[0]).join('');
       return (
-        <div className={style.contentText} data-hook="content-text">
+        <div className={style.text} data-hook="content-text">
           {textContent}
         </div>
       );
     }
 
     case 'icon': {
-      return React.cloneElement(props.icon, {['data-hook']: 'content-icon'});
+      return React.cloneElement(props.icon, {
+        ['data-hook']: 'content-icon',
+        className:style.icon
+      });
     }
 
     case 'image': {
       return (
-        <img data-hook="content-image" {...props.imgProps}/>
+        <img 
+          {...props.imgProps}
+          data-hook="content-image"
+          className={style.image}
+        />
       );
     }
   }
