@@ -1,15 +1,15 @@
-import * as React from "react";
-import { ReactDOMTestContainer } from "../../../test/dom-test-container";
-import { ButtonNext } from "./";
-import { buttonNextPrivateDriverFactory } from "./button-next.driver.private";
+import * as React from 'react';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { ButtonNext } from './';
+import { buttonNextPrivateDriverFactory } from './button-next.driver.private';
 
-describe("ButtonNext", () => {
+describe('ButtonNext', () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
 
   describe(`'onClick' prop`, () => {
-    it("should be called on click", async () => {
+    it('should be called on click', async () => {
       const onClick = jest.fn();
       const driver = createDriver(<ButtonNext onClick={onClick} />);
       await driver.click();
@@ -25,8 +25,8 @@ describe("ButtonNext", () => {
   });
 
   describe(`'children' prop`, () => {
-    it("should render text", async () => {
-      const text = "button";
+    it('should render text', async () => {
+      const text = 'button';
       const driver = createDriver(<ButtonNext children={text} />);
       expect(await driver.getButtonTextContent()).toBe(text);
     });

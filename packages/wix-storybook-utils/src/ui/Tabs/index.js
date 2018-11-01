@@ -6,14 +6,14 @@ import styles from './styles.scss';
 
 const Tabs = props => (
   <div className={styles.container}>
-    <TabItems {...props}/>
+    <TabItems {...props} />
   </div>
 );
 
 Tabs.propTypes = {
   activeId: PropTypes.string,
   items: PropTypes.array,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default Tabs;

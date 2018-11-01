@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 import Avatar from "./avatar/avatar.st.css";
 import ButtonNext from "./button/button-temp.st.css";
@@ -15,11 +15,11 @@ const getClassNames = (values, stylesheet, rootcls) => {
 export const avatar = (...values) =>
   getClassNames(values, Avatar, "avatar");
 export const buttonNext = (...values) =>
-  getClassNames(values, ButtonNext, "button");
+  getClassNames(values, ButtonNext, 'button');
 export const iconButton = (...values) =>
-  getClassNames(values, IconButton, "iconButton");
+  getClassNames(values, IconButton, 'iconButton');
 export const textButton = (...values) =>
-  getClassNames(values, TextButton, "textButton");
+  getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>
-  getClassNames(values, CloseButton, "closeButton");
+  getClassNames(values, CloseButton, 'closeButton');
 export const backofficeTheme = BackofficeTheme.root;

@@ -2,21 +2,18 @@ import React from 'react';
 
 import Tooltip from '../../../Tooltip';
 import * as TabPropTypes from '../constants/tab-prop-types';
-import {getWidth} from '../utils';
-
+import { getWidth } from '../utils';
 
 const withTooltip = WrappedComponent => {
-
   const VERTICAL_PADDING = 18;
 
   class Wrapper extends React.Component {
-
     state = {
-      hasTooltip: false
+      hasTooltip: false,
     };
 
     initHasTooltip(content) {
-      const {type} = this.props;
+      const { type } = this.props;
 
       if (!content || type !== 'compactSide') {
         return;
@@ -24,26 +21,36 @@ const withTooltip = WrappedComponent => {
 
       const hasTooltip = getWidth(content) > getWidth(content.parentElement);
       if (this.state.hasTooltip !== hasTooltip) {
-        this.setState({hasTooltip});
+        this.setState({ hasTooltip });
       }
     }
 
     withTooltipProperties(component, key) {
-      const tooltipProperties = ['onMouseEnter', 'onMouseLeave', 'onFocus', 'onBlur'];
-      return React.cloneElement(component, {[key]: tooltipProperties});
+      const tooltipProperties = [
+        'onMouseEnter',
+        'onMouseLeave',
+        'onFocus',
+        'onBlur',
+      ];
+      return React.cloneElement(component, { [key]: tooltipProperties });
     }
 
     withTooltip(component) {
-      const {id, title} = this.props.item;
+      const { id, title } = this.props.item;
       return (
-        <Tooltip key={id} content={title} moveBy={{y: VERTICAL_PADDING}}>
+        <Tooltip key={id} content={title} moveBy={{ y: VERTICAL_PADDING }}>
           {this.withTooltipProperties(component, 'dynamicProperties')}
         </Tooltip>
       );
     }
 
     renderWrappedComponent() {
-      return <WrappedComponent {...this.props} initHasTooltip={el => this.initHasTooltip(el)}/>;
+      return (
+        <WrappedComponent
+          {...this.props}
+          initHasTooltip={el => this.initHasTooltip(el)}
+        />
+      );
     }
 
     render() {
@@ -54,7 +61,7 @@ const withTooltip = WrappedComponent => {
 
   Wrapper.propTypes = {
     type: TabPropTypes.type,
-    item: TabPropTypes.item.isRequired
+    item: TabPropTypes.item.isRequired,
   };
 
   return Wrapper;

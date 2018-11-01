@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../../src/components/button-next";
-import { backofficeTheme } from "../../../../../src/themes/backoffice";
-import { textButton } from "../../../../../src/themes/backoffice";
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
+import { ButtonNext } from '../../../../../src/components/button-next';
+import { backofficeTheme } from '../../../../../src/themes/backoffice';
+import { textButton } from '../../../../../src/themes/backoffice';
 
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -35,7 +35,7 @@ export const TextButtonSizes = ({ style }: TextButtonSizesProps) => (
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext className={textButton("small")}>small</ButtonNext>
+    <ButtonNext className={textButton('small')}>small</ButtonNext>
     <ButtonNext className={textButton()}>medium</ButtonNext>
   </CodeShowcase>
 );

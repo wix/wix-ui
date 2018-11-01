@@ -9,21 +9,20 @@ describe('AutoExample', () => {
         parsedSource: {
           displayName: 'TestComponent',
           props: {
-            stringProp: {type: {name: 'string'}},
-            functionProp: {type: {name: 'func'}}
-          }
+            stringProp: { type: { name: 'string' } },
+            functionProp: { type: { name: 'func' } },
+          },
         },
         componentProps: {
-          stringProp: ''
+          stringProp: '',
         },
         exampleProps: {
-          functionProp: () => ''
-        }
+          functionProp: () => '',
+        },
       });
-      const [prop1, prop2] = testkit.get.options();
-
-      expect(prop1.props.label).toBe('stringProp');
-      expect(prop2.props.label).toBe('functionProp');
+      const options = testkit.get.options();
+      expect(options.at(0).prop('label')).toBe('stringProp');
+      expect(options.at(1).prop('label')).toBe('functionProp');
     });
 
     it('should categorize aria props', () => {
@@ -32,15 +31,15 @@ describe('AutoExample', () => {
         parsedSource: {
           displayName: 'TestComponent',
           props: {
-            'aria-label': {type: {name: 'string'}},
-            'Aria-required': {type: {name: 'bool'}},
-            ariaDisabled: {type: {name: 'bool'}},
-            'anything-else': {type: {name: 'string'}}
-          }
+            'aria-label': { type: { name: 'string' } },
+            'Aria-required': { type: { name: 'bool' } },
+            ariaDisabled: { type: { name: 'bool' } },
+            'anything-else': { type: { name: 'string' } },
+          },
         },
         componentProps: {
-          'anything-else': 'test'
-        }
+          'anything-else': 'test',
+        },
       });
 
       // expeting only 1 because others should be collapsed
@@ -55,12 +54,12 @@ describe('AutoExample', () => {
         parsedSource: {
           displayName: 'TestComponent',
           props: {
-            functionProp: {type: {name: 'func'}}
-          }
+            functionProp: { type: { name: 'func' } },
+          },
         },
         exampleProps: {
-          functionProp: () => {}
-        }
+          functionProp: () => {},
+        },
       });
 
       const option = testkit.get.options().props();
@@ -74,13 +73,13 @@ describe('AutoExample', () => {
           displayName: 'TestComponent',
           props: {
             someProp: {
-              type: {name: 'unknown type name, something really obscure'}
-            }
-          }
+              type: { name: 'unknown type name, something really obscure' },
+            },
+          },
         },
         exampleProps: {
-          someProp: [1, 2, 3, 4, 5]
-        }
+          someProp: [1, 2, 3, 4, 5],
+        },
       });
 
       const option = testkit.get.options().props();
@@ -92,7 +91,7 @@ describe('AutoExample', () => {
     it('should not render when `false`', () => {
       const testkit = new Testkit(AutoExample);
       testkit.when.created({
-        codeExample: false
+        codeExample: false,
       });
       expect(testkit.get.codeBlock().length).toEqual(0);
     });

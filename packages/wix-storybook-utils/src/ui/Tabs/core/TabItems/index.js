@@ -9,7 +9,7 @@ import styles from '../../styles.scss';
 
 class TabItems extends React.Component {
   renderItem(item) {
-    const {activeId, type, width, onClick, itemMaxWidth} = this.props;
+    const { activeId, type, width, onClick, itemMaxWidth } = this.props;
     return (
       <TabItem
         key={item.id}
@@ -25,14 +25,14 @@ class TabItems extends React.Component {
   }
 
   render() {
-    const {items, type, dataHook} = this.props;
+    const { items, type, dataHook } = this.props;
     const className = classNames(styles.itemsContainer, styles[type]);
 
     return (
       <ul
         className={className}
         data-hook={dataHook}
-        style={{minWidth: this.props.minWidth}}
+        style={{ minWidth: this.props.minWidth }}
       >
         {items.map(item => this.renderItem(item))}
       </ul>
@@ -48,7 +48,7 @@ TabItems.propTypes = {
   minWidth: TabPropTypes.width,
   type: TabPropTypes.type,
   width: TabPropTypes.width,
-  onClick: TabPropTypes.onClick
+  onClick: TabPropTypes.onClick,
 };
 
 export default withItemMaxWidth(TabItems);

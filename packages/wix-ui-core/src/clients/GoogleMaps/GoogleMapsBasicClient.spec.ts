@@ -1,9 +1,18 @@
 import { GoogleMapsBasicClient } from './GoogleMapsBasicClient';
-import * as flushPromises from 'flush-promises';
 
 const LANG = 'en';
 const CLIENT_ID = 'client-id';
 const EXPECTED_URL = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
+
+const scheduler =
+  typeof setImmediate === 'function'
+    ? data => setImmediate(data)
+    : data => setTimeout(data);
+
+const flushPromises = () =>
+  new Promise(resolve => {
+    scheduler(resolve);
+  });
 
 describe('GoogleMapsBasicClient', () => {
   const appendChildSpy = jest
@@ -26,20 +35,20 @@ describe('GoogleMapsBasicClient', () => {
           geometry: {
             location: {
               lat: () => 1,
-              lng: () => 2,
-            },
-          },
-        },
+              lng: () => 2
+            }
+          }
+        }
       ];
       setTimeout(() => callback(result, getStatus()), 10);
     });
     (window as any).google = {
       maps: {
         places: {
-          AutocompleteService: jest.fn(() => ({ getPlacePredictions })),
+          AutocompleteService: jest.fn(() => ({ getPlacePredictions }))
         },
-        Geocoder: jest.fn(() => ({ geocode })),
-      },
+        Geocoder: jest.fn(() => ({ geocode }))
+      }
     };
     return { mock: (window as any).google, getPlacePredictions, geocode };
   };
@@ -121,7 +130,7 @@ describe('GoogleMapsBasicClient', () => {
         await flushPromises();
         expect(getPlacePredictions).toHaveBeenCalledWith(
           { input: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         expect(await result).toBe('result tel aviv');
       });
@@ -129,14 +138,14 @@ describe('GoogleMapsBasicClient', () => {
       it('should handle an object as the request as well', async () => {
         const client = new GoogleMapsBasicClient();
         const result = client.autocomplete(CLIENT_ID, LANG, {
-          input: 'tel aviv',
+          input: 'tel aviv'
         });
         const { getPlacePredictions } = setUpGoogleMapsMock();
         (window as any).initMap();
         await flushPromises();
         expect(getPlacePredictions).toHaveBeenCalledWith(
           { input: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         expect(await result).toBe('result tel aviv');
       });
@@ -150,7 +159,7 @@ describe('GoogleMapsBasicClient', () => {
         await flushPromises();
         expect(getPlacePredictions).toHaveBeenCalledWith(
           { input: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         return expect(result).rejects.toEqual('ERROR');
       });
@@ -165,10 +174,10 @@ describe('GoogleMapsBasicClient', () => {
         await flushPromises();
         expect(geocode).toHaveBeenCalledWith(
           { address: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         expect(await result).toEqual([
-          { geometry: { location: { lat: 1, lng: 2 } } },
+          { geometry: { location: { lat: 1, lng: 2 } } }
         ]);
       });
 
@@ -180,10 +189,10 @@ describe('GoogleMapsBasicClient', () => {
         await flushPromises();
         expect(geocode).toHaveBeenCalledWith(
           { address: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         expect(await result).toEqual([
-          { geometry: { location: { lat: 1, lng: 2 } } },
+          { geometry: { location: { lat: 1, lng: 2 } } }
         ]);
       });
 
@@ -196,7 +205,7 @@ describe('GoogleMapsBasicClient', () => {
         await flushPromises();
         expect(geocode).toHaveBeenCalledWith(
           { address: 'tel aviv' },
-          expect.anything(),
+          expect.anything()
         );
         return expect(result).rejects.toBe('ERROR');
       });

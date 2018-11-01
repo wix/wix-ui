@@ -2,10 +2,16 @@ import PropTypes from 'prop-types';
 
 import TabTypes from './tab-types';
 
+const stringOrNumber = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.number,
+]);
 
-const stringOrNumber = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
-
-export const item = PropTypes.shape({id: stringOrNumber, title: PropTypes.node, dataHook: PropTypes.string});
+export const item = PropTypes.shape({
+  id: stringOrNumber,
+  title: PropTypes.node,
+  dataHook: PropTypes.string,
+});
 
 export const items = PropTypes.arrayOf(item);
 

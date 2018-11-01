@@ -1,11 +1,11 @@
-import * as React from "react";
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
+import * as React from 'react';
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
-import { ButtonNext } from "../../../../../src/components/button-next";
+import { ButtonNext } from '../../../../../src/components/button-next';
 import {
   buttonNext,
   backofficeTheme
-} from "../../../../../src/themes/backoffice";
+} from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -47,24 +47,24 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     <ButtonNext className={buttonNext(`premium`)}>premium</ButtonNext>
     <div
       style={{
-        background: "#fef0ba",
-        padding: "2px"
+        background: '#fef0ba',
+        padding: '2px'
       }}
     >
       <ButtonNext className={buttonNext(`dark`)}>dark</ButtonNext>
     </div>
     <div
       style={{
-        background: "#162d3d",
-        padding: "2px"
+        background: '#162d3d',
+        padding: '2px'
       }}
     >
       <ButtonNext className={buttonNext(`light`)}>light</ButtonNext>
     </div>
     <div
       style={{
-        background: "#3899ec",
-        padding: "2px"
+        background: '#3899ec',
+        padding: '2px'
       }}
     >
       <ButtonNext className={buttonNext(`transparent`)}>transparent</ButtonNext>

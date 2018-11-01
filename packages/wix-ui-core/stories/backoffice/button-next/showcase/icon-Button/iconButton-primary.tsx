@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../../src/components/button-next";
-import { backofficeTheme } from "../../../../../src/themes/backoffice";
-import { iconButton } from "../../../../../src/themes/backoffice";
-import More from "wix-ui-icons-common/More";
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
+import { ButtonNext } from '../../../../../src/components/button-next';
+import { backofficeTheme } from '../../../../../src/themes/backoffice';
+import { iconButton } from '../../../../../src/themes/backoffice';
+import More from 'wix-ui-icons-common/More';
 
 const examplePrimary = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core";
@@ -45,11 +45,11 @@ export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
     </ButtonNext>
     <div
       style={{
-        background: "rgb(91, 127, 164)",
-        padding: "2px"
+        background: 'rgb(91, 127, 164)',
+        padding: '2px'
       }}
     >
-      <ButtonNext className={iconButton("light")}>
+      <ButtonNext className={iconButton('light')}>
         <More width="24" height="24" />
       </ButtonNext>
     </div>

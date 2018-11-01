@@ -1,15 +1,15 @@
 import React from 'react';
-import {string, node, bool, object, oneOfType} from 'prop-types';
+import { string, node, bool, object, oneOfType } from 'prop-types';
 import SyntaxHighlighter, {
-  registerLanguage
+  registerLanguage,
 } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import vs from 'react-syntax-highlighter/styles/prism/vs';
 
 import styleclass from './CodeShowcase.st.css';
 import List from './components/List';
-import {iconShow} from './components/Show';
-import {iconHide} from './components/Hide';
+import { iconShow } from './components/Show';
+import { iconHide } from './components/Hide';
 
 registerLanguage('jsx', jsx);
 
@@ -17,19 +17,19 @@ const customHighlighterStyle = {
   padding: '16px 0',
   border: 'none',
   fontFamily: `"HelveticaNeueW01-45Ligh","sans-serif"`,
-  fontSize: '1.2em'
+  fontSize: '1.2em',
 };
 
 class CodeShowcase extends React.Component {
   constructor() {
     super();
     this.state = {
-      show: false
+      show: false,
     };
   }
 
   toggleCodeShow = () => {
-    this.setState({show: !this.state.show});
+    this.setState({ show: !this.state.show });
   };
 
   render() {
@@ -41,11 +41,11 @@ class CodeShowcase extends React.Component {
       inverted,
       theme,
       style,
-      children
+      children,
     } = this.props;
-    const {show} = this.state;
+    const { show } = this.state;
     return (
-      <div style={style} {...styleclass('root', {}, {className: theme})}>
+      <div style={style} {...styleclass('root', {}, { className: theme })}>
         <section className={styleclass.demo}>
           <List inverted={inverted}>{children}</List>
         </section>
@@ -66,7 +66,7 @@ class CodeShowcase extends React.Component {
             customStyle={customHighlighterStyle}
             language="jsx"
             codeTagProps={{
-              style: {fontFamily: `monospace`}
+              style: { fontFamily: `monospace` },
             }}
             style={vs}
           >
@@ -87,13 +87,13 @@ CodeShowcase.propTypes = {
   link: string,
   theme: string,
   style: object,
-  className: string
+  className: string,
 };
 
 CodeShowcase.defaultProps = {
   title: 'Example',
   inverted: false,
-  code: ''
+  code: '',
 };
 
 export default CodeShowcase;

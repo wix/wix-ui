@@ -37,7 +37,7 @@ describe('functionToString', () => {
       function prop(value) {
         /* eslint-disable */
         return setState({
-          value: value
+          value,
         });
         /* eslint-enable */
       }
@@ -49,12 +49,9 @@ describe('functionToString', () => {
   });
 
   describe('given non function argument', () => {
-    [
-      0, 10, false, String('hello'), [], null, NaN, Infinity
-    ].map(assert =>
+    [0, 10, false, String('hello'), [], null, NaN, Infinity].map(assert =>
       it(`which is ${assert} should return ${assert}`, () =>
-        expect(functionToString(assert)).toEqual(assert)
-      )
+        expect(functionToString(assert)).toEqual(assert)),
     );
   });
 });

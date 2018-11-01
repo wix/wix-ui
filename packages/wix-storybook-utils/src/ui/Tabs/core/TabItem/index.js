@@ -8,13 +8,13 @@ import styles from '../../styles.scss';
 
 class TabItem extends React.Component {
   render() {
-    const {item, onItemClick, isActive, dynamicProperties} = this.props;
+    const { item, onItemClick, isActive, dynamicProperties } = this.props;
 
     const containerProps = {
       key: item.id,
       onClick: () => onItemClick(item),
-      className: classNames(styles.tab, {[styles.active]: isActive}),
-      ...pick(this.props, dynamicProperties)
+      className: classNames(styles.tab, { [styles.active]: isActive }),
+      ...pick(this.props, dynamicProperties),
     };
 
     return <li {...containerProps}>{item.title}</li>;
@@ -28,7 +28,7 @@ TabItem.propTypes = {
   onItemClick: TabPropTypes.onClick,
   type: TabPropTypes.type,
   width: TabPropTypes.width,
-  dynamicProperties: PropTypes.array
+  dynamicProperties: PropTypes.array,
 };
 
 export default TabItem;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Layout, Cell} from '../../ui/Layout';
+import { Layout, Cell } from '../../ui/Layout';
 
 import Markdown from '../../Markdown';
 import styles from './styles.scss';
@@ -12,19 +12,19 @@ const Option = ({
   onChange,
   defaultValue,
   isRequired,
-  dataHook
+  dataHook,
 }) =>
   children ? (
     <Layout dataHook={dataHook} className={styles.option}>
       <Cell span={5}>
-        <Markdown source={`\`${label}${isRequired ? '*' : ''}\``}/>
+        <Markdown source={`\`${label}${isRequired ? '*' : ''}\``} />
       </Cell>
 
       <Cell span={7}>
         {React.cloneElement(children, {
           value: children.type === 'div' ? value.toString() : value,
           defaultValue,
-          onChange
+          onChange,
         })}
       </Cell>
     </Layout>
@@ -37,7 +37,7 @@ Option.propTypes = {
   children: PropTypes.node,
   onChange: PropTypes.func,
   isRequired: PropTypes.bool,
-  dataHook: PropTypes.string
+  dataHook: PropTypes.string,
 };
 
 export default Option;

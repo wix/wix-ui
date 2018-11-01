@@ -1,6 +1,6 @@
-import * as React from "react";
-import { BaseProps } from "../../types/BaseProps";
-import style from "./button-next.st.css";
+import * as React from 'react';
+import { BaseProps } from '../../types/BaseProps';
+import style from './button-next.st.css';
 
 export interface ButtonProps
   extends BaseProps,
@@ -14,10 +14,10 @@ export interface ButtonProps
  * ButtonNext
  */
 export class ButtonNext extends React.Component<ButtonProps> {
-  static displayName = "ButtonNext";
+  static displayName = 'ButtonNext';
 
   static defaultProps = {
-    type: "button"
+    type: 'button'
   };
 
   _addPrefix = prefixIcon =>
@@ -35,7 +35,7 @@ export class ButtonNext extends React.Component<ButtonProps> {
   render() {
     const { suffixIcon, prefixIcon, children, onClick, ...rest } = this.props;
     return (
-      <button {...rest} onClick={onClick} {...style("root", {}, this.props)}>
+      <button {...rest} onClick={onClick} {...style('root', {}, this.props)}>
         {this._addPrefix(prefixIcon)}
         <span className={style.content}>{children}</span>
         {this._addSuffix(suffixIcon)}

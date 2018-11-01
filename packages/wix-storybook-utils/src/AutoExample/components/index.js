@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import {Cell} from '../../ui/Layout';
+import { Cell } from '../../ui/Layout';
 import UIInput from '../../ui/input';
 import ToggleSwitch from '../../ui/toggle-switch';
 import Heading from '../../ui/heading';
@@ -18,7 +18,7 @@ const Preview = ({
   isRtl,
   onToggleRtl,
   isDarkBackground,
-  onToggleBackground
+  onToggleBackground,
 }) => (
   <Cell span={6}>
     <div className={styles.title}>
@@ -27,7 +27,7 @@ const Preview = ({
       <div className={styles.previewControls}>
         <div className={styles.previewControl}>
           Imitate RTL:&nbsp;
-          <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl}/>
+          <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl} />
         </div>
 
         <div className={styles.previewControl}>
@@ -45,9 +45,9 @@ const Preview = ({
       {...{
         className: classnames(styles.preview, {
           rtl: isRtl,
-          [styles.darkPreview]: isDarkBackground
+          [styles.darkPreview]: isDarkBackground,
         }),
-        ...(isRtl ? {dir: 'rtl'} : {})
+        ...(isRtl ? { dir: 'rtl' } : {}),
       }}
     >
       {children}
@@ -60,22 +60,22 @@ Preview.propTypes = {
   isRtl: PropTypes.bool,
   isDarkBackground: PropTypes.bool,
   onToggleRtl: PropTypes.func,
-  onToggleBackground: PropTypes.func
+  onToggleBackground: PropTypes.func,
 };
 
-const Toggle = ({value, onChange}) => (
-  <ToggleSwitch checked={value} onChange={onChange}/>
+const Toggle = ({ value, onChange }) => (
+  <ToggleSwitch checked={value} onChange={onChange} />
 );
 
 Toggle.propTypes = {
   value: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
-const Input = ({value, onChange, defaultValue, ...props}) => (
+const Input = ({ value: inputValue, onChange, defaultValue, ...props }) => (
   <UIInput
-    value={value}
-    onChange={({target: {value}}) => onChange(value)}
+    value={inputValue}
+    onChange={({ target: { value } }) => onChange(value)}
     placeholder={defaultValue}
     {...props}
   />
@@ -84,21 +84,21 @@ const Input = ({value, onChange, defaultValue, ...props}) => (
 Input.propTypes = {
   value: PropTypes.string,
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
-const Code = ({component}) => (
+const Code = ({ component }) => (
   <Cell>
     <div className={styles.title}>
       <Heading>Code</Heading>
     </div>
 
-    <ComponentSource component={component}/>
+    <ComponentSource component={component} />
   </Cell>
 );
 
 Code.propTypes = {
-  component: PropTypes.node.isRequired
+  component: PropTypes.node.isRequired,
 };
 
-export {Option, Preview, Toggle, Input, List, Code};
+export { Option, Preview, Toggle, Input, List, Code };

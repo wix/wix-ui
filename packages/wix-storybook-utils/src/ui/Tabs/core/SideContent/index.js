@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import styles from '../../Tabs.scss';
 
-
-const SideContent = ({content}) => content ? <div className={styles.sideContent}>{content}</div> : null;
+const SideContent = ({ content }) =>
+  content ? <div className={styles.sideContent}>{content}</div> : null;
 
 SideContent.propTypes = {
-  content: PropTypes.node
+  content: PropTypes.node,
 };
 
 export default SideContent;

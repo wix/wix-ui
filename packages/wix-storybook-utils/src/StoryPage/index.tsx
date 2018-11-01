@@ -1,27 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import TabbedView from '../TabbedView';
-import Markdown from '../Markdown';
-import CodeBlock from '../CodeBlock';
-import AutoExample from '../AutoExample';
-import AutoDocs from '../AutoDocs';
-import omit from '../AutoExample/utils/omit';
+const TabbedView = require('../TabbedView').default;
+const Markdown = require('../Markdown').default;
+const CodeBlock = require('../CodeBlock').default;
+const AutoExample = require('../AutoExample').default;
+const AutoDocs = require('../AutoDocs').default;
+const omit = require('../AutoExample/utils/omit').default;
 
-import styles from './styles.scss';
+const styles = require('./styles.scss');
 
 const tabs = metadata => [
   'Usage',
   'API',
   ...(metadata.readmeTestkit ? ['Testkit'] : []),
-  ...(metadata.readmeAccessibility ? ['Accessibility'] : [])
+  ...(metadata.readmeAccessibility ? ['Accessibility'] : []),
 ];
 
-const importString = ({metadata, config, exampleImport}) =>
+interface ImportString {
+  metadata: Metadata;
+  config: Config;
+  exampleImport: string;
+}
+
+const importString: (ImportString) => string = ({
+  metadata,
+  config,
+  exampleImport,
+}: ImportString) =>
   [
     {
       when: () => exampleImport,
-      make: () => exampleImport
+      make: () => exampleImport,
     },
     {
       when: () => config.importFormat,
@@ -30,8 +39,8 @@ const importString = ({metadata, config, exampleImport}) =>
           .replace(/%componentName/g, metadata.displayName)
           .replace(
             new RegExp('%(' + Object.keys(config).join('|') + ')', 'g'),
-            (match, configKey) => config[configKey] || ''
-          )
+            (match, configKey) => config[configKey] || '',
+          ),
     },
     {
       // default
@@ -39,24 +48,49 @@ const importString = ({metadata, config, exampleImport}) =>
       make: () =>
         `import ${metadata.displayName} from '${config.moduleName}/${
           metadata.displayName
-        }';`
-    }
+        }';`,
+    },
   ]
-    .find(({when}) => when())
+    .filter(({ when }) => when())[0]
     .make();
 
-const Section = ({title, children}) => (
+interface SectionProps {
+  title: string;
+  children: any;
+}
+
+const Section: React.StatelessComponent<SectionProps> = ({
+  title,
+  children,
+}: SectionProps) => (
   <div>
-    <Markdown source={`## ${title}`}/>
+    {/* tslint: disable */}
+    <Markdown source={`## ${title}`} />
     {children}
+    {/* tslint: enable */}
   </div>
 );
-Section.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.any
-};
 
-const StoryPage = ({
+interface StoryPageProps {
+  metadata: Metadata;
+  config: Config;
+  component: any;
+  componentProps: any;
+  hiddenProps: string[];
+  displayName: string;
+  exampleProps: any;
+
+  /** custom string to be displayed in place of import example
+   * usually something like `import Component from 'module/Component';`
+   */
+  exampleImport: string;
+  examples: any;
+
+  /** currently only `false` possible. later same property shall be used for configuring code example */
+  codeExample: boolean;
+}
+
+const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   metadata,
   config,
   component,
@@ -66,13 +100,13 @@ const StoryPage = ({
   exampleProps,
   exampleImport,
   examples,
-  codeExample
-}) => {
+  codeExample,
+}: StoryPageProps) => {
   const visibleDisplayName = displayName || metadata.displayName;
   const visibleMetadata = {
     ...metadata,
     displayName: visibleDisplayName,
-    props: omit(metadata.props)(prop => hiddenProps.includes(prop))
+    props: omit(metadata.props)(prop => hiddenProps.includes(prop)),
   };
 
   return (
@@ -100,7 +134,7 @@ const StoryPage = ({
           source={importString({
             config,
             metadata: visibleMetadata,
-            exampleImport
+            exampleImport,
           })}
         />
 
@@ -117,45 +151,22 @@ const StoryPage = ({
         {examples && <Section title="Examples">{examples}</Section>}
       </div>
 
-      <AutoDocs parsedSource={visibleMetadata}/>
-
-      {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit}/>}
-
+      <AutoDocs parsedSource={visibleMetadata} />
+      {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit} />}
       {metadata.readmeAccessibility && (
-        <Markdown source={metadata.readmeAccessibility}/>
+        <Markdown source={metadata.readmeAccessibility} />
       )}
     </TabbedView>
   );
 };
 
-StoryPage.propTypes = {
-  metadata: PropTypes.object,
-  config: PropTypes.shape({
-    importFormat: PropTypes.string,
-    moduleName: PropTypes.string,
-    repoBaseURL: PropTypes.string
-  }),
-  component: PropTypes.any,
-  componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  hiddenProps: PropTypes.array,
-  displayName: PropTypes.string,
-  exampleProps: PropTypes.object,
-
-  /** custom string to be displayed in place of import example
-   * usually something like `import Component from 'module/Component';`
-   */
-  exampleImport: PropTypes.string,
-  examples: PropTypes.node,
-
-  /** currently only `false` possible. later same property shall be used for configuring code example */
-  codeExample: PropTypes.bool
-};
-
 StoryPage.defaultProps = {
   config: {
-    importFormat: ''
+    importFormat: '',
+    moduleName: '',
+    repoBaseURL: '',
   },
-  hiddenProps: []
+  hiddenProps: [],
 };
 
 export default StoryPage;

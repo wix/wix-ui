@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 import NO_VALUE_TYPE from './no-value-type';
 import categorizeProps from './categorize-props';
 
-import {Option, Preview, Code, Toggle, Input, List} from './components';
-import {Layout, Cell} from '../ui/Layout';
+import { Option, Preview, Code, Toggle, Input, List } from './components';
+import { Layout, Cell } from '../ui/Layout';
 import SectionCollapse from './components/section-collapse';
 
 import matchFuncProp from './utils/match-func-prop';
 import stripQuotes from './utils/strip-quotes';
 import omit from './utils/omit';
 import ensureRegexp from './utils/ensure-regexp';
-import HTMLPropsList from './utils/html-props-list';
+import HTMLPropsList from './utils/html-props-list.json';
 
 /**
  * Create a playground for some component, which is suitable for storybook. Given raw `source`, component reference
@@ -82,7 +82,7 @@ export default class extends Component {
     isInteractive: PropTypes.bool,
 
     /** currently only `false` possible. later same property shall be used for configuring code example */
-    codeExample: PropTypes.bool
+    codeExample: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -92,7 +92,7 @@ export default class extends Component {
     parsedSource: {},
     exampleProps: {},
     isInteractive: true,
-    codeExample: true
+    codeExample: true,
   };
 
   _initialPropsState = {};
@@ -103,64 +103,66 @@ export default class extends Component {
 
     this.parsedComponent = props.parsedSource;
     this.preparedComponentProps = this.prepareComponentProps(
-      this.props.componentProps
+      this.props.componentProps,
     );
 
     this.state = {
       propsState: {
         ...(this.props.component.defaultProps || {}),
-        ...this.preparedComponentProps
+        ...this.preparedComponentProps,
       },
       funcValues: {},
       funcAnimate: {},
       isRtl: false,
-      isDarkBackground: false
+      isDarkBackground: false,
     };
 
     this._initialPropsState = this.state.propsState;
 
     this._categorizedProps = Object.entries(
       categorizeProps(
-        {...this.preparedComponentProps, ...this.parsedComponent.props},
-        this.propsCategories
-      )
+        { ...this.preparedComponentProps, ...this.parsedComponent.props },
+        this.propsCategories,
+      ),
     )
       .map(([, category]) => category)
-      .sort(({order: aOrder = -1}, {order: bOrder = -1}) => aOrder - bOrder);
+      .sort(
+        ({ order: aOrder = -1 }, { order: bOrder = -1 }) => aOrder - bOrder,
+      );
   }
 
-  resetState = () => this.setState({propsState: this._initialPropsState});
+  resetState = () => this.setState({ propsState: this._initialPropsState });
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       propsState: {
         ...this.state.propsState,
-        ...this.prepareComponentProps(nextProps.componentProps)
-      }
+        ...this.prepareComponentProps(nextProps.componentProps),
+      },
     });
   }
 
   prepareComponentProps = props =>
-    typeof props === 'function' ?
-      props(
-        // setState
-        componentProps =>
-          this.setState({
-            propsState: {...this.state.propsState, ...componentProps}
-          }),
+    typeof props === 'function'
+      ? props(
+          // setState
+          componentProps =>
+            this.setState({
+              propsState: { ...this.state.propsState, ...componentProps },
+            }),
 
-        // getState
-        () => this.state.propsState || {}
-      ) :
-      props;
+          // getState
+          () => this.state.propsState || {},
+        )
+      : props;
 
   setProp = (key, value) => {
     if (value === NO_VALUE_TYPE) {
       // eslint-disable-next-line no-unused-vars
-      const {[key]: deletedKey, ...propsState} = this.state.propsState;
-      this.setState({propsState});
+      const { [key]: deletedKey, ...propsState } = this.state.propsState;
+      this.setState({ propsState });
     } else {
-      this.setState({propsState: {...this.state.propsState, [key]: value}});
+      this.setState({ propsState: { ...this.state.propsState, [key]: value } });
     }
   };
 
@@ -168,7 +170,7 @@ export default class extends Component {
     {
       types: ['func', /event/, /\) => void$/],
 
-      controller: ({propKey}) => {
+      controller: ({ propKey }) => {
         let classNames = styles.example;
 
         if (this.state.funcAnimate[propKey]) {
@@ -176,9 +178,9 @@ export default class extends Component {
           setTimeout(
             () =>
               this.setState({
-                funcAnimate: {...this.state.funcAnimate, [propKey]: false}
+                funcAnimate: { ...this.state.funcAnimate, [propKey]: false },
               }),
-            2000
+            2000,
           );
         }
 
@@ -189,19 +191,19 @@ export default class extends Component {
             </div>
           );
         }
-      }
+      },
     },
 
     {
       types: ['bool', 'Boolean'],
-      controller: () => <Toggle/>
+      controller: () => <Toggle />,
     },
 
     {
       types: ['enum'],
-      controller: ({type}) => (
-        <List values={type.value.map(({value}) => stripQuotes(value))}/>
-      )
+      controller: ({ type }) => (
+        <List values={type.value.map(({ value }) => stripQuotes(value))} />
+      ),
     },
 
     {
@@ -212,29 +214,29 @@ export default class extends Component {
         'arrayOf',
         'union',
         'node',
-        'ReactNode'
+        'ReactNode',
       ],
-      controller: () => <Input/>
-    }
+      controller: () => <Input />,
+    },
   ];
 
   getPropControlComponent = (propKey, type = {}) => {
     if (!matchFuncProp(type.name) && this.props.exampleProps[propKey]) {
-      return <List values={this.props.exampleProps[propKey]}/>;
+      return <List values={this.props.exampleProps[propKey]} />;
     }
 
-    const propControllerCandidate = this.propControllers.find(({types}) =>
-      types.some(t => ensureRegexp(t).test(type.name))
+    const propControllerCandidate = this.propControllers.find(({ types }) =>
+      types.some(t => ensureRegexp(t).test(type.name)),
     );
 
     return propControllerCandidate && propControllerCandidate.controller ? (
-      propControllerCandidate.controller({propKey, type})
+      propControllerCandidate.controller({ propKey, type })
     ) : (
-      <Input/>
+      <Input />
     );
   };
 
-  renderPropControllers = ({props, allProps}) => {
+  renderPropControllers = ({ props, allProps }) => {
     return Object.entries(props).map(([key, prop]) => (
       <Option
         key={key}
@@ -242,12 +244,12 @@ export default class extends Component {
           label: key,
           value: allProps[key],
           defaultValue:
-            typeof this.props.componentProps === 'function' ?
-              undefined :
-              this.props.componentProps[key],
+            typeof this.props.componentProps === 'function'
+              ? undefined
+              : this.props.componentProps[key],
           isRequired: prop.required || false,
           onChange: value => this.setProp(key, value),
-          children: this.getPropControlComponent(key, prop.type)
+          children: this.getPropControlComponent(key, prop.type),
         }}
       />
     ));
@@ -264,43 +266,43 @@ export default class extends Component {
         // with `data`, including data-hook or dataHook)
         Object.keys({
           ...this.props.exampleProps,
-          ...this.preparedComponentProps
+          ...this.preparedComponentProps,
         })
-          .filter(name => !['on', 'data'].some(i => name.startsWith(i)))
-          .some(propName => propName === name)
+          .filter(n => !['on', 'data'].some(i => n.startsWith(i)))
+          .some(propName => propName === name),
     },
 
     events: {
       title: 'Callback Props',
       order: 1,
-      matcher: name => name.toLowerCase().startsWith('on')
+      matcher: name => name.toLowerCase().startsWith('on'),
     },
 
     html: {
       title: 'HTML Props',
       order: 3,
-      matcher: name => HTMLPropsList.some(i => name === i)
+      matcher: name => HTMLPropsList.some(i => name === i),
     },
 
     accessibility: {
       title: 'Accessibility Props',
       order: 4,
-      matcher: name => name.toLowerCase().startsWith('aria')
+      matcher: name => name.toLowerCase().startsWith('aria'),
     },
 
     other: {
       // miscellaneous props are everything that doesn't fit in other categories
       title: 'Misc. Props',
       order: 5,
-      matcher: () => true
-    }
+      matcher: () => true,
+    },
   };
 
   render() {
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
       prop =>
         this.parsedComponent.props[prop] &&
-        matchFuncProp(this.parsedComponent.props[prop].type.name)
+        matchFuncProp(this.parsedComponent.props[prop].type.name),
     );
 
     const componentProps = {
@@ -313,13 +315,13 @@ export default class extends Component {
           this.setState({
             funcValues: {
               ...this.state.funcValues,
-              [prop]: this.props.exampleProps[prop](...rest)
+              [prop]: this.props.exampleProps[prop](...rest),
             },
-            funcAnimate: {...this.state.funcAnimate, [prop]: true}
+            funcAnimate: { ...this.state.funcAnimate, [prop]: true },
           });
         };
         return acc;
-      }, {})
+      }, {}),
     };
 
     const codeProps = {
@@ -327,7 +329,7 @@ export default class extends Component {
       ...functionExampleProps.reduce((acc, key) => {
         acc[key] = this.props.exampleProps[key];
         return acc;
-      }, {})
+      }, {}),
     };
 
     if (!this.props.isInteractive) {
@@ -338,33 +340,33 @@ export default class extends Component {
       <Layout dataHook="auto-example">
         <Cell span={6}>
           {this._categorizedProps.reduce(
-            (components, {title, isOpen, props}, i) => {
+            (components, { title, isOpen, props }, i) => {
               const renderablePropControllers = this.renderPropControllers({
                 props,
-                allProps: componentProps // TODO: ideally this should not be here
-              }).filter(({props: {children}}) => children);
+                allProps: componentProps, // TODO: ideally this should not be here
+              }).filter(({ props: { children } }) => children);
 
-              return renderablePropControllers.length ?
-                components.concat(
-                  React.createElement(SectionCollapse, {
-                    key: title,
-                    title,
-                    isOpen: isOpen || i === 0,
-                    children: renderablePropControllers
-                  })
-                ) :
-                components;
+              return renderablePropControllers.length
+                ? components.concat(
+                    React.createElement(SectionCollapse, {
+                      key: title,
+                      title,
+                      isOpen: isOpen || i === 0,
+                      children: renderablePropControllers,
+                    }),
+                  )
+                : components;
             },
-            []
+            [],
           )}
         </Cell>
 
         <Preview
           isRtl={this.state.isRtl}
           isDarkBackground={this.state.isDarkBackground}
-          onToggleRtl={isRtl => this.setState({isRtl})}
+          onToggleRtl={isRtl => this.setState({ isRtl })}
           onToggleBackground={isDarkBackground =>
-            this.setState({isDarkBackground})
+            this.setState({ isDarkBackground })
           }
           children={React.createElement(this.props.component, componentProps)}
         />

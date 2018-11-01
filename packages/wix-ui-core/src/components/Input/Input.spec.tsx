@@ -46,7 +46,7 @@ describe('Input', () => {
         tabIndex={1}
         aria-hidden
         aria-autocomplete="both"
-        role='input'
+        role="input"
         type="password"
         value="hunter2"
       />

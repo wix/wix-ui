@@ -15,7 +15,7 @@ const Dropdown = ({
   onSelect,
   onChange,
   placeholder,
-  onClear
+  onClear,
 }) => (
   <Downshift
     onChange={onSelect}
@@ -32,7 +32,7 @@ const Dropdown = ({
       highlightedIndex,
       selectedItem,
       openMenu,
-      clearSelection
+      clearSelection,
     }) => (
       <div className={styles.dropdown}>
         <Input
@@ -41,12 +41,12 @@ const Dropdown = ({
             placeholder,
             onChange: e => onChange(e.target.value),
             onClick: openMenu,
-            className: styles.dropdownInput
+            className: styles.dropdownInput,
           })}
         />
 
         <div className={styles.dropdownIcons}>
-          <DropDownArrowIcon size="10px" onClick={openMenu}/>
+          <DropDownArrowIcon size="10px" onClick={openMenu} />
 
           {onClear &&
             inputValue && (
@@ -72,8 +72,8 @@ const Dropdown = ({
                     [styles.dropdownMenuItemSelected]:
                       selectedItem && selectedItem.id === option.id,
                     [styles.dropdownMenuItemHighlighted]:
-                      highlightedIndex === index
-                  })
+                      highlightedIndex === index,
+                  }),
                 })}
               >
                 {option.value}
@@ -92,7 +92,7 @@ Dropdown.propTypes = {
   onSelect: PropTypes.func,
   onChange: PropTypes.func,
   onClear: PropTypes.func,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 export default Dropdown;

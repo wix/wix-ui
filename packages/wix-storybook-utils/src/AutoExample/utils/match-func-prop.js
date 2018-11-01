@@ -1,6 +1,2 @@
 export default (string = '') =>
-  [
-    /^func/i,
-    /event/,
-    /\) => void$/
-  ].some(needle => string.match(needle));
+  [/^func/i, /event/, /\) => void$/].some(needle => string.match(needle));

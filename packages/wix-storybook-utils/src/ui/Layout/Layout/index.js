@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
-const Layout = ({children, gap, cols, dataHook, className}) => (
+const Layout = ({ children, gap, cols, dataHook, className }) => (
   <div
     style={{
       gridGap: gap,
-      gridTemplateColumns: cols ? `repeat(${cols}, 1fr)` : undefined
+      gridTemplateColumns: cols ? `repeat(${cols}, 1fr)` : undefined,
     }}
     className={`${styles.root} ${className}`}
     children={children}
@@ -28,11 +28,11 @@ Layout.propTypes = {
   cols: PropTypes.number,
 
   dataHook: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 Layout.defaultProps = {
-  gap: '30px'
+  gap: '30px',
 };
 
 export default Layout;

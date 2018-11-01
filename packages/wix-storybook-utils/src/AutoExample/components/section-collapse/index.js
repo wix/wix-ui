@@ -10,22 +10,22 @@ export default class PropsCollapse extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   };
 
   static defaultProps = {
-    isOpen: false
+    isOpen: false,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isOpen: props.isOpen
+      isOpen: props.isOpen,
     };
   }
 
-  toggleCollapse = () => this.setState(({isOpen}) => ({isOpen: !isOpen}));
+  toggleCollapse = () => this.setState(({ isOpen }) => ({ isOpen: !isOpen }));
 
   getNumChildren = () => Object.keys(this.props.children).length;
 

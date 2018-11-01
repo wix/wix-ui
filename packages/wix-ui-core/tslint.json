@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "tslint-config-wix",
-    "tslint-react",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint-config-wix", "tslint-react", "tslint-config-prettier"],
   "rules": {
     "comma-dangle": ["error", "never"],
     "jsx-no-multiline-js": false,
@@ -13,6 +9,7 @@
     "jsx-wrap-multiline": true,
     "space-in-brackets": ["error", "always"],
     "arrow-parens": [true, "ban-single-arg-parens"],
-    "array-bracket-spacing": [true, "never"]
+    "array-bracket-spacing": [true, "never"],
+    "quotemark": [true, "single", "jsx-double"]
   }
 }

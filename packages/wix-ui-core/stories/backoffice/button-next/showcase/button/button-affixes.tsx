@@ -1,12 +1,12 @@
-import * as React from "react";
+import * as React from 'react';
 
-import Add from "wix-ui-icons-common/Add";
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../../src/components/button-next";
+import Add from 'wix-ui-icons-common/Add';
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
+import { ButtonNext } from '../../../../../src/components/button-next';
 import {
   backofficeTheme,
   buttonNext
-} from "../../../../../src/themes/backoffice";
+} from '../../../../../src/themes/backoffice';
 
 const example = `import * as React from "react";
 import { ButtonNext, buttonNext } from "wix-ui-core/button-next";

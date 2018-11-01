@@ -16,7 +16,8 @@
     "!protractor.conf.js",
     "index.st.css",
     "hocs.js",
-    "themes"
+    "themes",
+    "drivers"
   ],
   "repository": {
     "type": "git",
@@ -39,7 +40,7 @@
     "start": "run-p yoshi-start storybook-start",
     "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
-    "import-path": "node scripts/import-path.js",
+    "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics --indexFile=index.st.css",
     "test:browser": "wix-ui-mocha-runner"
@@ -81,7 +82,6 @@
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "eyes.it": "latest",
-    "flush-promises": "^1.0.0",
     "gh-pages-auto-release": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "latest",

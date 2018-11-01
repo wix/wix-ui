@@ -1,1 +1,2 @@
-export const getWidth = element => element ? element.getBoundingClientRect().width : 0;
+export const getWidth = element =>
+  element ? element.getBoundingClientRect().width : 0;

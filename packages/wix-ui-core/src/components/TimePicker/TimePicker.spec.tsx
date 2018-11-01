@@ -210,12 +210,12 @@ describe('TimePicker', () => {
       afterEach(() => stub.mockRestore());
 
       it('should show blank when value is invalid', () => {
-        const driver = createDriver(<TimePicker value = 'a'/>);
+        const driver = createDriver(<TimePicker value = "a"/>);
         expect(driver.getValue()).toEqual('--:--');
       });
 
       it('should show blank when value is invalid time', () => {
-        const driver = createDriver(<TimePicker value = '12:60'/>);
+        const driver = createDriver(<TimePicker value = "12:60"/>);
         expect(driver.getValue()).toEqual('--:--');
       });
 
