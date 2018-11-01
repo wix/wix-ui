@@ -112,22 +112,22 @@ BackofficeTheme Avatar.size18 {
 }
 
 /* Sizes text */
-BackofficeTheme Avatar::contentText {
+BackofficeTheme Avatar::text {
   -st-mixin: sizeSmall, weightBold;
 }
 
-BackofficeTheme Avatar.size90::contentText,
-BackofficeTheme Avatar.size72::contentText  {
+BackofficeTheme Avatar.size90::text,
+BackofficeTheme Avatar.size72::text  {
   -st-mixin: sizeMedium;
 }
 
-BackofficeTheme Avatar.size36::contentText,
-BackofficeTheme Avatar.size30::contentText  {
+BackofficeTheme Avatar.size36::text,
+BackofficeTheme Avatar.size30::text  {
   -st-mixin: h6;
 }
 
-BackofficeTheme Avatar.size24::contentText,
-BackofficeTheme Avatar.size18::contentText  {
+BackofficeTheme Avatar.size24::text,
+BackofficeTheme Avatar.size18::text  {
   visibility: hidden;
 }
 
