@@ -1,7 +1,8 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Simulate } from 'react-dom/test-utils';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { EnhancedUniDriver, enhance } from 'wix-ui-test-utils/unidriver';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Simulate } from "react-dom/test-utils";
+import { reactUniDriver } from "unidriver";
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and
@@ -89,11 +90,11 @@ export class ReactDOMTestContainer {
   }
 
   // Adapter for react based uni driver
-  public createUniRenderer<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => T {
+  public createUniRenderer<T>(driverFactory: (base: EnhancedUniDriver<Element>) => T): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       const base = reactUniDriver(this.componentNode);
-      return driverFactory(base);
+      return driverFactory(enhance(base));
     };
   }
 }

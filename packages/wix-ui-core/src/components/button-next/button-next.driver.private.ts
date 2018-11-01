@@ -1,4 +1,4 @@
-import { UniDriver } from 'unidriver';
+import { EnhancedUniDriver } from 'wix-ui-test-utils/unidriver';
 import {
   buttonNextDriverFactory as publicButtonDriver,
   ButtonNextDriver
@@ -10,11 +10,11 @@ export interface ButtonNextPrivateDriver extends ButtonNextDriver {
 }
 
 export const buttonNextPrivateDriverFactory = (
-  base: UniDriver
+  base: EnhancedUniDriver
 ): ButtonNextPrivateDriver => {
   return {
     ...publicButtonDriver(base),
-    suffixExists: async () => await base.$('[data-hook="suffix"]').exists(),
-    prefixExists: async () => await base.$('[data-hook="prefix"]').exists()
+    suffixExists: async () => await base.queryHook('suffix').exists(),
+    prefixExists: async () => await base.queryHook('prefix').exists()
   };
 };
