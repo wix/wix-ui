@@ -15,6 +15,7 @@
     "!wallaby.js",
     "!protractor.conf.js",
     "index.st.css",
+    "hocs.st.css",
     "hocs.js",
     "themes",
     "drivers"
