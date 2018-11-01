@@ -351,3 +351,20 @@ export default {
   }
   ```
 </details>
+
+---
+
+<details>
+
+  <summary>`componentWrapper` - `func`</summary>
+
+  A render function for the component (in the Preview). Typicaly this function can wrap the component in something usefull like a theme className if needed.
+  Signature: ({component}) => JSXElement
+
+  ```js
+  export default {
+    componentWrapper: ({component})=> <div className="theme">{component}</div>
+  }
+  ```
+
+</details>

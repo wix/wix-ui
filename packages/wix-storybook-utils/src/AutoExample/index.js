@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 import NO_VALUE_TYPE from './no-value-type';
 import categorizeProps from './categorize-props';
 
-import { Option, Preview, Code, Toggle, Input, List } from './components';
-import { Layout, Cell } from '../ui/Layout';
+import {Option, Preview, Code, Toggle, Input, List} from './components';
+import {Layout, Cell} from '../ui/Layout';
 import SectionCollapse from './components/section-collapse';
 
 import matchFuncProp from './utils/match-func-prop';
@@ -76,6 +76,9 @@ export default class extends Component {
      * ```
      */
     componentProps: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+
+    /** A render function for the component (in the Preview). Typicaly this function can wrap the component in something usefull like a className which is needed. ({component}) => JSXElement */
+    componentWrapper: PropTypes.func,
     exampleProps: PropTypes.object,
 
     /** when true, display only component preview without interactive props nor code example */
@@ -121,17 +124,17 @@ export default class extends Component {
 
     this._categorizedProps = Object.entries(
       categorizeProps(
-        { ...this.preparedComponentProps, ...this.parsedComponent.props },
+        {...this.preparedComponentProps, ...this.parsedComponent.props},
         this.propsCategories,
       ),
     )
       .map(([, category]) => category)
       .sort(
-        ({ order: aOrder = -1 }, { order: bOrder = -1 }) => aOrder - bOrder,
+        ({order: aOrder = -1}, {order: bOrder = -1}) => aOrder - bOrder,
       );
   }
 
-  resetState = () => this.setState({ propsState: this._initialPropsState });
+  resetState = () => this.setState({propsState: this._initialPropsState});
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -145,24 +148,24 @@ export default class extends Component {
   prepareComponentProps = props =>
     typeof props === 'function'
       ? props(
-          // setState
-          componentProps =>
-            this.setState({
-              propsState: { ...this.state.propsState, ...componentProps },
-            }),
+        // setState
+        componentProps =>
+          this.setState({
+            propsState: {...this.state.propsState, ...componentProps},
+          }),
 
-          // getState
-          () => this.state.propsState || {},
-        )
+        // getState
+        () => this.state.propsState || {},
+      )
       : props;
 
   setProp = (key, value) => {
     if (value === NO_VALUE_TYPE) {
       // eslint-disable-next-line no-unused-vars
-      const { [key]: deletedKey, ...propsState } = this.state.propsState;
-      this.setState({ propsState });
+      const {[key]: deletedKey, ...propsState} = this.state.propsState;
+      this.setState({propsState});
     } else {
-      this.setState({ propsState: { ...this.state.propsState, [key]: value } });
+      this.setState({propsState: {...this.state.propsState, [key]: value}});
     }
   };
 
@@ -170,7 +173,7 @@ export default class extends Component {
     {
       types: ['func', /event/, /\) => void$/],
 
-      controller: ({ propKey }) => {
+      controller: ({propKey}) => {
         let classNames = styles.example;
 
         if (this.state.funcAnimate[propKey]) {
@@ -178,7 +181,7 @@ export default class extends Component {
           setTimeout(
             () =>
               this.setState({
-                funcAnimate: { ...this.state.funcAnimate, [propKey]: false },
+                funcAnimate: {...this.state.funcAnimate, [propKey]: false},
               }),
             2000,
           );
@@ -201,8 +204,8 @@ export default class extends Component {
 
     {
       types: ['enum'],
-      controller: ({ type }) => (
-        <List values={type.value.map(({ value }) => stripQuotes(value))} />
+      controller: ({type}) => (
+        <List values={type.value.map(({value}) => stripQuotes(value))} />
       ),
     },
 
@@ -225,18 +228,18 @@ export default class extends Component {
       return <List values={this.props.exampleProps[propKey]} />;
     }
 
-    const propControllerCandidate = this.propControllers.find(({ types }) =>
+    const propControllerCandidate = this.propControllers.find(({types}) =>
       types.some(t => ensureRegexp(t).test(type.name)),
     );
 
     return propControllerCandidate && propControllerCandidate.controller ? (
-      propControllerCandidate.controller({ propKey, type })
+      propControllerCandidate.controller({propKey, type})
     ) : (
-      <Input />
-    );
+        <Input />
+      );
   };
 
-  renderPropControllers = ({ props, allProps }) => {
+  renderPropControllers = ({props, allProps}) => {
     return Object.entries(props).map(([key, prop]) => (
       <Option
         key={key}
@@ -317,7 +320,7 @@ export default class extends Component {
               ...this.state.funcValues,
               [prop]: this.props.exampleProps[prop](...rest),
             },
-            funcAnimate: { ...this.state.funcAnimate, [prop]: true },
+            funcAnimate: {...this.state.funcAnimate, [prop]: true},
           });
         };
         return acc;
@@ -335,26 +338,27 @@ export default class extends Component {
     if (!this.props.isInteractive) {
       return React.createElement(this.props.component, componentProps);
     }
+    const component = React.createElement(this.props.component, componentProps);
 
     return (
       <Layout dataHook="auto-example">
         <Cell span={6}>
           {this._categorizedProps.reduce(
-            (components, { title, isOpen, props }, i) => {
+            (components, {title, isOpen, props}, i) => {
               const renderablePropControllers = this.renderPropControllers({
                 props,
                 allProps: componentProps, // TODO: ideally this should not be here
-              }).filter(({ props: { children } }) => children);
+              }).filter(({props: {children}}) => children);
 
               return renderablePropControllers.length
                 ? components.concat(
-                    React.createElement(SectionCollapse, {
-                      key: title,
-                      title,
-                      isOpen: isOpen || i === 0,
-                      children: renderablePropControllers,
-                    }),
-                  )
+                  React.createElement(SectionCollapse, {
+                    key: title,
+                    title,
+                    isOpen: isOpen || i === 0,
+                    children: renderablePropControllers,
+                  }),
+                )
                 : components;
             },
             [],
@@ -364,11 +368,12 @@ export default class extends Component {
         <Preview
           isRtl={this.state.isRtl}
           isDarkBackground={this.state.isDarkBackground}
-          onToggleRtl={isRtl => this.setState({ isRtl })}
+          onToggleRtl={isRtl => this.setState({isRtl})}
           onToggleBackground={isDarkBackground =>
-            this.setState({ isDarkBackground })
+            this.setState({isDarkBackground})
           }
-          children={React.createElement(this.props.component, componentProps)}
+          className={wrapperClassName}
+          children={componentWrapper ? componentWrapper({component}) : component}
         />
 
         {this.props.codeExample && (
