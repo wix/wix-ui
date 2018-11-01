@@ -13,7 +13,7 @@ Elements are "container" and content, which could be classified to either "text"
 
 | name      | type                             | defaultValue | isRequired | description                                                            |
 |:----------|:---------------------------------|:-------------|:-----------|:-----------------------------------------------------------------------|
-| name      | string                           |              |     Yes    | The name of the avatar user. Initials will be generated from the name  |
+| name      | string                           |              |            | The name of the avatar user. Initials will be generated from the name  |
 | imgProps  | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                      |
 | icon      | JSX Element                      |              |            | an SVG icon component                                                  |
 | text      | string                      |              |            | raw text to display as content                                                  |
