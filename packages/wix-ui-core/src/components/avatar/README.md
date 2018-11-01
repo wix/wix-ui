@@ -30,10 +30,9 @@ this component will display content based on the props provided:
 * If `text` is provided it will display the string.
 * If none of the above props is provided, the component will convert `name` to initials and display that.
 
-Image Fallback:<br>
+Alternative content:<br>
 If image fails to load, the component will display either `icon` or `text` or `name` initials, in that order.
-
-Additionally a function to convert name to initials will be exported. 
+This alternative will also be shown while image in loading state.
 
 name conversion examples:
 <br/> John Doe --> JD
@@ -42,9 +41,7 @@ name conversion examples:
 
 ## Technical Considerations
 
-The component will fallback to a different content prop in case the image provided didn't load. For this to happen an `onError` handler will be used on the `img` tag. If a user provided an `onError` handler in `imgProps`, it will be called as well.<br>
-
-<br> The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
+The `alt` property is omitted from `imgProps` interface. `name` prop will be used as `alt` instead.<br>
 
 <br>additional behaviors (such as tooltip, dropdown, focus, click, etc.) should be implemented in wrappers.
 
@@ -55,7 +52,7 @@ The component will fallback to a different content prop in case the image provid
 ```jsx
 //code example goes here
 import * as React from 'react';
-import { Avatar, nameToInitials } from 'wix-ui-core/Avatar';
+import { Avatar } from 'wix-ui-core/Avatar';
 import { AvatarIcon } from 'my-icons/AvatarIcon';
 import style from './style.st.css'; // link to Style file - see examples of style files below
 
@@ -67,7 +64,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
                 <Avatar
                     className={style.avatar}
                     name="John H. Doe"
-                    text={nameToInitials("John Doe")}
+                    text="Doe"
                     imgProps={{
                         srcset="elva-fairy-320w.jpg 320w, elva-fairy-800w.jpg 800w"
                         sizes="(max-width: 320px) 280px, 800px"
@@ -87,10 +84,10 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 
 | selector          | description                        | type | children pseudo-states |
 |:------------------|:-----------------------------------|:-----|:-----------------------|
-| ::container       | Allows styling the background      |      |                        |
-| ::image-container | Allows styling the image container |      |                        |
-| ::icon-container  | Allows styling the icon container  |      |                        |
-| ::text-container  | Allows styling the text            | p    |                        |
+| root       | Allows styling the background      |      |                        |
+| ::image | Allows styling the image container |      |                        |
+| ::icon  | Allows styling the icon container  |      |                        |
+| ::text  | Allows styling the text            |     |                        |
 
 ### Style Code Example
 
