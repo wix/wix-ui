@@ -11,11 +11,11 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: P10, P20, D55, D80,B10, B20, D10, D20;
+  -st-named: P10, P20, D55, D80,B10, B20, D10, D20, F00;
 }
 
 :import {
-  -st-from: "../text-temp.st.css";
+  -st-from: "../text.st.css";
   -st-named: weightThin, sizeMedium, sizeSmall;
 }
 
@@ -53,6 +53,10 @@ BackofficeTheme .textButton:disabled {
   background-color: transparent;
   border-color: transparent;
   color: value(D55);
+}
+
+BackofficeTheme .textButton:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
 }
 
 /* Secondary */

@@ -21,7 +21,7 @@
 }
 
 :import {
-  -st-from: "../text-temp.st.css";
+  -st-from: "../text.st.css";
   -st-named: sizeMedium, weightNormal;
 }
 
@@ -64,6 +64,10 @@ BackofficeTheme .button:disabled {
   color: value(D80);
   background-color: value(D55);
   border-color: value(D55);
+}
+
+BackofficeTheme .button:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
 }
 
 /* Special cases */

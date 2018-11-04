@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import Avatar from "./avatar/avatar.st.css";
-import ButtonNext from "./button/button-temp.st.css";
+import ButtonNext from "./button/button.st.css";
 import IconButton from "./icon-button/icon-button.st.css";
 import TextButton from "./text-button/text-button.st.css";
 import CloseButton from "./close-button/close-button.st.css";
