@@ -18,7 +18,6 @@ export interface AvatarDriver extends BaseUniDriver {
   getTextContent: ()=> Promise<string>;
   getIconContent: ()=> UniDriver<HTMLElement>;
   getImageContent: ()=> UniDriver<HTMLImageElement>;
-  isImageTagExists: ()=> Promise<boolean>
 }
 
 export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
@@ -29,8 +28,7 @@ export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
     ...baseUniDriverFactory(base),
     isContentType: (type: ContentType)=> getContentType(type).exists(),
     getTextContent: () => getContentType('text').text(),
-    getIconContent: () => getContentType('icon'),
-    getImageContent: () => getContentType('image'),
-    isImageTagExists: () => base.$('img').exists()
+    getIconContent: () => getContentType('icon').$(':first-child'),
+    getImageContent: () => getContentType('image').$(':first-child'),
   };
 };

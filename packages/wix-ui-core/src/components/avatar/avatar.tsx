@@ -34,7 +34,10 @@ export const Avatar : React.SFC<AvatarProps> = props =>  {
     undefined;
   
   return (
-      <div {...rest} {...style('root', {}, props)}>
+      <div 
+        {...rest}
+        {...style('root', {}, props)}
+      >
         {getContent(contentType, props)}
       </div>
     );
@@ -55,19 +58,20 @@ function getContent(contentType: ContentType, props: AvatarProps): React.ReactEl
     }
 
     case 'icon': {
-      return React.cloneElement(props.icon, {
-        ['data-hook']: 'content-icon',
-        className:style.icon
-      });
+      return (
+        <div className={style.icon} data-hook="content-icon">
+          {props.icon}
+        </div>
+      );
     }
 
     case 'image': {
       return (
-        <img 
+        <div className={style.image} data-hook="content-image">
+          <img 
           {...props.imgProps}
-          data-hook="content-image"
-          className={style.image}
-        />
+          />
+        </div>
       );
     }
   }

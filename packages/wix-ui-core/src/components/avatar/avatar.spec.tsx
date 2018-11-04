@@ -10,32 +10,14 @@ describe("Avatar", () => {
     .unmountAfterEachTest()
     .createUniRenderer(avatarDriverFactory);
 
-  describe(`'name' prop`, () => {
-    it("should render generated initials as text content", async () => {
-      const driver = createDriver(<Avatar name='John Doe' />);
-      expect(await driver.getTextContent()).toBe('JD');
-      expect(await driver.isContentType('text')).toBe(true);
-    });
-  });
-
-  describe(`'icon' prop`, () => {
-    it("should render specified icon content", async () => {
-      const driver = createDriver(<Avatar icon={<span>XXXX</span>} />);
-      expect(await driver.getIconContent().text()).toBe('XXXX');
-    });
-  });
-
-  describe(`'icon' prop`, () => {
-    it("should render img tag with imgProps", async () => {
-      const driver = createDriver(<Avatar imgProps={{src: TEST_IMG_URL}} />);
-      expect(await driver.isImageTagExists()).toBeTruthy();
-      expect((await driver.getImageContent().getNative()).getAttribute('src')).toBe(TEST_IMG_URL);
-    });
-  });
-
   describe(`content type resolution`, () => {
     it("should render an text", async () => {
       const driver = createDriver(<Avatar text='JD' />);
+      expect(await driver.isContentType('text')).toBe(true);
+    });
+
+    it("should render an text when name given", async () => {
+      const driver = createDriver(<Avatar name='John Doe' />);
       expect(await driver.isContentType('text')).toBe(true);
     });
 
@@ -47,6 +29,27 @@ describe("Avatar", () => {
     it("should render an image", async () => {
       const driver = createDriver(<Avatar imgProps={{src:TEST_IMG_URL}} />);
       expect(await driver.isContentType('image')).toBe(true);
+    });
+  });
+
+  describe(`'name' prop`, () => {
+    it("should render generated initials as text content", async () => {
+      const driver = createDriver(<Avatar name='John Doe' />);
+      expect(await driver.getTextContent()).toBe('JD');
+    });
+  });
+
+  describe(`'icon' prop`, () => {
+    it("should render specified icon content", async () => {
+      const driver = createDriver(<Avatar icon={<span>XXXX</span>} />);
+      expect(await driver.getIconContent().text()).toBe('XXXX');
+    });
+  });
+
+  describe(`'imgProps' prop`, () => {
+    it("should render img tag with imgProps", async () => {
+      const driver = createDriver(<Avatar imgProps={{src: TEST_IMG_URL}} />);
+      expect((await driver.getImageContent().getNative()).getAttribute('src')).toBe(TEST_IMG_URL);
     });
   });
 });
