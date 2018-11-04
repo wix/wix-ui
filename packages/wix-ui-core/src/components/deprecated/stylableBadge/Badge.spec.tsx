@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {badgeDriverFactory} from './Badge.driver';
 import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
 import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {stylableBadgeTestkitFactory as badgeTestkitFactory} from '../../testkit';
-import {stylableBadgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../testkit/enzyme';
+import {stylableBadgeTestkitFactory as badgeTestkitFactory} from '../../../testkit';
+import {stylableBadgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../../testkit/enzyme';
 import {mount} from 'enzyme';
 import {Badge} from './';
 

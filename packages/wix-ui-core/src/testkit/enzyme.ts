@@ -75,7 +75,7 @@ export { ButtonNextDriver };
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver
-} from '../components/StylableBadge/Badge.driver';
+} from '../components/deprecated/StylableBadge/Badge.driver';
 export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator<
   StylableBadgeDriver
 >(stylableBadgeDriverFactory);
