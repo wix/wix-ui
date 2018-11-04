@@ -5,16 +5,17 @@ import { BaseProps } from "../../types/BaseProps";
 import style from "./avatar.st.css";
 import {ContentType} from './types';
 
-export interface AvatarProps
-  extends BaseProps {
-    /* The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
-    name?: string;
-    /* Text to render as content.*/
-    text?: string;
-    /* A node with an icon to be rendered as content. */
-    icon?: React.ReactElement<any>;
-    /* A node with an icon to be rendered as content. */
-    imgProps?: Omit<React.ImgHTMLAttributes<HTMLImageElement>,'alt'>;
+export interface AvatarProps {
+  /* Css class name to be applied to the root element */
+  className: string;
+  /* The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
+  name?: string;
+  /* Text to render as content.*/
+  text?: string;
+  /* A node with an icon to be rendered as content. */
+  icon?: React.ReactElement<any>;
+  /* A node with an icon to be rendered as content. */
+  imgProps?: Omit<React.ImgHTMLAttributes<HTMLImageElement>,'alt'>;
 }
 
 const DEFAULT_CONTENT_TYPE : ContentType= 'text' 
