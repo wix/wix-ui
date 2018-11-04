@@ -19,7 +19,7 @@
 }
 
 :import {
-  -st-from: "../Divider/Divider.st.css";
+  -st-from: "../deprecated/Divider/Divider.st.css";
   -st-default: Divider;
 }
 

@@ -1,7 +1,7 @@
 import * as eyes from 'eyes.it';
 import {browser} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {dividerTestkitFactory} from '../../testkit/protractor';
+import {dividerTestkitFactory} from '../../../testkit/protractor';
 
 describe('Divider', () => {
   const storyUrl = getStoryUrl('Components', 'Divider');

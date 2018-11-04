@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {dividerDriverFactory} from './Divider.driver';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
 import {Divider} from './';
 
 describe('Divider', () => {
