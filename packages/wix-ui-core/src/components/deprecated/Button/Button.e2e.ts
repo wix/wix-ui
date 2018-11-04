@@ -2,7 +2,7 @@ import * as eyes from 'eyes.it';
 import {browser, ExpectedConditions as EC} from 'protractor';
 import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
-import {buttonTestkitFactory, ButtonDriver} from '../../testkit/protractor';
+import {buttonTestkitFactory, ButtonDriver} from '../../../testkit/protractor';
 
 describe('Button', () => {
   const storyUrl = getStoryUrl('Components', 'Button');

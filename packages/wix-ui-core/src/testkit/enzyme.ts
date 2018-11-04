@@ -57,7 +57,7 @@ export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(
 import {
   buttonDriverFactory,
   ButtonDriver
-} from '../components/Button/Button.driver';
+} from '../components/deprecated/Button/Button.driver';
 export const buttonTestkitFactory = enzymeTestkitFactoryCreator<ButtonDriver>(
   buttonDriverFactory
 );

@@ -1,10 +1,10 @@
-import {Button} from '../src/components/Button';
+import {Button} from '../src/components/deprecated/Button';
 
 export default {
   category: 'Components',
   storyName: 'Button',
   component: Button,
-  componentPath: '../src/components/Button/Button.tsx',
+  componentPath: '../src/components/deprecated/Button/Button.tsx',
 
   componentProps: {
     disabled: false,

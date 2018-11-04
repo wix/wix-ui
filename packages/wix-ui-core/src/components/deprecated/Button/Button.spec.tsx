@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
 import {buttonDriverFactory} from './Button.driver';
-import {buttonTestkitFactory} from '../../testkit';
-import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
+import {buttonTestkitFactory} from '../../../testkit';
+import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../../testkit/enzyme';
 import {Button} from './';
-import {runTestkitExistsSuite} from '../../common/testkitTests';
+import {runTestkitExistsSuite} from '../../../common/testkitTests';
 
 describe('Button', () => {
   const createDriver =

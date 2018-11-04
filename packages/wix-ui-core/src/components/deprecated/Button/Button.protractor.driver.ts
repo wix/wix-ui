@@ -1,5 +1,5 @@
 import {ElementFinder} from 'protractor';
-import {DriverFactory, BaseDriver} from '../../common/BaseDriver.protractor';
+import {DriverFactory, BaseDriver} from '../../../common/BaseDriver.protractor';
 
 export interface ButtonDriver extends BaseDriver {
   /** returns true if the root element is present */
