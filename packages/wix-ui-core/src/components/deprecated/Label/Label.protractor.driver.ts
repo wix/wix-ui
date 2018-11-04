@@ -1,4 +1,4 @@
-import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
+import {BaseDriver, DriverFactory} from './../../../common/BaseDriver.protractor';
 
 export interface LabelDriver extends BaseDriver {
   getLabelText: () => Promise<string>;

@@ -14,7 +14,7 @@
 }
 
 :import {
-  -st-from: "../Label/Label.st.css";
+  -st-from: "../deprecated/Label/Label.st.css";
   -st-default: Label;
 }
 

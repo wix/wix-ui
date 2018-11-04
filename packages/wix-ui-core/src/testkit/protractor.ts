@@ -152,7 +152,7 @@ export { AddressInputDriver };
 import {
   labelDriverFactory,
   LabelDriver
-} from '../components/Label/Label.protractor.driver';
+} from '../components/deprecated/Label/Label.protractor.driver';
 export const labelTestkitFactory = protractorTestkitFactoryCreator(
   labelDriverFactory
 );
