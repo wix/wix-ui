@@ -1,0 +1,197 @@
+.button {
+  padding: 0 11px;
+  height: 24px;
+  background-color: rgba(22, 45, 61, 0.24);
+  border: 0;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+
+  &:hover {
+    background-color: rgba(22, 45, 61, 0.3)
+  }
+}
+
+.radio {
+  display: flex;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+}
+
+.radioBubble {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #3899EC;
+  background-color: #FFF;
+  border-radius: 50%;
+  margin-right: 10px;
+
+  &Checked {
+    background-color: #3899EC;
+    box-shadow: 0 0 0 2px #fff inset;
+  }
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 12px;
+  background-color: #FFF;
+  border-radius: 6px;
+  border: 1px solid #C1E4FE;
+  color: #162D3D;
+  font-family: "HelveticaNeueW01-55Roma", "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
+  font-size: 16px;
+  height: 36px;
+  line-height: 34px;
+  outline: 0;
+}
+
+.heading {
+  font-family: "HelveticaNeueW01-55Roma", "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
+  font-weight: 400;
+  margin: 0;
+}
+
+
+.toggleSwitch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &Small {
+    transform: scale(.7);
+  }
+
+  &Track {
+    box-sizing: border-box;
+    width: 45px;
+    height: 24px;
+    border-radius: 12px;
+    transition: all 300ms ease; 
+    background-color: #DAEFFE;
+  }
+
+  &Checked &Track {
+    background-color: #3899EC;
+  }
+
+  &Knob {
+    cursor: pointer;
+    position: absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transform: translateX(-10.5px);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 rgba(22, 45, 61, 0.48),
+                0 0 3px 0 rgba(22, 45, 61, 0.12);
+    transition: 0.3s ease all;
+
+    svg {
+      color: #DAEFFE;
+    }
+  }
+
+  &Checked &Knob {
+    transform: translateX(10.5px);
+    background-color: #fff;
+
+    svg {
+      color: #3899EC;
+    }
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+
+  &Input {
+    flex-grow: 1;
+  }
+
+  &Menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 300px;
+    background: #fff;
+    list-style: none;
+    z-index: 1;
+    border-radius: 8px;
+    box-shadow: 0 6px 6px 0 rgba(22, 45, 61, 0.06),
+                0 0 18px 0 rgba(22, 45, 61, 0.12);
+  }
+
+  &MenuItem {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 35px;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding: 6px 20px 6px 24px;
+    font-family: "HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
+    font-size: 16px;
+    color: #162D3D;
+    cursor: pointer;
+  }
+
+  &MenuItemSelected {
+    background: #3899EC;
+    color: #FFFFFF;
+  }
+
+  &MenuItemHighlighted {
+    background: #EAF7FF;
+    color: #162D3D;
+  }
+
+  &MenuItemSelected.dropdownMenuItemHighlighted {
+    background: #4eb7f5;
+    color: #fff;
+  }
+
+  &Icons {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #3899EC;
+    cursor: pointer;
+
+    svg:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+}

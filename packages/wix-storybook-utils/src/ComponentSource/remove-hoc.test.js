@@ -12,13 +12,11 @@ describe('removeHOC() given', () => {
     ['hello(world)', 'world'],
     ['Hel+lo(world)', 'world'],
     ['hello(w o r l d)', 'w o r l d'],
-    ['(hello)', 'hello']
+    ['(hello)', 'hello'],
   ];
 
   assertsAndExpectations.map(([assert, expectation]) =>
-    it(
-      `"${assert}" should return "${expectation}"`,
-      () => expect(removeHOC(assert)).toEqual(expectation)
-    )
+    it(`"${assert}" should return "${expectation}"`, () =>
+      expect(removeHOC(assert)).toEqual(expectation)),
   );
 });

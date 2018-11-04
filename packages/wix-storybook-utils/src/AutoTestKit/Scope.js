@@ -10,9 +10,11 @@ class Scope {
       return value.type.endsWith('Declaration');
     });
     if (Array.isArray(allDeclarations) && allDeclarations.length) {
-      for (let index = 0; index < allDeclarations.length; index++) {
-        const declaration = allDeclarations[index];
-        identifierValue = this._getIdentifierValueFromDeclaration(name, declaration);
+      for (const declaration of allDeclarations) {
+        identifierValue = this._getIdentifierValueFromDeclaration(
+          name,
+          declaration,
+        );
         if (identifierValue) {
           break;
         }
@@ -22,24 +24,31 @@ class Scope {
   }
 
   getIdentifierValue(name) {
-    return this._getIdentifierValueFromCurrentScope(name) || (this.parentScope && this.parentScope.getIdentifierValue(name));
+    return (
+      this._getIdentifierValueFromCurrentScope(name) ||
+      (this.parentScope && this.parentScope.getIdentifierValue(name))
+    );
   }
 
   _getIdentifierFromDeclarator(declarationName, declarator) {
-    const {id: {name}} = declarator;
+    const {
+      id: { name },
+    } = declarator;
     return declarationName === name && declarator;
   }
 
   _getIdentifierValueFromDeclaration(name, declaration) {
-    const {type, declarations} = declaration;
+    const { type, declarations } = declaration;
     let identifierValue = null;
     switch (type) {
       case 'VariableDeclaration':
-        for (let index = 0; index < declarations.length; index++) {
-          const declarator = declarations[index];
-          const identifier = this._getIdentifierFromDeclarator(name, declarator);
+        for (const declarator of declarations) {
+          const identifier = this._getIdentifierFromDeclarator(
+            name,
+            declarator,
+          );
           if (identifier) {
-            identifierValue = {identifierValue: identifier.init, scope: this};
+            identifierValue = { identifierValue: identifier.init, scope: this };
             break;
           }
         }

@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class AutoTestKit extends Component {
   static propTypes = {
-    source: PropTypes.object.isRequired
+    source: PropTypes.object.isRequired,
   };
 
   getMethodRow = methodName => {
@@ -17,15 +17,18 @@ export default class AutoTestKit extends Component {
         <td data-hook="description">{method.description}</td>
       </tr>
     );
-  }
+  };
 
   getParams = params => {
     if (params.length) {
-      return params.map((param, i) => `${param.name} (${param.type})${i === params.length - 1 ? '' : '\n'}`);
-    } else {
-      return '---';
+      return params.map(
+        (param, i) =>
+          `${param.name} (${param.type})${i === params.length - 1 ? '' : '\n'}`,
+      );
     }
-  }
+
+    return '---';
+  };
 
   render() {
     const source = this.props.source;
@@ -44,9 +47,7 @@ export default class AutoTestKit extends Component {
             </tr>
           </thead>
 
-          <tbody>
-            { Object.keys(source.returns).map(this.getMethodRow) }
-          </tbody>
+          <tbody>{Object.keys(source.returns).map(this.getMethodRow)}</tbody>
         </table>
       </div>
     );

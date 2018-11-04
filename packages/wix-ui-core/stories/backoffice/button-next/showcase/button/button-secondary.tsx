@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
-import { ButtonNext } from "../../../../../src/components/button-next";
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
+import { ButtonNext } from '../../../../../src/components/button-next';
 import {
   buttonNext,
   backofficeTheme
-} from "../../../../../src/themes/backoffice";
+} from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -15,8 +15,8 @@ const secondary = buttonNext('secondary');
 const premiumSecondary = buttonNext('premium', 'secondary');
 const darkSecondary = buttonNext('dark', 'secondary');
 const lightSecondary = buttonNext('light', 'secondary');
-const transparentSecondary = buttonNext('transparent, 'secondary');
 const destructiveSecondary = buttonNext('destructive', 'secondary');
+const transparentSecondary = buttonNext('transparent', 'secondary')
 
 export default () => (
   <React.Fragment>
@@ -25,22 +25,24 @@ export default () => (
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
     <ButtonNext className={darkSecondary}>dark</ButtonNext>
     <ButtonNext className={lightSecondary}>light</ButtonNext>
+    <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
   </React.Fragment>
 );`;
 
 const description = (
   <div>
-    Secondary skins <code>default</code>,<code>destructive</code>,
-    <code>premium</code>,<code>dark</code> and <code>light</code>.
+    Secondary skins <code>standard</code>,<code>destructive</code>,
+    <code>premium</code>,<code>dark</code>, <code>light</code> and{' '}
+    <code>transparent</code>.
   </div>
 );
 
 const secondary = buttonNext(`secondary`);
-const premiumSecondary = buttonNext(`premium`, "secondary");
-const darkSecondary = buttonNext(`dark`, "secondary");
-const lightSecondary = buttonNext(`light`, "secondary");
-const transparentSecondary = buttonNext(`transparent`, "secondary");
-const destructiveSecondary = buttonNext(`destructive`, "secondary");
+const premiumSecondary = buttonNext(`premium`, 'secondary');
+const darkSecondary = buttonNext(`dark`, 'secondary');
+const lightSecondary = buttonNext(`light`, 'secondary');
+const transparentSecondary = buttonNext(`transparent`, 'secondary');
+const destructiveSecondary = buttonNext(`destructive`, 'secondary');
 
 interface ButtonSecondaryProps {
   style?: object;
@@ -53,12 +55,33 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     code={example}
     description={description}
     theme={backofficeTheme}
-    inverted
   >
     <ButtonNext className={secondary}>standard</ButtonNext>
     <ButtonNext className={destructiveSecondary}>destructive</ButtonNext>
     <ButtonNext className={premiumSecondary}>premium</ButtonNext>
-    <ButtonNext className={darkSecondary}>dark</ButtonNext>
-    <ButtonNext className={lightSecondary}>light</ButtonNext>
+    <div
+      style={{
+        background: '#fef0ba',
+        padding: '2px'
+      }}
+    >
+      <ButtonNext className={darkSecondary}>dark</ButtonNext>
+    </div>
+    <div
+      style={{
+        background: '#162d3d',
+        padding: '2px'
+      }}
+    >
+      <ButtonNext className={lightSecondary}>light</ButtonNext>
+    </div>
+    <div
+      style={{
+        background: '#3899ec',
+        padding: '2px'
+      }}
+    >
+      <ButtonNext className={transparentSecondary}>transparent</ButtonNext>
+    </div>
   </CodeShowcase>
 );

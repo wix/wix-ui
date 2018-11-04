@@ -1,7 +1,7 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 
-import {Option, Code} from './components';
+import { Option, Code } from './components';
 
 export default class AutoExampleTestkit {
   constructor(AutoExample) {
@@ -11,13 +11,11 @@ export default class AutoExampleTestkit {
   component;
 
   when = {
-    created: props =>
-      this.component = mount(<this.AutoExample {...props}/>)
-  }
+    created: props => (this.component = mount(<this.AutoExample {...props} />)),
+  };
 
   get = {
     options: () => this.component.find(Option),
-    codeBlock: () => this.component.find(Code)
-  }
+    codeBlock: () => this.component.find(Code),
+  };
 }
-

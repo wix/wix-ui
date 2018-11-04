@@ -57,7 +57,7 @@ export function isEnzymeTestkitExists<T extends BaseDriver> (
     return isEnzymeTestkitExistsInternal({Element, testkitFactory, mount, ...options});
 }
 
-export function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
+export async function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
   Element: React.ReactElement<any>,
   testkitFactory: (obj: WrapperData) => T,
   mount: MountFunctionType
@@ -66,7 +66,7 @@ export function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
     const elementToRender = React.cloneElement(Element , {'data-hook': dataHook});
     const wrapper = mount(elementToRender);
     const testkit = testkitFactory({wrapper, dataHook});
-    return testkit.exists();
+    return await testkit.exists();
 }
 
 /**

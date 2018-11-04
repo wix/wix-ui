@@ -128,7 +128,7 @@ export default {
           If the <em>placement</em> is <code>"top"</code> or <code>"bottom"</code>, <em>x</em> represents offset in the horizontal axis and <em>y</em> in the vertical axis.<br/>
           If the <em>placement</em> is <code>"left"</code> or <code>"right"</code>, <em>x</em> represents offset in the vertical axis and <em>y</em> in the horizontal axis.
         </p>
-        <Popover placement='left' shown moveBy={{ x: 50, y: 100 }} showArrow>
+        <Popover placement="left" shown moveBy={{ x: 50, y: 100 }} showArrow>
           <Popover.Element>
             <div style={{ height: '80px' }}>The element</div>
           </Popover.Element>

@@ -1,7 +1,7 @@
 import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
 import {browser, protractor} from 'protractor';
-import {mouseEnter} from "wix-ui-test-utils/protractor";
-import {inputDriverFactory} from "../Input/Input.protractor.driver";
+import {mouseEnter} from 'wix-ui-test-utils/protractor';
+import {inputDriverFactory} from '../Input/Input.protractor.driver';
 
 export interface TimePickerDriver extends BaseDriver {
   focus: () => Promise<void>;

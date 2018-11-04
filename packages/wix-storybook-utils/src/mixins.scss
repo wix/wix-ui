@@ -1,0 +1,22 @@
+@mixin checkerboard($size, $color1, $color2) {
+  background:
+    linear-gradient(45deg,
+      $color1 25%,
+      transparent 25%,
+      transparent 75%,
+      $color1 75%,
+      $color1 0
+    ),
+    linear-gradient(45deg,
+      $color1 25%,
+      transparent 5%,
+      transparent 75%,
+      $color1 75%,
+      $color1 0
+    ),
+    $color2;
+  background-position: 0 0, ($size / 2) ($size / 2);
+  background-size: $size $size;
+  background-clip: border-box;
+  background-origin: padding-box;
+}

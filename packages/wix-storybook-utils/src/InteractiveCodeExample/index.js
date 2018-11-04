@@ -1,25 +1,24 @@
-import React, {cloneElement, Component, Children} from 'react';
+import React, { cloneElement, Component, Children } from 'react';
 import PropTypes from 'prop-types';
 
 import CodeExample from '../CodeExample';
 
 export default class InteractiveCodeExample extends Component {
-
   static propTypes = {
     children: PropTypes.node,
     title: PropTypes.string,
-    autoExpand: PropTypes.bool
-  }
+    autoExpand: PropTypes.bool,
+  };
 
   static defaultProps = {
-    autoExpand: true
-  }
+    autoExpand: true,
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      code: ''
+      code: '',
     };
 
     this.onCodeChange = this.onCodeChange.bind(this);
@@ -27,13 +26,13 @@ export default class InteractiveCodeExample extends Component {
 
   onCodeChange(code) {
     if (code !== this.state.code) {
-      this.setState({code});
+      this.setState({ code });
     }
   }
 
   render() {
-    const childrenWithOnChange = Children.map(this.props.children,
-      child => cloneElement(child, {onChange: this.onCodeChange})
+    const childrenWithOnChange = Children.map(this.props.children, child =>
+      cloneElement(child, { onChange: this.onCodeChange }),
     );
 
     return (
@@ -47,5 +46,4 @@ export default class InteractiveCodeExample extends Component {
       </CodeExample>
     );
   }
-
 }

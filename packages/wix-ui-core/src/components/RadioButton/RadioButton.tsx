@@ -89,7 +89,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
           ref={radio => this.radioRef = radio}
-          aria-label={this.props["aria-label"]}
+          aria-label={this.props['aria-label']}
         />
         <span className={style.icon} onMouseEnter={this.onHover} onMouseLeave={onIconBlur}>
           {checked ? checkedIcon : uncheckedIcon}

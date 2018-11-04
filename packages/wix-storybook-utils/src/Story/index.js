@@ -19,39 +19,39 @@ export default ({
   codeExample,
   hiddenProps,
   _config,
-  _metadata
+  _metadata,
 }) =>
-  _config
-    .storiesOf(category, module)
-    .add(
-      storyName || _metadata.displayName,
-      () =>
-        isE2E ?
-          <div>
-            <Remount>
-              <AutoExample
-                isInteractive={false}
-                ref={ref => global.autoexample = ref}
-                component={component}
-                componentProps={componentProps}
-                parsedSource={_metadata}
-              />
-            </Remount>
-            {queryString.parse(window.location.search).withExamples !== undefined && examples}
-          </div> :
-
-          <StoryPage
-            {...{
-              component,
-              componentProps,
-              exampleProps,
-              exampleImport,
-              displayName,
-              examples,
-              codeExample,
-              hiddenProps,
-              metadata: _metadata,
-              config: _config
-            }}
-          />
-    );
+  _config.storiesOf(category, module).add(
+    storyName || _metadata.displayName,
+    () =>
+      isE2E ? (
+        <div>
+          <Remount>
+            <AutoExample
+              isInteractive={false}
+              ref={ref => (global.autoexample = ref)}
+              component={component}
+              componentProps={componentProps}
+              parsedSource={_metadata}
+            />
+          </Remount>
+          {queryString.parse(window.location.search).withExamples !==
+            undefined && examples}
+        </div>
+      ) : (
+        <StoryPage
+          {...{
+            component,
+            componentProps,
+            exampleProps,
+            exampleImport,
+            displayName,
+            examples,
+            codeExample,
+            hiddenProps,
+            metadata: _metadata,
+            config: _config,
+          }}
+        />
+      ),
+  );

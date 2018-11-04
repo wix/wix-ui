@@ -66,12 +66,12 @@ export function isTestkitExists<T extends BaseDriver>(
   return testkit.exists();
 }
 
-export function isUniTestkitExists<T extends BaseUniDriver> (Element: React.ReactElement<any>, testkitFactory: (obj: {wrapper: any, dataHook: string}) => T) {
+export async function isUniTestkitExists<T extends BaseUniDriver> (Element: React.ReactElement<any>, testkitFactory: (obj: {wrapper: any, dataHook: string}) => T) {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
   const elementToRender = React.cloneElement(Element, {'data-hook': dataHook});
   const renderedElement = ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>);
   const wrapper = div.appendChild((renderedElement as any));
   const testkit = testkitFactory({wrapper, dataHook});
-  return testkit.exists();
+  return await testkit.exists();
 }

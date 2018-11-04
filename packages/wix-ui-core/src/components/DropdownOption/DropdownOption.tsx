@@ -26,7 +26,7 @@ export const DropdownOption: DropdownOptionType = (props: DropdownOptionProps) =
       onClick={onClickHandler}
       title={option.value}
       onMouseEnter={onMouseEnterHandler}
-      role='option'
+      role="option"
       aria-selected={selected}
     >
       {option.render(option.value)}

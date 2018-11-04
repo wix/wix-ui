@@ -1,14 +1,14 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Simulate } from "react-dom/test-utils";
-import { reactUniDriver, UniDriver } from "unidriver";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Simulate } from 'react-dom/test-utils';
+import { reactUniDriver, UniDriver } from 'unidriver';
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and
 // in Jsdom we're going to add the container into the body.
 export function createDOMContainer(): HTMLElement {
-  const root = document.querySelector("#root") || document.body;
-  const div = document.createElement("div");
+  const root = document.querySelector('#root') || document.body;
+  const div = document.createElement('div');
   root.appendChild(div);
   return div;
 }

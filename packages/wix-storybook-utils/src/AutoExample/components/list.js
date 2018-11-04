@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CloseIcon from 'wix-ui-icons-common/system/Close';
-import InputWithOptions from 'wix-style-react/InputWithOptions';
-import {default as WixRadioGroup} from 'wix-style-react/RadioGroup';
-import Button from 'wix-style-react/Button';
+import Dropdown from '../../ui/dropdown';
+import RadioGroup from '../../ui/radio-group';
+import Button from '../../ui/button';
 
 import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
 
-const isUndefined = a => typeof a === 'undefined';
-const isFunction = a => typeof a === 'function';
+const isThing = type => thing => typeof thing === type; // eslint-disable-line
+const isUndefined = isThing('undefined');
+const isFunction = isThing('function');
+const isString = isThing('string');
+const noop = () => {};
 
 export default class List extends React.Component {
   static propTypes = {
@@ -17,105 +20,109 @@ export default class List extends React.Component {
     defaultValue: PropTypes.any,
     values: PropTypes.arrayOf(PropTypes.any),
     onChange: PropTypes.func,
-    isRequired: PropTypes.bool
+    isRequired: PropTypes.bool,
   };
 
   constructor(props) {
     super(props);
 
     const options = this.createOptions(props.values || []);
-    const currentValue = options.find(option => option.realValue === props.value) || {};
+    const currentValue =
+      options.find(option => option.realValue === props.value) || {};
 
     this.state = {
       currentValue,
-      currentFilter: (props.defaultValue && [props.defaultValue, props.defaultValue.type].some(isFunction)) ?
-        currentValue.value :
-        props.defaultValue || '',
+      currentFilter:
+        props.defaultValue &&
+        [props.defaultValue, props.defaultValue.type].some(isFunction)
+          ? currentValue.value
+          : props.defaultValue || '',
       isFiltering: false,
-      options
+      options,
     };
   }
 
   createOptions = values =>
-    values
-      .map((option, id) => {
-        option = option || {};
-        return {
-          id: option.id || id,
+    values.map((option, id) => {
+      option = option || {};
+      return {
+        id: option.id || id,
 
-          // `value` is used in InputWithOptions as displayed value in dropdown
-          // however, it's possible `value` is complex react component. instead of
-          // displaying that component, we save it in `realValue` and
-          // show `value` as some string representation of component instead
-          value: option.label || (option.type && option.type.name) || '' + option,
-          realValue: isUndefined(option.value) ? option : option.value
-        };
-      });
-
+        // `value` is used in InputWithOptions as displayed value in dropdown
+        // however, it's possible `value` is complex react component. instead of
+        // displaying that component, we save it in `realValue` and
+        // show `value` as some string representation of component instead
+        value: option.label || (option.type && option.type.name) || '' + option,
+        realValue: isUndefined(option.value) ? option : option.value,
+      };
+    });
 
   getFilteredOptions = () =>
-    this.state.isFiltering ?
-      this.state.options
-        .filter(({value}) =>
-          this.state.currentFilter.length ?
-            value.toLowerCase().includes(this.state.currentFilter) :
-            true
-        ) : this.state.options;
+    this.state.isFiltering
+      ? this.state.options.filter(
+          ({ value }) =>
+            this.state.currentFilter.length
+              ? value.toLowerCase().includes(this.state.currentFilter)
+              : true,
+        )
+      : this.state.options;
 
   clearValue = () =>
-    this.setState(
-      {currentValue: {}, currentFilter: ''},
-      () => this.props.onChange(NO_VALUE_TYPE)
+    this.setState({ currentValue: {}, currentFilter: '' }, () =>
+      this.props.onChange(NO_VALUE_TYPE),
     );
 
-  clearIcon =
+  clearIcon = (
     <span
       onClick={this.clearValue}
-      style={{color: '#3899ec', cursor: 'pointer'}}
-      children={<CloseIcon size="7px"/>}
-    />;
+      style={{ color: '#3899ec', cursor: 'pointer', marginLeft: '-20px' }}
+      children={<CloseIcon size="7px" />}
+    />
+  );
 
-  clearButton =
-    <div style={{padding: '1em 0'}}>
-      <Button
-        height="x-small"
-        theme="transparent"
-        children="Clear"
-        onClick={this.clearValue}
-      />
-    </div>;
+  clearButton = (
+    <div style={{ padding: '1em 0' }}>
+      <Button children="Clear" onClick={this.clearValue} />
+    </div>
+  );
 
-  getSelectedId = () => {
-    const selectedOption = this.state.options.find(option => option.id === this.state.currentValue.id) || {};
-    return selectedOption.id;
-  }
+  getSelectedOption = () => {
+    const selectedOption =
+      this.state.options.find(
+        option => option.id === this.state.currentValue.id,
+      ) || {};
+    return selectedOption;
+  };
 
-  onOptionChange = ({id}) => {
-    const currentValue = this.state.options.find(option => option.id === id) || {};
+  onOptionChange = ({ id }) => {
+    const currentValue =
+      this.state.options.find(option => option.id === id) || {};
 
     this.setState(
       {
         currentValue,
         currentFilter: currentValue.value,
-        isFiltering: false
+        isFiltering: false,
       },
-      () => this.props.onChange(currentValue.realValue)
+      () => this.props.onChange(currentValue.realValue),
     );
-  }
+  };
 
-  onFilterChange = ({target: {value: currentFilter}}) =>
-    this.setState({currentFilter, isFiltering: true})
+  onFilterChange = currentFilter =>
+    this.setState({ currentFilter, isFiltering: true });
 
   dropdown() {
     return (
-      <InputWithOptions
+      <Dropdown
         value={this.state.currentFilter}
         options={this.getFilteredOptions()}
-        selectedId={this.getSelectedId()}
-        onSelect={this.onOptionChange}
+        selectedOption={this.getSelectedOption()}
+        placeholder={
+          isString(this.props.defaultValue) ? this.props.defaultValue : ''
+        }
+        onSelect={option => (option ? this.onOptionChange(option) : noop)}
         onChange={this.onFilterChange}
-        placeholder={this.props.defaultValue || ''}
-        {...(this.state.currentFilter && !this.props.isRequired ? {suffix: this.clearIcon} : {})}
+        onClear={!this.props.isRequired ? this.clearValue : noop}
       />
     );
   }
@@ -123,20 +130,15 @@ export default class List extends React.Component {
   radios() {
     return (
       <div>
-        <WixRadioGroup
+        <RadioGroup
           value={this.state.currentValue.id}
-          onChange={id => this.onOptionChange({id})}
-        >
-          {this.state.options.map(({id, value}) =>
-            <WixRadioGroup.Radio
-              key={id}
-              value={id}
-              children={value}
-            />
-          )}
-        </WixRadioGroup>
+          onChange={id => this.onOptionChange({ id })}
+          radios={this.state.options}
+        />
 
-        { !this.props.isRequired && this.state.currentValue.value && this.clearButton }
+        {!this.props.isRequired &&
+          this.state.currentValue.value &&
+          this.clearButton}
       </div>
     );
   }

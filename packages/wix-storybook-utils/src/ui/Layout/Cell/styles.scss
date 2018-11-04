@@ -1,0 +1,10 @@
+.vertical {
+  align-self: center;
+}
+
+@media all and (-ms-high-contrast:none) {
+  .root {
+    margin: 10px 10px 0 10px;
+    flex: 1 0 auto;
+  }
+}

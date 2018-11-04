@@ -1,5 +1,5 @@
-import {ElementFinder} from "protractor";
-import {DriverFactory, BaseDriver} from "../../common/BaseDriver.protractor";
+import {ElementFinder} from 'protractor';
+import {DriverFactory, BaseDriver} from '../../common/BaseDriver.protractor';
 
 export class NavStepperDriver implements BaseDriver {
     constructor(private component: ElementFinder) {

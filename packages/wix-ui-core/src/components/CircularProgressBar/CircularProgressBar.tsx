@@ -52,8 +52,8 @@ const renderArcs = (props: CircularProgressBarProps) => {
   return (
     <div className={style.arcsContainer}  style={{width: `${normalizedSize}px`, height: `${normalizedSize}px`}}>
       {resolveIndicationElement(props)}
-      <Arc data-hook='progressarc-background' value={FULL_PROGRESS} className={style.backArc} strokeWidth={4} size={normalizedSize} />
-      <Arc data-hook='progressarc-foreground' value={normalizedValue} className={style.foreArc} strokeWidth={4} size={normalizedSize} />
+      <Arc data-hook="progressarc-background" value={FULL_PROGRESS} className={style.backArc} strokeWidth={4} size={normalizedSize} />
+      <Arc data-hook="progressarc-foreground" value={normalizedValue} className={style.foreArc} strokeWidth={4} size={normalizedSize} />
     </div>
   )
 }

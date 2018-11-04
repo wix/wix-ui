@@ -80,7 +80,7 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
           onBlur={this.handleBlur}
           onMouseDown={this.handleMouseDown}
           onKeyDown={this.handleKeyDown}
-          aria-label={this.props["aria-label"]}
+          aria-label={this.props['aria-label']}
         />
       </div>
     );

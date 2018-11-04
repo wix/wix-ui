@@ -10,45 +10,44 @@ module.exports = {
       const parsers = [
         {
           rule: value => value.toString() === '[object Object]',
-          parser: value => value
+          parser: value => value,
         },
         {
-          rule: value => typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
-          parser: value => eval(`(${value})`) // eslint-disable-line no-eval
+          rule: value =>
+            typeof value === 'string' && value.match(/^function|\(\)\s?=>/),
+          /* tslint:disable */
+          parser: value => eval(`(${value})`), // eslint-disable-line no-eval
+          /* tslint:enable */
         },
         {
           rule: value => Array.isArray(value),
-          parser: value => value
+          parser: value => value,
         },
         {
           rule: value => typeof value === 'string' && !isNaN(Date.parse(value)),
-          parser: value => new Date(value)
+          parser: value => new Date(value),
         },
         {
           rule: value => typeof value === 'string',
-          parser: value => value
+          parser: value => value,
         },
-        { // default
+        {
+          // default
           rule: () => true,
-          parser: value => JSON.parse(value)
-        }
+          parser: value => JSON.parse(value),
+        },
       ];
 
-      const args = Object
-        .keys(componentProps)
-        .reduce(
-          (props, key) => {
-            const {parser} = parsers.find(({rule}) => rule(props[key]));
-            props[key] = parser(props[key]);
-            return props;
-          },
-          componentProps
-        );
+      const args = Object.keys(componentProps).reduce((allProps, key) => {
+        const { parser } = parsers.find(({ rule }) => rule(allProps[key]));
+        allProps[key] = parser(allProps[key]);
+        return allProps;
+      }, componentProps);
 
       // this is possible because:
       // <AutoExample ref={ref => window.autoexample = ref}/>
       window.autoexample.setState({
-        propsState: Object.assign({}, window.autoexample.state.propsState, args)
+        propsState: { ...window.autoexample.state.propsState, ...args },
       });
     };
 
@@ -59,5 +58,5 @@ module.exports = {
   },
   remount: () => {
     return browser.executeScript('window.story.remount()');
-  }
+  },
 };

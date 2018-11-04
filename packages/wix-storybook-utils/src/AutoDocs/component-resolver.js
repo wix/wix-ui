@@ -1,4 +1,4 @@
-import {utils} from 'react-docgen';
+import { utils } from 'react-docgen';
 
 const {
   isExportsOrModuleAssignment,
@@ -7,7 +7,7 @@ const {
   isStatelessComponent,
   normalizeClassDefinition,
   resolveExportDeclaration,
-  resolveToValue
+  resolveToValue,
 } = utils;
 
 const ERROR_MULTIPLE_DEFINITIONS =
@@ -16,7 +16,10 @@ const ERROR_MULTIPLE_DEFINITIONS =
 const isReactComponentExtendedClass = (path, types) => {
   const node = path.node;
 
-  if (!types.ClassDeclaration.check(node) && !types.ClassExpression.check(node)) {
+  if (
+    !types.ClassDeclaration.check(node) &&
+    !types.ClassExpression.check(node)
+  ) {
     return false;
   }
 
@@ -24,7 +27,11 @@ const isReactComponentExtendedClass = (path, types) => {
     return false;
   }
 
-  console.warn(`<AutoDocs/> Warning: ${node.id.name} extends ${node.superClass.name} instead of React.Component. Auto generated documentation may be incomplete!`);
+  console.warn(
+    `<AutoDocs/> Warning: ${node.id.name} extends ${
+      node.superClass.name
+    } instead of React.Component. Auto generated documentation may be incomplete!`,
+  );
   return true;
 };
 
@@ -37,10 +44,12 @@ const isComponentDefinition = (path, types) =>
 const resolveHOC = (path, types) => {
   const node = path.node;
 
-  if (types.CallExpression.check(node) && !isReactCreateClassCall(path)) {
-    if (node.arguments.length) {
-      return resolveHOC(path.get('arguments', node.arguments.length - 1), types);
-    }
+  if (
+    types.CallExpression.check(node) &&
+    !isReactCreateClassCall(path) &&
+    node.arguments.length
+  ) {
+    return resolveHOC(path.get('arguments', node.arguments.length - 1), types);
   }
 
   return path;
@@ -53,7 +62,10 @@ const resolveDefinition = (definition, types) => {
     if (types.ObjectExpression.check(resolvedPath.node)) {
       return resolvedPath;
     }
-  } else if (isReactComponentClass(definition) || isReactComponentExtendedClass(definition, types)) {
+  } else if (
+    isReactComponentClass(definition) ||
+    isReactComponentExtendedClass(definition, types)
+  ) {
     normalizeClassDefinition(definition);
     return definition;
   } else if (isStatelessComponent(definition)) {
@@ -68,19 +80,21 @@ export default (ast, recast) => {
   let definition;
 
   const exportDeclaration = path => {
-    const definitions = resolveExportDeclaration(path, types)
-      .reduce((acc, definition) => {
-        if (isComponentDefinition(definition, types)) {
-          acc.push(definition);
+    const definitions = resolveExportDeclaration(path, types).reduce(
+      (acc, def) => {
+        if (isComponentDefinition(def, types)) {
+          acc.push(def);
         } else {
-          const resolved = resolveToValue(resolveHOC(definition, types));
+          const resolved = resolveToValue(resolveHOC(def, types));
           if (isComponentDefinition(resolved, types)) {
             acc.push(resolved);
           }
         }
 
         return acc;
-      }, []);
+      },
+      [],
+    );
 
     if (definitions.length === 0) {
       return false;
@@ -141,7 +155,7 @@ export default (ast, recast) => {
       definition = resolveDefinition(path, types);
 
       return false;
-    }
+    },
   });
 
   return definition;

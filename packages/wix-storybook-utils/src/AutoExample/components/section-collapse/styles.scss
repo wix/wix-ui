@@ -1,4 +1,7 @@
+@import '../../../common.scss';
+
 .head {
+  @extend .commonText;
   display: flex;
   align-items: center;
   padding: 1em 0;
@@ -7,7 +10,7 @@
   cursor: pointer;
 }
 
-.headSub {
+.subtitle {
   margin-left: 1em;
   color: #3899EC;
 }

@@ -61,8 +61,6 @@ it's faster, and cheaper on your runtime
 
 All component APIs must be strongly typed, with `any` not accepted. it might be harder to write, but its much easier to use.
 
-All components will also define react-prop-types. In order to support our friends that still use vanilla JS.
-
 ### Component Style API
 
 **Component.st.css**
@@ -215,7 +213,7 @@ Registry.getComponentMetadata(Button)
 
 
 the meta files should also provide state simulations, used in snapshooting tool.
-this allows us to make sure no style variant of the component has changed from a change in the component.
+this allows us to make sure no style variant of the component has changed from a change in the component's state.
 
 
 ```ts
@@ -274,7 +272,7 @@ i.e:
 }
 ```
 
-all styles should be exported for easy use from a the respective theme file.
+all styles should be exported for easy use from the respective theme file.
 
 
 **themes/adi/theme.st.css**

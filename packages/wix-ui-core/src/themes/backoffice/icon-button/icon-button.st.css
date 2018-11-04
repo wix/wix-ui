@@ -11,7 +11,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B10, D55, D80, B20, B50, B40;
+  -st-named: B10, D55, D80, B20, B50, B40, F00;
 }
 
 .iconButton {
@@ -52,6 +52,10 @@ BackofficeTheme .iconButton:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
+}
+
+BackofficeTheme .iconButton:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
 }
 
 BackofficeTheme .iconButton .content {
