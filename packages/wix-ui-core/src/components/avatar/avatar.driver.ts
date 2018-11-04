@@ -6,12 +6,6 @@ import {
 
 import { ContentType } from './types';
 
-// TODO: make this common util (or in wix-ui-test-utils)
-function getByDataHook(base: UniDriver, dataHook: string) {
-  return base.$(`[data-hook="${dataHook}"]`);
-}
-
-
 export interface AvatarDriver extends BaseUniDriver {
   /** returns text content driver */
   isContentType: (type: ContentType) => Promise<boolean>;
@@ -21,7 +15,7 @@ export interface AvatarDriver extends BaseUniDriver {
 }
 
 export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
-  const byDataHook = dataHook => getByDataHook(base,dataHook);
+  const byDataHook = dataHook => base.$(`[data-hook="${dataHook}"]`);
   const getContentType = (type: ContentType) => byDataHook(`content-${type}`);
 
   return {

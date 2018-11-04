@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactDOMTestContainer } from "../../../test/dom-test-container";
 import { Avatar } from ".";
-import { avatarDriverFactory } from "./avatar.private.driver";
+import { avatarDriverFactory } from "./avatar.driver";
 
 const TEST_IMG_URL = "http://localhost/123.png";
 
