@@ -9,8 +9,15 @@ describe("Avatar", () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(avatarDriverFactory);
-
+    
+  it("should render an empty text by default", async () => {
+    const driver = createDriver(<Avatar />);
+    expect(await driver.isContentType('text')).toBe(true);
+    expect(await driver.getTextContent()).toBe('');
+  });
+  
   describe(`content type resolution`, () => {
+
     it("should render an text", async () => {
       const driver = createDriver(<Avatar text='JD' />);
       expect(await driver.isContentType('text')).toBe(true);

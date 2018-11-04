@@ -17,6 +17,7 @@ export interface AvatarProps
     imgProps?: Omit<React.ImgHTMLAttributes<HTMLImageElement>,'alt'>;
 }
 
+const DEFAULT_CONTENT_TYPE : ContentType= 'text' 
 /**
  * Avatar is a type of element that visually represents a user, either as an image, icon or text.
  * 
@@ -31,7 +32,7 @@ export const Avatar : React.SFC<AvatarProps> = props =>  {
     imgProps ? 'image' :
     icon ? 'icon' :
     text || name ? 'text' :
-    undefined;
+    DEFAULT_CONTENT_TYPE;
   
   return (
       <div 
@@ -49,7 +50,7 @@ function getContent(contentType: ContentType, props: AvatarProps): React.ReactEl
     case 'text': {
       const { name, text } = props;
       // TODO: Make initials logic more robust and tested.
-      const textContent = text || name.split(' ').map(s=>s[0]).join('');
+      const textContent = text || (name && name.split(' ').map(s=>s[0]).join('')) || '';
       return (
         <div className={style.text} data-hook="content-text">
           {textContent}
