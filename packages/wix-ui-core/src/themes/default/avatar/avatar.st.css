@@ -11,6 +11,10 @@
 .avatar {
   -st-extends: Avatar;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   background-color: grey;
   color: white;
 
