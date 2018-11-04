@@ -10,21 +10,21 @@ const avatarMetadata = Registry.getComponentMetadata(Avatar);
 const IMG_SRC_STUB = 'http://lorempixel.com/30/30/';
 
 avatarMetadata.addSim({
-  title: "nameToInitials",
+  title: "Only name specified, generates initials text JD",
   props: {
     name: 'John Doe'
   }
 });
 
 avatarMetadata.addSim({
-  title: "icon",
+  title: "Only icon specified",
   props: {
     icon: <User/>
   }
 });
 
 avatarMetadata.addSim({
-  title: "image",
+  title: "Only imgProps specified",
   props: {
     imgProps: {src: IMG_SRC_STUB}
   }
