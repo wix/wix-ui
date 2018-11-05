@@ -11,8 +11,8 @@ import { textButton } from "wix-ui-core/themes/backoffice";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={textButton()}>small</ButtonNext>
-    <ButtonNext className={textButton('normal')}>medium</ButtonNext>
+    <ButtonNext className={textButton()}>thin</ButtonNext>
+    <ButtonNext className={textButton('normal')}>normal</ButtonNext>
   </React.Fragment>
 );`;
 
