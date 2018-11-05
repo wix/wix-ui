@@ -260,7 +260,7 @@ i.e:
 **themes/adi/button/button.st.css**
 ```css
 :import{
-    -st-from:'../../../components/deprecated/button/buttons.st.css';
+    -st-from:'../../../components/checkbox/checkbox.st.css';
     -st-defualt:Button
 }
 
@@ -299,7 +299,7 @@ i.e:
 **themes/studio/button/button-3d.st.css**
 ```css
 :import{
-    -st-from:'../../../components/deprecated/button/buttons.st.css';
+    -st-from:'../../../components/checkbox/checkbox.st.css';
     -st-defualt:Button
 }
 
