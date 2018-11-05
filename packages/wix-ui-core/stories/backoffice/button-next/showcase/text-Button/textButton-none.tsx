@@ -27,13 +27,13 @@ const description = (
   </div>
 );
 
-interface TextButtonPrimaryProps {
+interface TextButtonNoneProps {
   style?: object;
 }
 
-export const TextButtonPrimary = ({ style }: TextButtonPrimaryProps) => (
+export const TextButtonNone = ({ style }: TextButtonNoneProps) => (
   <CodeShowcase
-    title="Text buttons (primary)"
+    title="Text buttons (underlined:none)"
     style={style}
     code={example}
     description={description}

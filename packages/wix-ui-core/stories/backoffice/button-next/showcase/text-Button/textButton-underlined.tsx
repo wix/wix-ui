@@ -43,7 +43,7 @@ interface TextButtonUnderlinedProps {
 
 export const TextButtonUnderlined = ({ style }: TextButtonUnderlinedProps) => (
   <CodeShowcase
-    title="Text buttons (underlined)"
+    title="Text buttons (underlined: always)"
     style={style}
     code={example}
     description={description}

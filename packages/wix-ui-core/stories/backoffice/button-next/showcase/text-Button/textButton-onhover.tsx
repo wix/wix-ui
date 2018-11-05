@@ -11,10 +11,10 @@ export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
 import { textButton } from "wix-ui-core/themes/backoffice";
 
-const secondary = textButton('secondary');
-const lightSecondary = textButton('light', 'secondary');
-const premiumSecondary = textButton('premium', 'secondary');
-const darkSecondary = textButton('dark', 'secondary');
+const secondary = textButton('onHover');
+const lightSecondary = textButton('light', 'onHover');
+const premiumSecondary = textButton('premium', 'onHover');
+const darkSecondary = textButton('dark', 'onHover');
 
 export default () => (
   <React.Fragment>
@@ -25,25 +25,25 @@ export default () => (
   </React.Fragment>
 );`;
 
-const secondary = textButton(`secondary`);
-const lightSecondary = textButton(`light`, 'secondary');
-const premiumSecondary = textButton(`premium`, 'secondary');
-const darkSecondary = textButton(`dark`, 'secondary');
+const secondary = textButton(`onHover`);
+const lightSecondary = textButton(`light`, 'onHover');
+const premiumSecondary = textButton(`premium`, 'onHover');
+const darkSecondary = textButton(`dark`, 'onHover');
 
 const description = (
   <div>
-    Secondary skins <code>standard</code>,<code>light</code>,
-    <code>premium</code> and <code>dark</code>.
+    OnHover skins <code>standard</code>,<code>light</code>,<code>premium</code>{' '}
+    and <code>dark</code>.
   </div>
 );
 
-interface TextButtonSecondaryProps {
+interface TextButtonOnHoverProps {
   style?: object;
 }
 
-export const TextButtonSecondary = ({ style }: TextButtonSecondaryProps) => (
+export const TextButtonOnHover = ({ style }: TextButtonOnHoverProps) => (
   <CodeShowcase
-    title="Text buttons (secondary)"
+    title="Text buttons (underlined: onHover)"
     style={style}
     code={example}
     description={description}
