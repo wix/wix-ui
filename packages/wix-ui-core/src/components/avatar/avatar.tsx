@@ -5,7 +5,7 @@ import { BaseProps } from "../../types/BaseProps";
 import style from "./avatar.st.css";
 import {ContentType} from './types';
 
-export interface AvatarProps {
+export interface AvatarProps extends BaseProps {
   /* Css class name to be applied to the root element */
   className: string;
   /* The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
