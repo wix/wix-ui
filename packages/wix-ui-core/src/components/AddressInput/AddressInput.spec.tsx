@@ -317,7 +317,7 @@ describe('AddressInput', () => {
         return eventually(() => {
             const firstCallArgument = onSelectSpy.mock.calls[0][0];
             const {address_components} = firstCallArgument.googleResult;
-            expect(firstCallArgument.address.street_number.short).toBe('11');
+            expect(firstCallArgument.address.streetNumber.short).toBe('11');
             expect(address_components).toEqual([{
                 long_name: '11',
                 short_name: '11',

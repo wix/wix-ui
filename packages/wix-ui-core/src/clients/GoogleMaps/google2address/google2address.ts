@@ -29,10 +29,12 @@ const FULL_ADDRESS_ALLOWED_TYPES = [
 ];
 
 const ALLOWED_TYPES_TO_INNER_FIELD = {
-    administrative_area_level_4: 'admin_area_4',
-    administrative_area_level_3: 'admin_area_3',
-    administrative_area_level_2: 'admin_area_2',
-    administrative_area_level_1: 'admin_area_1'
+    street_number: 'streetNumber',
+    administrative_area_level_4: 'adminArea4',
+    administrative_area_level_3: 'adminArea3',
+    administrative_area_level_2: 'adminArea2',
+    administrative_area_level_1: 'adminArea1',
+    postal_code: 'postalCode'
 };
 
 function getInnerFieldName(type) {
