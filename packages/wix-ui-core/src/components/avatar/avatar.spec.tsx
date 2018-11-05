@@ -18,12 +18,12 @@ describe("Avatar", () => {
   
   describe(`content type resolution`, () => {
 
-    it("should render an text", async () => {
+    it("should render a text", async () => {
       const driver = createDriver(<Avatar text='JD' />);
       expect(await driver.isContentType('text')).toBe(true);
     });
 
-    it("should render an text when name given", async () => {
+    it("should render a text when name given", async () => {
       const driver = createDriver(<Avatar name='John Doe' />);
       expect(await driver.isContentType('text')).toBe(true);
     });
@@ -35,6 +35,24 @@ describe("Avatar", () => {
     
     it("should render an image", async () => {
       const driver = createDriver(<Avatar imgProps={{src:TEST_IMG_URL}} />);
+      expect(await driver.isContentType('image')).toBe(true);
+    });
+
+    it("should render an icon when given icon and text", async () => {
+      const driver = createDriver(
+        <Avatar 
+          text='JD'
+          icon={<span>XXXXX</span>} 
+        />);
+      expect(await driver.isContentType('icon')).toBe(true);
+    });
+
+    it("should render an image when given icon and image", async () => {
+      const driver = createDriver(
+        <Avatar 
+          icon={<span>XXXXX</span>} 
+          imgProps={{src:TEST_IMG_URL}}
+        />);
       expect(await driver.isContentType('image')).toBe(true);
     });
   });
