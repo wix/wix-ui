@@ -81,6 +81,9 @@ a component importing the following stylable file:
 
 is exposing both the `btn1` class and `btn2` class to stylable so they can be customized.
 
+Note that in the root there is an index.st.css file. It is an index file fore all component's style exports.
+If you are trying to import a style outside of wix-ui-core, please use it.
+
 #### Essential rules only
 
 while its tempting to add rules to a component's CSS. for it to be truly reusable and customizable its CSS should be as devoid of rules as possible.
