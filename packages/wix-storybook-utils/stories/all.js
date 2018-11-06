@@ -10,6 +10,7 @@ import TextButton from '../src/TextButton';
 import markdown from './examples/markdown.md';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
+import { FieldsDocumentation } from '../src/AutoTestkit/fields-documentation';
 
 storiesOf('Components', module)
   .add('<CodeExample/>', () => (
@@ -40,7 +41,31 @@ storiesOf('Components', module)
   .add('<Markdown/>', () => (
     <div>
       A great way to display Markdown files
-      <Markdown source={markdown}/>
+      <Markdown source={markdown} />
+    </div>
+  ))
+  .add('<ggggg/>', () => (
+    <div>
+      A great way to display Markdown files
+          <FieldsDocumentation data={[
+            {
+            type: 'value',
+            name: 'some val',
+          },
+          {
+            type: 'function',
+            name: 'someFunction',
+            args: [
+              {
+                name: 'arg1',
+                type: 'string',
+              },
+              {
+                name: 'arg2',
+                type: 'number',
+              }
+            ]
+          }]}/>
     </div>
   ))
   .add('<InteractiveCodeExample/> ', () => (
