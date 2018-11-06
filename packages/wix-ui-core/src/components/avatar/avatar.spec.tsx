@@ -58,10 +58,20 @@ describe("Avatar", () => {
   });
 
   describe(`'name' prop`, () => {
-    it("should render generated initials as text content", async () => {
+    it("should provide generated initials as text content", async () => {
       const driver = createDriver(<Avatar name='John Doe' />);
       expect(await driver.getTextContent()).toBe('JD');
     });
+
+    it("should have a default 'alt' value when image is displayed", async () => {
+      const driver = createDriver(
+        <Avatar 
+          name="John Doe" 
+          imgProps={{src:TEST_IMG_URL}} 
+        />);
+      expect((await driver.getImageContent().getNative()).getAttribute('alt')).toBe('John Doe');
+    });
+
   });
 
   describe(`'icon' prop`, () => {

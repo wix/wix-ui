@@ -1,5 +1,4 @@
 import * as React from "react";
-import {Omit} from 'type-zoo';
 
 import { BaseProps } from "../../types/BaseProps";
 import style from "./avatar.st.css";
@@ -14,11 +13,11 @@ export interface AvatarProps extends BaseProps {
   text?: string;
   /* A node with an icon to be rendered as content. */
   icon?: React.ReactElement<any>;
-  /* A node with an icon to be rendered as content. */
-  imgProps?: Omit<React.ImgHTMLAttributes<HTMLImageElement>,'alt'>;
+  /* Props for an <img> tag to be rendered as content. */
+  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
 }
 
-const DEFAULT_CONTENT_TYPE : ContentType= 'text' 
+const DEFAULT_CONTENT_TYPE : ContentType= 'text' ;
 /**
  * Avatar is a type of element that visually represents a user, either as an image, icon or text.
  * 
@@ -68,10 +67,12 @@ function getContent(contentType: ContentType, props: AvatarProps): React.ReactEl
     }
 
     case 'image': {
+      const {alt, ...rest} = props.imgProps;
       return (
         <div className={style.image} data-hook="content-image">
           <img 
-          {...props.imgProps}
+            {...props.imgProps}
+            alt={alt ? alt : props.name}
           />
         </div>
       );
