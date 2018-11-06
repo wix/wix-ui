@@ -63,6 +63,15 @@ describe("Avatar", () => {
       expect(await driver.getTextContent()).toBe('JD');
     });
 
+    it("should NOT override text content", async () => {
+      const driver = createDriver(
+        <Avatar 
+          name='John Smith Junir Doe'
+          text='JsD'
+        />);
+      expect(await driver.getTextContent()).toBe('JsD');
+    });
+
     it("should have a default 'alt' value when image is displayed", async () => {
       const driver = createDriver(
         <Avatar 
@@ -72,6 +81,15 @@ describe("Avatar", () => {
       expect((await driver.getImageContent().getNative()).getAttribute('alt')).toBe('John Doe');
     });
 
+    it("should NOT override 'alt' value when image is displayed", async () => {
+      const alt = 'Profile photo of John Doe';
+      const driver = createDriver(
+        <Avatar 
+          name="John Doe" 
+          imgProps={{src:TEST_IMG_URL, alt}} 
+        />);
+      expect((await driver.getImageContent().getNative()).getAttribute('alt')).toBe(alt);
+    });
   });
 
   describe(`'icon' prop`, () => {
