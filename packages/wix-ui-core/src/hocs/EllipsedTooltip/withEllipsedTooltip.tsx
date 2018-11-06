@@ -95,7 +95,7 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
       <Tooltip
         {...tooltipStyle('root', {}, this.props)}
         appendTo="scrollParent"
-        content={<div>this.textNode.innerText</div>}
+        content={<div>{this.textNode.innerText}</div>}
         showArrow
       >
         {this._renderText()}
