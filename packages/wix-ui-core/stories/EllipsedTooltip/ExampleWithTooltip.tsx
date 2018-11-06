@@ -5,6 +5,6 @@ const Text = ({children, ...rest}) => <span {...rest}>{children}</span>;
 
 const EllipsedText = withEllipsedTooltip({showTooltip: true})(Text);
 
-export default () => (
-  <div style={{width: '170px', background: 'azure'}}><EllipsedText data-hook="ellipsedTooltip-with-tooltip">This text is going to get ellipsed</EllipsedText></div>
+export default props => (
+  <div style={{width: '170px', background: 'azure'}}><EllipsedText {...props}/></div>
 );

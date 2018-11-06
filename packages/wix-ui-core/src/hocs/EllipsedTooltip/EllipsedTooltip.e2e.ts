@@ -35,6 +35,23 @@ describe('EllipsedTooltip', () => {
     expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
   });
 
+  eyes.it('should not show any styles on the text inside the tooltip', async () => {
+    const testsStoryUrl = getStoryUrl('Tests', 'EllipsedTooltip');
+    await browser.get(testsStoryUrl);
+
+    const dataHook = 'custom-ellipsedTooltip-with-tooltip';
+    const textElementFinder = $(`[data-hook="${dataHook}"]`);
+
+    await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
+
+    expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
+
+    expect(hasEllipsis(textElementFinder)).toEqual(true);
+    await mouseEnter(textElementFinder);
+    const tooltipTestkit = tooltipTestkitFactory({dataHook});
+    expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
+  });
+
   eyes.it('should not show the tooltip when the text is not ellipsed', async () => {
     const dataHook = 'ellipsedTooltip-not-ellipsed';
     const textElementFinder = $(`[data-hook="${dataHook}"]`);
