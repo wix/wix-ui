@@ -61,6 +61,12 @@ it's faster, and cheaper on your runtime
 
 All component APIs must be strongly typed, with `any` not accepted. it might be harder to write, but its much easier to use.
 
+### Component Drivers
+**component.driver.ts**
+
+Note that in the root there is a drivers folder containing index files according to your testing platform. It is an index file each component's driver export.
+If you are trying to import a components driver outside of wix-ui-core, please use it.
+
 ### Component Style API
 
 **Component.st.css**
@@ -78,6 +84,9 @@ a component importing the following stylable file:
 }
 
 ```
+
+Note that in the root there is an index.st.css file. It is an index file fore all component's style exports.
+If you are trying to import a style outside of wix-ui-core, please use it.
 
 is exposing both the `btn1` class and `btn2` class to stylable so they can be customized.
 
