@@ -388,3 +388,17 @@ BackofficeTheme .textButton .suffix {
   width: 24px;
   height: 24px;
 }
+
+BackofficeTheme .textButton.small .prefix {
+  padding-right: 6px;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .textButton.small .suffix {
+  padding-left: 6px;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
