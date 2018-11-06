@@ -67,7 +67,7 @@ function App() {
 }
 
 ```
-Note that in the root there is an index.st.css file. It is an index file fore all component's style exports.
+Note that in the root there is an index.st.css file. It is an index file for all component's style exports.
 If you are trying to import a style outside of wix-ui-core, please use it.
 
 ## Backoffice usage
