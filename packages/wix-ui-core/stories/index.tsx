@@ -50,6 +50,4 @@ HOCs.add('Focusable', Focusable);
 Backoffice.add('Buttons', ButtonsStory);
 
 // Tests
-if (process.env.NODE_ENV !== 'production') {
-  Tests.add('EllipsedTooltip', CustomEllipsedText);
-}
+Tests.add('EllipsedTooltip', CustomEllipsedText);
