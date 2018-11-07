@@ -7,31 +7,49 @@ import { FieldsDocumentation } from './fields-documentation';
 import { DriverDocumentation } from './driver-documentation';
 import { AutoTestkit } from './auto-testkit';
 
-export class AutoTestkitDriver {
+class Driver {
   private component;
-  private select = hook =>
-    this.component.find(`[data-hook="auto-testkit-${hook}"]`);
+  private spy;
+  private hookPrefix;
+  private Component;
 
-  private constructor() {
+  constructor(Component, hookPrefix) {
+    this.Component = Component;
+    this.hookPrefix = hookPrefix;
     this.reset();
   }
 
-  static create() {
-    const driver = new AutoTestkitDriver();
-    afterEach(() => driver.reset());
-    return driver;
-  }
+  protected selectRoot = () => this.component.childAt(0);
+
+  protected select = hook =>
+    this.component.find(`[data-hook="auto-testkit-${this.hookPrefix}${hook}"]`);
+
+  when = {
+    reused: component => {
+      this.component = component;
+      return this;
+    },
+    created: props => {
+      const { Component } = this;
+
+      const mounted = mount(
+        <ErrorSpy spy={this.spy}>
+          <Component {...props} />
+        </ErrorSpy>,
+      );
+      return this.when.reused(mounted.childAt(0));
+    },
+  };
 
   reset = () => {
     this.component = undefined;
+    this.spy = () => {};
   };
-
-  when = {
-    created: props => {
-      this.component = mount(<AutoTestkit {...props} />);
-      return this;
-    },
-  };
+}
+class AutoTestkitDriver extends Driver {
+  constructor() {
+    super(AutoTestkit, '');
+  }
 
   get = {
     driverAt: index => {
@@ -40,9 +58,15 @@ export class AutoTestkitDriver {
     },
     heading: () => this.select('heading').text(),
     tag: hook => this.select(hook).name(),
-    rootClass: () => this.component.childAt(0).props().className,
+    rootClass: () => this.selectRoot().props().className,
   };
 }
+
+export const createAutoTestkitDriver = () => {
+  const driver = new AutoTestkitDriver();
+  afterEach(() => driver.reset());
+  return driver;
+};
 
 export class DriverDocumentationDriver {
   private component;

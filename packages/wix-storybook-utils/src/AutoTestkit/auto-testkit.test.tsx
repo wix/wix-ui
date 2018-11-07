@@ -1,7 +1,7 @@
-import { AutoTestkitDriver } from './drivers';
+import { createAutoTestkitDriver } from './drivers';
 
 describe('AutoTestkit', () => {
-  const driver = AutoTestkitDriver.create();
+  const driver = createAutoTestkitDriver();
 
   const component = {
     displayName: 'component',
