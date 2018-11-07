@@ -102,8 +102,8 @@ describe('AutoExample', () => {
     it('should render wrapper when given', () => {
       const testkit = new Testkit(AutoExample);
       testkit.when.created({
-        componentWrapper: ({ componentWrapper }) => (
-          <div className="classname">{componentWrapper}</div>
+        componentWrapper: ({ component }) => (
+          <div className="classname">{component}</div>
         ),
       });
       expect(testkit.get.exists('[data-hook*="wrapper"]')).toBeTruthy();
