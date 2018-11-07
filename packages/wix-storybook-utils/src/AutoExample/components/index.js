@@ -19,42 +19,41 @@ const Preview = ({
   onToggleRtl,
   isDarkBackground,
   onToggleBackground,
-  className,
-}) => {
-  const wrapperProps = {
-    className: classnames(styles.preview, className, {
-      rtl: isRtl,
-      [styles.darkPreview]: isDarkBackground,
-    }),
-    ...(isRtl ? { dir: 'rtl' } : {}),
-  };
+}) => (
+  <Cell span={6}>
+    <div className={styles.title}>
+      <Heading>Preview</Heading>
 
-  return (
-    <Cell span={6}>
-      <div className={styles.title}>
-        <Heading>Preview</Heading>
+      <div className={styles.previewControls}>
+        <div className={styles.previewControl}>
+          Imitate RTL:&nbsp;
+          <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl} />
+        </div>
 
-        <div className={styles.previewControls}>
-          <div className={styles.previewControl}>
-            Imitate RTL:&nbsp;
-            <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl} />
-          </div>
-
-          <div className={styles.previewControl}>
-            Dark Background:&nbsp;
-            <ToggleSwitch
-              size="small"
-              checked={isDarkBackground}
-              onChange={onToggleBackground}
-            />
-          </div>
+        <div className={styles.previewControl}>
+          Dark Background:&nbsp;
+          <ToggleSwitch
+            size="small"
+            checked={isDarkBackground}
+            onChange={onToggleBackground}
+          />
         </div>
       </div>
+    </div>
 
-      <div {...wrapperProps}>{children}</div>
-    </Cell>
-  );
-};
+    <div
+      {...{
+        className: classnames(styles.preview, {
+          rtl: isRtl,
+          [styles.darkPreview]: isDarkBackground,
+        }),
+        ...(isRtl ? { dir: 'rtl' } : {}),
+      }}
+    >
+      {children}
+    </div>
+  </Cell>
+);
 
 Preview.propTypes = {
   children: PropTypes.node,
