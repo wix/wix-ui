@@ -100,13 +100,17 @@ describe('AutoExample', () => {
 
   describe('componentWrapper', () => {
     it('should render wrapper when given', () => {
+      const theme = 'componentWrapper-theme';
       const testkit = new Testkit(AutoExample);
       testkit.when.created({
         componentWrapper: ({ component }) => (
-          <div className="classname">{component}</div>
+          <div className={theme}>{component}</div>
         ),
       });
-      expect(testkit.get.exists('[data-hook*="wrapper"]')).toBeTruthy();
+      expect(
+        testkit.get.exists('[data-hook*="componentWrapper"]'),
+      ).toBeTruthy();
+      expect(testkit.get.exists(`[className*="${theme}"]`)).toBeTruthy();
     });
     it('should not render wrapper when not given', () => {
       const testkit = new Testkit(AutoExample);
