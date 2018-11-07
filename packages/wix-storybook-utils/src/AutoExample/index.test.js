@@ -103,7 +103,7 @@ describe('AutoExample', () => {
       const testkit = new Testkit(AutoExample);
       testkit.when.created({
         componentWrapper: ({ componentWrapper }) => (
-          <div className="aha">{componentWrapper}</div>
+          <div className="classname">{componentWrapper}</div>
         ),
       });
       expect(testkit.get.exists('[data-hook*="wrapper"]')).toBeTruthy();
