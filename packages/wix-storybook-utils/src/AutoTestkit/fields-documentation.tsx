@@ -2,18 +2,18 @@ import * as React from 'react';
 import { MethodDocumentation } from './method-documentation';
 import { PrimitiveDocumentation } from './primitive-documentation';
 
-export const FieldsDocumentation = ({ data }) => {
+export const FieldsDocumentation = ({ units }) => {
   const typeComponents = {
     value: PrimitiveDocumentation,
     function: MethodDocumentation,
     object: PrimitiveDocumentation,
   };
-  return data.length ? (
+  return units.length ? (
     <table>
       <tbody>
-        {data.map((field, i) => {
-          const Documentation = typeComponents[field.type];
-          return <Documentation key={i} data={field} />;
+        {units.map((unit, i) => {
+          const Documentation = typeComponents[unit.type];
+          return <Documentation key={i} unit={unit} />;
         })}
       </tbody>
     </table>

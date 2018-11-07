@@ -12,9 +12,23 @@ export class AutoTestkitDriver {
   private select = hook =>
     this.component.find(`[data-hook="auto-testkit-${hook}"]`);
 
+  private constructor() {
+    this.reset();
+  }
+
+  static create() {
+    const driver = new AutoTestkitDriver();
+    afterEach(() => driver.reset());
+    return driver;
+  }
+
+  reset = () => {
+    this.component = undefined;
+  };
+
   when = {
-    created: data => {
-      this.component = mount(<AutoTestkit component={data} />);
+    created: props => {
+      this.component = mount(<AutoTestkit {...props} />);
       return this;
     },
   };
@@ -22,7 +36,7 @@ export class AutoTestkitDriver {
   get = {
     driverAt: index => {
       const driverDoc = this.select('driver').at(index);
-      return new DriverDocumentationDriver().given.component(driverDoc);
+      return DriverDocumentationDriver.create().given.component(driverDoc);
     },
     heading: () => this.select('heading').text(),
     tag: hook => this.select(hook).name(),
@@ -32,16 +46,30 @@ export class AutoTestkitDriver {
 
 export class DriverDocumentationDriver {
   private component;
-  private spy = () => {};
+  private spy;
   private select = subject =>
     this.component.find(`[data-hook="auto-testkit-driver-${subject}"]`);
 
+  private constructor() {
+    this.reset();
+  }
+
+  static create() {
+    const driver = new DriverDocumentationDriver();
+    afterEach(() => driver.reset());
+    return driver;
+  }
+
+  reset = () => {
+    this.spy = () => {};
+    this.component = undefined;
+  };
+
   when = {
-    created: data => {
-      const { descriptor, name } = data;
+    created: props => {
       const mounted = mount(
         <ErrorSpy spy={this.spy}>
-          <DriverDocumentation descriptor={descriptor} name={name} />
+          <DriverDocumentation {...props} />
         </ErrorSpy>,
       );
       return this.given.component(mounted.childAt(0));
@@ -64,7 +92,7 @@ export class DriverDocumentationDriver {
     descriptor: () => this.select('descriptor').text(),
     fields: () => {
       const component = this.select('descriptor').childAt(0);
-      return new FieldsDocumentationDriver().given.component(component);
+      return FieldsDocumentationDriver.create().given.component(component);
     },
     tag: hook => this.select(hook).name(),
   };
@@ -72,13 +100,28 @@ export class DriverDocumentationDriver {
 
 export class FieldsDocumentationDriver {
   private component;
-  private spy = () => {};
+  private spy;
+
+  private constructor() {
+    this.reset();
+  }
+
+  static create() {
+    const driver = new FieldsDocumentationDriver();
+    afterEach(() => driver.reset());
+    return driver;
+  }
+
+  reset = () => {
+    this.spy = () => {};
+    this.component = undefined;
+  };
 
   when = {
-    created: data => {
+    created: props => {
       const mounted = mount(
         <ErrorSpy spy={this.spy}>
-          <FieldsDocumentation data={data} />
+          <FieldsDocumentation {...props} />
         </ErrorSpy>,
       );
       this.given.component(mounted.childAt(0));
@@ -105,12 +148,14 @@ export class FieldsDocumentationDriver {
         .childAt(0)
         .childAt(0)
         .childAt(index);
-      switch (component.props().data.type) {
+      switch (component.props().unit.type) {
         case 'value':
         case 'object':
-          return new PrimitiveDocumentationDriver().given.component(component);
+          return PrimitiveDocumentationDriver.create().given.component(
+            component,
+          );
         case 'function':
-          return new MethodDocumentationDriver().given.component(component);
+          return MethodDocumentationDriver.create().given.component(component);
         default:
           return this;
       }
@@ -129,12 +174,26 @@ export class MethodDocumentationDriver {
   private select = hook =>
     this.component.find(`[data-hook="auto-testkit-function-${hook}"]`);
 
+  private constructor() {
+    this.reset();
+  }
+
+  static create() {
+    const driver = new MethodDocumentationDriver();
+    afterEach(() => driver.reset());
+    return driver;
+  }
+
+  reset = () => {
+    this.component = undefined;
+  };
+
   when = {
-    created: data => {
+    created: props => {
       this.component = mount(
         <table>
           <tbody>
-            <MethodDocumentation data={data} />
+            <MethodDocumentation {...props} />
           </tbody>
         </table>,
       );
@@ -163,12 +222,26 @@ export class PrimitiveDocumentationDriver {
   private select = hook =>
     this.component.find(`[data-hook="auto-testkit-primitive-${hook}"]`);
 
+  private constructor() {
+    this.reset();
+  }
+
+  static create() {
+    const driver = new PrimitiveDocumentationDriver();
+    afterEach(() => driver.reset());
+    return driver;
+  }
+
+  reset = () => {
+    this.component = undefined;
+  };
+
   when = {
-    created: data => {
+    created: props => {
       this.component = mount(
         <table>
           <tbody>
-            <PrimitiveDocumentation data={data} />
+            <PrimitiveDocumentation {...props} />
           </tbody>
         </table>,
       );

@@ -26,7 +26,7 @@ export const DriverDocumentation = ({ descriptor, name }) => {
         {!flatDescriptor.length ? (
           '(empty)'
         ) : (
-          <FieldsDocumentation data={flatDescriptor} />
+          <FieldsDocumentation units={flatDescriptor} />
         )}
       </div>
     </>

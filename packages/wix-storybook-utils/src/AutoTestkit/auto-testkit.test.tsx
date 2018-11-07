@@ -1,6 +1,8 @@
 import { AutoTestkitDriver } from './drivers';
 
 describe('AutoTestkit', () => {
+  const driver = AutoTestkitDriver.create();
+
   const component = {
     displayName: 'component',
     drivers: [
@@ -17,23 +19,23 @@ describe('AutoTestkit', () => {
     ],
   };
 
-  const docs = new AutoTestkitDriver().when.created(component);
+  beforeEach(() => driver.when.created({ component }));
 
   it('has markdown-body class on root element', () => {
-    expect(docs.get.rootClass()).toBe('markdown-body');
+    expect(driver.get.rootClass()).toBe('markdown-body');
   });
 
   describe('heading', () => {
     it('renders', () => {
-      expect(docs.get.heading()).toBe(`${component.displayName} Testkits`);
+      expect(driver.get.heading()).toBe(`${component.displayName} Testkits`);
     });
 
     it('is h1 tag', () => {
-      expect(docs.get.tag('heading')).toBe('h1');
+      expect(driver.get.tag('heading')).toBe('h1');
     });
   });
 
   it('has driver documentation tables', () => {
-    expect(docs.get.driverAt(0).get.name()).toBe(component.drivers[0].file);
+    expect(driver.get.driverAt(0).get.name()).toBe(component.drivers[0].file);
   });
 });

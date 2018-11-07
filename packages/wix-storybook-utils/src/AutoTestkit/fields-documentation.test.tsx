@@ -1,29 +1,29 @@
 import { FieldsDocumentationDriver } from './drivers';
 
 describe('FieldsDocumentation', () => {
-  const fieldsDriver = new FieldsDocumentationDriver();
+  const driver = FieldsDocumentationDriver.create();
   it('renders', () => {
-    fieldsDriver.when.created([]);
+    driver.when.created({ units: [] });
 
-    expect(fieldsDriver.get.html()).toBe(null);
+    expect(driver.get.html()).toBe(null);
   });
 
   it('todo1', () => {
-    const data = [
+    const units = [
       {
         type: 'value',
         name: 'not-a-function',
       },
     ];
 
-    fieldsDriver.when.created(data);
+    driver.when.created({ units });
 
-    expect(fieldsDriver.get.count()).toBe(data.length);
-    expect(fieldsDriver.get.at(0).get.name()).toBe('not-a-function');
+    expect(driver.get.count()).toBe(units.length);
+    expect(driver.get.at(0).get.name()).toBe('not-a-function');
   });
 
   it('todo2', () => {
-    const data = [
+    const units = [
       {
         type: 'value',
         name: 'not-a-function',
@@ -34,16 +34,16 @@ describe('FieldsDocumentation', () => {
       },
     ];
 
-    fieldsDriver.when.created(data);
+    driver.when.created({ units });
 
-    expect(fieldsDriver.get.count()).toBe(data.length);
-    data.forEach((value, index) => {
-      expect(fieldsDriver.get.at(index).get.name()).toBe(value.name);
+    expect(driver.get.count()).toBe(units.length);
+    units.forEach((unit, index) => {
+      expect(driver.get.at(index).get.name()).toBe(unit.name);
     });
   });
 
   it('todo3', () => {
-    const data = [
+    const units = [
       {
         type: 'value',
         name: 'not-a-function',
@@ -55,11 +55,11 @@ describe('FieldsDocumentation', () => {
       },
     ];
 
-    fieldsDriver.when.created(data);
+    driver.when.created({ units });
 
-    expect(fieldsDriver.get.count()).toBe(data.length);
-    data.forEach((field, index) => {
-      expect(fieldsDriver.get.at(index).get.name()).toBe(field.name);
+    expect(driver.get.count()).toBe(units.length);
+    units.forEach((unit, index) => {
+      expect(driver.get.at(index).get.name()).toBe(unit.name);
     });
   });
 
@@ -67,16 +67,16 @@ describe('FieldsDocumentation', () => {
     const consoleError = console.error;
     console.error = jest.fn();
 
-    const data = [
+    const units = [
       {
         type: 'notFittingType',
         name: 'no name',
       },
     ];
     const spy = jest.fn();
-    fieldsDriver.given.spy(spy);
+    driver.given.spy(spy);
 
-    fieldsDriver.when.created(data);
+    driver.when.created({ units });
 
     expect(spy).toHaveBeenCalled();
 

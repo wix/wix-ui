@@ -1,25 +1,29 @@
 import { PrimitiveDocumentationDriver } from './drivers';
 
 describe('PrimitiveDocumentation', () => {
-  const data = {
+  const driver = PrimitiveDocumentationDriver.create();
+  const unit = {
     description: 'some description',
     name: 'wrapper',
   };
-  const namespace = new PrimitiveDocumentationDriver().when.created(data);
+
+  beforeEach(() => {
+    driver.when.created({ unit });
+  });
 
   it('has primitives` name', () => {
-    expect(namespace.get.name()).toBe(data.name);
+    expect(driver.get.name()).toBe(unit.name);
   });
 
   it('has primitives` description', () => {
-    expect(namespace.get.description()).toBe(data.description);
+    expect(driver.get.description()).toBe(unit.description);
   });
 
   it('has name with tag td', () => {
-    expect(namespace.get.tag('name')).toBe('td');
+    expect(driver.get.tag('name')).toBe('td');
   });
 
   it('has description with tag td', () => {
-    expect(namespace.get.tag('description')).toBe('td');
+    expect(driver.get.tag('description')).toBe('td');
   });
 });

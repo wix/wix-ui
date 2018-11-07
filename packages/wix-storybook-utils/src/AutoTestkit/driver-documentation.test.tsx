@@ -2,9 +2,12 @@ import { flatten } from './driver-documentation';
 import { DriverDocumentationDriver } from './drivers';
 
 describe('DriverDocumentation', () => {
+  const driver = DriverDocumentationDriver.create();
+  afterEach(() => driver.reset());
+
   it('has h2 for name', () => {
     const descriptor = [];
-    const driver = new DriverDocumentationDriver().when.created({
+    driver.when.created({
       descriptor,
       name: 'a',
     });
@@ -14,9 +17,11 @@ describe('DriverDocumentation', () => {
 
   describe('case when there is a name but no descriptor', () => {
     const descriptor = [];
-    const driver = new DriverDocumentationDriver().when.created({
-      descriptor,
-      name: 'a',
+    beforeEach(() => {
+      driver.when.created({
+        descriptor,
+        name: 'a',
+      });
     });
 
     it('has a name', () => {
@@ -37,7 +42,7 @@ describe('DriverDocumentation', () => {
 
         const descriptor = [];
         const spy = jest.fn();
-        new DriverDocumentationDriver().given.spy(spy).when.created({
+        driver.given.spy(spy).when.created({
           descriptor,
           name: invalidName,
         });
@@ -50,7 +55,6 @@ describe('DriverDocumentation', () => {
   });
 
   describe('shallow driver descriptor', () => {
-    const driver = new DriverDocumentationDriver();
     const name = 'name';
     describe('single item in the descriptor', () => {
       it('renders fields documentation for a given descriptor', () => {
@@ -104,7 +108,6 @@ describe('DriverDocumentation', () => {
   });
 
   describe('deep driver descriptor', () => {
-    const driver = new DriverDocumentationDriver();
     const name = 'nested';
 
     it('renders a flattened out fields documentation', () => {

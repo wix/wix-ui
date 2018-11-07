@@ -1,7 +1,8 @@
 import { MethodDocumentationDriver } from './drivers';
 
 describe('MethodDocumentation', () => {
-  const functionData = {
+  const driver = MethodDocumentationDriver.create();
+  const method = {
     name: 'method',
     type: 'function',
     args: [
@@ -13,19 +14,19 @@ describe('MethodDocumentation', () => {
   };
 
   it('has a function name', () => {
-    const driver = new MethodDocumentationDriver();
-
-    driver.when.created(functionData);
+    driver.when.created({ unit: method });
 
     expect(driver.get.name()).toBe('method');
   });
 
   describe('no arguments', () => {
-    const driver = new MethodDocumentationDriver();
-
-    driver.when.created({
-      ...functionData,
-      args: [],
+    beforeEach(() => {
+      driver.when.created({
+        unit: {
+          ...method,
+          args: [],
+        },
+      });
     });
 
     it(`has an empty string`, () => {
@@ -35,8 +36,10 @@ describe('MethodDocumentation', () => {
 
   describe('arguments with types', () => {
     describe('one', () => {
-      const driver = new MethodDocumentationDriver();
-      driver.when.created(functionData);
+      beforeEach(() => {
+        driver.when.created({ unit: method });
+      });
+
       it('has name', () => {
         expect(driver.get.argumentNames()[0]).toBe('param1');
       });
@@ -47,16 +50,16 @@ describe('MethodDocumentation', () => {
     });
 
     describe('multiple', () => {
-      const driver = new MethodDocumentationDriver();
-
-      const functionDataWithMultipleArgsModel = {
-        ...functionData,
+      const unit = {
+        ...method,
         args: [
           { name: 'str1', type: 'string' },
           { name: 'str2', type: 'string' },
         ],
       };
-      driver.when.created(functionDataWithMultipleArgsModel);
+      beforeEach(() => {
+        driver.when.created({ unit });
+      });
 
       it('has a list of arguments', () => {
         expect(driver.get.argumentNames().length).toBe(2);
@@ -64,20 +67,16 @@ describe('MethodDocumentation', () => {
 
       it('has names', () => {
         const names = driver.get.argumentNames();
-        expect(names.length).toBe(
-          functionDataWithMultipleArgsModel.args.length,
-        );
-        functionDataWithMultipleArgsModel.args.forEach((argument, index) => {
+        expect(names.length).toBe(unit.args.length);
+        unit.args.forEach((argument, index) => {
           expect(names[index]).toBe(argument.name);
         });
       });
 
       it('has types', () => {
         const types = driver.get.argumentTypes();
-        expect(types.length).toBe(
-          functionDataWithMultipleArgsModel.args.length,
-        );
-        functionDataWithMultipleArgsModel.args.forEach((argument, index) => {
+        expect(types.length).toBe(unit.args.length);
+        unit.args.forEach((argument, index) => {
           expect(types[index]).toBe(`:${argument.type}`);
         });
       });
@@ -85,21 +84,21 @@ describe('MethodDocumentation', () => {
   });
 
   describe('arguments without types', () => {
-    const driver = new MethodDocumentationDriver();
-
-    const functionWithoutArgTypesModel = {
-      ...functionData,
-      args: [
-        {
-          name: 'str1',
+    beforeEach(() => {
+      driver.when.created({
+        unit: {
+          ...method,
+          args: [
+            {
+              name: 'str1',
+            },
+            {
+              name: 'str2',
+            },
+          ],
         },
-        {
-          name: 'str2',
-        },
-      ],
-    };
-
-    driver.when.created(functionWithoutArgTypesModel);
+      });
+    });
 
     it('has arguments names', () => {
       expect(driver.get.argumentNames().length).toBe(2);
@@ -111,23 +110,20 @@ describe('MethodDocumentation', () => {
   });
 
   describe('description', () => {
-    const driver = new MethodDocumentationDriver();
-    const functionWithDescription = {
-      ...functionData,
-      args: [],
-      description: 'some description',
-    };
-
     it('can have a description', () => {
-      driver.when.created(functionWithDescription);
+      const description = 'some description';
+      driver.when.created({
+        unit: {
+          ...method,
+          description,
+        },
+      });
 
-      expect(driver.get.description()).toBe(
-        functionWithDescription.description,
-      );
+      expect(driver.get.description()).toBe(description);
     });
 
     it('renders empty cell when theres no description', () => {
-      driver.when.created(functionData);
+      driver.when.created({ unit: method });
 
       expect(driver.get.description()).toBe('');
     });
