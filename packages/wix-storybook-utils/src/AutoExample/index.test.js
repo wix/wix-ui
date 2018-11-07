@@ -115,7 +115,7 @@ describe('AutoExample', () => {
     it('should not render wrapper when not given', () => {
       const testkit = new Testkit(AutoExample);
       testkit.when.created();
-      expect(testkit.get.exists('[data-hook*="wrapper"]')).toBeFalsy();
+      expect(testkit.get.exists('[data-hook*="componentWrapper"]')).toBeFalsy();
     });
   });
 });
