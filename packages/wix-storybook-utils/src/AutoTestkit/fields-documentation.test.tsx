@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { FieldsDocumentation } from './fields-documentation';
-import { ValueDocumentationDriver } from './value-documentation.test';
 import { MethodDocumentationDriver } from './method-documentation.test';
 import { ErrorSpy } from './error-spy';
+import { PrimitiveDocumentationDriver } from './primitive-documentation.test';
 
-class FieldsDocumentationDriver {
-  component;
-  data;
-  spy = () => {};
+export class FieldsDocumentationDriver {
+  private component;
+  private spy = () => {};
+
   when = {
     created: data => {
-      this.data = data;
-      this.component = mount(
+      const mounted = mount(
         <ErrorSpy spy={this.spy}>
           <FieldsDocumentation data={data} />
         </ErrorSpy>,
       );
+      this.given.component(mounted.childAt(0));
       return this;
     },
   };
@@ -26,20 +26,26 @@ class FieldsDocumentationDriver {
       this.spy = spy;
       return this;
     },
+
+    component: component => {
+      this.component = component;
+      return this;
+    },
   };
+
   get = {
     html: () => this.component.html(),
     at: index => {
       const component = this.component
         .childAt(0)
         .childAt(0)
-        .childAt(0)
         .childAt(index);
       switch (component.props().data.type) {
         case 'value':
-          return new ValueDocumentationDriver().given(component);
+        case 'object':
+          return new PrimitiveDocumentationDriver().given.component(component);
         case 'function':
-          return new MethodDocumentationDriver().given(component);
+          return new MethodDocumentationDriver().given.component(component);
         default:
           return this;
       }
@@ -47,7 +53,6 @@ class FieldsDocumentationDriver {
     name: () => null,
     count: () =>
       this.component
-        .childAt(0)
         .childAt(0)
         .childAt(0)
         .children().length,
@@ -58,6 +63,7 @@ describe('FieldsDocumentation', () => {
   const fieldsDriver = new FieldsDocumentationDriver();
   it('renders', () => {
     fieldsDriver.when.created([]);
+
     expect(fieldsDriver.get.html()).toBe(null);
   });
 
@@ -86,6 +92,7 @@ describe('FieldsDocumentation', () => {
         name: 'not-a-function2',
       },
     ];
+
     fieldsDriver.when.created(data);
 
     expect(fieldsDriver.get.count()).toBe(data.length);
@@ -106,9 +113,10 @@ describe('FieldsDocumentation', () => {
         name: 'func',
       },
     ];
-    fieldsDriver.when.created(data);
-    expect(fieldsDriver.get.count()).toBe(data.length);
 
+    fieldsDriver.when.created(data);
+
+    expect(fieldsDriver.get.count()).toBe(data.length);
     data.forEach((field, index) => {
       expect(fieldsDriver.get.at(index).get.name()).toBe(field.name);
     });

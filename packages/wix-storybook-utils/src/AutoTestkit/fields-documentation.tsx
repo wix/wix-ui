@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { ValueDocumentation } from './value-documentation';
 import { MethodDocumentation } from './method-documentation';
+import { PrimitiveDocumentation } from './primitive-documentation';
 
 export const FieldsDocumentation = ({ data }) => {
   const typeComponents = {
-    value: ValueDocumentation,
+    value: PrimitiveDocumentation,
     function: MethodDocumentation,
+    object: PrimitiveDocumentation,
   };
   return data.length ? (
     <table>

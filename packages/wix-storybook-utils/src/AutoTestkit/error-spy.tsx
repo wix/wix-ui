@@ -1,5 +1,4 @@
 import * as React from 'react';
-import proptypes from 'prop-types';
 
 interface IErrorSpy {
   spy: Function;

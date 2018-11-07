@@ -20,11 +20,11 @@ const FunctionArguments = ({ args }) => {
 export const MethodDocumentation = ({ data }) => {
   const { args, name } = data;
   return (
-    <tr data-hook="auto-testkit-data-row">
+    <tr className="auto-testkit-field" data-hook="auto-testkit-data-row">
       <td>
         <span data-hook="auto-testkit-function-name">{name}</span>(
         <span data-hook="auto-testkit-function-arguments">
-          {args.length ? <FunctionArguments args={args} /> : '-'}
+          {args.length ? <FunctionArguments args={args} /> : ''}
         </span>
         )
       </td>

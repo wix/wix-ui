@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import Markdown from '../src/Markdown';
 import InteractiveCodeExample from '../src/InteractiveCodeExample';
 import TabbedView from '../src/TabbedView';
@@ -10,14 +10,14 @@ import TextButton from '../src/TextButton';
 import markdown from './examples/markdown.md';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
-import { FieldsDocumentation } from '../src/AutoTestkit/fields-documentation';
+import { AutoTestkit } from '../src/AutoTestkit/auto-testkit';
 
 storiesOf('Components', module)
   .add('<CodeExample/>', () => (
     <div>
       Cool way to render components and see their code
       <CodeExample title={'some code example'} code={SomeComponentExampleRaw}>
-        <SomeComponentExample/>
+        <SomeComponentExample />
       </CodeExample>
     </div>
   ))
@@ -47,34 +47,78 @@ storiesOf('Components', module)
   .add('<ggggg/>', () => (
     <div>
       A great way to display Markdown files
-          <FieldsDocumentation data={[
-            {
-            type: 'value',
-            name: 'some val',
-          },
-          {
-            type: 'function',
-            name: 'someFunction',
-            args: [
-              {
-                name: 'arg1',
-                type: 'string',
+      <AutoTestkit
+        component={{
+          props: {
+            thing: {
+              type: {
+                name: 'enum',
+                value: [
+                  {
+                    value: "'first'",
+                    computed: false,
+                  },
+                  {
+                    value: "'second'",
+                    computed: false,
+                  },
+                ],
               },
-              {
-                name: 'arg2',
-                type: 'number',
-              }
-            ]
-          }]}/>
+              required: false,
+              description: '',
+            },
+            children: {
+              type: {
+                name: 'node',
+              },
+              required: true,
+              description: 'i am description about `children` prop',
+            },
+          },
+          description: '',
+          displayName: 'Component',
+          methods: [],
+          readme: 'source of `./readme.md` if exists, otherwise empty string',
+          readmeAccessibility:
+            'source of `./readme.accessibility.md` if exists, otherwise empty string',
+          readmeTestkit:
+            'source of `./readme.testkit.md` if exists, otherwise empty string',
+          drivers: [
+            // metadata of exported methods in *.driver.js, *.protractor.driver.js or *.pupeteer.driver.js
+            {
+              file: 'component.driver.js',
+              descriptor: [
+                {
+                  name: 'click',
+                  args: [],
+                  type: 'function',
+                  description: 'foobar',
+                },
+              ],
+            },
+            {
+              file: 'component.pupeteer.driver.js',
+              descriptor: [
+                {
+                  name: 'element',
+                  args: [],
+                  type: 'function',
+                  description: 'fizzbuzz'
+                },
+              ],
+            },
+          ],
+        }}
+      />
     </div>
   ))
   .add('<InteractiveCodeExample/> ', () => (
     <div>
       This component should display a component with some code above it
-      <br/>
+      <br />
       It is relatively old and should be removed sometime
       <InteractiveCodeExample title="Customize some section">
-        <SomeComponentExample/>
+        <SomeComponentExample />
       </InteractiveCodeExample>
     </div>
   ));

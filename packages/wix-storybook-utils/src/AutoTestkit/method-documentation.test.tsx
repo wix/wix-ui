@@ -4,8 +4,10 @@ import { mount } from 'enzyme';
 import { MethodDocumentation } from './method-documentation';
 
 export class MethodDocumentationDriver {
-  component;
-  private hookBase = 'auto-testkit-function';
+  private component;
+  private select = hook =>
+    this.component.find(`[data-hook="auto-testkit-function-${hook}"]`);
+
   when = {
     created: data => {
       this.component = mount(
@@ -18,26 +20,20 @@ export class MethodDocumentationDriver {
       return this;
     },
   };
-  given = component => {
-    this.component = component;
-    return this;
+
+  given = {
+    component: component => {
+      this.component = component;
+      return this;
+    },
   };
 
   get = {
-    name: () =>
-      this.component.find(`[data-hook="${this.hookBase}-name"]`).text(),
-    arguments: () =>
-      this.component.find(`[data-hook="${this.hookBase}-arguments"]`).text(),
-    argumentNames: () =>
-      this.component
-        .find(`[data-hook="${this.hookBase}-argument-name"]`)
-        .map(name => name.text()),
-    argumentTypes: () =>
-      this.component
-        .find(`[data-hook="${this.hookBase}-argument-type"]`)
-        .map(type => type.text()),
-    description: () =>
-      this.component.find(`[data-hook="${this.hookBase}-description"]`).text(),
+    name: () => this.select('name').text(),
+    arguments: () => this.select('arguments').text(),
+    argumentNames: () => this.select('argument-name').map(name => name.text()),
+    argumentTypes: () => this.select('argument-type').map(type => type.text()),
+    description: () => this.select('description').text(),
   };
 }
 
@@ -57,6 +53,7 @@ describe('MethodDocumentation', () => {
     const driver = new MethodDocumentationDriver();
 
     driver.when.created(functionData);
+
     expect(driver.get.name()).toBe('method');
   });
 
@@ -67,8 +64,9 @@ describe('MethodDocumentation', () => {
       ...functionData,
       args: [],
     });
-    it(`has a dash (-)`, () => {
-      expect(driver.get.arguments()).toBe('-');
+
+    it(`has an empty string`, () => {
+      expect(driver.get.arguments()).toBe('');
     });
   });
 
@@ -167,6 +165,7 @@ describe('MethodDocumentation', () => {
 
     it('renders empty cell when theres no description', () => {
       driver.when.created(functionData);
+
       expect(driver.get.description()).toBe('');
     });
   });
