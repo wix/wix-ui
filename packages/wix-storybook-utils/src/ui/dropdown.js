@@ -48,16 +48,15 @@ const Dropdown = ({
         <div className={styles.dropdownIcons}>
           <DropDownArrowIcon size="10px" onClick={openMenu} />
 
-          {onClear &&
-            inputValue && (
-              <CloseIcon
-                onClick={() => {
-                  clearSelection();
-                  onClear();
-                }}
-                size="8px"
-              />
-            )}
+          {onClear && inputValue && (
+            <CloseIcon
+              onClick={() => {
+                clearSelection();
+                onClear();
+              }}
+              size="8px"
+            />
+          )}
         </div>
 
         <ul className={styles.dropdownMenu} {...getMenuProps()}>

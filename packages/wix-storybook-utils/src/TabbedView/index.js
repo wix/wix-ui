@@ -36,10 +36,8 @@ export default class TabbedView extends Component {
           />
         )}
 
-        {React.Children.map(
-          this.props.children,
-          (child, index) =>
-            this.state.activeTabId === this.props.tabs[index] ? child : null,
+        {React.Children.map(this.props.children, (child, index) =>
+          this.state.activeTabId === this.props.tabs[index] ? child : null,
         )}
       </div>
     );

@@ -103,10 +103,9 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
       <td>{prop.name || '-'}</td>
       <td>{renderPropType(prop.type)}</td>
       <td>
-        {prop.defaultValue &&
-          prop.defaultValue.value && (
-            <Markdown source={`\`${prop.defaultValue.value}\``} />
-          )}
+        {prop.defaultValue && prop.defaultValue.value && (
+          <Markdown source={`\`${prop.defaultValue.value}\``} />
+        )}
       </td>
       <td>{prop.required && 'Required'}</td>
       <td>{prop.description && <Markdown source={prop.description} />}</td>
@@ -116,12 +115,11 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
   return (
     !shouldHideForE2E && (
       <div className="markdown-body">
-        {showTitle &&
-          displayName && (
-            <div>
-              <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
-            </div>
-          )}
+        {showTitle && displayName && (
+          <div>
+            <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
+          </div>
+        )}
 
         {!displayName && (
           <blockquote>
@@ -149,19 +147,18 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
           <tbody>
             {prepareParsedProps(props).map(propRow)}
 
-            {!parsedSource &&
-              composes.length > 0 && (
-                <tr>
-                  <td colSpan={5}>
-                    Also includes props from:
-                    <ul>
-                      {composes.map((path, i) => (
-                        <li key={i}>{path}</li>
-                      ))}
-                    </ul>
-                  </td>
-                </tr>
-              )}
+            {!parsedSource && composes.length > 0 && (
+              <tr>
+                <td colSpan={5}>
+                  Also includes props from:
+                  <ul>
+                    {composes.map((path, i) => (
+                      <li key={i}>{path}</li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 

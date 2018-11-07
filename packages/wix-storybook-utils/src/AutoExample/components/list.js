@@ -59,11 +59,10 @@ export default class List extends React.Component {
 
   getFilteredOptions = () =>
     this.state.isFiltering
-      ? this.state.options.filter(
-          ({ value }) =>
-            this.state.currentFilter.length
-              ? value.toLowerCase().includes(this.state.currentFilter)
-              : true,
+      ? this.state.options.filter(({ value }) =>
+          this.state.currentFilter.length
+            ? value.toLowerCase().includes(this.state.currentFilter)
+            : true,
         )
       : this.state.options;
 
