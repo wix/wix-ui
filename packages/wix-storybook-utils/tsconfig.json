@@ -13,9 +13,5 @@
     "allowJs": true,
     "esModuleInterop": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.js",
-    "./src/**/*.tsx"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.js", "./src/**/*.tsx"]
 }
