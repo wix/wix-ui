@@ -1,14 +1,14 @@
-import { PrimitiveDocumentationDriver } from './drivers';
+import { createPrimitiveDocumentationDriver } from './drivers';
 
 describe('PrimitiveDocumentation', () => {
-  const driver = PrimitiveDocumentationDriver.create();
+  const driver = createPrimitiveDocumentationDriver();
   const unit = {
     description: 'some description',
     name: 'wrapper',
   };
 
   beforeEach(() => {
-    driver.when.created({ unit });
+    driver.create({ unit });
   });
 
   it('has primitives` name', () => {

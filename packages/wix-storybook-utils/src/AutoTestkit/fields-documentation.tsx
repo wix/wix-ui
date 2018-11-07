@@ -8,6 +8,7 @@ export const FieldsDocumentation = ({ units }) => {
     function: MethodDocumentation,
     object: PrimitiveDocumentation,
   };
+  // TODO if length is zero, then render '(empty)' here, not in driver-documentation
   return units.length ? (
     <table>
       <tbody>

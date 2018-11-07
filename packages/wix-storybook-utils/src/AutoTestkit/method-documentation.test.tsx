@@ -1,7 +1,7 @@
-import { MethodDocumentationDriver } from './drivers';
+import { createMethodDocumentationDriver } from './drivers';
 
 describe('MethodDocumentation', () => {
-  const driver = MethodDocumentationDriver.create();
+  const driver = createMethodDocumentationDriver();
   const method = {
     name: 'method',
     type: 'function',
@@ -14,14 +14,14 @@ describe('MethodDocumentation', () => {
   };
 
   it('has a function name', () => {
-    driver.when.created({ unit: method });
+    driver.create({ unit: method });
 
     expect(driver.get.name()).toBe('method');
   });
 
   describe('no arguments', () => {
     beforeEach(() => {
-      driver.when.created({
+      driver.create({
         unit: {
           ...method,
           args: [],
@@ -37,7 +37,7 @@ describe('MethodDocumentation', () => {
   describe('arguments with types', () => {
     describe('one', () => {
       beforeEach(() => {
-        driver.when.created({ unit: method });
+        driver.create({ unit: method });
       });
 
       it('has name', () => {
@@ -58,7 +58,7 @@ describe('MethodDocumentation', () => {
         ],
       };
       beforeEach(() => {
-        driver.when.created({ unit });
+        driver.create({ unit });
       });
 
       it('has a list of arguments', () => {
@@ -85,7 +85,7 @@ describe('MethodDocumentation', () => {
 
   describe('arguments without types', () => {
     beforeEach(() => {
-      driver.when.created({
+      driver.create({
         unit: {
           ...method,
           args: [
@@ -112,7 +112,7 @@ describe('MethodDocumentation', () => {
   describe('description', () => {
     it('can have a description', () => {
       const description = 'some description';
-      driver.when.created({
+      driver.create({
         unit: {
           ...method,
           description,
@@ -123,7 +123,7 @@ describe('MethodDocumentation', () => {
     });
 
     it('renders empty cell when theres no description', () => {
-      driver.when.created({ unit: method });
+      driver.create({ unit: method });
 
       expect(driver.get.description()).toBe('');
     });

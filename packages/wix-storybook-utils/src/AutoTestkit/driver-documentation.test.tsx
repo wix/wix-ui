@@ -1,13 +1,12 @@
 import { flatten } from './driver-documentation';
-import { DriverDocumentationDriver } from './drivers';
+import { createDriverDocumentationDriver } from './drivers';
 
 describe('DriverDocumentation', () => {
-  const driver = DriverDocumentationDriver.create();
-  afterEach(() => driver.reset());
+  const driver = createDriverDocumentationDriver();
 
   it('has h2 for name', () => {
     const descriptor = [];
-    driver.when.created({
+    driver.create({
       descriptor,
       name: 'a',
     });
@@ -18,7 +17,7 @@ describe('DriverDocumentation', () => {
   describe('case when there is a name but no descriptor', () => {
     const descriptor = [];
     beforeEach(() => {
-      driver.when.created({
+      driver.create({
         descriptor,
         name: 'a',
       });
@@ -42,10 +41,13 @@ describe('DriverDocumentation', () => {
 
         const descriptor = [];
         const spy = jest.fn();
-        driver.given.spy(spy).when.created({
-          descriptor,
-          name: invalidName,
-        });
+        driver.create(
+          {
+            descriptor,
+            name: invalidName,
+          },
+          spy,
+        );
 
         expect(spy).toHaveBeenCalled();
 
@@ -65,7 +67,7 @@ describe('DriverDocumentation', () => {
             type: 'function',
           },
         ];
-        driver.when.created({
+        driver.create({
           descriptor,
           name,
         });
@@ -92,7 +94,7 @@ describe('DriverDocumentation', () => {
             type: 'value',
           },
         ];
-        driver.when.created({ name, descriptor });
+        driver.create({ name, descriptor });
 
         descriptor.forEach((item, index) => {
           expect(
@@ -130,7 +132,7 @@ describe('DriverDocumentation', () => {
         },
       ];
 
-      driver.when.created({ name, descriptor: nestedDescriptor });
+      driver.create({ name, descriptor: nestedDescriptor });
 
       flatten(nestedDescriptor).forEach((item, index) => {
         expect(

@@ -19,7 +19,7 @@ describe('AutoTestkit', () => {
     ],
   };
 
-  beforeEach(() => driver.when.created({ component }));
+  beforeEach(() => driver.create({ component }));
 
   it('has markdown-body class on root element', () => {
     expect(driver.get.rootClass()).toBe('markdown-body');

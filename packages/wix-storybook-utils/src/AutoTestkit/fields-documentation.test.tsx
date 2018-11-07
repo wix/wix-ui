@@ -1,11 +1,11 @@
-import { FieldsDocumentationDriver } from './drivers';
+import { createFieldsDocumentationDriver } from './drivers';
 
 describe('FieldsDocumentation', () => {
-  const driver = FieldsDocumentationDriver.create();
+  const driver = createFieldsDocumentationDriver();
   it('renders', () => {
-    driver.when.created({ units: [] });
+    driver.create({ units: [] });
 
-    expect(driver.get.html()).toBe(null);
+    expect(driver.get.isEmpty()).toBe(true);
   });
 
   it('todo1', () => {
@@ -16,7 +16,7 @@ describe('FieldsDocumentation', () => {
       },
     ];
 
-    driver.when.created({ units });
+    driver.create({ units });
 
     expect(driver.get.count()).toBe(units.length);
     expect(driver.get.at(0).get.name()).toBe('not-a-function');
@@ -34,7 +34,7 @@ describe('FieldsDocumentation', () => {
       },
     ];
 
-    driver.when.created({ units });
+    driver.create({ units });
 
     expect(driver.get.count()).toBe(units.length);
     units.forEach((unit, index) => {
@@ -55,7 +55,7 @@ describe('FieldsDocumentation', () => {
       },
     ];
 
-    driver.when.created({ units });
+    driver.create({ units });
 
     expect(driver.get.count()).toBe(units.length);
     units.forEach((unit, index) => {
@@ -74,9 +74,8 @@ describe('FieldsDocumentation', () => {
       },
     ];
     const spy = jest.fn();
-    driver.given.spy(spy);
 
-    driver.when.created({ units });
+    driver.create({ units }, spy);
 
     expect(spy).toHaveBeenCalled();
 
