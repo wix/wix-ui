@@ -1,48 +1,5 @@
-import * as React from 'react';
-import { mount, shallow } from 'enzyme';
-import { ErrorSpy } from './error-spy';
-import { DriverDocumentation, flatten } from './driver-documentation';
-import { FieldsDocumentationDriver } from './fields-documentation.test';
-
-export class DriverDocumentationDriver {
-  private component;
-  private spy = () => {};
-  private select = subject =>
-    this.component.find(`[data-hook="auto-testkit-driver-${subject}"]`);
-
-  when = {
-    created: data => {
-      const { descriptor, name } = data;
-      const mounted = mount(
-        <ErrorSpy spy={this.spy}>
-          <DriverDocumentation descriptor={descriptor} name={name} />
-        </ErrorSpy>,
-      );
-      return this.given.component(mounted.childAt(0));
-    },
-  };
-
-  given = {
-    spy: spy => {
-      this.spy = spy;
-      return this;
-    },
-    component: component => {
-      this.component = component;
-      return this;
-    },
-  };
-
-  get = {
-    name: () => this.select('name').text(),
-    descriptor: () => this.select('descriptor').text(),
-    fields: () => {
-      const component = this.select('descriptor').childAt(0);
-      return new FieldsDocumentationDriver().given.component(component);
-    },
-    tag: hook => this.select(hook).name(),
-  };
-}
+import { flatten } from './driver-documentation';
+import { DriverDocumentationDriver } from './drivers';
 
 describe('DriverDocumentation', () => {
   it('has h2 for name', () => {

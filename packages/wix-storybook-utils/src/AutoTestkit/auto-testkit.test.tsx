@@ -1,29 +1,4 @@
-import * as React from 'react';
-import { mount } from 'enzyme';
-import { AutoTestkit } from './auto-testkit';
-import { DriverDocumentationDriver } from './driver-documentation.test';
-class AutoTestkitDriver {
-  private component;
-  private select = hook =>
-    this.component.find(`[data-hook="auto-testkit-${hook}"]`);
-
-  when = {
-    created: data => {
-      this.component = mount(<AutoTestkit component={data} />);
-      return this;
-    },
-  };
-
-  get = {
-    driverAt: index => {
-      const driverDoc = this.select('driver').at(index);
-      return new DriverDocumentationDriver().given.component(driverDoc);
-    },
-    heading: () => this.select('heading').text(),
-    tag: hook => this.select(hook).name(),
-    rootClass: () => this.component.childAt(0).props().className,
-  };
-}
+import { AutoTestkitDriver } from './drivers';
 
 describe('AutoTestkit', () => {
   const component = {

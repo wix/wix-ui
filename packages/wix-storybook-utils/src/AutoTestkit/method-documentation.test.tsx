@@ -1,41 +1,4 @@
-import * as React from 'react';
-import { mount } from 'enzyme';
-
-import { MethodDocumentation } from './method-documentation';
-
-export class MethodDocumentationDriver {
-  private component;
-  private select = hook =>
-    this.component.find(`[data-hook="auto-testkit-function-${hook}"]`);
-
-  when = {
-    created: data => {
-      this.component = mount(
-        <table>
-          <tbody>
-            <MethodDocumentation data={data} />
-          </tbody>
-        </table>,
-      );
-      return this;
-    },
-  };
-
-  given = {
-    component: component => {
-      this.component = component;
-      return this;
-    },
-  };
-
-  get = {
-    name: () => this.select('name').text(),
-    arguments: () => this.select('arguments').text(),
-    argumentNames: () => this.select('argument-name').map(name => name.text()),
-    argumentTypes: () => this.select('argument-type').map(type => type.text()),
-    description: () => this.select('description').text(),
-  };
-}
+import { MethodDocumentationDriver } from './drivers';
 
 describe('MethodDocumentation', () => {
   const functionData = {
