@@ -342,7 +342,7 @@ export default class extends Component {
 
     const componentWrapper = this.props.componentWrapper
       ? React.cloneElement(this.props.componentWrapper({ component }), {
-          'data-hook': 'wrapper',
+          'data-hook': 'componentWrapper',
         })
       : undefined;
 
