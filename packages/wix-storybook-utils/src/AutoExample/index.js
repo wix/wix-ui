@@ -301,6 +301,7 @@ export default class extends Component {
     },
   };
 
+
   render() {
     const functionExampleProps = Object.keys(this.props.exampleProps).filter(
       prop =>
@@ -339,7 +340,11 @@ export default class extends Component {
       return React.createElement(this.props.component, componentProps);
     }
     const component = React.createElement(this.props.component, componentProps);
-
+    
+    const componentWrapper = this.props.componentWrapper? 
+    React.cloneElement(this.props.componentWrapper({ component }), {'data-hook': 'wrapper'}): 
+    undefined;
+    
     return (
       <Layout dataHook="auto-example">
         <Cell span={6}>
@@ -372,10 +377,7 @@ export default class extends Component {
           onToggleBackground={isDarkBackground =>
             this.setState({ isDarkBackground })
           }
-          className={wrapperClassName}
-          children={
-            componentWrapper ? componentWrapper({ component }) : component
-          }
+          children={componentWrapper || component}
         />
 
         {this.props.codeExample && (

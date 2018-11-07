@@ -17,5 +17,6 @@ export default class AutoExampleTestkit {
   get = {
     options: () => this.component.find(Option),
     codeBlock: () => this.component.find(Code),
+    exists: selector => this.component.exists(selector),
   };
 }
