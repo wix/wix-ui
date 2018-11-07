@@ -1,4 +1,5 @@
 .root {
+  -st-states: imgLoaded(boolean);
 }
 
 .image {}

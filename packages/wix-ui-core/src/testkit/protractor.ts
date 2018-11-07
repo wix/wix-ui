@@ -4,6 +4,15 @@ import {
 } from 'wix-ui-test-utils/protractor';
 
 import {
+  avatarDriverFactory,
+  AvatarDriver
+} from '../components/avatar/avatar.driver';
+export const avatarTestkitFactory = protractorUniTestkitFactoryCreator(
+  avatarDriverFactory
+);
+export { AvatarDriver };
+
+import {
   buttonDriverFactory,
   ButtonDriver
 } from '../components/deprecated/Button/Button.protractor.driver';

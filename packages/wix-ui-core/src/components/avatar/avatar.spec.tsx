@@ -159,4 +159,11 @@ describe('Avatar', () => {
       expect(utils.select('.text')).toBe(null);
     });
   });
+
+  describe('imgProps.src changes', () => {
+    it('should have content type icon, when src changes', () => {
+       // TODO
+    });
+  })
+  
 });

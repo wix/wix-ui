@@ -7,12 +7,13 @@ import {
 } from '../../themes/default';
 
 import User from 'wix-ui-icons-common/User';
+import { storySettings } from './storySettings';
 
 const defaultThemeWrapper = ({component})=><div className={defaultTheme}>{component}</div>;
 
 export default {
-  category: 'Components',
-  storyName: 'WIP - Avatar',
+  category: storySettings.category,
+  storyName: storySettings.storyName,
   component: Avatar,
   componentPath: 'avatar.tsx',
 
@@ -25,7 +26,10 @@ export default {
   exampleProps: {
     className: [{label: 'defaultTheme', value: avatar()}],
     icon: [{label: 'Icon1', value: <User />}],
-    imgProps: [{label: 'image1', value:{src:'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png'}}]
+    imgProps: [
+      {label: 'image1', value:{src:'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png'}},
+      {label: 'image_non_existing_url', value:{src:'https://static.wixstatic.com/media/123454321.png'}}
+    ]
   }
 
 };

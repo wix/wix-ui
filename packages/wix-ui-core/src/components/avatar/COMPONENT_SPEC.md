@@ -91,7 +91,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 ### States
 | state        | description                        | type |
 |:-------------|:-----------------------------------|:-----|
-| imgLoading   | true when the img is loading     | boolean  |
+| imgLoaded   | true when the img was loaded     | boolean  |
 | contentType  | Which content type is currently displayed | enum(image,icon,text) |
 
 ### Style Code Example

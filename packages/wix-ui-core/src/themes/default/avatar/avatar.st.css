@@ -24,3 +24,10 @@ DefaultTheme .avatar {
   width: 48px;
   border-radius: 30px;
 }
+
+
+DefaultTheme .avatar::image {
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+}
