@@ -44,7 +44,7 @@ class FieldsDocumentationDriver extends Driver {
   }
 
   get = {
-    isEmpty: () => this.selectRoot().length === 0,
+    content: () => this.select('container').text(),
     at: index => {
       const component = this.selectRoot()
         .childAt(1)

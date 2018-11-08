@@ -2,10 +2,10 @@ import { createFieldsDocumentationDriver } from './drivers';
 
 describe('FieldsDocumentation', () => {
   const driver = createFieldsDocumentationDriver();
-  it('renders', () => {
+  it('renders text "(empty)"', () => {
     driver.create({ units: [] });
 
-    expect(driver.get.isEmpty()).toBe(true);
+    expect(driver.get.content()).toBe('(empty)');
   });
 
   it('todo1', () => {

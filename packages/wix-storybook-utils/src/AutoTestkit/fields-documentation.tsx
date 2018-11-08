@@ -10,7 +10,7 @@ export const FieldsDocumentation = ({ units }) => {
   };
   // TODO if length is zero, then render '(empty)' here, not in driver-documentation
   return units.length ? (
-    <table>
+    <table data-hook="auto-testkit-container">
       <thead>
         <tr>
           <th data-hook="auto-testkit-property-header">Property</th>
@@ -24,5 +24,7 @@ export const FieldsDocumentation = ({ units }) => {
         })}
       </tbody>
     </table>
-  ) : null;
+  ) : (
+    <div data-hook="auto-testkit-container">(empty)</div>
+  );
 };

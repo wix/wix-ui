@@ -28,7 +28,7 @@ describe('DriverDocumentation', () => {
     });
 
     it('has no descriptor', () => {
-      expect(driver.get.descriptor()).toBe('(empty)');
+      expect(driver.get.fields().get.content()).toBe('(empty)');
     });
   });
 

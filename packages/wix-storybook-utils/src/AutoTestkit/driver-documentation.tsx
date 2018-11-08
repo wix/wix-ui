@@ -23,11 +23,7 @@ export const DriverDocumentation = ({ descriptor, name }) => {
     <>
       <h2 data-hook="auto-testkit-driver-name">{name}</h2>
       <div data-hook="auto-testkit-driver-descriptor">
-        {!flatDescriptor.length ? (
-          '(empty)'
-        ) : (
-          <FieldsDocumentation units={flatDescriptor} />
-        )}
+        <FieldsDocumentation units={flatDescriptor} />
       </div>
     </>
   );
