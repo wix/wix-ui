@@ -90,28 +90,28 @@ BackofficeTheme .textButton.onHover:disabled {
 
 /* Underlined */
 
-BackofficeTheme .textButton.underlined {
+BackofficeTheme .textButton.underline {
   background-color: transparent;
   border-color: transparent;
   color: value(B10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined:hover:not(:disabled) {
+BackofficeTheme .textButton.underline:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined:active:not(:disabled) {
+BackofficeTheme .textButton.underline:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined:disabled {
+BackofficeTheme .textButton.underline:disabled {
   background-color: transparent;
   border-color: transparent;
   color: value(D55);
@@ -174,28 +174,28 @@ BackofficeTheme .textButton.onHover.premium:disabled {
 
 /* Premium underlined */
 
-BackofficeTheme .textButton.underlined.premium {
+BackofficeTheme .textButton.underline.premium {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.premium:hover:not(:disabled) {
+BackofficeTheme .textButton.underline.premium:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(P20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.premium:active:not(:disabled) {
+BackofficeTheme .textButton.underline.premium:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.premium:disabled {
+BackofficeTheme .textButton.underline.premium:disabled {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -257,28 +257,28 @@ BackofficeTheme .textButton.onHover.light:disabled {
 
 /* Light underlined */
 
-BackofficeTheme .textButton.underlined.light {
+BackofficeTheme .textButton.underline.light {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.light:hover:not(:disabled) {
+BackofficeTheme .textButton.underline.light:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
    color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.light:active:not(:disabled) {
+BackofficeTheme .textButton.underline.light:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.light:disabled {
+BackofficeTheme .textButton.underline.light:disabled {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -340,28 +340,28 @@ BackofficeTheme .textButton.onHover.dark:disabled {
 
 /* Dark underlined */
 
-BackofficeTheme .textButton.underlined.dark {
+BackofficeTheme .textButton.underline.dark {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.dark:hover:not(:disabled) {
+BackofficeTheme .textButton.underline.dark:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.dark:active:not(:disabled) {
+BackofficeTheme .textButton.underline.dark:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underlined.dark:disabled {
+BackofficeTheme .textButton.underline.dark:disabled {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);

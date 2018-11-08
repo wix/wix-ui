@@ -11,7 +11,7 @@ import { ButtonAffixes } from './showcase/button/button-affixes';
 
 import { TextButtonNone } from './showcase/text-Button/textButton-none';
 import { TextButtonOnHover } from './showcase/text-Button/textButton-onhover';
-import { TextButtonUnderlined } from './showcase/text-Button/textButton-underlined';
+import { TextButtonUnderline } from './showcase/text-Button/textButton-underline';
 import { TextButtonSizes } from './showcase/text-Button/textButton-sizes';
 import { TextButtonAffixes } from './showcase/text-Button/textButton-affixes';
 import { TextButtonWeights } from './showcase/text-Button/textButton-weights';
@@ -140,7 +140,7 @@ const ButtonsStory = () => (
     </Container>
     <Container>
       <Box>
-        <TextButtonUnderlined />
+        <TextButtonUnderline />
       </Box>
     </Container>
 
