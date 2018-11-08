@@ -76,6 +76,7 @@ interface StoryPageProps {
   config: Config;
   component: any;
   componentProps: any;
+  componentWrapper: any;
   hiddenProps: string[];
   displayName: string;
   exampleProps: any;
@@ -95,6 +96,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   config,
   component,
   componentProps,
+  componentWrapper,
   hiddenProps,
   displayName,
   exampleProps,
@@ -143,6 +145,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
             component={component}
             parsedSource={visibleMetadata}
             componentProps={componentProps}
+            componentWrapper={componentWrapper}
             exampleProps={exampleProps}
             codeExample={codeExample}
           />
