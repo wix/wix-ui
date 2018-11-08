@@ -11,11 +11,13 @@ export const FieldsDocumentation = ({ units }) => {
   // TODO if length is zero, then render '(empty)' here, not in driver-documentation
   return units.length ? (
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th data-hook="auto-testkit-property-header">Property</th>
           <th data-hook="auto-testkit-description-header">Description</th>
         </tr>
+      </thead>
+      <tbody>
         {units.map((unit, i) => {
           const Documentation = typeComponents[unit.type];
           return <Documentation key={i} unit={unit} />;
