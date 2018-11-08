@@ -33,6 +33,7 @@ class AutoTestkitDriver extends Driver {
       return createDriverDocumentationDriver().reuse(driverDoc);
     },
     heading: () => this.select('heading').text(),
+    error: () => this.select('error').text(),
     tag: hook => this.select(hook).name(),
     rootClass: () => this.selectRoot().props().className,
   };
