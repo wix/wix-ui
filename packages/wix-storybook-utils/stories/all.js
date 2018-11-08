@@ -90,7 +90,7 @@ storiesOf('Components', module)
               descriptor: [
                 {
                   name: 'click',
-                  args: [],
+                  args: [{ name: 'buzz' }, { name: 'fizz'}],
                   type: 'function',
                   description: 'foobar',
                 },

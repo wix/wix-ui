@@ -10,9 +10,9 @@ const FunctionArguments = ({ args }) => {
         {argument.type && (
           <span data-hook="auto-testkit-function-argument-type">
             : {argument.type}
-            {i < args.length - 1 && ', '}
           </span>
         )}
+        {i < args.length - 1 && ', '}
       </span>
     );
   });

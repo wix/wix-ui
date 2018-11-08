@@ -1,5 +1,4 @@
 import { createMethodDocumentationDriver } from './drivers';
-import { types } from 'util';
 
 describe('MethodDocumentation', () => {
   const driver = createMethodDocumentationDriver();
@@ -79,9 +78,7 @@ describe('MethodDocumentation', () => {
           const types = driver.get.argumentTypes();
           expect(types.length).toBe(unit.args.length);
           unit.args.forEach((argument, index) => {
-            expect(types[index]).toBe(
-              `: ${argument.type}${index < unit.args.length - 1 ? ', ' : ''}`,
-            );
+            expect(types[index]).toBe(`: ${argument.type}`);
           });
         });
 
@@ -116,6 +113,12 @@ describe('MethodDocumentation', () => {
 
       it(`doesn't render argument types`, () => {
         expect(driver.get.argumentTypes().length).toBe(0);
+      });
+
+      it('are comma separated', () => {
+        const args = driver.get.arguments();
+
+        expect(args).toBe('str1, str2');
       });
     });
   });
