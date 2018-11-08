@@ -12,6 +12,10 @@ export const FieldsDocumentation = ({ units }) => {
   return units.length ? (
     <table>
       <tbody>
+        <tr>
+          <th data-hook="auto-testkit-property-header">Property</th>
+          <th data-hook="auto-testkit-description-header">Description</th>
+        </tr>
         {units.map((unit, i) => {
           const Documentation = typeComponents[unit.type];
           return <Documentation key={i} unit={unit} />;

@@ -48,7 +48,7 @@ class FieldsDocumentationDriver extends Driver {
     at: index => {
       const component = this.selectRoot()
         .childAt(0)
-        .childAt(index);
+        .childAt(index + 1);
       switch (component.props().unit.type) {
         case 'value':
         case 'object':
@@ -62,7 +62,14 @@ class FieldsDocumentationDriver extends Driver {
     count: () =>
       this.selectRoot()
         .childAt(0)
-        .children().length,
+        .children().length - 1,
+    header: hook => {
+      const header = this.select(`${hook}-header`);
+      return {
+        tag: () => header.name(),
+        text: () => header.text(),
+      };
+    },
   };
 }
 

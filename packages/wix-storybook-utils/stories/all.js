@@ -101,7 +101,10 @@ storiesOf('Components', module)
               descriptor: [
                 {
                   name: 'element',
-                  args: [],
+                  args: [
+                    { name: 'fizz', type: 'string' },
+                    { name: 'buzz', type: 'number' },
+                  ],
                   type: 'function',
                   description: 'fizzbuzz'
                 },

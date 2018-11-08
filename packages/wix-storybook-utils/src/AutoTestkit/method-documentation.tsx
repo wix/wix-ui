@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const FunctionArguments = ({ args }) => {
-  return args.map(argument => {
+  return args.map((argument, i) => {
     return (
       <span key={argument.name}>
         <span data-hook="auto-testkit-function-argument-name">
@@ -9,7 +9,8 @@ const FunctionArguments = ({ args }) => {
         </span>
         {argument.type && (
           <span data-hook="auto-testkit-function-argument-type">
-            :{argument.type}
+            : {argument.type}
+            {i < args.length - 1 && ', '}
           </span>
         )}
       </span>

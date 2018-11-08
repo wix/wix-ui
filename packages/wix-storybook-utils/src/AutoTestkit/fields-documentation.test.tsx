@@ -81,4 +81,40 @@ describe('FieldsDocumentation', () => {
 
     console.error = consoleError;
   });
+
+  it('has a property header', () => {
+    const units = [
+      {
+        type: 'value',
+        name: 'not-a-function',
+      },
+      {
+        type: 'function',
+        args: [],
+        name: 'func',
+      },
+    ];
+
+    driver.create({ units });
+    expect(driver.get.header('property').tag()).toBe('th');
+    expect(driver.get.header('property').text()).toBe('Property');
+  });
+
+  it('has a description header', () => {
+    const units = [
+      {
+        type: 'value',
+        name: 'not-a-function',
+      },
+      {
+        type: 'function',
+        args: [],
+        name: 'func',
+      },
+    ];
+
+    driver.create({ units });
+    expect(driver.get.header('description').tag()).toBe('th');
+    expect(driver.get.header('description').text()).toBe('Description');
+  });
 });
