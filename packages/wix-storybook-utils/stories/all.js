@@ -56,24 +56,24 @@ storiesOf('Components', module)
                 value: [
                   {
                     value: "'first'",
-                    computed: false,
+                    computed: false
                   },
                   {
                     value: "'second'",
-                    computed: false,
-                  },
-                ],
+                    computed: false
+                  }
+                ]
               },
               required: false,
-              description: '',
+              description: ''
             },
             children: {
               type: {
-                name: 'node',
+                name: 'node'
               },
               required: true,
-              description: 'i am description about `children` prop',
-            },
+              description: 'i am description about `children` prop'
+            }
           },
           description: '',
           displayName: 'Component',
@@ -90,11 +90,11 @@ storiesOf('Components', module)
               descriptor: [
                 {
                   name: 'click',
-                  args: [{ name: 'buzz' }, { name: 'fizz'}],
+                  args: [{ name: 'buzz' }, { name: 'fizz' }],
                   type: 'function',
-                  description: 'foobar',
-                },
-              ],
+                  description: 'foobar'
+                }
+              ]
             },
             {
               file: 'component.pupeteer.driver.js',
@@ -103,14 +103,18 @@ storiesOf('Components', module)
                   name: 'element',
                   args: [
                     { name: 'fizz', type: 'string' },
-                    { name: 'buzz', type: 'number' },
+                    { name: 'buzz', type: 'number' }
                   ],
                   type: 'function',
-                  description: 'fizzbuzz'
-                },
-              ],
+                  description: 'fizzbuzz',
+                }
+              ]
             },
-          ],
+            {
+              file: 'component.cypres.js',
+              descriptor: [],
+            },
+          ]
         }}
       />
     </div>

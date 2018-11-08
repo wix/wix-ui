@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AutoTestkit } from '../AutoTestkit/auto-testkit';
 
 const TabbedView = require('../TabbedView').default;
 const Markdown = require('../Markdown').default;
@@ -155,6 +156,9 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
       {metadata.readmeTestkit && <Markdown source={metadata.readmeTestkit} />}
       {metadata.readmeAccessibility && (
         <Markdown source={metadata.readmeAccessibility} />
+      )}
+      {tabs(metadata).includes('Testkit') && (
+        <AutoTestkit component={metadata} />
       )}
     </TabbedView>
   );

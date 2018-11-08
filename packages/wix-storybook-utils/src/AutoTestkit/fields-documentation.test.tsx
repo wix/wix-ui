@@ -2,27 +2,35 @@ import { createFieldsDocumentationDriver } from './drivers';
 
 describe('FieldsDocumentation', () => {
   const driver = createFieldsDocumentationDriver();
-  it('renders text "(empty)"', () => {
-    driver.create({ units: [] });
+  describe('with no content', () => {
+    it('renders text "(empty)"', () => {
+      driver.create({ units: [] });
 
-    expect(driver.get.content()).toBe('(empty)');
+      expect(driver.get.content()).toBe('(empty)');
+    });
   });
 
-  it('todo1', () => {
+  it('renders values', () => {
     const units = [
       {
         type: 'value',
         name: 'not-a-function',
+      },
+      {
+        type: 'value',
+        name: 'not-a-function-either',
       },
     ];
 
     driver.create({ units });
 
     expect(driver.get.count()).toBe(units.length);
-    expect(driver.get.at(0).get.name()).toBe('not-a-function');
+    units.forEach((unit, i) => {
+      expect(driver.get.at(i).get.name()).toBe(unit.name);
+    });
   });
 
-  it('todo2', () => {
+  it('renders functions', () => {
     const units = [
       {
         type: 'value',
@@ -42,7 +50,7 @@ describe('FieldsDocumentation', () => {
     });
   });
 
-  it('todo3', () => {
+  it('renders combinations of values and functions', () => {
     const units = [
       {
         type: 'value',
@@ -63,7 +71,7 @@ describe('FieldsDocumentation', () => {
     });
   });
 
-  it('silent failure', () => {
+  it('fails when invalid unit type is given', () => {
     const consoleError = console.error;
     console.error = jest.fn();
 
