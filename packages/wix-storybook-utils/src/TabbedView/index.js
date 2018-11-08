@@ -7,6 +7,7 @@ const createTab = id => ({ title: id, id });
 export default class TabbedView extends Component {
   static propTypes = {
     tabs: PropTypes.arrayOf(PropTypes.string),
+    activeTabId: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.node,
       PropTypes.arrayOf(PropTypes.node),
@@ -17,7 +18,7 @@ export default class TabbedView extends Component {
     super(props);
 
     this.state = {
-      activeTabId: props.tabs[0],
+      activeTabId: props.activeTabId || props.tabs[0],
     };
   }
 

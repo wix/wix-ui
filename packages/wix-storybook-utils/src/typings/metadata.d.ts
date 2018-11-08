@@ -7,4 +7,6 @@ type Metadata = {
   readme: string;
   readmeTestkit: string;
   readmeAccessibility: string;
+  //not sure if actually optional
+  drivers?: Driver[]
 };
