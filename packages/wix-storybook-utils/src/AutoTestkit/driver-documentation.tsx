@@ -20,11 +20,11 @@ export const DriverDocumentation = ({ descriptor, name }) => {
 
   const flatDescriptor = flatten(descriptor);
   return (
-    <>
+    <div>
       <h2 data-hook="auto-testkit-driver-name">{name}</h2>
       <div data-hook="auto-testkit-driver-descriptor">
         <FieldsDocumentation units={flatDescriptor} />
       </div>
-    </>
+    </div>
   );
 };
