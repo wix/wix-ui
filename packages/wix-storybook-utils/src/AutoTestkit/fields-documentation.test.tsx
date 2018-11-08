@@ -10,15 +10,19 @@ describe('FieldsDocumentation', () => {
     });
   });
 
-  it('renders values', () => {
+  it('renders primitives', () => {
     const units = [
       {
         type: 'value',
         name: 'not-a-function',
       },
       {
-        type: 'value',
+        type: 'object',
         name: 'not-a-function-either',
+      },
+      {
+        type: 'error',
+        name: 'failure during parsing',
       },
     ];
 

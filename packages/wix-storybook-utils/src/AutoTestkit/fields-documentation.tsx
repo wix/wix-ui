@@ -7,6 +7,7 @@ export const FieldsDocumentation = ({ units }) => {
     value: PrimitiveDocumentation,
     function: MethodDocumentation,
     object: PrimitiveDocumentation,
+    error: PrimitiveDocumentation,
   };
   // TODO if length is zero, then render '(empty)' here, not in driver-documentation
   return units.length ? (

@@ -51,6 +51,7 @@ class FieldsDocumentationDriver extends Driver {
         .childAt(index);
       switch (component.props().unit.type) {
         case 'value':
+        case 'error':
         case 'object':
           return createPrimitiveDocumentationDriver().reuse(component);
         case 'function':
