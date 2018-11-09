@@ -40,20 +40,4 @@ describe('AutoTestkit', () => {
       expect(driver.get.driverAt(0).get.name()).toBe(component.drivers[0].file);
     });
   });
-
-  it('has error, if instead of descriptor there is error', () => {
-    const component = {
-      displayName: 'component',
-      drivers: [
-        {
-          file: 'component.driver.js',
-          error: 'some error'
-        },
-      ],
-    };
-
-    driver.create({ component });
-
-    expect(driver.get.error()).toBe(`error in ${component.drivers[0].file}: ${component.drivers[0].error}`);
-  });
 });

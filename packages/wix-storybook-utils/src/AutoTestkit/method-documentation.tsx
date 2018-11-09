@@ -28,8 +28,7 @@ export const MethodDocumentation = ({ unit }) => {
     <tr className="auto-testkit-field">
       <td>
         <span data-hook="auto-testkit-function-name">{name}</span>(
-        <FunctionArguments args={args} />
-        )
+        <FunctionArguments args={args} />)
       </td>
       <td data-hook="auto-testkit-function-description">{unit.description}</td>
     </tr>
