@@ -27,8 +27,9 @@ export const AutoTestkit = ({ component }) => (
             Code example
             {driverNames.length > 1 ? 's' : ''}
           </h3>
-          {driverNames.map(name => (
+          {driverNames.map((name, index) => (
             <CodeExample
+              key={index}
               driverName={name}
               componentName={component.displayName}
             />
