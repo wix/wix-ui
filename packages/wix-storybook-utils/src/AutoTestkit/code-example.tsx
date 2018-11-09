@@ -4,8 +4,7 @@ import CodeBlock from '../CodeBlock';
 const fromWSR = folder => `from 'wix-style-react/dist/${folder}'`;
 const capitalize = text => `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 const lowerCase = text => `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
-//driverName - starts with lower case
-//fix tabulation
+
 export const CodeExample = ({ driverName, componentName }) => {
   const componentLC = lowerCase(componentName);
   const testkitFactoryName = `${componentLC}TestkitFactory`;

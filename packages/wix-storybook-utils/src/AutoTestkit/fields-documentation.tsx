@@ -9,7 +9,6 @@ export const FieldsDocumentation = ({ units }) => {
     object: PrimitiveDocumentation,
     error: PrimitiveDocumentation,
   };
-  // TODO if length is zero, then render '(empty)' here, not in driver-documentation
   return units.length ? (
     <table data-hook="auto-testkit-container">
       <thead>
