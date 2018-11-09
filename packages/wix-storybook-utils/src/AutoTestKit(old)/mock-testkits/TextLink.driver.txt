@@ -1,3 +1,0 @@
-import textLinkDriverFactory from './Input.driver';
-
-export default textLinkDriverFactory;
