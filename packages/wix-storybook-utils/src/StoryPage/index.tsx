@@ -13,7 +13,9 @@ const styles = require('./styles.scss');
 const tabs = metadata => [
   'Usage',
   'API',
-  ...(metadata.readmeTestkit || metadata.drivers.length ? ['Testkit'] : []),
+  ...(metadata.readmeTestkit || (metadata.drivers && metadata.drivers.length)
+    ? ['Testkit']
+    : []),
   ...(metadata.readmeAccessibility ? ['Accessibility'] : []),
 ];
 
@@ -163,7 +165,9 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
             source={metadata.readmeTestkit}
           />
         )}
-        {metadata.drivers.length && <AutoTestkit component={metadata} />}
+        {metadata.drivers && metadata.drivers.length && (
+          <AutoTestkit component={metadata} />
+        )}
       </div>
 
       {metadata.readmeAccessibility && (
