@@ -22,7 +22,7 @@
 
 :import {
   -st-from: "../text.st.css";
-  -st-named: sizeMedium, weightNormal;
+  -st-named: sizeTiny, sizeSmall, sizeMedium, weightNormal, weightBold;
 }
 
 .button {
@@ -379,24 +379,27 @@ BackofficeTheme .transparent.secondary:disabled {
 
 BackofficeTheme .large {
   height: 42px;
-  font-size: 16px;
-  line-height: 1.5;
+
+  -st-mixin: sizeMedium, weightNormal;
+
   border-radius: 21px;
   padding: 0 30px;
 }
 
 BackofficeTheme .small {
   height: 30px;
-  font-size: 14px;
-  line-height: 1.29;
+
+  -st-mixin: sizeSmall, weightNormal;
+
   border-radius: 15px;
   padding: 0 18px;
 }
 
 BackofficeTheme .tiny {
   height: 24px;
-  font-size: 12px;
-  line-height: 1.25;
+
+  -st-mixin: sizeTiny, weightBold;
+
   border-radius: 18px;
   padding: 0 12px;
 }
