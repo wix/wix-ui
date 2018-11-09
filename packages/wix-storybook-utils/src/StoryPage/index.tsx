@@ -13,7 +13,7 @@ const styles = require('./styles.scss');
 const tabs = metadata => [
   'Usage',
   'API',
-  ...(metadata.readmeTestkit ? ['Testkit'] : []),
+  ...(metadata.readmeTestkit || metadata.drivers.length ? ['Testkit'] : []),
   ...(metadata.readmeAccessibility ? ['Accessibility'] : []),
 ];
 
@@ -103,7 +103,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   exampleImport,
   examples,
   codeExample,
-  activeTabId
+  activeTabId,
 }: StoryPageProps) => {
   const visibleDisplayName = displayName || metadata.displayName;
   const visibleMetadata = {
@@ -155,6 +155,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
       </div>
 
       <AutoDocs parsedSource={visibleMetadata} />
+
       <div>
         {metadata.readmeTestkit && (
           <Markdown
@@ -162,9 +163,9 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = ({
             source={metadata.readmeTestkit}
           />
         )}
-        {metadata.readmeTestkit &&
-          metadata.drivers.length > 0 && <AutoTestkit component={metadata} />}
+        {metadata.drivers.length && <AutoTestkit component={metadata} />}
       </div>
+
       {metadata.readmeAccessibility && (
         <Markdown source={metadata.readmeAccessibility} />
       )}
