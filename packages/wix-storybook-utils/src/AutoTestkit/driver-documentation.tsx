@@ -8,7 +8,7 @@ export const flatten = (descriptor, name = '') =>
       ...result,
       namespace,
       ...(namespace.type === 'object'
-        ? flatten(namespace.props, namespace.name + '.')
+        ? flatten(namespace.props, `${namespace.name}.`)
         : []),
     ];
   }, []);

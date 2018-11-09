@@ -25,8 +25,8 @@ class ErrorSpy extends React.Component<IErrorSpy, { hasError: boolean }> {
 
 export class Driver {
   private component;
-  private hookPrefix;
-  private Component;
+  private readonly hookPrefix;
+  private readonly Component;
 
   constructor(Component, hookPrefix) {
     this.Component = Component;

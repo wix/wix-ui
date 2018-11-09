@@ -25,7 +25,7 @@ const wrapper = mount(<${componentName} dataHook={dataHook}></${componentName}>)
 const ${componentLC}Driver = ${enzymeTestkitFactoryName}({wrapper, dataHook});
 
 expect(${componentLC}Driver.${
-    driverName ? driverName + '.' : ''
+    driverName ? `${driverName}.` : ''
   }exists()).toBeTruthy();
 `;
   return <CodeBlock source={source} type="jsx" />;

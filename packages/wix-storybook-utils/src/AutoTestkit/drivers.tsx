@@ -76,7 +76,7 @@ class FieldsDocumentationDriver extends Driver {
 }
 
 class MethodDocumentationDriver extends Driver {
-  private static Component = props => (
+  private static readonly Component = props => (
     <table>
       <tbody>
         <MethodDocumentation {...props} />
@@ -98,7 +98,7 @@ class MethodDocumentationDriver extends Driver {
 }
 
 class PrimitiveDocumentationDriver extends Driver {
-  private static Component = props => (
+  private static readonly Component = props => (
     <table>
       <tbody>
         <PrimitiveDocumentation {...props} />
