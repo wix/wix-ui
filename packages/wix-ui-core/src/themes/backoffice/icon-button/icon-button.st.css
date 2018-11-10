@@ -64,7 +64,7 @@ BackofficeTheme .iconButton .content {
   height: 100%;
 }
 
-/* special cases */
+/* special case inverted */
 
 BackofficeTheme .iconButton.inverted {
   border: none;
@@ -85,6 +85,32 @@ BackofficeTheme .iconButton.inverted:active:not(:disabled) {
 }
 
 BackofficeTheme .iconButton.inverted:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* special case inverted secondary */
+
+BackofficeTheme .iconButton.inverted.secondary {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+BackofficeTheme .iconButton.inverted.secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background: value(B20);
+}
+
+BackofficeTheme .iconButton.inverted.secondary:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+BackofficeTheme .iconButton.inverted.secondary:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
