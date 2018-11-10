@@ -112,7 +112,7 @@ BackofficeTheme .iconButton.secondary:active:not(:disabled) {
 
 BackofficeTheme .iconButton.secondary:disabled {
   border-color: value(D55);
-  color: value(D80);
+  color: value(D55);
   background-color: transparent;
 }
 
