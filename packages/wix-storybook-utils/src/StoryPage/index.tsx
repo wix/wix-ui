@@ -59,7 +59,7 @@ interface SectionProps {
   children: any;
 }
 
-const Section: React.FunctionComponent<SectionProps> = ({
+const Section: React.StatelessComponent<SectionProps> = ({
   title,
   children,
 }: SectionProps) => (
@@ -91,7 +91,7 @@ interface StoryPageProps {
   codeExample: boolean;
 }
 
-const StoryPage: React.FunctionComponent<StoryPageProps> = ({
+const StoryPage: React.StatelessComponent<StoryPageProps> = ({
   metadata,
   config,
   component,
