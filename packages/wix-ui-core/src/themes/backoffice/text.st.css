@@ -3,6 +3,11 @@
   -st-named: fontLight, fontRoman, fontMedium;
 }
 
+:import {
+  -st-from: './colors.st.css';
+  -st-named: D80;
+}
+
 .sizeMedium {
   font-size: 16px;
   line-height: 24px;
@@ -20,15 +25,19 @@
 
 .weightThin {
   font-family: value(fontLight);
-  font-weight: 300;
+  font-weight: normal;
 }
 
 .weightNormal {
   font-family: value(fontRoman);
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .weightBold {
   font-family: value(fontMedium);
-  font-weight: 500;
+  font-weight: normal;
+}
+
+.light {
+  color: value(D80);
 }

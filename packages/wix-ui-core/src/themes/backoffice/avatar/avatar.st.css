@@ -10,18 +10,13 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B40, D80;
+  -st-named: B40;
 }
 
 :import {
   -st-from: "../text.st.css";
-  -st-named: sizeMedium, sizeSmall, weightBold;
+  -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
 } 
-
-:import {
-  -st-from: "../heading.st.css";
-  -st-named: h6;
-}
 
 :vars {
   gradientRotation: 225deg;
@@ -40,7 +35,6 @@ BackofficeTheme .avatar {
 
   background-color: value(B40);
   background-image: value(defaultBackgroundImage);
-  color: value(D80);
 
   height: 48px;
   width: 48px;
@@ -119,7 +113,7 @@ BackofficeTheme .avatar.size18 {
 
 /* Sizes text */
 BackofficeTheme .avatar::text {
-  -st-mixin: sizeSmall, weightBold;
+  -st-mixin: sizeSmall, weightBold, light;
 }
 
 BackofficeTheme .avatar.size90::text,
@@ -129,7 +123,7 @@ BackofficeTheme .avatar.size72::text  {
 
 BackofficeTheme .avatar.size36::text,
 BackofficeTheme .avatar.size30::text  {
-  -st-mixin: h6;
+  -st-mixin: sizeTiny, weightNormal;
 }
 
 BackofficeTheme .avatar.size24::text,
