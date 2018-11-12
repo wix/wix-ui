@@ -1,6 +1,7 @@
 import {Label} from '../src/components/deprecated/Label';
+import {StoryConfig} from 'wix-storybook-utils/src/typings/story-config';
 
-export default {
+const story: StoryConfig = {
   category: 'Components',
   storyName: 'Label',
 
@@ -13,3 +14,5 @@ export default {
     ellipsis: false
   }
 };
+
+export default story;

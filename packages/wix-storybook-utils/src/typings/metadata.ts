@@ -1,5 +1,8 @@
+import { Prop } from './prop';
+import { Driver } from './driver';
+
 // TODO: not yet full definition
-type Metadata = {
+export interface Metadata {
   displayName: string;
   props: {
     [s: string]: Prop;
@@ -7,6 +10,5 @@ type Metadata = {
   readme: string;
   readmeTestkit: string;
   readmeAccessibility: string;
-  //not sure if actually optional
-  drivers?: Driver[]
-};
+  drivers: Driver[];
+}
