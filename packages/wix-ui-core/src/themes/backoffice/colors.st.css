@@ -83,4 +83,12 @@
   TRANSPARENT: transparent;
   WHITE: #FFFFFF;
   BLACK: #000000;
+
+  /* Gradients */
+  GRAD_B10: linear-gradient(225deg, #389aec, #4ebcf5);
+  GRAD_D10: linear-gradient(225deg, #6f819d 4%, #829bb0);
+  GRAD_G10: linear-gradient(225deg, #4eb968, #5bca90);
+  GRAD_O10: linear-gradient(225deg, #fb6b33, #ffaf48);
+  GRAD_R10: linear-gradient(225deg, #ee6a51, #ff6686);
+  GRAD_C30: linear-gradient(135deg, #e7e7ff, #dbf2f8 52%, #ddedff);
 }

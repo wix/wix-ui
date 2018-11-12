@@ -10,7 +10,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B40;
+  -st-named: B40, GRAD_B10, GRAD_D10, GRAD_G10, GRAD_O10, GRAD_R10;
 }
 
 :import {
@@ -20,7 +20,6 @@
 
 :vars {
   gradientRotation: 225deg;
-  backgroundGradientBlue: linear-gradient(value(gradientRotation), #389aec, #4ebcf5);
   defaultBackgroundImage: value(backgroundGradientBlue);
 }
 
@@ -33,8 +32,8 @@ BackofficeTheme .avatar {
   justify-content: center;
   align-items: center;
 
-  background-color: value(B40);
-  background-image: value(defaultBackgroundImage);
+  background-color: value(B40); /* TODO: This should be the default bg color for when a custom icon is used. */
+  background-image: value(GRAD_B10); /* TODO: This should be the default bg color for when a text is used. */
 
   height: 48px;
   width: 48px;
@@ -43,23 +42,23 @@ BackofficeTheme .avatar {
 
 /* Colors */
 BackofficeTheme .avatar.colorBlue {
-  background-image: value(backgroundGradientBlue);
+  background-image: value(GRAD_B10);
 }
 
 BackofficeTheme .avatar.colorGreen {
-  background-image: linear-gradient(value(gradientRotation), #4eb968, #5bca90);
+  background-image: value(GRAD_G10);
 }
 
 BackofficeTheme .avatar.colorGrey {
-  background-image: linear-gradient(value(gradientRotation), #6f819d 4%, #829bb0);
+  background-image: value(GRAD_D10);
 }
 
 BackofficeTheme .avatar.colorRed {
-  background-image: linear-gradient(value(gradientRotation), #ee6a51, #ff6686);
+  background-image: value(GRAD_R10);
 }
 
 BackofficeTheme .avatar.colorOrange {
-  background-image: linear-gradient(value(gradientRotation), #fb6b33, #ffaf48);
+  background-image: value(GRAD_O10);
 }
 
 /* Sizes */
