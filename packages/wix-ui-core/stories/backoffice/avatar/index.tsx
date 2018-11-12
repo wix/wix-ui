@@ -1,11 +1,11 @@
-import * as React from "react";
-import CodeShowcase from "wix-storybook-utils/CodeShowcase";
+import * as React from 'react';
+import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
-import { Avatar } from "../../../src/components/avatar";
+import { Avatar } from '../../../src/components/avatar';
 import {
   avatar,
   backofficeTheme
-} from "../../../src/themes/backoffice";
+} from '../../../src/themes/backoffice';
 
 const description = (
   <div>
@@ -14,23 +14,23 @@ const description = (
 );
 
 const AvatarStory = () => (
-  <div style={{ margin: "0px 0 16px", paddingLeft: "20px" }}>
+  <div style={{ margin: '0px 0 16px', paddingLeft: '20px' }}>
     <CodeShowcase
       title="Default"
       theme={backofficeTheme}
     >
-      <Avatar className={avatar()} name='John Doe' />
+      <Avatar className={avatar()} name="John Doe" />
     </CodeShowcase>
 
     <CodeShowcase
       title="Text with BG Colors"
       theme={backofficeTheme}
     >
-      <Avatar className={avatar('colorBlue')} name='John Doe' />
-      <Avatar className={avatar('colorGreen')} name='John Doe' />
-      <Avatar className={avatar('colorGrey')} name='John Doe' />
-      <Avatar className={avatar('colorRed')} name='John Doe' />
-      <Avatar className={avatar('colorOrange')} name='John Doe' />
+      <Avatar className={avatar('colorBlue')} name="John Doe" />
+      <Avatar className={avatar('colorGreen')} name="John Doe" />
+      <Avatar className={avatar('colorGrey')} name="John Doe" />
+      <Avatar className={avatar('colorRed')} name="John Doe" />
+      <Avatar className={avatar('colorOrange')} name="John Doe" />
     </CodeShowcase>
 
     <CodeShowcase
