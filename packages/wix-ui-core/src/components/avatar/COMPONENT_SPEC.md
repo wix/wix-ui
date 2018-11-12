@@ -86,14 +86,13 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 | selector          | description                        | type | children pseudo-states |
 |:------------------|:-----------------------------------|:-----|:-----------------------|
 | root       | Allows styling the background      |      |                        |
-| ::image | Allows styling the image container |      |                        |
-| ::icon  | Allows styling the icon container  |      |                        |
-| ::text  | Allows styling the text            |     |                        |
+| ::content | Allows styling the content container |      |                        |
 
 ### States
 | state        | description                        | type |
 |:-------------|:-----------------------------------|:-----|
-| imgLoading     | true when the img is loading     | boolean    |
+| imgLoading   | true when the img is loading     | boolean  |
+| contentType  | Which content type is currently displayed | enum(image,icon,text) |
 
 ### Style Code Example
 
