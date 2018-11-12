@@ -6,9 +6,12 @@ import { GoogleMapsIframeClientStory } from './clients/GoogleMapsIframeClient-st
 import { CheckboxStory } from './Checkbox/Checkbox-story';
 import { TooltipStory } from './Tooltip/custom';
 import { RadioButtonStory } from './RadioButton';
-import ButtonsStory from './backoffice/button-next';
 import EllipsedText, {CustomEllipsedText} from './EllipsedTooltip';
 import Focusable from './Focusable';
+
+// import Backoffice stories
+import AvatarStory from './backoffice/avatar';
+import ButtonsStory from './backoffice/button-next';
 
 const Components = storiesOf('Components', module);
 const Backoffice = storiesOf('Backoffice', module);
@@ -48,6 +51,7 @@ HOCs.add('EllipsedTooltip', EllipsedText);
 HOCs.add('Focusable', Focusable);
 
 // BackOffice Theme
+Backoffice.add('Avatar', AvatarStory);
 Backoffice.add('Buttons', ButtonsStory);
 
 // Tests
