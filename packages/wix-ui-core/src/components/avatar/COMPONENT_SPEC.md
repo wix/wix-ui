@@ -38,6 +38,7 @@ name conversion examples:
 <br/> John Doe --> JD
 <br/> John H. Doe --> JHD
 <br/> John Hurley Stanley Kubrik Doe --> JHD
+<br/> john doe --> JD
 
 ## Technical Considerations
 
@@ -80,7 +81,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 
 ## Style API
 
-#### Subcomponents (pseudo-elements)
+### Selectors (pseudo-elements)
 
 | selector          | description                        | type | children pseudo-states |
 |:------------------|:-----------------------------------|:-----|:-----------------------|
@@ -88,6 +89,11 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 | ::image | Allows styling the image container |      |                        |
 | ::icon  | Allows styling the icon container  |      |                        |
 | ::text  | Allows styling the text            |     |                        |
+
+### States
+| state        | description                        | type |
+|:-------------|:-----------------------------------|:-----|
+| imgLoading     | true when the img is loading     | boolean    |
 
 ### Style Code Example
 
