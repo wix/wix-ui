@@ -116,5 +116,9 @@ export const withFocusable = Component => {
     }
   }
 
-  return hoistNonReactStatics(FocusableHOC, Component);
+  return hoistNonReactStatics(FocusableHOC, Component, {
+    apply: true,
+    bind: true,
+    call: true
+  });
 };
