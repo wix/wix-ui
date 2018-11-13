@@ -190,7 +190,7 @@ Component meta file adds additional information about the component - mainly the
 
 These tools include visual screenshot tests, accessibility tests, SSR rendering and additional sanity validations. Additionally the variations provided are used to automatically present the component's different looks in showcase / storybook. Read more about these tools here: [ui-autotools](https://github.com/wix-incubator/ui-autotools)
 
-Make sure to add a simulation for each important variation of the component. We allow overriding the state as well to acheive visual states that result from interactions (like focus, open dropdown and such...)
+Make sure to add a simulation for each important variation of the component. We allow overriding the component's state as well to acheive visual states that result from interactions (like focus, open dropdown and such...). Supplied state will override the component's internal react state 
 
 Note: The automated tests DO NOT replace unit tests and don't simulate interactions (clicking, hovering, keyboard, etc.). 
 
