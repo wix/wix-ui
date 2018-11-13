@@ -11,10 +11,10 @@ export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
 import { textButton } from "wix-ui-core/themes/backoffice";
 
-const underline = textButton('underline');
-const lightUnderline = textButton('light', 'underline');
-const premiumUnderline = textButton('premium', 'underline');
-const darkUnderline = textButton('dark', 'underline');
+const underline = textButton('always');
+const lightUnderline = textButton('light', 'always');
+const premiumUnderline = textButton('premium', 'always);
+const darkUnderline = textButton('dark', 'always');
 
 export default () => (
   <React.Fragment>
@@ -25,10 +25,10 @@ export default () => (
   </React.Fragment>
 );`;
 
-const underline = textButton(`underline`);
-const lightUnderline = textButton(`light`, 'underline');
-const premiumUnderline = textButton(`premium`, 'underline');
-const darkUnderline = textButton(`dark`, 'underline');
+const underline = textButton(`always`);
+const lightUnderline = textButton(`light`, 'always');
+const premiumUnderline = textButton(`premium`, 'always');
+const darkUnderline = textButton(`dark`, 'always');
 
 const description = (
   <div>

@@ -90,28 +90,28 @@ BackofficeTheme .textButton.onHover:disabled {
 
 /* Underlined */
 
-BackofficeTheme .textButton.underline {
+BackofficeTheme .textButton.always {
   background-color: transparent;
   border-color: transparent;
   color: value(B10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline:hover:not(:disabled) {
+BackofficeTheme .textButton.always:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline:active:not(:disabled) {
+BackofficeTheme .textButton.always:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline:disabled {
+BackofficeTheme .textButton.always:disabled {
   background-color: transparent;
   border-color: transparent;
   color: value(D55);
@@ -174,28 +174,28 @@ BackofficeTheme .textButton.onHover.premium:disabled {
 
 /* Premium underlined */
 
-BackofficeTheme .textButton.underline.premium {
+BackofficeTheme .textButton.always.premium {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.premium:hover:not(:disabled) {
+BackofficeTheme .textButton.always.premium:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(P20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.premium:active:not(:disabled) {
+BackofficeTheme .textButton.always.premium:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.premium:disabled {
+BackofficeTheme .textButton.always.premium:disabled {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -257,28 +257,28 @@ BackofficeTheme .textButton.onHover.light:disabled {
 
 /* Light underlined */
 
-BackofficeTheme .textButton.underline.light {
+BackofficeTheme .textButton.always.light {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.light:hover:not(:disabled) {
+BackofficeTheme .textButton.always.light:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
    color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.light:active:not(:disabled) {
+BackofficeTheme .textButton.always.light:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.light:disabled {
+BackofficeTheme .textButton.always.light:disabled {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -340,28 +340,28 @@ BackofficeTheme .textButton.onHover.dark:disabled {
 
 /* Dark underlined */
 
-BackofficeTheme .textButton.underline.dark {
+BackofficeTheme .textButton.always.dark {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.dark:hover:not(:disabled) {
+BackofficeTheme .textButton.always.dark:hover:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D20);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.dark:active:not(:disabled) {
+BackofficeTheme .textButton.always.dark:active:not(:disabled) {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
   text-decoration: underline;
 }
 
-BackofficeTheme .textButton.underline.dark:disabled {
+BackofficeTheme .textButton.always.dark:disabled {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
