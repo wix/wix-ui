@@ -160,10 +160,4 @@ describe('Avatar', () => {
     });
   });
 
-  describe('imgProps.src changes', () => {
-    it('should have content type icon, when src changes', () => {
-       // TODO
-    });
-  })
-  
 });
