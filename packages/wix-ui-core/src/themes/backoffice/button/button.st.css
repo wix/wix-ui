@@ -407,13 +407,13 @@ BackofficeTheme .tiny {
 /* Suffix and prefix */
 
 BackofficeTheme .tiny .suffix {
-  margin: 0 -6px 0 0;
+  margin: 0 -6px 0 3px;
   width: 18px;
   height: 18px;
 }
 
 BackofficeTheme .tiny .prefix {
-  margin: 0 0 0 -6px;
+  margin: 0 3px 0 -6px;
   width: 18px;
   height: 18px;
 }
