@@ -377,6 +377,7 @@ BackofficeTheme .textButton.normal {
 /* sizes */
 
 BackofficeTheme .textButton.small {
+  height: 18px;
   -st-mixin: sizeSmall;
 }
 
