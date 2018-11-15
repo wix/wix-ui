@@ -42,7 +42,7 @@ export class Img extends React.Component<ImgProps> {
   }
 
   componentDidMount() {
-    !this.props.isLoaded && this.loadImg()
+    !this.props.isLoaded && this.loadImg();
   }
 
   componentWillUnmount() {
