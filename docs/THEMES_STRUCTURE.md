@@ -2,7 +2,7 @@
 
 ## The example
 Below is a a simple example on how the themes eco-system works.
-- In the example - `button` is a simple `core` component with an extesible font-size.
+- In the example - `Button` is a simple `core` component with an extedable font-size.
 - The backoffice theme defines a Button stylesheet that extends the 'core' component's Stylesheet, and offers a few font sizes.
   - We also expose js helper functions for applying the theme classes.
 - A Consumer of the backoffice theme uses the core component and the backoffice theme stylesheet.
@@ -24,10 +24,10 @@ Below is a a simple example on how the themes eco-system works.
 ```
 
 ### wix-ui-core/src/themes/backoffice/button.st.css
-```
+```css
 :import {
-  -st-from: '../theme.st.css';
-  -st-default: BackofficeTheme;
+  -st-from: './theme.st.css';
+  -st-default: BOTheme;
 }
 
 :import {
@@ -35,31 +35,30 @@ Below is a a simple example on how the themes eco-system works.
   -st-default: Button;
 }
 
-BackofficeTheme .button {
-  -st-extends: Button
+BOTheme Button {
+  color: dark-grey;
+  font-size: 14px;
 }
 
-BackofficeTheme .button.sizeSmall {
+BOTheme Button.sizeSmall {
   font-size: 8px;
 }
 
-BackofficeTheme .button.sizeMedium {
+BOTheme Button.sizeMedium {
   font-size: 14px;
 }
 ```
 
-### some-sonsuming-app/src/page-with-button.js
+### some-product/src/app.js
 ```js
-import classNames from "classnames";
+import classNames from 'classnames';
 import {Button} 'wix-ui-core/button';
-import backofficeTheme from 'wix-ui-core/themes/backoffice/theme.st.css';
-import buttonTheme from 'wix-ui-core/themes/backoffice/button.st.css';
+import theme from 'wix-ui-core/themes/backoffice/theme';
 
 export const Page = () => (
-  <div className={backofficeTheme.root}>
-    <Button className={classNames(buttonTheme.button, buttonTheme.sizeMedium)}>
-      Click Me
-    </Button>
+  <div className={theme.root}>
+    <Button>Default Button</Button>
+    <Button className={theme.Button.sizeSmall}>Small Button</Button>
   </div>
 )
 ```
