@@ -4,6 +4,7 @@ import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
 import { SingleComponentLayout } from './single-component-layout';
+import { SectionsRenderer } from './sections-renderer';
 const omit = require('../AutoExample/utils/omit').default;
 
 interface StoryPageProps extends StoryConfig {
@@ -19,14 +20,15 @@ const prepareMetadata: ((StoryPageProps) => Metadata) = props => ({
 const StoryPage: React.StatelessComponent<StoryPageProps> = (
   props: StoryPageProps,
 ) => {
-  const { sections } = props;
+  const passThrough = {
+    ...props,
+    metadata: prepareMetadata(props),
+  };
 
-  const metadata = prepareMetadata(props);
-
-  return sections ? (
-    <div>hey</div>
+  return props.sections ? (
+    <SectionsRenderer {...passThrough} />
   ) : (
-    <SingleComponentLayout {...{ ...props, metadata }} />
+    <SingleComponentLayout {...passThrough} />
   );
 };
 

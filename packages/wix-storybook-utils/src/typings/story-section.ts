@@ -1,8 +1,8 @@
 export enum SectionType {
-  Description,
-  Code,
-  ImportExample,
-  Error,
+  Description = 'description',
+  Code = 'code',
+  ImportExample = 'importExample',
+  Error = 'error',
 }
 
 export interface StorySection {

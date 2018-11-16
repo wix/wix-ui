@@ -5,7 +5,7 @@ import {
   CodeSection,
 } from '../typings/story-section';
 
-export const baseSection = rest => ({
+const baseSection = rest => ({
   type: SectionType.Error,
   hidden: false,
   ...rest,
