@@ -20,5 +20,5 @@ export interface StoryConfig {
 
   /** currently only bool possible. later same property shall be used for configuring code example */
   codeExample?: boolean;
-  secions?: StorySection[];
+  sections?: StorySection[];
 }
