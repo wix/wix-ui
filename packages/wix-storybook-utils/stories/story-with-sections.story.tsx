@@ -1,10 +1,12 @@
-import {
-  description,
-  code,
-  importExample,
-} from '../src/Sections/section-builders';
+import * as React from 'react';
 
-console.log(description);
+import { description, code, importExample } from '../src/Sections/builders';
+
+const LiveExampleComponent = ({ disabled }) => (
+  <div style={{ background: disabled ? 'red' : '#bada55' }}>
+    Oh hello there!
+  </div>
+);
 
 export default {
   category: 'Components',
@@ -20,7 +22,9 @@ export default {
     }),
 
     code({
-      source: "'hello';",
+      source: '<div><LiveExampleComponent/></div>',
+      components: { LiveExampleComponent },
+      compact: true,
     }),
   ],
 };

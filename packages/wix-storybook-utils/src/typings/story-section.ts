@@ -21,12 +21,6 @@ export interface ImportExampleSection extends StorySection {
 
 export interface CodeSection extends StorySection {
   source: string;
-}
-
-export interface Meta {
-  title: string;
-  subtitle: string;
-  sourceUrl: string;
-  issueUrl: string;
-  sections: StorySection[];
+  components?: { [s: string]: React.ReactNode };
+  compact?: boolean;
 }

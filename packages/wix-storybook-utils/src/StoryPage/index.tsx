@@ -4,7 +4,7 @@ import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
 import { SingleComponentLayout } from './single-component-layout';
-import { SectionsRenderer } from './sections-renderer';
+import { Renderer as SectionsRenderer } from '../Sections/renderer';
 const omit = require('../AutoExample/utils/omit').default;
 
 interface StoryPageProps extends StoryConfig {
