@@ -81,20 +81,20 @@ interface StoryPageProps {
   metadata: Metadata;
   config: Config;
   component: any;
-  componentProps: any;
-  componentWrapper: any;
-  hiddenProps: string[];
-  displayName: string;
-  exampleProps: any;
+  componentProps?: any;
+  componentWrapper?: any;
+  hiddenProps?: string[];
+  displayName?: string;
+  exampleProps?: any;
 
   /** custom string to be displayed in place of import example
    * usually something like `import Component from 'module/Component';`
    */
-  exampleImport: string;
-  examples: any;
+  exampleImport?: string;
+  examples?: any;
 
   /** currently only `false` possible. later same property shall be used for configuring code example */
-  codeExample: boolean;
+  codeExample?: boolean;
   activeTabId?: string;
 }
 

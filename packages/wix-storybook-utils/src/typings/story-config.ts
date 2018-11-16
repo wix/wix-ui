@@ -6,6 +6,7 @@ export interface StoryConfig {
   config: Config;
   component: any;
   componentProps?: any;
+  componentWrapper: any;
   hiddenProps?: string[];
   displayName?: string;
   exampleProps?: any;
