@@ -236,3 +236,19 @@
     border-radius: 6px;
   }
 }
+
+
+/* 
+  Preview examples in row. Make sure to wrap your
+  components in a div.
+*/
+
+.previewRow div { 
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.previewRow div:nth-child(2n)  {
+  padding:0 10px;
+}

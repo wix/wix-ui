@@ -18,10 +18,12 @@ export default class LiveCodeExample extends Component {
     title: PropTypes.string,
     scope: PropTypes.object,
     compact: PropTypes.bool,
+    previewRow: PropTypes.bool,
   };
 
   static defaultProps = {
     compact: false,
+    previewRow: false,
   };
 
   resetCode = () => {
@@ -68,7 +70,7 @@ export default class LiveCodeExample extends Component {
   }
 
   render() {
-    const { compact } = this.props;
+    const { compact, previewRow } = this.props;
     const { code, isRtl, isDarkBackground, isEditorOpened } = this.state;
 
     return (
@@ -140,7 +142,7 @@ export default class LiveCodeExample extends Component {
               })}
               dir={isRtl ? 'rtl' : ''}
             >
-              <LivePreview />
+              <LivePreview className={previewRow ? styles.previewRow : null} />
               <LiveError className={styles.error} />
             </div>
           </div>
