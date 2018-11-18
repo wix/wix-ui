@@ -6,7 +6,7 @@ import { Avatar } from '.';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
-const TEST_IMG_URL = 'http://localhost/123.png';
+const TEST_IMG_URL = 'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png';
 const ICON_AS_TEXT = <span>XXXXX</span>;
 
 describe('Avatar', () => {
