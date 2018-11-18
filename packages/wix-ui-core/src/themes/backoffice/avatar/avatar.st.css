@@ -18,11 +18,6 @@
   -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
 } 
 
-:vars {
-  gradientRotation: 225deg;
-  defaultBackgroundImage: value(backgroundGradientBlue);
-}
-
 .avatar {
   -st-extends: Avatar;
 }
