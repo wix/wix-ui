@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import {Img} from './img';
 import { BaseProps } from '../../types/BaseProps';
 import style from './avatar.st.css';
 import {ContentType} from './types';
@@ -36,23 +35,83 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   
   state: AvatarState = { imgLoaded: false }
   
-  componentWillReceiveProps(nextProps: AvatarProps) {
-    if (nextProps && nextProps.imgProps && 
-      (!this.props.imgProps || nextProps.imgProps.src !== this.props.imgProps.src)
-      ) {
-      this.setState({ imgLoaded: false });
-    }
-  }
+  img : HTMLImageElement;
 
-  render() {
-    const { name, text, icon, imgProps, ...rest } = this.props;
-    
-    const contentType: ContentType = 
+  /** This is the resolved content type the the consumer wants to display */
+  getRequestedContentType(props) : ContentType {
+    const { name, text, icon, imgProps} = props;
+
+    return (
       imgProps ? 'image' :
       icon ? 'icon' :
       text || name ? 'text' :
-      DEFAULT_CONTENT_TYPE;
-    
+      DEFAULT_CONTENT_TYPE
+    );
+  }
+
+  /** This is content type that will be displayed. (If img is loading then this will be the fallback) */
+  getCurrentContentType() : ContentType {
+    const requestedType = this.getRequestedContentType(this.props);
+
+    if (requestedType === 'image' && !this.state.imgLoaded) {
+      const { name, text, icon} = this.props;
+      return (
+          icon ? 'icon' :
+          text || name ? 'text' :
+          DEFAULT_CONTENT_TYPE
+      );
+    } else {
+      return requestedType;
+    }
+  }
+
+  componentDidMount() {
+    this.getRequestedContentType(this.props) === 'image' && !this.state.imgLoaded && this.loadImg();
+  }
+
+  componentWillReceiveProps(nextProps: AvatarProps) {
+    if (!nextProps.imgProps ||
+      (!this.props.imgProps || nextProps.imgProps.src !== this.props.imgProps.src)
+      ) {
+      this.setState({ imgLoaded: false });
+      this.img && this.unloadImg();
+    }
+  }
+
+  componentDidUpdate() {
+    this.getRequestedContentType(this.props) === 'image' && !this.img && !this.state.imgLoaded && this.loadImg();
+  }
+
+  componentWillUnmount() {
+    this.img && this.unloadImg();
+  }
+
+  loadImg = () => {
+    this.img = new Image();
+    this.img.onload = () => {
+      this.setState({ imgLoaded: true })
+    };
+    this.img.src = this.props.imgProps.src;
+  }
+
+  unloadImg = () => {
+    // TODO: Is this necessary?
+    delete this.img.onload
+    try {
+      delete this.img.src
+    } catch (e) {
+      // On Safari in Strict mode this will throw an exception,
+      //  - https://github.com/mbrevda/react-image/issues/187
+      // We don't need to do anything about it.
+    }
+    delete this.img
+  }
+
+  render() {
+    const { name, text, icon, imgProps, ...rest} = this.props;
+
+    const contentType = this.getCurrentContentType();
+
     return (
       <div 
         data-content-type={ contentType } // for testing
@@ -86,23 +145,13 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
       }
   
       case 'image': {
-        const {icon, text, name} = this.props;
         const {alt, className, ...rest} = this.props.imgProps;
 
-        const fallbackType: ContentType = 
-          icon ? 'icon' :
-          text || name ? 'text' :
-          DEFAULT_CONTENT_TYPE;
-
-        const fallbackContent = this.getContent(fallbackType);
         return (
-          <Img
+          <img
             className={classNames(style.image, className)} 
             alt={alt ? alt : this.props.name}
             {...rest}
-            loader={fallbackContent}
-            isLoaded={this.state.imgLoaded}
-            onLoadedChange={isLoaded => this.setState({ imgLoaded: isLoaded })}
           />
         );
       }
