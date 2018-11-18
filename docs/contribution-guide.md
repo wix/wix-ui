@@ -188,9 +188,9 @@ With that in mind, avoid implementing "test helpers" in the driver since the dri
 
 Component meta file adds additional information about the component - mainly the different variations of properties and style. This information is required by several automated tools that help us present and test the component, thus saving work for the developer. 
 
-These tools include visual screenshot tests, accessibility tests, SSR rendering and additional sanity validations. Additionally the variations provided are used to automatically present the component's different looks in showcase / storybook. Read more about these tools here: [ui-autotools](https://github.com/wix-incubator/ui-autotools)
+These tools include visual screenshot tests, accessibility tests, SSR rendering and additional sanity validations. Additionally the variations provided are used to automatically present the component's different looks in showcase / storybook. Make sure to add a simulation for each important variation of the component. 
 
-Make sure to add a simulation for each important variation of the component. We allow overriding the component's state as well to acheive visual states that result from interactions (like focus, open dropdown and such...). Supplied state will override the component's internal react state 
+Read more about these tools here: [ui-autotools](https://github.com/wix-incubator/ui-autotools)
 
 Note: The automated tests DO NOT replace unit tests and don't simulate interactions (clicking, hovering, keyboard, etc.). 
 
@@ -244,6 +244,24 @@ metaData.addSim('unchecked and focused', {
 
 ```
 
+Notice that we allow overriding the component's **internal** React state to acheive visual looks that result from interactions (like focus, open dropdown and such...). For example:
+
+```ts
+import Registry from 'ui-autotools';
+import {Dropdown} from './dropdown';
+const metaData = Registry.getComponentMetadata(Dropdown)
+
+metaData.addSim('Open with item1 focused and item3 selected', {
+    props: {
+      items: ['item1', 'item2', 'item3']
+    },
+    state: {
+      open: true
+      focusedItem: 'item1'
+      selectedItem: 'item3'
+    }
+  }); 
+```
 
 ## Contributing Component Style Variants.
 
