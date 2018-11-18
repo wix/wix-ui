@@ -22,7 +22,9 @@ describe('Avatar', () => {
     return avatarDriverFactory(base);
   }
     
-  const expectImgLoadedAtSomePoint = (driver) => eventually(async () => expect((await driver.getContentType()) === 'image').toBeFalsy());
+  const expectImgEventuallyLoaded = (driver) => eventually(
+    async () => expect((await driver.getContentType()) === 'image').toBeTruthy()
+  );
 
   it('should render an empty text by default', async () => {
     const driver = createDriver(<Avatar />);
@@ -49,7 +51,7 @@ describe('Avatar', () => {
     
     it('should render an image', async () => {
       const driver = createDriver(<Avatar imgProps={{src:TEST_IMG_URL}} />);
-      await expectImgLoadedAtSomePoint(driver);
+      await expectImgEventuallyLoaded(driver);
     });
 
     it('should render an icon when given icon and text', async () => {
@@ -67,7 +69,7 @@ describe('Avatar', () => {
           icon={ICON_AS_TEXT} 
           imgProps={{src:TEST_IMG_URL}}
         />);
-        await expectImgLoadedAtSomePoint(driver);
+        await expectImgEventuallyLoaded(driver);
     });
   });
 
