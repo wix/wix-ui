@@ -111,13 +111,17 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     const { name, text, icon, imgProps, ...rest} = this.props;
 
     const contentType = this.getCurrentContentType();
-
     return (
       <div 
         data-content-type={ contentType } // for testing
         data-img-loaded={ this.state.imgLoaded } // for testing
         {...rest}
-        {...style('root', { imgLoaded: this.state.imgLoaded }, this.props)}
+        {...style('root',
+          {
+           imgLoaded: this.state.imgLoaded,
+           contentType
+          },
+          this.props)}
       >
         {this.getContent(contentType)}
       </div>
@@ -131,7 +135,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
         // TODO: Make initials logic more robust and tested.
         const textContent = text || (name && name.split(' ').map(s=>s[0]).join('')) || '';
         return (
-          <div className={style.text} data-hook="text-container">
+          <div className={style.content} data-hook="text-container">
             {textContent}
           </div>
         );
@@ -140,7 +144,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
       case 'icon': {
         const icon = this.props.icon;
         return React.cloneElement(icon,
-            { className:classNames(icon.props.className, style.icon) }
+            { className:classNames(icon.props.className, style.content) }
           );
       }
   
@@ -149,7 +153,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
 
         return (
           <img
-            className={classNames(style.image, className)} 
+            className={classNames(style.content, className)} 
             alt={alt ? alt : this.props.name}
             {...rest}
           />
