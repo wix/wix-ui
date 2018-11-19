@@ -2,8 +2,12 @@ import {
   SectionType,
   DescriptionSection,
   ImportExampleSection,
-  CodeSection,
+  LiveCodeSection,
 } from '../typings/story-section';
+
+// functions exported in this file are used as builders for `sections` array in story config.  they are typed
+// abstractions for consumer, so that they don't need to write all details by manually and can also leverage some
+// autocomplete
 
 const baseSection = rest => ({
   type: SectionType.Error,
@@ -11,9 +15,9 @@ const baseSection = rest => ({
   ...rest,
 });
 
-export const code: ((object: Partial<CodeSection>) => CodeSection) = rest =>
+export const liveCode: ((object: Partial<LiveCodeSection>) => LiveCodeSection) = rest =>
   baseSection({
-    type: SectionType.Code,
+    type: SectionType.LiveCode,
     ...rest,
   });
 

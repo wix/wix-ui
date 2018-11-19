@@ -3,15 +3,16 @@ import * as React from 'react';
 import LiveCodeExample from '../LiveCodeExample';
 import {
   ErrorSection,
-  CodeSection,
+  LiveCodeSection,
   ImportExampleSection,
   DescriptionSection,
 } from '../typings/story-section';
 import { StoryConfig } from '../typings/story-config';
+const CodeBlock = require('../CodeBlock').default;
 
 const error: ((a: ErrorSection) => React.ReactNode) = ({}) => <div>error</div>;
 
-const code: ((a: CodeSection) => React.ReactNode) = ({
+const liveCode: ((a: LiveCodeSection) => React.ReactNode) = ({
   source,
   components,
   compact = false,
@@ -21,7 +22,7 @@ const code: ((a: CodeSection) => React.ReactNode) = ({
 
 const importExample: ((a: ImportExampleSection) => React.ReactNode) = ({
   source,
-}) => <div>{source}</div>;
+}) => <CodeBlock source={source} />;
 
 const description: ((a: DescriptionSection) => React.ReactNode) = ({
   text,
@@ -29,7 +30,7 @@ const description: ((a: DescriptionSection) => React.ReactNode) = ({
 
 const renderers = {
   error,
-  code,
+  liveCode,
   importExample,
   description,
 };

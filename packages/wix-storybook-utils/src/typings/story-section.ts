@@ -1,6 +1,6 @@
 export enum SectionType {
   Description = 'description',
-  Code = 'code',
+  LiveCode = 'liveCode',
   ImportExample = 'importExample',
   Error = 'error',
 }
@@ -19,7 +19,7 @@ export interface ImportExampleSection extends StorySection {
   source: string;
 }
 
-export interface CodeSection extends StorySection {
+export interface LiveCodeSection extends StorySection {
   source: string;
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
