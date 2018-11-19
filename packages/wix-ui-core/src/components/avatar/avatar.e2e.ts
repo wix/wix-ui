@@ -22,7 +22,7 @@ describe('Avatar', () => {
     await waitForVisibilityOf($(`[data-hook=${dataHook}`));
     const driver = avatarTestkitFactory({dataHook});
 
-    expect(await driver.getContentType()).toBe('image');
+    expect(await driver.getContentType()).toBe('text');
     expect(await driver.isImageLoaded()).toBeFalsy();
     expect(await driver.getTextContent()).toBe('JD');
   });

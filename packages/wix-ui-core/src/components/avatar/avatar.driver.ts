@@ -6,7 +6,7 @@ import {
 import { ContentType } from './types';
 
 export interface AvatarDriver extends BaseUniDriver{
-  /** Get the resolved content type. Types are: 'text', 'icon', 'image'. It could be that the resolved type is 'image' but the currently displayed one is `text`. */
+  /** Get the currently displayed type. Types are: 'text', 'icon', 'image'. It could be that the resolved type is 'image' but the currently displayed one is `text`. */
   getContentType: () => Promise<ContentType>;
   /** Get the text content (generated initials) */
   getTextContent: ()=> Promise<string>;
