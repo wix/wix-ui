@@ -54,6 +54,13 @@ const AvatarStory = () => (
     >
       <Avatar icon={<More/>} />
     </CodeShowcase>
+
+    <CodeShowcase
+      title="Image"
+      theme={backofficeTheme}
+    >
+      <Avatar imgProps={{src: 'https://randomuser.me/api/portraits/women/39.jpg'}} />
+    </CodeShowcase>
   </div>
 );
 

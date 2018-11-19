@@ -28,6 +28,12 @@ BackofficeTheme Avatar {
   border-radius: 30px; 
 }
 
+BackofficeTheme Avatar:contentType(image)::content {
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+}
+
 /* Colors */
 BackofficeTheme Avatar:contentType(icon) {
   background-color: value(B40);
