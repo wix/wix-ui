@@ -1,5 +1,5 @@
-import { Popover } from './Popover';
-import Registry from '@ui-autotools/registry';
+// import { Popover } from './Popover';
+// import Registry from '@ui-autotools/registry';
 
 // const popoverMetadata = Registry.getComponentMetadata(Popover);
 // popoverMetadata
@@ -8,5 +8,5 @@ import Registry from '@ui-autotools/registry';
 //     props: {
 //       placement: 'auto',
 //       shown: true
-//     }HEAD
+//     }
 //   });
