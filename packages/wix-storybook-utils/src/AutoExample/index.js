@@ -335,16 +335,16 @@ export default class extends Component {
       }, {}),
     };
 
-    if (!this.props.isInteractive) {
-      return React.createElement(this.props.component, componentProps);
-    }
     const component = React.createElement(this.props.component, componentProps);
-
-    const componentWrapper = this.props.componentWrapper
+    const componentToRender = this.props.componentWrapper
       ? React.cloneElement(this.props.componentWrapper({ component }), {
           'data-hook': 'componentWrapper',
         })
-      : undefined;
+      : component;
+      
+    if (!this.props.isInteractive) {
+      return componentToRender;
+    }
 
     return (
       <Layout dataHook="auto-example">
@@ -378,7 +378,7 @@ export default class extends Component {
           onToggleBackground={isDarkBackground =>
             this.setState({ isDarkBackground })
           }
-          children={componentWrapper || component}
+          children={componentToRender}
         />
 
         {this.props.codeExample && (

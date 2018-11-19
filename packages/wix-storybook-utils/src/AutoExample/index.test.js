@@ -112,6 +112,22 @@ describe('AutoExample', () => {
       ).toBeTruthy();
       expect(testkit.get.exists(`[className*="${theme}"]`)).toBeTruthy();
     });
+
+    it('should render wrapper in Non-Interactive mode', () => {
+      const theme = 'componentWrapper-theme';
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
+        isInteractive: false,
+        componentWrapper: ({ component }) => (
+          <div className={theme}>{component}</div>
+        ),
+      });
+      expect(
+        testkit.get.exists('[data-hook*="componentWrapper"]'),
+      ).toBeTruthy();
+      expect(testkit.get.exists(`[className*="${theme}"]`)).toBeTruthy();
+    });
+
     it('should not render wrapper when not given', () => {
       const testkit = new Testkit(AutoExample);
       testkit.when.created();

@@ -32,6 +32,7 @@ export default ({
               isInteractive={false}
               ref={ref => (global.autoexample = ref)}
               component={component}
+              componentWrapper={componentWrapper}
               componentProps={componentProps}
               parsedSource={_metadata}
             />
