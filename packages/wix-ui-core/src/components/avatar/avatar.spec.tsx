@@ -3,7 +3,7 @@ import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
 import { reactUniDriver, UniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { Avatar } from '.';
+import { Avatar , AvatarProps} from '.';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
@@ -146,6 +146,51 @@ describe('Avatar', () => {
         const imgElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
         expect(imgElem.getAttribute('src')).toBe(TEST_IMG_URL);
       });
+    });
+
+    // This test is skipped because it either passes with jsdom and fails with browser (mocha-runner), or in it's current form
+    // passes in browser and fails in jsdom. Until we decide which platform we are testing on, this needs to stay skipped.
+    xit('should reset imgLoading state when src url changes', async () => {
+      const dataHook = 'avatar_test_image';
+      class AvatarWrapper extends React.Component<AvatarProps> {
+        state = {srcUrl : TEST_IMG_URL}
+        
+        setUrl(url) {
+          this.setState({srcUrl: url});
+        }
+
+        render() {
+          return (<Avatar 
+            imgProps={{
+              src: this.state.srcUrl,
+              ['data-hook']: dataHook,
+            }} 
+          />);
+        }
+      }
+      
+      let wrapper: any;
+
+      testContainer.renderSync(
+        <AvatarWrapper 
+          ref={inst => wrapper = inst}
+          imgProps={{
+            src:TEST_IMG_URL,
+            ['data-hook']: dataHook,
+          }} 
+        />);
+
+      await eventually(async () => {
+        const driver =  createDriverFromContainer();
+        expect(await driver.isImageLoaded()).toBeTruthy();
+      }, {timeout: 1000});
+
+      wrapper.setUrl(INVALID_TEST_IMG_URL);
+
+      await eventually(async () => {
+        const driver =  createDriverFromContainer();
+        expect(await driver.isImageLoaded()).toBeFalsy();
+      }, {timeout: 1000});
     });
   });
 
