@@ -95,13 +95,13 @@ describe('Avatar', () => {
           name="John Doe" 
           imgProps={{src:TEST_IMG_URL, ['data-hook']: dataHook}} 
         />);
-      eventually(() => {
+      await eventually(() => {
         const imgElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
         expect(imgElem.getAttribute('alt')).toBe('John Doe');
       });
     });
 
-    it('should NOT override \'alt\' value when image is displayed', () => {
+    it('should NOT override \'alt\' value when image is displayed', async () => {
       const alt = 'Profile photo of John Doe';
       const dataHook = 'avatar_test_image';
       testContainer.renderSync(
@@ -113,7 +113,7 @@ describe('Avatar', () => {
             alt
           }} 
         />);
-      eventually(() => {
+      await eventually(() => {
         const imgElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
         expect(imgElem.getAttribute('alt')).toBe(alt);
       });
@@ -142,7 +142,7 @@ describe('Avatar', () => {
             ['data-hook']: dataHook,
           }} 
         />);
-      eventually(() => {
+      await eventually(() => {
         const imgElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
         expect(imgElem.getAttribute('src')).toBe(TEST_IMG_URL);
       });
@@ -213,19 +213,19 @@ describe('Avatar', () => {
       it('should have content class when image displayed', async () => {
         testContainer.renderSync(<Avatar imgProps={{ src:TEST_IMG_URL }}/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        eventually(() => {
+        await eventually(() => {
           expect(utils.select('.content').getAttribute('src')).toBe(TEST_IMG_URL);
         });
       });
     });
       
     describe('imgLoaded state', () => {
-      it('should have imgLoaded', () => {
+      it('should have imgLoaded', async () => {
         testContainer.renderSync(
           <Avatar imgProps={{ src:TEST_IMG_URL }} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        eventually(() => {
+        await eventually(() => {
           expect(utils.hasStyleState(testContainer.componentNode, 'imgLoaded')).toBeTruthy();
         });
       });
@@ -238,12 +238,12 @@ describe('Avatar', () => {
         expect(utils.hasStyleState(testContainer.componentNode, 'imgLoaded')).toBeFalsy();
       });
 
-      it('should NOT have imgLoaded when img is not loaded yet', () => {
+      it('should NOT have imgLoaded when img is not loaded yet', async () => {
         testContainer.renderSync(
           <Avatar imgProps={{ src:INVALID_TEST_IMG_URL }} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        eventually(() => {
+        await eventually(() => {
           expect(utils.hasStyleState(testContainer.componentNode, 'imgLoaded')).toBeFalsy();
         });
       });
@@ -266,12 +266,12 @@ describe('Avatar', () => {
         expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('icon');
       });
 
-      it('should be image', () => {
+      it('should be image', async () => {
         testContainer.renderSync(
           <Avatar imgProps={{ src:TEST_IMG_URL }}  />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        eventually(() => {
+        await eventually(() => {
           expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('image');
         });
       });
