@@ -15,7 +15,9 @@ const baseSection = rest => ({
   ...rest,
 });
 
-export const liveCode: ((object: Partial<LiveCodeSection>) => LiveCodeSection) = rest =>
+export const liveCode: ((
+  object: Partial<LiveCodeSection>,
+) => LiveCodeSection) = rest =>
   baseSection({
     type: SectionType.LiveCode,
     ...rest,
