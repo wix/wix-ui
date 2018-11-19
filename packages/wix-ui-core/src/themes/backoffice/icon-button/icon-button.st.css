@@ -199,3 +199,16 @@ BackofficeTheme .iconButton.small {
   width: 30px;
   height: 30px;
 }
+
+
+/* icon size */
+
+BackofficeTheme .iconButton.iconSmall {
+  width: 18px;
+  height: 18px;
+}
+
+BackofficeTheme .iconButton.iconMedium {
+  width: 24px;
+  height: 24px;
+}
