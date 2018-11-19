@@ -22,7 +22,7 @@ describe('Avatar', () => {
     return avatarDriverFactory(base);
   }
     
-  const expectImgEventuallyLoaded = (driver) => eventually(
+  const expectImgEventuallyLoaded =driver => eventually(
     async () => expect((await driver.getContentType()) === 'image').toBeTruthy()
   );
 
@@ -160,12 +160,14 @@ describe('Avatar', () => {
         }
 
         render() {
-          return (<Avatar 
-            imgProps={{
-              src: this.state.srcUrl,
-              ['data-hook']: dataHook,
-            }} 
-          />);
+          return (
+            <Avatar 
+              imgProps={{
+                src: this.state.srcUrl,
+                ['data-hook']: dataHook,
+              }} 
+            />
+          );
         }
       }
       
