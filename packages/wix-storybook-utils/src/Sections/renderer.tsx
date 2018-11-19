@@ -1,10 +1,15 @@
 import * as React from 'react';
 
 import LiveCodeExample from '../LiveCodeExample';
-import { CodeSection, ImportExampleSection } from '../typings/story-section';
+import {
+  ErrorSection,
+  CodeSection,
+  ImportExampleSection,
+  DescriptionSection,
+} from '../typings/story-section';
 import { StoryConfig } from '../typings/story-config';
 
-const error = () => <div>error</div>;
+const error: ((a: ErrorSection) => React.ReactNode) = ({}) => <div>error</div>;
 
 const code: ((a: CodeSection) => React.ReactNode) = ({
   source,
@@ -18,7 +23,9 @@ const importExample: ((a: ImportExampleSection) => React.ReactNode) = ({
   source,
 }) => <div>{source}</div>;
 
-const description = ({ text }) => <div>{text}</div>;
+const description: ((a: DescriptionSection) => React.ReactNode) = ({
+  text,
+}) => <div>{text}</div>;
 
 const renderers = {
   error,
@@ -27,12 +34,14 @@ const renderers = {
   description,
 };
 
+const getRenderer = type => renderers[type] || error;
+
 export const Renderer: React.StatelessComponent<StoryConfig> = ({
   sections,
 }) => (
   <div>
     {sections.map((section, key) => (
-      <div key={key}>{renderers[section.type](section)}</div>
+      <div key={key}>{getRenderer(section.type)(section)}</div>
     ))}
   </div>
 );

@@ -24,3 +24,5 @@ export interface CodeSection extends StorySection {
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
 }
+
+export interface ErrorSection extends StorySection {}
