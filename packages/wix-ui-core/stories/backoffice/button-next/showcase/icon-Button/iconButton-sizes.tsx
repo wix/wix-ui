@@ -38,7 +38,6 @@ export const IconButtonSizes = ({ style }: IconButtonSizesProps) => (
     title="Icon Buttons (sizes)"
     style={style}
     code={example}
-    theme={backofficeTheme}
     description={description}
   >
     <ButtonNext className={iconButton('small')}>

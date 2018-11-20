@@ -44,7 +44,6 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
     title="Close Buttons (standard)"
     style={style}
     code={exampleStandard}
-    theme={backofficeTheme}
     description={descriptionPrimary}
   >
     <ButtonNext className={closeButton()}>

@@ -18,7 +18,7 @@
   -st-extends: Button;
 }
 
-BackofficeTheme .iconButton {
+.iconButton {
   width: 36px;
   height: 36px;
   border-radius: 18px;
@@ -36,29 +36,29 @@ BackofficeTheme .iconButton {
   color: white;
 }
 
-BackofficeTheme .iconButton:hover:not(:disabled) {
+.iconButton:hover:not(:disabled) {
   background-color: value(B20);
   border-color: value(B20);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton:active:not(:disabled) {
+.iconButton:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton:disabled {
+.iconButton:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton:focus-visible {
+.iconButton:focus-visible {
   box-shadow: 0 0 0 3px value(F00);
 }
 
-BackofficeTheme .iconButton .content {
+.iconButton .content {
   line-height: 0;
   width: 100%;
   height: 100%;
@@ -66,25 +66,25 @@ BackofficeTheme .iconButton .content {
 
 /* special case inverted */
 
-BackofficeTheme .iconButton.inverted {
+.iconButton.inverted {
   border: none;
   background-color: value(D80);
   color: value(B20);
 }
 
-BackofficeTheme .iconButton.inverted:hover:not(:disabled) {
+.iconButton.inverted:hover:not(:disabled) {
   color: value(D80);
   border-color: transparent;
   background: value(B20);
 }
 
-BackofficeTheme .iconButton.inverted:active:not(:disabled) {
+.iconButton.inverted:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton.inverted:disabled {
+.iconButton.inverted:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -92,25 +92,25 @@ BackofficeTheme .iconButton.inverted:disabled {
 
 /* special case inverted secondary */
 
-BackofficeTheme .iconButton.inverted.secondary {
+.iconButton.inverted.secondary {
   border: none;
   background-color: value(D80);
   color: value(B20);
 }
 
-BackofficeTheme .iconButton.inverted.secondary:hover:not(:disabled) {
+.iconButton.inverted.secondary:hover:not(:disabled) {
   color: value(D80);
   border-color: transparent;
   background: value(B20);
 }
 
-BackofficeTheme .iconButton.inverted.secondary:active:not(:disabled) {
+.iconButton.inverted.secondary:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton.inverted.secondary:disabled {
+.iconButton.inverted.secondary:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -118,25 +118,25 @@ BackofficeTheme .iconButton.inverted.secondary:disabled {
 
 /* Priority */
 
-BackofficeTheme .iconButton.secondary {
+.iconButton.secondary {
   border: solid 1px value(B10);
   background: transparent;
   color: value(B10);
 }
 
-BackofficeTheme .iconButton.secondary:hover:not(:disabled) {
+.iconButton.secondary:hover:not(:disabled) {
   color: value(D80);
   border-color: transparent;
   background-color: value(B20);
 }
 
-BackofficeTheme .iconButton.secondary:active:not(:disabled) {
+.iconButton.secondary:active:not(:disabled) {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
 }
 
-BackofficeTheme .iconButton.secondary:disabled {
+.iconButton.secondary:disabled {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
@@ -144,24 +144,24 @@ BackofficeTheme .iconButton.secondary:disabled {
 
 /* skin Light */
 
-BackofficeTheme .iconButton.light {
+.iconButton.light {
   border: none;
   background-color: value(D80);
   color: value(B20);
 }
 
-BackofficeTheme .iconButton.light:hover:not(:disabled) {
+.iconButton.light:hover:not(:disabled) {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-BackofficeTheme .iconButton.light:active:not(:disabled) {
+.iconButton.light:active:not(:disabled) {
   background-color: value(B40);
   color: value(B10);
 }
 
-BackofficeTheme .iconButton.light:disabled {
+.iconButton.light:disabled {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -169,25 +169,25 @@ BackofficeTheme .iconButton.light:disabled {
 
 /* skin Light secondary */
 
-BackofficeTheme .iconButton.light.secondary {
+.iconButton.light.secondary {
   border: solid 1px value(D80);
   background: transparent;
   color: value(D80);
 }
 
-BackofficeTheme .iconButton.light.secondary:hover:not(:disabled) {
+.iconButton.light.secondary:hover:not(:disabled) {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-BackofficeTheme .iconButton.light.secondary:active:not(:disabled) {
+.iconButton.light.secondary:active:not(:disabled) {
   background-color: value(B40);
   border: solid 1px value(B40);
   color: value(B10);
 }
 
-BackofficeTheme .iconButton.light.secondary:disabled {
+.iconButton.light.secondary:disabled {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
@@ -195,19 +195,19 @@ BackofficeTheme .iconButton.light.secondary:disabled {
 
 /* sizes */
 
-BackofficeTheme .iconButton.small {
+.iconButton.small {
   width: 30px;
   height: 30px;
 }
 
 /* icon size */
 
-BackofficeTheme .iconButton.iconSmall {
+.iconButton.iconSmall {
   width: 18px;
   height: 18px;
 }
 
-BackofficeTheme .iconButton.iconMedium {
+.iconButton.iconMedium {
   width: 24px;
   height: 24px;
 }

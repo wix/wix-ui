@@ -37,7 +37,6 @@ export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
     title="Icon Buttons (primary)"
     style={style}
     code={examplePrimary}
-    theme={backofficeTheme}
     description={descriptionPrimary}
   >
     <ButtonNext className={iconButton()}>

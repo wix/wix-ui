@@ -37,7 +37,6 @@ export const IconButtonSecondary = ({ style }: IconButtonSecondaryProps) => (
     title="Icon Buttons (secondary)"
     style={style}
     code={exampleSecondary}
-    theme={backofficeTheme}
     description={secondaryDescription}
   >
     <ButtonNext className={iconButton('secondary')}>
