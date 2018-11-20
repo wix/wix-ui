@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import {LabelWithOptions} from '../src/components/LabelWithOptions';
-import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
-import {Option} from '../src/components/DropdownOption';
+import {LabelWithOptions} from '../src/components/label-with-options';
+import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
+import {Option} from '../src/components/dropdown-option';
 
 const options = generateOptions();
 
@@ -10,7 +10,7 @@ export default {
   category: 'Components',
   name: 'LabelWithOptions',
   component: LabelWithOptions,
-  componentPath: '../src/components/LabelWithOptions',
+  componentPath: '../src/components/label-with-options',
 
   componentProps: {
     'data-hook': 'storybook-labelwithoptions',

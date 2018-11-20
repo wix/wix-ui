@@ -1,6 +1,6 @@
-import {InputWithOptions} from '../src/components/InputWithOptions';
-import {Option} from '../src/components/DropdownOption';
-import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
+import {InputWithOptions} from '../src/components/input-with-options';
+import {Option} from '../src/components/dropdown-option';
+import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
 
 const options = generateOptions();
 
@@ -8,7 +8,7 @@ export default {
   category: 'Base Components',
   storyName: 'InputWithOptions',
   component: InputWithOptions,
-  componentPath: '../src/components/InputWithOptions',
+  componentPath: '../src/components/input-with-options',
 
   componentProps: {
     'data-hook': 'storybook-inputwithoptions',
