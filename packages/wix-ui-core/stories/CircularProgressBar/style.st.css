@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../src/components/CircularProgressBar/CircularProgressBar.st.css";
+  -st-from: "../../src/components/circular-progress-bar/CircularProgressBar.st.css";
   -st-default: CircularProgressBar;
 }
 

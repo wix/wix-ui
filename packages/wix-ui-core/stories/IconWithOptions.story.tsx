@@ -1,5 +1,5 @@
-import {IconWithOptions} from '../src/components/IconWithOptions';
-import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
+import {IconWithOptions} from '../src/components/icon-with-options';
+import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
 
 const options = generateOptions();
 
@@ -7,7 +7,7 @@ export default {
   category: 'Components',
   storyName: 'IconWithOptions',
   component: IconWithOptions,
-  componentPath: '../src/components/IconWithOptions/IconWithOptions.tsx',
+  componentPath: '../src/components/icon-with-options/IconWithOptions.tsx',
 
   componentProps: {
     'data-hook': 'storybook-iconwithoptions',

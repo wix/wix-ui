@@ -1,6 +1,6 @@
-import {Autocomplete} from '../src/components/Autocomplete';
-import {Option, DividerArgs} from '../src/components/DropdownOption';
-import {generateOptions} from '../src/components/DropdownOption/OptionsExample';
+import {Autocomplete} from '../src/components/autocomplete';
+import {Option, DividerArgs} from '../src/components/dropdown-option';
+import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
 
 const options = generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value));
 

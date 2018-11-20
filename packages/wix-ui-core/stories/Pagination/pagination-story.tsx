@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Pagination as CorePagination, PaginationProps} from '../../src/components/Pagination';
+import {Pagination as CorePagination, PaginationProps} from '../../src/components/pagination';
 import style from './pagination-story-theme.st.css';
 import {withStylable} from '../../src/utils/withStylable';
 

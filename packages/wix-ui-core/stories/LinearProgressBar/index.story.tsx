@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {LinearProgressBar} from '../../src/components/LinearProgressBar';
-import {LinearProgressBarProps} from '../../src/components/LinearProgressBar/LinearProgressBar';
+import {LinearProgressBar} from '../../src/components/linear-progress-bar';
+import {LinearProgressBarProps} from '../../src/components/linear-progress-bar/LinearProgressBar';
 import style from './style.st.css';
 
 export default {
@@ -8,7 +8,7 @@ export default {
   name: 'LinearProgressBar',
   storyName: 'LinearProgressBar',
   component: LinearProgressBar,
-  componentPath: '../../src/components/LinearProgressBar',
+  componentPath: '../../src/components/linear-progress-bar',
 
   componentProps: setState => ({
     ...style('root'),

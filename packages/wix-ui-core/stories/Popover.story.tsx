@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Popover, PopoverProps} from '../src/components/Popover';
-import {Option} from '../src/components/DropdownOption';
+import {Popover, PopoverProps} from '../src/components/popover';
+import {Option} from '../src/components/dropdown-option';
 
 // Click target to open close
 class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boolean}> {
@@ -52,7 +52,7 @@ export default {
   category: 'Components',
   storyName: 'Popover',
   component: Popover,
-  componentPath: '../src/components/Popover/Popover.tsx',
+  componentPath: '../src/components/popover/Popover.tsx',
   componentProps: {
     'data-hook': 'storybook-popover',
     children: children[0].value,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Slider} from '../src/components/Slider';
+import {Slider} from '../src/components/slider';
 
 const SliderStory = ({children, ...rest}) => {
   const height = rest.orientation === 'vertical' ? 400 : 80;
@@ -17,7 +17,7 @@ export default {
   name: 'Slider',
   storyName: 'Slider',
   component: SliderStory,
-  componentPath: '../src/components/Slider',
+  componentPath: '../src/components/slider',
 
   componentProps: setState => ({
     'data-hook': 'storybook-slider',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Divider} from '../../src/components/deprecated/Divider';
+import {Divider} from '../../src/components/deprecated/divider';
 
 const horizontalDemo: React.CSSProperties = {
     width: '100px',
