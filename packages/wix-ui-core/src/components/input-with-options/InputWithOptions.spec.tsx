@@ -2,11 +2,11 @@ import * as React from 'react';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
 import {InputWithOptions} from './';
-import {generateOptions} from '../DropdownOption/OptionsExample';
+import {generateOptions} from '../dropdown-option/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
 import {mount} from 'enzyme';
 import {Simulate} from 'react-dom/test-utils';
-import {OptionFactory} from '../DropdownOption';
+import {OptionFactory} from '../dropdown-option';
 
 describe('InputWithOptions', () => {
   const createDriver =

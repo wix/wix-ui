@@ -1,9 +1,9 @@
 import * as React from 'react';
 import style from './IconWithOptions.st.css';
-import {Dropdown} from '../Dropdown';
-import {Placement} from '../Popover';
-import {Option} from '../DropdownOption';
-import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../Dropdown/constants';
+import {Dropdown} from '../dropdown';
+import {Placement} from '../popover';
+import {Option} from '../dropdown-option';
+import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../dropdown/constants';
 
 export interface IconWithOptionsProps {
   /** The location to display the content */
