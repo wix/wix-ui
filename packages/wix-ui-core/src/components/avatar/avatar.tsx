@@ -95,7 +95,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   }
 
   unloadImg = () => {
-    // TODO: Is this necessary?
+    // TODO: Is this necessary? It is taken from https://github.com/mbrevda/react-image/blob/c402ed3f5d54b88e51eca3326a1e81d964995795/src/index.js#L146
     delete this.img.onload
     try {
       delete this.img.src
