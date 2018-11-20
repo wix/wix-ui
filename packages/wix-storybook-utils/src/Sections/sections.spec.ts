@@ -1,28 +1,31 @@
-import fs from 'fs';
 import path from 'path';
 
-import camelCase from 'lodash.camelcase';
+import kebabCase from 'lodash.kebabcase';
 import * as builders from './index';
 
+import { SectionType } from '../typings/story-section';
+
 const cwd = path.resolve(__dirname, 'renderers');
-const renderersFileNames = fs.readdirSync(cwd);
-const fileToMethodName = f => camelCase(path.parse(f).name);
+const methodToFileName = f => kebabCase(path.parse(f).name);
+
+const sectionTypes = Object.keys(SectionType).map(t => SectionType[t]);
 
 describe('Sections', () => {
   it('should be exported in renderers', () => {
-    renderersFileNames.map(file => {
+    sectionTypes.map(type => {
       try {
-        const renderer = require(path.resolve(cwd, file));
-        expect(typeof renderer[fileToMethodName(file)]).toBe('function');
+        const renderer = require(path.resolve(cwd, methodToFileName(type)));
+        expect(typeof renderer[type]).toBe('function');
       } catch (e) {
-        throw new Error(`unable to import ${file} renderer! ERROR: ${e}`);
+        throw new Error(
+          `Missing renderer function for "${type}" section type. Make sure one exists in src/Sections/renderers. ERROR: ${e}`,
+        );
       }
     });
   });
 
-  it('should have corresponding builder', () => {
-    renderersFileNames
-      .map(fileToMethodName)
-      .map(methodName => expect(typeof builders[methodName]).toBe('function'));
-  });
+  sectionTypes.map(type =>
+    it(`should have builder for "${type}" section type`, () =>
+      expect(typeof builders[type]).toBe('function')),
+  );
 });
