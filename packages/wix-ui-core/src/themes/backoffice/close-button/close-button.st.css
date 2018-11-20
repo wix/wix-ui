@@ -67,22 +67,22 @@
 
 /* Inverted */
 
-.inverted {
+.closeButton.inverted {
   background-color: value(B50);
   color: value(B10);
 }
 
-.inverted:hover:not(:disabled) {
+.closeButton.inverted:hover:not(:disabled) {
   background-color: value(B40);
   color: value(B10);
 }
 
-.inverted:active:not(:disabled) {
+.closeButton.inverted:active:not(:disabled) {
   background-color: value(B30);
   color: value(B10);
 }
 
-.inverted:disabled {
+.closeButton.inverted:disabled {
   border-color: value(D55);
   color:  value(D80);
   background-color: value(D55);
@@ -90,72 +90,72 @@
 
 /* Skin light */
 
-.light {
+.closeButton.light {
   background-color: transparent;
   color: value(D80);
 }
 
-.light:hover:not(:disabled) {
+.closeButton.light:hover:not(:disabled) {
   background-color: transparent;
   color: value(B50);
 }
 
-.light:active:not(:disabled) {
+.closeButton.light:active:not(:disabled) {
   background-color: transparent;
   color: value(B40);
 }
 
-.light:disabled {
+.closeButton.light:disabled {
   color: value(D55);
   background-color: transparent;
 }
 
 /* Skin dark */
 
-.dark {
+.closeButton.dark {
   border-color: transparent;
   background-color: transparent;
   color: value(D10);
 }
 
-.dark:hover:not(:disabled) {
+.closeButton.dark:hover:not(:disabled) {
   border-color: transparent;
   background-color: transparent;
   color: value(D20);
 }
 
-.dark:active:not(:disabled) {
+.closeButton.dark:active:not(:disabled) {
   border-color: transparent;
   background-color: transparent;
   color: value(D10);
 }
 
-.dark:disabled {
+.closeButton.dark:disabled {
   color: value(D55);
   background-color: transparent;
 }
 
 /* Skin transparent */
 
-.transparent {
+.closeButton.transparent {
   border-color: value(s5);
   background-color: value(s5);
   color:  value(D80);
 }
 
-.transparent:hover:not(:disabled) {
+.closeButton.transparent:hover:not(:disabled) {
   border-color: value(s6);
   background-color: value(s6);
   color:  value(D80);
 }
 
-.transparent:active:not(:disabled) {
+.closeButton.transparent:active:not(:disabled) {
   border-color: value(s7);
   background-color: value(s7);
   color:  value(D80);
 }
 
-.transparent:disabled {
+.closeButton.transparent:disabled {
   border-color: value(D55);
   color:  value(D80);
   background-color: value(D55);
