@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo} from '../Popover';
+import {Popover, Placement, AppendTo} from '../popover';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
 const noop = () => null;

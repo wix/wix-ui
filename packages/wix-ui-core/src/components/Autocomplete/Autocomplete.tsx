@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './Autocomplete.st.css';
-import {InputWithOptions} from '../InputWithOptions';
-import {Option, OptionFactory} from '../DropdownOption/OptionFactory';
+import {InputWithOptions} from '../input-with-options';
+import {Option, OptionFactory} from '../dropdown-option/OptionFactory';
 import {InputProps, AriaAutoCompleteType} from '../Input';
 
 const createDivider = (value = null) =>
