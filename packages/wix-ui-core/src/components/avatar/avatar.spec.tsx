@@ -4,7 +4,7 @@ import * as eventually from 'wix-eventually';
 import { reactUniDriver, UniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar , AvatarProps} from '.';
-import { nameToInitials } from './avatar';
+import { nameToInitials } from './util';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
