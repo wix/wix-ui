@@ -47,7 +47,6 @@ export const TextButtonOnHover = ({ style }: TextButtonOnHoverProps) => (
     style={style}
     code={example}
     description={description}
-    theme={backofficeTheme}
   >
     <ButtonNext className={secondary}>standard</ButtonNext>
     <div

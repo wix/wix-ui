@@ -38,7 +38,6 @@ export const TextButtonSizes = ({ style }: TextButtonSizesProps) => (
     title="Text Buttons (sizes)"
     style={style}
     code={example}
-    theme={backofficeTheme}
     description={description}
   >
     <ButtonNext className={textButton('small')} prefixIcon={<ChevronDown />}>
