@@ -6,7 +6,7 @@
   max-width: 1254px;
 
   margin-bottom: 20px;
-  border: 1px solid #DFE5EB;
+  border: 1px solid #dfe5eb;
   border-radius: 3px;
 
   &.compact {
@@ -20,7 +20,7 @@
   @extend .commonText;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #DFE5EB;
+  border-bottom: 1px solid #dfe5eb;
   padding: 0 1em;
 
   .compact & {
@@ -53,7 +53,7 @@
   .compact & {
     flex-direction: column;
     border-radius: 6px;
-    box-shadow: 0px 0px 0px 4px #F0F4F7;
+    box-shadow: 0px 0px 0px 4px #f0f4f7;
     margin-bottom: 5px;
   }
 }
@@ -69,13 +69,13 @@
     width: 100%;
 
     border-radius: 6px;
-    box-shadow: 0px 0px 0px 4px #F0F4F7;
+    box-shadow: 0px 0px 0px 4px #f0f4f7;
   }
 }
 
 .editor {
-  border-right: 1px solid #DFE5EB;
-  background-color: #F8FAFB;
+  border-right: 1px solid #dfe5eb;
+  background-color: #f8fafb;
 
   .compact & {
     border-right: 0;
@@ -94,7 +94,10 @@
   margin: 0;
   overflow: auto;
   outline: 0;
-  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-family: Consolas, Menlo, Monaco, 'Andale Mono WT', 'Andale Mono',
+    'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono',
+    'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L',
+    'Courier New', Courier, monospace;
 
   // Auto height when in compact mode
   .compact & {
@@ -105,15 +108,15 @@
   // Theme extracted from
   // https://github.com/PrismJS/prism-themes/blob/master/themes/prism-base16-ateliersulphurpool.light.css
   :global {
-    pre[class*="language-"] {
-      margin: .5em 0;
+    pre[class*='language-'] {
+      margin: 0.5em 0;
       overflow: auto;
     }
 
     /* Inline code */
-    :not(pre) > code[class*="language-"] {
-      padding: .1em;
-      border-radius: .3em;
+    :not(pre) > code[class*='language-'] {
+      padding: 0.1em;
+      border-radius: 0.3em;
     }
 
     .token.comment,
@@ -128,7 +131,7 @@
     }
 
     .token.namespace {
-      opacity: .7;
+      opacity: 0.7;
     }
 
     .token.operator,
@@ -237,18 +240,17 @@
   }
 }
 
-
 /* 
   Preview examples in row. Make sure to wrap your
   components in a div.
 */
 
-.previewRow div { 
+.previewRow div {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.previewRow div:nth-child(2n)  {
-  padding:0 10px;
+.previewRow :nth-child(2n) {
+  padding: 0 10px;
 }
