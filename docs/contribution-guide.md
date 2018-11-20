@@ -222,14 +222,16 @@ import {Checkbox} from './checkbox';
 const metaData = Registry.getComponentMetadata(Checkbox)
 
 // `addSim` is used to define a new simulation for the component.
-metaData.addSim('default - unchecked', {
+metaData.addSim({
+    title: 'default - unchecked', 
     props: {
       name: 'myCheckbox'
     }
   })
 
 // provide relevant props to make the component change visual states 
-metaData.addSim('checked', {
+metaData.addSim({
+    title: 'checked', 
     props: {
       name: 'myCheckbox',
       checked: true
@@ -237,7 +239,8 @@ metaData.addSim('checked', {
   });
 
 // you can even override the component's state to simulate interactions (like focus for example)
-metaData.addSim('checked and focused', {
+metaData.addSim({
+    title: 'checked and focused', 
     props: {
       name: 'myCheckbox',
       checked: true
@@ -251,7 +254,8 @@ metaData.addSim('checked and focused', {
 // add as many different simulations as you can. These will be used to display the 
 // different scenarios of the component and also to make sure it passes relevant 
 // tests (SSR, A11Y, etc...)
-metaData.addSim('unchecked and focused', {
+metaData.addSim({
+    title: 'unchecked and focused', 
     props: {
       name: 'myCheckbox',
     },
@@ -271,7 +275,8 @@ import Registry from 'ui-autotools';
 import {Dropdown} from './dropdown';
 const metaData = Registry.getComponentMetadata(Dropdown)
 
-metaData.addSim('Open with item1 focused and item3 selected', {
+metaData.addSim({
+    title: 'Open with item1 focused and item3 selected', 
     props: {
       items: ['item1', 'item2', 'item3']
     },
