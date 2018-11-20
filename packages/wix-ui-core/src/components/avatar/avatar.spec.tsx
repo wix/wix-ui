@@ -4,6 +4,7 @@ import * as eventually from 'wix-eventually';
 import { reactUniDriver, UniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar , AvatarProps} from '.';
+import { nameToInitials } from './avatar';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
@@ -196,6 +197,36 @@ describe('Avatar', () => {
     });
   });
 
+  describe('nameToInitials', () => {
+    it('should be empty string given undefined name', () => {
+      expect(nameToInitials()).toBe('');
+    });
+
+    it('should be empty string given empty name', () => {
+      expect(nameToInitials('')).toBe('');
+    });
+
+    it('should be first initial given 1 name part', () => {
+      expect(nameToInitials('John')).toBe('J');
+    });
+
+    it('should be first and last initials given 2 name parts', () => {
+      expect(nameToInitials('John Doe')).toBe('JD');
+    });
+
+    it('should be 3 initials given 3 name parts', () => {
+      expect(nameToInitials('John H. Doe')).toBe('JHD');
+    });
+
+    it('should be 3 initials given 5 name parts', () => {
+      expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JHD');
+    });
+
+    it('should be uppercase given lowercase name parts', () => {
+      expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JHD');
+    });
+  })
+  
   describe(`Styling`, () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {

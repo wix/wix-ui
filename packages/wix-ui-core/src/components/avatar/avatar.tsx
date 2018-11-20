@@ -132,8 +132,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     switch (contentType) {
       case 'text': {
         const { name, text } = this.props;
-        // TODO: Make initials logic more robust and tested.
-        const textContent = text || (name && name.split(' ').map(s=>s[0]).join('')) || '';
+        const textContent = text || nameToInitials(name);
         return (
           <div className={style.content} data-hook="text-container">
             {textContent}
@@ -167,3 +166,18 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   }
 }
 
+/**
+ * Convert a space delimited full name to capitalized initials.
+ * Returned initials would not exceed 3 letters.
+ * If name has more than 3 parts, then the 1st, 2nd and last parts would be used.
+ */
+export function nameToInitials(name?: string) {
+  if (!name) {
+    return '';
+  }
+  let initials = name.split(' ').map(s=>s[0]).join('');
+  if (initials.length > 3 ) {
+    initials = initials[0]+initials[1]+initials[initials.length-1];
+  }
+  return initials.toUpperCase();
+}
