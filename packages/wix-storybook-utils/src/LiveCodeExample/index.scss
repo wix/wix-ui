@@ -251,6 +251,6 @@
   flex-wrap: wrap;
 }
 
-.previewRow :nth-child(2n) {
+.previewRow div :nth-of-type(2n) {
   margin: 0 10px;
 }
