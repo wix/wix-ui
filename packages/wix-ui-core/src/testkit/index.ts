@@ -11,7 +11,7 @@ export const paginationTestkitFactory = testkitFactoryCreator(
   paginationDriverFactory
 );
 
-import { tooltipDriverFactory } from '../components/Tooltip/tooltip.driver';
+import { tooltipDriverFactory } from '../components/tooltip/tooltip.driver';
 export const tooltipTestkitFactory = testkitFactoryCreator(
   tooltipDriverFactory
 );
@@ -95,7 +95,7 @@ export const addressInputTestkitFactory = testkitFactoryCreator(
   addressInputDriverFactory
 );
 
-import { labelDriverFactory } from '../components/deprecated/Label/Label.driver';
+import { labelDriverFactory } from '../components/deprecated/label/Label.driver';
 export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
 
 import { timePickerDriverFactory } from '../components/time-picker/TimePicker.driver';
