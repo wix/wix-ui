@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
 import {InputWithOptions} from '../InputWithOptions/InputWithOptions';
-
+import {intersection} from '../../utils/intersection';
 import {Option, OptionFactory} from '../DropdownOption';
 import {
     Address,
@@ -11,9 +11,6 @@ import {
 import {convertToFullAddress, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
 
 const first = require('lodash/first');
-const map = require('lodash/map');
-const filter = require('lodash/filter');
-const intersection = require('lodash/intersection');
 const throttle = require('lodash/throttle');
 const isArray = require('lodash/isArray');
 
@@ -97,7 +94,7 @@ export interface AddressInputState {
 }
 
 function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<string>) {
-    return (filterTypes && filterTypes.length > 0) ? filter(addresses, address => intersection(address.types, filterTypes).length > 0) : addresses;
+    return (filterTypes && filterTypes.length > 0) ? (addresses || []).filter(address => intersection(address.types, filterTypes).length > 0) : addresses;
 }
 
 function formatAddressOutput(google: Geocode|PlaceDetails, description: string, rawInputValue: string): AddressOutput {
@@ -205,8 +202,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.currentAddressRequest = new Promise(resolve => resolveCurrentAddressRequest = resolve);
         const {lang, filterTypes} = this.props;
         const results = await this.client.autocomplete(this._getKey(), lang, createAutocompleteRequest(input, this.props));
-        const filteredResults = filterAddressesByType(results, filterTypes);
-        const options = map(filteredResults, this._createOptionFromAddress);
+        const filteredResults = filterAddressesByType(results, filterTypes) || [];
+        const options = filteredResults.map(this._createOptionFromAddress);
         if (!this.unmounted && requestId === this.addressRequestId) {
             this.setState({options}, resolveCurrentAddressRequest);
         }
@@ -311,7 +308,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         const {forceOptions, locationIcon} = this.props;
 
         if (isArray(forceOptions) && forceOptions.length > 0) {
-            return map(forceOptions, this._createOptionFromAddress);
+            return forceOptions.map(this._createOptionFromAddress);
         } else {
             return this.state.options;
         }

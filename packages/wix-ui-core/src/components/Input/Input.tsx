@@ -1,9 +1,7 @@
 import * as React from 'react';
 import style from './Input.st.css';
-const omit = require('lodash/omit');
 import {Omit} from 'type-zoo';
 
-const ommitedInputProps = ['style', 'error'];
 type OmittedInputProps = 'value' | 'prefix'
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
@@ -55,6 +53,8 @@ export class Input extends React.Component<InputProps, InputState> {
       style: inlineStyle
     } = this.props;
 
+    const {error: errorProp, style: styleProp, prefix: prefixProps, suffix: suffixProp,  ...allOtherProps} = this.props;
+
     return (
       <div
         {...style(
@@ -66,7 +66,7 @@ export class Input extends React.Component<InputProps, InputState> {
       >
         {prefix}
         <input
-          {...omit(this.props, ommitedInputProps)}
+          {...allOtherProps}
           ref={input => this.input = input}
           className={style.nativeInput}
           onBlur={this.handleBlur}

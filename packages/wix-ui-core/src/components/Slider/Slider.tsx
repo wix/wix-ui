@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Ticks} from './Ticks';
 import {Thumb, getThumbSize} from './Thumb';
 import pStyle from './Slider.st.css';
-const omit = require('lodash/omit');
 const noop = require('lodash/noop')
 
 export interface SliderProps {
