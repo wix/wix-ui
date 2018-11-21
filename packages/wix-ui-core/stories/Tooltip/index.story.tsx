@@ -17,7 +17,7 @@ export default {
   category: 'Components',
   storyName: 'Tooltip',
   component: Tooltip,
-  componentPath: '../../src/components/Tooltip/Tooltip.tsx',
+  componentPath: '../../src/components/tooltip/Tooltip.tsx',
 
   componentProps: {
     'data-hook': 'story-tooltip-right',
