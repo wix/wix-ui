@@ -2,7 +2,7 @@ import {Autocomplete} from './Autocomplete';
 import Registry from '@ui-autotools/registry';
 
 const autocompleteMetadata = Registry.getComponentMetadata(Autocomplete);
-autocompleteMetadata.nonReactStrictModeCompliant = false;
+autocompleteMetadata.nonReactStrictModeCompliant = true;
 
 autocompleteMetadata
   .addSim({

@@ -2,7 +2,7 @@ import {Video} from './Video';
 import Registry from '@ui-autotools/registry';
 
 const videoMetadata = Registry.getComponentMetadata(Video);
-videoMetadata.nonReactStrictModeCompliant = false;
+videoMetadata.nonReactStrictModeCompliant = true;
 
 videoMetadata
   .addSim({
