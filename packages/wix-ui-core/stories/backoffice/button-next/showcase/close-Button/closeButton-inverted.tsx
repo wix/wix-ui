@@ -34,7 +34,6 @@ export const CloseButtonInverted = ({ style }: CloseButtonInvertedProps) => (
     title="Close Buttons (inverted)"
     style={style}
     code={exampleStandard}
-    theme={backofficeTheme}
     description={descriptionPrimary}
   >
     <ButtonNext className={closeButton('inverted')}>

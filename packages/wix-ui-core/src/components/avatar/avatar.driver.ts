@@ -1,24 +1,25 @@
 import { UniDriver } from 'unidriver';
-
+import {
+  BaseUniDriver,
+  baseUniDriverFactory
+} from 'wix-ui-test-utils/base-driver';
 import { ContentType } from './types';
 
-export interface AvatarDriver {
-  /** returns true if component exists */
-  exists: () => Promise<boolean>;
-  /** Get the displayed content type. Types are: 'text', 'icon', 'image' */
+export interface AvatarDriver extends BaseUniDriver{
+  /** Get the currently displayed type. Types are: 'text', 'icon', 'image'. It could be that the resolved type is 'image' but the currently displayed one is `text`. */
   getContentType: () => Promise<ContentType>;
   /** Get the text content (generated initials) */
   getTextContent: ()=> Promise<string>;
+  isImageLoaded: () => Promise<boolean>;
 }
 
 export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
   const getContentType = ()=> base.attr('data-content-type') as Promise<ContentType>;
 
   return {
-    exists: base.exists,
+    ...baseUniDriverFactory(base),
     getContentType,
-    getTextContent: async ()=> (await getContentType()) === 'text' 
-      ? base.$(':first-child').text() 
-      : undefined
+    getTextContent: ()=> base.$('[data-hook="text-container"]').text(),
+    isImageLoaded: async () => ((await base.attr('data-img-loaded')) === 'true')
   }
 };

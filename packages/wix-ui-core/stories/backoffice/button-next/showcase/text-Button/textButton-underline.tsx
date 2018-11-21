@@ -47,7 +47,6 @@ export const TextButtonUnderline = ({ style }: TextButtonUnderlineProps) => (
     style={style}
     code={example}
     description={description}
-    theme={backofficeTheme}
   >
     <ButtonNext className={underline}>standard</ButtonNext>
     <div

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
+import More from 'wix-ui-icons-common/More';
 import { Avatar } from '../../../src/components/avatar';
 import {
   avatar,
@@ -19,7 +20,7 @@ const AvatarStory = () => (
       title="Default"
       theme={backofficeTheme}
     >
-      <Avatar className={avatar()} name="John Doe" />
+      <Avatar name="John Doe" />
     </CodeShowcase>
 
     <CodeShowcase
@@ -45,6 +46,20 @@ const AvatarStory = () => (
       <Avatar className={avatar('size30')} name="John Doe" />
       <Avatar className={avatar('size24')} name="John Doe" />
       <Avatar className={avatar('size18')} name="John Doe" />
+    </CodeShowcase>
+
+    <CodeShowcase
+      title="Icon"
+      theme={backofficeTheme}
+    >
+      <Avatar icon={<More/>} />
+    </CodeShowcase>
+
+    <CodeShowcase
+      title="Image"
+      theme={backofficeTheme}
+    >
+      <Avatar imgProps={{src: 'https://randomuser.me/api/portraits/women/39.jpg'}} />
     </CodeShowcase>
   </div>
 );

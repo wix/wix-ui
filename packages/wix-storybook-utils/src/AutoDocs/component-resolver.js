@@ -27,11 +27,6 @@ const isReactComponentExtendedClass = (path, types) => {
     return false;
   }
 
-  console.warn(
-    `<AutoDocs/> Warning: ${node.id.name} extends ${
-      node.superClass.name
-    } instead of React.Component. Auto generated documentation may be incomplete!`,
-  );
   return true;
 };
 

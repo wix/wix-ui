@@ -1,9 +1,9 @@
 // TODO: not yet full definition
-type Prop = {
+export interface Prop {
   type: {
     name: string;
     value: [];
   };
   required: boolean;
   description: string;
-};
+}

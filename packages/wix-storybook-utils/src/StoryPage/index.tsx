@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { AutoTestkit } from '../AutoTestkit/auto-testkit';
 
+import { Metadata } from '../typings/metadata';
+import { Config } from '../typings/config';
+
 const TabbedView = require('../TabbedView').default;
 const Markdown = require('../Markdown').default;
 const CodeBlock = require('../CodeBlock').default;

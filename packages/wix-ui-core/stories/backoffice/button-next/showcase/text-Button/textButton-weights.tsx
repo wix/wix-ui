@@ -32,7 +32,6 @@ export const TextButtonWeights = ({ style }: TextButtonWeightsProps) => (
     title="Text Buttons (weights)"
     style={style}
     code={example}
-    theme={backofficeTheme}
     description={description}
   >
     <ButtonNext className={textButton()}>thin</ButtonNext>

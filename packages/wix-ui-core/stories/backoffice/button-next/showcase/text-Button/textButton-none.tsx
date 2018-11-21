@@ -37,7 +37,6 @@ export const TextButtonNone = ({ style }: TextButtonNoneProps) => (
     style={style}
     code={example}
     description={description}
-    theme={backofficeTheme}
   >
     <ButtonNext className={textButton()}>standard</ButtonNext>
     <div

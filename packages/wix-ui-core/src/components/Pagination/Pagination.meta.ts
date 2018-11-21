@@ -2,7 +2,7 @@ import {Pagination} from './Pagination';
 import Registry from '@ui-autotools/registry';
 
 const paginationMetadata = Registry.getComponentMetadata(Pagination);
-paginationMetadata.reactStrictModeCompliant = false;
+paginationMetadata.nonReactStrictModeCompliant = true;
 
 paginationMetadata
   .addSim({

@@ -1,7 +1,6 @@
 .root {
+  -st-states: imgLoaded(boolean), contentType(enum(text, icon, image));
 }
 
-.image {}
-.icon {}
-.text {}
+.content {}
 

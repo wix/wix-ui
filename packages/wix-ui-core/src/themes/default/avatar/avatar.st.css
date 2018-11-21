@@ -8,11 +8,7 @@
   -st-default: Avatar;
 }
 
-.avatar {
-  -st-extends: Avatar;
-}
-
-DefaultTheme .avatar {
+DefaultTheme Avatar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,4 +19,11 @@ DefaultTheme .avatar {
   height: 48px;
   width: 48px;
   border-radius: 30px;
+}
+
+
+DefaultTheme Avatar:contentType(image)::content {
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
 }

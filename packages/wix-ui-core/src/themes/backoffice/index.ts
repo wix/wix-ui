@@ -7,13 +7,13 @@ import TextButton from './text-button/text-button.st.css';
 import CloseButton from './close-button/close-button.st.css';
 import BackofficeTheme from './theme.st.css';
 
-const getClassNames = (values, stylesheet, rootcls) => {
+const getClassNames = (values, stylesheet, rootcls?) => {
   const clsArray = values.map(cls => stylesheet[cls] || null);
   return classNames(stylesheet[rootcls], clsArray);
 };
 
 export const avatar = (...values) =>
-  getClassNames(values, Avatar, 'avatar');
+  getClassNames(values, Avatar);
 export const buttonNext = (...values) =>
   getClassNames(values, ButtonNext, 'button');
 export const iconButton = (...values) =>

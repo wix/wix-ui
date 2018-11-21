@@ -39,7 +39,6 @@ export const TextButtonAffixes = ({ style }: TextButtonAffixesProps) => (
     title="Text Buttons (affixes)"
     style={style}
     code={example}
-    theme={backofficeTheme}
     description={description}
   >
     <ButtonNext className={textButton()} prefixIcon={<ChevronDown />}>
