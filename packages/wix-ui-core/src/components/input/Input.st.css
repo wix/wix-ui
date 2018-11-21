@@ -1,0 +1,6 @@
+.root {
+  -st-states: disabled, error, focus;
+  position: relative;
+}
+
+.nativeInput {}
