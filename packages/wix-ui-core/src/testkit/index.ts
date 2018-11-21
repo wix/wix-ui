@@ -11,7 +11,7 @@ export const paginationTestkitFactory = testkitFactoryCreator(
   paginationDriverFactory
 );
 
-import { tooltipDriverFactory } from '../components/tooltip/tooltip.driver';
+import { tooltipDriverFactory } from '../components/tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = testkitFactoryCreator(
   tooltipDriverFactory
 );
