@@ -17,6 +17,8 @@ export interface AvatarProps extends BaseProps {
   icon?: React.ReactElement<any>;
   /* Props for an <img> tag to be rendered as content. */
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {['data-hook']?: string};
+  /* Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
+  initialsLimit?: 2 | 3;
 }
 
 interface AvatarState {
@@ -134,7 +136,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     switch (contentType) {
       case 'text': {
         const { name, text } = this.props;
-        const textContent = text || nameToInitials(name);
+        const textContent = text || nameToInitials(name, this.props.initialsLimit);
         return (
           <div className={style.content} data-hook="text-container">
             {textContent}

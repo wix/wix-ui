@@ -199,39 +199,88 @@ describe('Avatar', () => {
   });
 
   describe('nameToInitials', () => {
-    it('should be empty string given undefined name', () => {
-      expect(nameToInitials()).toBe('');
-    });
+    describe('limit = 3', () => { 
+      it('should render Avatar with 3 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+            initialsLimit={3}
+          />);
+        expect(await driver.getTextContent()).toBe('JSD');
+      });
 
-    it('should be empty string given empty name', () => {
-      expect(nameToInitials('')).toBe('');
-    });
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('', 3)).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John', 3)).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe', 3)).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe', 3)).toBe('JHD');
+      });
+    })
 
-    it('should be first initial given 1 name part', () => {
-      expect(nameToInitials('John')).toBe('J');
-    });
+    describe('limit = 2 (default)', () => { 
+      it('should render Avatar with 2 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+          />);
+        expect(await driver.getTextContent()).toBe('JD');
+      });
 
-    it('should be first and last initials given 2 name parts', () => {
-      expect(nameToInitials('John Doe')).toBe('JD');
-    });
-
-    it('should be 3 initials given 3 name parts', () => {
-      expect(nameToInitials('John H. Doe')).toBe('JHD');
-    });
-
-    it('should be 3 initials given 5 name parts', () => {
-      expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JHD');
-    });
-
-    it('should be uppercase given lowercase name parts', () => {
-      expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JHD');
-    });
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('')).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John')).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JD');
+      });
+    })
   })
-  
+    
   describe('className prop', () => {
     it('should pass className prop onto root elemenet', async () => {
-      const className = 'foo';
-      testContainer.renderSync(<Avatar className={className}/>);
+        const className = 'foo';
+        testContainer.renderSync(<Avatar className={className}/>);
       const driver = reactUniDriver(testContainer.componentNode);
       expect(await driver.attr('class')).toContain(className);
     });
