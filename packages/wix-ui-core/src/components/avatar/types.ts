@@ -1,1 +1,1 @@
-export type ContentType = 'text' | 'icon' | 'image';
+export type ContentType = 'text' | 'placeholder' | 'image';

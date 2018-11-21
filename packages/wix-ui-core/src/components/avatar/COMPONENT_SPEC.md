@@ -21,14 +21,15 @@ Elements are "container" and content, which could be classified to either "text"
 | ariaLabel | string                           | 0            |            | the `aria-label` attribute to put on the root. Defaults to `name` prop |
 | initialsLimit | number 2 | 3 | 2 | | Sets a letter limit to generated initials.
 
-
 ## General Behavior
 
 this component will display content based on the props provided:
+
 * If `imgProps` is provided (and successfully loaded), it will display an image as content with the provided properties.
+
+* If `text` | `name` is provided it will display the string.
+  * If `text` is not provided but `name` is, then the displayed string would be initials that are generated from the name.
 * If an element is provided in `icon` it will display it.
-* If `text` is provided it will display the string.
-* If none of the above props is provided, the component will convert `name` to initials and display that.
 
 ### Image Fallback
 If image fails to load, the component will display either `icon` or `text` or `name` initials, in that order.

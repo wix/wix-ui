@@ -25,7 +25,7 @@ export default {
   componentWrapper: defaultThemeWrapper,
   exampleProps: {
     className: [{label: 'defaultTheme', value: avatar()}],
-    icon: [{label: 'Icon1', value: <User />}],
+    placeholder: [{label: 'Icon1', value: <User style={{height: 'inherit', width: 'inherit'}}/>}],
     imgProps: [
       {label: 'image1', value:{src:'https://static.wixstatic.com/media/9ab0d1_8f1d1bd00e6c4bcd8764e1cae938f872~mv1.png'}},
       {label: 'image_non_existing_url', value:{src:'https://static.wixstatic.com/media/123454321.png'}}

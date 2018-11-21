@@ -11,7 +11,7 @@ import styles from './avatar.st.css';
 /** jsdom simulates loading of the image regardless of the src URL */
 const TEST_IMG_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const INVALID_TEST_IMG_URL = '12345';
-const ICON_AS_TEXT = <span>XXXXX</span>;
+const PLACEHOLDER_AS_TEXT = <span>XXXXX</span>;
 
 describe('Avatar', () => {
   const testContainer = new ReactDOMTestContainer()
@@ -28,10 +28,9 @@ describe('Avatar', () => {
     async () => expect((await driver.getContentType()) === 'image').toBeTruthy()
   );
 
-  it('should render an empty text by default', async () => {
+  it('should render an empty placeholder by default', async () => {
     const driver = createDriver(<Avatar />);
-    expect((await driver.getContentType()) === 'text').toBe(true);
-    expect(await driver.getTextContent()).toBe('');
+    expect((await driver.getContentType()) === 'placeholder').toBe(true);
   });
   
   describe(`content type resolution`, () => {
@@ -46,9 +45,9 @@ describe('Avatar', () => {
       expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
-    it('should render an icon', async () => {
-      const driver = createDriver(<Avatar icon={ICON_AS_TEXT} />);
-      expect((await driver.getContentType()) === 'icon').toBe(true);
+    it('should render an placeholder', async () => {
+      const driver = createDriver(<Avatar placeholder={PLACEHOLDER_AS_TEXT} />);
+      expect((await driver.getContentType()) === 'placeholder').toBe(true);
     });
     
     it('should render an image', async () => {
@@ -56,19 +55,28 @@ describe('Avatar', () => {
       await expectImgEventuallyLoaded(driver);
     });
 
-    it('should render an icon when given icon and text', async () => {
+    it('should render a text when given placeholder and text', async () => {
       const driver = createDriver(
         <Avatar 
           text="JD"
-          icon={ICON_AS_TEXT} 
+          placeholder={PLACEHOLDER_AS_TEXT} 
         />);
-      expect((await driver.getContentType()) === 'icon').toBe(true);
+      expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
-    it('should render an image when given icon and image', async () => {
+    it('should render a text when given placeholder and name', async () => {
       const driver = createDriver(
         <Avatar 
-          icon={ICON_AS_TEXT} 
+          name="John Doe"
+          placeholder={PLACEHOLDER_AS_TEXT} 
+        />);
+      expect((await driver.getContentType()) === 'text').toBe(true);
+    });
+
+    it('should render an image when given placeholder and image', async () => {
+      const driver = createDriver(
+        <Avatar 
+          placeholder={PLACEHOLDER_AS_TEXT} 
           imgProps={{src:TEST_IMG_URL}}
         />);
         await expectImgEventuallyLoaded(driver);
@@ -122,15 +130,15 @@ describe('Avatar', () => {
     });
   });
 
-  describe(`'icon' prop`, () => {
-    it('should render specified icon content', async () => {
-      const dataHook = 'avatar_test_icon';
+  describe(`'placeholder' prop`, () => {
+    it('should render specified placeholder content', async () => {
+      const dataHook = 'avatar_test_placeholder';
       testContainer.renderSync(
         <Avatar 
-          icon={<span data-hook={dataHook}>XXXX</span>}
+          placeholder={<span data-hook={dataHook}>XXXX</span>}
         />);
-      const iconElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
-      expect(iconElem.textContent).toBe('XXXX');
+      const placeholderElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
+      expect(placeholderElem.textContent).toBe('XXXX');
     });
   });
 
@@ -326,8 +334,8 @@ describe('Avatar', () => {
         expect(utils.select('.content').textContent).toBe('JD');
       });
       
-      it('should have content class when icon displayed', async () => {
-        testContainer.renderSync(<Avatar icon={ICON_AS_TEXT}/>);
+      it('should have content class when placeholder displayed', async () => {
+        testContainer.renderSync(<Avatar placeholder={PLACEHOLDER_AS_TEXT}/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('XXXXX');
       });
@@ -382,12 +390,12 @@ describe('Avatar', () => {
         expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('text');
       });
 
-      it('should be icon', () => {
+      it('should be placeholder', () => {
         testContainer.renderSync(
-          <Avatar icon={ICON_AS_TEXT} />
+          <Avatar placeholder={PLACEHOLDER_AS_TEXT} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('icon');
+        expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('placeholder');
       });
 
       it('should be image', async () => {
