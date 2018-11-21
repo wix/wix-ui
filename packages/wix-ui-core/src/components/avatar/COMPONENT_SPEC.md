@@ -15,7 +15,7 @@ Elements are "container" and content, which could be classified to either "text"
 |:----------|:---------------------------------|:-------------|:-----------|:-----------------------------------------------------------------------|
 | name      | string                           |              |            | The name of the avatar user. Initials will be generated from the name  |
 | imgProps  | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                      |
-| icon      | JSX Element                      |              |            | an SVG icon component                                                  |
+| placeholder      | JSX Element                      |              |            | an SVG icon component                                                  |
 | text      | string                      |              |            | raw text to display as content                                                  |
 | title     | string                           | 0            |            | the `title` attribute to put on the root. Defaults to `name` prop      |
 | ariaLabel | string                           | 0            |            | the `aria-label` attribute to put on the root. Defaults to `name` prop |
@@ -29,10 +29,10 @@ this component will display content based on the props provided:
 
 * If `text` | `name` is provided it will display the string.
   * If `text` is not provided but `name` is, then the displayed string would be initials that are generated from the name.
-* If an element is provided in `icon` it will display it.
+* If an element is provided in `placeholder` it will display it.
 
 ### Image Fallback
-If image fails to load, the component will display either `icon` or `text` or `name` initials, in that order.
+If image fails to load, the component will display either `placeholder` or `text` or `name` initials, in that order.
 This alternative will also be shown while image in loading state.
 
 ### Name To Initials
@@ -79,7 +79,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
                         sizes="(max-width: 320px) 280px, 800px"
                         src="elva-fairy-800w.jpg"
                     }}
-                    icon={<AvatarIcon/>}
+                    placeholder={<AvatarIcon/>}
                     />
             </div>
         )
@@ -100,7 +100,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 | state        | description                        | type |
 |:-------------|:-----------------------------------|:-----|
 | imgLoaded   | true when the img was loaded     | boolean  |
-| contentType  | Which content type is currently displayed | enum(image,icon,text) |
+| contentType  | Which content type is currently displayed | enum(image,placeholder,text) |
 
 ### Style Code Example
 
@@ -115,7 +115,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 .avatar {
   -st-extends: Avatar;
 }
-.avatar::text-container {
+.avatar:contentType(text)::content {
   color: red;
 }
 ```
