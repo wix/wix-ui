@@ -17,7 +17,6 @@ Elements are "container" and content, which could be classified to either "text"
 | imgProps  | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                      |
 | icon      | JSX Element                      |              |            | an SVG icon component                                                  |
 | text      | string                      |              |            | raw text to display as content                                                  |
-| tabIndex  | number                           | 0            |            | the `tabIndex` value to put on the root                                |
 | title     | string                           | 0            |            | the `title` attribute to put on the root. Defaults to `name` prop      |
 | ariaLabel | string                           | 0            |            | the `aria-label` attribute to put on the root. Defaults to `name` prop |
 

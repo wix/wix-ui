@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { reactUniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar , AvatarProps} from '.';
 import { nameToInitials } from './util';
@@ -18,6 +18,7 @@ describe('Avatar', () => {
     .unmountAfterEachTest();
 
   const createDriver = testContainer.createUniRenderer(avatarDriverFactory);
+
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);
     return avatarDriverFactory(base);
@@ -224,6 +225,43 @@ describe('Avatar', () => {
 
     it('should be uppercase given lowercase name parts', () => {
       expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JHD');
+    });
+  })
+  
+  describe('className prop', () => {
+    it('should pass className prop onto root elemenet', async () => {
+      const className = 'foo';
+      testContainer.renderSync(<Avatar className={className}/>);
+      const driver = reactUniDriver(testContainer.componentNode);
+      expect(await driver.attr('class')).toContain(className);
+    });
+  })
+
+  describe('title prop', () => {
+    it('should pass title prop onto root elemenet', async () => {
+      const title = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar title={title}/>);
+      expect(await driver.getTitle()).toBe(title);
+    });
+
+    it('should have default value for title if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      expect(await driver.getTitle()).toBe(name);
+    });
+  })
+
+  describe('aria-label prop', () => {
+    it('should pass aria-label prop onto root elemenet', async () => {
+      const ariaLabel = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar ariaLabel={ariaLabel}/>);
+      expect(await driver.getAriaLabel()).toBe(ariaLabel);
+    });
+
+    it('should have default value for aria-label if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      expect(await driver.getAriaLabel()).toBe(name);
     });
   })
   

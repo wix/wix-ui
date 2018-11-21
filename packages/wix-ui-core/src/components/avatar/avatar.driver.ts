@@ -10,7 +10,12 @@ export interface AvatarDriver extends BaseUniDriver{
   getContentType: () => Promise<ContentType>;
   /** Get the text content (generated initials) */
   getTextContent: ()=> Promise<string>;
+  /** Wether the image wass loaded */
   isImageLoaded: () => Promise<boolean>;
+  /** Get the native HTML title attribute */
+  getTitle: () =>  Promise<string>;
+  /** Get the native HTML aria-label attribute */
+  getAriaLabel: () =>  Promise<string>;
 }
 
 export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
@@ -20,6 +25,8 @@ export const avatarDriverFactory = (base: UniDriver): AvatarDriver => {
     ...baseUniDriverFactory(base),
     getContentType,
     getTextContent: ()=> base.$('[data-hook="text-container"]').text(),
-    isImageLoaded: async () => ((await base.attr('data-img-loaded')) === 'true')
+    isImageLoaded: async () => ((await base.attr('data-img-loaded')) === 'true'),
+    getTitle: ()=> base.attr('title'),
+    getAriaLabel: () => base.attr('aria-label') 
   }
 };

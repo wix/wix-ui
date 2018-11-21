@@ -109,14 +109,15 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   }
 
   render() {
-    const { name, text, icon, imgProps, ...rest} = this.props;
+    const { name, text, icon, imgProps, title, ariaLabel,  ...rest} = this.props;
 
     const contentType = this.getCurrentContentType();
     return (
       <div 
         data-content-type={ contentType } // for testing
         data-img-loaded={ this.state.imgLoaded } // for testing
-        {...rest}
+        title={ title || name }
+        aria-label={ ariaLabel || name }
         {...style('root',
           {
            imgLoaded: this.state.imgLoaded,
