@@ -2,6 +2,6 @@ import { StorySettings, Category } from '../../../stories/utils';
 
 export const storySettings : StorySettings = {
   category: Category.COMPNENTS,
-  storyName: 'WIP - Avatar',
+  storyName: 'Avatar',
   dataHook: 'storybook-avatar'
 };
