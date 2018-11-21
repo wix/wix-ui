@@ -1,8 +1,0 @@
-:import {
-  -st-from: "../popover/Popover.st.css";
-  -st-default: Popover;
-}
-
-.root {
-  -st-extends: Popover;
-}
