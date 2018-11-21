@@ -14,38 +14,40 @@ const description = (
   </div>
 );
 
+const NAME = 'John H Doe';
+
 const AvatarStory = () => (
   <div style={{ margin: '0px 0 16px', paddingLeft: '20px' }}>
     <CodeShowcase
       title="Default"
       theme={backofficeTheme}
     >
-      <Avatar name="John Doe" />
+      <Avatar name={NAME} />
     </CodeShowcase>
 
     <CodeShowcase
       title="Text with BG Colors"
       theme={backofficeTheme}
     >
-      <Avatar className={avatar('colorBlue')} name="John Doe" />
-      <Avatar className={avatar('colorGreen')} name="John Doe" />
-      <Avatar className={avatar('colorGrey')} name="John Doe" />
-      <Avatar className={avatar('colorRed')} name="John Doe" />
-      <Avatar className={avatar('colorOrange')} name="John Doe" />
+      <Avatar className={avatar('colorBlue')} name={NAME} />
+      <Avatar className={avatar('colorGreen')} name={NAME} />
+      <Avatar className={avatar('colorGrey')} name={NAME} />
+      <Avatar className={avatar('colorRed')} name={NAME} />
+      <Avatar className={avatar('colorOrange')} name={NAME} />
     </CodeShowcase>
 
     <CodeShowcase
       title="Sizes"
       theme={backofficeTheme}
     >
-      <Avatar className={avatar('size90')} name="John Doe" />
-      <Avatar className={avatar('size72')} name="John Doe" />
-      <Avatar className={avatar('size60')} name="John Doe" />
-      <Avatar className={avatar('size48')} name="John Doe" />
-      <Avatar className={avatar('size36')} name="John Doe" />
-      <Avatar className={avatar('size30')} name="John Doe" />
-      <Avatar className={avatar('size24')} name="John Doe" />
-      <Avatar className={avatar('size18')} name="John Doe" />
+      <Avatar className={avatar('size90')} name={NAME} />
+      <Avatar className={avatar('size72')} name={NAME} />
+      <Avatar className={avatar('size60')} name={NAME} />
+      <Avatar className={avatar('size48')} name={NAME} />
+      <Avatar className={avatar('size36')} name={NAME} />
+      <Avatar className={avatar('size30')} name={NAME} />
+      <Avatar className={avatar('size24')} name={NAME} />
+      <Avatar className={avatar('size18')} name={NAME} />
     </CodeShowcase>
 
     <CodeShowcase

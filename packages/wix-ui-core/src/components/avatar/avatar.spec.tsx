@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { reactUniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar , AvatarProps} from '.';
+import { nameToInitials } from './util';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
@@ -17,6 +18,7 @@ describe('Avatar', () => {
     .unmountAfterEachTest();
 
   const createDriver = testContainer.createUniRenderer(avatarDriverFactory);
+
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);
     return avatarDriverFactory(base);
@@ -196,6 +198,126 @@ describe('Avatar', () => {
     });
   });
 
+  describe('nameToInitials', () => {
+    describe('limit = 3', () => { 
+      it('should render Avatar with 3 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+            initialsLimit={3}
+          />);
+        expect(await driver.getTextContent()).toBe('JSD');
+      });
+
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('', 3)).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John', 3)).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe', 3)).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe', 3)).toBe('JHD');
+      });
+    })
+
+    describe('limit = 2 (default)', () => { 
+      it('should render Avatar with 2 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+          />);
+        expect(await driver.getTextContent()).toBe('JD');
+      });
+
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('')).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John')).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JD');
+      });
+    })
+  })
+    
+  describe('className prop', () => {
+    it('should pass className prop onto root elemenet', async () => {
+        const className = 'foo';
+        testContainer.renderSync(<Avatar className={className}/>);
+      const driver = reactUniDriver(testContainer.componentNode);
+      expect(await driver.attr('class')).toContain(className);
+    });
+  })
+
+  describe('title prop', () => {
+    it('should pass title prop onto root elemenet', async () => {
+      const title = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar title={title}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('title')).toBe(title);
+    });
+
+    it('should have default value for title if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('title')).toBe(name);
+    });
+  })
+
+  describe('aria-label prop', () => {
+    it('should pass aria-label prop onto root elemenet', async () => {
+      const ariaLabel = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar ariaLabel={ariaLabel}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('aria-label')).toBe(ariaLabel);
+    });
+
+    it('should have default value for aria-label if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('aria-label')).toBe(name);
+    });
+  })
+  
   describe(`Styling`, () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {

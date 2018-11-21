@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { BaseProps } from '../../types/BaseProps';
 import style from './avatar.st.css';
 import {ContentType} from './types';
+import {nameToInitials} from './util';
 
 export interface AvatarProps extends BaseProps {
   /* Css class name to be applied to the root element */
@@ -16,6 +17,8 @@ export interface AvatarProps extends BaseProps {
   icon?: React.ReactElement<any>;
   /* Props for an <img> tag to be rendered as content. */
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {['data-hook']?: string};
+  /* Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
+  initialsLimit?: 2 | 3;
 }
 
 interface AvatarState {
@@ -108,14 +111,15 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   }
 
   render() {
-    const { name, text, icon, imgProps, ...rest} = this.props;
+    const { name, text, icon, imgProps, title, ariaLabel,  ...rest} = this.props;
 
     const contentType = this.getCurrentContentType();
     return (
       <div 
         data-content-type={ contentType } // for testing
         data-img-loaded={ this.state.imgLoaded } // for testing
-        {...rest}
+        title={ title || name }
+        aria-label={ ariaLabel || name }
         {...style('root',
           {
            imgLoaded: this.state.imgLoaded,
@@ -132,8 +136,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     switch (contentType) {
       case 'text': {
         const { name, text } = this.props;
-        // TODO: Make initials logic more robust and tested.
-        const textContent = text || (name && name.split(' ').map(s=>s[0]).join('')) || '';
+        const textContent = text || nameToInitials(name, this.props.initialsLimit);
         return (
           <div className={style.content} data-hook="text-container">
             {textContent}
@@ -166,4 +169,3 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     }
   }
 }
-

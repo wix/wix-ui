@@ -17,9 +17,9 @@ Elements are "container" and content, which could be classified to either "text"
 | imgProps  | Omit<HTMLImageAttributes, 'alt'> |              |            | the source url to load image from                                      |
 | icon      | JSX Element                      |              |            | an SVG icon component                                                  |
 | text      | string                      |              |            | raw text to display as content                                                  |
-| tabIndex  | number                           | 0            |            | the `tabIndex` value to put on the root                                |
 | title     | string                           | 0            |            | the `title` attribute to put on the root. Defaults to `name` prop      |
 | ariaLabel | string                           | 0            |            | the `aria-label` attribute to put on the root. Defaults to `name` prop |
+| initialsLimit | number 2 | 3 | 2 | | Sets a letter limit to generated initials.
 
 
 ## General Behavior
@@ -30,15 +30,22 @@ this component will display content based on the props provided:
 * If `text` is provided it will display the string.
 * If none of the above props is provided, the component will convert `name` to initials and display that.
 
-Alternative content:<br>
+### Image Fallback
 If image fails to load, the component will display either `icon` or `text` or `name` initials, in that order.
 This alternative will also be shown while image in loading state.
 
-name conversion examples:
+### Name To Initials
+By default if `text` is not provided, then initials text would be generated from the `name`.
+Initials is limited by default to 3 letters.
+Examples:
+
 <br/> John Doe --> JD
 <br/> John H. Doe --> JHD
 <br/> John Hurley Stanley Kubrik Doe --> JHD
 <br/> john doe --> JD
+
+* If `initialsLimit` is set to 2, then first and last name parts are used.
+* Generated initials will always be uppercase.
 
 ## Technical Considerations
 

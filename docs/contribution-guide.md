@@ -174,7 +174,7 @@ Exposing states allows richer style variants for each component.
 
 Each component must have its full functionality covered in unit tests.
 
-these tests run in the browser. in order to support unit tests for components that measure dom elements.
+These tests run in the browser. in order to support unit tests for components that measure dom elements.
 
 ### Component Driver
 
@@ -201,7 +201,7 @@ const DropDownDriver = (container: UniDriver) => {
 
 By providing a single method which causes a chain of actions, rather than separate `open()` and `clickIdx()` methods, we reduce development efforts when testing applications that contain the component.
 
-the component tests must provide full test coverage for the component driver.
+The component tests must provide full test coverage for the component driver.
 With that in mind, avoid implementing "test helpers" in the driver since the driver is to be consumed externally and its API should remain constant and minimal.
 
 ### component meta.ts
@@ -292,34 +292,36 @@ metaData.addSim({
 
 Style variants define a look for a specific component.
 
-becuse our themes are used in many different environemts the writing guidelines differ between themes.
-
-
-
+Because our themes are used in many different environemts the writing guidelines differ between themes.
 
 ### ADI and Backoffice
 
+All styles should be indexed according to the respective design system.
 
-all styles should be indexed according to the respective design system.
-
-
-style variants should be created ( sometimes many in a single file ) in a folder with the component name, under the respective theme.
+Style variants should be created ( sometimes many in a single file ) in a folder with the component name, under the respective theme.
 
 i.e:
 
-**themes/adi/button/button.st.css**
+**themes/backoffice/button/button.st.css**
 ```css
 :import{
-    -st-from:'../../../components/button/buttons.st.css';
-    -st-defualt:Button
+    -st-from:'../theme.st.css';
+    -st-defualt: Button;
 }
 
-.largeBtn{
+:import{
+    -st-from:'../../../components/button/buttons.st.css';
+    -st-defualt: Button;
+}
+
+.button {
     -st-extends: Button;
     color:red;
     <!- exact stylable sytax TBD -->
-    -meta-indexing:5.2;
+    -meta-indexing:5.1;
 }
+
+.button 
 ```
 
 all styles should be exported for easy use from the respective theme file.
@@ -338,9 +340,9 @@ all styles should be exported for easy use from the respective theme file.
 ```
 
 
-### studio
+### Studio
 
-style variants should be created ( one in a file ) in a folder with the component name, under the studio folder.
+Style variants should be created ( one in a file ) in a folder with the component name, under the studio folder.
 
 all variants should be exported as "main"
 

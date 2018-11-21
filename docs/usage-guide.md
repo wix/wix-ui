@@ -12,18 +12,15 @@ you can find the documentation of the different components here ( add link )
 
 ## Quick start
 
-Here's a quick example to get you started, **its literally all you need:**
-
-
-
+Here's a quick example to get you started, **its literally all you need**.
 
 ## Normal usage
 
-as a best practice when creating an application you will need to create a stylable.css file for the root of your application.
+As a best practice when creating an application you will need to create a stylable.st.css file for the root of your application.
 
-this best practice doe'snt apply to the Wix backoffice environment. read those guidlines below.
+This best practice doesn't apply to the Wix backoffice environment. Read those guidlines below.
 
-Heres a simple resposnive example:
+Heres a simple responsive example:
 
 
 **application code**
@@ -32,28 +29,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button} from 'wix-ui-core';
 import styles from './app.st.css';
+
 function App() {
   return (
-        
-        <div { /****  connect the root ****/ ...styles('root',{},this.props)}>
-            <Button /****  connect the button style ****/ {...styles('btn')}>
-            Hello World
-            </Button>
-        </div>
+    <div { /****  connect the root ****/ ...styles('root',{},this.props)}>
+      <Button /****  connect the button style ****/ {...styles('btn')}>
+        Hello World
+      </Button>
+    </div>
   );
 }
 ```
+
 **application style**
 ```css
 
     <!- import a specific style from a theme -->
-    :import{
+    :import {
         -st-from:'wix-ui-core/backoffice-theme.st.css';
         -st-named:largeButton, smallButton;
     }
 
     <!- apply where needed -->
-    .btn{
+    .btn {
         -st-mixin:largeButton;
         float:left;
     }
@@ -70,10 +68,10 @@ function App() {
 
 ## Backoffice usage
 
-In the Wix backoffice we choose to work in a more restricted environment.
-as no extra CSS is needed for layouting, and no customization is allowed usage is simpler:
+In the Wix Backoffice we choose to work in a more restricted environment.
+as no extra CSS is needed for layouting, and no customization is allowed.
 
-**application code**
+**Application code**
 ```tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
