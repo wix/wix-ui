@@ -4,7 +4,7 @@
 }
 
 :import {
-  -st-from: "../deprecated/Divider/Divider.st.css";
+  -st-from: "../deprecated/divider/Divider.st.css";
   -st-default: Divider;
 }
 
