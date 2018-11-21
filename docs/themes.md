@@ -95,14 +95,6 @@ For example:
 The `index.ts` should export the theme scoping class and all the component's variation classes.
 The API the component's classes are exposed can vary.
 
-#### Simple Theme API
-
-TODO...
-
-#### Function Based Theme API
-
-TODO...
-
 ## Component-Libraries
 
 ### Overview
