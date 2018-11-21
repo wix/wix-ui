@@ -14,7 +14,7 @@ const description = (
   </div>
 );
 
-const NAME = "John H Doe";
+const NAME = 'John H Doe';
 
 const AvatarStory = () => (
   <div style={{ margin: '0px 0 16px', paddingLeft: '20px' }}>
