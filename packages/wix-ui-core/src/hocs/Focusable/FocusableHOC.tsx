@@ -1,7 +1,11 @@
 import * as React from 'react';
-import * as hoistNonReactStatics from 'hoist-non-react-statics';
+import hoistNonReactMethods from 'hoist-non-react-methods';
+
 import { getDisplayName } from '../utils';
 import styles from './Focusable.st.css';
+
+const isStatelessComponent = Component =>
+  !(Component.prototype && Component.prototype.render);
 
 type SubscribeCb = () => void;
 
@@ -60,6 +64,7 @@ export const withFocusable = Component => {
     static defaultProps = Component.defaultProps;
 
     focusedByMouse = false;
+    wrappedComponentRef = null;
 
     state = {
       focus: false,
@@ -98,8 +103,23 @@ export const withFocusable = Component => {
     };
 
     render() {
-      return (
+      return isStatelessComponent(Component) ? (
         <Component
+          {...this.props}
+          focusableOnFocus={this.onFocus}
+          focusableOnBlur={this.onBlur}
+          {...styles(
+            'root',
+            {
+              focus: this.state.focus,
+              'focus-visible': this.state.focusVisible
+            },
+            this.props
+          )}
+        />
+      ) : (
+        <Component
+          ref={ref => (this.wrappedComponentRef = ref)}
           {...this.props}
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
@@ -116,9 +136,10 @@ export const withFocusable = Component => {
     }
   }
 
-  return hoistNonReactStatics(FocusableHOC, Component, {
-    apply: true,
-    bind: true,
-    call: true
-  });
+  return isStatelessComponent(Component)
+    ? FocusableHOC
+    : hoistNonReactMethods(FocusableHOC, Component, {
+        delegateTo: c => c.wrappedComponentRef,
+        hoistStatics: true
+      });
 };

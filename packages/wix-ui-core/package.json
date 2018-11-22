@@ -50,6 +50,7 @@
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",
     "classnames": "^2.2.5",
+    "hoist-non-react-methods": "^1.1.0",
     "hoist-non-react-statics": "^3.1.0",
     "jsdom": "^11.12.0",
     "lodash": "^4.17.5",
@@ -63,7 +64,6 @@
     "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
     "unidriver": "^1.0.0-alpha",
-    "wix-eventually": "^2.2.0",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },
