@@ -10,6 +10,7 @@ export interface AvatarDriver extends BaseUniDriver{
   getContentType: () => Promise<ContentType>;
   /** Get the text content (generated initials) */
   getTextContent: ()=> Promise<string>;
+  /** Wether the image wass loaded */
   isImageLoaded: () => Promise<boolean>;
 }
 

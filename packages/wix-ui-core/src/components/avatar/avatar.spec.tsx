@@ -1,22 +1,24 @@
 import * as React from 'react';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { reactUniDriver } from 'unidriver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar , AvatarProps} from '.';
+import { nameToInitials } from './util';
 import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
 /** jsdom simulates loading of the image regardless of the src URL */
 const TEST_IMG_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const INVALID_TEST_IMG_URL = '12345';
-const ICON_AS_TEXT = <span>XXXXX</span>;
+const PLACEHOLDER_AS_TEXT = <span>XXXXX</span>;
 
 describe('Avatar', () => {
   const testContainer = new ReactDOMTestContainer()
     .unmountAfterEachTest();
 
   const createDriver = testContainer.createUniRenderer(avatarDriverFactory);
+
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);
     return avatarDriverFactory(base);
@@ -26,10 +28,9 @@ describe('Avatar', () => {
     async () => expect((await driver.getContentType()) === 'image').toBeTruthy()
   );
 
-  it('should render an empty text by default', async () => {
+  it('should render an empty placeholder by default', async () => {
     const driver = createDriver(<Avatar />);
-    expect((await driver.getContentType()) === 'text').toBe(true);
-    expect(await driver.getTextContent()).toBe('');
+    expect((await driver.getContentType()) === 'placeholder').toBe(true);
   });
   
   describe(`content type resolution`, () => {
@@ -44,9 +45,9 @@ describe('Avatar', () => {
       expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
-    it('should render an icon', async () => {
-      const driver = createDriver(<Avatar icon={ICON_AS_TEXT} />);
-      expect((await driver.getContentType()) === 'icon').toBe(true);
+    it('should render an placeholder', async () => {
+      const driver = createDriver(<Avatar placeholder={PLACEHOLDER_AS_TEXT} />);
+      expect((await driver.getContentType()) === 'placeholder').toBe(true);
     });
     
     it('should render an image', async () => {
@@ -54,19 +55,28 @@ describe('Avatar', () => {
       await expectImgEventuallyLoaded(driver);
     });
 
-    it('should render an icon when given icon and text', async () => {
+    it('should render a text when given placeholder and text', async () => {
       const driver = createDriver(
         <Avatar 
           text="JD"
-          icon={ICON_AS_TEXT} 
+          placeholder={PLACEHOLDER_AS_TEXT} 
         />);
-      expect((await driver.getContentType()) === 'icon').toBe(true);
+      expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
-    it('should render an image when given icon and image', async () => {
+    it('should render a text when given placeholder and name', async () => {
       const driver = createDriver(
         <Avatar 
-          icon={ICON_AS_TEXT} 
+          name="John Doe"
+          placeholder={PLACEHOLDER_AS_TEXT} 
+        />);
+      expect((await driver.getContentType()) === 'text').toBe(true);
+    });
+
+    it('should render an image when given placeholder and image', async () => {
+      const driver = createDriver(
+        <Avatar 
+          placeholder={PLACEHOLDER_AS_TEXT} 
           imgProps={{src:TEST_IMG_URL}}
         />);
         await expectImgEventuallyLoaded(driver);
@@ -120,15 +130,15 @@ describe('Avatar', () => {
     });
   });
 
-  describe(`'icon' prop`, () => {
-    it('should render specified icon content', async () => {
-      const dataHook = 'avatar_test_icon';
+  describe(`'placeholder' prop`, () => {
+    it('should render specified placeholder content', async () => {
+      const dataHook = 'avatar_test_placeholder';
       testContainer.renderSync(
         <Avatar 
-          icon={<span data-hook={dataHook}>XXXX</span>}
+          placeholder={<span data-hook={dataHook}>XXXX</span>}
         />);
-      const iconElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
-      expect(iconElem.textContent).toBe('XXXX');
+      const placeholderElem = testContainer.componentNode.querySelector(`[data-hook="${dataHook}"]`);
+      expect(placeholderElem.textContent).toBe('XXXX');
     });
   });
 
@@ -196,6 +206,126 @@ describe('Avatar', () => {
     });
   });
 
+  describe('nameToInitials', () => {
+    describe('limit = 3', () => { 
+      it('should render Avatar with 3 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+            initialsLimit={3}
+          />);
+        expect(await driver.getTextContent()).toBe('JSD');
+      });
+
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('', 3)).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John', 3)).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe', 3)).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe', 3)).toBe('JHD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe', 3)).toBe('JHD');
+      });
+    })
+
+    describe('limit = 2 (default)', () => { 
+      it('should render Avatar with 2 letter initials', async () => {
+        const driver = createDriver(
+          <Avatar 
+            name="John Smith Junir Doe"
+          />);
+        expect(await driver.getTextContent()).toBe('JD');
+      });
+
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+      
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('')).toBe('');
+      });
+      
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John')).toBe('J');
+      });
+      
+      it('should be first and last initials given 2 name parts', () => {
+        expect(nameToInitials('John Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe')).toBe('JD');
+      });
+      
+      it('should be 3 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JD');
+      });
+      
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JD');
+      });
+    })
+  })
+    
+  describe('className prop', () => {
+    it('should pass className prop onto root elemenet', async () => {
+        const className = 'foo';
+        testContainer.renderSync(<Avatar className={className}/>);
+      const driver = reactUniDriver(testContainer.componentNode);
+      expect(await driver.attr('class')).toContain(className);
+    });
+  })
+
+  describe('title prop', () => {
+    it('should pass title prop onto root elemenet', async () => {
+      const title = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar title={title}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('title')).toBe(title);
+    });
+
+    it('should have default value for title if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('title')).toBe(name);
+    });
+  })
+
+  describe('aria-label prop', () => {
+    it('should pass aria-label prop onto root elemenet', async () => {
+      const ariaLabel = 'Avatar for John Doe';
+      const driver = createDriver(<Avatar ariaLabel={ariaLabel}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('aria-label')).toBe(ariaLabel);
+    });
+
+    it('should have default value for aria-label if name is provided', async () => {
+      const name = 'John Doe';
+      const driver = createDriver(<Avatar name={name}/>);
+      const unDriver = reactUniDriver(testContainer.componentNode);
+      expect(await unDriver.attr('aria-label')).toBe(name);
+    });
+  })
+  
   describe(`Styling`, () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {
@@ -204,8 +334,8 @@ describe('Avatar', () => {
         expect(utils.select('.content').textContent).toBe('JD');
       });
       
-      it('should have content class when icon displayed', async () => {
-        testContainer.renderSync(<Avatar icon={ICON_AS_TEXT}/>);
+      it('should have content class when placeholder displayed', async () => {
+        testContainer.renderSync(<Avatar placeholder={PLACEHOLDER_AS_TEXT}/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('XXXXX');
       });
@@ -260,12 +390,12 @@ describe('Avatar', () => {
         expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('text');
       });
 
-      it('should be icon', () => {
+      it('should be placeholder', () => {
         testContainer.renderSync(
-          <Avatar icon={ICON_AS_TEXT} />
+          <Avatar placeholder={PLACEHOLDER_AS_TEXT} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
-        expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('icon');
+        expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('placeholder');
       });
 
       it('should be image', async () => {

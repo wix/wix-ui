@@ -9,7 +9,7 @@ GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 
 const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstructor;
 const addressInputMeta = Registry.getComponentMetadata(AddressInput);
-addressInputMeta.reactStrictModeCompliant = false;
+addressInputMeta.nonReactStrictModeCompliant = true;
 
 addressInputMeta
   .addSim({

@@ -35,7 +35,7 @@ BackofficeTheme Avatar:contentType(image)::content {
 }
 
 /* Colors */
-BackofficeTheme Avatar:contentType(icon) {
+BackofficeTheme Avatar:contentType(placeholder) {
   background-color: value(B40);
 }
 

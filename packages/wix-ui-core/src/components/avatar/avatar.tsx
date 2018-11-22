@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { BaseProps } from '../../types/BaseProps';
 import style from './avatar.st.css';
 import {ContentType} from './types';
+import {nameToInitials} from './util';
 
 export interface AvatarProps extends BaseProps {
   /* Css class name to be applied to the root element */
@@ -12,39 +13,44 @@ export interface AvatarProps extends BaseProps {
   name?: string;
   /* Text to render as content. */
   text?: string;
-  /* A node with an icon to be rendered as content. */
-  icon?: React.ReactElement<any>;
+  /* A node with a placeholder to be rendered as content. Will be displayed if no `text`, `name` or `imgProps` are provided. */
+  placeholder?: React.ReactElement<any>;
   /* Props for an <img> tag to be rendered as content. */
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {['data-hook']?: string};
+  /* Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
+  initialsLimit?: 2 | 3;
 }
 
 interface AvatarState {
   imgLoaded: boolean;  
 }
 
-const DEFAULT_CONTENT_TYPE : ContentType= 'text' ;
+const DEFAULT_CONTENT_TYPE : ContentType= 'placeholder' ;
 /**
- * Avatar is a type of element that visually represents a user, either as an image, icon or text.
+ * Avatar is a type of element that visually represents a user, either as an image, placeholder or text.
  * 
- * <p>There are 3 props for corresponding content types: `text`, `icon` and `imgProps`.
+ * <p>There are 3 props for corresponding content types: `text`, `placeholder` and `imgProps`.
  * If more than one of these props is supplied (with `name` prop giving default value to the `text` prop),
- * then the resolved content type for display goes according to this priority: image -> icon -> text.
+ * then the resolved content type for display goes according to this priority: image -> text -> placeholder.
  */
 export class Avatar extends React.Component<AvatarProps, AvatarState> {
   static displayName = 'Avatar';
   
+  static defaultProps = {
+    placeholder: null
+  }
   state: AvatarState = { imgLoaded: false }
   
   img : HTMLImageElement;
 
   /** This is the resolved content type the the consumer wants to display */
   getRequestedContentType(props) : ContentType {
-    const { name, text, icon, imgProps} = props;
+    const { name, text, placeholder, imgProps} = props;
 
     return (
       imgProps ? 'image' :
-      icon ? 'icon' :
       text || name ? 'text' :
+      placeholder ? 'placeholder' :
       DEFAULT_CONTENT_TYPE
     );
   }
@@ -54,10 +60,10 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     const requestedType = this.getRequestedContentType(this.props);
 
     if (requestedType === 'image' && !this.state.imgLoaded) {
-      const { name, text, icon} = this.props;
+      const { name, text, placeholder} = this.props;
       return (
-          icon ? 'icon' :
-          text || name ? 'text' :
+        text || name ? 'text' :
+        placeholder ? 'placeholder' :
           DEFAULT_CONTENT_TYPE
       );
     } else {
@@ -108,14 +114,15 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   }
 
   render() {
-    const { name, text, icon, imgProps, ...rest} = this.props;
+    const { name, text, placeholder, imgProps, title, ariaLabel,  ...rest} = this.props;
 
     const contentType = this.getCurrentContentType();
     return (
       <div 
         data-content-type={ contentType } // for testing
         data-img-loaded={ this.state.imgLoaded } // for testing
-        {...rest}
+        title={ title || name }
+        aria-label={ ariaLabel || name }
         {...style('root',
           {
            imgLoaded: this.state.imgLoaded,
@@ -132,8 +139,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     switch (contentType) {
       case 'text': {
         const { name, text } = this.props;
-        // TODO: Make initials logic more robust and tested.
-        const textContent = text || (name && name.split(' ').map(s=>s[0]).join('')) || '';
+        const textContent = text || nameToInitials(name, this.props.initialsLimit);
         return (
           <div className={style.content} data-hook="text-container">
             {textContent}
@@ -141,10 +147,10 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
         );
       }
   
-      case 'icon': {
-        const icon = this.props.icon;
-        return React.cloneElement(icon,
-            { className:classNames(icon.props.className, style.content) }
+      case 'placeholder': {
+        const {placeholder} = this.props;
+        return placeholder === null ? null : React.cloneElement(placeholder,
+            { className:classNames(placeholder.props.className, style.content) }
           );
       }
   
@@ -166,4 +172,3 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     }
   }
 }
-
