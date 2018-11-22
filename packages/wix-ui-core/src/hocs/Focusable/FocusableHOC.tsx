@@ -103,24 +103,14 @@ export const withFocusable = Component => {
     };
 
     render() {
-      return isStatelessComponent(Component) ? (
+      const reference = isStatelessComponent(Component)
+        ? undefined
+        : ref => (this.wrappedComponentRef = ref);
+
+      return (
         <Component
           {...this.props}
-          focusableOnFocus={this.onFocus}
-          focusableOnBlur={this.onBlur}
-          {...styles(
-            'root',
-            {
-              focus: this.state.focus,
-              'focus-visible': this.state.focusVisible
-            },
-            this.props
-          )}
-        />
-      ) : (
-        <Component
-          ref={ref => (this.wrappedComponentRef = ref)}
-          {...this.props}
+          ref={reference}
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
           {...styles(
