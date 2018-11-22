@@ -64,6 +64,7 @@
     "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
     "unidriver": "^1.0.0-alpha",
+    "wix-eventually": "^2.2.0",
     "wix-ui-jss": "^1.0.0",
     "wix-ui-test-utils": "^1.0.0"
   },
