@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './NavStepper.st.css';
-import {Stepper, StepProps} from '../Stepper';
+import {Stepper, StepProps} from '../stepper';
 import {NavStep, ExternalNavStepProps} from './NavStep';
 import {isReactElement} from '../../utils';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Tickers} from './Tickers';
-import {Input, InputProps} from '../Input';
+import {Input, InputProps} from '../input';
 import style from './TimePicker.st.css';
 import {FIELD, BLANK, NULL_TIME, AmPmOptions, AmPmStrings} from './constants';
 import {

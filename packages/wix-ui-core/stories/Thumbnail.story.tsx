@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Thumbnail} from '../src/components/Thumbnail';
+import {Thumbnail} from '../src/components/thumbnail';
 
 import Check from 'wix-ui-icons-common/Check';
 import Add from 'wix-ui-icons-common/Add';
@@ -21,7 +21,7 @@ export default {
   storyName: 'Thumbnail',
 
   component: Thumbnail,
-  componentPath: '../src/components/Thumbnail/Thumbnail.tsx',
+  componentPath: '../src/components/thumbnail/Thumbnail.tsx',
 
   componentProps: {
     'data-hook': 'storybook-thumbnail',

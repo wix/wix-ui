@@ -1,5 +1,5 @@
-import {dropdownContentDriverFactory} from '../DropdownContent/DropdownContent.driver';
-import {popoverDriverFactory} from '../Popover/Popover.driver';
+import {dropdownContentDriverFactory} from '../dropdown-content/DropdownContent.driver';
+import {popoverDriverFactory} from '../popover/Popover.driver';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './Dropdown.st.css';
 

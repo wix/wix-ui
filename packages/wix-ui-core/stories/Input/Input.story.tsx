@@ -1,10 +1,10 @@
-import { Input } from '../../src/components/Input';
+import { Input } from '../../src/components/input';
 export default {
   category: 'Components',
   storyName: 'Input',
 
   component: Input,
-  componentPath: '../../src/components/Input',
+  componentPath: '../../src/components/input',
 
   componentProps: setState => ({
     'data-hook': 'storybook-input',

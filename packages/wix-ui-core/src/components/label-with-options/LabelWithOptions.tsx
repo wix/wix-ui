@@ -1,10 +1,10 @@
 import * as React from 'react';
 import style from './LabelWithOptions.st.css';
-import {Dropdown} from '../Dropdown';
-import {Checkbox} from '../Checkbox';
-import {Option, OptionFactory} from '../DropdownOption';
-import {Label} from '../deprecated/Label';
-import {CLICK} from '../Dropdown/constants';
+import {Dropdown} from '../dropdown';
+import {Checkbox} from '../checkbox';
+import {Option, OptionFactory} from '../dropdown-option';
+import {Label} from '../deprecated/label';
+import {CLICK} from '../dropdown/constants';
 import {noop} from '../../utils';
 
 const createDivider = (value = null) =>

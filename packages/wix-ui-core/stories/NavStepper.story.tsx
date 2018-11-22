@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {NavStepper} from '../src/components/NavStepper/NavStepper'
+import {NavStepper} from '../src/components/nav-stepper/NavStepper'
 
 export default {
   category: 'Components',
   storyName: 'NavStepper',
 
   component: NavStepper,
-  componentPath: '../src/components/NavStepper/NavStepper.tsx',
+  componentPath: '../src/components/nav-stepper/NavStepper.tsx',
 
   componentProps: {
   children: [

@@ -1,11 +1,11 @@
-import {ToggleSwitch} from '../../src/components/ToggleSwitch';
+import {ToggleSwitch} from '../../src/components/toggle-switch';
 import style from './style.st.css';
 
 export default {
   category: 'Components',
   storyName: 'ToggleSwitch',
   component: ToggleSwitch,
-  componentPath: '../../src/components/ToggleSwitch',
+  componentPath: '../../src/components/toggle-switch',
 
   componentProps: (setState, getState) => ({
     ...style('root'),

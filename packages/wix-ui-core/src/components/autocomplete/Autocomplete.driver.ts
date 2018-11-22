@@ -1,1 +1,1 @@
-export {inputWithOptionsDriverFactory as autocompleteDriverFactory} from '../InputWithOptions/InputWithOptions.driver';
+export {inputWithOptionsDriverFactory as autocompleteDriverFactory} from '../input-with-options/InputWithOptions.driver';
