@@ -17,7 +17,7 @@ export default {
   name: 'Slider',
   storyName: 'Slider',
   component: SliderStory,
-  componentPath: '../src/components/Slider',
+  componentPath: '../src/components/slider',
 
   componentProps: setState => ({
     'data-hook': 'storybook-slider',
