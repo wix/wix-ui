@@ -236,10 +236,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         height:0
       });
       this.appendToNode.appendChild(this.portalNode);
-      // Why do we do this here ?(in componentDidMount and not ONLY in render? or when we actually attachStylesToNode)
-      this.stylesObj = style('root', {}, this.props);
-      // TODO: remove this, it is called in render
-      this.applyStylesToPortaledNode();
     }
   }
 
@@ -252,6 +248,16 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.portalNode = null;
   }
 
+  componentDidUpdate() {
+    if (this.portalNode) {
+      // Re-calculate the portal's styles
+      this.stylesObj = style('root', {}, this.props);
+
+      // Apply the styles to the portal
+      this.applyStylesToPortaledNode();
+    }
+  }
+
   render() {
     const {onMouseEnter, onMouseLeave, onKeyDown, onClick, children, shown, style: inlineStyles, id} = this.props;
     const {isMounted} = this.state;
@@ -259,10 +265,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const childrenObject = buildChildrenObject(children, {Element: null, Content: null});
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
-
-    if (this.portalNode) {
-      this.applyStylesToPortaledNode();
-    }
 
     return (
       <Manager

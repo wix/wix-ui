@@ -152,15 +152,6 @@ export default {
 ---
 
 <details>
-  <summary>`exampleImport` - `string`</summary>
-
-  An example of an import statement to be used to import the component. (appears in a code block between the README and the Playground.)
-  When supplied, then it overwrites the automatic import statement.
-</details>
-
----
-
-<details>
   <summary>`displayName` - `string`</summary>
 
   use this string as components displayName. There may be a case when
