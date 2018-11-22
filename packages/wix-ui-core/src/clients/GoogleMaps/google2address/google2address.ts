@@ -1,5 +1,5 @@
 /*eslint camelcase: off*/
-import intersection = require('lodash/intersection');
+import {intersection} from '../../../utils/intersection';
 import first = require('lodash/first');
 
 export const trySetStreetNumberIfNotReceived = (google, inputValue) => {

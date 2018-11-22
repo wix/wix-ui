@@ -6,8 +6,6 @@ import {DropdownContent} from '../DropdownContent';
 import {Option} from '../DropdownOption';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
-const isEqual = require('lodash/isEqual');
-
 export interface DropdownProps {
   /** The location to display the content */
   placement: Placement;
@@ -76,9 +74,18 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   componentWillReceiveProps(props: DropdownProps) {
-    if (!isEqual(props.initialSelectedIds, this.props.initialSelectedIds)) {
+    if (!this.areSelectedIdsEqual(props.initialSelectedIds, this.props.initialSelectedIds)) {
       this.initializeSelectedOptions(props);
     }
+  }
+
+  areSelectedIdsEqual = (selectedIds1, selectedIds2) => {
+    if ((selectedIds1 === undefined && selectedIds2 === undefined) || (selectedIds1 === null && selectedIds2 === null)) {
+      return true;
+    }
+    return Array.isArray(selectedIds1) && Array.isArray(selectedIds2) &&
+            selectedIds1.length === selectedIds2.length &&
+              selectedIds1.every((item, index) => item === selectedIds2[index]);
   }
 
   initializeSelectedOptions(props) {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-const omit = require('lodash/omit');
 import {Tickers} from './Tickers';
 import {Input, InputProps} from '../Input';
 import style from './TimePicker.st.css';
@@ -380,14 +379,12 @@ export class TimePicker extends React.PureComponent<TimePickerProps, TimePickerS
       ...rest
     } = this.props;
 
+    const {onChange: restOnChange, step: restStep, value: restValue, ...allOther} = rest;
+
     const passThroughProps = {
-      ...omit(rest, [
-        'onChange',
-        'step',
-        'value',
-      ]),
+      ...allOther,
       disabled,
-      readOnly,
+      readOnly
     };
 
     if (useNativeInteraction) {
