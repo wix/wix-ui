@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
 import {Dropdown} from '../dropdown';
-import {Placement} from '../../components/Popover';
+import {Placement} from '../../components/popover';
 import {Option, OptionFactory} from '../dropdown-option';
 import {OPEN_TRIGGER_TYPE} from '../dropdown/constants';
 import {Input, InputProps} from '../input';
