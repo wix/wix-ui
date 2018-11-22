@@ -23,7 +23,7 @@
   -st-extends: Button;
 }
 
-BackofficeTheme .closeButton {
+.closeButton {
   width: 18px;
   height: 18px;
   border-radius: 18px;
@@ -40,26 +40,26 @@ BackofficeTheme .closeButton {
   color: value(B10);
 }
 
-BackofficeTheme .closeButton:focus-visible {
+.closeButton:focus-visible {
   box-shadow: 0 0 0 3px value(F00);
 }
 
-BackofficeTheme .closeButton:hover:not(:disabled) {
+.closeButton:hover:not(:disabled) {
   color: value(B20);
   background-color: transparent;
 }
 
-BackofficeTheme .closeButton:active:not(:disabled) {
+.closeButton:active:not(:disabled) {
   color: value(B10);
   background-color: transparent;
 }
 
-BackofficeTheme .closeButton:disabled {
+.closeButton:disabled {
   color: value(D55);
   background-color: transparent;
 }
 
-BackofficeTheme .closeButton::content {
+.closeButton::content {
   line-height: 0;
   width: 100%;
   height: 100%;
@@ -67,22 +67,22 @@ BackofficeTheme .closeButton::content {
 
 /* Inverted */
 
-BackofficeTheme .inverted {
+.closeButton.inverted {
   background-color: value(B50);
   color: value(B10);
 }
 
-BackofficeTheme .inverted:hover:not(:disabled) {
+.closeButton.inverted:hover:not(:disabled) {
   background-color: value(B40);
   color: value(B10);
 }
 
-BackofficeTheme .inverted:active:not(:disabled) {
+.closeButton.inverted:active:not(:disabled) {
   background-color: value(B30);
   color: value(B10);
 }
 
-BackofficeTheme .inverted:disabled {
+.closeButton.inverted:disabled {
   border-color: value(D55);
   color:  value(D80);
   background-color: value(D55);
@@ -90,72 +90,72 @@ BackofficeTheme .inverted:disabled {
 
 /* Skin light */
 
-BackofficeTheme .light {
+.closeButton.light {
   background-color: transparent;
   color: value(D80);
 }
 
-BackofficeTheme .light:hover:not(:disabled) {
+.closeButton.light:hover:not(:disabled) {
   background-color: transparent;
   color: value(B50);
 }
 
-BackofficeTheme .light:active:not(:disabled) {
+.closeButton.light:active:not(:disabled) {
   background-color: transparent;
   color: value(B40);
 }
 
-BackofficeTheme .light:disabled {
+.closeButton.light:disabled {
   color: value(D55);
   background-color: transparent;
 }
 
 /* Skin dark */
 
-BackofficeTheme .dark {
+.closeButton.dark {
   border-color: transparent;
   background-color: transparent;
   color: value(D10);
 }
 
-BackofficeTheme .dark:hover:not(:disabled) {
+.closeButton.dark:hover:not(:disabled) {
   border-color: transparent;
   background-color: transparent;
   color: value(D20);
 }
 
-BackofficeTheme .dark:active:not(:disabled) {
+.closeButton.dark:active:not(:disabled) {
   border-color: transparent;
   background-color: transparent;
   color: value(D10);
 }
 
-BackofficeTheme .dark:disabled {
+.closeButton.dark:disabled {
   color: value(D55);
   background-color: transparent;
 }
 
 /* Skin transparent */
 
-BackofficeTheme .transparent {
+.closeButton.transparent {
   border-color: value(s5);
   background-color: value(s5);
   color:  value(D80);
 }
 
-BackofficeTheme .transparent:hover:not(:disabled) {
+.closeButton.transparent:hover:not(:disabled) {
   border-color: value(s6);
   background-color: value(s6);
   color:  value(D80);
 }
 
-BackofficeTheme .transparent:active:not(:disabled) {
+.closeButton.transparent:active:not(:disabled) {
   border-color: value(s7);
   background-color: value(s7);
   color:  value(D80);
 }
 
-BackofficeTheme .transparent:disabled {
+.closeButton.transparent:disabled {
   border-color: value(D55);
   color:  value(D80);
   background-color: value(D55);

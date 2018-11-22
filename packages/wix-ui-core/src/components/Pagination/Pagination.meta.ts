@@ -4,7 +4,7 @@ import style from './PaginationTest.st.css';
 
 
 const paginationMetadata = Registry.getComponentMetadata(Pagination);
-paginationMetadata.reactStrictModeCompliant = false;
+paginationMetadata.nonReactStrictModeCompliant = true;
 
 paginationMetadata.exportedFrom({
   path: 'src/components/Pagination/Pagination',

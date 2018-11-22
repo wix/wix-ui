@@ -1,4 +1,5 @@
-import AutoExample from './';
+import React from 'react';
+import AutoExample from '.';
 import Testkit from './testkit';
 
 describe('AutoExample', () => {
@@ -43,7 +44,7 @@ describe('AutoExample', () => {
       });
 
       // expeting only 1 because others should be collapsed
-      expect(testkit.get.options().length).toEqual(1);
+      expect(testkit.get.options()).toHaveLength(1);
     });
   });
 
@@ -93,7 +94,44 @@ describe('AutoExample', () => {
       testkit.when.created({
         codeExample: false,
       });
-      expect(testkit.get.codeBlock().length).toEqual(0);
+      expect(testkit.get.codeBlock()).toHaveLength(0);
+    });
+  });
+
+  describe('componentWrapper', () => {
+    it('should render wrapper when given', () => {
+      const theme = 'componentWrapper-theme';
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
+        componentWrapper: ({ component }) => (
+          <div className={theme}>{component}</div>
+        ),
+      });
+      expect(
+        testkit.get.exists('[data-hook*="componentWrapper"]'),
+      ).toBeTruthy();
+      expect(testkit.get.exists(`[className*="${theme}"]`)).toBeTruthy();
+    });
+
+    it('should render wrapper in Non-Interactive mode', () => {
+      const theme = 'componentWrapper-theme';
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
+        isInteractive: false,
+        componentWrapper: ({ component }) => (
+          <div className={theme}>{component}</div>
+        ),
+      });
+      expect(
+        testkit.get.exists('[data-hook*="componentWrapper"]'),
+      ).toBeTruthy();
+      expect(testkit.get.exists(`[className*="${theme}"]`)).toBeTruthy();
+    });
+
+    it('should not render wrapper when not given', () => {
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created();
+      expect(testkit.get.exists('[data-hook*="componentWrapper"]')).toBeFalsy();
     });
   });
 });

@@ -1,5 +1,5 @@
 import {dropdownDriverFactory} from '../Dropdown/Dropdown.driver';
-import {labelDriverFactory} from '../Label/Label.driver';
+import {labelDriverFactory} from '../deprecated/Label/Label.driver';
 import {checkboxDriverFactory} from '../Checkbox/Checkbox.driver';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import styles from './LabelWithOptions.st.css';

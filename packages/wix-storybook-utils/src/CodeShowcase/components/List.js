@@ -6,6 +6,7 @@ const spacing = {
   marginRight: '8px',
   marginBottom: '8px',
   marginTop: '8px',
+  lineHeight: '0',
   display: 'flex',
 };
 

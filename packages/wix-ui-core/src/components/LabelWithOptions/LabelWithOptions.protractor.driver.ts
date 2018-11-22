@@ -1,4 +1,4 @@
-import {labelDriverFactory, LabelDriver} from '../../components/Label/Label.protractor.driver';
+import {labelDriverFactory, LabelDriver} from '../../components/deprecated/Label/Label.protractor.driver';
 import {dropdownDriverFactory, DropdownDriver} from '../Dropdown/Dropdown.protractor.driver';
 
 import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';

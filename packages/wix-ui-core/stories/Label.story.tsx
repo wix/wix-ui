@@ -1,11 +1,11 @@
-import {Label} from '../src/components/Label';
+import {Label} from '../src/components/deprecated/Label';
 
 export default {
   category: 'Components',
   storyName: 'Label',
 
   component: Label,
-  componentPath: '../src/components/Label/Label.tsx',
+  componentPath: '../src/components/deprecated/Label/Label.tsx',
 
   componentProps: {
     'data-hook': 'storybook-label',

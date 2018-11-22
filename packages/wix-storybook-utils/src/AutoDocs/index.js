@@ -7,7 +7,7 @@ import parser from './parser';
 const shouldHideForE2E = global.self === global.top;
 
 const prepareParsedProps = props => {
-  const asList = Object.keys(props).map(key => ({ ...props[key], name: key }));
+  const asList = Object.keys(props).map(key => ({...props[key], name: key}));
 
   const required = asList.filter(prop => prop.required);
   const notRequired = asList.filter(prop => !prop.required);
@@ -35,12 +35,14 @@ const renderPropType = (type = {}) => {
 
     enum: value =>
       wrap('oneOf')(
-        value.map((v, i, allValues) => (
-          <span key={i}>
-            <code>{v.value}</code>
-            {allValues[i + 1] && ', '}
-          </span>
-        )),
+        Array.isArray(value)
+          ? value.map((v, i, allValues) => (
+              <span key={i}>
+                <code>{v.value}</code>
+                {allValues[i + 1] && ', '}
+              </span>
+            ))
+          : JSON.stringify(value, null, 2),
       ),
 
     union: value =>
@@ -57,7 +59,7 @@ const renderPropType = (type = {}) => {
       wrap('shape')(
         <ul>
           {Object.keys(value)
-            .map(key => ({ ...value[key], key }))
+            .map(key => ({...value[key], key}))
             .map((v, i) => (
               <li key={i}>
                 {v.key}
@@ -73,7 +75,7 @@ const renderPropType = (type = {}) => {
         </ul>,
       ),
 
-    arrayOf: value => wrap('arrayOf')(renderPropType(value)),
+    arrayOf: value => wrap('arrayOf')(renderPropType(value))
   };
 
   if (type.value) {
@@ -85,17 +87,17 @@ const renderPropType = (type = {}) => {
 
 const methodsToMarkdown = methods =>
   methods
-    .filter(({ name }) => !name.startsWith('_'))
+    .filter(({name}) => !name.startsWith('_'))
     .map(
       method =>
         `* __${method.name}(${method.params
-          .map(({ name }) => name)
+          .map(({name}) => name)
           .join(', ')})__: ${method.docblock || ''}`,
     )
     .join('\n');
 
-const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
-  const { description, displayName, props, composes = [], methods = [] } =
+const AutoDocs = ({source = '', parsedSource, showTitle}) => {
+  const {description, displayName, props, composes = [], methods = []} =
     parsedSource || parser(source);
 
   const propRow = (prop, index) => (
@@ -103,10 +105,9 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
       <td>{prop.name || '-'}</td>
       <td>{renderPropType(prop.type)}</td>
       <td>
-        {prop.defaultValue &&
-          prop.defaultValue.value && (
-            <Markdown source={`\`${prop.defaultValue.value}\``} />
-          )}
+        {prop.defaultValue && prop.defaultValue.value && (
+          <Markdown source={`\`${prop.defaultValue.value}\``} />
+        )}
       </td>
       <td>{prop.required && 'Required'}</td>
       <td>{prop.description && <Markdown source={prop.description} />}</td>
@@ -116,12 +117,11 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
   return (
     !shouldHideForE2E && (
       <div className="markdown-body">
-        {showTitle &&
-          displayName && (
-            <div>
-              <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
-            </div>
-          )}
+        {showTitle && displayName && (
+          <div>
+            <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
+          </div>
+        )}
 
         {!displayName && (
           <blockquote>
@@ -149,23 +149,22 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
           <tbody>
             {prepareParsedProps(props).map(propRow)}
 
-            {!parsedSource &&
-              composes.length > 0 && (
-                <tr>
-                  <td colSpan={5}>
-                    Also includes props from:
-                    <ul>
-                      {composes.map((path, i) => (
-                        <li key={i}>{path}</li>
-                      ))}
-                    </ul>
-                  </td>
-                </tr>
-              )}
+            {!parsedSource && composes.length > 0 && (
+              <tr>
+                <td colSpan={5}>
+                  Also includes props from:
+                  <ul>
+                    {composes.map((path, i) => (
+                      <li key={i}>{path}</li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 
-        {methods.filter(({ name }) => !name.startsWith('_')).length > 0 && (
+        {methods.filter(({name}) => !name.startsWith('_')).length > 0 && (
           <h2>
             Available <code>methods</code>
           </h2>
@@ -179,11 +178,11 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
 AutoDocs.propTypes = {
   source: PropTypes.string,
   parsedSource: PropTypes.object,
-  showTitle: PropTypes.bool,
+  showTitle: PropTypes.bool
 };
 
 AutoDocs.defaultProps = {
-  showTitle: true,
+  showTitle: true
 };
 
 export default AutoDocs;

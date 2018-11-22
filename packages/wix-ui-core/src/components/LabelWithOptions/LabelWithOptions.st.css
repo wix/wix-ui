@@ -14,12 +14,12 @@
 }
 
 :import {
-  -st-from: "../Label/Label.st.css";
+  -st-from: "../deprecated/Label/Label.st.css";
   -st-default: Label;
 }
 
 :import {
-  -st-from: "../Divider/Divider.st.css";
+  -st-from: "../deprecated/Divider/Divider.st.css";
   -st-default: Divider;
 }
 

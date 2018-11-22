@@ -1,0 +1,134 @@
+:import {
+  -st-from: '../theme.st.css';
+  -st-default: BackofficeTheme;
+}
+
+:import {
+  -st-from: '../../../components/avatar/avatar.st.css';
+  -st-default: Avatar;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: B40, GRAD_B10, GRAD_D10, GRAD_G10, GRAD_O10, GRAD_R10;
+}
+
+:import {
+  -st-from: "../text.st.css";
+  -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
+} 
+
+BackofficeTheme Avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 48px;
+  width: 48px;
+  border-radius: 30px; 
+}
+
+BackofficeTheme Avatar:contentType(image)::content {
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+}
+
+/* Colors */
+BackofficeTheme Avatar:contentType(placeholder) {
+  background-color: value(B40);
+}
+
+BackofficeTheme Avatar:contentType(text) {
+  background-image: value(GRAD_B10);
+}
+
+BackofficeTheme Avatar:contentType(text).colorBlue {
+  background-image: value(GRAD_B10);
+}
+
+BackofficeTheme Avatar:contentType(text).colorGreen {
+  background-image: value(GRAD_G10);
+}
+
+BackofficeTheme Avatar:contentType(text).colorGrey {
+  background-image: value(GRAD_D10);
+}
+
+BackofficeTheme Avatar:contentType(text).colorRed {
+  background-image: value(GRAD_R10);
+}
+
+BackofficeTheme Avatar:contentType(text).colorOrange {
+  background-image: value(GRAD_O10);
+}
+
+/* Sizes */
+BackofficeTheme Avatar.size90 {
+  height: 90px;
+  width: 90px;
+  border-radius: 45px;
+}
+
+BackofficeTheme Avatar.size72 {
+  height: 72px;
+  width: 72px;
+  border-radius: 36px;
+}
+
+BackofficeTheme Avatar.size60 {
+  height: 60px;
+  width: 60px;
+  border-radius: 36px;
+}
+
+BackofficeTheme Avatar.size48 {
+  height: 48px;
+  width: 48px;
+  border-radius: 30px;
+}
+
+BackofficeTheme Avatar.size36 {
+  height: 36px;
+  width: 36px;
+  border-radius: 21px;
+}
+
+BackofficeTheme Avatar.size30 {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+BackofficeTheme Avatar.size24 {
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+}
+
+BackofficeTheme Avatar.size18 {
+  height: 18px;
+  width: 18px;
+  border-radius: 12px;
+}
+
+/* Sizes text */
+BackofficeTheme Avatar:contentType(text)::content {
+  -st-mixin: sizeSmall, weightBold, light;
+}
+
+
+BackofficeTheme Avatar:contentType(text).size90::content,
+BackofficeTheme Avatar:contentType(text).size72::content  {
+  -st-mixin: sizeMedium;
+}
+
+BackofficeTheme Avatar:contentType(text).size36::content,
+BackofficeTheme Avatar:contentType(text).size30::content  {
+  -st-mixin: sizeTiny, weightNormal;
+}
+
+BackofficeTheme Avatar:contentType(text).size24::content,
+BackofficeTheme Avatar:contentType(text).size18::content  {
+  visibility: hidden;
+}

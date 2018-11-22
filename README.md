@@ -16,6 +16,16 @@ npm install
 npm start
 ```
 
+## Running tests
+
+### Component (unit) tests
+We use Mocha runner in browser.
+
+- `npm run test:browser` - to run all components' test in browser.
+- `npm run test:browser -- --watch` - to run all components' test in browser, with a visible browser.
+  - Click a Component name in the right panel, to run nly it's tests.
+  - To run a specific test case, use the Mocha support `it.only` in the test code.
+  
 ## **What themes are?**
 Read [here](./docs/WHAT_ARE_THEMES.md)
 

@@ -42,7 +42,6 @@ export const CloseButtonSizes = ({ style }: CloseButtonSizesProps) => (
     title="Icon Buttons (sizes)"
     style={style}
     code={example}
-    theme={backofficeTheme}
     description={description}
   >
     <ButtonNext className={closeButton()}>

@@ -3,7 +3,7 @@ import style from './LabelWithOptions.st.css';
 import {Dropdown} from '../Dropdown';
 import {Checkbox} from '../Checkbox';
 import {Option, OptionFactory} from '../DropdownOption';
-import {Label} from '../Label';
+import {Label} from '../deprecated/Label';
 import {CLICK} from '../Dropdown/constants';
 import {noop} from '../../utils';
 

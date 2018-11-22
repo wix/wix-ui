@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {OptionFactory} from './';
-import {Divider} from '../../components/Divider';
+import {Divider} from '../../components/deprecated/Divider';
 import style from './DropdownOption.st.css';
 
 describe('OptionFactory', () => {

@@ -16,7 +16,7 @@ export const tooltipTestkitFactory = testkitFactoryCreator(
   tooltipDriverFactory
 );
 
-import { dividerDriverFactory } from '../components/Divider/Divider.driver';
+import { dividerDriverFactory } from '../components/deprecated/Divider/Divider.driver';
 export const dividerTestkitFactory = testkitFactoryCreator(
   dividerDriverFactory
 );
@@ -35,7 +35,7 @@ export const toggleSwitchTestkitFactory = testkitFactoryCreator(
 import {
   buttonDriverFactory,
   ButtonDriver
-} from '../components/Button/Button.driver';
+} from '../components/deprecated/Button/Button.driver';
 export const buttonTestkitFactory = testkitFactoryCreator<ButtonDriver>(
   buttonDriverFactory
 );
@@ -71,7 +71,7 @@ export { CircularProgressBarDriver };
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver
-} from '../components/StylableBadge/Badge.driver';
+} from '../components/deprecated/StylableBadge/Badge.driver';
 export const stylableBadgeTestkitFactory = testkitFactoryCreator<
   StylableBadgeDriver
 >(stylableBadgeDriverFactory);
@@ -95,7 +95,7 @@ export const addressInputTestkitFactory = testkitFactoryCreator(
   addressInputDriverFactory
 );
 
-import { labelDriverFactory } from '../components/Label/Label.driver';
+import { labelDriverFactory } from '../components/deprecated/Label/Label.driver';
 export const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
 
 import { timePickerDriverFactory } from '../components/TimePicker/TimePicker.driver';

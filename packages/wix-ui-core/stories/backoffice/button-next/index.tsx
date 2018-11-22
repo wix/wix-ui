@@ -9,11 +9,12 @@ import { ButtonSecondary } from './showcase/button/button-secondary';
 import { ButtonSizes } from './showcase/button/button-sizes';
 import { ButtonAffixes } from './showcase/button/button-affixes';
 
-import { TextButtonPrimary } from './showcase/text-Button/textButton-primary';
-import { TextButtonSecondary } from './showcase/text-Button/textButton-secondary';
-import { TextButtonUnderlined } from './showcase/text-Button/textButton-underlined';
+import { TextButtonNone } from './showcase/text-Button/textButton-none';
+import { TextButtonOnHover } from './showcase/text-Button/textButton-onhover';
+import { TextButtonUnderline } from './showcase/text-Button/textButton-underline';
 import { TextButtonSizes } from './showcase/text-Button/textButton-sizes';
 import { TextButtonAffixes } from './showcase/text-Button/textButton-affixes';
+import { TextButtonWeights } from './showcase/text-Button/textButton-weights';
 
 import { CloseButtonStandard } from './showcase/close-Button/closeButton-standard';
 import { CloseButtonInverted } from './showcase/close-Button/closeButton-inverted';
@@ -131,15 +132,15 @@ const ButtonsStory = () => (
 
     <Container>
       <Box>
-        <TextButtonPrimary />
+        <TextButtonNone />
       </Box>
       <Box>
-        <TextButtonSecondary />
+        <TextButtonOnHover />
       </Box>
     </Container>
     <Container>
       <Box>
-        <TextButtonUnderlined />
+        <TextButtonUnderline />
       </Box>
     </Container>
 
@@ -174,6 +175,13 @@ const ButtonsStory = () => (
       </Box>
       <Box>
         <CloseButtonSizes />
+      </Box>
+    </Container>
+
+    <SubTitle>Weight</SubTitle>
+    <Container>
+      <Box>
+        <TextButtonWeights />
       </Box>
     </Container>
 

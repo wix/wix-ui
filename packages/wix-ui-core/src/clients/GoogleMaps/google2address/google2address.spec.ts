@@ -7,15 +7,15 @@ describe('google 2 full address', () => {
         const fullAddress = convertToFullAddress(googleResponse);
         expect(fullAddress).toEqual({
             formatted: '137 Lexington Ave, New York, NY 10016, USA',
-            street_number: {short: '137', long: '137'},
+            streetNumber: {short: '137', long: '137'},
             route: {short: 'Lexington Ave', long: 'Lexington Avenue'},
             locality: {short: 'New York', long: 'New York'},
-            admin_area_4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
-            admin_area_3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
-            admin_area_2: {short: 'New York County', long: 'New York County'},
-            admin_area_1: {short: 'NY', long: 'New York'},
+            adminArea4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
+            adminArea3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
+            adminArea2: {short: 'New York County', long: 'New York County'},
+            adminArea1: {short: 'NY', long: 'New York'},
             country: {short: 'US', long: 'United States'},
-            postal_code: {short: '10016', long: '10016'},
+            postalCode: {short: '10016', long: '10016'},
             location: {lat: 40.7432934, lng: -73.98182050000003}
         });
     });
@@ -31,7 +31,7 @@ describe('google 2 full address', () => {
         const fullAddress = convertToFullAddress(singleAddressComponent);
         expect(fullAddress).toEqual({
             formatted: '137 Lexington Ave, New York, NY 10016, USA',
-            street_number: {short: '137', long: '137'},
+            streetNumber: {short: '137', long: '137'},
             location: {lat: 40.7432934, lng: -73.98182050000003}
         });
     });
@@ -43,15 +43,15 @@ describe('google 2 full address', () => {
         const fullAddress = convertToFullAddress(noLatLngAddress);
         expect(fullAddress).toEqual({
             formatted: '137 Lexington Ave, New York, NY 10016, USA',
-            street_number: {short: '137', long: '137'},
+            streetNumber: {short: '137', long: '137'},
             route: {short: 'Lexington Ave', long: 'Lexington Avenue'},
             locality: {short: 'New York', long: 'New York'},
-            admin_area_4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
-            admin_area_3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
-            admin_area_2: {short: 'New York County', long: 'New York County'},
-            admin_area_1: {short: 'NY', long: 'New York'},
+            adminArea4: {short: 'admin_area_4_short', long: 'admin_area_4_long'},
+            adminArea3: {short: 'admin_area_3_short', long: 'admin_area_3_long'},
+            adminArea2: {short: 'New York County', long: 'New York County'},
+            adminArea1: {short: 'NY', long: 'New York'},
             country: {short: 'US', long: 'United States'},
-            postal_code: {short: '10016', long: '10016'}
+            postalCode: {short: '10016', long: '10016'}
         });
     });
 
@@ -61,8 +61,8 @@ describe('google 2 full address', () => {
             formatted: '5th Ave, New York, NY, USA',
             route: {short: '5th Ave', long: '5th Avenue'},
             locality: {short: 'New York', long: 'New York'},
-            admin_area_2: {short: 'New York County', long: 'New York County'},
-            admin_area_1: {short: 'NY', long: 'New York'},
+            adminArea2: {short: 'New York County', long: 'New York County'},
+            adminArea1: {short: 'NY', long: 'New York'},
             country: {short: 'US', long: 'United States'},
             location: {lat: 40.7750545, lng: -73.96515099999999}
         });
