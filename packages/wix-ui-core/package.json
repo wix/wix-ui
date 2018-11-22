@@ -34,7 +34,7 @@
     "test:e2e": "yoshi test --protractor",
     "sanity": "autotools sanity",
     "a11y": "autotools a11y",
-    "snap": "if [ \"$APPLITOOLS_API_KEY\" -o \"$EYES_API_KEY\" ]; then autotools snap; fi",
+    "snap": "autotools snap --skip-on-missing-key",
     "showcase": "autotools showcase",
     "lint": "yoshi lint",
     "yoshi-start": "yoshi start --no-test",

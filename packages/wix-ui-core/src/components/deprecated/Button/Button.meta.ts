@@ -1,16 +1,16 @@
 import {Button} from './Button';
-import style from '../../../stories/Button/style.st.css';
+import style from './ButtonStyle.st.css';
 import Registry from '@ui-autotools/registry';
 
 const buttonMetadata = Registry.getComponentMetadata(Button);
 
 buttonMetadata.exportedFrom({
-  path: 'src/components/Button/Button',
+  path: 'src/components/deprecated/Button/Button',
   exportName: 'Button',
-  baseStylePath: 'src/components/Button/Button.st.css'
+  baseStylePath: 'src/components/deprecated/Button/Button.st.css'
 });
 
-buttonMetadata.addStyle(style, {name: 'style', path: 'stories/Button/style.st.css'});
+buttonMetadata.addStyle(style, {name: 'style', path: 'src/components/deprecated/Button/ButtonStyle.st.css'});
 
 buttonMetadata.addSim({
   title: 'Simulation with default props',
