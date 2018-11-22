@@ -4,13 +4,13 @@ import {
   WrapperData
 } from 'wix-ui-test-utils/enzyme';
 
-import { inputDriverFactory } from '../components/Input/Input.driver';
+import { inputDriverFactory } from '../components/input/Input.driver';
 //Ugly workaround for now
 export const inputTestkitFactory: (
   obj: WrapperData
 ) => any = enzymeTestkitFactoryCreator(inputDriverFactory);
 
-import { tooltipDriverFactory } from '../components/Tooltip/Tooltip.driver';
+import { tooltipDriverFactory } from '../components/tooltip/Tooltip.driver';
 export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(
   tooltipDriverFactory
 );
@@ -18,7 +18,7 @@ export const tooltipTestkitFactory = enzymeTestkitFactoryCreator(
 import {
   linearProgressBarDriverFactory,
   LinearProgressBarDriver
-} from '../components/LinearProgressBar/LinearProgressBar.driver';
+} from '../components/linear-progress-bar/LinearProgressBar.driver';
 export const linearProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
   LinearProgressBarDriver
 >(linearProgressBarDriverFactory);
@@ -27,29 +27,29 @@ export { LinearProgressBarDriver };
 import {
   circularProgressBarDriverFactory,
   CircularProgressBarDriver
-} from '../components/CircularProgressBar/CircularProgressBar.driver';
+} from '../components/circular-progress-bar/CircularProgressBar.driver';
 export const circularProgressBarTestkitFactory = enzymeTestkitFactoryCreator<
   CircularProgressBarDriver
 >(circularProgressBarDriverFactory);
 export { CircularProgressBarDriver };
 
-import { paginationDriverFactory } from '../components/Pagination/Pagination.driver';
+import { paginationDriverFactory } from '../components/pagination/Pagination.driver';
 export const paginationTestkitFactory = enzymeTestkitFactoryCreator(
   paginationDriverFactory
 );
 
-import { dividerDriverFactory } from '../components/deprecated/Divider/Divider.driver';
+import { dividerDriverFactory } from '../components/deprecated/divider/Divider.driver';
 export const dividerTestkitFactory = enzymeTestkitFactoryCreator(
   dividerDriverFactory
 );
 
-import { checkboxDriverFactory } from '../components/Checkbox/Checkbox.driver';
+import { checkboxDriverFactory } from '../components/checkbox/Checkbox.driver';
 export const checkboxTestkitFactory = enzymeTestkitFactoryCreator(
   checkboxDriverFactory
 );
 
 // Stylable
-import { toggleSwitchDriverFactory } from '../components/ToggleSwitch/ToggleSwitch.driver';
+import { toggleSwitchDriverFactory } from '../components/toggle-switch/ToggleSwitch.driver';
 export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(
   toggleSwitchDriverFactory
 );
@@ -57,7 +57,7 @@ export const toggleSwitchTestkitFactory = enzymeTestkitFactoryCreator(
 import {
   buttonDriverFactory,
   ButtonDriver
-} from '../components/deprecated/Button/Button.driver';
+} from '../components/deprecated/button/Button.driver';
 export const buttonTestkitFactory = enzymeTestkitFactoryCreator<ButtonDriver>(
   buttonDriverFactory
 );
@@ -75,43 +75,43 @@ export { ButtonNextDriver };
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
   BadgeDriver as StylableBadgeDriver
-} from '../components/deprecated/StylableBadge/Badge.driver';
+} from '../components/deprecated/stylable-badge/Badge.driver';
 export const stylableBadgeTestkitFactory = enzymeTestkitFactoryCreator<
   StylableBadgeDriver
 >(stylableBadgeDriverFactory);
 export { StylableBadgeDriver };
 
-import { radioButtonDriverFactory } from '../components/RadioButton/RadioButton.driver';
+import { radioButtonDriverFactory } from '../components/radio-button/RadioButton.driver';
 export const radioButtonTestkitFactory = enzymeTestkitFactoryCreator(
   radioButtonDriverFactory
 );
 
-import { autocompleteDriverFactory } from '../components/Autocomplete/Autocomplete.driver';
+import { autocompleteDriverFactory } from '../components/autocomplete/Autocomplete.driver';
 export const autocompleteTestkitFactory = enzymeTestkitFactoryCreator(
   autocompleteDriverFactory
 );
 
-import { sliderDriverFactory } from '../components/Slider/Slider.driver';
+import { sliderDriverFactory } from '../components/slider/Slider.driver';
 export const sliderTestkitFactory = enzymeTestkitFactoryCreator(
   sliderDriverFactory
 );
 
-import { addressInputDriverFactory } from '../components/AddressInput/AddressInput.driver';
+import { addressInputDriverFactory } from '../components/address-input/AddressInput.driver';
 export const addressInputTestkitFactory = enzymeTestkitFactoryCreator(
   addressInputDriverFactory
 );
 
-import { labelDriverFactory } from '../components/deprecated/Label/Label.driver';
+import { labelDriverFactory } from '../components/deprecated/label/Label.driver';
 export const labelTestkitFactory = enzymeTestkitFactoryCreator(
   labelDriverFactory
 );
 
-import { timePickerDriverFactory } from '../components/TimePicker/TimePicker.driver';
+import { timePickerDriverFactory } from '../components/time-picker/TimePicker.driver';
 export const timePickerTestkitFactory = enzymeTestkitFactoryCreator(
   timePickerDriverFactory
 );
 
-import { labelWithOptionsDriverFactory } from '../components/LabelWithOptions/LabelWithOptions.driver';
+import { labelWithOptionsDriverFactory } from '../components/label-with-options/LabelWithOptions.driver';
 export const labelWithOptionsTestkitFactory = enzymeTestkitFactoryCreator(
   labelWithOptionsDriverFactory
 );
@@ -119,13 +119,13 @@ export const labelWithOptionsTestkitFactory = enzymeTestkitFactoryCreator(
 import {
   thumbnailDriverFactory,
   ThumbnailDriver
-} from '../components/Thumbnail/Thumbnail.driver';
+} from '../components/thumbnail/Thumbnail.driver';
 export const thumbnailTestkitFactory = enzymeTestkitFactoryCreator<
   ThumbnailDriver
 >(thumbnailDriverFactory);
 export { ThumbnailDriver };
 
-import { popoverDriverFactory } from '../components/Popover/Popover.driver';
+import { popoverDriverFactory } from '../components/popover/Popover.driver';
 export const popoverTestkitFactory = enzymeTestkitFactoryCreator(
   popoverDriverFactory
 );
@@ -133,7 +133,7 @@ export const popoverTestkitFactory = enzymeTestkitFactoryCreator(
 import {
   navStepperDriverFactory,
   NavStepperDriver
-} from '../components/NavStepper/NavStepper.driver';
+} from '../components/nav-stepper/NavStepper.driver';
 export const navStepperTestkitFactory = enzymeTestkitFactoryCreator(
   navStepperDriverFactory
 );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './NavStep.st.css';
-import {StepProps} from '../Stepper';
+import {StepProps} from '../stepper';
 
 export type ExternalNavStepProps = Partial<StepProps> & {
     disabled?: boolean;

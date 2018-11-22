@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Slider} from '../src/components/Slider';
+import {Slider} from '../src/components/slider';
 
 const SliderStory = ({children, ...rest}) => {
   const height = rest.orientation === 'vertical' ? 400 : 80;

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
-import { Dropdown } from '../Dropdown';
-import { Placement } from '../../components/Popover';
-import { Option, OptionFactory } from '../DropdownOption';
-import { OPEN_TRIGGER_TYPE } from '../Dropdown/constants';
-import { Input, InputProps } from '../Input';
+import {Dropdown} from '../dropdown';
+import {Placement} from '../../components/popover';
+import {Option, OptionFactory} from '../dropdown-option';
+import {OPEN_TRIGGER_TYPE} from '../dropdown/constants';
+import {Input, InputProps} from '../input';
 
 export interface InputWithOptionsProps {
   /** The location to display the content */

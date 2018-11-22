@@ -1,25 +1,25 @@
 :import {
-  -st-from: "../Dropdown/Dropdown.st.css";
+  -st-from: "../dropdown/Dropdown.st.css";
   -st-default: Dropdown;
 }
 
 :import {
-  -st-from: "../DropdownOption/DropdownOption.st.css";
+  -st-from: "../dropdown-option/DropdownOption.st.css";
   -st-default: DropdownOption;
 }
 
 :import {
-  -st-from: "../Checkbox/Checkbox.st.css";
+  -st-from: "../checkbox/Checkbox.st.css";
   -st-default: Checkbox;
 }
 
 :import {
-  -st-from: "../deprecated/Label/Label.st.css";
+  -st-from: "../deprecated/label/Label.st.css";
   -st-default: Label;
 }
 
 :import {
-  -st-from: "../deprecated/Divider/Divider.st.css";
+  -st-from: "../deprecated/divider/Divider.st.css";
   -st-default: Divider;
 }
 

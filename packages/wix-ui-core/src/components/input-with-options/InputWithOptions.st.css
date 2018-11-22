@@ -1,10 +1,10 @@
 :import {
-  -st-from: "../Dropdown/Dropdown.st.css";
+  -st-from: "../dropdown/Dropdown.st.css";
   -st-default: Dropdown;
 }
 
 :import {
-  -st-from: "../Input/Input.st.css";
+  -st-from: "../input/Input.st.css";
   -st-default: Input;
 }
 

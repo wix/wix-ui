@@ -1,4 +1,4 @@
-import {inputDriverFactory} from '../../components/Input/Input.driver';
+import {inputDriverFactory} from '../../components/input/Input.driver';
 
 export const timePickerDriverFactory = ({element, eventTrigger}) => {
   const inputDriver = inputDriverFactory({element, eventTrigger});

@@ -1,10 +1,10 @@
-import {Video} from '../src/components/Video';
+import {Video} from '../src/components/video';
 
 export default {
   category: 'Components',
   storyName: 'Video',
   component: Video,
-  componentPath: '../src/components/Video/Video.tsx',
+  componentPath: '../src/components/video/Video.tsx',
 
   componentProps: setState => ({
     src: 'https://wixmp-01bd43eabd844aac9eab64f5.wixmp.com/videos/output/720p/Highest Peak.mp4',

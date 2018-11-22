@@ -1,10 +1,10 @@
-import {Badge} from '../src/components/deprecated/StylableBadge';
+import {Badge} from '../src/components/deprecated/stylable-badge';
 
 export default {
   category: 'Components',
   storyName: 'StylableBadge',
   component: Badge,
-  componentPath: '../src/components/deprecated/StylableBadge/Badge.tsx',
+  componentPath: '../src/components/deprecated/stylable-badge/Badge.tsx',
 
   componentProps: {
     children: 'I\'m a Badge!',

@@ -1,4 +1,4 @@
-import {inputWithOptionsDriverFactory} from '../InputWithOptions/InputWithOptions.driver';
+import {inputWithOptionsDriverFactory} from '../input-with-options/InputWithOptions.driver';
 
 export const addressInputDriverFactory = ({element, eventTrigger}) => {
     const inputWithOptionsDriver = inputWithOptionsDriverFactory({

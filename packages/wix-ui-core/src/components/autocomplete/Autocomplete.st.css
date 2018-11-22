@@ -1,10 +1,10 @@
 :import {
-  -st-from: "../InputWithOptions/InputWithOptions.st.css";
+  -st-from: "../input-with-options/InputWithOptions.st.css";
   -st-default: InputWithOptions;
 }
 
 :import {
-  -st-from: "../deprecated/Divider/Divider.st.css";
+  -st-from: "../deprecated/divider/Divider.st.css";
   -st-default: Divider;
 }
 

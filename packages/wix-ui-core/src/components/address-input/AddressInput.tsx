@@ -1,8 +1,8 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import {InputWithOptions} from '../InputWithOptions/InputWithOptions';
+import {InputWithOptions} from '../input-with-options/InputWithOptions';
 import {intersection} from '../../utils/intersection';
-import {Option, OptionFactory} from '../DropdownOption';
+import {Option, OptionFactory} from '../dropdown-option';
 import {
     Address,
     AddressOutput, Geocode, MapsClient, MapsClientConstructor,

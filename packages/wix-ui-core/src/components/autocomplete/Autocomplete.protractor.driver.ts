@@ -1,4 +1,4 @@
 export {
   inputWithOptionsDriverFactory as autocompleteDriverFactory,
   InputWithOptionsDriver as AutocompleteDriver
-} from '../InputWithOptions/InputWithOptions.protractor.driver';
+} from '../input-with-options/InputWithOptions.protractor.driver';
