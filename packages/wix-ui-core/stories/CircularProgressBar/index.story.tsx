@@ -8,7 +8,7 @@ export default {
   name: 'CircularProgressBar',
   storyName: 'CircularProgressBar',
   component: CircularProgressBar,
-  componentPath: '../../src/components/CircularProgressBar',
+  componentPath: '../../src/components/circular-progress-bar',
 
   componentProps: setState => ({
     ...style('root'),
