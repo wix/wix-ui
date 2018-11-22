@@ -54,7 +54,7 @@
     "jsdom": "^11.12.0",
     "lodash": "^4.17.5",
     "playable": "1.13.0",
-    "popper.js": "1.14.3",
+    "popper.js": "^1.14.5",
     "react-onclickoutside": "^6.7.0",
     "react-popper": "0.10.1",
     "react-portal": "^4.1.5",
