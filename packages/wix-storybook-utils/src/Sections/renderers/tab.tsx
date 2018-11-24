@@ -5,7 +5,6 @@ import {
   TabSection,
   SectionType,
 } from '../../typings/story-section';
-const Heading = require('../../ui/heading').default;
 
 import { error } from './error';
 import { liveCode } from './live-code';
@@ -31,7 +30,7 @@ interface Meta {
   tabs: string[];
 }
 
-const isTab: ((StorySection) => boolean) = ({ type }) =>
+export const isTab: ((StorySection) => boolean) = ({ type }) =>
   (type as SectionType) === SectionType.Tab;
 
 export function generateMeta(
@@ -60,22 +59,7 @@ function render({
 }): React.ReactNode {
   return (
     <TabbedView tabs={meta.tabs}>
-      {sections.map((section, key) => (
-        <div key={key}>
-          {section.title && (
-            <div
-              style={{
-                borderBottom: '1px solid #eee',
-                padding: '.5em',
-                marginBottom: '1em',
-              }}
-            >
-              <Heading>{section.title}</Heading>
-            </div>
-          )}
-          {getView(section.type)(section)}
-        </div>
-      ))}
+      {sections.map((section, key) => getView(section.type)(section))}
     </TabbedView>
   );
 }

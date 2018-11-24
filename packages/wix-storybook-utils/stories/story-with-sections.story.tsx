@@ -22,9 +22,18 @@ export default {
     tab({
       title: 'hello',
       sections: [
-        code({
-          description: 'oh fuck',
-          source: '"hello"',
+        tab({
+          title: 'inner tab',
+          sections: [
+            code({
+              description: 'this is the best code',
+              source: '"hello"',
+            }),
+          ],
+        }),
+        tab({
+          title: 'inner tab #2',
+          sections: [description({ text: 'im inside another tab!' })],
         }),
       ],
     }),
@@ -51,9 +60,7 @@ export default {
           description: 'hey this some really cool code example!',
           source: '<div><LiveExampleComponent/></div>',
         }),
-      ]
+      ],
     }),
-
-
   ],
 };
