@@ -4,13 +4,21 @@ export enum SectionType {
   Code = 'code',
   ImportExample = 'importExample',
   Error = 'error',
+  Tab = 'tab',
 }
 
 export interface StorySection {
   type: SectionType;
-  title: string;
+  title?: string;
   hidden?: boolean;
 }
+
+export type Section =
+  | DescriptionSection
+  | ImportExampleSection
+  | LiveCodeSection
+  | CodeSection
+  | TabSection;
 
 export interface DescriptionSection extends StorySection {
   text: string;
@@ -29,6 +37,10 @@ export interface LiveCodeSection extends StorySection {
 export interface CodeSection extends StorySection {
   source: string;
   description?: React.ReactNode;
+}
+
+export interface TabSection extends StorySection {
+  sections: Partial<Section>[];
 }
 
 export interface ErrorSection extends StorySection {}

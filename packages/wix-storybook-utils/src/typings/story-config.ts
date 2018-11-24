@@ -6,6 +6,7 @@ export interface StoryConfig {
   metadata: Metadata;
   config: Config;
   component: any;
+  storyName?: string;
   componentProps?: any;
   componentWrapper?: any;
   hiddenProps?: string[];
