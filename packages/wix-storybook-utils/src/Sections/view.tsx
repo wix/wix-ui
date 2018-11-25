@@ -2,13 +2,12 @@ import * as React from 'react';
 
 import { StoryConfig } from '../typings/story-config';
 
-import { tab } from './renderers/tab';
+import { tab } from './views/tab';
 
 const Heading = require('../ui/heading').default;
-
 const styles = require('./styles.scss');
 
-export const Renderer: React.StatelessComponent<StoryConfig> = ({
+export const View: React.StatelessComponent<StoryConfig> = ({
   sections,
   storyName,
   metadata,

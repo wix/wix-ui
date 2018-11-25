@@ -4,7 +4,7 @@ import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
 import { SingleComponentLayout } from './single-component-layout';
-import { Renderer as SectionsRenderer } from '../Sections/renderer';
+import { View as SectionsView } from '../Sections/view';
 const omit = require('../AutoExample/utils/omit').default;
 
 interface StoryPageProps extends StoryConfig {
@@ -26,7 +26,7 @@ const StoryPage: React.StatelessComponent<StoryPageProps> = (
   };
 
   return props.sections ? (
-    <SectionsRenderer {...passThrough} />
+    <SectionsView {...passThrough} />
   ) : (
     <SingleComponentLayout {...passThrough} />
   );
