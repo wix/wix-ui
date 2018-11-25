@@ -44,3 +44,7 @@ export interface TabSection extends StorySection {
 }
 
 export interface ErrorSection extends StorySection {}
+
+export interface SectionsMeta {
+  tabs: string[];
+}

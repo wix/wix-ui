@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import {
   StorySection,
+  SectionsMeta,
   TabSection,
-  SectionType,
 } from '../../typings/story-section';
 
 import { error } from './error';
@@ -11,6 +11,7 @@ import { liveCode } from './live-code';
 import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
+import { extractMeta } from '../extract-meta';
 
 const TabbedView = require('../../TabbedView').default;
 
@@ -21,49 +22,27 @@ const views = {
   description,
   code,
   tab: (section: TabSection) =>
-    render(generateMeta(section.sections as StorySection[])),
+    render(extractMeta(section.sections as StorySection[])),
 };
 
 const getView = type => views[type] || error;
-
-interface Meta {
-  tabs: string[];
-}
-
-export const isTab: ((StorySection) => boolean) = ({ type }) =>
-  (type as SectionType) === SectionType.Tab;
-
-export function generateMeta(
-  sections: StorySection[],
-): { sections: StorySection[]; meta: Meta } {
-  return sections.reduce(
-    (accumulator, section) => {
-      const extractTab = ({ type }: StorySection): SectionType[] =>
-        isTab(section) ? [section.title as SectionType] : [];
-
-      return {
-        meta: { tabs: accumulator.meta.tabs.concat(extractTab(section)) },
-        sections: accumulator.sections.concat(section),
-      };
-    },
-    { sections: [], meta: { tabs: [] } },
-  );
-}
 
 function render({
   sections,
   meta,
 }: {
   sections: StorySection[];
-  meta: Meta;
+  meta: SectionsMeta;
 }): React.ReactNode {
   return (
     <TabbedView tabs={meta.tabs}>
-      {sections.map((section, key) => getView(section.type)(section))}
+      {sections.map((section, key) => (
+        <div key={key}>{getView(section.type)(section)}</div>
+      ))}
     </TabbedView>
   );
 }
 
 export function tab(sections: StorySection[]): React.ReactNode {
-  return render(generateMeta(sections));
+  return render(extractMeta(sections));
 }

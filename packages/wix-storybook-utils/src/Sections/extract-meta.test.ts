@@ -1,8 +1,8 @@
-import { generateMeta } from './tab';
+import { extractMeta } from './extract-meta';
 
-import * as Section from '../index';
+import * as Section from './';
 
-describe('generateMeta()', () => {
+describe('extractMeta()', () => {
   it('should extract tab data and return under `meta` property', () => {
     const expectedTabs = ['first tab', 'second tab'];
 
@@ -19,7 +19,7 @@ describe('generateMeta()', () => {
       tabSection(expectedTabs[1], [codeSection('"hello";')]),
     ];
 
-    expect(generateMeta(assert)).toEqual({
+    expect(extractMeta(assert)).toEqual({
       sections: assert,
       meta: {
         tabs: expectedTabs,
