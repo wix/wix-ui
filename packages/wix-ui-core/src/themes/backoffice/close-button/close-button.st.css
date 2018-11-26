@@ -1,9 +1,4 @@
 :import {
-  -st-from: "../theme.st.css";
-  -st-default: BackofficeTheme;
-}
-
-:import {
   -st-from: '../../../components/button-next/button-next.st.css';
   -st-default: Button;
   -st-named: content;
