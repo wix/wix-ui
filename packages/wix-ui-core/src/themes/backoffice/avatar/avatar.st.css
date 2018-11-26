@@ -18,118 +18,120 @@
   -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
 } 
 
-BackofficeTheme Avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@st-scope BackofficeTheme { 
+  Avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  height: 48px;
-  width: 48px;
-  border-radius: 30px; 
-}
+    height: 48px;
+    width: 48px;
+    border-radius: 30px; 
+  }
 
-BackofficeTheme Avatar:contentType(image)::content {
-  height: inherit;
-  width: inherit;
-  border-radius: inherit;
-}
+  Avatar:contentType(image)::content {
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+  }
 
-/* Colors */
-BackofficeTheme Avatar:contentType(placeholder) {
-  background-color: value(B40);
-}
+  /* Colors */
+  Avatar:contentType(placeholder) {
+    background-color: value(B40);
+  }
 
-BackofficeTheme Avatar:contentType(text) {
-  background-image: value(GRAD_B10);
-}
+  Avatar:contentType(text) {
+    background-image: value(GRAD_B10);
+  }
 
-BackofficeTheme Avatar:contentType(text).colorBlue {
-  background-image: value(GRAD_B10);
-}
+  Avatar:contentType(text).colorBlue {
+    background-image: value(GRAD_B10);
+  }
 
-BackofficeTheme Avatar:contentType(text).colorGreen {
-  background-image: value(GRAD_G10);
-}
+  Avatar:contentType(text).colorGreen {
+    background-image: value(GRAD_G10);
+  }
 
-BackofficeTheme Avatar:contentType(text).colorGrey {
-  background-image: value(GRAD_D10);
-}
+  Avatar:contentType(text).colorGrey {
+    background-image: value(GRAD_D10);
+  }
 
-BackofficeTheme Avatar:contentType(text).colorRed {
-  background-image: value(GRAD_R10);
-}
+  Avatar:contentType(text).colorRed {
+    background-image: value(GRAD_R10);
+  }
 
-BackofficeTheme Avatar:contentType(text).colorOrange {
-  background-image: value(GRAD_O10);
-}
+  Avatar:contentType(text).colorOrange {
+    background-image: value(GRAD_O10);
+  }
 
-/* Sizes */
-BackofficeTheme Avatar.size90 {
-  height: 90px;
-  width: 90px;
-  border-radius: 45px;
-}
+  /* Sizes */
+  Avatar.size90 {
+    height: 90px;
+    width: 90px;
+    border-radius: 45px;
+  }
 
-BackofficeTheme Avatar.size72 {
-  height: 72px;
-  width: 72px;
-  border-radius: 36px;
-}
+  Avatar.size72 {
+    height: 72px;
+    width: 72px;
+    border-radius: 36px;
+  }
 
-BackofficeTheme Avatar.size60 {
-  height: 60px;
-  width: 60px;
-  border-radius: 36px;
-}
+  Avatar.size60 {
+    height: 60px;
+    width: 60px;
+    border-radius: 36px;
+  }
 
-BackofficeTheme Avatar.size48 {
-  height: 48px;
-  width: 48px;
-  border-radius: 30px;
-}
+  Avatar.size48 {
+    height: 48px;
+    width: 48px;
+    border-radius: 30px;
+  }
 
-BackofficeTheme Avatar.size36 {
-  height: 36px;
-  width: 36px;
-  border-radius: 21px;
-}
+  Avatar.size36 {
+    height: 36px;
+    width: 36px;
+    border-radius: 21px;
+  }
 
-BackofficeTheme Avatar.size30 {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-}
+  Avatar.size30 {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+  }
 
-BackofficeTheme Avatar.size24 {
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
-}
+  Avatar.size24 {
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+  }
 
-BackofficeTheme Avatar.size18 {
-  height: 18px;
-  width: 18px;
-  border-radius: 12px;
-}
+  Avatar.size18 {
+    height: 18px;
+    width: 18px;
+    border-radius: 12px;
+  }
 
-/* Sizes text */
-BackofficeTheme Avatar:contentType(text)::content {
-  -st-mixin: sizeSmall, weightBold, light;
-}
+  /* Sizes text */
+  Avatar:contentType(text)::content {
+    -st-mixin: sizeSmall, weightBold, light;
+  }
 
 
-BackofficeTheme Avatar:contentType(text).size90::content,
-BackofficeTheme Avatar:contentType(text).size72::content  {
-  -st-mixin: sizeMedium;
-}
+  Avatar:contentType(text).size90::content,
+  Avatar:contentType(text).size72::content  {
+    -st-mixin: sizeMedium;
+  }
 
-BackofficeTheme Avatar:contentType(text).size36::content,
-BackofficeTheme Avatar:contentType(text).size30::content  {
-  -st-mixin: sizeTiny, weightNormal;
-  line-height: 18px;
-}
+  Avatar:contentType(text).size36::content,
+  Avatar:contentType(text).size30::content  {
+    -st-mixin: sizeTiny, weightNormal;
+    line-height: 18px;
+  }
 
-BackofficeTheme Avatar:contentType(text).size24::content,
-BackofficeTheme Avatar:contentType(text).size18::content  {
-  visibility: hidden;
+  Avatar:contentType(text).size24::content,
+  Avatar:contentType(text).size18::content  {
+    visibility: hidden;
+  }
 }
