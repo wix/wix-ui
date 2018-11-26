@@ -126,6 +126,7 @@ BackofficeTheme Avatar:contentType(text).size72::content  {
 BackofficeTheme Avatar:contentType(text).size36::content,
 BackofficeTheme Avatar:contentType(text).size30::content  {
   -st-mixin: sizeTiny, weightNormal;
+  line-height: 18px;
 }
 
 BackofficeTheme Avatar:contentType(text).size24::content,
