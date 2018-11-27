@@ -12,8 +12,7 @@ const getClassNames = (values, stylesheet, rootcls?) => {
   return classNames(stylesheet[rootcls], clsArray);
 };
 
-export const avatar = (...values) =>
-  getClassNames(values, Avatar);
+export const avatar = (...values) => getClassNames(values, Avatar);
 export const buttonNext = (...values) =>
   getClassNames(values, ButtonNext, 'button');
 export const iconButton = (...values) =>
@@ -22,4 +21,4 @@ export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>
   getClassNames(values, CloseButton, 'closeButton');
-export const backofficeTheme = BackofficeTheme.root;
+export const backofficeTheme = (BackofficeTheme && BackofficeTheme.root) || {};
