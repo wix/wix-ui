@@ -47,7 +47,7 @@ export const CloseButtonSizes = ({ style }: CloseButtonSizesProps) => (
     <ButtonNext className={closeButton()}>
       <Close width="6px" height="6px" />
     </ButtonNext>
-    <ButtonNext className={closeButton()}>
+    <ButtonNext className={closeButton('medium')}>
       <CloseLarge width="8px" height="8px" />
     </ButtonNext>
   </CodeShowcase>
