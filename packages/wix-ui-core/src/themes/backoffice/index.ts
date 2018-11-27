@@ -21,4 +21,6 @@ export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>
   getClassNames(values, CloseButton, 'closeButton');
+// FIX ME. I fail on yoshi test --protractor when used
+// only with BackofficeTheme.root
 export const backofficeTheme = (BackofficeTheme && BackofficeTheme.root) || {};
