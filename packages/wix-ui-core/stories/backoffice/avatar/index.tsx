@@ -8,12 +8,6 @@ import {
   backofficeTheme
 } from '../../../src/themes/backoffice';
 
-const description = (
-  <div>
-    Avatar with text (name initials)
-  </div>
-);
-
 const NAME = 'John H Doe';
 
 const AvatarStory = () => (
@@ -22,7 +16,7 @@ const AvatarStory = () => (
       title="Default"
       theme={backofficeTheme}
     >
-      <Avatar name={NAME} />
+      <Avatar className={avatar()} name={NAME} />
     </CodeShowcase>
 
     <CodeShowcase
@@ -54,14 +48,17 @@ const AvatarStory = () => (
       title="Icon"
       theme={backofficeTheme}
     >
-      <Avatar icon={<More/>} />
+      <Avatar className={avatar()} placeholder={<More/>} />
     </CodeShowcase>
 
     <CodeShowcase
       title="Image"
       theme={backofficeTheme}
     >
-      <Avatar imgProps={{src: 'https://randomuser.me/api/portraits/women/39.jpg'}} />
+      <Avatar
+        className={avatar()}
+        imgProps={{src: 'https://randomuser.me/api/portraits/women/39.jpg'}} 
+      />
     </CodeShowcase>
   </div>
 );

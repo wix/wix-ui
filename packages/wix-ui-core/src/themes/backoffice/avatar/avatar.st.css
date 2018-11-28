@@ -18,120 +18,122 @@
   -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
 } 
 
-@st-scope BackofficeTheme { 
-  Avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.avatar {
+  -st-extends: Avatar;
+}
 
-    height: 48px;
-    width: 48px;
-    border-radius: 30px; 
-  }
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  Avatar:contentType(image)::content {
-    height: inherit;
-    width: inherit;
-    border-radius: inherit;
-  }
+  height: 48px;
+  width: 48px;
+  border-radius: 30px; 
+}
 
-  /* Colors */
-  Avatar:contentType(placeholder) {
-    background-color: value(B40);
-  }
+.avatar:contentType(image)::content {
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+}
 
-  Avatar:contentType(text) {
-    background-image: value(GRAD_B10);
-  }
+/* Colors */
+.avatar:contentType(placeholder) {
+  background-color: value(B40);
+}
 
-  Avatar:contentType(text).colorBlue {
-    background-image: value(GRAD_B10);
-  }
+.avatar:contentType(text) {
+  background-image: value(GRAD_B10);
+}
 
-  Avatar:contentType(text).colorGreen {
-    background-image: value(GRAD_G10);
-  }
+.avatar:contentType(text).colorBlue {
+  background-image: value(GRAD_B10);
+}
 
-  Avatar:contentType(text).colorGrey {
-    background-image: value(GRAD_D10);
-  }
+.avatar:contentType(text).colorGreen {
+  background-image: value(GRAD_G10);
+}
 
-  Avatar:contentType(text).colorRed {
-    background-image: value(GRAD_R10);
-  }
+.avatar:contentType(text).colorGrey {
+  background-image: value(GRAD_D10);
+}
 
-  Avatar:contentType(text).colorOrange {
-    background-image: value(GRAD_O10);
-  }
+.avatar:contentType(text).colorRed {
+  background-image: value(GRAD_R10);
+}
 
-  /* Sizes */
-  Avatar.size90 {
-    height: 90px;
-    width: 90px;
-    border-radius: 45px;
-  }
+.avatar:contentType(text).colorOrange {
+  background-image: value(GRAD_O10);
+}
 
-  Avatar.size72 {
-    height: 72px;
-    width: 72px;
-    border-radius: 36px;
-  }
+/* Sizes */
+.avatar.size90 {
+  height: 90px;
+  width: 90px;
+  border-radius: 45px;
+}
 
-  Avatar.size60 {
-    height: 60px;
-    width: 60px;
-    border-radius: 36px;
-  }
+.avatar.size72 {
+  height: 72px;
+  width: 72px;
+  border-radius: 36px;
+}
 
-  Avatar.size48 {
-    height: 48px;
-    width: 48px;
-    border-radius: 30px;
-  }
+.avatar.size60 {
+  height: 60px;
+  width: 60px;
+  border-radius: 36px;
+}
 
-  Avatar.size36 {
-    height: 36px;
-    width: 36px;
-    border-radius: 21px;
-  }
+.avatar.size48 {
+  height: 48px;
+  width: 48px;
+  border-radius: 30px;
+}
 
-  Avatar.size30 {
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-  }
+.avatar.size36 {
+  height: 36px;
+  width: 36px;
+  border-radius: 21px;
+}
 
-  Avatar.size24 {
-    height: 24px;
-    width: 24px;
-    border-radius: 12px;
-  }
+.avatar.size30 {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
 
-  Avatar.size18 {
-    height: 18px;
-    width: 18px;
-    border-radius: 12px;
-  }
+.avatar.size24 {
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+}
 
-  /* Sizes text */
-  Avatar:contentType(text)::content {
-    -st-mixin: sizeSmall, weightBold, light;
-  }
+.avatar.size18 {
+  height: 18px;
+  width: 18px;
+  border-radius: 12px;
+}
+
+/* Sizes text */
+.avatar:contentType(text)::content {
+  -st-mixin: sizeSmall, weightBold, light;
+}
 
 
-  Avatar:contentType(text).size90::content,
-  Avatar:contentType(text).size72::content  {
-    -st-mixin: sizeMedium;
-  }
+.avatar:contentType(text).size90::content,
+.avatar:contentType(text).size72::content  {
+  -st-mixin: sizeMedium;
+}
 
-  Avatar:contentType(text).size36::content,
-  Avatar:contentType(text).size30::content  {
-    -st-mixin: sizeTiny, weightNormal;
-    line-height: 18px;
-  }
+.avatar:contentType(text).size36::content,
+.avatar:contentType(text).size30::content  {
+  -st-mixin: sizeTiny, weightNormal;
+  line-height: 18px;
+}
 
-  Avatar:contentType(text).size24::content,
-  Avatar:contentType(text).size18::content  {
-    visibility: hidden;
-  }
+.avatar:contentType(text).size24::content,
+.avatar:contentType(text).size18::content  {
+  visibility: hidden;
 }
