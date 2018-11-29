@@ -29,463 +29,461 @@
   -st-extends: Button;
 }
 
-@st-scope BackofficeTheme {
-  .button {
-    box-sizing: border-box;
-    text-align: center;
-    border: 1px solid;
-
-    -st-mixin: sizeMedium, weightNormal;
-
-    outline: none;
-    transition: all 100ms linear;
-
-    height: 36px;
-    border-radius: 18px;
-    padding: 0 23px;
-
-    background-color: value(B10);
-    border-color: value(B10);
-    color: value(D80);
-  }
-
-  .button:hover:not(:disabled) {
-    background-color: value(B20);
-    border-color: value(B20);
-    color: value(D80);
-  }
-
-  .button:active:not(:disabled) {
-    background-color: value(B10);
-    border-color: value(B10);
-    color: value(D80);
-  }
-
-  .button:disabled {
-    color: value(D80);
-    background-color: value(D55);
-    border-color: value(D55);
-  }
-
-  .button:focus-visible {
-    box-shadow: 0 0 0 3px value(F00);
-  }
-
-  /* Special cases */
-
-  .button.inverted {
-    border: none;
-    background-color: value(D80);
-    color: value(B20);
-  }
-
-  .button.inverted:hover:not(:disabled) {
-    color: value(D80);
-    border-color: transparent;
-    background-color: value(B20);
-  }
-
-  .button.inverted:active:not(:disabled) {
-    background-color: value(B10);
-    border-color: value(B10);
-    color: value(D80);
-  }
-
-  .button.inverted:disabled {
-    background-color: value(B20);
-    border-color: value(B20);
-    color: value(D80);
-  }
-
-  /* Priority */
-
-  .button.secondary {
-    border: solid 1px value(B10);
-    background: transparent;
-    color: value(B10);
-  }
-
-  .button.secondary:hover:not(:disabled) {
-    color: value(D80);
-    border-color: transparent;
-    background-color: value(B20);
-  }
-
-  .button.secondary:active:not(:disabled) {
-    background-color: value(B10);
-    border-color: value(B10);
-    color: value(D80);
-  }
-
-  /* skin Light */
-
-  .button.light {
-    border: none;
-    background-color: value(D80);
-    color: value(B20);
-  }
-
-  .button.light:hover:not(:disabled) {
-    background-color: value(B50);
-    color: value(B10);
-    border-color: value(B50);
-  }
-
-  .button.light:active:not(:disabled) {
-    background-color: value(B40);
-    color: value(B10);
-  }
-
-  .button.light:disabled {
-    background-color: value(D55);
-    border-color: value(D55);
-    color: value(D80);
-  }
-
-  /* skin Light secondary */
-
-  .button.light.secondary {
-    border: solid 1px value(D80);
-    background: transparent;
-    color: value(D80);
-  }
-
-  .button.light.secondary:hover:not(:disabled) {
-    background-color: value(B50);
-    color: value(B10);
-    border-color: value(B50);
-  }
-
-  .button.light.secondary:active:not(:disabled) {
-    background-color: value(B40);
-    border: solid 1px value(B40);
-    color: value(B10);
-  }
-
-  .button.light.secondary:disabled {
-    border-color: value(D55);
-    color: value(D55);
-    background-color: transparent;
-  }
-
-  /* skin Destructive */
-
-  .button.destructive {
-    background-color: value(R10);
-    border-color: value(R10);
-    color: value(D80);
-  }
-
-  .button.destructive:hover:not(:disabled) {
-    background-color: value(R20);
-    border-color: value(R20);
-    color: value(D80);
-  }
-
-  .button.destructive:disabled {
-    color: value(D80);
-    background-color: value(D55);
-    border-color: value(D55);
-  }
-
-  .button.destructive:active:not(:disabled) {
-    background-color: value(R10);
-    border-color: value(R10);
-    color: value(D80);
-  }
-
-  /* skin Destructive secondary */
-
-  .button.destructive.secondary {
-    border: solid 1px value(R10);
-    background: transparent;
-    color: value(R10);
-  }
-
-  .button.destructive.secondary:hover:not(:disabled) {
-    background-color: value(R20);
-    border-color: value(R20);
-    color: value(D80);
-  }
-
-  .button.destructive.secondary:active:not(:disabled) {
-    background-color: value(R10);
-    border-color: value(R10);
-    color: value(D80);
-  }
-
-  .button.destructive.secondary:disabled {
-    border-color: value(D55);
-    color: value(D55);
-    background-color: transparent;
-  }
-
-  /* skin Premium */
-
-  .button.premium {
-    background-color: value(P10);
-    border-color: value(P10);
-    color: value(D80);
-  }
-
-  .button.premium:hover:not(:disabled) {
-    background-color: value(P20);
-    border-color: value(P20);
-    color: value(D80);
-  }
-
-  .button.premium:active:not(:disabled) {
-    background-color: value(P10);
-    border-color: value(P10);
-    color: value(D80);
-  }
-
-  .button.premium:disabled {
-    background-color: value(D55);
-    border-color: value(D55);
-    color: value(D80);
-  }
-
-  /* skin Premium secondary */
-
-  .button.premium.secondary {
-    border: solid 1px value(P10);
-    background: transparent;
-    color: value(P10);
-  }
-
-  .button.premium.secondary:hover:not(:disabled) {
-    background-color: value(P20);
-    border-color: value(P20);
-    color: value(D80);
-  }
-
-  .button.premium.secondary:active:not(:disabled) {
-    background-color: value(P10);
-    border-color: value(P10);
-    color: value(D80);
-  }
-
-  .button.premium.secondary:disabled {
-    border-color: value(D55);
-    background-color: transparent;
-    color: value(D55);
-  }
-
-  /* skin Dark */
-
-  .button.dark {
-    background-color: transparent;
-    border: solid 1px value(D40);
-    color: value(D10);
-  }
-
-  .button.dark:hover:not(:disabled) {
-    color: value(D80);
-    background-color: value(D20);
-    border-color: value(D20);
-  }
-
-  .button.dark:active:not(:disabled) {
-    background-color: value(D10);
-    border-color: value(D10);
-    color: value(D80);
-  }
-
-  .button.dark:disabled {
-    background-color: transparent;
-    border: solid 1px value(D55);
-    color: value(D55);
-  }
-
-  /* skin Dark secondary */
-
-  .button.dark.secondary {
-    background-color: transparent;
-    border: solid 1px value(D40);
-    color: value(D10);
-  }
-
-  .button.dark.secondary:hover:not(:disabled) {
-    color: value(D80);
-    background-color: value(D20);
-    border-color: value(D20);
-  }
-
-  .button.dark.secondary:active:not(:disabled) {
-    background-color: value(D10);
-    border-color: value(D10);
-    color: value(D80);
-  }
-
-  .button.dark.secondary:disabled {
-    background-color: transparent;
-    border: solid 1px value(D55);
-    color: value(D55);
-  }
-
-  /* skin Transparent */
-
-  .button.transparent {
-    border-color: transparent;
-    background-color: value(s5);
-    color: value(D80);
-  }
-
-  .button.transparent:hover:not(:disabled) {
-    border-color: transparent;
-    background-color: value(s6);
-    color: value(D80);
-  }
-
-  .button.transparent:active:not(:disabled) {
-    background-color: value(s7);
-    border-color: value(s7);
-    border-color: transparent;
-  }
-
-  .button.transparent:disabled {
-    background-color: value(D55);
-    border-color: value(D55);
-    color: value(D80);
-  }
-
-  /* skin Transparent secondary */
-
-  .button.transparent.secondary {
-    border-color: transparent;
-    background-color: value(s5);
-    color: value(D80);
-  }
-
-  .button.transparent.secondary:hover:not(:disabled) {
-    border-color: transparent;
-    background-color: value(s6);
-    color: value(D80);
-  }
-
-  .button.transparent.secondary:active:not(:disabled) {
-    background-color: value(s7);
-    border-color: value(s7);
-    border-color: transparent;
-  }
-
-  .button.transparent.secondary:disabled {
-    background-color: value(D55);
-    border-color: value(D55);
-    color: value(D80);
-  }
-
-  /* sizes */
-
-  .button.large {
-    height: 42px;
-
-    -st-mixin: sizeMedium, weightNormal;
-
-    border-radius: 21px;
-    padding: 0 30px;
-  }
-
-  .button.small {
-    height: 30px;
-
-    -st-mixin: sizeSmall, weightNormal;
-
-    border-radius: 15px;
-    padding: 0 18px;
-  }
-
-  .button.tiny {
-    height: 24px;
-
-    -st-mixin: sizeTiny, weightBold;
-
-    border-radius: 18px;
-    padding: 0 12px;
-  }
-
-  /* Suffix and prefix */
-
-  .button.tiny .suffix {
-    margin: 0 -6px 0 3px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .button.tiny .prefix {
-    margin: 0 3px 0 -6px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .button.small .suffix {
-    margin: 0 -6px 0 6px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .button.small .prefix {
-    margin: 0 6px 0 -6px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .button .suffix {
-    margin: 0 -12px 0 6px;
-    width: 24px;
-    height: 24px;
-  }
-
-  .button .prefix {
-    margin: 0 6px 0 -12px;
-    width: 24px;
-    height: 24px;
-  }
-
-  .button.large .suffix {
-    margin: 0 -12px 0 12px;
-    width: 24px;
-    height: 24px;
-  }
-
-  .button.large .prefix {
-    margin: 0 12px 0 -12px;
-    width: 24px;
-    height: 24px;
-  }
-
-  /* rtl */
-
-  :global([dir='rtl']) .button.large .suffix {
-    margin: 0 12px 0 -12px;
-  }
-
-  :global([dir='rtl']) .button.large .prefix {
-    margin: 0 -12px 0 12px;
-  }
-
-  :global([dir='rtl']) .button.small .suffix {
-    margin: 0 6px 0 -6px;
-  }
-
-  :global([dir='rtl']) .button.small .prefix {
-    margin: 0 -6px 0 6px;
-  }
-
-  :global([dir='rtl']) .button .suffix {
-    margin: 0 12px 0 -12px;
-  }
-
-  :global([dir='rtl']) .button .prefix {
-    margin: 0 -12px 0 12px;
-  }
-
-  :global([dir='rtl']) .button.tiny .suffix {
-    margin: 0 0 0 -6px;
-  }
-
-  :global([dir='rtl']) .button.tiny .prefix {
-    margin: 0 -6px 0 0;
-  }
+.button {
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid;
+
+  -st-mixin: sizeMedium, weightNormal;
+
+  outline: none;
+  transition: all 100ms linear;
+
+  height: 36px;
+  border-radius: 18px;
+  padding: 0 23px;
+
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+.button:hover:not(:disabled) {
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
+}
+
+.button:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+.button:disabled {
+  color: value(D80);
+  background-color: value(D55);
+  border-color: value(D55);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
+}
+
+/* Special cases */
+
+.button.inverted {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+.button.inverted:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
+.button.inverted:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+.button.inverted:disabled {
+  background-color: value(B20);
+  border-color: value(B20);
+  color: value(D80);
+}
+
+/* Priority */
+
+.button.secondary {
+  border: solid 1px value(B10);
+  background: transparent;
+  color: value(B10);
+}
+
+.button.secondary:hover:not(:disabled) {
+  color: value(D80);
+  border-color: transparent;
+  background-color: value(B20);
+}
+
+.button.secondary:active:not(:disabled) {
+  background-color: value(B10);
+  border-color: value(B10);
+  color: value(D80);
+}
+
+/* skin Light */
+
+.button.light {
+  border: none;
+  background-color: value(D80);
+  color: value(B20);
+}
+
+.button.light:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+.button.light:active:not(:disabled) {
+  background-color: value(B40);
+  color: value(B10);
+}
+
+.button.light:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Light secondary */
+
+.button.light.secondary {
+  border: solid 1px value(D80);
+  background: transparent;
+  color: value(D80);
+}
+
+.button.light.secondary:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B10);
+  border-color: value(B50);
+}
+
+.button.light.secondary:active:not(:disabled) {
+  background-color: value(B40);
+  border: solid 1px value(B40);
+  color: value(B10);
+}
+
+.button.light.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* skin Destructive */
+
+.button.destructive {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+.button.destructive:hover:not(:disabled) {
+  background-color: value(R20);
+  border-color: value(R20);
+  color: value(D80);
+}
+
+.button.destructive:disabled {
+  color: value(D80);
+  background-color: value(D55);
+  border-color: value(D55);
+}
+
+.button.destructive:active:not(:disabled) {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+/* skin Destructive secondary */
+
+.button.destructive.secondary {
+  border: solid 1px value(R10);
+  background: transparent;
+  color: value(R10);
+}
+
+.button.destructive.secondary:hover:not(:disabled) {
+  background-color: value(R20);
+  border-color: value(R20);
+  color: value(D80);
+}
+
+.button.destructive.secondary:active:not(:disabled) {
+  background-color: value(R10);
+  border-color: value(R10);
+  color: value(D80);
+}
+
+.button.destructive.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* skin Premium */
+
+.button.premium {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+.button.premium:hover:not(:disabled) {
+  background-color: value(P20);
+  border-color: value(P20);
+  color: value(D80);
+}
+
+.button.premium:active:not(:disabled) {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+.button.premium:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Premium secondary */
+
+.button.premium.secondary {
+  border: solid 1px value(P10);
+  background: transparent;
+  color: value(P10);
+}
+
+.button.premium.secondary:hover:not(:disabled) {
+  background-color: value(P20);
+  border-color: value(P20);
+  color: value(D80);
+}
+
+.button.premium.secondary:active:not(:disabled) {
+  background-color: value(P10);
+  border-color: value(P10);
+  color: value(D80);
+}
+
+.button.premium.secondary:disabled {
+  border-color: value(D55);
+  background-color: transparent;
+  color: value(D55);
+}
+
+/* skin Dark */
+
+.button.dark {
+  background-color: transparent;
+  border: solid 1px value(D40);
+  color: value(D10);
+}
+
+.button.dark:hover:not(:disabled) {
+  color: value(D80);
+  background-color: value(D20);
+  border-color: value(D20);
+}
+
+.button.dark:active:not(:disabled) {
+  background-color: value(D10);
+  border-color: value(D10);
+  color: value(D80);
+}
+
+.button.dark:disabled {
+  background-color: transparent;
+  border: solid 1px value(D55);
+  color: value(D55);
+}
+
+/* skin Dark secondary */
+
+.button.dark.secondary {
+  background-color: transparent;
+  border: solid 1px value(D40);
+  color: value(D10);
+}
+
+.button.dark.secondary:hover:not(:disabled) {
+  color: value(D80);
+  background-color: value(D20);
+  border-color: value(D20);
+}
+
+.button.dark.secondary:active:not(:disabled) {
+  background-color: value(D10);
+  border-color: value(D10);
+  color: value(D80);
+}
+
+.button.dark.secondary:disabled {
+  background-color: transparent;
+  border: solid 1px value(D55);
+  color: value(D55);
+}
+
+/* skin Transparent */
+
+.button.transparent {
+  border-color: transparent;
+  background-color: value(s5);
+  color: value(D80);
+}
+
+.button.transparent:hover:not(:disabled) {
+  border-color: transparent;
+  background-color: value(s6);
+  color: value(D80);
+}
+
+.button.transparent:active:not(:disabled) {
+  background-color: value(s7);
+  border-color: value(s7);
+  border-color: transparent;
+}
+
+.button.transparent:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Transparent secondary */
+
+.button.transparent.secondary {
+  border-color: transparent;
+  background-color: value(s5);
+  color: value(D80);
+}
+
+.button.transparent.secondary:hover:not(:disabled) {
+  border-color: transparent;
+  background-color: value(s6);
+  color: value(D80);
+}
+
+.button.transparent.secondary:active:not(:disabled) {
+  background-color: value(s7);
+  border-color: value(s7);
+  border-color: transparent;
+}
+
+.button.transparent.secondary:disabled {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* sizes */
+
+.button.large {
+  height: 42px;
+
+  -st-mixin: sizeMedium, weightNormal;
+
+  border-radius: 21px;
+  padding: 0 30px;
+}
+
+.button.small {
+  height: 30px;
+
+  -st-mixin: sizeSmall, weightNormal;
+
+  border-radius: 15px;
+  padding: 0 18px;
+}
+
+.button.tiny {
+  height: 24px;
+
+  -st-mixin: sizeTiny, weightBold;
+
+  border-radius: 18px;
+  padding: 0 12px;
+}
+
+/* Suffix and prefix */
+
+.button.tiny .suffix {
+  margin: 0 -6px 0 3px;
+  width: 18px;
+  height: 18px;
+}
+
+.button.tiny .prefix {
+  margin: 0 3px 0 -6px;
+  width: 18px;
+  height: 18px;
+}
+
+.button.small .suffix {
+  margin: 0 -6px 0 6px;
+  width: 18px;
+  height: 18px;
+}
+
+.button.small .prefix {
+  margin: 0 6px 0 -6px;
+  width: 18px;
+  height: 18px;
+}
+
+.button .suffix {
+  margin: 0 -12px 0 6px;
+  width: 24px;
+  height: 24px;
+}
+
+.button .prefix {
+  margin: 0 6px 0 -12px;
+  width: 24px;
+  height: 24px;
+}
+
+.button.large .suffix {
+  margin: 0 -12px 0 12px;
+  width: 24px;
+  height: 24px;
+}
+
+.button.large .prefix {
+  margin: 0 12px 0 -12px;
+  width: 24px;
+  height: 24px;
+}
+
+/* rtl */
+
+:global([dir='rtl']) .button.large .suffix {
+  margin: 0 12px 0 -12px;
+}
+
+:global([dir='rtl']) .button.large .prefix {
+  margin: 0 -12px 0 12px;
+}
+
+:global([dir='rtl']) .button.small .suffix {
+  margin: 0 6px 0 -6px;
+}
+
+:global([dir='rtl']) .button.small .prefix {
+  margin: 0 -6px 0 6px;
+}
+
+:global([dir='rtl']) .button .suffix {
+  margin: 0 12px 0 -12px;
+}
+
+:global([dir='rtl']) .button .prefix {
+  margin: 0 -12px 0 12px;
+}
+
+:global([dir='rtl']) .button.tiny .suffix {
+  margin: 0 0 0 -6px;
+}
+
+:global([dir='rtl']) .button.tiny .prefix {
+  margin: 0 -6px 0 0;
 }
