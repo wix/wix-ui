@@ -8,9 +8,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<any> {
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
   /** callback need to be applied for onFocus event */
-  focusableOnFocus?: React.FocusEventHandler<HTMLInputElement>,
-  /**   callback need to be applied for onBlur event */
-  focusableOnBlur?: React.FocusEventHandler<HTMLInputElement>,
+  focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>,
+  /** callback need to be applied for onBlur event */
+  focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>,
 }
 
 const _addAffix = (Affix, classname) =>
