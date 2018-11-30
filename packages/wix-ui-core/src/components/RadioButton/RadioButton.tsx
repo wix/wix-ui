@@ -1,6 +1,5 @@
 import * as React from 'react';
 import style from './RadioButton.st.css';
-import { any } from 'prop-types';
 
 const noop = () => null;
 
@@ -52,10 +51,16 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
   static displayName = 'RadioButton';
 
   private focusedByMouse: boolean = false;
-
+  static bypassDefaultPropsTypecheck
   state = {
     focused: false,
     focusVisible: false
+  };
+
+  static defaultProps = {
+    onChange: noop,
+    onHover: noop,
+    onBlur: noop
   };
 
   render() {
