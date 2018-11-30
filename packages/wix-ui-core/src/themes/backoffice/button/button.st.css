@@ -30,6 +30,10 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   box-sizing: border-box;
   text-align: center;
   border: 1px solid;
@@ -40,6 +44,7 @@
   transition: all 100ms linear;
 
   height: 36px;
+  min-width: 84px;
   border-radius: 18px;
   padding: 0 23px;
 
@@ -379,6 +384,7 @@
 
 .button.large {
   height: 42px;
+  min-width: 102px;
 
   -st-mixin: sizeMedium, weightNormal;
 
@@ -388,6 +394,7 @@
 
 .button.small {
   height: 30px;
+  min-width: 72px;
 
   -st-mixin: sizeSmall, weightNormal;
 
@@ -397,9 +404,10 @@
 
 .button.tiny {
   height: 24px;
+  min-width: 60px;
 
   -st-mixin: sizeTiny, weightBold;
-  
+   
   line-height: 16px;
   border-radius: 18px;
   padding: 0 12px;
