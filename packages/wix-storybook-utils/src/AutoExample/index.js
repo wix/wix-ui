@@ -5,7 +5,15 @@ import styles from './styles.scss';
 import NO_VALUE_TYPE from './no-value-type';
 import categorizeProps from './categorize-props';
 
-import { Option, Preview, Code, Toggle, Input, List } from './components';
+import {
+  Option,
+  Preview,
+  Code,
+  Toggle,
+  Input,
+  NumberInput,
+  List
+} from './components';
 import { Layout, Cell } from '../ui/Layout';
 import SectionCollapse from './components/section-collapse';
 
@@ -210,16 +218,13 @@ export default class extends Component {
     },
 
     {
-      types: [
-        'string',
-        'number',
-        /ReactText/,
-        'arrayOf',
-        'union',
-        'node',
-        'ReactNode',
-      ],
+      types: ['string', /ReactText/, 'arrayOf', 'union', 'node', 'ReactNode'],
       controller: () => <Input />,
+    },
+
+    {
+      types: ['number'],
+      controller: () => <NumberInput />,
     },
   ];
 
@@ -341,7 +346,7 @@ export default class extends Component {
           'data-hook': 'componentWrapper',
         })
       : component;
-      
+
     if (!this.props.isInteractive) {
       return componentToRender;
     }

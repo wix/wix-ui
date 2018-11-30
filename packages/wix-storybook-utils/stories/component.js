@@ -10,12 +10,17 @@ const disabledStyle = {
   color: 'grey'
 };
 
-const Component = ({enabled, children, onClick}) =>
+const Component = ({ enabled, children, onClick, number }) => (
   <div style={enabled ? enabledStyle : disabledStyle} onClick={onClick}>
     {children}
-  </div>;
+    the number is {number}
+    <br />
+    and it's type is {typeof number}
+  </div>
+);
 
 Component.propTypes = {
+  number: PropTypes.number,
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,

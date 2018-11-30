@@ -8,14 +8,14 @@ const showcase = `<button className={button.one}>one</button>
 <button className={button.three}>three</button>`;
 
 const exampleScope = {
-  Button: props => <button {...props}/>
+  Button: props => <button {...props} />
 };
 
 const ExampleShowcase = () => (
   <CodeShowcase title="CodeShowcase" code={showcase}>
-    <button style={{marginRight: '5px'}}>one</button>
-    <button style={{marginRight: '5px'}}>two</button>
-    <button style={{marginRight: '5px'}}>three</button>
+    <button style={{ marginRight: '5px' }}>one</button>
+    <button style={{ marginRight: '5px' }}>two</button>
+    <button style={{ marginRight: '5px' }}>three</button>
   </CodeShowcase>
 );
 
@@ -38,7 +38,9 @@ export default {
         const upper = n.toUpperCase();
         return upper.repeat(5) + text;
       });
-    }
+    },
+
+    number: 4
   },
 
   exampleProps: {
@@ -49,7 +51,7 @@ export default {
 
   examples: (
     <div>
-      <ExampleShowcase/>
+      <ExampleShowcase />
 
       <LiveCodeExample
         scope={exampleScope}
@@ -62,7 +64,7 @@ export default {
       `}
       />
 
-      <div style={{maxWidth: 440}}>
+      <div style={{ maxWidth: 440 }}>
         <LiveCodeExample
           compact
           title="Compact mode"

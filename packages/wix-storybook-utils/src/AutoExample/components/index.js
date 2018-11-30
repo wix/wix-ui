@@ -72,16 +72,25 @@ Toggle.propTypes = {
   onChange: PropTypes.func,
 };
 
-const Input = ({ value: inputValue, onChange, defaultValue, ...props }) => (
+const createInput = ({ type = 'string', property }) => ({
+  value: inputValue,
+  onChange,
+  defaultValue,
+  ...props
+}) => (
   <UIInput
     value={inputValue}
-    onChange={({ target: { value } }) => onChange(value)}
+    onChange={({ target }) => onChange(target[property])}
     placeholder={defaultValue}
+    type={type}
     {...props}
   />
 );
 
-Input.propTypes = {
+const Input = createInput({ type: 'string', property: 'value' });
+const NumberInput = createInput({ type: 'number', property: 'valueAsNumber' });
+
+Input.propTypes = NumberInput.propTypes = {
   value: PropTypes.string,
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
@@ -101,4 +110,4 @@ Code.propTypes = {
   component: PropTypes.node.isRequired,
 };
 
-export { Option, Preview, Toggle, Input, List, Code };
+export { Option, Preview, Toggle, Input, NumberInput, List, Code };
