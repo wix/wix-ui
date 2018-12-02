@@ -13,9 +13,14 @@ The **Image** component represents an image on the DOM.
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| resizeMode | oneOf('fill', 'cover', 'contain') | 'fill' | no | Defines how the Image responds to the height and width of its content box. |
-| defaultImage | string |  | no | URL to load when src is not provided|
-| errorImage | string |  | no | URL to load if src (or defaultImage) loading result in an error|
+| src | string | - | ✖ |  Contains the path to the image you want to embed. |
+| alt | string | - | ✖ | Contains a textual description of the image. |
+| title | string | - | ✖ | Specifies extra information about an element, shown as a tooltip text. |
+| onLoad | (event: ImageEvent) => void; | noop | ✖ | An event handler triggered by the state's status. |
+| onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
+| resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
+| defaultImage | string | - | ✖ | URL to load when src is not provided. |
+| errorImage | string | - | ✖ | URL to load if src (or defaultImage) loading result in an error. |
 
 
 
