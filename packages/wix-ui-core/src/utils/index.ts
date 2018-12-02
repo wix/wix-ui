@@ -18,8 +18,11 @@ export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject
 
 export interface ElementProps { children: any; }
 export const createComponentThatRendersItsChildren = (displayName: string) => {
-  const Element: React.SFC<ElementProps> = ({children}) => children;
+  const Element: React.SFC<ElementProps> = ({children}) => 
+    typeof children === 'string' ? React.createElement('div', {}, children) : children;
+
   Element.displayName = displayName;
+
   return Element;
 };
 

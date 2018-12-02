@@ -6,13 +6,13 @@ import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
 
-const popoverWithProps = (props: PopoverProps) => (
+const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
   <Popover {...props}>
     <Popover.Element>
       <div>Element</div>
     </Popover.Element>
     <Popover.Content>
-      <div>Content</div>
+      <div>{content}</div>
     </Popover.Content>
   </Popover>
 );
@@ -77,6 +77,25 @@ describe('Popover', () => {
       }));
 
       expect(queryPopoverArrow().style.left).toBe('10px');
+    });
+
+    it(`should update popper's position when props are chaning`, async () => {
+      const updatePositionSpy = jest.spyOn(Popover.prototype, 'updatePosition');
+
+       await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true
+      }, 'Old Content!'));
+
+       await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true
+      }, 'New content!'));
+
+       // Should be called for each update
+      expect(updatePositionSpy).toHaveBeenCalledTimes(2);
+
+      updatePositionSpy.mockRestore();
     });
   });
 
@@ -181,6 +200,51 @@ describe('Popover', () => {
       );
 
       expect(queryPopoverPortal().parentElement).toBe(container.node.firstChild);
+    });
+
+    it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        appendTo: 'parent'
+      }));
+
+      expect(queryPopoverPortal().parentElement).toBe(queryPopoverElement().parentElement);
+    });
+
+    it(`should update the portal's styles when updated`, async () => {
+      // First render without passing the `className` prop, the <Popover/>
+      // portal should only have the root class applied.
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        appendTo: portalContainer.node
+      }));
+
+      // Second render with a `className` prop. Stylable `style()` function
+      // should apply it.
+      await container.render(popoverWithProps({
+        placement: 'bottom',
+        shown: true,
+        appendTo: portalContainer.node,
+        className: 'some-class'
+      }));
+
+      expect(queryPopoverPortal().classList).toContain('some-class');
+    });
+  });
+
+  describe('React <16 compatibility', () => {
+    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
+      await container.render(
+        <Popover shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>
+      );
+
+      expect(queryPopoverElement().childNodes[0].nodeName).toEqual('DIV');
+      expect(queryPopoverContent().childNodes[0].nodeName).toEqual('DIV');
     });
   });
 });

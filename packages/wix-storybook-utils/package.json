@@ -79,6 +79,7 @@
     "eslint-config-wix": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "latest",
+    "lodash.kebabcase": "^4.1.1",
     "node-sass": "^4.9.4",
     "prop-types": "^15.6.0",
     "raf": "^3.4.0",

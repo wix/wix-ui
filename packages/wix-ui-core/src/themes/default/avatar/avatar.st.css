@@ -8,22 +8,24 @@
   -st-default: Avatar;
 }
 
-DefaultTheme Avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  background-color: grey;
-  color: white;
+@st-scope DefaultTheme { 
+  Avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: grey;
+    color: white;
 
-  height: 48px;
-  width: 48px;
-  border-radius: 30px;
-}
+    height: 48px;
+    width: 48px;
+    border-radius: 30px;
+  }
 
 
-DefaultTheme Avatar:contentType(image)::content {
-  height: inherit;
-  width: inherit;
-  border-radius: inherit;
+  Avatar:contentType(image)::content {
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+  }
 }

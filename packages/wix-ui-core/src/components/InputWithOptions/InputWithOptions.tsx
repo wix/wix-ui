@@ -1,10 +1,10 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
-import {Dropdown} from '../Dropdown';
-import {Placement} from '../../components/Popover';
-import {Option, OptionFactory} from '../DropdownOption';
-import {OPEN_TRIGGER_TYPE} from '../Dropdown/constants';
-import {Input, InputProps} from '../Input';
+import { Dropdown } from '../Dropdown';
+import { Placement } from '../../components/Popover';
+import { Option, OptionFactory } from '../DropdownOption';
+import { OPEN_TRIGGER_TYPE } from '../Dropdown/constants';
+import { Input, InputProps } from '../Input';
 
 export interface InputWithOptionsProps {
   /** The location to display the content */
@@ -65,7 +65,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onInitialSelectedOptionsSet: () => null,
     filterPredicate: (inputValue, optionValue) => optionValue.toLowerCase().includes(inputValue.toLowerCase())
   };
-
+  static bypassDefaultPropsTypecheck
   isEditing: boolean = false;
 
   open() {
@@ -79,7 +79,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
   _filterOptions(): Array<Option> {
 
-    const {highlightMatches, inputProps, options, filterPredicate} = this.props;
+    const { highlightMatches, inputProps, options, filterPredicate } = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
     }
@@ -99,7 +99,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
   _onSelect = (option: Option | null) => {
     this.isEditing = false;
-    const {onSelect, onManualInput, inputProps} = this.props;
+    const { onSelect, onManualInput, inputProps } = this.props;
     if (option) {
       onSelect(option);
     } else {
@@ -112,13 +112,13 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       this.isEditing = true;
     }
 
-    const {onKeyDown} = this.props.inputProps;
+    const { onKeyDown } = this.props.inputProps;
     onKeyDown && onKeyDown(event);
   }
 
   _onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     this.isEditing = false;
-    const {onFocus} = this.props.inputProps;
+    const { onFocus } = this.props.inputProps;
     onFocus && onFocus(event);
   }
 
@@ -137,7 +137,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       forceContentElementVisibility,
       style: inlineStyles,
       id,
-      allowReselect} = this.props;
+      allowReselect } = this.props;
 
     return (
       <Dropdown

@@ -2,8 +2,7 @@ import {configure, storiesOf} from '@storybook/react';
 import {setOptions} from '@storybook/addon-options';
 
 function loadStories() {
-  require('../stories/all');
-  require('../stories/index.story.js');
+  require('../stories');
   require('./stories.scss');
 }
 

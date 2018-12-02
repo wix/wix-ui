@@ -1,9 +1,4 @@
 :import {
-  -st-from: "../theme.st.css";
-  -st-default: BackofficeTheme;
-}
-
-:import {
   -st-from: '../../../components/button-next/button-next.st.css';
   -st-default: Button;
   -st-named: content;
@@ -31,7 +26,7 @@
 
   box-sizing: border-box;
   text-align: center;
-  
+
   border: none;
   outline: none;
   transition: all 100ms linear;
@@ -84,7 +79,7 @@
 
 .closeButton.inverted:disabled {
   border-color: value(D55);
-  color:  value(D80);
+  color: value(D80);
   background-color: value(D55);
 }
 
@@ -140,23 +135,30 @@
 .closeButton.transparent {
   border-color: value(s5);
   background-color: value(s5);
-  color:  value(D80);
+  color: value(D80);
 }
 
 .closeButton.transparent:hover:not(:disabled) {
   border-color: value(s6);
   background-color: value(s6);
-  color:  value(D80);
+  color: value(D80);
 }
 
 .closeButton.transparent:active:not(:disabled) {
   border-color: value(s7);
   background-color: value(s7);
-  color:  value(D80);
+  color: value(D80);
 }
 
 .closeButton.transparent:disabled {
   border-color: value(D55);
-  color:  value(D80);
+  color: value(D80);
   background-color: value(D55);
+}
+
+/* Size */
+
+.closeButton.medium {
+  width: 24px;
+  height: 24px;
 }

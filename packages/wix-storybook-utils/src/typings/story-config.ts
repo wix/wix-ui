@@ -1,11 +1,14 @@
 import { Metadata } from './metadata';
 import { Config } from './config';
+import { StorySection } from './story-section';
 
 export interface StoryConfig {
   metadata: Metadata;
   config: Config;
   component: any;
+  storyName?: string;
   componentProps?: any;
+  componentWrapper?: any;
   hiddenProps?: string[];
   displayName?: string;
   exampleProps?: any;
@@ -18,4 +21,5 @@ export interface StoryConfig {
 
   /** currently only bool possible. later same property shall be used for configuring code example */
   codeExample?: boolean;
+  sections?: StorySection[];
 }

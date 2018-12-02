@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
-import { BaseProps } from '../../types/BaseProps';
 import style from './button-next.st.css';
 
-export interface ButtonProps
-  extends BaseProps,
-    React.ButtonHTMLAttributes<any> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<any> {
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
+  /** callback need to be applied for onFocus event */
+  focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>,
+  /** callback need to be applied for onBlur event */
+  focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>,
 }
 
 const _addAffix = (Affix, classname) =>

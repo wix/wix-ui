@@ -3,20 +3,20 @@ import * as React from 'react';
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
 import {
-  buttonNext,
+  button,
   backofficeTheme
 } from '../../../../../src/themes/backoffice';
 
 const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
-import { buttonNext } from "wix-ui-core/themes/backoffice";
+import { button } from "wix-ui-core/themes/backoffice";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={buttonNext('tiny')}>tiny</ButtonNext>
-    <ButtonNext className={buttonNext('small')}>small</ButtonNext>
-    <ButtonNext className={buttonNext('medium')}>medium</ButtonNext>
-    <ButtonNext className={buttonNext('large')}>large</ButtonNext>
+    <ButtonNext className={button('tiny')}>tiny</ButtonNext>
+    <ButtonNext className={button('small')}>small</ButtonNext>
+    <ButtonNext className={button('medium')}>medium</ButtonNext>
+    <ButtonNext className={button('large')}>large</ButtonNext>
   </React.Fragment>
 );`;
 
@@ -40,9 +40,9 @@ export const ButtonSizes = ({ style }: ButtonSizesProps) => (
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext className={buttonNext('tiny')}>tiny</ButtonNext>
-    <ButtonNext className={buttonNext('small')}>small</ButtonNext>
-    <ButtonNext className={buttonNext('medium')}>medium</ButtonNext>
-    <ButtonNext className={buttonNext('large')}>large</ButtonNext>
+    <ButtonNext className={button('tiny')}>tiny</ButtonNext>
+    <ButtonNext className={button('small')}>small</ButtonNext>
+    <ButtonNext className={button('medium')}>medium</ButtonNext>
+    <ButtonNext className={button('large')}>large</ButtonNext>
   </CodeShowcase>
 );

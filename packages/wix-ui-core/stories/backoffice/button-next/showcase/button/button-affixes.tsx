@@ -5,19 +5,19 @@ import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
 import {
   backofficeTheme,
-  buttonNext
+  button
 } from '../../../../../src/themes/backoffice';
 
 const example = `import * as React from "react";
-import { ButtonNext, buttonNext } from "wix-ui-core/button-next";
+import { ButtonNext, button } from "wix-ui-core/button-next";
 import Add from "wix-ui-icons-common/Add";
 
 export default () => (
   <React.Fragment>
-    <ButtonNext className={buttonNext()} prefixIcon={<Add />}>
+    <ButtonNext className={button()} prefixIcon={<Add />}>
       prefix
     </ButtonNext>
-    <ButtonNext className={buttonNext()} suffixIcon={<Add />}>
+    <ButtonNext className={button()} suffixIcon={<Add />}>
       suffix
     </ButtonNext>
   </React.Fragment>
@@ -41,10 +41,10 @@ export const ButtonAffixes = ({ style }: ButtonAffixesProps) => (
     theme={backofficeTheme}
     description={description}
   >
-    <ButtonNext className={buttonNext()} prefixIcon={<Add />}>
+    <ButtonNext className={button()} prefixIcon={<Add />}>
       prefix
     </ButtonNext>
-    <ButtonNext className={buttonNext()} suffixIcon={<Add />}>
+    <ButtonNext className={button()} suffixIcon={<Add />}>
       suffix
     </ButtonNext>
   </CodeShowcase>

@@ -70,6 +70,7 @@ export default {
       {label: 'window', value: window},
       {label: 'scrollParent', value: 'scrollParent'},
       {label: 'viewport', value: 'viewport'},
+      {label: 'parent', value: 'parent'},
       {label: 'null', value: null},
     ],
 

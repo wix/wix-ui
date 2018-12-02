@@ -1,24 +1,27 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { BaseProps } from '../../types/BaseProps';
 import style from './avatar.st.css';
 import {ContentType} from './types';
 import {nameToInitials} from './util';
 
-export interface AvatarProps extends BaseProps {
-  /* Css class name to be applied to the root element */
+export interface AvatarProps {
+  /** Css class name to be applied to the root element */
   className?: string;
-  /* The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
+  /** The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
   name?: string;
-  /* Text to render as content. */
+  /** Text to render as content. */
   text?: string;
-  /* A node with a placeholder to be rendered as content. Will be displayed if no `text`, `name` or `imgProps` are provided. */
+  /** A node with a placeholder to be rendered as content. Will be displayed if no `text`, `name` or `imgProps` are provided. */
   placeholder?: React.ReactElement<any>;
-  /* Props for an <img> tag to be rendered as content. */
+  /** Props for an <img> tag to be rendered as content. */
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {['data-hook']?: string};
-  /* Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
+  /** Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
   initialsLimit?: 2 | 3;
+  /** HTML aria-label attribute value. To be applied on the root element */
+  ariaLabel?: string;
+  /** HTML title attribute value. To be applied on the root element */
+  title?: string;
 }
 
 interface AvatarState {

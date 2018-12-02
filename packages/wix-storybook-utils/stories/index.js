@@ -12,6 +12,9 @@ import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 import { AutoTestkit } from '../src/AutoTestkit/auto-testkit';
 
+import './index.story';
+import './story-with-sections.story.tsx';
+
 storiesOf('Components', module)
   .add('<CodeExample/>', () => (
     <div>
