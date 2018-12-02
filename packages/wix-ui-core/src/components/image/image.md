@@ -21,6 +21,7 @@ The **Image** component represents an image on the DOM.
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | defaultImage | string | - | ✖ | URL to load when src is not provided. |
 | errorImage | string | - | ✖ | URL to load if src (or defaultImage) loading result in an error. |
+| loader | 'icon' \| 'dots' \| 'spinner' | - | ✖ | Element being displayed during the loading time. |
 
 
 
@@ -80,6 +81,8 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
 *Example of rendering the Image component, passing it specific props*
 
 ## Style 
+
+The style states are derived from ImageStatus which can be one of the following options: { Loaded, Loading, Error }.
 
 #### States 
 
