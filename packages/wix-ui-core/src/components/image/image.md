@@ -2,31 +2,28 @@
 
 ## Description
 
-The **Image** component represents an image on the DOM.
+The **Image** component embeds an image into the document much like the HTML \<img> element. It also supports
+additional features, adding image customization's.
 
 ## API
 
 **Props**
 
-**Image** accepts all native `<img />` attributes, with several additional features listed below.
+**Image** accepts all native `<img />` attributes (which you can read about [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)), with several additional features listed below.
 
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| src | string | - | ✖ |  Contains the path to the image you want to embed. |
-| alt | string | - | ✖ | Contains a textual description of the image. |
-| title | string | - | ✖ | Specifies extra information about an element, shown as a tooltip text. |
-| onLoad | (event: ImageEvent) => void; | noop | ✖ | An event handler triggered by the state's status. |
+| onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | defaultImage | string | - | ✖ | URL to load when src is not provided. |
 | errorImage | string | - | ✖ | URL to load if src (or defaultImage) loading result in an error. |
-| loader | 'icon' \| 'dots' \| 'spinner' | - | ✖ | Element being displayed during the loading time. |
 
 
 
 ### React Code Example
-TODO: change the example by for the new components (new stylable version)
+TODO: change the example by the new components (new stylable version)
 
 **Example 1:**
 
@@ -78,11 +75,21 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
 }
 
 ```
-*Example of rendering the Image component, passing it specific props*
+*Example of rendering the Image component, passing it specific props and characteristics*
 
 ## Style 
 
-The style states are derived from ImageStatus which can be one of the following options: { Loaded, Loading, Error }.
+In addition to CSS’s native pseudo-classes, like :hover, for the Image component - Stylable enables you to define custom pseudo-classes so that you can apply styles to your components based on state.
+In this case it can be styled as Loaded, Loading, or Error .
+
+```css
+/* image.st.css */
+
+.root {
+    -st-states: loaded, loading, error;
+    display: inline-block;
+}
+```
 
 #### States 
 
@@ -117,8 +124,6 @@ The style states are derived from ImageStatus which can be one of the following 
 ```
 
 ## Accessibility
-Our components is accessible according to [WAI-ARIA 1.0](https://www.w3.org/TR/wai-aria/) standards.
-We follow these guidelines when [using ARIA](https://www.w3.org/TR/using-aria/#intro).
 
 An alt attribute's value should clearly and concisely describe the image's content. It should not describe the presence of the image itself, or the file name of the image. If the alt attribute is purposefully left off because the image has no textual equivalent, consider alternate methods for presenting the content the image is trying to communicate. e.g: 
 
@@ -140,13 +145,10 @@ When an alt attribute is not present on an image, some screen readers may announ
 
 #### Avoiding user-agent "broken image" outline
 
-When an `<img />` has no `src` prop, or it fails to load the specified image, some web browsers show a "broken image" placeholder or an outline around the element. These typically do not conform to the page design causing the page to appear broken.
+When an `<img />` has no `src` or  `srcset` as props - or even when it fails to load the specified image, some web browsers show a "broken image" placeholder or an outline around the element. These typically do not conform to the page design causing the page to appear broken.
 
-The `<Image />` component allows supplying `defaultImage` to replace `src` if missing. If the source fails loading `errorImage` will be displayed. If `errorImage` is not supplied the `<Image/>` component will render an empty pixel.
+The `<Image />` component allows supplying `defaultImage`, and in cases where the source fails to load - `errorImage` will be displayed. If `errorImage` is not supplied the `<Image/>` component will render an empty pixel.
 
-```
-src -> defaultImage -> errorImage -> one empty pixel
-```
 
 #### Edge case handling
 
@@ -176,13 +178,10 @@ legend:
 
 (empty) - source was not provided
 
-## Public Test Driver
-
-Alongside the component we usually provide our users with a test driver to simplify testing their app's behavior to interaction with the component. See [ImageDriver](./image-driver.ts).
-
 ### Test Driver API
-> Note: ImageDriver API is an API for all intents and purposes, meaning changing this API may result in breaking changes for the component users. To avoid this scenario exclude unneeded methods from the public driver (helper methods for the component's tests can still be implemented in a "private" driver that extends the public one)
 
+we provide several helper functions for the Image testkit:
+ 
 | name   | type                    | description |
 |:-------|:------------------------|:------------|
 | nativeElement | () => HTMLImageElement | return the native image element. |  
