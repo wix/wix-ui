@@ -9,7 +9,7 @@ export const code: ((a: CodeSection) => React.ReactNode) = ({
 }) =>
   description ? (
     <div>
-    {description}
+      {description}
       <CodeBlock source={source} />
     </div>
   ) : (

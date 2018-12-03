@@ -114,8 +114,6 @@ function getAppendToNode({appendTo, targetRef}) {
     appendToNode = document.body;
   } else if (appendTo === 'scrollParent') {
     appendToNode = getScrollParent(targetRef);
-  } else if (appendTo === 'parent') {
-    appendToNode = targetRef.parentElement;
   } else if (isElement(appendTo)) {
     appendToNode = appendTo;
   } else {
