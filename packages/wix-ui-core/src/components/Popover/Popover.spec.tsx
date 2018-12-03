@@ -209,7 +209,7 @@ describe('Popover', () => {
         appendTo: 'parent'
       }));
 
-      expect(queryPopoverPortal().parentElement).toBe(queryPopoverElement().parentElement);
+      expect(queryPopoverContent().parentElement).toBe(queryPopoverElement().parentElement);
     });
 
     it(`should update the portal's styles when updated`, async () => {
