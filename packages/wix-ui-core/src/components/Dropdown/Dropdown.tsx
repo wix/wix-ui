@@ -69,7 +69,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
 
   state = {isOpen: false, selectedIds: []};
 
-  componentWillMount() {
+  componentDidMount() {
     this.initializeSelectedOptions(this.props);
   }
 
