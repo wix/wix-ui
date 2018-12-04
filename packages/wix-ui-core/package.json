@@ -25,6 +25,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
+    "prebuild": "PATH=$PATH:node_modules/.bin",
     "build": "yoshi build && npm run generate-stylable-components && npm run generate-stylable-hocs && npm run transpile-mixins && npm run import-path && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
@@ -43,8 +44,8 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-components": "node_modules/.bin/stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
-    "generate-stylable-hocs": "node_modules/.bin/stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
+    "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
+    "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "test:browser": "wix-ui-mocha-runner"
   },
   "dependencies": {
