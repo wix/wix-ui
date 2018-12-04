@@ -13,6 +13,7 @@
   "types": "./dist/src/index.d.js",
   "homepage": "https://github.com/wix/wix-ui#readme",
   "files": [
+    "src",
     "dist",
     "*.js",
     "*.d.ts",
