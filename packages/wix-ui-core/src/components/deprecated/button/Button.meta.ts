@@ -5,12 +5,12 @@ import Registry from '@ui-autotools/registry';
 const buttonMetadata = Registry.getComponentMetadata(Button);
 
 buttonMetadata.exportedFrom({
-  path: 'src/components/deprecated/Button/Button',
+  path: 'src/components/deprecated/button/Button',
   exportName: 'Button',
-  baseStylePath: 'src/components/deprecated/Button/Button.st.css'
+  baseStylePath: 'src/components/deprecated/button/Button.st.css'
 });
 
-buttonMetadata.addStyle(style, {name: 'style', path: 'src/components/deprecated/Button/ButtonStyle.st.css'});
+buttonMetadata.addStyle(style, {name: 'style', path: 'src/components/deprecated/button/ButtonStyle.st.css'});
 
 buttonMetadata.addSim({
   title: 'Simulation with default props',

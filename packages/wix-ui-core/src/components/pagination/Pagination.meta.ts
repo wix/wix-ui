@@ -7,12 +7,12 @@ const paginationMetadata = Registry.getComponentMetadata(Pagination);
 paginationMetadata.nonReactStrictModeCompliant = true;
 
 paginationMetadata.exportedFrom({
-  path: 'src/components/Pagination/Pagination',
+  path: 'src/components/pagination/Pagination',
   exportName: 'Pagination',
-  baseStylePath: 'src/components/Pagination/Pagination.st.css'
+  baseStylePath: 'src/components/pagination/Pagination.st.css'
 });
 
-paginationMetadata.addStyle(style, {name: 'style', path: 'src/components/Pagination/PaginationTest.st.css'});
+paginationMetadata.addStyle(style, {name: 'style', path: 'src/components/pagination/PaginationTest.st.css'});
 
 paginationMetadata
   .addSim({

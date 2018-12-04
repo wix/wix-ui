@@ -6,9 +6,9 @@ import style from '../../../stories/CircularProgressBar/style.st.css';
 const circularProgressBarMetadata = Registry.getComponentMetadata(CircularProgressBar);
 
 circularProgressBarMetadata.exportedFrom({
-  path: 'src/components/CircularProgressBar/CircularProgressBar',
+  path: 'src/components/circular-progress-bar/CircularProgressBar',
   exportName: 'CircularProgressBar',
-  baseStylePath: 'src/components/CircularProgressBar/CircularProgressBar.st.css'
+  baseStylePath: 'src/components/circular-progress-bar/CircularProgressBar.st.css'
 });
 
 circularProgressBarMetadata.addStyle(style, {name: 'style', path: 'stories/CircularProgressBar/style.st.css'});

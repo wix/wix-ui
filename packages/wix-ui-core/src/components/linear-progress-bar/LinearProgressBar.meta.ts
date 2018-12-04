@@ -5,9 +5,9 @@ import style from '../../../stories/LinearProgressBar/style.st.css';
 const linearProgressBarMetadata = Registry.getComponentMetadata(LinearProgressBar);
 
 linearProgressBarMetadata.exportedFrom({
-  path: 'src/components/LinearProgressBar/LinearProgressBar',
+  path: 'src/components/linear-progress-bar/LinearProgressBar',
   exportName: 'LinearProgressBar',
-  baseStylePath: 'src/components/LinearProgressBar/LinearProgressBar.st.css'
+  baseStylePath: 'src/components/linear-progress-bar/LinearProgressBar.st.css'
 });
 
 linearProgressBarMetadata.addStyle(style, {name: 'style', path: 'stories/LinearProgressBar/style.st.css'});

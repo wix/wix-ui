@@ -5,9 +5,9 @@ import style from '../../../stories/ToggleSwitch/style.st.css';
 const toggleSwitchMetadata = Registry.getComponentMetadata(ToggleSwitch);
 
 toggleSwitchMetadata.exportedFrom({
-  path: 'src/components/ToggleSwitch/ToggleSwitch',
+  path: 'src/components/toggle-switch/ToggleSwitch',
   exportName: 'ToggleSwitch',
-  baseStylePath: 'src/components/ToggleSwitch/ToggleSwitch.st.css'
+  baseStylePath: 'src/components/toggle-switch/ToggleSwitch.st.css'
 });
 
 toggleSwitchMetadata.addStyle(style, {name: 'style', path: 'stories/ToggleSwitch/style.st.css'});
