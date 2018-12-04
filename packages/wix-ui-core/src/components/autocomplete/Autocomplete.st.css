@@ -1,0 +1,18 @@
+:import {
+  -st-from: "../input-with-options/InputWithOptions.st.css";
+  -st-default: InputWithOptions;
+}
+
+:import {
+  -st-from: "../deprecated/divider/Divider.st.css";
+  -st-default: Divider;
+}
+
+.root {
+  -st-extends: InputWithOptions;
+  -st-states: disabled;
+}
+
+.divider {
+  -st-extends: Divider;
+}

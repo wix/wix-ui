@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Tooltip} from '../../src/components/Tooltip';
+import {Tooltip} from '../../src/components/tooltip';
 
 const childrenExamples = [
   {label: 'Simple text',
@@ -17,7 +17,7 @@ export default {
   category: 'Components',
   storyName: 'Tooltip',
   component: Tooltip,
-  componentPath: '../../src/components/Tooltip/Tooltip.tsx',
+  componentPath: '../../src/components/tooltip/Tooltip.tsx',
 
   componentProps: {
     'data-hook': 'story-tooltip-right',

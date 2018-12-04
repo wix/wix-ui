@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {RadioButton, RadioButtonProps} from '../../src/components/RadioButton/RadioButton';
+import {RadioButton, RadioButtonProps} from '../../src/components/radio-button/RadioButton';
 
 export class RadioButtonStory extends React.Component<{}, {checkedIdx: string}> {
   state = {

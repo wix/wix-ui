@@ -1,0 +1,18 @@
+:import {
+  -st-from: "../input/Input.st.css";
+  -st-default: Input;
+}
+
+:import {
+  -st-from: "./Tickers.st.css";
+  -st-default: Tickers;
+}
+
+.root {
+  -st-extends: Input;
+  -st-states: focus;
+}
+
+.tickers {
+  -st-extends: Tickers;
+}

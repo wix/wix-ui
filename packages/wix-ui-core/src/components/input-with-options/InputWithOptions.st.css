@@ -1,0 +1,17 @@
+:import {
+  -st-from: "../dropdown/Dropdown.st.css";
+  -st-default: Dropdown;
+}
+
+:import {
+  -st-from: "../input/Input.st.css";
+  -st-default: Input;
+}
+
+.root {
+  -st-extends: Dropdown;
+}
+
+.inputComponent {
+  -st-extends: Input;
+}

@@ -1,0 +1,64 @@
+:import {
+  -st-from: "../dropdown/Dropdown.st.css";
+  -st-default: Dropdown;
+}
+
+:import {
+  -st-from: "../dropdown-option/DropdownOption.st.css";
+  -st-default: DropdownOption;
+}
+
+:import {
+  -st-from: "../checkbox/Checkbox.st.css";
+  -st-default: Checkbox;
+}
+
+:import {
+  -st-from: "../deprecated/label/Label.st.css";
+  -st-default: Label;
+}
+
+:import {
+  -st-from: "../deprecated/divider/Divider.st.css";
+  -st-default: Divider;
+}
+
+.root {
+  -st-extends: Dropdown;
+  -st-states: required, error, disabled, checkbox;
+}
+
+@custom-selector :--selected .root:checkbox DropdownOption:selected;
+
+:--selected {
+  background-color: white; 
+}
+.selection {
+
+}
+
+.label {
+  -st-extends: Label;
+}
+
+.divider {
+  -st-extends: Divider;
+}
+
+.placeholder {
+}
+
+.optionContainer {
+  display: flex;
+}
+
+.checkbox {
+  -st-extends: Checkbox;
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+}
+
+.checkbox:checked {
+  background: blue;
+}

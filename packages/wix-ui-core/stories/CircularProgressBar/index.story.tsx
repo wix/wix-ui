@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {CircularProgressBar} from '../../src/components/CircularProgressBar';
-import {CircularProgressBarProps} from '../../src/components/CircularProgressBar/CircularProgressBar';
+import {CircularProgressBar} from '../../src/components/circular-progress-bar';
+import {CircularProgressBarProps} from '../../src/components/circular-progress-bar/CircularProgressBar';
 import style from './style.st.css';
 
 export default {
@@ -8,7 +8,7 @@ export default {
   name: 'CircularProgressBar',
   storyName: 'CircularProgressBar',
   component: CircularProgressBar,
-  componentPath: '../../src/components/CircularProgressBar',
+  componentPath: '../../src/components/circular-progress-bar',
 
   componentProps: setState => ({
     ...style('root'),

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Tooltip} from '../../src/components/Tooltip';
+import {Tooltip} from '../../src/components/tooltip';
 
 function createTooltip(direction, moved) {
   return (

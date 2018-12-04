@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../src/components/Checkbox/Checkbox.st.css";
+  -st-from: "../../src/components/checkbox/Checkbox.st.css";
   -st-default: Checkbox;
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import {Tooltip} from '../../components/Tooltip';
+import {Tooltip} from '../../components/tooltip';
 import textStyle from './Text.st.css';
 import tooltipStyle from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';

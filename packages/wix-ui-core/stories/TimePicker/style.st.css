@@ -1,5 +1,5 @@
 :import {
-    -st-from: '../../src/components/TimePicker/TimePicker.st.css';
+    -st-from: '../../src/components/time-picker/TimePicker.st.css';
     -st-default: TimePicker;
 }
 

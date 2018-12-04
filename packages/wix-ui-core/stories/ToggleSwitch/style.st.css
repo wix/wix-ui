@@ -1,20 +1,20 @@
 :import {
-  -st-from: "../../src/components/ToggleSwitch/ToggleSwitch.st.css";
+  -st-from: "../../src/components/toggle-switch/ToggleSwitch.st.css";
   -st-default: ToggleSwitch;
 }
 
 :import {
-  -st-from: "../../src/components/ToggleSwitch/ToggleSwitchStyle.st.css";
+  -st-from: "../../src/components/toggle-switch/ToggleSwitchStyle.st.css";
   -st-default: ToggleSwitchStyle;
 }
 
 :import {
-  -st-from: "../../src/components/ToggleSwitch/ToggleSwitchLayout.st.css";
+  -st-from: "../../src/components/toggle-switch/ToggleSwitchLayout.st.css";
   -st-default: ToggleSwitchLayout;
 }
 
 :import {
-  -st-from: "../../src/components/ToggleSwitch/ToggleSwitchColor.st.css";
+  -st-from: "../../src/components/toggle-switch/ToggleSwitchColor.st.css";
   -st-default: ToggleSwitchColor;
 }
 
