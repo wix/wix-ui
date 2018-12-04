@@ -60,24 +60,24 @@
   height: 100%;
 }
 
-/* Inverted */
+/* Skin StandardFilled */
 
-.closeButton.inverted {
+.closeButton.standardFilled {
   background-color: value(B50);
   color: value(B10);
 }
 
-.closeButton.inverted:hover:not(:disabled) {
+.closeButton.standardFilled:hover:not(:disabled) {
   background-color: value(B40);
   color: value(B10);
 }
 
-.closeButton.inverted:active:not(:disabled) {
+.closeButton.standardFilled:active:not(:disabled) {
   background-color: value(B30);
   color: value(B10);
 }
 
-.closeButton.inverted:disabled {
+.closeButton.standardFilled:disabled {
   border-color: value(D55);
   color: value(D80);
   background-color: value(D55);
@@ -130,27 +130,27 @@
   background-color: transparent;
 }
 
-/* Skin transparent */
+/* Skin LightFilled */
 
-.closeButton.transparent {
+.closeButton.lightFilled {
   border-color: value(s5);
   background-color: value(s5);
   color: value(D80);
 }
 
-.closeButton.transparent:hover:not(:disabled) {
+.closeButton.lightFilled:hover:not(:disabled) {
   border-color: value(s6);
   background-color: value(s6);
   color: value(D80);
 }
 
-.closeButton.transparent:active:not(:disabled) {
+.closeButton.lightFilled:active:not(:disabled) {
   border-color: value(s7);
   background-color: value(s7);
   color: value(D80);
 }
 
-.closeButton.transparent:disabled {
+.closeButton.lightFilled:disabled {
   border-color: value(D55);
   color: value(D80);
   background-color: value(D55);

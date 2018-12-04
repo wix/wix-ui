@@ -17,7 +17,6 @@ import { TextButtonAffixes } from './showcase/text-Button/textButton-affixes';
 import { TextButtonWeights } from './showcase/text-Button/textButton-weights';
 
 import { CloseButtonStandard } from './showcase/close-Button/closeButton-standard';
-import { CloseButtonInverted } from './showcase/close-Button/closeButton-inverted';
 import { CloseButtonSizes } from './showcase/close-Button/closeButton-sizes';
 
 const controlledWidth = {
@@ -151,9 +150,6 @@ const ButtonsStory = () => (
     <Container>
       <Box>
         <CloseButtonStandard />
-      </Box>
-      <Box>
-        <CloseButtonInverted />
       </Box>
     </Container>
 
