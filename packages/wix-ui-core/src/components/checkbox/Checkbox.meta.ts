@@ -5,9 +5,9 @@ import style from '../../../stories/Checkbox/style.st.css';
 const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 
 checkboxMetadata.exportedFrom({
-  path: 'src/components/Checkbox/Checkbox',
+  path: 'src/components/checkbox/Checkbox',
   exportName: 'Checkbox',
-  baseStylePath: 'src/components/Checkbox/Checkbox.st.css'
+  baseStylePath: 'src/components/checkbox/Checkbox.st.css'
 });
 
 checkboxMetadata.addStyle(style, {name: 'style', path: 'stories/Checkbox/style.st.css'});
