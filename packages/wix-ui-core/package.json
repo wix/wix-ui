@@ -25,7 +25,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && ls ./node_modules/.bin && ls -l && ls ./dist/src/components && npm run generate-stylable-components && npm run generate-stylable-hocs && npm run transpile-mixins && npm run import-path && build-storybook",
+    "build": "yoshi build &&  npm run generate-stylable-components && npm run generate-stylable-hocs && npm run transpile-mixins && npm run import-path && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
     "posttest": "npm run lint",
@@ -43,7 +43,7 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-components": "stc --rootDir=\"./\" --srcDir=\"dist/src/components\" --diagnostics --indexFile=index.st.css --log",
+    "generate-stylable-components": "cp -rf ./build.js ./node_modules/@stylable/cli/cjs && cp -rf ./build.js.map ./node_modules/@stylable/cli/cjs && stc --rootDir=\"./\" --srcDir=\"dist/src/components\" --diagnostics --indexFile=index.st.css --log",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "test:browser": "wix-ui-mocha-runner"
   },
