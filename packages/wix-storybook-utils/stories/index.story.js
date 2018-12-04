@@ -64,6 +64,51 @@ export default {
       `}
       />
 
+      <LiveCodeExample
+        title="With non-inline code"
+        scope={exampleScope}
+        autoRender={false}
+        initialCode={`
+const ComponentWithStyles = (props) => (
+  <div
+    style={{ background: 'tomato', color: 'white', padding: 5 }}
+    {...props}
+    />
+);
+
+class ComponentWithState extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      count: 0
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(({ count }) => ({ count: count + 1 }));
+  }
+
+  render() {
+    const { count } = this.state;
+
+    return (
+      <div onClick={this.handleClick}>You clicked this {count} times!</div>
+    );
+  }
+}
+
+// When using autoRender={false}, we need to call the \`render\` function
+render(
+  <ComponentWithStyles>
+    <ComponentWithState />
+  </ComponentWithStyles>
+);
+        `}
+      />
+
       <div style={{ maxWidth: 440 }}>
         <LiveCodeExample
           compact

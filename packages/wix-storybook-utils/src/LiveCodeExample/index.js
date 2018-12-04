@@ -19,13 +19,15 @@ export default class LiveCodeExample extends Component {
     scope: PropTypes.object,
     compact: PropTypes.bool,
     previewRow: PropTypes.bool,
-    previewProps: PropTypes.object
+    previewProps: PropTypes.object,
+    autoRender: PropTypes.bool
   };
 
   static defaultProps = {
     compact: false,
     previewRow: false,
-    previewProps: {}
+    previewProps: {},
+    autoRender: true
   };
 
   resetCode = () => {
@@ -72,7 +74,7 @@ export default class LiveCodeExample extends Component {
   }
 
   render() {
-    const { compact, previewRow, previewProps } = this.props;
+    const { compact, previewRow, previewProps, autoRender } = this.props;
     const { code, isRtl, isDarkBackground, isEditorOpened } = this.state;
 
     return (
@@ -123,6 +125,7 @@ export default class LiveCodeExample extends Component {
           code={code.trim()}
           scope={this.props.scope}
           mountStylesheet={false}
+          noInline={!autoRender}
         >
           <div className={styles.liveExampleWrapper}>
             <Collapse
