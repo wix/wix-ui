@@ -85,6 +85,8 @@ export interface AddressInputProps {
     onMouseEnter?: () => void;
     /** Standard input onMouseLeave callback */
     onMouseLeave?: () => void;
+    /** Horizontal padding, for input component and dropdown options */
+    horizontalPadding?: number;
 }
 
 export interface AddressInputState {
@@ -287,9 +289,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     _renderOption(val) {
-        const {locationIcon} = this.props;
+        const {locationIcon, horizontalPadding} = this.props;
         return (
-          <div className={style.option}>
+          <div className={style.option} style={{ paddingRight: horizontalPadding, paddingLeft: horizontalPadding }}>
             {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
             <div className={style.optionContent}>{val}</div>
           </div>
@@ -315,7 +317,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, horizontalPadding} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -334,7 +336,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onClick: this.props.onClick,
             onDoubleClick: this.props.onDoubleClick,
             onMouseEnter: this.props.onMouseEnter,
-            onMouseLeave: this.props.onMouseLeave
+            onMouseLeave: this.props.onMouseLeave,
+            style: { paddingRight: horizontalPadding, paddingLeft: horizontalPadding }
         };
 
         const states = {};
