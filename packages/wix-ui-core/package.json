@@ -2,7 +2,7 @@
   "private": false,
   "name": "wix-ui-core",
   "description": "wix-ui-core",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"
