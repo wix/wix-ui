@@ -31,6 +31,7 @@ export const AutoTestkit = ({ component }) => (
             <CodeExample
               key={index}
               driverName={name}
+              driverFilename={file}
               componentName={component.displayName}
             />
           ))}
