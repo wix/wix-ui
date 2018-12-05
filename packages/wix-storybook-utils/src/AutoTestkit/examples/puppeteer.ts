@@ -1,6 +1,5 @@
 export default ({
   capitalizedTestkitFactoryName,
-  componentLC,
   pathToTestkit,
   testkitFactoryName,
 }) => {
@@ -9,13 +8,14 @@ export default ({
 import puppeteer from 'puppeteer';
 import {${testkitFactoryName} as ${puppeteerTestkitFactoryName}} from '${pathToTestkit}/puppeteer';
 
+// puppeteer setup
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-const dataHook = 'myDataHook';
-const ${componentLC}Driver = ${puppeteerTestkitFactoryName}({page, dataHook});
-await page.goto(testPageUrl);
+// Create an element testkit via the data-hook attribute
+const testkit = await inputTestkitFactory({dataHook: 'myDataHook', page});
+await page.goto(appUrl); // Your application url
 
-expect(await ${componentLC}Driver.exists()).toBeTruthy();
+expect(await testkit.getText()).to.equal('my test');
 `;
 };
