@@ -26,8 +26,7 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
 };
 
 const requireSDK = (name, url, onLoaded, onError, resolveRequire) => {
-  // @ts-ignore
-  window.require([url], sdk => {
+  (window as any).require([url], sdk => {
     window[name] = resolveRequire(sdk);
     onLoaded(window[name])
   }, err => {
@@ -61,8 +60,12 @@ export function getSDK({
       stack[url].forEach(resolveItem => resolveItem(sdk))
     };
 
-    // @ts-ignore
-    if (isRequireAllow && typeof window.define === 'function' && window.define.amd) {
+    if (
+      isRequireAllow
+      && typeof (window as any).require === 'function'
+      && typeof (window as any).define === 'function'
+      && (window as any).define.amd
+    ) {
       requireSDK(name, url, onLoaded, reject, resolveRequire);
     } else {
       loadSDK(name, url, onLoaded, reject, onReady);

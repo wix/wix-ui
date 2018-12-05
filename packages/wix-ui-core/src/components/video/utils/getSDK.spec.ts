@@ -59,8 +59,7 @@ describe('Video/getSDK', () => {
     it('should resolve when SDK already loaded', async () => {
       const resolveSpy = jest.fn();
 
-      // @ts-ignore
-      global.MOCKPLAYERSDK = true;
+      (window as any).MOCKPLAYERSDK = true;
 
       getSDK({
         name: 'MOCKPLAYERSDK',
@@ -72,6 +71,30 @@ describe('Video/getSDK', () => {
         expect(resolveSpy).toHaveBeenCalled();
       });
 
+      expect(loadjs).not.toHaveBeenCalled();
+    });
+
+    it('should resolve when require allow and exist', async () => {
+      const resolveSpy = jest.fn();
+
+      (window as any).require = jest.fn().mockImplementation((url, settings) => {
+        setTimeout(() => settings(), 200);
+      });
+      (window as any).define = jest.fn();
+      (window as any).define.amd = true;
+
+      getSDK({
+        name: 'MOCKREQUIREPLAYER',
+        url: '//test.com/mock-sdk.js',
+        isLoaded: () => true,
+        isRequireAllow: true,
+      }).then(resolveSpy);
+
+      await eventually(() => {
+        expect(resolveSpy).toHaveBeenCalled();
+      });
+
+      expect((window as any).require).toHaveBeenCalled();
       expect(loadjs).not.toHaveBeenCalled();
     });
   });
