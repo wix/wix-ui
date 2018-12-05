@@ -49,7 +49,7 @@ const mockAPI = {
   destroy: jest.fn(),
 };
 
-class mockPlayer extends React.PureComponent<any> {
+class MockPlayer extends React.PureComponent<any> {
   player: any;
   eventEmitter: IEventEmitter;
 
@@ -92,7 +92,7 @@ describe('playerHOC', () => {
   const onReady = jest.fn();
 
   describe('callbacks', () => {
-    const Player = playerHOC(mockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+    const Player = playerHOC(MockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
 
     it('should call onReady when Player API is ready', async () => {
       await container.render(<Player onReady={onReady} />);
@@ -198,7 +198,7 @@ describe('playerHOC', () => {
   });
 
   describe('methods', () => {
-    const Player = playerHOC(mockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+    const Player = playerHOC(MockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
 
     [
       ['play', 'videoPlay'],

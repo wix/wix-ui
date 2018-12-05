@@ -19,7 +19,7 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
         onLoaded(window[name]);
       }
     },
-    error: (err) => {
+    error: err => {
       onError(err);
     },
   });
