@@ -46,7 +46,7 @@ import './TimePicker/index.story';
 import './ToggleSwitch/index.story';
 import './Tooltip/index.story';
 Components.add('Tooltip Custom', () => <TooltipStory />);
-import '../src/components/Video/Video.story';
+import '../src/components/video/Video.story';
 HOCs.add('EllipsedTooltip', EllipsedText);
 HOCs.add('Focusable', Focusable);
 
