@@ -53,6 +53,11 @@
   color: value(D80);
 }
 
+.button::content {
+  display: flex;
+  align-items: center;
+}
+
 .button:hover:not(:disabled) {
   background-color: value(B20);
   border-color: value(B20);
