@@ -1,29 +1,22 @@
 import * as eventually from 'wix-eventually';
+import { getSDK, mockLoadjs } from './getSDK';
 
-// Some tests are skipped because it either passes with jsdom and fails with browser (mocha-runner)
 describe('Video/getSDK', () => {
-  let getSDK;
-  let loadjs;
-
   describe('success pass', () => {
-    beforeEach(() => {
-      if (typeof jest.mock === 'function') {
-        jest.mock('loadjs', () => jest.fn().mockImplementation((url, settings) => {
-          setTimeout(() => settings.success(), 200);
-        }));
-      }
+    let loadjs;
 
-      loadjs = require('loadjs');
-      getSDK = require('./getSDK').getSDK;
+    beforeEach(() => {
+      loadjs = jest.fn().mockImplementation((url, settings) => {
+        setTimeout(() => settings.success(), 200);
+      });
+      mockLoadjs(loadjs);
     });
 
     afterEach(() => {
-      if (typeof jest.resetModules === 'function') {
-        jest.resetModules();
-      }
+      mockLoadjs(false);
     });
 
-    xit('should be resolved', async () => {
+    it('should be resolved', async () => {
       const resolveSpy = jest.fn();
 
       getSDK({
@@ -38,7 +31,7 @@ describe('Video/getSDK', () => {
       });
     });
 
-    xit('should multiple request be resolved with one load of SDK', async () => {
+    it('should multiple request be resolved with one load of SDK', async () => {
       const resolveSpy1 = jest.fn();
       const resolveSpy2 = jest.fn();
 
@@ -76,7 +69,7 @@ describe('Video/getSDK', () => {
         expect(resolveSpy).toHaveBeenCalled();
       });
 
-      // expect(loadjs).not.toHaveBeenCalled();
+      expect(loadjs).not.toHaveBeenCalled();
     });
 
     it('should resolve when require allow and exist', async () => {
@@ -100,19 +93,22 @@ describe('Video/getSDK', () => {
       });
 
       expect((window as any).require).toHaveBeenCalled();
-      // expect(loadjs).not.toHaveBeenCalled();
+      expect(loadjs).not.toHaveBeenCalled();
     });
   });
 
   describe('failure pass', () => {
-    beforeEach(() => {
-      if (typeof jest.mock === 'function') {
-        jest.mock('loadjs', () => jest.fn().mockImplementation((url, settings) => {
-          setTimeout(() => settings.error(), 200);
-        }));
-      }
+    let loadjs;
 
-      getSDK = require('./getSDK').getSDK;
+    beforeEach(() => {
+      loadjs = jest.fn().mockImplementation((url, settings) => {
+        setTimeout(() => settings.error(), 200);
+      });
+      mockLoadjs(loadjs);
+    });
+
+    afterEach(() => {
+      mockLoadjs(false);
     });
 
     afterEach(() => {
@@ -121,7 +117,7 @@ describe('Video/getSDK', () => {
       }
     });
 
-    xit('should be rejected', async () => {
+    it('should be rejected', async () => {
       const rejectSpy = jest.fn();
 
       getSDK({

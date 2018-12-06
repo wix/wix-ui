@@ -1,5 +1,11 @@
-import * as loadjs from 'loadjs';
+import * as originalLoadjs from 'loadjs';
 import {ISDKConfig} from '../types';
+
+let loadjs = originalLoadjs;
+
+export function mockLoadjs(mockedLoadjs) {
+  loadjs = mockedLoadjs || originalLoadjs;
+}
 
 const stack = {};
 
