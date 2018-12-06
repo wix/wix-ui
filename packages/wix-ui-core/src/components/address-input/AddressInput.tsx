@@ -67,6 +67,10 @@ export interface AddressInputProps {
     locationIcon?: React.ReactNode;
     /** Inline styles */
     style?: object;
+    /** Input inline styles */
+    inputStyle?: object;
+    /** Option inline styles */
+    optionStyle?: object;
     /** Prefix for input */
     prefix?: React.ReactNode;
     /** Suffix for input */
@@ -85,8 +89,6 @@ export interface AddressInputProps {
     onMouseEnter?: () => void;
     /** Standard input onMouseLeave callback */
     onMouseLeave?: () => void;
-    /** Horizontal padding, for input component and dropdown options */
-    horizontalPadding?: number;
 }
 
 export interface AddressInputState {
@@ -289,9 +291,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     _renderOption(val) {
-        const {locationIcon, horizontalPadding} = this.props;
+        const {locationIcon, optionStyle} = this.props;
         return (
-          <div className={style.option} style={{ paddingRight: horizontalPadding, paddingLeft: horizontalPadding }}>
+          <div className={style.option} style={optionStyle}>
             {locationIcon && <div className={style.iconWrapper} data-hook="location-icon-wrapper">{locationIcon}</div>}
             <div className={style.optionContent}>{val}</div>
           </div>
@@ -317,7 +319,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, horizontalPadding} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, inputStyle} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -337,7 +339,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             onDoubleClick: this.props.onDoubleClick,
             onMouseEnter: this.props.onMouseEnter,
             onMouseLeave: this.props.onMouseLeave,
-            style: { paddingRight: horizontalPadding, paddingLeft: horizontalPadding }
+            style: inputStyle
         };
 
         const states = {};
