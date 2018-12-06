@@ -72,20 +72,20 @@ describe('AutoTestkit', () => {
 
     describe('code examples', () => {
       it('renders enzyme example', () => {
-        expect(driver.get.codeExampleAt(0).get.type()).toEqual('enzyme')
+        expect(driver.get.codeExampleAt(0).get.type()).toEqual('enzyme');
       });
 
       it('renders protractor example', () => {
-        expect(driver.get.codeExampleAt(1).get.type()).toEqual('protractor')
+        expect(driver.get.codeExampleAt(1).get.type()).toEqual('protractor');
       });
 
       it('renders puppeteer example', () => {
-        expect(driver.get.codeExampleAt(2).get.type()).toEqual('puppeteer')
+        expect(driver.get.codeExampleAt(2).get.type()).toEqual('puppeteer');
       });
 
       it('defaults to enzyme example for unknown type', () => {
-        expect(driver.get.codeExampleAt(3).get.type()).toEqual('enzyme')
-      })
+        expect(driver.get.codeExampleAt(3).get.type()).toEqual('enzyme');
+      });
     });
   });
 });

@@ -15,15 +15,14 @@ const Heading = require('../ui/heading').default;
 const styles = require('./styles.scss');
 
 const hasTestkitDocs = (metadata: Metadata): Boolean =>
-  Boolean(metadata.readmeTestkit) 
-  || (metadata.drivers && metadata.drivers.some(driver => Boolean(driver.descriptor)))
+  Boolean(metadata.readmeTestkit) ||
+  (metadata.drivers &&
+    metadata.drivers.some(driver => Boolean(driver.descriptor)));
 
 const tabs: ((a: Metadata) => string[]) = metadata => [
   'Usage',
   'API',
-  ...(hasTestkitDocs(metadata)
-    ? ['Testkit']
-    : []),
+  ...(hasTestkitDocs(metadata) ? ['Testkit'] : []),
   ...(metadata.readmeAccessibility ? ['Accessibility'] : []),
 ];
 

@@ -28,7 +28,10 @@ class CodeExampleDriver extends Driver {
   }
 
   get = {
-    type: () => ['enzyme', 'protractor', 'puppeteer'].find(type => this.has(`code-example-${type}`))
+    type: () =>
+      ['enzyme', 'protractor', 'puppeteer'].find(type =>
+        this.has(`code-example-${type}`),
+      ),
   };
 }
 
@@ -44,7 +47,7 @@ class AutoTestkitDriver extends Driver {
     },
     codeExampleAt: index => {
       const codeSample = this.select('driver').at(index);
-      return createCodeExampleDriver().reuse(codeSample)
+      return createCodeExampleDriver().reuse(codeSample);
     },
     heading: () => this.select('heading').text(),
     error: () => this.select('error').text(),
@@ -140,5 +143,4 @@ export const createFieldsDocumentationDriver = () =>
 export const createAutoTestkitDriver = () => r(new AutoTestkitDriver());
 export const createDriverDocumentationDriver = () =>
   r(new DriverDocumentationDriver());
-  export const createCodeExampleDriver = () =>
-  r(new CodeExampleDriver());
+export const createCodeExampleDriver = () => r(new CodeExampleDriver());

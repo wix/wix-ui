@@ -7,7 +7,7 @@ import parser from './parser';
 const shouldHideForE2E = global.self === global.top;
 
 const prepareParsedProps = props => {
-  const asList = Object.keys(props).map(key => ({...props[key], name: key}));
+  const asList = Object.keys(props).map(key => ({ ...props[key], name: key }));
 
   const required = asList.filter(prop => prop.required);
   const notRequired = asList.filter(prop => !prop.required);
@@ -59,7 +59,7 @@ const renderPropType = (type = {}) => {
       wrap('shape')(
         <ul>
           {Object.keys(value)
-            .map(key => ({...value[key], key}))
+            .map(key => ({ ...value[key], key }))
             .map((v, i) => (
               <li key={i}>
                 {v.key}
@@ -75,7 +75,7 @@ const renderPropType = (type = {}) => {
         </ul>,
       ),
 
-    arrayOf: value => wrap('arrayOf')(renderPropType(value))
+    arrayOf: value => wrap('arrayOf')(renderPropType(value)),
   };
 
   if (type.value) {
@@ -87,17 +87,17 @@ const renderPropType = (type = {}) => {
 
 const methodsToMarkdown = methods =>
   methods
-    .filter(({name}) => !name.startsWith('_'))
+    .filter(({ name }) => !name.startsWith('_'))
     .map(
       method =>
         `* __${method.name}(${method.params
-          .map(({name}) => name)
+          .map(({ name }) => name)
           .join(', ')})__: ${method.docblock || ''}`,
     )
     .join('\n');
 
-const AutoDocs = ({source = '', parsedSource, showTitle}) => {
-  const {description, displayName, props, composes = [], methods = []} =
+const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
+  const { description, displayName, props, composes = [], methods = [] } =
     parsedSource || parser(source);
 
   const propRow = (prop, index) => (
@@ -164,7 +164,7 @@ const AutoDocs = ({source = '', parsedSource, showTitle}) => {
           </tbody>
         </table>
 
-        {methods.filter(({name}) => !name.startsWith('_')).length > 0 && (
+        {methods.filter(({ name }) => !name.startsWith('_')).length > 0 && (
           <h2>
             Available <code>methods</code>
           </h2>
@@ -178,11 +178,11 @@ const AutoDocs = ({source = '', parsedSource, showTitle}) => {
 AutoDocs.propTypes = {
   source: PropTypes.string,
   parsedSource: PropTypes.object,
-  showTitle: PropTypes.bool
+  showTitle: PropTypes.bool,
 };
 
 AutoDocs.defaultProps = {
-  showTitle: true
+  showTitle: true,
 };
 
 export default AutoDocs;

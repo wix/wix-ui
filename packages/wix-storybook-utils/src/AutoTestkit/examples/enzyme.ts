@@ -23,8 +23,8 @@ const wrapper = mount(<${componentName} dataHook={dataHook} />);
 const ${componentLC}Driver = ${enzymeTestkitFactoryName}({wrapper, dataHook});
 
 expect(${componentLC}Driver.${
-driverName ? `${driverName}.` : ''
-}exists()).toBeTruthy();
+    driverName ? `${driverName}.` : ''
+  }exists()).toBeTruthy();
 
 /**********************
  ReactTestUtils example
@@ -38,7 +38,7 @@ const wrapper = div.appendChild(
 const ${componentLC}Driver = ${testkitFactoryName}({wrapper, dataHook});
 
 expect(${componentLC}Driver.${
-  driverName ? `${driverName}.` : ''
-}exists()).toBeTruthy();
+    driverName ? `${driverName}.` : ''
+  }exists()).toBeTruthy();
   `;
 };

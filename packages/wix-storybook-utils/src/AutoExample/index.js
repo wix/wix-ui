@@ -12,7 +12,7 @@ import {
   Toggle,
   Input,
   NumberInput,
-  List
+  List,
 } from './components';
 import { Layout, Cell } from '../ui/Layout';
 import SectionCollapse from './components/section-collapse';
