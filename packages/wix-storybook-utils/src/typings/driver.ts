@@ -1,6 +1,7 @@
 export interface Driver {
   file: string;
-  descriptor: Descriptor[];
+  descriptor?: Descriptor[];
+  error?: string;
 }
 
 export interface Descriptor {

@@ -1,31 +1,47 @@
 import * as React from 'react';
 import CodeBlock from '../CodeBlock';
+import examples from './examples';
 
-const fromWSR = folder => `from 'wix-style-react/dist/${folder}'`;
+const pathInWSR = folder => `wix-style-react/dist/${folder}`;
 const capitalize = text => `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 const lowerCase = text => `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
 
-export const CodeExample = ({ driverName, componentName }) => {
+const generateCodeExampleForDriver = ({
+  driverName,
+  driverFilename,
+  componentName,
+}) => {
   const componentLC = lowerCase(componentName);
   const testkitFactoryName = `${componentLC}TestkitFactory`;
+  const capitalizedTestkitFactoryName = `${capitalize(testkitFactoryName)}`;
+  const pathToTestkit = pathInWSR('testkit');
 
-  const enzymeTestkitFactoryName = `enzyme${capitalize(testkitFactoryName)}`;
+  const { type, generate } = examples.find(
+    ({ pattern }) => !pattern || pattern.test(driverFilename),
+  );
 
-  const source = `
-import React from 'react';
-import {mount} from 'enzyme';
-import {${testkitFactoryName}} ${fromWSR('testkit')}
-import {${testkitFactoryName} as ${enzymeTestkitFactoryName}} ${fromWSR(
-    'testkit/enzyme',
-  )};
+  return {
+    type,
+    source: generate({
+      capitalizedTestkitFactoryName,
+      componentLC,
+      componentName,
+      driverName,
+      pathToTestkit,
+      testkitFactoryName,
+    }),
+  };
+};
 
-const dataHook = 'myDataHook';
-const wrapper = mount(<${componentName} dataHook={dataHook}></${componentName}>);
-const ${componentLC}Driver = ${enzymeTestkitFactoryName}({wrapper, dataHook});
-
-expect(${componentLC}Driver.${
-    driverName ? `${driverName}.` : ''
-  }exists()).toBeTruthy();
-`;
-  return <CodeBlock source={source} type="jsx" />;
+export const CodeExample = ({ driverName, driverFilename, componentName }) => {
+  const { source, type } = generateCodeExampleForDriver({
+    driverName,
+    driverFilename,
+    componentName,
+  });
+  return (
+    <span data-hook={`auto-testkit-driver-code-example-${type}`}>
+      <CodeBlock source={source} type="jsx" />
+    </span>
+  );
 };

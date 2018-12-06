@@ -17,6 +17,36 @@ describe('AutoTestkit', () => {
             },
           ],
         },
+        {
+          file: 'component.protractor.driver.js',
+          descriptor: [
+            {
+              name: 'click',
+              args: [],
+              type: 'function',
+            },
+          ],
+        },
+        {
+          file: 'component.puppeteer.driver.js',
+          descriptor: [
+            {
+              name: 'click',
+              args: [],
+              type: 'function',
+            },
+          ],
+        },
+        {
+          file: 'component.unknown.driver.js',
+          descriptor: [
+            {
+              name: 'click',
+              args: [],
+              type: 'function',
+            },
+          ],
+        },
       ],
     };
 
@@ -38,6 +68,24 @@ describe('AutoTestkit', () => {
 
     it('has driver documentation tables', () => {
       expect(driver.get.driverAt(0).get.name()).toBe(component.drivers[0].file);
+    });
+
+    describe('code examples', () => {
+      it('renders enzyme example', () => {
+        expect(driver.get.codeExampleAt(0).get.type()).toEqual('enzyme');
+      });
+
+      it('renders protractor example', () => {
+        expect(driver.get.codeExampleAt(1).get.type()).toEqual('protractor');
+      });
+
+      it('renders puppeteer example', () => {
+        expect(driver.get.codeExampleAt(2).get.type()).toEqual('puppeteer');
+      });
+
+      it('defaults to enzyme example for unknown type', () => {
+        expect(driver.get.codeExampleAt(3).get.type()).toEqual('enzyme');
+      });
     });
   });
 });

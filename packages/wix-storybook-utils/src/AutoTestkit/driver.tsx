@@ -39,6 +39,11 @@ export class Driver {
   protected select = hook =>
     this.component.find(`[data-hook="auto-testkit-${this.hookPrefix}${hook}"]`);
 
+  protected has = hook =>
+    this.component.exists(
+      `[data-hook="auto-testkit-${this.hookPrefix}${hook}"]`,
+    );
+
   create = (
     props,
     spy = err => {
