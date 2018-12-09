@@ -58,6 +58,19 @@ describe('Dropdown', () => {
       await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
     });
 
+    it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
+      const driver = createDriver(createDropdown({options}));
+      driver.click();
+
+      const arrowDownPreventDefaultSpy = jest.fn();
+      driver.popoverKeyDown('ArrowDown', arrowDownPreventDefaultSpy);
+      expect(arrowDownPreventDefaultSpy).toHaveBeenCalled();
+
+      const arrowUpPreventDefaultSpy = jest.fn();
+      driver.popoverKeyDown('ArrowUp', arrowUpPreventDefaultSpy);
+      expect(arrowUpPreventDefaultSpy).toHaveBeenCalled();
+    });
+
     it('should show content on hover', async () => {
       const driver = createDriver(createDropdown({options, openTrigger: HOVER}));
 

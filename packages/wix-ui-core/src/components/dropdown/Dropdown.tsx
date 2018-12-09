@@ -144,7 +144,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
     }
 
     this.open(() => {
-      this.dropdownContentRef && this.dropdownContentRef.onKeyDown(eventKey);
+      this.dropdownContentRef && this.dropdownContentRef.onKeyDown(eventKey, evt);
       switch (eventKey) {
         case 'Enter': {
           this.onKeyboardSelect();

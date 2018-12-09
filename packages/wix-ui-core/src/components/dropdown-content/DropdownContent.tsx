@@ -99,12 +99,14 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     return isValidIndex ? options[hoveredIndex] : null;
   }
 
-  onKeyDown(eventKey: string) {
+  onKeyDown(eventKey: string, evt: React.KeyboardEvent<HTMLElement>) {
     switch (eventKey) {
       case 'ArrowUp': {
-        return this.hoverNextItem(-1);
+          evt.preventDefault();
+          return this.hoverNextItem(-1);
       }
       case 'ArrowDown': {
+        evt.preventDefault();
         return this.hoverNextItem(1);
       }
       case 'ArrowLeft':
