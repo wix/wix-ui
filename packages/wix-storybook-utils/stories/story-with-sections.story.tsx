@@ -6,6 +6,7 @@ import {
   liveCode,
   code,
   importExample,
+  api,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -29,6 +30,8 @@ export default {
               description: 'this is the best code',
               source: '"hello"',
             }),
+
+            api({}),
           ],
         }),
         tab({

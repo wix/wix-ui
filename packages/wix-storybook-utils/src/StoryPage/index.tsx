@@ -20,7 +20,7 @@ const prepareMetadata: ((StoryPageProps) => Metadata) = props => ({
 const StoryPage: React.StatelessComponent<StoryPageProps> = (
   props: StoryPageProps,
 ) => {
-  const passThrough = {
+  const passThrough: StoryConfig = {
     ...props,
     metadata: prepareMetadata(props),
   };
