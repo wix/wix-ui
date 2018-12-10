@@ -6,6 +6,7 @@ export enum SectionType {
   Error = 'error',
   Tab = 'tab',
   Api = 'api',
+  Playground = 'playground',
 }
 
 export interface StorySection {
@@ -48,6 +49,7 @@ export interface TabSection extends StorySection {
 export interface ErrorSection extends StorySection {}
 
 export interface ApiSection extends StorySection {}
+export interface PlaygroundSection extends StorySection {}
 
 export interface SectionsMeta {
   tabs: string[];

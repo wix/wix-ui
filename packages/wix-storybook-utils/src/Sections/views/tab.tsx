@@ -10,6 +10,7 @@ import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
 import { api } from './api';
+import { playground } from './playground';
 import { isTab, extractTabs } from '../extract-tabs';
 
 const styles = require('../styles.scss');
@@ -23,6 +24,7 @@ const views = {
   description,
   code,
   api,
+  playground,
   tab: (section: TabSection, storyConfig: StoryConfig): React.ReactNode => {
     const tabs = extractTabs(section);
     return render(section, tabs, storyConfig);

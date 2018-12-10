@@ -7,6 +7,7 @@ import {
   ErrorSection,
   TabSection,
   ApiSection,
+  PlaygroundSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -64,5 +65,13 @@ export const tab: ((object: Partial<TabSection>) => TabSection) = rest =>
 export const api: ((object: Partial<ApiSection>) => ApiSection) = rest =>
   baseSection({
     type: SectionType.Api,
+    ...rest,
+  });
+
+export const playground: ((
+  object: Partial<PlaygroundSection>,
+) => PlaygroundSection) = rest =>
+  baseSection({
+    type: SectionType.Playground,
     ...rest,
   });
