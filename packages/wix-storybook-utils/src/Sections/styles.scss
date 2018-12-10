@@ -1,7 +1,31 @@
+@import '../ui/typography.scss';
+
 .title {
-  margin: 1em 0;
+  margin-top: 30px;
+  font-size: 36px;
+  line-height: 1.33;
+  color: #162d3d;
 }
 
 .subtitle {
-  margin-bottom: 2em;
+  margin-bottom: 10px;
+  @include font(medium);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #32536a;
+}
+
+.title,
+.subtitle {
+  @include font(medium);
+  font-weight: 500;
+}
+
+.section {
+  margin: 20px 0;
+}
+
+.section-title {
+  @include font(roman);
+  font-size: 20px;
 }

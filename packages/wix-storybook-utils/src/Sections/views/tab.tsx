@@ -11,7 +11,9 @@ import { liveCode } from './live-code';
 import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
-import { extractMeta } from '../extract-meta';
+import { isTab, extractMeta } from '../extract-meta';
+
+const styles = require('../styles.scss');
 
 const TabbedView = require('../../TabbedView').default;
 
@@ -37,7 +39,13 @@ function render({
   return (
     <TabbedView tabs={meta.tabs}>
       {sections.map((section, key) => (
-        <div key={key}>{getView(section.type)(section)}</div>
+        <div className={styles.section} key={key}>
+          {!isTab(section) && section.title && (
+            <div className={styles.sectionTitle}>{section.title}</div>
+          )}
+
+          {getView(section.type)(section)}
+        </div>
       ))}
     </TabbedView>
   );

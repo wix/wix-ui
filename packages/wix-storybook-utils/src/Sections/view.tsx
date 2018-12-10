@@ -4,7 +4,6 @@ import { StoryConfig } from '../typings/story-config';
 
 import { tab } from './views/tab';
 
-const Heading = require('../ui/heading').default;
 const styles = require('./styles.scss');
 
 export const View: React.StatelessComponent<StoryConfig> = ({
@@ -14,9 +13,7 @@ export const View: React.StatelessComponent<StoryConfig> = ({
 }) => (
   <div>
     <div>
-      <div className={styles.title}>
-        <Heading>{storyName}</Heading>
-      </div>
+      <div className={styles.title}>{storyName}</div>
       {metadata.displayName && (
         <div className={styles.subtitle}>{`<${metadata.displayName}/>`}</div>
       )}

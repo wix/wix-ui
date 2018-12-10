@@ -1,0 +1,10 @@
+@import '../../ui/typography.scss';
+
+.description {
+  margin: 24px 0 18px 0;
+  @include font(light);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #162d3d;
+}

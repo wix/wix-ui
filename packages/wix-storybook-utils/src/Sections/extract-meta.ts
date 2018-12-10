@@ -4,7 +4,7 @@ import {
   SectionsMeta,
 } from '../typings/story-section';
 
-const isTab: ((StorySection) => boolean) = ({ type }) =>
+export const isTab: ((StorySection) => boolean) = ({ type }) =>
   (type as SectionType) === SectionType.Tab;
 
 export function extractMeta(
