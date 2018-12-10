@@ -1,17 +1,11 @@
-import {
-  StorySection,
-  TabSection,
-  SectionType,
-} from '../typings/story-section';
+import { TabSection, SectionType } from '../typings/story-section';
 
 export const isTab: ((StorySection) => boolean) = ({ type }) =>
   (type as SectionType) === SectionType.Tab;
 
-export function extractTabs(section: TabSection): string[] {
-  return section.sections.reduce((tabs, tabSection) => {
-    const extractTab = ({ type }: StorySection): SectionType[] =>
-      isTab(tabSection) ? [tabSection.title as SectionType] : [];
-
-    return tabs.concat(extractTab(tabSection));
-  }, []);
-}
+export const extractTabs = (section: TabSection): string[]  =>
+  section.sections.reduce(
+    (tabs, tabSection) =>
+      tabs.concat(isTab(tabSection) ? [tabSection.title as SectionType] : []),
+    [],
+  );
