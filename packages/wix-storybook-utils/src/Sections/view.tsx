@@ -19,6 +19,6 @@ export const View: React.StatelessComponent<StoryConfig> = ({
       )}
     </div>
 
-    {tab(sections)}
+    {tab(sections, metadata)}
   </div>
 );

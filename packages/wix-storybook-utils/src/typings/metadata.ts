@@ -7,8 +7,8 @@ export interface Metadata {
   props: {
     [s: string]: Prop;
   };
-  readme: string;
-  readmeTestkit: string;
-  readmeAccessibility: string;
-  drivers: Driver[];
+  readme?: string;
+  readmeTestkit?: string;
+  readmeAccessibility?: string;
+  drivers?: Driver[];
 }

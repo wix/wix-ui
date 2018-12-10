@@ -1,8 +1,8 @@
-import { extractMeta } from './extract-meta';
+import { combineMeta } from './combine-meta';
 
 import * as Section from './';
 
-describe('extractMeta()', () => {
+describe('combineMeta()', () => {
   it('should extract tab data and return under `meta` property', () => {
     const expectedTabs = ['first tab', 'second tab'];
 
@@ -14,14 +14,20 @@ describe('extractMeta()', () => {
 
     const codeSection = source => Section.code({ source });
 
-    const assert = [
+    const tabs = [
       tabSection(expectedTabs[0], [codeSection('"hello";')]),
       tabSection(expectedTabs[1], [codeSection('"hello";')]),
     ];
 
-    expect(extractMeta(assert)).toEqual({
-      sections: assert,
-      meta: {
+    const metadata = {
+      displayName: 'test',
+      props: {},
+    };
+
+    expect(combineMeta(tabs, metadata)).toEqual({
+      sections: tabs,
+      metadata: {
+        ...metadata,
         tabs: expectedTabs,
       },
     });

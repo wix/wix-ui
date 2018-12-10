@@ -4,22 +4,28 @@ import {
   SectionsMeta,
 } from '../typings/story-section';
 
+import { Metadata } from '../typings/metadata';
+
 export const isTab: ((StorySection) => boolean) = ({ type }) =>
   (type as SectionType) === SectionType.Tab;
 
-export function extractMeta(
+export function combineMeta(
   sections: StorySection[],
-): { sections: StorySection[]; meta: SectionsMeta } {
+  metadata: Metadata,
+): { sections: StorySection[]; metadata: SectionsMeta & Metadata } {
   return sections.reduce(
     (accumulator, section) => {
       const extractTab = ({ type }: StorySection): SectionType[] =>
         isTab(section) ? [section.title as SectionType] : [];
 
       return {
-        meta: { tabs: accumulator.meta.tabs.concat(extractTab(section)) },
+        metadata: {
+          ...metadata,
+          tabs: accumulator.metadata.tabs.concat(extractTab(section)),
+        },
         sections: accumulator.sections.concat(section),
       };
     },
-    { sections: [], meta: { tabs: [] } },
+    { sections: [], metadata: { ...metadata, tabs: [] } },
   );
 }
