@@ -31,6 +31,7 @@ Components.add('Divider', () => <DividerStory />);
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
 import './Input/Input.story';
 import './InputWithOptions.story';
+import './Dropdown.story';
 import './IconWithOptions.story';
 import './Label.story';
 import './LabelWithOptions.story';
