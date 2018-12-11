@@ -6,6 +6,8 @@ export type VerifierType = (url: string | Array<string>) => boolean;
 
 export interface ICommonProps {
   src: string | Array<string>;
+  videoId?: string;
+  productId?: string;
   loop?: boolean;
   volume?: number;
   controls?: boolean;
@@ -92,6 +94,7 @@ export interface IPropsToPlayer {
   onLogoClick?: string | Function;
   preload?: string | Function;
   showTitle?: string | Function;
+  videoId?: string | Function;
 }
 
 export interface IMethodsToPlayer {
@@ -164,6 +167,8 @@ export interface IPlayablePlayerAPI {
   destroy(): void;
   on(event: string, fn?: Function): void;
   attachToElement(el: HTMLDivElement): void;
+  setWixBIVideoID(videoId: string): void;
+  setWixBIProduct(productId: string): void;
 }
 
 export interface ITwitchPlayerAPI {

@@ -2,7 +2,8 @@ import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
 import isString = require('lodash/isString');
 import isArray = require('lodash/isArray');
-import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
+import {create, VIDEO_EVENTS, ENGINE_STATES, registerModule} from 'playable';
+import { PlaybackBIModule } from '@wix/playback-bi-module'
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';
 import {
@@ -73,6 +74,9 @@ const mapPropsToPlayer: IPropsToPlayer = {
       player.hideProgressControl();
     }
   },
+  videoId: (instance, player, nextVideoId) => {
+    player.setWixBIVideoID(nextVideoId);
+  }
 };
 
 const mapMethodsToPlayer: IMethodsToPlayer = {
@@ -117,6 +121,12 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
   }
 
   componentDidMount() {
+    const {productId, videoId } = this.props;
+
+    if (productId && videoId) {
+      registerModule(PlaybackBIModule.moduleName, PlaybackBIModule);
+    }
+
     this.initPlayer();
   }
 
@@ -131,6 +141,7 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     const {
       src, playing, muted, title, showTitle, loop, volume, controls, preload,
       onReady, onDuration, onProgress, logoUrl, onLogoClick, alwaysShowLogo,
+      productId, videoId,
     } = this.props;
 
     this.player = create({
@@ -194,6 +205,11 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     this.player.on(VIDEO_EVENTS.CURRENT_TIME_UPDATED, currentTime => {
       onProgress(currentTime);
     });
+
+    if (productId && videoId) {
+      this.player.setWixBIVideoID(videoId);
+      this.player.setWixBIProduct(productId);
+    }
   }
 
   onPlayClick = (): void => {
