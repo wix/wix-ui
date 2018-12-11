@@ -19,10 +19,10 @@ additional features, both visual and behavioral, adding image customization's.
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | defaultImage | string | ✖  | ✖ | URL to load when src is not provided. |
 | errorImage | string | ✖  | ✖ | URL to load if src (or defaultImage) loading result in an error. |
-| crop | object | ✖  | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor).  |
-| filter | object | ✖  | ✖ | Used to transform the image using different graphical techniques.  |
+| crop | Crop | ✖  | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor).  |
+| filter | Filter | ✖  | ✖ | Used to transform the image using different graphical techniques.  |
 
-Both **crop** and **filter** are props of the object type, representing different requirements which effect the Image's visual. 
+Both **crop** and **filter** represent different modifications for the image's appearance. 
 
 **Crop:**
 
