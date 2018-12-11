@@ -206,15 +206,16 @@ legend:
 
 (empty) - source was not provided
 
-### Test Driver API
+### Test Driver API 
 
-we provide several helper functions for the Image testkit:
+!! TBD !!
+
+we provide several helper functions for the Image's testkit:
  
 | name   | type                    | description |
 |:-------|:------------------------|:------------|
-| nativeElement | () => HTMLImageElement | return the native image element. |  
-| source | () => string \| null | return the value of 'src' attribute of the element. | 
-| hasStylableState | (stateName: string): boolean | return `true` when component has stylable state. |
-
+| getUrl | | | 
+| imageCropped | | | 
+| getResizeMode | | | 
 
 [How to use drivers](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-test-utils#testkit-helpers)
