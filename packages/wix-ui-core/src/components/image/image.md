@@ -54,14 +54,6 @@ Both **crop** and **filter** represent different modifications for the image's a
     Threshold: the minimum brightness change that will be affected by the filter and defines an edge in the image. Valid values: [0 : 255.0].
 
 
-Image image = new Image(fileDescriptor)
-                .brightness(brightness)
-                .contrast(contrast)
-                .hue(hue)
-                .saturation(saturation)
-                .blur(percentage)
-                .unsharpMask(radius, amount, threshold);
-
 **Example 1:**
 
 ```jsx
