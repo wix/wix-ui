@@ -38,12 +38,12 @@ Both **crop** and **filter** represent different modifications for the image's a
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| brightness | number | image dimensions | ✔ | Increases or reduces the level of image brightness as percentage of the original brightness. Valid values: [-100 : 100]. |
-| contrast | number | image dimensions | ✔ | Increases or reduces the difference between the image's lighter and darker areas, as percentage of the original contrast. Valid values: [-100 : 100]. |
+| brightness | number | ✖ | ✖ | Increases or reduces the level of image brightness as percentage of the original brightness. Valid values: [-100 : 100]. |
+| contrast | number | ✖ | ✖ | Increases or reduces the difference between the image's lighter and darker areas, as percentage of the original contrast. Valid values: [-100 : 100]. |
 | hue | number | ✖ | ✖ | Shifts the colors of the image either clockwise or counter-clockwise around the color wheel. Valid values are [-180 : 180] degrees. |
 | saturation | number | ✖  | ✖ | Increases or reduces the color intensity of the photo, as percentage of the original saturation. Valid values: [-100 : 100]. |
 | blur | number | ✖  | ✖ | Applies a blur effect to the image, as percentage of the original blurriness. Valid values: [0 : 100]. |
-| unsharpMask | (radius: number, amount: number, threshold) => Image; | ✖  | ✖ | increases the image's visible sharpness by enhancing the contrast along the edges in the image. |
+| unsharpMask | {radius: number, amount: number, threshold} | ✖  | ✖ | increases the image's visible sharpness by enhancing the contrast along the edges in the image. |
 
 **UnsharpMask** accepts radius, amount and threshold as parameters, this is why: 
 
@@ -53,6 +53,14 @@ Both **crop** and **filter** represent different modifications for the image's a
 
     Threshold: the minimum brightness change that will be affected by the filter and defines an edge in the image. Valid values: [0 : 255.0].
 
+
+Image image = new Image(fileDescriptor)
+                .brightness(brightness)
+                .contrast(contrast)
+                .hue(hue)
+                .saturation(saturation)
+                .blur(percentage)
+                .unsharpMask(radius, amount, threshold);
 
 **Example 1:**
 
@@ -88,6 +96,8 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                         className="myImage"
                         defaultImage="https://c1.staticflickr.com/7/6005/5927758528_a2060423e7_b.jpg"
                         errorImage="https://cdn.pixabay.com/photo/2016/10/10/12/02/eagle-owl-1728218_960_720.jpg"
+                        crop={width: 200, height: 100}
+                        filter={brightness: 50, unsharpMask: {radius: 100, Amount: 8, threshold: 80.2}}
                     />
                 </div>
             );
@@ -210,7 +220,7 @@ legend:
 
 !! TBD !!
 
-we provide several helper functions for the Image's testkit:
+We provide several helper functions for the Image's testkit:
  
 | name   | type                    | description |
 |:-------|:------------------------|:------------|
