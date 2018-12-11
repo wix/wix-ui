@@ -45,14 +45,7 @@ Both **crop** and **filter** represent different modifications for the image's a
 | blur | number | ✖  | ✖ | Applies a blur effect to the image, as percentage of the original blurriness. Valid values: [0 : 100]. |
 | unsharpMask | {radius: number, amount: number, threshold} | ✖  | ✖ | increases the image's visible sharpness by enhancing the contrast along the edges in the image. |
 
-**UnsharpMask** accepts radius, amount and threshold as parameters, this is why: 
-
-    Radius: the radius of the area to which each pixel is compared. Valid values: [0.1 : 128.0].
-
-    Amount: defines how much lighter or darker the edge border will be, as percentage of the original image (divided by 100, so that 1 represents 100%). Valid values: [0 : 10.0].
-
-    Threshold: the minimum brightness change that will be affected by the filter and defines an edge in the image. Valid values: [0 : 255.0].
-
+**UnsharpMask** accepts radius, amount and threshold as parameters, you can read about it in the media-platform-js-sdk [docs](https://wix.github.io/media-platform-js-sdk/images/).
 
 **Example 1:**
 
