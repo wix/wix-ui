@@ -172,6 +172,11 @@ An alt attribute's value should clearly and concisely describe the image's conte
 ```
 When an alt attribute is not present on an image, some screen readers may announce the image's file name instead. This can be a confusing experience if the file name isn't representative of the image's contents.
 
+A disclaimer about title:
+
+The title attribute is not an acceptable substitute for an alt attribute. 
+Avoid duplicating the alt attribute's value in a title attribute declared on the same image. Doing so may cause some screen readers to announce the description twice, creating a confusing experience.
+
 ## Behavior
 
 #### Resize Modes
