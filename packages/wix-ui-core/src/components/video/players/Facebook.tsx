@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
 import isString = require('lodash/isString');
-import uniqueId = require('lodash/uniqueId');
 import {getSDK} from '../utils'
 import playerHOC from './playerHOC';
 import {EVENTS, PROGRESS_INTERVAL} from '../constants';
@@ -67,15 +66,17 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
   player: IFacebookPlayerAPI;
-  playerID: string = uniqueId('facebook-player-');
   eventEmitter: IEventEmitter;
+  containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
   durationTimeout: number;
   progressTimeout: number;
+  unsubscribeFBEvents: Function = () => null;
 
   constructor(props: IFacebookProps) {
     super(props);
 
+    this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
   }
 
@@ -89,12 +90,13 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
   componentWillUnmount() {
     this.eventEmitter.removeAllListeners();
+    this.unsubscribeFBEvents();
     this.stopAwaitDuration();
     this.stopProgress();
   }
 
   initPlayer = FB => {
-    const {appId, muted, onReady, onError} = this.props;
+    const {appId} = this.props;
 
     FB.init({
       appId,
@@ -102,35 +104,45 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       version: 'v2.5'
     });
 
-    FB.Event.subscribe('xfbml.ready', msg => {
-      if (msg.type === 'video' && msg.id === this.playerID) {
-        this.player = msg.instance;
+    FB.Event.subscribe('xfbml.ready', this.handleReady);
+    FB.Event.subscribe('iframeplugin:create', this.setAllowAttribute);
 
-        this.player.subscribe('startedPlaying', () => {
-          this.eventEmitter.emit(EVENTS.PLAYING);
-          this.progress();
-        });
+    this.unsubscribeFBEvents = () => {
+      FB.Event.unsubscribe('xfbml.ready', this.handleReady);
+      FB.Event.unsubscribe('iframeplugin:create', this.setAllowAttribute);
+    }
+  }
 
-        this.player.subscribe('paused', () => {
-          this.eventEmitter.emit(EVENTS.PAUSED);
-          this.stopProgress();
-        });
+  handleReady = msg => {
+    const {muted, onReady, onError} = this.props;
 
-        this.player.subscribe('finishedPlaying', () => {
-          this.eventEmitter.emit(EVENTS.ENDED);
-          this.stopProgress();
-        });
+    if (msg.type === 'video') {
+      this.player = msg.instance;
 
-        this.player.subscribe('error', onError);
+      this.player.subscribe('startedPlaying', () => {
+        this.eventEmitter.emit(EVENTS.PLAYING);
+        this.progress();
+      });
 
-        if (!muted) {
-          this.player.unmute();
-        }
+      this.player.subscribe('paused', () => {
+        this.eventEmitter.emit(EVENTS.PAUSED);
+        this.stopProgress();
+      });
 
-        this.awaitDuration();
-        onReady();
+      this.player.subscribe('finishedPlaying', () => {
+        this.eventEmitter.emit(EVENTS.ENDED);
+        this.stopProgress();
+      });
+
+      this.player.subscribe('error', onError);
+
+      if (!muted) {
+        this.player.unmute();
       }
-    })
+
+      this.awaitDuration();
+      onReady();
+    }
   }
 
   awaitDuration = () => {
@@ -161,13 +173,27 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     window.clearTimeout(this.progressTimeout);
   }
 
+  setAllowAttribute = () => {
+    if (!this.containerRef.current) {
+      return;
+    }
+
+    const iframe = this.containerRef.current.querySelector('iframe');
+
+    if (!iframe) {
+      return;
+    }
+
+    iframe.setAttribute('allow', 'autoplay; encrypted-media');
+  }
+
   render() {
     const { src, playing, controls } = this.props;
 
     return (
       <div
+        ref={this.containerRef}
         className={`fb-video ${styles.playerContainer}`}
-        id={this.playerID}
         data-href={src}
         data-autoplay={playing ? 'true' : 'false'}
         data-allowfullscreen="true"
