@@ -3,7 +3,7 @@
 ## Description
 
 The **Image** component embeds an image into the document much like the HTML \<img> element. It also supports
-additional features, adding image customization's.
+additional features, both visual and behavioral, adding image customization's.
 
 ## API
 
@@ -17,10 +17,42 @@ additional features, adding image customization's.
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
-| defaultImage | string | - | ✖ | URL to load when src is not provided. |
-| errorImage | string | - | ✖ | URL to load if src (or defaultImage) loading result in an error. |
-| crop | {width: number, height: number, x: number, y: number, scale: number} | ✖ | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor). |
-| filter | {brightness: number, contrast: number, hue: number, saturation: number, blur: number, unsharpMask: (radius: number, amount: number, threshold)} | ✖ | ✖ | Used to transform the image using different graphical techniques.  |
+| defaultImage | string | ✖  | ✖ | URL to load when src is not provided. |
+| errorImage | string | ✖  | ✖ | URL to load if src (or defaultImage) loading result in an error. |
+| crop | object | ✖  | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor).  |
+| filter | object | ✖  | ✖ | Used to transform the image using different graphical techniques.  |
+
+Both **crop** and **filter** are props of the object type, representing different requirements which effect the Image's visual. 
+
+**Crop:**
+
+| name        | type       | default | required | description       |
+| ----------- | ---------- | ------- | -------- | ----------------- |
+| width | number | image dimensions | ✔ | An event handler triggered by the state's status. |
+| height | number | image dimensions | ✔ | An event handler setting an Error state. |
+| x | number | ✖ | ✖ | Defines how the Image responds to the height and width of its content box. |
+| y | number | ✖  | ✖ | URL to load when src is not provided. |
+| scale | number | ✖  | ✖ | URL to load if src (or defaultImage) loading result in an error. |
+
+**Filter:**
+
+| name        | type       | default | required | description       |
+| ----------- | ---------- | ------- | -------- | ----------------- |
+| brightness | number | image dimensions | ✔ | Increases or reduces the level of image brightness as percentage of the original brightness. Valid values: [-100 : 100]. |
+| contrast | number | image dimensions | ✔ | Increases or reduces the difference between the image's lighter and darker areas, as percentage of the original contrast. Valid values: [-100 : 100]. |
+| hue | number | ✖ | ✖ | Shifts the colors of the image either clockwise or counter-clockwise around the color wheel. Valid values are [-180 : 180] degrees. |
+| saturation | number | ✖  | ✖ | Increases or reduces the color intensity of the photo, as percentage of the original saturation. Valid values: [-100 : 100]. |
+| blur | number | ✖  | ✖ | Applies a blur effect to the image, as percentage of the original blurriness. Valid values: [0 : 100]. |
+| unsharpMask | (radius: number, amount: number, threshold) => Image; | ✖  | ✖ | increases the image's visible sharpness by enhancing the contrast along the edges in the image. |
+
+**UnsharpMask** accepts radius, amount and threshold as parameters, this is why: 
+
+    Radius: the radius of the area to which each pixel is compared. Valid values: [0.1 : 128.0].
+
+    Amount: defines how much lighter or darker the edge border will be, as percentage of the original image (divided by 100, so that 1 represents 100%). Valid values: [0 : 10.0].
+
+    Threshold: the minimum brightness change that will be affected by the filter and defines an edge in the image. Valid values: [0 : 255.0].
+
 
 **Example 1:**
 
@@ -144,26 +176,6 @@ When an alt attribute is not present on an image, some screen readers may announ
 When an `<img />` has no `src` or  `srcset` as props - or even when it fails to load the specified image, some web browsers show a "broken image" placeholder or an outline around the element. These typically do not conform to the page design causing the page to appear broken.
 
 The `<Image />` component allows supplying `defaultImage`, and in cases where the source fails to load - `errorImage` will be displayed. If `errorImage` is not supplied the `<Image/>` component will render an empty pixel.
-
-#### Filter options
-
-* Brightness: increases or reduces the level of image brightness as percentage of the original brightness. Valid values: [-100 : 100].
-
-* Contrast: increases or reduces the difference between the image's lighter and darker areas, as percentage of the original contrast. Valid values: [-100 : 100].
-
-* Hue: shifts the colors of the image either clockwise or counter-clockwise around the color wheel. Valid values are [-180 : 180] degrees.
-
-* Saturation: increases or reduces the color intensity of the photo, as percentage of the original saturation. Valid values: [-100 : 100].
-
-* Blur: applies a blur effect to the image, as percentage of the original blurriness. Valid values: [0 : 100].
-
-* UnsharpMask: increases the image's visible sharpness by enhancing the contrast along the edges in the image.
-
-    Radius: the radius of the area to which each pixel is compared. Valid values: [0.1 : 128.0].
-
-    Amount: defines how much lighter or darker the edge border will be, as percentage of the original image (divided by 100, so that 1 represents 100%). Valid values: [0 : 10.0].
-
-    Threshold: the minimum brightness change that will be affected by the filter and defines an edge in the image. Valid values: [0 : 255.0].
 
 
 #### Edge case handling
