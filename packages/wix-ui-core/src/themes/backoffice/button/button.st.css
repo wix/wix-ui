@@ -395,7 +395,7 @@
   -st-mixin: sizeMedium, weightNormal;
 
   border-radius: 21px;
-  padding: 0 30px;
+  padding: 0 29px;
 }
 
 .button.small {
@@ -405,7 +405,7 @@
   -st-mixin: sizeSmall, weightNormal;
 
   border-radius: 15px;
-  padding: 0 18px;
+  padding: 0 17px;
 }
 
 .button.tiny {
@@ -416,7 +416,7 @@
    
   line-height: 16px;
   border-radius: 18px;
-  padding: 0 12px;
+  padding: 0 11px;
 }
 
 /* Full width mode */
