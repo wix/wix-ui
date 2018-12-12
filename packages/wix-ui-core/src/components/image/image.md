@@ -18,7 +18,7 @@ additional features, both visual and behavioral, adding image customization's.
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
-| loader | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
+| placeholder | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
 
 **Example 1:**
 
@@ -152,20 +152,20 @@ In cases where the source fails to load - `errorImage` will be displayed. If `er
 
 Source loading and resulting states breakdown table:
 
-| src | defaultImage | errorImage | source to be displayed | component status |
-| --- | ------------ | ---------- | ---------------------- | ---------------- |
-| ✔ | |  | src | Loaded |
-|  | |  | one empty pixel | Loaded |
-|  |  | ✔ | one empty pixel | Loaded |
-| ✔ | ✔ |  | src | Loaded |
-| ✖ |  | ✔ | errorImage | Error |
-|  | ✖  | ✔ | errorImage | Error |
-| ✖ |  | ✔ | errorImage | Error |
-| ✖ |  |  | one empty pixel | Error |
-|  | ✖ |  | one empty pixel | Error |
-|  | ✖ | ✖ | one empty pixel | Error |
-|  | ✖ | ✖ | one empty pixel | Error |
-|  |  | ✖ | one empty pixel | Loaded |
+| src | errorImage | source to be displayed | component status |
+| --- | ---------- | ---------------------- | ---------------- |
+| ✔  |  | src | Loaded |
+|   |  | one empty pixel | Loaded |
+|   | ✔ | one empty pixel | Loaded |
+| ✔  |  | src | Loaded |
+| ✖  | ✔ | errorImage | Error |
+|   | ✔ | errorImage | Error |
+| ✖  | ✔ | errorImage | Error |
+| ✖  |  | one empty pixel | Error |
+|   |  | one empty pixel | Error |
+|  | ✖ | one empty pixel | Error |
+| | ✖ | one empty pixel | Error |
+|  | ✖ | one empty pixel | Loaded |
 
 legend:
 
