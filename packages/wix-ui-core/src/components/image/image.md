@@ -18,34 +18,7 @@ additional features, both visual and behavioral, adding image customization's.
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
-| crop | Crop | ✖  | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor).  |
-| filter | Filter | ✖  | ✖ | Used to transform the image using different graphical techniques.  |
 | loader | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
-
-Both **crop** and **filter** represent different modifications for the image's appearance. 
-
-**Crop:**
-
-| name        | type       | default | required | description       |
-| ----------- | ---------- | ------- | -------- | ----------------- |
-| width | number | image dimensions | ✔ | The width constraint, in pixels. Valid values: [0 : image width]. |
-| height | number | image dimensions | ✔ | The height constraint, in pixels. Valid values: [0 : image height]. |
-| x | number | ✖ | ✖ | The X pixel coordinate to start cropping from. Represents the top-left x axis corner point of the cropped area. Valid values: [0 : image width]. |
-| y | number | ✖  | ✖ | The Y pixel coordinate to start cropping from. Represents the top-left y axis corner point of the cropped area. Valid values: [0 : image height]. |
-| scale | number | ✖  | ✖ | The Scale factor, as fraction of the original size. Scale cannot be 0. Valid values: (0 : 10]. |
-
-**Filter:**
-
-| name        | type       | default | required | description       |
-| ----------- | ---------- | ------- | -------- | ----------------- |
-| brightness | number | ✖ | ✖ | Increases or reduces the level of image brightness as percentage of the original brightness. Valid values: [-100 : 100]. |
-| contrast | number | ✖ | ✖ | Increases or reduces the difference between the image's lighter and darker areas, as percentage of the original contrast. Valid values: [-100 : 100]. |
-| hue | number | ✖ | ✖ | Shifts the colors of the image either clockwise or counter-clockwise around the color wheel. Valid values are [-180 : 180] degrees. |
-| saturation | number | ✖  | ✖ | Increases or reduces the color intensity of the photo, as percentage of the original saturation. Valid values: [-100 : 100]. |
-| blur | number | ✖  | ✖ | Applies a blur effect to the image, as percentage of the original blurriness. Valid values: [0 : 100]. |
-| unsharpMask | {radius: number, amount: number, threshold} | ✖  | ✖ | increases the image's visible sharpness by enhancing the contrast along the edges in the image. |
-
-**UnsharpMask** accepts radius, amount and threshold as parameters, you can read about it in the media-platform-js-sdk [docs](https://wix.github.io/media-platform-js-sdk/images/).
 
 **Example 1:**
 
@@ -80,8 +53,6 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                         resizeMode={this.state.resizeMode}
                         className="myImage"
                         errorImage="https://cdn.pixabay.com/photo/2016/10/10/12/02/eagle-owl-1728218_960_720.jpg"
-                        crop={width: 200, height: 100}
-                        filter={brightness: 50, unsharpMask: {radius: 100, Amount: 8, threshold: 80.2}}
                     />
                 </div>
             );
@@ -213,7 +184,6 @@ We provide several helper functions for the Image's testkit:
 | name   | type                    | description |
 |:-------|:------------------------|:------------|
 | getUrl | | | 
-| imageCropped | | | 
 | getResizeMode | | | 
 
 [How to use drivers](https://github.com/wix/wix-ui/tree/master/packages/wix-ui-test-utils#testkit-helpers)
