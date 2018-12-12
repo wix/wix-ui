@@ -17,10 +17,10 @@ additional features, both visual and behavioral, adding image customization's.
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
-| defaultImage | string | ✖  | ✖ | URL to load when src is not provided. |
-| errorImage | string | ✖  | ✖ | URL to load if src (or defaultImage) loading result in an error. |
+| errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
 | crop | Crop | ✖  | ✖ | Crops an image from the (x,y) pixel coordinates to be of size (width X height) pixels, scaled down times (scaleFactor).  |
 | filter | Filter | ✖  | ✖ | Used to transform the image using different graphical techniques.  |
+| loader | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
 
 Both **crop** and **filter** represent different modifications for the image's appearance. 
 
@@ -28,11 +28,11 @@ Both **crop** and **filter** represent different modifications for the image's a
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| width | number | image dimensions | ✔ | An event handler triggered by the state's status. |
-| height | number | image dimensions | ✔ | An event handler setting an Error state. |
-| x | number | ✖ | ✖ | Defines how the Image responds to the height and width of its content box. |
-| y | number | ✖  | ✖ | URL to load when src is not provided. |
-| scale | number | ✖  | ✖ | URL to load if src (or defaultImage) loading result in an error. |
+| width | number | image dimensions | ✔ | The width constraint, in pixels. Valid values: [0 : image width]. |
+| height | number | image dimensions | ✔ | The height constraint, in pixels. Valid values: [0 : image height]. |
+| x | number | ✖ | ✖ | The X pixel coordinate to start cropping from. Represents the top-left x axis corner point of the cropped area. Valid values: [0 : image width]. |
+| y | number | ✖  | ✖ | The Y pixel coordinate to start cropping from. Represents the top-left y axis corner point of the cropped area. Valid values: [0 : image height]. |
+| scale | number | ✖  | ✖ | The Scale factor, as fraction of the original size. Scale cannot be 0. Valid values: (0 : 10]. |
 
 **Filter:**
 
@@ -79,7 +79,6 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                         src={this.state.src}
                         resizeMode={this.state.resizeMode}
                         className="myImage"
-                        defaultImage="https://c1.staticflickr.com/7/6005/5927758528_a2060423e7_b.jpg"
                         errorImage="https://cdn.pixabay.com/photo/2016/10/10/12/02/eagle-owl-1728218_960_720.jpg"
                         crop={width: 200, height: 100}
                         filter={brightness: 50, unsharpMask: {radius: 100, Amount: 8, threshold: 80.2}}
@@ -175,7 +174,7 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 
 When an `<img />` has no `src` or  `srcset` as props - or even when it fails to load the specified image, some web browsers show a "broken image" placeholder or an outline around the element. These typically do not conform to the page design causing the page to appear broken.
 
-The `<Image />` component allows supplying `defaultImage`, and in cases where the source fails to load - `errorImage` will be displayed. If `errorImage` is not supplied the `<Image/>` component will render an empty pixel.
+In cases where the source fails to load - `errorImage` will be displayed. If `errorImage` is not supplied the `<Image/>` component will render an empty pixel.
 
 
 #### Edge case handling
@@ -185,7 +184,6 @@ Source loading and resulting states breakdown table:
 | src | defaultImage | errorImage | source to be displayed | component status |
 | --- | ------------ | ---------- | ---------------------- | ---------------- |
 | ✔ | |  | src | Loaded |
-|  |✔ |  | defaultImage | Loaded |
 |  | |  | one empty pixel | Loaded |
 |  |  | ✔ | one empty pixel | Loaded |
 | ✔ | ✔ |  | src | Loaded |
