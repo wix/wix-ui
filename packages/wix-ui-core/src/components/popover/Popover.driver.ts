@@ -12,7 +12,9 @@ export const popoverDriverFactory = ({element, eventTrigger}) => ({
   mouseEnter: () => eventTrigger.mouseEnter(element),
   mouseLeave: () => eventTrigger.mouseLeave(element),
   click: () => eventTrigger.click(element.querySelector('[data-hook="popover-element"]')),
-  clickOutside: () => { document.dispatchEvent(new Event('mousedown')) },
+  clickOutside: () => { 
+    document.dispatchEvent(new Event('mousedown'));
+  },
   getArrowOffset: () => {
     const {top, left, right, bottom} = (getArrowElement(element) as HTMLElement).style;
     return {top, left, right, bottom};
