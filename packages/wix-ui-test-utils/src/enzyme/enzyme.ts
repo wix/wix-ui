@@ -9,10 +9,11 @@ import {reactUniDriver} from 'unidriver/react';
 export interface WrapperData {
   wrapper: ReactWrapper;
   dataHook: string;
+  upgrade?: boolean;
 }
 
 export type MountFunctionType = (node: React.ReactElement<any>, options?: MountRendererProps) => ReactWrapper;
-export type EnzymeDriverFactory<T extends BaseDriver> = (data: {element: Element | undefined, wrapper: ReactWrapper, eventTrigger: any}) => T;
+export type EnzymeDriverFactory<T extends BaseDriver> = (data: {element: Element | undefined, wrapper: ReactWrapper, eventTrigger: any, upgrade?: boolean}) => T;
 
 export function enzymeTestkitFactoryCreator<T extends BaseDriver> (driverFactory: EnzymeDriverFactory<T>) {
   return (obj: WrapperData) => {
@@ -20,7 +21,7 @@ export function enzymeTestkitFactoryCreator<T extends BaseDriver> (driverFactory
     const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
     const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
     const element = component.length > 0 ? component.first().getDOMNode() : undefined;
-    return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
+    return driverFactory({element, wrapper: obj.wrapper, eventTrigger, upgrade: obj.upgrade});
   };
 }
 
