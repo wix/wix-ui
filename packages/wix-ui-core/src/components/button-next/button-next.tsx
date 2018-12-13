@@ -45,39 +45,39 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     ...rest
   } = props;
 
-  // Handle rendering anchor instead of button
-  const anchorRestProps = rest as AnchorButtonProps;
-  if (anchorRestProps.href) {
+  const renderComponent = restProps => {
+    const Component = as;
     return (
-      <a
-        {...anchorRestProps}
+      <Component
+        {...restProps}
         onFocus={focusableOnFocus}
         onBlur={focusableOnBlur}
-        {...style('root', {}, props)}
+        {...style('root', {}, restProps)}
       >
         {_addAffix(prefixIcon, 'prefix')}
         <span className={style.content}>{children}</span>
         {_addAffix(suffixIcon, 'suffix')}
-      </a>
+      </Component>
     );
+  };
+
+  // Handle rendering anchor instead of button
+  const anchorRestProps = rest as AnchorButtonProps;
+  if (anchorRestProps.href || as === 'a') {
+    return renderComponent(anchorRestProps);
+  }
+
+  // Handle custom component render
+  const customHTMLTagRestProps = rest as any;
+  if (as !== 'a' || as !== 'button') {
+    renderComponent(customHTMLTagRestProps);
   }
 
   // Handle regular button rendering
-  return (
-    <button
-      {...rest as NativeButtonProps}
-      onFocus={focusableOnFocus}
-      onBlur={focusableOnBlur}
-      {...style('root', {}, props)}
-    >
-      {_addAffix(prefixIcon, 'prefix')}
-      <span className={style.content}>{children}</span>
-      {_addAffix(suffixIcon, 'suffix')}
-    </button>
-  );
+  return renderComponent(rest as NativeButtonProps);
 };
 
 ButtonNextComponent.displayName = 'ButtonNext';
-ButtonNextComponent.defaultProps = { type: 'button' };
+ButtonNextComponent.defaultProps = { type: 'button', as: 'button' };
 
 export const ButtonNext = withFocusable(ButtonNextComponent);
