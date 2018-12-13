@@ -134,6 +134,9 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 
 ## Behavior
 
+### Placeholder
+!! TBD !! 
+
 #### Resize Modes
 
 `<Image>` allows specifying a `resizeMode` prop with these possible values: `fill`, `contain`, and `cover`. The behavior of `resizeMode` is the same as that of the CSS [`object-fit`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) prop, except that `resizeMode` supports older browsers that don't support `object-fit`.
@@ -152,20 +155,18 @@ In cases where the source fails to load - `errorImage` will be displayed. If `er
 
 Source loading and resulting states breakdown table:
 
-| src | errorImage | source to be displayed | component status |
+| src/ srcSet | errorImage | source to be displayed | component status |
 | --- | ---------- | ---------------------- | ---------------- |
 | ✔  |  | src | Loaded |
-|   |  | one empty pixel | Loaded |
-|   | ✔ | one empty pixel | Loaded |
-| ✔  |  | src | Loaded |
+| ✔  | ✖ | src | Loaded |
+| ✔  | ✔ | src | Loaded |
 | ✖  | ✔ | errorImage | Error |
-|   | ✔ | errorImage | Error |
-| ✖  | ✔ | errorImage | Error |
+| ✖  | ✖ | one empty pixel | Error |
 | ✖  |  | one empty pixel | Error |
-|   |  | one empty pixel | Error |
+|   | ✔ | errorImage | Error |
 |  | ✖ | one empty pixel | Error |
-| | ✖ | one empty pixel | Error |
-|  | ✖ | one empty pixel | Loaded |
+|   |  | one empty pixel | Error |
+
 
 legend:
 
