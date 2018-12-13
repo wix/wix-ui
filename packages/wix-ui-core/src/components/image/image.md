@@ -80,18 +80,25 @@ In this case it can be styled as Loaded, Loading, or Error .
 /* image.st.css */
 
 .root {
-    -st-states: loaded, loading, error;
+     -st-states: loadState( enum(loading, loaded, error) )
+}
+
+.root:loadState(loading) {
     display: inline-block;
 }
+
 ```
 
 #### States 
+| state | type | description|
 
-| state | description|
+| :loadState(loading, loaded, error) | enum | Styles the Image for a variety of loading states. |
+
+| enum Option | description|
 | ----- | -----------|
-| :loading | Styles the Image when image is loading
-| :loaded | Styles the Image after it loads successfully
-| :error | Styles the Image after if it fails during loading
+| loading | Styles the Image when image is loading
+| loaded | Styles the Image after it loads successfully
+| error | Styles the Image after if it fails during loading
 
 
 ### Style Code Example
