@@ -163,11 +163,11 @@ In cases where the source fails to load - `errorImage` will be displayed. If `er
 
 Source loading and resulting states breakdown table:
 
-| src/ srcSet | errorImage | source to be displayed | component status |
+| src/srcSet | errorImage | source to be displayed | component status |
 | --- | ---------- | ---------------------- | ---------------- |
-| ✔  |  | src | Loaded |
-| ✔  | ✖ | src | Loaded |
-| ✔  | ✔ | src | Loaded |
+| ✔  |  | src/srcSet | Loaded |
+| ✔  | ✖ | src/srcSet | Loaded |
+| ✔  | ✔ | src/srcSet | Loaded |
 | ✖  | ✔ | errorImage | Error |
 | ✖  | ✖ | one empty pixel | Error |
 | ✖  |  | one empty pixel | Error |
@@ -175,9 +175,7 @@ Source loading and resulting states breakdown table:
 |  | ✖ | one empty pixel | Loaded |
 |   |  | one empty pixel | Loaded |
 
-## Placeholder will be added to the table later on
-!! TBD !! 
-
+Placeholder will be added to the table later on -TBD  
 
 legend:
 
