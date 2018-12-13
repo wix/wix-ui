@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import LiveCodeExample from '../../LiveCodeExample';
+const LiveCodeExample = require('../../LiveCodeExample').default;
 import { LiveCodeSection } from '../../typings/story-section';
 
 export const liveCode: ((a: LiveCodeSection) => React.ReactNode) = ({

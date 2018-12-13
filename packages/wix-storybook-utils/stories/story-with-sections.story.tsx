@@ -9,6 +9,7 @@ import {
   importExample,
   api,
   playground,
+  testkit,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -34,7 +35,7 @@ export default {
               source: '"hello"',
             }),
 
-            api({}),
+            api(),
           ],
         }),
         tab({
@@ -71,7 +72,12 @@ export default {
 
     tab({
       title: 'Playground',
-      sections: [playground({})],
+      sections: [playground()],
+    }),
+
+    tab({
+      title: 'Testkit',
+      sections: [testkit()],
     }),
   ],
 };

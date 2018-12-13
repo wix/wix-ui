@@ -11,6 +11,7 @@ import { description } from './description';
 import { code } from './code';
 import { api } from './api';
 import { playground } from './playground';
+import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
 
 const styles = require('../styles.scss');
@@ -25,6 +26,7 @@ const views = {
   code,
   api,
   playground,
+  testkit,
   tab: (section: TabSection, storyConfig: StoryConfig): React.ReactNode => {
     const tabs = extractTabs(section);
     return render(section, tabs, storyConfig);
