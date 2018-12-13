@@ -53,6 +53,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                         resizeMode={this.state.resizeMode}
                         className="myImage"
                         errorImage="https://cdn.pixabay.com/photo/2016/10/10/12/02/eagle-owl-1728218_960_720.jpg"
+                        placeholder= {<Loader/>}
                     />
                 </div>
             );
@@ -135,7 +136,7 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 ## Behavior
 
 ### Placeholder
-!! TBD !! 
+The placeholder prop describes the loading state of the component.  It is represented as a ReactNode and works with the following types: ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
 #### Resize Modes
 
@@ -163,7 +164,7 @@ Source loading and resulting states breakdown table:
 | ✖  | ✔ | errorImage | Error |
 | ✖  | ✖ | one empty pixel | Error |
 | ✖  |  | one empty pixel | Error |
-|   | ✔ | errorImage | Error |
+|   | ✔ | one empty pixel | Error |
 |  | ✖ | one empty pixel | Error |
 |   |  | one empty pixel | Error |
 
