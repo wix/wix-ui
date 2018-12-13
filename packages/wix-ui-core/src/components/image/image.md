@@ -167,6 +167,9 @@ Source loading and resulting states breakdown table:
 |  | ✖ | one empty pixel | Error |
 |   |  | one empty pixel | Error |
 
+## Placeholder will be added to the table later on
+!! TBD !! 
+
 
 legend:
 
