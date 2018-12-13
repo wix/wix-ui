@@ -144,7 +144,8 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 ## Behavior
 
 ### Placeholder
-The placeholder prop describes the loading state of the component.  It is represented as a ReactNode and works with the following types: ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+The placeholder prop describes the loading state of the component and is being displayed before the src/srcSet or the imageError are loaded,  It is represented as a ReactNode.
+If the src/srcSet wasn't provided the placeholder will not be displayed.
 
 #### Resize Modes
 
@@ -175,8 +176,6 @@ Source loading and resulting states breakdown table:
 |   | ✔ | one empty pixel | Loaded |
 |  | ✖ | one empty pixel | Loaded |
 |   |  | one empty pixel | Loaded |
-
-Placeholder will be added to the table later on -TBD  
 
 legend:
 
