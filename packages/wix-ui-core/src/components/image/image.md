@@ -9,16 +9,16 @@ additional features, both visual and behavioral, adding image customizations.
 
 **Props**
 
+**Image** accepts all native `<img />` attributes (which you can read about [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)), with several additional features listed below.
+
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
+| <img/> attributes | HTMLImageAttributes| - | - | Supports all native HTML <img/> attributes. |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
 | placeholder | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
-| <img/> attributes | HTMLImageAttributes| - | - | Supports all native HTML <img/> attributes. |
-
-**Image** accepts all native `<img />` attributes (which you can read about [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)), with several additional features listed below.
 
 **Example 1:**
 
@@ -171,9 +171,9 @@ Source loading and resulting states breakdown table:
 | ✖  | ✔ | errorImage | Error |
 | ✖  | ✖ | one empty pixel | Error |
 | ✖  |  | one empty pixel | Error |
-|   | ✔ | one empty pixel | Error |
-|  | ✖ | one empty pixel | Error |
-|   |  | one empty pixel | Error |
+|   | ✔ | one empty pixel | Loaded |
+|  | ✖ | one empty pixel | Loaded |
+|   |  | one empty pixel | Loaded |
 
 ## Placeholder will be added to the table later on
 !! TBD !! 
