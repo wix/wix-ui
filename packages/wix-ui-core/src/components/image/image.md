@@ -3,14 +3,11 @@
 ## Description
 
 The **Image** component embeds an image into the document much like the HTML \<img> element. It also supports
-additional features, both visual and behavioral, adding image customization's.
+additional features, both visual and behavioral, adding image customizations.
 
 ## API
 
 **Props**
-
-**Image** accepts all native `<img />` attributes (which you can read about [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)), with several additional features listed below.
-
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
@@ -19,6 +16,9 @@ additional features, both visual and behavioral, adding image customization's.
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
 | placeholder | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
+| <img/> attributes | HTMLImageAttributes| - | - | Supports all native HTML <img/> attributes. |
+
+**Image** accepts all native `<img />` attributes (which you can read about [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)), with several additional features listed below.
 
 **Example 1:**
 
