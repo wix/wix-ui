@@ -26,6 +26,7 @@ additional features, both visual and behavioral, adding image customizations.
 import * as React from 'react';
 import {Image} from 'wix-ui-core/Image';
 import style from './image.st.css';
+import Loader from './Loader';
 
 export class ImageDemo extends React.Component<{}, ImageDemoState> {
     public state: ImageDemoState = {
