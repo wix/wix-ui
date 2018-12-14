@@ -12,6 +12,7 @@ export interface ICommonProps {
   playing?: boolean;
   muted?: boolean;
   showTitle?: boolean;
+  onInit?: Function;
   onReady?: Function;
   onDuration?: Function;
   onProgress?: Function;
@@ -39,6 +40,7 @@ export interface IPlayableConfig {
   onLogoClick?: Function;
   alwaysShowLogo?: boolean;
   poster?: string;
+  modules?: {};
 }
 
 export interface ITwitchConfig {

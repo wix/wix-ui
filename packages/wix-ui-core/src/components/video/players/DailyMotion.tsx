@@ -89,7 +89,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
   initPlayer = DM => {
     const {
       playing, muted, controls, showTitle, playerOptions,
-      onReady, onDuration, onError
+      onInit, onReady, onDuration, onError
     } = this.props;
     const src = this.props.src as string;
     const [, id] = src.match(URL_REGEX);
@@ -128,6 +128,8 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
         error: event => onError(event),
       }
     });
+
+    onInit(this.player);
   }
 
   progress = () => {

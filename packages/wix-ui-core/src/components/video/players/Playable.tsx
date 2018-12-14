@@ -2,7 +2,7 @@ import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
 import isString = require('lodash/isString');
 import isArray = require('lodash/isArray');
-import {create, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
+import {create, registerModule, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';
 import {
@@ -130,8 +130,11 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
   initPlayer() {
     const {
       src, playing, muted, title, showTitle, loop, volume, controls, preload,
-      onReady, onDuration, onProgress, logoUrl, onLogoClick, alwaysShowLogo,
+      onInit, onReady, onDuration, onProgress,
+      logoUrl, onLogoClick, alwaysShowLogo, modules,
     } = this.props;
+
+    this.registerModules(modules);
 
     this.player = create({
       src,
@@ -194,6 +197,14 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     this.player.on(VIDEO_EVENTS.CURRENT_TIME_UPDATED, currentTime => {
       onProgress(currentTime);
     });
+
+    onInit(this.player);
+  }
+
+  registerModules(modules: any = {}) {
+    Object.keys(modules).forEach(moduleName =>
+      registerModule(moduleName, modules[moduleName]),
+    );
   }
 
   onPlayClick = (): void => {

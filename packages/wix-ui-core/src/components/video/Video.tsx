@@ -40,6 +40,7 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
     showTitle: true,
     fillAllSpace: false,
     volume: 100,
+    onInit: noop,
     onReady: noop,
     onDuration: noop,
     onPlay: noop,

@@ -98,7 +98,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
   initPlayer = Vimeo => {
     const {
       src, playing, muted, loop, showTitle, playerOptions,
-      onReady, onDuration, onProgress, onError
+      onInit, onReady, onDuration, onProgress, onError
     } = this.props;
 
     this.player = new Vimeo.Player(this.containerRef.current, {
@@ -141,6 +141,8 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
     });
 
     this.player.on('error', onError);
+
+    onInit(this.player);
   }
 
   render() {

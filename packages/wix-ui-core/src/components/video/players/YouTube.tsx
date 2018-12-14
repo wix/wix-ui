@@ -98,7 +98,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
   initPlayer = YT => {
     const {
       playing, muted, controls, playerOptions,
-      onReady, onDuration, onError
+      onInit, onReady, onDuration, onError
     } = this.props;
     const src = this.props.src as string;
     const videoId = src.match(URL_REGEX)[1];
@@ -124,6 +124,8 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         onError,
       }
     });
+
+    onInit(this.player);
   }
 
   onStateChange = (PlayerState: any) => ({ data }): void => {

@@ -114,7 +114,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   }
 
   handleReady = msg => {
-    const {muted, onReady, onError} = this.props;
+    const {muted, onInit, onReady, onError} = this.props;
 
     if (msg.type === 'video') {
       this.player = msg.instance;
@@ -141,6 +141,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       }
 
       this.awaitDuration();
+
+      onInit(this.player);
       onReady();
     }
   }

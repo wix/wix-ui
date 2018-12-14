@@ -92,7 +92,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
   }
 
   initPlayer = Twitch => {
-    const {playing, muted, playerOptions, onReady} = this.props;
+    const {playing, muted, playerOptions, onInit, onReady} = this.props;
     const src = this.props.src as string;
     const isChannel = CHANNEL_URL_REGEX.test(src);
     const id = isChannel ? src.match(CHANNEL_URL_REGEX)[1] : src.match(VIDEO_URL_REGEX)[1];
@@ -128,6 +128,8 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
       this.eventEmitter.emit(EVENTS.ENDED);
       this.stopProgress();
     });
+
+    onInit(this.player);
   }
 
   awaitDuration = () => {
