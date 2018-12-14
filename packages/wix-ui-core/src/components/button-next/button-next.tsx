@@ -2,27 +2,19 @@ import * as React from 'react';
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import style from './button-next.st.css';
 
-export interface BaseButtonProps {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** accepts any custom component or html tag */
   as?: any;
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
   /** callback need to be applied for onFocus event */
-  focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement> &
-    React.FocusEventHandler<HTMLAnchorElement>;
+  focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>;
   /** callback need to be applied for onBlur event */
-  focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement> &
-    React.FocusEventHandler<HTMLAnchorElement>;
+  focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
-
-export type AnchorButtonProps = BaseButtonProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>;
-
-export type NativeButtonProps = BaseButtonProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-export type ButtonProps = AnchorButtonProps | NativeButtonProps;
 
 const _addAffix = (Affix, classname) =>
   Affix &&
@@ -44,40 +36,22 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     focusableOnBlur,
     ...rest
   } = props;
-
-  const renderComponent = restProps => {
-    const Component = as;
-    return (
-      <Component
-        {...restProps}
-        onFocus={focusableOnFocus}
-        onBlur={focusableOnBlur}
-        {...style('root', {}, restProps)}
-      >
-        {_addAffix(prefixIcon, 'prefix')}
-        <span className={style.content}>{children}</span>
-        {_addAffix(suffixIcon, 'suffix')}
-      </Component>
-    );
-  };
-
-  // Handle rendering anchor instead of button
-  const anchorRestProps = rest as AnchorButtonProps;
-  if (anchorRestProps.href || as === 'a') {
-    return renderComponent(anchorRestProps);
-  }
-
-  // Handle custom component render
-  const customHTMLTagRestProps = rest as any;
-  if (as !== 'a' || as !== 'button') {
-    renderComponent(customHTMLTagRestProps);
-  }
-
-  // Handle regular button rendering
-  return renderComponent(rest as NativeButtonProps);
+  const Component = as;
+  return (
+    <Component
+      {...rest}
+      onFocus={focusableOnFocus}
+      onBlur={focusableOnBlur}
+      {...style('root', {}, rest)}
+    >
+      {_addAffix(prefixIcon, 'prefix')}
+      <span className={style.content}>{children}</span>
+      {_addAffix(suffixIcon, 'suffix')}
+    </Component>
+  );
 };
 
 ButtonNextComponent.displayName = 'ButtonNext';
-ButtonNextComponent.defaultProps = { type: 'button', as: 'button' };
+ButtonNextComponent.defaultProps = { as: 'button' };
 
 export const ButtonNext = withFocusable(ButtonNextComponent);
