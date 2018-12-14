@@ -62,7 +62,7 @@ export const tab: ((object: Partial<TabSection>) => TabSection) = rest =>
     ...rest,
   });
 
-export const api: ((object: Partial<ApiSection>) => ApiSection) = rest =>
+export const api: ((object?: Partial<ApiSection>) => ApiSection) = rest =>
   baseSection({
     type: SectionType.Api,
     ...rest,

@@ -39,7 +39,7 @@ export default {
         }),
         tab({
           title: 'inner tab #2',
-          sections: [description({ text: 'im inside another tab!' })],
+          sections: [description({ text: '# im inside another tab!' })],
         }),
       ],
     }),
