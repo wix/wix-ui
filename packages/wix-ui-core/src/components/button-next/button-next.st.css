@@ -4,6 +4,7 @@
 }
 
 .root {
+  -st-states: disabled;
   -st-extends: Focusable;
   display: inline-flex;
   align-items: center;

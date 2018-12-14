@@ -4,7 +4,7 @@ import style from './button-next.st.css';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** accepts any custom component or html tag */
+  /** an element type to render as (string or function).  */
   as?: any;
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
@@ -34,6 +34,7 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     children,
     focusableOnFocus,
     focusableOnBlur,
+    disabled,
     ...rest
   } = props;
   const Component = as;
@@ -42,7 +43,9 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
       {...rest}
       onFocus={focusableOnFocus}
       onBlur={focusableOnBlur}
-      {...style('root', {}, rest)}
+      type={as === 'button' ? 'button' : rest.type}
+      tabIndex={disabled ? -1 : 0}
+      {...style('root', { disabled }, rest)}
     >
       {_addAffix(prefixIcon, 'prefix')}
       <span className={style.content}>{children}</span>

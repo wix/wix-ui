@@ -10,9 +10,10 @@ export default {
     disabled: false,
     children: 'I\'m a Button!',
     'data-hook': 'storybook-button'
+  
   },
 
   exampleProps: {
-    onClick: () => 'Clicked!'
+    onClick: () => 'Clicked!',
   }
 };
