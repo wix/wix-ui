@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
 import isString = require('lodash/isString');
+import uniqueId = require('lodash/uniqueId');
 import {getSDK} from '../utils'
 import playerHOC from './playerHOC';
 import {EVENTS, PROGRESS_INTERVAL} from '../constants';
@@ -66,6 +67,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
   player: IFacebookPlayerAPI;
+  playerId: string = uniqueId('facebook-player-');
   eventEmitter: IEventEmitter;
   containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
@@ -116,7 +118,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   handleReady = msg => {
     const {muted, onInit, onReady, onError} = this.props;
 
-    if (msg.type === 'video') {
+    if (msg.type === 'video' && msg.id === this.playerId) {
       this.player = msg.instance;
 
       this.player.subscribe('startedPlaying', () => {
@@ -195,6 +197,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     return (
       <div
         ref={this.containerRef}
+        id={this.playerId}
         className={`fb-video ${styles.playerContainer}`}
         data-href={src}
         data-autoplay={playing ? 'true' : 'false'}
