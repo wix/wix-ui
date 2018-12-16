@@ -49,7 +49,13 @@ const mockAPI = {
   destroy: jest.fn(),
 };
 
+const noop = () => null;
+
 class MockPlayer extends React.PureComponent<any> {
+  static defaultProps = {
+    onInit: noop,
+    onReady: noop
+  };
   player: any;
   eventEmitter: IEventEmitter;
 
@@ -72,6 +78,7 @@ class MockPlayer extends React.PureComponent<any> {
       }
     };
 
+    this.props.onInit(this.player);
     this.props.onReady();
   }
   
@@ -90,9 +97,26 @@ class MockPlayer extends React.PureComponent<any> {
 describe('playerHOC', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
   const onReady = jest.fn();
+  const onInit = jest.fn();
 
   describe('callbacks', () => {
     const Player = playerHOC(MockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+
+    it('should call onInit with API when player is inited', async () => {
+      let playerRef;
+
+      await container.render(
+        <Player
+          onInit={onInit}
+          ref={r => playerRef = r}
+        />
+      );
+
+      await eventually(() => {
+        const playerAPI = playerRef.getPlayerAPI();
+        expect(onInit).toHaveBeenCalledWith(playerAPI)
+      });
+    });
 
     it('should call onReady when Player API is ready', async () => {
       await container.render(<Player onReady={onReady} />);
