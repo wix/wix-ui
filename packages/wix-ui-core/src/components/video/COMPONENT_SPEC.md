@@ -28,6 +28,7 @@ The element parses a URL and loads in the appropriate external SDKs to play medi
 | onFirstPlay | Function                       |              |            | Called when media first time starts playing                            |
 | onFirstEnded | Function                      |              |            | Called when media first time finishes playing                          |
 | onReady   | Function                         |              |            | Called when media is loaded and ready to play. If playing is set to true, media will play immediately |
+| onInit    | Function                         |              |            | Called when player is initialized                                      |
 
 
 
