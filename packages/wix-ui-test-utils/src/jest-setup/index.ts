@@ -8,6 +8,11 @@ console.error = (...args: any[]) => {
   originConsoleError.apply(console, args);
 };
 
+export const consoleErrors = {
+   reset:  () => errors = [],
+   get: () => errors.slice().map(args => args.reduce((acc: string, arg: any) => {return acc + arg; }, ''))
+};
+
 beforeEach(() => errors = []);
 
 afterEach(() => {
