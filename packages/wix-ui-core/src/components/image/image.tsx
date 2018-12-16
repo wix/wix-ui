@@ -1,11 +1,14 @@
 import * as React from 'react';
+import { EMPTY_PIXEL } from './fixtures';
 
-export class Image extends React.PureComponent {
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
+}
+export class Image extends React.PureComponent<ImageProps> {
+  providedSrc = this.props.src ? this.props.src : EMPTY_PIXEL; 
+
   render() {
     return (
-        <img className={"picture"}
-        src="/media/examples/grapefruit-slice-332-332.jpg"
-        alt="Grapefruit slice atop a pile of other slices" />
+        <img {...this.props} src={this.providedSrc}/>
     );
   }
 }

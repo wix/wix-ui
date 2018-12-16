@@ -4,29 +4,35 @@ import { imageDriverFactory } from './image.driver';
 import { Image } from './image';
 import { reactUniDriver } from 'unidriver';
 import { async } from 'q';
+import { EMPTY_PIXEL, TEST_SRC } from './fixtures';
 
 describe('Image', () => {
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest()
-
     const createDriver = testContainer.createUniRenderer(imageDriverFactory);
+    
+    it('renders image element to dom', async() => {
+        const image = createDriver(<Image />);
 
-    const createDriverFromTestContainer = () => {
-        const base = reactUniDriver(testContainer.componentNode);
-        return imageDriverFactory(base);
-    }
-
-    it('bla true', async() =>{
-        const blabla = true;
-        expect(blabla).toBe(true);
+        const imageElement = await image.element();
+        expect((imageElement).tagName).toBe('IMG');
     });
 
-    it('renders a default html image element', async() =>{
-        const driver = createDriver(<Image />);
-        expect(await driver.exists()).toBe(true);
+    it('displays provided src', async () => {
+        const image = createDriver(<Image src={TEST_SRC}/>);
+        
+        expect(await image.getSrc()).toEqual(TEST_SRC);
     });
 
-    // it('displays provided src', async() =>{
+    it('displays empty pixel when src is not provided', async() => {
+        const image = createDriver(<Image src=''/>);
 
-    // });
+        expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
+    });
+
+    it('displays provided alt', async () => {
+        const image = createDriver(<Image alt='blabla'/>);
+        
+        expect(await image.getAlt()).toEqual('blabla');
+    });
     
 });

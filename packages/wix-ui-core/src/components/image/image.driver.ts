@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { UniDriver } from 'unidriver';
 import {
   BaseUniDriver,
@@ -5,13 +6,17 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 
 export interface ImageDriver extends BaseUniDriver{
-  // isImageLoaded: () => Promise<boolean>;
+  getSrc: () => Promise<string | null>;
+  getAlt: () => Promise<string>;
+  // getHtmlElement: () => Promise<HTMLElement>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
 
   return {
     ...baseUniDriverFactory(base),
-    // isImageLoaded: async () => ((await base.attr('loaded')) === 'true')
+    getSrc: () => base.attr('src'),
+    getAlt: () => base.attr('alt')
   }
+
 };
