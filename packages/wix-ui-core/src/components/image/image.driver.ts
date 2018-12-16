@@ -8,7 +8,7 @@ import {
 export interface ImageDriver extends BaseUniDriver{
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
-  // getHtmlElement: () => Promise<HTMLElement>;
+  getSrcSet: () => Promise<string>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
@@ -16,6 +16,7 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
   return {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
+    getSrcSet: () => base.attr('srcet'),
     getAlt: () => base.attr('alt')
   }
 

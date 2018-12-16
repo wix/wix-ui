@@ -17,16 +17,23 @@ describe('Image', () => {
         expect((imageElement).tagName).toBe('IMG');
     });
 
-    it('displays provided src', async () => {
-        const image = createDriver(<Image src={TEST_SRC}/>);
+    it('displays provided src or srcset', async () => {
+        const image = createDriver(<Image src={TEST_SRC} srcSet={TEST_SRC}/>);
         
         expect(await image.getSrc()).toEqual(TEST_SRC);
+        expect(await image.getSrcSet()).toEqual(TEST_SRC);
     });
 
     it('displays empty pixel when src is not provided', async() => {
         const image = createDriver(<Image src=''/>);
 
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
+    });
+
+    it('displays empty pixel when srcset is not provided', async() => {
+        const image = createDriver(<Image src=''/>);
+
+        expect(await image.getSrcSet()).toEqual(EMPTY_PIXEL);
     });
 
     it('displays provided alt', async () => {
