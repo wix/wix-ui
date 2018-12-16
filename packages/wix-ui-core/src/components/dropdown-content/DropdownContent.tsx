@@ -110,7 +110,9 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         return this.hoverNextItem(1);
       }
       case 'ArrowLeft':
-      case 'ArrowRight': return;
+      case 'ArrowRight': {
+          evt.preventDefault();
+          return;}
       default: this.setHoveredIndex(NOT_HOVERED_INDEX);
     }
   }

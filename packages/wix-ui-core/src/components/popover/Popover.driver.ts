@@ -17,6 +17,5 @@ export const popoverDriverFactory = ({element, eventTrigger}) => ({
     return {top, left, right, bottom};
   },
   inlineStyles: () => element.style,
-  getElementId: () => element.id,
-  popoverKeyDown: (key, preventDefault?) => eventTrigger.keyDown(element.querySelector('[data-hook="popover-element"]'), preventDefault ? {key, preventDefault} : {key})
+  getElementId: () => element.id
 });

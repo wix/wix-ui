@@ -27,7 +27,7 @@ describe('Dropdown', () => {
       initialSelectedIds: [],
     }, props)}
     >
-      <span>Dropdown</span>
+      <span data-hook="open-dropdown-button">Dropdown</span>
     </Dropdown>
   );
 
@@ -60,15 +60,23 @@ describe('Dropdown', () => {
 
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
       const driver = createDriver(createDropdown({options}));
+      const preventDefaultSpy = jest.fn();
       driver.click();
 
-      const arrowDownPreventDefaultSpy = jest.fn();
-      driver.popoverKeyDown('ArrowDown', arrowDownPreventDefaultSpy);
-      expect(arrowDownPreventDefaultSpy).toHaveBeenCalled();
+      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowDown', preventDefault: preventDefaultSpy})
+      expect(preventDefaultSpy).toHaveBeenCalled();
+      preventDefaultSpy.mockClear();
 
-      const arrowUpPreventDefaultSpy = jest.fn();
-      driver.popoverKeyDown('ArrowUp', arrowUpPreventDefaultSpy);
-      expect(arrowUpPreventDefaultSpy).toHaveBeenCalled();
+      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowUp', preventDefault: preventDefaultSpy})
+      expect(preventDefaultSpy).toHaveBeenCalled();
+      preventDefaultSpy.mockClear();
+
+      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowLeft', preventDefault: preventDefaultSpy})
+      expect(preventDefaultSpy).toHaveBeenCalled();
+      preventDefaultSpy.mockClear();
+
+      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowRight', preventDefault: preventDefaultSpy})
+      expect(preventDefaultSpy).toHaveBeenCalled();
     });
 
     it('should show content on hover', async () => {
