@@ -9,7 +9,7 @@ describe('ButtonNext', () => {
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
 
-  const renderedCmponent = new ReactDOMTestContainer().unmountAfterEachTest();
+  const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
   describe(`'onClick' prop`, () => {
     it('should be called on click', async () => {
@@ -55,27 +55,77 @@ describe('ButtonNext', () => {
   describe(`'as' prop`, () => {
     const Test = props => <span {...props} />;
     it('should render by default as html button', async () => {
-      renderedCmponent.renderSync(<ButtonNext />);
+      testContainer.renderSync(<ButtonNext />);
 
       await eventually(() => {
-        const htmlTag = renderedCmponent.componentNode.tagName;
+        const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('BUTTON');
       });
     });
     it('should render custom html tag', async () => {
-      renderedCmponent.renderSync(<ButtonNext as="a" />);
+      testContainer.renderSync(<ButtonNext as="a" />);
 
       await eventually(() => {
-        const htmlTag = renderedCmponent.componentNode.tagName;
+        const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('A');
       });
     });
     it('should render custom react component', async () => {
-      renderedCmponent.renderSync(<ButtonNext as={Test} />);
+      testContainer.renderSync(<ButtonNext as={Test} />);
 
       await eventually(() => {
-        const htmlTag = renderedCmponent.componentNode.tagName;
+        const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('SPAN');
+      });
+    });
+  });
+
+  describe(`'disabled' prop`, () => {
+    it('when given should render component with tabIndex -1', async () => {
+      testContainer.renderSync(<ButtonNext disabled />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute('tabindex');
+        expect(htmlTag).toBe('-1');
+      });
+    });
+
+    it('when given should render aria-disabled as true', async () => {
+      testContainer.renderSync(<ButtonNext disabled />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute(
+          'aria-disabled'
+        );
+        expect(htmlTag).toBe('true');
+      });
+    });
+  });
+
+  describe(`'type' prop`, () => {
+    it('should render value `button` when props `as` and `type` are undefined', async () => {
+      testContainer.renderSync(<ButtonNext />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute('type');
+        expect(htmlTag).toBe('button');
+      });
+    });
+    it('should render value `submit` when prop `type="submit"` and `as` is undefined', async () => {
+      testContainer.renderSync(<ButtonNext type="submit" />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute('type');
+        expect(htmlTag).toBe('submit');
+      });
+    });
+
+    it('should render prop `type` undefined if as prop is `a`', async () => {
+      testContainer.renderSync(<ButtonNext as="a" />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute('type');
+        expect(!!htmlTag).toBe(false);
       });
     });
   });

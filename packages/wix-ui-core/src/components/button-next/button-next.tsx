@@ -14,6 +14,8 @@ export interface ButtonProps
   focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>;
   /** callback need to be applied for onBlur event */
   focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>;
+  /** apply disabled styles */
+  disabled?: boolean;
 }
 
 const _addAffix = (Affix, classname) =>
