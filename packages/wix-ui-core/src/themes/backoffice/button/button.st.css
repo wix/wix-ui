@@ -83,6 +83,10 @@
 
 /* Special cases */
 
+.inverted {
+  -st-extends: Button;
+}
+
 .button.inverted {
   border: none;
   background-color: value(D80);
@@ -102,14 +106,15 @@
 }
 
 .button.inverted:disabled {
-  background-color: value(B20);
-  border-color: value(B20);
   color: value(D80);
+  background-color: value(D55);
+  border-color: value(D55);
 }
 
 /* Priority */
 
 .button.secondary {
+   -st-extends: Button;
   border: solid 1px value(B10);
   background: transparent;
   color: value(B10);
@@ -127,9 +132,16 @@
   color: value(D80);
 }
 
+.button.secondary:disabled {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
 /* skin Light */
 
 .button.light {
+   -st-extends: Button;
   border: none;
   background-color: value(D80);
   color: value(B20);
@@ -155,6 +167,7 @@
 /* skin Light secondary */
 
 .button.light.secondary {
+   -st-extends: Button;
   border: solid 1px value(D80);
   background: transparent;
   color: value(D80);
@@ -181,6 +194,7 @@
 /* skin Destructive */
 
 .button.destructive {
+   -st-extends: Button;
   background-color: value(R10);
   border-color: value(R10);
   color: value(D80);
@@ -207,6 +221,7 @@
 /* skin Destructive secondary */
 
 .button.destructive.secondary {
+   -st-extends: Button;
   border: solid 1px value(R10);
   background: transparent;
   color: value(R10);
@@ -233,6 +248,7 @@
 /* skin Premium */
 
 .button.premium {
+  -st-extends: Button;
   background-color: value(P10);
   border-color: value(P10);
   color: value(D80);
@@ -259,6 +275,7 @@
 /* skin Premium secondary */
 
 .button.premium.secondary {
+   -st-extends: Button;
   border: solid 1px value(P10);
   background: transparent;
   color: value(P10);
@@ -285,6 +302,7 @@
 /* skin Dark */
 
 .button.dark {
+   -st-extends: Button;
   background-color: transparent;
   border: solid 1px value(D40);
   color: value(D10);
@@ -311,6 +329,7 @@
 /* skin Dark secondary */
 
 .button.dark.secondary {
+   -st-extends: Button;
   background-color: transparent;
   border: solid 1px value(D40);
   color: value(D10);
@@ -337,6 +356,7 @@
 /* skin Transparent */
 
 .button.transparent {
+   -st-extends: Button;
   border-color: transparent;
   background-color: value(s5);
   color: value(D80);
@@ -363,6 +383,7 @@
 /* skin Transparent secondary */
 
 .button.transparent.secondary {
+  -st-extends: Button;
   border-color: transparent;
   background-color: value(s5);
   color: value(D80);

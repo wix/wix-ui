@@ -2,10 +2,7 @@ import * as React from 'react';
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
 import { ButtonNext } from '../../../../../src/components/button-next';
-import {
-  button,
-  backofficeTheme
-} from '../../../../../src/themes/backoffice';
+import { button, backofficeTheme } from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -42,16 +39,24 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     description={description}
     theme={backofficeTheme}
   >
-    <ButtonNext className={button()}>standard</ButtonNext>
-    <ButtonNext className={button(`destructive`)}>destructive</ButtonNext>
-    <ButtonNext className={button(`premium`)}>premium</ButtonNext>
+    <ButtonNext as="a" disabled className={button()}>
+      standard
+    </ButtonNext>
+    <ButtonNext as="a" disabled className={button(`destructive`)}>
+      destructive
+    </ButtonNext>
+    <ButtonNext as="a" disabled className={button(`premium`)}>
+      premium
+    </ButtonNext>
     <div
       style={{
         background: '#fef0ba',
         padding: '2px'
       }}
     >
-      <ButtonNext className={button(`dark`)}>dark</ButtonNext>
+      <ButtonNext as="a" disabled className={button(`dark`)}>
+        dark
+      </ButtonNext>
     </div>
     <div
       style={{
@@ -59,7 +64,9 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
         padding: '2px'
       }}
     >
-      <ButtonNext className={button(`light`)}>light</ButtonNext>
+      <ButtonNext as="a" disabled className={button(`light`)}>
+        light
+      </ButtonNext>
     </div>
     <div
       style={{
@@ -67,7 +74,9 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
         padding: '2px'
       }}
     >
-      <ButtonNext className={button(`transparent`)}>transparent</ButtonNext>
+      <ButtonNext as="a" disabled className={button(`transparent`)}>
+        transparent
+      </ButtonNext>
     </div>
   </CodeShowcase>
 );

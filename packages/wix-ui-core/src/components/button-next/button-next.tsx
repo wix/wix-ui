@@ -48,7 +48,6 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
       disabled={disabled}
       type={as === 'button' ? rest.type || 'button' : undefined}
       tabIndex={disabled ? -1 : rest.tabIndex || 0}
-      aria-disabled={disabled ? true : rest['aria-disabled']}
       {...style('root', { disabled }, rest)}
     >
       {_addAffix(prefixIcon, 'prefix')}
