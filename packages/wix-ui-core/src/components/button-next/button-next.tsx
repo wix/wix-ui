@@ -43,7 +43,8 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
       {...rest}
       onFocus={focusableOnFocus}
       onBlur={focusableOnBlur}
-      type={as === 'button' ? rest.type : undefined}
+      disabled={disabled}
+      type={as === 'button' ? rest.type || 'button' : undefined}
       tabIndex={disabled ? -1 : rest.tabIndex || 0}
       aria-disabled={disabled ? true : rest['aria-disabled']}
       {...style('root', { disabled }, rest)}
