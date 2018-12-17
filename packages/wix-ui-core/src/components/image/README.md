@@ -117,11 +117,11 @@ In this case it can be styled as Loaded, Loading, or Error .
     marginTop: 10px;
 }
 
-.myImage:loaded { border: 3px solid gold }
+.myImage:loadState(loaded) { border: 3px solid gold }
 
-.myImage:loading { border: 3px solid grey }
+.myImage:loadState(loading) { border: 3px solid grey }
 
-.myImage:error { border: 3px solid red }
+.myImage:loadState(error) { border: 3px solid red }
 
 ```
 
