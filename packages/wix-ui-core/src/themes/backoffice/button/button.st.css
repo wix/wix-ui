@@ -51,6 +51,9 @@
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
+
+  /* render as anchor overrides */
+  text-decoration: none;
 }
 
 .button::content {

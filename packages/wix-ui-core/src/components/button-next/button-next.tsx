@@ -42,7 +42,7 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     ...rest
   } = props;
   const Component = as;
-  const restProps = as !== 'button'? rest as NativeButtonProps: rest as any;
+  const restProps = as === 'button'? rest as NativeButtonProps: rest as any;
   return (
     <Component
       {...rest}
