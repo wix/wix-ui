@@ -82,7 +82,7 @@
   color: value(D80);
 }
 
-.iconButton.inverted:disabled {
+.iconButton:disabled.inverted {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -108,7 +108,7 @@
   color: value(D80);
 }
 
-.iconButton.inverted.secondary:disabled {
+.iconButton:disabled.inverted.secondary {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -134,7 +134,7 @@
   color: value(D80);
 }
 
-.iconButton.secondary:disabled {
+.iconButton:disabled.secondary {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
@@ -159,7 +159,7 @@
   color: value(B10);
 }
 
-.iconButton.light:disabled {
+.iconButton:disabled.light {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -185,7 +185,7 @@
   color: value(B10);
 }
 
-.iconButton.light.secondary:disabled {
+.iconButton:disabled.light.secondary {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;

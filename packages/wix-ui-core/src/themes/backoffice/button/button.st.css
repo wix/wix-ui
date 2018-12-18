@@ -84,18 +84,18 @@
 /* Special cases */
 
 .button.inverted {
-  border: none;
+  border-color: value(D80);
   background-color: value(D80);
   color: value(B20);
 }
 
-.button.inverted:hover:not(:disabled) {
+.button:not(:disabled).inverted:hover {
   color: value(D80);
   border-color: transparent;
   background-color: value(B20);
 }
 
-.button.inverted:active:not(:disabled) {
+.button:not(:disabled).inverted:active {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -115,13 +115,13 @@
   color: value(B10);
 }
 
-.button.secondary:hover:not(:disabled) {
+.button:not(:disabled).secondary:hover {
   color: value(D80);
   border-color: transparent;
   background-color: value(B20);
 }
 
-.button.secondary:active:not(:disabled) {
+.button:not(:disabled).secondary:active {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -136,23 +136,23 @@
 /* skin Light */
 
 .button.light {
-  border: none;
+  border-color: value(D80);
   background-color: value(D80);
   color: value(B20);
 }
 
-.button.light:hover:not(:disabled) {
+.button:not(:disabled).light:hover {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-.button.light:active:not(:disabled) {
+.button:not(:disabled).light:active {
   background-color: value(B40);
   color: value(B10);
 }
 
-.button:disabled.light{
+.button:disabled.light {
   background-color: value(D55);
   border-color: value(D55);
   color: value(D80);
@@ -166,13 +166,13 @@
   color: value(D80);
 }
 
-.button.light.secondary:hover:not(:disabled) {
+.button:not(:disabled).light.secondary:hover {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-.button.light.secondary:active:not(:disabled) {
+.button:not(:disabled).light.secondary:active {
   background-color: value(B40);
   border: solid 1px value(B40);
   color: value(B10);
@@ -192,13 +192,13 @@
   color: value(D80);
 }
 
-.button.destructive:hover:not(:disabled) {
+.button:not(:disabled).destructive:hover {
   background-color: value(R20);
   border-color: value(R20);
   color: value(D80);
 }
 
-.button.destructive:active:not(:disabled) {
+.button:not(:disabled).destructive:active {
   background-color: value(R10);
   border-color: value(R10);
   color: value(D80);
@@ -213,19 +213,18 @@
 /* skin Destructive secondary */
 
 .button.destructive.secondary {
-   -st-extends: Button;
   border: solid 1px value(R10);
   background: transparent;
   color: value(R10);
 }
 
-.button.destructive.secondary:hover:not(:disabled) {
+.button:not(:disabled).destructive.secondary:hover {
   background-color: value(R20);
   border-color: value(R20);
   color: value(D80);
 }
 
-.button.destructive.secondary:active:not(:disabled) {
+.button:not(:disabled).destructive.secondary:active {
   background-color: value(R10);
   border-color: value(R10);
   color: value(D80);
@@ -245,13 +244,13 @@
   color: value(D80);
 }
 
-.button.premium:hover:not(:disabled) {
+.button:not(:disabled).premium:hover {
   background-color: value(P20);
   border-color: value(P20);
   color: value(D80);
 }
 
-.button.premium:active:not(:disabled) {
+.button:not(:disabled).premium:active {
   background-color: value(P10);
   border-color: value(P10);
   color: value(D80);
@@ -271,13 +270,13 @@
   color: value(P10);
 }
 
-.button.premium.secondary:hover:not(:disabled) {
+.button:not(:disabled).premium.secondary:hover {
   background-color: value(P20);
   border-color: value(P20);
   color: value(D80);
 }
 
-.button.premium.secondary:active:not(:disabled) {
+.button:not(:disabled) .premium.secondary:active{
   background-color: value(P10);
   border-color: value(P10);
   color: value(D80);
@@ -297,13 +296,13 @@
   color: value(D10);
 }
 
-.button.dark:hover:not(:disabled) {
+.button:not(:disabled).dark:hover {
   color: value(D80);
   background-color: value(D20);
   border-color: value(D20);
 }
 
-.button.dark:active:not(:disabled) {
+.button:not(:disabled).dark:active{
   background-color: value(D10);
   border-color: value(D10);
   color: value(D80);
@@ -323,13 +322,13 @@
   color: value(D10);
 }
 
-.button.dark.secondary:hover:not(:disabled) {
+.button:not(:disabled).dark.secondary:hover {
   color: value(D80);
   background-color: value(D20);
   border-color: value(D20);
 }
 
-.button.dark.secondary:active:not(:disabled) {
+.button:not(:disabled).dark.secondary:active {
   background-color: value(D10);
   border-color: value(D10);
   color: value(D80);
@@ -349,13 +348,13 @@
   color: value(D80);
 }
 
-.button.transparent:hover:not(:disabled) {
+.button:not(:disabled).transparent:hover {
   border-color: transparent;
   background-color: value(s6);
   color: value(D80);
 }
 
-.button.transparent:active:not(:disabled) {
+.button:not(:disabled).transparent:active {
   background-color: value(s7);
   border-color: value(s7);
   border-color: transparent;
@@ -375,13 +374,13 @@
   color: value(D80);
 }
 
-.button.transparent.secondary:hover:not(:disabled) {
+.button:not(:disabled).transparent.secondary:hover {
   border-color: transparent;
   background-color: value(s6);
   color: value(D80);
 }
 
-.button.transparent.secondary:active:not(:disabled) {
+.button:not(:disabled).transparent.secondary:active {
   background-color: value(s7);
   border-color: value(s7);
   border-color: transparent;

@@ -62,21 +62,21 @@
   color: value(B10);
 }
 
-.textButton.onHover:hover:not(:disabled) {
+.textButton:not(:disabled).onHover:hover {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-.textButton.onHover:active:not(:disabled) {
+.textButton:not(:disabled).onHover:active {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-.textButton.onHover:disabled {
+.textButton:disabled.onHover {
   background-color: transparent;
   border-color: transparent;
   color: value(D55);
@@ -92,21 +92,21 @@
   text-decoration: underline;
 }
 
-.textButton.always:hover:not(:disabled) {
+.textButton:not(:disabled).always:hover {
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-.textButton.always:active:not(:disabled) {
+.textButton:not(:disabled).always:active{
   background-color: transparent;
   border-color: transparent;
   color: value(B20);
   text-decoration: underline;
 }
 
-.textButton.always:disabled {
+.textButton:disabled.always {
   background-color: transparent;
   border-color: transparent;
   color: value(D55);
@@ -121,19 +121,19 @@
   color:value(P10);
 }
 
-.textButton.premium:hover:not(:disabled) {
+.textButton:not(:disabled).premium:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(P20);
 }
 
-.textButton.premium:active:not(:disabled) { 
+.textButton:not(:disabled).premium:active{ 
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
 }
 
-.textButton.premium:disabled {
+.textButton:disabled.premium {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -147,21 +147,21 @@
   color:value(P10);
 }
 
-.textButton.onHover.premium:hover:not(:disabled) {
+.textButton:not(:disabled).onHover.premium:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(P20);
   text-decoration: underline;
 }
 
-.textButton.onHover.premium:active:not(:disabled) {
+.textButton:not(:disabled).onHover.premium:active {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-.textButton.onHover.premium:disabled {
+.textButton:disabled.onHover.premium {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -176,21 +176,21 @@
   text-decoration: underline;
 }
 
-.textButton.always.premium:hover:not(:disabled) {
+.textButton:not(:disabled).always.premium:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(P20);
   text-decoration: underline;
 }
 
-.textButton.always.premium:active:not(:disabled) {
+.textButton:not(:disabled).always.premium:active {
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
   text-decoration: underline;
 }
 
-.textButton.always.premium:disabled {
+.textButton:disabled.always.premium {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -205,19 +205,19 @@
   color:value(D80);
 }
 
-.textButton.light:hover:not(:disabled) {
+.textButton:not(:disabled).light:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
 }
 
-.textButton.light:active:not(:disabled) {
+.textButton:not(:disabled).light:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
 }
 
-.textButton.light:disabled {
+.textButton:disabled.light {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -231,20 +231,20 @@
   color:value(D80);
 }
 
-.textButton.onHover.light:hover:not(:disabled) {
+.textButton:not(:disabled).onHover.light:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-.textButton.onHover.light:active:not(:disabled) {
+.textButton:not(:disabled).onHover.light:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
 }
 
-.textButton.onHover.light:disabled {
+.textButton:disabled.onHover.light {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -259,21 +259,21 @@
   text-decoration: underline;
 }
 
-.textButton.always.light:hover:not(:disabled) {
+.textButton:not(:disabled).always.light:hover {
   background-color: transparent;
   border-color: transparent;
    color:value(D80);
   text-decoration: underline;
 }
 
-.textButton.always.light:active:not(:disabled) {
+.textButton:not(:disabled).always.light:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D80);
   text-decoration: underline;
 }
 
-.textButton.always.light:disabled {
+.textButton:disabled.always.light {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
@@ -288,19 +288,19 @@
   color:value(D10);
 }
 
-.textButton.dark:hover:not(:disabled) {
+.textButton:not(:disabled).dark:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(D20);
 }
 
-.textButton.dark:active:not(:disabled) {
+.textButton:not(:disabled).dark:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
 }
 
-.textButton.dark:disabled {
+.textButton:disabled.dark {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -314,20 +314,20 @@
   color:value(D10);
 }
 
-.textButton.onHover.dark:hover:not(:disabled) {
+.textButton:not(:disabled).onHover.dark:hover {
   background-color: transparent;
   border-color: transparent;
   text-decoration: underline;
   color: value(D20);
 }
 
-.textButton.onHover.dark:active:not(:disabled) {
+.textButton:not(:disabled).onHover.dark:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
 }
 
-.textButton.onHover.dark:disabled {
+.textButton:disabled.onHover.dark {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);
@@ -342,21 +342,21 @@
   text-decoration: underline;
 }
 
-.textButton.always.dark:hover:not(:disabled) {
+.textButton:not(:disabled).always.dark:hover {
   background-color: transparent;
   border-color: transparent;
   color:value(D20);
   text-decoration: underline;
 }
 
-.textButton.always.dark:active:not(:disabled) {
+.textButton:not(:disabled).always.dark:active {
   background-color: transparent;
   border-color: transparent;
   color:value(D10);
   text-decoration: underline;
 }
 
-.textButton.always.dark:disabled {
+.textButton:disabled.always.dark {
   background-color: transparent;
   border-color: transparent;
   color:value(D55);

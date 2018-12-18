@@ -70,17 +70,17 @@
   color: value(B10);
 }
 
-.closeButton.standardFilled:hover:not(:disabled) {
+.closeButton:not(:disabled).standardFilled:hover {
   background-color: value(B40);
   color: value(B10);
 }
 
-.closeButton.standardFilled:active:not(:disabled) {
+.closeButton:not(:disabled).standardFilled:active {
   background-color: value(B30);
   color: value(B10);
 }
 
-.closeButton.standardFilled:disabled {
+.closeButton:disabled.standardFilled {
   border-color: value(D55);
   color: value(D80);
   background-color: value(D55);
@@ -93,17 +93,17 @@
   color: value(D80);
 }
 
-.closeButton.light:hover:not(:disabled) {
+.closeButton:not(:disabled).light:hover {
   background-color: transparent;
   color: value(B50);
 }
 
-.closeButton.light:active:not(:disabled) {
+.closeButton:not(:disabled).light:active {
   background-color: transparent;
   color: value(B40);
 }
 
-.closeButton.light:disabled {
+.closeButton:disabled.light {
   color: value(D55);
   background-color: transparent;
 }
@@ -116,19 +116,19 @@
   color: value(D10);
 }
 
-.closeButton.dark:hover:not(:disabled) {
+.closeButton:not(:disabled).dark:hover {
   border-color: transparent;
   background-color: transparent;
   color: value(D20);
 }
 
-.closeButton.dark:active:not(:disabled) {
+.closeButton:not(:disabled).dark:active {
   border-color: transparent;
   background-color: transparent;
   color: value(D10);
 }
 
-.closeButton.dark:disabled {
+.closeButton:disabled.dark {
   color: value(D55);
   background-color: transparent;
 }
@@ -141,19 +141,19 @@
   color: value(D80);
 }
 
-.closeButton.lightFilled:hover:not(:disabled) {
+.closeButton:not(:disabled).lightFilled:hover {
   border-color: value(s6);
   background-color: value(s6);
   color: value(D80);
 }
 
-.closeButton.lightFilled:active:not(:disabled) {
+.closeButton:not(:disabled).lightFilled:active {
   border-color: value(s7);
   background-color: value(s7);
   color: value(D80);
 }
 
-.closeButton.lightFilled:disabled {
+.closeButton:disabled.lightFilled {
   border-color: value(D55);
   color: value(D80);
   background-color: value(D55);
