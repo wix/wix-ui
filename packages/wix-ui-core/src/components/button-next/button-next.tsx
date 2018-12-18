@@ -39,7 +39,7 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     disabled,
     ...rest
   } = props;
-  const Component = as;
+  const Component = as !== 'button'? rest: rest as any;
   return (
     <Component
       {...rest}
