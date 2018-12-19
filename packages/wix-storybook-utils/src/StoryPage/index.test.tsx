@@ -135,6 +135,23 @@ describe('StoryPage', () => {
     });
   });
 
+  describe('API tab', () => {
+    it('Should render API markdown', () => {
+      testkit.when.created({
+        activeTabId: 'API',
+        component: () => '',
+        codeExample: false,
+        metadata: {
+          props: {},
+          readmeApi: 'data for markdown',
+          displayName: 'Component',
+        },
+      });
+
+      expect(testkit.get.api.markdown().length).toBe(1);
+    });
+  });
+
   describe('Testkit tab', () => {
     it('Should render both testkit markdown and auto generated testkit docs', () => {
       testkit.when.created({

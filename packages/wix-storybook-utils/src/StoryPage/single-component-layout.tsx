@@ -93,7 +93,13 @@ export const SingleComponentLayout: React.StatelessComponent<
       )}
     </div>
 
-    <AutoDocs parsedSource={metadata} />
+    <div>
+      {metadata.readmeApi && (
+        <Markdown data-hook="api-markdown" source={metadata.readmeApi} />
+      )}
+
+      <AutoDocs parsedSource={metadata} />
+    </div>
 
     <div>
       {metadata.readmeTestkit && (

@@ -5,6 +5,7 @@ import Markdown from '../Markdown';
 import AutoExample from '../AutoExample';
 import StoryPage from './index';
 import { AutoTestkit } from '../AutoTestkit/auto-testkit';
+
 export default class {
   component;
 
@@ -41,6 +42,13 @@ export default class {
       this.component.find('[dataHook="metadata-codeblock"]').find(Markdown),
 
     autoExample: () => this.component.find(AutoExample),
+
+    api: {
+      markdown: () => {
+        return this.component.find('[data-hook="api-markdown"]');
+      },
+    },
+
     testkit: {
       markdown: () => {
         return this.component.find('[data-hook="testkit-markdown"]');

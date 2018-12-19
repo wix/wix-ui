@@ -8,6 +8,7 @@ export interface Metadata {
     [s: string]: Prop;
   };
   readme?: string;
+  readmeApi?: string;
   readmeTestkit?: string;
   readmeAccessibility?: string;
   drivers?: Driver[];
