@@ -26,6 +26,16 @@ export const createHOC = Component => {
       }
     }
 
+    componentDidUpdate(prevProps) {
+      const {dataHook} = this.props;
+      if (prevProps.dataHook !== dataHook) {
+        const domNode = ReactDOM.findDOMNode(this);
+        if (domNode && domNode instanceof Element) {
+          domNode.setAttribute('data-hook', dataHook);
+        }
+      }
+    }
+
     render() {
       // Can't pass refs to stateless components (and also there's nothing to hoist)
       return isStatelessComponent(Component)

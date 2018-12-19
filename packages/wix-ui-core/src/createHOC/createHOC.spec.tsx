@@ -10,7 +10,7 @@ describe('createHOC function', () => {
     dataHook?: string
   };
 
-  const render = (Comp: any) => mount(Comp, {attachTo: document.createElement('div')});
+  const render = (Comp: JSX.Element) => mount<ChildComponent>(Comp, {attachTo: document.createElement('div')});
 
   // Regular component with state
   class ChildComponent extends React.Component<ComponentProps, {id: string}> {
@@ -57,6 +57,12 @@ describe('createHOC function', () => {
       const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
       expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
     });
+    
+    it('should update data-hook if changed', () => {
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      wrapper.setProps({dataHook: 'new-data-hook'});
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('new-data-hook');
+    });
 
     it('should place data-class on the root of the component', () => {
       const wrapper = render(<HOCComponent dataClass="my-data-class" />);
@@ -91,6 +97,12 @@ describe('createHOC function', () => {
     it('should place data-hook on the root of the component', () => {
       const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
       expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
+    });
+
+    it('should update data-hook if changed', () => {
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      wrapper.setProps({dataHook: 'new-data-hook'});
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('new-data-hook');
     });
 
     it('should place data-class on the root of the component', () => {
@@ -130,6 +142,12 @@ describe('createHOC function', () => {
     it('should place data-hook on the root of the component', () => {
       const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
       expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('my-data-hook');
+    });
+
+    it('should update data-hook if changed', () => {
+      const wrapper = render(<HOCComponent dataHook="my-data-hook" />);
+      wrapper.setProps({dataHook: 'new-data-hook'});
+      expect(wrapper.getDOMNode().getAttribute('data-hook')).toBe('new-data-hook');
     });
 
     it('should place data-class on the root of the component', () => {
