@@ -98,7 +98,7 @@ export const SingleComponentLayout: React.StatelessComponent<
         <Markdown data-hook="api-markdown" source={metadata.readmeApi} />
       )}
 
-      <AutoDocs parsedSource={metadata} />
+      <AutoDocs parsedSource={metadata} showTitle={!metadata.readmeApi} />
     </div>
 
     <div>
