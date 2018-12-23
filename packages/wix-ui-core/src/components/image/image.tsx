@@ -4,6 +4,7 @@ import { EMPTY_PIXEL } from './fixtures';
 export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
   errorImage?: string;
   onError?: (event: errorEvent) => void;
+  onLoad?: (event: loadEvent) => void;
 }
 export interface errorEvent extends React.SyntheticEvent<HTMLImageElement> {
 }
@@ -35,7 +36,9 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   private handleOnLoad: React.EventHandler<loadEvent> = e => {
     this.setState({
       status: ImageStatus.Loaded
-    })
+    });
+
+    this.props.onLoad!(e);
   }
 
   private handleOnError: React.EventHandler<errorEvent> = e => {
