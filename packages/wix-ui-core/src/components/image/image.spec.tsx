@@ -2,9 +2,8 @@ import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver';
 import { Image } from './image';
-import { reactUniDriver } from 'unidriver';
-import { async } from 'q';
-import { EMPTY_PIXEL, TEST_SRC } from './fixtures';
+import { EMPTY_PIXEL, TEST_SRC, BROKEN_SRC, ERROR_SRC} from './fixtures';
+import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest()
@@ -30,16 +29,25 @@ describe('Image', () => {
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
-    it('displays empty pixel when srcset is not provided', async() => {
-        const image = createDriver(<Image src=''/>);
-
-        expect(await image.getSrcSet()).toEqual(EMPTY_PIXEL);
-    });
-
-    it('displays provided alt', async () => {
+    it('displays a provided alt prop', async () => {
         const image = createDriver(<Image alt='blabla'/>);
         
         expect(await image.getAlt()).toEqual('blabla');
     });
+
+    it('when the src is broken, it displays the provided errorImage src', async (done) => {
+        const onErrorSpy = jest.fn();
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_SRC} onError={onErrorSpy}/>);
+        
+        expect(onErrorSpy).toHaveBeenCalledTimes(1);
+
+
+        // return await eventually(() => {
+        //     expect( onErrorSpy).toHaveBeenCalledTimes(1);
+        // }, {interval: 1});
+
+        // expect(await image.getSrc()).toEqual(ERROR_SRC);
+    });
+
     
 });

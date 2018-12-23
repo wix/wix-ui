@@ -16,7 +16,7 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
   return {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
-    getSrcSet: () => base.attr('srcet'),
+    getSrcSet: () => base.attr('srcSet'),
     getAlt: () => base.attr('alt')
   }
 
