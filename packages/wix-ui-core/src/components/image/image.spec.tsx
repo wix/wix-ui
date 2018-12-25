@@ -17,8 +17,8 @@ describe('Image', () => {
 
     it('renders image element to dom', async() => {
         const image = createDriver(<Image />);
-
         const imageElement = await image.element();
+
         expect((imageElement).tagName).toBe('IMG');
     });
 
@@ -35,29 +35,31 @@ describe('Image', () => {
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
-    it('when src is broken, it displays the provided errorImage src', async (done) => {
+    it('when src is broken, it displays the provided errorImage src', async () => {
         const onErrorSpy = jest.fn();
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_SRC} onError={onErrorSpy}/>);
-        
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_SRC} onError={onErrorSpy} />); 
+        await image.simulateLoadingImageError();
         expect(onErrorSpy).toHaveBeenCalledTimes(1);
 
-
         // return await eventually(() => {
-        //     expect( onErrorSpy).toHaveBeenCalledTimes(1);
-        // }, {interval: 1});
-
-        // expect(await image.getSrc()).toEqual(ERROR_SRC);
+        //     expect(onErrorSpy).toHaveBeenCalledTimes(1);
+        //     // expect(image.getSrc()).toEqual(ERROR_SRC);
+        // }, {interval: 2});
     });
 
     it('when both src and errorImage are broken - it displays an empty pixel', async() => {
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC}/>);
+        const onErrorSpy = jest.fn();
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy}/>);
+        await image.simulateLoadingImageError();
 
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
     it('when provided src is broken and errorImage is not provided - it displays an empty pixel', async() => {
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage=''/>);
-
+        const onErrorSpy = jest.fn();
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage='' onError={onErrorSpy}/>);
+        await image.simulateLoadingImageError();
+        
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
