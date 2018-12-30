@@ -442,7 +442,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     // Update popover visibility
-    if (prevProps.shown !== undefined && prevProps.shown !== shown) {
+    if (prevProps.shown !== shown) {
       if (shown) {
         this.showPopover();
       } else {

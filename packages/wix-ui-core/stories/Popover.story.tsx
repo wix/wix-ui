@@ -42,7 +42,7 @@ const ScrollableContainer = props => (
       data-hook={props.dataHook}
       style={{
         overflow: 'auto',
-        height: 120,
+        height: 100,
       }}
     >
       <div style={{ padding: '25px 25px 80px' }}>
