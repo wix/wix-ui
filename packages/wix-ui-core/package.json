@@ -84,6 +84,7 @@
     "@ui-autotools/scripts": "^3.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "canvas": "^2.2.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "eyes.it": "latest",
@@ -97,13 +98,15 @@
     "react-test-renderer": "^16.3.1",
     "ts-jest": "^22.0.3",
     "tslint-config-prettier": "^1.12.0",
+    "tslint-config-wix": "^1.0.31",
     "tslint-react": "^3.5.1",
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
     "wix-storybook-utils": "^2.0.45",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
-    "yoshi": "^2.7.0"
+    "yoshi": "^3.0.0",
+    "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -130,7 +133,10 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ],
-    "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
+    "testRegex": "/src/.*\\avatar.spec\\.(ts|tsx)$",
+    "testEnvironmentOptions": {
+      "resources": "usable"
+    }
   },
   "yoshi": {
     "exports": {
