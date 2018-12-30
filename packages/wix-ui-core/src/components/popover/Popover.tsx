@@ -6,6 +6,7 @@ import {Manager, Reference, Popper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import style from './Popover.st.css';
+import {createModifiers} from './modifiers';
 
 import {
   buildChildrenObject,
@@ -116,55 +117,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-const calculateOffset = ({moveBy, placement}): string => {
-  /*
-   * For `right` and `left` placements, we need to flip the `x` and `y` values as Popper.JS will use
-   * the first value for the main axis. As per Popper.js docs:
-   *
-   *   if the placement is top or bottom, the length will be the width. In case of left or right, it
-   *   will be the height.
-   *
-   */
-  if (placement.includes('right') || placement.includes('left')) {
-    return `${moveBy ? moveBy.y : 0}px, ${moveBy ? moveBy.x : 0}px`;
-  }
-
-  return `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`;
-};
-
-const createModifiers = ({moveBy, appendTo, shouldAnimate, flip, fixed, placement}) => {
-  const modifiers: PopperJS.Modifiers = {
-    offset: {
-      offset: calculateOffset({moveBy, placement}),
-    },
-    computeStyle: {
-      gpuAcceleration: !shouldAnimate
-    },
-    flip: {
-      enabled: typeof moveBy === 'undefined' ? flip : !moveBy
-    },
-    preventOverflow: {
-      enabled: !fixed,
-    },
-    hide: {
-      enabled: !fixed
-    }
-  };
-
-  if (isTestEnv) {
-    modifiers.computeStyle = {enabled: false};
-  }
-
-  if (appendTo) {
-    modifiers.preventOverflow = {
-      ...modifiers.preventOverflow,
-      boundariesElement: appendTo
-    };
-  }
-
-  return modifiers;
-};
-
 function getAppendToNode({appendTo, targetRef}) {
   let appendToNode;
   if (appendTo === 'window' || appendTo === 'viewport') {
@@ -233,7 +185,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const {moveBy, appendTo, placement, showArrow, moveArrowTo, flip, fixed} = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
-    const modifiers = createModifiers({moveBy, appendTo, shouldAnimate, flip, placement, fixed});
+    const modifiers = createModifiers({
+      moveBy,
+      appendTo,
+      shouldAnimate,
+      flip,
+      placement,
+      fixed,
+      isTestEnv
+    });
 
     const popper = (
       <Popper

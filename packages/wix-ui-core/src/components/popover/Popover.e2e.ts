@@ -4,7 +4,9 @@ import {createStoryUrl, waitForVisibilityOf, scrollToElement} from 'wix-ui-test-
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import {popoverTestkitFactory} from '../../testkit/protractor';
 
-// Scroll to the bottom of a container
+// Scroll to the bottom of a scrollable container. We assume the container has a `100px` height.
+// This utility function is used for the `flip` and `fixed` props tests, as they depeneds on a
+// scrollable container in the <Popover/>'s story.
 const scrollToBottom = async dataHook => {
   await browser.executeScript(
     `document.querySelector('[data-hook="${dataHook}"]').scrollTop = 100`,
@@ -50,13 +52,19 @@ describe('Popover', () => {
       await createDriver('story-popover-flip-behaviour');
     });
 
-    eyes.it('flip enabled (default)', async () => {
-      await scrollToBottom('story-popover-flip-enabled');
-    });
+    eyes.it(
+      'should flip the popover\'s placements when it overlaps the target element (default)',
+      async () => {
+        await scrollToBottom('story-popover-flip-enabled');
+      }
+    );
 
-    eyes.it('flip disabled', async () => {
-      await scrollToBottom('story-popover-flip-disabled');
-    });
+    eyes.it(
+      'should not flip the popover\'s placement when it overlaps the target elements when flip is disabled',
+      async () => {
+        await scrollToBottom('story-popover-flip-disabled');
+      }
+    );
   });
 
   describe('Fixed behaviour', () => {
@@ -64,12 +72,15 @@ describe('Popover', () => {
       await createDriver('story-popover-fixed-behaviour');
     });
 
-    eyes.it('fixed disabled (default)', async () => {
+    eyes.it('should keep the popover\'s visible when it overflows the container', async () => {
       await scrollToBottom('story-popover-fixed-disabled');
     });
 
-    eyes.it('fixed enabled', async () => {
-      await scrollToBottom('story-popover-flip-enabled');
-    });
+    eyes.it(
+      'should not keep the popover\'s visible when it overflows the container when fixed is enabled',
+      async () => {
+        await scrollToBottom('story-popover-fixed-enabled');
+      }
+    );
   });
 });
