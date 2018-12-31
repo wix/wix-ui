@@ -38,12 +38,6 @@ export const popoverDriverFactory = ({element, eventTrigger}) => ({
   /** Click on the element */
   click: () => eventTrigger.click(getTargetElement(element)),
 
-  /** Click on the content */ // TODO: make a private method
-  clickContentElement: () => eventTrigger.click(getContentElement(element)),
-
-  /** Return the <Popover/>'s portal element */ // TODO: make a private method
-  getPortalElement: () => getPortalElement(element),
-
   /** Click outside the element */
   clickOutside: () => {
     document.dispatchEvent(new Event('mousedown'));
