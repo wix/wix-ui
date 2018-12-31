@@ -214,7 +214,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               {
                 showArrow ?
                   [
-                    this.renderArrow(arrowProps, moveArrowTo, popperPlacement),
+                    this.renderArrow(arrowProps, moveArrowTo, popperPlacement || placement),
                     <div key="popover-content" className={style.popoverContent}>{childrenObject.Content}</div>
                   ] :
                   <div key="popover-content">{childrenObject.Content}</div>
