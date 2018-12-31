@@ -63,7 +63,7 @@ export async function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
   mount: MountFunctionType
   ) {
     const dataHook = 'myDataHook';
-    const elementToRender = React.cloneElement(Element , {'data-hook': dataHook});
+    const elementToRender = React.cloneElement(Element , {'data-hook': dataHook, dataHook});
     const wrapper = mount(elementToRender);
     const testkit = testkitFactory({wrapper, dataHook});
     return await testkit.exists();
