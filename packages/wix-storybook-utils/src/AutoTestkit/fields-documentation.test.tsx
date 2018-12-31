@@ -75,10 +75,7 @@ describe('FieldsDocumentation', () => {
     });
   });
 
-  it('fails when invalid unit type is given', () => {
-    const consoleError = console.error;
-    console.error = jest.fn();
-
+  it('should not fail given invalid unit type', () => {
     const units = [
       {
         type: 'notFittingType',
@@ -89,9 +86,7 @@ describe('FieldsDocumentation', () => {
 
     driver.create({ units }, spy);
 
-    expect(spy).toHaveBeenCalled();
-
-    console.error = consoleError;
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('has a property header', () => {
