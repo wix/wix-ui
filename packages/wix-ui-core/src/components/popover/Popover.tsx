@@ -6,6 +6,7 @@ import {Manager, Reference, Popper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
 import style from './Popover.st.css';
+import {createModifiers} from './modifiers';
 
 import {
   buildChildrenObject,
@@ -54,6 +55,16 @@ export interface PopoverProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   /** Show show arrow from the content */
   showArrow?: boolean;
+  /**
+   * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
+   * when it starts to overlap the target element (`<Popover.Element/>`).
+   */
+  flip?: boolean;
+  /**
+   * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
+   * original placement even when it's being positioned outside the boundary.
+   */
+  fixed?: boolean;
   /** Moves popover relative to the parent */
   moveBy?: { x: number, y: number };
   /** Hide Delay */
@@ -106,29 +117,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-const createModifiers = ({moveBy, appendTo, shouldAnimate}) => {
-  const modifiers: PopperJS.Modifiers = {
-    offset: {
-      offset: `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`
-    },
-    computeStyle: {
-      gpuAcceleration: !shouldAnimate
-    }
-  };
-
-  if (isTestEnv) {
-    modifiers.computeStyle = {enabled: false};
-  }
-
-  if (appendTo) {
-    modifiers.preventOverflow = {
-      boundariesElement: appendTo
-    };
-  }
-
-  return modifiers;
-};
-
 function getAppendToNode({appendTo, targetRef}) {
   let appendToNode;
   if (appendTo === 'window' || appendTo === 'viewport') {
@@ -163,6 +151,11 @@ const ClickOutsideWrapper = onClickOutside(
 export class Popover extends React.Component<PopoverProps, PopoverState> {
   static displayName = 'Popover';
 
+  static defaultProps = {
+    flip: true,
+    fixed: false,
+  };
+
   static Element = createComponentThatRendersItsChildren('Popover.Element');
   static Content = createComponentThatRendersItsChildren('Popover.Content');
 
@@ -189,10 +182,18 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   getPopperContentStructure(childrenObject) {
-    const {moveBy, appendTo, placement, showArrow, moveArrowTo} = this.props;
+    const {moveBy, appendTo, placement, showArrow, moveArrowTo, flip, fixed} = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
-    const modifiers = createModifiers({moveBy, appendTo, shouldAnimate});
+    const modifiers = createModifiers({
+      moveBy,
+      appendTo,
+      shouldAnimate,
+      flip,
+      placement,
+      fixed,
+      isTestEnv
+    });
 
     const popper = (
       <Popper
@@ -401,7 +402,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     }
 
     // Update popover visibility
-    if (prevProps.shown !== undefined && prevProps.shown !== shown) {
+    if (prevProps.shown !== shown) {
       if (shown) {
         this.showPopover();
       } else {

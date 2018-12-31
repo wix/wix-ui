@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
 import {queryHook} from 'wix-ui-test-utils/dom';
 import {Popover, PopoverProps} from './';
+import {createModifiers} from './modifiers';
 import {popoverDriverFactory} from './Popover.driver';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
@@ -498,6 +499,117 @@ describe('Popover', () => {
 
       expect(queryPopoverElement().childNodes[0].nodeName).toEqual('DIV');
       expect(queryPopoverContent().childNodes[0].nodeName).toEqual('DIV');
+    });
+  });
+
+  describe('createModifiers', () => {
+    const defaultProps = {
+      moveBy: undefined,
+      appendTo: undefined,
+      shouldAnimate: false,
+      flip: true,
+      fixed: false,
+      placement: 'bottom',
+      isTestEnv: false,
+    };
+
+    it('should match default modifiers', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+      });
+
+      expect(modifiers).toEqual({
+        offset: {
+          offset: '0px, 0px',
+        },
+        computeStyle: {
+          gpuAcceleration: true,
+        },
+        flip: {
+          enabled: true,
+        },
+        preventOverflow: {
+          enabled: true,
+        },
+        hide: {
+          enabled: true,
+        },
+      });
+    });
+
+    it('should calculate the offset properly using moveBy for the top placement', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        moveBy: { x: 5, y: 10 },
+        placement: 'top',
+      });
+
+      expect(modifiers.offset.offset).toEqual('5px, 10px');
+    });
+
+    it('should calculate the offset properly using moveBy for the right placement', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        moveBy: { x: 5, y: 10 },
+        placement: 'right',
+      });
+
+      expect(modifiers.offset.offset).toEqual('10px, 5px');
+    });
+
+    it('should disable gpuAcceleration when animation is enabled', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        shouldAnimate: true,
+      });
+
+      expect(modifiers.computeStyle.gpuAcceleration).toEqual(false);
+    });
+
+    it('should disable the flip modifier if moveBy was provided', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        moveBy: { x: 5, y: 10 },
+      });
+
+      expect(modifiers.flip.enabled).toEqual(false);
+    });
+
+    it('should disable the flip modifier when set explicitly', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        flip: false
+      });
+
+      expect(modifiers.flip.enabled).toEqual(false);
+    });
+
+    it('should disable `preventOverflow` and `hide` when fixed set to `true`', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        fixed: true
+      });
+
+      expect(modifiers.preventOverflow.enabled).toEqual(false);
+      expect(modifiers.hide.enabled).toEqual(false);
+    });
+
+    it('should disable computeStyle when isTestEnv is set to `true`', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        isTestEnv: true,
+      });
+
+      expect(modifiers.computeStyle.enabled).toEqual(false);
+    });
+
+    it('should set boundariesElement when appendTo is provided', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        appendTo: 'viewport',
+      });
+
+      expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
     });
   });
 });

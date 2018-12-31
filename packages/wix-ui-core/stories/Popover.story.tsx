@@ -8,11 +8,11 @@ class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boo
 
   render() {
     const props: PopoverProps & {children?: any} = {
-      ...this.props,
       placement: 'right',
       showArrow: true,
       shown: this.state.shown,
-      onClick:()=> this.setState({shown: !this.state.shown})
+      onClick:()=> this.setState({shown: !this.state.shown}),
+      ...this.props
     }
     return (
       <Popover {...props}>
@@ -26,6 +26,31 @@ class PopoverWithState extends React.Component<Partial<PopoverProps>,{shown: boo
     )
   }
 }
+
+const ScrollableContainer = props => (
+  <div
+    style={{
+      textAlign: 'center',
+      overflow: 'hidden',
+      position: 'relative',
+      border: '1px solid black',
+      width: 250,
+      margin: 10
+    }}
+  >
+    <div
+      data-hook={props.dataHook}
+      style={{
+        overflow: 'auto',
+        height: 100,
+      }}
+    >
+      <div style={{ padding: '25px 25px 80px' }}>
+        {props.children}
+      </div>
+    </div>
+  </div>
+);
 
 const children = [
   {label: 'Default example',
@@ -127,10 +152,15 @@ export default {
         <h2>moveBy={'{x:50, y:100}'}</h2>
         <p>
           <em>x</em> and <em>y</em> axis orientation is relative to the placement of the popover.<br/>
-          If the <em>placement</em> is <code>"top"</code> or <code>"bottom"</code>, <em>x</em> represents offset in the horizontal axis and <em>y</em> in the vertical axis.<br/>
-          If the <em>placement</em> is <code>"left"</code> or <code>"right"</code>, <em>x</em> represents offset in the vertical axis and <em>y</em> in the horizontal axis.
+
+          <br/>
+
+          The <code>flip</code> behaviour is disabled when this props is used, in order to support
+          negative values when making the<br/>
+          Content element (<code>{`<Popover.Content/>`}</code>) intentionally overlapping the Target
+          element (<code>{`<Popover.Element/>`}</code>).
         </p>
-        <Popover placement="left" shown moveBy={{ x: 50, y: 100 }} showArrow>
+        <Popover placement="right" shown moveBy={{ x: 50, y: 100 }} showArrow>
           <Popover.Element>
             <div style={{ height: '80px' }}>The element</div>
           </Popover.Element>
@@ -159,6 +189,51 @@ export default {
         <br/>
 
         <PopoverWithState showDelay={1000} hideDelay={1000} />
+      </div>
+
+      <div data-hook="story-popover-flip-behaviour">
+        <h2>Flip behaviour</h2>
+        <p>
+          This behaviour used to flip the <code>{`<Popover/>`}</code>'s placement
+          when it starts to overlap the target element (<code>{`<Popover.Element/>`}</code>).
+          <br/>
+          It is enabled by default.
+        </p>
+
+        <br/>
+
+        <ScrollableContainer dataHook="story-popover-flip-enabled">
+          With <code>flip</code> enabled (default):<br/><br/><br/>
+          <PopoverWithState placement="top" />
+        </ScrollableContainer>
+
+        <ScrollableContainer dataHook="story-popover-flip-disabled">
+          With <code>flip</code> disabled:<br/><br/><br/>
+          <PopoverWithState placement="top" flip={false} />
+        </ScrollableContainer>
+      </div>
+
+      <div data-hook="story-popover-fixed-behaviour">
+        <h2>Fixed behaviour</h2>
+        <p>
+          This behaviour used to keep the <code>{`<Popover/>`}</code> in it's original
+          placement.<br/> By default this behaviour is <b>disabled</b>, and the &nbsp;
+          <code>{`<Popover/>`}</code> will change it's position when it'll being positioned outside<br/>
+          the boundary (the boundry is the value of the <code>appendTo</code> prop).
+          <br/>
+        </p>
+
+        <br/>
+
+        <ScrollableContainer dataHook="story-popover-fixed-disabled">
+          With <code>fixed</code> disabled (default):<br/><br/><br/>
+          <PopoverWithState placement="top" />
+        </ScrollableContainer>
+
+        <ScrollableContainer dataHook="story-popover-fixed-enabled">
+          With <code>fixed</code> enabled:<br/><br/><br/>
+          <PopoverWithState placement="top" fixed />
+        </ScrollableContainer>
       </div>
     </div>
   )
