@@ -37,7 +37,7 @@ describe('Popover', () => {
   });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, async () => {
+    it(`doesn't display popup when shown={false}`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: false
@@ -47,7 +47,7 @@ describe('Popover', () => {
       expect(driver.isContentElementExists()).toBe(false);
     });
 
-    it(`displays popup when shown={true}`, async () => {
+    it(`displays popup when shown={true}`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true
@@ -58,7 +58,7 @@ describe('Popover', () => {
   });
 
   describe('Events', () => {
-    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
+    it(`calls mouseEnter and mouseLeave callbacks`, () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
@@ -90,7 +90,7 @@ describe('Popover', () => {
         expect(onClickOutside).toBeCalled();
       });
 
-      it('should not be triggered when content is clicked and appended to parent', async () => {
+      it('should not be triggered when content is clicked and appended to parent', () => {
         const onClickOutside = jest.fn();
 
         const driver = createDriver(popoverWithProps({
@@ -117,7 +117,7 @@ describe('Popover', () => {
       updatePositionSpy.mockRestore();
     });
 
-    it(`offsets the popup arrow by specified amount`, async () => {
+    it(`offsets the popup arrow by specified amount`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -312,7 +312,7 @@ describe('Popover', () => {
       expect(queryPopoverContent()).toBeNull();
     });
 
-    it(`should show the popover immediately on first render if needed`, async () => {
+    it(`should show the popover immediately on first render if needed`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         showDelay: 10,
@@ -356,7 +356,7 @@ describe('Popover', () => {
   describe('Portal and containment', () => {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
-    it(`renders the popup directly into the popover root by default`, async() => {
+    it(`renders the popup directly into the popover root by default`,() => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true
@@ -365,7 +365,7 @@ describe('Popover', () => {
       expect(driver.getContentElement().parentElement).toBe(container.componentNode);
     });
 
-    it(`renders the popup into a portal when given appendTo prop`, async() => {
+    it(`renders the popup into a portal when given appendTo prop`,() => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -377,7 +377,7 @@ describe('Popover', () => {
       expect(driver.getPortalElement().classList).toContain(styles.root);
     });
 
-    it(`renders an empty portal when closed`, async() => {
+    it(`renders an empty portal when closed`,() => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: false,
@@ -389,7 +389,7 @@ describe('Popover', () => {
       expect(driver.getPortalElement().classList).not.toContain(styles.root);
     });
 
-    it(`removes the portal on unmount`, async() => {
+    it(`removes the portal on unmount`,() => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -401,7 +401,7 @@ describe('Popover', () => {
       expect(driver.getPortalElement()).toBeNull();
     });
 
-    it(`adds the portal to the body when appendTo="window"`, async () => {
+    it(`adds the portal to the body when appendTo="window"`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -411,7 +411,7 @@ describe('Popover', () => {
       expect(driver.getPortalElement().parentElement).toBe(document.body);
     });
 
-    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
+    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, () => {
       const driver = createDriver(
         <div style={{overflow: 'scroll'}}>
           <div style={{overflow: 'visible'}}>
@@ -427,7 +427,7 @@ describe('Popover', () => {
       expect(driver.getPortalElement().parentElement).toBe(container.node.firstChild);
     });
 
-    it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
+    it(`adds the portal next to the popover's element when appendTo="parent"`, () => {
       const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
@@ -486,7 +486,7 @@ describe('Popover', () => {
   });
 
   describe('React <16 compatibility', () => {
-    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
+    it('should wrap children in a <div/> if provided as strings to support React 15', () => {
       const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
