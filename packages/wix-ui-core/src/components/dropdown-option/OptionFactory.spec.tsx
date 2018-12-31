@@ -77,25 +77,63 @@ describe('OptionFactory', () => {
     expect(option.render(value)).toEqual(<Divider className={undefined}>value</Divider>);
   });
 
-  it('should create highlighted option', () => {
-    const existingOption = OptionFactory.create({value});
-    const option = OptionFactory.createHighlighted(existingOption, 'lu');
-    expect(option.id).toContain('Option');
-    expect(option.isDisabled).toBeFalsy();
-    expect(option.isSelectable).toBeTruthy();
-    expect(option.render(value)).toEqual([
-      <span className={style.nonHighlight} key={0}>va</span>,
-      <mark className={style.highlight} key={1}>lu</mark>,
-      <span className={style.nonHighlight} key={2}>e</span>
-    ]);
-  });
+  describe('Highlight', () => {
+    it('should create highlighted option', () => {
+      const existingOption = OptionFactory.create({value});
+      const option = OptionFactory.createHighlighted(existingOption, 'lu');
+      expect(option.id).toContain('Option');
+      expect(option.isDisabled).toBeFalsy();
+      expect(option.isSelectable).toBeTruthy();
+      expect(option.render(value)).toEqual([
+        <span className={style.nonHighlight} key={0}>va</span>,
+        <mark className={style.highlight} key={1}>lu</mark>,
+        <span className={style.nonHighlight} key={2}>e</span>
+      ]);
+    });
 
-  it('should create highlighted option with divider', () => {
-    const existingOption = OptionFactory.createDivider();
-    const option = OptionFactory.createHighlighted(existingOption, 'lu');
-    expect(option.id).toContain('Divider');
-    expect(option.isDisabled).toBeFalsy();
-    expect(option.isSelectable).toBeFalsy();
-    expect(option.render(value)).toEqual(<Divider className={undefined} />);
+    it('should support multiple highlight criteria, divided by space', () => {
+      const existingOption = OptionFactory.create({value: 'This is a sentence'});
+      const option = OptionFactory.createHighlighted(existingOption, 'his sen');
+      expect(option.render(value)).toEqual([
+        <span className={style.nonHighlight} key={0}>T</span>,
+        <mark className={style.highlight} key={1}>his</mark>,
+        <span className={style.nonHighlight} key={2}> is a </span>,
+        <mark className={style.highlight} key={3}>sen</mark>,
+        <span className={style.nonHighlight} key={4}>tence</span>,
+      ]);
+    });
+
+    it('should handle a case where the beginning of the string is matched', () => {
+      const existingOption = OptionFactory.create({value});
+      const option = OptionFactory.createHighlighted(existingOption, 'valu');
+      expect(option.id).toContain('Option');
+      expect(option.isDisabled).toBeFalsy();
+      expect(option.isSelectable).toBeTruthy();
+      expect(option.render(value)).toEqual([
+        <mark className={style.highlight} key={0}>valu</mark>,
+        <span className={style.nonHighlight} key={1}>e</span>
+      ]);
+    });
+
+    it('should handle a value ending with a white space', () => {
+      const existingOption = OptionFactory.create({value});
+      const option = OptionFactory.createHighlighted(existingOption, 'va ');
+      expect(option.id).toContain('Option');
+      expect(option.isDisabled).toBeFalsy();
+      expect(option.isSelectable).toBeTruthy();
+      expect(option.render(value)).toEqual([
+        <mark className={style.highlight} key={0}>va</mark>,
+        <span className={style.nonHighlight} key={1}>lue</span>
+      ]);
+    });
+
+    it('should create highlighted option with divider', () => {
+      const existingOption = OptionFactory.createDivider();
+      const option = OptionFactory.createHighlighted(existingOption, 'lu');
+      expect(option.id).toContain('Divider');
+      expect(option.isDisabled).toBeFalsy();
+      expect(option.isSelectable).toBeFalsy();
+      expect(option.render(value)).toEqual(<Divider className={undefined} />);
+    });
   });
 });
