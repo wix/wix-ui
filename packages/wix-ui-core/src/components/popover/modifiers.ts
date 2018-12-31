@@ -1,6 +1,6 @@
 import PopperJS from 'popper.js';
 
-const calculateOffset = ({moveBy, placement}): string => {
+const calculateOffset = ({moveBy, placement = ''}): string => {
   /*
    * For `right` and `left` placements, we need to flip the `x` and `y` values as Popper.JS will use
    * the first value for the main axis. As per Popper.js docs:
