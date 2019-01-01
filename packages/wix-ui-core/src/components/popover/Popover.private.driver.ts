@@ -17,7 +17,6 @@ export const popoverPrivateDriverFactory = ({element, eventTrigger}) => ({
   clickOutsideOnContent: () => {
     const event = new Event('mousedown', { bubbles: true });
     getContentElement(element).dispatchEvent(event);
-
   },
 
   /** Return the <Popover/>'s portal element */
