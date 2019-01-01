@@ -31,7 +31,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     const { errorImage , ...nativeProps} = this.props
 
     return (
-        <img {...nativeProps} src={this.state.src} onError={this.handleOnError}  onLoad={this.handleOnLoad}/> //srcSet={providedSrcSet} 
+        <img {...nativeProps} src={this.state.src} onError={this.handleOnError}  onLoad={this.handleOnLoad}/> 
     );
   }
 
@@ -44,16 +44,16 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   }
 
   private handleOnError: React.EventHandler<errorEvent> = e => {
-    console.log('errored')
     this.setState({
-        src: this.props.errorImage || EMPTY_PIXEL,
-        status: ImageStatus.Error
+        status: ImageStatus.Error,
+        src: this.state.src == this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists() ? this.props.errorImage : EMPTY_PIXEL
     });
 
-    this.props.onError!(e);
+    this.props.onError!(e)
   };
 
-
-
-
+  private errorImageExists = () => {
+    const path = this.props.errorImage;
+    return !path.length || path == null ? false : true
+  }
 }
