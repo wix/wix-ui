@@ -2,7 +2,7 @@ import * as React from 'react';
 import {DropdownOption, Option} from './';
 import {dropdownOptionDriverFactory} from './DropdownOption.driver';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {sleep} from 'wix-ui-test-utils/react-helpers';
+import {OptionFactory} from './OptionFactory';
 
 describe('DropdownOption', () => {
   const createDriver =
@@ -13,12 +13,11 @@ describe('DropdownOption', () => {
   const onClickHandler = jest.fn();
   const onMouseEnterHandler = jest.fn();
 
-  const createOption = (isDisabled = false) => ({
+  const createOption = (isDisabled = false) => OptionFactory.create({
     id: 1,
     isDisabled,
     isSelectable: !isDisabled,
     value: 'value',
-    render: () => 'value'
   });
 
   const createDropdownOption = (option: Option) => (
@@ -68,4 +67,11 @@ describe('DropdownOption', () => {
     expect(driver.isSelected()).toBeFalsy();
     expect(driver.isDisabled()).toBeTruthy();
   });
+
+  it('should integrate with highlighting functionality of OptionFactory', () => {
+    const highlighted = 'lu';
+    const option = OptionFactory.createHighlighted(createOption(), highlighted);
+    const driver = createDriver(createDropdownOption(option));
+    expect(driver.getHighlightedStrings()).toEqual([highlighted]);
+  })
 });

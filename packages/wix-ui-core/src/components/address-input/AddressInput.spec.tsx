@@ -120,7 +120,7 @@ describe('AddressInput', () => {
         await waitForCond(() => driver.isContentElementExists());
         expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
-    
+
     it('Should display all result from maps client', async () => {
         init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
