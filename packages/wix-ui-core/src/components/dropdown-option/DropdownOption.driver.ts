@@ -15,12 +15,7 @@ export const dropdownOptionDriverFactory = ({element, eventTrigger}) => {
     getElement: () => element,
     getHighlightedStrings: () => {
         const highlightedElements: Array<HTMLElement> = Array.from(element.querySelectorAll(`.${styles.highlight}`));
-        const highlighted = highlightedElements.map((el: HTMLElement) => el.innerHTML);
-
-        const nonHighlightedElements: Array<HTMLElement> = Array.from(element.querySelectorAll(`.${styles.nonHighlight}`));
-        const nonHighlighted = nonHighlightedElements.map((el: HTMLElement) => el.innerHTML);
-
-        return {highlighted, nonHighlighted};
+        return highlightedElements.map((el: HTMLElement) => el.innerHTML);
     }
   };
 };

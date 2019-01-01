@@ -799,36 +799,6 @@ describe('AddressInput', () => {
         });
     });
 
-    describe('Highlight', () => {
-        it('should highlight text in dropdown', async () => {
-            init({value: 'ne'});
-            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
-            driver.click();
-            driver.setValue('ne');
-            driver.keyDown('e');
-            await waitForCond(() => driver.isContentElementExists());
-            const highlightedStrings = driver.optionAt(0).getHighlightedStrings();
-            expect(highlightedStrings).toEqual({
-                highlighted: ['Ne'],
-                nonHighlighted: ['1 East Broadway, ', 'w York, NY, USA']
-            });
-        });
-
-        it('should highlight text in dropdown, even if it is not continuous', async () => {
-            init({value: 'ne yo'});
-            GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
-            driver.click();
-            driver.setValue('ne yo');
-            driver.keyDown('o');
-            await waitForCond(() => driver.isContentElementExists());
-            const highlightedStrings = driver.optionAt(0).getHighlightedStrings();
-            expect(highlightedStrings).toEqual({
-                highlighted: ['Ne', 'Yo'],
-                nonHighlighted: ['1 East Broadway, ', 'w ', 'rk, NY, USA']
-            });
-        });
-    });
-
     describe('testkit', () => {
         it('should exist', () => {
             expect(isTestkitExists(
