@@ -100,8 +100,22 @@ describe('Popover', () => {
           appendTo: 'parent',
         }));
 
-        driver.clickContentElement();
+        driver.clickOutsideOnContent();
         expect(onClickOutside).not.toBeCalled();
+      });
+
+      it('should be triggered when content is clicked and not appended to parent', () => {
+        const onClickOutside = jest.fn();
+
+        const driver = createDriver(popoverWithProps({
+          placement: 'bottom',
+          shown: true,
+          onClickOutside,
+          appendTo: 'viewport',
+        }));
+
+        driver.clickOutsideOnContent();
+        expect(onClickOutside).toBeCalled();
       });
     });
   });
@@ -174,7 +188,6 @@ describe('Popover', () => {
     // Since Popover.Content can render outside the component's root, let's query
     // the entire document with the assumption that we don't render more than one
     // popover at a time.
-    const queryPopoverElement = () => queryHook<HTMLElement>(document, 'popover-element');
     const queryPopoverContent = () => queryHook<HTMLElement>(document, 'popover-content');
 
     it(`animates on close given a timeout`, async () => {
