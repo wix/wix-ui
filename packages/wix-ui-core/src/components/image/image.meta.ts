@@ -12,6 +12,7 @@ imageMetadata
     title: 'Simulation with default props',
     props: {
       src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      alt: 'This is an image of a bird',
       errorImage: 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png',
       onError: noop,
       onLoad: noop,
