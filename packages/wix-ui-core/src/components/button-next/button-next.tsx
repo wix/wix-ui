@@ -2,7 +2,8 @@ import * as React from 'react';
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import style from './button-next.st.css';
 
-export interface ButtonProps {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** an element type to render as (string or function).  */
   as?: any;
   /** accepts prefix icon */
@@ -17,8 +18,8 @@ export interface ButtonProps {
   disabled?: boolean;
 }
 
-export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonProps;
-
+export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  ButtonProps;
 
 const _addAffix = (Affix, classname) =>
   Affix &&
@@ -30,9 +31,9 @@ const _addAffix = (Affix, classname) =>
  * ButtonNext
  */
 
-const ButtonNextComponent: React.SFC<ButtonProps> = props => {
+const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
   const {
-    as,
+    as: Component,
     suffixIcon,
     prefixIcon,
     children,
@@ -41,17 +42,22 @@ const ButtonNextComponent: React.SFC<ButtonProps> = props => {
     disabled,
     ...rest
   } = props;
-  const Component = as;
-  const restProps = as === 'button'? rest as NativeButtonProps: rest as any;
+  const isButton = Component === 'button';
+  const restProps = isButton ? rest : (rest as any);
+  const htmlType = isButton ? restProps.type || 'button' : restProps.type;
+  const htmlTabIndex = disabled ? -1 : restProps.tabIndex || 0;
+  const htmlRef = disabled ? undefined : restProps.href;
+  const ariaDisabled = disabled ? true : restProps['aria-disabled'];
   return (
     <Component
       {...rest}
       onFocus={focusableOnFocus}
       onBlur={focusableOnBlur}
       disabled={disabled}
-      type={as === 'button' ? restProps.type || 'button' : undefined}
-      tabIndex={disabled ? -1 : restProps.tabIndex || 0}
-      aria-disabled={disabled ? true : rest['aria-disabled']}
+      type={htmlType}
+      href={htmlRef}
+      tabIndex={htmlTabIndex}
+      aria-disabled={ariaDisabled}
       {...style('root', { disabled }, restProps)}
     >
       {_addAffix(prefixIcon, 'prefix')}
