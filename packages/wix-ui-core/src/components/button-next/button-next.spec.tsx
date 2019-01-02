@@ -4,7 +4,7 @@ import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { ButtonNext } from './';
 import { buttonNextPrivateDriverFactory } from './button-next.driver.private';
 
-describe.only('ButtonNext', () => {
+describe('ButtonNext', () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createUniRenderer(buttonNextPrivateDriverFactory);
