@@ -1,30 +1,24 @@
 import * as React from 'react';
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
-import classnames from 'classnames';
 import style from './button-next.st.css';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** an element type to render as (string or function).  */
-  as?: any;
+  as?: string | React.ComponentType<any>;
+  /** anchor attribute */
+  href?: string;
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
   /** accepts suffix icon  */
   suffixIcon?: React.ReactElement<any>;
-  /** callback need to be applied for onFocus event */
-  focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>;
-  /** callback need to be applied for onBlur event */
-  focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>;
   /** apply disabled styles */
   disabled?: boolean;
 }
 
-export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonProps;
-
-const _addAffix = (AffixComp, styleClass) =>
-  AffixComp &&
-  React.cloneElement(AffixComp, {
+const _addAffix = (Affix, styleClass) =>
+  Affix &&
+  React.cloneElement(Affix, {
     className: style[styleClass],
   });
 
@@ -32,33 +26,32 @@ const _addAffix = (AffixComp, styleClass) =>
  * ButtonNext
  */
 
-const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
+const ButtonNextComponent: React.SFC<
+  ButtonProps & { focusableOnFocus: () => void; focusableOnBlur: () => void }
+> = props => {
   const {
     as: Component,
     suffixIcon,
     prefixIcon,
     children,
+    disabled,
     focusableOnFocus,
     focusableOnBlur,
-    disabled,
+    href,
     ...rest
   } = props;
-  const isButton = Component === 'button';
-  const restProps = isButton ? rest : (rest as any);
-  const htmlType = isButton ? restProps.type || 'button' : restProps.type;
-  const htmlTabIndex = disabled ? -1 : restProps.tabIndex || 0;
-  const htmlHref = disabled ? undefined : restProps.href;
+  const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
+  const htmlHref = disabled ? undefined : href;
   return (
     <Component
       {...rest}
       onFocus={focusableOnFocus}
       onBlur={focusableOnBlur}
-      disabled={disabled}
-      type={htmlType}
+      disabled={href ? undefined : disabled}
       href={htmlHref}
       tabIndex={htmlTabIndex}
       aria-disabled={disabled}
-      {...style('root', { disabled }, restProps)}
+      {...style('root', { disabled }, rest)}
     >
       {_addAffix(prefixIcon, 'prefix')}
       <span className={style.content}>{children}</span>

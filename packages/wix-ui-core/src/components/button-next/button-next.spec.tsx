@@ -126,13 +126,6 @@ describe('ButtonNext', () => {
         expect(htmlTag).toBe('submit');
       });
     });
-    it('when rendered component is defined by user', async () => {
-      testContainer.renderSync(<ButtonNext as="button" />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(htmlTag).toBe('button');
-      });
-    });
   });
 
   describe('should not receive html attribute type', async () => {
