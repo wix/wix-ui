@@ -107,34 +107,4 @@ describe('ButtonNext', () => {
       });
     });
   });
-
-  describe('should receive button html attribute type', async () => {
-    it('when rendered component is custom react component', async () => {
-      const CustomComponent = props => <button {...props}>Hello</button>;
-      testContainer.renderSync(
-        <ButtonNext as={CustomComponent} type="submit" />
-      );
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(htmlTag).toBe('submit');
-      });
-    });
-    it('when rendered component is html button(default)', async () => {
-      testContainer.renderSync(<ButtonNext type="submit" />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(htmlTag).toBe('submit');
-      });
-    });
-  });
-
-  describe('should not receive html attribute type', async () => {
-    it('when rendered component is html anchor', async () => {
-      testContainer.renderSync(<ButtonNext as="a" />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(!!htmlTag).toBe(false);
-      });
-    });
-  });
 });
