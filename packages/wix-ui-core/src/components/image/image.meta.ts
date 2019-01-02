@@ -1,11 +1,11 @@
 import {Image} from './image';
 import Registry from '@ui-autotools/registry';
 const noop = require('lodash/noop');
-// import style from '../../../stories/Image/style.st.css';
+import style from '../../../stories/Image/style.st.css';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
 
-// imageMetadata.addStyle(style, {name: 'style', path: 'stories/Image/style.st.css'});
+imageMetadata.addStyle(style, {name: 'style', path: 'stories/Image/style.st.css'});
 
 imageMetadata
   .addSim({
