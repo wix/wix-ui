@@ -97,6 +97,15 @@ describe('ButtonNext', () => {
         expect(htmlTag).toBe('true');
       });
     });
+
+    it('when given should render href as undefined', async () => {
+      testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
+
+      await eventually(() => {
+        const htmlTag = testContainer.componentNode.getAttribute('href');
+        expect(!!htmlTag).toBe(false);
+      });
+    });
   });
 
   describe('should receive button html attribute type', async () => {

@@ -46,7 +46,7 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
   const restProps = isButton ? rest : (rest as any);
   const htmlType = isButton ? restProps.type || 'button' : restProps.type;
   const htmlTabIndex = disabled ? -1 : restProps.tabIndex || 0;
-  const htmlRef = disabled ? undefined : restProps.href;
+  const htmlHref = disabled ? undefined : restProps.href;
   const ariaDisabled = disabled ? true : restProps['aria-disabled'];
   return (
     <Component
@@ -55,7 +55,7 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
       onBlur={focusableOnBlur}
       disabled={disabled}
       type={htmlType}
-      href={htmlRef}
+      href={htmlHref}
       tabIndex={htmlTabIndex}
       aria-disabled={ariaDisabled}
       {...style('root', { disabled }, restProps)}
