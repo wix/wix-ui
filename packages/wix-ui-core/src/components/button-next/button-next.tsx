@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
+import classnames from 'classnames';
 import style from './button-next.st.css';
 
 export interface ButtonProps
@@ -21,10 +22,10 @@ export interface ButtonProps
 export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonProps;
 
-const _addAffix = (Affix, classname) =>
-  Affix &&
-  React.cloneElement(Affix, {
-    className: style[classname],
+const _addAffix = (AffixComp, styleClass, className) =>
+  AffixComp &&
+  React.cloneElement(AffixComp, {
+    className: classnames(style[styleClass], className),
   });
 
 /**
@@ -59,9 +60,9 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
       aria-disabled={disabled}
       {...style('root', { disabled }, restProps)}
     >
-      {_addAffix(prefixIcon, 'prefix')}
+      {_addAffix(prefixIcon, 'prefix', restProps.className)}
       <span className={style.content}>{children}</span>
-      {_addAffix(suffixIcon, 'suffix')}
+      {_addAffix(suffixIcon, 'suffix', restProps.className)}
     </Component>
   );
 };
