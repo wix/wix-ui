@@ -10,9 +10,9 @@
      border: 3px solid grey
 }
 
-root:loadState(error){ 
+.root:loadState(error){ 
     border: 3px solid red
- }
+}
 
 
 
