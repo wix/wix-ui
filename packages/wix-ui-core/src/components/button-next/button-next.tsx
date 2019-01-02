@@ -6,7 +6,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** an element type to render as (string or function).  */
   as?: string | React.ComponentType<any>;
-  /** anchor attribute */
+  /** URL of the page that link goes to */
   href?: string;
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
