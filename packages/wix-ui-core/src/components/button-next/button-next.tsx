@@ -22,10 +22,10 @@ export interface ButtonProps
 export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonProps;
 
-const _addAffix = (AffixComp, styleClass, className) =>
+const _addAffix = (AffixComp, styleClass) =>
   AffixComp &&
   React.cloneElement(AffixComp, {
-    className: classnames(style[styleClass], className),
+    className: style[styleClass],
   });
 
 /**
@@ -60,9 +60,9 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
       aria-disabled={disabled}
       {...style('root', { disabled }, restProps)}
     >
-      {_addAffix(prefixIcon, 'prefix', restProps.className)}
+      {_addAffix(prefixIcon, 'prefix')}
       <span className={style.content}>{children}</span>
-      {_addAffix(suffixIcon, 'suffix', restProps.className)}
+      {_addAffix(suffixIcon, 'suffix')}
     </Component>
   );
 };
