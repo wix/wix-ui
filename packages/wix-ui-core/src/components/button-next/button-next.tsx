@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
+import { withFocusable , FocusableProps} from '../../hocs/Focusable/FocusableHOC';
 import style from './button-next.st.css';
 
 export interface ButtonProps {
   /** an element type to render as (string or function).  */
-  as?: any;
+  as?: string | React.ComponentClass<any>;
   /** accepts prefix icon */
   prefixIcon?: React.ReactElement<any>;
   /** accepts suffix icon  */
@@ -30,7 +30,7 @@ const _addAffix = (Affix, classname) =>
  * ButtonNext
  */
 
-const ButtonNextComponent: React.SFC<ButtonProps> = props => {
+const ButtonNextComponent: React.SFC<ButtonProps & FocusableProps> = props => {
   const {
     as,
     suffixIcon,

@@ -45,6 +45,14 @@ const inputMethod = new class {
   }
 }();
 
+export interface FocusableProps {
+  focusableOnFocus: ()=>void;
+  focusableOnBlur: ()=>void;
+}
+
+export interface Disablable {
+  disabled?: boolean;
+}
 /*
  * TODO: Consider adding 'disabled' state to this HOC, since:
  * - When component is focused and then it becomes disabled, then the focus needs to be blured.
@@ -53,13 +61,13 @@ const inputMethod = new class {
  *  - the static hoisting
  *  - set displayName
  */
-export const withFocusable = Component => {
+export function withFocusable<P extends Disablable>(Component: React.ComponentType<P & FocusableProps>): React.ComponentType<P> {
   interface IFocusableHOCState {
     focus: boolean;
     focusVisible: boolean;
   }
 
-  class FocusableHOC extends React.Component<any, IFocusableHOCState> {
+  class FocusableHOC extends React.Component<P, IFocusableHOCState> {
     static displayName = getDisplayName(Component);
     static defaultProps = Component.defaultProps;
 
@@ -106,7 +114,6 @@ export const withFocusable = Component => {
       const reference = isStatelessComponent(Component)
         ? undefined
         : ref => (this.wrappedComponentRef = ref);
-
       return (
         <Component
           {...this.props}
