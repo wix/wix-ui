@@ -6,12 +6,12 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
   errorImage?: string;
   onError?: (event: errorEvent) => void;
   onLoad?: (event: loadEvent) => void;
-}
+};
 export interface errorEvent extends React.SyntheticEvent<HTMLImageElement> {
-}
+};
 
 export interface loadEvent extends React.SyntheticEvent<HTMLImageElement> {
-}
+};
 
 export enum ImageStatus { loading, loaded, error }
 
@@ -29,11 +29,12 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   
 
   render() {
-    const { errorImage , ...nativeProps} = this.props
+    const { errorImage , ...nativeProps} = this.props;
+    const status = this.state.status;
 
     return (
         <img 
-        {...style('root', {}, this.props)}
+        {...style('root', {status}, this.props)}
         {...nativeProps}
         src={this.state.src} 
         onError={this.handleOnError}  
@@ -56,7 +57,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
         src: this.state.src == this.props.errorImage ? EMPTY_PIXEL : this.srcPathExists(this.props.errorImage) ? this.props.errorImage : EMPTY_PIXEL
     });
 
-    this.props.onError!(e)
+    this.props.onError!(e);
   };
 
   private srcPathExists = (path: string) => 
