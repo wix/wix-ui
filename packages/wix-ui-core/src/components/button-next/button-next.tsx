@@ -47,7 +47,6 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
   const htmlType = isButton ? restProps.type || 'button' : restProps.type;
   const htmlTabIndex = disabled ? -1 : restProps.tabIndex || 0;
   const htmlHref = disabled ? undefined : restProps.href;
-  const ariaDisabled = disabled ? true : restProps['aria-disabled'];
   return (
     <Component
       {...rest}
@@ -57,7 +56,7 @@ const ButtonNextComponent: React.SFC<NativeButtonProps> = props => {
       type={htmlType}
       href={htmlHref}
       tabIndex={htmlTabIndex}
-      aria-disabled={ariaDisabled}
+      aria-disabled={disabled}
       {...style('root', { disabled }, restProps)}
     >
       {_addAffix(prefixIcon, 'prefix')}
