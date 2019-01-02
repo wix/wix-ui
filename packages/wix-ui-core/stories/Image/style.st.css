@@ -1,0 +1,8 @@
+:import {
+-st-from: "../../src/components/image/image.st.css";
+-st-default: Image;
+}
+
+.root {
+-st-extends: Image;
+}

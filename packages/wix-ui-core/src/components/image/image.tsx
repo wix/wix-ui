@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EMPTY_PIXEL } from './fixtures';
+import style from './image.st.css';
 
 export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
   errorImage?: string;
@@ -12,7 +13,7 @@ export interface errorEvent extends React.SyntheticEvent<HTMLImageElement> {
 export interface loadEvent extends React.SyntheticEvent<HTMLImageElement> {
 }
 
-export enum ImageStatus { Loaded, Loading, Error }
+export enum ImageStatus { loading, loaded, error }
 
 export interface ImageState {
     src: string;
@@ -23,7 +24,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   state = {
     src: this.props.src || EMPTY_PIXEL,
-    status: ImageStatus.Loading
+    status: ImageStatus.loading
   };
   
 
@@ -31,13 +32,19 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     const { errorImage , ...nativeProps} = this.props
 
     return (
-        <img {...nativeProps} src={this.state.src} onError={this.handleOnError}  onLoad={this.handleOnLoad}/> 
+        <img 
+        {...style('root', {}, this.props)}
+        {...nativeProps}
+        src={this.state.src} 
+        onError={this.handleOnError}  
+        onLoad={this.handleOnLoad}
+        /> 
     );
   }
 
   private handleOnLoad: React.EventHandler<loadEvent> = e => {
     this.setState({
-      status: ImageStatus.Loaded
+      status: ImageStatus.loaded
     });
 
     this.props.onLoad!(e);
@@ -45,15 +52,13 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private handleOnError: React.EventHandler<errorEvent> = e => {
     this.setState({
-        status: ImageStatus.Error,
-        src: this.state.src == this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists() ? this.props.errorImage : EMPTY_PIXEL
+        status: ImageStatus.error,
+        src: this.state.src == this.props.errorImage ? EMPTY_PIXEL : this.srcPathExists(this.props.errorImage) ? this.props.errorImage : EMPTY_PIXEL
     });
 
     this.props.onError!(e)
   };
 
-  private errorImageExists = () => {
-    const path = this.props.errorImage;
-    return !path.length || path == null ? false : true
-  }
+  private srcPathExists = (path: string) => 
+     !path.length || path == null ? false : true
 }
