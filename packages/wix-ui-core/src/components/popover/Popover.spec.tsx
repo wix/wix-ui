@@ -3,7 +3,7 @@ import {Simulate} from 'react-dom/test-utils';
 import {queryHook} from 'wix-ui-test-utils/dom';
 import {Popover, PopoverProps} from './';
 import {createModifiers} from './modifiers';
-import {popoverDriverFactory} from './Popover.driver';
+import {popoverPrivateDriverFactory} from './Popover.private.driver';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
@@ -23,53 +23,56 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
   </Popover>
 );
 
-// Since Popover.Content can render outside the component's root, let's query
-// the entire document with the assumption that we don't render more than one
-// popover at a time.
-const queryPopoverElement = () => queryHook<HTMLElement>(document, 'popover-element');
-const queryPopoverContent = () => queryHook<HTMLElement>(document, 'popover-content');
-const queryPopoverArrow   = () => queryHook<HTMLElement>(document, 'popover-arrow');
-const queryPopoverPortal  = () => queryHook<HTMLElement>(document, 'popover-portal');
-
 describe('Popover', () => {
   const container = new ReactDOMTestContainer().destroyAfterEachTest();
-  const createDriver = container.createLegacyRenderer(popoverDriverFactory);
+  const createDriver = container.createLegacyRenderer(popoverPrivateDriverFactory);
+
+  it('should render', () => {
+    const driver = createDriver(popoverWithProps({
+      placement: 'bottom',
+      shown: false
+    }));
+
+    expect(driver.exists()).toBe(true);
+  });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, async () => {
-      await container.render(popoverWithProps({
+    it(`doesn't display popup when shown={false}`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: false
       }));
 
-      expect(queryPopoverElement()).toBeTruthy();
-      expect(queryPopoverContent()).toBeNull();
+      expect(driver.isTargetElementExists()).toBe(true);
+      expect(driver.isContentElementExists()).toBe(false);
     });
 
-    it(`displays popup when shown={true}`, async () => {
-      await container.render(popoverWithProps({
+    it(`displays popup when shown={true}`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true
       }));
 
-      expect(queryPopoverContent()).toBeTruthy();
+      expect(driver.isContentElementExists()).toBe(true);
     });
   });
 
   describe('Events', () => {
-    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
+    it(`calls mouseEnter and mouseLeave callbacks`, () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
-      await container.render(popoverWithProps({
+
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: false,
         onMouseEnter,
         onMouseLeave,
       }));
 
-      Simulate.mouseEnter(container.componentNode);
-      Simulate.mouseLeave(container.componentNode);
+      driver.mouseEnter();
       expect(onMouseEnter).toBeCalled();
+
+      driver.mouseLeave();
       expect(onMouseLeave).toBeCalled();
     });
 
@@ -84,38 +87,35 @@ describe('Popover', () => {
         }));
 
         driver.clickOutside();
-
         expect(onClickOutside).toBeCalled();
       });
 
-      it('should not be triggered when content is clicked and appended to parent', async () => {
+      it('should not be triggered when content is clicked and appended to parent', () => {
         const onClickOutside = jest.fn();
 
-        await container.render(popoverWithProps({
+        const driver = createDriver(popoverWithProps({
           placement: 'bottom',
           shown: true,
           onClickOutside,
           appendTo: 'parent',
         }));
 
-        Simulate.click(queryPopoverContent());
-
+        driver.clickOutsideOnContent();
         expect(onClickOutside).not.toBeCalled();
       });
 
-      it('should be triggered when content is clicked and not appended to parent', async () => {
+      it('should be triggered when content is clicked and not appended to parent', () => {
         const onClickOutside = jest.fn();
 
-        await container.render(popoverWithProps({
+        const driver = createDriver(popoverWithProps({
           placement: 'bottom',
           shown: true,
           onClickOutside,
           appendTo: 'viewport',
         }));
 
-        Simulate.click(queryPopoverContent());
-
-        expect(onClickOutside).not.toBeCalled();
+        driver.clickOutsideOnContent();
+        expect(onClickOutside).toBeCalled();
       });
     });
   });
@@ -131,15 +131,15 @@ describe('Popover', () => {
       updatePositionSpy.mockRestore();
     });
 
-    it(`offsets the popup arrow by specified amount`, async () => {
-      await container.render(popoverWithProps({
+    it(`offsets the popup arrow by specified amount`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
         showArrow: true,
         moveArrowTo: 10
       }));
 
-      expect(queryPopoverArrow().style.left).toBe('10px');
+      expect(driver.getArrowOffset().left).toBe('10px');
     });
 
     it(`should update popper's position when props are chaning`, async () => {
@@ -184,6 +184,12 @@ describe('Popover', () => {
   });
 
   describe('Animation and delay', () => {
+
+    // Since Popover.Content can render outside the component's root, let's query
+    // the entire document with the assumption that we don't render more than one
+    // popover at a time.
+    const queryPopoverContent = () => queryHook<HTMLElement>(document, 'popover-content');
+
     it(`animates on close given a timeout`, async () => {
       await container.render(popoverWithProps(
         {placement: 'bottom', shown: true, timeout: 10}
@@ -319,14 +325,14 @@ describe('Popover', () => {
       expect(queryPopoverContent()).toBeNull();
     });
 
-    it(`should show the popover immediately on first render if needed`, async () => {
-      await container.render(popoverWithProps({
+    it(`should show the popover immediately on first render if needed`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         showDelay: 10,
         shown: true,
       }));
 
-      expect(queryPopoverContent()).toBeTruthy();
+      expect(driver.isContentElementExists()).toBe(true);
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
@@ -363,63 +369,63 @@ describe('Popover', () => {
   describe('Portal and containment', () => {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
-    it(`renders the popup directly into the popover root by default`, async() => {
-      await container.render(popoverWithProps({
+    it(`renders the popup directly into the popover root by default`,() => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true
       }));
 
-      expect(queryPopoverContent().parentElement).toBe(container.componentNode);
+      expect(driver.getContentElement().parentElement).toBe(container.componentNode);
     });
 
-    it(`renders the popup into a portal when given appendTo prop`, async() => {
-      await container.render(popoverWithProps({
+    it(`renders the popup into a portal when given appendTo prop`,() => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverContent().parentElement).toBe(queryPopoverPortal());
-      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-      expect(queryPopoverPortal().classList).toContain(styles.root);
+      expect(driver.getContentElement().parentElement).toBe(driver.getPortalElement());
+      expect(driver.getPortalElement().parentElement).toBe(portalContainer.node);
+      expect(driver.getPortalElement().classList).toContain(styles.root);
     });
 
-    it(`renders an empty portal when closed`, async() => {
-      await container.render(popoverWithProps({
+    it(`renders an empty portal when closed`,() => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: false,
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverContent()).toBeNull();
-      expect(queryPopoverPortal().parentElement).toBe(portalContainer.node);
-      expect(queryPopoverPortal().classList).not.toContain(styles.root);
+      expect(driver.getContentElement()).toBeNull();
+      expect(driver.getPortalElement().parentElement).toBe(portalContainer.node);
+      expect(driver.getPortalElement().classList).not.toContain(styles.root);
     });
 
-    it(`removes the portal on unmount`, async() => {
-      await container.render(popoverWithProps({
+    it(`removes the portal on unmount`,() => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: portalContainer.node
       }));
 
-      expect(queryPopoverPortal()).toBeTruthy();
+      expect(driver.getPortalElement()).toBeTruthy();
       container.unmount();
-      expect(queryPopoverPortal()).toBeNull();
+      expect(driver.getPortalElement()).toBeNull();
     });
 
-    it(`adds the portal to the body when appendTo="window"`, async () => {
-      await container.render(popoverWithProps({
+    it(`adds the portal to the body when appendTo="window"`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: 'window'
       }));
 
-      expect(queryPopoverPortal().parentElement).toBe(document.body);
+      expect(driver.getPortalElement().parentElement).toBe(document.body);
     });
 
-    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
-      await container.render(
+    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, () => {
+      const driver = createDriver(
         <div style={{overflow: 'scroll'}}>
           <div style={{overflow: 'visible'}}>
             {popoverWithProps({
@@ -431,74 +437,78 @@ describe('Popover', () => {
         </div>
       );
 
-      expect(queryPopoverPortal().parentElement).toBe(container.node.firstChild);
+      expect(driver.getPortalElement().parentElement).toBe(container.node.firstChild);
     });
 
-    it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
-      await container.render(popoverWithProps({
+    it(`adds the portal next to the popover's element when appendTo="parent"`, () => {
+      const driver = createDriver(popoverWithProps({
         placement: 'bottom',
         shown: true,
         appendTo: 'parent'
       }));
 
-      expect(queryPopoverContent().parentElement).toBe(queryPopoverElement().parentElement);
+      expect(driver.getContentElement().parentElement).toBe(driver.getTargetElement().parentElement);
     });
 
-    it(`should update the portal's styles when updated`, async () => {
-      // First render without passing the `className` prop, the <Popover/>
-      // portal should only have the root class applied.
-      await container.render(popoverWithProps({
-        placement: 'bottom',
-        shown: true,
-        appendTo: portalContainer.node
-      }));
+    describe('portal styles', () => {
+      const queryPopoverPortal  = () => queryHook<HTMLElement>(document, 'popover-portal');
 
-      // Second render with a `className` prop. Stylable `style()` function
-      // should apply it.
-      await container.render(popoverWithProps({
-        placement: 'bottom',
-        shown: true,
-        appendTo: portalContainer.node,
-        className: 'some-class'
-      }));
+      it(`should update the portal's styles when updated`, async () => {
+        // First render without passing the `className` prop, the <Popover/>
+        // portal should only have the root class applied.
+        await container.render(popoverWithProps({
+          placement: 'bottom',
+          shown: true,
+          appendTo: portalContainer.node
+        }));
 
-      expect(queryPopoverPortal().classList).toContain('some-class');
-    });
+        // Second render with a `className` prop. Stylable `style()` function
+        // should apply it.
+        await container.render(popoverWithProps({
+          placement: 'bottom',
+          shown: true,
+          appendTo: portalContainer.node,
+          className: 'some-class'
+        }));
 
-    it(`should not remove styles until unmounted with hideDelay`, async() => {
-      await container.render(popoverWithProps({
-        placement: 'bottom',
-        shown: true,
-        hideDelay: 10,
-        appendTo: portalContainer.node
-      }));
+        expect(queryPopoverPortal().classList).toContain('some-class');
+      });
 
-      await container.render(popoverWithProps({
-        placement: 'bottom',
-        shown: false,
-        hideDelay: 10,
-        appendTo: portalContainer.node
-      }));
+      it(`should not remove styles until unmounted with hideDelay`, async() => {
+        await container.render(popoverWithProps({
+          placement: 'bottom',
+          shown: true,
+          hideDelay: 10,
+          appendTo: portalContainer.node
+        }));
 
-      expect(queryPopoverPortal()).toBeTruthy();
-      expect(queryPopoverPortal().classList).toContain(styles.root);
+        await container.render(popoverWithProps({
+          placement: 'bottom',
+          shown: false,
+          hideDelay: 10,
+          appendTo: portalContainer.node
+        }));
 
-      await delay(10);
-      expect(queryPopoverPortal().classList).not.toContain(styles.root);
+        expect(queryPopoverPortal()).toBeTruthy();
+        expect(queryPopoverPortal().classList).toContain(styles.root);
+
+        await delay(10);
+        expect(queryPopoverPortal().classList).not.toContain(styles.root);
+      });
     });
   });
 
   describe('React <16 compatibility', () => {
-    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
-      await container.render(
+    it('should wrap children in a <div/> if provided as strings to support React 15', () => {
+      const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
         </Popover>
       );
 
-      expect(queryPopoverElement().childNodes[0].nodeName).toEqual('DIV');
-      expect(queryPopoverContent().childNodes[0].nodeName).toEqual('DIV');
+      expect(driver.getTargetElement().childNodes[0].nodeName).toEqual('DIV');
+      expect(driver.getContentElement().childNodes[0].nodeName).toEqual('DIV');
     });
   });
 

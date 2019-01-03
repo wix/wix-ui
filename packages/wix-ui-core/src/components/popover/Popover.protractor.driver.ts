@@ -1,27 +1,14 @@
-import {BaseDriver, DriverFactory} from '../../common/BaseDriver.protractor';
 import {$, browser, ElementFinder} from 'protractor';
 import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
+import {BaseDriver, DriverFactory} from '../../common/BaseDriver.protractor';
 
 export interface PopoverDriver extends BaseDriver {
-  /** Returns the target element (`<Popover.Element/>`) */
   getTargetElement: () => ElementFinder;
-
-  /** Returns the content element (`<Popover.Content/>`) */
   getContentElement: () => ElementFinder;
-
-  /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
   isTargetElementExists: () => Promise<boolean>;
-
-  /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
   isContentElementExists: () => Promise<boolean>;
-
-  /** Trigger `mouseEnter` on the element */
   mouseEnter: () => Promise<void>;
-
-  /** Trigger `mouseLeave` on the element */
   mouseLeave: () => Promise<void>;
-
-  /** Click on the element */
   click: () => Promise<void>;
 }
 
@@ -30,13 +17,28 @@ export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
   const getContentElement = () => $('[data-hook="popover-content"]');
 
   return {
+    /** Returns the component element */
     element: () => component,
+
+    /** Returns the target element (`<Popover.Element/>`) */
     getTargetElement: () => getTargetElement(),
+
+    /** Returns the content element (`<Popover.Content/>`) */
     getContentElement: () => getContentElement(),
+
+    /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
     isTargetElementExists: async () => getTargetElement().isPresent(),
+
+    /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
     isContentElementExists: async () => getContentElement().isPresent(),
+
+    /** Trigger `mouseEnter` on the element */
     mouseEnter: () => mouseEnter(component),
+
+    /** Trigger `mouseLeave` on the element */
     mouseLeave,
+
+    /** Click on the element */
     click: async () => component.click()
   };
 };
