@@ -41,6 +41,10 @@ function getInnerFieldName(type) {
     return ALLOWED_TYPES_TO_INNER_FIELD[type] || type;
 }
 
+function formatLatLng(location) {
+    return { latitude: location.lat, longitude: location.lng };
+}
+
 export function convertToFullAddress(googleResponse) {
     const addressComponents = {};
     googleResponse.address_components.forEach(addressComponent => {
@@ -55,7 +59,7 @@ export function convertToFullAddress(googleResponse) {
 
     return {
         formatted: googleResponse.formatted_address,
-        location: googleResponse.geometry ? googleResponse.geometry.location : undefined,
+        location: googleResponse.geometry ? formatLatLng(googleResponse.geometry.location) : undefined,
         ...addressComponents
     };
 }
