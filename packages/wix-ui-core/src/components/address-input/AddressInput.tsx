@@ -196,6 +196,10 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
         this.inputWithOptionsRef.close();
     }
 
+    clear() {
+        this.setState({ inputValue: '' });
+    }
+
     _getKey() {
         return this.props.clientId || this.props.apiKey;
     }

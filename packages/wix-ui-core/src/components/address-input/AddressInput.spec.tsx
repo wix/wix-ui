@@ -357,6 +357,25 @@ describe('AddressInput', () => {
             wrapper.setProps({value: newValue});
             expect(addressInputDriver.getValue()).toBe('n');
         });
+
+        it('Should clear display value once clear method is called', () => {
+            const wrapper = mount(
+                <AddressInput
+                    Client={GoogleMapsClientStub}
+                    apiKey="a"
+                    lang="en"
+                    onSelect={() => null}
+                    value="123 Ibn Gabirol st."
+                />
+            );
+
+            const addressInputDriver = addressInputDriverFactory({element: wrapper.getDOMNode(), eventTrigger: Simulate});
+            addressInputDriver.setValue('n');
+            expect(addressInputDriver.getValue()).toBe('n');
+            const instance = wrapper.instance() as AddressInput;
+            instance.clear();
+            expect(addressInputDriver.getValue()).toBe('');
+        });
     });
 
     describe('Fallback to manual', () => {
