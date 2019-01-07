@@ -358,7 +358,7 @@ describe('AddressInput', () => {
             expect(addressInputDriver.getValue()).toBe('n');
         });
 
-        fit('Should clear display value once clear method is called', () => {
+        it('Should clear display value once clear method is called', () => {
             const wrapper = mount(
                 <AddressInput
                     Client={GoogleMapsClientStub}
