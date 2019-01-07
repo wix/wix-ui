@@ -9,6 +9,11 @@ export interface Location {
     lng: number;
 }
 
+export interface InternalLocation {
+    latitude: number;
+    longitude: number;
+}
+
 export interface Geometry {
     location: Location;
 }
@@ -62,7 +67,7 @@ export interface InternalAddress {
     admin_area_1?: InternalAddressComponent;
     country?: InternalAddressComponent;
     postal_code?: InternalAddressComponent;
-    location?: Location
+    location?: InternalLocation;
 }
 
 
