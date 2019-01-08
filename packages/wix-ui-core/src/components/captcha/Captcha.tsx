@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
 
 export interface CaptchaProps {
-
+  sitekey: string;
+  onVerify: (token:string) => void;
 }
 
 interface CaptchaState {
@@ -17,7 +18,7 @@ export class Captcha extends React.Component<CaptchaProps, CaptchaState> {
 
   render() {
     return (
-      <Reaptcha sitekey="6LdES1wUAAAAALhi9MkatrLPLjfAAgukePTZGpTH" />
+      <Reaptcha sitekey={this.props.sitekey} onVerify={this.props.onVerify} />
     );
   }
 }
