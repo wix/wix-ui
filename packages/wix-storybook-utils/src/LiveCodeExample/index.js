@@ -20,19 +20,19 @@ export default class LiveCodeExample extends Component {
     compact: PropTypes.bool,
     previewRow: PropTypes.bool,
     previewProps: PropTypes.object,
-    autoRender: PropTypes.bool
+    autoRender: PropTypes.bool,
   };
 
   static defaultProps = {
     compact: false,
     previewRow: false,
     previewProps: {},
-    autoRender: true
+    autoRender: true,
   };
 
   resetCode = () => {
     this.setState({
-      code: this.props.initialCode
+      code: this.props.initialCode,
     });
   };
 
@@ -43,7 +43,7 @@ export default class LiveCodeExample extends Component {
 
   onToggleCode = () =>
     this.setState(state => ({
-      isEditorOpened: !state.isEditorOpened
+      isEditorOpened: !state.isEditorOpened,
     }));
 
   onCopyClick = () => {
@@ -61,7 +61,7 @@ export default class LiveCodeExample extends Component {
       isRtl: false,
       isDarkBackground: false,
       isEditorOpened: !props.compact,
-      showNotification: false
+      showNotification: false,
     };
   }
 
@@ -80,7 +80,7 @@ export default class LiveCodeExample extends Component {
     return (
       <div
         className={classnames(styles.wrapper, {
-          [styles.compact]: compact
+          [styles.compact]: compact,
         })}
       >
         <div className={styles.header}>
@@ -131,7 +131,7 @@ export default class LiveCodeExample extends Component {
             <Collapse
               isOpened={isEditorOpened}
               className={classnames(styles.editor, {
-                [styles.opened]: isEditorOpened
+                [styles.opened]: isEditorOpened,
               })}
             >
               <LiveEditor
@@ -141,9 +141,9 @@ export default class LiveCodeExample extends Component {
             </Collapse>
 
             <div
-              className={classnames(styles.preview, {
+              className={classnames(styles.preview, previewProps.className, {
                 rtl: isRtl,
-                [styles.darkPreview]: isDarkBackground
+                [styles.darkPreview]: isDarkBackground,
               })}
               dir={isRtl ? 'rtl' : ''}
             >
