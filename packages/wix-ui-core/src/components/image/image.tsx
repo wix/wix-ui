@@ -1,65 +1,70 @@
 import * as React from 'react';
-import { EMPTY_PIXEL } from './fixtures';
 import style from './image.st.css';
 
 export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
   errorImage?: string;
-  onError?: (event: errorEvent) => void;
-  onLoad?: (event: loadEvent) => void;
-};
-export interface errorEvent extends React.SyntheticEvent<HTMLImageElement> {
-};
-
-export interface loadEvent extends React.SyntheticEvent<HTMLImageElement> {
+  onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+  // onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
 
 export enum ImageStatus { loading, loaded, error }
 
 export interface ImageState {
-    src: string;
+    src?: string;
     status: ImageStatus;
 }
 
+const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+
 export class Image extends React.PureComponent<ImageProps, ImageState> {
 
+  private setSrc = ():string=> 
+    this.srcExists() ? this.props.src : this.srcSetExists() 
+
+  private srcExists = ():boolean=> 
+    !!this.props.src
+
+  private srcSetExists = ():string=>
+    !!this.props.srcSet ? this.props.src : EMPTY_PIXEL // The image element natively uses the srcSet instead of src.
+
+  private setErrorImage = () => 
+    this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.props.errorImage   
+
+  
   state = {
-    src: this.props.src || EMPTY_PIXEL,
+    src: this.setSrc(),
     status: ImageStatus.loading
   };
-  
 
+  
   render() {
-    const { errorImage , ...nativeProps} = this.props;
-    const status = this.state.status;
+    const { errorImage, ...nativeProps} = this.props;
+    const loadState = this.state.status;
 
     return (
         <img 
-        {...style('root', {status}, this.props)}
-        {...nativeProps}
-        src={this.state.src} 
-        onError={this.handleOnError}  
-        onLoad={this.handleOnLoad}
+          {...style('root', {loadState}, this.props)}
+          {...nativeProps}
+          src={this.state.src} 
+          onError={this.handleOnError}  
+          onLoad={this.handleOnLoad}
         /> 
     );
   }
 
-  private handleOnLoad: React.EventHandler<loadEvent> = e => {
+  private handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
     this.setState({
       status: ImageStatus.loaded
     });
 
-    this.props.onLoad!(e);
+    // this.props.onLoad!(e);
   }
 
-  private handleOnError: React.EventHandler<errorEvent> = e => {
+  private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
     this.setState({
         status: ImageStatus.error,
-        src: this.state.src == this.props.errorImage ? EMPTY_PIXEL : this.srcPathExists(this.props.errorImage) ? this.props.errorImage : EMPTY_PIXEL
+        src: this.setErrorImage() 
     });
-
     this.props.onError!(e);
   };
-
-  private srcPathExists = (path: string) => 
-     !path.length || path == null ? false : true
 }

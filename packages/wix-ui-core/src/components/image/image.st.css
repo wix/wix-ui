@@ -2,17 +2,4 @@
     -st-states: loadState(enum(loading, loaded, error));
 }
 
-.root:loadState(loaded){ 
-    border: 3px solid gold
-}
-
-.root:loadState(loading){
-     border: 3px solid grey
-}
-
-.root:loadState(error){ 
-    border: 3px solid red
-}
-
-
 

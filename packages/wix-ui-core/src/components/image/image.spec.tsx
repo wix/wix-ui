@@ -2,15 +2,21 @@ import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver';
 import { Image } from './image';
-import { EMPTY_PIXEL, TEST_SRC, BROKEN_SRC, ERROR_SRC} from './fixtures';
+import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
+    const SRC: string = 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg'
+    const SRCSET: string = 'https://cdn.pixabay.com/photo/2016/06/18/17/42/image-1465348_960_720.jpg'
+    const BROKEN_SRC: string= 'data:image/png;base64,this-is-broken!';
+    const ERROR_IMAGE_SRC: string = 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png'
+    const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest()
     const createDriver = testContainer.createUniRenderer(imageDriverFactory);
     
     it('displays a provided alt prop', async () => {
-        const image = createDriver(<Image alt='blabla'/>);
-        
+        const image = createDriver(<Image alt="blabla"/>);
+
         expect(await image.getAlt()).toEqual('blabla');
     });
 
@@ -21,39 +27,57 @@ describe('Image', () => {
         expect((imageElement).tagName).toBe('IMG');
     });
 
-    it('displays provided src or srcset', async () => {
-        const image = createDriver(<Image src={TEST_SRC} srcSet={TEST_SRC}/>);
+    it('displays image with the provided src', async () => {
+        const image = createDriver(<Image src={SRC}/>);
         
-        expect(await image.getSrc()).toEqual(TEST_SRC);
+        expect(await image.getSrc()).toEqual(SRC);
     });
 
+    it('displays image with the provided srcset, when no src is given', async () => {
+        const image = createDriver(<Image src ="" srcSet={SRCSET} />);
+        
+        expect(await image.getSrcSet()).toEqual(SRCSET);
+        expect(await image.getSrc()).toEqual('');
+    });
+
+
     it('displays empty pixel when src is not provided', async() => {
-        const image = createDriver(<Image src=''/>);
+        const image = createDriver(<Image src=""/>);
 
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
     it('when src is broken, it displays the provided errorImage src', async () => {
         const onErrorSpy = jest.fn();
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_SRC} onError={onErrorSpy} />); 
-        await image.simulateLoadingImageError();
-        expect(onErrorSpy).toHaveBeenCalledTimes(1);
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy} />); 
+        // image.simulateLoadingImageError(100);
+
+        await eventually(() => {
+            expect(onErrorSpy).toHaveBeenCalledTimes(1);
+
+        });
     });
 
     it('when both src and errorImage are broken - it displays an empty pixel', async() => {
         const onErrorSpy = jest.fn();
         const image = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy}/>);
-        await image.simulateLoadingImageError();
-
-        expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
+        // image.simulateLoadingImageError(10);
+        
+        await eventually(() => {
+            // console.log(image.getSrc())
+            expect(image.getSrc()).toEqual(EMPTY_PIXEL);
+        });
+     
     });
 
     it('when provided src is broken and errorImage is not provided - it displays an empty pixel', async() => {
         const onErrorSpy = jest.fn();
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage='' onError={onErrorSpy}/>);
-        await image.simulateLoadingImageError();
-        
-        expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
-    });
+        const image = createDriver(<Image src={BROKEN_SRC} errorImage="" onError={onErrorSpy}/>);
 
+        // image.simulateLoadingImageError(10);
+        
+        await eventually(() => {
+            expect(image.getSrc()).toEqual(EMPTY_PIXEL);
+        });
+    })
 });

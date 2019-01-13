@@ -6,3 +6,15 @@
 .root {
 -st-extends: Image;
 }
+
+.root:loadState(loaded){ 
+    border: 13px solid gold
+}
+
+.root:loadState(loading){
+     border: 13px solid grey
+}
+
+.root:loadState(error){ 
+    border: 13px solid red
+}
