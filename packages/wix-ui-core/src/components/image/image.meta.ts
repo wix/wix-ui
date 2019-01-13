@@ -48,3 +48,8 @@ imageMetadata
     }
 }); 
 
+imageMetadata.exportedFrom({
+  path: 'src/components/image/image',                       
+  exportName: 'Image',                              
+  baseStylePath: 'src/components/image/image.st.css',
+});

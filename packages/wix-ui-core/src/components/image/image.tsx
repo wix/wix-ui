@@ -4,7 +4,7 @@ import style from './image.st.css';
 export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
   errorImage?: string;
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
-  // onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+  onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
 
 export enum ImageStatus { loading, loaded, error }
@@ -29,7 +29,6 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private setErrorImage = () => 
     this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.props.errorImage   
-
   
   state = {
     src: this.setSrc(),
@@ -40,6 +39,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   render() {
     const { errorImage, ...nativeProps} = this.props;
     const loadState = this.state.status;
+
 
     return (
         <img 
@@ -57,7 +57,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
       status: ImageStatus.loaded
     });
 
-    // this.props.onLoad!(e);
+    this.props.onLoad && this.props.onLoad(e);
   }
 
   private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
@@ -65,6 +65,6 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
         status: ImageStatus.error,
         src: this.setErrorImage() 
     });
-    this.props.onError!(e);
+    this.props.onError && this.props.onError(e);
   };
 }
