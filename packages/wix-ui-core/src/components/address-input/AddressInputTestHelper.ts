@@ -18,8 +18,7 @@ export const INTERNAL_ADDRESS_GEOCODE_1:InternalAddress = {
     location: {
         latitude: 40.7127753,
         longitude: -74.0059728
-    },
-    googlePlaceId: 'place_id1eastbroadway,newyork,ny,usa'
+    }
 };
 
 export const INTERNAL_ADDRESS_GEOCODE_2:InternalAddress = {
@@ -27,8 +26,7 @@ export const INTERNAL_ADDRESS_GEOCODE_2:InternalAddress = {
     location: {
         latitude: 40.7127753,
         longitude: -74.0059728
-    },
-    googlePlaceId: 'place_id114n6thst,brooklyn,ny11249,usa'
+    }
 };
 
 export const INTERNAL_ADDRESS_PLACE_DETAILS_1:InternalAddress = {
@@ -36,8 +34,7 @@ export const INTERNAL_ADDRESS_PLACE_DETAILS_1:InternalAddress = {
     location: {
         latitude: 1,
         longitude: -1
-    },
-    googlePlaceId: 'place_id1eastbroadway,newyork,ny,usa'
+    }
 };
 
 export const INTERNAL_ADDRESS_PLACE_DETAILS_2:InternalAddress = {
@@ -45,8 +42,7 @@ export const INTERNAL_ADDRESS_PLACE_DETAILS_2:InternalAddress = {
     location: {
         latitude: 1,
         longitude: -1
-    },
-    googlePlaceId: 'place_id114n6thst,brooklyn,ny11249,usa'
+    }
 };
 
 export const waitForSingleOption = (option, driver) => {

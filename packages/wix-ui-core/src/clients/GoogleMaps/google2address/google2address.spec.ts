@@ -16,8 +16,7 @@ describe('google 2 full address', () => {
             adminArea1: {short: 'NY', long: 'New York'},
             country: {short: 'US', long: 'United States'},
             postalCode: {short: '10016', long: '10016'},
-            location: {latitude: 40.7432934, longitude: -73.98182050000003},
-            googlePlaceId: 'place_id'
+            location: {latitude: 40.7432934, longitude: -73.98182050000003}
         });
     });
 
@@ -33,8 +32,7 @@ describe('google 2 full address', () => {
         expect(fullAddress).toEqual({
             formatted: '137 Lexington Ave, New York, NY 10016, USA',
             streetNumber: {short: '137', long: '137'},
-            location: {latitude: 40.7432934, longitude: -73.98182050000003},
-            googlePlaceId: 'place_id'
+            location: {latitude: 40.7432934, longitude: -73.98182050000003}
         });
     });
 
@@ -53,8 +51,7 @@ describe('google 2 full address', () => {
             adminArea2: {short: 'New York County', long: 'New York County'},
             adminArea1: {short: 'NY', long: 'New York'},
             country: {short: 'US', long: 'United States'},
-            postalCode: {short: '10016', long: '10016'},
-            googlePlaceId: 'place_id'
+            postalCode: {short: '10016', long: '10016'}
         });
     });
 
