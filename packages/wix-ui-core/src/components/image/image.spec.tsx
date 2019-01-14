@@ -2,13 +2,13 @@ import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver';
 import { Image } from './image';
-import * as eventually from 'wix-eventually';
+// import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
     const SRC: string = 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg'
     const SRCSET: string = 'https://cdn.pixabay.com/photo/2016/06/18/17/42/image-1465348_960_720.jpg'
     const BROKEN_SRC: string= 'data:image/png;base64,this-is-broken!';
-    const ERROR_IMAGE_SRC: string = 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png'
+    const ERROR_IMAGE_SRC: string = 'https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png'
     const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest()
@@ -48,35 +48,31 @@ describe('Image', () => {
 
     it('it displays the provided errorImage when the src is broken', async () => {
         const onErrorSpy = jest.fn();
-        const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy} />); 
-        image.simulateLoadingImageError(100);
+        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy} />); 
+        await imageDriver.simulateLoadingImageError();
 
-        await eventually(() => {
-            expect(onErrorSpy).toHaveBeenCalledTimes(1);
-            expect(image.getSrc()).toEqual(ERROR_IMAGE_SRC);
-        });
+        expect(onErrorSpy).toHaveBeenCalledTimes(1);
+        expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
     });
 
     it('when both src and errorImage are broken - it displays an empty pixel', async() => {
         const onErrorSpy = jest.fn();
         const image = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy}/>);
-        // image.simulateLoadingImageError(10);
+        await image.simulateLoadingImageError();
+        await image.simulateLoadingImageError();
         
-        await eventually(() => {
-            // console.log(image.getSrc())
-            expect(image.getSrc()).toEqual(EMPTY_PIXEL);
-        });
-     
+        expect(onErrorSpy).toHaveBeenCalledTimes(2);
+        expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
+        // await eventually(() => {
+    
+        // });
     });
 
     it('when provided src is broken and errorImage is not provided - it displays an empty pixel', async() => {
         const onErrorSpy = jest.fn();
         const image = createDriver(<Image src={BROKEN_SRC} errorImage="" onError={onErrorSpy}/>);
+        await image.simulateLoadingImageError();
 
-        // image.simulateLoadingImageError(10);
-        
-        await eventually(() => {
-            expect(image.getSrc()).toEqual(EMPTY_PIXEL);
-        });
-    });
+        expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
+     });
 });

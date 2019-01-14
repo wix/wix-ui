@@ -12,7 +12,6 @@ export interface ImageDriver extends BaseUniDriver{
   simulateLoadingImageSuccess: (timeout?: number) => Promise<void>;
 }
 
-
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
   return {
     ...baseUniDriverFactory(base),
@@ -40,7 +39,6 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     //   }, timeout)
     // },
 
-
     simulateLoadingImageSuccess: async (timeout = 0) => {
       return new Promise<void>(async resolve => {
         setTimeout(async () => {
@@ -54,5 +52,4 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
 
     }
   }
-
 };

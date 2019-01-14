@@ -18,17 +18,17 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
 
 export class Image extends React.PureComponent<ImageProps, ImageState> {
 
-  private setSrc = ():string=> 
-    this.srcExists() ? this.props.src : this.srcSetExists() 
+  private setSrc = () :string => 
+  !!this.props.src ? this.props.src : this.srcSetExists() 
 
-  private srcExists = ():boolean=> 
-    !!this.props.src
-
-  private srcSetExists = ():string=>
+  private srcSetExists = () :string =>
     !!this.props.srcSet ? this.props.src : EMPTY_PIXEL // The image element natively uses the srcSet instead of src.
 
+  private errorImageExists = () :string =>
+  !!this.props.errorImage ? this.props.errorImage : EMPTY_PIXEL
+
   private setErrorImage = () => 
-    this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.props.errorImage   
+    this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.errorImageExists()
   
   state = {
     src: this.setSrc(),
