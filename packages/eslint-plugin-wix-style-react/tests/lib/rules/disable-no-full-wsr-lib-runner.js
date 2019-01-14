@@ -1,6 +1,5 @@
 /**
- * @fileoverview Fail if importing all of WSR
- * @author YairH
+ * @fileoverview Runs tests on fixtures for specific project environment.
  */
 'use strict';
 

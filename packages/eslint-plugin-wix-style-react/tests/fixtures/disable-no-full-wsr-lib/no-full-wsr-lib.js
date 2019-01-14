@@ -1,6 +1,5 @@
 /**
- * @fileoverview Fail if importing all of WSR
- * @author YairH
+ * @fileoverview Fails if importing all of WSR using commonjs. Works for named imports. Exists in >= 5.9 WSR environment.
  */
 'use strict';
 
