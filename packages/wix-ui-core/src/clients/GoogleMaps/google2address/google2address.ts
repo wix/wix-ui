@@ -60,6 +60,7 @@ export function convertToFullAddress(googleResponse) {
     return {
         formatted: googleResponse.formatted_address,
         location: googleResponse.geometry ? formatLatLng(googleResponse.geometry.location) : undefined,
+        googlePlaceId: googleResponse.place_id,
         ...addressComponents
     };
 }
