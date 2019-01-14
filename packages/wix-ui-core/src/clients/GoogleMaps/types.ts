@@ -68,6 +68,7 @@ export interface InternalAddress {
     country?: InternalAddressComponent;
     postal_code?: InternalAddressComponent;
     location?: InternalLocation;
+    googlePlaceId?: string;
 }
 
 

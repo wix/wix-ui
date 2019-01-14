@@ -156,7 +156,6 @@ export const partialGoogleResponse = {
             'lng': -73.96515099999999
         }
     },
-    'place_id': 'place_id_123',
     'types': [
         'route'
     ]
