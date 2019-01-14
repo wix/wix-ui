@@ -15,6 +15,10 @@ export interface CaptchaProps {
 }
 
 interface CaptchaState {
+  loaded: boolean;
+  token: string,
+  verified: boolean;
+
 }
 
 /**
