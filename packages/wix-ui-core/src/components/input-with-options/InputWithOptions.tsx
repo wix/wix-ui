@@ -122,6 +122,14 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onFocus && onFocus(event);
   }
 
+  _onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (this.isEditing) {
+      this._onSelect(null);
+    }
+    const { onBlur } = this.props.inputProps;
+    onBlur && onBlur(event);
+  }
+
   render() {
     const {
       placement,
@@ -166,6 +174,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
           {...inputProps}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
+          onBlur={this._onBlur}
           className={style.inputComponent}
         />
       </Dropdown>

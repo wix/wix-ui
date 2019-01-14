@@ -15,11 +15,11 @@ describe('InputWithOptions', () => {
     .createLegacyRenderer(inputWithOptionsDriverFactory);
 
   const options = generateOptions();
-  const createInputWithOptions = (props = {}) => (
+  const createInputWithOptions = (props = {}, inputProps = {}) => (
     <InputWithOptions 
       {...Object.assign({
         options: [],
-        inputProps: {}
+        inputProps
       }, props)}
     />
   );
@@ -33,16 +33,6 @@ describe('InputWithOptions', () => {
   it('should display content element', () => {
     const driver = createDriver(createInputWithOptions({options, forceContentElementVisibility: true}));
     expect(driver.isContentElementExists()).toBeTruthy();
-  });
-
-  it('should trigger onManualInput', () => {
-    const onManualInput = jest.fn();
-
-    const driver = createDriver(createInputWithOptions({options, onManualInput}));
-    driver.keyDown('a');
-    driver.keyDown('Enter');
-
-    expect(onManualInput).toHaveBeenCalled();
   });
 
   it('should trigger not onSelect by default, if item is selected', () => {
@@ -67,40 +57,6 @@ describe('InputWithOptions', () => {
     driver.optionAt(0).click();
 
     expect(onSelect).toHaveBeenCalledTimes(2);
-  });
-
-  it('should trigger onManualInput with the actual value', () => {
-    const onManualInput = jest.fn();
-    let inputValue = 'a';
-
-    const driver = createDriver(createInputWithOptions({
-      options,
-      onManualInput,
-      inputProps: {
-        value: inputValue
-      }
-    }));
-
-    driver.click();
-    driver.keyDown('Enter');
-    expect(onManualInput).toHaveBeenCalledWith('a');
-  });
-
-  it('should trigger onManualInput with the actual value even if option list is empty', () => {
-    const onManualInput = jest.fn();
-    let inputValue = 'a';
-
-    const driver = createDriver(createInputWithOptions({
-      options: [],
-      onManualInput,
-      inputProps: {
-        value: inputValue
-      }
-    }));
-
-    driver.click();
-    driver.keyDown('Enter');
-    expect(onManualInput).toHaveBeenCalledWith('a');
   });
 
   it('should not show options element upon blur', async () => {
@@ -174,4 +130,87 @@ describe('InputWithOptions', () => {
       expect(driver.optionAt(1).getText()).toBe('c');
     });
   })
+
+  describe('Focus and blur events', () => {
+    it('Should integrate focus event with inner input', () => {
+      const onFocus = jest.fn();
+      const driver = createDriver(createInputWithOptions({options}, { onFocus }));
+      driver.focus();
+
+      expect(onFocus).toHaveBeenCalledTimes(1);
+    });
+
+    it('Should integrate blur event with inner input', () => {
+      const onBlur = jest.fn();
+      const driver = createDriver(createInputWithOptions({options}, { onBlur }));
+      driver.blur();
+
+      expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('onManualInput', () => {
+    const onManualInput = jest.fn();
+    const onSelect = jest.fn();
+
+    const getDriver = (_options = options) => {
+      return createDriver(createInputWithOptions({
+        options: _options,
+        onManualInput,
+        onSelect,
+        inputProps: { value: 'a' },
+      }));
+    }
+
+    beforeEach(() => {
+      onManualInput.mockReset();
+      onSelect.mockReset();
+    });
+
+    it('should trigger onManualInput with the actual value on Enter key', () => {
+      const driver = getDriver();
+
+      driver.click();
+      driver.keyDown('Enter');
+      expect(onManualInput).toHaveBeenCalledWith('a');
+      expect(onManualInput).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger onManualInput with the actual value on Tab key', () => {
+      const driver = getDriver();
+
+      driver.click();
+      driver.keyDown('Tab');
+      expect(onManualInput).toHaveBeenCalledWith('a');
+      expect(onManualInput).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger onManualInput with the actual value on blur', () => {
+      const driver = getDriver();
+
+      // should not call onManualInput if onSelect has been triggered
+      driver.click();
+      driver.optionAt(0).click();
+      expect(onSelect).toHaveBeenCalledWith(options[0]);
+      driver.blur();
+      expect(onManualInput).not.toHaveBeenCalled();
+
+      // should call onManualInput once blurring a changed value
+      driver.setValue('a');
+      driver.keyDown('a');
+      driver.blur();
+      expect(onManualInput).toHaveBeenCalledWith('a');
+      expect(onManualInput).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger onManualInput with the actual value even if option list is empty', () => {
+      const _options = [];
+      const driver = getDriver(_options);
+
+      driver.click();
+      driver.keyDown('Enter');
+      expect(onManualInput).toHaveBeenCalledWith('a');
+      expect(onManualInput).toHaveBeenCalledTimes(1);
+    });
+  });
 });
