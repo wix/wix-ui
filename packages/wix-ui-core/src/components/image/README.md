@@ -49,7 +49,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                         </select>
                     </div>
                     <Image
-                        {...style('root', {}, this.props)}
+                        {...style('root', {this.state.status}, this.props)}
                         src={this.state.src}
                         resizeMode={this.state.resizeMode}
                         className="myImage"

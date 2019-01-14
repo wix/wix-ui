@@ -5,7 +5,7 @@ import {
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
 
-export interface ImageDriver extends BaseUniDriver{
+export interface ImageDriver extends BaseUniDriver<any>{
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
   getSrcSet: () => Promise<string>;
@@ -13,25 +13,35 @@ export interface ImageDriver extends BaseUniDriver{
   simulateLoadingImageSuccess: (timeout?: number) => Promise<void>;
 }
 
+
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
   return {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
-    getSrcSet: () => base.attr('srcSet'),
+    getSrcSet: () => base.attr('srcset'),
     getAlt: () => base.attr('alt'),
     
-    simulateLoadingImageError: async (timeout = 0) => {
-      return new Promise<void>(async (resolve) => {
-        setTimeout(async () => {
-          const nativeElement = (await base.getNative());
+    // simulateLoadingImageError: async (timeout = 0) => {
+    //   return new Promise<void>(async (resolve) => {
+    //     setTimeout(async () => {
+    //       const nativeElement = (await base.getNative());
           
-          nativeElement.dispatchEvent(new Event('error'));
+    //       nativeElement.dispatchEvent(new Event('error'));
 
-          resolve();
-        }, timeout)
-      })
+    //       resolve();
+    //     }, timeout)
+    //   })
+    // },
 
+    simulateLoadingImageError: async (timeout = 0) => {
+      setTimeout(async () => {
+        const nativeElement = (await base.$('root'));
+        
+        nativeElement.getNative().dispatchEvent(new Event('error'));
+      }, timeout)
     },
+
+
     simulateLoadingImageSuccess: async (timeout = 0) => {
       return new Promise<void>(async (resolve) => {
         setTimeout(async () => {

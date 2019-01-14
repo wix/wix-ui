@@ -34,10 +34,9 @@ describe('Image', () => {
     });
 
     it('displays image with the provided srcset, when no src is given', async () => {
-        const image = createDriver(<Image src ="" srcSet={SRCSET} />);
+        const image = createDriver(<Image src={SRC} srcSet={SRCSET} />);
         
         expect(await image.getSrcSet()).toEqual(SRCSET);
-        expect(await image.getSrc()).toEqual('');
     });
 
 
@@ -47,14 +46,14 @@ describe('Image', () => {
         expect(await image.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
-    it('when src is broken, it displays the provided errorImage src', async () => {
+    it('it displays the provided errorImage when the src is broken', async () => {
         const onErrorSpy = jest.fn();
         const image = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy} />); 
-        // image.simulateLoadingImageError(100);
+        image.simulateLoadingImageError(100);
 
         await eventually(() => {
             expect(onErrorSpy).toHaveBeenCalledTimes(1);
-
+            expect(image.getSrc()).toEqual(ERROR_IMAGE_SRC);
         });
     });
 
@@ -79,5 +78,5 @@ describe('Image', () => {
         await eventually(() => {
             expect(image.getSrc()).toEqual(EMPTY_PIXEL);
         });
-    })
+    });
 });
