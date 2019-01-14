@@ -70,13 +70,13 @@
   color: value(B20);
 }
 
-.iconButton.inverted:hover:not(:disabled) {
+.iconButton:not(:disabled).inverted:hover {
   color: value(D80);
   border-color: transparent;
   background: value(B20);
 }
 
-.iconButton.inverted:active:not(:disabled) {
+.iconButton:not(:disabled).inverted:active {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -96,13 +96,13 @@
   color: value(B20);
 }
 
-.iconButton.inverted.secondary:hover:not(:disabled) {
+.iconButton:not(:disabled).inverted.secondary:hover {
   color: value(D80);
   border-color: transparent;
   background: value(B20);
 }
 
-.iconButton.inverted.secondary:active:not(:disabled) {
+.iconButton:not(:disabled).inverted.secondary:active {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -122,13 +122,13 @@
   color: value(B10);
 }
 
-.iconButton.secondary:hover:not(:disabled) {
+.iconButton:not(:disabled).secondary:hover {
   color: value(D80);
   border-color: transparent;
   background-color: value(B20);
 }
 
-.iconButton.secondary:active:not(:disabled) {
+.iconButton:not(:disabled).secondary:active {
   background-color: value(B10);
   border-color: value(B10);
   color: value(D80);
@@ -148,13 +148,13 @@
   color: value(B20);
 }
 
-.iconButton.light:hover:not(:disabled) {
+.iconButton:not(:disabled).light:hover {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-.iconButton.light:active:not(:disabled) {
+.iconButton:not(:disabled).light:active {
   background-color: value(B40);
   color: value(B10);
 }
@@ -173,13 +173,13 @@
   color: value(D80);
 }
 
-.iconButton.light.secondary:hover:not(:disabled) {
+.iconButton:not(:disabled).light.secondary:hover {
   background-color: value(B50);
   color: value(B10);
   border-color: value(B50);
 }
 
-.iconButton.light.secondary:active:not(:disabled) {
+.iconButton:not(:disabled).light.secondary:active {
   background-color: value(B40);
   border: solid 1px value(B40);
   color: value(B10);
