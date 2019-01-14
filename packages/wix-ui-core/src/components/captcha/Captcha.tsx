@@ -18,7 +18,6 @@ interface CaptchaState {
   loaded: boolean;
   token: string,
   verified: boolean;
-
 }
 
 /**
@@ -28,7 +27,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   static displayName = 'Captcha';
   private captchaRef = undefined;
 
-  constructor(props:CaptchaProps){
+  constructor(props: CaptchaProps) {
     super(props);
     this.captchaRef = null;
   }
@@ -42,8 +41,9 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   /**
    * reload a new captcha from google
    */
-  resetCaptcha(){
-    if(this.captchaRef) {
+  resetCaptcha() {
+    this.setState({token: undefined, verified: false});
+    if (this.captchaRef) {
       this.captchaRef.reset();
     }
   }
@@ -82,8 +82,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * so we need to ask the user to retake the captcha challenge.
    */
   onExpiered = () => {
-    this.setState({verified: false});
-    this.setState({token: undefined});
+    this.setState({verified: false,token: undefined});
     if (this.props.onExpire) {
       this.props.onExpire();
     }
@@ -96,7 +95,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    */
   render() {
     return (
-      <div {...styles('root',{loaded: this.state.loaded})}>
+      <div {...styles('root', {loaded: this.state.loaded})}>
         {!this.state.loaded && <div className={styles.loader}/>}
         <div className={styles.captcha} data-hook={this.props['data-hook']}>
           <Reaptcha
