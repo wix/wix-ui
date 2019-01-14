@@ -1,8 +1,24 @@
-.Captcha_invisible{
-    display: none;
+.root {
+  -st-states: loaded(boolean)
 }
 
 .loader {
+
+}
+
+.captcha {
+
+}
+
+.root:loaded .captcha {
+    display: block;
+}
+
+.root .captcha {
+    display: none;
+}
+
+.root .loader {
     overflow: hidden;
 
     border: 3px solid #f3f3f3;
@@ -51,6 +67,3 @@
     }
 }
 
-.Captcha_visible {
-    display: block;
-}

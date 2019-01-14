@@ -91,16 +91,10 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    *
    */
   render() {
-    let loaderStyle = styles.loader;
-    let captchaDivStyle = styles.Captcha_invisible;
-    if (this.state.loaded) {
-      captchaDivStyle = styles.Captcha_visible;
-      loaderStyle = styles.Captcha_invisible;
-    }
     return (
-      <div>
-        <div className={loaderStyle}></div>
-        <div className={captchaDivStyle} data-hook={this.props['data-hook']}>
+      <div {...styles('root',{loaded: this.state.loaded})}>
+        {!this.state.loaded && <div className={styles.loader}/>}
+        <div className={styles.captcha} data-hook={this.props['data-hook']}>
           <Reaptcha
             ref={e => (this.captchaRef = e)}
             sitekey={this.props.sitekey}
