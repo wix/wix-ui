@@ -265,6 +265,31 @@
   border-color: value(D55);
   color: value(D80);
 }
+/* skin Premium Light */
+
+.button.premium.light {
+  background-color: transparent;
+  border-color: value(D80);
+  color: value(D80);
+}
+
+.button:not(:disabled).premium.light:hover {
+  background-color: value(D80);
+  border-color: value(D80);
+  color: value(P10);
+}
+
+.button:not(:disabled).premium.light:active {
+  background-color: value(D80);
+  border-color: value(D80);
+  color: value(P10);
+}
+
+.button:disabled.premium.light {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
 
 /* skin Premium secondary */
 

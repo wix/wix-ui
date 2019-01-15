@@ -56,6 +56,7 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
         padding: '2px'
       }}
     >
+      <ButtonNext className={button('premium', 'light')}>premium-light</ButtonNext>
       <ButtonNext className={button(`light`)}>light</ButtonNext>
     </div>
     <div
