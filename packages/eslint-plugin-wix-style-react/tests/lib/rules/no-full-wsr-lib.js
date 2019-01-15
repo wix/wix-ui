@@ -21,6 +21,7 @@ RuleTester.setDefaultConfig({
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
+
 const ruleTester = new RuleTester();
 ruleTester.run('no-full-wsr-lib', rule, {
   valid: [`import Button from 'wix-style-react/Button';`],
@@ -31,7 +32,7 @@ ruleTester.run('no-full-wsr-lib', rule, {
       errors: [
         {
           message:
-            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version",
+            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`",
           type: 'ImportDeclaration'
         }
       ]
@@ -41,7 +42,7 @@ ruleTester.run('no-full-wsr-lib', rule, {
       errors: [
         {
           message:
-            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version",
+            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`",
           type: 'VariableDeclaration'
         }
       ]
@@ -51,7 +52,7 @@ ruleTester.run('no-full-wsr-lib', rule, {
       errors: [
         {
           message:
-            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version",
+            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`",
           type: 'VariableDeclaration'
         }
       ]
@@ -61,7 +62,7 @@ ruleTester.run('no-full-wsr-lib', rule, {
       errors: [
         {
           message:
-            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version",
+            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`",
           type: 'VariableDeclaration'
         }
       ]
