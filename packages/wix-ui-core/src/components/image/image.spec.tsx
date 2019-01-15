@@ -77,8 +77,20 @@ describe('Image', () => {
         await eventually(async() => {
             expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
         })
-
      });
+
+     it('specifies the image to fill its container.', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'}/>);
+     });
+
+     it('specifies the image to cover its container.', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'cover'} />);
+    });
+
+    it('specifies the image to contain itself, inside his container', async() => {
+        const imageDriver = createDriver(<Image src={SRC resizeMode={'contain'}} />);
+    });
+
 
     //  it('should render an placeholder', async () => {
     //     const imageDriver = createDriver(<Image placeholder={PLACEHOLDER_AS_TEXT} />);

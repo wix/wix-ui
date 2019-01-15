@@ -1,11 +1,13 @@
 import * as React from 'react';
 import style from './image.st.css';
 
+export enum resizedMode { fill, fit, contain }
 export interface ImageProps   {
   src?: string;
   alt?: string;
   errorImage?: string;
-  placeholder?: React.ReactElement<any>;
+  placeholder?: resizedMode;
+  resizeMode?: string;
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
