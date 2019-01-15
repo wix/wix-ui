@@ -22,7 +22,7 @@ RuleTester.setDefaultConfig({
 //------------------------------------------------------------------------------
 const ruleTester = new RuleTester();
 ruleTester.run('no-full-wsr-lib', rule, {
-  valid: [`import {Button} from 'wix-style-react';`],
+  valid: [`import {Button} from 'wix-style-react/Button';`],
 
   invalid: [
     {
