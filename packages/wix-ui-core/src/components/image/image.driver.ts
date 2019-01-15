@@ -30,12 +30,11 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
         }, timeout)
       })
     },
-
     // simulateLoadingImageError: async (timeout = 0) => {
     //   setTimeout(async () => {
-    //     const nativeElement = (await base.$('root'));
+    //     const nativeElement = await base.$('');
         
-    //     nativeElement.getNative().dispatchEvent(new Event('error'));
+    //     nativeElement. //.dispatchEvent(new Event('error'));
     //   }, timeout)
     // },
 
