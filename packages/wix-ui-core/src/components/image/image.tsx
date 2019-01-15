@@ -1,14 +1,16 @@
 import * as React from 'react';
 import style from './image.st.css';
 
-export interface ImageProps extends React.ImgHTMLAttributes<HTMLElement>{
+export interface ImageProps   {
+  src?: string;
+  alt?: string;
   errorImage?: string;
+  placeholder?: React.ReactElement<any>;
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
 
 export enum ImageStatus { loading, loaded, error }
-
 export interface ImageState {
     src?: string;
     status: ImageStatus;
@@ -19,10 +21,7 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
 export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private setSrc = () :string => 
-  !!this.props.src ? this.props.src : this.srcSetExists() 
-
-  private srcSetExists = () :string =>
-    !!this.props.srcSet ? this.props.src : EMPTY_PIXEL // The image element natively uses the srcSet instead of src.
+  !!this.props.src ? this.props.src : EMPTY_PIXEL
 
   private errorImageExists = () :string =>
   !!this.props.errorImage ? this.props.errorImage : EMPTY_PIXEL
@@ -37,14 +36,14 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   
   render() {
-    const { errorImage, ...nativeProps} = this.props;
+    const { errorImage, placeholder, ...props} = this.props;
     const loadState = this.state.status;
 
 
     return (
         <img 
           {...style('root', {loadState}, this.props)}
-          {...nativeProps}
+          {...props}
           src={this.state.src} 
           onError={this.handleOnError}  
           onLoad={this.handleOnLoad}
@@ -67,4 +66,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     });
     this.props.onError && this.props.onError(e);
   };
+
+  // private srcSetExists = () :string =>
+  //   !!this.props.srcSet ? this.props.src : EMPTY_PIXEL // The image element natively uses the srcSet instead of src.
 }

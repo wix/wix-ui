@@ -6,7 +6,7 @@ import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
     const SRC: string = 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg'
-    const SRCSET: string = 'https://cdn.pixabay.com/photo/2016/06/18/17/42/image-1465348_960_720.jpg'
+    // const SRCSET: string = 'https://cdn.pixabay.com/photo/2016/06/18/17/42/image-1465348_960_720.jpg'
     const BROKEN_SRC: string= 'data:image/png;base64,this-is-broken!';
     const ERROR_IMAGE_SRC: string = 'https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png'
     const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
@@ -33,11 +33,11 @@ describe('Image', () => {
         expect(await imageDriver.getSrc()).toEqual(SRC);
     });
 
-    it('displays image with the provided srcset, when no src is given', async () => {
-        const imageDriver = createDriver(<Image src={SRC} srcSet={SRCSET} />);
+    // it('displays image with the provided srcset, when no src is given', async () => {
+    //     const imageDriver = createDriver(<Image src={SRC} srcSet={SRCSET} />);
         
-        expect(await imageDriver.getSrcSet()).toEqual(SRCSET);
-    });
+    //     expect(await imageDriver.getSrcSet()).toEqual(SRCSET);
+    // });
 
 
     it('displays empty pixel when src is not provided', async() => {
@@ -84,5 +84,4 @@ describe('Image', () => {
     //     const imageDriver = createDriver(<Image placeholder={PLACEHOLDER_AS_TEXT} />);
     //     // expect((await imageDriver.getContentType()) === 'placeholder').toBe(true);
     //   });
-      
 });
