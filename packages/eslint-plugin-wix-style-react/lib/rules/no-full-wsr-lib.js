@@ -3,9 +3,12 @@
  * @author YairH
  */
 
+const { matchesVersion, isVersionGreater } = require('../utils/version');
+
 const LIB_NAME = 'wix-style-react';
 const ERROR =
-  "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`";
+  "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version";
+const MAX_VERSION = '5.8.1';
 
 module.exports = {
   meta: {
@@ -19,9 +22,11 @@ module.exports = {
   },
 
   create(context) {
+    const shouldIgnoreNamedImports = isVersionGreater(LIB_NAME, MAX_VERSION);
+
     return {
       ImportDeclaration(node) {
-        if (isDestructuredImportStatement(node)) {
+        if (!shouldIgnoreNamedImports && isDestructuredImportStatement(node)) {
           context.report({
             node,
             message: ERROR,
