@@ -7,10 +7,18 @@ import {BaseUniDriver} from '../base-driver';
 import {UniDriver} from 'unidriver';
 import {reactUniDriver} from 'unidriver/react';
 
-const getElementByDataHook = (wrapper: HTMLElement, dataHook: string ) => {
+export interface TestkitArgs {
+  wrapper: HTMLElement;
+  dataHook: string;
+}
+
+const getElement = ({wrapper, dataHook}: TestkitArgs) => {
   const domInstance = ReactDom.findDOMNode(wrapper) as HTMLElement;
+
   if (domInstance) {
-    const dataHookOnInstance = domInstance.attributes.getNamedItem('data-hook') || {value: ''};
+    const dataHookOnInstance = domInstance.attributes.getNamedItem(
+      'data-hook'
+    ) || {value: ''};
 
     return dataHook === dataHookOnInstance.value
       ? domInstance
@@ -21,28 +29,20 @@ const getElementByDataHook = (wrapper: HTMLElement, dataHook: string ) => {
 export function testkitFactoryCreator<T extends BaseDriver>(
   driverFactory: DriverFactory<T>
 ) {
-  return (obj: { wrapper: HTMLElement; dataHook: string }) => {
-    const eventTrigger = reactEventTrigger();
-    /*
-      https://github.com/facebook/react/commit/4070c4ca20b1d08a00fe278d561642e87373c09f
-      https://github.com/facebook/react/issues/4692#issuecomment-133897672
-      as react allows to use TestUtils.findAllInRenderedTree only on composite components, we need to
-      support composite wrappers
-    */
-    const element = getElementByDataHook(obj.wrapper, obj.dataHook) as Element;
-    return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
-  };
+  return (testkitArgs: TestkitArgs) =>
+    driverFactory({
+      element: getElement(testkitArgs) as Element,
+      wrapper: testkitArgs.wrapper,
+      eventTrigger: reactEventTrigger()
+    });
 }
 
 export function uniTestkitFactoryCreator<T extends BaseUniDriver>(
   driverFactory: (base: UniDriver) => T
 ) {
-  return (obj: { wrapper: HTMLElement; dataHook: string }) => {
-    const element = obj.wrapper.querySelector(
-      `[data-hook='${obj.dataHook}']`
-    ) as Element;
-    const base = reactUniDriver(element);
-    return driverFactory(base);
+  return (testkitArgs: TestkitArgs) => {
+    const element = getElement(testkitArgs) as Element;
+    return driverFactory(reactUniDriver(element));
   };
 }
 
@@ -66,12 +66,20 @@ export function isTestkitExists<T extends BaseDriver>(
   return testkit.exists();
 }
 
-export async function isUniTestkitExists<T extends BaseUniDriver> (Element: React.ReactElement<any>, testkitFactory: (obj: {wrapper: any, dataHook: string}) => T) {
+export async function isUniTestkitExists<T extends BaseUniDriver>(
+  Element: React.ReactElement<any>,
+  testkitFactory: (obj: { wrapper: any; dataHook: string }) => T
+) {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
-  const elementToRender = React.cloneElement(Element, {'data-hook': dataHook});
-  const renderedElement = ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>);
-  const wrapper = div.appendChild((renderedElement as any));
+  const elementToRender = React.cloneElement(Element, {
+    'data-hook': dataHook,
+    dataHook
+  });
+  const renderedElement = ReactTestUtils.renderIntoDocument(
+    <div>{elementToRender}</div>
+  );
+  const wrapper = div.appendChild(renderedElement as any);
   const testkit = testkitFactory({wrapper, dataHook});
   return await testkit.exists();
 }

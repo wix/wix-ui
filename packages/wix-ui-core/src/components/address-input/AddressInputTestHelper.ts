@@ -1,6 +1,6 @@
 import * as waitForCond from 'wait-for-cond';
 import {createAddress, createGeocode, createPlaceDetails} from './GoogleMapsClientStub';
-import {Address, Geocode, PlaceDetails} from '../../clients/GoogleMaps/types';
+import {Address, Geocode, InternalAddress, PlaceDetails} from '../../clients/GoogleMaps/types';
 const first = require('lodash/first');
 
 export const API_KEY = 'api-key';
@@ -13,35 +13,35 @@ export const GEOCODE_2: Geocode = createGeocode(ADDRESS_2.place_id, ADDRESS_2.de
 export const PLACE_DETAILS_1: PlaceDetails = createPlaceDetails(ADDRESS_1.place_id, ADDRESS_1.description);
 export const PLACE_DETAILS_2: PlaceDetails = createPlaceDetails(ADDRESS_2.place_id, ADDRESS_2.description);
 
-export const INTERNAL_ADDRESS_GEOCODE_1 = {
+export const INTERNAL_ADDRESS_GEOCODE_1:InternalAddress = {
     formatted: '1 East Broadway, New York, NY, USA',
     location: {
-        lat: 40.7127753,
-        lng: -74.0059728
+        latitude: 40.7127753,
+        longitude: -74.0059728
     }
 };
 
-export const INTERNAL_ADDRESS_GEOCODE_2 = {
+export const INTERNAL_ADDRESS_GEOCODE_2:InternalAddress = {
     formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
     location: {
-        lat: 40.7127753,
-        lng: -74.0059728
+        latitude: 40.7127753,
+        longitude: -74.0059728
     }
 };
 
-export const INTERNAL_ADDRESS_PLACE_DETAILS_1 = {
+export const INTERNAL_ADDRESS_PLACE_DETAILS_1:InternalAddress = {
     formatted: '1 East Broadway, New York, NY, USA',
     location: {
-        lat: 1,
-        lng: -1
+        latitude: 1,
+        longitude: -1
     }
 };
 
-export const INTERNAL_ADDRESS_PLACE_DETAILS_2 = {
+export const INTERNAL_ADDRESS_PLACE_DETAILS_2:InternalAddress = {
     formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
     location: {
-        lat: 1,
-        lng: -1
+        latitude: 1,
+        longitude: -1
     }
 };
 

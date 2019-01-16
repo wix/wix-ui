@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Divider} from '../../components/deprecated/divider';
 import style from './DropdownOption.st.css';
 const uniqueId = require('lodash/uniqueId');
+const compact = require('lodash/compact');
 
 export interface Option {
   id: number | string;
@@ -24,11 +25,16 @@ const createOption = (option: Partial<Option> = null): Option =>
   );
 
 const escapeRegExp = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+const highlightRegExt = (s: string) => new RegExp(`(${s.replace(/ /g, '|')})`, 'gi');
+const isEven = i => i % 2 === 0;
+const isOdd = i => i % 2 === 1;
 
-const hightlightMatches = (option: Option, searchTerm: string): Option => {
-  const re = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-  const parts = option.value.split(re).map((part, i) =>
-    i % 2 ? <mark className={style.highlight} key={i}>{part}</mark> : <span className={style.nonHighlight} key={i}>{part}</span>
+const highlightMatches = (option: Option, searchTerm: string): Option => {
+  const regExp = highlightRegExt(escapeRegExp(searchTerm.trim()));
+  const stringArray = option.value.split(regExp);
+  const f = stringArray[0] === '' ? isEven : isOdd;
+  const parts = compact(stringArray).map((part, i) =>
+    f(i) ? <mark className={style.highlight} key={i}>{part}</mark> : <span className={style.nonHighlight} key={i}>{part}</span>
   );
 
   return createOption({
@@ -55,7 +61,7 @@ export const OptionFactory = {
       render: value ? () => <Divider className={className}>{value}</Divider> : () => <Divider className={className}/>
     });
   },
-  createHighlighted(option: Option, hightlightValue: string): Option {
-    return option.value && hightlightValue ? hightlightMatches(option, hightlightValue) : option;
+  createHighlighted(option: Option, highlightValue: string): Option {
+    return option.value && highlightValue ? highlightMatches(option, highlightValue) : option;
   }
 };

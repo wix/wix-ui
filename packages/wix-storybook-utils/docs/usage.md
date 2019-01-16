@@ -37,12 +37,20 @@ export default { // 2
   exampleProps: { // 9
     children: exampleChildren,
     onChange: value => value
-  }
+  },
+
+  componentWrapper: component => <div>{component}</div>, // 10
+
+  exampleImport: "import Component from 'custom-location-if-autodocs-cant-parse-it'", // 11
+
+  examples: <div>Optional arbitrary content to be displayed below Playground</div>,
+
+  codeExample: true // set to false if you want to hide interactive code example. It is enabled by default
 };
 ```
 
 1. `import` component you wish to document
-1. `export` a single object which will be treated as story configuration
+1. `export` default a single object which will be treated as story configuration
 1. `category` is a name of Storybook sidebar section
 1. `storyName` is a name of specific story
 1. `component` a reference to component which is to be documented
@@ -50,6 +58,8 @@ export default { // 2
 1. `componentProps` an object (or function returning object) which outlines props to be given to `5.` - a component
 1. `hiddenProps` **optional** array of props that should not appear in storybook
 1. `exampleProps` **optional** object of the same shape as component props used to configure possible prop values (explained below)
+1. `componentWrapper` **optional** function which receives component to be documented and must return a react component. Use this if you need more control in preview (some styling, for example).
+1. `exampleImport` **optional** string which will be displayed as example of how documented component should be imported. Use this if AutoDocs fails to corretly interpret how component should be imported.
 
 ## Long example
 
@@ -78,6 +88,37 @@ Interactive props list is split into sections:
 
 if some prop should be under **Primary Props** but it's not, simply define it in
 `componentProps` or `exampleProps`.
+
+### Component
+
+AutoExample supports both JS and TS components. Component should be written in a regular manner, ideally one component per file which has one default export, or exports one component. Write simple components for best results, if it's hard for developer to read code, it will be hard for AutoExample to parse and automate documentation too.
+
+Both class and funtional components are supported.
+
+A simple example:
+
+```js
+import React from 'react';
+
+/** here can be a description written in `markdown` */
+class MyComponent extends React.Component {
+  /** this function will be displayed in API tab as a public method */
+  publicMethod() {
+    return 'hello';
+  }
+
+  /** this function will be hidden from API tab */
+  _privateMethod() {
+    return 'Do not interact with my privates';
+  }
+
+  render() {
+    return (
+      <div>Hello, World</div>
+    );
+  }
+}
+```
 
 ### Full API
 

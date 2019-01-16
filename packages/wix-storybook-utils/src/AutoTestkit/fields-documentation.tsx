@@ -18,10 +18,12 @@ export const FieldsDocumentation = ({ units }) => {
         </tr>
       </thead>
       <tbody>
-        {units.map((unit, i) => {
-          const Documentation = typeComponents[unit.type];
-          return <Documentation key={i} unit={unit} />;
-        })}
+        {units
+          .filter(({ type }) => typeComponents[type])
+          .map((unit, i) => {
+            const Documentation = typeComponents[unit.type];
+            return <Documentation key={i} unit={unit} />;
+          })}
       </tbody>
     </table>
   ) : (

@@ -81,6 +81,6 @@
     ]
   },
   "dependencies": {
-    "unidriver": "^1.1.0"
+    "unidriver": "^2.0.0"
   }
 }

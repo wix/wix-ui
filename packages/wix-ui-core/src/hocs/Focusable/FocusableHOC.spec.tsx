@@ -46,6 +46,12 @@ describe('FocusableHOC', () => {
     let WithFocusableComp2;
     let focusableModule;
 
+    beforeAll(() => {
+      // Previous tests may trigger a `mousedown` event, so we need to trigger a `keydown` event as
+      // the default input is keyboard (some tests rely on this default behaviour).
+      document.dispatchEvent(new Event('keydown', { bubbles: true }));
+    });
+
     beforeEach(() => {
       // Reseting modules, in order to reset the FocusableHOC.InputMethod.method state.
       if (typeof jest.resetModules === 'function') {

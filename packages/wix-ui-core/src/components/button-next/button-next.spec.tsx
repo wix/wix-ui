@@ -56,7 +56,6 @@ describe('ButtonNext', () => {
     const Test = props => <span {...props} />;
     it('should render by default as html button', async () => {
       testContainer.renderSync(<ButtonNext />);
-
       await eventually(() => {
         const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('BUTTON');
@@ -64,7 +63,6 @@ describe('ButtonNext', () => {
     });
     it('should render custom html tag', async () => {
       testContainer.renderSync(<ButtonNext as="a" />);
-
       await eventually(() => {
         const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('A');
@@ -72,7 +70,6 @@ describe('ButtonNext', () => {
     });
     it('should render custom react component', async () => {
       testContainer.renderSync(<ButtonNext as={Test} />);
-
       await eventually(() => {
         const htmlTag = testContainer.componentNode.tagName;
         expect(htmlTag).toBe('SPAN');
@@ -100,31 +97,12 @@ describe('ButtonNext', () => {
         expect(htmlTag).toBe('true');
       });
     });
-  });
 
-  describe(`'type' prop`, () => {
-    it('should render value `button` when props `as` and `type` are undefined', async () => {
-      testContainer.renderSync(<ButtonNext />);
+    it('when given should render href as undefined', async () => {
+      testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
 
       await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(htmlTag).toBe('button');
-      });
-    });
-    it('should render value `submit` when prop `type="submit"` and `as` is undefined', async () => {
-      testContainer.renderSync(<ButtonNext type="submit" />);
-
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
-        expect(htmlTag).toBe('submit');
-      });
-    });
-
-    it('should render prop `type` undefined if as prop is `a`', async () => {
-      testContainer.renderSync(<ButtonNext as="a" />);
-
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('type');
+        const htmlTag = testContainer.componentNode.getAttribute('href');
         expect(!!htmlTag).toBe(false);
       });
     });
