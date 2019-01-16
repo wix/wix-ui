@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
+import { deepAssign } from '../../test/utils/deep-assign';
 import Markdown from '../Markdown';
 import AutoExample from '../AutoExample';
 import StoryPage from './index';
@@ -11,7 +12,6 @@ export default class {
 
   defaultProps = {
     metadata: {
-      displayName: 'componentName',
       props: {},
     },
     config: {},
@@ -24,7 +24,7 @@ export default class {
   when = {
     created: props =>
       (this.component = mount(
-        <StoryPage {...{ ...this.defaultProps, ...props }} />,
+        <StoryPage {...deepAssign(this.defaultProps, props)} />,
       )),
   };
 

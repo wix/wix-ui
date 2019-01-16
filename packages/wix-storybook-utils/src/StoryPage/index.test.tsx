@@ -6,9 +6,25 @@ import Option from '../AutoExample/components/option';
 const testkit = new Testkit();
 
 describe('StoryPage', () => {
-  it('should render readme', () => {
-    testkit.when.created({});
-    expect(testkit.get.readme()).toMatch(/componentName/);
+  describe('readme and description', () => {
+    it('should render readme', () => {
+      const readme = 'hello readme';
+      testkit.when.created({ metadata: { readme } });
+      expect(testkit.get.readme()).toMatch(readme);
+    });
+
+    it('should render description from source', () => {
+      const description = 'hello source';
+      testkit.when.created({ metadata: { description } });
+      expect(testkit.get.readme()).toMatch(description);
+    });
+
+    it('should prioritize readme', () => {
+      const readme = 'hello readme';
+      const description = 'hello source';
+      testkit.when.created({ metadata: { description, readme } });
+      expect(testkit.get.readme()).toMatch(readme);
+    });
   });
 
   describe('given `exampleImport`', () => {
