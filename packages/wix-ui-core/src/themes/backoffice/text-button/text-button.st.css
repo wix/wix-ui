@@ -30,6 +30,9 @@
   outline: none;
   padding: 0;
   height: 24px;
+
+   /* render as anchor overrides */
+  user-select: none;
 }
 
 .textButton:hover:not(:disabled) {

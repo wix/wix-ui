@@ -1,6 +1,5 @@
 /**
- * @fileoverview Fail if importing all of WSR
- * @author YairH
+ * @fileoverview Fails if importing all of WSR using commonjs. Works for named imports. Exists in >= 5.9 WSR environment.
  */
 'use strict';
 
@@ -23,19 +22,9 @@ RuleTester.setDefaultConfig({
 //------------------------------------------------------------------------------
 const ruleTester = new RuleTester();
 ruleTester.run('no-full-wsr-lib', rule, {
-  valid: [`import Button from 'wix-style-react/Button';`],
+  valid: [`import {Button} from 'wix-style-react';`],
 
   invalid: [
-    {
-      code: "import {Button, Panel} from 'wix-style-react';",
-      errors: [
-        {
-          message:
-            "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';` or update WSR to at least 5.9.0 version",
-          type: 'ImportDeclaration'
-        }
-      ]
-    },
     {
       code: "const Button = require('wix-style-react').Button;",
       errors: [
