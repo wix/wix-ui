@@ -58,7 +58,7 @@
     "ts-jest": "^22.0.3",
     "typescript": "~2.8.3",
     "vfile-message": "1.0.2",
-    "yoshi": "^1.2.0"
+    "yoshi": "^3.0.0"
   },
   "jest": {
     "transform": {
