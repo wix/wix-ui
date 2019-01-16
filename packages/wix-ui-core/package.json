@@ -73,7 +73,7 @@
     "@storybook/react": "4.0.0-alpha.14",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
-    "@types/jest": "^22.1.1",
+    "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.104",
     "@types/node": "^8.0.0",
     "@types/react": "^16.4.2",
@@ -84,7 +84,6 @@
     "@ui-autotools/scripts": "^3.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "canvas": "^2.2.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "eyes.it": "latest",
@@ -96,7 +95,7 @@
     "react": "~16.4.2",
     "react-dom": "~16.4.2",
     "react-test-renderer": "^16.3.1",
-    "ts-jest": "^22.0.3",
+    "ts-jest": "^23.10.5",
     "tslint-config-prettier": "^1.12.0",
     "tslint-config-wix": "^1.0.31",
     "tslint-react": "^3.5.1",
@@ -105,7 +104,7 @@
     "wix-storybook-utils": "^2.0.45",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
-    "yoshi": "^3.0.0",
+    "yoshi": "^3.23.0",
     "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
@@ -131,12 +130,10 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "/src/.*\\.browser\\.spec\\.(ts|tsx)$"
     ],
-    "testRegex": "/src/.*\\avatar.spec\\.(ts|tsx)$",
-    "testEnvironmentOptions": {
-      "resources": "usable"
-    }
+    "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
   },
   "yoshi": {
     "exports": {
