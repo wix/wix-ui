@@ -1,12 +1,12 @@
 import {Configuration, Linter, Replacement} from 'tslint';
 
-export const helper = ({src, rule}) => {
+export const helper = ({src, rule, rulesDirectory = 'src'}) => {
     const linter = new Linter({fix: false});
     linter.lint('', src, Configuration.parseConfigFile({
         rules: {
             [rule.name || rule]: [true, ...rule.options]
         },
-        rulesDirectory: 'src'
+        rulesDirectory,
     }));
     return linter.getResult();
 };
