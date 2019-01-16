@@ -16,9 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "wix-ui-lint-utils": "^1.0.0"
-  },
   "peerDependencies": {
     "tslint": "^5.0.0",
     "typescript": "^2.4.0"

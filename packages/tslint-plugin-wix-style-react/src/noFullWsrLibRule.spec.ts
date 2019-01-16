@@ -1,4 +1,4 @@
-import { getFixedResult, helper } from '../src/lintRunner';
+import { getFixedResult, helper } from './lintRunner';
 
 const rule = 'no-full-wsr-lib';
 
