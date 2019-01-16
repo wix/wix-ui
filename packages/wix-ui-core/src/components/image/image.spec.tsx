@@ -39,26 +39,28 @@ describe('Image', () => {
     //     expect(await imageDriver.getSrcSet()).toEqual(SRCSET);
     // });
 
-
     it('displays empty pixel when src is not provided', async() => {
         const imageDriver = createDriver(<Image src=""/>);
 
         expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
-     it('specifies the image to fill its container.', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'}/>);
-        expect(true).toBe(true);
+     it('specifies the image to cover its container', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'container'}/>);
+
+        expect(imageDriver.getStyle).to.have.style('visibility', 'hidden');
+        // expect(imageDriver.nativeElement).to.have.style('display', 'block');
+        // expect(imageDriver.nativeElement).to.have.style('height', '20px');
      });
 
-     it('specifies the image to cover its container.', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'cover'} />);
-        expect(true).toBe(true);
-    });
+    //  it('specifies the image to cover its container.', async() => {
+    //     const imageDriver = createDriver(<Image src={SRC} resizeMode={'cover'} />);
+    //     expect(true).toBe(true);
+    // });
 
-    it('specifies the image to cover its container.', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'contain'} />);
-        expect(true).toBe(true);
-    });
+    // it('specifies the image to cover its container.', async() => {
+    //     const imageDriver = createDriver(<Image src={SRC} resizeMode={'contain'} />);
+    //     expect(true).toBe(true);
+    // });
 
 });

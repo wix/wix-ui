@@ -3,13 +3,18 @@ import {
   BaseUniDriver,
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
+import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import style from './image.st.css';
+
 
 export interface ImageDriver extends BaseUniDriver{
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
+  getStyle: () => string;
+    
   // getSrcSet: () => Promise<string>;
-  simulateLoadingImageError: (timeout?: number) => Promise<void>;
-  simulateLoadingImageSuccess: (timeout?: number) => Promise<void>;
+  // simulateLoadingImageError: (timeout?: number) => Promise<void>;
+  // simulateLoadingImageSuccess: (timeout?: number) => Promise<void>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
@@ -17,18 +22,22 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
     getAlt: () => base.attr('alt'),
+    getStyle: () => {
+      const el =baseUniDriverFactory(base).element() as Element
+    }
+    
     // getSrcSet: () => base.attr('srcset'),
-    simulateLoadingImageError: async (timeout = 0) => {
-      return new Promise<void>(async resolve => {
-        setTimeout(async () => {
-          const nativeElement = (await base.getNative());
+    // simulateLoadingImageError: async (timeout = 0) => {
+    //   return new Promise<void>(async resolve => {
+    //     setTimeout(async () => {
+    //       const nativeElement = (await base.getNative());
           
-          nativeElement.dispatchEvent(new Event('error'));
+    //       nativeElement.dispatchEvent(new Event('error'));
 
-          resolve();
-        }, timeout)
-      })
-    },
+    //       resolve();
+    //     }, timeout)
+    //   })
+    // },
     // simulateLoadingImageError: async (timeout = 0) => {
     //   setTimeout(async () => {
     //     const nativeElement = await base.$('');
@@ -37,17 +46,17 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     //   }, timeout)
     // },
 
-    simulateLoadingImageSuccess: async (timeout = 0) => {
-      return new Promise<void>(async resolve => {
-        setTimeout(async () => {
-          const nativeElement = (await base.getNative());
+    // simulateLoadingImageSuccess: async (timeout = 0) => {
+    //   return new Promise<void>(async resolve => {
+    //     setTimeout(async () => {
+    //       const nativeElement = (await base.getNative());
           
-          nativeElement.dispatchEvent(new Event('load'));
+    //       nativeElement.dispatchEvent(new Event('load'));
 
-          resolve();
-        }, timeout)
-      })
+    //       resolve();
+    //     }, timeout)
+    //   })
 
-    }
+    // }
   }
 };
