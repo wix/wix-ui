@@ -3,7 +3,7 @@
  * @author YairH
  */
 
-const { matchesVersion, isVersionGreater } = require('wix-ui-lint-utils');
+const { matchesVersion, isVersionGreater } = require('../utils/version');
 
 const LIB_NAME = 'wix-style-react';
 const ERROR =
