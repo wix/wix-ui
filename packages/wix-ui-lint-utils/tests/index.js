@@ -1,9 +1,9 @@
 const path = require('path');
 const assert = require('assert');
-const { detectVersion, isVersionGreater } = require('../../../lib/utils/version');
+const { detectVersion, isVersionGreater } = require('..');
 
 describe('Version', () => {
-  const base = path.resolve(__dirname, '..', '..', 'fixtures', 'version');
+  const base = path.resolve(__dirname, 'fixtures', 'version');
   const pkgName = 'wix-style-react'; // 5.1.2;
   const uninstalledPkgName = 'some-uninstalled-package'; // null
   let cwd;

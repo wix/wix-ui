@@ -1,30 +1,26 @@
 {
-  "name": "eslint-plugin-wix-style-react",
+  "name": "wix-ui-lint-utils",
   "version": "1.0.0",
-  "description": "Wix Style React Lint Plugin",
+  "description": "Utils for wix-style-react linting plugins",
   "keywords": [
     "eslint",
     "eslintplugin",
     "eslint-plugin"
   ],
   "author": "yairhaimo",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha './tests/{,!(fixtures)/**}/*.js' --recursive",
-    "release": "wnpm-release --no-shrinkwrap"
+    "release": "yoshi release"
   },
   "dependencies": {
-    "requireindex": "~1.1.0",
     "resolve": "^1.9.0",
-    "semver": "^5.6.0",
-    "wix-ui-lint-utils": "^1.0.0"
+    "semver": "^5.6.0"
   },
   "devDependencies": {
     "assert": "^1.4.1",
     "eslint": "~3.9.1",
-    "execa": "^1.0.0",
-    "mocha": "^3.1.2",
-    "wnpm-ci": "latest"
+    "mocha": "^3.1.2"
   },
   "engines": {
     "node": ">=0.10.0"
