@@ -10,6 +10,7 @@ const disabledStyle = {
   color: 'grey'
 };
 
+/** Description from source! */
 const Component = ({ enabled, children, onClick, number }) => (
   <div style={enabled ? enabledStyle : disabledStyle} onClick={onClick}>
     {children}

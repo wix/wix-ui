@@ -30,6 +30,13 @@ interface SingleComponentLayoutProps extends StoryConfig {
   activeTabId?: string;
 }
 
+const readme = metadata => {
+  const content = metadata.readme || metadata.description;
+  const fallback = `# \`<${metadata.displayName}/>\``;
+
+  return <Markdown dataHook="metadata-readme" source={content || fallback} />;
+};
+
 export const SingleComponentLayout: React.StatelessComponent<
   SingleComponentLayoutProps
 > = ({
@@ -47,10 +54,7 @@ export const SingleComponentLayout: React.StatelessComponent<
 }: SingleComponentLayoutProps) => (
   <TabbedView activeTabId={activeTabId} tabs={tabs(metadata)}>
     <div className={styles.usage}>
-      <Markdown
-        dataHook="metadata-readme"
-        source={metadata.readme || `# \`<${metadata.displayName}/>\``}
-      />
+      {readme(metadata)}
 
       {(displayName || metadata.displayName) && (
         <div className={styles.githubLink}>
