@@ -9,8 +9,8 @@ module.exports = (config, env, defaultConfig) => {
     loader: 'wix-storybook-utils/loader',
     resolve: {
       alias: {
-        'wix-ui-core': path.resolve(__dirname, '../src')
-      }
+        'wix-ui-core': path.resolve(__dirname, '../src'),
+      },
     },
     options: {
       storyConfig: {
@@ -18,9 +18,9 @@ module.exports = (config, env, defaultConfig) => {
         repoBaseURL:
           'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/',
         importFormat:
-          "import {%componentName} from '%moduleName/%componentName'"
-      }
-    }
+          "import {%componentName} from '%moduleName/%componentName'",
+      },
+    },
   });
 
   return newConfig;
