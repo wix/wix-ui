@@ -25,6 +25,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
+    "prebuild": "scripts/node-env.js",
     "build": "yoshi build && npm run transpile-mixins && npm run import-path && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run generate-stylable-components && npm run generate-stylable-hocs",
