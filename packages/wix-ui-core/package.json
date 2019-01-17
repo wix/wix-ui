@@ -43,7 +43,7 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-components": "ls /usr/bin && stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
+    "generate-stylable-components": "cat /usr/bin/env && stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "test:browser": "wix-ui-mocha-runner"
   },
