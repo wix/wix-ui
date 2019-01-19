@@ -14,6 +14,7 @@ export default () => (
     <ButtonNext className={button("destructive")}>destructive</ButtonNext>
     <ButtonNext className={button("premium")}>premium</ButtonNext>
     <ButtonNext className={button("dark")}>dark</ButtonNext>
+    <ButtonNext className={button("premium", light")}>premium-light</ButtonNext>
     <ButtonNext className={button("light")}>light</ButtonNext>
     <ButtonNext className={button("transparent")}>transparent</ButtonNext>
   </React.Fragment>
@@ -56,8 +57,10 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
         padding: '2px'
       }}
     >
-      <ButtonNext className={button('premium', 'light')}>premium-light</ButtonNext>
-      <ButtonNext className={button(`light`)}>light</ButtonNext>
+      <span style={{ marginRight: '5px' }}>
+        <ButtonNext className={button('premium', 'light')}>premium-light</ButtonNext>
+      </span>
+        <ButtonNext className={button(`light`)}>light</ButtonNext>
     </div>
     <div
       style={{
