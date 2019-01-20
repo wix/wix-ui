@@ -68,14 +68,16 @@ export function isTestkitExists<T extends BaseDriver>(
 
 export async function isUniTestkitExists<T extends BaseUniDriver>(
   Element: React.ReactElement<any>,
-  testkitFactory: (obj: { wrapper: any; dataHook: string }) => T
+  testkitFactory: (obj: { wrapper: any; dataHook: string }) => T,
+  options?: { dataHookPropName?: string }
 ) {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
-  const elementToRender = React.cloneElement(Element, {
-    'data-hook': dataHook,
-    dataHook
-  });
+  const dataHookPropName = options && options.dataHookPropName;
+  const extraProps = dataHookPropName
+    ? {[dataHookPropName]: dataHook}
+    : {'data-hook': dataHook, dataHook};
+  const elementToRender = React.cloneElement(Element, extraProps);
   const renderedElement = ReactTestUtils.renderIntoDocument(
     <div>{elementToRender}</div>
   );
