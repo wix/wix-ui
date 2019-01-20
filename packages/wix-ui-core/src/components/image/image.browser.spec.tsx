@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver';
-import { Image } from './image';
+import { Image, ResizedMode } from './image';
 import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
@@ -13,35 +13,6 @@ describe('Image', () => {
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest()
     const createDriver = testContainer.createUniRenderer(imageDriverFactory);
     
-    it('it displays the provided errorImage when the src is broken', async () => {
-        const onErrorSpy = jest.fn();
-        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy} />); 
-
-        await eventually(async() => {
-            expect(onErrorSpy).toHaveBeenCalledTimes(1);
-            expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
-        })
-    });
-
-    it('displays an empty pixel when both src and errorImage are broken', async() => {
-        const onErrorSpy = jest.fn();
-        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy}/>);
-      
-        await eventually(async() => {
-            expect(onErrorSpy).toHaveBeenCalledTimes(2);
-            expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
-        });
-    });
-
-    it('displays an empty pixel when the provided src is broken and errorImage is not provided ', async() => {
-        const onErrorSpy = jest.fn();
-        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage="" onError={onErrorSpy}/>);
-
-        await eventually(async() => {
-            expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
-        })
-     });
-
     it('displays a provided alt prop', async () => {
         const imageDriver = createDriver(<Image alt="this is an informative text"/>);
 
@@ -67,16 +38,40 @@ describe('Image', () => {
         expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
     });
 
-    it('specifies the image to cover its container', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'contain'} />);
+    it('it displays the provided errorImage when the src is broken', async () => {
+        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} />); 
+
+        await eventually(async() => {
+            expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
+        })
+    });
+
+    it('displays an empty pixel when both src and errorImage are broken', async() => {
+        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={BROKEN_SRC}/>);
+      
+        await eventually(async() => {
+            expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
+        });
+    });
+
+    it('displays an empty pixel when the provided src is broken and errorImage is not provided ', async() => {
+        const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage="" />);
+
+        await eventually(async() => {
+            expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
+        })
+     });
+
+    it('specifies the image to contain its container', async() => {
+        const imageDriver = createDriver(<Image src={SRC}  resizeMode={ResizedMode.contain} />);
         const imageWrapper = await imageDriver.nativeElement();
         const image = imageWrapper.firstElementChild;
 
         expect(imageDriver.resized(image)).toEqual('contain'); 
     });
 
-    it('specifies the image to fit its container.', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fit'} />);
+    it('specifies the image to fit its container', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={ResizedMode.fit} />);
         const imageWrapper = await imageDriver.nativeElement();
         const image = imageWrapper.firstElementChild;
 
@@ -84,8 +79,8 @@ describe('Image', () => {
     });
 
      // 'fill' is the default image behavior
-    it('specifies the image to fill its container.', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'} />);
+    it('specifies the image to fill its container', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={ResizedMode.fill} />);
         const image = await imageDriver.nativeElement();
 
         expect(imageDriver.resized(image)).toEqual('fill'); 

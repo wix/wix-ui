@@ -1,25 +1,21 @@
 import * as React from 'react';
 import style from './image.st.css';
 
-export enum resizedMode { fill = 'fill', fit = 'fit', contain = 'contain' }
-export interface ImageProps   {
+export enum ResizedMode { fill = 'fill', fit = 'fit', contain = 'contain'}
+export enum ImageStatus { loading, loaded, error }
+const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+export interface ImageProps {
   src?: string;
   alt?: string;
   errorImage?: string;
-  placeholder?: resizedMode;
-  resizeMode?: string;
+  resizeMode?: ResizedMode;
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
-
-export enum ImageStatus { loading, loaded, error }
 export interface ImageState {
     src?: string;
     status: ImageStatus;
 }
-
-const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
-
  export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private setSrc = () :string => 
@@ -29,10 +25,10 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
   !!this.props.errorImage ? this.props.errorImage : EMPTY_PIXEL
 
   private setErrorImage = () => 
-    this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.errorImageExists()
+    this.state.src === this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists()
 
   private resized = () =>
-    this.props.resizeMode === resizedMode.contain || this.props.resizeMode === resizedMode.fit
+    this.props.resizeMode === ResizedMode.contain || this.props.resizeMode === ResizedMode.fit
   
   state = {
     src: this.setSrc(),
@@ -40,7 +36,7 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
   };
   
   render() {
-    const { errorImage, placeholder, resizeMode, ...props} = this.props;
+    const { errorImage, resizeMode, ...props} = this.props;
 
     if (this.resized()) {
         const imageWrapper = {
@@ -48,7 +44,7 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
           backgroundSize: resizeMode
       };
       return (
-        <div className={style.imageWrapper}>
+        <div className={style.imageWrapper} style={imageWrapper}>
             <img
                 {...style('root hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
                 {...props}
