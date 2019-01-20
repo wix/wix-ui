@@ -1,12 +1,12 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
 import {Dropdown} from '../dropdown';
-import {Placement} from '../../components/popover';
+import {Placement, PopoverProps} from '../popover';
 import {Option, OptionFactory} from '../dropdown-option';
 import {OPEN_TRIGGER_TYPE} from '../dropdown/constants';
 import {Input, InputProps} from '../input';
 
-export interface InputWithOptionsProps {
+export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** The location to display the content */
   placement?: Placement;
   /** The dropdown options array */
@@ -45,18 +45,6 @@ export interface InputWithOptionsProps {
   allowReselect?: boolean;
   /** Filter by predicate */
   filterPredicate?: (inputValue: string, optionValue: string) => Boolean;
-  /**
-   * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
-   * when it starts to overlap the target element (`<Popover.Element/>`).
-   */
-  flip?: boolean;
-  /**
-   * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
-   * original placement even when it's being positioned outside the boundary.
-   */
-  fixed?: boolean;
-  /** Moves popover relative to the parent */
-  moveBy?: { x: number, y: number };
 }
 
 /**

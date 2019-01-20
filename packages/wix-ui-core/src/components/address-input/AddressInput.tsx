@@ -9,6 +9,7 @@ import {
     PlaceDetails, Handler
 } from '../../clients/GoogleMaps/types';
 import {convertToFullAddress, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
+import {PopoverProps} from "../popover";
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
@@ -16,7 +17,7 @@ const isArray = require('lodash/isArray');
 
 export {Handler};
 
-export interface AddressInputProps {
+export type AddressInputProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
     /** Maps client, should implement autocomplete, geocode and placeDetails methods */
     Client: MapsClientConstructor;
     /** Handler for when an option is selected */
@@ -89,18 +90,6 @@ export interface AddressInputProps {
     onMouseEnter?: () => void;
     /** Standard input onMouseLeave callback */
     onMouseLeave?: () => void;
-    /**
-     * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
-     * when it starts to overlap the target element (`<Popover.Element/>`).
-     */
-    flip?: boolean;
-    /**
-     * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
-     * original placement even when it's being positioned outside the boundary.
-     */
-    fixed?: boolean;
-    /** Moves popover relative to the parent */
-    moveBy?: { x: number, y: number };
 }
 
 export interface AddressInputState {
