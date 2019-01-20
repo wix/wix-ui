@@ -1,4 +1,4 @@
-import { Image ,ImageStatus } from './image';
+import { Image ,ImageStatus, ResizedMode } from './image';
 import Registry from '@ui-autotools/registry';
 import style from '../../../stories/Image/style.st.css';
 
@@ -42,6 +42,19 @@ imageMetadata
     props: {
       src: 'data:image/png;base64,this-is-broken!',
       alt: 'This is an image of 2 flamingos',
+    },
+    state: {
+      status: ImageStatus.loading
+    }
+}); 
+
+imageMetadata
+  .addSim({
+    title: 'renders a contain resized image', 
+    props: {
+      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      alt: 'This is an image of 2 flamingos',
+      resizeMode: ResizedMode.contain
     },
     state: {
       status: ImageStatus.loading
