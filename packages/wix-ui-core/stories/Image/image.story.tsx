@@ -5,7 +5,7 @@ import style from './style.st.css';
 
 export default {
   category: 'Components',
-  storyName: 'Image',
+  storyName: 'image',
 
   component: Image,
   componentPath: '../../src/components/image',
@@ -18,7 +18,6 @@ export default {
   }
 };
 export class ImageStory extends React.Component<{}, { checked: boolean }> {
-
   render() {
     return (
       <div style={{height: '100px', width: '100px'}}>
