@@ -580,9 +580,20 @@ describe('Popover', () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
+        flip: undefined,
       });
 
       expect(modifiers.flip.enabled).toEqual(false);
+    });
+
+    it('should enabled the flip modifier is set explicitly regardless of moveBy', () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        moveBy: { x: 5, y: 10 },
+        flip: true,
+      });
+
+      expect(modifiers.flip.enabled).toEqual(true);
     });
 
     it('should disable the flip modifier when set explicitly', () => {

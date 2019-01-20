@@ -35,7 +35,7 @@ export const createModifiers = ({
       gpuAcceleration: !shouldAnimate
     },
     flip: {
-      enabled: typeof moveBy === 'undefined' ? flip : !moveBy
+      enabled: typeof flip !== 'undefined' ? flip : !moveBy
     },
     preventOverflow: {
       enabled: preventOverflow,
