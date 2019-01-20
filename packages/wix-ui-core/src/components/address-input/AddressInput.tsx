@@ -89,6 +89,18 @@ export interface AddressInputProps {
     onMouseEnter?: () => void;
     /** Standard input onMouseLeave callback */
     onMouseLeave?: () => void;
+    /**
+     * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
+     * when it starts to overlap the target element (`<Popover.Element/>`).
+     */
+    flip?: boolean;
+    /**
+     * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
+     * original placement even when it's being positioned outside the boundary.
+     */
+    fixed?: boolean;
+    /** Moves popover relative to the parent */
+    moveBy?: { x: number, y: number };
 }
 
 export interface AddressInputState {
@@ -323,7 +335,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, inputStyle} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, inputStyle, flip, fixed, moveBy} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -365,6 +377,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             ref={ref => this.inputWithOptionsRef = ref}
             allowReselect
             filterPredicate={() => true}
+            flip={flip}
+            fixed={fixed}
+            moveBy={moveBy}
           />
         );
     }

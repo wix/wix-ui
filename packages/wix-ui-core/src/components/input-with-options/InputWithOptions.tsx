@@ -45,6 +45,18 @@ export interface InputWithOptionsProps {
   allowReselect?: boolean;
   /** Filter by predicate */
   filterPredicate?: (inputValue: string, optionValue: string) => Boolean;
+  /**
+   * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
+   * when it starts to overlap the target element (`<Popover.Element/>`).
+   */
+  flip?: boolean;
+  /**
+   * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
+   * original placement even when it's being positioned outside the boundary.
+   */
+  fixed?: boolean;
+  /** Moves popover relative to the parent */
+  moveBy?: { x: number, y: number };
 }
 
 /**
@@ -137,7 +149,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       forceContentElementVisibility,
       style: inlineStyles,
       id,
-      allowReselect } = this.props;
+      allowReselect,
+      flip,
+      fixed,
+      moveBy
+    } = this.props;
 
     return (
       <Dropdown
@@ -160,6 +176,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         id={id}
         ref={ref => this.dropDownRef = ref}
         allowReselect={allowReselect}
+        flip={flip}
+        fixed={fixed}
+        moveBy={moveBy}
       >
         <Input
           data-hook="input"

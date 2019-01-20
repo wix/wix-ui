@@ -44,6 +44,18 @@ export interface DropdownProps {
   id?: string;
   /** Allow onSelect event to be triggered upon re-selecting an option */
   allowReselect?: boolean;
+  /**
+   * Whether to enable the flip behaviour. This behaviour is used to flip the `<Popover/>`'s placement
+   * when it starts to overlap the target element (`<Popover.Element/>`).
+   */
+  flip?: boolean;
+  /**
+   * Whether to enable the fixed behaviour. This behaviour is used to keep the `<Popover/>` at it's
+   * original placement even when it's being positioned outside the boundary.
+   */
+  fixed?: boolean;
+  /** Moves popover relative to the parent */
+  moveBy?: { x: number, y: number };
 }
 
 export interface DropdownState {
@@ -211,7 +223,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id, flip, fixed, moveBy} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
     const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
@@ -229,6 +241,9 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
         style={inlineStyles}
         id={id}
+        flip={flip}
+        fixed={fixed}
+        moveBy={moveBy}
       >
         <Popover.Element>
           {children}
