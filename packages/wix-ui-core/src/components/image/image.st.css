@@ -2,4 +2,16 @@
     -st-states: loadState(enum(loading, loaded, error));
 }
 
+.hiddenImage {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.imageWrapper {
+    -st-extends: root;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 

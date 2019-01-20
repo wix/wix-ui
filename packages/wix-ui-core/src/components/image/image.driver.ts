@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { UniDriver } from 'unidriver';
 import {
   BaseUniDriver,
@@ -10,53 +11,26 @@ import style from './image.st.css';
 export interface ImageDriver extends BaseUniDriver{
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
-  getStyle: () => string;
-    
+  nativeElement: () => Promise<HTMLElement>
+  resized: (el: Element) => string
   // getSrcSet: () => Promise<string>;
-  // simulateLoadingImageError: (timeout?: number) => Promise<void>;
-  // simulateLoadingImageSuccess: (timeout?: number) => Promise<void>;
+
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
+ 
+  
+ 
   return {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
     getAlt: () => base.attr('alt'),
-    getStyle: () => {
-      const el =baseUniDriverFactory(base).element() as Element
-    }
-    
-    // getSrcSet: () => base.attr('srcset'),
-    // simulateLoadingImageError: async (timeout = 0) => {
-    //   return new Promise<void>(async resolve => {
-    //     setTimeout(async () => {
-    //       const nativeElement = (await base.getNative());
-          
-    //       nativeElement.dispatchEvent(new Event('error'));
-
-    //       resolve();
-    //     }, timeout)
-    //   })
-    // },
-    // simulateLoadingImageError: async (timeout = 0) => {
-    //   setTimeout(async () => {
-    //     const nativeElement = await base.$('');
-        
-    //     nativeElement. //.dispatchEvent(new Event('error'));
-    //   }, timeout)
-    // },
-
-    // simulateLoadingImageSuccess: async (timeout = 0) => {
-    //   return new Promise<void>(async resolve => {
-    //     setTimeout(async () => {
-    //       const nativeElement = (await base.getNative());
-          
-    //       nativeElement.dispatchEvent(new Event('load'));
-
-    //       resolve();
-    //     }, timeout)
-    //   })
-
-    // }
+    nativeElement: async () => 
+      (await base.getNative()) as HTMLElement,
+    resized: el => {
+      const domUtils = new StylableDOMUtil(style, el);
+      return domUtils.getStyleState(el, 'resizeMode')
+    },
   }
-};
+  // getSrcSet: () => base.attr('srcset'),
+  };

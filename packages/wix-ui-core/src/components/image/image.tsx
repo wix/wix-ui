@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './image.st.css';
 
-export enum resizedMode { fill, fit, contain }
+export enum resizedMode { fill = 'fill', fit = 'fit', contain = 'contain' }
 export interface ImageProps   {
   src?: string;
   alt?: string;
@@ -20,7 +20,7 @@ export interface ImageState {
 
 const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 
-export class Image extends React.PureComponent<ImageProps, ImageState> {
+ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private setSrc = () :string => 
   !!this.props.src ? this.props.src : EMPTY_PIXEL
@@ -30,26 +30,43 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private setErrorImage = () => 
     this.state.status === ImageStatus.error ? EMPTY_PIXEL : this.errorImageExists()
+
+  private resized = () =>
+    this.props.resizeMode === resizedMode.contain || this.props.resizeMode === resizedMode.fit
   
   state = {
     src: this.setSrc(),
     status: ImageStatus.loading
   };
-
   
   render() {
-    const { errorImage, placeholder, ...props} = this.props;
-    const loadState = this.state.status;
+    const { errorImage, placeholder, resizeMode, ...props} = this.props;
 
-
+    if (this.resized()) {
+        const imageWrapper = {
+          backgroundImage: `url("${this.state.src}")`,
+          backgroundSize: resizeMode
+      };
+      return (
+        <div className={style.imageWrapper}>
+            <img
+                {...style('root hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
+                {...props}
+                src={this.state.src}
+                onLoad={this.handleOnLoad}
+                onError={this.handleOnError}
+            />
+        </div>
+      );
+    }
     return (
-        <img 
-          {...style('root', {loadState}, this.props)}
-          {...props}
-          src={this.state.src} 
-          onError={this.handleOnError}  
-          onLoad={this.handleOnLoad}
-        /> 
+      <img 
+        {...style('root', {resizeMode, loadState: this.state.status}, this.props)}
+        {...props}
+        src={this.state.src} 
+        onLoad={this.handleOnLoad}
+        onError={this.handleOnError}
+      /> 
     );
   }
 
