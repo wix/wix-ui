@@ -1,14 +1,13 @@
 import * as React from 'react';
 import style from './image.st.css';
 
-export enum ResizedMode { fill = 'fill', fit = 'fit', contain = 'contain'}
 export enum ImageStatus { loading, loaded, error }
 const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 export interface ImageProps {
   src?: string;
   alt?: string;
   errorImage?: string;
-  resizeMode?: ResizedMode;
+  resizeMode?: 'fill' | 'fit' | 'contain';
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
@@ -28,7 +27,7 @@ export interface ImageState {
     this.state.src === this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists()
 
   private resized = () =>
-    this.props.resizeMode === ResizedMode.contain || this.props.resizeMode === ResizedMode.fit
+    this.props.resizeMode === 'contain' || this.props.resizeMode === 'fit'
   
   state = {
     src: this.setSrc(),

@@ -1,1 +1,1 @@
-export {Image, ResizedMode} from './image';
+export {Image} from './image';

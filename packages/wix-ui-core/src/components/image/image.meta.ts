@@ -1,4 +1,4 @@
-import { Image ,ImageStatus, ResizedMode } from './image';
+import { Image ,ImageStatus } from './image';
 import Registry from '@ui-autotools/registry';
 import style from '../../../stories/Image/style.st.css';
 
@@ -54,7 +54,7 @@ imageMetadata
     props: {
       src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
       alt: 'This is an image of 2 flamingos',
-      resizeMode: ResizedMode.contain
+      resizeMode: 'contain'
     },
     state: {
       status: ImageStatus.loading

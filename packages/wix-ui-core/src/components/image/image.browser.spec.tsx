@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver';
-import { Image, ResizedMode } from './image';
+import { Image } from './image';
 import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
@@ -63,7 +63,7 @@ describe('Image', () => {
      });
 
     it('specifies the image to contain its container', async() => {
-        const imageDriver = createDriver(<Image src={SRC}  resizeMode={ResizedMode.contain} />);
+        const imageDriver = createDriver(<Image src={SRC}  resizeMode={'contain'} />);
         const imageWrapper = await imageDriver.nativeElement();
         const image = imageWrapper.firstElementChild;
 
@@ -71,7 +71,7 @@ describe('Image', () => {
     });
 
     it('specifies the image to fit its container', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={ResizedMode.fit} />);
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fit'} />);
         const imageWrapper = await imageDriver.nativeElement();
         const image = imageWrapper.firstElementChild;
 
@@ -80,7 +80,7 @@ describe('Image', () => {
 
      // 'fill' is the default image behavior
     it('specifies the image to fill its container', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={ResizedMode.fill} />);
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'} />);
         const image = await imageDriver.nativeElement();
 
         expect(imageDriver.resized(image)).toEqual('fill'); 
