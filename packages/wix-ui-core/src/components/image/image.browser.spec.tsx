@@ -42,7 +42,6 @@ describe('Image', () => {
         })
      });
 
-         
     it('displays a provided alt prop', async () => {
         const imageDriver = createDriver(<Image alt="this is an informative text"/>);
 
@@ -70,16 +69,16 @@ describe('Image', () => {
 
     it('specifies the image to cover its container', async() => {
         const imageDriver = createDriver(<Image src={SRC} resizeMode={'contain'} />);
-        const imageWrapper = await imageDriver.nativeElement()
-        const image = imageWrapper.firstElementChild
+        const imageWrapper = await imageDriver.nativeElement();
+        const image = imageWrapper.firstElementChild;
 
         expect(imageDriver.resized(image)).toEqual('contain'); 
     });
 
     it('specifies the image to fit its container.', async() => {
         const imageDriver = createDriver(<Image src={SRC} resizeMode={'fit'} />);
-        const imageWrapper = await imageDriver.nativeElement()
-        const image = imageWrapper.firstElementChild
+        const imageWrapper = await imageDriver.nativeElement();
+        const image = imageWrapper.firstElementChild;
 
         expect(imageDriver.resized(image)).toEqual('fit'); 
     });
@@ -87,7 +86,7 @@ describe('Image', () => {
      // 'fill' is the default image behavior
     it('specifies the image to fill its container.', async() => {
         const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'} />);
-        const image = await imageDriver.nativeElement()
+        const image = await imageDriver.nativeElement();
 
         expect(imageDriver.resized(image)).toEqual('fill'); 
         expect(await imageDriver.getSrc()).toEqual(SRC);
