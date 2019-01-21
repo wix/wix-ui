@@ -60,10 +60,12 @@ export function isEnzymeTestkitExists<T extends BaseDriver> (
 export async function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
   Element: React.ReactElement<any>,
   testkitFactory: (obj: WrapperData) => T,
-  mount: MountFunctionType
+  mount: MountFunctionType,
+  {withoutDataHook, dataHookPropName}: Options = {}
   ) {
-    const dataHook = 'myDataHook';
-    const elementToRender = React.cloneElement(Element , {'data-hook': dataHook, dataHook});
+    const dataHook = withoutDataHook ? '' : 'myDataHook';
+    const extraProps = dataHookPropName ? {[dataHookPropName]: dataHook} : {dataHook, 'data-hook': dataHook};
+    const elementToRender = React.cloneElement(Element , extraProps);
     const wrapper = mount(elementToRender);
     const testkit = testkitFactory({wrapper, dataHook});
     return await testkit.exists();

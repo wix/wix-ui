@@ -1,5 +1,10 @@
 import * as React from 'react';
-import {enzymeTestkitFactoryCreator, isEnzymeTestkitExists} from '../src/enzyme';
+import {
+  enzymeTestkitFactoryCreator,
+  enzymeUniTestkitFactoryCreator,
+  isEnzymeTestkitExists,
+  isUniEnzymeTestkitExists
+} from '../src/enzyme';
 import {isTestkitExists, isUniTestkitExists, testkitFactoryCreator, uniTestkitFactoryCreator} from '../src/vanilla';
 import {DriverFactory} from '../src/driver-factory';
 import {mount} from 'enzyme';
@@ -21,7 +26,7 @@ describe('isTestkitExists', () => {
     expect(isTestkitExists(<MyComp/>, testkitFactoryCreator(driver), {dataHookPropName: 'data-hook'})).toEqual(true);
   });
 
-  it('vanilla uniTestkit should exist', async () => {
+  it('vanilla uniTestkit should exist',  async () => {
     expect(await isUniTestkitExists(<MyComp/>, uniTestkitFactoryCreator(baseUniDriverFactory))).toEqual(true);
   });
 
@@ -39,5 +44,17 @@ describe('isTestkitExists', () => {
 
   it('enzyme should exist using data-hook prop name only', () => {
     expect(isEnzymeTestkitExists(<MyComp/>, enzymeTestkitFactoryCreator(driver), mount, {dataHookPropName: 'data-hook'})).toEqual(true);
+  });
+
+  it('enzyme should exist', async () => {
+    expect(await isUniEnzymeTestkitExists(<MyComp/>, enzymeUniTestkitFactoryCreator(baseUniDriverFactory), mount)).toEqual(true);
+  });
+
+  it('enzyme should exist without data-hook value', async () => {
+    expect(await isUniEnzymeTestkitExists(<MyComp/>, enzymeUniTestkitFactoryCreator(baseUniDriverFactory), mount, {withoutDataHook: true})).toEqual(true);
+  });
+
+  it('enzyme should exist using data-hook prop name only', async () => {
+    expect(await isUniEnzymeTestkitExists(<MyComp/>, enzymeUniTestkitFactoryCreator(baseUniDriverFactory), mount, {dataHookPropName: 'data-hook'})).toEqual(true);
   });
 });
