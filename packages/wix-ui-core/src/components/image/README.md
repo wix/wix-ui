@@ -13,7 +13,7 @@ additional features, both visual and behavioral, adding image customizations.
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| <img/> attributes | HTMLImageAttributes| - | - | Supports all native HTML <img/> attributes. |
+| <img/> nativeProps | HTMLImageAttributes| ✖ | ✖ | Supports all native HTML <img/> attributes. |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |

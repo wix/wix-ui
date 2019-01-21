@@ -4,6 +4,7 @@ import style from './image.st.css';
 export enum ImageStatus { loading, loaded, error }
 const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 export interface ImageProps {
+  nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>
   src?: string;
   alt?: string;
   errorImage?: string;
