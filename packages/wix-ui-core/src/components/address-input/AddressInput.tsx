@@ -9,7 +9,7 @@ import {
     PlaceDetails, Handler
 } from '../../clients/GoogleMaps/types';
 import {convertToFullAddress, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
-import {PopoverProps} from "../popover";
+import {PopoverProps} from '../popover';
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
