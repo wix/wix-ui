@@ -46,7 +46,7 @@ export interface ImageState {
       return (
         <div className={style.imageWrapper} style={imageWrapper}>
             <img
-                {...style('root hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
+                {...style('hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
                 {...props}
                 src={this.state.src}
                 onLoad={this.handleOnLoad}
