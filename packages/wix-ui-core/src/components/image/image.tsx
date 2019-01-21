@@ -49,7 +49,6 @@ export interface ImageState {
           style={imageWrapper}
         >
             <img
-                // {...style('hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
                 {...props}
                 className={style.hiddenImage}
                 src={this.state.src}
