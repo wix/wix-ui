@@ -3,13 +3,12 @@
 }
 
 .hiddenImage {
-    -st-extends: root;  
     visibility: hidden;
     width: 100%;
     height: 100%;
 }
 
-.imageWrapper {
+.wrapper {
     -st-extends: root;
     background-position: center;
     background-repeat: no-repeat;

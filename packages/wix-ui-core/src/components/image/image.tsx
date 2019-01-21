@@ -44,10 +44,14 @@ export interface ImageState {
           backgroundSize: resizeMode
       };
       return (
-        <div className={style.imageWrapper} style={imageWrapper}>
+        <div 
+          {...style('root wrapper', {resizeMode, loadState: this.state.status}, this.props)}
+          style={imageWrapper}
+        >
             <img
-                {...style('hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
+                // {...style('hiddenImage', {resizeMode, loadState: this.state.status}, this.props)}
                 {...props}
+                className={style.hiddenImage}
                 src={this.state.src}
                 onLoad={this.handleOnLoad}
                 onError={this.handleOnError}
