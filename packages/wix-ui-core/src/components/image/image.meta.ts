@@ -51,7 +51,17 @@ imageMetadata
     props: {
       src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
       alt: 'This is an image of 2 flamingos',
-      resizeMode: 'contain'
+      resizeMode: 'contain' 
+    }
+}); 
+
+imageMetadata
+  .addSim({
+    title: 'renders a contain resized image', 
+    props: {
+      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      alt: 'This is an image of 2 flamingos',
+      resizeMode: 'cover' 
     }
 }); 
 

@@ -13,7 +13,7 @@ additional features, both visual and behavioral, adding image customizations.
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| <img/> nativeProps | HTMLImageAttributes| ✖ | ✖ | Supports all native HTML <img/> attributes. |
+| nativeProps | HTMLImageAttributes| ✖ | ✖ | Supports all native HTML <img/> attributes. |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
@@ -25,7 +25,7 @@ additional features, both visual and behavioral, adding image customizations.
 ```jsx
 import * as React from 'react';
 import {Image} from 'wix-ui-core/Image';
-import style from './image.st.css';
+import style from './image-demo.st.css';
 import Loader from './Loader';
 
 export class ImageDemo extends React.Component<{}, ImageDemoState> {
@@ -36,7 +36,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
     
         public render() {
             return (
-                <div>
+                <div {...style('root', {}, this.props)} >
                     <h2>Image</h2>
                     <div>
                         <label>src:
@@ -48,8 +48,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                             <option value="fill">fill</option>
                         </select>
                     </div>
-                    <Image
-                        {...style('root', {this.state.status}, this.props)}
+                    <Image                      
                         src={this.state.src}
                         resizeMode={this.state.resizeMode}
                         className="myImage"

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './image.st.css';
 
-export enum ImageStatus { loading, loaded, error }
+export enum ImageStatus { loading = 'loading', loaded = 'loaded', error = 'error'}
 const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 export interface ImageProps {
   nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>
@@ -17,7 +17,7 @@ export interface ImageState {
     status: ImageStatus;
 }
  export class Image extends React.PureComponent<ImageProps, ImageState> {
-
+  
   private setSrc = () :string => 
   !!this.props.src ? this.props.src : EMPTY_PIXEL
 
@@ -72,7 +72,7 @@ export interface ImageState {
 
   private handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
     this.setState({
-      status: ImageStatus.loaded
+      status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded
     });
 
     this.props.onLoad && this.props.onLoad(e);
