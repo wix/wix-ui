@@ -7,7 +7,7 @@ export interface ImageProps {
   src?: string;
   alt?: string;
   errorImage?: string;
-  resizeMode?: 'fill' | 'fit' | 'contain';
+  resizeMode?: 'fill' | 'contain' | 'cover';
   onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
@@ -27,7 +27,7 @@ export interface ImageState {
     this.state.src === this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists()
 
   private resized = () =>
-    this.props.resizeMode === 'contain' || this.props.resizeMode === 'fit'
+    this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover'
   
   state = {
     src: this.setSrc(),
@@ -53,7 +53,8 @@ export interface ImageState {
             />
         </div>
       );
-    }
+    };
+
     return (
       <img 
         {...style('root', {resizeMode, loadState: this.state.status}, this.props)}
@@ -63,7 +64,7 @@ export interface ImageState {
         onError={this.handleOnError}
       /> 
     );
-  }
+  };
 
   private handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
     this.setState({
@@ -71,7 +72,7 @@ export interface ImageState {
     });
 
     this.props.onLoad && this.props.onLoad(e);
-  }
+  };
 
   private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
     this.setState({

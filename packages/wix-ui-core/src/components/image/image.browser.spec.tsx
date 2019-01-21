@@ -70,8 +70,8 @@ describe('Image', () => {
         expect(imageDriver.resized(image)).toEqual('contain'); 
     });
 
-    it('specifies the image to fit its container', async() => {
-        const imageDriver = createDriver(<Image src={SRC} resizeMode={'fit'} />);
+    it('specifies the image to cover its container', async() => {
+        const imageDriver = createDriver(<Image src={SRC} resizeMode={'cover'} />);
         const imageWrapper = await imageDriver.nativeElement();
         const image = imageWrapper.firstElementChild;
 
