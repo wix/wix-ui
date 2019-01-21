@@ -16,12 +16,12 @@ export default {
     errorImage: 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png',
   }
 };
-export class ImageStory extends React.Component<{}, { checked: boolean }> {
+export class ImageStory extends React.Component<{}> {
   render() {
     return (
-      <div style={{height: '100px', width: '100px'}}>
+      <div>
         <Image
-          data-hook="storybook-checkbox"
+          data-hook="storybook-image"
           src= "https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg"
         />
       </div>
