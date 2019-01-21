@@ -1,12 +1,12 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
 import {Dropdown} from '../dropdown';
-import {Placement} from '../../components/popover';
+import {Placement, PopoverProps} from '../popover';
 import {Option, OptionFactory} from '../dropdown-option';
 import {OPEN_TRIGGER_TYPE} from '../dropdown/constants';
 import {Input, InputProps} from '../input';
 
-export interface InputWithOptionsProps {
+export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** The location to display the content */
   placement?: Placement;
   /** The dropdown options array */
@@ -137,7 +137,11 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       forceContentElementVisibility,
       style: inlineStyles,
       id,
-      allowReselect } = this.props;
+      allowReselect,
+      flip,
+      fixed,
+      moveBy
+    } = this.props;
 
     return (
       <Dropdown
@@ -160,6 +164,9 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         id={id}
         ref={ref => this.dropDownRef = ref}
         allowReselect={allowReselect}
+        flip={flip}
+        fixed={fixed}
+        moveBy={moveBy}
       >
         <Input
           data-hook="input"

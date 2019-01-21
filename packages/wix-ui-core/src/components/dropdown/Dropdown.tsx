@@ -1,12 +1,12 @@
 import * as React from 'react';
 import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
-import {Popover, Placement} from '../popover';
+import {Popover, Placement, PopoverProps} from '../popover';
 import {DropdownContent} from '../dropdown-content';
 import {Option} from '../dropdown-option';
 import {CLICK, HOVER, OPEN_TRIGGER_TYPE} from './constants';
 
-export interface DropdownProps {
+export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
@@ -211,7 +211,7 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 
   render() {
-    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id} = this.props;
+    const {openTrigger, placement, options, children, showArrow, fixedFooter, fixedHeader, disabled, timeout, forceContentElementVisibility, style: inlineStyles, id, flip, fixed, moveBy} = this.props;
     const {isOpen, selectedIds} = this.state;
     const hasContent = Boolean((options && options.length) || fixedHeader || fixedFooter);
     const shown = forceContentElementVisibility || (isOpen && !disabled && hasContent);
@@ -229,6 +229,9 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
         onMouseLeave={!disabled && openTrigger === HOVER ? this.close : undefined}
         style={inlineStyles}
         id={id}
+        flip={flip}
+        fixed={fixed}
+        moveBy={moveBy}
       >
         <Popover.Element>
           {children}

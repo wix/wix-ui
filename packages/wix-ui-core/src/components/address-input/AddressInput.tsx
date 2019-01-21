@@ -9,6 +9,7 @@ import {
     PlaceDetails, Handler
 } from '../../clients/GoogleMaps/types';
 import {convertToFullAddress, trySetStreetNumberIfNotReceived} from '../../clients/GoogleMaps/google2address/google2address';
+import {PopoverProps} from '../popover';
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
@@ -16,7 +17,7 @@ const isArray = require('lodash/isArray');
 
 export {Handler};
 
-export interface AddressInputProps {
+export type AddressInputProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
     /** Maps client, should implement autocomplete, geocode and placeDetails methods */
     Client: MapsClientConstructor;
     /** Handler for when an option is selected */
@@ -323,7 +324,7 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     }
 
     render() {
-        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, inputStyle} = this.props;
+        const {placeholder, onKeyDown, onFocus, forceContentElementVisibility, readOnly, disabled, style: inlineStyles, prefix, suffix, fixedFooter, id, inputStyle, flip, fixed, moveBy} = this.props;
         const options = this._options();
 
         const inputProps = {
@@ -365,6 +366,9 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
             ref={ref => this.inputWithOptionsRef = ref}
             allowReselect
             filterPredicate={() => true}
+            flip={flip}
+            fixed={fixed}
+            moveBy={moveBy}
           />
         );
     }
