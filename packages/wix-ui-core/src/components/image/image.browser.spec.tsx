@@ -71,6 +71,18 @@ describe.only('Image', () => {
         })
     });
 
+    it('it displays the provided errorImage when the srcSet is broken', async () => {
+        const onErrorSpy = jest.fn()
+        const imageDriver = createDriver(<Image srcSet={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy}/>); 
+
+        await eventually(async() => {
+            expect(onErrorSpy).toHaveBeenCalled();
+            expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+            expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
+        })
+    });
+
+
     it('it displays the provided errorImage when the src is broken', async () => {
         const onErrorSpy = jest.fn()
         const imageDriver = createDriver(<Image src={BROKEN_SRC} errorImage={ERROR_IMAGE_SRC} onError={onErrorSpy}/>); 
