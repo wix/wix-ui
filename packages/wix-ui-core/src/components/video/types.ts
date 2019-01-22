@@ -30,6 +30,8 @@ export interface IDailyMotionConfig {
 
 export interface IFacebookConfig {
   appId?: string;
+  width?: number;
+  height?: number;
 }
 
 export interface IPlayableConfig {
