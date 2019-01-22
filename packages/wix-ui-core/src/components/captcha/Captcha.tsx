@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
-import {Size, CaptchaType, Theme} from './types'
+import {Size, CaptchaType, Theme, CaptchaLang} from './types'
 import styles from './Captcha.st.css';
 
 export interface CaptchaProps {
@@ -8,6 +8,7 @@ export interface CaptchaProps {
   size: Size;
   captchaType: CaptchaType;
   theme: Theme;
+  lang: CaptchaLang;
   onLoad: () => void;
   onExpire: () => void;
   onVerify: (token: string) => void;
@@ -88,6 +89,13 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   }
 
   /**
+   * expose the internal lang
+   */
+  getLang(){
+    return this.props.lang;
+  }
+
+  /**
    * the user has successfully taken the captcha and we have the verification id
    * @param verificationString
    */
@@ -126,6 +134,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
             captchaType={this.props.captchaType}
             size={this.props.size}
             theme={this.props.theme}
+            hl={this.props.lang}
             onLoad={this.onLoad}
             onVerify={this.onVerified}
             onExpire={this.onExpired}

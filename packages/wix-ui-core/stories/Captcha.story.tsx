@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Captcha} from '../src/components/captcha';
-import {Size,CaptchaType,Theme} from '../src/components/captcha/types';
+import {Size, CaptchaType, Theme, CaptchaLang} from '../src/components/captcha/types';
 
 const demoSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
@@ -41,6 +41,13 @@ class TestLoadCaptcha extends React.Component {
     return 'un initialized ';
   };
 
+  getInnerLang = () => {
+    if(this.captchaRef){
+      return this.captchaRef.getLang();
+    }
+    return 'un initialized ';
+  };
+
   getVerifiedToken = () => {
     if(this.captchaRef){
       return this.captchaRef.verificationToken();
@@ -58,10 +65,12 @@ class TestLoadCaptcha extends React.Component {
           size={Size.compact}
           captchaType={CaptchaType.image}
           theme={Theme.dark}
+          lang={CaptchaLang.EnglishUS}
           onVerify={()=> this.setState({verified :true})}
           onLoad={() => this.setState({loaded: true})}
           onExpire={() => {this.setState({expired: true})}}
         />
+        <div data-hook="captcha-test-example-lang">lang={`${this.getInnerLang()}`}</div>
         <div data-hook="captcha-test-example-theme">theme={`${this.getInnerTheme()}`}</div>
         <div data-hook="captcha-test-example-size">size={`${this.getInnerSize()}`}</div>
         <div data-hook="captcha-test-example-loaded">loaded={`${this.state.loaded}`}</div>
@@ -100,11 +109,14 @@ export default {
     size: Size.normal,
     type: CaptchaType.image,
     theme: Theme.light,
+    lang:CaptchaLang.EnglishUS,
     'data-hook': 'storybook-captcha',
   },
+
   exampleProps: {
     onVerify: token => token
   },
+
   examples: (
     <div>
       <h3>Tests</h3>
