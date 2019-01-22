@@ -1,4 +1,4 @@
-export enum Type {image = 'image', audio = 'audio'}
+export enum CaptchaType {image = 'image', audio = 'audio'}
 
 export enum Theme {light = 'light', dark = 'dark'}
 

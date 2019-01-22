@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
-import {Size, Type, Theme} from './types'
+import {Size, CaptchaType, Theme} from './types'
 import styles from './Captcha.st.css';
 
 export interface CaptchaProps {
   sitekey: string;
   size: Size;
-  type: Type;
+  captchaType: CaptchaType;
   theme: Theme;
   onLoad: () => void;
   onExpire: () => void;
@@ -42,7 +42,8 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * reload a new captcha from google
    */
   resetCaptcha() {
-    this.setState({token: undefined, verified: false});
+    this.setState({verified: false});
+    this.setState({token: undefined});
     if (this.captchaRef) {
       this.captchaRef.reset();
     }
@@ -51,7 +52,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   /**
    * this will indicate the google component is loaded and ready to be displayed
    */
-  onLoad = () => {
+  private onLoad = () => {
     this.setState({loaded: true});
     if (this.props.onLoad) {
       this.props.onLoad();
@@ -66,10 +67,31 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   }
 
   /**
+   * return true if the captcha challenge has been successfully taken
+   */
+  isVerified(){
+    return this.state.verified;
+  }
+
+  /**
+   * expose the internal theme
+   */
+  getTheme(){
+    return this.props.theme;
+  }
+
+  /**
+   * expose the internal size
+   */
+  getSize(){
+    return this.props.size;
+  }
+
+  /**
    * the user has successfully taken the captcha and we have the verification id
    * @param verificationString
    */
-  onVerified = (verificationString: string) => {
+  private onVerified = (verificationString: string) => {
     this.setState({verified: true});
     this.setState({token: verificationString});
     if (this.props.onVerify) {
@@ -81,7 +103,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * The user has taken the captcha challange however it has not been verified the page was not submitted in time
    * so we need to ask the user to retake the captcha challenge.
    */
-  onExpiered = () => {
+  private onExpired = () => {
     this.setState({verified: false,token: undefined});
     if (this.props.onExpire) {
       this.props.onExpire();
@@ -95,18 +117,18 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    */
   render() {
     return (
-      <div {...styles('root', {loaded: this.state.loaded})}>
+      <div {...styles('root', {loaded: this.state.loaded}, this.props)}>
         {!this.state.loaded && <div className={styles.loader}/>}
-        <div className={styles.captcha} data-hook={this.props['data-hook']}>
+        <div className={styles.captcha}>
           <Reaptcha
             ref={e => (this.captchaRef = e)}
             sitekey={this.props.sitekey}
-            type={this.props.type}
+            captchaType={this.props.captchaType}
             size={this.props.size}
             theme={this.props.theme}
             onLoad={this.onLoad}
             onVerify={this.onVerified}
-            onExpire={this.props.onExpire}
+            onExpire={this.onExpired}
           />
         </div>
       </div>
