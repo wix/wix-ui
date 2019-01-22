@@ -6,6 +6,7 @@ const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
 export interface ImageProps {
   nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>
   src?: string;
+  srcSet?: string;
   alt?: string;
   errorImage?: string;
   resizeMode?: 'fill' | 'contain' | 'cover';
@@ -19,7 +20,10 @@ export interface ImageState {
  export class Image extends React.PureComponent<ImageProps, ImageState> {
   
   private setSrc = () :string => 
-  !!this.props.src ? this.props.src : EMPTY_PIXEL
+  !!this.props.src ? this.props.src : this.srcSetExists() 
+
+  private srcSetExists = () :string =>
+    !!this.props.srcSet ? this.props.src : EMPTY_PIXEL
 
   private errorImageExists = () :string =>
   !!this.props.errorImage ? this.props.errorImage : EMPTY_PIXEL
@@ -86,6 +90,5 @@ export interface ImageState {
     this.props.onError && this.props.onError(e);
   };
 
-  // private srcSetExists = () :string =>
-  //   !!this.props.srcSet ? this.props.src : EMPTY_PIXEL // The image element natively uses the srcSet instead of src.
+  
 }

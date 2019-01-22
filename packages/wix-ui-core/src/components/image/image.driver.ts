@@ -11,7 +11,7 @@ export interface ImageDriver extends BaseUniDriver{
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
   getImageStyleState: (styleState: string | ImageStatus) => Promise<string>;
-  // getSrcSet: () => Promise<string>;
+  getSrcSet: () => Promise<string>;
 };
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
@@ -23,7 +23,7 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
       const el = (await base.getNative()) as Element
       const domUtils = new StylableDOMUtil(style, el);
       return domUtils.getStyleState(el, styleState)
-    }
+    },
+    getSrcSet: () => base.attr('srcSet'),
   };
-  // getSrcSet: () => base.attr('srcset'),
   };

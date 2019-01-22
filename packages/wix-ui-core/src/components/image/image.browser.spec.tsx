@@ -4,7 +4,7 @@ import { imageDriverFactory } from './image.driver';
 import { Image , ImageStatus} from './image';
 import * as eventually from 'wix-eventually';
 
-describe.only('Image', () => {
+describe('Image', () => {
     const SRC: string = 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg'
     const BROKEN_SRC: string= 'data:image/png;base64,this-is-broken!';
     const ERROR_IMAGE_SRC: string = 'https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png'
@@ -30,10 +30,22 @@ describe.only('Image', () => {
         const onLoadSpy = jest.fn()
         const imageDriver = createDriver(<Image src={SRC} onLoad={onLoadSpy}/>);
 
+        expect(await imageDriver.getImageStyleState('loadState')).toEqual('loading');
         await eventually(async() => {
             expect(onLoadSpy).toHaveBeenCalled();
             expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
             expect(await imageDriver.getSrc()).toEqual(SRC);
+        })
+    });
+
+    it('displays image with the provided srcSet', async () => {
+        const onLoadSpy = jest.fn()
+        const imageDriver = createDriver(<Image srcSet={SRC} onLoad={onLoadSpy}/>);
+
+        await eventually(async() => {
+            expect(onLoadSpy).toHaveBeenCalled();
+            expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+            expect(await imageDriver.getSrcSet()).toEqual(SRC);
         })
     });
 
