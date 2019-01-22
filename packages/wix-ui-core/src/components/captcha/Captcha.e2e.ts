@@ -2,6 +2,7 @@ import {browser, $, $$} from 'protractor';
 import {createStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import {captchaTestkitFactory} from '../../testkit/protractor';
+import {Size, CaptchaType, Theme, CaptchaLang} from './types'
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({kind: 'WIP', story: 'Captcha'});
@@ -15,9 +16,7 @@ describe('Captcha', () => {
   describe('wrapped test component', () => {
     const dataHook = 'captcha-test-example';
     const resetButtonDataHook = 'captcha-reset-button';
-    const loadedDataHook = 'captcha-test-example-loaded';
-    const themeDataHook = 'captcha-test-example-theme';
-    const sizeDataHook = 'captcha-test-example-size';
+    const loadedDataHook = 'captcha-test-example-rendered';
     const verifiedDataHook = 'captcha-test-example-verified';
     const verifiedTokenDataHook = 'captcha-test-example-verified-token';
     const verifiedByStateDataHook = 'captcha-test-example-verified-by-state';
@@ -27,21 +26,27 @@ describe('Captcha', () => {
       await waitForVisibilityOf($(`[data-hook=${dataHook}`));
       await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
 
-      expect(await $(`[data-hook=${loadedDataHook}]`).getText()).toEqual('loaded=true');
+      expect(await $(`[data-hook=${loadedDataHook}]`).getText()).toEqual('rendered=true');
     });
 
     it('should load the component with dark theme', async () => {
-      await waitForVisibilityOf($(`[data-hook=${dataHook}`));
-      await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
-      expect(await $(`[data-hook=${loadedDataHook}]`).getText()).toEqual('loaded=true');
-      expect(await $(`[data-hook=${themeDataHook}]`).getText()).toEqual('theme=dark');
+      const driver = captchaTestkitFactory({dataHook});
+      expect(await driver.getTheme()).toBe(Theme.dark);
     });
 
-    it('should load the component with compact size', async () => {
-      await waitForVisibilityOf($(`[data-hook=${dataHook}`));
-      await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
-      expect(await $(`[data-hook=${loadedDataHook}]`).getText()).toEqual('loaded=true');
-      expect(await $(`[data-hook=${sizeDataHook}]`).getText()).toEqual('size=compact');
+    it('should load the component with type image ', async () => {
+      const driver = captchaTestkitFactory({dataHook});
+      expect(await driver.getCaptchaType()).toBe(CaptchaType.image);
+    });
+
+    it('should load the component with size compact ', async () => {
+      const driver = captchaTestkitFactory({dataHook});
+      expect(await driver.getSize()).toBe(Size.compact);
+    });
+
+    it('should load the component with lang en ', async () => {
+      const driver = captchaTestkitFactory({dataHook});
+      expect(await driver.getLang()).toBe(CaptchaLang.EnglishUS);
     });
 
     it('should verify the user click generates verification string', async () => {
