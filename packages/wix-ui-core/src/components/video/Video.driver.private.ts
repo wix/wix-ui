@@ -11,6 +11,8 @@ export interface IVideoPrivateDriver extends IVideoDriver {
   getTitle: () => Promise<string>;
   getLogoSrc: () => Promise<string>;
   hasPlayButton: () => Promise<boolean>;
+  getWidthDataAttr: () => Promise<string>;
+  getHeightDataAttr: () => Promise<string>;
 }
 
 export const videoPrivateDriverFactory = (
@@ -24,5 +26,7 @@ export const videoPrivateDriverFactory = (
     getTitle: async () => await base.$('[data-hook="title"]').text(),
     getLogoSrc: async () => await base.$('[data-hook="company-logo"]').attr('src'),
     hasPlayButton: async () => await base.$('[data-hook="play-button"]').exists(),
+    getWidthDataAttr: async () => await base.$('[data-hook="player-container"]').attr('data-width'),
+    getHeightDataAttr: async () => await base.$('[data-hook="player-container"]').attr('data-height'),
   };
 };

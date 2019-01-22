@@ -188,6 +188,26 @@ describe('Video', () => {
         expect(await driver.getPlayerName()).toBe('Facebook');
       });
     });
+
+    describe('width and height props', () => {
+      it('should set appropriate width and height attr to player container', async () => {
+        const driver = createDriver(
+          <Video
+            fillAllSpace
+            width={480}
+            height={200}
+            src={FACEBOOK_LINK}
+          />
+        );
+        const native = await driver.getNative();
+        const widthAttr = await driver.getWidthDataAttr();
+        const heightAttr = await driver.getHeightDataAttr();
+
+        expect(native.style.width).toBe('100%');
+        expect(widthAttr).toBe('480');
+        expect(heightAttr).toBe('200');
+      });
+    });
   });
 
   describe('Twitch', () => {

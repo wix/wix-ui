@@ -223,6 +223,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
         data-allowfullscreen="true"
         data-controls={controls ? 'true' : 'false'}
         data-player-name="Facebook"
+        data-hook="player-container"
       />
     )
   }
