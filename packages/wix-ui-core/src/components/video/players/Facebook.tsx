@@ -63,6 +63,8 @@ const mapMethodsToPlayer: IMethodsToPlayer = {
 
 interface IFacebookProps extends ICommonProps, IFacebookConfig {}
 
+const parseSize = (value: number) => Math.ceil(value) || 'auto';
+
 class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
@@ -73,6 +75,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   isDurationReady: boolean = false;
   durationTimeout: number;
   progressTimeout: number;
+  parser: (element?: HTMLElement) => void;
   unsubscribeFBEvents: Function = () => null;
 
   constructor(props: IFacebookProps) {
@@ -95,6 +98,18 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     this.unsubscribeFBEvents();
     this.stopAwaitDuration();
     this.stopProgress();
+
+    this.parser = null;
+  }
+
+  componentDidUpdate(prevProps: IFacebookProps) {
+    if (
+      (this.props.width !== prevProps.width ||
+      this.props.height !== prevProps.height) &&
+      this.parser
+    ) {
+      this.parser(this.containerRef.current.parentElement);
+    }
   }
 
   initPlayer = FB => {
@@ -113,6 +128,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       FB.Event.unsubscribe('xfbml.ready', this.handleReady);
       FB.Event.unsubscribe('iframeplugin:create', this.setAllowAttribute);
     }
+
+    this.parser = FB.XFBML.parse;
   }
 
   handleReady = msg => {
@@ -192,7 +209,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   }
 
   render() {
-    const { src, playing, controls } = this.props;
+    const { src, playing, controls, width, height } = this.props;
 
     return (
       <div
@@ -200,6 +217,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
         id={this.playerId}
         className={`fb-video ${styles.playerContainer}`}
         data-href={src}
+        data-width={parseSize(width)}
+        data-height={parseSize(height)}
         data-autoplay={playing ? 'true' : 'false'}
         data-allowfullscreen="true"
         data-controls={controls ? 'true' : 'false'}
