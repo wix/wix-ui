@@ -4,7 +4,7 @@ import { imageDriverFactory } from './image.driver';
 import { Image , ImageStatus} from './image';
 import * as eventually from 'wix-eventually';
 
-describe('Image', () => {
+describe.only('Image', () => {
     const SRC: string = 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg'
     const BROKEN_SRC: string= 'data:image/png;base64,this-is-broken!';
     const ERROR_IMAGE_SRC: string = 'https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png'
@@ -56,6 +56,17 @@ describe('Image', () => {
         await eventually(async() => {
             expect(onLoadSpy).toHaveBeenCalled();
             expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+            expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
+        })
+    });
+
+    it('displays empty pixel when srcSet is broken', async () => {
+        const onErrorSpy = jest.fn()
+        const imageDriver = createDriver(<Image srcSet={BROKEN_SRC} onError={onErrorSpy}/>);
+
+        await eventually(async() => {
+            expect(onErrorSpy).toHaveBeenCalled();
+            expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
             expect(await imageDriver.getSrc()).toEqual(EMPTY_PIXEL);
         })
     });
