@@ -2,7 +2,7 @@ import * as React from 'react';
 import style from './image.st.css';
 
 export enum ImageStatus { loading = 'loading', loaded = 'loaded', error = 'error'}
-const EMPTY_PIXEL: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+export const FALLBACK_IMAGE: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 export interface ImageProps {
   nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>
   src?: string;
@@ -18,29 +18,28 @@ export interface ImageState {
     status: ImageStatus;
 }
  export class Image extends React.PureComponent<ImageProps, ImageState> {
-  
   private setSrc = () :string => 
   !!this.props.src ? this.props.src : this.srcSetExists() 
 
   private srcSetExists = () :string =>
-    !!this.props.srcSet ? this.props.src : EMPTY_PIXEL
+    !!this.props.srcSet ? this.errorImageExists() : FALLBACK_IMAGE
 
   private errorImageExists = () :string =>
-  !!this.props.errorImage ? this.props.errorImage : EMPTY_PIXEL
+  !!this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE
 
   private setErrorImage = () => 
-    this.state.src === this.props.errorImage ? EMPTY_PIXEL : this.errorImageExists()
+    this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.errorImageExists()
 
   private resized = () =>
     this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover'
-  
+
   state = {
     src: this.setSrc(),
     status: ImageStatus.loading
   };
   
   render() {
-    const { errorImage, resizeMode, ...props} = this.props;
+    const { errorImage, resizeMode, srcSet, ...props} = this.props;
 
     if (this.resized()) {
         const imageWrapper = {
@@ -56,6 +55,7 @@ export interface ImageState {
                 {...props}
                 className={style.hiddenImage}
                 src={this.state.src}
+                srcSet = {this.state.status === ImageStatus.error ? null : srcSet}
                 onLoad={this.handleOnLoad}
                 onError={this.handleOnError}
             />
@@ -68,6 +68,7 @@ export interface ImageState {
         {...style('root', {resizeMode, loadState: this.state.status}, this.props)}
         {...props}
         src={this.state.src} 
+        srcSet={this.state.status === ImageStatus.error ? null : srcSet}
         onLoad={this.handleOnLoad}
         onError={this.handleOnError}
       /> 
@@ -83,12 +84,11 @@ export interface ImageState {
   };
 
   private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
+    
     this.setState({
         status: ImageStatus.error,
         src: this.setErrorImage() 
     });
     this.props.onError && this.props.onError(e);
   };
-
-  
 }

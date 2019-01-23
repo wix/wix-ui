@@ -1,6 +1,7 @@
 import { Image, ImageStatus} from './image';
 import Registry from '@ui-autotools/registry';
 import style from '../../../stories/Image/style.st.css';
+import { SRC, BROKEN_SRC, ERROR_IMAGE_SRC} from './test-fixtures';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
 
@@ -10,25 +11,64 @@ imageMetadata
   .addSim({
     title: 'renders provided src',
     props: {
-      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
-      alt: 'This is an image of 2 flamingos',
-    }
-  });
-
-imageMetadata
-  .addSim({
-    title: 'renders a provided errorImage when src is missing',
-    props: {
-      errorImage: 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png',
+      src: SRC,
       alt: 'This is an image of 2 flamingos',
     }
 });
 
 imageMetadata
   .addSim({
+    title: 'renders a provided srcSet ',
+    props: {
+      srcSet: SRC,
+      alt: 'This is an image of 2 flamingos',
+    }
+});
+
+imageMetadata
+  .addSim({
+    title: 'renders a provided srcSet when src is broken ',
+    props: {
+      src: BROKEN_SRC,
+      srcSet: SRC,
+      alt: 'This is an image of 2 flamingos',
+    }
+});
+
+
+imageMetadata
+  .addSim({
+    title: 'renders a provided errorImage when src/srcSet is missing',
+    props: {
+      errorImage: ERROR_IMAGE_SRC,
+      alt: 'This is an error image',
+    }
+});
+
+imageMetadata
+  .addSim({
+    title: 'renders an empty pixel when src is broken and errorImage is missing', 
+    props: {
+      src: BROKEN_SRC,
+      alt: 'This is an empty pixel',
+    }
+}); 
+
+imageMetadata
+  .addSim({
+    title: 'renders an empty pixel when src and srcSet are broken and errorImage is missing', 
+    props: {
+      src: BROKEN_SRC,
+      srcSet: BROKEN_SRC,
+      alt: 'This is  an empty pixel',
+    }
+}); 
+
+imageMetadata
+  .addSim({
     title: 'displays a loading state style', 
     props: {
-      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      src: SRC,
       alt: 'This is an image of 2 flamingos',
     },
     state: {
@@ -38,18 +78,9 @@ imageMetadata
 
 imageMetadata
   .addSim({
-    title: 'renders an empty pixel when src is broken and errorImage is missing', 
-    props: {
-      src: 'data:image/png;base64,this-is-broken!',
-      alt: 'This is an image of 2 flamingos',
-    }
-}); 
-
-imageMetadata
-  .addSim({
     title: 'renders a contain resized image', 
     props: {
-      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      src: SRC,
       alt: 'This is an image of 2 flamingos',
       resizeMode: 'contain' 
     }
@@ -59,7 +90,7 @@ imageMetadata
   .addSim({
     title: 'renders a contain resized image', 
     props: {
-      src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+      src: SRC,
       alt: 'This is an image of 2 flamingos',
       resizeMode: 'cover' 
     }
