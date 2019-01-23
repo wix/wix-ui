@@ -77,8 +77,26 @@ describe('ButtonNext', () => {
     });
   });
 
-  describe(`'disabled' prop`, () => {
-    it('when given should render component with tabIndex -1', async () => {
+  describe(`Disabled`, () => {
+    describe('isButtonDisabled', () => {
+      it('should NOT be disabled by default', async() => {
+        const driver = createDriver(<ButtonNext />);
+        expect(await driver.isButtonDisabled()).toBeFalsy();
+      });
+      
+      it('should be disabled when disabled is passed', async() => {
+        const driver = createDriver(<ButtonNext disabled />);
+        
+        expect(await driver.isButtonDisabled()).toBeTruthy();
+      });
+      
+      it('should be disabled when href is provided', async() => {
+        const driver = createDriver(<ButtonNext as="a" disabled href="wix" />);
+        expect(await driver.isButtonDisabled()).toBeTruthy();
+      });
+    })
+
+    it('should render component with tabIndex -1 when disabled', async () => {
       testContainer.renderSync(<ButtonNext disabled />);
 
       await eventually(() => {
@@ -87,7 +105,7 @@ describe('ButtonNext', () => {
       });
     });
 
-    it('when given should render aria-disabled as true', async () => {
+    it('should render aria-disabled as true when disabled', async () => {
       testContainer.renderSync(<ButtonNext disabled />);
 
       await eventually(() => {
@@ -98,7 +116,7 @@ describe('ButtonNext', () => {
       });
     });
 
-    it('when given should render href as undefined', async () => {
+    it('should render href as undefined when disabled', async () => {
       testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
 
       await eventually(() => {
@@ -106,5 +124,26 @@ describe('ButtonNext', () => {
         expect(!!htmlTag).toBe(false);
       });
     });
+
+    describe('disabled attribute', () => {
+      it(`should have 'disabled' attribute when disabled`, async () => {
+        testContainer.renderSync(<ButtonNext disabled />);
+        
+        await eventually(() => {
+          const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
+          expect(disabledAttribute).not.toBeNull();
+        });
+      });
+      
+      it(`should NOT have 'disabled' attribute when disabled and 'href' is provided`, async () => {
+        testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
+        
+        await eventually(() => {
+          const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
+          expect(disabledAttribute).toBeNull();
+        });
+      });
+    })
+
   });
 });
