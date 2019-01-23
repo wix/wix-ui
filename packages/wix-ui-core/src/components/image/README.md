@@ -18,7 +18,6 @@ additional features, both visual and behavioral, adding image customizations.
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
-| placeholder | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
 
 **Example 1:**
 
@@ -143,8 +142,8 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 ## Behavior
 
 ### Placeholder
-The placeholder prop describes the loading state of the component and is being displayed before the src/srcSet or the imageError are loaded,  It is represented as a ReactNode.
-If the src/srcSet wasn't provided the placeholder will not be displayed.
+
+!! TBD !!
 
 #### Resize Modes
 
