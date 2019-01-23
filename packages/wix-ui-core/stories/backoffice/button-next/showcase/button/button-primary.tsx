@@ -58,7 +58,7 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
       }}
     >
       <span style={{ marginRight: '5px' }}>
-        <ButtonNext className={button('premium', 'light')}>premium-light</ButtonNext>
+        <ButtonNext className={button('premium-light')}>premium-light</ButtonNext>
       </span>
         <ButtonNext className={button(`light`)}>light</ButtonNext>
     </div>
