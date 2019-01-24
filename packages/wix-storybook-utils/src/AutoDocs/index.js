@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import Markdown from '../Markdown';
 import parser from './parser';
 
-const shouldHideForE2E = global.self === global.top;
-
 const prepareParsedProps = props => {
   const asList = Object.keys(props).map(key => ({ ...props[key], name: key }));
 
-  const required = asList.filter(prop => prop.required);
-  const notRequired = asList.filter(prop => !prop.required);
+  const lexical = (a, b) => a.name.localeCompare(b.name);
+  const required = asList.filter(prop => prop.required).sort(lexical);
+  const notRequired = asList.filter(prop => !prop.required).sort(lexical);
 
   // required props go first
   return required.concat(notRequired);
@@ -102,7 +101,7 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
 
   const propRow = (prop, index) => (
     <tr key={index}>
-      <td>{prop.name || '-'}</td>
+      <td data-hook="autodocs-prop-row-name">{prop.name || '-'}</td>
       <td>{renderPropType(prop.type)}</td>
       <td>
         {prop.defaultValue && prop.defaultValue.value && (
@@ -115,63 +114,61 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
   );
 
   return (
-    !shouldHideForE2E && (
-      <div className="markdown-body">
-        {showTitle && displayName && (
-          <div>
-            <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
-          </div>
-        )}
+    <div className="markdown-body">
+      {showTitle && displayName && (
+        <div>
+          <h1>{displayName && <code>{`<${displayName}/>`}</code>}</h1>
+        </div>
+      )}
 
-        {!displayName && (
-          <blockquote>
-            This component has no <code>displayName</code>
-          </blockquote>
-        )}
+      {!displayName && (
+        <blockquote>
+          This component has no <code>displayName</code>
+        </blockquote>
+      )}
 
-        {description && <Markdown source={description} />}
+      {description && <Markdown source={description} />}
 
-        <h2>
-          Available <code>props</code>
-        </h2>
+      <h2>
+        Available <code>props</code>
+      </h2>
 
-        <table>
-          <thead>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default Value</th>
+            <th>Required</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {prepareParsedProps(props).map(propRow)}
+
+          {!parsedSource && composes.length > 0 && (
             <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Default Value</th>
-              <th>Required</th>
-              <th>Description</th>
+              <td colSpan={5}>
+                Also includes props from:
+                <ul>
+                  {composes.map((path, i) => (
+                    <li key={i}>{path}</li>
+                  ))}
+                </ul>
+              </td>
             </tr>
-          </thead>
+          )}
+        </tbody>
+      </table>
 
-          <tbody>
-            {prepareParsedProps(props).map(propRow)}
-
-            {!parsedSource && composes.length > 0 && (
-              <tr>
-                <td colSpan={5}>
-                  Also includes props from:
-                  <ul>
-                    {composes.map((path, i) => (
-                      <li key={i}>{path}</li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
-        {methods.filter(({ name }) => !name.startsWith('_')).length > 0 && (
-          <h2>
-            Available <code>methods</code>
-          </h2>
-        )}
-        {methods.length > 0 && <Markdown source={methodsToMarkdown(methods)} />}
-      </div>
-    )
+      {methods.filter(({ name }) => !name.startsWith('_')).length > 0 && (
+        <h2>
+          Available <code>methods</code>
+        </h2>
+      )}
+      {methods.length > 0 && <Markdown source={methodsToMarkdown(methods)} />}
+    </div>
   );
 };
 
