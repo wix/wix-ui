@@ -3,11 +3,11 @@ import {
   BaseUniDriver,
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './image.st.css';
 import { ImageStatus } from './image';
 
-export interface ImageDriver extends BaseUniDriver{
+export interface ImageDriver extends BaseUniDriver {
   getSrc: () => Promise<string | null>;
   getAlt: () => Promise<string>;
   getImageStyleState: (styleState: string | ImageStatus) => Promise<string>;

@@ -1,4 +1,4 @@
-import {Image} from '../../src/components/image';
+import { Image } from '../../src/components/image';
 import * as React from 'react';
 import style from './style.st.css';
 
@@ -12,7 +12,7 @@ export default {
 
   componentProps: {
     ...style('root'),
-    src:'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
+    src: 'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
     errorImage: 'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png',
   }
 };
@@ -22,7 +22,7 @@ export class ImageStory extends React.Component<{}> {
       <div>
         <Image
           data-hook="storybook-image"
-          src= "https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg"
+          src="https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg"
         />
       </div>
     );
