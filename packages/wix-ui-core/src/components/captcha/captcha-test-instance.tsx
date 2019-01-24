@@ -49,8 +49,7 @@ export default class CaptchaTestInstance extends React.Component {
         <div data-hook="captcha-test-example-expired">expired={`${this.state.expired}`}</div>
         {this.state.verified ? <div data-hook="captcha-test-example-verified-by-state">verified-by-state={`${this.state.verified}`}
           </div> : null}
-        {!this.state.verified ? <div
-          data-hook="captcha-test-example-verified-by-neg-state">verified-by-state={`${this.state.verified}`}</div> : null}
+        {!this.state.verified ? <div data-hook="captcha-test-example-verified-by-neg-state">verified-by-state={`${this.state.verified}`}</div> : null}
         <div data-hook="captcha-test-example-verified-token">verifiedToken={this.getVerifiedToken()}</div>
         <button
           onClick={this.resetCaptcha}
