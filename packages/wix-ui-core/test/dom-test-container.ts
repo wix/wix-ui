@@ -88,10 +88,21 @@ export class ReactDOMTestContainer {
     };
   }
 
-  // Adapter for react based uni driver
+  /**
+   * Adapter for react based uni driver
+   * @deprecated use createUniRendererAsync instead
+   */
   public createUniRenderer<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
+      const base = reactUniDriver(this.componentNode);
+      return driverFactory(base);
+    };
+  }
+
+  public createUniRendererAsync<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => Promise<T> {
+    return async (jsx: JSX.Element) => {
+      await this.render(jsx);
       const base = reactUniDriver(this.componentNode);
       return driverFactory(base);
     };

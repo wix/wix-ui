@@ -6,21 +6,21 @@ import { buttonNextPrivateDriverFactory } from './button-next.driver.private';
 describe('ButtonNext', () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
-    .createUniRenderer(buttonNextPrivateDriverFactory);
+    .createUniRendererAsync(buttonNextPrivateDriverFactory);
 
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
   describe(`'onClick' prop`, () => {
     it('should be called on click', async () => {
       const onClick = jest.fn();
-      const driver = createDriver(<ButtonNext onClick={onClick} />);
+      const driver = await createDriver(<ButtonNext onClick={onClick} />);
       await driver.click();
       expect(onClick).toBeCalled();
     });
 
     it(`should not call 'onClick' when 'disabled'`, async () => {
       const onClick = jest.fn();
-      const driver = createDriver(<ButtonNext onClick={onClick} disabled />);
+      const driver = await createDriver(<ButtonNext onClick={onClick} disabled />);
       await driver.click();
       expect(onClick).not.toBeCalled();
     });
@@ -29,7 +29,7 @@ describe('ButtonNext', () => {
   describe(`'children' prop`, () => {
     it('should render text', async () => {
       const text = 'button';
-      const driver = createDriver(<ButtonNext children={text} />);
+      const driver = await createDriver(<ButtonNext children={text} />);
       expect(await driver.getButtonTextContent()).toBe(text);
     });
   });
@@ -39,13 +39,13 @@ describe('ButtonNext', () => {
     const prefix = <div data-hook="prefix">prefix</div>;
 
     it(`should render 'suffix' when given`, async () => {
-      const driver = createDriver(<ButtonNext suffixIcon={suffix} />);
+      const driver = await createDriver(<ButtonNext suffixIcon={suffix} />);
       expect(await driver.suffixExists()).toBeTruthy();
       expect(await driver.prefixExists()).toBeFalsy();
     });
 
     it(`should render 'prefix' when given`, async () => {
-      const driver = createDriver(<ButtonNext prefixIcon={prefix} />);
+      const driver = await createDriver(<ButtonNext prefixIcon={prefix} />);
       expect(await driver.prefixExists()).toBeTruthy();
       expect(await driver.suffixExists()).toBeFalsy();
     });
@@ -76,18 +76,18 @@ describe('ButtonNext', () => {
   describe(`Disabled`, () => {
     describe('isButtonDisabled', () => {
       it('should NOT be disabled by default', async() => {
-        const driver = createDriver(<ButtonNext />);
+        const driver = await createDriver(<ButtonNext />);
         expect(await driver.isButtonDisabled()).toBeFalsy();
       });
       
       it('should be disabled when disabled is passed', async() => {
-        const driver = createDriver(<ButtonNext disabled />);
+        const driver = await createDriver(<ButtonNext disabled />);
         
         expect(await driver.isButtonDisabled()).toBeTruthy();
       });
       
       it('should be disabled when href is provided', async() => {
-        const driver = createDriver(<ButtonNext as="a" disabled href="wix" />);
+        const driver = await createDriver(<ButtonNext as="a" disabled href="wix" />);
         expect(await driver.isButtonDisabled()).toBeTruthy();
       });
     })

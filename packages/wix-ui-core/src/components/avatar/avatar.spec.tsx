@@ -17,7 +17,7 @@ describe('Avatar', () => {
   const testContainer = new ReactDOMTestContainer()
     .unmountAfterEachTest();
 
-  const createDriver = testContainer.createUniRenderer(avatarDriverFactory);
+  const createDriver = testContainer.createUniRendererAsync(avatarDriverFactory);
 
   const createDriverFromContainer = () => {
     const base = reactUniDriver(testContainer.componentNode);
@@ -29,34 +29,34 @@ describe('Avatar', () => {
   );
 
   it('should render an empty placeholder by default', async () => {
-    const driver = createDriver(<Avatar />);
+    const driver = await createDriver(<Avatar />);
     expect((await driver.getContentType()) === 'placeholder').toBe(true);
   });
   
   describe(`content type resolution`, () => {
 
     it('should render a text', async () => {
-      const driver = createDriver(<Avatar text="JD" />);
+      const driver = await createDriver(<Avatar text="JD" />);
       expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
     it('should render a text when name given', async () => {
-      const driver = createDriver(<Avatar name="John Doe" />);
+      const driver = await createDriver(<Avatar name="John Doe" />);
       expect((await driver.getContentType()) === 'text').toBe(true);
     });
 
     it('should render an placeholder', async () => {
-      const driver = createDriver(<Avatar placeholder={PLACEHOLDER_AS_TEXT} />);
+      const driver = await createDriver(<Avatar placeholder={PLACEHOLDER_AS_TEXT} />);
       expect((await driver.getContentType()) === 'placeholder').toBe(true);
     });
     
     it('should render an image', async () => {
-      const driver = createDriver(<Avatar imgProps={{src:TEST_IMG_URL}} />);
+      const driver = await createDriver(<Avatar imgProps={{src:TEST_IMG_URL}} />);
       await expectImgEventuallyLoaded(driver);
     });
 
     it('should render a text when given placeholder and text', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Avatar 
           text="JD"
           placeholder={PLACEHOLDER_AS_TEXT} 
@@ -65,7 +65,7 @@ describe('Avatar', () => {
     });
 
     it('should render a text when given placeholder and name', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Avatar 
           name="John Doe"
           placeholder={PLACEHOLDER_AS_TEXT} 
@@ -74,7 +74,7 @@ describe('Avatar', () => {
     });
 
     it('should render an image when given placeholder and image', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Avatar 
           placeholder={PLACEHOLDER_AS_TEXT} 
           imgProps={{src:TEST_IMG_URL}}
@@ -85,12 +85,12 @@ describe('Avatar', () => {
 
   describe(`'name' prop`, () => {
     it('should provide generated initials as text content', async () => {
-      const driver = createDriver(<Avatar name="John Doe" />);
+      const driver = await createDriver(<Avatar name="John Doe" />);
       expect(await driver.getTextContent()).toBe('JD');
     });
 
     it('should NOT override text content', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Avatar 
           name="John Smith Junir Doe"
           text="JsD"
@@ -209,7 +209,7 @@ describe('Avatar', () => {
   describe('nameToInitials', () => {
     describe('limit = 3', () => { 
       it('should render Avatar with 3 letter initials', async () => {
-        const driver = createDriver(
+        const driver = await createDriver(
           <Avatar 
             name="John Smith Junir Doe"
             initialsLimit={3}
@@ -248,7 +248,7 @@ describe('Avatar', () => {
 
     describe('limit = 2 (default)', () => { 
       it('should render Avatar with 2 letter initials', async () => {
-        const driver = createDriver(
+        const driver = await createDriver(
           <Avatar 
             name="John Smith Junir Doe"
           />);
