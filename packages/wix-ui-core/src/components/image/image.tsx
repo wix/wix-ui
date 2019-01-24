@@ -29,8 +29,11 @@ export interface ImageState {
   private getErrorImage = () :string =>
   !!this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE
 
-  private getErrorSrc = () :string=> 
+  private getErrorSrc = () :string => 
     this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.getErrorImage()
+
+  private isErrorSrc = () :boolean => 
+    this.state.status === ImageStatus.error
 
   state = {
     src: this.getSrc(),
@@ -55,7 +58,7 @@ export interface ImageState {
                 {...nativeProps}
                 className={style.hiddenImage}
                 src={this.state.src}
-                srcSet = {this.state.status === ImageStatus.error ? null : srcSet}
+                srcSet = {this.isErrorSrc() ? null : srcSet}
                 onLoad={this.handleOnLoad}
                 onError={this.handleOnError}
             />
@@ -69,7 +72,7 @@ export interface ImageState {
         {...additionalProps}
         {...nativeProps}
         src={this.state.src} 
-        srcSet={this.state.status === ImageStatus.error ? null : srcSet}
+        srcSet={this.isErrorSrc( )? null : srcSet}
         onLoad={this.handleOnLoad}
         onError={this.handleOnError}
       /> 
@@ -80,7 +83,7 @@ export interface ImageState {
     this.setState({
       status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded
     });
-    this.props.onLoad && this.props.onLoad(e);
+    this.isErrorSrc() ? null : this.props.onLoad && this.props.onLoad(e);
   };
 
   private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
@@ -88,6 +91,6 @@ export interface ImageState {
         status: ImageStatus.error,
         src: this.getErrorSrc() 
     });
-    this.props.onError && this.props.onError(e);
+    this.isErrorSrc() ? null : this.props.onError && this.props.onError(e);
   };
 };
