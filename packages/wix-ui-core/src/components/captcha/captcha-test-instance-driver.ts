@@ -15,22 +15,6 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 import {UniDriver} from 'unidriver';
 
-/**
- * this method will find the captcha frame and click it
- * @param captchaElement
- */
-async function waitAndClickOnCaptchaImpl(captchaElement) {
-  await waitForVisibilityOf(captchaElement);
-  // lets wait for the captcha to load from google
-  await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
-  //lets find the iframe with the captcha checkbox
-  const captchaIframe = captchaElement.$('iframe');
-  await browser.switchTo().frame(captchaIframe.getWebElement());
-  //click the captcha check box - we use a key that will always return non bot verified
-  await $('.recaptcha-checkbox-checkmark').click();
-  return browser.switchTo().defaultContent();
-}
-
 async function waitForCaptchaVerificationString() {
   await waitForVisibilityOf($(`[data-hook=${verifiedByStateDataHook}`));
   return $(`[data-hook=${verifiedByStateDataHook}]`).getText();
