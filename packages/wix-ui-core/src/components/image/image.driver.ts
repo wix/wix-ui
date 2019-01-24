@@ -26,4 +26,4 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     },
     getSrcSet: () => base.attr('srcSet'),
   };
-  };
+};
