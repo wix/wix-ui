@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-import {Captcha} from './Captcha';
-import {Size, CaptchaType, Theme, CaptchaLang} from './types';
-import styles from './Captcha.st.css';
+import {Captcha} from '../Captcha';
+import {Size, CaptchaType, Theme, CaptchaLang} from '../types';
+import {ExampleLoader}  from './ExampleLoader';
 
-class TestCaptchaLoader extends React.Component {render() {return (<div className={styles.loader}>loader</div>)}}
-
-export default class CaptchaTestInstance extends React.Component {
+export class CaptchaTestComponent extends React.Component {
   state = {
     rendered: false,
     expired: false,
@@ -34,7 +32,7 @@ export default class CaptchaTestInstance extends React.Component {
       <div>
         <Captcha
           ref={e => (this.captchaRef = e)}
-          loader={<TestCaptchaLoader/>}
+          loader={<ExampleLoader/>}
           data-hook="captcha-test-example"
           sitekey={this.demoSiteKey}
           size={Size.compact}
