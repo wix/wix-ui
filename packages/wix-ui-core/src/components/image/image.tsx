@@ -32,7 +32,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   private getErrorSrc = (): string =>
     this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.getErrorImage()
 
-  private isErrorSrc = (): boolean =>
+  private isErrorState = (): boolean =>
     this.state.status === ImageStatus.error
 
   state = {
@@ -58,7 +58,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
             {...nativeProps}
             className={style.hiddenImage}
             src={this.state.src}
-            srcSet={this.isErrorSrc() ? null : srcSet}
+            srcSet={this.isErrorState() ? null : srcSet}
             onLoad={this.handleOnLoad}
             onError={this.handleOnError}
           />
@@ -72,7 +72,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
         {...additionalProps}
         {...nativeProps}
         src={this.state.src}
-        srcSet={this.isErrorSrc() ? null : srcSet}
+        srcSet={this.isErrorState() ? null : srcSet}
         onLoad={this.handleOnLoad}
         onError={this.handleOnError}
       />
@@ -80,17 +80,21 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   };
 
   private handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
-    this.setState({
-      status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded
-    });
-    this.isErrorSrc() ? null : this.props.onLoad && this.props.onLoad(e);
+    if (!this.isErrorState()) {
+      this.setState({
+        status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded
+      });
+      this.props.onLoad && this.props.onLoad(e);
+    };
   };
 
   private handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = e => {
-    this.setState({
-      status: ImageStatus.error,
-      src: this.getErrorSrc()
-    });
-    this.isErrorSrc() ? null : this.props.onError && this.props.onError(e);
+    if (!this.isErrorState()) {
+      this.setState({
+        status: ImageStatus.error,
+        src: this.getErrorSrc()
+      });
+      this.props.onError && this.props.onError(e);
+    };
   };
 };
