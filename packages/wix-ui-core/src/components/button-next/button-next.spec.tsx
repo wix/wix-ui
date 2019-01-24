@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { ButtonNext } from './';
 import { buttonNextPrivateDriverFactory } from './button-next.driver.private';
@@ -54,26 +53,23 @@ describe('ButtonNext', () => {
 
   describe(`'as' prop`, () => {
     const Test = props => <span {...props} />;
+    
     it('should render by default as html button', async () => {
       testContainer.renderSync(<ButtonNext />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.tagName;
-        expect(htmlTag).toBe('BUTTON');
-      });
+      const htmlTag = testContainer.componentNode.tagName;
+      expect(htmlTag).toBe('BUTTON');
     });
+
     it('should render custom html tag', async () => {
       testContainer.renderSync(<ButtonNext as="a" />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.tagName;
-        expect(htmlTag).toBe('A');
-      });
+      const htmlTag = testContainer.componentNode.tagName;
+      expect(htmlTag).toBe('A');
     });
+
     it('should render custom react component', async () => {
       testContainer.renderSync(<ButtonNext as={Test} />);
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.tagName;
-        expect(htmlTag).toBe('SPAN');
-      });
+      const htmlTag = testContainer.componentNode.tagName;
+      expect(htmlTag).toBe('SPAN');
     });
   });
 
@@ -99,51 +95,40 @@ describe('ButtonNext', () => {
     it('should render component with tabIndex -1 when disabled', async () => {
       testContainer.renderSync(<ButtonNext disabled />);
 
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('tabindex');
-        expect(htmlTag).toBe('-1');
-      });
+      const htmlTag = testContainer.componentNode.getAttribute('tabindex');
+      expect(htmlTag).toBe('-1');
     });
 
     it('should render aria-disabled as true when disabled', async () => {
       testContainer.renderSync(<ButtonNext disabled />);
 
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute(
-          'aria-disabled'
-        );
-        expect(htmlTag).toBe('true');
-      });
+      const htmlTag = testContainer.componentNode.getAttribute(
+        'aria-disabled'
+      );
+      expect(htmlTag).toBe('true');
     });
 
     it('should render href as undefined when disabled', async () => {
       testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
 
-      await eventually(() => {
-        const htmlTag = testContainer.componentNode.getAttribute('href');
-        expect(!!htmlTag).toBe(false);
-      });
+      const htmlTag = testContainer.componentNode.getAttribute('href');
+      expect(!!htmlTag).toBe(false);
     });
 
     describe('disabled attribute', () => {
       it(`should have 'disabled' attribute when disabled`, async () => {
         testContainer.renderSync(<ButtonNext disabled />);
         
-        await eventually(() => {
-          const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
-          expect(disabledAttribute).not.toBeNull();
-        });
+        const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
+        expect(disabledAttribute).not.toBeNull();
       });
       
       it(`should NOT have 'disabled' attribute when disabled and 'href' is provided`, async () => {
         testContainer.renderSync(<ButtonNext as="a" disabled href="wix" />);
         
-        await eventually(() => {
-          const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
-          expect(disabledAttribute).toBeNull();
-        });
+        const disabledAttribute = testContainer.componentNode.getAttribute('disabled');
+        expect(disabledAttribute).toBeNull();
       });
     })
-
   });
 });
