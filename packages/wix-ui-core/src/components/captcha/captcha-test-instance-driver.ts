@@ -7,6 +7,7 @@ const verifiedByStateDataHook = 'captcha-test-example-verified-by-state';
 const resetButtonDataHook = 'captcha-reset-button';
 const verifiedTokenDataHook = 'captcha-test-example-verified-token';
 const verifiedByNegStateDataHook = 'captcha-test-example-verified-by-neg-state';
+const verifiedDataHook = 'captcha-verified'
 
 import {
   BaseUniDriver,
@@ -44,9 +45,7 @@ async function validateCaptchaIsActuallyVerifiedByUser() {
 }
 
 async function validateCaptchaHasBeenReseted() {
-  await waitForVisibilityOf($(`[data-hook=${verifiedByNegStateDataHook}`));
-  const verfirtStateString = await $(`[data-hook=${verifiedByNegStateDataHook}]`).getText()
-  return (verfirtStateString === 'verified-by-state=false');
+  return await $(`[data-hook=${verifiedDataHook}]`).getText() === 'false';
 }
 
 async function validateCaptcharenderedString() {

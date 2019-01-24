@@ -11,6 +11,7 @@ export interface CaptchaProps {
   theme?: Theme;
   lang?: CaptchaLang;
   onLoad?: () => void;
+  onReset?: () => void;
   onExpire?: () => void;
   onRender?: () => void;
   onVerify?: (token: string) => void;
@@ -43,10 +44,14 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * reload a new captcha from google
    */
   resetCaptcha() {
-    this.setState({verified: false, token: undefined});
     if (this.captchaRef) {
       this.captchaRef.reset();
     }
+    this.setState({verified: false, token: undefined}, () => {
+      if(this.props.onReset) {
+        this.props.onReset();
+      }
+    });
   }
 
   /**
