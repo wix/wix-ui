@@ -218,3 +218,10 @@ import {
 } from '../components/captcha/Capthca.driver';
 export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<CaptchaDriver>(captchaDriverFactory);
 export { CaptchaDriver };
+
+import {
+  CaptchaTestInstanceDriverFactory,
+  CaptchaTestInstanceDriver
+} from '../components/captcha/captcha-test-instance-driver';
+export const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<CaptchaTestInstanceDriver>(CaptchaTestInstanceDriverFactory);
+export { CaptchaTestInstanceDriver };
