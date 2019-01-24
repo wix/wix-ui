@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import {Captcha} from './Captcha';
 import {Size, CaptchaType, Theme, CaptchaLang} from './types';
+import styles from './Captcha.st.css';
 
+class TestCaptchaLoader extends React.Component {render() {return (<div className={styles.loader}>loader</div>)}}
 
 export default class CaptchaTestInstance extends React.Component {
   state = {
@@ -20,13 +22,6 @@ export default class CaptchaTestInstance extends React.Component {
     }
   };
 
-  isInnerCaptchaVerified = () => {
-    if (this.captchaRef) {
-      return this.captchaRef.isVerified();
-    }
-    return 'un initialized ';
-  };
-
   getVerifiedToken = () => {
     if (this.captchaRef) {
       return this.captchaRef.verificationToken();
@@ -39,6 +34,7 @@ export default class CaptchaTestInstance extends React.Component {
       <div>
         <Captcha
           ref={e => (this.captchaRef = e)}
+          loader={<TestCaptchaLoader/>}
           data-hook="captcha-test-example"
           sitekey={this.demoSiteKey}
           size={Size.compact}
@@ -47,15 +43,11 @@ export default class CaptchaTestInstance extends React.Component {
           lang={CaptchaLang.EnglishUS}
           onVerify={() => this.setState({verified: true})}
           onRender={() => this.setState({rendered:true})}
-          onExpire={() => {
-            this.setState({expired: true})
-          }}
+          onExpire={() => this.setState({expired: true})}
         />
         <div data-hook="captcha-test-example-rendered">rendered={`${this.state.rendered}`}</div>
         <div data-hook="captcha-test-example-expired">expired={`${this.state.expired}`}</div>
-        <div data-hook="captcha-test-example-Inner-verified">inner verified={`${this.isInnerCaptchaVerified()}`}</div>
-        {this.state.verified ?
-          <div data-hook="captcha-test-example-verified-by-state">verified-by-state={`${this.state.verified}`}
+        {this.state.verified ? <div data-hook="captcha-test-example-verified-by-state">verified-by-state={`${this.state.verified}`}
           </div> : null}
         {!this.state.verified ? <div
           data-hook="captcha-test-example-verified-by-neg-state">verified-by-state={`${this.state.verified}`}</div> : null}
@@ -66,13 +58,6 @@ export default class CaptchaTestInstance extends React.Component {
           data-hook="captcha-reset-button"
         >
           Click to reset captcha
-        </button>
-        <button
-          onClick={() => alert(this.isInnerCaptchaVerified())}
-          type="button"
-          data-hook="captcha-verification-state-button"
-        >
-          Click to see verification state
         </button>
       </div>
     )

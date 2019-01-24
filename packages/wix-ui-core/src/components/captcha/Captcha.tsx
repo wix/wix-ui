@@ -5,6 +5,7 @@ import styles from './Captcha.st.css';
 
 export interface CaptchaProps {
   sitekey: string;
+  loader: any;
   size?: Size;
   captchaType?: CaptchaType;
   theme?: Theme;
@@ -33,7 +34,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   }
 
   state = {
-    rendered:false,
+    rendered: false,
     token: undefined,
     verified: false,
   };
@@ -42,8 +43,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * reload a new captcha from google
    */
   resetCaptcha() {
-    this.setState({verified: false});
-    this.setState({token: undefined});
+    this.setState({verified: false, token: undefined});
     if (this.captchaRef) {
       this.captchaRef.reset();
     }
@@ -78,8 +78,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * @param verificationString
    */
   private onVerified = (verificationString: string) => {
-    this.setState({verified: true});
-    this.setState({token: verificationString});
+    this.setState({verified: true, token: verificationString});
     if (this.props.onVerify) {
       this.props.onVerify(verificationString);
     }
@@ -101,7 +100,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * so we need to ask the user to retake the captcha challenge.
    */
   private onRender = () => {
-    this.setState({rendered:true});
+    this.setState({rendered: true});
     if (this.props.onRender) {
       this.props.onRender();
     }
@@ -113,10 +112,11 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    *
    */
   render() {
-    const {sitekey, captchaType, size, theme, lang} = this.props;
+    const {sitekey, loader, captchaType, size, theme, lang} = this.props;
     return (
-      <div {...styles('root', {loaded: this.state.rendered}, this.props)} data-captchaType={captchaType} data-theme={theme} data-lang={lang} data-size={size} >
-        {!this.state.rendered && <div className={styles.loader}/>}
+      <div {...styles('root', {loaded: this.state.rendered}, this.props)} data-captchaType={captchaType}
+           data-theme={theme} data-lang={lang} data-size={size}>
+        {!this.state.rendered && loader}
         <div className={styles.captcha}>
           <Reaptcha
             ref={e => (this.captchaRef = e)}

@@ -17,6 +17,7 @@ Captcha is a component that provides bot detection capabilities.
 | captchaType | CaptchaType (enum of image/audio)| image        | No         | The type of the challenge we will provide the user                                               |
 | theme       | Theme (enum of light/dark)       | light        | No         | The color of the component                                                                       |
 | lang        | CaptchaLang (enum of all supported languages | EnglishUS       | No         | The language of the captcha ans its messages |
+| loader      | React component                  | empty component | No         | React component that will be displayed while the real captcha is being loaded |
 | onExpire    | function                         |              | No         | This callback is called when we the verified captcha was not submitted in a reasonable time frame|
 | onVerify    | function                         |              | No         | This callback is called when we the captcha challenge is successful                              |
 
@@ -41,7 +42,7 @@ This component is a wrapper over the google recaptcha component, meaning additio
 
 ### React Code Example
 import * as React from 'react';
-import {Captcha, Size, CaptchaType, Theme} from 'wix-ui-core/captcha';
+import {Captcha, Size, CaptchaType, Theme,, lang} from 'wix-ui-core/captcha';
 const demoSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 class CaptchaExample extends React.Component {
@@ -58,6 +59,7 @@ class CaptchaExample extends React.Component {
         return (
             <Captcha
               sitekey={demoSiteKey}
+              loader={<LoaderWrapper/>}
               size={Size.compact}
               captchaType={CaptchaType.image}
               theme={Theme.dark}
