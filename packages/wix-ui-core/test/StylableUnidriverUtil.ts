@@ -9,9 +9,9 @@ import { RuntimeStylesheet, StateValue } from '@stylable/runtime';
 export class StylableUnidriverUtil {
   constructor(private style: RuntimeStylesheet) { }
 
-  public async hasStyleState(element: UniDriver, stateName: string, param: StateValue = true): Promise<boolean> {
+  public async hasStyleState(base: UniDriver, stateName: string, param: StateValue = true): Promise<boolean> {
     const { stateKey, styleState } = this.getStateDataAttrKey(stateName, param);
-    const actual = await element.attr(stateKey);
+    const actual = await base.attr(stateKey);
     return String(styleState[stateKey]) === actual;
   }
   
