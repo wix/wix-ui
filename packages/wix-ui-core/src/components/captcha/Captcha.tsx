@@ -114,7 +114,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   render() {
     const {sitekey, loader, captchaType, size, theme, lang} = this.props;
     return (
-      <div {...styles('root', {loaded: this.state.rendered}, this.props)} data-captchaType={captchaType}
+      <div {...styles('root', {loaded: this.state.rendered}, this.props)} data-captcha-type={captchaType}
            data-theme={theme} data-lang={lang} data-size={size}>
         {!this.state.rendered && loader}
         <div className={styles.captcha}>

@@ -18,6 +18,6 @@ export const captchaDriverFactory = (base: UniDriver): CaptchaDriver => {
     getTheme: async () => base.attr('data-theme'),
     getSize: async () => base.attr('data-size'),
     getLang: async () => base.attr('data-lang'),
-    getCaptchaType: async () => base.attr('data-captchaType')
+    getCaptchaType: async () => base.attr('data-captcha-type')
   }
 };
