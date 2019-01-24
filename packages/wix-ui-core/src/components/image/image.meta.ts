@@ -1,6 +1,6 @@
 import { Image, ImageStatus } from './image';
 import Registry from '@ui-autotools/registry';
-import style from '../../../stories/Image/style.st.css';
+import style from '../../../stories/image/style.st.css';
 import { SRC, BROKEN_SRC, ERROR_IMAGE_SRC } from './test-fixtures';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
