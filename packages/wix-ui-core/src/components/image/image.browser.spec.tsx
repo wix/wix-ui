@@ -44,6 +44,16 @@ describe('Image', () => {
                 expect(await imageDriver.getSrcSet()).toEqual(SRC);
             })
         });
+
+        it('renders provided src, and overrides the nativeProps src', async () => {
+            const onLoadSpy = jest.fn()
+            const imageDriver = createDriver(<Image src={SRC} nativeProps={{src: ERROR_IMAGE_SRC}} onLoad={onLoadSpy} />);
+            await eventually(async () => {
+                expect(onLoadSpy).toHaveBeenCalled();
+                expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+                expect(await imageDriver.getSrc()).toEqual(SRC);
+            })
+        });
     });
 
     describe('props are not provided', () => {
