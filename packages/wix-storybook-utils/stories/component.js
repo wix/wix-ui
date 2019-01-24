@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const enabledStyle = {
-  fontSize: 20
+  fontSize: 20,
 };
 
 const disabledStyle = {
   fontSize: 12,
-  color: 'grey'
+  color: 'grey',
 };
 
 /** Description from source! */
@@ -25,13 +25,13 @@ Component.propTypes = {
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
-  propNotVisibleInStorybook: PropTypes.bool
+  propNotVisibleInStorybook: PropTypes.bool,
 };
 
 Component.defaultProps = {
   children: 'Hello dummy component!',
   enabled: true,
-  onClick: () => 'you clicked!'
+  onClick: () => 'you clicked!',
 };
 
 Component.displayName = 'DummyComponent';
