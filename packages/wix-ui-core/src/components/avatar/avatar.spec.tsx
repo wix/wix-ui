@@ -100,7 +100,7 @@ describe('Avatar', () => {
 
     it('should have a default \'alt\' value when image is displayed', async () => {
       const dataHook = 'avatar_test_image';
-      testContainer.renderSync(
+      await testContainer.render(
         <Avatar 
           name="John Doe" 
           imgProps={{src:TEST_IMG_URL, ['data-hook']: dataHook}} 
@@ -114,7 +114,7 @@ describe('Avatar', () => {
     it('should NOT override \'alt\' value when image is displayed', async () => {
       const alt = 'Profile photo of John Doe';
       const dataHook = 'avatar_test_image';
-      testContainer.renderSync(
+      await testContainer.render(
         <Avatar 
           name="John Doe" 
           imgProps={{
@@ -133,7 +133,7 @@ describe('Avatar', () => {
   describe(`'placeholder' prop`, () => {
     it('should render specified placeholder content', async () => {
       const dataHook = 'avatar_test_placeholder';
-      testContainer.renderSync(
+      await testContainer.render(
         <Avatar 
           placeholder={<span data-hook={dataHook}>XXXX</span>}
         />);
@@ -145,7 +145,7 @@ describe('Avatar', () => {
   describe(`'imgProps' prop`, () => {
     it('should render img tag with imgProps', async () => {
       const dataHook = 'avatar_test_image';
-      testContainer.renderSync(
+      await testContainer.render(
         <Avatar 
           imgProps={{
             src:TEST_IMG_URL,
@@ -183,7 +183,7 @@ describe('Avatar', () => {
       
       let wrapper: any;
 
-      testContainer.renderSync(
+      await testContainer.render(
         <AvatarWrapper 
           ref={inst => wrapper = inst}
           imgProps={{
@@ -288,7 +288,7 @@ describe('Avatar', () => {
   describe('className prop', () => {
     it('should pass className prop onto root elemenet', async () => {
         const className = 'foo';
-        testContainer.renderSync(<Avatar className={className}/>);
+        await testContainer.render(<Avatar className={className}/>);
       const driver = reactUniDriver(testContainer.componentNode);
       expect(await driver.attr('class')).toContain(className);
     });
@@ -329,19 +329,19 @@ describe('Avatar', () => {
   describe(`Styling`, () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {
-        testContainer.renderSync(<Avatar text="JD"/>);
+        await testContainer.render(<Avatar text="JD"/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('JD');
       });
       
       it('should have content class when placeholder displayed', async () => {
-        testContainer.renderSync(<Avatar placeholder={PLACEHOLDER_AS_TEXT}/>);
+        await testContainer.render(<Avatar placeholder={PLACEHOLDER_AS_TEXT}/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('XXXXX');
       });
       
       it('should have content class when image displayed', async () => {
-        testContainer.renderSync(<Avatar imgProps={{ src:TEST_IMG_URL }}/>);
+        await testContainer.render(<Avatar imgProps={{ src:TEST_IMG_URL }}/>);
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         await eventually(() => {
           expect(utils.select('.content').getAttribute('src')).toBe(TEST_IMG_URL);
@@ -351,7 +351,7 @@ describe('Avatar', () => {
       
     describe('imgLoaded state', () => {
       it('should have imgLoaded', async () => {
-        testContainer.renderSync(
+        await testContainer.render(
           <Avatar imgProps={{ src:TEST_IMG_URL }} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
@@ -360,8 +360,8 @@ describe('Avatar', () => {
         });
       });
 
-      it('should NOT have imgLoaded when displaying text', () => {
-        testContainer.renderSync(
+      it('should NOT have imgLoaded when displaying text', async () => {
+        await testContainer.render(
           <Avatar name="John Doe" />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
@@ -371,7 +371,7 @@ describe('Avatar', () => {
       // This test is skipped because it either passes with jsdom and fails with browser (mocha-runner), or in it's current form
       // passes in browser and fails in jsdom. Until we decide which platform we are testing on, this needs to stay skipped.
       xit('should NOT have imgLoaded when img is not loaded yet', async () => {
-        testContainer.renderSync(
+        await testContainer.render(
           <Avatar imgProps={{ src:INVALID_TEST_IMG_URL }} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
@@ -382,16 +382,16 @@ describe('Avatar', () => {
     });
 
     describe('contentType state', () => {
-      it('should be text', () => {
-        testContainer.renderSync(
+      it('should be text', async () => {
+        await testContainer.render(
           <Avatar text="JD" />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.getStyleState(testContainer.componentNode, 'contentType')).toBe('text');
       });
 
-      it('should be placeholder', () => {
-        testContainer.renderSync(
+      it('should be placeholder', async () => {
+        await testContainer.render(
           <Avatar placeholder={PLACEHOLDER_AS_TEXT} />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
@@ -399,7 +399,7 @@ describe('Avatar', () => {
       });
 
       it('should be image', async () => {
-        testContainer.renderSync(
+        await testContainer.render(
           <Avatar imgProps={{ src:TEST_IMG_URL }}  />
         );
         const utils = new StylableDOMUtil(styles, testContainer.componentNode);
