@@ -5,7 +5,7 @@ import { SRC, BROKEN_SRC, ERROR_IMAGE_SRC } from './test-fixtures';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
 
-imageMetadata.addStyle(style, { name: 'style', path: 'stories/Image/style.st.css' });
+imageMetadata.addStyle(style, { name: 'style', path: 'stories/image/style.st.css' });
 
 imageMetadata
   .addSim({
