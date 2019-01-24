@@ -16,18 +16,18 @@ export interface ImageProps {
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
 export interface ImageState {
-    src?: string;
-    status: ImageStatus;
+  src?: string;
+  status: ImageStatus;
 }
  export class Image extends React.PureComponent<ImageProps, ImageState> {
   private getSrc = () :string => 
-  !!this.props.src ? this.props.src : this.getSrcSet() 
+    !!this.props.src ? this.props.src : this.getSrcSet() 
 
   private getSrcSet = () :string =>
     !!this.props.srcSet ? this.getErrorImage() : FALLBACK_IMAGE
 
   private getErrorImage = () :string =>
-  !!this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE
+    !!this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE
 
   private getErrorSrc = () :string => 
     this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.getErrorImage()

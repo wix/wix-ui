@@ -9,7 +9,7 @@ imageMetadata.addStyle(style, {name: 'style', path: 'stories/Image/style.st.css'
 
 imageMetadata
   .addSim({
-    title: 'renders an image in a loading stage at first',
+    title: 'loading image', 
     props: {
       src: SRC,
       alt: 'This is an image of 2 flamingos',
@@ -17,7 +17,7 @@ imageMetadata
     state: {
       status: ImageStatus.loading
     }
-});
+}); 
 
 imageMetadata
   .addSim({
@@ -33,23 +33,10 @@ imageMetadata
 
 imageMetadata
   .addSim({
-    title: 'renders an empty pixel', 
+    title: 'failed with rendering an image',
     props: {
       src: BROKEN_SRC,
-      srcSet: BROKEN_SRC,
-      alt: 'This is an empty pixel',
-    },
-    state: {
-      status: ImageStatus.loaded
-    }
-}); 
-
-imageMetadata
-  .addSim({
-    title: 'renders an errorImage with error style',
-    props: {
-      errorImage: ERROR_IMAGE_SRC,
-      alt: 'This is an error image',
+      alt: 'This is a broken image',
     },
     state: {
       status: ImageStatus.error
@@ -68,7 +55,7 @@ imageMetadata
 
 imageMetadata
   .addSim({
-    title: 'renders a contain resized image', 
+    title: 'renders a cover resized image', 
     props: {
       src: SRC,
       alt: 'This is an image of 2 flamingos',
