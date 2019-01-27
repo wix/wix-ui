@@ -1,5 +1,4 @@
 import { Image } from '../../src/components/image';
-import * as React from 'react';
 import style from './style.st.css';
 
 
