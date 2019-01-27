@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject: T) => {
-  return React.Children.toArray(children).reduce((acc, child) => {
+  return React.Children.toArray(children).reduce((acc: T, child) => {
     if (!React.isValidElement(child)) {
       return acc;
     }
