@@ -1,5 +1,5 @@
 import { Image } from '../../src/components/image';
-import style from './style.st.css';
+import style from '../../src/themes/default/image/style.st.css';
 
 
 export default {
