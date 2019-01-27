@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { imageDriverFactory } from './image.driver';
+import { imageDriverFactory } from './image.driver.private';
 import { Image, FALLBACK_IMAGE } from './image';
 import { SRC, BROKEN_SRC, ERROR_IMAGE_SRC } from './test-fixtures'
 import * as eventually from 'wix-eventually';
@@ -27,10 +27,10 @@ describe('Image', () => {
             const onLoadSpy = jest.fn()
             const imageDriver = createDriver(<Image src={SRC} onLoad={onLoadSpy} />);
 
-            expect(await imageDriver.getImageStyleState('loadState')).toEqual('loading');
+            expect(await imageDriver.getLoadStatus()).toEqual('loading');
             await eventually(async () => {
                 expect(onLoadSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+                expect(await imageDriver.getLoadStatus()).toEqual('loaded');
                 expect(await imageDriver.getSrc()).toEqual(SRC);
             })
         });
@@ -40,7 +40,7 @@ describe('Image', () => {
             const imageDriver = createDriver(<Image srcSet={SRC} onLoad={onLoadSpy} />);
             await eventually(async () => {
                 expect(onLoadSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+                expect(await imageDriver.getLoadStatus()).toEqual('loaded');
                 expect(await imageDriver.getSrcSet()).toEqual(SRC);
             })
         });
@@ -49,8 +49,6 @@ describe('Image', () => {
             const onLoadSpy = jest.fn()
             const imageDriver = createDriver(<Image src={SRC} nativeProps={{src: ERROR_IMAGE_SRC}} onLoad={onLoadSpy} />);
             await eventually(async () => {
-                expect(onLoadSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
                 expect(await imageDriver.getSrc()).toEqual(SRC);
             })
         });
@@ -63,7 +61,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onLoadSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('loaded');
+                expect(await imageDriver.getLoadStatus()).toEqual('loaded');
                 expect(await imageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
             })
         });
@@ -76,7 +74,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
             })
         });
@@ -87,7 +85,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
             })
         });
@@ -98,7 +96,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrcSet()).toBeUndefined;
                 expect(await imageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
             })
@@ -110,7 +108,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
             });
         });
@@ -121,7 +119,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
             });
         });
@@ -132,7 +130,7 @@ describe('Image', () => {
 
             await eventually(async () => {
                 expect(onErrorSpy).toHaveBeenCalled();
-                expect(await imageDriver.getImageStyleState('loadState')).toEqual('error');
+                expect(await imageDriver.getLoadStatus()).toEqual('error');
                 expect(await imageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
             })
         });
@@ -142,20 +140,20 @@ describe('Image', () => {
         it('specifies the image to contain its container', async () => {
             const imageDriver = createDriver(<Image src={SRC} resizeMode={'contain'} />);
 
-            expect(await imageDriver.getImageStyleState('resizeMode')).toEqual('contain');
+            expect(await imageDriver.getResizeMode()).toEqual('contain');
         });
 
         it('specifies the image to cover its container', async () => {
             const imageDriver = createDriver(<Image src={SRC} resizeMode={'cover'} />);
 
-            expect(await imageDriver.getImageStyleState('resizeMode')).toEqual('cover');
+            expect(await imageDriver.getResizeMode()).toEqual('cover');
         });
 
         // 'fill' is the default image behavior
         it('specifies the image to fill its container', async () => {
             const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'} />);
 
-            expect(await imageDriver.getImageStyleState('resizeMode')).toEqual('fill');
+            expect(await imageDriver.getResizeMode()).toEqual('fill');
             expect(await imageDriver.getSrc()).toEqual(SRC);
         });
     });
