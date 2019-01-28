@@ -26,10 +26,8 @@ Captcha is a component that provides bot detection capabilities.
 | method name                 |  description                                                                                                            |
 |:----------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | resetCaptcha()              |This method will reload the captcha internals and will invalid any prev token,  it is useful to deal with expired captcha| 
-| verificationToken():String  | returns the verification token (String) we got from google or undefined                                                 |
+| getVerificationToken():String  | returns the verification token (String) we got from google or undefined                                                 |
 | isVerified():Boolean        | returns true if the captcha challenge has been successfully taken and not expired                                       |
-| getTheme():Theme            | returns the theme of the captcha  Theme (enum of light/dark)                                                            |
-| getSize():Size              | returns the size of the captcha  Size (enum of normal/compact)                                                          |
 
 
 ## General Behavior
