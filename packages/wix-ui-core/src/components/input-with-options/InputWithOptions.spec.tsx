@@ -132,7 +132,7 @@ describe('InputWithOptions', () => {
   })
 
   describe('Focus and blur events', () => {
-    it('Should integrate focus event with inner input', () => {
+    it('Should call onFocus when input is focused', () => {
       const onFocus = jest.fn();
       const driver = createDriver(createInputWithOptions({options}, { onFocus }));
       driver.focus();
@@ -140,7 +140,7 @@ describe('InputWithOptions', () => {
       expect(onFocus).toHaveBeenCalledTimes(1);
     });
 
-    it('Should integrate blur event with inner input', () => {
+    it('Should call onBlur when input is blurred', () => {
       const onBlur = jest.fn();
       const driver = createDriver(createInputWithOptions({options}, { onBlur }));
       driver.blur();
