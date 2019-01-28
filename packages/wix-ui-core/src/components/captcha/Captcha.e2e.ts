@@ -51,7 +51,6 @@ describe('Captcha', () => {
     describe('test component', () => {
       it('should load the component', async () => {
         const driver = captchaTestInstanceFactory({dataHook});
-        await driver.waitForCaptchaLoaded();
         expect(await driver.validateCaptchaRendered()).toBe(true);
       });
 
