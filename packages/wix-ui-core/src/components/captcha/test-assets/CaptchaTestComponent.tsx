@@ -8,6 +8,7 @@ export class CaptchaTestComponent extends React.Component {
   state = {
     rendered: false,
     expired: false,
+    reseted: false,
     verifiedToken: '',
   };
   private captchaRef = undefined;
@@ -26,6 +27,13 @@ export class CaptchaTestComponent extends React.Component {
     return '';
   };
 
+  isCaptchaVerified(){
+    if (this.captchaRef) {
+      return this.captchaRef.isVerified();
+    }
+    return false;
+  }
+
   render() {
     return (
       <div>
@@ -38,14 +46,15 @@ export class CaptchaTestComponent extends React.Component {
           captchaType={CaptchaType.image}
           theme={Theme.dark}
           lang={CaptchaLang.EnglishUS}
-          onVerify={() => this.setState({verifiedToken: this.getVerifiedToken()})}
+          onVerify={() => this.setState({reseted:false,verifiedToken: this.getVerifiedToken()})}
           onRender={() => this.setState({rendered:true})}
-          onExpire={() => this.setState({expired: true})}
-          onReset={() => this.setState({verifiedToken: this.getVerifiedToken()})}
+          onExpire={() => this.setState({reseted:false,expired: true})}
+          onReset={() => this.setState({reseted:true, verifiedToken: this.getVerifiedToken()})}
         />
         <div data-hook="captcha-test-example-rendered">rendered={`${this.state.rendered}`}</div>
         <div data-hook="captcha-test-example-expired">expired={`${this.state.expired}`}</div>
-        <div data-hook="captcha-test-example-verified-token">verifiedToken={this.getVerifiedToken()}</div>
+        {this.isCaptchaVerified() && <div data-hook="captcha-test-example-verified-token">verifiedToken={this.getVerifiedToken()}</div>}
+        {this.state.reseted && <div data-hook="captcha-reset">reset</div>}
         <button
           onClick={this.resetCaptcha}
           type="button"

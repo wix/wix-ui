@@ -8,10 +8,14 @@ const style = {
   width: '72px',
   height: '72px',
   marginLeft: '36px',
+};
+
+//const ExampleLoader = () => <div style={style}>loader</div>
+class ExampleLoader extends React.Component {
+  public displayName =  'ExampleLoader';
+  render() {
+    return <div style={style}>loader</div>;
   }
+}
 
-  const ExampleLoader = () => <div style={style}>loader</div>
-
-  ExampleLoader.displayName = 'ExampleLoader';
-
-  export { ExampleLoader};
+export {ExampleLoader};

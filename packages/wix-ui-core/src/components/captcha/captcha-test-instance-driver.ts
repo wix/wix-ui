@@ -3,11 +3,9 @@ import {createStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor'
 
 const dataHook = 'captcha-test-example';
 const loadedDataHook = 'captcha-test-example-rendered';
-const verifiedByStateDataHook = 'captcha-test-example-verified-by-state';
 const resetButtonDataHook = 'captcha-reset-button';
+const resetDataHook = 'captcha-reset';
 const verifiedTokenDataHook = 'captcha-test-example-verified-token';
-const verifiedByNegStateDataHook = 'captcha-test-example-verified-by-neg-state';
-const verifiedDataHook = 'captcha-verified'
 
 import {
   BaseUniDriver,
@@ -16,21 +14,22 @@ import {
 import {UniDriver} from 'unidriver';
 
 async function waitForCaptchaVerificationString() {
-  await waitForVisibilityOf($(`[data-hook=${verifiedByStateDataHook}`));
-  return $(`[data-hook=${verifiedByStateDataHook}]`).getText();
+  await waitForVisibilityOf($(`[data-hook=${verifiedTokenDataHook}`));
+  return $(`[data-hook=${verifiedTokenDataHook}]`).getText();
 }
 
 async function validateCaptchaIsActuallyVerifiedByUser() {
-  await waitForVisibilityOf($(`[data-hook=${verifiedByStateDataHook}`));
   await waitForVisibilityOf($(`[data-hook=${verifiedTokenDataHook}`));
-  const verifyHookDataString :String = await $(`[data-hook=${verifiedByStateDataHook}]`).getText();
   const verifiedToken = await $(`[data-hook=${verifiedTokenDataHook}]`).getText();
-  return verifyHookDataString === 'verified-by-state=true' && verifiedToken !== 'verifiedToken=' && verifiedToken.includes('verifiedToken=');
+  return verifiedToken !== 'verifiedToken=' && verifiedToken.includes('verifiedToken=');
 }
 
 async function validateCaptchaHasBeenReseted() {
-  return await $(`[data-hook=${verifiedDataHook}]`).getText() === 'false';
+  await waitForVisibilityOf($(`[data-hook=${resetDataHook}`));
+  const resetTxt = await $(`[data-hook=${resetDataHook}]`).getText();
+  return resetTxt === 'reset';
 }
+
 
 async function validateCaptcharenderedString() {
   await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
@@ -39,7 +38,6 @@ async function validateCaptcharenderedString() {
 
 /**
  * this method will find the captcha frame and click it
- * @param captchaElement
  */
 async function waitAndClickOnCaptcha() {
   const captchaElement = $(`[data-hook=${dataHook}`);

@@ -20,7 +20,6 @@ export interface CaptchaProps {
 interface CaptchaState {
   rendered: boolean;
   token: string,
-  verified: boolean;
 }
 
 /**
@@ -30,14 +29,9 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   static displayName = 'Captcha';
   private captchaRef = null;
 
-  constructor(props: CaptchaProps) {
-    super(props);
-  }
-
   state = {
     rendered: false,
     token: undefined,
-    verified: false,
   };
 
   /**
@@ -47,7 +41,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
     if (this.captchaRef) {
       this.captchaRef.reset();
     }
-    this.setState({verified: false, token: undefined}, () => {
+    this.setState({token: undefined}, () => {
       if(this.props.onReset) {
         this.props.onReset();
       }
@@ -74,7 +68,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * return true if the captcha challenge has been successfully taken
    */
   isVerified() {
-    return this.state.verified;
+    return this.state.token !== undefined;
   }
 
 
@@ -83,7 +77,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * @param verificationString
    */
   private onVerified = (verificationString: string) => {
-    this.setState({verified: true, token: verificationString});
+    this.setState({token: verificationString});
     if (this.props.onVerify) {
       this.props.onVerify(verificationString);
     }
@@ -94,7 +88,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * so we need to ask the user to retake the captcha challenge.
    */
   private onExpired = () => {
-    this.setState({verified: false, token: undefined});
+    this.setState({token: undefined});
     if (this.props.onExpire) {
       this.props.onExpire();
     }
