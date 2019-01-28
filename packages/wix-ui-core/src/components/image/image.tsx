@@ -35,6 +35,9 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   private isErrorState = (): boolean =>
     this.state.status === ImageStatus.error
 
+  private isResized = (): boolean =>
+    this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover'
+
   state = {
     src: this.getSrc(),
     status: ImageStatus.loading
@@ -43,7 +46,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   render() {
     const { errorImage, resizeMode, srcSet, nativeProps, ...additionalProps } = this.props;
 
-    if (this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover') {
+    if (this.isResized()) {
       const imageWrapper = {
         backgroundImage: `url("${this.state.src}")`,
         backgroundSize: resizeMode
