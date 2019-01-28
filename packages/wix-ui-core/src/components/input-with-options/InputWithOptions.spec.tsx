@@ -196,6 +196,7 @@ describe('InputWithOptions', () => {
 
       driver.click();
       driver.keyDown('Tab');
+      driver.blur();
       expect(onManualInput).toHaveBeenCalledWith('a');
       expect(onManualInput).toHaveBeenCalledTimes(1);
     });
