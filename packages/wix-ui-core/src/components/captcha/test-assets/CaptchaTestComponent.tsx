@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Captcha} from '../Captcha';
 import {CaptchaLang, CaptchaType, Size, Theme} from '../types';
 import {ExampleLoader} from './ExampleLoader';
-import {CaptchaConstants} from '../Captcha.constants'
+import {constants} from './constants'
 
 export class CaptchaTestComponent extends React.Component {
   state = {
@@ -40,8 +40,8 @@ export class CaptchaTestComponent extends React.Component {
         <Captcha
           ref={e => (this.captchaRef = e)}
           loader={<ExampleLoader/>}
-          data-hook={CaptchaConstants.dataHook}
-          sitekey={CaptchaConstants.demoSiteKey}
+          data-hook={constants.dataHook}
+          sitekey={constants.demoSiteKey}
           captchaType={CaptchaType.image}
           theme={Theme.dark}
           size={Size.compact}
@@ -51,14 +51,14 @@ export class CaptchaTestComponent extends React.Component {
           onExpire={() => this.setState({resetted:false,expired: true})}
           onReset={() => this.setState({resetted:true, verifiedToken: this.getVerifiedToken()})}
         />
-        <div data-hook={CaptchaConstants.renderDataHook}>{CaptchaConstants.renderedMark}{`${this.state.rendered}`}</div>
+        <div data-hook={constants.renderDataHook}>{constants.renderedMark}{`${this.state.rendered}`}</div>
         <div>expired={`${this.state.expired}`}</div>
-        {this.isCaptchaVerified() && <div data-hook={`${CaptchaConstants.verifiedTokenDataHook}`}>{CaptchaConstants.verifiedTokenMark}{this.getVerifiedToken()}</div>}
-        {this.state.resetted && <div data-hook={CaptchaConstants.resetDataHook}>{CaptchaConstants.resetMark}</div>}
+        {this.isCaptchaVerified() && <div data-hook={`${constants.verifiedTokenDataHook}`}>{constants.verifiedTokenMark}{this.getVerifiedToken()}</div>}
+        {this.state.resetted && <div data-hook={constants.resetDataHook}>{constants.resetMark}</div>}
         <button
           onClick={this.resetCaptcha}
           type="button"
-          data-hook={CaptchaConstants.resetButtonDataHook}
+          data-hook={constants.resetButtonDataHook}
         >
           Click to reset captcha
         </button>

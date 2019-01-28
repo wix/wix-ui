@@ -3,9 +3,9 @@ import {Captcha} from './Captcha'
 import {ExampleLoader} from './test-assets/ExampleLoader'
 import {CaptchaLang, Size, Theme} from './types'
 import * as React from 'react';
-import {CaptchaConstants} from './Captcha.constants'
+import {constants} from './test-assets/constants'
 
-const demoSiteKey = CaptchaConstants.demoSiteKey;
+const demoSiteKey = constants.demoSiteKey;
 const captchaMetadata = Registry.getComponentMetadata(Captcha);
 
 captchaMetadata.addSim({

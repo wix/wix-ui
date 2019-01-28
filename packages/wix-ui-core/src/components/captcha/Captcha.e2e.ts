@@ -13,9 +13,9 @@ import {
 import {
   CaptchaTestInstanceDriverFactory,
   CaptchaTestComponentDriver
-} from './test-assets/captcha-test-component-driver'
+} from './test-assets/CaptchaTestComponent.driver'
 const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator < CaptchaTestComponentDriver > (CaptchaTestInstanceDriverFactory);
-import {CaptchaConstants} from './Captcha.constants'
+import {constants} from './test-assets/constants'
 
 
 describe('Captcha', () => {
@@ -28,7 +28,7 @@ describe('Captcha', () => {
   afterEach(() => autoExampleDriver.remount());
 
   describe('captcha component', () => {
-    const dataHook = CaptchaConstants.dataHook;
+    const dataHook = constants.dataHook;
 
     it('should load the component with dark theme', async () => {
       const driver = captchaTestkitFactory({ dataHook });
