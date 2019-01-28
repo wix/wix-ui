@@ -1,5 +1,9 @@
 @import '../ui/typography.scss';
 
+.container {
+  margin: 0 48px;
+}
+
 .title {
   margin-top: 30px;
   font-size: 36px;
@@ -8,11 +12,11 @@
 }
 
 .subtitle {
-  margin-bottom: 10px;
   @include font(medium);
   font-size: 16px;
   line-height: 1.5;
   color: #32536a;
+  margin-bottom: 21px;
 }
 
 .title,
@@ -28,4 +32,7 @@
 .section-title {
   @include font(roman);
   font-size: 20px;
+}
+
+.tabs-container {
 }

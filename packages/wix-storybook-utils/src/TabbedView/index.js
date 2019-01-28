@@ -26,7 +26,7 @@ export default class TabbedView extends Component {
 
   render() {
     const shouldHideForE2E = global.self === global.top;
-
+    const { className } = this.props;
     return (
       <div>
         {!shouldHideForE2E && (
@@ -34,6 +34,7 @@ export default class TabbedView extends Component {
             activeId={this.state.activeTabId}
             onClick={this.onTabClick}
             items={this.props.tabs.map(createTab)}
+            className={className}
           />
         )}
 

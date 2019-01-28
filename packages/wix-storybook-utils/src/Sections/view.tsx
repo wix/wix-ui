@@ -7,7 +7,7 @@ import { tab as makeTab } from './';
 const styles = require('./styles.scss');
 
 export const View: React.StatelessComponent<StoryConfig> = storyConfig => (
-  <div>
+  <div className={styles.container}>
     <div>
       <div className={styles.title}>{storyConfig.storyName}</div>
       {storyConfig.metadata.displayName && (
