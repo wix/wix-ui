@@ -5,7 +5,7 @@ import { SRC, BROKEN_SRC } from './test-fixtures';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
 
-imageMetadata.addStyle(style, { name: 'style', path: 'themes/default/image/style.st.css' });
+imageMetadata.addStyle(style, { name: 'style', path: 'src/themes/default/image/style.st.css' });
 
 imageMetadata
   .addSim({
@@ -33,10 +33,10 @@ imageMetadata
 
 imageMetadata
   .addSim({
-    title: 'failed with rendering an image',
+    title: 'loadingddd image',
     props: {
       src: BROKEN_SRC,
-      alt: 'This is a broken image',
+      alt: 'This is an image of 2 flamingos',
     },
     state: {
       status: ImageStatus.error
