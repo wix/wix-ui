@@ -16,7 +16,7 @@ describe('InputWithOptions', () => {
 
   const options = generateOptions();
   const createInputWithOptions = (props = {}, inputProps = {}) => (
-    <InputWithOptions 
+    <InputWithOptions
       {...Object.assign({
         options: [],
         inputProps
@@ -199,16 +199,6 @@ describe('InputWithOptions', () => {
       driver.setValue('a');
       driver.keyDown('a');
       driver.blur();
-      expect(onManualInput).toHaveBeenCalledWith('a');
-      expect(onManualInput).toHaveBeenCalledTimes(1);
-    });
-
-    it('should trigger onManualInput with the actual value even if option list is empty', () => {
-      const _options = [];
-      const driver = getDriver(_options);
-
-      driver.click();
-      driver.keyDown('Enter');
       expect(onManualInput).toHaveBeenCalledWith('a');
       expect(onManualInput).toHaveBeenCalledTimes(1);
     });
