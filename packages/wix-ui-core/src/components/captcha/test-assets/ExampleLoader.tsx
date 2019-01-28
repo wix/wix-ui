@@ -10,7 +10,6 @@ const style = {
   marginLeft: '36px',
 };
 
-//const ExampleLoader = () => <div style={style}>loader</div>
 class ExampleLoader extends React.Component {
   public displayName =  'ExampleLoader';
   render() {

@@ -52,7 +52,7 @@ async function waitAndClickOnCaptcha() {
   return browser.switchTo().defaultContent();
 }
 
-export interface CaptchaTestInstanceDriver extends BaseUniDriver {
+export interface CaptchaTestComponentDriver extends BaseUniDriver {
   waitForCaptchaLoaded: () => Promise<any>;
   resetCaptcha: () => Promise<any>;
   clickOnCaptcha: () => Promise<any>;
@@ -63,7 +63,7 @@ export interface CaptchaTestInstanceDriver extends BaseUniDriver {
   validateCaptchaIsVerified: () => Promise<boolean>;
 }
 
-export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestInstanceDriver => {
+export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestComponentDriver => {
   return {
     ...baseUniDriverFactory(base),
     waitForCaptchaLoaded: async () => waitForVisibilityOf($(`[data-hook=${dataHook}`)),

@@ -12,9 +12,9 @@ import {
 
 import {
   CaptchaTestInstanceDriverFactory,
-  CaptchaTestInstanceDriver
-} from './captcha-test-instance-driver';
-const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<CaptchaTestInstanceDriver>(CaptchaTestInstanceDriverFactory);
+  CaptchaTestComponentDriver
+} from './test-assets/captcha-test-component-driver';
+const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<CaptchaTestComponentDriver>(CaptchaTestInstanceDriverFactory);
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({kind: 'WIP', story: 'Captcha'});
