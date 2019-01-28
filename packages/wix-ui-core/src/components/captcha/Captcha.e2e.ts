@@ -19,7 +19,7 @@ import {CaptchaConstants} from './Captcha.constants'
 
 
 describe('Captcha', () => {
-  const storyUrl = createStoryUrl({ kind: 'WIP', story: 'Captcha' })
+  const storyUrl = createStoryUrl({ kind: 'Components', story: 'Captcha' })
 
   beforeAll(async () => {
     await browser.get(storyUrl)

@@ -8,7 +8,7 @@ import {CaptchaTestComponent} from '../src/components/captcha/test-assets/Captch
 const demoSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 export default {
-  category: 'WIP',
+  category: 'Components',
   storyName: 'Captcha',
   component: Captcha,
   componentPath: '../src/components/captcha/Captcha.tsx',
