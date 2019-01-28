@@ -40,19 +40,19 @@ function render(
   tabs: string[],
   storyConfig: StoryConfig,
 ): React.ReactNode {
-  return (
-    <TabbedView tabs={tabs}>
-      {section.sections.map((tabSection, key) => (
-        <div className={styles.section} key={key}>
-          {!isTab(tabSection) && tabSection.title && (
-            <div className={styles.sectionTitle}>{tabSection.title}</div>
-          )}
+  return React.createElement(tabs.length ? TabbedView : 'div', {
+    ...(tabs ? { tabs } : {}),
+    className: styles.tab,
+    children: section.sections.map((tabSection, key) => (
+      <div className={styles.section} key={key}>
+        {!isTab(tabSection) && tabSection.title && (
+          <div className={styles.sectionTitle}>{tabSection.title}</div>
+        )}
 
-          {getView(tabSection.type)(tabSection, storyConfig)}
-        </div>
-      ))}
-    </TabbedView>
-  );
+        {getView(tabSection.type)(tabSection, storyConfig)}
+      </div>
+    )),
+  });
 }
 
 export const tab = views.tab;
