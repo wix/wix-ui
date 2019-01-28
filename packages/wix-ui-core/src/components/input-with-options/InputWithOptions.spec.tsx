@@ -176,29 +176,26 @@ describe('InputWithOptions', () => {
       expect(onManualInput).toHaveBeenCalledTimes(1);
     });
 
+    it('should NOT trigger onManualInput when input is blurred given that the input value was NOT edited by the user', () => {
+      const driver = getDriver();
+      driver.click();
+      driver.blur();
+      expect(onManualInput).not.toHaveBeenCalled();
+    });
+
+    it('should trigger onManualInput when input is blurred, given that the user had edited the input', () => {
+      const driver = getDriver();
+      driver.keyDown('a');
+      driver.blur();
+      expect(onManualInput).toHaveBeenCalledWith('a');
+      expect(onManualInput).toHaveBeenCalledTimes(1);
+    });
+
     it('should trigger onManualInput with the actual value on Tab key', () => {
       const driver = getDriver();
 
       driver.click();
       driver.keyDown('Tab');
-      expect(onManualInput).toHaveBeenCalledWith('a');
-      expect(onManualInput).toHaveBeenCalledTimes(1);
-    });
-
-    it('should trigger onManualInput with the actual value on blur', () => {
-      const driver = getDriver();
-
-      // should not call onManualInput if onSelect has been triggered
-      driver.click();
-      driver.optionAt(0).click();
-      expect(onSelect).toHaveBeenCalledWith(options[0]);
-      driver.blur();
-      expect(onManualInput).not.toHaveBeenCalled();
-
-      // should call onManualInput once blurring a changed value
-      driver.setValue('a');
-      driver.keyDown('a');
-      driver.blur();
       expect(onManualInput).toHaveBeenCalledWith('a');
       expect(onManualInput).toHaveBeenCalledTimes(1);
     });
