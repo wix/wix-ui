@@ -1,9 +1,10 @@
 .root {
-  -st-states: loaded(boolean)
+    -st-states: loaded(boolean)
 }
 
 .loader {
-
+    align-content: center;
+    align-items: center;
 }
 
 .captcha {
