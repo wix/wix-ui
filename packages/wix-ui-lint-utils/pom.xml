@@ -10,7 +10,7 @@
 
     <parent>
         <groupId>com.wixpress.common</groupId>
-        <artifactId>wix-master-parent</artifactId>
+        <artifactId>wix-statics-parent</artifactId>
         <version>100.0.0-SNAPSHOT</version>
     </parent>
 
