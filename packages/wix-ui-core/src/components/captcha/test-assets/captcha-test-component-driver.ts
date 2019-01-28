@@ -12,13 +12,13 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 import {UniDriver} from 'unidriver';
 
-async function validateCaptchaIsActuallyVerifiedByUser() {
+async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${verifiedTokenDataHook}`));
   const verifiedToken = await $(`[data-hook=${verifiedTokenDataHook}]`).getText();
   return verifiedToken !== 'verifiedToken=' && verifiedToken.includes('verifiedToken=');
 }
 
-async function validateCaptchaHasBeenReseted() {
+async function isCaptchaResetted() {
   await waitForVisibilityOf($(`[data-hook=${resetDataHook}`));
   const resetTxt = await $(`[data-hook=${resetDataHook}]`).getText();
   return resetTxt === 'reset';
@@ -50,8 +50,8 @@ export interface CaptchaTestComponentDriver extends BaseUniDriver {
   resetCaptcha: () => Promise<any>;
   clickOnCaptcha: () => Promise<any>;
   validateCaptchaRendered: () => Promise<boolean>;
-  validateCaptchaIsVerified: () => Promise<boolean>;
-  validateCaptchaRest: () => Promise<boolean>;
+  isCaptchaVerified: () => Promise<boolean>;
+  isCaptchaResetted: () => Promise<boolean>;
 }
 
 export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestComponentDriver => {
@@ -60,7 +60,7 @@ export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestCo
     resetCaptcha: async () => $(`[data-hook=${resetButtonDataHook}`).click(),
     clickOnCaptcha : async () => waitAndClickOnCaptcha(),
     validateCaptchaRendered: async () => validateCaptcharenderedString(),
-    validateCaptchaIsVerified: async () => validateCaptchaIsActuallyVerifiedByUser(),
-    validateCaptchaRest:async  () => validateCaptchaHasBeenReseted()
+    isCaptchaVerified: async () => isCaptchaVerified(),
+    isCaptchaResetted:async  () => isCaptchaResetted()
   }
 };

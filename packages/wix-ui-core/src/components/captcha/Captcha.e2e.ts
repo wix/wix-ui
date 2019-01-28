@@ -57,15 +57,15 @@ describe('Captcha', () => {
       it('should verify the user click generates verification string', async () => {
         const driver = captchaTestInstanceFactory({dataHook});
         await driver.clickOnCaptcha();
-        expect(await driver.validateCaptchaIsVerified()).toBe(true);
+        expect(await driver.isCaptchaVerified()).toBe(true);
       });
 
       it('should reset a verified captcha', async () => {
         const driver = captchaTestInstanceFactory({dataHook});
         await driver.clickOnCaptcha();
-        expect(await driver.validateCaptchaIsVerified()).toBe(true);
+        expect(await driver.isCaptchaVerified()).toBe(true);
         await driver.resetCaptcha();
-        expect(await driver.validateCaptchaRest()).toBe(true);
+        expect(await driver.isCaptchaResetted()).toBe(true);
       });
     })
   })
