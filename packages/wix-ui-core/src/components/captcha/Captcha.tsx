@@ -60,7 +60,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   /**
    * returns the verification token to the caller
    */
-  verificationToken() {
+  getVerificationToken() {
     return this.state.token;
   }
 
@@ -70,7 +70,6 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   isVerified() {
     return this.state.token !== undefined;
   }
-
 
   /**
    * the user has successfully taken the captcha and we have the verification id
@@ -122,9 +121,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
         data-lang={lang}
         data-size={size}
       >
-        <div className={styles.loader}>
-          {!this.state.rendered && loader}
-        </div>
+        {!this.state.rendered && <div className={styles.loaderWrapper}>{loader}</div >}
         <div className={styles.captcha}>
           <Reaptcha
             ref={e => (this.captchaRef = e)}

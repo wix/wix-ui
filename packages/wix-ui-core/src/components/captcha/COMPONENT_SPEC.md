@@ -76,15 +76,14 @@ support the styles.loader style.
 
 ### Style Code Example
 
-.loader {
-    overflow: hidden;
-    border: 3px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 3px solid #3498db;
-    width: 72px;
-    height: 72px;
-    margin-left: 36px;
+```css
+.loaderWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
 }
+```
 
 ## Accessibility & Keyboard Navigation
 

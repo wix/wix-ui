@@ -2,9 +2,8 @@
     -st-states: loaded(boolean)
 }
 
-.loader {
-    align-content: center;
-    align-items: center;
+.loaderWrapper {
+
 }
 
 .captcha {
@@ -13,6 +12,10 @@
 
 .root:loaded .captcha {
     display: block;
+}
+
+.root:loaded .loaderWrapper {
+    display: none;
 }
 
 .root .captcha {

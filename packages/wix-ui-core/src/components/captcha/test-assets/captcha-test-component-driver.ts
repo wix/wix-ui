@@ -1,10 +1,6 @@
 import {browser, $, $$} from 'protractor';
 import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-
-const loadedDataHook = 'captcha-test-example-rendered';
-const resetButtonDataHook = 'captcha-reset-button';
-const resetDataHook = 'captcha-reset';
-const verifiedTokenDataHook = 'captcha-test-example-verified-token';
+import {CaptchaConstants} from '../Captcha.constants'
 
 import {
   BaseUniDriver,
@@ -13,31 +9,30 @@ import {
 import {UniDriver} from 'unidriver';
 
 async function isCaptchaVerified() {
-  await waitForVisibilityOf($(`[data-hook=${verifiedTokenDataHook}`));
-  const verifiedToken = await $(`[data-hook=${verifiedTokenDataHook}]`).getText();
-  return verifiedToken !== 'verifiedToken=' && verifiedToken.includes('verifiedToken=');
+  await waitForVisibilityOf($(`[data-hook=${CaptchaConstants.verifiedTokenDataHook}`));
+  const verifiedToken = await $(`[data-hook=${CaptchaConstants.verifiedTokenDataHook}]`).getText();
+  return verifiedToken !== CaptchaConstants.verifiedTokenMark && verifiedToken.includes(CaptchaConstants.verifiedTokenMark);
 }
 
 async function isCaptchaResetted() {
-  await waitForVisibilityOf($(`[data-hook=${resetDataHook}`));
-  const resetTxt = await $(`[data-hook=${resetDataHook}]`).getText();
-  return resetTxt === 'reset';
+  await waitForVisibilityOf($(`[data-hook=${CaptchaConstants.resetDataHook}`));
+  const resetTxt = await $(`[data-hook=${CaptchaConstants.resetDataHook}]`).getText();
+  return resetTxt === CaptchaConstants.resetMark;
 }
 
-
-async function validateCaptcharenderedString() {
-  await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
-  return await $(`[data-hook=${loadedDataHook}]`).getText() === 'rendered=true';
+async function validateCaptchaRendered() {
+  await waitForVisibilityOf($(`[data-hook=${CaptchaConstants.renderDataHook}`));
+  return await $(`[data-hook=${CaptchaConstants.renderDataHook}]`).getText() === CaptchaConstants.renderedMark + 'true';
 }
 
 /**
  * this method will find the captcha frame and click it
  */
 async function waitAndClickOnCaptcha() {
-  const captchaElement = $(`[data-hook=${'captcha-test-example'}`);
+  const captchaElement = $(`[data-hook=${CaptchaConstants.dataHook}`);
   await waitForVisibilityOf(captchaElement);
-  // lets wait for the captcha to load from google
-  await waitForVisibilityOf($(`[data-hook=${loadedDataHook}`));
+  // lets wait for the captcha to render
+  await waitForVisibilityOf($(`[data-hook=${CaptchaConstants.renderDataHook}`));
   //lets find the iframe with the captcha checkbox
   const captchaIframe = captchaElement.$('iframe');
   await browser.switchTo().frame(captchaIframe.getWebElement());
@@ -49,7 +44,7 @@ async function waitAndClickOnCaptcha() {
 export interface CaptchaTestComponentDriver extends BaseUniDriver {
   resetCaptcha: () => Promise<any>;
   clickOnCaptcha: () => Promise<any>;
-  validateCaptchaRendered: () => Promise<boolean>;
+  isCaptchaRendered: () => Promise<boolean>;
   isCaptchaVerified: () => Promise<boolean>;
   isCaptchaResetted: () => Promise<boolean>;
 }
@@ -57,10 +52,10 @@ export interface CaptchaTestComponentDriver extends BaseUniDriver {
 export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestComponentDriver => {
   return {
     ...baseUniDriverFactory(base),
-    resetCaptcha: async () => $(`[data-hook=${resetButtonDataHook}`).click(),
-    clickOnCaptcha : async () => waitAndClickOnCaptcha(),
-    validateCaptchaRendered: async () => validateCaptcharenderedString(),
+    resetCaptcha: async () => $(`[data-hook=${CaptchaConstants.resetButtonDataHook}`).click(),
+    clickOnCaptcha: async () => waitAndClickOnCaptcha(),
+    isCaptchaRendered: async () => validateCaptchaRendered(),
     isCaptchaVerified: async () => isCaptchaVerified(),
-    isCaptchaResetted:async  () => isCaptchaResetted()
+    isCaptchaResetted: async () => isCaptchaResetted()
   }
 };

@@ -7,7 +7,6 @@ const style = {
   borderTop: '3px solid #3498db',
   width: '72px',
   height: '72px',
-  marginLeft: '36px',
 };
 
 class ExampleLoader extends React.Component {

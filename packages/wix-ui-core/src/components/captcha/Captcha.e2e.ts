@@ -15,6 +15,8 @@ import {
   CaptchaTestComponentDriver
 } from './test-assets/captcha-test-component-driver'
 const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator < CaptchaTestComponentDriver > (CaptchaTestInstanceDriverFactory)
+import {CaptchaConstants} from './Captcha.constants'
+
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({ kind: 'WIP', story: 'Captcha' })
@@ -25,8 +27,8 @@ describe('Captcha', () => {
 
   afterEach(() => autoExampleDriver.remount())
 
-  describe('wrapped test component', () => {
-    const dataHook = 'captcha-test-example'
+  describe('captcha component', () => {
+    const dataHook = CaptchaConstants.dataHook
 
     it('should load the component with dark theme', async () => {
       const driver = captchaTestkitFactory({ dataHook })
@@ -48,10 +50,10 @@ describe('Captcha', () => {
       expect(await driver.getLang()).toBe(CaptchaLang.EnglishUS)
     })
 
-    describe('test component', () => {
+    describe('captcha test component', () => {
       it('should load the component', async () => {
         const driver = captchaTestInstanceFactory({ dataHook })
-        expect(await driver.validateCaptchaRendered()).toBe(true)
+        expect(await driver.isCaptchaRendered()).toBe(true)
       })
 
       it('should verify the user click generates verification string', async () => {
