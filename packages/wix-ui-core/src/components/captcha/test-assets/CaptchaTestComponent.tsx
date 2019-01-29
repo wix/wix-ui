@@ -51,7 +51,7 @@ export class CaptchaTestComponent extends React.Component {
           onExpire={() => this.setState({resetted:false,expired: true})}
           onReset={() => this.setState({resetted:true, verifiedToken: this.getVerifiedToken()})}
         />
-        <div data-hook={constants.renderDataHook}>{constants.renderedMark}{`${this.state.rendered}`}</div>
+        {this.state.rendered && <div data-hook={constants.renderDataHook}>{constants.renderedMark}{`${this.state.rendered}`}</div>}
         <div>expired={`${this.state.expired}`}</div>
         {this.isCaptchaVerified() && <div data-hook={`${constants.verifiedTokenDataHook}`}>{constants.verifiedTokenMark}{this.getVerifiedToken()}</div>}
         {this.state.resetted && <div data-hook={constants.resetDataHook}>{constants.resetMark}</div>}
