@@ -13,7 +13,7 @@ import {
 import {
   CaptchaTestInstanceDriverFactory,
   CaptchaTestComponentDriver
-} from './test-assets/CaptchaTestComponent.driver'
+} from './test-assets/CaptchaTestComponent.testDriver'
 const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator < CaptchaTestComponentDriver > (CaptchaTestInstanceDriverFactory);
 import {constants} from './test-assets/constants'
 
