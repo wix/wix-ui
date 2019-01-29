@@ -25,6 +25,7 @@ import './Autocomplete.story';
 import '../src/components/avatar/avatar.story';
 import './Button.story';
 import '../src/components/button-next/button-next.story';
+import './Captcha.story';
 Components.add('Checkbox', () => <CheckboxStory />);
 import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory />);

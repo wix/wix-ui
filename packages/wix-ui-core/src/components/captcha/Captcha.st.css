@@ -1,0 +1,23 @@
+.root {
+    -st-states: loaded(boolean)
+}
+
+.loaderWrapper {
+
+}
+
+.captcha {
+
+}
+
+.root:loaded .captcha {
+    display: block;
+}
+
+.root:loaded .loaderWrapper {
+    display: none;
+}
+
+.root .captcha {
+    display: none;
+}

@@ -211,3 +211,10 @@ export const navStepperTestkitFactory = protractorTestkitFactoryCreator(
   navStepperDriverFactory
 );
 export { NavStepperDriver };
+
+import {
+  captchaDriverFactory,
+  CaptchaDriver
+} from '../components/captcha/Captcha.driver';
+export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<CaptchaDriver>(captchaDriverFactory);
+export { CaptchaDriver };
