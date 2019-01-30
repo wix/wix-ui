@@ -126,6 +126,7 @@ export default class extends Component {
       funcAnimate: {},
       isRtl: false,
       isDarkBackground: false,
+      forceRemount: 0,
     };
 
     this._initialPropsState = this.state.propsState;
@@ -143,6 +144,10 @@ export default class extends Component {
   }
 
   resetState = () => this.setState({ propsState: this._initialPropsState });
+
+  remountComponent = () => {
+    this.setState({ forceRemount: this.state.forceRemount + 1 });
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -377,12 +382,14 @@ export default class extends Component {
         </Cell>
 
         <Preview
+          key={this.state.forceRemount}
           isRtl={this.state.isRtl}
           isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({ isRtl })}
           onToggleBackground={isDarkBackground =>
             this.setState({ isDarkBackground })
           }
+          onRemountComponent={this.remountComponent}
           children={componentToRender}
         />
 
