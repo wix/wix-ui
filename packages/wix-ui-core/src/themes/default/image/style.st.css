@@ -5,14 +5,16 @@
 
 .root {
     -st-extends: Image;
-}
-
-.root:loadState(loaded){ 
-    border: 13px solid gold
+    height: 235px;
+    width: 100%;
 }
 
 .root:loadState(loading){
-     border: 13px solid grey
+    border: 13px solid gold
+}
+
+.root:loadState(loaded){ 
+    border: 13px solid blue
 }
 
 .root:loadState(error){ 
