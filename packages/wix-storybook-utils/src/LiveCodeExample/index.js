@@ -6,6 +6,9 @@ import { Collapse } from 'react-collapse';
 import copy from 'copy-to-clipboard';
 import styles from './index.scss';
 
+import prettier from 'prettier/standalone';
+import babylonParser from 'prettier/parser-babylon';
+
 import ToggleSwitch from '../ui/toggle-switch';
 import Revert from 'wix-ui-icons-common/Revert';
 import Code from 'wix-ui-icons-common/Code';
@@ -56,8 +59,15 @@ export default class LiveCodeExample extends Component {
   constructor(props) {
     super(props);
 
+    const formattedCode = prettier.format(props.initialCode, {
+      parser: 'babel',
+      plugins: [babylonParser],
+      singleQuote: true,
+      trailingComma: 'all',
+    });
+
     this.state = {
-      code: props.initialCode,
+      code: formattedCode,
       isRtl: false,
       isDarkBackground: false,
       isEditorOpened: !props.compact,
