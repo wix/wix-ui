@@ -1,10 +1,11 @@
 import { browser } from 'protractor';
-import { createStoryUrl } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  protractorUniTestkitFactoryCreator,
+} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { captchaTestkitFactory } from '../../testkit/protractor';
 import { Size, CaptchaType, Theme, CaptchaLang } from './types';
-
-import { protractorUniTestkitFactoryCreator } from 'wix-ui-test-utils/protractor';
 
 import {
   CaptchaTestInstanceDriverFactory,

@@ -19,7 +19,7 @@ describe('Video/getSDK', () => {
     it('should be resolved', async () => {
       const resolveSpy = jest.fn();
 
-      getSDK({
+      await getSDK({
         name: 'YT',
         url: 'https://www.youtube.com/iframe_api',
         isLoaded: () => false,
@@ -35,13 +35,13 @@ describe('Video/getSDK', () => {
       const resolveSpy1 = jest.fn();
       const resolveSpy2 = jest.fn();
 
-      getSDK({
+      await getSDK({
         name: 'FB',
         url: '//connect.facebook.net/en_US/sdk.js',
         isLoaded: () => false,
       }).then(resolveSpy1);
 
-      getSDK({
+      await getSDK({
         name: 'FB',
         url: '//connect.facebook.net/en_US/sdk.js',
         isLoaded: () => false,
@@ -59,7 +59,7 @@ describe('Video/getSDK', () => {
 
       (window as any).MOCKPLAYERSDK = true;
 
-      getSDK({
+      await getSDK({
         name: 'MOCKPLAYERSDK',
         url: '//test.com/sdk.js',
         isLoaded: () => true,
@@ -83,7 +83,7 @@ describe('Video/getSDK', () => {
       (window as any).define = jest.fn();
       (window as any).define.amd = true;
 
-      getSDK({
+      await getSDK({
         name: 'MOCKREQUIREPLAYER',
         url: '//test.com/mock-sdk.js',
         isLoaded: () => true,

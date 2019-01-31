@@ -23,6 +23,7 @@
     "array-bracket-spacing": [
       true,
       "never"
-    ]
+    ],
+    "no-floating-promises": false
   }
 }

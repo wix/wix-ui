@@ -26,7 +26,7 @@ describe('GoogleMapsBasicClient', () => {
 
   const setUpGoogleMapsMock = () => {
     const getPlacePredictions = jest.fn((request, callback) => {
-      const result = 'result ' + request.input;
+      const result = `result ${request.input}`;
       setTimeout(() => callback(result, getStatus()), 10);
     });
     const geocode = jest.fn((request, callback) => {

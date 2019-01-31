@@ -16,9 +16,9 @@ describe('RadioButton', () => {
     const radio = radioButtonTestkitFactory({ dataHook });
     return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton').then(
       async () => {
-        await expect(radio.isSelected()).toBeFalsy();
+        expect(radio.isSelected()).toBeFalsy();
         radio.select();
-        await expect(radio.isSelected()).toBeTruthy();
+        expect(radio.isSelected()).toBeTruthy();
       },
     );
   });

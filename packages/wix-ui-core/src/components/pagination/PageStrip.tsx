@@ -129,7 +129,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       if (pageNumber === currentPage) {
         return (
           <span
-            key={pageNumber + '-' + index}
+            key={`${pageNumber}-${index}`}
             data-hook={`page-${pageNumber} current-page`}
             aria-label={`Page ${pageNumber}`}
             className={style.currentPage}
@@ -141,7 +141,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
 
       if (isDummy) {
         return (
-          <a key={pageNumber + '-' + index} className={style.pageButton}>
+          <a key={`${pageNumber}-${index}`} className={style.pageButton}>
             {pageNumber}
           </a>
         );
@@ -149,7 +149,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
 
       return (
         <a
-          key={pageNumber + '-' + index}
+          key={`${pageNumber}-${index}`}
           data-hook={`page-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
           className={style.pageButton}

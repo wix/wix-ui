@@ -144,7 +144,7 @@ export const sliderDriverFactory = ({ element, eventTrigger }) => {
       driver.forceUpdate();
     },
 
-    getTrackBoundingRect() {
+    getTrackBoundingRect(): ClientRect {
       return driver.track().getBoundingClientRect();
     },
 
@@ -204,7 +204,7 @@ export const sliderDriverFactory = ({ element, eventTrigger }) => {
       return tooltip && tooltip.textContent;
     },
 
-    clickTick(tickIdx) {
+    clickTick(tickIdx: number) {
       const tick = driver.ticks()[tickIdx];
       const offset = driver.getOffsetByValue(driver.min() + tickIdx);
       eventTrigger.click(tick, {

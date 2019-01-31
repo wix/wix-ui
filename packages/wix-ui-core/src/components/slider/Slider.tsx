@@ -117,7 +117,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return step;
   }
 
-  getStepValue() {
+  getStepValue(): number {
     const { min, max, step, stepType } = this.props;
 
     if (step > 0) {
@@ -168,7 +168,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     };
   }
 
-  getThumbSizeMainAxis() {
+  getThumbSizeMainAxis(): number {
     const size = this.getThumbSize();
     return this.isVertical() ? size.height : size.width;
   }
@@ -203,9 +203,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       return;
     }
 
-    const step = this.getStepValue();
+    const step: number = this.getStepValue();
 
-    let nextValue;
+    let nextValue: number;
 
     switch (ev.key) {
       case 'ArrowDown':
@@ -315,12 +315,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.getStepValue();
     const thumbSize = this.getThumbSizeMainAxis();
     const totalSteps = Math.ceil((max - min) / step);
-    const rect = this.track.getBoundingClientRect();
+    const rect: ClientRect = this.track.getBoundingClientRect();
 
     let value, pxStep, sliderPos;
 
     if (isVertical) {
-      sliderPos = rect.bottom - (ev.clientY + thumbSize / 2);
+      sliderPos = rect.bottom - ((ev.clientY as number) + thumbSize / 2);
       pxStep = (rect.height - thumbSize) / totalSteps;
     } else {
       if (rtl) {
@@ -425,7 +425,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const tickSize = this.props.tickMarksShape === 'line' ? 10 : 3;
     const tickMarksPos = this.props.tickMarksPosition;
     const tickMarksGap = 12;
-    let offsetWidth, offsetHeight, offsetLeft, offsetTop;
+    let offsetHeight, offsetTop;
 
     if (tickMarksPos === 'normal') {
       offsetHeight = tickSize + tickMarksGap;
@@ -484,8 +484,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.getStepValue();
     const thumbPosition: any = this.calcThumbPosition();
     const trackStyle = vertical
-      ? { width: trackSize + '%' }
-      : { height: trackSize + '%' };
+      ? { width: `${trackSize}%` }
+      : { height: `${trackSize}%` };
     const trackFillPosition = vertical
       ? {
           bottom: 0,

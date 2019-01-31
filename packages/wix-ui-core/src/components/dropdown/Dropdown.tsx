@@ -212,7 +212,7 @@ export class DropdownComponent extends React.PureComponent<
           newState.selectedIds = [...selectedIds, option.id];
         }
       }
-    } else {
+
       // Single select
       if (option) {
         // if option was clicked (could be null when Autocomplete receives a new string)

@@ -29,7 +29,8 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
         return null;
       }
       const className = (root.props && root.props.className) || '';
-      const statesMap = getState(this.props, this.state, this.context);
+      /* tslint:disable-next-line */
+      const statesMap = getState(this.props, this.state, this.context); // TODO: remove tslint:disable annotation
       const props = stylesheet(
         `root ${className ? className : ''}`.trim(),
         statesMap,

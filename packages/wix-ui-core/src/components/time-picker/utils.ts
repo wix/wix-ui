@@ -1,6 +1,6 @@
 import { FIELD, BLANK, NULL_TIME } from './constants';
 
-export const leftpad = str => ('00' + str).slice(-2);
+export const leftpad = (str: string) => ('00' + str).slice(-2);
 
 export const getFieldFromPos = (pos: number) => Math.floor(pos / 3) + 1;
 
@@ -16,7 +16,7 @@ export const isValidTime = (timeStr: string, useAmPm: boolean = false) => {
   return useAmPm ? test12.test(timeStr) : test24.test(timeStr);
 };
 
-const parseIntOrZero = str => parseInt(str) || 0;
+const parseIntOrZero = str => parseInt(str, 10) || 0;
 
 const changeTime = ({ value, field, step = 1 }) => {
   let { hour, minute } = parseTime(value);
@@ -70,10 +70,11 @@ export const decrement = ({ value, field, step = 1 }) =>
   });
 
 export const convertToAmPm = ({ value, strings = { am: 'AM', pm: 'PM' } }) => {
-  let { hour, minute } = parseTime(value);
+  let { hour } = parseTime(value);
+  const { minute } = parseTime(value);
   let ampm = strings.am;
   if (hour !== BLANK) {
-    let nHour = parseInt(hour);
+    let nHour = parseInt(hour, 10);
     if (nHour > 11) {
       ampm = strings.pm;
     }

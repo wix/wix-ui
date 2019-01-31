@@ -3,7 +3,7 @@ import { EventEmitterMock, GoogleMapsMock } from '../IframeTestUtils';
 import * as handlerNames from '../handlersName';
 
 let dummyGoogleMapsMock,
-  mockRequestId,
+  mockRequestId: string,
   mockAutocompleteResult,
   eventEmitterMock,
   googleMock,

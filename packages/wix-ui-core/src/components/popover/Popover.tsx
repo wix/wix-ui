@@ -24,15 +24,13 @@ import isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
-if (isTestEnv && typeof document !== 'undefined') {
-  if (!document.createRange) {
-    document.createRange = () =>
-      ({
-        setStart: () => null,
-        setEnd: () => null,
-        commonAncestorContainer: document.documentElement.querySelector('body'),
-      } as any);
-  }
+if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
+  document.createRange = () =>
+    ({
+      setStart: () => null,
+      setEnd: () => null,
+      commonAncestorContainer: document.documentElement.querySelector('body'),
+    } as any);
 }
 
 export type Placement = PopperJS.Placement;

@@ -4,7 +4,7 @@ export const getDisplayName = Component => {
   }
 
   if (!Component) {
-    return undefined;
+    return '';
   }
 
   return Component.displayName || Component.name || 'Component';

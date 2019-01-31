@@ -1,10 +1,6 @@
 import { sliderTestkitFactory } from '../../testkit/protractor';
-import {
-  createStoryUrl,
-  waitForVisibilityOf,
-} from 'wix-ui-test-utils/protractor';
+import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
-import * as eyes from 'eyes.it';
 
 describe('Slider', () => {
   let driver;
@@ -42,7 +38,7 @@ describe('Slider', () => {
     const valueAfterDrop = await driver.getSliderValue();
 
     //When
-    browser.driver
+    await browser.driver
       .actions()
       .mouseMove({ x: 400, y: 0 })
       .perform();
@@ -52,8 +48,8 @@ describe('Slider', () => {
     expect(valueAfterDropAndMove).toEqual(valueAfterDrop);
   });
 
-  async function assertTooltipValueApproximately(approxValue) {
-    const value = parseInt(await driver.getTooltipValue());
+  async function assertTooltipValueApproximately(approxValue: number) {
+    const value = parseInt(await driver.getTooltipValue(), 10);
     expect(value).toBeGreaterThanOrEqual(approxValue - 1);
     expect(value).toBeLessThanOrEqual(approxValue + 1);
   }

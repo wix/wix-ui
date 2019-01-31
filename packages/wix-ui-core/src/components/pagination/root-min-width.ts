@@ -68,6 +68,6 @@ export const measureAndSetRootMinWidth = (
     );
   }
 
-  compNode.style.minWidth = navButtonsMinWidth + selectionMinWidth + 'px';
-  compNode.style.minHeight = minHeight + 'px';
+  compNode.style.minWidth = `${navButtonsMinWidth + selectionMinWidth}px`;
+  compNode.style.minHeight = `${minHeight}px`;
 };

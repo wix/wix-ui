@@ -208,10 +208,9 @@ export class Pagination extends React.Component<
           disabled={this.props.disabled}
           onChange={this.handlePageInputChange}
           onKeyDown={this.handlePageInputKeyDown}
-          aria-label={
-            'Page number, select a number between 1 and ' +
+          aria-label={`Page number, select a number between 1 and ${
             this.props.totalPages
-          }
+          }`}
           onBlur={this.handlePageInputBlur}
           style={{ width: calculateWidth(this.props.totalPages) }}
         />

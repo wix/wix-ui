@@ -16,49 +16,43 @@ describe('ToggleSwitch', () => {
 
   beforeEach(() => browser.get(storyUrl));
 
-  eyes.it('should toggle', () => {
+  eyes.it('should toggle', async () => {
     const driver = toggleSwitchTestkitFactory({ dataHook });
 
-    return waitForVisibilityOf(
-      driver.element(),
-      'Cannot find ToggleSwitch',
-    ).then(() => {
-      expect(driver.checked()).toBeFalsy();
+    await waitForVisibilityOf(driver.element(), 'Cannot find ToggleSwitch');
 
-      driver.click();
-      expect(driver.checked()).toBeTruthy();
+    expect(await driver.checked()).toBeFalsy();
 
-      driver.click();
-      expect(driver.checked()).toBeFalsy();
-    });
+    await driver.click();
+    expect(await driver.checked()).toBeTruthy();
+
+    await driver.click();
+    expect(await driver.checked()).toBeFalsy();
   });
 
-  eyes.it('should support accessiblility features', () => {
+  eyes.it('should support accessiblility features', async () => {
     const driver = toggleSwitchTestkitFactory({ dataHook });
 
-    return waitForVisibilityOf(
-      driver.element(),
-      'Cannot find ToggleSwitch',
-    ).then(() => {
-      expect(driver.checked()).toBe(false);
+    await waitForVisibilityOf(driver.element(), 'Cannot find ToggleSwitch');
 
-      browser
-        .actions()
-        .sendKeys(Key.TAB, Key.SPACE)
-        .perform();
-      expect(driver.checked()).toBe(true);
+    expect(await driver.checked()).toBe(false);
 
-      browser
-        .actions()
-        .sendKeys(Key.SPACE)
-        .perform();
-      expect(driver.checked()).toBe(false);
+    await browser
+      .actions()
+      .sendKeys(Key.TAB, Key.SPACE)
+      .perform();
+    expect(await driver.checked()).toBe(true);
 
-      browser
-        .actions()
-        .sendKeys(Key.CONTROL)
-        .perform();
-      expect(driver.checked()).toBe(false);
-    });
+    await browser
+      .actions()
+      .sendKeys(Key.SPACE)
+      .perform();
+    expect(await driver.checked()).toBe(false);
+
+    await browser
+      .actions()
+      .sendKeys(Key.CONTROL)
+      .perform();
+    expect(await driver.checked()).toBe(false);
   });
 });
