@@ -1,11 +1,23 @@
 @import '../ui/typography.scss';
 
-.container {
+.page {
   margin: 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  margin: 30px 0;
+  width: 1161px;
+}
+
+.header {
+   margin-bottom: 30px;
 }
 
 .title {
-  margin-top: 30px;
   font-size: 36px;
   line-height: 1.33;
   color: #162d3d;
@@ -16,7 +28,6 @@
   font-size: 16px;
   line-height: 1.5;
   color: #32536a;
-  margin-bottom: 21px;
 }
 
 .title,
@@ -34,5 +45,6 @@
   font-size: 20px;
 }
 
-.tabs-container {
+.tab {
+  margin-bottom: 30px;
 }

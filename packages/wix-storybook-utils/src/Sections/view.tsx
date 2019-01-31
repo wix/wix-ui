@@ -7,7 +7,7 @@ import { tab as makeTab } from './';
 const styles = require('./styles.scss');
 
 const Header = ({ storyName, metadata }) => (
-  <div>
+  <div className={styles.header}>
     <div className={styles.title}>{storyName}</div>
     {metadata.displayName && (
       <div className={styles.subtitle}>{`<${metadata.displayName}/>`}</div>
@@ -16,13 +16,18 @@ const Header = ({ storyName, metadata }) => (
 );
 
 export const View: React.StatelessComponent<StoryConfig> = storyConfig => (
-  <div className={styles.container}>
-    <Header storyName={storyConfig.storyName} metadata={storyConfig.metadata} />
-    {tab(
-      makeTab({
-        sections: storyConfig.sections,
-      }),
-      storyConfig,
-    )}
+  <div className={styles.page}>
+    <div className={styles.content}>
+      <Header
+        storyName={storyConfig.storyName}
+        metadata={storyConfig.metadata}
+      />
+      {tab(
+        makeTab({
+          sections: storyConfig.sections,
+        }),
+        storyConfig,
+      )}
+    </div>
   </div>
 );
