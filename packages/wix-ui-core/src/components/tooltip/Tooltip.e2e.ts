@@ -1,13 +1,19 @@
 import * as eyes from 'eyes.it';
 import * as eventually from 'wix-eventually';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../testkit/protractor';
 
 const movedX = 10;
 
 describe('Tooltip', () => {
-  const storyUrl = getStoryUrl('Components', 'Tooltip Custom');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'Tooltip Custom',
+  });
 
   beforeEach(() => browser.get(storyUrl));
 

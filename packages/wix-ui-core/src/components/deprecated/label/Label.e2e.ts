@@ -1,10 +1,13 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { labelTestkitFactory } from '../../../testkit/protractor';
 
 describe('Label', () => {
-  const storyUrl = getStoryUrl('Components', 'Label');
+  const storyUrl = createStoryUrl({ kind: 'Components', story: 'Label' });
 
   beforeEach(() => browser.get(storyUrl));
   eyes.it('should display correct content', () => {

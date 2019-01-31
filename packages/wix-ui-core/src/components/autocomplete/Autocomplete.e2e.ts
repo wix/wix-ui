@@ -1,11 +1,17 @@
 import * as eyes from 'eyes.it';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { autocompleteTestkitFactory } from '../../testkit/protractor';
 import { browser } from 'protractor';
 import * as eventually from 'wix-eventually';
 
 describe('Autocomplete', () => {
-  const storyUrl = getStoryUrl('Components', 'Autocomplete');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'Autocomplete',
+  });
   const dataHook = 'storybook-autocomplete';
 
   beforeEach(() => browser.get(storyUrl));

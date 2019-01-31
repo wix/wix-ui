@@ -1,6 +1,9 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import {
   linearProgressBarTestkitFactory,
   LinearProgressBarDriver,
@@ -10,7 +13,10 @@ import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { LinearProgressBarProps } from './LinearProgressBar';
 
 describe('LinearProgresBar', () => {
-  const storyUrl = getStoryUrl('Components', 'LinearProgressBar');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'LinearProgressBar',
+  });
   const dataHook = 'progress-bar';
   let driver: LinearProgressBarDriver;
 

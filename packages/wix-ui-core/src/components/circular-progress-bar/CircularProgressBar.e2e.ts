@@ -1,6 +1,9 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import {
   circularProgressBarTestkitFactory,
   CircularProgressBarDriver,
@@ -10,7 +13,10 @@ import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { CircularProgressBarProps } from './CircularProgressBar';
 
 describe('CircularProgressBar', () => {
-  const storyUrl = getStoryUrl('Components', 'CircularProgressBar');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'CircularProgressBar',
+  });
   const dataHook = 'circular-progress-bar';
   let driver: CircularProgressBarDriver;
 

@@ -1,10 +1,10 @@
 import { browser } from 'protractor';
 import * as eyes from 'eyes.it';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { createStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { navStepperTestkitFactory } from '../../testkit/protractor';
 
 describe('NavStepper', () => {
-  const storyUrl = getStoryUrl('Components', 'NavStepper');
+  const storyUrl = createStoryUrl({kind: 'Components', story: 'NavStepper'});
 
   beforeEach(() => browser.get(storyUrl));
 

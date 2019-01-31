@@ -1,11 +1,17 @@
 import * as eyes from 'eyes.it';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { labelWithOptionsTestkitFactory } from '../../testkit/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { browser } from 'protractor';
 
 describe('LabelWithOptions', () => {
-  const storyUrl = getStoryUrl('Components', 'LabelWithOptions');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'LabelWithOptions',
+  });
   const dataHook = 'storybook-labelwithoptions';
 
   beforeEach(() => browser.get(storyUrl));

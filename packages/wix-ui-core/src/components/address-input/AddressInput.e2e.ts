@@ -1,10 +1,16 @@
 import * as eyes from 'eyes.it';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { addressInputTestkitFactory } from '../../testkit/protractor';
 import { browser, $ } from 'protractor';
 
 describe('AddressInput', () => {
-  const storyUrl = getStoryUrl('Components', 'AddressInputE2E');
+  const storyUrl = createStoryUrl({
+    kind: 'Components',
+    story: 'AddressInputE2E',
+  });
   const dataHook = 'storybook-address-input';
 
   beforeEach(() => browser.get(storyUrl));

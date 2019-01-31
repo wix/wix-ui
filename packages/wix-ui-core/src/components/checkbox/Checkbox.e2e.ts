@@ -1,11 +1,14 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { checkboxTestkitFactory } from '../../testkit/protractor';
 import { Key } from 'selenium-webdriver';
 
 describe('Checkbox', () => {
-  const storyUrl = getStoryUrl('Components', 'Checkbox');
+  const storyUrl = createStoryUrl({ kind: 'Components', story: 'Checkbox' });
   const dataHook = 'storybook-checkbox';
 
   beforeEach(() => browser.get(storyUrl));

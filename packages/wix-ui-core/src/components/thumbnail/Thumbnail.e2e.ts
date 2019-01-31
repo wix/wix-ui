@@ -1,10 +1,13 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { thumbnailTestkitFactory } from '../../testkit/protractor';
 
 describe('Thumbnail', () => {
-  const storyUrl = getStoryUrl('Components', 'Thumbnail');
+  const storyUrl = createStoryUrl({ kind: 'Components', story: 'Thumbnail' });
 
   beforeEach(() => browser.get(storyUrl));
   eyes.it('should exist', () => {
