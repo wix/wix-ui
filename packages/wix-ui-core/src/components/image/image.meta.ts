@@ -33,18 +33,6 @@ imageMetadata
 
 imageMetadata
   .addSim({
-    title: 'loadingddd image',
-    props: {
-      src: BROKEN_SRC,
-      alt: 'This is an image of 2 flamingos',
-    },
-    state: {
-      status: ImageStatus.error
-    }
-  });
-
-imageMetadata
-  .addSim({
     title: 'renders a contain resized image',
     props: {
       src: SRC,
