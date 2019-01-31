@@ -70,7 +70,10 @@ export class ReactDOMTestContainer {
 
   public destroyAfterEachTest(): this {
     beforeEach(() => this.create());
-    afterEach(() => (this.unmount(), this.destroy()));
+    afterEach(() => {
+      this.unmount();
+      this.destroy();
+    });
     return this;
   }
 

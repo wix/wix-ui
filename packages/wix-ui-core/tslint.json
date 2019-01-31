@@ -12,7 +12,6 @@
       "never"
     ],
     "jsx-alignment": true,
-    "jsx-wrap-multiline": true,
     "space-in-brackets": [
       "error",
       "always"

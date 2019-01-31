@@ -55,10 +55,10 @@ export class TooltipComponent extends React.PureComponent<
   TooltipProps & InjectedOnClickOutProps,
   TooltipState
 > {
-  static Element: React.SFC<
+  static Element: React.FunctionComponent<
     ElementProps
   > = createComponentThatRendersItsChildren('Tooltip.Element');
-  static Content: React.SFC<
+  static Content: React.FunctionComponent<
     ElementProps
   > = createComponentThatRendersItsChildren('Tooltip.Content');
 

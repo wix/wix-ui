@@ -50,7 +50,7 @@ const renderBarSection = (value: number | string) => {
 };
 
 const normalizeProps = (props: LinearProgressBarProps) => {
-  const value = parseInt(props.value as any);
+  const value = parseInt(props.value as any, 10);
 
   if (props.value >= FULL_PROGRESS) {
     return { ...props, value: FULL_PROGRESS };
@@ -63,9 +63,9 @@ const normalizeProps = (props: LinearProgressBarProps) => {
   return { ...props, value };
 };
 
-export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (
-  props: LinearProgressBarProps,
-) => {
+export const LinearProgressBar: React.FunctionComponent<
+  LinearProgressBarProps
+> = (props: LinearProgressBarProps) => {
   const { error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;

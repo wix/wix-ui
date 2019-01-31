@@ -1,9 +1,13 @@
 import * as eyes from 'eyes.it';
 import { $, browser, element } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
-import { mouseEnter, mouseLeave } from 'wix-ui-test-utils/protractor';
+import {
+  mouseEnter,
+  mouseLeave,
+  getStoryUrl,
+  waitForVisibilityOf,
+  hasEllipsis,
+} from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from './../../testkit/protractor';
-import { hasEllipsis } from 'wix-ui-test-utils/protractor';
 
 describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl('HOCs', 'EllipsedTooltip');
