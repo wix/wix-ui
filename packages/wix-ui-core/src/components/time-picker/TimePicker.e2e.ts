@@ -1,17 +1,20 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { timePickerTestkitFactory } from '../../testkit/protractor';
 
 describe('TimePicker', () => {
-  const storyUrl = getStoryUrl('Components', 'TimePicker');
+  const storyUrl = createStoryUrl({ kind: 'Components', story: 'TimePicker' });
   const dataHook = 'storybook-timepicker';
 
   beforeEach(async () => browser.get(storyUrl));
 
   eyes.it('should exist', async () => {
     const driver = timePickerTestkitFactory({ dataHook });
-    await waitForVisibilityOf(await driver.element(), 'Cannot find TimePicker');
+    await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
   });
 
   describe('tickers', () => {
@@ -20,10 +23,7 @@ describe('TimePicker', () => {
     describe('ticker up', () => {
       eyes.it('should increment minutes [before being focused]', async () => {
         const driver = timePickerTestkitFactory({ dataHook });
-        await waitForVisibilityOf(
-          await driver.element(),
-          'Cannot find TimePicker',
-        );
+        await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
         await driver.clickTickerUp();
         const result = await driver.getValue();
         expect(result).toEqual('--:01');
@@ -33,10 +33,7 @@ describe('TimePicker', () => {
         'should increment minutes [after focusing on minutes]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowRight();
           await driver.clickTickerUp();
@@ -47,10 +44,7 @@ describe('TimePicker', () => {
 
       eyes.it('should increment hours [after focusing on hours]', async () => {
         const driver = timePickerTestkitFactory({ dataHook });
-        await waitForVisibilityOf(
-          await driver.element(),
-          'Cannot find TimePicker',
-        );
+        await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
         await driver.focus();
         await driver.pressKeyArrowLeft();
         await driver.clickTickerUp();
@@ -62,10 +56,7 @@ describe('TimePicker', () => {
         'should increment minutes [after focusing on minutes and then blurring]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowRight();
           await driver.blur();
@@ -79,10 +70,7 @@ describe('TimePicker', () => {
         'should increment hours [after focusing on hours and then blurring]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowLeft();
           await driver.blur();
@@ -96,10 +84,7 @@ describe('TimePicker', () => {
     describe('ticker down', () => {
       eyes.it('should decrement minutes [before being focused]', async () => {
         const driver = timePickerTestkitFactory({ dataHook });
-        await waitForVisibilityOf(
-          await driver.element(),
-          'Cannot find TimePicker',
-        );
+        await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
         await driver.clickTickerDown();
         const result = await driver.getValue();
         expect(result).toEqual('--:59');
@@ -109,10 +94,7 @@ describe('TimePicker', () => {
         'should decrement minutes [after focusing on minutes]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowRight();
           await driver.clickTickerDown();
@@ -123,10 +105,7 @@ describe('TimePicker', () => {
 
       eyes.it('should decrement hours [after focusing on hours]', async () => {
         const driver = timePickerTestkitFactory({ dataHook });
-        await waitForVisibilityOf(
-          await driver.element(),
-          'Cannot find TimePicker',
-        );
+        await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
         await driver.focus();
         await driver.pressKeyArrowLeft();
         await driver.clickTickerDown();
@@ -138,10 +117,7 @@ describe('TimePicker', () => {
         'should decrement minutes [after focusing on minutes and then blurring]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowRight();
           await driver.blur();
@@ -155,10 +131,7 @@ describe('TimePicker', () => {
         'should decrement hours [after focusing on hours and then blurring]',
         async () => {
           const driver = timePickerTestkitFactory({ dataHook });
-          await waitForVisibilityOf(
-            await driver.element(),
-            'Cannot find TimePicker',
-          );
+          await waitForVisibilityOf(driver.element(), 'Cannot find TimePicker');
           await driver.focus();
           await driver.pressKeyArrowLeft();
           await driver.blur();
