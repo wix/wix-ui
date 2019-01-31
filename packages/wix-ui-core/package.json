@@ -105,7 +105,8 @@
     "wix-storybook-utils": "^2.0.45",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
-    "yoshi": "^2.7.0"
+    "yoshi": "^3.28.0",
+    "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -135,10 +136,7 @@
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
   },
   "yoshi": {
-    "exports": {
-      "root": "wix-ui-core",
-      "commonjs": "wix-ui-core"
-    }
+    "exports": "wix-ui-core"
   },
   "babel": {
     "presets": [
