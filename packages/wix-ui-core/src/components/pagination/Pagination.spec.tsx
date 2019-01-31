@@ -15,7 +15,7 @@ function spaceForPages(n) {
   // Assuming we use styles from PaginationTest.st.css
   const buttonWidth = 30;
   const buttonMargin = 5;
-  return (n + 2) * (buttonWidth + 2 * buttonMargin) - 2 * buttonMargin;
+  return (Number(n) + 2) * (buttonWidth + 2 * buttonMargin) - 2 * buttonMargin;
 }
 
 describe('Pagination', () => {
@@ -23,7 +23,7 @@ describe('Pagination', () => {
   const render = jsx =>
     container
       .render(jsx)
-      .then(() => new PaginationDriver(container.componentNode!));
+      .then(() => new PaginationDriver(container.componentNode));
 
   describe('Accessibility', () => {
     it('has <nav> as the root node', async () => {

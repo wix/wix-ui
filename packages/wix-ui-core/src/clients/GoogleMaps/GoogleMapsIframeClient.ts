@@ -34,9 +34,8 @@ export class GoogleMapsIframeClient implements MapsClient {
     }
     if (this._useClientId) {
       return this._iframesManager.addIframe({ lang, clientId: key });
-    } else {
-      return this._iframesManager.addIframe({ lang, apiKey: key });
     }
+    return this._iframesManager.addIframe({ lang, apiKey: key });
   }
 
   autocomplete(key: string, lang: string, request: string) {

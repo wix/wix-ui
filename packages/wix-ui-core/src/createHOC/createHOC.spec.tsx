@@ -204,8 +204,9 @@ describe('createHOC function', () => {
 
   describe('displayName', () => {
     it('should be inheritted from ChildComponent', () => {
+      const displayName = 'im batman';
       class Component extends React.Component {
-        static displayName = "i'm batman";
+        static displayName = displayName;
         render() {
           return null;
         }
@@ -213,7 +214,7 @@ describe('createHOC function', () => {
 
       const HocComponent = createHOC(Component);
       const wrapper = render(<HocComponent />);
-      expect(wrapper.name()).toEqual("i'm batman");
+      expect(wrapper.name()).toEqual(displayName);
     });
 
     it('should be className when displayName is undefined', () => {

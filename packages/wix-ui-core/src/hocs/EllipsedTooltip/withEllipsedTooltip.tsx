@@ -113,7 +113,9 @@ class EllipsedTooltip extends React.Component<
 export const withEllipsedTooltip = ({
   showTooltip,
 }: { showTooltip?: boolean } = {}) => Comp => {
-  const WrapperComponent: React.SFC<WrapperComponentProps> = props => (
+  const WrapperComponent: React.FunctionComponent<
+    WrapperComponentProps
+  > = props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

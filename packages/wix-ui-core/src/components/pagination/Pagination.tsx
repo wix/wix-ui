@@ -109,9 +109,8 @@ export class Pagination extends React.Component<
     }
     if (this.props.responsive) {
       return 20;
-    } else {
-      return 7;
     }
+    return 7;
   }
 
   public state = {
