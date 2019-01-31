@@ -76,20 +76,22 @@ export class ReactDOMTestContainer {
 
   // Adapter for drivers written for wix-ui-test-utils/createDriverFactory
   public createLegacyRenderer<T>(
-    driverFactory: (args: LegacyDriverArgs) => T
+    driverFactory: (args: LegacyDriverArgs) => T,
   ): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       return driverFactory({
         element: this.componentNode,
         wrapper: this.node,
-        eventTrigger: Simulate
+        eventTrigger: Simulate,
       });
     };
   }
 
   // Adapter for react based uni driver
-  public createUniRenderer<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => T {
+  public createUniRenderer<T>(
+    driverFactory: (base: UniDriver) => T,
+  ): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       const base = reactUniDriver(this.componentNode);

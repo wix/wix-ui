@@ -68,7 +68,7 @@ export const withFocusable = Component => {
 
     state = {
       focus: false,
-      focusVisible: false
+      focusVisible: false,
     };
 
     componentWillUnmount() {
@@ -117,9 +117,9 @@ export const withFocusable = Component => {
             'root',
             {
               focus: this.state.focus,
-              'focus-visible': this.state.focusVisible
+              'focus-visible': this.state.focusVisible,
             },
-            this.props
+            this.props,
           )}
         />
       );
@@ -130,6 +130,6 @@ export const withFocusable = Component => {
     ? FocusableHOC
     : hoistNonReactMethods(FocusableHOC, Component, {
         delegateTo: c => c.wrappedComponentRef,
-        hoistStatics: true
+        hoistStatics: true,
       });
 };

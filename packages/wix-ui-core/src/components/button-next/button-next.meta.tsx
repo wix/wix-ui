@@ -9,16 +9,16 @@ buttonMetadata.addSim({
   title: 'Simulation with suffix icon',
   props: {
     suffixIcon: <Add />,
-    children: 'Button'
-  }
+    children: 'Button',
+  },
 });
 
 buttonMetadata.addSim({
   title: 'Simulation with prefix icon',
   props: {
     prefixIcon: <Add />,
-    children: 'Button'
-  }
+    children: 'Button',
+  },
 });
 
 buttonMetadata.addSim({
@@ -26,6 +26,6 @@ buttonMetadata.addSim({
   props: {
     prefixIcon: <Add />,
     suffixIcon: <Add />,
-    children: 'Button'
-  }
+    children: 'Button',
+  },
 });

@@ -15,7 +15,7 @@ export interface ToggleSwitchProps {
   checked?: boolean;
   disabled?: boolean;
   tabIndex?: number;
-  onChange?: () => void;
+  onChange?(): void;
   styles?: ToggleSwitchStyles;
   id?: string;
   checkedIcon?: React.ReactNode;
@@ -31,35 +31,42 @@ export interface ToggleSwitchState {
 /**
  * Toggle Switch
  */
-export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleSwitchState> {
+export class ToggleSwitch extends React.PureComponent<
+  ToggleSwitchProps,
+  ToggleSwitchState
+> {
   static displayName = 'ToggleSwitch';
 
   static defaultProps = {
     checked: false,
     styles: {},
     tabIndex: 0,
-    onChange: () => null
+    onChange: () => null,
   };
 
   public state = {
     focus: false,
-    focusVisible: false
+    focusVisible: false,
   };
 
   // We don't want to show outline when the component is focused by mouse.
   private focusedByMouse = false;
 
   render() {
-    const {checked, disabled, styles: inlineStyles} = this.props;
+    const { checked, disabled, styles: inlineStyles } = this.props;
 
     return (
       <div
-        {...style('root', {
-          checked,
-          disabled,
-          focus: this.state.focus,
-          'focus-visible': this.state.focusVisible
-        }, this.props)}
+        {...style(
+          'root',
+          {
+            checked,
+            disabled,
+            focus: this.state.focus,
+            'focus-visible': this.state.focusVisible,
+          },
+          this.props,
+        )}
         style={inlineStyles.root}
       >
         <div className={style.track} style={inlineStyles.track} />
@@ -86,25 +93,29 @@ export class ToggleSwitch extends React.PureComponent<ToggleSwitchProps, ToggleS
     );
   }
 
-  private handleKeyDown: React.KeyboardEventHandler<HTMLElement> = e => {
+  private readonly handleKeyDown: React.KeyboardEventHandler<
+    HTMLElement
+  > = e => {
     // Pressing any key should make the focus visible, even if the checkbox
     // was initially focused by mouse.
-    this.setState({focusVisible: true});
-  }
+    this.setState({ focusVisible: true });
+  };
 
   // Doesn't get invoked if the input is disabled.
-  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
+  private readonly handleMouseDown: React.MouseEventHandler<
+    HTMLElement
+  > = e => {
     if (e.button === 0) {
       this.focusedByMouse = true;
     }
-  }
+  };
 
-  private handleFocus: React.FocusEventHandler<HTMLElement> = e => {
-    this.setState({focus: true, focusVisible: !this.focusedByMouse});
-  }
+  private readonly handleFocus: React.FocusEventHandler<HTMLElement> = e => {
+    this.setState({ focus: true, focusVisible: !this.focusedByMouse });
+  };
 
-  private handleBlur: React.FocusEventHandler<HTMLElement> = e => {
-    this.setState({focus: false, focusVisible: false});
+  private readonly handleBlur: React.FocusEventHandler<HTMLElement> = e => {
+    this.setState({ focus: false, focusVisible: false });
     this.focusedByMouse = false;
-  }
+  };
 }

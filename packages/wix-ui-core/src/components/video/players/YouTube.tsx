@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import isString = require('lodash/isString');
-import {getSDK} from '../utils'
-import {EVENTS, PROGRESS_INTERVAL} from '../constants';
+import { getSDK } from '../utils';
+import { EVENTS, PROGRESS_INTERVAL } from '../constants';
 import playerHOC from './playerHOC';
 import {
   ICommonProps,
@@ -18,7 +18,8 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url =>
+  isString(url) && URL_REGEX.test(url);
 
 const SDKConfig: ISDKConfig = {
   name: 'YT',
@@ -84,10 +85,10 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
       .then(this.initPlayer)
       .catch(error => {
         this.props.onError(error);
-      })
+      });
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.player) {
       this.player.destroy();
     }
@@ -97,8 +98,14 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
 
   initPlayer = YT => {
     const {
-      playing, muted, controls, playerOptions,
-      onInit, onReady, onDuration, onError
+      playing,
+      muted,
+      controls,
+      playerOptions,
+      onInit,
+      onReady,
+      onDuration,
+      onError,
     } = this.props;
     const src = this.props.src as string;
     const videoId = src.match(URL_REGEX)[1];
@@ -113,7 +120,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         controls: controls ? 1 : 0,
         origin: window.location.origin,
         playsinline: true,
-        ...playerOptions
+        ...playerOptions,
       },
       events: {
         onReady: () => {
@@ -122,11 +129,11 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         },
         onStateChange: this.onStateChange(YT.PlayerState),
         onError,
-      }
+      },
     });
 
     onInit(this.player);
-  }
+  };
 
   onStateChange = (PlayerState: any) => ({ data }): void => {
     const { PLAYING, PAUSED, ENDED } = PlayerState;
@@ -153,7 +160,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
 
     this.props.onProgress(this.player.getCurrentTime() || 0);
     this.progressTimeout = window.setTimeout(this.progress, PROGRESS_INTERVAL);
-  }
+  };
 
   stopProgress() {
     window.clearTimeout(this.progressTimeout);
@@ -166,8 +173,12 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         className={styles.playerContainer}
         data-player-name="YouTube"
       />
-    )
+    );
   }
 }
 
-export const Player: React.ComponentType<any> = playerHOC(YouTubePlayer, mapPropsToPlayer, mapMethodsToPlayer);
+export const Player: React.ComponentType<any> = playerHOC(
+  YouTubePlayer,
+  mapPropsToPlayer,
+  mapMethodsToPlayer,
+);

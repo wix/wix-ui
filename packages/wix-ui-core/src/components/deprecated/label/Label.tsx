@@ -16,15 +16,23 @@ export interface LabelProps {
 }
 
 const defaultProps: LabelProps = {
-  ellipsis: false
+  ellipsis: false,
 };
 
 /**
  * Label
  */
 export const Label: React.SFC<LabelProps> = props => {
-  const {id, children, ellipsis, disabled} = props;
-  return <label {...style('root', {ellipsis, disabled}, props)} htmlFor={props.for} id={id}>{children}</label>;
+  const { id, children, ellipsis, disabled } = props;
+  return (
+    <label
+      {...style('root', { ellipsis, disabled }, props)}
+      htmlFor={props.for}
+      id={id}
+    >
+      {children}
+    </label>
+  );
 };
 
 Label.displayName = 'Label';

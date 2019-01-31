@@ -1,10 +1,20 @@
-import {googleRequestHandler} from './GoogleRequestHandler';
-import {EventEmitterMock, GoogleMapsMock} from '../IframeTestUtils';
+import { googleRequestHandler } from './GoogleRequestHandler';
+import { EventEmitterMock, GoogleMapsMock } from '../IframeTestUtils';
 import * as handlerNames from '../handlersName';
 
-let dummyGoogleMapsMock, mockRequestId, mockAutocompleteResult, eventEmitterMock, googleMock, postMessageMock,
+let dummyGoogleMapsMock,
+  mockRequestId,
+  mockAutocompleteResult,
+  eventEmitterMock,
+  googleMock,
+  postMessageMock,
   initRequestHandler,
-  googleSpy, getPlacePredictionsSpy, geoCodeSpy, getDetailsSpy, mockGetDetailsResult, mockGeocodeResult;
+  googleSpy,
+  getPlacePredictionsSpy,
+  geoCodeSpy,
+  getDetailsSpy,
+  mockGetDetailsResult,
+  mockGeocodeResult;
 
 describe('googleRequestHandler', async () => {
   beforeEach(() => {
@@ -16,63 +26,74 @@ describe('googleRequestHandler', async () => {
       geometry: {
         location: {
           lat: () => 53.46102819999999,
-          lng: () => -2.2461541000000125
-        }
+          lng: () => -2.2461541000000125,
+        },
       },
       icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png',
-      id: '043fda0f408c31b200eaf6e161e4fe3adf51b25c'
+      id: '043fda0f408c31b200eaf6e161e4fe3adf51b25c',
     };
-    mockGeocodeResult = [{
-      geometry: {
-        location: {
-          lat: () => 39.902508,
-          lng: () => -75.28446199999999
-        },
-        locationType: 'ROOFTOP',
-        viewport: {
-          northeast: {
-            lat: () => 39.9038569802915,
-            lng: () => -75.28311301970849
+    mockGeocodeResult = [
+      {
+        geometry: {
+          location: {
+            lat: () => 39.902508,
+            lng: () => -75.28446199999999,
           },
-          southwest: {
-            lat: () => 39.9011590197085,
-            lng: () => -75.2858109802915
-          }
-        }
+          locationType: 'ROOFTOP',
+          viewport: {
+            northeast: {
+              lat: () => 39.9038569802915,
+              lng: () => -75.28311301970849,
+            },
+            southwest: {
+              lat: () => 39.9011590197085,
+              lng: () => -75.2858109802915,
+            },
+          },
+        },
+        placeId: 'ChIJnYWtvK_DxokRLIqoK6qTKDk',
       },
-      placeId: 'ChIJnYWtvK_DxokRLIqoK6qTKDk'
-    }];
+    ];
     eventEmitterMock = new EventEmitterMock();
     googleMock = GoogleMapsMock(
       {
         getPlacePredictions: (request, callback) => {
-          callback(mockAutocompleteResult, dummyGoogleMapsMock.maps.GeocoderStatus.OK);
-        }
+          callback(
+            mockAutocompleteResult,
+            dummyGoogleMapsMock.maps.GeocoderStatus.OK,
+          );
+        },
       },
       {
         geocode: (request, callback) => {
-          callback(mockGeocodeResult, dummyGoogleMapsMock.maps.GeocoderStatus.OK);
-        }
+          callback(
+            mockGeocodeResult,
+            dummyGoogleMapsMock.maps.GeocoderStatus.OK,
+          );
+        },
       },
       {
         getDetails: (request, callback) => {
-          callback(mockGetDetailsResult, dummyGoogleMapsMock.maps.GeocoderStatus.OK);
-        }
-      }
+          callback(
+            mockGetDetailsResult,
+            dummyGoogleMapsMock.maps.GeocoderStatus.OK,
+          );
+        },
+      },
     );
     geoCodeSpy = jest.fn();
     getDetailsSpy = jest.fn();
     getPlacePredictionsSpy = jest.fn();
     googleSpy = GoogleMapsMock(
       {
-        getPlacePredictions: getPlacePredictionsSpy
+        getPlacePredictions: getPlacePredictionsSpy,
       },
       {
-        geocode: geoCodeSpy
+        geocode: geoCodeSpy,
       },
       {
-        getDetails: getDetailsSpy
-      }
+        getDetails: getDetailsSpy,
+      },
     );
     initRequestHandler = googleRequestHandler(eventEmitterMock, handlerNames);
   });
@@ -82,11 +103,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     expect(getPlacePredictionsSpy).toBeCalled();
@@ -97,11 +118,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.geocodeHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     expect(geoCodeSpy).toBeCalled();
@@ -112,11 +133,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.placeDetailsHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     expect(getDetailsSpy).toBeCalled();
@@ -127,18 +148,19 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     expect(postMessageMock).toHaveBeenCalledWith(
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: mockRequestId
-      }, '*'
+        requestId: mockRequestId,
+      },
+      '*',
     );
   });
 
@@ -146,19 +168,20 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     initRequestHandler(googleMock);
     expect(postMessageMock).toHaveBeenCalledWith(
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: mockRequestId
-      }, '*'
+        requestId: mockRequestId,
+      },
+      '*',
     );
   });
 
@@ -166,15 +189,20 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.geocodeHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     initRequestHandler(googleMock);
     expect(postMessageMock).toHaveBeenCalledWith(
-      {results: mockGeocodeResult, status: dummyGoogleMapsMock.maps.GeocoderStatus.OK, requestId: mockRequestId}, '*'
+      {
+        results: mockGeocodeResult,
+        status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
+        requestId: mockRequestId,
+      },
+      '*',
     );
   });
 
@@ -182,15 +210,20 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.placeDetailsHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     initRequestHandler(googleMock);
     expect(postMessageMock).toHaveBeenCalledWith(
-      {results: mockGetDetailsResult, status: dummyGoogleMapsMock.maps.GeocoderStatus.OK, requestId: mockRequestId}, '*'
+      {
+        results: mockGetDetailsResult,
+        status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
+        requestId: mockRequestId,
+      },
+      '*',
     );
   });
 
@@ -199,21 +232,21 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: secondMockRequestId
+        requestId: secondMockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     initRequestHandler(googleMock);
     expect(postMessageMock).toHaveBeenCalledTimes(2);
@@ -221,15 +254,17 @@ describe('googleRequestHandler', async () => {
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: mockRequestId
-      }, '*'
+        requestId: mockRequestId,
+      },
+      '*',
     );
     expect(postMessageMock).toHaveBeenCalledWith(
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: secondMockRequestId
-      }, '*'
+        requestId: secondMockRequestId,
+      },
+      '*',
     );
   });
 
@@ -238,21 +273,21 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.placeDetailsHandlerName,
-        requestId: secondMockRequestId
+        requestId: secondMockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
     initRequestHandler(googleMock);
     expect(postMessageMock).toHaveBeenCalledTimes(2);
@@ -260,15 +295,17 @@ describe('googleRequestHandler', async () => {
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: mockRequestId
-      }, '*'
+        requestId: mockRequestId,
+      },
+      '*',
     );
     expect(postMessageMock).toHaveBeenCalledWith(
       {
         results: mockGetDetailsResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: secondMockRequestId
-      }, '*'
+        requestId: secondMockRequestId,
+      },
+      '*',
     );
   });
 
@@ -276,11 +313,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     initRequestHandler(googleMock);
@@ -289,19 +326,20 @@ describe('googleRequestHandler', async () => {
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: mockRequestId
-      }, '*'
+        requestId: mockRequestId,
+      },
+      '*',
     );
 
     const secondMockRequestId = mockRequestId + mockRequestId;
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.autocompleteHandlerName,
-        requestId: secondMockRequestId
+        requestId: secondMockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     expect(postMessageMock).toHaveBeenCalledTimes(2);
@@ -309,8 +347,9 @@ describe('googleRequestHandler', async () => {
       {
         results: mockAutocompleteResult,
         status: dummyGoogleMapsMock.maps.GeocoderStatus.OK,
-        requestId: secondMockRequestId
-      }, '*'
+        requestId: secondMockRequestId,
+      },
+      '*',
     );
   });
 
@@ -321,14 +360,14 @@ describe('googleRequestHandler', async () => {
       data: {
         method: handlerNames.autocompleteHandlerName,
         requestId: mockRequestId,
-        request: input
+        request: input,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
-    expect(getPlacePredictionsSpy.mock.calls[0][0]).toEqual({input});
+    expect(getPlacePredictionsSpy.mock.calls[0][0]).toEqual({ input });
   });
 
   it('should not wrap request if it is already wrapped', () => {
@@ -339,14 +378,14 @@ describe('googleRequestHandler', async () => {
       data: {
         method: handlerNames.autocompleteHandlerName,
         requestId: mockRequestId,
-        request: {input}
+        request: { input },
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
-    expect(getPlacePredictionsSpy.mock.calls[0][0]).toEqual({input});
+    expect(getPlacePredictionsSpy.mock.calls[0][0]).toEqual({ input });
   });
 
   it('should return a serializable response for geocode', () => {
@@ -354,11 +393,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.geocodeHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     const args = postMessageMock.mock.calls[0][0];
@@ -372,11 +411,11 @@ describe('googleRequestHandler', async () => {
     eventEmitterMock.triggerMessage({
       data: {
         method: handlerNames.placeDetailsHandlerName,
-        requestId: mockRequestId
+        requestId: mockRequestId,
       },
       source: {
-        postMessage: postMessageMock
-      }
+        postMessage: postMessageMock,
+      },
     });
 
     const args = postMessageMock.mock.calls[0][0];

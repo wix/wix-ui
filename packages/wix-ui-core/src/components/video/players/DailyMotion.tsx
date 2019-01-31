@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import isString = require('lodash/isString');
-import {getSDK} from '../utils'
-import {EVENTS, PROGRESS_INTERVAL} from '../constants';
+import { getSDK } from '../utils';
+import { EVENTS, PROGRESS_INTERVAL } from '../constants';
 import playerHOC from './playerHOC';
 import {
   ICommonProps,
@@ -18,7 +18,8 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url =>
+  isString(url) && URL_REGEX.test(url);
 
 const SDKConfig: ISDKConfig = {
   name: 'DM',
@@ -78,7 +79,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
       .then(this.initPlayer)
       .catch(error => {
         this.props.onError(error);
-      })
+      });
   }
 
   componentWillUnmount() {
@@ -88,8 +89,15 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
 
   initPlayer = DM => {
     const {
-      playing, muted, controls, showTitle, playerOptions,
-      onInit, onReady, onDuration, onError
+      playing,
+      muted,
+      controls,
+      showTitle,
+      playerOptions,
+      onInit,
+      onReady,
+      onDuration,
+      onError,
     } = this.props;
     const src = this.props.src as string;
     const [, id] = src.match(URL_REGEX);
@@ -104,7 +112,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
         mute: muted,
         'ui-start-screen-info': showTitle,
         origin: window.location.origin,
-        ...playerOptions
+        ...playerOptions,
       },
       events: {
         apiready: () => {
@@ -126,18 +134,18 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
           this.stopProgress();
         },
         error: event => onError(event),
-      }
+      },
     });
 
     onInit(this.player);
-  }
+  };
 
   progress = () => {
     this.stopProgress();
 
     this.props.onProgress(this.player.currentTime || 0);
     this.progressTimeout = window.setTimeout(this.progress, PROGRESS_INTERVAL);
-  }
+  };
 
   stopProgress() {
     window.clearTimeout(this.progressTimeout);
@@ -148,8 +156,12 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
       <div className={styles.playerContainer} data-player-name="DailyMotion">
         <div ref={this.containerRef} />
       </div>
-    )
+    );
   }
 }
 
-export const Player: React.ComponentType<any> = playerHOC(DailyMotionPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+export const Player: React.ComponentType<any> = playerHOC(
+  DailyMotionPlayer,
+  mapPropsToPlayer,
+  mapMethodsToPlayer,
+);

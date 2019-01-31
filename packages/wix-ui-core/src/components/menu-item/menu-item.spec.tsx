@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {MenuItem} from './menu-item';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {menuItemDriverFactory} from './menu-item.driver';
+import { MenuItem } from './menu-item';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { menuItemDriverFactory } from './menu-item.driver';
 
 const createDriver = new ReactDOMTestContainer()
   .unmountAfterEachTest()
@@ -19,7 +19,7 @@ describe('MenuItem', () => {
     it('should be invoked on click', async () => {
       const onSelect = jest.fn();
       const driver = createDriver(
-        <MenuItem onSelect={onSelect}>hello</MenuItem>
+        <MenuItem onSelect={onSelect}>hello</MenuItem>,
       );
       await driver.click();
       expect(onSelect.mock.calls.length).toEqual(1);
@@ -28,7 +28,9 @@ describe('MenuItem', () => {
     it('should not be invoked on click when disabled', async () => {
       const onSelect = jest.fn();
       const driver = createDriver(
-        <MenuItem onSelect={onSelect} disabled>hello</MenuItem>
+        <MenuItem onSelect={onSelect} disabled>
+          hello
+        </MenuItem>,
       );
       await driver.click();
       expect(onSelect.mock.calls.length).toEqual(0);
@@ -38,7 +40,7 @@ describe('MenuItem', () => {
   [
     ['selected', 'isSelected'],
     ['highlighted', 'isHighlighted'],
-    ['disabled', 'isDisabled']
+    ['disabled', 'isDisabled'],
   ].map(([prop, method]) =>
     describe(`\`${prop}\` prop`, async () => {
       it('should be false by default', async () => {
@@ -48,10 +50,10 @@ describe('MenuItem', () => {
 
       it('should set state when true', async () => {
         const driver = createDriver(
-          <MenuItem {...{[prop]: true}}>hello</MenuItem>
+          <MenuItem {...{ [prop]: true }}>hello</MenuItem>,
         );
         expect(await driver[method]()).toBe(true);
       });
-    })
+    }),
   );
 });

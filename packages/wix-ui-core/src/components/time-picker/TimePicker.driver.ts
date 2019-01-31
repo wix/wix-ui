@@ -1,7 +1,7 @@
-import {inputDriverFactory} from '../../components/input/Input.driver';
+import { inputDriverFactory } from '../../components/input/Input.driver';
 
-export const timePickerDriverFactory = ({element, eventTrigger}) => {
-  const inputDriver = inputDriverFactory({element, eventTrigger});
+export const timePickerDriverFactory = ({ element, eventTrigger }) => {
+  const inputDriver = inputDriverFactory({ element, eventTrigger });
 
   return {
     /** checks if element exists */
@@ -14,7 +14,8 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     getInputElement: () => inputDriver.getInput(),
 
     /** returns inline style width of TimePicker */
-    getInlineStyle: () => window.getComputedStyle(inputDriver.getInput().parentNode),
+    getInlineStyle: () =>
+      window.getComputedStyle(inputDriver.getInput().parentNode),
 
     /** returns a boolean indicating if the timePicker is disabled */
     isDisabled: () => inputDriver.isDisabled(),
@@ -41,9 +42,17 @@ export const timePickerDriverFactory = ({element, eventTrigger}) => {
     getTickers: () => inputDriver.getSuffix(),
 
     /** clicks on the ticker up button */
-    clickTickerUp: () => eventTrigger.mouseDown(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-up"]')),
+    clickTickerUp: () =>
+      eventTrigger.mouseDown(
+        inputDriver.getSuffix().querySelector('[data-hook="ticker-button-up"]'),
+      ),
 
     /** clicks on the ticker down button */
-    clickTickerDown: () => eventTrigger.mouseDown(inputDriver.getSuffix().querySelector('[data-hook="ticker-button-down"]'))
+    clickTickerDown: () =>
+      eventTrigger.mouseDown(
+        inputDriver
+          .getSuffix()
+          .querySelector('[data-hook="ticker-button-down"]'),
+      ),
   };
 };

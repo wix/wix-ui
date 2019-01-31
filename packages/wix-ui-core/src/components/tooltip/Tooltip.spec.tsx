@@ -1,25 +1,22 @@
 import * as React from 'react';
 import * as eventually from 'wix-eventually';
-import {tooltipDriverFactory} from './Tooltip.driver';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {Tooltip} from './';
-import {tooltipTestkitFactory} from '../../testkit';
-import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import { tooltipDriverFactory } from './Tooltip.driver';
+import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { isTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { Tooltip } from './';
+import { tooltipTestkitFactory } from '../../testkit';
+import { tooltipTestkitFactory as enzymeTooltipTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 describe('Tooltip', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(tooltipDriverFactory);
 
   const createTooltip = (props = {}) => (
     <Tooltip placement="top" {...props} content={<span>Hovered Content</span>}>
-      <div>
-        Element
-      </div>
+      <div>Element</div>
     </Tooltip>
   );
 
@@ -38,13 +35,21 @@ describe('Tooltip', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(createTooltip(), tooltipTestkitFactory)).toBe(true);
+      expect(isTestkitExists(createTooltip(), tooltipTestkitFactory)).toBe(
+        true,
+      );
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(createTooltip(), enzymeTooltipTestkitFactory, mount)).toBe(true);
+      expect(
+        isEnzymeTestkitExists(
+          createTooltip(),
+          enzymeTooltipTestkitFactory,
+          mount,
+        ),
+      ).toBe(true);
     });
   });
 });

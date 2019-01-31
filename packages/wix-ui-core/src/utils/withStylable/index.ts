@@ -1,1 +1,1 @@
-export {withStylable} from './withStylable';
+export { withStylable } from './withStylable';

@@ -1,4 +1,4 @@
-export const sliderDriverFactory = ({element, eventTrigger}) => {
+export const sliderDriverFactory = ({ element, eventTrigger }) => {
   function getByDataHook(hook) {
     return element.querySelector(`[data-hook=\'${hook}\']`);
   }
@@ -61,53 +61,57 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     },
 
     arrowLeft() {
-      eventTrigger.keyDown(element, {key: 'ArrowLeft'});
+      eventTrigger.keyDown(element, { key: 'ArrowLeft' });
     },
 
     arrowRight() {
-      eventTrigger.keyDown(element, {key: 'ArrowRight'});
+      eventTrigger.keyDown(element, { key: 'ArrowRight' });
     },
 
     arrowUp() {
-      eventTrigger.keyDown(element, {key: 'ArrowUp'});
+      eventTrigger.keyDown(element, { key: 'ArrowUp' });
     },
 
     arrowDown() {
-      eventTrigger.keyDown(element, {key: 'ArrowDown'});
+      eventTrigger.keyDown(element, { key: 'ArrowDown' });
     },
 
     pageUp() {
-      eventTrigger.keyDown(element, {key: 'PageUp'});
+      eventTrigger.keyDown(element, { key: 'PageUp' });
     },
 
     pageDown() {
-      eventTrigger.keyDown(element, {key: 'PageDown'});
+      eventTrigger.keyDown(element, { key: 'PageDown' });
     },
 
     home() {
-      eventTrigger.keyDown(element, {key: 'Home'});
+      eventTrigger.keyDown(element, { key: 'Home' });
     },
 
     end() {
-      eventTrigger.keyDown(element, {key: 'End'});
+      eventTrigger.keyDown(element, { key: 'End' });
     },
 
     stubTrackBoundingRect(rect?: any) {
-      rect = rect || (driver.vertical() ? {
-        bottom: 400,
-        top: 0,
-        left: 0,
-        right: 0,
-        width: 50,
-        height: 400
-      } : {
-        bottom: 0,
-        top: 0,
-        left: 0,
-        right: 0,
-        width: 400,
-        height: 50
-      });
+      rect =
+        rect ||
+        (driver.vertical()
+          ? {
+              bottom: 400,
+              top: 0,
+              left: 0,
+              right: 0,
+              width: 50,
+              height: 400,
+            }
+          : {
+              bottom: 0,
+              top: 0,
+              left: 0,
+              right: 0,
+              width: 400,
+              height: 50,
+            });
 
       const el = driver.track();
       el.getBoundingClientRect = () => rect;
@@ -115,21 +119,25 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     },
 
     stubRootBoundingRect(rect?: any) {
-      rect = rect || (driver.vertical() ? {
-        bottom: 400,
-        top: 0,
-        left: 0,
-        right: 100,
-        width: 100,
-        height: 400
-      } : {
-        bottom: 0,
-        top: 0,
-        left: 0,
-        right: 0,
-        width: 400,
-        height: 100
-      });
+      rect =
+        rect ||
+        (driver.vertical()
+          ? {
+              bottom: 400,
+              top: 0,
+              left: 0,
+              right: 100,
+              width: 100,
+              height: 400,
+            }
+          : {
+              bottom: 0,
+              top: 0,
+              left: 0,
+              right: 0,
+              width: 400,
+              height: 100,
+            });
 
       const el = driver.root();
       el.getBoundingClientRect = () => rect;
@@ -155,16 +163,18 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
 
       if (!driver.vertical()) {
         const thumbSize = driver.getRootBoundingRect().height;
-        const offset = (value - min) * ((rect.width + thumbSize / 2) / (max - min + 1));
+        const offset =
+          (value - min) * ((rect.width + thumbSize / 2) / (max - min + 1));
 
         if (driver.rtl()) {
           return rect.width - offset;
-        } else {
-          return offset;
         }
-      } else {
+        return offset;
+      }
+      {
         const thumbSize = driver.getRootBoundingRect().width;
-        const offset = (value - min) * ((rect.height + thumbSize / 2) / (max - min + 1));
+        const offset =
+          (value - min) * ((rect.height + thumbSize / 2) / (max - min + 1));
         return offset;
       }
     },
@@ -197,18 +207,22 @@ export const sliderDriverFactory = ({element, eventTrigger}) => {
     clickTick(tickIdx) {
       const tick = driver.ticks()[tickIdx];
       const offset = driver.getOffsetByValue(driver.min() + tickIdx);
-      eventTrigger.click(tick, {[driver.vertical() ? 'clientY' : 'clientX']: offset});
+      eventTrigger.click(tick, {
+        [driver.vertical() ? 'clientY' : 'clientX']: offset,
+      });
     },
 
     clickSlider(value) {
       const offset = driver.getOffsetByValue(value);
-      eventTrigger.click(driver.track(), {[driver.vertical() ? 'clientY' : 'clientX']: offset});
+      eventTrigger.click(driver.track(), {
+        [driver.vertical() ? 'clientY' : 'clientX']: offset,
+      });
     },
 
     forceUpdate() {
       driver.hoverThumb();
       driver.unhoverThumb();
-    }
+    },
   };
 
   return driver;

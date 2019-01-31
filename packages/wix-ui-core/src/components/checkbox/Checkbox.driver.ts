@@ -1,7 +1,7 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import styles from './Checkbox.st.css';
 
-export const checkboxDriverFactory = ({element, eventTrigger}) => {
+export const checkboxDriverFactory = ({ element, eventTrigger }) => {
   const utils = new StylableDOMUtil(styles, element);
   const hasStyleState = state => utils.hasStyleState(element, state);
   const input = utils.select('.nativeCheckbox') as HTMLInputElement;
@@ -13,7 +13,7 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
     exists: () => !!element,
     /** click on the element */
     click: () => {
-     // jsdom doesn't simulate checkboxes well: checkbox.click() updates .checked even
+      // jsdom doesn't simulate checkboxes well: checkbox.click() updates .checked even
       // if the component is controlled, it also doesn't generate onChange() and doesn't
       // respect .disabled
       if (!input.disabled && !input.readOnly) {
@@ -21,7 +21,7 @@ export const checkboxDriverFactory = ({element, eventTrigger}) => {
       }
     },
     /** presses on the elemet */
-    keyDown: (key: string) => eventTrigger.keyDown(input, {key}),
+    keyDown: (key: string) => eventTrigger.keyDown(input, { key }),
     /** trigger mouseenter on the element */
     mouseEnter: () => eventTrigger.mouseEnter(element),
     /** trigger mouseleave on the element */

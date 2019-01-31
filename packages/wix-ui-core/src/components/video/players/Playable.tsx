@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import isString = require('lodash/isString');
 import isArray = require('lodash/isArray');
-import {create, registerModule, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
-import {EVENTS} from '../constants';
+import { create, registerModule, VIDEO_EVENTS, ENGINE_STATES } from 'playable';
+import { EVENTS } from '../constants';
 import playerHOC from './playerHOC';
 import {
   ICommonProps,
@@ -21,7 +21,8 @@ const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 export const verifier: VerifierType = url => {
   if (isString(url)) {
     return URL_REGEX.test(url);
-  } else if (isArray(url)) {
+  }
+  if (isArray(url)) {
     return url.some(item => URL_REGEX.test(item));
   }
 
@@ -95,7 +96,10 @@ interface IPlayableState {
   hasBeenPlayed: boolean;
 }
 
-class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState> {
+class PlayablePlayer extends React.PureComponent<
+  IPlayableProps,
+  IPlayableState
+> {
   static displayName = 'Playable';
   static defaultProps = {
     poster: '',
@@ -103,7 +107,7 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
   };
 
   state: IPlayableState = {
-    hasBeenPlayed: false
+    hasBeenPlayed: false,
   };
   player: IPlayablePlayerAPI;
   eventEmitter: IEventEmitter;
@@ -129,9 +133,23 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
 
   initPlayer() {
     const {
-      src, playing, muted, title, showTitle, loop, volume, controls, preload,
-      onInit, onReady, onDuration, onProgress,
-      logoUrl, onLogoClick, alwaysShowLogo, modules,
+      src,
+      playing,
+      muted,
+      title,
+      showTitle,
+      loop,
+      volume,
+      controls,
+      preload,
+      onInit,
+      onReady,
+      onDuration,
+      onProgress,
+      logoUrl,
+      onLogoClick,
+      alwaysShowLogo,
+      modules,
     } = this.props;
 
     this.registerModules(modules);
@@ -172,7 +190,7 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     this.player.attachToElement(this.containerRef.current);
 
     this.player.on(VIDEO_EVENTS.PLAY_REQUEST, () => {
-      this.setState({hasBeenPlayed: true});
+      this.setState({ hasBeenPlayed: true });
     });
 
     this.player.on(ENGINE_STATES.METADATA_LOADED, () => {
@@ -181,7 +199,7 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     });
 
     this.player.on(ENGINE_STATES.PLAYING, () => {
-      this.setState({hasBeenPlayed: true});
+      this.setState({ hasBeenPlayed: true });
       this.eventEmitter.emit(EVENTS.PLAYING);
     });
 
@@ -190,7 +208,7 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
     });
 
     this.player.on(ENGINE_STATES.ENDED, () => {
-      this.setState({hasBeenPlayed: false});
+      this.setState({ hasBeenPlayed: false });
       this.eventEmitter.emit(EVENTS.ENDED);
     });
 
@@ -209,15 +227,15 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
 
   onPlayClick = (): void => {
     this.player.play();
-  }
+  };
 
   render() {
-    const {showTitle, title, poster, playButton} = this.props;
-    const coverStyles = {backgroundImage: poster ? `url(${poster})` : 'none'};
+    const { showTitle, title, poster, playButton } = this.props;
+    const coverStyles = { backgroundImage: poster ? `url(${poster})` : 'none' };
 
     return (
       <React.Fragment>
-        <div 
+        <div
           ref={this.containerRef}
           className={styles.playerContainer}
           data-player-name="Playable"
@@ -230,7 +248,11 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
             data-hook="cover"
           >
             <div className={styles.overlay}>
-              {showTitle && title && <div data-hook="title" title={title} className={styles.title}>{title}</div>}
+              {showTitle && title && (
+                <div data-hook="title" title={title} className={styles.title}>
+                  {title}
+                </div>
+              )}
               {playButton}
             </div>
           </div>
@@ -240,4 +262,8 @@ class PlayablePlayer extends React.PureComponent<IPlayableProps, IPlayableState>
   }
 }
 
-export const Player: React.ComponentType<any> = playerHOC(PlayablePlayer, mapPropsToPlayer, mapMethodsToPlayer);
+export const Player: React.ComponentType<any> = playerHOC(
+  PlayablePlayer,
+  mapPropsToPlayer,
+  mapMethodsToPlayer,
+);

@@ -27,7 +27,7 @@ describe('Video/getSDK', () => {
 
       await eventually(() => {
         expect(loadjs).toHaveBeenCalled();
-        expect(resolveSpy).toHaveBeenCalled()
+        expect(resolveSpy).toHaveBeenCalled();
       });
     });
 
@@ -75,9 +75,11 @@ describe('Video/getSDK', () => {
     it('should resolve when require allow and exist', async () => {
       const resolveSpy = jest.fn();
 
-      (window as any).require = jest.fn().mockImplementation((url, settings) => {
-        setTimeout(() => settings(), 200);
-      });
+      (window as any).require = jest
+        .fn()
+        .mockImplementation((url, settings) => {
+          setTimeout(() => settings(), 200);
+        });
       (window as any).define = jest.fn();
       (window as any).define.amd = true;
 
@@ -127,7 +129,7 @@ describe('Video/getSDK', () => {
       }).catch(rejectSpy);
 
       await eventually(() => {
-        expect(rejectSpy).toHaveBeenCalled()
+        expect(rejectSpy).toHaveBeenCalled();
       });
     });
   });

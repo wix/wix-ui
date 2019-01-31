@@ -1,15 +1,20 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-import {createDriver, WithFocusableComp, PureChildComponent} from './FocusableHOC.driver';
+import { mount } from 'enzyme';
+import {
+  createDriver,
+  WithFocusableComp,
+  PureChildComponent,
+} from './FocusableHOC.driver';
 
-import {withFocusable} from './FocusableHOC';
+import { withFocusable } from './FocusableHOC';
 
 describe('FocusableHOC', () => {
-  const render = Comp => mount(Comp, {attachTo: document.createElement('div')});
+  const render = Comp =>
+    mount(Comp, { attachTo: document.createElement('div') });
 
   describe('Pure component HOC', () => {
     it('should render the wrapped component', () => {
-      const wrapper = render(<WithFocusableComp/>);
+      const wrapper = render(<WithFocusableComp />);
       expect(wrapper.children().instance()).toBeInstanceOf(PureChildComponent);
     });
 
@@ -63,13 +68,13 @@ describe('FocusableHOC', () => {
     });
 
     it('should not have focus nor focus-visible [given] initial render', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       expectNotFocused(driver);
     });
 
     it('should have focus and focus-visible [when] focused programatically', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.focus();
       // Default input is keyboard
@@ -77,7 +82,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus and focus-visible [when] tabbed in', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.tabIn();
       expectKeyboardFocused(driver, 'after focus');
@@ -86,7 +91,7 @@ describe('FocusableHOC', () => {
     it('should have focus and focus-visible [when] tabbed in withot keyDown', () => {
       // This test case checks a scenario when the focus is on the browser's
       // url input, and we press tab. The keyDown is not fired.
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.focus();
       driver.fireKeyUp();
@@ -94,7 +99,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should not have focus nor focus-visible [when] blured programatically [given] keyboard focused', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.tabIn();
       expectKeyboardFocused(driver, 'after focus');
@@ -104,7 +109,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus but not focus-visible [when] clicked', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -115,7 +120,7 @@ describe('FocusableHOC', () => {
      * is was set to `mouse`.
      */
     it('should have focus and focus-visible [when] focused [given] mouseDown and blur', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -128,7 +133,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should not be focused [when] tabbed out [given] focused by mouse', () => {
-      const driver = createDriver(<WithFocusableComp/>);
+      const driver = createDriver(<WithFocusableComp />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -138,7 +143,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus and focus-visible, when: any keyboard key pressed [given] focused by mouse', () => {
-      const driver = createDriver(<WithFocusableComp/>);
+      const driver = createDriver(<WithFocusableComp />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');

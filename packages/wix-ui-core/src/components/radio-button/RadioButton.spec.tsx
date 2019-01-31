@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {radioButtonDriverFactory} from './RadioButton.driver';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {RadioButton, RadioButtonProps} from './RadioButton';
+import { radioButtonDriverFactory } from './RadioButton.driver';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { RadioButton, RadioButtonProps } from './RadioButton';
 
 function createRadio(props: RadioButtonProps = {}) {
   return (
@@ -16,8 +16,7 @@ function createRadio(props: RadioButtonProps = {}) {
 }
 
 describe('RadioButton', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(radioButtonDriverFactory);
 
@@ -29,7 +28,7 @@ describe('RadioButton', () => {
 
   it('invokes callback for onChange with the correct value', () => {
     const onChange = jest.fn();
-    const radio = createDriver(createRadio({onChange}));
+    const radio = createDriver(createRadio({ onChange }));
     expect(radio.isInputFocused()).toBeFalsy();
 
     radio.select();
@@ -39,39 +38,39 @@ describe('RadioButton', () => {
   });
 
   it('is checked correctly', () => {
-    const radio = createDriver(createRadio({checked: true}));
+    const radio = createDriver(createRadio({ checked: true }));
 
     expect(radio.isChecked()).toBeTruthy();
   });
 
   it('is disabled correctly', () => {
-    const radio = createDriver(createRadio({disabled: true}));
+    const radio = createDriver(createRadio({ disabled: true }));
 
     expect(radio.isDisabled()).toBeTruthy();
   });
 
   it('does not invoke callback function when disabled and clicked', () => {
     const onChange = jest.fn();
-    const radio = createDriver(createRadio({onChange, disabled: true}));
+    const radio = createDriver(createRadio({ onChange, disabled: true }));
 
     radio.select();
     expect(onChange).not.toHaveBeenCalled();
   });
 
   it('is required correctly', () => {
-    const radio = createDriver(createRadio({required: true}));
+    const radio = createDriver(createRadio({ required: true }));
 
     expect(radio.isRequired()).toBeTruthy();
   });
 
   it('accepts correct value', () => {
-    const radio = createDriver(createRadio({value: 'unicorn'}));
+    const radio = createDriver(createRadio({ value: 'unicorn' }));
 
     expect(radio.value()).toEqual('unicorn');
   });
 
   it('accepts correct name', () => {
-    const radio = createDriver(createRadio({name: 'unicorns'}));
+    const radio = createDriver(createRadio({ name: 'unicorns' }));
 
     expect(radio.name()).toEqual('unicorns');
   });
@@ -91,7 +90,7 @@ describe('RadioButton', () => {
   it('gets NON VISIBLE focus if clicked', () => {
     const radio = createDriver(createRadio());
     radio.click();
-    
+
     expect(radio.isFocused()).toBeTruthy();
     expect(radio.isFocusVisible()).toBeFalsy();
   });

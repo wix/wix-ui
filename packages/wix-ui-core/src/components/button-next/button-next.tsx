@@ -27,7 +27,7 @@ const _addAffix = (Affix, styleClass) =>
  */
 
 const ButtonNextComponent: React.SFC<
-  ButtonProps & { focusableOnFocus: () => void; focusableOnBlur: () => void }
+  ButtonProps & { focusableOnFocus(): void; focusableOnBlur(): void; }
 > = props => {
   const {
     as: Component,

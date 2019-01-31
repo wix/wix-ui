@@ -1,16 +1,15 @@
 import * as React from 'react';
 import * as eventually from 'wix-eventually';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {dropdownDriverFactory} from './Dropdown.driver';
-import {Dropdown} from './';
-import {CLICK, HOVER} from './constants';
-import {mount} from 'enzyme';
-import {Simulate} from 'react-dom/test-utils';
-import {generateOptions} from '../dropdown-option/OptionsExample';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { dropdownDriverFactory } from './Dropdown.driver';
+import { Dropdown } from './';
+import { CLICK, HOVER } from './constants';
+import { mount } from 'enzyme';
+import { Simulate } from 'react-dom/test-utils';
+import { generateOptions } from '../dropdown-option/OptionsExample';
 
 describe('Dropdown', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(dropdownDriverFactory);
 
@@ -19,13 +18,14 @@ describe('Dropdown', () => {
     <Dropdown
       placement="top"
       openTrigger={CLICK}
-      {...Object.assign({
-      options: [],
-      onSelect: () => null,
-      onDeselect: () => null,
-      onInitialSelectedOptionsSet: () => null,
-      initialSelectedIds: [],
-    }, props)}
+      {...{
+        options: [],
+        onSelect: () => null,
+        onDeselect: () => null,
+        onInitialSelectedOptionsSet: () => null,
+        initialSelectedIds: [],
+        ...props,
+      }}
     >
       <span data-hook="open-dropdown-button">Dropdown</span>
     </Dropdown>
@@ -39,60 +39,80 @@ describe('Dropdown', () => {
   });
 
   it('should display content element', () => {
-    const driver = createDriver(createDropdown({forceContentElementVisibility: true}));
+    const driver = createDriver(
+      createDropdown({ forceContentElementVisibility: true }),
+    );
     expect(driver.isContentElementExists()).toBeTruthy();
   });
 
   describe('openTrigger', () => {
     it('should show content on click', () => {
-      const driver = createDriver(createDropdown({options}));
+      const driver = createDriver(createDropdown({ options }));
 
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
     });
 
     it('should hide content on another click', async () => {
-      const driver = createDriver(createDropdown({options}));
+      const driver = createDriver(createDropdown({ options }));
       driver.click();
       driver.click();
-      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
+      await eventually(() =>
+        expect(driver.isContentElementExists()).toBeFalsy(),
+      );
     });
 
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
-      const driver = createDriver(createDropdown({options}));
+      const driver = createDriver(createDropdown({ options }));
       const preventDefaultSpy = jest.fn();
       driver.click();
 
-      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowDown', preventDefault: preventDefaultSpy})
+      Simulate.keyDown(
+        document.querySelector('[data-hook="open-dropdown-button"]'),
+        { key: 'ArrowDown', preventDefault: preventDefaultSpy },
+      );
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
 
-      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowUp', preventDefault: preventDefaultSpy})
+      Simulate.keyDown(
+        document.querySelector('[data-hook="open-dropdown-button"]'),
+        { key: 'ArrowUp', preventDefault: preventDefaultSpy },
+      );
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
 
-      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowLeft', preventDefault: preventDefaultSpy})
+      Simulate.keyDown(
+        document.querySelector('[data-hook="open-dropdown-button"]'),
+        { key: 'ArrowLeft', preventDefault: preventDefaultSpy },
+      );
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
 
-      Simulate.keyDown(document.querySelector('[data-hook="open-dropdown-button"]'), {key: 'ArrowRight', preventDefault: preventDefaultSpy})
+      Simulate.keyDown(
+        document.querySelector('[data-hook="open-dropdown-button"]'),
+        { key: 'ArrowRight', preventDefault: preventDefaultSpy },
+      );
       expect(preventDefaultSpy).toHaveBeenCalled();
     });
 
     it('should show content on hover', async () => {
-      const driver = createDriver(createDropdown({options, openTrigger: HOVER}));
+      const driver = createDriver(
+        createDropdown({ options, openTrigger: HOVER }),
+      );
 
       driver.mouseEnter();
       expect(driver.isContentElementExists()).toBeTruthy();
       driver.mouseLeave();
-      await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
+      await eventually(() =>
+        expect(driver.isContentElementExists()).toBeFalsy(),
+      );
     });
   });
 
   describe('onSelect', () => {
     it('should be called when selection changed', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect}));
+      const driver = createDriver(createDropdown({ options, onSelect }));
 
       driver.click();
       driver.optionAt(0).click();
@@ -101,7 +121,7 @@ describe('Dropdown', () => {
 
     it('should not be called when selecting disabled item', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect}));
+      const driver = createDriver(createDropdown({ options, onSelect }));
 
       driver.click();
       driver.optionAt(2).click();
@@ -110,7 +130,7 @@ describe('Dropdown', () => {
 
     it('should not be called when selecting separator item', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect}));
+      const driver = createDriver(createDropdown({ options, onSelect }));
 
       driver.click();
       driver.optionAt(5).click();
@@ -119,7 +139,7 @@ describe('Dropdown', () => {
 
     it('should call onSelect when selection is empty then changed', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect}));
+      const driver = createDriver(createDropdown({ options, onSelect }));
 
       driver.click();
       driver.optionAt(0).click();
@@ -128,7 +148,7 @@ describe('Dropdown', () => {
 
     it('should not be called when re-selecting a selected item', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect}));
+      const driver = createDriver(createDropdown({ options, onSelect }));
 
       driver.click();
       driver.optionAt(0).click();
@@ -139,7 +159,9 @@ describe('Dropdown', () => {
 
     it('should be called when re-selecting a selected item when opted-in', () => {
       const onSelect = jest.fn();
-      const driver = createDriver(createDropdown({options, onSelect, allowReselect: true}));
+      const driver = createDriver(
+        createDropdown({ options, onSelect, allowReselect: true }),
+      );
 
       driver.click();
       driver.optionAt(0).click();
@@ -152,12 +174,14 @@ describe('Dropdown', () => {
   describe('onDeselect', () => {
     it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();
-      const driver = createDriver(createDropdown({
-        initialSelectedIds: [0],
-        options,
-        onDeselect,
-        multi: true
-      }));
+      const driver = createDriver(
+        createDropdown({
+          initialSelectedIds: [0],
+          options,
+          onDeselect,
+          multi: true,
+        }),
+      );
 
       driver.click();
 
@@ -168,11 +192,13 @@ describe('Dropdown', () => {
 
   describe('Initially selected options', () => {
     it('should be selected', () => {
-      const driver = createDriver(createDropdown({
-        options,
-        initialSelectedIds: [0, 1],
-        forceContentElementVisibility: true,
-      }));
+      const driver = createDriver(
+        createDropdown({
+          options,
+          initialSelectedIds: [0, 1],
+          forceContentElementVisibility: true,
+        }),
+      );
       expect(driver.optionAt(0).isSelected()).toBeTruthy();
       expect(driver.optionAt(1).isSelected()).toBeTruthy();
       expect(driver.getSelectedOptionsCount()).toEqual(2);
@@ -181,11 +207,13 @@ describe('Dropdown', () => {
 
   describe('multiple selection', () => {
     it('when enabled should allow selection of more than one option', () => {
-      const driver = createDriver(createDropdown({
-        options,
-        multi: true,
-        forceContentElementVisibility: true,
-      }));
+      const driver = createDriver(
+        createDropdown({
+          options,
+          multi: true,
+          forceContentElementVisibility: true,
+        }),
+      );
       driver.optionAt(0).click();
       driver.optionAt(1).click();
       expect(driver.optionAt(0).isSelected()).toBeTruthy();
@@ -194,12 +222,14 @@ describe('Dropdown', () => {
     });
 
     it('when disabled should NOT allow selection of more than one option', () => {
-      const driver = createDriver(createDropdown({
-        options,
-        multi: false,
-        initialSelectedIds: [0],
-        forceContentElementVisibility: true,
-      }));
+      const driver = createDriver(
+        createDropdown({
+          options,
+          multi: false,
+          initialSelectedIds: [0],
+          forceContentElementVisibility: true,
+        }),
+      );
       driver.optionAt(1).click();
       expect(driver.optionAt(1).isSelected()).toBeTruthy();
       expect(driver.getSelectedOptionsCount()).toEqual(1);
@@ -208,7 +238,7 @@ describe('Dropdown', () => {
 
   describe('Dropdown content edge cases', () => {
     it('should not open dropdown content if options list is empty', () => {
-      const driver = createDriver(createDropdown({options: []}));
+      const driver = createDriver(createDropdown({ options: [] }));
 
       driver.click();
 
@@ -216,7 +246,9 @@ describe('Dropdown', () => {
     });
 
     it('should open dropdown content if options list is empty and fixedHeader exists', () => {
-      const driver = createDriver(createDropdown({options: [], fixedHeader: 'Fixed'}));
+      const driver = createDriver(
+        createDropdown({ options: [], fixedHeader: 'Fixed' }),
+      );
 
       driver.click();
 
@@ -224,7 +256,9 @@ describe('Dropdown', () => {
     });
 
     it('should open dropdown content if options list is empty and fixedFooter exists', () => {
-      const driver = createDriver(createDropdown({options: [], fixedFooter: 'Fixed'}));
+      const driver = createDriver(
+        createDropdown({ options: [], fixedFooter: 'Fixed' }),
+      );
 
       driver.click();
 
@@ -233,62 +267,70 @@ describe('Dropdown', () => {
 
     it('Should display options when they exist', () => {
       const wrapper = mount(
-      <Dropdown
-        onSelect={() => null}
-        initialSelectedIds={[]}
-        onDeselect={() => null}
-        onInitialSelectedOptionsSet={() => null}
-        placement="top"
-        openTrigger={CLICK}
-        options={[]}
-      >
-        <span>Dropdown</span>
-      </Dropdown>);
+        <Dropdown
+          onSelect={() => null}
+          initialSelectedIds={[]}
+          onDeselect={() => null}
+          onInitialSelectedOptionsSet={() => null}
+          placement="top"
+          openTrigger={CLICK}
+          options={[]}
+        >
+          <span>Dropdown</span>
+        </Dropdown>,
+      );
 
       const driver = dropdownDriverFactory({
-        element: wrapper.children().at(0).getDOMNode(),
-        eventTrigger: Simulate
+        element: wrapper
+          .children()
+          .at(0)
+          .getDOMNode(),
+        eventTrigger: Simulate,
       });
 
       driver.click();
       expect(driver.isContentElementExists()).toBeFalsy();
 
-      wrapper.setProps({options});
+      wrapper.setProps({ options });
       expect(driver.isContentElementExists()).toBeTruthy();
     });
   });
 
   describe('Programatically open and close dropdown', () => {
-      it('Should support open() and close() methods', () => {
-        const wrapper = mount(
-            <Dropdown
-              onSelect={() => null}
-              initialSelectedIds={[]}
-              onDeselect={() => null}
-              onInitialSelectedOptionsSet={() => null}
-              placement="top"
-              openTrigger={CLICK}
-              options={options}
-            >
-              <span>Dropdown</span>
-            </Dropdown>);
+    it('Should support open() and close() methods', () => {
+      const wrapper = mount(
+        <Dropdown
+          onSelect={() => null}
+          initialSelectedIds={[]}
+          onDeselect={() => null}
+          onInitialSelectedOptionsSet={() => null}
+          placement="top"
+          openTrigger={CLICK}
+          options={options}
+        >
+          <span>Dropdown</span>
+        </Dropdown>,
+      );
 
-          const driver = dropdownDriverFactory({
-            element: wrapper.children().at(0).getDOMNode(),
-            eventTrigger: Simulate
-          });
-
-          expect(driver.isContentElementExists()).toBeFalsy();
-          (wrapper.instance() as any).getInstance().open();
-          expect(driver.isContentElementExists()).toBeTruthy();
-          (wrapper.instance() as any).getInstance().close();
-          expect(driver.isContentElementExists()).toBeFalsy();
+      const driver = dropdownDriverFactory({
+        element: wrapper
+          .children()
+          .at(0)
+          .getDOMNode(),
+        eventTrigger: Simulate,
       });
+
+      expect(driver.isContentElementExists()).toBeFalsy();
+      (wrapper.instance() as any).getInstance().open();
+      expect(driver.isContentElementExists()).toBeTruthy();
+      (wrapper.instance() as any).getInstance().close();
+      expect(driver.isContentElementExists()).toBeFalsy();
+    });
   });
 
   describe('Style states', () => {
     it('Should append "content-visible" state when content element is visible', () => {
-      const driver = createDriver(createDropdown({options}));
+      const driver = createDriver(createDropdown({ options }));
       expect(driver.hasStyleState('content-visible')).toBeFalsy();
       driver.click();
       expect(driver.isContentElementExists()).toBeTruthy();
@@ -296,7 +338,7 @@ describe('Dropdown', () => {
     });
 
     it('Should remove "content-visible" state when content element is not visible', () => {
-      const driver = createDriver(createDropdown({options}));
+      const driver = createDriver(createDropdown({ options }));
       driver.click();
       expect(driver.hasStyleState('content-visible')).toBeTruthy();
       driver.optionAt(0).click();

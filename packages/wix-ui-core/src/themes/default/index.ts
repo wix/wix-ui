@@ -8,6 +8,5 @@ const getClassNames = (values, stylesheet, rootcls?) => {
   return classNames(stylesheet[rootcls], clsArray);
 };
 
-export const avatar = (...values) =>
-  getClassNames(values, Avatar);
+export const avatar = (...values) => getClassNames(values, Avatar);
 export const defaultTheme = DefaultTheme.root;

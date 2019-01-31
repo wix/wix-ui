@@ -1,23 +1,23 @@
 import * as React from 'react';
 import style from './IconWithOptions.st.css';
-import {Dropdown} from '../dropdown';
-import {Placement} from '../popover';
-import {Option} from '../dropdown-option';
-import {HOVER, CLICK, OPEN_TRIGGER_TYPE} from '../dropdown/constants';
+import { Dropdown } from '../dropdown';
+import { Placement } from '../popover';
+import { Option } from '../dropdown-option';
+import { HOVER, CLICK, OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 
 export interface IconWithOptionsProps {
   /** The location to display the content */
   placement?: Placement;
   /** The dropdown options array */
-  options: Array<Option>;
+  options: Option[];
   /** Trigger type to open the content */
   openTrigger?: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
-  onSelect?: (option: Option) => void;
+  onSelect?(option: Option): void;
   /** Handler for when an option is deselected */
-  onDeselect?: (option: Option) => void;
+  onDeselect?(option: Option): void;
   /** initial selected option ids */
-  initialSelectedIds?: Array<string | number>;
+  initialSelectedIds?: (string | number)[];
   /** set true for multiple selection, false for single */
   multi?: boolean;
   /** An element that always appears at the top of the options */
@@ -31,20 +31,19 @@ export interface IconWithOptionsProps {
 /**
  * IconWithOptions
  */
-export const IconWithOptions: React.SFC<IconWithOptionsProps> =
-  props => {
-    const {
-      placement,
-      options,
-      openTrigger,
-      onSelect,
-      onDeselect,
-      initialSelectedIds,
-      multi,
-      iconUrl,
-      fixedHeader,
-      fixedFooter,
-    } = props;
+export const IconWithOptions: React.SFC<IconWithOptionsProps> = props => {
+  const {
+    placement,
+    options,
+    openTrigger,
+    onSelect,
+    onDeselect,
+    initialSelectedIds,
+    multi,
+    iconUrl,
+    fixedHeader,
+    fixedFooter,
+  } = props;
 
   return (
     <Dropdown
@@ -61,12 +60,10 @@ export const IconWithOptions: React.SFC<IconWithOptionsProps> =
       onDeselect={onDeselect}
       initialSelectedIds={initialSelectedIds}
     >
-      <img
-        src={iconUrl}
-        tabIndex={5}
-      />
-    </Dropdown>);
-  };
+      <img src={iconUrl} tabIndex={5} />
+    </Dropdown>
+  );
+};
 
 IconWithOptions.displayName = 'IconWithOptions';
 IconWithOptions.defaultProps = {
@@ -75,5 +72,5 @@ IconWithOptions.defaultProps = {
   multi: false,
   initialSelectedIds: [],
   onSelect: () => null,
-  onDeselect: () => null
+  onDeselect: () => null,
 };

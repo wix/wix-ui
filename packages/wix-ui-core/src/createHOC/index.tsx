@@ -7,16 +7,18 @@ export interface WixComponentProps {
   dataClass?: string;
 }
 
-const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
+const isStatelessComponent = Component =>
+  !(Component.prototype && Component.prototype.render);
 
 export const createHOC = Component => {
   class WixComponent extends React.PureComponent<WixComponentProps> {
     private wrappedComponentRef: React.Component = null;
 
-    static displayName = Component.displayName || Component.name || 'WixComponent';
+    static displayName =
+      Component.displayName || Component.name || 'WixComponent';
 
     componentDidMount() {
-      const {dataHook, dataClass} = this.props;
+      const { dataHook, dataClass } = this.props;
       if (dataHook || dataClass) {
         const domNode = ReactDOM.findDOMNode(this);
         if (domNode && domNode instanceof Element) {
@@ -27,7 +29,7 @@ export const createHOC = Component => {
     }
 
     componentDidUpdate(prevProps) {
-      const {dataHook} = this.props;
+      const { dataHook } = this.props;
       if (prevProps.dataHook !== dataHook) {
         const domNode = ReactDOM.findDOMNode(this);
         if (domNode && domNode instanceof Element) {
@@ -38,13 +40,21 @@ export const createHOC = Component => {
 
     render() {
       // Can't pass refs to stateless components (and also there's nothing to hoist)
-      return isStatelessComponent(Component)
-        ? (<Component {...this.props}/>)
-        : (<Component ref={ref => this.wrappedComponentRef = ref} {...this.props}/>);
+      return isStatelessComponent(Component) ? (
+        <Component {...this.props} />
+      ) : (
+        <Component
+          ref={ref => (this.wrappedComponentRef = ref)}
+          {...this.props}
+        />
+      );
     }
   }
 
   return isStatelessComponent(Component)
     ? WixComponent
-    : hoistNonReactMethods(WixComponent, Component, {delegateTo: c => c.wrappedComponentRef, hoistStatics: true});
+    : hoistNonReactMethods(WixComponent, Component, {
+        delegateTo: c => c.wrappedComponentRef,
+        hoistStatics: true,
+      });
 };

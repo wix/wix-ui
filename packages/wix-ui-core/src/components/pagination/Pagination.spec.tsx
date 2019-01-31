@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Simulate} from 'react-dom/test-utils';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
-import {sleep} from 'wix-ui-test-utils/react-helpers';
-import {Pagination} from './Pagination';
-import {PaginationDriver} from './Pagination.private.driver';
+import { Simulate } from 'react-dom/test-utils';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { sleep } from 'wix-ui-test-utils/react-helpers';
+import { Pagination } from './Pagination';
+import { PaginationDriver } from './Pagination.private.driver';
 import style from './Pagination.st.css';
 import testStyle from './PaginationTest.st.css';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 
 const stylableUtil = new StylableDOMUtil(style);
 
@@ -15,14 +15,15 @@ function spaceForPages(n) {
   // Assuming we use styles from PaginationTest.st.css
   const buttonWidth = 30;
   const buttonMargin = 5;
-  return (n + 2) * (buttonWidth + 2 * buttonMargin) - (2 * buttonMargin);
+  return (n + 2) * (buttonWidth + 2 * buttonMargin) - 2 * buttonMargin;
 }
 
 describe('Pagination', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
   const render = jsx =>
-    container.render(jsx)
-    .then(() => new PaginationDriver(container.componentNode!));
+    container
+      .render(jsx)
+      .then(() => new PaginationDriver(container.componentNode!));
 
   describe('Accessibility', () => {
     it('has <nav> as the root node', async () => {
@@ -34,8 +35,9 @@ describe('Pagination', () => {
     it('has aria-label', async () => {
       const p = await render(<Pagination totalPages={5} />);
 
-      expect(p.root.getAttribute('aria-label'))
-        .toEqual('Pagination Navigation');
+      expect(p.root.getAttribute('aria-label')).toEqual(
+        'Pagination Navigation',
+      );
     });
 
     it('has correct order of elements for screen readers', async () => {
@@ -44,20 +46,24 @@ describe('Pagination', () => {
       // visual order of the elements can be different.
 
       const p = await render(
-        <Pagination totalPages={5} showFirstLastNavButtons />
+        <Pagination totalPages={5} showFirstLastNavButtons />,
       );
 
-      expect(p.nextButton.compareDocumentPosition(p.previousButton))
-        .toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(p.nextButton.compareDocumentPosition(p.previousButton)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
 
-      expect(p.previousButton.compareDocumentPosition(p.pageStrip))
-        .toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(p.previousButton.compareDocumentPosition(p.pageStrip)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
 
-      expect(p.pageStrip.compareDocumentPosition(p.firstButton))
-        .toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(p.pageStrip.compareDocumentPosition(p.firstButton)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
 
-      expect(p.firstButton.compareDocumentPosition(p.lastButton))
-        .toEqual(Node.DOCUMENT_POSITION_FOLLOWING);
+      expect(p.firstButton.compareDocumentPosition(p.lastButton)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
     });
 
     it('has aria-label attribute on pages', async () => {
@@ -70,38 +76,37 @@ describe('Pagination', () => {
 
     it('has aria-label on the input field', async () => {
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} />
+        <Pagination paginationMode="input" totalPages={5} />,
       );
 
-      expect(p.input.getAttribute('aria-label'))
-        .toEqual('Page number, select a number between 1 and 5');
+      expect(p.input.getAttribute('aria-label')).toEqual(
+        'Page number, select a number between 1 and 5',
+      );
     });
 
     it('has aria-label on navigation buttons', async () => {
       const p = await render(
-        <Pagination totalPages={3} showFirstLastNavButtons />
+        <Pagination totalPages={3} showFirstLastNavButtons />,
       );
 
       expect(p.firstButton.getAttribute('aria-label')).toEqual('First Page');
       expect(p.lastButton.getAttribute('aria-label')).toEqual('Last Page');
-      expect(p.previousButton.getAttribute('aria-label')).toEqual('Previous Page');
+      expect(p.previousButton.getAttribute('aria-label')).toEqual(
+        'Previous Page',
+      );
       expect(p.nextButton.getAttribute('aria-label')).toEqual('Next Page');
     });
   });
 
   describe('Page numbers mode', () => {
     it('selects the first page by default', async () => {
-      const p = await render(
-        <Pagination totalPages={5} />
-      );
+      const p = await render(<Pagination totalPages={5} />);
 
       expect(p.currentPage.textContent).toBe('1');
     });
 
     it('selects given currentPage', async () => {
-      const p = await render(
-        <Pagination totalPages={5} currentPage={5} />
-      );
+      const p = await render(<Pagination totalPages={5} currentPage={5} />);
 
       expect(p.currentPage.textContent).toBe('5');
     });
@@ -109,17 +114,19 @@ describe('Pagination', () => {
     it('calls onChange on page click', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={1} onChange={onChange} />
+        <Pagination totalPages={5} currentPage={1} onChange={onChange} />,
       );
 
       Simulate.click(p.getPage(5));
-      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({page: 5}));
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({ page: 5 }),
+      );
     });
 
     it('does not call onChange on current page click', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={1} onChange={onChange} />
+        <Pagination totalPages={5} currentPage={1} onChange={onChange} />,
       );
 
       Simulate.click(p.getPage(1));
@@ -136,7 +143,7 @@ describe('Pagination', () => {
           onChange={onChange}
           showFirstLastNavButtons
           disabled
-        />
+        />,
       );
 
       Simulate.click(p.getPage(2));
@@ -152,15 +159,15 @@ describe('Pagination', () => {
   describe('Input field mode', () => {
     it('shows the input field with the current page', async () => {
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} />
+        <Pagination paginationMode="input" totalPages={5} />,
       );
 
       expect(p.input.value).toEqual('1');
     });
 
     it('does not show the total amount of pages by default', async () => {
-      const {totalPagesLabel} = await render(
-        <Pagination paginationMode="input" totalPages={5} />
+      const { totalPagesLabel } = await render(
+        <Pagination paginationMode="input" totalPages={5} />,
       );
 
       expect(totalPagesLabel).toBe(null);
@@ -172,7 +179,7 @@ describe('Pagination', () => {
           paginationMode="input"
           totalPages={5}
           showInputModeTotalPages
-        />
+        />,
       );
 
       expect(p.totalPagesLabel.textContent).toEqual('5');
@@ -181,18 +188,28 @@ describe('Pagination', () => {
     it('calls onChange on Enter press', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} onChange={onChange} />
+        <Pagination
+          paginationMode="input"
+          totalPages={5}
+          onChange={onChange}
+        />,
       );
 
       p.changeInput('5');
       p.commitInput();
-      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({page: 5}));
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({ page: 5 }),
+      );
     });
 
     it('does not call onChange with an empty value', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} onChange={onChange} />
+        <Pagination
+          paginationMode="input"
+          totalPages={5}
+          onChange={onChange}
+        />,
       );
 
       p.changeInput('');
@@ -204,7 +221,11 @@ describe('Pagination', () => {
     it('does not call onChange with an out-of-range value', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} onChange={onChange} />
+        <Pagination
+          paginationMode="input"
+          totalPages={5}
+          onChange={onChange}
+        />,
       );
 
       p.changeInput('6');
@@ -221,7 +242,7 @@ describe('Pagination', () => {
           totalPages={5}
           currentPage={1}
           onChange={onChange}
-        />
+        />,
       );
 
       p.changeInput('1');
@@ -233,7 +254,7 @@ describe('Pagination', () => {
     it('does not call onChange with a non-numeric value', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination paginationMode="input" totalPages={5} currentPage={1} />
+        <Pagination paginationMode="input" totalPages={5} currentPage={1} />,
       );
 
       p.changeInput('five');
@@ -244,11 +265,7 @@ describe('Pagination', () => {
 
     it('reverts cleared input to the current page on blur', async () => {
       const p = await render(
-        <Pagination
-          paginationMode="input"
-          totalPages={5}
-          currentPage={1}
-        />
+        <Pagination paginationMode="input" totalPages={5} currentPage={1} />,
       );
 
       Simulate.focus(p.input);
@@ -260,31 +277,27 @@ describe('Pagination', () => {
 
     it('disables the input in disabled mode', async () => {
       const p = await render(
-        <Pagination
-          paginationMode="input"
-          totalPages={5}
-          disabled
-        />
+        <Pagination paginationMode="input" totalPages={5} disabled />,
       );
 
       expect(p.input.disabled).toBe(true);
     });
 
-    it('adds error state after pressing Enter if the input has invalid value ' +
-       'and removes the error state on entry', async () => {
-      const p = await render(
-        <Pagination
-          paginationMode="input"
-          totalPages={5}
-        />
-      );
+    it(
+      'adds error state after pressing Enter if the input has invalid value ' +
+        'and removes the error state on entry',
+      async () => {
+        const p = await render(
+          <Pagination paginationMode="input" totalPages={5} />,
+        );
 
-      p.changeInput('6');
-      p.commitInput();
-      expect(stylableUtil.hasStyleState(p.root, 'error')).toBe(true);
-      p.changeInput('1');
-      expect(stylableUtil.hasStyleState(p.root, 'error')).toBe(false);
-    });
+        p.changeInput('6');
+        p.commitInput();
+        expect(stylableUtil.hasStyleState(p.root, 'error')).toBe(true);
+        p.changeInput('1');
+        expect(stylableUtil.hasStyleState(p.root, 'error')).toBe(false);
+      },
+    );
   });
 
   describe('Navigation buttons', () => {
@@ -299,7 +312,7 @@ describe('Pagination', () => {
 
     it('shows first and last buttons when showFirstLastNavButtons is on', async () => {
       const p = await render(
-        <Pagination totalPages={3} showFirstLastNavButtons />
+        <Pagination totalPages={3} showFirstLastNavButtons />,
       );
 
       expect(p.firstButton).toBeTruthy();
@@ -314,23 +327,23 @@ describe('Pagination', () => {
           currentPage={3}
           showFirstLastNavButtons
           onChange={onChange}
-        />
+        />,
       );
 
       Simulate.click(p.previousButton);
-      expect(onChange).lastCalledWith(expect.objectContaining({page: 2}));
+      expect(onChange).lastCalledWith(expect.objectContaining({ page: 2 }));
       Simulate.click(p.nextButton);
-      expect(onChange).lastCalledWith(expect.objectContaining({page: 4}));
+      expect(onChange).lastCalledWith(expect.objectContaining({ page: 4 }));
       Simulate.click(p.firstButton);
-      expect(onChange).lastCalledWith(expect.objectContaining({page: 1}));
+      expect(onChange).lastCalledWith(expect.objectContaining({ page: 1 }));
       Simulate.click(p.lastButton);
-      expect(onChange).lastCalledWith(expect.objectContaining({page: 5}));
+      expect(onChange).lastCalledWith(expect.objectContaining({ page: 5 }));
     });
 
     it('disables first and previous buttons when on the first page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />
+        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />,
       );
 
       Simulate.click(p.previousButton);
@@ -342,7 +355,7 @@ describe('Pagination', () => {
     it('disables next and last buttons when on the last page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />
+        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />,
       );
 
       Simulate.click(p.nextButton);
@@ -360,7 +373,7 @@ describe('Pagination', () => {
           previousLabel="previous-label"
           nextLabel="next-label"
           lastLabel="last-label"
-        />
+        />,
       );
       expect(p.firstButton.textContent).toEqual('first-label');
       expect(p.previousButton.textContent).toEqual('previous-label');
@@ -373,24 +386,24 @@ describe('Pagination', () => {
     it('allows to select items using Space and Enter', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={3} currentPage={1} onChange={onChange} />
+        <Pagination totalPages={3} currentPage={1} onChange={onChange} />,
       );
 
-      Simulate.keyDown(p.nextButton, {keyCode: 0});
-      Simulate.keyDown(p.getPage(2), {keyCode: 0});
+      Simulate.keyDown(p.nextButton, { keyCode: 0 });
+      Simulate.keyDown(p.getPage(2), { keyCode: 0 });
       expect(onChange).not.toBeCalled();
 
-      Simulate.keyDown(p.nextButton, {keyCode: 32});
-      Simulate.keyDown(p.nextButton, {keyCode: 13});
-      Simulate.keyDown(p.getPage(2), {keyCode: 32});
-      Simulate.keyDown(p.getPage(2), {keyCode: 13});
+      Simulate.keyDown(p.nextButton, { keyCode: 32 });
+      Simulate.keyDown(p.nextButton, { keyCode: 13 });
+      Simulate.keyDown(p.getPage(2), { keyCode: 32 });
+      Simulate.keyDown(p.getPage(2), { keyCode: 13 });
       expect(onChange).toHaveBeenCalledTimes(4);
     });
 
     it('allows to select items using mouse', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={3} currentPage={1} onChange={onChange} />
+        <Pagination totalPages={3} currentPage={1} onChange={onChange} />,
       );
 
       Simulate.click(p.nextButton);
@@ -411,10 +424,20 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
-      expect(p.pageLabels).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+      expect(p.pageLabels).toEqual([
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+      ]);
     });
 
     it(`starts adding ellipsis if there is not enough room`, async () => {
@@ -427,7 +450,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['1', '2', '3', '4', '5', '6', '...', '9']);
@@ -441,7 +464,7 @@ describe('Pagination', () => {
           width={spaceForPages(7)}
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['2', '3', '4', '5', '6', '7', '8']);
@@ -457,7 +480,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={4}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['1', '2', '3', '4', '5', '...', '9']);
@@ -473,7 +496,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={6}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['1', '...', '5', '6', '7', '8', '9']);
@@ -489,7 +512,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['1', '...', '4', '5', '6', '...', '9']);
@@ -505,7 +528,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['1', '...', '5', '...', '9']);
@@ -521,7 +544,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['4', '5', '6']);
@@ -537,7 +560,7 @@ describe('Pagination', () => {
           showLastPage
           currentPage={5}
           totalPages={9}
-        />
+        />,
       );
 
       expect(p.pageLabels).toEqual(['5']);
@@ -546,7 +569,7 @@ describe('Pagination', () => {
 
   it('adds IDs to the elements if ID prefix is provided', async () => {
     const p = await render(
-      <Pagination id="$" totalPages={3} showFirstLastNavButtons />
+      <Pagination id="$" totalPages={3} showFirstLastNavButtons />,
     );
 
     expect(p.firstButton.getAttribute('id')).toBe('$navButtonFirst');
@@ -569,7 +592,7 @@ describe('Pagination', () => {
         maxPagesToShow={4}
         showLastPage
         gapLabel={<em>*</em>}
-      />
+      />,
     );
 
     expect(p.pageLabels).toEqual(['1', '2', '*', '5']);
@@ -582,7 +605,7 @@ describe('Pagination', () => {
         currentPage={1}
         pageUrl={n => `https://example.com/${n}/`}
         showFirstLastNavButtons
-      />
+      />,
     );
 
     expect(p.firstButton.getAttribute('href')).toBe(null);
@@ -596,18 +619,16 @@ describe('Pagination', () => {
 
   it('calls onClick when clicking on the component', async () => {
     const onClick = jest.fn();
-    const p = await render(
-      <Pagination totalPages={3} onClick={onClick} />
-    );
+    const p = await render(<Pagination totalPages={3} onClick={onClick} />);
 
-      Simulate.click(p.root);
-      expect(onClick).toHaveBeenCalled();
+    Simulate.click(p.root);
+    expect(onClick).toHaveBeenCalled();
   });
 
   it('calls onDoubcleClick when double clicking on the component', async () => {
     const onDoubleClick = jest.fn();
     const p = await render(
-      <Pagination totalPages={3} onDoubleClick={onDoubleClick} />
+      <Pagination totalPages={3} onDoubleClick={onDoubleClick} />,
     );
 
     Simulate.doubleClick(p.root);

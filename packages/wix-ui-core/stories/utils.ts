@@ -1,5 +1,5 @@
 export enum Category {
-  COMPNENTS = 'Components'
+  COMPNENTS = 'Components',
 }
 
 /**

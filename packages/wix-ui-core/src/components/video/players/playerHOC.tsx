@@ -2,13 +2,13 @@ import * as React from 'react';
 import uniqueId = require('lodash/uniqueId');
 import isString = require('lodash/isString');
 import isFunction = require('lodash/isFunction');
-import {EVENTS} from '../constants';
+import { EVENTS } from '../constants';
 import {
   IPlayerAPI,
   IEventEmitter,
   IPropsToPlayer,
   IMethodsToPlayer,
-  ICommonProps
+  ICommonProps,
 } from '../types';
 
 interface IPlayerRef {
@@ -23,9 +23,8 @@ interface IState {
 export default function playerHOC(
   Player: React.ComponentType<any>,
   mapPropsToPlayer: IPropsToPlayer,
-  mapMethodsToPlayer: IMethodsToPlayer
+  mapMethodsToPlayer: IMethodsToPlayer,
 ): React.ComponentType<any> {
-
   return class extends React.Component<ICommonProps> {
     static propTypes = Player.propTypes;
     static displayName = Player.displayName;
@@ -37,7 +36,13 @@ export default function playerHOC(
     };
 
     componentDidMount() {
-      const { onPlay, onPause, onEnded, onFirstPlay, onFirstEnded } = this.props;
+      const {
+        onPlay,
+        onPause,
+        onEnded,
+        onFirstPlay,
+        onFirstEnded,
+      } = this.props;
 
       this.ref.eventEmitter.once(EVENTS.PLAYING, () => {
         onFirstPlay();
@@ -62,7 +67,7 @@ export default function playerHOC(
     componentWillReceiveProps(nextProps: ICommonProps) {
       const currentProps = this.props;
 
-      for (let propKey in nextProps) {
+      for (const propKey in nextProps) {
         const method = mapPropsToPlayer[propKey];
         const isPropChanged = nextProps[propKey] !== currentProps[propKey];
 
@@ -77,18 +82,19 @@ export default function playerHOC(
 
       try {
         if (isString(method)) {
-          return player[method](...args)
-        } else if (isFunction(method)) {
+          return player[method](...args);
+        }
+        if (isFunction(method)) {
           return method(this, player, ...args);
         }
-      } catch(error) {
+      } catch (error) {
         this.props.onError(error);
       }
-    };
-
-    private _playerRef = (instance: IPlayerRef): void => {
-      this.ref = instance;
     }
+
+    private readonly _playerRef = (instance: IPlayerRef): void => {
+      this.ref = instance;
+    };
 
     public reload(): void {
       this.setState({
@@ -103,17 +109,21 @@ export default function playerHOC(
     public play(): Promise<void> {
       const result = this._callPlayer(mapMethodsToPlayer.play);
 
-      return (result instanceof Promise) ? result : new Promise(resolve => {
-        this.ref.eventEmitter.once(EVENTS.PLAYING, () => resolve());
-      });
+      return result instanceof Promise
+        ? result
+        : new Promise(resolve => {
+            this.ref.eventEmitter.once(EVENTS.PLAYING, () => resolve());
+          });
     }
 
     public pause(): Promise<void> {
       const result = this._callPlayer(mapMethodsToPlayer.pause);
 
-      return (result instanceof Promise) ? result : new Promise(resolve => {
-        this.ref.eventEmitter.once(EVENTS.PAUSED, () => resolve());
-      });
+      return result instanceof Promise
+        ? result
+        : new Promise(resolve => {
+            this.ref.eventEmitter.once(EVENTS.PAUSED, () => resolve());
+          });
     }
 
     public togglePlay(): Promise<void> {
@@ -121,9 +131,11 @@ export default function playerHOC(
       const event = this.isPlayingNow ? EVENTS.PAUSED : EVENTS.PLAYING;
       const result = this._callPlayer(mapMethodsToPlayer[method]);
 
-      return (result instanceof Promise) ? result : new Promise(resolve => {
-        this.ref.eventEmitter.once(event, () => resolve());
-      });
+      return result instanceof Promise
+        ? result
+        : new Promise(resolve => {
+            this.ref.eventEmitter.once(event, () => resolve());
+          });
     }
 
     public stop(): Promise<void> {
@@ -175,8 +187,13 @@ export default function playerHOC(
     }
 
     render() {
-      return <Player key={this.state.playerKey} ref={this._playerRef} {...this.props} />;
+      return (
+        <Player
+          key={this.state.playerKey}
+          ref={this._playerRef}
+          {...this.props}
+        />
+      );
     }
-  }
-
+  };
 }
