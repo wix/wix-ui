@@ -16,6 +16,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "resolve": "^1.10.0",
+    "semver": "^5.6.0"
+  },
   "peerDependencies": {
     "tslint": "^5.0.0",
     "typescript": "^2.4.0"
