@@ -18,7 +18,7 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'YT',

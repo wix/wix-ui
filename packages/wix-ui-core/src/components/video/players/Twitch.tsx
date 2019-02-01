@@ -20,7 +20,7 @@ import styles from '../Video.st.css';
 const VIDEO_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
 const CHANNEL_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/([a-z0-9_]+)($|\?)/;
 
-export const verifier: VerifierType = url => isString(url) && (VIDEO_URL_REGEX.test(url) || CHANNEL_URL_REGEX.test(url));
+export const verifier: VerifierType = url => isString(url) && (VIDEO_URL_REGEX.test(url as string) || CHANNEL_URL_REGEX.test(url as string));
 
 const SDKConfig: ISDKConfig = {
   name: 'Twitch',

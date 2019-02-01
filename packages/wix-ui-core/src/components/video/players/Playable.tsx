@@ -20,9 +20,9 @@ const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 
 export const verifier: VerifierType = url => {
   if (isString(url)) {
-    return URL_REGEX.test(url);
+    return URL_REGEX.test(url as string);
   } else if (isArray(url)) {
-    return url.some(item => URL_REGEX.test(item));
+    return (url as []).some(item => URL_REGEX.test(item));
   }
 
   return false;

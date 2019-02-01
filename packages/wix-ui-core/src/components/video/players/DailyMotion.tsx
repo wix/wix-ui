@@ -18,7 +18,7 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'DM',
