@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
-import isArray = require('lodash/isArray');
+const isString = require('lodash/isString');
+const isArray = require('lodash/isArray');
 import {create, registerModule, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';

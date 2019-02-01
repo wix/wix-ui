@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
+const isString = require('lodash/isString');
 import {getSDK} from '../utils'
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';

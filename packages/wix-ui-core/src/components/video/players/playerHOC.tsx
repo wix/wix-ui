@@ -1,7 +1,7 @@
 import * as React from 'react';
-import uniqueId = require('lodash/uniqueId');
+const uniqueId = require('lodash/uniqueId');
 import isString = require('lodash/isString');
-import isFunction = require('lodash/isFunction');
+const isFunction = require('lodash/isFunction');
 import {EVENTS} from '../constants';
 import {
   IPlayerAPI,

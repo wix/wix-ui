@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
-import uniqueId = require('lodash/uniqueId');
+const isString = require('lodash/isString');
+const uniqueId = require('lodash/uniqueId');
 import {getSDK} from '../utils'
 import {EVENTS, PROGRESS_INTERVAL} from '../constants';
 import playerHOC from './playerHOC';
