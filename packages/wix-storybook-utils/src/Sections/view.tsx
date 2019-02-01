@@ -6,22 +6,28 @@ import { tab as makeTab } from './';
 
 const styles = require('./styles.scss');
 
+const Header = ({ storyName, metadata }) => (
+  <div className={styles.header}>
+    <div className={styles.title}>{storyName}</div>
+    {metadata.displayName && (
+      <div className={styles.subtitle}>{`<${metadata.displayName}/>`}</div>
+    )}
+  </div>
+);
+
 export const View: React.StatelessComponent<StoryConfig> = storyConfig => (
-  <div>
-    <div>
-      <div className={styles.title}>{storyConfig.storyName}</div>
-      {storyConfig.metadata.displayName && (
-        <div className={styles.subtitle}>{`<${
-          storyConfig.metadata.displayName
-        }/>`}</div>
+  <div className={styles.page}>
+    <div className={styles.content}>
+      <Header
+        storyName={storyConfig.storyName}
+        metadata={storyConfig.metadata}
+      />
+      {tab(
+        makeTab({
+          sections: storyConfig.sections,
+        }),
+        storyConfig,
       )}
     </div>
-
-    {tab(
-      makeTab({
-        sections: storyConfig.sections,
-      }),
-      storyConfig,
-    )}
   </div>
 );
