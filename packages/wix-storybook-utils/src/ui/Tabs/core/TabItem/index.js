@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-const pick from 'lodash/pick';
+import pick from 'lodash/pick';
 
 import * as TabPropTypes from '../constants/tab-prop-types';
 import styles from '../../styles.scss';

@@ -1,6 +1,6 @@
 import path from 'path';
 
-const kebabCase from 'lodash.kebabcase';
+import kebabCase from 'lodash.kebabcase';
 import * as builders from './index';
 
 import { SectionType } from '../typings/story-section';
