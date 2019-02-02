@@ -34,6 +34,7 @@ export interface ImportExampleSection extends StorySection {
 
 export interface LiveCodeSection extends StorySection {
   source: string;
+  previewProps?: object;
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
 }
