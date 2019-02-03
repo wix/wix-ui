@@ -47,7 +47,7 @@ export class IframesManager {
 
     private createInitializationScript() {
         const script = document.createElement('script');
-        script.innerText = 'window.initAutoComplete = (' + googleRequestHandler.toString() + ')(window, ' + JSON.stringify(handlerNames) + '); window.googleReady = () => window.initAutoComplete(window.google);';
+        script.innerText = 'window.initAutoComplete = (' + googleRequestHandler.toString() + ')(window, ' + JSON.stringify(handlerNames) + '); window.googleReady = function() {window.initAutoComplete(window.google);};';
         return script;
     }
 
