@@ -38,13 +38,33 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   private isResized = (): boolean =>
     this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover'
 
+  private getRootStyleProps() {
+    const { resizeMode } = this.props;
+    let stylingClasses = `root${this.isResized() ? ' wrapper' : ''}`;
+    return style(stylingClasses, { resizeMode, loadState: this.state.status }, this.props);
+  };
+
+  private getImageProps() {
+    const { errorImage, resizeMode, srcSet, nativeProps, ...additionalProps } = this.props;
+    let ret = {
+      ...additionalProps,
+      ...nativeProps,
+      src:this.state.src,
+      srcSet: this.isErrorState() ? null : srcSet,
+      onLoad:this.handleOnLoad,
+      onError:this.handleOnError
+    };
+
+    return ret;
+  };
+
   state = {
     src: this.getSrc(),
     status: ImageStatus.loading
   };
 
   render() {
-    const { errorImage, resizeMode, srcSet, nativeProps, ...additionalProps } = this.props;
+    const { resizeMode } = this.props;
 
     if (this.isResized()) {
       const imageWrapper = {
@@ -52,33 +72,14 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
         backgroundSize: resizeMode
       };
       return (
-        <div
-          {...style('root wrapper', { resizeMode, loadState: this.state.status }, this.props)}
-          style={imageWrapper}
-        >
-          <img
-            {...additionalProps}
-            {...nativeProps}
-            className={style.hiddenImage}
-            src={this.state.src}
-            srcSet={this.isErrorState() ? null : srcSet}
-            onLoad={this.handleOnLoad}
-            onError={this.handleOnError}
-          />
+        <div {...this.getRootStyleProps()} style={imageWrapper}>
+          <img {...this.getImageProps()} />
         </div>
       );
     };
 
     return (
-      <img
-        {...style('root', { resizeMode, loadState: this.state.status }, this.props)}
-        {...additionalProps}
-        {...nativeProps}
-        src={this.state.src}
-        srcSet={this.isErrorState() ? null : srcSet}
-        onLoad={this.handleOnLoad}
-        onError={this.handleOnError}
-      />
+      <img {...this.getRootStyleProps()} {...this.getImageProps()}/>
     );
   };
 
