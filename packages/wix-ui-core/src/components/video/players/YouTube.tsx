@@ -97,7 +97,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
 
   initPlayer = YT => {
     const {
-      playing, muted, controls, playerOptions,
+      playing, muted, controls, loop, playerOptions,
       onInit, onReady, onDuration, onError
     } = this.props;
     const src = this.props.src as string;
@@ -111,6 +111,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         autoplay: playing ? 1 : 0,
         mute: muted ? 1 : 0,
         controls: controls ? 1 : 0,
+        loop: loop ? 1 : 0,
         origin: window.location.origin,
         playsinline: true,
         ...playerOptions

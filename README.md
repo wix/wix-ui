@@ -27,7 +27,7 @@ We use Mocha runner in browser.
   - To run a specific test case, use the Mocha support `it.only` in the test code.
   
 ## **What themes are?**
-Read [here](./docs/WHAT_ARE_THEMES.md)
+Read [here](./docs/WHAT_ARE_THEMES.md).
 
 ## **How do themes work?**
 Read here about [themes structure and architecture](./docs/THEMES_STRUCTURE.md)
