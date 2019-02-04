@@ -44,7 +44,7 @@ function render(
     ...(tabs ? { tabs } : {}),
     className: styles.tab,
     children: section.sections.map((tabSection, key) => (
-      <div className={styles.section} key={key}>
+      <div key={key}>
         {!isTab(tabSection) && tabSection.title && (
           <div className={styles.sectionTitle}>{tabSection.title}</div>
         )}

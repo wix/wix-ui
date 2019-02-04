@@ -1,10 +1,14 @@
 @import '../../ui/typography.scss';
 
 .description {
-  margin-bottom: 24px;
+  margin-bottom: calc(24px - 16px);
   @include font(light);
   font-size: 16px;
   font-weight: 300;
   line-height: 1.5;
   color: #162d3d;
+}
+
+.import {
+  margin: 30px 0;
 }
