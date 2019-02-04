@@ -72,6 +72,7 @@
   "devDependencies": {
     "@storybook/addon-options": "4.0.0-alpha.9",
     "@storybook/react": "4.0.0-alpha.9",
+    "terser": "3.14.0",
     "@types/jest": "^23.3.8",
     "@types/react": "~16.4.2",
     "@types/react-dom": "^16.0.9",
