@@ -131,7 +131,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "/src/.*\\.browser\\.spec\\.(ts|tsx)$"
     ],
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
   },
