@@ -4,8 +4,8 @@ import { getFixedResult, helper } from '../src/lintRunner';
 const rule = 'no-full-wsr-lib';
 const rulesDirectory = path.resolve(__dirname, '../src');
 
-describe('Enable no-full-wsr-lib even if no WSR was found', () => {
-  const base = path.resolve(__dirname, 'fixtures', 'disableNoFullWsrLibRule');
+describe('enable no-full-wsr-lib if no WSR found', () => {
+  const base = path.resolve(__dirname, 'fixtures', 'enableNoFullWsrLibRuleNoWsrDep');
   let cwd: string;
 
   beforeEach(() => {
@@ -17,8 +17,18 @@ describe('Enable no-full-wsr-lib even if no WSR was found', () => {
     process.chdir(cwd);
   });
 
-  it(`should not fail`, () => {
+  it(`should fail on a destructured import statement`, () => {
     const src = `import { Button } from 'wix-style-react';`;
+    const result = helper({ src, rule, rulesDirectory });
+    expect(result.errorCount).toBe(1);
+    const failure = helper({ src, rule, rulesDirectory }).failures[0];
+    expect(failure.getFailure()).toBe(
+      "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`"
+    );
+  });
+
+  it(`should not fail`, () => {
+    const src = `import Button from 'wix-style-react/Button';`;
     const result = helper({ src, rule, rulesDirectory });
     expect(result.errorCount).toBe(0);
   });
