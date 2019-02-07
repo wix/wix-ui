@@ -76,7 +76,7 @@ describe('enable no-full-wsr-lib if no WSR found', () => {
     expect(getFixedResult({ src, rule, rulesDirectory })).toEqual(output);
   });
 
-  it.only('should not fix requiring all the lib', () => {
+  it('should not fix requiring all the lib', () => {
     const src = `const WSR = require('wix-style-react');`;
     const output = `const WSR = require('wix-style-react');`;
 
