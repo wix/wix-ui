@@ -4,7 +4,7 @@ import { getFixedResult, helper } from '../src/lintRunner';
 const rule = 'no-full-wsr-lib';
 const rulesDirectory = path.resolve(__dirname, '../src');
 
-describe('Enable no-full-wsr-lib even if no WSR was found', () => {
+describe('Disable no-full-wsr-lib if WSR version is greater than 5.8.1', () => {
   const base = path.resolve(__dirname, 'fixtures', 'disableNoFullWsrLibRule');
   let cwd: string;
 
