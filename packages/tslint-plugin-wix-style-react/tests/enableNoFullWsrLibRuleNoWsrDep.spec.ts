@@ -51,13 +51,6 @@ describe('enable no-full-wsr-lib if no WSR found', () => {
     expect(result.errorCount).toBe(1);
   });
 
-  it('should not fail for destructured import statement', () => {
-    const src = `import { Button, Panel } from 'wix-style-react';`;
-
-    const result = helper({ src, rule, rulesDirectory });
-    expect(result.errorCount).toBe(0);
-  });
-
   it('should fix destructured require statement', () => {
     const src = `const { Button } = require('wix-style-react');`;
     const output = `import Button from 'wix-style-react/Button';`;
