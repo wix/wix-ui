@@ -129,6 +129,30 @@ describe('InputWithOptions', () => {
       expect(driver.optionAt(0).getText()).toBe('b');
       expect(driver.optionAt(1).getText()).toBe('c');
     });
+
+    it('should not display any option in case all options are filtered', async () => {
+      const props = {options: numericOptions, inputProps: {value: ''}};
+      const {wrapper, driver} = setup(props);
+      driver.click();
+      expect(driver.getOptionsCount()).toBe(4);
+      // Using keyDown in order to trigger isEditing mode
+      driver.keyDown('z');
+      wrapper.setProps({inputProps: {value: 'z'}});
+      expect(driver.getOptionsCount()).toBe(0);
+    });
+
+    it('should display empty state message in case all options are filtered', () => {
+      const emptyStateMessage = 'Empty state';
+      const props = {options: numericOptions, inputProps: {value: ''}, emptyStateMessage};
+      const {wrapper, driver} = setup(props);
+      driver.click();
+      // Using keyDown in order to trigger isEditing mode
+      driver.keyDown('z');
+      wrapper.setProps({inputProps: {value: 'z'}});
+      expect(driver.getOptionsCount()).toBe(1);
+      expect(driver.optionAt(0).getText()).toBe(emptyStateMessage);
+      expect(driver.optionAt(0).isDisabled()).toBeTruthy();
+    });
   })
 
   describe('Focus and blur events', () => {
