@@ -21,4 +21,3 @@ export function isVersionGreater(packageName: string, version: string | semver.S
   if (!currentVersion) return false;
   return semver.gt(currentVersion, version);
 };
-
