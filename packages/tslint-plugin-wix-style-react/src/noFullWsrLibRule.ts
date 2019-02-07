@@ -1,6 +1,6 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
-import { isVersionGreater } from '../lib/utils';
+import { isVersionGreater } from './utils';
 
 export class Rule extends Lint.Rules.AbstractRule {
   static FAILURE_STRING =
