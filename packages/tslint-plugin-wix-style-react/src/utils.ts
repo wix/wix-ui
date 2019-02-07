@@ -3,10 +3,10 @@
  * @author Artem Yavorsky
  */
 
-const resolve = require('resolve');
-const semver = require('semver');
+import * as resolve from 'resolve';
+import * as semver from 'semver';
 
-function detectVersion(packageName) {
+export function detectVersion(packageName: string): string {
   try {
     const pkgPath = resolve.sync(`${packageName}/package.json`, {basedir: process.cwd()});
     const pkg = require(pkgPath);
@@ -16,13 +16,8 @@ function detectVersion(packageName) {
   }
 }
 
-function isVersionGreater(packageName, version) {
+export function isVersionGreater(packageName: string, version: string | semver.SemVer) {
   const currentVersion = detectVersion(packageName);
   if (!currentVersion) return false;
   return semver.gt(currentVersion, version);
-};
-
-module.exports = {
-  detectVersion,
-  isVersionGreater,
 };

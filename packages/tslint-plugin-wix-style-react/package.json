@@ -27,6 +27,8 @@
   "devDependencies": {
     "@types/jest": "^23.0.0",
     "@types/node": "^10.5.2",
+    "@types/resolve": "^0.0.8",
+    "@types/semver": "^5.5.0",
     "jest": "^23.1.0",
     "ts-jest": "^22.4.6",
     "typescript": "^2.9.2",
