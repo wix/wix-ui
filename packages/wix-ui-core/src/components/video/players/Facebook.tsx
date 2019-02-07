@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
-import uniqueId = require('lodash/uniqueId');
+const isString = require('lodash/isString');
+const uniqueId = require('lodash/uniqueId');
 import {getSDK} from '../utils'
 import playerHOC from './playerHOC';
 import {EVENTS, PROGRESS_INTERVAL} from '../constants';
@@ -19,7 +19,7 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /facebook\.com\/([^/?].+\/)?video(s|\.php)[/?].*$/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'FB',

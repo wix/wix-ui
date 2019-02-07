@@ -28,7 +28,6 @@
     "build": "yoshi build && npm run generate-stylable-components && npm run generate-stylable-hocs && npm run transpile-mixins && npm run import-path && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y && npm run snap",
-    "posttest": "npm run lint",
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
     "test:e2e": "yoshi test --protractor",
@@ -71,7 +70,6 @@
   "devDependencies": {
     "@storybook/addon-options": "4.0.0-alpha.14",
     "@storybook/react": "4.0.0-alpha.14",
-    "terser": "3.14.0",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
@@ -99,14 +97,13 @@
     "react-dom": "~16.4.2",
     "react-test-renderer": "^16.3.1",
     "ts-jest": "^22.0.3",
-    "tslint-config-prettier": "^1.12.0",
-    "tslint-react": "^3.5.1",
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
     "wix-storybook-utils": "^2.0.45",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
-    "yoshi": "^2.7.0"
+    "yoshi": "^3.28.0",
+    "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
   "publishConfig": {
@@ -137,10 +134,7 @@
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
   },
   "yoshi": {
-    "exports": {
-      "root": "wix-ui-core",
-      "commonjs": "wix-ui-core"
-    }
+    "exports": "wix-ui-core"
   },
   "babel": {
     "presets": [

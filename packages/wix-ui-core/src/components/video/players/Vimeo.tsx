@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
+const isString = require('lodash/isString');
 import {getSDK} from '../utils'
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';
@@ -18,7 +18,7 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /vimeo\.com\/.+/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'Vimeo',

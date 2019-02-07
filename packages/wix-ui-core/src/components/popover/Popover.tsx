@@ -20,7 +20,7 @@ import {
 } from '../../utils/stylableUtils';
 
 import * as classNames from 'classnames';
-import isElement = require('lodash/isElement');
+const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';

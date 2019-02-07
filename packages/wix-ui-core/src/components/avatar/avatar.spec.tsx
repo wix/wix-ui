@@ -28,6 +28,20 @@ describe('Avatar', () => {
     async () => expect((await driver.getContentType()) === 'image').toBeTruthy()
   );
 
+  // TODO: remove this hack
+  // this is to ensure `onload` is called,
+  // because during yoshi3 migration it stopped working
+  // hack taken from https://stackoverflow.com/questions/44462665/how-do-you-use-jest-to-test-img-onerror/49204336#49204336
+  beforeAll(() => {
+    Object.defineProperty((global as any).Image.prototype, 'src', {
+      set(src) {
+        if (src === TEST_IMG_URL) {
+          setTimeout(() => this.onload());
+        }
+      },
+    });
+  });
+
   it('should render an empty placeholder by default', async () => {
     const driver = createDriver(<Avatar />);
     expect((await driver.getContentType()) === 'placeholder').toBe(true);

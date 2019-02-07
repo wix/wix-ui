@@ -5,7 +5,7 @@ import {Tooltip} from '../../components/tooltip';
 import textStyle from './Text.st.css';
 import tooltipStyle from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';
-import debounce = require('lodash/debounce');
+const debounce = require('lodash/debounce');
 
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>,

@@ -21,5 +21,7 @@ export default {
     Client,
     onSelect: value => setState({value: value.address.formatted}),
     'data-hook': 'storybook-addressInput'
-  })
+  }),
+
+  codeExample: false
 };
