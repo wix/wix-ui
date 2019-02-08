@@ -52,9 +52,9 @@ const Preview = ({
       {...{
         className: classnames(styles.preview, {
           rtl: isRtl,
-          [styles.darkPreview]: isDarkBackground
+          [styles.darkPreview]: isDarkBackground,
         }),
-        ...(isRtl ? { dir: 'rtl' } : {})
+        ...(isRtl ? { dir: 'rtl' } : {}),
       }}
     >
       {children}
@@ -77,7 +77,7 @@ const Toggle = ({ value, onChange }) => (
 
 Toggle.propTypes = {
   value: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 const createInput = ({ type = 'string', property }) => ({
@@ -101,7 +101,7 @@ const NumberInput = createInput({ type: 'number', property: 'valueAsNumber' });
 Input.propTypes = NumberInput.propTypes = {
   value: PropTypes.string,
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 const Code = ({ component }) => (
@@ -115,7 +115,7 @@ const Code = ({ component }) => (
 );
 
 Code.propTypes = {
-  component: PropTypes.node.isRequired
+  component: PropTypes.node.isRequired,
 };
 
 export { Option, Preview, Toggle, Input, NumberInput, List, Code };

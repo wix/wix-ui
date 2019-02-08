@@ -11,8 +11,8 @@ const methodToFileName = f => kebabCase(path.parse(f).name);
 const sectionTypes = Object.keys(SectionType).map(t => SectionType[t]);
 
 describe('Sections', () => {
-  it('should have exported view for each section', () => {
-    sectionTypes.map(type => {
+  sectionTypes.map(type =>
+    it(`should export view for ${type} section`, () => {
       try {
         const view = require(path.resolve(cwd, methodToFileName(type)));
         expect(typeof view[type]).toBe('function');

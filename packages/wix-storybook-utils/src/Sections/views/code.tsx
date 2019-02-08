@@ -5,7 +5,7 @@ const CodeBlock = require('../../CodeBlock').default;
 
 const styles = require('./styles.scss');
 
-export const code: ((a: CodeSection) => React.ReactNode) = ({
+export const code: (a: CodeSection) => React.ReactNode = ({
   source,
   description,
 }) =>

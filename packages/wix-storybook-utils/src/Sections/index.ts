@@ -22,64 +22,64 @@ const baseSection = rest => ({
   ...rest,
 });
 
-export const error: ((
+export const error: (
   object: Partial<ErrorSection>,
-) => ErrorSection) = baseSection;
+) => ErrorSection = baseSection;
 
-export const liveCode: ((
+export const liveCode: (
   object: Partial<LiveCodeSection>,
-) => LiveCodeSection) = rest =>
+) => LiveCodeSection = rest =>
   baseSection({
     type: SectionType.LiveCode,
     ...rest,
   });
 
-export const code: ((object: Partial<CodeSection>) => CodeSection) = rest =>
+export const code: (object: Partial<CodeSection>) => CodeSection = rest =>
   baseSection({
     type: SectionType.Code,
     ...rest,
   });
 
-export const description: ((
+export const description: (
   object: Partial<DescriptionSection>,
-) => DescriptionSection) = rest =>
+) => DescriptionSection = rest =>
   baseSection({
     type: SectionType.Description,
     ...rest,
   });
 
-export const importExample: ((
+export const importExample: (
   object: Partial<ImportExampleSection>,
-) => ImportExampleSection) = rest =>
+) => ImportExampleSection = rest =>
   baseSection({
     type: SectionType.ImportExample,
     ...rest,
   });
 
-export const tab: ((object: Partial<TabSection>) => TabSection) = rest =>
+export const tab: (object: Partial<TabSection>) => TabSection = rest =>
   baseSection({
     type: SectionType.Tab,
     sections: [],
     ...rest,
   });
 
-export const api: ((object?: Partial<ApiSection>) => ApiSection) = rest =>
+export const api: (object?: Partial<ApiSection>) => ApiSection = rest =>
   baseSection({
     type: SectionType.Api,
     ...rest,
   });
 
-export const playground: ((
+export const playground: (
   object?: Partial<PlaygroundSection>,
-) => PlaygroundSection) = rest =>
+) => PlaygroundSection = rest =>
   baseSection({
     type: SectionType.Playground,
     ...rest,
   });
 
-export const testkit: ((
+export const testkit: (
   object?: Partial<TestkitSection>,
-) => TestkitSection) = rest =>
+) => TestkitSection = rest =>
   baseSection({
     type: SectionType.Testkit,
     ...rest,
