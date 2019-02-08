@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 const LiveCodeExample = require('../../LiveCodeExample').default;
+const CodeBlock = require('../../CodeBlock').default;
 import { LiveCodeSection } from '../../typings/story-section';
 
 export const liveCode: (a: LiveCodeSection) => React.ReactNode = ({
@@ -8,11 +9,15 @@ export const liveCode: (a: LiveCodeSection) => React.ReactNode = ({
   components,
   compact = false,
   previewProps,
-}) => (
-  <LiveCodeExample
-    previewProps={previewProps}
-    compact={compact}
-    scope={components}
-    initialCode={source}
-  />
-);
+  interactive = true,
+}) =>
+  interactive ? (
+    <LiveCodeExample
+      previewProps={previewProps}
+      compact={compact}
+      scope={components}
+      initialCode={source}
+    />
+  ) : (
+    <CodeBlock source={source} />
+  );

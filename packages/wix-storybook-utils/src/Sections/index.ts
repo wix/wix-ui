@@ -16,7 +16,9 @@ import {
 
 const baseSection = rest => ({
   type: SectionType.Error,
+  pretitle: '',
   title: '',
+  subtitle: '',
   hidden: false,
   ...rest,
 });

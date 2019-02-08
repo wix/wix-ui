@@ -12,7 +12,10 @@ export enum SectionType {
 
 export interface StorySection {
   type: SectionType;
-  title?: string;
+  pretitle?: React.ReactNode;
+  title?: React.ReactNode;
+  subtitle?: React.ReactNode;
+  description?: React.ReactNode;
   hidden?: boolean;
 }
 
@@ -25,18 +28,19 @@ export type Section =
   | ApiSection;
 
 export interface DescriptionSection extends StorySection {
-  text: string;
+  text: React.ReactNode;
 }
 
 export interface ImportExampleSection extends StorySection {
-  source: string;
+  source: React.ReactNode;
 }
 
 export interface CodeSection extends StorySection {
-  source: string;
+  source: React.ReactNode;
   previewProps?: object;
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
+  interactive?: boolean;
 }
 
 export interface LiveCodeSection extends CodeSection {}

@@ -5,7 +5,6 @@ import { TabSection } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 
 import { error } from './error';
-import { liveCode } from './live-code';
 import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
@@ -20,7 +19,6 @@ const TabbedView = require('../../TabbedView').default;
 
 const views = {
   error,
-  liveCode,
   importExample,
   description,
   code,
