@@ -33,6 +33,19 @@ const views = {
 
 const getView = type => views[type] || error;
 
+const tabWithSiblings = (section, storyConfig, children) => (
+  <div>
+    {['pretitle', 'title', 'subtitle', 'description']
+      .filter(row => section[row])
+      .map(row => (
+        <div key={row} className={styles[`section-${row}`]}>
+          {section[row]}
+        </div>
+      ))}
+    {children}
+  </div>
+);
+
 function render(
   section: TabSection,
   tabs: string[],
@@ -41,15 +54,17 @@ function render(
   return React.createElement(tabs.length ? TabbedView : 'div', {
     ...(tabs ? { tabs } : {}),
     className: styles.tab,
-    children: section.sections.map((tabSection, key) => (
-      <div key={key}>
-        {!isTab(tabSection) && tabSection.title && (
-          <div className={styles.sectionTitle}>{tabSection.title}</div>
-        )}
+    children: section.sections.map((tabSection, key) => {
+      const view = getView(tabSection.type)(tabSection, storyConfig);
 
-        {getView(tabSection.type)(tabSection, storyConfig)}
-      </div>
-    )),
+      return (
+        <div key={key}>
+          {isTab(tabSection)
+            ? view
+            : tabWithSiblings(tabSection, storyConfig, view)}
+        </div>
+      );
+    }),
   });
 }
 

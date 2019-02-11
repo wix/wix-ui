@@ -4,7 +4,6 @@ import Component from './component';
 import {
   tab,
   description,
-  liveCode,
   code,
   importExample,
   api,
@@ -56,16 +55,11 @@ export default {
           text: 'hello guys!',
         }),
 
-        liveCode({
-          source: '<div><LiveExampleComponent/></div>',
-          components: { LiveExampleComponent },
-          compact: true,
-        }),
-
         code({
           title: 'Below is code example',
           description: 'hey this some really cool code example!',
           source: '<div><LiveExampleComponent/></div>',
+          components: { LiveExampleComponent },
         }),
       ],
     }),
