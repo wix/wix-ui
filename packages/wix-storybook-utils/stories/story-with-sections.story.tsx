@@ -31,7 +31,6 @@ export default {
           title: 'Septyni astuoni keturiolika',
           items: [
             description({ text: `🔨 To trigger an operation.` }),
-
             importExample({
               source: "import Button from 'wix-style-react/Button';",
             }),
