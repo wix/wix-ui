@@ -8,6 +8,7 @@ export enum SectionType {
   Api = 'api',
   Playground = 'playground',
   Testkit = 'testkit',
+  Columns = 'columns',
 }
 
 export interface StorySection {
@@ -25,7 +26,8 @@ export type Section =
   | LiveCodeSection
   | CodeSection
   | TabSection
-  | ApiSection;
+  | ApiSection
+  | ColumnsSection;
 
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode;
@@ -54,6 +56,10 @@ export interface ErrorSection extends StorySection {}
 export interface ApiSection extends StorySection {}
 export interface PlaygroundSection extends StorySection {}
 export interface TestkitSection extends StorySection {}
+
+export interface ColumnsSection extends StorySection {
+  items: Section[];
+}
 
 export interface SectionsMeta {
   tabs: string[];

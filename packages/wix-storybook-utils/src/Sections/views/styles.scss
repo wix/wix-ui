@@ -1,4 +1,4 @@
-@import '../../ui/typography.scss';
+@import "../../ui/typography.scss";
 
 .description {
   margin-bottom: calc(24px - 16px);
@@ -11,4 +11,12 @@
 
 .import {
   margin: 30px 0;
+}
+
+.column-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
 }

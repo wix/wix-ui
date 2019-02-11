@@ -12,10 +12,19 @@ import { api } from './api';
 import { playground } from './playground';
 import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
+import { columns } from './columns';
 
 const styles = require('../styles.scss');
 
 const TabbedView = require('../../TabbedView').default;
+
+export const tab = (
+  section: TabSection,
+  storyConfig: StoryConfig,
+): React.ReactNode => {
+  const tabs = extractTabs(section);
+  return render(section, tabs, storyConfig);
+};
 
 const views = {
   error,
@@ -25,13 +34,11 @@ const views = {
   api,
   playground,
   testkit,
-  tab: (section: TabSection, storyConfig: StoryConfig): React.ReactNode => {
-    const tabs = extractTabs(section);
-    return render(section, tabs, storyConfig);
-  },
+  tab,
+  columns,
 };
 
-const getView = type => views[type] || error;
+export const getView = type => views[type] || error;
 
 const tabWithSiblings = (section, storyConfig, children) => (
   <div>
@@ -67,5 +74,3 @@ function render(
     }),
   });
 }
-
-export const tab = views.tab;

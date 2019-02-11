@@ -8,6 +8,7 @@ import {
   ApiSection,
   PlaygroundSection,
   TestkitSection,
+  ColumnsSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -79,5 +80,13 @@ export const testkit: (
 ) => TestkitSection = rest =>
   baseSection({
     type: SectionType.Testkit,
+    ...rest,
+  });
+
+export const columns: (
+  object: Partial<ColumnsSection>,
+) => ColumnsSection = rest =>
+  baseSection({
+    type: SectionType.Columns,
     ...rest,
   });

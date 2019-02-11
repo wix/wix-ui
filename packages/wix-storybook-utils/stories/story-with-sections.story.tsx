@@ -9,6 +9,7 @@ import {
   api,
   playground,
   testkit,
+  columns,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -23,6 +24,22 @@ export default {
   component: Component,
   componentPath: './component.js',
   sections: [
+    tab({
+      title: 'Something something',
+      sections: [
+        columns({
+          title: 'Septyni astuoni keturiolika',
+          items: [
+            description({ text: `🔨 To trigger an operation.` }),
+
+            importExample({
+              source: "import Button from 'wix-style-react/Button';",
+            }),
+          ],
+        }),
+      ],
+    }),
+
     tab({
       title: 'hello',
       sections: [
@@ -49,17 +66,6 @@ export default {
       sections: [
         importExample({
           source: "import Component from 'your-library/Component';",
-        }),
-
-        description({
-          text: 'hello guys!',
-        }),
-
-        code({
-          title: 'Below is code example',
-          description: 'hey this some really cool code example!',
-          source: '<div><LiveExampleComponent/></div>',
-          components: { LiveExampleComponent },
         }),
       ],
     }),
