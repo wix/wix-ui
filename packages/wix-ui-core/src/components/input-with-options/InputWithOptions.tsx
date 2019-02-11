@@ -45,6 +45,8 @@ export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveB
   allowReselect?: boolean;
   /** Filter by predicate */
   filterPredicate?: (inputValue: string, optionValue: string) => Boolean;
+  /** Empty state message to be displayed in case all options are filtered out */
+  emptyStateMessage?: string;
 }
 
 /**
@@ -79,7 +81,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
   _filterOptions(): Array<Option> {
 
-    const { highlightMatches, inputProps, options, filterPredicate } = this.props;
+    const { highlightMatches, inputProps, options, filterPredicate, emptyStateMessage } = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
     }
@@ -91,6 +93,10 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
     if (!highlightMatches) {
       return filteredOptions;
+    }
+
+    if (emptyStateMessage && filteredOptions.length === 0) {
+      return [OptionFactory.create({render: () => emptyStateMessage, isDisabled: true})];
     }
 
     return filteredOptions.map((option: Option) =>
