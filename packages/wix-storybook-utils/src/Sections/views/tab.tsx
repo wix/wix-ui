@@ -13,6 +13,7 @@ import { playground } from './playground';
 import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
 import { columns } from './columns';
+import { table } from './table';
 
 const styles = require('../styles.scss');
 
@@ -36,6 +37,7 @@ const views = {
   testkit,
   tab,
   columns,
+  table,
 };
 
 export const getView = type => views[type] || error;

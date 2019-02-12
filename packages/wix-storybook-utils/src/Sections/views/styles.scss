@@ -12,3 +12,14 @@
 .import {
   margin: 30px 0;
 }
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tr {
+  &:nth-child(odd) {
+    background-color: rgba(240, 244, 247, 0.42);
+  }
+}

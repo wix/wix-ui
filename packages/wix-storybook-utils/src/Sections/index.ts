@@ -9,6 +9,7 @@ import {
   PlaygroundSection,
   TestkitSection,
   ColumnsSection,
+  TableSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -88,5 +89,11 @@ export const columns: (
 ) => ColumnsSection = rest =>
   baseSection({
     type: SectionType.Columns,
+    ...rest,
+  });
+
+export const table: (object: Partial<TableSection>) => TableSection = rest =>
+  baseSection({
+    type: SectionType.Table,
     ...rest,
   });

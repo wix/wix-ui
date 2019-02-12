@@ -10,6 +10,7 @@ import {
   playground,
   testkit,
   columns,
+  table,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -34,6 +35,13 @@ export default {
             importExample({
               source: "import Button from 'wix-style-react/Button';",
             }),
+          ],
+        }),
+        table({
+          title: 'Included Components',
+          rows: [
+            ['&lt;FormField/&gt;', 'Layout component for form elements'],
+            ['&lt;Input /&gt;', 'Component that receives data'],
           ],
         }),
       ],
