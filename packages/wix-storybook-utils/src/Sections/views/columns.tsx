@@ -2,14 +2,16 @@ import * as React from 'react';
 import { ColumnsSection } from '../../typings/story-section';
 import { getView } from './tab';
 
-const styles = require('./styles.scss');
+const { Layout, Cell } = require('../../ui/Layout');
 
-export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => (
-  <div className={styles.columnContainer}>
-    {items.map((column, i) => (
-      <div className={styles.column} key={`column-${i}`}>
-        {getView(column.type)(column)}
-      </div>
-    ))}
-  </div>
-);
+export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => {
+  if (!items.length) {
+    return null;
+  }
+
+  const span = items.length <= 12 ? 12 / items.length : 1;
+  const children = items.map(column => (
+    <Cell span={span}>{getView(column.type)(column)}</Cell>
+  ));
+  return <Layout>{children}</Layout>;
+};
