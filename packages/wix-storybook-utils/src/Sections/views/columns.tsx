@@ -4,7 +4,7 @@ import { getView } from './tab';
 import { isTab } from '../extract-tabs';
 import { tabWithSiblings } from '../common';
 
-const { Layout, Cell } = require('../../ui/Layout');
+const styles = require('./styles.scss');
 
 const renderColumn = column => {
   const view = getView(column.type)(column);
@@ -17,12 +17,10 @@ export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => {
   }
 
   return (
-    <Layout cols={items.length}>
+    <div className={styles.layout}>
       {items.map((column, i) => (
-        <Cell span={1} key={`cell-${i}`}>
-          {renderColumn(column)}
-        </Cell>
+        <div key={`col-${i}`}>{renderColumn(column)}</div>
       ))}
-    </Layout>
+    </div>
   );
 };

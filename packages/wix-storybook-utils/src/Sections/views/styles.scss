@@ -32,3 +32,9 @@
   color: #162d3d;
   margin: 0 0 30px;
 }
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 30px;
+}
