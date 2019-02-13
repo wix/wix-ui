@@ -4,6 +4,8 @@ import { TabSection } from '../../typings/story-section';
 
 import { StoryConfig } from '../../typings/story-config';
 
+import { tabWithSiblings } from '../common';
+
 import { error } from './error';
 import { importExample } from './import-example';
 import { description } from './description';
@@ -44,19 +46,6 @@ const views = {
 
 export const getView = type => views[type] || error;
 
-const tabWithSiblings = (section, storyConfig, children) => (
-  <div>
-    {['pretitle', 'title', 'subtitle', 'description']
-      .filter(row => section[row])
-      .map(row => (
-        <div key={row} className={styles[`section-${row}`]}>
-          {section[row]}
-        </div>
-      ))}
-    {children}
-  </div>
-);
-
 function render(
   section: TabSection,
   tabs: string[],
@@ -70,9 +59,7 @@ function render(
 
       return (
         <div key={key}>
-          {isTab(tabSection)
-            ? view
-            : tabWithSiblings(tabSection, storyConfig, view)}
+          {isTab(tabSection) ? view : tabWithSiblings(tabSection, view)}
         </div>
       );
     }),
