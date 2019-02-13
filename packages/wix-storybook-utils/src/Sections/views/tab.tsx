@@ -14,6 +14,7 @@ import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
 import { columns } from './columns';
 import { table } from './table';
+import { h2 } from './h2';
 
 const styles = require('../styles.scss');
 
@@ -38,6 +39,7 @@ const views = {
   tab,
   columns,
   table,
+  h2,
 };
 
 export const getView = type => views[type] || error;

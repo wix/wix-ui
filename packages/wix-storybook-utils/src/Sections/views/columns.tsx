@@ -9,9 +9,10 @@ export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => {
     return null;
   }
 
-  const span = items.length <= 12 ? 12 / items.length : 1;
-  const children = items.map(column => (
-    <Cell span={span}>{getView(column.type)(column)}</Cell>
+  const children = items.map((column, i) => (
+    <Cell span={1} key={`cell-${i}`}>
+      {getView(column.type)(column)}
+    </Cell>
   ));
-  return <Layout>{children}</Layout>;
+  return <Layout cols={items.length}>{children}</Layout>;
 };
