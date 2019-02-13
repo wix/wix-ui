@@ -32,21 +32,21 @@ const renderPropType = (type = {}) => {
   const typeHandlers = {
     custom: () => wrap('custom')(),
 
-    enum: value =>
+    enum: () =>
       wrap('oneOf')(
-        Array.isArray(value)
-          ? value.map((v, i, allValues) => (
+        Array.isArray(type.value)
+          ? type.value.map((v, i, allValues) => (
               <span key={i}>
                 <code>{v.value}</code>
                 {allValues[i + 1] && ', '}
               </span>
             ))
-          : JSON.stringify(value, null, 2),
+          : JSON.stringify(type.value, null, 2),
       ),
 
-    union: value =>
+    union: () =>
       wrap('oneOfType')(
-        value.map((v, i, allValues) => (
+        type.value.map((v, i, allValues) => (
           <span key={i}>
             {renderPropType(v)}
             {allValues[i + 1] && ', '}
@@ -54,31 +54,32 @@ const renderPropType = (type = {}) => {
         )),
       ),
 
-    shape: value =>
-      wrap('shape')(
-        <ul>
-          {Object.keys(value)
-            .map(key => ({ ...value[key], key }))
-            .map((v, i) => (
-              <li key={i}>
-                {v.key}
-                :&nbsp;
-                {renderPropType(v)}
-                {v.required && (
-                  <small>
-                    <strong>&nbsp;required</strong>
-                  </small>
-                )}
-              </li>
-            ))}
-        </ul>,
-      ),
+    shape: () =>
+      type.computed ? type.value :
+        wrap('shape')(
+          <ul style={{ marginBottom: 0 }}>
+            {Object.keys(type.value)
+              .map(key => ({ ...type.value[key], key }))
+              .map((v, i) => (
+                <li key={i}>
+                  {v.key}
+                  :&nbsp;
+                  {renderPropType(v)}
+                  {v.required && (
+                    <small>
+                      <strong>&nbsp;required</strong>
+                    </small>
+                  )}
+                </li>
+              ))}
+          </ul>,
+        ),
 
-    arrayOf: value => wrap('arrayOf')(renderPropType(value)),
+    arrayOf: () => wrap('arrayOf')(renderPropType(type.value)),
   };
 
   if (type.value) {
-    return (typeHandlers[type.name] || failSafe(type))(type.value);
+    return (typeHandlers[type.name] || failSafe(type))();
   }
 
   return <span>{type.name}</span>;
