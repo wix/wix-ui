@@ -23,3 +23,12 @@
     background-color: rgba(240, 244, 247, 0.42);
   }
 }
+
+.h2 {
+  @include font(medium);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.29;
+  color: #162d3d;
+  margin: 0 0 30px;
+}
