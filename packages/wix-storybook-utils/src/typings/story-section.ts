@@ -65,8 +65,10 @@ export interface ColumnsSection extends StorySection {
   items: Section[];
 }
 
+type Cell = string | React.ReactNode;
+type Row = Cell[];
 export interface TableSection extends StorySection {
-  rows: string[][];
+  rows: Row[];
 }
 
 export interface H2Section extends StorySection {

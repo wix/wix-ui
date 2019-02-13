@@ -13,7 +13,11 @@ export const table: (a: TableSection) => React.ReactNode = ({ rows }) => {
           <tr key={`tr-${i}`} className={styles.tr}>
             {row.map((cell, j) => (
               <td key={`td-${i}-${j}`} className={styles.td}>
-                <Markdown source={cell} className="table-markdown" />
+                {typeof cell === 'string' ? (
+                  <Markdown source={cell} className="table-markdown" />
+                ) : (
+                  cell
+                )}
               </td>
             ))}
           </tr>
