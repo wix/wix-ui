@@ -11,6 +11,7 @@ export enum SectionType {
   Columns = 'columns',
   Table = 'table',
   H2 = 'h2',
+  Tabs = 'tabs',
 }
 
 export interface StorySection {
@@ -31,7 +32,8 @@ export type Section =
   | ApiSection
   | ColumnsSection
   | TableSection
-  | H2Section;
+  | H2Section
+  | TabsSection;
 
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode | string;
@@ -63,6 +65,10 @@ export interface TestkitSection extends StorySection {}
 
 export interface ColumnsSection extends StorySection {
   items: Section[];
+}
+
+export interface TabsSection extends StorySection {
+  tabs: TabSection[];
 }
 
 export interface TableSection extends StorySection {

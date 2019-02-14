@@ -11,6 +11,7 @@ import {
   testkit,
   columns,
   table,
+  tabs,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -50,20 +51,36 @@ export default {
     tab({
       title: 'hello',
       sections: [
-        tab({
-          title: 'inner tab',
-          sections: [
-            code({
-              description: 'this is the best code',
-              source: '"hello"',
-            }),
-
-            api(),
+        description({
+          title: 'lol',
+          text: 'I should not be in a tab',
+        }), 
+        
+        table({
+          title: 'Included Components',
+          rows: [
+            ['&lt;FormField/&gt;', 'Layout component for form elements'],
+            ['&lt;Input /&gt;', 'Component that receives data'],
           ],
         }),
-        tab({
-          title: 'inner tab #2',
-          sections: [description({ text: '# im inside another tab!' })],
+
+        tabs({
+          title: 'title',
+          tabs: [
+            tab({
+              title: 'inner tab',
+              sections: [                
+                code({
+                  description: 'this is the best code',
+                  source: '"hello"',
+                }),
+                api(),
+              ],
+            }), tab({
+              title: 'inner tab #2',
+              sections: [description({ text: '# im inside another tab!' })],
+            }),
+          ],
         }),
       ],
     }),

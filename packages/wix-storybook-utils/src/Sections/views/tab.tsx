@@ -4,7 +4,7 @@ import { TabSection } from '../../typings/story-section';
 
 import { StoryConfig } from '../../typings/story-config';
 
-import { tabWithSiblings } from '../common';
+import { sectionWithTitles } from '../common';
 
 import { error } from './error';
 import { importExample } from './import-example';
@@ -17,6 +17,7 @@ import { isTab, extractTabs } from '../extract-tabs';
 import { columns } from './columns';
 import { table } from './table';
 import { h2 } from './h2';
+import { tabs } from './tabs';
 
 const styles = require('../styles.scss');
 
@@ -42,6 +43,7 @@ const views = {
   columns,
   table,
   h2,
+  tabs,
 };
 
 export const getView = type => views[type] || error;
@@ -59,7 +61,7 @@ function render(
 
       return (
         <div key={key}>
-          {isTab(tabSection) ? view : tabWithSiblings(tabSection, view)}
+          {isTab(tabSection) ? view : sectionWithTitles(tabSection, view)}
         </div>
       );
     }),

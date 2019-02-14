@@ -11,6 +11,7 @@ import {
   ColumnsSection,
   TableSection,
   H2Section,
+  TabsSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -90,6 +91,14 @@ export const columns: (
 ) => ColumnsSection = rest =>
   baseSection({
     type: SectionType.Columns,
+    ...rest,
+  });
+
+export const tabs: (
+  object: Partial<TabsSection>,
+) => TabsSection = rest =>
+  baseSection({
+    type: SectionType.Tabs,
     ...rest,
   });
 

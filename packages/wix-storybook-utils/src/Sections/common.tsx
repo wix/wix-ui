@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const styles = require('./styles.scss');
 
-export const tabWithSiblings = (section, children) => (
+export const sectionWithTitles = (section, children) => (
   <div>
     {['pretitle', 'title', 'subtitle', 'description']
       .filter(row => section[row])
