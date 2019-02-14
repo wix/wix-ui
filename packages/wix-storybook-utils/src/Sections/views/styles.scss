@@ -24,6 +24,18 @@
   }
 }
 
+.td a {
+  @include font(light);
+  font-size: 16px;
+  line-height: 1.88em;
+  color: rgb(56, 153, 236);
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(78, 183, 245);
+  }
+}
+
 .h2 {
   @include font(medium);
   font-size: 28px;
@@ -37,4 +49,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 30px;
+  margin-bottom: 30px;
+}
+
+.table-markdown {
+  @include font(light);
+  font-size: 16px;
+  line-height: 1.88em;
 }
