@@ -14,7 +14,7 @@ export const table: (a: TableSection) => React.ReactNode = ({ rows }) => {
             {row.map((cell, j) => (
               <td key={`td-${i}-${j}`} className={styles.td}>
                 {typeof cell === 'string' ? (
-                  <Markdown source={cell} className="table-markdown" />
+                  <Markdown source={cell} className={styles.tableMarkdown} />
                 ) : (
                   cell
                 )}
