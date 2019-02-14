@@ -38,13 +38,6 @@ export default {
             }),
           ],
         }),
-        table({
-          title: 'Included Components',
-          rows: [
-            ['&lt;FormField/&gt;', 'Layout component for form elements'],
-            ['&lt;Input /&gt;', 'Component that receives data'],
-          ],
-        }),
       ],
     }),
 
@@ -54,8 +47,8 @@ export default {
         description({
           title: 'lol',
           text: 'I should not be in a tab',
-        }), 
-        
+        }),
+
         table({
           title: 'Included Components',
           rows: [
@@ -69,14 +62,15 @@ export default {
           tabs: [
             tab({
               title: 'inner tab',
-              sections: [                
+              sections: [
                 code({
                   description: 'this is the best code',
                   source: '"hello"',
                 }),
                 api(),
               ],
-            }), tab({
+            }),
+            tab({
               title: 'inner tab #2',
               sections: [description({ text: '# im inside another tab!' })],
             }),
