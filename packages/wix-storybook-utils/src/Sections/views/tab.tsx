@@ -27,8 +27,8 @@ export const tab = (
   section: TabSection,
   storyConfig: StoryConfig,
 ): React.ReactNode => {
-  const tabs = extractTabs(section);
-  return render(section, tabs, storyConfig);
+  const extractedTabs = extractTabs(section);
+  return render(section, extractedTabs, storyConfig);
 };
 
 const views = {
@@ -50,10 +50,10 @@ export const getView = type => views[type] || error;
 
 function render(
   section: TabSection,
-  tabs: string[],
+  tabTitles: string[],
   storyConfig: StoryConfig,
 ): React.ReactNode {
-  return React.createElement(tabs.length ? TabbedView : 'div', {
+  return React.createElement(tabTitles.length ? TabbedView : 'div', {
     ...(tabs ? { tabs } : {}),
     className: styles.tab,
     children: section.sections.map((tabSection, key) => {
