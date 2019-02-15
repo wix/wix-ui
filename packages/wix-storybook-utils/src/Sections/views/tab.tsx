@@ -52,7 +52,7 @@ function render(
   storyConfig: StoryConfig,
 ): React.ReactNode {
   return React.createElement(tabTitles.length ? TabbedView : 'div', {
-    ...(tabs ? { tabs } : {}),
+    ...(tabTitles ? { tabs: tabTitles } : {}),
     className: styles.tab,
     children: section.sections.map((tabSection, key) => {
       const view = getView(tabSection.type)(tabSection, storyConfig);
