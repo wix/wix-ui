@@ -1,3 +1,5 @@
+import React from 'react';
+
 export enum SectionType {
   Description = 'description',
   LiveCode = 'code',
@@ -11,6 +13,7 @@ export enum SectionType {
   Columns = 'columns',
   Table = 'table',
   Tabs = 'tabs',
+  MDX = 'mdx',
 }
 
 export interface StorySection {
@@ -31,7 +34,8 @@ export type Section =
   | ApiSection
   | ColumnsSection
   | TableSection
-  | TabsSection;
+  | TabsSection
+  | MDXSection;
 
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode | string;
@@ -73,6 +77,9 @@ type Cell = string | React.ReactNode;
 type Row = Cell[];
 export interface TableSection extends StorySection {
   rows: Row[];
+
+export interface MDXSection extends StorySection {
+  content: any;
 }
 
 export interface SectionsMeta {
