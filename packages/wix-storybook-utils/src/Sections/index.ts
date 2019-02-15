@@ -10,7 +10,6 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
-  H2Section,
   TabsSection,
 } from '../typings/story-section';
 
@@ -99,12 +98,6 @@ export const tabs: (
 ) => TabsSection = rest =>
   baseSection({
     type: SectionType.Tabs,
-    ...rest,
-  });
-
-export const h2: (object: Partial<H2Section>) => H2Section = rest =>
-  baseSection({
-    type: SectionType.H2,
     ...rest,
   });
 

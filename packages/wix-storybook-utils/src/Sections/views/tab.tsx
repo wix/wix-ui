@@ -16,7 +16,6 @@ import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
 import { columns } from './columns';
 import { table } from './table';
-import { h2 } from './h-2';
 import { tabs } from './tabs';
 
 const styles = require('../styles.scss');
@@ -42,7 +41,6 @@ const views = {
   tab,
   columns,
   table,
-  h2,
   tabs,
 };
 
