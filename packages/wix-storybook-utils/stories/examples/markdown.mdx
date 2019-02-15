@@ -12,3 +12,13 @@ import TextButton from "../../src/TextButton";
     This is a clickable button
   </TextButton>
 </div>
+
+## Live code
+
+import { liveCode } from "../../src/Sections/views/live-code.tsx";
+
+<div>
+  {liveCode({
+    source: `class MyComponent extends React.Component { render() { return <div>MyComponent</div> } }`
+  })}
+</div>
