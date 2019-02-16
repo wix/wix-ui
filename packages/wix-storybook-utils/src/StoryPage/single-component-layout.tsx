@@ -37,7 +37,7 @@ const readme = metadata => {
   return <Markdown dataHook="metadata-readme" source={content || fallback} />;
 };
 
-export const SingleComponentLayout: React.StatelessComponent<
+export const SingleComponentLayout: React.FunctionComponent<
   SingleComponentLayoutProps
 > = ({
   metadata,

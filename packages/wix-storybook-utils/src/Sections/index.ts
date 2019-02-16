@@ -93,9 +93,7 @@ export const columns: (
     ...rest,
   });
 
-export const tabs: (
-  object: Partial<TabsSection>,
-) => TabsSection = rest =>
+export const tabs: (object: Partial<TabsSection>) => TabsSection = rest =>
   baseSection({
     type: SectionType.Tabs,
     ...rest,

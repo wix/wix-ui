@@ -55,25 +55,26 @@ const renderPropType = (type = {}) => {
       ),
 
     shape: () =>
-      type.computed ? type.value :
-        wrap('shape')(
-          <ul style={{ marginBottom: 0 }}>
-            {Object.keys(type.value)
-              .map(key => ({ ...type.value[key], key }))
-              .map((v, i) => (
-                <li key={i}>
-                  {v.key}
-                  :&nbsp;
-                  {renderPropType(v)}
-                  {v.required && (
-                    <small>
-                      <strong>&nbsp;required</strong>
-                    </small>
-                  )}
-                </li>
-              ))}
-          </ul>,
-        ),
+      type.computed
+        ? type.value
+        : wrap('shape')(
+            <ul style={{ marginBottom: 0 }}>
+              {Object.keys(type.value)
+                .map(key => ({ ...type.value[key], key }))
+                .map((v, i) => (
+                  <li key={i}>
+                    {v.key}
+                    :&nbsp;
+                    {renderPropType(v)}
+                    {v.required && (
+                      <small>
+                        <strong>&nbsp;required</strong>
+                      </small>
+                    )}
+                  </li>
+                ))}
+            </ul>,
+          ),
 
     arrayOf: () => wrap('arrayOf')(renderPropType(type.value)),
   };

@@ -15,7 +15,7 @@ const Header = ({ storyName, metadata }) => (
   </div>
 );
 
-export const View: React.StatelessComponent<StoryConfig> = storyConfig => (
+export const View: React.FunctionComponent<StoryConfig> = storyConfig => (
   <div className={styles.page}>
     <div className={styles.content}>
       <Header

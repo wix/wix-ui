@@ -17,7 +17,7 @@ const prepareMetadata: (StoryPageProps) => Metadata = props => ({
   props: omit(props.metadata.props)(prop => props.hiddenProps.includes(prop)),
 });
 
-const StoryPage: React.StatelessComponent<StoryPageProps> = (
+const StoryPage: React.FunctionComponent<StoryPageProps> = (
   props: StoryPageProps,
 ) => {
   const passThrough: StoryConfig = {
