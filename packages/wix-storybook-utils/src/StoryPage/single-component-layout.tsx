@@ -19,7 +19,7 @@ const hasTestkitDocs = (metadata: Metadata): Boolean =>
   (metadata.drivers &&
     metadata.drivers.some(driver => Boolean(driver.descriptor)));
 
-const tabs: ((a: Metadata) => string[]) = metadata => [
+const tabs: (a: Metadata) => string[] = metadata => [
   'Usage',
   'API',
   ...(hasTestkitDocs(metadata) ? ['Testkit'] : []),
@@ -37,7 +37,7 @@ const readme = metadata => {
   return <Markdown dataHook="metadata-readme" source={content || fallback} />;
 };
 
-export const SingleComponentLayout: React.StatelessComponent<
+export const SingleComponentLayout: React.FunctionComponent<
   SingleComponentLayoutProps
 > = ({
   metadata,

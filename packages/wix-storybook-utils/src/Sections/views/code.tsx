@@ -1,20 +1,3 @@
-import * as React from 'react';
+import { liveCode } from './live-code';
 
-import { CodeSection } from '../../typings/story-section';
-const CodeBlock = require('../../CodeBlock').default;
-
-const styles = require('./styles.scss');
-
-export const code: ((a: CodeSection) => React.ReactNode) = ({
-  source,
-  description,
-}) =>
-  description ? (
-    <div>
-      <div className={styles.description}>{description}</div>
-
-      <CodeBlock source={source} />
-    </div>
-  ) : (
-    <CodeBlock source={source} />
-  );
+export const code = liveCode;

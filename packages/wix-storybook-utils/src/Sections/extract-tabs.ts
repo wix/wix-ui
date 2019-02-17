@@ -1,6 +1,6 @@
 import { TabSection, SectionType } from '../typings/story-section';
 
-export const isTab: ((StorySection) => boolean) = ({ type }) =>
+export const isTab: (StorySection) => boolean = ({ type }) =>
   (type as SectionType) === SectionType.Tab;
 
 export const extractTabs = (section: TabSection): string[] =>
