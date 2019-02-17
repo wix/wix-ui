@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as queryString from 'query-string';
 
-import { StoryConfig } from '../typings/story-config';
+import {StoryConfig} from '../typings/story-config';
 import AutoExample from '../AutoExample';
 import StoryPage from '../StoryPage';
 import Remount from './RemountHoc';
@@ -19,7 +19,7 @@ declare global {
 
 const isE2E = global.self === global.top;
 
-export default ({ _config, _metadata, ...storyConfig }) =>
+export default ({_config, _metadata, ...storyConfig}) =>
   _config
     .storiesOf(storyConfig.category, module)
     .add(storyConfig.storyName || _metadata.displayName, () =>
@@ -46,5 +46,5 @@ export default ({ _config, _metadata, ...storyConfig }) =>
             config: _config,
           }}
         />
-      ),
+      )
     );

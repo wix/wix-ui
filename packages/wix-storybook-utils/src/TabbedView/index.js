@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../ui/Tabs';
+import * as queryString from 'query-string';
 
 const createTab = id => ({ title: id, id });
 
@@ -10,17 +11,29 @@ export default class TabbedView extends Component {
     activeTabId: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.node,
-      PropTypes.arrayOf(PropTypes.node),
-    ]),
+      PropTypes.arrayOf(PropTypes.node)
+    ])
   };
 
   constructor(props) {
     super(props);
-
+    const activeTabFromQuery = queryString.parse(window.parent.location.search)
+      .activeTab;
     this.state = {
-      activeTabId: props.activeTabId || props.tabs[0],
+      activeTabId: activeTabFromQuery || props.activeTabId || props.tabs[0]
     };
   }
+
+  isActiveTab = index => {
+    const testedTab = this.props.tabs[index];
+    if (!testedTab) {
+      return false;
+    }
+    return this.state.activeTabId.toLowerCase() === testedTab.toLowerCase();
+  };
+
+  getNormalizedTabName = () =>
+    this.props.tabs.find((_, i) => this.isActiveTab(i));
 
   onTabClick = tab => this.setState({ activeTabId: tab.id });
 
@@ -31,7 +44,7 @@ export default class TabbedView extends Component {
       <div>
         {!shouldHideForE2E && (
           <Tabs
-            activeId={this.state.activeTabId}
+            activeId={this.getNormalizedTabName()}
             onClick={this.onTabClick}
             items={this.props.tabs.map(createTab)}
             className={className}
@@ -39,7 +52,7 @@ export default class TabbedView extends Component {
         )}
 
         {React.Children.map(this.props.children, (child, index) =>
-          this.state.activeTabId === this.props.tabs[index] ? child : null,
+          this.isActiveTab(index) ? child : null,
         )}
       </div>
     );
