@@ -77,6 +77,7 @@ type Cell = string | React.ReactNode;
 type Row = Cell[];
 export interface TableSection extends StorySection {
   rows: Row[];
+}
 
 export interface MDXSection extends StorySection {
   content: any;
