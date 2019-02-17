@@ -99,7 +99,7 @@ describe('StoryPage', () => {
       const props = {
         metadata: {
           props: {},
-          description: 'This component is lit AF'
+          description: 'This component is lit AF',
         },
         config: {},
         displayName: 'well hello there',
@@ -107,7 +107,9 @@ describe('StoryPage', () => {
 
       testkit.when.created(props);
 
-      expect(testkit.get.readme()).toBe('# `<well hello there/>`\nThis component is lit AF');
+      expect(testkit.get.readme()).toBe(
+        '# `<well hello there/>`\nThis component is lit AF',
+      );
     });
   });
 

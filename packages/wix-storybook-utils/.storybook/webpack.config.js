@@ -5,7 +5,7 @@ module.exports = (config, env, defaultConfig) => {
   const newConfig = wixStorybookConfig(defaultConfig);
 
   newConfig.resolve.alias = Object.assign({}, newConfig.resolve.alias, {
-    'wix-storybook-utils': path.resolve(__dirname, '..', 'src')
+    'wix-storybook-utils': path.resolve(__dirname, '..', 'src'),
   });
 
   newConfig.module.rules.push({
@@ -14,9 +14,15 @@ module.exports = (config, env, defaultConfig) => {
     options: {
       storyConfig: {
         moduleName: 'wix-storybook-utils',
-        repoBaseURL: 'https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils/src/components/'
-      }
-    }
+        repoBaseURL:
+          'https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils/src/components/',
+      },
+    },
+  });
+
+  newConfig.module.rules.push({
+    test: /.mdx$/,
+    use: ['babel-loader', '@mdx-js/loader'],
   });
 
   return newConfig;

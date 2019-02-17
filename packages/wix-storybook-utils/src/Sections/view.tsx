@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { StoryConfig } from '../typings/story-config';
 import { tab } from './views/tab';
-import { tab as makeTab } from './';
+import { tab as makeTab } from '.';
 
 const styles = require('./styles.scss');
 

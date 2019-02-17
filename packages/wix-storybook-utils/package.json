@@ -70,6 +70,7 @@
     "wix-ui-icons-common": "^2.0.24"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^0.17.3",
     "@storybook/addon-options": "4.0.0-alpha.9",
     "@storybook/react": "4.0.0-alpha.9",
     "@types/jest": "^23.3.8",

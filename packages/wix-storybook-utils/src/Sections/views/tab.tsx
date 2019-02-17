@@ -17,6 +17,7 @@ import { isTab, extractTabs } from '../extract-tabs';
 import { columns } from './columns';
 import { table } from './table';
 import { tabs } from './tabs';
+import { mdx } from './mdx';
 
 const styles = require('../styles.scss');
 
@@ -42,6 +43,7 @@ const views = {
   columns,
   table,
   tabs,
+  mdx,
 };
 
 export const getView = type => views[type] || error;

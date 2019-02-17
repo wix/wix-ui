@@ -5,6 +5,7 @@ import { StoryConfig } from '../typings/story-config';
 
 import { SingleComponentLayout } from './single-component-layout';
 import { View as SectionsView } from '../Sections/view';
+
 const omit = require('../AutoExample/utils/omit').default;
 
 interface StoryPageProps extends StoryConfig {
