@@ -94,6 +94,25 @@ describe('StoryPage', () => {
     });
   });
 
+  describe('given both displayName and description', () => {
+    it('should concatenate the displayName as title to the description', () => {
+      const props = {
+        metadata: {
+          props: {},
+          description: 'This component is lit AF',
+        },
+        config: {},
+        displayName: 'well hello there',
+      };
+
+      testkit.when.created(props);
+
+      expect(testkit.get.readme()).toBe(
+        '# `<well hello there/>`\nThis component is lit AF',
+      );
+    });
+  });
+
   describe('`hiddenProps`', () => {
     it('should filter props from interactive list', () => {
       testkit.when.created({

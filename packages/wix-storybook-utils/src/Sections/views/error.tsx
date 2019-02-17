@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ErrorSection } from '../../typings/story-section';
 
-export const error: ((a: ErrorSection) => React.ReactNode) = section => (
+export const error: (a: ErrorSection) => React.ReactNode = section => (
   <div>
     Invalid section :(
     <br />
