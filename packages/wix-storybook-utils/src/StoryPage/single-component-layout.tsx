@@ -31,10 +31,11 @@ interface SingleComponentLayoutProps extends StoryConfig {
 }
 
 const readme = metadata => {
-  const content = metadata.readme || metadata.description;
-  const fallback = `# \`<${metadata.displayName}/>\``;
+  const description = metadata.readme || metadata.description;
+  const title = `# \`<${metadata.displayName}/>\``;
+  const content = description ? `${title}\n${description}` : title;
 
-  return <Markdown dataHook="metadata-readme" source={content || fallback} />;
+  return <Markdown dataHook="metadata-readme" source={content} />;
 };
 
 export const SingleComponentLayout: React.StatelessComponent<
