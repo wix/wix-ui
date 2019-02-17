@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../ui/Tabs';
 import * as queryString from 'query-string';
+import { isE2E } from '../utils';
 
-const createTab = id => ({ title: id, id });
+const createTab = id => ({ title: id, id, dataHook: id });
 
 export default class TabbedView extends Component {
   static propTypes = {
@@ -13,6 +14,10 @@ export default class TabbedView extends Component {
       PropTypes.node,
       PropTypes.arrayOf(PropTypes.node)
     ])
+  };
+
+  static defaultProps = {
+    showTabs: !isE2E
   };
 
   constructor(props) {
@@ -35,14 +40,23 @@ export default class TabbedView extends Component {
   getNormalizedTabName = () =>
     this.props.tabs.find((_, i) => this.isActiveTab(i));
 
-  onTabClick = tab => this.setState({ activeTabId: tab.id });
+  onTabClick = tab => {
+    const originalQuery = queryString.parse(window.parent.location.search);
+    originalQuery.activeTab = tab.id;
+    window.parent.history.pushState(
+      { id: tab.id },
+      '',
+      `?${queryString.stringify(originalQuery)}`,
+    );
+    this.setState({ activeTabId: tab.id });
+  };
 
   render() {
     const shouldHideForE2E = global.self === global.top;
-    const { className } = this.props;
+    const { className, showTabs } = this.props;
     return (
       <div>
-        {!shouldHideForE2E && (
+        {showTabs && (
           <Tabs
             activeId={this.getNormalizedTabName()}
             onClick={this.onTabClick}

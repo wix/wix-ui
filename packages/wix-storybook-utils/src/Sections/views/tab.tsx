@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import { TabSection } from '../../typings/story-section';
+import {TabSection} from '../../typings/story-section';
 
-import { StoryConfig } from '../../typings/story-config';
+import {StoryConfig} from '../../typings/story-config';
 
-import { error } from './error';
-import { liveCode } from './live-code';
-import { importExample } from './import-example';
-import { description } from './description';
-import { code } from './code';
-import { api } from './api';
-import { playground } from './playground';
-import { testkit } from './testkit';
-import { isTab, extractTabs } from '../extract-tabs';
+import {error} from './error';
+import {liveCode} from './live-code';
+import {importExample} from './import-example';
+import {description} from './description';
+import {code} from './code';
+import {api} from './api';
+import {playground} from './playground';
+import {testkit} from './testkit';
+import {isTab, extractTabs} from '../extract-tabs';
 
 const styles = require('../styles.scss');
 
@@ -38,10 +38,10 @@ const getView = type => views[type] || error;
 function render(
   section: TabSection,
   tabs: string[],
-  storyConfig: StoryConfig,
+  storyConfig: StoryConfig
 ): React.ReactNode {
   return React.createElement(tabs.length ? TabbedView : 'div', {
-    ...(tabs ? { tabs } : {}),
+    ...(tabs ? {tabs} : {}),
     className: styles.tab,
     children: section.sections.map((tabSection, key) => (
       <div key={key}>
