@@ -13,14 +13,14 @@ class TabItem extends React.Component {
       onItemClick,
       isActive,
       dynamicProperties,
-      dataHook
+      dataHook,
     } = this.props;
 
     const containerProps = {
       key: item.id,
       onClick: () => onItemClick(item),
       className: classNames(styles.tab, { [styles.active]: isActive }),
-      ...pick(this.props, dynamicProperties)
+      ...pick(this.props, dynamicProperties),
     };
 
     return (
@@ -38,7 +38,7 @@ TabItem.propTypes = {
   onItemClick: TabPropTypes.onClick,
   type: TabPropTypes.type,
   width: TabPropTypes.width,
-  dynamicProperties: PropTypes.array
+  dynamicProperties: PropTypes.array,
 };
 
 export default TabItem;

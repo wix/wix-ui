@@ -20,7 +20,7 @@ const getTabbedViewDriver = () => {
     getChildById: tabId => wrapper.find(`[data-hook="child-${tabId}"]`),
     clickOnTab: tabId =>
       wrapper.find(`[data-hook="${tabId}"]`).simulate('click'),
-    cleanup: () => wrapper.unmount()
+    cleanup: () => wrapper.unmount(),
   };
 };
 
@@ -52,7 +52,7 @@ describe('TabbedView', () => {
     const activeTabId = 'tab2';
     jest.spyOn(window.parent, 'location', 'get').mockImplementation(() => {
       return {
-        search: `?activeTab=${activeTabId}`
+        search: `?activeTab=${activeTabId}`,
       };
     });
     const tabs = [firstTabId, activeTabId];
@@ -67,7 +67,7 @@ describe('TabbedView', () => {
     const secondTabId = 'tab2';
     jest.spyOn(window.parent, 'location', 'get').mockImplementation(() => {
       return {
-        search: `?activeTab=${secondTabId}`
+        search: `?activeTab=${secondTabId}`,
       };
     });
     const spy = jest.spyOn(window.parent.history, 'pushState');

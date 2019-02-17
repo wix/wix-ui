@@ -48,7 +48,7 @@ TabItems.propTypes = {
   minWidth: TabPropTypes.width,
   type: TabPropTypes.type,
   width: TabPropTypes.width,
-  onClick: TabPropTypes.onClick
+  onClick: TabPropTypes.onClick,
 };
 
 export default withItemMaxWidth(TabItems);
