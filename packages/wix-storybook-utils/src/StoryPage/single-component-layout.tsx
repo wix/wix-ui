@@ -5,14 +5,14 @@ import { importString } from './import-string';
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
-const TabbedView = require('../TabbedView').default;
-const Markdown = require('../Markdown').default;
-const CodeBlock = require('../CodeBlock').default;
-const AutoExample = require('../AutoExample').default;
-const AutoDocs = require('../AutoDocs').default;
-const Heading = require('../ui/heading').default;
+import TabbedView from '../TabbedView';
+import Markdown from '../Markdown';
+import CodeBlock from '../CodeBlock';
+import AutoExample from '../AutoExample';
+import AutoDocs from '../AutoDocs';
+import Heading from '../ui/heading';
 
-const styles = require('./styles.scss');
+import styles from './styles.scss';
 
 const hasTestkitDocs = (metadata: Metadata): Boolean =>
   Boolean(metadata.readmeTestkit) ||
