@@ -44,7 +44,21 @@
 .section-title {
   @include font(roman);
   font-size: 20px;
+}
+
+.section-subtitle {
+  @include font(roman);
   margin-bottom: 30px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #7a92a5;
+}
+
+.section-pretitle {
+  @include font(roman);
+  font-size: 12px;
+  font-weight: 500;
+  color: #7a92a5;
 }
 
 .tab {

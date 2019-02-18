@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { StoryConfig } from '../typings/story-config';
 import { tab } from './views/tab';
-import { tab as makeTab } from './';
+import { tab as makeTab } from '.';
 
 const styles = require('./styles.scss');
 
@@ -15,7 +15,7 @@ const Header = ({ storyName, metadata }) => (
   </div>
 );
 
-export const View: React.StatelessComponent<StoryConfig> = storyConfig => (
+export const View: React.FunctionComponent<StoryConfig> = storyConfig => (
   <div className={styles.page}>
     <div className={styles.content}>
       <Header

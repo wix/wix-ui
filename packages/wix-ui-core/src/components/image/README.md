@@ -16,7 +16,7 @@ additional features, both visual and behavioral, adding image customizations.
 | nativeProps | HTMLImageAttributes| ✖ | ✖ | Supports all native HTML <img/> attributes. |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
-| resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
+| resizeMode | 'fill' &#124; 'cover' &#124; 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
 
 **Example 1:**

@@ -4,12 +4,14 @@ import Component from './component';
 import {
   tab,
   description,
-  liveCode,
   code,
   importExample,
   api,
   playground,
   testkit,
+  columns,
+  table,
+  tabs,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -25,22 +27,54 @@ export default {
   componentPath: './component.js',
   sections: [
     tab({
-      title: 'hello',
+      title: 'Something something',
       sections: [
-        tab({
-          title: 'inner tab',
-          sections: [
-            code({
-              description: 'this is the best code',
-              source: '"hello"',
+        columns({
+          title: 'Septyni astuoni keturiolika',
+          items: [
+            description({ text: `🔨 To trigger an operation.` }),
+            importExample({
+              source: "import Button from 'wix-style-react/Button';",
             }),
-
-            api(),
           ],
         }),
-        tab({
-          title: 'inner tab #2',
-          sections: [description({ text: '# im inside another tab!' })],
+      ],
+    }),
+
+    tab({
+      title: 'hello',
+      sections: [
+        description({
+          title: 'lol',
+          text: 'I should not be in a tab',
+        }),
+
+        table({
+          title: 'Included Components',
+          rows: [
+            ['&lt;FormField/&gt;', 'Layout component for form elements'],
+            ['&lt;Input /&gt;', 'Component that receives data'],
+          ],
+        }),
+
+        tabs({
+          title: 'title',
+          tabs: [
+            tab({
+              title: 'inner tab',
+              sections: [
+                code({
+                  description: 'this is the best code',
+                  source: '"hello"',
+                }),
+                api(),
+              ],
+            }),
+            tab({
+              title: 'inner tab #2',
+              sections: [description({ text: '# im inside another tab!' })],
+            }),
+          ],
         }),
       ],
     }),
@@ -50,22 +84,6 @@ export default {
       sections: [
         importExample({
           source: "import Component from 'your-library/Component';",
-        }),
-
-        description({
-          text: 'hello guys!',
-        }),
-
-        liveCode({
-          source: '<div><LiveExampleComponent/></div>',
-          components: { LiveExampleComponent },
-          compact: true,
-        }),
-
-        code({
-          title: 'Below is code example',
-          description: 'hey this some really cool code example!',
-          source: '<div><LiveExampleComponent/></div>',
         }),
       ],
     }),

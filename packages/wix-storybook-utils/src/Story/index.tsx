@@ -6,6 +6,7 @@ import { StoryConfig } from '../typings/story-config';
 import AutoExample from '../AutoExample';
 import StoryPage from '../StoryPage';
 import Remount from './RemountHoc';
+import { isE2E } from '../utils';
 
 declare global {
   namespace NodeJS {
@@ -16,8 +17,6 @@ declare global {
     }
   }
 }
-
-const isE2E = global.self === global.top;
 
 export default ({ _config, _metadata, ...storyConfig }) =>
   _config

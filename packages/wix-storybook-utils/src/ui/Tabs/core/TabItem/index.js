@@ -8,7 +8,13 @@ import styles from '../../styles.scss';
 
 class TabItem extends React.Component {
   render() {
-    const { item, onItemClick, isActive, dynamicProperties } = this.props;
+    const {
+      item,
+      onItemClick,
+      isActive,
+      dynamicProperties,
+      dataHook,
+    } = this.props;
 
     const containerProps = {
       key: item.id,
@@ -17,7 +23,11 @@ class TabItem extends React.Component {
       ...pick(this.props, dynamicProperties),
     };
 
-    return <li {...containerProps}>{item.title}</li>;
+    return (
+      <li data-hook={dataHook} {...containerProps}>
+        {item.title}
+      </li>
+    );
   }
 }
 

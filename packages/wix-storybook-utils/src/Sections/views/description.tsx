@@ -5,7 +5,7 @@ const Markdown = require('../../Markdown').default;
 
 const styles = require('./styles.scss');
 
-export const description: ((a: DescriptionSection) => React.ReactNode) = ({
+export const description: (a: DescriptionSection) => React.ReactNode = ({
   text,
 }) => (
   <div className={styles.description}>
