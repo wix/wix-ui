@@ -25,7 +25,6 @@ const StoryPage: React.FunctionComponent<StoryPageProps> = (
     ...props,
     metadata: prepareMetadata(props),
   };
-
   return props.sections ? (
     <SectionsView {...passThrough} />
   ) : (
