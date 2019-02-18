@@ -23,6 +23,7 @@ export interface StorySection {
   subtitle?: React.ReactNode;
   description?: React.ReactNode;
   hidden?: boolean;
+  parsedSource?: object;
 }
 
 export type Section =
