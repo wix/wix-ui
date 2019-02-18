@@ -15,6 +15,14 @@ import Code from 'wix-ui-icons-common/Code';
 import Document from 'wix-ui-icons-common/Document';
 import TextButton from '../TextButton';
 
+const randomPartialId = () =>
+  Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+
+const generateId = () =>
+  randomPartialId() + randomPartialId() + '-' + randomPartialId();
+
 export default class LiveCodeExample extends Component {
   static propTypes = {
     initialCode: PropTypes.string,
@@ -36,11 +44,13 @@ export default class LiveCodeExample extends Component {
   resetCode = () => {
     this.setState({
       code: this.props.initialCode,
-      livePreviewKey: `live-preview-${Date.now()}`,
+      livePreviewKey: `${generateId()}`,
     });
   };
 
-  onCodeChange = code => this.setState({ code });
+  onCodeChange = code => {
+    this.setState({ code, livePreviewKey: `${generateId()}` });
+  };
 
   onToggleRtl = isRtl => this.setState({ isRtl });
   onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });
