@@ -1,3 +1,4 @@
+import { mount } from 'enzyme';
 import path from 'path';
 
 import kebabCase from 'lodash.kebabcase';
@@ -7,6 +8,8 @@ import { code } from './views/code';
 import { liveCode } from './views/live-code';
 
 import { SectionType } from '../typings/story-section';
+import { api } from './views/api';
+import { storyConfigEmpty } from './views/testUtils';
 
 const cwd = path.resolve(__dirname, 'views');
 const methodToFileName = f => kebabCase(path.parse(f).name);
@@ -26,6 +29,14 @@ describe('Sections', () => {
       }
     }),
   );
+
+  it('should use parsedSource from api section', () => {
+    const parsedSource = { props: {} };
+    const renderedProps = mount(
+      api({ type: SectionType.Api, parsedSource }, storyConfigEmpty),
+    ).props();
+    expect(renderedProps.parsedSource).toEqual(parsedSource);
+  });
 
   sectionTypes.map(type =>
     it(`should have builder for "${type}" section type`, () =>
