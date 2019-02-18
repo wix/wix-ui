@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-const styles = require('./styles.scss');
+import styles from '../styles.scss';
+import Markdown from '../Markdown';
 
 export const sectionWithTitles = (section, children) => (
   <div>
@@ -8,7 +9,7 @@ export const sectionWithTitles = (section, children) => (
       .filter(row => section[row])
       .map(row => (
         <div key={row} className={styles[`section-${row}`]}>
-          {section[row]}
+          <Markdown source={section[row]} />
         </div>
       ))}
     {children}
