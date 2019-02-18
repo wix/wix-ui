@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styles from '../styles.scss';
+import styles from './styles.scss';
 import Markdown from '../Markdown';
 
 export const sectionWithTitles = (section, children) => (
