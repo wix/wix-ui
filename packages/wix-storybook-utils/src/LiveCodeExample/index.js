@@ -44,12 +44,12 @@ export default class LiveCodeExample extends Component {
   resetCode = () => {
     this.setState({
       code: this.props.initialCode,
-      livePreviewKey: `${generateId()}`,
+      livePreviewKey: generateId(),
     });
   };
 
   onCodeChange = code => {
-    this.setState({ code, livePreviewKey: `${generateId()}` });
+    this.setState({ code, livePreviewKey: generateId() });
   };
 
   onToggleRtl = isRtl => this.setState({ isRtl });
