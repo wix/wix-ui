@@ -36,6 +36,7 @@ export default class LiveCodeExample extends Component {
   resetCode = () => {
     this.setState({
       code: this.props.initialCode,
+      livePreviewKey: `live-preview-${Date.now()}`,
     });
   };
 
@@ -158,6 +159,7 @@ export default class LiveCodeExample extends Component {
               dir={isRtl ? 'rtl' : ''}
             >
               <LivePreview
+                key={this.state.livePreviewKey}
                 {...previewProps}
                 className={previewRow ? styles.previewRow : null}
               />
