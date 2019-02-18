@@ -23,7 +23,6 @@ export interface StorySection {
   subtitle?: React.ReactNode;
   description?: React.ReactNode;
   hidden?: boolean;
-  parsedSource?: object;
 }
 
 export type Section =
@@ -62,7 +61,9 @@ export interface TabSection extends StorySection {
 
 export interface ErrorSection extends StorySection {}
 
-export interface ApiSection extends StorySection {}
+export interface ApiSection extends StorySection {
+  parsedSource?: object;
+}
 export interface PlaygroundSection extends StorySection {}
 export interface TestkitSection extends StorySection {}
 
