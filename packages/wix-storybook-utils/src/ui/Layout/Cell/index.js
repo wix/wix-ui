@@ -4,12 +4,14 @@ import classname from 'classnames';
 
 import styles from './styles.scss';
 
-const Cell = ({ span, children, vertical }) => (
+const Cell = ({ span, children, className, vertical }) => (
   <div
     style={{
-      gridColumn: `span ${span}`,
+      gridColumn: `span ${span}`
     }}
-    className={classname(styles.root, { [styles.vertical]: vertical })}
+    className={classname(styles.root, className, {
+      [styles.vertical]: vertical
+    })}
     children={children}
   />
 );
@@ -24,11 +26,11 @@ Cell.propTypes = {
   span: PropTypes.number,
 
   /** whether to align children vertically to the middle */
-  vertical: PropTypes.bool,
+  vertical: PropTypes.bool
 };
 
 Cell.defaultProps = {
-  span: 12,
+  span: 12
 };
 
 export default Cell;

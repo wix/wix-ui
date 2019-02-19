@@ -10,6 +10,7 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
+  HeaderSection,
   TabsSection,
   MDXSection,
 } from '../typings/story-section';
@@ -34,28 +35,36 @@ export const error: (
 export const liveCode: (
   object: Partial<LiveCodeSection>,
 ) => LiveCodeSection = rest =>
-  baseSection({
-    type: SectionType.LiveCode,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.LiveCode,
+      ...rest,
+    });
 
 export const code = liveCode;
 
 export const description: (
   object: Partial<DescriptionSection>,
 ) => DescriptionSection = rest =>
-  baseSection({
-    type: SectionType.Description,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.Description,
+      ...rest,
+    });
+
+export const header: (
+  object: Partial<HeaderSection>,
+) => HeaderSection = rest =>
+    baseSection({
+      type: SectionType.Header,
+      ...rest,
+    });
 
 export const importExample: (
   object: Partial<ImportExampleSection>,
 ) => ImportExampleSection = rest =>
-  baseSection({
-    type: SectionType.ImportExample,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.ImportExample,
+      ...rest,
+    });
 
 export const tab: (object: Partial<TabSection>) => TabSection = rest =>
   baseSection({
@@ -73,26 +82,26 @@ export const api: (object?: Partial<ApiSection>) => ApiSection = rest =>
 export const playground: (
   object?: Partial<PlaygroundSection>,
 ) => PlaygroundSection = rest =>
-  baseSection({
-    type: SectionType.Playground,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.Playground,
+      ...rest,
+    });
 
 export const testkit: (
   object?: Partial<TestkitSection>,
 ) => TestkitSection = rest =>
-  baseSection({
-    type: SectionType.Testkit,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.Testkit,
+      ...rest,
+    });
 
 export const columns: (
   object: Partial<ColumnsSection>,
 ) => ColumnsSection = rest =>
-  baseSection({
-    type: SectionType.Columns,
-    ...rest,
-  });
+    baseSection({
+      type: SectionType.Columns,
+      ...rest,
+    });
 
 export const tabs: (object: Partial<TabsSection>) => TabsSection = rest =>
   baseSection({

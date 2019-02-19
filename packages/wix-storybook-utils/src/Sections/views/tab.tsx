@@ -18,6 +18,7 @@ import { columns } from './columns';
 import { table } from './table';
 import { tabs } from './tabs';
 import { mdx } from './mdx';
+import { header } from './header';
 
 const styles = require('../styles.scss');
 
@@ -32,6 +33,7 @@ export const tab = (
 };
 
 const views = {
+  header,
   error,
   importExample,
   description,

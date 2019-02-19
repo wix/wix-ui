@@ -1,6 +1,7 @@
 import React from 'react';
 
 export enum SectionType {
+  Header = 'header',
   Description = 'description',
   LiveCode = 'code',
   Code = 'code',
@@ -26,6 +27,7 @@ export interface StorySection {
 }
 
 export type Section =
+  | HeaderSection
   | DescriptionSection
   | ImportExampleSection
   | LiveCodeSection
@@ -40,6 +42,12 @@ export type Section =
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode | string;
 }
+export interface HeaderSection extends StorySection {
+  storyName: string;
+  component?: React.ReactNode;
+  issueUrl?: string;
+  sourceUrl?: string;
+}
 
 export interface ImportExampleSection extends StorySection {
   source: React.ReactNode;
@@ -53,17 +61,17 @@ export interface CodeSection extends StorySection {
   interactive?: boolean;
 }
 
-export interface LiveCodeSection extends CodeSection {}
+export interface LiveCodeSection extends CodeSection { }
 
 export interface TabSection extends StorySection {
   sections: Section[];
 }
 
-export interface ErrorSection extends StorySection {}
+export interface ErrorSection extends StorySection { }
 
-export interface ApiSection extends StorySection {}
-export interface PlaygroundSection extends StorySection {}
-export interface TestkitSection extends StorySection {}
+export interface ApiSection extends StorySection { }
+export interface PlaygroundSection extends StorySection { }
+export interface TestkitSection extends StorySection { }
 
 export interface ColumnsSection extends StorySection {
   items: Section[];
