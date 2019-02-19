@@ -64,3 +64,12 @@
 .tab {
   margin-bottom: 30px;
 }
+
+.divider {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin: 0 -50vw 60px;
+  border-bottom: 1px solid #cbd3dc;
+}

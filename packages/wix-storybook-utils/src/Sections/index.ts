@@ -12,6 +12,7 @@ import {
   TableSection,
   TabsSection,
   MDXSection,
+  DividerSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -109,5 +110,13 @@ export const table: (object: Partial<TableSection>) => TableSection = rest =>
 export const mdx: (object?: Partial<MDXSection>) => MDXSection = rest =>
   baseSection({
     type: SectionType.MDX,
+    ...rest,
+  });
+
+export const divider: (
+  object?: Partial<DividerSection>,
+) => DividerSection = rest =>
+  baseSection({
+    type: SectionType.Divider,
     ...rest,
   });
