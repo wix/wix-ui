@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import styles from './styles.scss';
 import Markdown from '../Markdown';
 import { SectionType } from '../typings/story-section';
+
+import styles from './styles.scss';
 
 const preparators = {
   [SectionType.ImportExample]: section => ({

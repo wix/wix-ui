@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TabSection, SectionType, Section } from '../../typings/story-section';
+import { TabSection, Section } from '../../typings/story-section';
 
 import { StoryConfig } from '../../typings/story-config';
 
