@@ -426,7 +426,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager>
-        <ClickOutsideWrapper handleClickOutside={this._handleClickOutside}>
+        <ClickOutsideWrapper handleClickOutside={this._handleClickOutside} outsideClickIgnoreClass={style.popover} >
           <div
             style={inlineStyles}
             {...style('root', {}, this.props)}
