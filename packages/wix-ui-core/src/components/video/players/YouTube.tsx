@@ -114,6 +114,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         loop: loop ? 1 : 0,
         origin: window.location.origin,
         playsinline: true,
+        playlist: videoId,
         ...playerOptions
       },
       events: {
