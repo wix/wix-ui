@@ -14,12 +14,6 @@ import {
   tabs,
 } from '../src/Sections';
 
-const LiveExampleComponent = ({ disabled }) => (
-  <div style={{ background: disabled ? 'red' : '#bada55' }}>
-    Oh hello there!
-  </div>
-);
-
 export default {
   category: 'Components',
   storyName: 'Component with section',
