@@ -12,6 +12,7 @@ import {
   columns,
   table,
   tabs,
+  divider,
 } from '../src/Sections';
 
 export default {
@@ -31,6 +32,8 @@ import Button from 'wix-style-react/Button';`,
           title: 'Septyni astuoni keturiolika',
           items: [description({ text: `🔨 To trigger an operation.` })],
         }),
+
+        divider(),
       ],
     }),
 
