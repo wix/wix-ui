@@ -7,6 +7,7 @@ import { popoverPrivateDriverFactory } from './Popover.private.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
+import { AppendTo } from './Popover';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -102,7 +103,13 @@ describe('Popover', () => {
         expect(onClickOutside).toBeCalled();
       });
 
-      ['parent', 'window', 'viewport', 'scrollParent'].map(value => {
+      const appendToValues: AppendTo[] = [
+        'parent',
+        'window',
+        'viewport',
+        'scrollParent',
+      ];
+      appendToValues.map(value => {
         it(`should not be triggered when content is clicked and appended to ${value}`, () => {
           const onClickOutside = jest.fn();
 
@@ -111,11 +118,11 @@ describe('Popover', () => {
               placement: 'bottom',
               shown: true,
               onClickOutside,
-              appendTo: 'parent',
+              appendTo: value,
             }),
           );
 
-          driver.clickOutsideOnContent();
+          driver.clickOnContent();
           expect(onClickOutside).not.toBeCalled();
         });
       });
