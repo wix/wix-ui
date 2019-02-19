@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",
+    "@wix/image-client-api": "^1.1942.0",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "hoist-non-react-methods": "^1.1.0",
