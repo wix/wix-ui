@@ -14,12 +14,6 @@ import {
   tabs,
 } from '../src/Sections';
 
-const LiveExampleComponent = ({ disabled }) => (
-  <div style={{ background: disabled ? 'red' : '#bada55' }}>
-    Oh hello there!
-  </div>
-);
-
 export default {
   category: 'Components',
   storyName: 'Component with section',
@@ -29,14 +23,13 @@ export default {
     tab({
       title: 'Something something',
       sections: [
+        importExample({
+          source: `import Button from 'wix-style-react/Button';
+import Button from 'wix-style-react/Button';`,
+        }),
         columns({
           title: 'Septyni astuoni keturiolika',
-          items: [
-            description({ text: `🔨 To trigger an operation.` }),
-            importExample({
-              source: "import Button from 'wix-style-react/Button';",
-            }),
-          ],
+          items: [description({ text: `🔨 To trigger an operation.` })],
         }),
       ],
     }),
