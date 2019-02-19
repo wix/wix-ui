@@ -47,7 +47,7 @@ const views = {
   table,
   tabs,
   mdx,
-  divider
+  divider,
 };
 
 export const getView = type => views[type] || error;

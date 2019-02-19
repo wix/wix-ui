@@ -62,13 +62,13 @@ export interface CodeSection extends StorySection {
   interactive?: boolean;
 }
 
-export interface LiveCodeSection extends CodeSection { }
+export interface LiveCodeSection extends CodeSection {}
 
 export interface TabSection extends StorySection {
   sections: Section[];
 }
 
-export interface ErrorSection extends StorySection { }
+export interface ErrorSection extends StorySection {}
 
 export interface ApiSection extends StorySection {
   parsedSource?: object;
