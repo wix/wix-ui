@@ -15,6 +15,7 @@ export enum SectionType {
   Table = 'table',
   Tabs = 'tabs',
   MDX = 'mdx',
+  Divider = 'divider',
 }
 
 export interface StorySection {
@@ -69,9 +70,11 @@ export interface TabSection extends StorySection {
 
 export interface ErrorSection extends StorySection { }
 
-export interface ApiSection extends StorySection { }
-export interface PlaygroundSection extends StorySection { }
-export interface TestkitSection extends StorySection { }
+export interface ApiSection extends StorySection {
+  parsedSource?: object;
+}
+export interface PlaygroundSection extends StorySection {}
+export interface TestkitSection extends StorySection {}
 
 export interface ColumnsSection extends StorySection {
   items: Section[];
@@ -90,6 +93,8 @@ export interface TableSection extends StorySection {
 export interface MDXSection extends StorySection {
   content: any;
 }
+
+export interface DividerSection extends StorySection {}
 
 export interface SectionsMeta {
   tabs: string[];

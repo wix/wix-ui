@@ -8,4 +8,4 @@ const AutoDocs = require('../../AutoDocs').default;
 export const api: (a: ApiSection, b: StoryConfig) => React.ReactNode = (
   section,
   storyConfig,
-) => <AutoDocs parsedSource={storyConfig.metadata} />;
+) => <AutoDocs parsedSource={section.parsedSource || storyConfig.metadata} />;
