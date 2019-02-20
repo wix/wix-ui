@@ -625,10 +625,11 @@ function runTests(createDriver, container) {
         </Popover>,
       );
 
-      expect(await driver.getTargetElement().childNodes[0].nodeName).toEqual(
+      expect((await driver.getTargetElement()).childNodes[0].nodeName).toEqual(
         'DIV',
       );
-      expect(await driver.getContentElement().childNodes[0].nodeName).toEqual(
+
+      expect((await driver.getContentElement()).childNodes[0].nodeName).toEqual(
         'DIV',
       );
     });
