@@ -40,7 +40,7 @@ describe('Popover', () => {
 });
 
 function runTests(createDriver, container) {
-  it('should render', () => {
+  it('should render', async () => {
     const driver = createDriver(
       popoverWithProps({
         placement: 'bottom',
@@ -48,11 +48,11 @@ function runTests(createDriver, container) {
       }),
     );
 
-    expect(driver.exists()).toBe(true);
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, () => {
+    it(`doesn't display popup when shown={false}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -60,11 +60,11 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.isTargetElementExists()).toBe(true);
-      expect(driver.isContentElementExists()).toBe(false);
+      expect(await driver.isTargetElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(false);
     });
 
-    it(`displays popup when shown={true}`, () => {
+    it(`displays popup when shown={true}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -72,12 +72,12 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.isContentElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(true);
     });
   });
 
   describe('Events', () => {
-    it(`calls mouseEnter and mouseLeave callbacks`, () => {
+    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
@@ -90,15 +90,15 @@ function runTests(createDriver, container) {
         }),
       );
 
-      driver.mouseEnter();
+      await driver.mouseEnter();
       expect(onMouseEnter).toBeCalled();
 
-      driver.mouseLeave();
+      await driver.mouseLeave();
       expect(onMouseLeave).toBeCalled();
     });
 
     describe('onClickOutside', () => {
-      it('should be triggered when outside of the popover is called', () => {
+      it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
         const driver = createDriver(
@@ -109,7 +109,7 @@ function runTests(createDriver, container) {
           }),
         );
 
-        driver.clickOutside();
+        await driver.clickOutside();
         expect(onClickOutside).toBeCalled();
       });
 
@@ -120,7 +120,7 @@ function runTests(createDriver, container) {
         'scrollParent',
       ];
       appendToValues.map(value => {
-        it(`should not be triggered when content is clicked and appended to ${value}`, () => {
+        it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
           const onClickOutside = jest.fn();
 
           const driver = createDriver(
@@ -132,7 +132,7 @@ function runTests(createDriver, container) {
             }),
           );
 
-          driver.clickOnContent();
+          await driver.clickOnContent();
           expect(onClickOutside).not.toBeCalled();
         });
       });
@@ -150,7 +150,7 @@ function runTests(createDriver, container) {
       updatePositionSpy.mockRestore();
     });
 
-    it(`offsets the popup arrow by specified amount`, () => {
+    it(`offsets the popup arrow by specified amount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -160,7 +160,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getArrowOffset().left).toBe('10px');
+      expect(await driver.getArrowOffset().left).toBe('10px');
     });
 
     it(`should update popper's position when props are chaning`, async () => {
@@ -395,7 +395,7 @@ function runTests(createDriver, container) {
       expect(queryPopoverContent()).toBeNull();
     });
 
-    it(`should show the popover immediately on first render if needed`, () => {
+    it(`should show the popover immediately on first render if needed`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -404,7 +404,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.isContentElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(true);
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
@@ -447,7 +447,7 @@ function runTests(createDriver, container) {
   describe('Portal and containment', () => {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
-    it(`renders the popup directly into the popover root by default`, () => {
+    it(`renders the popup directly into the popover root by default`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -455,12 +455,12 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
+      expect(await driver.getContentElement().parentElement).toBe(
         container.componentNode,
       );
     });
 
-    it(`renders the popup into a portal when given appendTo prop`, () => {
+    it(`renders the popup into a portal when given appendTo prop`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -469,16 +469,16 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
-        driver.getPortalElement(),
+      expect(await driver.getContentElement().parentElement).toBe(
+        await driver.getPortalElement(),
       );
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect(await driver.getPortalElement().parentElement).toBe(
         portalContainer.node,
       );
-      expect(driver.getPortalElement().classList).toContain(styles.root);
+      expect(await driver.getPortalElement().classList).toContain(styles.root);
     });
 
-    it(`renders an empty portal when closed`, () => {
+    it(`renders an empty portal when closed`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -487,14 +487,16 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getContentElement()).toBeNull();
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect(await driver.getContentElement()).toBeNull();
+      expect(await driver.getPortalElement().parentElement).toBe(
         portalContainer.node,
       );
-      expect(driver.getPortalElement().classList).not.toContain(styles.root);
+      expect(await driver.getPortalElement().classList).not.toContain(
+        styles.root,
+      );
     });
 
-    it(`removes the portal on unmount`, () => {
+    it(`removes the portal on unmount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -503,12 +505,12 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getPortalElement()).toBeTruthy();
+      expect(await driver.getPortalElement()).toBeTruthy();
       container.unmount();
-      expect(driver.getPortalElement()).toBeNull();
+      expect(await driver.getPortalElement()).toBeNull();
     });
 
-    it(`adds the portal to the body when appendTo="window"`, () => {
+    it(`adds the portal to the body when appendTo="window"`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -517,10 +519,10 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getPortalElement().parentElement).toBe(document.body);
+      expect(await driver.getPortalElement().parentElement).toBe(document.body);
     });
 
-    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, () => {
+    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
       const driver = createDriver(
         <div style={{ overflow: 'scroll' }}>
           <div style={{ overflow: 'visible' }}>
@@ -533,12 +535,12 @@ function runTests(createDriver, container) {
         </div>,
       );
 
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect(await driver.getPortalElement().parentElement).toBe(
         container.node.firstChild,
       );
     });
 
-    it(`adds the portal next to the popover's element when appendTo="parent"`, () => {
+    it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -547,8 +549,8 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
-        driver.getTargetElement().parentElement,
+      expect(await driver.getContentElement().parentElement).toBe(
+        await driver.getTargetElement().parentElement,
       );
     });
 
@@ -610,7 +612,7 @@ function runTests(createDriver, container) {
   });
 
   describe('React <16 compatibility', () => {
-    it('should wrap children in a <div/> if provided as strings to support React 15', () => {
+    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
@@ -618,8 +620,12 @@ function runTests(createDriver, container) {
         </Popover>,
       );
 
-      expect(driver.getTargetElement().childNodes[0].nodeName).toEqual('DIV');
-      expect(driver.getContentElement().childNodes[0].nodeName).toEqual('DIV');
+      expect(await driver.getTargetElement().childNodes[0].nodeName).toEqual(
+        'DIV',
+      );
+      expect(await driver.getContentElement().childNodes[0].nodeName).toEqual(
+        'DIV',
+      );
     });
   });
 
@@ -634,7 +640,7 @@ function runTests(createDriver, container) {
       isTestEnv: false,
     };
 
-    it('should match default modifiers', () => {
+    it('should match default modifiers', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
       });
@@ -658,7 +664,7 @@ function runTests(createDriver, container) {
       });
     });
 
-    it('should calculate the offset properly using moveBy for the top placement', () => {
+    it('should calculate the offset properly using moveBy for the top placement', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -668,7 +674,7 @@ function runTests(createDriver, container) {
       expect(modifiers.offset.offset).toEqual('5px, 10px');
     });
 
-    it('should calculate the offset properly using moveBy for the right placement', () => {
+    it('should calculate the offset properly using moveBy for the right placement', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -678,7 +684,7 @@ function runTests(createDriver, container) {
       expect(modifiers.offset.offset).toEqual('10px, 5px');
     });
 
-    it('should disable gpuAcceleration when animation is enabled', () => {
+    it('should disable gpuAcceleration when animation is enabled', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         shouldAnimate: true,
@@ -687,7 +693,7 @@ function runTests(createDriver, container) {
       expect(modifiers.computeStyle.gpuAcceleration).toEqual(false);
     });
 
-    it('should disable the flip modifier if moveBy was provided', () => {
+    it('should disable the flip modifier if moveBy was provided', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -697,7 +703,7 @@ function runTests(createDriver, container) {
       expect(modifiers.flip.enabled).toEqual(false);
     });
 
-    it('should enabled the flip modifier is set explicitly regardless of moveBy', () => {
+    it('should enabled the flip modifier is set explicitly regardless of moveBy', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -707,7 +713,7 @@ function runTests(createDriver, container) {
       expect(modifiers.flip.enabled).toEqual(true);
     });
 
-    it('should disable the flip modifier when set explicitly', () => {
+    it('should disable the flip modifier when set explicitly', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         flip: false,
@@ -716,7 +722,7 @@ function runTests(createDriver, container) {
       expect(modifiers.flip.enabled).toEqual(false);
     });
 
-    it('should disable `preventOverflow` and `hide` when fixed set to `true`', () => {
+    it('should disable `preventOverflow` and `hide` when fixed set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         fixed: true,
@@ -726,7 +732,7 @@ function runTests(createDriver, container) {
       expect(modifiers.hide.enabled).toEqual(false);
     });
 
-    it('should disable computeStyle when isTestEnv is set to `true`', () => {
+    it('should disable computeStyle when isTestEnv is set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         isTestEnv: true,
@@ -735,7 +741,7 @@ function runTests(createDriver, container) {
       expect(modifiers.computeStyle.enabled).toEqual(false);
     });
 
-    it('should set boundariesElement when appendTo is provided', () => {
+    it('should set boundariesElement when appendTo is provided', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         appendTo: 'viewport',
