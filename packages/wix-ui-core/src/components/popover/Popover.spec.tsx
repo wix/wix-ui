@@ -25,11 +25,21 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
 );
 
 describe('Popover', () => {
-  const container = new ReactDOMTestContainer().destroyAfterEachTest();
-  const createDriver = container.createLegacyRenderer(
-    popoverPrivateDriverFactory,
-  );
+  describe('[sync]', () => {
+    const container = new ReactDOMTestContainer().destroyAfterEachTest();
+    const createDriver = container.createLegacyRenderer(
+      popoverPrivateDriverFactory,
+    );
 
+    runTests(createDriver, container);
+  });
+
+  describe('[async]', () => {
+    runTests(createRendererWithUniDriver(compUniDriverFactory));
+  });
+});
+
+function runTests(createDriver, container) {
   it('should render', () => {
     const driver = createDriver(
       popoverWithProps({
@@ -154,7 +164,7 @@ describe('Popover', () => {
     });
 
     it(`should update popper's position when props are chaning`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -164,7 +174,7 @@ describe('Popover', () => {
         ),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -179,7 +189,7 @@ describe('Popover', () => {
     });
 
     it(`should not directly update popper's position when the visibillity hasn't changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -188,7 +198,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -197,7 +207,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -218,11 +228,11 @@ describe('Popover', () => {
       queryHook<HTMLElement>(document, 'popover-content');
 
     it(`animates on close given a timeout`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 10 }),
       );
 
@@ -236,11 +246,11 @@ describe('Popover', () => {
     });
 
     it(`doesn't animate on close when timeout={0}`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 0 }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 0 }),
       );
 
@@ -248,7 +258,7 @@ describe('Popover', () => {
     });
 
     it(`doesn't animate on close when timeout is an object with 0 values`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -256,7 +266,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -268,7 +278,7 @@ describe('Popover', () => {
     });
 
     it(`should close after hideDelay`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -276,7 +286,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -294,7 +304,7 @@ describe('Popover', () => {
     });
 
     it(`should open after showDelay`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -302,7 +312,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -320,7 +330,7 @@ describe('Popover', () => {
     });
 
     it(`should reset timeout when state has changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -329,7 +339,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -338,7 +348,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -353,7 +363,7 @@ describe('Popover', () => {
     });
 
     it(`should not update delay until the popover visibillity has fully changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -361,7 +371,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -369,7 +379,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 1000,
@@ -398,7 +408,7 @@ describe('Popover', () => {
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -409,7 +419,7 @@ describe('Popover', () => {
 
       expect(queryPopoverContent()).toBeNull();
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -421,7 +431,7 @@ describe('Popover', () => {
       expect(queryPopoverContent()).toBeTruthy();
 
       // Close again the popover
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -549,7 +559,7 @@ describe('Popover', () => {
       it(`should update the portal's styles when updated`, async () => {
         // First render without passing the `className` prop, the <Popover/>
         // portal should only have the root class applied.
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -559,7 +569,7 @@ describe('Popover', () => {
 
         // Second render with a `className` prop. Stylable `style()` function
         // should apply it.
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -572,7 +582,7 @@ describe('Popover', () => {
       });
 
       it(`should not remove styles until unmounted with hideDelay`, async () => {
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -581,7 +591,7 @@ describe('Popover', () => {
           }),
         );
 
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: false,
@@ -734,4 +744,4 @@ describe('Popover', () => {
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
     });
   });
-});
+}

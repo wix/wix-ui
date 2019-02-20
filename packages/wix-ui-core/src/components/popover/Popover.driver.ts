@@ -1,5 +1,6 @@
 const queryDocumentOrElement = (element, query) =>
-  ((element && element.querySelectorAll(query)[0]) || document && document.querySelector(query));
+  (element && element.querySelectorAll(query)[0]) ||
+  (document && document.querySelector(query));
 
 const getTargetElement = (element: Element | undefined) =>
   element && element.querySelectorAll('[data-hook="popover-element"]')[0];
@@ -13,7 +14,7 @@ const getArrowElement = (element: Element | undefined) =>
 const getPortalElement = (element: Element | undefined) =>
   queryDocumentOrElement(element, '[data-hook="popover-portal"]');
 
-export const popoverDriverFactory = ({element, eventTrigger}) => ({
+export const popoverDriverFactory = ({ element, eventTrigger }) => ({
   /** Whether the element exists or not */
   exists: () => !!element,
 
@@ -45,13 +46,15 @@ export const popoverDriverFactory = ({element, eventTrigger}) => ({
 
   /** Returns the arrow offset */
   getArrowOffset: () => {
-    const {top, left, right, bottom} = (getArrowElement(element) as HTMLElement).style;
-    return {top, left, right, bottom};
+    const { top, left, right, bottom } = (getArrowElement(
+      element,
+    ) as HTMLElement).style;
+    return { top, left, right, bottom };
   },
 
   /** Returns the element's inline styles */
   inlineStyles: () => element.style,
 
   /** Returns the element's id */
-  getElementId: () => element.id
+  getElementId: () => element.id,
 });
