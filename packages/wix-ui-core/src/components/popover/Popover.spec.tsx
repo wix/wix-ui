@@ -4,7 +4,9 @@ import { queryHook } from 'wix-ui-test-utils/dom';
 import { Popover, PopoverProps } from './';
 import { createModifiers } from './modifiers';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
+import { popoverDriverFactory } from './Popover.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { reactUniDriver } from 'unidriver';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
 import { AppendTo } from './Popover';
@@ -35,7 +37,10 @@ describe('Popover', () => {
   });
 
   describe('[async]', () => {
-    runTests(createRendererWithUniDriver(compUniDriverFactory));
+    const container = new ReactDOMTestContainer().unmountAfterEachTest();
+    const createDriver = container.createUniRenderer(popoverDriverFactory);
+
+    runTests(createDriver, container);
   });
 });
 
@@ -612,7 +617,7 @@ function runTests(createDriver, container) {
   });
 
   describe('React <16 compatibility', () => {
-    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
+    it.only('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
