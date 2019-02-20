@@ -1,6 +1,6 @@
 # `<LabelWithOptions/>`
 
-A dropdown like component, where trigger is text
+A dropdown-like component, where trigger is text
 
 ```js
 import {LabelWithOptions} from 'wix-ui-core/LabelWithOptions';
