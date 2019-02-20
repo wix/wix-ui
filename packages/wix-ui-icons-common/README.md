@@ -1,6 +1,7 @@
 # wix-ui-icons-common
 A set of commonly used icons for the Wix UI design system.
 
+
 ## Installation
 
 ```bash
