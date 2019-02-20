@@ -44,7 +44,7 @@ describe('Popover', () => {
 });
 
 function runTests(createDriver, container) {
-  it.only('should render', async () => {
+  it('should render', async () => {
     const driver = createDriver(
       popoverWithProps({
         placement: 'bottom',
@@ -56,7 +56,7 @@ function runTests(createDriver, container) {
   });
 
   describe('Display', () => {
-    it.only(`doesn't display popup when shown={false}`, async () => {
+    it(`doesn't display popup when shown={false}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -68,7 +68,7 @@ function runTests(createDriver, container) {
       expect(await driver.isContentElementExists()).toBe(false);
     });
 
-    it.only(`displays popup when shown={true}`, async () => {
+    it(`displays popup when shown={true}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -81,7 +81,7 @@ function runTests(createDriver, container) {
   });
 
   describe('Events', () => {
-    it.only(`calls mouseEnter and mouseLeave callbacks`, async () => {
+    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
@@ -102,7 +102,7 @@ function runTests(createDriver, container) {
     });
 
     describe('onClickOutside', () => {
-      it.only('should be triggered when outside of the popover is called', async () => {
+      it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
         const driver = createDriver(
@@ -154,7 +154,7 @@ function runTests(createDriver, container) {
       updatePositionSpy.mockRestore();
     });
 
-    it.only(`offsets the popup arrow by specified amount`, async () => {
+    it(`offsets the popup arrow by specified amount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -164,7 +164,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(await driver.getArrowOffset().left).toBe('10px');
+      expect((await driver.getArrowOffset()).left).toBe('10px');
     });
 
     it(`should update popper's position when props are chaning`, async () => {
@@ -459,7 +459,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(await driver.getContentElement().parentElement).toBe(
+      expect((await driver.getContentElement()).parentElement).toBe(
         container.componentNode,
       );
     });
@@ -473,13 +473,15 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(await driver.getContentElement().parentElement).toBe(
+      expect((await driver.getContentElement()).parentElement).toBe(
         await driver.getPortalElement(),
       );
-      expect(await driver.getPortalElement().parentElement).toBe(
+      expect((await driver.getPortalElement()).parentElement).toBe(
         portalContainer.node,
       );
-      expect(await driver.getPortalElement().classList).toContain(styles.root);
+      expect((await driver.getPortalElement()).classList).toContain(
+        styles.root,
+      );
     });
 
     it(`renders an empty portal when closed`, async () => {
@@ -492,10 +494,10 @@ function runTests(createDriver, container) {
       );
 
       expect(await driver.getContentElement()).toBeNull();
-      expect(await driver.getPortalElement().parentElement).toBe(
+      expect((await driver.getPortalElement()).parentElement).toBe(
         portalContainer.node,
       );
-      expect(await driver.getPortalElement().classList).not.toContain(
+      expect((await driver.getPortalElement()).classList).not.toContain(
         styles.root,
       );
     });
@@ -523,7 +525,9 @@ function runTests(createDriver, container) {
         }),
       );
 
-      expect(await driver.getPortalElement().parentElement).toBe(document.body);
+      expect((await driver.getPortalElement()).parentElement).toBe(
+        document.body,
+      );
     });
 
     it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
@@ -539,7 +543,7 @@ function runTests(createDriver, container) {
         </div>,
       );
 
-      expect(await driver.getPortalElement().parentElement).toBe(
+      expect((await driver.getPortalElement()).parentElement).toBe(
         container.node.firstChild,
       );
     });
@@ -616,7 +620,7 @@ function runTests(createDriver, container) {
   });
 
   describe('React <16 compatibility', () => {
-    it.only('should wrap children in a <div/> if provided as strings to support React 15', async () => {
+    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
