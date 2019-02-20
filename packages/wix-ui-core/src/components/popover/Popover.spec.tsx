@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Simulate } from 'react-dom/test-utils';
 import { queryHook } from 'wix-ui-test-utils/dom';
 import { Popover, PopoverProps } from './';
 import { createModifiers } from './modifiers';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
-import { popoverDriverFactory } from './Popover.uni.driver';
+import { testkit } from './Popover.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { reactUniDriver } from 'unidriver';
 import * as eventually from 'wix-eventually';
@@ -38,7 +37,7 @@ describe('Popover', () => {
 
   describe('[async]', () => {
     const container = new ReactDOMTestContainer().unmountAfterEachTest();
-    const createDriver = container.createUniRenderer(popoverDriverFactory);
+    const createDriver = container.createUniRenderer(testkit);
 
     runTests(createDriver, container);
   });
@@ -69,7 +68,7 @@ function runTests(createDriver, container) {
       expect(await driver.isContentElementExists()).toBe(false);
     });
 
-    it(`displays popup when shown={true}`, async () => {
+    it.only(`displays popup when shown={true}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -82,7 +81,7 @@ function runTests(createDriver, container) {
   });
 
   describe('Events', () => {
-    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
+    it.only(`calls mouseEnter and mouseLeave callbacks`, async () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
@@ -103,7 +102,7 @@ function runTests(createDriver, container) {
     });
 
     describe('onClickOutside', () => {
-      it('should be triggered when outside of the popover is called', async () => {
+      it.only('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
         const driver = createDriver(
@@ -155,7 +154,7 @@ function runTests(createDriver, container) {
       updatePositionSpy.mockRestore();
     });
 
-    it(`offsets the popup arrow by specified amount`, async () => {
+    it.only(`offsets the popup arrow by specified amount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
