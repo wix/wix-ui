@@ -1,16 +1,19 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
 export const popoverDriverFactory = base => {
+  const byHook = hook => base.$(`[data-hook="${hook}"]`);
+
   return {
     ...baseUniDriverFactory(base),
-    getTargetElement: async () => {
-      const element = await base.$('[data-hook="popover-element"]').getNative();
-      return element;
-    },
+    getTargetElement: async () => byHook('popover-element').getNative(),
 
-    getContentElement: async () => {
-      const element = await base.$('[data-hook="popover-content"]').getNative();
-      return element;
-    },
+    getContentElement: async () =>
+      base.$('[data-hook="popover-content"]').getNative(),
+
+    /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
+    isTargetElementExists: async () => byHook('popover-element').exists(),
+
+    /** Returns `true` whether the content element (`<Popover.Content/>`) exists */
+    isContentElementExists: async () => byHook('popover-content').exists(),
   };
 };

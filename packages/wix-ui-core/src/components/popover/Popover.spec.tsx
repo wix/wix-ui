@@ -45,7 +45,7 @@ describe('Popover', () => {
 });
 
 function runTests(createDriver, container) {
-  it('should render', async () => {
+  it.only('should render', async () => {
     const driver = createDriver(
       popoverWithProps({
         placement: 'bottom',
@@ -57,7 +57,7 @@ function runTests(createDriver, container) {
   });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, async () => {
+    it.only(`doesn't display popup when shown={false}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
