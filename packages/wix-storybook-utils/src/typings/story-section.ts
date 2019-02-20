@@ -1,6 +1,7 @@
 import React from 'react';
 
 export enum SectionType {
+  Header = 'header',
   Description = 'description',
   LiveCode = 'code',
   Code = 'code',
@@ -27,6 +28,7 @@ export interface StorySection {
 }
 
 export type Section =
+  | HeaderSection
   | DescriptionSection
   | ImportExampleSection
   | LiveCodeSection
@@ -40,6 +42,12 @@ export type Section =
 
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode | string;
+}
+export interface HeaderSection extends StorySection {
+  storyName: string;
+  component?: React.ReactNode;
+  issueUrl?: string;
+  sourceUrl?: string;
 }
 
 export interface ImportExampleSection extends StorySection {

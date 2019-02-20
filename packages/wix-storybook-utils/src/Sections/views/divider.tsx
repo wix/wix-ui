@@ -8,5 +8,4 @@ import styles from '../styles.scss';
 export const divider: (a: DividerSection, b: StoryConfig) => React.ReactNode = (
   section,
   storyConfig,
-) =>
-  <div className={styles.divider}/>;
+) => <div className={styles.divider} />;

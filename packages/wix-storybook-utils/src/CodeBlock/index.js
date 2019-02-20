@@ -12,15 +12,15 @@ export default class CodeBlock extends Component {
   static propTypes = {
     source: PropTypes.string,
     type: PropTypes.string,
-    dataHook: PropTypes.string
+    dataHook: PropTypes.string,
   };
 
   static defaultProps = {
-    type: 'js'
+    type: 'js',
   };
 
   state = {
-    showNotification: false
+    showNotification: false,
   };
 
   onCopyClick = () => {
