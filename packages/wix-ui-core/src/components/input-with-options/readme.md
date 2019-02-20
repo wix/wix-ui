@@ -1,6 +1,6 @@
 # `<InputWithOptions/>`
 
-A dropdown like component, where trigger is input
+A dropdown-like component, where trigger is input
 
 ### Usage example
 

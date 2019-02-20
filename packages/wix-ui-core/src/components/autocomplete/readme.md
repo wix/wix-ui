@@ -1,6 +1,6 @@
 # `<Autocomplete/>`
 
-dropdown like component where trigger is input
+dropdown-like component where trigger is input
 
 ### Usage example
 
