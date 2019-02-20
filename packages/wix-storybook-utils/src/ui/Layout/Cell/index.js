@@ -4,12 +4,14 @@ import classname from 'classnames';
 
 import styles from './styles.scss';
 
-const Cell = ({ span, children, vertical }) => (
+const Cell = ({ span, children, className, vertical }) => (
   <div
     style={{
       gridColumn: `span ${span}`,
     }}
-    className={classname(styles.root, { [styles.vertical]: vertical })}
+    className={classname(styles.root, className, {
+      [styles.vertical]: vertical,
+    })}
     children={children}
   />
 );

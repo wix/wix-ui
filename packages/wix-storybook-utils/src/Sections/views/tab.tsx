@@ -19,6 +19,7 @@ import { table } from './table';
 import { tabs } from './tabs';
 import { mdx } from './mdx';
 import { divider } from './divider';
+import { header } from './header';
 
 const styles = require('../styles.scss');
 
@@ -33,6 +34,7 @@ export const tab = (
 };
 
 const views = {
+  header,
   error,
   importExample,
   description,
@@ -45,7 +47,7 @@ const views = {
   table,
   tabs,
   mdx,
-  divider
+  divider,
 };
 
 export const getView = type => views[type] || error;

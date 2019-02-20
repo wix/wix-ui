@@ -10,6 +10,7 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
+  HeaderSection,
   TabsSection,
   MDXSection,
   DividerSection,
@@ -47,6 +48,12 @@ export const description: (
 ) => DescriptionSection = rest =>
   baseSection({
     type: SectionType.Description,
+    ...rest,
+  });
+
+export const header: (object: Partial<HeaderSection>) => HeaderSection = rest =>
+  baseSection({
+    type: SectionType.Header,
     ...rest,
   });
 
