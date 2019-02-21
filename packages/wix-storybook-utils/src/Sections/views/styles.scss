@@ -6,11 +6,14 @@ $ivory: linear-gradient(256deg, #f6f6f6, #fefefe),
 
 .description {
   margin-bottom: calc(24px - 16px);
-  @include font(light);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #162d3d;
+
+  :global .markdown-body p {
+    @include font(light);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #162d3d;
+  }
 }
 
 .table {
@@ -24,16 +27,21 @@ $ivory: linear-gradient(256deg, #f6f6f6, #fefefe),
   }
 }
 
-.td a {
-  @include font(light);
-  font-size: 16px;
-  line-height: 1.88em;
-  color: rgb(56, 153, 236);
-  text-decoration: none;
+.td {
+  padding: 10px;
 
-  &:hover {
-    color: rgb(78, 183, 245);
+  a {
+    @include font(light);
+    font-size: 16px;
+    line-height: 1.88em;
+    color: rgb(56, 153, 236);
+    text-decoration: none;
+
+    &:hover {
+      color: rgb(78, 183, 245);
+    }
   }
+
 }
 
 .layout {
@@ -47,6 +55,10 @@ $ivory: linear-gradient(256deg, #f6f6f6, #fefefe),
   @include font(light);
   font-size: 16px;
   line-height: 1.88em;
+
+  p {
+    margin: 0;
+  }
 }
 
 .header {

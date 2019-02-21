@@ -4,7 +4,7 @@ import { TabSection } from '../../typings/story-section';
 
 import { StoryConfig } from '../../typings/story-config';
 
-import { sectionWithTitles } from '../common';
+import { sectionWithSiblings } from '../section-with-siblings';
 
 import { error } from './error';
 import { importExample } from './import-example';
@@ -65,7 +65,7 @@ function render(
 
       return (
         <div key={key}>
-          {isTab(tabSection) ? view : sectionWithTitles(tabSection, view)}
+          {isTab(tabSection) ? view : sectionWithSiblings(tabSection, view)}
         </div>
       );
     }),
