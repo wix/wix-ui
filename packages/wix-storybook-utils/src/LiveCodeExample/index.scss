@@ -6,7 +6,6 @@
 
   margin-bottom: 20px;
   border: 1px solid #dfe5eb;
-  border-radius: 3px;
 
   &.compact {
     min-width: auto;
@@ -19,8 +18,7 @@
   @extend .commonText;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #dfe5eb;
-  padding: 0 1em;
+  justify-content: flex-end;
 
   .compact & {
     height: 3em;
@@ -34,10 +32,9 @@
 }
 
 .headerControl {
-  margin-right: 20px;
   display: flex;
   align-items: center;
-  line-height: 0;
+  margin-left: 20px;
 
   // Hide toggles on compact mode
   .compact & {
@@ -45,15 +42,19 @@
   }
 }
 
+.controlButtons {
+  display: flex;
+  align-items: center;
+}
+
 .liveExampleWrapper {
   display: flex;
+  border: 1px solid #e5e5e5;
 
   // Stack on top when in compact mode
   .compact & {
     flex-direction: column;
-    border-radius: 6px;
-    box-shadow: 0px 0px 0px 4px #f0f4f7;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }
 
@@ -66,9 +67,6 @@
   // Take all width in compact mode
   .compact & {
     width: 100%;
-
-    border-radius: 6px;
-    box-shadow: 0px 0px 0px 4px #f0f4f7;
   }
 }
 
@@ -78,12 +76,6 @@
 
   .compact & {
     border-right: 0;
-    box-shadow: none;
-
-    &.opened {
-      margin-bottom: 4px;
-      box-shadow: inherit;
-    }
   }
 }
 
@@ -220,6 +212,10 @@
   &.darkPreview {
     @include checkerboard(20px, #5b7fa4, #486684);
   }
+
+  &.compactPreview {
+    background: #f0f4f7;
+  }
 }
 
 .error {
@@ -235,7 +231,6 @@
 
   .compact & {
     overflow: auto;
-    border-radius: 6px;
   }
 }
 
