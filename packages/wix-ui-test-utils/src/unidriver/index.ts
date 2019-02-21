@@ -1,1 +1,1 @@
-export * from './StylableUnidriverUtil';
+export * from './stylable-unidriver-util';
