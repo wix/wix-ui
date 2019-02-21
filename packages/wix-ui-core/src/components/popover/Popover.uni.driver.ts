@@ -2,7 +2,7 @@ import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { Simulate } from 'react-dom/test-utils';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
 
-export const testkit = base => {
+export const testkit = (base, body) => {
   const byHook = hook => base.$(`[data-hook="${hook}"]`);
   const legacyDriver = async () =>
     popoverPrivateDriverFactory({
@@ -28,7 +28,10 @@ export const testkit = base => {
 
     mouseLeave: async () => (await legacyDriver()).mouseLeave(), // TODO: migrate missing methods to unidriver
 
-    clickOutside: async () => (await legacyDriver()).clickOutside(), // TODO: migrate missing methods to unidriver
+    clickOutside: async () =>
+      (await body.getNative()).ownerDocument.dispatchEvent(
+        new Event('mousedown'),
+      ),
 
     clickOnContent: async () => (await legacyDriver()).clickOnContent(),
 
