@@ -212,6 +212,10 @@
   &.darkPreview {
     @include checkerboard(20px, #5b7fa4, #486684);
   }
+
+  &.compactPreview {
+    background: #f0f4f7;
+  }
 }
 
 .error {

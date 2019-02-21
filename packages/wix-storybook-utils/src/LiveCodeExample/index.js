@@ -126,6 +126,7 @@ export default class LiveCodeExample extends Component {
               className={classnames(styles.preview, previewProps.className, {
                 rtl: isRtl,
                 [styles.darkPreview]: isDarkBackground,
+                [styles.compactPreview]: compact
               })}
               dir={isRtl ? 'rtl' : ''}
             >
