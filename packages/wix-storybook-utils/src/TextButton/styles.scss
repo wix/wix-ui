@@ -2,6 +2,8 @@
 
 .root {
   @extend .commonText;
+  display: inline-flex;
+  align-items: center;
 }
 
 .prefix {
