@@ -18,8 +18,6 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
     ...baseUniDriverFactory(base),
     getTargetElement: async () => byHook('popover-element').getNative(),
 
-    getContentElement,
-
     getPortalElement: async () =>
       (await body.getNative()).querySelector('[data-hook="popover-portal"]'),
 
@@ -31,15 +29,12 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     mouseEnter: () => byHook('popover-element').hover(),
 
-    mouseLeave: async () => (await legacyDriver()).mouseLeave(), // TODO: migrate missing methods to unidriver
+    mouseLeave: async () => (await legacyDriver()).mouseLeave(),
 
     clickOutside: async () =>
       (await body.getNative()).ownerDocument.dispatchEvent(
         new Event('mousedown'),
       ),
-
-    clickOnContent: async () =>
-      (await getContentElement()).dispatchEvent(new Event('mousedown')),
 
     getArrowOffset: async () => {
       const arrowElement = await byHook('popover-arrow');

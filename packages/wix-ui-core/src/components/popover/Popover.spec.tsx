@@ -5,7 +5,7 @@ import { createModifiers } from './modifiers';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
 import { testkit } from './Popover.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { reactUniDriver } from 'unidriver';
+import { Simulate } from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
 import { AppendTo } from './Popover';
@@ -26,8 +26,9 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
 );
 
 describe('Popover', () => {
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+
   describe('[sync]', () => {
-    const container = new ReactDOMTestContainer().destroyAfterEachTest();
     const createDriver = container.createLegacyRenderer(
       popoverPrivateDriverFactory,
     );
@@ -35,11 +36,21 @@ describe('Popover', () => {
     runTests(createDriver, container);
   });
 
-  describe('[async]', () => {
-    const container = new ReactDOMTestContainer().unmountAfterEachTest();
-    const createDriver = container.createUniRenderer(testkit);
+  describe('[async]', async () => {
+    const createDriver = container.createUniRenderer(async (base, body) => {
+      const legacyPrivateDriver = async () =>
+        popoverPrivateDriverFactory({
+          element: await base.getNative(),
+          eventTrigger: Simulate,
+        });
 
-    runTests(createDriver, container);
+      return {
+        ...testkit(base, body),
+        ...(await legacyPrivateDriver),
+      };
+    });
+
+    runTests(await createDriver, container);
   });
 });
 
