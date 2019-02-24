@@ -38,6 +38,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@stylable/runtime": "^1.0.3",
     "@types/enzyme": "3.1.14",
     "@types/express": "^4.0.39",
     "@types/jest": "^22.1.1",
