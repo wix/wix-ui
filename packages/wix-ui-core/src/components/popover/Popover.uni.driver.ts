@@ -2,17 +2,8 @@ import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { Simulate } from 'react-dom/test-utils';
 import { UniDriver } from 'unidriver';
 
-import { popoverPrivateDriverFactory } from './Popover.private.driver';
-
 export const testkit = (base: UniDriver, body: UniDriver) => {
   const byHook = hook => base.$(`[data-hook="${hook}"]`);
-  const legacyDriver = async () =>
-    popoverPrivateDriverFactory({
-      element: await base.getNative(),
-      eventTrigger: Simulate,
-    });
-  const getContentElement = async () =>
-    (await body.getNative()).querySelector('[data-hook="popover-content"]');
 
   return {
     ...baseUniDriverFactory(base),
@@ -29,7 +20,7 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     mouseEnter: () => byHook('popover-element').hover(),
 
-    mouseLeave: async () => (await legacyDriver()).mouseLeave(),
+    mouseLeave: async () => Simulate.mouseLeave(await base.getNative()),
 
     clickOutside: async () =>
       (await body.getNative()).ownerDocument.dispatchEvent(
