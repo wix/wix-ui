@@ -41,11 +41,9 @@ export class CopyButton extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
-        <TextButton onClick={this.onCopy}>
-          {this.state.notification ? 'Copied to clipboard!' : 'Copy'}
-        </TextButton>
-      </div>
+      <TextButton onClick={this.onCopy}>
+        {this.state.notification ? 'Copied to clipboard!' : 'Copy'}
+      </TextButton>
     );
   }
 }
