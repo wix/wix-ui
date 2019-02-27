@@ -1,0 +1,8 @@
+@import "../../../ui/typography.scss";
+
+.root {
+  @include font(medium);
+  font-size: 28px;
+  color: #162d3d;
+  margin: 0 0 60px;
+}

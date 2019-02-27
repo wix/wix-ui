@@ -18,6 +18,7 @@ import { tabs } from './tabs';
 import { mdx } from './mdx';
 import { divider } from './divider';
 import { header } from './header';
+import { title } from './title';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -45,6 +46,7 @@ const views = {
   tabs,
   mdx,
   divider,
+  title,
 };
 
 export const getView = type => views[type] || error;
