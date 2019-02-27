@@ -14,13 +14,14 @@ import {
   TabsSection,
   MDXSection,
   DividerSection,
+  TitleSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-const baseSection = rest => ({
+export const baseSection = rest => ({
   type: SectionType.Error,
   pretitle: '',
   title: '',
@@ -126,4 +127,12 @@ export const divider: (
   baseSection({
     type: SectionType.Divider,
     ...rest,
+  });
+
+export const title: (
+  object?: string | Partial<DividerSection>,
+) => TitleSection = rest =>
+  baseSection({
+    type: SectionType.Title,
+    ...(typeof rest === 'string' ? { title: rest } : rest),
   });

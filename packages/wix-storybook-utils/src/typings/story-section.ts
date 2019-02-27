@@ -16,6 +16,7 @@ export enum SectionType {
   Tabs = 'tabs',
   MDX = 'mdx',
   Divider = 'divider',
+  Title = 'title',
 }
 
 export interface StorySection {
@@ -24,7 +25,6 @@ export interface StorySection {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   description?: React.ReactNode;
-  hidden?: boolean;
 }
 
 export type Section =
@@ -38,11 +38,13 @@ export type Section =
   | ColumnsSection
   | TableSection
   | TabsSection
-  | MDXSection;
+  | MDXSection
+  | TitleSection;
 
 export interface DescriptionSection extends StorySection {
   text: React.ReactNode | string;
 }
+
 export interface HeaderSection extends StorySection {
   storyName: string;
   component?: React.ReactNode;
@@ -97,6 +99,8 @@ export interface MDXSection extends StorySection {
 }
 
 export interface DividerSection extends StorySection {}
+
+export interface TitleSection extends StorySection {}
 
 export interface SectionsMeta {
   tabs: string[];

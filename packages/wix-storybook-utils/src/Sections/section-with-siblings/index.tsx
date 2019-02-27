@@ -6,7 +6,7 @@ import styles from './styles.scss';
 
 const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
 
-const prepares = {
+const sectionPrepares = {
   [SectionType.ImportExample]: section => ({
     ...section,
     title: section.title && section.title.length ? section.title : 'Import',
@@ -14,14 +14,20 @@ const prepares = {
 };
 
 const prepareSection = section => {
-  const preparedSection = (prepares[section.type] || (i => i))(section);
+  const preparedSection = (sectionPrepares[section.type] || (i => i))(section);
 
   const siblingsWithDiv = SIBLINGS.filter(
     sibling => preparedSection[sibling],
   ).reduce(
-    (withDiv, key) => ({
-      ...withDiv,
-      [key]: <div className={styles[key]} children={preparedSection[key]} />,
+    (sections, key) => ({
+      ...sections,
+      [key]: (
+        <div
+          key={key}
+          className={styles[key]}
+          children={preparedSection[key]}
+        />
+      ),
     }),
     {},
   );
@@ -29,13 +35,17 @@ const prepareSection = section => {
   return { ...preparedSection, ...siblingsWithDiv };
 };
 
+const sectionsWithoutSiblings = [SectionType.Title];
+
 export const sectionWithSiblings = (section, children) => {
   const preparedSection = prepareSection(section);
   const siblings = SIBLINGS.filter(row => preparedSection[row]);
+  const shouldShowSiblings =
+    siblings.length > 0 && !sectionsWithoutSiblings.includes(section.type);
 
   return (
     <div>
-      {siblings.length > 0 ? (
+      {shouldShowSiblings ? (
         <div className={styles.titles}>
           {siblings.map(row => preparedSection[row])}
         </div>
