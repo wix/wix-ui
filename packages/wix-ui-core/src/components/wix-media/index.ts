@@ -1,1 +1,1 @@
-export { WixMedia, MediaPlatformItem } from './WixMedia';
+export { WixMedia, MediaPlatformItem } from './wix-media';

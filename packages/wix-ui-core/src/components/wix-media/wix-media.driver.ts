@@ -5,11 +5,14 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from '../image/image.st.css';
+import { ImageStatus } from '../image';
 
 export interface WixMediaDriver extends BaseUniDriver {
   getSrc(): Promise<string | null>;
   getAlt(): Promise<string>;
-  getLoadStatus(): Promise<string>;
+  isLoaded(): Promise<boolean>;
+  isError(): Promise<boolean>;
+  isLoading(): Promise<boolean>;
 }
 
 export const wixMediaDriverFactory = (base: UniDriver): WixMediaDriver => {
@@ -23,6 +26,11 @@ export const wixMediaDriverFactory = (base: UniDriver): WixMediaDriver => {
     ...baseUniDriverFactory(base),
     getSrc: () => base.attr('src'),
     getAlt: () => base.attr('alt'),
-    getLoadStatus: () => getStyleState('loadState'),
+    isLoaded: async () =>
+      (await getStyleState('loadState')) === ImageStatus.loaded,
+    isError: async () =>
+      (await getStyleState('loadState')) === ImageStatus.error,
+    isLoading: async () =>
+      (await getStyleState('loadState')) === ImageStatus.loading,
   };
 };

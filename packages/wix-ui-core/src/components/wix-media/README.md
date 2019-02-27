@@ -17,7 +17,7 @@ The **WixMedia** component excepts **MediaPlatformItem** object and convert it t
 | height | number | mediaPlatformItem.height | ✖ | the height of the image |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
-| errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
+| errorMediaPlatformItem | MediaPlatformItem | ✖  | ✖ | media platform item to be used as the source for error media |
 
 #### `MediaPlatformItem`
 

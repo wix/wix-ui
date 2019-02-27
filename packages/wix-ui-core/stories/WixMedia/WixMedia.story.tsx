@@ -8,14 +8,58 @@ export default {
   componentPath: '../../src/components/wix-media',
 
   componentProps: {
-    errorImage:
-      'https://cdn.pixabay.com/photo/2016/04/24/13/24/error-1349562__340.png',
     mediaPlatformItem: {
       width: 400,
       height: 400,
       uri: '506418dbb019414f951a61670f3255a8.jpg',
     },
+    errorMediaPlatformItem: {
+      width: 400,
+      height: 400,
+      uri: '34a06998b3dd45e718c519ae53919e5a.jpg',
+    },
     width: 400,
     height: 400,
+  },
+
+  exampleProps: {
+    mediaPlatformItem: [
+      {
+        label: 'valid',
+        value: {
+          alt: 'flowers',
+          width: 400,
+          height: 400,
+          uri: '506418dbb019414f951a61670f3255a8.jpg',
+        },
+      },
+      {
+        label: 'invalid',
+        value: {
+          width: 400,
+          height: 400,
+          uri: 'not_a_real_image.jpg',
+        },
+      },
+    ],
+    errorMediaPlatformItem: [
+      {
+        label: 'valid',
+        value: {
+          alt: 'flowers',
+          width: 400,
+          height: 400,
+          uri: '34a06998b3dd45e718c519ae53919e5a.jpg',
+        },
+      },
+      {
+        label: 'invalid',
+        value: {
+          width: 400,
+          height: 400,
+          uri: 'not_a_real_image.jpg',
+        },
+      },
+    ],
   },
 };
