@@ -62,7 +62,9 @@ export interface CodeSection extends StorySection {
   interactive?: boolean;
 }
 
-export interface LiveCodeSection extends CodeSection {}
+export interface LiveCodeSection extends CodeSection {
+  autoRender: boolean
+}
 
 export interface TabSection extends StorySection {
   sections: Section[];
