@@ -2,18 +2,19 @@ import * as React from 'react';
 import Component from './component';
 
 import {
-  tab,
-  description,
-  code,
-  importExample,
   api,
-  playground,
-  testkit,
+  code,
   columns,
-  table,
-  tabs,
+  description,
   divider,
   header,
+  importExample,
+  playground,
+  tab,
+  table,
+  tabs,
+  testkit,
+  title,
 } from '../src/Sections';
 
 const LiveExampleComponent = ({ disabled }) => (
@@ -39,6 +40,8 @@ export default {
         tab({
           title: 'Something something',
           sections: [
+            title('Component Title'),
+
             importExample({
               source: `import Button from 'wix-style-react/Button';
 import Button from 'wix-style-react/Button';`,

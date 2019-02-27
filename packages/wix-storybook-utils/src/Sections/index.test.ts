@@ -58,3 +58,19 @@ describe('Sections', () => {
     });
   });
 });
+
+describe('title section', () => {
+  it('should work with string or object', () => {
+    expect(builders.title({ title: 'hello' })).toEqual(
+      expect.objectContaining({
+        title: 'hello',
+      }),
+    );
+
+    expect(builders.title('hello')).toEqual(
+      expect.objectContaining({
+        title: 'hello',
+      }),
+    );
+  });
+});
