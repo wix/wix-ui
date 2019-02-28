@@ -12,6 +12,5 @@ export function UnidriverReactDOMExtension(base: UniDriver) {
   } 
   return {
     pressKey: async (key: string) => Simulate.keyDown(await base.getNative(), {key}),
-    mouseDown: async ()=> Simulate.mouseDown(await base.getNative())
   }
 }
