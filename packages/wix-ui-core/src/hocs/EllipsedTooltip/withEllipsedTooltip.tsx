@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import {Tooltip} from '../../components/tooltip';
 import textStyle from './Text.st.css';
 import tooltipStyle from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';
@@ -14,7 +13,8 @@ type EllipsedTooltipProps = {
 }
 
 type EllipsedTooltipState = {
-  isEllipsisActive: boolean
+  isEllipsisActive: boolean,
+  Tooltip: React.ComponentClass,
 }
 
 export type WrapperComponentProps = {
@@ -40,7 +40,7 @@ class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps
 class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
   static defaultProps = {showTooltip: true};
 
-  state = {isEllipsisActive: false};
+  state = { isEllipsisActive: false, Tooltip: null };
 
   textNode: HTMLElement;
 
@@ -62,9 +62,18 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
     }
   }
 
+  loadTooltip = async () => {
+    const { Tooltip } = await import('../../components/tooltip');
+    this.setState({ Tooltip });
+  }
+
   _updateEllipsisState = () => {
+    const isEllipsisActive = this.props.showTooltip && this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth;
+    if (isEllipsisActive && !this.state.isEllipsisActive && !this.state.Tooltip) {
+      this.loadTooltip();
+    }
     this.setState({
-      isEllipsisActive: this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
+      isEllipsisActive,
     });
   };
 
@@ -87,7 +96,8 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 
   render() {
-    if (!this.state.isEllipsisActive || !this.props.showTooltip) {
+    const { Tooltip } = this.state;
+    if (!this.state.isEllipsisActive || !this.props.showTooltip || !Tooltip) {
       return this._renderText();
     }
 
