@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { HeaderSection } from '../../../typings/story-section';
-import { StoryConfig } from '../../../typings/story-config';
 import Promote from 'wix-ui-icons-common/Promote';
 import Code from 'wix-ui-icons-common/Code';
+
+import { HeaderSection } from '../../../typings/story-section';
+import { StoryConfig } from '../../../typings/story-config';
 
 const { Layout, Cell } = require('../../../ui/Layout');
 import styles from './styles.scss';
