@@ -11,9 +11,6 @@ const getContentElement = (element: Element | undefined) =>
 const getArrowElement = (element: Element | undefined) =>
   element && element.querySelectorAll('[data-hook="popover-arrow"]')[0];
 
-const getPortalElement = (element: Element | undefined) =>
-  queryDocumentOrElement(element, '[data-hook="popover-portal"]');
-
 export const popoverDriverFactory = ({ element, eventTrigger }) => ({
   /** Whether the element exists or not */
   exists: () => !!element,
