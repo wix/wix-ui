@@ -5,7 +5,7 @@ import Code from 'wix-ui-icons-common/Code';
 import { HeaderSection } from '../../../typings/story-section';
 import { StoryConfig } from '../../../typings/story-config';
 
-const { Layout, Cell } = require('../../../ui/Layout');
+import { Layout, Cell } from '../../../ui/Layout';
 import styles from './styles.scss';
 
 export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (

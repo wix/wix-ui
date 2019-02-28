@@ -60,7 +60,7 @@ describe('Sections', () => {
 });
 
 describe('title section', () => {
-  it('should work with string or object', () => {
+  it('should work with string or config object', () => {
     expect(builders.title({ title: 'hello' })).toEqual(
       expect.objectContaining({
         title: 'hello',
@@ -72,5 +72,37 @@ describe('title section', () => {
         title: 'hello',
       }),
     );
+  });
+});
+
+describe('columns section', () => {
+  it('should work with array or config object', () => {
+    const items = ['a', 'b', 'c'].map(c => builders.title(c));
+
+    expect(builders.columns({ items })).toEqual(
+      expect.objectContaining({ items }),
+    );
+
+    expect(builders.columns(items)).toEqual(expect.objectContaining({ items }));
+  });
+});
+
+describe('tabs section', () => {
+  it('should work with array or config object', () => {
+    const tabs = [1, 2, 3].map(c => builders.tab({ sections: [] }));
+
+    expect(builders.tabs({ tabs })).toEqual(expect.objectContaining({ tabs }));
+
+    expect(builders.tabs(tabs)).toEqual(expect.objectContaining({ tabs }));
+  });
+});
+
+describe('description section', () => {
+  it('should work with string or config object', () => {
+    const text = 'hello text';
+    const expectation = expect.objectContaining({ text });
+
+    expect(builders.description({ text })).toEqual(expectation);
+    expect(builders.description(text)).toEqual(expectation);
   });
 });

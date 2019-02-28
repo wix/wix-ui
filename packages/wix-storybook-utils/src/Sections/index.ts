@@ -1,4 +1,5 @@
 import {
+  Section,
   SectionType,
   DescriptionSection,
   ImportExampleSection,
@@ -45,11 +46,11 @@ export const liveCode: (
 export const code = liveCode;
 
 export const description: (
-  object: Partial<DescriptionSection>,
+  object: string | Partial<DescriptionSection>,
 ) => DescriptionSection = rest =>
   baseSection({
     type: SectionType.Description,
-    ...rest,
+    ...(typeof rest === 'string' ? { text: rest } : rest),
   });
 
 export const header: (object: Partial<HeaderSection>) => HeaderSection = rest =>
@@ -96,17 +97,19 @@ export const testkit: (
   });
 
 export const columns: (
-  object: Partial<ColumnsSection>,
-) => ColumnsSection = rest =>
+  object: (Section | React.ReactNode)[] | Partial<ColumnsSection>,
+) => ColumnsSection = config =>
   baseSection({
     type: SectionType.Columns,
-    ...rest,
+    ...(Array.isArray(config) ? { items: config } : config),
   });
 
-export const tabs: (object: Partial<TabsSection>) => TabsSection = rest =>
+export const tabs: (
+  object: Section[] | Partial<TabsSection>,
+) => TabsSection = rest =>
   baseSection({
     type: SectionType.Tabs,
-    ...rest,
+    ...(Array.isArray(rest) ? { tabs: rest } : rest),
   });
 
 export const table: (object: Partial<TableSection>) => TableSection = rest =>
@@ -130,9 +133,9 @@ export const divider: (
   });
 
 export const title: (
-  object?: string | Partial<DividerSection>,
-) => TitleSection = rest =>
+  object: string | Partial<DividerSection>,
+) => TitleSection = config =>
   baseSection({
     type: SectionType.Title,
-    ...(typeof rest === 'string' ? { title: rest } : rest),
+    ...(typeof config === 'string' ? { title: config } : config),
   });
