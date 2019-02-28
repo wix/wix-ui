@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import textStyle from './Text.st.css';
-import tooltipStyle from './EllipsedTooltip.st.css';
 import {getDisplayName} from '../utils';
 const debounce = require('lodash/debounce');
 
@@ -15,6 +14,7 @@ type EllipsedTooltipProps = {
 type EllipsedTooltipState = {
   isEllipsisActive: boolean,
   Tooltip: React.ComponentClass,
+  tooltipStyle: RuntimeStylesheet,
 }
 
 export type WrapperComponentProps = {
@@ -40,7 +40,7 @@ class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps
 class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
   static defaultProps = {showTooltip: true};
 
-  state = { isEllipsisActive: false, Tooltip: null };
+  state = { isEllipsisActive: false, Tooltip: null, tooltipStyle: null };
 
   textNode: HTMLElement;
 
@@ -67,10 +67,16 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
     this.setState({ Tooltip });
   }
 
+  loadTooltipStyle = async () => {
+    const { default: tooltipStyle } = await import('./EllipsedTooltip.st.css');
+    this.setState({ tooltipStyle });
+  }
+
   _updateEllipsisState = () => {
     const isEllipsisActive = this.props.showTooltip && this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth;
     if (isEllipsisActive && !this.state.isEllipsisActive && !this.state.Tooltip) {
       this.loadTooltip();
+      this.loadTooltipStyle();
     }
     this.setState({
       isEllipsisActive,
@@ -96,14 +102,14 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 
   render() {
-    const { Tooltip } = this.state;
+    const { Tooltip, tooltipStyle } = this.state;
     if (!this.state.isEllipsisActive || !this.props.showTooltip || !Tooltip) {
       return this._renderText();
     }
 
     return (
       <Tooltip
-        {...tooltipStyle('root', {}, this.props)}
+        {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
         appendTo="scrollParent"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
