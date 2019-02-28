@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { description as descriptionView } from './description';
 import { description } from '../';
-const Markdown = require('../../Markdown').default;
+import Markdown from '../../Markdown';
 
 const createDescription = text => mount(descriptionView(description({ text })));
 
