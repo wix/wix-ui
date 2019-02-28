@@ -61,6 +61,6 @@ const ButtonNextComponent: React.SFC<
 };
 
 ButtonNextComponent.displayName = 'ButtonNext';
-ButtonNextComponent.defaultProps = { as: 'button' };
+ButtonNextComponent.defaultProps = { as: 'button', type: 'button' };
 
 export const ButtonNext = withFocusable(ButtonNextComponent);
