@@ -2,10 +2,11 @@ import { CommonDriver } from './Popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { Simulate } from 'react-dom/test-utils';
 import { UniDriver } from 'unidriver';
-import { safeGetNative } from '../../../test/utils/unidriver';
+import { ReactBase, safeGetNative } from '../../../test/utils/unidriver';
 
 export const testkit = (base: UniDriver, body: UniDriver) => {
   const byHook = (hook:string) => base.$(`[data-hook="${hook}"]`);
+  const reactBase = ReactBase(base, body);
   const commonDriver = CommonDriver(base, body);
 
   return {
@@ -29,7 +30,7 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     mouseEnter: () => byHook('popover-element').hover(),
 
-    mouseLeave: async () => Simulate.mouseLeave(await base.getNative()),
+    mouseLeave: async () => reactBase.mouseLeave(),
 
     clickOutside: async () =>
       (await body.getNative()).ownerDocument.dispatchEvent(
