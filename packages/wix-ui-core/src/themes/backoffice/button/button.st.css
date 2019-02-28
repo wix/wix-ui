@@ -25,6 +25,10 @@
   -st-named: sizeTiny, sizeSmall, sizeMedium, weightNormal, weightBold;
 }
 
+:vars {
+  hoverTransitionParams: 100ms linear;
+}
+
 .button {
   -st-extends: Button;
 }
@@ -41,7 +45,7 @@
   -st-mixin: sizeMedium, weightNormal;
 
   outline: none;
-  transition: all 100ms linear;
+  transition: background-color value(hoverTransitionParams), color value(hoverTransitionParams), border-color value(hoverTransitionParams);
 
   height: 36px;
   min-width: 84px;
