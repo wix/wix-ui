@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import copy from 'copy-to-clipboard';
-import styles from './index.scss';
-
 import prettier from 'prettier/standalone';
 import babylonParser from 'prettier/parser-babylon';
 
+import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import Revert from 'wix-ui-icons-common/Revert';
 import Code from 'wix-ui-icons-common/Code';
-import Document from 'wix-ui-icons-common/Document';
 import TextButton from '../TextButton';
+
+import styles from './index.scss';
 
 const randomPartialId = () =>
   Math.floor((1 + Math.random()) * 0x10000)
@@ -26,7 +25,6 @@ const generateId = () =>
 export default class LiveCodeExample extends Component {
   static propTypes = {
     initialCode: PropTypes.string,
-    title: PropTypes.string,
     scope: PropTypes.object,
     compact: PropTypes.bool,
     previewRow: PropTypes.bool,
@@ -41,16 +39,35 @@ export default class LiveCodeExample extends Component {
     autoRender: true,
   };
 
-  resetCode = () => {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      code: this.formatCode(props.initialCode),
+      dirty: false,
+      isRtl: false,
+      isDarkBackground: false,
+      isEditorOpened: !props.compact,
+    };
+  }
+
+  formatCode = code =>
+    prettier.format(code, {
+      parser: 'babel',
+      plugins: [babylonParser],
+      singleQuote: true,
+      trailingComma: 'all',
+    });
+
+  resetCode = () =>
     this.setState({
-      code: this.props.initialCode,
+      code: this.formatCode(this.props.initialCode),
+      dirty: false,
       livePreviewKey: generateId(),
     });
-  };
 
-  onCodeChange = code => {
-    this.setState({ code, livePreviewKey: generateId() });
-  };
+  onCodeChange = code =>
+    this.setState({ code, livePreviewKey: generateId(), dirty: true });
 
   onToggleRtl = isRtl => this.setState({ isRtl });
   onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });
@@ -60,39 +77,7 @@ export default class LiveCodeExample extends Component {
       isEditorOpened: !state.isEditorOpened,
     }));
 
-  onCopyClick = () => {
-    copy(this.state.code);
-    this.setState({ showNotification: true }, () =>
-      setTimeout(() => this.setState({ showNotification: false }), 3000),
-    );
-  };
-
-  constructor(props) {
-    super(props);
-
-    const formattedCode = prettier.format(props.initialCode, {
-      parser: 'babel',
-      plugins: [babylonParser],
-      singleQuote: true,
-      trailingComma: 'all',
-    });
-
-    this.state = {
-      code: formattedCode,
-      isRtl: false,
-      isDarkBackground: false,
-      isEditorOpened: !props.compact,
-      showNotification: false,
-    };
-  }
-
-  renderCopyButton() {
-    return (
-      <TextButton onClick={this.onCopyClick} prefixIcon={<Document />}>
-        {this.state.showNotification ? 'Copied!' : 'Copy to clipboard'}
-      </TextButton>
-    );
-  }
+  renderCopyButton = () => <CopyButton source={this.state.code} />;
 
   render() {
     const { compact, previewRow, previewProps, autoRender } = this.props;
@@ -104,43 +89,31 @@ export default class LiveCodeExample extends Component {
           [styles.compact]: compact,
         })}
       >
-        <div className={styles.header}>
-          <h2>{this.props.title}</h2>
+        {!compact && (
+          <div className={styles.header}>
+            {this.renderCopyButton()}
 
-          <div className={styles.spacer} />
+            <div className={styles.spacer} />
 
-          <div className={styles.headerControl}>
-            Imitate RTL:&nbsp;
-            <ToggleSwitch
-              size="small"
-              checked={isRtl}
-              onChange={this.onToggleRtl}
-            />
+            <div className={styles.headerControl}>
+              Imitate RTL:&nbsp;
+              <ToggleSwitch
+                size="small"
+                checked={isRtl}
+                onChange={this.onToggleRtl}
+              />
+            </div>
+
+            <div className={styles.headerControl}>
+              Dark Background:&nbsp;
+              <ToggleSwitch
+                size="small"
+                checked={isDarkBackground}
+                onChange={this.onToggleBackground}
+              />
+            </div>
           </div>
-
-          <div className={styles.headerControl}>
-            Dark Background:&nbsp;
-            <ToggleSwitch
-              size="small"
-              checked={isDarkBackground}
-              onChange={this.onToggleBackground}
-            />
-          </div>
-
-          {!compact && this.renderCopyButton()}
-
-          {isEditorOpened && (
-            <TextButton onClick={this.resetCode} prefixIcon={<Revert />}>
-              Reset
-            </TextButton>
-          )}
-
-          {compact && (
-            <TextButton onClick={this.onToggleCode} prefixIcon={<Code />}>
-              {this.state.isEditorOpened ? 'Hide' : 'Show'} code
-            </TextButton>
-          )}
-        </div>
+        )}
 
         <LiveProvider
           code={code.trim()}
@@ -149,6 +122,22 @@ export default class LiveCodeExample extends Component {
           noInline={!autoRender}
         >
           <div className={styles.liveExampleWrapper}>
+            <div
+              className={classnames(styles.preview, previewProps.className, {
+                rtl: isRtl,
+                [styles.darkPreview]: isDarkBackground,
+                [styles.compactPreview]: compact
+              })}
+              dir={isRtl ? 'rtl' : ''}
+            >
+              <LivePreview
+                key={this.state.livePreviewKey}
+                {...previewProps}
+                className={previewRow ? styles.previewRow : null}
+              />
+              <LiveError className={styles.error} />
+            </div>
+
             <Collapse
               isOpened={isEditorOpened}
               className={classnames(styles.editor, {
@@ -160,25 +149,26 @@ export default class LiveCodeExample extends Component {
                 onChange={this.onCodeChange}
               />
             </Collapse>
-
-            <div
-              className={classnames(styles.preview, previewProps.className, {
-                rtl: isRtl,
-                [styles.darkPreview]: isDarkBackground,
-              })}
-              dir={isRtl ? 'rtl' : ''}
-            >
-              <LivePreview
-                key={this.state.livePreviewKey}
-                {...previewProps}
-                className={previewRow ? styles.previewRow : null}
-              />
-              <LiveError className={styles.error} />
-            </div>
           </div>
         </LiveProvider>
 
-        {isEditorOpened && compact && this.renderCopyButton()}
+        {compact && (
+          <div className={styles.controlButtons}>
+            {this.renderCopyButton()}
+
+            <div style={{ marginLeft: 'auto' }} />
+
+            {this.state.dirty && (
+              <TextButton onClick={this.resetCode} prefixIcon={<Revert />}>
+                Reset
+              </TextButton>
+            )}
+
+            <TextButton onClick={this.onToggleCode} prefixIcon={<Code />}>
+              {this.state.isEditorOpened ? 'Hide' : 'Show'} code
+            </TextButton>
+          </div>
+        )}
       </div>
     );
   }

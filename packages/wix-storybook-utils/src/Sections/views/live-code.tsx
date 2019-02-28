@@ -10,6 +10,7 @@ export const liveCode: (a: LiveCodeSection) => React.ReactNode = ({
   compact = false,
   previewProps,
   interactive = true,
+  autoRender
 }) =>
   interactive ? (
     <LiveCodeExample
@@ -17,6 +18,7 @@ export const liveCode: (a: LiveCodeSection) => React.ReactNode = ({
       compact={compact}
       scope={components}
       initialCode={source}
+      autoRender={autoRender}
     />
   ) : (
     <CodeBlock source={source} />

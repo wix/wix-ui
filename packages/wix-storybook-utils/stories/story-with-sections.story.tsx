@@ -2,112 +2,116 @@ import * as React from 'react';
 import Component from './component';
 
 import {
-  tab,
-  description,
-  code,
-  importExample,
   api,
-  playground,
-  testkit,
+  code,
   columns,
-  table,
-  tabs,
+  description,
   divider,
   header,
+  importExample,
+  playground,
+  tab,
+  table,
+  tabs,
+  testkit,
+  title,
 } from '../src/Sections';
+
 const LiveExampleComponent = ({ disabled }) => (
-    <div style={{ background: disabled ? 'red' : '#bada55' }}>
-        Oh hello there!
-    </div>
+  <div style={{ background: disabled ? 'red' : '#bada55' }}>
+    Oh hello there!
+  </div>
 );
+
 export default {
   category: 'Components',
   storyName: 'Component with section',
   component: Component,
   componentPath: './component.js',
   sections: [
-      header({
-          component: LiveExampleComponent({ disabled: false }),
-          issueUrl: 'https://github.com/wix/wix-ui/issues/new',
-          sourceUrl: 'https://github.com/wix/wix-ui/'
-      }),
-      tabs({
-          tabs: [
+    header({
+      component: LiveExampleComponent({ disabled: false }),
+      issueUrl: 'https://github.com/wix/wix-ui/issues/new',
+      sourceUrl: 'https://github.com/wix/wix-ui/',
+    }),
 
-              tab({
-                  title: 'Something something',
-                  sections: [
-                      importExample({
-                          source: `import Button from 'wix-style-react/Button';
+    tabs({
+      tabs: [
+        tab({
+          title: 'Something something',
+          sections: [
+            title('Component Title'),
+
+            importExample({
+              source: `import Button from 'wix-style-react/Button';
 import Button from 'wix-style-react/Button';`,
-                      }),
-                      columns({
-                          title: 'Septyni astuoni keturiolika',
-                          items: [description({ text: `🔨 To trigger an operation.` })],
-                      }),
+            }),
+            columns({
+              title: 'Septyni astuoni keturiolika',
+              items: [description({ text: `🔨 To trigger an operation.` })],
+            }),
 
-                      divider(),
-                  ],
-              }),
+            divider(),
+          ],
+        }),
 
-              tab({
-                  title: 'hello',
+        tab({
+          title: 'hello',
+          sections: [
+            description({
+              title: 'lol',
+              text: 'I should not be in a tab',
+            }),
+
+            table({
+              title: 'Included Components',
+              rows: [
+                ['&lt;FormField/&gt;', 'Layout component for form elements'],
+                ['&lt;Input /&gt;', 'Component that receives data'],
+              ],
+            }),
+
+            tabs({
+              title: 'title',
+              tabs: [
+                tab({
+                  title: 'inner tab',
                   sections: [
-                      description({
-                          title: 'lol',
-                          text: 'I should not be in a tab',
-                      }),
-
-                      table({
-                          title: 'Included Components',
-                          rows: [
-                              ['&lt;FormField/&gt;', 'Layout component for form elements'],
-                              ['&lt;Input /&gt;', 'Component that receives data'],
-                          ],
-                      }),
-
-                      tabs({
-                          title: 'title',
-                          tabs: [
-                              tab({
-                                  title: 'inner tab',
-                                  sections: [
-                                      code({
-                                          description: 'this is the best code',
-                                          source: '"hello"',
-                                      }),
-                                      api(),
-                                  ],
-                              }),
-                              tab({
-                                  title: 'inner tab #2',
-                                  sections: [description({ text: '# im inside another tab!' })],
-                              }),
-                          ],
-                      }),
+                    code({
+                      description: 'this is the best code',
+                      source: '"hello"',
+                    }),
+                    api(),
                   ],
-              }),
+                }),
+                tab({
+                  title: 'inner tab #2',
+                  sections: [description({ text: '# im inside another tab!' })],
+                }),
+              ],
+            }),
+          ],
+        }),
 
-              tab({
-                  title: 'how are you',
-                  sections: [
-                      importExample({
-                          source: "import Component from 'your-library/Component';",
-                      }),
-                  ],
-              }),
+        tab({
+          title: 'how are you',
+          sections: [
+            importExample({
+              source: "import Component from 'your-library/Component';",
+            }),
+          ],
+        }),
 
-              tab({
-                  title: 'Playground',
-                  sections: [playground()],
-              }),
+        tab({
+          title: 'Playground',
+          sections: [playground()],
+        }),
 
-              tab({
-                  title: 'Testkit',
-                  sections: [testkit()],
-              }),
-          ]
-      })
-
+        tab({
+          title: 'Testkit',
+          sections: [testkit()],
+        }),
+      ],
+    }),
   ],
 };

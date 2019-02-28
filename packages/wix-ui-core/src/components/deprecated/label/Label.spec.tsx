@@ -1,70 +1,88 @@
-import * as React from 'react';
-import {labelDriverFactory} from './Label.driver';
-import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {labelTestkitFactory} from '../../../testkit';
-import {labelTestkitFactory as enzymeLabelTestkitFactory} from '../../../testkit/enzyme';
-import {Label} from './Label';
-import {mount} from 'enzyme';
+import * as React from "react";
+import { labelDriverFactory } from "./Label.driver";
+import { labelUniDriverFactory } from "./Label.uni.driver";
+import { ReactDOMTestContainer } from "../../../../test/dom-test-container";
+import { isEnzymeTestkitExists } from "wix-ui-test-utils/enzyme";
+import { isTestkitExists, isUniTestkitExists } from "wix-ui-test-utils/vanilla";
+import { labelTestkitFactory } from "../../../testkit";
+import { labelTestkitFactory as enzymeLabelTestkitFactory } from "../../../testkit/enzyme";
+import { Label } from "./Label";
+import { mount } from "enzyme";
 
-describe('Label', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
-    .unmountAfterEachTest()
-    .createLegacyRenderer(labelDriverFactory);
+describe("Label", () => {
+  const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  it('Renders children', async () => {
-    const label = createDriver(<Label>HELLO</Label>);
-
-    expect(label.getLabelText()).toBe('HELLO');
+  describe("[sync]", () => {
+    runTests(testContainer.createLegacyRenderer(labelDriverFactory));
   });
 
-  it('takes an id prop', async () => {
-    const label = createDriver(<Label id="hey" />);
-
-    expect(label.getId()).toBe('hey');
+  describe("[async]", () => {
+    runTests(testContainer.createUniRenderer(labelUniDriverFactory));
   });
 
-  it('takes an htmlFor prop', async () => {
-    const label = createDriver(<Label for="hey" />);
+  function runTests(createDriver) {
+    it("Renders children", async () => {
+      const driver = createDriver(<Label>HELLO</Label>);
 
-    expect(label.getForAttribute()).toBe('hey');
-  });
-
-  describe('ellipsis attribute', () => {
-    it('should not have ellipsis by default', () => {
-      const driver = createDriver(<Label>Hello World</Label>);
-      expect(driver.hasEllipsis()).toBeFalsy();
+      expect(await driver.getLabelText()).toBe("HELLO");
     });
 
-    it('should have ellipsis', () => {
-      const driver = createDriver(<Label ellipsis>Hello World</Label>);
-      expect(driver.hasEllipsis()).toBeTruthy();
+    it("takes an id prop", async () => {
+      const driver = createDriver(<Label id="hey" />);
+
+      expect(await driver.getId()).toBe("hey");
     });
-  });
 
-  it('takes a disabled prop', async () => {
-    const label = createDriver(<Label disabled />);
+    describe('for attribute', () => {
+      it("takes an htmlFor prop", async () => {
+        const driver = createDriver(<Label for="hey" />);
 
-    expect(label.isDisabled()).toBe(true);
-  });
+        expect(await driver.getForAttribute()).toBe("hey");
+      });
 
-  it('should not be disabled by default', async () => {
-    const label = createDriver(<Label />);
+      it("shouldclick on Label takes an htmlFor prop", async () => {
+        const driver = createDriver(<Label for="hey" />);
 
-    expect(label.isDisabled()).toBe(false);
-  });
+        expect(await driver.getForAttribute()).toBe("hey");
+      });
+    })  
 
-  describe('testkit', () => {
-    it('should exist', () => {
+    describe("ellipsis attribute", () => {
+      it("should not have ellipsis by default", async () => {
+        const driver = createDriver(<Label>Hello World</Label>);
+        expect(await driver.hasEllipsis()).toBeFalsy();
+      });
+
+      it("should have ellipsis", async () => {
+        const driver = createDriver(<Label ellipsis>Hello World</Label>);
+        expect(await driver.hasEllipsis()).toBeTruthy();
+      });
+    });
+
+    it("takes a disabled prop", async () => {
+      const driver = createDriver(<Label disabled />);
+
+      expect(await driver.isDisabled()).toBe(true);
+    });
+
+    it("should not be disabled by default", async () => {
+      const driver = createDriver(<Label />);
+
+      expect(await driver.isDisabled()).toBe(false);
+    });
+  }
+
+  describe("testkit", () => {
+    it("should exist", () => {
       expect(isTestkitExists(<Label />, labelTestkitFactory)).toBe(true);
     });
   });
 
-  describe('enzyme testkit', () => {
-    it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Label />, enzymeLabelTestkitFactory, mount)).toBe(true);
+  describe("enzyme testkit", () => {
+    it("should exist", () => {
+      expect(
+        isEnzymeTestkitExists(<Label />, enzymeLabelTestkitFactory, mount)
+      ).toBe(true);
     });
   });
 });

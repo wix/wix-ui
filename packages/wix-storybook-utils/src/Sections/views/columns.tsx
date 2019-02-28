@@ -2,13 +2,13 @@ import * as React from 'react';
 import { ColumnsSection } from '../../typings/story-section';
 import { getView } from './tab';
 import { isTab } from '../extract-tabs';
-import { sectionWithTitles } from '../common';
+import { sectionWithSiblings } from '../section-with-siblings';
 
-const styles = require('./styles.scss');
+import styles from './styles.scss';
 
 const renderColumn = column => {
   const view = getView(column.type)(column);
-  return isTab(column) ? view : sectionWithTitles(column, view);
+  return isTab(column) ? view : sectionWithSiblings(column, view);
 };
 
 export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => {
@@ -21,6 +21,8 @@ export const columns: (a: ColumnsSection) => React.ReactNode = ({ items }) => {
       {items.map((column, i) => (
         <div key={`col-${i}`}>{renderColumn(column)}</div>
       ))}
+
+      {items.length === 1 && <div />}
     </div>
   );
 };

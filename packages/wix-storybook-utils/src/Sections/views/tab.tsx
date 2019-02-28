@@ -1,10 +1,8 @@
 import * as React from 'react';
 
 import { TabSection } from '../../typings/story-section';
-
 import { StoryConfig } from '../../typings/story-config';
-
-import { sectionWithTitles } from '../common';
+import { sectionWithSiblings } from '../section-with-siblings';
 
 import { error } from './error';
 import { importExample } from './import-example';
@@ -20,10 +18,10 @@ import { tabs } from './tabs';
 import { mdx } from './mdx';
 import { divider } from './divider';
 import { header } from './header';
+import { title } from './title';
 
-const styles = require('../styles.scss');
-
-const TabbedView = require('../../TabbedView').default;
+import styles from '../styles.scss';
+import TabbedView from '../../TabbedView';
 
 export const tab = (
   section: TabSection,
@@ -48,6 +46,7 @@ const views = {
   tabs,
   mdx,
   divider,
+  title,
 };
 
 export const getView = type => views[type] || error;
@@ -65,7 +64,7 @@ function render(
 
       return (
         <div key={key}>
-          {isTab(tabSection) ? view : sectionWithTitles(tabSection, view)}
+          {isTab(tabSection) ? view : sectionWithSiblings(tabSection, view)}
         </div>
       );
     }),
