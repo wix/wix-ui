@@ -3,6 +3,8 @@
   "name": "wix-ui-core",
   "description": "wix-ui-core",
   "version": "2.0.0",
+  "module": "./dist/es/src",
+  "sideEffects": false,
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"
@@ -42,7 +44,7 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
-    "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
+    "generate-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "test:browser": "wix-ui-mocha-runner"
   },
@@ -134,6 +136,7 @@
     "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
   },
   "yoshi": {
+    "experimentalTSTarget": true,
     "exports": "wix-ui-core"
   },
   "babel": {

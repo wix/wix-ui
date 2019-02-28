@@ -3,7 +3,7 @@
     "sourceMap": true,
     "declaration": true,
     "importHelpers": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": false,
