@@ -10,10 +10,10 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
   return {
     ...baseUniDriverFactory(base),
-    getTargetElement: async () => byHook('popover-element').getNative(),
+    getTargetElement: async () => safeGetNative(byHook('popover-element')),
 
-    getPortalElement: async () =>
-      (await body.getNative()).querySelector('[data-hook="popover-portal"]'),
+    getPortalElement: async () => 
+      safeGetNative(body.$('[data-hook="popover-portal"]')),
 
     /** 
      * Returns the content element (`<Popover.Content/>`) 
