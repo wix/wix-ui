@@ -6,7 +6,7 @@ import { UniDriver } from 'unidriver';
  *
  * @param {UniDriver} base
  */
-export function UnidriverReactDOMExtension(base: UniDriver) {
+export function ReactBase(base: UniDriver) {
   if (base.type !== 'react') {
     throw new Error('Supported only in React/DOM.')
   } 
