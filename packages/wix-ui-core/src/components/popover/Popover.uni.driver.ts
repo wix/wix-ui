@@ -1,9 +1,11 @@
+import { CommonDriver } from './Popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { Simulate } from 'react-dom/test-utils';
 import { UniDriver } from 'unidriver';
 
 export const testkit = (base: UniDriver, body: UniDriver) => {
-  const byHook = hook => base.$(`[data-hook="${hook}"]`);
+  const byHook = (hook:string) => base.$(`[data-hook="${hook}"]`);
+  const commonDriver = CommonDriver(base, body);
 
   return {
     ...baseUniDriverFactory(base),
@@ -12,6 +14,12 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
     getPortalElement: async () =>
       (await body.getNative()).querySelector('[data-hook="popover-portal"]'),
 
+    /** Returns the content element (`<Popover.Content/>`) */
+    getContentElement: async () => {
+      const elm = await commonDriver.getContentElement();
+      return await elm.exists() ? elm.getNative() : null;
+    }
+    ,
     /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
     isTargetElementExists: async () => byHook('popover-element').exists(),
 

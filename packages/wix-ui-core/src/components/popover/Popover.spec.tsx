@@ -37,20 +37,16 @@ describe('Popover', () => {
   });
 
   describe('[async]', async () => {
-    const createDriver = container.createUniRenderer(async (base, body) => {
-      const legacyPrivateDriver = async () =>
-        popoverPrivateDriverFactory({
-          element: await base.getNative(),
-          eventTrigger: Simulate,
-        });
+    const createDriver = container.createUniRenderer((base, body) => {
+      const privateDriver = popoverPrivateDriverFactory({element:container.componentNode, eventTrigger: Simulate});
 
       return {
+        ...privateDriver,
         ...testkit(base, body),
-        ...(await legacyPrivateDriver),
       };
     });
 
-    runTests(await createDriver, container);
+    runTests(createDriver, container);
   });
 });
 
