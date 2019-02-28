@@ -1,7 +1,5 @@
 import * as React from 'react';
 const uniqueId = require('lodash/uniqueId');
-import isString = require('lodash/isString');
-const isFunction = require('lodash/isFunction');
 import {EVENTS} from '../constants';
 import {
   IPlayerAPI,
@@ -76,9 +74,9 @@ export default function playerHOC(
       const player: IPlayerAPI = this.ref.player;
 
       try {
-        if (isString(method)) {
+        if (typeof method === 'string') {
           return player[method](...args)
-        } else if (isFunction(method)) {
+        } else if (typeof method === 'function') {
           return method(this, player, ...args);
         }
       } catch(error) {
