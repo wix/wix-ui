@@ -3,7 +3,7 @@ import {
   SectionType,
   DescriptionSection,
   ImportExampleSection,
-  LiveCodeSection,
+  CodeSection,
   ErrorSection,
   TabSection,
   ApiSection,
@@ -35,15 +35,11 @@ export const error: (
   object: Partial<ErrorSection>,
 ) => ErrorSection = baseSection;
 
-export const liveCode: (
-  object: Partial<LiveCodeSection>,
-) => LiveCodeSection = rest =>
+export const code: (object: Partial<CodeSection>) => CodeSection = rest =>
   baseSection({
-    type: SectionType.LiveCode,
+    type: SectionType.Code,
     ...rest,
   });
-
-export const code = liveCode;
 
 export const description: (
   object: string | Partial<DescriptionSection>,
