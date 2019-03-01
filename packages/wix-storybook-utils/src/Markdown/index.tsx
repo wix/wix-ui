@@ -35,6 +35,7 @@ hljs.registerLanguage(
 interface Props {
   source: string;
   className?: string;
+  dataHook?: string;
 }
 
 const options = {
@@ -43,7 +44,11 @@ const options = {
   highlight: (code, lang) => hljs.highlight(lang, code).value,
 };
 
-const Markdown: React.FunctionComponent<Props> = ({ source, className }) => {
+const Markdown: React.FunctionComponent<Props> = ({
+  source,
+  className,
+  dataHook,
+}) => {
   // TODO: remove this hack
   // it can be done once AutoExample is no loner used in E2E throughout wix-ui and wix-style-react
   if (global.self === global.top) {
@@ -51,7 +56,7 @@ const Markdown: React.FunctionComponent<Props> = ({ source, className }) => {
   }
 
   return (
-    <div className={className || 'markdown-body'}>
+    <div data-hook={dataHook} className={className || 'markdown-body'}>
       <Remarkable source={source.trim()} options={options} />
     </div>
   );
