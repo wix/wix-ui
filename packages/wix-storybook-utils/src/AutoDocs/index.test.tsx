@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-const AutoDocs = require('./').default;
+
+import AutoDocs from './';
 
 describe('AutoDocs', () => {
   it('should render props sorted alphabetically with required prioritized', () => {
