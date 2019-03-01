@@ -6,7 +6,7 @@ import Markdown from '../../../Markdown';
 import { CopyButton } from '../../../CopyButton';
 import styles from './style.scss';
 
-const wrapWithTicks = (item: string) => `\`\`\` js
+const wrapWithTicks = (item: string) => `\`\`\`js
 ${item}
 \`\`\``;
 
@@ -16,10 +16,10 @@ export const importExample: (a: ImportExampleSection) => React.ReactNode = ({
   typeof source === 'string' ? (
     <div className={styles.root}>
       <div className={styles.code}>
-        <Markdown source={wrapWithTicks(source)} />
+        <Markdown source={wrapWithTicks(source.trim())} />
       </div>
 
-      <CopyButton source={source} />
+      <CopyButton source={source.trim()} />
     </div>
   ) : (
     source

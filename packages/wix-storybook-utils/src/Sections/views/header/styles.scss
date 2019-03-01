@@ -1,11 +1,7 @@
+@import '../../../ui/colors.scss';
 @import '../../../ui/typography.scss';
 
 $header-height: 281px;
-
-$ivory: linear-gradient(256deg, #f6f6f6, #fefefe),
-linear-gradient(to bottom, rgba(240, 244, 247, 0.5), rgba(240, 244, 247, 0.5)),
-linear-gradient(to bottom, #ffffff, #ffffff);
-
 
 .root {
   display: flex;
@@ -22,7 +18,9 @@ linear-gradient(to bottom, #ffffff, #ffffff);
     right: 0;
     height: $header-height;
 
-    background-image: $ivory;
+    background-image: linear-gradient(256deg, #f6f6f6, #fefefe),
+                      linear-gradient(to bottom, rgba(240, 244, 247, 0.5), rgba(240, 244, 247, 0.5)),
+                      linear-gradient(to bottom, #fff, #fff);
     z-index: -1;
     border-bottom: 1px solid #cbd3dc;
   }
@@ -37,7 +35,7 @@ linear-gradient(to bottom, #ffffff, #ffffff);
   font-weight: 500;
   font-size: 36px;
   line-height: 1.33;
-  color: #162d3d;
+  color: $D10;
 }
 
 .title,
@@ -52,14 +50,15 @@ linear-gradient(to bottom, #ffffff, #ffffff);
 
 .link {
   @include font(thin);
-  margin-left: 30px;
   display: flex;
   align-items: center;
-  color: #3899ec;
+  margin-left: 30px;
+  color: $B10;
+  font-size: 16px;
 
   a {
     text-decoration: none;
-    color: #3899ec;
+    color: $B10;
     margin-left: 8px;
   }
 }

@@ -3,7 +3,6 @@ import React from 'react';
 export enum SectionType {
   Header = 'header',
   Description = 'description',
-  LiveCode = 'code',
   Code = 'code',
   ImportExample = 'importExample',
   Error = 'error',
@@ -31,7 +30,6 @@ export type Section =
   | HeaderSection
   | DescriptionSection
   | ImportExampleSection
-  | LiveCodeSection
   | CodeSection
   | TabSection
   | ApiSection
@@ -53,19 +51,16 @@ export interface HeaderSection extends StorySection {
 }
 
 export interface ImportExampleSection extends StorySection {
-  source: React.ReactNode;
+  source: string;
 }
 
 export interface CodeSection extends StorySection {
-  source: React.ReactNode;
+  source: string;
   previewProps?: object;
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
   interactive?: boolean;
-}
-
-export interface LiveCodeSection extends CodeSection {
-  autoRender: boolean
+  autoRender?: boolean;
 }
 
 export interface TabSection extends StorySection {
