@@ -53,11 +53,11 @@ export interface HeaderSection extends StorySection {
 }
 
 export interface ImportExampleSection extends StorySection {
-  source: React.ReactNode;
+  source: string;
 }
 
 export interface CodeSection extends StorySection {
-  source: React.ReactNode;
+  source: string;
   previewProps?: object;
   components?: { [s: string]: React.ReactNode };
   compact?: boolean;
@@ -65,7 +65,7 @@ export interface CodeSection extends StorySection {
 }
 
 export interface LiveCodeSection extends CodeSection {
-  autoRender: boolean
+  autoRender: boolean;
 }
 
 export interface TabSection extends StorySection {

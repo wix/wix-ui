@@ -52,7 +52,7 @@ const Markdown: React.FunctionComponent<Props> = ({ source, className }) => {
 
   return (
     <div className={className || 'markdown-body'}>
-      <Remarkable source={source} options={options} />
+      <Remarkable source={source.trim()} options={options} />
     </div>
   );
 };

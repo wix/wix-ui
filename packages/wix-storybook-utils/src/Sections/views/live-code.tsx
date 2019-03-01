@@ -10,16 +10,16 @@ export const liveCode: (a: LiveCodeSection) => React.ReactNode = ({
   compact = false,
   previewProps,
   interactive = true,
-  autoRender
+  autoRender,
 }) =>
   interactive ? (
     <LiveCodeExample
       previewProps={previewProps}
       compact={compact}
       scope={components}
-      initialCode={source}
+      initialCode={source.trim()}
       autoRender={autoRender}
     />
   ) : (
-    <CodeBlock source={source} />
+    <CodeBlock source={source.trim()} />
   );

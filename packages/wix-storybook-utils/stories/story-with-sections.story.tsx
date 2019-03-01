@@ -43,7 +43,8 @@ export default {
             title('Component Title'),
 
             importExample({
-              source: `import Button from 'wix-style-react/Button';
+              source: `
+import Button from 'wix-style-react/Button';
 import Button from 'wix-style-react/Button';`,
             }),
             columns({
