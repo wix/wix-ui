@@ -43,12 +43,13 @@ export default {
             title('Component Title'),
 
             importExample({
-              source: `import Button from 'wix-style-react/Button';
+              source: `
+import Button from 'wix-style-react/Button';
 import Button from 'wix-style-react/Button';`,
             }),
             columns({
               title: 'Septyni astuoni keturiolika',
-              items: [description({ text: `🔨 To trigger an operation.` })],
+              items: [description(`🔨 To trigger an operation.`)],
             }),
 
             divider(),
@@ -86,7 +87,7 @@ import Button from 'wix-style-react/Button';`,
                 }),
                 tab({
                   title: 'inner tab #2',
-                  sections: [description({ text: '# im inside another tab!' })],
+                  sections: [description('# im inside another tab!')],
                 }),
               ],
             }),

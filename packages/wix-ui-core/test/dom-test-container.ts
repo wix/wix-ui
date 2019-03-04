@@ -76,14 +76,14 @@ export class ReactDOMTestContainer {
 
   // Adapter for drivers written for wix-ui-test-utils/createDriverFactory
   public createLegacyRenderer<T>(
-    driverFactory: (args: LegacyDriverArgs) => T
+    driverFactory: (args: LegacyDriverArgs) => T,
   ): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       return driverFactory({
         element: this.componentNode,
         wrapper: this.node,
-        eventTrigger: Simulate
+        eventTrigger: Simulate,
       });
     };
   }
@@ -92,19 +92,21 @@ export class ReactDOMTestContainer {
    * Adapter for react based uni driver
    * @deprecated use createUniRendererAsync instead
    */
-  public createUniRenderer<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => T {
+  public createUniRenderer<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       const base = reactUniDriver(this.componentNode);
-      return driverFactory(base);
+      const body = reactUniDriver(document.body);
+      return driverFactory(base, body);
     };
   }
 
-  public createUniRendererAsync<T>(driverFactory: (base: UniDriver) => T): (element: JSX.Element) => Promise<T> {
+  public createUniRendererAsync<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => Promise<T> {
     return async (jsx: JSX.Element) => {
       await this.render(jsx);
       const base = reactUniDriver(this.componentNode);
-      return driverFactory(base);
+      const body = reactUniDriver(document.body);
+      return driverFactory(base, body);
     };
   }
 }

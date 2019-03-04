@@ -41,7 +41,9 @@
   -st-mixin: sizeMedium, weightNormal;
 
   outline: none;
-  transition: all 100ms linear;
+  transition-duration: 100ms;
+  transition-timing-function: linear;
+  transition-property: background-color, color, border-color;
 
   height: 36px;
   min-width: 84px;
