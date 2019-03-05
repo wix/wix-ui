@@ -17,9 +17,7 @@ export function puppeteerUniTestkitFactoryCreator<T extends BaseUniDriver>(
     const base = pupUniDriver(
       async () => await obj.page.$(`[data-hook='${obj.dataHook}']`)
     );
-    const body = pupUniDriver(
-      async () => await obj.page.$(`[data-hook='${obj.dataHook}']`)
-    );
+    const body = pupUniDriver(async () => await obj.page.$(`body`));
     return driverFactory(base, body);
   };
 }
