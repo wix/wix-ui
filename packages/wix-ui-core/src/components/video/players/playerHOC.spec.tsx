@@ -219,6 +219,32 @@ describe('playerHOC', () => {
         expect(onReady).toHaveBeenCalled()
       });
     });
+
+    it('should broadcast onPlay and onFirstPlay after reloading', async () => {
+      const onFirstPlay = jest.fn();
+      const onPlay = jest.fn();
+      let playerRef;
+
+      await container.render(
+        <Player
+          ref={r => playerRef = r}
+          onReady={onReady}
+          onFirstPlay={onFirstPlay}
+          onPlay={onPlay}
+        />);
+      await eventually(() => {
+        expect(onReady).toHaveBeenCalled()
+      });
+
+      playerRef.reload();
+      const playerAPI = playerRef.getPlayerAPI();
+      playerAPI.mockPlay();
+
+      await eventually(() => {
+        expect(onFirstPlay).toHaveBeenCalledTimes(1);
+        expect(onPlay).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   describe('methods', () => {
