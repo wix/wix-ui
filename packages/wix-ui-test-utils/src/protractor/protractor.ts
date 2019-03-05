@@ -6,19 +6,20 @@ import {BaseUniDriver} from '../base-driver';
 export function protractorTestkitFactoryCreator<T>(
   driverFactory: (e: ElementFinder) => T
 ) {
-  return (obj: { dataHook: string; wrapper?: ElementFinder }) =>
+  return (obj: {dataHook: string; wrapper?: ElementFinder}) =>
     obj.wrapper
       ? driverFactory(obj.wrapper.$(`[data-hook='${obj.dataHook}']`))
       : driverFactory($(`[data-hook='${obj.dataHook}']`));
 }
 
 export function protractorUniTestkitFactoryCreator<T extends BaseUniDriver>(
-  driverFactory: (base: UniDriver) => T
+  driverFactory: (base: UniDriver, body: UniDriver) => T
 ) {
-  return (obj: { dataHook: string }) => {
+  return (obj: {dataHook: string}) => {
     const base = protractorUniDriver(
       async () => await $(`[data-hook='${obj.dataHook}']`)
     );
-    return driverFactory(base);
+    const body = protractorUniDriver(async () => await $('body'));
+    return driverFactory(base, body);
   };
 }
