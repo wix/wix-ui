@@ -63,7 +63,11 @@ describe('ButtonNext', () => {
 
   describe(`'as' prop`, () => {
     const Test = props => <span {...props} />;
-
+    class TestReact extends React.Component {
+      render() {
+        return <p>{this.props.children}</p>;
+      }
+    }
     it('should render by default as html button', async () => {
       await testContainer.render(<ButtonNext />);
       const htmlTag = testContainer.componentNode.tagName;
@@ -76,10 +80,16 @@ describe('ButtonNext', () => {
       expect(htmlTag).toBe('A');
     });
 
-    it('should render custom react component', async () => {
+    it('should render custom functional react component', async () => {
       await testContainer.render(<ButtonNext as={Test} />);
       const htmlTag = testContainer.componentNode.tagName;
       expect(htmlTag).toBe('SPAN');
+    });
+
+    it('should render custom react class component', async () => {
+      await testContainer.render(<ButtonNext as={TestReact} />);
+      const htmlTag = testContainer.componentNode.tagName;
+      expect(htmlTag).toBe('P');
     });
   });
 
