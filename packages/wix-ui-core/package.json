@@ -104,6 +104,7 @@
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^3.28.0",
+    "webpack-dev-middleware": "3.6.0",
     "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
