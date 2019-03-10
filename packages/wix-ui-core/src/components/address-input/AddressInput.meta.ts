@@ -1,6 +1,6 @@
-import {AddressInput} from './AddressInput';
-import {GoogleMapsClientStub} from './GoogleMapsClientStub';
-import {MapsClientConstructor} from '../../clients/GoogleMaps/types';
+import { AddressInput } from './AddressInput';
+import { GoogleMapsClientStub } from './GoogleMapsClientStub';
+import { MapsClientConstructor } from '../../clients/GoogleMaps/types';
 const noop = require('lodash/noop');
 import * as helper from './AddressInputTestHelper';
 import Registry from '@ui-autotools/registry';
@@ -11,14 +11,13 @@ const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstruc
 const addressInputMeta = Registry.getComponentMetadata(AddressInput);
 addressInputMeta.nonReactStrictModeCompliant = true;
 
-addressInputMeta
-  .addSim({
-    title: 'Simulation with default props',
-    props: {
-      apiKey: '',
-      lang: 'en',
-      Client,
-      onSelect: noop,
-      'aria-label': 'Insert you address here'
-    }
-  });
+addressInputMeta.addSim({
+  title: 'Simulation with default props',
+  props: {
+    apiKey: '',
+    lang: 'en',
+    Client,
+    onSelect: noop,
+    'aria-label': 'Insert you address here',
+  },
+});
