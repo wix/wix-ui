@@ -59,3 +59,5 @@ Backoffice.add('Buttons', ButtonsStory);
 
 // Tests
 Tests.add('EllipsedTooltip', CustomEllipsedText);
+
+import './number-input.story';

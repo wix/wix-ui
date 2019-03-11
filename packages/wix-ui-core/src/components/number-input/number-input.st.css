@@ -1,0 +1,119 @@
+:import {
+    -st-from: "./stepper.st.css";
+    -st-default: Stepper;
+}
+
+:import {
+    -st-from: "./variables.st.css";
+    -st-named:
+        D40,
+        D50,
+        inputStyle,
+        inputWidth,
+        inputPadding,
+        inputFontStyle,
+        focusShadowStyle;
+}
+
+
+.root {
+    -st-states: focus, disabled, error;
+    -st-mixin: inputStyle;
+
+    box-sizing: border-box;
+    position: relative;
+    display: inline-flex;
+
+    width: value(inputWidth);
+}
+
+.root:focus-within {
+    box-shadow: value(focusShadowStyle);
+}
+
+.prefix {
+    display: flex;
+    align-items: center;
+}
+
+.suffix {
+    display: flex;
+    align-items: center;
+}
+
+.nativeInput {
+    -moz-appearance: textfield;
+
+    /* making sure the input shrinks properly */
+    flex: 1;
+    min-width: 1px;
+    text-overflow: ellipsis;
+
+    /* negating global input styles */
+    height: auto;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    background: none;
+
+    padding: value(inputPadding);
+    padding-right: 0;
+}
+
+.nativeInput:hover {
+    border: none;
+}
+.nativeInput::placeholder {
+    font: value(inputFontStyle);
+    color: value(D40);
+}
+.nativeInput::-webkit-outer-spin-button,
+.nativeInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.nativeInput:disabled {
+    background: inherit;
+}
+.nativeInput:disabled::placeholder {
+    color: value(D50);
+}
+
+.stepper {
+    -st-extends: Stepper;
+    height: auto;
+}
+
+.inputFlat {
+    border: none;
+    border-radius: 0;
+    min-width: auto;
+    background: transparent;
+    width: 100%;
+    padding: 0 12px;
+}
+.inputFlat:hover,
+.inputFlat:focus-within
+{
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+.inputFlat .nativeInput {
+    border-radius: 0;
+}
+
+.inputFlat .stepper {
+    display: none;
+}
+
+.numberRight .nativeInput {
+    text-align: right;
+}
+
+.inputSmall .nativeInput {
+    font-size: 14px;
+}
