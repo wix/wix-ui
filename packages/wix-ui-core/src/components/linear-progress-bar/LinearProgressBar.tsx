@@ -17,10 +17,10 @@ export interface LinearProgressBarProps {
 const FULL_PROGRESS = 100;
 const NO_PROGRESS = 0;
 
-const wrapped = (dataHook: string, children: JSX.Element) =>
-  <div data-hook={dataHook} className={style.indicationContainer} >{children}</div>;
-
 const resolveIndicationElement = (props: LinearProgressBarProps) => {
+  const wrapped = (dataHook: string, children: JSX.Element) =>
+    <div data-hook={dataHook} className={style.indicationContainer} >{children}</div>;
+
   if (props.error && props.errorIcon) {
     return wrapped('error-icon', props.errorIcon);
   }
