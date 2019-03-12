@@ -114,3 +114,13 @@ describe('importExample section', () => {
     );
   });
 });
+
+describe('code section', () => {
+  it('should work with string or config object', () => {
+    const source = 'hello world';
+    expect(builders.code({ source })).toEqual(
+      expect.objectContaining({ source }),
+    );
+    expect(builders.code(source)).toEqual(expect.objectContaining({ source }));
+  });
+});

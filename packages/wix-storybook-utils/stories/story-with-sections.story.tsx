@@ -92,9 +92,7 @@ import Button from 'wix-style-react/Button';`),
       tab({
         title: 'how are you',
         sections: [
-          importExample({
-            source: "import Component from 'your-library/Component';",
-          }),
+          importExample("import Component from 'your-library/Component';"),
         ],
       }),
 
