@@ -102,3 +102,15 @@ describe('table section', () => {
     expect(builders.table([])).toEqual(expect.objectContaining({ rows: [] }));
   });
 });
+
+describe('importExample section', () => {
+  it('should work with string or config object', () => {
+    const source = 'hello world';
+    expect(builders.importExample({ source })).toEqual(
+      expect.objectContaining({ source }),
+    );
+    expect(builders.importExample(source)).toEqual(
+      expect.objectContaining({ source }),
+    );
+  });
+});

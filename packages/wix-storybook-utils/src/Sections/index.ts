@@ -57,11 +57,11 @@ export const header: (object: Partial<HeaderSection>) => HeaderSection = rest =>
   });
 
 export const importExample: (
-  object: Partial<ImportExampleSection>,
+  object: string | Partial<ImportExampleSection>,
 ) => ImportExampleSection = rest =>
   baseSection({
     type: SectionType.ImportExample,
-    ...rest,
+    ...(typeof rest === 'string' ? { source: rest } : rest),
   });
 
 export const tab: (object: Partial<TabSection>) => TabSection = rest =>

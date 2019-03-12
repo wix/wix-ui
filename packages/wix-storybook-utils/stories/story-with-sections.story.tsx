@@ -39,11 +39,9 @@ export default {
         sections: [
           title('Component Title'),
 
-          importExample({
-            source: `
+          importExample(`
 import Button from 'wix-style-react/Button';
-import Button from 'wix-style-react/Button';`,
-          }),
+import Button from 'wix-style-react/Button';`),
           columns({
             title: 'Septyni astuoni keturiolika',
             items: [description(`🔨 To trigger an operation.`)],
