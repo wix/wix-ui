@@ -2,9 +2,9 @@ import * as React from 'react';
 import cx from 'classnames';
 import {codes as KeyCodes} from 'keycode';
 
-import {Stepper, Modifiers} from './stepper'
+import {Stepper, Modifiers} from './Stepper'
 import {noop} from '../../utils';
-import styles from './number-input.st.css';
+import styles from './NumberInput.st.css';
 
 const isNumber = (value: any): value is number => {
     return typeof value === 'number';

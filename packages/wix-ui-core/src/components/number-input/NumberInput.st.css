@@ -1,5 +1,5 @@
 :import {
-    -st-from: "./stepper.st.css";
+    -st-from: "./Stepper.st.css";
     -st-default: Stepper;
 }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import {GlobalEvent} from '../global-event';
 
-import styles from './stepper.st.css';
+import styles from './Stepper.st.css';
 
 export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
     disableUp?: boolean;
