@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
-import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
+import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps, ClickOutComponentClass} from 'react-onclickoutside';
 import {Popover, Placement, AppendTo} from '../popover';
 import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
 
@@ -118,4 +118,4 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
   }
 }
 
-export const Tooltip = onClickOutside<any>(TooltipComponent);
+export const Tooltip: React.ComponentClass<OnClickOutProps<TooltipProps & InjectedOnClickOutProps>> = onClickOutside(TooltipComponent);
