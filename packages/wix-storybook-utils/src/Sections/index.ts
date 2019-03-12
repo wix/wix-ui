@@ -11,6 +11,7 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
+  Row as TableRow,
   HeaderSection,
   TabsSection,
   MDXSection,
@@ -108,10 +109,12 @@ export const tabs: (
     ...(Array.isArray(rest) ? { tabs: rest } : rest),
   });
 
-export const table: (object: Partial<TableSection>) => TableSection = rest =>
+export const table: (
+  object: TableRow[] | Partial<TableSection>,
+) => TableSection = rest =>
   baseSection({
     type: SectionType.Table,
-    ...rest,
+    ...(Array.isArray(rest) ? { rows: rest } : rest),
   });
 
 export const mdx: (object?: Partial<MDXSection>) => MDXSection = rest =>

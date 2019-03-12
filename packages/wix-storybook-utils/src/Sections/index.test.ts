@@ -79,9 +79,7 @@ describe('columns section', () => {
 describe('tabs section', () => {
   it('should work with array or config object', () => {
     const tabs = [1, 2, 3].map(c => builders.tab({ sections: [] }));
-
     expect(builders.tabs({ tabs })).toEqual(expect.objectContaining({ tabs }));
-
     expect(builders.tabs(tabs)).toEqual(expect.objectContaining({ tabs }));
   });
 });
@@ -93,5 +91,14 @@ describe('description section', () => {
 
     expect(builders.description({ text })).toEqual(expectation);
     expect(builders.description(text)).toEqual(expectation);
+  });
+});
+
+describe('table section', () => {
+  it('should work with array or config object', () => {
+    expect(builders.table({ rows: [] })).toEqual(
+      expect.objectContaining({ rows: [] }),
+    );
+    expect(builders.table([])).toEqual(expect.objectContaining({ rows: [] }));
   });
 });
