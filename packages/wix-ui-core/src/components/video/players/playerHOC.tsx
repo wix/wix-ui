@@ -35,26 +35,13 @@ export default function playerHOC(
     };
 
     componentDidMount() {
-      const { onPlay, onPause, onEnded, onFirstPlay, onFirstEnded } = this.props;
+      this._broadcastEvents();
+    }
 
-      this.ref.eventEmitter.once(EVENTS.PLAYING, () => {
-        onFirstPlay();
-      });
-      this.ref.eventEmitter.once(EVENTS.ENDED, () => {
-        onFirstEnded();
-      });
-      this.ref.eventEmitter.on(EVENTS.PLAYING, () => {
-        this.isPlayingNow = true;
-        onPlay();
-      });
-      this.ref.eventEmitter.on(EVENTS.PAUSED, () => {
-        this.isPlayingNow = false;
-        onPause();
-      });
-      this.ref.eventEmitter.on(EVENTS.ENDED, () => {
-        this.isPlayingNow = false;
-        onEnded();
-      });
+    componentDidUpdate(prevProps, prevState) {
+      if (this.state.playerKey !== prevState.playerKey) {
+        this._broadcastEvents();
+      }
     }
 
     componentWillReceiveProps(nextProps: ICommonProps) {
@@ -86,6 +73,27 @@ export default function playerHOC(
 
     private _playerRef = (instance: IPlayerRef): void => {
       this.ref = instance;
+    }
+
+    private _broadcastEvents(): void {
+      this.ref.eventEmitter.once(EVENTS.PLAYING, () => {
+        this.props.onFirstPlay();
+      });
+      this.ref.eventEmitter.once(EVENTS.ENDED, () => {
+        this.props.onFirstEnded();
+      });
+      this.ref.eventEmitter.on(EVENTS.PLAYING, () => {
+        this.isPlayingNow = true;
+        this.props.onPlay();
+      });
+      this.ref.eventEmitter.on(EVENTS.PAUSED, () => {
+        this.isPlayingNow = false;
+        this.props.onPause();
+      });
+      this.ref.eventEmitter.on(EVENTS.ENDED, () => {
+        this.isPlayingNow = false;
+        this.props.onEnded();
+      });
     }
 
     public reload(): void {

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Simulate } from 'react-dom/test-utils';
 import { queryHook } from 'wix-ui-test-utils/dom';
 import { Popover, PopoverProps } from './';
 import { createModifiers } from './modifiers';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
+import { testkit } from './Popover.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { Simulate } from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
 import { AppendTo } from './Popover';
@@ -25,12 +26,32 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
 );
 
 describe('Popover', () => {
-  const container = new ReactDOMTestContainer().destroyAfterEachTest();
-  const createDriver = container.createLegacyRenderer(
-    popoverPrivateDriverFactory,
-  );
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  it('should render', () => {
+  describe('[sync]', () => {
+    const createDriver = container.createLegacyRenderer(
+      popoverPrivateDriverFactory,
+    );
+
+    runTests(createDriver, container);
+  });
+
+  describe('[async]', async () => {
+    const createDriver = container.createUniRenderer((base, body) => {
+      const privateDriver = popoverPrivateDriverFactory({element:container.componentNode, eventTrigger: Simulate});
+
+      return {
+        ...privateDriver,
+        ...testkit(base, body),
+      };
+    });
+
+    runTests(createDriver, container);
+  });
+});
+
+function runTests(createDriver, container) {
+  it('should render', async () => {
     const driver = createDriver(
       popoverWithProps({
         placement: 'bottom',
@@ -38,11 +59,11 @@ describe('Popover', () => {
       }),
     );
 
-    expect(driver.exists()).toBe(true);
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, () => {
+    it(`doesn't display popup when shown={false}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -50,11 +71,11 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.isTargetElementExists()).toBe(true);
-      expect(driver.isContentElementExists()).toBe(false);
+      expect(await driver.isTargetElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(false);
     });
 
-    it(`displays popup when shown={true}`, () => {
+    it(`displays popup when shown={true}`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -62,12 +83,12 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.isContentElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(true);
     });
   });
 
   describe('Events', () => {
-    it(`calls mouseEnter and mouseLeave callbacks`, () => {
+    it(`calls mouseEnter and mouseLeave callbacks`, async () => {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
@@ -80,15 +101,15 @@ describe('Popover', () => {
         }),
       );
 
-      driver.mouseEnter();
+      await driver.mouseEnter();
       expect(onMouseEnter).toBeCalled();
 
-      driver.mouseLeave();
+      await driver.mouseLeave();
       expect(onMouseLeave).toBeCalled();
     });
 
     describe('onClickOutside', () => {
-      it('should be triggered when outside of the popover is called', () => {
+      it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
         const driver = createDriver(
@@ -99,7 +120,7 @@ describe('Popover', () => {
           }),
         );
 
-        driver.clickOutside();
+        await driver.clickOutside();
         expect(onClickOutside).toBeCalled();
       });
 
@@ -110,7 +131,7 @@ describe('Popover', () => {
         'scrollParent',
       ];
       appendToValues.map(value => {
-        it(`should not be triggered when content is clicked and appended to ${value}`, () => {
+        it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
           const onClickOutside = jest.fn();
 
           const driver = createDriver(
@@ -122,7 +143,7 @@ describe('Popover', () => {
             }),
           );
 
-          driver.clickOnContent();
+          await driver.clickOnContent();
           expect(onClickOutside).not.toBeCalled();
         });
       });
@@ -140,7 +161,7 @@ describe('Popover', () => {
       updatePositionSpy.mockRestore();
     });
 
-    it(`offsets the popup arrow by specified amount`, () => {
+    it(`offsets the popup arrow by specified amount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -150,11 +171,11 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getArrowOffset().left).toBe('10px');
+      expect((await driver.getArrowOffset()).left).toBe('10px');
     });
 
     it(`should update popper's position when props are chaning`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -164,7 +185,7 @@ describe('Popover', () => {
         ),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -179,7 +200,7 @@ describe('Popover', () => {
     });
 
     it(`should not directly update popper's position when the visibillity hasn't changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -188,7 +209,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -197,7 +218,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -218,11 +239,11 @@ describe('Popover', () => {
       queryHook<HTMLElement>(document, 'popover-content');
 
     it(`animates on close given a timeout`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 10 }),
       );
 
@@ -236,11 +257,11 @@ describe('Popover', () => {
     });
 
     it(`doesn't animate on close when timeout={0}`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 0 }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 0 }),
       );
 
@@ -248,7 +269,7 @@ describe('Popover', () => {
     });
 
     it(`doesn't animate on close when timeout is an object with 0 values`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -256,7 +277,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -268,7 +289,7 @@ describe('Popover', () => {
     });
 
     it(`should close after hideDelay`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -276,7 +297,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -294,7 +315,7 @@ describe('Popover', () => {
     });
 
     it(`should open after showDelay`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -302,7 +323,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -320,7 +341,7 @@ describe('Popover', () => {
     });
 
     it(`should reset timeout when state has changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -329,7 +350,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -338,7 +359,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -353,7 +374,7 @@ describe('Popover', () => {
     });
 
     it(`should not update delay until the popover visibillity has fully changed`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -361,7 +382,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -369,7 +390,7 @@ describe('Popover', () => {
         }),
       );
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 1000,
@@ -385,7 +406,7 @@ describe('Popover', () => {
       expect(queryPopoverContent()).toBeNull();
     });
 
-    it(`should show the popover immediately on first render if needed`, () => {
+    it(`should show the popover immediately on first render if needed`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -394,11 +415,11 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.isContentElementExists()).toBe(true);
+      expect(await driver.isContentElementExists()).toBe(true);
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -409,7 +430,7 @@ describe('Popover', () => {
 
       expect(queryPopoverContent()).toBeNull();
 
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -421,7 +442,7 @@ describe('Popover', () => {
       expect(queryPopoverContent()).toBeTruthy();
 
       // Close again the popover
-      await container.render(
+      createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -437,7 +458,7 @@ describe('Popover', () => {
   describe('Portal and containment', () => {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
-    it(`renders the popup directly into the popover root by default`, () => {
+    it(`renders the popup directly into the popover root by default`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -445,12 +466,12 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
+      expect((await driver.getContentElement()).parentElement).toBe(
         container.componentNode,
       );
     });
 
-    it(`renders the popup into a portal when given appendTo prop`, () => {
+    it(`renders the popup into a portal when given appendTo prop`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -459,16 +480,18 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
-        driver.getPortalElement(),
+      expect((await driver.getContentElement()).parentElement).toBe(
+        await driver.getPortalElement(),
       );
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect((await driver.getPortalElement()).parentElement).toBe(
         portalContainer.node,
       );
-      expect(driver.getPortalElement().classList).toContain(styles.root);
+      expect((await driver.getPortalElement()).classList).toContain(
+        styles.root,
+      );
     });
 
-    it(`renders an empty portal when closed`, () => {
+    it(`renders an empty portal when closed`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -477,14 +500,16 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getContentElement()).toBeNull();
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect(await driver.getContentElement()).toBeNull();
+      expect((await driver.getPortalElement()).parentElement).toBe(
         portalContainer.node,
       );
-      expect(driver.getPortalElement().classList).not.toContain(styles.root);
+      expect((await driver.getPortalElement()).classList).not.toContain(
+        styles.root,
+      );
     });
 
-    it(`removes the portal on unmount`, () => {
+    it(`removes the portal on unmount`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -493,12 +518,12 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getPortalElement()).toBeTruthy();
+      expect(await driver.getPortalElement()).toBeTruthy();
       container.unmount();
-      expect(driver.getPortalElement()).toBeNull();
+      expect(await driver.getPortalElement()).toBeNull();
     });
 
-    it(`adds the portal to the body when appendTo="window"`, () => {
+    it(`adds the portal to the body when appendTo="window"`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -507,10 +532,12 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getPortalElement().parentElement).toBe(document.body);
+      expect((await driver.getPortalElement()).parentElement).toBe(
+        document.body,
+      );
     });
 
-    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, () => {
+    it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
       const driver = createDriver(
         <div style={{ overflow: 'scroll' }}>
           <div style={{ overflow: 'visible' }}>
@@ -523,12 +550,12 @@ describe('Popover', () => {
         </div>,
       );
 
-      expect(driver.getPortalElement().parentElement).toBe(
+      expect((await driver.getPortalElement()).parentElement).toBe(
         container.node.firstChild,
       );
     });
 
-    it(`adds the portal next to the popover's element when appendTo="parent"`, () => {
+    it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
       const driver = createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -537,8 +564,8 @@ describe('Popover', () => {
         }),
       );
 
-      expect(driver.getContentElement().parentElement).toBe(
-        driver.getTargetElement().parentElement,
+      expect(await driver.getContentElement().parentElement).toBe(
+        await driver.getTargetElement().parentElement,
       );
     });
 
@@ -549,7 +576,7 @@ describe('Popover', () => {
       it(`should update the portal's styles when updated`, async () => {
         // First render without passing the `className` prop, the <Popover/>
         // portal should only have the root class applied.
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -559,7 +586,7 @@ describe('Popover', () => {
 
         // Second render with a `className` prop. Stylable `style()` function
         // should apply it.
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -572,7 +599,7 @@ describe('Popover', () => {
       });
 
       it(`should not remove styles until unmounted with hideDelay`, async () => {
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -581,7 +608,7 @@ describe('Popover', () => {
           }),
         );
 
-        await container.render(
+        createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: false,
@@ -600,7 +627,7 @@ describe('Popover', () => {
   });
 
   describe('React <16 compatibility', () => {
-    it('should wrap children in a <div/> if provided as strings to support React 15', () => {
+    it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
@@ -608,8 +635,13 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      expect(driver.getTargetElement().childNodes[0].nodeName).toEqual('DIV');
-      expect(driver.getContentElement().childNodes[0].nodeName).toEqual('DIV');
+      expect((await driver.getTargetElement()).childNodes[0].nodeName).toEqual(
+        'DIV',
+      );
+
+      expect((await driver.getContentElement()).childNodes[0].nodeName).toEqual(
+        'DIV',
+      );
     });
   });
 
@@ -624,7 +656,7 @@ describe('Popover', () => {
       isTestEnv: false,
     };
 
-    it('should match default modifiers', () => {
+    it('should match default modifiers', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
       });
@@ -648,7 +680,7 @@ describe('Popover', () => {
       });
     });
 
-    it('should calculate the offset properly using moveBy for the top placement', () => {
+    it('should calculate the offset properly using moveBy for the top placement', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -658,7 +690,7 @@ describe('Popover', () => {
       expect(modifiers.offset.offset).toEqual('5px, 10px');
     });
 
-    it('should calculate the offset properly using moveBy for the right placement', () => {
+    it('should calculate the offset properly using moveBy for the right placement', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -668,7 +700,7 @@ describe('Popover', () => {
       expect(modifiers.offset.offset).toEqual('10px, 5px');
     });
 
-    it('should disable gpuAcceleration when animation is enabled', () => {
+    it('should disable gpuAcceleration when animation is enabled', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         shouldAnimate: true,
@@ -677,7 +709,7 @@ describe('Popover', () => {
       expect(modifiers.computeStyle.gpuAcceleration).toEqual(false);
     });
 
-    it('should disable the flip modifier if moveBy was provided', () => {
+    it('should disable the flip modifier if moveBy was provided', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -687,7 +719,7 @@ describe('Popover', () => {
       expect(modifiers.flip.enabled).toEqual(false);
     });
 
-    it('should enabled the flip modifier is set explicitly regardless of moveBy', () => {
+    it('should enabled the flip modifier is set explicitly regardless of moveBy', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
@@ -697,7 +729,7 @@ describe('Popover', () => {
       expect(modifiers.flip.enabled).toEqual(true);
     });
 
-    it('should disable the flip modifier when set explicitly', () => {
+    it('should disable the flip modifier when set explicitly', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         flip: false,
@@ -706,7 +738,7 @@ describe('Popover', () => {
       expect(modifiers.flip.enabled).toEqual(false);
     });
 
-    it('should disable `preventOverflow` and `hide` when fixed set to `true`', () => {
+    it('should disable `preventOverflow` and `hide` when fixed set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         fixed: true,
@@ -716,7 +748,7 @@ describe('Popover', () => {
       expect(modifiers.hide.enabled).toEqual(false);
     });
 
-    it('should disable computeStyle when isTestEnv is set to `true`', () => {
+    it('should disable computeStyle when isTestEnv is set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         isTestEnv: true,
@@ -725,7 +757,7 @@ describe('Popover', () => {
       expect(modifiers.computeStyle.enabled).toEqual(false);
     });
 
-    it('should set boundariesElement when appendTo is provided', () => {
+    it('should set boundariesElement when appendTo is provided', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
         appendTo: 'viewport',
@@ -734,4 +766,4 @@ describe('Popover', () => {
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
     });
   });
-});
+}

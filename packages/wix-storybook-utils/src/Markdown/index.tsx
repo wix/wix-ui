@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import Remarkable from 'react-remarkable';
 import hljs from 'highlight.js/lib/highlight.js';
+
 import './style.scss';
 
 hljs.registerLanguage(
@@ -32,27 +32,34 @@ hljs.registerLanguage(
   require('highlight.js/lib/languages/django.js'),
 );
 
-export default class Markdown extends Component {
-  static propTypes = {
-    source: PropTypes.string,
-    className: PropTypes.string,
-  };
-
-  render() {
-    const shouldHideForE2E = global.self === global.top;
-
-    const options = {
-      html: true,
-      linkTarget: '_parent',
-      highlight(code, lang) {
-        return hljs.highlight(lang, code).value;
-      },
-    };
-    const { source, className } = this.props;
-    return !shouldHideForE2E ? (
-      <div className={className || 'markdown-body'}>
-        <Remarkable source={source} options={options} />
-      </div>
-    ) : null;
-  }
+interface Props {
+  source: string;
+  className?: string;
+  dataHook?: string;
 }
+
+const options = {
+  html: true,
+  linkTarget: '_parent',
+  highlight: (code, lang) => hljs.highlight(lang, code).value,
+};
+
+const Markdown: React.FunctionComponent<Props> = ({
+  source,
+  className,
+  dataHook,
+}) => {
+  // TODO: remove this hack
+  // it can be done once AutoExample is no loner used in E2E throughout wix-ui and wix-style-react
+  if (global.self === global.top) {
+    return null;
+  }
+
+  return (
+    <div data-hook={dataHook} className={className || 'markdown-body'}>
+      <Remarkable source={source.trim()} options={options} />
+    </div>
+  );
+};
+
+export default Markdown;

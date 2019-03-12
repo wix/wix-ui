@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { HeaderSection } from '../../../typings/story-section';
-import { StoryConfig } from '../../../typings/story-config';
 import Promote from 'wix-ui-icons-common/Promote';
 import Code from 'wix-ui-icons-common/Code';
 
-const { Layout, Cell } = require('../../../ui/Layout');
+import { HeaderSection } from '../../../typings/story-section';
+import { StoryConfig } from '../../../typings/story-config';
+
+import { Layout, Cell } from '../../../ui/Layout';
 import styles from './styles.scss';
 
 export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (

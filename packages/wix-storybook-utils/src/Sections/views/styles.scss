@@ -1,3 +1,4 @@
+@import "../../ui/colors.scss";
 @import "../../ui/typography.scss";
 
 .description {
@@ -55,4 +56,9 @@
   p {
     margin: 0;
   }
+}
+
+.errorSection {
+  background-color: $R20;
+  padding: 10px;
 }
