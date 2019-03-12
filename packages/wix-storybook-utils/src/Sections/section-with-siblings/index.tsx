@@ -5,6 +5,7 @@ import { SectionType } from '../../typings/story-section';
 import styles from './styles.scss';
 
 const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
+const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title];
 
 const sectionPrepares = {
   [SectionType.ImportExample]: section => ({
@@ -35,13 +36,11 @@ const prepareSection = section => {
   return { ...preparedSection, ...siblingsWithDiv };
 };
 
-const sectionsWithoutSiblings = [SectionType.Title];
-
 export const sectionWithSiblings = (section, children) => {
   const preparedSection = prepareSection(section);
   const siblings = SIBLINGS.filter(row => preparedSection[row]);
   const shouldShowSiblings =
-    siblings.length > 0 && !sectionsWithoutSiblings.includes(section.type);
+    siblings.length > 0 && !SECTIONS_WITHOUT_SIBLINGS.includes(section.type);
 
   return (
     <div>

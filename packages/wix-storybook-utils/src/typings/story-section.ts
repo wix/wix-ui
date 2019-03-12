@@ -84,7 +84,7 @@ export interface TabsSection extends StorySection {
 }
 
 type Cell = string | React.ReactNode;
-type Row = Cell[];
+export type Row = Cell[];
 export interface TableSection extends StorySection {
   rows: Row[];
 }

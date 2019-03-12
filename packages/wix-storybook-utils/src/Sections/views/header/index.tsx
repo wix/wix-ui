@@ -33,6 +33,10 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
       </Cell>
     </Layout>
 
-    <div className={styles.component}>{component}</div>
+    {component && (
+      <div className={styles.componentWrapper}>
+        <div className={styles.component}>{component}</div>
+      </div>
+    )}
   </div>
 );
