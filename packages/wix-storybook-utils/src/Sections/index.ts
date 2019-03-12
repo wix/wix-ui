@@ -11,6 +11,7 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
+  Row as TableRow,
   HeaderSection,
   TabsSection,
   MDXSection,
@@ -22,74 +23,78 @@ import {
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-export const baseSection = rest => ({
+export const baseSection = config => ({
   type: SectionType.Error,
   pretitle: '',
   title: '',
   subtitle: '',
   hidden: false,
-  ...rest,
+  ...config,
 });
 
 export const error: (
   object: Partial<ErrorSection>,
 ) => ErrorSection = baseSection;
 
-export const code: (object: Partial<CodeSection>) => CodeSection = rest =>
+export const code: (
+  object: string | Partial<CodeSection>,
+) => CodeSection = config =>
   baseSection({
     type: SectionType.Code,
-    ...rest,
+    ...(typeof config === 'string' ? { source: config } : config),
   });
 
 export const description: (
   object: string | Partial<DescriptionSection>,
-) => DescriptionSection = rest =>
+) => DescriptionSection = config =>
   baseSection({
     type: SectionType.Description,
-    ...(typeof rest === 'string' ? { text: rest } : rest),
+    ...(typeof config === 'string' ? { text: config } : config),
   });
 
-export const header: (object: Partial<HeaderSection>) => HeaderSection = rest =>
+export const header: (
+  object: Partial<HeaderSection>,
+) => HeaderSection = config =>
   baseSection({
     type: SectionType.Header,
-    ...rest,
+    ...config,
   });
 
 export const importExample: (
-  object: Partial<ImportExampleSection>,
-) => ImportExampleSection = rest =>
+  object: string | Partial<ImportExampleSection>,
+) => ImportExampleSection = config =>
   baseSection({
     type: SectionType.ImportExample,
-    ...rest,
+    ...(typeof config === 'string' ? { source: config } : config),
   });
 
-export const tab: (object: Partial<TabSection>) => TabSection = rest =>
+export const tab: (object: Partial<TabSection>) => TabSection = config =>
   baseSection({
     type: SectionType.Tab,
     sections: [],
-    ...rest,
+    ...config,
   });
 
-export const api: (object?: Partial<ApiSection>) => ApiSection = rest =>
+export const api: (object?: Partial<ApiSection>) => ApiSection = config =>
   baseSection({
     type: SectionType.Api,
-    ...rest,
+    ...config,
   });
 
 export const playground: (
   object?: Partial<PlaygroundSection>,
-) => PlaygroundSection = rest =>
+) => PlaygroundSection = config =>
   baseSection({
     type: SectionType.Playground,
-    ...rest,
+    ...config,
   });
 
 export const testkit: (
   object?: Partial<TestkitSection>,
-) => TestkitSection = rest =>
+) => TestkitSection = config =>
   baseSection({
     type: SectionType.Testkit,
-    ...rest,
+    ...config,
   });
 
 export const columns: (
@@ -102,30 +107,32 @@ export const columns: (
 
 export const tabs: (
   object: Section[] | Partial<TabsSection>,
-) => TabsSection = rest =>
+) => TabsSection = config =>
   baseSection({
     type: SectionType.Tabs,
-    ...(Array.isArray(rest) ? { tabs: rest } : rest),
+    ...(Array.isArray(config) ? { tabs: config } : config),
   });
 
-export const table: (object: Partial<TableSection>) => TableSection = rest =>
+export const table: (
+  object: TableRow[] | Partial<TableSection>,
+) => TableSection = config =>
   baseSection({
     type: SectionType.Table,
-    ...rest,
+    ...(Array.isArray(config) ? { rows: config } : config),
   });
 
-export const mdx: (object?: Partial<MDXSection>) => MDXSection = rest =>
+export const mdx: (object?: Partial<MDXSection>) => MDXSection = config =>
   baseSection({
     type: SectionType.MDX,
-    ...rest,
+    ...config,
   });
 
 export const divider: (
   object?: Partial<DividerSection>,
-) => DividerSection = rest =>
+) => DividerSection = config =>
   baseSection({
     type: SectionType.Divider,
-    ...rest,
+    ...config,
   });
 
 export const title: (
