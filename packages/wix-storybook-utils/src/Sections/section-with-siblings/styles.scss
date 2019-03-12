@@ -1,4 +1,5 @@
 @import '../../ui/typography.scss';
+@import '../../ui/colors.scss';
 
 .titles {
   margin-bottom: 24px;
@@ -14,13 +15,20 @@
   margin-bottom: 30px;
   margin-top: 5px;
   font-size: 14px;
-  color: #7a92a5;
+  color: $D40;
 }
 
 .pretitle {
   @include font(roman);
   font-size: 12px;
   font-weight: 500;
-  color: #7a92a5;
+  color: $D40;
 }
 
+.description {
+  @include font(roman);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: $D10;
+}

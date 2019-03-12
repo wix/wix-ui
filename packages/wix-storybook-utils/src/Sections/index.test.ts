@@ -79,9 +79,7 @@ describe('columns section', () => {
 describe('tabs section', () => {
   it('should work with array or config object', () => {
     const tabs = [1, 2, 3].map(c => builders.tab({ sections: [] }));
-
     expect(builders.tabs({ tabs })).toEqual(expect.objectContaining({ tabs }));
-
     expect(builders.tabs(tabs)).toEqual(expect.objectContaining({ tabs }));
   });
 });
@@ -93,5 +91,36 @@ describe('description section', () => {
 
     expect(builders.description({ text })).toEqual(expectation);
     expect(builders.description(text)).toEqual(expectation);
+  });
+});
+
+describe('table section', () => {
+  it('should work with array or config object', () => {
+    expect(builders.table({ rows: [] })).toEqual(
+      expect.objectContaining({ rows: [] }),
+    );
+    expect(builders.table([])).toEqual(expect.objectContaining({ rows: [] }));
+  });
+});
+
+describe('importExample section', () => {
+  it('should work with string or config object', () => {
+    const source = 'hello world';
+    expect(builders.importExample({ source })).toEqual(
+      expect.objectContaining({ source }),
+    );
+    expect(builders.importExample(source)).toEqual(
+      expect.objectContaining({ source }),
+    );
+  });
+});
+
+describe('code section', () => {
+  it('should work with string or config object', () => {
+    const source = 'hello world';
+    expect(builders.code({ source })).toEqual(
+      expect.objectContaining({ source }),
+    );
+    expect(builders.code(source)).toEqual(expect.objectContaining({ source }));
   });
 });
