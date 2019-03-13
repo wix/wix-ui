@@ -216,7 +216,7 @@ export class NumberInput extends React.Component<
 
         this.updateValue(valueInRange);
 
-        if (!this.state.committed) {
+        if (!this.state.committed && valueInRange !== this.props.value) {
             onChange!({value: valueInRange});
             this.setState({committed: true});
         }
@@ -261,8 +261,9 @@ export class NumberInput extends React.Component<
         }
     }
 
-    private handleIncrement = ({shiftKey}: Modifiers) =>
+    private handleIncrement = ({shiftKey}: Modifiers) => {
         this.stepValue(Direction.Increase, shiftKey ? 10 : 1);
+    }
 
     private handleDecrement = ({shiftKey}: Modifiers) =>
         this.stepValue(Direction.Decrease, shiftKey ? 10 : 1);
