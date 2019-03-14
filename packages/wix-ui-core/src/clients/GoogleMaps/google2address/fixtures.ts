@@ -83,6 +83,13 @@ export const googleResponse = {
             'types': [
                 'postal_code_suffix'
             ]
+        },
+        {
+            'long_name' : 'postal_town_long',
+            'short_name' : 'postal_town_short',
+            'types' : [
+                'postal_town'
+            ]
         }
     ],
     'formatted_address': '137 Lexington Ave, New York, NY 10016, USA',
