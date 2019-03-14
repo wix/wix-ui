@@ -52,41 +52,18 @@ import Button from 'wix-style-react/Button';`),
       }),
 
       tab({
-        title: 'hello',
+        title: 'Code Section Examples',
         sections: [
-          description({
-            title: 'lol',
-            text: 'I should not be in a tab',
-          }),
-
-          table({
-            title: 'Included Components',
-            rows: [
-              ['&lt;FormField/&gt;', 'Layout component for form elements'],
-              ['&lt;Input /&gt;', 'Component that receives data'],
-            ],
-          }),
-
-          tabs({
-            title: 'title',
-            tabs: [
-              tab({
-                title: 'inner tab',
-                sections: [
-                  code({
-                    description: 'this is the best code',
-                    source: '"hello"',
-                  }),
-                  api(),
-                ],
-              }),
-              tab({
-                title: 'inner tab #2',
-                sections: [description('# im inside another tab!')],
-              }),
-            ],
-          }),
-        ],
+          { title: 'Default', source: '<div>fun</div>' },
+          { title: 'Dark', source: '<div>fun</div>', darkBackground: true },
+          { title: 'Compact', source: '<div>fun</div>', compact: true },
+          {
+            title: 'Compact & Dark',
+            source: '<div>fun</div>',
+            compact: true,
+            darkBackground: true,
+          },
+        ].map(code),
       }),
 
       tab({
@@ -96,15 +73,10 @@ import Button from 'wix-style-react/Button';`),
         ],
       }),
 
-      tab({
-        title: 'Playground',
-        sections: [playground()],
-      }),
-
-      tab({
-        title: 'Testkit',
-        sections: [testkit()],
-      }),
+      ...[
+        { title: 'Playground', sections: [playground()] },
+        { title: 'Testkit', sections: [testkit()] },
+      ].map(tab),
     ]),
   ],
 };
