@@ -61,6 +61,7 @@ export interface CodeSection extends StorySection {
   compact?: boolean;
   interactive?: boolean;
   autoRender?: boolean;
+  darkBackground?: boolean;
 }
 
 export interface TabSection extends StorySection {

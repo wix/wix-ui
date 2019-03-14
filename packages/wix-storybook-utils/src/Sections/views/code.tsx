@@ -11,14 +11,18 @@ export const code: (a: CodeSection) => React.ReactNode = ({
   previewProps,
   interactive = true,
   autoRender,
+  darkBackground = false,
 }) =>
   interactive ? (
     <LiveCodeExample
-      previewProps={previewProps}
-      compact={compact}
-      scope={components}
-      initialCode={source.trim()}
-      autoRender={autoRender}
+      {...{
+        previewProps,
+        compact,
+        autoRender,
+        darkBackground,
+        scope: components,
+        initialCode: source.trim(),
+      }}
     />
   ) : (
     <CodeBlock source={source.trim()} />
