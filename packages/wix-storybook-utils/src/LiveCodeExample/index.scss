@@ -216,6 +216,10 @@
   &.compactPreview {
     background: #f0f4f7;
   }
+
+  &.compactPreview.darkPreview {
+    background: #5b7fa4;
+  }
 }
 
 .error {

@@ -30,7 +30,7 @@ export default class LiveCodeExample extends Component {
     previewRow: PropTypes.bool,
     previewProps: PropTypes.object,
     autoRender: PropTypes.bool,
-    darkBackground: PropTypes.bool
+    darkBackground: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -38,7 +38,7 @@ export default class LiveCodeExample extends Component {
     previewRow: false,
     previewProps: {},
     autoRender: true,
-    darkBackground: false
+    darkBackground: false,
   };
 
   constructor(props) {
@@ -126,7 +126,7 @@ export default class LiveCodeExample extends Component {
               className={classnames(styles.preview, previewProps.className, {
                 rtl: isRtl,
                 [styles.darkPreview]: isDarkBackground,
-                [styles.compactPreview]: compact
+                [styles.compactPreview]: compact,
               })}
               dir={isRtl ? 'rtl' : ''}
             >
