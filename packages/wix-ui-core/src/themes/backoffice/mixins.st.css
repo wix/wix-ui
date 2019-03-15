@@ -1,0 +1,57 @@
+:import {
+  -st-from: './typography.st.css';
+  -st-named:
+        fontRoman;
+}
+:import {
+  -st-from: './shadows.st.css';
+  -st-named:
+        focusShadow;
+}
+:import {
+    -st-from: "./colors.st.css";
+    -st-named:
+        B20, B30, B50,
+        D10, D40, D50, D60, D80,
+        R00;
+}
+
+.inputStyle {
+    background: value(D80);
+    border: 1px solid value(B30);
+    border-radius: 6px;
+    color: value(D10);
+    font: 16px value(fontRoman);
+    height: 36px;
+    line-height: 1.375;
+    outline: 0;
+}
+
+.inputStyle:hover {
+    background: value(B50);
+    border-color: value(B30);
+}
+
+.inputStyle:focus-within {
+    border-color: value(B20);
+    box-shadow: value(focusShadow);
+}
+
+.inputStyle:disabled {
+    background-color: value(D80);
+    border-color: value(D60);
+    color: value(D50);
+}
+
+.inputStyle:invalid {
+    border-color: value(R00);
+}
+
+.inputStyle::placeholder {
+    font: 16px value(fontRoman);
+    color: value(D40);
+}
+
+.inputStyle:disabled::placeholder {
+    color: value(D50);
+}
