@@ -30,10 +30,14 @@ interface SingleComponentLayoutProps extends StoryConfig {
   activeTabId?: string;
 }
 
+const hasTitle = (string = '') => string.startsWith('# ');
+
 const readme = metadata => {
   const description = metadata.readme || metadata.description;
-  const title = `# \`<${metadata.displayName}/>\``;
-  const content = description ? `${title}\n${description}` : title;
+  const title = hasTitle(description)
+    ? ''
+    : `# \`<${metadata.displayName}/>\`\n`;
+  const content = description ? `${title}${description}` : title;
 
   return <Markdown dataHook="metadata-readme" source={content} />;
 };
