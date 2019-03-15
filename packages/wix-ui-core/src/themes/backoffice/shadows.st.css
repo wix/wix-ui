@@ -1,3 +1,7 @@
+:import {
+    -st-from: "./colors.st.css";
+    -st-named: B27;
+}
 :vars {
   s1: rgba(22, 45, 61, 0.12);
   s2: rgba(22, 45, 61, 0.48);
@@ -13,4 +17,5 @@
   shadow20: 0 2px 4px 0 value(s1), 0 0 6px 0 value(s1);
   shadow30: 0 6px 6px 0 value(s3), 0 0 18px 0 value(s1);
   shadow40: 0 8px 8px 0 value(s1), 0 3px 24px 0 value(s4);
+  focusShadow: 0 0 0 3px value(B27);
 }

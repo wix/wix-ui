@@ -5,6 +5,7 @@ import ButtonNext from './button/button.st.css';
 import IconButton from './icon-button/icon-button.st.css';
 import TextButton from './text-button/text-button.st.css';
 import CloseButton from './close-button/close-button.st.css';
+import NumberInput from './number-inpput/NumberInput.st.css';
 import BackofficeTheme from './theme.st.css';
 
 const getClassNames = (values, stylesheet, rootcls?) => {
@@ -22,6 +23,8 @@ export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>
   getClassNames(values, CloseButton, 'closeButton');
+export const numberInput = (...values) =>
+  getClassNames(values, NumberInput, 'root');
 // FIX ME. I fail on yoshi test --protractor when used
 // only with BackofficeTheme.root
 export const backofficeTheme = (BackofficeTheme && BackofficeTheme.root) || {};

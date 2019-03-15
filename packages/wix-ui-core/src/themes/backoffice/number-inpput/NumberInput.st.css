@@ -1,0 +1,103 @@
+:import {
+    -st-from: "../../../components/number-input/NumberInput.st.css";
+    -st-default: NumberInput;
+}
+:import {
+  -st-from: '../colors.st.css';
+  -st-named:
+        B27,
+        D40, D50;
+}
+:import {
+  -st-from: '../typography.st.css';
+  -st-named:
+        fontRoman;
+}
+:import {
+  -st-from: '../shadows.st.css';
+  -st-named:
+        focusShadow;
+}
+:import {
+    -st-from: "../mixins.st.css";
+    -st-named:
+        inputStyle;
+}
+
+:vars {
+    inputWidth: 360px;
+    inputPadding: 12px 6px;
+}
+
+
+.root {
+    -st-extends: NumberInput;
+    -st-mixin: inputStyle;
+    width: value(inputWidth);
+}
+
+.root:focus-within {
+    box-shadow: value(focusShadowStyle);
+}
+
+.root::nativeInput {
+    /* negating global input styles */
+    height: auto;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    background: none;
+
+    padding: value(inputPadding);
+    padding-right: 0;
+    text-overflow: ellipsis;
+}
+.root::nativeInput:hover {
+    border: none;
+}
+.root::nativeInput::placeholder {
+    font: value(fontRoman);
+    color: value(D40);
+}
+.root::nativeInput:disabled {
+    background: inherit;
+}
+.root::nativeInput:disabled::placeholder {
+    color: value(D50);
+}
+
+/*
+.inputFlat {
+    border: none;
+    border-radius: 0;
+    min-width: auto;
+    background: transparent;
+    width: 100%;
+    padding: 0 12px;
+}
+.inputFlat:hover,
+.inputFlat:focus-within
+{
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+.inputFlat .nativeInput {
+    border-radius: 0;
+}
+
+.inputFlat .stepper {
+    display: none;
+}
+
+.numberRight .nativeInput {
+    text-align: right;
+}
+
+.inputSmall .nativeInput {
+    font-size: 14px;
+}
+
+*/
