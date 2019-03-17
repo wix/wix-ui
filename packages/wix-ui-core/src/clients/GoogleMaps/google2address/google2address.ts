@@ -94,7 +94,7 @@ export function convertToPartialAddress(googleResponse) {
     const shortValues = getShortValues(googleResponse) as any;
     const streetAddress = getStreetAddress(shortValues);
 
-    return {
+    return removeUndefined({
         formatted: googleResponse.formatted_address,
         location: googleResponse.geometry ? formatLatLng(googleResponse.geometry.location) : undefined,
         streetAddress,
@@ -102,9 +102,9 @@ export function convertToPartialAddress(googleResponse) {
         city: shortValues.locality || shortValues.postalTown || shortValues.adminArea2,
         country: shortValues.country,
         postalCode: shortValues.postalCode,
-    };
+    });
 }
 
 function removeUndefined(obj) {
-    return pickBy(obj, key => !isUndefined(obj[key]));
+    return pickBy(obj, value => !isUndefined(value));
 }
