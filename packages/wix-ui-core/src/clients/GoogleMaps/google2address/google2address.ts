@@ -2,6 +2,7 @@
 import {intersection} from '../../../utils/intersection';
 const first = require('lodash/first');
 const isUndefined = require('lodash/isUndefined');
+const pickBy = require('lodash/pickBy');
 
 export const trySetStreetNumberIfNotReceived = (google, inputValue) => {
     const addressParts = inputValue.match(/^\d+[ -/]*\d*[^\D]/);
@@ -102,4 +103,8 @@ export function convertToPartialAddress(googleResponse) {
         country: shortValues.country,
         postalCode: shortValues.postalCode,
     };
+}
+
+function removeUndefined(obj) {
+    return pickBy(obj, key => !isUndefined(obj[key]));
 }
