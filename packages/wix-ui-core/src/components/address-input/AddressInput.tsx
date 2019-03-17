@@ -90,6 +90,8 @@ export type AddressInputProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> 
     onMouseEnter?: () => void;
     /** Standard input onMouseLeave callback */
     onMouseLeave?: () => void;
+    /** A custom formatter for maps API response */
+    customFormatter?: () => any;
 }
 
 export interface AddressInputState {
@@ -102,13 +104,13 @@ function filterAddressesByType(addresses: Array<Address>, filterTypes?: Array<st
     return (filterTypes && filterTypes.length > 0) ? (addresses || []).filter(address => intersection(address.types, filterTypes).length > 0) : addresses;
 }
 
-function formatAddressOutput(google: Geocode|PlaceDetails, description: string, rawInputValue: string): AddressOutput {
+function formatAddressOutput(google: Geocode|PlaceDetails, description: string, rawInputValue: string, convertor: (input: any) => any): AddressOutput {
     trySetStreetNumberIfNotReceived(google, rawInputValue);
 
     return {
         originValue: description,
         googleResult: google,
-        address: convertToFullAddress(google)
+        address: convertor(google)
     };
 }
 
@@ -138,7 +140,8 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
     static defaultProps = {
         handler: Handler.geocode,
         throttleInterval: 150,
-        lang: 'en'
+        lang: 'en',
+        customFormatter: convertToFullAddress
     };
 
     client: MapsClient;
@@ -220,22 +223,22 @@ export class AddressInput extends React.PureComponent<AddressInputProps, Address
 
     async _getGeocode(placeId: string | number, description: string, rawInputValue: string) {
         const requestId = ++this.geocodeRequestId;
-        const {lang, countryCode: region} = this.props;
+        const {lang, countryCode: region, customFormatter} = this.props;
         const request = placeId ? {placeId, region} : {address: rawInputValue};
         const geocode = await this.client.geocode(this._getKey(), lang, request);
 
         if (requestId === this.geocodeRequestId) {
-            this._invokeOnSelect(formatAddressOutput(first(geocode), description, rawInputValue));
+            this._invokeOnSelect(formatAddressOutput(first(geocode), description, rawInputValue, customFormatter));
         }
     }
 
     async _getPlaceDetails(placeId: string | number, description: string, rawInputValue: string) {
         const requestId = ++this.placeDetailsRequestId;
-        const {lang} = this.props;
+        const {lang, customFormatter} = this.props;
         const placeDetails = await this.client.placeDetails(this._getKey(), lang, {placeId});
 
         if (requestId === this.placeDetailsRequestId) {
-            this._invokeOnSelect(formatAddressOutput(placeDetails, description, rawInputValue));
+            this._invokeOnSelect(formatAddressOutput(placeDetails, description, rawInputValue, customFormatter));
         }
     }
 

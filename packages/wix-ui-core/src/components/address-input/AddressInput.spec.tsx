@@ -180,6 +180,39 @@ describe('AddressInput', () => {
         expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
+    it('Should accept a value formatter as a prop', async () => {
+        function customFormatter(googleResponse) {
+            return {
+                formatted: googleResponse.formatted_address,
+                hello: 'world',
+            }
+        }
+
+        init({ customFormatter });
+        GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+        GoogleMapsClientStub.setGeocode(helper.GEOCODE_2);
+
+        driver.click();
+        driver.setValue('n');
+
+        await waitForCond(() => driver.isContentElementExists());
+
+        driver.optionAt(1).click();
+
+        const expectedAddress = {
+            formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
+            hello: 'world',
+        };
+
+        return eventually(() => {
+            expect(onSelectSpy).toHaveBeenCalledWith({
+                originValue: helper.ADDRESS_DESC_2,
+                googleResult: helper.GEOCODE_2,
+                address: expectedAddress
+            });
+        }, {interval: 5});
+    });
+
     it('Should issue a geocode request once an option is chosen', async () => {
         init();
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
