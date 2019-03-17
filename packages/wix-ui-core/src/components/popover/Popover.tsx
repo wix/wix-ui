@@ -430,7 +430,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           <div
             style={inlineStyles}
             {...style('root', {}, this.props)}
-            'data-hook'={this.props['data-hook']}
+            data-hook={this.props['data-hook']}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
