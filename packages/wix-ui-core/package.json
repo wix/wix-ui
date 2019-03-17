@@ -6,7 +6,8 @@
   "module": "./dist/es/src",
   "sideEffects": [
     "./.storybook/**/*.*",
-    "./stories/**/*.*"
+    "./stories/**/*.*",
+    "./src/**/*.story.tsx"
   ],
   "author": {
     "name": "Wix",
