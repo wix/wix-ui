@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Simulate} from 'react-dom/test-utils';
 import {ReactDOMTestContainer} from '../../../test/dom-test-container';
 import {addressInputDriverFactory} from './AddressInput.driver';
-import {AddressInput, Handler} from './AddressInput';
+import {AddressInput, Converter, Handler} from './AddressInput';
 import {GoogleMapsClientStub} from './GoogleMapsClientStub';
 import * as waitForCond from 'wait-for-cond';
 import * as eventually from 'wix-eventually';
@@ -180,17 +180,17 @@ describe('AddressInput', () => {
         expect(helper.getOptionsText(driver)).toEqual([helper.ADDRESS_DESC_1, helper.ADDRESS_DESC_2]);
     });
 
-    it('Should accept a value formatter as a prop', async () => {
-        function customFormatter(googleResponse) {
-            return {
-                formatted: googleResponse.formatted_address,
-                hello: 'world',
-            }
-        }
+    it('Should use simple data conversion', async () => {
+        init({ converterType: Converter.simple });
+        const geoCodeData = {
+            ...helper.GEOCODE_2,
+            address_components: [
+                {types: ['locality'], short_name: 'NY', long_name: 'New York'}
+            ]
+        };
 
-        init({ customFormatter });
         GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
-        GoogleMapsClientStub.setGeocode(helper.GEOCODE_2);
+        GoogleMapsClientStub.setGeocode(geoCodeData);
 
         driver.click();
         driver.setValue('n');
@@ -201,14 +201,47 @@ describe('AddressInput', () => {
 
         const expectedAddress = {
             formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
-            hello: 'world',
+            city: 'NY',
         };
 
         return eventually(() => {
             expect(onSelectSpy).toHaveBeenCalledWith({
                 originValue: helper.ADDRESS_DESC_2,
-                googleResult: helper.GEOCODE_2,
-                address: expectedAddress
+                googleResult: geoCodeData,
+                address: expect.objectContaining(expectedAddress)
+            });
+        }, {interval: 5});
+    });
+
+    it('Should use full data conversion by default', async () => {
+        init();
+        const geoCodeData = {
+            ...helper.GEOCODE_2,
+            address_components: [
+                {types: ['locality'], short_name: 'NY', long_name: 'New York'}
+            ]
+        };
+
+        GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+        GoogleMapsClientStub.setGeocode(geoCodeData);
+
+        driver.click();
+        driver.setValue('n');
+
+        await waitForCond(() => driver.isContentElementExists());
+
+        driver.optionAt(1).click();
+
+        const expectedAddress = {
+            formatted: '114 N 6th St, Brooklyn, NY 11249, USA',
+            locality: { short: 'NY', long: 'New York' },
+        };
+
+        return eventually(() => {
+            expect(onSelectSpy).toHaveBeenCalledWith({
+                originValue: helper.ADDRESS_DESC_2,
+                googleResult: geoCodeData,
+                address: expect.objectContaining(expectedAddress)
             });
         }, {interval: 5});
     });
