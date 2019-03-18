@@ -37,6 +37,12 @@ export interface InternalAddressComponent {
     short: string;
 }
 
+
+export interface StreetAddress {
+    name?: string;
+    number?: string;
+}
+
 export interface PlaceDetails {
     address_components: Array<AddressComponent>;
     adr_address: string;
@@ -65,9 +71,13 @@ export interface InternalAddress {
     admin_area_3?: InternalAddressComponent;
     admin_area_2?: InternalAddressComponent;
     admin_area_1?: InternalAddressComponent;
-    country?: InternalAddressComponent;
+    country?: string|InternalAddressComponent;
     postal_code?: InternalAddressComponent;
     location?: InternalLocation;
+    streetAddress?: StreetAddress;
+    postalCode?: string;
+    subdivision?: string;
+    city?: string;
 }
 
 
