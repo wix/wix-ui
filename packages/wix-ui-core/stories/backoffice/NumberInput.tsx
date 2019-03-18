@@ -10,6 +10,9 @@ export default () => (
             theme={backofficeTheme}
         >
             <NumberInput className={numberInput()}/>
+            <NumberInput className={numberInput('flat')}/>
+            <NumberInput className={numberInput('right')}/>
+            <NumberInput className={numberInput('flat', 'small')}/>
         </CodeShowcase>
     </div>
 );

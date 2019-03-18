@@ -25,6 +25,12 @@
 }
 
 :vars {
+    iconChevronUpDefault: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iIzM4OTlFQyIgZD0iTTguNjQ2IDUuNzA4TDkuMzU0IDUgNSAuNjQ3LjY0NiA1bC43MDguNzA4TDUgMi4wNiIvPjwvc3ZnPg==);
+    iconChevronDownDefault: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iIzM4OTlFQyIgZD0iTTEuMzU0LjY0NmwtLjcwOC43MDhMNSA1LjcwN2w0LjM1NC00LjM1My0uNzA4LS43MDhMNSA0LjI5MyIvPjwvc3ZnPg==);
+    iconChevronUpHover: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iIzRFQjdGNSIgZD0iTTguNjQ2IDUuNzA4TDkuMzU0IDUgNSAuNjQ3LjY0NiA1bC43MDguNzA4TDUgMi4wNiIvPjwvc3ZnPg==);
+    iconChevronDownHover: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iIzRFQjdGNSIgZD0iTTEuMzU0LjY0NmwtLjcwOC43MDhMNSA1LjcwN2w0LjM1NC00LjM1My0uNzA4LS43MDhMNSA0LjI5MyIvPjwvc3ZnPg==);
+    iconChevronUpDisabled: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iI2I2YzFjZCIgZD0iTTguNjQ2IDUuNzA4TDkuMzU0IDUgNSAuNjQ3LjY0NiA1bC43MDguNzA4TDUgMi4wNiIvPjwvc3ZnPg==);
+    iconChevronDownDisabled: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+PHBhdGggZmlsbD0iI2I2YzFjZCIgZD0iTTEuMzU0LjY0NmwtLjcwOC43MDhMNSA1LjcwN2w0LjM1NC00LjM1My0uNzA4LS43MDhMNSA0LjI5MyIvPjwvc3ZnPg==);
     inputWidth: 360px;
     inputPadding: 12px 6px;
 }
@@ -68,8 +74,39 @@
     color: value(D50);
 }
 
-/*
-.inputFlat {
+.root::stepper::up::after,
+.root::stepper::down::after {
+    content: none;
+}
+.root::stepper::up {
+    background-image: value(iconChevronUpDefault);
+    padding-top: 2px;
+}
+.root::stepper::up:disabled {
+    cursor: default;
+    background-image: value(iconChevronUpDisabled);
+}
+.root::stepper::up:hover {
+    cursor: pointer;
+    background-image: value(iconChevronUpHover);
+}
+
+
+.root::stepper::down {
+    background-image: value(iconChevronDownDefault);
+    padding-bottom: 3px;
+}
+.root::stepper::down:hover {
+    cursor: pointer;
+    background-image: value(iconChevronDownHover);
+}
+.root::stepper::down:disabled {
+    cursor: default;
+    background-image: value(iconChevronDownDisabled);
+}
+
+/* flat mode */
+.flat {
     border: none;
     border-radius: 0;
     min-width: auto;
@@ -77,27 +114,27 @@
     width: 100%;
     padding: 0 12px;
 }
-.inputFlat:hover,
-.inputFlat:focus-within
+.flat:hover,
+.flat:focus-within
 {
     border-color: transparent;
     background: transparent;
     box-shadow: none;
 }
-.inputFlat .nativeInput {
+.flat .nativeInput {
     border-radius: 0;
 }
 
-.inputFlat .stepper {
+.flat .stepper {
     display: none;
 }
 
-.numberRight .nativeInput {
+/* number right */
+.right .nativeInput {
     text-align: right;
 }
 
-.inputSmall .nativeInput {
+/* small text*/
+.small .nativeInput {
     font-size: 14px;
 }
-
-*/
