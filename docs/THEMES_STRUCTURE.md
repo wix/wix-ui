@@ -7,7 +7,7 @@ Below is a simple example on how the themes eco-system works.
   - We also expose js helper functions for applying the theme classes.
 - A Consumer of the backoffice theme uses the core component and the backoffice theme stylesheet.
 
-> Currently (and in this example as well) the theme sits inside `wix-ui-core`. It may be later moved to its own package.
+> Currently (and in this example as well) the theme sits inside [`wix-ui-core`](/packages/wix-ui-core/). It may be later moved to its own package.
 
 ## Core Library
 
