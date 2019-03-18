@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
 import {getScrollParent} from 'popper.js/dist/umd/popper-utils';
-import onClickOutside from 'react-onclickoutside';
+import onClickOutside, { OnClickOutProps, InjectedOnClickOutProps } from 'react-onclickoutside';
 import {Manager, Reference, Popper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
@@ -133,7 +133,7 @@ function getAppendToNode({appendTo, targetRef}) {
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
-const ClickOutsideWrapper = onClickOutside(
+const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<InjectedOnClickOutProps>> = onClickOutside(
   class extends React.Component<any, any> {
     handleClickOutside() {
       this.props.handleClickOutside();
