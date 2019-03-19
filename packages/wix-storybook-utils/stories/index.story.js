@@ -8,7 +8,7 @@ const showcase = `<button className={button.one}>one</button>
 <button className={button.three}>three</button>`;
 
 const exampleScope = {
-  Button: props => <button {...props} />
+  Button: props => <button {...props} />,
 };
 
 const ExampleShowcase = () => (
@@ -42,10 +42,12 @@ export default {
 
     number: 4,
     valueSetOnMounting: 17,
+
+    undefinedValueProp: undefined,
   },
 
   exampleProps: {
-    onClick: () => 'hai'
+    onClick: () => 'hai',
   },
 
   hiddenProps: ['propNotVisibleInStorybook'],
@@ -124,5 +126,5 @@ render(
         />
       </div>
     </div>
-  )
+  ),
 };

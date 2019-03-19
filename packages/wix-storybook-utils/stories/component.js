@@ -42,6 +42,7 @@ Component.propTypes = {
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
   propNotVisibleInStorybook: PropTypes.bool,
+  undefinedValueProp: PropTypes.string,
 };
 
 Component.defaultProps = {

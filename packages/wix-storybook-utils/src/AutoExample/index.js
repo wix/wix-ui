@@ -249,24 +249,25 @@ export default class extends Component {
     );
   };
 
-  renderPropControllers = ({ props, allProps }) => {
-    return Object.entries(props).map(([key, prop]) => (
-      <Option
-        key={key}
-        {...{
-          label: key,
-          value: allProps[key],
-          defaultValue:
-            typeof this.props.componentProps === 'function'
-              ? undefined
-              : this.props.componentProps[key],
-          isRequired: prop.required || false,
-          onChange: value => this.setProp(key, value),
-          children: this.getPropControlComponent(key, prop.type),
-        }}
-      />
-    ));
-  };
+  renderPropControllers = ({ props, allProps }) =>
+    Object.entries(props)
+      .filter(([key, prop]) => prop)
+      .map(([key, prop]) => (
+        <Option
+          key={key}
+          {...{
+            label: key,
+            value: allProps[key],
+            defaultValue:
+              typeof this.props.componentProps === 'function'
+                ? undefined
+                : this.props.componentProps[key],
+            isRequired: prop.required || false,
+            onChange: value => this.setProp(key, value),
+            children: this.getPropControlComponent(key, prop.type),
+          }}
+        />
+      ));
 
   propsCategories = {
     primary: {
