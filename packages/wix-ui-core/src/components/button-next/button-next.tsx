@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import style from './button-next.st.css';
 
 export interface ButtonProps
@@ -27,7 +26,7 @@ const _addAffix = (Affix, styleClass) =>
  */
 
 const ButtonNextComponent: React.SFC<
-  ButtonProps & { focusableOnFocus: () => void; focusableOnBlur: () => void }
+  ButtonProps & { focusableOnFocus(): void; focusableOnBlur(): void }
 > = props => {
   const {
     as: Component,
@@ -63,4 +62,4 @@ const ButtonNextComponent: React.SFC<
 ButtonNextComponent.displayName = 'ButtonNext';
 ButtonNextComponent.defaultProps = { as: 'button', type: 'button' };
 
-export const ButtonNext = withFocusable(ButtonNextComponent);
+export const ButtonNext = ButtonNextComponent;
