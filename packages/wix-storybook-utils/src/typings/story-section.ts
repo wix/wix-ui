@@ -44,7 +44,7 @@ export interface DescriptionSection extends StorySection {
 }
 
 export interface HeaderSection extends StorySection {
-  storyName: string;
+  storyName?: string;
   component?: React.ReactNode;
   issueUrl?: string;
   sourceUrl?: string;
