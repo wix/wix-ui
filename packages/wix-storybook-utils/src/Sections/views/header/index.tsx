@@ -8,11 +8,14 @@ import { StoryConfig } from '../../../typings/story-config';
 import { Layout, Cell } from '../../../ui/Layout';
 import styles from './styles.scss';
 
+const concatWithSlash: (a: string, b: string) => string = (a, b) =>
+  a.endsWith('/') ? a.concat(b) : a.concat('/').concat(b);
+
 const issueUrlRules = [
   { when: ({ issueUrl }) => issueUrl, make: ({ issueUrl }) => issueUrl },
   {
-    when: (_, { config: { repoBaseURL } }) => repoBaseURL,
-    make: (_, { config: { repoBaseURL } }) => `${repoBaseURL}/issues`,
+    when: (_, { config: { issueURL } }) => issueURL,
+    make: (_, { config: { issueURL } }) => issueURL,
   },
 ];
 
@@ -22,7 +25,7 @@ const sourceUrlRules = [
     when: (_, { metadata: { displayName }, config: { repoBaseURL } }) =>
       repoBaseURL && displayName,
     make: (_, { metadata: { displayName }, config: { repoBaseURL } }) =>
-      `${repoBaseURL}/tree/master/src/${displayName}`,
+      concatWithSlash(repoBaseURL, `tree/master/src/${displayName}`),
   },
 ];
 

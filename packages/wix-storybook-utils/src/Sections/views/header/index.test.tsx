@@ -64,15 +64,15 @@ describe('header section view', () => {
       const driver = testkit();
       driver.when.created(section, {
         config: {
-          repoBaseURL: 'hello',
+          issueURL: 'hello',
         },
       });
 
-      expect(driver.get.issueUrl()).toBe('hello/issues');
+      expect(driver.get.issueUrl()).toBe('hello');
 
       driver.when.created(section, {
         config: {
-          repoBaseURL: '',
+          issueURL: '',
         },
       });
 
@@ -98,7 +98,7 @@ describe('header section view', () => {
           displayName: 'ComponentName',
         },
         config: {
-          repoBaseURL: 'hello',
+          repoBaseURL: 'hello/',
         },
       });
 
