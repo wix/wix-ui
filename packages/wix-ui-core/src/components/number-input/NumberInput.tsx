@@ -319,7 +319,7 @@ export class NumberInput extends React.Component<
 
     private focus() {
         if (this.input) {
-            this.input.focus({preventScroll: true});
+            (this.input.focus as any)({preventScroll: true});
         }
     }
 
@@ -333,7 +333,7 @@ export class NumberInput extends React.Component<
 
     private setActive() {
         if (this.node) {
-            this.node.focus({preventScroll: true});
+            (this.node.focus as any)({preventScroll: true});
         }
     }
 

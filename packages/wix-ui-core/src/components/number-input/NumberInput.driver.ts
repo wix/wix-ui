@@ -1,7 +1,7 @@
 import {UniDriver} from 'unidriver';
 import * as keycode from 'keycode';
 import {Simulate} from 'react-dom/test-utils';
-import {Modifiers} from './stepper';
+import {Modifiers} from './Stepper';
 
 export const numberInputDriverFactory = (base: UniDriver, body: UniDriver) => {
     const buildSelector = (selector: string) => `[data-automation-id="${selector}"]`;

@@ -121,20 +121,20 @@
     background: transparent;
     box-shadow: none;
 }
-.flat .nativeInput {
+.flat::nativeInput {
     border-radius: 0;
 }
 
-.flat .stepper {
+.flat::stepper {
     display: none;
 }
 
 /* number right */
-.right .nativeInput {
+.right::nativeInput {
     text-align: right;
 }
 
 /* small text*/
-.small .nativeInput {
+.small::nativeInput {
     font-size: 14px;
 }
