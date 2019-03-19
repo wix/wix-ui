@@ -12,6 +12,7 @@ import Focusable from './Focusable';
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
+import ListStory from './backoffice/list';
 
 const Components = storiesOf('Components', module);
 const Backoffice = storiesOf('Backoffice', module);
@@ -37,6 +38,7 @@ import './IconWithOptions.story';
 import './image/image.story';
 import './Label.story';
 import './LabelWithOptions.story';
+import './List.story';
 import './LinearProgressBar/index.story';
 import './NavStepper.story';
 Components.add('Pagination', () => <PaginationStory />);
@@ -56,6 +58,7 @@ HOCs.add('Focusable', Focusable);
 // BackOffice Theme
 Backoffice.add('Avatar', AvatarStory);
 Backoffice.add('Buttons', ButtonsStory);
+Backoffice.add('List', ListStory);
 
 // Tests
 Tests.add('EllipsedTooltip', CustomEllipsedText);

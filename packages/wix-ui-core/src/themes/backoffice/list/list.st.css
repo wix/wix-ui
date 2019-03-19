@@ -1,0 +1,29 @@
+:import {
+  -st-from: '../../../components/list/list.st.css';
+  -st-default: List;
+  -st-named: ListItem;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: D60;
+}
+
+.list {
+  -st-extends: List;
+}
+
+.ListItem {
+  -st-extends: ListItem;
+  padding: 9px 18px;
+  border-bottom: 1px solid value(D60);
+}
+
+.ListItem.last,
+.ListItem:last-of-type {
+    border-bottom: none;
+}
+
+.root.large .ListItem {
+  padding: 18px 30px;
+}

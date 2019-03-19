@@ -1,12 +1,3 @@
-:import {
-    -st-from: "../../variables.st.css";
-    -st-named:
-        B10,
-        B30,
-        B50,
-        D60;
-}
-
 .root {
     list-style: none;
     margin: 0;
@@ -14,15 +5,5 @@
 }
 
 .ListItem {
-    padding: 9px 18px;
-    border-bottom: 1px solid value(D60);
-}
-
-.ListItem.last,
-.ListItem:last-of-type {
-    border-bottom: none;
-}
-
-.root.large .ListItem {
-    padding: 18px 30px;
+    /* See themes for more styles */
 }

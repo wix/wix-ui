@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Avatar from './avatar/avatar.st.css';
 import ButtonNext from './button/button.st.css';
 import IconButton from './icon-button/icon-button.st.css';
+import List from './list/list.st.css';
 import TextButton from './text-button/text-button.st.css';
 import CloseButton from './close-button/close-button.st.css';
 import BackofficeTheme from './theme.st.css';
@@ -18,6 +19,10 @@ export const button = (...values) =>
   getClassNames(values, ButtonNext, 'button');
 export const iconButton = (...values) =>
   getClassNames(values, IconButton, 'iconButton');
+export const list = (...values) =>
+  getClassNames(values, List, 'list');
+export const listItem = (...values) =>
+  getClassNames(values, List, 'ListItem');
 export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>
