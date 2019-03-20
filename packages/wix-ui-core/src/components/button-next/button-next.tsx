@@ -13,6 +13,9 @@ export interface ButtonProps
   suffixIcon?: React.ReactElement<any>;
   /** apply disabled styles */
   disabled?: boolean;
+
+  focusableOnFocus?(): void;
+  focusableOnBlur?(): void;
 }
 
 const _addAffix = (Affix, styleClass) =>
@@ -25,9 +28,7 @@ const _addAffix = (Affix, styleClass) =>
  * ButtonNext
  */
 
-const ButtonNextComponent: React.SFC<
-  ButtonProps & { focusableOnFocus(): void; focusableOnBlur(): void }
-> = props => {
+const ButtonNextComponent: React.SFC<ButtonProps> = props => {
   const {
     as: Component,
     suffixIcon,
