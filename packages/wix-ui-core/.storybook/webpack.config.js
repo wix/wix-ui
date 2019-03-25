@@ -1,8 +1,8 @@
 const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
 const path = require('path');
 
-module.exports = (config, env, defaultConfig) => {
-  const newConfig = wixStorybookConfig(defaultConfig);
+module.exports = ({config}) => {
+  const newConfig = wixStorybookConfig(config);
 
   newConfig.module.rules.push({
     test: /\.story\.[j|t]sx?$/,
