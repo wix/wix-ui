@@ -1,5 +1,4 @@
 import {addParameters, configure} from '@storybook/react';
-import {create} from '@storybook/theming';
 
 function loadStories() {
     require('../stories');
