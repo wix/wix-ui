@@ -15,7 +15,7 @@ The library will usually use the wix-ui-core components and apply the theme via 
 Sometimes there might be components and composition of components which does not fit to the core and will be implemented only in the theme library.
 
 ## Stylable 
-We use Stylable for Styling components.
+We use [Stylable](https://stylable.io) for Styling components.
 The component defines a Stylable Stylesheet (`*.st.css`) file, which acts as a styling API.
 
 The Theme stylesheets, extend and override the component's styling using that API.

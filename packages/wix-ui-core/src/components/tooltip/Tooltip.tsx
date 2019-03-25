@@ -118,4 +118,4 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
   }
 }
 
-export const Tooltip = onClickOutside<any>(TooltipComponent);
+export const Tooltip: React.ComponentClass<OnClickOutProps<TooltipProps & InjectedOnClickOutProps>> = onClickOutside(TooltipComponent);
