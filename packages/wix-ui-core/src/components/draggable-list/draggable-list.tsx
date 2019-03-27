@@ -80,7 +80,7 @@ export class DraggableList extends React.Component<
                         onDragEnter={this.swap}
                         onDragEnd={this.end}
                     >
-                        {childrenArray[index] as React.ReactE}
+                        {childrenArray[index] as React.ReactElement}
                     </Draggable>
                 ))}
             </List>
