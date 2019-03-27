@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Avatar from './avatar/avatar.st.css';
 import ButtonNext from './button/button.st.css';
 import IconButton from './icon-button/icon-button.st.css';
+import DraggableList from './draggable-list/draggable-list.st.css';
 import List from './list/list.st.css';
 import TextButton from './text-button/text-button.st.css';
 import CloseButton from './close-button/close-button.st.css';
@@ -23,6 +24,10 @@ export const list = (...values) =>
   getClassNames(values, List, 'list');
 export const listItem = (...values) =>
   getClassNames(values, List, 'ListItem');
+export const draggableList = (...values) =>
+  getClassNames(values, DraggableList, 'draggable-list');
+export const draggableListItem = (...values) =>
+  getClassNames(values, DraggableList, 'draggable-list-item');
 export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>

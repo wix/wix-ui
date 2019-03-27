@@ -12,6 +12,7 @@ import Focusable from './Focusable';
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
+import DraggableListStory from './backoffice/draggable-list';
 import ListStory from './backoffice/list';
 
 const Components = storiesOf('Components', module);
@@ -30,6 +31,7 @@ import './Captcha.story';
 Components.add('Checkbox', () => <CheckboxStory />);
 import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory />);
+import './DraggableList.story';
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
 import './Input/Input.story';
 import './InputWithOptions.story';
@@ -58,6 +60,7 @@ HOCs.add('Focusable', Focusable);
 // BackOffice Theme
 Backoffice.add('Avatar', AvatarStory);
 Backoffice.add('Buttons', ButtonsStory);
+Backoffice.add('DraggableList', DraggableListStory);
 Backoffice.add('List', ListStory);
 
 // Tests

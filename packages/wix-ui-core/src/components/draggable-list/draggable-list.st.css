@@ -1,13 +1,4 @@
 :import {
-    -st-from: "../../variables.st.css";
-    -st-named:
-        B10,
-        B30,
-        B50,
-        D60;
-}
-
-:import {
     -st-from: "../list/list.st.css";
     -st-default: List;
 }
@@ -25,10 +16,6 @@
 .item {
     -st-extends: DraggableListItem;
     -st-states: hidden, draggable, dragging, hoverable;
-}
-
-.root:dragging .item:hover {
-    background-color: none;
 }
 
 .root:dragging .item * {

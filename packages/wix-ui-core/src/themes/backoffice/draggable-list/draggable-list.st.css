@@ -1,0 +1,17 @@
+:import {
+  -st-from: "../../../components/draggable-list/draggable-list.st.css";
+  -st-default: DraggableList;
+  -st-named: item as DraggableListItem;
+}
+
+.draggable-list {
+  -st-extends: DraggableList;
+}
+
+.draggable-list-item {
+  -st-extends: DraggableListItem;
+}
+
+.draggable-list:dragging .draggable-list-item:hover {
+  background-color: none;
+}

@@ -15,7 +15,7 @@ function getDefaultIndexes(children: React.ReactNode) {
 
 export interface DraggableListProps {
     className?: string;
-    children?: React.ReactElement;
+    children?: React.ReactNode;
     draggable?: boolean;
     onDrop?: (indexes: number[]) => void;
 }
@@ -80,7 +80,7 @@ export class DraggableList extends React.Component<
                         onDragEnter={this.swap}
                         onDragEnd={this.end}
                     >
-                        {childrenArray[index] as React.ReactElement}
+                        {childrenArray[index] as React.ReactE}
                     </Draggable>
                 ))}
             </List>

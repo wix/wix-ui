@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import cx from 'classnames';
 
+// import DragIcon from './drag.svg';
+// import ReorderLockerIcon from './reorder-locker.svg';
 // import {DragIcon, ReorderLockerIcon} from '../icons';
 import {ListItem} from '../list';
 

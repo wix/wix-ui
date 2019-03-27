@@ -117,6 +117,9 @@
     "moduleNameMapper": {
       "\\.(scss)$": "identity-obj-proxy"
     },
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
     "setupFiles": [
       "raf/polyfill",
