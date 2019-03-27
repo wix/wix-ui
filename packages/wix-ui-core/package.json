@@ -21,6 +21,7 @@
     "!wallaby.js",
     "!protractor.conf.js",
     "index.st.css",
+    "index.es.st.css",
     "hocs.st.css",
     "hocs.js",
     "themes",
