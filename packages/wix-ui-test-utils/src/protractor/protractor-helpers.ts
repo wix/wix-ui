@@ -3,7 +3,8 @@ import {
   promise,
   ExpectedConditions,
   ElementFinder,
-  WebElement
+  WebElement,
+  $,
 } from 'protractor';
 
 const encode = global.encodeURIComponent;
@@ -69,3 +70,5 @@ export interface ILocation {
 
 export const mouseEnter = async (element: WebElement | ILocation) => await browser.actions().mouseMove(element).perform();
 export const mouseLeave = () => mouseEnter({x: 1000, y: 1000});
+
+export const getElementByDataHook = (dataHook: string) => $(`[data-hook="${dataHook}"]`);
