@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 
 import Avatar from './avatar/avatar.st.css';
 import ButtonNext from './button/button.st.css';

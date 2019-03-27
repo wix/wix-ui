@@ -23,4 +23,5 @@ drivers
 !protractor.conf.js
 !hocs.js
 index.st.css
+index.es.st.css
 hocs.st.css

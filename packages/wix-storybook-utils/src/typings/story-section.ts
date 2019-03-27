@@ -61,6 +61,7 @@ export interface CodeSection extends StorySection {
   compact?: boolean;
   interactive?: boolean;
   autoRender?: boolean;
+  darkBackground?: boolean;
 }
 
 export interface TabSection extends StorySection {
@@ -84,7 +85,7 @@ export interface TabsSection extends StorySection {
 }
 
 type Cell = string | React.ReactNode;
-type Row = Cell[];
+export type Row = Cell[];
 export interface TableSection extends StorySection {
   rows: Row[];
 }

@@ -4,18 +4,24 @@
 $header-height: 281px;
 
 .root {
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: $header-height;
   margin-bottom: 30px;
 
   &:before {
     content: '';
     position: absolute;
+
+    /* TODO: the magic 8px tries to negate default margin: 8px on body in order to prevent horizontal
+     * scroll. eventually default body margin should be set to 0, then this `calc` can be removed */
+    width: calc(100vw - 8px);
+
     top: 0;
-    left: 0;
-    right: 0;
+    left: 50%;
+    right: 50%;
+    margin: 0 -50vw;
     height: $header-height;
 
     background-image: linear-gradient(256deg, #f6f6f6, #fefefe),
@@ -63,6 +69,17 @@ $header-height: 281px;
   }
 }
 
+.componentWrapper {
+  position: relative;
+  flex: 1 1 auto;
+}
+
 .component {
+  position: absolute;
+  padding: 10px;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
   overflow-y: auto;
 }

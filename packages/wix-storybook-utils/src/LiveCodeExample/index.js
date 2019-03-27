@@ -30,6 +30,7 @@ export default class LiveCodeExample extends Component {
     previewRow: PropTypes.bool,
     previewProps: PropTypes.object,
     autoRender: PropTypes.bool,
+    darkBackground: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -37,6 +38,7 @@ export default class LiveCodeExample extends Component {
     previewRow: false,
     previewProps: {},
     autoRender: true,
+    darkBackground: false,
   };
 
   constructor(props) {
@@ -46,7 +48,7 @@ export default class LiveCodeExample extends Component {
       code: this.formatCode(props.initialCode),
       dirty: false,
       isRtl: false,
-      isDarkBackground: false,
+      isDarkBackground: props.darkBackground,
       isEditorOpened: !props.compact,
     };
   }
@@ -77,8 +79,6 @@ export default class LiveCodeExample extends Component {
       isEditorOpened: !state.isEditorOpened,
     }));
 
-  renderCopyButton = () => <CopyButton source={this.state.code} />;
-
   render() {
     const { compact, previewRow, previewProps, autoRender } = this.props;
     const { code, isRtl, isDarkBackground, isEditorOpened } = this.state;
@@ -91,7 +91,7 @@ export default class LiveCodeExample extends Component {
       >
         {!compact && (
           <div className={styles.header}>
-            {this.renderCopyButton()}
+            <CopyButton source={this.state.code} />
 
             <div className={styles.spacer} />
 
@@ -126,7 +126,7 @@ export default class LiveCodeExample extends Component {
               className={classnames(styles.preview, previewProps.className, {
                 rtl: isRtl,
                 [styles.darkPreview]: isDarkBackground,
-                [styles.compactPreview]: compact
+                [styles.compactPreview]: compact,
               })}
               dir={isRtl ? 'rtl' : ''}
             >
@@ -154,7 +154,7 @@ export default class LiveCodeExample extends Component {
 
         {compact && (
           <div className={styles.controlButtons}>
-            {this.renderCopyButton()}
+            <CopyButton source={this.state.code} />
 
             <div style={{ marginLeft: 'auto' }} />
 

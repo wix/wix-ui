@@ -25,6 +25,14 @@ describe('StoryPage', () => {
       testkit.when.created({ metadata: { description, readme } });
       expect(testkit.get.readme()).toMatch(readme);
     });
+
+    it('should render displayName only once', () => {
+      const displayName = 'batman';
+      const readme = '# `<batman/>`';
+      const description = '# `<batman/>`';
+      testkit.when.created({ metadata: { displayName, readme, description } });
+      expect(testkit.get.readme()).toEqual('# `<batman/>`');
+    });
   });
 
   describe('given `exampleImport`', () => {
