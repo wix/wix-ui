@@ -84,7 +84,7 @@ export const withFocusable = Component => {
       const isFocused = this.state.focus || this.state.focusVisible;
       const isBecomeDisabled = !prevProps.disabled && this.props.disabled;
       if (isFocused && isBecomeDisabled) {
-        this.onBlur();
+        this.onBlur({});
       }
     }
 
@@ -102,14 +102,18 @@ export const withFocusable = Component => {
       this.setState({ focus: false, focusVisible: false });
     };
 
-    onFocus = () => {
+    onFocus = event => {
       const { onFocus } = this.props;
-      onFocus ? onFocus(this.focus) : this.focus();
+      onFocus
+        ? onFocus(event, { blur: this.blur, focus: this.focus })
+        : this.focus();
     };
 
-    onBlur = () => {
+    onBlur = event => {
       const { onBlur } = this.props;
-      onBlur ? onBlur(this.blur) : this.blur();
+      onBlur
+        ? onBlur(event, { blur: this.blur, focus: this.focus })
+        : this.blur();
     };
 
     render() {

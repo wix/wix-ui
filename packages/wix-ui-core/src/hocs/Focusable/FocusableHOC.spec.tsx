@@ -118,7 +118,7 @@ describe('FocusableHOC', () => {
         expectNotFocused(driver);
       });
       it('callback with focus method calling should have focus and focus-visible [when] keyboard focused', () => {
-        const onFocus = focus => focus();
+        const onFocus = (event, triggers) => triggers.focus();
 
         const driver = createDriver(<WithFocusableComp2 onFocus={onFocus} />);
 
@@ -141,9 +141,9 @@ describe('FocusableHOC', () => {
       });
 
       it('callback with blur method calling should blur focused component [when] keyboard focused', () => {
-        const onBlur = blur => blur();
+        const onBlur = (event, triggers) => triggers.blur();
 
-        const driver = createDriver(<WithFocusableComp2 onFocus={onBlur} />);
+        const driver = createDriver(<WithFocusableComp2 onBlur={onBlur} />);
 
         driver.tabIn();
         expectKeyboardFocused(driver, 'after focus');
