@@ -68,7 +68,7 @@ export const withFocusable = Component => {
 
     state = {
       focus: false,
-      focusVisible: false
+      focusVisible: false,
     };
 
     componentWillUnmount() {
@@ -88,7 +88,7 @@ export const withFocusable = Component => {
       }
     }
 
-    onFocus = () => {
+    focus = () => {
       this.setState({ focus: true, focusVisible: inputMethod.isKeyboard() });
       inputMethod.subscribe(this, () => {
         if (inputMethod.isKeyboard()) {
@@ -97,9 +97,19 @@ export const withFocusable = Component => {
       });
     };
 
-    onBlur = () => {
+    blur = () => {
       inputMethod.unsubscribe(this);
       this.setState({ focus: false, focusVisible: false });
+    };
+
+    onFocus = () => {
+      const { onFocus } = this.props;
+      onFocus ? onFocus(this.focus) : this.focus();
+    };
+
+    onBlur = () => {
+      const { onBlur } = this.props;
+      onBlur ? onBlur(this.blur) : this.blur();
     };
 
     render() {
@@ -117,9 +127,9 @@ export const withFocusable = Component => {
             'root',
             {
               focus: this.state.focus,
-              'focus-visible': this.state.focusVisible
+              'focus-visible': this.state.focusVisible,
             },
-            this.props
+            this.props,
           )}
         />
       );
@@ -130,6 +140,6 @@ export const withFocusable = Component => {
     ? FocusableHOC
     : hoistNonReactMethods(FocusableHOC, Component, {
         delegateTo: c => c.wrappedComponentRef,
-        hoistStatics: true
+        hoistStatics: true,
       });
 };
