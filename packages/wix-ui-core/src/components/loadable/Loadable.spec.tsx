@@ -25,11 +25,7 @@ describe('Loadable with sync loader', () => {
       >
         {Tooltip => {
           return (
-            <Tooltip
-              data-hook="linear-progressbar-tooltip"
-              placement="top"
-              content="kek"
-            >
+            <Tooltip data-hook="tooltip" placement="top" content="kek">
               {fallBackElement}
             </Tooltip>
           );
@@ -43,18 +39,14 @@ describe('Loadable with sync loader', () => {
     const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
-        loader={() => require('../Tooltip')}
+        loader={() => require('../tooltip')}
         defaultComponent={<span data-hook="default-component">Hey!</span>}
         componentKey="Tooltip"
         shouldLoadComponent={false}
       >
         {Tooltip => {
           return (
-            <Tooltip
-              data-hook="linear-progressbar-tooltip"
-              placement="top"
-              content="kek"
-            >
+            <Tooltip data-hook="tooltip" placement="top" content="kek">
               {<span data-hook="tooltip-child">Hey!</span>}
             </Tooltip>
           );
@@ -77,18 +69,14 @@ describe('Loadable with async loader', () => {
     const wrapper = createDriver(
       <div>
         <LoadableTooltip
-          loader={() => import('../Tooltip')}
+          loader={() => import('../tooltip')}
           defaultComponent={fallBackElement}
           componentKey="Tooltip"
           shouldLoadComponent
         >
           {Tooltip => {
             return (
-              <Tooltip
-                data-hook="linear-progressbar-tooltip"
-                placement="top"
-                content="kek"
-              >
+              <Tooltip data-hook="tooltip" placement="top" content="kek">
                 {fallBackElement}
               </Tooltip>
             );
@@ -105,18 +93,14 @@ describe('Loadable with async loader', () => {
     const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
-        loader={() => import('../Tooltip')}
+        loader={() => import('../tooltip')}
         defaultComponent={<span data-hook="default-component">Hey!</span>}
         componentKey="Tooltip"
         shouldLoadComponent={false}
       >
         {Tooltip => {
           return (
-            <Tooltip
-              data-hook="linear-progressbar-tooltip"
-              placement="top"
-              content="kek"
-            >
+            <Tooltip data-hook="tooltip" placement="top" content="kek">
               {<span data-hook="tooltip-child">Hey!</span>}
             </Tooltip>
           );

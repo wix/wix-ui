@@ -120,8 +120,8 @@ class EllipsedTooltip extends React.Component<
       <LoadableTooltip
         loader={() =>
           shouldLoadAsync
-            ? import('../../components/Tooltip')
-            : require('../../components/Tooltip')
+            ? import('../../components/tooltip')
+            : require('../../components/tooltip')
         }
         defaultComponent={this._renderText()}
         componentKey="Tooltip"
