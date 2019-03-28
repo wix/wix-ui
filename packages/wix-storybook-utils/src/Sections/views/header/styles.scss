@@ -1,0 +1,85 @@
+@import '../../../ui/colors.scss';
+@import '../../../ui/typography.scss';
+
+$header-height: 281px;
+
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: $header-height;
+  margin-bottom: 30px;
+
+  &:before {
+    content: '';
+    position: absolute;
+
+    /* TODO: the magic 8px tries to negate default margin: 8px on body in order to prevent horizontal
+     * scroll. eventually default body margin should be set to 0, then this `calc` can be removed */
+    width: calc(100vw - 8px);
+
+    top: 0;
+    left: 50%;
+    right: 50%;
+    margin: 0 -50vw;
+    height: $header-height;
+
+    background-image: linear-gradient(256deg, #f6f6f6, #fefefe),
+                      linear-gradient(to bottom, rgba(240, 244, 247, 0.5), rgba(240, 244, 247, 0.5)),
+                      linear-gradient(to bottom, #fff, #fff);
+    z-index: -1;
+    border-bottom: 1px solid #cbd3dc;
+  }
+}
+
+.titleLayout {
+  margin: 60px 0 40px;
+}
+
+.title {
+  @include font(medium);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.33;
+  color: $D10;
+}
+
+.title,
+.links {
+  display: flex;
+  align-items: flex-end;
+}
+
+.links {
+  justify-content: flex-end;
+}
+
+.link {
+  @include font(thin);
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  color: $B10;
+  font-size: 16px;
+
+  a {
+    text-decoration: none;
+    color: $B10;
+    margin-left: 8px;
+  }
+}
+
+.componentWrapper {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.component {
+  position: absolute;
+  padding: 10px;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+  overflow-y: auto;
+}

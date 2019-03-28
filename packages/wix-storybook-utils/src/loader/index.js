@@ -12,15 +12,16 @@ module.exports = function(source) {
 
   // 1. find component path
   pathFinder(source)
-    // 2. get component metadata
-    .then(componentPath => gatherAll(path.join(this.context, componentPath)))
+    .then(componentPath => {
+      // 2. get component metadata
+      const metadata = componentPath
+        ? gatherAll(path.join(this.context, componentPath))
+        : Promise.resolve({});
 
-    // 3. merge component metadata with storybook config
-    .then(metadataMerger(source))
-
-    // 4. import and wrap with `story` function
-    .then(prepareStory(storyConfig))
-
+      return metadata
+        .then(metadataMerger(source)) // 3. merge component metadata with storybook config
+        .then(prepareStory(storyConfig)); // 4. import and wrap with `story` function
+    })
     // 5. succeed with augmented source
     .then(finalSource => callback(null, finalSource))
 

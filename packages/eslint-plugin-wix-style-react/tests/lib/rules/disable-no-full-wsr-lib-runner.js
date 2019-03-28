@@ -11,7 +11,7 @@ try {
     stderr: 'inherit',
     cwd: path.resolve(__dirname, '../../fixtures/disable-no-full-wsr-lib')
   });
-  console.log('Fixtures passing: ', test.stdout);
+  console.log('Fixtures for `disable-no-full-wsr-lib` passing: ', test.stdout);
 } catch(e) {
   throw e.stdout;
 }

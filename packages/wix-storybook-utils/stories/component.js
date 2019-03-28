@@ -11,21 +11,38 @@ const disabledStyle = {
 };
 
 /** Description from source! */
-const Component = ({ enabled, children, onClick, number }) => (
-  <div style={enabled ? enabledStyle : disabledStyle} onClick={onClick}>
-    {children}
-    the number is {number}
-    <br />
-    and it's type is {typeof number}
-  </div>
-);
+class Component extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      valueSetOnMounting: this.props.valueSetOnMounting,
+    };
+  }
+  render() {
+    const { enabled, children, onClick, number } = this.props;
+    return (
+      <div style={enabled ? enabledStyle : disabledStyle} onClick={onClick}>
+        {children}
+        <br />
+        the number is {number}
+        <br />
+        and it's type is {typeof number}
+        <br />
+        this value is set only when mounted or remount:{' '}
+        {this.state.valueSetOnMounting}
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
   number: PropTypes.number,
+  valueSetOnMounting: PropTypes.number,
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
   propNotVisibleInStorybook: PropTypes.bool,
+  undefinedValueProp: PropTypes.string,
 };
 
 Component.defaultProps = {

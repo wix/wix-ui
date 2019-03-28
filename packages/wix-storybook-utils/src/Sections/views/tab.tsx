@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import { TabSection } from '../../typings/story-section';
-
 import { StoryConfig } from '../../typings/story-config';
+import { sectionWithSiblings } from '../section-with-siblings';
 
 import { error } from './error';
-import { liveCode } from './live-code';
 import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
@@ -13,46 +12,61 @@ import { api } from './api';
 import { playground } from './playground';
 import { testkit } from './testkit';
 import { isTab, extractTabs } from '../extract-tabs';
+import { columns } from './columns';
+import { table } from './table';
+import { tabs } from './tabs';
+import { mdx } from './mdx';
+import { divider } from './divider';
+import { header } from './header';
+import { title } from './title';
 
-const styles = require('../styles.scss');
+import styles from '../styles.scss';
+import TabbedView from '../../TabbedView';
 
-const TabbedView = require('../../TabbedView').default;
+export const tab = (
+  section: TabSection,
+  storyConfig: StoryConfig,
+): React.ReactNode => {
+  const extractedTabs = extractTabs(section);
+  return render(section, extractedTabs, storyConfig);
+};
 
 const views = {
+  header,
   error,
-  liveCode,
   importExample,
   description,
   code,
   api,
   playground,
   testkit,
-  tab: (section: TabSection, storyConfig: StoryConfig): React.ReactNode => {
-    const tabs = extractTabs(section);
-    return render(section, tabs, storyConfig);
-  },
+  tab,
+  columns,
+  table,
+  tabs,
+  mdx,
+  divider,
+  title,
 };
 
-const getView = type => views[type] || error;
+export const getView = type => views[type] || error;
 
 function render(
   section: TabSection,
-  tabs: string[],
+  tabTitles: string[],
   storyConfig: StoryConfig,
 ): React.ReactNode {
-  return React.createElement(tabs.length ? TabbedView : 'div', {
-    ...(tabs ? { tabs } : {}),
+  return React.createElement(tabTitles.length ? TabbedView : 'div', {
+    ...(tabTitles ? { tabs: tabTitles } : {}),
     className: styles.tab,
-    children: section.sections.map((tabSection, key) => (
-      <div className={styles.section} key={key}>
-        {!isTab(tabSection) && tabSection.title && (
-          <div className={styles.sectionTitle}>{tabSection.title}</div>
-        )}
+    children: section.sections.map((tabSection, key) => {
+      const view = getView(tabSection.type)(tabSection, storyConfig);
 
-        {getView(tabSection.type)(tabSection, storyConfig)}
-      </div>
-    )),
+      return (
+        <div key={key}>
+          {isTab(tabSection) ? view : sectionWithSiblings(tabSection, view)}
+        </div>
+      );
+    }),
   });
 }
-
-export const tab = views.tab;

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../ui/Tabs';
+import * as queryString from 'query-string';
+import { isE2E } from '../utils';
 
-const createTab = id => ({ title: id, id });
+const createTab = id => ({ title: id, id, dataHook: id });
 
 export default class TabbedView extends Component {
   static propTypes = {
@@ -14,31 +16,57 @@ export default class TabbedView extends Component {
     ]),
   };
 
+  static defaultProps = {
+    showTabs: !isE2E,
+  };
+
   constructor(props) {
     super(props);
-
+    const activeTabFromQuery = queryString.parse(window.parent.location.search)
+      .activeTab;
     this.state = {
-      activeTabId: props.activeTabId || props.tabs[0],
+      activeTabId: activeTabFromQuery || props.activeTabId || props.tabs[0],
     };
   }
 
-  onTabClick = tab => this.setState({ activeTabId: tab.id });
+  isActiveTab = index => {
+    const testedTab = this.props.tabs[index];
+    if (!testedTab) {
+      return false;
+    }
+    return this.state.activeTabId.toLowerCase() === testedTab.toLowerCase();
+  };
+
+  getNormalizedTabName = () =>
+    this.props.tabs.find((_, i) => this.isActiveTab(i));
+
+  onTabClick = tab => {
+    const originalQuery = queryString.parse(window.parent.location.search);
+    originalQuery.activeTab = tab.id;
+    window.parent.history.pushState(
+      { id: tab.id },
+      '',
+      `?${queryString.stringify(originalQuery)}`,
+    );
+    this.setState({ activeTabId: tab.id });
+  };
 
   render() {
     const shouldHideForE2E = global.self === global.top;
-
+    const { className, showTabs } = this.props;
     return (
       <div>
-        {!shouldHideForE2E && (
+        {showTabs && (
           <Tabs
-            activeId={this.state.activeTabId}
+            activeId={this.getNormalizedTabName()}
             onClick={this.onTabClick}
             items={this.props.tabs.map(createTab)}
+            className={className}
           />
         )}
 
         {React.Children.map(this.props.children, (child, index) =>
-          this.state.activeTabId === this.props.tabs[index] ? child : null,
+          this.isActiveTab(index) ? child : null,
         )}
       </div>
     );

@@ -41,6 +41,9 @@ export default {
     },
 
     number: 4,
+    valueSetOnMounting: 17,
+
+    undefinedValueProp: undefined,
   },
 
   exampleProps: {

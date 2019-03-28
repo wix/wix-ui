@@ -1,20 +1,29 @@
 import * as React from 'react';
 
+import LiveCodeExample from '../../LiveCodeExample';
+import CodeBlock from '../../CodeBlock';
 import { CodeSection } from '../../typings/story-section';
-const CodeBlock = require('../../CodeBlock').default;
 
-const styles = require('./styles.scss');
-
-export const code: ((a: CodeSection) => React.ReactNode) = ({
+export const code: (a: CodeSection) => React.ReactNode = ({
   source,
-  description,
+  components,
+  compact = false,
+  previewProps,
+  interactive = true,
+  autoRender,
+  darkBackground = false,
 }) =>
-  description ? (
-    <div>
-      <div className={styles.description}>{description}</div>
-
-      <CodeBlock source={source} />
-    </div>
+  interactive ? (
+    <LiveCodeExample
+      {...{
+        previewProps,
+        compact,
+        autoRender,
+        darkBackground,
+        scope: components,
+        initialCode: source.trim(),
+      }}
+    />
   ) : (
-    <CodeBlock source={source} />
+    <CodeBlock source={source.trim()} />
   );

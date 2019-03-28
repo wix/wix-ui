@@ -13,9 +13,13 @@
 
 .content {}
 
-.prefix {}
+.prefix {
+  flex-shrink: 0;
+}
 
-.suffix {}
+.suffix {
+  flex-shrink: 0;
+}
 
 .root:disabled {
   cursor: default;

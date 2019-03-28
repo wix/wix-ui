@@ -1,17 +1,19 @@
 import {Configuration, Linter, Replacement} from 'tslint';
 
-export const helper = ({src, rule}) => {
+const DEFAULT_RULES_DIRECTORY = 'src';
+
+export const helper = ({src, rule, rulesDirectory = DEFAULT_RULES_DIRECTORY}) => {
     const linter = new Linter({fix: false});
     linter.lint('', src, Configuration.parseConfigFile({
         rules: {
             [rule.name || rule]: [true, ...rule.options]
         },
-        rulesDirectory: 'src'
+        rulesDirectory,
     }));
     return linter.getResult();
 };
 
-export const getFixedResult = ({src, rule}) => {
-    const result = helper({src, rule});
+export const getFixedResult = ({src, rule, rulesDirectory = DEFAULT_RULES_DIRECTORY}) => {
+    const result = helper({src, rule, rulesDirectory});
     return Replacement.applyFixes(src, [result.failures[0].getFix()]);
 };

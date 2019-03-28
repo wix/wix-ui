@@ -2,21 +2,20 @@ import * as React from 'react';
 import Component from './component';
 
 import {
-  tab,
-  description,
-  liveCode,
-  code,
-  importExample,
   api,
+  code,
+  columns,
+  description,
+  divider,
+  header,
+  importExample,
   playground,
+  tab,
+  table,
+  tabs,
   testkit,
+  title,
 } from '../src/Sections';
-
-const LiveExampleComponent = ({ disabled }) => (
-  <div style={{ background: disabled ? 'red' : '#bada55' }}>
-    Oh hello there!
-  </div>
-);
 
 export default {
   category: 'Components',
@@ -24,60 +23,60 @@ export default {
   component: Component,
   componentPath: './component.js',
   sections: [
-    tab({
-      title: 'hello',
-      sections: [
-        tab({
-          title: 'inner tab',
-          sections: [
-            code({
-              description: 'this is the best code',
-              source: '"hello"',
-            }),
-
-            api(),
-          ],
-        }),
-        tab({
-          title: 'inner tab #2',
-          sections: [description({ text: '# im inside another tab!' })],
-        }),
-      ],
+    header({
+      component: (
+        <div style={{ background: '#bada55', boxShadow: '0 0 3px 0 blue' }}>
+          Oh hello there!
+        </div>
+      ),
+      issueUrl: 'https://github.com/wix/wix-ui/issues/new',
+      sourceUrl: 'https://github.com/wix/wix-ui/',
     }),
 
-    tab({
-      title: 'how are you',
-      sections: [
-        importExample({
-          source: "import Component from 'your-library/Component';",
-        }),
+    tabs([
+      tab({
+        title: 'Something something',
+        sections: [
+          title('Component Title'),
 
-        description({
-          text: 'hello guys!',
-        }),
+          importExample(`
+import Button from 'wix-style-react/Button';
+import Button from 'wix-style-react/Button';`),
+          columns({
+            title: 'Septyni astuoni keturiolika',
+            items: [description(`🔨 To trigger an operation.`)],
+          }),
 
-        liveCode({
-          source: '<div><LiveExampleComponent/></div>',
-          components: { LiveExampleComponent },
-          compact: true,
-        }),
+          divider(),
+        ],
+      }),
 
-        code({
-          title: 'Below is code example',
-          description: 'hey this some really cool code example!',
-          source: '<div><LiveExampleComponent/></div>',
-        }),
-      ],
-    }),
+      tab({
+        title: 'Code Section Examples',
+        sections: [
+          { title: 'Default', source: '<div>fun</div>' },
+          { title: 'Dark', source: '<div>fun</div>', darkBackground: true },
+          { title: 'Compact', source: '<div>fun</div>', compact: true },
+          {
+            title: 'Compact & Dark',
+            source: '<div>fun</div>',
+            compact: true,
+            darkBackground: true,
+          },
+        ].map(code),
+      }),
 
-    tab({
-      title: 'Playground',
-      sections: [playground()],
-    }),
+      tab({
+        title: 'how are you',
+        sections: [
+          importExample("import Component from 'your-library/Component';"),
+        ],
+      }),
 
-    tab({
-      title: 'Testkit',
-      sections: [testkit()],
-    }),
+      ...[
+        { title: 'Playground', sections: [playground()] },
+        { title: 'Testkit', sections: [testkit()] },
+      ].map(tab),
+    ]),
   ],
 };

@@ -1,86 +1,144 @@
 import {
+  Section,
   SectionType,
   DescriptionSection,
   ImportExampleSection,
-  LiveCodeSection,
   CodeSection,
   ErrorSection,
   TabSection,
   ApiSection,
   PlaygroundSection,
   TestkitSection,
+  ColumnsSection,
+  TableSection,
+  Row as TableRow,
+  HeaderSection,
+  TabsSection,
+  MDXSection,
+  DividerSection,
+  TitleSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-const baseSection = rest => ({
+export const baseSection = config => ({
   type: SectionType.Error,
+  pretitle: '',
   title: '',
+  subtitle: '',
   hidden: false,
-  ...rest,
+  ...config,
 });
 
-export const error: ((
+export const error: (
   object: Partial<ErrorSection>,
-) => ErrorSection) = baseSection;
+) => ErrorSection = baseSection;
 
-export const liveCode: ((
-  object: Partial<LiveCodeSection>,
-) => LiveCodeSection) = rest =>
-  baseSection({
-    type: SectionType.LiveCode,
-    ...rest,
-  });
-
-export const code: ((object: Partial<CodeSection>) => CodeSection) = rest =>
+export const code: (
+  object: string | Partial<CodeSection>,
+) => CodeSection = config =>
   baseSection({
     type: SectionType.Code,
-    ...rest,
+    ...(typeof config === 'string' ? { source: config } : config),
   });
 
-export const description: ((
-  object: Partial<DescriptionSection>,
-) => DescriptionSection) = rest =>
+export const description: (
+  object: string | Partial<DescriptionSection>,
+) => DescriptionSection = config =>
   baseSection({
     type: SectionType.Description,
-    ...rest,
+    ...(typeof config === 'string' ? { text: config } : config),
   });
 
-export const importExample: ((
-  object: Partial<ImportExampleSection>,
-) => ImportExampleSection) = rest =>
+export const header: (
+  object: Partial<HeaderSection>,
+) => HeaderSection = config =>
+  baseSection({
+    type: SectionType.Header,
+    ...config,
+  });
+
+export const importExample: (
+  object: string | Partial<ImportExampleSection>,
+) => ImportExampleSection = config =>
   baseSection({
     type: SectionType.ImportExample,
-    ...rest,
+    ...(typeof config === 'string' ? { source: config } : config),
   });
 
-export const tab: ((object: Partial<TabSection>) => TabSection) = rest =>
+export const tab: (object: Partial<TabSection>) => TabSection = config =>
   baseSection({
     type: SectionType.Tab,
     sections: [],
-    ...rest,
+    ...config,
   });
 
-export const api: ((object?: Partial<ApiSection>) => ApiSection) = rest =>
+export const api: (object?: Partial<ApiSection>) => ApiSection = config =>
   baseSection({
     type: SectionType.Api,
-    ...rest,
+    ...config,
   });
 
-export const playground: ((
+export const playground: (
   object?: Partial<PlaygroundSection>,
-) => PlaygroundSection) = rest =>
+) => PlaygroundSection = config =>
   baseSection({
     type: SectionType.Playground,
-    ...rest,
+    ...config,
   });
 
-export const testkit: ((
+export const testkit: (
   object?: Partial<TestkitSection>,
-) => TestkitSection) = rest =>
+) => TestkitSection = config =>
   baseSection({
     type: SectionType.Testkit,
-    ...rest,
+    ...config,
+  });
+
+export const columns: (
+  object: (Section | React.ReactNode)[] | Partial<ColumnsSection>,
+) => ColumnsSection = config =>
+  baseSection({
+    type: SectionType.Columns,
+    ...(Array.isArray(config) ? { items: config } : config),
+  });
+
+export const tabs: (
+  object: Section[] | Partial<TabsSection>,
+) => TabsSection = config =>
+  baseSection({
+    type: SectionType.Tabs,
+    ...(Array.isArray(config) ? { tabs: config } : config),
+  });
+
+export const table: (
+  object: TableRow[] | Partial<TableSection>,
+) => TableSection = config =>
+  baseSection({
+    type: SectionType.Table,
+    ...(Array.isArray(config) ? { rows: config } : config),
+  });
+
+export const mdx: (object?: Partial<MDXSection>) => MDXSection = config =>
+  baseSection({
+    type: SectionType.MDX,
+    ...config,
+  });
+
+export const divider: (
+  object?: Partial<DividerSection>,
+) => DividerSection = config =>
+  baseSection({
+    type: SectionType.Divider,
+    ...config,
+  });
+
+export const title: (
+  object: string | Partial<DividerSection>,
+) => TitleSection = config =>
+  baseSection({
+    type: SectionType.Title,
+    ...(typeof config === 'string' ? { title: config } : config),
   });

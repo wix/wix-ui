@@ -1,11 +1,10 @@
 import * as React from 'react';
+
 import { DescriptionSection } from '../../typings/story-section';
+import Markdown from '../../Markdown';
+import styles from './styles.scss';
 
-const Markdown = require('../../Markdown').default;
-
-const styles = require('./styles.scss');
-
-export const description: ((a: DescriptionSection) => React.ReactNode) = ({
+export const description: (a: DescriptionSection) => React.ReactNode = ({
   text,
 }) => (
   <div className={styles.description}>

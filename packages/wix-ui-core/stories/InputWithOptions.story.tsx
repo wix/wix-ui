@@ -10,12 +10,24 @@ export default {
   component: InputWithOptions,
   componentPath: '../src/components/input-with-options',
 
-  componentProps: {
-    'data-hook': 'storybook-inputwithoptions',
-    options,
-    inputProps: {},
-    fixedFooter: 'Fixed Footer',
-    fixedHeader: 'Fixed Header'
+  componentProps: setState => {
+      const onChange = e => setState({
+        inputProps: {
+          value: e.target.value,
+          onChange,
+        }
+      });
+
+      return {
+        'data-hook': 'storybook-inputwithoptions',
+        options,
+        inputProps: {
+          onChange
+        },
+        fixedFooter: 'Fixed Footer',
+        fixedHeader: 'Fixed Header',
+        emptyStateMessage: 'Empty state message'
+      }
   },
 
   exampleProps: {

@@ -1,14 +1,30 @@
 @import '../ui/typography.scss';
 
+.page {
+  margin: 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  margin-bottom: 30px;
+  max-width: 1161px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
 .title {
-  margin-top: 30px;
   font-size: 36px;
   line-height: 1.33;
   color: #162d3d;
 }
 
 .subtitle {
-  margin-bottom: 10px;
   @include font(medium);
   font-size: 16px;
   line-height: 1.5;
@@ -22,10 +38,38 @@
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .section-title {
   @include font(roman);
   font-size: 20px;
+}
+
+.section-subtitle {
+  @include font(roman);
+  margin-bottom: 30px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #7a92a5;
+}
+
+.section-pretitle {
+  @include font(roman);
+  font-size: 12px;
+  font-weight: 500;
+  color: #7a92a5;
+}
+
+.tab {
+  margin-bottom: 30px;
+}
+
+.divider {
+  position: relative;
+  left: 49%;
+  right: 49%;
+  width: 100vw;
+  margin: 0 -50vw 60px;
+  border-bottom: 1px solid #cbd3dc;
 }

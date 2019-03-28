@@ -1,0 +1,22 @@
+:import {
+    -st-from: "../../../components/image/image.st.css";
+    -st-default: Image;
+}
+
+.root {
+    -st-extends: Image;
+    height: 235px;
+    width: 100%;
+}
+
+.root:loadState(loading){
+    border: 13px solid gold
+}
+
+.root:loadState(loaded){ 
+    border: 13px solid blue
+}
+
+.root:loadState(error){ 
+    border: 13px solid red
+}

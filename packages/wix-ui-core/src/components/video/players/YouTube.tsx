@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
+const isString = require('lodash/isString');
 import {getSDK} from '../utils'
 import {EVENTS, PROGRESS_INTERVAL} from '../constants';
 import playerHOC from './playerHOC';
@@ -18,7 +18,7 @@ import styles from '../Video.st.css';
 
 const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url);
+export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'YT',
@@ -97,7 +97,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
 
   initPlayer = YT => {
     const {
-      playing, muted, controls, playerOptions,
+      playing, muted, controls, loop, playerOptions,
       onInit, onReady, onDuration, onError
     } = this.props;
     const src = this.props.src as string;
@@ -111,8 +111,10 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         autoplay: playing ? 1 : 0,
         mute: muted ? 1 : 0,
         controls: controls ? 1 : 0,
+        loop: loop ? 1 : 0,
         origin: window.location.origin,
         playsinline: true,
+        ...(loop && {playlist: videoId}),
         ...playerOptions
       },
       events: {

@@ -34,3 +34,4 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 * Use a descriptive name since it'll be used as the React component name.
 * If the icon has multiple variations (small, large, outlined, filled), specify the variation at the end of the file name, e.g. `FormFieldErrorSmall.svg`.
 * Add the new SVG file to the `src/general/raw` or `src/system/raw` folder according to its purpose of usage (internal or external)
+* After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools)

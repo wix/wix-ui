@@ -1,0 +1,21 @@
+.root {
+  margin: 0 0 30px;
+}
+
+.code {
+  padding: 26px;
+  margin-bottom: 8px;
+  border: 1px solid #e5e5e5;
+  background: rgba(240, 244, 247, .5);
+
+  :global .markdown-body {
+    code {
+      background: transparent;
+    }
+
+    p, pre {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

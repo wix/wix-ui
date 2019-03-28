@@ -1,0 +1,24 @@
+# Some Markdown
+
+## Some more titles!!
+
+import TextButton from "../../src/TextButton";
+
+<div>Some div here homey</div>
+
+<div>
+  a clickable textual button
+  <TextButton onClick={() => alert("yes, it is clickable")}>
+    This is a clickable button
+  </TextButton>
+</div>
+
+## Live code
+
+import { code } from "../../src/Sections/views/code.tsx";
+
+<div>
+  {code({
+    source: `class MyComponent extends React.Component { render() { return <div>MyComponent</div> } }`
+  })}
+</div>

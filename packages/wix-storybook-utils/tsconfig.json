@@ -14,10 +14,12 @@
       "dom",
       "es2016"
     ],
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "esModuleInterop": true
   },
   "include": [
+    "./src/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.js",
     "./src/**/*.tsx"

@@ -48,6 +48,46 @@ describe('AutoExample', () => {
     });
   });
 
+  describe('compnentProps', () => {
+    it('should not fail with `undefined` values', () => {
+      const testkit = new Testkit(AutoExample);
+      const create = () =>
+        testkit.when.created({
+          parsedSource: {
+            displayName: 'TestComponent',
+            props: {
+              functionProp: { type: { name: 'func' } },
+            },
+          },
+          componentProps: {
+            undefinedProp: undefined,
+          },
+        });
+
+      expect(create).not.toThrow();
+    });
+
+    it('should display NodesList regardless of type in parsedSource', () => {
+      const testkit = new Testkit(AutoExample);
+      testkit.when.created({
+        parsedSource: {
+          displayName: 'TestComponent',
+          props: {
+            someProp: {
+              type: { name: 'unknown type name, something really obscure' },
+            },
+          },
+        },
+        exampleProps: {
+          someProp: [1, 2, 3, 4, 5],
+        },
+      });
+
+      const option = testkit.get.options().props();
+      expect(option.children).not.toBe(null);
+    });
+  });
+
   describe('exampleProps', () => {
     it('should display "Interaction preview" for function type', () => {
       const testkit = new Testkit(AutoExample);

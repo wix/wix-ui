@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Cell } from '../../ui/Layout';
 import UIInput from '../../ui/input';
 import ToggleSwitch from '../../ui/toggle-switch';
+import TextButton from '../../TextButton';
 import Heading from '../../ui/heading';
 
 import ComponentSource from '../../ComponentSource';
@@ -19,12 +20,18 @@ const Preview = ({
   onToggleRtl,
   isDarkBackground,
   onToggleBackground,
+  onRemountComponent,
 }) => (
   <Cell span={6}>
     <div className={styles.title}>
       <Heading>Preview</Heading>
 
       <div className={styles.previewControls}>
+        <div className={styles.previewControl}>
+          <TextButton size="small" onClick={onRemountComponent}>
+            Remount Component
+          </TextButton>
+        </div>
         <div className={styles.previewControl}>
           Imitate RTL:&nbsp;
           <ToggleSwitch size="small" checked={isRtl} onChange={onToggleRtl} />
@@ -61,6 +68,7 @@ Preview.propTypes = {
   isDarkBackground: PropTypes.bool,
   onToggleRtl: PropTypes.func,
   onToggleBackground: PropTypes.func,
+  onRemountComponent: PropTypes.func,
 };
 
 const Toggle = ({ value, onChange }) => (

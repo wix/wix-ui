@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
 import {getScrollParent} from 'popper.js/dist/umd/popper-utils';
-import onClickOutside from 'react-onclickoutside';
+import onClickOutside, { OnClickOutProps, InjectedOnClickOutProps } from 'react-onclickoutside';
 import {Manager, Reference, Popper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Portal} from 'react-portal';
@@ -20,7 +20,7 @@ import {
 } from '../../utils/stylableUtils';
 
 import * as classNames from 'classnames';
-import isElement = require('lodash/isElement');
+const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -133,7 +133,7 @@ function getAppendToNode({appendTo, targetRef}) {
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
-const ClickOutsideWrapper = onClickOutside(
+const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<InjectedOnClickOutProps>> = onClickOutside(
   class extends React.Component<any, any> {
     handleClickOutside() {
       this.props.handleClickOutside();
@@ -426,7 +426,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager>
-        <ClickOutsideWrapper handleClickOutside={this._handleClickOutside}>
+        <ClickOutsideWrapper handleClickOutside={this._handleClickOutside} outsideClickIgnoreClass={style.popover} >
           <div
             style={inlineStyles}
             {...style('root', {}, this.props)}

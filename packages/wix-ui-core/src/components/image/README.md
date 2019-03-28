@@ -13,19 +13,18 @@ additional features, both visual and behavioral, adding image customizations.
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
-| <img/> attributes | HTMLImageAttributes| - | - | Supports all native HTML <img/> attributes. |
+| nativeProps | HTMLImageAttributes| ✖ | ✖ | Supports all native HTML <img/> attributes. |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
-| resizeMode | 'fill' \| 'cover' \| 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
+| resizeMode | 'fill' &#124; 'cover' &#124; 'contain' | 'fill' | ✖ | Defines how the Image responds to the height and width of its content box. |
 | errorImage | string | ✖  | ✖ | URL to load if src loading result in an error. |
-| placeholder | ReactNode | ✖  | ✖ | Placeholder to display while image is being loaded. |
 
 **Example 1:**
 
 ```jsx
 import * as React from 'react';
 import {Image} from 'wix-ui-core/Image';
-import style from './image.st.css';
+import style from './image-demo.st.css';
 import Loader from './Loader';
 
 export class ImageDemo extends React.Component<{}, ImageDemoState> {
@@ -36,7 +35,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
     
         public render() {
             return (
-                <div>
+                <div {...style('root', {}, this.props)} >
                     <h2>Image</h2>
                     <div>
                         <label>src:
@@ -48,8 +47,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                             <option value="fill">fill</option>
                         </select>
                     </div>
-                    <Image
-                        {...style('root', {}, this.props)}
+                    <Image                      
                         src={this.state.src}
                         resizeMode={this.state.resizeMode}
                         className="myImage"
@@ -144,8 +142,8 @@ Avoid duplicating the alt attribute's value in a title attribute declared on the
 ## Behavior
 
 ### Placeholder
-The placeholder prop describes the loading state of the component and is being displayed before the src/srcSet or the imageError are loaded,  It is represented as a ReactNode.
-If the src/srcSet wasn't provided the placeholder will not be displayed.
+
+!! TBD !!
 
 #### Resize Modes
 

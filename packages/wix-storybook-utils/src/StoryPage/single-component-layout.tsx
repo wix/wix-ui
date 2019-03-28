@@ -5,21 +5,21 @@ import { importString } from './import-string';
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
-const TabbedView = require('../TabbedView').default;
-const Markdown = require('../Markdown').default;
-const CodeBlock = require('../CodeBlock').default;
-const AutoExample = require('../AutoExample').default;
-const AutoDocs = require('../AutoDocs').default;
-const Heading = require('../ui/heading').default;
+import TabbedView from '../TabbedView';
+import Markdown from '../Markdown';
+import CodeBlock from '../CodeBlock';
+import AutoExample from '../AutoExample';
+import AutoDocs from '../AutoDocs';
+import Heading from '../ui/heading';
 
-const styles = require('./styles.scss');
+import styles from './styles.scss';
 
 const hasTestkitDocs = (metadata: Metadata): Boolean =>
   Boolean(metadata.readmeTestkit) ||
   (metadata.drivers &&
     metadata.drivers.some(driver => Boolean(driver.descriptor)));
 
-const tabs: ((a: Metadata) => string[]) = metadata => [
+const tabs: (a: Metadata) => string[] = metadata => [
   'Usage',
   'API',
   ...(hasTestkitDocs(metadata) ? ['Testkit'] : []),
@@ -30,14 +30,19 @@ interface SingleComponentLayoutProps extends StoryConfig {
   activeTabId?: string;
 }
 
-const readme = metadata => {
-  const content = metadata.readme || metadata.description;
-  const fallback = `# \`<${metadata.displayName}/>\``;
+const hasTitle = (string = '') => string.startsWith('# ');
 
-  return <Markdown dataHook="metadata-readme" source={content || fallback} />;
+const readme = metadata => {
+  const description = metadata.readme || metadata.description;
+  const title = hasTitle(description)
+    ? ''
+    : `# \`<${metadata.displayName}/>\`\n`;
+  const content = description ? `${title}${description}` : title;
+
+  return <Markdown dataHook="metadata-readme" source={content} />;
 };
 
-export const SingleComponentLayout: React.StatelessComponent<
+export const SingleComponentLayout: React.FunctionComponent<
   SingleComponentLayoutProps
 > = ({
   metadata,

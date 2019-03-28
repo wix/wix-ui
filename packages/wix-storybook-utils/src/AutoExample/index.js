@@ -126,6 +126,7 @@ export default class extends Component {
       funcAnimate: {},
       isRtl: false,
       isDarkBackground: false,
+      forceRemount: 0,
     };
 
     this._initialPropsState = this.state.propsState;
@@ -143,6 +144,10 @@ export default class extends Component {
   }
 
   resetState = () => this.setState({ propsState: this._initialPropsState });
+
+  remountComponent = () => {
+    this.setState({ forceRemount: this.state.forceRemount + 1 });
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -244,24 +249,25 @@ export default class extends Component {
     );
   };
 
-  renderPropControllers = ({ props, allProps }) => {
-    return Object.entries(props).map(([key, prop]) => (
-      <Option
-        key={key}
-        {...{
-          label: key,
-          value: allProps[key],
-          defaultValue:
-            typeof this.props.componentProps === 'function'
-              ? undefined
-              : this.props.componentProps[key],
-          isRequired: prop.required || false,
-          onChange: value => this.setProp(key, value),
-          children: this.getPropControlComponent(key, prop.type),
-        }}
-      />
-    ));
-  };
+  renderPropControllers = ({ props, allProps }) =>
+    Object.entries(props)
+      .filter(([key, prop]) => prop)
+      .map(([key, prop]) => (
+        <Option
+          key={key}
+          {...{
+            label: key,
+            value: allProps[key],
+            defaultValue:
+              typeof this.props.componentProps === 'function'
+                ? undefined
+                : this.props.componentProps[key],
+            isRequired: prop.required || false,
+            onChange: value => this.setProp(key, value),
+            children: this.getPropControlComponent(key, prop.type),
+          }}
+        />
+      ));
 
   propsCategories = {
     primary: {
@@ -377,12 +383,14 @@ export default class extends Component {
         </Cell>
 
         <Preview
+          key={this.state.forceRemount}
           isRtl={this.state.isRtl}
           isDarkBackground={this.state.isDarkBackground}
           onToggleRtl={isRtl => this.setState({ isRtl })}
           onToggleBackground={isDarkBackground =>
             this.setState({ isDarkBackground })
           }
+          onRemountComponent={this.remountComponent}
           children={componentToRender}
         />
 

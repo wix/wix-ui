@@ -35,11 +35,11 @@ export default class CodeBlock extends Component {
 
     return (
       <div data-hook={dataHook}>
-        <TextButton onClick={this.onCopyClick}>Copy to clipboard</TextButton>
-
         {this.state.showNotification && 'Copied!'}
 
         <Markdown source={toCodeBlock(source, type)} />
+
+        <TextButton onClick={this.onCopyClick}>Copy to clipboard</TextButton>
       </div>
     );
   }

@@ -1,18 +1,25 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
+import { isVersionGreater } from './utils';
 
 export class Rule extends Lint.Rules.AbstractRule {
   static FAILURE_STRING =
     "Wix-Style-React is imported in a way that does not support tree shaking. Use a direct import, for example: `import Button from 'wix-style-react/Button';`";
   static LIB_NAME = 'wix-style-react';
+  static MAX_VERSION = '5.8.1';
   public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
     return this.applyWithWalker(new Walk(sourceFile, this.getOptions()));
   }
 }
 
 class Walk extends Lint.RuleWalker {
+  private shouldIgnoreNamedImports: boolean;
+  constructor(sourceFile: ts.SourceFile, options: Lint.IOptions) {
+    super(sourceFile, options);
+    this.shouldIgnoreNamedImports = isVersionGreater(Rule.LIB_NAME, Rule.MAX_VERSION);
+  }
   visitImportDeclaration(node: ts.ImportDeclaration) {
-    if (this.isWSRImport(node)) {
+    if (!this.shouldIgnoreNamedImports && this.isWSRImport(node)) {
       this.addFailureAt(
         node.getStart(),
         node.getEnd() - node.getStart(),

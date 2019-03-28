@@ -25,6 +25,14 @@ describe('StoryPage', () => {
       testkit.when.created({ metadata: { description, readme } });
       expect(testkit.get.readme()).toMatch(readme);
     });
+
+    it('should render displayName only once', () => {
+      const displayName = 'batman';
+      const readme = '# `<batman/>`';
+      const description = '# `<batman/>`';
+      testkit.when.created({ metadata: { displayName, readme, description } });
+      expect(testkit.get.readme()).toEqual('# `<batman/>`');
+    });
   });
 
   describe('given `exampleImport`', () => {
@@ -91,6 +99,25 @@ describe('StoryPage', () => {
 
       expect(testkit.get.readme()).toMatch(/<well hello there\/>/);
       expect(testkit.get.import()).toMatch(/well hello there/);
+    });
+  });
+
+  describe('given both displayName and description', () => {
+    it('should concatenate the displayName as title to the description', () => {
+      const props = {
+        metadata: {
+          props: {},
+          description: 'This component is lit AF',
+        },
+        config: {},
+        displayName: 'well hello there',
+      };
+
+      testkit.when.created(props);
+
+      expect(testkit.get.readme()).toBe(
+        '# `<well hello there/>`\nThis component is lit AF',
+      );
     });
   });
 

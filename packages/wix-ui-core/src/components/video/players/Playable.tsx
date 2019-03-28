@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {EventEmitter} from 'eventemitter3';
-import isString = require('lodash/isString');
-import isArray = require('lodash/isArray');
+const isString = require('lodash/isString');
+const isArray = require('lodash/isArray');
 import {create, registerModule, VIDEO_EVENTS, ENGINE_STATES} from 'playable';
 import {EVENTS} from '../constants';
 import playerHOC from './playerHOC';
@@ -20,9 +20,9 @@ const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 
 export const verifier: VerifierType = url => {
   if (isString(url)) {
-    return URL_REGEX.test(url);
+    return URL_REGEX.test(url as string);
   } else if (isArray(url)) {
-    return url.some(item => URL_REGEX.test(item));
+    return (url as []).some(item => URL_REGEX.test(item));
   }
 
   return false;

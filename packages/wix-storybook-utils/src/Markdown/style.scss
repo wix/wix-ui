@@ -1,4 +1,34 @@
+@import "../ui/typography.scss";
+
 :global {
-  @import 'highlight.js/styles/github';
-  @import 'github-markdown-css/github-markdown';
+  @import "highlight.js/styles/github";
+  @import "github-markdown-css/github-markdown";
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    @include font(medium);
+    font-weight: 500;
+    color: #162d3d;
+    border: none;
+    margin: 30px 0 6px;
+    line-height: 1.29;
+    padding-bottom: 0;
+  }
+
+  .markdown-body h1 {
+    font-size: 36px;
+  }
+
+  .markdown-body h2 {
+    font-size: 28px;
+  }
+
+  .markdown-body h3 {
+    font-size: 24px;
+  }
+
+  .markdown-body h4 {
+    font-size: 18px;
+  }
 }

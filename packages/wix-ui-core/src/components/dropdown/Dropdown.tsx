@@ -252,4 +252,4 @@ export class DropdownComponent extends React.PureComponent<DropdownProps & Injec
   }
 }
 
-export const Dropdown = onClickOutside(DropdownComponent);
+export const Dropdown: React.ComponentClass<OnClickOutProps<DropdownProps & InjectedOnClickOutProps>> = onClickOutside(DropdownComponent);
