@@ -34,6 +34,7 @@ import './Input/Input.story';
 import './InputWithOptions.story';
 import './Dropdown.story';
 import './IconWithOptions.story';
+import './Loadable/Loadable.story';
 import './image/image.story';
 import './Label.story';
 import './LabelWithOptions.story';
