@@ -1,13 +1,14 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
-import {withFocusable} from './FocusableHOC';
+import { withFocusable } from './FocusableHOC';
 import style from './Focusable.st.css';
 
 declare global {
-  interface Window { Event: any; }
+  interface Window {
+    Event: any;
+  }
 }
 
 export interface IPureChildComponentProps {
@@ -19,9 +20,12 @@ export interface IPureChildComponentProps {
 const stylableUtil = new StylableDOMUtil(style);
 
 const hasFocusState = element => stylableUtil.hasStyleState(element, 'focus');
-const hasFocusVisibleState = element => stylableUtil.hasStyleState(element, 'focus-visible');
+const hasFocusVisibleState = element =>
+  stylableUtil.hasStyleState(element, 'focus-visible');
 
-export class PureChildComponent extends React.PureComponent<IPureChildComponentProps> {
+export class PureChildComponent extends React.PureComponent<
+  IPureChildComponentProps
+> {
   private id: string;
 
   constructor(props) {
@@ -33,7 +37,7 @@ export class PureChildComponent extends React.PureComponent<IPureChildComponentP
   static staticVariable = 'staticVariable';
   static staticMethod = () => 'staticMethod';
 
-  unboundMethod = () =>  'unboundMethod'
+  unboundMethod = () => 'unboundMethod';
 
   boundMethod = () => this.id;
 
@@ -56,7 +60,7 @@ const focusableDriverFactory = ({ element, eventTrigger }) => {
     focus: () => eventTrigger.focus(element),
     blur: () => eventTrigger.blur(element),
     hasFocusState: () => hasFocusState(element),
-    hasFocusVisibleState: () => hasFocusVisibleState(element)
+    hasFocusVisibleState: () => hasFocusVisibleState(element),
   };
 };
 
@@ -64,7 +68,8 @@ const driverFactory = createDriverFactory(focusableDriverFactory);
 
 export const createDriver = Component => {
   const driver = driverFactory(Component);
-  const fireMouseDown = () => window.dispatchEvent(new window.Event('mousedown'));
+  const fireMouseDown = () =>
+    window.dispatchEvent(new window.Event('mousedown'));
   const fireMouseUp = () => window.dispatchEvent(new window.Event('mouseup'));
   const fireKeyDown = () => window.dispatchEvent(new window.Event('keydown'));
   const fireKeyUp = () => window.dispatchEvent(new window.Event('keyup'));
@@ -91,7 +96,7 @@ export const createDriver = Component => {
     fireKeyUp,
     tabOut,
     tabIn,
-    click
+    click,
   };
 };
 
