@@ -91,7 +91,7 @@ describe('Loadable with async loader', () => {
     await eventually(() => expect(wrapper.isLoaded()).toBe(true));
   });
 
-  it('should load modules after shouldLoadComponent changed', async () => {
+  it('should load modules after `shouldLoadComponent` changed', async () => {
     const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
