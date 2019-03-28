@@ -35,7 +35,7 @@ describe('Loadable with sync loader', () => {
     expect(wrapper.isLoaded()).toBe(true);
   });
 
-  it('should load modules after shouldLoadComponent changed', () => {
+  it('should load modules after `shouldLoadComponent` changed', async () => {
     const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
@@ -47,7 +47,7 @@ describe('Loadable with sync loader', () => {
         {Tooltip => {
           return (
             <Tooltip data-hook="tooltip" placement="top" content="kek">
-              {<span data-hook="tooltip-child">Hey!</span>}
+              <span data-hook="tooltip-child">Hey!</span>
             </Tooltip>
           );
         }}
@@ -55,8 +55,10 @@ describe('Loadable with sync loader', () => {
     );
     expect(wrapper.find(tooltipSelector).exists()).toBe(false);
     wrapper.setProps({ shouldLoadComponent: true });
-    setTimeout(() => {
+    await eventually(() => {
+      wrapper.simulate('mouseEnter');
       expect(wrapper.find(tooltipSelector).exists()).toBe(true);
+      wrapper.simulate('mouseLeave');
     });
   });
 });
@@ -89,7 +91,7 @@ describe('Loadable with async loader', () => {
     await eventually(() => expect(wrapper.isLoaded()).toBe(true));
   });
 
-  it('should load modules after shouldLoadComponent changed', () => {
+  it('should load modules after shouldLoadComponent changed', async () => {
     const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
@@ -101,7 +103,7 @@ describe('Loadable with async loader', () => {
         {Tooltip => {
           return (
             <Tooltip data-hook="tooltip" placement="top" content="kek">
-              {<span data-hook="tooltip-child">Hey!</span>}
+              <span data-hook="tooltip-child">Hey!</span>
             </Tooltip>
           );
         }}
@@ -109,8 +111,11 @@ describe('Loadable with async loader', () => {
     );
     expect(wrapper.find(tooltipSelector).exists()).toBe(false);
     wrapper.setProps({ shouldLoadComponent: true });
-    setTimeout(() => {
+
+    await eventually(() => {
+      wrapper.simulate('mouseEnter');
       expect(wrapper.find(tooltipSelector).exists()).toBe(true);
+      wrapper.simulate('mouseLeave');
     });
   });
 });
