@@ -3,7 +3,7 @@ import { Loadable } from '../../src/components/loadable';
 
 class LoadableModule extends Loadable<
   {},
-  { Loaded: React.ComponentType<{}> }
+  { LoadedSync: React.ComponentType<{}> }
 > {}
 
 class LazyLoadedModule extends React.Component {
@@ -15,9 +15,9 @@ class LazyLoadedModule extends React.Component {
     return (
       <React.Fragment>
         <LoadableModule
-          loader={() => require('./Loaded')}
+          loader={() => require('./LoadedSync')}
           defaultComponent={<span>Not loaded yet!</span>}
-          componentKey="Loaded"
+          componentKey="LoadedSync"
           shouldLoadComponent={this.state.shouldLoadComponent}
         >
           {Loaded => <Loaded />}

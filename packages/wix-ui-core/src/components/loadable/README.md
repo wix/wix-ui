@@ -9,12 +9,12 @@ React-loadable or other libraries for lazy loading is based on dynamic imports +
 
 
 ## API
-`shouldLoadComponent` - a boolean property that triggers component from `loader` callback to be loaded. After `shouldLoadComponent` is set to `true`, `loader` will be called and children prop rendered with resolved component from the module. If it is set to `false`, `defaultComponent` will be rendered.
-`loader` - a function that loads your module. Should return Promise (via `import()`), React.Component or Module with a React.Component. For example: `import('./Component')` or `require('./Component')`.
-`componentKey` - a string, that specifies the exported name of the component. For example, if component you want to load with lazy loading has `export const Tooltip = Tooltip`, then you probably want to target `componentKey="Tooltip"`.
-`defaultComponent` - component to show if shouldLoadComponent is not `true` or component is loading and `loadingComponent` was not specified.
-`loadingComponent` - component to show when loading happening. Optional. Will use `defaultComponent` if nothing specified.
-`children` - callback that will be called after lazy loading finished. Receives single argument - loaded component.
+- `shouldLoadComponent` - a boolean property that triggers component from `loader` callback to be loaded. After `shouldLoadComponent` is set to `true`, `loader` will be called and children prop rendered with resolved component from the module. If it is set to `false`, `defaultComponent` will be rendered.  
+- `loader` - a function that loads your module. Should return Promise (via `import()`), React.Component or Module with a React.Component. For example: `import('./Component')` or `require('./Component')`.  
+- `componentKey` - a string, that specifies the exported name of the component. For example, if component you want to load with lazy loading has `export const Tooltip = Tooltip`, then you probably want to target `componentKey="Tooltip"`.  
+- `defaultComponent` - component to show if shouldLoadComponent is not `true` or component is loading and `loadingComponent` was not specified.  
+- `loadingComponent` - component to show when loading happening. Optional. Will use - `defaultComponent` if nothing specified.  
+- `children` - callback that will be called after lazy loading finished. Receives single argument - loaded component.  
 
 ## Usage Example
 In order to create the lazy loading component:
