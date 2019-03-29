@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import cx from 'classnames';
-import style from './draggable-list-item.st.css';
+import style from './draggable-list.st.css';
 
 export interface DraggableProps {
     className?: string;

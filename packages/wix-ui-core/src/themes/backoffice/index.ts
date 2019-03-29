@@ -26,8 +26,6 @@ export const listItem = (...values) =>
   getClassNames(values, List, 'ListItem');
 export const draggableList = (...values) =>
   getClassNames(values, DraggableList, 'draggable-list');
-export const draggableListItem = (...values) =>
-  getClassNames(values, DraggableList, 'draggable-list-item');
 export const textButton = (...values) =>
   getClassNames(values, TextButton, 'textButton');
 export const closeButton = (...values) =>

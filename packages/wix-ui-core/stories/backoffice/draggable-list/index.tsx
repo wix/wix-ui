@@ -7,17 +7,17 @@ const DraggableListStory = () => (
   <div style={{ margin: '0px 0 16px', paddingLeft: '20px' }}>
     <CodeShowcase title="Default" theme={backofficeTheme}>
       <DraggableList className={draggableList()}>
-        <DraggableListItem className={draggableListItem()}>Item 1</DraggableListItem>
-        <DraggableListItem className={draggableListItem()}>Item 2</DraggableListItem>
-        <DraggableListItem className={draggableListItem()}>Item 3</DraggableListItem>
+        <DraggableListItem>Item 1</DraggableListItem>
+        <DraggableListItem>Item 2</DraggableListItem>
+        <DraggableListItem>Item 3</DraggableListItem>
       </DraggableList>
     </CodeShowcase>
 
     <CodeShowcase title="Not Draggable" theme={backofficeTheme}>
       <DraggableList className={draggableList()}>
-        <DraggableListItem className={draggableListItem()}>Item 1</DraggableListItem>
-        <DraggableListItem draggable={false} className={draggableListItem()}>Item 2 (Not Draggable)</DraggableListItem>
-        <DraggableListItem className={draggableListItem()}>Item 3</DraggableListItem>
+        <DraggableListItem>Item 1</DraggableListItem>
+        <DraggableListItem draggable={false}>Item 2 (Not Draggable)</DraggableListItem>
+        <DraggableListItem>Item 3</DraggableListItem>
       </DraggableList>
     </CodeShowcase>
   </div>

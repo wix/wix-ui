@@ -1,17 +1,43 @@
 :import {
-  -st-from: "../../../components/draggable-list/draggable-list.st.css";
-  -st-default: DraggableList;
-  -st-named: item as DraggableListItem;
+  -st-from: '../colors.st.css';
+  -st-named:
+    B50,
+    D60;
+}
+
+:import {
+  -st-from: '../../../components/draggable-list/draggable-list.st.css';
+  -st-default: List;
+  -st-named: draggable;
 }
 
 .draggable-list {
-  -st-extends: DraggableList;
+  -st-extends: List;
 }
 
-.draggable-list-item {
-  -st-extends: DraggableListItem;
+.draggable-list::ghost {
+  background-color: value(B50);
+  border-radius: 3px;
+  border: none;
 }
 
-.draggable-list:dragging .draggable-list-item:hover {
-  background-color: none;
+/* .draggable-list::ListItem:hidden::after {
+  background-color: value(D60);
+}
+
+.draggable-list::LiteItem:not(:dragging):hover {
+  background-color: value(B50);
+} */
+
+
+
+.draggable-list draggable {
+  background: red;
+}
+.draggable-list::dragIcon:hover path {
+  fill: value(B10) !important;
+}
+
+.draggable-list::ListItem .dragIcon path {
+  fill: value(B30);
 }

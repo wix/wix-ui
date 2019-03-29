@@ -1,9 +1,9 @@
 import * as React from 'react';
-
 import cx from 'classnames';
 
-import {List} from '../list';
+import {List, ListItem} from '../list';
 import {Draggable} from './draggable';
+import {DraggableStyleStates} from './draggable';
 
 import style from './draggable-list.st.css';
 
@@ -12,6 +12,48 @@ function getDefaultIndexes(children: React.ReactNode) {
         .fill(0)
         .map((_, index) => index);
 }
+
+export interface DraggableListItemProps {
+    className?: string;
+    draggable?: boolean;
+    showDragIcon?: boolean;
+    'data-automation-id'?: string;
+    styleStates?: DraggableStyleStates;
+}
+
+export const DraggableListItem: React.StatelessComponent<
+    DraggableListItemProps
+> = props => {
+    const {
+        className,
+        styleStates,
+        draggable,
+        showDragIcon = true,
+        children,
+        ...rest
+    } = props;
+
+    // let icon = null;
+    // if (showDragIcon) {
+        // icon = draggable ? <DragIcon /> : <ReorderLockerIcon />;
+    // }
+
+    return (
+        <ListItem
+            {...rest}
+            draggable={draggable}
+            data-automation-id={cx(
+                'DRAGGABLE_LIST_ITEM',
+                rest['data-automation-id']
+            )}
+            {...style(cx('ListItem', className), styleStates)}
+        >
+            <div className={style.content}>{props.children}</div>
+            {/* {icon && <div className={style.dragIcon}>{icon}</div>} */}
+        </ListItem>
+    );
+};
+
 
 export interface DraggableListProps {
     className?: string;
