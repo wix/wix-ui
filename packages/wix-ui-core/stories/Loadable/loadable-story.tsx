@@ -41,7 +41,7 @@ export const LoadableStory: React.SFC = () => (
     </CodeExample>
 
     <CodeExample
-      title="Loadable with Lazy Loading and shouldLoadComponent trigger to use `import()`"
+      title="Loadable with Lazy Loading and shouldLoadComponent trigger to use `require()`"
       code={SyncLoadableWithManualLoadExample}
     >
       <SyncLoadableWithManualLoad />
