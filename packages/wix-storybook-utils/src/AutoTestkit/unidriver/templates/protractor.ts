@@ -4,7 +4,7 @@ import { ${testkitFactoryName} } from '${pathToTestkit}/protractor';
 
 const dataHook = 'myDataHook';
 
-await browser.get('/page-where-button-appears');
+await browser.get('/page-where-${componentName}-appears');
 
 const testkit = ${testkitFactoryName}({dataHook});
 

@@ -5,7 +5,7 @@ import { ${testkitFactoryName} } from '${pathToTestkit}/puppeteer';
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-await page.goto('/page-where-button-appears');
+await page.goto('/page-where-${componentName}-appears');
 
 const testkit = ${testkitFactoryName}({ dataHook: 'myDataHook', page });
 
