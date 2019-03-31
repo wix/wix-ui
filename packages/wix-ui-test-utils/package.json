@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "wix-ui-test-utils",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"
@@ -82,6 +82,9 @@
     ]
   },
   "dependencies": {
-    "unidriver": "^2.0.0"
+    "@unidriver/core": "^1.1.2",
+    "@unidriver/jsdom-react": "^1.2.1",
+    "@unidriver/protractor": "^1.1.2",
+    "@unidriver/puppeteer": "^1.1.2"
   }
 }

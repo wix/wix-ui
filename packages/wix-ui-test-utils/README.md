@@ -258,3 +258,7 @@ driver.click();
 driver.exists();
 // ...
 ```
+
+## Migration (Major versions)
+
+See [Migration.md](./docs/MIGRATION.md)

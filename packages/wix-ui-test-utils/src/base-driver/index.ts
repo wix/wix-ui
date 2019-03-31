@@ -1,4 +1,4 @@
-import {UniDriver} from 'unidriver';
+import {UniDriver} from '@unidriver/core';
 
 export interface BaseUniDriver {
   /** returns true if component exists */
