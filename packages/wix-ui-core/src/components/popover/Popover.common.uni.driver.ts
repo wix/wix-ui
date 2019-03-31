@@ -1,4 +1,4 @@
-import { UniDriver } from 'unidriver';
+import { UniDriver } from '@unidriver/core';
 
 export const CommonDriver = (base: UniDriver, body: UniDriver ) => {
   const queryDocumentOrElement= async (query: string) => {

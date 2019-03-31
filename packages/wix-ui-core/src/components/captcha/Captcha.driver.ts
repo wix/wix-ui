@@ -2,7 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import {UniDriver} from '@unidriver/core';
 
 export interface CaptchaDriver extends BaseUniDriver {
   /** clicks on the captcha checkbox challenge */

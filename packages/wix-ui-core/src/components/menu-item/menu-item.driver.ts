@@ -6,7 +6,7 @@ import {
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
 
-import {UniDriver} from 'unidriver';
+import {UniDriver} from '@unidriver/core';
 
 export interface MenuItemDriver extends BaseUniDriver {
   /** checks if the item is selected */

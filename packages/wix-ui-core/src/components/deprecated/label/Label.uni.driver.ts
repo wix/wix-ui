@@ -2,7 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import {UniDriver} from '@unidriver/core';
 import { StylableUnidriverUtil } from '../../../../test/StylableUnidriverUtil';
 import styles from './Label.st.css';
 import {ReactBase} from '../../../../test/utils/unidriver';
