@@ -71,9 +71,8 @@
     "shallowequal": "1.1.0",
     "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
-    "unidriver": "^2.0.1",
     "wix-eventually": "^2.2.0",
-    "wix-ui-test-utils": "^1.0.0"
+    "wix-ui-test-utils": "^2.0.0"
   },
   "devDependencies": {
     "@storybook/react": "^5.0.0",
@@ -90,6 +89,7 @@
     "@ui-autotools/registry": "^4.0.0",
     "@ui-autotools/sanity": "^2.5.0",
     "@ui-autotools/snap": "^3.0.0",
+    "@unidriver/core": "^1.1.2",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
@@ -106,11 +106,11 @@
     "ts-jest": "^22.0.3",
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
+    "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^2.0.45",
     "wix-ui-icons-common": "^1.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^3.28.0",
-    "webpack-dev-middleware": "3.6.0",
     "yoshi-style-dependencies": "^3.16.0"
   },
   "license": "MIT",
