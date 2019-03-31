@@ -1,19 +1,21 @@
 import { browser } from 'protractor';
-import { createStoryUrl } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  protractorUniTestkitFactoryCreator,
+} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { captchaTestkitFactory } from '../../testkit/protractor';
-import { Size, CaptchaType, Theme, CaptchaLang } from './types';
-
-import { protractorUniTestkitFactoryCreator } from 'wix-ui-test-utils/protractor';
+import { CaptchaLang, CaptchaType, Size, Theme } from './types';
 
 import {
-  CaptchaTestInstanceDriverFactory,
   CaptchaTestComponentDriver,
+  CaptchaTestInstanceDriverFactory,
 } from './test-assets/CaptchaTestComponent.testDriver';
+import { constants } from './test-assets/constants';
+
 const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<
   CaptchaTestComponentDriver
 >(CaptchaTestInstanceDriverFactory);
-import { constants } from './test-assets/constants';
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({ kind: 'Components', story: 'Captcha' });

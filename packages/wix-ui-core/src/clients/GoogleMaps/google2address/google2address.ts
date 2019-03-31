@@ -89,7 +89,7 @@ function getShortValues(googleResponse) {
 
 function getStreetAddress(shortValues) {
   if (isUndefined(shortValues.route) && isUndefined(shortValues.streetNumber)) {
-    return undefined;
+    return;
   }
   return {
     name: shortValues.route,

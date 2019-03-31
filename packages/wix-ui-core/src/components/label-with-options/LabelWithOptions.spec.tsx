@@ -59,7 +59,7 @@ describe('LabelWithOptions', () => {
       expect(driver.getLabelText()).toEqual(expectedLabelText);
     });
 
-    it("should show placeholder if there's no default", () => {
+    it(`should show placeholder if there's no default`, () => {
       const placeholder = 'Please select an item';
       const driver = createDriver(
         createLabelWithOptions({

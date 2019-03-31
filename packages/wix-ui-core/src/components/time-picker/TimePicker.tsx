@@ -180,7 +180,7 @@ export class TimePicker extends React.PureComponent<
     const { onChange, useAmPm } = this.props;
 
     if (value === NULL_TIME) {
-      if (!!this.props.value) {
+      if (this.props.value) {
         onChange(null);
       }
     } else if (isValidTime(value, useAmPm !== AmPmOptions.None)) {
@@ -189,8 +189,8 @@ export class TimePicker extends React.PureComponent<
       }
     } else {
       const { hour, minute } = parseTime(value);
-      const nHour = parseInt(hour) || 0;
-      let nMinute = parseInt(minute) || 0;
+      const nHour = parseInt(hour, 10) || 0;
+      let nMinute = parseInt(minute, 10) || 0;
       if (nMinute > 59) {
         nMinute = 59;
       }
@@ -258,12 +258,12 @@ export class TimePicker extends React.PureComponent<
 
     // Handle numeric input
     if (/^[0-9]$/.test(e.key)) {
-      const num = parseInt(e.key);
+      const num = parseInt(e.key, 10);
       let { hour, minute } = parseTime(value);
 
       if (currentField === FIELD.HOUR) {
         if (this._hasStartedTyping) {
-          let nHour = parseInt(`${hour[1]}${num}`);
+          let nHour = parseInt(`${hour[1]}${num}`, 10);
           if (nHour > 12 && isAmPm) {
             nHour = 12;
           }
@@ -283,7 +283,7 @@ export class TimePicker extends React.PureComponent<
         }
       } else if (currentField === FIELD.MINUTE) {
         if (this._hasStartedTyping) {
-          minute = `${parseInt(`${minute[1]}${num}`)}`;
+          minute = `${parseInt(`${minute[1]}${num}`, 10)}`;
         } else {
           this._hasStartedTyping = true;
           minute = e.key;
@@ -352,7 +352,7 @@ export class TimePicker extends React.PureComponent<
           break;
         }
         const { hour } = parseTime(value);
-        const nHour = parseInt(hour);
+        const nHour = parseInt(hour, 10);
         if (
           (nHour < 12 && (e.key === 'p' || e.key === 'P')) ||
           (nHour > 11 && (e.key === 'a' || e.key === 'A'))

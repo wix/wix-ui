@@ -4,8 +4,6 @@ import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Slider } from './index';
 import * as sinon from 'sinon';
 import { mount } from 'enzyme';
-import { Simulate } from 'react-dom/test-utils';
-import * as eventually from 'wix-eventually';
 
 describe('Slider', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -407,7 +405,7 @@ describe('Slider', () => {
     sinon.assert.notCalled(onChange);
   });
 
-  it("should have 3 steps, given stepType = 'count' and step = 3", () => {
+  it(`should have 3 steps, given stepType = 'count' and step = 3`, () => {
     const onChange = sinon.spy();
 
     const driver = render({

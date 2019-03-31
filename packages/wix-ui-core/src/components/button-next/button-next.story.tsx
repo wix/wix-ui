@@ -8,7 +8,7 @@ export default {
 
   componentProps: {
     disabled: false,
-    children: "I'm a Button!",
+    children: `I'm a Button!`,
     'data-hook': 'storybook-button',
   },
 

@@ -113,7 +113,7 @@ describe('Avatar', () => {
       expect(await driver.getTextContent()).toBe('JsD');
     });
 
-    it("should have a default 'alt' value when image is displayed", async () => {
+    it(`should have a default 'alt' value when image is displayed`, async () => {
       const dataHook = 'avatar_test_image';
       await testContainer.render(
         <Avatar
@@ -129,7 +129,7 @@ describe('Avatar', () => {
       });
     });
 
-    it("should NOT override 'alt' value when image is displayed", async () => {
+    it(`should NOT override 'alt' value when image is displayed`, async () => {
       const alt = 'Profile photo of John Doe';
       const dataHook = 'avatar_test_image';
       await testContainer.render(

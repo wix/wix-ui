@@ -266,13 +266,7 @@ function createLayout({
       showLastPage &&
       expand(currentPage, currentPage, true, true)) ||
     // Cut off both sides without adding ellipses.
-    expand(
-      currentPage,
-      currentPage,
-      false,
-      false,
-    ) || // If there's not enough space even for the current page, still show it.
-    [currentPage]
+    expand(currentPage, currentPage, false, false) || [currentPage] // If there's not enough space even for the current page, still show it.
   );
 }
 

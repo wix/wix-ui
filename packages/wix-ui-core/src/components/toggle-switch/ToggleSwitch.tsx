@@ -93,14 +93,18 @@ export class ToggleSwitch extends React.PureComponent<
     );
   }
 
-  private readonly handleKeyDown: React.KeyboardEventHandler<HTMLElement> = e => {
+  private readonly handleKeyDown: React.KeyboardEventHandler<
+    HTMLElement
+  > = e => {
     // Pressing any key should make the focus visible, even if the checkbox
     // was initially focused by mouse.
     this.setState({ focusVisible: true });
   };
 
   // Doesn't get invoked if the input is disabled.
-  private readonly handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
+  private readonly handleMouseDown: React.MouseEventHandler<
+    HTMLElement
+  > = e => {
     if (e.button === 0) {
       this.focusedByMouse = true;
     }

@@ -26,13 +26,13 @@ export interface ImageState {
 }
 export class Image extends React.PureComponent<ImageProps, ImageState> {
   private readonly getSrc = (): string =>
-    !!this.props.src ? this.props.src : this.getSrcSet();
+    this.props.src ? this.props.src : this.getSrcSet();
 
   private readonly getSrcSet = (): string =>
-    !!this.props.srcSet ? this.getErrorImage() : FALLBACK_IMAGE;
+    this.props.srcSet ? this.getErrorImage() : FALLBACK_IMAGE;
 
   private readonly getErrorImage = (): string =>
-    !!this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE;
+    this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE;
 
   private readonly getErrorSrc = (): string =>
     this.state.src === this.props.errorImage

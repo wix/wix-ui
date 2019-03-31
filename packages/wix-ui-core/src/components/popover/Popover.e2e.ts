@@ -57,14 +57,14 @@ describe('Popover', () => {
     });
 
     eyes.it(
-      "should flip the popover's placements when it overlaps the target element (default)",
+      `should flip the popover's placements when it overlaps the target element (default)`,
       async () => {
         await scrollToBottom('story-popover-flip-enabled');
       },
     );
 
     eyes.it(
-      "should not flip the popover's placement when it overlaps the target elements when flip is disabled",
+      `should not flip the popover's placement when it overlaps the target elements when flip is disabled`,
       async () => {
         await scrollToBottom('story-popover-flip-disabled');
       },
@@ -77,14 +77,14 @@ describe('Popover', () => {
     });
 
     eyes.it(
-      "should keep the popover's visible when it overflows the container",
+      `should keep the popover's visible when it overflows the container`,
       async () => {
         await scrollToBottom('story-popover-fixed-disabled');
       },
     );
 
     eyes.it(
-      "should not keep the popover's visible when it overflows the container when fixed is enabled",
+      `should not keep the popover's visible when it overflows the container when fixed is enabled`,
       async () => {
         await scrollToBottom('story-popover-fixed-enabled');
       },

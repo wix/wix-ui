@@ -26,7 +26,7 @@ describe('Google Maps Iframe client', () => {
     const driver = googleMapsIframeClientTestkitFactory({ dataHook });
 
     await waitForVisibilityOf(
-      await driver.element(),
+      driver.element(),
       'Cant find storybook client Component',
     );
     await driver.enterText(searchTest);
@@ -41,7 +41,7 @@ describe('Google Maps Iframe client', () => {
   xit('should ask google to geocode Broadway and return relevant values', async () => {
     const driver = googleMapsIframeClientTestkitFactory({ dataHook });
     await waitForVisibilityOf(
-      await driver.element(),
+      driver.element(),
       'Cant find storybook client Component',
     );
     await driver.enterText(searchTest);
@@ -62,7 +62,7 @@ describe('Google Maps Iframe client', () => {
   xit('should ask google for placeDetails for broadway and return relevant values', async () => {
     const driver = googleMapsIframeClientTestkitFactory({ dataHook });
     await waitForVisibilityOf(
-      await driver.element(),
+      driver.element(),
       'Cant find storybook client Component',
     );
     await driver.enterText(broadwayPlaceId);

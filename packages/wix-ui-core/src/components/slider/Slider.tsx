@@ -484,8 +484,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const step = this.getStepValue();
     const thumbPosition: any = this.calcThumbPosition();
     const trackStyle = vertical
-      ? { width: trackSize + '%' }
-      : { height: trackSize + '%' };
+      ? { width: `${trackSize}%` }
+      : { height: `${trackSize}%` };
     const trackFillPosition = vertical
       ? {
           bottom: 0,

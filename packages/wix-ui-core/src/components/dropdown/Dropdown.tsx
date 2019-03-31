@@ -212,24 +212,22 @@ export class DropdownComponent extends React.PureComponent<
           newState.selectedIds = [...selectedIds, option.id];
         }
       }
-    } else {
       // Single select
-      if (option) {
-        // if option was clicked (could be null when Autocomplete receives a new string)
-        if (selectedIds.includes(option.id)) {
-          this.close();
-          if (!allowReselect) {
-            // if clicked on the selected item, exit and do nothing
-            return;
-          }
-        } else {
-          // if clicked on a new option, make it the selected
-          newState.selectedIds = [option.id];
+    } else if (option) {
+      // if option was clicked (could be null when Autocomplete receives a new string)
+      if (selectedIds.includes(option.id)) {
+        this.close();
+        if (!allowReselect) {
+          // if clicked on the selected item, exit and do nothing
+          return;
         }
       } else {
-        // if non existing option selected, unselect existing ones
-        newState.selectedIds = [];
+        // if clicked on a new option, make it the selected
+        newState.selectedIds = [option.id];
       }
+    } else {
+      // if non existing option selected, unselect existing ones
+      newState.selectedIds = [];
     }
 
     this.setState(newState, () => callback(option));

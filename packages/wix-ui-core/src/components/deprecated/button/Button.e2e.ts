@@ -20,7 +20,7 @@ describe('Button', () => {
   });
 
   eyes.it('should display correct text content', async () => {
-    expect(await driver.getButtonTextContent()).toBe("I'm a Button!");
+    expect(await driver.getButtonTextContent()).toBe(`I'm a Button!`);
   });
 
   describe('disabled', () => {
