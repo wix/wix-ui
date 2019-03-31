@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { UniDriver } from '@unidriver/core';
+import { jsdomReactUniDriver } from '@unidriver/jsdom-react';
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and
@@ -95,8 +96,8 @@ export class ReactDOMTestContainer {
   public createUniRenderer<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
-      const base = reactUniDriver(this.componentNode);
-      const body = reactUniDriver(document.body);
+      const base = jsdomReactUniDriver(this.componentNode);
+      const body = jsdomReactUniDriver(document.body);
       return driverFactory(base, body);
     };
   }
@@ -104,8 +105,8 @@ export class ReactDOMTestContainer {
   public createUniRendererAsync<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => Promise<T> {
     return async (jsx: JSX.Element) => {
       await this.render(jsx);
-      const base = reactUniDriver(this.componentNode);
-      const body = reactUniDriver(document.body);
+      const base = jsdomReactUniDriver(this.componentNode);
+      const body = jsdomReactUniDriver(document.body);
       return driverFactory(base, body);
     };
   }

@@ -90,6 +90,7 @@
     "@ui-autotools/sanity": "^2.5.0",
     "@ui-autotools/snap": "^3.0.0",
     "@unidriver/core": "^1.1.2",
+    "@unidriver/jsdom-react": "^1.2.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",

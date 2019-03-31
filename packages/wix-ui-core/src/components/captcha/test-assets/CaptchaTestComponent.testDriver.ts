@@ -6,7 +6,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import {UniDriver} from '@unidriver/core';
 
 async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${constants.verifiedTokenDataHook}`));
