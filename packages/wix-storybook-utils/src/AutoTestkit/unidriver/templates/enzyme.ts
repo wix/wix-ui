@@ -1,8 +1,8 @@
-export default ({ componentName, testkitFactoryName }) => `
+export default ({ componentName, testkitFactoryName, pathToTestkit }) => `
 import React from 'react';
 import { mount } from 'enzyme';
 import ${componentName} from 'wix-style-react/Button';
-import { ${testkitFactoryName} } from 'wix-style-react/dist/testkit/enzyme';
+import { ${testkitFactoryName} } from '${pathToTestkit}/enzyme';
 
 const dataHook = 'myDataHook';
 

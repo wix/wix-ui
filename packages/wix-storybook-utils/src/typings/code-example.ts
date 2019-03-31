@@ -8,7 +8,13 @@ export interface UnidriverExample {
   type: 'enzyme' | 'protractor' | 'puppeteer' | 'react';
   title: String;
   pattern?: RegExp;
-  generate(params: ExampleGeneratorParams): String;
+  generate(params: UnidriverExampleGenerator): String;
+}
+
+interface UnidriverExampleGenerator {
+  componentName: string;
+  pathToTestkit: string;
+  testkitFactoryName: string;
 }
 
 interface ExampleGeneratorParams {

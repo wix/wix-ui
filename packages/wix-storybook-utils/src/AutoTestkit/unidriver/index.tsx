@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { API } from './components/testkit-api-table';
+import { API } from './components/api-table';
 import { CodeExample } from './components/code-example';
 
 const driverNames = ['react', 'enzyme', 'puppeteer', 'protractor'];
