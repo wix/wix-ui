@@ -1,13 +1,13 @@
-import {dropdownDriverFactory} from '../dropdown/Dropdown.driver';
-import {inputDriverFactory} from '../input/Input.driver';
+import { dropdownDriverFactory } from '../dropdown/Dropdown.driver';
+import { inputDriverFactory } from '../input/Input.driver';
 
-export const inputWithOptionsDriverFactory = ({element, eventTrigger}) => {
+export const inputWithOptionsDriverFactory = ({ element, eventTrigger }) => {
   const inputDriver = inputDriverFactory({
     element: element.querySelector('[data-hook=input]'),
-    eventTrigger
+    eventTrigger,
   });
 
-  const dropdownDriver = dropdownDriverFactory({element, eventTrigger});
+  const dropdownDriver = dropdownDriverFactory({ element, eventTrigger });
 
-  return Object.assign({}, inputDriver, dropdownDriver);
+  return { ...inputDriver, ...dropdownDriver };
 };

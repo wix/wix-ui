@@ -1,1 +1,1 @@
-export {Input, InputProps, AriaAutoCompleteType} from './Input';
+export { Input, InputProps, AriaAutoCompleteType } from './Input';

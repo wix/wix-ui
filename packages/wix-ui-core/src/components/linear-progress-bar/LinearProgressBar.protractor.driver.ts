@@ -1,25 +1,30 @@
-import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
-import {promise, ElementFinder} from 'protractor';
+import {
+  BaseDriver,
+  DriverFactory,
+} from './../../common/BaseDriver.protractor';
+import { promise, ElementFinder } from 'protractor';
 
 export interface LinearProgressBarDriver extends BaseDriver {
   /** Returns true if the root element is present */
-  exists: () => promise.Promise<boolean>;
+  exists(): promise.Promise<boolean>;
   /** Get the foreground bar width */
-  getForegroundBarWidth: () => promise.Promise<number>;
+  getForegroundBarWidth(): promise.Promise<number>;
   /** Get the background bar width */
-  getBackgroundBarWidth: () => promise.Promise<number>;
+  getBackgroundBarWidth(): promise.Promise<number>;
   /** Returns true if the progress indication element is displayed */
-  isProgressIndicationDisplayed: () => promise.Promise<boolean>;
+  isProgressIndicationDisplayed(): promise.Promise<boolean>;
   /** Get the progress indication element value */
-  progressIndicationValue: () => promise.Promise<string>;
+  progressIndicationValue(): promise.Promise<string>;
 }
 
-export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriver> = element => {
-  
+export const linearProgressBarDriverFactory: DriverFactory<
+  LinearProgressBarDriver
+> = element => {
   const findByDataHook = dataHook => element.$(`[data-hook="${dataHook}"]`);
   const foregroundBar = () => findByDataHook('progressbar-foreground');
   const backgroundBar = () => findByDataHook('progressbar-background');
-  const getElementWidth = (e: ElementFinder) => e.getSize().then((size => size.width));
+  const getElementWidth = (e: ElementFinder) =>
+    e.getSize().then(size => size.width);
   const progressIndication = () => findByDataHook('progress-indicator');
 
   return {
@@ -28,6 +33,6 @@ export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriv
     getForegroundBarWidth: () => getElementWidth(foregroundBar()),
     getBackgroundBarWidth: () => getElementWidth(backgroundBar()),
     isProgressIndicationDisplayed: () => progressIndication().isPresent(),
-    progressIndicationValue: () => progressIndication().getText()
+    progressIndicationValue: () => progressIndication().getText(),
   };
 };

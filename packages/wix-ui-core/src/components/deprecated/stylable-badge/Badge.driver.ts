@@ -2,13 +2,13 @@ import { ComponentFactory, BaseDriver } from 'wix-ui-test-utils/driver-factory';
 
 export interface BadgeDriver extends BaseDriver {
   /** returns elements innerHtml */
-  getContent: () => string;
+  getContent(): string;
   /** returns elements innerText */
-  text: () => string;
+  text(): string;
 }
 
 export const badgeDriverFactory = ({
-  element
+  element,
 }: ComponentFactory): BadgeDriver => {
   return {
     /** checks if element exists */
@@ -16,6 +16,6 @@ export const badgeDriverFactory = ({
     /** returns elements innerHtml */
     getContent: () => element.innerHTML,
     /** returns elements innerText */
-    text: () => element.textContent
+    text: () => element.textContent,
   };
 };

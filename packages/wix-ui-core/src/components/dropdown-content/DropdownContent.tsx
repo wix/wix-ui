@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './DropdownContent.st.css';
-import {Option, DropdownOption} from '../dropdown-option';
+import { Option, DropdownOption } from '../dropdown-option';
 
 const NOT_HOVERED_INDEX = -1;
 
@@ -8,11 +8,11 @@ export interface DropdownContentProps {
   /** Component class name */
   className?: string;
   /** The dropdown options array */
-  options: Array<Option>;
+  options: Option[];
   /** A callback for when clicking an option */
-  onOptionClick: (option: Option | null) => void;
+  onOptionClick(option: Option | null): void;
   /** Array of the selected ids */
-  selectedIds: Array<string | number>;
+  selectedIds: (string | number)[];
   /** An element that always appears at the top of the options */
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
@@ -26,11 +26,13 @@ export interface DropdownContentState {
 /**
  * DropdownContent
  */
-export class DropdownContent extends React.PureComponent<DropdownContentProps, DropdownContentState> {
-
+export class DropdownContent extends React.PureComponent<
+  DropdownContentProps,
+  DropdownContentState
+> {
   static displayName = 'DropdownContent';
   private optionsContainerRef: HTMLDivElement | null = null;
-  private mouseCoords = {screenX: -1, screenY: -1};
+  private readonly mouseCoords = { screenX: -1, screenY: -1 };
 
   constructor(props: DropdownContentProps) {
     super(props);
@@ -38,12 +40,12 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     this.onMouseMove = this.onMouseMove.bind(this);
   }
 
-  state = {hoveredIndex: NOT_HOVERED_INDEX};
+  state = { hoveredIndex: NOT_HOVERED_INDEX };
 
   setHoveredIndex(index: number) {
     if (this.state.hoveredIndex !== index) {
       this.setState({
-        hoveredIndex: index
+        hoveredIndex: index,
       });
     }
   }
@@ -53,12 +55,12 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   hoverNextItem(interval: number) {
-    const {options} = this.props;
+    const { options } = this.props;
     if (!options.find(this.isValidOptionForSelection)) {
       return;
     }
 
-    let {hoveredIndex} = this.state;
+    let { hoveredIndex } = this.state;
     while (true) {
       hoveredIndex += interval;
       if (hoveredIndex === options.length) {
@@ -73,16 +75,30 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
     }
 
     if (this.optionsContainerRef) {
-      const hoveredOption = this.optionsContainerRef.childNodes[hoveredIndex] as HTMLElement;
+      const hoveredOption = this.optionsContainerRef.childNodes[
+        hoveredIndex
+      ] as HTMLElement;
       const hoveredOptionHeight = hoveredOption.offsetHeight;
       const hoveredOptionTop = hoveredOption.offsetTop - 1;
 
-      const {scrollTop: optionsContainerScrollTop, clientHeight: optionsContainerClientHeight} = this.optionsContainerRef;
+      const {
+        scrollTop: optionsContainerScrollTop,
+        clientHeight: optionsContainerClientHeight,
+      } = this.optionsContainerRef;
 
       // If hovered option is not visible
-      if (!(optionsContainerScrollTop <= hoveredOptionTop && (optionsContainerScrollTop + optionsContainerClientHeight) > hoveredOptionTop + hoveredOptionHeight)) {
+      if (
+        !(
+          optionsContainerScrollTop <= hoveredOptionTop &&
+          optionsContainerScrollTop + optionsContainerClientHeight >
+            hoveredOptionTop + hoveredOptionHeight
+        )
+      ) {
         if (this.optionsContainerRef.scrollTop < hoveredOptionTop) {
-          this.optionsContainerRef.scrollTop = hoveredOptionHeight + hoveredOptionTop - optionsContainerClientHeight;
+          this.optionsContainerRef.scrollTop =
+            hoveredOptionHeight +
+            hoveredOptionTop -
+            optionsContainerClientHeight;
         } else {
           this.optionsContainerRef.scrollTop = hoveredOptionTop;
         }
@@ -93,8 +109,8 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   onKeyboardSelect() {
-    const {options} = this.props;
-    const {hoveredIndex} = this.state;
+    const { options } = this.props;
+    const { hoveredIndex } = this.state;
     const isValidIndex = hoveredIndex >= 0 && hoveredIndex < options.length;
     return isValidIndex ? options[hoveredIndex] : null;
   }
@@ -102,8 +118,8 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   onKeyDown(eventKey: string, evt: React.KeyboardEvent<HTMLElement>) {
     switch (eventKey) {
       case 'ArrowUp': {
-          evt.preventDefault();
-          return this.hoverNextItem(-1);
+        evt.preventDefault();
+        return this.hoverNextItem(-1);
       }
       case 'ArrowDown': {
         evt.preventDefault();
@@ -111,9 +127,11 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
       }
       case 'ArrowLeft':
       case 'ArrowRight': {
-          evt.preventDefault();
-          return;}
-      default: this.setHoveredIndex(NOT_HOVERED_INDEX);
+        evt.preventDefault();
+        return;
+      }
+      default:
+        this.setHoveredIndex(NOT_HOVERED_INDEX);
     }
   }
 
@@ -123,14 +141,23 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
   }
 
   onMouseEnter(evt: React.MouseEvent<HTMLDivElement>, index: number) {
-    if (this.mouseCoords.screenX !== evt.screenX || this.mouseCoords.screenY !== evt.screenY) {
+    if (
+      this.mouseCoords.screenX !== evt.screenX ||
+      this.mouseCoords.screenY !== evt.screenY
+    ) {
       this.setHoveredIndex(index);
     }
   }
 
   render() {
-    const {fixedHeader, fixedFooter, options, selectedIds, onOptionClick} = this.props;
-    const {hoveredIndex} = this.state;
+    const {
+      fixedHeader,
+      fixedFooter,
+      options,
+      selectedIds,
+      onOptionClick,
+    } = this.props;
+    const { hoveredIndex } = this.state;
 
     return (
       <div
@@ -142,22 +169,30 @@ export class DropdownContent extends React.PureComponent<DropdownContentProps, D
         <div
           role="listbox"
           className={style.optionsContainer}
-          ref={optionsContainer => this.optionsContainerRef = optionsContainer}
-        >
-          {
-            (options || []).map((option, index) => (
-              <DropdownOption
-                className={style.dropdownOption}
-                data-hook="option"
-                key={option.id}
-                option={option}
-                isHovered={hoveredIndex === index}
-                isSelected={(selectedIds || []).includes(option.id)}
-                onClickHandler={this.isValidOptionForSelection(option) ? () => onOptionClick(option) : undefined}
-                onMouseEnterHandler={this.isValidOptionForSelection(option) ? evt => this.onMouseEnter(evt, index) : undefined}
-              />
-            ))
+          ref={optionsContainer =>
+            (this.optionsContainerRef = optionsContainer)
           }
+        >
+          {(options || []).map((option, index) => (
+            <DropdownOption
+              className={style.dropdownOption}
+              data-hook="option"
+              key={option.id}
+              option={option}
+              isHovered={hoveredIndex === index}
+              isSelected={(selectedIds || []).includes(option.id)}
+              onClickHandler={
+                this.isValidOptionForSelection(option)
+                  ? () => onOptionClick(option)
+                  : undefined
+              }
+              onMouseEnterHandler={
+                this.isValidOptionForSelection(option)
+                  ? evt => this.onMouseEnter(evt, index)
+                  : undefined
+              }
+            />
+          ))}
         </div>
         {fixedFooter}
       </div>

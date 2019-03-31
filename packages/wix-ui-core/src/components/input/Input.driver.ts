@@ -1,7 +1,7 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Input.st.css';
 
-export const inputDriverFactory = ({element, eventTrigger}) => {
+export const inputDriverFactory = ({ element, eventTrigger }) => {
   const input = element && element.querySelector('input');
   const styleUtil = new StylableDOMUtil(style);
 
@@ -35,7 +35,7 @@ export const inputDriverFactory = ({element, eventTrigger}) => {
     /** set value */
     setValue: value => {
       input.value = value;
-      eventTrigger.change(input, {target: {value}});
+      eventTrigger.change(input, { target: { value } });
     },
 
     /** trigger focus */
@@ -45,6 +45,6 @@ export const inputDriverFactory = ({element, eventTrigger}) => {
     blur: () => eventTrigger.blur(input),
 
     /** trigger keyDown */
-    keyDown: key => eventTrigger.keyDown(input, {key})
+    keyDown: key => eventTrigger.keyDown(input, { key }),
   };
 };

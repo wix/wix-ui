@@ -1,18 +1,18 @@
-import {UniDriver} from 'unidriver';
+import { UniDriver } from 'unidriver';
 
 export interface BaseUniDriver {
   /** returns true if component exists */
-  exists: () => Promise<boolean>;
+  exists(): Promise<boolean>;
   /** returns the component element */
-  element: () => Promise<any>;
+  element(): Promise<any>;
   /** click on the element */
-  click: () => Promise<void>;
+  click(): Promise<void>;
 }
 
 export const baseUniDriverFactory = (base: UniDriver): BaseUniDriver => {
   return {
-    exists: async () => await base.exists(),
-    element: async () => await base.getNative(),
-    click: async () => await base.click()
+    exists: async () => base.exists(),
+    element: async () => base.getNative(),
+    click: async () => base.click(),
   };
 };

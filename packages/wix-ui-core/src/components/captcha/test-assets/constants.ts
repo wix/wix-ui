@@ -8,4 +8,4 @@ export const constants = {
   renderedMark: 'rendered=',
   verifiedTokenMark: 'verifiedToken=',
   resetMark: 'reset',
-}
+};

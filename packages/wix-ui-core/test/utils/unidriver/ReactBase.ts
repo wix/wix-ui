@@ -8,10 +8,11 @@ import { UniDriver } from 'unidriver';
  */
 export function ReactBase(base: UniDriver, body?: UniDriver) {
   if (base.type !== 'react') {
-    throw new Error('Supported only in React/DOM.')
-  } 
-  return {
-    pressKey: async (key: string) => Simulate.keyDown(await base.getNative(), {key}),
-    mouseLeave: async () => Simulate.mouseLeave(await base.getNative()),
+    throw new Error('Supported only in React/DOM.');
   }
+  return {
+    pressKey: async (key: string) =>
+      Simulate.keyDown(await base.getNative(), { key }),
+    mouseLeave: async () => Simulate.mouseLeave(await base.getNative()),
+  };
 }

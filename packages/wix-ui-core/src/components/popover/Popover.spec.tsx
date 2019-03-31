@@ -38,7 +38,10 @@ describe('Popover', () => {
 
   describe('[async]', async () => {
     const createDriver = container.createUniRenderer((base, body) => {
-      const privateDriver = popoverPrivateDriverFactory({element:container.componentNode, eventTrigger: Simulate});
+      const privateDriver = popoverPrivateDriverFactory({
+        element: container.componentNode,
+        eventTrigger: Simulate,
+      });
 
       return {
         ...privateDriver,

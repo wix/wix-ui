@@ -1,12 +1,17 @@
-import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
+import {
+  BaseDriver,
+  DriverFactory,
+} from './../../common/BaseDriver.protractor';
 
 export interface ToggleSwitchDriver extends BaseDriver {
-  click: () => Promise<void>;
-  isDisabled: () => Promise<boolean>;
-  checked: () => Promise<boolean>;
+  click(): Promise<void>;
+  isDisabled(): Promise<boolean>;
+  checked(): Promise<boolean>;
 }
 
-export const toggleSwitchDriverFactory: DriverFactory<ToggleSwitchDriver> = component => {
+export const toggleSwitchDriverFactory: DriverFactory<
+  ToggleSwitchDriver
+> = component => {
   const input = component.$('input');
 
   return {
@@ -17,6 +22,6 @@ export const toggleSwitchDriverFactory: DriverFactory<ToggleSwitchDriver> = comp
     /** returns a boolean indicating if the toggleSwitch is checked */
     checked: async () => input.isSelected(),
     /** returns a boolean indicating if the toggleSwitch is disabled */
-    isDisabled: async () => input.isEnabled().then(enabled => !enabled)
+    isDisabled: async () => input.isEnabled().then(enabled => !enabled),
   };
 };
