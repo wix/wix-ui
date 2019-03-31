@@ -4,7 +4,7 @@ import {Size, CaptchaType, Theme, CaptchaLang} from './types'
 import styles from './Captcha.st.css';
 
 export interface CaptchaProps {
-  className: string;
+  className?: string;
   sitekey: string;
   loader: any;
   size?: Size;
