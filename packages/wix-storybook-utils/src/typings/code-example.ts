@@ -4,6 +4,13 @@ export interface Example {
   generate(params: ExampleGeneratorParams): String;
 }
 
+export interface UnidriverExample {
+  type: 'enzyme' | 'protractor' | 'puppeteer' | 'react';
+  title: String;
+  pattern?: RegExp;
+  generate(params: ExampleGeneratorParams): String;
+}
+
 interface ExampleGeneratorParams {
   capitalizedTestkitFactoryName: string;
   componentLC: string;

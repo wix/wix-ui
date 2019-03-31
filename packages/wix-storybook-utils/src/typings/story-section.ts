@@ -74,7 +74,9 @@ export interface ApiSection extends StorySection {
   parsedSource?: object;
 }
 export interface PlaygroundSection extends StorySection {}
-export interface TestkitSection extends StorySection {}
+export interface TestkitSection extends StorySection {
+  unidriver?: boolean;
+}
 
 export interface ColumnsSection extends StorySection {
   items: Section[];
