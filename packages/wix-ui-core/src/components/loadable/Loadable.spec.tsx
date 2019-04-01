@@ -3,7 +3,7 @@ import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import * as eventually from 'wix-eventually';
 import { mount } from 'enzyme';
 import { TooltipProps } from '../tooltip';
-import { loadableDriverFactoryWithTooltip } from './Loadable.driver';
+import { loadableDriverFactory } from './Loadable.driver';
 import { Loadable } from './Loadable';
 
 class LoadableTooltip extends Loadable<
@@ -12,7 +12,7 @@ class LoadableTooltip extends Loadable<
 > {}
 
 describe('Loadable with sync loader', () => {
-  const createDriver = createDriverFactory(loadableDriverFactoryWithTooltip);
+  const createDriver = createDriverFactory(loadableDriverFactory);
 
   it('should load modules initially', () => {
     const fallBackElement = <span data-hook="error-icon">Hey!</span>;
@@ -25,14 +25,20 @@ describe('Loadable with sync loader', () => {
       >
         {Tooltip => {
           return (
-            <Tooltip data-hook="tooltip" placement="top" content="kek">
+            <Tooltip
+              data-hook="tooltip"
+              placement="top"
+              content="kek"
+              moveArrowTo={10}
+            >
               {fallBackElement}
             </Tooltip>
           );
         }}
       </LoadableTooltip>,
     );
-    expect(wrapper.isLoaded()).toBe(true);
+    expect(wrapper.existsChild('tooltip')).toBe(true);
+    expect(wrapper.existsChild('error-icon')).toBe(true);
   });
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
@@ -64,7 +70,7 @@ describe('Loadable with sync loader', () => {
 });
 
 describe('Loadable with async loader', () => {
-  const createDriver = createDriverFactory(loadableDriverFactoryWithTooltip);
+  const createDriver = createDriverFactory(loadableDriverFactory);
 
   it('should load modules initially', async () => {
     const fallBackElement = <span data-hook="error-icon">Hey!</span>;
@@ -78,7 +84,12 @@ describe('Loadable with async loader', () => {
         >
           {Tooltip => {
             return (
-              <Tooltip data-hook="tooltip" placement="top" content="kek">
+              <Tooltip
+                data-hook="tooltip"
+                placement="top"
+                content="kek"
+                moveArrowTo={10}
+              >
                 {fallBackElement}
               </Tooltip>
             );
@@ -87,8 +98,11 @@ describe('Loadable with async loader', () => {
         ,
       </div>,
     );
-    expect(wrapper.isLoaded()).toBe(false);
-    await eventually(() => expect(wrapper.isLoaded()).toBe(true));
+    expect(wrapper.existsChild('tooltip')).toBe(false);
+    await eventually(() => {
+      expect(wrapper.existsChild('tooltip')).toBe(true);
+      expect(wrapper.existsChild('error-icon')).toBe(true);
+    });
   });
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
