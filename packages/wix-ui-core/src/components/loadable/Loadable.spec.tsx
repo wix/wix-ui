@@ -5,11 +5,17 @@ import { mount } from 'enzyme';
 import { TooltipProps } from '../tooltip';
 import { loadableDriverFactory } from './Loadable.driver';
 import { Loadable } from './Loadable';
+import { tooltipDriverFactory } from '../tooltip/Tooltip.driver';
 
 class LoadableTooltip extends Loadable<
   TooltipProps,
   { Tooltip: React.ComponentType<TooltipProps> }
 > {}
+
+const getTooltipDriverFactory = wrapper =>
+  tooltipDriverFactory({
+    element: wrapper.getDOMNode(),
+  });
 
 describe('Loadable with sync loader', () => {
   const createDriver = createDriverFactory(loadableDriverFactory);
@@ -25,12 +31,7 @@ describe('Loadable with sync loader', () => {
       >
         {Tooltip => {
           return (
-            <Tooltip
-              data-hook="tooltip"
-              placement="top"
-              content="kek"
-              moveArrowTo={10}
-            >
+            <Tooltip data-hook="tooltip" placement="top" content="kek">
               {fallBackElement}
             </Tooltip>
           );
@@ -42,7 +43,6 @@ describe('Loadable with sync loader', () => {
   });
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
-    const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
         loader={() => require('../tooltip')}
@@ -59,12 +59,14 @@ describe('Loadable with sync loader', () => {
         }}
       </LoadableTooltip>,
     );
-    expect(wrapper.find(tooltipSelector).exists()).toBe(false);
+    expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
+      false,
+    );
     wrapper.setProps({ shouldLoadComponent: true });
     await eventually(() => {
-      wrapper.simulate('mouseEnter');
-      expect(wrapper.find(tooltipSelector).exists()).toBe(true);
-      wrapper.simulate('mouseLeave');
+      expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
+        true,
+      );
     });
   });
 });
@@ -84,12 +86,7 @@ describe('Loadable with async loader', () => {
         >
           {Tooltip => {
             return (
-              <Tooltip
-                data-hook="tooltip"
-                placement="top"
-                content="kek"
-                moveArrowTo={10}
-              >
+              <Tooltip data-hook="tooltip" placement="top" content="kek">
                 {fallBackElement}
               </Tooltip>
             );
@@ -98,6 +95,7 @@ describe('Loadable with async loader', () => {
         ,
       </div>,
     );
+
     expect(wrapper.existsChild('tooltip')).toBe(false);
     await eventually(() => {
       expect(wrapper.existsChild('tooltip')).toBe(true);
@@ -106,7 +104,6 @@ describe('Loadable with async loader', () => {
   });
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
-    const tooltipSelector = '[data-hook="tooltip-child"]';
     const wrapper = mount(
       <LoadableTooltip
         loader={() => import('../tooltip')}
@@ -123,13 +120,15 @@ describe('Loadable with async loader', () => {
         }}
       </LoadableTooltip>,
     );
-    expect(wrapper.find(tooltipSelector).exists()).toBe(false);
-    wrapper.setProps({ shouldLoadComponent: true });
 
+    expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
+      false,
+    );
+    wrapper.setProps({ shouldLoadComponent: true });
     await eventually(() => {
-      wrapper.simulate('mouseEnter');
-      expect(wrapper.find(tooltipSelector).exists()).toBe(true);
-      wrapper.simulate('mouseLeave');
+      expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
+        true,
+      );
     });
   });
 });
