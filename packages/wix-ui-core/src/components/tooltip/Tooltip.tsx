@@ -75,27 +75,23 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   open = () => {
-    if (!this.state.isOpen) {
-      this.props.onShow();
-      this.setState({ isOpen: true });
-    }
+    this.props.onShow();
+    this.setState({ isOpen: true });
   };
 
   close = () => {
-    if (this.state.isOpen && !this.props.shouldCloseOnClickOutside) {
-      this.props.onHide();
-      this.setState({ isOpen: false });
-    }
+    this.props.onHide();
+    this.setState({ isOpen: false });
   };
 
-  onFocus = (event, triggers) => {
+  onFocus = (event, focusableHOC) => {
     this.open();
-    return triggers ? triggers.focus() : null;
+    return focusableHOC ? focusableHOC.focus() : null;
   };
 
-  onBlur = (event, triggers) => {
+  onBlur = (event, focusableHOC) => {
     this.close();
-    return triggers ? triggers.blur() : null;
+    return focusableHOC ? focusableHOC.blur() : null;
   };
 
   render() {

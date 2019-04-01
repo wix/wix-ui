@@ -6,7 +6,7 @@ import {
 
 import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 
-import { ButtonNext } from '../button-next/button-next';
+import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 
 describe('Tooltip', () => {
@@ -14,13 +14,14 @@ describe('Tooltip', () => {
 
   const tooltip = (props = {}) => (
     <Tooltip
-      {...props}
       placement="top"
       timeout={0}
       content="Hovered Content"
       children={<div>Element</div>}
+      {...props}
     />
   );
+  afterEach(() => cleanup());
 
   it('should be hidden by default', async () => {
     const { driver } = render(tooltip());
@@ -76,6 +77,40 @@ describe('Tooltip', () => {
       await driver.mouseEnter();
       await driver.mouseLeave();
       expect(onHide).toHaveBeenCalled();
+    });
+  });
+
+  describe('`content` prop', () => {
+    it('should render when given string', async () => {
+      const content = 'string';
+      const { driver } = render(tooltip({ content }));
+      await driver.mouseEnter();
+      expect(await driver.getTooltipText()).toBe(content);
+    });
+    it('should render when given functional component', async () => {
+      const content = <div>kido</div>;
+      const { driver } = render(tooltip({ content }));
+      await driver.mouseEnter();
+      expect(await driver.getTooltipText()).toBe('kido');
+    });
+  });
+
+  describe('`onClickOutside` & `shouldCloseOnClickOutside` props', () => {
+    it('should call onClickOutside when clicked outside', async () => {
+      const onClickOutside = jest.fn();
+      const { driver } = render(tooltip({ onClickOutside }));
+      await driver.clickOutside();
+      expect(onClickOutside).toHaveBeenCalled();
+    });
+
+    it('should close tooltip when given shouldCloseOnClickOutside', async () => {
+      const onClickOutside = jest.fn();
+      const { driver } = render(
+        tooltip({ onClickOutside, shouldCloseOnClickOutside: true }),
+      );
+      await driver.mouseEnter();
+      await driver.clickOutside();
+      expect(await driver.tooltipExists()).toBe(false);
     });
   });
 });
