@@ -4,7 +4,7 @@ import {
   cleanup,
 } from '../../../test/utils/react';
 
-import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver.ts';
+import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 
 import { ButtonNext } from '../button-next/button-next';
 import { Tooltip } from './';
@@ -61,6 +61,7 @@ describe('Tooltip', () => {
       expect(await driver.tooltipExists()).toBe(false);
     });
   });
+
   describe('`onShow` & `onHide` props', () => {
     it('should call onShow on mouse enter', async () => {
       const onShow = jest.fn();
