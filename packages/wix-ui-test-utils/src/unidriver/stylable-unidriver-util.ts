@@ -1,4 +1,4 @@
-import {UniDriver} from '@unidriver/core';
+import {UniDriver} from 'unidriver';
 import {RuntimeStylesheet, StateValue} from '@stylable/runtime';
 
 /**
