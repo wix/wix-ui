@@ -65,18 +65,12 @@ export class TooltipComponent extends React.PureComponent<
   static displayName = 'Tooltip';
   static defaultProps: Partial<TooltipProps & InjectedOnClickOutProps> = {
     placement: 'top',
+    appendTo: 'parent',
     onShow: noop,
     onHide: noop,
     timeout: 150,
     showArrow: true,
   };
-
-  constructor(props: TooltipProps & InjectedOnClickOutProps) {
-    super(props);
-
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-  }
 
   state = { isOpen: false };
 
@@ -95,19 +89,19 @@ export class TooltipComponent extends React.PureComponent<
       onBlur: this.onBlur,
     });
 
-  open() {
+  open = () => {
     if (!this.state.isOpen) {
       this.props.onShow();
       this.setState({ isOpen: true });
     }
-  }
+  };
 
-  close() {
+  close = () => {
     if (this.state.isOpen && !this.props.shouldCloseOnClickOutside) {
       this.props.onHide();
       this.setState({ isOpen: false });
     }
-  }
+  };
 
   onFocus = (event, triggers) => {
     this.open();

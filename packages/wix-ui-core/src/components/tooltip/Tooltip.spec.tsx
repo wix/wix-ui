@@ -3,15 +3,24 @@ import {
   createRendererWithUniDriver,
   cleanup,
 } from '../../../test/utils/react';
+
 import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver.ts';
-import { ButtonNext } from '../button-next/button-next'
+
+import { ButtonNext } from '../button-next/button-next';
 import { Tooltip } from './';
 
 describe('Tooltip', () => {
   const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
 
   const tooltip = (props = {}) => (
-    <Tooltip placement="top" {...props} timeout={0} content="Hovered Content" children={<div>Element</div>}/>)
+    <Tooltip
+      {...props}
+      placement="top"
+      timeout={0}
+      content="Hovered Content"
+      children={<div>Element</div>}
+    />
+  );
 
   it('should be hidden by default', async () => {
     const { driver } = render(tooltip());
@@ -36,7 +45,9 @@ describe('Tooltip', () => {
 
   describe('Keyboard events', () => {
     it('tooltip should be visible on keyboard focus', async () => {
-      const { driver } = render((tooltip({children: <ButtonNext>Button</ButtonNext>}));
+      const { driver } = render(
+        tooltip({ children: <ButtonNext>Button</ButtonNext> }),
+      );
       await driver.tabIn();
       expect(await driver.tooltipExists()).toBe(true);
     });
@@ -48,6 +59,22 @@ describe('Tooltip', () => {
       expect(await driver.tooltipExists()).toBe(true);
       await driver.tabOut();
       expect(await driver.tooltipExists()).toBe(false);
+    });
+  });
+  describe('`onShow` & `onHide` props', () => {
+    it('should call onShow on mouse enter', async () => {
+      const onShow = jest.fn();
+      const { driver } = render(tooltip({ onShow }));
+      await driver.mouseEnter();
+      expect(onShow).toHaveBeenCalled();
+    });
+
+    it('should call onHide on mouse leave', async () => {
+      const onHide = jest.fn();
+      const { driver } = render(tooltip({ onHide }));
+      await driver.mouseEnter();
+      await driver.mouseLeave();
+      expect(onHide).toHaveBeenCalled();
     });
   });
 });
