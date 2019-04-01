@@ -1,50 +1,53 @@
 import * as React from 'react';
-import * as eventually from 'wix-eventually';
-import {tooltipDriverFactory} from './Tooltip.driver';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {Tooltip} from './';
-import {tooltipTestkitFactory} from '../../testkit';
-import {tooltipTestkitFactory as enzymeTooltipTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import {
+  createRendererWithUniDriver,
+  cleanup,
+} from '../../../test/utils/react';
+import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver.ts';
+import { ButtonNext } from '../button-next/button-next'
+import { Tooltip } from './';
 
 describe('Tooltip', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
-    .unmountAfterEachTest()
-    .createLegacyRenderer(tooltipDriverFactory);
+  const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
 
-  const createTooltip = (props = {}) => (
-    <Tooltip placement="top" {...props} content={<span>Hovered Content</span>}>
-      <div>
-        Element
-      </div>
-    </Tooltip>
-  );
+  const tooltip = (props = {}) => (
+    <Tooltip placement="top" {...props} timeout={0} content="Hovered Content" children={<div>Element</div>}/>)
 
-  it('should not display content by default', () => {
-    const driver = createDriver(createTooltip());
-    expect(driver.isContentElementExists()).toBeFalsy();
+  it('should be hidden by default', async () => {
+    const { driver } = render(tooltip());
+    expect(await driver.tooltipExists()).toBe(false);
   });
 
-  it('should display content on hover and hide it on leave', async () => {
-    const driver = createDriver(createTooltip());
-    driver.mouseEnter();
-    expect(driver.isContentElementExists()).toBeTruthy();
-    driver.mouseLeave();
-    await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
-  });
+  describe('Mouse events', () => {
+    it('tooltip should be visible on mouse over', async () => {
+      const { driver } = render(tooltip());
+      await driver.mouseEnter();
+      expect(await driver.tooltipExists()).toBe(true);
+    });
 
-  describe('testkit', () => {
-    it('should exist', () => {
-      expect(isTestkitExists(createTooltip(), tooltipTestkitFactory)).toBe(true);
+    it('tooltip should hidden on mouse leave', async () => {
+      const { driver } = render(tooltip());
+      await driver.mouseEnter();
+      expect(await driver.tooltipExists()).toBe(true);
+      await driver.mouseLeave();
+      expect(await driver.tooltipExists()).toBe(false);
     });
   });
 
-  describe('enzyme testkit', () => {
-    it('should exist', () => {
-      expect(isEnzymeTestkitExists(createTooltip(), enzymeTooltipTestkitFactory, mount)).toBe(true);
+  describe('Keyboard events', () => {
+    it('tooltip should be visible on keyboard focus', async () => {
+      const { driver } = render((tooltip({children: <ButtonNext>Button</ButtonNext>}));
+      await driver.tabIn();
+      expect(await driver.tooltipExists()).toBe(true);
+    });
+
+    it('tooltip should be hidden on keyboard blur event', async () => {
+      const { driver } = render(tooltip());
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.tabIn();
+      expect(await driver.tooltipExists()).toBe(true);
+      await driver.tabOut();
+      expect(await driver.tooltipExists()).toBe(false);
     });
   });
 });

@@ -1,15 +1,21 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
-import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo} from '../popover';
-import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
+import onClickOutside, {
+  InjectedOnClickOutProps,
+  OnClickOutProps,
+} from 'react-onclickoutside';
+import { Popover, Placement, AppendTo } from '../popover';
+import {
+  createComponentThatRendersItsChildren,
+  ElementProps,
+} from '../../utils';
 
 const noop = () => null;
 
-export type Point = {
+export interface Point {
   x: number;
   y: number;
-};
+}
 
 export interface TooltipProps {
   /** tooltip's placement in relation to the target element */
@@ -45,9 +51,16 @@ export interface TooltipState {
 /**
  * Tooltip
  */
-export class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClickOutProps, TooltipState> {
-  static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
-  static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
+export class TooltipComponent extends React.PureComponent<
+  TooltipProps & InjectedOnClickOutProps,
+  TooltipState
+> {
+  static Element: React.SFC<
+    ElementProps
+  > = createComponentThatRendersItsChildren('Tooltip.Element');
+  static Content: React.SFC<
+    ElementProps
+  > = createComponentThatRendersItsChildren('Tooltip.Content');
 
   static displayName = 'Tooltip';
   static defaultProps: Partial<TooltipProps & InjectedOnClickOutProps> = {
@@ -55,7 +68,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     onShow: noop,
     onHide: noop,
     timeout: 150,
-    showArrow: true
+    showArrow: true,
   };
 
   constructor(props: TooltipProps & InjectedOnClickOutProps) {
@@ -65,7 +78,7 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     this.close = this.close.bind(this);
   }
 
-  state = {isOpen: false};
+  state = { isOpen: false };
 
   handleClickOutside() {
     if (this.props.onClickOutside) {
@@ -76,23 +89,48 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
     }
   }
 
+  renderElement = () =>
+    React.cloneElement(this.props.children, {
+      onFocus: this.onFocus,
+      onBlur: this.onBlur,
+    });
+
   open() {
     if (!this.state.isOpen) {
       this.props.onShow();
-      this.setState({isOpen: true});
+      this.setState({ isOpen: true });
     }
   }
 
   close() {
     if (this.state.isOpen && !this.props.shouldCloseOnClickOutside) {
       this.props.onHide();
-      this.setState({isOpen: false});
+      this.setState({ isOpen: false });
     }
   }
 
+  onFocus = (event, triggers) => {
+    this.open();
+    return triggers ? triggers.focus() : null;
+  };
+
+  onBlur = (event, triggers) => {
+    this.close();
+    return triggers ? triggers.blur() : null;
+  };
+
   render() {
-    const {placement, content, children, moveBy, timeout, showArrow, moveArrowTo, appendTo} = this.props;
-    const {isOpen} = this.state;
+    const {
+      placement,
+      content,
+      children,
+      moveBy,
+      timeout,
+      showArrow,
+      moveArrowTo,
+      appendTo,
+    } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <Popover
@@ -107,15 +145,13 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
       >
-        <Popover.Element>
-          {children}
-        </Popover.Element>
-        <Popover.Content>
-          {content}
-        </Popover.Content>
+        <Popover.Element>{this.renderElement()}</Popover.Element>
+        <Popover.Content>{content}</Popover.Content>
       </Popover>
     );
   }
 }
 
-export const Tooltip: React.ComponentClass<OnClickOutProps<TooltipProps & InjectedOnClickOutProps>> = onClickOutside(TooltipComponent);
+export const Tooltip: React.ComponentClass<
+  OnClickOutProps<TooltipProps & InjectedOnClickOutProps>
+> = onClickOutside(TooltipComponent);
