@@ -1,6 +1,6 @@
 import {$, ElementFinder} from 'protractor';
-import {protractorUniDriver} from '@unidriver/protractor';
-import {UniDriver} from '@unidriver/core';
+import {protractorUniDriver} from 'unidriver/protractor';
+import {UniDriver} from 'unidriver';
 import {BaseUniDriver} from '../base-driver';
 
 export function protractorTestkitFactoryCreator<T>(
