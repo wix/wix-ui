@@ -31,6 +31,16 @@ export default {
     <div>
       <h3>Tests</h3>
       <CaptchaTestComponent/>
+      <h3>required Capthcha</h3>
+      <h4>a native error will be displayed when submitting an unchecked captcha</h4>
+      <div>
+        <form>
+          <Captcha sitekey={demoSiteKey} loader={<div/>} required/>
+          <button type="submit" value="Submit Captcha">
+            Click to submit captcha
+          </button>
+        </form>
+      </div>
     </div>
   )
 };

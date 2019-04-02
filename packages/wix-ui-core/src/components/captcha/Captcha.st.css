@@ -24,7 +24,7 @@
     display: none;
 }
 /* a hidden check box that will give the captcha a required input element capabilities */
-.root .checkbox {
+.root .requiredField {
     position: absolute;
     opacity : 0.0;
     top: 0;

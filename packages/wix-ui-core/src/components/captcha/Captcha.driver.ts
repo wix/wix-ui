@@ -1,15 +1,15 @@
 import {
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import { UniDriver } from 'unidriver';
 
 export interface CaptchaDriver extends BaseUniDriver {
-  getTheme: () => Promise<string>;
-  getSize: () => Promise<string>;
-  getLang: () => Promise<string>;
-  getRequired: () => Promise<string>;
-  getCaptchaType: () => Promise<string>;
+  getTheme(): Promise<string>;
+  getSize(): Promise<string>;
+  getLang(): Promise<string>;
+  isRequired(): Promise<boolean>;
+  getCaptchaType(): Promise<string>;
 }
 
 export const captchaDriverFactory = (base: UniDriver): CaptchaDriver => {
@@ -18,7 +18,7 @@ export const captchaDriverFactory = (base: UniDriver): CaptchaDriver => {
     getTheme: async () => base.attr('data-theme'),
     getSize: async () => base.attr('data-size'),
     getLang: async () => base.attr('data-lang'),
-    getRequired: async () => base.attr('data-required'),
-    getCaptchaType: async () => base.attr('data-captcha-type')
-  }
+    isRequired: async () => base.$('[data-hook="required-field"]').exists(),
+    getCaptchaType: async () => base.attr('data-captcha-type'),
+  };
 };

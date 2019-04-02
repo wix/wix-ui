@@ -27,7 +27,7 @@ export class CaptchaTestComponent extends React.Component {
     return '';
   };
 
-  isCaptchaVerified(){
+  isCaptchaVerified() {
     if (this.captchaRef) {
       return this.captchaRef.isVerified();
     }
@@ -36,46 +36,41 @@ export class CaptchaTestComponent extends React.Component {
 
   render() {
     return (
-      <form>
-        <div>
-          <Captcha
-            ref={e => (this.captchaRef = e)}
-            loader={<ExampleLoader />}
-            data-hook={constants.dataHook}
-            sitekey={constants.demoSiteKey}
-            captchaType={CaptchaType.image}
-            theme={Theme.dark}
-            size={Size.compact}
-            lang={CaptchaLang.EnglishUS}
-            required
-            onVerify={() => this.setState({resetted: false, verifiedToken: this.getVerifiedToken(),})}
-            onRender={() => this.setState({ rendered: true })}
-            onExpire={() => this.setState({ resetted: false, expired: true })}
-            onReset={() => this.setState({resetted: true, verifiedToken: this.getVerifiedToken(),})}
-          />
-          {this.state.rendered && (<div data-hook={constants.renderDataHook}>{constants.renderedMark}{`${this.state.rendered}`}</div>)}
-          <div>expired={`${this.state.expired}`}</div>
-          {this.isCaptchaVerified() && (
-            <div data-hook={`${constants.verifiedTokenDataHook}`}>
-              {constants.verifiedTokenMark}
-              {this.getVerifiedToken()}
-            </div>
-          )}
-          {this.state.resetted && (
-            <div data-hook={constants.resetDataHook}>{constants.resetMark}</div>
-          )}
-          <button
-            onClick={this.resetCaptcha}
-            type="button"
-            data-hook={constants.resetButtonDataHook}
-          >
-            Click to reset captcha
-          </button>
-          <button type="submit" value="Submit Captcha">
-            Click to submit captcha
-          </button>
-        </div>
-      </form>
+      <div>
+        <Captcha
+          ref={e => (this.captchaRef = e)}
+          loader={<ExampleLoader/>}
+          data-hook={constants.dataHook}
+          sitekey={constants.demoSiteKey}
+          captchaType={CaptchaType.image}
+          theme={Theme.dark}
+          size={Size.normal}
+          lang={CaptchaLang.EnglishUS}
+          onVerify={() => this.setState({resetted: false, verifiedToken: this.getVerifiedToken(),})}
+          onRender={() => this.setState({rendered: true})}
+          onExpire={() => this.setState({resetted: false, expired: true})}
+          onReset={() => this.setState({resetted: true, verifiedToken: this.getVerifiedToken(),})}
+        />
+        {this.state.rendered && (
+          <div data-hook={constants.renderDataHook}>{constants.renderedMark}{`${this.state.rendered}`}</div>)}
+        <div>expired={`${this.state.expired}`}</div>
+        {this.isCaptchaVerified() && (
+          <div data-hook={`${constants.verifiedTokenDataHook}`}>
+            {constants.verifiedTokenMark}
+            {this.getVerifiedToken()}
+          </div>
+        )}
+        {this.state.resetted && (
+          <div data-hook={constants.resetDataHook}>{constants.resetMark}</div>
+        )}
+        <button
+          onClick={this.resetCaptcha}
+          type="button"
+          data-hook={constants.resetButtonDataHook}
+        >
+          Click to reset captcha
+        </button>
+      </div>
     )
   }
 }

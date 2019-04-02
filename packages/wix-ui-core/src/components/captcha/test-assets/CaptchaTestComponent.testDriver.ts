@@ -1,22 +1,22 @@
-import {browser, $, $$} from 'protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {constants} from './constants'
+import { browser, $, $$ } from 'protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { constants } from './constants';
 
 import {
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import { UniDriver } from 'unidriver';
 
 async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${constants.verifiedTokenDataHook}`));
-  const verifiedToken = await $(`[data-hook=${constants.verifiedTokenDataHook}]`).getText();
-  return verifiedToken !== constants.verifiedTokenMark && verifiedToken.includes(constants.verifiedTokenMark);
-}
-
-async function isCaptchaRequired() {
-  const input = await $('input');
-  return input !== undefined;
+  const verifiedToken = await $(
+    `[data-hook=${constants.verifiedTokenDataHook}]`,
+  ).getText();
+  return (
+    verifiedToken !== constants.verifiedTokenMark &&
+    verifiedToken.includes(constants.verifiedTokenMark)
+  );
 }
 
 async function isCaptchaResetted() {
@@ -27,7 +27,10 @@ async function isCaptchaResetted() {
 
 async function validateCaptchaRendered() {
   await waitForVisibilityOf($(`[data-hook=${constants.renderDataHook}`));
-  return await $(`[data-hook=${constants.renderDataHook}]`).getText() === constants.renderedMark + 'true';
+  return (
+    (await $(`[data-hook=${constants.renderDataHook}]`).getText()) ===
+    constants.renderedMark + 'true'
+  );
 }
 
 /**
@@ -47,22 +50,23 @@ async function waitAndClickOnCaptcha() {
 }
 
 export interface CaptchaTestComponentDriver extends BaseUniDriver {
-  resetCaptcha: () => Promise<any>;
-  clickOnCaptcha: () => Promise<any>;
-  isCaptchaRendered: () => Promise<boolean>;
-  isCaptchaVerified: () => Promise<boolean>;
-  isCaptchaResetted: () => Promise<boolean>;
-  isCaptchaRequired: () => Promise<boolean>;
+  resetCaptcha(): Promise<any>;
+  clickOnCaptcha(): Promise<any>;
+  isCaptchaRendered(): Promise<boolean>;
+  isCaptchaVerified(): Promise<boolean>;
+  isCaptchaResetted(): Promise<boolean>;
 }
 
-export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestComponentDriver => {
+export const CaptchaTestInstanceDriverFactory = (
+  base: UniDriver,
+): CaptchaTestComponentDriver => {
   return {
     ...baseUniDriverFactory(base),
-    resetCaptcha: async () => $(`[data-hook=${constants.resetButtonDataHook}`).click(),
+    resetCaptcha: async () =>
+      $(`[data-hook=${constants.resetButtonDataHook}`).click(),
     clickOnCaptcha: async () => waitAndClickOnCaptcha(),
     isCaptchaRendered: async () => validateCaptchaRendered(),
     isCaptchaVerified: async () => isCaptchaVerified(),
     isCaptchaResetted: async () => isCaptchaResetted(),
-    isCaptchaRequired: async () => isCaptchaRequired(),
-  }
+  };
 };

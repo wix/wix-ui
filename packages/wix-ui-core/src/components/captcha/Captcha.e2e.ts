@@ -44,11 +44,6 @@ describe('Captcha', () => {
       expect(await driver.getSize()).toBe(Size.compact);
     });
 
-    it('should load the component with required', async () => {
-      const driver = captchaTestkitFactory({ dataHook });
-      expect(await driver.getRequired()).toBe('true');
-    });
-
     it('should load the component with lang en ', async () => {
       const driver = captchaTestkitFactory({ dataHook });
       expect(await driver.getLang()).toBe(CaptchaLang.EnglishUS);
