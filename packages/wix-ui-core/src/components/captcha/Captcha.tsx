@@ -4,6 +4,7 @@ import {Size, CaptchaType, Theme, CaptchaLang} from './types'
 import styles from './Captcha.st.css';
 
 export interface CaptchaProps {
+  required?: boolean;
   className?: string;
   sitekey: string;
   loader: any;
@@ -111,7 +112,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    *
    */
   render() {
-    const {sitekey, loader, captchaType, size, theme, lang} = this.props;
+    const {sitekey, loader, captchaType, size, theme, lang, required} = this.props;
     return (
       <div
         {
@@ -121,6 +122,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
         data-theme={theme}
         data-lang={lang}
         data-size={size}
+        data-required={`${required}`}
       >
         {!this.state.rendered && <div className={styles.loaderWrapper}>{loader}</div >}
         <div className={styles.captcha}>
@@ -136,6 +138,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
             onExpire={this.onExpired}
             onRender={this.onRender}
           />
+          {required && <input className={styles.checkbox} type={'checkbox'} required checked={this.isVerified()}></input>}
         </div>
       </div>
     );

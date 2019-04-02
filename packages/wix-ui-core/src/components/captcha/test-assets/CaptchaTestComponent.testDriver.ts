@@ -14,6 +14,11 @@ async function isCaptchaVerified() {
   return verifiedToken !== constants.verifiedTokenMark && verifiedToken.includes(constants.verifiedTokenMark);
 }
 
+async function isCaptchaRequired() {
+  const input = await $('input');
+  return input !== undefined;
+}
+
 async function isCaptchaResetted() {
   await waitForVisibilityOf($(`[data-hook=${constants.resetDataHook}`));
   const resetTxt = await $(`[data-hook=${constants.resetDataHook}]`).getText();
@@ -47,6 +52,7 @@ export interface CaptchaTestComponentDriver extends BaseUniDriver {
   isCaptchaRendered: () => Promise<boolean>;
   isCaptchaVerified: () => Promise<boolean>;
   isCaptchaResetted: () => Promise<boolean>;
+  isCaptchaRequired: () => Promise<boolean>;
 }
 
 export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestComponentDriver => {
@@ -56,6 +62,7 @@ export const CaptchaTestInstanceDriverFactory = (base: UniDriver): CaptchaTestCo
     clickOnCaptcha: async () => waitAndClickOnCaptcha(),
     isCaptchaRendered: async () => validateCaptchaRendered(),
     isCaptchaVerified: async () => isCaptchaVerified(),
-    isCaptchaResetted: async () => isCaptchaResetted()
+    isCaptchaResetted: async () => isCaptchaResetted(),
+    isCaptchaRequired: async () => isCaptchaRequired(),
   }
 };
