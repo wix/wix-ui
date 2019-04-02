@@ -3,7 +3,9 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
 export const CommonDriver = (base: UniDriver, body: UniDriver ) => {
   const queryDocumentOrElement= async (query: string) => {
      const elm = base.$$(query).get(0);
-     if (await elm.exists()) {
+     // Workaround a UniDriver bug: in this case elm.exists() returns true
+     const elmExists = !!(await elm.getNative());
+     if (elmExists) {
        return elm;
      } else {
        return body.$(query);
