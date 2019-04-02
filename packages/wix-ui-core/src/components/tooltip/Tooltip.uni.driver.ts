@@ -13,6 +13,7 @@ export const tooltipDriverFactory = (base, body) => {
     mouseLeave: async () => testkit.mouseLeave(),
     /** clicks outside the tooltip target */
     clickOutside: async () => testkit.clickOutside(),
+    /** returns tooltips content value in string */
     getTooltipText: async () => {
       await testkit.mouseEnter();
       const text = await body.$(`[data-hook="popover-content"]`).text();

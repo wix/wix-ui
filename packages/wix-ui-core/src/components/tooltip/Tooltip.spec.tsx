@@ -95,6 +95,19 @@ describe('Tooltip', () => {
     });
   });
 
+  describe('`children` prop', () => {
+    it('should render when given string', async () => {
+      const children = 'kido';
+      const { driver } = render(tooltip({ children }));
+      expect(await driver.getTargetText()).toBe(children);
+    });
+    it('should render when given react element', async () => {
+      const children = <div>kido</div>;
+      const { driver } = render(tooltip({ children }));
+      expect(await driver.getTargetText()).toBe('kido');
+    });
+  });
+
   describe('`onClickOutside` & `shouldCloseOnClickOutside` props', () => {
     it('should call onClickOutside when clicked outside', async () => {
       const onClickOutside = jest.fn();

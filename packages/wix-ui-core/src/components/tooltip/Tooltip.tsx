@@ -11,7 +11,7 @@ export interface TooltipProps {
   /** tooltip's placement in relation to the target element */
   placement?: Placement;
   /** children to render that will be the target of the tooltip */
-  children?: React.ReactNode | React.ReactElement<any>;
+  children?: React.ReactNode;
   /** the content to put inside the tooltip */
   content?: React.ReactNode;
   /** object that describes re-positioning of the tooltip */

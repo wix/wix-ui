@@ -22,5 +22,6 @@ export const tooltipPrivateDriverFactory = (base, body) => {
     ...publicDriverFactory(base, body),
     tabIn: async () => focus(),
     tabOut: async () => blur(),
+    getTargetText: async () => base.$(`[data-hook="popover-element"]`).text(),
   };
 };
