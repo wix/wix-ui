@@ -1,4 +1,4 @@
-import { UniDriver } from '@unidriver/core';
+import { UniDriver } from 'unidriver';
 
 /**
  * Safe getNative that returns `null` if the element doesn't exist.
