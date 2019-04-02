@@ -1,2 +1,2 @@
-export {jsdomReactUniDriver} from '@unidriver/jsdom-react';
+export {reactUniDriver} from 'unidriver';
 export * from './vanilla';
