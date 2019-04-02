@@ -36,18 +36,18 @@ describe('Popover', () => {
     runTests(createDriver, container);
   });
 
-  // describe('[async]', async () => {
-  //   const createDriver = container.createUniRenderer((base, body) => {
-  //     const privateDriver = popoverPrivateDriverFactory({element:container.componentNode, eventTrigger: Simulate});
+  describe('[async]', async () => {
+    const createDriver = container.createUniRenderer((base, body) => {
+      const privateDriver = popoverPrivateDriverFactory({element:container.componentNode, eventTrigger: Simulate});
 
-  //     return {
-  //       ...privateDriver,
-  //       ...testkit(base, body),
-  //     };
-  //   });
+      return {
+        ...privateDriver,
+        ...testkit(base, body),
+      };
+    });
 
-  //   runTests(createDriver, container);
-  // });
+    runTests(createDriver, container);
+  });
 });
 
 function runTests(createDriver, container) {
