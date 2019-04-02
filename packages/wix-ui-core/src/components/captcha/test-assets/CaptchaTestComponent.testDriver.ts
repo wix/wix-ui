@@ -3,10 +3,10 @@ import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {constants} from './constants'
 
 import {
+  UniDriver,
   BaseUniDriver,
   baseUniDriverFactory
-} from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+} from 'wix-ui-test-utils/unidriver';
 
 async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${constants.verifiedTokenDataHook}`));
