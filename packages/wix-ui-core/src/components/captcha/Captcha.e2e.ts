@@ -55,11 +55,6 @@ describe('Captcha', () => {
         expect(await driver.isCaptchaRendered()).toBe(true);
       });
 
-      it('should load the component as required element', async () => {
-        const driver = captchaTestInstanceFactory({ dataHook });
-        expect(await driver.isCaptchaRequired()).toBe(true);
-      });
-
       it('should verify the user click generates verification string', async () => {
         const driver = captchaTestInstanceFactory({ dataHook });
         await driver.clickOnCaptcha();
