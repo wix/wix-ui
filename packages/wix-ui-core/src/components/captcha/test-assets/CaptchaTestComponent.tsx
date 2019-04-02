@@ -36,7 +36,7 @@ export class CaptchaTestComponent extends React.Component {
 
   render() {
     return (
-      <form>
+      <form onsubmit={e => e.preventDefault()}>
         <div>
           <Captcha
             ref={e => (this.captchaRef = e)}
