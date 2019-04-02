@@ -1,5 +1,5 @@
-import {jsdomReactUniDriver} from '@unidriver/jsdom-react';
-export {jsdomReactUniDriver};
-export {jsdomReactUniDriver as reactUniDriver}; // Temp for backward compatibility
+import {reactUniDriver} from 'unidriver';
+export {reactUniDriver};
+export {reactUniDriver as jsdomReactUniDriver};
 
 export * from './vanilla';
