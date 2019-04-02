@@ -1,8 +1,8 @@
-import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {
+  UniDriver,
   BaseUniDriver,
   baseUniDriverFactory,
-} from 'wix-ui-test-utils/base-driver';
+} from 'wix-ui-test-utils/unidriver';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './image.st.css';
 

@@ -1,4 +1,4 @@
-import {UniDriver} from '@unidriver/core';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 /**
  * Safe getNative that returns `null` if the element doesn't exist.

@@ -1,7 +1,5 @@
 import { CommonDriver } from './Popover.common.uni.driver';
-import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import { Simulate } from 'react-dom/test-utils';
-import { UniDriver } from 'wix-ui-test-utils/unidriver';
+import { UniDriver, baseUniDriverFactory } from 'wix-ui-test-utils/unidriver';
 import { ReactBase, safeGetNative } from '../../../test/utils/unidriver';
 
 export const testkit = (base: UniDriver, body: UniDriver) => {

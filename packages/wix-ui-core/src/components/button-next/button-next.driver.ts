@@ -1,8 +1,8 @@
 import {
+  UniDriver,
   BaseUniDriver,
   baseUniDriverFactory
-} from 'wix-ui-test-utils/base-driver';
-import { UniDriver } from 'wix-ui-test-utils/unidriver';
+} from 'wix-ui-test-utils/unidriver';
 import {StylableUnidriverUtil} from '../../../test/StylableUnidriverUtil';
 import styles from './button-next.st.css';
 

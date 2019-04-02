@@ -1,4 +1,4 @@
-import {UniDriver} from '@unidriver/core';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { RuntimeStylesheet, StateValue } from '@stylable/runtime';
 
 /**

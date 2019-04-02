@@ -2,11 +2,10 @@ import style from './menu-item.st.css';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 
 import {
+  UniDriver,
   BaseUniDriver,
   baseUniDriverFactory
-} from 'wix-ui-test-utils/base-driver';
-
-import {UniDriver} from 'wix-ui-test-utils/unidriver';
+} from 'wix-ui-test-utils/unidriver';
 
 export interface MenuItemDriver extends BaseUniDriver {
   /** checks if the item is selected */
