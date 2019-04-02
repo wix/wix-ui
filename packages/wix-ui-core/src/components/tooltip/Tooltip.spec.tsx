@@ -87,7 +87,7 @@ describe('Tooltip', () => {
       await driver.mouseEnter();
       expect(await driver.getTooltipText()).toBe(content);
     });
-    it('should render when given functional component', async () => {
+    it('should render when given react element', async () => {
       const content = <div>kido</div>;
       const { driver } = render(tooltip({ content }));
       await driver.mouseEnter();
