@@ -1,3 +1,8 @@
+/**
+ * @deprecated
+ * Importing directly from this file is deprecated. Please import from `wix-ui-test-utils/unidriver`.
+ */
+
 import {UniDriver} from 'unidriver';
 
 export interface BaseUniDriver {
