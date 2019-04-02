@@ -9,7 +9,7 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 
-describe.only('Tooltip', () => {
+describe('Tooltip', () => {
   const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
 
   const tooltip = (props = {}) => (
