@@ -11,6 +11,8 @@ export default {
     'data-hook': storySettings.dataHook,
     children: '+ Choose a File',
     accept: '.jpeg,.png,.jpg',
+  },
+  exampleProps: {
     onChange: value => `Triggered onChange with ${value}`,
   },
 };
