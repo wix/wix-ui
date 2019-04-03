@@ -1,6 +1,6 @@
 # FilePickerButton
 
-FilePickerButton is a component that opens system browser dialog for choosing files to upload. Native file input is hard to style.
+FilePickerButton component is a stylable button that opens system browser dialog for choosing files to upload.
 
 ## Elements
 
