@@ -58,15 +58,16 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   _handleClickOutside = () => {
     const { onClickOutside, shouldCloseOnClickOutside } = this.props;
     if (shouldCloseOnClickOutside) {
-      this.close();
+      this.props.onHide();
+      this.setState({ isOpen: false });
     }
     return onClickOutside ? onClickOutside() : null;
   };
 
   _renderElement = () => {
     const { children } = this.props;
-    if (typeof children === 'string') {
-      return children;
+    if (typeof children === 'string' || !children) {
+      return children || '';
     }
     return React.cloneElement(children as any, {
       onFocus: this._onFocus,
@@ -80,8 +81,11 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   close = () => {
-    this.props.onHide();
-    this.setState({ isOpen: false });
+    const { shouldCloseOnClickOutside } = this.props;
+    if(!shouldCloseOnClickOutside) {
+      this.props.onHide();
+      this.setState({ isOpen: false });
+    }
   };
 
   _onFocus = (event, handlers) => {

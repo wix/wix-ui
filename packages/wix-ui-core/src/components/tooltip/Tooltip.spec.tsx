@@ -125,5 +125,16 @@ describe('Tooltip', () => {
       await driver.clickOutside();
       expect(await driver.tooltipExists()).toBe(false);
     });
+
+    it('should not close tooltip on mouse out when given shouldCloseOnClickOutside', async () => {
+      const onClickOutside = jest.fn();
+      const { driver } = render(
+        tooltip({ onClickOutside, shouldCloseOnClickOutside: true }),
+      );
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.mouseEnter();
+      await driver.mouseLeave();
+      expect(await driver.tooltipExists()).toBe(true);
+    });
   });
 });
