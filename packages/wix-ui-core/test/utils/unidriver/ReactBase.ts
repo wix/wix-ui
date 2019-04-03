@@ -1,5 +1,5 @@
 import { Simulate } from 'react-dom/test-utils';
-import { UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {byDataHook} from './Utils';
 import {DataHook} from '../../../src/components/file-picker-button/FilePickerButton.helpers';
 
