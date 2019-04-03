@@ -1,5 +1,7 @@
 .root {
-    -st-states: loaded(boolean)
+    -st-states: loaded(boolean);
+    /* we set this to relevant so we can position the hidden checkbox(root .checkbox) relatie to the captcha */
+    position: relative;
 }
 
 .loaderWrapper {
@@ -20,4 +22,11 @@
 
 .root .captcha {
     display: none;
+}
+/* a hidden check box that will give the captcha a required input element capabilities */
+.root .requiredField {
+    position: absolute;
+    opacity : 0.0;
+    bottom: 0;
+    left: 0;
 }
