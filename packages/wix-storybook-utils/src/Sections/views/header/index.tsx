@@ -13,7 +13,7 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
   storyConfig,
 ) => {
   const { title, component, sourceUrl, issueUrl } = section;
-  const issueURL = storyConfig.config.issueUrl || issueUrl;
+  const issueURL = storyConfig.config.issueURL || issueUrl;
 
   return (
     <div className={styles.root}>

@@ -88,31 +88,5 @@ describe('header section view', () => {
       driver.when.created(section);
       expect(driver.get.sourceUrl()).toBe('hello');
     });
-
-    it('should be derived from storyConfig', () => {
-      const section = headerBuilder({});
-
-      const driver = testkit();
-      driver.when.created(section, {
-        metadata: {
-          displayName: 'ComponentName',
-        },
-        config: {
-          repoBaseURL: 'hello/',
-        },
-      });
-
-      expect(driver.get.sourceUrl()).toBe(
-        'hello/tree/master/src/ComponentName',
-      );
-
-      driver.when.created(section, {
-        config: {
-          repoBaseURL: '',
-        },
-      });
-
-      expect(driver.get.sourceUrlExists()).toBe(false);
-    });
   });
 });
