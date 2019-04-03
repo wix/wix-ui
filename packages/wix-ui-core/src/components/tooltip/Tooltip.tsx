@@ -55,7 +55,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   state = { isOpen: false };
 
-  handleClickOutside = () => {
+  _handleClickOutside = () => {
     const { onClickOutside, shouldCloseOnClickOutside } = this.props;
     if (shouldCloseOnClickOutside) {
       this.close();
@@ -63,14 +63,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return onClickOutside ? onClickOutside() : null;
   };
 
-  renderElement = () => {
+  _renderElement = () => {
     const { children } = this.props;
     if (typeof children === 'string') {
       return children;
     }
     return React.cloneElement(children as any, {
-      onFocus: this.onFocus,
-      onBlur: this.onBlur,
+      onFocus: this._onFocus,
+      onBlur: this._onBlur,
     });
   };
 
@@ -84,13 +84,13 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     this.setState({ isOpen: false });
   };
 
-  onFocus = (event, handlers) => {
+  _onFocus = (event, handlers) => {
     const focusableHOC = handlers && handlers.focus;
     this.open();
     return focusableHOC ? handlers.focus() : null;
   };
 
-  onBlur = (event, handlers) => {
+  _onBlur = (event, handlers) => {
     const focusableHOC = handlers && handlers.blur;
     this.close();
     return focusableHOC ? handlers.blur() : null;
@@ -119,9 +119,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
-        onClickOutside={this.handleClickOutside}
+        onClickOutside={this._handleClickOutside}
       >
-        <Popover.Element>{this.renderElement()}</Popover.Element>
+        <Popover.Element>{this._renderElement()}</Popover.Element>
         <Popover.Content>{content}</Popover.Content>
       </Popover>
     );
