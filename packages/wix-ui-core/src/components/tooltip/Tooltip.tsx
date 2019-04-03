@@ -67,7 +67,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   _renderElement = () => {
     const { children } = this.props;
     if (typeof children === 'string' || !children) {
-      return children;
+      return children || '';
     }
     return React.cloneElement(children as any, {
       onFocus: this._onFocus,
