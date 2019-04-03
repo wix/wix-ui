@@ -29,4 +29,9 @@
     opacity : 0.0;
     bottom: 0;
     left: 0;
+    /*avoid user clicking on this hidden checkbox*/
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
 }
