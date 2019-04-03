@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DriverDocumentation } from './driver-documentation';
 import { CodeExample } from './code-example';
+import UnidriverTestkit from './unidriver';
 
 const getDriverNames = descriptor => {
   const drivers = descriptor.filter(d => d.type === 'object');
@@ -11,8 +12,23 @@ const getDriverNames = descriptor => {
   return [(descriptor.file || '').split('.')[0]];
 };
 
-export const AutoTestkit = ({ component }) => (
+interface AutoTestkitProps {
+  component: any;
+  unidriver?: boolean;
+}
+
+export const AutoTestkit = ({ component, unidriver }: AutoTestkitProps) => (
   <div className="markdown-body">
+    {unidriver ? (
+      <UnidriverTestkit component={component} />
+    ) : (
+      <Testkit component={component} />
+    )}
+  </div>
+);
+
+const Testkit = ({ component }) => (
+  <div>
     <h1 data-hook="auto-testkit-heading">{component.displayName} Testkits</h1>
     {component.drivers.map(({ file, descriptor, error }, i) => {
       if (error) {

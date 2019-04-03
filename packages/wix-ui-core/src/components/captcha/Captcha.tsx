@@ -152,6 +152,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
               className={styles.requiredField}
               type="checkbox"
               required
+              onChange={() => {}}
               checked={this.isVerified()}
             />
           )}
