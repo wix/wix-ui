@@ -9,34 +9,39 @@ import { Layout, Cell } from '../../../ui/Layout';
 import styles from './styles.scss';
 
 export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
-  { title, component, issueUrl, sourceUrl },
+  section,
   storyConfig,
-) => (
-  <div className={styles.root}>
-    <Layout className={styles.titleLayout}>
-      <Cell span={6} className={styles.title}>
-        {title || storyConfig.storyName}
-      </Cell>
+) => {
+  const { title, component, sourceUrl, issueUrl } = section;
+  const issueURL = storyConfig.config.issueURL || issueUrl;
 
-      <Cell span={6} className={styles.links}>
-        {issueUrl && (
-          <div className={styles.link}>
-            <Promote size="24px" /> <a href={issueUrl}>Report an issue</a>
-          </div>
-        )}
+  return (
+    <div className={styles.root}>
+      <Layout className={styles.titleLayout}>
+        <Cell span={6} className={styles.title}>
+          {title || storyConfig.storyName}
+        </Cell>
 
-        {sourceUrl && (
-          <div className={styles.link}>
-            <Code size="24px" /> <a href={sourceUrl}>Source</a>
-          </div>
-        )}
-      </Cell>
-    </Layout>
+        <Cell span={6} className={styles.links} data-hook>
+          {issueURL && (
+            <div className={styles.link} data-hook="section-header-issueUrl">
+              <Promote size="24px" /> <a href={issueURL}>Report an issue</a>
+            </div>
+          )}
 
-    {component && (
-      <div className={styles.componentWrapper}>
-        <div className={styles.component}>{component}</div>
-      </div>
-    )}
-  </div>
-);
+          {sourceUrl && (
+            <div className={styles.link} data-hook="section-header-sourceUrl">
+              <Code size="24px" /> <a href={sourceUrl}>Source</a>
+            </div>
+          )}
+        </Cell>
+      </Layout>
+
+      {component && (
+        <div className={styles.componentWrapper}>
+          <div className={styles.component}>{component}</div>
+        </div>
+      )}
+    </div>
+  );
+};
