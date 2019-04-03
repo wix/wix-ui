@@ -20,6 +20,7 @@ Captcha is a component that provides bot detection capabilities.
 | loader      | React component                  | empty component | No         | React component that will be displayed while the real captcha is being loaded |
 | onExpire    | function                         |              | No         | This callback is called when we the verified captcha was not submitted in a reasonable time frame|
 | onVerify    | function                         |              | No         | This callback is called when we the captcha challenge is successful                              |
+| required    | boolean                         |    false          | No         | set the captcha to behave like a required html input element (fail submit if not checked)|
 
 #### Instance methods
 

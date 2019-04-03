@@ -1,15 +1,11 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
-import onClickOutside, {InjectedOnClickOutProps, OnClickOutProps} from 'react-onclickoutside';
-import {Popover, Placement, AppendTo} from '../popover';
-import {createComponentThatRendersItsChildren, ElementProps} from '../../utils';
+import { Popover, Placement, AppendTo } from '../popover';
 
-const noop = () => null;
-
-export type Point = {
+export interface Point {
   x: number;
   y: number;
-};
+}
 
 export interface TooltipProps {
   /** tooltip's placement in relation to the target element */
@@ -45,60 +41,77 @@ export interface TooltipState {
 /**
  * Tooltip
  */
-export class TooltipComponent extends React.PureComponent<TooltipProps & InjectedOnClickOutProps, TooltipState> {
-  static Element: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Element');
-  static Content: React.SFC<ElementProps> = createComponentThatRendersItsChildren('Tooltip.Content');
-
+export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   static displayName = 'Tooltip';
-  static defaultProps: Partial<TooltipProps & InjectedOnClickOutProps> = {
+
+  static defaultProps: Partial<TooltipProps> = {
     placement: 'top',
-    onShow: noop,
-    onHide: noop,
+    appendTo: 'parent',
+    onShow: () => ({}),
+    onHide: () => ({}),
     timeout: 150,
-    showArrow: true
+    showArrow: true,
   };
 
-  constructor(props: TooltipProps & InjectedOnClickOutProps) {
-    super(props);
+  state = { isOpen: false };
 
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-  }
-
-  state = {isOpen: false};
-
-  handleClickOutside() {
-    if (this.props.onClickOutside) {
-      this.props.onClickOutside();
-    }
-    if (this.props.shouldCloseOnClickOutside) {
+  _handleClickOutside = () => {
+    const { onClickOutside, shouldCloseOnClickOutside } = this.props;
+    if (shouldCloseOnClickOutside) {
       this.close();
     }
-  }
+    return onClickOutside ? onClickOutside() : null;
+  };
 
-  open() {
-    if (!this.state.isOpen) {
-      this.props.onShow();
-      this.setState({isOpen: true});
+  _renderElement = () => {
+    const { children } = this.props;
+    if (typeof children === 'string') {
+      return children;
     }
-  }
+    return React.cloneElement(children as any, {
+      onFocus: this._onFocus,
+      onBlur: this._onBlur,
+    });
+  };
 
-  close() {
-    if (this.state.isOpen && !this.props.shouldCloseOnClickOutside) {
-      this.props.onHide();
-      this.setState({isOpen: false});
-    }
-  }
+  open = () => {
+    this.props.onShow();
+    this.setState({ isOpen: true });
+  };
+
+  close = () => {
+    this.props.onHide();
+    this.setState({ isOpen: false });
+  };
+
+  _onFocus = (event, handlers) => {
+    const focusableHOC = handlers && handlers.focus;
+    this.open();
+    return focusableHOC ? handlers.focus() : null;
+  };
+
+  _onBlur = (event, handlers) => {
+    const focusableHOC = handlers && handlers.blur;
+    this.close();
+    return focusableHOC ? handlers.blur() : null;
+  };
 
   render() {
-    const {placement, content, children, moveBy, timeout, showArrow, moveArrowTo, appendTo} = this.props;
-    const {isOpen} = this.state;
+    const {
+      placement,
+      content,
+      moveBy,
+      timeout,
+      showArrow,
+      moveArrowTo,
+      appendTo,
+    } = this.props;
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={isOpen}
+        shown={this.state.isOpen}
         showArrow={showArrow}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
@@ -106,16 +119,11 @@ export class TooltipComponent extends React.PureComponent<TooltipProps & Injecte
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
+        onClickOutside={this._handleClickOutside}
       >
-        <Popover.Element>
-          {children}
-        </Popover.Element>
-        <Popover.Content>
-          {content}
-        </Popover.Content>
+        <Popover.Element>{this._renderElement()}</Popover.Element>
+        <Popover.Content>{content}</Popover.Content>
       </Popover>
     );
   }
 }
-
-export const Tooltip: React.ComponentClass<OnClickOutProps<TooltipProps & InjectedOnClickOutProps>> = onClickOutside(TooltipComponent);
