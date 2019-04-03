@@ -8,40 +8,12 @@ import { StoryConfig } from '../../../typings/story-config';
 import { Layout, Cell } from '../../../ui/Layout';
 import styles from './styles.scss';
 
-const concatWithSlash: (a: string, b: string) => string = (a, b) =>
-  a.endsWith('/') ? a.concat(b) : a.concat('/').concat(b);
-
-const issueUrlRules = [
-  { when: ({ issueUrl }) => issueUrl, make: ({ issueUrl }) => issueUrl },
-  {
-    when: (_, { config: { issueURL } }) => issueURL,
-    make: (_, { config: { issueURL } }) => issueURL,
-  },
-];
-
-const sourceUrlRules = [
-  { when: ({ sourceUrl }) => sourceUrl, make: ({ sourceUrl }) => sourceUrl },
-  {
-    when: (_, { metadata: { displayName }, config: { repoBaseURL } }) =>
-      repoBaseURL && displayName,
-    make: (_, { metadata: { displayName }, config: { repoBaseURL } }) =>
-      concatWithSlash(repoBaseURL, `tree/master/src/${displayName}`),
-  },
-];
-
-const deriveConfig = (section: HeaderSection, config: StoryConfig) => rules => {
-  const rule = rules.find(({ when }) => when(section, config) as boolean);
-  return rule ? rule.make(section, config) : undefined;
-};
-
 export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
   section,
   storyConfig,
 ) => {
-  const { title, component } = section;
-  const derive = deriveConfig(section, storyConfig);
-  const issueUrl = derive(issueUrlRules);
-  const sourceUrl = derive(sourceUrlRules);
+  const { title, component, sourceUrl, issueUrl } = section;
+  const issueURL = storyConfig.config.issueUrl || issueUrl;
 
   return (
     <div className={styles.root}>
@@ -51,9 +23,9 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
         </Cell>
 
         <Cell span={6} className={styles.links} data-hook>
-          {issueUrl && (
+          {issueURL && (
             <div className={styles.link} data-hook="section-header-issueUrl">
-              <Promote size="24px" /> <a href={issueUrl}>Report an issue</a>
+              <Promote size="24px" /> <a href={issueURL}>Report an issue</a>
             </div>
           )}
 
