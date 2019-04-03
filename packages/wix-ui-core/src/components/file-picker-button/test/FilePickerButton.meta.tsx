@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Registry from '@ui-autotools/registry';
-import { FilePickerButton } from './FilePickerButton';
+import { FilePickerButton } from '../FilePickerButton';
 
 const filePickerButtonMetadata = Registry.getComponentMetadata(
   FilePickerButton,

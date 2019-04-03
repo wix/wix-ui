@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './FilePickerButton.st.css';
 import { noop } from '../../utils';
-import { DataHook } from './FilePickerButton.helpers';
+import { DataHook } from './test/FilePickerButton.helpers';
 
 export interface FilePickerButtonProps {
   /** Allows overriding the component's styles. */

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import { filePickerButtonPrivateUniDriverFactory } from './FilePickerButton.private.uni.driver';
-import { FilePickerButton } from './FilePickerButton';
-import { byDataHook } from '../../../test/utils/unidriver';
+import { FilePickerButton } from '../FilePickerButton';
+import { byDataHook } from '../../../../test/utils/unidriver';
 
 describe('FilePickerButton', () => {
   const reactDOMTestContainer = new ReactDOMTestContainer();
@@ -23,9 +23,7 @@ describe('FilePickerButton', () => {
           <FilePickerButton>{children}</FilePickerButton>,
         );
 
-        const childrenEl = await driver
-          .findInContent(byDataHook(dataHook))
-          .getNative();
+        const childrenEl = await driver.getContent();
         expect(childrenEl.innerHTML).toBe(
           getElementByDataHook(dataHook).innerHTML,
         );

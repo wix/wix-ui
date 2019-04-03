@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FilePickerButton } from './FilePickerButton';
+import { FilePickerButton } from '../FilePickerButton';
 
 export enum DataHook {
   FilePickerButton = 'file-picker-button',

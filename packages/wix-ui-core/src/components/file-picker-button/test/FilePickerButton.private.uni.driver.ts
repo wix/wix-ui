@@ -3,7 +3,7 @@ import {
   FilePickerButtonUniDriver,
   filePickerButtonUniDriverFactory,
 } from './FilePickerButton.uni.driver';
-import { byDataHook, ReactBase } from '../../../test/utils/unidriver';
+import { byDataHook, ReactBase } from '../../../../test/utils/unidriver';
 import { DataHook } from './FilePickerButton.helpers';
 
 export interface FilePickerButtonPrivateUniDriver

@@ -3,15 +3,15 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { byDataHook, ReactBase } from '../../../test/utils/unidriver';
+import { byDataHook, ReactBase } from '../../../../test/utils/unidriver';
 import { ElementFinder } from 'protractor';
 import { Simulate } from 'react-dom/test-utils';
 import { StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import style from './FilePickerButton.st.css';
+import style from '../FilePickerButton.st.css';
 import { DataHook } from './FilePickerButton.helpers';
 
 export interface FilePickerButtonUniDriver extends BaseUniDriver {
-  findInContent(selector: string): UniDriver;
+  getContent(): Promise<any>;
   getText(): Promise<string>;
   getAccept(): Promise<string>;
   isRequired(): Promise<boolean>;
@@ -27,18 +27,19 @@ export const filePickerButtonUniDriverFactory = (
     byDataHook(DataHook.ChooseFileButton),
   );
   const stylableUniDriverUtil = new StylableUnidriverUtil(style);
-  const reactFileInputUniDriver = ReactBase(fileInputUniDriver);
+  const getReactFileInputUniDriver = () => ReactBase(fileInputUniDriver);
 
   return {
     ...baseUniDriverFactory(base),
-    findInContent: (selector: string) => chooseFileButtonUniDriver.$(selector),
+    getContent: () =>
+      base.$(`${byDataHook(DataHook.ChooseFileButton)} > *`).getNative(),
     getText: () => chooseFileButtonUniDriver.text(),
     getAccept: () => fileInputUniDriver.attr('accept'),
     isRequired: async () =>
-      (await reactFileInputUniDriver.hasAttribute('required')) &&
+      (await getReactFileInputUniDriver().hasAttribute('required')) &&
       stylableUniDriverUtil.hasStyleState(base, 'required'),
     isDisabled: async () =>
-      (await reactFileInputUniDriver.hasAttribute('disabled')) &&
+      (await getReactFileInputUniDriver().hasAttribute('disabled')) &&
       stylableUniDriverUtil.hasStyleState(base, 'disabled'),
     selectFile: async (file: Partial<File>) => {
       if (base.type === 'protractor') {

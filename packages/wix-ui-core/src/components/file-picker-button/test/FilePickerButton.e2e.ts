@@ -6,7 +6,7 @@ import { browser } from 'protractor';
 import {
   FilePickerButtonUniDriver,
   filePickerButtonTestkitFactory,
-} from '../../testkit/protractor';
+} from '../../../testkit/protractor';
 import { DataHook } from './FilePickerButtonTestFixture';
 import * as path from 'path';
 
@@ -20,7 +20,9 @@ describe('FilePickerButton', () => {
 
   beforeEach(async () => {
     await browser.get(storyUrl);
-    driver = filePickerButtonTestkitFactory({ dataHook: DataHook.FilePickerButton });
+    driver = filePickerButtonTestkitFactory({
+      dataHook: DataHook.FilePickerButton,
+    });
   });
 
   it('should render the selected file names', async () => {
