@@ -1,10 +1,13 @@
-import {popoverDriverFactory} from '../popover/Popover.driver';
+import { popoverDriverFactory } from '../popover/Popover.driver';
 
 export const tooltipDriverFactory = args => {
   const popoverDriver = popoverDriverFactory(args);
-  const getTooltipStyle = () => window.getComputedStyle(args.element.querySelector('[data-hook="popover-content"]'));
+  const getTooltipStyle = () =>
+    window.getComputedStyle(
+      args.element.querySelector('[data-hook="popover-content"]'),
+    );
 
-  return Object.assign({
+  return {
     styles: {
       /** Gets background color */
       getBackgroundColor: () => getTooltipStyle().backgroundColor,
@@ -17,7 +20,8 @@ export const tooltipDriverFactory = args => {
       /** Gets border radius */
       getBorderRadius: () => getTooltipStyle().borderRadius,
       /** Gets content padding */
-      getContentPadding: () => getTooltipStyle().padding
-    }
-  }, popoverDriver);
+      getContentPadding: () => getTooltipStyle().padding,
+    },
+    ...popoverDriver,
+  };
 };
