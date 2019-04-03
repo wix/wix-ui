@@ -8,7 +8,7 @@ export const UnidriverTestkit = ({ component }) => (
   <div>
     {component.drivers.map(({ file, descriptor, error }, i) => {
       if (error) {
-        return <span />;
+        return null;
       }
       return (
         <div key={i}>

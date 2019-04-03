@@ -28,13 +28,13 @@ export const CodeExample = ({ driverName, componentName }) => {
     componentName,
   });
   return (
-    <span>
+    <div>
       <div className={styles.titles}>
         <div className={styles.title}>{title}</div>
       </div>
       <div className={styles.titles}>
         <CodeBlock source={source} type="jsx" />
       </div>
-    </span>
+    </div>
   );
 };

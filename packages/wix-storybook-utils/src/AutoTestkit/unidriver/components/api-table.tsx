@@ -1,20 +1,8 @@
 import * as React from 'react';
 import { FieldsDocumentation } from './fields-documentation';
+import { flatten } from '../../driver-documentation';
 
 import styles from '../../../Sections/section-with-siblings/styles.scss';
-
-export const flatten = (descriptor, name = '') => {
-  return descriptor.reduce((result, item) => {
-    const namespace = { ...item, name: `${name}${item.name}` };
-    return [
-      ...result,
-      namespace,
-      ...(namespace.type === 'object'
-        ? flatten(namespace.props, `${namespace.name}.`)
-        : []),
-    ];
-  }, []);
-};
 
 export const API = ({ descriptor, name }) => {
   if (!name || typeof name !== 'string') {
