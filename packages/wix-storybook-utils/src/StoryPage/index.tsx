@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
-import { SingleComponentLayout } from './single-component-layout';
 import { View as SectionsView } from '../Sections/view';
+import omit from '../AutoExample/utils/omit';
 
-const omit = require('../AutoExample/utils/omit').default;
+import { createDefaultSections } from '../Sections/create-default-sections';
 
 interface StoryPageProps extends StoryConfig {
   activeTabId?: string;
@@ -20,17 +20,15 @@ const prepareMetadata: (StoryPageProps) => Metadata = props => ({
 
 const StoryPage: React.FunctionComponent<StoryPageProps> = (
   props: StoryPageProps,
-) => {
-  const passThrough: StoryConfig = {
-    ...props,
-    metadata: prepareMetadata(props),
-  };
-  return props.sections ? (
-    <SectionsView {...passThrough} />
-  ) : (
-    <SingleComponentLayout {...passThrough} />
-  );
-};
+) => (
+  <SectionsView
+    {...{
+      ...props,
+      metadata: prepareMetadata(props),
+      sections: props.sections || createDefaultSections(props),
+    }}
+  />
+);
 
 StoryPage.defaultProps = {
   config: {
