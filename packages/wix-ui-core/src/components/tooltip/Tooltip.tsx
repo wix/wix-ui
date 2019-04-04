@@ -32,6 +32,10 @@ export interface TooltipProps {
   onClickOutside?: Function;
   /** If true, makes tooltip close when clicked outside (incase it was open) */
   shouldCloseOnClickOutside?: boolean;
+  /** time in milliseconds to wait before hiding the tooltip. */
+  hideDelay?: number;
+  /** time in milliseconds to wait before showing the tooltip. */
+  showDelay?: number;
   /** Animation timer */
   timeout?: number;
   /** If true, shows the tooltip arrow */
@@ -115,6 +119,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       appendTo,
       flip,
       fixed,
+      hideDelay,
+      showDelay,
     } = this.props;
 
     return (
@@ -126,6 +132,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         onMouseEnter={this.open}
         onMouseLeave={this.close}
         timeout={timeout}
+        hideDelay={hideDelay}
+        showDelay={showDelay}
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
