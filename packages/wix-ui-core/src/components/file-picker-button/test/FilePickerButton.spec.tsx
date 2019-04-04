@@ -1,3 +1,4 @@
+// file.only
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import { filePickerButtonPrivateUniDriverFactory } from './FilePickerButton.private.uni.driver';
@@ -17,15 +18,24 @@ describe('FilePickerButton', () => {
   describe('props', () => {
     describe(`'children' prop`, () => {
       it('should render the passed children', async () => {
-        const dataHook = 'children';
-        const children = <div data-hook={dataHook}>Get Schwifty</div>;
+        const dataHook1 = 'child1';
+        const dataHook2 = 'child2';
+        const children = (
+          <>
+            <div data-hook={dataHook1}>Get Schwifty</div>
+            <div data-hook={dataHook2}>Wubba-lubba-dub-dub</div>
+          </>
+        );
         const driver = await createDriver(
           <FilePickerButton>{children}</FilePickerButton>,
         );
 
-        const childrenEl = await driver.getContent();
-        expect(childrenEl.innerHTML).toBe(
-          getElementByDataHook(dataHook).innerHTML,
+        const childrenEls = await driver.getContent();
+        expect(childrenEls[0].innerHTML).toBe(
+          getElementByDataHook(dataHook1).innerHTML,
+        );
+        expect(childrenEls[1].innerHTML).toBe(
+          getElementByDataHook(dataHook2).innerHTML,
         );
       });
 

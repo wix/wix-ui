@@ -11,7 +11,7 @@ import style from '../FilePickerButton.st.css';
 import { DataHook } from './FilePickerButton.helpers';
 
 export interface FilePickerButtonUniDriver extends BaseUniDriver {
-  getContent(): Promise<any>;
+  getContent(): Promise<any[]>;
   getText(): Promise<string>;
   getAccept(): Promise<string>;
   isRequired(): Promise<boolean>;
@@ -32,7 +32,9 @@ export const filePickerButtonUniDriverFactory = (
   return {
     ...baseUniDriverFactory(base),
     getContent: () =>
-      base.$(`${byDataHook(DataHook.ChooseFileButton)} > *`).getNative(),
+      base
+        .$$(`${byDataHook(DataHook.ChooseFileButton)} > *`)
+        .map(ud => ud.getNative()),
     getText: () => chooseFileButtonUniDriver.text(),
     getAccept: () => fileInputUniDriver.attr('accept'),
     isRequired: async () =>
