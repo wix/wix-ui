@@ -18,7 +18,7 @@ export interface WixMediaProps {
   alt?: string;
 }
 
-export class WixMediaImage extends React.PureComponent<WixMediaProps> {
+export class WixMediaImage extends React.Component<WixMediaProps> {
   static displayName = 'WixMediaImage';
 
   private getImageSource(mediaPlatformItem: MediaPlatformItem) {
@@ -40,11 +40,6 @@ export class WixMediaImage extends React.PureComponent<WixMediaProps> {
     }
   }
 
-  private getKey() {
-    const { mediaPlatformItem, errorMediaPlatformItem } = this.props;
-    return `${(mediaPlatformItem && mediaPlatformItem.uri) ||
-      ''}${(errorMediaPlatformItem && errorMediaPlatformItem.uri) || ''}`;
-  }
 
   render() {
     const {
@@ -57,9 +52,8 @@ export class WixMediaImage extends React.PureComponent<WixMediaProps> {
 
     return (
       <Image
-        key={this.getKey()}
         src={this.getImageSource(mediaPlatformItem)}
-        alt={alt || ''}
+        alt={alt}
         errorImage={this.getImageSource(errorMediaPlatformItem)}
         onLoad={onLoad}
         onError={onError}
