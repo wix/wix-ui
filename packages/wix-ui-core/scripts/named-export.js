@@ -17,12 +17,12 @@ const generateResult = (moduleExports) => {
   nextLine;
 };
 
-const createExports = (targetDirs, location) => {
+const createExports = (targetDirs, location, { ignore } = {}) => {
   const moduleExports = targetDirs.reduce((total, dirName) => {
     const globPattern = dirName != '*'
     ? `${location}/${dirName}/**/*index.ts{,x}`
     : `${location}/*/**index.ts{,x}`;
-    const dirFiles = glob.sync(globPattern);
+    const dirFiles = glob.sync(globPattern, { ignore });
     const resolvedPaths = dirFiles.reduce((totalInDir, currentDirName) => {
       const currentDirPath = path.parse(currentDirName).dir;
       const relativePath = path.relative(location, currentDirPath);
