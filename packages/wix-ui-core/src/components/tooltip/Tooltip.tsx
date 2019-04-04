@@ -24,6 +24,10 @@ export interface TooltipProps {
   onHide?: Function;
   /** Enables calculations in relation to the parent element*/
   appendTo?: AppendTo;
+  /** whether to enable the flip behaviour. This behaviour is used to flip the Tooltips placement when it starts to overlap the target element. */
+  flip?: boolean;
+  /** whether to enable the fixed behaviour. This behaviour is used to keep the Tooltip at it's original placement even when it's being positioned outside the boundary. */
+  fixed?: boolean;
   /** Provides callback to invoke when outside of tooltip is clicked */
   onClickOutside?: Function;
   /** If true, makes tooltip close when clicked outside (incase it was open) */
@@ -82,7 +86,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
   close = () => {
     const { shouldCloseOnClickOutside } = this.props;
-    if(!shouldCloseOnClickOutside) {
+    if (!shouldCloseOnClickOutside) {
       this.props.onHide();
       this.setState({ isOpen: false });
     }
@@ -109,6 +113,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       showArrow,
       moveArrowTo,
       appendTo,
+      flip,
+      fixed,
     } = this.props;
 
     return (
@@ -123,6 +129,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         moveBy={moveBy}
         moveArrowTo={moveArrowTo}
         appendTo={appendTo}
+        flip={flip}
+        fixed={fixed}
         onClickOutside={this._handleClickOutside}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
