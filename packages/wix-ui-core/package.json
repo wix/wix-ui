@@ -17,6 +17,7 @@
   "files": [
     "src",
     "dist",
+    "scripts/named-export.js",
     "*.js",
     "*.d.ts",
     "!wallaby.js",
