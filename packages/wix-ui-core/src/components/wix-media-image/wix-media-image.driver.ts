@@ -1,4 +1,4 @@
-import { UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {
   BaseUniDriver,
   baseUniDriverFactory,
@@ -7,7 +7,7 @@ import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from '../image/image.st.css';
 import { ImageStatus } from '../image';
 
-export interface WixMediaDriver extends BaseUniDriver {
+export interface WixMediaImageDriver extends BaseUniDriver {
   getSrc(): Promise<string | null>;
   getAlt(): Promise<string>;
   isLoaded(): Promise<boolean>;
@@ -15,7 +15,7 @@ export interface WixMediaDriver extends BaseUniDriver {
   isLoading(): Promise<boolean>;
 }
 
-export const wixMediaDriverFactory = (base: UniDriver): WixMediaDriver => {
+export const wixMediaImageDriverFactory = (base: UniDriver): WixMediaImageDriver => {
   const getStyleState = async (styleState: string) => {
     const el = (await base.getNative()) as Element;
     const domUtils = new StylableDOMUtil(style, el);

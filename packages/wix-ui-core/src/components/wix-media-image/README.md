@@ -1,14 +1,14 @@
-# WixMedia
+# WixMediaImage
 
 ## Description
 
-The **WixMedia** component excepts **MediaPlatformItem** object and convert it to native HTML \<img/>.
+The **WixMediaImage** component excepts **MediaPlatformItem** object and convert it to native HTML \<img/>.
 
 ## API
 
 **Props**
 
-**WixMedia** accepts 
+**WixMediaImage** accepts 
 
 | name        | type       | default | required | description       |
 | ----------- | ---------- | ------- | -------- | ----------------- |
@@ -33,9 +33,9 @@ The **WixMedia** component excepts **MediaPlatformItem** object and convert it t
 
 ```jsx
 import * as React from 'react';
-import {WixMedia} from 'wix-ui-core/WixMedia';
+import {WixMediaImage} from 'wix-ui-core/WixMediaImage';
 
-export class WixMediaDemo extends React.Component<{}, WixMediaDemoState> {
+export class WixMediaImageDemo extends React.Component {
     render() {
         const mediaPlatformItem = {
             width: 400,

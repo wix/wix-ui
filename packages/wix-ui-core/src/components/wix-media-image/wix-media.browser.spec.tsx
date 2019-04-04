@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { wixMediaDriverFactory } from './wix-media.driver';
-import { MediaPlatformItem, WixMedia } from './wix-media';
+import { wixMediaImageDriverFactory } from './wix-media-image.driver';
+import { MediaPlatformItem, WixMediaImage } from './wix-media-image';
 import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
 import { BROKEN_SRC, ERROR_IMAGE_SRC, SRC } from '../image/test-fixtures';
 import { FALLBACK_IMAGE } from '../image';
 
-describe('WixMedia', () => {
+describe('WixMediaImage', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
-  const createDriver = testContainer.createUniRenderer(wixMediaDriverFactory);
+  const createDriver = testContainer.createUniRenderer(wixMediaImageDriverFactory);
   const sourceWidth = 800,
     sourceHeight = 800;
   const WIDTH = 400,
@@ -22,12 +22,12 @@ describe('WixMedia', () => {
   };
 
   beforeAll(() => {
-    jest.spyOn(imageClientSDK, 'getScaleToFillImageURL').mockReturnValueOnce(SRC);
+    jest.spyOn(imageClientSDK, 'getScaleToFillImageURL').mockReturnValue(SRC);
   });
 
   it('displays image with given media platform item', async () => {
     const wixMediaDriver = createDriver(
-      <WixMedia
+      <WixMediaImage
         mediaPlatformItem={mediaPlatformItem}
         width={WIDTH}
         height={HEIGHT}
@@ -46,7 +46,7 @@ describe('WixMedia', () => {
 
   it('should use mediaPlatformItem width/height if non provided', async () => {
     const wixMediaDriver = createDriver(
-      <WixMedia mediaPlatformItem={mediaPlatformItem} />,
+      <WixMediaImage mediaPlatformItem={mediaPlatformItem} />,
     );
 
     expect(imageClientSDK.getScaleToFillImageURL).toHaveBeenCalledWith(
@@ -63,7 +63,7 @@ describe('WixMedia', () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(BROKEN_SRC);
 
     const imageDriver = createDriver(
-      <WixMedia mediaPlatformItem={mediaPlatformItem} />,
+      <WixMediaImage mediaPlatformItem={mediaPlatformItem} />,
     );
 
     expect(await imageDriver.getAlt()).toEqual('this is an informative text');
@@ -73,7 +73,7 @@ describe('WixMedia', () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(SRC);
     const onLoadSpy = jest.fn();
     const wixMediaDriver = createDriver(
-      <WixMedia onLoad={onLoadSpy} mediaPlatformItem={mediaPlatformItem} />,
+      <WixMediaImage onLoad={onLoadSpy} mediaPlatformItem={mediaPlatformItem} />,
     );
 
     expect(await wixMediaDriver.isLoading()).toEqual(true);
@@ -89,7 +89,7 @@ describe('WixMedia', () => {
   describe('props are not provided', () => {
     it('displays empty pixel when mediaPlatformItem are not provided', async () => {
       const onLoadSpy = jest.fn();
-      const wixMediaDriver = createDriver(<WixMedia onLoad={onLoadSpy} />);
+      const wixMediaDriver = createDriver(<WixMediaImage onLoad={onLoadSpy} />);
 
       await eventually(
         async () => {
@@ -115,7 +115,7 @@ describe('WixMedia', () => {
         ERROR_IMAGE_SRC,
       );
       const wixMediaDriver = createDriver(
-        <WixMedia
+        <WixMediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
           onError={onErrorSpy}
@@ -135,7 +135,7 @@ describe('WixMedia', () => {
     it('displays an empty pixel when both mediaPlatformItem and errorImage are broken', async () => {
       const onErrorSpy = jest.fn();
       const wixMediaDriver = createDriver(
-        <WixMedia
+        <WixMediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
           onError={onErrorSpy}
@@ -155,7 +155,7 @@ describe('WixMedia', () => {
     it('displays an empty pixel when the provided mediaPlatformItem is broken and errorImage is not provided ', async () => {
       const onErrorSpy = jest.fn();
       const wixMediaDriver = createDriver(
-        <WixMedia mediaPlatformItem={mediaPlatformItem} onError={onErrorSpy} />,
+        <WixMediaImage mediaPlatformItem={mediaPlatformItem} onError={onErrorSpy} />,
       );
 
       await eventually(

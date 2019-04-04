@@ -35,7 +35,7 @@ import './InputWithOptions.story';
 import './Dropdown.story';
 import './IconWithOptions.story';
 import './image/image.story';
-import './WixMedia/WixMedia.story';
+import './WixMediaImage/WixMediaImage.story';
 import './Label.story';
 import './LabelWithOptions.story';
 import './LinearProgressBar/index.story';

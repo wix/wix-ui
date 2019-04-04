@@ -18,14 +18,8 @@ export interface WixMediaProps {
   onLoad?(event: React.SyntheticEvent<HTMLImageElement>): void;
 }
 
-export interface WixMediaState {
-  src: string;
-  errorImageSrc: string;
-  alternativeText: string;
-}
-
-export class WixMedia extends React.PureComponent<WixMediaProps> {
-  static displayName = 'WixMedia';
+export class WixMediaImage extends React.PureComponent<WixMediaProps> {
+  static displayName = 'WixMediaImage';
 
   private getImageSource(mediaPlatformItem: MediaPlatformItem) {
     if (mediaPlatformItem) {

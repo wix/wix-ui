@@ -1,11 +1,11 @@
-import { WixMedia } from '../../src/components/wix-media';
+import { WixMediaImage } from '../../src/components/wix-media-image';
 
 export default {
   category: 'Components',
-  storyName: 'Wix Media',
+  storyName: 'Wix Media Image',
 
-  component: WixMedia,
-  componentPath: '../../src/components/wix-media',
+  component: WixMediaImage,
+  componentPath: '../../src/components/wix-media-image',
 
   componentProps: {
     mediaPlatformItem: {
