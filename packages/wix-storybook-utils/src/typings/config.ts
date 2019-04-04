@@ -1,5 +1,6 @@
 export interface Config {
-  importFormat: string;
-  moduleName: string;
-  repoBaseURL: string;
+  importFormat?: string;
+  moduleName?: string;
+  repoBaseURL?: string;
+  issueURL?: string;
 }

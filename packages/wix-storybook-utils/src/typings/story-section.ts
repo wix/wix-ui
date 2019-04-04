@@ -44,7 +44,7 @@ export interface DescriptionSection extends StorySection {
 }
 
 export interface HeaderSection extends StorySection {
-  storyName: string;
+  storyName?: string;
   component?: React.ReactNode;
   issueUrl?: string;
   sourceUrl?: string;
@@ -74,7 +74,9 @@ export interface ApiSection extends StorySection {
   parsedSource?: object;
 }
 export interface PlaygroundSection extends StorySection {}
-export interface TestkitSection extends StorySection {}
+export interface TestkitSection extends StorySection {
+  unidriver?: boolean;
+}
 
 export interface ColumnsSection extends StorySection {
   items: Section[];
