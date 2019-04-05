@@ -57,6 +57,7 @@
     "github-markdown-css": "^2.9.0",
     "highlight.js": "9.14.2",
     "loader-utils": "^1.1.0",
+    "lodash.merge": "^4.6.1",
     "prettier": "^1.16.2",
     "query-string": "^6.0.0",
     "react-autodocs-utils": "^3.0.0",

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Metadata } from './metadata';
 import { Config } from './config';
 import { StorySection } from './story-section';
@@ -7,6 +8,8 @@ export interface StoryConfig {
   config: Config;
   component: any;
   storyName?: string;
+  component?: React.ReactNode;
+  componentPath?: string;
   componentProps?: any;
   componentWrapper?: any;
   /*

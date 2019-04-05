@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Component from './component';
+import Component from '../component';
 
 import {
   api,
@@ -15,13 +15,13 @@ import {
   tabs,
   testkit,
   title,
-} from '../src/Sections';
+} from '../../src/Sections';
 
 export default {
-  category: 'Components',
+  category: 'Sections',
   storyName: 'Component with section',
   component: Component,
-  componentPath: './component.js',
+  componentPath: '../component.js',
   sections: [
     header({
       component: (

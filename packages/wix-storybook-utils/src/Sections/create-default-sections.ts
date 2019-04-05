@@ -1,8 +1,6 @@
 import { StorySection } from '../typings/story-section';
 import { StoryConfig } from '../typings/story-config';
 
-import { isE2E } from '../utils';
-
 import {
   header,
   tabs,
@@ -18,28 +16,36 @@ import { importString } from '../StoryPage/import-string';
 
 const given = expr => item => (expr ? [item] : []);
 
+const getHeader = sections => sections[0] || {};
+
 export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
   config,
   metadata,
   exampleImport,
   examples,
+  sections = [],
 }) => [
-  // TODO: get rid of isE2E nonsense once we stop using docs for e2e
-  ...given(!isE2E)(header({ dataHook: 'section-header' })),
+  header({ dataHook: 'section-header', ...getHeader(sections) }),
 
   tabs([
     tab({
       title: 'Usage',
       sections: [
+        ...given(metadata.readme || metadata.description)(
+          description({
+            title: 'Description',
+            text: metadata.readme || metadata.description,
+            dataHook: 'metadata-readme',
+          }),
+        ),
+
         importExample({
           source: importString({ config, metadata, exampleImport }),
           dataHook: 'metadata-import',
         }),
-        description({
-          text: metadata.readme || metadata.description,
-          dataHook: 'metadata-readme',
-        }),
+
         playground(),
+
         ...given(!!examples)(examples),
       ],
     }),

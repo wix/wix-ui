@@ -13,9 +13,11 @@ import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
 import './single-component.story';
-import './story-with-sections.story';
+import './sections/story-with-sections.story';
 import './story-without-component.story';
 import './story-with-mdx.story';
+import './sections/default-sections.story';
+import './sections/filled-sections.story';
 
 storiesOf('Components', module)
   .add('<CodeExample/>', () => (

@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
+import { Section } from '../typings/story-section';
+import merge from 'lodash.merge';
 
 import { View as SectionsView } from '../Sections/view';
 import omit from '../AutoExample/utils/omit';
@@ -18,6 +20,26 @@ const prepareMetadata: (StoryPageProps) => Metadata = props => ({
   props: omit(props.metadata.props)(prop => props.hiddenProps.includes(prop)),
 });
 
+const makeSections: (a: StoryPageProps) => Section[] = props =>
+  [
+    {
+      when: props.sections && props.componentPath,
+      make: () => merge(createDefaultSections(props), props.sections),
+    },
+    {
+      when: props.sections && !props.componentPath,
+      make: () => props.sections,
+    },
+
+    {
+      // default case
+      when: true,
+      make: () => createDefaultSections(props),
+    },
+  ]
+    .find(({ when }) => when as boolean)
+    .make();
+
 const StoryPage: React.FunctionComponent<StoryPageProps> = (
   props: StoryPageProps,
 ) => (
@@ -25,11 +47,10 @@ const StoryPage: React.FunctionComponent<StoryPageProps> = (
     {...{
       ...props,
       metadata: prepareMetadata(props),
-      sections: props.sections || createDefaultSections(props),
+      sections: makeSections(props),
     }}
   />
 );
-
 StoryPage.defaultProps = {
   config: {
     importFormat: '',

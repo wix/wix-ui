@@ -5,7 +5,7 @@ const makeUrl = kind => story =>
     story,
   )}`;
 
-const kind = 'Components';
+const kind = 'Sections';
 const story = 'Single Component Story';
 
 const byHook = hook => cy.get(`[data-hook=${hook}]`);
