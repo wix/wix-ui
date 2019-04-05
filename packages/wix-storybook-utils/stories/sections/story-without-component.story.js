@@ -1,13 +1,9 @@
 import { description } from '../../src/Sections';
 
-const markdown = require('../examples/markdown-titles.md');
+import markdown from '../examples/markdown-titles.md';
 
 export default {
   category: 'Sections',
-  storyName: 'Composite component',
-  sections: [
-    description({
-      text: markdown,
-    }),
-  ],
+  storyName: 'Sections without Component',
+  sections: [description(markdown)],
 };

@@ -6,7 +6,6 @@ import { StorySection } from './story-section';
 export interface StoryConfig {
   metadata: Metadata;
   config: Config;
-  component: any;
   storyName?: string;
   component?: React.ReactNode;
   componentPath?: string;
