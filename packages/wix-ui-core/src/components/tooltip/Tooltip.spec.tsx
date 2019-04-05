@@ -130,6 +130,16 @@ describe('Tooltip', () => {
     });
   });
 
+  describe('`disabled` prop', () => {
+    it('[when] given should not show tooltip on mouse enter', async () => {
+      const children = 'kido';
+      const { driver } = render(tooltip({ children, disabled: true }));
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.mouseEnter();
+      expect(await driver.tooltipExists()).toBe(false);
+    });
+  });
+
   describe('`onClickOutside` & `shouldCloseOnClickOutside` props', () => {
     it('should call onClickOutside when clicked outside', async () => {
       const onClickOutside = jest.fn();

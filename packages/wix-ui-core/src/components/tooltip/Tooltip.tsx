@@ -22,6 +22,8 @@ export interface TooltipProps {
   onShow?: Function;
   /** callback to call when the tooltip is being hidden */
   onHide?: Function;
+  /** disabled tooltip showup on mouse enter */
+  disabled?: boolean;
   /** Enables calculations in relation to the parent element*/
   appendTo?: AppendTo;
   /** whether to enable the flip behaviour. This behaviour is used to flip the Tooltips placement when it starts to overlap the target element. */
@@ -123,13 +125,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       fixed,
       hideDelay,
       showDelay,
+      disabled,
     } = this.props;
 
     return (
       <Popover
         {...style('root', {}, this.props)}
         placement={placement}
-        shown={this.state.isOpen}
+        shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
         onMouseEnter={this.open}
         onMouseLeave={this.close}
