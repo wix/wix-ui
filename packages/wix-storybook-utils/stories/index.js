@@ -12,10 +12,10 @@ import MdX from './examples/markdown.mdx';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
-import './single-component.story';
+import './sections/story-without-component.story';
+import './sections/story-with-mdx.story';
+import './sections/single-component.story';
 import './sections/story-with-sections.story';
-import './story-without-component.story';
-import './story-with-mdx.story';
 import './sections/default-sections.story';
 import './sections/filled-sections.story';
 

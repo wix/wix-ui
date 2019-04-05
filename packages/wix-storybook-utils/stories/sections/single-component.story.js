@@ -1,7 +1,7 @@
 import React from 'react';
-import Component from './component';
-import CodeShowcase from '../src/CodeShowcase';
-import LiveCodeExample from '../src/LiveCodeExample';
+import Component from '../component';
+import CodeShowcase from '../../src/CodeShowcase';
+import LiveCodeExample from '../../src/LiveCodeExample';
 
 const showcase = `<button className={button.one}>one</button>
 <button className={button.two}>two</button>
@@ -20,11 +20,11 @@ const ExampleShowcase = () => (
 );
 
 export default {
-  category: 'Components',
+  category: 'Sections',
   storyName: 'Single Component Story',
 
   component: Component,
-  componentPath: './component.js',
+  componentPath: '../component.js',
 
   componentProps: {
     // test should be visible even though it's not part of component propTypes
