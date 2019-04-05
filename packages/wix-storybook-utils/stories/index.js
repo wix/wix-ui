@@ -12,10 +12,10 @@ import MdX from './examples/markdown.mdx';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
-import './index.story';
-import './story-with-sections.story.tsx';
-import './story-without-component.story.tsx';
-import './story-with-mdx.story.tsx';
+import './single-component.story';
+import './story-with-sections.story';
+import './story-without-component.story';
+import './story-with-mdx.story';
 
 storiesOf('Components', module)
   .add('<CodeExample/>', () => (
@@ -26,6 +26,7 @@ storiesOf('Components', module)
       </CodeExample>
     </div>
   ))
+
   .add('<TabbedView/>', () => (
     <div>
       Display data in multiple tabs
@@ -35,6 +36,7 @@ storiesOf('Components', module)
       </TabbedView>
     </div>
   ))
+
   .add('<TextButton/>', () => (
     <div>
       a clickable textual button
@@ -43,17 +45,20 @@ storiesOf('Components', module)
       </TextButton>
     </div>
   ))
+
   .add('Markdown X', () => (
     <div>
       <MdX />
     </div>
   ))
+
   .add('<Markdown/>', () => (
     <div>
       A great way to display Markdown files
       <Markdown source={markdown} />
     </div>
   ))
+
   .add('<InteractiveCodeExample/> ', () => (
     <div>
       This component should display a component with some code above it

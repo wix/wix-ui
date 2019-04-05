@@ -25,16 +25,20 @@ export default {
   sections: [
     header({
       component: (
-        <div style={{ background: '#bada55', boxShadow: '0 0 3px 0 blue' }}>
+        <div
+          data-hook="header-component"
+          style={{ background: '#bada55', boxShadow: '0 0 3px 0 blue' }}
+        >
           Oh hello there!
         </div>
       ),
       sourceUrl: 'https://github.com/wix/wix-ui/',
+      dataHook: 'section-header',
     }),
 
     tabs([
       tab({
-        title: 'Something something',
+        title: 'Import Example',
         sections: [
           title('Component Title'),
 

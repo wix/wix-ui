@@ -21,7 +21,7 @@ const ExampleShowcase = () => (
 
 export default {
   category: 'Components',
-  storyName: 'Dummy Component',
+  storyName: 'Single Component Story',
 
   component: Component,
   componentPath: './component.js',

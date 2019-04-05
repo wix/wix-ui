@@ -25,7 +25,7 @@ export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
   examples,
 }) => [
   // TODO: get rid of isE2E nonsense once we stop using docs for e2e
-  ...given(!isE2E)(header({})),
+  ...given(!isE2E)(header({ dataHook: 'section-header' })),
 
   tabs([
     tab({
