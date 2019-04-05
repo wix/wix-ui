@@ -138,6 +138,13 @@ describe('Tooltip', () => {
       await driver.mouseEnter();
       expect(await driver.tooltipExists()).toBe(false);
     });
+    it('[when] given should not show tooltip on focus', async () => {
+      const children = 'kido';
+      const { driver } = render(tooltip({ children, disabled: true }));
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.tabIn();
+      expect(await driver.tooltipExists()).toBe(false);
+    });
   });
 
   describe('`onClickOutside` & `shouldCloseOnClickOutside` props', () => {
