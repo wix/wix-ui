@@ -18,6 +18,11 @@ const given = expr => item => (expr ? [item] : []);
 
 const getHeader = sections => sections[0] || {};
 
+const getSourceUrl = ({
+  config: { repoBaseURL = '' },
+  metadata: { displayName },
+}) => (repoBaseURL && displayName ? `${repoBaseURL}${displayName}` : undefined);
+
 export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
   config,
   metadata,
@@ -25,7 +30,11 @@ export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
   examples,
   sections = [],
 }) => [
-  header({ dataHook: 'section-header', ...getHeader(sections) }),
+  header({
+    dataHook: 'section-header',
+    sourceUrl: getSourceUrl({ config, metadata }),
+    ...getHeader(sections),
+  }),
 
   tabs([
     tab({

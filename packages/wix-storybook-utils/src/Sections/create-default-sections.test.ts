@@ -1,6 +1,6 @@
 import { deepAssign } from '../../test/utils/deep-assign';
 
-import { SectionType } from '../typings/story-section';
+import { SectionType, HeaderSection } from '../typings/story-section';
 import { createDefaultSections } from './create-default-sections';
 
 import { header } from '.';
@@ -35,6 +35,21 @@ describe('createDefaultSection', () => {
       );
 
       expect(firstSection).toEqual(expect.objectContaining(headerConfig));
+    });
+
+    it('should display sourceUrl for component stories', () => {
+      const config = storyConfig({
+        metadata: {
+          displayName: 'name',
+        },
+        config: {
+          repoBaseURL: 'base/',
+        },
+      });
+
+      const [firstSection] = createDefaultSections(config);
+
+      expect((firstSection as HeaderSection).sourceUrl).toEqual('base/name');
     });
   });
 });
