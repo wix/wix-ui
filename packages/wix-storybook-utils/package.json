@@ -24,7 +24,7 @@
     "pretest": "build-storybook",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "yoshi test --jest",
-    "test:e2e": "concurrently 'servedir storybook-static 6006' 'wait-on http://localhost:6006 && cypress run' -k --success last",
+    "test:e2e": "concurrently 'servedir storybook-static 6006' 'wait-on http://localhost:6006 && cypress run' -k --success first",
     "start": "npm run storybook",
     "release": "yoshi release",
     "storybook": "start-storybook -p 6006"
