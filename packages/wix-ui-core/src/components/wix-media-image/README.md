@@ -2,7 +2,7 @@
 
 ## Description
 
-The **WixMediaImage** component excepts **MediaPlatformItem** object and convert it to native HTML \<img/>.
+The **WixMediaImage** component accepts **MediaPlatformItem** object and convert it to native HTML \<img/>.
 
 ## API
 
