@@ -3,8 +3,6 @@ import { ImageStatus } from '../image';
 import { ImageDriver, imageDriverFactory } from '../image/image.driver';
 
 export interface WixMediaImageDriver extends ImageDriver {
-  getSrc(): Promise<string | null>;
-  getAlt(): Promise<string>;
   isLoaded(): Promise<boolean>;
   isError(): Promise<boolean>;
   isLoading(): Promise<boolean>;
