@@ -14,5 +14,3 @@ package-lock.json
 !wallaby.js
 !AutoExampleDriver.js
 .history
-cypress/videos
-cypress/screenshots
