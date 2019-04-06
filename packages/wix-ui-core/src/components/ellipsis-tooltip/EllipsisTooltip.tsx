@@ -1,16 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-const debounce = require('lodash/debounce');
 import * as classNames from 'classnames';
 import ellipsisStyles from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
+const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
-  children(childrenProps: any); //TODO - fix types
+  /** decide wether to apply ellipsis measurements or not (for dynamic imports) */
   showTooltip?: boolean;
-  style?: object;
+  /** the tooltip content to display when text is truncated */
   tooltipContent: React.ReactNode;
+  /** a render prop children, usually a text component */
+  children(
+    childrenProps: any,
+  ): {
+    className?: string;
+    [otherPropName: string]: any;
+  };
 }
 
 interface EllipsisTooltipState {
@@ -77,20 +84,10 @@ export class EllipsisTooltip extends React.Component<
 
   _renderChildren() {
     const { children } = this.props;
-    const { isEllipsisActive } = this.state;
 
-    const enhancedChildrenProps = (childrenProps = { className: null }) => {
-      const ret = {
-        className: classNames(
-          childrenProps.className,
-          ellipsisStyles.valueToCalculate,
-          {
-            [ellipsisStyles.ellipsedValue]: isEllipsisActive,
-          },
-        ),
-      };
-      return ret;
-    };
+    const enhancedChildrenProps = (childrenProps = { className: null }) => ({
+      className: classNames(childrenProps.className, ellipsisStyles.root),
+    });
 
     return (
       <StateFullComponentWrap

@@ -35,7 +35,7 @@ Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
 import './Input/Input.story';
 import './InputWithOptions.story';
 import './Dropdown.story';
-import '../src/components/ellipsis-tooltip/EllipsisTooltipStory';
+import '../src/components/ellipsis-tooltip/EllipsisTooltip.story';
 import './IconWithOptions.story';
 import './image/image.story';
 import './MediaImage/MediaImage.story';
