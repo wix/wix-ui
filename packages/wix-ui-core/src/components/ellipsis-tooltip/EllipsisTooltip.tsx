@@ -7,7 +7,7 @@ import ellipsisStyles from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
 
 interface EllipsisTooltipProps {
-  children(childrenProps: any);
+  children(childrenProps: any); //TODO - fix types
   showTooltip?: boolean;
   style?: object;
   tooltipContent: React.ReactNode;
