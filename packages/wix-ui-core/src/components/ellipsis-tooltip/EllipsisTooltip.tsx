@@ -7,17 +7,17 @@ import { StateFullComponentWrap } from './StateFullComponentWrap';
 const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
-  /** decide wether to apply ellipsis measurements or not (for dynamic imports) */
-  showTooltip?: boolean;
   /** the tooltip content to display when text is truncated */
   tooltipContent: React.ReactNode;
-  /** a render prop children, usually a text component */
+  /** a children render prop - usually a text component */
   children(
     childrenProps: any,
   ): {
     className?: string;
     [otherPropName: string]: any;
   };
+  /** truncate the text but don't display a tooltip */
+  showTooltip?: boolean;
 }
 
 interface EllipsisTooltipState {
@@ -25,6 +25,7 @@ interface EllipsisTooltipState {
   Tooltip: React.ComponentClass;
   tooltipStyle: RuntimeStylesheet;
 }
+/** Apply ellipsis with custom tooltip to some text in a blink of an eye. */
 export class EllipsisTooltip extends React.Component<
   EllipsisTooltipProps,
   EllipsisTooltipState
