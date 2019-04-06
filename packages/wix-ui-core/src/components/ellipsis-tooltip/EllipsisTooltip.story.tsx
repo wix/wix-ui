@@ -3,7 +3,6 @@ import { EllipsisTooltip } from '.';
 import { storySettings } from './storySettings';
 
 const Text = props => <div {...props} />;
-const content = 'this text is very long and will be cut';
 
 const componentWrapper = ({ component }) => (
   <div style={{ width: '200px' }}>{component}</div>
@@ -12,7 +11,17 @@ const componentWrapper = ({ component }) => (
 const childrenExamples = [
   {
     label: 'long text that needs ellipsis',
-    value: extendedProps => <Text {...extendedProps({})}>{content}</Text>,
+    value: extendedProps => (
+      <div {...extendedProps({})}>this text is very long and will be cut</div>
+    ),
+  },
+  {
+    label: 'long text that needs ellipsis using function component',
+    value: extendedProps => (
+      <Text {...extendedProps({})}>
+        this is also a very long and will be cut
+      </Text>
+    ),
   },
   {
     label: `short text doesn't`,
@@ -30,7 +39,6 @@ export default {
   componentWrapper,
   componentProps: {
     showTooltip: true,
-    tooltipContent: content,
     children: childrenExamples[0].value,
   },
   exampleProps: {

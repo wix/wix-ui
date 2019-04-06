@@ -7,8 +7,6 @@ import { StateFullComponentWrap } from './StateFullComponentWrap';
 const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
-  /** the tooltip content to display when text is truncated */
-  tooltipContent: React.ReactNode;
   /** a children render prop - usually a text component */
   children(
     childrenProps: any,
@@ -25,7 +23,7 @@ interface EllipsisTooltipState {
   Tooltip: React.ComponentClass;
   tooltipStyle: RuntimeStylesheet;
 }
-/** Apply ellipsis with custom tooltip to some text in a blink of an eye. */
+/** Apply ellipsis and a custom tooltip to your text nodes */
 export class EllipsisTooltip extends React.Component<
   EllipsisTooltipProps,
   EllipsisTooltipState
@@ -107,13 +105,12 @@ export class EllipsisTooltip extends React.Component<
 
   render() {
     const { Tooltip, tooltipStyle } = this.state;
-    const { tooltipContent } = this.props;
 
     return this._isTooltipActive() ? (
       <Tooltip
         {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
         appendTo="scrollParent"
-        content={tooltipContent}
+        content={<div>{this.textNode.textContent}</div>}
         showArrow
       >
         {this._renderChildren()}
