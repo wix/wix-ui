@@ -64,3 +64,4 @@ Backoffice.add('Buttons', ButtonsStory);
 // Tests
 Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
+import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';
