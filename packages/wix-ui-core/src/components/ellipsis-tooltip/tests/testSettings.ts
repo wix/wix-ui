@@ -12,3 +12,9 @@ export const dataHooks = {
   noStylesInTooltip: 'ellipsis-no-styles',
   noEllipsis: 'no-ellipsis',
 };
+
+export const dataHooksContent = {
+  haveEllipsis: 'ellipsis-with-tooltip__content',
+  noStylesInTooltip: 'ellipsis-no-styles__content',
+  noEllipsis: 'no-ellipsis__content',
+};

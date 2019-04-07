@@ -7,35 +7,32 @@ import {
   hasEllipsis,
 } from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../../testkit/protractor';
-import { testFolder, testNames, dataHooks } from './testSettings';
+import {
+  testFolder,
+  testNames,
+  dataHooks,
+  dataHooksContent,
+} from './testSettings';
 
 const byDataHook = dataHook => $(`[data-hook="${dataHook}"]`);
 
-async function goToTestPageAndFindElement(testName, dataHook) {
+async function goToTestPage(testName) {
   const storyUrl = getStoryUrl(testFolder, testName);
   await browser.get(storyUrl);
-
-  const textElementFinder = byDataHook(dataHook);
-
-  await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsisTooltip');
-
-  return textElementFinder;
 }
 
-//TODO - it should use the tooltip driver
+//TODO - need to create a driver for it
 describe('EllipsisTooltip', () => {
   eyes.it(testNames.haveEllipsis, async () => {
-    const textElementFinder = await goToTestPageAndFindElement(
-      testNames.haveEllipsis,
-      dataHooks.haveEllipsis,
-    );
-    expect(textElementFinder.getText()).toBe(
+    goToTestPage(testNames.haveEllipsis);
+
+    const textContentElement = byDataHook(dataHooksContent.haveEllipsis);
+    expect(textContentElement.getText()).toBe(
       'This text is going to get ellipsed',
     );
+    expect(hasEllipsis(textContentElement)).toEqual(true);
 
-    expect(hasEllipsis(textElementFinder)).toEqual(true);
-
-    await mouseEnter(textElementFinder);
+    await mouseEnter(textContentElement);
     const tooltipTestkit = tooltipTestkitFactory({
       dataHook: dataHooks.haveEllipsis,
     });
@@ -45,17 +42,15 @@ describe('EllipsisTooltip', () => {
   });
 
   eyes.it(testNames.noStylesInTooltip, async () => {
-    const textElementFinder = await goToTestPageAndFindElement(
-      testNames.noStylesInTooltip,
-      dataHooks.noStylesInTooltip,
-    );
+    await goToTestPage(testNames.noStylesInTooltip);
 
-    expect(textElementFinder.getText()).toBe(
+    const textContentElement = byDataHook(dataHooksContent.noStylesInTooltip);
+    expect(textContentElement.getText()).toBe(
       'This text is going to get ellipsed',
     );
+    expect(hasEllipsis(textContentElement)).toEqual(true);
 
-    expect(hasEllipsis(textElementFinder)).toEqual(true);
-    await mouseEnter(textElementFinder);
+    await mouseEnter(textContentElement);
     const tooltipTestkit = tooltipTestkitFactory({
       dataHook: dataHooks.noStylesInTooltip,
     });
@@ -65,14 +60,11 @@ describe('EllipsisTooltip', () => {
   });
 
   eyes.it(testNames.noEllipsis, async () => {
-    const textElementFinder = await goToTestPageAndFindElement(
-      testNames.noEllipsis,
-      dataHooks.noEllipsis,
-    );
+    await goToTestPage(testNames.noEllipsis);
 
-    expect(hasEllipsis(textElementFinder)).toBe(false);
-
-    await mouseEnter(textElementFinder);
+    const textContentElement = byDataHook(dataHooksContent.noEllipsis);
+    expect(hasEllipsis(textContentElement)).toEqual(false);
+    await mouseEnter(textContentElement);
     const tooltipTestkit = tooltipTestkitFactory({
       dataHook: dataHooks.noEllipsis,
     });

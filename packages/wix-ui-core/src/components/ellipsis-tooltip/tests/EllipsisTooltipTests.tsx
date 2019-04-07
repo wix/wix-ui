@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { testFolder, testNames, dataHooks } from './testSettings';
+import {
+  testFolder,
+  testNames,
+  dataHooks,
+  dataHooksContent,
+} from './testSettings';
 import { EllipsisTooltip } from '../';
 
 storiesOf(testFolder, module)
@@ -8,7 +13,9 @@ storiesOf(testFolder, module)
     <div style={{ width: '170px', background: 'azure' }}>
       <EllipsisTooltip data-hook={dataHooks.haveEllipsis}>
         {extenedProps => (
-          <div {...extenedProps()}>This text is going to get ellipsed</div>
+          <div data-hook={dataHooksContent.haveEllipsis} {...extenedProps()}>
+            This text is going to get ellipsed
+          </div>
         )}
       </EllipsisTooltip>
     </div>
@@ -17,7 +24,11 @@ storiesOf(testFolder, module)
     <div style={{ width: '170px', background: 'azure' }}>
       <EllipsisTooltip data-hook={dataHooks.noStylesInTooltip}>
         {extenedProps => (
-          <span {...extenedProps()} style={{ color: 'purple' }}>
+          <span
+            data-hook={dataHooksContent.noStylesInTooltip}
+            {...extenedProps()}
+            style={{ color: 'purple' }}
+          >
             This text is going to get ellipsed
           </span>
         )}
@@ -28,7 +39,7 @@ storiesOf(testFolder, module)
     <div style={{ background: 'azure' }}>
       <EllipsisTooltip data-hook={dataHooks.noEllipsis}>
         {extenedProps => (
-          <span {...extenedProps()}>
+          <span data-hook={dataHooksContent.noEllipsis} {...extenedProps()}>
             This text will not get ellipsed since the width of this row is
             really really huge
           </span>

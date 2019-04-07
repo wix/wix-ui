@@ -8,7 +8,8 @@
   "sideEffects": [
     "./.storybook/**/*.*",
     "./stories/**/*.*",
-    "./src/**/*.story.tsx"
+    "./src/**/*.story.tsx",
+    "./src/**/tests/*.*"
   ],
   "author": {
     "name": "Wix",
