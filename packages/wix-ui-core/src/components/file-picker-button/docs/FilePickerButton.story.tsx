@@ -14,6 +14,6 @@ export default {
   },
   exampleProps: {
     onChange: files =>
-      `Triggered onChange with ${files.map(f => f.name).join(',')}`,
+      `Triggered onChange with "${files.map(f => f.name).join(',')}"`,
   },
 };
