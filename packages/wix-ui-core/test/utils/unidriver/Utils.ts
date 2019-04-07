@@ -7,3 +7,5 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
 export async function safeGetNative<T>(base: UniDriver<T>) {
   return (await base.exists()) ? base.getNative() : null;
 }
+
+export const byDataHook = (dataHook: string) => `[data-hook="${dataHook}"]`;
