@@ -1,1 +1,1 @@
-export {InputWithOptions, InputWithOptionsProps} from './InputWithOptions';
+export { InputWithOptions, InputWithOptionsProps } from './InputWithOptions';
