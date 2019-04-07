@@ -8,6 +8,7 @@ const filePickerButtonMetadata = Registry.getComponentMetadata(
 filePickerButtonMetadata.addSim({
   title: 'FilePickerButton simulation',
   props: {
+    id: 'get-schwifty',
     children: (
       <div>
         <i>+</i>Choose a File

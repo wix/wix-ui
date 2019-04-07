@@ -1,9 +1,9 @@
-// file.only
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import { filePickerButtonPrivateUniDriverFactory } from './FilePickerButton.private.uni.driver';
 import { FilePickerButton } from '../FilePickerButton';
 import { byDataHook } from '../../../../test/utils/unidriver';
+import { DataHook } from './FilePickerButton.helpers';
 
 describe('FilePickerButton', () => {
   const reactDOMTestContainer = new ReactDOMTestContainer();
@@ -152,13 +152,14 @@ describe('FilePickerButton', () => {
 
   describe('a11y', () => {
     it('should have proper aria attributes', async () => {
-      const driver = await createDriver(<FilePickerButton />);
+      const id = 'khaleesi';
+      const driver = await createDriver(<FilePickerButton id={id} />);
       const buttonId = await driver.getChooseFileButtonAttribute('id');
       expect(await driver.getFileInputAttribute('aria-labelledby')).toBe(
         buttonId,
       );
 
-      expect(buttonId).toMatch(/^wix-ui-core-file-picker-button-\d+/);
+      expect(buttonId).toBe(`${DataHook.ChooseFileButton}-${id}`);
     });
   });
 });
