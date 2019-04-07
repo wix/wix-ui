@@ -10,6 +10,8 @@ export interface FilePickerButtonPrivateUniDriver
   extends FilePickerButtonUniDriver {
   focusChooseFileButton(): Promise<void>;
   getNativeInput(): Promise<HTMLInputElement>;
+  getFileInputAttribute(attr: string): Promise<string>;
+  getChooseFileButtonAttribute(attr: string): Promise<string>;
 }
 
 export const filePickerButtonPrivateUniDriverFactory = (
@@ -19,16 +21,22 @@ export const filePickerButtonPrivateUniDriverFactory = (
   const chooseFileButtonUniDriver = base.$(
     byDataHook(DataHook.ChooseFileButton),
   );
+
+  const reactFileInputUniDriver = ReactBase(fileInputUniDriver);
   const reactChooseFileButtonUniDriver = ReactBase(chooseFileButtonUniDriver);
 
   return {
     ...filePickerButtonUniDriverFactory(base),
-    focusChooseFileButton: async () => reactChooseFileButtonUniDriver.focus(),
+    focusChooseFileButton: () => reactChooseFileButtonUniDriver.focus(),
     getNativeInput: async () => {
       if (base.type === 'react') {
         const el: HTMLInputElement = await fileInputUniDriver.getNative();
         return el;
       }
     },
+    getFileInputAttribute: (attr: string) =>
+      reactFileInputUniDriver.getAttribute(attr),
+    getChooseFileButtonAttribute: (attr: string) =>
+      reactChooseFileButtonUniDriver.getAttribute(attr),
   };
 };

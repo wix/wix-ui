@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { UID } from 'react-uid';
+
 import style from './FilePickerButton.st.css';
-import { noop } from '../../utils';
 import { DataHook } from './test/FilePickerButton.helpers';
+import { generateId, noop } from '../../utils';
 
 export interface FilePickerButtonProps {
   /** Allows overriding the component's styles. */
@@ -52,31 +54,37 @@ export class FilePickerButton extends React.Component<
   render() {
     const { children, accept, required, disabled } = this.props;
     return (
-      <div {...style('root', { required, disabled }, this.props)}>
-        <input
-          type="file"
-          tabIndex={-1}
-          data-hook={DataHook.FileInput}
-          ref={this.fileInputRef}
-          className={style.fileInput}
-          onChange={this.handleFileInputChange}
-          accept={accept}
-          required={required}
-          disabled={disabled}
-        />
-        <button
-          type="button"
-          data-hook={DataHook.ChooseFileButton}
-          ref={this.chooseFileButtonRef}
-          className={style.chooseFileButton}
-          onClick={this.handleChooseFileButtonClick}
-          onFocus={this.handleChooseFileButtonFocus}
-          onBlur={this.handleChooseFileButtonBlur}
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      </div>
+      <UID name={id => generateId(FilePickerButton.displayName, id)}>
+        {id => (
+          <div {...style('root', { required, disabled }, this.props)}>
+            <input
+              type="file"
+              tabIndex={-1}
+              data-hook={DataHook.FileInput}
+              ref={this.fileInputRef}
+              className={style.fileInput}
+              onChange={this.handleFileInputChange}
+              accept={accept}
+              required={required}
+              disabled={disabled}
+              aria-labelledby={id}
+            />
+            <button
+              id={id}
+              type="button"
+              data-hook={DataHook.ChooseFileButton}
+              ref={this.chooseFileButtonRef}
+              className={style.chooseFileButton}
+              onClick={this.handleChooseFileButtonClick}
+              onFocus={this.handleChooseFileButtonFocus}
+              onBlur={this.handleChooseFileButtonBlur}
+              disabled={disabled}
+            >
+              {children}
+            </button>
+          </div>
+        )}
+      </UID>
     );
   }
 

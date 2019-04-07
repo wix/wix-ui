@@ -149,4 +149,16 @@ describe('FilePickerButton', () => {
       expect(onChangeSpy).toHaveBeenCalledWith([]);
     });
   });
+
+  describe('a11y', () => {
+    it('should have proper aria attributes', async () => {
+      const driver = await createDriver(<FilePickerButton />);
+      const buttonId = await driver.getChooseFileButtonAttribute('id');
+      expect(await driver.getFileInputAttribute('aria-labelledby')).toBe(
+        buttonId,
+      );
+
+      expect(buttonId).toMatch(/^wix-ui-core-file-picker-button-\d+/);
+    });
+  });
 });

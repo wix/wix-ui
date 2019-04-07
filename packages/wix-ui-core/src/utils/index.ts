@@ -1,4 +1,5 @@
 import * as React from 'react';
+const kebabCase = require('lodash/kebabCase');
 
 export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject: T) => {
   return React.Children.toArray(children).reduce((acc: T, child) => {
@@ -34,3 +35,6 @@ export const isReactElement = <T>(
 ): child is React.ReactElement<T> => {
   return child && child.type === Element;
 }
+
+export const generateId = (displayName: string, id: string | number) =>
+  `wix-ui-core-${kebabCase(displayName)}-${id}`;
