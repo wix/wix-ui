@@ -22,5 +22,7 @@ export function ReactBase(base: UniDriver, body?: UniDriver) {
     getAttribute: async (name: string) =>
       (await getNative()).getAttribute(name),
     focus: async () => (await getNative()).focus(),
+    getStyle: async () =>
+      (await getNative()).style,
   };
 }

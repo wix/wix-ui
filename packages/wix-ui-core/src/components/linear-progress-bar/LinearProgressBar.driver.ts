@@ -13,6 +13,8 @@ export interface LinearProgressBarDriver extends BaseDriver {
   isPercentagesProgressDisplayed: () => boolean;
   /** Get the progress percentages value */
   getValue: () => string;
+  /** Get the progress numeric value */
+  getNumericValue: () => number;
   /** Returms true if has progress completed (value is 100) */
   isCompleted: () => boolean;
   /** Returms true if has error */
@@ -24,6 +26,7 @@ export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriv
   
   const getElement = dataHook => element.querySelector(`[data-hook="${dataHook}"]`)
   const getValue = () => !element ? null : getElement('progress-percentages').querySelector('span').innerHTML;
+  const getNumericValue = () => !element ? null : +(getElement('progressbar-foreground').getAttribute('data-progress-value'))
 
   const driver = {
     exists: () => !!element,
@@ -35,6 +38,7 @@ export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriv
     isErrorIconDisplayed: () => !!getElement('error-icon'),
     isPercentagesProgressDisplayed: () => !!getElement('progress-percentages'),
     getValue: () => getValue(),
+    getNumericValue: () => getNumericValue(),
     isCompleted: () => getValue() === '100',
     hasError: () => stylableDOMUtil.hasStyleState(element, 'error'),
   }

@@ -37,7 +37,7 @@ const renderBarSection = (value: number | string) => {
   return (
     <div className={style.barContainer}>
       <div data-hook="progressbar-background" className={style.barBackground} />
-      <div data-hook="progressbar-foreground" style={progressWidth} className={style.barForeground} />
+      <div data-hook="progressbar-foreground" data-progress-value={value} style={progressWidth} className={style.barForeground} />
     </div>
   )
 }
@@ -56,7 +56,7 @@ const normalizeProps = (props: LinearProgressBarProps) => {
   return {...props, value};
 }
 
-export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (props: LinearProgressBarProps) => {
+export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> = (props: LinearProgressBarProps) => {
   const {error, showProgressIndication} = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
