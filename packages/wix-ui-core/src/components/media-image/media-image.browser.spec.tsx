@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { wixMediaImageDriverFactory } from './wix-media-image.driver';
-import { MediaPlatformItem, WixMediaImage } from './wix-media-image';
+import { mediaImageDriverFactory } from './media-image.driver';
+import { MediaPlatformItem, MediaImage } from './media-image';
 import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
 import { BROKEN_SRC, ERROR_IMAGE_SRC, SRC } from '../image/test-fixtures';
 import { FALLBACK_IMAGE } from '../image';
 
-describe('WixMediaImage', () => {
+describe('MediaImage', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
-  const createDriver = testContainer.createUniRenderer(wixMediaImageDriverFactory);
+  const createDriver = testContainer.createUniRenderer(mediaImageDriverFactory);
   const sourceWidth = 800,
     sourceHeight = 800;
   const WIDTH = 400,
@@ -25,8 +25,8 @@ describe('WixMediaImage', () => {
   });
 
   it('displays image with given media platform item', async () => {
-    const wixMediaDriver = createDriver(
-      <WixMediaImage
+    const mediaImageDriver = createDriver(
+      <MediaImage
         mediaPlatformItem={mediaPlatformItem}
         width={WIDTH}
         height={HEIGHT}
@@ -40,12 +40,12 @@ describe('WixMediaImage', () => {
       WIDTH,
       HEIGHT,
     );
-    expect(await wixMediaDriver.getSrc()).toEqual(SRC);
+    expect(await mediaImageDriver.getSrc()).toEqual(SRC);
   });
 
   it('should use mediaPlatformItem width/height if non provided', async () => {
-    const wixMediaDriver = createDriver(
-      <WixMediaImage mediaPlatformItem={mediaPlatformItem} />,
+    const mediaImageDriver = createDriver(
+      <MediaImage mediaPlatformItem={mediaPlatformItem} />,
     );
 
     expect(imageClientSDK.getScaleToFillImageURL).toHaveBeenCalledWith(
@@ -55,14 +55,14 @@ describe('WixMediaImage', () => {
       mediaPlatformItem.width,
       mediaPlatformItem.height,
     );
-    expect(await wixMediaDriver.getSrc()).toEqual(SRC);
+    expect(await mediaImageDriver.getSrc()).toEqual(SRC);
   });
 
   it('displays an alt prop', async () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(BROKEN_SRC);
 
     const imageDriver = createDriver(
-      <WixMediaImage mediaPlatformItem={mediaPlatformItem} alt={'this is an informative text'}/>,
+      <MediaImage mediaPlatformItem={mediaPlatformItem} alt={'this is an informative text'}/>,
     );
 
     expect(await imageDriver.getAlt()).toEqual('this is an informative text');
@@ -71,15 +71,15 @@ describe('WixMediaImage', () => {
   it('should invoke onLoad callback when load successfully', async () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(SRC);
     const onLoadSpy = jest.fn();
-    const wixMediaDriver = createDriver(
-      <WixMediaImage onLoad={onLoadSpy} mediaPlatformItem={mediaPlatformItem} />,
+    const mediaImageDriver = createDriver(
+      <MediaImage onLoad={onLoadSpy} mediaPlatformItem={mediaPlatformItem} />,
     );
 
-    expect(await wixMediaDriver.isLoading()).toEqual(true);
+    expect(await mediaImageDriver.isLoading()).toEqual(true);
     await eventually(
       async () => {
         expect(onLoadSpy).toHaveBeenCalled();
-        expect(await wixMediaDriver.isLoaded()).toEqual(true);
+        expect(await mediaImageDriver.isLoaded()).toEqual(true);
       },
       { interval: 10 },
     );
@@ -88,13 +88,13 @@ describe('WixMediaImage', () => {
   describe('props are not provided', () => {
     it('displays empty pixel when mediaPlatformItem are not provided', async () => {
       const onLoadSpy = jest.fn();
-      const wixMediaDriver = createDriver(<WixMediaImage onLoad={onLoadSpy} />);
+      const mediaImageDriver = createDriver(<MediaImage onLoad={onLoadSpy} />);
 
       await eventually(
         async () => {
           expect(onLoadSpy).toHaveBeenCalled();
-          expect(await wixMediaDriver.isLoaded()).toEqual(true);
-          expect(await wixMediaDriver.getSrc()).toEqual(FALLBACK_IMAGE);
+          expect(await mediaImageDriver.isLoaded()).toEqual(true);
+          expect(await mediaImageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
         },
         { interval: 10 },
       );
@@ -113,8 +113,8 @@ describe('WixMediaImage', () => {
       imageClientSDK.getScaleToFillImageURL.mockReturnValueOnce(
         ERROR_IMAGE_SRC,
       );
-      const wixMediaDriver = createDriver(
-        <WixMediaImage
+      const mediaImageDriver = createDriver(
+        <MediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
           onError={onErrorSpy}
@@ -124,8 +124,8 @@ describe('WixMediaImage', () => {
       await eventually(
         async () => {
           expect(onErrorSpy).toHaveBeenCalled();
-          expect(await wixMediaDriver.isError()).toEqual(true);
-          expect(await wixMediaDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
+          expect(await mediaImageDriver.isError()).toEqual(true);
+          expect(await mediaImageDriver.getSrc()).toEqual(ERROR_IMAGE_SRC);
         },
         { interval: 10 },
       );
@@ -133,8 +133,8 @@ describe('WixMediaImage', () => {
 
     it('displays an empty pixel when both mediaPlatformItem and errorImage are broken', async () => {
       const onErrorSpy = jest.fn();
-      const wixMediaDriver = createDriver(
-        <WixMediaImage
+      const mediaImageDriver = createDriver(
+        <MediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
           onError={onErrorSpy}
@@ -144,8 +144,8 @@ describe('WixMediaImage', () => {
       await eventually(
         async () => {
           expect(onErrorSpy).toHaveBeenCalled();
-          expect(await wixMediaDriver.isError()).toEqual(true);
-          expect(await wixMediaDriver.getSrc()).toEqual(FALLBACK_IMAGE);
+          expect(await mediaImageDriver.isError()).toEqual(true);
+          expect(await mediaImageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
         },
         { interval: 10 },
       );
@@ -153,15 +153,15 @@ describe('WixMediaImage', () => {
 
     it('displays an empty pixel when the provided mediaPlatformItem is broken and errorImage is not provided ', async () => {
       const onErrorSpy = jest.fn();
-      const wixMediaDriver = createDriver(
-        <WixMediaImage mediaPlatformItem={mediaPlatformItem} onError={onErrorSpy} />,
+      const mediaImageDriver = createDriver(
+        <MediaImage mediaPlatformItem={mediaPlatformItem} onError={onErrorSpy} />,
       );
 
       await eventually(
         async () => {
           expect(onErrorSpy).toHaveBeenCalled();
-          expect(await wixMediaDriver.isError()).toEqual(true);
-          expect(await wixMediaDriver.getSrc()).toEqual(FALLBACK_IMAGE);
+          expect(await mediaImageDriver.isError()).toEqual(true);
+          expect(await mediaImageDriver.getSrc()).toEqual(FALLBACK_IMAGE);
         },
         { interval: 10 },
       );

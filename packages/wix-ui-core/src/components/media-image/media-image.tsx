@@ -8,7 +8,7 @@ export interface MediaPlatformItem {
   uri: string;
 }
 
-export interface WixMediaProps {
+export interface MediaProps {
   mediaPlatformItem?: MediaPlatformItem;
   width?: number;
   height?: number;
@@ -18,8 +18,8 @@ export interface WixMediaProps {
   alt?: string;
 }
 
-export class WixMediaImage extends React.Component<WixMediaProps> {
-  static displayName = 'WixMediaImage';
+export class MediaImage extends React.Component<MediaProps> {
+  static displayName = 'MediaImage';
 
   private getImageSource(mediaPlatformItem: MediaPlatformItem) {
     if (mediaPlatformItem) {

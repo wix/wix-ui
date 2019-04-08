@@ -1,10 +1,10 @@
-import {MediaPlatformItem} from './wix-media-image';
+import {MediaPlatformItem} from './media-image';
 
 // Valid image
 export const SRC: MediaPlatformItem = {
   width: 400,
   height: 400,
-  uri: '506418dbb019414f951a61670f3255a8.jpg',
+  uri: '506418dbb019414f951a61670f3255a8.webp',
 };
 
 // Broken image

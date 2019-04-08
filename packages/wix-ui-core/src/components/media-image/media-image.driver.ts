@@ -2,13 +2,13 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { ImageStatus } from '../image';
 import { ImageDriver, imageDriverFactory } from '../image/image.driver';
 
-export interface WixMediaImageDriver extends ImageDriver {
+export interface MediaImageDriver extends ImageDriver {
   isLoaded(): Promise<boolean>;
   isError(): Promise<boolean>;
   isLoading(): Promise<boolean>;
 }
 
-export const wixMediaImageDriverFactory = (base: UniDriver): WixMediaImageDriver => {
+export const mediaImageDriverFactory = (base: UniDriver): MediaImageDriver => {
   const imageDriver = imageDriverFactory(base);
 
   return {
