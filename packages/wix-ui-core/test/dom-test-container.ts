@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
+import { reactUniDriver } from 'wix-ui-test-utils/vanilla';
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and

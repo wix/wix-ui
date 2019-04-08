@@ -220,3 +220,12 @@ export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<
   CaptchaDriver
 >(captchaDriverFactory);
 export { CaptchaDriver };
+
+import {
+  filePickerButtonUniDriverFactory,
+  FilePickerButtonUniDriver
+} from '../components/file-picker-button/test/FilePickerButton.uni.driver';
+export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator(
+    filePickerButtonUniDriverFactory,
+);
+export { FilePickerButtonUniDriver };

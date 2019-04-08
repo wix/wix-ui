@@ -29,7 +29,6 @@ export default {
           Oh hello there!
         </div>
       ),
-      issueUrl: 'https://github.com/wix/wix-ui/issues/new',
       sourceUrl: 'https://github.com/wix/wix-ui/',
     }),
 

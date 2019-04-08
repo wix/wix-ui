@@ -41,7 +41,7 @@ describe('Captcha', () => {
 
     it('should load the component with size compact ', async () => {
       const driver = captchaTestkitFactory({ dataHook });
-      expect(await driver.getSize()).toBe(Size.compact);
+      expect(await driver.getSize()).toBe(Size.normal);
     });
 
     it('should load the component with lang en ', async () => {

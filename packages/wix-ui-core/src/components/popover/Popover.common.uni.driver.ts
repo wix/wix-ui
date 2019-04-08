@@ -1,4 +1,4 @@
-import { UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 export const CommonDriver = (base: UniDriver, body: UniDriver) => {
   const queryDocumentOrElement = async (query: string) => {

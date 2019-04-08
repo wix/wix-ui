@@ -44,7 +44,7 @@ export class CaptchaTestComponent extends React.Component {
           sitekey={constants.demoSiteKey}
           captchaType={CaptchaType.image}
           theme={Theme.dark}
-          size={Size.compact}
+          size={Size.normal}
           lang={CaptchaLang.EnglishUS}
           onVerify={() =>
             this.setState({

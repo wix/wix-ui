@@ -6,8 +6,9 @@ import { GoogleMapsIframeClientStory } from './clients/GoogleMapsIframeClient-st
 import { CheckboxStory } from './Checkbox/Checkbox-story';
 import { TooltipStory } from './Tooltip/custom';
 import { RadioButtonStory } from './RadioButton';
-import EllipsedText, {CustomEllipsedText} from './EllipsedTooltip';
+import EllipsedText, { CustomEllipsedText } from './EllipsedTooltip';
 import Focusable from './Focusable';
+import { FilePickerButtonTestFixture } from '../src/components/file-picker-button/test/FilePickerButtonTestFixture';
 
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
@@ -29,6 +30,7 @@ import './Captcha.story';
 Components.add('Checkbox', () => <CheckboxStory />);
 import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory />);
+import '../src/components/file-picker-button/docs/FilePickerButton.story';
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
 import './Input/Input.story';
 import './InputWithOptions.story';
@@ -59,3 +61,4 @@ Backoffice.add('Buttons', ButtonsStory);
 
 // Tests
 Tests.add('EllipsedTooltip', CustomEllipsedText);
+Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);

@@ -1,8 +1,8 @@
-import { UniDriver } from 'unidriver';
 import {
+  UniDriver,
   BaseUniDriver,
   baseUniDriverFactory,
-} from 'wix-ui-test-utils/base-driver';
+} from 'wix-ui-test-utils/unidriver';
 import { ContentType } from './types';
 
 export interface AvatarDriver extends BaseUniDriver {

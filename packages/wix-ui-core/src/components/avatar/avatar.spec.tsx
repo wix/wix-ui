@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
-import { reactUniDriver } from 'unidriver';
+import { reactUniDriver } from 'wix-ui-test-utils/vanilla';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar, AvatarProps } from '.';
 import { nameToInitials } from './util';
