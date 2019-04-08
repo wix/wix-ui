@@ -7,6 +7,7 @@ export interface Metadata {
   props: {
     [s: string]: Prop;
   };
+  description?: string;
   readme?: string;
   readmeApi?: string;
   readmeTestkit?: string;
