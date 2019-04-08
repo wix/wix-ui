@@ -16,10 +16,11 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
 ): React.ComponentClass<CoreProps & ExtendedProps> {
   return class StylableComponent extends Component
     implements React.PureComponent<CoreProps & ExtendedProps> {
-    static defaultProps = {
-      ...Component.defaultProps,
-      ...extendedDefaultProps,
-    };
+    static defaultProps = Object.assign(
+      {},
+      Component.defaultProps,
+      extendedDefaultProps,
+    );
 
     public props: Readonly<CoreProps & ExtendedProps>;
 
@@ -66,10 +67,11 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
     WrapperComponent[propName] = Component[propName];
   }
 
-  WrapperComponent.defaultProps = {
-    ...Component.defaultProps,
-    ...extendedDefaultProps,
-  };
+  WrapperComponent.defaultProps = Object.assign(
+    {},
+    Component.defaultProps,
+    extendedDefaultProps,
+  );
   return WrapperComponent;
 }
 

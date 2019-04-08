@@ -6,7 +6,7 @@ import { ReactBase, safeGetNative } from '../../../test/utils/unidriver';
 
 export const testkit = (base: UniDriver, body: UniDriver) => {
   const byHook = (hook: string) => base.$(`[data-hook="${hook}"]`);
-  const reactBase = ReactBase(base, body);
+  const reactBase = ReactBase(base);
   const commonDriver = CommonDriver(base, body);
 
   return {
