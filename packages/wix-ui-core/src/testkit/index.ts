@@ -121,3 +121,9 @@ import { popoverDriverFactory } from '../components/popover/Popover.driver';
 export const popoverTestkitFactory = testkitFactoryCreator(
   popoverDriverFactory
 );
+
+import { LinearProgressBarDriver as LinearProgressBarUniDriver, linearProgressBarUniDriverFactory } from '../components/linear-progress-bar/LinearProgressBar.uni.driver';
+export const linearProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
+LinearProgressBarUniDriver
+>(linearProgressBarUniDriverFactory);
+export { LinearProgressBarUniDriver };
