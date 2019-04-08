@@ -223,9 +223,9 @@ export { CaptchaDriver };
 
 import {
   filePickerButtonUniDriverFactory,
-  FilePickerButtonUniDriver
+  FilePickerButtonUniDriver,
 } from '../components/file-picker-button/test/FilePickerButton.uni.driver';
 export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator(
-    filePickerButtonUniDriverFactory,
+  filePickerButtonUniDriverFactory,
 );
 export { FilePickerButtonUniDriver };

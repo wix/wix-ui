@@ -112,7 +112,13 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    *
    */
   render() {
-    const { sitekey, loader, captchaType, size, theme, lang ,
+    const {
+      sitekey,
+      loader,
+      captchaType,
+      size,
+      theme,
+      lang,
       required,
     } = this.props;
     return (

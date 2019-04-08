@@ -99,25 +99,27 @@ export class FilePickerButton extends React.Component<
     this.props.onChange([]);
   }
 
-  private handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private readonly handleFileInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(e.target.files);
     this.props.onChange(files);
   };
 
-  private handleChooseFileButtonClick = () => {
+  private readonly handleChooseFileButtonClick = () => {
     if (!this.props.disabled) {
       this.fileInputRef.current.click();
       this.chooseFileButtonRef.current.blur();
     }
   };
 
-  private handleChooseFileButtonFocus = (
+  private readonly handleChooseFileButtonFocus = (
     e: React.FocusEvent<HTMLButtonElement>,
   ) => {
     !this.props.disabled && this.props.onFocus(e);
   };
 
-  private handleChooseFileButtonBlur = (
+  private readonly handleChooseFileButtonBlur = (
     e: React.FocusEvent<HTMLButtonElement>,
   ) => {
     !this.props.disabled && this.props.onBlur(e);
