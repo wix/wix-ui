@@ -1,5 +1,5 @@
-import {Omit} from 'type-zoo';
-import {Address, Geocode, MapsClient} from './types';
+import { Omit } from 'type-zoo';
+import { Address, Geocode, MapsClient } from './types';
 
 function defer() {
   let resolve, reject;
@@ -14,15 +14,15 @@ const locationFuncOrValue = locationProp => {
   return typeof locationProp === 'function' ? locationProp() : locationProp;
 };
 
-const serializeResult = results =>
-  Object.assign(results, {
-    geometry: {
-      location: {
-        lat: locationFuncOrValue(results.geometry.location.lat),
-        lng: locationFuncOrValue(results.geometry.location.lng),
-      },
+const serializeResult = results => ({
+  ...results,
+  geometry: {
+    location: {
+      lat: locationFuncOrValue(results.geometry.location.lat),
+      lng: locationFuncOrValue(results.geometry.location.lng),
     },
-  });
+  },
+});
 
 // placeDetails is not required at the moment
 export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
@@ -42,7 +42,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
 
   loadScript(clientId, lang) {
     if (this._loadScriptPromise) {
-        return this._loadScriptPromise;
+      return this._loadScriptPromise;
     }
 
     if ((window as any).google && (window as any).google.maps) {
@@ -70,7 +70,11 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
     return null;
   }
 
-  async autocomplete(clientId: string, lang: string, request: any): Promise<Array<Address>> {
+  async autocomplete(
+    clientId: string,
+    lang: string,
+    request: any,
+  ): Promise<Address[]> {
     const { promise, resolve, reject } = defer();
 
     await this.loadScript(clientId, lang);
@@ -85,10 +89,14 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
       },
     );
 
-    return (promise as Promise<Array<Address>>);
+    return promise as Promise<Address[]>;
   }
 
-  async geocode(clientId: string, lang: string, request: any): Promise<Array<Geocode>> {
+  async geocode(
+    clientId: string,
+    lang: string,
+    request: any,
+  ): Promise<Geocode[]> {
     const { promise, resolve, reject } = defer();
 
     await this.loadScript(clientId, lang);
@@ -103,6 +111,6 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
       },
     );
 
-    return (promise as Promise<Array<Geocode>>);
+    return promise as Promise<Geocode[]>;
   }
 }

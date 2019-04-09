@@ -1,14 +1,19 @@
-import {BaseDriver, DriverFactory} from './../../common/BaseDriver.protractor';
-import {ElementFinder} from 'protractor';
+import {
+  BaseDriver,
+  DriverFactory,
+} from './../../common/BaseDriver.protractor';
+import { ElementFinder } from 'protractor';
 
 export interface GoogleMapsIframeClientDriver extends BaseDriver {
-  getParsedResults: () => Promise<any>;
-  getResultsElementWrapper: () => ElementFinder;
-  enterText: (text: string) => Promise<void>;
-  selectByValue: (value: string) => Promise<void>;
+  getParsedResults(): Promise<any>;
+  getResultsElementWrapper(): ElementFinder;
+  enterText(text: string): Promise<void>;
+  selectByValue(value: string): Promise<void>;
 }
 
-export const googleMapsIframeClientDriverFactory: DriverFactory<GoogleMapsIframeClientDriver> = component => {
+export const googleMapsIframeClientDriverFactory: DriverFactory<
+  GoogleMapsIframeClientDriver
+> = component => {
   const getButtons = () => component.$$('button');
   const input = component.$('input');
   const resultsElementWrapper = component.$('pre');
@@ -24,12 +29,15 @@ export const googleMapsIframeClientDriverFactory: DriverFactory<GoogleMapsIframe
       await input.sendKeys(text);
     },
     selectByValue: async (value: string) => {
-      return await getButtons().getText()
+      return getButtons()
+        .getText()
         .then((names: string) => {
           const btnIdx = names.indexOf(value);
-          getButtons().get(btnIdx).click();
+          getButtons()
+            .get(btnIdx)
+            .click();
         });
     },
-    element: () => component
+    element: () => component,
   };
 };

@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {Ticks} from './Ticks';
-import {Thumb, getThumbSize} from './Thumb';
+import { Ticks } from './Ticks';
+import { Thumb, getThumbSize } from './Thumb';
 import pStyle from './Slider.st.css';
-const noop = require('lodash/noop')
+const noop = require('lodash/noop');
 
 export interface SliderProps {
   min?: number;
   max?: number;
   value?: number;
-  onChange?: (x: any) => void;
-  onBlur?: () => void;
-  onFocus?: () => void;
+  onChange?(x: any): void;
+  onBlur?(): void;
+  onFocus?(): void;
   orientation?: 'horizontal' | 'vertical';
   step?: number;
   stepType?: 'value' | 'count';
@@ -68,8 +68,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     onBlur: noop,
     style: {
       width: 0,
-      height: 0
-    }
+      height: 0,
+    },
   };
 
   state = {
@@ -83,7 +83,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     document.addEventListener('mouseup', this.handleMouseUp);
     document.addEventListener('mousemove', this.handleMouseMove);
     document.addEventListener('touchend', this.handleMouseUp);
-    document.addEventListener('touchmove', this.handleMouseMove, {passive: false});
+    document.addEventListener('touchmove', this.handleMouseMove, {
+      passive: false,
+    });
   }
 
   componentWillUnmount() {
@@ -116,7 +118,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   getStepValue() {
-    const {min, max, step, stepType} = this.props;
+    const { min, max, step, stepType } = this.props;
 
     if (step > 0) {
       return this.calcDiscreteStepValue(min, max, step, stepType);
@@ -142,7 +144,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   getSliderSize() {
-    const {width, height} = this.props.style;
+    const { width, height } = this.props.style;
     const isVertical = this.isVertical();
     const val = isVertical ? width : height;
     return Math.min(val, Math.min(width, height));
@@ -153,12 +155,16 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   getThumbSize() {
-    const size = getThumbSize(this.props.thumbShape, this.getSliderSize(), this.isVertical());
+    const size = getThumbSize(
+      this.props.thumbShape,
+      this.getSliderSize(),
+      this.isVertical(),
+    );
     const offsets = this.getInnerOffsets();
     const offset = offsets.offsetHeight || offsets.offsetWidth || 0;
     return {
       width: size.width - offset,
-      height: size.height - offset
+      height: size.height - offset,
     };
   }
 
@@ -174,23 +180,23 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   setTrackNode = track => {
     this.track = track;
-  }
+  };
 
   handleBlur = () => {
-    this.setState({inKeyPress: false});
+    this.setState({ inKeyPress: false });
     this.props.onBlur();
-  }
+  };
 
   handleMouseDown = () => {
-    this.setState({mouseDown: true});
-  }
+    this.setState({ mouseDown: true });
+  };
 
   handleMouseUp = () => {
-    this.setState({mouseDown: false, dragging: false});
-  }
+    this.setState({ mouseDown: false, dragging: false });
+  };
 
   handleKeyDown = ev => {
-    const {min, max, value, disabled, readOnly, dir} = this.props;
+    const { min, max, value, disabled, readOnly, dir } = this.props;
     const ltr = dir === 'ltr';
 
     if (disabled || readOnly) {
@@ -241,24 +247,27 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     if (typeof nextValue !== 'undefined') {
       this.handleChange(nextValue);
       this.setState({
-        inKeyPress: true
+        inKeyPress: true,
       });
       ev.preventDefault();
     }
-  }
+  };
 
   handleMouseMove = ev => {
     if (this.state.mouseDown && !this.state.dragging) {
-      this.setState({dragging: true});
+      this.setState({ dragging: true });
     }
 
     if (this.state.dragging) {
       this.moveThumbByMouse(ev);
     }
-  }
+  };
 
   handleChange(value) {
-    value = this.floorValue(this.clamp(value, this.props.min, this.props.max), 2);
+    value = this.floorValue(
+      this.clamp(value, this.props.min, this.props.max),
+      2,
+    );
 
     if (value !== this.props.value) {
       this.props.onChange(value);
@@ -266,12 +275,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
   }
 
   handleThumbEnter = () => {
-    this.setState({thumbHover: true});
-  }
+    this.setState({ thumbHover: true });
+  };
 
   handleThumbLeave = () => {
-    this.setState({thumbHover: false});
-  }
+    this.setState({ thumbHover: false });
+  };
 
   clamp(val, min, max) {
     return Math.min(Math.max(val, min), max);
@@ -295,7 +304,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       ev = ev.touches[0];
     }
 
-    const {min, max, disabled, readOnly, dir} = this.props;
+    const { min, max, disabled, readOnly, dir } = this.props;
     const rtl = this.isRtl();
 
     if (disabled || readOnly) {
@@ -315,7 +324,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       pxStep = (rect.height - thumbSize) / totalSteps;
     } else {
       if (rtl) {
-        sliderPos = (rect.left + rect.width - thumbSize / 2) - ev.clientX;
+        sliderPos = rect.left + rect.width - thumbSize / 2 - ev.clientX;
       } else {
         sliderPos = ev.clientX - (rect.left + thumbSize / 2);
       }
@@ -326,23 +335,25 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     value = min + step * Math.round(sliderPos / pxStep);
 
     this.handleChange(value);
-  }
+  };
 
   shouldShowTooltip() {
     switch (this.props.tooltipVisibility) {
-        case 'always':
-          return true;
-        case 'none':
-          return false;
-        default:
-        case 'hover':
-          return this.state.dragging || this.state.thumbHover || this.state.inKeyPress;
+      case 'always':
+        return true;
+      case 'none':
+        return false;
+      default:
+      case 'hover':
+        return (
+          this.state.dragging || this.state.thumbHover || this.state.inKeyPress
+        );
     }
   }
 
   calcThumbProgressPosition() {
     const thumbSize = this.getThumbSizeMainAxis();
-    const {value, min, max} = this.props;
+    const { value, min, max } = this.props;
     const pct = (value - min) / (max - min);
     const clampedPct = this.clamp(pct, 0, 1);
     return `calc(${clampedPct} *(100% - ${thumbSize}px))`;
@@ -350,7 +361,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   calcTrackFillPosition() {
     const thumbSize = this.getThumbSizeMainAxis();
-    const {value, min, max} = this.props;
+    const { value, min, max } = this.props;
     const pct = (value - min) / (max - min);
     const clampedPct = this.clamp(pct, 0, 1);
     return `calc(${clampedPct} *(100% - ${thumbSize}px) + ${thumbSize}px - 2px)`;
@@ -366,14 +377,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const crossVal = this.calcThumbCrossPosition();
 
     if (this.isVertical()) {
-      return {bottom: progressVal, left: 0};
+      return { bottom: progressVal, left: 0 };
     }
 
-    return {[this.getStartPos()]: progressVal, top: 0};
+    return { [this.getStartPos()]: progressVal, top: 0 };
   }
 
   floorValue(value, precision = 1) {
-    const clampedValue = Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision);
+    const clampedValue =
+      Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision);
     return clampedValue;
   }
 
@@ -382,20 +394,22 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       return null;
     }
 
-    const {tooltipPosition} = this.props;
+    const { tooltipPosition } = this.props;
     const positionClassname = tooltipPosition + 'Position';
     const clampedValue = this.floorValue(this.props.value);
 
     return (
-      <div 
-        data-hook="tooltip" 
-        {...pStyle('tooltip', {[positionClassname]: true})}
+      <div
+        data-hook="tooltip"
+        {...pStyle('tooltip', { [positionClassname]: true })}
       >
-        {this.props.tooltipPrefix}{clampedValue}{this.props.tooltipSuffix}
+        {this.props.tooltipPrefix}
+        {clampedValue}
+        {this.props.tooltipSuffix}
       </div>
     );
   }
-    
+
   ticksShown() {
     return !this.isContinuous() && this.props.tickMarksShape !== 'none';
   }
@@ -422,9 +436,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     if (isHorizontal) {
       return { offsetHeight, offsetTop };
-    } else {
-      return { offsetWidth: offsetHeight, offsetLeft: offsetTop };
     }
+    return { offsetWidth: offsetHeight, offsetLeft: offsetTop };
   }
 
   getInnerDims() {
@@ -449,18 +462,18 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   render() {
     const {
-        value,
-        min,
-        max,
-        trackSize,
-        disabled,
-        dir,
-        onFocus,
-        tickMarksPosition,
-        tickMarksShape,
-        thumbShape,
-        orientation,
-        style
+      value,
+      min,
+      max,
+      trackSize,
+      disabled,
+      dir,
+      onFocus,
+      tickMarksPosition,
+      tickMarksShape,
+      thumbShape,
+      orientation,
+      style,
     } = this.props;
 
     const vertical = this.isVertical();
@@ -470,23 +483,31 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const showTicks = this.ticksShown();
     const step = this.getStepValue();
     const thumbPosition: any = this.calcThumbPosition();
-    const trackStyle = vertical ? {width: trackSize + '%'} : {height: trackSize + '%'};
-    const trackFillPosition = vertical ? {
-        bottom: 0,
-        height: this.calcTrackFillPosition()
-    } : {
-        width: this.calcTrackFillPosition()
-    };
+    const trackStyle = vertical
+      ? { width: `${trackSize}%` }
+      : { height: `${trackSize}%` };
+    const trackFillPosition = vertical
+      ? {
+          bottom: 0,
+          height: this.calcTrackFillPosition(),
+        }
+      : {
+          width: this.calcTrackFillPosition(),
+        };
 
     return (
-      <div 
-        {...pStyle('root', {
-          orientation: vertical ? 'vertical' : 'horizontal',
-          dir,
-          tickMarksPosition,
-          tickMarksShape,
-          disabled,
-        }, this.props)}
+      <div
+        {...pStyle(
+          'root',
+          {
+            orientation: vertical ? 'vertical' : 'horizontal',
+            dir,
+            tickMarksPosition,
+            tickMarksShape,
+            disabled,
+          },
+          this.props,
+        )}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
         onKeyDown={this.handleKeyDown}
@@ -499,21 +520,21 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-dir={dir}
         tabIndex={0}
         style={style}
-        ref={root => this.root = root}
+        ref={root => (this.root = root)}
         role="slider"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={value}
       >
         <div className={pStyle.inner} style={this.getInnerDims()}>
-          <div 
+          <div
             data-hook="track"
             ref={this.setTrackNode}
             className={pStyle.track}
             onClick={this.moveThumbByMouse}
             style={trackStyle}
           >
-            <div className={pStyle.trackFill} style={trackFillPosition}/>
+            <div className={pStyle.trackFill} style={trackFillPosition} />
           </div>
 
           <Thumb
@@ -535,10 +556,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
             max={max}
             thumbSize={mainThumbSize}
             vertical={vertical}
-            trackSize={vertical ? this.props.style.height - mainThumbSize : this.props.style.width - crossThumbSize}
+            trackSize={
+              vertical
+                ? this.props.style.height - mainThumbSize
+                : this.props.style.width - crossThumbSize
+            }
             tickMarksShape={tickMarksShape}
             onTickClick={this.moveThumbByMouse}
-          />)}
+          />
+        )}
       </div>
     );
   }

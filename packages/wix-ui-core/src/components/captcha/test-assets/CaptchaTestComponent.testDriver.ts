@@ -5,7 +5,7 @@ import { constants } from './constants';
 import {
   UniDriver,
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/unidriver';
 
 async function isCaptchaVerified() {

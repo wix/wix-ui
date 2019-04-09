@@ -1,21 +1,20 @@
 import * as React from 'react';
-import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
-import {buttonDriverFactory} from './Button.driver';
-import {buttonTestkitFactory} from '../../../testkit';
-import {buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../../testkit/enzyme';
-import {Button} from './';
-import {runTestkitExistsSuite} from '../../../common/testkitTests';
+import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
+import { buttonDriverFactory } from './Button.driver';
+import { buttonTestkitFactory } from '../../../testkit';
+import { buttonTestkitFactory as enzymeButtonTestkitFactory } from '../../../testkit/enzyme';
+import { Button } from './';
+import { runTestkitExistsSuite } from '../../../common/testkitTests';
 
 describe('Button', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(buttonDriverFactory);
 
   describe('type prop', () => {
     it('should be passed down', () => {
       const type = 'button';
-      const driver = createDriver(<Button type={type}/>);
+      const driver = createDriver(<Button type={type} />);
       expect(driver.getType()).toBe(type);
     });
   });
@@ -23,7 +22,7 @@ describe('Button', () => {
   describe('onClick prop', () => {
     it('should be called on click', () => {
       const onClick = jest.fn();
-      const driver = createDriver(<Button onClick={onClick}/>);
+      const driver = createDriver(<Button onClick={onClick} />);
       driver.click();
       expect(onClick).toBeCalled();
     });
@@ -31,13 +30,13 @@ describe('Button', () => {
 
   describe('disabled prop', () => {
     it('should be falsy by default', () => {
-      const driver = createDriver(<Button/>);
+      const driver = createDriver(<Button />);
       expect(driver.isDisabled()).toBe(false);
     });
 
     it('should not call onClick when truthy', () => {
       const onClick = jest.fn();
-      const driver = createDriver(<Button onClick={onClick} disabled/>);
+      const driver = createDriver(<Button onClick={onClick} disabled />);
       driver.click();
       expect(driver.isDisabled()).toBe(true);
       expect(onClick).toHaveBeenCalledTimes(0);
@@ -53,9 +52,8 @@ describe('Button', () => {
   });
 
   runTestkitExistsSuite({
-    Element: <Button/>,
+    Element: <Button />,
     testkitFactory: buttonTestkitFactory,
-    enzymeTestkitFactory: enzymeButtonTestkitFactory
+    enzymeTestkitFactory: enzymeButtonTestkitFactory,
   });
-
 });

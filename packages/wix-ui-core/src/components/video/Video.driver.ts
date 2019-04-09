@@ -1,17 +1,18 @@
 import {
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'wix-ui-test-utils/unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 export interface IVideoDriver extends BaseUniDriver {
   /** returns player name */
-  getPlayerName: () => Promise<string>;
+  getPlayerName(): Promise<string>;
 }
 
 export const videoDriverFactory = (base: UniDriver): IVideoDriver => {
   return {
     ...baseUniDriverFactory(base),
-    getPlayerName: async () => await base.$('[data-player-name]').attr('data-player-name'),
+    getPlayerName: async () =>
+      base.$('[data-player-name]').attr('data-player-name'),
   };
 };

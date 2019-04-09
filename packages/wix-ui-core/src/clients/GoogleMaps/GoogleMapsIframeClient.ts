@@ -1,7 +1,11 @@
-import {IframesManager} from './IframesManager/IframesManager';
-import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
-import {generateID} from './utils';
-import {MapsClient} from './types';
+import { IframesManager } from './IframesManager/IframesManager';
+import {
+  autocompleteHandlerName,
+  geocodeHandlerName,
+  placeDetailsHandlerName,
+} from './handlersName';
+import { generateID } from './utils';
+import { MapsClient } from './types';
 
 export class GoogleMapsIframeClient implements MapsClient {
   _iframesManager = new IframesManager();
@@ -13,25 +17,25 @@ export class GoogleMapsIframeClient implements MapsClient {
   }
 
   handleMessage = (event: MessageEvent) => {
-    const {data} = event;
+    const { data } = event;
     if (data.requestId && this._promisesMap.has(data.requestId)) {
       const promise = this._promisesMap.get(data.requestId);
       data.status === 'OK' ? promise.resolve(data.results) : promise.reject();
     }
-  }
+  };
 
   useClientId() {
     this._useClientId = true;
   }
 
   getOrAddIframe(key: string, lang: string) {
-      if (this._iframesManager.hasIframe(key, lang)) {
-          return this._iframesManager.getIframe(key, lang);
-      } else if (this._useClientId) {
-          return this._iframesManager.addIframe({lang, clientId: key});
-      } else {
-          return this._iframesManager.addIframe({lang, apiKey: key});
-      }
+    if (this._iframesManager.hasIframe(key, lang)) {
+      return this._iframesManager.getIframe(key, lang);
+    }
+    if (this._useClientId) {
+      return this._iframesManager.addIframe({ lang, clientId: key });
+    }
+    return this._iframesManager.addIframe({ lang, apiKey: key });
   }
 
   autocomplete(key: string, lang: string, request: string) {
@@ -39,10 +43,13 @@ export class GoogleMapsIframeClient implements MapsClient {
 
     const requestId = generateID();
     const requestPromise = new Promise<object[] | any>((resolve, reject) => {
-      this._promisesMap.set(requestId, {requestPromise, resolve, reject});
+      this._promisesMap.set(requestId, { requestPromise, resolve, reject });
     });
 
-    requestIframe.postMessage({request, requestId, method: autocompleteHandlerName}, '*');
+    requestIframe.postMessage(
+      { request, requestId, method: autocompleteHandlerName },
+      '*',
+    );
     return requestPromise;
   }
 
@@ -51,10 +58,13 @@ export class GoogleMapsIframeClient implements MapsClient {
 
     const requestId = generateID();
     const requestPromise = new Promise<object[] | any>((resolve, reject) => {
-      this._promisesMap.set(requestId, {requestPromise, resolve, reject});
+      this._promisesMap.set(requestId, { requestPromise, resolve, reject });
     });
 
-    requestIframe.postMessage({request, requestId, method: geocodeHandlerName}, '*');
+    requestIframe.postMessage(
+      { request, requestId, method: geocodeHandlerName },
+      '*',
+    );
     return requestPromise;
   }
 
@@ -63,9 +73,12 @@ export class GoogleMapsIframeClient implements MapsClient {
 
     const requestId = generateID();
     const requestPromise = new Promise<object[] | any>((resolve, reject) => {
-      this._promisesMap.set(requestId, {requestPromise, resolve, reject});
+      this._promisesMap.set(requestId, { requestPromise, resolve, reject });
     });
-    requestIframe.postMessage({request, requestId, method: placeDetailsHandlerName}, '*');
+    requestIframe.postMessage(
+      { request, requestId, method: placeDetailsHandlerName },
+      '*',
+    );
     return requestPromise;
   }
 }

@@ -1,17 +1,15 @@
 import * as React from 'react';
-import {badgeDriverFactory} from './Badge.driver';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {ReactDOMTestContainer} from '../../../../test/dom-test-container';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {stylableBadgeTestkitFactory as badgeTestkitFactory} from '../../../testkit';
-import {stylableBadgeTestkitFactory as enzymeBadgeTestkitFactory} from '../../../testkit/enzyme';
-import {mount} from 'enzyme';
-import {Badge} from './';
+import { badgeDriverFactory } from './Badge.driver';
+import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
+import { isTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { stylableBadgeTestkitFactory as badgeTestkitFactory } from '../../../testkit';
+import { stylableBadgeTestkitFactory as enzymeBadgeTestkitFactory } from '../../../testkit/enzyme';
+import { mount } from 'enzyme';
+import { Badge } from './';
 
 describe('Stylable Badge', () => {
-
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(badgeDriverFactory);
 
@@ -42,13 +40,15 @@ describe('Stylable Badge', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<Badge/>, badgeTestkitFactory)).toBe(true);
+      expect(isTestkitExists(<Badge />, badgeTestkitFactory)).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Badge/>, enzymeBadgeTestkitFactory, mount)).toBe(true);
+      expect(
+        isEnzymeTestkitExists(<Badge />, enzymeBadgeTestkitFactory, mount),
+      ).toBe(true);
     });
   });
 });

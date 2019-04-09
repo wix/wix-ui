@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {OptionFactory} from './';
-import {Divider} from '../../components/deprecated/divider';
+import { OptionFactory } from './';
+import { Divider } from '../deprecated/divider';
 import style from './DropdownOption.st.css';
 
 describe('OptionFactory', () => {
@@ -16,7 +16,7 @@ describe('OptionFactory', () => {
   });
 
   it('should create option with id', () => {
-    const option = OptionFactory.create({id: 5});
+    const option = OptionFactory.create({ id: 5 });
     expect(option.id).toEqual(5);
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
@@ -25,7 +25,7 @@ describe('OptionFactory', () => {
   });
 
   it('should create option with disabled', () => {
-    const option = OptionFactory.create({isDisabled: true});
+    const option = OptionFactory.create({ isDisabled: true });
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeTruthy();
     expect(option.isSelectable).toBeTruthy();
@@ -34,7 +34,7 @@ describe('OptionFactory', () => {
   });
 
   it('should create option with selectable false', () => {
-    const option = OptionFactory.create({isSelectable: false});
+    const option = OptionFactory.create({ isSelectable: false });
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeFalsy();
@@ -43,7 +43,7 @@ describe('OptionFactory', () => {
   });
 
   it('should create option with value', () => {
-    const option = OptionFactory.create({value});
+    const option = OptionFactory.create({ value });
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
@@ -53,7 +53,7 @@ describe('OptionFactory', () => {
 
   it('should create option with render function', () => {
     const render = () => value;
-    const option = OptionFactory.create({render});
+    const option = OptionFactory.create({ render });
     expect(option.id).toContain('Option');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeTruthy();
@@ -62,7 +62,7 @@ describe('OptionFactory', () => {
   });
 
   it('should create divider without content', () => {
-    const option = OptionFactory.createDivider({className: 'className'});
+    const option = OptionFactory.createDivider({ className: 'className' });
     expect(option.id).toContain('Divider');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeFalsy();
@@ -70,16 +70,18 @@ describe('OptionFactory', () => {
   });
 
   it('should create divider with content', () => {
-    const option = OptionFactory.createDivider({value});
+    const option = OptionFactory.createDivider({ value });
     expect(option.id).toContain('Divider');
     expect(option.isDisabled).toBeFalsy();
     expect(option.isSelectable).toBeFalsy();
-    expect(option.render(value)).toEqual(<Divider className={undefined}>value</Divider>);
+    expect(option.render(value)).toEqual(
+      <Divider className={undefined}>value</Divider>,
+    );
   });
 
   describe('Highlight', () => {
     it('should create highlighted option', () => {
-      const existingOption = OptionFactory.create({value});
+      const existingOption = OptionFactory.create({ value });
       const option = OptionFactory.createHighlighted(existingOption, 'lu');
       expect(option.id).toContain('Option');
       expect(option.isDisabled).toBeFalsy();
@@ -92,7 +94,9 @@ describe('OptionFactory', () => {
     });
 
     it('should support multiple highlight criteria, divided by space', () => {
-      const existingOption = OptionFactory.create({value: 'This is a sentence'});
+      const existingOption = OptionFactory.create({
+        value: 'This is a sentence',
+      });
       const option = OptionFactory.createHighlighted(existingOption, 'his sen');
       expect(option.render(value)).toEqual([
         <span className={style.nonHighlight} key={0}>T</span>,
@@ -104,7 +108,7 @@ describe('OptionFactory', () => {
     });
 
     it('should handle a case where the beginning of the string is matched', () => {
-      const existingOption = OptionFactory.create({value});
+      const existingOption = OptionFactory.create({ value });
       const option = OptionFactory.createHighlighted(existingOption, 'valu');
       expect(option.id).toContain('Option');
       expect(option.isDisabled).toBeFalsy();
@@ -116,14 +120,18 @@ describe('OptionFactory', () => {
     });
 
     it('should handle a value ending with a white space', () => {
-      const existingOption = OptionFactory.create({value});
+      const existingOption = OptionFactory.create({ value });
       const option = OptionFactory.createHighlighted(existingOption, 'va ');
       expect(option.id).toContain('Option');
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <mark className={style.highlight} key={0}>va</mark>,
-        <span className={style.nonHighlight} key={1}>lue</span>
+        <mark className={style.highlight} key={0}>
+          va
+        </mark>,
+        <span className={style.nonHighlight} key={1}>
+          lue
+        </span>,
       ]);
     });
 

@@ -19,24 +19,37 @@ export class Tickers extends React.PureComponent<TickersProps> {
   handleIncrement = e => {
     e.preventDefault();
     this.props.onIncrement(e);
-  }
+  };
 
   handleDecrement = e => {
     e.preventDefault();
     this.props.onDecrement(e);
-  }
+  };
 
   render() {
     return (
       <div {...style('root', {}, this.props)}>
-      <button tabIndex={-1} type="button" onMouseDown={this.handleIncrement} className={style.ticker} disabled={this.props.disabled} data-hook="ticker-button-up">
-        {this.props.tickerUpIcon}
-      </button>
-      <button tabIndex={-1} type="button" onMouseDown={this.handleDecrement} className={style.ticker} disabled={this.props.disabled} data-hook="ticker-button-down">
-        {this.props.tickerDownIcon}
-      </button>
-    </div>
+        <button
+          tabIndex={-1}
+          type="button"
+          onMouseDown={this.handleIncrement}
+          className={style.ticker}
+          disabled={this.props.disabled}
+          data-hook="ticker-button-up"
+        >
+          {this.props.tickerUpIcon}
+        </button>
+        <button
+          tabIndex={-1}
+          type="button"
+          onMouseDown={this.handleDecrement}
+          className={style.ticker}
+          disabled={this.props.disabled}
+          data-hook="ticker-button-down"
+        >
+          {this.props.tickerDownIcon}
+        </button>
+      </div>
     );
   }
-};
-
+}

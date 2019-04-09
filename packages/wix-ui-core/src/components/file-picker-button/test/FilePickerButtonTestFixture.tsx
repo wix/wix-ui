@@ -54,7 +54,7 @@ export class FilePickerButtonTestFixture extends React.Component<
     );
   }
 
-  private handleFilePickerButtonOnChange = (files: File[]) => {
+  private readonly handleFilePickerButtonOnChange = (files: File[]) => {
     const { onChangeCount } = this.state;
     this.setState({
       selectedFiles: [...files],
@@ -62,7 +62,7 @@ export class FilePickerButtonTestFixture extends React.Component<
     });
   };
 
-  private handleResetButtonClick = () => {
+  private readonly handleResetButtonClick = () => {
     this.filePickerButtonRef.current.reset();
   };
 }

@@ -1,13 +1,18 @@
-import {BaseDriver, DriverFactory} from './../../../common/BaseDriver.protractor';
+import {
+  BaseDriver,
+  DriverFactory,
+} from './../../../common/BaseDriver.protractor';
 
 export interface DividerDriver extends BaseDriver {
-  exists: () => Promise<boolean>;
+  exists(): Promise<boolean>;
 }
 
-export const dividerDriverFactory: DriverFactory<DividerDriver> = component => ({
+export const dividerDriverFactory: DriverFactory<
+  DividerDriver
+> = component => ({
   /** returns the element */
   element: () => component,
 
   /** checks if the element exists */
-  exists: async () => component.isPresent()
+  exists: async () => component.isPresent(),
 });

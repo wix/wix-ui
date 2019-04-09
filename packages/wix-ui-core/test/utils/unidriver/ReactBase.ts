@@ -6,7 +6,7 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
  *
  * @param {UniDriver} base
  */
-export function ReactBase(base: UniDriver, body?: UniDriver) {
+export function ReactBase(base: UniDriver) {
   if (base.type !== 'react') {
     throw new Error('Supported only in React/DOM.');
   }

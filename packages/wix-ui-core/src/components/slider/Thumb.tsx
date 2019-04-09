@@ -11,21 +11,21 @@ export interface ThumbProps {
 
 export class Thumb extends React.Component<ThumbProps> {
   render() {
-    const {shape, thumbSize} = this.props;
+    const { shape, thumbSize } = this.props;
     const ThumbShape = thumbShapes[shape];
 
     return (
-      <div 
+      <div
         data-hook="thumb"
         className={pStyle.thumb}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         style={{
-        ...this.props.thumbPosition,
-        ...thumbSize
+          ...this.props.thumbPosition,
+          ...thumbSize,
         }}
       >
-        <ThumbShape.component/>
+        <ThumbShape.component />
         {this.props.children}
       </div>
     );
@@ -39,56 +39,53 @@ export function getThumbSize(shape: string, ...rest) {
 class CircleThumb extends React.PureComponent<any> {
   render() {
     return (
-      <div {...pStyle('thumbShape', {shapeType: 'circle'})} style={{borderRadius: '50%'}}/>
+      <div
+        {...pStyle('thumbShape', { shapeType: 'circle' })}
+        style={{ borderRadius: '50%' }}
+      />
     );
   }
 }
 
 class RectangleThumb extends React.PureComponent<any> {
   render() {
-    return (
-      <div {...pStyle('thumbShape', {shapeType: 'rectangle'})}/>
-    );
+    return <div {...pStyle('thumbShape', { shapeType: 'rectangle' })} />;
   }
 }
 
 class SquareThumb extends React.PureComponent<any> {
   render() {
-    return (
-      <div {...pStyle('thumbShape', {shapeType: 'square'})}/>
-    );
+    return <div {...pStyle('thumbShape', { shapeType: 'square' })} />;
   }
 }
 
 class BarThumb extends React.PureComponent<any> {
   render() {
-    return (
-      <div {...pStyle('thumbShape', {shapeType: 'bar'})}/>
-    );
+    return <div {...pStyle('thumbShape', { shapeType: 'bar' })} />;
   }
 }
 
 const thumbShapes = {
   circle: {
-      component: CircleThumb,
-      getThumbSize: sliderSize => ({width: sliderSize, height: sliderSize})
+    component: CircleThumb,
+    getThumbSize: sliderSize => ({ width: sliderSize, height: sliderSize }),
   },
   rectangle: {
-      component: RectangleThumb,
-      getThumbSize: (sliderSize, isVertical) => ({
-          [isVertical ? 'height' : 'width']: 1.5 * sliderSize,
-          [isVertical ? 'width' : 'height']: sliderSize
-      })
+    component: RectangleThumb,
+    getThumbSize: (sliderSize, isVertical) => ({
+      [isVertical ? 'height' : 'width']: 1.5 * sliderSize,
+      [isVertical ? 'width' : 'height']: sliderSize,
+    }),
   },
   square: {
     component: SquareThumb,
-    getThumbSize: sliderSize => ({width: sliderSize, height: sliderSize})
+    getThumbSize: sliderSize => ({ width: sliderSize, height: sliderSize }),
   },
   bar: {
     component: BarThumb,
     getThumbSize: (sliderSize, isVertical) => ({
       [isVertical ? 'height' : 'width']: 0.5 * sliderSize,
-      [isVertical ? 'width' : 'height']: sliderSize
-    })
-  }
+      [isVertical ? 'width' : 'height']: sliderSize,
+    }),
+  },
 };
