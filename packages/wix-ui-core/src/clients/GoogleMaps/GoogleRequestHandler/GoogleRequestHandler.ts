@@ -25,15 +25,15 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
     return typeof locationProp === 'function' ? locationProp() : locationProp;
   };
 
-  const serializeResult = results => ({
-    ...results,
-    geometry: {
-      location: {
-        lat: locationFuncOrValue(results.geometry.location.lat),
-        lng: locationFuncOrValue(results.geometry.location.lng),
+  const serializeResult = results =>
+    Object.assign(results, {
+      geometry: {
+        location: {
+          lat: locationFuncOrValue(results.geometry.location.lat),
+          lng: locationFuncOrValue(results.geometry.location.lng),
+        },
       },
-    },
-  });
+    });
 
   function autocomplete(event) {
     !context._autocomplete

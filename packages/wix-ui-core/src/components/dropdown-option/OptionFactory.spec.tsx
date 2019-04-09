@@ -87,15 +87,9 @@ describe('OptionFactory', () => {
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <span className={style.nonHighlight} key={0}>
-          va
-        </span>,
-        <mark className={style.highlight} key={1}>
-          lu
-        </mark>,
-        <span className={style.nonHighlight} key={2}>
-          e
-        </span>,
+        <span className={style.nonHighlight} key={0}>va</span>,
+        <mark className={style.highlight} key={1}>lu</mark>,
+        <span className={style.nonHighlight} key={2}>e</span>
       ]);
     });
 
@@ -105,22 +99,11 @@ describe('OptionFactory', () => {
       });
       const option = OptionFactory.createHighlighted(existingOption, 'his sen');
       expect(option.render(value)).toEqual([
-        <span className={style.nonHighlight} key={0}>
-          T
-        </span>,
-        <mark className={style.highlight} key={1}>
-          his
-        </mark>,
-        <span className={style.nonHighlight} key={2}>
-          {' '}
-          is a{' '}
-        </span>,
-        <mark className={style.highlight} key={3}>
-          sen
-        </mark>,
-        <span className={style.nonHighlight} key={4}>
-          tence
-        </span>,
+        <span className={style.nonHighlight} key={0}>T</span>,
+        <mark className={style.highlight} key={1}>his</mark>,
+        <span className={style.nonHighlight} key={2}> is a </span>,
+        <mark className={style.highlight} key={3}>sen</mark>,
+        <span className={style.nonHighlight} key={4}>tence</span>,
       ]);
     });
 
@@ -131,12 +114,8 @@ describe('OptionFactory', () => {
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <mark className={style.highlight} key={0}>
-          valu
-        </mark>,
-        <span className={style.nonHighlight} key={1}>
-          e
-        </span>,
+        <mark className={style.highlight} key={0}>valu</mark>,
+        <span className={style.nonHighlight} key={1}>e</span>
       ]);
     });
 
