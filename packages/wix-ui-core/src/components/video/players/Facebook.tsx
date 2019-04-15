@@ -70,7 +70,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
   player: IFacebookPlayerAPI;
-  playerId: string = uniqueId('facebook-player-');
+  playerId: string;
   eventEmitter: IEventEmitter;
   containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
@@ -84,6 +84,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
+    this.playerId = uniqueId('facebook-player');
   }
 
   componentDidMount() {
@@ -135,8 +136,9 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
   handleReady = msg => {
     const { muted, onInit, onReady, onError } = this.props;
+    const playerId = this.containerRef.current.id;
 
-    if (msg.type === 'video' && msg.id === this.playerId) {
+    if (msg.type === 'video' && msg.id === playerId) {
       this.player = msg.instance;
 
       this.player.subscribe('startedPlaying', () => {
