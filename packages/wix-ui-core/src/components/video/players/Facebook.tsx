@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from 'eventemitter3';
 const isString = require('lodash/isString');
-const uniqueId = require('lodash/uniqueId');
 import { getSDK } from '../utils';
 import playerHOC from './playerHOC';
 import { EVENTS, PROGRESS_INTERVAL } from '../constants';
@@ -84,7 +83,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
-    this.playerId = uniqueId('facebook-player');
+    this.playerId = `facebook-player-${props.id}`;
   }
 
   componentDidMount() {
@@ -136,9 +135,8 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
   handleReady = msg => {
     const { muted, onInit, onReady, onError } = this.props;
-    const playerId = this.containerRef.current.id;
 
-    if (msg.type === 'video' && msg.id === playerId) {
+    if (msg.type === 'video' && msg.id === this.playerId) {
       this.player = msg.instance;
 
       this.player.subscribe('startedPlaying', () => {

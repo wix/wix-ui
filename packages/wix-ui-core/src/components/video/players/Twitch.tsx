@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from 'eventemitter3';
 const isString = require('lodash/isString');
-const uniqueId = require('lodash/uniqueId');
 import { getSDK } from '../utils';
 import { EVENTS, PROGRESS_INTERVAL } from '../constants';
 import playerHOC from './playerHOC';
@@ -67,7 +66,6 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
   player: ITwitchPlayerAPI;
   playerId: string;
   eventEmitter: IEventEmitter;
-  containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
   durationTimeout: number;
   progressTimeout: number;
@@ -75,9 +73,8 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
   constructor(props: ITwitchProps) {
     super(props);
 
-    this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
-    this.playerId = uniqueId('twitch-player');
+    this.playerId = `twitch-player-${props.id}`;
   }
 
   componentDidMount() {
@@ -105,9 +102,8 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
       ? src.match(CHANNEL_URL_REGEX)[1]
       : src.match(VIDEO_URL_REGEX)[1];
     const { READY, PLAY, PAUSE, ENDED } = Twitch.Player;
-    const playerId = this.containerRef.current.id;
 
-    this.player = new Twitch.Player(playerId, {
+    this.player = new Twitch.Player(this.playerId, {
       video: isChannel ? '' : id,
       channel: isChannel ? id : '',
       height: '100%',
@@ -176,7 +172,6 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
     return (
       <div
         id={this.playerId}
-        ref={this.containerRef}
         className={styles.playerContainer}
         data-player-name="Twitch"
       />

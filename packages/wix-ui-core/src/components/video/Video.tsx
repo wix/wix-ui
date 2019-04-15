@@ -19,7 +19,6 @@ const getPlayerName = (url: string | string[]): PlayerNamesType => {
 };
 
 export interface IVideoProps extends ICommonProps {
-  id?: string;
   config?: IConfig;
   playerRef?: Function;
   fillAllSpace?: boolean;
