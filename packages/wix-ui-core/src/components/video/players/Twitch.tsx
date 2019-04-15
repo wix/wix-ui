@@ -74,7 +74,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
     super(props);
 
     this.eventEmitter = new EventEmitter();
-    this.playerId = `twitch-player-${props.id}`;
+    this.playerId = `twitch-${props.id}`;
   }
 
   componentDidMount() {

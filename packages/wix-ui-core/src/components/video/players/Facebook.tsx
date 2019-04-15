@@ -83,7 +83,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
-    this.playerId = `facebook-player-${props.id}`;
+    this.playerId = `facebook-${props.id}`;
   }
 
   componentDidMount() {
