@@ -47,7 +47,6 @@ export function uniTestkitFactoryCreator<T extends BaseUniDriver>(
   };
 }
 
-
 export function isTestkitExists<T extends BaseDriver>(
   Element: React.ReactElement<any>,
   testkitFactory: (obj: { wrapper: any; dataHook: string }) => T,
