@@ -9,5 +9,6 @@ videoMetadata.addSim({
   title: 'Simulation with default props',
   props: {
     src: 'video.mp4',
+    id: 'my-video-player',
   },
 });

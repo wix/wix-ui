@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from 'eventemitter3';
 const isString = require('lodash/isString');
-const uniqueId = require('lodash/uniqueId');
 import { getSDK } from '../utils';
 import playerHOC from './playerHOC';
 import { EVENTS, PROGRESS_INTERVAL } from '../constants';
@@ -70,7 +69,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
   player: IFacebookPlayerAPI;
-  playerId: string = uniqueId('facebook-player-');
+  playerId: string;
   eventEmitter: IEventEmitter;
   containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
@@ -84,6 +83,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
+    this.playerId = `facebook-${props.id}`;
   }
 
   componentDidMount() {

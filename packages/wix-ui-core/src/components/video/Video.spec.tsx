@@ -8,6 +8,7 @@ describe('Video', () => {
     .unmountAfterEachTest()
     .createUniRenderer(videoPrivateDriverFactory);
 
+  const VIDEO_ID = 'my-video';
   const VIDEO_SRC = 'data:video/mp4,never-gonna-give-you-up.mp4';
   const IMAGE_SRC = 'data:image/jpeg,never-gonna-run-around.jpg';
   const PLAYABLE_LINK = VIDEO_SRC;
@@ -21,14 +22,14 @@ describe('Video', () => {
   describe('Wrapper', () => {
     describe('width prop', () => {
       it('should not be present by default', async () => {
-        const driver = createDriver(<Video src={VIDEO_SRC} />);
+        const driver = createDriver(<Video src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.width).toBeFalsy();
       });
 
       it('should set given value', async () => {
-        const driver = createDriver(<Video width={400} src={VIDEO_SRC} />);
+        const driver = createDriver(<Video width={400} src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.width).toBe('400px');
@@ -37,14 +38,14 @@ describe('Video', () => {
 
     describe('height prop', () => {
       it('should not be present by default', async () => {
-        const driver = createDriver(<Video src={VIDEO_SRC} />);
+        const driver = createDriver(<Video src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.height).toBeFalsy();
       });
 
       it('should set given value', async () => {
-        const driver = createDriver(<Video height={225} src={VIDEO_SRC} />);
+        const driver = createDriver(<Video height={225} src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.height).toBe('225px');
@@ -53,7 +54,7 @@ describe('Video', () => {
 
     describe('fillAllSpace prop', () => {
       it('should set width and height as 100%', async () => {
-        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC} />);
+        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.width).toBe('100%');
@@ -63,7 +64,7 @@ describe('Video', () => {
 
     describe('fillAllSpace prop', () => {
       it('should set width and height as 100%', async () => {
-        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC} />);
+        const driver = createDriver(<Video fillAllSpace src={VIDEO_SRC} id={VIDEO_ID}/>);
         const native = await driver.getNative();
 
         expect(native.style.width).toBe('100%');
@@ -81,7 +82,7 @@ describe('Video', () => {
           }
 
           render() {
-            return <Video src={this.state.src} />;
+            return <Video src={this.state.src} id={VIDEO_ID}/>;
           }
         }
 
@@ -102,13 +103,13 @@ describe('Video', () => {
   describe('Playable', () => {
     describe('player name', () => {
       it('should set video url to Playable player', async () => {
-        const driver = createDriver(<Video src={PLAYABLE_LINK} />);
+        const driver = createDriver(<Video src={PLAYABLE_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('Playable');
       });
 
       it('should set array of video source to Playable player', async () => {
-        const driver = createDriver(<Video src={[PLAYABLE_LINK]} />);
+        const driver = createDriver(<Video src={[PLAYABLE_LINK]} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('Playable');
       });
@@ -124,6 +125,7 @@ describe('Video', () => {
               },
             }}
             src={PLAYABLE_LINK}
+            id={VIDEO_ID}
           />,
         );
 
@@ -143,6 +145,7 @@ describe('Video', () => {
               },
             }}
             src={PLAYABLE_LINK}
+            id={VIDEO_ID}
           />,
         );
 
@@ -163,6 +166,7 @@ describe('Video', () => {
               },
             }}
             src={PLAYABLE_LINK}
+            id={VIDEO_ID}
           />,
         );
 
@@ -174,7 +178,7 @@ describe('Video', () => {
   describe('DailyMotion', () => {
     describe('player name', () => {
       it('should set DailyMotion link to appropriate player', async () => {
-        const driver = createDriver(<Video src={DAILYMOTION_LINK} />);
+        const driver = createDriver(<Video src={DAILYMOTION_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('DailyMotion');
       });
@@ -184,7 +188,7 @@ describe('Video', () => {
   describe('Facebook', () => {
     describe('player type', () => {
       it('should set Facebook link to appropriate player', async () => {
-        const driver = createDriver(<Video src={FACEBOOK_LINK} />);
+        const driver = createDriver(<Video src={FACEBOOK_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('Facebook');
       });
@@ -193,7 +197,7 @@ describe('Video', () => {
     describe('width and height props', () => {
       it('should set appropriate width and height attr to player container', async () => {
         const driver = createDriver(
-          <Video fillAllSpace width={480} height={200} src={FACEBOOK_LINK} />,
+          <Video fillAllSpace width={480} height={200} src={FACEBOOK_LINK} id={VIDEO_ID}/>,
         );
         const native = await driver.getNative();
         const widthAttr = await driver.getWidthDataAttr();
@@ -209,7 +213,7 @@ describe('Video', () => {
   describe('Twitch', () => {
     describe('player type', () => {
       it('should set Twitch link to appropriate player', async () => {
-        const driver = createDriver(<Video src={TWITCH_LINK} />);
+        const driver = createDriver(<Video src={TWITCH_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('Twitch');
       });
@@ -219,7 +223,7 @@ describe('Video', () => {
   describe('Vimeo', () => {
     describe('player type', () => {
       it('should set Vimeo link to appropriate player', async () => {
-        const driver = createDriver(<Video src={VIMEO_LINK} />);
+        const driver = createDriver(<Video src={VIMEO_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('Vimeo');
       });
@@ -229,7 +233,7 @@ describe('Video', () => {
   describe('Youtube', () => {
     describe('player type', () => {
       it('should set Youtube link to appropriate player', async () => {
-        const driver = createDriver(<Video src={YOUTUBE_LINK} />);
+        const driver = createDriver(<Video src={YOUTUBE_LINK} id={VIDEO_ID}/>);
 
         expect(await driver.getPlayerName()).toBe('YouTube');
       });

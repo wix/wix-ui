@@ -11,6 +11,7 @@ export type PlayerNamesType =
 export type VerifierType = (url: string | string[]) => boolean;
 
 export interface ICommonProps {
+  id: string;
   src: string | string[];
   loop?: boolean;
   volume?: number;
