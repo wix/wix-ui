@@ -36,12 +36,13 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
 };
 
 const renderBarSection = (value: number | string) => {
-  const progressWidth = { width: `${value}%` };
+  const progressWidth = {width: `${value}%`};
   return (
     <div className={style.barContainer}>
       <div data-hook="progressbar-background" className={style.barBackground} />
       <div
         data-hook="progressbar-foreground"
+        data-progress-value={value}
         style={progressWidth}
         className={style.barForeground}
       />
@@ -53,25 +54,25 @@ const normalizeProps = (props: LinearProgressBarProps) => {
   const value = parseInt(props.value as any, 10);
 
   if (props.value >= FULL_PROGRESS) {
-    return { ...props, value: FULL_PROGRESS };
+    return {...props, value: FULL_PROGRESS};
   }
 
   if (props.value < 0) {
-    return { ...props, value: NO_PROGRESS };
+    return {...props, value: NO_PROGRESS};
   }
 
-  return { ...props, value };
+  return {...props, value};
 };
 
-export const LinearProgressBar: React.SFC<LinearProgressBarProps> = (
-  props: LinearProgressBarProps,
-) => {
-  const { error, showProgressIndication } = props;
+export const LinearProgressBar: React.FunctionComponent<
+  LinearProgressBarProps
+> = (props: LinearProgressBarProps) => {
+  const {error, showProgressIndication} = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
 
   return (
-    <div {...style('root', { error, success }, _props)}>
+    <div {...style('root', {error, success}, _props)}>
       {renderBarSection(_props.value)}
 
       {showProgressIndication && (

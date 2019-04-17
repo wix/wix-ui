@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { labelDriverFactory } from './Label.driver';
-import { labelUniDriverFactory } from './Label.uni.driver';
-import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
-import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
-import { isTestkitExists, isUniTestkitExists } from 'wix-ui-test-utils/vanilla';
-import { labelTestkitFactory } from '../../../testkit';
-import { labelTestkitFactory as enzymeLabelTestkitFactory } from '../../../testkit/enzyme';
-import { Label } from './Label';
-import { mount } from 'enzyme';
+import * as React from "react";
+import { labelDriverFactory } from "./Label.driver";
+import { labelUniDriverFactory } from "./Label.uni.driver";
+import { ReactDOMTestContainer } from "../../../../test/dom-test-container";
+import { isEnzymeTestkitExists } from "wix-ui-test-utils/enzyme";
+import { isTestkitExists } from "wix-ui-test-utils/vanilla";
+import { labelTestkitFactory } from "../../../testkit";
+import { labelTestkitFactory as enzymeLabelTestkitFactory } from "../../../testkit/enzyme";
+import { Label } from "./Label";
+import { mount } from "enzyme";
 
 describe('Label', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
