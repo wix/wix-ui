@@ -1,44 +1,46 @@
 import * as React from 'react';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {inputWithOptionsDriverFactory} from './InputWithOptions.driver';
-import {InputWithOptions} from './';
-import {generateOptions} from '../dropdown-option/OptionsExample';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { inputWithOptionsDriverFactory } from './InputWithOptions.driver';
+import { InputWithOptions } from './';
+import { generateOptions } from '../dropdown-option/OptionsExample';
 import * as waitForCond from 'wait-for-cond';
-import {mount} from 'enzyme';
-import {Simulate} from 'react-dom/test-utils';
-import {OptionFactory} from '../dropdown-option';
+import { mount } from 'enzyme';
+import { Simulate } from 'react-dom/test-utils';
+import { OptionFactory } from '../dropdown-option';
 
 describe('InputWithOptions', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(inputWithOptionsDriverFactory);
 
   const options = generateOptions();
   const createInputWithOptions = (props = {}, inputProps = {}) => (
     <InputWithOptions
-      {...Object.assign({
+      {...{
         options: [],
-        inputProps
-      }, props)}
+        inputProps,
+        ...props,
+      }}
     />
   );
 
   it('should render default component', () => {
-    const driver = createDriver(createInputWithOptions({options}));
+    const driver = createDriver(createInputWithOptions({ options }));
     expect(driver.isTargetElementExists()).toBeTruthy();
     expect(driver.isContentElementExists()).toBeFalsy();
   });
 
   it('should display content element', () => {
-    const driver = createDriver(createInputWithOptions({options, forceContentElementVisibility: true}));
+    const driver = createDriver(
+      createInputWithOptions({ options, forceContentElementVisibility: true }),
+    );
     expect(driver.isContentElementExists()).toBeTruthy();
   });
 
   it('should trigger not onSelect by default, if item is selected', () => {
     const onSelect = jest.fn();
 
-    const driver = createDriver(createInputWithOptions({options, onSelect}));
+    const driver = createDriver(createInputWithOptions({ options, onSelect }));
     driver.click();
     driver.optionAt(0).click();
     driver.click();
@@ -50,7 +52,9 @@ describe('InputWithOptions', () => {
   it('should trigger onSelect even if item is selected, if allowReselect is set', () => {
     const onSelect = jest.fn();
 
-    const driver = createDriver(createInputWithOptions({options, onSelect, allowReselect: true}));
+    const driver = createDriver(
+      createInputWithOptions({ options, onSelect, allowReselect: true }),
+    );
     driver.click();
     driver.optionAt(0).click();
     driver.click();
@@ -61,7 +65,7 @@ describe('InputWithOptions', () => {
 
   it('should not show options element upon blur', async () => {
     const onSelect = jest.fn();
-    const driver = createDriver(createInputWithOptions({options, onSelect}));
+    const driver = createDriver(createInputWithOptions({ options, onSelect }));
     driver.click();
     await waitForCond(() => driver.isContentElementExists());
     driver.keyDown('ArrowDown');
@@ -74,91 +78,108 @@ describe('InputWithOptions', () => {
   });
 
   it('Should support open() and close() methods', () => {
-      const wrapper = mount(createInputWithOptions({options}));
+    const wrapper = mount(createInputWithOptions({ options }));
 
-      const driver = inputWithOptionsDriverFactory({
-          element: wrapper.children().at(0).getDOMNode(),
-          eventTrigger: Simulate
-      });
+    const driver = inputWithOptionsDriverFactory({
+      element: wrapper
+        .children()
+        .at(0)
+        .getDOMNode(),
+      eventTrigger: Simulate,
+    });
 
-      expect(driver.isContentElementExists()).toBeFalsy();
-      (wrapper.instance() as any).open();
-      expect(driver.isContentElementExists()).toBeTruthy();
-      (wrapper.instance() as any).close();
-      expect(driver.isContentElementExists()).toBeFalsy();
+    expect(driver.isContentElementExists()).toBeFalsy();
+    (wrapper.instance() as any).open();
+    expect(driver.isContentElementExists()).toBeTruthy();
+    (wrapper.instance() as any).close();
+    expect(driver.isContentElementExists()).toBeFalsy();
   });
 
   describe('Filter', () => {
     const numericOptions = [
-      OptionFactory.create({id: 'a', value: 'a'}),
-      OptionFactory.create({id: 'b', value: 'b'}),
-      OptionFactory.create({id: 'c', value: 'c'}),
-      OptionFactory.create({id: 'd', value: 'd'}),
+      OptionFactory.create({ id: 'a', value: 'a' }),
+      OptionFactory.create({ id: 'b', value: 'b' }),
+      OptionFactory.create({ id: 'c', value: 'c' }),
+      OptionFactory.create({ id: 'd', value: 'd' }),
     ];
 
     const setup = props => {
       const wrapper = mount(createInputWithOptions(props));
       const driver = inputWithOptionsDriverFactory({
-        element: wrapper.children().at(0).getDOMNode(),
-        eventTrigger: Simulate
+        element: wrapper
+          .children()
+          .at(0)
+          .getDOMNode(),
+        eventTrigger: Simulate,
       });
-      return {wrapper, driver};
+      return { wrapper, driver };
     };
 
     it('should filter by typed string by default', async () => {
-      const props = {options: numericOptions, inputProps: {value: ''}};
-      const {wrapper, driver} = setup(props);
+      const props = { options: numericOptions, inputProps: { value: '' } };
+      const { wrapper, driver } = setup(props);
       driver.click();
       expect(driver.getOptionsCount()).toBe(4);
       // Using keyDown in order to trigger isEditing mode
       driver.keyDown('a');
-      wrapper.setProps({inputProps: {value: 'a'}});
+      wrapper.setProps({ inputProps: { value: 'a' } });
       expect(driver.getOptionsCount()).toBe(1);
     });
 
     it('should support custom filtering', () => {
-      const filterPredicate = (inputValue, optionValue) => optionValue === 'b' || optionValue === 'c';
-      const props = {options: numericOptions, inputProps: {value: ''}, filterPredicate};
-      const {wrapper, driver} = setup(props);
+      const filterPredicate = (inputValue, optionValue) =>
+        optionValue === 'b' || optionValue === 'c';
+      const props = {
+        options: numericOptions,
+        inputProps: { value: '' },
+        filterPredicate,
+      };
+      const { wrapper, driver } = setup(props);
       driver.click();
       expect(driver.getOptionsCount()).toBe(4);
       // Using keyDown in order to trigger isEditing mode
       driver.keyDown('a');
-      wrapper.setProps({inputProps: {value: 'a'}});
+      wrapper.setProps({ inputProps: { value: 'a' } });
       expect(driver.getOptionsCount()).toBe(2);
       expect(driver.optionAt(0).getText()).toBe('b');
       expect(driver.optionAt(1).getText()).toBe('c');
     });
 
     it('should not display any option in case all options are filtered', async () => {
-      const props = {options: numericOptions, inputProps: {value: ''}};
-      const {wrapper, driver} = setup(props);
+      const props = { options: numericOptions, inputProps: { value: '' } };
+      const { wrapper, driver } = setup(props);
       driver.click();
       expect(driver.getOptionsCount()).toBe(4);
       // Using keyDown in order to trigger isEditing mode
       driver.keyDown('z');
-      wrapper.setProps({inputProps: {value: 'z'}});
+      wrapper.setProps({ inputProps: { value: 'z' } });
       expect(driver.getOptionsCount()).toBe(0);
     });
 
     it('should display empty state message in case all options are filtered', () => {
       const emptyStateMessage = 'Empty state';
-      const props = {options: numericOptions, inputProps: {value: ''}, emptyStateMessage};
-      const {wrapper, driver} = setup(props);
+      const props = {
+        options: numericOptions,
+        inputProps: { value: '' },
+        emptyStateMessage,
+      };
+      const { wrapper, driver } = setup(props);
       driver.click();
       // Using keyDown in order to trigger isEditing mode
       driver.keyDown('z');
-      wrapper.setProps({inputProps: {value: 'z'}});
+      wrapper.setProps({ inputProps: { value: 'z' } });
       expect(driver.getOptionsCount()).toBe(1);
       expect(driver.optionAt(0).getText()).toBe(emptyStateMessage);
       expect(driver.optionAt(0).isDisabled()).toBeTruthy();
     });
-  })
+  });
 
   describe('Focus and blur events', () => {
     it('Should call onFocus when input is focused', () => {
       const onFocus = jest.fn();
-      const driver = createDriver(createInputWithOptions({options}, { onFocus }));
+      const driver = createDriver(
+        createInputWithOptions({ options }, { onFocus }),
+      );
       driver.focus();
 
       expect(onFocus).toHaveBeenCalledTimes(1);
@@ -166,7 +187,9 @@ describe('InputWithOptions', () => {
 
     it('Should call onBlur when input is blurred', () => {
       const onBlur = jest.fn();
-      const driver = createDriver(createInputWithOptions({options}, { onBlur }));
+      const driver = createDriver(
+        createInputWithOptions({ options }, { onBlur }),
+      );
       driver.blur();
 
       expect(onBlur).toHaveBeenCalledTimes(1);
@@ -178,13 +201,15 @@ describe('InputWithOptions', () => {
     const onSelect = jest.fn();
 
     const getDriver = (_options = options) => {
-      return createDriver(createInputWithOptions({
-        options: _options,
-        onManualInput,
-        onSelect,
-        inputProps: { value: 'a' },
-      }));
-    }
+      return createDriver(
+        createInputWithOptions({
+          options: _options,
+          onManualInput,
+          onSelect,
+          inputProps: { value: 'a' },
+        }),
+      );
+    };
 
     beforeEach(() => {
       onManualInput.mockReset();

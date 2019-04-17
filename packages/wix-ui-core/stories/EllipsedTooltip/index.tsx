@@ -14,33 +14,45 @@ import * as ExampleNotEllipsedRaw from '!raw-loader!./ExampleNotEllipsed';
 
 const Example: React.SFC = () => (
   <div>
-    <Markdown source={Readme}/>
+    <Markdown source={Readme} />
 
-    <CodeExample title="Ellipsis Without Tooltip Example" code={ExampleWithoutTooltipRaw}>
-      <ExampleWithoutTooltip/>
+    <CodeExample
+      title="Ellipsis Without Tooltip Example"
+      code={ExampleWithoutTooltipRaw}
+    >
+      <ExampleWithoutTooltip />
     </CodeExample>
 
-    <CodeExample title="Ellipsis With Tooltip Example" code={ExampleWithTooltipRaw}>
+    <CodeExample
+      title="Ellipsis With Tooltip Example"
+      code={ExampleWithTooltipRaw}
+    >
       <ExampleWithTooltip data-hook="ellipsedTooltip-with-tooltip">
         This text is going to get ellipsed
       </ExampleWithTooltip>
     </CodeExample>
 
-    <CodeExample title="Short Text Not Ellipsed Example" code={ExampleNotEllipsedRaw}>
-      <ExampleNotEllipsed/>
+    <CodeExample
+      title="Short Text Not Ellipsed Example"
+      code={ExampleNotEllipsedRaw}
+    >
+      <ExampleNotEllipsed />
     </CodeExample>
   </div>
 );
 
 export const CustomEllipsedText = () => (
-  <CodeExample title="Custom Ellipsis With Tooltip Example" code={ExampleWithTooltipRaw}>
-      <div style={{width: '170px', background: 'azure'}}>
-        <ExampleWithTooltip data-hook="custom-ellipsedTooltip-with-tooltip">
-          <span style={{color: 'purple'}}>
-            This text is going to get ellipsed
-          </span>
-        </ExampleWithTooltip>
-      </div>
+  <CodeExample
+    title="Custom Ellipsis With Tooltip Example"
+    code={ExampleWithTooltipRaw}
+  >
+    <div style={{ width: '170px', background: 'azure' }}>
+      <ExampleWithTooltip data-hook="custom-ellipsedTooltip-with-tooltip">
+        <span style={{ color: 'purple' }}>
+          This text is going to get ellipsed
+        </span>
+      </ExampleWithTooltip>
+    </div>
   </CodeExample>
 );
 

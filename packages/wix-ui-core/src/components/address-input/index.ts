@@ -1,1 +1,1 @@
-export {AddressInput, AddressInputProps} from './AddressInput';
+export { AddressInput, AddressInputProps } from './AddressInput';

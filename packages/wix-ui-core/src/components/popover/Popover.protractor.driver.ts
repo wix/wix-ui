@@ -1,15 +1,15 @@
-import {$, browser, ElementFinder} from 'protractor';
-import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
-import {BaseDriver, DriverFactory} from '../../common/BaseDriver.protractor';
+import { $, browser, ElementFinder } from 'protractor';
+import { mouseEnter, mouseLeave } from 'wix-ui-test-utils/protractor';
+import { BaseDriver, DriverFactory } from '../../common/BaseDriver.protractor';
 
 export interface PopoverDriver extends BaseDriver {
-  getTargetElement: () => ElementFinder;
-  getContentElement: () => ElementFinder;
-  isTargetElementExists: () => Promise<boolean>;
-  isContentElementExists: () => Promise<boolean>;
-  mouseEnter: () => Promise<void>;
-  mouseLeave: () => Promise<void>;
-  click: () => Promise<void>;
+  getTargetElement(): ElementFinder;
+  getContentElement(): ElementFinder;
+  isTargetElementExists(): Promise<boolean>;
+  isContentElementExists(): Promise<boolean>;
+  mouseEnter(): Promise<void>;
+  mouseLeave(): Promise<void>;
+  click(): Promise<void>;
 }
 
 export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
@@ -39,6 +39,6 @@ export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
     mouseLeave,
 
     /** Click on the element */
-    click: async () => component.click()
+    click: async () => component.click(),
   };
 };

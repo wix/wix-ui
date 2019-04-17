@@ -1,7 +1,7 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Divider.st.css';
 
-export const dividerDriverFactory = ({element}) => {
+export const dividerDriverFactory = ({ element }) => {
   const domUtils = new StylableDOMUtil(style, element);
   return {
     /** checks if the element exists */
@@ -11,6 +11,6 @@ export const dividerDriverFactory = ({element}) => {
     isVertical: () => element && domUtils.hasStyleState(element, 'vertical'),
 
     /** gets text content */
-    textContent: () => element.textContent
+    textContent: () => element.textContent,
   };
 };

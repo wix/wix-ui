@@ -4,7 +4,7 @@ import {BaseUniDriver} from '../base-driver';
 import {UniDriver} from 'unidriver';
 import {reactUniDriver} from 'unidriver/react';
 
-export type UniDriverFactory<TDriver extends BaseUniDriver> = (base: UniDriver) => TDriver;
+export type UniDriverFactory<TDriver extends BaseUniDriver> = (base: UniDriver, body?: UniDriver) => TDriver;
 
 function componentFactory(Component: React.ReactElement<any>): UniDriver {
   const wrapperDiv = document.createElement('div');

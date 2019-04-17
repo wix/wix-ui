@@ -1,5 +1,5 @@
 import * as originalLoadjs from 'loadjs';
-import {ISDKConfig} from '../types';
+import { ISDKConfig } from '../types';
 
 let loadjs = originalLoadjs;
 
@@ -19,8 +19,8 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
           if (previousOnReady) {
             previousOnReady();
           }
-          onLoaded(window[name])
-        }
+          onLoaded(window[name]);
+        };
       } else {
         onLoaded(window[name]);
       }
@@ -32,12 +32,16 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
 };
 
 const requireSDK = (name, url, onLoaded, onError, resolveRequire) => {
-  (window as any).require([url], sdk => {
-    window[name] = resolveRequire(sdk);
-    onLoaded(window[name])
-  }, err => {
-    onError(err);
-  })
+  (window as any).require(
+    [url],
+    sdk => {
+      window[name] = resolveRequire(sdk);
+      onLoaded(window[name]);
+    },
+    err => {
+      onError(err);
+    },
+  );
 };
 
 export function getSDK({
@@ -48,33 +52,30 @@ export function getSDK({
   resolveRequire = sdk => sdk,
   isRequireAllow,
 }: ISDKConfig): Promise<any> {
-
   if (window[name] && isLoaded(window[name])) {
-    return Promise.resolve(window[name])
+    return Promise.resolve(window[name]);
   }
 
   return new Promise((resolve, reject) => {
-
     if (stack[url]) {
       stack[url].push(resolve);
       return;
-    } else {
-      stack[url] = [resolve];
     }
+    stack[url] = [resolve];
 
     const onLoaded = sdk => {
-      stack[url].forEach(resolveItem => resolveItem(sdk))
+      stack[url].forEach(resolveItem => resolveItem(sdk));
     };
 
     if (
-      isRequireAllow
-      && typeof (window as any).require === 'function'
-      && typeof (window as any).define === 'function'
-      && (window as any).define.amd
+      isRequireAllow &&
+      typeof (window as any).require === 'function' &&
+      typeof (window as any).define === 'function' &&
+      (window as any).define.amd
     ) {
       requireSDK(name, url, onLoaded, reject, resolveRequire);
     } else {
       loadSDK(name, url, onLoaded, reject, onReady);
     }
-  })
+  });
 }

@@ -1,202 +1,202 @@
 import {
   protractorTestkitFactoryCreator,
-  protractorUniTestkitFactoryCreator
+  protractorUniTestkitFactoryCreator,
 } from 'wix-ui-test-utils/protractor';
 
 import {
   avatarDriverFactory,
-  AvatarDriver
+  AvatarDriver,
 } from '../components/avatar/avatar.driver';
 export const avatarTestkitFactory = protractorUniTestkitFactoryCreator(
-  avatarDriverFactory
+  avatarDriverFactory,
 );
 export { AvatarDriver };
 
 import {
   buttonDriverFactory,
-  ButtonDriver
+  ButtonDriver,
 } from '../components/deprecated/button/Button.protractor.driver';
 export const buttonTestkitFactory = protractorTestkitFactoryCreator(
-  buttonDriverFactory
+  buttonDriverFactory,
 );
 export { ButtonDriver };
 
 import {
   buttonNextDriverFactory,
-  ButtonNextDriver
+  ButtonNextDriver,
 } from '../components/button-next/button-next.driver';
 export const buttonNextTestkitFactory = protractorUniTestkitFactoryCreator(
-  buttonNextDriverFactory
+  buttonNextDriverFactory,
 );
 export { ButtonNextDriver };
 
 //JSS
 import {
   popoverDriverFactory,
-  PopoverDriver
+  PopoverDriver,
 } from '../components/popover/Popover.protractor.driver';
 export const popoverTestkitFactory = protractorTestkitFactoryCreator(
-  popoverDriverFactory
+  popoverDriverFactory,
 );
 export { PopoverDriver };
 
 import {
   inputDriverFactory,
-  InputDriver
+  InputDriver,
 } from '../components/input/Input.protractor.driver';
 export const inputTestkitFactory = protractorTestkitFactoryCreator(
-  inputDriverFactory
+  inputDriverFactory,
 );
 export { InputDriver };
 
 import {
   paginationDriverFactory,
-  PaginationDriver
+  PaginationDriver,
 } from '../components/pagination/Pagination.protractor.driver';
 export const paginationTestkitFactory = protractorTestkitFactoryCreator(
-  paginationDriverFactory
+  paginationDriverFactory,
 );
 export { PaginationDriver };
 
 import {
   tooltipDriverFactory,
-  TooltipDriver
+  TooltipDriver,
 } from '../components/tooltip/Tooltip.protractor.driver';
 export const tooltipTestkitFactory = protractorTestkitFactoryCreator(
-  tooltipDriverFactory
+  tooltipDriverFactory,
 );
 export { TooltipDriver };
 
 import {
   dividerDriverFactory,
-  DividerDriver
+  DividerDriver,
 } from '../components/deprecated/divider/Divider.protractor.driver';
 export const dividerTestkitFactory = protractorTestkitFactoryCreator(
-  dividerDriverFactory
+  dividerDriverFactory,
 );
 export { DividerDriver };
 
 import {
   googleMapsIframeClientDriverFactory,
-  GoogleMapsIframeClientDriver
+  GoogleMapsIframeClientDriver,
 } from '../clients/GoogleMaps/GoogleMapsIframeClient.protractor.driver';
 export const googleMapsIframeClientTestkitFactory = protractorTestkitFactoryCreator(
-  googleMapsIframeClientDriverFactory
+  googleMapsIframeClientDriverFactory,
 );
 export { GoogleMapsIframeClientDriver };
 
 import {
   checkboxDriverFactory,
-  CheckboxDriver
+  CheckboxDriver,
 } from '../components/checkbox/Checkbox.protractor.driver';
 export const checkboxTestkitFactory = protractorTestkitFactoryCreator(
-  checkboxDriverFactory
+  checkboxDriverFactory,
 );
 export { CheckboxDriver };
 
 import {
   linearProgressBarDriverFactory,
-  LinearProgressBarDriver
+  LinearProgressBarDriver,
 } from '../components/linear-progress-bar/LinearProgressBar.protractor.driver';
 export const linearProgressBarTestkitFactory = protractorTestkitFactoryCreator(
-  linearProgressBarDriverFactory
+  linearProgressBarDriverFactory,
 );
 export { LinearProgressBarDriver };
 
 import {
   circularProgressBarDriverFactory,
-  CircularProgressBarDriver
+  CircularProgressBarDriver,
 } from '../components/circular-progress-bar/CircularProgressBar.protractor.driver';
 export const circularProgressBarTestkitFactory = protractorTestkitFactoryCreator(
-  circularProgressBarDriverFactory
+  circularProgressBarDriverFactory,
 );
 export { CircularProgressBarDriver };
 
 //Stylable
 import {
   radioButtonDriverFactory,
-  RadioButtonDriver
+  RadioButtonDriver,
 } from '../components/radio-button/RadioButton.protractor.driver';
 export const radioButtonTestkitFactory = protractorTestkitFactoryCreator(
-  radioButtonDriverFactory
+  radioButtonDriverFactory,
 );
 export { RadioButtonDriver };
 
 import {
   badgeDriverFactory as stylableBadgeDriverFactory,
-  BadgeDriver as StylableBadgeDriver
+  BadgeDriver as StylableBadgeDriver,
 } from '../components/deprecated/stylable-badge/Badge.protractor.driver';
 export const stylablebadgeTestkitFactory = protractorTestkitFactoryCreator(
-  stylableBadgeDriverFactory
+  stylableBadgeDriverFactory,
 );
 export { StylableBadgeDriver };
 
 import {
   autocompleteDriverFactory,
-  AutocompleteDriver
+  AutocompleteDriver,
 } from '../components/autocomplete/Autocomplete.protractor.driver';
 export const autocompleteTestkitFactory = protractorTestkitFactoryCreator(
-  autocompleteDriverFactory
+  autocompleteDriverFactory,
 );
 export { AutocompleteDriver };
 
 import {
   sliderDriverFactory,
-  SliderDriver
+  SliderDriver,
 } from '../components/slider/Slider.protractor.driver';
 export const sliderTestkitFactory = protractorTestkitFactoryCreator(
-  sliderDriverFactory
+  sliderDriverFactory,
 );
 export { SliderDriver };
 
 import {
   addressInputDriverFactory,
-  AddressInputDriver
+  AddressInputDriver,
 } from '../components/address-input/AddressInput.protractor.driver';
 export const addressInputTestkitFactory = protractorTestkitFactoryCreator(
-  addressInputDriverFactory
+  addressInputDriverFactory,
 );
 export { AddressInputDriver };
 
 import {
   labelDriverFactory,
-  LabelDriver
+  LabelDriver,
 } from '../components/deprecated/label/Label.protractor.driver';
 export const labelTestkitFactory = protractorTestkitFactoryCreator(
-  labelDriverFactory
+  labelDriverFactory,
 );
 export { LabelDriver };
 
 import {
   timePickerDriverFactory,
-  TimePickerDriver
+  TimePickerDriver,
 } from '../components/time-picker/TimePicker.protractor.driver';
 export const timePickerTestkitFactory = protractorTestkitFactoryCreator(
-  timePickerDriverFactory
+  timePickerDriverFactory,
 );
 export { TimePickerDriver };
 
 import {
   toggleSwitchDriverFactory,
-  ToggleSwitchDriver
+  ToggleSwitchDriver,
 } from '../components/toggle-switch/ToggleSwitch.protractor.driver';
 export const toggleSwitchTestkitFactory = protractorTestkitFactoryCreator(
-  toggleSwitchDriverFactory
+  toggleSwitchDriverFactory,
 );
 export { ToggleSwitchDriver };
 
 import {
   labelWithOptionsDriverFactory,
-  LabelWithOptionsDriver
+  LabelWithOptionsDriver,
 } from '../components/label-with-options/LabelWithOptions.protractor.driver';
 export const labelWithOptionsTestkitFactory = protractorTestkitFactoryCreator(
-  labelWithOptionsDriverFactory
+  labelWithOptionsDriverFactory,
 );
 export { LabelWithOptionsDriver };
 
 import {
   thumbnailDriverFactory,
-  ThumbnailDriver
+  ThumbnailDriver,
 } from '../components/thumbnail/Thumbnail.protractor.driver';
 export const thumbnailTestkitFactory = protractorTestkitFactoryCreator<
   ThumbnailDriver
@@ -205,25 +205,27 @@ export { ThumbnailDriver };
 
 import {
   navStepperDriverFactory,
-  NavStepperDriver
+  NavStepperDriver,
 } from '../components/nav-stepper/NavStepper.protractor.driver';
 export const navStepperTestkitFactory = protractorTestkitFactoryCreator(
-  navStepperDriverFactory
+  navStepperDriverFactory,
 );
 export { NavStepperDriver };
 
 import {
   captchaDriverFactory,
-  CaptchaDriver
+  CaptchaDriver,
 } from '../components/captcha/Captcha.driver';
-export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<CaptchaDriver>(captchaDriverFactory);
+export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<
+  CaptchaDriver
+>(captchaDriverFactory);
 export { CaptchaDriver };
 
 import {
   filePickerButtonUniDriverFactory,
-  FilePickerButtonUniDriver
+  FilePickerButtonUniDriver,
 } from '../components/file-picker-button/test/FilePickerButton.uni.driver';
 export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator(
-    filePickerButtonUniDriverFactory,
+  filePickerButtonUniDriverFactory,
 );
 export { FilePickerButtonUniDriver };

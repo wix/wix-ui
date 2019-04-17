@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject: T) => {
+export const buildChildrenObject = <T>(
+  children: React.ReactNode,
+  childrenObject: T,
+) => {
   return React.Children.toArray(children).reduce((acc: T, child) => {
     if (!React.isValidElement(child)) {
       return acc;
@@ -16,10 +19,14 @@ export const buildChildrenObject = <T>(children: React.ReactNode, childrenObject
   }, childrenObject || ({} as T));
 };
 
-export interface ElementProps { children: any; }
+export interface ElementProps {
+  children: any;
+}
 export const createComponentThatRendersItsChildren = (displayName: string) => {
-  const Element: React.SFC<ElementProps> = ({children}) => 
-    typeof children === 'string' ? React.createElement('div', {}, children) : children;
+  const Element: React.SFC<ElementProps> = ({ children }) =>
+    typeof children === 'string'
+      ? React.createElement('div', {}, children)
+      : children;
 
   Element.displayName = displayName;
 
@@ -30,7 +37,7 @@ export const noop = () => null;
 
 export const isReactElement = <T>(
   child: any,
-  Element: React.ComponentType<T>
+  Element: React.ComponentType<T>,
 ): child is React.ReactElement<T> => {
   return child && child.type === Element;
-}
+};

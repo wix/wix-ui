@@ -26,7 +26,7 @@ const hasFocusVisibleState = element =>
 export class PureChildComponent extends React.PureComponent<
   IPureChildComponentProps
 > {
-  private id: string;
+  private readonly id: string;
 
   constructor(props) {
     super(props);

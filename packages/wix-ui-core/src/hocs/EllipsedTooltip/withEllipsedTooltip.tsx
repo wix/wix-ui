@@ -2,22 +2,22 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import textStyle from './Text.st.css';
-import {getDisplayName} from '../utils';
+import { getDisplayName } from '../utils';
 const debounce = require('lodash/debounce');
 
-type EllipsedTooltipProps = {
-  component: React.ReactElement<any>,
-  showTooltip?: boolean,
-  style?: object
+interface EllipsedTooltipProps {
+  component: React.ReactElement;
+  showTooltip?: boolean;
+  style?: object;
 }
 
-type EllipsedTooltipState = {
-  isEllipsisActive: boolean,
-  Tooltip: React.ComponentClass,
-  tooltipStyle: RuntimeStylesheet,
+interface EllipsedTooltipState {
+  isEllipsisActive: boolean;
+  Tooltip: React.ComponentClass;
+  tooltipStyle: RuntimeStylesheet;
 }
 
-export type WrapperComponentProps = {
+export interface WrapperComponentProps {
   showTooltip?: boolean;
 }
 
@@ -25,20 +25,25 @@ export type WrapperComponentProps = {
   React 15 can have refs just on StateFull components,
   and as we need a ref of unknown children it required to proxy it with StateFullComponent
 */
-type StateFullComponentWrapProps = {children?: any, [propName: string]: any}
+interface StateFullComponentWrapProps {
+  children?: any;
+  [propName: string]: any;
+}
 
-class StateFullComponentWrap extends React.Component<StateFullComponentWrapProps> {
+class StateFullComponentWrap extends React.Component<
+  StateFullComponentWrapProps
+> {
   render() {
     const { children, ...props } = this.props;
-    return React.cloneElement(
-      children,
-      props
-    );
+    return React.cloneElement(children, props);
   }
 }
 
-class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTooltipState> {
-  static defaultProps = {showTooltip: true};
+class EllipsedTooltip extends React.Component<
+  EllipsedTooltipProps,
+  EllipsedTooltipState
+> {
+  static defaultProps = { showTooltip: true };
 
   state = { isEllipsisActive: false, Tooltip: null, tooltipStyle: null };
 
@@ -65,16 +70,23 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   loadTooltip = async () => {
     const { Tooltip } = await import('../../components/tooltip');
     this.setState({ Tooltip });
-  }
+  };
 
   loadTooltipStyle = async () => {
     const { default: tooltipStyle } = await import('./EllipsedTooltip.st.css');
     this.setState({ tooltipStyle });
-  }
+  };
 
   _updateEllipsisState = () => {
-    const isEllipsisActive = this.props.showTooltip && this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth;
-    if (isEllipsisActive && !this.state.isEllipsisActive && !this.state.Tooltip) {
+    const isEllipsisActive =
+      this.props.showTooltip &&
+      this.textNode &&
+      this.textNode.offsetWidth < this.textNode.scrollWidth;
+    if (
+      isEllipsisActive &&
+      !this.state.isEllipsisActive &&
+      !this.state.Tooltip
+    ) {
       this.loadTooltip();
       this.loadTooltipStyle();
     }
@@ -86,15 +98,15 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
   _renderText() {
-    const {component, style} = this.props;
+    const { component, style } = this.props;
     return (
       <StateFullComponentWrap
         {...textStyle('root', {}, component.props)}
         style={{
           ...style,
-          whiteSpace: 'nowrap' 
+          whiteSpace: 'nowrap',
         }}
-        ref={n => this.textNode = ReactDOM.findDOMNode(n) as HTMLElement}
+        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
       </StateFullComponentWrap>
@@ -120,7 +132,9 @@ class EllipsedTooltip extends React.Component<EllipsedTooltipProps, EllipsedTool
   }
 }
 
-export const withEllipsedTooltip = ({showTooltip}: {showTooltip?: boolean} = {}) => Comp => {
+export const withEllipsedTooltip = ({
+  showTooltip,
+}: { showTooltip?: boolean } = {}) => Comp => {
   const WrapperComponent: React.SFC<WrapperComponentProps> = props => (
     <EllipsedTooltip
       {...props}

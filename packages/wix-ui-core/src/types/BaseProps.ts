@@ -1,6 +1,4 @@
 /**
  * Base props for any core component
  */
-export interface BaseProps extends InheritedAttributes {
-
-}
+export interface BaseProps extends InheritedAttributes {}

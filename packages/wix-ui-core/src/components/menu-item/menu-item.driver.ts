@@ -1,22 +1,22 @@
 import style from './menu-item.st.css';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
 import {
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
 
-import {UniDriver} from 'wix-ui-test-utils/unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 export interface MenuItemDriver extends BaseUniDriver {
   /** checks if the item is selected */
-  isSelected: () => Promise<boolean>;
+  isSelected(): Promise<boolean>;
   /** checks if the item is highlighted */
-  isHighlighted: () => Promise<boolean>;
+  isHighlighted(): Promise<boolean>;
   /** checks if the item is disabled */
-  isDisabled: () => Promise<boolean>;
+  isDisabled(): Promise<boolean>;
   /** return children for inspection */
-  getText: () => Promise<string>;
+  getText(): Promise<string>;
 }
 
 export const menuItemDriverFactory = (base: UniDriver): MenuItemDriver => {
@@ -26,9 +26,9 @@ export const menuItemDriverFactory = (base: UniDriver): MenuItemDriver => {
 
   return {
     ...baseUniDriverFactory(base),
-    isSelected: async () => await assertState('selected'),
-    isHighlighted: async () => await assertState('highlighted'),
-    isDisabled: async () => await assertState('disabled'),
-    getText: async () => await base.text(),
+    isSelected: async () => assertState('selected'),
+    isHighlighted: async () => assertState('highlighted'),
+    isDisabled: async () => assertState('disabled'),
+    getText: async () => base.text(),
   };
 };

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import style from './Input.st.css';
-import {Omit} from 'type-zoo';
+import { Omit } from 'type-zoo';
 
-type OmittedInputProps = 'value' | 'prefix'
+type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   className?: string;
   error?: string | boolean;
   prefix?: React.ReactNode;
@@ -21,7 +22,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
-  'aria-autocomplete'?: AriaAutoCompleteType
+  'aria-autocomplete'?: AriaAutoCompleteType;
 }
 
 export interface InputState {
@@ -34,7 +35,7 @@ export class Input extends React.Component<InputProps, InputState> {
     type: 'text',
     onFocus: () => null,
     onBlur: () => null,
-    onChange: () => null
+    onChange: () => null,
   };
 
   state: InputState = {
@@ -45,29 +46,29 @@ export class Input extends React.Component<InputProps, InputState> {
 
   render() {
     const { focus } = this.state;
-    const {
-      error,
-      disabled,
-      prefix,
-      suffix,
-      style: inlineStyle
-    } = this.props;
+    const { error, disabled, prefix, suffix, style: inlineStyle } = this.props;
 
-    const {error: errorProp, style: styleProp, prefix: prefixProps, suffix: suffixProp,  ...allOtherProps} = this.props;
+    const {
+      error: errorProp,
+      style: styleProp,
+      prefix: prefixProps,
+      suffix: suffixProp,
+      ...allOtherProps
+    } = this.props;
 
     return (
       <div
         {...style(
           'root',
           { disabled, error: !!error && !disabled, focus },
-          this.props
+          this.props,
         )}
         style={inlineStyle}
       >
         {prefix}
         <input
           {...allOtherProps}
-          ref={input => this.input = input}
+          ref={input => (this.input = input)}
           className={style.nativeInput}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
@@ -77,20 +78,36 @@ export class Input extends React.Component<InputProps, InputState> {
     );
   }
 
-  focus() { this.input.focus(); }
-  blur() { this.input.blur(); }
-  select() { this.input.select(); }
-  getSelectionStart() { return this.input.selectionStart; }
-  getSelectionEnd() { return this.input.selectionEnd; }
-  setSelectionRange(start: number, end: number) { this.input.setSelectionRange(start, end); }
+  focus() {
+    this.input.focus();
+  }
+  blur() {
+    this.input.blur();
+  }
+  select() {
+    this.input.select();
+  }
+  getSelectionStart() {
+    return this.input.selectionStart;
+  }
+  getSelectionEnd() {
+    return this.input.selectionEnd;
+  }
+  setSelectionRange(start: number, end: number) {
+    this.input.setSelectionRange(start, end);
+  }
 
-  private handleFocus: React.FocusEventHandler<HTMLInputElement> = event => {
+  private readonly handleFocus: React.FocusEventHandler<
+    HTMLInputElement
+  > = event => {
     this.setState({ focus: true });
     this.props.onFocus(event);
-  }
+  };
 
-  private handleBlur: React.FocusEventHandler<HTMLInputElement> = event => {
+  private readonly handleBlur: React.FocusEventHandler<
+    HTMLInputElement
+  > = event => {
     this.setState({ focus: false });
     this.props.onBlur(event);
-  }
+  };
 }

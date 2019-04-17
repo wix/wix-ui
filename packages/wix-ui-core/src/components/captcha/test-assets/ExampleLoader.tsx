@@ -10,10 +10,10 @@ const style = {
 };
 
 class ExampleLoader extends React.Component {
-  public displayName =  'ExampleLoader';
+  public displayName = 'ExampleLoader';
   render() {
     return <div style={style}>loader</div>;
   }
 }
 
-export {ExampleLoader};
+export { ExampleLoader };

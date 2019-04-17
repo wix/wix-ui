@@ -1,11 +1,11 @@
 /* global describe it expect */
 
 import * as React from 'react';
-import {Simulate} from 'react-dom/test-utils';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {Input} from './Input';
-import {InputDriver} from './Input.private.driver';
+import { Simulate } from 'react-dom/test-utils';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { Input } from './Input';
+import { InputDriver } from './Input.private.driver';
 import style from './Input.st.css';
 
 const stylableUtil = new StylableDOMUtil(style);
@@ -13,8 +13,9 @@ const stylableUtil = new StylableDOMUtil(style);
 describe('Input', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
   const render = jsx =>
-    container.renderWithRef(jsx)
-    .then(ref => new InputDriver(container.componentNode, ref));
+    container
+      .renderWithRef(jsx)
+      .then(ref => new InputDriver(container.componentNode, ref));
 
   describe('Style states', () => {
     it('should support disabled state', async () => {
@@ -35,7 +36,7 @@ describe('Input', () => {
   });
 
   it('should pass attributes to the native input', async () => {
-    const {input} = await render(
+    const { input } = await render(
       <Input
         autoComplete="on"
         disabled
@@ -49,7 +50,7 @@ describe('Input', () => {
         role="input"
         type="password"
         value="hunter2"
-      />
+      />,
     );
 
     expect(input.autocomplete).toBe('on');
@@ -68,7 +69,7 @@ describe('Input', () => {
 
   it('should render prefix and suffix', async () => {
     const input = await render(
-      <Input prefix={<div>PREFIX</div>} suffix={<div>SUFFIX</div>} />
+      <Input prefix={<div>PREFIX</div>} suffix={<div>SUFFIX</div>} />,
     );
 
     expect(input.prefix.textContent).toBe('PREFIX');
@@ -77,7 +78,7 @@ describe('Input', () => {
 
   describe('Imperative API', () => {
     it('should support focus() and blur() methods', async () => {
-      const {input, instance} = await render(<Input />);
+      const { input, instance } = await render(<Input />);
 
       expect(document.activeElement).not.toBe(input);
       instance.focus();
@@ -87,7 +88,7 @@ describe('Input', () => {
     });
 
     it('should support select() method', async () => {
-      const {input, instance} = await render(<Input value="123" />);
+      const { input, instance } = await render(<Input value="123" />);
 
       expect(input.selectionStart).toBe(input.selectionEnd);
       instance.select();
@@ -96,7 +97,7 @@ describe('Input', () => {
     });
 
     it('should support getSelectionStart() and getSelectionEnd() methods', async () => {
-      const {input, instance} = await render(<Input value="1234" />);
+      const { input, instance } = await render(<Input value="1234" />);
       instance.select();
       expect(instance.getSelectionStart()).toBe(0);
       expect(instance.getSelectionEnd()).toBe(4);
@@ -107,7 +108,7 @@ describe('Input', () => {
     });
 
     it('should support setSelectionRange() method', async () => {
-      const {input, instance} = await render(<Input value="1234" />);
+      const { input, instance } = await render(<Input value="1234" />);
       instance.setSelectionRange(1, 3);
       expect(instance.getSelectionStart()).toBe(1);
       expect(instance.getSelectionEnd()).toBe(3);
@@ -120,9 +121,9 @@ describe('Input', () => {
         width: '100px',
         background: 'blue',
         color: 'green',
-        display: 'inline-flex'
+        display: 'inline-flex',
       };
-      const driver = await render(<Input style={styles}/>);
+      const driver = await render(<Input style={styles} />);
       expect(driver.root.style).toEqual(expect.objectContaining(styles));
     });
   });
