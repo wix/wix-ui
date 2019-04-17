@@ -75,7 +75,7 @@
     "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
     "wix-eventually": "^2.2.0",
-    "wix-ui-test-utils": "^1.0.149"
+    "wix-ui-test-utils": "github:wix/wix-ui#unidriver_test_utils_upgraded_2"
   },
   "devDependencies": {
     "@storybook/react": "^5.0.0",
