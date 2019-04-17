@@ -5,10 +5,15 @@ import kebabCase from 'lodash.kebabcase';
 import * as builders from './index';
 
 import { SectionType } from '../typings/story-section';
+import { StoryConfig } from '../typings/story-config';
+
 import { api } from './views/api';
-import { storyConfigEmpty } from './views/testUtils';
-import { getView } from './views/tab';
-import { error as errorView } from './views/error';
+
+const storyConfigEmpty: StoryConfig = {
+  metadata: { displayName: '', props: {} },
+  config: { importFormat: '', moduleName: '', repoBaseURL: '' },
+  component: null,
+};
 
 const cwd = path.resolve(__dirname, 'views');
 const methodToFileName = f => kebabCase(path.parse(f).name);
@@ -30,13 +35,6 @@ describe('Sections', () => {
 
     it(`should have builder for "${type}" section type`, () =>
       expect(typeof builders[type]).toBe('function'));
-
-    if (type !== SectionType.Error) {
-      it(`should have view for "${type}" section type`, () =>
-        // if section has no view, fallback is SectionType.Error
-        // ensure view exists by checking that it doesn't use fallback
-        expect(getView(type)).not.toEqual(errorView));
-    }
   });
 
   it('should use parsedSource from api section', () => {

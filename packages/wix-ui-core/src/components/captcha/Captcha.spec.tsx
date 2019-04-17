@@ -24,17 +24,14 @@ describe('Captcha', () => {
   });
 
   it('should render captcha with a required prop as the default behaviour ', async () => {
-    const driver = await createDriver(
-      <Captcha {...getDefaultProps()} />,
-    );
+    const driver = await createDriver(<Captcha {...getDefaultProps()} />);
     expect(await driver.isRequired()).toBe(false);
   });
 
   it('should render captcha with a required prop as the default behaviour ', async () => {
     const driver = await createDriver(
-      <Captcha {...getDefaultProps()} required={false}/>,
+      <Captcha {...getDefaultProps()} required={false} />,
     );
     expect(await driver.isRequired()).toBe(false);
   });
-
 });

@@ -27,7 +27,7 @@ describe('Video/getSDK', () => {
 
       await eventually(() => {
         expect(loadjs).toHaveBeenCalled();
-        expect(resolveSpy).toHaveBeenCalled()
+        expect(resolveSpy).toHaveBeenCalled();
       });
     });
 
@@ -143,7 +143,7 @@ describe('Video/getSDK', () => {
       }).catch(rejectSpy);
 
       await eventually(() => {
-        expect(rejectSpy).toHaveBeenCalled()
+        expect(rejectSpy).toHaveBeenCalled();
       });
     });
   });

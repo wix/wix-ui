@@ -9,7 +9,7 @@ export interface TicksProps {
   thumbSize: number;
   vertical: boolean;
   trackSize: number;
-  onTickClick: (any) => void;
+  onTickClick(any): void;
 }
 
 export class Ticks extends React.PureComponent<TicksProps> {
@@ -22,31 +22,35 @@ export class Ticks extends React.PureComponent<TicksProps> {
   }
 
   calcStep() {
-    const {step, min, max, trackSize} = this.props;
+    const { step, min, max, trackSize } = this.props;
     const totalTickCount = (max - min) / Number(step);
-    const density = Math.min(totalTickCount / trackSize, this.calcMaximumTickDensity());
+    const density = Math.min(
+      totalTickCount / trackSize,
+      this.calcMaximumTickDensity(),
+    );
     const adjustedStep = (max - min) / (trackSize * density);
     return adjustedStep;
   }
 
   renderTick(i, min, max, vertical, thumbSize, pStyle) {
-    const {tickMarksShape} = this.props;
+    const { tickMarksShape } = this.props;
     const pct = (i - min) / (max - min);
-    const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize / 2}px)`;
+    const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize /
+      2}px)`;
 
     return (
       <div
-        {...pStyle('tick', {tickMarksShape})}
+        {...pStyle('tick', { tickMarksShape })}
         key={i}
         data-hook="tick"
         onClick={this.props.onTickClick}
-        style={vertical ? {bottom: val} : {left: val}}
+        style={vertical ? { bottom: val } : { left: val }}
       />
     );
   }
 
   render() {
-    const {min, max, thumbSize, vertical, trackSize, pStyle} = this.props;
+    const { min, max, thumbSize, vertical, trackSize, pStyle } = this.props;
 
     if (!trackSize) {
       return null;
@@ -62,10 +66,6 @@ export class Ticks extends React.PureComponent<TicksProps> {
 
     ticks.push(this.renderTick(max, min, max, vertical, thumbSize, pStyle));
 
-    return (
-      <div data-hook="ticks-wrapper">
-        {ticks}
-      </div>
-    );
+    return <div data-hook="ticks-wrapper">{ticks}</div>;
   }
 }

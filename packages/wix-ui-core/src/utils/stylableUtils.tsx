@@ -1,6 +1,10 @@
-export const attachStylesToNode = (node: HTMLElement, stylesObj: AttributeMap) => {
+export const attachStylesToNode = (
+  node: HTMLElement,
+  stylesObj: AttributeMap,
+) => {
   if (node) {
-    stylesObj.className.split(' ')
+    stylesObj.className
+      .split(' ')
       .forEach(className => node.classList.add(className));
 
     Object.keys(stylesObj)
@@ -9,9 +13,13 @@ export const attachStylesToNode = (node: HTMLElement, stylesObj: AttributeMap) =
   }
 };
 
-export const detachStylesFromNode = (node: HTMLElement, stylesObj: AttributeMap) => {
+export const detachStylesFromNode = (
+  node: HTMLElement,
+  stylesObj: AttributeMap,
+) => {
   if (node) {
-    stylesObj.className.split(' ')
+    stylesObj.className
+      .split(' ')
       .forEach(className => node.classList.remove(className));
 
     Object.keys(stylesObj)

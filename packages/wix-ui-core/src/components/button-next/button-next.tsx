@@ -8,9 +8,9 @@ export interface ButtonProps
   /** URL of the page that link goes to */
   href?: string;
   /** accepts prefix icon */
-  prefixIcon?: React.ReactElement<any>;
+  prefixIcon?: React.ReactElement;
   /** accepts suffix icon  */
-  suffixIcon?: React.ReactElement<any>;
+  suffixIcon?: React.ReactElement;
   /** apply disabled styles */
   disabled?: boolean;
 

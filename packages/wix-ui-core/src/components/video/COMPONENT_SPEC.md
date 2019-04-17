@@ -10,7 +10,7 @@ The element parses a URL and loads in the appropriate external SDKs to play medi
 | name      | type                             | defaultValue | isRequired | description                                                            |
 |:----------|:---------------------------------|:-------------|:-----------|:-----------------------------------------------------------------------|
 | src       | string | string[]                |              | true       | The source or link of the video                                        |
-| id        | string                           |              |            | Element ID                                                             |
+| id        | string                           |              | true       | Element ID                                                             |
 | width     | number | string                  |              |            | Set the width of the player                                            |
 | height    | number | string                  |              |            | Set the height of the player                                           |
 | fillAllSpace | string                        |              |            | Pass `true` to alow player fill all space of it container              |
@@ -49,6 +49,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
             <div>
                 <Video
                     src="video-source.mp4"
+                    id="my-player"
                     loop={false}
                     playing={true}
                     muted={true}

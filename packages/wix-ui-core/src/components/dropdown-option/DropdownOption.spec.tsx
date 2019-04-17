@@ -1,24 +1,24 @@
 import * as React from 'react';
-import {DropdownOption, Option} from './';
-import {dropdownOptionDriverFactory} from './DropdownOption.driver';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {OptionFactory} from './OptionFactory';
+import { DropdownOption, Option } from './';
+import { dropdownOptionDriverFactory } from './DropdownOption.driver';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { OptionFactory } from './OptionFactory';
 
 describe('DropdownOption', () => {
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(dropdownOptionDriverFactory);
 
   const onClickHandler = jest.fn();
   const onMouseEnterHandler = jest.fn();
 
-  const createOption = (isDisabled = false) => OptionFactory.create({
-    id: 1,
-    isDisabled,
-    isSelectable: !isDisabled,
-    value: 'value',
-  });
+  const createOption = (isDisabled = false) =>
+    OptionFactory.create({
+      id: 1,
+      isDisabled,
+      isSelectable: !isDisabled,
+      value: 'value',
+    });
 
   const createDropdownOption = (option: Option) => (
     <DropdownOption
@@ -73,5 +73,5 @@ describe('DropdownOption', () => {
     const option = OptionFactory.createHighlighted(createOption(), highlighted);
     const driver = createDriver(createDropdownOption(option));
     expect(driver.getHighlightedStrings()).toEqual([highlighted]);
-  })
+  });
 });

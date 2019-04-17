@@ -1,6 +1,10 @@
-import {GoogleMapsIframeClient as RealGoogleMapsIframeClient} from './GoogleMapsIframeClient';
-import {autocompleteHandlerName, geocodeHandlerName, placeDetailsHandlerName} from './handlersName';
-import {IframesManagerMock} from './IframeTestUtils';
+import { GoogleMapsIframeClient as RealGoogleMapsIframeClient } from './GoogleMapsIframeClient';
+import {
+  autocompleteHandlerName,
+  geocodeHandlerName,
+  placeDetailsHandlerName,
+} from './handlersName';
+import { IframesManagerMock } from './IframeTestUtils';
 
 class GoogleMapsIframeClient extends RealGoogleMapsIframeClient {
   constructor() {
@@ -17,9 +21,9 @@ describe('GoogleMapsIframeClient', () => {
   const mockLang = 'en';
 
   afterEach(() => {
-      iframeManagerPrototype.hasIframe.mockReset();
-      iframeManagerPrototype.getIframe.mockReset();
-      iframeManagerPrototype.addIframe.mockReset();
+    iframeManagerPrototype.hasIframe.mockReset();
+    iframeManagerPrototype.getIframe.mockReset();
+    iframeManagerPrototype.addIframe.mockReset();
   });
 
   it('should return a resolved promise once the status sent by iframesManager is OK', async () => {
@@ -27,13 +31,18 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId} = requestObj;
-        (<any>global).postMessage({requestId, results: [], status: 'OK'}, targetOrigin);
-      }
+        const { requestId } = requestObj;
+        (global as any).postMessage(
+          { requestId, results: [], status: 'OK' },
+          targetOrigin,
+        );
+      },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang)).resolves.toEqual([]);
+    await expect(client.autocomplete(mockApiKey, mockLang)).resolves.toEqual(
+      [],
+    );
     expect(iframeManagerPrototype.getIframe).toBeCalled();
   });
 
@@ -42,7 +51,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client = new GoogleMapsIframeClient();
@@ -51,7 +60,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client.geocode(mockApiKey, mockLang);
@@ -64,7 +73,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client = new GoogleMapsIframeClient();
@@ -81,7 +90,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client = new GoogleMapsIframeClient();
@@ -98,7 +107,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client = new GoogleMapsIframeClient();
@@ -115,13 +124,18 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId} = requestObj;
-        (<any>global).postMessage({requestId, results: [], status: 'ERROR'}, targetOrigin);
-      }
+        const { requestId } = requestObj;
+        (global as any).postMessage(
+          { requestId, results: [], status: 'ERROR' },
+          targetOrigin,
+        );
+      },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang, '')).rejects.toBeUndefined();
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, ''),
+    ).rejects.toBeUndefined();
     expect(iframeManagerPrototype.getIframe).toBeCalled();
   });
 
@@ -130,13 +144,18 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId} = requestObj;
-        (<any>global).postMessage({requestId, results: [], status: 'OK'}, targetOrigin);
-      }
+        const { requestId } = requestObj;
+        (global as any).postMessage(
+          { requestId, results: [], status: 'OK' },
+          targetOrigin,
+        );
+      },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang)).resolves.toEqual([]);
+    await expect(client.autocomplete(mockApiKey, mockLang)).resolves.toEqual(
+      [],
+    );
     expect(iframeManagerPrototype.addIframe).toBeCalled();
   });
 
@@ -145,13 +164,18 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId} = requestObj;
-        (<any>global).postMessage({requestId, results: [], status: 'ERROR'}, targetOrigin);
-      }
+        const { requestId } = requestObj;
+        (global as any).postMessage(
+          { requestId, results: [], status: 'ERROR' },
+          targetOrigin,
+        );
+      },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang)).rejects.toBeUndefined();
+    await expect(
+      client.autocomplete(mockApiKey, mockLang),
+    ).rejects.toBeUndefined();
     expect(iframeManagerPrototype.addIframe).toBeCalled();
   });
 
@@ -163,16 +187,26 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId, request} = requestObj;
+        const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
-        setTimeout(() => (<any>global).postMessage({requestId, results: [request], status: 'OK'}, targetOrigin), timeout);
-      }
-    })
-    );
+        setTimeout(
+          () =>
+            (global as any).postMessage(
+              { requestId, results: [request], status: 'OK' },
+              targetOrigin,
+            ),
+          timeout,
+        );
+      },
+    }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang, secondRequest)).resolves.toEqual([secondRequest]);
-    await expect(client.autocomplete(mockApiKey, mockLang, firstRequest)).resolves.toEqual([firstRequest]);
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, secondRequest),
+    ).resolves.toEqual([secondRequest]);
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, firstRequest),
+    ).resolves.toEqual([firstRequest]);
 
     iframeManagerPrototype.hasIframe.mockRestore();
     iframeManagerPrototype.getIframe.mockRestore();
@@ -186,17 +220,27 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId, request} = requestObj;
+        const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
         const status = request === firstRequest ? 'OK' : 'ERROR';
-        setTimeout(() => (<any>global).postMessage({requestId, results: [request], status}, targetOrigin), timeout);
-      }
-    })
-    );
+        setTimeout(
+          () =>
+            (global as any).postMessage(
+              { requestId, results: [request], status },
+              targetOrigin,
+            ),
+          timeout,
+        );
+      },
+    }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang, secondRequest)).rejects.toBeUndefined();
-    await expect(client.autocomplete(mockApiKey, mockLang, firstRequest)).resolves.toEqual([firstRequest]);
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, secondRequest),
+    ).rejects.toBeUndefined();
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, firstRequest),
+    ).resolves.toEqual([firstRequest]);
 
     iframeManagerPrototype.hasIframe.mockRestore();
     iframeManagerPrototype.getIframe.mockRestore();
@@ -210,17 +254,27 @@ describe('GoogleMapsIframeClient', () => {
     iframeManagerPrototype.getIframe.mockImplementation(() => ({
       postMessage: requestObj => {
         const targetOrigin = '*';
-        const {requestId, request} = requestObj;
+        const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
         const status = request === firstRequest ? 'OK' : 'ERROR';
-        setTimeout(() => (<any>global).postMessage({requestId, results: [request], status}, targetOrigin), timeout);
-      }
-    })
-    );
+        setTimeout(
+          () =>
+            (global as any).postMessage(
+              { requestId, results: [request], status },
+              targetOrigin,
+            ),
+          timeout,
+        );
+      },
+    }));
 
     client = new GoogleMapsIframeClient();
-    await expect(client.autocomplete(mockApiKey, mockLang, secondRequest)).rejects.toBeUndefined();
-    await expect(client.autocomplete(mockApiKey, mockLang, firstRequest)).resolves.toEqual([firstRequest]);
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, secondRequest),
+    ).rejects.toBeUndefined();
+    await expect(
+      client.autocomplete(mockApiKey, mockLang, firstRequest),
+    ).resolves.toEqual([firstRequest]);
 
     iframeManagerPrototype.hasIframe.mockRestore();
     iframeManagerPrototype.getIframe.mockRestore();
@@ -232,7 +286,7 @@ describe('GoogleMapsIframeClient', () => {
 
     iframeManagerPrototype.hasIframe.mockImplementationOnce(() => true);
     iframeManagerPrototype.getIframe.mockImplementationOnce(() => ({
-      postMessage: postMessageMock
+      postMessage: postMessageMock,
     }));
 
     client = new GoogleMapsIframeClient();
@@ -253,7 +307,7 @@ describe('GoogleMapsIframeClient', () => {
 
       iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
       iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-        postMessage: postMessageMock
+        postMessage: postMessageMock,
       }));
 
       client = new GoogleMapsIframeClient();
@@ -261,7 +315,10 @@ describe('GoogleMapsIframeClient', () => {
       client[method](mockApiKey, mockLang);
 
       expect(iframeManagerPrototype.addIframe).toHaveBeenCalledTimes(1);
-      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({ apiKey: 'a', lang: 'en' });
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({
+        apiKey: 'a',
+        lang: 'en',
+      });
     });
 
     it(`should create iframe with clientId instead of apiKey (${method})`, () => {
@@ -269,7 +326,7 @@ describe('GoogleMapsIframeClient', () => {
 
       iframeManagerPrototype.hasIframe.mockImplementationOnce(() => false);
       iframeManagerPrototype.addIframe.mockImplementationOnce(() => ({
-        postMessage: postMessageMock
+        postMessage: postMessageMock,
       }));
 
       client = new GoogleMapsIframeClient();
@@ -278,7 +335,10 @@ describe('GoogleMapsIframeClient', () => {
       client[method](mockApiKey, mockLang);
 
       expect(iframeManagerPrototype.addIframe).toHaveBeenCalledTimes(1);
-      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({ clientId: 'a', lang: 'en' });
+      expect(iframeManagerPrototype.addIframe).toHaveBeenCalledWith({
+        clientId: 'a',
+        lang: 'en',
+      });
     });
   });
 });

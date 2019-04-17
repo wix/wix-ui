@@ -6,7 +6,8 @@ import User from 'wix-ui-icons-common/User';
 
 const avatarMetadata = Registry.getComponentMetadata(Avatar);
 
-const IMG_SRC_STUB = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+const IMG_SRC_STUB =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 /*
 * Simulations desabled, since we're getting warning from react-strict-mode-warning (hydarate component test).

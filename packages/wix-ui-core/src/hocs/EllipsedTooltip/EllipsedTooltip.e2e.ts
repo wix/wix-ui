@@ -1,9 +1,13 @@
 import * as eyes from 'eyes.it';
-import {$, browser, element} from 'protractor';
-import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {mouseEnter, mouseLeave} from 'wix-ui-test-utils/protractor';
-import {tooltipTestkitFactory} from './../../testkit/protractor';
-import {hasEllipsis} from 'wix-ui-test-utils/protractor';
+import { $, browser } from 'protractor';
+import {
+  getStoryUrl,
+  hasEllipsis,
+  mouseEnter,
+  mouseLeave,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
+import { tooltipTestkitFactory } from '../../testkit/protractor';
 
 describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl('HOCs', 'EllipsedTooltip');
@@ -16,7 +20,9 @@ describe('EllipsedTooltip', () => {
 
     await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
 
-    expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
+    expect(textElementFinder.getText()).toBe(
+      'This text is going to get ellipsed',
+    );
     expect(hasEllipsis(textElementFinder)).toEqual(true);
   });
 
@@ -26,45 +32,65 @@ describe('EllipsedTooltip', () => {
 
     await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
 
-    expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
+    expect(textElementFinder.getText()).toBe(
+      'This text is going to get ellipsed',
+    );
 
     expect(hasEllipsis(textElementFinder)).toEqual(true);
 
     await mouseEnter(textElementFinder);
-    const tooltipTestkit = tooltipTestkitFactory({dataHook});
-    expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
+    const tooltipTestkit = tooltipTestkitFactory({ dataHook });
+    expect(tooltipTestkit.getContentElement().getText()).toBe(
+      'This text is going to get ellipsed',
+    );
   });
 
-  eyes.it('should not show any styles on the text inside the tooltip', async () => {
-    const testsStoryUrl = getStoryUrl('Tests', 'EllipsedTooltip');
-    await browser.get(testsStoryUrl);
+  eyes.it(
+    'should not show any styles on the text inside the tooltip',
+    async () => {
+      const testsStoryUrl = getStoryUrl('Tests', 'EllipsedTooltip');
+      await browser.get(testsStoryUrl);
 
-    const dataHook = 'custom-ellipsedTooltip-with-tooltip';
-    const textElementFinder = $(`[data-hook="${dataHook}"]`);
+      const dataHook = 'custom-ellipsedTooltip-with-tooltip';
+      const textElementFinder = $(`[data-hook="${dataHook}"]`);
 
-    await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
+      await waitForVisibilityOf(
+        textElementFinder,
+        'Cannot find EllipsedTooltip',
+      );
 
-    expect(textElementFinder.getText()).toBe('This text is going to get ellipsed');
+      expect(textElementFinder.getText()).toBe(
+        'This text is going to get ellipsed',
+      );
 
-    expect(hasEllipsis(textElementFinder)).toEqual(true);
-    await mouseEnter(textElementFinder);
-    const tooltipTestkit = tooltipTestkitFactory({dataHook});
-    expect(tooltipTestkit.getContentElement().getText()).toBe('This text is going to get ellipsed');
-  });
+      expect(hasEllipsis(textElementFinder)).toEqual(true);
+      await mouseEnter(textElementFinder);
+      const tooltipTestkit = tooltipTestkitFactory({ dataHook });
+      expect(tooltipTestkit.getContentElement().getText()).toBe(
+        'This text is going to get ellipsed',
+      );
+    },
+  );
 
-  eyes.it('should not show the tooltip when the text is not ellipsed', async () => {
-    const dataHook = 'ellipsedTooltip-not-ellipsed';
-    const textElementFinder = $(`[data-hook="${dataHook}"]`);
+  eyes.it(
+    'should not show the tooltip when the text is not ellipsed',
+    async () => {
+      const dataHook = 'ellipsedTooltip-not-ellipsed';
+      const textElementFinder = $(`[data-hook="${dataHook}"]`);
 
-    await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
+      await waitForVisibilityOf(
+        textElementFinder,
+        'Cannot find EllipsedTooltip',
+      );
 
-    expect(hasEllipsis(textElementFinder)).toBe(false);
+      expect(hasEllipsis(textElementFinder)).toBe(false);
 
-    await mouseEnter(textElementFinder);
-    const tooltipTestkit = tooltipTestkitFactory({dataHook});
+      await mouseEnter(textElementFinder);
+      const tooltipTestkit = tooltipTestkitFactory({ dataHook });
 
-    expect(tooltipTestkit.isContentElementExists()).toEqual(false);
-  });
+      expect(tooltipTestkit.isContentElementExists()).toEqual(false);
+    },
+  );
 
   xit('should work when resizing the window', async () => {
     const dataHook = 'ellipsedTooltip-not-ellipsed';
@@ -72,21 +98,30 @@ describe('EllipsedTooltip', () => {
 
     await waitForVisibilityOf(textElementFinder, 'Cannot find EllipsedTooltip');
 
-    const tooltipTestkit = tooltipTestkitFactory({dataHook});
+    const tooltipTestkit = tooltipTestkitFactory({ dataHook });
 
     expect(hasEllipsis(textElementFinder)).toBe(false);
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
 
-    const originalWindowSize = await browser.driver.manage().window().getSize();
+    const originalWindowSize = await browser.driver
+      .manage()
+      .window()
+      .getSize();
 
-    await browser.driver.manage().window().setSize(250, 900);
+    await browser.driver
+      .manage()
+      .window()
+      .setSize(250, 900);
     expect(hasEllipsis(textElementFinder)).toBe(true);
 
     await mouseEnter(textElementFinder);
     expect(tooltipTestkit.isContentElementExists()).toEqual(true);
     await mouseLeave();
 
-    await browser.driver.manage().window().setSize(originalWindowSize.width, originalWindowSize.height);
+    await browser.driver
+      .manage()
+      .window()
+      .setSize(originalWindowSize.width, originalWindowSize.height);
 
     expect(hasEllipsis(textElementFinder)).toBe(false);
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);

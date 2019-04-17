@@ -1,8 +1,12 @@
 import * as eyes from 'eyes.it';
-import {browser} from 'protractor';
-import {createStoryUrl, waitForVisibilityOf, scrollToElement} from 'wix-ui-test-utils/protractor';
+import { browser } from 'protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+  scrollToElement,
+} from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
-import {popoverTestkitFactory} from '../../testkit/protractor';
+import { popoverTestkitFactory } from '../../testkit/protractor';
 
 // Scroll to the bottom of a scrollable container. We assume the container has a `100px` height.
 // This utility function is used for the `flip` and `fixed` props tests, as they depeneds on a
@@ -17,7 +21,7 @@ describe('Popover', () => {
   const storyUrl = createStoryUrl({
     kind: 'Components',
     story: 'Popover',
-    withExamples: true
+    withExamples: true,
   });
 
   const createDriver = async dataHook => {
@@ -33,7 +37,7 @@ describe('Popover', () => {
   };
 
   beforeAll(() => {
-    browser.get(storyUrl)
+    browser.get(storyUrl);
   });
 
   beforeEach(async () => {
@@ -44,7 +48,7 @@ describe('Popover', () => {
     const driver = await createDriver('storybook-popover');
 
     expect(await driver.element().isPresent()).toBe(true);
-    await autoExampleDriver.setProps({shown: true});
+    await autoExampleDriver.setProps({ shown: true });
   });
 
   describe('Flip behaviour', () => {
@@ -53,17 +57,17 @@ describe('Popover', () => {
     });
 
     eyes.it(
-      'should flip the popover\'s placements when it overlaps the target element (default)',
+      `should flip the popover's placements when it overlaps the target element (default)`,
       async () => {
         await scrollToBottom('story-popover-flip-enabled');
-      }
+      },
     );
 
     eyes.it(
-      'should not flip the popover\'s placement when it overlaps the target elements when flip is disabled',
+      `should not flip the popover's placement when it overlaps the target elements when flip is disabled`,
       async () => {
         await scrollToBottom('story-popover-flip-disabled');
-      }
+      },
     );
   });
 
@@ -72,15 +76,18 @@ describe('Popover', () => {
       await createDriver('story-popover-fixed-behaviour');
     });
 
-    eyes.it('should keep the popover\'s visible when it overflows the container', async () => {
-      await scrollToBottom('story-popover-fixed-disabled');
-    });
+    eyes.it(
+      `should keep the popover's visible when it overflows the container`,
+      async () => {
+        await scrollToBottom('story-popover-fixed-disabled');
+      },
+    );
 
     eyes.it(
-      'should not keep the popover\'s visible when it overflows the container when fixed is enabled',
+      `should not keep the popover's visible when it overflows the container when fixed is enabled`,
       async () => {
         await scrollToBottom('story-popover-fixed-enabled');
-      }
+      },
     );
   });
 });

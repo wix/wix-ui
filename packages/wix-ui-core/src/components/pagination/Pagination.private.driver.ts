@@ -1,8 +1,8 @@
-import {Simulate} from 'react-dom/test-utils';
-import {queryHook} from 'wix-ui-test-utils/dom';
+import { Simulate } from 'react-dom/test-utils';
+import { queryHook } from 'wix-ui-test-utils/dom';
 
 export class PaginationDriver {
-  constructor(public root: HTMLElement) { }
+  constructor(public root: HTMLElement) {}
 
   get previousButton() {
     return queryHook(this.root, 'previous');
@@ -54,6 +54,6 @@ export class PaginationDriver {
   }
 
   commitInput() {
-    Simulate.keyDown(this.input, {keyCode: 13});
+    Simulate.keyDown(this.input, { keyCode: 13 });
   }
 }

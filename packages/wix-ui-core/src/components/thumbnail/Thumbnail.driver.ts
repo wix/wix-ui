@@ -1,19 +1,23 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Thumbnail.st.css';
-import {BaseDriver, DriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { BaseDriver, DriverFactory } from 'wix-ui-test-utils/driver-factory';
 
 export interface ThumbnailDriver extends BaseDriver {
-  hasSelectedIcon: () => boolean;
-  click: () => void;
-  isSelected: () => boolean;
-  getContent: () => HTMLElement;
-  getSelectedIcon: () => HTMLElement;
-  isDisabled: () => boolean;
+  hasSelectedIcon(): boolean;
+  click(): void;
+  isSelected(): boolean;
+  getContent(): HTMLElement;
+  getSelectedIcon(): HTMLElement;
+  isDisabled(): boolean;
 }
 
-export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({element, eventTrigger}) => {
+export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({
+  element,
+  eventTrigger,
+}) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
-  const getSelectedIconWrapper = () => element.querySelector('[data-hook="selected-icon"]');
+  const getSelectedIconWrapper = () =>
+    element.querySelector('[data-hook="selected-icon"]');
 
   return {
     /** checks if the element exists */
@@ -25,9 +29,10 @@ export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({element,
     /** check if component is selected */
     isSelected: () => stylableDOMUtil.hasStyleState(element, 'selected'),
     /** returns the components's children */
-    getContent: () => <HTMLElement>element.childNodes[0],
+    getContent: () => element.childNodes[0] as HTMLElement,
     /** returns the components's selected icon */
-    getSelectedIcon: () => <HTMLElement>getSelectedIconWrapper().childNodes[0],
+    getSelectedIcon: () =>
+      getSelectedIconWrapper().childNodes[0] as HTMLElement,
     /** check if component is disabled */
     isDisabled: () => stylableDOMUtil.hasStyleState(element, 'disabled'),
   };

@@ -43,7 +43,7 @@ export const sectionWithSiblings = (section, children) => {
     siblings.length > 0 && !SECTIONS_WITHOUT_SIBLINGS.includes(section.type);
 
   return (
-    <div>
+    <div data-hook={section.dataHook || null}>
       {shouldShowSiblings ? (
         <div className={styles.titles}>
           {siblings.map(row => preparedSection[row])}

@@ -45,21 +45,43 @@ describe('Tooltip', () => {
   });
 
   describe('Keyboard events', () => {
-    it('tooltip should be visible on keyboard focus', async () => {
-      const { driver } = render(
-        tooltip({ children: <ButtonNext>Button</ButtonNext> }),
-      );
-      await driver.tabIn();
-      expect(await driver.tooltipExists()).toBe(true);
+    describe('tooltip should be visible on keyboard focus', () => {
+      it('[when] given core component with focusableHOC', async () => {
+        const { driver } = render(
+          tooltip({ children: <ButtonNext>Button</ButtonNext> }),
+        );
+        await driver.tabIn();
+        expect(await driver.tooltipExists()).toBe(true);
+      });
+      it('[when] given focusable html element', async () => {
+        const { driver } = render(
+          tooltip({ children: <button>Button</button> }),
+        );
+        await driver.tabIn();
+        expect(await driver.tooltipExists()).toBe(true);
+      });
     });
 
-    it('tooltip should be hidden on keyboard blur event', async () => {
-      const { driver } = render(tooltip());
-      expect(await driver.tooltipExists()).toBe(false);
-      await driver.tabIn();
-      expect(await driver.tooltipExists()).toBe(true);
-      await driver.tabOut();
-      expect(await driver.tooltipExists()).toBe(false);
+    describe('tooltip should be hidden on keyboard blur event', () => {
+      it('[when] given core component with focusableHOC', async () => {
+        const { driver } = render(
+          tooltip({ children: <ButtonNext>Button</ButtonNext> }),
+        );
+        expect(await driver.tooltipExists()).toBe(false);
+        await driver.tabIn();
+        expect(await driver.tooltipExists()).toBe(true);
+        await driver.tabOut();
+        expect(await driver.tooltipExists()).toBe(false);
+      });
+      it('[when] given focusable html element', async () => {
+        const { driver } = render(
+          tooltip({ children: <button>Button</button> }),
+        );
+        await driver.tabIn();
+        expect(await driver.tooltipExists()).toBe(true);
+        await driver.tabOut();
+        expect(await driver.tooltipExists()).toBe(false);
+      });
     });
   });
 
@@ -105,6 +127,23 @@ describe('Tooltip', () => {
       const children = <div>kido</div>;
       const { driver } = render(tooltip({ children }));
       expect(await driver.getTargetText()).toBe('kido');
+    });
+  });
+
+  describe('`disabled` prop', () => {
+    it('[when] given should not show tooltip on mouse enter', async () => {
+      const children = 'kido';
+      const { driver } = render(tooltip({ children, disabled: true }));
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.mouseEnter();
+      expect(await driver.tooltipExists()).toBe(false);
+    });
+    it('[when] given should not show tooltip on focus', async () => {
+      const children = 'kido';
+      const { driver } = render(tooltip({ children, disabled: true }));
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.tabIn();
+      expect(await driver.tooltipExists()).toBe(false);
     });
   });
 

@@ -1,15 +1,18 @@
-import {ElementFinder} from 'protractor';
-import {DriverFactory, BaseDriver} from '../../../common/BaseDriver.protractor';
+import { ElementFinder } from 'protractor';
+import {
+  DriverFactory,
+  BaseDriver,
+} from '../../../common/BaseDriver.protractor';
 
 export interface ButtonDriver extends BaseDriver {
   /** returns true if the root element is present */
-  exists: () => Promise<boolean>;
+  exists(): Promise<boolean>;
   /** returns the Button's text content */
-  getButtonTextContent: () => Promise<string>;
+  getButtonTextContent(): Promise<string>;
   /** click the button */
-  click: () => Promise<void>;
+  click(): Promise<void>;
   /** checks wether the button is disabled */
-  isButtonDisabled: () => Promise<boolean>;
+  isButtonDisabled(): Promise<boolean>;
 }
 
 export const buttonDriverFactory: DriverFactory<ButtonDriver> = element => ({
@@ -21,5 +24,7 @@ export const buttonDriverFactory: DriverFactory<ButtonDriver> = element => ({
 });
 
 // TODO: use this from wix-ui-test-utils, once it is added there
-const hasAttribute = async (elementFinder: ElementFinder, attributeName: string) =>
-  elementFinder.getAttribute(attributeName).then(value => value !== null);
+const hasAttribute = async (
+  elementFinder: ElementFinder,
+  attributeName: string,
+) => elementFinder.getAttribute(attributeName).then(value => value !== null);

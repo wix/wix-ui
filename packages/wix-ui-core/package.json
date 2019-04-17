@@ -3,7 +3,8 @@
   "name": "wix-ui-core",
   "description": "wix-ui-core",
   "version": "2.0.0",
-  "module": "./dist/es/src",
+  "main": "./dist/src/index.js",
+  "module": "./dist/es/src/index.js",
   "sideEffects": [
     "./.storybook/**/*.*",
     "./stories/**/*.*",
@@ -16,6 +17,7 @@
   "files": [
     "src",
     "dist",
+    "scripts/named-export.js",
     "*.js",
     "*.d.ts",
     "!wallaby.js",
@@ -32,7 +34,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && npm run import-path && build-storybook",
+    "build": "yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y && npm run snap",
     "test:watch": "yoshi test --jest --watch",
@@ -48,6 +50,7 @@
     "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
+    "build:named-exports": "node scripts/create-named-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins",
     "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
@@ -104,6 +107,7 @@
     "react-dom": "~16.4.2",
     "react-test-renderer": "^16.3.1",
     "react-testing-library": "^6.0.3",
+    "slash": "^2.0.0",
     "ts-jest": "^22.0.3",
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
