@@ -11,7 +11,12 @@ export function ReactBase(base: UniDriver) {
     throw new Error('Supported only in React/DOM.');
   }
 
-  const getNative = (): Promise<HTMLElement> => base.getNative();
+  const getNative = (): Promise<HTMLElement> => {
+    if (base.type !== 'react') {
+      throw new Error('Supported only in React/DOM.');
+    }
+    return base.getNative()
+  };
 
   return {
     pressKey: async (key: string) =>
