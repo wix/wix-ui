@@ -1,4 +1,3 @@
-import { UniDriver } from 'unidriver';
 import {
   BaseUniDriver,
   baseUniDriverFactory,
@@ -6,7 +5,7 @@ import {
 import { byDataHook, ReactBase } from '../../../../test/utils/unidriver';
 import { ElementFinder } from 'protractor';
 import { Simulate } from 'react-dom/test-utils';
-import { StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
+import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import style from '../FilePickerButton.st.css';
 import { DataHook } from './FilePickerButton.helpers';
 
