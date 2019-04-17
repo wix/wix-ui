@@ -3,8 +3,8 @@ import {reactEventTrigger} from '../react-helpers';
 import {BaseDriver} from '../driver-factory';
 import {BaseUniDriver} from '../base-driver';
 import {MountRendererProps, ReactWrapper} from 'enzyme';
-import {UniDriver} from 'unidriver';
-import {reactUniDriver} from 'unidriver/react';
+import {UniDriver} from '@unidriver/core';
+import {jsdomReactUniDriver} from '@unidriver/jsdom-react';
 
 export interface WrapperData {
   wrapper: ReactWrapper;
@@ -29,7 +29,7 @@ export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver> (driverF
     const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
     const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
     const element = component.length > 0 ? component.first().getDOMNode() : undefined;
-    const base = reactUniDriver(element as Element);
+    const base = jsdomReactUniDriver(element as Element);
     return driverFactory(base);
   };
 }

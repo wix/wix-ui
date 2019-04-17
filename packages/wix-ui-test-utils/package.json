@@ -82,6 +82,9 @@
     ]
   },
   "dependencies": {
-    "unidriver": "^2.0.1"
+    "@unidriver/core": "^1.1.2",
+    "@unidriver/jsdom-react": "^1.2.1",
+    "@unidriver/protractor": "^1.1.5",
+    "@unidriver/puppeteer": "^1.1.2"
   }
 }
