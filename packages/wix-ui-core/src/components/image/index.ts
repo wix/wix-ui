@@ -1,1 +1,1 @@
-export { Image } from './image';
+export { Image, FALLBACK_IMAGE, ImageStatus } from './image';
