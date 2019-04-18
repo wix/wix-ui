@@ -9,11 +9,11 @@ export const buildChildrenObject = <T>(
       return acc;
     }
 
-    if (!child.type || !child.type['displayName']) {
+    if (!child.type || !(child.type as any).displayName) {
       return acc;
     }
 
-    const name = child.type['displayName'].split('.').pop();
+    const name = (child.type as any).displayName.split('.').pop();
     acc[name] = child;
     return acc;
   }, childrenObject || ({} as T));
