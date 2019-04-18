@@ -2,7 +2,7 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {
   buttonNextDriverFactory as publicButtonDriver,
   ButtonNextDriver,
-} from './button-next.driver';
+} from './button-next.uni.driver';
 
 export interface ButtonNextPrivateDriver extends ButtonNextDriver {
   suffixExists(): Promise<boolean>;

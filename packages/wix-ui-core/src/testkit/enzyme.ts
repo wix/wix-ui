@@ -66,7 +66,7 @@ export { ButtonDriver };
 import {
   buttonNextDriverFactory,
   ButtonNextDriver,
-} from '../components/button-next/button-next.driver';
+} from '../components/button-next/button-next.uni.driver';
 export const buttonNextTestkitFactory = enzymeUniTestkitFactoryCreator<
   ButtonNextDriver
 >(buttonNextDriverFactory);

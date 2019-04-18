@@ -2,7 +2,7 @@ import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {
   videoDriverFactory as publicVideoDriver,
   IVideoDriver,
-} from './Video.driver';
+} from './Video.uni.driver';
 
 export interface IVideoPrivateDriver extends IVideoDriver {
   getNative(): Promise<any>;
