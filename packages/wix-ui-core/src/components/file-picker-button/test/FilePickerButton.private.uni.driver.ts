@@ -22,7 +22,6 @@ export const filePickerButtonPrivateUniDriverFactory = (
     byDataHook(DataHook.ChooseFileButton),
   );
 
-  const reactFileInputUniDriver = ReactBase(fileInputUniDriver);
   const reactChooseFileButtonUniDriver = ReactBase(chooseFileButtonUniDriver);
 
   return {
@@ -34,9 +33,8 @@ export const filePickerButtonPrivateUniDriverFactory = (
         return el;
       }
     },
-    getFileInputAttribute: (attr: string) =>
-      reactFileInputUniDriver.getAttribute(attr),
+    getFileInputAttribute: (attr: string) => fileInputUniDriver.attr(attr),
     getChooseFileButtonAttribute: (attr: string) =>
-      reactChooseFileButtonUniDriver.getAttribute(attr),
+      chooseFileButtonUniDriver.attr(attr),
   };
 };
