@@ -19,8 +19,6 @@ export function ReactBase(base: UniDriver) {
   };
 
   return {
-    pressKey: async (key: string) =>
-      Simulate.keyDown(await getNative(), { key }),
     mouseLeave: async () => Simulate.mouseLeave(await getNative()),
     hasAttribute: async (name: string) =>
       (await getNative()).hasAttribute(name),
