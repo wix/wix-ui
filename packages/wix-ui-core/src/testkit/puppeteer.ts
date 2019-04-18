@@ -1,22 +1,22 @@
-import {puppeteerUniTestkitFactoryCreator} from 'wix-ui-test-utils/puppeteer';
+import { puppeteerUniTestkitFactoryCreator } from 'wix-ui-test-utils/puppeteer';
 
 import {
   avatarDriverFactory,
   AvatarDriver,
-} from '../components/avatar/avatar.driver';
+} from '../components/avatar/avatar.uni.driver';
 export const avatarTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  avatarDriverFactory
+  avatarDriverFactory,
 );
-export {AvatarDriver};
+export { AvatarDriver };
 
 import {
   buttonNextDriverFactory,
   ButtonNextDriver,
 } from '../components/button-next/button-next.driver';
 export const buttonNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  buttonNextDriverFactory
+  buttonNextDriverFactory,
 );
-export {ButtonNextDriver};
+export { ButtonNextDriver };
 
 import {
   captchaDriverFactory,
@@ -25,16 +25,16 @@ import {
 export const captchaTestkitFactory = puppeteerUniTestkitFactoryCreator<
   CaptchaDriver
 >(captchaDriverFactory);
-export {CaptchaDriver};
+export { CaptchaDriver };
 
 import {
   filePickerButtonUniDriverFactory,
   FilePickerButtonUniDriver,
 } from '../components/file-picker-button/test/FilePickerButton.uni.driver';
 export const filePickerButtonTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  filePickerButtonUniDriverFactory
+  filePickerButtonUniDriverFactory,
 );
-export {FilePickerButtonUniDriver};
+export { FilePickerButtonUniDriver };
 
 import {
   LinearProgressBarUniDriver,
@@ -43,4 +43,4 @@ import {
 export const linearProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<
   LinearProgressBarUniDriver
 >(linearProgressBarUniDriverFactory);
-export {LinearProgressBarUniDriver};
+export { LinearProgressBarUniDriver };
