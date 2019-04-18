@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Captcha, CaptchaProps } from '.';
 import { constants } from './test-assets/constants';
-import { captchaDriverFactory } from './Captcha.driver';
+import { captchaDriverFactory } from './Captcha.uni.driver';
 
 describe('Captcha', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();

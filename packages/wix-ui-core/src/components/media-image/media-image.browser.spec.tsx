@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { mediaImageDriverFactory } from './media-image.driver';
+import { mediaImageDriverFactory } from './media-image.uni.driver';
 import { MediaPlatformItem, MediaImage } from './media-image';
 import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
@@ -62,7 +62,10 @@ describe('MediaImage', () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(BROKEN_SRC);
 
     const imageDriver = createDriver(
-      <MediaImage mediaPlatformItem={mediaPlatformItem} alt={'this is an informative text'}/>,
+      <MediaImage
+        mediaPlatformItem={mediaPlatformItem}
+        alt={'this is an informative text'}
+      />,
     );
 
     expect(await imageDriver.getAlt()).toEqual('this is an informative text');
@@ -154,7 +157,10 @@ describe('MediaImage', () => {
     it('displays an empty pixel when the provided mediaPlatformItem is broken and errorImage is not provided ', async () => {
       const onErrorSpy = jest.fn();
       const mediaImageDriver = createDriver(
-        <MediaImage mediaPlatformItem={mediaPlatformItem} onError={onErrorSpy} />,
+        <MediaImage
+          mediaPlatformItem={mediaPlatformItem}
+          onError={onErrorSpy}
+        />,
       );
 
       await eventually(

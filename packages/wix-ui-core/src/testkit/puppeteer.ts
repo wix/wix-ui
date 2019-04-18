@@ -12,7 +12,7 @@ export { AvatarDriver };
 import {
   buttonNextDriverFactory,
   ButtonNextDriver,
-} from '../components/button-next/button-next.driver';
+} from '../components/button-next/button-next.uni.driver';
 export const buttonNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
   buttonNextDriverFactory,
 );
@@ -21,7 +21,7 @@ export { ButtonNextDriver };
 import {
   captchaDriverFactory,
   CaptchaDriver,
-} from '../components/captcha/Captcha.driver';
+} from '../components/captcha/Captcha.uni.driver';
 export const captchaTestkitFactory = puppeteerUniTestkitFactoryCreator<
   CaptchaDriver
 >(captchaDriverFactory);
