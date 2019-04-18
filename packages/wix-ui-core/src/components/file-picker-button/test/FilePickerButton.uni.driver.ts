@@ -37,10 +37,10 @@ export const filePickerButtonUniDriverFactory = (
     getText: () => chooseFileButtonUniDriver.text(),
     getAccept: () => fileInputUniDriver.attr('accept'),
     isRequired: async () =>
-      (await getReactFileInputUniDriver().hasAttribute('required')) &&
+      (await fileInputUniDriver.attr('required')) !== null &&
       stylableUniDriverUtil.hasStyleState(base, 'required'),
     isDisabled: async () =>
-      (await getReactFileInputUniDriver().hasAttribute('disabled')) &&
+      (await fileInputUniDriver.attr('disabled')) !== null &&
       stylableUniDriverUtil.hasStyleState(base, 'disabled'),
     selectFile: async (file: Partial<File>) => {
       if (base.type === 'protractor') {

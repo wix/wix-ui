@@ -20,8 +20,6 @@ export function ReactBase(base: UniDriver) {
 
   return {
     mouseLeave: async () => Simulate.mouseLeave(await getNative()),
-    hasAttribute: async (name: string) =>
-      (await getNative()).hasAttribute(name),
     focus: async () => (await getNative()).focus(),
     getStyle: async () => (await getNative()).style,
   };
