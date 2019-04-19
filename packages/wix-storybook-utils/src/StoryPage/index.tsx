@@ -26,6 +26,7 @@ const makeSections: (a: StoryPageProps) => Section[] = props =>
       when: props.sections && props.componentPath,
       make: () => merge(createDefaultSections(props), props.sections),
     },
+
     {
       when: props.sections && !props.componentPath,
       make: () => props.sections,
