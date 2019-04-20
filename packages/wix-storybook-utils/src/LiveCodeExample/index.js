@@ -66,10 +66,15 @@ export default class LiveCodeExample extends Component {
       code: this.formatCode(this.props.initialCode),
       dirty: false,
       livePreviewKey: generateId(),
-    });
+    }, () => this.callOnChangeCallback(this.props.initialCode));
 
-  onCodeChange = code =>
-    this.setState({ code, livePreviewKey: generateId(), dirty: true });
+  callOnChangeCallback = (data) => {
+    this.props.onChange && this.props.onChange(data);
+  };
+
+  onCodeChange = code => {
+    this.setState({ code, livePreviewKey: generateId(), dirty: true }, () => this.callOnChangeCallback(code));
+  }
 
   onToggleRtl = isRtl => this.setState({ isRtl });
   onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });

@@ -11,6 +11,7 @@ import markdown from './examples/markdown.md';
 import MdX from './examples/markdown.mdx';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
+import { PersistentData } from './persistent-data';
 
 import './sections/story-without-component.story';
 import './sections/story-with-mdx.story';
@@ -70,4 +71,5 @@ storiesOf('Components', module)
         <SomeComponentExample />
       </InteractiveCodeExample>
     </div>
-  ));
+  ))
+  .add('Persistent Data', () => <PersistentData />);
