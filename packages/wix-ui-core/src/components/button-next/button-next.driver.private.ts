@@ -6,15 +6,22 @@ import {
 
 export interface ButtonNextPrivateDriver extends ButtonNextDriver {
   suffixExists(): Promise<boolean>;
+  hasSuffixClass(string): Promise<boolean>;
   prefixExists(): Promise<boolean>;
+  hasPrefixClass(string): Promise<boolean>;
 }
 
 export const buttonNextPrivateDriverFactory = (
   base: UniDriver,
 ): ButtonNextPrivateDriver => {
+  const getSuffix = () => base.$('[data-hook="suffix"]');
+  const getPrefix = () => base.$('[data-hook="prefix"]');
+
   return {
     ...publicButtonDriver(base),
-    suffixExists: async () => base.$('[data-hook="suffix"]').exists(),
-    prefixExists: async () => base.$('[data-hook="prefix"]').exists(),
+    suffixExists: async () => getSuffix().exists(),
+    hasSuffixClass: async className => getSuffix().hasClass(className),
+    prefixExists: async () => getPrefix().exists(),
+    hasPrefixClass: async className => getPrefix().hasClass(className),
   };
 };
