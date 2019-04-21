@@ -1,4 +1,6 @@
 import * as React from 'react';
+import classnames from 'classnames';
+
 import style from './button-next.st.css';
 
 export interface ButtonProps
@@ -21,7 +23,7 @@ export interface ButtonProps
 const _addAffix = (Affix, styleClass) =>
   Affix &&
   React.cloneElement(Affix, {
-    className: style[styleClass],
+    className: classnames(style[styleClass], Affix.props.className),
   });
 
 /**
