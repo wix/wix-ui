@@ -1,7 +1,7 @@
 import styles from './RadioButton.st.css';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
-export const radioButtonDriverFactory = ({element, eventTrigger}) => {
+export const radioButtonDriverFactory = ({ element, eventTrigger }) => {
   const domUtils = new StylableDOMUtil(styles, element);
 
   const getInput = () => domUtils.select('.hiddenRadio');
@@ -10,7 +10,7 @@ export const radioButtonDriverFactory = ({element, eventTrigger}) => {
 
   return {
     exists: () => !!element,
-    select: () => eventTrigger.change(element, {target: element}),
+    select: () => eventTrigger.change(element, { target: element }),
     click: () => eventTrigger.click(element),
     value: () => getInput().getAttribute('value'),
     name: () => getInput().getAttribute('name'),
@@ -21,6 +21,6 @@ export const radioButtonDriverFactory = ({element, eventTrigger}) => {
     isChecked: () => domUtils.hasStyleState(element, 'checked'),
     isFocused: () => domUtils.hasStyleState(element, 'focused'),
     isDisabled: () => domUtils.hasStyleState(element, 'disabled'),
-    isFocusVisible: () => domUtils.hasStyleState(element, 'focus-visible')
+    isFocusVisible: () => domUtils.hasStyleState(element, 'focus-visible'),
   };
 };

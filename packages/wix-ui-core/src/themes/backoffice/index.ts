@@ -12,8 +12,7 @@ const getClassNames = (values, stylesheet, rootcls?) => {
   return classNames(stylesheet[rootcls], clsArray);
 };
 
-export const avatar = (...values) =>
-  getClassNames(values, Avatar, 'avatar');
+export const avatar = (...values) => getClassNames(values, Avatar, 'avatar');
 export const button = (...values) =>
   getClassNames(values, ButtonNext, 'button');
 export const iconButton = (...values) =>

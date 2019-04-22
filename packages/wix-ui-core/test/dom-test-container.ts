@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
-import { reactUniDriver, UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
+import { reactUniDriver } from 'wix-ui-test-utils/vanilla';
 
 // At the moment our tests support both Jsdom and browser environment.
 // The browser test runner provides #root element to render into, and
@@ -92,7 +93,9 @@ export class ReactDOMTestContainer {
    * Adapter for react based uni driver
    * @deprecated use createUniRendererAsync instead
    */
-  public createUniRenderer<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => T {
+  public createUniRenderer<T>(
+    driverFactory: (base: UniDriver, body?: UniDriver) => T,
+  ): (element: JSX.Element) => T {
     return (jsx: JSX.Element) => {
       this.renderSync(jsx);
       const base = reactUniDriver(this.componentNode);
@@ -101,7 +104,9 @@ export class ReactDOMTestContainer {
     };
   }
 
-  public createUniRendererAsync<T>(driverFactory: (base: UniDriver, body?: UniDriver) => T): (element: JSX.Element) => Promise<T> {
+  public createUniRendererAsync<T>(
+    driverFactory: (base: UniDriver, body?: UniDriver) => T,
+  ): (element: JSX.Element) => Promise<T> {
     return async (jsx: JSX.Element) => {
       await this.render(jsx);
       const base = reactUniDriver(this.componentNode);

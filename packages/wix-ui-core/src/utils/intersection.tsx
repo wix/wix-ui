@@ -7,4 +7,5 @@ export function intersection(array1, array2) {
   return uniqueArray1.filter(value => uniqueArray2.indexOf(value) !== -1);
 }
 
-const createUniqueArray = array => array.filter((elem, index, self) => index === self.indexOf(elem));
+const createUniqueArray = array =>
+  array.filter((elem, index, self) => index === self.indexOf(elem));

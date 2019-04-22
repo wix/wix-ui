@@ -1,7 +1,7 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import styles from './DropdownOption.st.css';
 
-export const dropdownOptionDriverFactory = ({element, eventTrigger}) => {
+export const dropdownOptionDriverFactory = ({ element, eventTrigger }) => {
   const domUtils = new StylableDOMUtil(styles, element);
   return {
     exists: () => !!element,
@@ -14,8 +14,10 @@ export const dropdownOptionDriverFactory = ({element, eventTrigger}) => {
     getText: () => element && element.textContent,
     getElement: () => element,
     getHighlightedStrings: () => {
-        const highlightedElements: Array<HTMLElement> = Array.from(element.querySelectorAll(`.${styles.highlight}`));
-        return highlightedElements.map((el: HTMLElement) => el.innerHTML);
-    }
+      const highlightedElements: HTMLElement[] = Array.from(
+        element.querySelectorAll(`.${styles.highlight}`),
+      );
+      return highlightedElements.map((el: HTMLElement) => el.innerHTML);
+    },
   };
 };

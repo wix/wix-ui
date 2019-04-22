@@ -1,1 +1,1 @@
-export {IconWithOptions} from './IconWithOptions';
+export { IconWithOptions } from './IconWithOptions';

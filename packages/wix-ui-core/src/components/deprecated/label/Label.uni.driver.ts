@@ -1,30 +1,28 @@
 import {
   BaseUniDriver,
-  baseUniDriverFactory
+  baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { StylableUnidriverUtil } from '../../../../test/StylableUnidriverUtil';
 import styles from './Label.st.css';
-import {ReactBase} from '../../../../test/utils/unidriver';
 
 export interface LabelDriver extends BaseUniDriver {
   /** get the label's text */
-  getLabelText: ()=> Promise<string>;
+  getLabelText(): Promise<string>;
   /** get the id of the component */
-  getId: ()=> Promise<string>;
+  getId(): Promise<string>;
   /** get the "for" attribute of the component */
-  getForAttribute: () => Promise<string>;
+  getForAttribute(): Promise<string>;
   /** returns true if the label is in ellipsis state */
-  hasEllipsis: () => Promise<boolean>;
-   /** true if disabled */
-  isDisabled: () => Promise<boolean>;
+  hasEllipsis(): Promise<boolean>;
+  /** true if disabled */
+  isDisabled(): Promise<boolean>;
   /** send key down on the label */
-  keyDown: (key) => Promise<void>;
+  keyDown(key): Promise<void>;
 }
 
 export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
-  const unidriverReactDOMExtension = ReactBase(base);
 
   return {
     ...baseUniDriverFactory(base),
@@ -33,6 +31,6 @@ export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
     getForAttribute: () => base.attr('for'),
     hasEllipsis: () => stylableUnidriverUtil.hasStyleState(base, 'ellipsis'),
     isDisabled: () => stylableUnidriverUtil.hasStyleState(base, 'disabled'),
-    keyDown: key => unidriverReactDOMExtension.pressKey(key),
-  }
+    keyDown: key => base.pressKey(key),
+  };
 };

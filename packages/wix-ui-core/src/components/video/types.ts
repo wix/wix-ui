@@ -1,11 +1,18 @@
 import * as React from 'react';
 
-export type PlayerNamesType = 'dailymotion' | 'facebook' | 'playable' | 'twitch' | 'vimeo' | 'youtube'
+export type PlayerNamesType =
+  | 'dailymotion'
+  | 'facebook'
+  | 'playable'
+  | 'twitch'
+  | 'vimeo'
+  | 'youtube';
 
-export type VerifierType = (url: string | Array<string>) => boolean;
+export type VerifierType = (url: string | string[]) => boolean;
 
 export interface ICommonProps {
-  src: string | Array<string>;
+  id: string;
+  src: string | string[];
   loop?: boolean;
   volume?: number;
   controls?: boolean;
@@ -79,7 +86,7 @@ export interface IEventEmitter {
   on(event: string, fn: Function, context?: any): this;
   once(event: string, fn: Function, context?: any): this;
   off(event: string, fn?: Function, context?: any, once?: boolean): this;
-  emit(event: string, ...args: Array<any>): boolean;
+  emit(event: string, ...args: any[]): boolean;
   removeAllListeners(event?: string): this;
 }
 
@@ -111,7 +118,6 @@ export interface IMethodsToPlayer {
   mute: string | Function;
   unMute: string | Function;
 }
-
 
 // PLAYER API
 export interface IDailyMotionPlayerAPI {
@@ -211,6 +217,10 @@ export interface IYoutubePlayerAPI {
   on(event: string, fn?: Function): void;
 }
 
-
-export type IPlayerAPI = IDailyMotionPlayerAPI | IFacebookPlayerAPI | IPlayablePlayerAPI | ITwitchPlayerAPI | IVimeoPlayerAPI | IYoutubePlayerAPI;
-
+export type IPlayerAPI =
+  | IDailyMotionPlayerAPI
+  | IFacebookPlayerAPI
+  | IPlayablePlayerAPI
+  | ITwitchPlayerAPI
+  | IVimeoPlayerAPI
+  | IYoutubePlayerAPI;

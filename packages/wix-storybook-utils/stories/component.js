@@ -10,7 +10,7 @@ const disabledStyle = {
   color: 'grey',
 };
 
-/** Description from source! */
+/** Component Description from source! */
 class Component extends React.Component {
   constructor(props) {
     super(props);

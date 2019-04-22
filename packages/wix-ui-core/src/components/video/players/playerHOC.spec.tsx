@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import playerHOC from './playerHOC';
-import {IEventEmitter, IMethodsToPlayer, IPropsToPlayer} from '../types';
-import {EVENTS} from '../constants';
+import { IEventEmitter, IMethodsToPlayer, IPropsToPlayer } from '../types';
+import { EVENTS } from '../constants';
 
 const mapPropsToPlayer: IPropsToPlayer = {
   src: instance => instance.reload(),
@@ -54,7 +54,7 @@ const noop = () => null;
 class MockPlayer extends React.PureComponent<any> {
   static defaultProps = {
     onInit: noop,
-    onReady: noop
+    onReady: noop,
   };
   player: any;
   eventEmitter: IEventEmitter;
@@ -75,24 +75,22 @@ class MockPlayer extends React.PureComponent<any> {
       },
       mockEnded: () => {
         this.eventEmitter.emit(EVENTS.ENDED);
-      }
+      },
     };
 
     this.props.onInit(this.player);
     this.props.onReady();
   }
-  
-  componentWillUnmount () {
+
+  componentWillUnmount() {
     this.player.destroy();
     this.eventEmitter.removeAllListeners();
   }
 
   render() {
-    return (
-      <div />
-    )
+    return <div />;
   }
-};
+}
 
 describe('playerHOC', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -106,15 +104,12 @@ describe('playerHOC', () => {
       let playerRef;
 
       await container.render(
-        <Player
-          onInit={onInit}
-          ref={r => playerRef = r}
-        />
+        <Player onInit={onInit} ref={r => (playerRef = r)} />,
       );
 
       await eventually(() => {
         const playerAPI = playerRef.getPlayerAPI();
-        expect(onInit).toHaveBeenCalledWith(playerAPI)
+        expect(onInit).toHaveBeenCalledWith(playerAPI);
       });
     });
 
@@ -122,7 +117,7 @@ describe('playerHOC', () => {
       await container.render(<Player onReady={onReady} />);
 
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
     });
 
@@ -133,13 +128,14 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => playerRef = r}
+          ref={r => (playerRef = r)}
           onReady={onReady}
           onFirstPlay={onFirstPlay}
           onPlay={onPlay}
-        />);
+        />,
+      );
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
 
       const playerAPI = playerRef.getPlayerAPI();
@@ -158,12 +154,13 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => playerRef = r}
+          ref={r => (playerRef = r)}
           onReady={onReady}
           onPause={onPause}
-        />);
+        />,
+      );
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
 
       const playerAPI = playerRef.getPlayerAPI();
@@ -181,13 +178,14 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => playerRef = r}
+          ref={r => (playerRef = r)}
           onReady={onReady}
           onFirstEnded={onFirstEnded}
           onEnded={onEnded}
-        />);
+        />,
+      );
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
 
       const playerAPI = playerRef.getPlayerAPI();
@@ -204,19 +202,17 @@ describe('playerHOC', () => {
       let playerRef;
 
       await container.render(
-        <Player
-          ref={r => playerRef = r}
-          onReady={onReady}
-        />);
+        <Player ref={r => (playerRef = r)} onReady={onReady} />,
+      );
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
 
       playerRef.reload();
 
       await eventually(() => {
         expect(mockAPI.destroy).toHaveBeenCalled();
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
     });
 
@@ -227,13 +223,14 @@ describe('playerHOC', () => {
 
       await container.render(
         <Player
-          ref={r => playerRef = r}
+          ref={r => (playerRef = r)}
           onReady={onReady}
           onFirstPlay={onFirstPlay}
           onPlay={onPlay}
-        />);
+        />,
+      );
       await eventually(() => {
-        expect(onReady).toHaveBeenCalled()
+        expect(onReady).toHaveBeenCalled();
       });
 
       playerRef.reload();
@@ -250,29 +247,24 @@ describe('playerHOC', () => {
   describe('methods', () => {
     const Player = playerHOC(MockPlayer, mapPropsToPlayer, mapMethodsToPlayer);
 
-    [
-      ['play', 'videoPlay'],
-      ['pause', 'videoPause'],
-      ['stop', 'videoStop']
-    ].map(([method, playerMethod]) =>
-      it(`should call \`${playerMethod}\` when \`${method}\` is triggered`, async () => {
-        let playerRef: any;
+    [['play', 'videoPlay'], ['pause', 'videoPause'], ['stop', 'videoStop']].map(
+      ([method, playerMethod]) =>
+        it(`should call \`${playerMethod}\` when \`${method}\` is triggered`, async () => {
+          let playerRef: any;
 
-        await container.render(
-          <Player
-            ref={r => playerRef = r}
-            onReady={onReady}
-          />);
-        await eventually(() => {
-          expect(onReady).toHaveBeenCalled()
-        });
+          await container.render(
+            <Player ref={r => (playerRef = r)} onReady={onReady} />,
+          );
+          await eventually(() => {
+            expect(onReady).toHaveBeenCalled();
+          });
 
-        playerRef[method]();
+          playerRef[method]();
 
-        await eventually(() => {
-          expect(mockAPI[playerMethod]).toHaveBeenCalled();
-        });
-      })
+          await eventually(() => {
+            expect(mockAPI[playerMethod]).toHaveBeenCalled();
+          });
+        }),
     );
   });
 });

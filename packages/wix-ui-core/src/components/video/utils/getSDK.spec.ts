@@ -27,7 +27,7 @@ describe('Video/getSDK', () => {
 
       await eventually(() => {
         expect(loadjs).toHaveBeenCalled();
-        expect(resolveSpy).toHaveBeenCalled()
+        expect(resolveSpy).toHaveBeenCalled();
       });
     });
 
@@ -72,29 +72,45 @@ describe('Video/getSDK', () => {
       expect(loadjs).not.toHaveBeenCalled();
     });
 
-    it('should resolve when require allow and exist', async () => {
-      const resolveSpy = jest.fn();
+    describe('when require allow and exist', () => {
+      let require, define;
+      beforeEach(() => {
+        require = (window as any).require;
+        define = (window as any).define;
 
-      (window as any).require = jest.fn().mockImplementation((url, settings) => {
-        setTimeout(() => settings(), 200);
-      });
-      (window as any).define = jest.fn();
-      (window as any).define.amd = true;
-
-      getSDK({
-        name: 'MOCKREQUIREPLAYER',
-        url: '//test.com/mock-sdk.js',
-        isLoaded: () => true,
-        isRequireAllow: true,
-      }).then(resolveSpy);
-
-      await eventually(() => {
-        expect(resolveSpy).toHaveBeenCalled();
+        (window as any).require = jest.fn();
+        (window as any).define = jest.fn();
       });
 
-      expect((window as any).require).toHaveBeenCalled();
-      expect(loadjs).not.toHaveBeenCalled();
-    });
+      afterEach(() => {
+        (window as any).require = require;
+        (window as any).define = define;
+      });
+
+      it('should resolve', async () => {
+        const resolveSpy = jest.fn();
+
+        (window as any).require.mockImplementation((url, settings) => {
+          setTimeout(() => settings(), 200);
+        });
+
+        (window as any).define.amd = true;
+
+        getSDK({
+          name: 'MOCKREQUIREPLAYER',
+          url: '//test.com/mock-sdk.js',
+          isLoaded: () => true,
+          isRequireAllow: true,
+        }).then(resolveSpy);
+
+        await eventually(() => {
+          expect(resolveSpy).toHaveBeenCalled();
+        });
+
+        expect((window as any).require).toHaveBeenCalled();
+        expect(loadjs).not.toHaveBeenCalled();
+      });
+    })
   });
 
   describe('failure pass', () => {
@@ -127,7 +143,7 @@ describe('Video/getSDK', () => {
       }).catch(rejectSpy);
 
       await eventually(() => {
-        expect(rejectSpy).toHaveBeenCalled()
+        expect(rejectSpy).toHaveBeenCalled();
       });
     });
   });

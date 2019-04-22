@@ -1,17 +1,22 @@
 import { Simulate } from 'react-dom/test-utils';
-import { UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 /**
  *Temporary workaround for implementing missing Unidriver methods in React/DOM only.
  *
  * @param {UniDriver} base
  */
-export function ReactBase(base: UniDriver, body?: UniDriver) {
-  if (base.type !== 'react') {
-    throw new Error('Supported only in React/DOM.')
-  } 
+export function ReactBase(base: UniDriver) {
+  const getNative = (): Promise<HTMLElement> => {
+    if (base.type !== 'react') {
+      throw new Error('Supported only in React/DOM.');
+    }
+    return base.getNative();
+  };
+
   return {
-    pressKey: async (key: string) => Simulate.keyDown(await base.getNative(), {key}),
-    mouseLeave: async () => Simulate.mouseLeave(await base.getNative()),
-  }
+    mouseLeave: async () => Simulate.mouseLeave(await getNative()),
+    focus: async () => (await getNative()).focus(),
+    getStyle: async () => (await getNative()).style,
+  };
 }

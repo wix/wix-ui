@@ -1,26 +1,29 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
-import {Dropdown} from '../dropdown';
-import {Placement, PopoverProps} from '../popover';
-import {Option, OptionFactory} from '../dropdown-option';
-import {OPEN_TRIGGER_TYPE} from '../dropdown/constants';
-import {Input, InputProps} from '../input';
+import { Dropdown } from '../dropdown';
+import { Placement, PopoverProps } from '../popover';
+import { Option, OptionFactory } from '../dropdown-option';
+import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
+import { Input, InputProps } from '../input';
 
-export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
+export type InputWithOptionsProps = Pick<
+  PopoverProps,
+  'fixed' | 'flip' | 'moveBy'
+> & {
   /** The location to display the content */
   placement?: Placement;
   /** The dropdown options array */
-  options: Array<Option>;
+  options: Option[];
   /** Trigger type to open the content */
   openTrigger?: OPEN_TRIGGER_TYPE;
   /** Handler for when an option is selected */
-  onSelect?: (option: Option) => void;
+  onSelect?(option: Option): void;
   /** Handler for when an option is deselected */
-  onDeselect?: (option: Option) => void;
+  onDeselect?(option: Option): void;
   /** initial selected option ids */
-  initialSelectedIds?: Array<string | number>;
+  initialSelectedIds?: (string | number)[];
   /** A callback for when initial selected options are set */
-  onInitialSelectedOptionsSet?: (options: Array<Option>) => void;
+  onInitialSelectedOptionsSet?(options: Option[]): void;
   /** set true for multiple selection, false for single */
   multi?: boolean;
   /** An element that always appears at the top of the options */
@@ -30,7 +33,7 @@ export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveB
   /** Animation timer */
   timeout?: number;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-  onManualInput?: (value: string) => void;
+  onManualInput?(value: string): void;
   /** Should mark the text that matched the filter */
   highlightMatches?: boolean;
   /** If set to true, content element will always be visible, used for preview mode */
@@ -44,15 +47,17 @@ export type InputWithOptionsProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveB
   /** Allow onSelect event to be triggered upon re-selecting an option */
   allowReselect?: boolean;
   /** Filter by predicate */
-  filterPredicate?: (inputValue: string, optionValue: string) => Boolean;
+  filterPredicate?(inputValue: string, optionValue: string): Boolean;
   /** Empty state message to be displayed in case all options are filtered out */
   emptyStateMessage?: string;
-}
+};
 
 /**
  * InputWithOptions
  */
-export class InputWithOptions extends React.PureComponent<InputWithOptionsProps> {
+export class InputWithOptions extends React.PureComponent<
+  InputWithOptionsProps
+> {
   dropDownRef;
   static displayName = 'InputWithOptions';
   static defaultProps = {
@@ -65,9 +70,10 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     onDeselect: () => null,
     onManualInput: () => null,
     onInitialSelectedOptionsSet: () => null,
-    filterPredicate: (inputValue, optionValue) => optionValue.toLowerCase().includes(inputValue.toLowerCase())
+    filterPredicate: (inputValue, optionValue) =>
+      optionValue.toLowerCase().includes(inputValue.toLowerCase()),
   };
-  static bypassDefaultPropsTypecheck
+  static bypassDefaultPropsTypecheck;
   isEditing: boolean = false;
 
   open() {
@@ -79,28 +85,44 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     this.dropDownRef.getInstance().close();
   }
 
-  _filterOptions(): Array<Option> {
-
-    const { highlightMatches, inputProps, options, filterPredicate, emptyStateMessage } = this.props;
+  _filterOptions(): Option[] {
+    const {
+      highlightMatches,
+      inputProps,
+      options,
+      filterPredicate,
+      emptyStateMessage,
+    } = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
     }
 
-    const filteredOptions = options
-      .filter((option: Option) =>
+    const filteredOptions = options.filter(
+      (option: Option) =>
         (!option.isSelectable && option.value) ||
-        (option.isSelectable && option.value && filterPredicate(inputProps.value, option.value)));
+        (option.isSelectable &&
+          option.value &&
+          filterPredicate(inputProps.value, option.value)),
+    );
 
     if (!highlightMatches) {
       return filteredOptions;
     }
 
     if (emptyStateMessage && filteredOptions.length === 0) {
-      return [OptionFactory.create({render: () => emptyStateMessage, isDisabled: true})];
+      return [
+        OptionFactory.create({
+          render: () => emptyStateMessage,
+          isDisabled: true,
+        }),
+      ];
     }
 
     return filteredOptions.map((option: Option) =>
-      option.isSelectable && option.value ? OptionFactory.createHighlighted(option, inputProps.value) : option);
+      option.isSelectable && option.value
+        ? OptionFactory.createHighlighted(option, inputProps.value)
+        : option,
+    );
   }
 
   _onSelect = (option: Option | null) => {
@@ -111,7 +133,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     } else {
       onManualInput(inputProps.value);
     }
-  }
+  };
 
   _onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!event.key.startsWith('Arrow')) {
@@ -120,13 +142,13 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
 
     const { onKeyDown } = this.props.inputProps;
     onKeyDown && onKeyDown(event);
-  }
+  };
 
   _onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     this.isEditing = false;
     const { onFocus } = this.props.inputProps;
     onFocus && onFocus(event);
-  }
+  };
 
   _onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (this.isEditing) {
@@ -134,7 +156,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
     }
     const { onBlur } = this.props.inputProps;
     onBlur && onBlur(event);
-  }
+  };
 
   render() {
     const {
@@ -154,7 +176,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
       allowReselect,
       flip,
       fixed,
-      moveBy
+      moveBy,
     } = this.props;
 
     return (
@@ -176,7 +198,7 @@ export class InputWithOptions extends React.PureComponent<InputWithOptionsProps>
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
         id={id}
-        ref={ref => this.dropDownRef = ref}
+        ref={ref => (this.dropDownRef = ref)}
         allowReselect={allowReselect}
         flip={flip}
         fixed={fixed}

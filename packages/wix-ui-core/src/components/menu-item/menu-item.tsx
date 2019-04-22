@@ -6,7 +6,7 @@ export interface MenuItemProps {
   children?: React.ReactNode;
 
   /** callback which will be called uppon item selection */
-  onSelect?: () => void;
+  onSelect?(): void;
 
   /** define if MenuItem is in selected state */
   selected?: boolean;
@@ -18,12 +18,12 @@ export interface MenuItemProps {
   disabled?: boolean;
 }
 
-export const MenuItem : React.SFC<MenuItemProps> = props => {
-  const {selected, highlighted, disabled, onSelect, ...rest} = props;
+export const MenuItem: React.SFC<MenuItemProps> = props => {
+  const { selected, highlighted, disabled, onSelect, ...rest } = props;
 
   return (
     <div
-      {...style('root', {selected, highlighted, disabled}, props)}
+      {...style('root', { selected, highlighted, disabled }, props)}
       {...rest}
       onClick={disabled ? () => null : onSelect}
     />

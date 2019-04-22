@@ -1,4 +1,4 @@
-import { UniDriver } from 'unidriver';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import {
   BaseUniDriver,
   baseUniDriverFactory,
@@ -8,7 +8,7 @@ import style from './image.st.css';
 import {
   imageDriverFactory as publicImageDriverFactory,
   ImageDriver as ImagePublicDriver,
-} from './image.driver';
+} from './image.uni.driver';
 
 export interface ImageDriver extends ImagePublicDriver {
   getResizeMode(): Promise<string>;

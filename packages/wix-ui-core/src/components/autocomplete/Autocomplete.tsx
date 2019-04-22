@@ -1,17 +1,17 @@
 import * as React from 'react';
 import style from './Autocomplete.st.css';
-import {InputWithOptions} from '../input-with-options';
-import {Option, OptionFactory} from '../dropdown-option/OptionFactory';
-import {InputProps, AriaAutoCompleteType} from '../input';
+import { InputWithOptions } from '../input-with-options';
+import { Option, OptionFactory } from '../dropdown-option/OptionFactory';
+import { InputProps, AriaAutoCompleteType } from '../input';
 
 const createDivider = (value = null) =>
-  OptionFactory.createDivider({className: style.divider, value});
+  OptionFactory.createDivider({ className: style.divider, value });
 
 export interface AutocompleteProps {
   /** The dropdown options array */
-  options: Array<Option>;
+  options: Option[];
   /** Handler for when an option is selected */
-  onSelect?: (option: Option) => void;
+  onSelect?(option: Option): void;
   /** initial selected option id */
   initialSelectedId?: string | number;
   /** An element that always appears at the top of the options */
@@ -19,7 +19,7 @@ export interface AutocompleteProps {
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-  onManualInput?: (value: string) => void;
+  onManualInput?(value: string): void;
   /** Standard React Input autoFocus (focus the element on mount) */
   autoFocus?: boolean;
   /** Makes the component disabled */
@@ -45,37 +45,50 @@ export interface AutocompleteState {
   inputValue: string;
 }
 
-export class Autocomplete extends React.PureComponent<AutocompleteProps, AutocompleteState> {
+export class Autocomplete extends React.PureComponent<
+  AutocompleteProps,
+  AutocompleteState
+> {
   static displayName = 'Autocomplete';
-  
+
   static createOption = OptionFactory.create;
   static createDivider = createDivider;
 
-  state = {inputValue: ''};
+  state = { inputValue: '' };
 
   _onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (this.state.inputValue !== event.target.value) {
       this.setState({
-        inputValue: event.target.value
+        inputValue: event.target.value,
       });
-      const {onChange} = this.props;
+      const { onChange } = this.props;
       onChange && onChange(event);
     }
-  }
+  };
 
   _onSelect = (option: Option) => {
     if (this.state.inputValue !== option.value) {
       this.setState({
-        inputValue: option.value
+        inputValue: option.value,
       });
-      const {onSelect} = this.props;
+      const { onSelect } = this.props;
       onSelect && onSelect(option);
     }
-  }
+  };
 
   _createInputProps() {
-    const {inputValue} = this.state;
-    const {autoFocus, disabled, onBlur, onFocus, placeholder, error, prefix, suffix, inputProps} = this.props;
+    const { inputValue } = this.state;
+    const {
+      autoFocus,
+      disabled,
+      onBlur,
+      onFocus,
+      placeholder,
+      error,
+      prefix,
+      suffix,
+      inputProps,
+    } = this.props;
     return {
       ...inputProps,
       value: inputValue,
@@ -88,27 +101,38 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
       error,
       suffix,
       prefix,
-      'aria-autocomplete': 'both' as AriaAutoCompleteType
+      'aria-autocomplete': 'both' as AriaAutoCompleteType,
     };
   }
 
-  _onInitialSelectedOptionsSet = (options: Array<Option>) => {
+  _onInitialSelectedOptionsSet = (options: Option[]) => {
     const selectedValue = options.length ? options[0].value : '';
     if (selectedValue && this.state.inputValue !== selectedValue) {
       this.setState({
-        inputValue: selectedValue
+        inputValue: selectedValue,
       });
     }
-  }
+  };
 
   render() {
-    const {options, initialSelectedId, fixedHeader, fixedFooter, onManualInput, disabled} = this.props;
+    const {
+      options,
+      initialSelectedId,
+      fixedHeader,
+      fixedFooter,
+      onManualInput,
+      disabled,
+    } = this.props;
     const inputProps = this._createInputProps();
     return (
       <InputWithOptions
-        {...style('root', {disabled}, this.props)}
+        {...style('root', { disabled }, this.props)}
         onSelect={this._onSelect}
-        initialSelectedIds={initialSelectedId || initialSelectedId === 0 ? [initialSelectedId] : null}
+        initialSelectedIds={
+          initialSelectedId || initialSelectedId === 0
+            ? [initialSelectedId]
+            : null
+        }
         onInitialSelectedOptionsSet={this._onInitialSelectedOptionsSet}
         fixedHeader={fixedHeader}
         fixedFooter={fixedFooter}

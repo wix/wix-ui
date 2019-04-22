@@ -1,29 +1,36 @@
-import { BaseDriver, ComponentFactory, DriverFactory } from 'wix-ui-test-utils/driver-factory';
+import {
+  BaseDriver,
+  ComponentFactory,
+  DriverFactory,
+} from 'wix-ui-test-utils/driver-factory';
 
 export interface ButtonDriver extends BaseDriver {
   /** click on the button root element */
-  click: () => any;
+  click(): any;
   /** returns elements type attribute */
-  getType: () => any;
+  getType(): any;
   /** returns elements textContent */
-  getTextContent: () => any;
+  getTextContent(): any;
   /** returns if the element is disabled */
-  isDisabled: () => boolean;
+  isDisabled(): boolean;
   styles: {
     /** returns elements min-width css property */
-    getMinWidth: () => string;
+    getMinWidth(): string;
     /** returns elements width css property */
-    getWidth: () => string;
+    getWidth(): string;
     /** returns elements height css property */
-    getHeight: () => string;
+    getHeight(): string;
     /** returns elements padding css property */
-    getPadding: () => string;
+    getPadding(): string;
     /** returns elements border-radius css property */
-    getBorderRadius: () => string;
-  }
+    getBorderRadius(): string;
+  };
 }
 
-export const buttonDriverFactory: DriverFactory<ButtonDriver> = ({element, eventTrigger}: ComponentFactory): ButtonDriver => {
+export const buttonDriverFactory: DriverFactory<ButtonDriver> = ({
+  element,
+  eventTrigger,
+}: ComponentFactory): ButtonDriver => {
   const getButtonStyle = () => window.getComputedStyle(element);
 
   return {
@@ -38,6 +45,6 @@ export const buttonDriverFactory: DriverFactory<ButtonDriver> = ({element, event
       getHeight: () => getButtonStyle().height,
       getPadding: () => getButtonStyle().padding,
       getBorderRadius: () => getButtonStyle().borderRadius,
-    }
+    },
   };
 };

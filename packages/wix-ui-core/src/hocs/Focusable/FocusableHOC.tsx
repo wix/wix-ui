@@ -12,7 +12,7 @@ type SubscribeCb = () => void;
 /**
  * Singleton for managing current input method (keyboard or mouse).
  */
-const inputMethod = new class {
+const inputMethod = new (class {
   // Default is keyboard in case an element is focused programmatically.
   method: 'mouse' | 'keyboard' = 'keyboard';
   subscribers: Map<any, SubscribeCb> = new Map();
@@ -43,7 +43,7 @@ const inputMethod = new class {
       this.subscribers.forEach(f => f());
     }
   }
-}();
+})();
 
 /*
  * TODO: Consider adding 'disabled' state to this HOC, since:

@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 const isString = require('lodash/isString');
-const uniqueId = require('lodash/uniqueId');
-import {getSDK} from '../utils'
+import { getSDK } from '../utils';
 import playerHOC from './playerHOC';
-import {EVENTS, PROGRESS_INTERVAL} from '../constants';
+import { EVENTS, PROGRESS_INTERVAL } from '../constants';
 import {
   ICommonProps,
   IEventEmitter,
@@ -13,13 +12,14 @@ import {
   VerifierType,
   IFacebookPlayerAPI,
   IFacebookConfig,
-  ISDKConfig
+  ISDKConfig,
 } from '../types';
 import styles from '../Video.st.css';
 
 const URL_REGEX = /facebook\.com\/([^/?].+\/)?video(s|\.php)[/?].*$/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
+export const verifier: VerifierType = url =>
+  isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'FB',
@@ -69,7 +69,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
 
   player: IFacebookPlayerAPI;
-  playerId: string = uniqueId('facebook-player-');
+  playerId: string;
   eventEmitter: IEventEmitter;
   containerRef: React.RefObject<HTMLDivElement>;
   isDurationReady: boolean = false;
@@ -83,6 +83,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
+    this.playerId = `facebook-${props.id}`;
   }
 
   componentDidMount() {
@@ -90,7 +91,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       .then(this.initPlayer)
       .catch(error => {
         this.props.onError(error);
-      })
+      });
   }
 
   componentWillUnmount() {
@@ -105,7 +106,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   componentDidUpdate(prevProps: IFacebookProps) {
     if (
       (this.props.width !== prevProps.width ||
-      this.props.height !== prevProps.height) &&
+        this.props.height !== prevProps.height) &&
       this.parser
     ) {
       this.parser(this.containerRef.current.parentElement);
@@ -113,12 +114,12 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   }
 
   initPlayer = FB => {
-    const {appId} = this.props;
+    const { appId } = this.props;
 
     FB.init({
       appId,
       xfbml: true,
-      version: 'v2.5'
+      version: 'v2.5',
     });
 
     FB.Event.subscribe('xfbml.ready', this.handleReady);
@@ -127,13 +128,13 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     this.unsubscribeFBEvents = () => {
       FB.Event.unsubscribe('xfbml.ready', this.handleReady);
       FB.Event.unsubscribe('iframeplugin:create', this.setAllowAttribute);
-    }
+    };
 
     this.parser = FB.XFBML.parse;
-  }
+  };
 
   handleReady = msg => {
-    const {muted, onInit, onReady, onError} = this.props;
+    const { muted, onInit, onReady, onError } = this.props;
 
     if (msg.type === 'video' && msg.id === this.playerId) {
       this.player = msg.instance;
@@ -164,7 +165,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       onInit(this.player);
       onReady();
     }
-  }
+  };
 
   awaitDuration = () => {
     if (!this.isDurationReady) {
@@ -176,8 +177,11 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       }
     }
 
-    this.durationTimeout = window.setTimeout(this.awaitDuration, PROGRESS_INTERVAL);
-  }
+    this.durationTimeout = window.setTimeout(
+      this.awaitDuration,
+      PROGRESS_INTERVAL,
+    );
+  };
 
   stopAwaitDuration() {
     window.clearTimeout(this.durationTimeout);
@@ -188,7 +192,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     this.props.onProgress(this.player.getCurrentPosition() || 0);
     this.progressTimeout = window.setTimeout(this.progress, PROGRESS_INTERVAL);
-  }
+  };
 
   stopProgress() {
     window.clearTimeout(this.progressTimeout);
@@ -206,7 +210,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     }
 
     iframe.setAttribute('allow', 'autoplay; encrypted-media');
-  }
+  };
 
   render() {
     const { src, playing, controls, width, height } = this.props;
@@ -225,8 +229,12 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
         data-player-name="Facebook"
         data-hook="player-container"
       />
-    )
+    );
   }
 }
 
-export const Player: React.ComponentType<any> = playerHOC(FacebookPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+export const Player: React.ComponentType<any> = playerHOC(
+  FacebookPlayer,
+  mapPropsToPlayer,
+  mapMethodsToPlayer,
+);

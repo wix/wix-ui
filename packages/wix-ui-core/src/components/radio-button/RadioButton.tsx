@@ -3,15 +3,18 @@ import style from './RadioButton.st.css';
 
 const noop = () => null;
 
-export interface RadioButtonChangeEvent extends React.MouseEvent<HTMLDivElement> {
+export interface RadioButtonChangeEvent
+  extends React.MouseEvent<HTMLDivElement> {
   value: string;
 }
 
-export interface RadioButtonClickEvent extends React.MouseEvent<HTMLDivElement> {
+export interface RadioButtonClickEvent
+  extends React.MouseEvent<HTMLDivElement> {
   value: string;
 }
 
-export interface RadioButtonHoverEvent extends React.MouseEvent<HTMLSpanElement> {
+export interface RadioButtonHoverEvent
+  extends React.MouseEvent<HTMLSpanElement> {
   value: string;
 }
 
@@ -23,11 +26,11 @@ export interface RadioButtonProps {
   /** The group name which the button belongs to */
   name?: string;
   /** A callback to invoke on change */
-  onChange?: (event: RadioButtonChangeEvent | RadioButtonClickEvent) => void;
+  onChange?(event: RadioButtonChangeEvent | RadioButtonClickEvent): void;
   /** A callback to invoke on hover */
-  onHover?: (event: RadioButtonHoverEvent) => void;
+  onHover?(event: RadioButtonHoverEvent): void;
   /** A callback to invoke on blur */
-  onIconBlur?: (event: React.MouseEvent<HTMLElement>) => void;
+  onIconBlur?(event: React.MouseEvent<HTMLElement>): void;
   /** The checked icon */
   checkedIcon?: React.ReactNode;
   /** The unchecked icon */
@@ -44,33 +47,54 @@ export interface RadioButtonProps {
 
 export interface RadioButtonState {
   focused: boolean;
-  focusVisible: boolean
+  focusVisible: boolean;
 }
 
-export class RadioButton extends React.Component<RadioButtonProps, RadioButtonState> {
+export class RadioButton extends React.Component<
+  RadioButtonProps,
+  RadioButtonState
+> {
   static displayName = 'RadioButton';
 
   private focusedByMouse: boolean = false;
-  static bypassDefaultPropsTypecheck
+  static bypassDefaultPropsTypecheck;
   state = {
     focused: false,
-    focusVisible: false
+    focusVisible: false,
   };
 
   static defaultProps = {
     onChange: noop,
     onHover: noop,
-    onBlur: noop
+    onBlur: noop,
   };
 
   render() {
-    const { value, name, checkedIcon, uncheckedIcon, label, checked,
-      disabled, required, onIconBlur } = this.props;
+    const {
+      value,
+      name,
+      checkedIcon,
+      uncheckedIcon,
+      label,
+      checked,
+      disabled,
+      required,
+      onIconBlur,
+    } = this.props;
     const focused = this.state.focused;
 
     return (
       <div
-        {...style('root', { checked, disabled, focused, 'focus-visible': this.state.focusVisible }, this.props)}
+        {...style(
+          'root',
+          {
+            checked,
+            disabled,
+            focused,
+            'focus-visible': this.state.focusVisible,
+          },
+          this.props,
+        )}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"
@@ -88,10 +112,14 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
           name={name}
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
-          ref={radio => this.radioRef = radio}
+          ref={radio => (this.radioRef = radio)}
           aria-label={this.props['aria-label']}
         />
-        <span className={style.icon} onMouseEnter={this.onHover} onMouseLeave={onIconBlur}>
+        <span
+          className={style.icon}
+          onMouseEnter={this.onHover}
+          onMouseLeave={onIconBlur}
+        >
           {checked ? checkedIcon : uncheckedIcon}
         </span>
         <span className={style.label}>{label}</span>
@@ -102,7 +130,7 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
   handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     this.focusedByMouse = true;
     this.handleInputChange(event);
-  }
+  };
 
   handleInputChange = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!this.props.disabled) {
@@ -111,24 +139,24 @@ export class RadioButton extends React.Component<RadioButtonProps, RadioButtonSt
         this.radioRef.focus();
       }
     }
-  }
+  };
 
   onHover = (event: React.MouseEvent<HTMLSpanElement>) => {
     this.props.onHover({ value: this.props.value, ...event });
-  }
+  };
 
   onFocus = () => {
     this.setState({ focused: true, focusVisible: !this.focusedByMouse });
-  }
+  };
 
   onInputBlur = () => {
     this.setState({ focused: false, focusVisible: false });
     this.focusedByMouse = false;
-  }
+  };
 
   handleInputKeyDown = () => {
     this.setState({ focusVisible: true });
-  }
+  };
 
   private radioRef = undefined;
 }
