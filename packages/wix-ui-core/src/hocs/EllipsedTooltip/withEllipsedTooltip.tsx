@@ -12,18 +12,18 @@ class LoadableTooltip extends Loadable<{
   tooltipStyle: RuntimeStylesheet;
 }> {}
 
-type EllipsedTooltipProps = {
+interface EllipsedTooltipProps {
   component: React.ReactElement<any>;
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
-};
+}
 
-type EllipsedTooltipState = {
+interface EllipsedTooltipState {
   isEllipsisActive: boolean;
-};
+}
 
-export type WrapperComponentProps = {
+export interface WrapperComponentProps {
   showTooltip?: boolean;
 }
 
