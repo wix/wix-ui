@@ -7,10 +7,10 @@ import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
 const debounce = require('lodash/debounce');
 
-class LoadableTooltip extends Loadable<
-  TooltipProps,
-  { Tooltip: React.ComponentType<TooltipProps> }
-> {}
+class LoadableTooltip extends Loadable<{
+  Tooltip: React.ComponentType<TooltipProps>;
+  tooltipStyle: RuntimeStylesheet;
+}> {}
 
 type EllipsedTooltipProps = {
   component: React.ReactElement<any>;
@@ -21,7 +21,6 @@ type EllipsedTooltipProps = {
 
 type EllipsedTooltipState = {
   isEllipsisActive: boolean;
-  tooltipStyle: RuntimeStylesheet;
 };
 
 export type WrapperComponentProps = {
@@ -49,7 +48,7 @@ class EllipsedTooltip extends React.Component<
 > {
   static defaultProps = { showTooltip: true };
 
-  state = { isEllipsisActive: false, tooltipStyle: null };
+  state = { isEllipsisActive: false };
 
   textNode: HTMLElement;
 
@@ -71,23 +70,11 @@ class EllipsedTooltip extends React.Component<
     }
   }
 
-  loadTooltipStyle = async () => {
-    const { default: tooltipStyle } = await import('./EllipsedTooltip.st.css');
-    this.setState({ tooltipStyle });
-  };
-
   _updateEllipsisState = () => {
     const isEllipsisActive =
       this.props.showTooltip &&
       this.textNode &&
       this.textNode.offsetWidth < this.textNode.scrollWidth;
-    if (
-      isEllipsisActive &&
-      !this.state.isEllipsisActive &&
-      !this.state.tooltipStyle
-    ) {
-      this.loadTooltipStyle();
-    }
     this.setState({
       isEllipsisActive,
     });
@@ -113,24 +100,31 @@ class EllipsedTooltip extends React.Component<
 
   render() {
     const { shouldLoadAsync, showTooltip } = this.props;
-    const { isEllipsisActive, tooltipStyle } = this.state;
+    const { isEllipsisActive } = this.state;
     const shouldLoadTooltip = isEllipsisActive && showTooltip;
 
     return (
       <LoadableTooltip
-        loader={() =>
-          shouldLoadAsync
-            ? import('../../components/tooltip')
-            : require('../../components/tooltip')
-        }
+        loader={{
+          Tooltip: () =>
+            shouldLoadAsync
+              ? import('../../components/tooltip')
+              : require('../../components/tooltip'),
+          tooltipStyle: () =>
+            shouldLoadAsync
+              ? import('./EllipsedTooltip.st.css')
+              : require('./EllipsedTooltip.st.css'),
+        }}
         defaultComponent={this._renderText()}
-        componentKey="Tooltip"
+        namedExports={{
+          Tooltip: 'Tooltip',
+        }}
         shouldLoadComponent={shouldLoadTooltip}
       >
-        {Tooltip => {
+        {({ Tooltip, tooltipStyle }) => {
           return (
             <Tooltip
-              {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
+              {...tooltipStyle('root', {}, this.props)}
               appendTo="scrollParent"
               content={<div>{this.textNode.textContent}</div>}
               showArrow
