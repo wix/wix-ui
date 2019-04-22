@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" viewBox="0 0 18 18">
+  <defs>
+    <polygon id="confirmsmall-a" points="7.5 11 5.5 9 4.5 10 7.5 13 13.5 7 12.5 6"/>
+  </defs>
+  <use xlink:href="#confirmsmall-a"/>
+</svg>
