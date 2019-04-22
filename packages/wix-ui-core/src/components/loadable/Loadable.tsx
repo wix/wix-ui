@@ -1,10 +1,15 @@
 import * as React from 'react';
 
+type Module<LoadableExports> = {
+  [ModuleKey in keyof LoadableExports]: LoadableExports[ModuleKey]
+};
+
 // imported module representation.
 export type LoaderMap<LoadableExports> = {
   [Key in keyof LoadableExports]?: () =>
     | LoadableExports[Key]
-    | Promise<LoadableExports[Key]>
+    | Module<LoadableExports>
+    | Promise<Module<LoadableExports>>
 };
 
 // Resolved module representation, that should be passed into render prop as an argument

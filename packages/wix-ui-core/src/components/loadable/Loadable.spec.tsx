@@ -7,10 +7,9 @@ import { loadableDriverFactory } from './Loadable.driver';
 import { Loadable } from './Loadable';
 import { tooltipDriverFactory } from '../tooltip/Tooltip.driver';
 
-class LoadableTooltip extends Loadable<
-  TooltipProps,
-  { Tooltip: React.ComponentType<TooltipProps> }
-> {}
+class LoadableTooltip extends Loadable<{
+  Tooltip: React.ComponentType<TooltipProps>;
+}> {}
 
 const getTooltipDriverFactory = wrapper =>
   tooltipDriverFactory({
@@ -24,12 +23,16 @@ describe('Loadable with sync loader', () => {
     const fallBackElement = <span data-hook="error-icon">Hey!</span>;
     const wrapper = createDriver(
       <LoadableTooltip
-        loader={() => require('../tooltip')}
+        loader={{
+          Tooltip: () => require('../tooltip'),
+        }}
         defaultComponent={fallBackElement}
-        componentKey="Tooltip"
+        namedExports={{
+          Tooltip: 'Tooltip',
+        }}
         shouldLoadComponent
       >
-        {Tooltip => {
+        {({ Tooltip }) => {
           return (
             <Tooltip data-hook="tooltip" placement="top" content="kek">
               {fallBackElement}
@@ -45,12 +48,16 @@ describe('Loadable with sync loader', () => {
   it('should load modules after `shouldLoadComponent` changed', async () => {
     const wrapper = mount(
       <LoadableTooltip
-        loader={() => require('../tooltip')}
+        loader={{
+          Tooltip: () => require('../tooltip'),
+        }}
         defaultComponent={<span data-hook="default-component">Hey!</span>}
-        componentKey="Tooltip"
+        namedExports={{
+          Tooltip: 'Tooltip',
+        }}
         shouldLoadComponent={false}
       >
-        {Tooltip => {
+        {({ Tooltip }) => {
           return (
             <Tooltip data-hook="tooltip" placement="top" content="kek">
               <span data-hook="tooltip-child">Hey!</span>
@@ -79,12 +86,16 @@ describe('Loadable with async loader', () => {
     const wrapper = createDriver(
       <div>
         <LoadableTooltip
-          loader={() => import('../tooltip')}
+          loader={{
+            Tooltip: () => import('../tooltip'),
+          }}
           defaultComponent={fallBackElement}
-          componentKey="Tooltip"
+          namedExports={{
+            Tooltip: 'Tooltip',
+          }}
           shouldLoadComponent
         >
-          {Tooltip => {
+          {({ Tooltip }) => {
             return (
               <Tooltip data-hook="tooltip" placement="top" content="kek">
                 {fallBackElement}
@@ -106,12 +117,16 @@ describe('Loadable with async loader', () => {
   it('should load modules after `shouldLoadComponent` changed', async () => {
     const wrapper = mount(
       <LoadableTooltip
-        loader={() => import('../tooltip')}
+        loader={{
+          Tooltip: () => import('../tooltip'),
+        }}
         defaultComponent={<span data-hook="default-component">Hey!</span>}
-        componentKey="Tooltip"
+        namedExports={{
+          Tooltip: 'Tooltip',
+        }}
         shouldLoadComponent={false}
       >
-        {Tooltip => {
+        {({ Tooltip }) => {
           return (
             <Tooltip data-hook="tooltip" placement="top" content="kek">
               <span data-hook="tooltip-child">Hey!</span>
