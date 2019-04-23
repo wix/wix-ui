@@ -53,13 +53,24 @@ export default class LiveCodeExample extends Component {
     };
   }
 
-  formatCode = code =>
-    prettier.format(code, {
+  formatCode = code => {
+    const filteredCode = code
+      .split('\n')
+      .filter(
+        line =>
+          !/\/(\*|\/)+.*((t|e)slint[-|:](dis|en)able|prettier-ignore)/.test(
+            line,
+          ),
+      )
+      .join('\n');
+
+    return prettier.format(filteredCode, {
       parser: 'babel',
       plugins: [babylonParser],
       singleQuote: true,
       trailingComma: 'all',
     });
+  };
 
   resetCode = () =>
     this.setState({
@@ -78,6 +89,20 @@ export default class LiveCodeExample extends Component {
     this.setState(state => ({
       isEditorOpened: !state.isEditorOpened,
     }));
+
+  transformCode = (code = '') =>
+    code
+      .split('\n')
+      .filter(
+        line =>
+          ![
+            // ignore import/export statements
+            /^[\s]*?(import|export)/,
+            // ignore require calls
+            /\S*?require\(['"]\S*?['"]\)/,
+          ].some(regex => regex.test(line)),
+      )
+      .join('\n');
 
   render() {
     const { compact, previewRow, previewProps, autoRender } = this.props;
@@ -120,6 +145,7 @@ export default class LiveCodeExample extends Component {
           scope={this.props.scope}
           mountStylesheet={false}
           noInline={!autoRender}
+          transformCode={this.transformCode}
         >
           <div className={styles.liveExampleWrapper}>
             <div
