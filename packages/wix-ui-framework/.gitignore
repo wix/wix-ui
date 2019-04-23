@@ -1,0 +1,29 @@
+node_modules
+dist
+target
+coverage
+typings
+maven
+.history
+test/e2e/screenshots
+package-lock.json
+.yo-rc.json
+npm-debug.log
+yarn.lock
+yarn-error.log
+storybook-static
+.autotools/tmp
+drivers
+.vscode
+
+# Untill webpack pure modules will be released, we ignore all *.js in root folder to avoid comitting component export
+# files that appear in root after build
+src/index.ts
+/*.js
+/*.d.ts
+!wallaby.js
+!protractor.conf.js
+!hocs.js
+index.st.css
+index.es.st.css
+hocs.st.css
