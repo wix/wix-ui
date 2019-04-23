@@ -21,7 +21,7 @@ export interface LoadableProps<LoadableExports> {
   /** loader for a component. `import('./Component')` */
   loader: LoaderMap<LoadableExports>;
 
-  children(components: LoadedMap<LoadableExports>): JSX.Element;
+  children(loaded: LoadedMap<LoadableExports>): JSX.Element;
 
   /** component to show while not loading and `shouldLoadComponent` is false */
   defaultComponent: JSX.Element;
@@ -37,7 +37,7 @@ export interface LoadableProps<LoadableExports> {
 }
 
 export interface LoadableState<LoadableExports> {
-  components: LoadedMap<LoadableExports>;
+  loaded: LoadedMap<LoadableExports>;
   isLoading: boolean;
 }
 
@@ -48,15 +48,15 @@ export class Loadable<LoadableExports> extends React.Component<
   constructor(props) {
     super(props);
 
-    let components = null;
+    let loaded = null;
 
     if (props.shouldLoadComponent) {
-      components = this.loadSyncOrAsync();
+      loaded = this.loadSyncOrAsync();
     }
-    const isLoading = props.shouldLoadComponent && !components;
+    const isLoading = props.shouldLoadComponent && !loaded;
 
     this.state = {
-      components,
+      loaded,
       isLoading,
     };
   }
@@ -64,14 +64,14 @@ export class Loadable<LoadableExports> extends React.Component<
     // Here we want to start loading the component only when `shouldLoadComponent` was changed
     // and we are not already loading the component.
     if (
-      !this.state.components &&
+      !this.state.loaded &&
       !prevProps.shouldLoadComponent &&
       this.props.shouldLoadComponent &&
       !this.state.isLoading
     ) {
-      let components = null;
-      components = this.loadSyncOrAsync();
-      this.setState({ components, isLoading: !components });
+      let loaded = null;
+      loaded = this.loadSyncOrAsync();
+      this.setState({ loaded, isLoading: !loaded });
     }
   }
 
@@ -138,13 +138,13 @@ export class Loadable<LoadableExports> extends React.Component<
         const moduleName = resolvedKeys[index];
         resolvedModules[moduleName] = resolvedModule;
       });
-      this.setState({ components: resolvedModules, isLoading: false });
+      this.setState({ loaded: resolvedModules, isLoading: false });
     });
 
     return null;
   };
   render() {
-    const { components, isLoading } = this.state;
+    const { loaded, isLoading } = this.state;
     const {
       shouldLoadComponent,
       defaultComponent,
@@ -158,10 +158,10 @@ export class Loadable<LoadableExports> extends React.Component<
       // Handling error or component when loading wasn't started
     }
 
-    if (!shouldLoadComponent || !components) {
+    if (!shouldLoadComponent || !loaded) {
       return defaultComponent;
     }
     // Rendering original loaded component.
-    return children(components);
+    return children(loaded);
   }
 }
