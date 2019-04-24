@@ -15,7 +15,7 @@
   trackHeight: value(rootHeight);
   knobWidth: calc(value(rootHeight) / 1.2);
   knobHeight: calc(value(rootHeight) / 1.2);
-  knobMovementRange: calc(value(trackWidth) - value(knobWidth) - value(trackHeight) + value(knobHeight));
+  knobMovementRange: calc(value(trackWidth)/2 - value(knobWidth)/2 - 1);
 }
 
 .root {
@@ -44,14 +44,7 @@
   align-items: center;
   justify-content: center;
   border-radius: calc(value(knobHeight) / 2);
-  transform: translateX(calc(value(knobMovementRange) / -2));
-
-  /* Workaround for Firefox, which doesn't center absolutely positioned flex items */
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+  transform: translateX(calc(-1 * value(knobMovementRange)));
 }
 
 .root::knobIcon {
@@ -65,11 +58,11 @@
   height: 100%;
 }
 
-.root:checked::knob, 
+.root:checked::knob,
 :global([dir="rtl"]) .root::knob {
-  transform: translateX(calc(value(knobMovementRange) / 2));
+  transform: translateX(value(knobMovementRange));
 }
 
 :global([dir="rtl"]) .root:checked::knob {
-  transform: translateX(calc(value(knobMovementRange) / -2));
+  transform: translateX(calc(-1 * value(knobMovementRange)));
 }

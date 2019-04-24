@@ -5,7 +5,7 @@ import { SectionType } from '../../typings/story-section';
 import styles from './styles.scss';
 
 const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
-const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title];
+const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title, SectionType.Header];
 
 const sectionPrepares = {
   [SectionType.ImportExample]: section => ({
