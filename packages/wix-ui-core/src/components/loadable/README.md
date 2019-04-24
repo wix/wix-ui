@@ -11,10 +11,10 @@ React-loadable or other libraries for lazy loading is based on dynamic imports +
 ## API
 - `shouldLoadComponent` - a boolean property that triggers component from `loader` callback to be loaded. After `shouldLoadComponent` is set to `true`, `loader` will be called and children prop rendered with resolved component from the module. If it is set to `false`, `defaultComponent` will be rendered.  
 - `loader` - a function that loads your module. Should return Promise (via `import()`), React.Component or Module with a React.Component. For example: `import('./Component')` or `require('./Component')`.  
-- `componentKey` - a string, that specifies the exported name of the component. For example, if component you want to load with lazy loading has `export const Tooltip = Tooltip`, then you probably want to target `componentKey="Tooltip"`.  
+- `namedExports` - an object, that specifies the exported name of each component. For example, if component you want to load with lazy loading has `export const Tooltip = Tooltip`, then you probably want to target `namedExports={{ Tooltip: 'Tooltip' }}`.  
 - `defaultComponent` - component to show if shouldLoadComponent is not `true` or component is loading and `loadingComponent` was not specified.  
 - `loadingComponent` - component to show when loading happening. Optional. Will use - `defaultComponent` if nothing specified.  
-- `children` - callback that will be called after lazy loading finished. Receives single argument - loaded component.  
+- `children` - callback that will be called after lazy loading finished. Receives single argument - object with loaded assets.  
 
 ## Usage Example
 In order to create the lazy loading component:
@@ -24,20 +24,32 @@ import Loadable from 'wix-ui-core/dist/es/src/loadable';
 
 // You probably want to specify child props and module structure in part of the loaded component.
 class LoadableTooltip extends Loadable<
-  TooltipProps,
   { Tooltip: React.ComponentType<TooltipProps> }
 > {}
 
 const LazyLoadedTooltip = ({ shouldUseAsync, shouldLoadComponent }) => (
   <LoadableTooltip
-    loader={() => shouldUseAsync ? import('../tooltip') : require('../tooltip')}
+    loader={{
+      Tooltip: () =>
+        shouldUseAsync
+          ? import('../tooltip')
+          : require('../tooltip'),
+      tooltipStyle: () =>
+        shouldLoadAsync
+          ? import('./EllipsedTooltip.st.css')
+          : require('./EllipsedTooltip.st.css'),
+    }}
     defaultComponent={<span>Not loaded yet!</span>}
-    componentKey="Tooltip"
+    namedExports={{
+      Tooltip: 'Tooltip',
+    }}
     shouldLoadComponent={shouldLoadComponent}
   >
-    {Tooltip => {
+    {({ Tooltip, tooltipStyle }) => {
       return (
-        <Tooltip><span>Loaded!</span></Tooltip>
+        <Tooltip {...tooltipStyle('root', {}, this.props)}>
+          <span>Loaded!</span>
+        </Tooltip>
       );
     }}
   </LoadableTooltip>
