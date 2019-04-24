@@ -5,7 +5,7 @@ import { reactUniDriver } from 'wix-ui-test-utils/vanilla';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar, AvatarProps } from '.';
 import { nameToInitials } from './util';
-import { avatarDriverFactory } from './avatar.uni.driver';
+import { avatarDriverFactory } from './avatar.driver';
 import styles from './avatar.st.css';
 
 /** jsdom simulates loading of the image regardless of the src URL */
