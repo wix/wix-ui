@@ -155,11 +155,18 @@ describe('FilePickerButton', () => {
       const id = 'khaleesi';
       const driver = await createDriver(<FilePickerButton id={id} />);
       const buttonId = await driver.getChooseFileButtonAttribute('id');
+      expect(await driver.getFileInputAttribute('id')).toBe(id);
       expect(await driver.getFileInputAttribute('aria-labelledby')).toBe(
         buttonId,
       );
-
       expect(buttonId).toBe(`${DataHook.ChooseFileButton}-${id}`);
+    });
+
+    it('should not render aria attributes if not passed `id`', async () => {
+      const driver = await createDriver(<FilePickerButton />);
+      expect(await driver.getFileInputAttribute('id')).toBeNull();
+      expect(await driver.getFileInputAttribute('aria-labelledby')).toBeNull();
+      expect(await driver.getChooseFileButtonAttribute('id')).toBeNull();
     });
   });
 });

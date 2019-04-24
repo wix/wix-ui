@@ -45,19 +45,33 @@ describe('ButtonNext', () => {
   });
 
   describe(`'suffixIcon' and 'prefixIcon' props`, () => {
-    const suffix = <div data-hook="suffix">suffix</div>;
-    const prefix = <div data-hook="prefix">prefix</div>;
+    const suffixInternalClass = 'suffix-internal-class';
+    const suffix = (
+      <div data-hook="suffix" className={suffixInternalClass}>
+        suffix
+      </div>
+    );
+    const prefixInternalClass = 'prefix-internal-class';
+    const prefix = (
+      <div data-hook="prefix" className={prefixInternalClass}>
+        prefix
+      </div>
+    );
 
-    it(`should render 'suffix' when given`, async () => {
+    it(`should render 'suffix' with its class name when given`, async () => {
       const driver = await createDriver(<ButtonNext suffixIcon={suffix} />);
-      expect(await driver.suffixExists()).toBeTruthy();
+
       expect(await driver.prefixExists()).toBeFalsy();
+      expect(await driver.suffixExists()).toBeTruthy();
+      expect(await driver.hasSuffixClass(suffixInternalClass)).toBe(true);
     });
 
-    it(`should render 'prefix' when given`, async () => {
+    it(`should render 'prefix' with its class name when given`, async () => {
       const driver = await createDriver(<ButtonNext prefixIcon={prefix} />);
-      expect(await driver.prefixExists()).toBeTruthy();
+
       expect(await driver.suffixExists()).toBeFalsy();
+      expect(await driver.prefixExists()).toBeTruthy();
+      expect(await driver.hasPrefixClass(prefixInternalClass)).toBe(true);
     });
   });
 

@@ -53,7 +53,7 @@ export class FilePickerButton extends React.Component<
 
   render() {
     const { id, children, accept, required, disabled } = this.props;
-    const buttonId = `${DataHook.ChooseFileButton}-${id}`;
+    const buttonId = id ? `${DataHook.ChooseFileButton}-${id}` : null;
     return (
       <div {...style('root', { required, disabled }, this.props)}>
         <input

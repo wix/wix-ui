@@ -5,7 +5,6 @@ import {
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { StylableUnidriverUtil } from '../../../../test/StylableUnidriverUtil';
 import styles from './Label.st.css';
-import { ReactBase } from '../../../../test/utils/unidriver';
 
 export interface LabelDriver extends BaseUniDriver {
   /** get the label's text */
@@ -24,7 +23,6 @@ export interface LabelDriver extends BaseUniDriver {
 
 export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
-  const unidriverReactDOMExtension = ReactBase(base);
 
   return {
     ...baseUniDriverFactory(base),
@@ -33,6 +31,6 @@ export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
     getForAttribute: () => base.attr('for'),
     hasEllipsis: () => stylableUnidriverUtil.hasStyleState(base, 'ellipsis'),
     isDisabled: () => stylableUnidriverUtil.hasStyleState(base, 'disabled'),
-    keyDown: key => unidriverReactDOMExtension.pressKey(key),
+    keyDown: key => base.pressKey(key),
   };
 };

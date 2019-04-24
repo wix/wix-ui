@@ -6,7 +6,7 @@ import {
 import {
   avatarDriverFactory,
   AvatarDriver,
-} from '../components/avatar/avatar.driver';
+} from '../components/avatar/avatar.uni.driver';
 export const avatarTestkitFactory = protractorUniTestkitFactoryCreator(
   avatarDriverFactory,
 );
@@ -24,7 +24,7 @@ export { ButtonDriver };
 import {
   buttonNextDriverFactory,
   ButtonNextDriver,
-} from '../components/button-next/button-next.driver';
+} from '../components/button-next/button-next.uni.driver';
 export const buttonNextTestkitFactory = protractorUniTestkitFactoryCreator(
   buttonNextDriverFactory,
 );
@@ -215,7 +215,7 @@ export { NavStepperDriver };
 import {
   captchaDriverFactory,
   CaptchaDriver,
-} from '../components/captcha/Captcha.driver';
+} from '../components/captcha/Captcha.uni.driver';
 export const captchaTestkitFactory = protractorUniTestkitFactoryCreator<
   CaptchaDriver
 >(captchaDriverFactory);

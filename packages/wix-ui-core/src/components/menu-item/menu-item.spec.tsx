@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MenuItem } from './menu-item';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { menuItemDriverFactory } from './menu-item.driver';
+import { menuItemDriverFactory } from './menu-item.uni.driver';
 
 describe('MenuItem', () => {
   const createDriver = new ReactDOMTestContainer()
