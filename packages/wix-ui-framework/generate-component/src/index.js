@@ -10,6 +10,8 @@ module.exports = () => {
     .version('1.0.0')
     .description(`A component generator`)
     .option('-f, --force', 'Skip some pre-run checks')
+    .option('-c, --componentName [componentName]', 'Component name')
+    .option('-d, --description', 'Component description')
     .parse(process.argv);
 
   const cwd = process.cwd();
@@ -18,13 +20,20 @@ module.exports = () => {
     const { name } = require(path.join(cwd, 'package.json'))
 
     if (name === 'wix-style-react' || name ===  'wix-ui-tpa') {
-      runPrompts().then(answers =>
-        generateComponent({
+      return program.componentName
+        ? generateComponent({
           cwd,
-          answers,
+          answers: {ComponentName: program.componentName, description: program.description},
           force: program.force,
-        }),
-      );
+        }) : runPrompts().then(answers => 
+          generateComponent({
+           cwd,
+           answers,
+           force: program.force,
+          })
+        )
+      }
+        
     } else {
       const message = `Unknown module: ${name}`
       logger.error(message)
