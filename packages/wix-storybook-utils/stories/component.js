@@ -36,11 +36,15 @@ class Component extends React.Component {
 }
 
 Component.propTypes = {
+  /** this is a simple number prop */
   number: PropTypes.number,
   valueSetOnMounting: PropTypes.number,
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
+
+  /** do not use this prop
+   * @deprecated since forever*/
   propNotVisibleInStorybook: PropTypes.bool,
   undefinedValueProp: PropTypes.string,
 };

@@ -6,4 +6,10 @@ export interface Prop {
   };
   required: boolean;
   description: string;
+  tags?: Tag[];
+}
+
+interface Tag {
+  title?: string;
+  description?: string;
 }
