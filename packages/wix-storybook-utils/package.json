@@ -57,7 +57,7 @@
     "lodash.merge": "^4.6.1",
     "prettier": "^1.16.2",
     "query-string": "^6.0.0",
-    "react-autodocs-utils": "^3.0.0",
+    "react-autodocs-utils": "^3.5.0",
     "react-collapse": "^4.0.3",
     "react-docgen": "^2.20.0",
     "react-element-to-jsx-string": "^14.0.2",

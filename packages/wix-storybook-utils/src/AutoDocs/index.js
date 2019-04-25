@@ -129,12 +129,6 @@ const AutoDocs = ({ source = '', parsedSource, showTitle }) => {
         </blockquote>
       )}
 
-      {description && <Markdown source={description} />}
-
-      <h2>
-        Available <code>props</code>
-      </h2>
-
       <table>
         <thead>
           <tr>
