@@ -131,6 +131,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return (
       <Popover
         {...style('root', {}, this.props)}
+        {...(this.props['data-hook']
+          ? { 'data-hook': this.props['data-hook'] }
+          : {})}
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
