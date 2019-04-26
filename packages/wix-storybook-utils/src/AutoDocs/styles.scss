@@ -1,0 +1,7 @@
+@import '../ui/typography.scss';
+
+.tableTitle {
+  @include font(medium);
+  margin: 20px 0;
+  font-size: 18px;
+}

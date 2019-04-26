@@ -44,10 +44,7 @@ export const api: (a: ApiSection, b: StoryConfig) => React.ReactNode = (
 
   return containsDeprecated ? (
     <div>
-      <AutoDocs
-        showTitle={false}
-        parsedSource={{ ...metadata, props: supported }}
-      />
+      <AutoDocs parsedSource={{ ...metadata, props: supported }} />
 
       <div>
         <div className={styles.deprecatedTitle}>Deprecated Props</div>
@@ -59,11 +56,12 @@ export const api: (a: ApiSection, b: StoryConfig) => React.ReactNode = (
       </div>
 
       <AutoDocs
+        showMethods={false}
         showTitle={false}
         parsedSource={{ ...metadata, props: deprecated }}
       />
     </div>
   ) : (
-    <AutoDocs showTitle={false} parsedSource={metadata} />
+    <AutoDocs parsedSource={metadata} />
   );
 };
