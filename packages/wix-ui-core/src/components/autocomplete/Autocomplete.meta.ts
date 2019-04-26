@@ -3,6 +3,7 @@ import Registry from '@ui-autotools/registry';
 
 const autocompleteMetadata = Registry.getComponentMetadata(Autocomplete);
 autocompleteMetadata.nonReactStrictModeCompliant = true;
+autocompleteMetadata.nonHydrationTestCompliant = true;
 
 autocompleteMetadata.addSim({
   title: 'Simulation with default props',

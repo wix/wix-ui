@@ -169,6 +169,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
+  testId: string;
+  contentHook: string;
 
   popperScheduleUpdate: () => void = null;
 
@@ -176,18 +178,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   _hideTimeout: any = null;
   _showTimeout: any = null;
 
-  state = {
-    isMounted: false,
-    shown: this.props.shown || false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMounted: false,
+      shown: this.props.shown || false,
+    };
 
-  private testId = Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
+    this.testId = Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
 
-  private contentHook = `tooltip-content-${this.props['data-hook'] || ''}-${
-    this.testId
-  }`;
+    this.contentHook = `popover-content-${this.props['data-hook'] || ''}-${
+      this.testId
+    }`;
+  }
 
   _handleClickOutside = () => {
     if (this.props.onClickOutside) {
