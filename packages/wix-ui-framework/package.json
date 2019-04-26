@@ -2,7 +2,7 @@
   "private": false,
   "name": "wix-ui-framework",
   "bin": {
-    "wuf": "./bin/generate.js"
+    "wuf": "./bin/start.js"
   },
   "version": "1.0.0",
   "author": {
