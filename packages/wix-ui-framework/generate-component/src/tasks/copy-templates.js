@@ -6,8 +6,6 @@ const replaceTemplates = require('../replace-templates')
 const createValuesMap = require('../create-values-map')
 
 const templateNamePlaceholder = 'Component'
-const defaultTemplatesPath = path.join(process.cwd(), 'generator/templates')
-const defaultRootDir = process.cwd()
 
 const pathExists = path =>
   new Promise(resolve => {
@@ -17,18 +15,17 @@ const pathExists = path =>
   })
 
 const copyTemplates = async ({
-  answers = {},
-  templatesPath = defaultTemplatesPath,
-  rootDir = defaultRootDir
-} = {}) => {
+    cwd,
+    answers
+  } = {}) => {
   if (!answers.ComponentName) {
     throw new Error('Component name must be provided!')
   }
 
-  const readdir = entry =>
+  const readdir = entry => 
     fs.readdirSync(entry).map(dir => path.join(entry, dir))
 
-  const queue = readdir(templatesPath)
+  const queue = readdir(answers.templatesPath)
 
   while (queue.length) {
     const itemPath = queue.shift()
@@ -36,7 +33,7 @@ const copyTemplates = async ({
     const isDir = fs.lstatSync(itemPath).isDirectory()
 
     const newDestPath = path
-      .join(rootDir, itemPath.replace(templatesPath, ''))
+      .join(cwd, itemPath.replace(answers.templatesPath, ''))
       .replace(
         new RegExp(`${templateNamePlaceholder}`, 'g'),
         answers.ComponentName

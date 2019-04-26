@@ -9,10 +9,11 @@ const runCodemod = ({
   codemod,
   dist,
   description,
-  options: { ComponentName, componentName }
-}) =>
-  new Promise((resolve, reject) => {
-    const codemodPath = path.join(process.cwd(), 'generator/codemods', codemod)
+  options,
+  cwd
+}) => {
+  return new Promise((resolve, reject) => {
+    const codemodPath = path.join(options.codemodsPath, codemod)
 
     const pathToExecutable = path.join(
       __dirname,
@@ -25,10 +26,10 @@ const runCodemod = ({
     )
 
     const command = `${pathToExecutable} \
-          ${path.join(process.cwd(), dist)} \
+          ${path.join(cwd, dist)} \
           -t ${codemodPath} \
-          --ComponentName=${ComponentName} \
-          --componentName=${componentName} \
+          --ComponentName=${options.ComponentName} \
+          --componentName=${options.componentName} \
           --verbose=2`
 
     const execProc = exec(command)
@@ -43,20 +44,17 @@ const runCodemod = ({
       resolve()
     })
   })
+}
 
-module.exports = ({ answers }) => {
+module.exports = ({ answers, cwd }) => {
   try {
-    const codemods = require(path.join(
-      process.cwd(),
-      'generator/codemods/index.js'
-    ))
+    const codemods = require(path.join(answers.codemodsPath, 'index.js'))
     return Promise.all(
       codemods.map(
-        codemod => runCodemod({ ...codemod, options: createValuesMap(answers) })
+        codemod => runCodemod({ ...codemod, options: createValuesMap(answers), cwd })
       )
     )
   } catch(e) {
-    console.log('\nNo codemods found!')
-    return Promise.resolve()
+    return Promise.reject(e)
   }
 }

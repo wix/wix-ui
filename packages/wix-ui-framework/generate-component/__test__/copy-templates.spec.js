@@ -48,12 +48,12 @@ describe('copyTemplates', () => {
     const answers = {
       ComponentName: 'MyNewComponent',
       description: "This is a very cool component, ya'll",
+      templatesPath: path.join(__dirname, 'templates'),
     };
 
     await copyTemplates({
       answers,
-      templatesPath: path.join(__dirname, 'templates'),
-      rootDir: tempDir
+      cwd: tempDir
     });
 
     expect(getDirSnapshot(tempDir)).toMatchSnapshot();
@@ -63,28 +63,12 @@ describe('copyTemplates', () => {
     const answers = {
       ComponentName: 'MyNewComponent',
       description: undefined,
+      templatesPath: path.join(__dirname, 'templates'),
     };
 
     await copyTemplates({
       answers,
-      templatesPath: path.join(__dirname, 'templates'),
-      rootDir: tempDir
-    });
-
-    expect(getDirSnapshot(tempDir)).toMatchSnapshot();
-  });
-
-  it('should work for test component', async () => {
-    const answers = {
-      ComponentName: 'MyTestComponent',
-      description: undefined,
-      testComponent: true,
-    };
-
-    await copyTemplates({
-      answers,
-      templatesPath: path.join(__dirname, 'templates'),
-      rootDir: tempDir
+      cwd: tempDir
     });
 
     expect(getDirSnapshot(tempDir)).toMatchSnapshot();
