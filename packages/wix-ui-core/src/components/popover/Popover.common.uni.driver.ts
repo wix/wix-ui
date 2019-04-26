@@ -10,14 +10,13 @@ export const CommonDriver = (base: UniDriver, body: UniDriver) => {
   };
 
   const getContentElement = async () => {
-    return (
-      (await base.$$(`[data-hook="popover-content"]`)[0]) ||
-      body.$(`[data-content-element="${await base.attr('data-content-hook')}"]`)
-    );
+    const contentHook = await base.attr('data-content-hook');
+    const contentSelector = `[data-content-element="${contentHook}"]`;
+    return queryDocumentOrElement(contentSelector);
   };
 
   return {
     queryDocumentOrElement,
-    getContentElement: () => getContentElement(),
+    getContentElement,
   };
 };
