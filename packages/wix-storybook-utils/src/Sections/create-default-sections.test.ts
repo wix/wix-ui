@@ -51,5 +51,32 @@ describe('createDefaultSection', () => {
 
       expect((firstSection as HeaderSection).sourceUrl).toEqual('base/name');
     });
+
+    describe('title', () => {
+      it('should be taken from displayName', () => {
+        const displayName = 'best name';
+        const config = storyConfig({
+          metadata: {
+            displayName,
+          },
+        });
+
+        const [firstSection] = createDefaultSections(config);
+        expect(firstSection.title).toEqual(displayName);
+      });
+
+      it('should prioritize storyName', () => {
+        const storyName = 'besterer name';
+        const config = storyConfig({
+          storyName,
+          metadata: {
+            displayName: 'i should be ignored',
+          },
+        });
+
+        const [firstSection] = createDefaultSections(config);
+        expect(firstSection.title).toEqual(storyName);
+      });
+    });
   });
 });
