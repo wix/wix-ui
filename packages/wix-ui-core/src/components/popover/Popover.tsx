@@ -182,14 +182,14 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     super(props);
     this.state = {
       isMounted: false,
-      shown: this.props.shown || false,
+      shown: props.shown || false,
     };
 
     this.testId = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
 
-    this.contentHook = `popover-content-${this.props['data-hook'] || ''}-${
+    this.contentHook = `popover-content-${props['data-hook'] || ''}-${
       this.testId
     }`;
   }

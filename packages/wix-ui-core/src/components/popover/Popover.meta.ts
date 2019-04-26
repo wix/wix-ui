@@ -3,7 +3,6 @@ import Registry from '@ui-autotools/registry';
 
 const popoverMetadata = Registry.getComponentMetadata(Popover);
 popoverMetadata.nonEventListenerTestCompliant = true;
-popoverMetadata.nonHydrationTestCompliant = true;
 
 popoverMetadata.addSim({
   title: 'Simulation with default props',

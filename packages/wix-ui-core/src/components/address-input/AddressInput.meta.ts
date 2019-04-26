@@ -10,7 +10,7 @@ GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstructor;
 const addressInputMeta = Registry.getComponentMetadata(AddressInput);
 addressInputMeta.nonReactStrictModeCompliant = true;
-addressInputMeta.nonHydrationTestCompliant = true;
+//addressInputMeta.nonHydrationTestCompliant = true;
 
 addressInputMeta.addSim({
   title: 'Simulation with default props',
