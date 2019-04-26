@@ -12,12 +12,12 @@ export default class TabbedView extends Component {
     activeTabId: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.node,
-      PropTypes.arrayOf(PropTypes.node)
-    ])
+      PropTypes.arrayOf(PropTypes.node),
+    ]),
   };
 
   static defaultProps = {
-    showTabs: !isE2E
+    showTabs: !isE2E,
   };
 
   constructor(props) {
@@ -25,7 +25,7 @@ export default class TabbedView extends Component {
     const activeTabFromQuery = queryString.parse(window.parent.location.search)
       .activeTab;
     this.state = {
-      activeTabId: activeTabFromQuery || props.activeTabId || props.tabs[0]
+      activeTabId: activeTabFromQuery || props.activeTabId || props.tabs[0],
     };
   }
 

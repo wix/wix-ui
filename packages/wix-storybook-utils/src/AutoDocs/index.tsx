@@ -38,7 +38,7 @@ interface AutoDocsProps {
   metadata: Metadata;
 }
 
-const AutoDocs: React.SFC<AutoDocsProps> = ({ metadata }) => {
+const AutoDocs: React.FunctionComponent<AutoDocsProps> = ({ metadata }) => {
   const { props, methods = [] } = metadata;
 
   const publicMethods = methods.filter(({ name }) => !name.startsWith('_'));

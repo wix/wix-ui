@@ -89,7 +89,7 @@ interface Props {
   props: { [s: string]: Prop };
 }
 
-export const PropsTable: React.SFC<Props> = ({ props }) => (
+export const PropsTable: React.FunctionComponent<Props> = ({ props }) => (
   <table data-hook="autodocs-props-table">
     <thead>
       <tr>
