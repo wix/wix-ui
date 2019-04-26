@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const tempy = require('tempy');
 const globby = require('globby');
-const utils = require('../src/utils');
-const logger = require('../src/logger');
-const copyTemplates = require('../src/tasks/copy-templates');
+const utils = require('../utils');
+const logger = require('../logger');
+const copyTemplates = require('../tasks/copy-templates');
 
 // Extracted from
 // https://github.com/wix/yoshi/blob/master/packages/create-yoshi-app/src/getFilesInDir.js

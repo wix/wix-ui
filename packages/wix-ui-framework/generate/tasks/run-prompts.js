@@ -20,10 +20,6 @@ module.exports = async () => {
           return 'Component name must be in PascalCase';
         }
 
-        if (utils.isComponentExists(value)) {
-          return `Component <${value}/> already exists`;
-        }
-
         return true;
       },
     },

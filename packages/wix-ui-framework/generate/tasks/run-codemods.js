@@ -1,7 +1,6 @@
 const path = require('path')
 const { exec } = require('child_process')
 
-const utils = require('../utils')
 const logger = require('../logger')
 const createValuesMap = require('../create-values-map')
 
@@ -17,7 +16,6 @@ const runCodemod = ({
 
     const pathToExecutable = path.join(
       __dirname,
-      '..',
       '..',
       '..',
       'node_modules',

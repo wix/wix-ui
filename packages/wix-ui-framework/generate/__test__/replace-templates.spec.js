@@ -1,4 +1,4 @@
-const replaceTemplates = require('../src/replace-templates');
+const replaceTemplates = require('../tasks/replace-templates');
 
 describe('replaceTemplates', () => {
   it('should work as expected', () => {

@@ -1,4 +1,4 @@
-const createValuesMap = require('../src/create-values-map');
+const createValuesMap = require('../create-values-map');
 
 describe('createValuesMap', () => {
   it('should add a `componentName` field based on `ComponentName`', () => {

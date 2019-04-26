@@ -1,14 +1,7 @@
 const chalk = require('chalk');
-
 const logger = require('./logger');
 
 module.exports = async options => {
-  logger.info(
-    `Generating ${chalk.cyan(
-      `<${options.answers.ComponentName}/>`,
-    )} component...`,
-  );
-
   const tasks = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
@@ -27,16 +20,16 @@ module.exports = async options => {
       message: 'Fill templates',
       skipped: options.skipCodemods,
     },
-    {
-      task: () => require('./tasks/run-lint-fix'),
-      message: 'Lint fix',
-    },
   ];
 
+  logger.info(
+    `Generating ${chalk.cyan(
+      `<${options.answers.ComponentName}/>`,
+    )} component...`,
+  );
+
   return tasks
-
     .filter(({ skipped }) => !skipped)
-
     .reduce(
       (promise, { task, message = '' }) =>
         promise.then(() => {
@@ -49,7 +42,6 @@ module.exports = async options => {
         }),
       Promise.resolve(),
     )
-
     .then(() =>
       logger.success(
         `${chalk.cyan(
@@ -57,7 +49,6 @@ module.exports = async options => {
         )} generated successfully!`,
       ),
     )
-
     .catch(e => {
       logger.error(e);
       process.exit(1);

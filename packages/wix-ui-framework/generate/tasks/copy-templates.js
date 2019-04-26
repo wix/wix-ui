@@ -1,15 +1,14 @@
 const fs = require('fs')
 const path = require('path')
 
-const utils = require('../utils')
-const replaceTemplates = require('../replace-templates')
+const replaceTemplates = require('./replace-templates')
 const createValuesMap = require('../create-values-map')
 
 const templateNamePlaceholder = 'Component'
 
-const pathExists = path =>
+const pathExists = p =>
   new Promise(resolve => {
-    fs.access(path, fs.constants.F_OK, err => {
+    fs.access(p, fs.constants.F_OK, err => {
       resolve(!err)
     })
   })
@@ -45,14 +44,12 @@ const copyTemplates = async ({
       if (!(await pathExists(newDestPath))) {
         fs.mkdirSync(newDestPath)
       }
-    } else {
-      if (!(await pathExists(newDestPath))) {
-        const replaced = replaceTemplates(
-          fs.readFileSync(itemPath, 'utf8'),
-          createValuesMap(answers)
-        )
-        fs.writeFileSync(newDestPath, replaced, 'utf8')
-      }
+    } else if (!(await pathExists(newDestPath))) {
+      const replaced = replaceTemplates(
+        fs.readFileSync(itemPath, 'utf8'),
+        createValuesMap(answers)
+      )
+      fs.writeFileSync(newDestPath, replaced, 'utf8')
     }
   }
 }

@@ -1,8 +1,8 @@
 const tempy = require('tempy');
 
-const logger = require('../src/logger');
-const utils = require('../src/utils');
-const verifyWorkingDirectory = require('../src/tasks/verify-working-directory');
+const logger = require('../logger');
+const utils = require('../utils');
+const verifyWorkingDirectory = require('../tasks/verify-working-directory');
 
 let isGitRepoCleanSpy;
 
