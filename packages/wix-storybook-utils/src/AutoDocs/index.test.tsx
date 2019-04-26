@@ -3,11 +3,33 @@ import { mount } from 'enzyme';
 
 import AutoDocs from './';
 
+const testkit = () => {
+  let component;
+
+  const byHook = hook => component.find(`[data-hook="${hook}"]`);
+
+  return {
+    when: {
+      created: props => {
+        component = mount(<AutoDocs {...props} />);
+        return component;
+      },
+    },
+
+    get: {
+      propsTables: () => byHook('autodocs-props-table'),
+      propRows: () => byHook('autodocs-prop-row-name'),
+      methodsTable: () => byHook('autodocs-methods-table'),
+      methodsTableTitle: () => byHook('autodocs-methods-table-title'),
+    },
+  };
+};
+
 describe('AutoDocs', () => {
   it('should render props sorted alphabetically with required prioritized', () => {
     const type = { name: 'string' };
     const props = {
-      parsedSource: {
+      metadata: {
         displayName: '',
         props: {
           d: { type },
@@ -21,41 +43,23 @@ describe('AutoDocs', () => {
 
     const expectedOrder = ['z', '42z', 'a', 'd', 'dz'];
 
-    const rendered = mount(<AutoDocs {...props} />)
-      .find('[data-hook="autodocs-prop-row-name"]')
-      .map(node => node.text());
+    const driver = testkit();
+    driver.when.created(props);
+    const propNames = driver.get.propRows().map(node => node.text());
 
-    expect(rendered).toEqual(expectedOrder);
+    expect(propNames).toEqual(expectedOrder);
   });
 
-  describe('`showMethods` prop', () => {
-    it('should be true by default', () => {
-      const props = {
-        parsedSource: {
-          displayName: '',
-          props: {},
-          methods: [{ name: 'testMethod' }],
+  describe('given metadata with deprecated props', () => {
+    it('should display separate table for depreacted props', () => {
+      const driver = testkit();
+      driver.when.created({
+        metadata: {
+          props: { deprecated: { tags: [{ title: 'deprecated' }] } },
         },
-      };
+      });
 
-      const rendered = mount(<AutoDocs {...props} />);
-      expect(rendered.find('[data-hook="methods-table"] h2').text()).toEqual(
-        'Public methods',
-      );
-    });
-
-    it('should hide methods table when false', () => {
-      const props = {
-        showMethods: false,
-        parsedSource: {
-          displayName: '',
-          props: {},
-          methods: [{ name: 'testMethod', params: [] }],
-        },
-      };
-
-      const rendered = mount(<AutoDocs {...props} />);
-      expect(rendered.find('[data-hook="methods-table"]').length).toEqual(0);
+      expect(driver.get.propsTables().length).toEqual(2);
     });
   });
 });
