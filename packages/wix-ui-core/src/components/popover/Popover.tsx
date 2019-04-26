@@ -181,6 +181,14 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     shown: this.props.shown || false,
   };
 
+  private testId = Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+
+  private contentHook = `tooltip-content-${this.props['data-hook'] || ''}-${
+    this.testId
+  }`;
+
   _handleClickOutside = () => {
     if (this.props.onClickOutside) {
       this.props.onClickOutside();
@@ -224,6 +232,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             <div
               ref={ref}
               data-hook="popover-content"
+              data-content-element={this.contentHook}
               style={popperStyles}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
@@ -470,6 +479,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           <div
             style={inlineStyles}
             data-hook={this.props['data-hook']}
+            data-content-hook={this.contentHook}
             {...style('root', {}, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}

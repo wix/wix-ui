@@ -1,12 +1,12 @@
-const queryDocumentOrElement = (element, query) =>
-  (element && element.querySelectorAll(query)[0]) ||
-  (document && document.querySelector(query));
-
 const getTargetElement = (element: Element | undefined) =>
   element && element.querySelectorAll('[data-hook="popover-element"]')[0];
 
 const getContentElement = (element: Element | undefined) =>
-  queryDocumentOrElement(element, '[data-hook="popover-content"]');
+  (element && element.querySelectorAll(`[data-hook="popover-content"]`)[0]) ||
+  (document &&
+    document.body.querySelector(
+      `[data-content-element="${element.getAttribute('data-content-hook')}"]`,
+    ));
 
 const getArrowElement = (element: Element | undefined) =>
   element && element.querySelectorAll('[data-hook="popover-arrow"]')[0];
