@@ -15,6 +15,7 @@ export type MountFunctionType = (
   node: React.ReactElement<any>,
   options?: MountRendererProps
 ) => ReactWrapper;
+
 export type EnzymeDriverFactory<T extends BaseDriver> = (data: {
   element: Element | undefined;
   wrapper: ReactWrapper;
@@ -42,7 +43,7 @@ export function enzymeTestkitFactoryCreator<T extends BaseDriver>(
   };
 }
 
-export interface options {
+export interface Configs {
   dataHook?: string;
 }
 
@@ -50,7 +51,7 @@ export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver>(
   driverFactory: (
     base: UniDriver,
     body: UniDriver,
-    {dataHook: string}: options
+    {dataHook: string}: Configs
   ) => T
 ) {
   return (obj: WrapperData) => {

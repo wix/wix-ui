@@ -4,14 +4,14 @@ import {BaseUniDriver} from '../base-driver';
 import {UniDriver} from '@unidriver/core';
 import {jsdomReactUniDriver} from '@unidriver/jsdom-react';
 
-export interface Options {
+export interface Configs {
   dataHook?: string;
 }
 
 export type UniDriverFactory<TDriver extends BaseUniDriver> = (
   base: UniDriver,
   body?: UniDriver,
-  {  }?: Options
+  {  }?: Configs
 ) => TDriver;
 
 function componentFactory(Component: React.ReactElement<any>): UniDriver {

@@ -12,12 +12,12 @@ export function protractorTestkitFactoryCreator<T>(
       : driverFactory($(`[data-hook='${obj.dataHook}']`));
 }
 
-export interface options {
+export interface Configs {
   dataHook?: string;
 }
 
 export function protractorUniTestkitFactoryCreator<T extends BaseUniDriver>(
-  driverFactory: (base: UniDriver, body: UniDriver, {  }: options) => T
+  driverFactory: (base: UniDriver, body: UniDriver, {  }: Configs) => T
 ) {
   return (obj: { dataHook: string }) => {
     const base = protractorUniDriver(

@@ -10,12 +10,12 @@ export function puppeteerTestkitFactoryCreator<T>(
     driverFactory(await obj.page.$(`[data-hook='${obj.dataHook}']`), obj.page);
 }
 
-export interface Options {
+export interface Configs {
   dataHook?: string;
 }
 
 export function puppeteerUniTestkitFactoryCreator<T extends BaseUniDriver>(
-  driverFactory: (base: UniDriver, body: UniDriver, {  }: Options) => T
+  driverFactory: (base: UniDriver, body: UniDriver, {  }: Configs) => T
 ) {
   return async (obj: { dataHook: string; page: Page }) => {
     const base = pupUniDriver({
