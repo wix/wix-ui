@@ -18,6 +18,14 @@ class Component extends React.Component {
       valueSetOnMounting: this.props.valueSetOnMounting,
     };
   }
+
+  _privateMethod() {}
+
+  /** this is a public method */
+  publicMethod(property) {
+    return property;
+  }
+
   render() {
     const { enabled, children, onClick, number } = this.props;
     return (

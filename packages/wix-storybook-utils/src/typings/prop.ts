@@ -1,12 +1,19 @@
 // TODO: not yet full definition
 export interface Prop {
   type: {
-    name: string;
-    value: [];
+    name?: string;
+    value?: {
+      value?: string;
+      computed?: boolean;
+    }[];
   };
-  required: boolean;
-  description: string;
+  required?: boolean;
+  description?: string;
   tags?: Tag[];
+  defaultValue?: {
+    value?: string;
+    computed?: boolean;
+  };
 }
 
 interface Tag {
