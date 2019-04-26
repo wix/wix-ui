@@ -33,7 +33,8 @@ export function testkitFactoryCreator<T extends BaseDriver>(
     driverFactory({
       element: getElement(testkitArgs) as Element,
       wrapper: testkitArgs.wrapper,
-      eventTrigger: reactEventTrigger()
+      eventTrigger: reactEventTrigger(),
+      dataHook: testkitArgs.dataHook,
     });
 }
 
@@ -42,7 +43,11 @@ export function uniTestkitFactoryCreator<T extends BaseUniDriver>(
 ) {
   return (testkitArgs: TestkitArgs) => {
     const element = getElement(testkitArgs) as Element;
-    return driverFactory(jsdomReactUniDriver(element), jsdomReactUniDriver(document.body));
+    return driverFactory(
+      jsdomReactUniDriver(element),
+      jsdomReactUniDriver(document.body),
+      {dataHook: testkitArgs.dataHook}
+    );
   };
 }
 
