@@ -2,32 +2,31 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver} from 'wix-ui-test-utils/unidriver';
+import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import styles from './LinearProgressBar.st.css';
-import {ReactBase} from '../../../test/utils/unidriver/ReactBase';
-import {StylableUnidriverUtil} from '../../../test/StylableUnidriverUtil';
+import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
 
 export interface LinearProgressBarUniDriver extends BaseUniDriver {
   /** Get the width of the foreground bar (the progress) */
-  getWidth: () => Promise<string>;
+  getWidth(): Promise<string>;
   /** Returns Promise<boolean that indicates if the success icon exists */
-  isSuccessIconDisplayed: () => Promise<boolean>;
+  isSuccessIconDisplayed(): Promise<boolean>;
   /** Returns Promise<boolean that indicates if the error icon exists */
-  isErrorIconDisplayed: () => Promise<boolean>;
+  isErrorIconDisplayed(): Promise<boolean>;
   /** Returns Promise<boolean that indicates if the progress percentages text exists */
-  isPercentagesProgressDisplayed: () => Promise<boolean>;
+  isPercentagesProgressDisplayed(): Promise<boolean>;
   /** Get the progress percentages value */
-  getValue: () => Promise<string>;
+  getValue(): Promise<string>;
   /** Get the progress numeric value */
-  getNumericValue: () => Promise<number>;
+  getNumericValue(): Promise<number>;
   /** Returms true if has progress completed (value is 100) */
-  isCompleted: () => Promise<boolean>;
+  isCompleted(): Promise<boolean>;
   /** Returms true if has error */
-  hasError: () => Promise<boolean>;
+  hasError(): Promise<boolean>;
 }
 
 export const linearProgressBarUniDriverFactory = (
-  base: UniDriver
+  base: UniDriver,
 ): LinearProgressBarUniDriver => {
   const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
