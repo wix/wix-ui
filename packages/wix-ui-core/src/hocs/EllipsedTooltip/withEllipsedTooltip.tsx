@@ -6,10 +6,10 @@ import { getDisplayName } from '../utils';
 const debounce = require('lodash/debounce');
 
 interface EllipsedTooltipProps {
-  component: React.ReactElement;
+  component: React.ReactElement<any>;
   showTooltip?: boolean;
   style?: object;
-}
+};
 
 interface EllipsedTooltipState {
   isEllipsisActive: boolean;
