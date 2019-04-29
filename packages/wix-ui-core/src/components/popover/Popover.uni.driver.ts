@@ -29,7 +29,7 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
     /** Returns `true` whether the content element (`<Popover.Content/>`) exists */
     isContentElementExists: async () => byHook('popover-content').exists(),
 
-    mouseEnter: () => byHook('popover-element').hover(),
+    mouseEnter: () => base.hover(),
 
     mouseLeave: async () => reactBase.mouseLeave(),
 
