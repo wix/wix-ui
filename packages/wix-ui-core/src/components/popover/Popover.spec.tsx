@@ -105,7 +105,7 @@ function runTests(createDriver, container) {
       );
 
       await driver.mouseEnter();
-      expect(onMouseEnter).toBeCalled();
+      expect(onMouseEnter).toHaveBeenCalled();
 
       await driver.mouseLeave();
       expect(onMouseLeave).toBeCalled();

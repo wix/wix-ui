@@ -169,6 +169,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
+  contentHook: string;
 
   popperScheduleUpdate: () => void = null;
 
@@ -176,10 +177,14 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   _hideTimeout: any = null;
   _showTimeout: any = null;
 
-  state = {
-    isMounted: false,
-    shown: this.props.shown || false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMounted: false,
+      shown: props.shown || false,
+    };
+    this.contentHook = `popover-content-${props['data-hook']}`;
+  }
 
   _handleClickOutside = () => {
     if (this.props.onClickOutside) {
@@ -224,6 +229,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             <div
               ref={ref}
               data-hook="popover-content"
+              data-content-element={this.contentHook}
               style={popperStyles}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
@@ -470,6 +476,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           <div
             style={inlineStyles}
             data-hook={this.props['data-hook']}
+            data-content-hook={this.contentHook}
             {...style('root', {}, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
