@@ -2,7 +2,7 @@
   "private": false,
   "name": "wix-ui-framework",
   "bin": {
-    "wuf": "./generate-component/bin/generate-component.js"
+    "wuf": "./bin/start.js"
   },
   "version": "1.0.0",
   "author": {
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "#",
-    "test": "#",
+    "test": "yoshi test --jest",
     "lint": "yoshi lint",
     "start": "#",
     "release": "yoshi release"
@@ -28,11 +28,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "jest": "^24.7.1",
     "jscodeshift": "^0.6.3",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
     "raf": "^3.4.0",
     "simple-git": "^1.110.0",
     "yoshi": "^4.3.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "__test__/templates",
+      "__test__/codemods"
+    ]
   }
 }
