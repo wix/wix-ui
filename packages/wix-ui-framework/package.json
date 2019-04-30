@@ -28,13 +28,14 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {
-    "jest": "^24.7.1",
+  "dependencies": {
     "jscodeshift": "^0.6.3",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
-    "raf": "^3.4.0",
-    "simple-git": "^1.110.0",
+    "simple-git": "^1.110.0"
+  },
+  "devDependencies": {
+    "jest": "^24.7.1",
     "yoshi": "^4.3.0"
   },
   "jest": {
