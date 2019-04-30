@@ -27,21 +27,11 @@ describe('wuf', () => {
     });
   });
 
-  describe('--help', () => {
-    it('should echo help with all commands', async () => {
-      const { stdout } = await cli({ args: '--help' });
-      expect(stdout).toEqual(
-        `
-Usage: start [options] [command]
-
-Options:
-  -v, --version       output the version number
-  -h, --help          output usage information
-
-Commands:
-  generate [options]  Generate a UI component
-      `.trim(),
-      );
+  describe('given no argument', () => {
+    it('should display help', async () => {
+      const help = (await cli({ args: '--help' })).stdout;
+      const noArg = (await cli({ args: '' })).stdout;
+      expect(noArg).toEqual(help);
     });
   });
 });

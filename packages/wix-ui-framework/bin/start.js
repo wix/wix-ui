@@ -4,22 +4,29 @@ const generate = require('../generate');
 
 const { version } = require('../package.json');
 
-program
-  .version(version, '-v, --version')
+program.name('wuf').version(version, '-v, --version');
 
+program
   .command('generate')
-  .description('Generate a UI component')
-  .option('-f, --force', 'Skip some pre-run checks')
+  .description('Scaffold file structure from templates')
+  .option(
+    '-f, --force',
+    "Skip some pre-run checks. Use only if you know what you're doing",
+  )
   .option('--component-name <componentName>', 'Component name')
   .option('--description <description>', 'Component description')
   .option(
     '--templates <templatesPath>',
-    'Templates location. Default is /generator/templates/',
+    'Path to templates. Default is "/generator/templates/"',
   )
   .option(
     '--codemods <codemodsPath>',
-    'Codemods location. Default is /generator/codemods/',
+    'Path to codemods. Default is "/generator/codemods/"',
   )
   .action(generate);
+
+if (!process.argv.slice(2).length) {
+  program.help();
+}
 
 program.parse(process.argv);
