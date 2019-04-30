@@ -22,13 +22,15 @@
     "test": "yoshi test --jest",
     "lint": "yoshi lint",
     "start": "#",
-    "release": "yoshi release"
+    "release": "yoshi release",
+    "wuf": "./bin/start.js"
   },
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
+    "commander": "^2.20.0",
     "jscodeshift": "^0.6.3",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",

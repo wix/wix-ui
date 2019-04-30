@@ -2,9 +2,12 @@
 const program = require('commander');
 const generate = require('../generate');
 
+const { version } = require('../package.json');
+
 program
+  .version(version, '-v, --version')
+
   .command('generate')
-  .version('0.0.1')
   .description('Generate a UI component')
   .option('-f, --force', 'Skip some pre-run checks')
   .option('--component-name <componentName>', 'Component name')
