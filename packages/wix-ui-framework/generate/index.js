@@ -27,12 +27,10 @@ module.exports = ({
   if (componentName) {
     return runTasks({
       cwd,
-      answers: {
-        ComponentName: componentName,
-        description,
-        templatesPath: path.join(cwd, templates || defaultTemplatesPath),
-        codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
-      },
+      ComponentName: componentName,
+      description,
+      templatesPath: path.join(cwd, templates || defaultTemplatesPath),
+      codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
       force,
     });
   }
@@ -40,11 +38,9 @@ module.exports = ({
   return runPrompts().then(answers =>
     runTasks({
       cwd,
-      answers: {
-        ...answers,
-        templatesPath: path.join(cwd, templates || defaultTemplatesPath),
-        codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
-      },
+      ...answers,
+      templatesPath: path.join(cwd, templates || defaultTemplatesPath),
+      codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
       force,
     }),
   );

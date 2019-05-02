@@ -1,7 +1,7 @@
 import { Category } from '../../../stories/storiesHierarchy';
 
 export const storySettings = {
-  category: Category.{%CATEGORY%},
+  category: Category.COMPONENTS,
   storyName: '{%ComponentName%}',
   dataHook: 'story-{%component-name%}',
   testStoryNames: {
