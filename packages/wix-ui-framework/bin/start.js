@@ -1,18 +1,32 @@
 #!/usr/bin/env node
-const program = require('commander')
-const generate = require('../generate')
+const program = require('commander');
+const generate = require('../generate');
+
+const { version } = require('../package.json');
+
+program.name('wuf').version(version, '-v, --version');
 
 program
   .command('generate')
-  .version('0.0.1')
-  .description('Generate a UI component')
-  .option('-f, --force', 'Skip some pre-run checks')
+  .description('Scaffold file structure from templates')
+  .option(
+    '-f, --force',
+    "Skip some pre-run checks. Use only if you know what you're doing",
+  )
   .option('--component-name <componentName>', 'Component name')
   .option('--description <description>', 'Component description')
-  .option( '--templates <templatesPath>', 'Templates location. Default is /generator/templates/')
-  .option( '--codemods <codemodsPath>', 'Codemods location. Default is /generator/codemods/')
-  .action(generate)
+  .option(
+    '--templates <templatesPath>',
+    'Path to templates. Default is "/generator/templates/"',
+  )
+  .option(
+    '--codemods <codemodsPath>',
+    'Path to codemods. Default is "/generator/codemods/"',
+  )
+  .action(options => generate(options).catch(e => console.error(e)));
 
-program.parse(process.argv)
+if (!process.argv.slice(2).length) {
+  program.help();
+}
 
-
+program.parse(process.argv);

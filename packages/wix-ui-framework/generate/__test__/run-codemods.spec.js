@@ -1,4 +1,3 @@
-jest.autoMockOff();
 const defineTest = require('jscodeshift/dist/testUtils').defineTest;
 
 const options = {
@@ -6,12 +5,16 @@ const options = {
   componentName: 'myNewComponent',
 };
 
-console.log('DIRNAME', __dirname)
 defineTest(__dirname, '__test__/codemods/stories-file', options, 'stories');
 
 defineTest(__dirname, '__test__/codemods/index-file', options, 'index');
 
-defineTest(__dirname, '__test__/codemods/testkit-exports', options, 'testkit-index');
+defineTest(
+  __dirname,
+  '__test__/codemods/testkit-exports',
+  options,
+  'testkit-index',
+);
 
 defineTest(
   __dirname,

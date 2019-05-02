@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const logger = require('./logger');
 
-module.exports = async options => {
+module.exports = options => {
   const tasks = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
@@ -23,13 +23,12 @@ module.exports = async options => {
   ];
 
   logger.info(
-    `Generating ${chalk.cyan(
-      `<${options.answers.ComponentName}/>`,
-    )} component...`,
+    `Generating ${chalk.cyan(`<${options.ComponentName}/>`)} component...`,
   );
 
   return tasks
     .filter(({ skipped }) => !skipped)
+
     .reduce(
       (promise, { task, message = '' }) =>
         promise.then(() => {
@@ -42,13 +41,13 @@ module.exports = async options => {
         }),
       Promise.resolve(),
     )
+
     .then(() =>
       logger.success(
-        `${chalk.cyan(
-          `<${options.answers.ComponentName}/>`,
-        )} generated successfully!`,
+        `${chalk.cyan(`<${options.ComponentName}/>`)} generated successfully!`,
       ),
     )
+
     .catch(e => {
       logger.error(e);
       process.exit(1);

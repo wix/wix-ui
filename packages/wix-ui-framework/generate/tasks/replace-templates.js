@@ -8,11 +8,7 @@ module.exports = (content, map) => {
     const key = match.slice(2, -2);
 
     if (!map.hasOwnProperty(key)) {
-      throw new Error(
-        `the key ${key} suppose to be one of the following: ${Object.keys(
-          map,
-        )}`,
-      );
+      throw new Error(`key '${key}' must be one of: [${Object.keys(map)}]`);
     }
 
     return map[key];

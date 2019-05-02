@@ -1,18 +1,20 @@
-const path = require('path')
-const { exec } = require('child_process')
+const path = require('path');
+const { exec } = require('child_process');
 
-const logger = require('../logger')
-const createValuesMap = require('../create-values-map')
+const logger = require('../logger');
+const createValuesMap = require('../create-values-map');
 
 const runCodemod = ({
+  codemodsPath,
   codemod,
   dist,
   description,
-  options,
-  cwd
+  cwd,
+  ComponentName,
+  componentName,
 }) => {
   return new Promise((resolve, reject) => {
-    const codemodPath = path.join(options.codemodsPath, codemod)
+    const codemodPath = path.join(codemodsPath, codemod);
 
     const pathToExecutable = path.join(
       __dirname,
@@ -20,39 +22,47 @@ const runCodemod = ({
       '..',
       'node_modules',
       '.bin',
-      'jscodeshift'
-    )
+      'jscodeshift',
+    );
 
     const command = `${pathToExecutable} \
           ${path.join(cwd, dist)} \
           -t ${codemodPath} \
-          --ComponentName=${options.ComponentName} \
-          --componentName=${options.componentName} \
-          --verbose=2`
+          --ComponentName=${ComponentName} \
+          --componentName=${componentName} \
+          --verbose=2`;
 
-    const execProc = exec(command)
+    const execProc = exec(command);
 
     execProc.stderr.on('data', data => {
-      logger.error(`Error while running codemod ${codemod}: ${data.toString()}`)
-      reject(data.toString())
-    })
+      logger.error(
+        `Error while running codemod ${codemod}: ${data.toString()}`,
+      );
+      reject(data.toString());
+    });
 
     execProc.on('exit', () => {
-      logger.success(description)
-      resolve()
-    })
-  })
-}
+      logger.success(description);
+      resolve();
+    });
+  });
+};
 
-module.exports = ({ answers, cwd }) => {
+module.exports = ({ ComponentName, description, codemodsPath, cwd }) => {
   try {
-    const codemods = require(path.join(answers.codemodsPath, 'index.js'))
+    const codemods = require(path.join(codemodsPath, 'index.js'));
+
     return Promise.all(
-      codemods.map(
-        codemod => runCodemod({ ...codemod, options: createValuesMap(answers), cwd })
-      )
-    )
-  } catch(e) {
-    return Promise.reject(e)
+      codemods.map(codemod =>
+        runCodemod({
+          codemodsPath,
+          ...createValuesMap({ ComponentName, description }),
+          ...codemod,
+          cwd,
+        }),
+      ),
+    );
+  } catch (e) {
+    return Promise.reject(e);
   }
-}
+};

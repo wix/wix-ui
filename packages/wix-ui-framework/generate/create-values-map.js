@@ -1,19 +1,19 @@
 const utils = require('./utils');
 
-module.exports = answers => {
-  const componentName = utils.pascalToCamel(answers.ComponentName);
-  const componentNameSnake = utils.pascalToSnake(answers.ComponentName);
+module.exports = ({ ComponentName, description }) => {
+  const componentName = utils.pascalToCamel(ComponentName);
+  const componentNameSnake = utils.pascalToSnake(ComponentName);
 
   return {
-    ...answers,
+    ComponentName,
+    description,
     descriptionJSDoc:
-      answers.description === undefined
+      description === undefined
         ? ''
         : `/**
- * ${answers.description}
+ * ${description}
  */`,
     componentName,
-    CATEGORY: answers.testComponent ? 'TESTS' : 'COMPONENTS',
     'component-name': componentNameSnake,
   };
 };

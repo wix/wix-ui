@@ -18,22 +18,25 @@
   },
   "scripts": {
     "build": "#",
+    "pretest": "yoshi lint",
     "test": "yoshi test --jest",
     "lint": "yoshi lint",
     "start": "#",
-    "release": "yoshi release"
+    "wuf": "./bin/start.js"
   },
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {
-    "jest": "^24.7.1",
+  "dependencies": {
+    "commander": "^2.20.0",
     "jscodeshift": "^0.6.3",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
-    "raf": "^3.4.0",
-    "simple-git": "^1.110.0",
+    "simple-git": "^1.110.0"
+  },
+  "devDependencies": {
+    "jest": "^24.7.1",
     "yoshi": "^4.3.0"
   },
   "jest": {
@@ -41,5 +44,11 @@
       "__test__/templates",
       "__test__/codemods"
     ]
+  },
+  "eslintConfig": {
+    "extends": "yoshi",
+    "env": {
+      "jest": true
+    }
   }
 }

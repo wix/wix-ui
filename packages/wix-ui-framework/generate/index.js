@@ -1,53 +1,44 @@
-const cwd = process.cwd()
-const path = require('path')
-const logger = require('./logger');
+const cwd = process.cwd();
+const path = require('path');
 
 const runTasks = require('./run-tasks');
 const runPrompts = require('./tasks/run-prompts');
 
-const defaultTemplatesPath = 'generator/templates'
-const defaultDodemodsPath = 'generator/codemods'
+const defaultTemplatesPath = 'generator/templates';
+const defaultCodemodsPath = 'generator/codemods';
 
-module.exports = ({force, componentName, description, templates, codemods}) => {
-  let packageJson
-
+module.exports = ({
+  force,
+  componentName,
+  description,
+  templates,
+  codemods,
+}) => {
   try {
-    packageJson = require(path.join(cwd, 'package.json'))
+    require(path.join(cwd, 'package.json'));
   } catch (e) {
-    const message =
-      'No package.json found, `wuf` must be run in the module root'
-    logger.error(message)
-    return Promise.reject(message)
+    return Promise.reject(
+      'ERROR: `wuf generate` must be run at root of the module (where package.json exists).',
+    );
   }
 
-  if (componentName) {
-    return runTasks({
-      cwd,
-      answers: {
-        ComponentName: componentName,
-        description,
-        templatesPath: path.join(
-          cwd,
-          templates || defaultTemplatesPath
-        ),
-        codemodsPath: path.join(cwd, codemods || defaultDodemodsPath)
-      },
-      force
-    })
+  const options = {
+    cwd,
+    ComponentName: componentName,
+    description,
+    templatesPath: path.join(cwd, templates || defaultTemplatesPath),
+    codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
+    force,
+  };
+
+  if (options.componentName) {
+    return runTasks(options);
   }
 
-  return runPrompts().then(answers => 
+  return runPrompts().then(answers =>
     runTasks({
-      cwd,
-      answers: {
-        ...answers, 
-        templatesPath: path.join(
-          cwd,
-          templates || defaultTemplatesPath
-        ),
-        codemodsPath: path.join(cwd, codemods || defaultDodemodsPath)
-      },
-      force
-    })
-  )
-}
+      ...options,
+      ...answers,
+    }),
+  );
+};
