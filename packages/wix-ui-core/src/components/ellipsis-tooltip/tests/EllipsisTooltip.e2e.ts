@@ -59,6 +59,21 @@ describe('EllipsisTooltip', () => {
     );
   });
 
+  eyes.it(testNames.mandatoryNonoverridableCss, async () => {
+    await goToTestPage(testNames.mandatoryNonoverridableCss);
+
+    const textContentElement = byDataHook(
+      dataHooksContent.mandatoryNonoverridableCss,
+    );
+    expect(hasEllipsis(textContentElement)).toEqual(true);
+    await mouseEnter(textContentElement);
+    const tooltipTestkit = tooltipTestkitFactory({
+      dataHook: dataHooks.mandatoryNonoverridableCss,
+    });
+
+    expect(tooltipTestkit.isContentElementExists()).toEqual(true);
+  });
+
   eyes.it(testNames.noEllipsis, async () => {
     await goToTestPage(testNames.noEllipsis);
 

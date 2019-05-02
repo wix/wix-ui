@@ -12,6 +12,7 @@ interface EllipsisTooltipProps {
     childrenProps: any,
   ): {
     className?: string;
+    style?: object;
     [otherPropName: string]: any;
   };
   /** truncate the text but don't display a tooltip */
@@ -84,8 +85,14 @@ export class EllipsisTooltip extends React.Component<
   _renderChildren() {
     const { children } = this.props;
 
-    const enhancedChildrenProps = (childrenProps = { className: null }) => ({
+    const enhancedChildrenProps = (
+      childrenProps = { className: null, style: {} },
+    ) => ({
       className: classNames(childrenProps.className, ellipsisStyles.root),
+      style: {
+        ...childrenProps.style,
+        'white-space': 'nowrap', //required to make sure it will not break line
+      },
     });
 
     return (
