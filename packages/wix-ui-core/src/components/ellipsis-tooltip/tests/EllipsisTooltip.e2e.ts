@@ -71,7 +71,7 @@ describe('EllipsisTooltip', () => {
       dataHook: dataHooks.mandatoryNonoverridableCss,
     });
 
-    expect(tooltipTestkit.isContentElementExists()).toEqual(false);
+    expect(tooltipTestkit.isContentElementExists()).toEqual(true);
   });
 
   eyes.it(testNames.noEllipsis, async () => {
