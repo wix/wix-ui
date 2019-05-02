@@ -17,7 +17,7 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "#",
+    "build": "echo building",
     "pretest": "yoshi lint",
     "test": "yoshi test --jest",
     "lint": "yoshi lint",
