@@ -59,6 +59,21 @@ describe('EllipsisTooltip', () => {
     );
   });
 
+  eyes.it(testNames.mandatoryNonoverridableCss, async () => {
+    await goToTestPage(testNames.mandatoryNonoverridableCss);
+
+    const textContentElement = byDataHook(
+      dataHooksContent.mandatoryNonoverridableCss,
+    );
+    expect(hasEllipsis(textContentElement)).toEqual(true);
+    await mouseEnter(textContentElement);
+    const tooltipTestkit = tooltipTestkitFactory({
+      dataHook: dataHooks.mandatoryNonoverridableCss,
+    });
+
+    expect(tooltipTestkit.isContentElementExists()).toEqual(false);
+  });
+
   eyes.it(testNames.noEllipsis, async () => {
     await goToTestPage(testNames.noEllipsis);
 
@@ -67,21 +82,6 @@ describe('EllipsisTooltip', () => {
     await mouseEnter(textContentElement);
     const tooltipTestkit = tooltipTestkitFactory({
       dataHook: dataHooks.noEllipsis,
-    });
-
-    expect(tooltipTestkit.isContentElementExists()).toEqual(false);
-  });
-
-  eyes.it(testNames.mandatoryNonoverridableCss, async () => {
-    await goToTestPage(testNames.mandatoryNonoverridableCss);
-
-    const textContentElement = byDataHook(
-      dataHooksContent.mandatoryNonoverridableCss,
-    );
-    expect(hasEllipsis(textContentElement)).toEqual(false);
-    await mouseEnter(textContentElement);
-    const tooltipTestkit = tooltipTestkitFactory({
-      dataHook: dataHooks.mandatoryNonoverridableCss,
     });
 
     expect(tooltipTestkit.isContentElementExists()).toEqual(false);
