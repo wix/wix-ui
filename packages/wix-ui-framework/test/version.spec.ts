@@ -1,10 +1,13 @@
-const path = require('path');
-const { exec } = require('child_process');
+import * as path from 'path';
+import { exec } from 'child_process';
 
-const packageJson = require('../package.json');
+import * as packageJson from '../package.json';
 
-function cli({ args = '', cwd = process.cwd() }) {
-  const entryPath = path.resolve(__dirname, '..', 'bin', 'start');
+function cli({
+  args = '',
+  cwd = process.cwd(),
+}): Promise<{ stdout: string; stderr: string; error: any }> {
+  const entryPath = path.resolve(__dirname, '..', 'bin', 'wuf.js');
 
   return new Promise((resolve, reject) => {
     exec(`node ${entryPath} ${args}`, { cwd }, (error, stdout, stderr) =>

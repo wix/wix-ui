@@ -1,19 +1,13 @@
-#!/usr/bin/env node
-const program = require('commander');
-const generate = require('../generate');
+import * as program from 'commander';
+import { generate } from './generate';
 
-const { version } = require('../package.json');
-
-program.name('wuf').version(version, '-v, --version');
+program.name('wuf').version('1.1.0', '-v, --version');
 
 program
   .command('generate')
   .description('Scaffold file structure from templates')
-  .option(
-    '-f, --force',
-    "Skip some pre-run checks. Use only if you know what you're doing",
-  )
-  .option('--component-name <componentName>', 'Component name')
+  .option('-f, --force', 'Force component generation in a non clean git repo.')
+  .option('--component-name <ComponentName>', 'Component name')
   .option('--description <description>', 'Component description')
   .option(
     '--templates <templatesPath>',
