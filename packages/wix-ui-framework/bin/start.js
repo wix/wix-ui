@@ -23,7 +23,7 @@ program
     '--codemods <codemodsPath>',
     'Path to codemods. Default is "/generator/codemods/"',
   )
-  .action(generate);
+  .action(options => generate(options).catch(e => console.error(e)));
 
 if (!process.argv.slice(2).length) {
   program.help();

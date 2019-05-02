@@ -1,6 +1,5 @@
 const cwd = process.cwd();
 const path = require('path');
-const logger = require('./logger');
 
 const runTasks = require('./run-tasks');
 const runPrompts = require('./tasks/run-prompts');
@@ -18,10 +17,9 @@ module.exports = ({
   try {
     require(path.join(cwd, 'package.json'));
   } catch (e) {
-    const message =
-      'ERROR: Please run `wuf` at module root (where package.json exists).';
-    logger.error(message);
-    return Promise.reject(message);
+    return Promise.reject(
+      'ERROR: `wuf generate` must be run at root of the module (where package.json exists).',
+    );
   }
 
   const options = {

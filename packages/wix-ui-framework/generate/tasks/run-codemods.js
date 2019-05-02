@@ -56,8 +56,8 @@ module.exports = ({ ComponentName, description, codemodsPath, cwd }) => {
       codemods.map(codemod =>
         runCodemod({
           codemodsPath,
-          ...codemod,
           ...createValuesMap({ ComponentName, description }),
+          ...codemod,
           cwd,
         }),
       ),
