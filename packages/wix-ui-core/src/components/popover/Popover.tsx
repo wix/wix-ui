@@ -25,15 +25,18 @@ import {
 import * as classNames from 'classnames';
 const isElement = require('lodash/isElement');
 
-import { popoverTestUtils } from './helpers'
+import { popoverTestUtils } from './helpers';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
 const isTestEnv = process.env.NODE_ENV === 'test';
 
 if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
-  popoverTestUtils.createRange()
-  testId = popoverTestUtils.generateId;
+  popoverTestUtils.createRange();
+}
+
+if (isTestEnv) {
+  testId = popoverTestUtils.generateId();
 }
 
 export type Placement = PopperJS.Placement;
