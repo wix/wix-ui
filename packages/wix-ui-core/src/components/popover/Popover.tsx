@@ -25,15 +25,18 @@ import {
 import * as classNames from 'classnames';
 const isElement = require('lodash/isElement');
 
+import { popoverTestUtils } from './helpers';
+
 // This is here and not in the test setup because we don't want consumers to need to run it as well
+let testId;
 const isTestEnv = process.env.NODE_ENV === 'test';
+
 if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
-  document.createRange = () =>
-    ({
-      setStart: () => null,
-      setEnd: () => null,
-      commonAncestorContainer: document.documentElement.querySelector('body'),
-    } as any);
+  popoverTestUtils.createRange();
+}
+
+if (isTestEnv) {
+  testId = popoverTestUtils.generateId();
 }
 
 export type Placement = PopperJS.Placement;
@@ -183,7 +186,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       isMounted: false,
       shown: props.shown || false,
     };
-    this.contentHook = `popover-content-${props['data-hook']}`;
+
+    this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
   _handleClickOutside = () => {
