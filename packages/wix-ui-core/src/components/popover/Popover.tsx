@@ -27,6 +27,7 @@ const isElement = require('lodash/isElement');
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 const isTestEnv = process.env.NODE_ENV === 'test';
+
 if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
   document.createRange = () =>
     ({
@@ -34,6 +35,13 @@ if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
       setEnd: () => null,
       commonAncestorContainer: document.documentElement.querySelector('body'),
     } as any);
+}
+
+let testId;
+if (isTestEnv) {
+  testId = Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
 }
 
 export type Placement = PopperJS.Placement;
@@ -169,7 +177,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
-  testId: string;
   contentHook: string;
 
   popperScheduleUpdate: () => void = null;
@@ -184,13 +191,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       isMounted: false,
       shown: props.shown || false,
     };
-    this.testId = Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
 
-  this.contentHook = `popover-content-${props['data-hook'] || ''}-${
-    this.testId
-  }`;
+    this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
   _handleClickOutside = () => {
