@@ -11,6 +11,9 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
-# 1.0.0 - 2019-05-02
+# 1.1.0 - 2019-05-02
 ## Added
 - `wuf generate` script for generating components
+
+# 1.1.0 - 2019-04-29
+initial release
