@@ -24,24 +24,23 @@ module.exports = ({
     return Promise.reject(message);
   }
 
-  if (componentName) {
-    return runTasks({
-      cwd,
-      ComponentName: componentName,
-      description,
-      templatesPath: path.join(cwd, templates || defaultTemplatesPath),
-      codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
-      force,
-    });
+  const options = {
+    cwd,
+    ComponentName: componentName,
+    description,
+    templatesPath: path.join(cwd, templates || defaultTemplatesPath),
+    codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
+    force,
+  };
+
+  if (options.componentName) {
+    return runTasks(options);
   }
 
   return runPrompts().then(answers =>
     runTasks({
-      cwd,
+      ...options,
       ...answers,
-      templatesPath: path.join(cwd, templates || defaultTemplatesPath),
-      codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
-      force,
     }),
   );
 };
