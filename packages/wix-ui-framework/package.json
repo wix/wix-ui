@@ -17,12 +17,11 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "echo building",
+    "build": "#",
     "pretest": "yoshi lint",
     "test": "yoshi test --jest",
     "lint": "yoshi lint",
     "start": "#",
-    "release": "yoshi release",
     "wuf": "./bin/start.js"
   },
   "license": "MIT",
