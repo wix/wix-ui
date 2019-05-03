@@ -1,7 +1,7 @@
 import * as program from 'commander';
 import { generate } from './generate';
 
-program.name('wuf').version('1.1.0', '-v, --version');
+program.name('wuf').version('1.2.0', '-v, --version');
 
 program
   .command('generate')
