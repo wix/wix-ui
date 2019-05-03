@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+import { Options } from '../typings';
 import { replaceTemplates } from './replace-templates';
 
 import { createValuesMap } from '../create-values-map';
@@ -14,9 +15,9 @@ const pathExists = p =>
     });
   });
 
-export const copyTemplates = async ({
+export const copyTemplates: (a: Options) => Promise<void> = async ({
   cwd,
-  templatesPath,
+  templates,
   ComponentName,
   description,
 }) => {
@@ -27,7 +28,7 @@ export const copyTemplates = async ({
   const readdir = entry =>
     fs.readdirSync(entry).map(dir => path.join(entry, dir));
 
-  const queue = readdir(templatesPath);
+  const queue = readdir(templates);
 
   while (queue.length) {
     const itemPath = queue.shift();
@@ -35,7 +36,7 @@ export const copyTemplates = async ({
     const isDir = fs.lstatSync(itemPath).isDirectory();
 
     const newDestPath = path
-      .join(cwd, itemPath.replace(templatesPath, ''))
+      .join(cwd, itemPath.replace(templates, ''))
       .replace(new RegExp(`${templateNamePlaceholder}`, 'g'), ComponentName);
 
     if (isDir) {

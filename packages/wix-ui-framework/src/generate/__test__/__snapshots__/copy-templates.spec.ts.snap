@@ -9,7 +9,7 @@ import Text from '../Text';
 import Button from '../Button';
 import styles from './MyNewComponent.st.css';
 
-
+/** MyNewComponent */
 class MyNewComponent extends React.PureComponent {
   static displayName = 'MyNewComponent';
 
@@ -389,9 +389,7 @@ import Text from '../Text';
 import Button from '../Button';
 import styles from './MyNewComponent.st.css';
 
-/**
- * This is a very cool component, yall
- */
+/** This is a very cool component, yall */
 class MyNewComponent extends React.PureComponent {
   static displayName = 'MyNewComponent';
 

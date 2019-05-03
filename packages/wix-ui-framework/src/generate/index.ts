@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { Options } from './Options';
+import { Options } from './typings';
 import { runTasks } from './run-tasks';
 import { runPrompts } from './tasks/run-prompts';
 
@@ -9,7 +9,7 @@ const cwd = process.cwd();
 const defaultTemplatesPath = 'generator/templates';
 const defaultCodemodsPath = 'generator/codemods';
 
-export const generate = ({
+export const generate: (a: Options) => Promise<void> = ({
   force,
   ComponentName,
   description,
@@ -28,8 +28,8 @@ export const generate = ({
     cwd,
     ComponentName,
     description,
-    templatesPath: path.join(cwd, templates || defaultTemplatesPath),
-    codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
+    templates: path.join(cwd, templates || defaultTemplatesPath),
+    codemods: path.join(cwd, codemods || defaultCodemodsPath),
     force,
     skipCodemods: false,
   };

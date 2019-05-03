@@ -5,7 +5,7 @@ import Text from '../Text';
 import Button from '../Button';
 import styles from './{%ComponentName%}.st.css';
 
-{%descriptionJSDoc%}
+/** {%description%} */
 class {%ComponentName%} extends React.PureComponent {
   static displayName = '{%ComponentName%}';
 

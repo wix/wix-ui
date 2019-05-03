@@ -1,10 +1,16 @@
 import chalk from 'chalk';
 import * as logger from './logger';
 
-import { Options } from './Options';
+import { Options } from './typings';
+
+interface Task {
+  task(): (a: Options) => Promise<void>;
+  skipped?: boolean;
+  message: string;
+}
 
 export const runTasks: (a: Options) => Promise<void> = options => {
-  const tasks = [
+  const tasks: Task[] = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
       // might change files that another task relies on. If all files are required beforehand, consecutive tasks will
