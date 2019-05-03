@@ -15,10 +15,7 @@ const runCodemod: ({
     const codemodPath = path.join(options.codemods, codemodConfig.codemod);
 
     const pathToExecutable = path.join(
-      __dirname,
-      '..',
-      '..',
-      '..',
+      options.cwd,
       'node_modules',
       '.bin',
       'jscodeshift',
