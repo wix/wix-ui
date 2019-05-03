@@ -1,19 +1,15 @@
 import { pascalToCamel, pascalToKebab } from './utils';
 
-export const createValuesMap = ({ ComponentName, description }) => {
-  const componentName = pascalToCamel(ComponentName);
-  const componentNameSnake = pascalToKebab(ComponentName);
+export interface CodemodValues {
+  ComponentName: string;
+  componentName: string;
+  'component-name': string;
+  description: string;
+}
 
-  return {
-    ComponentName,
-    description,
-    descriptionJSDoc:
-      description === undefined
-        ? ''
-        : `/**
- * ${description}
- */`,
-    componentName,
-    'component-name': componentNameSnake,
-  };
-};
+export const createValuesMap = ({ ComponentName, description }) => ({
+  ComponentName,
+  componentName: pascalToCamel(ComponentName),
+  'component-name': pascalToKebab(ComponentName),
+  description,
+});

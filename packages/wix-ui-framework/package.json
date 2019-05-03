@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "jscodeshift": "^0.6.3",
+    "jscodeshift": "^0.6.4",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
     "simple-git": "^1.110.0"

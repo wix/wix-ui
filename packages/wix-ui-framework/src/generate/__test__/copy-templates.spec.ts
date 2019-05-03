@@ -47,7 +47,7 @@ describe('copyTemplates', () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: 'This is a very cool component, yall',
-      templatesPath: path.join(__dirname, 'templates'),
+      templates: path.join(__dirname, 'templates'),
       cwd: tempDir,
     });
 
@@ -58,7 +58,7 @@ describe('copyTemplates', () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: undefined,
-      templatesPath: path.join(__dirname, 'templates'),
+      templates: path.join(__dirname, 'templates'),
       cwd: tempDir,
     });
 

@@ -1,9 +1,11 @@
 import * as prompts from 'prompts';
 
-import { isPascalCase } from '../utils';
-const logger = require('../logger');
+import { Answers } from '../typings';
 
-export const runPrompts = async () => {
+import { isPascalCase } from '../utils';
+import * as logger from '../logger';
+
+export const runPrompts: () => Promise<Answers> = async () => {
   let promptAborted = false;
 
   const questions = [
@@ -30,11 +32,13 @@ export const runPrompts = async () => {
     },
   ];
 
-  const answers = await prompts(questions, {
+  const handlers = {
     onCancel: () => {
       promptAborted = true;
     },
-  });
+  };
+
+  const answers = await prompts(questions, handlers);
 
   if (promptAborted) {
     logger.divider();
