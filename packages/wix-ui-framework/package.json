@@ -45,7 +45,7 @@
   },
   "jest": {
     "transform": {
-      "\\.(ts|tsx)$": "ts-jest"
+      "\\.ts$": "ts-jest"
     },
     "moduleFileExtensions": [
       "ts",
@@ -54,12 +54,12 @@
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
       "<rootDir>/node_modules/",
-      "__test__/templates",
-      "__test__/codemods"
+      "<rootDir>/test-generated/",
+      "<rootDir>/src/generate/__test__/templates",
+      "<rootDir>/src/generate/__test__/codemods"
     ]
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/jest": "^24.0.12",
     "@types/node": "^11.13.8",
     "jest": "^24.7.1",

@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-const replaceTemplates = require('./replace-templates');
-const createValuesMap = require('../create-values-map');
+import { replaceTemplates } from './replace-templates';
+
+import { createValuesMap } from '../create-values-map';
 
 const templateNamePlaceholder = 'Component';
 
@@ -13,12 +14,12 @@ const pathExists = p =>
     });
   });
 
-const copyTemplates = async ({
+export const copyTemplates = async ({
   cwd,
   templatesPath,
   ComponentName,
   description,
-} = {}) => {
+}) => {
   if (!ComponentName) {
     throw new Error('Component name must be provided!');
   }
@@ -53,5 +54,3 @@ const copyTemplates = async ({
     }
   }
 };
-
-module.exports = copyTemplates;

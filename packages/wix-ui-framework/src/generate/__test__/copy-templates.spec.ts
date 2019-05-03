@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const tempy = require('tempy');
-const globby = require('globby');
-const logger = require('../logger');
-const copyTemplates = require('../tasks/copy-templates');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as tempy from 'tempy';
+import globby from 'globby';
+import * as logger from '../logger';
+import { copyTemplates } from '../tasks/copy-templates';
 
 // Extracted from
 // https://github.com/wix/yoshi/blob/master/packages/create-yoshi-app/src/getFilesInDir.js
@@ -46,7 +46,7 @@ describe('copyTemplates', () => {
   it('should work as expected when description is provided', async () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
-      description: "This is a very cool component, ya'll",
+      description: 'This is a very cool component, yall',
       templatesPath: path.join(__dirname, 'templates'),
       cwd: tempDir,
     });

@@ -1,10 +1,9 @@
 import * as fs from 'fs';
+import * as path from 'path';
+import { exec } from 'child_process';
 
-const path = require('path');
-const { exec } = require('child_process');
-
-const logger = require('../logger');
-const createValuesMap = require('../create-values-map');
+import * as logger from '../logger';
+import { createValuesMap } from '../create-values-map';
 
 const runCodemod = ({
   codemodsPath,
@@ -56,7 +55,12 @@ const runCodemod = ({
   });
 };
 
-module.exports = ({ ComponentName, description, codemodsPath, cwd }) => {
+export const runCodemods = ({
+  ComponentName,
+  description,
+  codemodsPath,
+  cwd,
+}) => {
   try {
     const codemods = require(path.join(codemodsPath, 'index.js'));
 

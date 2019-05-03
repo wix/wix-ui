@@ -1,24 +1,25 @@
 import chalk from 'chalk';
-const logger = require('./logger');
+import * as logger from './logger';
 
 import { Options } from './Options';
 
-export const runTasks: (a: Options) => Promise<undefined> = options => {
+export const runTasks: (a: Options) => Promise<void> = options => {
   const tasks = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
       // might change files that another task relies on. If all files are required beforehand, consecutive tasks will
       // not see file changes and thus, component generation becomes falsy
-      task: () => require('./tasks/verify-working-directory'),
+      task: () =>
+        require('./tasks/verify-working-directory').verifyWorkingDirectory,
       skipped: options.force,
       message: 'Verify clean working directory',
     },
     {
-      task: () => require('./tasks/copy-templates'),
+      task: () => require('./tasks/copy-templates').copyTemplates,
       message: 'Copy templates',
     },
     {
-      task: () => require('./tasks/run-codemods'),
+      task: () => require('./tasks/run-codemods').runCodemods,
       message: 'Run codemods',
       skipped: options.skipCodemods,
     },

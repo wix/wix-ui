@@ -1,9 +1,9 @@
-const prompts = require('prompts');
+import * as prompts from 'prompts';
 
-const utils = require('../utils');
+import { isPascalCase } from '../utils';
 const logger = require('../logger');
 
-module.exports = async () => {
+export const runPrompts = async () => {
   let promptAborted = false;
 
   const questions = [
@@ -16,7 +16,7 @@ module.exports = async () => {
           return 'Please supply a component name';
         }
 
-        if (!utils.isPascalCase(value)) {
+        if (!isPascalCase(value)) {
           return 'Component name must be in PascalCase';
         }
 
