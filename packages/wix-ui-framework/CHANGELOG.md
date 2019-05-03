@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 1.2.1 - 2019-05-03
+## Fixed
+- prevent `jscodeshift` error
+
 # 1.2.0 - 2019-05-03
 ## Changed
 - refactor internals to use typescript
