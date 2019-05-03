@@ -1,7 +1,11 @@
 import * as program from 'commander';
 import { generate } from './generate';
 
-program.name('wuf').version('1.2.0', '-v, --version');
+// the following must be `require`
+// otherwise `dist` would contain extraneous `src` folder
+const { version } = require('../package.json');
+
+program.name('wuf').version(version, '-v, --version');
 
 program
   .command('generate')
