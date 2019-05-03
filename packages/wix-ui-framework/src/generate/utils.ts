@@ -13,6 +13,6 @@ export const isPascalCase = value => /^([A-Z][a-z]*)+$/.test(value);
 export const pascalToCamel = str =>
   str.replace(/^./, match => match.toLowerCase());
 
-// TODO: this is not snake case, this is kebab case
+// HelloWorld -> hello-world
 export const pascalToKebab = str =>
   pascalToCamel(str).replace(/[A-Z]/g, match => `-${match.toLowerCase()}`);

@@ -8,15 +8,28 @@ describe('isPascalCase', () => {
 });
 
 describe('pascalToCamel', () => {
-  [['Component', 'component'], ['MyComponent', 'myComponent']].map(
-    ([assert, expectation]) =>
-      it(`given ${assert} should return ${expectation}`, () =>
-        expect(pascalToCamel(assert)).toEqual(expectation)),
+  [
+    ['Component', 'component'],
+    ['MyComponent', 'myComponent'],
+    ['ABC', 'aBC'],
+    ['ABc', 'aBc'],
+    ['HelloWorld', 'helloWorld'],
+  ].map(([assert, expectation]) =>
+    it(`given ${assert} should return ${expectation}`, () =>
+      expect(pascalToCamel(assert)).toEqual(expectation)),
   );
 });
 
 describe('pascalToKebab', () => {
-  expect(pascalToKebab('Component')).toEqual('component');
-  expect(pascalToKebab('MyComponent')).toEqual('my-component');
-  expect(pascalToKebab('MyAwesomeComponent')).toEqual('my-awesome-component');
+  [
+    ['Component', 'component'],
+    ['MyComponent', 'my-component'],
+    ['MyAwesomeComponent', 'my-awesome-component'],
+    ['ABC', 'a-b-c'],
+    ['aBC', 'a-b-c'],
+    ['HelloWorld', 'hello-world'],
+  ].map(([assert, expectation]) =>
+    it(`given ${assert} should return ${expectation}`, () =>
+      expect(pascalToKebab(assert)).toEqual(expectation)),
+  );
 });
