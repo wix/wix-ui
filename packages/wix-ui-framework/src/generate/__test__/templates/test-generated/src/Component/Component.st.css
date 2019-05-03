@@ -1,0 +1,25 @@
+:import {
+  -st-from: "wix-ui-core/dist/src/themes/backoffice/colors.st.css";
+  -st-named: G30,R30;
+}
+
+.root {
+  text-align: center;
+}
+
+.number {
+  -st-states: odd, even;
+}
+
+.number:even {
+  background: value(G30);
+}
+
+.number:odd {
+  background: value(R30);
+}
+
+.button {
+  display: flex;
+  justify-content: space-evenly;
+}

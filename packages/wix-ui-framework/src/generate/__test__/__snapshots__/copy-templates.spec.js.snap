@@ -368,11 +368,15 @@ export const storySettings = {
   },
 };
 ",
-  "test-generated/src/index.js": "",
+  "test-generated/src/index.js": "// explicit test file
+",
   "test-generated/stories/index.js": "",
-  "test-generated/testkit/protractor.js": "",
-  "test-generated/testkit/puppeteer.js": "",
-  "test-generated/testkit/testkit-definitions.js": "",
+  "test-generated/testkit/protractor.js": "// explicit test file
+",
+  "test-generated/testkit/puppeteer.js": "// explicit test file
+",
+  "test-generated/testkit/testkit-definitions.js": "// explicit test file
+",
 }
 `;
 
@@ -746,10 +750,14 @@ export const storySettings = {
   },
 };
 ",
-  "test-generated/src/index.js": "",
+  "test-generated/src/index.js": "// explicit test file
+",
   "test-generated/stories/index.js": "",
-  "test-generated/testkit/protractor.js": "",
-  "test-generated/testkit/puppeteer.js": "",
-  "test-generated/testkit/testkit-definitions.js": "",
+  "test-generated/testkit/protractor.js": "// explicit test file
+",
+  "test-generated/testkit/puppeteer.js": "// explicit test file
+",
+  "test-generated/testkit/testkit-definitions.js": "// explicit test file
+",
 }
 `;

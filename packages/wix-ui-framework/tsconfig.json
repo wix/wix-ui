@@ -25,6 +25,7 @@
   ],
   "exclude": [
     "src/generate/__test__/templates/**/*.*",
+    "src/generate/__testfixtures__/**/*.*",
     "./package.json"
   ]
 }
