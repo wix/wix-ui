@@ -6,6 +6,11 @@ import IconButton from './icon-button/icon-button.st.css';
 import TextButton from './text-button/text-button.st.css';
 import CloseButton from './close-button/close-button.st.css';
 import BackofficeTheme from './theme.st.css';
+import Opacity from './opacity.st.css'
+import Border from './border.st.css'
+
+export const opacity = Opacity;
+export const border = Border;
 
 const getClassNames = (values, stylesheet, rootcls?) => {
   const clsArray = values.map(cls => stylesheet[cls] || null);
