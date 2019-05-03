@@ -11,5 +11,5 @@ export const createValuesMap = ({ ComponentName, description }) => ({
   ComponentName,
   componentName: pascalToCamel(ComponentName),
   'component-name': pascalToKebab(ComponentName),
-  description,
+  description: description || ComponentName,
 });

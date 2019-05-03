@@ -15,7 +15,7 @@ const pathExists = p =>
     });
   });
 
-export const copyTemplates: (a: Options) => void = async ({
+export const copyTemplates: (a: Options) => Promise<void> = async ({
   cwd,
   templates,
   ComponentName,
