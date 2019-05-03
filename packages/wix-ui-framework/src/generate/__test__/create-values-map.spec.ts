@@ -1,10 +1,11 @@
-const createValuesMap = require('../create-values-map');
+import { createValuesMap } from '../create-values-map';
 
 describe('createValuesMap', () => {
   it('should add a `componentName` field based on `ComponentName`', () => {
     expect(
       createValuesMap({
         ComponentName: 'MyComponentName',
+        description: '',
       }),
     ).toMatchObject({
       ComponentName: 'MyComponentName',
@@ -16,6 +17,7 @@ describe('createValuesMap', () => {
     expect(
       createValuesMap({
         ComponentName: 'MyComponentName',
+        description: '',
       }),
     ).toMatchObject({
       ComponentName: 'MyComponentName',

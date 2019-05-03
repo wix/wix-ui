@@ -1,13 +1,13 @@
-const cwd = process.cwd();
-const path = require('path');
+import * as path from 'path';
 
+import { Options } from './Options';
 import { runTasks } from './run-tasks';
-const runPrompts = require('./tasks/run-prompts');
+import { runPrompts } from './tasks/run-prompts';
+
+const cwd = process.cwd();
 
 const defaultTemplatesPath = 'generator/templates';
 const defaultCodemodsPath = 'generator/codemods';
-
-import { Options } from './Options';
 
 export const generate = ({
   force,

@@ -1,4 +1,4 @@
-const replaceTemplates = require('../tasks/replace-templates');
+import { replaceTemplates } from '../tasks/replace-templates';
 
 describe('replaceTemplates', () => {
   it('should work as expected', () => {

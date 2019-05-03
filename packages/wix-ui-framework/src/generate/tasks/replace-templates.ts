@@ -3,7 +3,7 @@
 
 const templateRegex = /{%[\w-]+%}/g;
 
-module.exports = (content, map) => {
+export const replaceTemplates = (content, map) => {
   function replacer(match) {
     const key = match.slice(2, -2);
 

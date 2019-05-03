@@ -10,6 +10,7 @@
     "strictNullChecks": false,
     "target": "es5",
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es2016"
     ],

@@ -1,8 +1,11 @@
-const tempy = require('tempy');
+import * as tempy from 'tempy';
 
-const logger = require('../logger');
-const utils = require('../utils');
-const verifyWorkingDirectory = require('../tasks/verify-working-directory');
+import * as logger from '../logger';
+import * as utils from '../utils';
+import {
+  verifyWorkingDirectory,
+  errorMessage,
+} from '../tasks/verify-working-directory';
 
 let isGitRepoCleanSpy;
 
@@ -18,6 +21,7 @@ describe('verifyWorkingDirectory', () => {
 
   beforeEach(() => {
     errorSpy = jest.spyOn(logger, 'error').mockImplementation(() => {});
+    // @ts-ignore
     exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
     jest.spyOn(logger, 'divider').mockImplementation(() => {});
   });
@@ -46,6 +50,6 @@ describe('verifyWorkingDirectory', () => {
     await verifyWorkingDirectory(tempy.directory());
 
     expect(exitSpy).toHaveBeenCalledWith(1);
-    expect(errorSpy).toHaveBeenCalledWith(verifyWorkingDirectory.errorMessage);
+    expect(errorSpy).toHaveBeenCalledWith(errorMessage);
   });
 });
