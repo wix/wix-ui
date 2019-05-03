@@ -1,15 +1,17 @@
 const cwd = process.cwd();
 const path = require('path');
 
-const runTasks = require('./run-tasks');
+import { runTasks } from './run-tasks';
 const runPrompts = require('./tasks/run-prompts');
 
 const defaultTemplatesPath = 'generator/templates';
 const defaultCodemodsPath = 'generator/codemods';
 
-module.exports = ({
+import { Options } from './Options';
+
+export const generate = ({
   force,
-  componentName,
+  ComponentName,
   description,
   templates,
   codemods,
@@ -22,16 +24,17 @@ module.exports = ({
     );
   }
 
-  const options = {
+  const options: Options = {
     cwd,
-    ComponentName: componentName,
+    ComponentName,
     description,
     templatesPath: path.join(cwd, templates || defaultTemplatesPath),
     codemodsPath: path.join(cwd, codemods || defaultCodemodsPath),
     force,
+    skipCodemods: false,
   };
 
-  if (options.componentName) {
+  if (options.ComponentName) {
     return runTasks(options);
   }
 

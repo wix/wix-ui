@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 const path = require('path');
 const { exec } = require('child_process');
 
@@ -20,13 +22,21 @@ const runCodemod = ({
       __dirname,
       '..',
       '..',
+      '..',
       'node_modules',
       '.bin',
       'jscodeshift',
     );
 
+    const inputPath = path.join(cwd, dist);
+
+    if (!fs.existsSync(inputPath)) {
+      reject(`Error in ${codemod}: ${inputPath} does not exist`);
+      return;
+    }
+
     const command = `${pathToExecutable} \
-          ${path.join(cwd, dist)} \
+          ${inputPath} \
           -t ${codemodPath} \
           --ComponentName=${ComponentName} \
           --componentName=${componentName} \
@@ -35,9 +45,7 @@ const runCodemod = ({
     const execProc = exec(command);
 
     execProc.stderr.on('data', data => {
-      logger.error(
-        `Error while running codemod ${codemod}: ${data.toString()}`,
-      );
+      logger.error(`Error in ${codemod}: ${data.toString()}`);
       reject(data.toString());
     });
 

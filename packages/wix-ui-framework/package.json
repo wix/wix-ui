@@ -2,13 +2,20 @@
   "private": false,
   "name": "wix-ui-framework",
   "bin": {
-    "wuf": "./bin/start.js"
+    "wuf": "./bin/wuf.js"
   },
   "version": "1.1.0",
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"
   },
+  "files": [
+    "dist",
+    "src",
+    "bin",
+    "*.md",
+    "*.json"
+  ],
   "bugs": {
     "url": "https://github.com/wix/wix-ui/issues"
   },
@@ -17,12 +24,13 @@
     "url": "git+ssh://git@github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "#",
+    "build": "tsc",
     "pretest": "yoshi lint",
-    "test": "yoshi test --jest",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "yoshi lint",
-    "start": "#",
-    "wuf": "./bin/start.js"
+    "start": "tsc --watch",
+    "wuf": "./bin/wuf.js"
   },
   "license": "MIT",
   "publishConfig": {
@@ -35,15 +43,30 @@
     "prompts": "^2.0.4",
     "simple-git": "^1.110.0"
   },
-  "devDependencies": {
-    "jest": "^24.7.1",
-    "yoshi": "^4.3.0"
-  },
   "jest": {
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/",
       "__test__/templates",
       "__test__/codemods"
     ]
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/jest": "^24.0.12",
+    "@types/node": "^11.13.8",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
+    "tslint-config-yoshi": "^4.1.0",
+    "typescript": "^3.4.5",
+    "yoshi": "^4.3.0"
   },
   "eslintConfig": {
     "extends": "yoshi",

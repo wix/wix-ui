@@ -1,7 +1,9 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 const logger = require('./logger');
 
-module.exports = options => {
+import { Options } from './Options';
+
+export const runTasks: (a: Options) => Promise<undefined> = options => {
   const tasks = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
@@ -17,7 +19,7 @@ module.exports = options => {
     },
     {
       task: () => require('./tasks/run-codemods'),
-      message: 'Fill templates',
+      message: 'Run codemods',
       skipped: options.skipCodemods,
     },
   ];
@@ -34,10 +36,16 @@ module.exports = options => {
         promise.then(() => {
           const spinner = logger.spinner(message);
 
-          return task()(options).then(() => {
-            spinner.stop();
-            logger.success(`Done: ${message}`);
-          });
+          return task()(options)
+            .then(() => {
+              spinner.stop();
+              logger.success(`Done: ${message}`);
+            })
+            .catch(e => {
+              spinner.stop();
+              logger.error(`Failed: ${message} ${e}`);
+              return Promise.resolve();
+            });
         }),
       Promise.resolve(),
     )

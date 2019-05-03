@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "target": "es5",
+    "allowJs": true,
+    "lib": [
+      "es2016"
+    ],
+    "outDir": "dist",
+    "rootDir": "./src"
+  },
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.js"
+  ],
+  "exclude": [
+    "src/generate/__test__/templates/**/*.*",
+    "src/generate/__testfixtures__/**/*.*",
+    "./package.json"
+  ]
+}
