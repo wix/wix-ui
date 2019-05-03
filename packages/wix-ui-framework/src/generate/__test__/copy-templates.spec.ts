@@ -46,7 +46,7 @@ describe('copyTemplates', () => {
   it('should work as expected when description is provided', async () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
-      description: "This is a very cool component, ya'll",
+      description: 'This is a very cool component, yall',
       templatesPath: path.join(__dirname, 'templates'),
       cwd: tempDir,
     });

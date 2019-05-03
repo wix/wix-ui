@@ -1,5 +1,5 @@
-import * as logger  from '../logger';
-import * as utils  from '../utils';
+import * as logger from '../logger';
+import * as utils from '../utils';
 
 export const errorMessage =
   'Git working directory is dirty!\nCommit or stash your changes, or run the generator with the --force flag';

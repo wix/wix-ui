@@ -390,7 +390,7 @@ import Button from '../Button';
 import styles from './MyNewComponent.st.css';
 
 /**
- * This is a very cool component, ya'll
+ * This is a very cool component, yall
  */
 class MyNewComponent extends React.PureComponent {
   static displayName = 'MyNewComponent';
