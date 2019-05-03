@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 1.2.0 - 2019-05-03
+## Changed
+- refactor internals to use typescript
+
 # 1.1.0 - 2019-05-02
 ## Added
 - `wuf generate` script for generating components
