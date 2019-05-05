@@ -42,6 +42,8 @@ export interface TooltipProps {
   timeout?: number;
   /** If true, shows the tooltip arrow */
   showArrow?: boolean;
+  /** Custom arrow element */
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
 }
 
 export interface TooltipState {
@@ -126,6 +128,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       hideDelay,
       showDelay,
       disabled,
+      customArrow,
     } = this.props;
 
     return (
@@ -148,6 +151,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         flip={flip}
         fixed={fixed}
         onClickOutside={this._handleClickOutside}
+        customArrow={customArrow}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
         <Popover.Content>{content}</Popover.Content>

@@ -86,6 +86,8 @@ export interface PopoverProps {
   style?: object;
   /** Id */
   id?: string;
+  /** Custom arrow element */
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
 }
 
 export interface PopoverState {
@@ -205,6 +207,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       moveArrowTo,
       flip,
       fixed,
+      customArrow,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -247,6 +250,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                     arrowProps,
                     moveArrowTo,
                     popperPlacement || placement,
+                    customArrow,
                   ),
                   <div key="popover-content" className={style.popoverContent}>
                     {childrenObject.Content}
@@ -311,19 +315,22 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     );
   }
 
-  renderArrow(arrowProps, moveArrowTo, placement) {
-    return (
-      <div
-        ref={arrowProps.ref}
-        key="popover-arrow"
-        data-hook="popover-arrow"
-        className={style.arrow}
-        style={{
-          ...arrowProps.style,
-          ...getArrowShift(moveArrowTo, placement),
-        }}
-      />
-    );
+  renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
+    const commonProps = {
+      ref: arrowProps.ref,
+      key: 'popover-arrow',
+      'data-hook': 'popover-arrow',
+      style: {
+        ...arrowProps.style,
+        ...getArrowShift(moveArrowTo, placement),
+      },
+    };
+
+    if (customArrow) {
+      return customArrow(placement, commonProps);
+    }
+
+    return <div {...commonProps} className={style.arrow} />;
   }
 
   componentDidMount() {
