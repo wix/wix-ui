@@ -87,7 +87,7 @@ export interface PopoverProps {
   /** Id */
   id?: string;
   /** Custom arrow element */
-  customArrow?(placement: string): React.ReactNode;
+  customArrow?(placement: Placement): React.ReactNode;
 }
 
 export interface PopoverState {
