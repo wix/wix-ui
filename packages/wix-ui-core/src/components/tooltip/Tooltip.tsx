@@ -43,7 +43,7 @@ export interface TooltipProps {
   /** If true, shows the tooltip arrow */
   showArrow?: boolean;
   /** Custom arrow element */
-  customArrow?(placement: Placement): React.ReactNode;
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
 }
 
 export interface TooltipState {

@@ -771,8 +771,8 @@ function runTests(createDriver, container) {
   });
 
   describe('Arrow', () => {
-    function customArrow(placement) {
-      return <p data-test={`custom-arrow-${placement}`} />;
+    function customArrow(placement, arrowProps) {
+      return <p data-test={`custom-arrow-${placement}`} {...arrowProps} />;
     }
 
     it('should display a custom arrow element', async () => {

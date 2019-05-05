@@ -87,7 +87,7 @@ export interface PopoverProps {
   /** Id */
   id?: string;
   /** Custom arrow element */
-  customArrow?(placement: Placement): React.ReactNode;
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
 }
 
 export interface PopoverState {
@@ -327,7 +327,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     };
 
     if (customArrow) {
-      return React.cloneElement(customArrow(placement), commonProps);
+      return customArrow(placement, commonProps);
     }
 
     return <div {...commonProps} className={style.arrow} />;
