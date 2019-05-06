@@ -2,7 +2,7 @@ import * as wuc from '../src/index';
 import * as icons from 'wix-ui-icons-common';
 
 /*
- * This object contains all wix-style-react components including icons
+ * This object contains all wix-ui-core components including icons
  * It is used mainly for documentation in LiveCodeExample and code section.
  */
 export const baseScope = {
