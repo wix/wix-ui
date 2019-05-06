@@ -10,7 +10,6 @@ program.name('wuf').version(version, '-v, --version');
 program
   .command('generate')
   .description('Scaffold file structure from templates')
-  .option('-f, --force', 'Force component generation in a non clean git repo.')
   .option('--component-name <ComponentName>', 'Component name')
   .option('--description <description>', 'Component description')
   .option(
@@ -21,6 +20,7 @@ program
     '--codemods <codemodsPath>',
     'Path to codemods. Default is "/generator/codemods/"',
   )
+  .option('-f, --force', 'Force component generation in a non clean git repo.')
   .action(options => generate(options).catch(e => console.error(e)));
 
 if (!process.argv.slice(2).length) {

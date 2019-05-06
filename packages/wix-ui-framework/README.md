@@ -39,3 +39,5 @@ Options:
   --codemods <codemodsPath>         Path to codemods. Default is "/generator/codemods/"
   -h, --help                        output usage information
 ```
+
+Consult [readme](./generate/readme.md) for more details
