@@ -39,7 +39,7 @@ export interface TooltipProps {
   /** time in milliseconds to wait before showing the tooltip. */
   showDelay?: number;
   /** Animation timer */
-  timeout?: number;
+  timeout?: number | { enter: number; exit: number };
   /** If true, shows the tooltip arrow */
   showArrow?: boolean;
   /** Custom arrow element */
