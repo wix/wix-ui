@@ -18,7 +18,6 @@ drivers
 
 # Untill webpack pure modules will be released, we ignore all *.js in root folder to avoid comitting component export
 # files that appear in root after build
-src/index.ts
 /*.js
 /*.d.ts
 !wallaby.js
