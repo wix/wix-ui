@@ -40,4 +40,4 @@ Options:
   -h, --help                        output usage information
 ```
 
-Consult [readme](./generate/readme.md) for more details
+Consult [readme](./src/generate/readme.md) for more details
