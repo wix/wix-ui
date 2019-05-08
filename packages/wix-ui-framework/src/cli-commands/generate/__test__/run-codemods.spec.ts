@@ -25,6 +25,13 @@ defineTest(
 
 defineTest(
   __dirname,
+  '__test__/codemods/testkit-exports-ts',
+  options,
+  'testkit-enzyme-typescript',
+);
+
+defineTest(
+  __dirname,
   '__test__/codemods/testkit-exports',
   options,
   'testkit-protractor',

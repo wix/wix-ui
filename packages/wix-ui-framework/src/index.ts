@@ -25,6 +25,19 @@ program
   )
   .action(options => generate(options).catch(e => console.error(e)));
 
+program
+  .command('jsonify')
+  .option('--path <path>', 'shit')
+  .action(async options => {
+    const json = await fsToJson({
+      cwd: options.path,
+      path: '.',
+      options: { withContent: true },
+    });
+
+    fs.writeFileSync('./output.json', JSON.stringify(json, null, 2), 'utf8');
+  });
+
 if (!process.argv.slice(2).length) {
   program.help();
 }
