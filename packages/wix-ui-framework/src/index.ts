@@ -1,5 +1,7 @@
 import * as program from 'commander';
 import { generate } from './generate';
+import { fsToJson } from './fs-to-json';
+import * as fs from 'fs';
 
 // the following must be `require`
 // otherwise `dist` would contain extraneous `src` folder
