@@ -1,5 +1,5 @@
 import * as program from 'commander';
-import { generate } from './generate';
+import { generate } from './cli-commands/generate';
 import { fsToJson } from './fs-to-json';
 import * as fs from 'fs';
 
