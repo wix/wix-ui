@@ -11,12 +11,16 @@ export interface DividerProps {
  * Divider
  */
 export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
-  const {children, vertical} = props;
+  const { children, vertical } = props;
   const customDivider = !!children;
 
   return (
     <div
-      {...style('root', {vertical: vertical && !customDivider, customDivider}, props)}
+      {...style(
+        'root',
+        { vertical: vertical && !customDivider, customDivider },
+        props,
+      )}
     >
       {children}
     </div>

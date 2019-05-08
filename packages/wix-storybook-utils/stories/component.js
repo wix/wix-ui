@@ -10,7 +10,7 @@ const disabledStyle = {
   color: 'grey',
 };
 
-/** Description from source! */
+/** Component Description from source! */
 class Component extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +18,14 @@ class Component extends React.Component {
       valueSetOnMounting: this.props.valueSetOnMounting,
     };
   }
+
+  _privateMethod() {}
+
+  /** this is a public method */
+  publicMethod(property) {
+    return property;
+  }
+
   render() {
     const { enabled, children, onClick, number } = this.props;
     return (
@@ -36,11 +44,15 @@ class Component extends React.Component {
 }
 
 Component.propTypes = {
+  /** this is a simple number prop */
   number: PropTypes.number,
   valueSetOnMounting: PropTypes.number,
   children: PropTypes.node,
   enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
+
+  /** do not use this prop
+   * @deprecated since forever*/
   propNotVisibleInStorybook: PropTypes.bool,
   undefinedValueProp: PropTypes.string,
 };

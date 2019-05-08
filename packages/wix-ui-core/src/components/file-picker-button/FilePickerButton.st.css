@@ -1,0 +1,14 @@
+:import {
+    -st-from: '../../common/a11y.st.css';
+    -st-named: srOnly;
+}
+
+.root {
+    -st-states: required, disabled;
+}
+
+.fileInput {
+    -st-mixin: srOnly;
+}
+
+.chooseFileButton {}

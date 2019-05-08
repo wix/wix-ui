@@ -1,4 +1,4 @@
-import {Input} from './Input';
+import { Input } from './Input';
 
 export class InputDriver {
   constructor(public root: HTMLElement, public instance: Input) {}
@@ -16,6 +16,6 @@ export class InputDriver {
   }
 
   getAttribute(attr: string) {
-     return this.input.getAttribute(attr);
+    return this.input.getAttribute(attr);
   }
 }

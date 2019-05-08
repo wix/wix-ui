@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
+
 import style from './button-next.st.css';
 
 export interface ButtonProps
@@ -8,9 +10,9 @@ export interface ButtonProps
   /** URL of the page that link goes to */
   href?: string;
   /** accepts prefix icon */
-  prefixIcon?: React.ReactElement<any>;
+  prefixIcon?: React.ReactElement;
   /** accepts suffix icon  */
-  suffixIcon?: React.ReactElement<any>;
+  suffixIcon?: React.ReactElement;
   /** apply disabled styles */
   disabled?: boolean;
 
@@ -21,7 +23,7 @@ export interface ButtonProps
 const _addAffix = (Affix, styleClass) =>
   Affix &&
   React.cloneElement(Affix, {
-    className: style[styleClass],
+    className: classNames(style[styleClass], Affix.props.className),
   });
 
 /**

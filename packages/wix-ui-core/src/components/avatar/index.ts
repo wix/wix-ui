@@ -1,1 +1,1 @@
-export { Avatar , AvatarProps} from './avatar';
+export { Avatar, AvatarProps } from './avatar';

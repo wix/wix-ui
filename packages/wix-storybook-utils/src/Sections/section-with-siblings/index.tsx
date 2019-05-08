@@ -5,7 +5,7 @@ import { SectionType } from '../../typings/story-section';
 import styles from './styles.scss';
 
 const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
-const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title];
+const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title, SectionType.Header];
 
 const sectionPrepares = {
   [SectionType.ImportExample]: section => ({
@@ -43,7 +43,7 @@ export const sectionWithSiblings = (section, children) => {
     siblings.length > 0 && !SECTIONS_WITHOUT_SIBLINGS.includes(section.type);
 
   return (
-    <div>
+    <div data-hook={section.dataHook || null}>
       {shouldShowSiblings ? (
         <div className={styles.titles}>
           {siblings.map(row => preparedSection[row])}

@@ -3,7 +3,7 @@ import {
   PageStripLayout,
   createStaticLayout,
   createResponsiveLayout,
-  createResponsiveLayoutTemplate
+  createResponsiveLayoutTemplate,
 } from './page-strip-layout';
 import style from './Pagination.st.css';
 
@@ -15,11 +15,11 @@ export interface PageStripProps {
   showFirstPage: boolean;
   showLastPage: boolean;
   responsive: boolean;
-  pageUrl?: (pageNumber: number) => string;
+  pageUrl?(pageNumber: number): string;
   gapLabel: React.ReactNode;
-  onPageClick: (event: React.MouseEvent<Element>, page: number) => void;
-  onPageKeyDown: (event: React.KeyboardEvent<Element>, page: number) => void;
-  updateResponsiveLayout: (callback: () => void) => void;
+  onPageClick(event: React.MouseEvent, page: number): void;
+  onPageKeyDown(event: React.KeyboardEvent, page: number): void;
+  updateResponsiveLayout(callback: () => void): void;
   disabled: boolean;
 }
 
@@ -32,7 +32,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   private unmounted: boolean = false;
   private rootNode: HTMLElement;
 
-  state = {responsiveLayout: null};
+  state = { responsiveLayout: null };
 
   public componentDidMount() {
     if (this.props.updateResponsiveLayout) {
@@ -49,7 +49,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           this.updateLayoutIfNeeded();
         }
       });
-    } else  {
+    } else {
       this.updateLayoutIfNeeded();
     }
   }
@@ -76,7 +76,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   public render() {
     return (
       <div
-        ref={el => this.rootNode = el}
+        ref={el => (this.rootNode = el)}
         data-hook="page-strip"
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={style.pageStrip}
@@ -86,11 +86,14 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           {this.renderLayout(this.getLayout(), false)}
         </div>
 
-        {this.isResponsive() &&
+        {this.isResponsive() && (
           <div className={style.pageStripInner + ' ' + style.pageStripTemplate}>
-            {this.renderLayout(createResponsiveLayoutTemplate(this.props), true)}
+            {this.renderLayout(
+              createResponsiveLayoutTemplate(this.props),
+              true,
+            )}
           </div>
-        }
+        )}
       </div>
     );
   }
@@ -108,8 +111,11 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   // We can't use page numbers as keys, because we might need to render the same page twice
   // for responsive layout. We also can't use index as a key, because React might reuse the
   // node for another page, and keep keyboard focus on it, which we don't want.
-  private renderLayout(layout: PageStripLayout, isDummy: boolean): JSX.Element[] {
-    const {currentPage, pageUrl, disabled} = this.props;
+  private renderLayout(
+    layout: PageStripLayout,
+    isDummy: boolean,
+  ): JSX.Element[] {
+    const { currentPage, pageUrl, disabled } = this.props;
 
     return layout.map((pageNumber, index) => {
       if (!pageNumber) {
@@ -134,7 +140,11 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       }
 
       if (isDummy) {
-        return <a key={pageNumber + '-' + index} className={style.pageButton}>{pageNumber}</a>;
+        return (
+          <a key={pageNumber + '-' + index} className={style.pageButton}>
+            {pageNumber}
+          </a>
+        );
       }
 
       return (
@@ -144,8 +154,10 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           aria-label={`Page ${pageNumber}`}
           className={style.pageButton}
           tabIndex={disabled || pageUrl ? null : 0}
-          onClick={disabled ? null : (e => this.props.onPageClick(e, pageNumber))}
-          onKeyDown={disabled ? null : (e => this.props.onPageKeyDown(e, pageNumber))}
+          onClick={disabled ? null : e => this.props.onPageClick(e, pageNumber)}
+          onKeyDown={
+            disabled ? null : e => this.props.onPageKeyDown(e, pageNumber)
+          }
           href={!disabled && pageUrl ? pageUrl(pageNumber) : null}
         >
           {pageNumber}
@@ -155,7 +167,11 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
   }
 
   private isResponsive() {
-    return this.props.responsive && this.props.totalPages > 0 && this.props.maxPagesToShow > 1;
+    return (
+      this.props.responsive &&
+      this.props.totalPages > 0 &&
+      this.props.maxPagesToShow > 1
+    );
   }
 
   private getLayout(): PageStripLayout {
@@ -173,7 +189,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       showFirstPage: this.props.showFirstPage,
       showLastPage: this.props.showLastPage,
       // This is pretty arbitrary. 5 is the minimum space required to show the first, current, and last page.
-      maxPagesToShow: 5
+      maxPagesToShow: 5,
     });
   }
 
@@ -190,8 +206,8 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         currentPage: this.props.currentPage,
         maxPagesToShow: this.props.maxPagesToShow,
         showFirstPage: this.props.showFirstPage,
-        showLastPage: this.props.showLastPage
-      })
+        showLastPage: this.props.showLastPage,
+      }),
     });
   }
 }

@@ -16,16 +16,17 @@ export interface ThumbnailProps {
 
 export const Thumbnail: React.SFC<ThumbnailProps> = props => {
   const children = React.Children.only(props.children);
-  const {selected, selectedIcon, onClick, disabled} = props;
+  const { selected, selectedIcon, onClick, disabled } = props;
 
   return (
-    <div {...style('root', {selected, disabled}, props)} onClick={onClick}>
+    <div {...style('root', { selected, disabled }, props)} onClick={onClick}>
       {children}
 
-      {selectedIcon && selected && <div className={style.selectedIcon} data-hook="selected-icon">
-        {selectedIcon}
-      </div>
-      }
+      {selectedIcon && selected && (
+        <div className={style.selectedIcon} data-hook="selected-icon">
+          {selectedIcon}
+        </div>
+      )}
     </div>
   );
 };
@@ -34,5 +35,5 @@ Thumbnail.displayName = 'Thumbnail';
 
 Thumbnail.defaultProps = {
   onClick: () => null,
-  disabled: false
+  disabled: false,
 };

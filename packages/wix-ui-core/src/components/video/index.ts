@@ -1,1 +1,1 @@
-export {Video, IVideoProps} from './Video';
+export { Video, IVideoProps } from './Video';

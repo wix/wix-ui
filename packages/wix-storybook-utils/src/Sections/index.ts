@@ -4,7 +4,6 @@ import {
   DescriptionSection,
   ImportExampleSection,
   CodeSection,
-  ErrorSection,
   TabSection,
   ApiSection,
   PlaygroundSection,
@@ -24,17 +23,12 @@ import {
 // autocomplete
 
 export const baseSection = config => ({
-  type: SectionType.Error,
   pretitle: '',
   title: '',
   subtitle: '',
   hidden: false,
   ...config,
 });
-
-export const error: (
-  object: Partial<ErrorSection>,
-) => ErrorSection = baseSection;
 
 export const code: (
   object: string | Partial<CodeSection>,

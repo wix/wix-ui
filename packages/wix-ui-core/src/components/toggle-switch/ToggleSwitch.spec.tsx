@@ -1,17 +1,15 @@
 import * as React from 'react';
-import {toggleSwitchDriverFactory} from './ToggleSwitch.driver';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {ToggleSwitch} from './';
-import {toggleSwitchTestkitFactory} from '../../testkit';
-import {toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import { toggleSwitchDriverFactory } from './ToggleSwitch.driver';
+import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { isTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { ToggleSwitch } from './';
+import { toggleSwitchTestkitFactory } from '../../testkit';
+import { toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 describe('ToggleSwitch', () => {
-
-  const createDriver =
-    new ReactDOMTestContainer()
+  const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(toggleSwitchDriverFactory);
 
@@ -38,7 +36,9 @@ describe('ToggleSwitch', () => {
   describe('onChange prop', () => {
     it('should be called when the input is clicked', () => {
       const onChange = jest.fn();
-      const driver = createDriver(<ToggleSwitch checked={false} onChange={onChange}/>);
+      const driver = createDriver(
+        <ToggleSwitch checked={false} onChange={onChange} />,
+      );
 
       driver.click();
       expect(onChange).toBeCalled();
@@ -53,7 +53,9 @@ describe('ToggleSwitch', () => {
 
     it('should not be clickable when disabled and unchecked', () => {
       const onChange = jest.fn();
-      const driver = createDriver(<ToggleSwitch checked={false} onChange={onChange} disabled/>);
+      const driver = createDriver(
+        <ToggleSwitch checked={false} onChange={onChange} disabled />,
+      );
       driver.click();
       expect(onChange).toHaveBeenCalledTimes(0);
       expect(driver.isChecked()).toBe(false);
@@ -61,7 +63,9 @@ describe('ToggleSwitch', () => {
 
     it('should not be clickable when disabled and checked', () => {
       const onChange = jest.fn();
-      const driver = createDriver(<ToggleSwitch checked onChange={onChange} disabled/>);
+      const driver = createDriver(
+        <ToggleSwitch checked onChange={onChange} disabled />,
+      );
       driver.click();
       expect(onChange).toHaveBeenCalledTimes(0);
       expect(driver.isChecked()).toBe(true);
@@ -71,7 +75,7 @@ describe('ToggleSwitch', () => {
   describe('attributes', () => {
     it('should apply user specified id', () => {
       const testId = 'testId';
-      const driver = createDriver(<ToggleSwitch id={testId}/>);
+      const driver = createDriver(<ToggleSwitch id={testId} />);
       expect(driver.getId()).toBe(testId);
     });
 
@@ -98,25 +102,37 @@ describe('ToggleSwitch', () => {
     });
 
     it('should show uncheckedIcon when unchecked', () => {
-      const driver = createDriver(<ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />);
+      const driver = createDriver(
+        <ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />,
+      );
       expect(driver.getKnobIcon().innerHTML).toBe('❎');
     });
 
     it('should show checkedIcon when checked', () => {
-      const driver = createDriver(<ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />);
+      const driver = createDriver(
+        <ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />,
+      );
       expect(driver.getKnobIcon().innerHTML).toBe('✅');
     });
   });
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<ToggleSwitch />, toggleSwitchTestkitFactory)).toBe(true);
+      expect(
+        isTestkitExists(<ToggleSwitch />, toggleSwitchTestkitFactory),
+      ).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<ToggleSwitch />, enzymeToggleSwitchTestkitFactory, mount)).toBe(true);
+      expect(
+        isEnzymeTestkitExists(
+          <ToggleSwitch />,
+          enzymeToggleSwitchTestkitFactory,
+          mount,
+        ),
+      ).toBe(true);
     });
   });
 });

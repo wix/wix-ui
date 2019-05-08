@@ -1,11 +1,9 @@
 import * as React from 'react';
-import {sliderDriverFactory} from './Slider.driver';
-import {ReactDOMTestContainer} from '../../../test/dom-test-container';
-import {Slider} from './index';
+import { sliderDriverFactory } from './Slider.driver';
+import { ReactDOMTestContainer } from '../../../test/dom-test-container';
+import { Slider } from './index';
 import * as sinon from 'sinon';
-import {mount} from 'enzyme';
-import {Simulate} from 'react-dom/test-utils';
-import * as eventually from 'wix-eventually';
+import { mount } from 'enzyme';
 
 describe('Slider', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -14,7 +12,7 @@ describe('Slider', () => {
   const noop = () => null;
 
   it('should exist', () => {
-    const driver = createDriver(<Slider/>);
+    const driver = createDriver(<Slider />);
     expect(driver.exists()).toBe(true);
   });
 
@@ -24,7 +22,7 @@ describe('Slider', () => {
       min: 4,
       max: 20,
       value: 7,
-      onChange: noop
+      onChange: noop,
     });
 
     expect(driver.value()).toBe(7);
@@ -35,7 +33,7 @@ describe('Slider', () => {
 
   it('should trigger onChange', () => {
     const onChange = sinon.spy();
-    const driver = render({onChange});
+    const driver = render({ onChange });
     driver.change();
     sinon.assert.called(onChange);
   });
@@ -43,7 +41,7 @@ describe('Slider', () => {
   it('should change to a specific value', () => {
     const onChange = sinon.spy();
 
-    const driver = render({onChange, step: 1});
+    const driver = render({ onChange, step: 1 });
 
     driver.change(5);
 
@@ -51,7 +49,7 @@ describe('Slider', () => {
   });
 
   it('should show tooltip upon thumb hover', () => {
-    const driver = render({value: 3});
+    const driver = render({ value: 3 });
 
     driver.hoverThumb();
 
@@ -65,7 +63,7 @@ describe('Slider', () => {
   });
 
   it('should show tooltip when dragging', () => {
-    const driver = render({value: 3});
+    const driver = render({ value: 3 });
 
     driver.dragThumb(1);
 
@@ -90,7 +88,7 @@ describe('Slider', () => {
   });
 
   it('does not show tooltip, given tooltipVisibility=none', () => {
-    const driver = render({tooltipVisibility: 'none'});
+    const driver = render({ tooltipVisibility: 'none' });
 
     driver.hoverThumb();
 
@@ -98,7 +96,7 @@ describe('Slider', () => {
   });
 
   it('shows tooltip only on hover, given tooltipVisibility=hover', () => {
-    const driver = render({tooltipVisibility: 'hover'});
+    const driver = render({ tooltipVisibility: 'hover' });
 
     expect(driver.tooltip()).toBeFalsy();
 
@@ -108,7 +106,7 @@ describe('Slider', () => {
   });
 
   it('shows tooltip by normal, given tooltipVisibility=always', () => {
-    const driver = render({tooltipVisibility: 'always'});
+    const driver = render({ tooltipVisibility: 'always' });
 
     expect(driver.tooltip()).toBeTruthy();
   });
@@ -117,7 +115,7 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      tooltipPrefix: '$'
+      tooltipPrefix: '$',
     });
 
     driver.hoverThumb();
@@ -129,7 +127,7 @@ describe('Slider', () => {
     const onChange = sinon.spy();
 
     const driver = render({
-      tooltipSuffix: '$'
+      tooltipSuffix: '$',
     });
 
     driver.hoverThumb();
@@ -145,8 +143,8 @@ describe('Slider', () => {
       value: 3,
       style: {
         width: 500,
-        height: 40
-      }
+        height: 40,
+      },
     });
 
     expect(driver.ticks().length).toEqual(10);
@@ -160,8 +158,8 @@ describe('Slider', () => {
       value: 3,
       style: {
         width: 500,
-        height: 40
-      }
+        height: 40,
+      },
     });
 
     expect(driver.ticks().length).toEqual(5);
@@ -173,10 +171,10 @@ describe('Slider', () => {
       step: 5,
       max: 20,
       value: 3,
-      tickMarksShape: 'none'
+      tickMarksShape: 'none',
     });
 
-    driver.stubTrackBoundingRect({width: 500});
+    driver.stubTrackBoundingRect({ width: 500 });
 
     expect(driver.ticks().length).toEqual(0);
   });
@@ -187,10 +185,10 @@ describe('Slider', () => {
       step: 5,
       max: 20,
       value: 3,
-      tickMarksShape: 'none'
+      tickMarksShape: 'none',
     });
 
-    driver.stubTrackBoundingRect({width: 500});
+    driver.stubTrackBoundingRect({ width: 500 });
 
     expect(driver.ticks().length).toEqual(0);
   });
@@ -200,10 +198,10 @@ describe('Slider', () => {
       min: 1,
       step: undefined,
       max: 20,
-      value: 3
+      value: 3,
     });
 
-    driver.stubTrackBoundingRect({width: 500});
+    driver.stubTrackBoundingRect({ width: 500 });
 
     expect(driver.ticks().length).toEqual(0);
   });
@@ -218,9 +216,9 @@ describe('Slider', () => {
       value: 3,
       style: {
         width: 100,
-        height: 20
+        height: 20,
       },
-      onChange
+      onChange,
     });
 
     driver.clickTick(5);
@@ -232,7 +230,7 @@ describe('Slider', () => {
 
     const driver = render({
       step: 1,
-      onChange
+      onChange,
     });
 
     driver.clickSlider(3);
@@ -245,7 +243,7 @@ describe('Slider', () => {
     const driver = render({
       step: 1,
       orientation: 'vertical',
-      onChange
+      onChange,
     });
 
     driver.clickSlider(3);
@@ -258,7 +256,7 @@ describe('Slider', () => {
     const driver = render({
       dir: 'rtl',
       step: 1,
-      onChange
+      onChange,
     });
 
     driver.clickSlider(3);
@@ -277,7 +275,7 @@ describe('Slider', () => {
         max: 100,
         value: 60,
         onChange,
-        ...mixin
+        ...mixin,
       });
 
       driver.focus();
@@ -290,7 +288,7 @@ describe('Slider', () => {
     });
 
     it('should decrease the value when clicking the right arrow, given rtl', () => {
-      _render({dir: 'rtl'});
+      _render({ dir: 'rtl' });
       driver.arrowRight();
       sinon.assert.calledWith(onChange, 59.9);
     });
@@ -308,7 +306,7 @@ describe('Slider', () => {
     });
 
     it('should increase the value when clicking the left arrow, given rtl', () => {
-      _render({dir: 'rtl'});
+      _render({ dir: 'rtl' });
       driver.arrowLeft();
       sinon.assert.calledWith(onChange, 60.1);
     });
@@ -350,7 +348,7 @@ describe('Slider', () => {
         min: 1,
         max: 10,
         value: 1,
-        onChange
+        onChange,
       });
 
       driver.focus();
@@ -367,7 +365,7 @@ describe('Slider', () => {
         min: 1,
         max: 10,
         value: 10,
-        onChange
+        onChange,
       });
 
       driver.focus();
@@ -382,7 +380,7 @@ describe('Slider', () => {
     const onChange = sinon.spy();
     const driver = render({
       disabled: true,
-      onChange
+      onChange,
     });
 
     driver.focus();
@@ -397,7 +395,7 @@ describe('Slider', () => {
 
     const driver = render({
       readOnly: true,
-      onChange
+      onChange,
     });
 
     driver.focus();
@@ -407,7 +405,7 @@ describe('Slider', () => {
     sinon.assert.notCalled(onChange);
   });
 
-  it('should have 3 steps, given stepType = \'count\' and step = 3', () => {
+  it(`should have 3 steps, given stepType = 'count' and step = 3`, () => {
     const onChange = sinon.spy();
 
     const driver = render({
@@ -416,7 +414,7 @@ describe('Slider', () => {
       value: 0,
       step: 3,
       stepType: 'count',
-      onChange
+      onChange,
     });
 
     driver.focus();
@@ -432,10 +430,10 @@ describe('Slider', () => {
       max: 6,
       value: 1,
       step: null,
-      onChange
+      onChange,
     });
 
-    driver.stubTrackBoundingRect({width: 500});
+    driver.stubTrackBoundingRect({ width: 500 });
     driver.focus();
     driver.arrowRight();
     sinon.assert.calledWith(onChange, 1.01);
@@ -449,7 +447,7 @@ describe('Slider', () => {
       max: 6,
       value: 1,
       step: 0.123456,
-      onChange
+      onChange,
     });
 
     driver.focus();
@@ -467,7 +465,7 @@ describe('Slider', () => {
       step: null,
       tooltipPrefix: '$',
       tooltipSuffix: '%',
-      onChange
+      onChange,
     });
 
     driver.hoverThumb();
@@ -479,7 +477,7 @@ describe('Slider', () => {
     const onFocus = sinon.spy();
 
     const driver = render({
-      onFocus
+      onFocus,
     });
 
     driver.focus();
@@ -490,8 +488,8 @@ describe('Slider', () => {
   it('should focus', () => {
     const onFocus = sinon.spy();
 
-    const wrapper = mount(<Slider onFocus={onFocus}/>, {
-      attachTo: container.node
+    const wrapper = mount(<Slider onFocus={onFocus} />, {
+      attachTo: container.node,
     });
 
     (wrapper.instance() as any).focus();
@@ -504,8 +502,8 @@ describe('Slider', () => {
   it('should blur', () => {
     const onBlur = sinon.spy();
 
-    const wrapper = mount(<Slider onBlur={onBlur}/>, {
-      attachTo: container.node
+    const wrapper = mount(<Slider onBlur={onBlur} />, {
+      attachTo: container.node,
     });
 
     (wrapper.instance() as any).focus();
@@ -522,7 +520,7 @@ describe('Slider', () => {
 
     const driver = render({
       onFocus,
-      onBlur
+      onBlur,
     });
 
     driver.focus();
@@ -554,7 +552,9 @@ describe('Slider', () => {
   });
 
   function floorValue(value, precision = 1) {
-    return Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision);
+    return (
+      Math.floor(Math.pow(10, precision) * value) / Math.pow(10, precision)
+    );
   }
 
   function render(props = {}) {
@@ -564,10 +564,10 @@ describe('Slider', () => {
       value: 0,
       step: null,
       onChange: noop,
-      ...props
+      ...props,
     };
 
-    const driver = createDriver(<Slider {...props}/>);
+    const driver = createDriver(<Slider {...props} />);
 
     driver.stubRootBoundingRect();
     driver.stubTrackBoundingRect();

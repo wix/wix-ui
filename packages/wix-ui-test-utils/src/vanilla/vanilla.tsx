@@ -4,8 +4,8 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 import {reactEventTrigger} from '../react-helpers';
 import {DriverFactory, BaseDriver} from '../driver-factory';
 import {BaseUniDriver} from '../base-driver';
-import {UniDriver} from 'unidriver';
-import {reactUniDriver} from 'unidriver/react';
+import {UniDriverFactory} from '../uni-driver-factory';
+import {jsdomReactUniDriver} from '@unidriver/jsdom-react';
 
 export interface TestkitArgs {
   wrapper: HTMLElement;
@@ -38,11 +38,11 @@ export function testkitFactoryCreator<T extends BaseDriver>(
 }
 
 export function uniTestkitFactoryCreator<T extends BaseUniDriver>(
-  driverFactory: (base: UniDriver) => T
+  driverFactory: UniDriverFactory<T>
 ) {
   return (testkitArgs: TestkitArgs) => {
     const element = getElement(testkitArgs) as Element;
-    return driverFactory(reactUniDriver(element));
+    return driverFactory(jsdomReactUniDriver(element), jsdomReactUniDriver(document.body));
   };
 }
 

@@ -16,7 +16,7 @@ export const tooltipDriverFactory = (base, body) => {
     /** returns tooltips content value in string */
     getTooltipText: async () => {
       await testkit.mouseEnter();
-      const text = await body.$(`[data-hook="popover-content"]`).text();
+      const text = (await testkit.getContentElement()).textContent;
       // Clean yourself!
       await testkit.mouseLeave();
       return text;

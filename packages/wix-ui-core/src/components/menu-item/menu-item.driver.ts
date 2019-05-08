@@ -1,34 +1,8 @@
-import style from './menu-item.st.css';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+export * from './menu-item.uni.driver';
 
-import {
-  BaseUniDriver,
-  baseUniDriverFactory
-} from 'wix-ui-test-utils/base-driver';
-
-import {UniDriver} from 'wix-ui-test-utils/unidriver';
-
-export interface MenuItemDriver extends BaseUniDriver {
-  /** checks if the item is selected */
-  isSelected: () => Promise<boolean>;
-  /** checks if the item is highlighted */
-  isHighlighted: () => Promise<boolean>;
-  /** checks if the item is disabled */
-  isDisabled: () => Promise<boolean>;
-  /** return children for inspection */
-  getText: () => Promise<string>;
-}
-
-export const menuItemDriverFactory = (base: UniDriver): MenuItemDriver => {
-  const stylableUtil = new StylableDOMUtil(style);
-  const assertState = async state =>
-    stylableUtil.hasStyleState(await base.getNative(), state);
-
-  return {
-    ...baseUniDriverFactory(base),
-    isSelected: async () => await assertState('selected'),
-    isHighlighted: async () => await assertState('highlighted'),
-    isDisabled: async () => await assertState('disabled'),
-    getText: async () => await base.text(),
-  };
-};
+import { unidriverDepLogWrapper } from '../../utils/unidriver-dep-log-wrapper';
+import { menuItemDriverFactory as original } from './menu-item.uni.driver';
+export const menuItemDriverFactory = unidriverDepLogWrapper(
+  original,
+  'menuItemDriverFactory',
+);

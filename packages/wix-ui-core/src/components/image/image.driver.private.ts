@@ -8,7 +8,7 @@ import style from './image.st.css';
 import {
   imageDriverFactory as publicImageDriverFactory,
   ImageDriver as ImagePublicDriver,
-} from './image.driver';
+} from './image.uni.driver';
 
 export interface ImageDriver extends ImagePublicDriver {
   getResizeMode(): Promise<string>;

@@ -1,1 +1,1 @@
-export {GoogleMapsIframeClient} from './GoogleMapsIframeClient';
+export { GoogleMapsIframeClient } from './GoogleMapsIframeClient';

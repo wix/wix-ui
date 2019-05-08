@@ -1,7 +1,7 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './ToggleSwitch.st.css';
 
-export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
+export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
   const checkbox = element && element.querySelector('input');
   const stylableDOMUtil = new StylableDOMUtil(style);
 
@@ -22,9 +22,12 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     /** Returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled: () => checkbox.disabled,
     /** Returns the toggle icon inside the knob */
-    getKnobIcon: () => element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
+    getKnobIcon: () =>
+      element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
     /** Returns whether the toggle has an icon */
-    hasKnobIcon: () => !!element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')).innerHTML,
+    hasKnobIcon: () =>
+      !!element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon'))
+        .innerHTML,
     /** Returns the id of the input */
     getId: () => checkbox.id,
     /** Returns the tab index */
@@ -32,10 +35,19 @@ export const toggleSwitchDriverFactory = ({element, eventTrigger}) => {
     /** Returns the computed styles object of the root component */
     getRootStyles: () => window.getComputedStyle(element),
     /** Returns the computed styles object of the track */
-    getTrackStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.track'))),
+    getTrackStyles: () =>
+      window.getComputedStyle(
+        element.querySelector(stylableDOMUtil.scopeSelector('.track')),
+      ),
     /** Returns the computed styles object of the knob */
-    getKnobStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knob'))),
+    getKnobStyles: () =>
+      window.getComputedStyle(
+        element.querySelector(stylableDOMUtil.scopeSelector('.knob')),
+      ),
     /** Returns the computed styles object of the knob icon */
-    getKnobIconStyles: () => window.getComputedStyle(element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')))
+    getKnobIconStyles: () =>
+      window.getComputedStyle(
+        element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
+      ),
   };
 };

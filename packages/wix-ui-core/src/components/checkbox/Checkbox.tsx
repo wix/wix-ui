@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './Checkbox.st.css';
-import {noop} from '../../utils';
+import { noop } from '../../utils';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -33,85 +33,111 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     onChange: noop,
     checked: false,
     indeterminate: false,
-    tabIndex: 0
+    tabIndex: 0,
   };
 
   private checkbox: HTMLInputElement | null;
   private focusedByMouse = false;
-  state = {isFocused: false, focusVisible: false};
+  state = { isFocused: false, focusVisible: false };
 
-  public render()  {
-    const {checked, disabled, error, indeterminate, indeterminateIcon, checkedIcon, uncheckedIcon} = this.props;
+  public render() {
+    const {
+      checked,
+      disabled,
+      error,
+      indeterminate,
+      indeterminateIcon,
+      checkedIcon,
+      uncheckedIcon,
+    } = this.props;
 
     return (
       <label
-        {...styles('root', {checked, disabled, focus: this.state.isFocused, readonly: this.props.readOnly, error, indeterminate, 'focus-visible': this.state.focusVisible}, this.props) }
+        {...styles(
+          'root',
+          {
+            checked,
+            disabled,
+            focus: this.state.isFocused,
+            readonly: this.props.readOnly,
+            error,
+            indeterminate,
+            'focus-visible': this.state.focusVisible,
+          },
+          this.props,
+        )}
         onMouseDown={this.handleMouseDown}
       >
-          <input
-            type="checkbox"
-            className={styles.nativeCheckbox}
-            onClick={e => e.stopPropagation()}
-            onChange={this.handleChange}
-            onKeyDown={this.handleInputKeyDown}
-            onFocus={this.handleInputFocus}
-            onBlur={this.handleInputBlur}
-            ref={ref => this.checkbox = ref}
-            //temp fix
-            checked={checked}
-            disabled={disabled}
-            readOnly={this.props.readOnly}
-            tabIndex={this.props.tabIndex}
-            id={this.props.id}
-            required={this.props.required}
-            autoFocus={this.props.autoFocus}
-            name={this.props.name}
-            aria-controls={this.props['aria-controls']}
-            aria-label={this.props['aria-label']}
-          />
+        <input
+          type="checkbox"
+          className={styles.nativeCheckbox}
+          onClick={e => e.stopPropagation()}
+          onChange={this.handleChange}
+          onKeyDown={this.handleInputKeyDown}
+          onFocus={this.handleInputFocus}
+          onBlur={this.handleInputBlur}
+          ref={ref => (this.checkbox = ref)}
+          //temp fix
+          checked={checked}
+          disabled={disabled}
+          readOnly={this.props.readOnly}
+          tabIndex={this.props.tabIndex}
+          id={this.props.id}
+          required={this.props.required}
+          autoFocus={this.props.autoFocus}
+          name={this.props.name}
+          aria-controls={this.props['aria-controls']}
+          aria-label={this.props['aria-label']}
+        />
 
         <span className={styles.box}>
-          {
-            this.props.indeterminate ? indeterminateIcon :
-            this.props.checked ? checkedIcon :
-            uncheckedIcon
-          }
+          {this.props.indeterminate
+            ? indeterminateIcon
+            : this.props.checked
+            ? checkedIcon
+            : uncheckedIcon}
         </span>
 
         {this.props.children ? (
-          <div className={styles.childContainer}>
-            {this.props.children}
-          </div>
-        ) : null
-        }
+          <div className={styles.childContainer}>{this.props.children}</div>
+        ) : null}
       </label>
     );
   }
 
-  private handleMouseDown: React.MouseEventHandler<HTMLElement> = e => {
+  private readonly handleMouseDown: React.MouseEventHandler<
+    HTMLElement
+  > = e => {
     //When clicking on the label, the input loses focus style state and then gains it again.
     //To prevent this we disable the default mouse down behavior and set the state to true
     if (!this.props.disabled) {
       e.preventDefault();
       this.focusedByMouse = true;
-      this.setState({isFocused: true});
+      this.setState({ isFocused: true });
     }
-  }
+  };
 
-  private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      this.props.onChange({checked: !this.props.checked, ...e});
-  }
+  private readonly handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.onChange({ checked: !this.props.checked, ...e });
+  };
 
-  private handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = () => {
-    this.setState({focusVisible: true});
-  }
+  private readonly handleInputKeyDown: React.KeyboardEventHandler<
+    HTMLInputElement
+  > = () => {
+    this.setState({ focusVisible: true });
+  };
 
-  private handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
-    this.state.isFocused && this.setState({isFocused: false, focusVisible: false});
+  private readonly handleInputBlur: React.FocusEventHandler<
+    HTMLInputElement
+  > = () => {
+    this.state.isFocused &&
+      this.setState({ isFocused: false, focusVisible: false });
     this.focusedByMouse = false;
-  }
+  };
 
-  private handleInputFocus: React.FocusEventHandler<HTMLInputElement> = () => {
-    this.setState({isFocused: true, focusVisible: !this.focusedByMouse});
-  }
+  private readonly handleInputFocus: React.FocusEventHandler<
+    HTMLInputElement
+  > = () => {
+    this.setState({ isFocused: true, focusVisible: !this.focusedByMouse });
+  };
 }

@@ -4,7 +4,6 @@ import { TabSection } from '../../typings/story-section';
 import { StoryConfig } from '../../typings/story-config';
 import { sectionWithSiblings } from '../section-with-siblings';
 
-import { error } from './error';
 import { importExample } from './import-example';
 import { description } from './description';
 import { code } from './code';
@@ -33,7 +32,6 @@ export const tab = (
 
 const views = {
   header,
-  error,
   importExample,
   description,
   code,
@@ -49,7 +47,7 @@ const views = {
   title,
 };
 
-export const getView = type => views[type] || error;
+export const getView = type => views[type] || (i => i);
 
 function render(
   section: TabSection,
@@ -63,7 +61,7 @@ function render(
       const view = getView(tabSection.type)(tabSection, storyConfig);
 
       return (
-        <div key={key}>
+        <div key={key} data-hook={section.dataHook || null}>
           {isTab(tabSection) ? view : sectionWithSiblings(tabSection, view)}
         </div>
       );

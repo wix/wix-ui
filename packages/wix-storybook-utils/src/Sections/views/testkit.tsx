@@ -7,4 +7,6 @@ import { AutoTestkit } from '../../AutoTestkit/auto-testkit';
 export const testkit = (
   section: TestkitSection,
   storyConfig: StoryConfig,
-): React.ReactNode => <AutoTestkit component={storyConfig.metadata} />;
+): React.ReactNode => (
+  <AutoTestkit unidriver={section.unidriver} component={storyConfig.metadata} />
+);

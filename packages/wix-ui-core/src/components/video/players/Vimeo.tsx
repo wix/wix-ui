@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {EventEmitter} from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 const isString = require('lodash/isString');
-import {getSDK} from '../utils'
-import {EVENTS} from '../constants';
+import { getSDK } from '../utils';
+import { EVENTS } from '../constants';
 import playerHOC from './playerHOC';
 import {
   ICommonProps,
@@ -12,19 +12,20 @@ import {
   VerifierType,
   IVimeoPlayerAPI,
   IVimeoConfig,
-  ISDKConfig
+  ISDKConfig,
 } from '../types';
 import styles from '../Video.st.css';
 
 const URL_REGEX = /vimeo\.com\/.+/;
 
-export const verifier: VerifierType = url => isString(url) && URL_REGEX.test(url as string);
+export const verifier: VerifierType = url =>
+  isString(url) && URL_REGEX.test(url as string);
 
 const SDKConfig: ISDKConfig = {
   name: 'Vimeo',
   url: 'https://player.vimeo.com/api/player.js',
   isRequireAllow: true,
-  resolveRequire: sdk => ({Player: sdk}),
+  resolveRequire: sdk => ({ Player: sdk }),
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
@@ -85,10 +86,10 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
       .then(this.initPlayer)
       .catch(error => {
         this.props.onError(error);
-      })
+      });
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.player) {
       this.player.destroy();
     }
@@ -97,8 +98,17 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
 
   initPlayer = Vimeo => {
     const {
-      src, playing, muted, loop, showTitle, playerOptions,
-      onInit, onReady, onDuration, onProgress, onError
+      src,
+      playing,
+      muted,
+      loop,
+      showTitle,
+      playerOptions,
+      onInit,
+      onReady,
+      onDuration,
+      onProgress,
+      onError,
     } = this.props;
 
     this.player = new Vimeo.Player(this.containerRef.current, {
@@ -116,7 +126,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
       this.player.getDuration().then(duration => {
         this.duration = duration;
         onDuration(duration);
-      })
+      });
     });
 
     this.player.on('play', () => {
@@ -131,11 +141,11 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
       this.eventEmitter.emit(EVENTS.ENDED);
     });
 
-    this.player.on('volumechange', ({volume}) => {
+    this.player.on('volumechange', ({ volume }) => {
       this.volume = volume * 100;
     });
 
-    this.player.on('timeupdate', ({seconds}) => {
+    this.player.on('timeupdate', ({ seconds }) => {
       this.currentTime = seconds;
       onProgress(seconds);
     });
@@ -143,7 +153,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
     this.player.on('error', onError);
 
     onInit(this.player);
-  }
+  };
 
   render() {
     return (
@@ -152,8 +162,12 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
         className={styles.playerContainer}
         data-player-name="Vimeo"
       />
-    )
+    );
   }
 }
 
-export const Player: React.ComponentType<any> = playerHOC(VimeoPlayer, mapPropsToPlayer, mapMethodsToPlayer);
+export const Player: React.ComponentType<any> = playerHOC(
+  VimeoPlayer,
+  mapPropsToPlayer,
+  mapMethodsToPlayer,
+);

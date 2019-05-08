@@ -1,21 +1,21 @@
-import { browser } from 'protractor'
-import { createStoryUrl} from 'wix-ui-test-utils/protractor'
-import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver'
+import { browser } from 'protractor';
 import {
-  captchaTestkitFactory
-} from '../../testkit/protractor'
-import { Size, CaptchaType, Theme, CaptchaLang } from './types'
+  createStoryUrl,
+  protractorUniTestkitFactoryCreator,
+} from 'wix-ui-test-utils/protractor';
+import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
+import { captchaTestkitFactory } from '../../testkit/protractor';
+import { CaptchaLang, CaptchaType, Size, Theme } from './types';
 
 import {
-  protractorUniTestkitFactoryCreator
-} from 'wix-ui-test-utils/protractor'
-
-import {
+  CaptchaTestComponentDriver,
   CaptchaTestInstanceDriverFactory,
+} from './test-assets/CaptchaTestComponent.testDriver';
+import { constants } from './test-assets/constants';
+
+const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<
   CaptchaTestComponentDriver
-} from './test-assets/CaptchaTestComponent.testDriver'
-const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator < CaptchaTestComponentDriver > (CaptchaTestInstanceDriverFactory);
-import {constants} from './test-assets/constants'
+>(CaptchaTestInstanceDriverFactory);
 
 describe('Captcha', () => {
   const storyUrl = createStoryUrl({ kind: 'Components', story: 'Captcha' });
@@ -67,7 +67,7 @@ describe('Captcha', () => {
         expect(await driver.isCaptchaVerified()).toBe(true);
         await driver.resetCaptcha();
         expect(await driver.isCaptchaResetted()).toBe(true);
-      })
-    })
-  })
+      });
+    });
+  });
 });

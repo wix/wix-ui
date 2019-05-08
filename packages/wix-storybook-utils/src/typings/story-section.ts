@@ -5,7 +5,6 @@ export enum SectionType {
   Description = 'description',
   Code = 'code',
   ImportExample = 'importExample',
-  Error = 'error',
   Tab = 'tab',
   Api = 'api',
   Playground = 'playground',
@@ -24,6 +23,7 @@ export interface StorySection {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   description?: React.ReactNode;
+  dataHook?: string;
 }
 
 export type Section =
@@ -68,13 +68,13 @@ export interface TabSection extends StorySection {
   sections: Section[];
 }
 
-export interface ErrorSection extends StorySection {}
-
 export interface ApiSection extends StorySection {
   parsedSource?: object;
 }
 export interface PlaygroundSection extends StorySection {}
-export interface TestkitSection extends StorySection {}
+export interface TestkitSection extends StorySection {
+  unidriver?: boolean;
+}
 
 export interface ColumnsSection extends StorySection {
   items: Section[];

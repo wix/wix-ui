@@ -53,7 +53,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   /**
    * this will indicate the google component is loaded and ready to be displayed
    */
-  private onLoad = () => {
+  private readonly onLoad = () => {
     if (this.props.onLoad) {
       this.props.onLoad();
     }
@@ -77,7 +77,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * the user has successfully taken the captcha and we have the verification id
    * @param verificationString
    */
-  private onVerified = (verificationString: string) => {
+  private readonly onVerified = (verificationString: string) => {
     this.setState({ token: verificationString });
     if (this.props.onVerify) {
       this.props.onVerify(verificationString);
@@ -88,7 +88,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * The user has taken the captcha challange however it has not been verified the page was not submitted in time
    * so we need to ask the user to retake the captcha challenge.
    */
-  private onExpired = () => {
+  private readonly onExpired = () => {
     this.setState({ token: undefined });
     if (this.props.onExpire) {
       this.props.onExpire();
@@ -99,7 +99,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
    * The user has taken the captcha challange however it has not been verified the page was not submitted in time
    * so we need to ask the user to retake the captcha challenge.
    */
-  private onRender = () => {
+  private readonly onRender = () => {
     this.setState({ rendered: true });
     if (this.props.onRender) {
       this.props.onRender();
@@ -121,7 +121,6 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
       lang,
       required,
     } = this.props;
-
     return (
       <div
         {...styles('root', { loaded: this.state.rendered }, this.props)}
@@ -152,6 +151,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
               className={styles.requiredField}
               type="checkbox"
               required
+              onChange={() => {}}
               checked={this.isVerified()}
             />
           )}

@@ -10,9 +10,7 @@ export interface BadgeProps {
  * Badge
  */
 export const Badge: React.SFC<BadgeProps> = props => (
-  <span {...style('root', {}, props)}>
-    {props.children}
-  </span>
+  <span {...style('root', {}, props)}>{props.children}</span>
 );
 
 Badge.displayName = 'Badge';

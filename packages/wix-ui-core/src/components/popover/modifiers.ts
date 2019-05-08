@@ -1,6 +1,6 @@
 import PopperJS from 'popper.js';
 
-const calculateOffset = ({moveBy, placement = ''}): string => {
+const calculateOffset = ({ moveBy, placement = '' }): string => {
   /*
    * For `right` and `left` placements, we need to flip the `x` and `y` values as Popper.JS will use
    * the first value for the main axis. As per Popper.js docs:
@@ -23,36 +23,36 @@ export const createModifiers = ({
   flip,
   fixed,
   placement,
-  isTestEnv
+  isTestEnv,
 }) => {
   const preventOverflow = !fixed;
 
   const modifiers: PopperJS.Modifiers = {
     offset: {
-      offset: calculateOffset({moveBy, placement}),
+      offset: calculateOffset({ moveBy, placement }),
     },
     computeStyle: {
-      gpuAcceleration: !shouldAnimate
+      gpuAcceleration: !shouldAnimate,
     },
     flip: {
-      enabled: typeof flip !== 'undefined' ? flip : !moveBy
+      enabled: typeof flip !== 'undefined' ? flip : !moveBy,
     },
     preventOverflow: {
       enabled: preventOverflow,
     },
     hide: {
       enabled: preventOverflow,
-    }
+    },
   };
 
   if (isTestEnv) {
-    modifiers.computeStyle = {enabled: false};
+    modifiers.computeStyle = { enabled: false };
   }
 
   if (appendTo) {
     modifiers.preventOverflow = {
       ...modifiers.preventOverflow,
-      boundariesElement: appendTo
+      boundariesElement: appendTo,
     };
   }
 

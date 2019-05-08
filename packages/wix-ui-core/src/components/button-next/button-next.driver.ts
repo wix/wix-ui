@@ -1,27 +1,8 @@
-import {
-  BaseUniDriver,
-  baseUniDriverFactory
-} from 'wix-ui-test-utils/base-driver';
-import { UniDriver } from 'wix-ui-test-utils/unidriver';
-import {StylableUnidriverUtil} from '../../../test/StylableUnidriverUtil';
-import styles from './button-next.st.css';
+export * from './button-next.uni.driver';
 
-export interface ButtonNextDriver extends BaseUniDriver {
-  /** returns button text */
-  getButtonTextContent: () => Promise<string>;
-  /** returns true if button disabled */
-  isButtonDisabled: () => Promise<boolean>;
-}
-
-export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
-  const stylableUtil = new StylableUnidriverUtil(styles);
-
-  return {
-    ...baseUniDriverFactory(base),
-    getButtonTextContent: async () => await base.text(),
-    isButtonDisabled: async () => {
-      // Using stylable state and not html 'disabled' attribute, since if 'href' exists, then we don't pu the 'disabled' attribute.
-      return await stylableUtil.hasStyleState(base, 'disabled');
-    }
-  };
-};
+import { unidriverDepLogWrapper } from '../../utils/unidriver-dep-log-wrapper';
+import { buttonNextDriverFactory as original } from './button-next.uni.driver';
+export const buttonNextDriverFactory = unidriverDepLogWrapper(
+  original,
+  'buttonNextDriverFactory',
+);
