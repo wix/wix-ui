@@ -32,30 +32,32 @@ const fsToJsonUnguarded: (a: Params) => Promise<object> = async ({
   options = {},
 }) => {
   const recursion = ({ entries, entryCwd }) =>
-    entries.reduce((accPromise, entry) => {
-      return accPromise.then(async acc => {
-        const entryPath = pathResolve(entryCwd, entry);
-        const entryStats = await fsStat(entryPath);
+    entries.reduce(
+      (accPromise, entry) =>
+        accPromise.then(async acc => {
+          const entryPath = pathResolve(entryCwd, entry);
+          const entryStats = await fsStat(entryPath);
 
-        return entryStats.isDirectory()
-          ? {
-              ...acc,
-              [entry]: await recursion({
-                entries: await fsReaddir(entryPath),
-                entryCwd: entryPath,
-              }),
-            }
-          : {
-              ...acc,
-              [entry]: options.withContent
-                ? await fsReadFile(entryPath, 'utf8')
-                : '',
-            };
-      });
-    }, Promise.resolve({}));
+          return entryStats.isDirectory()
+            ? {
+                ...acc,
+                [entry]: await recursion({
+                  entries: await fsReaddir(entryPath),
+                  entryCwd: entryPath,
+                }),
+              }
+            : {
+                ...acc,
+                [entry]: options.withContent
+                  ? await fsReadFile(entryPath, 'utf8')
+                  : '',
+              };
+        }),
+      Promise.resolve({}),
+    );
 
   const json = await recursion({
-    entries: fs.readdirSync(pathResolve(cwd, path)),
+    entries: await fsReaddir(pathResolve(cwd, path)),
     entryCwd: cwd,
   });
 
