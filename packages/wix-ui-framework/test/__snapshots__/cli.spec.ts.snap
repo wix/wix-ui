@@ -6,11 +6,11 @@ exports[`wuf generate --help should render help text 1`] = `
 Scaffold file structure from templates
 
 Options:
-  -f, --force                       Force component generation in a non clean git repo.
   --component-name <ComponentName>  Component name
   --description <description>       Component description
   --templates <templatesPath>       Path to templates. Default is \\"/generator/templates/\\"
   --codemods <codemodsPath>         Path to codemods. Default is \\"/generator/codemods/\\"
+  -f, --force                       Force component generation in a non clean git repo.
   -h, --help                        output usage information"
 `;
 
