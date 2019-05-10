@@ -70,7 +70,7 @@ export default {
     header({
       issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
       sourceUrl:
-        'https://github.com/wix/wix-style-react/tree/master/src/TooltipNext/',
+        'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/tooltip',
       component: (
         <Tooltip appendTo="window" content="HERE I AM! THIS IS ME!">
           <ButtonNext skin="dark">Hover me</ButtonNext>
