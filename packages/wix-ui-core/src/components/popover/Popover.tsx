@@ -247,32 +247,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 [style.popoverContent]: !showArrow,
               })}
             >
-              {showArrow ? (
-                [
-                  this.renderArrow(
-                    arrowProps,
-                    moveArrowTo,
-                    popperPlacement || placement,
-                    customArrow,
-                  ),
-                  <div
-                    key="popover-content"
-                    id={this.props['aria-describedby']}
-                    role={role}
-                    className={style.popoverContent}
-                  >
-                    {childrenObject.Content}
-                  </div>,
-                ]
-              ) : (
-                <div
-                  key="popover-content"
-                  id={this.props['aria-describedby']}
-                  role={role}
-                >
-                  {childrenObject.Content}
-                </div>
-              )}
+              {showArrow &&
+                this.renderArrow(
+                  arrowProps,
+                  moveArrowTo,
+                  popperPlacement || placement,
+                  customArrow,
+                )}
+              <div
+                key="popover-content"
+                id={this.props['aria-describedby']}
+                role={role}
+                className={showArrow ? style.popoverContent : ''}
+              >
+                {childrenObject.Content}
+              </div>
             </div>
           );
         }}
