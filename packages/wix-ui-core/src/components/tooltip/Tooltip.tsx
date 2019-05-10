@@ -45,7 +45,7 @@ export interface TooltipProps {
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
   /** unique identifier to map target element and content element for screen readers */
-  'aria-describedby': string;
+  'aria-describedby'?: string;
 }
 
 export interface TooltipState {
