@@ -44,6 +44,8 @@ export interface TooltipProps {
   showArrow?: boolean;
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** unique identifier to map target element and content element for screen readers */
+  'aria-describedby': string;
 }
 
 export interface TooltipState {
@@ -79,13 +81,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   _renderElement = () => {
-    const { children } = this.props;
+    const { children, 'aria-describedby': ariaDescribedBy } = this.props;
     if (typeof children === 'string' || !children) {
       return children || '';
     }
     return React.cloneElement(children as any, {
       onFocus: this._onFocus,
       onBlur: this._onBlur,
+      'aria-describedby': ariaDescribedBy,
     });
   };
 
@@ -129,6 +132,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       showDelay,
       disabled,
       customArrow,
+      'aria-describedby': ariaDescribedBy,
     } = this.props;
 
     return (
@@ -152,7 +156,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         fixed={fixed}
         onClickOutside={this._handleClickOutside}
         customArrow={customArrow}
-        aria-describedby={this.props['aria-describedby']}
+        id={ariaDescribedBy}
         role="tooltip"
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>

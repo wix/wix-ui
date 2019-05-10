@@ -211,6 +211,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       fixed,
       customArrow,
       role,
+      id,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -256,7 +257,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 )}
               <div
                 key="popover-content"
-                id={this.props['aria-describedby']}
+                id={id}
                 role={role}
                 className={showArrow ? style.popoverContent : ''}
               >
@@ -505,9 +506,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                   onClick={onClick}
                   onKeyDown={onKeyDown}
                 >
-                  {React.cloneElement(childrenObject.Element, {
-                    'aria-describedby': this.props['aria-describedby'],
-                  })}
+                  {childrenObject.Element}
                 </div>
               )}
             </Reference>
