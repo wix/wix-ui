@@ -88,6 +88,8 @@ export interface PopoverProps {
   id?: string;
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** target element role value */
+  role?: string;
 }
 
 export interface PopoverState {
@@ -208,6 +210,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       flip,
       fixed,
       customArrow,
+      role,
+      id,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -244,21 +248,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 [style.popoverContent]: !showArrow,
               })}
             >
-              {showArrow ? (
-                [
-                  this.renderArrow(
-                    arrowProps,
-                    moveArrowTo,
-                    popperPlacement || placement,
-                    customArrow,
-                  ),
-                  <div key="popover-content" className={style.popoverContent}>
-                    {childrenObject.Content}
-                  </div>,
-                ]
-              ) : (
-                <div key="popover-content">{childrenObject.Content}</div>
-              )}
+              {showArrow &&
+                this.renderArrow(
+                  arrowProps,
+                  moveArrowTo,
+                  popperPlacement || placement,
+                  customArrow,
+                )}
+              <div
+                key="popover-content"
+                id={id}
+                role={role}
+                className={showArrow ? style.popoverContent : ''}
+              >
+                {childrenObject.Content}
+              </div>
             </div>
           );
         }}

@@ -219,8 +219,8 @@ class TooltipFixed extends React.Component {
 
 export const a11y = `
 <div style={{ display: 'flex', justifyContent: 'space-around'}}>
-  <Tooltip content="i am tooltip"><button>native</button></Tooltip>
-  <Tooltip content="i am tooltip"><ButtonNext>focusableHOC</ButtonNext></Tooltip>
+  <Tooltip aria-describedby="tooltip:1" content="i am tooltip"><button>native</button></Tooltip>
+  <Tooltip aria-describedby="tooltip:2" content="i am tooltip"><ButtonNext>focusableHOC</ButtonNext></Tooltip>
 </div>
 `;
 
