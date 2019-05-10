@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wuf generate --help should render help text 1`] = `
+"Usage: generate [options]
+
+Scaffold file structure from templates
+
+Options:
+  -f, --force                       Force component generation in a non clean git repo.
+  --component-name <ComponentName>  Component name
+  --description <description>       Component description
+  --templates <templatesPath>       Path to templates. Default is \\"/generator/templates/\\"
+  --codemods <codemodsPath>         Path to codemods. Default is \\"/generator/codemods/\\"
+  -h, --help                        output usage information"
+`;
+
+exports[`wuf help should be displayed when --help 1`] = `
+"Usage: wuf [options] [command]
+
+Options:
+  -v, --version       output the version number
+  -h, --help          output usage information
+
+Commands:
+  generate [options]  Scaffold file structure from templates"
+`;
+
+exports[`wuf help should be displayed when no params 1`] = `
+"Usage: wuf [options] [command]
+
+Options:
+  -v, --version       output the version number
+  -h, --help          output usage information
+
+Commands:
+  generate [options]  Scaffold file structure from templates"
+`;
