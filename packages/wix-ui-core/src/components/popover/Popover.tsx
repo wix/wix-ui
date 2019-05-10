@@ -88,6 +88,8 @@ export interface PopoverProps {
   id?: string;
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** target element role value */
+  role?: string;
 }
 
 export interface PopoverState {
@@ -208,6 +210,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       flip,
       fixed,
       customArrow,
+      role,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -252,12 +255,23 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                     popperPlacement || placement,
                     customArrow,
                   ),
-                  <div key="popover-content" className={style.popoverContent}>
+                  <div
+                    key="popover-content"
+                    id={this.props['aria-describedby']}
+                    role={role}
+                    className={style.popoverContent}
+                  >
                     {childrenObject.Content}
                   </div>,
                 ]
               ) : (
-                <div key="popover-content">{childrenObject.Content}</div>
+                <div
+                  key="popover-content"
+                  id={this.props['aria-describedby']}
+                  role={role}
+                >
+                  {childrenObject.Content}
+                </div>
               )}
             </div>
           );
@@ -502,7 +516,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                   onClick={onClick}
                   onKeyDown={onKeyDown}
                 >
-                  {childrenObject.Element}
+                  {React.cloneElement(childrenObject.Element, {
+                    'aria-describedby': this.props['aria-describedby'],
+                  })}
                 </div>
               )}
             </Reference>

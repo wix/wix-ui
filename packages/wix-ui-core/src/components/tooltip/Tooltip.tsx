@@ -152,6 +152,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         fixed={fixed}
         onClickOutside={this._handleClickOutside}
         customArrow={customArrow}
+        aria-describedby={this.props['aria-describedby']}
+        role="tooltip"
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
         <Popover.Content>{content}</Popover.Content>
