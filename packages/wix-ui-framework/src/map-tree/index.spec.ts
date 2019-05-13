@@ -1,10 +1,6 @@
 import { mapTree } from '.';
 
 describe('mapTree', () => {
-  it('should be defined', () => {
-    expect(typeof mapTree).toEqual('function');
-  });
-
   describe('given object only', () => {
     it('should return original', () => {
       const fixture = { a: 1, b: { c: 2 } };
@@ -63,8 +59,8 @@ describe('mapTree', () => {
       });
     });
 
-    it('should preserve value types', () => {
-      const fixture = {
+    it('should preserve value types and nested shape', () => {
+      const baseFixture = {
         a: 1,
         b: '',
         c: '',
@@ -72,11 +68,12 @@ describe('mapTree', () => {
         e: null,
         f: '',
         g: '',
+        removeMe: 'i should be removed',
       };
 
-      const fixture2 = {
-        ...fixture,
-        nested: fixture,
+      const fixture = {
+        ...baseFixture,
+        nested: baseFixture,
       };
 
       const fn = ({ key, value }) => {
@@ -89,32 +86,49 @@ describe('mapTree', () => {
         }
 
         if (key === 'f') {
-          return { wowNewName: '' };
+          return {
+            wowNewName: `wowNewValue${typeof value === 'string' ? value : ''}`,
+          };
         }
 
         if (key === 'g') {
-          return { againNew: '', andAgain: '' };
+          return {
+            againNew: 'multiple',
+            andAgain: { nested: 'deep', f: ' from f key!' },
+          };
+        }
+
+        if (key === 'removeMe') {
+          return null;
         }
       };
 
-      const { c, f, g, ...fixture2NoChanged } = fixture;
-
-      const result = mapTree(fixture2, fn);
+      const result = mapTree(fixture, fn);
 
       expect(result).toEqual({
-        ...fixture2NoChanged,
+        a: 1,
         b: 'this changes',
         iam: { an: 'object now' },
-        wowNewName: '',
-        againNew: '',
-        andAgain: '',
+        d: false,
+        e: null,
+        wowNewName: 'wowNewValue',
+        againNew: 'multiple',
+        andAgain: {
+          nested: 'deep',
+          wowNewName: 'wowNewValue from f key!',
+        },
         nested: {
-          ...fixture2NoChanged,
-          iam: { an: 'object now' },
+          a: 1,
           b: 'this changes',
-          wowNewName: '',
-          againNew: '',
-          andAgain: '',
+          iam: { an: 'object now' },
+          d: false,
+          e: null,
+          wowNewName: 'wowNewValue',
+          againNew: 'multiple',
+          andAgain: {
+            nested: 'deep',
+            wowNewName: 'wowNewValue from f key!',
+          },
         },
       });
     });

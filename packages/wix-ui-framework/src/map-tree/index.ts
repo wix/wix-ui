@@ -36,6 +36,11 @@ export const mapTree = (input, fn?: ({ key: string, value: any }) => any) =>
 
         const cases = [
           {
+            when: () => candidate === null,
+            make: () => ({}),
+          },
+
+          {
             when: () => isObject(candidate),
             make: () =>
               Object.keys(candidate).reduce(
