@@ -1,6 +1,7 @@
 import * as React from 'react';
 import style from './LinearProgressBar.st.css';
 import {ProgressBarDataHooks} from './DataHooks';
+import a11yStyle from '../../common/a11y.st.css';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -53,8 +54,8 @@ const renderBarSection = (props: LinearProgressBarProps) => {
       aria-valuemax={100}
       aria-valuetext={props['aria-valuetext']}
     >
-      <span className="sr-only" aria-live="polite">
-        {props.value}
+      <span className={style.srOnly} aria-live="polite">
+        {`${props.value} percent`}
       </span>
       <div
         data-hook={ProgressBarDataHooks.background}
