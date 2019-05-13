@@ -150,12 +150,17 @@ describe('ProgressBar', () => {
     });
 
     describe('`min` property', () => {
-      it('should allow setting `min` props', async () => {
+      it('should allow setting `min` prop', async () => {
         const min = -5;
         const driver = createDriver(
           <LinearProgressBar {...{...defaultProps, min}} />
         );
         expect(await driver.getMinValue()).toBe(min);
+      });
+
+      fit('should have default value of 0', async () => {
+        const driver = createDriver(<LinearProgressBar {...defaultProps} />);
+        expect(await driver.getMinValue()).toBe(0);
       });
     });
   }

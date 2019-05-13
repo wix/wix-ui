@@ -112,4 +112,5 @@ LinearProgressBar.displayName = 'LinearProgressBar';
 
 LinearProgressBar.defaultProps = {
   value: 0,
+  min: 0,
 };

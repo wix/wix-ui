@@ -44,7 +44,9 @@ export const linearProgressBarDriverFactory: DriverFactory<
   const getNumericValue = () =>
     !element ? null : +element.getAttribute(ProgressBarDataKeys.value);
   const getMinValue = () =>
-    !element ? null : +element.getAttribute(ProgressBarDataKeys.min);
+    !element || !element.getAttribute(ProgressBarDataKeys.min)
+      ? null
+      : +element.getAttribute(ProgressBarDataKeys.min);
   const driver = {
     exists: () => !!element,
     getWidth: () => {

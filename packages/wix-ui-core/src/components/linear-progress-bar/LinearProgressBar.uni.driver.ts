@@ -55,8 +55,10 @@ export const linearProgressBarUniDriverFactory = (
     if (!(await base.exists())) {
       return null;
     }
-    return +(await base.attr(ProgressBarDataKeys.min));
+    const minValue = await base.attr(ProgressBarDataKeys.min);
+    return !!minValue ? +minValue : null;
   };
+
   return {
     ...baseUniDriverFactory(base),
     getWidth: async () => {
