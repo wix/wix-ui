@@ -1,15 +1,17 @@
 import * as path from 'path';
 
 import { Options } from './typings';
+import { Process } from '../../typings';
 import { runTasks } from './run-tasks';
 import { runPrompts } from './tasks/run-prompts';
-
-const cwd = process.cwd();
 
 const defaultTemplatesPath = 'generator/templates';
 const defaultCodemodsPath = 'generator/codemods';
 
-export const generate: (a: Options) => Promise<void> = ({
+export const generate: (
+  a: Options & { _process: Process },
+) => Promise<void> = ({
+  _process,
   force,
   ComponentName,
   description,
@@ -17,7 +19,7 @@ export const generate: (a: Options) => Promise<void> = ({
   codemods,
 }) => {
   try {
-    require(path.join(cwd, 'package.json'));
+    require(path.join(_process.cwd, 'package.json'));
   } catch (e) {
     return Promise.reject(
       'ERROR: `wuf generate` must be run at root of the module (where package.json exists).',
@@ -25,11 +27,11 @@ export const generate: (a: Options) => Promise<void> = ({
   }
 
   const options: Options = {
-    cwd,
+    cwd: _process.cwd,
     ComponentName,
     description,
-    templates: path.join(cwd, templates || defaultTemplatesPath),
-    codemods: path.join(cwd, codemods || defaultCodemodsPath),
+    templates: path.join(_process.cwd, templates || defaultTemplatesPath),
+    codemods: path.join(_process.cwd, codemods || defaultCodemodsPath),
     force,
     skipCodemods: false,
   };

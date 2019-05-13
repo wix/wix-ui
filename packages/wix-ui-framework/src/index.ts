@@ -1,9 +1,18 @@
 import * as program from 'commander';
 import { generate } from './cli-commands/generate';
+import { exportTestkits } from './cli-commands/export-testkits';
+import { Process } from './typings';
 
 // the following must be `require`
 // otherwise `dist` would contain extraneous `src` folder
 const { version } = require('../package.json');
+
+const extendOptions = options => ({
+  ...options,
+  _process: {
+    cwd: process.cwd(),
+  },
+});
 
 program.name('wuf').version(version, '-v, --version');
 

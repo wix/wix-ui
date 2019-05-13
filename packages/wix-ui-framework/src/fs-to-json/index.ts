@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { promisify } from 'util';
 import { resolve as pathResolve } from 'path';
+import { fileExists } from '../file-exists';
 
 interface Params {
   cwd: string;
@@ -10,27 +11,20 @@ interface Params {
   };
 }
 
-const fsAccess = promisify(fs.access);
 const fsReaddir = promisify(fs.readdir);
 const fsReadFile = promisify(fs.readFile);
 const fsStat = promisify(fs.stat);
 
-const rejectNonExisting = fn => async params => {
-  const realPath = pathResolve(params.cwd, params.path);
-
-  try {
-    await fsAccess(realPath, fs.constants.F_OK);
-    return fn(params);
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-const fsToJsonUnguarded: (a: Params) => Promise<object> = async ({
+export const fsToJson: (a: Params) => Promise<object> = async ({
   cwd,
   path,
   options = {},
 }) => {
+  const realPath = pathResolve(cwd, path);
+  if (!(await fileExists(realPath))) {
+    throw new Error(`ERROR: File does not exist at ${realPath}`);
+  }
+
   const recursion = ({ entries, entryCwd }) =>
     entries.reduce(
       (accPromise, entry) =>
@@ -63,5 +57,3 @@ const fsToJsonUnguarded: (a: Params) => Promise<object> = async ({
 
   return Promise.resolve(json);
 };
-
-export const fsToJson = rejectNonExisting(fsToJsonUnguarded);

@@ -1,4 +1,4 @@
-import * as logger from '../logger';
+import * as logger from '../../../logger';
 import * as utils from '../utils';
 
 export const errorMessage =
