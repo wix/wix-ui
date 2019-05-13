@@ -26,6 +26,8 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
   hasError(): Promise<boolean>;
   /** Returns min value prop */
   getMinValue(): Promise<number>;
+  /** Returns max value prop */
+  getMaxValue(): Promise<number>;
 }
 
 export const linearProgressBarUniDriverFactory = (
@@ -44,19 +46,14 @@ export const linearProgressBarUniDriverFactory = (
       .text();
   };
 
-  const getNumericValue = async () => {
-    if (!(await base.exists())) {
+  const getDataAttribute = async (key: string, parsingFunction?: Function) => {
+    if (!(await base.exists()) || !(await base.attr(key))) {
       return null;
     }
-    return +(await base.attr(ProgressBarDataKeys.value));
-  };
-
-  const getMinValue = async () => {
-    if (!(await base.exists())) {
-      return null;
-    }
-    const minValue = await base.attr(ProgressBarDataKeys.min);
-    return !!minValue ? +minValue : null;
+    const value = await base.attr(key);
+    return !!parsingFunction && parsingFunction instanceof Function
+      ? parsingFunction(value)
+      : value;
   };
 
   return {
@@ -73,9 +70,11 @@ export const linearProgressBarUniDriverFactory = (
     isPercentagesProgressDisplayed: () =>
       base.$(byDataHook(ProgressBarDataHooks.progressPercentage)).exists(),
     getValue: () => getValue(),
-    getNumericValue: async () => getNumericValue(),
-    isCompleted: async () => (await getValue()) === '100',
+    getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
+    isCompleted: async () =>
+      (await getValue()) >= (await getDataAttribute(ProgressBarDataKeys.max)),
     hasError: () => stylableUnidriverUtil.hasStyleState(base, 'error'),
-    getMinValue,
+    getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
+    getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
   };
 };

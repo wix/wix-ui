@@ -138,6 +138,14 @@ describe('ProgressBar', () => {
         expect(await driver.getValue()).toBe('0%');
       });
 
+      it('should show percentages value of 0 when not passing a value and min is lesser than 0', async () => {
+        const min = -8;
+        driver = createDriver(
+          <LinearProgressBar {...{showProgressIndication: true, min}} />
+        );
+        expect(await driver.getValue()).toBe('0%');
+      });
+
       it('should show value in percentages rounded down', async () => {
         const floatValue = 3.9;
         const floatValueRoundDown = Math.floor(floatValue);
@@ -149,7 +157,7 @@ describe('ProgressBar', () => {
       });
     });
 
-    describe('`min` property', () => {
+    describe('`min` & `max` properties', () => {
       it('should allow setting `min` prop', async () => {
         const min = -5;
         const driver = createDriver(
@@ -158,9 +166,50 @@ describe('ProgressBar', () => {
         expect(await driver.getMinValue()).toBe(min);
       });
 
-      fit('should have default value of 0', async () => {
+      it('should have default `min` prop value of 0', async () => {
         const driver = createDriver(<LinearProgressBar {...defaultProps} />);
         expect(await driver.getMinValue()).toBe(0);
+      });
+
+      it('should visually set progress to minimum if given `value` < `min`', async () => {
+        const min = -5;
+        const value = -35;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, min, value}} />
+        );
+        expect(await driver.getWidth()).toBe(`0%`);
+      });
+
+      it('should allow setting `max` prop', async () => {
+        const max = 50;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, max}} />
+        );
+        expect(await driver.getMaxValue()).toBe(max);
+      });
+
+      it('should have default `max` prop value of 100', async () => {
+        const driver = createDriver(<LinearProgressBar {...defaultProps} />);
+        expect(await driver.getMaxValue()).toBe(100);
+      });
+
+      it('should visually set progress to max if given `value` > `max`', async () => {
+        const max = 50;
+        const value = 112;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, max, value}} />
+        );
+        expect(await driver.getWidth()).toBe(`100%`);
+      });
+
+      it('should visually set progress relative to `min` & `max`', async () => {
+        const max = 200;
+        const min = -200;
+        const value = 0;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, max, min, value}} />
+        );
+        expect(await driver.getWidth()).toBe(`50%`);
       });
     });
   }

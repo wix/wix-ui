@@ -3,7 +3,7 @@ import style from './LinearProgressBar.st.css';
 import {ProgressBarDataHooks, ProgressBarDataKeys} from './DataHooks';
 
 export interface LinearProgressBarProps {
-  /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
+  /** represent the progress state in percentages (min || 0 - no progress, max || 100 - progress completed) */
   value?: number | string;
   /** should be true if had failure during the progress */
   error?: boolean;
@@ -11,10 +11,12 @@ export interface LinearProgressBarProps {
   showProgressIndication?: boolean;
   /** an indication icon (any react component) that will be presented when 'error' and 'showProgressIndication' are set to true */
   errorIcon?: JSX.Element;
-  /** an indication icon (any react component) that will be presented when 'showProgressIndication' are set to true and 'value' is 100 */
+  /** an indication icon (any react component) that will be presented when 'showProgressIndication' are set to true and 'value' is equal or bigger than 'max' */
   successIcon?: JSX.Element;
   /** minimum value for progress bar, default value: 0 */
   min?: number;
+  /** maximum value for progress bar, default value: 100 */
+  max?: number;
 }
 
 const FULL_PROGRESS = 100;
@@ -61,24 +63,34 @@ const renderBarSection = (value: number | string) => {
   );
 };
 
-const normalizeProps = (props: LinearProgressBarProps) => {
-  const value = parseInt(props.value as any, 10);
+const getRelativeValue = (props: LinearProgressBarProps): number => {
+  const {value, min, max} = props;
+  const relativeValue = ((+value - min) / (max - min)) * 100;
+  return parseInt(relativeValue as any, 10);
+};
 
-  if (props.value >= FULL_PROGRESS) {
+const normalizeProps = (props: LinearProgressBarProps) => {
+  if (props.value >= props.max) {
     return {...props, value: FULL_PROGRESS};
   }
 
-  if (props.value < 0) {
+  if (
+    props.value < props.min ||
+    [undefined, null, ''].includes(props.value as string)
+  ) {
     return {...props, value: NO_PROGRESS};
   }
 
-  return {...props, value};
+  return {...props, value: getRelativeValue(props)};
 };
 
-const getDataAttributes = (props: LinearProgressBarProps) => {
+const getDataAttributes = (
+  props: LinearProgressBarProps
+): {[key in ProgressBarDataKeys]: number | string} => {
   return {
     [ProgressBarDataKeys.value]: props.value,
     [ProgressBarDataKeys.min]: props.min,
+    [ProgressBarDataKeys.max]: props.max,
   };
 };
 
@@ -111,6 +123,6 @@ export const LinearProgressBar: React.FunctionComponent<
 LinearProgressBar.displayName = 'LinearProgressBar';
 
 LinearProgressBar.defaultProps = {
-  value: 0,
-  min: 0,
+  min: NO_PROGRESS,
+  max: FULL_PROGRESS,
 };

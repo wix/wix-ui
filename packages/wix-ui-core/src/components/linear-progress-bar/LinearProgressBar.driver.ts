@@ -26,6 +26,8 @@ export interface LinearProgressBarDriver extends BaseDriver {
   hasError(): boolean;
   /** Returns min value prop */
   getMinValue(): number;
+  /** Returns max value prop */
+  getMaxValue(): number;
 }
 
 export const linearProgressBarDriverFactory: DriverFactory<
@@ -41,12 +43,15 @@ export const linearProgressBarDriverFactory: DriverFactory<
       : getElement(ProgressBarDataHooks.progressPercentage).querySelector(
           'span'
         ).innerHTML;
-  const getNumericValue = () =>
-    !element ? null : +element.getAttribute(ProgressBarDataKeys.value);
-  const getMinValue = () =>
-    !element || !element.getAttribute(ProgressBarDataKeys.min)
-      ? null
-      : +element.getAttribute(ProgressBarDataKeys.min);
+  const getDataAttribute = (key: string, parsingFunction?: Function) => {
+    if (!element || !element.getAttribute(key)) {
+      return null;
+    }
+    const value = element.getAttribute(key);
+    return !!parsingFunction && parsingFunction instanceof Function
+      ? parsingFunction(value)
+      : value;
+  };
   const driver = {
     exists: () => !!element,
     getWidth: () => {
@@ -59,10 +64,11 @@ export const linearProgressBarDriverFactory: DriverFactory<
     isPercentagesProgressDisplayed: () =>
       !!getElement(ProgressBarDataHooks.progressPercentage),
     getValue: () => getValue(),
-    isCompleted: () => getValue() === '100',
+    isCompleted: () => getValue() >= getDataAttribute(ProgressBarDataKeys.max),
     hasError: () => stylableDOMUtil.hasStyleState(element, 'error'),
-    getNumericValue,
-    getMinValue,
+    getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
+    getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
+    getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
   };
 
   return driver;
