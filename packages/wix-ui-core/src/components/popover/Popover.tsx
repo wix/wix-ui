@@ -10,6 +10,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
+import { AttributeMap } from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
