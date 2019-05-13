@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`wuf export-testkits --help should render help text 1`] = `
+"Usage: export-testkits [options]
+
+Generate testkit export file
+
+Options:
+  --definitions <string>  Path to testkit definitions. Default is \\".wuf/testkit-definitions.json\\"
+  --template <string>     Path to template. Default is \\".wuf/testkits/template.js\\"
+  --output <string>       Path to output. Default is \\"testkits/{templatePath.fileName | \\"testkits.js\\"}\\"
+  -h, --help              output usage information"
+`;
+
 exports[`wuf generate --help should render help text 1`] = `
 "Usage: generate [options]
 
@@ -18,20 +30,22 @@ exports[`wuf help should be displayed when --help 1`] = `
 "Usage: wuf [options] [command]
 
 Options:
-  -v, --version       output the version number
-  -h, --help          output usage information
+  -v, --version              output the version number
+  -h, --help                 output usage information
 
 Commands:
-  generate [options]  Scaffold file structure from templates"
+  generate [options]         Scaffold file structure from templates
+  export-testkits [options]  Generate testkit export file"
 `;
 
 exports[`wuf help should be displayed when no params 1`] = `
 "Usage: wuf [options] [command]
 
 Options:
-  -v, --version       output the version number
-  -h, --help          output usage information
+  -v, --version              output the version number
+  -h, --help                 output usage information
 
 Commands:
-  generate [options]  Scaffold file structure from templates"
+  generate [options]         Scaffold file structure from templates
+  export-testkits [options]  Generate testkit export file"
 `;

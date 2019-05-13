@@ -22,15 +22,36 @@ program
   .option('--component-name <ComponentName>', 'Component name')
   .option('--description <description>', 'Component description')
   .option(
-    '--templates <templatesPath>',
+    '--templates <string>',
     'Path to templates. Default is "/generator/templates/"',
   )
   .option(
-    '--codemods <codemodsPath>',
+    '--codemods <string>',
     'Path to codemods. Default is "/generator/codemods/"',
   )
   .option('-f, --force', 'Force component generation in a non clean git repo.')
-  .action(options => generate(options).catch(e => console.error(e)));
+  .action(options =>
+    generate(extendOptions(options)).catch(e => console.error(e)),
+  );
+
+program
+  .command('export-testkits')
+  .description('Generate testkit export file')
+  .option(
+    '--definitions <string>',
+    'Path to testkit definitions. Default is ".wuf/testkit-definitions.json"',
+  )
+  .option(
+    '--template <string>',
+    'Path to template. Default is ".wuf/testkits/template.js"',
+  )
+  .option(
+    '--output <string>',
+    'Path to output. Default is "testkits/{templatePath.fileName | "testkits.js"}"',
+  )
+  .action(options =>
+    exportTestkits(extendOptions(options)).catch(e => console.error(e)),
+  );
 
 if (!process.argv.slice(2).length) {
   program.help();

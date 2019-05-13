@@ -63,4 +63,39 @@ describe('wuf', () => {
         .end(done);
     });
   });
+
+  describe('export-testkits', () => {
+    describe('--help', () => {
+      it('should render help text', done => {
+        nixt()
+          .expect(({ stdout }) => {
+            expect(stdout).toMatchSnapshot();
+          })
+          .run(cli('export-testkits --help'))
+          .end(done);
+      });
+    });
+
+    describe('--definitions', () => {
+      it('should fail with error, given non existing path', done => {
+        nixt()
+          .expect(({ stderr }) => {
+            expect(stderr).toMatch(
+              /ERROR: Definitions file does not exist at "whatever.js"/,
+            );
+          })
+          .run(cli('export-testkits --definitions whatever.js'))
+          .end(done);
+      });
+    });
+
+    it.skip('should ask for component name', done => {
+      nixt()
+        .expect(({ stdout }) => {
+          expect(stdout).toMatch(/Generating.../);
+        })
+        .run(cli('export-testkits'))
+        .end(done);
+    });
+  });
 });
