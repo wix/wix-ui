@@ -6,6 +6,7 @@ import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
 const debounce = require('lodash/debounce');
+import classnames from 'classnames';
 
 class LoadableTooltip extends Loadable<{
   Tooltip: React.ComponentType<TooltipProps>;
@@ -17,7 +18,8 @@ interface EllipsedTooltipProps {
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
-};
+  tooltipProps?: object;
+}
 
 interface EllipsedTooltipState {
   isEllipsisActive: boolean;
@@ -102,7 +104,7 @@ class EllipsedTooltip extends React.Component<
   }
 
   render() {
-    const { shouldLoadAsync, showTooltip } = this.props;
+    const { shouldLoadAsync, showTooltip, tooltipProps } = this.props;
     const { isEllipsisActive } = this.state;
     const shouldLoadTooltip = isEllipsisActive && showTooltip;
 
@@ -127,7 +129,8 @@ class EllipsedTooltip extends React.Component<
         {({ Tooltip, tooltipStyle }) => {
           return (
             <Tooltip
-              {...tooltipStyle('root', {}, this.props)}
+              {...tooltipProps}
+              {...tooltipStyle('root', {}, tooltipProps)}
               appendTo="scrollParent"
               content={<div>{this.textNode.textContent}</div>}
               showArrow
@@ -144,7 +147,12 @@ class EllipsedTooltip extends React.Component<
 export const withEllipsedTooltip = ({
   showTooltip,
   shouldLoadAsync,
-}: { showTooltip?: boolean; shouldLoadAsync?: boolean } = {}) => Comp => {
+  tooltipProps,
+}: {
+  showTooltip?: boolean;
+  shouldLoadAsync?: boolean;
+  tooltipProps?: object;
+} = {}) => Comp => {
   const WrapperComponent: React.SFC<WrapperComponentProps> = props => (
     <EllipsedTooltip
       {...props}
@@ -152,6 +160,7 @@ export const withEllipsedTooltip = ({
       shouldLoadAsync={shouldLoadAsync}
       showTooltip={showTooltip}
       data-hook="ellipsed-tooltip-wrapper"
+      tooltipProps={tooltipProps}
     />
   );
 
