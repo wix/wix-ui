@@ -27,7 +27,7 @@ export const fsToJson: (a: Params) => Promise<object> = async ({
 
   const recursion = ({ entries, entryCwd }) =>
     entries.reduce(
-      (accPromise, entry) =>
+      (accPromise: Promise<object>, entry: string) =>
         accPromise.then(async acc => {
           const entryPath = pathResolve(entryCwd, entry);
           const entryStats = await fsStat(entryPath);
