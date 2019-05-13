@@ -1,5 +1,6 @@
 import * as React from 'react';
 import style from './LinearProgressBar.st.css';
+import {ProgressBarDataHooks} from './DataHooks';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -12,6 +13,8 @@ export interface LinearProgressBarProps {
   errorIcon?: JSX.Element;
   /** an indication icon (any react component) that will be presented when 'showProgressIndication' are set to true and 'value' is 100 */
   successIcon?: JSX.Element;
+  /** Textual value, used in screen readers */
+  ['aria-valuetext']?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -25,24 +28,41 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
   );
 
   if (props.error && props.errorIcon) {
-    return wrapped('error-icon', props.errorIcon);
+    return wrapped(ProgressBarDataHooks.errorIcon, props.errorIcon);
   }
 
   if (props.value === FULL_PROGRESS && props.successIcon) {
-    return wrapped('success-icon', props.successIcon);
+    return wrapped(ProgressBarDataHooks.successIcon, props.successIcon);
   }
 
-  return wrapped('progress-percentages', <span>{`${props.value}%`}</span>);
+  return wrapped(
+    ProgressBarDataHooks.progressPercentage,
+    <span>{`${props.value}%`}</span>
+  );
 };
 
-const renderBarSection = (value: number | string) => {
-  const progressWidth = {width: `${value}%`};
+const renderBarSection = (props: LinearProgressBarProps) => {
+  const progressWidth = {width: `${props.value}%`};
   return (
-    <div className={style.barContainer}>
-      <div data-hook="progressbar-background" className={style.barBackground} />
+    <div
+      data-hook={ProgressBarDataHooks.container}
+      className={style.barContainer}
+      role="progress"
+      aria-valuenow={+props.value}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuetext={props['aria-valuetext']}
+    >
+      <span className="sr-only" aria-live="polite">
+        {props.value}
+      </span>
       <div
-        data-hook="progressbar-foreground"
-        data-progress-value={value}
+        data-hook={ProgressBarDataHooks.background}
+        className={style.barBackground}
+      />
+      <div
+        data-hook={ProgressBarDataHooks.foreground}
+        data-progress-value={props.value}
         style={progressWidth}
         className={style.barForeground}
       />
@@ -73,11 +93,11 @@ export const LinearProgressBar: React.FunctionComponent<
 
   return (
     <div {...style('root', {error, success}, _props)}>
-      {renderBarSection(_props.value)}
+      {renderBarSection(_props)}
 
       {showProgressIndication && (
         <div
-          data-hook="progress-indicator"
+          data-hook={ProgressBarDataHooks.progressIndicator}
           className={style.progressIndicationSection}
         >
           {resolveIndicationElement(_props)}
