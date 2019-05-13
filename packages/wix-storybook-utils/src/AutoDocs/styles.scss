@@ -1,0 +1,23 @@
+@import '../ui/typography.scss';
+@import '../ui/colors.scss';
+
+.tableTitle {
+  @include font(medium);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.propsTable {
+  margin-bottom: 60px;
+}
+
+.deprecatedTitle {
+  @include font(medium);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.deprecatedDescription {
+  color: $R00;
+  margin-bottom: 20px;
+}

@@ -8,7 +8,8 @@
   "sideEffects": [
     "./.storybook/**/*.*",
     "./stories/**/*.*",
-    "./src/**/*.story.tsx"
+    "./src/**/*.story.tsx",
+    "./src/**/tests/*.*"
   ],
   "author": {
     "name": "Wix",
@@ -34,7 +35,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook",
+    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y && npm run snap",
     "test:watch": "yoshi test --jest --watch",

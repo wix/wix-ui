@@ -25,15 +25,18 @@ import {
 import * as classNames from 'classnames';
 const isElement = require('lodash/isElement');
 
+import { popoverTestUtils } from './helpers';
+
 // This is here and not in the test setup because we don't want consumers to need to run it as well
+let testId;
 const isTestEnv = process.env.NODE_ENV === 'test';
+
 if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
-  document.createRange = () =>
-    ({
-      setStart: () => null,
-      setEnd: () => null,
-      commonAncestorContainer: document.documentElement.querySelector('body'),
-    } as any);
+  popoverTestUtils.createRange();
+}
+
+if (isTestEnv) {
+  testId = popoverTestUtils.generateId();
 }
 
 export type Placement = PopperJS.Placement;
@@ -83,6 +86,10 @@ export interface PopoverProps {
   style?: object;
   /** Id */
   id?: string;
+  /** Custom arrow element */
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** target element role value */
+  role?: string;
 }
 
 export interface PopoverState {
@@ -169,6 +176,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
+  contentHook: string;
 
   popperScheduleUpdate: () => void = null;
 
@@ -176,10 +184,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   _hideTimeout: any = null;
   _showTimeout: any = null;
 
-  state = {
-    isMounted: false,
-    shown: this.props.shown || false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMounted: false,
+      shown: props.shown || false,
+    };
+
+    this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
+  }
 
   _handleClickOutside = () => {
     if (this.props.onClickOutside) {
@@ -196,6 +209,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       moveArrowTo,
       flip,
       fixed,
+      customArrow,
+      role,
+      id,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -224,6 +240,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             <div
               ref={ref}
               data-hook="popover-content"
+              data-content-element={this.contentHook}
               style={popperStyles}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
@@ -231,20 +248,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 [style.popoverContent]: !showArrow,
               })}
             >
-              {showArrow ? (
-                [
-                  this.renderArrow(
-                    arrowProps,
-                    moveArrowTo,
-                    popperPlacement || placement,
-                  ),
-                  <div key="popover-content" className={style.popoverContent}>
-                    {childrenObject.Content}
-                  </div>,
-                ]
-              ) : (
-                <div key="popover-content">{childrenObject.Content}</div>
-              )}
+              {showArrow &&
+                this.renderArrow(
+                  arrowProps,
+                  moveArrowTo,
+                  popperPlacement || placement,
+                  customArrow,
+                )}
+              <div
+                key="popover-content"
+                id={id}
+                role={role}
+                className={showArrow ? style.popoverContent : ''}
+              >
+                {childrenObject.Content}
+              </div>
             </div>
           );
         }}
@@ -301,19 +319,22 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     );
   }
 
-  renderArrow(arrowProps, moveArrowTo, placement) {
-    return (
-      <div
-        ref={arrowProps.ref}
-        key="popover-arrow"
-        data-hook="popover-arrow"
-        className={style.arrow}
-        style={{
-          ...arrowProps.style,
-          ...getArrowShift(moveArrowTo, placement),
-        }}
-      />
-    );
+  renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
+    const commonProps = {
+      ref: arrowProps.ref,
+      key: 'popover-arrow',
+      'data-hook': 'popover-arrow',
+      style: {
+        ...arrowProps.style,
+        ...getArrowShift(moveArrowTo, placement),
+      },
+    };
+
+    if (customArrow) {
+      return customArrow(placement, commonProps);
+    }
+
+    return <div {...commonProps} className={style.arrow} />;
   }
 
   componentDidMount() {
@@ -469,6 +490,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         >
           <div
             style={inlineStyles}
+            data-hook={this.props['data-hook']}
+            data-content-hook={this.contentHook}
             {...style('root', {}, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}

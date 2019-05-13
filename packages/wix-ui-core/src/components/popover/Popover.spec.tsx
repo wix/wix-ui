@@ -105,7 +105,7 @@ function runTests(createDriver, container) {
       );
 
       await driver.mouseEnter();
-      expect(onMouseEnter).toBeCalled();
+      expect(onMouseEnter).toHaveBeenCalled();
 
       await driver.mouseLeave();
       expect(onMouseLeave).toBeCalled();
@@ -767,6 +767,26 @@ function runTests(createDriver, container) {
       });
 
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
+    });
+  });
+
+  describe('Arrow', () => {
+    function customArrow(placement, arrowProps) {
+      return <p data-test={`custom-arrow-${placement}`} {...arrowProps} />;
+    }
+
+    it('should display a custom arrow element', async () => {
+      const driver = createDriver(
+        popoverWithProps({
+          shown: true,
+          showArrow: true,
+          placement: 'top',
+          customArrow,
+        }),
+      );
+
+      const arrowElement = await driver.getArrowElement();
+      expect(arrowElement.getAttribute('data-test')).toBe('custom-arrow-top');
     });
   });
 }

@@ -75,7 +75,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 | state    | description                        | type    |
 | :------- | :--------------------------------- | :------ |
 | required | whether the file input is required | boolean |
-| disabled | whether the file input             | boolean |
+| disabled | whether the file input is disabled | boolean |
 
 ### Style Code Example
 

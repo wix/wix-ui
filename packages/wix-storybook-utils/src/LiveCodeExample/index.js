@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
 import prettier from 'prettier/standalone';
 import babylonParser from 'prettier/parser-babylon';
+import { transform } from '@babel/core';
 
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
@@ -90,8 +91,8 @@ export default class LiveCodeExample extends Component {
       isEditorOpened: !state.isEditorOpened,
     }));
 
-  transformCode = (code = '') =>
-    code
+  transformCode = (code = '') => {
+    const withoutImports = code
       .split('\n')
       .filter(
         line =>
@@ -103,6 +104,16 @@ export default class LiveCodeExample extends Component {
           ].some(regex => regex.test(line)),
       )
       .join('\n');
+
+    const transformed = transform(withoutImports, {
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        [require('@babel/plugin-proposal-class-properties'), { loose: true }],
+      ],
+    }).code;
+
+    return transformed;
+  };
 
   render() {
     const { compact, previewRow, previewProps, autoRender } = this.props;

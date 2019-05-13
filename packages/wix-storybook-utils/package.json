@@ -47,6 +47,9 @@
     "react": "^15.4.0"
   },
   "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
     "babel-runtime": "^6.25.0",
     "classnames": "^2.2.5",
     "copy-to-clipboard": "^3.0.8",
@@ -57,9 +60,8 @@
     "lodash.merge": "^4.6.1",
     "prettier": "^1.16.2",
     "query-string": "^6.0.0",
-    "react-autodocs-utils": "^3.0.0",
+    "react-autodocs-utils": "^3.5.0",
     "react-collapse": "^4.0.3",
-    "react-docgen": "^2.20.0",
     "react-element-to-jsx-string": "^14.0.2",
     "react-live": "^1.12.0",
     "react-motion": "^0.5.2",

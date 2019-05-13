@@ -28,11 +28,13 @@ export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
   metadata,
   exampleImport,
   examples,
+  storyName,
   sections = [],
 }) => [
   header({
     dataHook: 'section-header',
     sourceUrl: getSourceUrl({ config, metadata }),
+    title: storyName || metadata.displayName,
     ...getHeader(sections),
   }),
 

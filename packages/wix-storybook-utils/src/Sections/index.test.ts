@@ -42,7 +42,7 @@ describe('Sections', () => {
     const renderedProps = mount(
       api({ type: SectionType.Api, parsedSource }, storyConfigEmpty),
     ).props();
-    expect(renderedProps.parsedSource).toEqual(parsedSource);
+    expect(renderedProps.metadata).toEqual(parsedSource);
   });
 });
 

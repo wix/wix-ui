@@ -2,8 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver } from 'wix-ui-test-utils/unidriver';
-import { StylableUnidriverUtil } from '../../../../test/StylableUnidriverUtil';
+import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import styles from './Label.st.css';
 
 export interface LabelDriver extends BaseUniDriver {
