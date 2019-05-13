@@ -6,7 +6,6 @@ import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
 const debounce = require('lodash/debounce');
-import classnames from 'classnames';
 
 class LoadableTooltip extends Loadable<{
   Tooltip: React.ComponentType<TooltipProps>;
