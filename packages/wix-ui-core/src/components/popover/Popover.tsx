@@ -73,9 +73,9 @@ export interface PopoverProps {
   fixed?: boolean;
   /** Moves popover relative to the parent */
   moveBy?: { x: number; y: number };
-  /** Hide Delay */
+  /** Hide Delay in ms */
   hideDelay?: number;
-  /** Show Delay */
+  /** Show Delay in ms */
   showDelay?: number;
   /** Moves arrow by amount */
   moveArrowTo?: number;
