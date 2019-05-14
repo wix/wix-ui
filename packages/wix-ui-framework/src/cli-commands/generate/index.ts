@@ -5,8 +5,8 @@ import { Process } from '../../typings';
 import { runTasks } from './run-tasks';
 import { runPrompts } from './tasks/run-prompts';
 
-const defaultTemplatesPath = 'generator/templates';
-const defaultCodemodsPath = 'generator/codemods';
+const defaultTemplatesPath = '.wuf/generator/templates';
+const defaultCodemodsPath = '.wuf/generator/codemods';
 
 export const generate: (
   a: Options & { _process: Process },

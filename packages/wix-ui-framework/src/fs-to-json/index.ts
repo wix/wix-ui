@@ -50,10 +50,8 @@ export const fsToJson: (a: Params) => Promise<object> = async ({
       Promise.resolve({}),
     );
 
-  const json = await recursion({
+  return recursion({
     entries: await fsReaddir(pathResolve(cwd, path)),
     entryCwd: cwd,
   });
-
-  return Promise.resolve(json);
 };
