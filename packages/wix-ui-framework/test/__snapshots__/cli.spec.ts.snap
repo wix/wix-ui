@@ -6,9 +6,9 @@ exports[`wuf export-testkits --help should render help text 1`] = `
 Generate testkit export file
 
 Options:
-  --definitions <string>  Path to testkit definitions. Default is \\".wuf/testkit-definitions.json\\"
+  --output <string>       Mandatory option to set where to write testkit exports file
+  --definitions <string>  Path to testkit definitions. Default is \\".wuf/testkit-definitions.js\\"
   --template <string>     Path to template. Default is \\".wuf/testkits/template.js\\"
-  --output <string>       Path to output. Default is \\"testkits/{templatePath.fileName | \\"testkits.js\\"}\\"
   -h, --help              output usage information"
 `;
 

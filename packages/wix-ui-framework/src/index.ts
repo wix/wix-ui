@@ -13,6 +13,9 @@ const extendOptions = options => ({
   },
 });
 
+const run = action => options =>
+  action(extendOptions(options)).catch(console.error);
+
 program.name('wuf').version(version, '-v, --version');
 
 program
@@ -29,28 +32,24 @@ program
     'Path to codemods. Default is "/generator/codemods/"',
   )
   .option('-f, --force', 'Force component generation in a non clean git repo.')
-  .action(options =>
-    generate(extendOptions(options)).catch(e => console.error(e)),
-  );
+  .action(run(generate));
 
 program
   .command('export-testkits')
   .description('Generate testkit export file')
   .option(
+    '--output <string>',
+    'Mandatory option to set where to write testkit exports file',
+  )
+  .option(
     '--definitions <string>',
-    'Path to testkit definitions. Default is ".wuf/testkit-definitions.json"',
+    'Path to testkit definitions. Default is ".wuf/testkit-definitions.js"',
   )
   .option(
     '--template <string>',
     'Path to template. Default is ".wuf/testkits/template.js"',
   )
-  .option(
-    '--output <string>',
-    'Path to output. Default is "testkits/{templatePath.fileName | "testkits.js"}"',
-  )
-  .action(options =>
-    exportTestkits(extendOptions(options)).catch(e => console.error(e)),
-  );
+  .action(run(exportTestkits));
 
 if (!process.argv.slice(2).length) {
   program.help();
