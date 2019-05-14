@@ -29,7 +29,10 @@ const isObject = o => o && o.toString() === '[object Object]';
  *   }
  * }
  */
-export const mapTree = (input, fn?: ({ key: string, value: any }) => any) =>
+export const mapTree = (
+  input: object,
+  fn?: ({ key: string, value: any }) => any,
+) =>
   typeof fn === 'function' && isObject(input)
     ? Object.keys(input).reduce((output, key) => {
         const candidate = fn({ key, value: input[key] });
