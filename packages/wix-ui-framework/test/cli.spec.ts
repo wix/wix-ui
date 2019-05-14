@@ -76,26 +76,30 @@ describe('wuf', () => {
       });
     });
 
+    describe('--output', () => {
+      it('should fail with error, when --output is missing', done => {
+        nixt()
+          .expect(({ stderr }) => {
+            expect(stderr).toMatch(
+              /Error: missing --output parameter, it must be defined/,
+            );
+          })
+          .run(cli('export-testkits'))
+          .end(done);
+      });
+    });
+
     describe('--definitions', () => {
       it('should fail with error, given non existing path', done => {
         nixt()
           .expect(({ stderr }) => {
             expect(stderr).toMatch(
-              /ERROR: Definitions file does not exist at "whatever.js"/,
+              /Error: Definitions file does not exist at "whatever.js"/,
             );
           })
-          .run(cli('export-testkits --definitions whatever.js'))
+          .run(cli('export-testkits --output test --definitions whatever.js'))
           .end(done);
       });
-    });
-
-    it.skip('should ask for component name', done => {
-      nixt()
-        .expect(({ stdout }) => {
-          expect(stdout).toMatch(/Generating.../);
-        })
-        .run(cli('export-testkits'))
-        .end(done);
     });
   });
 });
