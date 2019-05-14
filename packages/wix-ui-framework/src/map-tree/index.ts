@@ -6,7 +6,7 @@ const isObject = o => o && o.toString() === '[object Object]';
  * mapping function allows to change object greatly, so be careful
  *
  * @param input {object}
- * @param fn {function} ({ key: string, value: any }) => any
+ * @param fn {function} ({ key: string, value: any, parent: object }) => any
  * @returns {object}
  * @example
  *
@@ -31,11 +31,11 @@ const isObject = o => o && o.toString() === '[object Object]';
  */
 export const mapTree = (
   input: object,
-  fn?: ({ key: string, value: any }) => any,
+  fn?: ({ key: string, value: any, parent: object }) => any,
 ) =>
   typeof fn === 'function' && isObject(input)
     ? Object.keys(input).reduce((output, key) => {
-        const candidate = fn({ key, value: input[key] });
+        const candidate = fn({ key, value: input[key], parent: input });
 
         const cases = [
           {

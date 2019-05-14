@@ -132,5 +132,37 @@ describe('mapTree', () => {
         },
       });
     });
+
+    it('should have parent reference in mapping function', () => {
+      const fixture = {
+        a: 1,
+        b: {
+          c: 2,
+          d: {
+            b: 'i should still be "b"',
+          },
+        },
+      };
+
+      const fn = ({ key, value, parent }) => {
+        if (key === 'b' && parent.a === 1) {
+          return {
+            batman: value,
+          };
+        }
+      };
+
+      const result = mapTree(fixture, fn);
+
+      expect(result).toEqual({
+        a: 1,
+        batman: {
+          c: 2,
+          d: {
+            b: 'i should still be "b"',
+          },
+        },
+      });
+    });
   });
 });
