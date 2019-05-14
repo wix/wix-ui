@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
+    "deep-diff": "^1.0.2",
     "jscodeshift": "^0.6.4",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",

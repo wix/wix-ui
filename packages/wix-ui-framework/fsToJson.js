@@ -10,11 +10,6 @@ const wsrJson = fsToJson({
   path: '.',
 });
 
-// const templateJson = fsToJson({
-// cwd: '../../../wix-style-react/generator/templates/src/Component',
-// path: '.',
-// });
-
 const mandatoryShape = {
   'index.js': '',
   'Component.js': '',
