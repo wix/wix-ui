@@ -13,6 +13,7 @@ describe('fsToJson', () => {
       ).rejects.toThrowError();
     });
   });
+
   describe('given existing path', () => {
     it('should resolve with json representation of file system', async () => {
       const fsTree = {
@@ -49,7 +50,7 @@ describe('fsToJson', () => {
         fsToJson({
           cwd: fakeFs.dir,
           path: '.',
-          options: { withContent: true },
+          withContent: true,
         }),
       ).resolves.toEqual({
         templates: {
@@ -63,6 +64,38 @@ describe('fsToJson', () => {
           },
           'non-matching-component': {
             'goodbye.js': 'c',
+          },
+        },
+      });
+    });
+  });
+
+  describe('exclude option', () => {
+    it('should be used to filter tree', () => {
+      const fsTree = {
+        'take/me': 'a',
+        'me/too': 'b',
+        'skip/me': 'c',
+        'nested/deep/good.js': 'd',
+        'nested/deep/bad.js': 'e',
+        'nested/deep/ti.ts': 'f',
+      };
+
+      const fakeFs = cista(fsTree);
+
+      return expect(
+        fsToJson({
+          cwd: fakeFs.dir,
+          path: '.',
+          withContent: true,
+          exclude: ['**/skip', '**/bad.js', '**/*.ts'],
+        }),
+      ).resolves.toEqual({
+        take: { me: 'a' },
+        me: { too: 'b' },
+        nested: {
+          deep: {
+            'good.js': 'd',
           },
         },
       });
