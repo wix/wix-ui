@@ -130,3 +130,13 @@ export const linearProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
   LinearProgressBarUniDriver
 >(linearProgressBarUniDriverFactory);
 export { LinearProgressBarUniDriver };
+
+
+import {
+    CircularProgressBarUniDriver,
+    circularProgressBarUniDriverFactory,
+} from '../components/circular-progress-bar/CircularProgressBar.uni.driver';
+export const circularProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
+    CircularProgressBarUniDriver
+    >(circularProgressBarUniDriverFactory);
+export { CircularProgressBarUniDriver };

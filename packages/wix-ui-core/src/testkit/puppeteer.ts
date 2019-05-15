@@ -44,3 +44,12 @@ export const linearProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator
   LinearProgressBarUniDriver
 >(linearProgressBarUniDriverFactory);
 export { LinearProgressBarUniDriver };
+
+import {
+    CircularProgressBarUniDriver,
+    circularProgressBarUniDriverFactory,
+} from '../components/circular-progress-bar/CircularProgressBar.uni.driver';
+export const circularProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<
+    CircularProgressBarUniDriver
+    >(circularProgressBarUniDriverFactory);
+export { CircularProgressBarUniDriver };
