@@ -676,7 +676,6 @@ function runTests(createDriver, container) {
         },
         preventOverflow: {
           enabled: true,
-          escapeWithReference: true,
         },
         hide: {
           enabled: true,

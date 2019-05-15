@@ -45,7 +45,6 @@ export const createModifiers = ({
        * in the container with the right placement then the popover
        * rollback to an unexpected position. This fixes the unexpected position.
        * https://github.com/wix/wix-ui/issues/1301 */
-      escapeWithReference: true,
     },
     hide: {
       enabled: preventOverflow,
@@ -60,6 +59,7 @@ export const createModifiers = ({
     modifiers.preventOverflow = {
       ...modifiers.preventOverflow,
       boundariesElement: appendTo,
+      escapeWithReference: appendTo === 'scrollParent',
     };
   }
 
