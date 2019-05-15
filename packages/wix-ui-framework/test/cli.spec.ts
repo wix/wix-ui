@@ -102,4 +102,17 @@ describe('wuf', () => {
       });
     });
   });
+
+  describe('update', () => {
+    describe('--help', () => {
+      it('should render help text', done => {
+        nixt()
+          .expect(({ stdout }) => {
+            expect(stdout).toMatchSnapshot();
+          })
+          .run(cli('update --help'))
+          .end(done);
+      });
+    });
+  });
 });

@@ -1,6 +1,7 @@
 import * as program from 'commander';
 import { generate } from './cli-commands/generate';
 import { exportTestkits } from './cli-commands/export-testkits';
+import { updateComponentsList } from './cli-commands/update-components-list';
 
 // the following must be `require`
 // otherwise `dist` would contain extraneous `src` folder
@@ -50,6 +51,28 @@ program
     'Path to template. Default is ".wuf/testkits/template.js"',
   )
   .action(run(exportTestkits));
+
+program
+  .command('update')
+  .description('Update components list file')
+  .option(
+    '--shape <string>',
+    'Path to json file describing folder structure of required files. Default is `.wuf/required-component-files.json`',
+  )
+  .option(
+    '--components <string>',
+    'Path to folder where components reside. Default is `src/components`',
+  )
+  .option(
+    '--output <string>',
+    'Path to output file. Default is `.wuf/components.json`',
+  )
+
+  .option(
+    '--max-mismatch <number>',
+    'Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0',
+  )
+  .action(run(updateComponentsList));
 
 if (!process.argv.slice(2).length) {
   program.help();

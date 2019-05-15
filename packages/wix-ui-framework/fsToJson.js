@@ -28,7 +28,8 @@ const mandatoryShape = {
 
 Promise.all([wsrJson]).then(([wsr]) => {
   const maxMissingFiles = 2;
-  const totalConsiderableItems = Object.keys(wsr).length;
+  const totalConsiderableItems = Object.keys(wsr).filter(k => !k.includes('.'))
+    .length;
 
   const analyzedComponents = Object.keys(wsr)
     .map(componentName => {

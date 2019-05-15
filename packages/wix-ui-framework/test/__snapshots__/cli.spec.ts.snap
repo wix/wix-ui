@@ -35,7 +35,8 @@ Options:
 
 Commands:
   generate [options]         Scaffold file structure from templates
-  export-testkits [options]  Generate testkit export file"
+  export-testkits [options]  Generate testkit export file
+  update [options]           Update components list file"
 `;
 
 exports[`wuf help should be displayed when no params 1`] = `
@@ -47,5 +48,19 @@ Options:
 
 Commands:
   generate [options]         Scaffold file structure from templates
-  export-testkits [options]  Generate testkit export file"
+  export-testkits [options]  Generate testkit export file
+  update [options]           Update components list file"
+`;
+
+exports[`wuf update --help should render help text 1`] = `
+"Usage: update [options]
+
+Update components list file
+
+Options:
+  --shape <string>         Path to json file describing folder structure of required files. Default is \`.wuf/required-component-files.json\`
+  --components <string>    Path to folder where components reside. Default is \`src/components\`
+  --output <string>        Path to output file. Default is \`.wuf/components.json\`
+  --max-mismatch <number>  Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
+  -h, --help               output usage information"
 `;
