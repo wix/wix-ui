@@ -39,12 +39,6 @@ export const createModifiers = ({
     },
     preventOverflow: {
       enabled: preventOverflow,
-      /** If the element triggering the popover
-       * has a container with an overflow set to scroll or hidden
-       * and the popover doesn't have enough space to position itself
-       * in the container with the right placement then the popover
-       * rollback to an unexpected position. This fixes the unexpected position.
-       * https://github.com/wix/wix-ui/issues/1301 */
     },
     hide: {
       enabled: preventOverflow,
@@ -59,6 +53,13 @@ export const createModifiers = ({
     modifiers.preventOverflow = {
       ...modifiers.preventOverflow,
       boundariesElement: appendTo,
+      /** If the element triggering the popover
+       * has a container with an overflow set to scroll or hidden
+       * and the popover with appendTo='scrollParen' doesn't have
+       * enough space to position itself in the container with the
+       * right placement then the popover rollback to an unexpected position.
+       * This fixes the unexpected position.
+       * https://github.com/wix/wix-ui/issues/1301 */
       escapeWithReference: appendTo === 'scrollParent',
     };
   }
