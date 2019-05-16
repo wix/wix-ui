@@ -33,7 +33,7 @@ export const circularProgressBarUniDriverFactory = (
         }
         return base
             .$(byDataHook(dataHooks.progressIndicator))
-            .$('span')
+            //.$('span')
             .text();
     };
 
