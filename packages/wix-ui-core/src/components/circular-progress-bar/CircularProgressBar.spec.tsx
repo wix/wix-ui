@@ -42,8 +42,7 @@ describe( 'CircularProgressBar' , () => {
 
             it('should display success icon when reaching 100% and value passed as NUMBER', async () => {
                 const props = {
-                    value: 100,
-                    showProgressIndication: true,
+                     value: 100,
                 };
 
                 const driver = render(createCircularProgressBar({...props, ...successProps}));
@@ -53,14 +52,14 @@ describe( 'CircularProgressBar' , () => {
             it('should display success icon when reaching 100% and value passed as STRING', async () => {
                 const props = {
                     value: '100' as any,
-                    showProgressIndication: true,
+                    showProgressIndication: true, /* was in original test. I think it can be removed */
                 };
 
                 const driver = render(createCircularProgressBar({...props, ...successProps}));
                 expect(await driver.isSuccessIconDisplayed()).toBe(true);
             });
 
-            it('should display "100%" percentage when reaching 100%', async () => {
+            it('should display "100%" percentage when reaching 100% and showProgressIndication is true', async () => {
                 const props = {
                     value: 100,
                     showProgressIndication: true,
@@ -69,7 +68,7 @@ describe( 'CircularProgressBar' , () => {
                 expect(await driver.getValue()).toBe('100%');
             });
 
-            it('should display "100%" percentage when passing value above 100', async () => {
+            it('should display "100%" percentage when passing value above 100 and showProgressIndication is true', async () => {
                 const props = {
                     value: 140,
                     showProgressIndication: true,
@@ -102,7 +101,6 @@ describe( 'CircularProgressBar' , () => {
                 expect(await driver.isErrorIconDisplayed()).toBe(true);
             });
 
-            //isErrorIconDisplayed false???
             it('should show percentage when error label and icon are not provided', async () => {
                 const props = {
                     errorIcon: null,
@@ -128,18 +126,18 @@ describe( 'CircularProgressBar' , () => {
 
             it('should show error icon and percentage when encountering an error without an errorLabel', async () => {
                 const props = {
-                    value: 100,
+                    value: 50,
                     errorIcon: <div />,
                     showProgressIndication: true,
                 };
                 const driver = render(createCircularProgressBar({...props , ...errorProps}));
                 expect(await driver.isErrorIconDisplayed()).toBe(true);
-                expect(await driver.getValue()).toBe('100%');
+                expect(await driver.getValue()).toBe('50%');
             });
 
             it('should show error icon and errorLabel when encountering an error', async () => {
                 const props = {
-                    value: 100,
+                    value: 50,
                     errorLabel: 'Failed',
                     errorIcon: <div />,
                     showProgressIndication: true,
