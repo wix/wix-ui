@@ -186,6 +186,11 @@ describe( 'CircularProgressBar' , () => {
                 const driver = render(createCircularProgressBar({ ...props}));
                 expect(await driver.getValue()).toBe(`${floatValueRoundDown}%`);
             });
+
+            it('should not display percentages value by default', async () => {
+                const driver = render(createCircularProgressBar({ ...defaultProps}));
+                expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
+            });
         });
     }
 
