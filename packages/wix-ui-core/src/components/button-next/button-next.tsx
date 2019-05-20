@@ -29,40 +29,44 @@ const _addAffix = (Affix, styleClass) =>
 /**
  * ButtonNext
  */
+class ButtonNextComponent extends React.Component<ButtonProps> {
+  static defaultProps = { as: 'button', type: 'button' };
+  static displayName = 'ButtonNext';
+  public innerComponentRef: React.RefObject<HTMLButtonElement | ButtonProps['as']>;
 
-const ButtonNextComponent: React.SFC<ButtonProps> = props => {
-  const {
-    as: Component,
-    suffixIcon,
-    prefixIcon,
-    children,
-    disabled,
-    focusableOnFocus,
-    focusableOnBlur,
-    href,
-    ...rest
-  } = props;
-  const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
-  const htmlHref = disabled ? undefined : href;
-  return (
-    <Component
-      {...rest}
-      onFocus={focusableOnFocus}
-      onBlur={focusableOnBlur}
-      disabled={href ? undefined : disabled}
-      href={htmlHref}
-      tabIndex={htmlTabIndex}
-      aria-disabled={disabled}
-      {...style('root', { disabled }, rest)}
-    >
-      {_addAffix(prefixIcon, 'prefix')}
-      <span className={style.content}>{children}</span>
-      {_addAffix(suffixIcon, 'suffix')}
-    </Component>
-  );
-};
+  render() {
+    const {
+      as: Component,
+      suffixIcon,
+      prefixIcon,
+      children,
+      disabled,
+      focusableOnFocus,
+      focusableOnBlur,
+      href,
+      ...rest
+    } = this.props;
+    const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
+    const htmlHref = disabled ? undefined : href;
 
-ButtonNextComponent.displayName = 'ButtonNext';
-ButtonNextComponent.defaultProps = { as: 'button', type: 'button' };
+    return (
+      <Component
+        {...rest}
+        onFocus={focusableOnFocus}
+        onBlur={focusableOnBlur}
+        disabled={href ? undefined : disabled}
+        href={htmlHref}
+        ref={ref => this.innerComponentRef = ref}
+        tabIndex={htmlTabIndex}
+        aria-disabled={disabled}
+        {...style('root', { disabled }, rest)}
+      >
+        {_addAffix(prefixIcon, 'prefix')}
+        <span className={style.content}>{children}</span>
+        {_addAffix(suffixIcon, 'suffix')}
+      </Component>
+    );
+  }
+}
 
 export const ButtonNext = ButtonNextComponent;
