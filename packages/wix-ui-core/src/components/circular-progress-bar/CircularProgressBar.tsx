@@ -1,6 +1,7 @@
 import * as React from 'react';
 import style from './CircularProgressBar.st.css';
 import { Arc } from './Arc';
+import { dataHooks } from "./constants";
 
 export interface CircularProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -31,11 +32,11 @@ const resolveIndicationElement = (props: CircularProgressBarProps) => {
   );
 
   if (props.error && props.errorIcon) {
-    return wrapped('error-icon', props.errorIcon);
+    return wrapped(dataHooks.errorIcon, props.errorIcon);
   }
 
   if (props.value === FULL_PROGRESS && props.successIcon) {
-    return wrapped('success-icon', props.successIcon);
+    return wrapped(dataHooks.successIcon, props.successIcon);
   }
 };
 
@@ -63,14 +64,14 @@ const renderArcs = (props: CircularProgressBarProps) => {
     >
       {resolveIndicationElement(props)}
       <Arc
-        data-hook="progressarc-background"
+        data-hook={dataHooks.progressArcBackground}
         value={FULL_PROGRESS}
         className={style.backArc}
         strokeWidth={4}
         size={normalizedSize}
       />
       <Arc
-        data-hook="progressarc-foreground"
+        data-hook={dataHooks.progressArcForeground}
         value={normalizedValue}
         className={style.foreArc}
         strokeWidth={4}
@@ -108,7 +109,7 @@ export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (
     <div {...style('root', { error, success }, _props)}>
       {renderArcs(_props)}
       {showProgressIndication && (
-        <div data-hook="progress-indicator" className={style.progressIndicator}>
+        <div data-hook={dataHooks.progressIndicator} className={style.progressIndicator}>
           {value}
         </div>
       )}
