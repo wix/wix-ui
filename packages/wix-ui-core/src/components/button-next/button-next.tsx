@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import style from './button-next.st.css';
+import {isStatelessComponent} from "../../utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -48,6 +49,9 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
     } = this.props;
     const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
     const htmlHref = disabled ? undefined : href;
+    const reference = isStatelessComponent(Component)
+        ? undefined
+        : ref => (this.innerComponentRef = ref);
 
     return (
       <Component
@@ -56,7 +60,7 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         onBlur={focusableOnBlur}
         disabled={href ? undefined : disabled}
         href={htmlHref}
-        ref={ref => this.innerComponentRef = ref}
+        ref={reference}
         tabIndex={htmlTabIndex}
         aria-disabled={disabled}
         {...style('root', { disabled }, rest)}

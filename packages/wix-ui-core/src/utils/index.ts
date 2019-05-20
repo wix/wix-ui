@@ -41,3 +41,7 @@ export const isReactElement = <T>(
 ): child is React.ReactElement<T> => {
   return child && child.type === Element;
 };
+
+export const isStatelessComponent = Component =>
+    !(Component.prototype && Component.prototype.render);
+
