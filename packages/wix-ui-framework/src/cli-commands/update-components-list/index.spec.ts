@@ -59,5 +59,32 @@ describe('updateComponentsList', () => {
 
       expect(JSON.parse(output)).toEqual(expectedOutput);
     });
+
+    it('should not add `missingFiles` if there are none', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.js": "" } }`,
+        'src/components/test-component/index.js': '',
+        'src/components/test-component/docs/index.story.js': '',
+        '.wuf/components.json': '',
+      });
+
+      const expectedOutput = {
+        'test-component': {
+          path: 'src/components/test-component',
+        },
+      };
+
+      await updateComponentsList({
+        maxMismatch: 2,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        fakeFs.dir + '/.wuf/components.json',
+        'utf8',
+      );
+
+      expect(JSON.parse(output)).toEqual(expectedOutput);
+    });
   });
 });

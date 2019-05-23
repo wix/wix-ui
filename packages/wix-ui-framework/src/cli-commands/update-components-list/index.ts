@@ -120,7 +120,9 @@ export const updateComponentsList: (
   const output = goodComponents.reduce((components, component) => {
     components[component.name] = {
       path: component.path,
-      missingFiles: component.missingFiles,
+      ...(component.missingFiles.length
+        ? { missingFiles: component.missingFiles }
+        : {}),
     };
     return components;
   }, {});
