@@ -38,7 +38,9 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
+    "deep-diff": "^1.0.2",
     "jscodeshift": "^0.6.4",
+    "minimatch": "^3.0.4",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
     "simple-git": "^1.110.0"
@@ -55,14 +57,16 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/",
       "<rootDir>/test-generated/",
-      "<rootDir>/src/generate/__test__/templates",
-      "<rootDir>/src/generate/__test__/codemods"
+      "<rootDir>/src/cli-commands/generate/__test__/templates",
+      "<rootDir>/src/cli-commands/generate/__test__/codemods"
     ]
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
     "@types/node": "^11.13.8",
+    "cista": "0.0.3",
     "jest": "^24.7.1",
+    "nixt": "^0.5.1",
     "ts-jest": "^24.0.2",
     "tslint-config-yoshi": "^4.1.0",
     "typescript": "^3.4.5",

@@ -3,7 +3,7 @@ import * as prompts from 'prompts';
 import { Answers } from '../typings';
 
 import { isPascalCase } from '../utils';
-import * as logger from '../logger';
+import * as logger from '../../../logger';
 
 export const runPrompts: () => Promise<Answers> = async () => {
   let promptAborted = false;
