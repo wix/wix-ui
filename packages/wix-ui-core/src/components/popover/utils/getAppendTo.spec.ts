@@ -14,6 +14,7 @@ describe('getAppendTo', () => {
     const parent = document.createElement('div');
     parent.appendChild(node);
     parent.style.overflow = 'auto';
+    document.body.appendChild(parent);
     expect(getAppendTo('scrollParent', node)).toBe(parent);
   });
 
