@@ -1,6 +1,7 @@
 import { getAppendToElement } from './getAppendToElement';
+import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
 
-describe.only('getAppendToElement', () => {
+describe('getAppendToElement', () => {
   it('should return document.body [when] given `viewport` ', () => {
     expect(getAppendToElement('viewport')).toBe(document.body);
   });
@@ -14,8 +15,10 @@ describe.only('getAppendToElement', () => {
     const parent = document.createElement('div');
     parent.appendChild(node);
     parent.style.overflow = 'auto';
-    document.body.appendChild(parent);
-    expect(getAppendToElement('scrollParent', node)).toBe(parent);
+
+    expect(getAppendToElement('scrollParent', node)).toBe(
+      getScrollParent(node),
+    );
   });
 
   it('should return null [when] given `random`', () => {
