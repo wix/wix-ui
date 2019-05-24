@@ -1,12 +1,12 @@
-import { getAppendTo } from './getAppendTo';
+import { getAppendToElement } from './getAppendToElement';
 
-describe('getAppendTo', () => {
+describe.only('getAppendToElement', () => {
   it('should return document.body [when] given `viewport` ', () => {
-    expect(getAppendTo('viewport')).toBe(document.body);
+    expect(getAppendToElement('viewport')).toBe(document.body);
   });
 
   it('should return document.body [when] given `window` ', () => {
-    expect(getAppendTo('window')).toBe(document.body);
+    expect(getAppendToElement('window')).toBe(document.body);
   });
 
   it('should return first element with overflow style  [when] given `scrollParent` ', () => {
@@ -15,11 +15,11 @@ describe('getAppendTo', () => {
     parent.appendChild(node);
     parent.style.overflow = 'auto';
     document.body.appendChild(parent);
-    expect(getAppendTo('scrollParent', node)).toBe(parent);
+    expect(getAppendToElement('scrollParent', node)).toBe(parent);
   });
 
   it('should return null [when] given `random`', () => {
-    expect(getAppendTo('random')).toBe(null);
+    expect(getAppendToElement('random')).toBe(null);
   });
 
   it('should return matching ancestor by predicate [when] filter function', () => {
@@ -28,13 +28,13 @@ describe('getAppendTo', () => {
     const parent = document.createElement('div');
     parent.setAttribute('some-attr', 'some-value');
     parent.appendChild(element);
-    expect(getAppendTo(predicate, element)).toBe(parent);
+    expect(getAppendToElement(predicate, element)).toBe(parent);
   });
 
   it('should return document body [when] predicate is not matched', () => {
     const predicate = el => el.getAttribute('some-attr') === 'some-value';
     const element = document.createElement('div');
-    expect(getAppendTo(predicate, element)).toBe(document.body);
+    expect(getAppendToElement(predicate, element)).toBe(document.body);
   });
 
   it('should return sibling element [when] predicate is matched', () => {
@@ -46,7 +46,7 @@ describe('getAppendTo', () => {
     parent.appendChild(sibling1);
     parent.appendChild(sibling2);
     sibling1.setAttribute('some-attr', 'some-value');
-    expect(getAppendTo(predicate, sibling2)).toBe(sibling1);
+    expect(getAppendToElement(predicate, sibling2)).toBe(sibling1);
   });
 
   it('should return sibling of siblings [when] predicate is matched', () => {
@@ -59,7 +59,7 @@ describe('getAppendTo', () => {
     parent.appendChild(sibling2);
     sibling2.appendChild(sibling2_1);
     sibling2_1.setAttribute('some-attr', 'some-value');
-    expect(getAppendTo(predicate, sibling1)).toBe(sibling2_1);
+    expect(getAppendToElement(predicate, sibling1)).toBe(sibling2_1);
   });
 
   it('should return sibling of siblings [when] predicate is matched', () => {
@@ -73,11 +73,11 @@ describe('getAppendTo', () => {
     parent.appendChild(sibling2);
     sibling2.appendChild(sibling2_1);
     sibling2_1.setAttribute('some-attr', 'some-value');
-    expect(getAppendTo(predicate, sibling1)).toBe(sibling2_1);
+    expect(getAppendToElement(predicate, sibling1)).toBe(sibling2_1);
   });
 
   it('should return given element [when] element is given', () => {
     const element = document.createElement('div');
-    expect(getAppendTo(element)).toBe(element);
+    expect(getAppendToElement(element)).toBe(element);
   });
 });

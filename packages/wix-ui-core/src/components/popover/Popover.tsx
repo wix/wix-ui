@@ -27,6 +27,7 @@ import * as classNames from 'classnames';
 const isElement = require('lodash/isElement');
 
 import { popoverTestUtils } from './helpers';
+import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -41,7 +42,7 @@ if (isTestEnv) {
 }
 
 export type Placement = PopperJS.Placement;
-export type AppendTo = PopperJS.Boundary | 'parent' | Element;
+export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   className?: string;
@@ -345,10 +346,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   initAppendToNode() {
     const { appendTo } = this.props;
-    this.appendToNode = getAppendToNode({
-      appendTo,
-      targetRef: this.targetRef,
-    });
+    this.appendToNode = getAppendToElement(appendTo, this.targetRef);
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');

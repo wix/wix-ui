@@ -1,12 +1,13 @@
 import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
 import { getParentNode, getChildrenOfChildren } from './utils';
+const isElement = require('lodash/isElement');
 
-type predicate = (s: Element) => boolean;
-type preset = string;
-type html = HTMLDivElement;
+export type Predicate = (s: Element) => boolean;
+export type Preset = string;
+export type Elm = HTMLDivElement | Element;
 
-export function getAppendTo(
-  appendTo?: preset | predicate | html,
+export function getAppendToElement(
+  appendTo?: Preset | Predicate | Elm,
   node?: Element,
 ) {
   if (!appendTo) {
@@ -29,7 +30,11 @@ export function getAppendTo(
     return getByPredicate(appendTo, node);
   }
 
-  return appendTo;
+  if (isElement(appendTo)) {
+    return appendTo;
+  }
+
+  return null;
 }
 
 function getByPredicate(predicate, element) {
