@@ -21,15 +21,6 @@ interface Options {
   _process: Process;
 }
 
-/*
-1. read template json
-2. fs-to-json start path
-3. iterate src json
-4. rename template to iteratee name
-5. diff according to maxDiff setting
-6. write json to output
-*/
-
 export const updateComponentsList: (
   a: Options,
 ) => Promise<void> = async opts => {
