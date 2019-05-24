@@ -1,6 +1,10 @@
 import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
+import { getParentNode } from './utils';
 
-export function getAppendTo(appendTo?: string | Element, node?: Element) {
+type predicate = (s: Element) => boolean;
+type preset = string;
+
+export function getAppendTo(appendTo?: preset | predicate, node?: Element) {
   if (!appendTo) {
     return null;
   }
@@ -20,11 +24,47 @@ export function getAppendTo(appendTo?: string | Element, node?: Element) {
   return getByPredicate(appendTo, node);
 }
 
-function getByPredicate(appendTo, node) {}
+function getByPredicate(predicate, element) {
+  if (!element) {
+    return document.body;
+  }
 
-// function getParentNode(element) {
-//   if (element.nodeName === 'HTML') {
-//     return element;
-//   }
-//   return element.parentNode || element.host;
-// }
+  return (
+    searchParent(predicate, element) ||
+    searchChilds(predicate, element) ||
+    document.body
+  );
+}
+
+function searchParent(predicate, element) {
+  if (!element) {
+    return;
+  }
+  if (predicate(element)) {
+    return element;
+  }
+  return getByPredicate(predicate, getParentNode(element));
+}
+
+function searchChilds(predicate, elements) {
+  if (!elements) {
+    return;
+  }
+
+  if (elements.length !== 0) {
+    const found = elements.find(el => predicate(el));
+    if (found) {
+      return found;
+    }
+  }
+
+  if (elements.length !== 0) {
+    const children = elements.reduce((result, el) => {
+      return [...result, ...Array.from(el.childNodes)];
+    });
+
+    return searchChilds(predicate, children);
+  }
+
+  return searchChilds(predicate, elements);
+}
