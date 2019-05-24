@@ -53,7 +53,7 @@ describe('updateComponentsList', () => {
       });
 
       const output = fs.readFileSync(
-        fakeFs.dir + '/.wuf/components.json',
+        `${fakeFs.dir}/.wuf/components.json`,
         'utf8',
       );
 
@@ -80,7 +80,7 @@ describe('updateComponentsList', () => {
       });
 
       const output = fs.readFileSync(
-        fakeFs.dir + '/.wuf/components.json',
+        `${fakeFs.dir}/.wuf/components.json`,
         'utf8',
       );
 
