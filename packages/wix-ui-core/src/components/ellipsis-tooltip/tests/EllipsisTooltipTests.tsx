@@ -9,7 +9,11 @@ import {
 import { EllipsisTooltip } from '..';
 import styles from './EllipsisTooltipTests.st.css';
 
-const wrapperStylesWithEllipsis = { width: '170px', background: 'azure' };
+const wrapperStylesWithEllipsis = {
+  width: '170px',
+  background: 'azure',
+  overflow: 'auto',
+};
 const wrapperStylesNoEllipsis = { background: 'azure' };
 
 storiesOf(testFolder, module)

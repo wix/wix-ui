@@ -4,9 +4,9 @@
  */
 "use strict";
 
-var requireIndex = require("requireindex");
-
-module.exports.rules = requireIndex(__dirname + "/rules");
+module.exports.rules = {
+  'no-full-wsr-lib': require('./rules/no-full-wsr-lib')
+};
 
 module.exports.config = {
   recommended: {

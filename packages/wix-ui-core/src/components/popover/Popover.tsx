@@ -10,6 +10,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
+import { AttributeMap } from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
@@ -72,9 +73,9 @@ export interface PopoverProps {
   fixed?: boolean;
   /** Moves popover relative to the parent */
   moveBy?: { x: number; y: number };
-  /** Hide Delay */
+  /** Hide Delay in ms */
   hideDelay?: number;
-  /** Show Delay */
+  /** Show Delay in ms */
   showDelay?: number;
   /** Moves arrow by amount */
   moveArrowTo?: number;
@@ -86,6 +87,10 @@ export interface PopoverProps {
   style?: object;
   /** Id */
   id?: string;
+  /** Custom arrow element */
+  customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** target element role value */
+  role?: string;
 }
 
 export interface PopoverState {
@@ -205,6 +210,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       moveArrowTo,
       flip,
       fixed,
+      customArrow,
+      role,
+      id,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -241,20 +249,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 [style.popoverContent]: !showArrow,
               })}
             >
-              {showArrow ? (
-                [
-                  this.renderArrow(
-                    arrowProps,
-                    moveArrowTo,
-                    popperPlacement || placement,
-                  ),
-                  <div key="popover-content" className={style.popoverContent}>
-                    {childrenObject.Content}
-                  </div>,
-                ]
-              ) : (
-                <div key="popover-content">{childrenObject.Content}</div>
-              )}
+              {showArrow &&
+                this.renderArrow(
+                  arrowProps,
+                  moveArrowTo,
+                  popperPlacement || placement,
+                  customArrow,
+                )}
+              <div
+                key="popover-content"
+                id={id}
+                role={role}
+                className={showArrow ? style.popoverContent : ''}
+              >
+                {childrenObject.Content}
+              </div>
             </div>
           );
         }}
@@ -311,19 +320,22 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     );
   }
 
-  renderArrow(arrowProps, moveArrowTo, placement) {
-    return (
-      <div
-        ref={arrowProps.ref}
-        key="popover-arrow"
-        data-hook="popover-arrow"
-        className={style.arrow}
-        style={{
-          ...arrowProps.style,
-          ...getArrowShift(moveArrowTo, placement),
-        }}
-      />
-    );
+  renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
+    const commonProps = {
+      ref: arrowProps.ref,
+      key: 'popover-arrow',
+      'data-hook': 'popover-arrow',
+      style: {
+        ...arrowProps.style,
+        ...getArrowShift(moveArrowTo, placement),
+      },
+    };
+
+    if (customArrow) {
+      return customArrow(placement, commonProps);
+    }
+
+    return <div {...commonProps} className={style.arrow} />;
   }
 
   componentDidMount() {

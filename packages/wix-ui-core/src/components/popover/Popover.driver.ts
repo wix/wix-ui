@@ -24,6 +24,9 @@ export const popoverDriverFactory = ({ element, eventTrigger }) => ({
   /** Returns the content element (`<Popover.Content/>`) */
   getContentElement: () => getContentElement(element),
 
+  /** Returns the arrow element */
+  getArrowElement: () => getArrowElement(element),
+
   /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
   isTargetElementExists: () => !!getTargetElement(element),
 

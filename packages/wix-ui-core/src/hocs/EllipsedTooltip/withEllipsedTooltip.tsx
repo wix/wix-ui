@@ -3,18 +3,25 @@ import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import textStyle from './Text.st.css';
 import { getDisplayName } from '../utils';
+import { Loadable } from '../../components/loadable';
+import { TooltipProps } from '../../components/tooltip';
 const debounce = require('lodash/debounce');
+
+class LoadableTooltip extends Loadable<{
+  Tooltip: React.ComponentType<TooltipProps>;
+  tooltipStyle: RuntimeStylesheet;
+}> {}
 
 interface EllipsedTooltipProps {
   component: React.ReactElement<any>;
   showTooltip?: boolean;
+  shouldLoadAsync?: boolean;
   style?: object;
-};
+  tooltipProps?: object;
+}
 
 interface EllipsedTooltipState {
   isEllipsisActive: boolean;
-  Tooltip: React.ComponentClass;
-  tooltipStyle: RuntimeStylesheet;
 }
 
 export interface WrapperComponentProps {
@@ -45,7 +52,7 @@ class EllipsedTooltip extends React.Component<
 > {
   static defaultProps = { showTooltip: true };
 
-  state = { isEllipsisActive: false, Tooltip: null, tooltipStyle: null };
+  state = { isEllipsisActive: false };
 
   textNode: HTMLElement;
 
@@ -67,29 +74,11 @@ class EllipsedTooltip extends React.Component<
     }
   }
 
-  loadTooltip = async () => {
-    const { Tooltip } = await import('../../components/tooltip');
-    this.setState({ Tooltip });
-  };
-
-  loadTooltipStyle = async () => {
-    const { default: tooltipStyle } = await import('./EllipsedTooltip.st.css');
-    this.setState({ tooltipStyle });
-  };
-
   _updateEllipsisState = () => {
     const isEllipsisActive =
       this.props.showTooltip &&
       this.textNode &&
       this.textNode.offsetWidth < this.textNode.scrollWidth;
-    if (
-      isEllipsisActive &&
-      !this.state.isEllipsisActive &&
-      !this.state.Tooltip
-    ) {
-      this.loadTooltip();
-      this.loadTooltipStyle();
-    }
     this.setState({
       isEllipsisActive,
     });
@@ -114,33 +103,63 @@ class EllipsedTooltip extends React.Component<
   }
 
   render() {
-    const { Tooltip, tooltipStyle } = this.state;
-    if (!this.state.isEllipsisActive || !this.props.showTooltip || !Tooltip) {
-      return this._renderText();
-    }
+    const { shouldLoadAsync, showTooltip, tooltipProps } = this.props;
+    const { isEllipsisActive } = this.state;
+    const shouldLoadTooltip = isEllipsisActive && showTooltip;
 
     return (
-      <Tooltip
-        {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
-        appendTo="scrollParent"
-        content={<div>{this.textNode.textContent}</div>}
-        showArrow
+      <LoadableTooltip
+        loader={{
+          Tooltip: () =>
+            shouldLoadAsync
+              ? import('../../components/tooltip')
+              : require('../../components/tooltip'),
+          tooltipStyle: () =>
+            shouldLoadAsync
+              ? import('./EllipsedTooltip.st.css')
+              : require('./EllipsedTooltip.st.css'),
+        }}
+        defaultComponent={this._renderText()}
+        namedExports={{
+          Tooltip: 'Tooltip',
+        }}
+        shouldLoadComponent={shouldLoadTooltip}
       >
-        {this._renderText()}
-      </Tooltip>
+        {({ Tooltip, tooltipStyle }) => {
+          return (
+            <Tooltip
+              {...tooltipProps}
+              {...tooltipStyle('root', {}, tooltipProps || this.props)}
+              appendTo="scrollParent"
+              content={<div>{this.textNode.textContent}</div>}
+              showArrow
+            >
+              {this._renderText()}
+            </Tooltip>
+          );
+        }}
+      </LoadableTooltip>
     );
   }
 }
 
 export const withEllipsedTooltip = ({
   showTooltip,
-}: { showTooltip?: boolean } = {}) => Comp => {
+  shouldLoadAsync,
+  tooltipProps,
+}: {
+  showTooltip?: boolean;
+  shouldLoadAsync?: boolean;
+  tooltipProps?: object;
+} = {}) => Comp => {
   const WrapperComponent: React.SFC<WrapperComponentProps> = props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}
+      shouldLoadAsync={shouldLoadAsync}
       showTooltip={showTooltip}
       data-hook="ellipsed-tooltip-wrapper"
+      tooltipProps={tooltipProps}
     />
   );
 

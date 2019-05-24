@@ -1,6 +1,6 @@
-import { browser, $, $$ } from 'protractor';
-import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
-import { constants } from './constants';
+import {browser, $, $$} from 'protractor';
+import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
+import {constants} from './constants';
 
 import {
   UniDriver,
@@ -11,7 +11,7 @@ import {
 async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${constants.verifiedTokenDataHook}`));
   const verifiedToken = await $(
-    `[data-hook=${constants.verifiedTokenDataHook}]`,
+    `[data-hook=${constants.verifiedTokenDataHook}]`
   ).getText();
   return (
     verifiedToken !== constants.verifiedTokenMark &&
@@ -41,12 +41,10 @@ async function waitAndClickOnCaptcha() {
   await waitForVisibilityOf(captchaElement);
   // lets wait for the captcha to render
   await waitForVisibilityOf($(`[data-hook=${constants.renderDataHook}`));
-  //lets find the iframe with the captcha checkbox
+  // lets find the iframe with the captcha checkbox
   const captchaIframe = captchaElement.$('iframe');
-  await browser.switchTo().frame(captchaIframe.getWebElement());
-  //click the captcha check box - we use a key that will always return non bot verified
-  await $('.recaptcha-checkbox-checkmark').click();
-  return browser.switchTo().defaultContent();
+  // When clicking on the iframe it should check the checkbox.
+  return captchaIframe.click();
 }
 
 export interface CaptchaTestComponentDriver extends BaseUniDriver {
@@ -58,7 +56,7 @@ export interface CaptchaTestComponentDriver extends BaseUniDriver {
 }
 
 export const CaptchaTestInstanceDriverFactory = (
-  base: UniDriver,
+  base: UniDriver
 ): CaptchaTestComponentDriver => {
   return {
     ...baseUniDriverFactory(base),

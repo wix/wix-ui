@@ -20,7 +20,7 @@ interface EllipsisTooltipProps {
 }
 
 interface EllipsisTooltipState {
-  isEllipsisActive: boolean;
+  isTooltipActivated: boolean;
   Tooltip: React.ComponentClass;
   tooltipStyle: RuntimeStylesheet;
 }
@@ -31,8 +31,9 @@ export class EllipsisTooltip extends React.Component<
 > {
   static defaultProps = { showTooltip: true };
 
-  state = { isEllipsisActive: false, Tooltip: null, tooltipStyle: null };
+  state = { isTooltipActivated: false, Tooltip: null, tooltipStyle: null };
 
+  dynamicAssetsLoadingTriggered: boolean = false;
   textNode: HTMLElement;
 
   componentDidMount() {
@@ -46,8 +47,6 @@ export class EllipsisTooltip extends React.Component<
   }
 
   componentDidUpdate(prevProps) {
-    // if props changed, then we want to re-check node for ellipsis state
-    // and we can not do such check in render, because we want to check already rendered node
     if (!shallowequal(prevProps, this.props)) {
       this._updateEllipsisState();
     }
@@ -55,28 +54,38 @@ export class EllipsisTooltip extends React.Component<
 
   _loadTooltip = async () => {
     const { Tooltip } = await import('../../components/tooltip');
-    this.setState({ Tooltip });
+    this.setState({ Tooltip }, () => this._updateEllipsisState());
   };
 
   _loadTooltipStyle = async () => {
     const { default: tooltipStyle } = await import('./EllipsisTooltip.st.css');
-    this.setState({ tooltipStyle });
+    this.setState({ tooltipStyle }, () => this._updateEllipsisState());
   };
 
+  _isOverflowing() {
+    return (
+      this.textNode && this.textNode.offsetWidth < this.textNode.scrollWidth
+    );
+  }
+
   _updateEllipsisState = () => {
-    const { Tooltip, isEllipsisActive } = this.state;
+    const { Tooltip, tooltipStyle } = this.state;
     const { showTooltip } = this.props;
 
-    const isEllipsisActiveNewState =
-      showTooltip &&
-      this.textNode &&
-      this.textNode.offsetWidth < this.textNode.scrollWidth;
-    if (isEllipsisActiveNewState && !isEllipsisActive && !Tooltip) {
-      this._loadTooltip();
-      this._loadTooltipStyle();
+    const shouldShowTooltip = showTooltip && this._isOverflowing();
+
+    if (shouldShowTooltip && !this.dynamicAssetsLoadingTriggered) {
+      this.dynamicAssetsLoadingTriggered = true;
+      if (!Tooltip) {
+        this._loadTooltip();
+      }
+      if (!tooltipStyle) {
+        this._loadTooltipStyle();
+      }
     }
+
     this.setState({
-      isEllipsisActive: isEllipsisActiveNewState,
+      isTooltipActivated: shouldShowTooltip && Tooltip && tooltipStyle,
     });
   };
 
@@ -104,19 +113,13 @@ export class EllipsisTooltip extends React.Component<
     );
   }
 
-  _isTooltipActive() {
-    const { isEllipsisActive, Tooltip } = this.state;
-    const { showTooltip } = this.props;
-    return !!(showTooltip && isEllipsisActive && Tooltip);
-  }
-
   render() {
-    const { Tooltip, tooltipStyle } = this.state;
+    const { Tooltip, tooltipStyle, isTooltipActivated } = this.state;
 
-    return this._isTooltipActive() ? (
+    return isTooltipActivated ? (
       <Tooltip
         {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
-        appendTo="scrollParent"
+        appendTo="window"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
       >
