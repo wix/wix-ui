@@ -22,7 +22,7 @@ export function getAppendToElement(
       case 'scrollParent':
         return getScrollParent(node);
       default:
-        return null;
+        return;
     }
   }
 
@@ -34,12 +34,12 @@ export function getAppendToElement(
     return appendTo;
   }
 
-  return null;
+  return;
 }
 
 function getByPredicate(predicate, element) {
   if (!element) {
-    return document.body;
+    return;
   }
 
   if (searchParent(predicate, element)) {
@@ -55,7 +55,7 @@ function getByPredicate(predicate, element) {
     }
   }
 
-  return document.body;
+  return;
 }
 
 function searchParent(predicate, element) {

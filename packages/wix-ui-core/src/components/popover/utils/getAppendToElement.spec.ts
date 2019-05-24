@@ -22,7 +22,7 @@ describe('getAppendToElement', () => {
   });
 
   it('should return null [when] given `random`', () => {
-    expect(getAppendToElement('random')).toBe(null);
+    expect(getAppendToElement('random')).toBe(undefined);
   });
 
   it('should return matching ancestor by predicate [when] filter function', () => {
@@ -34,10 +34,10 @@ describe('getAppendToElement', () => {
     expect(getAppendToElement(predicate, element)).toBe(parent);
   });
 
-  it('should return document body [when] predicate is not matched', () => {
+  it('should return null [when] predicate is not matched', () => {
     const predicate = el => el.getAttribute('some-attr') === 'some-value';
     const element = document.createElement('div');
-    expect(getAppendToElement(predicate, element)).toBe(document.body);
+    expect(getAppendToElement(predicate, element)).toBe(undefined);
   });
 
   it('should return sibling element [when] predicate is matched', () => {
@@ -54,20 +54,6 @@ describe('getAppendToElement', () => {
 
   it('should return sibling of siblings [when] predicate is matched', () => {
     const predicate = el => el.getAttribute('some-attr') === 'some-value';
-    const parent = document.createElement('div');
-    const sibling1 = document.createElement('div');
-    const sibling2 = document.createElement('div');
-    const sibling2_1 = document.createElement('div');
-    parent.appendChild(sibling1);
-    parent.appendChild(sibling2);
-    sibling2.appendChild(sibling2_1);
-    sibling2_1.setAttribute('some-attr', 'some-value');
-    expect(getAppendToElement(predicate, sibling1)).toBe(sibling2_1);
-  });
-
-  it('should return sibling of siblings [when] predicate is matched', () => {
-    const predicate = el => el.getAttribute('some-attr') === 'some-value';
-
     const parent = document.createElement('div');
     const sibling1 = document.createElement('div');
     const sibling2 = document.createElement('div');
