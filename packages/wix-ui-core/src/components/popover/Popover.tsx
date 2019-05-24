@@ -130,20 +130,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-function getAppendToNode({ appendTo, targetRef }) {
-  let appendToNode;
-  if (appendTo === 'window' || appendTo === 'viewport') {
-    appendToNode = document.body;
-  } else if (appendTo === 'scrollParent') {
-    appendToNode = getScrollParent(targetRef);
-  } else if (isElement(appendTo)) {
-    appendToNode = appendTo;
-  } else {
-    appendToNode = null;
-  }
-  return appendToNode;
-}
-
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
 const ClickOutsideWrapper: React.ComponentClass<
