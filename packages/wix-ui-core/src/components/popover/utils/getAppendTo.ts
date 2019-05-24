@@ -1,10 +1,14 @@
 import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
-import { getParentNode } from './utils';
+import { getParentNode, getChildrenOfChildren } from './utils';
 
 type predicate = (s: Element) => boolean;
 type preset = string;
+type html = HTMLDivElement;
 
-export function getAppendTo(appendTo?: preset | predicate, node?: Element) {
+export function getAppendTo(
+  appendTo?: preset | predicate | html,
+  node?: Element,
+) {
   if (!appendTo) {
     return null;
   }
@@ -21,7 +25,11 @@ export function getAppendTo(appendTo?: preset | predicate, node?: Element) {
     }
   }
 
-  return getByPredicate(appendTo, node);
+  if (typeof appendTo === 'function') {
+    return getByPredicate(appendTo, node);
+  }
+
+  return appendTo;
 }
 
 function getByPredicate(predicate, element) {
@@ -29,11 +37,20 @@ function getByPredicate(predicate, element) {
     return document.body;
   }
 
-  return (
-    searchParent(predicate, element) ||
-    searchChilds(predicate, element) ||
-    document.body
-  );
+  if (searchParent(predicate, element)) {
+    return searchParent(predicate, element);
+  }
+
+  const parent = element.parentNode;
+
+  if (parent && parent.childNodes) {
+    const children = parent && parent.childNodes;
+    if (searchChildren(predicate, Array.from(children))) {
+      return searchChildren(predicate, Array.from(children));
+    }
+  }
+
+  return document.body;
 }
 
 function searchParent(predicate, element) {
@@ -43,28 +60,21 @@ function searchParent(predicate, element) {
   if (predicate(element)) {
     return element;
   }
-  return getByPredicate(predicate, getParentNode(element));
+  return searchParent(predicate, getParentNode(element));
 }
 
-function searchChilds(predicate, elements) {
-  if (!elements) {
+function searchChildren(predicate, nodeList) {
+  if (!nodeList || nodeList.length === 0) {
     return;
   }
 
-  if (elements.length !== 0) {
-    const found = elements.find(el => predicate(el));
-    if (found) {
-      return found;
-    }
+  // Check whether current children list matches the predicate
+  const element = nodeList.find(el => predicate(el));
+
+  if (element) {
+    return element;
   }
 
-  if (elements.length !== 0) {
-    const children = elements.reduce((result, el) => {
-      return [...result, ...Array.from(el.childNodes)];
-    });
-
-    return searchChilds(predicate, children);
-  }
-
-  return searchChilds(predicate, elements);
+  // Get childrens of childrens and run this function again
+  return searchChildren(predicate, getChildrenOfChildren(nodeList));
 }
