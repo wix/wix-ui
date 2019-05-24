@@ -11,6 +11,14 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 2.0.0 - 2019-05-24
+## Breaking
+- a lot of internal refactoring which is potentially breaking users
+
+## Added
+- `wuf export-teskits` command
+- `wuf update` command
+
 # 1.2.1 - 2019-05-03
 ## Fixed
 - prevent `jscodeshift` error
