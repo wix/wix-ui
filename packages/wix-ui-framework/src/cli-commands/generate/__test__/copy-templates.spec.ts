@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as tempy from 'tempy';
 import globby from 'globby';
-import * as logger from '../logger';
+import * as logger from '../../../logger';
 import { copyTemplates } from '../tasks/copy-templates';
 
 // Extracted from

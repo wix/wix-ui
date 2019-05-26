@@ -27,7 +27,8 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
     isTargetElementExists: async () => byHook('popover-element').exists(),
 
     /** Returns `true` whether the content element (`<Popover.Content/>`) exists */
-    isContentElementExists: async () => byHook('popover-content').exists(),
+    isContentElementExists: async () =>
+      (await commonDriver.getContentElement()).exists(),
 
     mouseEnter: () => base.hover(),
 

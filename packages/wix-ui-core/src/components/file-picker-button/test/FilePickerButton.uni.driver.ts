@@ -2,7 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { byDataHook, ReactBase } from '../../../../test/utils/unidriver';
+import { byDataHook } from '../../../../test/utils/unidriver';
 import { ElementFinder } from 'protractor';
 import { Simulate } from 'react-dom/test-utils';
 import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
@@ -26,7 +26,6 @@ export const filePickerButtonUniDriverFactory = (
     byDataHook(DataHook.ChooseFileButton),
   );
   const stylableUniDriverUtil = new StylableUnidriverUtil(style);
-  const getReactFileInputUniDriver = () => ReactBase(fileInputUniDriver);
 
   return {
     ...baseUniDriverFactory(base),

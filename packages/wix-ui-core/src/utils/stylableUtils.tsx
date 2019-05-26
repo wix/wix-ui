@@ -1,3 +1,10 @@
+type StateValue = boolean | number | string;
+
+export interface AttributeMap {
+  className?: string;
+  [attributeName: string]: StateValue | undefined;
+}
+
 export const attachStylesToNode = (
   node: HTMLElement,
   stylesObj: AttributeMap,

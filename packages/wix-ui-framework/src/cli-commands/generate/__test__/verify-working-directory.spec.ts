@@ -1,6 +1,6 @@
 import * as tempy from 'tempy';
 
-import * as logger from '../logger';
+import * as logger from '../../../logger';
 import * as utils from '../utils';
 import {
   verifyWorkingDirectory,

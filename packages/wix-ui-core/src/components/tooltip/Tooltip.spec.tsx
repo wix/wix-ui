@@ -131,19 +131,32 @@ describe('Tooltip', () => {
   });
 
   describe('`disabled` prop', () => {
-    it('[when] given should not show tooltip on mouse enter', async () => {
+    it('[when] given false should not show tooltip on mouse enter', async () => {
       const children = 'kido';
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);
       await driver.mouseEnter();
       expect(await driver.tooltipExists()).toBe(false);
     });
-    it('[when] given should not show tooltip on focus', async () => {
+    it('[when] given true should not show tooltip on focus', async () => {
       const children = 'kido';
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);
       await driver.tabIn();
       expect(await driver.tooltipExists()).toBe(false);
+    });
+  });
+
+  describe('`aria-describedby` prop', () => {
+    it('[when] given should apply on target element', async () => {
+      const children = <button>button</button>;
+      const ariaDescribedBy = 'tooltip1';
+      const { driver } = render(
+        tooltip({ children, 'aria-describedby': ariaDescribedBy }),
+      );
+      await driver.mouseEnter();
+      const value = await driver.getAriaDescribedBy();
+      expect(value).toBe(ariaDescribedBy);
     });
   });
 

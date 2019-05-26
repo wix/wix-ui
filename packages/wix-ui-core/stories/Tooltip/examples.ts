@@ -182,6 +182,16 @@ export const viewport = `
 </div>
 `;
 
+export const predicate = `
+<div data-hook="hello">
+  <div style={{ display: 'flex', justifyContent: 'center'}}>
+    <Tooltip appendTo={elm => elm.getAttribute('data-hook') === ('hello')} content="Enter your postal code, so postman can easier send you a mail.">
+      <ButtonNext>Attach custom (By predicate)</ButtonNext>
+    </Tooltip>
+  </div>
+</div>
+`;
+
 export const scrollParent = `
 class TooltipFixed extends React.Component {
 
@@ -219,8 +229,8 @@ class TooltipFixed extends React.Component {
 
 export const a11y = `
 <div style={{ display: 'flex', justifyContent: 'space-around'}}>
-  <Tooltip content="i am tooltip"><button>native</button></Tooltip>
-  <Tooltip content="i am tooltip"><ButtonNext>focusableHOC</ButtonNext></Tooltip>
+  <Tooltip aria-describedby="tooltip:1" content="i am tooltip"><button>native</button></Tooltip>
+  <Tooltip aria-describedby="tooltip:2" content="i am tooltip"><ButtonNext>focusableHOC</ButtonNext></Tooltip>
 </div>
 `;
 

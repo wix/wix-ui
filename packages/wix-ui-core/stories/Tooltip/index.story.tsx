@@ -70,7 +70,7 @@ export default {
     header({
       issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
       sourceUrl:
-        'https://github.com/wix/wix-style-react/tree/master/src/TooltipNext/',
+        'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/tooltip',
       component: (
         <Tooltip appendTo="window" content="HERE I AM! THIS IS ME!">
           <ButtonNext skin="dark">Hover me</ButtonNext>
@@ -169,6 +169,13 @@ export default {
               title: 'Append to: scrollparent',
               subtitle: `If you inspect the content, you'll see it is attached to a new div under the list container.`,
               source: examples.scrollParent,
+            }),
+          ]),
+          columns([
+            liveCode({
+              title: `Append to: (elm) => elm.getAttribute('attribute') === value`,
+              subtitle: `Attach to custom parent element. Pass function that will accept element and return boolean whether given DOM element satisfies the provided testing function.`,
+              source: examples.predicate,
             }),
           ]),
         ],
