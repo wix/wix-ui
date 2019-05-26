@@ -16,6 +16,7 @@ export interface CaptchaProps {
   onReset?(): void;
   onExpire?(): void;
   onRender?(): void;
+  onError?(): void;
   onVerify?(token: string): void;
 }
 
@@ -96,17 +97,6 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
   };
 
   /**
-   * The user has taken the captcha challange however it has not been verified the page was not submitted in time
-   * so we need to ask the user to retake the captcha challenge.
-   */
-  private readonly onRender = () => {
-    this.setState({ rendered: true });
-    if (this.props.onRender) {
-      this.props.onRender();
-    }
-  };
-
-  /**
    * we render the captcha.
    * we render a loader until we get a loaded indication from the captcha lib
    *
@@ -144,6 +134,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
             onVerify={this.onVerified}
             onExpire={this.onExpired}
             onRender={this.onRender}
+            onError={this.onError}
           />
           {required && (
             <input
@@ -159,4 +150,23 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
       </div>
     );
   }
+
+  /**
+   * triggered when the inner captcha is actually rendered
+   */
+  private readonly onRender = () => {
+    this.setState({ rendered: true });
+    if (this.props.onRender) {
+      this.props.onRender();
+    }
+  };
+
+  /**
+   * this method will pass the error to the registered error call back.
+   */
+  private readonly onError = () => {
+    if (this.props.onError) {
+      this.props.onError();
+    }
+  };
 }
