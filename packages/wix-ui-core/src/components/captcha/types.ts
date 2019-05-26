@@ -13,6 +13,7 @@ export enum Size {
   compact = 'compact',
 }
 
+// to ensure that the passed lang is supported we expose the supported langs
 // all of these languages are taken from
 // this list: https://developers.google.com/recaptcha/docs/language
 export enum CaptchaLang {
