@@ -2,9 +2,10 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
+import {UniDriver, StylableUnidriverUtil} from 'wix-ui-test-utils/unidriver';
 import styles from './LinearProgressBar.st.css';
-import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
+import {ReactBase} from '../../../test/utils/unidriver/ReactBase';
+import {ProgressBarDataHooks, ProgressBarDataKeys} from './DataHooks';
 
 export interface LinearProgressBarUniDriver extends BaseUniDriver {
   /** Get the width of the foreground bar (the progress) */
@@ -19,14 +20,18 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
   getValue(): Promise<string>;
   /** Get the progress numeric value */
   getNumericValue(): Promise<number>;
-  /** Returms true if has progress completed (value is 100) */
+  /** Returns true if has progress completed (value is 100) */
   isCompleted(): Promise<boolean>;
-  /** Returms true if has error */
+  /** Returns true if has error */
   hasError(): Promise<boolean>;
+  /** Returns min value prop */
+  getMinValue(): Promise<number>;
+  /** Returns max value prop */
+  getMaxValue(): Promise<number>;
 }
 
 export const linearProgressBarUniDriverFactory = (
-  base: UniDriver,
+  base: UniDriver
 ): LinearProgressBarUniDriver => {
   const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
@@ -36,34 +41,40 @@ export const linearProgressBarUniDriverFactory = (
       return null;
     }
     return base
-      .$(byDataHook('progress-percentages'))
+      .$(byDataHook(ProgressBarDataHooks.progressPercentage))
       .$('span')
       .text();
   };
 
-  const getNumericValue = async () => {
-    if (!(await base.exists())) {
+  const getDataAttribute = async (key: string, parsingFunction?: Function) => {
+    if (!(await base.exists()) || !(await base.attr(key))) {
       return null;
     }
-    const value = await base
-      .$(byDataHook('progressbar-foreground'))
-      .attr('data-progress-value');
-    return +value;
+    const value = await base.attr(key);
+    return !!parsingFunction && parsingFunction instanceof Function
+      ? parsingFunction(value)
+      : value;
   };
+
   return {
     ...baseUniDriverFactory(base),
     getWidth: async () => {
-      const bar = base.$(byDataHook('progressbar-foreground'));
+      const bar = base.$(byDataHook(ProgressBarDataHooks.foreground));
       const reactBase = ReactBase(bar);
       return (await reactBase.getStyle()).width;
     },
-    isSuccessIconDisplayed: () => base.$(byDataHook('success-icon')).exists(),
-    isErrorIconDisplayed: () => base.$(byDataHook('error-icon')).exists(),
+    isSuccessIconDisplayed: () =>
+      base.$(byDataHook(ProgressBarDataHooks.successIcon)).exists(),
+    isErrorIconDisplayed: () =>
+      base.$(byDataHook(ProgressBarDataHooks.errorIcon)).exists(),
     isPercentagesProgressDisplayed: () =>
-      base.$(byDataHook('progress-percentages')).exists(),
+      base.$(byDataHook(ProgressBarDataHooks.progressPercentage)).exists(),
     getValue: () => getValue(),
-    getNumericValue: async () => getNumericValue(),
-    isCompleted: async () => (await getValue()) === '100',
+    getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
+    isCompleted: async () =>
+      (await getValue()) >= (await getDataAttribute(ProgressBarDataKeys.max)),
     hasError: () => stylableUnidriverUtil.hasStyleState(base, 'error'),
+    getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
+    getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
   };
 };

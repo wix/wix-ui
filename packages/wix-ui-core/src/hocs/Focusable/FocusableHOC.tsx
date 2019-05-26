@@ -3,9 +3,7 @@ import hoistNonReactMethods from 'hoist-non-react-methods';
 
 import { getDisplayName } from '../utils';
 import styles from './Focusable.st.css';
-
-const isStatelessComponent = Component =>
-  !(Component.prototype && Component.prototype.render);
+import {isStatelessComponent} from '../../utils';
 
 type SubscribeCb = () => void;
 

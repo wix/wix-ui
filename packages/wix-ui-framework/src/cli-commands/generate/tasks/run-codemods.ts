@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
 
-import * as logger from '../logger';
+import * as logger from '../../../logger';
 import { Options, CodemodConfig } from '../typings.d';
 import { createValuesMap, CodemodValues } from '../create-values-map';
 

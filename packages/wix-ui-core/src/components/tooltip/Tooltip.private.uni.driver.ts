@@ -23,5 +23,9 @@ export const tooltipPrivateDriverFactory = (base, body) => {
     tabIn: async () => focus(),
     tabOut: async () => blur(),
     getTargetText: async () => base.$(`[data-hook="popover-element"]`).text(),
+    getAriaDescribedBy: async () =>
+      (await testkit.getTargetElement())
+        .querySelector('button')
+        .getAttribute('aria-describedby'),
   };
 };

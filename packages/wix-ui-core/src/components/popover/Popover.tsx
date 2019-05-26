@@ -10,6 +10,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
+import { AttributeMap } from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
@@ -26,6 +27,7 @@ import * as classNames from 'classnames';
 const isElement = require('lodash/isElement');
 
 import { popoverTestUtils } from './helpers';
+import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -40,7 +42,7 @@ if (isTestEnv) {
 }
 
 export type Placement = PopperJS.Placement;
-export type AppendTo = PopperJS.Boundary | 'parent' | Element;
+export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   className?: string;
@@ -72,9 +74,9 @@ export interface PopoverProps {
   fixed?: boolean;
   /** Moves popover relative to the parent */
   moveBy?: { x: number; y: number };
-  /** Hide Delay */
+  /** Hide Delay in ms */
   hideDelay?: number;
-  /** Show Delay */
+  /** Show Delay in ms */
   showDelay?: number;
   /** Moves arrow by amount */
   moveArrowTo?: number;
@@ -88,6 +90,8 @@ export interface PopoverProps {
   id?: string;
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+  /** target element role value */
+  role?: string;
 }
 
 export interface PopoverState {
@@ -125,20 +129,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
       : 'top']: `${shift}px`,
   };
 };
-
-function getAppendToNode({ appendTo, targetRef }) {
-  let appendToNode;
-  if (appendTo === 'window' || appendTo === 'viewport') {
-    appendToNode = document.body;
-  } else if (appendTo === 'scrollParent') {
-    appendToNode = getScrollParent(targetRef);
-  } else if (isElement(appendTo)) {
-    appendToNode = appendTo;
-  } else {
-    appendToNode = null;
-  }
-  return appendToNode;
-}
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
@@ -208,6 +198,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       flip,
       fixed,
       customArrow,
+      role,
+      id,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -244,21 +236,21 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 [style.popoverContent]: !showArrow,
               })}
             >
-              {showArrow ? (
-                [
-                  this.renderArrow(
-                    arrowProps,
-                    moveArrowTo,
-                    popperPlacement || placement,
-                    customArrow,
-                  ),
-                  <div key="popover-content" className={style.popoverContent}>
-                    {childrenObject.Content}
-                  </div>,
-                ]
-              ) : (
-                <div key="popover-content">{childrenObject.Content}</div>
-              )}
+              {showArrow &&
+                this.renderArrow(
+                  arrowProps,
+                  moveArrowTo,
+                  popperPlacement || placement,
+                  customArrow,
+                )}
+              <div
+                key="popover-content"
+                id={id}
+                role={role}
+                className={showArrow ? style.popoverContent : ''}
+              >
+                {childrenObject.Content}
+              </div>
             </div>
           );
         }}
@@ -340,10 +332,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   initAppendToNode() {
     const { appendTo } = this.props;
-    this.appendToNode = getAppendToNode({
-      appendTo,
-      targetRef: this.targetRef,
-    });
+    this.appendToNode = getAppendToElement(appendTo, this.targetRef);
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');

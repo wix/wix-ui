@@ -119,7 +119,7 @@ export class EllipsisTooltip extends React.Component<
     return isTooltipActivated ? (
       <Tooltip
         {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
-        appendTo="scrollParent"
+        appendTo="window"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
       >
