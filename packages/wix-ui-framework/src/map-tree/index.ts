@@ -6,7 +6,7 @@ const isObject = o => o && o.toString() === '[object Object]';
  * mapping function allows to change object greatly, so be careful
  *
  * @param input {object}
- * @param fn {function} ({ key: string, value: any, parent: object }) => any
+ * @param fn {function} ({ key: string, value: any, parent: object, path: string }) => any
  * @returns {object}
  * @example
  *
@@ -29,13 +29,20 @@ const isObject = o => o && o.toString() === '[object Object]';
  *   }
  * }
  */
+
 export const mapTree = (
   input: object,
-  fn?: ({ key: string, value: any, parent: object }) => any,
+  fn?: (a: { key: string; value: any; parent: object; path: string }) => any,
+  path: string = '',
 ) =>
   typeof fn === 'function' && isObject(input)
     ? Object.keys(input).reduce((output, key) => {
-        const candidate = fn({ key, value: input[key], parent: input });
+        const candidate = fn({
+          key,
+          value: input[key],
+          parent: input,
+          path: path ? `${path}.${key}` : key,
+        });
 
         const cases = [
           {
@@ -49,7 +56,7 @@ export const mapTree = (
               Object.keys(candidate).reduce(
                 (o, k) => ({
                   ...o,
-                  [k]: mapTree(candidate[k], fn),
+                  [k]: mapTree(candidate[k], fn, path ? `${path}.${k}` : k),
                 }),
                 {},
               ),
@@ -64,7 +71,9 @@ export const mapTree = (
 
           {
             when: () => isObject(input[key]),
-            make: () => ({ [key]: mapTree(input[key], fn) }),
+            make: () => ({
+              [key]: mapTree(input[key], fn, path ? `${path}.${key}` : key),
+            }),
           },
 
           {

@@ -60,6 +60,41 @@ describe('updateComponentsList', () => {
       expect(JSON.parse(output)).toEqual(expectedOutput);
     });
 
+    // TODO: intentionally skipped, feature not implemented
+    it.skip('should support regex in file names', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{
+          "index.js": "",
+          "test": { ".*\.driver\.(uni\.)?(js|ts)": "" }
+        }`,
+        'src/components/test-component/index.js': '',
+        'src/components/test-component/test/thing.driver.js': '',
+        'src/components/test-component/test/thing.driver.ts': '',
+        'src/components/test-component/test/thing.driver.uni.js': '',
+        'src/components/test-component/test/non-matched': '',
+        '.wuf/components.json': '',
+      });
+
+      const expectedOutput = {
+        'test-component': {
+          path: 'src/components/test-component',
+          missingFiles: ['src/components/test-components/test/non-matched'],
+        },
+      };
+
+      await updateComponentsList({
+        maxMismatch: 1,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        `${fakeFs.dir}/.wuf/components.json`,
+        'utf8',
+      );
+
+      expect(JSON.parse(output)).toEqual(expectedOutput);
+    });
+
     it('should not add `missingFiles` if there are none', async () => {
       const fakeFs = cista({
         '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.js": "" } }`,
