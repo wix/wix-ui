@@ -12,15 +12,16 @@ Captcha is a component that provides bot detection capabilities.
 
 | name        | type                             | defaultValue | isRequired | description                                                                                      |
 |:------------|:---------------------------------|:-------------|:-----------|:-------------------------------------------------------------------------------------------------|
-| sitekey     | string                           |              | yes        | The captcha has site key and server key for verification of the token This is the site key       |
+| sitekey     | string                           |   -           | yes        | The captcha has site key and server key for verification of the token This is the site key       |
 | size        | Size (enum of normal/compact)    | normal       | No         | Captcha size                                                                                     |
 | captchaType | CaptchaType (enum of image/audio)| image        | No         | The type of the challenge we will provide the user                                               |
 | theme       | Theme (enum of light/dark)       | light        | No         | The color of the component                                                                       |
 | lang        | CaptchaLang (enum of all supported languages | EnglishUS       | No         | The language of the captcha ans its messages |
 | loader      | React component                  | empty component | No         | React component that will be displayed while the real captcha is being loaded |
-| onExpire    | function                         |              | No         | This callback is called when we the verified captcha was not submitted in a reasonable time frame|
-| onVerify    | function                         |              | No         | This callback is called when we the captcha challenge is successful                              |
+| onExpire    | function                         |   -           | No         | This callback is called when we the verified captcha was not submitted in a reasonable time frame|
+| onVerify    | function                         |   -           | No         | This callback is called when we the captcha challenge is successful                              |
 | onError    | function                         |    -          | No         | This callback is called when reCAPTCHA fails with an error                               |
+| onRender    | function                         |    -          | No         | This callback is called when reCAPTCHA component is done rendering                               |
 | required    | boolean                         |    false          | No         | set the captcha to behave like a required html input element (fail submit if not checked)|
 
 #### Instance methods
