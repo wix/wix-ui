@@ -11,6 +11,11 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 2.1.0 - 2019-05-27
+## Added
+- `wuf update --ignore` allow to ignore specific components from appearing in --output
+- `mapTree` add `path` and `parent` to mapping function
+
 # 2.0.0 - 2019-05-24
 ## Breaking
 - a lot of internal refactoring which is potentially breaking users
