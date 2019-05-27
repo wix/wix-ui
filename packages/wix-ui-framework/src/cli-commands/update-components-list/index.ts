@@ -18,6 +18,7 @@ interface Options {
   components?: Path;
   output?: Path;
   maxMismatch?: number;
+  ignore?: string;
   _process: Process;
 }
 
@@ -31,6 +32,7 @@ export const updateComponentsList: (
     components: pathResolve(opts.components || 'src/components'),
     output: pathResolve(opts.output || '.wuf/components.json'),
     maxMismatch: opts.maxMismatch || 0,
+    ignore: opts.ignore,
   };
 
   if (!(await fileExists(options.shape))) {
@@ -53,6 +55,9 @@ export const updateComponentsList: (
   });
 
   const analyzedComponents = Object.keys(componentsFs)
+    .filter(componentName =>
+      opts.ignore ? !new RegExp(opts.ignore).test(componentName) : true,
+    )
     .map(name => ({
       name,
       structure: componentsFs[name],
