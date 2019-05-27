@@ -126,8 +126,6 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
     testkitImportsSource,
   ].join('\n');
 
-  console.log(options.template);
-
   try {
     fs.writeFileSync(options.output, source);
   } catch (e) {
