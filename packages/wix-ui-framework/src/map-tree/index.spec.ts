@@ -164,5 +164,43 @@ describe('mapTree', () => {
         },
       });
     });
+
+    it('should have object path as string in mapping function', () => {
+      const fixture = {
+        a: 1,
+        b: {
+          c: 2,
+          d: {
+            b: 'my path is b.d.b',
+          },
+        },
+      };
+
+      const fn = ({ key, value, path }) => {
+        if (key === 'b' && path === 'batman.d.b') {
+          return {
+            b: `you got me, my path is ${path}`,
+          };
+        }
+
+        if (key === 'b') {
+          return {
+            batman: value,
+          };
+        }
+      };
+
+      const result = mapTree(fixture, fn);
+
+      expect(result).toEqual({
+        a: 1,
+        batman: {
+          c: 2,
+          d: {
+            b: 'you got me, my path is batman.d.b',
+          },
+        },
+      });
+    });
   });
 });
