@@ -67,7 +67,10 @@ program
     '--output <string>',
     'Path to output file. Default is `.wuf/components.json`',
   )
-
+  .option(
+    '--ignore <string>',
+    'Regular expression of known paths to ignore. For example --ignore (Button|Table). Default is undefined',
+  )
   .option(
     '--max-mismatch <number>',
     'Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0',

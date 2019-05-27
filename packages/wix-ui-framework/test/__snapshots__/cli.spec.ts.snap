@@ -61,6 +61,7 @@ Options:
   --shape <string>         Path to json file describing folder structure of required files. Default is \`.wuf/required-component-files.json\`
   --components <string>    Path to folder where components reside. Default is \`src/components\`
   --output <string>        Path to output file. Default is \`.wuf/components.json\`
+  --ignore <string>        Regular expression of known paths to ignore. For example --ignore (Button|Table). Default is undefined
   --max-mismatch <number>  Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
   -h, --help               output usage information"
 `;
