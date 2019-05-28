@@ -68,8 +68,8 @@ program
     'Path to output file. Default is `.wuf/components.json`',
   )
   .option(
-    '--ignore <string>',
-    'Regular expression of known paths to ignore. For example --ignore (Button|Table). Default is undefined',
+    '--exclude <string>',
+    'Regular expression of known paths to exclude. For example --exclude (Button|Table). Default is undefined',
   )
   .option(
     '--max-mismatch <number>',
