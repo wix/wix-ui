@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { mediaImageDriverFactory } from './media-image.uni.driver';
 import { MediaPlatformItem, MediaImage } from './media-image';
-import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
+import * as imageClientSDK from '@wix/image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
 import { BROKEN_SRC, ERROR_IMAGE_SRC, SRC } from '../image/test-fixtures';
 import { FALLBACK_IMAGE } from '../image';

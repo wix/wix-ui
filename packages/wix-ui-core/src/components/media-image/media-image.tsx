@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getScaleToFillImageURL } from 'image-client-api/dist/imageClientSDK';
+import { getScaleToFillImageURL } from '@wix/image-client-api/dist/imageClientSDK';
 import { Image } from '../image';
 
 export interface MediaPlatformItem {
