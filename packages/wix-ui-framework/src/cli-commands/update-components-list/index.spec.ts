@@ -95,7 +95,7 @@ describe('updateComponentsList', () => {
       expect(JSON.parse(output)).toEqual(expectedOutput);
     });
 
-    it('should skip items in --ignore and not write them to .wuf/components.json', async () => {
+    it('should skip items in --exclude and not write them to .wuf/components.json', async () => {
       const fakeFs = cista({
         '.wuf/required-component-files.json': `{ "index.js": "" }`,
         'src/components/test-component/index.js': '',
@@ -112,7 +112,7 @@ describe('updateComponentsList', () => {
 
       await updateComponentsList({
         maxMismatch: 0,
-        ignore: '(skipped-component|skipped-component2)',
+        exclude: '(skipped-component|skipped-component2)',
         _process: { cwd: fakeFs.dir },
       });
 

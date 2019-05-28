@@ -6,10 +6,12 @@ exports[`wuf export-testkits --help should render help text 1`] = `
 Generate testkit export file
 
 Options:
-  --output <string>       Mandatory option to set where to write testkit exports file
-  --definitions <string>  Path to testkit definitions. Default is \\".wuf/testkit-definitions.js\\"
-  --template <string>     Path to template. Default is \\".wuf/testkits/template.js\\"
-  -h, --help              output usage information"
+  --output <string>          Mandatory option to set where to write testkit exports file
+  --definitions <string>     Path to testkit definitions. Default is \\".wuf/testkit-definitions.js\\"
+  --factoryName <string>     Name of a testkit factory creator. Default is \\"testkitFactoryCreator\\"
+  --uniFactoryName <string>  Name of a unidriver testkit factory creator. Default is \\"uniTestkitFactoryCreator\\"
+  --template <string>        Path to template. Default is \\".wuf/testkits/template.js\\"
+  -h, --help                 output usage information"
 `;
 
 exports[`wuf generate --help should render help text 1`] = `
@@ -61,7 +63,7 @@ Options:
   --shape <string>         Path to json file describing folder structure of required files. Default is \`.wuf/required-component-files.json\`
   --components <string>    Path to folder where components reside. Default is \`src/components\`
   --output <string>        Path to output file. Default is \`.wuf/components.json\`
-  --ignore <string>        Regular expression of known paths to ignore. For example --ignore (Button|Table). Default is undefined
+  --exclude <string>       Regular expression of known paths to exclude. For example --exclude (Button|Table). Default is undefined
   --max-mismatch <number>  Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
   -h, --help               output usage information"
 `;
