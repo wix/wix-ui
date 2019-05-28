@@ -171,6 +171,13 @@ export default {
               source: examples.scrollParent,
             }),
           ]),
+          columns([
+            liveCode({
+              title: `Append to: (elm) => elm.getAttribute('attribute') === value`,
+              subtitle: `Attach to custom parent element. Pass function that will accept element and return boolean whether given DOM element satisfies the provided testing function.`,
+              source: examples.predicate,
+            }),
+          ]),
         ],
       }),
 
