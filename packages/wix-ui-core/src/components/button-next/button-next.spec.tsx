@@ -129,6 +129,12 @@ describe('ButtonNext', () => {
     });
 
     it('should render component with tabIndex -1 when disabled', async () => {
+      const ref = React.createRef<any>();
+      await testContainer.render(<ButtonNext ref={ref}/>);
+      expect(ref.current.wrappedComponentRef.innerComponentRef instanceof HTMLButtonElement).toEqual(true);
+    });
+
+    it('should render component with tabIndex -1 when disabled', async () => {
       await testContainer.render(<ButtonNext disabled />);
 
       const htmlTag = testContainer.componentNode.getAttribute('tabindex');

@@ -45,3 +45,5 @@ export const isReactElement = <T>(
 export const isStatelessComponent = Component =>
     !(Component.prototype && Component.prototype.render);
 
+export const canPassRef = Component =>
+    (Component.prototype && Component.prototype.render) || typeof Component === 'string';
