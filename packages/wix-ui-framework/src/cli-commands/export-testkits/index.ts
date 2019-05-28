@@ -8,13 +8,12 @@ interface Options {
   definitions?: string;
   template?: string;
   output?: string;
+  factoryName?: string;
+  uniFactoryName?: string;
   _process: Process;
 }
 
 const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
-
-const factoryCreator = 'enzymeTestkitFactoryCreator';
-const uniFactoryCreator = 'enzymeUniTestkitFactoryCreator';
 
 // TODO: move the source of `warningBanner` to dedicated file. make sure it gets into output unchanged
 const warningBanner = (templatePath: string) =>
@@ -58,7 +57,8 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
       opts.definitions || '.wuf/testkits/definitions.js',
     ),
     template: pathResolve(opts.template || '.wuf/testkits/template.js'),
-
+    factoryName: opts.factoryName || 'testkitFactoryCreator',
+    uniFactoryName: opts.uniFactoryName || 'uniTestkitFactoryCreator',
     output: pathResolve(opts.output),
   };
 
@@ -100,7 +100,7 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
           name[0].toLowerCase() + name.slice(1) + 'TestkitFactory';
 
         const testkitEntry = wrapItemWithFunction(
-          definition.unidriver ? uniFactoryCreator : factoryCreator,
+          definition.unidriver ? options.uniFactoryName : options.factoryName,
           wrapWithLoad(
             definition.testkitPath ||
               ['..', 'src', name, name + '.driver'].join('/'),
