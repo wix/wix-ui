@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 2.2.0 - 2019-05-28
+## Added
+- `wuf export-testkits` - new `factoryName` & `uniFactoryName` flags
+
 # 2.1.0 - 2019-05-27
 ## Added
 - `wuf update --ignore` allow to ignore specific components from appearing in --output
