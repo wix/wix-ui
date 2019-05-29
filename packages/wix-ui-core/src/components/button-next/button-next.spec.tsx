@@ -128,7 +128,7 @@ describe('ButtonNext', () => {
       });
     });
 
-    it('should render component with tabIndex -1 when disabled', async () => {
+    it('should give access to the inner element using ref', async () => {
       const ref = React.createRef<any>();
       await testContainer.render(<ButtonNext ref={ref}/>);
       expect(ref.current.wrappedComponentRef.innerComponentRef instanceof HTMLButtonElement).toEqual(true);
