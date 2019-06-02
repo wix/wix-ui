@@ -6,8 +6,6 @@ import {
   PureChildComponent,
 } from './FocusableHOC.driver';
 
-import { withFocusable } from './FocusableHOC';
-
 describe('FocusableHOC', () => {
   const render = Comp =>
     mount(Comp, { attachTo: document.createElement('div') });
