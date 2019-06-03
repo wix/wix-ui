@@ -10,6 +10,8 @@ export interface ButtonNextDriver extends BaseUniDriver {
   getButtonTextContent(): Promise<string>;
   /** returns true if button disabled */
   isButtonDisabled(): Promise<boolean>;
+  /** returns true if button focused */
+  isFocused(): Promise<boolean>;
 }
 
 export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
@@ -18,6 +20,7 @@ export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
   return {
     ...baseUniDriverFactory(base),
     getButtonTextContent: async () => base.text(),
+    isFocused: async () => document.activeElement === await base.getNative(),
     isButtonDisabled: async () => {
       // Using stylable state and not html 'disabled' attribute, since if 'href' exists, then we don't pu the 'disabled' attribute.
       return stylableUtil.hasStyleState(base, 'disabled');
