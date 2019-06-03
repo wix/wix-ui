@@ -1,4 +1,3 @@
-import * as eyes from 'eyes.it';
 import { $, browser } from 'protractor';
 import {
   getStoryUrl,
@@ -12,7 +11,7 @@ describe('FocusableHOC', () => {
 
   beforeEach(() => browser.get(testsStoryUrl));
 
-  eyes.it(
+  it(
       'should not show any styles on the text inside the tooltip',
       async () => {
 

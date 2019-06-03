@@ -40,7 +40,6 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
   public innerComponentRef: React.RefObject<HTMLElement | React.ComponentType>;
 
   focus() {
-    console.log('adler', 'button-next.tsx:43', this.innerComponentRef);
     if (this.innerComponentRef && (this.innerComponentRef as any).focus) {
       (this.innerComponentRef as any).focus();
     }
