@@ -87,6 +87,12 @@ export const withFocusable = Component => {
     }
 
     focus = () => {
+      if (this.wrappedComponentRef && this.wrappedComponentRef.focus) {
+        this.wrappedComponentRef.focus();
+      }
+    };
+
+    markAsFocused = () => {
       this.setState({ focus: true, focusVisible: inputMethod.isKeyboard() });
       inputMethod.subscribe(this, () => {
         if (inputMethod.isKeyboard()) {
@@ -95,7 +101,7 @@ export const withFocusable = Component => {
       });
     };
 
-    blur = () => {
+    markAsBlurred = () => {
       inputMethod.unsubscribe(this);
       this.setState({ focus: false, focusVisible: false });
     };
@@ -103,15 +109,15 @@ export const withFocusable = Component => {
     onFocus = event => {
       const { onFocus } = this.props;
       onFocus
-        ? onFocus(event, { blur: this.blur, focus: this.focus })
-        : this.focus();
+        ? onFocus(event, { blur: this.markAsBlurred, focus: this.markAsFocused })
+        : this.markAsFocused();
     };
 
     onBlur = event => {
       const { onBlur } = this.props;
       onBlur
-        ? onBlur(event, { blur: this.blur, focus: this.focus })
-        : this.blur();
+        ? onBlur(event, { blur: this.markAsBlurred, focus: this.markAsFocused })
+        : this.markAsBlurred();
     };
 
     render() {

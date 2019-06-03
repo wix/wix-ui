@@ -21,6 +21,10 @@ export interface ButtonProps
   focusableOnBlur?(): void;
 }
 
+interface ButtonState {
+  isStateLess: boolean;
+}
+
 const _addAffix = (Affix, styleClass) =>
   Affix &&
   React.cloneElement(Affix, {
@@ -33,7 +37,13 @@ const _addAffix = (Affix, styleClass) =>
 class ButtonNextComponent extends React.Component<ButtonProps> {
   static defaultProps = { as: 'button', type: 'button' };
   static displayName = 'ButtonNext';
-  public innerComponentRef: React.RefObject<HTMLButtonElement | ButtonProps['as']>;
+  public innerComponentRef: React.RefObject<HTMLElement | React.ComponentType>;
+
+  focus() {
+    if (this.innerComponentRef && (this.innerComponentRef as any).focus) {
+      (this.innerComponentRef as any).focus();
+    }
+  }
 
   render() {
     const {
@@ -49,7 +59,7 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
     } = this.props;
     const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
     const htmlHref = disabled ? undefined : href;
-    const reference = isStatelessComponent(Component)
+    const reference = isStatelessComponent(Component) && typeof Component !== 'string'
         ? undefined
         : ref => (this.innerComponentRef = ref);
 
