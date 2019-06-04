@@ -193,19 +193,30 @@
 
 /* sizes */
 
+.iconButton.tiny {
+  width: 24px;
+  height: 24px;
+}
+
 .iconButton.small {
   width: 30px;
   height: 30px;
 }
 
-/* icon size */
+.iconButton.large {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
 
-.iconButton.iconSmall {
+/* icon size   */
+
+.iconButton.iconSmall , .iconButton.iconTiny {
   width: 18px;
   height: 18px;
 }
 
-.iconButton.iconMedium {
+.iconButton.iconMedium , .icon.iconLarge {
   width: 24px;
   height: 24px;
 }
