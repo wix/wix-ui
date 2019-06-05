@@ -11,7 +11,7 @@
 
 :import {
   -st-from: "../text.st.css";
-  -st-named: weightThin, sizeMedium, sizeSmall, weightNormal;
+  -st-named: weightThin, sizeMedium, sizeSmall, sizeTiny, weightNormal;
 }
 
 .textButton {
@@ -379,6 +379,11 @@
   -st-mixin: sizeSmall;
 }
 
+.textButton.tiny{
+  height: 15px;
+  -st-mixin: sizeTiny;
+}
+
 /* affixes */
 
 .textButton .prefix {
@@ -407,4 +412,18 @@
   margin: 0;
   width: 18px;
   height: 18px;
+}
+
+.textButton.tiny .prefix{
+  padding-left: 6px;
+  margin: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.textButton.tiny .suffix{
+  padding-left: 6px;
+  margin: 0;
+  width: 15px;
+  height: 15px;
 }
