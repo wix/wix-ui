@@ -323,7 +323,7 @@
 
 .button.dark {
   background-color: value(D10);
-  border-color: value(D10);
+  border: solid 1px value(D10);
   color: value(D80);
 }
 
