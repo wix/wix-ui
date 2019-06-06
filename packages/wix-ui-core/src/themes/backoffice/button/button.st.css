@@ -322,9 +322,9 @@
 /* skin Dark */
 
 .button.dark {
-  background-color: transparent;
-  border: solid 1px value(D40);
-  color: value(D10);
+  background-color: value(D10);
+  border-color: value(D10);
+  color: value(D80);
 }
 
 .button:not(:disabled).dark:hover {
@@ -340,9 +340,9 @@
 }
 
 .button:disabled.dark {
-  background-color: transparent;
+  background-color: value(D55);
   border: solid 1px value(D55);
-  color: value(D55);
+  color: value(D80);
 }
 
 /* skin Dark secondary */

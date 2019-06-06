@@ -66,6 +66,7 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
       }}
     >
       <ButtonNext className={darkSecondary}>dark</ButtonNext>
+        <ButtonNext disabled className={darkSecondary}>dark disabled</ButtonNext>
     </div>
     <div
       style={{

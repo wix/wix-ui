@@ -50,6 +50,7 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
       }}
     >
       <ButtonNext className={button(`dark`)}>dark</ButtonNext>
+      <ButtonNext disabled className={button(`dark`)}>dark disabled</ButtonNext>
     </div>
     <div
       style={{
