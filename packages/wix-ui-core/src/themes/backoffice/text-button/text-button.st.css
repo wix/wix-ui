@@ -401,29 +401,21 @@
 }
 
 .textButton.small .prefix {
-  padding-right: 6px;
-  margin: 0;
   width: 18px;
   height: 18px;
 }
 
 .textButton.small .suffix {
-  padding-left: 6px;
-  margin: 0;
   width: 18px;
   height: 18px;
 }
 
-.textButton.tiny .prefix{
-  padding-left: 6px;
-  margin: 0;
+.textButton.tiny .prefix {
   width: 18px;
   height: 18px;
 }
 
-.textButton.tiny .suffix{
-  padding-left: 6px;
-  margin: 0;
-  width: 15px;
-  height: 15px;
+.textButton.tiny .suffix {
+  width: 18px;
+  height: 18px;
 }
