@@ -380,7 +380,7 @@
 }
 
 .textButton.tiny{
-  height: 15px;
+  height: 18px;
   -st-mixin: sizeTiny;
 }
 
@@ -417,8 +417,8 @@
 .textButton.tiny .prefix{
   padding-left: 6px;
   margin: 0;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
 }
 
 .textButton.tiny .suffix{
