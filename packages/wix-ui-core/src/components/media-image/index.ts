@@ -1,1 +1,1 @@
-export { MediaImage, MediaPlatformItem } from './media-image';
+export { MediaImage, MediaPlatformItem, MediaImageResizing } from './media-image';
