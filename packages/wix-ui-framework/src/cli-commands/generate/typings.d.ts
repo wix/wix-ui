@@ -1,11 +1,13 @@
+import { Process } from '../../typings.d';
+
 export interface Options {
-  cwd: string;
   ComponentName: string;
   description: string;
-  force?: boolean;
-  skipCodemods?: boolean;
   templates: string;
+  force?: boolean;
+  output?: string;
   codemods?: string;
+  _process: Process;
 }
 
 export interface Answers {
