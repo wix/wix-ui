@@ -9,13 +9,14 @@ const defaultTemplatesPath = '.wuf/generator/templates';
 const defaultCodemodsPath = '.wuf/generator/codemods';
 
 export const generate: (
-  a: Options & { _process: Process },
+  a: Options & { componentName: string; _process: Process },
 ) => Promise<void> = ({
   _process,
   force,
-  ComponentName,
+  componentName,
   description,
   templates,
+  output,
   codemods,
 }) => {
   try {
@@ -28,7 +29,9 @@ export const generate: (
 
   const options: Options = {
     cwd: _process.cwd,
-    ComponentName,
+
+    // componentName variable comes in as camelCase but its value is PascalCase, therefore we rename it
+    ComponentName: componentName,
     description,
     templates: path.join(_process.cwd, templates || defaultTemplatesPath),
     codemods: path.join(_process.cwd, codemods || defaultCodemodsPath),

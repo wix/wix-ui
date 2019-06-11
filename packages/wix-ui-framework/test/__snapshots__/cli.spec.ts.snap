@@ -20,13 +20,13 @@ exports[`wuf generate --help should render help text 1`] = `
 Scaffold file structure from templates
 
 Options:
-  --component-name <ComponentName>  Component name
-  --description <description>       Component description
-  --templates <string>              Path to templates. Default is \\"/generator/templates/\\"
-  --output <string>                 Path to output. If not set, output is determined by --templates folder structure
-  --codemods <string>               Path to codemods. Default is \\"/generator/codemods/\\"
-  -f, --force                       Force component generation in a non clean git repo.
-  -h, --help                        output usage information"
+  --component-name <string>  Component name
+  --description <string>     Component description
+  --templates <string>       Path to templates. Default is \\"/generator/templates/\\"
+  --output <string>          Path to output. If not set, output is determined by --templates folder structure
+  --codemods <string>        Path to codemods. Default is \\"/generator/codemods/\\"
+  -f, --force                Force component generation in a non clean git repo.
+  -h, --help                 output usage information"
 `;
 
 exports[`wuf help should be displayed when --help 1`] = `

@@ -52,15 +52,39 @@ describe('wuf', () => {
       });
     });
 
-    it('should ask for component name', done => {
-      nixt()
-        .expect(({ stdout }) => {
-          expect(stdout).toMatch(/Component name \(PascalCase\).*Test/);
-        })
-        .run(cli('generate'))
-        .on(/Component name/)
-        .respond('Test\n')
-        .end(done);
+    describe.skip('--output', () => {
+      it('should ask for component name', done => {
+        nixt()
+          .expect(({ stdout }) => {
+            expect(stdout).toMatch(/Component name \(PascalCase\).*Test/);
+          })
+          .run(cli('generate'))
+          .on(/Component name/)
+          .respond('Test\n')
+          .end(done);
+      });
+    });
+
+    describe('--component-name', () => {
+      it('should prompt for component name by default', done => {
+        nixt()
+          .expect(({ stdout }) => {
+            expect(stdout).toMatch(/Component name \(PascalCase\).*Test/);
+          })
+          .run(cli('generate'))
+          .on(/Component name/)
+          .respond('Test\n')
+          .end(done);
+      });
+
+      it('should not prompt for component name given --component-name flag', done => {
+        nixt()
+          .expect(({ stdout }) => {
+            expect(stdout).toMatch(/Generating.*<Testable\/>.*component/);
+          })
+          .run(cli('generate --component-name Testable --force'))
+          .end(done);
+      });
     });
   });
 
