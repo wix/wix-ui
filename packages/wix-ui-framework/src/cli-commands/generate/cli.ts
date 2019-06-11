@@ -14,7 +14,7 @@ export const cli = program =>
     )
     .option(
       '--codemods <string>',
-      'Path to codemods. Default is "/generator/codemods/"',
+      'Path to codemods. By default no codemods are run.',
     )
     .option(
       '-f, --force',

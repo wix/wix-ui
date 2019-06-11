@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as nixt from 'nixt';
+import * as cista from 'cista';
 
 import * as packageJson from '../package.json';
 
@@ -48,19 +49,6 @@ describe('wuf', () => {
             expect(stdout).toMatchSnapshot();
           })
           .run(cli('generate --help'))
-          .end(done);
-      });
-    });
-
-    describe.skip('--output', () => {
-      it('should ask for component name', done => {
-        nixt()
-          .expect(({ stdout }) => {
-            expect(stdout).toMatch(/Component name \(PascalCase\).*Test/);
-          })
-          .run(cli('generate'))
-          .on(/Component name/)
-          .respond('Test\n')
           .end(done);
       });
     });
