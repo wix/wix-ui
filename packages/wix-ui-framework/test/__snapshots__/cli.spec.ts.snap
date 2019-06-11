@@ -23,6 +23,7 @@ Options:
   --component-name <ComponentName>  Component name
   --description <description>       Component description
   --templates <string>              Path to templates. Default is \\"/generator/templates/\\"
+  --output <string>                 Path to output. If not set, output is determined by --templates folder structure
   --codemods <string>               Path to codemods. Default is \\"/generator/codemods/\\"
   -f, --force                       Force component generation in a non clean git repo.
   -h, --help                        output usage information"

@@ -9,6 +9,10 @@ export const cli = program =>
       'Path to templates. Default is "/generator/templates/"',
     )
     .option(
+      '--output <string>',
+      'Path to output. If not set, output is determined by --templates folder structure',
+    )
+    .option(
       '--codemods <string>',
       'Path to codemods. Default is "/generator/codemods/"',
     )
