@@ -51,13 +51,7 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     >
       <ButtonNext className={button(`dark`)}>dark</ButtonNext>
     </div>
-      <div style={{
-          background: '#162d3d',
-          padding: '2px'
-      }}>
-          <ButtonNext disabled className={button(`dark`)}>dark disabled</ButtonNext>
-      </div>
-      <div
+    <div
       style={{
         background: '#162d3d',
         padding: '2px'
