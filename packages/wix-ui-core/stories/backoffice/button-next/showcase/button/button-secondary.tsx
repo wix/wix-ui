@@ -66,8 +66,13 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
       }}
     >
       <ButtonNext className={darkSecondary}>dark</ButtonNext>
-        <ButtonNext disabled className={darkSecondary}>dark disabled</ButtonNext>
     </div>
+      <div style={{
+          background: '#162d3d',
+          padding: '2px'
+      }}>
+         <ButtonNext disabled className={darkSecondary}>dark disabled</ButtonNext>
+      </div>
     <div
       style={{
         background: '#162d3d',

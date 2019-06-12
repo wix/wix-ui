@@ -1,3 +1,8 @@
+:import {
+  -st-from: '../../utils/stylableFunctions';
+  -st-named: hexToRgb;
+}
+
 :vars {
 
   /* DARK - Primary */
@@ -10,6 +15,8 @@
   D60: #DFE5EB; /* Dividers, Disabled - Borders */
   D70: #F0F4F7; /* Page Background, Disabled - Background */
   D80: #FFFFFF; /* Content box background */
+  D80-30: hexToRgb(value(D80), 0.3); /* new disabled color. opacity- 30% */
+  D80-70: hexToRgb(value(D80), 0.7); /* new disabled color. opacity- 30% */
 
   /* BLUE - Brand */
   B00: #2B81CB; /* Button Focus */
