@@ -371,7 +371,7 @@
 }
 
 .button:disabled.dark.secondary {
-  background-color: transparent);
+  background-color: transparent;
   border: solid 1px value(D80-70);
   color: value(D80-70);
 }
