@@ -329,7 +329,7 @@
 .button.dark {
   background-color: value(D10);
   border: solid 1px value(D10);
-  color: value(D80_30);
+  color: value(D80-30);
 }
 
 .button:not(:disabled).dark:hover {
