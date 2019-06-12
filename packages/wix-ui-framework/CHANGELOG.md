@@ -11,6 +11,13 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 2.3.0 - 2019-06-12
+## Added
+- `wuf generate` - new `--output` flag to set generated files path
+
+## Changed
+- `wuf generate` - change `--codemods` flag to be optional. By default no codemods will be run
+
 # 2.2.0 - 2019-05-28
 ## Added
 - `wuf export-testkits` - new `factoryName` & `uniFactoryName` flags
