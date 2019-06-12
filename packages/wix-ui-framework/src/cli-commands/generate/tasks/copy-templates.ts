@@ -21,7 +21,7 @@ export const copyTemplates: (a: Options) => Promise<void> = async ({
   ComponentName,
   description,
   _process,
-  output,
+  output = '',
 }) => {
   if (!ComponentName) {
     throw new Error('Component name must be provided!');
