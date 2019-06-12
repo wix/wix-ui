@@ -44,26 +44,24 @@ Commands:
 ---
 
 ## `wuf generate`
-
-```md
+ ```md
 Usage: generate [options]
 
 Scaffold file structure from templates
 
 Options:
-  --component-name <ComponentName>  Component name
-  --description <description>       Component description
-  --templates <string>              Path to templates. Default is "/generator/templates/"
-  --codemods <string>               Path to codemods. Default is "/generator/codemods/"
-  -f, --force                       Force component generation in a non clean git repo.
-  -h, --help                        output usage information
+  --component-name <string>  Component name
+  --description <string>     Component description
+  --templates <string>       Path to templates. Default is "/generator/templates/"
+  --output <string>          Path to output. If not set, output is determined by --templates folder structure
+  --codemods <string>        Path to codemods. By default no codemods are run.
+  -f, --force                Force component generation in a non clean git repo.
+  -h, --help                 output usage information
 ```
-
-Consult [readme](./src/cli-commands/generate/readme.md) for more
+---
 
 ## `wuf export-testkits`
-
-```md
+ ```md
 Usage: export-testkits [options]
 
 Generate testkit export file
@@ -76,10 +74,10 @@ Options:
   --template <string>        Path to template. Default is ".wuf/testkits/template.js"
   -h, --help                 output usage information
 ```
+---
 
 ## `wuf update`
-
-```md
+ ```md
 Usage: update [options]
 
 Update components list file
