@@ -42,7 +42,7 @@ export class StylableUnidriverUtilCompat {
     stateName: string,
     param: StateValue = true
   ): Promise<boolean> {
-    const stateClass = this.style.$cssStates({ [stateName]: param });
+    const stateClass = this.style.$cssStates({ [stateName]: param }).className;
     return base.hasClass(stateClass);
   }
   /**
