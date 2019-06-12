@@ -24,13 +24,14 @@ export function enzymeTestkitFactoryCreator<T extends BaseDriver> (driverFactory
   };
 }
 
-export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver> (driverFactory: (base: UniDriver) => T) {
+export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver> (driverFactory: (base: UniDriver, body: UniDriver) => T) {
   return (obj: WrapperData) => {
     const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
     const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
     const element = component.length > 0 ? component.first().getDOMNode() : undefined;
     const base = jsdomReactUniDriver(element as Element);
-    return driverFactory(base);
+    const body = jsdomReactUniDriver(document.body);
+    return driverFactory(base, body);
   };
 }
 
