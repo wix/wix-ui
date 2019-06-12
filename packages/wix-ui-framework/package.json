@@ -29,6 +29,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "yoshi lint",
+    "postlint": "node make-readme.js",
     "start": "tsc --watch",
     "wuf": "./bin/wuf.js"
   },
@@ -41,6 +42,7 @@
     "deep-diff": "^1.0.2",
     "jscodeshift": "^0.6.4",
     "minimatch": "^3.0.4",
+    "mkdirp": "^0.5.1",
     "ora": "^3.4.0",
     "prompts": "^2.0.4",
     "simple-git": "^1.110.0"

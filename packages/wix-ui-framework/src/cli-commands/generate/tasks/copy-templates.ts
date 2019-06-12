@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as mkdirp from 'mkdirp';
 
 import { Options } from '../typings';
 import { replaceTemplates } from './replace-templates';
@@ -16,16 +17,17 @@ const pathExists = p =>
   });
 
 export const copyTemplates: (a: Options) => Promise<void> = async ({
-  cwd,
   templates,
   ComponentName,
   description,
+  _process,
+  output = '',
 }) => {
   if (!ComponentName) {
     throw new Error('Component name must be provided!');
   }
 
-  const readdir = entry =>
+  const readdir = (entry: string) =>
     fs.readdirSync(entry).map(dir => path.join(entry, dir));
 
   const queue = readdir(templates);
@@ -36,14 +38,14 @@ export const copyTemplates: (a: Options) => Promise<void> = async ({
     const isDir = fs.lstatSync(itemPath).isDirectory();
 
     const newDestPath = path
-      .join(cwd, itemPath.replace(templates, ''))
+      .join(_process.cwd, output, itemPath.replace(templates, ''))
       .replace(new RegExp(`${templateNamePlaceholder}`, 'g'), ComponentName);
 
     if (isDir) {
       queue.push(...readdir(path.join(itemPath)));
 
       if (!(await pathExists(newDestPath))) {
-        fs.mkdirSync(newDestPath);
+        mkdirp.sync(newDestPath);
       }
     } else if (!(await pathExists(newDestPath))) {
       const replaced = replaceTemplates(
