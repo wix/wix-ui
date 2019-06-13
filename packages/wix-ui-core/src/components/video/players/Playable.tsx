@@ -15,6 +15,7 @@ import {
   IPlayableConfig,
 } from '../types';
 import styles from '../Video.st.css';
+import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types';
 
 const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 
@@ -141,7 +142,6 @@ class PlayablePlayer extends React.PureComponent<
       loop,
       volume,
       controls,
-      preload,
       onInit,
       onReady,
       onDuration,
@@ -152,6 +152,8 @@ class PlayablePlayer extends React.PureComponent<
       modules,
     } = this.props;
 
+    const preload = this.props.preload as PreloadType;
+
     this.registerModules(modules);
 
     this.player = create({
@@ -159,8 +161,6 @@ class PlayablePlayer extends React.PureComponent<
       autoplay: !!playing,
       playsinline: true,
       muted,
-      width: '100%',
-      height: '100%',
       fillAllSpace: true,
       title,
       preload,

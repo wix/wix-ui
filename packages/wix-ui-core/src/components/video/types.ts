@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types';
 
 export type PlayerNamesType =
   | 'dailymotion'
@@ -146,34 +147,36 @@ export interface IFacebookPlayerAPI {
 }
 
 export interface IPlayablePlayerAPI {
-  play(): void;
-  pause(): void;
-  reset(): void;
-  seekTo(amount: number): void;
-  setVolume(fraction: number): void;
-  getCurrentTime(): number;
-  getDuration(): number;
-  mute(): void;
-  unmute(): void;
-  isMuted: boolean;
-  setLogo(url: string): void;
-  setAlwaysShowLogo(show: boolean): void;
-  setLogoClickCallback(cb: Function): void;
-  showPlayControl(): void;
-  showVolumeControl(): void;
-  showTimeControl(): void;
-  showFullScreenControl(): void;
-  showProgressControl(): void;
-  showTitle(): void;
-  hidePlayControl(): void;
-  hideVolumeControl(): void;
-  hideTimeControl(): void;
-  hideFullScreenControl(): void;
-  hideProgressControl(): void;
-  hideTitle(): void;
-  destroy(): void;
-  on(event: string, fn?: Function): void;
-  attachToElement(el: HTMLDivElement): void;
+  play?(): void;
+  pause?(): void;
+  reset?(): void;
+  seekTo?(amount: number): void;
+  setVolume?(fraction: number): void;
+  getCurrentTime?(): number;
+  getDuration?(): number;
+  mute?(): void;
+  unmute?(): void;
+  isMuted?: boolean;
+  setLogo?(url: string): void;
+  setAlwaysShowLogo?(show: boolean): void;
+  setLogoClickCallback?(cb: Function): void;
+  showPlayControl?(): void;
+  showVolumeControl?(): void;
+  showTimeControl?(): void;
+  showFullScreenControl?(): void;
+  showProgressControl?(): void;
+  showTitle?(): void;
+  showPictureInPictureControl?(): void;
+  hidePlayControl?(): void;
+  hideVolumeControl?(): void;
+  hideTimeControl?(): void;
+  hideFullScreenControl?(): void;
+  hideProgressControl?(): void;
+  hideTitle?(): void;
+  hidePictureInPictureControl?(): void;
+  destroy?(): void;
+  on?(event: string, fn?: Function): void;
+  attachToElement?(el: HTMLDivElement): void;
 }
 
 export interface ITwitchPlayerAPI {
