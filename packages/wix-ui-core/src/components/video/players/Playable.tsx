@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from 'eventemitter3';
+import classNames from 'classnames';
 const isString = require('lodash/isString');
 const isArray = require('lodash/isArray');
 import { create, registerModule, VIDEO_EVENTS, ENGINE_STATES } from 'playable';
@@ -136,6 +137,7 @@ class PlayablePlayer extends React.PureComponent<
     const {
       src,
       playing,
+      poster,
       muted,
       title,
       showTitle,
@@ -152,7 +154,7 @@ class PlayablePlayer extends React.PureComponent<
       modules,
     } = this.props;
 
-    const preload = this.props.preload as PreloadType;
+    const preload = (!poster ? 'metadata' : this.props.preload) as PreloadType;
 
     this.registerModules(modules);
 
@@ -169,13 +171,7 @@ class PlayablePlayer extends React.PureComponent<
       hideOverlay: true,
     });
 
-    if (!controls) {
-      this.player.hidePlayControl();
-      this.player.hideVolumeControl();
-      this.player.hideTimeControl();
-      this.player.hideFullScreenControl();
-      this.player.hideProgressControl();
-    }
+    this._hidePlayableUI();
 
     if (!showTitle) {
       this.player.hideTitle();
@@ -190,6 +186,9 @@ class PlayablePlayer extends React.PureComponent<
     this.player.attachToElement(this.containerRef.current);
 
     this.player.on(VIDEO_EVENTS.PLAY_REQUEST, () => {
+      if (controls) {
+        this._showPlayableUI();
+      }
       this.setState({ hasBeenPlayed: true });
     });
 
@@ -219,6 +218,24 @@ class PlayablePlayer extends React.PureComponent<
     onInit(this.player);
   }
 
+  _showPlayableUI() {
+    this.player.showPlayControl();
+    this.player.showVolumeControl();
+    this.player.showTimeControl();
+    this.player.showFullScreenControl();
+    this.player.showProgressControl();
+    this.player.showPictureInPictureControl();
+  }
+
+  _hidePlayableUI() {
+    this.player.hidePlayControl();
+    this.player.hideVolumeControl();
+    this.player.hideTimeControl();
+    this.player.hideFullScreenControl();
+    this.player.hideProgressControl();
+    this.player.hidePictureInPictureControl();
+  }
+
   registerModules(modules: any = {}) {
     Object.keys(modules).forEach(moduleName =>
       registerModule(moduleName, modules[moduleName]),
@@ -240,9 +257,11 @@ class PlayablePlayer extends React.PureComponent<
           className={styles.playerContainer}
           data-player-name="Playable"
         />
-        {!this.state.hasBeenPlayed && poster && (
+        {!this.state.hasBeenPlayed && (
           <div
-            className={styles.cover}
+            className={classNames(styles.cover, {
+              [styles.transparentOverlay]: !poster,
+            })}
             style={coverStyles}
             onClick={this.onPlayClick}
             data-hook="cover"
