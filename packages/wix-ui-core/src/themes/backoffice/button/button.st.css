@@ -25,11 +25,6 @@
   -st-named: sizeTiny, sizeSmall, sizeMedium, weightNormal, weightBold;
 }
 
-:import {
-  -st-from: './temp';
-  -st-default: hexToRgb;
-}
-
 .button {
   -st-extends: Button;
 }
