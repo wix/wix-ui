@@ -51,7 +51,7 @@ The **MediaImage** component accepts **MediaPlatformItem** object and convert it
 | x | number |   ✖   | Yes | x coordinates for positioning a cropped image (0-100) |
 | y | number |   ✖   | Yes | y coordinates for positioning a cropped image (0-100) |
 
-#### `FocaMediaItemFilters`
+#### `MediaItemFilters`
 
 | Property         |                 Type                  | default | Required | Description                              |
 | ---------------- | :-----------------------------------: | :------: | :------: | ---------------------------------------- |
