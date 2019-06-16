@@ -34,6 +34,32 @@ export default {
         },
       },
       {
+        label: 'low quality',
+        value: {
+          alt: 'flowers',
+          width: 400,
+          height: 400,
+          uri: '506418dbb019414f951a61670f3255a8.jpg',
+          options: {
+            quality: 5,
+          }
+        },
+      },
+      {
+        label: 'blurred',
+        value: {
+          alt: 'flowers',
+          width: 400,
+          height: 400,
+          uri: '506418dbb019414f951a61670f3255a8.jpg',
+          options: {
+            filters: {
+              blur: 100,
+            }
+          }
+        },
+      },
+      {
         label: 'invalid',
         value: {
           width: 400,

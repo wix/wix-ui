@@ -19,8 +19,7 @@ The **MediaImage** component accepts **MediaPlatformItem** object and convert it
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | errorMediaPlatformItem | MediaPlatformItem | ✖  | ✖ | media platform item to be used as the source for error media |
 | alt | string |   ✖   | No | alternative text for the image used ny screen readers |
-| resize | 'fill' / 'fit' |   'fill'   | No | change image sizing options inside the container |
-| options | MediaImageOptions | ✖ | No | additional options for the media image |
+| scale | 'fill' / 'fit' |   'fill'   | No | change image sizing options inside the container |
 
 
 #### `MediaPlatformItem`
@@ -31,20 +30,32 @@ The **MediaImage** component accepts **MediaPlatformItem** object and convert it
 | height | number |   ✖   | Yes | height of the source image. |
 | uri | string |   ✖   | Yes | relative url of the image |
 | mediaType | 'picture' &#124; 'video' | ✖ |   Yes   | type of the the media item |
+| options | MediaItemOptions | ✖ | No | additional options for the media image |
 
-#### `MediaImageOptions`
+#### `MediaItemOptions`
 
 | Property         |                 Type                  | default | Required | Description                              |
 | ---------------- | :-----------------------------------: | :------: | :------: | ---------------------------------------- |
-| focalPoint | FocalPointCoordinates |   ✖   | No | coordinates for positioning a cropped image (0-100) |
-| quality | number |   80   | Yes | the quality of the image (5-80) |
+| focalPoint | FocalPoint |   ✖   | No | coordinates for positioning a cropped image (0-100) |
+| quality | number |   80   | No | the quality of the image (5-80) |
+| unsharpMask | UnsharpMaskOptions |   ✖   | No | apply an unsharp mask to the image |
+| watermark | string |   ✖   | No | watermark manifest id |
+| upscaleMethod | MediaImageUpscaleMethod |   'auto'   | No | upscale method used |
+| isSEOBot | boolean |   false   | No | - |
+| filter | MediaItemFilters |   ✖   | No | filters applied to image |
 
-#### `FocalPointCoordinates`
+#### `FocalPoint`
 
 | Property         |                 Type                  | default | Required | Description                              |
 | ---------------- | :-----------------------------------: | :------: | :------: | ---------------------------------------- |
 | x | number |   ✖   | Yes | x coordinates for positioning a cropped image (0-100) |
 | y | number |   ✖   | Yes | y coordinates for positioning a cropped image (0-100) |
+
+#### `FocaMediaItemFilters`
+
+| Property         |                 Type                  | default | Required | Description                              |
+| ---------------- | :-----------------------------------: | :------: | :------: | ---------------------------------------- |
+| blur | number |   0   | No | image blur (0-100) |
 
 **Example:**
 

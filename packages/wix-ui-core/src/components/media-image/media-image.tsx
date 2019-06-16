@@ -7,21 +7,44 @@ export interface MediaPlatformItem {
   width: number;
   height: number;
   uri: string;
+  options?: MediaItemOptions;
 }
 
-export enum MediaImageResizing {
+export enum MediaImageScaling {
   FIT = 'fit',
   FILL = 'fill',
 }
 
-export interface FocalPointCoordinates {
+export enum MediaImageUpscaleMethod {
+  AUTO = 'auto',
+  CLASSIC = 'classic',
+  SUPER = 'super',
+}
+
+export interface FocalPoint {
   x: number,
   y: number,
 }
 
-export interface MediaImageOptions {
-  focalPoint?: FocalPointCoordinates,
+export interface MediaItemFilters {
+  blur?: number,
+}
+
+export interface UnsharpMaskOptions {
+  amount?: number,
+  radius?: number,
+  threshold?: number,
+}
+
+export interface MediaItemOptions {
   quality?: number,
+  focalPoint?: FocalPoint,
+  filters?: MediaItemFilters,
+  unsharpMask?: UnsharpMaskOptions,
+  upscaleMethod?: MediaImageUpscaleMethod,
+  watermark?: string,
+  isSEOBot?: boolean,
+  name?: string;
 }
 
 export interface MediaProps {
@@ -32,26 +55,25 @@ export interface MediaProps {
   onError?(event: React.SyntheticEvent<HTMLImageElement>): void;
   onLoad?(event: React.SyntheticEvent<HTMLImageElement>): void;
   alt?: string;
-  resize?: MediaImageResizing;
-  options?: MediaImageOptions;
+  scale?: MediaImageScaling;
 }
 
 export class MediaImage extends React.Component<MediaProps> {
   static displayName = 'MediaImage';
   static defaultProps = {
-    resize: MediaImageResizing.FILL,
-    options: {},
+    scale: MediaImageScaling.FILL,
   };
 
   private getImageSource(mediaPlatformItem: MediaPlatformItem) {
     if (mediaPlatformItem) {
-      const { width, height, resize, options } = this.props;
+      const { width, height, scale } = this.props;
       const {
         width: sourceWidth,
         height: sourceHeight,
         uri,
       } = mediaPlatformItem;
-      const getScaleToImageURL = resize === MediaImageResizing.FIT ? getScaleToFitImageURL : getScaleToFillImageURL;
+      const { options } = mediaPlatformItem;
+      const getScaleToImageURL = scale === MediaImageScaling.FIT ? getScaleToFitImageURL : getScaleToFillImageURL;
 
       return getScaleToImageURL(
         uri,
@@ -59,7 +81,7 @@ export class MediaImage extends React.Component<MediaProps> {
         sourceHeight,
         width || sourceWidth,
         height || sourceHeight,
-        options,
+        options || {},
       );
     }
   }
