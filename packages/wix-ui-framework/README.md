@@ -67,12 +67,15 @@ Usage: export-testkits [options]
 Generate testkit export file
 
 Options:
-  --output <string>          Mandatory option to set where to write testkit exports file
-  --definitions <string>     Path to testkit definitions. Default is ".wuf/testkit-definitions.js"
-  --factoryName <string>     Name of a testkit factory creator. Default is "testkitFactoryCreator"
-  --uniFactoryName <string>  Name of a unidriver testkit factory creator. Default is "uniTestkitFactoryCreator"
-  --template <string>        Path to template. Default is ".wuf/testkits/template.js"
-  -h, --help                 output usage information
+  --output <string>           Mandatory option to set where to write testkit exports file
+  --definitions <string>      Path to testkit definitions. Default is ".wuf/testkit-definitions.js"
+  --components <string>       Path to components.json file. Default is ".wuf/components.json"
+  --factoryName <string>      Name of a testkit factory creator. Default is "testkitFactoryCreator"
+  --uniFactoryName <string>   Name of a unidriver testkit factory creator. Default is "uniTestkitFactoryCreator"
+  --exportSuffix <string>     String to suffix each exported testkit. Default is "TestkitFactory"
+  --exportCaseStyle <string>  Set exported testkit case style. Possible values are "camelCase", "PascalCase". Default is "camelCase".
+  --template <string>         Path to template. Default is ".wuf/testkits/template.js"
+  -h, --help                  output usage information
 ```
 ---
 
