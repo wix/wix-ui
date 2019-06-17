@@ -14,6 +14,11 @@ export const cli = program =>
     )
 
     .option(
+      '--components <string>',
+      'Path to components.json file. Default is ".wuf/components.json"',
+    )
+
+    .option(
       '--factoryName <string>',
       'Name of a testkit factory creator. Default is "testkitFactoryCreator"',
     )
@@ -21,6 +26,16 @@ export const cli = program =>
     .option(
       '--uniFactoryName <string>',
       'Name of a unidriver testkit factory creator. Default is "uniTestkitFactoryCreator"',
+    )
+
+    .option(
+      '--exportSuffix <string>',
+      'String to suffix each exported testkit. Default is "TestkitFactory"',
+    )
+
+    .option(
+      '--exportCaseStyle <string>',
+      'Set exported testkit case style. Possible values are "camelCase", "PascalCase". Default is "camelCase".',
     )
 
     .option(
