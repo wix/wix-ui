@@ -1,6 +1,6 @@
 :import {
-  -st-from: '../../utils/stylableFunctions';
-  -st-named: hexToRgb;
+  -st-from: "../../mixins/hexToRgb";
+  -st-default: hexToRgb
 }
 
 :vars {
