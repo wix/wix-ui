@@ -1,6 +1,4 @@
-/* stylable formatters can consume js files easier without compiling the formatter from ts */
-
-function hexToRgb(hex, opacity = 1) {
+module.exports = function(hex, opacity = 1) {
     let c;
     let hexRegExp = /^#([A-Fa-f0-9]{3}){1,2}$/;
 
@@ -18,8 +16,4 @@ function hexToRgb(hex, opacity = 1) {
     }
 
     throw new Error('Bad Hex Color');
-}
-
-module.exports = {
-    hexToRgb,
 };
