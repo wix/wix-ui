@@ -37,7 +37,7 @@
   "scripts": {
     "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
-    "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y && npm run snap",
+    "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
     "test:e2e": "yoshi test --protractor",
