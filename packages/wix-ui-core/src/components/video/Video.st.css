@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
+.cover.transparentOverlay {
+    background: transparent;
+}
+
 .overlay {
     display: flex;
     height: 100%;
