@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+OUTDIR=./dist/standalone/
+
+tsc --outDir $OUTDIR
+stc --outDir=$OUTDIR --cssFilename=[filename].global.css --cjs --css --icr
+
+echo "build standalone version under $OUTDIR"
