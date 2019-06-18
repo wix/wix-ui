@@ -5,6 +5,7 @@ import { PlayerNamesType, ICommonProps, IConfig } from './types';
 import styles from './Video.st.css';
 
 const noop = () => null;
+const DEFAULT_PLAYER = 'playable';
 
 const getPlayerName = (url: string | string[]): PlayerNamesType => {
   for (const key in playerVerifiers) {
@@ -15,7 +16,7 @@ const getPlayerName = (url: string | string[]): PlayerNamesType => {
     }
   }
 
-  return null;
+  return DEFAULT_PLAYER;
 };
 
 export interface IVideoProps extends ICommonProps {
