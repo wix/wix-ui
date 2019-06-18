@@ -94,7 +94,7 @@ export class Loadable<LoadableExports> extends React.Component<
    async flow. We should determine type of flow and according to it sync or async set the state.
   */
   private loadSyncOrAsync = (): LoadedMap<LoadableExports> => {
-    const { loader, namedExports } = this.props;
+    const { loader, namedExports = {} } = this.props;
 
     const resolvedModules: {
       [Key in keyof LoadableExports]?: LoadableExports[Key]
