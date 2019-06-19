@@ -217,6 +217,33 @@
   color: value(D80);
 }
 
+/* skin Transparent secondary */
+
+.iconButton.transparent.secondary {
+    border-color: transparent;
+    background-color: value(B20);
+    color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent.secondary:hover {
+    border-color: transparent;
+    background-color: value(D20-54);
+    color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent.secondary:active {
+    border-color: transparent;
+    background-color: value(D20-60);
+    color: value(D80);
+}
+
+/* FIX */
+.iconButton:disabled.transparent.secondary {
+    background-color: value(D55);
+    border-color: value(D55);
+    color: value(D80);
+}
+
 /* sizes */
 
 .iconButton.tiny {

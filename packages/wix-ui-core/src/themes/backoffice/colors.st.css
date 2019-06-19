@@ -16,7 +16,7 @@
   D70: #F0F4F7; /* Page Background, Disabled - Background */
   D80: #FFFFFF; /* Content box background */
 
-  /* TRANSPARENT - Primary */
+  /* TRANSPARENT */
   D20-48: hexToRgb(value(D20), 0.48); /*  new transparent color */
   D20-54: hexToRgb(value(D20), 0.54); /* hovered */
   D20-60: hexToRgb(value(D20), 0.6); /*  clicked */
