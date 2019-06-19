@@ -27,12 +27,15 @@ export default () => (
    <ButtonNext className={closeButton('dark')}>
       <Close width="6px" height="6px"/>
    </ButtonNext>
+   <ButtonNext className={closeButton('transparent')}>
+      <Close width="6px" height="6px" />
+   </ButtonNext>
   </React.Fragment>
 );`;
 
 const descriptionPrimary = (
   <div>
-    Standard skins <code>standard</code>, <code>standardFilled</code>, <code>light</code>, <code>lightFilled</code> and <code>dark</code>.
+    Standard skins <code>standard</code>, <code>standardFilled</code>, <code>light</code>, <code>lightFilled</code>, <code>dark</code> and <code>transparent</code>.
   </div>
 );
 
@@ -90,5 +93,8 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
         <Close width="6px" height="6px" />
       </ButtonNext>
     </div>
+      <ButtonNext className={closeButton('transparent')}>
+          <Close width="6px" height="6px" />
+      </ButtonNext>
   </CodeShowcase>
 );
