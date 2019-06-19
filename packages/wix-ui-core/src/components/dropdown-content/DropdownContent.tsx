@@ -11,6 +11,8 @@ export interface DropdownContentProps {
   options: Option[];
   /** A callback for when clicking an option */
   onOptionClick(option: Option | null): void;
+  /** A callback for mouse down even on an option */
+  onOptionMouseDown?(option: Option | null): void;
   /** Array of the selected ids */
   selectedIds: (string | number)[];
   /** An element that always appears at the top of the options */
@@ -156,6 +158,7 @@ export class DropdownContent extends React.PureComponent<
       options,
       selectedIds,
       onOptionClick,
+      onOptionMouseDown,
     } = this.props;
     const { hoveredIndex } = this.state;
 
@@ -184,6 +187,11 @@ export class DropdownContent extends React.PureComponent<
               onClickHandler={
                 this.isValidOptionForSelection(option)
                   ? () => onOptionClick(option)
+                  : undefined
+              }
+              onMouseDownHandler={
+                this.isValidOptionForSelection(option)
+                  ? () => onOptionMouseDown && onOptionMouseDown(option)
                   : undefined
               }
               onMouseEnterHandler={

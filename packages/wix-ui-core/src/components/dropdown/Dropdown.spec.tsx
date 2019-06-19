@@ -171,6 +171,19 @@ describe('Dropdown', () => {
     });
   });
 
+  describe('onOptionMouseDown', () => {
+    it('should be called when option mouse down event occurs', () => {
+      const onOptionMouseDown = jest.fn();
+      const driver = createDriver(
+        createDropdown({ options, onOptionMouseDown }),
+      );
+
+      driver.click();
+      driver.optionAt(0).mouseDown();
+      expect(onOptionMouseDown).toHaveBeenCalled();
+    });
+  });
+
   describe('onDeselect', () => {
     it('should call onDeselect when option is unselected', () => {
       const onDeselect = jest.fn();

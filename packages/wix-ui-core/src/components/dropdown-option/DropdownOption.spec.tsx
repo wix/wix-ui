@@ -10,6 +10,7 @@ describe('DropdownOption', () => {
     .createLegacyRenderer(dropdownOptionDriverFactory);
 
   const onClickHandler = jest.fn();
+  const onMouseDownHandler = jest.fn();
   const onMouseEnterHandler = jest.fn();
 
   const createOption = (isDisabled = false) =>
@@ -28,6 +29,7 @@ describe('DropdownOption', () => {
       onClickHandler={onClickHandler}
       className="className"
       onMouseEnterHandler={onMouseEnterHandler}
+      onMouseDownHandler={onMouseDownHandler}
     />
   );
 
@@ -43,6 +45,13 @@ describe('DropdownOption', () => {
     const driver = createDriver(createDropdownOption(option));
     driver.click();
     expect(onClickHandler).toHaveBeenCalled();
+  });
+
+  it('should call on mouse down handler', () => {
+    const option = createOption();
+    const driver = createDriver(createDropdownOption(option));
+    driver.mouseDown();
+    expect(onMouseDownHandler).toHaveBeenCalled();
   });
 
   it('should call on mouse enter handler', () => {

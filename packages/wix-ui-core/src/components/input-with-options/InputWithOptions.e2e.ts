@@ -36,7 +36,7 @@ describe('InputWithOptions', () => {
       DataHook.onManualInputCount,
     ).getText();
 
-    expect(onSelectCount).toEqual(0);
-    expect(onManualInputCount).toEqual(0);
+    expect(onSelectCount).toEqual('1');
+    expect(onManualInputCount).toEqual('0');
   });
 });
