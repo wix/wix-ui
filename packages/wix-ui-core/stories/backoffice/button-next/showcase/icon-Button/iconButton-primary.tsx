@@ -19,12 +19,15 @@ export default () => (
    <ButtonNext className={iconButton('light')}>
       <More width="24" height="24" />
    </ButtonNext>
+   <ButtonNext className={iconButton('transparent')}>
+      <More width="24" height="24" />
+   </ButtonNext>
   </React.Fragment>
 );`;
 
 const descriptionPrimary = (
   <div>
-    Primary skins <code>standard</code> and <code>light</code>.
+    Primary skins <code>standard</code>, <code>light</code> and <code>transparent</code>.
   </div>
 );
 
@@ -52,5 +55,8 @@ export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
         <More width="24" height="24" />
       </ButtonNext>
     </div>
+    <ButtonNext className={iconButton('transparent')}>
+      <More width="24" height="24" />
+    </ButtonNext>
   </CodeShowcase>
 );

@@ -6,7 +6,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B10, D55, D80, B20, B50, B40, F00;
+  -st-named: B10, D55, D80, B20, B50, B40, F00, D20-48, D20-54, D20-60;
 }
 
 .iconButton {
@@ -189,6 +189,32 @@
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;
+}
+
+/* skin Transparent */
+
+.iconButton.transparent {
+  border-color: transparent;
+  background-color: value(D20-48);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent:hover {
+  border-color: transparent;
+  background-color: value(D20-54);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent:active {
+  border-color: transparent;
+  background-color: value(D20-60);
+  color: value(D80);
+}
+
+.iconButton:disabled.transparent {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
 }
 
 /* sizes */
