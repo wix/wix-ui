@@ -12,7 +12,7 @@
 :import {
   -st-from: '../colors.st.css';
   -st-named: B10, F00, B20, D55, R10, R20, P10, P20, G10, G20, D80, B50, D40,
-    D10, D20, B40, F00;
+    D10, D20, B40, F00, D80-30, D80-70;
 }
 
 :import {
@@ -322,9 +322,9 @@
 /* skin Dark */
 
 .button.dark {
-  background-color: transparent;
-  border: solid 1px value(D40);
-  color: value(D10);
+  background-color: value(D10);
+  border: solid 1px value(D10);
+  color: value(D80);
 }
 
 .button:not(:disabled).dark:hover {
@@ -340,9 +340,9 @@
 }
 
 .button:disabled.dark {
-  background-color: transparent;
-  border: solid 1px value(D55);
-  color: value(D55);
+  background-color: value(D80-30);
+  border: solid 1px transparent;
+  color: value(D80);
 }
 
 /* skin Dark secondary */
@@ -367,8 +367,8 @@
 
 .button:disabled.dark.secondary {
   background-color: transparent;
-  border: solid 1px value(D55);
-  color: value(D55);
+  border: solid 1px value(D80-70);
+  color: value(D80-70);
 }
 
 /* skin Transparent */

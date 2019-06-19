@@ -48,7 +48,9 @@ describe('copyTemplates', () => {
       ComponentName: 'MyNewComponent',
       description: 'This is a very cool component, yall',
       templates: path.join(__dirname, 'templates'),
-      cwd: tempDir,
+      _process: {
+        cwd: tempDir,
+      },
     });
 
     expect(getDirSnapshot(tempDir)).toMatchSnapshot();
@@ -59,7 +61,9 @@ describe('copyTemplates', () => {
       ComponentName: 'MyNewComponent',
       description: undefined,
       templates: path.join(__dirname, 'templates'),
-      cwd: tempDir,
+      _process: {
+        cwd: tempDir,
+      },
     });
 
     expect(getDirSnapshot(tempDir)).toMatchSnapshot();

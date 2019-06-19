@@ -2,16 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import { fileExists } from '../../file-exists';
-import { Process } from '../../typings.d';
-
-interface Options {
-  definitions?: string;
-  template?: string;
-  output?: string;
-  factoryName?: string;
-  uniFactoryName?: string;
-  _process: Process;
-}
+import { Options } from './typings';
 
 const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
 
@@ -56,21 +47,26 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
     definitions: pathResolve(
       opts.definitions || '.wuf/testkits/definitions.js',
     ),
+
+    components: pathResolve(opts.components || '.wuf/components.json'),
     template: pathResolve(opts.template || '.wuf/testkits/template.js'),
     factoryName: opts.factoryName || 'testkitFactoryCreator',
     uniFactoryName: opts.uniFactoryName || 'uniTestkitFactoryCreator',
     output: pathResolve(opts.output),
+    exportSuffix: opts.exportSuffix || 'TestkitFactory',
+    exportCaseStyle: opts.exportCaseStyle || 'camelCase',
   };
 
   if (!(await fileExists(options.definitions))) {
-    throw new Error(`Definitions file does not exist at "${opts.definitions}"`);
+    throw new Error(
+      `Definitions file does not exist at "${options.definitions}"`,
+    );
   }
 
   const definitions = require(options.definitions);
   const components = require(path.resolve(
     opts._process.cwd,
-    '.wuf',
-    'components.json',
+    options.components,
   ));
 
   const wrapItemWithFunction = (fn, item) => `${fn}(${item})`;
@@ -97,7 +93,9 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
       .reduce((testkits, name) => {
         const definition = definitions[name] || {};
         const entryName =
-          name[0].toLowerCase() + name.slice(1) + 'TestkitFactory';
+          options.exportCaseStyle === 'camelCase'
+            ? name[0].toLowerCase() + name.slice(1) + options.exportSuffix
+            : name + options.exportSuffix;
 
         const testkitEntry = wrapItemWithFunction(
           definition.unidriver ? options.uniFactoryName : options.factoryName,

@@ -27,7 +27,7 @@ export const runTasks: (a: Options) => Promise<void> = options => {
     {
       task: () => require('./tasks/run-codemods').runCodemods,
       message: 'Run codemods',
-      skipped: options.skipCodemods,
+      skipped: !options.codemods,
     },
   ];
 

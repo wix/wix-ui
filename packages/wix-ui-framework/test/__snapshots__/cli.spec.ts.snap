@@ -6,12 +6,15 @@ exports[`wuf export-testkits --help should render help text 1`] = `
 Generate testkit export file
 
 Options:
-  --output <string>          Mandatory option to set where to write testkit exports file
-  --definitions <string>     Path to testkit definitions. Default is \\".wuf/testkit-definitions.js\\"
-  --factoryName <string>     Name of a testkit factory creator. Default is \\"testkitFactoryCreator\\"
-  --uniFactoryName <string>  Name of a unidriver testkit factory creator. Default is \\"uniTestkitFactoryCreator\\"
-  --template <string>        Path to template. Default is \\".wuf/testkits/template.js\\"
-  -h, --help                 output usage information"
+  --output <string>           Mandatory option to set where to write testkit exports file
+  --definitions <string>      Path to testkit definitions. Default is \\".wuf/testkit-definitions.js\\"
+  --components <string>       Path to components.json file. Default is \\".wuf/components.json\\"
+  --factoryName <string>      Name of a testkit factory creator. Default is \\"testkitFactoryCreator\\"
+  --uniFactoryName <string>   Name of a unidriver testkit factory creator. Default is \\"uniTestkitFactoryCreator\\"
+  --exportSuffix <string>     String to suffix each exported testkit. Default is \\"TestkitFactory\\"
+  --exportCaseStyle <string>  Set exported testkit case style. Possible values are \\"camelCase\\", \\"PascalCase\\". Default is \\"camelCase\\".
+  --template <string>         Path to template. Default is \\".wuf/testkits/template.js\\"
+  -h, --help                  output usage information"
 `;
 
 exports[`wuf generate --help should render help text 1`] = `
@@ -20,12 +23,13 @@ exports[`wuf generate --help should render help text 1`] = `
 Scaffold file structure from templates
 
 Options:
-  --component-name <ComponentName>  Component name
-  --description <description>       Component description
-  --templates <string>              Path to templates. Default is \\"/generator/templates/\\"
-  --codemods <string>               Path to codemods. Default is \\"/generator/codemods/\\"
-  -f, --force                       Force component generation in a non clean git repo.
-  -h, --help                        output usage information"
+  --component-name <string>  Component name
+  --description <string>     Component description
+  --templates <string>       Path to templates. Default is \\"/generator/templates/\\"
+  --output <string>          Path to output. If not set, output is determined by --templates folder structure
+  --codemods <string>        Path to codemods. By default no codemods are run.
+  -f, --force                Force component generation in a non clean git repo.
+  -h, --help                 output usage information"
 `;
 
 exports[`wuf help should be displayed when --help 1`] = `

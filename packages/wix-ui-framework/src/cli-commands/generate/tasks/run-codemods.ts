@@ -15,13 +15,13 @@ const runCodemod: ({
     const codemodPath = path.join(options.codemods, codemodConfig.codemod);
 
     const pathToExecutable = path.join(
-      options.cwd,
+      options._process.cwd,
       'node_modules',
       '.bin',
       'jscodeshift',
     );
 
-    const inputPath = path.join(options.cwd, codemodConfig.dist);
+    const inputPath = path.join(options._process.cwd, codemodConfig.dist);
 
     if (!fs.existsSync(inputPath)) {
       reject(`Error in ${codemodConfig.codemod}: ${inputPath} does not exist`);
@@ -51,9 +51,9 @@ const runCodemod: ({
 export const runCodemods: (a: Options) => Promise<void[]> = options => {
   const { ComponentName, description, codemods } = options;
 
-  const codemodsIndex: CodemodConfig[] = require(path.join(
+  const codemodsIndex: CodemodConfig[] = require(path.resolve(
+    options._process.cwd,
     codemods,
-    'index.js',
   ));
 
   const codemodValues: CodemodValues = createValuesMap({

@@ -14,7 +14,8 @@
       "es2016"
     ],
     "outDir": "dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "declaration": true
   },
   "typeRoots": [
     "node_modules/@types"
@@ -26,6 +27,7 @@
   "exclude": [
     "src/cli-commands/generate/__test__/templates/**/*.*",
     "src/cli-commands/generate/__testfixtures__/**/*.*",
-    "./package.json"
+    "./package.json",
+    "src/**/*.spec.*"
   ]
 }

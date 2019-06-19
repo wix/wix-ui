@@ -1,25 +1,16 @@
 import * as path from 'path';
 
 import { Options } from './typings';
-import { Process } from '../../typings';
 import { runTasks } from './run-tasks';
 import { runPrompts } from './tasks/run-prompts';
 
 const defaultTemplatesPath = '.wuf/generator/templates';
-const defaultCodemodsPath = '.wuf/generator/codemods';
 
 export const generate: (
-  a: Options & { _process: Process },
-) => Promise<void> = ({
-  _process,
-  force,
-  ComponentName,
-  description,
-  templates,
-  codemods,
-}) => {
+  a: Options & { componentName: string },
+) => Promise<void> = opts => {
   try {
-    require(path.join(_process.cwd, 'package.json'));
+    require(path.join(opts._process.cwd, 'package.json'));
   } catch (e) {
     return Promise.reject(
       'ERROR: `wuf generate` must be run at root of the module (where package.json exists).',
@@ -27,13 +18,15 @@ export const generate: (
   }
 
   const options: Options = {
-    cwd: _process.cwd,
-    ComponentName,
-    description,
-    templates: path.join(_process.cwd, templates || defaultTemplatesPath),
-    codemods: path.join(_process.cwd, codemods || defaultCodemodsPath),
-    force,
-    skipCodemods: false,
+    // componentName variable comes in as camelCase but its value is PascalCase, therefore we rename it
+    ComponentName: opts.componentName,
+    templates: path.join(
+      opts._process.cwd,
+      opts.templates || defaultTemplatesPath,
+    ),
+    codemods: opts.codemods ? path.join(opts._process.cwd, opts.codemods) : '',
+    output: opts.output ? path.join(opts._process.cwd, opts.output) : '',
+    ...opts,
   };
 
   if (options.ComponentName) {

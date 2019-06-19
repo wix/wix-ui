@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { mediaImageDriverFactory } from './media-image.uni.driver';
-import { MediaPlatformItem, MediaImage } from './media-image';
+import { MediaPlatformItem, MediaImage, MediaImageScaling } from './media-image';
 import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
 import { BROKEN_SRC, ERROR_IMAGE_SRC, SRC } from '../image/test-fixtures';
@@ -19,12 +19,15 @@ describe('MediaImage', () => {
     height: sourceHeight,
     uri: '506418dbb019414f951a61670f3255a8.jpg',
   };
+  let getScaleToFillImageURL, getScaleToFitImageURL;
+  const defaultMediaItemOptions = {};
 
   beforeAll(() => {
-    jest.spyOn(imageClientSDK, 'getScaleToFillImageURL').mockReturnValue(SRC);
+    getScaleToFillImageURL = jest.spyOn(imageClientSDK, 'getScaleToFillImageURL').mockReturnValue(SRC);
+    getScaleToFitImageURL = jest.spyOn(imageClientSDK, 'getScaleToFitImageURL').mockReturnValue(SRC);
   });
 
-  it('displays image with given media platform item', async () => {
+  it('displays image with given media platform item when fill scale is selected', async () => {
     const mediaImageDriver = createDriver(
       <MediaImage
         mediaPlatformItem={mediaPlatformItem}
@@ -33,12 +36,42 @@ describe('MediaImage', () => {
       />,
     );
 
-    expect(imageClientSDK.getScaleToFillImageURL).toHaveBeenCalledWith(
+    expect(getScaleToFillImageURL).toHaveBeenCalledWith(
       mediaPlatformItem.uri,
       mediaPlatformItem.width,
       mediaPlatformItem.height,
       WIDTH,
       HEIGHT,
+      defaultMediaItemOptions,
+    );
+    expect(await mediaImageDriver.getSrc()).toEqual(SRC);
+  });
+
+  it('displays image with given media platform item when fit scale is selected', async () => {
+    const fitImageOptions = {
+      focalPoint: {
+        x: 0,
+        y: 0,
+      }
+    };
+    let fitMediaPlatformItem = { ...mediaPlatformItem, options: fitImageOptions};
+    
+    const mediaImageDriver = createDriver(
+      <MediaImage
+        mediaPlatformItem={fitMediaPlatformItem}
+        width={WIDTH}
+        height={HEIGHT}
+        scale={MediaImageScaling.FIT}
+      />,
+    );
+
+    expect(getScaleToFitImageURL).toHaveBeenCalledWith(
+      mediaPlatformItem.uri,
+      mediaPlatformItem.width,
+      mediaPlatformItem.height,
+      WIDTH,
+      HEIGHT,
+      fitImageOptions,
     );
     expect(await mediaImageDriver.getSrc()).toEqual(SRC);
   });
@@ -54,6 +87,7 @@ describe('MediaImage', () => {
       mediaPlatformItem.height,
       mediaPlatformItem.width,
       mediaPlatformItem.height,
+      defaultMediaItemOptions,
     );
     expect(await mediaImageDriver.getSrc()).toEqual(SRC);
   });
