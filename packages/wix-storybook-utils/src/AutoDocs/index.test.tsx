@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 
 import AutoDocs from './';
+import { hiddenMethods } from './methods-table';
 
 const testkit = () => {
   let component;
@@ -20,7 +21,7 @@ const testkit = () => {
       propsTables: () => byHook('autodocs-props-table'),
       propRows: () => byHook('autodocs-prop-row-name'),
       methodsTable: () => byHook('autodocs-methods-table'),
-      methodsTableTitle: () => byHook('autodocs-methods-table-title'),
+      methodsTableRows: () => byHook('autodocs-methods-table-row'),
     },
   };
 };
@@ -60,6 +61,30 @@ describe('AutoDocs', () => {
       });
 
       expect(driver.get.propsTables().length).toEqual(2);
+    });
+  });
+
+  describe('methods table', () => {
+    it('should not render lifecycle methods', () => {
+      const driver = testkit();
+      const methods = [
+        ...hiddenMethods,
+        '_privateMethod',
+        'publicCoolMethod',
+        'publicAwesomeMethod',
+      ].map(name => ({ name, params: [], description: '' }));
+
+      driver.when.created({
+        metadata: {
+          props: {},
+          methods,
+        },
+      });
+
+      const rows = driver.get.methodsTableRows();
+      expect(rows.length).toEqual(2);
+      expect(rows.at(0).text()).toEqual('publicCoolMethod');
+      expect(rows.at(1).text()).toEqual('publicAwesomeMethod');
     });
   });
 });
