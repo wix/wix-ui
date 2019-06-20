@@ -19,3 +19,9 @@ export enum ProgressBarDataKeys {
   min = 'data-progress-min-value',
   max = 'data-progress-max-value',
 }
+
+export enum ProgressBarAriaKeys {
+  valuenow = 'aria-valuenow',
+  valuemax = 'aria-valuemax',
+  valuemin = 'aria-valuemin',
+}

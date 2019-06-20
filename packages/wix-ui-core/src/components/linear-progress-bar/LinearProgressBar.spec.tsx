@@ -212,6 +212,34 @@ describe('ProgressBar', () => {
         expect(await driver.getWidth()).toBe(`50%`);
       });
     });
+
+    describe('Accessability props', () => {
+      it('should aria-valuenow based on value prop', async () => {
+        const value = 56;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, value}} />
+        );
+        expect(await driver.getAriaValueNow()).toBe(value);
+      });
+      it('should aria-valuemax based on max prop', async () => {
+        const max = 56;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, max}} />
+        );
+        expect(await driver.getAriaValueMax()).toBe(max);
+      });
+      it('should aria-valuemin based on min prop', async () => {
+        const min = 56;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, min}} />
+        );
+        expect(await driver.getAriaValueMin()).toBe(min);
+      });
+      it('should have role `progressbar`', async () => {
+        const driver = createDriver(<LinearProgressBar {...defaultProps} />);
+        expect(await driver.getRoleAttribute()).toBe('progressbar');
+      });
+    });
   }
 
   runTestkitExistsSuite({
