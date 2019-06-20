@@ -54,6 +54,9 @@
   margin: value(contentArrowSize);
 }
 
+.popover {
+}
+
 /* TODO: use a stylable state for this. Notice it would break consumers styles */
 .popover[data-placement*="right"].withArrow {
   padding-left: value(contentArrowSize);
