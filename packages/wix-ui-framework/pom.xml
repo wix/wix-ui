@@ -34,7 +34,7 @@
     <mailingLists>
         <mailingList>
             <name>slack</name>
-            <subscribe>wix-ui-build</subscribe>
+            <subscribe>wix-ui</subscribe>
         </mailingList>
     </mailingLists>
 </project>
