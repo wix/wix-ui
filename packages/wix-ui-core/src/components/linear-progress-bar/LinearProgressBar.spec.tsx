@@ -212,6 +212,16 @@ describe('ProgressBar', () => {
         expect(await driver.getWidth()).toBe(`50%`);
       });
     });
+
+    describe('Accessability props', () => {
+      fit('should set aria-valuenow based on value prop', async () => {
+        const value = 56;
+        const driver = createDriver(
+          <LinearProgressBar {...{...defaultProps, value}} />
+        );
+        expect(await driver.getAriaValueNow()).toBe(value);
+      });
+    });
   }
 
   runTestkitExistsSuite({
