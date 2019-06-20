@@ -235,6 +235,34 @@ export default {
           <PopoverWithState placement="top" fixed />
         </ScrollableContainer>
       </div>
+
+      <div data-hook="story-popover-z-index">
+        <h2>z-index</h2>
+        <div style={{display: "flex"}}>
+          <div style={{position: "relative"}}>
+            <p>popover z-index default to 1000 while cover z-index is 2000</p>
+
+            <div style={{position: "absolute", top: "80px", left: "0px"}}>
+              <PopoverWithState data-hook="popover-z-index-before-cover"/>
+            </div>
+            <div style={{zIndex: 2000, position: "absolute", top: "80px", left: "0px", backgroundColor: "lightgray", width: "200px", height: "50px"}}>
+              cover
+            </div>
+          </div>
+          <div style={{width: "100px"}}></div>
+          <div style={{position: "relative"}}>
+            <p>popover z-index is set to 3000 while cover z-index is 2000</p>
+
+            <div style={{position: "absolute", top: "80px", left: "0px"}}>
+              <PopoverWithState data-hook="popover-z-index-after-cover" zIndex={3000} />
+            </div>
+            <div style={{zIndex: 2000, position: "absolute", top: "80px", left: "0px", backgroundColor: "lightgray", width: "200px", height: "50px"}}>
+              cover
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 };

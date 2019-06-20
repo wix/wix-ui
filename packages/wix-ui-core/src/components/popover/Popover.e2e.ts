@@ -90,4 +90,19 @@ describe('Popover', () => {
       },
     );
   });
+
+  describe('zIndex', () => {
+    beforeAll(async () => {
+      await createDriver('story-popover-z-index');
+    });
+
+    eyes.it(
+      `should render popover z-index properly`,
+      async () => {
+        await scrollToBottom('story-popover-z-index');
+        await browser.sleep(10000);
+      },
+    );
+  });
+
 });
