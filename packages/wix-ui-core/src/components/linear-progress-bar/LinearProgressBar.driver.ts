@@ -34,6 +34,12 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getMaxValue(): number;
   /** Returns aria-valuenow prop */
   getAriaValueNow(): number;
+  /** Returns aria-valuemax prop */
+  getAriaValueMax(): number;
+  /** Returns aria-valuemin prop */
+  getAriaValueMin(): number;
+  /** Returns role html attribute */
+  getRoleAttribute(): string;
 }
 
 export const linearProgressBarDriverFactory: DriverFactory<
@@ -77,6 +83,11 @@ export const linearProgressBarDriverFactory: DriverFactory<
     getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
     getAriaValueNow: () =>
       getDataAttribute(ProgressBarAriaKeys.valuenow, Number),
+    getAriaValueMax: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
+    getAriaValueMin: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
+    getRoleAttribute: () => getDataAttribute('role'),
   };
 
   return driver;

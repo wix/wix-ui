@@ -103,6 +103,8 @@ const getAriaAttributes = (
 ): {[key in ProgressBarAriaKeys]: number} => {
   return {
     [ProgressBarAriaKeys.valuenow]: +props.value,
+    [ProgressBarAriaKeys.valuemin]: +props.min,
+    [ProgressBarAriaKeys.valuemax]: +props.max,
   };
 };
 
@@ -117,6 +119,7 @@ export const LinearProgressBar: React.FunctionComponent<
       {...getDataAttributes(_props)}
       {...getAriaAttributes(_props)}
       data-min={_props.min}
+      role="progressbar"
       {...style('root', {error, success}, _props)}
     >
       {renderBarSection(_props.value)}
