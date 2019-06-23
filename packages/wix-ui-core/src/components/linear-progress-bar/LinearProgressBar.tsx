@@ -1,6 +1,10 @@
 import * as React from 'react';
 import style from './LinearProgressBar.st.css';
-import {ProgressBarDataHooks, ProgressBarDataKeys} from './DataHooks';
+import {
+  ProgressBarDataHooks,
+  ProgressBarDataKeys,
+  ProgressBarAriaKeys,
+} from './DataHooks';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (min || 0 - no progress, max || 100 - progress completed) */
@@ -94,6 +98,16 @@ const getDataAttributes = (
   };
 };
 
+const getAriaAttributes = (
+  props: LinearProgressBarProps
+): {[key in ProgressBarAriaKeys]: number} => {
+  return {
+    [ProgressBarAriaKeys.valuenow]: +props.value,
+    [ProgressBarAriaKeys.valuemin]: +props.min,
+    [ProgressBarAriaKeys.valuemax]: +props.max,
+  };
+};
+
 export const LinearProgressBar: React.FunctionComponent<
   LinearProgressBarProps
 > = (props: LinearProgressBarProps) => {
@@ -103,7 +117,9 @@ export const LinearProgressBar: React.FunctionComponent<
   return (
     <div
       {...getDataAttributes(_props)}
+      {...getAriaAttributes(_props)}
       data-min={_props.min}
+      role="progressbar"
       {...style('root', {error, success}, _props)}
     >
       {renderBarSection(_props.value)}

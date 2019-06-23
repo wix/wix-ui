@@ -6,7 +6,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B10, D55, D80, B20, B50, B40, F00, D20-48, D20-54, D20-60;
+  -st-named: B10, D55, D80, B20, B50, B40, F00, D20-48, D20-54, D20-60, P10, P20;
 }
 
 .iconButton {
@@ -217,6 +217,32 @@
   color: value(D80);
 }
 
+/* skin Premium */
+
+.iconButton.premium {
+  border: none;
+  background-color: value(P10);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).premium:hover {
+  background-color: value(P20);
+  color: value(D80);
+  border-color: value(P20);
+}
+
+.iconButton:not(:disabled).premium:active {
+  background-color: value(P10);
+  color: value(D80);
+}
+
+.iconButton:disabled.premium {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+
 /* skin Transparent secondary */
 
 .iconButton.transparent.secondary {
@@ -242,6 +268,32 @@
     background-color: value(D55);
     border-color: value(D55);
     color: value(D80);
+  }
+
+/* skin Premium secondary */
+
+.iconButton.premium.secondary {
+  border: solid 1px value(P10);
+  background: transparent;
+  color: value(P10);
+}
+
+.iconButton:not(:disabled).premium.secondary:hover {
+  background-color: value(P20);
+  color: value(D80);
+  border-color: value(P20);
+}
+
+.iconButton:not(:disabled).premium.secondary:active {
+  background-color: value(P10);
+  border: solid 1px value(P10);
+  color: value(D80);
+}
+
+.iconButton:disabled.premium.secondary {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
 }
 
 /* sizes */

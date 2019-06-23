@@ -92,6 +92,8 @@ export interface PopoverProps {
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
   /** target element role value */
   role?: string;
+  /** popover z-index */
+  zIndex?: number,
 }
 
 export interface PopoverState {
@@ -155,6 +157,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   static defaultProps = {
     flip: true,
     fixed: false,
+    zIndex: 1000,
   };
 
   static Element = createComponentThatRendersItsChildren('Popover.Element');
@@ -200,6 +203,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       customArrow,
       role,
       id,
+      zIndex,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -223,13 +227,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           scheduleUpdate,
         }) => {
           this.popperScheduleUpdate = scheduleUpdate;
-
           return (
             <div
               ref={ref}
               data-hook="popover-content"
               data-content-element={this.contentHook}
-              style={popperStyles}
+              style={{...popperStyles, zIndex}}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,
