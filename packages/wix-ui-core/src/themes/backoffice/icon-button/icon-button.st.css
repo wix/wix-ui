@@ -125,7 +125,7 @@
 .iconButton:not(:disabled).secondary:hover {
   color: value(D80);
   border-color: transparent;
-  background-color: value(D20-54);
+  background-color: value(B20);
 }
 
 .iconButton:not(:disabled).secondary:active {
