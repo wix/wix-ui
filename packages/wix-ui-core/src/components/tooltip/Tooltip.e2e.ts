@@ -37,4 +37,25 @@ describe('Tooltip', () => {
     await browser.sleep(1000);
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
+
+  eyes.it('should render before or after cover according to zIndex', async () => {
+    const dataHookZindexBefore = 'story-tooltip-zIndex-order-before';
+    const driverZindexBefore = tooltipTestkitFactory({ dataHook: dataHookZindexBefore });
+    await waitForVisibilityOf(
+      driverZindexBefore.element(),
+      'Cannot find Tooltip Zindex before',
+    );
+    await driverZindexBefore.mouseEnter();
+    await eyes.checkWindow('tooltip hover with order before cover');
+
+    const dataHookZindexAfter = 'story-tooltip-zIndex-order-after';
+    const driverZindexAfter = tooltipTestkitFactory({ dataHook: dataHookZindexAfter });
+    await waitForVisibilityOf(
+      driverZindexBefore.element(),
+      'Cannot find Tooltip Zindex after',
+    );
+    await driverZindexAfter.mouseEnter();
+    await eyes.checkWindow('tooltip hover with order after cover');
+  });
+
 });
