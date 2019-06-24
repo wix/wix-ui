@@ -213,7 +213,7 @@
 
 .iconButton:disabled.transparent {
   background-color: value(D10-20);
-  border-color: value(D10-20);
+  border-color: transparent;
   color: value(D80-70);
 }
 
@@ -221,7 +221,7 @@
 
 .iconButton.transparent.secondary {
     border-color: transparent;
-    background-color: value(B10);
+    background-color: transparent;
     color: value(D80);
 }
 

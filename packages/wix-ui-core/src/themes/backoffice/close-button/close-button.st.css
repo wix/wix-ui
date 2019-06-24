@@ -181,7 +181,7 @@
 
 .closeButton:disabled.transparent {
   background-color: value(D10-20);
-  border-color: value(D10-20);
+  border-color: transparent;
   color: value(D80-70);
 }
 
