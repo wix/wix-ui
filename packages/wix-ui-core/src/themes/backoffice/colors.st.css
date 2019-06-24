@@ -23,6 +23,7 @@
 
 
   /* DISABLED */
+  D10-20: hexToRgb(value(D10), 0.2);
   D80-30: hexToRgb(value(D80), 0.3);
   D80-70: hexToRgb(value(D80), 0.7);
 

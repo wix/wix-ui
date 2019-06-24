@@ -12,7 +12,7 @@
 :import {
   -st-from: '../colors.st.css';
   -st-named: B10, F00, B20, D55, R10, R20, P10, P20, G10, G20, D80, B50, D40,
-    D10, D20, B40, F00, D20-48, D20-54, D20-60, D80-30, D80-70;
+    D10, D20, B40, F00, D10-20, D20-48, D20-54, D20-60, D80-30, D80-70;
 }
 
 :import {
@@ -392,9 +392,9 @@
 }
 
 .button:disabled.transparent {
-  background-color: value(D55);
-  border-color: value(D55);
-  color: value(D80);
+  background-color: value(D10-20);
+  border-color: value(D10-20);
+  color: value(D80-70);
 }
 
 /* skin Transparent secondary */
@@ -418,9 +418,9 @@
 }
 
 .button:disabled.transparent.secondary {
-  background-color: value(D55);
-  border-color: value(D55);
-  color: value(D80);
+  background-color: transparent;
+  border-color: transparent;
+  color: value(D80-70);
 }
 
 /* sizes */
