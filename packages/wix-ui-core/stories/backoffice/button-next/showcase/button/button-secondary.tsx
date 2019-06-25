@@ -77,7 +77,7 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     </div>
     <div
       style={{
-        background: '#3899ec',
+        background: '#4EB7F5',
         padding: '2px'
       }}
     >
