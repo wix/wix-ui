@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { promisify } from 'util';
-import { diff } from 'deep-diff';
+import * as minimatch from 'minimatch';
 
 import { Path, Process } from '../../typings.d';
 import { fileExists } from '../../file-exists';
@@ -12,6 +12,9 @@ const fsReadFile = promisify(fs.readFile);
 const fsWriteFile = promisify(fs.writeFile);
 
 const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
+
+const objectEntries = object =>
+  Object.keys(object).map(key => [key, object[key]]);
 
 interface Options {
   shape?: Path;
@@ -54,44 +57,60 @@ export const updateComponentsList: (
     path: '.',
   });
 
-  const analyzedComponents = Object.keys(componentsFs)
-    .filter(componentName =>
-      opts.exclude ? !new RegExp(opts.exclude).test(componentName) : true,
+  const analyzedComponents = objectEntries(componentsFs)
+    .filter(([name, structure]) =>
+      [
+        // skip non folders at root level
+        structure !== '',
+
+        // skip excluded
+        opts.exclude ? !new RegExp(opts.exclude).test(name) : true,
+      ].every(Boolean),
     )
-    .map(name => ({
-      name,
-      structure: componentsFs[name],
-    }))
 
-    // skip non folders at root level
-    .filter(({ structure }) => structure !== '')
+    .map(([name, structure]) => {
+      // TODO: this should be a placeholder coming from config. There should be support for multiple
+      const replaceableName = 'Component';
 
-    .map(({ name, structure }) => {
-      const replaceName = 'Component';
+      const namedShape = mapTree(shape, ({ key, value }) => ({
+        [key.replace(replaceableName, name)]: value,
+      }));
 
-      const namedShape = mapTree(shape, ({ key, value }) => {
-        const basename = path.basename(key);
-        const match = basename.match(new RegExp(`^${replaceName}\\.(.*)`));
+      const missingFiles = [];
 
-        if (match) {
-          return { [`${name}.${match[1]}`]: value };
-        }
+      const traverseGlobs = ({ globTree, fsTree, fsPath = '' }) => {
+        const globEntries = objectEntries(globTree);
+        const fsEntries = objectEntries(fsTree);
+
+        return globEntries.reduce((row, [globPath, globValue]) => {
+          const matchingFsEntries = fsEntries.filter(([entry]) =>
+            minimatch(entry, globPath),
+          );
+
+          if (!matchingFsEntries.length) {
+            missingFiles.push(path.join(fsPath.replace(/^\//, ''), globPath));
+          }
+
+          matchingFsEntries.map(([matchingFsPath, matchingFsValue]) => {
+            if (typeof matchingFsValue !== 'string') {
+              row[matchingFsPath] = traverseGlobs({
+                fsTree: matchingFsValue,
+                globTree: globValue,
+                fsPath: `${fsPath}/${matchingFsPath}`,
+              });
+            } else {
+              row[matchingFsPath] = matchingFsValue;
+            }
+          });
+
+          return row;
+        }, {});
+      };
+
+      traverseGlobs({
+        globTree: namedShape,
+        fsTree: structure,
       });
-
-      const diffs = (diff(namedShape, structure) || []).filter(
-        ({ kind }) => kind === 'D',
-      );
-
-      const missingFiles = diffs.reduce((files, d) => {
-        const rootPath = d.path.join('/');
-        files.push(rootPath);
-
-        if (d.lhs) {
-          files.push(...Object.keys(d.lhs).map(p => [rootPath, p].join('/')));
-        }
-
-        return files;
-      }, []);
 
       return {
         name,
@@ -107,11 +126,6 @@ export const updateComponentsList: (
   const goodComponents = analyzedComponents.filter(
     ({ missingFiles }) => missingFiles.length <= options.maxMismatch,
   );
-
-  // TODO: consider logging out folders that didn't match the criteria, maybe under --verbose flag
-  /* const nonComponents = analyzedComponents.filter( */
-  /* ({ missingFiles }) => missingFiles.length > 0, */
-  /* ); */
 
   const output = goodComponents.reduce((components, component) => {
     components[component.name] = {
