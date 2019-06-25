@@ -55,6 +55,10 @@
     order: 3;
 }
 
+.plane {
+    -st-extends: pageForm;
+}
+
 .pageInput {}
 .totalPages {}
 .slash {}

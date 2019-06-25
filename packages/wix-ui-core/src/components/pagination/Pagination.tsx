@@ -18,6 +18,12 @@ const enum ButtonType {
   Last = 'last',
 }
 
+export const enum PaginationMode {
+  Pages = 'pages',
+  Plane = 'plane',
+  Input = 'input',
+}
+
 export interface PaginationProps {
   // data
   totalPages: number;
@@ -29,7 +35,7 @@ export interface PaginationProps {
   onDoubleClick?(event: React.SyntheticEvent): void;
   onMouseEnter?(event: React.SyntheticEvent): void;
   onMouseLeave?(event: React.SyntheticEvent): void;
-  paginationMode?: 'pages' | 'input';
+  paginationMode?: 'pages' | 'input' | 'plane' | PaginationMode;
   showFirstLastNavButtons?: boolean;
   firstLabel?: React.ReactNode;
   previousLabel?: React.ReactNode;
@@ -189,6 +195,47 @@ export class Pagination extends React.Component<
     }
   };
 
+  private renderPages() {
+    switch (this.props.paginationMode) {
+      case 'input':
+        return this.renderPageForm();
+      case 'plane':
+        return this.renderPagePlane();
+      case 'pages':
+      default:
+        return this.renderPageStrip();
+    }
+  }
+
+  private renderPagePlane() {
+    return (
+      <div
+        data-hook="page-plane"
+        id={this.getId('pagePlane')}
+        className={pStyle.plane}
+        dir="ltr"
+      >
+        <span
+          key="current-page"
+          id={this.getId('currentPage')}
+          data-hook="current-page"
+        >
+          {this.props.currentPage}
+        </span>
+        <span key="slash" id={this.getId('slash')} className={pStyle.slash}>
+          {this.props.slashLabel}
+        </span>
+        <span
+          key="total-pages"
+          id={this.getId('totalPages')}
+          data-hook="total-pages"
+        >
+          {this.props.totalPages}
+        </span>
+      </div>
+    );
+  }
+
   private renderPageForm(): JSX.Element {
     return (
       <div
@@ -287,12 +334,7 @@ export class Pagination extends React.Component<
   }
 
   public render() {
-    const {
-      showFirstLastNavButtons,
-      paginationMode,
-      width,
-      style,
-    } = this.props;
+    const { showFirstLastNavButtons, width, style } = this.props;
 
     const styleStates = {
       disabled: this.props.disabled,
@@ -314,9 +356,7 @@ export class Pagination extends React.Component<
       >
         {this.renderNavButton(ButtonType.Next)}
         {this.renderNavButton(ButtonType.Prev)}
-        {paginationMode === 'input'
-          ? this.renderPageForm()
-          : this.renderPageStrip()}
+        {this.renderPages()}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.Last)}
       </nav>

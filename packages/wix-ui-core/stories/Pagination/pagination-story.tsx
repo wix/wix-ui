@@ -98,6 +98,15 @@ export function PaginationStory() {
           showFirstLastNavButtons
         />
       </div>
+      <div>
+        <h3>Plane mode</h3>
+        <UncontrolledPagination
+          totalPages={1000000}
+          currentPage={500000}
+          paginationMode="plane"
+          showFirstLastNavButtons
+        />
+      </div>
 
       <h2>Responsive layout</h2>
       <div>

@@ -156,6 +156,24 @@ describe('Pagination', () => {
     });
   });
 
+  describe('Plane mode', () => {
+    it('shows the total amount of pages', async () => {
+      const p = await render(
+        <Pagination paginationMode="plane" totalPages={5} />,
+      );
+
+      expect(p.totalPagesLabel.textContent).toEqual('5');
+    });
+
+    it('shows the current page label', async () => {
+      const p = await render(
+        <Pagination paginationMode="plane" currentPage={2} totalPages={5} />,
+      );
+
+      expect(p.currentPage.textContent).toBe('2');
+    });
+  });
+
   describe('Input field mode', () => {
     it('shows the input field with the current page', async () => {
       const p = await render(
