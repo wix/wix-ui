@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 2.5.0 - 2019-06-25
+## Added
+- `wuf update` - support glob patterns in `--shape` file
+
 # 2.4.1 - 2019-06-18
 ## Fixed
 - `wuf generate` - fix `codemods` flag to correctly resolve relative path
