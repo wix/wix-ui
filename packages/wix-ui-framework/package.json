@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "deep-diff": "^1.0.2",
     "jscodeshift": "^0.6.4",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",

@@ -43,7 +43,7 @@ describe('updateComponentsList', () => {
       const expectedOutput = {
         'test-component': {
           path: 'src/components/test-component',
-          missingFiles: ['docs', 'docs/index.story.js'],
+          missingFiles: ['docs'],
         },
       };
 
@@ -60,30 +60,42 @@ describe('updateComponentsList', () => {
       expect(JSON.parse(output)).toEqual(expectedOutput);
     });
 
-    // TODO: intentionally skipped, feature not implemented
-    it.skip('should support regex in file names', async () => {
+    it('should support globs in file names', async () => {
       const fakeFs = cista({
         '.wuf/required-component-files.json': `{
-          "index.js": "",
-          "test": { ".*\.driver\.(uni\.)?(js|ts)": "" }
+          "index.[tj]s*": "",
+          "Component.[tj]s*": "",
+          "@(test|specs)": {
+            "*?(.uni).driver.[tj]s*": "",
+            "non-matched": "",
+            "@(e2e|browser)": {
+              "index.@(protractor|puppeteer).ts*": ""
+            }
+          }
         }`,
-        'src/components/test-component/index.js': '',
+        'src/components/test-component/index.tsx': '',
+        'src/components/test-component/test-component.tsx': '',
         'src/components/test-component/test/thing.driver.js': '',
         'src/components/test-component/test/thing.driver.ts': '',
-        'src/components/test-component/test/thing.driver.uni.js': '',
-        'src/components/test-component/test/non-matched': '',
+        'src/components/test-component/test/thing.uni.driver.tsx': '',
+        'src/components/test-component/specs/e2e/index.puppeteer.tsx': '',
         '.wuf/components.json': '',
       });
 
       const expectedOutput = {
         'test-component': {
           path: 'src/components/test-component',
-          missingFiles: ['src/components/test-components/test/non-matched'],
+          missingFiles: [
+            'specs/*?(.uni).driver.[tj]s*',
+            'specs/non-matched',
+            'test/non-matched',
+            'test/@(e2e|browser)',
+          ],
         },
       };
 
       await updateComponentsList({
-        maxMismatch: 1,
+        maxMismatch: 4,
         _process: { cwd: fakeFs.dir },
       });
 
@@ -113,41 +125,6 @@ describe('updateComponentsList', () => {
       await updateComponentsList({
         maxMismatch: 0,
         exclude: '(skipped-component|skipped-component2)',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        `${fakeFs.dir}/.wuf/components.json`,
-        'utf8',
-      );
-
-      expect(JSON.parse(output)).toEqual(expectedOutput);
-    });
-
-    // TODO: intentionally skipped, feature not implemented
-    it.skip('should support regex in file names', async () => {
-      const fakeFs = cista({
-        '.wuf/required-component-files.json': `{
-          "index.js": "",
-          "test": { ".*\.driver\.(uni\.)?(js|ts)": "" }
-        }`,
-        'src/components/test-component/index.js': '',
-        'src/components/test-component/test/thing.driver.js': '',
-        'src/components/test-component/test/thing.driver.ts': '',
-        'src/components/test-component/test/thing.driver.uni.js': '',
-        'src/components/test-component/test/non-matched': '',
-        '.wuf/components.json': '',
-      });
-
-      const expectedOutput = {
-        'test-component': {
-          path: 'src/components/test-component',
-          missingFiles: ['src/components/test-components/test/non-matched'],
-        },
-      };
-
-      await updateComponentsList({
-        maxMismatch: 1,
         _process: { cwd: fakeFs.dir },
       });
 
