@@ -199,7 +199,7 @@ describe('exportTestkits', () => {
         [
           warningBanner(`.wuf/testkits/template.ejs`),
           fs.readFileSync(
-            path.resolve(__dirname, '__fixtures__', 'template.output.ts'),
+            path.resolve(__dirname, '__fixtures__', 'template.output'),
             'utf8',
           ),
         ].join('\n'),
