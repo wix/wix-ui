@@ -48,6 +48,26 @@ describe('exportTestkits', () => {
     });
   });
 
+  describe('given template option', () => {
+    it('should reject with error when file not found', () => {
+      const fakeFs = cista({
+        '.wuf/testkits/template.js': ';',
+        '.wuf/testkits/definitions.js': ';',
+        '.wuf/components.json': '{}',
+      });
+
+      return expect(
+        exportTestkits({
+          template: 'non/existing/path/to/template.js',
+          output: 'anywhere',
+          _process: { cwd: fakeFs.dir },
+        }),
+      ).rejects.toThrow(
+        `Template file not found at "${fakeFs.dir}/non/existing/path/to/template.js". It is required for \`wuf export-testkits\`.`,
+      );
+    });
+  });
+
   describe('given components option', () => {
     it('should reject with error when file not found', () => {
       const fakeFs = cista({

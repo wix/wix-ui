@@ -83,6 +83,12 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
     );
   }
 
+  if (!(await fileExists(options.template))) {
+    throw new Error(
+      `Template file not found at "${options.template}". It is required for \`wuf export-testkits\`.`,
+    );
+  }
+
   return makeOutput(options);
 };
 
