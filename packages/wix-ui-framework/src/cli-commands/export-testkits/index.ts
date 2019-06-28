@@ -185,9 +185,12 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     ? ejsSource({ source: templateSource, definitions, components })
     : defaultSource({ definitions, options, components });
 
-  const source = [warningBanner(options.template), testkitsExportsSource].join(
-    '\n',
-  );
+  const source = [
+    warningBanner(
+      path.relative(options._process.cwd, path.resolve(options.template)),
+    ),
+    testkitsExportsSource,
+  ].join('\n');
 
   writeFile(options.output, source);
 };

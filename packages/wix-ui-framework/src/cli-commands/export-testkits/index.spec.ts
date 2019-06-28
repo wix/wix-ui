@@ -159,7 +159,7 @@ describe('exportTestkits', () => {
 
       expect(output).toEqual(
         [
-          warningBanner(`${fakeFs.dir}/.wuf/testkits/template.ejs`),
+          warningBanner(`.wuf/testkits/template.ejs`),
           'First',
           'Second',
           '',
@@ -197,7 +197,7 @@ describe('exportTestkits', () => {
 
       expect(output).toEqual(
         [
-          warningBanner(`${fakeFs.dir}/.wuf/testkits/template.ejs`),
+          warningBanner(`.wuf/testkits/template.ejs`),
           fs.readFileSync(
             path.resolve(__dirname, '__fixtures__', 'template.output.ts'),
             'utf8',
