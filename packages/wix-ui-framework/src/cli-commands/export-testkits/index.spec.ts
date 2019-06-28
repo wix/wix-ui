@@ -136,12 +136,11 @@ describe('exportTestkits', () => {
     });
   });
 
-  describe('given ejs tempalte', () => {
-    // TODO: implement
-    it.skip('should run ejs and write output', async () => {
+  describe('given ejs template', () => {
+    it('should run ejs and write output', async () => {
       const fakeFs = cista({
         '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.ejs': `<% components.map(c => { %><%= c.name %><% }) %>`,
+        '.wuf/testkits/template.ejs': `<% components.map(c => { %><%= c.name %>\n<% }) %>`,
         '.wuf/testkits/output.js': ';',
         '.wuf/components.json': '{ "First": {}, "Second": {} }',
       });
@@ -163,6 +162,7 @@ describe('exportTestkits', () => {
           warningBanner(`${fakeFs.dir}/.wuf/testkits/template.ejs`),
           'First',
           'Second',
+          '',
         ].join('\n'),
       );
     });

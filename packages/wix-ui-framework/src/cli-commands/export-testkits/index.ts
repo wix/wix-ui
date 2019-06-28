@@ -1,7 +1,9 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as ejs from 'ejs';
 
 import { fileExists } from '../../file-exists';
+import { objectEntries } from '../../object-entries';
 import { Options } from './typings';
 
 const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
@@ -46,6 +48,16 @@ const shouldCreateExport = definitions => name =>
         property => !definitions[name][property],
       )
     : true;
+
+const isEjs = pathname => path.extname(pathname) === '.ejs';
+
+const writeFile = (pathname: string, source: string) => {
+  try {
+    fs.writeFileSync(pathname, source);
+  } catch (e) {
+    throw new Error(`Unable to generate testkits: ${e}`);
+  }
+};
 
 const guards: (a: Options) => Promise<void> = async unsafeOptions => {
   const pathResolve = pathResolver(unsafeOptions._process.cwd);
@@ -92,13 +104,14 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
   return makeOutput(options);
 };
 
-const makeOutput: (a: Options) => Promise<void> = async options => {
+const defaultSource = ({
+  options,
+  components,
+}: {
+  options: Options;
+  components: object;
+}) => {
   const definitions = require(options.definitions);
-  const components = require(path.resolve(
-    options._process.cwd,
-    options.components,
-  ));
-
   const getExportableTestkits = () =>
     Object.keys({
       ...definitions,
@@ -133,19 +146,39 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     .map(([name, entry]) => `export const ${name} = ${entry};`)
     .join('\n');
 
-  const templateSource = fs.readFileSync(options.template, 'utf8');
-  const source = [
-    warningBanner(options.template),
-    templateSource,
-    loadUtilSource,
-    testkitExportsSource,
-  ].join('\n');
+  return [testkitExportsSource, loadUtilSource].join('\n');
+};
 
+const ejsSource = ({ source, components }) => {
   try {
-    fs.writeFileSync(options.output, source);
+    return ejs.render(source, {
+      components: objectEntries(components).map(([name, value]) => ({
+        name,
+        ...value,
+      })),
+    });
   } catch (e) {
-    throw new Error(`Unable to generate testkits: ${e}`);
+    throw new Error(`Erroneous template file: ${e}`);
   }
+};
+
+const makeOutput: (a: Options) => Promise<void> = async options => {
+  const components = require(path.resolve(
+    options._process.cwd,
+    options.components,
+  ));
+
+  const templateSource = fs.readFileSync(options.template, 'utf8');
+
+  const testkitsExportsSource = isEjs(options.template)
+    ? ejsSource({ source: templateSource, components })
+    : defaultSource({ options, components });
+
+  const source = [warningBanner(options.template), testkitsExportsSource].join(
+    '\n',
+  );
+
+  writeFile(options.output, source);
 };
 
 export const exportTestkits: (a: Options) => Promise<void> = guards;
