@@ -5,6 +5,7 @@ import * as minimatch from 'minimatch';
 
 import { Path, Process } from '../../typings.d';
 import { fileExists } from '../../file-exists';
+import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
 import { mapTree } from '../../map-tree';
 
@@ -12,9 +13,6 @@ const fsReadFile = promisify(fs.readFile);
 const fsWriteFile = promisify(fs.writeFile);
 
 const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
-
-const objectEntries = object =>
-  Object.keys(object).map(key => [key, object[key]]);
 
 interface Options {
   shape?: Path;
