@@ -166,6 +166,63 @@ describe('exportTestkits', () => {
         ].join('\n'),
       );
     });
+
+    it('should run ejs and write output', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.js': `module.exports = {
+        First: {
+          unidriver: true,
+          testkitPath: "custom/path"
+        }
+      }`,
+        '.wuf/testkits/template.ejs': fs.readFileSync(
+          path.resolve(__dirname, '__fixtures__', 'template.ejs'),
+          'utf8',
+        ),
+        '.wuf/testkits/output.js': ';',
+        '.wuf/components.json': '{ "First": {}, "Second": {} }',
+      });
+
+      await exportTestkits({
+        template: '.wuf/testkits/template.ejs',
+        components: '.wuf/components.json',
+        output: `.wuf/testkits/output.js`,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`${fakeFs.dir}/.wuf/testkits/template.ejs`),
+          fs.readFileSync(
+            path.resolve(__dirname, '__fixtures__', 'template.output.ts'),
+            'utf8',
+          ),
+        ].join('\n'),
+      );
+    });
+
+    it('should run throw error for erroneous ejs', () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.js': ';',
+        '.wuf/testkits/template.ejs': `<% components.map(c => { %><%= c.name %>\n<% ) %>`,
+        '.wuf/testkits/output.js': ';',
+        '.wuf/components.json': '{ "First": {}, "Second": {} }',
+      });
+
+      return expect(
+        exportTestkits({
+          template: '.wuf/testkits/template.ejs',
+          components: '.wuf/components.json',
+          output: `.wuf/testkits/output.js`,
+          _process: { cwd: fakeFs.dir },
+        }),
+      ).rejects.toThrow();
+    });
   });
 
   describe('given caseStyle option', () => {

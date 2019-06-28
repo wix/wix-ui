@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as ejs from 'ejs';
+import * as get from 'lodash/get';
+import * as camelCase from 'lodash/camelCase';
 
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
@@ -107,11 +109,12 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
 const defaultSource = ({
   options,
   components,
+  definitions,
 }: {
   options: Options;
   components: object;
+  definitions: object;
 }) => {
-  const definitions = require(options.definitions);
   const getExportableTestkits = () =>
     Object.keys({
       ...definitions,
@@ -149,13 +152,21 @@ const defaultSource = ({
   return [testkitExportsSource, loadUtilSource].join('\n');
 };
 
-const ejsSource = ({ source, components }) => {
+const ejsSource = ({ source, definitions, components }) => {
+  const utils = {
+    toCamel: camelCase,
+  };
+
+  const componentsForEjs = objectEntries(components).map(([name, value]) => ({
+    name,
+    testkitPath: get(definitions, '[name].testkitPath', ''),
+    ...value,
+  }));
+
   try {
     return ejs.render(source, {
-      components: objectEntries(components).map(([name, value]) => ({
-        name,
-        ...value,
-      })),
+      utils,
+      components: componentsForEjs,
     });
   } catch (e) {
     throw new Error(`Erroneous template file: ${e}`);
@@ -167,12 +178,12 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     options._process.cwd,
     options.components,
   ));
-
+  const definitions = require(options.definitions);
   const templateSource = fs.readFileSync(options.template, 'utf8');
 
   const testkitsExportsSource = isEjs(options.template)
-    ? ejsSource({ source: templateSource, components })
-    : defaultSource({ options, components });
+    ? ejsSource({ source: templateSource, definitions, components })
+    : defaultSource({ definitions, options, components });
 
   const source = [warningBanner(options.template), testkitsExportsSource].join(
     '\n',
