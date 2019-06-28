@@ -2,8 +2,8 @@
 import {
   firstDriverFactory,
   FirstDriver
-} from "../components\/First\/First.protractor.driver";
-export const firstTestkitFactory = protractorTestkitFactoryCreator<
+} from "custom/path";
+export const firstTestkitFactory = protractorUniTestkitFactoryCreator<
   FirstDriver
 >(firstDriverFactory)
 

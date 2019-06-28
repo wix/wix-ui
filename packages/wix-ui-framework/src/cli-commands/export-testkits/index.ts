@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as ejs from 'ejs';
-import * as get from 'lodash/get';
 import * as camelCase from 'lodash/camelCase';
 
 import { fileExists } from '../../file-exists';
@@ -159,8 +158,8 @@ const ejsSource = ({ source, definitions, components }) => {
 
   const componentsForEjs = objectEntries(components).map(([name, value]) => ({
     name,
-    testkitPath: get(definitions, '[name].testkitPath', ''),
     ...value,
+    ...(definitions[name] || {})
   }));
 
   try {

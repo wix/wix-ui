@@ -9,12 +9,13 @@
   ].join("\\/");
 
   const testkitName = camelName + "TestkitFactory";
+  const factoryName = component.unidriver ? "protractorUniTestkitFactoryCreator" : "protractorTestkitFactoryCreator"
 %>
 import {
   <%= driverFactory %>,
   <%= driverType %>
 } from "<%= driverPath %>";
-export const <%= testkitName %> = protractorTestkitFactoryCreator<
+export const <%= testkitName %> = <%= factoryName %><
   <%= driverType %>
 >(<%= driverFactory %>)
 <% }) %>
