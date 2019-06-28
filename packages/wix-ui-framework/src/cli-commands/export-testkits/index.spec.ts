@@ -61,7 +61,9 @@ describe('exportTestkits', () => {
           output: `${fakeFs.dir}/output`,
           _process: { cwd: fakeFs.dir },
         }),
-      ).rejects.toThrow();
+      ).rejects.toThrow(
+        `Components file not found at "${fakeFs.dir}/non/existing/path/to/components.json". It is required for \`wuf export-testkits\`. Create one with \`wuf update\`.`,
+      );
     });
 
     it('should resolve and write output correctly when file is found', async () => {

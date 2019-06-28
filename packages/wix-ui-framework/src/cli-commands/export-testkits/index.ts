@@ -63,6 +63,12 @@ export const exportTestkits: (a: Options) => Promise<void> = async opts => {
     );
   }
 
+  if (!(await fileExists(options.components))) {
+    throw new Error(
+      `Components file not found at "${options.components}". It is required for \`wuf export-testkits\`. Create one with \`wuf update\`.`,
+    );
+  }
+
   const definitions = require(options.definitions);
   const components = require(path.resolve(
     opts._process.cwd,
