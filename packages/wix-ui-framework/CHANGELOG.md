@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.0.0 - 2019-06-28
+## Changed
+- `wuf export-testkits` - support ejs template in `--template` file. Potentially breaking change
+
 # 2.5.0 - 2019-06-25
 ## Added
 - `wuf update` - support glob patterns in `--shape` file
