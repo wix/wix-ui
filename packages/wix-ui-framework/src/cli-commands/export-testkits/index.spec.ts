@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as cista from 'cista';
 
-import { exportTestkits } from '.';
+import { exportTestkits, warningBanner } from '.';
 
 describe('exportTestkits', () => {
   describe('when .wuf/testkits/definitions.js is not found', () => {
@@ -112,6 +112,38 @@ describe('exportTestkits', () => {
 
       expect(output).toMatch(
         /.*export const thingyYoWhatsUp = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
+      );
+    });
+  });
+
+  describe('given ejs tempalte', () => {
+    // TODO: implement
+    it.skip('should run ejs and write output', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.js': ';',
+        '.wuf/testkits/template.ejs': `<% components.map(c => { %><%= c.name %><% }) %>`,
+        '.wuf/testkits/output.js': ';',
+        '.wuf/components.json': '{ "First": {}, "Second": {} }',
+      });
+
+      await exportTestkits({
+        template: '.wuf/testkits/template.ejs',
+        components: '.wuf/components.json',
+        output: `.wuf/testkits/output.js`,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`${fakeFs.dir}/.wuf/testkits/template.ejs`),
+          'First',
+          'Second',
+        ].join('\n'),
       );
     });
   });
