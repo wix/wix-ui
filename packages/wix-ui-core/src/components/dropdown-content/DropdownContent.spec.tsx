@@ -31,9 +31,8 @@ describe('DropdownContent', () => {
   describe('mouse events', () => {
     it('should select selectable options', () => {
       const onOptionClick = jest.fn();
-      const onOptionMouseDown = jest.fn();
       const driver = createDriver(
-        createDropdownContent({ options, onOptionClick, onOptionMouseDown }),
+        createDropdownContent({ options, onOptionClick }),
       );
       driver.optionAt(0).click();
       expect(onOptionClick).toHaveBeenCalledWith(options[0]);
@@ -43,16 +42,12 @@ describe('DropdownContent', () => {
 
       driver.optionAt(4).click();
       expect(onOptionClick).toHaveBeenCalledWith(options[4]);
-
-      driver.optionAt(4).mouseDown();
-      expect(onOptionMouseDown).toHaveBeenCalledWith(options[4]);
     });
 
     it('should not select non selectable options', () => {
       const onOptionClick = jest.fn();
-      const onOptionMouseDown = jest.fn();
       const driver = createDriver(
-        createDropdownContent({ options, onOptionClick, onOptionMouseDown }),
+        createDropdownContent({ options, onOptionClick }),
       );
 
       driver.optionAt(2).click();
@@ -60,9 +55,15 @@ describe('DropdownContent', () => {
 
       driver.optionAt(5).click();
       expect(onOptionClick).not.toHaveBeenCalled();
+    });
 
-      driver.optionAt(5).mouseDown();
-      expect(onOptionMouseDown).not.toHaveBeenCalled();
+    it('should trigger an onMouseDown event', () => {
+      const onMouseDown = jest.fn();
+      const driver = createDriver(
+        createDropdownContent({ options, onMouseDown }),
+      );
+      driver.dropdownContentMouseDown();
+      expect(onMouseDown).toHaveBeenCalled();
     });
   });
 });

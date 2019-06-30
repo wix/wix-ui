@@ -23,7 +23,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Handler for when an option is selected */
   onSelect(option: Option | null): void;
   /** Handler for when a mouse down event occurs on an option */
-  onOptionMouseDown?(): void;
+  onContentMouseDown?(): void;
   /** Handler for when an option is deselected */
   onDeselect(option: Option | null): void;
   /** initial selected option ids */
@@ -73,7 +73,7 @@ export class DropdownComponent extends React.PureComponent<
     this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
-    this.onOptionMouseDown = this.onOptionMouseDown.bind(this);
+    this.onContentMouseDown = this.onContentMouseDown.bind(this);
   }
 
   state = { isOpen: false, selectedIds: [] };
@@ -193,9 +193,9 @@ export class DropdownComponent extends React.PureComponent<
     });
   }
 
-  onOptionMouseDown() {
-    const { onOptionMouseDown } = this.props;
-    onOptionMouseDown && onOptionMouseDown();
+  onContentMouseDown() {
+    const { onContentMouseDown } = this.props;
+    onContentMouseDown && onContentMouseDown();
   }
 
   onOptionClick(option: Option | null) {
@@ -301,7 +301,7 @@ export class DropdownComponent extends React.PureComponent<
             fixedHeader={fixedHeader}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick}
-            onOptionMouseDown={this.onOptionMouseDown}
+            onMouseDown={this.onContentMouseDown}
           />
         </Popover.Content>
       </Popover>

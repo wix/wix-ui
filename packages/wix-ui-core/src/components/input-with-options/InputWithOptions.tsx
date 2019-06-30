@@ -158,7 +158,7 @@ export class InputWithOptions extends React.PureComponent<
     onBlur && onBlur(event);
   };
 
-  _onOptionMouseDown = () => {
+  _onContentMouseDown = () => {
     this.isEditing = false;
   };
 
@@ -207,7 +207,7 @@ export class InputWithOptions extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
-        onOptionMouseDown={this._onOptionMouseDown}
+        onContentMouseDown={this._onContentMouseDown}
       >
         <Input
           data-hook="input"

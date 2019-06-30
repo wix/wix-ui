@@ -11,8 +11,8 @@ export interface DropdownContentProps {
   options: Option[];
   /** A callback for when clicking an option */
   onOptionClick(option: Option | null): void;
-  /** A callback for mouse down even on an option */
-  onOptionMouseDown?(option: Option | null): void;
+  /** A callback for mouse down event */
+  onMouseDown?(): void;
   /** Array of the selected ids */
   selectedIds: (string | number)[];
   /** An element that always appears at the top of the options */
@@ -40,6 +40,7 @@ export class DropdownContent extends React.PureComponent<
     super(props);
 
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
   }
 
   state = { hoveredIndex: NOT_HOVERED_INDEX };
@@ -142,6 +143,11 @@ export class DropdownContent extends React.PureComponent<
     this.mouseCoords.screenY = evt.screenY;
   }
 
+  onMouseDown() {
+    const { onMouseDown } = this.props;
+    onMouseDown && onMouseDown();
+  }
+
   onMouseEnter(evt: React.MouseEvent<HTMLDivElement>, index: number) {
     if (
       this.mouseCoords.screenX !== evt.screenX ||
@@ -158,14 +164,16 @@ export class DropdownContent extends React.PureComponent<
       options,
       selectedIds,
       onOptionClick,
-      onOptionMouseDown,
+      onMouseDown,
     } = this.props;
     const { hoveredIndex } = this.state;
 
     return (
       <div
         {...style('root', {}, this.props)}
+        data-hook="dropdown-content"
         onMouseMove={this.onMouseMove}
+        onMouseDown={this.onMouseDown}
         tabIndex={1000}
       >
         {fixedHeader}
@@ -187,11 +195,6 @@ export class DropdownContent extends React.PureComponent<
               onClickHandler={
                 this.isValidOptionForSelection(option)
                   ? () => onOptionClick(option)
-                  : undefined
-              }
-              onMouseDownHandler={
-                this.isValidOptionForSelection(option)
-                  ? () => onOptionMouseDown && onOptionMouseDown(option)
                   : undefined
               }
               onMouseEnterHandler={
