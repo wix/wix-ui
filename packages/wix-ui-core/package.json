@@ -52,7 +52,7 @@
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
     "build:named-exports": "node scripts/create-named-export.js",
-    "transpile-mixins": "babel src/mixins -d dist/src/mixins",
+    "transpile-mixins": "babel src/mixins -d dist/src/mixins && babel src/mixins -d dist/es/src/mixins",
     "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
