@@ -1,6 +1,6 @@
-import {InputWithOptions} from '../src/components/input-with-options';
-import {Option} from '../src/components/dropdown-option';
-import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
+import { InputWithOptions } from '../src/components/input-with-options';
+import { Option } from '../src/components/dropdown-option';
+import { generateOptions } from '../src/components/dropdown-option/OptionsExample';
 
 const options = generateOptions();
 
@@ -11,23 +11,21 @@ export default {
   componentPath: '../src/components/input-with-options',
 
   componentProps: setState => {
-      const onChange = e => setState({
+    const onChange = e =>
+      setState({
         inputProps: {
           value: e.target.value,
           onChange,
-        }
+        },
       });
 
-      return {
-        'data-hook': 'storybook-inputwithoptions',
-        options,
-        inputProps: {
-          onChange
-        },
-        fixedFooter: 'Fixed Footer',
-        fixedHeader: 'Fixed Header',
-        emptyStateMessage: 'Empty state message'
-      }
+    return {
+      'data-hook': 'storybook-inputwithoptions',
+      options,
+      inputProps: {
+        onChange,
+      },
+    };
   },
 
   exampleProps: {
@@ -48,18 +46,30 @@ export default {
       'bottom-start',
       'left-end',
       'left',
-      'left-start'
+      'left-start',
     ],
 
     options: [
-      {value: options.slice(0, 1), label: '1 example option'},
-      {value: options.slice(0, 5), label: '5 example options'},
-      {value: options, label: '20 example options'}
+      { value: options.slice(0, 1), label: '1 example option' },
+      { value: options.slice(0, 5), label: '5 example options' },
+      { value: options, label: '20 example options' },
     ],
 
+    fixedFooter: [
+      { label: 'with', value: 'Fixed Footer' },
+      { label: 'without', value: null },
+    ],
+    fixedHeader: [
+      { label: 'with', value: 'Fixed Header' },
+      { label: 'without', value: null },
+    ],
+    emptyStateMessage: [
+      { label: 'with', value: 'Empty state message' },
+      { label: 'without', value: null },
+    ],
     initialSelectedIds: [
-      {value: [1], label: '[1]'},
-      {value: [1, 3, 4], label: '[1, 3, 4]'}
-    ]
-  }
+      { value: [1], label: '[1]' },
+      { value: [1, 3, 4], label: '[1, 3, 4]' },
+    ],
+  },
 };
