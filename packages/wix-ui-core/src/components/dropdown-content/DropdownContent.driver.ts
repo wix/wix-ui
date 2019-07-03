@@ -16,5 +16,8 @@ export const dropdownContentDriverFactory = ({ element, eventTrigger }) => {
       const option = element ? getOptions()[index] : null;
       return dropdownOptionDriverFactory({ element: option, eventTrigger });
     },
+    triggerMouseDown: () => {
+      return eventTrigger.mouseDown(element);
+    },
   };
 };
