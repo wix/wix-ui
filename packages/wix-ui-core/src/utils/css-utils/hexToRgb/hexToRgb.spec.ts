@@ -12,7 +12,7 @@ describe('HexToRgb', () => {
 
   it('should convert color from hex to rgba with opacity', () => {
     const redRgbaWithOpacity = 'rgba(255,0,0,0.3)';
-    const resultRgb = hexToRgb(redHex);
+    const resultRgb = hexToRgb(redHex, opacity);
     expect(resultRgb).toEqual(redRgbaWithOpacity);
   });
 
