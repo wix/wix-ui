@@ -73,7 +73,7 @@ export class DropdownComponent extends React.PureComponent<
     this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
-    this.onContentMouseDown = this.onContentMouseDown.bind(this);
+    this._onContentMouseDown = this._onContentMouseDown.bind(this);
   }
 
   state = { isOpen: false, selectedIds: [] };
@@ -193,7 +193,7 @@ export class DropdownComponent extends React.PureComponent<
     });
   }
 
-  onContentMouseDown() {
+  _onContentMouseDown() {
     const { onContentMouseDown } = this.props;
     onContentMouseDown && onContentMouseDown();
   }
@@ -295,13 +295,14 @@ export class DropdownComponent extends React.PureComponent<
         <Popover.Content>
           <DropdownContent
             className={style.dropdownContent}
+            data-hook="dropdown-content"
             ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
             options={options}
             fixedFooter={fixedFooter}
             fixedHeader={fixedHeader}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick}
-            onMouseDown={this.onContentMouseDown}
+            onMouseDown={this._onContentMouseDown}
           />
         </Popover.Content>
       </Popover>

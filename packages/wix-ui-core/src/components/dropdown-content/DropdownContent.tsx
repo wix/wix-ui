@@ -164,14 +164,12 @@ export class DropdownContent extends React.PureComponent<
       options,
       selectedIds,
       onOptionClick,
-      onMouseDown,
     } = this.props;
     const { hoveredIndex } = this.state;
 
     return (
       <div
         {...style('root', {}, this.props)}
-        data-hook="dropdown-content"
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}
         tabIndex={1000}

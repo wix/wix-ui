@@ -1,12 +1,5 @@
 import { dropdownOptionDriverFactory } from '../dropdown-option/DropdownOption.driver';
 
-function getDropdownContentElement(element) {
-  if (element.getAttribute('data-hook') === 'dropdown-content') {
-    return element;
-  }
-  return element.querySelector('[data-hook="dropdown-content"]');
-}
-
 export const dropdownContentDriverFactory = ({ element, eventTrigger }) => {
   const getOptions = () => element.querySelectorAll('[data-hook="option"]');
   return {
@@ -23,9 +16,8 @@ export const dropdownContentDriverFactory = ({ element, eventTrigger }) => {
       const option = element ? getOptions()[index] : null;
       return dropdownOptionDriverFactory({ element: option, eventTrigger });
     },
-    dropdownContentMouseDown: () => {
-      const dropdownContentElement = getDropdownContentElement(element);
-      return eventTrigger.mouseDown(dropdownContentElement);
+    triggerMouseDown: () => {
+      return eventTrigger.mouseDown(element);
     },
   };
 };

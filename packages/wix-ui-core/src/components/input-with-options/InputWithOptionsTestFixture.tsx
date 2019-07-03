@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
 import { InputWithOptions } from './index';
 import { generateOptions } from '../dropdown-option/OptionsExample';
 
@@ -58,7 +57,9 @@ export class InputWithOptionsTestFixture extends React.Component<any, any> {
         </div>
         <div>
           onManualInputCount:{' '}
-          <span data-hook={DataHook.onManualInputCount}>{onManualInputCount}</span>
+          <span data-hook={DataHook.onManualInputCount}>
+            {onManualInputCount}
+          </span>
         </div>
       </div>
     );

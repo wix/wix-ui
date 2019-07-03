@@ -6,12 +6,26 @@ import style from './Dropdown.st.css';
 const stylableUtil = new StylableDOMUtil(style);
 
 export const dropdownDriverFactory = args => {
-  const dropdownContentDriver = dropdownContentDriverFactory(args);
   const popoverDriver = popoverDriverFactory(args);
 
   return {
-    hasStyleState: state => stylableUtil.hasStyleState(args.element, state),
-    ...dropdownContentDriver,
     ...popoverDriver,
+    hasStyleState: state => stylableUtil.hasStyleState(args.element, state),
+
+    //DropdownContent
+    getOptionsCount: () => getDropdownContentDriver(args).getOptionsCount(),
+    getSelectedOptionsCount: () =>
+      getDropdownContentDriver(args).getSelectedOptionsCount(),
+    optionAt: (index: number) => getDropdownContentDriver(args).optionAt(index),
+    triggerMouseDownOnDropdownContent: () =>
+      getDropdownContentDriver(args).triggerMouseDown(),
+    dropdownContentDisplayed: () => getDropdownContentDriver  (args).exists(),
   };
 };
+
+function getDropdownContentDriver({ element, eventTrigger }) {
+  return dropdownContentDriverFactory({
+    element: element.querySelector('[data-hook="dropdown-content"]'),
+    eventTrigger,
+  });
+}

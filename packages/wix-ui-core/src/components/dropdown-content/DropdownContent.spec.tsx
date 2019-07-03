@@ -62,7 +62,7 @@ describe('DropdownContent', () => {
       const driver = createDriver(
         createDropdownContent({ options, onMouseDown }),
       );
-      driver.dropdownContentMouseDown();
+      driver.triggerMouseDown();
       expect(onMouseDown).toHaveBeenCalled();
     });
   });

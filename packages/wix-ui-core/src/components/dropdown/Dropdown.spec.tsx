@@ -113,7 +113,6 @@ describe('Dropdown', () => {
     it('should be called when selection changed', () => {
       const onSelect = jest.fn();
       const driver = createDriver(createDropdown({ options, onSelect }));
-
       driver.click();
       driver.optionAt(0).click();
       expect(onSelect).toHaveBeenCalledWith(options[0]);
@@ -179,7 +178,7 @@ describe('Dropdown', () => {
       );
 
       driver.click();
-      driver.dropdownContentMouseDown();
+      driver.triggerMouseDownOnDropdownContent();
       expect(onContentMouseDown).toHaveBeenCalled();
     });
   });

@@ -153,7 +153,7 @@ describe('InputWithOptions', () => {
       // Using keyDown in order to trigger isEditing mode
       driver.keyDown('z');
       wrapper.setProps({ inputProps: { value: 'z' } });
-      expect(driver.getOptionsCount()).toBe(0);
+      expect(driver.dropdownContentDisplayed()).toBe(false);
     });
 
     it('should display empty state message in case all options are filtered', () => {
