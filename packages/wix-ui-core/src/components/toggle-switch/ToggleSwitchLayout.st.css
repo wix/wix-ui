@@ -4,7 +4,7 @@
 }
 
 :import {
-  -st-from: "../../mixins/calc";
+  -st-from: "../../utils/css-utils/calc";
   -st-default: calc
 }
 

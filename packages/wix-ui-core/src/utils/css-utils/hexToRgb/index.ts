@@ -1,4 +1,4 @@
-module.exports = function(hex, opacity = 1) {
+export default function(hex: string , opacity:number = 1) {
     let c;
     let hexRegExp = /^#([A-Fa-f0-9]{3}){1,2}$/;
 
@@ -16,4 +16,4 @@ module.exports = function(hex, opacity = 1) {
     }
 
     throw new Error('Bad Hex Color');
-};
+}

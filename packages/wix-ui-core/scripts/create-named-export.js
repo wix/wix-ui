@@ -6,5 +6,5 @@ const src = path.resolve(__dirname, '../src');
 const deprecatedSrc = path.join(src, 'components/deprecated');
 const ignoreDeprecated = `${deprecatedSrc}/**/*`;
 
-createExports(['components', 'hocs', 'createHOC'], src, { ignore: ignoreDeprecated });
+createExports(['components', 'hocs', 'createHOC', 'utils/css-utils'], src, { ignore: ignoreDeprecated });
 createExports(['*'], deprecatedSrc);
