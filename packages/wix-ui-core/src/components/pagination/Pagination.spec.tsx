@@ -156,10 +156,10 @@ describe('Pagination', () => {
     });
   });
 
-  describe('Plane mode', () => {
+  describe('Compact mode', () => {
     it('shows the total amount of pages', async () => {
       const p = await render(
-        <Pagination paginationMode="plane" totalPages={5} />,
+        <Pagination paginationMode="compact" totalPages={5} />,
       );
 
       expect(p.totalPagesLabel.textContent).toEqual('5');
@@ -167,10 +167,28 @@ describe('Pagination', () => {
 
     it('shows the current page label', async () => {
       const p = await render(
-        <Pagination paginationMode="plane" currentPage={2} totalPages={5} />,
+        <Pagination paginationMode="compact" currentPage={2} totalPages={5} />,
       );
 
       expect(p.currentPage.textContent).toBe('2');
+    });
+
+    it('has correct order of elements', async () => {
+      const p = await render(
+        <Pagination
+          paginationMode="compact"
+          totalPages={5}
+          showFirstLastNavButtons
+        />,
+      );
+
+      expect(p.currentPage.compareDocumentPosition(p.slashLabel)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
+
+      expect(p.slashLabel.compareDocumentPosition(p.totalPagesLabel)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
     });
   });
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PageStrip } from './PageStrip';
 import pStyle from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
+import { PaginationDataHooks } from './DataHooks';
 
 const upperCaseFirst = (str: string): string =>
   str[0].toUpperCase() + str.slice(1);
@@ -20,7 +21,7 @@ const enum ButtonType {
 
 export const enum PaginationMode {
   Pages = 'pages',
-  Plane = 'plane',
+  Compact = 'compact',
   Input = 'input',
 }
 
@@ -35,7 +36,7 @@ export interface PaginationProps {
   onDoubleClick?(event: React.SyntheticEvent): void;
   onMouseEnter?(event: React.SyntheticEvent): void;
   onMouseLeave?(event: React.SyntheticEvent): void;
-  paginationMode?: 'pages' | 'input' | 'plane' | PaginationMode;
+  paginationMode?: 'pages' | 'input' | 'compact' | PaginationMode;
   showFirstLastNavButtons?: boolean;
   firstLabel?: React.ReactNode;
   previousLabel?: React.ReactNode;
@@ -195,40 +196,41 @@ export class Pagination extends React.Component<
     }
   };
 
-  private renderPages() {
+  private renderPages(): JSX.Element {
     switch (this.props.paginationMode) {
-      case 'input':
+      case PaginationMode.Input:
         return this.renderPageForm();
-      case 'plane':
-        return this.renderPagePlane();
-      case 'pages':
+      case PaginationMode.Compact:
+        return this.renderPageCompact();
+      case PaginationMode.Pages:
       default:
         return this.renderPageStrip();
     }
   }
 
-  private renderPagePlane() {
+  private renderPageCompact(): JSX.Element {
     return (
       <div
-        data-hook="page-plane"
-        id={this.getId('pagePlane')}
-        className={pStyle.plane}
-        dir="ltr"
+        data-hook={PaginationDataHooks.pageCompact}
+        id={this.getId('pageCompact')}
+        className={pStyle.compact}
       >
         <span
-          key="current-page"
           id={this.getId('currentPage')}
-          data-hook="current-page"
+          data-hook={PaginationDataHooks.currentPage}
         >
           {this.props.currentPage}
         </span>
-        <span key="slash" id={this.getId('slash')} className={pStyle.slash}>
+        <span
+          id={this.getId('slash')}
+          className={pStyle.slash}
+          data-hook={PaginationDataHooks.slashLabel}
+        >
           {this.props.slashLabel}
         </span>
         <span
-          key="total-pages"
           id={this.getId('totalPages')}
-          data-hook="total-pages"
+          data-hook={PaginationDataHooks.totalPages}
         >
           {this.props.totalPages}
         </span>
@@ -239,14 +241,14 @@ export class Pagination extends React.Component<
   private renderPageForm(): JSX.Element {
     return (
       <div
-        data-hook="page-form"
+        data-hook={PaginationDataHooks.pageForm}
         id={this.getId('pageForm')}
         className={pStyle.pageForm}
         dir="ltr"
       >
         <input
           id={this.getId('pageInput')}
-          data-hook="page-input"
+          data-hook={PaginationDataHooks.pageInput}
           type="number"
           className={pStyle.pageInput}
           min={1}
@@ -269,7 +271,7 @@ export class Pagination extends React.Component<
           <span
             key="total-pages"
             id={this.getId('totalPages')}
-            data-hook="total-pages"
+            data-hook={PaginationDataHooks.totalPages}
             className={pStyle.totalPages}
           >
             {this.props.totalPages}
@@ -310,7 +312,7 @@ export class Pagination extends React.Component<
 
     return (
       <a
-        data-hook={type}
+        data-hook={PaginationDataHooks[type]}
         id={this.getId('navButton' + upperCaseFirst(type))}
         {...pStyle('navButton ' + btnClass, { disabled })}
         aria-label={upperCaseFirst(type) + ' Page'}

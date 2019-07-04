@@ -55,7 +55,7 @@
     order: 3;
 }
 
-.plane {
+.compact {
     -st-extends: pageForm;
 }
 
