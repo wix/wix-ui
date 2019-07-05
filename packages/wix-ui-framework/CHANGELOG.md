@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# next
+## Changed
+- `wuf export-testkits` - remove `factoryName`, `uniFactoryName`, `exportSuffix`, `exportCaseStyle` flags
+
 # 3.0.0 - 2019-06-28
 ## Changed
 - `wuf export-testkits` - support ejs template in `--template` file. Potentially breaking change
