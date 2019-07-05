@@ -38,6 +38,37 @@ describe('exportTestkits', () => {
         /Unable to load definitions file at "non\/existing\/path\/to\/definitions.js"/,
       );
     });
+
+    it('should work with json file', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.json':
+          '{ "Thingy": { "specialName": "DudeWheresMyCar" } }',
+        '.wuf/testkits/template.ejs':
+          '<%= components.map(c => c.specialName || c.name).join("\\n") %>',
+        'output.weird-extension': ';',
+        '.wuf/awesome-components.json': '{ "Thingy": {}, "Thongy": {} }',
+      });
+
+      await exportTestkits({
+        components: '.wuf/awesome-components.json',
+        definitions: '.wuf/testkits/definitions.json',
+        output: `output.weird-extension`,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, 'output.weird-extension'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`.wuf/testkits/template.ejs`),
+          'DudeWheresMyCar',
+          'Thongy',
+        ].join('\n'),
+      );
+    });
   });
 
   describe('when definitions option missing', () => {
