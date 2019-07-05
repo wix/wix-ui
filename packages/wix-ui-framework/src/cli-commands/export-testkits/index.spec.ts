@@ -51,19 +51,19 @@ describe('exportTestkits', () => {
   describe('given template option', () => {
     it('should reject with error when file not found', () => {
       const fakeFs = cista({
-        '.wuf/testkits/template.js': ';',
+        '.wuf/testkits/template.ejs': ';',
         '.wuf/testkits/definitions.js': ';',
         '.wuf/components.json': '{}',
       });
 
       return expect(
         exportTestkits({
-          template: 'non/existing/path/to/template.js',
+          template: 'non/existing/path/to/template.ejs',
           output: 'anywhere',
           _process: { cwd: fakeFs.dir },
         }),
       ).rejects.toThrow(
-        `Template file not found at "${fakeFs.dir}/non/existing/path/to/template.js". It is required for \`wuf export-testkits\`.`,
+        `Template file not found at "${fakeFs.dir}/non/existing/path/to/template.ejs". It is required for \`wuf export-testkits\`.`,
       );
     });
   });
@@ -89,9 +89,10 @@ describe('exportTestkits', () => {
     it('should resolve and write output correctly when file is found', async () => {
       const fakeFs = cista({
         '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
+        '.wuf/testkits/template.ejs':
+          '<%= components.map(c => c.name).join("\\n") %>',
         '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
+        '.wuf/awesome-components.json': '{ "Thingy": {}, "Thongy": {} }',
       });
 
       await exportTestkits({
@@ -105,33 +106,10 @@ describe('exportTestkits', () => {
         'utf8',
       );
 
-      expect(output).toMatch(
-        /.*export const thingyTestkitFactory = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
-    });
-
-    it('should resolve and write output correctly with given exportSuffix', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportSuffix: 'YoWhatsUp',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const thingyYoWhatsUp = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
+      expect(output).toEqual(
+        [warningBanner(`.wuf/testkits/template.ejs`), 'Thingy', 'Thongy'].join(
+          '\n',
+        ),
       );
     });
   });
@@ -222,59 +200,6 @@ describe('exportTestkits', () => {
           _process: { cwd: fakeFs.dir },
         }),
       ).rejects.toThrow();
-    });
-  });
-
-  describe('given caseStyle option', () => {
-    it('should write output correctly with PascalCase', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportCaseStyle: 'PascalCase',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const ThingyTestkitFactory = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
-    });
-
-    it('should write output correctly with camelCase', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportCaseStyle: 'camelCase',
-        exportSuffix: 'CamelCase',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const thingyCamelCase = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
     });
   });
 });

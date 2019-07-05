@@ -19,26 +19,6 @@ export const cli = program =>
     )
 
     .option(
-      '--factoryName <string>',
-      'Name of a testkit factory creator. Default is "testkitFactoryCreator"',
-    )
-
-    .option(
-      '--uniFactoryName <string>',
-      'Name of a unidriver testkit factory creator. Default is "uniTestkitFactoryCreator"',
-    )
-
-    .option(
-      '--exportSuffix <string>',
-      'String to suffix each exported testkit. Default is "TestkitFactory"',
-    )
-
-    .option(
-      '--exportCaseStyle <string>',
-      'Set exported testkit case style. Possible values are "camelCase", "PascalCase". Default is "camelCase".',
-    )
-
-    .option(
       '--template <string>',
-      'Path to template. Default is ".wuf/testkits/template.js"',
+      'Path ejs template file. Default is ".wuf/testkits/template.ejs"',
     );
