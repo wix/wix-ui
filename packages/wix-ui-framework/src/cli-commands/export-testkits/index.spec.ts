@@ -5,20 +5,6 @@ import * as cista from 'cista';
 import { exportTestkits, warningBanner } from '.';
 
 describe('exportTestkits', () => {
-  describe('when .wuf/testkits/definitions.js is not found', () => {
-    it('should reject with error', () => {
-      const fakeFs = cista({
-        output: '',
-      });
-      return expect(
-        exportTestkits({
-          output: fakeFs.output,
-          _process: { cwd: fakeFs.dir },
-        }),
-      ).rejects.toThrowError('missing --output parameter, it must be defined');
-    });
-  });
-
   describe('when output option is not found', () => {
     it('should reject with error', () => {
       const fakeFs = cista({
@@ -36,15 +22,47 @@ describe('exportTestkits', () => {
   describe('given definitions option', () => {
     it('should reject with error when file not found', () => {
       const fakeFs = cista({
-        '.wuf/testkit/definitions.js': ';',
+        '.wuf/testkits/definitions.js': ';',
+        '.wuf/testkits/templates/components.json': '{}',
+        '.wuf/components.json': '{}',
+        output: '',
       });
 
       return expect(
         exportTestkits({
+          output: 'output',
           definitions: 'non/existing/path/to/definitions.js',
           _process: { cwd: fakeFs.dir },
         }),
-      ).rejects.toThrow();
+      ).rejects.toThrow(
+        /Unable to load definitions file at "non\/existing\/path\/to\/definitions.js"/,
+      );
+    });
+  });
+
+  describe('when definitions option missing', () => {
+    it('should work without definitions file', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/template.ejs': 'hello template',
+        '.wuf/components.json': '{}',
+        output: '',
+      });
+
+      await exportTestkits({
+        output: 'output',
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, 'output'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [warningBanner(`.wuf/testkits/template.ejs`), 'hello template'].join(
+          '\n',
+        ),
+      );
     });
   });
 
@@ -163,6 +181,7 @@ describe('exportTestkits', () => {
 
       await exportTestkits({
         template: '.wuf/testkits/template.ejs',
+        definitions: `.wuf/testkits/definitions.js`,
         components: '.wuf/components.json',
         output: `.wuf/testkits/output.js`,
         _process: { cwd: fakeFs.dir },

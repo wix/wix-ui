@@ -26,6 +26,17 @@ const writeFile = (pathname: string, source: string) => {
   }
 };
 
+const tryRequire = ({ requirePath, cwd }) => {
+  try {
+    return require(requirePath);
+  } catch (e) {
+    const relativePath = path.relative(cwd, path.resolve(requirePath));
+    throw new Error(
+      `Unable to load definitions file at "${relativePath}":\n${e}`,
+    );
+  }
+};
+
 const guards: (a: Options) => Promise<void> = async unsafeOptions => {
   const pathResolve = pathResolver(unsafeOptions._process.cwd);
 
@@ -35,10 +46,12 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
 
   const options = {
     ...unsafeOptions,
-    definitions: pathResolve(
-      unsafeOptions.definitions || '.wuf/testkits/definitions.js',
-    ),
-
+    definitions: unsafeOptions.definitions
+      ? tryRequire({
+          requirePath: pathResolve(unsafeOptions.definitions),
+          cwd: unsafeOptions._process.cwd,
+        })
+      : {},
     components: pathResolve(unsafeOptions.components || '.wuf/components.json'),
     template: pathResolve(
       unsafeOptions.template || '.wuf/testkits/template.ejs',
@@ -49,12 +62,6 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
     exportSuffix: unsafeOptions.exportSuffix || 'TestkitFactory',
     exportCaseStyle: unsafeOptions.exportCaseStyle || 'camelCase',
   };
-
-  if (!(await fileExists(options.definitions))) {
-    throw new Error(
-      `Definitions file does not exist at "${options.definitions}"`,
-    );
-  }
 
   if (!(await fileExists(options.components))) {
     throw new Error(
@@ -97,12 +104,11 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     options._process.cwd,
     options.components,
   ));
-  const definitions = require(options.definitions);
   const templateSource = fs.readFileSync(options.template, 'utf8');
 
   const testkitsExportsSource = ejsSource({
     source: templateSource,
-    definitions,
+    definitions: options.definitions,
     components,
   });
 
