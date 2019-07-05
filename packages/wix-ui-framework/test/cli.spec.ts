@@ -106,7 +106,7 @@ describe('wuf', () => {
         nixt()
           .expect(({ stderr }) => {
             expect(stderr).toMatch(
-              /Error: Definitions file does not exist at ".*whatever.js"/,
+              /Error: Unable to load definitions file at ".*whatever.js"/,
             );
           })
           .run(cli('export-testkits --output test --definitions whatever.js'))

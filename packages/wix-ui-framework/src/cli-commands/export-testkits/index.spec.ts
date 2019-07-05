@@ -5,20 +5,6 @@ import * as cista from 'cista';
 import { exportTestkits, warningBanner } from '.';
 
 describe('exportTestkits', () => {
-  describe('when .wuf/testkits/definitions.js is not found', () => {
-    it('should reject with error', () => {
-      const fakeFs = cista({
-        output: '',
-      });
-      return expect(
-        exportTestkits({
-          output: fakeFs.output,
-          _process: { cwd: fakeFs.dir },
-        }),
-      ).rejects.toThrowError('missing --output parameter, it must be defined');
-    });
-  });
-
   describe('when output option is not found', () => {
     it('should reject with error', () => {
       const fakeFs = cista({
@@ -36,34 +22,97 @@ describe('exportTestkits', () => {
   describe('given definitions option', () => {
     it('should reject with error when file not found', () => {
       const fakeFs = cista({
-        '.wuf/testkit/definitions.js': ';',
+        '.wuf/testkits/definitions.js': ';',
+        '.wuf/testkits/templates/components.json': '{}',
+        '.wuf/components.json': '{}',
+        output: '',
       });
 
       return expect(
         exportTestkits({
+          output: 'output',
           definitions: 'non/existing/path/to/definitions.js',
           _process: { cwd: fakeFs.dir },
         }),
-      ).rejects.toThrow();
+      ).rejects.toThrow(
+        /Unable to load definitions file at "non\/existing\/path\/to\/definitions.js"/,
+      );
+    });
+
+    it('should work with json file', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.json':
+          '{ "Thingy": { "specialName": "DudeWheresMyCar" } }',
+        '.wuf/testkits/template.ejs':
+          '<%= components.map(c => c.specialName || c.name).join("\\n") %>',
+        'output.weird-extension': ';',
+        '.wuf/awesome-components.json': '{ "Thingy": {}, "Thongy": {} }',
+      });
+
+      await exportTestkits({
+        components: '.wuf/awesome-components.json',
+        definitions: '.wuf/testkits/definitions.json',
+        output: `output.weird-extension`,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, 'output.weird-extension'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`.wuf/testkits/template.ejs`),
+          'DudeWheresMyCar',
+          'Thongy',
+        ].join('\n'),
+      );
+    });
+  });
+
+  describe('when definitions option missing', () => {
+    it('should work without definitions file', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/template.ejs': 'hello template',
+        '.wuf/components.json': '{}',
+        output: '',
+      });
+
+      await exportTestkits({
+        output: 'output',
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, 'output'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [warningBanner(`.wuf/testkits/template.ejs`), 'hello template'].join(
+          '\n',
+        ),
+      );
     });
   });
 
   describe('given template option', () => {
     it('should reject with error when file not found', () => {
       const fakeFs = cista({
-        '.wuf/testkits/template.js': ';',
+        '.wuf/testkits/template.ejs': ';',
         '.wuf/testkits/definitions.js': ';',
         '.wuf/components.json': '{}',
       });
 
       return expect(
         exportTestkits({
-          template: 'non/existing/path/to/template.js',
+          template: 'non/existing/path/to/template.ejs',
           output: 'anywhere',
           _process: { cwd: fakeFs.dir },
         }),
       ).rejects.toThrow(
-        `Template file not found at "${fakeFs.dir}/non/existing/path/to/template.js". It is required for \`wuf export-testkits\`.`,
+        `Template file not found at "${fakeFs.dir}/non/existing/path/to/template.ejs". It is required for \`wuf export-testkits\`.`,
       );
     });
   });
@@ -89,9 +138,10 @@ describe('exportTestkits', () => {
     it('should resolve and write output correctly when file is found', async () => {
       const fakeFs = cista({
         '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
+        '.wuf/testkits/template.ejs':
+          '<%= components.map(c => c.name).join("\\n") %>',
         '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
+        '.wuf/awesome-components.json': '{ "Thingy": {}, "Thongy": {} }',
       });
 
       await exportTestkits({
@@ -105,33 +155,10 @@ describe('exportTestkits', () => {
         'utf8',
       );
 
-      expect(output).toMatch(
-        /.*export const thingyTestkitFactory = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
-    });
-
-    it('should resolve and write output correctly with given exportSuffix', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportSuffix: 'YoWhatsUp',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const thingyYoWhatsUp = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
+      expect(output).toEqual(
+        [warningBanner(`.wuf/testkits/template.ejs`), 'Thingy', 'Thongy'].join(
+          '\n',
+        ),
       );
     });
   });
@@ -185,6 +212,7 @@ describe('exportTestkits', () => {
 
       await exportTestkits({
         template: '.wuf/testkits/template.ejs',
+        definitions: `.wuf/testkits/definitions.js`,
         components: '.wuf/components.json',
         output: `.wuf/testkits/output.js`,
         _process: { cwd: fakeFs.dir },
@@ -222,59 +250,6 @@ describe('exportTestkits', () => {
           _process: { cwd: fakeFs.dir },
         }),
       ).rejects.toThrow();
-    });
-  });
-
-  describe('given caseStyle option', () => {
-    it('should write output correctly with PascalCase', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportCaseStyle: 'PascalCase',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const ThingyTestkitFactory = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
-    });
-
-    it('should write output correctly with camelCase', async () => {
-      const fakeFs = cista({
-        '.wuf/testkits/definitions.js': ';',
-        '.wuf/testkits/template.js': ';',
-        '.wuf/testkits/output.js': ';',
-        '.wuf/awesome-components.json': '{ "Thingy": {} }',
-      });
-
-      await exportTestkits({
-        components: '.wuf/awesome-components.json',
-        output: `.wuf/testkits/output.js`,
-        exportCaseStyle: 'camelCase',
-        exportSuffix: 'CamelCase',
-        _process: { cwd: fakeFs.dir },
-      });
-
-      const output = fs.readFileSync(
-        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
-        'utf8',
-      );
-
-      expect(output).toMatch(
-        /.*export const thingyCamelCase = testkitFactoryCreator\(load\(require\('..\/src\/Thingy\/Thingy.driver'\)\)\)\.*/,
-      );
     });
   });
 });
