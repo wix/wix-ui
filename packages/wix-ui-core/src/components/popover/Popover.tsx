@@ -94,6 +94,10 @@ export interface PopoverProps {
   role?: string;
   /** popover z-index */
   zIndex?: number,
+  /** popover content min width value */
+  minWidth?: number,
+  /** popover content max width value */
+  maxWidth?: number,
 }
 
 export interface PopoverState {
@@ -204,6 +208,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       role,
       id,
       zIndex,
+      minWidth,
+      maxWidth,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -232,7 +238,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               ref={ref}
               data-hook="popover-content"
               data-content-element={this.contentHook}
-              style={{...popperStyles, zIndex}}
+              style={{...popperStyles, zIndex, minWidth, maxWidth}}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,
