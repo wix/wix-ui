@@ -100,11 +100,12 @@ const getDataAttributes = (
 
 const getAriaAttributes = (
   props: LinearProgressBarProps
-): {[key in ProgressBarAriaKeys]: number} => {
+): {[key in ProgressBarAriaKeys]: number | string} => {
   return {
     [ProgressBarAriaKeys.valuenow]: +props.value,
     [ProgressBarAriaKeys.valuemin]: +props.min,
     [ProgressBarAriaKeys.valuemax]: +props.max,
+    [ProgressBarAriaKeys.valuetext]: props[ProgressBarAriaKeys.valuetext],
   };
 };
 

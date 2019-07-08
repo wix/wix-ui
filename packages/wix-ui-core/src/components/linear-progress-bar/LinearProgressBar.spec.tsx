@@ -33,9 +33,7 @@ describe('ProgressBar', () => {
       expect(await driver.exists()).toBe(true);
     });
 
-    it(`should set the foreground progress bar layer to ${
-      defaultProps.value
-    }%`, async () => {
+    it(`should set the foreground progress bar layer to ${defaultProps.value}%`, async () => {
       const driver = createDriver(<LinearProgressBar {...defaultProps} />);
       expect(await driver.getWidth()).toBe(`${defaultProps.value}%`);
     });
@@ -238,6 +236,13 @@ describe('ProgressBar', () => {
       it('should have role `progressbar`', async () => {
         const driver = createDriver(<LinearProgressBar {...defaultProps} />);
         expect(await driver.getRoleAttribute()).toBe('progressbar');
+      });
+      it('should allow passing `aria-valuetext` prop', async () => {
+        const valueText = 'Some context';
+        const driver = createDriver(
+          <LinearProgressBar {...defaultProps} aria-valuetext={valueText} />
+        );
+        expect(await driver.getAriaValueText()).toBe(valueText);
       });
     });
   }
