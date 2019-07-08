@@ -17,6 +17,8 @@
   D80: #FFFFFF; /* Content box background */
 
   /* TRANSPARENT */
+  D10-30: hexToRgb(value(D10), 0.3);
+  D80-70: hexToRgb(value(D80), 0.7);
   D20-48: hexToRgb(value(D20), 0.48); /*  new transparent color */
   D20-54: hexToRgb(value(D20), 0.54); /* hovered */
   D20-60: hexToRgb(value(D20), 0.6); /*  clicked */
