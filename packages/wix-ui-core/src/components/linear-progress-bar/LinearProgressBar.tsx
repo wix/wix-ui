@@ -100,7 +100,9 @@ const getDataAttributes = (
 
 const getAriaAttributes = (
   props: LinearProgressBarProps
-): {[key in ProgressBarAriaKeys]: number | string} => {
+): {
+  [key in ProgressBarAriaKeys]: React.HTMLAttributes<HTMLDivElement>[key]
+} => {
   return {
     [ProgressBarAriaKeys.valuenow]: +props.value,
     [ProgressBarAriaKeys.valuemin]: +props.min,
