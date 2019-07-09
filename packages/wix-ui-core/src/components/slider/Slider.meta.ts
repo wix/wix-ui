@@ -5,5 +5,7 @@ const sliderMetadata = Registry.getComponentMetadata(Slider);
 sliderMetadata.nonA11yCompliant = true;
 sliderMetadata.addSim({
   title: 'sliderSim',
-  props: {},
+  props: {
+    'aria-label': 'slider'
+  },
 });
