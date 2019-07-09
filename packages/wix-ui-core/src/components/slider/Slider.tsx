@@ -488,12 +488,12 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       : { height: `${trackSize}%` };
     const trackFillPosition = vertical
       ? {
-          bottom: 0,
-          height: this.calcTrackFillPosition(),
-        }
+        bottom: 0,
+        height: this.calcTrackFillPosition(),
+      }
       : {
-          width: this.calcTrackFillPosition(),
-        };
+        width: this.calcTrackFillPosition(),
+      };
 
     return (
       <div
@@ -525,6 +525,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={value}
+        aria-label="slider"
       >
         <div className={pStyle.inner} style={this.getInnerDims()}>
           <div
