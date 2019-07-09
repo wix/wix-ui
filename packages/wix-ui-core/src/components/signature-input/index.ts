@@ -1,1 +1,1 @@
-export { LinearProgressBar, LinearProgressBarProps } from './LinearProgressBar';
+export {SignatureInput, SignatureInputProps} from './SignatureInput';
