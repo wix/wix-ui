@@ -1,4 +1,5 @@
 import * as cista from 'cista';
+import * as path from 'path';
 import * as fs from 'fs';
 
 import { updateComponentsList } from '.';
@@ -58,6 +59,34 @@ describe('updateComponentsList', () => {
       );
 
       expect(JSON.parse(output)).toEqual(expectedOutput);
+    });
+
+    it('should keep previous entries of output json file', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.js": "" } }`,
+        'src/components/test-component/index.js': '',
+        '.wuf/components.json':
+          '{ "a": {}, "z": { "hello": "world" }, "B": { "great": "scott" } }',
+      });
+
+      const expectedOutput = fs
+        .readFileSync(
+          path.resolve(__dirname, '__fixtures__', 'components-json-output'),
+          'utf8',
+        )
+        .trim(); // fs.readFileSync adds new line at the end, so trimming it
+
+      await updateComponentsList({
+        maxMismatch: 2,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        `${fakeFs.dir}/.wuf/components.json`,
+        'utf8',
+      );
+
+      expect(output).toEqual(expectedOutput);
     });
 
     it('should support globs in file names', async () => {
