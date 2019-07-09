@@ -83,11 +83,13 @@ const ejsSource = ({ source, definitions, components }) => {
     toCamel: camelCase,
   };
 
-  const componentsForEjs = objectEntries(components).map(([name, value]) => ({
-    name,
-    ...value,
-    ...(definitions[name] || {}),
-  }));
+  const componentsForEjs = objectEntries({ ...components, ...definitions }).map(
+    ([name, value]) => ({
+      name,
+      ...value,
+      ...(definitions[name] || {}),
+    }),
+  );
 
   try {
     return ejs.render(source, {
