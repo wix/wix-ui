@@ -17,7 +17,7 @@
   D80: #FFFFFF; /* Content box background */
 
 
-  /* TRANSPARENT */
+  /* With Opacity */
   D10-20: hexToRgb(value(D10), 0.2);
   D10-30: hexToRgb(value(D10), 0.3);
 
@@ -40,6 +40,11 @@
   B40: #DAEFFE;
   B50: #EAF7FF;
   B60: #F4FAFE;
+
+  /* With Opacity */
+  B00-24: hexToRgb(value(B00), 0.24);
+  B00-42: hexToRgb(value(B00), 0.42);
+
 
   /* PURPLE - Premium */
   P00: #8E21B1;
