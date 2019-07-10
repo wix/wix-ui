@@ -1,0 +1,9 @@
+:import {
+  -st-from: "../../src/components/signature-input/SignatureInput.st.css";
+  -st-default: SignatureInput;
+}
+
+.root {
+  -st-extends: SignatureInput;
+}
+
