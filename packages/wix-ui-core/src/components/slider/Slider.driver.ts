@@ -34,6 +34,7 @@ export const sliderDriverFactory = ({ element, eventTrigger }) => {
     ariaValueMin: () => element.getAttribute('aria-valuemin'),
     ariaValueMax: () => element.getAttribute('aria-valuemax'),
     ariaValueNow: () => element.getAttribute('aria-valuenow'),
+    ariaLabel: () => element.getAttribute('aria-label'),
 
     mouseMove(value) {
       const mouseMove = new Event('mousemove');
