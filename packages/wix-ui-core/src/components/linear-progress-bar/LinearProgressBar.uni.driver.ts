@@ -40,6 +40,8 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
   getAriaValueMax(): Promise<number>;
   /** Returns role html attribute */
   getRoleAttribute(): Promise<string>;
+  /** Returns aria-valuetext prop */
+  getAriaValueText(): Promise<string>;
 }
 
 export const linearProgressBarUniDriverFactory = (
@@ -94,6 +96,7 @@ export const linearProgressBarUniDriverFactory = (
       getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
     getAriaValueMin: () =>
       getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
+    getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
     getRoleAttribute: () => getDataAttribute('role'),
   };
 };
