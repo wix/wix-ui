@@ -1,0 +1,15 @@
+{
+  "a": {},
+  "z": {
+    "hello": "world"
+  },
+  "B": {
+    "great": "scott"
+  },
+  "test-component": {
+    "path": "src/components/test-component",
+    "missingFiles": [
+      "docs"
+    ]
+  }
+}

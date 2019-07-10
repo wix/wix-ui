@@ -11,6 +11,11 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.1.0 - 2019-07-09
+## Changed
+- `wuf export-testkits` - allow definitions file to have more entries than `components.json`
+- `wuf update` - no longer overwrite `components.json`, merge it with new data instead
+
 # 3.0.1 - 2019-07-05
 ## Changed
 - `wuf export-testkits` - remove `factoryName`, `uniFactoryName`, `exportSuffix`, `exportCaseStyle` flags
