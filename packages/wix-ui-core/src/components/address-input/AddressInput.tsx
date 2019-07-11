@@ -32,7 +32,7 @@ export enum Converter {
 
 export type AddressInputProps = Pick<
   PopoverProps,
-  'fixed' | 'flip' | 'moveBy'
+  'fixed' | 'flip' | 'moveBy' | 'placement'
 > & {
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
@@ -78,6 +78,8 @@ export type AddressInputProps = Pick<
   forceContentElementVisibility?: boolean;
   /** Options to override default one, used for preview mode */
   forceOptions?: Partial<Option>[];
+  /** Force first option selection when user leaves component */
+  forceSelect?: boolean;
   /** Options to override default throttle value, 0 used to disable throttle */
   throttleInterval?: number;
   /** Node to be rendered in front of each suggestion */
@@ -357,7 +359,13 @@ export class AddressInput extends React.PureComponent<
   }
 
   _handleOnBlur() {
-    const { onBlur, clearSuggestionsOnBlur } = this.props;
+    const { forceSelect, clearSuggestionsOnBlur, onBlur } = this.props;
+
+    const options = this._options();
+    if (forceSelect && options.length) {
+      this._onSelect(first(options));
+    }
+
     onBlur && onBlur();
     if (clearSuggestionsOnBlur) {
       this.setState({ options: [] });
@@ -387,7 +395,7 @@ export class AddressInput extends React.PureComponent<
   }
 
   _options() {
-    const { forceOptions, locationIcon } = this.props;
+    const { forceOptions } = this.props;
 
     if (isArray(forceOptions) && forceOptions.length > 0) {
       return forceOptions.map(this._createOptionFromAddress);
@@ -398,6 +406,7 @@ export class AddressInput extends React.PureComponent<
   render() {
     const {
       placeholder,
+      placement,
       onKeyDown,
       onFocus,
       forceContentElementVisibility,
@@ -445,6 +454,7 @@ export class AddressInput extends React.PureComponent<
         onSelect={this._onSelect}
         options={options}
         inputProps={inputProps}
+        placement={placement}
         onManualInput={this._handleOnManualInput}
         timeout={timeout}
         forceContentElementVisibility={forceContentElementVisibility}
