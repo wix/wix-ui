@@ -1,4 +1,4 @@
-import { header, code } from '../../Sections';
+import { header, code } from '../../src/Sections';
 
 import importsExample from '!raw-loader!../examples/code-with-imports';
 import classWithArrowsExample from '!raw-loader!../examples/class-with-arrows';
