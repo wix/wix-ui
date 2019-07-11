@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import { InputWithOptions } from '../input-with-options/InputWithOptions';
+import { InputWithOptions, InputWithOptionsProps } from '../input-with-options/InputWithOptions';
 import { intersection } from '../../utils/intersection';
 import { Option, OptionFactory } from '../dropdown-option';
 import {
@@ -17,7 +17,6 @@ import {
   convertToPartialAddress,
   trySetStreetNumberIfNotReceived,
 } from '../../clients/GoogleMaps/google2address/google2address';
-import { PopoverProps } from '../popover';
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
@@ -31,7 +30,7 @@ export enum Converter {
 }
 
 export type AddressInputProps = Pick<
-  PopoverProps,
+  InputWithOptionsProps,
   'fixed' | 'flip' | 'moveBy' | 'placement'
 > & {
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
