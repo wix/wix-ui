@@ -23,32 +23,49 @@ interface Options {
   _process: Process;
 }
 
-export const updateComponentsList: (
-  a: Options,
-) => Promise<void> = async opts => {
-  const pathResolve = pathResolver(opts._process.cwd);
+const readOutputFile = async (path = '') => {
+  try {
+    const outputRaw = await fsReadFile(path, 'utf8');
+    return JSON.parse(outputRaw);
+  } catch (e) {
+    return {};
+  }
+};
+
+const guards: (a: Options) => Promise<void> = async unsafeOptions => {
+  const pathResolve = pathResolver(unsafeOptions._process.cwd);
 
   const options = {
-    shape: pathResolve(opts.shape || '.wuf/required-component-files.json'),
-    components: pathResolve(opts.components || 'src/components'),
-    output: pathResolve(opts.output || '.wuf/components.json'),
-    maxMismatch: opts.maxMismatch || 0,
-    exclude: opts.exclude,
+    ...unsafeOptions,
+    shape: pathResolve(
+      unsafeOptions.shape || '.wuf/required-component-files.json',
+    ),
+    components: pathResolve(unsafeOptions.components || 'src/components'),
+    output: pathResolve(unsafeOptions.output || '.wuf/components.json'),
+    maxMismatch: unsafeOptions.maxMismatch || 0,
+    exclude: unsafeOptions.exclude,
   };
 
   if (!(await fileExists(options.shape))) {
     throw new Error(
-      `Component structure file does not exist at "${opts.shape ||
+      `Component structure file does not exist at "${unsafeOptions.shape ||
         options.shape}"`,
     );
   }
 
   if (!(await fileExists(options.components))) {
-    throw new Error(`Cannot read components folder at "${opts.components}"`);
+    throw new Error(
+      `Cannot read components folder at "${unsafeOptions.components}"`,
+    );
   }
 
+  return makeOutput(options);
+};
+
+const makeOutput: (a: Options) => Promise<void> = async options => {
   const shapeRaw = await fsReadFile(options.shape, 'utf8');
   const shape = JSON.parse(shapeRaw);
+  const output = await readOutputFile(options.output);
 
   const componentsFs = await fsToJson({
     cwd: options.components,
@@ -62,7 +79,7 @@ export const updateComponentsList: (
         structure !== '',
 
         // skip excluded
-        opts.exclude ? !new RegExp(opts.exclude).test(name) : true,
+        options.exclude ? !new RegExp(options.exclude).test(name) : true,
       ].every(Boolean),
     )
 
@@ -115,7 +132,7 @@ export const updateComponentsList: (
         structure,
         missingFiles,
         path: path.relative(
-          opts._process.cwd,
+          options._process.cwd,
           path.resolve(options.components, name),
         ),
       };
@@ -125,7 +142,7 @@ export const updateComponentsList: (
     ({ missingFiles }) => missingFiles.length <= options.maxMismatch,
   );
 
-  const output = goodComponents.reduce((components, component) => {
+  const newOutput = goodComponents.reduce((components, component) => {
     components[component.name] = {
       path: component.path,
       ...(component.missingFiles.length
@@ -133,7 +150,9 @@ export const updateComponentsList: (
         : {}),
     };
     return components;
-  }, {});
+  }, output);
 
-  await fsWriteFile(options.output, JSON.stringify(output, null, 2));
+  await fsWriteFile(options.output, JSON.stringify(newOutput, null, 2));
 };
+
+export const updateComponentsList: (a: Options) => Promise<void> = guards;

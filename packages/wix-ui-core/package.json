@@ -115,7 +115,7 @@
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
     "webpack-dev-middleware": "3.6.0",
-    "wix-storybook-utils": "^2.0.45",
+    "wix-storybook-utils": "^3.0.7",
     "wix-ui-icons-common": "^2.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^3.28.0",

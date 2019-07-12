@@ -19,6 +19,7 @@ module.exports = ({config}) => {
           'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/',
         importFormat:
           "import {%componentName} from '%moduleName/%componentName'",
+        issueURL: "https://github.com/wix/wix-ui/issues/new"
       },
     },
   });

@@ -69,6 +69,37 @@ describe('exportTestkits', () => {
         ].join('\n'),
       );
     });
+
+    it('should include all definitions file entries in components array', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/definitions.json':
+          '{ "NotInComponents": { "specialName": "CubicsRube" } }',
+        '.wuf/testkits/template.ejs':
+          '<%= components.map(c => c.specialName || c.name).join("\\n") %>',
+        '.wuf/components.json': '{ "Thingy": {}, "Thongy": {} }',
+        output: ';',
+      });
+
+      await exportTestkits({
+        definitions: '.wuf/testkits/definitions.json',
+        output: 'output',
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, 'output'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`.wuf/testkits/template.ejs`),
+          'Thingy',
+          'Thongy',
+          'CubicsRube',
+        ].join('\n'),
+      );
+    });
   });
 
   describe('when definitions option missing', () => {
