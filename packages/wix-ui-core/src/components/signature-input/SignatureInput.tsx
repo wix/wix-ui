@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './SignatureInput.st.css';
-import {DataHooks, DataKeys} from './DataHooks';
+import {DataHooks, DataKeys, COMPONENT_METADATA} from './constants';
 import SignaturePad from 'signature_pad';
 
 export interface SignatureInputProps {
@@ -18,14 +18,10 @@ export class SignatureInput extends React.Component<
   SignatureInputProps,
   SignatureInputState
 > {
-  static displayName = 'SignatureInput';
+  static displayName = COMPONENT_METADATA.displayName;
 
   private canvas: HTMLCanvasElement;
   private signaturePad: SignaturePad;
-
-  state = {
-    hasData: false,
-  };
 
   componentDidMount() {
     this.signaturePad = new SignaturePad(this.canvas);
@@ -37,7 +33,6 @@ export class SignatureInput extends React.Component<
 
   render() {
     const {label} = this.props;
-    const {hasData} = this.state;
     return (
       <div
         {...{[DataKeys.HasData]: this.hasData}}

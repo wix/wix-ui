@@ -12,7 +12,7 @@ import Focusable from './Focusable';
 import {FilePickerButtonTestFixture} from '../src/components/file-picker-button/test/FilePickerButtonTestFixture';
 import {FocusableHOCTestFixture} from '../src/hocs/Focusable/test/FocusableHOCTestFixture';
 import {InputWithOptionsTestFixture} from '../src/components/input-with-options/InputWithOptionsTestFixture';
-
+import {SignatureInputTestFixture} from '../src/components/signature-input/test/SignatureInputTestFixture';
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
@@ -46,7 +46,7 @@ import './MediaImage/MediaImage.story';
 import './Label.story';
 import './LabelWithOptions.story';
 import './LinearProgressBar/index.story';
-import './SignatureInput/index.story';
+import '../src/components/signature-input/docs/index.story';
 import './NavStepper.story';
 Components.add('Pagination', () => <PaginationStory />);
 import './Popover.story';
@@ -71,4 +71,5 @@ Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
 Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
+Tests.add('SignatureInput', () => <SignatureInputTestFixture />);
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';

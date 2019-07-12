@@ -6,3 +6,7 @@ export enum DataHooks {
 export enum DataKeys {
   HasData = 'signature-input-has-data',
 }
+
+export const COMPONENT_METADATA = {
+  displayName: 'SignatureInput',
+};

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './style.st.css';
-import {SignatureInput} from '../../src/components/signature-input/SignatureInput';
+import {SignatureInput} from '../SignatureInput';
 
 export default {
   category: 'Components',

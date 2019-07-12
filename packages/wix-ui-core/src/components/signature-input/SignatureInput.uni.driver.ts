@@ -4,7 +4,7 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 import {UniDriver} from 'wix-ui-test-utils/unidriver';
 import {byDataHook} from '../../../test/utils/unidriver';
-import {DataHooks, DataKeys} from './DataHooks';
+import {DataHooks, DataKeys} from './constants';
 
 export interface SignatureInputUniDriver extends BaseUniDriver {
   /** Returns data-hook prop */
