@@ -184,6 +184,7 @@ export class AddressInput extends React.PureComponent<
   placeDetailsRequestId;
   currentAddressRequest;
   unmounted: boolean = false;
+  optionWasSelected: boolean = false;
 
   constructor(props) {
     super(props);
@@ -201,6 +202,7 @@ export class AddressInput extends React.PureComponent<
     this._handleOnBlur = this._handleOnBlur.bind(this);
     this._renderOption = this._renderOption.bind(this);
     this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
+    this._handleContentMouseDown = this._handleContentMouseDown.bind(this);
     this.currentAddressRequest = Promise.resolve();
 
     this.state = { options: [], inputValue: props.value || '', isDirty: false };
@@ -316,6 +318,18 @@ export class AddressInput extends React.PureComponent<
     }
   }
 
+  _forceSelectIfNeeded() {
+    const { forceSelect } = this.props;
+    if (forceSelect) {
+      const options = this._options();
+      const firstOption = options.length ? first(options) : null;
+
+      if (!this.optionWasSelected && firstOption) {
+        this._onSelect(firstOption);
+      }
+    }
+  }
+
   _onSelect(option: Option | null) {
     const { handler } = this.props;
     const { inputValue } = this.state;
@@ -334,6 +348,7 @@ export class AddressInput extends React.PureComponent<
   _handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { onChange } = this.props;
     const { value } = e.target;
+    this.optionWasSelected = false;
 
     onChange && onChange(e);
 
@@ -358,17 +373,18 @@ export class AddressInput extends React.PureComponent<
   }
 
   _handleOnBlur() {
-    const { forceSelect, clearSuggestionsOnBlur, onBlur } = this.props;
+    const { clearSuggestionsOnBlur, onBlur } = this.props;
 
-    const options = this._options();
-    if (forceSelect && options.length) {
-      this._onSelect(first(options));
-    }
+    this._forceSelectIfNeeded();
 
     onBlur && onBlur();
     if (clearSuggestionsOnBlur) {
       this.setState({ options: [] });
     }
+  }
+
+  _handleContentMouseDown() {
+    this.optionWasSelected = true;
   }
 
   _renderOption(val) {
@@ -450,6 +466,7 @@ export class AddressInput extends React.PureComponent<
     return (
       <InputWithOptions
         {...style('root', states, this.props)}
+        onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}
         inputProps={inputProps}
