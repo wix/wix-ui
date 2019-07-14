@@ -18,6 +18,8 @@
 
 
   /* With Opacity */
+  D10-05: hexToRgb(value(D10), 0.05);
+  D10-10: hexToRgb(value(D10), 0.1);
   D10-20: hexToRgb(value(D10), 0.2);
   D10-30: hexToRgb(value(D10), 0.3);
 
