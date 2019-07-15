@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import { InputWithOptions } from '../input-with-options/InputWithOptions';
+import { InputWithOptions, InputWithOptionsProps } from '../input-with-options/InputWithOptions';
 import { intersection } from '../../utils/intersection';
 import { Option, OptionFactory } from '../dropdown-option';
 import {
@@ -17,7 +17,6 @@ import {
   convertToPartialAddress,
   trySetStreetNumberIfNotReceived,
 } from '../../clients/GoogleMaps/google2address/google2address';
-import { PopoverProps } from '../popover';
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
@@ -31,8 +30,8 @@ export enum Converter {
 }
 
 export type AddressInputProps = Pick<
-  PopoverProps,
-  'fixed' | 'flip' | 'moveBy'
+  InputWithOptionsProps,
+  'fixed' | 'flip' | 'moveBy' | 'placement'
 > & {
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
@@ -78,6 +77,8 @@ export type AddressInputProps = Pick<
   forceContentElementVisibility?: boolean;
   /** Options to override default one, used for preview mode */
   forceOptions?: Partial<Option>[];
+  /** Force first option selection when user leaves component */
+  forceSelect?: boolean;
   /** Options to override default throttle value, 0 used to disable throttle */
   throttleInterval?: number;
   /** Node to be rendered in front of each suggestion */
@@ -183,6 +184,7 @@ export class AddressInput extends React.PureComponent<
   placeDetailsRequestId;
   currentAddressRequest;
   unmounted: boolean = false;
+  optionWasSelected: boolean = false;
 
   constructor(props) {
     super(props);
@@ -200,6 +202,7 @@ export class AddressInput extends React.PureComponent<
     this._handleOnBlur = this._handleOnBlur.bind(this);
     this._renderOption = this._renderOption.bind(this);
     this._createOptionFromAddress = this._createOptionFromAddress.bind(this);
+    this._handleContentMouseDown = this._handleContentMouseDown.bind(this);
     this.currentAddressRequest = Promise.resolve();
 
     this.state = { options: [], inputValue: props.value || '', isDirty: false };
@@ -315,6 +318,18 @@ export class AddressInput extends React.PureComponent<
     }
   }
 
+  _forceSelectIfNeeded() {
+    const { forceSelect } = this.props;
+    if (forceSelect) {
+      const options = this._options();
+      const firstOption = options.length ? first(options) : null;
+
+      if (!this.optionWasSelected && firstOption) {
+        this._onSelect(firstOption);
+      }
+    }
+  }
+
   _onSelect(option: Option | null) {
     const { handler } = this.props;
     const { inputValue } = this.state;
@@ -333,6 +348,7 @@ export class AddressInput extends React.PureComponent<
   _handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { onChange } = this.props;
     const { value } = e.target;
+    this.optionWasSelected = false;
 
     onChange && onChange(e);
 
@@ -357,11 +373,18 @@ export class AddressInput extends React.PureComponent<
   }
 
   _handleOnBlur() {
-    const { onBlur, clearSuggestionsOnBlur } = this.props;
+    const { clearSuggestionsOnBlur, onBlur } = this.props;
+
+    this._forceSelectIfNeeded();
+
     onBlur && onBlur();
     if (clearSuggestionsOnBlur) {
       this.setState({ options: [] });
     }
+  }
+
+  _handleContentMouseDown() {
+    this.optionWasSelected = true;
   }
 
   _renderOption(val) {
@@ -387,7 +410,7 @@ export class AddressInput extends React.PureComponent<
   }
 
   _options() {
-    const { forceOptions, locationIcon } = this.props;
+    const { forceOptions } = this.props;
 
     if (isArray(forceOptions) && forceOptions.length > 0) {
       return forceOptions.map(this._createOptionFromAddress);
@@ -398,6 +421,7 @@ export class AddressInput extends React.PureComponent<
   render() {
     const {
       placeholder,
+      placement,
       onKeyDown,
       onFocus,
       forceContentElementVisibility,
@@ -442,9 +466,11 @@ export class AddressInput extends React.PureComponent<
     return (
       <InputWithOptions
         {...style('root', states, this.props)}
+        onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}
         inputProps={inputProps}
+        placement={placement}
         onManualInput={this._handleOnManualInput}
         timeout={timeout}
         forceContentElementVisibility={forceContentElementVisibility}
