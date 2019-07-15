@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const path = require('path');
 const execa = require('execa');
 
@@ -9,15 +7,25 @@ const execa = require('execa');
   console.log('running tsc...');
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  await execa('tsc', ['--outDir', outDir], {stdio: 'inherit'});
+  await execa('tsc', ['--outDir', outDir], { stdio: 'inherit' });
 
   console.log('✔︎');
 
   console.log('running stc...');
 
   // https://github.com/wix/stylable/tree/master/packages/cli#usage
-  await execa('stc', [`--outDir=${outDir}`, '--cssFilename=[filename].global.css', '--cjs', '--css', '--icr'], {stdio: 'inherit'});
-  
+  await execa(
+    'stc',
+    [
+      `--outDir=${outDir}`,
+      '--cssFilename=[filename].global.css',
+      '--cjs',
+      '--css',
+      '--icr',
+    ],
+    { stdio: 'inherit' },
+  );
+
   console.log('✔︎');
   console.log();
 
