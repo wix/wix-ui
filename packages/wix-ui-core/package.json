@@ -35,7 +35,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook",
+    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
     "test:watch": "yoshi test --jest --watch",
@@ -56,6 +56,7 @@
     "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
+    "build-standalone": "node scripts/build-standalone.js",
     "test:browser": "wix-ui-mocha-runner"
   },
   "dependencies": {
@@ -81,7 +82,7 @@
   },
   "devDependencies": {
     "@storybook/react": "^5.0.0",
-    "@stylable/cli": "1.2.10",
+    "@stylable/cli": "^2.1.0",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
@@ -99,6 +100,7 @@
     "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
+    "execa": "^2.0.3",
     "eyes.it": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "latest",
