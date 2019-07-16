@@ -20,7 +20,9 @@ function buildStandalone() {
     'stc',
     [
       `--outDir=${outDir}`,
+      '--srcDir=src',
       '--cssFilename=[filename].global.css',
+      '--compat',
       '--cjs',
       '--css',
       '--icr',
@@ -49,7 +51,9 @@ function buildStandaloneEs() {
     'stc',
     [
       `--outDir=${esOutDir}`,
+      '--srcDir=src',
       '--cssFilename=[filename].global.css',
+      '--compat',
       '--cjs',
       '--css',
       '--icr',
