@@ -19,8 +19,10 @@ function buildStandalone() {
   execa.sync(
     'stc',
     [
-      `--outDir=${outDir}`,
+      `--outDir=${path.join(outDir, 'src')}`,
+      '--srcDir=src',
       '--cssFilename=[filename].global.css',
+      '--compat',
       '--cjs',
       '--css',
       '--icr',
@@ -48,8 +50,10 @@ function buildStandaloneEs() {
   execa.sync(
     'stc',
     [
-      `--outDir=${esOutDir}`,
+      `--outDir=${path.join(esOutDir, 'src')}`,
+      '--srcDir=src',
       '--cssFilename=[filename].global.css',
+      '--compat',
       '--cjs',
       '--css',
       '--icr',
