@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.1.1 - 2019-07-16
+## Added
+- `wuf export-testkits` - add `tslint:disable` before warning banner
+
 # 3.1.0 - 2019-07-09
 ## Changed
 - `wuf export-testkits` - allow definitions file to have more entries than `components.json`
