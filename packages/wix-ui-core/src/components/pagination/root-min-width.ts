@@ -1,8 +1,8 @@
-import { getId } from './Pagination';
+import { getId, PaginationMode } from './Pagination';
 
 export const measureAndSetRootMinWidth = (
   compNode: HTMLElement,
-  paginationMode: 'pages' | 'input',
+  paginationMode: 'pages' | 'input' | 'compact' | PaginationMode,
   idPrefix: string = '',
 ): void => {
   compNode.style.minWidth = '';
@@ -55,7 +55,7 @@ export const measureAndSetRootMinWidth = (
       getHeightWithMargins(getById('pageStrip')),
       getHeightWithMargins(getById('navButtonNext')),
     );
-  } else {
+  } else if (paginationMode === 'input') {
     // means we're in "input" pagination mode
     selectionMinWidth =
       getWidthWithMargins(getById('totalPages')) +
@@ -64,6 +64,17 @@ export const measureAndSetRootMinWidth = (
 
     minHeight = Math.max(
       getHeightWithMargins(getById('pageInput')),
+      getHeightWithMargins(getById('navButtonNext')),
+    );
+  } else if (paginationMode === 'compact') {
+    // means we're in "compact" pagination mode
+    selectionMinWidth =
+      getWidthWithMargins(getById('totalPages')) +
+      getWidthWithMargins(getById('slash')) +
+      getWidthWithMargins(getById('currentPage'));
+
+    minHeight = Math.max(
+      getHeightWithMargins(getById('currentPage')),
       getHeightWithMargins(getById('navButtonNext')),
     );
   }

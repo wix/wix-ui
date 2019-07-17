@@ -156,6 +156,42 @@ describe('Pagination', () => {
     });
   });
 
+  describe('Compact mode', () => {
+    it('shows the total amount of pages', async () => {
+      const p = await render(
+        <Pagination paginationMode="compact" totalPages={5} />,
+      );
+
+      expect(p.totalPagesLabel.textContent).toEqual('5');
+    });
+
+    it('shows the current page label', async () => {
+      const p = await render(
+        <Pagination paginationMode="compact" currentPage={2} totalPages={5} />,
+      );
+
+      expect(p.currentPage.textContent).toBe('2');
+    });
+
+    it('has correct order of elements', async () => {
+      const p = await render(
+        <Pagination
+          paginationMode="compact"
+          totalPages={5}
+          showFirstLastNavButtons
+        />,
+      );
+
+      expect(p.currentPage.compareDocumentPosition(p.slashLabel)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
+
+      expect(p.slashLabel.compareDocumentPosition(p.totalPagesLabel)).toEqual(
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      );
+    });
+  });
+
   describe('Input field mode', () => {
     it('shows the input field with the current page', async () => {
       const p = await render(
