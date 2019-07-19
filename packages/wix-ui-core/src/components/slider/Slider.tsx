@@ -26,6 +26,7 @@ export interface SliderProps {
   readOnly?: boolean;
   dir?: string;
   style?: Style;
+  'aria-label': string;
 }
 
 export interface Style {
@@ -525,6 +526,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={value}
+        aria-label={this.props['aria-label']}
       >
         <div className={pStyle.inner} style={this.getInnerDims()}>
           <div

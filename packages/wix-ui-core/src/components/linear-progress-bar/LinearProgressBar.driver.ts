@@ -40,6 +40,8 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getAriaValueMin(): number;
   /** Returns role html attribute */
   getRoleAttribute(): string;
+  /** Returns aria-valuetext prop */
+  getAriaValueText(): string;
 }
 
 export const linearProgressBarDriverFactory: DriverFactory<
@@ -88,6 +90,7 @@ export const linearProgressBarDriverFactory: DriverFactory<
     getAriaValueMin: () =>
       getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
     getRoleAttribute: () => getDataAttribute('role'),
+    getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
   };
 
   return driver;

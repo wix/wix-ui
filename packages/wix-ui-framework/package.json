@@ -4,7 +4,7 @@
   "bin": {
     "wuf": "./bin/wuf.js"
   },
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"

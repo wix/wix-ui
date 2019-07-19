@@ -6,6 +6,7 @@ import {
   createResponsiveLayoutTemplate,
 } from './page-strip-layout';
 import style from './Pagination.st.css';
+import { PaginationDataHooks } from './DataHooks';
 
 export interface PageStripProps {
   id?: string;
@@ -77,7 +78,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     return (
       <div
         ref={el => (this.rootNode = el)}
-        data-hook="page-strip"
+        data-hook={PaginationDataHooks.pageStrip}
         id={this.props.id ? this.props.id + 'pageStrip' : null}
         className={style.pageStrip}
         data-aid="qa-page-strip"
@@ -130,7 +131,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         return (
           <span
             key={pageNumber + '-' + index}
-            data-hook={`page-${pageNumber} current-page`}
+            data-hook={`${PaginationDataHooks.page}-${pageNumber} ${PaginationDataHooks.currentPage}`}
             aria-label={`Page ${pageNumber}`}
             className={style.currentPage}
           >
@@ -150,7 +151,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
       return (
         <a
           key={pageNumber + '-' + index}
-          data-hook={`page-${pageNumber}`}
+          data-hook={`${PaginationDataHooks.page}-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
           className={style.pageButton}
           tabIndex={disabled || pageUrl ? null : 0}

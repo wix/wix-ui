@@ -24,4 +24,5 @@ export enum ProgressBarAriaKeys {
   valuenow = 'aria-valuenow',
   valuemax = 'aria-valuemax',
   valuemin = 'aria-valuemin',
+  valuetext = 'aria-valuetext',
 }

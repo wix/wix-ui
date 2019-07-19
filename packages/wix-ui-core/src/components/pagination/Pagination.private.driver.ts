@@ -1,35 +1,45 @@
 import { Simulate } from 'react-dom/test-utils';
 import { queryHook } from 'wix-ui-test-utils/dom';
 
+import { PaginationDataHooks } from './DataHooks';
+
 export class PaginationDriver {
   constructor(public root: HTMLElement) {}
 
   get previousButton() {
-    return queryHook(this.root, 'previous');
+    return queryHook(this.root, PaginationDataHooks.previous);
   }
 
   get nextButton() {
-    return queryHook(this.root, 'next');
+    return queryHook(this.root, PaginationDataHooks.next);
   }
 
   get firstButton() {
-    return queryHook(this.root, 'first');
+    return queryHook(this.root, PaginationDataHooks.first);
   }
 
   get lastButton() {
-    return queryHook(this.root, 'last');
+    return queryHook(this.root, PaginationDataHooks.last);
   }
 
   get input(): HTMLInputElement {
-    return queryHook(this.root, 'page-input');
+    return queryHook(this.root, PaginationDataHooks.pageInput);
   }
 
   get totalPagesLabel() {
-    return queryHook(this.root, 'total-pages');
+    return queryHook(this.root, PaginationDataHooks.totalPages);
+  }
+
+  get slashLabel() {
+    return queryHook(this.root, PaginationDataHooks.slashLabel);
   }
 
   get pageStrip() {
-    return queryHook(this.root, 'page-strip');
+    return queryHook(this.root, PaginationDataHooks.pageStrip);
+  }
+
+  get pageCompact() {
+    return queryHook(this.root, PaginationDataHooks.pageCompact);
   }
 
   get pages() {
@@ -41,11 +51,11 @@ export class PaginationDriver {
   }
 
   get currentPage() {
-    return queryHook(this.root, 'current-page');
+    return queryHook(this.root, PaginationDataHooks.currentPage);
   }
 
   getPage(n) {
-    return queryHook(this.root, `page-${n}`);
+    return queryHook(this.root, `${PaginationDataHooks.page}-${n}`);
   }
 
   changeInput(value) {
