@@ -3,7 +3,7 @@ import {
   ComponentFactory,
   DriverFactory,
 } from 'wix-ui-test-utils/driver-factory';
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './LinearProgressBar.st.css';
 import {
   ProgressBarDataHooks,
@@ -42,11 +42,13 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getRoleAttribute(): string;
   /** Returns aria-valuetext prop */
   getAriaValueText(): string;
+  /** Returns aria-live prop */
+  getAriaLive(): string;
 }
 
 export const linearProgressBarDriverFactory: DriverFactory<
   LinearProgressBarDriver
-> = ({element}: ComponentFactory) => {
+> = ({ element }: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook =>
@@ -55,7 +57,7 @@ export const linearProgressBarDriverFactory: DriverFactory<
     !element
       ? null
       : getElement(ProgressBarDataHooks.progressPercentage).querySelector(
-          'span'
+          'span',
         ).innerHTML;
   const getDataAttribute = (key: string, parsingFunction?: Function) => {
     if (!element || !element.getAttribute(key)) {
@@ -91,6 +93,7 @@ export const linearProgressBarDriverFactory: DriverFactory<
       getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
     getRoleAttribute: () => getDataAttribute('role'),
     getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
+    getAriaLive: () => getDataAttribute(ProgressBarAriaKeys.live),
   };
 
   return driver;

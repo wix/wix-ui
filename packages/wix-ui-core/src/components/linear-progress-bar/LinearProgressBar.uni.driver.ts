@@ -2,9 +2,9 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver, StylableUnidriverUtil} from 'wix-ui-test-utils/unidriver';
+import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import styles from './LinearProgressBar.st.css';
-import {ReactBase} from '../../../test/utils/unidriver/ReactBase';
+import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
 import {
   ProgressBarDataHooks,
   ProgressBarDataKeys,
@@ -42,10 +42,12 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
   getRoleAttribute(): Promise<string>;
   /** Returns aria-valuetext prop */
   getAriaValueText(): Promise<string>;
+  /** Returns aria-live prop */
+  getAriaLive(): Promise<string>;
 }
 
 export const linearProgressBarUniDriverFactory = (
-  base: UniDriver
+  base: UniDriver,
 ): LinearProgressBarUniDriver => {
   const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
@@ -97,6 +99,7 @@ export const linearProgressBarUniDriverFactory = (
     getAriaValueMin: () =>
       getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
     getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
+    getAriaLive: () => getDataAttribute(ProgressBarAriaKeys.live),
     getRoleAttribute: () => getDataAttribute('role'),
   };
 };

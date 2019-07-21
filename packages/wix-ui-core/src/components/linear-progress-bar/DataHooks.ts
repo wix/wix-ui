@@ -25,4 +25,5 @@ export enum ProgressBarAriaKeys {
   valuemax = 'aria-valuemax',
   valuemin = 'aria-valuemin',
   valuetext = 'aria-valuetext',
+  live = 'aria-live',
 }
