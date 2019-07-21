@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../src/components/signature-input/SignatureInput.st.css";
+  -st-from: "../SignatureInput.st.css";
   -st-default: SignatureInput;
 }
 

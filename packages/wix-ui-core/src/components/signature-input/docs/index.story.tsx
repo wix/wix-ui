@@ -7,7 +7,7 @@ export default {
   name: 'SignatureInput',
   storyName: 'SignatureInput',
   component: SignatureInput,
-  componentPath: '../../src/components/signature-input',
+  componentPath: '../',
 
   componentProps: setState => ({
     ...style('root'),

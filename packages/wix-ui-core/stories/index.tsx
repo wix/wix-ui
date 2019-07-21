@@ -16,6 +16,7 @@ import {SignatureInputTestFixture} from '../src/components/signature-input/test/
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
+import {COMPONENT_METADATA as SignatureInputMetaData} from '../src/components/signature-input/constants';
 
 const Components = storiesOf('Components', module);
 const Backoffice = storiesOf('Backoffice', module);
@@ -71,5 +72,7 @@ Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
 Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
-Tests.add('SignatureInput', () => <SignatureInputTestFixture />);
+Tests.add(SignatureInputMetaData.displayName, () => (
+  <SignatureInputTestFixture />
+));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';
