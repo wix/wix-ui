@@ -46,10 +46,19 @@ export const linearProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator
 export { LinearProgressBarUniDriver };
 
 import {
-    CircularProgressBarUniDriver,
-    circularProgressBarUniDriverFactory,
+  CircularProgressBarUniDriver,
+  circularProgressBarUniDriverFactory,
 } from '../components/circular-progress-bar/CircularProgressBar.uni.driver';
 export const circularProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreator<
-    CircularProgressBarUniDriver
-    >(circularProgressBarUniDriverFactory);
+  CircularProgressBarUniDriver
+>(circularProgressBarUniDriverFactory);
 export { CircularProgressBarUniDriver };
+
+import {
+  LabelDriver,
+  labelUniDriverFactory,
+} from '../components/deprecated/label/Label.uni.driver';
+export const labelTestkitFactory = puppeteerUniTestkitFactoryCreator<
+  LabelDriver
+>(labelUniDriverFactory);
+export { LabelDriver };
