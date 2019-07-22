@@ -7,7 +7,7 @@ import {
 } from './DataHooks';
 
 export interface LinearProgressBarProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends Partial<React.HTMLAttributes<HTMLDivElement>> {
   /** represent the progress state in percentages (min || 0 - no progress, max || 100 - progress completed) */
   value?: number | string;
   /** should be true if had failure during the progress */
@@ -120,23 +120,33 @@ export const LinearProgressBar: React.FunctionComponent<
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
-    <div
-      {...getDataAttributes(_props)}
-      {...getAriaAttributes(_props)}
-      data-min={_props.min}
-      role="progressbar"
-      {...style('root', { error, success }, _props)}
-    >
-      {renderBarSection(_props.value)}
-
-      {showProgressIndication && (
-        <div
-          data-hook={ProgressBarDataHooks.progressIndicator}
-          className={style.progressIndicationSection}
-        >
-          {resolveIndicationElement(_props)}
-        </div>
-      )}
+    <div>
+      <div
+        {...getDataAttributes(_props)}
+        {...getAriaAttributes(_props)}
+        data-min={_props.min}
+        role="progressbar"
+        {...style('root', { error, success }, _props)}
+      >
+        {renderBarSection(_props.value)}
+        {showProgressIndication && (
+          <div
+            data-hook={ProgressBarDataHooks.progressIndicator}
+            className={style.progressIndicationSection}
+          >
+            {resolveIndicationElement(_props)}
+          </div>
+        )}
+      </div>
+      {/* <output
+        id="progressLive"
+        aria-atomic="true"
+        {...getAriaAttributes(_props)}
+      >
+        <span>{props[ProgressBarAriaKeys.valuetext]}</span>
+        <span>{_props.value}</span>
+        <span>Percent</span>
+      </output> */}
     </div>
   );
 };
@@ -146,5 +156,5 @@ LinearProgressBar.displayName = 'LinearProgressBar';
 LinearProgressBar.defaultProps = {
   min: NO_PROGRESS,
   max: FULL_PROGRESS,
-  [ProgressBarAriaKeys.live]: 'off',
+  [ProgressBarAriaKeys.live]: null,
 };
