@@ -218,14 +218,14 @@ describe('ProgressBar', () => {
     });
 
     describe('Accessability props', () => {
-      it('should aria-valuenow based on value prop', async () => {
+      it('should set aria-valuenow based on value prop', async () => {
         const value = 56;
         const driver = createDriver(
           <LinearProgressBar {...{ ...defaultProps, value }} />,
         );
         expect(await driver.getAriaValueNow()).toBe(value);
       });
-      it('should aria-valuenow based on value prop (not relative to range)', async () => {
+      it('should set aria-valuenow based on value prop (not relative to range)', async () => {
         const value = 56;
         const max = 560;
         const driver = createDriver(
@@ -233,14 +233,14 @@ describe('ProgressBar', () => {
         );
         expect(await driver.getAriaValueNow()).toBe(value);
       });
-      it('should aria-valuemax based on max prop', async () => {
+      it('should set aria-valuemax based on max prop', async () => {
         const max = 56;
         const driver = createDriver(
           <LinearProgressBar {...{ ...defaultProps, max }} />,
         );
         expect(await driver.getAriaValueMax()).toBe(max);
       });
-      it('should aria-valuemin based on min prop', async () => {
+      it('should set aria-valuemin based on min prop', async () => {
         const min = 56;
         const driver = createDriver(
           <LinearProgressBar {...{ ...defaultProps, min }} />,
