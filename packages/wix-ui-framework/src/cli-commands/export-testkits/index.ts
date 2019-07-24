@@ -87,7 +87,7 @@ const ejsSource = ({ source, definitions, components }) => {
     toKebab: kebabCase,
     toSnake: snakeCase,
     toPascal: (s: string) => {
-      const camel = camelCase(s);
+      const camel: string = camelCase(s);
       return camel[0].toUpperCase() + camel.substring(1);
     },
   };
