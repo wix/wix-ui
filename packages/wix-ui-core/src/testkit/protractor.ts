@@ -238,3 +238,12 @@ export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator
   filePickerButtonUniDriverFactory,
 );
 export { FilePickerButtonUniDriver };
+
+import {
+  signaturePadUniDriverFactory,
+  SignatureInputDriver,
+} from '../components/signature-input/SignatureInput.uni.driver';
+export const signatureInputTestkitFactory = protractorUniTestkitFactoryCreator(
+  signaturePadUniDriverFactory,
+);
+export { SignatureInputDriver };

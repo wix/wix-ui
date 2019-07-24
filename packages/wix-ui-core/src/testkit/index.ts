@@ -131,12 +131,20 @@ export const linearProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
 >(linearProgressBarUniDriverFactory);
 export { LinearProgressBarUniDriver };
 
-
 import {
-    CircularProgressBarUniDriver,
-    circularProgressBarUniDriverFactory,
+  CircularProgressBarUniDriver,
+  circularProgressBarUniDriverFactory,
 } from '../components/circular-progress-bar/CircularProgressBar.uni.driver';
 export const circularProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
-    CircularProgressBarUniDriver
-    >(circularProgressBarUniDriverFactory);
+  CircularProgressBarUniDriver
+>(circularProgressBarUniDriverFactory);
 export { CircularProgressBarUniDriver };
+
+import {
+  signaturePadUniDriverFactory,
+  SignatureInputDriver,
+} from '../components/signature-input/SignatureInput.uni.driver';
+export const signatureInputTestkitFactory = uniTestkitFactoryCreator(
+  signaturePadUniDriverFactory,
+);
+export { SignatureInputDriver };
