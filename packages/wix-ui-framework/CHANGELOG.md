@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.2.0 - 2019-07-24
+## Added
+- `wuf exports-testkits` - support `toCamel`, `toKebab`, `toSnake`, `toPascal` utils in template
+
 # 3.1.1 - 2019-07-16
 ## Added
 - `wuf export-testkits` - add `tslint:disable` before warning banner
