@@ -104,7 +104,7 @@ const getAriaAttributes = (
   [key in ProgressBarAriaKeys]: React.HTMLAttributes<HTMLDivElement>[key];
 } => {
   return {
-    [ProgressBarAriaKeys.valuenow]: +props.value,
+    [ProgressBarAriaKeys.valuenow]: +props.value || NO_PROGRESS,
     [ProgressBarAriaKeys.valuemin]: +props.min,
     [ProgressBarAriaKeys.valuemax]: +props.max,
     [ProgressBarAriaKeys.valuetext]: props[ProgressBarAriaKeys.valuetext],
