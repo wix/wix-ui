@@ -1,6 +1,6 @@
 export const basic = `
 <div style={{ display: 'flex', justifyContent: 'center'}}>
-  <Tooltip maxWidth={100} upgrade appendTo="window" content="http://localhost:6006/?selectedKind=Components&selectedStory=BadgeSelect&full=0&addons=0&stories=1&panelRight=0">
+  <Tooltip upgrade appendTo="window" content="Enter your postal code, so postman can easier send you a mail.">
     Hover me
   </Tooltip>
 </div>
