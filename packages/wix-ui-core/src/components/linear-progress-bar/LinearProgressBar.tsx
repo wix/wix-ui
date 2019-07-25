@@ -43,12 +43,12 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
 
   return wrapped(
     ProgressBarDataHooks.progressPercentage,
-    <span>{`${props.value}%`}</span>
+    <span>{`${props.value}%`}</span>,
   );
 };
 
 const renderBarSection = (value: number | string) => {
-  const progressWidth = {width: `${value}%`};
+  const progressWidth = { width: `${value}%` };
   return (
     <div
       data-hook={ProgressBarDataHooks.container}
@@ -68,29 +68,29 @@ const renderBarSection = (value: number | string) => {
 };
 
 const getRelativeValue = (props: LinearProgressBarProps): number => {
-  const {value, min, max} = props;
+  const { value, min, max } = props;
   const relativeValue = ((+value - min) / (max - min)) * 100;
   return parseInt(relativeValue as any, 10);
 };
 
 const normalizeProps = (props: LinearProgressBarProps) => {
   if (props.value >= props.max) {
-    return {...props, value: FULL_PROGRESS};
+    return { ...props, value: FULL_PROGRESS };
   }
 
   if (
     props.value < props.min ||
     [undefined, null, ''].includes(props.value as string)
   ) {
-    return {...props, value: NO_PROGRESS};
+    return { ...props, value: NO_PROGRESS };
   }
 
-  return {...props, value: getRelativeValue(props)};
+  return { ...props, value: getRelativeValue(props) };
 };
 
 const getDataAttributes = (
-  props: LinearProgressBarProps
-): {[key in ProgressBarDataKeys]: number | string} => {
+  props: LinearProgressBarProps,
+): { [key in ProgressBarDataKeys]: number | string } => {
   return {
     [ProgressBarDataKeys.value]: props.value,
     [ProgressBarDataKeys.min]: props.min,
@@ -99,12 +99,12 @@ const getDataAttributes = (
 };
 
 const getAriaAttributes = (
-  props: LinearProgressBarProps
+  props: LinearProgressBarProps,
 ): {
-  [key in ProgressBarAriaKeys]: React.HTMLAttributes<HTMLDivElement>[key]
+  [key in ProgressBarAriaKeys]: React.HTMLAttributes<HTMLDivElement>[key];
 } => {
   return {
-    [ProgressBarAriaKeys.valuenow]: +props.value,
+    [ProgressBarAriaKeys.valuenow]: +props.value || NO_PROGRESS,
     [ProgressBarAriaKeys.valuemin]: +props.min,
     [ProgressBarAriaKeys.valuemax]: +props.max,
     [ProgressBarAriaKeys.valuetext]: props[ProgressBarAriaKeys.valuetext],
@@ -114,16 +114,16 @@ const getAriaAttributes = (
 export const LinearProgressBar: React.FunctionComponent<
   LinearProgressBarProps
 > = (props: LinearProgressBarProps) => {
-  const {error, showProgressIndication} = props;
+  const { error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
     <div
       {...getDataAttributes(_props)}
-      {...getAriaAttributes(_props)}
+      {...getAriaAttributes(props)}
       data-min={_props.min}
       role="progressbar"
-      {...style('root', {error, success}, _props)}
+      {...style('root', { error, success }, _props)}
     >
       {renderBarSection(_props.value)}
 
