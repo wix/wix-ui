@@ -93,6 +93,7 @@
     "@types/react-dom": "^16.0.5",
     "@types/react-onclickoutside": "^6.7.1",
     "@types/react-transition-group": "^2.0.6",
+    "@types/storybook__react": "^4.0.2",
     "@ui-autotools/a11y": "^2.4.0",
     "@ui-autotools/registry": "^4.0.0",
     "@ui-autotools/sanity": "^2.5.0",
