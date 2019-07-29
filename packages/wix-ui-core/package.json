@@ -51,7 +51,7 @@
     "start": "run-p yoshi-start storybook-start",
     "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
-    "import-path": "node scripts/import-path.js && node scripts/create-drivers-export.js",
+    "import-path": "node scripts/import-path.js",
     "build:named-exports": "node scripts/create-named-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins && babel src/mixins -d dist/es/src/mixins",
     "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
