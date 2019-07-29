@@ -24,7 +24,7 @@
   /*popper sets tooltip in absolute position according to this container*/
   position: relative;
   /*popper adds an extra div that needs to be measured without stretching*/
-  display: inline-block;
+  display: inline-flex;
 }
 
 .popoverAnimation {}
