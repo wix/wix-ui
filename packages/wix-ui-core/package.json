@@ -35,6 +35,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
+    "prebuild": "npm run update-components",
     "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
@@ -57,7 +58,8 @@
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "build-standalone": "node scripts/build-standalone.js",
-    "test:browser": "wix-ui-mocha-runner"
+    "test:browser": "wix-ui-mocha-runner",
+    "update-components": ".wuf/update-components.sh"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",
@@ -117,6 +119,7 @@
     "wait-for-cond": "^1.5.1",
     "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^3.0.7",
+    "wix-ui-framework": "^3.2.0",
     "wix-ui-icons-common": "^2.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^3.28.0",
