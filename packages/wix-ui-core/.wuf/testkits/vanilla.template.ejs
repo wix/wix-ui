@@ -1,0 +1,17 @@
+module.exports = {
+<%
+  components
+  .filter(component => !component.noDriver)
+  .map(component => {
+    const driverPath = component.driverPath ||
+      [
+        './../dist/src/components/',
+        ...(component.deprecated ? ['deprecated/'] : []),
+        utils.toKebab(component.name),
+        '/',
+        component.pascalCase ? utils.toPascal(component.name) : component.name,
+        '.driver'
+      ].join('');
+%>  ...require("<%= driverPath %>"),
+<% }) %>
+};
