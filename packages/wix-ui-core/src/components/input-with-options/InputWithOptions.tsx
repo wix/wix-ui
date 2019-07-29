@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './InputWithOptions.st.css';
-import { Dropdown } from '../dropdown';
+import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
 import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
@@ -9,7 +9,8 @@ import { Input, InputProps } from '../input';
 export type InputWithOptionsProps = Pick<
   PopoverProps,
   'fixed' | 'flip' | 'moveBy'
-> & {
+> &
+  Pick<DropdownProps, 'onContentMouseDown'> & {
   /** The location to display the content */
   placement?: Placement;
   /** The dropdown options array */
@@ -158,6 +159,12 @@ export class InputWithOptions extends React.PureComponent<
     onBlur && onBlur(event);
   };
 
+  _onContentMouseDown = () => {
+    const { onContentMouseDown } = this.props;
+    this.isEditing = false;
+    onContentMouseDown && onContentMouseDown();
+  };
+
   render() {
     const {
       placement,
@@ -203,6 +210,7 @@ export class InputWithOptions extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
+        onContentMouseDown={this._onContentMouseDown}
       >
         <Input
           data-hook="input"

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
-import { backofficeTheme } from '../../../../../src/themes/backoffice';
 import { iconButton } from '../../../../../src/themes/backoffice';
 import More from 'wix-ui-icons-common/More';
 
@@ -19,12 +18,15 @@ export default () => (
     <ButtonNext className={iconButton("light", "secondary")}>
       <More width="24" height="24"/>
     </ButtonNext>
+    <ButtonNext className={iconButton("transparent", "secondary")}>
+      <More width="24" height="24"/>
+    </ButtonNext>
   </React.Fragment>
 );`;
 
 const secondaryDescription = (
   <div>
-    Secondary skins <code>standard</code> and <code>light</code>
+    Secondary skins <code>standard</code> , <code>light</code> and <code>transparent</code>.
   </div>
 );
 
@@ -51,6 +53,16 @@ export const IconButtonSecondary = ({ style }: IconButtonSecondaryProps) => (
       <ButtonNext className={iconButton('light', 'secondary')}>
         <More width="24" height="24" />
       </ButtonNext>
+    </div>
+      <div
+          style={{
+              background: '#3899ec',
+              padding: '2px'
+          }}
+      >
+        <ButtonNext className={iconButton("transparent", "secondary")}>
+           <More width="24" height="24"/>
+        </ButtonNext>
     </div>
   </CodeShowcase>
 );

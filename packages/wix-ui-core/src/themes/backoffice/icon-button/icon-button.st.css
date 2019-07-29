@@ -6,7 +6,7 @@
 
 :import {
   -st-from: '../colors.st.css';
-  -st-named: B10, D55, D80, B20, B50, B40, F00;
+  -st-named: B10, D55, D80, B20, B50, B40, F00, D10-20, D20-48, D20-54, D20-60, D80-70, P10, P20;
 }
 
 .iconButton {
@@ -186,6 +186,109 @@
 }
 
 .iconButton:disabled.light.secondary {
+  border-color: value(D55);
+  color: value(D55);
+  background-color: transparent;
+}
+
+/* skin Transparent */
+
+.iconButton.transparent {
+  border-color: transparent;
+  background-color: value(D20-48);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent:hover {
+  border-color: transparent;
+  background-color: value(D20-54);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent:active {
+  border-color: transparent;
+  background-color: value(D20-60);
+  color: value(D80);
+}
+
+.iconButton:disabled.transparent {
+  background-color: value(D10-20);
+  border-color: transparent;
+  color: value(D80-70);
+}
+
+/* skin Transparent secondary */
+
+.iconButton.transparent.secondary {
+    border-color: transparent;
+    background-color: transparent;
+    color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent.secondary:hover {
+    border-color: transparent;
+    background-color: value(D20-54);
+    color: value(D80);
+}
+
+.iconButton:not(:disabled).transparent.secondary:active {
+    border-color: transparent;
+    background-color: value(D20-60);
+    color: value(D80);
+}
+
+.iconButton:disabled.transparent.secondary {
+    background-color: transparent;
+    border-color: transparent;
+    color: value(D80-70);
+}
+
+/* skin Premium */
+
+.iconButton.premium {
+  border: none;
+  background-color: value(P10);
+  color: value(D80);
+}
+
+.iconButton:not(:disabled).premium:hover {
+  background-color: value(P20);
+  color: value(D80);
+  border-color: value(P20);
+}
+
+.iconButton:not(:disabled).premium:active {
+  background-color: value(P10);
+  color: value(D80);
+}
+
+.iconButton:disabled.premium {
+  background-color: value(D55);
+  border-color: value(D55);
+  color: value(D80);
+}
+
+/* skin Premium secondary */
+
+.iconButton.premium.secondary {
+  border: solid 1px value(P10);
+  background: transparent;
+  color: value(P10);
+}
+
+.iconButton:not(:disabled).premium.secondary:hover {
+  background-color: value(P20);
+  color: value(D80);
+  border-color: value(P20);
+}
+
+.iconButton:not(:disabled).premium.secondary:active {
+  background-color: value(P10);
+  border: solid 1px value(P10);
+  color: value(D80);
+}
+
+.iconButton:disabled.premium.secondary {
   border-color: value(D55);
   color: value(D55);
   background-color: transparent;

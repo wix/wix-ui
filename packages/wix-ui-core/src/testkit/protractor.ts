@@ -50,6 +50,15 @@ export const inputTestkitFactory = protractorTestkitFactoryCreator(
 export { InputDriver };
 
 import {
+  inputWithOptionsDriverFactory,
+  InputWithOptionsDriver,
+} from '../components/input-with-options/InputWithOptions.protractor.driver';
+export const inputWithOptionsTestkitFactory = protractorTestkitFactoryCreator(
+  inputWithOptionsDriverFactory,
+);
+export { InputWithOptionsDriver };
+
+import {
   paginationDriverFactory,
   PaginationDriver,
 } from '../components/pagination/Pagination.protractor.driver';
@@ -229,3 +238,12 @@ export const filePickerButtonTestkitFactory = protractorUniTestkitFactoryCreator
   filePickerButtonUniDriverFactory,
 );
 export { FilePickerButtonUniDriver };
+
+import {
+  signaturePadUniDriverFactory,
+  SignatureInputDriver,
+} from '../components/signature-input/SignatureInput.uni.driver';
+export const signatureInputTestkitFactory = protractorUniTestkitFactoryCreator(
+  signaturePadUniDriverFactory,
+);
+export { SignatureInputDriver };

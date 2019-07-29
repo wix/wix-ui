@@ -46,6 +46,12 @@ export interface TooltipProps {
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
   /** unique identifier to map target element and content element for screen readers */
   'aria-describedby'?: string;
+  /** Tooltip's content zindex */
+  zIndex?: number;
+  /** content element minWidth value */
+  minWidth?: number;
+  /** content element maxWidth value */
+  maxWidth?: number;
 }
 
 export interface TooltipState {
@@ -132,6 +138,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       showDelay,
       disabled,
       customArrow,
+      zIndex,
+      minWidth,
+      maxWidth,
       'aria-describedby': ariaDescribedBy,
     } = this.props;
 
@@ -158,6 +167,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         customArrow={customArrow}
         id={ariaDescribedBy}
         role="tooltip"
+        zIndex={zIndex}
+        minWidth={minWidth}
+        maxWidth={maxWidth}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
         <Popover.Content>{content}</Popover.Content>

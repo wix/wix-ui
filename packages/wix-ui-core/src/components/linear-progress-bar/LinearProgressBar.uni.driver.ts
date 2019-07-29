@@ -5,7 +5,11 @@ import {
 import {UniDriver, StylableUnidriverUtil} from 'wix-ui-test-utils/unidriver';
 import styles from './LinearProgressBar.st.css';
 import {ReactBase} from '../../../test/utils/unidriver/ReactBase';
-import {ProgressBarDataHooks, ProgressBarDataKeys} from './DataHooks';
+import {
+  ProgressBarDataHooks,
+  ProgressBarDataKeys,
+  ProgressBarAriaKeys,
+} from './DataHooks';
 
 export interface LinearProgressBarUniDriver extends BaseUniDriver {
   /** Get the width of the foreground bar (the progress) */
@@ -28,6 +32,16 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
   getMinValue(): Promise<number>;
   /** Returns max value prop */
   getMaxValue(): Promise<number>;
+  /** Returns aria-valuenow prop */
+  getAriaValueNow(): Promise<number>;
+  /** Returns aria-valuemin prop */
+  getAriaValueMin(): Promise<number>;
+  /** Returns aria-valuemax prop */
+  getAriaValueMax(): Promise<number>;
+  /** Returns role html attribute */
+  getRoleAttribute(): Promise<string>;
+  /** Returns aria-valuetext prop */
+  getAriaValueText(): Promise<string>;
 }
 
 export const linearProgressBarUniDriverFactory = (
@@ -76,5 +90,13 @@ export const linearProgressBarUniDriverFactory = (
     hasError: () => stylableUnidriverUtil.hasStyleState(base, 'error'),
     getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
     getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
+    getAriaValueNow: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuenow, Number),
+    getAriaValueMax: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
+    getAriaValueMin: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
+    getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
+    getRoleAttribute: () => getDataAttribute('role'),
   };
 };

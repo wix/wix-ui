@@ -26,6 +26,8 @@ wuf export-testkits --help
 wuf update --help
 ```
 
+see [docs/usage.md](docs/usage.md) for more details.
+
 ## `wuf`
 
 ```md

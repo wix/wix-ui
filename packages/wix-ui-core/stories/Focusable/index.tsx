@@ -6,12 +6,15 @@ import CodeExample from 'wix-storybook-utils/CodeExample';
 import ExampleFocusableButton from './ExampleFocusableButton';
 import * as ExampleFocusableButtonRaw from '!raw-loader!./ExampleFocusableButton';
 
-const Example: React.SFC = () => (
+const Example = () => (
   <div>
-    <Markdown source={Readme}/>
+    <Markdown source={Readme} />
 
-    <CodeExample title="Focusable Input Example" code={ExampleFocusableButtonRaw}>
-      <ExampleFocusableButton/>
+    <CodeExample
+      title="Focusable Input Example"
+      code={ExampleFocusableButtonRaw}
+    >
+      <ExampleFocusableButton />
     </CodeExample>
   </div>
 );

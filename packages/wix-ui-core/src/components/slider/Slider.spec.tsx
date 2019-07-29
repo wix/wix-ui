@@ -549,6 +549,12 @@ describe('Slider', () => {
       const driver = render();
       expect(driver.ariaValueNow()).toEqual(driver.value().toString());
     });
+
+    it('should pass aria-label prop onto root element', async () => {
+      const ariaLabel = 'slider-test';
+      const driver = render({'aria-label': ariaLabel});
+      expect(driver.ariaLabel()).toEqual(ariaLabel);
+    });
   });
 
   function floorValue(value, precision = 1) {

@@ -15,8 +15,21 @@
   D60: #DFE5EB; /* Dividers, Disabled - Borders */
   D70: #F0F4F7; /* Page Background, Disabled - Background */
   D80: #FFFFFF; /* Content box background */
-  D80-30: hexToRgb(value(D80), 0.3); /* new disabled color. opacity- 30% */
-  D80-70: hexToRgb(value(D80), 0.7); /* new disabled color. opacity- 70% */
+
+
+  /* With Opacity */
+  D10-05: hexToRgb(value(D10), 0.05);
+  D10-10: hexToRgb(value(D10), 0.1);
+  D10-20: hexToRgb(value(D10), 0.2);
+  D10-30: hexToRgb(value(D10), 0.3);
+
+  D20-48: hexToRgb(value(D20), 0.48); /*  new transparent color */
+  D20-54: hexToRgb(value(D20), 0.54); /* hovered */
+  D20-60: hexToRgb(value(D20), 0.6); /*  clicked */
+
+  D80-30: hexToRgb(value(D80), 0.3);
+  D80-70: hexToRgb(value(D80), 0.7);
+
 
   /* BLUE - Brand */
   B00: #2B81CB; /* Button Focus */
@@ -29,6 +42,11 @@
   B40: #DAEFFE;
   B50: #EAF7FF;
   B60: #F4FAFE;
+
+  /* With Opacity */
+  B00-24: hexToRgb(value(B00), 0.24);
+  B00-42: hexToRgb(value(B00), 0.42);
+
 
   /* PURPLE - Premium */
   P00: #8E21B1;

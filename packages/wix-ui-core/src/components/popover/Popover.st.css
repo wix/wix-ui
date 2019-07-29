@@ -55,7 +55,6 @@
 }
 
 .popover {
-  z-index: 1000;
 }
 
 /* TODO: use a stylable state for this. Notice it would break consumers styles */

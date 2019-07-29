@@ -1,0 +1,21 @@
+<% components.map(component => {
+  const camelName = utils.toCamel(component.name);
+  const driverFactory = camelName + "DriverFactory";
+  const driverType = component.name + "Driver";
+  const driverPath = component.testkitPath || [
+    "../components",
+    component.name,
+    component.name + ".protractor.driver",
+  ].join("\\/");
+
+  const testkitName = camelName + "TestkitFactory";
+  const factoryName = component.unidriver ? "protractorUniTestkitFactoryCreator" : "protractorTestkitFactoryCreator"
+%>
+import {
+  <%= driverFactory %>,
+  <%= driverType %>
+} from "<%= driverPath %>";
+export const <%= testkitName %> = <%= factoryName %><
+  <%= driverType %>
+>(<%= driverFactory %>)
+<% }) %>

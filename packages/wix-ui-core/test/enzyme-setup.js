@@ -1,4 +1,13 @@
 const Enzyme = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
+
+// signature_pad library type declaration contains export = SignaturePad
+// which is invalid in jest (as a default import) unless we use esModuleInterop
+// flag in tsconfig
+jest.mock('signature_pad', () => ({
+  default: function FakeSignaturePad() {
+    this.clear = jest.fn();
+  }
+}));

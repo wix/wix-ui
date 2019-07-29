@@ -1,6 +1,6 @@
 export const basic = `
 <div style={{ display: 'flex', justifyContent: 'center'}}>
-  <Tooltip upgrade appendTo="window" content="Enter your postal code, so postman can easier send you a mail.">
+  <Tooltip maxWidth={100} upgrade appendTo="window" content="https://github.com/wix/wix-ui/commits/master/docs/icons.md">
     Hover me
   </Tooltip>
 </div>

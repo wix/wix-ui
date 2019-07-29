@@ -4,7 +4,7 @@
   "bin": {
     "wuf": "./bin/wuf.js"
   },
-  "version": "2.4.1",
+  "version": "3.2.0",
   "author": {
     "name": "Wix",
     "email": "fed-infra@wix.com"
@@ -29,7 +29,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "yoshi lint",
-    "postlint": "node make-readme.js",
+    "postlint": "node docs/make-readme.js > README.md",
     "start": "tsc --watch",
     "wuf": "./bin/wuf.js"
   },
@@ -39,8 +39,9 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "deep-diff": "^1.0.2",
+    "ejs": "^2.6.2",
     "jscodeshift": "^0.6.4",
+    "lodash": "^4.17.11",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
     "ora": "^3.4.0",

@@ -11,6 +11,32 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.2.0 - 2019-07-24
+## Added
+- `wuf exports-testkits` - support `toCamel`, `toKebab`, `toSnake`, `toPascal` utils in template
+
+# 3.1.1 - 2019-07-16
+## Added
+- `wuf export-testkits` - add `tslint:disable` before warning banner
+
+# 3.1.0 - 2019-07-09
+## Changed
+- `wuf export-testkits` - allow definitions file to have more entries than `components.json`
+- `wuf update` - no longer overwrite `components.json`, merge it with new data instead
+
+# 3.0.1 - 2019-07-05
+## Changed
+- `wuf export-testkits` - remove `factoryName`, `uniFactoryName`, `exportSuffix`, `exportCaseStyle` flags
+- `wuf export-testkits` - make `definitions` file not required
+
+# 3.0.0 - 2019-06-28
+## Changed
+- `wuf export-testkits` - support ejs template in `--template` file. Potentially breaking change
+
+# 2.5.0 - 2019-06-25
+## Added
+- `wuf update` - support glob patterns in `--shape` file
+
 # 2.4.1 - 2019-06-18
 ## Fixed
 - `wuf generate` - fix `codemods` flag to correctly resolve relative path

@@ -5,7 +5,11 @@ import {
 } from 'wix-ui-test-utils/driver-factory';
 import {StylableDOMUtil} from '@stylable/dom-test-kit';
 import style from './LinearProgressBar.st.css';
-import {ProgressBarDataHooks, ProgressBarDataKeys} from './DataHooks';
+import {
+  ProgressBarDataHooks,
+  ProgressBarDataKeys,
+  ProgressBarAriaKeys,
+} from './DataHooks';
 
 export interface LinearProgressBarDriver extends BaseDriver {
   /** Get the width of the foreground bar (the progress) */
@@ -28,6 +32,16 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getMinValue(): number;
   /** Returns max value prop */
   getMaxValue(): number;
+  /** Returns aria-valuenow prop */
+  getAriaValueNow(): number;
+  /** Returns aria-valuemax prop */
+  getAriaValueMax(): number;
+  /** Returns aria-valuemin prop */
+  getAriaValueMin(): number;
+  /** Returns role html attribute */
+  getRoleAttribute(): string;
+  /** Returns aria-valuetext prop */
+  getAriaValueText(): string;
 }
 
 export const linearProgressBarDriverFactory: DriverFactory<
@@ -69,6 +83,14 @@ export const linearProgressBarDriverFactory: DriverFactory<
     getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
     getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
     getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
+    getAriaValueNow: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuenow, Number),
+    getAriaValueMax: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemax, Number),
+    getAriaValueMin: () =>
+      getDataAttribute(ProgressBarAriaKeys.valuemin, Number),
+    getRoleAttribute: () => getDataAttribute('role'),
+    getAriaValueText: () => getDataAttribute(ProgressBarAriaKeys.valuetext),
   };
 
   return driver;

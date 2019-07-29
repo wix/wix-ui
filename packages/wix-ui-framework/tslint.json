@@ -37,6 +37,7 @@
       true,
       "single",
       "jsx-double"
-    ]
+    ],
+    "no-shadowed-variable": false
   }
 }

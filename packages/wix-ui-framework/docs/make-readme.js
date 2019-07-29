@@ -2,6 +2,7 @@
 
 const { execSync } = require('child_process');
 const fs = require('fs');
+const path = require('path');
 
 let allCommands = execSync('npm run wuf -- --help', { encoding: 'utf8' });
 allCommands = removeUntil({ string: allCommands, match: /^Commands/ });
@@ -27,13 +28,16 @@ const commandsDocs = allCommands
   })
   .map(({ name, doc }) => `## \`wuf ${name}\`\n \`\`\`md\n${doc}\`\`\``);
 
-const readmeTemplate = fs.readFileSync('README.template.md', 'utf8');
+const readmeTemplate = fs.readFileSync(
+  path.resolve(__dirname, 'README.template.md'),
+  'utf8',
+);
 const output = readmeTemplate.replace(
   /\$\{commands\}/,
   commandsDocs.join('\n---\n\n'),
 );
 
-fs.writeFileSync('README.md', output);
+process.stdout.write(output)
 
 function removeUntil({ string, match, inclusive = false }) {
   const lines = string.split('\n');

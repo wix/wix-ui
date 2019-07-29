@@ -12,7 +12,7 @@ import * as ExampleWithTooltipRaw from '!raw-loader!./ExampleWithTooltip';
 import ExampleNotEllipsed from './ExampleNotEllipsed';
 import * as ExampleNotEllipsedRaw from '!raw-loader!./ExampleNotEllipsed';
 
-const Example: React.SFC = () => (
+const Example = () => (
   <div>
     <Markdown source={Readme} />
 

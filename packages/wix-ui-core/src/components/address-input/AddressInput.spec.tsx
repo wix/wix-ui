@@ -970,6 +970,56 @@ describe('AddressInput', () => {
     });
   });
 
+  describe('forceSelect', () => {
+    it('Should select first option when input lost focus', async () => {
+      GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+      GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+      init({ forceSelect: true });
+      driver.click();
+      driver.setValue('n');
+      await waitForCond(() => driver.isContentElementExists());
+      driver.blur();
+
+      return eventually(
+        () => {
+          const firstCallArgument = onSelectSpy.mock.calls[0][0];
+          const { formatted_address } = firstCallArgument.googleResult;
+          expect(formatted_address).toBe('1 East Broadway, New York, NY, USA');
+          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
+            helper.API_KEY,
+            'en',
+            { placeId: helper.ADDRESS_1.place_id },
+          );
+        },
+        { interval: 5 },
+      );
+    });
+
+    it('Should NOT select first option when user selects option', async () => {
+      GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
+      GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
+      init({ forceSelect: true });
+      driver.click();
+      driver.setValue('n');
+      await waitForCond(() => driver.isContentElementExists());
+      driver.triggerMouseDownOnDropdownContent();
+      driver.blur();
+      driver.optionAt(1).click();
+
+      return eventually(
+        () => {
+          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(1);
+          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
+            helper.API_KEY,
+            'en',
+            { placeId: helper.ADDRESS_2.place_id },
+          );
+        },
+        { interval: 5 },
+      );
+    });
+  });
+
   describe('AddressInput integration tests', () => {
     class Wrapper extends React.Component<any, any> {
       constructor(props) {
