@@ -46,3 +46,9 @@ wuf export-testkits \
   --template .wuf/testkits/unidriver.template.ejs \
   --output drivers/unidriver.js
 
+# unidriver testkits typescript definitions
+wuf export-testkits \
+  --components .wuf/components.json \
+  --definitions .wuf/testkits/definitions.js \
+  --template .wuf/testkits/unidriver-typescript.template.ejs \
+  --output drivers/unidriver.d.ts
