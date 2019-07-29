@@ -1,0 +1,15 @@
+<%
+  components
+  .filter(component => !component.noProtractorDriver)
+  .map(component => {
+    const driverPath = component.protractorDriverPath ||
+      [
+        './../dist/src/components/',
+        ...(component.deprecated ? ['deprecated/'] : []),
+        utils.toKebab(component.name),
+        '/',
+        component.pascalCase ? utils.toPascal(component.name) : component.name,
+        '.protractor.driver'
+      ].join('');
+%>export * from "<%= driverPath %>";
+<% }) %>
