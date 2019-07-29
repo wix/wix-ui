@@ -15,3 +15,11 @@ wuf export-testkits \
   --template .wuf/testkits/vanilla.template.ejs \
   --output drivers/vanilla.js
 
+
+# protractor testkits
+wuf export-testkits \
+  --components .wuf/components.json \
+  --definitions .wuf/testkits/definitions.js \
+  --template .wuf/testkits/protractor.template.ejs \
+  --output drivers/protractor.js
+

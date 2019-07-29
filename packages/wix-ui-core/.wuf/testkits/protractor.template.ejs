@@ -1,16 +1,16 @@
 module.exports = {
 <%
   components
-  .filter(component => !component.noVanillaDriver)
+  .filter(component => !component.noProtractorDriver)
   .map(component => {
-    const driverPath = component.vanillaDriverPath ||
+    const driverPath = component.protractorDriverPath ||
       [
         './../dist/src/components/',
         ...(component.deprecated ? ['deprecated/'] : []),
         utils.toKebab(component.name),
         '/',
         component.pascalCase ? utils.toPascal(component.name) : component.name,
-        '.driver'
+        '.protractor.driver'
       ].join('');
 %>  ...require("<%= driverPath %>"),
 <% }) %>
