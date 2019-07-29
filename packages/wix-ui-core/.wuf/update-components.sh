@@ -8,12 +8,20 @@ wuf update \
   --exclude "deprecated" \
   --output .wuf/components.json
 
+
 # vanilla testkits
 wuf export-testkits \
   --components .wuf/components.json \
   --definitions .wuf/testkits/definitions.js \
   --template .wuf/testkits/vanilla.template.ejs \
   --output drivers/vanilla.js
+
+# vanilla testkits typescript definitions
+wuf export-testkits \
+  --components .wuf/components.json \
+  --definitions .wuf/testkits/definitions.js \
+  --template .wuf/testkits/vanilla-typescript.template.ejs \
+  --output drivers/vanilla.d.ts
 
 
 # protractor testkits
@@ -22,6 +30,13 @@ wuf export-testkits \
   --definitions .wuf/testkits/definitions.js \
   --template .wuf/testkits/protractor.template.ejs \
   --output drivers/protractor.js
+
+# protractor testkits typescript definitions
+wuf export-testkits \
+  --components .wuf/components.json \
+  --definitions .wuf/testkits/definitions.js \
+  --template .wuf/testkits/protractor-typescript.template.ejs \
+  --output drivers/protractor.d.ts
 
 
 # unidriver testkits
