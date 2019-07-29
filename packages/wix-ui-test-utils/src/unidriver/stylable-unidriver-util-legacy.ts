@@ -2,8 +2,14 @@ import {UniDriver} from '@unidriver/core';
 import {
   StateValue,
   LegacyStylesheet,
-  CompatStylesheet
+  CompatStylesheet,
+  CommonStylesheet
 } from './legacy-stylable-types';
+import {
+  StylableUnidriverUtil as StylableUnidriverUtilV2,
+  MinimalStylesheet
+} from '@stylable/uni-driver';
+
 /**
  * LEGACY SUPPORT
  */
@@ -73,7 +79,6 @@ export class StylableUnidriverUtilCompat {
 
     return paramValue ? paramValue : null;
   }
-
   public getStateValueFromClassName(cls: string, baseState: string) {
     if (cls.startsWith(baseState)) {
       const param = cls.slice(baseState.length);
@@ -90,5 +95,53 @@ export class StylableUnidriverUtilCompat {
     return this.style
       .$cssStates({[stateName]: singleCharState})
       .className.slice(0, -3);
+  }
+}
+
+export class StylableCompatUniDriver {
+  private internal:
+    | StylableUnidriverUtilCompat
+    | StylableUnidriverUtilLegacy
+    | StylableUnidriverUtilV2;
+  constructor(private style: CommonStylesheet) {
+    const mode = getStylesheetMode(this.style);
+    if (mode === 'v2') {
+      this.internal = new StylableUnidriverUtilV2(this
+        .style as MinimalStylesheet);
+    } else if (mode === 'compat') {
+      this.internal = new StylableUnidriverUtilCompat(this
+        .style as CompatStylesheet);
+    } else {
+      this.internal = new StylableUnidriverUtilLegacy(this
+        .style as LegacyStylesheet);
+    }
+  }
+  public async hasStyleState(
+    base: UniDriver,
+    stateName: string,
+    param: StateValue = true
+  ): Promise<boolean> {
+    return this.internal.hasStyleState(base, stateName, param);
+  }
+  /**
+   * Get style state value
+   *
+   * @returns state or null if not found
+   */
+  public async getStyleState(base: UniDriver, stateName: string) {
+    return this.internal.hasStyleState(base, stateName);
+  }
+}
+
+function getStylesheetMode(sheet: any) {
+  if (sheet.$cssStates) {
+    const res = sheet.$cssStates({});
+    if (res.className) {
+      return 'compat';
+    } else {
+      return 'legacy';
+    }
+  } else {
+    return 'v2';
   }
 }
