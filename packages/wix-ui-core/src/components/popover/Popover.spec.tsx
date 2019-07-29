@@ -111,6 +111,23 @@ function runTests(createDriver, container) {
       expect(onMouseLeave).toBeCalled();
     });
 
+    describe('onClick', () => {
+      it('should execute onClick callback', async () => {
+        const onClick = jest.fn();
+
+        const driver = createDriver(
+          popoverWithProps({
+            placement: 'bottom',
+            shown: false,
+            onClick,
+          }),
+        );
+
+        await driver.click();
+        expect(onClick).toBeCalled();
+      });
+    });
+
     describe('onClickOutside', () => {
       it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
