@@ -2,6 +2,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as ejs from 'ejs';
 import * as camelCase from 'lodash/camelCase';
+import * as kebabCase from 'lodash/kebabCase';
+import * as snakeCase from 'lodash/snakeCase';
 
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
@@ -82,6 +84,12 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
 const ejsSource = ({ source, definitions, components }) => {
   const utils = {
     toCamel: camelCase,
+    toKebab: kebabCase,
+    toSnake: snakeCase,
+    toPascal: (s: string) => {
+      const camel: string = camelCase(s);
+      return camel[0].toUpperCase() + camel.substring(1);
+    },
   };
 
   const componentsForEjs = objectEntries({ ...components, ...definitions }).map(

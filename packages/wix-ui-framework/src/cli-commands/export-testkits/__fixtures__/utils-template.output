@@ -1,0 +1,5 @@
+
+toCamel(name) === "theAwesomeComponent"
+toKebab(name) === "the-awesome-component"
+toSnake(name) === "the_awesome_component"
+toPascal(kebabName) === "TheAwesomeComponent"

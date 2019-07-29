@@ -265,7 +265,39 @@ describe('exportTestkits', () => {
       );
     });
 
-    it('should run throw error for erroneous ejs', () => {
+    it('should include global utils variable', async () => {
+      const fakeFs = cista({
+        '.wuf/testkits/template.ejs': fs.readFileSync(
+          path.resolve(__dirname, '__fixtures__', 'utils-template.ejs'),
+          'utf8',
+        ),
+        '.wuf/components.json': '{}',
+      });
+
+      await exportTestkits({
+        template: '.wuf/testkits/template.ejs',
+        components: '.wuf/components.json',
+        output: `.wuf/testkits/output.js`,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        path.resolve(fakeFs.dir, '.wuf', 'testkits', 'output.js'),
+        'utf8',
+      );
+
+      expect(output).toEqual(
+        [
+          warningBanner(`.wuf/testkits/template.ejs`),
+          fs.readFileSync(
+            path.resolve(__dirname, '__fixtures__', 'utils-template.output'),
+            'utf8',
+          ),
+        ].join('\n'),
+      );
+    });
+
+    it('should throw error for erroneous ejs', () => {
       const fakeFs = cista({
         '.wuf/testkits/definitions.js': ';',
         '.wuf/testkits/template.ejs': `<% components.map(c => { %><%= c.name %>\n<% ) %>`,
