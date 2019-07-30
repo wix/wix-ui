@@ -1,5 +1,5 @@
 :import {
-  -st-from: "../../hocs/Focusable/Focusable.st.css";
+  -st-from: '../../hocs/Focusable/Focusable.st.css';
   -st-default: Focusable;
 }
 
@@ -9,9 +9,11 @@
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
-.content {}
+.content {
+}
 
 .prefix {
   flex-shrink: 0;
