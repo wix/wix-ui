@@ -1,57 +1,167 @@
 // Contents in this file are used in .wuf/testkits/*.template.ejs
 
 module.exports = {
-  "address-input": { pascalCase: true },
-  "button-next": { unidriver: true, noProtractorDriver: true },
-  "circular-progress-bar": { unidriver: true, pascalCase: true },
-  "dropdown-content": { pascalCase: true },
-  "dropdown-option": { pascalCase: true },
-  "ellipsis-tooltip": { noVanillaDriver: true, noProtractorDriver: true },
+  "address-input": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "button-next": { hasUnidriver: true, hasVanillaDriver: true },
+  "circular-progress-bar": {
+    hasUnidriver: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "dropdown-content": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "dropdown-option": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
   "file-picker-button": {
-    unidriver: true,
-    noVanillaDriver: true,
-    noProtractorDriver: true,
+    hasUnidriver: true,
     uniDriverPath:
       "./../dist/src/components/file-picker-button/test/FilePickerButton.uni.driver"
   },
-  "icon-with-options": { pascalCase: true, noProtractorDriver: true },
-  "input-with-options": { pascalCase: true },
-  "label-with-options": { pascalCase: true },
-  "linear-progress-bar": { unidriver: true, pascalCase: true },
-  "media-image": { unidriver: true, noProtractorDriver: true },
-  "menu-item": { unidriver: true, noProtractorDriver: true },
-  "nav-stepper": { pascalCase: true },
-  "radio-button": { pascalCase: true },
-  "time-picker": { pascalCase: true },
-  "toggle-switch": { pascalCase: true },
-  autocomplete: { pascalCase: true },
-  avatar: { unidriver: true, noProtractorDriver: true },
+  "icon-with-options": {
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "input-with-options": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "label-with-options": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "linear-progress-bar": {
+    hasUnidriver: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "media-image": { hasUnidriver: true, hasVanillaDriver: true },
+  "menu-item": { hasUnidriver: true, hasVanillaDriver: true },
+  "nav-stepper": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "radio-button": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "time-picker": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  "toggle-switch": {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  autocomplete: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  avatar: {
+    hasUnidriver: true,
+    hasVanillaDriver: true
+  },
   badge: {
     deprecated: true,
+
+    hasVanillaDriver: true,
     vanillaDriverPath:
       "./../dist/src/components/deprecated/stylable-badge/Badge.driver",
+
+    hasProtractorDriver: true,
     protractorDriverPath:
       "./../dist/src/components/deprecated/stylable-badge/Badge.protractor.driver"
   },
-  button: { deprecated: true, pascalCase: true },
-  captcha: { unidriver: true, pascalCase: true, noProtractorDriver: true },
-  checkbox: { pascalCase: true },
-  divider: { deprecated: true, pascalCase: true },
-  dropdown: { pascalCase: true },
-  image: { unidriver: true, noProtractorDriver: true },
-  input: { pascalCase: true },
-  label: { unidriver: true, deprecated: true, pascalCase: true },
-  loadable: { pascalCase: true, noProtractorDriver: true },
-  pagination: { pascalCase: true },
-  popover: { unidriver: true, pascalCase: true },
-  slider: { pascalCase: true },
-  stepper: { noVanillaDriver: true, noProtractorDriver: true },
-  thumbnail: { pascalCase: true },
-  tooltip: { unidriver: true, pascalCase: true },
-  video: { unidriver: true, pascalCase: true, noProtractorDriver: true },
-  "signature-input": {
-    unidriver: true,
-    noVanillaDriver: true,
-    noProtractorDriver: true
+  button: {
+    deprecated: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  captcha: { hasUnidriver: true, hasVanillaDriver: true, pascalCase: true },
+  checkbox: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  divider: {
+    deprecated: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  dropdown: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  image: { hasUnidriver: true, hasVanillaDriver: true },
+  input: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  label: {
+    deprecated: true,
+    hasUnidriver: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  loadable: {
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  pagination: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  popover: {
+    hasUnidriver: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  slider: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  thumbnail: {
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  tooltip: {
+    hasUnidriver: true,
+    hasProtractorDriver: true,
+    hasVanillaDriver: true,
+    pascalCase: true
+  },
+  video: { hasUnidriver: true, hasVanillaDriver: true, pascalCase: true },
+  stepper: {
+    noDriver: true
+  },
+  "ellipsis-tooltip": {
+    noDriver: true
   }
 };

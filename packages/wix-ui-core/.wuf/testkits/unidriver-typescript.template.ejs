@@ -1,6 +1,10 @@
 <%
   components
-  .filter(component => component.unidriver)
+  .filter(component => !component.noDriver)
+  .filter(component =>
+    ((component.hasVanillaDriver || component.hasProtractorDriver) && component.hasUnidriver)
+    || (!component.hasVanillaDriver && !component.hasProtractorDriver)
+  )
   .map(component => {
     const driverPath = component.uniDriverPath ||
       [

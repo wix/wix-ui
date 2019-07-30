@@ -1,7 +1,7 @@
 module.exports = {
 <%
   components
-  .filter(component => !component.noVanillaDriver)
+  .filter(component => component.hasVanillaDriver)
   .map(component => {
     const driverPath = component.vanillaDriverPath ||
       [

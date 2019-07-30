@@ -1,7 +1,7 @@
 module.exports = {
 <%
   components
-  .filter(component => !component.noProtractorDriver)
+  .filter(component => component.hasProtractorDriver)
   .map(component => {
     const driverPath = component.protractorDriverPath ||
       [
