@@ -48,5 +48,10 @@ module.exports = {
   stepper: { noVanillaDriver: true, noProtractorDriver: true },
   thumbnail: { pascalCase: true },
   tooltip: { unidriver: true, pascalCase: true },
-  video: { unidriver: true, pascalCase: true, noProtractorDriver: true }
+  video: { unidriver: true, pascalCase: true, noProtractorDriver: true },
+  "signature-input": {
+    unidriver: true,
+    noVanillaDriver: true,
+    noProtractorDriver: true
+  }
 };
