@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# ensure output folder exists
+mkdir -p drivers
+
 # create components list
 wuf update \
   --shape .wuf/required-component-files.json \

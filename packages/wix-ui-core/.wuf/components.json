@@ -175,5 +175,11 @@
     "missingFiles": [
       "video.ts*"
     ]
+  },
+  "signature-input": {
+    "path": "src/components/signature-input",
+    "missingFiles": [
+      "signature-input.ts*"
+    ]
   }
 }
