@@ -163,5 +163,8 @@ module.exports = {
   },
   "ellipsis-tooltip": {
     noDriver: true
+  },
+  "signature-input": {
+    pascalCase: true
   }
 };
