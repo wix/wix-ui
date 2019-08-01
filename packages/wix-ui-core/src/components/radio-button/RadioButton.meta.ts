@@ -8,3 +8,10 @@ radioButtonMetadata.addSim({
     'aria-label': 'Click to choose an option',
   },
 });
+
+radioButtonMetadata.addSim({
+  title: 'Simulation with role none',
+  props: {
+    'aria-role': 'none',
+  },
+});

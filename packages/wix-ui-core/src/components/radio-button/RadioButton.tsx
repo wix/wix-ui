@@ -43,6 +43,8 @@ export interface RadioButtonProps {
   required?: boolean;
   /** aria-label - Accessibility */
   'aria-label'?: string;
+  /** aria-role - Accessibility */
+  'aria-role'?: string;
 }
 
 export interface RadioButtonState {
