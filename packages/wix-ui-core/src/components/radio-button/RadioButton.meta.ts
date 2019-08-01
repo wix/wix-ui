@@ -12,6 +12,7 @@ radioButtonMetadata.addSim({
 radioButtonMetadata.addSim({
   title: 'Simulation with role none',
   props: {
+    'aria-label': 'aria role is none',
     'aria-role': 'none',
   },
 });
