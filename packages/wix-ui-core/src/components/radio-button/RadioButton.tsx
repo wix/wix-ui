@@ -39,7 +39,7 @@ export interface RadioButtonProps {
   label?: React.ReactNode;
   /** Sets the disabled status of the radio */
   disabled?: boolean;
-  /** Sets the tav-index to the input */
+  /** Sets the tab-index to the input */
   tabIndex?: number;
   /** Sets the required status of the radio */
   required?: boolean;
