@@ -41,8 +41,6 @@ export interface RadioButtonProps {
   disabled?: boolean;
   /** Sets the tabindex to the input */
   tabIndex?: number;
-  /** Disable focus on radio input */
-  disableFocus?: number;
   /** Sets the required status of the radio */
   required?: boolean;
   /** aria-label - Accessibility */
@@ -141,7 +139,7 @@ export class RadioButton extends React.Component<
   handleInputChange = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!this.props.disabled) {
       this.props.onChange({ value: this.props.value, ...event });
-      if (this.radioRef && !this.props.disableFocus) {
+      if (this.radioRef) {
         this.radioRef.focus();
       }
     }
