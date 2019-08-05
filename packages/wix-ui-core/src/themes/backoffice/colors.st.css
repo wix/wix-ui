@@ -27,6 +27,7 @@
   D20-54: hexToRgb(value(D20), 0.54); /* hovered */
   D20-60: hexToRgb(value(D20), 0.6); /*  clicked */
 
+  D80-20: hexToRgb(value(D80), 0.2);
   D80-30: hexToRgb(value(D80), 0.3);
   D80-70: hexToRgb(value(D80), 0.7);
 
