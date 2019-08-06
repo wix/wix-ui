@@ -26,7 +26,6 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
   };
 
   const serializeResult = results =>
-    // tslint:disable-next-line: prefer-object-spread
     Object.assign(results, {
       geometry: {
         location: {
