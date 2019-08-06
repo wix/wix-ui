@@ -26,6 +26,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
   };
 
   const serializeResult = results =>
+    // tslint:disable-next-line: prefer-object-spread
     Object.assign(results, {
       geometry: {
         location: {
@@ -66,12 +67,16 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
         status !== context.googleInstance.maps.GeocoderStatus.ZERO_RESULTS
       ) {
         event.source.postMessage(
-          { results, status: 'ERROR', requestId: event.data.requestId },
+          { results, status, requestId: event.data.requestId },
           '*',
         );
       } else {
         event.source.postMessage(
-          { results, status: 'OK', requestId: event.data.requestId },
+          {
+            results,
+            status,
+            requestId: event.data.requestId,
+          },
           '*',
         );
       }
@@ -89,14 +94,14 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
         status !== context.googleInstance.maps.GeocoderStatus.ZERO_RESULTS
       ) {
         event.source.postMessage(
-          { results, status: 'ERROR', requestId: event.data.requestId },
+          { results, status, requestId: event.data.requestId },
           '*',
         );
       } else {
         event.source.postMessage(
           {
             results: results.map(element => serializeResult(element)),
-            status: 'OK',
+            status,
             requestId: event.data.requestId,
           },
           '*',
@@ -116,7 +121,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
         status !== context.googleInstance.maps.GeocoderStatus.ZERO_RESULTS
       ) {
         event.source.postMessage(
-          { results, status: 'ERROR', requestId: event.data.requestId },
+          { results, status, requestId: event.data.requestId },
           '*',
         );
       } else {
@@ -124,7 +129,7 @@ export const googleRequestHandler = (eventEmitter, handlersName) => {
         event.source.postMessage(
           {
             results: serializeResult(results),
-            status: 'OK',
+            status,
             requestId: event.data.requestId,
           },
           '*',

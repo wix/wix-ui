@@ -1,5 +1,10 @@
 import { Omit } from 'type-zoo';
-import { Address, Geocode, MapsClient } from './types';
+import {
+  Address,
+  Geocode,
+  MapsClient,
+  PlacesServiceStatusTypes,
+} from './types';
 
 function defer() {
   let resolve, reject;
@@ -81,7 +86,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
     this._autocomplete.getPlacePredictions(
       typeof request === 'string' ? { input: request } : request,
       (results, status) => {
-        if (status === 'OK') {
+        if (status === PlacesServiceStatusTypes.Ok) {
           resolve(results);
         } else {
           reject('ERROR');
@@ -103,7 +108,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
     this._geocoder.geocode(
       typeof request === 'string' ? { address: request } : request,
       (results, status) => {
-        if (status === 'OK') {
+        if (status === PlacesServiceStatusTypes.Ok) {
           resolve(results.map(result => serializeResult(result)));
         } else {
           reject('ERROR');

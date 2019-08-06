@@ -14,6 +14,7 @@ import { mount } from 'enzyme';
 import { addressInputTestkitFactory } from '../../testkit';
 import { addressInputTestkitFactory as enzymeAddressInputTestkitFactory } from '../../testkit/enzyme';
 import { AddressInputPrivateDriver } from './AddressInput.private.driver';
+import { PlacesServiceStatusTypes } from '../../clients/GoogleMaps/types';
 
 describe('AddressInput', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -113,27 +114,27 @@ describe('AddressInput', () => {
   });
 
   it('Should use callback provided in case of error [Search error]', () => {
-    const error = new Error('Google api error.');
     const onError = jest.fn();
     (GoogleMapsClientStub.prototype
       .autocomplete as jest.Mock).mockImplementationOnce(() =>
-      Promise.reject(error),
+      Promise.reject(PlacesServiceStatusTypes.InvalidRequest),
     );
     init({ onError });
     driver.setValue('n');
     return eventually(() => {
-      expect(onError).toHaveBeenCalledWith(error);
+      expect(onError).toHaveBeenCalledWith(
+        PlacesServiceStatusTypes.InvalidRequest,
+      );
     });
   });
 
   it('Should use callback provided in case of error [Selection error]', async () => {
-    const error = new Error('Google api error.');
     GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
     GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
     const onError = jest.fn();
     (GoogleMapsClientStub.prototype
       .geocode as jest.Mock).mockImplementationOnce(() =>
-      Promise.reject(error),
+      Promise.reject(PlacesServiceStatusTypes.NotFound),
     );
     init({ onError });
     driver.click();
@@ -141,7 +142,27 @@ describe('AddressInput', () => {
     await waitForCond(() => driver.isContentElementExists());
     driver.optionAt(0).click();
     return eventually(() => {
-      expect(onError).toHaveBeenCalledWith(error);
+      expect(onError).toHaveBeenCalledWith(PlacesServiceStatusTypes.NotFound);
+    });
+  });
+
+  it('Should display empty state in case no results found', async () => {
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(PlacesServiceStatusTypes.ZeroResults),
+    );
+    const emptyStateMessage = 'No results.';
+    init({ onError, emptyStateMessage });
+    driver.clickInput();
+    driver.setValue('z32325');
+    driver.keyDown('z');
+    await waitForCond(() => driver.isContentElementExists());
+    expect(driver.getOptionsCount()).toBe(1);
+    expect(driver.optionAt(0).getText()).toBe(emptyStateMessage);
+    expect(driver.optionAt(0).isDisabled()).toBeTruthy();
+    return eventually(() => {
+      expect(driver.optionAt(0).getText()).toEqual(emptyStateMessage);
     });
   });
 

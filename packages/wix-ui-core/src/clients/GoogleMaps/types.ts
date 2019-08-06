@@ -102,3 +102,14 @@ export enum Handler {
   geocode = 'geocode',
   places = 'places',
 }
+
+// Status is dictated due to https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesServiceStatus
+export enum PlacesServiceStatusTypes {
+  Ok = 'OK',
+  InvalidRequest = 'INVALID_REQUEST',
+  NotFound = 'NOT_FOUND',
+  OverQueryLimit = 'OVER_QUERY_LIMIT',
+  RequestDenied = 'REQUEST_DENIED',
+  UnknownError = 'UNKNOWN_ERROR',
+  ZeroResults = 'ZERO_RESULTS',
+}

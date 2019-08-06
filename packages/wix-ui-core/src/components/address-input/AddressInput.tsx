@@ -14,6 +14,7 @@ import {
   MapsClientConstructor,
   PlaceDetails,
   Handler,
+  PlacesServiceStatusTypes,
 } from '../../clients/GoogleMaps/types';
 import {
   convertToFullAddress,
@@ -34,7 +35,7 @@ export enum Converter {
 
 export type AddressInputProps = Pick<
   InputWithOptionsProps,
-  'fixed' | 'flip' | 'moveBy' | 'placement'
+  'fixed' | 'flip' | 'moveBy' | 'placement' | 'emptyStateMessage'
 > & {
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
@@ -371,6 +372,9 @@ export class AddressInput extends React.PureComponent<
       try {
         await this._getAddressOptions(value);
       } catch (e) {
+        if (e === PlacesServiceStatusTypes.ZeroResults) {
+          this.setState({ options: [] });
+        }
         this._handleClientError(e);
       }
     } else {
@@ -454,6 +458,7 @@ export class AddressInput extends React.PureComponent<
       onKeyDown,
       onFocus,
       forceContentElementVisibility,
+      emptyStateMessage,
       readOnly,
       disabled,
       style: inlineStyles,
@@ -512,6 +517,7 @@ export class AddressInput extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
+        emptyStateMessage={emptyStateMessage}
       />
     );
   }
