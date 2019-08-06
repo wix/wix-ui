@@ -47,10 +47,10 @@ describe('AddressInput', () => {
 
   beforeEach(() => {
     GoogleMapsClientStub.reset();
-    (GoogleMapsClientStub.prototype.autocomplete as any).mockClear();
-    (GoogleMapsClientStub.prototype.geocode as any).mockClear();
-    (GoogleMapsClientStub.prototype.placeDetails as any).mockClear();
-    (GoogleMapsClientStub.prototype.useClientId as any).mockClear();
+    (GoogleMapsClientStub.prototype.autocomplete as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.geocode as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.placeDetails as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.useClientId as jest.Mock).mockClear();
   });
 
   it('Should instantiate client', () => {
@@ -110,6 +110,39 @@ describe('AddressInput', () => {
       'en',
       { input: 'n' },
     );
+  });
+
+  it('Should use callback provided in case of error [Search error]', () => {
+    const error = new Error('Google api error.');
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(error),
+    );
+    init({ onError });
+    driver.setValue('n');
+    return eventually(() => {
+      expect(onError).toHaveBeenCalledWith(error);
+    });
+  });
+
+  it('Should use callback provided in case of error [Selection error]', async () => {
+    const error = new Error('Google api error.');
+    GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+    GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .geocode as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(error),
+    );
+    init({ onError });
+    driver.click();
+    driver.setValue('11 n');
+    await waitForCond(() => driver.isContentElementExists());
+    driver.optionAt(0).click();
+    return eventually(() => {
+      expect(onError).toHaveBeenCalledWith(error);
+    });
   });
 
   it('Should throttle calls to MapsClient.autocomplete', async () => {
@@ -814,7 +847,9 @@ describe('AddressInput', () => {
       const onBlur = jest.fn();
       init({ onBlur });
       driver.blur();
-      expect(onBlur).toHaveBeenCalled();
+      return eventually(() => {
+        expect(onBlur).toHaveBeenCalled();
+      });
     });
 
     it('Should have a focus and blur method', () => {
@@ -1008,7 +1043,9 @@ describe('AddressInput', () => {
 
       return eventually(
         () => {
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(1);
+          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(
+            1,
+          );
           expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
             helper.API_KEY,
             'en',
