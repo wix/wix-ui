@@ -372,9 +372,6 @@ export class AddressInput extends React.PureComponent<
       try {
         await this._getAddressOptions(value);
       } catch (e) {
-        if (e === PlacesServiceStatusTypes.ZeroResults) {
-          this.setState({ options: [] });
-        }
         this._handleClientError(e);
       }
     } else {
@@ -384,6 +381,7 @@ export class AddressInput extends React.PureComponent<
 
   _handleClientError(e) {
     const { onError } = this.props;
+    this.setState({ options: [] });
     if (onError) {
       return onError(e);
     }
