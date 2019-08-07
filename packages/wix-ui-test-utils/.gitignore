@@ -10,7 +10,7 @@ package-lock.json
 .vscode
 .yo-rc.json
 npm-debug.log
-yarn.lock
+# yarn.lock
 storybook-static
 /*.js
 /*.d.ts
