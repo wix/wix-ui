@@ -39,6 +39,8 @@ export interface RadioButtonProps {
   label?: React.ReactNode;
   /** Sets the disabled status of the radio */
   disabled?: boolean;
+  /** Sets the tabindex to the input */
+  tabIndex?: number;
   /** Sets the required status of the radio */
   required?: boolean;
   /** aria-label - Accessibility */
@@ -80,6 +82,7 @@ export class RadioButton extends React.Component<
       disabled,
       required,
       onIconBlur,
+      tabIndex,
     } = this.props;
     const focused = this.state.focused;
 
@@ -110,6 +113,7 @@ export class RadioButton extends React.Component<
           checked={checked}
           value={value}
           name={name}
+          tabIndex={tabIndex}
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
           ref={radio => (this.radioRef = radio)}
