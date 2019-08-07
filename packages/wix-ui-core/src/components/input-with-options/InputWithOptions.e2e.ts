@@ -1,15 +1,15 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
 import {
-  getStoryUrl,
-  waitForVisibilityOf,
+=  waitForVisibilityOf,
   getElementByDataHook,
+  createStoryUrl,
 } from 'wix-ui-test-utils/protractor';
 import { inputWithOptionsTestkitFactory } from '../../testkit/protractor';
 import { DataHook } from './InputWithOptionsTestFixture';
 
 describe('InputWithOptions', () => {
-  const storyUrl = getStoryUrl('Tests', 'InputWithOptions');
+  const storyUrl = createStoryUrl({kind: 'Tests', story: 'InputWithOptions'});
 
   beforeEach(() => {
     browser.get(storyUrl);
@@ -38,5 +38,18 @@ describe('InputWithOptions', () => {
 
     expect(onSelectCount).toEqual('1');
     expect(onManualInputCount).toEqual('0');
+  });
+
+  eyes.it('Should allow styling empty state', async () => {
+    const driver = inputWithOptionsTestkitFactory({
+      dataHook: DataHook.inputWithOptions,
+    });
+    await waitForVisibilityOf(driver.element(), 'Cannot find InputWithOptions');
+    await driver.enterText('kjhasmasdl');
+    const emptyStateText = await driver
+      .dropdownContent()
+      .optionAt(0)
+      .getText();
+    expect(emptyStateText).toEqual('No results');
   });
 });

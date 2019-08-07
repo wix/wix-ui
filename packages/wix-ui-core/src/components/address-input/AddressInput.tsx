@@ -468,6 +468,7 @@ export class AddressInput extends React.PureComponent<
       inputStyle,
       flip,
       fixed,
+      optionStyle,
       moveBy,
     } = this.props;
     const options = this._options();
@@ -517,6 +518,7 @@ export class AddressInput extends React.PureComponent<
         fixed={fixed}
         moveBy={moveBy}
         emptyStateMessage={emptyStateMessage}
+        emptyStateStyle={optionStyle}
       />
     );
   }
