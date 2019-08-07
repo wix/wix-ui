@@ -156,6 +156,7 @@ describe('AddressInput', () => {
     init({ onError, emptyStateMessage });
     driver.clickInput();
     driver.setValue('z32325');
+    // This is used to trigger `isEditing = true` in `InputWithOptions`
     driver.keyDown('z');
     await waitForCond(() => driver.isContentElementExists());
     expect(driver.getOptionsCount()).toBe(1);

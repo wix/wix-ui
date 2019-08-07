@@ -66,7 +66,6 @@ export class IframesManager {
       ')(window, ' +
       JSON.stringify(handlerNames) +
       '); window.googleReady = function() {window.initAutoComplete(window.google);};';
-    console.log(script.innerText);
     return script;
   }
 

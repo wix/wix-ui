@@ -383,9 +383,10 @@ export class AddressInput extends React.PureComponent<
     const { onError } = this.props;
     this.setState({ options: [] });
     if (onError) {
-      return onError(e);
+      onError(e);
+    } else {
+      throw e;
     }
-    throw e;
   }
 
   async _handleOnManualInput(value: string) {
