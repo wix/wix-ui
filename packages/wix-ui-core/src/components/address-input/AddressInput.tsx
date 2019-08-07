@@ -90,9 +90,9 @@ export type AddressInputProps = Pick<
   /** Inline styles */
   style?: object;
   /** Input inline styles */
-  inputStyle?: object;
+  inputStyle?: React.CSSProperties;
   /** Option inline styles */
-  optionStyle?: object;
+  optionStyle?: React.CSSProperties;
   /** Prefix for input */
   prefix?: React.ReactNode;
   /** Suffix for input */

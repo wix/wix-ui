@@ -57,7 +57,7 @@ export type InputWithOptionsProps = Pick<
     /** Empty state message to be displayed in case all options are filtered out */
     emptyStateMessage?: string;
     /** Inline style to be passed to empty state message */
-    emptyStateStyle?: object;
+    emptyStateStyle?: React.CSSProperties;
   };
 
 /**

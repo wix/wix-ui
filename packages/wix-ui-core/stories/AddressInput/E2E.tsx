@@ -36,7 +36,7 @@ export class AddressInputE2E extends React.Component<any, any> {
   }
 
   render() {
-    const optionStyle = {
+    const optionStyle: React.CSSProperties = {
       padding: '0 20px',
       background: 'rgba(200, 255, 200, 0.4)',
       fontWeight: 'bold',

@@ -10,7 +10,7 @@ export enum DataHook {
   onManualInputCount = 'on-manual-input-count',
 }
 
-const emptyStateStyle = {
+const emptyStateStyle: React.CSSProperties = {
   padding: '50px',
   fontWeight: 'bold',
   background: 'rgba(200, 200, 200, 0.4)',

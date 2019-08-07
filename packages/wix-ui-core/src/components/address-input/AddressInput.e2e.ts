@@ -39,7 +39,6 @@ describe('AddressInput', () => {
     const $resetStubBtn = $(byDataHook(DataHooks.resetStub));
     await $resetStubBtn.click();
     await driver.enterText('ndaff3faxfc');
-    // await new Promise(res => setTimeout(res, 10000));
     const emptyStateMessage = await driver
       .dropdownContent()
       .optionAt(0)
