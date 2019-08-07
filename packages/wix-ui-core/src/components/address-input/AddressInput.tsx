@@ -90,9 +90,9 @@ export type AddressInputProps = Pick<
   /** Inline styles */
   style?: object;
   /** Input inline styles */
-  inputStyle?: object;
+  inputStyle?: React.CSSProperties;
   /** Option inline styles */
-  optionStyle?: object;
+  optionStyle?: React.CSSProperties;
   /** Prefix for input */
   prefix?: React.ReactNode;
   /** Suffix for input */
@@ -468,6 +468,7 @@ export class AddressInput extends React.PureComponent<
       inputStyle,
       flip,
       fixed,
+      optionStyle,
       moveBy,
     } = this.props;
     const options = this._options();
@@ -517,6 +518,7 @@ export class AddressInput extends React.PureComponent<
         fixed={fixed}
         moveBy={moveBy}
         emptyStateMessage={emptyStateMessage}
+        emptyStateStyle={optionStyle}
       />
     );
   }

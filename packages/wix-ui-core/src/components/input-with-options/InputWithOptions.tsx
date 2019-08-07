@@ -6,52 +6,59 @@ import { Option, OptionFactory } from '../dropdown-option';
 import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 import { Input, InputProps } from '../input';
 
+export const DataHooks = {
+  input: 'input',
+  emptyState: 'input-with-options-empty-state',
+};
+
 export type InputWithOptionsProps = Pick<
   PopoverProps,
   'fixed' | 'flip' | 'moveBy'
 > &
   Pick<DropdownProps, 'onContentMouseDown'> & {
-  /** The location to display the content */
-  placement?: Placement;
-  /** The dropdown options array */
-  options: Option[];
-  /** Trigger type to open the content */
-  openTrigger?: OPEN_TRIGGER_TYPE;
-  /** Handler for when an option is selected */
-  onSelect?(option: Option): void;
-  /** Handler for when an option is deselected */
-  onDeselect?(option: Option): void;
-  /** initial selected option ids */
-  initialSelectedIds?: (string | number)[];
-  /** A callback for when initial selected options are set */
-  onInitialSelectedOptionsSet?(options: Option[]): void;
-  /** set true for multiple selection, false for single */
-  multi?: boolean;
-  /** An element that always appears at the top of the options */
-  fixedHeader?: React.ReactNode;
-  /** An element that always appears at the bottom of the options */
-  fixedFooter?: React.ReactNode;
-  /** Animation timer */
-  timeout?: number;
-  /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
-  onManualInput?(value: string): void;
-  /** Should mark the text that matched the filter */
-  highlightMatches?: boolean;
-  /** If set to true, content element will always be visible, used for preview mode */
-  forceContentElementVisibility?: boolean;
-  /** Input prop types */
-  inputProps?: InputProps;
-  /** Inline styles */
-  style?: object;
-  /** Id */
-  id?: string;
-  /** Allow onSelect event to be triggered upon re-selecting an option */
-  allowReselect?: boolean;
-  /** Filter by predicate */
-  filterPredicate?(inputValue: string, optionValue: string): Boolean;
-  /** Empty state message to be displayed in case all options are filtered out */
-  emptyStateMessage?: string;
-};
+    /** The location to display the content */
+    placement?: Placement;
+    /** The dropdown options array */
+    options: Option[];
+    /** Trigger type to open the content */
+    openTrigger?: OPEN_TRIGGER_TYPE;
+    /** Handler for when an option is selected */
+    onSelect?(option: Option): void;
+    /** Handler for when an option is deselected */
+    onDeselect?(option: Option): void;
+    /** initial selected option ids */
+    initialSelectedIds?: (string | number)[];
+    /** A callback for when initial selected options are set */
+    onInitialSelectedOptionsSet?(options: Option[]): void;
+    /** set true for multiple selection, false for single */
+    multi?: boolean;
+    /** An element that always appears at the top of the options */
+    fixedHeader?: React.ReactNode;
+    /** An element that always appears at the bottom of the options */
+    fixedFooter?: React.ReactNode;
+    /** Animation timer */
+    timeout?: number;
+    /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
+    onManualInput?(value: string): void;
+    /** Should mark the text that matched the filter */
+    highlightMatches?: boolean;
+    /** If set to true, content element will always be visible, used for preview mode */
+    forceContentElementVisibility?: boolean;
+    /** Input prop types */
+    inputProps?: InputProps;
+    /** Inline styles */
+    style?: object;
+    /** Id */
+    id?: string;
+    /** Allow onSelect event to be triggered upon re-selecting an option */
+    allowReselect?: boolean;
+    /** Filter by predicate */
+    filterPredicate?(inputValue: string, optionValue: string): Boolean;
+    /** Empty state message to be displayed in case all options are filtered out */
+    emptyStateMessage?: string;
+    /** Inline style to be passed to empty state message */
+    emptyStateStyle?: React.CSSProperties;
+  };
 
 /**
  * InputWithOptions
@@ -93,6 +100,7 @@ export class InputWithOptions extends React.PureComponent<
       options,
       filterPredicate,
       emptyStateMessage,
+      emptyStateStyle,
     } = this.props;
     if (!inputProps.value || !this.isEditing) {
       return options;
@@ -113,7 +121,11 @@ export class InputWithOptions extends React.PureComponent<
     if (emptyStateMessage && filteredOptions.length === 0) {
       return [
         OptionFactory.create({
-          render: () => emptyStateMessage,
+          render: () => (
+            <div data-hook={DataHooks.emptyState} style={emptyStateStyle || {}}>
+              {emptyStateMessage}
+            </div>
+          ),
           isDisabled: true,
         }),
       ];
@@ -213,7 +225,7 @@ export class InputWithOptions extends React.PureComponent<
         onContentMouseDown={this._onContentMouseDown}
       >
         <Input
-          data-hook="input"
+          data-hook={DataHooks.input}
           {...inputProps}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
