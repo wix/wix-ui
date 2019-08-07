@@ -1,6 +1,7 @@
 {
   "extends": ["tslint-config-yoshi"],
   "rules": {
+    "prefer-object-spread": false,
     "comma-dangle": ["error", "never"],
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,

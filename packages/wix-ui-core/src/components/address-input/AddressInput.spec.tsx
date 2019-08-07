@@ -14,6 +14,7 @@ import { mount } from 'enzyme';
 import { addressInputTestkitFactory } from '../../testkit';
 import { addressInputTestkitFactory as enzymeAddressInputTestkitFactory } from '../../testkit/enzyme';
 import { AddressInputPrivateDriver } from './AddressInput.private.driver';
+import { PlacesServiceStatusTypes } from '../../clients/GoogleMaps/types';
 
 describe('AddressInput', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -47,10 +48,10 @@ describe('AddressInput', () => {
 
   beforeEach(() => {
     GoogleMapsClientStub.reset();
-    (GoogleMapsClientStub.prototype.autocomplete as any).mockClear();
-    (GoogleMapsClientStub.prototype.geocode as any).mockClear();
-    (GoogleMapsClientStub.prototype.placeDetails as any).mockClear();
-    (GoogleMapsClientStub.prototype.useClientId as any).mockClear();
+    (GoogleMapsClientStub.prototype.autocomplete as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.geocode as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.placeDetails as jest.Mock).mockClear();
+    (GoogleMapsClientStub.prototype.useClientId as jest.Mock).mockClear();
   });
 
   it('Should instantiate client', () => {
@@ -110,6 +111,60 @@ describe('AddressInput', () => {
       'en',
       { input: 'n' },
     );
+  });
+
+  it('Should use callback provided in case of error [Search error]', () => {
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(PlacesServiceStatusTypes.InvalidRequest),
+    );
+    init({ onError });
+    driver.setValue('n');
+    return eventually(() => {
+      expect(onError).toHaveBeenCalledWith(
+        PlacesServiceStatusTypes.InvalidRequest,
+      );
+    });
+  });
+
+  it('Should use callback provided in case of error [Selection error]', async () => {
+    GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
+    GoogleMapsClientStub.setGeocode(helper.PLACE_DETAILS_1);
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .geocode as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(PlacesServiceStatusTypes.NotFound),
+    );
+    init({ onError });
+    driver.click();
+    driver.setValue('11 n');
+    await waitForCond(() => driver.isContentElementExists());
+    driver.optionAt(0).click();
+    return eventually(() => {
+      expect(onError).toHaveBeenCalledWith(PlacesServiceStatusTypes.NotFound);
+    });
+  });
+
+  it('Should display empty state in case no results found', async () => {
+    const onError = jest.fn();
+    (GoogleMapsClientStub.prototype
+      .autocomplete as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(PlacesServiceStatusTypes.ZeroResults),
+    );
+    const emptyStateMessage = 'No results.';
+    init({ onError, emptyStateMessage });
+    driver.clickInput();
+    driver.setValue('z32325');
+    // This is used to trigger `isEditing = true` in `InputWithOptions`
+    driver.keyDown('z');
+    await waitForCond(() => driver.isContentElementExists());
+    expect(driver.getOptionsCount()).toBe(1);
+    expect(driver.optionAt(0).getText()).toBe(emptyStateMessage);
+    expect(driver.optionAt(0).isDisabled()).toBeTruthy();
+    return eventually(() => {
+      expect(driver.optionAt(0).getText()).toEqual(emptyStateMessage);
+    });
   });
 
   it('Should throttle calls to MapsClient.autocomplete', async () => {
@@ -814,7 +869,9 @@ describe('AddressInput', () => {
       const onBlur = jest.fn();
       init({ onBlur });
       driver.blur();
-      expect(onBlur).toHaveBeenCalled();
+      return eventually(() => {
+        expect(onBlur).toHaveBeenCalled();
+      });
     });
 
     it('Should have a focus and blur method', () => {
@@ -1008,7 +1065,9 @@ describe('AddressInput', () => {
 
       return eventually(
         () => {
-          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(1);
+          expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledTimes(
+            1,
+          );
           expect(GoogleMapsClientStub.prototype.geocode).toHaveBeenCalledWith(
             helper.API_KEY,
             'en',

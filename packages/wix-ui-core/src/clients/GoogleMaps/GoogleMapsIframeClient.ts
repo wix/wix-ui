@@ -5,7 +5,7 @@ import {
   placeDetailsHandlerName,
 } from './handlersName';
 import { generateID } from './utils';
-import { MapsClient } from './types';
+import { MapsClient, PlacesServiceStatusTypes } from './types';
 
 export class GoogleMapsIframeClient implements MapsClient {
   _iframesManager = new IframesManager();
@@ -20,7 +20,9 @@ export class GoogleMapsIframeClient implements MapsClient {
     const { data } = event;
     if (data.requestId && this._promisesMap.has(data.requestId)) {
       const promise = this._promisesMap.get(data.requestId);
-      data.status === 'OK' ? promise.resolve(data.results) : promise.reject();
+      data.status === PlacesServiceStatusTypes.Ok
+        ? promise.resolve(data.results)
+        : promise.reject(data.status);
     }
   };
 

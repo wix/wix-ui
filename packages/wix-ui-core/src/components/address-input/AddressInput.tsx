@@ -1,6 +1,9 @@
 import * as React from 'react';
 import style from './AddressInput.st.css';
-import { InputWithOptions, InputWithOptionsProps } from '../input-with-options/InputWithOptions';
+import {
+  InputWithOptions,
+  InputWithOptionsProps,
+} from '../input-with-options/InputWithOptions';
 import { intersection } from '../../utils/intersection';
 import { Option, OptionFactory } from '../dropdown-option';
 import {
@@ -11,6 +14,7 @@ import {
   MapsClientConstructor,
   PlaceDetails,
   Handler,
+  PlacesServiceStatusTypes,
 } from '../../clients/GoogleMaps/types';
 import {
   convertToFullAddress,
@@ -31,7 +35,7 @@ export enum Converter {
 
 export type AddressInputProps = Pick<
   InputWithOptionsProps,
-  'fixed' | 'flip' | 'moveBy' | 'placement'
+  'fixed' | 'flip' | 'moveBy' | 'placement' | 'emptyStateMessage'
 > & {
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
@@ -99,6 +103,8 @@ export type AddressInputProps = Pick<
   id?: string;
   /** aria-label - accessibility*/
   'aria-label'?: string;
+  /** Pass errors from Google Client to callback */
+  onError?(err: Error): void;
   /** Standard input onClick callback */
   onClick?(): void;
   /** Standard input onDoubleClick callback */
@@ -318,34 +324,42 @@ export class AddressInput extends React.PureComponent<
     }
   }
 
-  _forceSelectIfNeeded() {
+  async _forceSelectIfNeeded() {
     const { forceSelect } = this.props;
     if (forceSelect) {
       const options = this._options();
       const firstOption = options.length ? first(options) : null;
 
       if (!this.optionWasSelected && firstOption) {
-        this._onSelect(firstOption);
+        try {
+          await this._onSelect(firstOption);
+        } catch (e) {
+          this._handleClientError(e);
+        }
       }
     }
   }
 
-  _onSelect(option: Option | null) {
+  async _onSelect(option: Option | null) {
     const { handler } = this.props;
     const { inputValue } = this.state;
 
-    if (!option && !inputValue) {
-      this._invokeOnSelect(null);
-    } else if (!option) {
-      this._getGeocode(null, null, inputValue);
-    } else if (handler === Handler.geocode && option) {
-      this._getGeocode(option.id, option.value, inputValue);
-    } else if (handler === Handler.places) {
-      this._getPlaceDetails(option.id, option.value, inputValue);
+    try {
+      if (!option && !inputValue) {
+        this._invokeOnSelect(null);
+      } else if (!option) {
+        await this._getGeocode(null, null, inputValue);
+      } else if (handler === Handler.geocode && option) {
+        await this._getGeocode(option.id, option.value, inputValue);
+      } else if (handler === Handler.places) {
+        await this._getPlaceDetails(option.id, option.value, inputValue);
+      }
+    } catch (e) {
+      this._handleClientError(e);
     }
   }
 
-  _handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async _handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { onChange } = this.props;
     const { value } = e.target;
     this.optionWasSelected = false;
@@ -355,9 +369,23 @@ export class AddressInput extends React.PureComponent<
     this.setState({ inputValue: value });
 
     if (value) {
-      this._getAddressOptions(value);
+      try {
+        await this._getAddressOptions(value);
+      } catch (e) {
+        this._handleClientError(e);
+      }
     } else {
       this.setState({ options: [] });
+    }
+  }
+
+  _handleClientError(e) {
+    const { onError } = this.props;
+    this.setState({ options: [] });
+    if (onError) {
+      onError(e);
+    } else {
+      throw e;
     }
   }
 
@@ -368,14 +396,18 @@ export class AddressInput extends React.PureComponent<
     await this.currentAddressRequest;
 
     if (fallbackToManual && this.state.options.length === 0) {
-      this._onSelect(null);
+      try {
+        await this._onSelect(null);
+      } catch (e) {
+        this._handleClientError(e);
+      }
     }
   }
 
-  _handleOnBlur() {
+  async _handleOnBlur() {
     const { clearSuggestionsOnBlur, onBlur } = this.props;
 
-    this._forceSelectIfNeeded();
+    await this._forceSelectIfNeeded();
 
     onBlur && onBlur();
     if (clearSuggestionsOnBlur) {
@@ -425,6 +457,7 @@ export class AddressInput extends React.PureComponent<
       onKeyDown,
       onFocus,
       forceContentElementVisibility,
+      emptyStateMessage,
       readOnly,
       disabled,
       style: inlineStyles,
@@ -483,6 +516,7 @@ export class AddressInput extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
+        emptyStateMessage={emptyStateMessage}
       />
     );
   }

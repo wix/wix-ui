@@ -5,6 +5,7 @@ import {
   placeDetailsHandlerName,
 } from './handlersName';
 import { IframesManagerMock } from './IframeTestUtils';
+import { PlacesServiceStatusTypes } from './types';
 
 class GoogleMapsIframeClient extends RealGoogleMapsIframeClient {
   constructor() {
@@ -126,16 +127,20 @@ describe('GoogleMapsIframeClient', () => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
-          { requestId, results: [], status: 'ERROR' },
+          {
+            requestId,
+            results: [],
+            status: PlacesServiceStatusTypes.InvalidRequest,
+          },
           targetOrigin,
         );
       },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(
-      client.autocomplete(mockApiKey, mockLang, ''),
-    ).rejects.toBeUndefined();
+    await expect(client.autocomplete(mockApiKey, mockLang, '')).rejects.toBe(
+      PlacesServiceStatusTypes.InvalidRequest,
+    );
     expect(iframeManagerPrototype.getIframe).toBeCalled();
   });
 
@@ -166,16 +171,20 @@ describe('GoogleMapsIframeClient', () => {
         const targetOrigin = '*';
         const { requestId } = requestObj;
         (global as any).postMessage(
-          { requestId, results: [], status: 'ERROR' },
+          {
+            requestId,
+            results: [],
+            status: PlacesServiceStatusTypes.InvalidRequest,
+          },
           targetOrigin,
         );
       },
     }));
 
     client = new GoogleMapsIframeClient();
-    await expect(
-      client.autocomplete(mockApiKey, mockLang),
-    ).rejects.toBeUndefined();
+    await expect(client.autocomplete(mockApiKey, mockLang)).rejects.toBe(
+      PlacesServiceStatusTypes.InvalidRequest,
+    );
     expect(iframeManagerPrototype.addIframe).toBeCalled();
   });
 
@@ -222,7 +231,10 @@ describe('GoogleMapsIframeClient', () => {
         const targetOrigin = '*';
         const { requestId, request } = requestObj;
         const timeout = request === firstRequest ? 20 : 10;
-        const status = request === firstRequest ? 'OK' : 'ERROR';
+        const status =
+          request === firstRequest
+            ? 'OK'
+            : PlacesServiceStatusTypes.InvalidRequest;
         setTimeout(
           () =>
             (global as any).postMessage(
@@ -237,41 +249,7 @@ describe('GoogleMapsIframeClient', () => {
     client = new GoogleMapsIframeClient();
     await expect(
       client.autocomplete(mockApiKey, mockLang, secondRequest),
-    ).rejects.toBeUndefined();
-    await expect(
-      client.autocomplete(mockApiKey, mockLang, firstRequest),
-    ).resolves.toEqual([firstRequest]);
-
-    iframeManagerPrototype.hasIframe.mockRestore();
-    iframeManagerPrototype.getIframe.mockRestore();
-  });
-
-  it('should reject first requests and resolve the second one', async () => {
-    const firstRequest = 'first';
-    const secondRequest = 'second';
-
-    iframeManagerPrototype.hasIframe.mockImplementation(() => true);
-    iframeManagerPrototype.getIframe.mockImplementation(() => ({
-      postMessage: requestObj => {
-        const targetOrigin = '*';
-        const { requestId, request } = requestObj;
-        const timeout = request === firstRequest ? 20 : 10;
-        const status = request === firstRequest ? 'OK' : 'ERROR';
-        setTimeout(
-          () =>
-            (global as any).postMessage(
-              { requestId, results: [request], status },
-              targetOrigin,
-            ),
-          timeout,
-        );
-      },
-    }));
-
-    client = new GoogleMapsIframeClient();
-    await expect(
-      client.autocomplete(mockApiKey, mockLang, secondRequest),
-    ).rejects.toBeUndefined();
+    ).rejects.toBe(PlacesServiceStatusTypes.InvalidRequest);
     await expect(
       client.autocomplete(mockApiKey, mockLang, firstRequest),
     ).resolves.toEqual([firstRequest]);
