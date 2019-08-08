@@ -10,6 +10,12 @@ export enum DataHook {
   onManualInputCount = 'on-manual-input-count',
 }
 
+const emptyStateStyle: React.CSSProperties = {
+  padding: '50px',
+  fontWeight: 'bold',
+  background: 'rgba(200, 200, 200, 0.4)',
+};
+
 export class InputWithOptionsTestFixture extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -46,6 +52,8 @@ export class InputWithOptionsTestFixture extends React.Component<any, any> {
           onManualInput={this.handleOnManualInput}
           options={options}
           data-hook={DataHook.inputWithOptions}
+          emptyStateMessage={'No results'}
+          emptyStateStyle={emptyStateStyle}
           inputProps={{
             value: this.state.value,
             onChange: this.handleOnChange,
