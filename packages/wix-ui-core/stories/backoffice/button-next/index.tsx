@@ -19,6 +19,9 @@ import { TextButtonWeights } from './showcase/text-Button/textButton-weights';
 import { CloseButtonStandard } from './showcase/close-Button/closeButton-standard';
 import { CloseButtonSizes } from './showcase/close-Button/closeButton-sizes';
 
+import { ControlButtonPrimary } from './showcase/control-Button/controlButton-primary';
+import { ControlButtonActive } from './showcase/control-Button/controlButton-active';
+
 const controlledWidth = {
   height: 'auto',
   width: '100%',
@@ -118,6 +121,23 @@ const ButtonsStory = () => (
       </Box>
       <Box>
         <IconButtonSecondary />
+      </Box>
+    </Container>
+
+    <SubContainer>
+      <SubTitle>Control Buttons</SubTitle>
+      <SubParagraph>
+        A Control Button should perform a constructive action such as creating a
+        new item or sharing the item on screen.
+      </SubParagraph>
+    </SubContainer>
+
+    <Container>
+      <Box>
+        <ControlButtonPrimary />
+      </Box>
+      <Box>
+        <ControlButtonActive />
       </Box>
     </Container>
 

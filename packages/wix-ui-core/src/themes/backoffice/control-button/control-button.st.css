@@ -1,0 +1,102 @@
+:import {
+  -st-from: '../../../components/button-next/button-next.st.css';
+  -st-default: Button;
+  -st-named: content;
+}
+
+:import {
+  -st-from: '../colors.st.css';
+  -st-named: B10, D55, D80, B20, B50, B40, F00, D10, D20, D30, D10-20, D20-48, D20-54, D20-60, D80-70, P10, P20;
+}
+
+.controlButton {
+  -st-extends: Button;
+}
+
+.controlButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  padding: 0;
+
+  box-sizing: border-box;
+  text-align: center;
+
+  border: none;
+  outline: none;
+  transition: all 100ms linear;
+
+  background-color: value(D80);
+  color: value(D10);
+}
+
+.controlButton:hover:not(:disabled) {
+  background-color: value(D80);
+  color: value(B10);
+}
+
+.controlButton:active:not(:disabled),
+.controlButton.active:not(:disabled) {
+  background-color: value(B40);
+  color: value(B20);
+}
+
+.controlButton:active:hover:not(:disabled),
+.controlButton.active:hover:not(:disabled) {
+  background-color: value(B50);
+  color: value(B20);
+}
+
+.controlButton:disabled {
+  background-color: value(D80);
+  color: value(D55);
+}
+
+.controlButton:focus-visible {
+  box-shadow: 0 0 0 3px value(F00);
+}
+
+.controlButton::content {
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* skin Dark */
+
+.controlButton.dark {
+  background-color: value(D80);
+  color: value(D10);
+}
+
+.controlButton.dark:hover:not(:disabled) {
+  background-color: value(D80);
+  color: value(D30);
+}
+
+.controlButton.dark:active:not(:disabled),
+.controlButton.dark.active:not(:disabled) {
+  background-color: value(D10);
+  color: value(D80);
+}
+
+.controlButton.dark:active:hover:not(:disabled),
+.controlButton.dark.active:hover:not(:disabled) {
+  background-color: value(D20);
+  color: value(D80);
+}
+
+.controlButton.dark:disabled {
+  background-color: value(D80);
+  color: value(D55);
+}
+
+/* icon size   */
+
+.controlButton.iconMedium {
+  width: 24px;
+  height: 24px;
+}
