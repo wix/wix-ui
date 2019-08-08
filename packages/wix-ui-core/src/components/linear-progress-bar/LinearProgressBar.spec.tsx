@@ -150,14 +150,38 @@ describe('ProgressBar', () => {
         expect(await driver.getValue()).toBe('0%');
       });
 
-      it('should show value in percentages rounded down', async () => {
-        const floatValue = 3.9;
-        const floatValueRoundDown = Math.floor(floatValue);
+      describe('Precision prop', async () => {
+        it('should show value in percentages rounded down by default', async () => {
+          const floatValue = 3.9;
+          const floatValueRoundDown = Math.floor(floatValue);
 
-        driver = createDriver(
-          <LinearProgressBar {...{ ...props, value: floatValue }} />,
-        );
-        expect(await driver.getValue()).toBe(`${floatValueRoundDown}%`);
+          driver = createDriver(
+            <LinearProgressBar {...{ ...props, value: floatValue }} />,
+          );
+          expect(await driver.getValue()).toBe(`${floatValueRoundDown}%`);
+        });
+
+        it('should allow passing precision prop to dictate value display', async () => {
+          const precisionMap = Array(9)
+            .fill(null)
+            .map((x, i) => i + 1);
+          for (const precision of precisionMap) {
+            const floatValueOverPrecision = +`${precision}.${(1)
+              .toString()
+              .repeat(precision + 1)}`;
+            const floatValueFittingPrecision = +`${precision}.${(1)
+              .toString()
+              .repeat(precision)}`;
+            driver = createDriver(
+              <LinearProgressBar
+                {...{ ...props, value: floatValueOverPrecision, precision }}
+              />,
+            );
+            expect(await driver.getValue()).toBe(
+              `${floatValueFittingPrecision}%`,
+            );
+          }
+        });
       });
     });
 

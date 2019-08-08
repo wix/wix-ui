@@ -21,6 +21,8 @@ export interface LinearProgressBarProps {
   min?: number;
   /** maximum value for progress bar, default value: 100 */
   max?: number;
+  /** Number of decimal points to keep when normalizing value */
+  precision?: number;
 }
 
 const FULL_PROGRESS = 100;
@@ -68,9 +70,11 @@ const renderBarSection = (value: number | string) => {
 };
 
 const getRelativeValue = (props: LinearProgressBarProps): number => {
-  const { value, min, max } = props;
+  const { value, min, max, precision } = props;
   const relativeValue = ((+value - min) / (max - min)) * 100;
-  return parseInt(relativeValue as any, 10);
+  return precision
+    ? +relativeValue.toFixed(precision)
+    : parseInt(relativeValue as any, 10);
 };
 
 const normalizeProps = (props: LinearProgressBarProps) => {
