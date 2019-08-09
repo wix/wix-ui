@@ -41,10 +41,18 @@ if (isTestEnv) {
   testId = popoverTestUtils.generateId();
 }
 
+const omit = (key, obj) => {
+  const { [key]: omitted, ...rest } = obj;
+  return rest;
+}
+
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
+  /** hook for testing purposes */
+  "data-hook"?: string,
+  /** custom classname */
   className?: string;
   /** The location to display the content */
   placement: Placement;
@@ -434,10 +442,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   componentDidUpdate(prevProps) {
     const { shown } = this.props;
-
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, this.props);
+      this.stylesObj = style('root', {}, omit('data-hook', this.props)) ;
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
