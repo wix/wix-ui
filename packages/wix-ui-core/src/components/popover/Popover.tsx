@@ -442,7 +442,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   componentDidUpdate(prevProps) {
     const { shown } = this.props;
-    const rest = this.props
     if (this.portalNode) {
       // Re-calculate the portal's styles
       this.stylesObj = style('root', {}, omit('data-hook', this.props)) ;
