@@ -3,7 +3,7 @@ import SignaturePad from 'signature_pad';
 
 export interface SignatureInputContextValue {
   pad: SignaturePad | undefined;
-  setSignaturePad(pad: SignaturePad): void;
+  setSignaturePadContext(pad: SignaturePad): void;
 }
 
 export interface WithSignaturePadProps extends SignatureInputContextValue {}
@@ -12,7 +12,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 const SignatureInputContext = React.createContext<SignatureInputContextValue>({
   pad: undefined,
-  setSignaturePad: () => {},
+  setSignaturePadContext: () => {},
 });
 
 export const SignatureInputContextProvider = SignatureInputContext.Provider;

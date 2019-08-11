@@ -9,5 +9,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock('signature_pad', () => ({
   default: function FakeSignaturePad() {
     this.clear = jest.fn();
+    this.off = jest.fn();
+    this.toDataURL = jest.fn();
   }
 }));

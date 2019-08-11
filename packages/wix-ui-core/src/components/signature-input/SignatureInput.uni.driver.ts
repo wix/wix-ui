@@ -8,7 +8,7 @@ export interface SignatureInputDriver extends BaseUniDriver {
   getChildDriverByHook(dataHook: string): UniDriver;
 }
 
-export const signaturePadUniDriverFactory = (
+export const signatureInputUniDriverFactory = (
   base: UniDriver,
 ): SignatureInputDriver => {
   return {

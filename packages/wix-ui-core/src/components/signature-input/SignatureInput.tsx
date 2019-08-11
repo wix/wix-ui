@@ -18,13 +18,13 @@ export class SignatureInput extends React.Component<{}, SignatureInputState> {
   static SigningPad = SigningPad;
   static ClearButton = ClearButton;
 
-  setSignaturePad = (pad: SignaturePad) => {
+  setSignaturePadContext = (pad: SignaturePad) => {
     this.setState({ pad });
   };
 
   readonly state = {
     pad: undefined,
-    setSignaturePad: this.setSignaturePad,
+    setSignaturePadContext: this.setSignaturePadContext,
   };
 
   render() {

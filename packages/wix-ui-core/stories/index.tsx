@@ -76,4 +76,10 @@ Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
 Tests.add(SIGNNATURE_INPUT_METADATA.displayName, () => (
   <SignatureInputTestFixture />
 ));
+Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'Color', () => (
+  <SignatureInputTestFixture penColor="#0000FF" />
+));
+Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'ColorInvalid', () => (
+  <SignatureInputTestFixture penColor="invalid-color" />
+));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';

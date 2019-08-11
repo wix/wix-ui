@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SignatureInput } from '..';
 import { ButtonNext } from '../../button-next';
 import { SIGNNATURE_INPUT_METADATA } from '../constants';
+import { SimpleExample } from './SimpleExample';
 import {
   header,
   description,
@@ -17,7 +18,16 @@ import {
   api,
   code as baseCode,
 } from 'wix-storybook-utils/Sections';
-import {Category} from '../../../../stories/utils';
+import { Category } from '../../../../stories/utils';
+import { baseScope as allComponents } from '../../../../stories/utils';
+import compoundReadmeApi from './CompoundComponentsAPI.md';
+
+const liveCode = config =>
+  code({
+    compact: true,
+    components: allComponents,
+    ...config,
+  });
 
 export default {
   category: Category.COMPONENTS,
@@ -35,7 +45,7 @@ export default {
       >
         <SignatureInput.Title>
           {({ getTitleProps }) => (
-            <label {...getTitleProps()}>Enter your signature here:</label>
+            <span {...getTitleProps()}>Enter your signature here:</span>
           )}
         </SignatureInput.Title>
         <SignatureInput.SigningPad style={{ border: '1px solid black' }} />
@@ -60,41 +70,37 @@ export default {
     }),
     tabs([
       tab({
-        title: 'Description',
+        title: 'Usage',
         sections: [
           description({
             title: 'Description',
             text:
-              'A sidebar menu container component, created to display a drill in menu and persistent elements',
+              'A canvas based signature input, it also provides reset button and title',
           }),
-          importExample(),
+          importExample(
+            "import {SignatureInput} from 'wix-ui-core/signature-input';",
+          ),
           divider(),
           title('Examples'),
           columns([
             description({
               title: 'Basic example',
               text:
-                'In its very basic simple form - the `Sidebar` component provides a container for elements',
+                "`SignatureInput` does not render anything, but uses compounding to provide all the component's parts. " +
+                'The `SignatureInput.Title` and `SignatureInput.ClearButton` provide render functions to get needed ' +
+                'props for rendering.',
             }),
-            // code({
-            //   source: SimpleSidebarRaw,
-            // }),
-          ]),
-          columns([
-            description({
-              title: 'Custom Context Usage',
-              text:
-                'Items can get internal selection logic from the `SidebarItemContextConsumer` context component. Check the source code for more information about how to use the context components, for example `<SidebarContextConsumer/> allows achieving custom back button behavior`',
+            liveCode({
+              source: SimpleExample,
             }),
-            // code({
-            //   source: SidebarItemContextRaw,
-            // }),
           ]),
         ],
       }),
-      tab({ title: 'Playground', sections: [playground()] }),
+      tab({
+        title: 'Compound components API',
+        sections: [description(compoundReadmeApi)],
+      }),
       tab({ title: 'Testkit', sections: [testkit()] }),
-      tab({ title: 'API', sections: [api()] }),
     ]),
   ],
 };

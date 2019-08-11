@@ -9,11 +9,18 @@ export const TEST_IDS = {
   CLEAR_BUTTON: 'signature-input--clear-pad',
 };
 
-export class SignatureInputTestFixture extends React.Component<{
+export interface SignatureInputTestFixtureProps {
   onClear?(): void;
-}> {
+  onInit?(): void;
+  canvasRef?(): void;
+  penColor?: string;
+}
+
+export class SignatureInputTestFixture extends React.Component<
+  SignatureInputTestFixtureProps
+> {
   render() {
-    const { onClear } = this.props;
+    const { onClear, onInit, penColor, canvasRef } = this.props;
     return (
       <SignatureInput>
         <div
@@ -34,6 +41,9 @@ export class SignatureInputTestFixture extends React.Component<{
           <SignatureInput.SigningPad
             data-hook={TEST_IDS.PAD}
             style={{ border: '1px solid black' }}
+            onInit={onInit}
+            penColor={penColor}
+            canvasRef={canvasRef}
           />
           <SignatureInput.ClearButton>
             {({ getClearButtonProps }) => (
