@@ -2,11 +2,12 @@ import { sliderTestkitFactory } from '../../testkit/protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
 import * as eyes from 'eyes.it';
+import { Category } from '../../../stories/utils';
 
 describe('Slider', () => {
   let driver;
 
-  const storyUrl = getStoryUrl('Components', 'Slider');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Slider');
 
   beforeEach(() => browser.get(storyUrl));
 

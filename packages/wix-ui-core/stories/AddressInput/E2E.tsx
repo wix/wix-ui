@@ -4,6 +4,7 @@ import { AddressInput } from '../../src/components/address-input';
 import { GoogleMapsClientStub } from '../../src/components/address-input/GoogleMapsClientStub';
 import { MapsClientConstructor } from '../../src/clients/GoogleMaps/types';
 import * as helper from '../../src/components/address-input/AddressInputTestHelper';
+import {Category} from '../utils';
 
 export const DataHooks = {
   resetStub: 'reset-stub',
@@ -69,7 +70,7 @@ export class AddressInputE2E extends React.Component<any, any> {
 const isE2E = (global as any).self === (global as any).top;
 
 if (isE2E) {
-  storiesOf('Components', module).add('AddressInputE2E', () => (
+  storiesOf(Category.COMPONENTS, module).add('AddressInputE2E', () => (
     <AddressInputE2E />
   ));
 }

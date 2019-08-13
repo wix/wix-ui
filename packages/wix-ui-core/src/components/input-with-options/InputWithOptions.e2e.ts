@@ -7,9 +7,13 @@ import {
 } from 'wix-ui-test-utils/protractor';
 import { inputWithOptionsTestkitFactory } from '../../testkit/protractor';
 import { DataHook } from './InputWithOptionsTestFixture';
+import { Category } from '../../../stories/utils';
 
 describe('InputWithOptions', () => {
-  const storyUrl = createStoryUrl({kind: 'Tests', story: 'InputWithOptions'});
+  const storyUrl = createStoryUrl({
+    kind: Category.TESTS,
+    story: 'InputWithOptions',
+  });
 
   beforeEach(() => {
     browser.get(storyUrl);

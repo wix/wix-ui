@@ -3,6 +3,7 @@ import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
 import { SIGNNATURE_INPUT_METADATA } from '../constants';
 import { TEST_IDS } from './SignatureInputTestFixture';
+import { Category } from '../../../../stories/utils';
 
 const createDriver = () =>
   signatureInputTestkitFactory({ dataHook: TEST_IDS.ROOT });
@@ -27,7 +28,7 @@ const getCanvasData = (canvasDataHook: string) => {
 const isWhite = (color: number) => color === 0;
 
 const storyUrl = createStoryUrl({
-  kind: 'Tests',
+  kind: Category.TESTS,
   story: SIGNNATURE_INPUT_METADATA.displayName,
 });
 

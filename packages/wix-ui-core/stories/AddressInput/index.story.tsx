@@ -1,7 +1,8 @@
-import {AddressInput} from '../../src/components/address-input';
-import {GoogleMapsClientStub} from '../../src/components/address-input/GoogleMapsClientStub';
-import {MapsClientConstructor} from '../../src/clients/GoogleMaps/types';
+import { AddressInput } from '../../src/components/address-input';
+import { GoogleMapsClientStub } from '../../src/components/address-input/GoogleMapsClientStub';
+import { MapsClientConstructor } from '../../src/clients/GoogleMaps/types';
 import * as helper from '../../src/components/address-input/AddressInputTestHelper';
+import { Category } from '../utils';
 
 GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
 GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
@@ -9,7 +10,7 @@ GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstructor;
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'AddressInput',
 
   component: AddressInput,
@@ -21,8 +22,8 @@ export default {
     Client,
     fixed: true,
     forceSelect: false,
-    onSelect: value => setState({value: value.address.formatted}),
-    'data-hook': 'storybook-addressInput'
+    onSelect: value => setState({ value: value.address.formatted }),
+    'data-hook': 'storybook-addressInput',
   }),
 
   exampleProps: {
@@ -45,5 +46,5 @@ export default {
     ],
   },
 
-  codeExample: false
+  codeExample: false,
 };

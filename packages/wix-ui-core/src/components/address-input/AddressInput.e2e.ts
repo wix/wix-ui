@@ -7,10 +7,11 @@ import { addressInputTestkitFactory } from '../../testkit/protractor';
 import { browser, $ } from 'protractor';
 import { byDataHook } from '../../../test/utils/unidriver';
 import { DataHooks } from '../../../stories/AddressInput/E2E';
+import { Category } from '../../../stories/utils';
 
 describe('AddressInput', () => {
   const storyUrl = createStoryUrl({
-    kind: 'Components',
+    kind: Category.COMPONENTS,
     story: 'AddressInputE2E',
   });
 

@@ -3,11 +3,12 @@ import * as eventually from 'wix-eventually';
 import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../testkit/protractor';
+import { Category } from '../../../stories/utils';
 
 const movedX = 10;
 
 describe('Tooltip', () => {
-  const storyUrl = getStoryUrl('Components', 'Tooltip Custom');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Tooltip Custom');
 
   beforeEach(() => browser.get(storyUrl));
 
@@ -38,24 +39,30 @@ describe('Tooltip', () => {
     await eventually(() => expect(driver.isContentElementExists()).toBeFalsy());
   });
 
-  eyes.it('should render before or after cover according to zIndex', async () => {
-    const dataHookZindexBefore = 'story-tooltip-zIndex-order-before';
-    const driverZindexBefore = tooltipTestkitFactory({ dataHook: dataHookZindexBefore });
-    await waitForVisibilityOf(
-      driverZindexBefore.element(),
-      'Cannot find Tooltip Zindex before',
-    );
-    await driverZindexBefore.mouseEnter();
-    await eyes.checkWindow('tooltip hover with order before cover');
+  eyes.it(
+    'should render before or after cover according to zIndex',
+    async () => {
+      const dataHookZindexBefore = 'story-tooltip-zIndex-order-before';
+      const driverZindexBefore = tooltipTestkitFactory({
+        dataHook: dataHookZindexBefore,
+      });
+      await waitForVisibilityOf(
+        driverZindexBefore.element(),
+        'Cannot find Tooltip Zindex before',
+      );
+      await driverZindexBefore.mouseEnter();
+      await eyes.checkWindow('tooltip hover with order before cover');
 
-    const dataHookZindexAfter = 'story-tooltip-zIndex-order-after';
-    const driverZindexAfter = tooltipTestkitFactory({ dataHook: dataHookZindexAfter });
-    await waitForVisibilityOf(
-      driverZindexBefore.element(),
-      'Cannot find Tooltip Zindex after',
-    );
-    await driverZindexAfter.mouseEnter();
-    await eyes.checkWindow('tooltip hover with order after cover');
-  });
-
+      const dataHookZindexAfter = 'story-tooltip-zIndex-order-after';
+      const driverZindexAfter = tooltipTestkitFactory({
+        dataHook: dataHookZindexAfter,
+      });
+      await waitForVisibilityOf(
+        driverZindexBefore.element(),
+        'Cannot find Tooltip Zindex after',
+      );
+      await driverZindexAfter.mouseEnter();
+      await eyes.checkWindow('tooltip hover with order after cover');
+    },
+  );
 });

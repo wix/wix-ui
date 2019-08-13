@@ -2,9 +2,10 @@ import { paginationTestkitFactory } from '../../testkit/protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
 import * as eyes from 'eyes.it';
+import { Category } from '../../../stories/utils';
 
 describe('Pagination', () => {
-  const storyUrl = getStoryUrl('Components', 'Pagination');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Pagination');
 
   beforeEach(() => browser.get(storyUrl));
 

@@ -1,6 +1,8 @@
 import { Input } from '../../src/components/input';
+import { Category } from '../utils';
+
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Input',
 
   component: Input,
@@ -20,6 +22,6 @@ export default {
     onBlur: () => 'Triggered onBlur',
     onFocus: () => 'Triggered onFocus',
     onKeyDown: () => 'Triggered onKeyDown',
-    onKeyUp: () => 'Triggered onKeyUp'
-  }
+    onKeyUp: () => 'Triggered onKeyUp',
+  },
 };

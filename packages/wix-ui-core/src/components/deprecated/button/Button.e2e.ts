@@ -6,9 +6,10 @@ import {
   buttonTestkitFactory,
   ButtonDriver,
 } from '../../../testkit/protractor';
+import { Category } from '../../../../stories/utils';
 
 describe('Button', () => {
-  const storyUrl = getStoryUrl('Components', 'Button');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Button');
   const dataHook = 'storybook-button';
   let driver: ButtonDriver;
 

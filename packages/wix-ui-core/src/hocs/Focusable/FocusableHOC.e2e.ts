@@ -4,30 +4,28 @@ import {
   waitForVisibilityOf,
   isFocused,
 } from 'wix-ui-test-utils/protractor';
-import {buttonNextTestkitFactory} from '../../testkit/protractor';
+import { buttonNextTestkitFactory } from '../../testkit/protractor';
+import { Category } from '../../../stories/utils';
 
 describe('FocusableHOC', () => {
-  const testsStoryUrl = getStoryUrl('Tests', 'FocusableHOC');
+  const testsStoryUrl = getStoryUrl(Category.TESTS, 'FocusableHOC');
 
   beforeEach(() => browser.get(testsStoryUrl));
 
-  it(
-      'should not show any styles on the text inside the tooltip',
-      async () => {
+  it('should not show any styles on the text inside the tooltip', async () => {
+    const firstButtonDataHook = 'first-button';
+    const secondButtonDataHook = 'second-button';
+    const firstButtonElementFinder = $(`[data-hook="${firstButtonDataHook}"]`);
+    const secondButtonElementFinder = $(
+      `[data-hook="${secondButtonDataHook}"]`,
+    );
 
-        const firstButtonDataHook = 'first-button';
-        const secondButtonDataHook = 'second-button';
-        const firstButtonElementFinder = $(`[data-hook="${firstButtonDataHook}"]`);
-        const secondButtonElementFinder = $(`[data-hook="${secondButtonDataHook}"]`);
+    await waitForVisibilityOf(firstButtonElementFinder, 'Cannot find button');
+    const buttonNextTestkit = buttonNextTestkitFactory({
+      dataHook: firstButtonDataHook,
+    });
+    await buttonNextTestkit.click();
 
-        await waitForVisibilityOf(
-            firstButtonElementFinder,
-            'Cannot find button',
-        );
-        const buttonNextTestkit = buttonNextTestkitFactory({ dataHook: firstButtonDataHook });
-        await buttonNextTestkit.click();
-
-        expect(isFocused(secondButtonElementFinder)).toBe(true);
-      },
-  );
+    expect(isFocused(secondButtonElementFinder)).toBe(true);
+  });
 });

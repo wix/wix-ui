@@ -3,9 +3,10 @@ import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { toggleSwitchTestkitFactory } from '../../testkit/protractor';
 import { Key } from 'selenium-webdriver';
+import { Category } from '../../../stories/utils';
 
 describe('ToggleSwitch', () => {
-  const storyUrl = getStoryUrl('Components', 'ToggleSwitch');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'ToggleSwitch');
   const dataHook = 'story-toggleswitch';
 
   beforeEach(() => browser.get(storyUrl));

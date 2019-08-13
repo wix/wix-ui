@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {LinearProgressBar} from '../../src/components/linear-progress-bar';
-import {LinearProgressBarProps} from '../../src/components/linear-progress-bar/LinearProgressBar';
+import { LinearProgressBar } from '../../src/components/linear-progress-bar';
+import { LinearProgressBarProps } from '../../src/components/linear-progress-bar/LinearProgressBar';
 import style from './style.st.css';
+import { Category } from '../utils';
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   name: 'LinearProgressBar',
   storyName: 'LinearProgressBar',
   component: LinearProgressBar,
@@ -15,6 +16,6 @@ export default {
     'data-hook': 'progress-bar',
     value: 10,
     showProgressIndication: false,
-    error: false
+    error: false,
   }),
-}
+};

@@ -3,9 +3,10 @@ import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { checkboxTestkitFactory } from '../../testkit/protractor';
 import { Key } from 'selenium-webdriver';
+import { Category } from '../../../stories/utils';
 
 describe('Checkbox', () => {
-  const storyUrl = getStoryUrl('Components', 'Checkbox');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Checkbox');
   const dataHook = 'storybook-checkbox';
 
   beforeEach(() => browser.get(storyUrl));
