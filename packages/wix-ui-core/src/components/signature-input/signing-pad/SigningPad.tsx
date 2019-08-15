@@ -11,7 +11,7 @@ export interface SigningPadProps
     React.CanvasHTMLAttributes<HTMLCanvasElement> {
   'data-hook'?: string;
   penColor?: IOptions['penColor'];
-  penWidth?: number;
+  penWidth?: string;
   onInit?(padAPI: Pick<SignaturePad, 'clear' | 'toDataURL'>): void;
   canvasRef?(instance: HTMLCanvasElement): void;
 }
@@ -31,9 +31,9 @@ const isValidColor = (strColor: string) => {
 // the penWidth represents the maximal width of the drawn
 // signature line
 const transformPenSizeToWidths = (
-  penWidth?: number,
+  penWidth?: string,
 ): Pick<IOptions, 'minWidth' | 'maxWidth'> => {
-  const maxWidth = penWidth || 2.5;
+  const maxWidth = +penWidth || 2.5;
   return {
     minWidth: Math.max(maxWidth / 5, 0.5),
     maxWidth,
@@ -49,7 +49,7 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     /* Color of the signature drawn over the canvas */
     penColor: PropTypes.string,
     /* Width of the signature line drawn over the canvas */
-    penWidth: PropTypes.number,
+    penWidth: PropTypes.string,
     /* Callback to get imperative signature pad instace API  */
     onInit: PropTypes.func,
     /* Callback to get an instance of the canvas HTML element instance */
