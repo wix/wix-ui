@@ -70,8 +70,8 @@ class SigningPadComp extends React.Component<SigningPadProps> {
 
     onInit &&
       onInit({
-        clear: this.signaturePad.clear,
-        toDataURL: this.signaturePad.toDataURL,
+        clear: this.signaturePad.clear.bind(this.signaturePad),
+        toDataURL: this.signaturePad.toDataURL.bind(this.signaturePad),
       });
   }
 
