@@ -141,10 +141,10 @@ export const circularProgressBarUniTestkitFactory = uniTestkitFactoryCreator<
 export { CircularProgressBarUniDriver };
 
 import {
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
   SignatureInputDriver,
 } from '../components/signature-input/SignatureInput.uni.driver';
 export const signatureInputTestkitFactory = uniTestkitFactoryCreator(
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
 );
 export { SignatureInputDriver };

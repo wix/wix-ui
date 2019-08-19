@@ -55,10 +55,10 @@ export const circularProgressBarTestkitFactory = puppeteerUniTestkitFactoryCreat
 export { CircularProgressBarUniDriver };
 
 import {
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
   SignatureInputDriver,
 } from '../components/signature-input/SignatureInput.uni.driver';
 export const signatureInputTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
 );
 export { SignatureInputDriver };

@@ -9,10 +9,11 @@ import {
 } from '../../../testkit/protractor';
 import { DataHook } from './FilePickerButtonTestFixture';
 import * as path from 'path';
+import {Category} from '../../../../stories/utils';
 
 describe('FilePickerButton', () => {
   const storyUrl = createStoryUrl({
-    kind: 'Tests',
+    kind: Category.TESTS,
     story: 'FilePickerButton',
   });
 

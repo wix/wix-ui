@@ -2,9 +2,10 @@ import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { inputTestkitFactory } from '../../testkit/protractor';
+import { Category } from '../../../stories/utils';
 
 describe('Input', () => {
-  const storyUrl = getStoryUrl('Components', 'Input');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Input');
 
   beforeEach(() => {
     browser.get(storyUrl);

@@ -16,7 +16,7 @@ import {
 
 import { Tooltip } from '../../src/components/tooltip';
 import { ButtonNext } from '../../src/components/button-next';
-import { baseScope } from '../utils';
+import { baseScope, Category } from '../utils';
 
 import * as examples from './examples';
 
@@ -34,7 +34,7 @@ const example = ({ source, ...rest }) =>
   columns([description({ ...rest }), liveCode({ source })]);
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Tooltip',
   component: Tooltip,
   componentPath: '../../src/components/tooltip/Tooltip.tsx',

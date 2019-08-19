@@ -1,11 +1,12 @@
 import {Autocomplete} from '../src/components/autocomplete';
 import {Option, DividerArgs} from '../src/components/dropdown-option';
 import {generateOptions} from '../src/components/dropdown-option/OptionsExample';
+import {Category} from './utils';
 
 const options = generateOptions((args: Partial<DividerArgs> = {}) => Autocomplete.createDivider(args.value));
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Autocomplete',
   component: Autocomplete,
   componentPath: '../src/components/autocomplete',

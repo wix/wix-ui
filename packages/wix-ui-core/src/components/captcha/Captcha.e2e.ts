@@ -12,13 +12,14 @@ import {
   CaptchaTestInstanceDriverFactory,
 } from './test-assets/CaptchaTestComponent.testDriver';
 import { constants } from './test-assets/constants';
+import { Category } from '../../../stories/utils';
 
 const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<
   CaptchaTestComponentDriver
 >(CaptchaTestInstanceDriverFactory);
 
 describe('Captcha', () => {
-  const storyUrl = createStoryUrl({ kind: 'Components', story: 'Captcha' });
+  const storyUrl = createStoryUrl({ kind: Category.COMPONENTS, story: 'Captcha' });
 
   beforeAll(async () => {
     await browser.get(storyUrl);

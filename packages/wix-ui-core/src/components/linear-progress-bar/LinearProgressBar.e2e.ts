@@ -8,9 +8,10 @@ import {
 import { Key } from 'selenium-webdriver';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { LinearProgressBarProps } from './LinearProgressBar';
+import { Category } from '../../../stories/utils';
 
 describe('LinearProgresBar', () => {
-  const storyUrl = getStoryUrl('Components', 'LinearProgressBar');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'LinearProgressBar');
   const dataHook = 'progress-bar';
   let driver: LinearProgressBarDriver;
 

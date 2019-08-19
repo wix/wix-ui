@@ -10,11 +10,12 @@ import {
 } from '../src/components/captcha/types';
 import { CaptchaTestComponent } from '../src/components/captcha/test-assets/CaptchaTestComponent';
 import { RequiredCaptchaSubmissionExample } from '../src/components/captcha/docs/RequiredCaptchaSubmissionExample';
+import { Category } from './utils';
 
 const demoSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Captcha',
   component: Captcha,
   componentPath: '../src/components/captcha/Captcha.tsx',

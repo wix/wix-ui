@@ -17,11 +17,12 @@ import { SIGNNATURE_INPUT_METADATA } from '../src/components/signature-input/con
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
+import { Category } from './utils';
 
-const Components = storiesOf('Components', module);
-const Backoffice = storiesOf('Backoffice', module);
-const HOCs = storiesOf('HOCs', module);
-const Tests = storiesOf('Tests', module);
+const Components = storiesOf(Category.COMPONENTS, module);
+const Backoffice = storiesOf(Category.BACKOFFICE, module);
+const HOCs = storiesOf(Category.HOCS, module);
+const Tests = storiesOf(Category.TESTS, module);
 
 // components (ordered alphabetically)
 import './AddressInput/index.story';
@@ -74,5 +75,11 @@ Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
 Tests.add(SIGNNATURE_INPUT_METADATA.displayName, () => (
   <SignatureInputTestFixture />
+));
+Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'Color', () => (
+  <SignatureInputTestFixture penColor="#0000FF" />
+));
+Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'ColorInvalid', () => (
+  <SignatureInputTestFixture penColor="invalid-color" />
 ));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';

@@ -8,9 +8,10 @@ import {
 import { Key } from 'selenium-webdriver';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { CircularProgressBarProps } from './CircularProgressBar';
+import { Category } from '../../../stories/utils';
 
 describe('CircularProgressBar', () => {
-  const storyUrl = getStoryUrl('Components', 'CircularProgressBar');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'CircularProgressBar');
   const dataHook = 'circular-progress-bar';
   let driver: CircularProgressBarDriver;
 

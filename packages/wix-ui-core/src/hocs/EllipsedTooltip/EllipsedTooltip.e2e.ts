@@ -8,9 +8,10 @@ import {
   waitForVisibilityOf,
 } from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../testkit/protractor';
+import {Category} from '../../../stories/utils';
 
 describe('EllipsedTooltip', () => {
-  const storyUrl = getStoryUrl('HOCs', 'EllipsedTooltip');
+  const storyUrl = getStoryUrl(Category.HOCS, 'EllipsedTooltip');
 
   beforeEach(() => browser.get(storyUrl));
 
@@ -48,7 +49,7 @@ describe('EllipsedTooltip', () => {
   eyes.it(
     'should not show any styles on the text inside the tooltip',
     async () => {
-      const testsStoryUrl = getStoryUrl('Tests', 'EllipsedTooltip');
+      const testsStoryUrl = getStoryUrl(Category.TESTS, 'EllipsedTooltip');
       await browser.get(testsStoryUrl);
 
       const dataHook = 'custom-ellipsedTooltip-with-tooltip';

@@ -1,7 +1,8 @@
 import { ButtonNext } from './';
+import { Category } from '../../../stories/utils';
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'ButtonNext',
   component: ButtonNext,
   componentPath: './button-next.tsx',

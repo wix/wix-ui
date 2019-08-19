@@ -787,6 +787,51 @@ function runTests(createDriver, container) {
     });
   });
 
+  describe('data-hook', () => {
+    it('should be found on target element container',  async () => {
+      const driver = createDriver(
+        <Popover data-hook="random" appendTo="window" shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>,
+      );
+      const target = await driver.getTargetElement()
+      expect(target.parentNode.getAttribute('data-hook')).toBe('random')
+    }) 
+    
+    it('should construct data-content-hook',  async () => {
+      const driver = createDriver(
+        <Popover data-hook="random" appendTo="window" shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>,
+      );
+      const target = await driver.getTargetElement()
+      expect(target.parentNode.getAttribute('data-content-hook')).toMatch(/popover-content-random-/)
+    }) 
+
+    it('should apply data-content-element on content element',  async () => {
+      const driver = createDriver(
+        <Popover data-hook="random" appendTo="window" shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>,
+      );
+      const content = await driver.getContentElement()
+      expect(content.getAttribute('data-content-element')).toMatch(/popover-content-random-/)
+    }) 
+    it('should not override portal component data-hook',  async () => {
+      const driver = createDriver(
+        <Popover data-hook="random" appendTo="window" shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>,
+      );
+      const content = await driver.getContentElement()
+      expect(content.parentNode.getAttribute('data-hook')).toBe('popover-portal')
+    }) 
+  })
+
   describe('Arrow', () => {
     function customArrow(placement, arrowProps) {
       return <p data-test={`custom-arrow-${placement}`} {...arrowProps} />;

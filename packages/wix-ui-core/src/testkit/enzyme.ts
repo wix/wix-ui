@@ -140,10 +140,10 @@ export const navStepperTestkitFactory = enzymeTestkitFactoryCreator(
 export { NavStepperDriver };
 
 import {
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
   SignatureInputDriver,
 } from '../components/signature-input/SignatureInput.uni.driver';
 export const signatureInputTestkitFactory = enzymeUniTestkitFactoryCreator(
-  signaturePadUniDriverFactory,
+  signatureInputUniDriverFactory,
 );
 export { SignatureInputDriver };

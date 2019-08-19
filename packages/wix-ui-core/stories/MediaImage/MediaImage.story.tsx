@@ -1,7 +1,8 @@
 import { MediaImage } from '../../src/components/media-image';
+import {Category} from '../utils';
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Media Image',
 
   component: MediaImage,

@@ -2,9 +2,10 @@ import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { dividerTestkitFactory } from '../../../testkit/protractor';
+import { Category } from '../../../../stories/utils';
 
 describe('Divider', () => {
-  const storyUrl = getStoryUrl('Components', 'Divider');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Divider');
 
   beforeEach(() => browser.get(storyUrl));
 

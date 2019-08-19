@@ -1,7 +1,8 @@
 import {Label} from '../src/components/deprecated/label';
+import {Category} from './utils';
 
 export default {
-  category: 'Components',
+  category: Category.COMPONENTS,
   storyName: 'Label',
 
   component: Label,

@@ -5,6 +5,8 @@ import {
   WithSignaturePadProps,
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
+import style from './ClearButton.st.css';
+import * as classNames from 'classnames';
 
 export interface ClearButtonProps extends WithSignaturePadProps {
   children?: ClearButtonChildrenFn;
@@ -30,6 +32,7 @@ class ClearButtonComp extends React.Component<ClearButtonProps> {
   ): ClearButtonChildrenProps => {
     return {
       ...overrides,
+      className: classNames(style.root, overrides.className),
       onClick: e => {
         const { pad } = this.props;
         const { onClick } = overrides;

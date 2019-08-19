@@ -1,5 +1,5 @@
 import * as wuc from '../src/index';
-import * as icons from 'wix-ui-icons-common';
+import * as Icons from 'wix-ui-icons-common';
 
 /*
  * This object contains all wix-ui-core components including icons
@@ -7,11 +7,14 @@ import * as icons from 'wix-ui-icons-common';
  */
 export const baseScope = {
   ...wuc,
-  ...icons,
+  Icons,
 };
 
 export enum Category {
-  COMPNENTS = 'Components',
+  COMPONENTS = 'Components',
+  TESTS = 'Tests',
+  HOCS = 'HOCs',
+  BACKOFFICE = 'Backoffice',
 }
 
 /**

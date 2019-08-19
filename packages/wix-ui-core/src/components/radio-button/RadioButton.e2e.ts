@@ -2,9 +2,10 @@ import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { radioButtonTestkitFactory } from '../../testkit/protractor';
+import { Category } from '../../../stories/utils';
 
 describe('RadioButton', () => {
-  const storyUrl = getStoryUrl('Components', 'RadioButton');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'RadioButton');
 
   beforeEach(() => browser.get(storyUrl));
 

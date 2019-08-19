@@ -7,6 +7,7 @@ import {
 } from 'wix-ui-test-utils/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { popoverTestkitFactory } from '../../testkit/protractor';
+import { Category } from '../../../stories/utils';
 
 // Scroll to the bottom of a scrollable container. We assume the container has a `100px` height.
 // This utility function is used for the `flip` and `fixed` props tests, as they depeneds on a
@@ -19,7 +20,7 @@ const scrollToBottom = async dataHook => {
 
 describe('Popover', () => {
   const storyUrl = createStoryUrl({
-    kind: 'Components',
+    kind: Category.COMPONENTS,
     story: 'Popover',
     withExamples: true,
   });
@@ -96,13 +97,9 @@ describe('Popover', () => {
       await createDriver('story-popover-z-index');
     });
 
-    eyes.it(
-      `should render popover z-index properly`,
-      async () => {
-        await scrollToBottom('story-popover-z-index');
-        await browser.sleep(10000);
-      },
-    );
+    eyes.it(`should render popover z-index properly`, async () => {
+      await scrollToBottom('story-popover-z-index');
+      await browser.sleep(10000);
+    });
   });
-
 });

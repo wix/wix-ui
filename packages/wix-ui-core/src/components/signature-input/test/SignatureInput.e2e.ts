@@ -1,61 +1,61 @@
+import * as eyes from 'eyes.it';
 import { signatureInputTestkitFactory } from '../../../testkit/protractor';
 import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
 import { SIGNNATURE_INPUT_METADATA } from '../constants';
 import { TEST_IDS } from './SignatureInputTestFixture';
+import { Category } from '../../../../stories/utils';
 
 const createDriver = () =>
   signatureInputTestkitFactory({ dataHook: TEST_IDS.ROOT });
 
-const isCanvasBlank = async (canvasDataHook: string) => {
-  const canvasData = await getCanvasData(canvasDataHook);
-  return canvasData.every(isWhite);
-};
+const navigateToStory = ({ suffix = '' } = {}) => browser.get(storyUrl(suffix));
 
-const getCanvasData = (canvasDataHook: string) => {
-  return browser.executeScript<Uint32Array>(hook => {
-    const canvas = document.querySelector(
-      `[data-hook="${hook}"]`,
-    ) as HTMLCanvasElement;
-    const canvasData = canvas
-      .getContext('2d')
-      .getImageData(0, 0, canvas.width, canvas.height).data.buffer;
-    return new Uint32Array(canvasData);
-  }, canvasDataHook);
-};
-
-const isWhite = (color: number) => color === 0;
-
-const storyUrl = createStoryUrl({
-  kind: 'Tests',
-  story: SIGNNATURE_INPUT_METADATA.displayName,
-});
-
-describe('Signature Input', () => {
-  beforeEach(async () => {
-    await browser.get(storyUrl);
+const storyUrl = suffix =>
+  createStoryUrl({
+    kind: Category.TESTS,
+    story: SIGNNATURE_INPUT_METADATA.displayName + suffix,
   });
 
+fdescribe('Signature Input', () => {
   it('should render correctly', async () => {
+    await navigateToStory();
     const driver = createDriver();
     expect(await driver.exists()).toBe(true);
   });
 
-  it('should intially be blank', async () => {
+  eyes.it('should intially be blank', async () => {
+    await navigateToStory();
     createDriver();
-    const isCanvasBlankResult = await isCanvasBlank(TEST_IDS.PAD);
-    expect(isCanvasBlankResult).toBe(true);
   });
 
-  it('should support drawing', async () => {
+  eyes.it('should support drawing with black color by default', async () => {
+    await navigateToStory();
     const driver = createDriver();
     const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
-    const isCanvasBlankResult = await isCanvasBlank(TEST_IDS.PAD);
-    expect(isCanvasBlankResult).toBe(false);
   });
 
-  it('should support clearing', async () => {
+  eyes.it('should support drawing with specific color', async () => {
+    await navigateToStory({ suffix: 'Color' });
+    const driver = createDriver();
+    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    await signaturePad.click();
+  });
+
+  eyes.it(
+    'should fallback to drawing with black for invalid colors',
+    async () => {
+      await navigateToStory({ suffix: 'ColorInvalid' });
+      const driver = createDriver();
+      debugger;
+      const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+      await signaturePad.click();
+    },
+  );
+
+  eyes.it('should support clearing', async () => {
+    await navigateToStory();
     const driver = createDriver();
     const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
@@ -63,7 +63,5 @@ describe('Signature Input', () => {
       TEST_IDS.CLEAR_BUTTON,
     );
     await clearButton.click();
-    const isCanvasBlankResult = await isCanvasBlank(TEST_IDS.PAD);
-    expect(isCanvasBlankResult).toBe(true);
   });
 });

@@ -3,9 +3,10 @@ import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { labelWithOptionsTestkitFactory } from '../../testkit/protractor';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { browser } from 'protractor';
+import { Category } from '../../../stories/utils';
 
 describe('LabelWithOptions', () => {
-  const storyUrl = getStoryUrl('Components', 'LabelWithOptions');
+  const storyUrl = getStoryUrl(Category.COMPONENTS, 'LabelWithOptions');
   const dataHook = 'storybook-labelwithoptions';
 
   beforeEach(() => browser.get(storyUrl));
