@@ -1164,12 +1164,12 @@ describe('AddressInput', () => {
       driver.mouseLeaveInput();
       expect(onMouseLeave).toHaveBeenCalledTimes(1);
     });
-
+¬
     it('should NOT call onBlur when option is selected', async () => {
       const onBlur = jest.fn();
       GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
       GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
-      init({onBlur, options: [{id: 1, name: 'An option'}]});
+      init({onBlur});
       driver.click();
       driver.setValue('n');
       await waitForCond(() => driver.isContentElementExists());
