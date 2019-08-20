@@ -80,6 +80,15 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     status: ImageStatus.loading,
   };
 
+  componentDidUpdate(prevProps: Readonly<ImageProps>) {
+    if (prevProps.src !== this.props.src || prevProps.srcSet !== this.props.srcSet || prevProps.errorImage !== this.props.errorImage) {
+      this.setState({
+        src: this.getSrc(),
+        status: ImageStatus.loading
+      })
+    }
+  }
+
   render() {
     const { resizeMode } = this.props;
 
