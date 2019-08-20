@@ -23,7 +23,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Handler for when an option is selected */
   onSelect(option: Option | null): void;
   /** Handler for when a mouse down event occurs on an option */
-  onContentMouseDown?(): void;
+  onContentMouseDown?(e: React.MouseEvent): void;
   /** Handler for when an option is deselected */
   onDeselect(option: Option | null): void;
   /** initial selected option ids */
@@ -193,9 +193,9 @@ export class DropdownComponent extends React.PureComponent<
     });
   }
 
-  _onContentMouseDown() {
+  _onContentMouseDown(e) {
     const { onContentMouseDown } = this.props;
-    onContentMouseDown && onContentMouseDown();
+    onContentMouseDown && onContentMouseDown(e);
   }
 
   onOptionClick(option: Option | null) {

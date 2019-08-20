@@ -171,10 +171,10 @@ export class InputWithOptions extends React.PureComponent<
     onBlur && onBlur(event);
   };
 
-  _onContentMouseDown = () => {
+  _onContentMouseDown = (e) => {
     const { onContentMouseDown } = this.props;
     this.isEditing = false;
-    onContentMouseDown && onContentMouseDown();
+    onContentMouseDown && onContentMouseDown(e);
   };
 
   render() {

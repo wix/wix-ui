@@ -181,6 +181,15 @@ describe('Dropdown', () => {
       driver.triggerMouseDownOnDropdownContent();
       expect(onContentMouseDown).toHaveBeenCalled();
     });
+    it('should be called with event when mouse down event occurs', () => {
+      const onContentMouseDown = jest.fn();
+      const driver = createDriver(
+        createDropdown({ options, onContentMouseDown }),
+      );
+      driver.click();
+      driver.triggerMouseDownOnDropdownContent();
+      expect(onContentMouseDown.mock.calls[0].length).toBe(1);
+    });
   });
 
   describe('onDeselect', () => {
