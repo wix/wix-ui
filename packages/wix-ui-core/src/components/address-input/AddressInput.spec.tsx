@@ -1164,7 +1164,7 @@ describe('AddressInput', () => {
       driver.mouseLeaveInput();
       expect(onMouseLeave).toHaveBeenCalledTimes(1);
     });
-¬
+
     it('should NOT call onBlur when option is selected', async () => {
       const onBlur = jest.fn();
       GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
