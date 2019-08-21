@@ -65,5 +65,14 @@ describe('DropdownContent', () => {
       driver.triggerMouseDown();
       expect(onMouseDown).toHaveBeenCalled();
     });
+
+    it('should trigger onMouseDown with an event', () => {
+      const onMouseDown = jest.fn();
+      const driver = createDriver(
+        createDropdownContent({ options, onMouseDown }),
+      );
+      driver.triggerMouseDown();
+      expect(onMouseDown.mock.calls[0].length).toBe(1);
+    });
   });
 });

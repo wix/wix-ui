@@ -12,7 +12,7 @@ export interface DropdownContentProps {
   /** A callback for when clicking an option */
   onOptionClick(option: Option | null): void;
   /** A callback for mouse down event */
-  onMouseDown?(): void;
+  onMouseDown?(e: React.MouseEvent): void;
   /** Array of the selected ids */
   selectedIds: (string | number)[];
   /** An element that always appears at the top of the options */
@@ -143,9 +143,9 @@ export class DropdownContent extends React.PureComponent<
     this.mouseCoords.screenY = evt.screenY;
   }
 
-  onMouseDown() {
+  onMouseDown(e) {
     const { onMouseDown } = this.props;
-    onMouseDown && onMouseDown();
+    onMouseDown && onMouseDown(e);
   }
 
   onMouseEnter(evt: React.MouseEvent<HTMLDivElement>, index: number) {
