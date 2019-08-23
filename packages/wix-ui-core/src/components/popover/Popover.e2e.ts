@@ -102,4 +102,13 @@ describe('Popover', () => {
       await browser.sleep(10000);
     });
   });
+
+  describe('appendTo', () => {
+    it(`should render popover z-index properly`, async () => {
+      await scrollToBottom('story-popover-z-index');
+      await autoExampleDriver.setProps({ shown: true, appendTo: 'window' });
+      const driver = await createDriver('story-popover-fixed-behaviour');
+      expect(driver.getContentElement().isDisplayed()).toBe(true);
+    });
+  });
 });

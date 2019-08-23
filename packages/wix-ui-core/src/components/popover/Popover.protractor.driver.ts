@@ -13,8 +13,21 @@ export interface PopoverDriver extends BaseDriver {
 }
 
 export const popoverDriverFactory: DriverFactory<PopoverDriver> = component => {
+  const queryDocumentOrElement = (query: string): ElementFinder => {
+    const elm = component.$$(query).get(0);
+    if (elm.exists()) {
+      return elm;
+    }
+    return component.$('body').$(query);
+  };
+
+  const getContentElement = (): ElementFinder => {
+    const contentHook = component.getAttribute('data-content-hook');
+    const contentSelector = `[data-content-element="${contentHook}"]`;
+    return queryDocumentOrElement(contentSelector);
+  };
+
   const getTargetElement = () => $('[data-hook="popover-element"]');
-  const getContentElement = () => $('[data-hook="popover-content"]');
 
   return {
     /** Returns the component element */
