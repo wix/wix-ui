@@ -10,13 +10,23 @@ A render slot for the signature input title
 
 A render slot for the signature input signing pad
 
-| propName   | propType | defaultValue | isRequired | description |
-| ---------- | -------- | ------------ | ---------- | ----------- |
-| `data-hook`| string   |              |            | Testing ID  |
-| `penColor` | string   | 'black'      |            | Color of the signature |
-| `penWidth` | number   | 2.5          |            | The width of the signature |
-| `onInit`   | function |              |            | Callback that provides an imperative API for manipulating the signing pad. The returned object contains the following methods: `clear()` - to clear the canvas, `toDataURL(format?: "image/jpeg" | "image/svg+xml")` - to export the signature to png / jpeg / svg accordingly |
+| propName   | propType | defaultValue | isRequired | description                            |
+| ---------- | -------- | ------------ | ---------- | -------------------------------------- |
+| `data-hook`| string   |              |            | Testing ID                             |
+| `penColor` | string   | 'black'      |            | Color of the signature                 |
+| `disabled` | boolean  | false        |            | Is the signature pad disabled          |
+| `required` | boolean  | false        |            | Is signature mandatory in form context |
+| `penWidth` | number   | 2.5          |            | The width of the signature             | 
+| `onInit`   | function |              |            | Callback to get the `SignaturePadApi`  |
 | `canvasRef`| function |              |            | Callback to get an instance of the canvas HTML element instance |
+
+`SignaturePadApi` - object containing the imperative API for communicating with the signing pad.
+* `clear: () => void` - Clears the signature pad
+* `toDataURL: (format?: "image/jpeg" OR "image/svg+xml") => string` - Exports the signature to png / jpeg / svg accordingly
+* `isEmpty: () => boolean` - Returns true if the signature pad is empty; otherwise false
+* `onDraw: (event: MouseEvent | Touch) => void` - Fires when a curve was drawn on the signature pad
+
+
 
 ### `<SignatureInput.ClearButton/>`
 

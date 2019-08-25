@@ -64,4 +64,11 @@ describe('Signature Input', () => {
     );
     await clearButton.click();
   });
+
+  eyes.it('should not draw if the signature pad is disabled', async () => {
+    await navigateToStory({ suffix: 'Disabled' });
+    const driver = createDriver();
+    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    await signaturePad.click();
+  });
 });

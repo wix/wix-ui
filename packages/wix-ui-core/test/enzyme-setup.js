@@ -10,6 +10,9 @@ jest.mock('signature_pad', () => ({
   default: function FakeSignaturePad() {
     this.clear = jest.fn();
     this.off = jest.fn();
+    this.on = jest.fn();
     this.toDataURL = jest.fn();
+    this.isEmpty = jest.fn();
+    this.onEnd = jest.fn();
   }
 }));

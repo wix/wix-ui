@@ -22,9 +22,15 @@ export class SignatureInput extends React.Component<{}, SignatureInputState> {
     this.setState({ pad });
   };
 
+  setSignatureTitleId = (titleId: string) => {
+    this.setState({ titleId });
+  };
+
   readonly state = {
+    titleId: undefined,
     pad: undefined,
     setSignaturePadContext: this.setSignaturePadContext,
+    setSignatureTitleId: this.setSignatureTitleId,
   };
 
   render() {

@@ -6,15 +6,25 @@ import {
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
 
-export interface SigningPadProps
-  extends WithSignaturePadProps,
-    React.CanvasHTMLAttributes<HTMLCanvasElement> {
+export interface SignaturePadApi
+  extends Pick<SignaturePad, 'clear' | 'toDataURL' | 'isEmpty'> {
+  onDraw(e: MouseEvent | React.Touch): void;
+}
+
+export interface SigningPadOwnProps
+  extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   'data-hook'?: string;
   penColor?: IOptions['penColor'];
   penWidth?: string;
-  onInit?(padAPI: Pick<SignaturePad, 'clear' | 'toDataURL'>): void;
+  onInit?(padAPI: SignaturePadApi): void;
+  disabled?: boolean;
+  required?: boolean;
   canvasRef?(instance: HTMLCanvasElement): void;
 }
+
+export interface SigningPadProps
+  extends SigningPadOwnProps,
+    WithSignaturePadProps {}
 
 const calculatePenColor = (penColor?: string) =>
   (isValidColor(penColor) && penColor) || 'black';
@@ -52,6 +62,10 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     penWidth: PropTypes.string,
     /* Callback to get imperative signature pad instace API  */
     onInit: PropTypes.func,
+    /* Is the signature pad disabled */
+    disabled: PropTypes.bool,
+    /* Is signature mandatory in form context */
+    required: PropTypes.bool,
     /* Callback to get an instance of the canvas HTML element instance */
     canvasRef: PropTypes.func,
   };
@@ -60,7 +74,13 @@ class SigningPadComp extends React.Component<SigningPadProps> {
   private signaturePad: SignaturePad = undefined;
 
   componentDidMount() {
-    const { setSignaturePadContext, penColor, penWidth, onInit } = this.props;
+    const {
+      setSignaturePadContext,
+      penColor,
+      penWidth,
+      onInit,
+      disabled,
+    } = this.props;
     this.signaturePad = new SignaturePad(this.canvasEl, {
       penColor: calculatePenColor(penColor),
       ...transformPenSizeToWidths(penWidth),
@@ -68,10 +88,16 @@ class SigningPadComp extends React.Component<SigningPadProps> {
 
     setSignaturePadContext(this.signaturePad);
 
+    if (disabled) {
+      this.signaturePad.off();
+    }
+
     onInit &&
       onInit({
         clear: this.signaturePad.clear.bind(this.signaturePad),
         toDataURL: this.signaturePad.toDataURL.bind(this.signaturePad),
+        isEmpty: this.signaturePad.isEmpty.bind(this.signaturePad),
+        onDraw: this.signaturePad.onEnd.bind(this.signaturePad),
       });
   }
 
@@ -80,8 +106,12 @@ class SigningPadComp extends React.Component<SigningPadProps> {
   }
 
   componentDidUpdate(prevProps: SigningPadProps) {
-    const { penWidth: prevPenWidth, penColor: prevPenColor } = prevProps;
-    const { penWidth, penColor } = this.props;
+    const {
+      penWidth: prevPenWidth,
+      penColor: prevPenColor,
+      disabled: prevDisabled,
+    } = prevProps;
+    const { penWidth, penColor, disabled } = this.props;
 
     if (prevPenWidth !== penWidth) {
       const { minWidth, maxWidth } = transformPenSizeToWidths(penWidth);
@@ -91,6 +121,12 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     if (prevPenColor !== penColor) {
       this.signaturePad.penColor = calculatePenColor(penColor);
     }
+
+    if (prevDisabled && !disabled) {
+      this.signaturePad.on();
+    } else if (!prevDisabled && disabled) {
+      this.signaturePad.off();
+    }
   }
 
   setCanvasRef = (canvas: HTMLCanvasElement) => {
@@ -99,17 +135,43 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     canvasRef && canvasRef(canvas);
   };
 
+  handleClick: React.MouseEventHandler<HTMLCanvasElement> = e => {
+    const { disabled, onClick } = this.props;
+
+    if (!disabled && onClick) {
+      onClick(e);
+    }
+  };
+
   render() {
     const {
       setSignaturePadContext,
+      setSignatureTitleId,
       pad,
+      titleId,
       penColor,
       penWidth,
       onInit,
       canvasRef,
+      disabled,
+      required,
       ...rest
     } = this.props;
-    return <canvas ref={this.setCanvasRef} {...rest}></canvas>;
+
+    const a11yProps: React.HTMLAttributes<HTMLCanvasElement> = {
+      'aria-disabled': !!disabled,
+      'aria-required': !!required,
+      ...(titleId && { 'aria-labelledby': titleId }),
+    };
+
+    return (
+      <canvas
+        ref={this.setCanvasRef}
+        {...a11yProps}
+        {...rest}
+        onClick={this.handleClick}
+      ></canvas>
+    );
   }
 }
 

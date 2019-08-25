@@ -3,7 +3,13 @@ import * as PropTypes from 'prop-types';
 import style from './Title.st.css';
 import * as classNames from 'classnames';
 
-export interface TitleProps {
+import {
+  withSignatureInputContext,
+  WithSignaturePadProps,
+} from '../SignatureInputContext';
+import { generateID } from '../utils';
+
+export interface TitleProps extends WithSignaturePadProps {
   children?: TitleChildrenFn;
 }
 
@@ -15,15 +21,28 @@ export type TitleChildrenFn = (childrenFn: {
   getTitleProps(overrides?: Partial<TitleChildrenProps>): TitleChildrenProps;
 }) => JSX.Element;
 
-export class Title extends React.Component<TitleProps> {
+class TitleComp extends React.Component<TitleProps> {
   static displayName = 'Title';
 
   static propTypes = {
     children: PropTypes.func,
   };
 
+  componentDidMount() {
+    const { setSignatureTitleId } = this.props;
+    const id = `signature-input-label-${generateID()}`;
+    setSignatureTitleId(id);
+  }
+
+  componentWillUnmount() {
+    const { setSignatureTitleId } = this.props;
+    setSignatureTitleId(undefined);
+  }
+
   getTitleProps = (overrides: Partial<any> = {}): any => {
+    const { titleId } = this.props;
     return {
+      id: titleId,
       ...overrides,
       className: classNames(style.root, overrides.className),
     };
@@ -40,3 +59,5 @@ export class Title extends React.Component<TitleProps> {
     );
   }
 }
+
+export const Title = withSignatureInputContext(TitleComp);

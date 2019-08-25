@@ -15,12 +15,12 @@ import {
   importExample,
   playground,
   columns,
-  api,
   code as baseCode,
 } from 'wix-storybook-utils/Sections';
 import { Category } from '../../../../stories/utils';
 import { baseScope as allComponents } from '../../../../stories/utils';
 import compoundReadmeApi from './CompoundComponentsAPI.md';
+import { SigningPadOwnProps } from '../signing-pad/SigningPad';
 
 const liveCode = config =>
   code({
@@ -29,39 +29,64 @@ const liveCode = config =>
     ...config,
   });
 
+const SignatureChildren = (padProps: SigningPadOwnProps = {}) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    }}
+  >
+    <SignatureInput.Title>
+      {({ getTitleProps }) => (
+        <span {...getTitleProps()}>Enter your signature here:</span>
+      )}
+    </SignatureInput.Title>
+    <SignatureInput.SigningPad
+      {...padProps}
+      style={{ border: '1px solid black' }}
+    />
+    <SignatureInput.ClearButton>
+      {({ getClearButtonProps }) => (
+        <ButtonNext
+          {...getClearButtonProps({
+            onClick: () => window.alert('clear callback'),
+          })}
+        >
+          Clear
+        </ButtonNext>
+      )}
+    </SignatureInput.ClearButton>
+  </div>
+);
+
 export default {
   category: Category.COMPONENTS,
   storyName: SIGNNATURE_INPUT_METADATA.displayName,
   component: SignatureInput,
   componentPath: '..',
   componentProps: {
-    children: (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-        }}
-      >
-        <SignatureInput.Title>
-          {({ getTitleProps }) => (
-            <span {...getTitleProps()}>Enter your signature here:</span>
-          )}
-        </SignatureInput.Title>
-        <SignatureInput.SigningPad style={{ border: '1px solid black' }} />
-        <SignatureInput.ClearButton>
-          {({ getClearButtonProps }) => (
-            <ButtonNext
-              {...getClearButtonProps({
-                onClick: () => window.alert('clear callback'),
-              })}
-            >
-              Clear
-            </ButtonNext>
-          )}
-        </SignatureInput.ClearButton>
-      </div>
-    ),
+    children: SignatureChildren(),
+  },
+  exampleProps: {
+    children: [
+      {
+        label: 'Regular',
+        value: SignatureChildren(),
+      },
+      {
+        label: 'Disabled',
+        value: SignatureChildren({ disabled: true }),
+      },
+      {
+        label: 'Custom signature width',
+        value: SignatureChildren({ penWidth: '5' }),
+      },
+      {
+        label: 'Custom signature color',
+        value: SignatureChildren({ penColor: 'blue' }),
+      },
+    ],
   },
   sections: [
     header({
@@ -101,6 +126,7 @@ export default {
         sections: [description(compoundReadmeApi)],
       }),
       tab({ title: 'Testkit', sections: [testkit()] }),
+      tab({ title: 'Playground', sections: [playground()] }),
     ]),
   ],
 };

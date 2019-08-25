@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SignatureInput } from '..';
 import { ButtonNext } from '../../button-next';
+import { SigningPadOwnProps } from '../signing-pad/SigningPad';
 
 export const TEST_IDS = {
   ROOT: 'signature-input',
@@ -9,18 +10,20 @@ export const TEST_IDS = {
   CLEAR_BUTTON: 'signature-input--clear-pad',
 };
 
-export interface SignatureInputTestFixtureProps {
+export interface SignatureInputTestFixtureProps extends SigningPadOwnProps {
   onClear?(): void;
-  onInit?(): void;
-  canvasRef?(): void;
-  penColor?: string;
+  titleText?: string;
 }
 
 export class SignatureInputTestFixture extends React.Component<
   SignatureInputTestFixtureProps
 > {
   render() {
-    const { onClear, onInit, penColor, canvasRef } = this.props;
+    const {
+      onClear,
+      titleText = 'Enter your signature here:',
+      ...padProps
+    } = this.props;
     return (
       <SignatureInput>
         <div
@@ -31,19 +34,19 @@ export class SignatureInputTestFixture extends React.Component<
             alignItems: 'flex-start',
           }}
         >
-          <SignatureInput.Title>
-            {({ getTitleProps }) => (
-              <p {...getTitleProps({ 'data-hook': TEST_IDS.TITLE })}>
-                Enter your signature here:
-              </p>
-            )}
-          </SignatureInput.Title>
+          {titleText && (
+            <SignatureInput.Title>
+              {({ getTitleProps }) => (
+                <p {...getTitleProps({ 'data-hook': TEST_IDS.TITLE })}>
+                  Enter your signature here:
+                </p>
+              )}
+            </SignatureInput.Title>
+          )}
           <SignatureInput.SigningPad
             data-hook={TEST_IDS.PAD}
             style={{ border: '1px solid black' }}
-            onInit={onInit}
-            penColor={penColor}
-            canvasRef={canvasRef}
+            {...padProps}
           />
           <SignatureInput.ClearButton>
             {({ getClearButtonProps }) => (
