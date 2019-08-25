@@ -126,6 +126,26 @@ describe('InputWithOptions', () => {
       expect(driver.getOptionsCount()).toBe(1);
     });
 
+    describe('onContentMouseDown', () => {
+      it('should be called when mouse down event occurs', () => {
+        const onContentMouseDown = jest.fn();
+        const props = { options: numericOptions, inputProps: { value: '' }, onContentMouseDown };
+        const { driver } = setup(props);
+
+        driver.click();
+        driver.triggerMouseDownOnDropdownContent();
+        expect(onContentMouseDown).toHaveBeenCalled();
+      });
+      it('should be called with event when mouse down event occurs', () => {
+        const onContentMouseDown = jest.fn();
+        const props = { options: numericOptions, inputProps: { value: '' }, onContentMouseDown };
+        const { driver } = setup(props);
+        driver.click();
+        driver.triggerMouseDownOnDropdownContent();
+        expect(onContentMouseDown.mock.calls[0].length).toBe(1);
+      });
+    });
+
     it('should support custom filtering', () => {
       const filterPredicate = (inputValue, optionValue) =>
         optionValue === 'b' || optionValue === 'c';

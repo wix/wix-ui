@@ -415,8 +415,9 @@ export class AddressInput extends React.PureComponent<
     }
   }
 
-  _handleContentMouseDown() {
+  _handleContentMouseDown(e) {
     this.optionWasSelected = true;
+    e.preventDefault(); // Prevent input blur
   }
 
   _renderOption(val) {
