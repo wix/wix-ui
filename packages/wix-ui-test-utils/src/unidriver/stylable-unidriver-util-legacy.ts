@@ -98,11 +98,14 @@ export class StylableUnidriverUtilCompat {
   }
 }
 
+type TODO = any;
+
 export class StylableCompatUniDriver {
   private internal:
     | StylableUnidriverUtilCompat
     | StylableUnidriverUtilLegacy
-    | StylableUnidriverUtilV2;
+    | StylableUnidriverUtilV2
+    | TODO; // TODO - make sure to fix this - due to type mismatch....!
   constructor(private style: CommonStylesheet) {
     const mode = getStylesheetMode(this.style);
     if (mode === 'v2') {
