@@ -132,7 +132,7 @@ export class StylableCompatUniDriver {
    * @returns state or null if not found
    */
   public async getStyleState(base: UniDriver, stateName: string) {
-    return this.internal.hasStyleState(base, stateName);
+    return this.internal.getStyleState(base, stateName);
   }
 }
 
