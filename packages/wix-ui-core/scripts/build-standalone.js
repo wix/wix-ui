@@ -26,6 +26,7 @@ function buildStandalone() {
       '--cjs',
       '--css',
       '--icr',
+      '--optimized'
     ],
     { stdio: 'inherit' },
   );
@@ -57,6 +58,7 @@ function buildStandaloneEs() {
       '--cjs',
       '--css',
       '--icr',
+      '--optimized'
     ],
     { stdio: 'inherit' },
   );
