@@ -104,7 +104,13 @@ describe('Popover', () => {
   });
 
   describe('appendTo', () => {
-    it(`should render popover z-index properly`, async () => {
+    it(`should find the content [when] appended to 'parent'`, async () => {
+      await scrollToBottom('story-popover-z-index');
+      await autoExampleDriver.setProps({ shown: true, appendTo: 'parent' });
+      const driver = await createDriver('story-popover-fixed-behaviour');
+      expect(driver.getContentElement().isDisplayed()).toBe(true);
+    });
+    it(`should find the content [when] appended to 'window'`, async () => {
       await scrollToBottom('story-popover-z-index');
       await autoExampleDriver.setProps({ shown: true, appendTo: 'window' });
       const driver = await createDriver('story-popover-fixed-behaviour');
