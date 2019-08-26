@@ -107,8 +107,8 @@ export class StylableCompatUniDriver {
     | StylableUnidriverUtilV2
     | TODO; // TODO - make sure to fix this - due to type mismatch....!
   constructor(private style: CommonStylesheet) {
-    const mode = getStylesheetMode(this.style);
-    if (mode === 'v2') {
+    const mode = getStylesheetMode(this.style || {$cssStates(){return {}}});
+    if (mode === 'v2') { 
       this.internal = new StylableUnidriverUtilV2(this
         .style as MinimalStylesheet);
     } else if (mode === 'compat') {
