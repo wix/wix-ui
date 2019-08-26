@@ -132,13 +132,13 @@ export class StylableCompatUniDriver {
    * @returns state or null if not found
    */
   public async getStyleState(base: UniDriver, stateName: string) {
-    return this.internal.getStyleState(base, stateName);
+    return this.internal.hasStyleState(base, stateName);
   }
 }
 
 function getStylesheetMode(sheet: any) {
   if (sheet.$cssStates) {
-    const res = sheet.$cssStates({});
+    const res = typeof sheet.$cssStates === 'function' ? sheet.$cssStates({}) : {};
     if (res.className) {
       return 'compat';
     } else {
