@@ -17,7 +17,7 @@ const storyUrl = suffix =>
     story: SIGNNATURE_INPUT_METADATA.displayName + suffix,
   });
 
-fdescribe('Signature Input', () => {
+describe('Signature Input', () => {
   it('should render correctly', async () => {
     await navigateToStory();
     const driver = createDriver();
