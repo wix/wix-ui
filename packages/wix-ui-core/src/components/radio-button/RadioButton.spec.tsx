@@ -37,6 +37,15 @@ describe('RadioButton', () => {
     expect(radio.isInputFocused()).toBeTruthy();
   });
 
+  it('invokes callback for onKeyDown with the correct value', () => {
+    const onKeyDown = jest.fn();
+    const radio = createDriver(createRadio({ onKeyDown }));
+
+    radio.keyDown('Enter');
+    expect(onKeyDown.mock.calls.length).toEqual(1);
+    expect(onKeyDown.mock.calls[0][0].value).toEqual('horsie');
+  });
+
   it('is checked correctly', () => {
     const radio = createDriver(createRadio({ checked: true }));
 
@@ -55,6 +64,14 @@ describe('RadioButton', () => {
 
     radio.select();
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('does not invoke callback function when disabled and keydown happens', () => {
+    const onKeyDown = jest.fn();
+    const radio = createDriver(createRadio({ onKeyDown, disabled: true }));
+
+    radio.keyDown('Enter');
+    expect(onKeyDown).not.toHaveBeenCalled();
   });
 
   it('is required correctly', () => {
