@@ -13,6 +13,11 @@ export interface RadioButtonClickEvent
   value: string;
 }
 
+export interface RadioButtonKeyDownEvent
+  extends React.KeyboardEvent<HTMLInputElement> {
+  value: string;
+}
+
 export interface RadioButtonHoverEvent
   extends React.MouseEvent<HTMLSpanElement> {
   value: string;
@@ -27,6 +32,8 @@ export interface RadioButtonProps {
   name?: string;
   /** A callback to invoke on change */
   onChange?(event: RadioButtonChangeEvent | RadioButtonClickEvent): void;
+  /** A callback to invoke on keydown */
+  onKeyDown?(event: RadioButtonKeyDownEvent): void;
   /** A callback to invoke on hover */
   onHover?(event: RadioButtonHoverEvent): void;
   /** A callback to invoke on blur */
@@ -67,6 +74,7 @@ export class RadioButton extends React.Component<
 
   static defaultProps = {
     onChange: noop,
+    onKeyDown: noop,
     onHover: noop,
     onBlur: noop,
   };
@@ -158,8 +166,11 @@ export class RadioButton extends React.Component<
     this.focusedByMouse = false;
   };
 
-  handleInputKeyDown = () => {
+  handleInputKeyDown = (event: RadioButtonKeyDownEvent) => {
     this.setState({ focusVisible: true });
+    if (!this.props.disabled) {
+      this.props.onKeyDown({ value: this.props.value, ...event });
+    }
   };
 
   private radioRef = undefined;
