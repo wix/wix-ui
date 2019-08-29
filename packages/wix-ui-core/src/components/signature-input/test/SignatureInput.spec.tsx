@@ -56,7 +56,6 @@ describe('SigningPad', () => {
 
       expect(padApi).toHaveProperty('clear');
       expect(padApi).toHaveProperty('toDataURL');
-      expect(padApi).toHaveProperty('onDraw');
       expect(padApi).toHaveProperty('isEmpty');
     });
 

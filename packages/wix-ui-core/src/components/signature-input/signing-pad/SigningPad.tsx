@@ -6,20 +6,21 @@ import {
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
 
-export interface SignaturePadApi
-  extends Pick<SignaturePad, 'clear' | 'toDataURL' | 'isEmpty'> {
-  onDraw(e: MouseEvent | React.Touch): void;
-}
+export type SignaturePadApi = Pick<
+  SignaturePad,
+  'clear' | 'toDataURL' | 'isEmpty'
+>;
 
 export interface SigningPadOwnProps
   extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   'data-hook'?: string;
   penColor?: IOptions['penColor'];
   penWidth?: string;
-  onInit?(padAPI: SignaturePadApi): void;
   disabled?: boolean;
   required?: boolean;
   canvasRef?(instance: HTMLCanvasElement): void;
+  onInit?(padAPI: SignaturePadApi): void;
+  onDraw?(e: MouseEvent | React.Touch): void;
 }
 
 export interface SigningPadProps
@@ -83,6 +84,7 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     } = this.props;
     this.signaturePad = new SignaturePad(this.canvasEl, {
       penColor: calculatePenColor(penColor),
+      onEnd: this.handleDraw,
       ...transformPenSizeToWidths(penWidth),
     });
 
@@ -97,9 +99,13 @@ class SigningPadComp extends React.Component<SigningPadProps> {
         clear: this.signaturePad.clear.bind(this.signaturePad),
         toDataURL: this.signaturePad.toDataURL.bind(this.signaturePad),
         isEmpty: this.signaturePad.isEmpty.bind(this.signaturePad),
-        onDraw: this.signaturePad.onEnd.bind(this.signaturePad),
       });
   }
+
+  handleDraw: (e: MouseEvent | React.Touch) => void = e => {
+    const { onDraw } = this.props;
+    onDraw && onDraw(e);
+  };
 
   componentWillUnmount() {
     this.signaturePad.off();

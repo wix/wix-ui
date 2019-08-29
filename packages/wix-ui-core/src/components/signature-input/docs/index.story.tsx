@@ -45,6 +45,7 @@ const SignatureChildren = (padProps: SigningPadOwnProps = {}) => (
     <SignatureInput.SigningPad
       {...padProps}
       style={{ border: '1px solid black' }}
+      onDraw={() => window.alert('draw callback')}
     />
     <SignatureInput.ClearButton>
       {({ getClearButtonProps }) => (
