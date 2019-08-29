@@ -185,7 +185,7 @@ class PlayablePlayer extends React.PureComponent<
 
     this.player.attachToElement(this.containerRef.current);
 
-    this.player.on(VIDEO_EVENTS.PLAY_REQUEST, () => {
+    this.player.on(ENGINE_STATES.PLAY_REQUESTED, () => {
       if (controls) {
         this._showPlayableUI();
       }
