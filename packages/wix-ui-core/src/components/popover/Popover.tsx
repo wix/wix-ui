@@ -416,7 +416,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   componentWillUnmount() {
-    if (this.portalNode) {
+    if (this.portalNode && this.appendToNode.children.length) {
       // FIXME: What if component is updated with a different appendTo? It is a far-fetched use-case,
       // but we would need to remove the portaled node, and created another one.
       this.appendToNode.removeChild(this.portalNode);
