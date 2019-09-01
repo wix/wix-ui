@@ -1,12 +1,14 @@
 import * as React from 'react';
 import style from './Input.st.css';
 import { Omit } from 'type-zoo';
+import classnames from 'classnames';
 
 type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   className?: string;
+  inputClassName?: string;
   error?: string | boolean;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
@@ -53,6 +55,7 @@ export class Input extends React.Component<InputProps, InputState> {
       style: styleProp,
       prefix: prefixProps,
       suffix: suffixProp,
+      inputClassName,
       ...allOtherProps
     } = this.props;
 
@@ -69,7 +72,7 @@ export class Input extends React.Component<InputProps, InputState> {
         <input
           {...allOtherProps}
           ref={input => (this.input = input)}
-          className={style.nativeInput}
+          className={classnames(style.nativeInput, inputClassName)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
         />

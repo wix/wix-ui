@@ -997,6 +997,13 @@ describe('AddressInput', () => {
     });
   });
 
+  it('should pass inputClassName to the native input', async () => {
+    const inputClassName = 'my-input-class';
+    init({ inputClassName });
+    const input = driver.getInput();
+    expect(input.className).toContain(inputClassName);
+  });
+
   describe('fixedFooter', () => {
     it('Should show fixedFooter', async () => {
       init({ fixedFooter: <div data-hook="fixed-footer" /> });

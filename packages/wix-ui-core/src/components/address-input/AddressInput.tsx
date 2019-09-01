@@ -115,6 +115,8 @@ export type AddressInputProps = Pick<
   onMouseLeave?(): void;
   /** A custom formatter for maps API response */
   converterType?: Converter;
+  /** Pass a custom class to the input element */
+  inputClassName?: string;
 };
 
 export interface AddressInputState {
@@ -471,6 +473,7 @@ export class AddressInput extends React.PureComponent<
       fixed,
       optionStyle,
       moveBy,
+      inputClassName,
     } = this.props;
     const options = this._options();
 
@@ -492,6 +495,7 @@ export class AddressInput extends React.PureComponent<
       onMouseEnter: this.props.onMouseEnter,
       onMouseLeave: this.props.onMouseLeave,
       style: inputStyle,
+      inputClassName,
     };
 
     const states = {};
