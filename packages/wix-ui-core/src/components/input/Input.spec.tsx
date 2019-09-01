@@ -50,6 +50,7 @@ describe('Input', () => {
         role="input"
         type="password"
         value="hunter2"
+        inputClassName="my-input-class"
       />,
     );
 
@@ -65,6 +66,7 @@ describe('Input', () => {
     expect(input.tabIndex).toBe(1);
     expect(input.type).toBe('password');
     expect(input.value).toBe('hunter2');
+    expect(input.className).toBe(`${style.nativeInput} my-input-class`);
   });
 
   it('should render prefix and suffix', async () => {
