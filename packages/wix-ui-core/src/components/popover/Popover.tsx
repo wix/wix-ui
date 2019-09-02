@@ -44,14 +44,14 @@ if (isTestEnv) {
 const omit = (key, obj) => {
   const { [key]: omitted, ...rest } = obj;
   return rest;
-}
+};
 
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   /** hook for testing purposes */
-  "data-hook"?: string,
+  'data-hook'?: string;
   /** custom classname */
   className?: string;
   /** The location to display the content */
@@ -101,11 +101,13 @@ export interface PopoverProps {
   /** target element role value */
   role?: string;
   /** popover z-index */
-  zIndex?: number,
+  zIndex?: number;
   /** popover content min width value */
-  minWidth?: number,
+  minWidth?: number | string;
   /** popover content max width value */
-  maxWidth?: number,
+  maxWidth?: number | string;
+  /** popover content width value */
+  width?: number | string;
 }
 
 export interface PopoverState {
@@ -218,6 +220,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       zIndex,
       minWidth,
       maxWidth,
+      width,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -246,7 +249,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               ref={ref}
               data-hook="popover-content"
               data-content-element={this.contentHook}
-              style={{...popperStyles, zIndex, minWidth, maxWidth}}
+              style={{ ...popperStyles, zIndex, minWidth, maxWidth, width }}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,
@@ -444,7 +447,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, omit('data-hook', this.props)) ;
+      this.stylesObj = style('root', {}, omit('data-hook', this.props));
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
