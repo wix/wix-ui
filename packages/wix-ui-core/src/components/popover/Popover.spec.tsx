@@ -670,6 +670,7 @@ function runTests(createDriver, container) {
       moveBy: undefined,
       minWidth: undefined,
       maxWidth: undefined,
+      width: undefined,
       appendTo: undefined,
       shouldAnimate: false,
       flip: true,
@@ -801,6 +802,15 @@ function runTests(createDriver, container) {
       const modifiers = createModifiers({
         ...defaultProps,
         minWidth: '500px',
+      });
+
+      expect(modifiers.setPopperWidth.enabled).toEqual(true);
+    });
+
+    it('should enable setPopperWidth [when] given width', async () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        width: '500px',
       });
 
       expect(modifiers.setPopperWidth.enabled).toEqual(true);

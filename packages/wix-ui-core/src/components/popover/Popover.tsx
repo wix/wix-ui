@@ -102,12 +102,27 @@ export interface PopoverProps {
   role?: string;
   /** popover z-index */
   zIndex?: number;
-  /** popover content min width value */
-  minWidth?: number | string | 'element';
-  /** popover content max width value */
-  maxWidth?: number | string | 'element';
-  /** popover content width value */
-  width?: number | string | 'element';
+  /**
+   * popover content minWidth value
+   * - `number` value which converts to css with `px`
+   * - `string` value that contains `px`
+   * - `trigger` value which takes trigger element width
+   */
+  minWidth?: number | string | 'trigger';
+  /**
+   * popover content maxWidth value
+   * - `number` value which converts to css with `px`
+   * - `string` value that contains `px`
+   * - `trigger` value which takes trigger element width
+   */
+  maxWidth?: number | string | 'trigger';
+  /**
+   * popover content width value
+   * - `number` value which converts to css with `px`
+   * - `string` value that contains `px`
+   * - `trigger` value which takes trigger element width
+   */
+  width?: number | string | 'trigger';
 }
 
 export interface PopoverState {
@@ -227,7 +242,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const modifiers = createModifiers({
       minWidth,
       maxWidth,
-
+      width,
       moveBy,
       appendTo,
       shouldAnimate,
@@ -252,7 +267,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               ref={ref}
               data-hook="popover-content"
               data-content-element={this.contentHook}
-              style={{ ...popperStyles, width, zIndex }}
+              style={{ ...popperStyles, zIndex }}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,

@@ -26,6 +26,7 @@ export const createModifiers = ({
   isTestEnv,
   minWidth,
   maxWidth,
+  width,
 }) => {
   const preventOverflow = !fixed;
 
@@ -47,26 +48,32 @@ export const createModifiers = ({
     },
   };
 
-  if (minWidth || maxWidth) {
+  if (minWidth || maxWidth || width) {
     modifiers.setPopperWidth = {
       enabled: true,
       order: 840,
       fn: data => {
-        const { width } = data.offsets.reference;
-        const referenceWidth = `${width}px`;
+        const { width: referenceWidth } = data.offsets.reference;
+
         data.styles.minWidth =
           minWidth === 'element'
-            ? referenceWidth
+            ? `${referenceWidth}`
             : typeof minWidth === 'string'
             ? minWidth
             : `${minWidth}px`;
 
         data.styles.maxWidth =
-          maxWidth === 'element'
-            ? referenceWidth
+          maxWidth === 'trigger'
+            ? `${referenceWidth}`
             : typeof maxWidth === 'string'
             ? maxWidth
             : `${maxWidth}px`;
+        data.styles.width =
+          width === 'trigger'
+            ? `${referenceWidth}`
+            : typeof width === 'string'
+            ? maxWidth
+            : `${width}px`;
 
         return data;
       },
