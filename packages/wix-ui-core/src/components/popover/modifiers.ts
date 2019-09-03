@@ -56,7 +56,7 @@ export const createModifiers = ({
         const { width: referenceWidth } = data.offsets.reference;
 
         data.styles.minWidth =
-          minWidth === 'element'
+          minWidth === 'trigger'
             ? `${referenceWidth}`
             : typeof minWidth === 'string'
             ? minWidth
