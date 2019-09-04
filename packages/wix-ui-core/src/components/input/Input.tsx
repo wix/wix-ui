@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './Input.st.css';
 import { Omit } from 'type-zoo';
-import classnames from 'classnames';
+import * as classnames from 'classnames';
 
 type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
