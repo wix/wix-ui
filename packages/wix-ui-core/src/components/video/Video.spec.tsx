@@ -131,6 +131,40 @@ describe('Video', () => {
 
         expect(await driver.hasCover()).toBeTruthy();
       });
+
+      it('should not render if hideOverlay is provided', async () => {
+        const driver = createDriver(
+          <Video
+            config={{
+              playable: {
+                poster: IMAGE_SRC,
+              },
+            }}
+            hideOverlay
+            src={PLAYABLE_LINK}
+            id={VIDEO_ID}
+          />,
+        );
+
+        expect(await driver.hasCover()).toBeFalsy();
+      });
+
+      it('should not render if autoplay is enabled', async () => {
+        const driver = createDriver(
+          <Video
+            config={{
+              playable: {
+                poster: IMAGE_SRC,
+              },
+            }}
+            playing
+            src={PLAYABLE_LINK}
+            id={VIDEO_ID}
+          />,
+        );
+
+        expect(await driver.hasCover()).toBeFalsy();
+      });
     });
 
     describe('title', () => {

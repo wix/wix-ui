@@ -236,6 +236,34 @@ class PlayablePlayer extends React.PureComponent<
     this.player.hidePictureInPictureControl();
   }
 
+  _renderCover() {
+    const {showTitle, title, poster, hideOverlay, playButton, playing} = this.props;
+    const {hasBeenPlayed} = this.state;
+    const coverStyles = { backgroundImage: poster ? `url(${poster})` : 'none' };
+    if (hideOverlay || playing || hasBeenPlayed) {
+      return null;
+    }
+    return (
+      <div
+        className={classNames(styles.cover, {
+          [styles.transparentOverlay]: !poster,
+        })}
+        style={coverStyles}
+        onClick={this.onPlayClick}
+        data-hook="cover"
+      >
+        <div className={styles.overlay}>
+          {showTitle && title && (
+            <div data-hook="title" title={title} className={styles.title}>
+              {title}
+            </div>
+          )}
+          {playButton}
+        </div>
+      </div>
+    );
+  }
+
   registerModules(modules: any = {}) {
     Object.keys(modules).forEach(moduleName =>
       registerModule(moduleName, modules[moduleName]),
@@ -247,9 +275,6 @@ class PlayablePlayer extends React.PureComponent<
   };
 
   render() {
-    const { showTitle, title, poster, playButton } = this.props;
-    const coverStyles = { backgroundImage: poster ? `url(${poster})` : 'none' };
-
     return (
       <React.Fragment>
         <div
@@ -257,25 +282,7 @@ class PlayablePlayer extends React.PureComponent<
           className={styles.playerContainer}
           data-player-name="Playable"
         />
-        {!this.state.hasBeenPlayed && (
-          <div
-            className={classNames(styles.cover, {
-              [styles.transparentOverlay]: !poster,
-            })}
-            style={coverStyles}
-            onClick={this.onPlayClick}
-            data-hook="cover"
-          >
-            <div className={styles.overlay}>
-              {showTitle && title && (
-                <div data-hook="title" title={title} className={styles.title}>
-                  {title}
-                </div>
-              )}
-              {playButton}
-            </div>
-          </div>
-        )}
+        {this._renderCover()}
       </React.Fragment>
     );
   }

@@ -19,6 +19,7 @@ export interface ICommonProps {
   playing?: boolean;
   muted?: boolean;
   showTitle?: boolean;
+  hideOverlay?: boolean;
   onInit?: Function;
   onReady?: Function;
   onDuration?: Function;
