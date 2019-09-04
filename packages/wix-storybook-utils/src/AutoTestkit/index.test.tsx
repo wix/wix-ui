@@ -4,7 +4,7 @@ describe('AutoTestkit', () => {
   const driver = createAutoTestkitDriver();
 
   describe('without error', () => {
-    const component = {
+    const metadata = {
       displayName: 'component',
       drivers: [
         {
@@ -50,7 +50,7 @@ describe('AutoTestkit', () => {
       ],
     };
 
-    beforeEach(() => driver.create({ component }));
+    beforeEach(() => driver.create({ metadata }));
 
     it('has markdown-body class on root element', () => {
       expect(driver.get.rootClass()).toBe('markdown-body');
@@ -58,7 +58,7 @@ describe('AutoTestkit', () => {
 
     describe('heading', () => {
       it('renders', () => {
-        expect(driver.get.heading()).toBe(`${component.displayName} Testkits`);
+        expect(driver.get.heading()).toBe(`${metadata.displayName} Testkits`);
       });
 
       it('is h1 tag', () => {
@@ -67,7 +67,25 @@ describe('AutoTestkit', () => {
     });
 
     it('has driver documentation tables', () => {
-      expect(driver.get.driverAt(0).get.name()).toBe(component.drivers[0].file);
+      expect(driver.get.driverAt(0).get.name()).toBe(metadata.drivers[0].file);
+    });
+  });
+
+  describe('with error', () => {
+    const metadata = {
+      displayName: 'component',
+      drivers: [
+        {
+          file: 'component.driver.js',
+          error: 'Oh no!',
+        },
+      ],
+    };
+
+    beforeEach(() => driver.create({ metadata }));
+
+    it('should not render documentation table', () => {
+      expect(driver.get.driverAt(0)).toBe(null);
     });
   });
 });

@@ -7,4 +7,4 @@ import { AutoTestkit } from '../../AutoTestkit';
 export const testkit = (
   section: TestkitSection,
   storyConfig: StoryConfig,
-): React.ReactNode => <AutoTestkit component={storyConfig.metadata} />;
+): React.ReactNode => <AutoTestkit metadata={storyConfig.metadata} />;

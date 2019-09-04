@@ -1,9 +1,11 @@
 import * as React from 'react';
+
+import { Driver, r } from './driver';
 import { PrimitiveDocumentation } from './primitive-documentation';
 import { MethodDocumentation } from './method-documentation';
-import { Driver, r } from './driver';
 import { FieldsDocumentation } from './fields-documentation';
 import { DriverDocumentation } from './driver-documentation';
+
 import { AutoTestkit } from './index';
 
 class DriverDocumentationDriver extends Driver {
@@ -30,10 +32,11 @@ class AutoTestkitDriver extends Driver {
   get = {
     driverAt: index => {
       const driverDoc = this.select('driver').at(index);
-      return createDriverDocumentationDriver().reuse(driverDoc);
+      return driverDoc.length === 0
+        ? null
+        : createDriverDocumentationDriver().reuse(driverDoc);
     },
     heading: () => this.select('heading').text(),
-    error: () => this.select('error').text(),
     tag: hook => this.select(hook).name(),
     rootClass: () => this.selectRoot().props().className,
   };
@@ -119,10 +122,14 @@ class PrimitiveDocumentationDriver extends Driver {
 
 export const createPrimitiveDocumentationDriver = () =>
   r(new PrimitiveDocumentationDriver());
+
 export const createMethodDocumentationDriver = () =>
   r(new MethodDocumentationDriver());
+
 export const createFieldsDocumentationDriver = () =>
   r(new FieldsDocumentationDriver());
+
 export const createAutoTestkitDriver = () => r(new AutoTestkitDriver());
+
 export const createDriverDocumentationDriver = () =>
   r(new DriverDocumentationDriver());
