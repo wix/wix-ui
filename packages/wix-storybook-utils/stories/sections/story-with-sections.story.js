@@ -2,7 +2,6 @@ import * as React from 'react';
 import Component from '../component';
 
 import {
-  api,
   code,
   columns,
   description,
@@ -11,10 +10,9 @@ import {
   importExample,
   playground,
   tab,
-  table,
   tabs,
   testkit,
-  title,
+  title
 } from '../../src/Sections';
 
 export default {
@@ -33,7 +31,7 @@ export default {
         </div>
       ),
       sourceUrl: 'https://github.com/wix/wix-ui/',
-      dataHook: 'section-header',
+      dataHook: 'section-header'
     }),
 
     tabs([
@@ -47,11 +45,11 @@ import Button from 'wix-style-react/Button';
 import Button from 'wix-style-react/Button';`),
           columns({
             title: 'Septyni astuoni keturiolika',
-            items: [description(`🔨 To trigger an operation.`)],
+            items: [description(`🔨 To trigger an operation.`)]
           }),
 
-          divider(),
-        ],
+          divider()
+        ]
       }),
 
       tab({
@@ -64,22 +62,22 @@ import Button from 'wix-style-react/Button';`),
             title: 'Compact & Dark',
             source: '<div>fun</div>',
             compact: true,
-            darkBackground: true,
-          },
-        ].map(code),
+            darkBackground: true
+          }
+        ].map(code)
       }),
 
       tab({
         title: 'how are you',
         sections: [
-          importExample("import Component from 'your-library/Component';"),
-        ],
+          importExample("import Component from 'your-library/Component';")
+        ]
       }),
 
       ...[
         { title: 'Playground', sections: [playground()] },
-        { title: 'Testkit', sections: [testkit()] },
-      ].map(tab),
-    ]),
-  ],
+        { title: 'Testkit', sections: [testkit()] }
+      ].map(tab)
+    ])
+  ]
 };

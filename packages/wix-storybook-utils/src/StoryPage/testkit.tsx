@@ -5,7 +5,7 @@ import { deepAssign } from '../../test/utils/deep-assign';
 import Markdown from '../Markdown';
 import AutoExample from '../AutoExample';
 import StoryPage from './index';
-import { AutoTestkit } from '../AutoTestkit/auto-testkit';
+import { AutoTestkit } from '../AutoTestkit';
 
 export default class {
   component;

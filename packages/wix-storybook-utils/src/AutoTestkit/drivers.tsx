@@ -4,7 +4,7 @@ import { MethodDocumentation } from './method-documentation';
 import { Driver, r } from './driver';
 import { FieldsDocumentation } from './fields-documentation';
 import { DriverDocumentation } from './driver-documentation';
-import { AutoTestkit } from './auto-testkit';
+import { AutoTestkit } from './index';
 
 class DriverDocumentationDriver extends Driver {
   constructor() {
@@ -22,19 +22,6 @@ class DriverDocumentationDriver extends Driver {
   };
 }
 
-class CodeExampleDriver extends Driver {
-  constructor() {
-    super(DriverDocumentation, 'driver-');
-  }
-
-  get = {
-    type: () =>
-      ['enzyme', 'protractor', 'puppeteer'].find(type =>
-        this.has(`code-example-${type}`),
-      ),
-  };
-}
-
 class AutoTestkitDriver extends Driver {
   constructor() {
     super(AutoTestkit, '');
@@ -44,10 +31,6 @@ class AutoTestkitDriver extends Driver {
     driverAt: index => {
       const driverDoc = this.select('driver').at(index);
       return createDriverDocumentationDriver().reuse(driverDoc);
-    },
-    codeExampleAt: index => {
-      const codeSample = this.select('driver').at(index);
-      return createCodeExampleDriver().reuse(codeSample);
     },
     heading: () => this.select('heading').text(),
     error: () => this.select('error').text(),
@@ -143,4 +126,3 @@ export const createFieldsDocumentationDriver = () =>
 export const createAutoTestkitDriver = () => r(new AutoTestkitDriver());
 export const createDriverDocumentationDriver = () =>
   r(new DriverDocumentationDriver());
-export const createCodeExampleDriver = () => r(new CodeExampleDriver());
