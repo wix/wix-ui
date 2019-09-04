@@ -16,6 +16,24 @@ const calculateOffset = ({ moveBy, placement = '' }): string => {
   return `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`;
 };
 
+interface styles {
+  minWidth?: string;
+  width?: string;
+}
+
+const resolveWidth = ({ minWidth, dynamicWidth, referenceWidth }): styles => {
+  return {
+    minWidth: minWidth
+      ? typeof minWidth === 'string'
+        ? minWidth
+        : `${minWidth}px`
+      : dynamicWidth
+      ? `${referenceWidth}px`
+      : undefined,
+    width: 'auto',
+  };
+};
+
 export const createModifiers = ({
   moveBy,
   appendTo,
@@ -24,6 +42,8 @@ export const createModifiers = ({
   fixed,
   placement,
   isTestEnv,
+  minWidth,
+  dynamicWidth,
 }) => {
   const preventOverflow = !fixed;
 
@@ -44,6 +64,27 @@ export const createModifiers = ({
       enabled: preventOverflow,
     },
   };
+
+  if (dynamicWidth || minWidth) {
+    modifiers.setPopperWidth = {
+      enabled: true,
+      order: 840,
+      fn: data => {
+        const { width: referenceWidth } = data.offsets.reference;
+
+        data.styles = {
+          ...data.styles,
+          ...resolveWidth({
+            referenceWidth,
+            minWidth,
+            dynamicWidth,
+          }),
+        };
+
+        return data;
+      },
+    };
+  }
 
   if (isTestEnv) {
     modifiers.computeStyle = { enabled: false };

@@ -36,7 +36,7 @@ describe('Popover', () => {
     runTests(createDriver, container);
   });
 
-  describe('[async]', async () => {
+  describe('[async]', () => {
     const createDriver = container.createUniRenderer((base, body) => {
       const privateDriver = popoverPrivateDriverFactory({
         element: container.componentNode,
@@ -668,6 +668,8 @@ function runTests(createDriver, container) {
   describe('createModifiers', () => {
     const defaultProps = {
       moveBy: undefined,
+      minWidth: undefined,
+      dynamicWidth: undefined,
       appendTo: undefined,
       shouldAnimate: false,
       flip: true,
@@ -785,52 +787,76 @@ function runTests(createDriver, container) {
 
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
     });
+
+    it('should enable setPopperWidth [when] given minWidth ', async () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        minWidth: '500px',
+      });
+
+      expect(modifiers.setPopperWidth.enabled).toEqual(true);
+    });
+
+    it('should enable setPopperWidth [when] given dynamicWidth ', async () => {
+      const modifiers = createModifiers({
+        ...defaultProps,
+        dynamicWidth: true,
+      });
+
+      expect(modifiers.setPopperWidth.enabled).toEqual(true);
+    });
   });
 
   describe('data-hook', () => {
-    it('should be found on target element container',  async () => {
+    it('should be found on target element container', async () => {
       const driver = createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
         </Popover>,
       );
-      const target = await driver.getTargetElement()
-      expect(target.parentNode.getAttribute('data-hook')).toBe('random')
-    }) 
-    
-    it('should construct data-content-hook',  async () => {
-      const driver = createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
-      );
-      const target = await driver.getTargetElement()
-      expect(target.parentNode.getAttribute('data-content-hook')).toMatch(/popover-content-random-/)
-    }) 
+      const target = await driver.getTargetElement();
+      expect(target.parentNode.getAttribute('data-hook')).toBe('random');
+    });
 
-    it('should apply data-content-element on content element',  async () => {
+    it('should construct data-content-hook', async () => {
       const driver = createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
         </Popover>,
       );
-      const content = await driver.getContentElement()
-      expect(content.getAttribute('data-content-element')).toMatch(/popover-content-random-/)
-    }) 
-    it('should not override portal component data-hook',  async () => {
+      const target = await driver.getTargetElement();
+      expect(target.parentNode.getAttribute('data-content-hook')).toMatch(
+        /popover-content-random-/,
+      );
+    });
+
+    it('should apply data-content-element on content element', async () => {
       const driver = createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
         </Popover>,
       );
-      const content = await driver.getContentElement()
-      expect(content.parentNode.getAttribute('data-hook')).toBe('popover-portal')
-    }) 
-  })
+      const content = await driver.getContentElement();
+      expect(content.getAttribute('data-content-element')).toMatch(
+        /popover-content-random-/,
+      );
+    });
+    it('should not override portal component data-hook', async () => {
+      const driver = createDriver(
+        <Popover data-hook="random" appendTo="window" shown placement="bottom">
+          <Popover.Element>Element</Popover.Element>
+          <Popover.Content>Content</Popover.Content>
+        </Popover>,
+      );
+      const content = await driver.getContentElement();
+      expect(content.parentNode.getAttribute('data-hook')).toBe(
+        'popover-portal',
+      );
+    });
+  });
 
   describe('Arrow', () => {
     function customArrow(placement, arrowProps) {
