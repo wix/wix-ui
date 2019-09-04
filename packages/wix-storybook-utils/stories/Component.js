@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const enabledStyle = {
-  fontSize: 20,
+  fontSize: 20
 };
 
 const disabledStyle = {
   fontSize: 12,
-  color: 'grey',
+  color: 'grey'
 };
 
 /** Component Description from source! */
@@ -15,7 +15,7 @@ class Component extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valueSetOnMounting: this.props.valueSetOnMounting,
+      valueSetOnMounting: this.props.valueSetOnMounting
     };
   }
 
@@ -54,13 +54,13 @@ Component.propTypes = {
   /** do not use this prop
    * @deprecated since forever*/
   propNotVisibleInStorybook: PropTypes.bool,
-  undefinedValueProp: PropTypes.string,
+  undefinedValueProp: PropTypes.string
 };
 
 Component.defaultProps = {
   children: 'Hello dummy component!',
   enabled: true,
-  onClick: () => 'you clicked!',
+  onClick: () => 'you clicked!'
 };
 
 Component.displayName = 'DummyComponent';

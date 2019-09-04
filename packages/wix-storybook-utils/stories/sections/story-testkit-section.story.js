@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Component from '../component';
+import Component from '../Component';
 
 import { tabs, tab, title, testkit } from '../../src/Sections';
 
@@ -7,7 +7,7 @@ export default {
   category: 'Sections',
   storyName: 'Testkit section',
   component: Component,
-  componentPath: '../component.js',
+  componentPath: '../Component.js',
 
   sections: [
     tabs([

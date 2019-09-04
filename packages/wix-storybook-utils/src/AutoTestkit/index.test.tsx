@@ -77,7 +77,7 @@ describe('AutoTestkit', () => {
     });
 
     it('has correct testkit names', () => {
-      expect(driver.get.driverAt(0).get.name()).toBe('Testkit');
+      expect(driver.get.driverAt(0).get.name()).toBe('ReactTestUtils Testkit');
       expect(driver.get.driverAt(1).get.name()).toBe('Protractor Testkit');
       expect(driver.get.driverAt(2).get.name()).toBe('Puppeteer Testkit');
       expect(driver.get.driverAt(3).get.name()).toBe('Testkit');

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Component from '../component';
+import Component from '../Component';
 
 import {
   code,
@@ -19,7 +19,7 @@ export default {
   category: 'Sections',
   storyName: 'Component with section',
   component: Component,
-  componentPath: '../component.js',
+  componentPath: '../Component.js',
   sections: [
     header({
       component: (

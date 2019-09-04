@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Component from '../component';
+import Component from '../Component';
 
 export default {
   category: 'Sections',
   storyName: 'Default Sections',
   component: Component,
-  componentPath: '../component.js',
+  componentPath: '../Component.js',
 };

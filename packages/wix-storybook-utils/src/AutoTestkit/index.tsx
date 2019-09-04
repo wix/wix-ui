@@ -7,30 +7,54 @@ interface Props {
   metadata: Metadata;
 }
 
-const has: (a: string) => (b: string) => boolean = needle => haystack =>
-  haystack.includes(needle);
+const has: (
+  a: string | RegExp,
+) => (b: string) => boolean = needle => haystack =>
+  needle instanceof RegExp ? needle.test(haystack) : haystack.includes(needle);
 
-const makeTestkitName: (a: string) => string = fileName =>
-  [
+const hasnt = (needle: string | RegExp) => (haystack: string) =>
+  !has(needle)(haystack);
+
+const makeTestkitName = ({ fileName, displayName }) => {
+  const needles = {
+    uni: '.uni.',
+    puppeteer: '.puppeteer.',
+    protractor: '.protractor.',
+    vanilla: new RegExp(`${displayName}\.driver\.[tj]sx?$`),
+  };
+
+  return [
     {
-      when: has('.protractor.'),
-      make: () => 'Protractor Testkit',
-    },
-    {
-      when: has('.puppeteer.'),
-      make: () => 'Puppeteer Testkit',
-    },
-    {
-      when: has('.uni.'),
+      when: has(needles.uni),
       make: () => 'UniDriver Testkit',
     },
+
     {
-      when: () => true,
+      when: has(needles.protractor),
+      make: () => 'Protractor Testkit',
+    },
+
+    {
+      when: has(needles.puppeteer),
+      make: () => 'Puppeteer Testkit',
+    },
+
+    {
+      when: has(needles.vanilla),
+      make: () => 'ReactTestUtils Testkit',
+    },
+
+    {
+      // opposite of all above
+      // also acts as fallback
+      when: (name: string) =>
+        Object.values(needles).every(needle => hasnt(needle)(name)),
       make: () => 'Testkit',
     },
   ]
     .find(({ when }) => when(fileName))
     .make();
+};
 
 export const AutoTestkit = ({ metadata }: Props) => (
   <div className="markdown-body">
@@ -42,7 +66,10 @@ export const AutoTestkit = ({ metadata }: Props) => (
         <DriverDocumentation
           key={file}
           dataHook="auto-testkit-driver"
-          name={makeTestkitName(file)}
+          name={makeTestkitName({
+            fileName: file,
+            displayName: metadata.displayName,
+          })}
           descriptor={descriptor}
         />
       ))}
