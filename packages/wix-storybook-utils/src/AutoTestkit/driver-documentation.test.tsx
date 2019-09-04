@@ -32,30 +32,6 @@ describe('DriverDocumentation', () => {
     });
   });
 
-  describe('cases when there is no valid name', () => {
-    it.each([[null], [undefined], [''], [5], [true], [{}]])(
-      'fails if name is not a valid string (%p)',
-      invalidName => {
-        const consoleError = console.error;
-        console.error = i => i;
-
-        const descriptor = [];
-        const spy = jest.fn();
-        driver.create(
-          {
-            descriptor,
-            name: invalidName,
-          },
-          spy,
-        );
-
-        expect(spy).toHaveBeenCalled();
-
-        console.error = consoleError;
-      },
-    );
-  });
-
   describe('shallow driver descriptor', () => {
     const name = 'name';
     describe('single item in the descriptor', () => {

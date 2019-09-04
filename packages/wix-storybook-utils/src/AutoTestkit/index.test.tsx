@@ -47,6 +47,16 @@ describe('AutoTestkit', () => {
             },
           ],
         },
+        {
+          file: 'component.uni.driver.js',
+          descriptor: [
+            {
+              name: 'click',
+              args: [],
+              type: 'function',
+            },
+          ],
+        },
       ],
     };
 
@@ -66,8 +76,12 @@ describe('AutoTestkit', () => {
       });
     });
 
-    it('has driver documentation tables', () => {
-      expect(driver.get.driverAt(0).get.name()).toBe(metadata.drivers[0].file);
+    it('has correct testkit names', () => {
+      expect(driver.get.driverAt(0).get.name()).toBe('Testkit');
+      expect(driver.get.driverAt(1).get.name()).toBe('Protractor Testkit');
+      expect(driver.get.driverAt(2).get.name()).toBe('Puppeteer Testkit');
+      expect(driver.get.driverAt(3).get.name()).toBe('Testkit');
+      expect(driver.get.driverAt(4).get.name()).toBe('UniDriver Testkit');
     });
   });
 

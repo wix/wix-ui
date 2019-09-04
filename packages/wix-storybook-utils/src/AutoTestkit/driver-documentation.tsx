@@ -13,18 +13,11 @@ export const flatten = (descriptor, name = '') =>
     ];
   }, []);
 
-export const DriverDocumentation = ({ descriptor, name }) => {
-  if (!name || typeof name !== 'string') {
-    throw Error('no name - no render');
-  }
-
-  const flatDescriptor = flatten(descriptor);
-  return (
-    <div>
-      <h2 data-hook="auto-testkit-driver-name">{name}</h2>
-      <div data-hook="auto-testkit-driver-descriptor">
-        <FieldsDocumentation units={flatDescriptor} />
-      </div>
+export const DriverDocumentation = ({ descriptor, name, dataHook }) => (
+  <div data-hook={dataHook}>
+    <h2 data-hook="auto-testkit-driver-name">{name}</h2>
+    <div data-hook="auto-testkit-driver-descriptor">
+      <FieldsDocumentation units={flatten(descriptor)} />
     </div>
-  );
-};
+  </div>
+);
