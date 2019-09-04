@@ -669,8 +669,7 @@ function runTests(createDriver, container) {
     const defaultProps = {
       moveBy: undefined,
       minWidth: undefined,
-      maxWidth: undefined,
-      width: undefined,
+      dynamicWidth: undefined,
       appendTo: undefined,
       shouldAnimate: false,
       flip: true,
@@ -789,15 +788,6 @@ function runTests(createDriver, container) {
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
     });
 
-    it('should enable setPopperWidth [when] given maxWidth ', () => {
-      const modifiers = createModifiers({
-        ...defaultProps,
-        maxWidth: '500px',
-      });
-
-      expect(modifiers.setPopperWidth.enabled).toEqual(true);
-    });
-
     it('should enable setPopperWidth [when] given minWidth ', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
@@ -807,10 +797,10 @@ function runTests(createDriver, container) {
       expect(modifiers.setPopperWidth.enabled).toEqual(true);
     });
 
-    it('should enable setPopperWidth [when] given width', async () => {
+    it('should enable setPopperWidth [when] given dynamicWidth ', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        width: '500px',
+        dynamicWidth: true,
       });
 
       expect(modifiers.setPopperWidth.enabled).toEqual(true);

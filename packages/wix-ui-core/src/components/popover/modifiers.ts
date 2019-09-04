@@ -16,6 +16,24 @@ const calculateOffset = ({ moveBy, placement = '' }): string => {
   return `${moveBy ? moveBy.x : 0}px, ${moveBy ? moveBy.y : 0}px`;
 };
 
+interface styles {
+  minWidth?: string;
+  width?: string;
+}
+
+const resolveWidth = ({ minWidth, dynamicWidth, referenceWidth }): styles => {
+  return {
+    minWidth: minWidth
+      ? typeof minWidth === 'string'
+        ? minWidth
+        : `${minWidth}px`
+      : dynamicWidth
+      ? `${referenceWidth}px`
+      : undefined,
+    width: 'auto',
+  };
+};
+
 export const createModifiers = ({
   moveBy,
   appendTo,
@@ -25,8 +43,7 @@ export const createModifiers = ({
   placement,
   isTestEnv,
   minWidth,
-  maxWidth,
-  width,
+  dynamicWidth,
 }) => {
   const preventOverflow = !fixed;
 
@@ -48,32 +65,21 @@ export const createModifiers = ({
     },
   };
 
-  if (minWidth || maxWidth || width) {
+  if (dynamicWidth || minWidth) {
     modifiers.setPopperWidth = {
       enabled: true,
       order: 840,
       fn: data => {
         const { width: referenceWidth } = data.offsets.reference;
 
-        data.styles.minWidth =
-          minWidth === 'trigger'
-            ? `${referenceWidth}`
-            : typeof minWidth === 'string'
-            ? minWidth
-            : `${minWidth}px`;
-
-        data.styles.maxWidth =
-          maxWidth === 'trigger'
-            ? `${referenceWidth}`
-            : typeof maxWidth === 'string'
-            ? maxWidth
-            : `${maxWidth}px`;
-        data.styles.width =
-          width === 'trigger'
-            ? `${referenceWidth}`
-            : typeof width === 'string'
-            ? maxWidth
-            : `${width}px`;
+        data.styles = {
+          ...data.styles,
+          ...resolveWidth({
+            referenceWidth,
+            minWidth,
+            dynamicWidth,
+          }),
+        };
 
         return data;
       },
