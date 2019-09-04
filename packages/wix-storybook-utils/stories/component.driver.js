@@ -1,3 +1,4 @@
 export default () => ({
-  exists: () => false
+  exists: () => false,
+  coolMethod: () => true
 });
