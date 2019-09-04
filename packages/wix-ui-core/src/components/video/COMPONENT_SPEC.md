@@ -20,6 +20,7 @@ The element parses a URL and loads in the appropriate external SDKs to play medi
 | volume    | number                           | 100          |            | Start value of volume for audio, `0..100`                              |
 | controls  | boolean                          | true         |            | Pass false to hide controls                                            |
 | showTitle | boolean                          | true         |            | Pass false to hide title                                               |
+| hideOverlay | boolean                        | false        |            | Pass true to hide overlay                                              |
 | config    | object                           | {}           |            | Override options for the various players                               |
 | playerRef | Function                         |              |            | Use `playerRef` to call instance methods                               |
 | onPlay    | Function                         |              |            | Called when media starts or resumes playing after pausing              |
