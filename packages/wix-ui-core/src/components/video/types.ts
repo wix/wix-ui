@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ITextMapConfig } from 'playable/dist/statics/modules/text-map/types';
 
 export type PlayerNamesType =
   | 'dailymotion'
@@ -51,6 +52,7 @@ export interface IPlayableConfig {
   alwaysShowLogo?: boolean;
   poster?: string;
   modules?: {};
+  texts?: ITextMapConfig;
 }
 
 export interface ITwitchConfig {
