@@ -7,7 +7,6 @@ import {
   IEventEmitter,
   IMethodsToPlayer,
   IPropsToPlayer,
-  PlayerNameType
 } from '../types';
 import { EVENTS } from '../constants';
 
@@ -56,7 +55,7 @@ const mockAPI = {
 
 const noop = () => null;
 
-const MOCK_PLAYER_NAME = 'mockPlayerName';
+const MOCK_PLAYER_NAME = 'playable';
 
 class MockPlayer extends React.PureComponent<any> {
   static defaultProps = {
