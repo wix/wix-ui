@@ -3,7 +3,12 @@ import { EventEmitter } from 'eventemitter3';
 import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import playerHOC from './playerHOC';
-import { IEventEmitter, IMethodsToPlayer, IPropsToPlayer } from '../types';
+import {
+  IEventEmitter,
+  IMethodsToPlayer,
+  IPropsToPlayer,
+  PlayerNameType
+} from '../types';
 import { EVENTS } from '../constants';
 
 const mapPropsToPlayer: IPropsToPlayer = {
@@ -51,11 +56,15 @@ const mockAPI = {
 
 const noop = () => null;
 
+const MOCK_PLAYER_NAME = 'mockPlayerName';
+
 class MockPlayer extends React.PureComponent<any> {
   static defaultProps = {
     onInit: noop,
     onReady: noop,
   };
+  static playerName = MOCK_PLAYER_NAME;
+
   player: any;
   eventEmitter: IEventEmitter;
 
@@ -78,7 +87,7 @@ class MockPlayer extends React.PureComponent<any> {
       },
     };
 
-    this.props.onInit(this.player);
+    this.props.onInit(this.player, MockPlayer.playerName);
     this.props.onReady();
   }
 
@@ -109,7 +118,7 @@ describe('playerHOC', () => {
 
       await eventually(() => {
         const playerAPI = playerRef.getPlayerAPI();
-        expect(onInit).toHaveBeenCalledWith(playerAPI);
+        expect(onInit).toHaveBeenCalledWith(playerAPI, MOCK_PLAYER_NAME);
       });
     });
 

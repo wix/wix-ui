@@ -13,6 +13,7 @@ import {
   IFacebookPlayerAPI,
   IFacebookConfig,
   ISDKConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 
@@ -67,6 +68,7 @@ const parseSize = (value: number) => Math.ceil(value) || 'auto';
 
 class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   static displayName = 'Facebook';
+  static playerName: PlayerNameType = 'facebook';
 
   player: IFacebookPlayerAPI;
   playerId: string;
@@ -162,7 +164,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
       this.awaitDuration();
 
-      onInit(this.player);
+      onInit(this.player, FacebookPlayer.playerName);
       onReady();
     }
   };

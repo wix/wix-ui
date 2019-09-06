@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type PlayerNamesType =
+export type PlayerNameType =
   | 'dailymotion'
   | 'facebook'
   | 'playable'

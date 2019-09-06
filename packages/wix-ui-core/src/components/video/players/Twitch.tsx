@@ -13,6 +13,7 @@ import {
   ITwitchPlayerAPI,
   ITwitchConfig,
   ISDKConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 
@@ -62,6 +63,7 @@ interface ITwitchProps extends ICommonProps, ITwitchConfig {}
 
 class TwitchPlayer extends React.PureComponent<ITwitchProps> {
   static displayName = 'Twitch';
+  static playerName: PlayerNameType = 'twitch';
 
   player: ITwitchPlayerAPI;
   playerId: string;
@@ -134,7 +136,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
       this.stopProgress();
     });
 
-    onInit(this.player);
+    onInit(this.player, TwitchPlayer.playerName);
   };
 
   awaitDuration = () => {
