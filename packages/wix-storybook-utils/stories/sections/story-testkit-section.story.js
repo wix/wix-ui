@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Component from '../Component';
 
-import { tabs, tab, title, testkit } from '../../src/Sections';
+import { tabs, tab, testkit } from '../../src/Sections';
 
 export default {
   category: 'Sections',
@@ -13,8 +13,8 @@ export default {
     tabs([
       tab({
         title: 'Testkit section',
-        sections: [testkit()]
-      })
-    ])
-  ]
+        sections: [testkit()],
+      }),
+    ]),
+  ],
 };

@@ -1,4 +1,4 @@
-import { flatten } from './driver-documentation';
+import { flatten } from './flatten';
 import { createDriverDocumentationDriver } from './drivers';
 
 describe('DriverDocumentation', () => {
@@ -8,7 +8,7 @@ describe('DriverDocumentation', () => {
     const descriptor = [];
     driver.create({
       descriptor,
-      name: 'a',
+      title: 'a',
     });
 
     expect(driver.get.tag('name')).toBe('h2');
@@ -19,7 +19,7 @@ describe('DriverDocumentation', () => {
     beforeEach(() => {
       driver.create({
         descriptor,
-        name: 'a',
+        title: 'a',
       });
     });
 

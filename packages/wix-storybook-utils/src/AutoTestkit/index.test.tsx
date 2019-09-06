@@ -60,7 +60,29 @@ describe('AutoTestkit', () => {
       ],
     };
 
-    beforeEach(() => driver.create({ metadata }));
+    const makeTestkitTemplate = platform =>
+      `import { <%= utils.toCamel(component.displayName) %>TestkitFactory } from 'wix-style-react/dist${platform}';`;
+
+    const storyConfig = {
+      config: {
+        testkits: {
+          vanilla: {
+            template: makeTestkitTemplate(''),
+          },
+          enzyme: {
+            template: makeTestkitTemplate('/enzyme'),
+          },
+          puppeteer: {
+            template: makeTestkitTemplate('/puppeteer'),
+          },
+          protractor: {
+            template: makeTestkitTemplate('/protractor'),
+          },
+        },
+      },
+    };
+
+    beforeEach(() => driver.create({ metadata, storyConfig }));
 
     it('has markdown-body class on root element', () => {
       expect(driver.get.rootClass()).toBe('markdown-body');
@@ -82,6 +104,12 @@ describe('AutoTestkit', () => {
       expect(driver.get.driverAt(2).get.name()).toBe('Puppeteer Testkit');
       expect(driver.get.driverAt(3).get.name()).toBe('Testkit');
       expect(driver.get.driverAt(4).get.name()).toBe('UniDriver Testkit');
+    });
+
+    it('should have correct import example code', () => {
+      expect(driver.get.driverAt(0).get.importCode()).toMatch(
+        `import { componentTestkitFactory } from 'wix-style-react/dist'`,
+      );
     });
   });
 

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 import { Section } from '../typings/story-section';
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 
 import { View as SectionsView } from '../Sections/view';
 import omit from '../AutoExample/utils/omit';

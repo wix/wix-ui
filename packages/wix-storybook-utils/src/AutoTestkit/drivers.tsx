@@ -7,6 +7,7 @@ import { FieldsDocumentation } from './fields-documentation';
 import { DriverDocumentation } from './driver-documentation';
 
 import { AutoTestkit } from './index';
+import Markdown from '../Markdown';
 
 class DriverDocumentationDriver extends Driver {
   constructor() {
@@ -21,6 +22,10 @@ class DriverDocumentationDriver extends Driver {
       return createFieldsDocumentationDriver().reuse(component);
     },
     tag: hook => this.select(hook).name(),
+    importCode: () =>
+      this.select('import-code')
+        .find(Markdown)
+        .prop('source'),
   };
 }
 
