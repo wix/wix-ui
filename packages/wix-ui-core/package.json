@@ -5,6 +5,9 @@
   "version": "2.0.196",
   "main": "./dist/src/index.js",
   "module": "./dist/es/src/index.js",
+  "stylable": {
+    "manifest": "./dist/standalone/src/stylable.manifest.json"
+  },
   "sideEffects": [
     "./.storybook/**/*.*",
     "./stories/**/*.*",
@@ -85,8 +88,8 @@
   },
   "devDependencies": {
     "@storybook/react": "^5.0.0",
-    "@stylable/cli": "^2.2.7",
-    "@stylable/core": "^2.1.4",
+    "@stylable/cli": "2.2.8-alpha.0",
+    "@stylable/core": "2.1.5-alpha.0",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
