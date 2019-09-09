@@ -74,13 +74,13 @@ export const createDefaultSections: (a: StoryConfig) => StorySection[] = ({
     tab({
       title: 'Testkit',
       sections: [
-        testkit(),
         ...given(metadata.readmeTestkit)(
           description({
             text: metadata.readmeTestkit,
             dataHook: 'testkit-markdown',
           }),
         ),
+        testkit(),
       ],
     }),
 
