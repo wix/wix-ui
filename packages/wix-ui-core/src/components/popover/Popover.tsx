@@ -350,7 +350,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
     const commonProps = {
       ref: arrowProps.ref,
-      key: 'popover-arrow',
+      key: 'popover-arrow', 
       'data-hook': 'popover-arrow',
       style: {
         ...arrowProps.style,

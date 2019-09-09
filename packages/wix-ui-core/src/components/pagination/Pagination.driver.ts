@@ -1,7 +1,7 @@
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import styles from './Pagination.st.css';
 
-const utils = new StylableDOMUtil(styles);
+const utils = new StylableDOMUtilCompat(styles);
 const hasStyleState = (element, state) => utils.hasStyleState(element, state);
 
 export type NavButtonName = 'first' | 'previous' | 'next' | 'last';
