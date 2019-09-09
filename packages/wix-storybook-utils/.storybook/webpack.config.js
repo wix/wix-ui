@@ -4,6 +4,10 @@ const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
 const makeTestkitTemplate = platform =>
   `import { <%= utils.toCamel(component.displayName) %>TestkitFactory } from 'wix-style-react/dist${platform}';`;
 
+const testkitsWarning = `
+> I am a testkit warning and have a <a href="/?selectedKind=Test&selectedStory=Empty">link</a>.
+`;
+
 module.exports = (config, env, defaultConfig) => {
   const newConfig = wixStorybookConfig(defaultConfig);
 
@@ -18,6 +22,7 @@ module.exports = (config, env, defaultConfig) => {
     options: {
       storyConfig: {
         moduleName: 'wix-storybook-utils',
+        testkitsWarning,
         testkits: {
           vanilla: {
             template: makeTestkitTemplate(''),

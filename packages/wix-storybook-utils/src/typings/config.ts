@@ -4,6 +4,7 @@ export interface Config {
   repoBaseURL?: string;
   issueURL?: string;
   testkits?: Testkits;
+  testkitsWarning?: string;
 }
 
 export interface Testkits {

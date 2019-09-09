@@ -44,6 +44,10 @@ class AutoTestkitDriver extends Driver {
     heading: () => this.select('heading').text(),
     tag: hook => this.select(hook).name(),
     rootClass: () => this.selectRoot().props().className,
+    warning: () =>
+      this.select('warning')
+        .find(Markdown)
+        .prop('source'),
   };
 }
 

@@ -65,6 +65,7 @@ describe('AutoTestkit', () => {
 
     const storyConfig = {
       config: {
+        testkitsWarning: 'Hey there, testkits warning',
         testkits: {
           vanilla: {
             template: makeTestkitTemplate(''),
@@ -89,16 +90,22 @@ describe('AutoTestkit', () => {
     });
 
     describe('heading', () => {
-      it('renders', () => {
+      it('should display correct text', () => {
         expect(driver.get.heading()).toBe(`${metadata.displayName} Testkits`);
       });
 
-      it('is h1 tag', () => {
+      it('should be h1 tag', () => {
         expect(driver.get.tag('heading')).toBe('h1');
+      });
+
+      it('should display warning', () => {
+        expect(driver.get.warning()).toEqual(
+          storyConfig.config.testkitsWarning,
+        );
       });
     });
 
-    it('has correct testkit names', () => {
+    it('should have correct testkit names', () => {
       expect(driver.get.driverAt(0).get.name()).toBe('ReactTestUtils Testkit');
       expect(driver.get.driverAt(1).get.name()).toBe('Protractor Testkit');
       expect(driver.get.driverAt(2).get.name()).toBe('Puppeteer Testkit');
