@@ -19,6 +19,6 @@ export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => ({
     isFocused: async () => document.activeElement === await base.getNative(),
     isButtonDisabled: async () => {
        // Using aria-disabled to know if button is disabled.
-       return Boolean(await base.attr('aria-disabled'));
+       return (await base.attr('aria-disabled')) === 'true';
     },
 });
