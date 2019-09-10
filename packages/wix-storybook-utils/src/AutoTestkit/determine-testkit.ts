@@ -35,29 +35,37 @@ export const determineTestkit: (a: DetermineTestkit) => Output = ({
     vanilla: new RegExp(`${displayName}\.driver\.[tj]sx?$`),
   };
 
-  const { type, title } = [
+  return [
     {
       when: has(needles.uni),
-      type: TestkitType.unidriver,
-      title: 'UniDriver Testkit',
+      make: {
+        type: TestkitType.unidriver,
+        title: 'UniDriver Testkit',
+      },
     },
 
     {
       when: has(needles.protractor),
-      type: TestkitType.protractor,
-      title: 'Protractor Testkit',
+      make: {
+        type: TestkitType.protractor,
+        title: 'Protractor Testkit',
+      },
     },
 
     {
       when: has(needles.puppeteer),
-      type: TestkitType.puppeteer,
-      title: 'Puppeteer Testkit',
+      make: {
+        type: TestkitType.puppeteer,
+        title: 'Puppeteer Testkit',
+      },
     },
 
     {
       when: has(needles.vanilla),
-      type: TestkitType.vanilla,
-      title: 'ReactTestUtils Testkit',
+      make: {
+        type: TestkitType.vanilla,
+        title: 'ReactTestUtils Testkit',
+      },
     },
 
     {
@@ -65,12 +73,12 @@ export const determineTestkit: (a: DetermineTestkit) => Output = ({
       // also acts as fallback
       when: fileTitle =>
         Object.values(needles).every(needle => hasnt(needle)(fileTitle)),
-      type: TestkitType.unknown,
-      title: 'Testkit',
+      make: {
+        type: TestkitType.unknown,
+        title: 'Testkit',
+      },
     },
-  ].find(({ when }) => when(fileName));
-
-  return { type, title };
+  ].find(({ when }) => when(fileName)).make;
 };
 
 export const isUnidriver = file => file.includes('.uni.');
