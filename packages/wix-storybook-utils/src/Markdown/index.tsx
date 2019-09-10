@@ -22,6 +22,8 @@ hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml.js'));
 
 hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash.js'));
 
+hljs.registerLanguage('diff', require('highlight.js/lib/languages/diff.js'));
+
 hljs.registerLanguage(
   'markdown',
   require('highlight.js/lib/languages/markdown.js'),

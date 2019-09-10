@@ -1,5 +1,5 @@
 import React from 'react';
-import Component from '../component';
+import Component from '../Component';
 import CodeShowcase from '../../src/CodeShowcase';
 import LiveCodeExample from '../../src/LiveCodeExample';
 
@@ -24,7 +24,7 @@ export default {
   storyName: 'Single Component Story',
 
   component: Component,
-  componentPath: '../component.js',
+  componentPath: '../Component.js',
 
   componentProps: {
     // test should be visible even though it's not part of component propTypes

@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import path from 'path';
 
-import kebabCase from 'lodash.kebabcase';
+import kebabCase from 'lodash/kebabCase';
 import * as builders from './index';
 
 import { SectionType } from '../typings/story-section';

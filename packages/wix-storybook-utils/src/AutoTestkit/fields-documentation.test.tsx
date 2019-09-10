@@ -2,13 +2,6 @@ import { createFieldsDocumentationDriver } from './drivers';
 
 describe('FieldsDocumentation', () => {
   const driver = createFieldsDocumentationDriver();
-  describe('with no content', () => {
-    it('renders text "(empty)"', () => {
-      driver.create({ units: [] });
-
-      expect(driver.get.content()).toBe('(empty)');
-    });
-  });
 
   it('renders primitives', () => {
     const units = [

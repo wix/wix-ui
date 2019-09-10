@@ -1,4 +1,4 @@
-import { flatten } from './driver-documentation';
+import { flatten } from './flatten';
 import { createDriverDocumentationDriver } from './drivers';
 
 describe('DriverDocumentation', () => {
@@ -8,52 +8,23 @@ describe('DriverDocumentation', () => {
     const descriptor = [];
     driver.create({
       descriptor,
-      name: 'a',
+      title: 'a',
     });
 
     expect(driver.get.tag('name')).toBe('h2');
   });
 
   describe('case when there is a name but no descriptor', () => {
-    const descriptor = [];
     beforeEach(() => {
       driver.create({
-        descriptor,
-        name: 'a',
+        descriptor: [],
+        title: 'a',
       });
     });
 
     it('has a name', () => {
       expect(driver.get.name()).toBe('a');
     });
-
-    it('has no descriptor', () => {
-      expect(driver.get.fields().get.content()).toBe('(empty)');
-    });
-  });
-
-  describe('cases when there is no valid name', () => {
-    it.each([[null], [undefined], [''], [5], [true], [{}]])(
-      'fails if name is not a valid string (%p)',
-      invalidName => {
-        const consoleError = console.error;
-        console.error = i => i;
-
-        const descriptor = [];
-        const spy = jest.fn();
-        driver.create(
-          {
-            descriptor,
-            name: invalidName,
-          },
-          spy,
-        );
-
-        expect(spy).toHaveBeenCalled();
-
-        console.error = consoleError;
-      },
-    );
   });
 
   describe('shallow driver descriptor', () => {
@@ -133,14 +104,10 @@ describe('DriverDocumentation', () => {
       ];
 
       driver.create({ name, descriptor: nestedDescriptor });
+      const fields = driver.get.allFields();
 
       flatten(nestedDescriptor).forEach((item, index) => {
-        expect(
-          driver.get
-            .fields()
-            .get.at(index)
-            .get.name(),
-        ).toBe(item.name);
+        expect(fields[index].get.name()).toBe(item.name);
       });
     });
   });

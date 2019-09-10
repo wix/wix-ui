@@ -9,8 +9,9 @@ export const FieldsDocumentation = ({ units }) => {
     object: PrimitiveDocumentation,
     error: PrimitiveDocumentation,
   };
-  return units.length ? (
-    <table data-hook="auto-testkit-container">
+
+  return (
+    <table data-hook="auto-testkit-driver-fields">
       <thead>
         <tr>
           <th data-hook="auto-testkit-property-header">Property</th>
@@ -22,11 +23,15 @@ export const FieldsDocumentation = ({ units }) => {
           .filter(({ type }) => typeComponents[type])
           .map((unit, i) => {
             const Documentation = typeComponents[unit.type];
-            return <Documentation key={i} unit={unit} />;
+            return (
+              <Documentation
+                key={i}
+                data-hook="auto-testkit-field"
+                unit={unit}
+              />
+            );
           })}
       </tbody>
     </table>
-  ) : (
-    <div data-hook="auto-testkit-container">(empty)</div>
   );
 };
