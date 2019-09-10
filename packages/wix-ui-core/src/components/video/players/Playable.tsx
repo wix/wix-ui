@@ -140,6 +140,7 @@ class PlayablePlayer extends React.PureComponent<
       poster,
       muted,
       title,
+      texts,
       showTitle,
       loop,
       volume,
@@ -168,6 +169,7 @@ class PlayablePlayer extends React.PureComponent<
       preload,
       loop,
       volume,
+      texts,
       hideOverlay: true,
     });
 
