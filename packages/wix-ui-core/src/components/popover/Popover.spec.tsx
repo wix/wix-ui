@@ -667,6 +667,7 @@ function runTests(createDriver, container) {
 
   describe('createModifiers', () => {
     const defaultProps = {
+      width: undefined,
       moveBy: undefined,
       minWidth: undefined,
       dynamicWidth: undefined,

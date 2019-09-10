@@ -244,6 +244,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     const modifiers = createModifiers({
       minWidth,
+      width,
       dynamicWidth,
       moveBy,
       appendTo,
@@ -269,7 +270,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               ref={ref}
               data-hook="popover-content"
               data-content-element={this.contentHook}
-              style={{ width, ...popperStyles, zIndex, maxWidth }}
+              style={{ ...popperStyles, zIndex, maxWidth }}
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,

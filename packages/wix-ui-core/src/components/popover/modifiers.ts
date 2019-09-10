@@ -21,7 +21,12 @@ interface styles {
   width?: string;
 }
 
-const resolveWidth = ({ minWidth, dynamicWidth, referenceWidth }): styles => {
+const resolveWidth = ({
+  width,
+  minWidth,
+  dynamicWidth,
+  referenceWidth,
+}): styles => {
   return {
     minWidth: minWidth
       ? typeof minWidth === 'string'
@@ -30,11 +35,12 @@ const resolveWidth = ({ minWidth, dynamicWidth, referenceWidth }): styles => {
       : dynamicWidth
       ? `${referenceWidth}px`
       : undefined,
-    width: 'auto',
+    width: width || 'auto',
   };
 };
 
 export const createModifiers = ({
+  width,
   moveBy,
   appendTo,
   shouldAnimate,
@@ -65,7 +71,7 @@ export const createModifiers = ({
     },
   };
 
-  if (dynamicWidth || minWidth) {
+  if (dynamicWidth || minWidth || width) {
     modifiers.setPopperWidth = {
       enabled: true,
       order: 840,
@@ -75,6 +81,7 @@ export const createModifiers = ({
         data.styles = {
           ...data.styles,
           ...resolveWidth({
+            width,
             referenceWidth,
             minWidth,
             dynamicWidth,
