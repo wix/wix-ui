@@ -72,3 +72,5 @@ export const determineTestkit: (a: DetermineTestkit) => Output = ({
 
   return { type, title };
 };
+
+export const isUnidriver = file => file.includes('.uni.');

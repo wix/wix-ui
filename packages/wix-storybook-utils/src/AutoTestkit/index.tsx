@@ -6,7 +6,7 @@ import { Metadata } from '../typings/metadata';
 import { StoryConfig } from '../typings/story-config';
 
 import { DriverDocumentation } from './driver-documentation';
-import { determineTestkit } from './determine-testkit';
+import { isUnidriver, determineTestkit } from './determine-testkit';
 import Markdown from '../Markdown';
 
 interface Props {
@@ -16,11 +16,11 @@ interface Props {
 
 const unidriverFirst = drivers => {
   const [unidrivers, others] = drivers.reduce(
-    ([uni, rest], curr) => {
-      if (curr.file.includes('.uni.')) {
-        uni.push(curr);
+    ([uni, rest], driver) => {
+      if (isUnidriver(driver.file)) {
+        uni.push(driver);
       } else {
-        rest.push(curr);
+        rest.push(driver);
       }
       return [uni, rest];
     },
@@ -52,10 +52,11 @@ export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
           <DriverDocumentation
             key={file}
             dataHook="auto-testkit-driver"
+            unidriver={isUnidriver(file)}
             descriptor={descriptor}
             metadata={metadata}
             title={title}
-            testkit={get(storyConfig, `config.testkits.${type}`)}
+            testkitConfig={get(storyConfig, `config.testkits.${type}`)}
           />
         );
       })}

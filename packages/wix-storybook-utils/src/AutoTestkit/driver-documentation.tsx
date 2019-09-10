@@ -26,16 +26,18 @@ interface Props {
   dataHook?: string;
   descriptor: any;
   metadata: Metadata;
-  testkit?: Testkit;
+  testkitConfig?: Testkit;
   title: string;
+  unidriver: boolean;
 }
 
 export const DriverDocumentation: React.FunctionComponent<Props> = ({
   dataHook,
   descriptor,
   metadata,
-  testkit,
+  testkitConfig,
   title,
+  unidriver,
 }) => {
   const { nested, flat } = extractNested(descriptor);
 
@@ -43,10 +45,16 @@ export const DriverDocumentation: React.FunctionComponent<Props> = ({
     <div data-hook={dataHook}>
       <h2 data-hook="auto-testkit-driver-name">{title}</h2>
 
-      {testkit && (
+      {testkitConfig && (
         <Code dataHook="auto-testkit-driver-import-code">
-          {makeImportCode({ testkit, metadata })}
+          {makeImportCode({ testkit: testkitConfig, metadata })}
         </Code>
+      )}
+
+      {unidriver && (
+        <Markdown
+          source={`> **NOTE**: All UniDriver methods are asynchronous, use them with \`async\`/\`await\`!`}
+        />
       )}
 
       {flat.length > 0 && (
