@@ -100,4 +100,34 @@ describe('flatten', () => {
       expect(flatten(assertion)).toEqual(expectation);
     });
   });
+
+  describe('given array of erroneous', () => {
+    it('should skip them and work with non erroneous', () => {
+      const assertion = [
+        {
+          a: 1,
+          type: 'unknown',
+          name: 'first',
+        },
+        null,
+        [],
+        0,
+        false,
+        {
+          b: 2,
+          type: 'unknown',
+          name: 'second',
+        },
+      ];
+
+      const expectation = [
+        { a: 1, type: 'unknown', name: 'first' },
+        { b: 2, type: 'unknown', name: 'second' },
+      ];
+
+      // intentional ignore, JS consumer might pass falsy input
+      // @ts-ignore
+      expect(flatten(assertion)).toEqual(expectation);
+    });
+  });
 });
