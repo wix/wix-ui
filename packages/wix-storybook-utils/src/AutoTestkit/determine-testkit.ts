@@ -63,8 +63,8 @@ export const determineTestkit: (a: DetermineTestkit) => Output = ({
     {
       // opposite of all above
       // also acts as fallback
-      when: title =>
-        Object.values(needles).every(needle => hasnt(needle)(title)),
+      when: fileTitle =>
+        Object.values(needles).every(needle => hasnt(needle)(fileTitle)),
       type: TestkitType.unknown,
       title: 'Testkit',
     },
