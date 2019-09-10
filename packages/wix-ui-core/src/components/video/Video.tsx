@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { create, VIDEO_EVENTS, ENGINE_STATES } from 'playable';
 import { playerComponents, playerVerifiers } from './players';
-import { PlayerNamesType, ICommonProps, IConfig } from './types';
+import { PlayerNameType, ICommonProps, IConfig } from './types';
 import styles from './Video.st.css';
 
 const noop = () => null;
 const DEFAULT_PLAYER = 'playable';
 
-const getPlayerName = (url: string | string[]): PlayerNamesType => {
+const getPlayerName = (url: string | string[]): PlayerNameType => {
   for (const key in playerVerifiers) {
-    const name = key as PlayerNamesType;
+    const name = key as PlayerNameType;
 
     if (playerVerifiers[name](url)) {
       return name;
@@ -28,7 +28,7 @@ export interface IVideoProps extends ICommonProps {
 }
 
 export interface IVideoState {
-  playerName: PlayerNamesType;
+  playerName: PlayerNameType;
 }
 
 export class Video extends React.Component<IVideoProps, IVideoState> {
