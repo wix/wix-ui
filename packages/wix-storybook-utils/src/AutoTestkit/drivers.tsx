@@ -21,7 +21,27 @@ class DriverDocumentationDriver extends Driver {
       const component = this.select('descriptor').childAt(0);
       return createFieldsDocumentationDriver().reuse(component);
     },
-    tag: hook => this.select(hook).name(),
+
+    allFields: () => {
+      const components = this.select('fields');
+
+      const allFields = components.reduce((fields, component) => {
+        const field = createFieldsDocumentationDriver().reuse(component);
+        const count = field.get.count();
+
+        let i = 0;
+        while (i < count) {
+          fields.push(field.get.at(i));
+          i++;
+        }
+
+        return fields;
+      }, []);
+
+      return allFields;
+    },
+
+    tag: (hook: string) => this.select(hook).name(),
     importCode: () =>
       this.select('import-code')
         .find(Markdown)
@@ -35,14 +55,14 @@ class AutoTestkitDriver extends Driver {
   }
 
   get = {
-    driverAt: index => {
+    driverAt: (index: number) => {
       const driverDoc = this.select('driver').at(index);
       return driverDoc.length === 0
         ? null
         : createDriverDocumentationDriver().reuse(driverDoc);
     },
     heading: () => this.select('heading').text(),
-    tag: hook => this.select(hook).name(),
+    tag: (hook: string) => this.select(hook).name(),
     rootClass: () => this.selectRoot().props().className,
     warning: () =>
       this.select('warning')
@@ -57,11 +77,11 @@ class FieldsDocumentationDriver extends Driver {
   }
 
   get = {
-    content: () => this.select('container').text(),
-    at: index => {
-      const component = this.selectRoot()
-        .childAt(1)
-        .childAt(index);
+    content: () => this.select('fields').text(),
+
+    at: (index: number) => {
+      const component = this.select('field').at(index);
+
       switch (component.props().unit.type) {
         case 'value':
         case 'error':
@@ -73,11 +93,10 @@ class FieldsDocumentationDriver extends Driver {
           return this;
       }
     },
-    count: () =>
-      this.selectRoot()
-        .childAt(1)
-        .children().length,
-    header: hook => {
+
+    count: () => this.find('tbody tr').length,
+
+    header: (hook: string) => {
       const header = this.select(`${hook}-header`);
       return {
         tag: () => header.name(),
@@ -125,7 +144,7 @@ class PrimitiveDocumentationDriver extends Driver {
   get = {
     name: () => this.select('name').text(),
     description: () => this.select('description').text(),
-    tag: hook => this.select(hook).name(),
+    tag: (hook: string) => this.select(hook).name(),
   };
 }
 

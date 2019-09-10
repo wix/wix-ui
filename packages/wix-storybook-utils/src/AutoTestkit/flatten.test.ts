@@ -7,7 +7,7 @@ describe('flatten', () => {
 
   describe('given array of non-nested objects', () => {
     it('should return same shape array', () => {
-      const assertion = [{ a: 1 }, { b: 2 }];
+      const assertion = [{ a: 1, type: 'unknown' }, { b: 2, type: 'unknown' }];
       expect(flatten(assertion)).toEqual(assertion);
     });
   });
@@ -15,14 +15,17 @@ describe('flatten', () => {
   describe('given array of objects with type `object`', () => {
     it('should flatten `props` array', () => {
       const assertion = [
-        { a: 1 },
+        { a: 1, type: 'unknown' },
         {
           type: 'object',
-          props: [{ b: 2 }],
+          props: [{ b: 2, type: 'unknown' }],
         },
       ];
 
-      const expectation = [{ a: 1 }, { b: 2 }];
+      const expectation = [
+        { a: 1, type: 'unknown' },
+        { b: 2, type: 'unknown' },
+      ];
 
       expect(flatten(assertion)).toEqual(expectation);
     });
@@ -31,6 +34,7 @@ describe('flatten', () => {
       const assertion = [
         {
           a: 1,
+          type: 'unknown',
           name: 'first',
         },
         {
@@ -39,6 +43,7 @@ describe('flatten', () => {
           props: [
             {
               name: 'nested',
+              type: 'unknown',
               b: 2,
             },
           ],
@@ -46,8 +51,8 @@ describe('flatten', () => {
       ];
 
       const expectation = [
-        { a: 1, name: 'first' },
-        { b: 2, name: 'second.nested' },
+        { a: 1, type: 'unknown', name: 'first' },
+        { b: 2, type: 'unknown', name: 'second.nested' },
       ];
 
       expect(flatten(assertion)).toEqual(expectation);
@@ -57,6 +62,7 @@ describe('flatten', () => {
       const assertion = [
         {
           a: 1,
+          type: 'unknown',
           name: 'first',
         },
         {
@@ -65,6 +71,7 @@ describe('flatten', () => {
           props: [
             {
               name: 'nested',
+              type: 'unknown',
               b: 2,
             },
             {
@@ -73,12 +80,14 @@ describe('flatten', () => {
               props: [
                 {
                   name: 'wheel',
+                  type: 'unknown',
                   c: 3,
                 },
               ],
             },
             {
               name: 'sibling',
+              type: 'unknown',
               d: 4,
             },
           ],
@@ -86,10 +95,10 @@ describe('flatten', () => {
       ];
 
       const expectation = [
-        { a: 1, name: 'first' },
-        { b: 2, name: 'second.nested' },
-        { c: 3, name: 'second.third.wheel' },
-        { d: 4, name: 'second.sibling' },
+        { a: 1, type: 'unknown', name: 'first' },
+        { b: 2, type: 'unknown', name: 'second.nested' },
+        { c: 3, type: 'unknown', name: 'second.third.wheel' },
+        { d: 4, type: 'unknown', name: 'second.sibling' },
       ];
 
       expect(flatten(assertion)).toEqual(expectation);

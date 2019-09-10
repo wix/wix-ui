@@ -14,6 +14,22 @@ interface Props {
   storyConfig: StoryConfig;
 }
 
+const unidriverFirst = drivers => {
+  const [unidrivers, others] = drivers.reduce(
+    ([uni, rest], curr) => {
+      if (curr.file.includes('.uni.')) {
+        uni.push(curr);
+      } else {
+        rest.push(curr);
+      }
+      return [uni, rest];
+    },
+    [[], []],
+  );
+
+  return [...unidrivers, ...others];
+};
+
 export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
   <div className="markdown-body">
     <h1 data-hook="auto-testkit-heading">{metadata.displayName} Testkits</h1>
@@ -24,7 +40,7 @@ export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
       </div>
     )}
 
-    {metadata.drivers
+    {unidriverFirst(metadata.drivers)
       .filter(({ error }) => !error)
       .map(({ file, descriptor }) => {
         const { type, title } = determineTestkit({

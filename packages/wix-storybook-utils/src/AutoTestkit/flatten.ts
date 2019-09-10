@@ -1,9 +1,9 @@
-import { Method } from './typings';
+import { Descriptor } from './typings';
 
-const isNested = (item: Method) => item.type === 'object';
+const isNested = (item: Descriptor) => item.type === 'object';
 
-export const flatten = (methodsList: Method[], name = '') =>
-  methodsList.reduce((list, item: Method) => {
+export const flatten = (methodsList: Descriptor[], name = '') =>
+  methodsList.reduce((list, item: Descriptor) => {
     if (isNested(item)) {
       list = list.concat(
         flatten(item.props, name ? `${name}.${item.name}` : item.name),

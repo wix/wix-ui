@@ -1,5 +1,6 @@
-export interface Method {
+export interface Descriptor {
   type: string;
   name?: string;
-  props?: Method[];
+  props?: Descriptor[];
+  [key: string]: any;
 }

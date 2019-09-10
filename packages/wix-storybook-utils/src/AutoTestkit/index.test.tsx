@@ -79,6 +79,9 @@ describe('AutoTestkit', () => {
           protractor: {
             template: makeTestkitTemplate('/protractor'),
           },
+          unidriver: {
+            template: makeTestkitTemplate('/unidriver'),
+          },
         },
       },
     };
@@ -106,16 +109,20 @@ describe('AutoTestkit', () => {
     });
 
     it('should have correct testkit names', () => {
-      expect(driver.get.driverAt(0).get.name()).toBe('ReactTestUtils Testkit');
-      expect(driver.get.driverAt(1).get.name()).toBe('Protractor Testkit');
-      expect(driver.get.driverAt(2).get.name()).toBe('Puppeteer Testkit');
-      expect(driver.get.driverAt(3).get.name()).toBe('Testkit');
-      expect(driver.get.driverAt(4).get.name()).toBe('UniDriver Testkit');
+      expect(driver.get.driverAt(0).get.name()).toBe('UniDriver Testkit');
+      expect(driver.get.driverAt(1).get.name()).toBe('ReactTestUtils Testkit');
+      expect(driver.get.driverAt(2).get.name()).toBe('Protractor Testkit');
+      expect(driver.get.driverAt(3).get.name()).toBe('Puppeteer Testkit');
+      expect(driver.get.driverAt(4).get.name()).toBe('Testkit');
+    });
+
+    it('should show unidriver first', () => {
+      expect(driver.get.driverAt(0).get.name()).toBe('UniDriver Testkit');
     });
 
     it('should have correct import example code', () => {
       expect(driver.get.driverAt(0).get.importCode()).toMatch(
-        `import { componentTestkitFactory } from 'wix-style-react/dist'`,
+        `import { componentTestkitFactory } from 'wix-style-react/dist/unidriver'`,
       );
     });
   });

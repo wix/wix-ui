@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Component from '../Component';
 
 import { tabs, tab, testkit } from '../../src/Sections';

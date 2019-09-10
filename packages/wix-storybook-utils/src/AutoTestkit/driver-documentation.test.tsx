@@ -15,20 +15,15 @@ describe('DriverDocumentation', () => {
   });
 
   describe('case when there is a name but no descriptor', () => {
-    const descriptor = [];
     beforeEach(() => {
       driver.create({
-        descriptor,
+        descriptor: [],
         title: 'a',
       });
     });
 
     it('has a name', () => {
       expect(driver.get.name()).toBe('a');
-    });
-
-    it('has no descriptor', () => {
-      expect(driver.get.fields().get.content()).toBe('(empty)');
     });
   });
 
@@ -109,14 +104,10 @@ describe('DriverDocumentation', () => {
       ];
 
       driver.create({ name, descriptor: nestedDescriptor });
+      const fields = driver.get.allFields();
 
       flatten(nestedDescriptor).forEach((item, index) => {
-        expect(
-          driver.get
-            .fields()
-            .get.at(index)
-            .get.name(),
-        ).toBe(item.name);
+        expect(fields[index].get.name()).toBe(item.name);
       });
     });
   });
