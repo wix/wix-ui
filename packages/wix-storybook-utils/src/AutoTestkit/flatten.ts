@@ -1,11 +1,19 @@
-export const flatten = (descriptor, name = '') =>
-  descriptor.reduce((result, item) => {
-    const namespace = { ...item, name: `${name}${item.name}` };
-    return [
-      ...result,
-      namespace,
-      ...(namespace.type === 'object'
-        ? flatten(namespace.props, `${namespace.name}.`)
-        : []),
-    ];
+import { Method } from './typings';
+
+const isNested = (item: Method) => item.type === 'object';
+
+export const flatten = (methodsList: Method[], name = '') =>
+  methodsList.reduce((list, item: Method) => {
+    if (isNested(item)) {
+      list = list.concat(
+        flatten(item.props, name ? `${name}.${item.name}` : item.name),
+      );
+    } else {
+      list.push({
+        ...item,
+        ...(name ? { name: `${name}.${item.name}` } : {}),
+      });
+    }
+
+    return list;
   }, []);
