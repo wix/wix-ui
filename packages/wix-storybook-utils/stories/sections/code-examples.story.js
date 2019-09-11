@@ -1,7 +1,7 @@
 import { header, code } from '../../Sections';
 
-import importsExample from '!raw-loader!../examples/code-with-imports';
-import classWithArrowsExample from '!raw-loader!../examples/class-with-arrows';
+import importsExample from '!raw-loader!../components/examples/code-with-imports';
+import classWithArrowsExample from '!raw-loader!../components/examples/class-with-arrows';
 
 export default {
   category: 'Sections',

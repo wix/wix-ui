@@ -13,6 +13,7 @@ import {
   IVimeoPlayerAPI,
   IVimeoConfig,
   ISDKConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 
@@ -65,6 +66,7 @@ interface IVimeoProps extends ICommonProps, IVimeoConfig {}
 
 class VimeoPlayer extends React.PureComponent<IVimeoProps> {
   static displayName = 'Vimeo';
+  static playerName: PlayerNameType = 'vimeo';
 
   player: IVimeoPlayerAPI;
   eventEmitter: IEventEmitter;
@@ -152,7 +154,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
 
     this.player.on('error', onError);
 
-    onInit(this.player);
+    onInit(this.player, VimeoPlayer.playerName);
   };
 
   render() {

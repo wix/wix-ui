@@ -14,6 +14,7 @@ import {
   VerifierType,
   IPlayablePlayerAPI,
   IPlayableConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types';
@@ -25,7 +26,7 @@ export const verifier: VerifierType = url => {
     return URL_REGEX.test(url as string);
   }
   if (isArray(url)) {
-    return (url as []).some(item => URL_REGEX.test(item));
+    return (url as Array<string>).some(item => URL_REGEX.test(item));
   }
 
   return false;
@@ -103,6 +104,7 @@ class PlayablePlayer extends React.PureComponent<
   IPlayableState
 > {
   static displayName = 'Playable';
+  static playerName: PlayerNameType = 'playable';
   static defaultProps = {
     poster: '',
     playButton: null,
@@ -140,6 +142,7 @@ class PlayablePlayer extends React.PureComponent<
       poster,
       muted,
       title,
+      texts,
       showTitle,
       loop,
       volume,
@@ -168,6 +171,7 @@ class PlayablePlayer extends React.PureComponent<
       preload,
       loop,
       volume,
+      texts,
       hideOverlay: true,
     });
 
@@ -215,7 +219,7 @@ class PlayablePlayer extends React.PureComponent<
       onProgress(currentTime);
     });
 
-    onInit(this.player);
+    onInit(this.player, PlayablePlayer.playerName);
   }
 
   _showPlayableUI() {

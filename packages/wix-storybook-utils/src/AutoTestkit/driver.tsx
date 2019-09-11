@@ -24,7 +24,7 @@ class ErrorSpy extends React.Component<IErrorSpy, { hasError: boolean }> {
 }
 
 export class Driver {
-  private component;
+  component;
   private readonly hookPrefix;
   private readonly Component;
 
@@ -35,6 +35,8 @@ export class Driver {
   }
 
   protected selectRoot = () => this.component.childAt(0);
+
+  protected find = selector => this.component.find(selector);
 
   protected select = hook =>
     this.component.find(`[data-hook="auto-testkit-${this.hookPrefix}${hook}"]`);

@@ -13,6 +13,7 @@ import {
   IDailyMotionPlayerAPI,
   IDailyMotionConfig,
   ISDKConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 
@@ -61,6 +62,7 @@ interface IDailyMotionProps extends ICommonProps, IDailyMotionConfig {}
 
 class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
   static displayName = 'DailyMotion';
+  static playerName: PlayerNameType = 'dailymotion';
 
   player: IDailyMotionPlayerAPI;
   eventEmitter: IEventEmitter;
@@ -137,7 +139,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
       },
     });
 
-    onInit(this.player);
+    onInit(this.player, DailyMotionPlayer.playerName);
   };
 
   progress = () => {

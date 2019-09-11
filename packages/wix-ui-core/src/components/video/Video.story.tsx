@@ -58,6 +58,11 @@ export default {
             logoUrl:
               'https://images-wixmp-01bd43eabd844aac9eab64f5.wixmp.com/images/White+Wix+logo+Assets+Transparent.png/v1/fit/w_475,h_150/White+Wix+logo+Assets+Transparent.png',
             alwaysShowLogo: true,
+            texts: {
+              'live-indicator-text': ({ isEnded }) => !isEnded ? 'Live' : 'Live Ended',
+              'logo-tooltip': 'Watch On Site',
+              'mute-control-tooltip': 'Mute Video',
+            }
           },
         },
       },

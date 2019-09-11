@@ -13,6 +13,7 @@ import {
   IYoutubePlayerAPI,
   IYouTubeMotionConfig,
   ISDKConfig,
+  PlayerNameType,
 } from '../types';
 import styles from '../Video.st.css';
 
@@ -67,6 +68,7 @@ interface IYouTubeProps extends ICommonProps, IYouTubeMotionConfig {}
 
 class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
   static displayName = 'YouTube';
+  static playerName: PlayerNameType = 'youtube';
 
   player: IYoutubePlayerAPI;
   eventEmitter: IEventEmitter;
@@ -135,7 +137,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
       },
     });
 
-    onInit(this.player);
+    onInit(this.player, YouTubePlayer.playerName);
   };
 
   onStateChange = (PlayerState: any) => ({ data }): void => {

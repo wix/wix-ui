@@ -63,6 +63,6 @@ Component.defaultProps = {
   onClick: () => 'you clicked!',
 };
 
-Component.displayName = 'DummyComponent';
+Component.displayName = 'Component';
 
 export default Component;

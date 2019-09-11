@@ -9,14 +9,15 @@ import TextButton from '../TextButton';
 export default class CodeExample extends Component {
   static propTypes = {
     code: PropTypes.string,
-    codeType: CodeBlock.propTypes.type,
+    codeType: PropTypes.string,
     children: PropTypes.node,
     title: PropTypes.string,
     autoExpand: PropTypes.bool,
+    dataHook: PropTypes.string,
   };
 
   static defaultProps = {
-    codeType: CodeBlock.defaultProps.type,
+    codeType: 'js',
   };
 
   constructor(props) {
@@ -36,20 +37,25 @@ export default class CodeExample extends Component {
   }
 
   render() {
+    const { dataHook, title, code, codeType, children } = this.props;
+
     return (
-      <div>
+      <div data-hook={dataHook}>
         <div className={styles.panelControl} style={{ display: 'flex' }}>
-          <h2>{this.props.title}</h2>
+          <h2>{title}</h2>
+
           <div style={{ margin: '22px 24px 0' }}>
             <TextButton onClick={this.toggleCode}>
               {this.state.isOpened ? 'Hide' : 'Show'} code
             </TextButton>
           </div>
         </div>
+
         <Collapse isOpened={this.state.isOpened}>
-          <CodeBlock source={this.props.code} type={this.props.codeType} />
+          <CodeBlock source={code} type={codeType} />
         </Collapse>
-        <div>{this.props.children}</div>
+
+        <div>{children}</div>
       </div>
     );
   }

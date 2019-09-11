@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { ITextMapConfig } from 'playable/dist/statics/modules/text-map/types';
 
-export type PlayerNamesType =
+export type PlayerNameType =
   | 'dailymotion'
   | 'facebook'
   | 'playable'
@@ -20,7 +21,7 @@ export interface ICommonProps {
   muted?: boolean;
   showTitle?: boolean;
   hideOverlay?: boolean;
-  onInit?: Function;
+  onInit?(player: any, playerName: PlayerNameType): void;
   onReady?: Function;
   onDuration?: Function;
   onProgress?: Function;
@@ -51,6 +52,7 @@ export interface IPlayableConfig {
   alwaysShowLogo?: boolean;
   poster?: string;
   modules?: {};
+  texts?: ITextMapConfig;
 }
 
 export interface ITwitchConfig {

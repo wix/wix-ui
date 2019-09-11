@@ -7,7 +7,7 @@ interface ImportString {
   exampleImport: string;
 }
 
-export const importString: (ImportString) => string = ({
+export const importString: (a: ImportString) => string = ({
   metadata,
   config,
   exampleImport,
@@ -31,9 +31,7 @@ export const importString: (ImportString) => string = ({
       // default
       when: () => true,
       make: () =>
-        `import ${metadata.displayName} from '${config.moduleName}/${
-          metadata.displayName
-        }';`,
+        `import ${metadata.displayName} from '${config.moduleName}/${metadata.displayName}';`,
     },
   ]
     .filter(({ when }) => when())[0]
