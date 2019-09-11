@@ -2,8 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import styles from './button-next.st.css';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 export interface ButtonNextDriver extends BaseUniDriver {
   /** returns button text */
@@ -14,16 +13,12 @@ export interface ButtonNextDriver extends BaseUniDriver {
   isFocused(): Promise<boolean>;
 }
 
-export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => {
-  const stylableUtil = new StylableUnidriverUtil(styles);
-
-  return {
+export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => ({
     ...baseUniDriverFactory(base),
     getButtonTextContent: async () => base.text(),
     isFocused: async () => document.activeElement === await base.getNative(),
     isButtonDisabled: async () => {
-      // Using stylable state and not html 'disabled' attribute, since if 'href' exists, then we don't pu the 'disabled' attribute.
-      return stylableUtil.hasStyleState(base, 'disabled');
+       //Using aria-disabled to know if button is disabled.
+       return (await base.attr('aria-disabled')) === 'true';
     },
-  };
-};
+});
