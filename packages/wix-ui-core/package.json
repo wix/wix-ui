@@ -65,7 +65,7 @@
     "update-components": ".wuf/update-components.sh"
   },
   "dependencies": {
-    "@stylable/dom-test-kit": "^2.1.5-alpha.2",
+    "@stylable/dom-test-kit": "^2.3.1-alpha.0",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "hoist-non-react-methods": "^1.1.0",
@@ -88,8 +88,8 @@
   },
   "devDependencies": {
     "@storybook/react": "^5.0.0",
-    "@stylable/cli": "^2.2.8-alpha.0",
-    "@stylable/core": "^2.1.5-alpha.0",
+    "@stylable/cli": "^2.3.1-alpha.0",
+    "@stylable/core": "^2.3.1-alpha.0",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
