@@ -181,5 +181,11 @@
     "missingFiles": [
       "signature-input.ts*"
     ]
+  },
+  "tags-list": {
+    "path": "src/components/tags-list",
+    "missingFiles": [
+      "tags-list.ts*"
+    ]
   }
 }
