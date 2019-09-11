@@ -11,7 +11,7 @@ import {
 } from './image.uni.driver';
 
 export interface ImageDriver extends ImagePublicDriver {
-  getResizeMode(): Promise<string>;
+  getResizeMode(): Promise<string | boolean>;
   getSrcSet(): Promise<string>;
 }
 

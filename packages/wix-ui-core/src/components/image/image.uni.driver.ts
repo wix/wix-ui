@@ -9,7 +9,7 @@ import style from './image.st.css';
 export interface ImageDriver extends BaseUniDriver {
   getSrc(): Promise<string | null>;
   getAlt(): Promise<string>;
-  getLoadStatus(): Promise<string>;
+  getLoadStatus(): Promise<string | boolean>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
