@@ -5,10 +5,10 @@ import { TimePicker } from './index';
 import { FIELD, AmPmOptions, AmPmStrings } from './constants';
 import { convertToAmPm } from './utils';
 import { timePickerDriverFactory } from './TimePicker.driver';
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './TimePicker.st.css';
 
-const stylableUtil = new StylableDOMUtilCompat(style);
+const stylableUtil = new StylableDOMUtil(style);
 
 describe('TimePicker', () => {
   const createDriver = new ReactDOMTestContainer()

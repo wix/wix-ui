@@ -1,8 +1,8 @@
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import styles from './Checkbox.st.css';
 
 export const checkboxDriverFactory = ({ element, eventTrigger }) => {
-  const utils = new StylableDOMUtilCompat(styles, element);
+  const utils = new StylableDOMUtil(styles, element);
   const hasStyleState = state => utils.hasStyleState(element, state);
   const input = utils.select('.nativeCheckbox') as HTMLInputElement;
 

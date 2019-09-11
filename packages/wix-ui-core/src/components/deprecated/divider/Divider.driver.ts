@@ -1,8 +1,8 @@
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Divider.st.css';
 
 export const dividerDriverFactory = ({ element }) => {
-  const domUtils = new StylableDOMUtilCompat(style, element);
+  const domUtils = new StylableDOMUtil(style, element);
   return {
     /** checks if the element exists */
     exists: () => !!element,

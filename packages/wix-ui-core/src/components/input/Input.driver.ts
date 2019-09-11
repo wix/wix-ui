@@ -1,9 +1,9 @@
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Input.st.css';
 
 export const inputDriverFactory = ({ element, eventTrigger }) => {
   const input = element && element.querySelector('input');
-  const styleUtil = new StylableDOMUtilCompat(style);
+  const styleUtil = new StylableDOMUtil(style);
 
   return {
     /** checks if element exists */

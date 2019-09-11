@@ -3,7 +3,7 @@ import {
   ComponentFactory,
   DriverFactory,
 } from 'wix-ui-test-utils/driver-factory';
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './CircularProgressBar.st.css';
 
 export interface CircularProgressBarDriver extends BaseDriver {
@@ -24,7 +24,7 @@ export interface CircularProgressBarDriver extends BaseDriver {
 export const circularProgressBarDriverFactory: DriverFactory<
   CircularProgressBarDriver
 > = ({ element }: ComponentFactory) => {
-  const stylableDOMUtil = new StylableDOMUtilCompat(style);
+  const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook =>
     element.querySelector(`[data-hook="${dataHook}"]`);

@@ -2,13 +2,13 @@
 
 import * as React from 'react';
 import { Simulate } from 'react-dom/test-utils';
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Input } from './Input';
 import { InputDriver } from './Input.private.driver';
 import style from './Input.st.css';
 
-const stylableUtil = new StylableDOMUtilCompat(style);
+const stylableUtil = new StylableDOMUtil(style);
 
 describe('Input', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();

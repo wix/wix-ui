@@ -1,8 +1,8 @@
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import styles from './Label.st.css';
 
 export const labelDriverFactory = ({ element, eventTrigger }) => {
-  const stylableDOMUtil = new StylableDOMUtilCompat(styles, element);
+  const stylableDOMUtil = new StylableDOMUtil(styles, element);
 
   return {
     /** check if element exists */

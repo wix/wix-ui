@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import * as eventually from 'wix-eventually';
 import { reactUniDriver } from 'wix-ui-test-utils/vanilla';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
@@ -359,7 +359,7 @@ describe('Avatar', () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {
         await testContainer.render(<Avatar text="JD" />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('JD');
       });
 
@@ -367,13 +367,13 @@ describe('Avatar', () => {
         await testContainer.render(
           <Avatar placeholder={PLACEHOLDER_AS_TEXT} />,
         );
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(utils.select('.content').textContent).toBe('XXXXX');
       });
 
       it('should have content class when image displayed', async () => {
         await testContainer.render(<Avatar imgProps={{ src: TEST_IMG_URL }} />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         await eventually(() => {
           expect(utils.select('.content').getAttribute('src')).toBe(
             TEST_IMG_URL,
@@ -385,7 +385,7 @@ describe('Avatar', () => {
     describe('imgLoaded state', () => {
       it('should have imgLoaded', async () => {
         await testContainer.render(<Avatar imgProps={{ src: TEST_IMG_URL }} />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         await eventually(() => {
           expect(
             utils.hasStyleState(testContainer.componentNode, 'imgLoaded'),
@@ -395,7 +395,7 @@ describe('Avatar', () => {
 
       it('should NOT have imgLoaded when displaying text', async () => {
         await testContainer.render(<Avatar name="John Doe" />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(
           utils.hasStyleState(testContainer.componentNode, 'imgLoaded'),
         ).toBeFalsy();
@@ -407,7 +407,7 @@ describe('Avatar', () => {
         await testContainer.render(
           <Avatar imgProps={{ src: INVALID_TEST_IMG_URL }} />,
         );
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         await eventually(
           () => {
             expect(
@@ -422,7 +422,7 @@ describe('Avatar', () => {
     describe('contentType state', () => {
       it('should be text', async () => {
         await testContainer.render(<Avatar text="JD" />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(
           utils.getStyleState(testContainer.componentNode, 'contentType'),
         ).toBe('text');
@@ -432,7 +432,7 @@ describe('Avatar', () => {
         await testContainer.render(
           <Avatar placeholder={PLACEHOLDER_AS_TEXT} />,
         );
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         expect(
           utils.getStyleState(testContainer.componentNode, 'contentType'),
         ).toBe('placeholder');
@@ -440,7 +440,7 @@ describe('Avatar', () => {
 
       it('should be image', async () => {
         await testContainer.render(<Avatar imgProps={{ src: TEST_IMG_URL }} />);
-        const utils = new StylableDOMUtilCompat(styles, testContainer.componentNode);
+        const utils = new StylableDOMUtil(styles, testContainer.componentNode);
         await eventually(() => {
           expect(
             utils.getStyleState(testContainer.componentNode, 'contentType'),
