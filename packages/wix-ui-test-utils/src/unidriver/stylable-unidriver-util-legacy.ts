@@ -139,7 +139,7 @@ export class StylableCompatUniDriver {
 function getStylesheetMode(sheet: any) {
   if (sheet.$cssStates) {
     const res = typeof sheet.$cssStates === 'function' ? sheet.$cssStates({}) : {};
-    if (res.className) {
+    if (res.hasOwnProperty('className')) {
       return 'compat';
     } else {
       return 'legacy';
