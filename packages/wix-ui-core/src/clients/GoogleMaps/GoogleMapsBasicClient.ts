@@ -31,9 +31,11 @@ const serializeResult = results => ({
 
 // placeDetails is not required at the moment
 export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
-  _autocomplete;
-  _geocoder;
-  _loadScriptPromise;
+  
+  private _autocomplete;
+  private _geocoder;
+  private _loadScriptPromise;
+  private _useClientId;
 
   _initServices() {
     if (!this._autocomplete) {
@@ -63,7 +65,8 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
     };
 
     const script = document.createElement('script');
-    script.src = `//maps.googleapis.com/maps/api/js?libraries=places&client=${clientId}&callback=initMap&language=${lang}`;
+    const authKey = this._useClientId ? 'client' : 'key';
+    script.src = `//maps.googleapis.com/maps/api/js?libraries=places&${authKey}=${clientId}&callback=initMap&language=${lang}`;
     document.body.appendChild(script);
 
     this._loadScriptPromise = promise;
@@ -72,7 +75,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
   }
 
   useClientId() {
-    return null;
+    this._useClientId = true;
   }
 
   async autocomplete(
@@ -89,7 +92,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
         if (status === PlacesServiceStatusTypes.Ok) {
           resolve(results);
         } else {
-          reject('ERROR');
+          reject(status);
         }
       },
     );
@@ -111,7 +114,7 @@ export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
         if (status === PlacesServiceStatusTypes.Ok) {
           resolve(results.map(result => serializeResult(result)));
         } else {
-          reject('ERROR');
+          reject(status);
         }
       },
     );
