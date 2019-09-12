@@ -3,7 +3,7 @@ module.exports = {
   components
   .filter(component => component.hasVanillaDriver)
   .map(component => {
-    const driverPath = component.vanillaDriverPath ? component.vanillaDriverPath.replace('dist', 'dist/standalone') :
+    const driverPath = component.vanillaDriverPath ? component.vanillaDriverPath.replace('dist/', 'dist/standalone/') :
       [
         './../dist/standalone/src/components/',
         ...(component.deprecated ? ['deprecated/'] : []),
