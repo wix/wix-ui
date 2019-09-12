@@ -38,7 +38,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "prebuild": "npm run update-components",
+    "prebuild": "npm run update-components && npm run update-components-standalone",
     "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
@@ -62,7 +62,8 @@
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "build-standalone": "node scripts/build-standalone.js",
     "test:browser": "wix-ui-mocha-runner",
-    "update-components": ".wuf/update-components.sh"
+    "update-components": ".wuf/update-components.sh",
+    "update-components-standalone": ".wuf/update-components-standalone.sh"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",

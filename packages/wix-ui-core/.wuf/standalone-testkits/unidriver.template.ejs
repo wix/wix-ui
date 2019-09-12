@@ -1,0 +1,21 @@
+module.exports = {
+<%
+  components
+  .filter(component => !component.noDriver)
+  .filter(component =>
+    ((component.hasVanillaDriver || component.hasProtractorDriver) && component.hasUnidriver)
+    || (!component.hasVanillaDriver && !component.hasProtractorDriver)
+  )
+  .map(component => {
+    const driverPath = component.uniDriverPath ? component.uniDriverPath.replace('dist', 'dist/standalone') :
+      [
+        './../dist/standalone/src/components/',
+        ...(component.deprecated ? ['deprecated/'] : []),
+        utils.toKebab(component.name),
+        '/',
+        component.pascalCase ? utils.toPascal(component.name) : component.name,
+        '.uni.driver'
+      ].join('');
+%>  ...require("<%= driverPath %>"),
+<% }) %>
+};
