@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import { sleep } from 'wix-ui-test-utils/react-helpers';
 import { Pagination } from './Pagination';
 import { PaginationDriver } from './Pagination.private.driver';
@@ -9,7 +9,7 @@ import style from './Pagination.st.css';
 import testStyle from './PaginationTest.st.css';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 
-const stylableUtil = new StylableDOMUtil(style);
+const stylableUtil = new StylableDOMUtilCompat(style);
 
 function spaceForPages(n) {
   // Assuming we use styles from PaginationTest.st.css

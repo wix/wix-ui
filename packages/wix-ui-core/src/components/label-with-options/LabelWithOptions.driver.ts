@@ -1,14 +1,14 @@
 import { dropdownDriverFactory } from '../dropdown/Dropdown.driver';
 import { labelDriverFactory } from '../deprecated/label/Label.driver';
 import { checkboxDriverFactory } from '../checkbox/Checkbox.driver';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import styles from './LabelWithOptions.st.css';
 
 export const labelWithOptionsDriverFactory = ({ element, eventTrigger }) => {
   const dropdownDriver = dropdownDriverFactory({ element, eventTrigger });
   const labelElement = element.querySelector('[data-hook="label"]');
   const suffixElement = element.querySelector('[data-hook="suffix"]');
-  const domUtils = new StylableDOMUtil(styles, element);
+  const domUtils = new StylableDOMUtilCompat(styles, element);
 
   const labelDriver = labelDriverFactory({
     element: labelElement,

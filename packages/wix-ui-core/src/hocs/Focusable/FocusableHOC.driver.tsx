@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 
 import { withFocusable } from './FocusableHOC';
 import style from './Focusable.st.css';
@@ -17,7 +17,7 @@ export interface IPureChildComponentProps {
   focusableOnBlur: any;
 }
 
-const stylableUtil = new StylableDOMUtil(style);
+const stylableUtil = new StylableDOMUtilCompat(style);
 
 const hasFocusState = element => stylableUtil.hasStyleState(element, 'focus');
 const hasFocusVisibleState = element =>

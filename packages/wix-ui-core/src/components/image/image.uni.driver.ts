@@ -3,19 +3,19 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import style from './image.st.css';
 
 export interface ImageDriver extends BaseUniDriver {
   getSrc(): Promise<string | null>;
   getAlt(): Promise<string>;
-  getLoadStatus(): Promise<string | boolean>;
+  getLoadStatus(): Promise<string>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
   const getStyleState = async (styleState: string) => {
     const el = (await base.getNative()) as Element;
-    const domUtils = new StylableDOMUtil(style, el);
+    const domUtils = new StylableDOMUtilCompat(style, el);
     return domUtils.getStyleState(el, styleState);
   };
 
