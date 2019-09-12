@@ -3,7 +3,7 @@ import { GoogleMapsBasicClient } from './GoogleMapsBasicClient';
 const LANG = 'en';
 const CLIENT_ID = 'client-id';
 const EXPECTED_URL = `//maps.googleapis.com/maps/api/js?libraries=places&key=${CLIENT_ID}&callback=initMap&language=${LANG}`;
-const EXPECTED_CLIENT_URL = `//maps.googleapis.com/maps/api/js?libraries=places&key=${CLIENT_ID}&callback=initMap&language=${LANG}`;
+const EXPECTED_CLIENT_URL = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
 
 const scheduler =
   typeof setImmediate === 'function'
@@ -124,8 +124,8 @@ describe('GoogleMapsBasicClient', () => {
   describe('useClientId', () => {
     it('should set correct url if useClientId is called', () => {
       const client = new GoogleMapsBasicClient();
+      client.useClientId();
       client.loadScript(CLIENT_ID, LANG);
-
       const firstCall = appendChildSpy.mock.calls[0][0];
       expect(firstCall.src.indexOf(EXPECTED_CLIENT_URL)).not.toBe(-1);
     })
