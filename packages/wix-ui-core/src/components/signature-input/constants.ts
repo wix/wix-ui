@@ -1,3 +1,3 @@
-export const SIGNNATURE_INPUT_METADATA = {
-  displayName: 'SignnatureInput',
+export const SIGNATURE_INPUT_METADATA = {
+  displayName: 'SignatureInput',
 };

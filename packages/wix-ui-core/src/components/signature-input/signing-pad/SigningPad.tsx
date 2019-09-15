@@ -5,14 +5,23 @@ import {
   WithSignaturePadProps,
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
+import { DataHooks } from '../dataHooks';
+import { generateID } from '../utils';
+import style from './SigningPad.st.css';
+import { Omit } from 'type-zoo/types';
 
 export type SignaturePadApi = Pick<
   SignaturePad,
   'clear' | 'toDataURL' | 'isEmpty'
->;
+> & {
+  focus(): void;
+  blur(): void;
+};
 
-export interface SigningPadOwnProps
-  extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
+export type SigningPadOwnProps = Omit<
+  React.CanvasHTMLAttributes<HTMLCanvasElement>,
+  'onFocus' | 'onBlur'
+> & {
   'data-hook'?: string;
   penColor?: IOptions['penColor'];
   penWidth?: string;
@@ -20,12 +29,17 @@ export interface SigningPadOwnProps
   required?: boolean;
   canvasRef?(instance: HTMLCanvasElement): void;
   onInit?(padAPI: SignaturePadApi): void;
-  onDraw?(e: MouseEvent | React.Touch): void;
-}
+  onDraw?(e: MouseEvent | React.Touch | React.ChangeEvent): void;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+};
 
 export interface SigningPadProps
   extends SigningPadOwnProps,
     WithSignaturePadProps {}
+
+const initialState = { a11yInputValue: '' };
+type SigningPadState = Readonly<typeof initialState>;
 
 const calculatePenColor = (penColor?: string) =>
   (isValidColor(penColor) && penColor) || 'black';
@@ -51,7 +65,10 @@ const transformPenSizeToWidths = (
   };
 };
 
-class SigningPadComp extends React.Component<SigningPadProps> {
+const clearA11yValue = () => ({ a11yInputValue: '' });
+const updateA11yValue = (value: string) => ({ a11yInputValue: value });
+
+class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
   static displayName = 'SigningPad';
 
   static propTypes = {
@@ -69,45 +86,93 @@ class SigningPadComp extends React.Component<SigningPadProps> {
     required: PropTypes.bool,
     /* Callback to get an instance of the canvas HTML element instance */
     canvasRef: PropTypes.func,
+    /* Callback which is called when a curve is drawn on the canvas */
+    onDraw: PropTypes.func,
+    /* Callback which is called when the a11y input receives focus  */
+    onFocus: PropTypes.func,
+    /* Callback which is called when the a11y input loses focus */
+    onBlur: PropTypes.func,
   };
 
+  readonly state = initialState;
+
+  private a11yInputEl: HTMLInputElement = undefined;
   private canvasEl: HTMLCanvasElement = undefined;
   private signaturePad: SignaturePad = undefined;
 
   componentDidMount() {
+    this.initSignaturePad();
+    this.updateContextInputId();
+    this.invokeOnInitCallback();
+  }
+
+  initSignaturePad = () => {
     const {
       setSignaturePadContext,
       penColor,
       penWidth,
-      onInit,
+      onDraw,
       disabled,
     } = this.props;
+
     this.signaturePad = new SignaturePad(this.canvasEl, {
       penColor: calculatePenColor(penColor),
-      onEnd: this.handleDraw,
+      onEnd: this.invokeIfDefined(onDraw),
       ...transformPenSizeToWidths(penWidth),
     });
 
-    setSignaturePadContext(this.signaturePad);
+    setSignaturePadContext({
+      clear: () => {
+        this.signaturePad.clear();
+        this.setState(clearA11yValue);
+      },
+    });
 
     if (disabled) {
       this.signaturePad.off();
     }
 
-    onInit &&
-      onInit({
-        clear: this.signaturePad.clear.bind(this.signaturePad),
-        toDataURL: this.signaturePad.toDataURL.bind(this.signaturePad),
-        isEmpty: this.signaturePad.isEmpty.bind(this.signaturePad),
-      });
-  }
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    this.canvasEl.width = this.canvasEl.offsetWidth * ratio;
+    this.canvasEl.height = this.canvasEl.offsetHeight * ratio;
+    const ctx = this.canvasEl.getContext('2d');
 
-  handleDraw: (e: MouseEvent | React.Touch) => void = e => {
-    const { onDraw } = this.props;
-    onDraw && onDraw(e);
+    ctx.scale(ratio, ratio);
+  };
+
+  updateContextInputId = () => {
+    const { setInputId } = this.props;
+    const id = `signature-input-a11y-input-${generateID()}`;
+    setInputId(id);
+  };
+
+  invokeOnInitCallback = () => {
+    const { onInit } = this.props;
+
+    this.invokeIfDefined(onInit)({
+      clear: () => {
+        this.signaturePad.clear();
+        this.setState(clearA11yValue);
+      },
+      toDataURL: (format?: string, encoderOptions?: number) => {
+        return this.signaturePad.toDataURL(format, encoderOptions);
+      },
+      isEmpty: () => {
+        return this.signaturePad.isEmpty() && this.isA11yInputEmpty();
+      },
+      focus: () => {
+        this.a11yInputEl.focus();
+      },
+      blur: () => {
+        this.a11yInputEl.blur();
+      },
+    });
   };
 
   componentWillUnmount() {
+    const { setInputId } = this.props;
+    setInputId(undefined);
+
     this.signaturePad.off();
   }
 
@@ -124,6 +189,7 @@ class SigningPadComp extends React.Component<SigningPadProps> {
       this.signaturePad.minWidth = minWidth;
       this.signaturePad.maxWidth = maxWidth;
     }
+
     if (prevPenColor !== penColor) {
       this.signaturePad.penColor = calculatePenColor(penColor);
     }
@@ -138,45 +204,77 @@ class SigningPadComp extends React.Component<SigningPadProps> {
   setCanvasRef = (canvas: HTMLCanvasElement) => {
     const { canvasRef } = this.props;
     this.canvasEl = canvas;
-    canvasRef && canvasRef(canvas);
+    this.invokeIfDefined(canvasRef)(canvas);
   };
 
-  handleClick: React.MouseEventHandler<HTMLCanvasElement> = e => {
-    const { disabled, onClick } = this.props;
+  handleInputChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const { onDraw } = this.props;
 
-    if (!disabled && onClick) {
-      onClick(e);
+    // clears drawns curves and typed characters and restore drawn curves
+    if (!this.signaturePad.isEmpty() || !this.isA11yInputEmpty()) {
+      const drawnData = this.signaturePad.toData();
+      this.signaturePad.clear();
+      this.signaturePad.fromData(drawnData);
     }
+
+    this.setState(updateA11yValue(e.target.value));
+    const ctx = this.canvasEl.getContext('2d');
+    ctx.font = '18px Sacramento';
+    ctx.fillText(e.target.value, 5, this.canvasEl.offsetHeight / 2);
+    this.invokeIfDefined(onDraw)(e);
+  };
+
+  isA11yInputEmpty = () => !this.state.a11yInputValue;
+
+  invokeIfDefined = <T extends unknown>(fn?: (e: T) => void) => (e: T) => {
+    fn && fn(e);
   };
 
   render() {
     const {
       setSignaturePadContext,
       setSignatureTitleId,
-      pad,
+      setInputId,
+      padApi,
       titleId,
+      inputId,
       penColor,
       penWidth,
-      onInit,
       canvasRef,
       disabled,
       required,
+      onInit,
+      onDraw,
+      onFocus,
+      onBlur,
+      onClick,
       ...rest
     } = this.props;
 
-    const a11yProps: React.HTMLAttributes<HTMLCanvasElement> = {
-      'aria-disabled': !!disabled,
-      'aria-required': !!required,
-      ...(titleId && { 'aria-labelledby': titleId }),
-    };
+    const { a11yInputValue } = this.state;
 
     return (
-      <canvas
-        ref={this.setCanvasRef}
-        {...a11yProps}
-        {...rest}
-        onClick={this.handleClick}
-      ></canvas>
+      <React.Fragment>
+        <input
+          id={inputId}
+          value={a11yInputValue}
+          onChange={this.handleInputChange}
+          className={style.visuallyHidden}
+          data-hook={DataHooks.a11yInput}
+          disabled={!!disabled}
+          required={!!required}
+          onFocus={this.invokeIfDefined(onFocus)}
+          onBlur={this.invokeIfDefined(onBlur)}
+          ref={inputRef => (this.a11yInputEl = inputRef)}
+          {...(titleId && { 'aria-labelledby': titleId })}
+        />
+        <canvas
+          ref={this.setCanvasRef}
+          aria-hidden
+          {...rest}
+          onClick={this.invokeIfDefined(!disabled && onClick)}
+        ></canvas>
+      </React.Fragment>
     );
   }
 }

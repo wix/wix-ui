@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
-import { signatureInputUniDriverFactory } from '../SignatureInput.uni.driver';
+import { signatureInputPrivateUniDriverFactory } from './SignatureInput.private.uni.driver';
 import {
   SignatureInputTestFixture,
   TEST_IDS,
@@ -13,7 +13,7 @@ const createDriver = ({
   titleText = 'Enter your signature here:',
   ...rest
 }: SignatureInputTestFixtureProps = {}) =>
-  testContainer.createUniRenderer(signatureInputUniDriverFactory)(
+  testContainer.createUniRenderer(signatureInputPrivateUniDriverFactory)(
     <SignatureInputTestFixture titleText={titleText} {...rest} />,
   );
 
@@ -47,13 +47,15 @@ describe('SigningPad', () => {
       expect(onClearSpy).toHaveBeenCalled();
     });
 
-    it.skip('should invoke onInit callback', async () => {
+    it('should invoke onInit callback', async () => {
       const onInitSpy = jest.fn();
       createDriver({ onInit: onInitSpy });
 
       expect(onInitSpy).toHaveBeenCalled();
       const [padApi] = onInitSpy.mock.calls[0];
 
+      expect(padApi).toHaveProperty('focus');
+      expect(padApi).toHaveProperty('blur');
       expect(padApi).toHaveProperty('clear');
       expect(padApi).toHaveProperty('toDataURL');
       expect(padApi).toHaveProperty('isEmpty');
@@ -79,7 +81,7 @@ describe('SigningPad', () => {
       expect(canvasOnClickSpy).toHaveBeenCalled();
     });
 
-    it('should not invoke pad onClick', async () => {
+    it('should not invoke disabled pad onClick', async () => {
       const canvasOnClickSpy = jest.fn();
       const driver = createDriver({
         onClick: canvasOnClickSpy,
@@ -91,41 +93,92 @@ describe('SigningPad', () => {
 
       expect(canvasOnClickSpy).not.toHaveBeenCalled();
     });
+
+    it('should invoke onFocus', async () => {
+      const inputOnFocusSpy = jest.fn();
+      const driver = createDriver({
+        onFocus: inputOnFocusSpy,
+      });
+
+      await driver.focusA11yInput();
+
+      expect(inputOnFocusSpy).toHaveBeenCalled();
+    });
+
+    it('should invoke onBlur', async () => {
+      const inputOnBlurSpy = jest.fn();
+      const driver = createDriver({
+        onBlur: inputOnBlurSpy,
+      });
+
+      await driver.focusA11yInput();
+      await driver.blurA11yInput();
+
+      expect(inputOnBlurSpy).toHaveBeenCalled();
+    });
   });
 
   describe('accessibility', () => {
-    it('should set aria-disabled for canvas tag', async () => {
+    it('should set disabled for a11y input', async () => {
       const driver = createDriver({ disabled: true });
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
-      const hasAriaDisabled = await padDriver.attr('aria-disabled');
-      expect(hasAriaDisabled).toBe('true');
+      const hasDisabled = await driver.getA11yInput().attr('disabled');
+      expect(hasDisabled).not.toBe(null);
     });
 
-    it('should set aria-required', async () => {
+    it('should set required for a11y input', async () => {
       const driver = createDriver({ required: true });
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
-      const hasAriaRequired = await padDriver.attr('aria-required');
-      expect(hasAriaRequired).toBe('true');
+      const hasRequired = await driver.getA11yInput().attr('required');
+      expect(hasRequired).not.toBe(null);
     });
 
-    it('should set aria-labelledby to title id', async () => {
+    it('should set a11y input aria-labelledby to title id', async () => {
       const driver = createDriver();
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
       const titleDriver = await driver.getChildDriverByHook(TEST_IDS.TITLE);
 
-      const padAriaLabelledBy = await padDriver.attr('aria-labelledby');
+      const a11yInputAriaLabelledBy = await driver
+        .getA11yInput()
+        .attr('aria-labelledby');
       const titleId = await titleDriver.attr('id');
 
-      expect(padAriaLabelledBy).toBe(titleId);
+      expect(a11yInputAriaLabelledBy).toBe(titleId);
     });
 
-    it('should not set aria-labelledby when title is not rendered', async () => {
+    it('should not set a11y input aria-labelledby when title is not rendered', async () => {
       const driver = createDriver({ titleText: '' });
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
 
-      const padAriaLabelledBy = await padDriver.attr('aria-labelledby');
+      const a11yInputAriaLabelledBy = await driver
+        .getA11yInput()
+        .attr('aria-labelledby');
 
-      expect(padAriaLabelledBy).toBe(null);
+      expect(a11yInputAriaLabelledBy).toBe(null);
+    });
+
+    it('should set clear button aria-controls to a11y input id', async () => {
+      const driver = createDriver();
+      const clearButtonDriver = await driver.getChildDriverByHook(
+        TEST_IDS.CLEAR_BUTTON,
+      );
+
+      const a11yInputId = await driver.getA11yInput().attr('id');
+      const clearButtonAriaControls = await clearButtonDriver.attr(
+        'aria-controls',
+      );
+
+      expect(a11yInputId).toBe(clearButtonAriaControls);
+    });
+
+    it('should clear a11y input when clear button is clicked', async () => {
+      const driver = createDriver();
+      const clearButtonDriver = await driver.getChildDriverByHook(
+        TEST_IDS.CLEAR_BUTTON,
+      );
+      const a11yInputDriver = driver.getA11yInput();
+
+      await a11yInputDriver.enterValue('a value');
+
+      expect(await a11yInputDriver.attr('value')).not.toBe('');
+      await clearButtonDriver.click();
+      expect(await a11yInputDriver.attr('value')).toBe('');
     });
   });
 });

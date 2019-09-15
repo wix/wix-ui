@@ -30,13 +30,16 @@ class ClearButtonComp extends React.Component<ClearButtonProps> {
   getClearButtonProps = (
     overrides: Partial<ClearButtonChildrenProps> = {},
   ): ClearButtonChildrenProps => {
+    const { inputId } = this.props;
+
     return {
+      ...(inputId && { 'aria-controls': inputId }),
       ...overrides,
       className: classNames(style.root, overrides.className),
       onClick: e => {
-        const { pad } = this.props;
+        const { padApi } = this.props;
         const { onClick } = overrides;
-        pad && pad.clear();
+        padApi && padApi.clear();
         onClick && onClick(e);
       },
     };

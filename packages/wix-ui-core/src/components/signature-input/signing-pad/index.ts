@@ -1,1 +1,1 @@
-export { SigningPad, SigningPadProps } from './SigningPad';
+export { SigningPad, SigningPadProps, SignaturePadApi } from './SigningPad';

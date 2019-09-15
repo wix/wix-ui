@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { SignatureInput } from '..';
 import { ButtonNext } from '../../button-next';
-import { SIGNNATURE_INPUT_METADATA } from '../constants';
+import { SIGNATURE_INPUT_METADATA } from '../constants';
 import { SimpleExample } from './SimpleExample';
+import { A11yExample } from './A11yExample';
 import {
   header,
   description,
@@ -63,7 +64,7 @@ const SignatureChildren = (padProps: SigningPadOwnProps = {}) => (
 
 export default {
   category: Category.COMPONENTS,
-  storyName: SIGNNATURE_INPUT_METADATA.displayName,
+  storyName: SIGNATURE_INPUT_METADATA.displayName,
   component: SignatureInput,
   componentPath: '..',
   componentProps: {
@@ -118,6 +119,18 @@ export default {
             }),
             liveCode({
               source: SimpleExample,
+            }),
+          ]),
+          columns([
+            description({
+              title: 'Accessibility example',
+              text:
+                '`SignatureInput` adds a hidden input that can receive focus using either native tab index or the `padApi`. ' +
+                'Characters typed in the input will be reflected in the canvas. `SignatureInput.ClearButton` will clear ' +
+                'written text and drawn curves.',
+            }),
+            liveCode({
+              source: A11yExample,
             }),
           ]),
         ],

@@ -13,7 +13,7 @@ import { FilePickerButtonTestFixture } from '../src/components/file-picker-butto
 import { FocusableHOCTestFixture } from '../src/hocs/Focusable/test/FocusableHOCTestFixture';
 import { InputWithOptionsTestFixture } from '../src/components/input-with-options/InputWithOptionsTestFixture';
 import { SignatureInputTestFixture } from '../src/components/signature-input/test/SignatureInputTestFixture';
-import { SIGNNATURE_INPUT_METADATA } from '../src/components/signature-input/constants';
+import { SIGNATURE_INPUT_METADATA } from '../src/components/signature-input/constants';
 // import Backoffice stories
 import AvatarStory from './backoffice/avatar';
 import ButtonsStory from './backoffice/button-next';
@@ -73,16 +73,16 @@ Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
 Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
-Tests.add(SIGNNATURE_INPUT_METADATA.displayName, () => (
+Tests.add(SIGNATURE_INPUT_METADATA.displayName, () => (
   <SignatureInputTestFixture />
 ));
-Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'Color', () => (
+Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Color', () => (
   <SignatureInputTestFixture penColor="#0000FF" />
 ));
-Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'ColorInvalid', () => (
+Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'ColorInvalid', () => (
   <SignatureInputTestFixture penColor="invalid-color" />
 ));
-Tests.add(SIGNNATURE_INPUT_METADATA.displayName + 'Disabled', () => (
+Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Disabled', () => (
   <SignatureInputTestFixture disabled />
 ));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';

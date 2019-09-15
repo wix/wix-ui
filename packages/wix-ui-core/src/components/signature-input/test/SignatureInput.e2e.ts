@@ -2,7 +2,7 @@ import * as eyes from 'eyes.it';
 import { signatureInputTestkitFactory } from '../../../testkit/protractor';
 import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
-import { SIGNNATURE_INPUT_METADATA } from '../constants';
+import { SIGNATURE_INPUT_METADATA } from '../constants';
 import { TEST_IDS } from './SignatureInputTestFixture';
 import { Category } from '../../../../stories/utils';
 
@@ -14,7 +14,7 @@ const navigateToStory = ({ suffix = '' } = {}) => browser.get(storyUrl(suffix));
 const storyUrl = suffix =>
   createStoryUrl({
     kind: Category.TESTS,
-    story: SIGNNATURE_INPUT_METADATA.displayName + suffix,
+    story: SIGNATURE_INPUT_METADATA.displayName + suffix,
   });
 
 describe('Signature Input', () => {
@@ -70,5 +70,12 @@ describe('Signature Input', () => {
     const driver = createDriver();
     const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
+  });
+
+  eyes.it('should support drawing characters', async () => {
+    await navigateToStory();
+    const driver = createDriver();
+    const a11yInput = await driver.getA11yInput();
+    await a11yInput.enterValue('a value');
   });
 });

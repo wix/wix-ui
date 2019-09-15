@@ -19,14 +19,16 @@ A render slot for the signature input signing pad
 | `penWidth` | number   | 2.5          |            | The width of the signature             | 
 | `onInit`   | function |              |            | Callback to get the `SignaturePadApi`  |
 | `canvasRef`| function |              |            | Callback to get an instance of the canvas HTML element instance |
+| `onDraw`   | function |              |            | Callback which is called when a curve is drawn on the canvas    |
+| `onFocus`  | function |              |            | Callback which is called when the a11y input receives focus     |
+| `onBlur`   | function |              |            | Callback which is called when the a11y input loses focus        |
 
 `SignaturePadApi` - object containing the imperative API for communicating with the signing pad.
 * `clear: () => void` - Clears the signature pad
 * `toDataURL: (format?: "image/jpeg" OR "image/svg+xml") => string` - Exports the signature to png / jpeg / svg accordingly
 * `isEmpty: () => boolean` - Returns true if the signature pad is empty; otherwise false
-* `onDraw: (event: MouseEvent | Touch) => void` - Fires when a curve was drawn on the signature pad
-
-
+* `focus: () => void` - Sets focus on the a11y input (unless it is disabled)
+* `blur: () => void` - Removes focus from the a11y input
 
 ### `<SignatureInput.ClearButton/>`
 
