@@ -31,7 +31,8 @@
     "hocs.st.css",
     "hocs.js",
     "themes",
-    "drivers"
+    "drivers",
+    "drivers-standalone"
   ],
   "repository": {
     "type": "git",
