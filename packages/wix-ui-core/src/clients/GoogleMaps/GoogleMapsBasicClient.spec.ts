@@ -2,7 +2,8 @@ import { GoogleMapsBasicClient } from './GoogleMapsBasicClient';
 
 const LANG = 'en';
 const CLIENT_ID = 'client-id';
-const EXPECTED_URL = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
+const EXPECTED_URL = `//maps.googleapis.com/maps/api/js?libraries=places&key=${CLIENT_ID}&callback=initMap&language=${LANG}`;
+const EXPECTED_CLIENT_URL = `//maps.googleapis.com/maps/api/js?libraries=places&client=${CLIENT_ID}&callback=initMap&language=${LANG}`;
 
 const scheduler =
   typeof setImmediate === 'function'
@@ -120,6 +121,16 @@ describe('GoogleMapsBasicClient', () => {
     });
   });
 
+  describe('useClientId', () => {
+    it('should set correct url if useClientId is called', () => {
+      const client = new GoogleMapsBasicClient();
+      client.useClientId();
+      client.loadScript(CLIENT_ID, LANG);
+      const firstCall = appendChildSpy.mock.calls[0][0];
+      expect(firstCall.src.indexOf(EXPECTED_CLIENT_URL)).not.toBe(-1);
+    })
+  })
+
   describe('Functionality', () => {
     describe('autocomplete', () => {
       it('should call getPlacePredictions and return a promise', async () => {
@@ -151,7 +162,8 @@ describe('GoogleMapsBasicClient', () => {
       });
 
       it('Should throw an error if status is not OK', async () => {
-        setStatus('NOT_OK');
+        const errorStatus = 'NOT_OK';
+        setStatus(errorStatus);
         const client = new GoogleMapsBasicClient();
         const result = client.autocomplete(CLIENT_ID, LANG, 'tel aviv');
         const { getPlacePredictions } = setUpGoogleMapsMock();
@@ -161,7 +173,7 @@ describe('GoogleMapsBasicClient', () => {
           { input: 'tel aviv' },
           expect.anything(),
         );
-        return expect(result).rejects.toEqual('ERROR');
+        return expect(result).rejects.toEqual(errorStatus);
       });
     });
 
@@ -197,7 +209,8 @@ describe('GoogleMapsBasicClient', () => {
       });
 
       it('Should throw an error if status is not OK 1', async () => {
-        setStatus('NOT_OK');
+        const errorStatus = 'NOT_OK';
+        setStatus(errorStatus);
         const client = new GoogleMapsBasicClient();
         const result = client.geocode(CLIENT_ID, LANG, 'tel aviv');
         const { geocode } = setUpGoogleMapsMock();
@@ -207,7 +220,7 @@ describe('GoogleMapsBasicClient', () => {
           { address: 'tel aviv' },
           expect.anything(),
         );
-        return expect(result).rejects.toBe('ERROR');
+        return expect(result).rejects.toBe(errorStatus);
       });
     });
   });
