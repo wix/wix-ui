@@ -1,5 +1,5 @@
 import style from './menu-item.st.css';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 
 import {
   BaseUniDriver,
@@ -20,7 +20,7 @@ export interface MenuItemDriver extends BaseUniDriver {
 }
 
 export const menuItemDriverFactory = (base: UniDriver): MenuItemDriver => {
-  const stylableUtil = new StylableDOMUtil(style);
+  const stylableUtil = new StylableDOMUtilCompat(style);
   const assertState = async state =>
     stylableUtil.hasStyleState(await base.getNative(), state);
 

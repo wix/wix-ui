@@ -1,8 +1,8 @@
 import styles from './RadioButton.st.css';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 
 export const radioButtonDriverFactory = ({ element, eventTrigger }) => {
-  const domUtils = new StylableDOMUtil(styles, element);
+  const domUtils = new StylableDOMUtilCompat(styles, element);
 
   const getInput = () => domUtils.select('.hiddenRadio');
   const getIcon = () => domUtils.select('.icon');

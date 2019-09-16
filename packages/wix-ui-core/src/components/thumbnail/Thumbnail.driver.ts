@@ -1,4 +1,4 @@
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import style from './Thumbnail.st.css';
 import { BaseDriver, DriverFactory } from 'wix-ui-test-utils/driver-factory';
 
@@ -15,7 +15,7 @@ export const thumbnailDriverFactory: DriverFactory<ThumbnailDriver> = ({
   element,
   eventTrigger,
 }) => {
-  const stylableDOMUtil = new StylableDOMUtil(style);
+  const stylableDOMUtil = new StylableDOMUtilCompat(style);
   const getSelectedIconWrapper = () =>
     element.querySelector('[data-hook="selected-icon"]');
 

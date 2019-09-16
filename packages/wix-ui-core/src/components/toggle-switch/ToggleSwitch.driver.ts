@@ -1,9 +1,9 @@
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
+import { StylableDOMUtilCompat } from '@stylable/dom-test-kit';
 import style from './ToggleSwitch.st.css';
 
 export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
   const checkbox = element && element.querySelector('input');
-  const stylableDOMUtil = new StylableDOMUtil(style);
+  const stylableDOMUtil = new StylableDOMUtilCompat(style);
 
   return {
     /** Checks if element exists */
