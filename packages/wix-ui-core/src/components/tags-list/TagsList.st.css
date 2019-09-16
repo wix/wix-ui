@@ -1,26 +1,4 @@
 .root {
-}
-
-.tagsList {
   display: flex;
   flex-flow: wrap;
-  list-style: none;
-  padding-left: 0;
-}
-
-.tagListItem {
-  cursor: pointer;
-  width: auto;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
-.tagListItem > * {
-  cursor: pointer;
-}
-
-.tagInput {
-  display: none;
 }

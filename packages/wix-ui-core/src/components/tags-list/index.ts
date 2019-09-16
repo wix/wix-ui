@@ -1,1 +1,2 @@
-export { TagsList, Tag } from './TagsList';
+export { TagsList } from './TagsList';
+export { Tag } from './Tag';

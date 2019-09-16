@@ -1,58 +1,36 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
+import * as PropTypes from 'prop-types';
 
-import { DataHook } from './TagsList.helpers';
+import { DataHooks, DisplayNames } from './TagsList.helpers';
 import style from './TagsList.st.css';
 
-interface Props {
+import { noop } from '../../utils';
+export interface TagsListProps {
   className?: string;
+  onChange?(e: React.FormEvent<HTMLFormElement>): void;
+  children?: React.ReactNode;
 }
 
-export interface TagsListProps extends Props {}
-
-export interface TagProps extends Props {
-  onChange?(e: React.FormEvent<HTMLLabelElement>): void;
-  checked?: boolean;
-  value: string;
-}
-
-export const Tag: React.FunctionComponent<TagProps> = ({
-  children,
-  className,
-  onChange,
-  checked,
-  value,
-}) => {
-  const nameOfClass = className
-    ? `${style.tagListItem} ${className}`
-    : style.tagListItem;
-
-  return (
-    <label data-hook={DataHook.Tag} className={nameOfClass} onChange={onChange}>
-      <input
-        data-hook={DataHook.TagInput}
-        className={style.tagInput}
-        type="checkbox"
-        checked={checked}
-        value={value}
-      />
-      {children}
-    </label>
-  );
-};
-
-Tag.displayName = 'Tag';
+const preventDefault = (ev: React.FormEvent) => ev.preventDefault();
 
 export const TagsList: React.FunctionComponent<TagsListProps> = ({
   children,
   className,
-}) => {
-  return (
-    <div className={className} {...style('root')}>
-      <div data-hook={DataHook.TagsList} className={style.tagsList}>
-        {children}
-      </div>
-    </div>
-  );
-};
+  onChange = noop,
+} = {}) => (
+  <form
+    className={classNames(style.root, className)}
+    data-hook={DataHooks.TagsList}
+    onChange={onChange}
+    onSubmit={preventDefault}>
+    {children}
+  </form>
+);
 
-TagsList.displayName = 'TagsList';
+TagsList.displayName = DisplayNames.TagsList;
+TagsList.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
+};

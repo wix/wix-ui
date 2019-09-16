@@ -1,59 +1,96 @@
 import * as React from 'react';
 
-import { TagsList, Tag } from '../TagsList';
-import { tagsListUniDriver } from './TagsList.uni.driver';
+import { TagsList, Tag } from '..';
+import { makeTagsListUniDriver } from '../TagsList.uni.driver';
+import { makeTagUniDriver } from '../Tag.uni.driver';
 
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 
 describe('TagsList', () => {
   const reactDOMTestContainer = new ReactDOMTestContainer();
-  const createDriver = reactDOMTestContainer
-    .unmountAfterEachTest()
-    .createUniRendererAsync(tagsListUniDriver);
 
   describe('List', () => {
-    describe(`'children' prop`, () => {
-      it('should render the passed children', async () => {
-        const driver = await createDriver(
-          <TagsList>
-            <Tag value="value">Some tag</Tag>
-            <Tag value="value">Some tag</Tag>
-            <Tag value="value">Some tag</Tag>
-            <Tag value="value">Some tag</Tag>
-          </TagsList>
-        );
+    const createDriver = reactDOMTestContainer
+      .unmountAfterEachTest()
+      .createUniRendererAsync(makeTagsListUniDriver);
 
-        const tags = await driver.getContent();
-        expect(tags.length).toBe(4);
-      });
+    it('should render the passed children', async () => {
+      const driver = await createDriver(
+        <TagsList>
+          <Tag label="name" value="value">
+            Some tag
+          </Tag>
+          <Tag label="name" value="value">
+            Some tag
+          </Tag>
+          <Tag label="name" value="value">
+            Some tag
+          </Tag>
+          <Tag label="name" value="value">
+            Some tag
+          </Tag>
+        </TagsList>
+      );
+
+      const tagsCount = await driver.getTagCount();
+
+      expect(tagsCount).toBe(4);
     });
 
-    describe('Tag', () => {
-      it('should handle onChange event', async () => {
-        let isChecked;
+    it('should handle onChange event', async () => {
+      const onChangeSpy = jest.fn();
 
-        const onChangeSpy = jest.fn();
+      const driver = await createDriver(
+        <TagsList onChange={onChangeSpy}>
+          <Tag label="name" value="value">
+            Some tag
+          </Tag>
+        </TagsList>
+      );
 
+      await driver.clickOnTagByIndex();
+
+      expect(onChangeSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: { value: 'value', checked: true },
+        })
+      );
+    });
+
+    it('should use default noop onChange callback', async () => {
+      const runTest = async () => {
         const driver = await createDriver(
           <TagsList>
-            <Tag value="value" onChange={onChangeSpy}>
+            <Tag label="name" value="value">
               Some tag
             </Tag>
           </TagsList>
         );
 
-        isChecked = await driver.getIsChecked();
+        await driver.clickOnTagByIndex();
+      };
 
-        expect(isChecked).toBe(false);
+      await expect(runTest()).resolves.not.toThrow();
+    });
+  });
 
-        await driver.clickOnTagInput();
+  describe('Tag', () => {
+    const createDriver = reactDOMTestContainer
+      .unmountAfterEachTest()
+      .createUniRendererAsync(makeTagUniDriver);
 
-        expect(onChangeSpy).toHaveBeenCalled();
+    it('should render children', async () => {
+      const tagText = 'Some tag';
 
-        isChecked = await driver.getIsChecked();
+      const driver = await createDriver(
+        <Tag label="name" value="value">
+          {tagText}
+        </Tag>
+      );
 
-        expect(isChecked).toBe(true);
-      });
+      const text = await driver.getText();
+
+      expect(text).toBe(tagText);
     });
   });
 });
