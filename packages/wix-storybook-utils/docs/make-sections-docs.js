@@ -16,7 +16,7 @@ const propsBlacklist = [
   'subtitle',
   'pretitle',
   'description',
-  'parsedSource'
+  'parsedSource',
 ];
 
 const typedocExecPath = path.resolve(
@@ -55,20 +55,21 @@ const sections = findByName('SectionType').children.map(({ name }) => {
         name: childName,
         comment: comment ? comment.shortText : '',
         type: type.name,
-        required: !flags.isOptional
-      }))
+        required: !flags.isOptional,
+      })),
   };
 });
 
 const rendered = ejs.render(
   fs.readFileSync(pathResolve(templatePath), 'utf8'),
   {
-    sections
+    sections,
   },
 );
 
 try {
   fs.writeFileSync(pathResolve(outputPath), rendered);
+  console.info(`Sections docs built successfully at ${outputPath}`);
 } catch (e) {
   console.error(`Unable to write sections docs file to ${outputPath}! ${e}`);
 }

@@ -28,7 +28,7 @@
     "start": "npm run storybook",
     "release": "yoshi release",
     "storybook": "start-storybook -p 6006",
-    "docs:sections": "node docs/make-sections.docs.js"
+    "docs:sections": "node docs/make-sections-docs.js"
   },
   "repository": {
     "type": "git",

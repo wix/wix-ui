@@ -1,8 +1,8 @@
 # Sections
 
-This page describes each section API. To learn how to use them, see [usage](./usage.md)
+This page describes each section API. Sections are part of object exported by `.story.js` files. To learn about it, see [usage](./usage.md).
 
-import from `wix-storybook-utils/Sections`:
+Import sections from `wix-storybook-utils/Sections`:
 
 ```js
 import {

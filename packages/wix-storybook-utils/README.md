@@ -1,6 +1,6 @@
 # `wix-storybook-utils`
 
-Collection of utilities for documenting React components in Stroybook.
+Collection of utilities for documenting React components in Storybook.
 
 `wix-storybook-utils` comes as a `webpack` loader for `storybook` to scrape components data and document them as stories.
 
