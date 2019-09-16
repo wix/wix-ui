@@ -1,16 +1,19 @@
-## Story
+## autodocs usage
 
-**story** is a term we use to describe single page which contains all documentation about component.
-These pages can be done manually or automatically. To do it automatically, a small configuration is required.
+**autodocs** is an umbrella term used to describe all tools related to automating documentation.
+
+**story** is a term used to describe single page which contains documentation about one or more components.
+Many things are automated and many things are customizable. This
+document describes how to use it all.
 
 Here's an [example of `<RadioGroup/>` story configuration](https://wix-wix-style-react.surge.sh/?selectedKind=4.%20Selection&selectedStory=4.3%20Radio%20Button%20Group&full=0&addons=0&stories=1&panelRight=0) in wix-style-react ([and source of it](https://github.com/wix/wix-style-react/blob/master/stories/RadioGroup.story.js)).
 
-What you see in that link is generated from component source: props list, preview area and code examples.
+What you see in that example is generated from component source: props list, preview area and code examples.
 
 ## Creating a story
 
-Stories are files with `.story.js` extension. These files go through webpack loader which extracts component metadata
-and renders it. In order for loader to know what/how to document component, you must provide a configuration object.
+Stories are files with `.story.js` extension. These files go through tools that extract component metadata and render
+it. Those tools need to know what/how to document component and for that reason you must provide a small configuration.
 
 ## Short example
 
@@ -43,9 +46,9 @@ export default { // 2
 
   exampleImport: "import Component from 'custom-location-if-autodocs-cant-parse-it'", // 11
 
-  examples: <div>Optional arbitrary content to be displayed below Playground</div>,
+  codeExample: true, // set to false if you want to hide interactive code example. It is enabled by default
 
-  codeExample: true // set to false if you want to hide interactive code example. It is enabled by default
+  sections: [] // 12
 };
 ```
 
@@ -60,6 +63,7 @@ export default { // 2
 1. `exampleProps` **optional** object of the same shape as component props used to configure possible prop values (explained below)
 1. `componentWrapper` **optional** function which receives component to be documented and must return a react component. Use this if you need more control in preview (some styling, for example).
 1. `exampleImport` **optional** string which will be displayed as example of how documented component should be imported. Use this if AutoDocs fails to corretly interpret how component should be imported.
+1. `sections` **optional** but very recommended. This is a list of predefined functions (so called, sections) that help construct a consistent documentation page.
 
 ## Long example
 
@@ -399,4 +403,37 @@ export default {
   }
   ```
 
+</details>
+
+---
+
+<details>
+  <summary>`sections` - `array`</summary>
+
+  A very recommended approach to document components: provide a list of sections and construct doc page the way you
+  wish, but according to conventions.
+
+  For full list of sections, usage and API read [here](./sections.md)
+
+  Short example:
+
+  ```js
+  export default {
+    // ... other config
+    sections: [
+      header({
+        component: <Button>A show-off example of button!</Button>
+      }),
+      tabs([
+        tab({
+          title: 'Description',
+          sections: [
+            description('This component is awesome, look at the code!'),
+            code('<Button>Interactive code</Button')
+          ]
+        })
+      ])
+    ]
+  }
+  ```
 </details>

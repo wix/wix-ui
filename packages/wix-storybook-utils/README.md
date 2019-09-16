@@ -1,46 +1,44 @@
 # `wix-storybook-utils`
 
-A documentation tool for React components running in `stroybook`.
+Collection of utilities for documenting React components in Stroybook.
 
-`wix-storybook-utils` comes as a `webpack` plugin for `storybook` to scrape components data and document them as stories.
+`wix-storybook-utils` comes as a `webpack` loader for `storybook` to scrape components data and document them as stories.
 
-## Installation
+## Install
 
-```bash
-npm install wix-storybook-utils -D
+```sh
+npm install wix-storybook-utils --save-dev
 ```
 
-## Usage
+## Use
 
-**.stroybook/webpack.config.js**
+**/.storybook/webpack.config.js**
 ```js
 const merge = require('lodash/merge');
 const path = require('path');
 
-module.exports = (config, env, newConfig) => {
-  return merge(newConfig, {
-    context: path.resolve(__dirname, "..", "src"),
+module.exports = (config, env, storybookConfig) =>
+  merge(storybookConfig, {
+    context: path.resolve(__dirname, '..', 'src'),
+
     module: {
       rules: newConfig.module.rules.concat({
         test: /\.story\.js$/,
-        loader: "wix-storybook-utils/loader",
+        loader: 'wix-storybook-utils/loader',
         options: {
           storyConfig: {
-            moduleName: "my-project",
-            repoBaseURL:
-              "https://github.com/wix/my-project/tree/master/src/",
-            issueURL: "https://github.com/wix/my-project/issues/new"
+            moduleName: 'my-project',
+            repoBaseURL: 'https://github.com/wix/my-project/tree/master/src/',
+            issueURL: 'https://github.com/wix/my-project/issues/new'
           }
         }
       })
     }
   });
-};
-
 ```
 
 
-**src/MyComponent/docs/index.story.js**
+**/src/MyComponent/docs/index.story.js**
 ```js
 import MyComponent from '../MyComponent';
 
@@ -57,7 +55,7 @@ export default {
 };
 ```
 
-**stories/index.js**
+**/stories/index.js**
 ```js
-require('../src/components/MyComponent/docs/index.story');
+import '../src/components/MyComponent/docs/index.story';
 ```

@@ -1,0 +1,118 @@
+# Sections
+
+This page describes each section API. To learn how to use them, see [usage](./usage.md)
+
+import from `wix-storybook-utils/Sections`:
+
+```js
+import {
+  <%= sections.map(({ name }) => name.toLowerCase()).join(',\n  ') %>
+} from 'wix-storybook-utils/Sections';
+```
+
+# Quick example
+
+**`SomeComponent/docs/index.story.js`**
+```js
+import {
+  header,
+  tabs,
+  tab,
+  description,
+  playground
+} from 'wix-storybook-utils/Sections';
+
+import TestComponent from 'wix-style-react/TestComponent';
+
+export default {
+  category: 'Components',
+  storyName: 'Test Component',
+
+  sections: [
+    header({
+      title: 'This is a test component!',
+      component: <TestComponent showOff="everything" />
+    }),
+
+    tabs([
+      tab({
+        title: 'Tab with only description',
+        sections: [
+          description('This could be a lot of text'),
+
+          description({
+            title: 'With a title!',
+            subtitle: 'explicit properties!'
+            text: 'providing object is a long way to use `description` section'
+          })
+        ]
+      }),
+
+      tab({
+        title: 'Tab with playground',
+        sections: [
+          playground()
+        ]
+      })
+    ])
+  ]
+}
+```
+
+# Common properties
+
+All sections support the following optional properties:
+
+* `title` - text to display above section as a title
+* `pretitle` - smaller text to display above section `title`
+* `subtitle` - smaller text to display under section `title`
+* `description` - arbitrary text
+
+this means that, for example, `code` section can be used like this:
+
+```js
+code({
+  title: 'Code example below',
+  subtitle: 'note about something special, maybe code is deprecated?',
+  description: 'This is a good code example!',
+  source: '<div>I am code!</div>'
+})
+```
+
+# Shorthand usage
+
+for convenience some sections support shorthand usage.
+Refer to API documentation of each section to know if shorthand usage is supported.
+
+Usually you should do, for example:
+
+```js
+code({ source: 'const ruc = "tor";' })
+```
+
+Some sections support shorthand syntax:
+```js
+code('const ruc = "tor";')
+```
+
+However, if you wish to also have a title (or other things), you can no longer use shorthand syntax
+
+```js
+code({
+  title: 'There is some code below',
+  source: 'const ruc = "tor";'
+})
+```
+
+# Sections APIs
+<% sections.map(({ name, comment, props }) => { %>
+## `<%= name %>()` section
+<%= comment ? comment : '' %><%
+if (props.length) { %>
+| Property | Type | Description |
+|---|---|---|<%
+props.map(({ name, comment, type, required }) => { %>
+| `<%= name %>` <%= required ? '**required** ' : '' %>|<%= type %>|<%= comment || '' %>|<% }) %>
+<% } %>
+---
+<% }) %>
