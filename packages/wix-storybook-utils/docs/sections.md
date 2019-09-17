@@ -129,13 +129,13 @@ Code section is for showing code examples. It shows code with syntax highlightin
 supports shorthand usage, you can pass code source string directly:
 
 ```
-code(&#39;&lt;div&gt;hello there&lt;/div&gt;&#39;)
+code('<div>hello there</div>')
 ```
 
 | Property | Type | Description |
 |---|---|---|
 | `autoRender` |boolean|by default `code` section automatically renders top level component given in `source`.|
-| `compact` |boolean|setting this to true would hide source code under &#34;show code&#34; button|
+| `compact` |boolean|setting this to true would hide source code under "show code" button|
 | `components` |||
 | `darkBackground` |boolean|set to `true` if dark background should be enabled by default|
 | `interactive` |boolean|set to false if code example is read only|
@@ -171,7 +171,7 @@ Divider section is used to visually divide other sections by rendering a horizon
 ---
 
 ## `header()` section
-Header section is used for story page top part. It can display component example, so that it&#39;s easy to see what the story page is about
+Header section is used for story page top part. It can display component example, so that it's easy to see what the story page is about
 
 | Property | Type | Description |
 |---|---|---|
@@ -186,7 +186,7 @@ ImportExample is used to display how the component should be imported.
 supports shorthand usage, you can pass string directly:
 
 ```
-import(&#34;import Component from &#39;wix-style-react/Component&#39;;&#34;)
+import("import Component from 'wix-style-react/Component';")
 ```
 
 | Property | Type | Description |
@@ -196,7 +196,7 @@ import(&#34;import Component from &#39;wix-style-react/Component&#39;;&#34;)
 ---
 
 ## `mdx()` section
-EXPERIMENTAL section for mdx content. Don&#39;t use, or use with EXTRA CAUTION
+EXPERIMENTAL section for mdx content. Don't use, or use with EXTRA CAUTION
 
 | Property | Type | Description |
 |---|---|---|
@@ -212,7 +212,7 @@ accepts no parameters.
 
 ## `tab()` section
 Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into
-&#34;Description&#34;, &#34;Playground&#34;, &#34;Testkit&#34; and similar tabs.
+"Description", "Playground", "Testkit" and similar tabs.
 
 | Property | Type | Description |
 |---|---|---|
@@ -226,8 +226,8 @@ supports shorthand usage, you can pass 2d array directly:
 
 ```
 table(
- [ [ &#39;first row, first column&#39; ], [ &#39;first row, second column&#39; ] ],
- [ [ &#39;second row, first column&#39; ], [ &#39;second row, second column&#39; ] ]
+ [ [ 'first row, first column' ], [ 'first row, second column' ] ],
+ [ [ 'second row, first column' ], [ 'second row, second column' ] ]
 )
 ```
 
@@ -243,8 +243,8 @@ by default top level of sections is assumed to be `tabs`:
 
 ```
 sections: [
-  tab({ title: &#39;First&#39;, sections: [ ... ] }),
-  tab({ title: &#39;Second&#39;, sections: [ ... ] })
+  tab({ title: 'First', sections: [ ... ] }),
+  tab({ title: 'Second', sections: [ ... ] })
 ]
 ```
 
@@ -264,12 +264,12 @@ sections: [
   header({ ... }),
   tabs([
     tab({
-      title: &#39;I have code and nested tabs!&#39;,
+      title: 'I have code and nested tabs!',
       sections: [
         code({ ... }),
         tabs([
-          tab({ title: &#39;#1 Nested tab!&#39;, sections: [ description( ... ) ] })
-          tab({ title: &#39;#2 Nested tab!&#39;, sections: [ api() ] })
+          tab({ title: '#1 Nested tab!', sections: [ description( ... ) ] })
+          tab({ title: '#2 Nested tab!', sections: [ api() ] })
           // etc
         ])
       ]
@@ -283,8 +283,8 @@ supports shorthand usage, you can pass array of other tabs directly:
 
 ```
 tabs([
-  tab({ title: &#39;First&#39;, sectons: [ ... ] }),
-  tab({ title: &#39;First&#39;, sectons: [ ... ] })
+  tab({ title: 'First', sectons: [ ... ] }),
+  tab({ title: 'First', sectons: [ ... ] })
 ])
 ```
 
@@ -304,7 +304,7 @@ Title section is used for when big text is needed.
 support shorthand usage, you can pass string directly:
 
 ```
-title(&#39;I am a big title!&#39;)
+title('I am a big title!')
 ```
 
 ---

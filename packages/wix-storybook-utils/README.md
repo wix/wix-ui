@@ -12,7 +12,10 @@ npm install wix-storybook-utils --save-dev
 
 ## Use
 
+Applying webpack loader will allow you to write `.story.js` files.
+
 **/.storybook/webpack.config.js**
+
 ```js
 const merge = require('lodash/merge');
 const path = require('path');
@@ -39,6 +42,9 @@ module.exports = (config, env, storybookConfig) =>
 
 
 **/src/MyComponent/docs/index.story.js**
+
+Read more about `.story.js` files in [usage](https://github.com/wix/wix-ui/blob/master/packages/wix-storybook-utils/docs/usage.md) and [sections](https://github.com/wix/wix-ui/blob/master/packages/wix-storybook-utils/docs/sections.md) documents.
+
 ```js
 import MyComponent from '../MyComponent';
 

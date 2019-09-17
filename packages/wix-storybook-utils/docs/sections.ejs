@@ -106,13 +106,13 @@ code({
 
 # Sections APIs
 <% sections.map(({ name, comment, props }) => { %>
-## `<%= name %>()` section
-<%= comment ? comment : '' %><%
+## `<%- name %>()` section
+<%- comment ? comment : '' %><%
 if (props.length) { %>
 | Property | Type | Description |
 |---|---|---|<%
 props.map(({ name, comment, type, required }) => { %>
-| `<%= name %>` <%= required ? '**required** ' : '' %>|<%= type %>|<%= comment || '' %>|<% }) %>
+| `<%- name %>` <%- required ? '**required** ' : '' %>|<%- type %>|<%- comment || '' %>|<% }) %>
 <% } %>
 ---
 <% }) %>
