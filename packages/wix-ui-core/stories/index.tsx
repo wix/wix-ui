@@ -57,6 +57,7 @@ import './Slider.story';
 import './StylableBadge.story';
 import './Thumbnail.story';
 import './TimePicker/index.story';
+import '../src/components/tags-list/docs/index.story';
 import './ToggleSwitch/index.story';
 import './Tooltip/index.story';
 Components.add('Tooltip Custom', () => <TooltipStory />);

@@ -1,0 +1,16 @@
+.tag {
+  cursor: pointer;
+  width: auto;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.tag > * {
+  cursor: pointer;
+}
+
+.tagInput {
+  display: none;
+}
