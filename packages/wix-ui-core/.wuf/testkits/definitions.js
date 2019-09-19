@@ -166,5 +166,8 @@ module.exports = {
   },
   "signature-input": {
     pascalCase: true
+  },
+  "tags-list": {
+    pascalCase: true
   }
 };
