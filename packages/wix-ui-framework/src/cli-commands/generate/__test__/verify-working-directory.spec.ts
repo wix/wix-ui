@@ -1,4 +1,4 @@
-import * as tempy from 'tempy';
+import * as cista from 'cista';
 
 import * as logger from '../../../logger';
 import * as utils from '../utils';
@@ -38,7 +38,8 @@ describe('verifyWorkingDirectory', () => {
   it('should not fail when git repo is clean', async () => {
     mockGitStatus(true);
 
-    await verifyWorkingDirectory(tempy.directory());
+    const fakeFs = cista();
+    await verifyWorkingDirectory(fakeFs.dir);
 
     expect(errorSpy).not.toHaveBeenCalled();
     expect(exitSpy).not.toHaveBeenCalled();
@@ -47,7 +48,8 @@ describe('verifyWorkingDirectory', () => {
   it('should fail when git repo is dirty', async () => {
     mockGitStatus(false);
 
-    await verifyWorkingDirectory(tempy.directory());
+    const fakeFs = cista();
+    await verifyWorkingDirectory(fakeFs.dir);
 
     expect(exitSpy).toHaveBeenCalledWith(1);
     expect(errorSpy).toHaveBeenCalledWith(errorMessage);

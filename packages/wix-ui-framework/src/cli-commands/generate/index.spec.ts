@@ -64,7 +64,7 @@ describe('generate', () => {
       });
 
       // set permissions for fake jscodeshift so that we're able to execute and write to file
-      fs.chmodSync(`${fakeFs.dir}/node_modules/.bin/jscodeshift`, 0o500); // read and execute
+      fs.chmodSync(`${fakeFs.dir}/node_modules/.bin/jscodeshift`, 0o500); // read & execute
       fs.chmodSync(`${fakeFs.dir}/assert-file`, 0o600); // read & write
 
       await generate({
