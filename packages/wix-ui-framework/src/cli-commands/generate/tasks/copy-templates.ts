@@ -1,13 +1,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
+import * as kebabCase from 'lodash/kebabCase';
 
 import { Options } from '../typings';
+import { objectEntries } from '../../../object-entries';
 import { replaceTemplates } from './replace-templates';
 
 import { createValuesMap } from '../create-values-map';
 
-const templateNamePlaceholder = 'Component';
+const sameName = i => i;
+
+const componentReplaceMap = {
+  Component: sameName,
+  ComponentName: sameName,
+  'component-name': kebabCase,
+};
 
 const pathExists = p =>
   new Promise(resolve => {
@@ -37,23 +45,31 @@ export const copyTemplates: (a: Options) => Promise<void> = async ({
 
     const isDir = fs.lstatSync(itemPath).isDirectory();
 
-    const newDestPath = path
-      .join(_process.cwd, output, itemPath.replace(templates, ''))
-      .replace(new RegExp(`${templateNamePlaceholder}`, 'g'), ComponentName);
+    const originalDestPath = path.join(
+      _process.cwd,
+      output,
+      itemPath.replace(templates, ''),
+    );
+
+    const renamedDestPath = objectEntries(componentReplaceMap).reduce(
+      (output, [name, replaceFn]) =>
+        output.replace(new RegExp(name, 'g'), () => replaceFn(ComponentName)),
+      originalDestPath,
+    );
 
     if (isDir) {
       queue.push(...readdir(path.join(itemPath)));
 
-      if (!(await pathExists(newDestPath))) {
-        mkdirp.sync(newDestPath);
+      if (!(await pathExists(renamedDestPath))) {
+        mkdirp.sync(renamedDestPath);
       }
-    } else if (!(await pathExists(newDestPath))) {
+    } else if (!(await pathExists(renamedDestPath))) {
       const replaced = replaceTemplates(
         fs.readFileSync(itemPath, 'utf8'),
         createValuesMap({ ComponentName, description }),
       );
 
-      fs.writeFileSync(newDestPath, replaced, 'utf8');
+      fs.writeFileSync(renamedDestPath, replaced, 'utf8');
     }
   }
 };
