@@ -44,4 +44,26 @@ describe('copyTemplates', () => {
 
     expect(output).toMatchSnapshot();
   });
+
+  describe('given template with lower case `component`', () => {
+    it('should rename `component` to given component name but in kebab-case ', async () => {
+      const fakeFs = cista();
+      await copyTemplates({
+        ComponentName: 'MyNewComponent',
+        description: undefined,
+        templates: path.join(__dirname, 'templates-kebab-case'),
+        _process: {
+          cwd: fakeFs.dir,
+        },
+      });
+
+      const output = await fsToJson({
+        path: '.',
+        cwd: fakeFs.dir,
+        withContent: true,
+      });
+
+      expect(output).toMatchSnapshot();
+    });
+  });
 });
