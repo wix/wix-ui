@@ -7,70 +7,6 @@ Object {
       "index.js": "// explicit test file
 ",
       "my-new-component": Object {
-        "component.js": "import React from 'react';
-import PropTypes from 'prop-types';
-
-import Text from '../Text';
-import Button from '../Button';
-import styles from './my-new-component.st.css';
-
-/** MyNewComponent */
-class MyNewComponent extends React.PureComponent {
-  static displayName = 'MyNewComponent';
-
-  static propTypes = {
-    dataHook: PropTypes.string,
-
-    /** Text for the button */
-    buttonText: PropTypes.string,
-  };
-
-  static defaultProps = {
-    buttonText: 'Click me!',
-  };
-
-  state = {
-    count: 0,
-  };
-
-  _handleClick = () => {
-    this.setState(({ count }) => ({
-      count: count + 1,
-    }));
-  };
-
-  render() {
-    const { count } = this.state;
-    const { dataHook, buttonText } = this.props;
-    const isEven = count % 2 === 0;
-
-    return (
-      <div className={styles.root} data-hook={dataHook}>
-        <Text dataHook=\\"myNewComponent-count\\">
-          You clicked this button {isEven ? 'even' : 'odd'} number (
-          <span
-            {...styles('number', { even: isEven, odd: !isEven }, this.props)}
-          >
-            {count}
-          </span>
-          ) of times
-        </Text>
-
-        <div className={styles.button}>
-          <Button
-            onClick={this._handleClick}
-            dataHook=\\"myNewComponent-button\\"
-          >
-            {buttonText}
-          </Button>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default MyNewComponent;
-",
         "docs": Object {
           "index.story.js": "import React from 'react';
 import {
@@ -172,6 +108,70 @@ export default {
 ",
         },
         "index.js": "export { default } from './my-new-component.js';
+",
+        "my-new-component.js": "import React from 'react';
+import PropTypes from 'prop-types';
+
+import Text from '../Text';
+import Button from '../Button';
+import styles from './my-new-component.st.css';
+
+/** MyNewComponent */
+class MyNewComponent extends React.PureComponent {
+  static displayName = 'MyNewComponent';
+
+  static propTypes = {
+    dataHook: PropTypes.string,
+
+    /** Text for the button */
+    buttonText: PropTypes.string,
+  };
+
+  static defaultProps = {
+    buttonText: 'Click me!',
+  };
+
+  state = {
+    count: 0,
+  };
+
+  _handleClick = () => {
+    this.setState(({ count }) => ({
+      count: count + 1,
+    }));
+  };
+
+  render() {
+    const { count } = this.state;
+    const { dataHook, buttonText } = this.props;
+    const isEven = count % 2 === 0;
+
+    return (
+      <div className={styles.root} data-hook={dataHook}>
+        <Text dataHook=\\"myNewComponent-count\\">
+          You clicked this button {isEven ? 'even' : 'odd'} number (
+          <span
+            {...styles('number', { even: isEven, odd: !isEven }, this.props)}
+          >
+            {count}
+          </span>
+          ) of times
+        </Text>
+
+        <div className={styles.button}>
+          <Button
+            onClick={this._handleClick}
+            dataHook=\\"myNewComponent-button\\"
+          >
+            {buttonText}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default MyNewComponent;
 ",
         "my-new-component.meta.js": "import MyNewComponent from './my-new-component';
 import Registry from '@ui-autotools/registry';
