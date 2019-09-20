@@ -33,6 +33,7 @@ const runCodemod: ({
       -t ${codemodPath} \
       --ComponentName=${codemodValues.ComponentName} \
       --componentName=${codemodValues.componentName} \
+      --component-name=${codemodValues['component-name']} \
       --verbose=2`;
 
     const execProc = exec(command);
