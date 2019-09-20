@@ -3,9 +3,17 @@ const defineTest = require('jscodeshift/dist/testUtils').defineTest;
 const options = {
   ComponentName: 'MyNewComponent',
   componentName: 'myNewComponent',
+  'component-name': 'my-new-component',
 };
 
 defineTest(__dirname, '__test__/codemods/stories-file', options, 'stories');
+
+defineTest(
+  __dirname,
+  '__test__/codemods/stories-file-kebab',
+  options,
+  'stories-with-kebab',
+);
 
 defineTest(__dirname, '__test__/codemods/index-file', options, 'index');
 

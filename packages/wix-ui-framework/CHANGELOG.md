@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.3.1 - 17:17:53
+## Added
+- `wuf generate` - support `component-name` in generator codemod options
+
 # 3.3.0 - 2019-09-20
 ## Added
 - `wuf generate` - support `component-name` in template files to generate kebab-case
