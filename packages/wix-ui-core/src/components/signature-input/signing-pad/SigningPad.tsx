@@ -219,8 +219,8 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
 
     this.setState(updateA11yValue(e.target.value));
     const ctx = this.canvasEl.getContext('2d');
-    ctx.font = '18px Sacramento';
-    ctx.fillText(e.target.value, 5, this.canvasEl.offsetHeight / 2);
+    ctx.font = '25px Sacramento';
+    ctx.fillText(e.target.value, 20, this.canvasEl.offsetHeight / 2);
     this.invokeIfDefined(onDraw)(e);
   };
 
