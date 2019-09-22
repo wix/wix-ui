@@ -14,6 +14,7 @@ export interface TagUniDriver extends BaseUniDriver {
   simulateClick(): Promise<void>;
   getValue(): Promise<string>;
   getInput(): UniDriver;
+  isChecked(): Promise<boolean>;
 }
 
 export const makeTagUniDriver = (base: UniDriver): TagUniDriver => {
@@ -27,6 +28,11 @@ export const makeTagUniDriver = (base: UniDriver): TagUniDriver => {
       const native = getInput();
 
       return native.value();
+    },
+    isChecked: async () => {
+      const element = await baseUniDriverFactory(getInput()).element();
+
+      return element.checked;
     },
     simulateClick: async () => {
       const input = getInput();
