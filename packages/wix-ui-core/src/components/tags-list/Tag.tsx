@@ -11,7 +11,7 @@ export interface TagProps {
   checked?: boolean;
   value: string;
   label?: string;
-  children: React.ReactNode;
+  children: string;
 }
 
 export const Tag: React.FunctionComponent<TagProps> = ({
@@ -21,7 +21,10 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   value,
   label,
 }) => (
-  <div data-hook={DataHooks.Tag}>
+  <label
+    data-hook={DataHooks.Tag}
+    className={classNames(style.tag, className)}
+    title={children}>
     <input
       data-hook={DataHooks.TagInput}
       className={style.tagInput}
@@ -31,15 +34,13 @@ export const Tag: React.FunctionComponent<TagProps> = ({
       name={label}
       id={value}
     />
-    <label htmlFor={value} className={classNames(style.tag, className)}>
-      {children}
-    </label>
-  </div>
+    {children}
+  </label>
 );
 
 Tag.displayName = DisplayNames.Tag;
 Tag.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.string,
   className: PropTypes.string,
   checked: PropTypes.bool,
   value: PropTypes.string.isRequired,
