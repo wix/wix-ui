@@ -40,7 +40,7 @@
   },
   "scripts": {
     "prebuild": "npm run update-components && npm run update-components-standalone",
-    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone",
+    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
     "test:watch": "yoshi test --jest --watch",
@@ -62,6 +62,7 @@
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css",
     "build-standalone": "node scripts/build-standalone.js",
+    "build-puppeteer-testkits": "webpack --config ./scripts/puppeteer.webpack.config.js",
     "test:browser": "wix-ui-mocha-runner",
     "update-components": ".wuf/update-components.sh",
     "update-components-standalone": ".wuf/update-components-standalone.sh"
@@ -126,6 +127,7 @@
     "ts-jest": "^22.0.3",
     "typescript": "~3.0.3",
     "wait-for-cond": "^1.5.1",
+    "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^3.0.7",
     "wix-ui-framework": "^3.2.0",
