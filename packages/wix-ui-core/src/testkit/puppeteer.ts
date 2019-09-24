@@ -5,7 +5,7 @@ import {
   AvatarDriver,
 } from '../components/avatar/avatar.uni.driver';
 export const avatarTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  avatarDriverFactory,
+  avatarDriverFactory
 );
 export { AvatarDriver };
 
@@ -14,7 +14,7 @@ import {
   ButtonNextDriver,
 } from '../components/button-next/button-next.uni.driver';
 export const buttonNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  buttonNextDriverFactory,
+  buttonNextDriverFactory
 );
 export { ButtonNextDriver };
 
@@ -32,7 +32,7 @@ import {
   FilePickerButtonUniDriver,
 } from '../components/file-picker-button/test/FilePickerButton.uni.driver';
 export const filePickerButtonTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  filePickerButtonUniDriverFactory,
+  filePickerButtonUniDriverFactory
 );
 export { FilePickerButtonUniDriver };
 
@@ -59,6 +59,15 @@ import {
   SignatureInputDriver,
 } from '../components/signature-input/SignatureInput.uni.driver';
 export const signatureInputTestkitFactory = puppeteerUniTestkitFactoryCreator(
-  signatureInputUniDriverFactory,
+  signatureInputUniDriverFactory
 );
 export { SignatureInputDriver };
+
+import {
+  makeTagsListUniDriver,
+  TagsListUniDriver,
+} from '../components/tags-list/TagsList.uni.driver';
+export const tagsListTestkitFactory = puppeteerUniTestkitFactoryCreator(
+  makeTagsListUniDriver
+);
+export { TagsListUniDriver };
