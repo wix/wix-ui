@@ -1,9 +1,10 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 
 import * as queryString from 'query-string';
 
 import { StoryConfig } from '../typings/story-config';
 import AutoExample from '../AutoExample';
+import StoryPage from '../StoryPage';
 import Remount from './RemountHoc';
 import { isE2E } from '../utils';
 
@@ -20,9 +21,8 @@ declare global {
 export default ({ _config, _metadata, ...storyConfig }) =>
   _config
     .storiesOf(storyConfig.category, module)
-    .add(storyConfig.storyName || _metadata.displayName, () => {
-      const StoryPage = lazy(() => import('../StoryPage'));
-      return isE2E ? (
+    .add(storyConfig.storyName || _metadata.displayName, () =>
+      isE2E ? (
         <div>
           <Remount>
             <AutoExample
@@ -38,14 +38,12 @@ export default ({ _config, _metadata, ...storyConfig }) =>
             undefined && storyConfig.examples}
         </div>
       ) : (
-        <Suspense fallback={<div>Loading...</div>}>
-          <StoryPage
-            {...{
-              ...(storyConfig as StoryConfig),
-              metadata: _metadata,
-              config: _config,
-            }}
-          />
-        </Suspense>
-      );
-    });
+        <StoryPage
+          {...{
+            ...(storyConfig as StoryConfig),
+            metadata: _metadata,
+            config: _config,
+          }}
+        />
+      ),
+    );
