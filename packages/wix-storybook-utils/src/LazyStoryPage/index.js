@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Suspense, lazy } from 'react';
 import StoryPage from '../StoryPage';
 
-// const StoryPage = lazy(() => import('../StoryPage'));
-
 class LazyStoryPage extends React.Component {
   state = {
     isLoaded: false
