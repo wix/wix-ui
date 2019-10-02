@@ -248,7 +248,7 @@ export class AddressInput extends React.PureComponent<
   }
 
   clear() {
-    this.setState({ inputValue: '' });
+    this.setState({ inputValue: '', options: [] });
   }
 
   _getKey() {

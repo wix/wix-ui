@@ -587,7 +587,8 @@ describe('AddressInput', () => {
       expect(addressInputDriver.getValue()).toBe('n');
     });
 
-    it('Should clear display value once clear method is called', () => {
+    it('Should clear display value, and options once clear method is called', async () => {
+      GoogleMapsClientStub.setAddresses([helper.ADDRESS_1]);
       const wrapper = mount(
         <AddressInput
           Client={GoogleMapsClientStub}
@@ -602,11 +603,16 @@ describe('AddressInput', () => {
         element: wrapper.getDOMNode(),
         eventTrigger: Simulate,
       });
+      init();
+      addressInputDriver.click();
       addressInputDriver.setValue('n');
+      await waitForCond(() => addressInputDriver.isContentElementExists());
       expect(addressInputDriver.getValue()).toBe('n');
+      expect(addressInputDriver.getOptionsCount()).toBe(1);
       const instance = wrapper.instance() as AddressInput;
       instance.clear();
       expect(addressInputDriver.getValue()).toBe('');
+      expect(addressInputDriver.isContentElementExists()).toBe(false);
     });
   });
 
