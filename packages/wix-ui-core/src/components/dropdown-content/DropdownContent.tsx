@@ -130,7 +130,6 @@ export class DropdownContent extends React.PureComponent<
       }
       case 'ArrowLeft':
       case 'ArrowRight': {
-        evt.preventDefault();
         return;
       }
       default:

@@ -80,19 +80,6 @@ describe('Dropdown', () => {
       );
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
-
-      Simulate.keyDown(
-        document.querySelector('[data-hook="open-dropdown-button"]'),
-        { key: 'ArrowLeft', preventDefault: preventDefaultSpy },
-      );
-      expect(preventDefaultSpy).toHaveBeenCalled();
-      preventDefaultSpy.mockClear();
-
-      Simulate.keyDown(
-        document.querySelector('[data-hook="open-dropdown-button"]'),
-        { key: 'ArrowRight', preventDefault: preventDefaultSpy },
-      );
-      expect(preventDefaultSpy).toHaveBeenCalled();
     });
 
     it('should show content on hover', async () => {
