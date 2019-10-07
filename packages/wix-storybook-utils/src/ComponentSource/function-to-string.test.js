@@ -5,27 +5,34 @@ import functionToString from './function-to-string';
 describe('functionToString', () => {
   describe('given function as argument', () => {
     it('should convert to arrow function and return it', () => {
+      /* tslint:disable */
       function prop(arg) {
-        return 'value' + arg;
+        return "value" + arg;
       }
+      /* tslint:enable */
 
-      expect(functionToString(prop)).toEqual(`arg => 'value' + arg`);
+      expect(functionToString(prop)).toEqual(`arg => "value" + arg`);
     });
 
     it('should handle multiple arguments', () => {
+      /* tslint:disable */
       function prop(arg1, arg2, arg3) {
-        const anything = 'hello';
+        const anything = "hello";
         return arg1 + arg2 + arg3 + anything;
       }
+      /* tslint:enable */
 
       expect(functionToString(prop)).toEqual(`(arg1, arg2, arg3) => {
-  var anything = 'hello';
+  const anything = "hello";
   return arg1 + arg2 + arg3 + anything;
 }`);
     });
 
     it('should not do anything to arrow function', () => {
+      /* tslint:disable */
       const prop = arg => arg + 1;
+      /* tslint:enable */
+
       expect(functionToString(prop)).toEqual(`arg => arg + 1`);
     });
 

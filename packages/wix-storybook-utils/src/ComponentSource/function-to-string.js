@@ -26,7 +26,7 @@ const functionToString = prop => {
   const ast = parser.parseExpression(prop.toString());
 
   if (types.isArrowFunctionExpression(ast)) {
-    return prop;
+    return prop.toString();
   }
 
   const arrowFunctionBody =

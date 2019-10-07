@@ -14,7 +14,7 @@ const componentToJSX = component =>
         : element.type.name || element.type,
     showDefaultProps: false,
     showFunctions: false,
-    functionValue: functionToString
+    functionValue: functionToString,
   });
 
 /**
@@ -25,7 +25,7 @@ const ComponentSource = ({ component }) => (
 );
 
 ComponentSource.propTypes = {
-  component: PropTypes.node.isRequired
+  component: PropTypes.node.isRequired,
 };
 
 export default ComponentSource;
