@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import reactElementToJSXString from 'react-element-to-jsx-string';
+
 import CodeBlock from '../CodeBlock';
 import removeHOC from './remove-hoc';
-
 import functionToString from './function-to-string';
 
 const componentToJSX = component =>
@@ -14,7 +14,7 @@ const componentToJSX = component =>
         : element.type.name || element.type,
     showDefaultProps: false,
     showFunctions: false,
-    functionValue: functionToString,
+    functionValue: functionToString
   });
 
 /**
@@ -25,7 +25,7 @@ const ComponentSource = ({ component }) => (
 );
 
 ComponentSource.propTypes = {
-  component: PropTypes.node.isRequired,
+  component: PropTypes.node.isRequired
 };
 
 export default ComponentSource;

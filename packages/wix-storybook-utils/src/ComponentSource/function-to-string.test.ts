@@ -3,17 +3,13 @@
 import functionToString from './function-to-string';
 
 describe('functionToString', () => {
-  it('should be defined', () => {
-    expect(typeof functionToString).toBe('function');
-  });
-
   describe('given function as argument', () => {
     it('should convert to arrow function and return it', () => {
       function prop(arg) {
         return 'value' + arg;
       }
 
-      expect(functionToString(prop)).toEqual('arg => "value" + arg');
+      expect(functionToString(prop)).toEqual(`arg => 'value' + arg`);
     });
 
     it('should handle multiple arguments', () => {
@@ -23,24 +19,26 @@ describe('functionToString', () => {
       }
 
       expect(functionToString(prop)).toEqual(`(arg1, arg2, arg3) => {
-  const anything = "hello";
+  var anything = 'hello';
   return arg1 + arg2 + arg3 + anything;
 }`);
     });
 
     it('should not do anything to arrow function', () => {
       const prop = arg => arg + 1;
-      expect(functionToString(prop)).toEqual(prop);
+      expect(functionToString(prop)).toEqual(`arg => arg + 1`);
     });
 
     it('should convert properties to shorthand if possible', () => {
+      /* tslint:disable */
       function prop(value) {
-        /* eslint-disable */
+        // intentional ignore
+        // @ts-ignore
         return setState({
-          value,
+          value: value
         });
-        /* eslint-enable */
       }
+      /* tslint:enable */
 
       expect(functionToString(prop)).toEqual(`value => setState({
   value
