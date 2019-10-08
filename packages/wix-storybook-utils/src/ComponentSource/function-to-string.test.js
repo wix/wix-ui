@@ -3,24 +3,24 @@
 import functionToString from './function-to-string';
 
 describe('functionToString', () => {
-  it('should be defined', () => {
-    expect(typeof functionToString).toBe('function');
-  });
-
   describe('given function as argument', () => {
     it('should convert to arrow function and return it', () => {
+      /* tslint:disable */
       function prop(arg) {
-        return 'value' + arg;
+        return "value" + arg;
       }
+      /* tslint:enable */
 
-      expect(functionToString(prop)).toEqual('arg => "value" + arg');
+      expect(functionToString(prop)).toEqual(`arg => "value" + arg`);
     });
 
     it('should handle multiple arguments', () => {
+      /* tslint:disable */
       function prop(arg1, arg2, arg3) {
-        const anything = 'hello';
+        const anything = "hello";
         return arg1 + arg2 + arg3 + anything;
       }
+      /* tslint:enable */
 
       expect(functionToString(prop)).toEqual(`(arg1, arg2, arg3) => {
   const anything = "hello";
@@ -29,18 +29,23 @@ describe('functionToString', () => {
     });
 
     it('should not do anything to arrow function', () => {
+      /* tslint:disable */
       const prop = arg => arg + 1;
-      expect(functionToString(prop)).toEqual(prop);
+      /* tslint:enable */
+
+      expect(functionToString(prop)).toEqual(`arg => arg + 1`);
     });
 
     it('should convert properties to shorthand if possible', () => {
+      /* tslint:disable */
       function prop(value) {
-        /* eslint-disable */
+        // intentional ignore
+        // @ts-ignore
         return setState({
-          value,
+          value: value
         });
-        /* eslint-enable */
       }
+      /* tslint:enable */
 
       expect(functionToString(prop)).toEqual(`value => setState({
   value

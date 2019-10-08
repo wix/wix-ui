@@ -1,45 +1,51 @@
-import recast from 'recast';
+import * as types from '@babel/types';
+import * as parser from '@babel/parser';
+import generator from '@babel/generator';
+import traverse from '@babel/traverse';
 
-const builders = recast.types.builders;
-const namedTypes = recast.types.namedTypes;
-
-const ensureShorthandProperties = ast =>
-  recast.visit(ast, {
-    visitProperty(path) {
-      const { key, value } = path.node;
-      if (key.test === value.test) {
-        path.node.shorthand = true;
-      }
-      this.traverse(path);
+const ensureShorthandProperties = ({ ast, parentPath, scope }) =>
+  traverse(
+    ast,
+    {
+      Property(path) {
+        const { key, value } = path.node;
+        if (key.test === value.test) {
+          path.node.shorthand = true;
+        }
+      },
     },
-  });
+    scope,
+    parentPath,
+  );
 
 const functionToString = prop => {
   if (typeof prop !== 'function') {
     return prop;
   }
 
-  const ast = recast.parse('(' + prop.toString() + ')');
-  const program = ast.program.body[0];
+  const ast = parser.parseExpression(prop.toString());
 
-  if (namedTypes.ArrowFunctionExpression.check(program.expression)) {
-    return prop;
+  if (types.isArrowFunctionExpression(ast)) {
+    return prop.toString();
   }
 
-  const { params, body } = program.expression;
+  const arrowFunctionBody =
+    ast.body.body.length === 1 && types.isReturnStatement(ast.body.body[0])
+      ? ast.body.body[0].argument
+      : ast.body;
 
-  const arrowFuncExpr = builders.arrowFunctionExpression(
-    params,
-    ensureShorthandProperties(
-      body.body.length === 1 && namedTypes.ReturnStatement.check(body.body[0])
-        ? body.body[0].argument
-        : body,
-    ),
+  ensureShorthandProperties({
+    ast: arrowFunctionBody,
+    parentPath: ast,
+    scope: ast,
+  });
+
+  const arrowFuncExpr = types.arrowFunctionExpression(
+    ast.params,
+    arrowFunctionBody,
   );
 
-  const result = recast.prettyPrint(arrowFuncExpr, { tabWidth: 2 }).code;
-
-  return result.replace(/;$/, '');
+  return generator(arrowFuncExpr, { tabWidth: 2 }).code;
 };
 
 export default functionToString;
