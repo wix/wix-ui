@@ -1,5 +1,13 @@
 import PopperJS from 'popper.js';
 
+
+const getUnit = value => {
+  if (typeof value === 'string') {
+    return value;
+  }
+  return `${value}px`;
+};
+
 const calculateOffset = ({ moveBy, placement = '' }): string => {
   /*
    * For `right` and `left` placements, we need to flip the `x` and `y` values as Popper.JS will use
@@ -28,13 +36,7 @@ const resolveWidth = ({
   referenceWidth,
 }): styles => {
   return {
-    minWidth: minWidth
-      ? typeof minWidth === 'string'
-        ? minWidth
-        : `${minWidth}px`
-      : dynamicWidth
-      ? `${referenceWidth}px`
-      : undefined,
+    minWidth: dynamicWidth ? `${referenceWidth}px` : getUnit(minWidth), 
     width: width || 'auto',
   };
 };
