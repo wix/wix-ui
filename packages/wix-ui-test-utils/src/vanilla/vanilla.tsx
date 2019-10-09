@@ -21,7 +21,7 @@ export type TestkitOutputRegular<T extends BaseDriver> = (data: {
   dataHook: string;
 }) => T;
 
-export type TestkitOutputUni<T extends BaseDriver> = (
+export type TestkitOutputUni<T extends BaseUniDriver> = (
   base: UniDriver,
   body: UniDriver,
   options: { dataHook: string }
