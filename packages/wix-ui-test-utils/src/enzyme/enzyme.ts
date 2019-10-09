@@ -11,27 +11,55 @@ export interface WrapperData {
   dataHook: string;
 }
 
-export type MountFunctionType = (node: React.ReactElement<any>, options?: MountRendererProps) => ReactWrapper;
-export type EnzymeDriverFactory<T extends BaseDriver> = (data: {element: Element | undefined, wrapper: ReactWrapper, eventTrigger: any}) => T;
+export type MountFunctionType = (
+  node: React.ReactElement<any>,
+  options?: MountRendererProps
+) => ReactWrapper;
 
-export function enzymeTestkitFactoryCreator<T extends BaseDriver> (driverFactory: EnzymeDriverFactory<T>) {
+export type EnzymeDriverFactory<T extends BaseDriver> = (data: {
+  element: Element | undefined;
+  wrapper: ReactWrapper;
+  eventTrigger: any;
+  dataHook: string;
+}) => T;
+
+export function enzymeTestkitFactoryCreator<T extends BaseDriver>(
+  driverFactory: EnzymeDriverFactory<T>
+) {
   return (obj: WrapperData) => {
     const eventTrigger = reactEventTrigger();
     const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
-    const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
-    const element = component.length > 0 ? component.first().getDOMNode() : undefined;
-    return driverFactory({element, wrapper: obj.wrapper, eventTrigger});
+    const component = obj.wrapper.findWhere(
+      n => n.length > 0 && typeof n.type() === 'string' && regexp.test(n.html())
+    );
+    const element =
+      component.length > 0 ? component.first().getDOMNode() : undefined;
+    return driverFactory({
+      element,
+      wrapper: obj.wrapper,
+      eventTrigger,
+      dataHook: obj.dataHook,
+    });
   };
 }
 
-export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver> (driverFactory: (base: UniDriver, body: UniDriver) => T) {
+export function enzymeUniTestkitFactoryCreator<T extends BaseUniDriver>(
+  driverFactory: (
+    base: UniDriver,
+    body: UniDriver,
+    data: { dataHook: string }
+  ) => T
+) {
   return (obj: WrapperData) => {
     const regexp = new RegExp(`^<[^>]+data-hook="${obj.dataHook}"`);
-    const component = obj.wrapper.findWhere(n => n.length > 0 && typeof n.type() === 'string' && (regexp).test(n.html()));
-    const element = component.length > 0 ? component.first().getDOMNode() : undefined;
+    const component = obj.wrapper.findWhere(
+      n => n.length > 0 && typeof n.type() === 'string' && regexp.test(n.html())
+    );
+    const element =
+      component.length > 0 ? component.first().getDOMNode() : undefined;
     const base = jsdomReactUniDriver(element as Element);
     const body = jsdomReactUniDriver(document.body);
-    return driverFactory(base, body);
+    return driverFactory(base, body, {dataHook: obj.dataHook});
   };
 }
 
@@ -50,43 +78,51 @@ export interface Options {
  * This method supports both new snake-case and legacy camelCase data hook prop name (e.g `data-hook` and `dataHook`).
  * The default is to check by both prop name options.
  */
-export function isEnzymeTestkitExists<T extends BaseDriver> (
+export function isEnzymeTestkitExists<T extends BaseDriver>(
   Element: React.ReactElement<any>,
   testkitFactory: (obj: WrapperData) => T,
   mount: MountFunctionType,
-  options: Options = {}) {
-    return isEnzymeTestkitExistsInternal({Element, testkitFactory, mount, ...options});
+  options: Options = {}
+) {
+  return isEnzymeTestkitExistsInternal({
+    Element,
+    testkitFactory,
+    mount,
+    ...options,
+  });
 }
 
-export async function isUniEnzymeTestkitExists<T extends BaseUniDriver> (
+export async function isUniEnzymeTestkitExists<T extends BaseUniDriver>(
   Element: React.ReactElement<any>,
   testkitFactory: (obj: WrapperData) => T,
   mount: MountFunctionType,
   {withoutDataHook, dataHookPropName}: Options = {}
-  ) {
-    const dataHook = withoutDataHook ? '' : 'myDataHook';
-    const extraProps = dataHookPropName ? {[dataHookPropName]: dataHook} : {dataHook, 'data-hook': dataHook};
-    const elementToRender = React.cloneElement(Element , extraProps);
-    const wrapper = mount(elementToRender);
-    const testkit = testkitFactory({wrapper, dataHook});
-    return await testkit.exists();
+) {
+  const dataHook = withoutDataHook ? '' : 'myDataHook';
+  const extraProps = dataHookPropName
+    ? {[dataHookPropName]: dataHook}
+    : {dataHook, 'data-hook': dataHook};
+  const elementToRender = React.cloneElement(Element, extraProps);
+  const wrapper = mount(elementToRender);
+  const testkit = testkitFactory({wrapper, dataHook});
+  return await testkit.exists();
 }
 
 /**
  * This internal function is only in order to allow separate defaults to each options.
  */
-function isEnzymeTestkitExistsInternal<T extends BaseDriver> (
-  {
-    Element,
-    testkitFactory,
-    mount,
-    withoutDataHook = false,
-    dataHookPropName
-  }: FlatOptions<T>) {
-
+function isEnzymeTestkitExistsInternal<T extends BaseDriver>({
+  Element,
+  testkitFactory,
+  mount,
+  withoutDataHook = false,
+  dataHookPropName,
+}: FlatOptions<T>) {
   const dataHook = withoutDataHook ? '' : 'myDataHook';
-  const extraProps = dataHookPropName ? {[dataHookPropName]: dataHook} : {dataHook, 'data-hook': dataHook};
-  const elementToRender = React.cloneElement(Element , extraProps);
+  const extraProps = dataHookPropName
+    ? {[dataHookPropName]: dataHook}
+    : {dataHook, 'data-hook': dataHook};
+  const elementToRender = React.cloneElement(Element, extraProps);
   const wrapper = mount(elementToRender);
   const testkit = testkitFactory({wrapper, dataHook});
   return testkit.exists();
