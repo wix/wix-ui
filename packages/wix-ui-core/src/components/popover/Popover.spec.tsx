@@ -135,13 +135,28 @@ function runTests(createDriver, container) {
         const driver = createDriver(
           popoverWithProps({
             placement: 'bottom',
-            shown: false,
+            shown: true,
             onClickOutside,
           }),
         );
 
         await driver.clickOutside();
         expect(onClickOutside).toBeCalled();
+      });
+
+      it('should not be triggered when popover is not shown', async () => {
+        const onClickOutside = jest.fn();
+
+        const driver = createDriver(
+          popoverWithProps({
+            placement: 'bottom',
+            shown: false,
+            onClickOutside,
+          }),
+        );
+
+        await driver.clickOutside();
+        expect(onClickOutside).not.toBeCalled();
       });
 
       const appendToValues: AppendTo[] = [

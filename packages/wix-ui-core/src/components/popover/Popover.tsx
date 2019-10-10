@@ -217,7 +217,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   }
 
   _handleClickOutside = () => {
-    if (this.props.onClickOutside) {
+     const { shown } = this.state;
+    if (this.props.onClickOutside && shown) {
       this.props.onClickOutside();
     }
   };
