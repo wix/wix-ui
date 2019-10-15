@@ -6,7 +6,7 @@ import Dropdown from '../../ui/dropdown';
 import RadioGroup from '../../ui/radio-group';
 import Button from '../../ui/button';
 
-import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
+import NO_VALUE_TYPE from '../no-value-type';
 
 const isThing = type => thing => typeof thing === type; // eslint-disable-line
 const isUndefined = isThing('undefined');
@@ -44,7 +44,8 @@ export default class List extends React.Component {
 
   createOptions = values =>
     values.map((option, id) => {
-      option = option || {};
+      if (typeof option !== 'string') option = option || {};
+
       return {
         id: option.id || id,
 
