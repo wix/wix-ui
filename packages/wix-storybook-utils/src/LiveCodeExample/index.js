@@ -6,6 +6,7 @@ import { Collapse } from 'react-collapse';
 import prettier from 'prettier/standalone';
 import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
+import debounce from 'lodash/debounce';
 import CodeTheme from 'prism-react-renderer/themes/github';
 
 import Revert from 'wix-ui-icons-common/Revert';
@@ -16,14 +17,6 @@ import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
 
 import styles from './index.scss';
-
-const randomPartialId = () =>
-  Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-
-const generateId = () =>
-  randomPartialId() + randomPartialId() + '-' + randomPartialId();
 
 export default class LiveCodeExample extends Component {
   static propTypes = {
@@ -47,12 +40,15 @@ export default class LiveCodeExample extends Component {
   constructor(props) {
     super(props);
 
+    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100);
+
     this.state = {
       code: this.formatCode(props.initialCode),
       dirty: false,
       isRtl: false,
       isDarkBackground: props.darkBackground,
       isEditorOpened: !props.compact,
+      parseError: null,
     };
   }
 
@@ -79,11 +75,9 @@ export default class LiveCodeExample extends Component {
     this.setState({
       code: this.formatCode(this.props.initialCode),
       dirty: false,
-      livePreviewKey: generateId(),
     });
 
-  onCodeChange = code =>
-    this.setState({ code, livePreviewKey: generateId(), dirty: true });
+  onCodeChange = code => this.setState({ code, dirty: true });
 
   onToggleRtl = isRtl => this.setState({ isRtl });
   onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });
@@ -107,19 +101,30 @@ export default class LiveCodeExample extends Component {
       )
       .join('\n');
 
-    const transformed = transform(withoutImports, {
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        [require('@babel/plugin-proposal-class-properties'), { loose: true }],
-      ],
-    }).code;
-
-    return transformed;
+    try {
+      const transformed = transform(withoutImports, {
+        plugins: [
+          require('@babel/plugin-syntax-jsx'),
+          [require('@babel/plugin-proposal-class-properties'), { loose: true }],
+        ],
+      });
+      this.setState({ parseError: null });
+      return transformed.code;
+    } catch (error) {
+      this.setState({ parseError: error.message });
+      return withoutImports;
+    }
   };
 
   render() {
     const { compact, previewRow, previewProps, autoRender } = this.props;
-    const { code, isRtl, isDarkBackground, isEditorOpened } = this.state;
+    const {
+      code,
+      isRtl,
+      isDarkBackground,
+      isEditorOpened,
+      parseError,
+    } = this.state;
 
     return (
       <div
@@ -156,7 +161,6 @@ export default class LiveCodeExample extends Component {
         <LiveProvider
           code={code.trim()}
           scope={this.props.scope}
-          mountStylesheet={false}
           noInline={!autoRender}
           transformCode={this.transformCode}
           theme={CodeTheme}
@@ -171,11 +175,15 @@ export default class LiveCodeExample extends Component {
               dir={isRtl ? 'rtl' : ''}
             >
               <LivePreview
-                key={this.state.livePreviewKey}
                 {...previewProps}
                 className={previewRow ? styles.previewRow : null}
               />
-              <LiveError className={styles.error} />
+
+              {parseError ? (
+                <div className={styles.error}>{parseError}</div>
+              ) : (
+                <LiveError className={styles.error} />
+              )}
             </div>
 
             <Collapse
@@ -186,7 +194,7 @@ export default class LiveCodeExample extends Component {
             >
               <LiveEditor
                 className={styles.editorView}
-                onChange={this.onCodeChange}
+                onChange={this.debouncedOnCodeChange}
               />
             </Collapse>
           </div>
