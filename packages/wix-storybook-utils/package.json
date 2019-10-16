@@ -133,7 +133,9 @@
     "moduleNameMapper": {
       "\\.(scss)$": "identity-obj-proxy"
     },
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
+    "setupFilesAfterEnv": [
+      "wix-ui-test-utils/jest-setup"
+    ],
     "setupFiles": [
       "raf/polyfill",
       "<rootDir>/test/enzyme-setup"
