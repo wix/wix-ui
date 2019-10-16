@@ -6,11 +6,13 @@ import { Collapse } from 'react-collapse';
 import prettier from 'prettier/standalone';
 import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
+import CodeTheme from 'prism-react-renderer/themes/github';
+
+import Revert from 'wix-ui-icons-common/Revert';
+import Code from 'wix-ui-icons-common/Code';
 
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
-import Revert from 'wix-ui-icons-common/Revert';
-import Code from 'wix-ui-icons-common/Code';
 import TextButton from '../TextButton';
 
 import styles from './index.scss';
@@ -157,6 +159,7 @@ export default class LiveCodeExample extends Component {
           mountStylesheet={false}
           noInline={!autoRender}
           transformCode={this.transformCode}
+          theme={CodeTheme}
         >
           <div className={styles.liveExampleWrapper}>
             <div
