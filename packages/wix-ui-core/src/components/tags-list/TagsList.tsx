@@ -8,24 +8,24 @@ import style from './TagsList.st.css';
 import { noop } from '../../utils';
 export interface TagsListProps {
   className?: string;
-  onChange?(e: React.FormEvent<HTMLFormElement>): void;
+  legend?: string;
+  onChange?(e: React.FormEvent<HTMLFieldSetElement>): void;
   children?: React.ReactNode;
 }
-
-const preventDefault = (ev: React.FormEvent) => ev.preventDefault();
 
 export const TagsList: React.FunctionComponent<TagsListProps> = ({
   children,
   className,
   onChange = noop,
+  legend,
 } = {}) => (
-  <form
+  <fieldset
     className={classNames(style.root, className)}
     data-hook={DataHooks.TagsList}
-    onChange={onChange}
-    onSubmit={preventDefault}>
+    onChange={onChange}>
+    {legend ? <legend>{legend}</legend> : null}
     {children}
-  </form>
+  </fieldset>
 );
 
 TagsList.displayName = DisplayNames.TagsList;
