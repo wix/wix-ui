@@ -3,12 +3,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Markdown from '../../src/Markdown';
-import InteractiveCodeExample from '../../src/InteractiveCodeExample';
+import IneractiveCodeExample from '../../src/InteractiveCodeExample';
 import TabbedView from '../../src/TabbedView';
 import CodeExample from '../../src/CodeExample';
 import TextButton from '../../src/TextButton';
 
 import markdown from './examples/markdown.md';
+import MdX from './examples/markdown.mdx';
 import SomeComponentExample from './examples/Example';
 import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
@@ -38,6 +39,12 @@ storiesOf('Components', module)
       <TextButton onClick={() => alert('yes, it is clickable')}>
         This is a clickable button
       </TextButton>
+    </div>
+  ))
+
+  .add('Markdown X', () => (
+    <div>
+      <MdX />
     </div>
   ))
 

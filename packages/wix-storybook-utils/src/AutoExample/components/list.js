@@ -44,7 +44,7 @@ export default class List extends React.Component {
 
   createOptions = values =>
     values.map((option, id) => {
-      option = !isString(option) ? option || {} : option;
+      option = option || {};
       return {
         id: option.id || id,
 

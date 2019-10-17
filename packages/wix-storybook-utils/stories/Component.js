@@ -55,7 +55,6 @@ Component.propTypes = {
    * @deprecated since forever*/
   propNotVisibleInStorybook: PropTypes.bool,
   undefinedValueProp: PropTypes.string,
-  listOfStrings: PropTypes.oneOf(['', 'one', 'two', 'three']),
 };
 
 Component.defaultProps = {
