@@ -18,6 +18,15 @@ import { tokenHighlighter } from './token-highlighter';
 
 import styles from './index.scss';
 
+const safeTokenHighlighter = code => {
+  try {
+    return tokenHighlighter(code);
+  } catch (e) {
+    console.warn('Unable to tokenize code', e);
+    return <span>{code}</span>;
+  }
+};
+
 export default class LiveCodeExample extends Component {
   static propTypes = {
     initialCode: PropTypes.string,
@@ -194,7 +203,7 @@ export default class LiveCodeExample extends Component {
               <LiveEditor
                 onChange={this.debouncedOnCodeChange}
                 className={styles.editorView}
-                highlight={tokenHighlighter}
+                highlight={safeTokenHighlighter}
               />
             </Collapse>
           </div>
