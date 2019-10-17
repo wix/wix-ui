@@ -51,6 +51,18 @@ describe('functionToString', () => {
   value
 })`);
     });
+
+    it('should work with FunctionExpression', () => {
+      const obj = {
+        functionExpression(argument1, argument2, ...rest) {
+          return 'this is a method';
+        },
+      };
+
+      expect(functionToString(obj.functionExpression)).toEqual(
+        obj.functionExpression.toString(),
+      );
+    });
   });
 
   describe('given non function argument', () => {

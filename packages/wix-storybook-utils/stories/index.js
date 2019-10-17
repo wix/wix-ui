@@ -1,5 +1,4 @@
 import './sections/story-without-component.story';
-import './sections/story-with-mdx.story';
 import './sections/single-component.story';
 import './sections/story-with-sections.story';
 import './sections/default-sections.story';
