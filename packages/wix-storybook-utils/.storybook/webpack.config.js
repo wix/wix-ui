@@ -8,8 +8,8 @@ const testkitsWarning = `
 > I am a testkit warning and have a <a href="/?selectedKind=Test&selectedStory=Empty">link</a>.
 `;
 
-module.exports = (config, env, defaultConfig) => {
-  const newConfig = wixStorybookConfig(defaultConfig);
+module.exports = ({ config }) => {
+  const newConfig = wixStorybookConfig(config);
 
   newConfig.resolve.alias = {
     ...newConfig.resolve.alias,
@@ -41,11 +41,6 @@ module.exports = (config, env, defaultConfig) => {
           'https://github.com/wix/wix-ui/tree/master/packages/wix-storybook-utils/src/components/',
       },
     },
-  });
-
-  newConfig.module.rules.push({
-    test: /.mdx$/,
-    use: ['babel-loader', '@mdx-js/loader'],
   });
 
   return newConfig;
