@@ -80,6 +80,7 @@
 }
 
 .editorView {
+  padding: 20px;
   height: 100%;
   margin: 0;
   overflow: auto;
@@ -93,10 +94,6 @@
   .compact & {
     min-height: auto;
     height: auto;
-  }
-
-  textarea {
-    outline: none;
   }
 
   // Theme extracted from
@@ -231,13 +228,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px;
-  margin: 0;
-  color: #ffffff;
-  white-space: pre;
-  font-family: monospace;
   background: #ff5555;
-  overflow: auto;
+  color: #ffffff;
+  padding: 10px;
+  white-space: pre;
+
+  .compact & {
+    overflow: auto;
+  }
 }
 
 /* 

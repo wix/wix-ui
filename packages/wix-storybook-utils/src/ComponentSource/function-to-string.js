@@ -23,14 +23,7 @@ const functionToString = prop => {
     return prop;
   }
 
-  const asString = prop.toString();
-  let ast;
-
-  try {
-    ast = parser.parseExpression(asString);
-  } catch (e) {
-    return asString;
-  }
+  const ast = parser.parseExpression(prop.toString());
 
   if (types.isArrowFunctionExpression(ast)) {
     return prop.toString();
