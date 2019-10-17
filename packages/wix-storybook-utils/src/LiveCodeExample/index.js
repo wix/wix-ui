@@ -7,7 +7,6 @@ import prettier from 'prettier/standalone';
 import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
 import debounce from 'lodash/debounce';
-import CodeTheme from 'prism-react-renderer/themes/github';
 
 import Revert from 'wix-ui-icons-common/Revert';
 import Code from 'wix-ui-icons-common/Code';
@@ -15,6 +14,7 @@ import Code from 'wix-ui-icons-common/Code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
+import { tokenHighlighter } from './token-highlighter';
 
 import styles from './index.scss';
 
@@ -163,7 +163,6 @@ export default class LiveCodeExample extends Component {
           scope={this.props.scope}
           noInline={!autoRender}
           transformCode={this.transformCode}
-          theme={CodeTheme}
         >
           <div className={styles.liveExampleWrapper}>
             <div
@@ -193,8 +192,9 @@ export default class LiveCodeExample extends Component {
               })}
             >
               <LiveEditor
-                className={styles.editorView}
                 onChange={this.debouncedOnCodeChange}
+                className={styles.editorView}
+                highlight={tokenHighlighter}
               />
             </Collapse>
           </div>
