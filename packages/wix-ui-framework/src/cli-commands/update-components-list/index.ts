@@ -1,6 +1,5 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { promisify } from 'util';
 import * as minimatch from 'minimatch';
 
 import { Path, Process } from '../../typings.d';
@@ -9,10 +8,14 @@ import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
 import { mapTree } from '../../map-tree';
 
-const fsReadFile = promisify(fs.readFile);
-const fsWriteFile = promisify(fs.writeFile);
-
-const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
+const readJson = path => {
+  try {
+    const json = fs.readFileSync(path, 'utf8');
+    return JSON.parse(json);
+  } catch (e) {
+    return {};
+  }
+};
 
 interface Options {
   shape?: Path;
@@ -23,17 +26,25 @@ interface Options {
   _process: Process;
 }
 
-const readOutputFile = async (path = '') => {
-  try {
-    const outputRaw = await fsReadFile(path, 'utf8');
-    return JSON.parse(outputRaw);
-  } catch (e) {
-    return {};
-  }
-};
+interface TreeObject {
+  [k: string]: {};
+}
+
+interface Input {
+  tree?: TreeObject;
+  glob?: TreeObject;
+  treePath?: string;
+}
+
+const treeHasMatches = (matches: TreeObject) => Object.keys(matches).length;
+const isString = (a: unknown) => typeof a === 'string';
+const isUndefined = (a: unknown) => typeof a === 'undefined';
+const head = (a: unknown[]) => a[0];
+
+interface Output extends TreeObject {}
 
 const guards: (a: Options) => Promise<void> = async unsafeOptions => {
-  const pathResolve = pathResolver(unsafeOptions._process.cwd);
+  const pathResolve = (...a) => path.resolve(unsafeOptions._process.cwd, ...a);
 
   const options = {
     ...unsafeOptions,
@@ -62,10 +73,18 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
   return makeOutput(options);
 };
 
+const excludeWrongFiles = (options: Options) => ([name, structure]) =>
+  [
+    // skip non folders at root level
+    structure !== '',
+
+    // skip excluded
+    options.exclude ? !new RegExp(options.exclude).test(name) : true,
+  ].every(Boolean);
+
 const makeOutput: (a: Options) => Promise<void> = async options => {
-  const shapeRaw = await fsReadFile(options.shape, 'utf8');
-  const shape = JSON.parse(shapeRaw);
-  const output = await readOutputFile(options.output);
+  const shape = await readJson(options.shape);
+  const output = await readJson(options.output);
 
   const componentsFs = await fsToJson({
     cwd: options.components,
@@ -73,63 +92,102 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
   });
 
   const analyzedComponents = objectEntries(componentsFs)
-    .filter(([name, structure]) =>
-      [
-        // skip non folders at root level
-        structure !== '',
-
-        // skip excluded
-        options.exclude ? !new RegExp(options.exclude).test(name) : true,
-      ].every(Boolean),
-    )
+    .filter(excludeWrongFiles(options) as any)
 
     .map(([name, structure]) => {
       // TODO: this should be a placeholder coming from config. There should be support for multiple
       const replaceableName = 'Component';
 
-      const namedShape = mapTree(shape, ({ key, value }) => ({
+      const namedGlobs = mapTree(shape, ({ key, value }) => ({
         [key.replace(replaceableName, name)]: value,
       }));
 
       const missingFiles = [];
 
-      const traverseGlobs = ({ globTree, fsTree, fsPath = '' }) => {
-        const globEntries = objectEntries(globTree);
-        const fsEntries = objectEntries(fsTree);
+      const match: (a?: Input) => Output = (input = {}) => {
+        if (isUndefined(input.tree) || isUndefined(input.glob)) {
+          return {};
+        }
 
-        return globEntries.reduce((row, [globPath, globValue]) => {
-          const matchingFsEntries = fsEntries.filter(([entry]) =>
-            minimatch(entry, globPath),
+        const { tree, glob } = input;
+        const globEntries = objectEntries(glob);
+        const treeEntries = objectEntries(tree);
+        const output = {};
+
+        treeEntries.map(([treeKey, treeValue]) => {
+          const matchingGlobEntries = globEntries.filter(([globKey]) =>
+            minimatch(treeKey, globKey),
           );
 
-          if (!matchingFsEntries.length) {
-            missingFiles.push(path.join(fsPath.replace(/^\//, ''), globPath));
-          }
-
-          matchingFsEntries.map(([matchingFsPath, matchingFsValue]) => {
-            if (typeof matchingFsValue !== 'string') {
-              row[matchingFsPath] = traverseGlobs({
-                fsTree: matchingFsValue,
-                globTree: globValue,
-                fsPath: `${fsPath}/${matchingFsPath}`,
+          for (const [globKey, globValue] of matchingGlobEntries) {
+            if (!isString(treeValue)) {
+              const matches = match({
+                tree: treeValue as TreeObject,
+                glob: globValue as TreeObject,
               });
-            } else {
-              row[matchingFsPath] = matchingFsValue;
-            }
-          });
 
-          return row;
-        }, {});
+              if (treeHasMatches(matches)) {
+                output[treeKey] = matches;
+              }
+            } else {
+              const globKeys = globEntries.map(head);
+              const treeKeys = treeEntries.map(head);
+              if (
+                treeEntries.length >= globEntries.length &&
+                globKeys.every(globEntryKey =>
+                  treeKeys.some(key =>
+                    minimatch(key as string, globEntryKey as string),
+                  ),
+                )
+              ) {
+                output[treeKey] = {};
+              }
+            }
+          }
+        });
+
+        return output;
       };
 
-      traverseGlobs({
-        globTree: namedShape,
-        fsTree: structure,
+      const matchComponent = ({ tree, glob, treePath = '' }) => {
+        const treeEntries = objectEntries(tree);
+        const output = {};
+
+        treeEntries.map(([treeKey, treeValue]) => {
+          const matches = match({ tree: treeValue as TreeObject, glob });
+
+          if (treeHasMatches(matches)) {
+            const compound = matchComponent({
+              tree: treeValue,
+              glob,
+              treePath: `${treePath}/${treeKey}`,
+            });
+
+            output[treeKey] = {
+              ...(treeHasMatches(compound)
+                ? { compound }
+                : {
+                    path: `${treePath}/${treeKey}`,
+                  }),
+            };
+          }
+        });
+
+        return output;
+      };
+
+      const compound = matchComponent({
+        tree: structure,
+        glob: namedGlobs,
+        treePath: path.relative(
+          options._process.cwd,
+          path.resolve(options.components, name),
+        ),
       });
 
       return {
         name,
-        structure,
+        compound,
         missingFiles,
         path: path.relative(
           options._process.cwd,
@@ -145,6 +203,9 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
   const newOutput = goodComponents.reduce((components, component) => {
     components[component.name] = {
       path: component.path,
+      ...(treeHasMatches(component.compound)
+        ? { compound: component.compound }
+        : {}),
       ...(component.missingFiles.length
         ? { missingFiles: component.missingFiles }
         : {}),
@@ -152,7 +213,7 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     return components;
   }, output);
 
-  await fsWriteFile(options.output, JSON.stringify(newOutput, null, 2));
+  fs.writeFileSync(options.output, JSON.stringify(newOutput, null, 2));
 };
 
 export const updateComponentsList: (a: Options) => Promise<void> = guards;

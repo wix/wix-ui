@@ -49,7 +49,7 @@ describe('updateComponentsList', () => {
       };
 
       await updateComponentsList({
-        maxMismatch: 2,
+        maxMismatch: 1,
         _process: { cwd: fakeFs.dir },
       });
 
@@ -181,6 +181,40 @@ describe('updateComponentsList', () => {
 
       await updateComponentsList({
         maxMismatch: 2,
+        _process: { cwd: fakeFs.dir },
+      });
+
+      const output = fs.readFileSync(
+        `${fakeFs.dir}/.wuf/components.json`,
+        'utf8',
+      );
+
+      expect(JSON.parse(output)).toEqual(expectedOutput);
+    });
+
+    it('should write compound components under `compound` object to .wuf/components.json', async () => {
+      const fakeFs = cista({
+        '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.js": "" } }`,
+        'src/components/test-component/index.js': '',
+        'src/components/test-component/docs/index.story.js': 'content',
+        'src/components/test-component/child/index.js': '',
+        'src/components/test-component/child/docs/index.story.js': '',
+        '.wuf/components.json': '',
+      });
+
+      const expectedOutput = {
+        'test-component': {
+          path: 'src/components/test-component',
+          compound: {
+            child: {
+              path: 'src/components/test-component/child',
+            },
+          },
+        },
+      };
+
+      await updateComponentsList({
+        maxMismatch: 0,
         _process: { cwd: fakeFs.dir },
       });
 

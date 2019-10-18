@@ -15,7 +15,7 @@ command line tool for common wix-ui libraries tasks
 
 # Install
 
-`npm install wix-ui-framework`
+`npm install wix-ui-framework --save-dev`
 
 # Use
 
