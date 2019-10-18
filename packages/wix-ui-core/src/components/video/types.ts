@@ -179,6 +179,7 @@ export interface IPlayablePlayerAPI {
   destroy?(): void;
   on?(event: string, fn?: Function): void;
   attachToElement?(el: HTMLDivElement): void;
+  getElement?(): HTMLElement;
 }
 
 export interface ITwitchPlayerAPI {

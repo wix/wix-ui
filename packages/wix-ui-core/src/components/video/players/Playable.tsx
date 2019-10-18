@@ -130,6 +130,7 @@ class PlayablePlayer extends React.PureComponent<
 
   componentWillUnmount() {
     if (this.player) {
+      this.player.getElement().removeEventListener('contextmenu', this._handleRightClick);
       this.player.destroy();
     }
     this.eventEmitter.removeAllListeners();
@@ -175,6 +176,7 @@ class PlayablePlayer extends React.PureComponent<
       hideOverlay: true,
     });
 
+    this.player.getElement().addEventListener('contextmenu', this._handleRightClick);
     this._hidePlayableUI();
 
     if (!showTitle) {
@@ -254,6 +256,7 @@ class PlayablePlayer extends React.PureComponent<
         })}
         style={coverStyles}
         onClick={this.onPlayClick}
+        onContextMenu={this._handleRightClick}
         data-hook="cover"
       >
         <div className={styles.overlay}>
@@ -277,6 +280,8 @@ class PlayablePlayer extends React.PureComponent<
   onPlayClick = (): void => {
     this.player.play();
   };
+
+  _handleRightClick = event => event.preventDefault();
 
   render() {
     return (
