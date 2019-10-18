@@ -191,6 +191,10 @@ export class DropdownComponent extends React.PureComponent<
         case 'Tab': {
           this.onKeyboardSelect();
           this.close();
+
+          if (this.getSelectedOption() !== null) {
+            evt.preventDefault();
+          }
           break;
         }
         case 'Escape': {
