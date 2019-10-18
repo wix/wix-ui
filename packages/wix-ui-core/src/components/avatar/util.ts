@@ -1,4 +1,7 @@
-import GraphemeSplitter = require('grapheme-splitter');
+// `const ... = require()` instead of `import ... = require()`
+// because tsc thinks that `grapheme-splitter` is an ES module:
+// `Import assignment cannot be used when targeting ECMAScript modules.`
+const GraphemeSplitter = require('grapheme-splitter');
 const splitter = new GraphemeSplitter();
 
 /**
