@@ -151,10 +151,14 @@ export class DropdownComponent extends React.PureComponent<
     this.setState({ isOpen: false });
   }
 
-  onKeyboardSelect() {
-    const selectedOption = this.dropdownContentRef
+  getSelectedOption() {
+    return this.dropdownContentRef
       ? this.dropdownContentRef.onKeyboardSelect()
       : null;
+  }
+
+  onKeyboardSelect() {
+    const selectedOption = this.getSelectedOption();
     this.onOptionClick(selectedOption);
   }
 
@@ -172,12 +176,16 @@ export class DropdownComponent extends React.PureComponent<
     this.open(() => {
       this.dropdownContentRef &&
         this.dropdownContentRef.onKeyDown(eventKey, evt);
+
       switch (eventKey) {
         case 'Enter': {
           this.onKeyboardSelect();
           const { multi } = this.props;
           !multi && this.close();
-          evt.preventDefault();
+
+          if (this.getSelectedOption() !== null) {
+            evt.preventDefault();
+          }
           break;
         }
         case 'Tab': {
