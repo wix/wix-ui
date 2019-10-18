@@ -177,6 +177,7 @@ export class DropdownComponent extends React.PureComponent<
           this.onKeyboardSelect();
           const { multi } = this.props;
           !multi && this.close();
+          evt.preventDefault();
           break;
         }
         case 'Tab': {
