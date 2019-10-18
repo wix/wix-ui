@@ -72,6 +72,7 @@
     "@stylable/dom-test-kit": "^0.1.0",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
+    "grapheme-splitter": "^1.0.4",
     "hoist-non-react-methods": "^1.1.0",
     "image-client-api": "^1.3581.0",
     "loadjs": "^3.5.4",
