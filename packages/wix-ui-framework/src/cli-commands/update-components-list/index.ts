@@ -5,7 +5,6 @@ import { Path, Process } from '../../typings.d';
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
-import { mapTree } from '../../map-tree';
 import { readJson } from './read-json';
 import { matchComponent } from './match-component';
 
@@ -71,22 +70,16 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     .filter(excludeWrongFiles(options) as any)
 
     .map(([name, structure]) => {
-      // TODO: this should be a placeholder coming from config. There should be support for multiple
-      const replaceableName = 'Component';
-
-      const namedGlobs = mapTree(shape, ({ key, value }) => ({
-        [key.replace(replaceableName, name)]: value,
-      }));
-
       const missingFiles = [];
 
       const compound = matchComponent({
         tree: structure,
-        glob: namedGlobs,
+        glob: shape,
         treePath: path.relative(
           options._process.cwd,
           path.resolve(options.components, name),
         ),
+        name,
       });
 
       return {

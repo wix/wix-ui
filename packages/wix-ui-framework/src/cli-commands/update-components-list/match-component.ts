@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as minimatch from 'minimatch';
 
 import { objectEntries } from '../../object-entries';
+import { mapTree } from '../../map-tree';
 
 interface TreeObject {
   [k: string]: {};
@@ -18,6 +19,14 @@ interface Output extends TreeObject {}
 const isString = (a: unknown) => typeof a === 'string';
 const isUndefined = (a: unknown) => typeof a === 'undefined';
 const treeHasMatches = (matches: TreeObject) => Object.keys(matches).length;
+
+// TODO: this should be a placeholder coming from config. There should be support for multiple
+const replaceableName = 'Component';
+
+const renameGlob = ({ glob, name }) =>
+  mapTree(glob, ({ key, value }) => ({
+    [key.replace(replaceableName, name)]: value,
+  }));
 
 export const match: (a?: Input) => Output = (input = {}) => {
   if (isUndefined(input.tree) || isUndefined(input.glob)) {
@@ -73,20 +82,25 @@ export const match: (a?: Input) => Output = (input = {}) => {
   return matching ? output : null;
 };
 
-export const matchComponent = ({ tree, glob, treePath = '' }) => {
+export const matchComponent = ({ tree, glob, treePath = '', name }) => {
   const treeEntries = objectEntries(tree);
   const output = {};
 
   treeEntries.map(([treeKey, treeValue]) => {
-    const matches = match({ tree: treeValue as TreeObject, glob });
+    const renamedGlob = renameGlob({ glob, name: treeKey });
+    const matches = match({
+      tree: treeValue as TreeObject,
+      glob: renamedGlob,
+    });
 
     if (matches) {
       const childPath = path.join(treePath, treeKey);
 
       const children = matchComponent({
         tree: treeValue,
-        glob,
+        glob: renamedGlob,
         treePath: childPath,
+        name,
       });
 
       output[treeKey] = {
