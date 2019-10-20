@@ -7,15 +7,7 @@ import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
 import { mapTree } from '../../map-tree';
-
-const readJson = path => {
-  try {
-    const json = fs.readFileSync(path, 'utf8');
-    return JSON.parse(json);
-  } catch (e) {
-    return {};
-  }
-};
+import { readJson } from './read-json';
 
 interface Options {
   shape?: Path;
