@@ -194,11 +194,11 @@ describe('updateComponentsList', () => {
 
     it('should write compound components under `compound` object to .wuf/components.json', async () => {
       const fakeFs = cista({
-        '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.js": "" } }`,
+        '.wuf/required-component-files.json': `{ "index.js": "", "docs": {"index.story.*": "" } }`,
         'src/components/test-component/index.js': '',
         'src/components/test-component/docs/index.story.js': 'content',
         'src/components/test-component/child/index.js': '',
-        'src/components/test-component/child/docs/index.story.js': '',
+        'src/components/test-component/child/docs/index.story.ts': '',
         '.wuf/components.json': '',
       });
 

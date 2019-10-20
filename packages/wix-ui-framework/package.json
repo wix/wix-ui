@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
+    "@types/minimatch": "^3.0.3",
     "@types/node": "^11.13.8",
     "cista": "0.0.3",
     "jest": "^24.7.1",
