@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import LiveCodeExample from '../../LiveCodeExample';
 import CodeBlock from '../../CodeBlock';
 import { CodeSection } from '../../typings/story-section';
 
@@ -12,18 +11,23 @@ export const code: (a: CodeSection) => React.ReactNode = ({
   interactive = true,
   autoRender,
   darkBackground = false,
-}) =>
-  interactive ? (
-    <LiveCodeExample
-      {...{
-        previewProps,
-        compact,
-        autoRender,
-        darkBackground,
-        scope: components,
-        initialCode: source.trim(),
-      }}
-    />
-  ) : (
-    <CodeBlock source={source.trim()} />
-  );
+}) => {
+  if (interactive) {
+    const LiveCodeExample = React.lazy(() => import('../../LiveCodeExample'));
+    return (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <LiveCodeExample
+          {...{
+            previewProps,
+            compact,
+            autoRender,
+            darkBackground,
+            scope: components,
+            initialCode: source.trim(),
+          }}
+        />
+      </React.Suspense>
+    );
+  }
+  return <CodeBlock source={source.trim()} />;
+};
