@@ -20,12 +20,14 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   checked,
   value,
   label,
+  ...rest
 }) => (
   <label
     data-hook={DataHooks.Tag}
     className={classNames(style.tag, className)}
     title={children}
-    htmlFor={value}>
+    htmlFor={value}
+    {...rest}>
     <input
       data-hook={DataHooks.TagInput}
       className={style.tagInput}
