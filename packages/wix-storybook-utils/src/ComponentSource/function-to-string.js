@@ -41,11 +41,13 @@ const functionToString = prop => {
       ? ast.body.body[0].argument
       : ast.body;
 
-  ensureShorthandProperties({
-    ast: arrowFunctionBody,
-    parentPath: ast,
-    scope: ast,
-  });
+  try {
+    ensureShorthandProperties({
+      ast: arrowFunctionBody,
+      parentPath: ast,
+      scope: ast,
+    });
+  } catch (e) {}
 
   const arrowFuncExpr = types.arrowFunctionExpression(
     ast.params,
