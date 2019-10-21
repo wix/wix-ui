@@ -37,6 +37,7 @@ import './CircularProgressBar/index.story';
 Components.add('Divider', () => <DividerStory />);
 import '../src/components/file-picker-button/docs/FilePickerButton.story';
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
+import '../src/components/horizontal-menu/docs/index.story';
 Components.add('Loadable', () => <LoadableStory />);
 import './Input/Input.story';
 import './InputWithOptions.story';

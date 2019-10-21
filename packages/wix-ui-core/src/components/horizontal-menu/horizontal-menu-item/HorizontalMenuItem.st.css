@@ -1,0 +1,16 @@
+.root {
+  -st-states: submenuSize(enum(column, menu));
+
+  cursor: pointer;
+}
+
+.menuItemLink {
+}
+
+.root .menuItemLink {
+  color: black;
+}
+
+.root:submenuSize(column) {
+  position: relative;
+}

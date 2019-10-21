@@ -1,0 +1,33 @@
+:import {
+  -st-from: "./horizontal-menu-item/HorizontalMenuItem.st.css";
+  -st-default: HorizontalMenuItem;
+}
+
+.root {
+  -st-states: withDividers, withEqualItems;
+
+  list-style: none;
+}
+
+.root:withDividers HorizontalMenuItem:not(:last-child) {
+  border-right: 1px solid gray;
+}
+
+.root:withEqualItems HorizontalMenuItem {
+  flex: 1;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: lightgray;
+  border: 1px gray solid;
+
+  list-style: none;
+}

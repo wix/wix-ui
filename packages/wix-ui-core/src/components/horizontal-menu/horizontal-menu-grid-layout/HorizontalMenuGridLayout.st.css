@@ -1,0 +1,21 @@
+:import {
+  -st-from: "../horizontal-menu-option/HorizontalMenuOption.st.css";
+  -st-default: HorizontalMenuOption;
+}
+
+.root {
+  display: flex;
+  min-width: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch; 
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.root > HorizontalMenuOption {
+  flex: 1;
+}

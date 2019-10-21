@@ -1,0 +1,10 @@
+.root {
+  cursor: pointer;
+}
+
+.link {
+}
+
+.root .link {
+  color: black;
+}

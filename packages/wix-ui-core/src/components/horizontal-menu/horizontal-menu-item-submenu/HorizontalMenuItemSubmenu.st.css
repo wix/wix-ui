@@ -1,0 +1,37 @@
+:import {
+  -st-from: "../horizontal-menu-column-layout/HorizontalMenuColumnLayout.st.css";
+  -st-default: HorizontalMenuColumnLayout;
+}
+
+:import {
+  -st-from: "../horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
+  -st-default: HorizontalMenuGridLayout;
+}
+
+:import {
+  -st-from: "../horizontal-menu-list-layout/HorizontalMenuListLayout.st.css";
+  -st-default: HorizontalMenuListLayout;
+}
+
+.root {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background-color: lightgray;
+  border: 1px gray solid;
+}
+
+.submenu > HorizontalMenuColumnLayout {
+  flex: 1;
+}
+
+.submenu > HorizontalMenuGridLayout {
+  flex: 1;
+}
+
+.submenu > HorizontalMenuListLayout {
+  flex: 1;
+}

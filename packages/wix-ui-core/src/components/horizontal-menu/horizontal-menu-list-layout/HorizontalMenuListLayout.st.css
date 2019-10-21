@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  align-items: stretch; 
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}

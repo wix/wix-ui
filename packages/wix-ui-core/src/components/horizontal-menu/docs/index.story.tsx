@@ -1,0 +1,188 @@
+import * as React from 'react';
+import {
+  header,
+  tabs,
+  tab,
+  description,
+  importExample,
+  title,
+  columns,
+  divider,
+  code as baseCode,
+  playground,
+  api,
+  testkit,
+} from 'wix-storybook-utils/Sections';
+
+import compoundComponentsAPI from './CompoundComponentsAPI.md';
+import { storySettings } from '../test/storySettings';
+
+import { HorizontalMenu } from '..';
+
+const code = config => baseCode({ components: { HorizontalMenu }, ...config });
+
+const exampleColumnChildren = (
+  <HorizontalMenu.Item title="Column Layout">
+    <HorizontalMenu.Layout.Column style={{ maxHeight: '60px' }}>
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+    </HorizontalMenu.Layout.Column>
+  </HorizontalMenu.Item>
+);
+
+const exampleGridChildren = (
+  <HorizontalMenu.Item title="Grid Layout">
+    <HorizontalMenu.Layout.Grid>
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+    </HorizontalMenu.Layout.Grid>
+  </HorizontalMenu.Item>
+);
+
+const exampleListChildren = (
+  <HorizontalMenu.Item title="List Layout">
+    <HorizontalMenu.Layout.List>
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Option text="Sample text" />
+    </HorizontalMenu.Layout.List>
+  </HorizontalMenu.Item>
+);
+
+const exampleChildren = [
+  exampleColumnChildren,
+  exampleGridChildren,
+  exampleListChildren,
+];
+
+const generateMenu = () => (
+  <HorizontalMenu>{...exampleChildren}</HorizontalMenu>
+);
+
+const generateStringMenu = () => `
+  <HorizontalMenu>
+    <HorizontalMenu.Item title="Column Layout">
+      <HorizontalMenu.Layout.Column style={{ maxHeight: '60px' }}>
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+      </HorizontalMenu.Layout.Column>
+    </HorizontalMenu.Item>
+
+    <HorizontalMenu.Item title="Grid Layout">
+      <HorizontalMenu.Layout.Grid>
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+      </HorizontalMenu.Layout.Grid>
+    </HorizontalMenu.Item>
+
+    <HorizontalMenu.Item title="List Layout">
+      <HorizontalMenu.Layout.List>
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Option text="Sample text" />
+      </HorizontalMenu.Layout.List>
+    </HorizontalMenu.Item>
+  </HorizontalMenu>
+`;
+
+export default {
+  category: storySettings.category,
+  storyName: storySettings.storyName,
+
+  component: HorizontalMenu,
+  componentPath: '..',
+
+  componentProps: {
+    children: exampleChildren[0],
+  },
+
+  exampleProps: {
+    children: exampleChildren,
+    // Put here presets of props, for more info:
+    // https://github.com/wix/wix-ui/blob/master/packages/wix-storybook-utils/docs/usage.md#using-list
+  },
+
+  sections: [
+    header({
+      sourceUrl:
+        'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-core/src/components/horizontal-menu/',
+      component: generateMenu(),
+    }),
+
+    tabs([
+      tab({
+        title: 'Description',
+        sections: [
+          columns([
+            description({
+              title: 'Description',
+              text:
+                'This line here should briefly describe component in just a sentence or two. It should be short and easy to read.',
+            }),
+          ]),
+
+          columns([
+            importExample(
+              "import { HorizontalMenu } from 'wix-ui-core/horizontal-menu';",
+            ),
+          ]),
+
+          divider(),
+
+          title('Examples'),
+
+          columns([
+            description({
+              title: 'Simple Usage',
+              text: 'A simple example with compact preview',
+            }),
+
+            code({
+              compact: true,
+              source: generateStringMenu(),
+            }),
+          ]),
+
+          code({
+            title: 'Full Interactive Preview',
+            description: 'A non compact version of same code example as above',
+            // source: `<HorizontalMenu items={${JSON.stringify(items)}} />`,
+            source: generateStringMenu(),
+          }),
+        ],
+      }),
+
+      ...[
+        { title: 'API', sections: [api()] },
+        {
+          title: 'Compound components API',
+          sections: [description(compoundComponentsAPI)],
+        },
+        { title: 'Testkit', sections: [testkit()] },
+        { title: 'Playground', sections: [playground()] },
+      ].map(tab),
+    ]),
+  ],
+};
