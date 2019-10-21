@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export default props => {
   const Comp = React.lazy(() => import('./LiveCodeExample'));
-  return <Comp {...props} />;
+  return (
+    <Suspense fallback={<div>loading</div>}>
+      <Comp {...props} />
+    </Suspense>
+  );
 };
