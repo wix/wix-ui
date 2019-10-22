@@ -24,37 +24,34 @@ const functionToString = prop => {
   }
 
   const asString = prop.toString();
-  let ast;
 
   try {
-    ast = parser.parseExpression(asString);
-  } catch (e) {
-    return asString;
-  }
+    const ast = parser.parseExpression(asString);
 
-  if (types.isArrowFunctionExpression(ast)) {
-    return prop.toString();
-  }
+    if (types.isArrowFunctionExpression(ast)) {
+      return prop.toString();
+    }
 
-  const arrowFunctionBody =
-    ast.body.body.length === 1 && types.isReturnStatement(ast.body.body[0])
-      ? ast.body.body[0].argument
-      : ast.body;
+    const arrowFunctionBody =
+      ast.body.body.length === 1 && types.isReturnStatement(ast.body.body[0])
+        ? ast.body.body[0].argument
+        : ast.body;
 
-  try {
     ensureShorthandProperties({
       ast: arrowFunctionBody,
       parentPath: ast,
       scope: ast,
     });
-  } catch (e) {}
 
-  const arrowFuncExpr = types.arrowFunctionExpression(
-    ast.params,
-    arrowFunctionBody,
-  );
+    const arrowFuncExpr = types.arrowFunctionExpression(
+      ast.params,
+      arrowFunctionBody,
+    );
 
-  return generator(arrowFuncExpr, { tabWidth: 2 }).code;
+    return generator(arrowFuncExpr, { tabWidth: 2 }).code;
+  } catch (e) {
+    return asString;
+  }
 };
 
 export default functionToString;
