@@ -65,8 +65,8 @@
     "build-standalone": "node scripts/build-standalone.js",
     "build-puppeteer-testkits": "webpack --config ./scripts/puppeteer.webpack.config.js",
     "test:browser": "wix-ui-mocha-runner",
-    "update-components": ".wuf/update-components.sh",
-    "update-components-standalone": ".wuf/update-components-standalone.sh"
+    "update-components": "bash .wuf/update-components.sh",
+    "update-components-standalone": "bash .wuf/update-components-standalone.sh"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^0.1.0",
