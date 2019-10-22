@@ -381,7 +381,7 @@
 
 .textButton.tiny{
   height: 18px;
-  -st-mixin: sizeTiny;
+  -st-mixin: sizeTiny, weightBold;
 }
 
 /* affixes */
