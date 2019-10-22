@@ -8,8 +8,7 @@ import style from './TagsList.st.css';
 import { noop } from '../../utils';
 export interface TagsListProps {
   className?: string;
-  legend?: string;
-  onChange?(e: React.FormEvent<HTMLFieldSetElement>): void;
+  onChange?(e: React.FormEvent<HTMLDivElement>): void;
   children?: React.ReactNode;
 }
 
@@ -17,15 +16,16 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
   children,
   className,
   onChange = noop,
-  legend,
+  ...rest
 } = {}) => (
-  <fieldset
+  <div
     className={classNames(style.root, className)}
     data-hook={DataHooks.TagsList}
-    onChange={onChange}>
-    {legend ? <legend>{legend}</legend> : null}
+    onChange={onChange}
+    role="group"
+    {...rest}>
     {children}
-  </fieldset>
+  </div>
 );
 
 TagsList.displayName = DisplayNames.TagsList;
