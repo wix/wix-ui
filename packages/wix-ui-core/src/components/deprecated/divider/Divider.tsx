@@ -10,7 +10,9 @@ export interface DividerProps {
 /**
  * Divider
  */
-export const Divider: React.SFC<DividerProps> = (props: DividerProps) => {
+export const Divider: React.FunctionComponent<DividerProps> = (
+  props: DividerProps,
+) => {
   const { children, vertical } = props;
   const customDivider = !!children;
 

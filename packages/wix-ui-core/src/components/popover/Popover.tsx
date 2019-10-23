@@ -133,8 +133,8 @@ export interface PopoverState {
 }
 
 export type PopoverType = PopoverProps & {
-  Element?: React.SFC<ElementProps>;
-  Content?: React.SFC<ElementProps>;
+  Element?: React.FunctionComponent<ElementProps>;
+  Content?: React.FunctionComponent<ElementProps>;
 };
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {

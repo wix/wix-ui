@@ -152,7 +152,9 @@ export const withEllipsedTooltip = ({
   shouldLoadAsync?: boolean;
   tooltipProps?: object;
 } = {}) => Comp => {
-  const WrapperComponent: React.SFC<WrapperComponentProps> = props => (
+  const WrapperComponent: React.FunctionComponent<
+    WrapperComponentProps
+  > = props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

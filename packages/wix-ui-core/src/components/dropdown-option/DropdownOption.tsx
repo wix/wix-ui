@@ -11,7 +11,7 @@ export interface DropdownOptionProps {
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export type DropdownOptionType = React.SFC<DropdownOptionProps>;
+export type DropdownOptionType = React.FunctionComponent<DropdownOptionProps>;
 
 export const DropdownOption: DropdownOptionType = (
   props: DropdownOptionProps,

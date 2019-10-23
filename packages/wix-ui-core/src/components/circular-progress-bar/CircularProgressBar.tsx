@@ -95,9 +95,9 @@ const normalizeProps = (props: CircularProgressBarProps) => {
   return { ...props, value };
 };
 
-export const CircularProgressBar: React.SFC<CircularProgressBarProps> = (
-  props: CircularProgressBarProps,
-) => {
+export const CircularProgressBar: React.FunctionComponent<
+  CircularProgressBarProps
+> = (props: CircularProgressBarProps) => {
   const { error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
