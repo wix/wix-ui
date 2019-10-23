@@ -145,13 +145,13 @@ export class TimePicker extends React.PureComponent<
     input.setSelectionRange(startPos, startPos + 2);
   }
 
-  _onMouseDown(e) {
+  _onMouseDown() {
     this._shouldHighlightOnFocus = false;
     this._hasStartedTyping = false;
     this._mouseDown = true;
   }
 
-  _onMouseUp(e) {
+  _onMouseUp() {
     this._mouseDown = false;
   }
 
@@ -461,7 +461,8 @@ export class TimePicker extends React.PureComponent<
       );
     }
 
-    let { value, focus } = this.state;
+    let { value } = this.state;
+    const { focus } = this.state;
     if (useAmPm !== AmPmOptions.None) {
       value = convertToAmPm({ value, strings: AmPmStrings[useAmPm] });
     }

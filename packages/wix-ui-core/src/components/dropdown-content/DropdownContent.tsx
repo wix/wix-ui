@@ -64,6 +64,7 @@ export class DropdownContent extends React.PureComponent<
     }
 
     let { hoveredIndex } = this.state;
+    // tslint:disable-next-line:no-constant-condition
     while (true) {
       hoveredIndex += interval;
       if (hoveredIndex === options.length) {

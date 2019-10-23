@@ -1,3 +1,4 @@
+/* tslint:disable jsx-wrap-multiline */
 import * as React from 'react';
 import { OptionFactory } from './';
 import { Divider } from '../deprecated/divider';

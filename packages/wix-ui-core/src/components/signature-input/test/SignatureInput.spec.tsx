@@ -26,13 +26,13 @@ describe('SigningPad', () => {
 
   it('should pass props to title component', async () => {
     const driver = createDriver();
-    const title = await driver.getChildDriverByHook(TEST_IDS.TITLE);
+    const title = driver.getChildDriverByHook(TEST_IDS.TITLE);
     expect(await title.exists()).toBe(true);
   });
 
   it('should pass props to clear button component', async () => {
     const driver = createDriver();
-    const label = await driver.getChildDriverByHook(TEST_IDS.CLEAR_BUTTON);
+    const label = driver.getChildDriverByHook(TEST_IDS.CLEAR_BUTTON);
     expect(await label.exists()).toBe(true);
   });
 
@@ -40,9 +40,7 @@ describe('SigningPad', () => {
     it('should invoke onClear callback', async () => {
       const onClearSpy = jest.fn();
       const driver = createDriver({ onClear: onClearSpy });
-      const clearButton = await driver.getChildDriverByHook(
-        TEST_IDS.CLEAR_BUTTON,
-      );
+      const clearButton = driver.getChildDriverByHook(TEST_IDS.CLEAR_BUTTON);
       await clearButton.click();
       expect(onClearSpy).toHaveBeenCalled();
     });
@@ -74,7 +72,7 @@ describe('SigningPad', () => {
     it('should invoke pad onClick', async () => {
       const canvasOnClickSpy = jest.fn();
       const driver = createDriver({ onClick: canvasOnClickSpy });
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
+      const padDriver = driver.getChildDriverByHook(TEST_IDS.PAD);
 
       await padDriver.click();
 
@@ -87,7 +85,7 @@ describe('SigningPad', () => {
         onClick: canvasOnClickSpy,
         disabled: true,
       });
-      const padDriver = await driver.getChildDriverByHook(TEST_IDS.PAD);
+      const padDriver = driver.getChildDriverByHook(TEST_IDS.PAD);
 
       await padDriver.click();
 
@@ -133,7 +131,7 @@ describe('SigningPad', () => {
 
     it('should set a11y input aria-labelledby to title id', async () => {
       const driver = createDriver();
-      const titleDriver = await driver.getChildDriverByHook(TEST_IDS.TITLE);
+      const titleDriver = driver.getChildDriverByHook(TEST_IDS.TITLE);
 
       const a11yInputAriaLabelledBy = await driver
         .getA11yInput()
@@ -155,7 +153,7 @@ describe('SigningPad', () => {
 
     it('should set clear button aria-controls to a11y input id', async () => {
       const driver = createDriver();
-      const clearButtonDriver = await driver.getChildDriverByHook(
+      const clearButtonDriver = driver.getChildDriverByHook(
         TEST_IDS.CLEAR_BUTTON,
       );
 
@@ -169,7 +167,7 @@ describe('SigningPad', () => {
 
     it('should clear a11y input when clear button is clicked', async () => {
       const driver = createDriver();
-      const clearButtonDriver = await driver.getChildDriverByHook(
+      const clearButtonDriver = driver.getChildDriverByHook(
         TEST_IDS.CLEAR_BUTTON,
       );
       const a11yInputDriver = driver.getA11yInput();

@@ -11,7 +11,7 @@ const createDriver = () =>
 
 const navigateToStory = ({ suffix = '' } = {}) => browser.get(storyUrl(suffix));
 
-const storyUrl = suffix =>
+const storyUrl = (suffix: string) =>
   createStoryUrl({
     kind: Category.TESTS,
     story: SIGNATURE_INPUT_METADATA.displayName + suffix,
@@ -32,14 +32,14 @@ describe('Signature Input', () => {
   eyes.it('should support drawing with black color by default', async () => {
     await navigateToStory();
     const driver = createDriver();
-    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    const signaturePad = driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
   });
 
   eyes.it('should support drawing with specific color', async () => {
     await navigateToStory({ suffix: 'Color' });
     const driver = createDriver();
-    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    const signaturePad = driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
   });
 
@@ -49,7 +49,7 @@ describe('Signature Input', () => {
       await navigateToStory({ suffix: 'ColorInvalid' });
       const driver = createDriver();
       debugger;
-      const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+      const signaturePad = driver.getChildDriverByHook(TEST_IDS.PAD);
       await signaturePad.click();
     },
   );
@@ -57,25 +57,23 @@ describe('Signature Input', () => {
   eyes.it('should support clearing', async () => {
     await navigateToStory();
     const driver = createDriver();
-    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    const signaturePad = driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
-    const clearButton = await driver.getChildDriverByHook(
-      TEST_IDS.CLEAR_BUTTON,
-    );
+    const clearButton = driver.getChildDriverByHook(TEST_IDS.CLEAR_BUTTON);
     await clearButton.click();
   });
 
   eyes.it('should not draw if the signature pad is disabled', async () => {
     await navigateToStory({ suffix: 'Disabled' });
     const driver = createDriver();
-    const signaturePad = await driver.getChildDriverByHook(TEST_IDS.PAD);
+    const signaturePad = driver.getChildDriverByHook(TEST_IDS.PAD);
     await signaturePad.click();
   });
 
   eyes.it('should support drawing characters', async () => {
     await navigateToStory();
     const driver = createDriver();
-    const a11yInput = await driver.getA11yInput();
+    const a11yInput = driver.getA11yInput();
     await a11yInput.enterValue('a value');
   });
 });

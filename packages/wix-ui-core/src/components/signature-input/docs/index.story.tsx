@@ -11,20 +11,21 @@ import {
   tabs,
   tab,
   divider,
-  code,
+  code as baseCode,
   testkit,
   importExample,
   playground,
   columns,
-  code as baseCode,
 } from 'wix-storybook-utils/Sections';
-import { Category } from '../../../../stories/utils';
-import { baseScope as allComponents } from '../../../../stories/utils';
+import {
+  Category,
+  baseScope as allComponents,
+} from '../../../../stories/utils';
 import compoundReadmeApi from './CompoundComponentsAPI.md';
 import { SigningPadOwnProps } from '../signing-pad/SigningPad';
 
 const liveCode = config =>
-  code({
+  baseCode({
     compact: true,
     components: allComponents,
     ...config,
