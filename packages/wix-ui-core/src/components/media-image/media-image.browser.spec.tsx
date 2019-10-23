@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { mediaImageDriverFactory } from './media-image.uni.driver';
-import { MediaPlatformItem, MediaImage, MediaImageScaling } from './media-image';
+import {
+  MediaPlatformItem,
+  MediaImage,
+  MediaImageScaling,
+} from './media-image';
 import * as imageClientSDK from 'image-client-api/dist/imageClientSDK';
 import * as eventually from 'wix-eventually';
 import { BROKEN_SRC, ERROR_IMAGE_SRC, SRC } from '../image/test-fixtures';
@@ -23,8 +27,12 @@ describe('MediaImage', () => {
   const defaultMediaItemOptions = {};
 
   beforeAll(() => {
-    getScaleToFillImageURL = jest.spyOn(imageClientSDK, 'getScaleToFillImageURL').mockReturnValue(SRC);
-    getScaleToFitImageURL = jest.spyOn(imageClientSDK, 'getScaleToFitImageURL').mockReturnValue(SRC);
+    getScaleToFillImageURL = jest
+      .spyOn(imageClientSDK, 'getScaleToFillImageURL')
+      .mockReturnValue(SRC);
+    getScaleToFitImageURL = jest
+      .spyOn(imageClientSDK, 'getScaleToFitImageURL')
+      .mockReturnValue(SRC);
   });
 
   it('displays image with given media platform item when fill scale is selected', async () => {
@@ -52,10 +60,13 @@ describe('MediaImage', () => {
       focalPoint: {
         x: 0,
         y: 0,
-      }
+      },
     };
-    let fitMediaPlatformItem = { ...mediaPlatformItem, options: fitImageOptions};
-    
+    const fitMediaPlatformItem = {
+      ...mediaPlatformItem,
+      options: fitImageOptions,
+    };
+
     const mediaImageDriver = createDriver(
       <MediaImage
         mediaPlatformItem={fitMediaPlatformItem}

@@ -43,5 +43,4 @@ export const isReactElement = <T>(
 };
 
 export const isStatelessComponent = Component =>
-    !(Component.prototype && Component.prototype.render);
-
+  !(Component.prototype && Component.prototype.render);

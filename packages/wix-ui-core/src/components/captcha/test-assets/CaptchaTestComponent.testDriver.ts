@@ -1,6 +1,6 @@
-import {browser, $, $$} from 'protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {constants} from './constants';
+import { browser, $, $$ } from 'protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { constants } from './constants';
 
 import {
   UniDriver,
@@ -11,7 +11,7 @@ import {
 async function isCaptchaVerified() {
   await waitForVisibilityOf($(`[data-hook=${constants.verifiedTokenDataHook}`));
   const verifiedToken = await $(
-    `[data-hook=${constants.verifiedTokenDataHook}]`
+    `[data-hook=${constants.verifiedTokenDataHook}]`,
   ).getText();
   return (
     verifiedToken !== constants.verifiedTokenMark &&
@@ -56,7 +56,7 @@ export interface CaptchaTestComponentDriver extends BaseUniDriver {
 }
 
 export const CaptchaTestInstanceDriverFactory = (
-  base: UniDriver
+  base: UniDriver,
 ): CaptchaTestComponentDriver => {
   return {
     ...baseUniDriverFactory(base),

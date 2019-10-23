@@ -110,7 +110,7 @@ describe('Video/getSDK', () => {
         expect((window as any).require).toHaveBeenCalled();
         expect(loadjs).not.toHaveBeenCalled();
       });
-    })
+    });
   });
 
   describe('failure pass', () => {

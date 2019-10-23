@@ -3,11 +3,7 @@ import { EventEmitter } from 'eventemitter3';
 import * as eventually from 'wix-eventually';
 import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import playerHOC from './playerHOC';
-import {
-  IEventEmitter,
-  IMethodsToPlayer,
-  IPropsToPlayer,
-} from '../types';
+import { IEventEmitter, IMethodsToPlayer, IPropsToPlayer } from '../types';
 import { EVENTS } from '../constants';
 
 const mapPropsToPlayer: IPropsToPlayer = {

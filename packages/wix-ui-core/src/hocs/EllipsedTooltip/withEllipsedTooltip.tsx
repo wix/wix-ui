@@ -13,7 +13,7 @@ class LoadableTooltip extends Loadable<{
 }> {}
 
 interface EllipsedTooltipProps {
-  component: React.ReactElement<any>;
+  component: React.ReactElement;
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;

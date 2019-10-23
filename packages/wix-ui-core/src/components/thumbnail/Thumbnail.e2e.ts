@@ -2,7 +2,7 @@ import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
 import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
 import { thumbnailTestkitFactory } from '../../testkit/protractor';
-import {Category} from '../../../stories/utils';
+import { Category } from '../../../stories/utils';
 
 describe('Thumbnail', () => {
   const storyUrl = getStoryUrl(Category.COMPONENTS, 'Thumbnail');

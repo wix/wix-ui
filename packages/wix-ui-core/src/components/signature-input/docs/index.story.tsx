@@ -105,7 +105,7 @@ export default {
               'A canvas based signature input, it also provides reset button and title',
           }),
           importExample(
-            "import {SignatureInput} from 'wix-ui-core/signature-input';",
+            'import {SignatureInput} from \'wix-ui-core/signature-input\';',
           ),
           divider(),
           title('Examples'),
@@ -113,7 +113,7 @@ export default {
             description({
               title: 'Basic example',
               text:
-                "`SignatureInput` does not render anything, but uses compounding to provide all the component's parts. " +
+                '`SignatureInput` does not render anything, but uses compounding to provide all the component\'s parts. ' +
                 'The `SignatureInput.Title` and `SignatureInput.ClearButton` provide render functions to get needed ' +
                 'props for rendering.',
             }),

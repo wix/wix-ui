@@ -26,7 +26,7 @@ export const verifier: VerifierType = url => {
     return URL_REGEX.test(url as string);
   }
   if (isArray(url)) {
-    return (url as Array<string>).some(item => URL_REGEX.test(item));
+    return (url as string[]).some(item => URL_REGEX.test(item));
   }
 
   return false;
@@ -241,8 +241,15 @@ class PlayablePlayer extends React.PureComponent<
   }
 
   _renderCover() {
-    const {showTitle, title, poster, hideOverlay, playButton, playing} = this.props;
-    const {hasBeenPlayed} = this.state;
+    const {
+      showTitle,
+      title,
+      poster,
+      hideOverlay,
+      playButton,
+      playing,
+    } = this.props;
+    const { hasBeenPlayed } = this.state;
     const coverStyles = { backgroundImage: poster ? `url(${poster})` : 'none' };
     if (hideOverlay || playing || hasBeenPlayed) {
       return null;

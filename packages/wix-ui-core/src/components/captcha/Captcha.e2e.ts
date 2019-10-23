@@ -19,7 +19,10 @@ const captchaTestInstanceFactory = protractorUniTestkitFactoryCreator<
 >(CaptchaTestInstanceDriverFactory);
 
 describe('Captcha', () => {
-  const storyUrl = createStoryUrl({ kind: Category.COMPONENTS, story: 'Captcha' });
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'Captcha',
+  });
 
   beforeAll(async () => {
     await browser.get(storyUrl);

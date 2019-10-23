@@ -14,11 +14,11 @@ export interface ButtonNextDriver extends BaseUniDriver {
 }
 
 export const buttonNextDriverFactory = (base: UniDriver): ButtonNextDriver => ({
-    ...baseUniDriverFactory(base),
-    getButtonTextContent: async () => base.text(),
-    isFocused: async () => document.activeElement === await base.getNative(),
-    isButtonDisabled: async () => {
-       //Using aria-disabled to know if button is disabled.
-       return (await base.attr('aria-disabled')) === 'true';
-    },
+  ...baseUniDriverFactory(base),
+  getButtonTextContent: async () => base.text(),
+  isFocused: async () => document.activeElement === (await base.getNative()),
+  isButtonDisabled: async () => {
+    //Using aria-disabled to know if button is disabled.
+    return (await base.attr('aria-disabled')) === 'true';
+  },
 });

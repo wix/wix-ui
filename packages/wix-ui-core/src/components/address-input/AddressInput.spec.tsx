@@ -1182,13 +1182,13 @@ describe('AddressInput', () => {
       const onBlur = jest.fn();
       GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
       GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
-      init({onBlur});
+      init({ onBlur });
       driver.click();
       driver.setValue('n');
       await waitForCond(() => driver.isContentElementExists());
       driver.triggerMouseDownOnDropdownContent();
       expect(onBlur).not.toHaveBeenCalled();
-    })
+    });
   });
 
   describe('testkit', () => {

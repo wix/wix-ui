@@ -8,7 +8,7 @@ import {
   waitForVisibilityOf,
 } from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../testkit/protractor';
-import {Category} from '../../../stories/utils';
+import { Category } from '../../../stories/utils';
 
 describe('EllipsedTooltip', () => {
   const storyUrl = getStoryUrl(Category.HOCS, 'EllipsedTooltip');

@@ -31,7 +31,7 @@ describe('ButtonNext', () => {
   describe('"focus" method', () => {
     it('should allow to focus on button using the focus method on its ref', async () => {
       const ref = React.createRef<any>();
-      const driver = await createDriver(<ButtonNext ref={ref}/>);
+      const driver = await createDriver(<ButtonNext ref={ref} />);
       expect(await driver.isFocused()).toEqual(false);
       ref.current.focus();
       expect(await driver.isFocused()).toEqual(true);

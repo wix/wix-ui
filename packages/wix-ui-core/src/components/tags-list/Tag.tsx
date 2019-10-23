@@ -27,7 +27,8 @@ export const Tag: React.FunctionComponent<TagProps> = ({
     className={classNames(style.tag, className)}
     title={children}
     htmlFor={value}
-    {...rest}>
+    {...rest}
+  >
     <input
       data-hook={DataHooks.TagInput}
       className={style.tagInput}

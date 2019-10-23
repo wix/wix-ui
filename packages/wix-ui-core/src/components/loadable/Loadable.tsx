@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 type Module<LoadableExports> = {
-  [ModuleKey in keyof LoadableExports]: LoadableExports[ModuleKey]
+  [ModuleKey in keyof LoadableExports]: LoadableExports[ModuleKey];
 };
 
 // imported module representation.
@@ -9,12 +9,12 @@ export type LoaderMap<LoadableExports> = {
   [Key in keyof LoadableExports]?: () =>
     | LoadableExports[Key]
     | Module<LoadableExports>
-    | Promise<Module<LoadableExports>>
+    | Promise<Module<LoadableExports>>;
 };
 
 // Resolved module representation, that should be passed into render prop as an argument
 export type LoadedMap<LoadableExports> = {
-  [Key in keyof LoadableExports]?: LoadableExports[Key]
+  [Key in keyof LoadableExports]?: LoadableExports[Key];
 };
 
 export interface LoadableProps<LoadableExports> {
@@ -75,7 +75,7 @@ export class Loadable<LoadableExports> extends React.Component<
     }
   }
 
-  private resolveModule = (moduleItem, key = 'default') => {
+  private readonly resolveModule = (moduleItem, key = 'default') => {
     if (typeof moduleItem === 'function') {
       return moduleItem;
     }
@@ -93,17 +93,17 @@ export class Loadable<LoadableExports> extends React.Component<
    With webpack build (development, e2e) we'll have `import` not transpiled to `require`, which will create
    async flow. We should determine type of flow and according to it sync or async set the state.
   */
-  private loadSyncOrAsync = (): LoadedMap<LoadableExports> => {
+  private readonly loadSyncOrAsync = (): LoadedMap<LoadableExports> => {
     const { loader, namedExports = {} } = this.props;
 
     const resolvedModules: {
-      [Key in keyof LoadableExports]?: LoadableExports[Key]
+      [Key in keyof LoadableExports]?: LoadableExports[Key];
     } = {};
 
     const resolvedAsyncModules: {
       [Key in keyof LoadableExports]?:
         | LoadableExports[Key]
-        | Promise<LoadableExports[Key]>
+        | Promise<LoadableExports[Key]>;
     } = {};
 
     for (const loadableItemKey in loader) {
@@ -133,13 +133,15 @@ export class Loadable<LoadableExports> extends React.Component<
     }
 
     const resolvedKeys = Object.keys(resolvedAsyncModules);
-    Promise.all(resolvedKeys.map(key => resolvedAsyncModules[key])).then(modules => {
-      modules.forEach((resolvedModule, index) => {
-        const moduleName = resolvedKeys[index];
-        resolvedModules[moduleName] = resolvedModule;
-      });
-      this.setState({ loaded: resolvedModules, isLoading: false });
-    });
+    Promise.all(resolvedKeys.map(key => resolvedAsyncModules[key])).then(
+      modules => {
+        modules.forEach((resolvedModule, index) => {
+          const moduleName = resolvedKeys[index];
+          resolvedModules[moduleName] = resolvedModule;
+        });
+        this.setState({ loaded: resolvedModules, isLoading: false });
+      },
+    );
 
     return null;
   };
