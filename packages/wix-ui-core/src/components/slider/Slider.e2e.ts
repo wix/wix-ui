@@ -1,7 +1,6 @@
 import { sliderTestkitFactory } from '../../testkit/protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
-import * as eyes from 'eyes.it';
 import { Category } from '../../../stories/utils';
 
 describe('Slider', () => {
@@ -51,7 +50,7 @@ describe('Slider', () => {
   });
 
   async function assertTooltipValueApproximately(approxValue) {
-    const value = parseInt(await driver.getTooltipValue());
+    const value = parseInt(await driver.getTooltipValue(), 10);
     expect(value).toBeGreaterThanOrEqual(approxValue - 1);
     expect(value).toBeLessThanOrEqual(approxValue + 1);
   }

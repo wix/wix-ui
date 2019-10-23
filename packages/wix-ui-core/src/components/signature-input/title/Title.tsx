@@ -50,7 +50,7 @@ class TitleComp extends React.Component<TitleProps> {
 
   render() {
     const { children = null } = this.props;
-    <div />;
+
     return (
       children &&
       children({

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Ticks } from './Ticks';
 import { Thumb, getThumbSize } from './Thumb';
 import pStyle from './Slider.st.css';
-const noop = require('lodash/noop');
+
+const noop = () => {};
 
 export interface SliderProps {
   min?: number;
@@ -305,7 +306,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       ev = ev.touches[0];
     }
 
-    const { min, max, disabled, readOnly, dir } = this.props;
+    const { min, max, disabled, readOnly } = this.props;
     const rtl = this.isRtl();
 
     if (disabled || readOnly) {
@@ -375,7 +376,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   calcThumbPosition() {
     const progressVal = this.calcThumbProgressPosition();
-    const crossVal = this.calcThumbCrossPosition();
 
     if (this.isVertical()) {
       return { bottom: progressVal, left: 0 };
@@ -426,7 +426,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     const tickSize = this.props.tickMarksShape === 'line' ? 10 : 3;
     const tickMarksPos = this.props.tickMarksPosition;
     const tickMarksGap = 12;
-    let offsetWidth, offsetHeight, offsetLeft, offsetTop;
+    let offsetHeight, offsetTop;
 
     if (tickMarksPos === 'normal') {
       offsetHeight = tickSize + tickMarksGap;
