@@ -1,10 +1,8 @@
 import * as React from 'react';
 
 import { HorizontalMenuItem } from './horizontal-menu-item';
-import { HorizontalMenuOption } from './horizontal-menu-option';
 import { HorizontalMenuColumnLayout } from './horizontal-menu-column-layout';
 import { HorizontalMenuGridLayout } from './horizontal-menu-grid-layout';
-import { HorizontalMenuListLayout } from './horizontal-menu-list-layout';
 
 import styles from './HorizontalMenu.st.css';
 
@@ -18,18 +16,11 @@ export interface HorizontalMenuProps {
   withDividers?: boolean;
 
   /** Equal items width */
-  withEqualItems?: boolean;
+  withEqualItemWidth?: boolean;
 
-  /** <HorizontalMenu.Item /> text-align */
   textAlign?: 'left' | 'center' | 'right';
 
-  /** justify-content of <HorizontalMenu.Item /> */
-  justifyContent?:
-    | 'flex-start'
-    | 'center'
-    | 'flex-end'
-    | 'space-between'
-    | string;
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
 }
 
 /** Horizontal menu */
@@ -41,39 +32,46 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
   static Layout = {
     Column: HorizontalMenuColumnLayout,
     Grid: HorizontalMenuGridLayout,
-    List: HorizontalMenuListLayout,
   };
 
-  static Option = HorizontalMenuOption;
-
-  static defaultProps = {
+  static defaultProps: Partial<HorizontalMenuProps> = {
     withDividers: false,
-    withEqualItems: true,
+    withEqualItemWidth: true,
+    textAlign: 'left',
     justifyContent: 'flex-start',
   };
 
   render() {
     const {
-      textAlign = 'left',
-      justifyContent,
-      withDividers,
-      withEqualItems,
       children,
+      justifyContent,
+      textAlign,
+      withDividers,
+      withEqualItemWidth,
     } = this.props;
+
+    const childrenLength = React.Children.count(children);
 
     return (
       <nav
         role="navigation"
-        {...styles('root', { withEqualItems, withDividers }, this.props)}
+        {...styles('root', { withEqualItemWidth }, this.props)}
         data-hook="horizontal-menu-navigation"
-        style={this.props.style}
+        style={{ ...this.props.style, textAlign }}
       >
         <ul
           className={styles.menu}
-          style={{ textAlign, justifyContent }}
+          style={{ justifyContent }}
           data-hook="horizontal-menu-container"
         >
-          {children}
+          {React.Children.map(children, (child, index) => (
+            <>
+              {child}
+              {withDividers && index !== childrenLength - 1 && (
+                <div className={styles.divider} />
+              )}
+            </>
+          ))}
         </ul>
       </nav>
     );

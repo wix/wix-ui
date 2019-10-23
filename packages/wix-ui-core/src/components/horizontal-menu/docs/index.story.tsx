@@ -23,13 +23,15 @@ const code = config => baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
   <HorizontalMenu.Item title="Column Layout">
-    <HorizontalMenu.Layout.Column style={{ maxHeight: '60px' }}>
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
+    <HorizontalMenu.Layout.Column columns={3}>
+      <HorizontalMenu.Item title="Example Item 1" />
+      <HorizontalMenu.Item title="Example Item 2" />
+      <HorizontalMenu.Item title="Example Item 3" />
+      <HorizontalMenu.Item title="Example Item 4" />
+      <HorizontalMenu.Item title="Example Item 5" />
+      <HorizontalMenu.Item title="Example Item 6" />
+      <HorizontalMenu.Item title="Example Item 7" />
+      <HorizontalMenu.Item title="Example Item 8" />
     </HorizontalMenu.Layout.Column>
   </HorizontalMenu.Item>
 );
@@ -37,26 +39,30 @@ const exampleColumnChildren = (
 const exampleGridChildren = (
   <HorizontalMenu.Item title="Grid Layout">
     <HorizontalMenu.Layout.Grid>
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
+      <HorizontalMenu.Item title="Example Item 1" />
+      <HorizontalMenu.Item title="Example Item 2" />
+      <HorizontalMenu.Item title="Example Item 3" />
+      <HorizontalMenu.Item title="Example Item 4" />
+      <HorizontalMenu.Item title="Example Item 5" />
+      <HorizontalMenu.Item title="Example Item 6" />
+      <HorizontalMenu.Item title="Example Item 7" />
+      <HorizontalMenu.Item title="Example Item 8" />
     </HorizontalMenu.Layout.Grid>
   </HorizontalMenu.Item>
 );
 
 const exampleListChildren = (
   <HorizontalMenu.Item title="List Layout">
-    <HorizontalMenu.Layout.List>
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-      <HorizontalMenu.Option text="Sample text" />
-    </HorizontalMenu.Layout.List>
+    <HorizontalMenu.Layout.Column>
+      <HorizontalMenu.Item title="Example Item 1" />
+      <HorizontalMenu.Item title="Example Item 2" />
+      <HorizontalMenu.Item title="Example Item 3" />
+      <HorizontalMenu.Item title="Example Item 4" />
+      <HorizontalMenu.Item title="Example Item 5" />
+      <HorizontalMenu.Item title="Example Item 6" />
+      <HorizontalMenu.Item title="Example Item 7" />
+      <HorizontalMenu.Item title="Example Item 8" />
+    </HorizontalMenu.Layout.Column>
   </HorizontalMenu.Item>
 );
 
@@ -72,37 +78,43 @@ const generateMenu = () => (
 
 const generateStringMenu = () => `
   <HorizontalMenu>
-    <HorizontalMenu.Item title="Column Layout">
-      <HorizontalMenu.Layout.Column style={{ maxHeight: '60px' }}>
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
+    <HorizontalMenu.Item title="Multi Column Layout">
+      <HorizontalMenu.Layout.Column columns={3}>
+        <HorizontalMenu.Item title="Example Item 1" />
+        <HorizontalMenu.Item title="Example Item 2" />
+        <HorizontalMenu.Item title="Example Item 3" />
+        <HorizontalMenu.Item title="Example Item 4" />
+        <HorizontalMenu.Item title="Example Item 5" />
+        <HorizontalMenu.Item title="Example Item 6" />
+        <HorizontalMenu.Item title="Example Item 7" />
+        <HorizontalMenu.Item title="Example Item 8" />
       </HorizontalMenu.Layout.Column>
     </HorizontalMenu.Item>
 
     <HorizontalMenu.Item title="Grid Layout">
       <HorizontalMenu.Layout.Grid>
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
+        <HorizontalMenu.Item title="Example Item 1" />
+        <HorizontalMenu.Item title="Example Item 2" />
+        <HorizontalMenu.Item title="Example Item 3" />
+        <HorizontalMenu.Item title="Example Item 4" />
+        <HorizontalMenu.Item title="Example Item 5" />
+        <HorizontalMenu.Item title="Example Item 6" />
+        <HorizontalMenu.Item title="Example Item 7" />
+        <HorizontalMenu.Item title="Example Item 8" />
       </HorizontalMenu.Layout.Grid>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item title="List Layout">
-      <HorizontalMenu.Layout.List>
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-        <HorizontalMenu.Option text="Sample text" />
-      </HorizontalMenu.Layout.List>
+    <HorizontalMenu.Item title="Single Column Layout">
+      <HorizontalMenu.Layout.Column>
+        <HorizontalMenu.Item title="Example Item 1" />
+        <HorizontalMenu.Item title="Example Item 2" />
+        <HorizontalMenu.Item title="Example Item 3" />
+        <HorizontalMenu.Item title="Example Item 4" />
+        <HorizontalMenu.Item title="Example Item 5" />
+        <HorizontalMenu.Item title="Example Item 6" />
+        <HorizontalMenu.Item title="Example Item 7" />
+        <HorizontalMenu.Item title="Example Item 8" />
+      </HorizontalMenu.Layout.Column>
     </HorizontalMenu.Item>
   </HorizontalMenu>
 `;
@@ -145,7 +157,7 @@ export default {
 
           columns([
             importExample(
-              "import { HorizontalMenu } from 'wix-ui-core/horizontal-menu';",
+              "import {HorizontalMenu} from 'wix-ui-core/horizontal-menu';",
             ),
           ]),
 

@@ -1,16 +1,36 @@
-.root {
-  -st-states: submenuSize(enum(column, menu));
+:import {
+  -st-from: "../horizontal-menu-column-layout/HorizontalMenuColumnLayout.st.css";
+  -st-default: HorizontalMenuColumnLayout;
+}
 
-  cursor: pointer;
+:import {
+  -st-from: "../horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
+  -st-default: HorizontalMenuGridLayout;
+}
+
+.root {
+  -st-states: expandableSize(enum(column, menu));
+
+  display: flex;
 }
 
 .menuItemLink {
+  cursor: pointer;
 }
 
-.root .menuItemLink {
-  color: black;
+.expandIcon {
+  display: inline-block;
+  margin-left: 8px;
 }
 
-.root:submenuSize(column) {
+.root:expandableSize(column) {
   position: relative;
+}
+
+.root > HorizontalMenuColumnLayout {
+  flex: 1;
+}
+
+.root > HorizontalMenuGridLayout {
+  flex: 1;
 }

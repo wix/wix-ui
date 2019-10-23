@@ -31,16 +31,15 @@ describe('HorizontalMenu', () => {
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
           <HorizontalMenu.Layout.Column>
-            <HorizontalMenu.Option text="Sample text" />
-            <HorizontalMenu.Option text="Sample text" />
-            <HorizontalMenu.Option text="Sample text" />
+            <HorizontalMenu.Item title="Sample text" />
+            <HorizontalMenu.Item title="Sample text" />
+            <HorizontalMenu.Item title="Sample text" />
           </HorizontalMenu.Layout.Column>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
     );
 
     const item = await driver.getMenuItem(menuItem.title);
-
     expect(await item.exists()).toBeTruthy();
   });
 
@@ -52,10 +51,10 @@ describe('HorizontalMenu', () => {
     const { driver } = render(
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
-          <HorizontalMenu.Layout.Column style={{ maxHeight: '60px' }}>
-            <HorizontalMenu.Option text="Sample1" />
-            <HorizontalMenu.Option text="Sample2" />
-            <HorizontalMenu.Option text="Sample3" />
+          <HorizontalMenu.Layout.Column>
+            <HorizontalMenu.Item title="Sample1" />
+            <HorizontalMenu.Item title="Sample2" />
+            <HorizontalMenu.Item title="Sample3" />
           </HorizontalMenu.Layout.Column>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
@@ -65,12 +64,12 @@ describe('HorizontalMenu', () => {
     expect(await item.exists()).toBeTruthy();
 
     try {
-      await driver.getMenuItemSubmenu(menuItem.title);
+      await driver.getMenuItemColumnLayout(menuItem.title);
       expect(false).toBeTruthy();
     } catch (err) {}
 
     await driver.hoverMenuItem(menuItem.title);
-    const submenu = await driver.getMenuItemSubmenu(menuItem.title);
+    const submenu = await driver.getMenuItemColumnLayout(menuItem.title);
     expect(await submenu.exists()).toBeTruthy();
   });
 });

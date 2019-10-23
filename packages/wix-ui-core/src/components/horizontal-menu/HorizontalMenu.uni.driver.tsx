@@ -20,17 +20,11 @@ export interface IHorizontalMenuUniDriver extends BaseUniDriver {
   /** Hover a menu item by title */
   hoverMenuItem(menuItemTitle: string): Promise<void>;
 
-  /** Get an option by text */
-  getOption(optionText: string): Promise<UniDriver>;
+  /** Get column layout by menu title */
+  getMenuItemColumnLayout(menuItemTitle: string): Promise<UniDriver>;
 
-  /** Click on option by text */
-  clickOption(optionText: string): Promise<void>;
-
-  /** Hover an option by text */
-  hoverOption(optionText: string): Promise<void>;
-
-  /** Get submenu by menu title */
-  getMenuItemSubmenu(menuItemTitle: string): Promise<UniDriver>;
+  /** Get grid layout by menu title */
+  getMenuItemGridLayout(menuItemTitle: string): Promise<UniDriver>;
 }
 
 export const horizontalMenuDriverFactory = (base: UniDriver) => {
@@ -38,9 +32,6 @@ export const horizontalMenuDriverFactory = (base: UniDriver) => {
     base.$(
       `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"]`,
     );
-
-  const getOptionByText = (optionText: string) =>
-    base.$(`[data-hook="horizontal-menu-option"][aria-label="${optionText}"]`);
 
   return {
     ...baseUniDriverFactory(base),
@@ -65,21 +56,16 @@ export const horizontalMenuDriverFactory = (base: UniDriver) => {
     hoverMenuItem: async (menuItemTitle: string) =>
       getMenuItemByTitle(menuItemTitle).hover(),
 
-    /** Get an option by text */
-    getOption: async (optionText: string) => getOptionByText(optionText),
-
-    /** Click on option by text */
-    clickOption: async (optionText: string) =>
-      getOptionByText(optionText).click(),
-
-    /** Hover an option by text */
-    hoverOption: async (optionText: string) =>
-      getOptionByText(optionText).hover(),
-
-    /** Get submenu by menu title */
-    getMenuItemSubmenu: async (menuItemTitle: string) =>
+    /** Get grid layout by menu title */
+    getMenuItemGridLayout: async (menuItemTitle: string) =>
       base.$(
-        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-item-submenu"]`,
+        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-grid-layout"]`,
+      ),
+
+    /** Get column layout by menu title */
+    getMenuItemColumnLayout: async (menuItemTitle: string) =>
+      base.$(
+        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-column-layout"]`,
       ),
   };
 };

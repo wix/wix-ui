@@ -3,21 +3,28 @@
   -st-default: HorizontalMenuItem;
 }
 
+:vars {
+  menuBackgroundColor: lightgray;
+  menuBorderWidth: 1;
+  menuBorderColor: gray;
+  dividerColor: black;
+  dividerSize: 2;
+}
+
 .root {
-  -st-states: withDividers, withEqualItems;
+  -st-states: withEqualItemWidth;
 
   list-style: none;
 }
 
-.root:withDividers HorizontalMenuItem:not(:last-child) {
-  border-right: 1px solid gray;
-}
-
-.root:withEqualItems HorizontalMenuItem {
-  flex: 1;
+.divider {
+  width: value(dividerSize)px;
+  background-color: value(dividerColor);
 }
 
 .menu {
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
 
@@ -26,8 +33,16 @@
   margin: 0;
   padding: 0;
 
-  background-color: lightgray;
-  border: 1px gray solid;
+  background-color: value(menuBackgroundColor);
+  border: value(menuBorderWidth)px value(menuBorderColor) solid;
 
   list-style: none;
+}
+
+.root > HorizontalMenuItem {
+  display: flex;
+}
+
+.root:withEqualItemWidth > .menu > HorizontalMenuItem {
+  flex: 1;
 }

@@ -1,20 +1,19 @@
 import * as React from 'react';
 
-import { HorizontalMenuItemSubmenu as Submenu } from '../horizontal-menu-item-submenu';
-
 import styles from './HorizontalMenuItem.st.css';
 
 export interface HorizontalMenuItemProps {
-  alignItems?: 'flex-start' | 'center' | 'flex-end' | 'baseline' | 'stretch';
   className?: string;
   href?: string;
-  title: string;
-  submenuSize?: 'column' | 'menu';
+  title: React.ReactNode;
+  expandOpenIcon?: React.ReactNode;
+  expandCloseIcon?: React.ReactNode;
+  expandableSize?: 'column' | 'menu';
   style?: React.CSSProperties;
 }
 
 interface HorizontalMenuItemState {
-  isHovered: boolean;
+  isOpen: boolean;
 }
 
 export class HorizontalMenuItem extends React.PureComponent<
@@ -24,37 +23,49 @@ export class HorizontalMenuItem extends React.PureComponent<
   static displayName = 'HorizontalMenuItem';
 
   static defaultProps = {
-    alignItems: 'center',
     href: '#',
-    submenuSize: 'column',
+    expandableSize: 'column',
   };
 
   state = {
-    isHovered: false,
+    isOpen: false,
   };
 
-  onMouseEnterHandler = () => {
+  _onMouseEnterHandler = () => {
     this.setState({
-      isHovered: true,
+      isOpen: true,
     });
   };
 
-  onMouseLeaveHandler = () => {
+  _onMouseLeaveHandler = () => {
     this.setState({
-      isHovered: false,
+      isOpen: false,
     });
   };
+
+  _renderExpandIcon() {
+    const { expandOpenIcon, expandCloseIcon } = this.props;
+
+    if (!expandOpenIcon || !expandCloseIcon || !this.props.children) {
+      return null;
+    }
+
+    return (
+      <div className={styles.expandIcon}>
+        {this.state.isOpen ? expandCloseIcon : expandOpenIcon}
+      </div>
+    );
+  }
 
   render() {
-    const { title, href, children, submenuSize, alignItems } = this.props;
-
-    const { isHovered } = this.state;
+    const { title, href, expandableSize, children } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <li
-        {...styles('root', { submenuSize }, this.props)}
-        onMouseEnter={this.onMouseEnterHandler}
-        onMouseLeave={this.onMouseLeaveHandler}
+        {...styles('root', { expandableSize }, this.props)}
+        onMouseEnter={this._onMouseEnterHandler}
+        onMouseLeave={this._onMouseLeaveHandler}
         data-hook="horizontal-menu-item"
         menu-item-title={title}
         style={this.props.style}
@@ -66,7 +77,8 @@ export class HorizontalMenuItem extends React.PureComponent<
         >
           {title}
         </a>
-        {isHovered && <Submenu style={{ alignItems }}>{children}</Submenu>}
+        {this._renderExpandIcon()}
+        {isOpen && children}
       </li>
     );
   }

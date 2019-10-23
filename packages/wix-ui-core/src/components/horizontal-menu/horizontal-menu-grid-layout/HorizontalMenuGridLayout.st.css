@@ -1,21 +1,32 @@
 :import {
-  -st-from: "../horizontal-menu-option/HorizontalMenuOption.st.css";
-  -st-default: HorizontalMenuOption;
+  -st-from: "../horizontal-menu-item/HorizontalMenuItem.st.css";
+  -st-default: HorizontalMenuItem;
 }
 
 .root {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 1;
+
   display: flex;
   min-width: 0;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch; 
 
+  width: 100%;
+
   margin: 0;
   padding: 0;
 
   list-style: none;
+
+  background-color: lightgray;
+  border: 1px gray solid;
 }
 
-.root > HorizontalMenuOption {
+.root > HorizontalMenuItem {
   flex: 1;
 }

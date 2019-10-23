@@ -1,11 +1,17 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: stretch;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 1;
+
+  width: 100%;
 
   margin: 0;
   padding: 0;
 
   list-style: none;
+
+  background-color: lightgray;
+  border: 1px gray solid;
 }
