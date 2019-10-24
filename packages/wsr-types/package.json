@@ -7,7 +7,10 @@
     "email": "moshek@wix.com"
   },
   "files": [
-    "types.d.ts"
+    "types.d.ts",
+    "vanilla-testkit-types.d.ts",
+    "enzyme-testkit-types.d.ts",
+    "puppeteer-testkit-types.d.ts"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -18,20 +21,27 @@
   },
   "scripts": {
     "test": "tsc",
-    "release": "npm run concat && yoshi release",
     "prerelease": "npm run test",
-    "concat": "concat -o types.d.ts ./src/*d.ts"
+    "release": "npm run concat && yoshi release",
+    "concat": "npm run concat:components && npm run concat:testkits",
+    "concat:components": "concat -o types.d.ts ./src/components/*d.ts",
+    "concat:testkits": "npm run concat:testkit:vanilla && npm run concat:testkit:enzyme && npm run concat:testkit:puppeteer",
+    "concat:testkit:vanilla": "concat -o vanilla-testkit-types.d.ts ./src/testkits/vanilla.d.ts ./src/drivers/*.d.ts",
+    "concat:testkit:enzyme": "concat -o enzyme-testkit-types.d.ts ./src/testkits/enzyme.d.ts ./src/drivers/*.d.ts",
+    "concat:testkit:puppeteer": "concat -o puppeteer-testkit-types.d.ts ./src/testkits/puppeteer.d.ts ./src/drivers/*.d.ts"
   },
   "dependencies": {
     "@types/react": "^16.8.4",
-    "@types/react-dom": "^16.0.5"
+    "@types/react-dom": "^16.0.5",
+    "wix-ui-test-utils": "^1.0.169"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.3",
+    "@types/puppeteer": "^1.11.0",
     "@types/node": "^8.0.0",
     "concat": "^1.0.3",
     "typescript": "~3.6.0",
     "yoshi": "^4.0.0"
   },
-  "yoshi": {
-  }
+  "yoshi": {}
 }

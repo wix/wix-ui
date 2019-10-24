@@ -12,3 +12,6 @@ typings
 test/e2e/screenshots
 .yo-rc.json
 types.d.ts
+vanilla-testkit-types.d.ts
+enzyme-testkit-types.d.ts
+puppeteer-testkit-types.d.ts
