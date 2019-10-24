@@ -64,14 +64,16 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
           style={{ justifyContent }}
           data-hook="horizontal-menu-container"
         >
-          {React.Children.map(children, (child, index) => (
-            <>
-              {child}
-              {withDividers && index !== childrenLength - 1 && (
-                <div className={styles.divider} />
-              )}
-            </>
-          ))}
+          {withDividers
+            ? React.Children.map(children, (child, index) => (
+                <React.Fragment>
+                  {child}
+                  {index !== childrenLength - 1 && (
+                    <div className={styles.divider} />
+                  )}
+                </React.Fragment>
+              ))
+            : children}
         </ul>
       </nav>
     );
