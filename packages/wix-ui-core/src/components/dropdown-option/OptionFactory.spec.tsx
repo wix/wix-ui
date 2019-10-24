@@ -113,8 +113,7 @@ describe('OptionFactory', () => {
           his
         </mark>,
         <span className={style.nonHighlight} key={2}>
-          {' '}
-          is a{' '}
+          {' is a '}
         </span>,
         <mark className={style.highlight} key={3}>
           sen

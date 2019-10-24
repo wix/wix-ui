@@ -24,17 +24,17 @@ describe('CircularProgressBar', () => {
     );
   });
 
-  describe('[async]', async () => {
+  describe('[async]', () => {
     runTests(
-      await testContainer.createUniRendererAsync(
-        circularProgressBarUniDriverFactory,
-      ),
+      testContainer.createUniRendererAsync(circularProgressBarUniDriverFactory),
     );
   });
 
   function runTests(render) {
     it('should render', async () => {
-      const driver = render(createCircularProgressBar({ ...defaultProps }));
+      const driver = await render(
+        createCircularProgressBar({ ...defaultProps }),
+      );
       expect(await driver.exists()).toBe(true);
     });
 
@@ -48,7 +48,7 @@ describe('CircularProgressBar', () => {
           value: 100,
         };
 
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...successProps }),
         );
         expect(await driver.isSuccessIconDisplayed()).toBe(true);
@@ -60,7 +60,7 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true /* was in original test. I think it can be removed */,
         };
 
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...successProps }),
         );
         expect(await driver.isSuccessIconDisplayed()).toBe(true);
@@ -71,7 +71,7 @@ describe('CircularProgressBar', () => {
           value: 100,
           showProgressIndication: true,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...successProps }),
         );
         expect(await driver.getValue()).toBe('100%');
@@ -82,7 +82,7 @@ describe('CircularProgressBar', () => {
           value: 140,
           showProgressIndication: true,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...successProps }),
         );
         expect(await driver.getValue()).toBe('100%');
@@ -92,7 +92,7 @@ describe('CircularProgressBar', () => {
         const props = {
           value: 140,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...successProps }),
         );
         expect(await driver.isSuccessIconDisplayed()).toBe(true);
@@ -109,7 +109,7 @@ describe('CircularProgressBar', () => {
           errorIcon: <div />,
         };
 
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({
             ...defaultProps,
             ...errorProps,
@@ -125,7 +125,7 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true,
         };
 
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({
             ...defaultProps,
             ...errorProps,
@@ -143,7 +143,7 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true,
         };
 
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({
             ...defaultProps,
             ...errorProps,
@@ -160,7 +160,7 @@ describe('CircularProgressBar', () => {
           errorIcon: <div />,
           showProgressIndication: true,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...errorProps }),
         );
         expect(await driver.isErrorIconDisplayed()).toBe(true);
@@ -174,7 +174,7 @@ describe('CircularProgressBar', () => {
           errorIcon: <div />,
           showProgressIndication: true,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...props, ...errorProps }),
         );
         expect(await driver.isErrorIconDisplayed()).toBe(true);
@@ -187,7 +187,7 @@ describe('CircularProgressBar', () => {
         const props = {
           showProgressIndication: true,
         };
-        const driver = render(
+        const driver = await render(
           createCircularProgressBar({ ...defaultProps, ...props }),
         );
         expect(await driver.getValue()).toBe('40%');
@@ -198,7 +198,7 @@ describe('CircularProgressBar', () => {
           value: -1,
           showProgressIndication: true,
         };
-        const driver = render(createCircularProgressBar({ ...props }));
+        const driver = await render(createCircularProgressBar({ ...props }));
         expect(await driver.getValue()).toBe('0%');
       });
 
@@ -206,7 +206,7 @@ describe('CircularProgressBar', () => {
         const props = {
           showProgressIndication: true,
         };
-        const driver = render(createCircularProgressBar({ ...props }));
+        const driver = await render(createCircularProgressBar({ ...props }));
         expect(await driver.getValue()).toBe('0%');
       });
 
@@ -218,12 +218,14 @@ describe('CircularProgressBar', () => {
           showProgressIndication: true,
         };
 
-        const driver = render(createCircularProgressBar({ ...props }));
+        const driver = await render(createCircularProgressBar({ ...props }));
         expect(await driver.getValue()).toBe(`${floatValueRoundDown}%`);
       });
 
       it('should not display percentages value by default', async () => {
-        const driver = render(createCircularProgressBar({ ...defaultProps }));
+        const driver = await render(
+          createCircularProgressBar({ ...defaultProps }),
+        );
         expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
       });
     });

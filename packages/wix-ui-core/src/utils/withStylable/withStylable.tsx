@@ -30,6 +30,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
         return null;
       }
       const className = (root.props && root.props.className) || '';
+      /* tslint:disable-next-line:deprecation */
       const statesMap = getState(this.props, this.state, this.context);
       const props = stylesheet(
         `root ${className ? className : ''}`.trim(),

@@ -17,31 +17,31 @@ describe('Label', () => {
   });
 
   describe('[async]', () => {
-    runTests(testContainer.createUniRenderer(labelUniDriverFactory));
+    runTests(testContainer.createUniRendererAsync(labelUniDriverFactory));
   });
 
   function runTests(createDriver) {
     it('Renders children', async () => {
-      const driver = createDriver(<Label>HELLO</Label>);
+      const driver = await createDriver(<Label>HELLO</Label>);
 
       expect(await driver.getLabelText()).toBe('HELLO');
     });
 
     it('takes an id prop', async () => {
-      const driver = createDriver(<Label id="hey" />);
+      const driver = await createDriver(<Label id="hey" />);
 
       expect(await driver.getId()).toBe('hey');
     });
 
     describe('for attribute', () => {
       it('takes an htmlFor prop', async () => {
-        const driver = createDriver(<Label for="hey" />);
+        const driver = await createDriver(<Label for="hey" />);
 
         expect(await driver.getForAttribute()).toBe('hey');
       });
 
       it('shouldclick on Label takes an htmlFor prop', async () => {
-        const driver = createDriver(<Label for="hey" />);
+        const driver = await createDriver(<Label for="hey" />);
 
         expect(await driver.getForAttribute()).toBe('hey');
       });
@@ -49,24 +49,24 @@ describe('Label', () => {
 
     describe('ellipsis attribute', () => {
       it('should not have ellipsis by default', async () => {
-        const driver = createDriver(<Label>Hello World</Label>);
+        const driver = await createDriver(<Label>Hello World</Label>);
         expect(await driver.hasEllipsis()).toBeFalsy();
       });
 
       it('should have ellipsis', async () => {
-        const driver = createDriver(<Label ellipsis>Hello World</Label>);
+        const driver = await createDriver(<Label ellipsis>Hello World</Label>);
         expect(await driver.hasEllipsis()).toBeTruthy();
       });
     });
 
     it('takes a disabled prop', async () => {
-      const driver = createDriver(<Label disabled />);
+      const driver = await createDriver(<Label disabled />);
 
       expect(await driver.isDisabled()).toBe(true);
     });
 
     it('should not be disabled by default', async () => {
-      const driver = createDriver(<Label />);
+      const driver = await createDriver(<Label />);
 
       expect(await driver.isDisabled()).toBe(false);
     });
