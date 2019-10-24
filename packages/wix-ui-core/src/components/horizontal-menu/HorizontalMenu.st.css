@@ -49,11 +49,7 @@
   list-style: none;
 }
 
-.root > HorizontalMenuItem {
-  display: flex;
-}
-
-.root:withEqualItemWidth > .menu > HorizontalMenuItem {
+.root:withEqualItemWidth > .menu > .menuItem {
   flex: 1;
 }
 

@@ -22,32 +22,18 @@ import { HorizontalMenu } from '..';
 const code = config => baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
-  <React.Fragment>
-    <HorizontalMenu.Item title="Column Layout">
-      <HorizontalMenu.Layout.Columns columns={3}>
-        <HorizontalMenu.Item title="Example Item 1" />
-        <HorizontalMenu.Item title="Example Item 2" />
-        <HorizontalMenu.Item title="Example Item 3" />
-        <HorizontalMenu.Item title="Example Item 4" />
-        <HorizontalMenu.Item title="Example Item 5" />
-        <HorizontalMenu.Item title="Example Item 6" />
-        <HorizontalMenu.Item title="Example Item 7" />
-        <HorizontalMenu.Item title="Example Item 8" />
-      </HorizontalMenu.Layout.Columns>
-    </HorizontalMenu.Item>
-    <HorizontalMenu.Item title="Grid Layout">
-      <HorizontalMenu.Layout.Grid>
-        <HorizontalMenu.Item title="Example Item 1" />
-        <HorizontalMenu.Item title="Example Item 2" />
-        <HorizontalMenu.Item title="Example Item 3" />
-        <HorizontalMenu.Item title="Example Item 4" />
-        <HorizontalMenu.Item title="Example Item 5" />
-        <HorizontalMenu.Item title="Example Item 6" />
-        <HorizontalMenu.Item title="Example Item 7" />
-        <HorizontalMenu.Item title="Example Item 8" />
-      </HorizontalMenu.Layout.Grid>
-    </HorizontalMenu.Item>
-  </React.Fragment>
+  <HorizontalMenu.Item title="Column Layout">
+    <HorizontalMenu.Layout.Columns columns={3}>
+      <HorizontalMenu.Item title="Example Item 1" />
+      <HorizontalMenu.Item title="Example Item 2" />
+      <HorizontalMenu.Item title="Example Item 3" />
+      <HorizontalMenu.Item title="Example Item 4" />
+      <HorizontalMenu.Item title="Example Item 5" />
+      <HorizontalMenu.Item title="Example Item 6" />
+      <HorizontalMenu.Item title="Example Item 7" />
+      <HorizontalMenu.Item title="Example Item 8" />
+    </HorizontalMenu.Layout.Columns>
+  </HorizontalMenu.Item>
 );
 
 const exampleGridChildren = (

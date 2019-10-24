@@ -24,6 +24,9 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
         {context => {
           const classList = classnames(className, context.gridLayoutClassName);
 
+          /**
+           * pass contexts as prop to NEW component to prevent object creating for each render
+           */
           return (
             <HorizontalMenuContext.Provider
               value={{
