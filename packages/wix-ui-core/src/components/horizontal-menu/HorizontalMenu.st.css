@@ -3,6 +3,16 @@
   -st-default: HorizontalMenuItem;
 }
 
+:import {
+  -st-from: "./horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
+  -st-default: HorizontalMenuGridLayout;
+}
+
+:import {
+  -st-from: "./horizontal-menu-columns-layout/HorizontalMenuColumnsLayout.st.css";
+  -st-default: HorizontalMenuColumnsLayout;
+}
+
 :vars {
   menuBackgroundColor: lightgray;
   menuBorderWidth: 1;
@@ -45,4 +55,20 @@
 
 .root:withEqualItemWidth > .menu > HorizontalMenuItem {
   flex: 1;
+}
+
+
+/* menu item */
+.menuItem {
+  -st-extends: HorizontalMenuItem;
+}
+
+/* grid layout */
+.gridLayout {
+  -st-extends: HorizontalMenuGridLayout;
+}
+
+/* columns layout */
+.columnsLayout {
+  -st-extends: HorizontalMenuColumnsLayout;
 }

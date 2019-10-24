@@ -1,13 +1,3 @@
-:import {
-  -st-from: "../horizontal-menu-column-layout/HorizontalMenuColumnLayout.st.css";
-  -st-default: HorizontalMenuColumnLayout;
-}
-
-:import {
-  -st-from: "../horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
-  -st-default: HorizontalMenuGridLayout;
-}
-
 .root {
   -st-states: expandableSize(enum(column, menu));
 
@@ -25,12 +15,4 @@
 
 .root:expandableSize(column) {
   position: relative;
-}
-
-.root > HorizontalMenuColumnLayout {
-  flex: 1;
-}
-
-.root > HorizontalMenuGridLayout {
-  flex: 1;
 }

@@ -1,28 +1,37 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
-import style from './HorizontalMenuGridLayout.st.css';
+import style from './HorizontalMenuColumnsLayout.st.css';
 
-export interface HorizontalMenuGridLayoutProps {
+export interface HorizontalMenuColumnsLayoutProps {
   className?: string;
   style?: React.CSSProperties;
   textAlign?: 'left' | 'center' | 'right';
+  columns?: number;
 }
 
-/** Horizontal Menu Grid Layout */
-export class HorizontalMenuGridLayout extends React.PureComponent<
-  HorizontalMenuGridLayoutProps
+/** Horizontal Menu Column Layout */
+export class HorizontalMenuColumnsLayout extends React.PureComponent<
+  HorizontalMenuColumnsLayoutProps
 > {
-  static displayName = 'HorizontalMenuGridLayout';
+  static displayName = 'HorizontalMenuColumnsLayout';
+
+  static defaultProps = {
+    columns: 1,
+  };
 
   render() {
-    const { textAlign } = this.props;
+    const { textAlign, columns } = this.props;
+
     const { className, ...stylableProps } = style('root', {}, this.props);
 
     return (
       <HorizontalMenuContext.Consumer>
         {context => {
-          const classList = classnames(className, context.gridLayoutClassName);
+          const classList = classnames(
+            className,
+            context.columnsLayoutClassName,
+          );
 
           return (
             <HorizontalMenuContext.Provider
@@ -35,12 +44,12 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
               }}
             >
               <ul
-                data-hook="horizontal-menu-grid-layout"
-                data-layout="grid"
                 {...style('root', {}, this.props)}
+                data-hook="horizontal-menu-columns-layout"
+                data-layout="column"
                 className={classList}
                 {...stylableProps}
-                style={{ ...this.props.style, textAlign }}
+                style={{ ...this.props.style, textAlign, columns }}
               >
                 {this.props.children}
               </ul>

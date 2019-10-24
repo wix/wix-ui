@@ -63,9 +63,9 @@ export const horizontalMenuDriverFactory = (base: UniDriver) => {
       ),
 
     /** Get column layout by menu title */
-    getMenuItemColumnLayout: async (menuItemTitle: string) =>
+    getMenuItemColumnsLayout: async (menuItemTitle: string) =>
       base.$(
-        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-column-layout"]`,
+        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-columns-layout"]`,
       ),
   };
 };

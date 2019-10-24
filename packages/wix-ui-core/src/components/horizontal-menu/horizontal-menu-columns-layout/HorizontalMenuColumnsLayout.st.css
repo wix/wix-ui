@@ -1,3 +1,8 @@
+:import {
+  -st-from: "../horizontal-menu-item/HorizontalMenuItem.st.css";
+  -st-default: HorizontalMenuItem;
+}
+
 .root {
   position: absolute;
   top: 100%;
@@ -14,4 +19,11 @@
 
   background-color: lightgray;
   border: 1px gray solid;
+
+  flex: 1;
+}
+
+.menuItem {
+  -st-extends: HorizontalMenuItem;
+  flex: 1;
 }

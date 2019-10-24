@@ -24,17 +24,17 @@ describe('HorizontalMenu', () => {
 
   it('should render HorizontalMenuItem', async () => {
     const menuItem = {
-      title: 'Column Layout',
+      title: 'Columns Layout',
     };
 
     const { driver } = render(
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
-          <HorizontalMenu.Layout.Column>
+          <HorizontalMenu.Layout.Columns>
             <HorizontalMenu.Item title="Sample text" />
             <HorizontalMenu.Item title="Sample text" />
             <HorizontalMenu.Item title="Sample text" />
-          </HorizontalMenu.Layout.Column>
+          </HorizontalMenu.Layout.Columns>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
     );
@@ -45,17 +45,17 @@ describe('HorizontalMenu', () => {
 
   it('should show submenu on HorizontalMenuItem hover', async () => {
     const menuItem = {
-      title: 'Column Layout',
+      title: 'Columns Layout',
     };
 
     const { driver } = render(
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
-          <HorizontalMenu.Layout.Column>
+          <HorizontalMenu.Layout.Columns>
             <HorizontalMenu.Item title="Sample1" />
             <HorizontalMenu.Item title="Sample2" />
             <HorizontalMenu.Item title="Sample3" />
-          </HorizontalMenu.Layout.Column>
+          </HorizontalMenu.Layout.Columns>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
     );
@@ -64,12 +64,12 @@ describe('HorizontalMenu', () => {
     expect(await item.exists()).toBeTruthy();
 
     try {
-      await driver.getMenuItemColumnLayout(menuItem.title);
+      await driver.getMenuItemColumnsLayout(menuItem.title);
       expect(false).toBeTruthy();
     } catch (err) {}
 
     await driver.hoverMenuItem(menuItem.title);
-    const submenu = await driver.getMenuItemColumnLayout(menuItem.title);
+    const submenu = await driver.getMenuItemColumnsLayout(menuItem.title);
     expect(await submenu.exists()).toBeTruthy();
   });
 });

@@ -1,6 +1,8 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
+import { HorizontalMenuContext } from '../HorizontalMenuContext';
 
-import styles from './HorizontalMenuItem.st.css';
+import style from './HorizontalMenuItem.st.css';
 
 export interface HorizontalMenuItemProps {
   className?: string;
@@ -27,6 +29,12 @@ export class HorizontalMenuItem extends React.PureComponent<
     expandableSize: 'column',
   };
 
+  // Wait 16.6 version and use this way
+  // Wait 16.8 and use Hooks for contexts
+  // https://ru.reactjs.org/blog/2018/10/23/react-v-16-6.html#static-contexttype
+  // static contextType = HorizontalMenuContext;
+  // context: React.ContextType<typeof HorizontalMenuContext>;
+
   state = {
     isOpen: false,
   };
@@ -51,7 +59,7 @@ export class HorizontalMenuItem extends React.PureComponent<
     }
 
     return (
-      <div className={styles.expandIcon}>
+      <div className={style.expandIcon}>
         {this.state.isOpen ? expandCloseIcon : expandOpenIcon}
       </div>
     );
@@ -61,25 +69,40 @@ export class HorizontalMenuItem extends React.PureComponent<
     const { title, href, expandableSize, children } = this.props;
     const { isOpen } = this.state;
 
+    const { className, ...stylableProps } = style(
+      'root',
+      { expandableSize },
+      this.props,
+    );
+
     return (
-      <li
-        {...styles('root', { expandableSize }, this.props)}
-        onMouseEnter={this._onMouseEnterHandler}
-        onMouseLeave={this._onMouseLeaveHandler}
-        data-hook="horizontal-menu-item"
-        menu-item-title={title}
-        style={this.props.style}
-      >
-        <a
-          className={styles.menuItemLink}
-          data-hook="horizontal-menu-item-link"
-          href={href}
-        >
-          {title}
-        </a>
-        {this._renderExpandIcon()}
-        {isOpen && children}
-      </li>
+      <HorizontalMenuContext.Consumer>
+        {context => {
+          const classList = classnames(className, context.menuItemClassName);
+
+          return (
+            <li
+              onMouseEnter={this._onMouseEnterHandler}
+              onMouseLeave={this._onMouseLeaveHandler}
+              menu-item-title={title}
+              data-hook="horizontal-menu-item"
+              className={classList}
+              {...stylableProps}
+              style={this.props.style}
+            >
+              <a
+                className={style.menuItemLink}
+                data-hook="horizontal-menu-item-link"
+                href={href}
+              >
+                {title}
+              </a>
+              {this._renderExpandIcon()}
+              {isOpen && children}
+            </li>
+          );
+        }}
+      </HorizontalMenuContext.Consumer>
     );
   }
 }

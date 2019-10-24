@@ -25,8 +25,11 @@
 
   background-color: lightgray;
   border: 1px gray solid;
+
+  flex: 1;
 }
 
-.root > HorizontalMenuItem {
+.menuItem {
+  -st-extends: HorizontalMenuItem;
   flex: 1;
 }

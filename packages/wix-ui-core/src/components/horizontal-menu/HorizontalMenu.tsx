@@ -1,10 +1,14 @@
 import * as React from 'react';
 
 import { HorizontalMenuItem } from './horizontal-menu-item';
-import { HorizontalMenuColumnLayout } from './horizontal-menu-column-layout';
+import { HorizontalMenuColumnsLayout } from './horizontal-menu-columns-layout';
 import { HorizontalMenuGridLayout } from './horizontal-menu-grid-layout';
+import {
+  HorizontalMenuContext,
+  HorizontalMenuContextValue,
+} from './HorizontalMenuContext';
 
-import styles from './HorizontalMenu.st.css';
+import style from './HorizontalMenu.st.css';
 
 export interface HorizontalMenuProps {
   className?: string;
@@ -30,7 +34,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
   static Item = HorizontalMenuItem;
 
   static Layout = {
-    Column: HorizontalMenuColumnLayout,
+    Columns: HorizontalMenuColumnsLayout,
     Grid: HorizontalMenuGridLayout,
   };
 
@@ -40,6 +44,18 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     textAlign: 'left',
     justifyContent: 'flex-start',
   };
+
+  contextValue: HorizontalMenuContextValue = null;
+
+  constructor(props: HorizontalMenuProps) {
+    super(props);
+
+    this.contextValue = {
+      menuItemClassName: style.menuItem,
+      columnsLayoutClassName: style.columnsLayout,
+      gridLayoutClassName: style.gridLayout,
+    };
+  }
 
   render() {
     const {
@@ -53,29 +69,31 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     const childrenLength = React.Children.count(children);
 
     return (
-      <nav
-        role="navigation"
-        {...styles('root', { withEqualItemWidth }, this.props)}
-        data-hook="horizontal-menu-navigation"
-        style={{ ...this.props.style, textAlign }}
-      >
-        <ul
-          className={styles.menu}
-          style={{ justifyContent }}
-          data-hook="horizontal-menu-container"
+      <HorizontalMenuContext.Provider value={this.contextValue}>
+        <nav
+          role="navigation"
+          {...style('root', { withEqualItemWidth }, this.props)}
+          data-hook="horizontal-menu-navigation"
+          style={{ ...this.props.style, textAlign }}
         >
-          {withDividers
-            ? React.Children.map(children, (child, index) => (
-                <React.Fragment>
-                  {child}
-                  {index !== childrenLength - 1 && (
-                    <div className={styles.divider} />
-                  )}
-                </React.Fragment>
-              ))
-            : children}
-        </ul>
-      </nav>
+          <ul
+            className={style.menu}
+            style={{ justifyContent }}
+            data-hook="horizontal-menu-container"
+          >
+            {withDividers
+              ? React.Children.map(children, (child, index) => (
+                  <React.Fragment>
+                    {child}
+                    {index !== childrenLength - 1 && (
+                      <div className={style.divider} />
+                    )}
+                  </React.Fragment>
+                ))
+              : children}
+          </ul>
+        </nav>
+      </HorizontalMenuContext.Provider>
     );
   }
 }
