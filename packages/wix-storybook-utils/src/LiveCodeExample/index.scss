@@ -95,8 +95,9 @@
     height: auto;
   }
 
-  textarea {
+  textarea, pre {
     outline: none;
+    word-break: break-all !important; /* unfortunately, to be more specific than inline-style coming from 3rd party js :( */
   }
 
   // Theme extracted from
