@@ -4,6 +4,8 @@
 }
 
 .root {
+  box-sizing: border-box;
+
   position: absolute;
   top: 100%;
   right: 0;
@@ -23,7 +25,7 @@
 
   list-style: none;
 
-  background-color: lightgray;
+  background-color: white;
   border: 1px gray solid;
 
   flex: 1;

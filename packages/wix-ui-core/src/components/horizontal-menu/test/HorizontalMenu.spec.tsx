@@ -68,8 +68,8 @@ describe('HorizontalMenu', () => {
       expect(false).toBeTruthy();
     } catch (err) {}
 
+    expect(await item.attr('aria-expanded')).toEqual('false');
     await driver.hoverMenuItem(menuItem.title);
-    const submenu = await driver.getMenuItemColumnsLayout(menuItem.title);
-    expect(await submenu.exists()).toBeTruthy();
+    expect(await item.attr('aria-expanded')).toEqual('true');
   });
 });

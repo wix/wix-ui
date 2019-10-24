@@ -22,7 +22,7 @@ import { HorizontalMenu } from '..';
 const code = config => baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
-  <HorizontalMenu.Item title="Column Layout">
+  <HorizontalMenu.Item title="[fullWidth] Column Layout" expandSize="fullWidth">
     <HorizontalMenu.Layout.Columns columns={3}>
       <HorizontalMenu.Item title="Example Item 1" />
       <HorizontalMenu.Item title="Example Item 2" />
@@ -37,7 +37,7 @@ const exampleColumnChildren = (
 );
 
 const exampleGridChildren = (
-  <HorizontalMenu.Item title="Grid Layout">
+  <HorizontalMenu.Item title="[menu] Grid Layout" expandSize="menu">
     <HorizontalMenu.Layout.Grid>
       <HorizontalMenu.Item title="Example Item 1" />
       <HorizontalMenu.Item title="Example Item 2" />
@@ -52,7 +52,7 @@ const exampleGridChildren = (
 );
 
 const exampleListChildren = (
-  <HorizontalMenu.Item title="List Layout">
+  <HorizontalMenu.Item title="[column] Single Column Layout">
     <HorizontalMenu.Layout.Columns>
       <HorizontalMenu.Item title="Example Item 1" />
       <HorizontalMenu.Item title="Example Item 2" />
@@ -78,7 +78,7 @@ const generateMenu = () => (
 
 const generateStringMenu = () => `
   <HorizontalMenu>
-    <HorizontalMenu.Item title="Multi Column Layout">
+    <HorizontalMenu.Item title="[fullWidth] Column Layout" expandSize="fullWidth">
       <HorizontalMenu.Layout.Columns columns={3}>
         <HorizontalMenu.Item title="Example Item 1" />
         <HorizontalMenu.Item title="Example Item 2" />
@@ -91,7 +91,7 @@ const generateStringMenu = () => `
       </HorizontalMenu.Layout.Columns>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item title="Grid Layout">
+    <HorizontalMenu.Item title="[menu] Grid Layout" expandSize="menu">
       <HorizontalMenu.Layout.Grid>
         <HorizontalMenu.Item title="Example Item 1" />
         <HorizontalMenu.Item title="Example Item 2" />
@@ -104,7 +104,7 @@ const generateStringMenu = () => `
       </HorizontalMenu.Layout.Grid>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item title="Single Column Layout">
+    <HorizontalMenu.Item title="[column] Single Column Layout">
       <HorizontalMenu.Layout.Columns>
         <HorizontalMenu.Item title="Example Item 1" />
         <HorizontalMenu.Item title="Example Item 2" />

@@ -1,10 +1,24 @@
 .root {
-  -st-states: expandableSize(enum(column, menu));
+  box-sizing: border-box;
+
+  position: relative;
 
   display: flex;
 }
 
+.root > * {
+  display: none;
+}
+
+.root:active > *,
+.root:hover > *,
+.root:focus > *,
+.root:focus-within > * {
+  display: block;
+}
+
 .menuItemLink {
+  display: block;
   cursor: pointer;
 }
 
@@ -13,6 +27,8 @@
   margin-left: 8px;
 }
 
-.root:expandableSize(column) {
-  position: relative;
+.expandMenu {
+  box-sizing: border-box;
+  position: absolute;
+  top: 100%;
 }

@@ -13,26 +13,14 @@
   -st-default: HorizontalMenuColumnsLayout;
 }
 
-:vars {
-  menuBackgroundColor: lightgray;
-  menuBorderWidth: 1;
-  menuBorderColor: gray;
-  dividerColor: black;
-  dividerSize: 2;
-}
-
 .root {
-  -st-states: withEqualItemWidth;
-
+  box-sizing: border-box;
   list-style: none;
 }
 
-.divider {
-  width: value(dividerSize)px;
-  background-color: value(dividerColor);
-}
-
 .menu {
+  box-sizing: border-box;
+
   position: relative;
 
   display: flex;
@@ -43,16 +31,11 @@
   margin: 0;
   padding: 0;
 
-  background-color: value(menuBackgroundColor);
-  border: value(menuBorderWidth)px value(menuBorderColor) solid;
+  background-color: white;
+  border: 1px gray solid;
 
   list-style: none;
 }
-
-.root:withEqualItemWidth > .menu > .menuItem {
-  flex: 1;
-}
-
 
 /* menu item */
 .menuItem {

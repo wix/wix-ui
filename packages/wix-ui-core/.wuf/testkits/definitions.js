@@ -169,5 +169,9 @@ module.exports = {
   },
   "tags-list": {
     pascalCase: true
+  },
+  'horizontal-menu': {
+    hasUnidriver: true,
+    pascalCase: true
   }
 };
