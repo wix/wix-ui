@@ -24,9 +24,11 @@ describe('CircularProgressBar', () => {
     );
   });
 
-  describe('[async]', () => {
+  describe('[async]', async () => {
     runTests(
-      testContainer.createUniRenderer(circularProgressBarUniDriverFactory),
+      await testContainer.createUniRendererAsync(
+        circularProgressBarUniDriverFactory,
+      ),
     );
   });
 

@@ -13,7 +13,9 @@ import { FALLBACK_IMAGE } from '../image';
 
 describe('MediaImage', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
-  const createDriver = testContainer.createUniRenderer(mediaImageDriverFactory);
+  const createDriver = testContainer.createUniRendererAsync(
+    mediaImageDriverFactory,
+  );
   const sourceWidth = 800,
     sourceHeight = 800;
   const WIDTH = 400,
