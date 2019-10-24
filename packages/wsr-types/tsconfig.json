@@ -7,7 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "jsx": "react",
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "esnext"],
     "noEmit": true
   },
   "include": ["./__tests__/*.tsx", "./src/*.d.ts"]
