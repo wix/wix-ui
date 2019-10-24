@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "gabrielgrinberg.auto-run-command",
+    "dbaeumer.vscode-eslint",
+    "WallabyJs.wallaby-vscode",
+    "shinnn.stylelint",
+    "EditorConfig.EditorConfig"
+  ]
+}

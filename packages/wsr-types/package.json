@@ -1,0 +1,37 @@
+{
+  "name": "wsr-types",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Moshe Kerbel",
+    "email": "moshek@wix.com"
+  },
+  "files": [
+    "types.d.ts"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix/wix-ui.git"
+  },
+  "scripts": {
+    "test": "tsc",
+    "release": "npm run concat && yoshi release",
+    "prerelease": "npm run test",
+    "concat": "concat -o types.d.ts ./src/*d.ts"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.0",
+    "concat": "^1.0.3",
+    "typescript": "~3.6.0",
+    "yoshi": "^4.0.0"
+  },
+  "yoshi": {
+  }
+}
