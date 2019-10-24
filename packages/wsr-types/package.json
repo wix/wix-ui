@@ -1,7 +1,7 @@
 {
   "name": "wsr-types",
   "version": "1.0.0",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "author": {
     "name": "Moshe Kerbel",
     "email": "moshek@wix.com"
@@ -10,14 +10,16 @@
     "types.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://npm.dev.wixpress.com/"
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "pretest": "yoshi build",
-    "test": "tsc --noEmit",
-    "posttest": "yoshi lint",
+    "test": "tsc",
     "release": "npm run concat && yoshi release",
+    "prerelease": "npm run test",
     "concat": "concat -o types.d.ts ./src/*d.ts"
   },
   "dependencies": {
@@ -25,33 +27,11 @@
     "@types/react-dom": "^16.0.5"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.0",
     "@types/node": "^8.0.0",
     "concat": "^1.0.3",
-    "husky": "~0.14.0",
-    "lint-staged": "^7.2.2",
-    "ts-jest": "^24.0.2",
     "typescript": "~3.6.0",
     "yoshi": "^4.0.0"
   },
-  "lint-staged": {
-    "linters": {
-      "*.{js,ts}": "yoshi lint"
-    },
-    "ignore": [
-      "**/*.d.ts"
-    ]
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testPathIgnorePatterns": [
-      "<rootDir>/dist/",
-      "<rootDir>/node_modules/"
-    ]
-  },
   "yoshi": {
-    "hmr": "auto"
   }
 }

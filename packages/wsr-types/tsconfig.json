@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es5",
     "jsx": "react",
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "es6"],
+    "noEmit": true
   },
-  "include": ["./__tests__/*.tsx", "./src/*.d.ts", "index.d.ts"]
+  "include": ["./__tests__/*.tsx", "./src/*.d.ts"]
 }
