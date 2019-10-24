@@ -1,5 +1,5 @@
 {
-  "name": "@wix/wsr-types",
+  "name": "wsr-types",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "author": {
@@ -7,7 +7,7 @@
     "email": "moshek@wix.com"
   },
   "files": [
-    "index.d.ts"
+    "types.d.ts"
   ],
   "publishConfig": {
     "registry": "http://npm.dev.wixpress.com/"
@@ -17,20 +17,22 @@
     "pretest": "yoshi build",
     "test": "tsc --noEmit",
     "posttest": "yoshi lint",
-    "release": "yoshi release"
+    "release": "npm run concat && yoshi release",
+    "concat": "concat -o types.d.ts ./src/*d.ts"
   },
   "dependencies": {
     "@types/react": "^16.8.4",
     "@types/react-dom": "^16.0.5"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "@types/node": "^8.0.0",
+    "concat": "^1.0.3",
     "husky": "~0.14.0",
     "lint-staged": "^7.2.2",
-    "yoshi": "^4.0.0",
     "ts-jest": "^24.0.2",
     "typescript": "~3.6.0",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^8.0.0"
+    "yoshi": "^4.0.0"
   },
   "lint-staged": {
     "linters": {
