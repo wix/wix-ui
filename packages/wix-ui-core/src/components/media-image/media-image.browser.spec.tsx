@@ -38,7 +38,7 @@ describe('MediaImage', () => {
   });
 
   it('displays image with given media platform item when fill scale is selected', async () => {
-    const mediaImageDriver = createDriver(
+    const mediaImageDriver = await createDriver(
       <MediaImage
         mediaPlatformItem={mediaPlatformItem}
         width={WIDTH}
@@ -69,7 +69,7 @@ describe('MediaImage', () => {
       options: fitImageOptions,
     };
 
-    const mediaImageDriver = createDriver(
+    const mediaImageDriver = await createDriver(
       <MediaImage
         mediaPlatformItem={fitMediaPlatformItem}
         width={WIDTH}
@@ -90,7 +90,7 @@ describe('MediaImage', () => {
   });
 
   it('should use mediaPlatformItem width/height if non provided', async () => {
-    const mediaImageDriver = createDriver(
+    const mediaImageDriver = await createDriver(
       <MediaImage mediaPlatformItem={mediaPlatformItem} />,
     );
 
@@ -108,7 +108,7 @@ describe('MediaImage', () => {
   it('displays an alt prop', async () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(BROKEN_SRC);
 
-    const imageDriver = createDriver(
+    const imageDriver = await createDriver(
       <MediaImage
         mediaPlatformItem={mediaPlatformItem}
         alt={'this is an informative text'}
@@ -121,7 +121,7 @@ describe('MediaImage', () => {
   it('should invoke onLoad callback when load successfully', async () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(SRC);
     const onLoadSpy = jest.fn();
-    const mediaImageDriver = createDriver(
+    const mediaImageDriver = await createDriver(
       <MediaImage onLoad={onLoadSpy} mediaPlatformItem={mediaPlatformItem} />,
     );
 
@@ -138,7 +138,9 @@ describe('MediaImage', () => {
   describe('props are not provided', () => {
     it('displays empty pixel when mediaPlatformItem are not provided', async () => {
       const onLoadSpy = jest.fn();
-      const mediaImageDriver = createDriver(<MediaImage onLoad={onLoadSpy} />);
+      const mediaImageDriver = await createDriver(
+        <MediaImage onLoad={onLoadSpy} />,
+      );
 
       await eventually(
         async () => {
@@ -163,7 +165,7 @@ describe('MediaImage', () => {
       imageClientSDK.getScaleToFillImageURL.mockReturnValueOnce(
         ERROR_IMAGE_SRC,
       );
-      const mediaImageDriver = createDriver(
+      const mediaImageDriver = await createDriver(
         <MediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
@@ -183,7 +185,7 @@ describe('MediaImage', () => {
 
     it('displays an empty pixel when both mediaPlatformItem and errorImage are broken', async () => {
       const onErrorSpy = jest.fn();
-      const mediaImageDriver = createDriver(
+      const mediaImageDriver = await createDriver(
         <MediaImage
           mediaPlatformItem={mediaPlatformItem}
           errorMediaPlatformItem={mediaPlatformItem}
@@ -203,7 +205,7 @@ describe('MediaImage', () => {
 
     it('displays an empty pixel when the provided mediaPlatformItem is broken and errorImage is not provided ', async () => {
       const onErrorSpy = jest.fn();
-      const mediaImageDriver = createDriver(
+      const mediaImageDriver = await createDriver(
         <MediaImage
           mediaPlatformItem={mediaPlatformItem}
           onError={onErrorSpy}
