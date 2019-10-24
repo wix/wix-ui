@@ -1,6 +1,6 @@
 import { $, browser } from 'protractor';
 import {
-  getStoryUrl,
+  createStoryUrl,
   waitForVisibilityOf,
   isFocused,
 } from 'wix-ui-test-utils/protractor';
@@ -8,7 +8,10 @@ import { buttonNextTestkitFactory } from '../../testkit/protractor';
 import { Category } from '../../../stories/utils';
 
 describe('FocusableHOC', () => {
-  const testsStoryUrl = getStoryUrl(Category.TESTS, 'FocusableHOC');
+  const testsStoryUrl = createStoryUrl({
+    kind: Category.TESTS,
+    story: 'FocusableHOC',
+  });
 
   beforeEach(() => browser.get(testsStoryUrl));
 

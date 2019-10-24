@@ -33,6 +33,11 @@
       "single",
       "jsx-double"
     ],
-    "no-floating-promises": false
+    "no-floating-promises": {
+      "severity": "warn"
+    },
+    "restrict-plus-operands": {
+      "severity": "warn"
+    }
   }
 }

@@ -1,12 +1,15 @@
 import { sliderTestkitFactory } from '../../testkit/protractor';
-import { getStoryUrl } from 'wix-ui-test-utils/protractor';
+import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { browser } from 'protractor';
 import { Category } from '../../../stories/utils';
 
 describe('Slider', () => {
   let driver;
 
-  const storyUrl = getStoryUrl(Category.COMPONENTS, 'Slider');
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'Slider',
+  });
 
   beforeEach(() => browser.get(storyUrl));
 

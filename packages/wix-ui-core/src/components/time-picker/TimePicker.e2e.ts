@@ -1,11 +1,17 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { timePickerTestkitFactory } from '../../testkit/protractor';
 import { Category } from '../../../stories/utils';
 
 describe('TimePicker', () => {
-  const storyUrl = getStoryUrl(Category.COMPONENTS, 'TimePicker');
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'TimePicker',
+  });
   const dataHook = 'storybook-timepicker';
 
   beforeEach(async () => browser.get(storyUrl));
