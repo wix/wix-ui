@@ -7,10 +7,10 @@ import * as eventually from 'wix-eventually';
 
 describe('Image', () => {
   const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
-  const createDriver = testContainer.createUniRenderer(imageDriverFactory);
+  const createDriver = testContainer.createUniRendererAsync(imageDriverFactory);
 
   it('renders image element to dom', async () => {
-    const imageDriver = createDriver(<Image />);
+    const imageDriver = await createDriver(<Image />);
     const imageElement = await imageDriver.element();
 
     expect(imageElement.tagName).toBe('IMG');
@@ -18,7 +18,7 @@ describe('Image', () => {
 
   describe('renders provided props', () => {
     it('displays an alt prop', async () => {
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image alt="this is an informative text" />,
       );
 
@@ -27,7 +27,9 @@ describe('Image', () => {
 
     it('displays image with given src', async () => {
       const onLoadSpy = jest.fn();
-      const imageDriver = createDriver(<Image src={SRC} onLoad={onLoadSpy} />);
+      const imageDriver = await createDriver(
+        <Image src={SRC} onLoad={onLoadSpy} />,
+      );
 
       expect(await imageDriver.getLoadStatus()).toEqual('loading');
       await eventually(async () => {
@@ -39,7 +41,7 @@ describe('Image', () => {
 
     it('displays image with given srcSet', async () => {
       const onLoadSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image srcSet={SRC} onLoad={onLoadSpy} />,
       );
       await eventually(async () => {
@@ -50,7 +52,7 @@ describe('Image', () => {
     });
 
     it('renders provided src, and overrides the nativeProps src', async () => {
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={SRC} nativeProps={{ src: ERROR_IMAGE_SRC }} />,
       );
       await eventually(async () => {
@@ -62,7 +64,7 @@ describe('Image', () => {
   describe('props are not provided', () => {
     it('displays empty pixel when src/srcset are not provided', async () => {
       const onLoadSpy = jest.fn();
-      const imageDriver = createDriver(<Image onLoad={onLoadSpy} />);
+      const imageDriver = await createDriver(<Image onLoad={onLoadSpy} />);
 
       await eventually(async () => {
         expect(onLoadSpy).toHaveBeenCalled();
@@ -75,7 +77,7 @@ describe('Image', () => {
   describe('props are broken', () => {
     it('it displays the provided errorImage when the src is broken', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image
           src={BROKEN_SRC}
           errorImage={ERROR_IMAGE_SRC}
@@ -92,7 +94,7 @@ describe('Image', () => {
 
     it('displays empty pixel when srcSet is broken', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image srcSet={BROKEN_SRC} onError={onErrorSpy} />,
       );
 
@@ -105,7 +107,7 @@ describe('Image', () => {
 
     it('it displays the provided errorImage when the src and srcSet are broken', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image
           src={BROKEN_SRC}
           srcSet={BROKEN_SRC}
@@ -124,7 +126,7 @@ describe('Image', () => {
 
     it('displays an empty pixel when both src and errorImage are broken', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy} />,
       );
 
@@ -137,7 +139,7 @@ describe('Image', () => {
 
     it('displays an empty pixel when both src and errorImage are broken', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={BROKEN_SRC} errorImage={BROKEN_SRC} onError={onErrorSpy} />,
       );
 
@@ -150,7 +152,7 @@ describe('Image', () => {
 
     it('displays an empty pixel when the provided src is broken and errorImage is not provided ', async () => {
       const onErrorSpy = jest.fn();
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={BROKEN_SRC} onError={onErrorSpy} />,
       );
 
@@ -164,7 +166,7 @@ describe('Image', () => {
 
   describe('resize mode', () => {
     it('specifies the image to contain its container', async () => {
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={SRC} resizeMode={'contain'} />,
       );
 
@@ -172,7 +174,7 @@ describe('Image', () => {
     });
 
     it('specifies the image to cover its container', async () => {
-      const imageDriver = createDriver(
+      const imageDriver = await createDriver(
         <Image src={SRC} resizeMode={'cover'} />,
       );
 
@@ -181,7 +183,9 @@ describe('Image', () => {
 
     // 'fill' is the default image behavior
     it('specifies the image to fill its container', async () => {
-      const imageDriver = createDriver(<Image src={SRC} resizeMode={'fill'} />);
+      const imageDriver = await createDriver(
+        <Image src={SRC} resizeMode={'fill'} />,
+      );
 
       expect(await imageDriver.getResizeMode()).toEqual('fill');
       expect(await imageDriver.getSrc()).toEqual(SRC);

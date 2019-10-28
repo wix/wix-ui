@@ -11,7 +11,7 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
   return {
     ...baseUniDriverFactory(base),
-    click: async () => await byHook('popover-element').click(),
+    click: async () => byHook('popover-element').click(),
     getTargetElement: async () => safeGetNative(byHook('popover-element')),
 
     getPortalElement: async () =>

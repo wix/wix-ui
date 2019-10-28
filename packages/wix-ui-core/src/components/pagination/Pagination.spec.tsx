@@ -23,6 +23,7 @@ describe('Pagination', () => {
   const render = jsx =>
     container
       .render(jsx)
+      /* tslint:disable-next-line:no-non-null-assertion */
       .then(() => new PaginationDriver(container.componentNode!));
 
   describe('Accessibility', () => {

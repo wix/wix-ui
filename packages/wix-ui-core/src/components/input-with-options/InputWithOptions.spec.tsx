@@ -129,7 +129,11 @@ describe('InputWithOptions', () => {
     describe('onContentMouseDown', () => {
       it('should be called when mouse down event occurs', () => {
         const onContentMouseDown = jest.fn();
-        const props = { options: numericOptions, inputProps: { value: '' }, onContentMouseDown };
+        const props = {
+          options: numericOptions,
+          inputProps: { value: '' },
+          onContentMouseDown,
+        };
         const { driver } = setup(props);
 
         driver.click();
@@ -138,7 +142,11 @@ describe('InputWithOptions', () => {
       });
       it('should be called with event when mouse down event occurs', () => {
         const onContentMouseDown = jest.fn();
-        const props = { options: numericOptions, inputProps: { value: '' }, onContentMouseDown };
+        const props = {
+          options: numericOptions,
+          inputProps: { value: '' },
+          onContentMouseDown,
+        };
         const { driver } = setup(props);
         driver.click();
         driver.triggerMouseDownOnDropdownContent();

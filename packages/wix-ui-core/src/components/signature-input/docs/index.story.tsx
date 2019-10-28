@@ -11,20 +11,21 @@ import {
   tabs,
   tab,
   divider,
-  code,
+  code as baseCode,
   testkit,
   importExample,
   playground,
   columns,
-  code as baseCode,
 } from 'wix-storybook-utils/Sections';
-import { Category } from '../../../../stories/utils';
-import { baseScope as allComponents } from '../../../../stories/utils';
+import {
+  Category,
+  baseScope as allComponents,
+} from '../../../../stories/utils';
 import compoundReadmeApi from './CompoundComponentsAPI.md';
 import { SigningPadOwnProps } from '../signing-pad/SigningPad';
 
 const liveCode = config =>
-  code({
+  baseCode({
     compact: true,
     components: allComponents,
     ...config,
@@ -105,7 +106,7 @@ export default {
               'A canvas based signature input, it also provides reset button and title',
           }),
           importExample(
-            "import {SignatureInput} from 'wix-ui-core/signature-input';",
+            'import {SignatureInput} from \'wix-ui-core/signature-input\';',
           ),
           divider(),
           title('Examples'),
@@ -113,7 +114,7 @@ export default {
             description({
               title: 'Basic example',
               text:
-                "`SignatureInput` does not render anything, but uses compounding to provide all the component's parts. " +
+                '`SignatureInput` does not render anything, but uses compounding to provide all the component\'s parts. ' +
                 'The `SignatureInput.Title` and `SignatureInput.ClearButton` provide render functions to get needed ' +
                 'props for rendering.',
             }),

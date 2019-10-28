@@ -1,17 +1,20 @@
 import * as eyes from 'eyes.it';
 import { $, browser } from 'protractor';
 import {
-  getStoryUrl,
+  createStoryUrl,
   hasEllipsis,
   mouseEnter,
   mouseLeave,
   waitForVisibilityOf,
 } from 'wix-ui-test-utils/protractor';
 import { tooltipTestkitFactory } from '../../testkit/protractor';
-import {Category} from '../../../stories/utils';
+import { Category } from '../../../stories/utils';
 
 describe('EllipsedTooltip', () => {
-  const storyUrl = getStoryUrl(Category.HOCS, 'EllipsedTooltip');
+  const storyUrl = createStoryUrl({
+    kind: Category.HOCS,
+    story: 'EllipsedTooltip',
+  });
 
   beforeEach(() => browser.get(storyUrl));
 
@@ -49,7 +52,10 @@ describe('EllipsedTooltip', () => {
   eyes.it(
     'should not show any styles on the text inside the tooltip',
     async () => {
-      const testsStoryUrl = getStoryUrl(Category.TESTS, 'EllipsedTooltip');
+      const testsStoryUrl = createStoryUrl({
+        kind: Category.TESTS,
+        story: 'EllipsedTooltip',
+      });
       await browser.get(testsStoryUrl);
 
       const dataHook = 'custom-ellipsedTooltip-with-tooltip';

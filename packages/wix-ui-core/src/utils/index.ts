@@ -23,7 +23,7 @@ export interface ElementProps {
   children: any;
 }
 export const createComponentThatRendersItsChildren = (displayName: string) => {
-  const Element: React.SFC<ElementProps> = ({ children }) =>
+  const Element: React.FunctionComponent<ElementProps> = ({ children }) =>
     typeof children === 'string'
       ? React.createElement('div', {}, children)
       : children;
@@ -43,5 +43,4 @@ export const isReactElement = <T>(
 };
 
 export const isStatelessComponent = Component =>
-    !(Component.prototype && Component.prototype.render);
-
+  !(Component.prototype && Component.prototype.render);

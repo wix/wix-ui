@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
-import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
 import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps,
@@ -10,7 +9,11 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
-import { AttributeMap } from '../../utils/stylableUtils';
+import {
+  AttributeMap,
+  attachStylesToNode,
+  detachStylesFromNode,
+} from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
@@ -18,13 +21,7 @@ import {
   ElementProps,
 } from '../../utils';
 
-import {
-  attachStylesToNode,
-  detachStylesFromNode,
-} from '../../utils/stylableUtils';
-
 import * as classNames from 'classnames';
-const isElement = require('lodash/isElement');
 
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
@@ -133,8 +130,8 @@ export interface PopoverState {
 }
 
 export type PopoverType = PopoverProps & {
-  Element?: React.SFC<ElementProps>;
-  Content?: React.SFC<ElementProps>;
+  Element?: React.FunctionComponent<ElementProps>;
+  Content?: React.FunctionComponent<ElementProps>;
 };
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {

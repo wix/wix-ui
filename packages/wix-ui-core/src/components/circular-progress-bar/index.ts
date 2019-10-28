@@ -1,1 +1,4 @@
-export { CircularProgressBar, CircularProgressBarProps } from './CircularProgressBar';
+export {
+  CircularProgressBar,
+  CircularProgressBarProps,
+} from './CircularProgressBar';

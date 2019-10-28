@@ -31,7 +31,6 @@ const serializeResult = results => ({
 
 // placeDetails is not required at the moment
 export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
-  
   private _autocomplete;
   private _geocoder;
   private _loadScriptPromise;

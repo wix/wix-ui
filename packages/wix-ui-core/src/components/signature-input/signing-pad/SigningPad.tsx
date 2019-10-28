@@ -273,7 +273,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           aria-hidden
           {...rest}
           onClick={this.invokeIfDefined(!disabled && onClick)}
-        ></canvas>
+        />
       </React.Fragment>
     );
   }

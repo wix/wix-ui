@@ -23,7 +23,8 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
     data-hook={DataHooks.TagsList}
     onChange={onChange}
     role="group"
-    {...rest}>
+    {...rest}
+  >
     {children}
   </div>
 );

@@ -37,7 +37,7 @@ describe('Popover', () => {
   });
 
   describe('[async]', () => {
-    const createDriver = container.createUniRenderer((base, body) => {
+    const createDriver = container.createUniRendererAsync((base, body) => {
       const privateDriver = popoverPrivateDriverFactory({
         element: container.componentNode,
         eventTrigger: Simulate,
@@ -55,7 +55,7 @@ describe('Popover', () => {
 
 function runTests(createDriver, container) {
   it('should render', async () => {
-    const driver = createDriver(
+    const driver = await createDriver(
       popoverWithProps({
         placement: 'bottom',
         shown: false,
@@ -67,7 +67,7 @@ function runTests(createDriver, container) {
 
   describe('Display', () => {
     it(`doesn't display popup when shown={false}`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -79,7 +79,7 @@ function runTests(createDriver, container) {
     });
 
     it(`displays popup when shown={true}`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -95,7 +95,7 @@ function runTests(createDriver, container) {
       const onMouseEnter = jest.fn();
       const onMouseLeave = jest.fn();
 
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -115,7 +115,7 @@ function runTests(createDriver, container) {
       it('should execute onClick callback', async () => {
         const onClick = jest.fn();
 
-        const driver = createDriver(
+        const driver = await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: false,
@@ -132,7 +132,7 @@ function runTests(createDriver, container) {
       it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
-        const driver = createDriver(
+        const driver = await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: false,
@@ -154,7 +154,7 @@ function runTests(createDriver, container) {
         it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
           const onClickOutside = jest.fn();
 
-          const driver = createDriver(
+          const driver = await createDriver(
             popoverWithProps({
               placement: 'bottom',
               shown: true,
@@ -182,7 +182,7 @@ function runTests(createDriver, container) {
     });
 
     it(`offsets the popup arrow by specified amount`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -195,7 +195,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should update popper's position when props are chaning`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -205,7 +205,7 @@ function runTests(createDriver, container) {
         ),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
@@ -220,7 +220,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should not directly update popper's position when the visibillity hasn't changed`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -229,7 +229,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -238,7 +238,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -259,11 +259,11 @@ function runTests(createDriver, container) {
       queryHook<HTMLElement>(document, 'popover-content');
 
     it(`animates on close given a timeout`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 10 }),
       );
 
@@ -277,11 +277,11 @@ function runTests(createDriver, container) {
     });
 
     it(`doesn't animate on close when timeout={0}`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 0 }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({ placement: 'bottom', shown: false, timeout: 0 }),
       );
 
@@ -289,7 +289,7 @@ function runTests(createDriver, container) {
     });
 
     it(`doesn't animate on close when timeout is an object with 0 values`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -297,7 +297,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -309,7 +309,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should close after hideDelay`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -317,7 +317,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -335,7 +335,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should open after showDelay`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -343,7 +343,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -361,7 +361,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should reset timeout when state has changed`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -370,7 +370,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -379,7 +379,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -394,7 +394,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should not update delay until the popover visibillity has fully changed`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -402,7 +402,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
@@ -410,7 +410,7 @@ function runTests(createDriver, container) {
         }),
       );
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 1000,
@@ -427,7 +427,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should show the popover immediately on first render if needed`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
@@ -439,7 +439,7 @@ function runTests(createDriver, container) {
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -450,7 +450,7 @@ function runTests(createDriver, container) {
 
       expect(queryPopoverContent()).toBeNull();
 
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -462,7 +462,7 @@ function runTests(createDriver, container) {
       expect(queryPopoverContent()).toBeTruthy();
 
       // Close again the popover
-      createDriver(
+      await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 0,
@@ -479,7 +479,7 @@ function runTests(createDriver, container) {
     const portalContainer = new ReactDOMTestContainer().destroyAfterEachTest();
 
     it(`renders the popup directly into the popover root by default`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -492,7 +492,7 @@ function runTests(createDriver, container) {
     });
 
     it(`renders the popup into a portal when given appendTo prop`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -512,7 +512,7 @@ function runTests(createDriver, container) {
     });
 
     it(`renders an empty portal when closed`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
@@ -530,7 +530,7 @@ function runTests(createDriver, container) {
     });
 
     it(`removes the portal on unmount`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -544,7 +544,7 @@ function runTests(createDriver, container) {
     });
 
     it(`adds the portal to the body when appendTo="window"`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -558,7 +558,7 @@ function runTests(createDriver, container) {
     });
 
     it(`adds the portal to the closest scrollable element when appendTo="scrollParent"`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <div style={{ overflow: 'scroll' }}>
           <div style={{ overflow: 'visible' }}>
             {popoverWithProps({
@@ -576,7 +576,7 @@ function runTests(createDriver, container) {
     });
 
     it(`adds the portal next to the popover's element when appendTo="parent"`, async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: true,
@@ -596,7 +596,7 @@ function runTests(createDriver, container) {
       it(`should update the portal's styles when updated`, async () => {
         // First render without passing the `className` prop, the <Popover/>
         // portal should only have the root class applied.
-        createDriver(
+        await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -606,7 +606,7 @@ function runTests(createDriver, container) {
 
         // Second render with a `className` prop. Stylable `style()` function
         // should apply it.
-        createDriver(
+        await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -619,7 +619,7 @@ function runTests(createDriver, container) {
       });
 
       it(`should not remove styles until unmounted with hideDelay`, async () => {
-        createDriver(
+        await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: true,
@@ -628,7 +628,7 @@ function runTests(createDriver, container) {
           }),
         );
 
-        createDriver(
+        await createDriver(
           popoverWithProps({
             placement: 'bottom',
             shown: false,
@@ -648,7 +648,7 @@ function runTests(createDriver, container) {
 
   describe('React <16 compatibility', () => {
     it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
@@ -810,7 +810,7 @@ function runTests(createDriver, container) {
 
   describe('data-hook', () => {
     it('should be found on target element container', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
@@ -821,7 +821,7 @@ function runTests(createDriver, container) {
     });
 
     it('should construct data-content-hook', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
@@ -834,7 +834,7 @@ function runTests(createDriver, container) {
     });
 
     it('should apply data-content-element on content element', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
@@ -846,7 +846,7 @@ function runTests(createDriver, container) {
       );
     });
     it('should not override portal component data-hook', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
@@ -865,7 +865,7 @@ function runTests(createDriver, container) {
     }
 
     it('should display a custom arrow element', async () => {
-      const driver = createDriver(
+      const driver = await createDriver(
         popoverWithProps({
           shown: true,
           showArrow: true,

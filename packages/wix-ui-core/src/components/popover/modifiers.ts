@@ -1,6 +1,5 @@
 import PopperJS from 'popper.js';
 
-
 const getUnit = value => {
   if (typeof value === 'string') {
     return value;
@@ -36,7 +35,7 @@ const resolveWidth = ({
   referenceWidth,
 }): styles => {
   return {
-    minWidth: dynamicWidth ? `${referenceWidth}px` : getUnit(minWidth), 
+    minWidth: dynamicWidth ? `${referenceWidth}px` : getUnit(minWidth),
     width: width || 'auto',
   };
 };

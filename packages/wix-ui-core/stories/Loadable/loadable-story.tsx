@@ -15,7 +15,7 @@ import * as AsyncLoadableWithManualLoadExample from '!raw-loader!./AsyncLoadable
 import SyncLoadableWithManualLoad from './SyncLoadableWithManualLoad';
 import * as SyncLoadableWithManualLoadExample from '!raw-loader!./SyncLoadableWithManualLoad';
 
-export const LoadableStory: React.SFC = () => (
+export const LoadableStory: React.FunctionComponent = () => (
   <div>
     <Markdown source={Readme} />
 

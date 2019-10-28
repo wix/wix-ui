@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { getScaleToFillImageURL, getScaleToFitImageURL } from 'image-client-api/dist/imageClientSDK';
+import {
+  getScaleToFillImageURL,
+  getScaleToFitImageURL,
+} from 'image-client-api/dist/imageClientSDK';
 
 import { Image } from '../image';
 
@@ -22,28 +25,28 @@ export enum MediaImageUpscaleMethod {
 }
 
 export interface FocalPoint {
-  x: number,
-  y: number,
+  x: number;
+  y: number;
 }
 
 export interface MediaItemFilters {
-  blur?: number,
+  blur?: number;
 }
 
 export interface UnsharpMaskOptions {
-  amount?: number,
-  radius?: number,
-  threshold?: number,
+  amount?: number;
+  radius?: number;
+  threshold?: number;
 }
 
 export interface MediaItemOptions {
-  quality?: number,
-  focalPoint?: FocalPoint,
-  filters?: MediaItemFilters,
-  unsharpMask?: UnsharpMaskOptions,
-  upscaleMethod?: MediaImageUpscaleMethod,
-  watermark?: string,
-  isSEOBot?: boolean,
+  quality?: number;
+  focalPoint?: FocalPoint;
+  filters?: MediaItemFilters;
+  unsharpMask?: UnsharpMaskOptions;
+  upscaleMethod?: MediaImageUpscaleMethod;
+  watermark?: string;
+  isSEOBot?: boolean;
   name?: string;
 }
 
@@ -73,7 +76,10 @@ export class MediaImage extends React.Component<MediaProps> {
         uri,
       } = mediaPlatformItem;
       const { options } = mediaPlatformItem;
-      const getScaleToImageURL = scale === MediaImageScaling.FIT ? getScaleToFitImageURL : getScaleToFillImageURL;
+      const getScaleToImageURL =
+        scale === MediaImageScaling.FIT
+          ? getScaleToFitImageURL
+          : getScaleToFillImageURL;
 
       return getScaleToImageURL(
         uri,
@@ -86,14 +92,13 @@ export class MediaImage extends React.Component<MediaProps> {
     }
   }
 
-
   render() {
     const {
       onLoad,
       onError,
       mediaPlatformItem,
       errorMediaPlatformItem,
-      alt
+      alt,
     } = this.props;
 
     return (

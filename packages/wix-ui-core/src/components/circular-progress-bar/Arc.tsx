@@ -16,7 +16,7 @@ export interface ArcProps {
   className: string;
 }
 
-export const Arc: React.SFC<ArcProps> = (props: ArcProps) => {
+export const Arc: React.FunctionComponent<ArcProps> = (props: ArcProps) => {
   const { value, strokeWidth, size, className } = props;
   const viewBox = `${-size / 2} ${-size / 2} ${size} ${size}`;
   const d = arc((size - strokeWidth) / 2, value);
