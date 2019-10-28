@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@stylable/runtime": "^1.0.3",
+    "@types/enzyme": "3.1.14",
     "@types/express": "^4.0.39",
     "@types/jest": "^22.1.1",
     "@types/node": "^8.0.0",
@@ -85,7 +86,6 @@
     "@unidriver/jsdom-react": "^1.2.1",
     "@unidriver/protractor": "^1.1.5",
     "@unidriver/puppeteer": "^1.1.2",
-    "@stylable/uni-driver": "^2.1.0",
-    "@types/enzyme": "3.1.14"
+    "@stylable/uni-driver": "^2.1.0"
   }
 }

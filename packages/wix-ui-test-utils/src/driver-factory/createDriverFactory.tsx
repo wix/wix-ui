@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {render} from 'react-dom';
 import {Simulate} from 'react-dom/test-utils';
-import {ReactWrapper} from 'enzyme';
 import {reactEventTrigger} from '../react-helpers';
 
 export type DriverFactory<TDriver extends BaseDriver> = (compFactory: ComponentFactory) => TDriver;
@@ -12,7 +11,7 @@ export interface BaseDriver {
 
 export interface ComponentFactory {
   element: Element | undefined;
-  wrapper: HTMLElement | ReactWrapper;
+  wrapper: any;
   component?: React.ReactElement<any>;
   eventTrigger: typeof Simulate;
 }
