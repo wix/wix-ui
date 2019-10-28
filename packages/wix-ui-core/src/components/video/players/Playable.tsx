@@ -18,8 +18,6 @@ import {
 } from '../types';
 import styles from '../Video.st.css';
 import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types';
-import {until} from 'selenium-webdriver';
-import ableToSwitchToFrame = until.ableToSwitchToFrame;
 
 const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
 
@@ -241,9 +239,8 @@ class PlayablePlayer extends React.PureComponent<
     this.player.hideProgressControl();
     this.player.hidePictureInPictureControl();
   }
-
   _renderCover() {
-    const {showTitle, title, poster, hideOverlay, playButton, playing} = this.props;
+    const {showTitle, title, poster, hideOverlay, playButton, playing, description} = this.props;
     const {hasBeenPlayed} = this.state;
     if (hideOverlay || playing || hasBeenPlayed) {
       return null;
@@ -256,7 +253,7 @@ class PlayablePlayer extends React.PureComponent<
         onClick={this.onPlayClick}
         data-hook="cover"
       >
-        {poster && <img src={poster} alt="AAA" style={{height: '100%', width: '100%'}}/>}
+        {poster && <img src={poster} alt={description} className={styles.poster}/>}
         <div className={styles.overlay}>
           {showTitle && title && (
             <div data-hook="title" title={title} className={styles.title}>
