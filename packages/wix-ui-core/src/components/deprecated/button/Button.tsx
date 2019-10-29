@@ -12,7 +12,7 @@ export interface ButtonProps
 /**
  * Button
  */
-export const Button: React.SFC<ButtonProps> = props => {
+export const Button: React.FunctionComponent<ButtonProps> = props => {
   const { disabled } = props;
 
   return <button {...props} {...style('root', { disabled }, props)} />;

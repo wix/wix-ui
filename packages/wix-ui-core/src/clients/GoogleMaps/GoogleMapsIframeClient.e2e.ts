@@ -1,11 +1,17 @@
 import { browser } from 'protractor';
 
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import { googleMapsIframeClientTestkitFactory } from '../../testkit/protractor';
 import { Category } from '../../../stories/utils';
 
 describe('Google Maps Iframe client', () => {
-  const storyUrl = getStoryUrl(Category.COMPONENTS, 'GoogleMapsIframeClient');
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'GoogleMapsIframeClient',
+  });
   const dataHook = 'story-google-maps-iframe-client';
   const searchTest = 'Broadway';
   const broadwayPlaceId = 'ChIJOSMjjVlWwokRnpaTPyaFi9o';

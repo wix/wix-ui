@@ -1,8 +1,7 @@
 import * as eyes from 'eyes.it';
 import { $, browser } from 'protractor';
 import {
-  getStoryUrl,
-  waitForVisibilityOf,
+  createStoryUrl,
   mouseEnter,
   hasEllipsis,
 } from 'wix-ui-test-utils/protractor';
@@ -17,7 +16,7 @@ import {
 const byDataHook = dataHook => $(`[data-hook="${dataHook}"]`);
 
 async function goToTestPage(testName) {
-  const storyUrl = getStoryUrl(testFolder, testName);
+  const storyUrl = createStoryUrl({ kind: testFolder, story: testName });
   await browser.get(storyUrl);
 }
 

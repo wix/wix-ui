@@ -1,4 +1,4 @@
-import {MediaPlatformItem} from './media-image';
+import { MediaPlatformItem } from './media-image';
 
 // Valid image
 export const SRC: MediaPlatformItem = {

@@ -9,7 +9,7 @@ export interface BadgeProps {
 /**
  * Badge
  */
-export const Badge: React.SFC<BadgeProps> = props => (
+export const Badge: React.FunctionComponent<BadgeProps> = props => (
   <span {...style('root', {}, props)}>{props.children}</span>
 );
 

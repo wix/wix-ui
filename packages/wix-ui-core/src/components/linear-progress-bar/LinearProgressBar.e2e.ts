@@ -1,17 +1,22 @@
 import * as eyes from 'eyes.it';
 import { browser } from 'protractor';
-import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import {
+  createStoryUrl,
+  waitForVisibilityOf,
+} from 'wix-ui-test-utils/protractor';
 import {
   linearProgressBarTestkitFactory,
   LinearProgressBarDriver,
 } from '../../testkit/protractor';
-import { Key } from 'selenium-webdriver';
 import * as autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import { LinearProgressBarProps } from './LinearProgressBar';
 import { Category } from '../../../stories/utils';
 
 describe('LinearProgresBar', () => {
-  const storyUrl = getStoryUrl(Category.COMPONENTS, 'LinearProgressBar');
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'LinearProgressBar',
+  });
   const dataHook = 'progress-bar';
   let driver: LinearProgressBarDriver;
 
@@ -43,7 +48,6 @@ describe('LinearProgresBar', () => {
   });
 
   eyes.it('should show empty progress as value less than 0', async () => {
-    const expectedProgress = 0;
     const valueLessThan0 = -1;
 
     await autoExampleDriver.setProps({ value: valueLessThan0 });

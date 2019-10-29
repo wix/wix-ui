@@ -552,7 +552,7 @@ describe('Slider', () => {
 
     it('should pass aria-label prop onto root element', async () => {
       const ariaLabel = 'slider-test';
-      const driver = render({'aria-label': ariaLabel});
+      const driver = render({ 'aria-label': ariaLabel });
       expect(driver.ariaLabel()).toEqual(ariaLabel);
     });
   });

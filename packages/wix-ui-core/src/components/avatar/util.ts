@@ -1,3 +1,9 @@
+// `const ... = require()` instead of `import ... = require()`
+// because tsc thinks that `grapheme-splitter` is an ES module:
+// `Import assignment cannot be used when targeting ECMAScript modules.`
+const GraphemeSplitter = require('grapheme-splitter');
+const splitter = new GraphemeSplitter();
+
 /**
  * Convert a space delimited full name to capitalized initials.
  * Returned initials would not exceed 3 or 2 letters, according to provided `limit`.
@@ -13,18 +19,15 @@ export function nameToInitials(name?: string, limit: 2 | 3 = 2) {
     limit = 2;
   }
 
-  let initials = name
-    .split(' ')
-    .map(s => s[0])
-    .join('');
+  let initials = name.split(' ').map(s => splitter.splitGraphemes(s)[0]);
 
   if (limit === 2 && initials.length > 2) {
-    initials = initials[0] + initials[initials.length - 1];
+    initials = [initials[0], initials[initials.length - 1]];
   }
 
   if (limit === 3 && initials.length > 3) {
-    initials = initials[0] + initials[1] + initials[initials.length - 1];
+    initials = [initials[0], initials[1], initials[initials.length - 1]];
   }
 
-  return initials.toUpperCase();
+  return initials.join('').toUpperCase();
 }

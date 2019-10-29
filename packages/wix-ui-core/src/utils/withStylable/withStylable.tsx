@@ -30,6 +30,7 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
         return null;
       }
       const className = (root.props && root.props.className) || '';
+      /* tslint:disable-next-line:deprecation */
       const statesMap = getState(this.props, this.state, this.context);
       const props = stylesheet(
         `root ${className ? className : ''}`.trim(),
@@ -41,12 +42,12 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
 }
 
 function withStylableStateless<CoreProps, ExtendedProps = {}>(
-  Component: React.SFC<CoreProps>,
+  Component: React.FunctionComponent<CoreProps>,
   stylesheet: RuntimeStylesheet,
   getState: (p?: any) => StateMap,
   extendedDefaultProps: object,
-): React.SFC<CoreProps & ExtendedProps> {
-  const WrapperComponent: React.SFC<CoreProps & ExtendedProps> = (
+): React.FunctionComponent<CoreProps & ExtendedProps> {
+  const WrapperComponent: React.FunctionComponent<CoreProps & ExtendedProps> = (
     props: CoreProps & ExtendedProps,
   ) => {
     const root = Component(props);
@@ -83,20 +84,22 @@ export function withStylable<CoreProps, ExtendedProps = {}>(
 ): React.ComponentClass<CoreProps & ExtendedProps>;
 
 export function withStylable<CoreProps, ExtendedProps = {}>(
-  Component: React.SFC<CoreProps>,
+  Component: React.FunctionComponent<CoreProps>,
   stylesheet: RuntimeStylesheet,
   getState: (p?: any) => StateMap,
   extendedDefaultProps?: object,
-): React.SFC<CoreProps & ExtendedProps>;
+): React.FunctionComponent<CoreProps & ExtendedProps>;
 
 export function withStylable<CoreProps, ExtendedProps = {}>(
-  Component: React.ComponentClass<CoreProps> | React.SFC<CoreProps>,
+  Component:
+    | React.ComponentClass<CoreProps>
+    | React.FunctionComponent<CoreProps>,
   stylesheet: RuntimeStylesheet,
   getState: (p?: any, s?: any, c?: any) => StateMap = () => ({}),
   extendedDefaultProps: object = {},
 ):
   | React.ComponentClass<CoreProps & ExtendedProps>
-  | React.SFC<CoreProps & ExtendedProps> {
+  | React.FunctionComponent<CoreProps & ExtendedProps> {
   if (isReactClassComponent(Component)) {
     return withStylableStateful<CoreProps, ExtendedProps>(
       Component as React.ComponentClass<CoreProps>,
@@ -106,7 +109,7 @@ export function withStylable<CoreProps, ExtendedProps = {}>(
     );
   }
   return withStylableStateless<CoreProps, ExtendedProps>(
-    Component as React.SFC<CoreProps>,
+    Component as React.FunctionComponent<CoreProps>,
     stylesheet,
     getState,
     extendedDefaultProps,

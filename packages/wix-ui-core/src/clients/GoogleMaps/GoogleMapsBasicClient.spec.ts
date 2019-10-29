@@ -128,8 +128,8 @@ describe('GoogleMapsBasicClient', () => {
       client.loadScript(CLIENT_ID, LANG);
       const firstCall = appendChildSpy.mock.calls[0][0];
       expect(firstCall.src.indexOf(EXPECTED_CLIENT_URL)).not.toBe(-1);
-    })
-  })
+    });
+  });
 
   describe('Functionality', () => {
     describe('autocomplete', () => {

@@ -5,6 +5,6 @@ const sliderMetadata = Registry.getComponentMetadata(Slider);
 sliderMetadata.addSim({
   title: 'sliderSim',
   props: {
-    'aria-label': 'slider'
+    'aria-label': 'slider',
   },
 });

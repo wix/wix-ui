@@ -19,7 +19,7 @@ export const dropdownDriverFactory = args => {
     optionAt: (index: number) => getDropdownContentDriver(args).optionAt(index),
     triggerMouseDownOnDropdownContent: () =>
       getDropdownContentDriver(args).triggerMouseDown(),
-    dropdownContentDisplayed: () => getDropdownContentDriver  (args).exists(),
+    dropdownContentDisplayed: () => getDropdownContentDriver(args).exists(),
   };
 };
 

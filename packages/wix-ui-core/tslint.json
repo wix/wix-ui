@@ -1,16 +1,43 @@
 {
-  "extends": ["tslint-config-yoshi"],
+  "extends": [
+    "tslint-config-yoshi"
+  ],
   "rules": {
     "prefer-object-spread": false,
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
-    "jsx-boolean-value": [true, "never"],
+    "jsx-boolean-value": [
+      true,
+      "never"
+    ],
     "jsx-alignment": true,
     "jsx-wrap-multiline": true,
-    "space-in-brackets": ["error", "always"],
-    "arrow-parens": [true, "ban-single-arg-parens"],
-    "array-bracket-spacing": [true, "never"],
-    "quotemark": [true, "single", "jsx-double"]
+    "space-in-brackets": [
+      "error",
+      "always"
+    ],
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
+    "array-bracket-spacing": [
+      true,
+      "never"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "no-floating-promises": {
+      "severity": "warn"
+    },
+    "restrict-plus-operands": {
+      "severity": "warn"
+    }
   }
 }

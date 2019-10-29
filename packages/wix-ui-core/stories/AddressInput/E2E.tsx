@@ -4,7 +4,7 @@ import { AddressInput } from '../../src/components/address-input';
 import { GoogleMapsClientStub } from '../../src/components/address-input/GoogleMapsClientStub';
 import { MapsClientConstructor } from '../../src/clients/GoogleMaps/types';
 import * as helper from '../../src/components/address-input/AddressInputTestHelper';
-import {Category} from '../utils';
+import { Category } from '../utils';
 
 export const DataHooks = {
   resetStub: 'reset-stub',

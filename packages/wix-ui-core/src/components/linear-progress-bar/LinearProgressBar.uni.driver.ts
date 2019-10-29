@@ -2,9 +2,9 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import {UniDriver, StylableUnidriverUtil} from 'wix-ui-test-utils/unidriver';
+import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import styles from './LinearProgressBar.st.css';
-import {ReactBase} from '../../../test/utils/unidriver/ReactBase';
+import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
 import {
   ProgressBarDataHooks,
   ProgressBarDataKeys,
@@ -45,7 +45,7 @@ export interface LinearProgressBarUniDriver extends BaseUniDriver {
 }
 
 export const linearProgressBarUniDriverFactory = (
-  base: UniDriver
+  base: UniDriver,
 ): LinearProgressBarUniDriver => {
   const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
   const stylableUnidriverUtil = new StylableUnidriverUtil(styles);

@@ -26,7 +26,7 @@ export const verifier: VerifierType = url => {
     return URL_REGEX.test(url as string);
   }
   if (isArray(url)) {
-    return (url as Array<string>).some(item => URL_REGEX.test(item));
+    return (url as string[]).some(item => URL_REGEX.test(item));
   }
 
   return false;
@@ -240,8 +240,10 @@ class PlayablePlayer extends React.PureComponent<
     this.player.hidePictureInPictureControl();
   }
   _renderCover() {
+
     const {showTitle, title, poster, hideOverlay, playButton, playing, description} = this.props;
     const {hasBeenPlayed} = this.state;
+        
     if (hideOverlay || playing || hasBeenPlayed) {
       return null;
     }

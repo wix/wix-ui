@@ -3,7 +3,7 @@ import hoistNonReactMethods from 'hoist-non-react-methods';
 
 import { getDisplayName } from '../utils';
 import styles from './Focusable.st.css';
-import {isStatelessComponent} from '../../utils';
+import { isStatelessComponent } from '../../utils';
 
 type SubscribeCb = () => void;
 
@@ -109,7 +109,10 @@ export const withFocusable = Component => {
     onFocus = event => {
       const { onFocus } = this.props;
       onFocus
-        ? onFocus(event, { blur: this.markAsBlurred, focus: this.markAsFocused })
+        ? onFocus(event, {
+            blur: this.markAsBlurred,
+            focus: this.markAsFocused,
+          })
         : this.markAsFocused();
     };
 

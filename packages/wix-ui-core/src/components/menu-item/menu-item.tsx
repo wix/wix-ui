@@ -18,7 +18,7 @@ export interface MenuItemProps {
   disabled?: boolean;
 }
 
-export const MenuItem: React.SFC<MenuItemProps> = props => {
+export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
   const { selected, highlighted, disabled, onSelect, ...rest } = props;
 
   return (

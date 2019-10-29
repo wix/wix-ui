@@ -22,7 +22,7 @@ const defaultProps: LabelProps = {
 /**
  * Label
  */
-export const Label: React.SFC<LabelProps> = props => {
+export const Label: React.FunctionComponent<LabelProps> = props => {
   const { id, children, ellipsis, disabled } = props;
   return (
     <label
