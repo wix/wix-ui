@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 declare namespace __WSR {
   namespace BaseComponents {
     export interface WixComponentProps {

@@ -10,5 +10,5 @@
     "lib": ["dom", "esnext"],
     "noEmit": true
   },
-  "include": ["./__tests__/*.tsx", "./src/*.d.ts"]
+  "include": ["./__tests__/*.tsx", "./src/**/*.d.ts"]
 }
