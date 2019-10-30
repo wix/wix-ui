@@ -1,6 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
+
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
+import { HorizontalMenuItemContext } from '../horizontal-menu-item/HorizontalMenuItemContext';
+import { layoutLeftAndRightPositions } from '../utils';
+
 import style from './HorizontalMenuColumnsLayout.st.css';
 
 export interface HorizontalMenuColumnsLayoutProps {
@@ -34,26 +38,40 @@ export class HorizontalMenuColumnsLayout extends React.PureComponent<
           );
 
           return (
-            <HorizontalMenuContext.Provider
-              value={{
-                ...context,
-                menuItemClassName: classnames(
-                  context.menuItemClassName,
-                  style.menuItem,
-                ),
+            <HorizontalMenuItemContext.Consumer>
+              {menuItemContext => {
+                const { isOpen, expandSize } = menuItemContext;
+
+                return (
+                  <HorizontalMenuContext.Provider
+                    value={{
+                      ...context,
+                      menuItemClassName: classnames(
+                        context.menuItemClassName,
+                        style.menuItem,
+                      ),
+                    }}
+                  >
+                    <ul
+                      data-hook="horizontal-menu-columns-layout"
+                      data-layout="column"
+                      data-opened={isOpen}
+                      {...style('root', { expandSize }, this.props)}
+                      className={classList}
+                      {...stylableProps}
+                      style={{
+                        ...this.props.style,
+                        textAlign,
+                        columns,
+                        ...layoutLeftAndRightPositions(menuItemContext),
+                      }}
+                    >
+                      {this.props.children}
+                    </ul>
+                  </HorizontalMenuContext.Provider>
+                );
               }}
-            >
-              <ul
-                {...style('root', {}, this.props)}
-                data-hook="horizontal-menu-columns-layout"
-                data-layout="column"
-                className={classList}
-                {...stylableProps}
-                style={{ ...this.props.style, textAlign, columns }}
-              >
-                {this.props.children}
-              </ul>
-            </HorizontalMenuContext.Provider>
+            </HorizontalMenuItemContext.Consumer>
           );
         }}
       </HorizontalMenuContext.Consumer>

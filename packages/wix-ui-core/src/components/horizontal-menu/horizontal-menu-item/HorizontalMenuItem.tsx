@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-import {
-  HorizontalMenuContext,
-  HorizontalMenuContextValue,
-} from '../HorizontalMenuContext';
+import { HorizontalMenuContext } from '../HorizontalMenuContext';
 
 import style from './HorizontalMenuItem.st.css';
+import { HorizontalMenuItemContext } from './HorizontalMenuItemContext';
+
+export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
 export interface ExpandIconProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export interface HorizontalMenuItemProps {
   href?: string;
   title: React.ReactNode;
   expandIcon?(props: ExpandIconProps): React.ReactElement;
-  expandSize?: 'column' | 'menu' | 'fullWidth';
+  expandSize?: ExpandSize;
   style?: React.CSSProperties;
 }
 
@@ -47,6 +47,26 @@ export class HorizontalMenuItem extends React.PureComponent<
     isOpen: false,
   };
 
+  private readonly getMenuItemBoundingRect = (key: string) => {
+    const { current } = this.menuItemRef;
+
+    if (!current) {
+      return 0;
+    }
+
+    return current.getBoundingClientRect()[key];
+  };
+
+  private readonly getMenuItemOffsetLeft = () => {
+    const { current } = this.menuItemRef;
+
+    if (!current) {
+      return 0;
+    }
+
+    return current.offsetLeft;
+  };
+
   private readonly toggleMenu = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -63,35 +83,6 @@ export class HorizontalMenuItem extends React.PureComponent<
     const { isOpen } = this.state;
 
     return expandIcon({ isOpen });
-  }
-
-  calculateLeftAndRightPositions(context: HorizontalMenuContextValue) {
-    const { current } = this.menuItemRef;
-
-    if (!current) {
-      return { left: 0, right: 0 };
-    }
-
-    const { expandSize } = this.props;
-
-    const itemWidth = current.getBoundingClientRect().width;
-
-    if (expandSize === 'menu') {
-      const offsetLeft = current.offsetLeft;
-      const menuWidth = context.getMenuBoundingRect('width');
-
-      return {
-        left: -offsetLeft,
-        right: -(menuWidth - itemWidth - offsetLeft),
-      };
-    }
-
-    const left = current.getBoundingClientRect().left;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    const right = window.innerWidth - scrollbarWidth - left - itemWidth;
-
-    return { left: -left, right: -right };
   }
 
   render() {
@@ -140,18 +131,17 @@ export class HorizontalMenuItem extends React.PureComponent<
                 {title}
               </a>
               {this.renderExpandIcon()}
-              {expandSize !== 'column' ? (
-                <div
-                  className={style.expandMenu}
-                  style={{
-                    ...this.calculateLeftAndRightPositions(context),
-                  }}
-                >
-                  {children}
-                </div>
-              ) : (
-                children
-              )}
+              <HorizontalMenuItemContext.Provider
+                value={{
+                  isOpen,
+                  expandSize,
+                  getMenuBoundingRect: context.getMenuBoundingRect,
+                  getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
+                  getMenuItemBoundingRect: this.getMenuItemBoundingRect,
+                }}
+              >
+                {children}
+              </HorizontalMenuItemContext.Provider>
             </li>
           );
         }}

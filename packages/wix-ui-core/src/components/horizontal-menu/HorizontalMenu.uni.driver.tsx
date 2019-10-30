@@ -5,6 +5,10 @@ import {
 } from 'wix-ui-test-utils/base-driver';
 
 export interface IHorizontalMenuUniDriver extends BaseUniDriver {
+  getElementsByDataHook(dataHook: string): Promise<UniDriver[]>;
+
+  getElementByDataHook(dataHook: string): Promise<UniDriver>;
+
   /** Get main <nav> */
   getMenuNavigation(): Promise<UniDriver>;
 
@@ -35,6 +39,12 @@ export const horizontalMenuDriverFactory = (base: UniDriver) => {
 
   return {
     ...baseUniDriverFactory(base),
+
+    getElementsByDataHook: async (dataHook: string) =>
+      base.$$(`[data-hook="${dataHook}"]`),
+
+    getElementByDataHook: async (dataHook: string) =>
+      base.$(`[data-hook="${dataHook}"]`),
 
     /** Get main <nav> */
     getMenuNavigation: async () =>

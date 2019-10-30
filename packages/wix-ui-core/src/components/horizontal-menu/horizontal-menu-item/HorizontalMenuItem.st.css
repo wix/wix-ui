@@ -6,17 +6,6 @@
   display: flex;
 }
 
-.root > * {
-  display: none;
-}
-
-.root:active > *,
-.root:hover > *,
-.root:focus > *,
-.root:focus-within > * {
-  display: block;
-}
-
 .menuItemLink {
   display: block;
   cursor: pointer;
@@ -25,10 +14,4 @@
 .expandIcon {
   display: inline-block;
   margin-left: 8px;
-}
-
-.expandMenu {
-  box-sizing: border-box;
-  position: absolute;
-  top: 100%;
 }

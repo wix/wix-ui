@@ -157,7 +157,7 @@ export default {
 
           columns([
             importExample(
-              "import {HorizontalMenu} from 'wix-ui-core/horizontal-menu';",
+              'import {HorizontalMenu} from \'wix-ui-core/horizontal-menu\';',
             ),
           ]),
 

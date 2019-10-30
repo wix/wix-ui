@@ -4,15 +4,15 @@
 }
 
 .root {
+  -st-states: expandSize(enum(column));
+
   box-sizing: border-box;
 
   position: absolute;
   top: 100%;
-  right: 0;
-  left: 0;
   z-index: 1;
 
-  width: 100%;
+  display: none;
 
   margin: 0;
   padding: 0;
@@ -23,6 +23,14 @@
   border: 1px gray solid;
 
   flex: 1;
+}
+
+.root:expandSize(column) {
+  width: 100%;
+}
+
+.root[data-opened="true"] {
+  display: block;
 }
 
 .menuItem {
