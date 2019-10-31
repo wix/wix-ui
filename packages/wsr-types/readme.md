@@ -17,7 +17,7 @@ To use install and update `tsconfig.json`:
 1. `npm install wsr-types --save-dev`
 1. update `tsconfig.json` `include` array:
 
-```json
+```js
 {
   "compilerOptions": {
     // ... compiler options
