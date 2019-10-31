@@ -7,6 +7,7 @@
     "email": "moshek@wix.com"
   },
   "files": [
+    "readme.md",
     "types.d.ts",
     "common-testkit-types.d.ts",
     "vanilla-testkit-types.d.ts",
