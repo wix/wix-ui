@@ -103,46 +103,57 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     return (
       <HorizontalMenuContext.Consumer>
-        {context => {
-          const classList = classnames(className, context.menuItemClassName);
+        {menuContext => {
+          const classList = classnames(
+            className,
+            menuContext.menuItemClassName,
+          );
 
           return (
-            <li
-              aria-selected={isOpen}
-              aria-expanded={children && isOpen}
-              aria-haspopup={children ? 'menu' : undefined}
-              onMouseEnter={this.toggleMenu}
-              onMouseLeave={this.toggleMenu}
-              onFocus={this.toggleMenu}
-              onBlur={this.toggleMenu}
-              menu-item-title={title}
-              data-hook="horizontal-menu-item"
-              ref={this.menuItemRef}
-              className={classList}
-              {...stylableProps}
-              style={propStyle}
-              {...rest}
-            >
-              <a
-                className={style.menuItemLink}
-                data-hook="horizontal-menu-item-link"
-                href={href}
-              >
-                {title}
-              </a>
-              {this.renderExpandIcon()}
-              <HorizontalMenuItemContext.Provider
-                value={{
-                  isOpen,
-                  expandSize,
-                  getMenuBoundingRect: context.getMenuBoundingRect,
-                  getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
-                  getMenuItemBoundingRect: this.getMenuItemBoundingRect,
-                }}
-              >
-                {children}
-              </HorizontalMenuItemContext.Provider>
-            </li>
+            <HorizontalMenuItemContext.Consumer>
+              {menuItemContext => {
+                const isMenuOpen = menuItemContext.isOpen || isOpen;
+
+                return (
+                  <li
+                    aria-selected={isOpen}
+                    aria-expanded={children && isMenuOpen}
+                    aria-haspopup={children ? 'menu' : undefined}
+                    onMouseEnter={this.toggleMenu}
+                    onMouseLeave={this.toggleMenu}
+                    onFocus={this.toggleMenu}
+                    onBlur={this.toggleMenu}
+                    menu-item-title={title}
+                    data-hook="horizontal-menu-item"
+                    ref={this.menuItemRef}
+                    className={classList}
+                    {...stylableProps}
+                    style={propStyle}
+                    {...rest}
+                  >
+                    <a
+                      className={style.menuItemLink}
+                      data-hook="horizontal-menu-item-link"
+                      href={href}
+                    >
+                      {title}
+                    </a>
+                    {this.renderExpandIcon()}
+                    <HorizontalMenuItemContext.Provider
+                      value={{
+                        expandSize,
+                        isOpen: isMenuOpen,
+                        getMenuBoundingRect: menuContext.getMenuBoundingRect,
+                        getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
+                        getMenuItemBoundingRect: this.getMenuItemBoundingRect,
+                      }}
+                    >
+                      {children}
+                    </HorizontalMenuItemContext.Provider>
+                  </li>
+                );
+              }}
+            </HorizontalMenuItemContext.Consumer>
           );
         }}
       </HorizontalMenuContext.Consumer>
