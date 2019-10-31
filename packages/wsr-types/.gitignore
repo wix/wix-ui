@@ -15,3 +15,4 @@ types.d.ts
 vanilla-testkit-types.d.ts
 enzyme-testkit-types.d.ts
 puppeteer-testkit-types.d.ts
+common-testkit-types.d.ts
