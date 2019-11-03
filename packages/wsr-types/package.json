@@ -22,7 +22,8 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
-    "test": "tsc",
+    "test": "npm run concat && tsc -p tsconfig-test.json",
+    "test:watch": "tsc --watch",
     "prerelease": "npm run test",
     "release": "npm run concat && yoshi release",
     "concat": "npm run concat:components && npm run concat:testkits",
