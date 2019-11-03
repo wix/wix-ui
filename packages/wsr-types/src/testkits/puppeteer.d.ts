@@ -23,4 +23,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const buttonTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.ButtonUniDriver
   >;
+  export const textButtonTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.TextButtonUniDriver
+  >;
 }

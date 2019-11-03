@@ -21,4 +21,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const buttonTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.ButtonUniDriver
   >;
+  export const textButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.TextButtonUniDriver
+  >;
 }

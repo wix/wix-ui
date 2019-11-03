@@ -19,4 +19,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const buttonTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ButtonUniDriver
   >;
+  export const textButtonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.TextButtonUniDriver
+  >;
 }
