@@ -9,6 +9,8 @@ declare namespace __WSR {
       T extends WixComponentProps = {}
     > extends React.PureComponent<T> {}
 
+    export type IconElement = React.ReactElement<any>;
+
     export interface EllipsisHOCProps {
       ellipsis?: boolean;
       appendTo?: import('wix-ui-core/popover').AppendTo;

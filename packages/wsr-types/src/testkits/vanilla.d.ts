@@ -15,6 +15,8 @@ declare module 'wix-style-react/dist/testkit' {
   export const loaderTestkitFactory: VanillaTestkitFactory<
     __WSRTests.LoaderDriver
   >;
-
   export const textTestkitFactory: VanillaTestkitFactory<__WSRTests.TextDriver>;
+  export const buttonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ButtonUniDriver
+  >;
 }
