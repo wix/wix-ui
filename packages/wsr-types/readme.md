@@ -32,4 +32,3 @@ To use install and update `tsconfig.json`:
 ## Contribute
 
 * `npm test` to run `tsc` and ensure types compile
-* `npm run concat` to concatenate type files into bulks
