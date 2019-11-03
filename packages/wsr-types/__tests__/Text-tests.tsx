@@ -15,13 +15,22 @@ function TextWithAllProps() {
     <Text
       className="cssssss"
       size="tiny"
-      ellipsed
       light
       secondary
-      showTooltip
       skin="standard"
       tagName="marquee"
       weight="thin"
+      appendTo={document.createElement('div')}
+      dataHook="hook"
+      ellipsis
+      fixed
+      flip
+      hideDelay={500}
+      maxWidth="500px"
+      placement="auto"
+      showDelay={300}
+      timeout={300}
+      zIndex={1}
     />
   );
 }
