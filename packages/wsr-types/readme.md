@@ -23,11 +23,7 @@ To use install and update `tsconfig.json`:
     // ... compiler options
   },
   "include": [
-    "node_modules/wsr-types/types.d.ts",
-    "node_modules/wsr-types/common-testkit-types.d.ts",
-    "node_modules/wsr-types/enzyme-testkit-types.d.ts",
-    "node_modules/wsr-types/puppeteer-testkit-types.d.ts",
-    "node_modules/wsr-types/vanilla-testkit-types.d.ts",
+    "node_modules/wsr-types/**/*.d.ts",
     // ... other includes
   ]
 }
