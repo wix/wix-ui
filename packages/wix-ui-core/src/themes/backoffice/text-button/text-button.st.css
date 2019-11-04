@@ -26,7 +26,7 @@
   border-radius: 2px;
 
   -st-mixin: weightThin, sizeMedium;
-  
+
   outline: none;
   padding: 0;
   height: 24px;
@@ -130,7 +130,7 @@
   color:value(P20);
 }
 
-.textButton:not(:disabled).premium:active{ 
+.textButton:not(:disabled).premium:active{
   background-color: transparent;
   border-color: transparent;
   color:value(P10);
@@ -368,8 +368,12 @@
 
 /* weight */
 
-.textButton.normal {
+.textButton.normal, .textButton.tiny.thin {
   -st-mixin: weightNormal;
+}
+
+.textButton.tiny.normal {
+  -st-mixin: weightBold;
 }
 
 /* sizes */
@@ -381,7 +385,7 @@
 
 .textButton.tiny{
   height: 18px;
-  -st-mixin: sizeTiny, weightBold;
+  -st-mixin: sizeTiny;
 }
 
 /* affixes */
