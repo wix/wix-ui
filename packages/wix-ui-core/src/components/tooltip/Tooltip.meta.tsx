@@ -3,6 +3,7 @@ import { Tooltip } from './';
 import Registry from '@ui-autotools/registry';
 
 const tooltipMetadata = Registry.getComponentMetadata(Tooltip);
+tooltipMetadata.nonReactStrictModeCompliant = true;
 
 tooltipMetadata.addSim({
   title: 'Simulation with default props',
