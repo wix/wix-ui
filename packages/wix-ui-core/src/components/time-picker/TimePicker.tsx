@@ -127,7 +127,7 @@ export class TimePicker extends React.PureComponent<
     focus: false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     let { value } = nextProps;
     if (this.props.value !== value) {
       if (!value || !isValidTime(value)) {

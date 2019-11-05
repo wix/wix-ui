@@ -55,7 +55,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
     }
   }
 
-  public componentWillReceiveProps() {
+  public UNSAFE_componentWillReceiveProps() {
     this.responsiveLayoutIsFresh = false;
   }
 
