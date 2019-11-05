@@ -14,9 +14,9 @@ const IMG_SRC_STUB =
 
 * Warning: Unsafe lifecycle methods were found within a strict-mode tree:
 *
-* componentWillReceiveProps: Please update the following components to use static getDerivedStateFromProps instead: Avatar
+* UNSAFE_componentWillReceiveProps: Please update the following components to use static getDerivedStateFromProps instead: Avatar
 *
-* We shuold be compatibe with React 15 and React 16, so we need to either compromise and use componentDidUpdate instead of componentWillReceiveProps.
+* We shuold be compatibe with React 15 and React 16, so we need to either compromise and use componentDidUpdate instead of UNSAFE_componentWillReceiveProps.
 * Or remove this hydration test.
 */
 

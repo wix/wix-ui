@@ -328,7 +328,7 @@ export class Pagination extends React.Component<
     );
   }
 
-  public componentWillReceiveProps(nextProps) {
+  public UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       pageInputValue: String(nextProps.currentPage),
       pageInputHasError: false,

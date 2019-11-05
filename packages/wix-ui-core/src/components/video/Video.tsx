@@ -63,7 +63,7 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
     this.state.playerName = getPlayerName(this.props.src);
   }
 
-  componentWillReceiveProps(nextProps: IVideoProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: IVideoProps) {
     if (this.props.src !== nextProps.src) {
       this.setState({
         playerName: getPlayerName(nextProps.src),

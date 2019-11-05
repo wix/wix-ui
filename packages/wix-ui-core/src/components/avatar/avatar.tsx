@@ -82,7 +82,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
       this.loadImg();
   }
 
-  componentWillReceiveProps(nextProps: AvatarProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: AvatarProps) {
     if (
       !nextProps.imgProps ||
       (!this.props.imgProps ||

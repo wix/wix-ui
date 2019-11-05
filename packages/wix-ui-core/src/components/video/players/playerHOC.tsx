@@ -43,7 +43,7 @@ export default function playerHOC(
       }
     }
 
-    componentWillReceiveProps(nextProps: ICommonProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: ICommonProps) {
       const currentProps = this.props;
 
       for (const propKey in nextProps) {
