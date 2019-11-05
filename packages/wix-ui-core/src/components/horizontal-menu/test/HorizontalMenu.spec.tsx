@@ -103,8 +103,8 @@ describe('HorizontalMenu', () => {
       <HorizontalMenu divider={divider}>
         {Array(itemsCount)
           .fill(0)
-          .map(() => (
-            <HorizontalMenu.Item {...menuItem} />
+          .map((_, index) => (
+            <HorizontalMenu.Item {...menuItem} key={index} />
           ))}
       </HorizontalMenu>,
     );
