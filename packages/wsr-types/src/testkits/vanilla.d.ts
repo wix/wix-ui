@@ -25,4 +25,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const emptyStateTestkitFactory: VanillaTestkitFactory<
     __WSRTests.EmptyStateDriver
   >;
+  export const headingTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.HeadingDriver
+  >;
 }

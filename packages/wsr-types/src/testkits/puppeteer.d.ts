@@ -29,4 +29,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const emptyStateTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.EmptyStateUniDriver
   >;
+  export const headingTestkitFactory: PuppeteerTestkitFactory<
+    __WSRTests.HeadingPuppeteerDriver
+  >;
 }
