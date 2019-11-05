@@ -1,0 +1,41 @@
+:import {
+  -st-from: "../horizontal-menu-item/HorizontalMenuItem.st.css";
+  -st-default: HorizontalMenuItem;
+}
+
+.root {
+  -st-states: expandSize(enum(column));
+
+  box-sizing: border-box;
+
+  z-index: 1;
+
+  display: none;
+  min-width: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch; 
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background-color: white;
+  border: 1px gray solid;
+
+  flex: 1;
+}
+
+.root:expandSize(column) {
+  width: 100%;
+}
+
+.root[data-opened="true"] {
+  display: flex;
+}
+
+.menuItem {
+  -st-extends: HorizontalMenuItem;
+  flex: 1;
+}

@@ -1,0 +1,18 @@
+.root {
+  box-sizing: border-box;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItemLink {
+  display: block;
+  cursor: pointer;
+}
+
+.expandIcon {
+  display: inline-block;
+  margin-left: 8px;
+}

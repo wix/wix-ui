@@ -1,0 +1,63 @@
+:import {
+  -st-from: "./horizontal-menu-item/HorizontalMenuItem.st.css";
+  -st-default: HorizontalMenuItem;
+}
+
+:import {
+  -st-from: "./horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
+  -st-default: HorizontalMenuGridLayout;
+}
+
+:import {
+  -st-from: "./horizontal-menu-columns-layout/HorizontalMenuColumnsLayout.st.css";
+  -st-default: HorizontalMenuColumnsLayout;
+}
+
+.root {
+  box-sizing: border-box;
+  list-style: none;
+}
+
+.menu {
+  box-sizing: border-box;
+
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: white;
+  border: 1px gray solid;
+
+  list-style: none;
+}
+
+/* menu item */
+.menuItem {
+  -st-extends: HorizontalMenuItem;
+}
+
+/* grid layout */
+.gridLayout {
+  -st-extends: HorizontalMenuGridLayout;
+}
+
+/* columns layout */
+.columnsLayout {
+  -st-extends: HorizontalMenuColumnsLayout;
+}
+
+.menu > .menuItem > .gridLayout {
+  position: absolute;
+  top: 100%;
+}
+
+.menu > .menuItem > .columnsLayout {
+  position: absolute;
+  top: 100%;
+}

@@ -187,5 +187,11 @@
     "missingFiles": [
       "tags-list.ts*"
     ]
+  },
+  "horizontal-menu": {
+    "path": "src/components/horizontal-menu",
+    "missingFiles": [
+      "horizontal-menu.ts*"
+    ]
   }
 }
