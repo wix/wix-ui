@@ -147,3 +147,12 @@ export const signatureInputTestkitFactory = enzymeUniTestkitFactoryCreator(
   signatureInputUniDriverFactory,
 );
 export { SignatureInputDriver };
+
+import {
+  horizontalMenuUniDriverFactory,
+  HorizontalMenuDriver,
+} from '../components/horizontal-menu/HorizontalMenu.uni.driver';
+export const horizontalMenuTestkitFactory = enzymeUniTestkitFactoryCreator(
+  horizontalMenuUniDriverFactory,
+);
+export { HorizontalMenuDriver };

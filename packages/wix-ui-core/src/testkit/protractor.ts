@@ -247,3 +247,12 @@ export const signatureInputTestkitFactory = protractorUniTestkitFactoryCreator(
   signatureInputUniDriverFactory,
 );
 export { SignatureInputDriver };
+
+import {
+  horizontalMenuUniDriverFactory,
+  HorizontalMenuDriver,
+} from '../components/horizontal-menu/HorizontalMenu.uni.driver';
+export const horizontalMenuTestkitFactory = protractorUniTestkitFactoryCreator(
+  horizontalMenuUniDriverFactory,
+);
+export { HorizontalMenuDriver };
