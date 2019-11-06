@@ -32,4 +32,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const headingTestkitFactory: PuppeteerTestkitFactory<
     __WSRTests.HeadingPuppeteerDriver
   >;
+  export const dropdownLayoutTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.DropdownLayoutUniDriver
+  >;
 }

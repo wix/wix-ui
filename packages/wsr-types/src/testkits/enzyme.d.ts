@@ -30,4 +30,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const headingTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.HeadingDriver
   >;
+  export const dropdownLayoutTestkitFactory: EnzymeTestkitFactory<
+  __WSRTests.DropdownLayoutDriver
+>;
 }
