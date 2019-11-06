@@ -31,4 +31,10 @@ declare module 'wix-style-react/dist/testkit' {
   export const dropdownLayoutTestkitFactory: VanillaTestkitFactory<
     __WSRTests.DropdownLayoutDriver
   >;
+  export const labelTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.LabelDriver
+  >;
+  export const checkboxTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.CheckboxDriver
+  >;
 }
