@@ -35,4 +35,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const dropdownLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.DropdownLayoutUniDriver
   >;
+  export const checkboxTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.CheckboxUniDriver
+  >;
 }
