@@ -22,46 +22,46 @@ import { HorizontalMenu } from '..';
 const code = config => baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
-  <HorizontalMenu.Item title="[fullWidth] Column Layout" expandSize="fullWidth">
+  <HorizontalMenu.Item label="[fullWidth] Column Layout" expandSize="fullWidth">
     <HorizontalMenu.Layout.Columns columns={3}>
-      <HorizontalMenu.Item title="Example Item 1" />
-      <HorizontalMenu.Item title="Example Item 2" />
-      <HorizontalMenu.Item title="Example Item 3" />
-      <HorizontalMenu.Item title="Example Item 4" />
-      <HorizontalMenu.Item title="Example Item 5" />
-      <HorizontalMenu.Item title="Example Item 6" />
-      <HorizontalMenu.Item title="Example Item 7" />
-      <HorizontalMenu.Item title="Example Item 8" />
+      <HorizontalMenu.Item label="Example Item 1" />
+      <HorizontalMenu.Item label="Example Item 2" />
+      <HorizontalMenu.Item label="Example Item 3" />
+      <HorizontalMenu.Item label="Example Item 4" />
+      <HorizontalMenu.Item label="Example Item 5" />
+      <HorizontalMenu.Item label="Example Item 6" />
+      <HorizontalMenu.Item label="Example Item 7" />
+      <HorizontalMenu.Item label="Example Item 8" />
     </HorizontalMenu.Layout.Columns>
   </HorizontalMenu.Item>
 );
 
 const exampleGridChildren = (
-  <HorizontalMenu.Item title="[menu] Grid Layout" expandSize="menu">
+  <HorizontalMenu.Item label="[menu] Grid Layout" expandSize="menu">
     <HorizontalMenu.Layout.Grid>
-      <HorizontalMenu.Item title="Example Item 1" />
-      <HorizontalMenu.Item title="Example Item 2" />
-      <HorizontalMenu.Item title="Example Item 3" />
-      <HorizontalMenu.Item title="Example Item 4" />
-      <HorizontalMenu.Item title="Example Item 5" />
-      <HorizontalMenu.Item title="Example Item 6" />
-      <HorizontalMenu.Item title="Example Item 7" />
-      <HorizontalMenu.Item title="Example Item 8" />
+      <HorizontalMenu.Item label="Example Item 1" />
+      <HorizontalMenu.Item label="Example Item 2" />
+      <HorizontalMenu.Item label="Example Item 3" />
+      <HorizontalMenu.Item label="Example Item 4" />
+      <HorizontalMenu.Item label="Example Item 5" />
+      <HorizontalMenu.Item label="Example Item 6" />
+      <HorizontalMenu.Item label="Example Item 7" />
+      <HorizontalMenu.Item label="Example Item 8" />
     </HorizontalMenu.Layout.Grid>
   </HorizontalMenu.Item>
 );
 
 const exampleListChildren = (
-  <HorizontalMenu.Item title="[column] Single Column Layout">
+  <HorizontalMenu.Item label="[column] Single Column Layout">
     <HorizontalMenu.Layout.Columns>
-      <HorizontalMenu.Item title="Example Item 1" />
-      <HorizontalMenu.Item title="Example Item 2" />
-      <HorizontalMenu.Item title="Example Item 3" />
-      <HorizontalMenu.Item title="Example Item 4" />
-      <HorizontalMenu.Item title="Example Item 5" />
-      <HorizontalMenu.Item title="Example Item 6" />
-      <HorizontalMenu.Item title="Example Item 7" />
-      <HorizontalMenu.Item title="Example Item 8" />
+      <HorizontalMenu.Item label="Example Item 1" />
+      <HorizontalMenu.Item label="Example Item 2" />
+      <HorizontalMenu.Item label="Example Item 3" />
+      <HorizontalMenu.Item label="Example Item 4" />
+      <HorizontalMenu.Item label="Example Item 5" />
+      <HorizontalMenu.Item label="Example Item 6" />
+      <HorizontalMenu.Item label="Example Item 7" />
+      <HorizontalMenu.Item label="Example Item 8" />
     </HorizontalMenu.Layout.Columns>
   </HorizontalMenu.Item>
 );
@@ -78,42 +78,42 @@ const generateMenu = () => (
 
 const generateStringMenu = () => `
   <HorizontalMenu>
-    <HorizontalMenu.Item title="[fullWidth] Column Layout" expandSize="fullWidth">
+    <HorizontalMenu.Item label="[fullWidth] Column Layout" expandSize="fullWidth">
       <HorizontalMenu.Layout.Columns columns={3}>
-        <HorizontalMenu.Item title="Example Item 1" />
-        <HorizontalMenu.Item title="Example Item 2" />
-        <HorizontalMenu.Item title="Example Item 3" />
-        <HorizontalMenu.Item title="Example Item 4" />
-        <HorizontalMenu.Item title="Example Item 5" />
-        <HorizontalMenu.Item title="Example Item 6" />
-        <HorizontalMenu.Item title="Example Item 7" />
-        <HorizontalMenu.Item title="Example Item 8" />
+        <HorizontalMenu.Item label="Example Item 1" />
+        <HorizontalMenu.Item label="Example Item 2" />
+        <HorizontalMenu.Item label="Example Item 3" />
+        <HorizontalMenu.Item label="Example Item 4" />
+        <HorizontalMenu.Item label="Example Item 5" />
+        <HorizontalMenu.Item label="Example Item 6" />
+        <HorizontalMenu.Item label="Example Item 7" />
+        <HorizontalMenu.Item label="Example Item 8" />
       </HorizontalMenu.Layout.Columns>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item title="[menu] Grid Layout" expandSize="menu">
+    <HorizontalMenu.Item label="[menu] Grid Layout" expandSize="menu">
       <HorizontalMenu.Layout.Grid>
-        <HorizontalMenu.Item title="Example Item 1" />
-        <HorizontalMenu.Item title="Example Item 2" />
-        <HorizontalMenu.Item title="Example Item 3" />
-        <HorizontalMenu.Item title="Example Item 4" />
-        <HorizontalMenu.Item title="Example Item 5" />
-        <HorizontalMenu.Item title="Example Item 6" />
-        <HorizontalMenu.Item title="Example Item 7" />
-        <HorizontalMenu.Item title="Example Item 8" />
+        <HorizontalMenu.Item label="Example Item 1" />
+        <HorizontalMenu.Item label="Example Item 2" />
+        <HorizontalMenu.Item label="Example Item 3" />
+        <HorizontalMenu.Item label="Example Item 4" />
+        <HorizontalMenu.Item label="Example Item 5" />
+        <HorizontalMenu.Item label="Example Item 6" />
+        <HorizontalMenu.Item label="Example Item 7" />
+        <HorizontalMenu.Item label="Example Item 8" />
       </HorizontalMenu.Layout.Grid>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item title="[column] Single Column Layout">
+    <HorizontalMenu.Item label="[column] Single Column Layout">
       <HorizontalMenu.Layout.Columns>
-        <HorizontalMenu.Item title="Example Item 1" />
-        <HorizontalMenu.Item title="Example Item 2" />
-        <HorizontalMenu.Item title="Example Item 3" />
-        <HorizontalMenu.Item title="Example Item 4" />
-        <HorizontalMenu.Item title="Example Item 5" />
-        <HorizontalMenu.Item title="Example Item 6" />
-        <HorizontalMenu.Item title="Example Item 7" />
-        <HorizontalMenu.Item title="Example Item 8" />
+        <HorizontalMenu.Item label="Example Item 1" />
+        <HorizontalMenu.Item label="Example Item 2" />
+        <HorizontalMenu.Item label="Example Item 3" />
+        <HorizontalMenu.Item label="Example Item 4" />
+        <HorizontalMenu.Item label="Example Item 5" />
+        <HorizontalMenu.Item label="Example Item 6" />
+        <HorizontalMenu.Item label="Example Item 7" />
+        <HorizontalMenu.Item label="Example Item 8" />
       </HorizontalMenu.Layout.Columns>
     </HorizontalMenu.Item>
   </HorizontalMenu>
@@ -151,7 +151,7 @@ export default {
             description({
               title: 'Description',
               text:
-                'This line here should briefly describe component in just a sentence or two. It should be short and easy to read.',
+                'HorizontalMenu component describes page/site navigation. It helps to organize items and submenus of navigation quick and simple.',
             }),
           ]),
 
@@ -180,7 +180,6 @@ export default {
           code({
             title: 'Full Interactive Preview',
             description: 'A non compact version of same code example as above',
-            // source: `<HorizontalMenu items={${JSON.stringify(items)}} />`,
             source: generateStringMenu(),
           }),
         ],

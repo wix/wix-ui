@@ -71,3 +71,12 @@ export const tagsListTestkitFactory = puppeteerUniTestkitFactoryCreator(
   makeTagsListUniDriver,
 );
 export { TagsListUniDriver };
+
+import {
+  horizontalMenuUniDriverFactory,
+  HorizontalMenuDriver,
+} from '../components/horizontal-menu/HorizontalMenu.uni.driver';
+export const horizontalMenuTestkitFactory = puppeteerUniTestkitFactoryCreator(
+  horizontalMenuUniDriverFactory,
+);
+export { HorizontalMenuDriver };

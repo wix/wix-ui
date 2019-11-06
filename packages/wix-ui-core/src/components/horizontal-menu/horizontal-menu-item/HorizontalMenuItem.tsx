@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
+
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
+import { HorizontalMenuItemContext } from './HorizontalMenuItemContext';
+import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuItem.st.css';
-import { HorizontalMenuItemContext } from './HorizontalMenuItemContext';
 
 export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
@@ -12,12 +14,14 @@ export interface ExpandIconProps {
 }
 
 export interface HorizontalMenuItemProps {
+  label: string;
   className?: string;
   href?: string;
-  title: React.ReactNode;
-  expandIcon?(props: ExpandIconProps): React.ReactElement;
-  expandSize?: ExpandSize;
+  target?: string;
+  icon?: React.ReactNode;
   style?: React.CSSProperties;
+  expandSize?: ExpandSize;
+  expandIcon?(props: ExpandIconProps): React.ReactElement;
 }
 
 interface HorizontalMenuItemState {
@@ -28,10 +32,11 @@ export class HorizontalMenuItem extends React.PureComponent<
   HorizontalMenuItemProps,
   HorizontalMenuItemState
 > {
-  static displayName = 'HorizontalMenuItem';
+  static displayName = HORIZONTAL_MENU_METADATA.displayNames.item;
 
   static defaultProps = {
     href: '#',
+    target: '_self',
     expandSize: 'column',
   };
 
@@ -87,11 +92,13 @@ export class HorizontalMenuItem extends React.PureComponent<
 
   render() {
     const {
-      title,
+      label,
       href,
+      target,
       expandSize,
       children,
       className: propClassName,
+      icon,
       expandIcon,
       style: propStyle,
       ...rest
@@ -119,24 +126,27 @@ export class HorizontalMenuItem extends React.PureComponent<
                     aria-selected={isOpen}
                     aria-expanded={children && isMenuOpen}
                     aria-haspopup={children ? 'menu' : undefined}
+                    aria-label={label}
                     onMouseEnter={this.toggleMenu}
                     onMouseLeave={this.toggleMenu}
                     onFocus={this.toggleMenu}
                     onBlur={this.toggleMenu}
-                    menu-item-title={title}
-                    data-hook="horizontal-menu-item"
+                    menu-item-label={label}
+                    data-hook={HORIZONTAL_MENU_METADATA.dataHooks.item}
                     ref={this.menuItemRef}
                     className={classList}
                     {...stylableProps}
                     style={propStyle}
                     {...rest}
                   >
+                    {icon}
                     <a
                       className={style.menuItemLink}
-                      data-hook="horizontal-menu-item-link"
+                      data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
                       href={href}
+                      target={target}
                     >
-                      {title}
+                      {label}
                     </a>
                     {this.renderExpandIcon()}
                     <HorizontalMenuItemContext.Provider

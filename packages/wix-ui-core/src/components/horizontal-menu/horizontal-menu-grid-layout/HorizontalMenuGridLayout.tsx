@@ -4,6 +4,7 @@ import * as classnames from 'classnames';
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
 import { HorizontalMenuItemContext } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { layoutLeftAndRightPositions } from '../utils';
+import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuGridLayout.st.css';
 
@@ -17,7 +18,7 @@ export interface HorizontalMenuGridLayoutProps {
 export class HorizontalMenuGridLayout extends React.PureComponent<
   HorizontalMenuGridLayoutProps
 > {
-  static displayName = 'HorizontalMenuGridLayout';
+  static displayName = HORIZONTAL_MENU_METADATA.displayNames.gridLayout;
 
   render() {
     const { textAlign } = this.props;
@@ -47,7 +48,7 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
                     }}
                   >
                     <ul
-                      data-hook="horizontal-menu-grid-layout"
+                      data-hook={HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}
                       data-layout="grid"
                       data-opened={isOpen}
                       {...style('root', { expandSize }, this.props)}
