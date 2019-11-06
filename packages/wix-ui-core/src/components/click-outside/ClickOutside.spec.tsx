@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import ClickOutside from './ClickOutside';
+import { ClickOutside } from './ClickOutside';
 import { act, Simulate } from 'react-dom/test-utils';
 
 describe('ClickOutside', () => {

@@ -17,7 +17,7 @@ export interface ClickOutsideProps {
 /**
  * Click outside behavior
  */
-class ClickOutside extends React.PureComponent<ClickOutsideProps> {
+export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
   private readonly _boundEvents: string[];
 
   constructor(props) {
@@ -100,5 +100,3 @@ class ClickOutside extends React.PureComponent<ClickOutsideProps> {
     return this.props.children;
   }
 }
-
-export default ClickOutside;

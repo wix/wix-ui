@@ -34,6 +34,7 @@ import '../src/components/button-next/button-next.story';
 import './Captcha.story';
 Components.add('Checkbox', () => <CheckboxStory />);
 import './CircularProgressBar/index.story';
+import './ClickOutside/index.story';
 Components.add('Divider', () => <DividerStory />);
 import '../src/components/file-picker-button/docs/FilePickerButton.story';
 Components.add('GoogleMapsIframeClient', () => <GoogleMapsIframeClientStory />);
