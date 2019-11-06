@@ -4,6 +4,7 @@ import * as classnames from 'classnames';
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
 import { HorizontalMenuItemContext } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { layoutLeftAndRightPositions } from '../utils';
+import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuColumnsLayout.st.css';
 
@@ -18,7 +19,7 @@ export interface HorizontalMenuColumnsLayoutProps {
 export class HorizontalMenuColumnsLayout extends React.PureComponent<
   HorizontalMenuColumnsLayoutProps
 > {
-  static displayName = 'HorizontalMenuColumnsLayout';
+  static displayName = HORIZONTAL_MENU_METADATA.displayNames.columnsLayout;
 
   static defaultProps = {
     columns: 1,
@@ -53,7 +54,9 @@ export class HorizontalMenuColumnsLayout extends React.PureComponent<
                     }}
                   >
                     <ul
-                      data-hook="horizontal-menu-columns-layout"
+                      data-hook={
+                        HORIZONTAL_MENU_METADATA.dataHooks.columnsLayout
+                      }
                       data-layout="column"
                       data-opened={isOpen}
                       {...style('root', { expandSize }, this.props)}

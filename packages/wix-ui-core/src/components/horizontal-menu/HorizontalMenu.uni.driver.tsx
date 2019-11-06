@@ -4,78 +4,75 @@ import {
   BaseUniDriver,
 } from 'wix-ui-test-utils/base-driver';
 
-export interface IHorizontalMenuUniDriver extends BaseUniDriver {
-  getElementsByDataHook(dataHook: string): Promise<UniDriver[]>;
+import { HORIZONTAL_MENU_METADATA } from './constants';
 
-  getElementByDataHook(dataHook: string): Promise<UniDriver>;
+export interface HorizontalMenuDriver extends BaseUniDriver {
+  getElementByDataHook(dataHook: string): UniDriver;
 
   /** Get main <nav> */
-  getMenuNavigation(): Promise<UniDriver>;
+  getMenuNavigation(): UniDriver;
 
   /** Get main <ul> */
-  getMenuContainer(): Promise<UniDriver>;
+  getMenuContainer(): UniDriver;
 
-  /** Get a menu item by title */
-  getMenuItem(menuItemTitle: string): Promise<UniDriver>;
+  /** Get a menu item by label */
+  getMenuItem(menuItemLabel: string): UniDriver;
 
-  /** Click on menu item by title */
-  clickMenuItem(menuItemTitle: string): Promise<void>;
+  /** Click on menu item by label */
+  clickMenuItem(menuItemLabel: string): Promise<void>;
 
-  /** Hover a menu item by title */
-  hoverMenuItem(menuItemTitle: string): Promise<void>;
+  /** Hover a menu item by label */
+  hoverMenuItem(menuItemLabel: string): Promise<void>;
 
-  /** Get column layout by menu title */
-  getMenuItemColumnLayout(menuItemTitle: string): Promise<UniDriver>;
+  /** Get column layout by menu label */
+  getMenuItemColumnsLayout(menuItemLabel: string): UniDriver;
 
-  /** Get grid layout by menu title */
-  getMenuItemGridLayout(menuItemTitle: string): Promise<UniDriver>;
+  /** Get grid layout by menu label */
+  getMenuItemGridLayout(menuItemLabel: string): UniDriver;
 }
 
-export const horizontalMenuDriverFactory = (base: UniDriver) => {
-  const getMenuItemByTitle = (menuItemTitle: string) =>
+export const horizontalMenuUniDriverFactory = (base: UniDriver) => {
+  const getMenuItemByLabel = (menuItemLabel: string) =>
     base.$(
-      `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"]`,
+      `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"]`,
     );
 
   return {
     ...baseUniDriverFactory(base),
-
-    getElementsByDataHook: async (dataHook: string) =>
-      base.$$(`[data-hook="${dataHook}"]`),
 
     getElementByDataHook: async (dataHook: string) =>
       base.$(`[data-hook="${dataHook}"]`),
 
     /** Get main <nav> */
     getMenuNavigation: async () =>
-      base.$('[data-hook="horizontal-menu-navigation"]'),
+      base.$(`[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.navigation}"]`),
 
     /** Get main <ul> */
     getMenuContainer: async () =>
-      base.$('[data-hook="horizontal-menu-container"]'),
+      base.$(`[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.container}"]`),
 
-    /** Get a menu item by title */
-    getMenuItem: async (menuItemTitle: string) =>
-      getMenuItemByTitle(menuItemTitle),
+    /** Get a menu item by label */
+    getMenuItem: async (menuItemLabel: string) =>
+      getMenuItemByLabel(menuItemLabel),
 
-    /** Click on menu item by title */
-    clickMenuItem: async (menuItemTitle: string) =>
-      getMenuItemByTitle(menuItemTitle).click(),
+    /** Click on menu item by label */
+    clickMenuItem: async (menuItemLabel: string) =>
+      getMenuItemByLabel(menuItemLabel).click(),
 
-    /** Hover a menu item by title */
-    hoverMenuItem: async (menuItemTitle: string) =>
-      getMenuItemByTitle(menuItemTitle).hover(),
+    /** Hover a menu item by label */
+    hoverMenuItem: async (menuItemLabel: string) =>
+      getMenuItemByLabel(menuItemLabel).hover(),
 
-    /** Get grid layout by menu title */
-    getMenuItemGridLayout: async (menuItemTitle: string) =>
+    /** Get grid layout by menu label */
+    getMenuItemGridLayout: async (menuItemLabel: string) =>
       base.$(
-        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-grid-layout"]`,
+        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}"]`,
       ),
 
-    /** Get column layout by menu title */
-    getMenuItemColumnsLayout: async (menuItemTitle: string) =>
+    /** Get column layout by menu label */
+    getMenuItemColumnsLayout: async (menuItemLabel: string) =>
       base.$(
-        `[data-hook="horizontal-menu-item"][menu-item-title="${menuItemTitle}"] [data-hook="horizontal-menu-columns-layout"]`,
+        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.columnsLayout}"]`,
       ),
   };
 };

@@ -24,22 +24,22 @@ describe('HorizontalMenu', () => {
 
   it('should render HorizontalMenuItem with children', async () => {
     const menuItem = {
-      title: 'Columns Layout',
+      label: 'Columns Layout',
     };
 
     const { driver } = render(
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
           <HorizontalMenu.Layout.Columns>
-            <HorizontalMenu.Item title="Sample text" />
-            <HorizontalMenu.Item title="Sample text" />
-            <HorizontalMenu.Item title="Sample text" />
+            <HorizontalMenu.Item label="Sample text" />
+            <HorizontalMenu.Item label="Sample text" />
+            <HorizontalMenu.Item label="Sample text" />
           </HorizontalMenu.Layout.Columns>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
     );
 
-    const item = await driver.getMenuItem(menuItem.title);
+    const item = await driver.getMenuItem(menuItem.label);
     expect(await item.exists()).toBeTruthy();
     expect(await item.attr('aria-expanded')).toEqual('false');
     expect(await item.attr('aria-haspopup')).toEqual('menu');
@@ -47,7 +47,7 @@ describe('HorizontalMenu', () => {
 
   it('should render HorizontalMenuItem without children', async () => {
     const menuItem = {
-      title: 'Columns Layout',
+      label: 'Columns Layout',
     };
 
     const { driver } = render(
@@ -56,7 +56,7 @@ describe('HorizontalMenu', () => {
       </HorizontalMenu>,
     );
 
-    const item = await driver.getMenuItem(menuItem.title);
+    const item = await driver.getMenuItem(menuItem.label);
     expect(await item.exists()).toBeTruthy();
     expect(await item.attr('aria-expanded')).toBeFalsy();
     expect(await item.attr('aria-haspopup')).toBeFalsy();
@@ -64,63 +64,78 @@ describe('HorizontalMenu', () => {
 
   it('should show submenu on HorizontalMenuItem hover', async () => {
     const menuItem = {
-      title: 'Columns Layout',
+      label: 'Columns Layout',
     };
 
     const { driver } = render(
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
           <HorizontalMenu.Layout.Columns>
-            <HorizontalMenu.Item title="Sample1" />
-            <HorizontalMenu.Item title="Sample2" />
-            <HorizontalMenu.Item title="Sample3" />
+            <HorizontalMenu.Item label="Sample1" />
+            <HorizontalMenu.Item label="Sample2" />
+            <HorizontalMenu.Item label="Sample3" />
           </HorizontalMenu.Layout.Columns>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
     );
 
-    const item = await driver.getMenuItem(menuItem.title);
+    const item = await driver.getMenuItem(menuItem.label);
     expect(await item.exists()).toBeTruthy();
 
-    const columnsLayout = await driver.getMenuItemColumnsLayout(menuItem.title);
+    const columnsLayout = await driver.getMenuItemColumnsLayout(menuItem.label);
     expect(await item.attr('aria-expanded')).toEqual('false');
     expect(await columnsLayout.attr('data-opened')).toEqual('false');
-    await driver.hoverMenuItem(menuItem.title);
+    await driver.hoverMenuItem(menuItem.label);
     expect(await item.attr('aria-selected')).toEqual('true');
     expect(await item.attr('aria-expanded')).toEqual('true');
     expect(await columnsLayout.attr('data-opened')).toEqual('true');
   });
 
   it('should render divider between items if provided', async () => {
-    const divider = <div data-hook="horizontal-menu-divider">-|-</div>;
-    const itemsCount = 3;
+    const dividerElement = <div data-hook="horizontal-menu-divider">-|-</div>;
 
     const menuItem = {
-      title: 'Columns Layout',
+      label: 'Columns Layout',
     };
 
     const { driver } = render(
-      <HorizontalMenu divider={divider}>
-        {Array(itemsCount)
-          .fill(0)
-          .map((_, index) => (
-            <HorizontalMenu.Item {...menuItem} key={index} />
-          ))}
+      <HorizontalMenu divider={dividerElement}>
+        <HorizontalMenu.Item {...menuItem} />
+        <HorizontalMenu.Item {...menuItem} />
       </HorizontalMenu>,
     );
 
-    const dividers = await driver.getElementsByDataHook(
+    const divider = await driver.getElementByDataHook(
       'horizontal-menu-divider',
     );
-    const dividersCount = await dividers.count();
-    const dividersText = await dividers.text();
-    expect(dividersCount).toEqual(itemsCount - 1);
-    expect(dividersText.every(item => item === '-|-')).toBeTruthy();
+    const dividerText = await divider.text();
+    expect(await divider.exists()).toBeTruthy();
+    expect(dividerText).toEqual('-|-');
+  });
+
+  it('should not render divider if not provided', async () => {
+    const menuItem = {
+      label: 'Columns Layout',
+    };
+
+    const { driver } = render(
+      <HorizontalMenu>
+        <HorizontalMenu.Item {...menuItem} />
+        <HorizontalMenu.Item {...menuItem} />
+      </HorizontalMenu>,
+    );
+
+    try {
+      await driver.getElementByDataHook('horizontal-menu-divider');
+      expect(false).toBeTruthy();
+    } catch (err) {
+      expect(err).toBeTruthy();
+    }
   });
 
   it('should render different expand icon on open/close states', async () => {
     const menuItem = {
-      title: 'Columns Layout',
+      label: 'Columns Layout',
       expandIcon: ({ isOpen }: { isOpen: boolean }) => (
         <div data-hook="expand-icon" data-opened={isOpen} />
       ),
@@ -130,9 +145,9 @@ describe('HorizontalMenu', () => {
       <HorizontalMenu>
         <HorizontalMenu.Item {...menuItem}>
           <HorizontalMenu.Layout.Columns>
-            <HorizontalMenu.Item title="Sample1" />
-            <HorizontalMenu.Item title="Sample2" />
-            <HorizontalMenu.Item title="Sample3" />
+            <HorizontalMenu.Item label="Sample1" />
+            <HorizontalMenu.Item label="Sample2" />
+            <HorizontalMenu.Item label="Sample3" />
           </HorizontalMenu.Layout.Columns>
         </HorizontalMenu.Item>
       </HorizontalMenu>,
@@ -140,7 +155,29 @@ describe('HorizontalMenu', () => {
 
     const expandIcon = await driver.getElementByDataHook('expand-icon');
     expect(await expandIcon.attr('data-opened')).toEqual('false');
-    await driver.hoverMenuItem(menuItem.title);
+    await driver.hoverMenuItem(menuItem.label);
     expect(await expandIcon.attr('data-opened')).toEqual('true');
+  });
+
+  it('should render icon if provided', async () => {
+    const menuItem = {
+      label: 'Columns Layout',
+      icon: <div data-hook="menu-item-icon" />,
+    };
+
+    const { driver } = render(
+      <HorizontalMenu>
+        <HorizontalMenu.Item {...menuItem}>
+          <HorizontalMenu.Layout.Columns>
+            <HorizontalMenu.Item label="Sample1" />
+            <HorizontalMenu.Item label="Sample2" />
+            <HorizontalMenu.Item label="Sample3" />
+          </HorizontalMenu.Layout.Columns>
+        </HorizontalMenu.Item>
+      </HorizontalMenu>,
+    );
+
+    const menuItemIcon = await driver.getElementByDataHook('menu-item-icon');
+    expect(await menuItemIcon.exists()).toBeTruthy();
   });
 });
