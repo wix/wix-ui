@@ -31,7 +31,7 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
    */
   _registerEvents() {
     ['mouseup', 'touchend'].forEach(eventName => {
-      document.addEventListener(eventName, this._onClickOutside, true);
+      document.addEventListener(eventName, this._onClickOutside);
       this._boundEvents.push(eventName);
     });
   }
@@ -42,7 +42,7 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
   _unregisterEvents() {
     while (this._boundEvents.length > 0) {
       const eventName = this._boundEvents.pop();
-      document.removeEventListener(eventName, this._onClickOutside, true);
+      document.removeEventListener(eventName, this._onClickOutside);
     }
   }
 
@@ -66,23 +66,21 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
   }
 
   /**
-   * Check whether all requirements for "outside click" are met
+   * Check whether the click is inside the element or excluded
    * @param event - Click event
    */
-  _isOutsideClick = event => {
+  _isInsideClick = event => {
     const { rootRef, excludeClass } = this.props;
     let target: HTMLElement = event.target;
     while (target) {
       if (
         rootRef.current === target ||
-        target.classList.contains(excludeClass)
+        (target.classList && target.classList.contains(excludeClass))
       ) {
-        return false;
+        return true;
       }
       target = target.parentElement;
     }
-
-    return true;
   };
 
   /**
@@ -91,7 +89,7 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
    */
   _onClickOutside = event => {
     const { onClickOutside } = this.props;
-    if (this._isOutsideClick(event)) {
+    if (!this._isInsideClick(event)) {
       onClickOutside(event);
     }
   };

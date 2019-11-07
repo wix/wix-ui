@@ -9,8 +9,6 @@ describe('ClickOutside', () => {
   beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
-    map = {};
-    document.addEventListener = jest.fn((event, cb) => (map[event] = cb));
   });
 
   afterEach(() => {
@@ -57,18 +55,13 @@ describe('ClickOutside', () => {
   function clickOutside(outside) {
     Simulate.click(outside);
 
-    /*
-     * This hack makes sure the right "jest.fn()" is being called on the outside element.
-     * Will not work without "Simulate.click(outside)"
-     */
-    const clickEvent = new MouseEvent('click', { bubbles: true });
-    Object.defineProperty(clickEvent, 'target', {
+    const mouseupEvent = new MouseEvent('mouseup', { bubbles: true });
+    Object.defineProperty(mouseupEvent, 'target', {
       writable: false,
       value: outside,
     });
-    if (map.mouseup) {
-      map.mouseup(clickEvent);
-    }
+
+    document.dispatchEvent(mouseupEvent);
   }
 
   it('should click inside and outside', async () => {

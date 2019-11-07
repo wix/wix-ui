@@ -9,7 +9,6 @@ export class ClickOutsideStory extends React.Component<any, any> {
     this.rootRef = React.createRef();
 
     this.state = {
-      disableOnClickOutside: false,
       clicks: 0,
     };
   }
@@ -21,14 +20,14 @@ export class ClickOutsideStory extends React.Component<any, any> {
   };
 
   render() {
-    const { excludeClass } = this.props;
+    const { excludeClass, disableOnClickOutside } = this.props;
     return (
       <div>
         <ClickOutside
           rootRef={this.rootRef}
           onClickOutside={this._clickOutside}
           excludeClass={excludeClass}
-          disableOnClickOutside={this.state.disableOnClickOutside}
+          disableOnClickOutside={disableOnClickOutside}
         >
           <div
             style={{ backgroundColor: 'lightskyblue', padding: '5px' }}

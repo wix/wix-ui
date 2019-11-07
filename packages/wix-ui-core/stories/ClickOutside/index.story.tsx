@@ -9,8 +9,9 @@ export default {
   componentPath: '../../src/components/click-outside',
 
   componentProps: setState => ({
-    clickOutsideCallback: () => console.log('Clicked outside'),
+    clickOutsideCallback: () => {},
     excludeClass: '',
+    disableOnClickOutside: false,
   }),
 
   exampleProps: {},
