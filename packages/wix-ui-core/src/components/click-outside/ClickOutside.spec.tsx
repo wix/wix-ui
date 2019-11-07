@@ -4,7 +4,7 @@ import { ClickOutside } from './ClickOutside';
 import { act, Simulate } from 'react-dom/test-utils';
 
 describe('ClickOutside', () => {
-  let container, map;
+  let container;
 
   beforeEach(() => {
     container = document.createElement('div');
