@@ -39,4 +39,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const checkboxTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.CheckboxDriver
   >;
+  export const inputTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.InputDriver
+  >;
 }

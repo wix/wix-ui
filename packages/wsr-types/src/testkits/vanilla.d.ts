@@ -37,4 +37,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const checkboxTestkitFactory: VanillaTestkitFactory<
     __WSRTests.CheckboxDriver
   >;
+  export const inputTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.InputDriver
+  >;
 }
