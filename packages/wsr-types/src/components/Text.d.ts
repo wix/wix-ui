@@ -1,6 +1,6 @@
 declare namespace __WSR {
   namespace Text {
-    export interface TextProps extends __WSR.BaseComponents.EllipsisHOCProps {
+    export interface TextProps extends BaseComponents.EllipsisHOCProps {
       dataHook?: string;
       tagName?: string;
       className?: string;

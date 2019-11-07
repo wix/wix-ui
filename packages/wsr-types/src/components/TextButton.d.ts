@@ -8,8 +8,8 @@ declare namespace __WSR {
       weight?: TextButtonWeight;
       size?: TextButtonSize;
       onClick?: React.MouseEventHandler<HTMLElement>;
-      suffixIcon?: __WSR.BaseComponents.IconElement;
-      prefixIcon?: __WSR.BaseComponents.IconElement;
+      suffixIcon?: BaseComponents.IconElement;
+      prefixIcon?: BaseComponents.IconElement;
       disabled?: boolean;
       dataHook?: string;
       target?: string;
