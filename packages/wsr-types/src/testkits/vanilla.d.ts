@@ -43,4 +43,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const formFieldTestkitFactory: VanillaTestkitFactory<
     __WSRTests.FormFieldDriver
   >;
+  export const pageHeaderTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.PageHeaderDriver
+  >;
 }
