@@ -1,8 +1,4 @@
 import * as React from 'react';
-import onClickOutside, {
-  InjectedOnClickOutProps,
-  OnClickOutProps,
-} from 'react-onclickoutside';
 import style from './Dropdown.st.css';
 import { Popover, Placement, PopoverProps } from '../popover';
 import { DropdownContent } from '../dropdown-content';
@@ -60,13 +56,13 @@ export interface DropdownState {
  * Dropdown
  */
 export class DropdownComponent extends React.PureComponent<
-  DropdownProps & InjectedOnClickOutProps,
+  DropdownProps,
   DropdownState
 > {
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent | null = null;
 
-  constructor(props: DropdownProps & InjectedOnClickOutProps) {
+  constructor(props: DropdownProps) {
     super(props);
 
     this.close = this.close.bind(this);
@@ -127,9 +123,9 @@ export class DropdownComponent extends React.PureComponent<
     onInitialSelectedOptionsSet && onInitialSelectedOptionsSet(selectedOptions);
   }
 
-  handleClickOutside() {
+  handleClickOutside = () => {
     this.close();
-  }
+  };
 
   open(onOpen: () => void = () => null) {
     if (this.state.isOpen) {
@@ -299,6 +295,7 @@ export class DropdownComponent extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
+        onClickOutside={this.handleClickOutside}
       >
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>
@@ -319,6 +316,4 @@ export class DropdownComponent extends React.PureComponent<
   }
 }
 
-export const Dropdown: React.ComponentClass<
-  OnClickOutProps<DropdownProps & InjectedOnClickOutProps>
-> = onClickOutside(DropdownComponent);
+export const Dropdown: React.ComponentClass<DropdownProps> = DropdownComponent;
