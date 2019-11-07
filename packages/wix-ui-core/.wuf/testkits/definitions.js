@@ -161,6 +161,10 @@ module.exports = {
   stepper: {
     noDriver: true
   },
+  "click-outside": {
+    hasUnidriver: false,
+    noDriver: true,
+  },
   "ellipsis-tooltip": {
     noDriver: true
   },

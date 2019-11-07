@@ -193,5 +193,11 @@
     "missingFiles": [
       "horizontal-menu.ts*"
     ]
+  },
+  "click-outside": {
+    "path": "src/components/click-outside",
+    "missingFiles": [
+      "click-outside.ts*"
+    ]
   }
 }
