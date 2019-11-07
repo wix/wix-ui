@@ -41,4 +41,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const inputTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.InputUniDriver
   >;
+  export const formFieldTestkitFactory: PuppeteerTestkitFactory<
+    __WSRTests.FormFieldPuppeteerDriver
+  >;
 }

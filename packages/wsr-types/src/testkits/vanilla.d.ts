@@ -40,4 +40,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const inputTestkitFactory: VanillaTestkitFactory<
     __WSRTests.InputDriver
   >;
+  export const formFieldTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.FormFieldDriver
+  >;
 }
