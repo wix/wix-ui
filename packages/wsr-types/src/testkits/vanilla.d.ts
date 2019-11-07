@@ -46,4 +46,5 @@ declare module 'wix-style-react/dist/testkit' {
   export const pageHeaderTestkitFactory: VanillaTestkitFactory<
     __WSRTests.PageHeaderDriver
   >;
+  export const pageTestkitFactory: VanillaTestkitFactory<__WSRTests.PageDriver>;
 }

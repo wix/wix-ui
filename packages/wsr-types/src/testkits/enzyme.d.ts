@@ -48,4 +48,5 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const pageHeaderTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.PageHeaderDriver
   >;
+  export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
 }
