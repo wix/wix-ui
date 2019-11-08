@@ -47,10 +47,11 @@
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
     "ts-jest": "^22.0.3",
-    "typescript": "~2.8.3",
-    "wix-ui-test-utils": "^1.0.0",
+    "tslint-config-wix": "^1.0.31",
+    "typescript": "~3.0.3",
     "vfile-message": "1.0.2",
-    "yoshi": "^1.2.0"
+    "wix-ui-test-utils": "^1.0.0",
+    "yoshi": "^3.31.2"
   },
   "dependencies": {
     "hoist-non-react-methods": "^1.1.0",
