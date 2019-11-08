@@ -1,4 +1,4 @@
-import { create, SheetsManager } from 'jss';
+import {create, SheetsManager} from 'jss';
 import preset from 'jss-preset-default';
 
 const jss = create(preset());
@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'test') {
   jss.setup({
     createGenerateClassName: args => {
       return (rule, sheet) => `${rule.key}`;
-    },
+    }
   });
 }
 export const sheetManager = new SheetsManager();
@@ -22,7 +22,7 @@ const atachStyleSheetToDom = (styles, componentId) => {
 
   sheetMapper[componentId] = {
     styleElement: newSheet.renderer.element,
-    styles,
+    styles
   };
 
   sheetManager.add(styles, newSheet);
@@ -32,12 +32,11 @@ const atachStyleSheetToDom = (styles, componentId) => {
 };
 
 export const generateClasses = (styles, componentId) => {
-  const { classes } = atachStyleSheetToDom(styles, componentId);
+  const {classes} = atachStyleSheetToDom(styles, componentId);
   return classes;
 };
 
 export function detachStyleSheetFromDom(componentId) {
   sheetManager.unmanage(sheetMapper[componentId].styles);
-  // tslint:disable-next-line: no-dynamic-delete
   delete sheetMapper[componentId];
 }

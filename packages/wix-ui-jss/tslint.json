@@ -1,8 +1,5 @@
 {
   "extends": [
-    "tslint-config-yoshi"
-  ],
-  "rules": {
-    "prefer-object-spread": false
-  }
+    "tslint-config-wix"
+  ]
 }
