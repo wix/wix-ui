@@ -57,9 +57,10 @@
     "react-dom": "~16.4.2",
     "react-test-renderer": "~16.4.2",
     "ts-jest": "^22.0.3",
+    "tslint-config-wix": "^1.0.31",
     "typescript": "~2.8.3",
     "vfile-message": "1.0.2",
-    "yoshi": "^1.2.0"
+    "yoshi": "^3.31.2"
   },
   "jest": {
     "transform": {
