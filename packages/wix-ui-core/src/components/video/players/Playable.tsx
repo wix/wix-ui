@@ -155,6 +155,7 @@ class PlayablePlayer extends React.PureComponent<
       onLogoClick,
       alwaysShowLogo,
       modules,
+      hideMainUI,
     } = this.props;
 
     const preload = (!poster ? 'metadata' : this.props.preload) as PreloadType;
@@ -173,6 +174,7 @@ class PlayablePlayer extends React.PureComponent<
       volume,
       texts,
       hideOverlay: true,
+      hideMainUI,
     });
 
     this._hidePlayableUI();
@@ -243,7 +245,7 @@ class PlayablePlayer extends React.PureComponent<
 
     const {showTitle, title, poster, hideOverlay, playButton, playing, description} = this.props;
     const {hasBeenPlayed} = this.state;
-        
+
     if (hideOverlay || playing || hasBeenPlayed) {
       return null;
     }

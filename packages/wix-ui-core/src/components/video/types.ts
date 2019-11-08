@@ -51,6 +51,7 @@ export interface IPlayableConfig {
   logoUrl?: string;
   onLogoClick?: Function;
   alwaysShowLogo?: boolean;
+  hideMainUI?: boolean;
   poster?: string;
   modules?: {};
   texts?: ITextMapConfig;
