@@ -1,3 +1,13 @@
+:import {
+  -st-from: "../horizontal-menu-columns-layout/HorizontalMenuColumnsLayout.st.css";
+  -st-default: HorizontalMenuColumnsLayout;
+}
+
+:import {
+  -st-from: "../horizontal-menu-grid-layout/HorizontalMenuGridLayout.st.css";
+  -st-default: HorizontalMenuGridLayout;
+}
+
 .root {
   box-sizing: border-box;
 
@@ -14,4 +24,14 @@
 
 .expandIcon {
   display: inline-block;
+}
+
+.root:focus > HorizontalMenuColumnsLayout,
+.root:focus-within > HorizontalMenuColumnsLayout {
+  display: flex;
+}
+
+.root:focus > HorizontalMenuGridLayout,
+.root:focus-within > HorizontalMenuGridLayout {
+  display: flex;
 }
