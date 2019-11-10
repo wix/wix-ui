@@ -64,4 +64,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const filePickerTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.FilePickerDriver
   >;
+  export const sectionHelperTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.SectionHelperDriver
+  >;
 }

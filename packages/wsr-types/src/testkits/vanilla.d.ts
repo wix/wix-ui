@@ -62,4 +62,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const filePickerTestkitFactory: VanillaTestkitFactory<
     __WSRTests.FilePickerDriver
   >;
+  export const sectionHelperTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
 }
