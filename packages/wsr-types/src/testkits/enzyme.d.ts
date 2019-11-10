@@ -55,4 +55,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.CloseButtonUniDriver
   >;
+  export const iconButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.IconButtonUniDriver
+  >;
 }

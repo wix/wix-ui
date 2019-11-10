@@ -53,4 +53,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const closeButtonTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.CloseButtonUniDriver
   >;
+  export const iconButtonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.IconButtonUniDriver
+  >;
 }
