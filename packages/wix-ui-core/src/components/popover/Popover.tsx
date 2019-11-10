@@ -5,7 +5,7 @@ import onClickOutside, {
   InjectedOnClickOutProps,
 } from 'react-onclickoutside';
 import { Manager, Reference, Popper } from 'react-popper';
-import { CSSTransition } from 'react-transition-group';
+import * as CSSTransition from 'react-transition-group/CSSTransition';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
