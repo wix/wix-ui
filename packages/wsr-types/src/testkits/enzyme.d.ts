@@ -67,4 +67,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const sectionHelperTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.SectionHelperDriver
   >;
+  export const toggleButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.ToggleButtonUniDriver
+  >;
 }

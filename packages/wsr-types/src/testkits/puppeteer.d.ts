@@ -65,4 +65,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const sectionHelperTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.SectionHelperUniDriver
   >;
+  export const toggleButtonTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.ToggleButtonUniDriver
+  >;
 }
