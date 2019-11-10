@@ -35,11 +35,11 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     mouseLeave: async () => reactBase.mouseLeave(),
 
-    clickOutside: async () => {
+    clickOutside: async () =>
       (await body.getNative()).ownerDocument.dispatchEvent(
-        new Event('mouseup'),
-      );
-    },
+        new Event('mousedown'),
+      ),
+
     getArrowOffset: async () => {
       const arrowElement = byHook('popover-arrow');
       return (await arrowElement.getNative()).style;

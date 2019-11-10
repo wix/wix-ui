@@ -44,7 +44,7 @@ export const popoverDriverFactory = ({ element, eventTrigger }) => ({
 
   /** Click outside the element */
   clickOutside: () => {
-    document.dispatchEvent(new Event('mouseup'));
+    document.dispatchEvent(new Event('mousedown'));
   },
 
   /** Returns the arrow offset */
