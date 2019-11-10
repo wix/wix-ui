@@ -59,4 +59,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const iconButtonTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.IconButtonUniDriver
   >;
+  export const filePickerTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.FilePickerUniDriver
+  >;
 }

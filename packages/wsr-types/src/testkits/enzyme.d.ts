@@ -61,4 +61,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const skeletonTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.SkeletonDriver
   >;
+  export const filePickerTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
 }

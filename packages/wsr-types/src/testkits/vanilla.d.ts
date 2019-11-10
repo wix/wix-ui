@@ -59,4 +59,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const skeletonTestkitFactory: VanillaTestkitFactory<
     __WSRTests.SkeletonDriver
   >;
+  export const filePickerTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
 }
