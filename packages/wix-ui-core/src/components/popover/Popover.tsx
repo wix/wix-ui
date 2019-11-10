@@ -5,7 +5,7 @@ import onClickOutside, {
   InjectedOnClickOutProps,
 } from 'react-onclickoutside';
 import { Manager, Reference, Popper } from 'react-popper';
-import * as CSSTransition from 'react-transition-group/CSSTransition';
+import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
@@ -21,10 +21,9 @@ import {
   ElementProps,
 } from '../../utils';
 
-import * as classNames from 'classnames';
-
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
+import * as classNames from 'classnames';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
