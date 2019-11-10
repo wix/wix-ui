@@ -53,4 +53,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const modalTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.ModalUniDriver
   >;
+  export const closeButtonTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.CloseButtonUniDriver
+  >;
 }

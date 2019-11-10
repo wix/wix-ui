@@ -50,6 +50,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   >;
   export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
   export const modalTestkitFactory: EnzymeTestkitFactory<
-  __WSRTests.ModalDriver
->;
+    __WSRTests.ModalDriver
+  >;
+  export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.CloseButtonUniDriver
+  >;
 }
