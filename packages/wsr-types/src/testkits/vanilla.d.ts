@@ -56,4 +56,7 @@ declare module 'wix-style-react/dist/testkit' {
   export const iconButtonTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.IconButtonUniDriver
   >;
+  export const skeletonTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.SkeletonDriver
+  >;
 }
