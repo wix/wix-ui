@@ -20,28 +20,29 @@ declare namespace __WSR {
       overlayPosition?: ModalOverlayPosition;
       parentSelector?: () => HTMLElement;
       appElement?: string;
+      onOk?: () => void;
     }
 
     export class Modal extends BaseComponents.WixComponent<ModalProps> {}
 
-    export type ModalTheme = 'blue' | 'red' | 'green' | 'white';
-    export type ModalHorizontalPostion = 'start' | 'center' | 'end';
-    export type ModalVerticalPosition = 'start' | 'center' | 'end';
+    export type ModalTheme = "blue" | "red" | "green" | "white";
+    export type ModalHorizontalPostion = "start" | "center" | "end";
+    export type ModalVerticalPosition = "start" | "center" | "end";
     export type ModalOverlayPosition =
-      | 'static'
-      | 'relative'
-      | 'absolute'
-      | 'fixed'
-      | 'sticky';
+      | "static"
+      | "relative"
+      | "absolute"
+      | "fixed"
+      | "sticky";
   }
 }
 
-declare module 'wix-style-react' {
+declare module "wix-style-react" {
   export import Modal = __WSR.Modal.Modal;
   export import ModalProps = __WSR.Modal.ModalProps;
 }
 
-declare module 'wix-style-react/Modal' {
+declare module "wix-style-react/Modal" {
   export interface ModalProps extends __WSR.Modal.ModalProps {}
   export default __WSR.Modal.Modal;
 }

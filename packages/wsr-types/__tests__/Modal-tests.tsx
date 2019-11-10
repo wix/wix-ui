@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Modal from 'wix-style-react/Modal';
-import { modalTestkitFactory } from 'wix-style-react/dist/testkit';
-import { modalTestkitFactory as modalEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
-import { modalTestkitFactory as modalPuppeteerTestkitFactory } from 'wix-style-react/dist/testkit/puppeteer';
-import * as enzyme from 'enzyme';
-import * as puppeteer from 'puppeteer';
+import * as React from "react";
+import Modal from "wix-style-react/Modal";
+import { modalTestkitFactory } from "wix-style-react/dist/testkit";
+import { modalTestkitFactory as modalEnzymeTestkitFactory } from "wix-style-react/dist/testkit/enzyme";
+import { modalTestkitFactory as modalPuppeteerTestkitFactory } from "wix-style-react/dist/testkit/puppeteer";
+import * as enzyme from "enzyme";
+import * as puppeteer from "puppeteer";
 
 function ModalWithMandatoryProps() {
   return <Modal isOpen />;
@@ -24,9 +24,10 @@ function ModalWithAllProps() {
       isOpen
       maxHeight="200px"
       onAfterOpen={() => {}}
+      onOk={() => {}}
       onRequestClose={_event => {}}
       overlayPosition="absolute"
-      parentSelector={() => document.createElement('div')}
+      parentSelector={() => document.createElement("div")}
       scrollable
       scrollableContent
       shouldCloseOnOverlayClick
@@ -40,19 +41,19 @@ function ModalWithAllProps() {
 
 async function testkits() {
   const testkit = modalTestkitFactory({
-    dataHook: 'hook',
-    wrapper: document.createElement('div')
+    dataHook: "hook",
+    wrapper: document.createElement("div")
   });
 
   const enzymeTestkit = modalEnzymeTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     wrapper: enzyme.mount(<div />)
   });
 
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const puppeteerTestkit = await modalPuppeteerTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     page
   });
 }

@@ -33,6 +33,7 @@ function InputWithAllProps() {
       help
       helpMessage="msg"
       hideStatusSuffix
+      id="1"
       max={10}
       maxLength={100}
       menuArrow

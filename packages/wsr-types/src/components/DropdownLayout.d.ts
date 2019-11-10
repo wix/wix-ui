@@ -31,7 +31,10 @@ declare namespace __WSR {
       loadMore?: (page: number) => void;
       hasMore?: boolean;
       markedOption?: boolean | string | number;
+      overflow?: Overflow;
     }
+
+    export type Overflow = 'visible' | 'hidden' | 'scroll' | 'auto';
 
     export class DropdownLayout extends BaseComponents.WixComponent<
       DropdownLayoutProps

@@ -40,6 +40,7 @@ function DropdownLayoutWithAllProps() {
       theme="b2b"
       visible
       withArrow
+      overflow="scroll"
       options={[
         {
           value: 'a',
