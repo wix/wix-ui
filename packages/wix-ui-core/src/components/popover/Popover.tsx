@@ -2,7 +2,7 @@ import * as React from 'react';
 import PopperJS from 'popper.js';
 import { Manager, Reference, Popper } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
-import Portal from 'react-portal/es/Portal';
+import Portal from 'react-portal/lib/Portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
 import {
