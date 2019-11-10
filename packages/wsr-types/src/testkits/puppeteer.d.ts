@@ -50,4 +50,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const pageTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.PageUniDriver
   >;
+  export const modalTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.ModalUniDriver
+  >;
 }
