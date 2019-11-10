@@ -1,5 +1,5 @@
 import { getAppendToElement } from './getAppendToElement';
-import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
+import { getScrollParent } from './utils';
 
 describe('getAppendToElement', () => {
   it('should return document.body [when] given `viewport` ', () => {

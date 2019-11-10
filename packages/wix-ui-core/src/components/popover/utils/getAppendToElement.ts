@@ -1,5 +1,4 @@
-import { getScrollParent } from 'popper.js/dist/umd/popper-utils';
-import { getParentNode } from './utils';
+import { getParentNode, getScrollParent } from './utils';
 const isElement = require('lodash/isElement');
 
 export type Predicate = (s: Element) => boolean;
