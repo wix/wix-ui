@@ -1,7 +1,6 @@
 declare namespace __WSR {
   namespace Loader {
-    export interface LoaderProps
-      extends __WSR.BaseComponents.WixComponentProps {
+    export interface LoaderProps extends BaseComponents.WixComponentProps {
       size?: LoaderSize;
       color?: LoaderColor;
       text?: React.ReactNode;
@@ -10,9 +9,7 @@ declare namespace __WSR {
       shouldLoadAsync?: boolean;
     }
 
-    export class Loader extends __WSR.BaseComponents.WixComponent<
-      LoaderProps
-    > {}
+    export class Loader extends BaseComponents.WixComponent<LoaderProps> {}
 
     export type LoaderSize = 'tiny' | 'small' | 'medium' | 'large';
 

@@ -9,6 +9,10 @@ declare namespace __WSR {
       T extends WixComponentProps = {}
     > extends React.PureComponent<T> {}
 
+    export type WixComponentClickOutsideEventHandler = (
+      e: TouchEvent | MouseEvent
+    ) => void;
+
     export type IconElement = React.ReactElement<any>;
 
     export interface EllipsisHOCProps {

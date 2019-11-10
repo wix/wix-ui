@@ -30,4 +30,26 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const headingTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.HeadingDriver
   >;
+  export const dropdownLayoutTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.DropdownLayoutDriver
+  >;
+  export const labelTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.LabelDriver
+  >;
+  export const checkboxTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.CheckboxDriver
+  >;
+  export const inputTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.InputDriver
+  >;
+  export const formFieldTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.FormFieldDriver
+  >;
+  export const pageHeaderTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.PageHeaderDriver
+  >;
+  export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
+  export const modalTestkitFactory: EnzymeTestkitFactory<
+  __WSRTests.ModalDriver
+>;
 }
