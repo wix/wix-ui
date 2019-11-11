@@ -50,6 +50,24 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   >;
   export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
   export const modalTestkitFactory: EnzymeTestkitFactory<
-  __WSRTests.ModalDriver
->;
+    __WSRTests.ModalDriver
+  >;
+  export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.CloseButtonUniDriver
+  >;
+  export const iconButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.IconButtonUniDriver
+  >;
+  export const skeletonTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.SkeletonDriver
+  >;
+  export const filePickerTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
+  export const sectionHelperTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.SectionHelperDriver
+  >;
+  export const toggleButtonTestkitFactory: EnzymeUniTestkitFactory<
+    __WSRTests.ToggleButtonUniDriver
+  >;
 }

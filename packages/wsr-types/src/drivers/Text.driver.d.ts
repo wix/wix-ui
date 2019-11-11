@@ -8,9 +8,4 @@ declare namespace __WSRTests {
     isLight: () => boolean;
     isSecondary: () => boolean;
   }
-
-  interface TextPuppeteerDriver {
-    element: () => import('puppeteer').ElementHandle;
-    getValue: () => Promise<string>;
-  }
 }

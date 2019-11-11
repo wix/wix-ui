@@ -50,4 +50,22 @@ declare module 'wix-style-react/dist/testkit' {
   export const modalTestkitFactory: VanillaTestkitFactory<
     __WSRTests.ModalDriver
   >;
+  export const closeButtonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.CloseButtonUniDriver
+  >;
+  export const iconButtonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.IconButtonUniDriver
+  >;
+  export const skeletonTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.SkeletonDriver
+  >;
+  export const filePickerTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
+  export const sectionHelperTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.FilePickerDriver
+  >;
+  export const toggleButtonTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ToggleButtonUniDriver
+  >;
 }
