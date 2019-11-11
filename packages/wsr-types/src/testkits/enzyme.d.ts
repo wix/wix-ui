@@ -50,7 +50,7 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   >;
   export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
   export const modalTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.ModalDriver
+    __WSRTests.ModalDriver<import('enzyme').ReactWrapper>
   >;
   export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.CloseButtonUniDriver
@@ -69,6 +69,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   >;
   export const toggleButtonTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.ToggleButtonUniDriver
+  >;
+  export const messageBoxFunctionalLayoutTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.MessageBoxFunctionalLayoutDriver<import('enzyme').ReactWrapper>
   >;
 
   export const accordionTestkitFactory: any;
@@ -171,7 +174,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
   export const messageBoxMarketerialLayoutTestkitFactory: any;
-  export const messageBoxFunctionalLayoutTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
