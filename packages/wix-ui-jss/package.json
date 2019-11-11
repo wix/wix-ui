@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/jest": "^22.1.1",
     "@types/lodash": "^4.14.104",
-    "@types/node": "^8.0.0",
+    "@types/node": "^12.0.0",
     "@types/react": "^16.3.8",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
@@ -47,10 +47,10 @@
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.1",
     "ts-jest": "^22.0.3",
-    "typescript": "~2.8.3",
+    "tslint-config-wix": "^1.0.31",
+    "typescript": "~3.0.3",
     "wix-ui-test-utils": "^1.0.0",
-    "vfile-message": "1.0.2",
-    "yoshi": "^1.2.0"
+    "yoshi": "^3.31.2"
   },
   "dependencies": {
     "hoist-non-react-methods": "^1.1.0",
