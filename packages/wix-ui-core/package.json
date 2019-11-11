@@ -73,7 +73,7 @@
     "update-components-standalone": "bash .wuf/update-components-standalone.sh"
   },
   "dependencies": {
-    "@stylable/dom-test-kit": "^0.1.0",
+    "@stylable/dom-test-kit": "^1.0.7",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "grapheme-splitter": "^1.0.4",
@@ -97,8 +97,8 @@
   },
   "devDependencies": {
     "@storybook/react": "5.0.0",
-    "@stylable/cli": "^2.2.8-alpha.0",
-    "@stylable/core": "^2.1.5-alpha.0",
+    "@stylable/cli": "^1.2.11",
+    "@stylable/core": "^1.0.7",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
