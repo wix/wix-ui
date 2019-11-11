@@ -1,16 +1,14 @@
 declare namespace __WSR {
   namespace ToggleButton {
-    export interface ToggleButtonProps {
-      as?: any;
+    export type ToggleButtonProps = Button.ButtonWithAsProp<{
       skin?: ToggleButtonSkin;
-      onClick?: React.MouseEventHandler<HTMLElement>;
       selected?: boolean;
       disabled?: boolean;
       dataHook?: string;
       tooltipContent?: React.ReactNode;
       // TODO: replace with TooltipProps once merged into WSR
       tooltipProps?: object;
-    }
+    }>;
 
     export class ToggleButton extends React.Component<ToggleButtonProps> {}
 
@@ -24,7 +22,6 @@ declare module 'wix-style-react' {
 }
 
 declare module 'wix-style-react/ToggleButton' {
-  export interface ToggleButtonProps
-    extends __WSR.ToggleButton.ToggleButtonProps {}
+  export type ToggleButtonProps = __WSR.ToggleButton.ToggleButtonProps;
   export default __WSR.ToggleButton.ToggleButton;
 }

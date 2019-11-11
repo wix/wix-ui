@@ -1,14 +1,12 @@
 declare namespace __WSR {
   namespace CloseButton {
-    export interface CloseButtonProps {
-      as?: any;
+    export type CloseButtonProps = Button.ButtonWithAsProp<{
       className?: string;
       skin?: CloseButtonSkin;
       size?: CloseButtonSize;
-      onClick?: React.MouseEventHandler<HTMLElement>;
       disabled?: boolean;
       dataHook?: string;
-    }
+    }>;
 
     export class CloseButton extends React.Component<CloseButtonProps> {}
 
@@ -31,7 +29,6 @@ declare module 'wix-style-react' {
 }
 
 declare module 'wix-style-react/CloseButton' {
-  export interface CloseButtonProps
-    extends __WSR.CloseButton.CloseButtonProps {}
+  export type CloseButtonProps = __WSR.CloseButton.CloseButtonProps;
   export default __WSR.CloseButton.CloseButton;
 }
