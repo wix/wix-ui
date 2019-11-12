@@ -1,19 +1,17 @@
 declare namespace __WSR {
   namespace TextButton {
-    export interface TextButtonProps {
-      as?: any;
+    export type TextButtonProps = Button.ButtonWithAsProp<{
       className?: string;
       skin?: TextButtonSkin;
       underline?: TextButtonUnderline;
       weight?: TextButtonWeight;
       size?: TextButtonSize;
-      onClick?: React.MouseEventHandler<HTMLElement>;
       suffixIcon?: BaseComponents.IconElement;
       prefixIcon?: BaseComponents.IconElement;
       disabled?: boolean;
       dataHook?: string;
       target?: string;
-    }
+    }>;
 
     export class TextButton extends React.Component<TextButtonProps> {}
 
@@ -30,6 +28,6 @@ declare module 'wix-style-react' {
 }
 
 declare module 'wix-style-react/TextButton' {
-  export interface TextButtonProps extends __WSR.TextButton.TextButtonProps {}
+  export type TextButtonProps = __WSR.TextButton.TextButtonProps;
   export default __WSR.TextButton.TextButton;
 }
