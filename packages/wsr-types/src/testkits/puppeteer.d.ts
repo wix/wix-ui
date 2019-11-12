@@ -74,6 +74,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const messageBoxMarketerialLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.MessageBoxMarketerialLayoutUniDriver
   >;
+  export const modalMobileLayoutTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.ModalMobileLayoutUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -160,7 +163,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
   export const previewWidgetTestkitFactory: any;
-  export const modalMobileLayoutTestkitFactory: any;
   export const mediaOverlayTestkitFactory: any;
   export const infoIconTestkitFactory: any;
   export const socialButtonTestkitFactory: any;
