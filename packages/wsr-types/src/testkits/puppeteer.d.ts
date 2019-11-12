@@ -83,6 +83,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const genericModalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.GenericModalLayoutUniDriver
   >;
+  export const fillButtonTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.FillButtonUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -157,7 +160,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
   export const fillPreviewTestkitFactory: any;
-  export const fillButtonTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
