@@ -77,6 +77,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const modalMobileLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.ModalMobileLayoutUniDriver
   >;
+  export const modalPreviewLayoutTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.ModalPreviewLayoutUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -152,7 +155,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const modalPreviewLayoutTestkitFactory: any;
   export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
   export const fillPreviewTestkitFactory: any;

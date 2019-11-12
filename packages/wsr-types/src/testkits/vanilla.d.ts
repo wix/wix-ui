@@ -77,6 +77,9 @@ declare module 'wix-style-react/dist/testkit' {
   export const modalMobileLayoutTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ModalMobileLayoutUniDriver
   >;
+  export const modalPreviewLayoutTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ModalPreviewLayoutUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -152,7 +155,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const modalPreviewLayoutTestkitFactory: any;
   export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
   export const fillPreviewTestkitFactory: any;
