@@ -86,6 +86,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const fillButtonTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.FillButtonUniDriver
   >;
+  export const tagTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.TagUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -149,7 +152,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
-  export const tagTestkitFactory: any;
   export const thumbnailTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
