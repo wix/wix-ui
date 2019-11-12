@@ -71,6 +71,9 @@ declare module 'wix-style-react/dist/testkit' {
   export const messageBoxFunctionalLayoutTestkitFactory: VanillaTestkitFactory<
     __WSRTests.MessageBoxFunctionalLayoutDriver<HTMLElement>
   >;
+  export const messageBoxMarketerialLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.MessageBoxMarketerialLayoutDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -171,7 +174,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
-  export const messageBoxMarketerialLayoutTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;

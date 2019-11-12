@@ -71,6 +71,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const messageBoxFunctionalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.MessageBoxFunctionalLayoutUniDriver
   >;
+  export const messageBoxMarketerialLayoutTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.MessageBoxMarketerialLayoutUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -171,7 +174,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
-  export const messageBoxMarketerialLayoutTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;

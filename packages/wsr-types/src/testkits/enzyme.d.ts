@@ -73,6 +73,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const messageBoxFunctionalLayoutTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.MessageBoxFunctionalLayoutDriver<import('enzyme').ReactWrapper>
   >;
+  export const messageBoxMarketerialLayoutTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.MessageBoxMarketerialLayoutDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -173,7 +176,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
-  export const messageBoxMarketerialLayoutTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
