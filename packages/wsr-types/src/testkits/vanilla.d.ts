@@ -102,6 +102,9 @@ declare module 'wix-style-react/dist/testkit' {
   export const linearProgressBarTestkitFactory: VanillaTestkitFactory<
     __WSRTests.LinearProgressBarDriver
   >;
+  export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ErrorIndicatorUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -129,7 +132,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const errorIndicatorTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
