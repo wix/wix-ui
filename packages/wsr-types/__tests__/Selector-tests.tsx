@@ -4,7 +4,7 @@ import { selectorTestkitFactory } from 'wix-style-react/dist/testkit';
 import { selectorTestkitFactory as selectorEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
 import * as enzyme from 'enzyme';
 
-function SectionHelperWithMandatoryProps() {
+function SelectorWithMandatoryProps() {
   return <Selector id="1" title="title" />;
 }
 
