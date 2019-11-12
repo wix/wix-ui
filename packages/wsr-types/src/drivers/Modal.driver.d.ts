@@ -1,6 +1,6 @@
 declare namespace __WSRTests {
-  interface ModalDriver extends BaseDriver {
-    element: () => HTMLElement | import('enzyme').ReactWrapper;
+  interface ModalDriver<T> extends BaseDriver {
+    element: () => T;
     isOpen: () => boolean;
     isThemeExist: (theme: __WSR.Modal.ModalTheme) => boolean;
     getChildBySelector: (selector: string) => HTMLElement | null;

@@ -48,7 +48,7 @@ declare module 'wix-style-react/dist/testkit' {
   >;
   export const pageTestkitFactory: VanillaTestkitFactory<__WSRTests.PageDriver>;
   export const modalTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.ModalDriver
+    __WSRTests.ModalDriver<HTMLElement>
   >;
   export const closeButtonTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.CloseButtonUniDriver
@@ -67,6 +67,15 @@ declare module 'wix-style-react/dist/testkit' {
   >;
   export const toggleButtonTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ToggleButtonUniDriver
+  >;
+  export const messageBoxFunctionalLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.MessageBoxFunctionalLayoutDriver<HTMLElement>
+  >;
+  export const messageBoxMarketerialLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.MessageBoxMarketerialLayoutDriver
+  >;
+  export const modalMobileLayoutTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ModalMobileLayoutUniDriver
   >;
 
   export const accordionTestkitFactory: any;
@@ -154,7 +163,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
   export const previewWidgetTestkitFactory: any;
-  export const modalMobileLayoutTestkitFactory: any;
   export const mediaOverlayTestkitFactory: any;
   export const infoIconTestkitFactory: any;
   export const socialButtonTestkitFactory: any;
@@ -168,8 +176,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
-  export const messageBoxMarketerialLayoutTestkitFactory: any;
-  export const messageBoxFunctionalLayoutTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
