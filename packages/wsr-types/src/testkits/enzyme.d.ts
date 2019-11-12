@@ -82,6 +82,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const modalMobileLayoutTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.ModalMobileLayoutUniDriver
   >;
+  export const modalSelectorLayoutTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.ModalSelectorLayoutDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -121,7 +124,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const inputWithOptionsTestkitFactory: any;
   export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
-  export const modalSelectorLayoutTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;

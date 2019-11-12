@@ -80,6 +80,9 @@ declare module 'wix-style-react/dist/testkit' {
   export const modalPreviewLayoutTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ModalPreviewLayoutUniDriver
   >;
+  export const modalSelectorLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.ModalSelectorLayoutDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -119,7 +122,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const inputWithOptionsTestkitFactory: any;
   export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
-  export const modalSelectorLayoutTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;

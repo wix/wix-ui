@@ -119,7 +119,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const inputWithOptionsTestkitFactory: any;
   export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
-  export const modalSelectorLayoutTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
