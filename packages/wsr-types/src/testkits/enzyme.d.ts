@@ -107,9 +107,11 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const errorIndicatorTestkitFactory: EnzymeUniTestkitFactory<
     __WSRTests.ErrorIndicatorUniDriver
   >;
+  export const addItemTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.AddItemDriver<ReactWrapper>
+  >;
 
   export const accordionTestkitFactory: any;
-  export const addItemTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;

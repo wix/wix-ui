@@ -105,9 +105,11 @@ declare module 'wix-style-react/dist/testkit' {
   export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ErrorIndicatorUniDriver
   >;
+  export const addItemTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.AddItemDriver<HTMLElement>
+  >;
 
   export const accordionTestkitFactory: any;
-  export const addItemTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;

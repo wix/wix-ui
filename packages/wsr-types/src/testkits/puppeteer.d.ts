@@ -95,9 +95,11 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.ErrorIndicatorUniDriver
   >;
+  export const addItemTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.AddItemUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
-  export const addItemTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
