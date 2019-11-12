@@ -8,7 +8,7 @@ function SelectorWithMandatoryProps() {
   return <Selector id="1" title="title" />;
 }
 
-function SectionHelperWithAllProps() {
+function SelectorWithAllProps() {
   const ExtraText = (
     <Selector.ExtraText dataHook="hook" styles="font: 14px" text="text" />
   );
