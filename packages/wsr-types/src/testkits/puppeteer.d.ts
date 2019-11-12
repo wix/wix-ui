@@ -89,6 +89,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const tagTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.TagUniDriver
   >;
+  export const linearProgressBarTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.LinearProgressBarUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -125,7 +128,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
-  export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;

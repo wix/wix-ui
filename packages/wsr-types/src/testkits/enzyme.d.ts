@@ -101,6 +101,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
     __WSRTests.FillButtonUniDriver
   >;
   export const tagTestkitFactory: EnzymeTestkitFactory<__WSRTests.TagDriver>;
+  export const linearProgressBarTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.LinearProgressBarDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -137,7 +140,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
-  export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;

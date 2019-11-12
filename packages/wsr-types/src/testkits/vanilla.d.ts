@@ -99,6 +99,9 @@ declare module 'wix-style-react/dist/testkit' {
     __WSRTests.FillButtonUniDriver
   >;
   export const tagTestkitFactory: VanillaTestkitFactory<__WSRTests.TagDriver>;
+  export const linearProgressBarTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.LinearProgressBarDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -135,7 +138,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
-  export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
