@@ -91,6 +91,12 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const selectorTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.SelectorDriver
   >;
+  export const radioGroupTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.RadioGroupDriver
+  >;
+  export const radioButtonTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.RadioButtonDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -139,7 +145,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
   export const proportionTestkitFactory: any;
-  export const radioGroupTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
@@ -185,7 +190,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const editableRowTestkitFactory: any;
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
-  export const radioButtonTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;

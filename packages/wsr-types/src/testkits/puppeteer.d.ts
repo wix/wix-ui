@@ -131,7 +131,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
   export const proportionTestkitFactory: any;
-  export const radioGroupTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
