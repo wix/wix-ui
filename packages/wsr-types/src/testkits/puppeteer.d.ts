@@ -80,6 +80,9 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const modalPreviewLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.ModalPreviewLayoutUniDriver
   >;
+  export const genericModalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.GenericModalLayoutUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -110,7 +113,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const errorIndicatorTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
-  export const genericModalLayoutTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
