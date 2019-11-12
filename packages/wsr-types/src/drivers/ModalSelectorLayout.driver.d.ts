@@ -14,7 +14,7 @@ declare namespace __WSRTests {
     getNoResultsFoundState: () => HTMLElement;
     listExists: () => boolean;
     numberOfItemsInList: () => number;
-    getSelectorDriverAt: (i: number) => any; // TODO: update when Selector types are added
+    getSelectorDriverAt: (i: number) => SelectorDriver;
     scrollDown: () => boolean;
     footerSelector: () => CheckboxDriver;
   }

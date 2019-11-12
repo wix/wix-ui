@@ -86,6 +86,9 @@ declare module 'wix-style-react/dist/testkit' {
   export const genericModalLayoutTestkitFactory: VanillaTestkitFactory<
     __WSRTests.GenericModalLayoutDriver
   >;
+  export const selectorTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.SelectorDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -139,7 +142,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
   export const segmentedToggleTestkitFactory: any;
-  export const selectorTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;

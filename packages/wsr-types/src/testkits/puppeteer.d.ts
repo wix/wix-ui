@@ -136,7 +136,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
   export const segmentedToggleTestkitFactory: any;
-  export const selectorTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;

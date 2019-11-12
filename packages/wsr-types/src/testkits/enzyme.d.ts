@@ -88,6 +88,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const genericModalLayoutTestkitFactory: EnzymeTestkitFactory<
     __WSRTests.GenericModalLayoutDriver
   >;
+  export const selectorTestkitFactory: EnzymeTestkitFactory<
+    __WSRTests.SelectorDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -141,7 +144,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
   export const segmentedToggleTestkitFactory: any;
-  export const selectorTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
