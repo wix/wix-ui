@@ -13,18 +13,18 @@ declare namespace __WSR {
       name?: string;
     }
 
-    export class FilePciker extends BaseComponents.WixComponent<
+    export class FilePicker extends BaseComponents.WixComponent<
       FilePickerProps
     > {}
   }
 }
 
 declare module 'wix-style-react' {
-  export import FilePciker = __WSR.FilePicker.FilePciker;
-  export import FilePcikerProps = __WSR.FilePicker.FilePickerProps;
+  export import FilePicker = __WSR.FilePicker.FilePicker;
+  export import FilePickerProps = __WSR.FilePicker.FilePickerProps;
 }
 
 declare module 'wix-style-react/FilePicker' {
-  export interface FilePcikerProps extends __WSR.FilePicker.FilePickerProps {}
-  export default __WSR.FilePicker.FilePciker;
+  export interface FilePickerProps extends __WSR.FilePicker.FilePickerProps {}
+  export default __WSR.FilePicker.FilePicker;
 }

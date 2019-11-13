@@ -83,9 +83,23 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const genericModalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
     __WSRTests.GenericModalLayoutUniDriver
   >;
+  export const fillButtonTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.FillButtonUniDriver
+  >;
+  export const tagTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.TagUniDriver
+  >;
+  export const linearProgressBarTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.LinearProgressBarUniDriver
+  >;
+  export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.ErrorIndicatorUniDriver
+  >;
+  export const addItemTestkitFactory: PuppeteerUniTestkitFactory<
+    __WSRTests.AddItemUniDriver
+  >;
 
   export const accordionTestkitFactory: any;
-  export const addItemTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -110,7 +124,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const errorIndicatorTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
@@ -119,7 +132,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
-  export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
@@ -146,7 +158,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
-  export const tagTestkitFactory: any;
   export const thumbnailTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
@@ -157,7 +168,6 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
   export const fillPreviewTestkitFactory: any;
-  export const fillButtonTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
