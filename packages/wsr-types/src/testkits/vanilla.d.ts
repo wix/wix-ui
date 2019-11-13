@@ -77,6 +77,24 @@ declare module 'wix-style-react/dist/testkit' {
   export const modalMobileLayoutTestkitFactory: VanillaUniTestkitFactory<
     __WSRTests.ModalMobileLayoutUniDriver
   >;
+  export const modalPreviewLayoutTestkitFactory: VanillaUniTestkitFactory<
+    __WSRTests.ModalPreviewLayoutUniDriver
+  >;
+  export const modalSelectorLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.ModalSelectorLayoutDriver
+  >;
+  export const genericModalLayoutTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.GenericModalLayoutDriver
+  >;
+  export const selectorTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.SelectorDriver
+  >;
+  export const radioGroupTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.RadioGroupDriver
+  >;
+  export const radioButtonTestkitFactory: VanillaTestkitFactory<
+    __WSRTests.RadioButtonDriver
+  >;
 
   export const accordionTestkitFactory: any;
   export const addItemTestkitFactory: any;
@@ -107,7 +125,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const errorIndicatorTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
-  export const genericModalLayoutTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
@@ -116,7 +133,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const inputWithOptionsTestkitFactory: any;
   export const linearProgressBarTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
-  export const modalSelectorLayoutTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
@@ -127,12 +143,10 @@ declare module 'wix-style-react/dist/testkit' {
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
   export const proportionTestkitFactory: any;
-  export const radioGroupTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
   export const segmentedToggleTestkitFactory: any;
-  export const selectorTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
@@ -152,7 +166,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const modalPreviewLayoutTestkitFactory: any;
   export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
   export const fillPreviewTestkitFactory: any;
@@ -175,7 +188,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const editableRowTestkitFactory: any;
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
-  export const radioButtonTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
