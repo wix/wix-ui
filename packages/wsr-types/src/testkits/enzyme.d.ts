@@ -1,5 +1,5 @@
-declare module 'wix-style-react/dist/testkit/enzyme' {
-  import { ReactWrapper } from 'enzyme';
+declare module "wix-style-react/dist/testkit/enzyme" {
+  import { ReactWrapper } from "enzyme";
 
   type EnzymeTestkitFactory<T extends __WSRTests.BaseDriver> = (
     params: EnzymeTestkitParams
@@ -14,111 +14,63 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
     dataHook: string;
   }
 
-  export const loaderTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.LoaderDriver
-  >;
+  export const loaderTestkitFactory: EnzymeTestkitFactory<__WSRTests.LoaderDriver>;
   export const textTestkitFactory: EnzymeTestkitFactory<__WSRTests.TextDriver>;
-  export const buttonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.ButtonUniDriver
-  >;
-  export const textButtonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.TextButtonUniDriver
-  >;
-  export const emptyStateTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.EmptyStateDriver
-  >;
-  export const headingTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.HeadingDriver
-  >;
-  export const dropdownLayoutTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.DropdownLayoutDriver
-  >;
-  export const labelTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.LabelDriver
-  >;
-  export const checkboxTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.CheckboxDriver
-  >;
-  export const inputTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.InputDriver
-  >;
-  export const formFieldTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.FormFieldDriver
-  >;
-  export const pageHeaderTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.PageHeaderDriver
-  >;
+  export const buttonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ButtonUniDriver>;
+  export const textButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.TextButtonUniDriver>;
+  export const emptyStateTestkitFactory: EnzymeTestkitFactory<__WSRTests.EmptyStateDriver>;
+  export const headingTestkitFactory: EnzymeTestkitFactory<__WSRTests.HeadingDriver>;
+  export const dropdownLayoutTestkitFactory: EnzymeTestkitFactory<__WSRTests.DropdownLayoutDriver>;
+  export const labelTestkitFactory: EnzymeTestkitFactory<__WSRTests.LabelDriver>;
+  export const checkboxTestkitFactory: EnzymeTestkitFactory<__WSRTests.CheckboxDriver>;
+  export const inputTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputDriver>;
+  export const formFieldTestkitFactory: EnzymeTestkitFactory<__WSRTests.FormFieldDriver>;
+  export const pageHeaderTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageHeaderDriver>;
   export const pageTestkitFactory: EnzymeTestkitFactory<__WSRTests.PageDriver>;
-  export const modalTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.ModalDriver<import('enzyme').ReactWrapper>
-  >;
-  export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.CloseButtonUniDriver
-  >;
-  export const iconButtonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.IconButtonUniDriver
-  >;
-  export const skeletonTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.SkeletonDriver
-  >;
-  export const filePickerTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.FilePickerDriver
-  >;
-  export const sectionHelperTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.SectionHelperDriver
-  >;
-  export const toggleButtonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.ToggleButtonUniDriver
-  >;
-  export const modalPreviewLayoutTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.ModalPreviewLayoutUniDriver
-  >;
-  export const messageBoxFunctionalLayoutTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.MessageBoxFunctionalLayoutDriver<import('enzyme').ReactWrapper>
-  >;
-  export const messageBoxMarketerialLayoutTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.MessageBoxMarketerialLayoutDriver
-  >;
-  export const modalMobileLayoutTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.ModalMobileLayoutUniDriver
-  >;
-  export const modalSelectorLayoutTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.ModalSelectorLayoutDriver
-  >;
-  export const genericModalLayoutTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.GenericModalLayoutDriver
-  >;
-  export const selectorTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.SelectorDriver
-  >;
-  export const radioGroupTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.RadioGroupDriver
-  >;
-  export const radioButtonTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.RadioButtonDriver
-  >;
-  export const fillButtonTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.FillButtonUniDriver
-  >;
+  export const modalTestkitFactory: EnzymeTestkitFactory<__WSRTests.ModalDriver<
+    import("enzyme").ReactWrapper
+  >>;
+  export const closeButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CloseButtonUniDriver>;
+  export const iconButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.IconButtonUniDriver>;
+  export const skeletonTestkitFactory: EnzymeTestkitFactory<__WSRTests.SkeletonDriver>;
+  export const filePickerTestkitFactory: EnzymeTestkitFactory<__WSRTests.FilePickerDriver>;
+  export const sectionHelperTestkitFactory: EnzymeTestkitFactory<__WSRTests.SectionHelperDriver>;
+  export const toggleButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ToggleButtonUniDriver>;
+  export const modalPreviewLayoutTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ModalPreviewLayoutUniDriver>;
+  export const messageBoxFunctionalLayoutTestkitFactory: EnzymeTestkitFactory<__WSRTests.MessageBoxFunctionalLayoutDriver<
+    import("enzyme").ReactWrapper
+  >>;
+  export const messageBoxMarketerialLayoutTestkitFactory: EnzymeTestkitFactory<__WSRTests.MessageBoxMarketerialLayoutDriver>;
+  export const modalMobileLayoutTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ModalMobileLayoutUniDriver>;
+  export const modalSelectorLayoutTestkitFactory: EnzymeTestkitFactory<__WSRTests.ModalSelectorLayoutDriver>;
+  export const genericModalLayoutTestkitFactory: EnzymeTestkitFactory<__WSRTests.GenericModalLayoutDriver>;
+  export const selectorTestkitFactory: EnzymeTestkitFactory<__WSRTests.SelectorDriver>;
+  export const radioGroupTestkitFactory: EnzymeTestkitFactory<__WSRTests.RadioGroupDriver>;
+  export const radioButtonTestkitFactory: EnzymeTestkitFactory<__WSRTests.RadioButtonDriver>;
+  export const fillButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.FillButtonUniDriver>;
   export const tagTestkitFactory: EnzymeTestkitFactory<__WSRTests.TagDriver>;
-  export const linearProgressBarTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.LinearProgressBarDriver
-  >;
-  export const errorIndicatorTestkitFactory: EnzymeUniTestkitFactory<
-    __WSRTests.ErrorIndicatorUniDriver
-  >;
-  export const addItemTestkitFactory: EnzymeTestkitFactory<
-    __WSRTests.AddItemDriver<ReactWrapper>
-  >;
+  export const linearProgressBarTestkitFactory: EnzymeTestkitFactory<__WSRTests.LinearProgressBarDriver>;
+  export const errorIndicatorTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
+  export const addItemTestkitFactory: EnzymeTestkitFactory<__WSRTests.AddItemDriver<
+    ReactWrapper
+  >>;
+  export const accordionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.AccordionUniDriver>;
+  export const breadcrumbsTestkitFactory: EnzymeTestkitFactory<__WSRTests.BreadcrumbsDriver>;
+  export const imageViewerTestkitFactory: EnzymeTestkitFactory<__WSRTests.ImageViewerDriver<
+    ReactWrapper
+  >>;
+  export const floatingNotificationTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
+  export const socialPreviewTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SocialPreviewUniDriver>;
+  export const fillPreviewTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
+  export const statisticsWidgetTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
+  export const thumbnailTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
 
-  export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
-  export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
@@ -139,11 +91,9 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
-  export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
-  export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
@@ -164,7 +114,6 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
-  export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const stepperTestkitFactory: any;
@@ -172,16 +121,13 @@ declare module 'wix-style-react/dist/testkit/enzyme' {
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
-  export const thumbnailTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
-  export const fillPreviewTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;

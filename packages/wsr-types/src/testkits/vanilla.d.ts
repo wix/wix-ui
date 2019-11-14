@@ -1,4 +1,4 @@
-declare module 'wix-style-react/dist/testkit' {
+declare module "wix-style-react/dist/testkit" {
   type VanillaTestkitFactory<T extends __WSRTests.BaseDriver> = (
     params: VanillaTeskitParams
   ) => T;
@@ -12,111 +12,63 @@ declare module 'wix-style-react/dist/testkit' {
     dataHook: string;
   }
 
-  export const loaderTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.LoaderDriver
-  >;
+  export const loaderTestkitFactory: VanillaTestkitFactory<__WSRTests.LoaderDriver>;
   export const textTestkitFactory: VanillaTestkitFactory<__WSRTests.TextDriver>;
-  export const buttonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.ButtonUniDriver
-  >;
-  export const textButtonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.TextButtonUniDriver
-  >;
-  export const emptyStateTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.EmptyStateDriver
-  >;
-  export const headingTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.HeadingDriver
-  >;
-  export const dropdownLayoutTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.DropdownLayoutDriver
-  >;
-  export const labelTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.LabelDriver
-  >;
-  export const checkboxTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.CheckboxDriver
-  >;
-  export const inputTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.InputDriver
-  >;
-  export const formFieldTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.FormFieldDriver
-  >;
-  export const pageHeaderTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.PageHeaderDriver
-  >;
+  export const buttonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ButtonUniDriver>;
+  export const textButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.TextButtonUniDriver>;
+  export const emptyStateTestkitFactory: VanillaTestkitFactory<__WSRTests.EmptyStateDriver>;
+  export const headingTestkitFactory: VanillaTestkitFactory<__WSRTests.HeadingDriver>;
+  export const dropdownLayoutTestkitFactory: VanillaTestkitFactory<__WSRTests.DropdownLayoutDriver>;
+  export const labelTestkitFactory: VanillaTestkitFactory<__WSRTests.LabelDriver>;
+  export const checkboxTestkitFactory: VanillaTestkitFactory<__WSRTests.CheckboxDriver>;
+  export const inputTestkitFactory: VanillaTestkitFactory<__WSRTests.InputDriver>;
+  export const formFieldTestkitFactory: VanillaTestkitFactory<__WSRTests.FormFieldDriver>;
+  export const pageHeaderTestkitFactory: VanillaTestkitFactory<__WSRTests.PageHeaderDriver>;
   export const pageTestkitFactory: VanillaTestkitFactory<__WSRTests.PageDriver>;
-  export const modalTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.ModalDriver<HTMLElement>
-  >;
-  export const closeButtonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.CloseButtonUniDriver
-  >;
-  export const iconButtonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.IconButtonUniDriver
-  >;
-  export const skeletonTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.SkeletonDriver
-  >;
-  export const filePickerTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.FilePickerDriver
-  >;
-  export const sectionHelperTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.FilePickerDriver
-  >;
-  export const toggleButtonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.ToggleButtonUniDriver
-  >;
-  export const messageBoxFunctionalLayoutTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.MessageBoxFunctionalLayoutDriver<HTMLElement>
-  >;
-  export const messageBoxMarketerialLayoutTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.MessageBoxMarketerialLayoutDriver
-  >;
-  export const modalMobileLayoutTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.ModalMobileLayoutUniDriver
-  >;
-  export const modalPreviewLayoutTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.ModalPreviewLayoutUniDriver
-  >;
-  export const modalSelectorLayoutTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.ModalSelectorLayoutDriver
-  >;
-  export const genericModalLayoutTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.GenericModalLayoutDriver
-  >;
-  export const selectorTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.SelectorDriver
-  >;
-  export const radioGroupTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.RadioGroupDriver
-  >;
-  export const radioButtonTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.RadioButtonDriver
-  >;
-  export const fillButtonTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.FillButtonUniDriver
-  >;
+  export const modalTestkitFactory: VanillaTestkitFactory<__WSRTests.ModalDriver<
+    HTMLElement
+  >>;
+  export const closeButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CloseButtonUniDriver>;
+  export const iconButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.IconButtonUniDriver>;
+  export const skeletonTestkitFactory: VanillaTestkitFactory<__WSRTests.SkeletonDriver>;
+  export const filePickerTestkitFactory: VanillaTestkitFactory<__WSRTests.FilePickerDriver>;
+  export const sectionHelperTestkitFactory: VanillaTestkitFactory<__WSRTests.FilePickerDriver>;
+  export const toggleButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ToggleButtonUniDriver>;
+  export const messageBoxFunctionalLayoutTestkitFactory: VanillaTestkitFactory<__WSRTests.MessageBoxFunctionalLayoutDriver<
+    HTMLElement
+  >>;
+  export const messageBoxMarketerialLayoutTestkitFactory: VanillaTestkitFactory<__WSRTests.MessageBoxMarketerialLayoutDriver>;
+  export const modalMobileLayoutTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ModalMobileLayoutUniDriver>;
+  export const modalPreviewLayoutTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ModalPreviewLayoutUniDriver>;
+  export const modalSelectorLayoutTestkitFactory: VanillaTestkitFactory<__WSRTests.ModalSelectorLayoutDriver>;
+  export const genericModalLayoutTestkitFactory: VanillaTestkitFactory<__WSRTests.GenericModalLayoutDriver>;
+  export const selectorTestkitFactory: VanillaTestkitFactory<__WSRTests.SelectorDriver>;
+  export const radioGroupTestkitFactory: VanillaTestkitFactory<__WSRTests.RadioGroupDriver>;
+  export const radioButtonTestkitFactory: VanillaTestkitFactory<__WSRTests.RadioButtonDriver>;
+  export const fillButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillButtonUniDriver>;
   export const tagTestkitFactory: VanillaTestkitFactory<__WSRTests.TagDriver>;
-  export const linearProgressBarTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.LinearProgressBarDriver
-  >;
-  export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<
-    __WSRTests.ErrorIndicatorUniDriver
-  >;
-  export const addItemTestkitFactory: VanillaTestkitFactory<
-    __WSRTests.AddItemDriver<HTMLElement>
-  >;
+  export const linearProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.LinearProgressBarDriver>;
+  export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
+  export const addItemTestkitFactory: VanillaTestkitFactory<__WSRTests.AddItemDriver<
+    HTMLElement
+  >>;
+  export const accordionTestkitFactory: VanillaUniTestkitFactory<__WSRTests.AccordionUniDriver>;
+  export const breadcrumbsTestkitFactory: VanillaTestkitFactory<__WSRTests.BreadcrumbsDriver>;
+  export const imageViewerTestkitFactory: VanillaTestkitFactory<__WSRTests.ImageViewerDriver<
+    HTMLElement
+  >>;
+  export const floatingHelperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
+  export const socialPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SocialPreviewUniDriver>;
+  export const fillPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
+  export const statisticsWidgetTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
+  export const thumbnailTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
 
-  export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
-  export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
@@ -136,12 +88,10 @@ declare module 'wix-style-react/dist/testkit' {
   export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
-  export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
@@ -162,7 +112,6 @@ declare module 'wix-style-react/dist/testkit' {
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
-  export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const stepperTestkitFactory: any;
@@ -170,16 +119,13 @@ declare module 'wix-style-react/dist/testkit' {
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
-  export const thumbnailTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
-  export const fillPreviewTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
