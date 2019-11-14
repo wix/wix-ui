@@ -6,15 +6,15 @@ declare namespace __WSR {
       subtitle?: React.ReactNode;
       backgroundImageUrl?: string;
       backgroundImageNode?: React.ReactNode;
-      primaryActionProps?: {
+      primaryActionProps: {
         label?: React.ReactNode;
-        onClick?: React.MouseEventHandler<HTMLElement>;
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
         disabled?: boolean;
         disabledMessage?: string;
       };
       secondaryActionProps?: {
         label?: React.ReactNode;
-        onClick?: React.MouseEventHandler<HTMLElement>;
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
       };
       settingsMenu?: React.ReactNode;
       dataHook?: string;

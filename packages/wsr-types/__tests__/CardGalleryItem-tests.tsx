@@ -7,7 +7,7 @@ import * as enzyme from 'enzyme';
 import * as puppeteer from 'puppeteer';
 
 function CardGalleryItemWithMandatoryProps() {
-  return <CardGalleryItem />;
+  return <CardGalleryItem primaryActionProps={{}} />;
 }
 
 function CardGalleryItemWithAllProps() {
