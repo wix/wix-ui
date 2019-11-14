@@ -3,6 +3,7 @@
   "version": "3.6.0",
   "description": "Set of utilities for extracting meta information about react components mostly to generate automated documentation",
   "main": "index.js",
+  "private": false,
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
@@ -22,6 +23,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wix/react-autodocs-utils.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "bugs": {
     "url": "https://github.com/wix/react-autodocs-utils/issues"
