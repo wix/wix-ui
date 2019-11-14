@@ -4,6 +4,9 @@ import { labelTestkitFactory } from 'wix-style-react/dist/testkit';
 import { labelTestkitFactory as labelEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
 import * as enzyme from 'enzyme';
 
+
+
+
 function LabelWithMandatoryProps() {
   return <Label />;
 }

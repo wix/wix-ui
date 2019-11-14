@@ -57,15 +57,23 @@ declare module "wix-style-react/dist/testkit" {
   >>;
   export const stepperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
+  export const accordionTestkitFactory: VanillaUniTestkitFactory<__WSRTests.AccordionUniDriver>;
+  export const breadcrumbsTestkitFactory: VanillaTestkitFactory<__WSRTests.BreadcrumbsDriver>;
+  export const imageViewerTestkitFactory: VanillaTestkitFactory<__WSRTests.ImageViewerDriver<
+    HTMLElement
+  >>;
+  export const floatingHelperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
+  export const socialPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SocialPreviewUniDriver>;
+  export const fillPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
+  export const statisticsWidgetTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
+  export const thumbnailTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
 
-  export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
-  export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
@@ -83,11 +91,9 @@ declare module "wix-style-react/dist/testkit" {
   export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const floatingHelperTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
-  export const imageViewerTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
@@ -107,23 +113,19 @@ declare module "wix-style-react/dist/testkit" {
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
-  export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
-  export const thumbnailTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
   export const sidebarDividerTestkitFactory: any;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
-  export const statisticsWidgetTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
-  export const fillPreviewTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
