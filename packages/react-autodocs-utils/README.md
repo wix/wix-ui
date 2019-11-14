@@ -114,7 +114,7 @@ Live example available at
 ## Contribute
 
 * `git clone git@github.com:wix/react-autodocs-utils.git`
-* `npm i`
+* `npm install`
 * `npm test`
 
 [Jest](https://facebook.github.io/jest/) used to run tests.
