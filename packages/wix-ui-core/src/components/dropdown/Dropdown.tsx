@@ -5,7 +5,7 @@ import onClickOutside, {
 } from 'react-onclickoutside';
 import style from './Dropdown.st.css';
 import { Popover, Placement, PopoverProps } from '../popover';
-import { DropdownContent } from '../dropdown-content';
+import { DropdownContent, IDOMid } from '../dropdown-content';
 import { Option } from '../dropdown-option';
 import { CLICK, HOVER, OPEN_TRIGGER_TYPE } from './constants';
 
@@ -20,6 +20,8 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   options: Option[];
   /** Trigger type to open the content */
   openTrigger: OPEN_TRIGGER_TYPE;
+  /** Handler for when an option is hovered */
+  onOptionHover?(option: (Option & IDOMid) | null): void;
   /** Handler for when an option is selected */
   onSelect(option: Option | null): void;
   /** Handler for when a mouse down event occurs on an option */
@@ -47,6 +49,8 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   role?: string;
   /** Id */
   id?: string;
+  /** DOM id of options list element */
+  contentId?: string;
   /** Allow onSelect event to be triggered upon re-selecting an option */
   allowReselect?: boolean;
 };
@@ -72,6 +76,7 @@ export class DropdownComponent extends React.PureComponent<
     this.close = this.close.bind(this);
     this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onOptionHover = this.onOptionHover.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
     this._onContentMouseDown = this._onContentMouseDown.bind(this);
   }
@@ -207,6 +212,12 @@ export class DropdownComponent extends React.PureComponent<
     onContentMouseDown && onContentMouseDown(e);
   }
 
+  onOptionHover(option: (Option & IDOMid) | null) {
+    if (this.props.onOptionHover) {
+      this.props.onOptionHover(option);
+    }
+  }
+
   onOptionClick(option: Option | null) {
     const { onSelect, onDeselect, multi, allowReselect } = this.props;
     const { selectedIds } = this.state;
@@ -267,6 +278,8 @@ export class DropdownComponent extends React.PureComponent<
       flip,
       fixed,
       moveBy,
+      role,
+      contentId,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
     const hasContent = Boolean(
@@ -299,6 +312,7 @@ export class DropdownComponent extends React.PureComponent<
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
+        role={role}
       >
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>
@@ -311,7 +325,9 @@ export class DropdownComponent extends React.PureComponent<
             fixedHeader={fixedHeader}
             selectedIds={selectedIds}
             onOptionClick={this.onOptionClick}
+            onOptionHover={this.onOptionHover}
             onMouseDown={this._onContentMouseDown}
+            optionsContainerId={contentId}
           />
         </Popover.Content>
       </Popover>
@@ -319,6 +335,4 @@ export class DropdownComponent extends React.PureComponent<
   }
 }
 
-export const Dropdown: React.ComponentClass<
-  OnClickOutProps<DropdownProps & InjectedOnClickOutProps>
-> = onClickOutside(DropdownComponent);
+export const Dropdown = onClickOutside(DropdownComponent);

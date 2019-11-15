@@ -4,11 +4,17 @@ import { Option, DropdownOption } from '../dropdown-option';
 
 const NOT_HOVERED_INDEX = -1;
 
+export interface IDOMid {
+  _DOMid: string;
+}
+
 export interface DropdownContentProps {
   /** Component class name */
   className?: string;
   /** The dropdown options array */
   options: Option[];
+  /** A callback for when hovering an option */
+  onOptionHover?(option: (Option & IDOMid) | null): void;
   /** A callback for when clicking an option */
   onOptionClick(option: Option | null): void;
   /** A callback for mouse down event */
@@ -19,6 +25,8 @@ export interface DropdownContentProps {
   fixedHeader?: React.ReactNode;
   /** An element that always appears at the bottom of the options */
   fixedFooter?: React.ReactNode;
+  /** DOM id of optionsContainer element */
+  optionsContainerId?: string;
 }
 
 export interface DropdownContentState {
@@ -41,15 +49,25 @@ export class DropdownContent extends React.PureComponent<
 
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onOptionHover = this.onOptionHover.bind(this);
   }
 
   state = { hoveredIndex: NOT_HOVERED_INDEX };
 
   setHoveredIndex(index: number) {
     if (this.state.hoveredIndex !== index) {
-      this.setState({
-        hoveredIndex: index,
-      });
+      this.setState(
+        {
+          hoveredIndex: index,
+        },
+        this.onOptionHover,
+      );
+    }
+  }
+
+  onOptionHover() {
+    if (this.props.onOptionHover) {
+      this.props.onOptionHover(this.onKeyboardSelect());
     }
   }
 
@@ -112,11 +130,24 @@ export class DropdownContent extends React.PureComponent<
     this.setHoveredIndex(hoveredIndex);
   }
 
-  onKeyboardSelect() {
+  getOptionDOMid(option: Pick<Option, 'id'>): string {
+    const optionsContainerId = this.props.optionsContainerId;
+
+    return optionsContainerId
+      ? `${optionsContainerId}_option-${option.id}`
+      : null;
+  }
+
+  onKeyboardSelect(): (Option & IDOMid) | null {
     const { options } = this.props;
     const { hoveredIndex } = this.state;
     const isValidIndex = hoveredIndex >= 0 && hoveredIndex < options.length;
-    return isValidIndex ? options[hoveredIndex] : null;
+    return isValidIndex
+      ? {
+          ...options[hoveredIndex],
+          _DOMid: this.getOptionDOMid(options[hoveredIndex]),
+        }
+      : null;
   }
 
   onKeyDown(eventKey: string, evt: React.KeyboardEvent<HTMLElement>) {
@@ -164,6 +195,7 @@ export class DropdownContent extends React.PureComponent<
       options,
       selectedIds,
       onOptionClick,
+      optionsContainerId,
     } = this.props;
     const { hoveredIndex } = this.state;
 
@@ -178,6 +210,7 @@ export class DropdownContent extends React.PureComponent<
         <div
           role="listbox"
           className={style.optionsContainer}
+          id={optionsContainerId}
           ref={optionsContainer =>
             (this.optionsContainerRef = optionsContainer)
           }
@@ -187,6 +220,7 @@ export class DropdownContent extends React.PureComponent<
               className={style.dropdownOption}
               data-hook="option"
               key={option.id}
+              id={this.getOptionDOMid(option)}
               option={option}
               isHovered={hoveredIndex === index}
               isSelected={(selectedIds || []).includes(option.id)}

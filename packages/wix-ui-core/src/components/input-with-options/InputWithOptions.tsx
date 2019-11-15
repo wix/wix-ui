@@ -3,6 +3,7 @@ import style from './InputWithOptions.st.css';
 import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
+import { IDOMid } from '../dropdown-content';
 import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 import { Input, InputProps } from '../input';
 
@@ -60,13 +61,18 @@ export type InputWithOptionsProps = Pick<
     emptyStateStyle?: React.CSSProperties;
   };
 
+interface InputWithOptionsState {
+  ariaActivedescendant: string | null;
+}
+
 /**
  * InputWithOptions
  */
 export class InputWithOptions extends React.PureComponent<
-  InputWithOptionsProps
+  InputWithOptionsProps,
+  InputWithOptionsState
 > {
-  dropDownRef;
+  dropDownRef = React.createRef<InstanceType<typeof Dropdown>>();
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: 'click',
@@ -83,14 +89,15 @@ export class InputWithOptions extends React.PureComponent<
   };
   static bypassDefaultPropsTypecheck;
   isEditing: boolean = false;
+  state = { ariaActivedescendant: null };
 
   open() {
     // Using getInstance() is here because closeOutside HOC
-    this.dropDownRef.getInstance().open();
+    this.dropDownRef.current && this.dropDownRef.current.getInstance().open();
   }
 
   close() {
-    this.dropDownRef.getInstance().close();
+    this.dropDownRef.current && this.dropDownRef.current.getInstance().close();
   }
 
   _filterOptions(): Option[] {
@@ -138,6 +145,12 @@ export class InputWithOptions extends React.PureComponent<
     );
   }
 
+  onOptionHover = (option: (Option & IDOMid) | null) => {
+    const ariaActivedescendant = option ? option._DOMid : null;
+
+    this.setState({ ariaActivedescendant });
+  };
+
   _onSelect = (option: Option | null) => {
     this.isEditing = false;
     const { onSelect, onManualInput, inputProps } = this.props;
@@ -146,11 +159,14 @@ export class InputWithOptions extends React.PureComponent<
     } else {
       onManualInput(inputProps.value);
     }
+
+    this.setState({ ariaActivedescendant: null });
   };
 
   _onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!event.key.startsWith('Arrow')) {
       this.isEditing = true;
+      this.setState({ ariaActivedescendant: null });
     }
 
     const { onKeyDown } = this.props.inputProps;
@@ -198,6 +214,14 @@ export class InputWithOptions extends React.PureComponent<
       moveBy,
     } = this.props;
 
+    const contentId = id ? `${id}-content` : null;
+    const ariaActivedescendant =
+      contentId &&
+      this.dropDownRef.current &&
+      this.dropDownRef.current.getInstance().getSelectedOption()
+        ? this.dropDownRef.current.getInstance().getSelectedOption()._DOMid
+        : null;
+
     return (
       <Dropdown
         {...style('root', {}, this.props)}
@@ -205,6 +229,7 @@ export class InputWithOptions extends React.PureComponent<
         openTrigger={openTrigger}
         disabled={inputProps.disabled}
         onSelect={this._onSelect}
+        onOptionHover={this.onOptionHover}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
         onDeselect={onDeselect}
@@ -213,20 +238,24 @@ export class InputWithOptions extends React.PureComponent<
         options={this._filterOptions()}
         timeout={timeout}
         multi={multi}
-        role="combobox"
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
         id={id}
-        ref={ref => (this.dropDownRef = ref)}
+        ref={this.dropDownRef}
         allowReselect={allowReselect}
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
         onContentMouseDown={this._onContentMouseDown}
+        contentId={contentId}
       >
         <Input
           data-hook={DataHooks.input}
           {...inputProps}
+          role="combobox"
+          aria-autocomplete="both"
+          aria-owns={contentId}
+          aria-activedescendant={this.state.ariaActivedescendant}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
           onBlur={this._onBlur}

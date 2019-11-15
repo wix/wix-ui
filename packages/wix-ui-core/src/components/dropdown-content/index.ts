@@ -1,1 +1,5 @@
-export { DropdownContent, DropdownContentProps } from './DropdownContent';
+export {
+  DropdownContent,
+  DropdownContentProps,
+  IDOMid,
+} from './DropdownContent';
