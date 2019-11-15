@@ -85,7 +85,6 @@
     "@types/react-dom": "~16.8.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
-    "eslint-config-wix": "latest",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "latest",
     "node-sass": "^4.9.4",
@@ -102,29 +101,6 @@
     "wix-ui-test-utils": "^1.0.120",
     "yoshi": "^4.16.4",
     "yoshi-style-dependencies": "^4.11.1"
-  },
-  "eslintConfig": {
-    "extends": "yoshi",
-    "env": {
-      "jest": true
-    },
-    "rules": {
-      "react/jsx-closing-bracket-location": [
-        "error",
-        {
-          "nonEmpty": "tag-aligned",
-          "selfClosing": false
-        }
-      ],
-      "react/jsx-handler-names": 0,
-      "react/no-find-dom-node": 0,
-      "react/no-string-refs": 0,
-      "react/jsx-boolean-value": 2,
-      "comma-dangle": [
-        "error",
-        "never"
-      ]
-    }
   },
   "jest": {
     "transform": {
