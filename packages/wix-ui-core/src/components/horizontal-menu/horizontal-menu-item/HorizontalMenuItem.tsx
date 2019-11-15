@@ -21,7 +21,7 @@ export interface HorizontalMenuItemProps {
   icon?: React.ReactNode;
   style?: React.CSSProperties;
   expandSize?: ExpandSize;
-  expandIcon?(props: ExpandIconProps): React.ReactElement;
+  expandIcon?(props: ExpandIconProps): React.ReactNode;
 }
 
 interface HorizontalMenuItemState {
@@ -87,7 +87,7 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     const { isOpen } = this.state;
 
-    return expandIcon({ isOpen });
+    return <span className={style.expandIcon}>{expandIcon({ isOpen })}</span>;
   }
 
   render() {
@@ -139,16 +139,16 @@ export class HorizontalMenuItem extends React.PureComponent<
                     style={propStyle}
                     {...rest}
                   >
-                    {icon}
                     <a
                       className={style.menuItemLink}
                       data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
                       href={href}
                       target={target}
                     >
+                      {icon}
                       {label}
+                      {this.renderExpandIcon()}
                     </a>
-                    {this.renderExpandIcon()}
                     <HorizontalMenuItemContext.Provider
                       value={{
                         expandSize,

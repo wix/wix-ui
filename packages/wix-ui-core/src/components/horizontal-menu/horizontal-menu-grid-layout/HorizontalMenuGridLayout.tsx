@@ -12,6 +12,7 @@ export interface HorizontalMenuGridLayoutProps {
   className?: string;
   style?: React.CSSProperties;
   textAlign?: 'left' | 'center' | 'right';
+  maxOverflowWidth?: number;
 }
 
 /** Horizontal Menu Grid Layout */
@@ -20,8 +21,10 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
 > {
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.gridLayout;
 
+  layoutRef: React.RefObject<HTMLUListElement> = React.createRef();
+
   render() {
-    const { textAlign } = this.props;
+    const { textAlign, maxOverflowWidth } = this.props;
     const { className, ...stylableProps } = style('root', {}, this.props);
 
     return (
@@ -37,6 +40,16 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
               {menuItemContext => {
                 const { isOpen, expandSize } = menuItemContext;
 
+                const styles = {
+                  ...this.props.style,
+                  textAlign,
+                  ...layoutLeftAndRightPositions(
+                    menuItemContext,
+                    this.layoutRef,
+                    maxOverflowWidth,
+                  ),
+                };
+
                 return (
                   <HorizontalMenuContext.Provider
                     value={{
@@ -51,14 +64,11 @@ export class HorizontalMenuGridLayout extends React.PureComponent<
                       data-hook={HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}
                       data-layout="grid"
                       data-opened={isOpen}
+                      ref={this.layoutRef}
                       {...style('root', { expandSize }, this.props)}
                       className={classList}
                       {...stylableProps}
-                      style={{
-                        ...this.props.style,
-                        textAlign,
-                        ...layoutLeftAndRightPositions(menuItemContext),
-                      }}
+                      style={styles}
                     >
                       {this.props.children}
                     </ul>

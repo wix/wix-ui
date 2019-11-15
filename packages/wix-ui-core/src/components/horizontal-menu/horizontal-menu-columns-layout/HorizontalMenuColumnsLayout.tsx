@@ -13,6 +13,7 @@ export interface HorizontalMenuColumnsLayoutProps {
   style?: React.CSSProperties;
   textAlign?: 'left' | 'center' | 'right';
   columns?: number;
+  maxOverflowWidth?: number;
 }
 
 /** Horizontal Menu Column Layout */
@@ -25,8 +26,10 @@ export class HorizontalMenuColumnsLayout extends React.PureComponent<
     columns: 1,
   };
 
+  layoutRef: React.RefObject<HTMLUListElement> = React.createRef();
+
   render() {
-    const { textAlign, columns } = this.props;
+    const { textAlign, maxOverflowWidth, columns } = this.props;
 
     const { className, ...stylableProps } = style('root', {}, this.props);
 
@@ -42,6 +45,17 @@ export class HorizontalMenuColumnsLayout extends React.PureComponent<
             <HorizontalMenuItemContext.Consumer>
               {menuItemContext => {
                 const { isOpen, expandSize } = menuItemContext;
+
+                const styles = {
+                  ...this.props.style,
+                  textAlign,
+                  columns,
+                  ...layoutLeftAndRightPositions(
+                    menuItemContext,
+                    this.layoutRef,
+                    maxOverflowWidth,
+                  ),
+                };
 
                 return (
                   <HorizontalMenuContext.Provider
@@ -59,15 +73,11 @@ export class HorizontalMenuColumnsLayout extends React.PureComponent<
                       }
                       data-layout="column"
                       data-opened={isOpen}
+                      ref={this.layoutRef}
                       {...style('root', { expandSize }, this.props)}
                       className={classList}
                       {...stylableProps}
-                      style={{
-                        ...this.props.style,
-                        textAlign,
-                        columns,
-                        ...layoutLeftAndRightPositions(menuItemContext),
-                      }}
+                      style={styles}
                     >
                       {this.props.children}
                     </ul>

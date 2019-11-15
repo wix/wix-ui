@@ -18,17 +18,20 @@
   list-style: none;
 
   flex: 1;
+
+  transition: inherit;
 }
 
 .root:expandSize(column) {
-  width: 100%;
+  box-sizing: content-box;
+  width: max-content;
 }
 
 .root[data-opened="true"] {
-  display: block;
+  display: inherit;
 }
 
 .menuItem {
   -st-extends: HorizontalMenuItem;
-  flex: 1;
+  min-width: 36px;
 }
