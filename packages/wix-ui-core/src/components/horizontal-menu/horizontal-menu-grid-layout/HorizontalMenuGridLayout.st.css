@@ -38,5 +38,4 @@
 .menuItem {
   -st-extends: HorizontalMenuItem;
   flex: 1;
-  min-width: 36px;
 }

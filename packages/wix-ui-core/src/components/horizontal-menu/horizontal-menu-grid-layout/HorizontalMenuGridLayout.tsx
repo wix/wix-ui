@@ -1,84 +1,64 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
+import { withHorizontalMenuLayout } from '../horizontal-menu-layout';
+import { HorizontalMenuLayout } from '../horizontal-menu-layout/HorizontalMenuLayout';
 import { HorizontalMenuContext } from '../HorizontalMenuContext';
-import { HorizontalMenuItemContext } from '../horizontal-menu-item/HorizontalMenuItemContext';
-import { layoutLeftAndRightPositions } from '../utils';
 import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuGridLayout.st.css';
 
-export interface HorizontalMenuGridLayoutProps {
-  className?: string;
-  style?: React.CSSProperties;
-  textAlign?: 'left' | 'center' | 'right';
-  maxOverflowWidth?: number;
-}
+export interface HorizontalMenuGridLayoutProps {}
 
 /** Horizontal Menu Grid Layout */
-export class HorizontalMenuGridLayout extends React.PureComponent<
+export class HorizontalMenuGridLayout extends HorizontalMenuLayout<
   HorizontalMenuGridLayoutProps
 > {
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.gridLayout;
 
-  layoutRef: React.RefObject<HTMLUListElement> = React.createRef();
-
   render() {
-    const { textAlign, maxOverflowWidth } = this.props;
-    const { className, ...stylableProps } = style('root', {}, this.props);
+    const { textAlign, menuContext, isOpen, expandSize } = this.props;
+    const { styles: stateStyles } = this.state;
+
+    const { className, ...stylableProps } = style(
+      'root',
+      { expandSize },
+      this.props,
+    );
+    const classList = classnames(className, menuContext.gridLayoutClassName);
+
+    const styles = {
+      ...this.props.style,
+      textAlign,
+      ...stateStyles,
+    };
 
     return (
-      <HorizontalMenuContext.Consumer>
-        {context => {
-          const classList = classnames(className, context.gridLayoutClassName);
-
-          /**
-           * pass contexts as prop to NEW component to prevent object creating for each render
-           */
-          return (
-            <HorizontalMenuItemContext.Consumer>
-              {menuItemContext => {
-                const { isOpen, expandSize } = menuItemContext;
-
-                const styles = {
-                  ...this.props.style,
-                  textAlign,
-                  ...layoutLeftAndRightPositions(
-                    menuItemContext,
-                    this.layoutRef,
-                    maxOverflowWidth,
-                  ),
-                };
-
-                return (
-                  <HorizontalMenuContext.Provider
-                    value={{
-                      ...context,
-                      menuItemClassName: classnames(
-                        context.menuItemClassName,
-                        style.menuItem,
-                      ),
-                    }}
-                  >
-                    <ul
-                      data-hook={HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}
-                      data-layout="grid"
-                      data-opened={isOpen}
-                      ref={this.layoutRef}
-                      {...style('root', { expandSize }, this.props)}
-                      className={classList}
-                      {...stylableProps}
-                      style={styles}
-                    >
-                      {this.props.children}
-                    </ul>
-                  </HorizontalMenuContext.Provider>
-                );
-              }}
-            </HorizontalMenuItemContext.Consumer>
-          );
+      <HorizontalMenuContext.Provider
+        value={{
+          ...menuContext,
+          menuItemClassName: classnames(
+            menuContext.menuItemClassName,
+            style.menuItem,
+          ),
         }}
-      </HorizontalMenuContext.Consumer>
+      >
+        <ul
+          data-hook={HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}
+          data-layout="grid"
+          data-opened={isOpen}
+          ref={this.layoutRef}
+          className={classList}
+          {...stylableProps}
+          style={styles}
+        >
+          {this.props.children}
+        </ul>
+      </HorizontalMenuContext.Provider>
     );
   }
 }
+
+export default withHorizontalMenuLayout<HorizontalMenuGridLayoutProps>(
+  HorizontalMenuGridLayout,
+);

@@ -33,5 +33,4 @@
 
 .menuItem {
   -st-extends: HorizontalMenuItem;
-  min-width: 36px;
 }

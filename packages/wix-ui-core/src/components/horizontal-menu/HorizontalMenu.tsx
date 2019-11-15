@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { HorizontalMenuItem } from './horizontal-menu-item';
-import { HorizontalMenuColumnsLayout } from './horizontal-menu-columns-layout';
-import { HorizontalMenuGridLayout } from './horizontal-menu-grid-layout';
+import HorizontalMenuColumnsLayout from './horizontal-menu-columns-layout';
+import HorizontalMenuGridLayout from './horizontal-menu-grid-layout';
 import {
   HorizontalMenuContext,
   HorizontalMenuContextValue,
