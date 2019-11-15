@@ -23,11 +23,9 @@
     "build": "yoshi build && import-path --path src",
     "postbuild": "npm run docs:sections",
     "pretest": "build-storybook",
-    "test": "npm run test:unit",
-    "test:unit": "yoshi test --jest",
-    "start": "npm run storybook",
+    "test": "yoshi test --jest",
+    "start": "start-storybook -p 6006",
     "release": "yoshi release",
-    "storybook": "start-storybook -p 6006",
     "docs:sections": "node docs/make-sections-docs.js"
   },
   "repository": {
@@ -126,12 +124,5 @@
       "<rootDir>/node_modules/"
     ],
     "testRegex": "/src/.*\\.(spec|test)\\.([tj]sx?)$"
-  },
-  "yoshi": {
-    "servers": {
-      "cdn": {
-        "port": 3201
-      }
-    }
   }
 }

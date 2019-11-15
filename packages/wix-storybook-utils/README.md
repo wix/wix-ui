@@ -65,3 +65,13 @@ export default {
 ```js
 import '../src/components/MyComponent/docs/index.story';
 ```
+
+## Contributing
+
+* `git clone git@github.com:wix/wix-ui.git`
+* `cd wix-ui/packages/wix-storybook-utils`
+* `npm install`
+* `npm start` - start storybook at [localhost:6006](http://localhost:6006)
+* `npm test` - run unit tests
+* `npm run test -- --watch` - run unit tests in watch mode
+* `npm run build` create transpiled code in `/dist`
