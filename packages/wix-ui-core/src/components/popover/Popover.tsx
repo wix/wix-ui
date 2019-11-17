@@ -1,9 +1,5 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
-import onClickOutside, {
-  OnClickOutProps,
-  InjectedOnClickOutProps,
-} from 'react-onclickoutside';
 import { Manager, Reference, Popper } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
 import Portal from 'react-portal/lib/Portal';
@@ -24,6 +20,7 @@ import {
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 import * as classNames from 'classnames';
+import { ClickOutside } from '../click-outside';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -159,22 +156,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-// We're declaring a wrapper for the clickOutside machanism and not using the
-// HOC because of Typings errors.
-const ClickOutsideWrapper: React.ComponentClass<
-  OnClickOutProps<InjectedOnClickOutProps>
-> = onClickOutside(
-  class extends React.Component<any, any> {
-    handleClickOutside() {
-      this.props.handleClickOutside();
-    }
-
-    render() {
-      return this.props.children;
-    }
-  },
-);
-
 /**
  * Popover
  */
@@ -201,6 +182,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   // Timer instances for the show/hide delays
   _hideTimeout: any = null;
   _showTimeout: any = null;
+  private readonly rootRef: React.RefObject<HTMLDivElement>;
 
   constructor(props) {
     super(props);
@@ -209,6 +191,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false,
     };
 
+    this.rootRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
@@ -492,6 +475,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       children,
       style: inlineStyles,
       id,
+      onClickOutside,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -505,11 +489,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager>
-        <ClickOutsideWrapper
-          handleClickOutside={this._handleClickOutside}
-          outsideClickIgnoreClass={style.popover}
+        <ClickOutside
+          rootRef={this.rootRef}
+          onClickOutside={this._handleClickOutside}
+          excludeClass={style.popover}
+          // TODO - Please review this line!
+          // disableOnClickOutside={!onClickOutside || !shown}
         >
           <div
+            ref={this.rootRef}
             style={inlineStyles}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
@@ -533,7 +521,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             </Reference>
             {shouldRenderPopper && this.renderPopperContent(childrenObject)}
           </div>
-        </ClickOutsideWrapper>
+        </ClickOutside>
       </Manager>
     );
   }
