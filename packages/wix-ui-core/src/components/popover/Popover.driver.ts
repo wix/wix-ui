@@ -44,6 +44,7 @@ export const popoverDriverFactory = ({ element, eventTrigger }) => ({
 
   /** Click outside the element */
   clickOutside: () => {
+    document.dispatchEvent(new Event('mousedown'));
     document.dispatchEvent(new Event('mouseup'));
   },
 
