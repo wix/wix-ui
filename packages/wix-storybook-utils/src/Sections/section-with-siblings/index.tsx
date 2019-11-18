@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { SectionType } from '../../typings/story-section';
+import { Section, SectionType } from '../../typings/story-section';
+import Markdown from '../../Markdown';
 
 import styles from './styles.scss';
 
@@ -8,14 +9,16 @@ const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
 const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title, SectionType.Header];
 
 const sectionPrepares = {
-  [SectionType.ImportExample]: section => ({
+  [SectionType.ImportExample]: (section: Section) => ({
     ...section,
-    title: section.title && section.title.length ? section.title : 'Import',
+    title: section.title || 'Import',
   }),
 };
 
-const prepareSection = section => {
-  const preparedSection = (sectionPrepares[section.type] || (i => i))(section);
+const prepareSection = (section: Section) => {
+  const preparedSection = (sectionPrepares[section.type] || ((i: any) => i))(
+    section,
+  );
 
   const siblingsWithDiv = SIBLINGS.filter(
     sibling => preparedSection[sibling],
@@ -23,10 +26,10 @@ const prepareSection = section => {
     (sections, key) => ({
       ...sections,
       [key]: (
-        <div
+        <Markdown
           key={key}
           className={styles[key]}
-          children={preparedSection[key]}
+          source={preparedSection[key]}
         />
       ),
     }),
@@ -36,7 +39,10 @@ const prepareSection = section => {
   return { ...preparedSection, ...siblingsWithDiv };
 };
 
-export const sectionWithSiblings = (section, children) => {
+export const sectionWithSiblings = (
+  section: Section,
+  children: React.ReactNode,
+) => {
   const preparedSection = prepareSection(section);
   const siblings = SIBLINGS.filter(row => preparedSection[row]);
   const shouldShowSiblings =

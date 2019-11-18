@@ -8,10 +8,13 @@ const wrapWithTicks = (item: string) => `\`\`\`js
 ${item}
 \`\`\``;
 
-export const Code = ({ children, dataHook = '' }) => (
-  <div data-hook={dataHook} className={styles.root}>
+export const Code = ({ children, ...rest }) => (
+  <div className={styles.root}>
     <div className={styles.code}>
-      <Markdown source={wrapWithTicks(children)} />
+      <Markdown
+        data-hook="metadata-import-markdown"
+        source={wrapWithTicks(children)}
+      />
     </div>
 
     <CopyButton source={children} />

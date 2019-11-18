@@ -3,7 +3,10 @@ import { flatten } from './flatten';
 describe('flatten', () => {
   describe('given array of non-nested objects', () => {
     it('should return same shape array', () => {
-      const assertion = [{ a: 1, type: 'unknown' }, { b: 2, type: 'unknown' }];
+      const assertion = [
+        { a: 1, type: 'unknown' },
+        { b: 2, type: 'unknown' },
+      ];
       expect(flatten(assertion)).toEqual(assertion);
     });
   });
