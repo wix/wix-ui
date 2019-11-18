@@ -63,6 +63,7 @@ export type InputWithOptionsProps = Pick<
 
 interface InputWithOptionsState {
   ariaActivedescendant: string | null;
+  ariaExpanded: boolean;
 }
 
 /**
@@ -89,7 +90,10 @@ export class InputWithOptions extends React.PureComponent<
   };
   static bypassDefaultPropsTypecheck;
   isEditing: boolean = false;
-  state = { ariaActivedescendant: null };
+  state = {
+    ariaActivedescendant: null,
+    ariaExpanded: false,
+  };
 
   open() {
     // Using getInstance() is here because closeOutside HOC
@@ -99,6 +103,10 @@ export class InputWithOptions extends React.PureComponent<
   close() {
     this.dropDownRef.current && this.dropDownRef.current.getInstance().close();
   }
+
+  changeExpanded = (isExpanded: boolean) => {
+    this.setState({ ariaExpanded: isExpanded });
+  };
 
   _filterOptions(): Option[] {
     const {
@@ -215,12 +223,6 @@ export class InputWithOptions extends React.PureComponent<
     } = this.props;
 
     const contentId = id ? `${id}-content` : null;
-    const ariaActivedescendant =
-      contentId &&
-      this.dropDownRef.current &&
-      this.dropDownRef.current.getInstance().getSelectedOption()
-        ? this.dropDownRef.current.getInstance().getSelectedOption()._DOMid
-        : null;
 
     return (
       <Dropdown
@@ -248,6 +250,7 @@ export class InputWithOptions extends React.PureComponent<
         moveBy={moveBy}
         onContentMouseDown={this._onContentMouseDown}
         contentId={contentId}
+        onExpandedChange={this.changeExpanded}
       >
         <Input
           data-hook={DataHooks.input}
@@ -255,6 +258,7 @@ export class InputWithOptions extends React.PureComponent<
           role="combobox"
           aria-autocomplete="both"
           aria-owns={contentId}
+          aria-expanded={this.state.ariaExpanded}
           aria-activedescendant={this.state.ariaActivedescendant}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}

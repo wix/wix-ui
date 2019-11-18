@@ -28,6 +28,8 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   onContentMouseDown?(e: React.MouseEvent): void;
   /** Handler for when an option is deselected */
   onDeselect(option: Option | null): void;
+  /** Handler for when dropdown becomes opened/closed */
+  onExpandedChange(isExpanded: boolean): void;
   /** initial selected option ids */
   initialSelectedIds: (string | number)[];
   /** A callback for when initial selected options are set */
@@ -136,11 +138,20 @@ export class DropdownComponent extends React.PureComponent<
     this.close();
   }
 
+  _onExpandedChange() {
+    if (this.props.onExpandedChange) {
+      this.props.onExpandedChange(this.state.isOpen);
+    }
+  }
+
   open(onOpen: () => void = () => null) {
     if (this.state.isOpen) {
       onOpen && onOpen();
     } else {
-      this.setState({ isOpen: true }, onOpen);
+      this.setState({ isOpen: true }, () => {
+        this._onExpandedChange();
+        onOpen();
+      });
     }
   }
 
@@ -153,7 +164,9 @@ export class DropdownComponent extends React.PureComponent<
   }
 
   close() {
-    this.setState({ isOpen: false });
+    if (this.state.isOpen) {
+      this.setState({ isOpen: false }, this._onExpandedChange);
+    }
   }
 
   getSelectedOption() {
