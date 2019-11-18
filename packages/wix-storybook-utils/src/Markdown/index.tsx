@@ -52,7 +52,7 @@ const Markdown: React.FunctionComponent<Props> = ({
   dataHook,
 }) => {
   // TODO: remove this hack
-  // it can be done once AutoExample is no loner used in E2E throughout wix-ui and wix-style-react
+  // it can be done once AutoExample is no longer used in E2E throughout wix-ui and wix-style-react
   if (global.self === global.top) {
     return null;
   }

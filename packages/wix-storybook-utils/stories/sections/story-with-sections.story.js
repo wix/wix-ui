@@ -12,7 +12,6 @@ import {
   tab,
   tabs,
   testkit,
-  title
 } from '../../src/Sections';
 
 export default {
@@ -31,25 +30,59 @@ export default {
         </div>
       ),
       sourceUrl: 'https://github.com/wix/wix-ui/',
-      dataHook: 'section-header'
+      dataHook: 'section-header',
     }),
 
     tabs([
       tab({
         title: 'Import Example',
         sections: [
-          title('Component Title'),
-
-          importExample(`
-import Button from 'wix-style-react/Button';
-import Button from 'wix-style-react/Button';`),
-          columns({
-            title: 'Septyni astuoni keturiolika',
-            items: [description(`🔨 To trigger an operation.`)]
+          description({
+            title: 'Description',
+            text: 'This is a dummy example of story page with some sections',
           }),
 
-          divider()
-        ]
+          importExample(`import Button from 'wix-style-react/Button';
+import Button from 'wix-style-react/Button';`),
+
+          divider(),
+
+          columns([
+            description({
+              pretitle: 'Pretitle of description',
+              title: 'Fully Described block with **markdown**',
+              subtitle: 'Subtitle of description',
+              description: `This is description of a \`description\` section ;)
+
+new line`,
+              text:
+                'This is a dummy example of story page with some `sections`',
+            }),
+
+            description({
+              title: 'Description w/o pretitle',
+              subtitle: 'But still with subtitle',
+              description: 'And still with description of `description`',
+              text:
+                'This is a dummy example of story page with some `sections`',
+            }),
+          ]),
+
+          columns([
+            description({
+              title: 'Another Description',
+              description: 'This is description of a `description` section ;)',
+              text:
+                'This is a dummy example of story page with some `sections`',
+            }),
+
+            description({
+              title: 'Another Description',
+              text:
+                'This is a dummy example of story page with some `sections`',
+            }),
+          ]),
+        ],
       }),
 
       tab({
@@ -62,22 +95,22 @@ import Button from 'wix-style-react/Button';`),
             title: 'Compact & Dark',
             source: '<div>fun</div>',
             compact: true,
-            darkBackground: true
-          }
-        ].map(code)
+            darkBackground: true,
+          },
+        ].map(code),
       }),
 
       tab({
         title: 'how are you',
         sections: [
-          importExample("import Component from 'your-library/Component';")
-        ]
+          importExample("import Component from 'your-library/Component';"),
+        ],
       }),
 
       ...[
         { title: 'Playground', sections: [playground()] },
-        { title: 'Testkit', sections: [testkit()] }
-      ].map(tab)
-    ])
-  ]
+        { title: 'Testkit', sections: [testkit()] },
+      ].map(tab),
+    ]),
+  ],
 };

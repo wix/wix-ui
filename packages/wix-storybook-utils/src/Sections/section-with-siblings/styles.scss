@@ -3,6 +3,16 @@
 
 .titles {
   margin-bottom: 24px;
+
+  & p:first-child { margin: 0; }
+}
+
+.pretitle {
+  @include font(roman);
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: $D40;
 }
 
 .title {
@@ -12,21 +22,14 @@
 
 .subtitle {
   @include font(roman);
-  margin-bottom: 30px;
   margin-top: 5px;
   font-size: 14px;
   color: $D40;
 }
 
-.pretitle {
-  @include font(roman);
-  font-size: 12px;
-  font-weight: 500;
-  color: $D40;
-}
-
 .description {
   @include font(roman);
+  margin-top: 10px;
   font-size: 14px;
   font-weight: 300;
   line-height: 1.5;

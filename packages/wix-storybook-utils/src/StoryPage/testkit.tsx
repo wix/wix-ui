@@ -36,14 +36,12 @@ export default class {
   get = {
     readme: () =>
       this.component
-        .find('[data-hook="metadata-readme"]')
-        .find(Markdown)
+        .find('[data-hook="metadata-readme-markdown"]')
         .prop('source'),
 
     import: () =>
       this.component
-        .find('[data-hook="metadata-import"]')
-        .find(Markdown)
+        .find('[data-hook="metadata-import-markdown"]')
         .prop('source'),
 
     codeBlock: () =>

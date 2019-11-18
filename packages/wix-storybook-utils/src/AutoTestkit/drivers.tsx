@@ -42,10 +42,7 @@ class DriverDocumentationDriver extends Driver {
     },
 
     tag: (hook: string) => this.select(hook).name(),
-    importCode: () =>
-      this.select('import-code')
-        .find(Markdown)
-        .prop('source'),
+    importCode: () => this.find('[data-hook="metadata-import-markdown"]').prop('source'),
   };
 }
 
