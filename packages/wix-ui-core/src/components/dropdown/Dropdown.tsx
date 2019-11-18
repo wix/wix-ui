@@ -29,7 +29,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Handler for when an option is deselected */
   onDeselect(option: Option | null): void;
   /** Handler for when dropdown becomes opened/closed */
-  onExpandedChange(isExpanded: boolean): void;
+  onExpandedChange?(isExpanded: boolean): void;
   /** initial selected option ids */
   initialSelectedIds: (string | number)[];
   /** A callback for when initial selected options are set */
