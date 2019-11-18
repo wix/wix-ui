@@ -73,7 +73,7 @@ export class InputWithOptions extends React.PureComponent<
   InputWithOptionsProps,
   InputWithOptionsState
 > {
-  dropDownRef = React.createRef<InstanceType<typeof Dropdown>>();
+  dropDownRef: InstanceType<typeof Dropdown> | null = null;
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: 'click',
@@ -95,13 +95,17 @@ export class InputWithOptions extends React.PureComponent<
     ariaExpanded: false,
   };
 
+  _setDropDownRef = (ref: InstanceType<typeof Dropdown>) => {
+    this.dropDownRef = ref;
+  }
+
   open() {
     // Using getInstance() is here because closeOutside HOC
-    this.dropDownRef.current && this.dropDownRef.current.getInstance().open();
+    this.dropDownRef && this.dropDownRef.getInstance().open();
   }
 
   close() {
-    this.dropDownRef.current && this.dropDownRef.current.getInstance().close();
+    this.dropDownRef && this.dropDownRef.getInstance().close();
   }
 
   changeExpanded = (isExpanded: boolean) => {
@@ -243,7 +247,7 @@ export class InputWithOptions extends React.PureComponent<
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
         id={id}
-        ref={this.dropDownRef}
+        ref={this._setDropDownRef}
         allowReselect={allowReselect}
         flip={flip}
         fixed={fixed}
