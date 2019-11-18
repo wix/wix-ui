@@ -171,7 +171,7 @@ export class DropdownComponent extends React.PureComponent<
 
   getSelectedOption() {
     return this.dropdownContentRef
-      ? this.dropdownContentRef.onKeyboardSelect()
+      ? this.dropdownContentRef.getSelectedOption()
       : null;
   }
 

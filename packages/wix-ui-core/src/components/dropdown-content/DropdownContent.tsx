@@ -67,7 +67,7 @@ export class DropdownContent extends React.PureComponent<
 
   onOptionHover() {
     if (this.props.onOptionHover) {
-      this.props.onOptionHover(this.onKeyboardSelect());
+      this.props.onOptionHover(this.getSelectedOption());
     }
   }
 
@@ -138,7 +138,7 @@ export class DropdownContent extends React.PureComponent<
       : null;
   }
 
-  onKeyboardSelect(): (Option & IDOMid) | null {
+  getSelectedOption(): (Option & IDOMid) | null {
     const { options } = this.props;
     const { hoveredIndex } = this.state;
     const isValidIndex = hoveredIndex >= 0 && hoveredIndex < options.length;
