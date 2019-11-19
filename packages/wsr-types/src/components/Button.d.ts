@@ -1,10 +1,5 @@
 declare namespace __WSR {
   namespace Button {
-    /**
-     * Construct a type with the properties of T except for those in type K.
-     */
-    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
     export type ButtonWithAsProp<T> =
       | ButtonAsButtonProps<T>
       | ButtonAsAnchorProps<T>
@@ -28,7 +23,7 @@ declare namespace __WSR {
       };
 
     type ButtonGenericProps<T> = T & {
-      as: keyof Omit<HTMLElementTagNameMap, 'a' | 'button'>;
+      as: keyof BaseComponents.OmitPolyfill<HTMLElementTagNameMap, 'a' | 'button'>;
       onClick?: React.MouseEventHandler<HTMLElement>;
       [additionalProps: string]: any;
     };
