@@ -16,6 +16,7 @@ import {
   MDXSection,
   DividerSection,
   TitleSection,
+  PluginSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config.  they are typed
@@ -135,4 +136,12 @@ export const title: (
   baseSection({
     type: SectionType.Title,
     ...(typeof config === 'string' ? { title: config } : config),
+  });
+
+export const plugin: (
+  object: Partial<PluginSection>,
+) => PluginSection = config =>
+  baseSection({
+    type: SectionType.Plugin,
+    ...config,
   });

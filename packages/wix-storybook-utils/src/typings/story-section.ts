@@ -1,4 +1,5 @@
 import React from 'react';
+import { StoryConfig } from './story-config';
 
 export enum SectionType {
   Api = 'api',
@@ -15,6 +16,7 @@ export enum SectionType {
   Tabs = 'tabs',
   Testkit = 'testkit',
   Title = 'title',
+  Plugin = 'plugin',
 }
 
 export interface StorySection {
@@ -37,7 +39,13 @@ export type Section =
   | TableSection
   | TabsSection
   | MDXSection
-  | TitleSection;
+  | TitleSection
+  | PluginSection;
+
+export type PluginHandler = (
+  section: PluginSection,
+  storyConfig: StoryConfig,
+) => React.ReactNode;
 
 /** Description section is used for regular text blocks. */
 export interface DescriptionSection extends StorySection {
@@ -123,6 +131,11 @@ export interface TabSection extends StorySection {
 /** API Section automatically renders a table of component API. Currently accepts no parameters. */
 export interface ApiSection extends StorySection {
   parsedSource?: object;
+}
+
+/** Plugin section gives control over section rendering to the user of storybook utils */
+export interface PluginSection extends StorySection {
+  handler: PluginHandler;
 }
 
 /** Playground section automatically renders area where it is possible to play with each component prop. Currently

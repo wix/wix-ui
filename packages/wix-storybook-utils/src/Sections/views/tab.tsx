@@ -18,6 +18,7 @@ import { mdx } from './mdx';
 import { divider } from './divider';
 import { header } from './header';
 import { title } from './title';
+import { plugin } from './plugin';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -45,6 +46,7 @@ const views = {
   mdx,
   divider,
   title,
+  plugin,
 };
 
 export const getView = type => views[type] || (i => i);
