@@ -85,12 +85,11 @@ export class InputWithOptions extends React.PureComponent<
   isEditing: boolean = false;
 
   open() {
-    // Using getInstance() is here because closeOutside HOC
-    this.dropDownRef.getInstance().open();
+    this.dropDownRef.open();
   }
 
   close() {
-    this.dropDownRef.getInstance().close();
+    this.dropDownRef.close();
   }
 
   _filterOptions(): Option[] {

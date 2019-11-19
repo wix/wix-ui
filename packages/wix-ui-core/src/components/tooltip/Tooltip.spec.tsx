@@ -164,6 +164,7 @@ describe('Tooltip', () => {
     it('should call onClickOutside when clicked outside', async () => {
       const onClickOutside = jest.fn();
       const { driver } = render(tooltip({ onClickOutside }));
+      await driver.mouseEnter();
       await driver.clickOutside();
       expect(onClickOutside).toHaveBeenCalled();
     });
