@@ -20,14 +20,13 @@ export class ClickOutsideStory extends React.Component<any, any> {
   };
 
   render() {
-    const { excludeClass, disableOnClickOutside } = this.props;
+    const { excludeClass } = this.props;
     return (
       <div>
         <ClickOutside
           rootRef={this.rootRef}
           onClickOutside={this._clickOutside}
           excludeClass={excludeClass}
-          disableOnClickOutside={disableOnClickOutside}
         >
           <div
             style={{ backgroundColor: 'lightskyblue', padding: '5px' }}

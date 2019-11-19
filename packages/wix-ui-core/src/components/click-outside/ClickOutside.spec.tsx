@@ -24,7 +24,6 @@ describe('ClickOutside', () => {
       clickOutsideCallback,
       handleClickInside,
       excludeClass,
-      disableOnClickOutside,
     } = options;
     const ref = React.createRef<HTMLButtonElement>();
     ReactDOM.render(
@@ -40,7 +39,6 @@ describe('ClickOutside', () => {
           rootRef={ref}
           onClickOutside={clickOutsideCallback}
           excludeClass={excludeClass}
-          disableOnClickOutside={disableOnClickOutside}
         >
           <button id="inside" ref={ref} onClick={handleClickInside}>
             Inside
@@ -129,10 +127,9 @@ describe('ClickOutside', () => {
 
   it('should try to outside when listeners are stopped unsuccessfully', async () => {
     const clickOutsideCallback = jest.fn();
-    const disableOnClickOutside = true;
 
     act(() => {
-      render({ clickOutsideCallback, disableOnClickOutside });
+      render({});
     });
 
     // Nothing is clicked yet
