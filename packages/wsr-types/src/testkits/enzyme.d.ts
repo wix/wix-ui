@@ -57,6 +57,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const highlighterTestkitFactory: EnzymeTestkitFactory<__WSRTests.HighlighterDriver<
     ReactWrapper
   >>;
+  export const stepperTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.StepperUniDriver>;
 
   export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
@@ -111,7 +112,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const stepperTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;

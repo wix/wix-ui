@@ -55,6 +55,7 @@ declare module "wix-style-react/dist/testkit" {
   export const highlighterTestkitFactory: VanillaTestkitFactory<__WSRTests.HighlighterDriver<
     HTMLElement
   >>;
+  export const stepperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StepperUniDriver>;
 
   export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
@@ -109,7 +110,6 @@ declare module "wix-style-react/dist/testkit" {
   export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const stepperTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
