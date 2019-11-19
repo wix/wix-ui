@@ -15,6 +15,7 @@ import {
   importexample,
   mdx,
   playground,
+  plugin,
   tab,
   table,
   tabs,
@@ -207,6 +208,15 @@ EXPERIMENTAL section for mdx content. Don't use, or use with EXTRA CAUTION
 ## `playground()` section
 Playground section automatically renders area where it is possible to play with each component prop. Currently
 accepts no parameters.
+
+---
+
+## `plugin()` section
+Plugin section gives control over section rendering to the user of storybook utils
+
+| Property | Type | Description |
+|---|---|---|
+| `handler` **required** |PluginHandler||
 
 ---
 

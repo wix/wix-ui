@@ -122,3 +122,25 @@ describe('code section', () => {
     expect(builders.code(source)).toEqual(expect.objectContaining({ source }));
   });
 });
+
+describe('plugin section', () => {
+  it('should delegate section generation to handler and pass context', () => {
+    const mockStoryConfig = { test: 'test' };
+
+    const pluginView = require(path.resolve(
+      cwd,
+      methodToFileName(SectionType.Plugin),
+    ))[SectionType.Plugin];
+
+    const handler = (section, storyConfig) => ({
+      section,
+      storyConfig,
+    });
+
+    const output = pluginView(builders.plugin({ handler }), mockStoryConfig);
+
+    expect(output.section).toBeDefined();
+    expect(output.section.handler).toBe(handler);
+    expect(output.storyConfig).toBe(mockStoryConfig);
+  });
+});
