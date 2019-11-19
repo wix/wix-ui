@@ -2,13 +2,19 @@ import * as React from 'react';
 
 import { HorizontalMenuItemContextValue } from '../../horizontal-menu-item/HorizontalMenuItemContext';
 
+export interface CalculatePositioningProps {
+  context: HorizontalMenuItemContextValue;
+  layoutRef: React.RefObject<HTMLUListElement>;
+  maxOverflowWidth: number;
+}
+
 const MAX_SINGLE_COLUMN_OVERFLOW_WIDTH = 280;
 
-export function calculateLeftAndRightPositions(
-  context: HorizontalMenuItemContextValue,
-  layoutRef: React.RefObject<HTMLUListElement>,
+export function calculatePositioning({
+  context,
+  layoutRef,
   maxOverflowWidth = MAX_SINGLE_COLUMN_OVERFLOW_WIDTH,
-) {
+}: CalculatePositioningProps) {
   const { expandSize } = context;
   const menuItemWidth = context.getMenuItemBoundingRect('width');
   const menuItemLeft = context.getMenuItemBoundingRect('left');

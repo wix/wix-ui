@@ -9,7 +9,7 @@ import {
   HorizontalMenuItemContextValue,
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { ExpandSize } from '../horizontal-menu-item/HorizontalMenuItem';
-import { calculateLeftAndRightPositions } from './utils';
+import { calculatePositioning } from './utils';
 
 export interface HorizontalMenuLayoutProps {
   className?: string;
@@ -56,11 +56,11 @@ export class HorizontalMenuLayout<P> extends React.Component<
     const { maxOverflowWidth, menuItemContext } = this.props;
 
     this.setState({
-      styles: calculateLeftAndRightPositions(
-        menuItemContext,
-        this.layoutRef,
+      styles: calculatePositioning({
+        context: menuItemContext,
+        layoutRef: this.layoutRef,
         maxOverflowWidth,
-      ),
+      }),
     });
   }
 }
