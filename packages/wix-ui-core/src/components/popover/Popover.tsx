@@ -1,32 +1,35 @@
-import * as React from 'react';
-import PopperJS from 'popper.js';
-import { Manager, Reference, Popper } from 'react-popper';
-import * as CSSTransition from 'react-transition-group/CSSTransition';
-import Portal from 'react-portal/lib/Portal';
-import style from './Popover.st.css';
-import { createModifiers } from './modifiers';
+import * as React from "react";
+import PopperJS from "popper.js";
+import onClickOutside, {
+  OnClickOutProps,
+  InjectedOnClickOutProps
+} from "react-onclickoutside";
+import { Manager, Reference, Popper } from "react-popper";
+import * as CSSTransition from "react-transition-group/CSSTransition";
+import Portal from "react-portal/lib/Portal";
+import style from "./Popover.st.css";
+import { createModifiers } from "./modifiers";
 import {
   AttributeMap,
   attachStylesToNode,
-  detachStylesFromNode,
-} from '../../utils/stylableUtils';
+  detachStylesFromNode
+} from "../../utils/stylableUtils";
 
 import {
   buildChildrenObject,
   createComponentThatRendersItsChildren,
-  ElementProps,
-} from '../../utils';
+  ElementProps
+} from "../../utils";
 
-import { popoverTestUtils } from './helpers';
-import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import * as classNames from 'classnames';
-import { ClickOutside } from '../click-outside';
+import { popoverTestUtils } from "./helpers";
+import { getAppendToElement, Predicate } from "./utils/getAppendToElement";
+import * as classNames from "classnames";
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
-const isTestEnv = process.env.NODE_ENV === 'test';
+const isTestEnv = process.env.NODE_ENV === "test";
 
-if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
+if (isTestEnv && typeof document !== "undefined" && !document.createRange) {
   popoverTestUtils.createRange();
 }
 
@@ -40,11 +43,11 @@ const omit = (key, obj) => {
 };
 
 export type Placement = PopperJS.Placement;
-export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
+export type AppendTo = PopperJS.Boundary | "parent" | Element | Predicate;
 
 export interface PopoverProps {
   /** hook for testing purposes */
-  'data-hook'?: string;
+  "data-hook"?: string;
   /** custom classname */
   className?: string;
   /** The location to display the content */
@@ -131,12 +134,12 @@ export type PopoverType = PopoverProps & {
 };
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
-  if (typeof timeout === 'object') {
+  if (typeof timeout === "object") {
     const { enter, exit } = timeout;
 
     return (
-      typeof enter !== 'undefined' &&
-      typeof exit !== 'undefined' &&
+      typeof enter !== "undefined" &&
+      typeof exit !== "undefined" &&
       (enter > 0 || exit > 0)
     );
   }
@@ -150,26 +153,42 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   }
 
   return {
-    [direction === 'top' || direction === 'bottom'
-      ? 'left'
-      : 'top']: `${shift}px`,
+    [direction === "top" || direction === "bottom"
+      ? "left"
+      : "top"]: `${shift}px`
   };
 };
+
+// We're declaring a wrapper for the clickOutside machanism and not using the
+// HOC because of Typings errors.
+const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
+  InjectedOnClickOutProps
+>> = onClickOutside(
+  class extends React.Component<any, any> {
+    handleClickOutside() {
+      this.props.handleClickOutside();
+    }
+
+    render() {
+      return this.props.children;
+    }
+  }
+);
 
 /**
  * Popover
  */
 export class Popover extends React.Component<PopoverProps, PopoverState> {
-  static displayName = 'Popover';
+  static displayName = "Popover";
 
   static defaultProps = {
     flip: true,
     fixed: false,
-    zIndex: 1000,
+    zIndex: 1000
   };
 
-  static Element = createComponentThatRendersItsChildren('Popover.Element');
-  static Content = createComponentThatRendersItsChildren('Popover.Content');
+  static Element = createComponentThatRendersItsChildren("Popover.Element");
+  static Content = createComponentThatRendersItsChildren("Popover.Content");
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
@@ -182,17 +201,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   // Timer instances for the show/hide delays
   _hideTimeout: any = null;
   _showTimeout: any = null;
-  private readonly rootRef: React.RefObject<HTMLDivElement>;
 
   constructor(props) {
     super(props);
     this.state = {
       isMounted: false,
-      shown: props.shown || false,
+      shown: props.shown || false
     };
 
-    this.rootRef = React.createRef();
-    this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
+    this.contentHook = `popover-content-${props["data-hook"] || ""}-${testId}`;
   }
 
   _handleClickOutside = () => {
@@ -217,7 +234,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       minWidth,
       maxWidth,
       width,
-      dynamicWidth,
+      dynamicWidth
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -231,7 +248,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       flip,
       placement,
       fixed,
-      isTestEnv,
+      isTestEnv
     });
 
     const popper = (
@@ -241,7 +258,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           style: popperStyles,
           placement: popperPlacement,
           arrowProps,
-          scheduleUpdate,
+          scheduleUpdate
         }) => {
           this.popperScheduleUpdate = scheduleUpdate;
           return (
@@ -253,7 +270,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               data-placement={popperPlacement || placement}
               className={classNames(style.popover, {
                 [style.withArrow]: showArrow,
-                [style.popoverContent]: !showArrow,
+                [style.popoverContent]: !showArrow
               })}
             >
               {showArrow &&
@@ -261,13 +278,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                   arrowProps,
                   moveArrowTo,
                   popperPlacement || placement,
-                  customArrow,
+                  customArrow
                 )}
               <div
                 key="popover-content"
                 id={id}
                 role={role}
-                className={showArrow ? style.popoverContent : ''}
+                className={showArrow ? style.popoverContent : ""}
               >
                 {childrenObject.Content}
               </div>
@@ -303,10 +320,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         timeout={timeout}
         unmountOnExit
         classNames={{
-          enter: style['popoverAnimation-enter'],
-          enterActive: style['popoverAnimation-enter-active'],
-          exit: style['popoverAnimation-exit'],
-          exitActive: style['popoverAnimation-exit-active'],
+          enter: style["popoverAnimation-enter"],
+          enterActive: style["popoverAnimation-enter-active"],
+          exit: style["popoverAnimation-exit"],
+          exitActive: style["popoverAnimation-exit-active"]
         }}
         onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
       >
@@ -330,12 +347,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
     const commonProps = {
       ref: arrowProps.ref,
-      key: 'popover-arrow',
-      'data-hook': 'popover-arrow',
+      key: "popover-arrow",
+      "data-hook": "popover-arrow",
       style: {
         ...arrowProps.style,
-        ...getArrowShift(moveArrowTo, placement),
-      },
+        ...getArrowShift(moveArrowTo, placement)
+      }
     };
 
     if (customArrow) {
@@ -354,8 +371,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { appendTo } = this.props;
     this.appendToNode = getAppendToElement(appendTo, this.targetRef);
     if (this.appendToNode) {
-      this.portalNode = document.createElement('div');
-      this.portalNode.setAttribute('data-hook', 'popover-portal');
+      this.portalNode = document.createElement("div");
+      this.portalNode.setAttribute("data-hook", "popover-portal");
       /**
        * reset overlay wrapping layer
        * so that styles from copied classnames
@@ -364,11 +381,11 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
        * - overlay layer is hidden
        */
       Object.assign(this.portalNode.style, {
-        position: 'static',
+        position: "static",
         top: 0,
         left: 0,
         width: 0,
-        height: 0,
+        height: 0
       });
       this.appendToNode.appendChild(this.portalNode);
     }
@@ -447,7 +464,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, omit('data-hook', this.props));
+      this.stylesObj = style("root", {}, omit("data-hook", this.props));
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -474,14 +491,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onClick,
       children,
       style: inlineStyles,
-      id,
-      onClickOutside,
+      id
     } = this.props;
     const { isMounted, shown } = this.state;
 
     const childrenObject = buildChildrenObject(children, {
       Element: null,
-      Content: null,
+      Content: null
     });
 
     const shouldAnimate = shouldAnimatePopover(this.props);
@@ -489,19 +505,15 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager>
-        <ClickOutside
-          rootRef={this.rootRef}
-          onClickOutside={this._handleClickOutside}
-          excludeClass={style.popover}
-          // TODO - Please review this line!
-          // disableOnClickOutside={!onClickOutside || !shown}
+        <ClickOutsideWrapper
+          handleClickOutside={this._handleClickOutside}
+          outsideClickIgnoreClass={style.popover}
         >
           <div
-            ref={this.rootRef}
             style={inlineStyles}
-            data-hook={this.props['data-hook']}
+            data-hook={this.props["data-hook"]}
             data-content-hook={this.contentHook}
-            {...style('root', {}, this.props)}
+            {...style("root", {}, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
@@ -521,7 +533,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             </Reference>
             {shouldRenderPopper && this.renderPopperContent(childrenObject)}
           </div>
-        </ClickOutside>
+        </ClickOutsideWrapper>
       </Manager>
     );
   }
