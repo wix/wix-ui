@@ -1,35 +1,35 @@
-import * as React from "react";
-import PopperJS from "popper.js";
+import * as React from 'react';
+import PopperJS from 'popper.js';
 import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps
-} from "react-onclickoutside";
-import { Manager, Reference, Popper } from "react-popper";
-import * as CSSTransition from "react-transition-group/CSSTransition";
-import Portal from "react-portal/lib/Portal";
-import style from "./Popover.st.css";
-import { createModifiers } from "./modifiers";
+} from 'react-onclickoutside';
+import { Manager, Reference, Popper } from 'react-popper';
+import * as CSSTransition from 'react-transition-group/CSSTransition';
+import Portal from 'react-portal/lib/Portal';
+import style from './Popover.st.css';
+import { createModifiers } from './modifiers';
 import {
   AttributeMap,
   attachStylesToNode,
   detachStylesFromNode
-} from "../../utils/stylableUtils";
+} from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
   createComponentThatRendersItsChildren,
   ElementProps
-} from "../../utils";
+} from '../../utils';
 
-import { popoverTestUtils } from "./helpers";
-import { getAppendToElement, Predicate } from "./utils/getAppendToElement";
-import * as classNames from "classnames";
+import { popoverTestUtils } from './helpers';
+import { getAppendToElement, Predicate } from './utils/getAppendToElement';
+import * as classNames from 'classnames';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
-const isTestEnv = process.env.NODE_ENV === "test";
+const isTestEnv = process.env.NODE_ENV === 'test';
 
-if (isTestEnv && typeof document !== "undefined" && !document.createRange) {
+if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
   popoverTestUtils.createRange();
 }
 
@@ -43,11 +43,11 @@ const omit = (key, obj) => {
 };
 
 export type Placement = PopperJS.Placement;
-export type AppendTo = PopperJS.Boundary | "parent" | Element | Predicate;
+export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   /** hook for testing purposes */
-  "data-hook"?: string;
+  'data-hook'?: string;
   /** custom classname */
   className?: string;
   /** The location to display the content */
@@ -134,12 +134,12 @@ export type PopoverType = PopoverProps & {
 };
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
-  if (typeof timeout === "object") {
+  if (typeof timeout === 'object') {
     const { enter, exit } = timeout;
 
     return (
-      typeof enter !== "undefined" &&
-      typeof exit !== "undefined" &&
+      typeof enter !== 'undefined' &&
+      typeof exit !== 'undefined' &&
       (enter > 0 || exit > 0)
     );
   }
@@ -153,9 +153,9 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   }
 
   return {
-    [direction === "top" || direction === "bottom"
-      ? "left"
-      : "top"]: `${shift}px`
+    [direction === 'top' || direction === 'bottom'
+      ? 'left'
+      : 'top']: `${shift}px`
   };
 };
 
@@ -179,7 +179,7 @@ const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
  * Popover
  */
 export class Popover extends React.Component<PopoverProps, PopoverState> {
-  static displayName = "Popover";
+  static displayName = 'Popover';
 
   static defaultProps = {
     flip: true,
@@ -187,8 +187,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     zIndex: 1000
   };
 
-  static Element = createComponentThatRendersItsChildren("Popover.Element");
-  static Content = createComponentThatRendersItsChildren("Popover.Content");
+  static Element = createComponentThatRendersItsChildren('Popover.Element');
+  static Content = createComponentThatRendersItsChildren('Popover.Content');
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
@@ -209,7 +209,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false
     };
 
-    this.contentHook = `popover-content-${props["data-hook"] || ""}-${testId}`;
+    this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
   _handleClickOutside = () => {
@@ -284,7 +284,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 key="popover-content"
                 id={id}
                 role={role}
-                className={showArrow ? style.popoverContent : ""}
+                className={showArrow ? style.popoverContent : ''}
               >
                 {childrenObject.Content}
               </div>
@@ -320,10 +320,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         timeout={timeout}
         unmountOnExit
         classNames={{
-          enter: style["popoverAnimation-enter"],
-          enterActive: style["popoverAnimation-enter-active"],
-          exit: style["popoverAnimation-exit"],
-          exitActive: style["popoverAnimation-exit-active"]
+          enter: style['popoverAnimation-enter'],
+          enterActive: style['popoverAnimation-enter-active'],
+          exit: style['popoverAnimation-exit'],
+          exitActive: style['popoverAnimation-exit-active']
         }}
         onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
       >
@@ -347,8 +347,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
     const commonProps = {
       ref: arrowProps.ref,
-      key: "popover-arrow",
-      "data-hook": "popover-arrow",
+      key: 'popover-arrow',
+      'data-hook': 'popover-arrow',
       style: {
         ...arrowProps.style,
         ...getArrowShift(moveArrowTo, placement)
@@ -371,8 +371,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { appendTo } = this.props;
     this.appendToNode = getAppendToElement(appendTo, this.targetRef);
     if (this.appendToNode) {
-      this.portalNode = document.createElement("div");
-      this.portalNode.setAttribute("data-hook", "popover-portal");
+      this.portalNode = document.createElement('div');
+      this.portalNode.setAttribute('data-hook', 'popover-portal');
       /**
        * reset overlay wrapping layer
        * so that styles from copied classnames
@@ -381,7 +381,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
        * - overlay layer is hidden
        */
       Object.assign(this.portalNode.style, {
-        position: "static",
+        position: 'static',
         top: 0,
         left: 0,
         width: 0,
@@ -464,7 +464,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style("root", {}, omit("data-hook", this.props));
+      this.stylesObj = style('root', {}, omit('data-hook', this.props));
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -511,9 +511,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         >
           <div
             style={inlineStyles}
-            data-hook={this.props["data-hook"]}
+            data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
-            {...style("root", {}, this.props)}
+            {...style('root', {}, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
