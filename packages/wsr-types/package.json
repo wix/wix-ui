@@ -32,7 +32,7 @@
     "concat:testkit:common": "cat src/baseDrivers/baseDrivers.d.ts > common-testkit-types.d.ts",
     "concat:testkit:vanilla": "cat src/testkits/vanilla.d.ts src/drivers/*.d.ts > vanilla-testkit-types.d.ts",
     "concat:testkit:enzyme": "cat src/testkits/enzyme.d.ts src/drivers/*.d.ts > enzyme-testkit-types.d.ts",
-    "concat:testkit:puppeteer": "cat src/testkits/puppeteer.d.ts src/drivers/*.d.ts > puppeteer-testkit-types.d.ts"
+    "concat:testkit:puppeteer": "cat src/testkits/puppeteer.d.ts src/drivers/*.d.ts src/drivers/puppeteer/*.d.ts > puppeteer-testkit-types.d.ts"
   },
   "dependencies": {
     "@types/react": "^16.8.4",
