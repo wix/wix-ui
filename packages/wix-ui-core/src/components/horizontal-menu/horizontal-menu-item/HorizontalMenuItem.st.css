@@ -9,16 +9,12 @@
 }
 
 .root {
-  box-sizing: border-box;
-
   position: relative;
 
-  display: flex;
-  flex-direction: column;
+  transition: inherit;
 }
 
 .menuItemLink {
-  display: block;
   cursor: pointer;
 }
 
@@ -26,11 +22,13 @@
   display: inline-block;
 }
 
+.root:hover > HorizontalMenuColumnsLayout,
 .root:focus > HorizontalMenuColumnsLayout,
 .root:focus-within > HorizontalMenuColumnsLayout {
-  display: flex;
+  display: block;
 }
 
+.root:hover > HorizontalMenuGridLayout,
 .root:focus > HorizontalMenuGridLayout,
 .root:focus-within > HorizontalMenuGridLayout {
   display: flex;

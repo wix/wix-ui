@@ -22,14 +22,17 @@
   list-style: none;
 
   flex: 1;
+
+  transition: inherit;
 }
 
 .root:expandSize(column) {
-  width: 100%;
+  box-sizing: content-box;
+  width: max-content;
 }
 
 .root[data-opened="true"] {
-  display: flex;
+  display: inherit;
 }
 
 .menuItem {
