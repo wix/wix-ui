@@ -11,7 +11,7 @@
   z-index: 1;
 
   display: none;
-  min-width: 0;
+  min-width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch; 
@@ -28,7 +28,6 @@
 
 .root:expandSize(column) {
   box-sizing: content-box;
-  width: max-content;
 }
 
 .root[data-opened="true"] {

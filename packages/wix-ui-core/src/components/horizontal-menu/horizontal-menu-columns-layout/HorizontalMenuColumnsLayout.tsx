@@ -19,6 +19,7 @@ export class HorizontalMenuColumnsLayout extends HorizontalMenuLayout<
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.columnsLayout;
 
   static defaultProps = {
+    ...HorizontalMenuLayout.defaultProps,
     columns: 1,
   };
 

@@ -50,10 +50,6 @@
   -st-extends: HorizontalMenuColumnsLayout;
 }
 
-.menu > .menuItem {
-  min-width: 68px;
-}
-
 .menu > .menuItem > .gridLayout {
   position: absolute;
   top: 100%;

@@ -91,48 +91,6 @@ describe('HorizontalMenu', () => {
     expect(await columnsLayout.attr('data-opened')).toEqual('true');
   });
 
-  it('should render divider between items if provided', async () => {
-    const dividerElement = <div data-hook="horizontal-menu-divider">-|-</div>;
-
-    const menuItem = {
-      label: 'Columns Layout',
-    };
-
-    const { driver } = render(
-      <HorizontalMenu divider={dividerElement}>
-        <HorizontalMenu.Item {...menuItem} />
-        <HorizontalMenu.Item {...menuItem} />
-      </HorizontalMenu>,
-    );
-
-    const divider = await driver.getElementByDataHook(
-      'horizontal-menu-divider',
-    );
-    const dividerText = await divider.text();
-    expect(await divider.exists()).toBeTruthy();
-    expect(dividerText).toEqual('-|-');
-  });
-
-  it('should not render divider if not provided', async () => {
-    const menuItem = {
-      label: 'Columns Layout',
-    };
-
-    const { driver } = render(
-      <HorizontalMenu>
-        <HorizontalMenu.Item {...menuItem} />
-        <HorizontalMenu.Item {...menuItem} />
-      </HorizontalMenu>,
-    );
-
-    try {
-      await driver.getElementByDataHook('horizontal-menu-divider');
-      expect(false).toBeTruthy();
-    } catch (err) {
-      expect(err).toBeTruthy();
-    }
-  });
-
   it('should render different expand icon on open/close states', async () => {
     const menuItem = {
       label: 'Columns Layout',

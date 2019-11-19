@@ -1,9 +1,12 @@
 import * as React from 'react';
 
-import { HorizontalMenuItemContextValue } from '../../horizontal-menu-item/HorizontalMenuItemContext';
+import { ExpandSize } from '../HorizontalMenuLayout';
 
 export interface CalculatePositioningProps {
-  context: HorizontalMenuItemContextValue;
+  expandSize: ExpandSize;
+  getMenuBoundingRect(key: string): number;
+  getMenuItemBoundingRect(key: string): number;
+  getMenuItemOffsetLeft(): number;
   layoutRef: React.RefObject<HTMLUListElement>;
   maxOverflowWidth: number;
 }
@@ -11,13 +14,15 @@ export interface CalculatePositioningProps {
 const MAX_SINGLE_COLUMN_OVERFLOW_WIDTH = 280;
 
 export function calculatePositioning({
-  context,
+  expandSize,
   layoutRef,
   maxOverflowWidth = MAX_SINGLE_COLUMN_OVERFLOW_WIDTH,
+  getMenuBoundingRect,
+  getMenuItemBoundingRect,
+  getMenuItemOffsetLeft,
 }: CalculatePositioningProps) {
-  const { expandSize } = context;
-  const menuItemWidth = context.getMenuItemBoundingRect('width');
-  const menuItemLeft = context.getMenuItemBoundingRect('left');
+  const menuItemWidth = getMenuItemBoundingRect('width');
+  const menuItemLeft = getMenuItemBoundingRect('left');
   const documentWidth = document.documentElement.clientWidth;
 
   switch (expandSize) {
@@ -36,7 +41,6 @@ export function calculatePositioning({
       const isSubmenuOverflows = menuItemWidth < layoutWidth;
 
       const stylesObject = {
-        width: isSubmenuOverflows ? undefined : '100%',
         maxWidth: isSubmenuOverflows ? `${maxOverflowWidth}px` : undefined,
         [leftOrRight]: 0,
       };
@@ -44,8 +48,8 @@ export function calculatePositioning({
       return stylesObject;
 
     case 'menu':
-      const menuItemOffsetLeft = context.getMenuItemOffsetLeft();
-      const menuWidth = context.getMenuBoundingRect('width');
+      const menuItemOffsetLeft = getMenuItemOffsetLeft();
+      const menuWidth = getMenuBoundingRect('width');
 
       return {
         left: -menuItemOffsetLeft,

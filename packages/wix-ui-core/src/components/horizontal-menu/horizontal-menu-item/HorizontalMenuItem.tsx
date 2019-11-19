@@ -7,8 +7,6 @@ import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuItem.st.css';
 
-export type ExpandSize = 'column' | 'menu' | 'fullWidth';
-
 export interface ExpandIconProps {
   isOpen: boolean;
 }
@@ -20,7 +18,6 @@ export interface HorizontalMenuItemProps {
   target?: string;
   icon?: React.ReactNode;
   style?: React.CSSProperties;
-  expandSize?: ExpandSize;
   expandIcon?(props: ExpandIconProps): React.ReactNode;
 }
 
@@ -37,7 +34,6 @@ export class HorizontalMenuItem extends React.PureComponent<
   static defaultProps = {
     href: '#',
     target: '_self',
-    expandSize: 'column',
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
@@ -90,12 +86,30 @@ export class HorizontalMenuItem extends React.PureComponent<
     return <span className={style.expandIcon}>{expandIcon({ isOpen })}</span>;
   }
 
+  private renderLink() {
+    const { href, target, icon, label } = this.props;
+    return (
+      <div className={style.linkContainer}>
+        {icon}
+        <a
+          className={style.menuItemLink}
+          data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
+          href={href}
+          target={target}
+        >
+          {label}
+        </a>
+        {this.renderExpandIcon()}
+        <div className={style.divider} />
+      </div>
+    );
+  }
+
   render() {
     const {
       label,
       href,
       target,
-      expandSize,
       children,
       className: propClassName,
       icon,
@@ -139,19 +153,9 @@ export class HorizontalMenuItem extends React.PureComponent<
                     style={propStyle}
                     {...rest}
                   >
-                    <a
-                      className={style.menuItemLink}
-                      data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
-                      href={href}
-                      target={target}
-                    >
-                      {icon}
-                      {label}
-                      {this.renderExpandIcon()}
-                    </a>
+                    {this.renderLink()}
                     <HorizontalMenuItemContext.Provider
                       value={{
-                        expandSize,
                         isOpen: isMenuOpen,
                         getMenuBoundingRect: menuContext.getMenuBoundingRect,
                         getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
