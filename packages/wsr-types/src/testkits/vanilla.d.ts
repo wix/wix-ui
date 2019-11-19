@@ -56,6 +56,7 @@ declare module "wix-style-react/dist/testkit" {
     HTMLElement
   >>;
   export const stepperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StepperUniDriver>;
+  export const segmentedToggleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
 
   export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
@@ -103,7 +104,6 @@ declare module "wix-style-react/dist/testkit" {
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
-  export const segmentedToggleTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;

@@ -58,6 +58,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
     ReactWrapper
   >>;
   export const stepperTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.StepperUniDriver>;
+  export const segmentedToggleTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
 
   export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
@@ -105,7 +106,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
-  export const segmentedToggleTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
