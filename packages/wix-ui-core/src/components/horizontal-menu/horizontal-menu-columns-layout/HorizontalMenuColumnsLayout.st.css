@@ -25,6 +25,7 @@
 
 .root:expandSize(column) {
   box-sizing: content-box;
+  width: max-content;
 }
 
 .root[data-opened="true"] {

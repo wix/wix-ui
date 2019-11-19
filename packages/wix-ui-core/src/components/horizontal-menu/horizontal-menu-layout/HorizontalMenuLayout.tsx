@@ -8,7 +8,7 @@ import {
   HorizontalMenuItemContext,
   HorizontalMenuItemContextValue,
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
-import { calculatePositioning } from './utils';
+import { calculatePositioning } from './calculatePositioning';
 
 export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
@@ -18,7 +18,7 @@ export interface HorizontalMenuLayoutProps {
   textAlign?: 'left' | 'center' | 'right';
   maxOverflowWidth?: number;
   expandSize?: ExpandSize;
-  children?: React.ReactNode[];
+  children?: React.ReactNode;
 }
 
 export interface HorizontalMenuLayoutWrappedProps

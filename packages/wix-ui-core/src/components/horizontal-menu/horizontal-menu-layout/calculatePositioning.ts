@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ExpandSize } from '../HorizontalMenuLayout';
+import { ExpandSize } from './HorizontalMenuLayout';
 
 export interface CalculatePositioningProps {
   expandSize: ExpandSize;
@@ -21,19 +21,34 @@ export function calculatePositioning({
   getMenuItemBoundingRect,
   getMenuItemOffsetLeft,
 }: CalculatePositioningProps) {
+  const { current } = layoutRef;
+
+  if (!current) {
+    return {};
+  }
+
   const menuItemWidth = getMenuItemBoundingRect('width');
   const menuItemLeft = getMenuItemBoundingRect('left');
+  const menuItemHeight = getMenuItemBoundingRect('height');
+  const menuItemY = getMenuItemBoundingRect('y');
   const documentWidth = document.documentElement.clientWidth;
+
+  const {
+    width: layoutWidth,
+    height: layoutHeight,
+  } = current.getBoundingClientRect();
+
+  const topOrBottom =
+    menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
+    menuItemY - layoutHeight >= 0
+      ? 'bottom'
+      : 'top';
 
   switch (expandSize) {
     case 'column':
-      const { current } = layoutRef;
-
-      if (!current || menuItemWidth >= maxOverflowWidth) {
+      if (menuItemWidth >= maxOverflowWidth) {
         return { left: 0, maxWidth: `${maxOverflowWidth}px` };
       }
-
-      const { width: layoutWidth } = current.getBoundingClientRect();
 
       const leftOrRight =
         menuItemLeft + layoutWidth >= documentWidth ? 'right' : 'left';
@@ -43,6 +58,7 @@ export function calculatePositioning({
       const stylesObject = {
         maxWidth: isSubmenuOverflows ? `${maxOverflowWidth}px` : undefined,
         [leftOrRight]: 0,
+        [topOrBottom]: '100%',
       };
 
       return stylesObject;
@@ -54,6 +70,7 @@ export function calculatePositioning({
       return {
         left: -menuItemOffsetLeft,
         right: -(menuWidth - menuItemWidth - menuItemOffsetLeft),
+        [topOrBottom]: '100%',
       };
 
     case 'fullWidth':
@@ -62,7 +79,7 @@ export function calculatePositioning({
       const right =
         windowInnerWidth - scrollbarWidth - menuItemLeft - menuItemWidth;
 
-      return { left: -menuItemLeft, right: -right };
+      return { left: -menuItemLeft, right: -right, [topOrBottom]: '100%' };
 
     default:
       return {};

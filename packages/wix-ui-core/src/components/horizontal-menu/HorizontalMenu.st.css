@@ -52,10 +52,8 @@
 
 .menu > .menuItem > .gridLayout {
   position: absolute;
-  top: 100%;
 }
 
 .menu > .menuItem > .columnsLayout {
   position: absolute;
-  top: 100%;
 }
