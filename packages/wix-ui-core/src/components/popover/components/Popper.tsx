@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import { Loadable } from '../../loadable';
 import Arrow from './Arrow';
 
-const isTestEnv = process.env.NODE_ENV === 'test';
-
 import { getModifiers } from '../utils/getModifiers';
 import styles from '../Popover.st.css';
 
@@ -33,8 +31,7 @@ const Popper = (props: any) => {
   return (
     <LoadablePopper
       loader={{
-        Popper: () =>
-          isTestEnv ? require('react-popper') : import('react-popper')
+        Popper: () => import('react-popper')
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
@@ -49,7 +46,6 @@ const Popper = (props: any) => {
             arrowProps,
             scheduleUpdate
           }) => {
-            console.warn(style);
             grabScheduleUpdater(scheduleUpdate);
             return (
               <div
