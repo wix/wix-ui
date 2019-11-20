@@ -262,7 +262,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           className={style.visuallyHidden}
           data-hook={DataHooks.a11yInput}
           disabled={!!disabled}
-          required={!!required}
+          aria-required={!!required}
           onFocus={this.invokeIfDefined(onFocus)}
           onBlur={this.invokeIfDefined(onBlur)}
           ref={inputRef => (this.a11yInputEl = inputRef)}

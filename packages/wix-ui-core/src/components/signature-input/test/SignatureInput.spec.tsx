@@ -125,7 +125,7 @@ describe('SigningPad', () => {
 
     it('should set required for a11y input', async () => {
       const driver = await createDriver({ required: true });
-      const hasRequired = await driver.getA11yInput().attr('required');
+      const hasRequired = await driver.getA11yInput().attr('aria-required');
       expect(hasRequired).not.toBe(null);
     });
 
