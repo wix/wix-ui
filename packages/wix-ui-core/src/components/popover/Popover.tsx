@@ -266,6 +266,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       isTestEnv,
     });
 
+    const { isMounted } = this.state;
+
     const popper = (
       <Popper modifiers={modifiers} placement={placement}>
         {({
