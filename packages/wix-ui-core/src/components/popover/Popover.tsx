@@ -4,7 +4,7 @@ import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps
 } from 'react-onclickoutside';
-import { Manager, Reference, Popper } from 'react-popper';
+import { Manager, Reference } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
 import Portal from 'react-portal/lib/Portal';
 import style from './Popover.st.css';
@@ -24,6 +24,8 @@ import {
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 import * as classNames from 'classnames';
+
+import Popper from './components/Popper';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -219,78 +221,18 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   };
 
   getPopperContentStructure(childrenObject) {
-    const {
-      moveBy,
-      appendTo,
-      placement,
-      showArrow,
-      moveArrowTo,
-      flip,
-      fixed,
-      customArrow,
-      role,
-      id,
-      zIndex,
-      minWidth,
-      maxWidth,
-      width,
-      dynamicWidth
-    } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
-
-    const modifiers = createModifiers({
-      minWidth,
-      width,
-      dynamicWidth,
-      moveBy,
-      appendTo,
-      shouldAnimate,
-      flip,
-      placement,
-      fixed,
-      isTestEnv
-    });
+    const grabScheduleUpdater = scheduleUpdate => {
+      this.popperScheduleUpdate = scheduleUpdate;
+    };
 
     const popper = (
-      <Popper modifiers={modifiers} placement={placement}>
-        {({
-          ref,
-          style: popperStyles,
-          placement: popperPlacement,
-          arrowProps,
-          scheduleUpdate
-        }) => {
-          this.popperScheduleUpdate = scheduleUpdate;
-          return (
-            <div
-              ref={ref}
-              data-hook="popover-content"
-              data-content-element={this.contentHook}
-              style={{ ...popperStyles, zIndex, maxWidth }}
-              data-placement={popperPlacement || placement}
-              className={classNames(style.popover, {
-                [style.withArrow]: showArrow,
-                [style.popoverContent]: !showArrow
-              })}
-            >
-              {showArrow &&
-                this.renderArrow(
-                  arrowProps,
-                  moveArrowTo,
-                  popperPlacement || placement,
-                  customArrow
-                )}
-              <div
-                key="popover-content"
-                id={id}
-                role={role}
-                className={showArrow ? style.popoverContent : ''}
-              >
-                {childrenObject.Content}
-              </div>
-            </div>
-          );
-        }}
+      <Popper
+        shouldAnimate={shouldAnimate}
+        grabScheduleUpdater={grabScheduleUpdater}
+        {...this.props}
+      >
+        {childrenObject.Content}
       </Popper>
     );
 
@@ -342,24 +284,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     ) : (
       popper
     );
-  }
-
-  renderArrow(arrowProps, moveArrowTo, placement, customArrow) {
-    const commonProps = {
-      ref: arrowProps.ref,
-      key: 'popover-arrow',
-      'data-hook': 'popover-arrow',
-      style: {
-        ...arrowProps.style,
-        ...getArrowShift(moveArrowTo, placement)
-      }
-    };
-
-    if (customArrow) {
-      return customArrow(placement, commonProps);
-    }
-
-    return <div {...commonProps} className={style.arrow} />;
   }
 
   componentDidMount() {
