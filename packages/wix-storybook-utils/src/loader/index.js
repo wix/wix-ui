@@ -6,23 +6,28 @@ const gatherAll = require('react-autodocs-utils/src/gather-all');
 const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
 const prepareStory = require('react-autodocs-utils/src/prepare-story'); // TODO: should be part of wix-storybook-utils
 
-const applyMetadataPlugins = (source, metadataPlugins, context) => metadata =>
-  Promise.all(
-    Object.values(metadataPlugins).map(plugin =>
-      plugin(source, metadata, context)),
-  ).then(metaResults => {
-    metadata = { ...(metadata || {}), plugins: {} };
-
-    Object.keys(metadataPlugins).forEach((pluginName, index) => {
-      metadata.plugins[pluginName] = metaResults[index];
-    });
-
-    return metadata;
-  });
+const applyPlugins = ({ plugins, source, basePath }) => (metadata = {}) =>
+  plugins.reduce(
+    (promise, plugin) =>
+      promise
+        .then(
+          async accumulatedMetadata =>
+            (await plugin({ source, metadata: accumulatedMetadata, basePath }))
+              .metadata,
+        )
+        .catch(e => {
+          console.warn(
+            `ERROR: failure with custom wix-storybook-utils plugin`,
+            e,
+          );
+          return promise;
+        }),
+    Promise.resolve(metadata),
+  );
 
 module.exports = function(source) {
   const callback = this.async();
-  const { storyConfig, metadataPlugins = {} } = loaderUtils.getOptions(this);
+  const { storyConfig, plugins = {} } = loaderUtils.getOptions(this);
 
   // 1. find component path
   pathFinder(source)
@@ -33,7 +38,7 @@ module.exports = function(source) {
         : Promise.resolve({});
 
       return metadata
-        .then(applyMetadataPlugins(source, metadataPlugins, this.context)) // 3. apply plugged in analyzers
+        .then(applyPlugins({ source, plugins, basePath: this.context })) // 3. apply plugged in analyzers
         .then(metadataMerger(source)) // 4. merge component metadata with storybook config
         .then(prepareStory(storyConfig)); // 5. import and wrap with `story` function
     })
