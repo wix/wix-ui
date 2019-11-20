@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Placement, Boundary } from 'popper.js';
 import onClickOutside, {
   OnClickOutProps,
-  InjectedOnClickOutProps
+  InjectedOnClickOutProps,
 } from 'react-onclickoutside';
 import { Manager, Reference } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
@@ -12,13 +12,13 @@ import style from './Popover.st.css';
 import {
   AttributeMap,
   attachStylesToNode,
-  detachStylesFromNode
+  detachStylesFromNode,
 } from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
   createComponentThatRendersItsChildren,
-  ElementProps
+  ElementProps,
 } from '../../utils';
 
 import { popoverTestUtils } from './helpers';
@@ -156,7 +156,7 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   return {
     [direction === 'top' || direction === 'bottom'
       ? 'left'
-      : 'top']: `${shift}px`
+      : 'top']: `${shift}px`,
   };
 };
 
@@ -185,7 +185,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   static defaultProps = {
     flip: true,
     fixed: false,
-    zIndex: 1000
+    zIndex: 1000,
   };
 
   static Element = createComponentThatRendersItsChildren('Popover.Element');
@@ -207,7 +207,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     super(props);
     this.state = {
       isMounted: false,
-      shown: props.shown || false
+      shown: props.shown || false,
     };
 
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -226,10 +226,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       this.popperScheduleUpdate = scheduleUpdate;
     };
 
+    const { isMounted } = this.state;
+
     const popper = (
       <Popper
         shouldAnimate={shouldAnimate}
         contentHook={this.contentHook}
+        shouldLoadComponent={isMounted}
         grabScheduleUpdater={grabScheduleUpdater}
         {...this.props}
       >
@@ -266,7 +269,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           enter: style['popoverAnimation-enter'],
           enterActive: style['popoverAnimation-enter-active'],
           exit: style['popoverAnimation-exit'],
-          exitActive: style['popoverAnimation-exit-active']
+          exitActive: style['popoverAnimation-exit-active'],
         }}
         onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
       >
@@ -310,7 +313,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         top: 0,
         left: 0,
         width: 0,
-        height: 0
+        height: 0,
       });
       this.appendToNode.appendChild(this.portalNode);
     }
@@ -416,13 +419,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onClick,
       children,
       style: inlineStyles,
-      id
+      id,
     } = this.props;
     const { isMounted, shown } = this.state;
 
     const childrenObject = buildChildrenObject(children, {
       Element: null,
-      Content: null
+      Content: null,
     });
 
     const shouldAnimate = shouldAnimatePopover(this.props);
