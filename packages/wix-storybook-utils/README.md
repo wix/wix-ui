@@ -29,7 +29,7 @@ module.exports = (config, env, storybookConfig) =>
         test: /\.story\.js$/,
         loader: 'wix-storybook-utils/loader',
         options: {
-          plugins: {},
+          plugins: [],
           storyConfig: {
             moduleName: 'my-project',
             repoBaseURL: 'https://github.com/wix/my-project/tree/master/src/',
