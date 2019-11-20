@@ -32,11 +32,11 @@ const resolveWidth = ({
   width,
   minWidth,
   dynamicWidth,
-  referenceWidth
+  referenceWidth,
 }): styles => {
   return {
     minWidth: dynamicWidth ? `${referenceWidth}px` : getUnit(minWidth),
-    width: width || 'auto'
+    width: width || 'auto',
   };
 };
 
@@ -51,27 +51,27 @@ export const getModifiers = props => {
     placement,
     isTestEnv,
     minWidth,
-    dynamicWidth
+    dynamicWidth,
   } = props;
 
   const preventOverflow = !fixed;
 
   const modifiers: Modifiers = {
     offset: {
-      offset: calculateOffset({ moveBy, placement })
+      offset: calculateOffset({ moveBy, placement }),
     },
     computeStyle: {
-      gpuAcceleration: !shouldAnimate
+      gpuAcceleration: !shouldAnimate,
     },
     flip: {
-      enabled: typeof flip !== 'undefined' ? flip : !moveBy
+      enabled: typeof flip !== 'undefined' ? flip : !moveBy,
     },
     preventOverflow: {
-      enabled: preventOverflow
+      enabled: preventOverflow,
     },
     hide: {
-      enabled: preventOverflow
-    }
+      enabled: preventOverflow,
+    },
   };
 
   if (dynamicWidth || minWidth || width) {
@@ -86,12 +86,12 @@ export const getModifiers = props => {
             width,
             referenceWidth,
             minWidth,
-            dynamicWidth
-          })
+            dynamicWidth,
+          }),
         };
 
         return data;
-      }
+      },
     };
   }
 
@@ -102,7 +102,7 @@ export const getModifiers = props => {
   if (appendTo) {
     modifiers.preventOverflow = {
       ...modifiers.preventOverflow,
-      boundariesElement: appendTo
+      boundariesElement: appendTo,
     };
   }
 
