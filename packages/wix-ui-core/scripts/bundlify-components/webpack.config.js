@@ -16,7 +16,7 @@ const components = Object.keys(components_meta).reduce(
     ...accu,
     [comp]: `${components_meta[comp].path.replace('src/', '')}/index.ts`,
   }),
-  {},
+  {}
 );
 
 module.exports.defaultConfig = {
@@ -24,6 +24,7 @@ module.exports.defaultConfig = {
   entry: {
     ...components,
   },
+  mode: 'production',
   devtool: 'source-map',
   externals: {
     react: 'react',
