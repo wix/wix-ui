@@ -35,7 +35,9 @@ const Popper = (props: any) => {
     <LoadablePopper
       loader={{
         Popper: () =>
-          isTestEnv ? import('react-popper') : require('react-popper'),
+          process.env.NODE_ENV === 'test'
+            ? require('react-popper')
+            : import('react-popper'),
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
