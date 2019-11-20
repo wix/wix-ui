@@ -29,6 +29,7 @@ module.exports = (config, env, storybookConfig) =>
         test: /\.story\.js$/,
         loader: 'wix-storybook-utils/loader',
         options: {
+          plugins: [],
           storyConfig: {
             moduleName: 'my-project',
             repoBaseURL: 'https://github.com/wix/my-project/tree/master/src/',
@@ -40,6 +41,29 @@ module.exports = (config, env, storybookConfig) =>
   });
 ```
 
+optional _plugins_ array can be used to change the output of default parser.
+
+Example (dummy) plugin could be written like this:
+
+```js
+  // ...
+  metadataPlugins: {
+    customParser: ({source, metadata}) => {metadata: {...metadata, sourceLength: source.length}}
+  }
+  // ...
+```
+
+In addition to source and metadata, plugin also receives _basePath_.
+
+In this case plugin returns a number but it could also return any other serializable value or a promise which resolves with such value.
+
+Then one could use _plugin_ section in story configuration:
+
+```js
+  plugin((section, storyConfig) => <div>{storyConfig.metadata.sourceLength}</div>)
+```
+
+Above section would output number of characters in story configuration source code.
 
 **/src/MyComponent/docs/index.story.js**
 
