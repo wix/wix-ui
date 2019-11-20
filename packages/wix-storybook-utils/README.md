@@ -48,7 +48,7 @@ Example (dummy) plugin could be written like this:
 ```js
   // ...
   metadataPlugins: {
-    customParser: source => source.length
+    customParser: (source, metadata, context) => source.length
   }
   // ...
 ```

@@ -6,9 +6,10 @@ const gatherAll = require('react-autodocs-utils/src/gather-all');
 const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
 const prepareStory = require('react-autodocs-utils/src/prepare-story'); // TODO: should be part of wix-storybook-utils
 
-const applyMetadataPlugins = (source, metadataPlugins) => metadata =>
+const applyMetadataPlugins = (source, metadataPlugins, context) => metadata =>
   Promise.all(
-    Object.values(metadataPlugins).map(plugin => plugin(source)),
+    Object.values(metadataPlugins).map(plugin =>
+      plugin(source, metadata, context)),
   ).then(metaResults => {
     metadata = { ...(metadata || {}), plugins: {} };
 
@@ -32,7 +33,7 @@ module.exports = function(source) {
         : Promise.resolve({});
 
       return metadata
-        .then(applyMetadataPlugins(source, metadataPlugins)) // 3. apply plugged in analyzers
+        .then(applyMetadataPlugins(source, metadataPlugins, this.context)) // 3. apply plugged in analyzers
         .then(metadataMerger(source)) // 4. merge component metadata with storybook config
         .then(prepareStory(storyConfig)); // 5. import and wrap with `story` function
     })
