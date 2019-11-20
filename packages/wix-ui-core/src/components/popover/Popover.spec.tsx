@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { queryHook } from 'wix-ui-test-utils/dom';
 import { Popover, PopoverProps } from './';
-import { createModifiers } from './modifiers';
+import { getModifiers } from './utils/getModifiers';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
 import { testkit } from './Popover.uni.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
@@ -680,7 +680,7 @@ function runTests(createDriver, container) {
     };
 
     it('should match default modifiers', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps
       });
 
@@ -704,7 +704,7 @@ function runTests(createDriver, container) {
     });
 
     it('should calculate the offset properly using moveBy for the top placement', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
         placement: 'top'
@@ -714,7 +714,7 @@ function runTests(createDriver, container) {
     });
 
     it('should calculate the offset properly using moveBy for the right placement', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
         placement: 'right'
@@ -724,7 +724,7 @@ function runTests(createDriver, container) {
     });
 
     it('should disable gpuAcceleration when animation is enabled', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         shouldAnimate: true
       });
@@ -733,7 +733,7 @@ function runTests(createDriver, container) {
     });
 
     it('should disable the flip modifier if moveBy was provided', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
         flip: undefined
@@ -743,7 +743,7 @@ function runTests(createDriver, container) {
     });
 
     it('should enabled the flip modifier is set explicitly regardless of moveBy', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
         flip: true
@@ -753,7 +753,7 @@ function runTests(createDriver, container) {
     });
 
     it('should disable the flip modifier when set explicitly', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         flip: false
       });
@@ -762,7 +762,7 @@ function runTests(createDriver, container) {
     });
 
     it('should disable `preventOverflow` and `hide` when fixed set to `true`', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         fixed: true
       });
@@ -772,7 +772,7 @@ function runTests(createDriver, container) {
     });
 
     it('should disable computeStyle when isTestEnv is set to `true`', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         isTestEnv: true
       });
@@ -781,7 +781,7 @@ function runTests(createDriver, container) {
     });
 
     it('should set boundariesElement when appendTo is provided', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         appendTo: 'viewport'
       });
@@ -790,7 +790,7 @@ function runTests(createDriver, container) {
     });
 
     it('should enable setPopperWidth [when] given minWidth ', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         minWidth: '500px'
       });
@@ -799,7 +799,7 @@ function runTests(createDriver, container) {
     });
 
     it('should enable setPopperWidth [when] given dynamicWidth ', async () => {
-      const modifiers = createModifiers({
+      const modifiers = getModifiers({
         ...defaultProps,
         dynamicWidth: true
       });

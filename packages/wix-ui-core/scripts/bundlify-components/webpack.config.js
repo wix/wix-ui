@@ -14,7 +14,7 @@ const components_meta = require(resolvePath('.wuf/components.json'));
 const components = Object.keys(components_meta).reduce(
   (accu, comp) => ({
     ...accu,
-    [comp]: `${components_meta[comp].path.replace('src/', '')}/index.ts`,
+    [comp]: `${components_meta[comp].path.replace('src/', '')}/index.ts`
   }),
   {}
 );
@@ -22,7 +22,7 @@ const components = Object.keys(components_meta).reduce(
 module.exports.defaultConfig = {
   ...config,
   entry: {
-    ...components,
+    ...components
   },
   mode: 'production',
   devtool: 'source-map',
@@ -30,11 +30,11 @@ module.exports.defaultConfig = {
     react: 'react',
     'react-dom': 'reactDOM',
     'prop-types': 'propTypes',
-    'react-is': 'react-is',
+    'react-is': 'react-is'
   },
   output: {
     filename: '[name].js',
-    path: resolvePath('bundles'),
+    path: resolvePath('bundles')
   },
   module: {
     rules: [
@@ -45,10 +45,10 @@ module.exports.defaultConfig = {
         options: {
           sourceMap: true,
           implementation: tryRequire('yoshi-style-dependencies/node-sass'),
-          includePaths: ['node_modules', 'node_modules/compass-mixins/lib'],
-        },
-      },
-    ],
+          includePaths: ['node_modules', 'node_modules/compass-mixins/lib']
+        }
+      }
+    ]
   },
-  plugins: [...config.plugins],
+  plugins: [...config.plugins]
 };

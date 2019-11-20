@@ -1,4 +1,4 @@
-import PopperJS from 'popper.js';
+import { Modifiers } from 'popper.js';
 
 const getUnit = value => {
   if (typeof value === 'string') {
@@ -56,7 +56,7 @@ export const getModifiers = props => {
 
   const preventOverflow = !fixed;
 
-  const modifiers: PopperJS.Modifiers = {
+  const modifiers: Modifiers = {
     offset: {
       offset: calculateOffset({ moveBy, placement })
     },

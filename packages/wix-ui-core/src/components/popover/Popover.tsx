@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PopperJS from 'popper.js';
+
 import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps
@@ -8,7 +8,7 @@ import { Manager, Reference } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
 import Portal from 'react-portal/lib/Portal';
 import style from './Popover.st.css';
-import { createModifiers } from './modifiers';
+
 import {
   AttributeMap,
   attachStylesToNode,
@@ -23,7 +23,6 @@ import {
 
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import * as classNames from 'classnames';
 
 import Popper from './components/Popper';
 
@@ -44,8 +43,8 @@ const omit = (key, obj) => {
   return rest;
 };
 
-export type Placement = PopperJS.Placement;
-export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
+export type Placement = any;
+export type AppendTo = any;
 
 export interface PopoverProps {
   /** hook for testing purposes */
