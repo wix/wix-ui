@@ -101,7 +101,7 @@ describe('DropdownContent', () => {
       });
     });
 
-    it("should pass option's DOM id to `onOptionHover` if `optionsContainerId` is set", () => {
+    it('should pass option DOM id to `onOptionHover` if `optionsContainerId` is set', () => {
       const onOptionHover = jest.fn();
       const driver = createDriver(
         createDropdownContent({

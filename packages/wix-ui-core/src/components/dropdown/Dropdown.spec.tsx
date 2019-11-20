@@ -223,7 +223,7 @@ describe('Dropdown', () => {
       });
     });
 
-    it("should pass option's DOM id to `onOptionHover` if `contentId` is set", () => {
+    it('should pass option DOM id to `onOptionHover` if `contentId` is set', () => {
       const onOptionHover = jest.fn();
       const driver = createDriver(
         createDropdown({
@@ -255,7 +255,7 @@ describe('Dropdown', () => {
       });
     });
 
-    it("shouldn't call `onOptionHover` when Dropdown is opened and/or closed", () => {
+    it('should not call `onOptionHover` when Dropdown is opened and/or closed', () => {
       const onOptionHover = jest.fn();
       const driver = createDriver(
         createDropdown({
