@@ -222,6 +222,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   getPopperContentStructure(childrenObject) {
     const shouldAnimate = shouldAnimatePopover(this.props);
+
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
     };
@@ -229,6 +230,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const popper = (
       <Popper
         shouldAnimate={shouldAnimate}
+        contentHook={this.contentHook}
         grabScheduleUpdater={grabScheduleUpdater}
         {...this.props}
       >

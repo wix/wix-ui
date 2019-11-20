@@ -30,7 +30,7 @@ describe('Popover', () => {
 
   describe('[sync]', () => {
     const createDriver = container.createLegacyRenderer(
-      popoverPrivateDriverFactory,
+      popoverPrivateDriverFactory
     );
 
     runTests(createDriver, container);
@@ -40,12 +40,12 @@ describe('Popover', () => {
     const createDriver = container.createUniRendererAsync((base, body) => {
       const privateDriver = popoverPrivateDriverFactory({
         element: container.componentNode,
-        eventTrigger: Simulate,
+        eventTrigger: Simulate
       });
 
       return {
         ...privateDriver,
-        ...testkit(base, body),
+        ...testkit(base, body)
       };
     });
 
@@ -58,8 +58,8 @@ function runTests(createDriver, container) {
     const driver = await createDriver(
       popoverWithProps({
         placement: 'bottom',
-        shown: false,
-      }),
+        shown: false
+      })
     );
 
     expect(await driver.exists()).toBe(true);
@@ -70,8 +70,8 @@ function runTests(createDriver, container) {
       const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(await driver.isTargetElementExists()).toBe(true);
@@ -82,8 +82,8 @@ function runTests(createDriver, container) {
       const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       expect(await driver.isContentElementExists()).toBe(true);
@@ -100,8 +100,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           shown: false,
           onMouseEnter,
-          onMouseLeave,
-        }),
+          onMouseLeave
+        })
       );
 
       await driver.mouseEnter();
@@ -119,8 +119,8 @@ function runTests(createDriver, container) {
           popoverWithProps({
             placement: 'bottom',
             shown: false,
-            onClick,
-          }),
+            onClick
+          })
         );
 
         await driver.click();
@@ -136,8 +136,8 @@ function runTests(createDriver, container) {
           popoverWithProps({
             placement: 'bottom',
             shown: false,
-            onClickOutside,
-          }),
+            onClickOutside
+          })
         );
 
         await driver.clickOutside();
@@ -148,7 +148,7 @@ function runTests(createDriver, container) {
         'parent',
         'window',
         'viewport',
-        'scrollParent',
+        'scrollParent'
       ];
       appendToValues.map(value => {
         it(`should not be triggered when content is clicked and appended to ${value}`, async () => {
@@ -159,8 +159,8 @@ function runTests(createDriver, container) {
               placement: 'bottom',
               shown: true,
               onClickOutside,
-              appendTo: value,
-            }),
+              appendTo: value
+            })
           );
 
           await driver.clickOnContent();
@@ -187,8 +187,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           shown: true,
           showArrow: true,
-          moveArrowTo: 10,
-        }),
+          moveArrowTo: 10
+        })
       );
 
       expect((await driver.getArrowOffset()).left).toBe('10px');
@@ -199,20 +199,20 @@ function runTests(createDriver, container) {
         popoverWithProps(
           {
             placement: 'bottom',
-            shown: true,
+            shown: true
           },
-          'Old Content!',
-        ),
+          'Old Content!'
+        )
       );
 
       await createDriver(
         popoverWithProps(
           {
             placement: 'bottom',
-            shown: true,
+            shown: true
           },
-          'New content!',
-        ),
+          'New content!'
+        )
       );
 
       // Should have been called for each update
@@ -225,8 +225,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       await createDriver(
@@ -234,8 +234,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       await createDriver(
@@ -243,8 +243,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(updatePositionSpy).toHaveBeenCalledTimes(1);
@@ -260,11 +260,11 @@ function runTests(createDriver, container) {
 
     it(`animates on close given a timeout`, async () => {
       await createDriver(
-        popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 }),
+        popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 })
       );
 
       await createDriver(
-        popoverWithProps({ placement: 'bottom', shown: false, timeout: 10 }),
+        popoverWithProps({ placement: 'bottom', shown: false, timeout: 10 })
       );
 
       expect(queryPopoverContent()).toBeTruthy();
@@ -272,17 +272,17 @@ function runTests(createDriver, container) {
         () => {
           expect(queryPopoverContent()).toBeNull();
         },
-        { interval: 1 },
+        { interval: 1 }
       );
     });
 
     it(`doesn't animate on close when timeout={0}`, async () => {
       await createDriver(
-        popoverWithProps({ placement: 'bottom', shown: true, timeout: 0 }),
+        popoverWithProps({ placement: 'bottom', shown: true, timeout: 0 })
       );
 
       await createDriver(
-        popoverWithProps({ placement: 'bottom', shown: false, timeout: 0 }),
+        popoverWithProps({ placement: 'bottom', shown: false, timeout: 0 })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -293,16 +293,16 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: true,
-          timeout: { enter: 0, exit: 0 },
-        }),
+          timeout: { enter: 0, exit: 0 }
+        })
       );
 
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
           shown: false,
-          timeout: { enter: 0, exit: 0 },
-        }),
+          timeout: { enter: 0, exit: 0 }
+        })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -313,16 +313,16 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(queryPopoverContent()).toBeTruthy();
@@ -330,7 +330,7 @@ function runTests(createDriver, container) {
         () => {
           expect(queryPopoverContent()).toBeNull();
         },
-        { interval: 10 },
+        { interval: 10 }
       );
     });
 
@@ -339,16 +339,16 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -356,7 +356,7 @@ function runTests(createDriver, container) {
         () => {
           expect(queryPopoverContent()).toBeTruthy();
         },
-        { interval: 10 },
+        { interval: 10 }
       );
     });
 
@@ -366,8 +366,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       await createDriver(
@@ -375,8 +375,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       await createDriver(
@@ -384,8 +384,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 10,
           showDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -398,24 +398,24 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 10,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
           hideDelay: 1000,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(queryPopoverContent()).toBeTruthy();
@@ -431,8 +431,8 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           showDelay: 10,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       expect(await driver.isContentElementExists()).toBe(true);
@@ -444,8 +444,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 0,
           showDelay: 0,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -455,8 +455,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 0,
           showDelay: 0,
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       expect(queryPopoverContent()).toBeTruthy();
@@ -467,8 +467,8 @@ function runTests(createDriver, container) {
           placement: 'bottom',
           hideDelay: 0,
           showDelay: 0,
-          shown: false,
-        }),
+          shown: false
+        })
       );
 
       expect(queryPopoverContent()).toBeNull();
@@ -482,12 +482,12 @@ function runTests(createDriver, container) {
       const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
-          shown: true,
-        }),
+          shown: true
+        })
       );
 
       expect((await driver.getContentElement()).parentElement).toBe(
-        container.componentNode,
+        container.componentNode
       );
     });
 
@@ -496,18 +496,18 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: true,
-          appendTo: portalContainer.node,
-        }),
+          appendTo: portalContainer.node
+        })
       );
 
       expect((await driver.getContentElement()).parentElement).toBe(
-        await driver.getPortalElement(),
+        await driver.getPortalElement()
       );
       expect((await driver.getPortalElement()).parentElement).toBe(
-        portalContainer.node,
+        portalContainer.node
       );
       expect((await driver.getPortalElement()).classList).toContain(
-        styles.root,
+        styles.root
       );
     });
 
@@ -516,16 +516,16 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: false,
-          appendTo: portalContainer.node,
-        }),
+          appendTo: portalContainer.node
+        })
       );
 
       expect(await driver.getContentElement()).toBeNull();
       expect((await driver.getPortalElement()).parentElement).toBe(
-        portalContainer.node,
+        portalContainer.node
       );
       expect((await driver.getPortalElement()).classList).not.toContain(
-        styles.root,
+        styles.root
       );
     });
 
@@ -534,8 +534,8 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: true,
-          appendTo: portalContainer.node,
-        }),
+          appendTo: portalContainer.node
+        })
       );
 
       expect(await driver.getPortalElement()).toBeTruthy();
@@ -548,12 +548,12 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: true,
-          appendTo: 'window',
-        }),
+          appendTo: 'window'
+        })
       );
 
       expect((await driver.getPortalElement()).parentElement).toBe(
-        document.body,
+        document.body
       );
     });
 
@@ -564,14 +564,14 @@ function runTests(createDriver, container) {
             {popoverWithProps({
               placement: 'bottom',
               appendTo: 'scrollParent',
-              shown: true,
+              shown: true
             })}
           </div>
-        </div>,
+        </div>
       );
 
       expect((await driver.getPortalElement()).parentElement).toBe(
-        container.node.firstChild,
+        container.node.firstChild
       );
     });
 
@@ -580,12 +580,12 @@ function runTests(createDriver, container) {
         popoverWithProps({
           placement: 'bottom',
           shown: true,
-          appendTo: 'parent',
-        }),
+          appendTo: 'parent'
+        })
       );
 
       expect(await driver.getContentElement().parentElement).toBe(
-        await driver.getTargetElement().parentElement,
+        await driver.getTargetElement().parentElement
       );
     });
 
@@ -600,8 +600,8 @@ function runTests(createDriver, container) {
           popoverWithProps({
             placement: 'bottom',
             shown: true,
-            appendTo: portalContainer.node,
-          }),
+            appendTo: portalContainer.node
+          })
         );
 
         // Second render with a `className` prop. Stylable `style()` function
@@ -611,8 +611,8 @@ function runTests(createDriver, container) {
             placement: 'bottom',
             shown: true,
             appendTo: portalContainer.node,
-            className: 'some-class',
-          }),
+            className: 'some-class'
+          })
         );
 
         expect(queryPopoverPortal().classList).toContain('some-class');
@@ -624,8 +624,8 @@ function runTests(createDriver, container) {
             placement: 'bottom',
             shown: true,
             hideDelay: 10,
-            appendTo: portalContainer.node,
-          }),
+            appendTo: portalContainer.node
+          })
         );
 
         await createDriver(
@@ -633,8 +633,8 @@ function runTests(createDriver, container) {
             placement: 'bottom',
             shown: false,
             hideDelay: 10,
-            appendTo: portalContainer.node,
-          }),
+            appendTo: portalContainer.node
+          })
         );
 
         expect(queryPopoverPortal()).toBeTruthy();
@@ -652,15 +652,15 @@ function runTests(createDriver, container) {
         <Popover shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        </Popover>
       );
 
       expect((await driver.getTargetElement()).childNodes[0].nodeName).toEqual(
-        'DIV',
+        'DIV'
       );
 
       expect((await driver.getContentElement()).childNodes[0].nodeName).toEqual(
-        'DIV',
+        'DIV'
       );
     });
   });
@@ -676,30 +676,30 @@ function runTests(createDriver, container) {
       flip: true,
       fixed: false,
       placement: 'bottom',
-      isTestEnv: false,
+      isTestEnv: false
     };
 
     it('should match default modifiers', async () => {
       const modifiers = createModifiers({
-        ...defaultProps,
+        ...defaultProps
       });
 
       expect(modifiers).toEqual({
         offset: {
-          offset: '0px, 0px',
+          offset: '0px, 0px'
         },
         computeStyle: {
-          gpuAcceleration: true,
+          gpuAcceleration: true
         },
         flip: {
-          enabled: true,
+          enabled: true
         },
         preventOverflow: {
-          enabled: true,
+          enabled: true
         },
         hide: {
-          enabled: true,
-        },
+          enabled: true
+        }
       });
     });
 
@@ -707,7 +707,7 @@ function runTests(createDriver, container) {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
-        placement: 'top',
+        placement: 'top'
       });
 
       expect(modifiers.offset.offset).toEqual('5px, 10px');
@@ -717,7 +717,7 @@ function runTests(createDriver, container) {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
-        placement: 'right',
+        placement: 'right'
       });
 
       expect(modifiers.offset.offset).toEqual('10px, 5px');
@@ -726,7 +726,7 @@ function runTests(createDriver, container) {
     it('should disable gpuAcceleration when animation is enabled', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        shouldAnimate: true,
+        shouldAnimate: true
       });
 
       expect(modifiers.computeStyle.gpuAcceleration).toEqual(false);
@@ -736,7 +736,7 @@ function runTests(createDriver, container) {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
-        flip: undefined,
+        flip: undefined
       });
 
       expect(modifiers.flip.enabled).toEqual(false);
@@ -746,7 +746,7 @@ function runTests(createDriver, container) {
       const modifiers = createModifiers({
         ...defaultProps,
         moveBy: { x: 5, y: 10 },
-        flip: true,
+        flip: true
       });
 
       expect(modifiers.flip.enabled).toEqual(true);
@@ -755,7 +755,7 @@ function runTests(createDriver, container) {
     it('should disable the flip modifier when set explicitly', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        flip: false,
+        flip: false
       });
 
       expect(modifiers.flip.enabled).toEqual(false);
@@ -764,7 +764,7 @@ function runTests(createDriver, container) {
     it('should disable `preventOverflow` and `hide` when fixed set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        fixed: true,
+        fixed: true
       });
 
       expect(modifiers.preventOverflow.enabled).toEqual(false);
@@ -774,7 +774,7 @@ function runTests(createDriver, container) {
     it('should disable computeStyle when isTestEnv is set to `true`', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        isTestEnv: true,
+        isTestEnv: true
       });
 
       expect(modifiers.computeStyle.enabled).toEqual(false);
@@ -783,7 +783,7 @@ function runTests(createDriver, container) {
     it('should set boundariesElement when appendTo is provided', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        appendTo: 'viewport',
+        appendTo: 'viewport'
       });
 
       expect(modifiers.preventOverflow.boundariesElement).toEqual('viewport');
@@ -792,7 +792,7 @@ function runTests(createDriver, container) {
     it('should enable setPopperWidth [when] given minWidth ', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        minWidth: '500px',
+        minWidth: '500px'
       });
 
       expect(modifiers.setPopperWidth.enabled).toEqual(true);
@@ -801,7 +801,7 @@ function runTests(createDriver, container) {
     it('should enable setPopperWidth [when] given dynamicWidth ', async () => {
       const modifiers = createModifiers({
         ...defaultProps,
-        dynamicWidth: true,
+        dynamicWidth: true
       });
 
       expect(modifiers.setPopperWidth.enabled).toEqual(true);
@@ -814,7 +814,7 @@ function runTests(createDriver, container) {
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        </Popover>
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-hook')).toBe('random');
@@ -825,11 +825,11 @@ function runTests(createDriver, container) {
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        </Popover>
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-content-hook')).toMatch(
-        /popover-content-random-/,
+        /popover-content-random-/
       );
     });
 
@@ -838,11 +838,11 @@ function runTests(createDriver, container) {
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        </Popover>
       );
       const content = await driver.getContentElement();
       expect(content.getAttribute('data-content-element')).toMatch(
-        /popover-content-random-/,
+        /popover-content-random-/
       );
     });
     it('should not override portal component data-hook', async () => {
@@ -850,11 +850,11 @@ function runTests(createDriver, container) {
         <Popover data-hook="random" appendTo="window" shown placement="bottom">
           <Popover.Element>Element</Popover.Element>
           <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        </Popover>
       );
       const content = await driver.getContentElement();
       expect(content.parentNode.getAttribute('data-hook')).toBe(
-        'popover-portal',
+        'popover-portal'
       );
     });
   });
@@ -870,8 +870,8 @@ function runTests(createDriver, container) {
           shown: true,
           showArrow: true,
           placement: 'top',
-          customArrow,
-        }),
+          customArrow
+        })
       );
 
       const arrowElement = await driver.getArrowElement();

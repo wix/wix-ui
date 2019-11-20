@@ -28,18 +28,20 @@ const Popper = (props: any) => {
     role
   } = props;
 
+  const modifiers = getModifiers(props);
+
   return (
     <LoadablePopper
       loader={{
         Popper: () =>
-          !isTestEnv ? import('react-popper') : require('react-popper')
+          isTestEnv ? require('react-popper') : import('react-popper')
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
-      shouldLoadComponent={true}
+      shouldLoadComponent
     >
       {({ Popper: ReactPopper }) => (
-        <ReactPopper modifiers={getModifiers(props)} placement={placement}>
+        <ReactPopper modifiers={modifiers} placement={placement}>
           {({
             ref,
             style,
@@ -47,6 +49,7 @@ const Popper = (props: any) => {
             arrowProps,
             scheduleUpdate
           }) => {
+            console.warn(style);
             grabScheduleUpdater(scheduleUpdate);
             return (
               <div

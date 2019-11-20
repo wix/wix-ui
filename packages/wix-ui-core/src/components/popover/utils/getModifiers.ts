@@ -80,7 +80,6 @@ export const getModifiers = props => {
       order: 840,
       fn: data => {
         const { width: referenceWidth } = data.offsets.reference;
-
         data.styles = {
           ...data.styles,
           ...resolveWidth({
