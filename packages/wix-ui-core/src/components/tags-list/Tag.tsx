@@ -4,6 +4,8 @@ import * as PropTypes from 'prop-types';
 
 import { DataHooks, DisplayNames } from './TagsList.helpers';
 
+import { noop } from '../../utils';
+
 import style from './Tag.st.css';
 
 export interface TagProps {
@@ -11,6 +13,7 @@ export interface TagProps {
   checked?: boolean;
   value: string;
   label?: string;
+  onChange?(e: React.FormEvent<HTMLInputElement>): void;
   children: string;
 }
 
@@ -20,6 +23,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   checked,
   value,
   label,
+  onChange = noop,
   ...rest
 }) => (
   <label
@@ -33,7 +37,8 @@ export const Tag: React.FunctionComponent<TagProps> = ({
       data-hook={DataHooks.TagInput}
       className={style.tagInput}
       type="checkbox"
-      defaultChecked={checked}
+      checked={checked}
+      onChange={onChange}
       value={value}
       name={label}
       id={value}
@@ -49,4 +54,5 @@ Tag.propTypes = {
   checked: PropTypes.bool,
   value: PropTypes.string.isRequired,
   label: PropTypes.string,
+  onChange: PropTypes.func,
 };
