@@ -11,7 +11,7 @@
   z-index: 1;
 
   display: none;
-  min-width: 0;
+  min-width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch; 

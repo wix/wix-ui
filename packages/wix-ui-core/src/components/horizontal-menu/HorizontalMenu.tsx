@@ -16,9 +16,6 @@ export interface HorizontalMenuProps {
 
   /** Menu inline styles */
   style?: React.CSSProperties;
-
-  /** Divider between items */
-  divider?: React.ReactNode;
 }
 
 /** Horizontal menu */
@@ -57,15 +54,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
   };
 
   render() {
-    const {
-      children,
-      divider,
-      className,
-      style: propStyle,
-      ...rest
-    } = this.props;
-
-    const childrenLength = React.Children.count(children);
+    const { children, className, style: propStyle, ...rest } = this.props;
 
     return (
       <HorizontalMenuContext.Provider value={this.contextValue}>
@@ -80,14 +69,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
             className={style.menu}
             ref={this.menuRef}
           >
-            {divider
-              ? React.Children.map(children, (child, index) => (
-                  <React.Fragment key={index}>
-                    {child}
-                    {index !== childrenLength - 1 && divider}
-                  </React.Fragment>
-                ))
-              : children}
+            {children}
           </ul>
         </nav>
       </HorizontalMenuContext.Provider>

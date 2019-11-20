@@ -22,6 +22,16 @@
   display: inline-block;
 }
 
+.divider {
+  display: none;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 .root:hover > HorizontalMenuColumnsLayout,
 .root:focus > HorizontalMenuColumnsLayout,
 .root:focus-within > HorizontalMenuColumnsLayout {

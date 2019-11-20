@@ -8,15 +8,17 @@ import {
   HorizontalMenuItemContext,
   HorizontalMenuItemContextValue,
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
-import { ExpandSize } from '../horizontal-menu-item/HorizontalMenuItem';
-import { calculateLeftAndRightPositions } from './utils';
+import { calculatePositioning } from './calculatePositioning';
+
+export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
 export interface HorizontalMenuLayoutProps {
   className?: string;
   style?: React.CSSProperties;
   textAlign?: 'left' | 'center' | 'right';
   maxOverflowWidth?: number;
-  children?: React.ReactNode[];
+  expandSize?: ExpandSize;
+  children?: React.ReactNode;
 }
 
 export interface HorizontalMenuLayoutWrappedProps
@@ -24,17 +26,24 @@ export interface HorizontalMenuLayoutWrappedProps
   menuContext: HorizontalMenuContextValue;
   menuItemContext: HorizontalMenuItemContextValue;
   isOpen: boolean;
-  expandSize: ExpandSize;
 }
 
 interface HorizontalMenuLayoutState {
   styles: React.CSSProperties;
 }
 
+interface HorizontalMenuLayoutDefaultProps {
+  expandSize: ExpandSize;
+}
+
 export class HorizontalMenuLayout<P> extends React.Component<
   HorizontalMenuLayoutWrappedProps & P,
   HorizontalMenuLayoutState
 > {
+  static defaultProps: HorizontalMenuLayoutDefaultProps = {
+    expandSize: 'column',
+  };
+
   layoutRef: React.RefObject<HTMLUListElement> = React.createRef();
 
   state = {
@@ -53,14 +62,17 @@ export class HorizontalMenuLayout<P> extends React.Component<
   }
 
   private recalculatePositions() {
-    const { maxOverflowWidth, menuItemContext } = this.props;
+    const { maxOverflowWidth, menuItemContext, expandSize } = this.props;
 
     this.setState({
-      styles: calculateLeftAndRightPositions(
-        menuItemContext,
-        this.layoutRef,
+      styles: calculatePositioning({
+        expandSize,
+        layoutRef: this.layoutRef,
         maxOverflowWidth,
-      ),
+        getMenuBoundingRect: menuItemContext.getMenuBoundingRect,
+        getMenuItemBoundingRect: menuItemContext.getMenuItemBoundingRect,
+        getMenuItemOffsetLeft: menuItemContext.getMenuItemOffsetLeft,
+      }),
     });
   }
 }
@@ -80,7 +92,6 @@ export function withHorizontalMenuLayout<T>(
                   menuContext={context}
                   menuItemContext={menuItemContext}
                   isOpen={menuItemContext.isOpen}
-                  expandSize={menuItemContext.expandSize}
                 />
               );
             }}
