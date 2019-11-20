@@ -1,18 +1,18 @@
-import * as React from 'react';
-import SignaturePad, { IOptions } from 'signature_pad';
+import * as React from "react";
+import SignaturePad, { IOptions } from "signature_pad";
 import {
   withSignatureInputContext,
-  WithSignaturePadProps,
-} from '../SignatureInputContext';
-import * as PropTypes from 'prop-types';
-import { DataHooks } from '../dataHooks';
-import { generateID } from '../utils';
-import style from './SigningPad.st.css';
-import { Omit } from 'type-zoo/types';
+  WithSignaturePadProps
+} from "../SignatureInputContext";
+import * as PropTypes from "prop-types";
+import { DataHooks } from "../dataHooks";
+import { generateID } from "../utils";
+import style from "./SigningPad.st.css";
+import { Omit } from "type-zoo/types";
 
 export type SignaturePadApi = Pick<
   SignaturePad,
-  'clear' | 'toDataURL' | 'isEmpty'
+  "clear" | "toDataURL" | "isEmpty"
 > & {
   focus(): void;
   blur(): void;
@@ -20,10 +20,10 @@ export type SignaturePadApi = Pick<
 
 export type SigningPadOwnProps = Omit<
   React.CanvasHTMLAttributes<HTMLCanvasElement>,
-  'onFocus' | 'onBlur'
+  "onFocus" | "onBlur"
 > & {
-  'data-hook'?: string;
-  penColor?: IOptions['penColor'];
+  "data-hook"?: string;
+  penColor?: IOptions["penColor"];
   penWidth?: string;
   disabled?: boolean;
   required?: boolean;
@@ -38,42 +38,42 @@ export interface SigningPadProps
   extends SigningPadOwnProps,
     WithSignaturePadProps {}
 
-const initialState = { a11yInputValue: '' };
+const initialState = { a11yInputValue: "" };
 type SigningPadState = Readonly<typeof initialState>;
 
 const calculatePenColor = (penColor?: string) =>
-  (isValidColor(penColor) && penColor) || 'black';
+  (isValidColor(penColor) && penColor) || "black";
 
 const isValidColor = (strColor: string) => {
   const s = new Option().style;
   s.color = strColor;
 
   // invalid css values don't persist
-  return s.color !== '';
+  return s.color !== "";
 };
 
 // size of the drawn signature varies according mouse speed
 // the penWidth represents the maximal width of the drawn
 // signature line
 const transformPenSizeToWidths = (
-  penWidth?: string,
-): Pick<IOptions, 'minWidth' | 'maxWidth'> => {
+  penWidth?: string
+): Pick<IOptions, "minWidth" | "maxWidth"> => {
   const maxWidth = +penWidth || 2.5;
   return {
     minWidth: Math.max(maxWidth / 5, 0.5),
-    maxWidth,
+    maxWidth
   };
 };
 
-const clearA11yValue = () => ({ a11yInputValue: '' });
+const clearA11yValue = () => ({ a11yInputValue: "" });
 const updateA11yValue = (value: string) => ({ a11yInputValue: value });
 
 class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
-  static displayName = 'SigningPad';
+  static displayName = "SigningPad";
 
   static propTypes = {
     /* Testing ID */
-    'data-hook': PropTypes.string,
+    "data-hook": PropTypes.string,
     /* Color of the signature drawn over the canvas */
     penColor: PropTypes.string,
     /* Width of the signature line drawn over the canvas */
@@ -91,7 +91,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     /* Callback which is called when the a11y input receives focus  */
     onFocus: PropTypes.func,
     /* Callback which is called when the a11y input loses focus */
-    onBlur: PropTypes.func,
+    onBlur: PropTypes.func
   };
 
   readonly state = initialState;
@@ -112,20 +112,20 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
       penColor,
       penWidth,
       onDraw,
-      disabled,
+      disabled
     } = this.props;
 
     this.signaturePad = new SignaturePad(this.canvasEl, {
       penColor: calculatePenColor(penColor),
       onEnd: this.invokeIfDefined(onDraw),
-      ...transformPenSizeToWidths(penWidth),
+      ...transformPenSizeToWidths(penWidth)
     });
 
     setSignaturePadContext({
       clear: () => {
         this.signaturePad.clear();
         this.setState(clearA11yValue);
-      },
+      }
     });
 
     if (disabled) {
@@ -135,7 +135,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
     this.canvasEl.width = this.canvasEl.offsetWidth * ratio;
     this.canvasEl.height = this.canvasEl.offsetHeight * ratio;
-    const ctx = this.canvasEl.getContext('2d');
+    const ctx = this.canvasEl.getContext("2d");
 
     ctx.scale(ratio, ratio);
   };
@@ -165,7 +165,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
       },
       blur: () => {
         this.a11yInputEl.blur();
-      },
+      }
     });
   };
 
@@ -180,7 +180,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     const {
       penWidth: prevPenWidth,
       penColor: prevPenColor,
-      disabled: prevDisabled,
+      disabled: prevDisabled
     } = prevProps;
     const { penWidth, penColor, disabled } = this.props;
 
@@ -218,8 +218,8 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     }
 
     this.setState(updateA11yValue(e.target.value));
-    const ctx = this.canvasEl.getContext('2d');
-    ctx.font = '25px Sacramento';
+    const ctx = this.canvasEl.getContext("2d");
+    ctx.font = "25px Sacramento";
     ctx.fillText(e.target.value, 20, this.canvasEl.offsetHeight / 2);
     this.invokeIfDefined(onDraw)(e);
   };
@@ -262,11 +262,11 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           className={style.visuallyHidden}
           data-hook={DataHooks.a11yInput}
           disabled={!!disabled}
-          required={!!required}
+          aria-required={!!required}
           onFocus={this.invokeIfDefined(onFocus)}
           onBlur={this.invokeIfDefined(onBlur)}
           ref={inputRef => (this.a11yInputEl = inputRef)}
-          {...(titleId && { 'aria-labelledby': titleId })}
+          {...(titleId && { "aria-labelledby": titleId })}
         />
         <canvas
           ref={this.setCanvasRef}
