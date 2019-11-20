@@ -47,6 +47,6 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
     getArrowOffset: async () => {
       const arrowElement = byHook('popover-arrow');
       return (await arrowElement.getNative()).style;
-    }
+    },
   };
 };
