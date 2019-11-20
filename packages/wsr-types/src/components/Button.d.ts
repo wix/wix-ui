@@ -23,7 +23,7 @@ declare namespace __WSR {
       };
 
     type ButtonGenericProps<T> = T & {
-      as: keyof Omit<HTMLElementTagNameMap, 'a' | 'button'>;
+      as: keyof BaseComponents.OmitPolyfill<HTMLElementTagNameMap, 'a' | 'button'>;
       onClick?: React.MouseEventHandler<HTMLElement>;
       [additionalProps: string]: any;
     };

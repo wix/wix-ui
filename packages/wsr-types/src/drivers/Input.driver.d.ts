@@ -5,7 +5,7 @@ declare namespace __WSRTests {
       trigger: string,
       event: import('react-dom/test-utils').SyntheticEventData
     ) => void;
-    focus: (options: FocusOptions) => void;
+    focus: (options: __WSR.BaseComponents.FocusOptionsPolyfill) => void;
     blur: () => void;
     getName: () => string | null;
     getMaxLength: () => string | null;
