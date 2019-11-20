@@ -13,7 +13,7 @@ export interface TagProps {
   checked?: boolean;
   value: string;
   label?: string;
-  onChange?(e: React.FormEvent<HTMLInputElement>): void;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
   children: string;
 }
 
