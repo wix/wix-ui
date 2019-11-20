@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Placement, Boundary } from 'popper.js';
 import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps
@@ -43,8 +43,8 @@ const omit = (key, obj) => {
   return rest;
 };
 
-export type Placement = any;
-export type AppendTo = any;
+export type Placement = Placement;
+export type AppendTo = Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   /** hook for testing purposes */
