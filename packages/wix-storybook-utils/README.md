@@ -29,6 +29,7 @@ module.exports = (config, env, storybookConfig) =>
         test: /\.story\.js$/,
         loader: 'wix-storybook-utils/loader',
         options: {
+          metadataPlugins: {},
           storyConfig: {
             moduleName: 'my-project',
             repoBaseURL: 'https://github.com/wix/my-project/tree/master/src/',
@@ -40,6 +41,25 @@ module.exports = (config, env, storybookConfig) =>
   });
 ```
 
+_metadataPlugins_ object above is optional but it can be used to add custom parsers.
+
+Example (dummy) plugin could be written like this:
+
+```js
+  // ...
+  metadataPlugins: {
+    customParser: source => source.length
+  }
+  // ...
+```
+
+Then one could use _plugin_ section in story configuration:
+
+```js
+  plugin((section, storyConfig) => <div>{storyConfig.metadata.plugins.customParser}</div>)
+```
+
+Above section would output number of characters in story configuration source code.
 
 **/src/MyComponent/docs/index.story.js**
 
