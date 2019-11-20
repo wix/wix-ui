@@ -53,6 +53,8 @@ Example (dummy) plugin could be written like this:
   // ...
 ```
 
+In this case plugin returns a number but it could also return any other serializable value or a promise which resolves with such value.
+
 Then one could use _plugin_ section in story configuration:
 
 ```js
