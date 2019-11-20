@@ -29,7 +29,7 @@ module.exports = (config, env, storybookConfig) =>
         test: /\.story\.js$/,
         loader: 'wix-storybook-utils/loader',
         options: {
-          metadataPlugins: {},
+          plugins: {},
           storyConfig: {
             moduleName: 'my-project',
             repoBaseURL: 'https://github.com/wix/my-project/tree/master/src/',
@@ -41,7 +41,7 @@ module.exports = (config, env, storybookConfig) =>
   });
 ```
 
-_metadataPlugins_ object above is optional but it can be used to add custom parsers.
+optional _plugins_ array can be used to change the output of default parser.
 
 Example (dummy) plugin could be written like this:
 
