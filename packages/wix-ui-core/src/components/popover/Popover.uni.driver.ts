@@ -37,16 +37,16 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     clickOutside: async () => {
       (await body.getNative()).ownerDocument.dispatchEvent(
-        new Event('mousedown'),
+        new Event('mousedown')
       );
 
       (await body.getNative()).ownerDocument.dispatchEvent(
-        new Event('mouseup'),
+        new Event('mouseup')
       );
     },
     getArrowOffset: async () => {
       const arrowElement = byHook('popover-arrow');
       return (await arrowElement.getNative()).style;
-    },
+    }
   };
 };
