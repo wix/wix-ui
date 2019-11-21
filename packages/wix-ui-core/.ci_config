@@ -1,0 +1,11 @@
+{
+  "batches": [
+    "test1:unit",
+    "test2:e2e",
+    "test3:sanity",
+    "test4:a11y",
+    "test5:performance"
+  ],
+  "pr_env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
+  "env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" }
+}
