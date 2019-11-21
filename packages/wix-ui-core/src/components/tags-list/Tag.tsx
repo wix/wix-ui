@@ -31,6 +31,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
     className={classNames(style.tag, className)}
     title={children}
     htmlFor={value}
+    tabIndex={0}
     {...rest}
   >
     <input
