@@ -7,8 +7,6 @@ import Arrow from './Arrow';
 import { getModifiers } from '../utils/getModifiers';
 import styles from '../Popover.st.css';
 
-const isTestEnv = process.env.NODE_ENV === 'test';
-
 class LoadablePopper extends Loadable<{
   Popper: React.ComponentType<any>;
 }> {}
@@ -58,7 +56,13 @@ const Popper = (props: any) => {
                 ref={ref}
                 data-hook="popover-content"
                 data-content-element={contentHook}
-                style={{ ...style, zIndex, maxWidth }}
+                style={{
+                  ...style,
+                  top: style.top || '',
+                  left: style.left || '',
+                  zIndex,
+                  maxWidth,
+                }}
                 data-placement={popperPlacement || placement}
                 className={classNames(styles.popover, {
                   [styles.withArrow]: showArrow,
