@@ -348,9 +348,15 @@ export default class extends Component {
 
     const component = React.createElement(this.props.component, componentProps);
     const componentToRender = this.props.componentWrapper
-      ? React.cloneElement(this.props.componentWrapper({ component }), {
-          'data-hook': 'componentWrapper',
-        })
+      ? React.cloneElement(
+          this.props.componentWrapper({
+            component,
+            metadata: this.props.parsedSource,
+          }),
+          {
+            'data-hook': 'componentWrapper',
+          },
+        )
       : component;
 
     if (!this.props.isInteractive) {
