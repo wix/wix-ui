@@ -1,10 +1,10 @@
 {
   "batches": [
-    "test1:unit",
-    "test2:e2e",
-    "test3:sanity",
-    "test4:a11y",
-    "test5:performance"
+    "wix-ui-core:unit",
+    "wix-ui-core:e2e",
+    "wix-ui-core:sanity",
+    "wix-ui-core:a11y",
+    "wix-ui-core:performance"
   ],
   "pr_env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
   "env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" }
