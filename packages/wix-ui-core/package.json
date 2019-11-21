@@ -62,7 +62,7 @@
     "--------------------------------------------": "",
     "storybook-start": "npm run storybook",
     "start": "run-p yoshi-start storybook-start",
-    "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
+    "release": "npx yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "bundles:analyse": "node ./scripts/bundlify-components/bundles-analyze.js",
