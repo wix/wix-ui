@@ -21,6 +21,7 @@ export interface ICommonProps {
   muted?: boolean;
   showTitle?: boolean;
   hideOverlay?: boolean;
+  description?: string;
   onInit?(player: any, playerName: PlayerNameType): void;
   onReady?: Function;
   onDuration?: Function;
