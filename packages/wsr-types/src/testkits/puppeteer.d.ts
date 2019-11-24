@@ -192,4 +192,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
+  export const previewWidgetTestkit: any;
+  export const mobilePreviewWidgetTestkit: any;
+  export const browserPreviewWidgetTestkit: any;
 }
