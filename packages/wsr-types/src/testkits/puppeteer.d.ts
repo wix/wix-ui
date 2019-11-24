@@ -1,5 +1,5 @@
-declare module 'wix-style-react/dist/testkit/puppeteer' {
-  import { Page } from 'puppeteer';
+declare module "wix-style-react/dist/testkit/puppeteer" {
+  import { Page } from "puppeteer";
 
   type PuppeteerTestkitFactory<T> = (
     params: PuppeteerTestkitParams
@@ -14,90 +14,36 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
     page: Page;
   }
 
-  export const loaderTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.LoaderUniDriver
-  >;
-  export const textTestkitFactory: PuppeteerTestkitFactory<
-    __WSRTests.TextPuppeteerDriver
-  >;
-  export const buttonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ButtonUniDriver
-  >;
-  export const textButtonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.TextButtonUniDriver
-  >;
-  export const emptyStateTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.EmptyStateUniDriver
-  >;
-  export const headingTestkitFactory: PuppeteerTestkitFactory<
-    __WSRTests.HeadingPuppeteerDriver
-  >;
-  export const dropdownLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.DropdownLayoutUniDriver
-  >;
-  export const checkboxTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.CheckboxUniDriver
-  >;
-  export const inputTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.InputUniDriver
-  >;
-  export const formFieldTestkitFactory: PuppeteerTestkitFactory<
-    __WSRTests.FormFieldPuppeteerDriver
-  >;
-  export const pageHeaderTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.PageHeaderUniDriver
-  >;
-  export const pageTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.PageUniDriver
-  >;
-  export const modalTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ModalUniDriver
-  >;
-  export const closeButtonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.CloseButtonUniDriver
-  >;
-  export const iconButtonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.IconButtonUniDriver
-  >;
-  export const filePickerTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.FilePickerUniDriver
-  >;
-  export const sectionHelperTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.SectionHelperUniDriver
-  >;
-  export const toggleButtonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ToggleButtonUniDriver
-  >;
-  export const messageBoxFunctionalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.MessageBoxFunctionalLayoutUniDriver
-  >;
-  export const messageBoxMarketerialLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.MessageBoxMarketerialLayoutUniDriver
-  >;
-  export const modalMobileLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ModalMobileLayoutUniDriver
-  >;
-  export const modalPreviewLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ModalPreviewLayoutUniDriver
-  >;
-  export const genericModalLayoutTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.GenericModalLayoutUniDriver
-  >;
-  export const fillButtonTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.FillButtonUniDriver
-  >;
-  export const tagTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.TagUniDriver
-  >;
-  export const linearProgressBarTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.LinearProgressBarUniDriver
-  >;
-  export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.ErrorIndicatorUniDriver
-  >;
-  export const addItemTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.AddItemUniDriver
-  >;
+  export const loaderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.LoaderUniDriver>;
+  export const textTestkitFactory: PuppeteerTestkitFactory<__WSRTests.TextPuppeteerDriver>;
+  export const buttonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ButtonUniDriver>;
+  export const textButtonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.TextButtonUniDriver>;
+  export const emptyStateTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.EmptyStateUniDriver>;
+  export const headingTestkitFactory: PuppeteerTestkitFactory<__WSRTests.HeadingPuppeteerDriver>;
+  export const dropdownLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownLayoutUniDriver>;
+  export const checkboxTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CheckboxUniDriver>;
+  export const inputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputUniDriver>;
+  export const formFieldTestkitFactory: PuppeteerTestkitFactory<__WSRTests.FormFieldPuppeteerDriver>;
+  export const pageHeaderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.PageHeaderUniDriver>;
+  export const pageTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.PageUniDriver>;
+  export const modalTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ModalUniDriver>;
+  export const closeButtonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CloseButtonUniDriver>;
+  export const iconButtonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.IconButtonUniDriver>;
+  export const filePickerTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.FilePickerUniDriver>;
+  export const sectionHelperTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SectionHelperUniDriver>;
+  export const toggleButtonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ToggleButtonUniDriver>;
+  export const messageBoxFunctionalLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MessageBoxFunctionalLayoutUniDriver>;
+  export const messageBoxMarketerialLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MessageBoxMarketerialLayoutUniDriver>;
+  export const modalMobileLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ModalMobileLayoutUniDriver>;
+  export const modalPreviewLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ModalPreviewLayoutUniDriver>;
+  export const genericModalLayoutTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.GenericModalLayoutUniDriver>;
+  export const fillButtonTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.FillButtonUniDriver>;
+  export const tagTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.TagUniDriver>;
+  export const linearProgressBarTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.LinearProgressBarUniDriver>;
+  export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
+  export const addItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AddItemUniDriver>;
+  export const stepperTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StepperUniDriver>;
+  export const segmentedToggleTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
 
   export const accordionTestkitFactory: any;
   export const autoCompleteTestkitFactory: any;
@@ -110,9 +56,7 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
-  export const cardGalleryItemTestkitFactory: PuppeteerUniTestkitFactory<
-    __WSRTests.CardGalleryItemUniDriver
-  >;
+  export const cardGalleryItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
@@ -148,14 +92,12 @@ declare module 'wix-style-react/dist/testkit/puppeteer' {
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const searchTestkitFactory: any;
-  export const segmentedToggleTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
   export const socialPreviewTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const stepperTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
