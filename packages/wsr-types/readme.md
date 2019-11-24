@@ -29,6 +29,21 @@ To use install and update `tsconfig.json`:
 }
 ```
 
+3. want to ignore one of the types? update `tsconfig.json`:
+```js
+{
+    “files”: [
+    “./src/external-types.d.ts”,
+  ]
+}
+```
+
+`external-types.d.ts`:
+```js
+declare module "wix-style-react/Avatar"; // Avatar - is the name of the component to ignore
+```
+
+
 ## Contribute
 
 * `npm test` to run `tsc` and ensure types compile
