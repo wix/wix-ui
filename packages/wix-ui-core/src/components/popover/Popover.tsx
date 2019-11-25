@@ -5,7 +5,7 @@ import onClickOutside, {
   InjectedOnClickOutProps,
 } from 'react-onclickoutside';
 import { Manager, Reference } from 'react-popper';
-import * as CSSTransition from 'react-transition-group/CSSTransition';
+
 import Portal from 'react-portal/lib/Portal';
 import style from './Popover.st.css';
 
@@ -226,21 +226,23 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       this.popperScheduleUpdate = scheduleUpdate;
     };
 
-    const { isMounted } = this.state;
+    const detachSyles = () =>
+      detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const popper = (
+    const { shown } = this.state;
+
+    return (
       <Popper
         shouldAnimate={shouldAnimate}
         contentHook={this.contentHook}
-        shouldLoadComponent={isMounted}
+        shown={shown}
         grabScheduleUpdater={grabScheduleUpdater}
+        detachSyles={detachSyles}
         {...this.props}
       >
         {childrenObject.Content}
       </Popper>
     );
-
-    return this.wrapWithAnimations(popper);
   }
 
   applyStylesToPortaledNode() {
@@ -252,32 +254,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     } else {
       detachStylesFromNode(this.portalNode, this.stylesObj);
     }
-  }
-
-  wrapWithAnimations(popper) {
-    const { timeout } = this.props;
-    const { shown } = this.state;
-
-    const shouldAnimate = shouldAnimatePopover(this.props);
-
-    return shouldAnimate ? (
-      <CSSTransition
-        in={shown}
-        timeout={timeout}
-        unmountOnExit
-        classNames={{
-          enter: style['popoverAnimation-enter'],
-          enterActive: style['popoverAnimation-enter-active'],
-          exit: style['popoverAnimation-exit'],
-          exitActive: style['popoverAnimation-exit-active'],
-        }}
-        onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
-      >
-        {popper}
-      </CSSTransition>
-    ) : (
-      popper
-    );
   }
 
   renderPopperContent(childrenObject) {
