@@ -24,10 +24,24 @@ function SegmentedToggleWithAllProps() {
         prefixIcon={<div />}
         selected
         value="val"
+        onClick={_ev => {}}
+        dataHook="hook"
+        focusableOnBlur={_ev => {}}
+        focusableOnFocus={_ev => {}}
       >
         text
       </SegmentedToggle.Button>
-      <SegmentedToggle.Icon disabled selected tooltipText="text" value="val">
+      <SegmentedToggle.Icon
+        disabled
+        selected
+        tooltipText="text"
+        value="val"
+        onClick={_ev => {}}
+        dataHook="hook"
+        focusableOnBlur={_ev => {}}
+        focusableOnFocus={_ev => {}}
+        {...{ "data-click": "foo" }}
+      >
         <div />
       </SegmentedToggle.Icon>
     </SegmentedToggle>
