@@ -11,7 +11,6 @@ export default {
   componentProps: setState => ({
     clickOutsideCallback: () => {},
     excludeClass: '',
-    disableOnClickOutside: false,
   }),
 
   exampleProps: {},

@@ -5,13 +5,10 @@ export interface ClickOutsideProps {
   rootRef: React.RefObject<HTMLElement>;
 
   /** A callback to be triggered when all requirements for "outside click" are met */
-  onClickOutside: Function;
+  onClickOutside?: Function;
 
   /** Elements with this class will not trigger onClickOutside callback */
   excludeClass?: string;
-
-  /** If true, click events listeners will be removed from document */
-  disableOnClickOutside?: boolean;
 }
 
 /**
@@ -47,16 +44,16 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
   }
 
   componentDidMount() {
-    if (!this.props.disableOnClickOutside) {
+    if (this.props.onClickOutside) {
       this._registerEvents();
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.disableOnClickOutside !== prevProps.disableOnClickOutside) {
-      if (this.props.disableOnClickOutside) {
-        this._unregisterEvents();
-      } else {
+    if (this.props.onClickOutside !== prevProps.onClickOutside) {
+      if (this.props.onClickOutside) {
         this._registerEvents();
+      } else {
+        this._unregisterEvents();
       }
     }
   }
