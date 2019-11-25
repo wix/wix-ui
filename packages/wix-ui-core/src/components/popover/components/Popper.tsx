@@ -68,7 +68,7 @@ const Popper = (props: any) => {
                   style={{
                     ...style,
                     top: isNaN(style.top) ? 0 : style.top,
-                    left: isNaN(style) ? 0 : style.left,
+                    left: isNaN(style.left) ? 0 : style.left,
                     zIndex,
                     maxWidth,
                   }}
