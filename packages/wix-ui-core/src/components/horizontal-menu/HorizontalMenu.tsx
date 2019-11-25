@@ -29,7 +29,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     Grid: HorizontalMenuGridLayout,
   };
 
-  menuRef: React.RefObject<HTMLUListElement> = React.createRef();
+  rootRef: React.RefObject<HTMLUListElement> = React.createRef();
   contextValue: HorizontalMenuContextValue = null;
 
   constructor(props: HorizontalMenuProps) {
@@ -44,7 +44,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
   }
 
   getMenuBoundingRect = (key: string) => {
-    const { current } = this.menuRef;
+    const { current } = this.rootRef;
 
     if (!current) {
       return 0;
@@ -63,11 +63,11 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.navigation}
           style={propStyle}
           {...rest}
+          ref={this.rootRef}
         >
           <ul
             data-hook={HORIZONTAL_MENU_METADATA.dataHooks.container}
             className={style.menu}
-            ref={this.menuRef}
           >
             {children}
           </ul>
