@@ -53,7 +53,12 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const statisticsWidgetTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
   export const thumbnailTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
 
-  export const autoCompleteTestkitFactory: any;
+  export const inputWithOptionsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithOptionsUniDriver>;
+  export const searchTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SearchUniDriver>;
+  export const dropdownTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownUniDriver>;
+  export const dropdownBaseTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
+  export const autoCompleteTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
+
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -68,12 +73,9 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const counterBadgeTestkitFactory: any;
   export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
-  export const dropdownTestkitFactory: any;
-  export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
@@ -81,7 +83,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
-  export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
@@ -95,7 +96,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
-  export const searchTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;

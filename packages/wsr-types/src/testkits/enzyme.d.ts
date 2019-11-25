@@ -49,11 +49,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const radioButtonTestkitFactory: EnzymeTestkitFactory<__WSRTests.RadioButtonDriver>;
   export const fillButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.FillButtonUniDriver>;
   export const tagTestkitFactory: EnzymeTestkitFactory<__WSRTests.TagDriver>;
-  export const linearProgressBarTestkitFactory: EnzymeTestkitFactory<__WSRTests.LinearProgressBarDriver>;
-  export const errorIndicatorTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
-  export const addItemTestkitFactory: EnzymeTestkitFactory<__WSRTests.AddItemDriver<
-    ReactWrapper
-  >>;
   export const highlighterTestkitFactory: EnzymeTestkitFactory<__WSRTests.HighlighterDriver<
     ReactWrapper
   >>;
@@ -69,8 +64,17 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const fillPreviewTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
   export const statisticsWidgetTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
   export const thumbnailTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
-
-  export const autoCompleteTestkitFactory: any;
+  export const linearProgressBarTestkitFactory: EnzymeTestkitFactory<__WSRTests.LinearProgressBarDriver>;
+  export const errorIndicatorTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
+  export const addItemTestkitFactory: EnzymeTestkitFactory<__WSRTests.AddItemDriver<
+    ReactWrapper
+  >>;
+  export const inputWithOptionsTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputWithOptionsDriver>;
+  export const searchTestkitFactory: EnzymeTestkitFactory<__WSRTests.SearchDriver>;
+  export const dropdownTestkitFactory: EnzymeTestkitFactory<__WSRTests.DropdownDriver>;
+  export const dropdownBaseTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
+  export const counterBadgeTestkitFactory: EnzymeTestkitFactory<__WSRTests.CounterBadgeDriver>;
+  export const autoCompleteTestkitFactory: EnzymeTestkitFactory<__WSRTests.AutoCompleteDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -85,19 +89,15 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const counterBadgeTestkitFactory: any;
   export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
-  export const dropdownTestkitFactory: any;
-  export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
-  export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
@@ -111,7 +111,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
-  export const searchTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;

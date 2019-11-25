@@ -47,11 +47,6 @@ declare module "wix-style-react/dist/testkit" {
   export const radioButtonTestkitFactory: VanillaTestkitFactory<__WSRTests.RadioButtonDriver>;
   export const fillButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillButtonUniDriver>;
   export const tagTestkitFactory: VanillaTestkitFactory<__WSRTests.TagDriver>;
-  export const linearProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.LinearProgressBarDriver>;
-  export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
-  export const addItemTestkitFactory: VanillaTestkitFactory<__WSRTests.AddItemDriver<
-    HTMLElement
-  >>;
   export const highlighterTestkitFactory: VanillaTestkitFactory<__WSRTests.HighlighterDriver<
     HTMLElement
   >>;
@@ -67,8 +62,18 @@ declare module "wix-style-react/dist/testkit" {
   export const fillPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
   export const statisticsWidgetTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
   export const thumbnailTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
+  export const linearProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.LinearProgressBarDriver>;
+  export const errorIndicatorTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
+  export const addItemTestkitFactory: VanillaTestkitFactory<__WSRTests.AddItemDriver<
+    HTMLElement
+  >>;
+  export const inputWithOptionsTestkitFactory: VanillaTestkitFactory<__WSRTests.InputWithOptionsDriver>;
+  export const searchTestkitFactory: VanillaTestkitFactory<__WSRTests.SearchDriver>;
+  export const dropdownTestkitFactory: VanillaTestkitFactory<__WSRTests.DropdownDriver>;
+  export const dropdownBaseTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
+  export const counterBadgeTestkitFactory: VanillaTestkitFactory<__WSRTests.CounterBadgeDriver>;
+  export const autoCompleteTestkitFactory: VanillaTestkitFactory<__WSRTests.AutoCompleteDriver>;
 
-  export const autoCompleteTestkitFactory: any;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -83,19 +88,15 @@ declare module "wix-style-react/dist/testkit" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const counterBadgeTestkitFactory: any;
   export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
-  export const dropdownTestkitFactory: any;
-  export const dropdownBaseTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
-  export const inputWithOptionsTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
@@ -109,7 +110,6 @@ declare module "wix-style-react/dist/testkit" {
   export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
-  export const searchTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const sliderTestkitFactory: any;
