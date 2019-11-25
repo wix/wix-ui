@@ -298,6 +298,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   initAppendToNode() {
     const { appendTo } = this.props;
     this.appendToNode = getAppendToElement(appendTo, this.targetRef);
+
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');

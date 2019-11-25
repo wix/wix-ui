@@ -7,7 +7,7 @@ export type Elm = HTMLDivElement | Element;
 
 export function getAppendToElement(
   appendTo?: Preset | Predicate | Elm,
-  node?: Element,
+  node?: Element
 ) {
   if (!appendTo) {
     return null;
