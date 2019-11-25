@@ -11,7 +11,7 @@ import style from './Tag.st.css';
 export interface TagProps {
   className?: string;
   checked?: boolean;
-  value: string;
+  value?: string;
   label?: string;
   onChange?: React.FormEventHandler<HTMLInputElement>;
   children: string;
@@ -21,8 +21,8 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   children,
   className,
   checked,
-  value,
-  label,
+  value = '',
+  label = '',
   onChange = noop,
   ...rest
 }) => (
@@ -53,7 +53,7 @@ Tag.propTypes = {
   children: PropTypes.string,
   className: PropTypes.string,
   checked: PropTypes.bool,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func,
 };
