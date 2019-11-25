@@ -39,7 +39,7 @@ const Popper = (props: any) => {
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
-      shouldLoadComponent={true}
+      shouldLoadComponent
     >
       {({ Popper: ReactPopper }) => (
         <ReactPopper modifiers={modifiers} placement={placement}>
