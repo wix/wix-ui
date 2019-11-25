@@ -25,6 +25,7 @@ const Popper = (props: any) => {
     id,
     role,
     shouldLoadComponent,
+    shown,
   } = props;
 
   const modifiers = getModifiers(props);
@@ -33,13 +34,14 @@ const Popper = (props: any) => {
     <LoadablePopper
       loader={{
         Popper: () =>
-          process.env.NODE_ENV === 'test'
+          process.env.NODE_ENV === 'test' ||
+          process.env.NODE_ENV === 'development'
             ? require('react-popper')
             : import('react-popper'),
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
-      shouldLoadComponent={shouldLoadComponent}
+      shouldLoadComponent={shown || shouldLoadComponent}
     >
       {({ Popper: ReactPopper }) => (
         <ReactPopper modifiers={modifiers} placement={placement}>
