@@ -217,9 +217,12 @@ export default class extends Component {
 
     {
       types: ['enum'],
-      controller: ({ type }) => (
-        <List values={type.value.map(({ value }) => stripQuotes(value))} />
-      ),
+      controller: ({ type }) =>
+        typeof type === 'string' ? (
+          <Input />
+        ) : (
+          <List values={type.value.map(({ value }) => stripQuotes(value))} />
+        ),
     },
 
     {
@@ -251,7 +254,7 @@ export default class extends Component {
 
   renderPropControllers = ({ props, allProps }) =>
     Object.entries(props)
-      .filter(([key, prop]) => prop)
+      .filter(([, prop]) => prop)
       .map(([key, prop]) => (
         <Option
           key={key}
