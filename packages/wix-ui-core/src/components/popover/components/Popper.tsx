@@ -7,6 +7,8 @@ import Arrow from './Arrow';
 import { getModifiers } from '../utils/getModifiers';
 import styles from '../Popover.st.css';
 
+import CSSTransitionWrapper from './CSSTransitionWrapper';
+
 class LoadablePopper extends Loadable<{
   Popper: React.ComponentType<any>;
   CSSTransition: React.ComponentType<any>;
@@ -25,21 +27,19 @@ const Popper = (props: any) => {
     children,
     id,
     role,
-    shown,
-    timeout,
-    detachSyles,
-    shouldAnimate,
   } = props;
 
   return (
     <LoadablePopper
       loader={{
         Popper:
+          // because variables are not parsed by webpack transpiler
           process.env.NODE_ENV === 'test' ||
           process.env.NODE_ENV === 'development'
             ? () => require('react-popper')
             : () => import('react-popper'),
         CSSTransition:
+          // because variables are not parsed by webpack transpiler
           process.env.NODE_ENV === 'test' ||
           process.env.NODE_ENV === 'development'
             ? () => require('react-transition-group')
@@ -49,8 +49,8 @@ const Popper = (props: any) => {
       namedExports={{ Popper: 'Popper', CSSTransition: 'CSSTransition' }}
       shouldLoadComponent
     >
-      {({ Popper: ReactPopper, CSSTransition }) => {
-        const popper = (
+      {({ Popper: ReactPopper, CSSTransition }) => (
+        <CSSTransitionWrapper Component={CSSTransition} {...props}>
           <ReactPopper modifiers={getModifiers(props)} placement={placement}>
             {({
               ref,
@@ -98,39 +98,10 @@ const Popper = (props: any) => {
               );
             }}
           </ReactPopper>
-        );
-
-        return shouldAnimate
-          ? animationWrapper(CSSTransition, {
-              shown,
-              timeout,
-              detachSyles,
-              children: popper,
-            })
-          : popper;
-      }}
+        </CSSTransitionWrapper>
+      )}
     </LoadablePopper>
   );
 };
 
 export default Popper;
-
-const animationWrapper = (
-  CSSTransition,
-  { shown, timeout, detachSyles, children }
-) => (
-  <CSSTransition
-    in={shown}
-    timeout={timeout}
-    unmountOnExit
-    classNames={{
-      enter: styles['popoverAnimation-enter'],
-      enterActive: styles['popoverAnimation-enter-active'],
-      exit: styles['popoverAnimation-exit'],
-      exitActive: styles['popoverAnimation-exit-active'],
-    }}
-    onExited={detachSyles}
-  >
-    {children}
-  </CSSTransition>
-);
