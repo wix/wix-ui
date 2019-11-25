@@ -48,6 +48,7 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
       this._registerEvents();
     }
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.onClickOutside !== prevProps.onClickOutside) {
       if (this.props.onClickOutside) {

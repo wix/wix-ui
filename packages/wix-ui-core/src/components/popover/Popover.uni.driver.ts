@@ -39,7 +39,6 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
       (await body.getNative()).ownerDocument.dispatchEvent(
         new Event('mousedown'),
       );
-
       (await body.getNative()).ownerDocument.dispatchEvent(
         new Event('mouseup'),
       );
