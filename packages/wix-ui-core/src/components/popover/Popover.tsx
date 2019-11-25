@@ -23,6 +23,7 @@ import {
 
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
+import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
 
 import Popper from './components/Popper';
 
@@ -134,32 +135,6 @@ export type PopoverType = PopoverProps & {
   Content?: React.FunctionComponent<ElementProps>;
 };
 
-const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
-  if (typeof timeout === 'object') {
-    const { enter, exit } = timeout;
-
-    return (
-      typeof enter !== 'undefined' &&
-      typeof exit !== 'undefined' &&
-      (enter > 0 || exit > 0)
-    );
-  }
-
-  return !!timeout;
-};
-
-const getArrowShift = (shift: number | undefined, direction: string) => {
-  if (!shift && !isTestEnv) {
-    return {};
-  }
-
-  return {
-    [direction === 'top' || direction === 'bottom'
-      ? 'left'
-      : 'top']: `${shift}px`,
-  };
-};
-
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
 const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
@@ -220,7 +195,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   };
 
   getPopperContentStructure(childrenObject) {
-    const shouldAnimate = shouldAnimatePopover(this.props);
+    const { timeout } = this.props;
+
+    const shouldAnimate = shouldAnimatePopover({ timeout });
 
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
@@ -247,7 +224,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   applyStylesToPortaledNode() {
     const { shown } = this.state;
-    const shouldAnimate = shouldAnimatePopover(this.props);
+    const { timeout } = this.props;
+
+    const shouldAnimate = shouldAnimatePopover({ timeout });
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.portalNode, this.stylesObj);
