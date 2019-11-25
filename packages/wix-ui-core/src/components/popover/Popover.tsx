@@ -197,7 +197,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   getPopperContentStructure(childrenObject) {
     const { timeout } = this.props;
 
-    const shouldAnimate = shouldAnimatePopover({ timeout });
+    const shouldAnimate = shouldAnimatePopover(timeout);
 
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
@@ -226,7 +226,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.state;
     const { timeout } = this.props;
 
-    const shouldAnimate = shouldAnimatePopover({ timeout });
+    const shouldAnimate = shouldAnimatePopover(timeout);
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.portalNode, this.stylesObj);
@@ -376,6 +376,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       children,
       style: inlineStyles,
       id,
+      timeout,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -384,7 +385,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       Content: null,
     });
 
-    const shouldAnimate = shouldAnimatePopover(this.props);
+    const shouldAnimate = shouldAnimatePopover(timeout);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (

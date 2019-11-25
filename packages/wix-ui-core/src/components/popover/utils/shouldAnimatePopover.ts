@@ -1,8 +1,4 @@
-interface ishouldAnimatePopover {
-  timeout: number | { enter: number; exit: number };
-}
-
-export const shouldAnimatePopover = ({ timeout }: ishouldAnimatePopover) => {
+export const shouldAnimatePopover = timeout => {
   if (typeof timeout === 'object') {
     const { enter, exit } = timeout;
 
