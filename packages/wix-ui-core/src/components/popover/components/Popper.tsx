@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { Loadable } from '../../loadable';
 import Arrow from './Arrow';
 
-import loadable from '@loadable/component';
 import { getModifiers } from '../utils/getModifiers';
 import styles from '../Popover.st.css';
 
