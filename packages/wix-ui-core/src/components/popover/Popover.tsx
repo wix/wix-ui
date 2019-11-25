@@ -146,9 +146,9 @@ export type PopoverType = PopoverProps & {
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
-const ClickOutsideWrapper: React.ComponentClass<
-  OnClickOutProps<InjectedOnClickOutProps>
-> = onClickOutside(
+const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
+  InjectedOnClickOutProps
+>> = onClickOutside(
   class extends React.Component<any, any> {
     handleClickOutside() {
       this.props.handleClickOutside();
@@ -294,7 +294,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.state;
     const { timeout } = this.props;
 
-    const shouldAnimate = shouldAnimatePopover({ timeout });
+    const shouldAnimate = shouldAnimatePopover(timeout);
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.portalNode, this.stylesObj);
@@ -463,6 +463,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       style: inlineStyles,
       id,
       excludeClass,
+      timeout,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -471,7 +472,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       Content: null,
     });
 
-    const shouldAnimate = shouldAnimatePopover(this.props);
+    const shouldAnimate = shouldAnimatePopover(timeout);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
