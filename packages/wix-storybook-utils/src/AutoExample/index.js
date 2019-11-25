@@ -218,7 +218,7 @@ export default class extends Component {
     {
       types: ['enum'],
       controller: ({ type }) =>
-        typeof type === 'string' ? (
+        type && typeof type.value === 'string' ? (
           <Input />
         ) : (
           <List values={type.value.map(({ value }) => stripQuotes(value))} />
