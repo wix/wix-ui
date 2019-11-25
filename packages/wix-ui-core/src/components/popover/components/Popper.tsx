@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Loadable } from '../../loadable';
 import Arrow from './Arrow';
 
+import loadable from '@loadable/component';
 import { getModifiers } from '../utils/getModifiers';
 import styles from '../Popover.st.css';
 
@@ -24,8 +25,6 @@ const Popper = (props: any) => {
     children,
     id,
     role,
-    shouldLoadComponent,
-    shown,
   } = props;
 
   const modifiers = getModifiers(props);
@@ -33,15 +32,15 @@ const Popper = (props: any) => {
   return (
     <LoadablePopper
       loader={{
-        Popper: () =>
+        Popper:
           process.env.NODE_ENV === 'test' ||
           process.env.NODE_ENV === 'development'
-            ? require('react-popper')
-            : import('react-popper'),
+            ? () => require('react-popper')
+            : () => import('react-popper'),
       }}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper' }}
-      shouldLoadComponent={shown || shouldLoadComponent}
+      shouldLoadComponent={true}
     >
       {({ Popper: ReactPopper }) => (
         <ReactPopper modifiers={modifiers} placement={placement}>
