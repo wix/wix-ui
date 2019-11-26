@@ -10,7 +10,7 @@ import {
   TestkitSection,
   ColumnsSection,
   TableSection,
-  Row as TableRow,
+  TableRow,
   HeaderSection,
   TabsSection,
   MDXSection,
@@ -19,11 +19,11 @@ import {
   PluginSection,
 } from '../typings/story-section';
 
-// functions exported in this file are used as builders for `sections` array in story config.  they are typed
+// functions exported in this file are used as builders for `sections` array in story config. they are typed
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-export const baseSection = config => ({
+const baseSection = config => ({
   pretitle: '',
   title: '',
   subtitle: '',
