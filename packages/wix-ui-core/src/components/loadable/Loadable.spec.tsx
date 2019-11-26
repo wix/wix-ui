@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
+
+import { createRendererWithDriver, cleanup } from '../../../test/utils/react';
+
 import * as eventually from 'wix-eventually';
-import { mount } from 'enzyme';
+
 import { TooltipProps } from '../tooltip';
-import { loadableDriverFactory } from './Loadable.driver';
+
 import { Loadable } from './Loadable';
 import { tooltipDriverFactory } from '../tooltip/Tooltip.driver';
 
@@ -16,134 +18,110 @@ const getTooltipDriverFactory = wrapper =>
     element: wrapper.getDOMNode(),
   });
 
+const renderSync = (props?) => (
+  <LoadableTooltip
+    loader={{
+      Tooltip: () => require('../tooltip'),
+    }}
+    defaultComponent={<span data-hook="error-icon">Hey!</span>}
+    namedExports={{
+      Tooltip: 'Tooltip',
+    }}
+    shouldLoadComponent
+    {...props}
+  >
+    {({ Tooltip }) => {
+      return (
+        <Tooltip data-hook="tooltip" placement="top" content="kek">
+          <div>hello</div>
+        </Tooltip>
+      );
+    }}
+  </LoadableTooltip>
+);
+
+const renderAsync = (props?) => (
+  <LoadableTooltip
+    loader={{
+      Tooltip: () => import('../tooltip'),
+    }}
+    defaultComponent={<span data-hook="error-icon">Hey!</span>}
+    namedExports={{
+      Tooltip: 'Tooltip',
+    }}
+    shouldLoadComponent
+    {...props}
+  >
+    {({ Tooltip }) => {
+      return (
+        <Tooltip data-hook="tooltip" placement="top" content="kek">
+          <div>hello</div>
+        </Tooltip>
+      );
+    }}
+  </LoadableTooltip>
+);
+
 describe('Loadable with sync loader', () => {
-  const createDriver = createDriverFactory(loadableDriverFactory);
+  afterEach(() => cleanup());
+
+  const render = createRendererWithDriver(tooltipDriverFactory);
 
   it('should load modules initially', () => {
-    const fallBackElement = <span data-hook="error-icon">Hey!</span>;
-    const wrapper = createDriver(
-      <LoadableTooltip
-        loader={{
-          Tooltip: () => require('../tooltip'),
-        }}
-        defaultComponent={fallBackElement}
-        namedExports={{
-          Tooltip: 'Tooltip',
-        }}
-        shouldLoadComponent
-      >
-        {({ Tooltip }) => {
-          return (
-            <Tooltip data-hook="tooltip" placement="top" content="kek">
-              {fallBackElement}
-            </Tooltip>
-          );
-        }}
-      </LoadableTooltip>,
-    );
-    expect(wrapper.existsChild('tooltip')).toBe(true);
-    expect(wrapper.existsChild('error-icon')).toBe(true);
+    const { driver } = render(renderSync(), 'tooltip');
+    driver.mouseEnter();
+    expect(driver.getTooltipText()).toBe('kek');
   });
 
-  it('should load modules after `shouldLoadComponent` changed', async () => {
-    const wrapper = mount(
-      <LoadableTooltip
-        loader={{
-          Tooltip: () => require('../tooltip'),
-        }}
-        defaultComponent={<span data-hook="default-component">Hey!</span>}
-        namedExports={{
-          Tooltip: 'Tooltip',
-        }}
-        shouldLoadComponent={false}
-      >
-        {({ Tooltip }) => {
-          return (
-            <Tooltip data-hook="tooltip" placement="top" content="kek">
-              <span data-hook="tooltip-child">Hey!</span>
-            </Tooltip>
-          );
-        }}
-      </LoadableTooltip>,
+  it('should load modules after `shouldLoadComponent` changed', () => {
+    const { rerender, container } = render(
+      renderSync({ shouldLoadComponent: false })
     );
-    expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
-      false,
-    );
-    wrapper.setProps({ shouldLoadComponent: true });
-    await eventually(() => {
-      expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
-        true,
-      );
-    });
+
+    const tooltipTestkit = tooltipDriverFactory({ element: container });
+    expect(tooltipTestkit.isTargetElementExists()).toBe(false);
+
+    rerender(renderSync({ shouldLoadComponent: true }));
+
+    expect(tooltipTestkit.isTargetElementExists()).toBe(true);
   });
 });
 
 describe('Loadable with async loader', () => {
-  const createDriver = createDriverFactory(loadableDriverFactory);
+  const render = createRendererWithDriver(tooltipDriverFactory);
 
   it('should load modules initially', async () => {
-    const fallBackElement = <span data-hook="error-icon">Hey!</span>;
-    const wrapper = createDriver(
-      <div>
-        <LoadableTooltip
-          loader={{
-            Tooltip: () => import('../tooltip'),
-          }}
-          defaultComponent={fallBackElement}
-          namedExports={{
-            Tooltip: 'Tooltip',
-          }}
-          shouldLoadComponent
-        >
-          {({ Tooltip }) => {
-            return (
-              <Tooltip data-hook="tooltip" placement="top" content="kek">
-                {fallBackElement}
-              </Tooltip>
-            );
-          }}
-        </LoadableTooltip>
-        ,
-      </div>,
-    );
+    const { container } = render(renderAsync(), 'tooltip');
 
-    expect(wrapper.existsChild('tooltip')).toBe(false);
+    const tooltipTestkit = tooltipDriverFactory({ element: container });
+    expect(tooltipTestkit.isTargetElementExists()).toBe(false);
+
     await eventually(() => {
-      expect(wrapper.existsChild('tooltip')).toBe(true);
-      expect(wrapper.existsChild('error-icon')).toBe(true);
+      expect(tooltipTestkit.isTargetElementExists()).toBe(true);
     });
   });
 
   it('should load modules after `shouldLoadComponent` changed', async () => {
-    const wrapper = mount(
-      <LoadableTooltip
-        loader={{
-          Tooltip: () => import('../tooltip'),
-        }}
-        defaultComponent={<span data-hook="default-component">Hey!</span>}
-        namedExports={{
-          Tooltip: 'Tooltip',
-        }}
-        shouldLoadComponent={false}
-      >
-        {({ Tooltip }) => {
-          return (
-            <Tooltip data-hook="tooltip" placement="top" content="kek">
-              <span data-hook="tooltip-child">Hey!</span>
-            </Tooltip>
-          );
-        }}
-      </LoadableTooltip>,
+    const { rerender, container } = render(
+      renderAsync({ shouldLoadComponent: false })
     );
 
-    expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
-      false,
-    );
-    wrapper.setProps({ shouldLoadComponent: true });
+    const tooltipTestkit = tooltipDriverFactory({ element: container });
+    expect(tooltipTestkit.isTargetElementExists()).toBe(false);
+
+    rerender(renderSync({ shouldLoadComponent: true }));
+    expect(tooltipTestkit.isTargetElementExists()).toBe(true);
+  });
+
+  it('should trigger onLoad when module is loaded', async () => {
+    const onLoad = jest.fn();
+
+    render(renderAsync({ onLoad }));
+
+    expect(onLoad).not.toBeCalled();
+
     await eventually(() => {
-      expect(getTooltipDriverFactory(wrapper).isTargetElementExists()).toBe(
-        true,
-      );
+      expect(onLoad).toBeCalled();
     });
   });
 });

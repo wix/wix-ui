@@ -34,6 +34,9 @@ export interface LoadableProps<LoadableExports> {
 
   /** key to trigger lazy-loading */
   shouldLoadComponent?: boolean;
+
+  /** callback thats beein called when dynamic chunk is loaded */
+  onLoad?(): Function;
 }
 
 export interface LoadableState<LoadableExports> {
@@ -82,8 +85,8 @@ export class Loadable<LoadableExports> extends React.Component<
     if (!moduleItem[key]) {
       console.warn(
         `You have used <Loadable />, but module you are accessing via 'loader' prop has different exports. Use componentKey="${Object.keys(
-          moduleItem,
-        ).slice(0)}" to access exported component property. `,
+          moduleItem
+        ).slice(0)}" to access exported component property. `
       );
     }
     return moduleItem[key];
@@ -112,7 +115,7 @@ export class Loadable<LoadableExports> extends React.Component<
         // Handling `import('Tooltop') -> Promise<module>`
         resolvedAsyncModules[loadableItemKey] = loadableItem
           .then(loaded =>
-            this.resolveModule(loaded, namedExports[loadableItemKey]),
+            this.resolveModule(loaded, namedExports[loadableItemKey])
           )
           .catch(() => {
             console.error(`Asset wasn't loaded: ${loadableItem}`);
@@ -121,7 +124,7 @@ export class Loadable<LoadableExports> extends React.Component<
         // Handling `require('Tooltop') -> module`
         resolvedModules[loadableItemKey] = this.resolveModule(
           loadableItem,
-          namedExports[loadableItemKey],
+          namedExports[loadableItemKey]
         );
       }
     }
@@ -129,6 +132,7 @@ export class Loadable<LoadableExports> extends React.Component<
     const isAsyncMode = Object.keys(resolvedAsyncModules).length > 0;
 
     if (!isAsyncMode) {
+      this.props.onLoad && this.props.onLoad();
       return resolvedModules;
     }
 
@@ -139,10 +143,10 @@ export class Loadable<LoadableExports> extends React.Component<
           const moduleName = resolvedKeys[index];
           resolvedModules[moduleName] = resolvedModule;
         });
+        this.props.onLoad && this.props.onLoad();
         this.setState({ loaded: resolvedModules, isLoading: false });
-      },
+      }
     );
-
     return null;
   };
   render() {
