@@ -31,4 +31,11 @@
             </roles>
         </developer>
     </developers>
+
+    <mailingLists>
+        <mailingList>
+            <name>slack</name>
+            <subscribe>wix-ui</subscribe>
+        </mailingList>
+    </mailingLists>
 </project>

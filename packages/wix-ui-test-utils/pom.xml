@@ -16,13 +16,6 @@
 
     <developers>
         <developer>
-            <name>Lior Belinsky</name>
-            <email>liorbe@wix.com</email>
-            <roles>
-                <role>owner</role>
-            </roles>
-        </developer>
-        <developer>
             <name>Arijus Šukys</name>
             <email>arijuss@wix.com</email>
             <roles>
@@ -30,4 +23,11 @@
             </roles>
         </developer>
     </developers>
+
+    <mailingLists>
+        <mailingList>
+            <name>slack</name>
+            <subscribe>wix-ui</subscribe>
+        </mailingList>
+    </mailingLists>
 </project>
