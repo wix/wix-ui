@@ -22,13 +22,6 @@
                 <role>owner</role>
             </roles>
         </developer>
-        <developer>
-            <name>Marius Jurgelenas</name>
-            <email>marius@wix.com</email>
-            <roles>
-                <role>owner</role>
-            </roles>
-        </developer>
     </developers>
 
     <mailingLists>
