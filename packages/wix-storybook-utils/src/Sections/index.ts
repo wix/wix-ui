@@ -1,29 +1,29 @@
 import {
+  ApiSection,
+  CodeSection,
+  ColumnsSection,
+  DescriptionSection,
+  DividerSection,
+  HeaderSection,
+  ImportExampleSection,
+  MDXSection,
+  PlaygroundSection,
+  PluginSection,
   Section,
   SectionType,
-  DescriptionSection,
-  ImportExampleSection,
-  CodeSection,
   TabSection,
-  ApiSection,
-  PlaygroundSection,
-  TestkitSection,
-  ColumnsSection,
-  TableSection,
   TableRow,
-  HeaderSection,
+  TableSection,
   TabsSection,
-  MDXSection,
-  DividerSection,
+  TestkitSection,
   TitleSection,
-  PluginSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config. they are typed
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-const baseSection = config => ({
+const base = config => ({
   pretitle: '',
   title: '',
   subtitle: '',
@@ -32,7 +32,7 @@ const baseSection = config => ({
 });
 
 export const code = (config: string | Partial<CodeSection>): CodeSection =>
-  baseSection({
+  base({
     type: SectionType.Code,
     ...(typeof config === 'string' ? { source: config } : config),
   });
@@ -40,13 +40,13 @@ export const code = (config: string | Partial<CodeSection>): CodeSection =>
 export const description = (
   config: string | Partial<DescriptionSection>,
 ): DescriptionSection =>
-  baseSection({
+  base({
     type: SectionType.Description,
     ...(typeof config === 'string' ? { text: config } : config),
   });
 
 export const header = (config: Partial<HeaderSection>): HeaderSection =>
-  baseSection({
+  base({
     type: SectionType.Header,
     ...config,
   });
@@ -54,20 +54,20 @@ export const header = (config: Partial<HeaderSection>): HeaderSection =>
 export const importExample = (
   config: string | Partial<ImportExampleSection>,
 ): ImportExampleSection =>
-  baseSection({
+  base({
     type: SectionType.ImportExample,
     ...(typeof config === 'string' ? { source: config } : config),
   });
 
 export const tab = (config: Partial<TabSection>): TabSection =>
-  baseSection({
+  base({
     type: SectionType.Tab,
     sections: [],
     ...config,
   });
 
 export const api = (config?: Partial<ApiSection>): ApiSection =>
-  baseSection({
+  base({
     type: SectionType.Api,
     ...config,
   });
@@ -75,13 +75,13 @@ export const api = (config?: Partial<ApiSection>): ApiSection =>
 export const playground = (
   config?: Partial<PlaygroundSection>,
 ): PlaygroundSection =>
-  baseSection({
+  base({
     type: SectionType.Playground,
     ...config,
   });
 
 export const testkit = (config?: Partial<TestkitSection>): TestkitSection =>
-  baseSection({
+  base({
     type: SectionType.Testkit,
     ...config,
   });
@@ -89,13 +89,13 @@ export const testkit = (config?: Partial<TestkitSection>): TestkitSection =>
 export const columns = (
   config: (Section | React.ReactNode)[] | Partial<ColumnsSection>,
 ): ColumnsSection =>
-  baseSection({
+  base({
     type: SectionType.Columns,
     ...(Array.isArray(config) ? { items: config } : config),
   });
 
 export const tabs = (config: Section[] | Partial<TabsSection>): TabsSection =>
-  baseSection({
+  base({
     type: SectionType.Tabs,
     ...(Array.isArray(config) ? { tabs: config } : config),
   });
@@ -103,31 +103,31 @@ export const tabs = (config: Section[] | Partial<TabsSection>): TabsSection =>
 export const table = (
   config: TableRow[] | Partial<TableSection>,
 ): TableSection =>
-  baseSection({
+  base({
     type: SectionType.Table,
     ...(Array.isArray(config) ? { rows: config } : config),
   });
 
 export const mdx = (config?: Partial<MDXSection>): MDXSection =>
-  baseSection({
+  base({
     type: SectionType.MDX,
     ...config,
   });
 
 export const divider = (config?: Partial<DividerSection>): DividerSection =>
-  baseSection({
+  base({
     type: SectionType.Divider,
     ...config,
   });
 
 export const title = (config: string | Partial<DividerSection>): TitleSection =>
-  baseSection({
+  base({
     type: SectionType.Title,
     ...(typeof config === 'string' ? { title: config } : config),
   });
 
 export const plugin = (config: Partial<PluginSection>): PluginSection =>
-  baseSection({
+  base({
     type: SectionType.Plugin,
     ...config,
   });
