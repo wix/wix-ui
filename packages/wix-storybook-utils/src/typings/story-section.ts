@@ -214,7 +214,7 @@ export interface TabsSection extends StorySection {
 }
 
 type Cell = string | React.ReactNode;
-export type Row = Cell[];
+export type TableRow = Cell[];
 
 /** Table section is used for data that needs to be displayed in columns and rows. It must be represented in 2d array.
  *
@@ -229,7 +229,7 @@ export type Row = Cell[];
  * */
 export interface TableSection extends StorySection {
   /** nested array representing rows and columns */
-  rows: Row[];
+  rows: TableRow[];
 }
 
 /** EXPERIMENTAL section for mdx content. Don't use, or use with EXTRA CAUTION */
