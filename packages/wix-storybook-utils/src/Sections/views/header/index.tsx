@@ -16,32 +16,30 @@ export const header: (a: HeaderSection, b: StoryConfig) => React.ReactNode = (
   const issueURL = storyConfig.config.issueURL || issueUrl;
 
   return (
-    <div className={styles.root}>
-      <Layout className={styles.titleLayout}>
-        <Cell span={6} className={styles.title}>
-          {title || storyConfig.storyName}
-        </Cell>
+    <div className={styles.rootWrapper}>
+      <div className={styles.root}>
+        <Layout className={styles.titleLayout}>
+          <Cell span={6} className={styles.title}>
+            {title || storyConfig.storyName}
+          </Cell>
 
-        <Cell span={6} className={styles.links} data-hook>
-          {issueURL && (
-            <div className={styles.link} data-hook="section-header-issueUrl">
-              <Promote size="24px" /> <a href={issueURL}>Report an issue</a>
-            </div>
-          )}
+          <Cell span={6} className={styles.links} data-hook>
+            {issueURL && (
+              <div className={styles.link} data-hook="section-header-issueUrl">
+                <Promote size="24px" /> <a href={issueURL}>Report an issue</a>
+              </div>
+            )}
 
-          {sourceUrl && (
-            <div className={styles.link} data-hook="section-header-sourceUrl">
-              <Code size="24px" /> <a href={sourceUrl}>Source</a>
-            </div>
-          )}
-        </Cell>
-      </Layout>
+            {sourceUrl && (
+              <div className={styles.link} data-hook="section-header-sourceUrl">
+                <Code size="24px" /> <a href={sourceUrl}>Source</a>
+              </div>
+            )}
+          </Cell>
+        </Layout>
 
-      {component && (
-        <div className={styles.componentWrapper}>
-          <div className={styles.component}>{component}</div>
-        </div>
-      )}
+        {component && <div className={styles.component}>{component}</div>}
+      </div>
     </div>
   );
 };

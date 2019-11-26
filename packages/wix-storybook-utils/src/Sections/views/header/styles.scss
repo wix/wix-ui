@@ -1,14 +1,13 @@
 @import '../../../ui/colors.scss';
 @import '../../../ui/typography.scss';
 
-$header-height: 281px;
+$header-min-height: 156px;
+$header-max-height: 366px;
+$surround-gap: 10px;
 
-.root {
+.rootWrapper {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  height: $header-height;
-  margin-bottom: 30px;
+  margin: 0 (-$surround-gap);
 
   &:before {
     content: '';
@@ -19,10 +18,10 @@ $header-height: 281px;
     width: calc(100vw - 8px);
 
     top: 0;
+    bottom: 0;
     left: 50%;
     right: 50%;
     margin: 0 -50vw;
-    height: $header-height;
 
     background-image: linear-gradient(256deg, #f6f6f6, #fefefe),
                       linear-gradient(to bottom, rgba(240, 244, 247, 0.5), rgba(240, 244, 247, 0.5)),
@@ -32,8 +31,17 @@ $header-height: 281px;
   }
 }
 
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: $header-min-height;
+  max-height: $header-max-height;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
 .titleLayout {
-  margin: 60px 0 40px;
+  margin: 60px $surround-gap 40px;
 }
 
 .title {
@@ -69,17 +77,6 @@ $header-height: 281px;
   }
 }
 
-.componentWrapper {
-  position: relative;
-  flex: 1 1 auto;
-}
-
 .component {
-  position: absolute;
-  padding: 10px;
-  top: -10px;
-  right: -10px;
-  bottom: -10px;
-  left: -10px;
-  overflow-y: auto;
+  padding: $surround-gap;
 }
