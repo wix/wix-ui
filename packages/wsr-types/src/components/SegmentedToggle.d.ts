@@ -14,21 +14,34 @@ declare namespace __WSR {
       static Icon: typeof SegmentedToggleIcon;
     }
 
-    export interface SegmentedToggleButtonProps {
+    export type SegmentedToggleButtonProps = BaseComponents.OmitPolyfill<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      "onFocus" | "onBlur" | "type"
+    > & {
       prefixIcon?: BaseComponents.IconElement;
       value?: string;
       selected?: boolean;
       disabled?: boolean;
-    }
+      dataHook?: string;
+      focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>;
+      focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>;
+    };
 
     export const SegmentedToggleButton: React.SFC<SegmentedToggleButtonProps>;
 
-    export interface SegmentedToggleIconProps {
+    export type SegmentedToggleIconProps = BaseComponents.OmitPolyfill<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      "onFocus" | "onBlur" | "type"
+    > & {
       selected?: boolean;
       value?: string;
       tooltipText?: string;
       disabled?: boolean;
-    }
+      dataHook?: string;
+      "data-click"?: string;
+      focusableOnFocus?: React.FocusEventHandler<HTMLButtonElement>;
+      focusableOnBlur?: React.FocusEventHandler<HTMLButtonElement>;
+    };
     export class SegmentedToggleIcon extends React.Component<
       SegmentedToggleIconProps
     > {}
