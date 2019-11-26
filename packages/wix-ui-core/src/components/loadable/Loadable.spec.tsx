@@ -85,6 +85,14 @@ describe('Loadable with sync loader', () => {
 
     expect(tooltipTestkit.isTargetElementExists()).toBe(true);
   });
+
+  it('should trigger onLoad when module is loaded', async () => {
+    const onLoad = jest.fn();
+
+    render(renderSync({ onLoad }));
+
+    expect(onLoad).toBeCalled();
+  });
 });
 
 describe('Loadable with async loader', () => {
