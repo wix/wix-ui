@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Placement, Boundary } from 'popper.js';
+import PopperJS from 'popper.js';
 import onClickOutside, {
   OnClickOutProps,
   InjectedOnClickOutProps,
 } from 'react-onclickoutside';
-import { Manager, Reference } from 'react-popper';
-
+import { Manager, Reference, Popper } from 'react-popper';
+import * as CSSTransition from 'react-transition-group/CSSTransition';
 import Portal from 'react-portal/lib/Portal';
 import style from './Popover.st.css';
-
+import { createModifiers } from './modifiers';
 import {
   AttributeMap,
   attachStylesToNode,
@@ -23,9 +23,7 @@ import {
 
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
-
-import Popper from './components/Popper';
+import * as classNames from 'classnames';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -44,8 +42,8 @@ const omit = (key, obj) => {
   return rest;
 };
 
-export type Placement = Placement;
-export type AppendTo = Boundary | 'parent' | Element | Predicate;
+export type Placement = PopperJS.Placement;
+export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverProps {
   /** hook for testing purposes */
@@ -142,6 +140,32 @@ export interface PopoverState {
 export type PopoverType = PopoverProps & {
   Element?: React.FunctionComponent<ElementProps>;
   Content?: React.FunctionComponent<ElementProps>;
+};
+
+const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
+  if (typeof timeout === 'object') {
+    const { enter, exit } = timeout;
+
+    return (
+      typeof enter !== 'undefined' &&
+      typeof exit !== 'undefined' &&
+      (enter > 0 || exit > 0)
+    );
+  }
+
+  return !!timeout;
+};
+
+const getArrowShift = (shift: number | undefined, direction: string) => {
+  if (!shift && !isTestEnv) {
+    return {};
+  }
+
+  return {
+    [direction === 'top' || direction === 'bottom'
+      ? 'left'
+      : 'top']: `${shift}px`,
+  };
 };
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
@@ -288,19 +312,45 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         }}
       </Popper>
     );
+
+    return this.wrapWithAnimations(popper);
   }
 
   applyStylesToPortaledNode() {
     const { shown } = this.state;
-    const { timeout } = this.props;
-
-    const shouldAnimate = shouldAnimatePopover(timeout);
+    const shouldAnimate = shouldAnimatePopover(this.props);
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.portalNode, this.stylesObj);
     } else {
       detachStylesFromNode(this.portalNode, this.stylesObj);
     }
+  }
+
+  wrapWithAnimations(popper) {
+    const { timeout } = this.props;
+    const { shown } = this.state;
+
+    const shouldAnimate = shouldAnimatePopover(this.props);
+
+    return shouldAnimate ? (
+      <CSSTransition
+        in={shown}
+        timeout={timeout}
+        unmountOnExit
+        classNames={{
+          enter: style['popoverAnimation-enter'],
+          enterActive: style['popoverAnimation-enter-active'],
+          exit: style['popoverAnimation-exit'],
+          exitActive: style['popoverAnimation-exit-active'],
+        }}
+        onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
+      >
+        {popper}
+      </CSSTransition>
+    ) : (
+      popper
+    );
   }
 
   renderPopperContent(childrenObject) {
@@ -339,7 +389,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   initAppendToNode() {
     const { appendTo } = this.props;
     this.appendToNode = getAppendToElement(appendTo, this.targetRef);
-
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');
@@ -472,7 +521,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       Content: null,
     });
 
-    const shouldAnimate = shouldAnimatePopover(timeout);
+    const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
