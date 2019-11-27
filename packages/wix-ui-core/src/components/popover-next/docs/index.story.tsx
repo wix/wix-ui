@@ -1,3 +1,6 @@
+/* eslint-disable */
+/* tslint:disable */
+
 import * as React from 'react';
 import { PopoverNext, PopoverNextProps } from '../';
 import { Category } from '../../../../stories/utils';
