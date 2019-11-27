@@ -7,7 +7,7 @@ import { ReactDOMTestContainer } from '../../../../test/dom-test-container';
 import { Simulate } from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
 import styles from '../popover-next.st.css';
-import { AppendTo } from '../popover-next';
+
 
 import { popoverNextPrivateDriverFactoryUni } from './popover-next.private.uni.driver';
 import { popoverNextPrivateDriverFactory } from './popover-next.private.driver';
@@ -146,7 +146,7 @@ function runTests(createDriver, container) {
         expect(onClickOutside).toBeCalled();
       });
 
-      const appendToValues: AppendTo[] = [
+      const appendToValues:any = [
         'parent',
         'window',
         'viewport',

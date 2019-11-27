@@ -44,8 +44,7 @@ const omit = (key, obj) => {
   return rest;
 };
 
-export type Placement = Placement;
-export type AppendTo = Boundary | 'parent' | Element | Predicate;
+type AppendTo = Boundary | 'parent' | Element | Predicate;
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -125,12 +124,12 @@ export interface PopoverNextProps {
   width?: number | string;
 }
 
-export interface PopoverState {
+export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
 }
 
-export type PopoverType = PopoverNextProps & {
+export type PopoverNextType = PopoverNextProps & {
   Element?: React.FunctionComponent<ElementProps>;
   Content?: React.FunctionComponent<ElementProps>;
 };
@@ -156,7 +155,7 @@ const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
  */
 export class PopoverNext extends React.Component<
   PopoverNextProps,
-  PopoverState
+  PopoverNextState
 > {
   static displayName = 'Popover';
 
