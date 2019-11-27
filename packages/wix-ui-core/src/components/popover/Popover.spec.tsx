@@ -143,6 +143,40 @@ function runTests(createDriver, container) {
         await driver.clickOutside();
         expect(onClickOutside).toBeCalled();
       });
+    });
+
+    describe('onClickOutside + upgrade', () => {
+      it('should be triggered when outside of the popover is called', async () => {
+        const onClickOutside = jest.fn();
+
+        const driver = await createDriver(
+          popoverWithProps({
+            placement: 'bottom',
+            shown: true,
+            onClickOutside,
+            upgrade: true,
+          }),
+        );
+
+        await driver.clickOutside();
+        expect(onClickOutside).toBeCalled();
+      });
+
+      it('should *not* be triggered when outside of the popover is called and the popover is *not* shown', async () => {
+        const onClickOutside = jest.fn();
+
+        const driver = await createDriver(
+          popoverWithProps({
+            placement: 'bottom',
+            shown: false,
+            onClickOutside,
+            upgrade: true,
+          }),
+        );
+
+        await driver.clickOutside();
+        expect(onClickOutside).not.toBeCalled();
+      });
 
       const appendToValues: AppendTo[] = [
         'parent',
