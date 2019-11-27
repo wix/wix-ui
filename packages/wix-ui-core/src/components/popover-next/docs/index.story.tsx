@@ -82,7 +82,7 @@ export default {
   component: PopoverNext,
   componentPath: '../popover-next.tsx',
   componentProps: {
-    'data-hook': 'storybook-PopoverNext',
+    'data-hook': 'storybook-popover',
     children: children[0].value,
     appendTo: 'window',
     showArrow: true,
@@ -137,7 +137,7 @@ export default {
         </p>
         <PopoverWithState
           appendTo="window"
-          data-hook="PopoverNext-appendto-window"
+          data-hook="popover-appendto-window"
         />
       </div>
       <div>
@@ -158,7 +158,7 @@ export default {
             <li>item</li>
             <PopoverWithState
               appendTo="scrollParent"
-              data-hook="PopoverNext-appendto-scroll-parent"
+              data-hook="popover-appendto-scroll-parent"
             />
             <li>item</li>
             <li>item</li>
@@ -220,7 +220,7 @@ export default {
         <PopoverWithState showDelay={1000} hideDelay={1000} />
       </div>
 
-      <div data-hook="story-PopoverNext-flip-behaviour">
+      <div data-hook="story-popover-flip-behaviour">
         <h2>Flip behaviour</h2>
         <p>
           This behaviour used to flip the <code>{`<PopoverNext/>`}</code>'s
@@ -232,7 +232,7 @@ export default {
 
         <br />
 
-        <ScrollableContainer dataHook="story-PopoverNext-flip-enabled">
+        <ScrollableContainer dataHook="story-popover-flip-enabled">
           With <code>flip</code> enabled (default):
           <br />
           <br />
@@ -240,7 +240,7 @@ export default {
           <PopoverWithState placement="top" />
         </ScrollableContainer>
 
-        <ScrollableContainer dataHook="story-PopoverNext-flip-disabled">
+        <ScrollableContainer dataHook="story-popover-flip-disabled">
           With <code>flip</code> disabled:
           <br />
           <br />
@@ -249,7 +249,7 @@ export default {
         </ScrollableContainer>
       </div>
 
-      <div data-hook="story-PopoverNext-fixed-behaviour">
+      <div data-hook="story-popover-fixed-behaviour">
         <h2>Fixed behaviour</h2>
         <p>
           This behaviour used to keep the <code>{`<PopoverNext/>`}</code> in
@@ -267,7 +267,7 @@ export default {
 
         <br />
 
-        <ScrollableContainer dataHook="story-PopoverNext-fixed-disabled">
+        <ScrollableContainer dataHook="story-popover-fixed-disabled">
           With <code>fixed</code> disabled (default):
           <br />
           <br />
@@ -275,7 +275,7 @@ export default {
           <PopoverWithState placement="top" />
         </ScrollableContainer>
 
-        <ScrollableContainer dataHook="story-PopoverNext-fixed-enabled">
+        <ScrollableContainer dataHook="story-popover-fixed-enabled">
           With <code>fixed</code> enabled:
           <br />
           <br />
@@ -284,7 +284,7 @@ export default {
         </ScrollableContainer>
       </div>
 
-      <div data-hook="story-PopoverNext-z-index">
+      <div data-hook="story-popover-z-index">
         <h2>z-index</h2>
         <div style={{ display: 'flex' }}>
           <div style={{ position: 'relative' }}>
@@ -293,7 +293,7 @@ export default {
             </p>
 
             <div style={{ position: 'absolute', top: '80px', left: '0px' }}>
-              <PopoverWithState data-hook="PopoverNext-z-index-before-cover" />
+              <PopoverWithState data-hook="popover-z-index-before-cover" />
             </div>
             <div
               style={{
@@ -317,7 +317,7 @@ export default {
 
             <div style={{ position: 'absolute', top: '80px', left: '0px' }}>
               <PopoverWithState
-                data-hook="PopoverNext-z-index-after-cover"
+                data-hook="popover-z-index-after-cover"
                 zIndex={3000}
               />
             </div>
