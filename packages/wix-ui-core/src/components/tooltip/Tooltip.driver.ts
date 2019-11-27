@@ -4,7 +4,7 @@ export const tooltipDriverFactory = args => {
   const popoverDriver = popoverDriverFactory(args);
   const getTooltipStyle = () =>
     window.getComputedStyle(
-      args.element.querySelector('[data-hook="popover-content"]'),
+      args.element.querySelector('[data-hook="popover-content"]')
     );
 
   return {
@@ -21,6 +21,13 @@ export const tooltipDriverFactory = args => {
       getBorderRadius: () => getTooltipStyle().borderRadius,
       /** Gets content padding */
       getContentPadding: () => getTooltipStyle().padding,
+    },
+    getTooltipText: () => {
+      popoverDriver.mouseEnter();
+      const text = popoverDriver.getContentElement().textContent;
+      // Clean yourself!
+      popoverDriver.mouseLeave();
+      return text;
     },
     ...popoverDriver,
   };
