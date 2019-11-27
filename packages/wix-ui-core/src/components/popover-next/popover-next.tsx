@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { Placement, Boundary } from 'popper.js';
-import onClickOutside, {
-  OnClickOutProps,
-  InjectedOnClickOutProps,
-} from 'react-onclickoutside';
 import { Manager, Reference } from 'react-popper';
-
 import Portal from 'react-portal/lib/Portal';
+
+import { ClickOutside } from '../click-outside';
 import style from './popover-next.st.css';
 
 import {
@@ -134,22 +131,6 @@ export type PopoverNextType = PopoverNextProps & {
   Content?: React.FunctionComponent<ElementProps>;
 };
 
-// We're declaring a wrapper for the clickOutside machanism and not using the
-// HOC because of Typings errors.
-const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
-  InjectedOnClickOutProps
->> = onClickOutside(
-  class extends React.Component<any, any> {
-    handleClickOutside() {
-      this.props.handleClickOutside();
-    }
-
-    render() {
-      return this.props.children;
-    }
-  },
-);
-
 /**
  * Popover
  */
@@ -163,15 +144,18 @@ export class PopoverNext extends React.Component<
     flip: true,
     fixed: false,
     zIndex: 1000,
+    onClickOutside: () => ({}),
   };
 
   static Element = createComponentThatRendersItsChildren('Popover.Element');
   static Content = createComponentThatRendersItsChildren('Popover.Content');
 
   targetRef: HTMLElement = null;
+
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
+  clickOutsideRef: any = null;
   contentHook: string;
 
   popperScheduleUpdate: () => void = null;
@@ -186,14 +170,14 @@ export class PopoverNext extends React.Component<
       isMounted: false,
       shown: props.shown || false,
     };
-
+    this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
   _handleClickOutside = () => {
-    if (this.props.onClickOutside) {
-      this.props.onClickOutside();
-    }
+    const { onClickOutside, shown } = this.props;
+
+    shown && onClickOutside();
   };
 
   getPopperContentStructure(childrenObject) {
@@ -392,11 +376,13 @@ export class PopoverNext extends React.Component<
 
     return (
       <Manager>
-        <ClickOutsideWrapper
-          handleClickOutside={this._handleClickOutside}
-          outsideClickIgnoreClass={style.popover}
+        <ClickOutside
+          rootRef={this.clickOutsideRef}
+          onClickOutside={this._handleClickOutside}
+          excludeClass={style.popover}
         >
           <div
+            ref={this.clickOutsideRef}
             style={inlineStyles}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
@@ -420,7 +406,7 @@ export class PopoverNext extends React.Component<
             </Reference>
             {shouldRenderPopper && this.renderPopperContent(childrenObject)}
           </div>
-        </ClickOutsideWrapper>
+        </ClickOutside>
       </Manager>
     );
   }
