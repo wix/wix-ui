@@ -123,7 +123,8 @@ export interface PopoverProps {
   width?: number | string;
 
   /**
-   * Fix removing ClickOutside listeners
+   * Breaking change:
+   * When true - onClickOutside will be called only when popover content is shown
    */
   upgrade?: boolean;
 }
