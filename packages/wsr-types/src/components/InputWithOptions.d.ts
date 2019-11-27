@@ -1,8 +1,11 @@
 declare namespace __WSR {
   namespace InputWithOptions {
     export interface InputWithOptionsProps
-      extends Omit<Input.InputProps, "theme">,
-        Omit<DropdownLayout.DropdownLayoutProps, "theme"> {
+      extends BaseComponents.OmitPolyfill<Input.InputProps, "theme">,
+        BaseComponents.OmitPolyfill<
+          DropdownLayout.DropdownLayoutProps,
+          "theme"
+        > {
       // TODO: there is a bug in WSR - theme exists in InputProps and DropdownLayoutProps
       // and it has different set of values
       theme?: string;

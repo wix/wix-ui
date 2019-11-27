@@ -9,7 +9,7 @@ declare namespace __WSR {
        * @see tooltipProps
        */
       tooltipPlacement?: any; // TODO: replace with TooltipProps["placement"];
-      tooltipProps?: any; // TODO: replace with Omit<TooltipProps, "content">;
+      tooltipProps?: any; // TODO: replace with BaseComponents.OmitPolyfill<TooltipProps, "content">;
       showUpdateButton?: boolean;
       showRemoveButton?: boolean;
       onAddImage?: React.MouseEventHandler<HTMLElement>;
