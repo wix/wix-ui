@@ -36,13 +36,6 @@ if (isTestEnv) {
   testId = getPopoverTestUtils.generateId();
 }
 
-const omit = (key, obj) => {
-  const { [key]: omitted, ...rest } = obj;
-  return rest;
-};
-
-type AppendTo = Boundary | 'parent' | Element | Predicate;
-
 export interface PopoverNextProps {
   /** hook for testing purposes */
   'data-hook'?: string;
@@ -83,7 +76,7 @@ export interface PopoverNextProps {
   /** Moves arrow by amount */
   moveArrowTo?: number;
   /** Enables calculations in relation to a dom element */
-  appendTo?: AppendTo;
+  appendTo?: Boundary | 'parent' | Element | Predicate;
   /** Animation timer */
   timeout?: number | { enter: number; exit: number };
   /** Inline style */
@@ -151,7 +144,6 @@ export class PopoverNext extends React.Component<
   static Content = createComponentThatRendersItsChildren('Popover.Content');
 
   targetRef: HTMLElement = null;
-
   portalNode: HTMLElement = null;
   stylesObj: AttributeMap = null;
   appendToNode: HTMLElement = null;
@@ -176,7 +168,6 @@ export class PopoverNext extends React.Component<
 
   _handleClickOutside = () => {
     const { onClickOutside, shown } = this.props;
-
     shown && onClickOutside();
   };
 
@@ -224,11 +215,11 @@ export class PopoverNext extends React.Component<
   renderPopperContent(childrenObject) {
     const popper = this.getPopperContentStructure(childrenObject);
 
-    return this.portalNode ? (
-      <Portal node={this.portalNode}>{popper}</Portal>
-    ) : (
-      popper
-    );
+    if (this.portalNode) {
+      return <Portal node={this.portalNode}>{popper}</Portal>;
+    }
+
+    return popper;
   }
 
   componentDidMount() {
@@ -334,7 +325,8 @@ export class PopoverNext extends React.Component<
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, omit('data-hook', this.props));
+      const { ['data-hook']: omitted, ...rest } = this.props;
+      this.stylesObj = style('root', {}, rest);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
