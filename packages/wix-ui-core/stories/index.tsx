@@ -53,6 +53,7 @@ import './LinearProgressBar/index.story';
 import './NavStepper.story';
 Components.add('Pagination', () => <PaginationStory />);
 import './Popover.story';
+import '../src/components/popover-next/docs/index.story';
 Components.add('RadioButton', () => <RadioButtonStory />);
 import '../src/components/signature-input/docs/index.story';
 import './Slider.story';
@@ -89,3 +90,6 @@ Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Disabled', () => (
   <SignatureInputTestFixture disabled />
 ));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';
+
+// TODO: move to correct position
+import '../src/components/popover-next/docs/index.story';

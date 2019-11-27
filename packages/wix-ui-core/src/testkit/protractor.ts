@@ -256,3 +256,8 @@ export const horizontalMenuTestkitFactory = protractorUniTestkitFactoryCreator(
   horizontalMenuUniDriverFactory,
 );
 export { HorizontalMenuDriver };
+
+import { popoverNextDriverFactory } from '../components/popover-next/popover-next.protractor.driver';
+export const popoverNextTestkitFactory = protractorTestkitFactoryCreator(
+  popoverNextDriverFactory,
+);
