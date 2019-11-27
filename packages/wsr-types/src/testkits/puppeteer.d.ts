@@ -58,6 +58,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const dropdownTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownUniDriver>;
   export const dropdownBaseTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
   export const autoCompleteTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
+  export const dataTableTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DataTableUniDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -73,7 +74,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;

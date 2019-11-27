@@ -75,6 +75,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const dropdownBaseTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
   export const counterBadgeTestkitFactory: EnzymeTestkitFactory<__WSRTests.CounterBadgeDriver>;
   export const autoCompleteTestkitFactory: EnzymeTestkitFactory<__WSRTests.AutoCompleteDriver>;
+  export const dataTableTestkitFactory: EnzymeTestkitFactory<__WSRTests.DataTableDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -89,7 +90,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;

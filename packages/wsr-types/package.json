@@ -37,6 +37,7 @@
   "dependencies": {
     "@types/react": "^16.8.4",
     "@types/react-dom": "^16.0.5",
+    "@types/react-window": "^1.8.1",
     "wix-ui-backoffice": "^1.0.408",
     "wix-ui-core": "^2.0.270",
     "wix-ui-test-utils": "^1.0.169"

@@ -73,6 +73,7 @@ declare module "wix-style-react/dist/testkit" {
   export const dropdownBaseTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
   export const counterBadgeTestkitFactory: VanillaTestkitFactory<__WSRTests.CounterBadgeDriver>;
   export const autoCompleteTestkitFactory: VanillaTestkitFactory<__WSRTests.AutoCompleteDriver>;
+  export const dataTableTestkitFactory: VanillaTestkitFactory<__WSRTests.DataTableDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -88,7 +89,6 @@ declare module "wix-style-react/dist/testkit" {
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dataTableTestkitFactory: any;
   export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
