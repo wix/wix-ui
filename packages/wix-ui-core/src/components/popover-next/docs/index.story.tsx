@@ -87,7 +87,7 @@ export default {
     appendTo: 'window',
     showArrow: true,
     timeout: 150,
-    shown: false,
+    shown: true,
     placement: 'top',
   },
 
