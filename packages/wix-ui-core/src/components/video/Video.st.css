@@ -1,9 +1,9 @@
 .root {
-    position: relative;
+    position: absolute;
+    top: 0;
 }
 
 .playerContainer {
-    position: relative;
     height: 100%;
     width: 100%;
     background-color: #000;
