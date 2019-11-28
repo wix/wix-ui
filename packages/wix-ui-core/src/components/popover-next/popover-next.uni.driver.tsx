@@ -4,7 +4,7 @@ import { Simulate } from 'react-dom/test-utils';
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { ReactBase, safeGetNative } from '../../../test/utils/unidriver';
 
-export const testkit = (base: UniDriver, body: UniDriver) => {
+export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
   const byHook = (hook: string) => base.$(`[data-hook="${hook}"]`);
   const reactBase = ReactBase(base);
   const commonDriver = CommonDriver(base, body);
@@ -37,11 +37,11 @@ export const testkit = (base: UniDriver, body: UniDriver) => {
 
     clickOutside: async () => {
       (await body.getNative()).ownerDocument.dispatchEvent(
-        new Event('mousedown')
+        new Event('mousedown'),
       );
 
       (await body.getNative()).ownerDocument.dispatchEvent(
-        new Event('mouseup')
+        new Event('mouseup'),
       );
     },
     getArrowOffset: async () => {

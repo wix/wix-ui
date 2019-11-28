@@ -370,7 +370,7 @@ export class PopoverNext extends React.Component<
       <Manager>
         <ClickOutside
           rootRef={this.clickOutsideRef}
-          onClickOutside={this._handleClickOutside}
+          onClickOutside={shown ? this._handleClickOutside : undefined}
           excludeClass={style.popover}
         >
           <div

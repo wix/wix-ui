@@ -80,3 +80,11 @@ export const horizontalMenuTestkitFactory = puppeteerUniTestkitFactoryCreator(
   horizontalMenuUniDriverFactory,
 );
 export { HorizontalMenuDriver };
+
+import { popoverNextDriverFactory } from '../components/popover-next/popover-next.uni.driver';
+
+export const popoverNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
+  popoverNextDriverFactory,
+);
+
+export { popoverNextDriverFactory };

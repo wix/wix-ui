@@ -1,4 +1,4 @@
-import { testkit as publicDriverFactory } from '../popover-next.uni.driver';
+import { popoverNextDriverFactory as publicDriverFactory } from '../popover-next.uni.driver';
 
 export const popoverNextPrivateDriverFactoryUni = (base, body) => {
   return {
