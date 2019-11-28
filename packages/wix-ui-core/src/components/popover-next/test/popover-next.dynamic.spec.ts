@@ -1,5 +1,4 @@
 import * as puppeteer from 'puppeteer';
-import { Browser, Page } from 'puppeteer';
 import { popoverNextTestkitFactory } from '../../../testkit/puppeteer';
 import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { Category } from '../../../../stories/utils';
@@ -10,8 +9,8 @@ import { startServer } from './utils/server';
 describe('PopoverNext - Dynamic Loading', () => {
   const port = 5000;
   let server: Server;
-  let browser: Browser;
-  let page: Page;
+  let browser: puppeteer.Browser;
+  let page: puppeteer.Page;
 
   beforeEach(async () => {
     server = await startServer(port);
