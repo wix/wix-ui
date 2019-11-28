@@ -117,7 +117,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const autoCompleteWithLabelTestkitFactory: any;
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
-  export const previewWidgetTestkitFactory: any;
   export const mediaOverlayTestkitFactory: any;
   export const infoIconTestkitFactory: any;
   export const socialButtonTestkitFactory: any;
@@ -134,7 +133,8 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;
   export const TooltipTestkit: any;
-  export const previewWidgetTestkit: any;
-  export const mobilePreviewWidgetTestkit: any;
-  export const browserPreviewWidgetTestkit: any;
+  export const previewWidgetTestkitFactory: any;
+  export const mobilePreviewWidgetTestkitFactory: any;
+  export const browserPreviewWidgetTestkitFactory: any;
+  export const timeTableTestkitFactory: any;
 }
