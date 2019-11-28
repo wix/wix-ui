@@ -1,4 +1,5 @@
 import * as puppeteer from 'puppeteer';
+import * as eventually from 'wix-eventually';
 import { popoverNextTestkitFactory } from '../../../testkit/puppeteer';
 import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { Category } from '../../../../stories/utils';
@@ -7,6 +8,8 @@ import { Server } from 'http';
 import { startServer } from './utils/server';
 
 describe('PopoverNext - Dynamic Loading', () => {
+  jest.setTimeout(10000);
+
   const port = 5000;
   let server: Server;
   let browser: puppeteer.Browser;
@@ -14,7 +17,7 @@ describe('PopoverNext - Dynamic Loading', () => {
 
   beforeEach(async () => {
     server = await startServer(port);
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch();
     page = await browser.newPage();
 
     // Connect to Chrome DevTools
@@ -23,8 +26,8 @@ describe('PopoverNext - Dynamic Loading', () => {
     // Set throttling property
     await client.send('Network.emulateNetworkConditions', {
       offline: false,
-      downloadThroughput: (200 * 1024) / 8,
-      uploadThroughput: (200 * 1024) / 8,
+      downloadThroughput: (20000 * 1024) / 8,
+      uploadThroughput: (200000 * 1024) / 8,
       latency: 20,
     });
   });
@@ -50,10 +53,10 @@ describe('PopoverNext - Dynamic Loading', () => {
       page,
     });
 
-    const contentElement = await testkit.getContentElement();
+    expect(await testkit.isContentElementExists()).toBe(false);
 
-    expect(await contentElement.textContent).toBe('The content');
-
-    await browser.close();
+    await eventually(async () => {
+      expect(await testkit.isContentElementExists()).toBe(true);
+    });
   });
 });
