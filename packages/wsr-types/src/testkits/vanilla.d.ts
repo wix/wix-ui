@@ -98,6 +98,8 @@ declare module "wix-style-react/dist/testkit" {
   export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
+  export const listItemSectionTestkitFactory: any;
+  export const listItemSelectTestkitFactory: any;
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
