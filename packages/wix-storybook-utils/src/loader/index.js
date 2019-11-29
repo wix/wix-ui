@@ -17,8 +17,6 @@ const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
         `ERROR: could not require wix-storybook-utils plugin module "${pluginPath}"`,
       );
 
-      process.exit(1);
-
       return promise;
     }
 
@@ -26,8 +24,6 @@ const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
       console.warn(
         `ERROR: wix-storybook-utils plugin "${pluginPath}" is not a function`,
       );
-
-      process.exit(1);
 
       return promise;
     }
