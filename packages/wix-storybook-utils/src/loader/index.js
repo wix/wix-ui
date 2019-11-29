@@ -7,23 +7,45 @@ const metadataMerger = require('react-autodocs-utils/src/metadata-merger');
 const prepareStory = require('react-autodocs-utils/src/prepare-story'); // TODO: should be part of wix-storybook-utils
 
 const applyPlugins = ({ plugins = [], source, basePath }) => (metadata = {}) =>
-  plugins.reduce(
-    (promise, plugin) =>
-      promise
-        .then(
-          async accumulatedMetadata =>
-            (await plugin({ source, metadata: accumulatedMetadata, basePath }))
-              .metadata,
-        )
-        .catch(e => {
-          console.warn(
-            `ERROR: failure with custom wix-storybook-utils plugin`,
-            e,
-          );
-          return promise;
-        }),
-    Promise.resolve(metadata),
-  );
+  plugins.reduce((promise, pluginPath) => {
+    let plugin;
+
+    try {
+      plugin = require(pluginPath);
+    } catch (e) {
+      console.warn(
+        `ERROR: could not require wix-storybook-utils plugin module "${pluginPath}"`,
+      );
+
+      process.exit(1);
+
+      return promise;
+    }
+
+    if (typeof plugin !== 'function') {
+      console.warn(
+        `ERROR: wix-storybook-utils plugin "${pluginPath}" is not a function`,
+      );
+
+      process.exit(1);
+
+      return promise;
+    }
+
+    return promise
+      .then(
+        async accumulatedMetadata =>
+          (await plugin({ source, metadata: accumulatedMetadata, basePath }))
+            .metadata,
+      )
+      .catch(e => {
+        console.warn(
+          `ERROR: failure with custom wix-storybook-utils plugin "${pluginPath}"`,
+          e,
+        );
+        return promise;
+      });
+  }, Promise.resolve(metadata));
 
 module.exports = function(source) {
   const callback = this.async();
