@@ -47,9 +47,9 @@ Example (dummy) plugin could be written like this:
 
 ```js
   // ...
-  plugins: {
+  plugins: [
     path.resolve(__dirname, '.storybook/stylable-metadata-plugin.js')
-  }
+  ]
   // ...
 ```
 
