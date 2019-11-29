@@ -26,8 +26,8 @@ describe('PopoverNext - Dynamic Loading', () => {
     // Set throttling property
     await client.send('Network.emulateNetworkConditions', {
       offline: false,
-      downloadThroughput: (2000 * 1024) / 8,
-      uploadThroughput: (20000 * 1024) / 8,
+      downloadThroughput: (10000 * 1024) / 8,
+      uploadThroughput: (100000 * 1024) / 8,
       latency: 20,
     });
   });
