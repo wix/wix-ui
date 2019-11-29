@@ -8,7 +8,7 @@ import { Server } from 'http';
 import { startServer } from './utils/server';
 
 describe('PopoverNext - Dynamic Loading', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
 
   const port = 5000;
   let server: Server;
@@ -20,15 +20,15 @@ describe('PopoverNext - Dynamic Loading', () => {
     browser = await puppeteer.launch();
     page = await browser.newPage();
 
-    // Connect to Chrome DevTools
-    const client = await page.target().createCDPSession();
+    await page.setRequestInterception(true);
 
-    // Set throttling property
-    await client.send('Network.emulateNetworkConditions', {
-      offline: false,
-      downloadThroughput: (10000 * 1024) / 8,
-      uploadThroughput: (100000 * 1024) / 8,
-      latency: 20,
+    page.on('request', request => {
+      const chunk = request.url().replace(`http://localhost:${port}/`, '');
+      if (chunk.match(/^[0-9]{1,4}\./)) {
+        setTimeout(() => request.continue(), 3000);
+      } else {
+        return request.continue();
+      }
     });
   });
 
@@ -46,13 +46,16 @@ describe('PopoverNext - Dynamic Loading', () => {
     });
 
     // Navigate
-    await page.goto(`http://localhost:${port}/${storyUrl}`);
+    await page.goto(`http://localhost:${port}/${storyUrl}`, {
+      waitUntil: 'networkidle2',
+    });
 
     const testkit = await popoverNextTestkitFactory({
       dataHook: 'storybook-popover',
       page,
     });
 
+    expect(await testkit.isTargetElementExists()).toBe(true);
     expect(await testkit.isContentElementExists()).toBe(false);
 
     await eventually(async () => {
