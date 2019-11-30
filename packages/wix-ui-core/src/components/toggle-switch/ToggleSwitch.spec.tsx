@@ -8,7 +8,9 @@ import { toggleSwitchTestkitFactory } from '../../testkit';
 import { toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory } from '../../testkit/enzyme';
 import { mount } from 'enzyme';
 
-describe('ToggleSwitch', () => {
+import { toggleSwitchUniDriverFactory } from "./ToggleSwitch.uni.driver";
+
+describe('ToggleSwitch sync', () => {
   const createDriver = new ReactDOMTestContainer()
     .unmountAfterEachTest()
     .createLegacyRenderer(toggleSwitchDriverFactory);
@@ -135,4 +137,18 @@ describe('ToggleSwitch', () => {
       ).toBe(true);
     });
   });
+});
+
+fdescribe('ToggleSwitch async', () => {
+
+    const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
+
+    const driver = testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory);
+
+
+    it('should exist', async() => {
+      console.log(driver);
+
+    })
+
 });
