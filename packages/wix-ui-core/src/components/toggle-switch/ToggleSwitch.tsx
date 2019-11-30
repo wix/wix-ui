@@ -21,6 +21,7 @@ export interface ToggleSwitchProps {
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
   'aria-label'?: string;
+  dataHook?: string;
 }
 
 export interface ToggleSwitchState {
@@ -53,7 +54,7 @@ export class ToggleSwitch extends React.PureComponent<
   private focusedByMouse = false;
 
   render() {
-    const { checked, disabled, styles: inlineStyles } = this.props;
+    const { checked, disabled, styles: inlineStyles, dataHook } = this.props;
 
     return (
       <div
@@ -68,6 +69,7 @@ export class ToggleSwitch extends React.PureComponent<
           this.props,
         )}
         style={inlineStyles.root}
+        data-hook={dataHook}
       >
         <div className={style.track} style={inlineStyles.track} />
         <div className={style.knob} style={inlineStyles.knob}>
