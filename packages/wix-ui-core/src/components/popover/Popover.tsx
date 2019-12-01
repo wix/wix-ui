@@ -126,7 +126,7 @@ export interface PopoverProps {
    * Breaking change:
    * When true - onClickOutside will be called only when popover content is shown
    */
-  upgrade?: boolean;
+  disableClickOutsideWhenClosed?: boolean;
 }
 
 export interface PopoverState {
@@ -222,9 +222,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
-      upgrade,
+      disableClickOutsideWhenClosed,
     } = this.props;
-    if (onClickOutsideCallback && !(upgrade && !shown)) {
+    if (onClickOutsideCallback && !(disableClickOutsideWhenClosed && !shown)) {
       onClickOutsideCallback();
     }
   };
