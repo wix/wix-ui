@@ -145,7 +145,7 @@ function runTests(createDriver, container) {
       });
     });
 
-    describe('onClickOutside + upgrade', () => {
+    describe('onClickOutside + disableClickOutsideWhenClosed', () => {
       it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
@@ -154,7 +154,7 @@ function runTests(createDriver, container) {
             placement: 'bottom',
             shown: true,
             onClickOutside,
-            upgrade: true,
+            disableClickOutsideWhenClosed: true,
           }),
         );
 
@@ -170,7 +170,7 @@ function runTests(createDriver, container) {
             placement: 'bottom',
             shown: false,
             onClickOutside,
-            upgrade: true,
+            disableClickOutsideWhenClosed: true,
           }),
         );
 
