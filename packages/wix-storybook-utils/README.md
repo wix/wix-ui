@@ -47,17 +47,10 @@ Example (dummy) plugin could be written like this:
 
 ```js
   // ...
-  plugins: [
-    path.resolve(__dirname, '.storybook/stylable-metadata-plugin.js')
-  ]
+  metadataPlugins: {
+    customParser: ({source, metadata}) => {metadata: {...metadata, sourceLength: source.length}}
+  }
   // ...
-```
-
-Where plugin would contain following code:
-```js
-module.exports = function({source, metadata}) {
-  return {metadata: {...metadata, sourceLength: source.length}}
-}
 ```
 
 In addition to source and metadata, plugin also receives _basePath_.
