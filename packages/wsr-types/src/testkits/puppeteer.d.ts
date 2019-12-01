@@ -137,4 +137,5 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const mobilePreviewWidgetTestkitFactory: any;
   export const browserPreviewWidgetTestkitFactory: any;
   export const timeTableTestkitFactory: any;
+  export const marketingLayoutTestkitFactory: any;
 }
