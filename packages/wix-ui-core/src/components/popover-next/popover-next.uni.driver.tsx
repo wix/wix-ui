@@ -1,5 +1,3 @@
-import * as eventually from 'wix-eventually';
-
 import { CommonDriver } from './Popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
@@ -26,9 +24,7 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
      * @returns null if element is not found
      */
     getContentElement: async () => {
-      await eventually(async () => {
-        (await isChunkLoaded()) === true;
-      });
+      //while(await isChunkLoaded
       return safeGetNative(await commonDriver.getContentElement());
     },
 
