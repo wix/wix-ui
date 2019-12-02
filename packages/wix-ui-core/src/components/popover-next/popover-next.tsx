@@ -117,6 +117,7 @@ export interface PopoverNextProps {
 export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
+  loaded: boolean;
 }
 
 export type PopoverNextType = PopoverNextProps & {
@@ -161,6 +162,7 @@ export class PopoverNext extends React.Component<
     this.state = {
       isMounted: false,
       shown: props.shown || false,
+      loaded: false,
     };
     this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -189,6 +191,7 @@ export class PopoverNext extends React.Component<
       <Popper
         shouldAnimate={shouldAnimate}
         contentHook={this.contentHook}
+        onLoad={() => this.setState({ loaded: true })}
         shown={shown}
         grabScheduleUpdater={grabScheduleUpdater}
         detachSyles={detachSyles}
@@ -356,7 +359,7 @@ export class PopoverNext extends React.Component<
       id,
       timeout,
     } = this.props;
-    const { isMounted, shown } = this.state;
+    const { isMounted, shown, loaded } = this.state;
 
     const childrenObject = buildChildrenObject(children, {
       Element: null,
@@ -376,6 +379,7 @@ export class PopoverNext extends React.Component<
           <div
             ref={this.clickOutsideRef}
             style={inlineStyles}
+            data-loaded={loaded}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
             {...style('root', {}, this.props)}

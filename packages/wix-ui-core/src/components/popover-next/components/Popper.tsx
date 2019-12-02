@@ -27,6 +27,7 @@ const Popper = (props: any) => {
     children,
     id,
     role,
+    onLoad,
   } = props;
 
   return (
@@ -45,6 +46,7 @@ const Popper = (props: any) => {
             ? () => require('react-transition-group')
             : () => import('react-transition-group'),
       }}
+      onLoad={onLoad}
       defaultComponent={<div />}
       namedExports={{ Popper: 'Popper', CSSTransition: 'CSSTransition' }}
       shouldLoadComponent

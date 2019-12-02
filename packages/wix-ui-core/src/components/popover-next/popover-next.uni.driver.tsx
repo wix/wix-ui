@@ -1,6 +1,8 @@
+import * as eventually from 'wix-eventually';
+
 import { CommonDriver } from './Popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import { Simulate } from 'react-dom/test-utils';
+
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { ReactBase, safeGetNative } from '../../../test/utils/unidriver';
 
@@ -8,6 +10,8 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
   const byHook = (hook: string) => base.$(`[data-hook="${hook}"]`);
   const reactBase = ReactBase(base);
   const commonDriver = CommonDriver(base, body);
+
+  const isChunkLoaded = async () => (await base.attr('data-loaded')) === `true`;
 
   return {
     ...baseUniDriverFactory(base),
@@ -21,8 +25,12 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
      * Returns the content element (`<Popover.Content/>`)
      * @returns null if element is not found
      */
-    getContentElement: async () =>
-      safeGetNative(await commonDriver.getContentElement()),
+    getContentElement: async () => {
+      await eventually(async () => {
+        (await isChunkLoaded()) === true;
+      });
+      return safeGetNative(await commonDriver.getContentElement());
+    },
 
     /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
     isTargetElementExists: async () => byHook('popover-element').exists(),
