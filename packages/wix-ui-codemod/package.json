@@ -1,6 +1,6 @@
 {
   "private": false,
-  "name": "wix-ui-codemods",
+  "name": "wix-ui-codemod",
   "version": "1.0.0",
   "license": "MIT",
   "author": {
