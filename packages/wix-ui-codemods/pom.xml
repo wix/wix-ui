@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wixpress</groupId>
+    <artifactId>wix-ui-codemods</artifactId>
+    <packaging>pom</packaging>
+    <name>wix-ui-codemods</name>
+    <description>wix-ui-codemods</description>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.wixpress.common</groupId>
+        <artifactId>wix-master-parent</artifactId>
+        <version>100.0.0-SNAPSHOT</version>
+    </parent>
+
+    <developers>
+        <developer>
+            <name>Simas Toleikis</name>
+            <email>simast@wix.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <mailingLists>
+        <mailingList>
+            <name>slack</name>
+            <subscribe>wix-ui</subscribe>
+        </mailingList>
+    </mailingLists>
+</project>

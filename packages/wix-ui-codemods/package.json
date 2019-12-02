@@ -1,0 +1,39 @@
+{
+  "private": false,
+  "name": "wix-ui-codemods",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Wix",
+    "email": "fed-infra@wix.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "pretest": "yoshi build",
+    "test": "yoshi test",
+    "posttest": "yoshi lint",
+    "release": "yoshi release"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "~3.7.0",
+    "yoshi": "^4.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ]
+  },
+  "yoshi": {}
+}
