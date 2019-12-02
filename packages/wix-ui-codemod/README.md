@@ -1,0 +1,32 @@
+# wix-ui-codemod
+
+This package contains a collection of [jscodeshift](https://github.com/facebook/jscodeshift) codemod scripts to help migrate and adapt Wix UI projects to API changes.
+
+## Usage
+
+```
+npx wix-ui-codemod <transform> <path> [...options]
+```
+
+- `transform` - name of transform, see available options below.
+- `path` - path to file or directory where the codemod will be applied.
+- `options` - available options are:
+  - `--dry` - run in dry mode (will not modify any transformed files on disk).
+  - `--print` - print modified files.
+
+## Transforms
+
+The following transforms are available:
+
+### wix-style-react/icons-common
+
+```
+npx wix-ui-codemod wix-style-react/icons-common <path>
+```
+
+Will replace deprecated icon imports from `/new-icons` with imports from `wix-ui-icons-common` package.
+
+```diff
+- import Add from 'wix-style-react/new-icons/Add';
++ import Add from 'wix-ui-icons-common/Add';
+```
