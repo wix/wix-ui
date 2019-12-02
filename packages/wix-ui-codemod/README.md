@@ -4,7 +4,7 @@ This package contains a collection of [jscodeshift](https://github.com/facebook/
 
 ## Usage
 
-```
+```bash
 npx wix-ui-codemod <transform> <path> [...options]
 ```
 
@@ -20,7 +20,7 @@ The following transforms are available:
 
 ### wix-style-react/icons-common
 
-```
+```bash
 npx wix-ui-codemod wix-style-react/icons-common <path>
 ```
 
