@@ -49,8 +49,8 @@ describe('ToggleSwitch', () => {
 
         describe('disabled prop', () => {
             it('should not be disabled by default', async () => {
-                const driver = createDriver(<ToggleSwitch />);
-                expect(driver.isDisabled()).toBe(false);
+                const driver = await createDriver(<ToggleSwitch />);
+                expect(await driver.isDisabled()).toBe(false);
             });
 
             it('should not be clickable when disabled and unchecked', async () => {
