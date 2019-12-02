@@ -5,6 +5,7 @@ import { toggleSwitchTestkitFactory} from '../../testkit';
 import { toggleSwitchTestkitFactory as enzymeToggleSwitchTestkitFactory } from '../../testkit/enzyme';
 import { runTestkitExistsSuite } from '../../common/testkitTests';
 import { toggleSwitchDriverFactory } from './ToggleSwitch.driver';
+import { toggleSwitchUniDriverFactory } from './ToggleSwitch.uni.driver';
 
 describe('ToggleSwitch', () => {
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
@@ -14,6 +15,12 @@ describe('ToggleSwitch', () => {
             testContainer.createLegacyRenderer(toggleSwitchDriverFactory)
         );
     });
+
+    // describe('[async]', () => {
+    //     runTests(
+    //         testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory)
+    //     );
+    // });
 
     function runTests(createDriver){
         describe('checked prop', () => {
@@ -118,10 +125,10 @@ describe('ToggleSwitch', () => {
             });
         });
 
-        runTestkitExistsSuite({
-            Element:<ToggleSwitch />,
-            testkitFactory: toggleSwitchTestkitFactory,
-            enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
-        });
+        // runTestkitExistsSuite({
+        //     Element:<ToggleSwitch />,
+        //     testkitFactory: toggleSwitchTestkitFactory,
+        //     enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
+        // });
     }
 });
