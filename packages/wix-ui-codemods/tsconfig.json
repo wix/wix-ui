@@ -11,9 +11,6 @@
     "lib": ["dom", "esnext"]
   },
   "include": [
-    "./__tests__/**/*.ts"
-  ],
-  "files": [
-    "./src/index.ts"
+    "./src/**/*.ts"
   ]
 }
