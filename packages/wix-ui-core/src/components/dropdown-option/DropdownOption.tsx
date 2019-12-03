@@ -3,6 +3,7 @@ import style from './DropdownOption.st.css';
 import { Option } from './';
 
 export interface DropdownOptionProps {
+  id?: string;
   className: string;
   option: Option;
   isSelected: boolean;
@@ -17,6 +18,7 @@ export const DropdownOption: DropdownOptionType = (
   props: DropdownOptionProps,
 ) => {
   const {
+    id,
     option,
     isSelected,
     isHovered,
@@ -28,14 +30,18 @@ export const DropdownOption: DropdownOptionType = (
   const hovered = !disabled && isHovered;
   const selected = !disabled && isSelected;
 
+  const ariaProps = selectable
+    ? { role: 'option', 'aria-selected': selected, 'aria-disabled': disabled }
+    : {};
+
   return (
     <div
+      id={id}
       {...style('root', { disabled, selectable, hovered, selected }, props)}
+      {...ariaProps}
       onClick={onClickHandler}
       title={option.value}
       onMouseEnter={onMouseEnterHandler}
-      role="option"
-      aria-selected={selected}
     >
       {option.render(option.value)}
     </div>

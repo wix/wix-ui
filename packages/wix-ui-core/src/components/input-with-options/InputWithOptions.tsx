@@ -3,6 +3,7 @@ import style from './InputWithOptions.st.css';
 import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
+import { IDOMid } from '../dropdown-content';
 import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 import { Input, InputProps } from '../input';
 
@@ -60,13 +61,19 @@ export type InputWithOptionsProps = Pick<
     emptyStateStyle?: React.CSSProperties;
   };
 
+interface InputWithOptionsState {
+  ariaActivedescendant: string | null;
+  ariaExpanded: boolean;
+}
+
 /**
  * InputWithOptions
  */
 export class InputWithOptions extends React.PureComponent<
-  InputWithOptionsProps
+  InputWithOptionsProps,
+  InputWithOptionsState
 > {
-  dropDownRef;
+  dropDownRef: InstanceType<typeof Dropdown> | null = null;
   static displayName = 'InputWithOptions';
   static defaultProps = {
     openTrigger: 'click',
@@ -83,15 +90,27 @@ export class InputWithOptions extends React.PureComponent<
   };
   static bypassDefaultPropsTypecheck;
   isEditing: boolean = false;
+  state = {
+    ariaActivedescendant: null,
+    ariaExpanded: false,
+  };
+
+  _setDropDownRef = (ref: InstanceType<typeof Dropdown>) => {
+    this.dropDownRef = ref;
+  }
 
   open() {
     // Using getInstance() is here because closeOutside HOC
-    this.dropDownRef.getInstance().open();
+    this.dropDownRef && this.dropDownRef.getInstance().open();
   }
 
   close() {
-    this.dropDownRef.getInstance().close();
+    this.dropDownRef && this.dropDownRef.getInstance().close();
   }
+
+  changeExpanded = (isExpanded: boolean) => {
+    this.setState({ ariaExpanded: isExpanded });
+  };
 
   _filterOptions(): Option[] {
     const {
@@ -138,6 +157,12 @@ export class InputWithOptions extends React.PureComponent<
     );
   }
 
+  onOptionHover = (option: (Option & IDOMid) | null) => {
+    const ariaActivedescendant = option ? option._DOMid : null;
+
+    this.setState({ ariaActivedescendant });
+  };
+
   _onSelect = (option: Option | null) => {
     this.isEditing = false;
     const { onSelect, onManualInput, inputProps } = this.props;
@@ -146,11 +171,14 @@ export class InputWithOptions extends React.PureComponent<
     } else {
       onManualInput(inputProps.value);
     }
+
+    this.setState({ ariaActivedescendant: null });
   };
 
   _onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!event.key.startsWith('Arrow')) {
       this.isEditing = true;
+      this.setState({ ariaActivedescendant: null });
     }
 
     const { onKeyDown } = this.props.inputProps;
@@ -198,6 +226,8 @@ export class InputWithOptions extends React.PureComponent<
       moveBy,
     } = this.props;
 
+    const contentId = id ? `${id}-content` : null;
+
     return (
       <Dropdown
         {...style('root', {}, this.props)}
@@ -205,6 +235,7 @@ export class InputWithOptions extends React.PureComponent<
         openTrigger={openTrigger}
         disabled={inputProps.disabled}
         onSelect={this._onSelect}
+        onOptionHover={this.onOptionHover}
         fixedFooter={fixedFooter}
         fixedHeader={fixedHeader}
         onDeselect={onDeselect}
@@ -213,20 +244,26 @@ export class InputWithOptions extends React.PureComponent<
         options={this._filterOptions()}
         timeout={timeout}
         multi={multi}
-        role="combobox"
         forceContentElementVisibility={forceContentElementVisibility}
         style={inlineStyles}
         id={id}
-        ref={ref => (this.dropDownRef = ref)}
+        ref={this._setDropDownRef}
         allowReselect={allowReselect}
         flip={flip}
         fixed={fixed}
         moveBy={moveBy}
         onContentMouseDown={this._onContentMouseDown}
+        contentId={contentId}
+        onExpandedChange={this.changeExpanded}
       >
         <Input
           data-hook={DataHooks.input}
           {...inputProps}
+          role="combobox"
+          aria-autocomplete="both"
+          aria-owns={contentId}
+          aria-expanded={this.state.ariaExpanded}
+          aria-activedescendant={this.state.ariaActivedescendant}
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
           onBlur={this._onBlur}

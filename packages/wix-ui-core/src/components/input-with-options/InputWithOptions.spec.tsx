@@ -278,4 +278,91 @@ describe('InputWithOptions', () => {
       expect(onManualInput).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('`aria-` attributes of <input>', () => {
+    const getDriver = (id = null, _options = options) => {
+      return createDriver(
+        createInputWithOptions({
+          id,
+          options: _options,
+          inputProps: { value: 'a' },
+        }),
+      );
+    };
+
+    it('should have correct initial `aria-` attibutes', () => {
+      const driver = getDriver();
+      const input = driver.getInput();
+      expect(input.getAttribute('aria-expanded')).toBe('false');
+      expect(input.getAttribute('aria-autocomplete')).toBe('both');
+      expect(input.getAttribute('aria-owns')).toBe(null);
+    });
+
+    it('should have correct `aria-owns` attibute if `id` was passed', async () => {
+      const driver = getDriver('aa47d3f4');
+      const input = driver.getInput();
+
+      const owns: string | null = input.getAttribute('aria-owns');
+      expect(owns).toBeTruthy();
+
+      driver.click();
+      await waitForCond(() => driver.isContentElementExists());
+
+      expect(driver.getContentElement().querySelector('#' + owns)).toBeTruthy();
+    });
+
+    it('should have correct `aria-expanded` attibute', async () => {
+      const driver = getDriver();
+      const input = driver.getInput();
+      expect(input.getAttribute('aria-expanded')).toBe('false');
+
+      driver.click();
+      await waitForCond(() => driver.isContentElementExists());
+      expect(input.getAttribute('aria-expanded')).toBe('true');
+
+      driver.keyDown('ArrowDown');
+      expect(input.getAttribute('aria-expanded')).toBe('true');
+
+      driver.keyDown('Escape');
+      await waitForCond(() => !driver.isContentElementExists());
+      expect(input.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('should have input with `aria-activedescendant` when option is hovered', async () => {
+      const driver = getDriver('c95f4448');
+      const input = driver.getInput();
+      expect(input.getAttribute('aria-activedescendant')).toBeNull();
+
+      driver.click();
+      await waitForCond(() => driver.isContentElementExists());
+      expect(input.getAttribute('aria-activedescendant')).toBeNull();
+
+      driver.keyDown('ArrowDown');
+      const activedescendant0: string | null = input.getAttribute(
+        'aria-activedescendant',
+      );
+      expect(activedescendant0).toBeTruthy();
+      const activeOption0 = driver
+        .getContentElement()
+        .querySelector('#' + activedescendant0);
+      expect(activeOption0).toBeTruthy();
+      expect(activeOption0.innerHTML).toBe(driver.optionAt(0).getText());
+
+      driver.keyDown('ArrowDown');
+      const activedescendant1: string | null = input.getAttribute(
+        'aria-activedescendant',
+      );
+      expect(activedescendant1).toBeTruthy();
+      expect(activedescendant1).not.toBe(activedescendant0);
+      const activeOption1 = driver
+        .getContentElement()
+        .querySelector('#' + activedescendant1);
+      expect(activeOption1).toBeTruthy();
+      expect(activeOption1.innerHTML).toBe(driver.optionAt(1).getText());
+
+      driver.keyDown('Escape');
+      await waitForCond(() => !driver.isContentElementExists());
+      expect(input.getAttribute('aria-activedescendant')).toBeNull();
+    });
+  });
 });

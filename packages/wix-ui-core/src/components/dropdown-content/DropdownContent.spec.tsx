@@ -75,4 +75,62 @@ describe('DropdownContent', () => {
       expect(onMouseDown.mock.calls[0].length).toBe(1);
     });
   });
+
+  describe('onOptionHover', () => {
+    it('should call `onOptionHover` when option is hovered', () => {
+      const onOptionHover = jest.fn();
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          onOptionHover,
+        }),
+      );
+
+      driver.triggerMouseDown();
+
+      driver.optionAt(0).mouseEnter();
+      expect(onOptionHover).toHaveBeenCalledWith({
+        ...options[0],
+        _DOMid: null,
+      });
+
+      driver.optionAt(1).mouseEnter();
+      expect(onOptionHover).toHaveBeenCalledWith({
+        ...options[1],
+        _DOMid: null,
+      });
+    });
+
+    it('should pass option DOM id to `onOptionHover` if `optionsContainerId` is set', () => {
+      const onOptionHover = jest.fn();
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          onOptionHover,
+          optionsContainerId: 'd103aca5',
+        }),
+      );
+
+      driver.triggerMouseDown();
+
+      driver.optionAt(0).mouseEnter();
+      const DOMid0 = driver.optionAt(0).getElement().id;
+      expect(DOMid0).toBeTruthy();
+
+      expect(onOptionHover).toHaveBeenCalledWith({
+        ...options[0],
+        _DOMid: DOMid0,
+      });
+
+      driver.optionAt(1).mouseEnter();
+      const DOMid1 = driver.optionAt(1).getElement().id;
+      expect(DOMid1).toBeTruthy();
+      expect(DOMid1).not.toBe(DOMid0);
+
+      expect(onOptionHover).toHaveBeenCalledWith({
+        ...options[1],
+        _DOMid: DOMid1,
+      });
+    });
+  });
 });
