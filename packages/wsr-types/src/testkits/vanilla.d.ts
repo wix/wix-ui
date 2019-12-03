@@ -74,6 +74,9 @@ declare module "wix-style-react/dist/testkit" {
   export const counterBadgeTestkitFactory: VanillaTestkitFactory<__WSRTests.CounterBadgeDriver>;
   export const autoCompleteTestkitFactory: VanillaTestkitFactory<__WSRTests.AutoCompleteDriver>;
   export const dataTableTestkitFactory: VanillaTestkitFactory<__WSRTests.DataTableDriver>;
+  export const tableTestkitFactory: VanillaTestkitFactory<__WSRTests.TableDriver<
+    HTMLElement
+  >>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -116,7 +119,6 @@ declare module "wix-style-react/dist/testkit" {
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
-  export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;

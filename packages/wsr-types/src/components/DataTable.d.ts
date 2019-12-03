@@ -4,14 +4,7 @@ declare namespace __WSR {
       dataHook?: string;
       id?: string;
       data?: object[];
-      columns: Array<{
-        title: React.ReactNode;
-        render: (row: any, rowNum: number) => React.ReactNode;
-        sortable?: boolean;
-        infoTooltipProps?: any; // TODO: replace with BaseComponents.OmitPolyfill<TooltipProps, 'dataHook' | 'moveBy'>
-        sortDescending?: boolean;
-        align?: DataTableColumnAlign;
-      }>;
+      columns: DataTableColumn[];
       showHeaderWhenEmpty?: boolean;
       rowDataHook?: string | DataTableRowDataHookFn;
       rowClass?: string;
@@ -21,6 +14,7 @@ declare namespace __WSR {
       onRowClick?: (rowData: any, rowNum: number) => void;
       onMouseEnterRow?: (rowData: any, rowNum: number) => void;
       onMouseLeaveRow?: (rowData: any, rowNum: number) => void;
+      onSortClick?: (column: DataTableColumn, colNum: number) => void;
       infiniteScroll?: boolean;
       itemsPerPage?: number;
       width?: string;
@@ -85,6 +79,14 @@ declare namespace __WSR {
     ) => string;
     export type DataTableSkin = "standard" | "neutral";
     export type DataTableRowVerticalPadding = "medium" | "large";
+    export type DataTableColumn = {
+      title: React.ReactNode;
+      render: (row: any, rowNum: number) => React.ReactNode;
+      sortable?: boolean;
+      infoTooltipProps?: any; // TODO: replace with BaseComponents.OmitPolyfill<TooltipProps, 'dataHook' | 'moveBy'>
+      sortDescending?: boolean;
+      align?: DataTableColumnAlign;
+    };
   }
 }
 

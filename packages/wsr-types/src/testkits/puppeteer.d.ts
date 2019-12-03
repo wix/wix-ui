@@ -59,7 +59,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const dropdownBaseTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
   export const autoCompleteTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
   export const dataTableTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DataTableUniDriver>;
-
+  export const tableTestkitFactory: PuppeteerTestkitFactory<__WSRTests.TablePuppeteerDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -102,7 +102,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
-  export const tableTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
