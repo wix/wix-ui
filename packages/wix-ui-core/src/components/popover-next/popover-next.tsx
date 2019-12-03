@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
-import Portal from 'react-portal/lib/Portal';
 
 import { ClickOutside } from '../click-outside';
 import style from './popover-next.st.css';
@@ -173,7 +172,7 @@ export class PopoverNext extends React.Component<
     shown && onClickOutside();
   };
 
-  getPopperContentStructure(childrenObject) {
+  renderPopperContent(childrenObject) {
     const { timeout } = this.props;
 
     const shouldAnimate = shouldAnimatePopover(timeout);
@@ -189,6 +188,7 @@ export class PopoverNext extends React.Component<
 
     return (
       <Popper
+        portalNode={this.portalNode}
         shouldAnimate={shouldAnimate}
         contentHook={this.contentHook}
         onLoad={() => this.setState({ loaded: true })}
@@ -213,16 +213,6 @@ export class PopoverNext extends React.Component<
     } else {
       detachStylesFromNode(this.portalNode, this.stylesObj);
     }
-  }
-
-  renderPopperContent(childrenObject) {
-    const popper = this.getPopperContentStructure(childrenObject);
-
-    if (this.portalNode) {
-      return <Portal node={this.portalNode}>{popper}</Portal>;
-    }
-
-    return popper;
   }
 
   componentDidMount() {
