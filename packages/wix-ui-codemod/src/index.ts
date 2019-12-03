@@ -1,5 +1,4 @@
 import * as program from 'commander';
-import path from 'path';
 import { execFileSync } from 'child_process';
 
 program
@@ -13,7 +12,7 @@ if (!program.args.length) {
   program.help();
 }
 
-const transform = path.join(__dirname, `${process.argv[0]}.ts`);
+const transform = require.resolve(`./${program.args[0]}`);
 const args: string[] = [];
 
 if (program.dry) {
@@ -34,4 +33,6 @@ if (program.args[1]) {
   args.push(program.args[1]);
 }
 
-execFileSync(require.resolve('.bin/jscodeshift'), args);
+execFileSync(require.resolve('.bin/jscodeshift'), args, {
+  stdio: 'inherit',
+});
