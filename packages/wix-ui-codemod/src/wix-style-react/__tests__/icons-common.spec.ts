@@ -1,3 +1,3 @@
-const { defineTest } = require('jscodeshift/dist/testUtils');
+import { defineTest } from 'jscodeshift/src/testUtils';
 
-defineTest(__dirname, 'icons-common');
+defineTest(__dirname, 'icons-common', {});
