@@ -66,7 +66,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
   export const calendarTestkitFactory: any;
-  export const calendarPanelTestkitFactory: any;
+  export const calendarPanelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const calendarPanelFooterTestkitFactory: any;
   export const cardGalleryItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const carouselTestkitFactory: any;

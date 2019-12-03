@@ -82,7 +82,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
   export const calendarTestkitFactory: any;
-  export const calendarPanelTestkitFactory: any;
+  export const calendarPanelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const calendarPanelFooterTestkitFactory: any;
   export const cardGalleryItemTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const carouselTestkitFactory: any;
