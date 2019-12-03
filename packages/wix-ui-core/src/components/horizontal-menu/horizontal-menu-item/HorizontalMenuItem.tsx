@@ -17,6 +17,7 @@ export interface HorizontalMenuItemProps {
   href?: string;
   target?: string;
   icon?: React.ReactNode;
+  isForceOpened?: boolean;
   style?: React.CSSProperties;
   expandIcon?(props: ExpandIconProps): React.ReactNode;
 }
@@ -34,6 +35,7 @@ export class HorizontalMenuItem extends React.PureComponent<
   static defaultProps = {
     href: '#',
     target: '_self',
+    isForceOpened: false,
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
@@ -75,13 +77,14 @@ export class HorizontalMenuItem extends React.PureComponent<
   };
 
   private renderExpandIcon() {
-    const { expandIcon } = this.props;
+    const { expandIcon, isForceOpened } = this.props;
 
     if (!this.props.children || !expandIcon) {
       return null;
     }
 
-    const { isOpen } = this.state;
+    const { isOpen: isOpenState } = this.state;
+    const isOpen = isOpenState || isForceOpened;
 
     return <span className={style.expandIcon}>{expandIcon({ isOpen })}</span>;
   }
@@ -115,12 +118,15 @@ export class HorizontalMenuItem extends React.PureComponent<
       icon,
       expandIcon,
       style: propStyle,
+      isForceOpened,
       ...rest
     } = this.props;
 
-    const { isOpen } = this.state;
+    const { isOpen: isOpenState } = this.state;
 
     const { className, ...stylableProps } = style('root', {}, this.props);
+
+    const isOpen = isOpenState || isForceOpened;
 
     return (
       <HorizontalMenuContext.Consumer>
