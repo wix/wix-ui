@@ -24,7 +24,7 @@ The following transforms are available:
 npx wix-ui-codemod wix-style-react/icons-common <path>
 ```
 
-Will replace deprecated icon imports from `/new-icons` with imports from `wix-ui-icons-common` package.
+Will replace deprecated icon imports from `wix-style-react/new-icons` with imports from `wix-ui-icons-common` package.
 
 ```diff
 - import Add from 'wix-style-react/new-icons/Add';
