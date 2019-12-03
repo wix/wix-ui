@@ -8,11 +8,18 @@ program
 
 program.parse(process.argv);
 
-if (!program.args.length) {
+if (program.args.length < 2) {
   program.help();
 }
 
-const transform = require.resolve(`./${program.args[0]}`);
+let transformPath: string;
+try {
+  transformPath = require.resolve(`./${program.args[0]}`);
+} catch {
+  console.error(`Error: Transform "${program.args[0]}" not found.`);
+  process.exit(1);
+}
+
 const args: string[] = [];
 
 if (program.dry) {
@@ -26,10 +33,12 @@ if (program.print) {
 args.push('--ignore-pattern=**/node_modules/**');
 args.push('--parser', 'tsx');
 args.push('--extensions', 'tsx,ts,jsx,js');
-args.push('--transform', transform);
+args.push('--transform', transformPath);
 args.push('--verbose', '2');
-args.push(program.args[1] ?? '.');
+args.push(program.args[1]);
 
-execFileSync(require.resolve('.bin/jscodeshift'), args, {
-  stdio: 'inherit',
-});
+try {
+  execFileSync(require.resolve('.bin/jscodeshift'), args, { stdio: 'inherit' });
+} catch {
+  process.exit(1);
+}
