@@ -28,10 +28,7 @@ args.push('--parser', 'tsx');
 args.push('--extensions', 'tsx,ts,jsx,js');
 args.push('--transform', transform);
 args.push('--verbose', '2');
-
-if (program.args[1]) {
-  args.push(program.args[1]);
-}
+args.push(program.args[1] ?? '.');
 
 execFileSync(require.resolve('.bin/jscodeshift'), args, {
   stdio: 'inherit',
