@@ -80,8 +80,8 @@ declare module "wix-style-react/dist/testkit" {
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
-  export const calendarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
-  export const calendarPanelTestkitFactory: any;
+  export const calendarPanelTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelDriver>;
+  export const calendarTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
   export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const carouselTestkitFactory: any;
