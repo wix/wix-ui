@@ -84,7 +84,7 @@ export default {
   componentProps: {
     'data-hook': 'storybook-popover',
     children: children[0].value,
-    appendTo: 'window',
+    appendTo: 'parent',
     showArrow: true,
     timeout: 150,
     shown: true,

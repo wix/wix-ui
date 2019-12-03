@@ -1,3 +1,4 @@
+import * as eventually from 'wix-eventually';
 import { CommonDriver } from './Popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
@@ -16,15 +17,17 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
     click: async () => byHook('popover-element').click(),
     getTargetElement: async () => safeGetNative(byHook('popover-element')),
 
-    getPortalElement: async () =>
-      safeGetNative(body.$('[data-hook="popover-portal"]')),
+    getPortalElement: async () => {
+      await eventually(async () => await isChunkLoaded());
+      return await safeGetNative(body.$('[data-hook="popover-portal"]'));
+    },
 
     /**
      * Returns the content element (`<Popover.Content/>`)
      * @returns null if element is not found
      */
     getContentElement: async () => {
-      //while(await isChunkLoaded
+      await eventually(async () => await isChunkLoaded());
       return safeGetNative(await commonDriver.getContentElement());
     },
 

@@ -55,13 +55,13 @@ const Popper = (props: any) => {
             ? () => require('react-portal')
             : () => import('react-portal'),
       }}
-      onLoad={onLoad}
       defaultComponent={<div />}
       namedExports={{
         Popper: 'Popper',
         CSSTransition: 'CSSTransition',
         Portal: 'Portal',
       }}
+      onLoad={onLoad}
       shouldLoadComponent
     >
       {({ Popper: ReactPopper, CSSTransition, Portal }) => (

@@ -181,6 +181,11 @@ export class PopoverNext extends React.Component<
       this.popperScheduleUpdate = scheduleUpdate;
     };
 
+    const onLoad = () => {
+      /** we don't want to rerender so we set it silently */
+      this.clickOutsideRef.current.setAttribute('data-loaded', 'true');
+    };
+
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
@@ -191,7 +196,7 @@ export class PopoverNext extends React.Component<
         portalNode={this.portalNode}
         shouldAnimate={shouldAnimate}
         contentHook={this.contentHook}
-        onLoad={() => this.setState({ loaded: true })}
+        onLoad={onLoad}
         shown={shown}
         grabScheduleUpdater={grabScheduleUpdater}
         detachSyles={detachSyles}
@@ -227,6 +232,7 @@ export class PopoverNext extends React.Component<
     if (this.appendToNode) {
       this.portalNode = document.createElement('div');
       this.portalNode.setAttribute('data-hook', 'popover-portal');
+      this.portalNode.setAttribute('data-loaded', 'false');
       /**
        * reset overlay wrapping layer
        * so that styles from copied classnames
