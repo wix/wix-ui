@@ -2,16 +2,16 @@ import {
     BaseUniDriver,
     baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
+import { Simulate } from 'react-dom/test-utils';
 import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import styles from './ToggleSwitch.st.css';
-import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
 import { dataHooks } from "./constants";
 
 export interface ToggleSwitchUniDriver extends BaseUniDriver {
     // /** Checks if element exists */
     // exists(): null,
-    // /** Triggers change */
-    // click(): null,
+    /** Triggers change */
+    click(): Promise<void>,
     /** Returns a boolean indicating if the toggleSwitch is checked */
     isChecked(): Promise<boolean>,
     /** Returns a boolean indicating if the toggleSwitch is disabled */
@@ -45,17 +45,19 @@ export const toggleSwitchUniDriverFactory = (
     const input = base.$(byDataHook(dataHooks.toggleSwitchInput));
     const track = base.$(byDataHook(dataHooks.track));
 
+    const isDisabled = async () => await input._prop('disabled');
+    const isChecked = () => stylableUnidriverUtil.hasStyleState(base, 'checked');
 
     return {
         ...baseUniDriverFactory(base),
-        click: () => base.click(),
-        isChecked: () => stylableUnidriverUtil.hasStyleState(base, 'checked'),
-        isDisabled: () => stylableUnidriverUtil.hasStyleState(base, 'disabled'),
+        click: async () => !(await isDisabled()) && await input.click(),
+        isDisabled,
+        isChecked,
         //getKnobIcon: async () => console.log(await knobIcon.attr('children')) ,
         // hasKnobIcon: () => null,
         getId: async () => await input.attr('id'),
-        getTabIndex: async () => Number(await input.attr('tabindex')),
-        // getRootStyles: () => null,
+        getTabIndex: async () => parseInt(await input.attr('tabindex'), 10),
+        //getRootStyles: () => null,
         // getTrackStyles: () => null,
         // getKnobStyles: () => null,
         // getKnobIconStyles: () => null,

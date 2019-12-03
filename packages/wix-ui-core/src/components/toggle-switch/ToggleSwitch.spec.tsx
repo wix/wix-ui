@@ -16,11 +16,11 @@ describe('ToggleSwitch', () => {
         );
     });
 
-    // describe('[async]', () => {
-    //     runTests(
-    //         testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory)
-    //     );
-    // });
+    describe('[async]', () => {
+        runTests(
+            testContainer.createUniRendererAsync(toggleSwitchUniDriverFactory)
+        );
+    });
 
     function runTests(createDriver){
         describe('checked prop', () => {
@@ -48,7 +48,6 @@ describe('ToggleSwitch', () => {
                 const driver = await createDriver(
                     <ToggleSwitch checked={false} onChange={onChange} />,
                 );
-
                 await driver.click();
                 expect(onChange).toBeCalled();
             });
@@ -99,31 +98,31 @@ describe('ToggleSwitch', () => {
             });
         });
 
-        describe('icons', () => {
-            it('should not have unchecked icon by default', async () => {
-                const driver = await createDriver(<ToggleSwitch />);
-                expect(await driver.getKnobIcon().innerHTML).toBe('');
-            });
-
-            it('should not have checked icon by default', async () => {
-                const driver = await createDriver(<ToggleSwitch checked />);
-                expect(await driver.getKnobIcon().innerHTML).toBe('');
-            });
-
-            it('should show uncheckedIcon when unchecked', async () => {
-                const driver = await createDriver(
-                    <ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />,
-                );
-                expect(await driver.getKnobIcon().innerHTML).toBe('❎');
-            });
-
-            it('should show checkedIcon when checked', async () => {
-                const driver = await createDriver(
-                    <ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />,
-                );
-                expect(await driver.getKnobIcon().innerHTML).toBe('✅');
-            });
-        });
+        // describe('icons', () => {
+        //     it('should not have unchecked icon by default', async () => {
+        //         const driver = await createDriver(<ToggleSwitch />);
+        //         expect(await driver.getKnobIcon().innerHTML).toBe('');
+        //     });
+        //
+        //     it('should not have checked icon by default', async () => {
+        //         const driver = await createDriver(<ToggleSwitch checked />);
+        //         expect(await driver.getKnobIcon().innerHTML).toBe('');
+        //     });
+        //
+        //     it('should show uncheckedIcon when unchecked', async () => {
+        //         const driver = await createDriver(
+        //             <ToggleSwitch checkedIcon="✅" uncheckedIcon="❎" />,
+        //         );
+        //         expect(await driver.getKnobIcon().innerHTML).toBe('❎');
+        //     });
+        //
+        //     it('should show checkedIcon when checked', async () => {
+        //         const driver = await createDriver(
+        //             <ToggleSwitch checked checkedIcon="✅" uncheckedIcon="❎" />,
+        //         );
+        //         expect(await driver.getKnobIcon().innerHTML).toBe('✅');
+        //     });
+        // });
 
         // runTestkitExistsSuite({
         //     Element:<ToggleSwitch />,

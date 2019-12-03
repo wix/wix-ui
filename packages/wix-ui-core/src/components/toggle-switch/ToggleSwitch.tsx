@@ -90,6 +90,7 @@ export class ToggleSwitch extends React.PureComponent<
           onMouseDown={this.handleMouseDown}
           onKeyDown={this.handleKeyDown}
           aria-label={this.props['aria-label']}
+          data-hook={dataHooks.toggleSwitchInput}
         />
       </div>
     );
