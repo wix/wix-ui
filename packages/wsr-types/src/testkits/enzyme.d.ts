@@ -78,6 +78,11 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const tableTestkitFactory: EnzymeTestkitFactory<__WSRTests.TableDriver<
     ReactWrapper
   >>;
+  export const floatingHelperTestkitFactory: EnzymeTestkitFactory<__WSRTests.FloatingHelperDriver>;
+  export const dateInputTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.DateInputUniDriver>;
+  export const notificationTestkitFactory: EnzymeTestkitFactory<__WSRTests.NotificationDriver>;
+  export const calendarPanelFooterTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
+
   export const cardGalleryItemTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: EnzymeTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: EnzymeTestkitFactory<__WSRTests.SortableListDriver>;
@@ -94,18 +99,15 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const boxTestkitFactory: any;
   export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
-  export const calendarPanelTestkitFactory: any;
-  export const calendarPanelFooterTestkitFactory: any;
+  export const calendarPanelTestkitFactory: EnzymeTestkitFactory<__WSRTests.CalendarPanelDriver>;
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
@@ -114,7 +116,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
-  export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;

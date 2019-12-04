@@ -25,5 +25,9 @@ declare namespace __WSRTests {
     >;
 
     type CounterBadgeDriver = import("wix-ui-backoffice/dist/src/components/StylableCounterBadge/CounterBadge.driver").CounterBadgeDriver;
+
+    type FloatingHelperDriver = ReturnType<
+      typeof import("wix-ui-backoffice/dist/src/components/FloatingHelper/FloatingHelper.driver").floatingHelperDriverFactory
+      >;
   }
 }

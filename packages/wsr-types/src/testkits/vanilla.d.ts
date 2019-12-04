@@ -56,7 +56,8 @@ declare module "wix-style-react/dist/testkit" {
   export const imageViewerTestkitFactory: VanillaTestkitFactory<__WSRTests.ImageViewerDriver<
     HTMLElement
   >>;
-  export const floatingHelperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
+  export const floatingNotificationTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
+  export const floatingHelperTestkitFactory: VanillaTestkitFactory<__WSRTests.FloatingHelperDriver>;
   export const socialPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SocialPreviewUniDriver>;
   export const fillPreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
   export const statisticsWidgetTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
@@ -76,6 +77,9 @@ declare module "wix-style-react/dist/testkit" {
   export const tableTestkitFactory: VanillaTestkitFactory<__WSRTests.TableDriver<
     HTMLElement
   >>;
+  export const dateInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DateInputUniDriver>;
+  export const notificationTestkitFactory: VanillaTestkitFactory<__WSRTests.NotificationDriver>;
+  export const calendarPanelFooterTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;;
   export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: VanillaTestkitFactory<__WSRTests.SortableListDriver>;
@@ -93,19 +97,16 @@ declare module "wix-style-react/dist/testkit" {
   export const boxTestkitFactory: any;
   export const breadcrumbsTestkitFactory: any;
 
-  export const calendarTestkitFactory: any;
-  export const calendarPanelTestkitFactory: any;
-  export const calendarPanelFooterTestkitFactory: any;
+  export const calendarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
+  export const calendarPanelTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelDriver>;
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
-  export const floatingNotificationTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
@@ -114,7 +115,6 @@ declare module "wix-style-react/dist/testkit" {
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
-  export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
