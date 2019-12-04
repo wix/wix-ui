@@ -77,6 +77,7 @@ declare module "wix-style-react/dist/testkit" {
   export const tableTestkitFactory: VanillaTestkitFactory<__WSRTests.TableDriver<
     HTMLElement
   >>;
+  export const timeInputTestkitFactory: VanillaTestkitFactory<__WSRTests.TimeInputDriver>;
   export const dateInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DateInputUniDriver>;
   export const notificationTestkitFactory: VanillaTestkitFactory<__WSRTests.NotificationDriver>;
   export const calendarPanelFooterTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
@@ -126,6 +127,9 @@ declare module "wix-style-react/dist/testkit" {
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
+  export const swatchesTestkitFactory: any;
+  export const tableActionCellTestkitFactory: any;
+  export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;

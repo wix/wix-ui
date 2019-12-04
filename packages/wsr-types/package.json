@@ -40,7 +40,8 @@
     "@types/react-window": "^1.8.1",
     "wix-ui-backoffice": "^1.0.408",
     "wix-ui-core": "^2.0.270",
-    "wix-ui-test-utils": "^1.0.169"
+    "wix-ui-test-utils": "^1.0.169",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.3",

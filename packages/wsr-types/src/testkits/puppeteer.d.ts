@@ -61,6 +61,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const autoCompleteTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
   export const dataTableTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DataTableUniDriver>;
   export const tableTestkitFactory: PuppeteerTestkitFactory<__WSRTests.TablePuppeteerDriver>;
+  export const timeInputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.TimeInputUniDriver>;
   export const dateInputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DateInputUniDriver>;
   export const notificationTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.NotificationUniDriver>;
   export const calendarPanelFooterTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
@@ -104,6 +105,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
+  export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
