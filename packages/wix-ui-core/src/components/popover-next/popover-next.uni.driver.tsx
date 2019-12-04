@@ -18,8 +18,8 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
     getTargetElement: async () => safeGetNative(byHook('popover-element')),
 
     getPortalElement: async () => {
-      await eventually(async () => await isChunkLoaded());
-      return await safeGetNative(body.$('[data-hook="popover-portal"]'));
+      await eventually(async () => isChunkLoaded());
+      return safeGetNative(body.$('[data-hook="popover-portal"]'));
     },
 
     /**
@@ -27,7 +27,7 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
      * @returns null if element is not found
      */
     getContentElement: async () => {
-      await eventually(async () => await isChunkLoaded());
+      await eventually(async () => isChunkLoaded());
       return safeGetNative(await commonDriver.getContentElement());
     },
 
