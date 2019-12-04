@@ -17,6 +17,8 @@ declare namespace __WSR {
       | DropdownPropsUncontrolled;
 
     export class Dropdown extends InputWithOptions.InputWithOptions<
+      InputWithOptions.ManualInputFnSignature,
+      InputWithOptions.OnSelectFnSignature,
       DropdownProps
     > {}
   }

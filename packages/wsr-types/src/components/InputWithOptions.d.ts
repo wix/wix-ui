@@ -1,10 +1,13 @@
 declare namespace __WSR {
   namespace InputWithOptions {
-    export interface InputWithOptionsProps
+    export interface InputWithOptionsProps<
+      ManualInputFn = ManualInputFnSignature,
+      OnSelectFn = OnSelectFnSignature
+    >
       extends BaseComponents.OmitPolyfill<Input.InputProps, "theme">,
         BaseComponents.OmitPolyfill<
           DropdownLayout.DropdownLayoutProps,
-          "theme"
+          "theme" | "onSelect"
         > {
       // TODO: there is a bug in WSR - theme exists in InputProps and DropdownLayoutProps
       // and it has different set of values
@@ -13,10 +16,7 @@ declare namespace __WSR {
       autocomplete?: string;
       inputElement?: React.ReactElement;
       closeOnSelect?: boolean;
-      onManuallyInput?: (
-        inputValue: string,
-        suggestedOption: DropdownLayout.DropdownLayoutValueOption
-      ) => void;
+      onManuallyInput?: ManualInputFn;
       valueParser?: (
         option: DropdownLayout.DropdownLayoutValueOption
       ) => DropdownLayout.DropdownLayoutValueOption["value"];
@@ -26,15 +26,28 @@ declare namespace __WSR {
       highlight?: boolean;
       native?: boolean;
       popoverProps?: object; // TODO update when PopoverProps are implemented
+      onSelect?: OnSelectFn;
     }
 
     export class InputWithOptions<
-      T extends InputWithOptionsProps = InputWithOptionsProps
+      ManualInputFn = ManualInputFnSignature,
+      OnSelectFn = OnSelectFnSignature,
+      T extends InputWithOptionsProps<
+        ManualInputFn,
+        OnSelectFn
+      > = InputWithOptionsProps<ManualInputFn, OnSelectFn>
     > extends React.Component<T> {
       focus: (options?: FocusOptions) => void;
       blur: () => void;
       select: () => void;
     }
+
+    export type ManualInputFnSignature = (
+      inputValue: string,
+      suggestedOption: DropdownLayout.DropdownLayoutValueOption
+    ) => void;
+
+    export type OnSelectFnSignature = DropdownLayout.DropdownLayoutProps["onSelect"];
   }
 }
 

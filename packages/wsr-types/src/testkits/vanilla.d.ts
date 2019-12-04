@@ -80,6 +80,11 @@ declare module "wix-style-react/dist/testkit" {
   export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: VanillaTestkitFactory<__WSRTests.SortableListDriver>;
   export const nestableListTestkitFactory: VanillaTestkitFactory<__WSRTests.NestableListDriver>;
+  export const multiSelectTestkitFactory: VanillaTestkitFactory<__WSRTests.MultiSelectDriver>;
+  export const multiSelectCheckboxTestkitFactory: VanillaTestkitFactory<__WSRTests.MultiSelectCheckboxDriver>;
+  export const tableActionCellTestkitFactory: VanillaTestkitFactory<__WSRTests.TableActionCellDriver<
+    HTMLElement
+  >>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -107,8 +112,6 @@ declare module "wix-style-react/dist/testkit" {
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
-  export const multiSelectTestkitFactory: any;
-  export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
@@ -122,7 +125,6 @@ declare module "wix-style-react/dist/testkit" {
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
-  export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;

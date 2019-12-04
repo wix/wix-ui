@@ -51,6 +51,9 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const fillPreviewTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.FillPreviewUniDriver>;
   export const statisticsWidgetTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StatisticsWidgetUniDriver>;
   export const thumbnailTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
+  export const multiSelectTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectUniDriver>;
+  export const multiSelectCheckboxTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectCheckboxUniDriver>;
+
   export const inputWithOptionsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithOptionsUniDriver>;
   export const searchTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SearchUniDriver>;
   export const dropdownTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DropdownUniDriver>;
@@ -86,8 +89,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
-  export const multiSelectTestkitFactory: any;
-  export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
@@ -101,7 +102,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
-  export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;

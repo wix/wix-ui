@@ -82,6 +82,11 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sliderTestkitFactory: EnzymeTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: EnzymeTestkitFactory<__WSRTests.SortableListDriver>;
   export const nestableListTestkitFactory: EnzymeTestkitFactory<__WSRTests.NestableListDriver>;
+  export const multiSelectTestkitFactory: EnzymeTestkitFactory<__WSRTests.MultiSelectDriver>;
+  export const multiSelectCheckboxTestkitFactory: EnzymeTestkitFactory<__WSRTests.MultiSelectCheckboxDriver>;
+  export const tableActionCellTestkitFactory: EnzymeTestkitFactory<__WSRTests.TableActionCellDriver<
+    ReactWrapper
+  >>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -107,8 +112,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
-  export const multiSelectTestkitFactory: any;
-  export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
@@ -122,7 +125,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
-  export const tableActionCellTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;

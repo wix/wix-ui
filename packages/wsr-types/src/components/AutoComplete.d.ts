@@ -6,6 +6,8 @@ declare namespace __WSR {
     }
 
     export class AutoComplete extends InputWithOptions.InputWithOptions<
+      InputWithOptions.ManualInputFnSignature,
+      InputWithOptions.OnSelectFnSignature,
       AutoCompleteProps
     > {}
   }
