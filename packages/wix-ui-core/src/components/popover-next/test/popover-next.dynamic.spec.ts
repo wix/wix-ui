@@ -28,6 +28,9 @@ describe('PopoverNext - Dynamic Loading', () => {
   });
 
   beforeAll(async () => {
+    /**
+     * running production based storybook server that has dynamic loading working
+     * */
     server = await startServer(port);
   });
 
@@ -37,6 +40,9 @@ describe('PopoverNext - Dynamic Loading', () => {
 
     await page.setRequestInterception(true);
 
+    /**
+     * we manually timeout chunk onload so simulate network threshold
+     */
     page.on('request', request => {
       const chunk = request.url().replace(`http://localhost:${port}/`, '');
       if (chunk.match(/^[0-9]{1,4}\./)) {
@@ -56,6 +62,9 @@ describe('PopoverNext - Dynamic Loading', () => {
     server.close();
   });
 
+  /**
+   * This test is running against Popvoer that has shown={true} by default
+   */
   it('should simulate dynamically loaded assets without chunk await', async () => {
     // Navigate
     await page.goto(`http://localhost:${port}/${storyUrl}`);
@@ -75,6 +84,9 @@ describe('PopoverNext - Dynamic Loading', () => {
     });
   });
 
+  /**
+   * This test is running against Popvoer that has shown={true} by default
+   */
   it('should simulate dynamically loaded assets with testkit chunk await', async () => {
     // Navigate
     await page.goto(`http://localhost:${port}/${storyUrl}`);
