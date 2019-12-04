@@ -8,6 +8,7 @@ A render slot for horizontal menu item
 | `label`           | `string`                   |              | `true`     | label for link |
 | `href`            | `string`                   | `#`          |            | `href` attribute for link |
 | `target`          | `string`                   | `_self`      |            | `target` attribute for link |
+| `isForceOpened`   | `boolean`                  | `false`      |            | Force open submenu of menu item |
 | `icon`            | `React.ReactNode`          |              |            | Icon before title |
 | `expandIcon`      | `({ isOpen: boolean }) => React.ReactNode` |      |            | Expand icon after label |
 | `style`           | `React.CSSProperties`      |              |            | |

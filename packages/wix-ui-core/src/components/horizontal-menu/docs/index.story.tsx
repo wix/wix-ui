@@ -55,7 +55,18 @@ const exampleListChildren = (
   <HorizontalMenu.Item label="[column] Single Column Layout">
     <HorizontalMenu.Layout.Columns>
       <HorizontalMenu.Item label="Example Item 1" />
-      <HorizontalMenu.Item label="Example Item 2" />
+      <HorizontalMenu.Item label="Example Item 2">
+        <HorizontalMenu.Layout.Columns>
+          <HorizontalMenu.Item label="Example Item 1" />
+          <HorizontalMenu.Item label="Example Item 2" />
+          <HorizontalMenu.Item label="Example Item 3" />
+          <HorizontalMenu.Item label="Example Item 4" />
+          <HorizontalMenu.Item label="Example Item 5" />
+          <HorizontalMenu.Item label="Example Item 6" />
+          <HorizontalMenu.Item label="Example Item 7" />
+          <HorizontalMenu.Item label="Example Item 8" />
+        </HorizontalMenu.Layout.Columns>
+      </HorizontalMenu.Item>
       <HorizontalMenu.Item label="Example Item 3" />
       <HorizontalMenu.Item label="Example Item 4" />
       <HorizontalMenu.Item label="Example Item 5" />
@@ -107,7 +118,18 @@ const generateStringMenu = () => `
     <HorizontalMenu.Item label="[column] Single Column Layout">
       <HorizontalMenu.Layout.Columns>
         <HorizontalMenu.Item label="Example Item 1" />
-        <HorizontalMenu.Item label="Example Item 2" />
+        <HorizontalMenu.Item label="Example Item 2">
+          <HorizontalMenu.Layout.Columns>
+            <HorizontalMenu.Item label="Example Item 1" />
+            <HorizontalMenu.Item label="Example Item 2" />
+            <HorizontalMenu.Item label="Example Item 3" />
+            <HorizontalMenu.Item label="Example Item 4" />
+            <HorizontalMenu.Item label="Example Item 5" />
+            <HorizontalMenu.Item label="Example Item 6" />
+            <HorizontalMenu.Item label="Example Item 7" />
+            <HorizontalMenu.Item label="Example Item 8" />
+          </HorizontalMenu.Layout.Columns>
+        </HorizontalMenu.Item>
         <HorizontalMenu.Item label="Example Item 3" />
         <HorizontalMenu.Item label="Example Item 4" />
         <HorizontalMenu.Item label="Example Item 5" />
