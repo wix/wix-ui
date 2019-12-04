@@ -143,6 +143,22 @@ function runTests(createDriver, container) {
         await driver.clickOutside();
         expect(onClickOutside).toBeCalled();
       });
+
+      it('should not trigger onClickOutside when clicking inside with an excluded class', async () => {
+        const onClickOutside = jest.fn();
+
+        const driver = await createDriver(
+          popoverWithProps({
+            placement: 'bottom',
+            shown: false,
+            onClickOutside,
+            excludeClass: 'excludeClass',
+          }),
+        );
+
+        await driver.click();
+        expect(onClickOutside).not.toBeCalled();
+      });
     });
 
     describe('onClickOutside + disableClickOutsideWhenClosed', () => {
