@@ -1,5 +1,3 @@
-import {VanillaTestkitFactory} from "wix-style-react/dist/testkit";
-
 declare module "wix-style-react/dist/testkit" {
   type VanillaTestkitFactory<T extends __WSRTests.BaseDriver> = (
     params: VanillaTeskitParams
