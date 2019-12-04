@@ -45,7 +45,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const stepperTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
   export const accordionTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AccordionUniDriver>;
-  export const breadcrumbsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.BreadcrumbsUniDriver>;
   export const imageViewerTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ImageViewerUniDriver>;
   export const floatingNotificationTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.FloatingNotificationUniDriver>;
   export const socialPreviewTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SocialPreviewUniDriver>;
@@ -65,6 +64,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
+  export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;

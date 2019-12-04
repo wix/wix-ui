@@ -1,3 +1,5 @@
+import {VanillaTestkitFactory} from "wix-style-react/dist/testkit";
+
 declare module "wix-style-react/dist/testkit" {
   type VanillaTestkitFactory<T extends __WSRTests.BaseDriver> = (
     params: VanillaTeskitParams
@@ -53,7 +55,6 @@ declare module "wix-style-react/dist/testkit" {
   export const stepperTestkitFactory: VanillaUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
   export const accordionTestkitFactory: VanillaUniTestkitFactory<__WSRTests.AccordionUniDriver>;
-  export const breadcrumbsTestkitFactory: VanillaTestkitFactory<__WSRTests.BreadcrumbsDriver>;
   export const imageViewerTestkitFactory: VanillaTestkitFactory<__WSRTests.ImageViewerDriver<
     HTMLElement
   >>;
@@ -83,6 +84,8 @@ declare module "wix-style-react/dist/testkit" {
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
+  export const breadcrumbsTestkitFactory: any;
+
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
