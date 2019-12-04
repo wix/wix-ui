@@ -27,8 +27,11 @@ describe('PopoverNext - Dynamic Loading', () => {
     withExamples: false,
   });
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     server = await startServer(port);
+  });
+
+  beforeEach(async () => {
     browser = await puppeteer.launch();
     page = await browser.newPage();
 
@@ -37,7 +40,7 @@ describe('PopoverNext - Dynamic Loading', () => {
     page.on('request', request => {
       const chunk = request.url().replace(`http://localhost:${port}/`, '');
       if (chunk.match(/^[0-9]{1,4}\./)) {
-        setTimeout(() => request.continue(), 3000);
+        setTimeout(() => request.continue(), 2000);
       } else {
         return request.continue();
       }
@@ -45,9 +48,12 @@ describe('PopoverNext - Dynamic Loading', () => {
   });
 
   afterEach(async () => {
-    server.close();
     await page.close();
     await browser.close();
+  });
+
+  afterAll(async () => {
+    server.close();
   });
 
   it('should simulate dynamically loaded assets without chunk await', async () => {
