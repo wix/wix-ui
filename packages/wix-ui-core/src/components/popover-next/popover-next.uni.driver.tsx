@@ -10,8 +10,13 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
   const reactBase = ReactBase(base);
   const commonDriver = CommonDriver(base, body);
 
-  const isChunkLoaded = async () => (await base.attr('data-loaded')) === `true`;
+  const isChunkLoaded = async () => {
+    if ((await base.attr('data-loaded')) === `true`) {
+      return true;
+    }
 
+    throw new Error('error');
+  };
   return {
     ...baseUniDriverFactory(base),
     click: async () => byHook('popover-element').click(),
@@ -35,8 +40,10 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
     isTargetElementExists: async () => byHook('popover-element').exists(),
 
     /** Returns `true` whether the content element (`<Popover.Content/>`) exists */
-    isContentElementExists: async () =>
-      (await commonDriver.getContentElement()).exists(),
+    isContentElementExists: async () => {
+      await eventually(async () => isChunkLoaded());
+      return (await commonDriver.getContentElement()).exists();
+    },
 
     mouseEnter: () => base.hover(),
 

@@ -1,9 +1,15 @@
 import * as puppeteer from 'puppeteer';
 import * as eventually from 'wix-eventually';
-import { popoverNextTestkitFactory } from '../../../testkit/puppeteer';
+import { popoverNextPrivateDriverFactoryUni } from './popover-next.private.uni.driver';
 import { createStoryUrl } from 'wix-ui-test-utils/protractor';
 import { Category } from '../../../../stories/utils';
 import { Server } from 'http';
+
+import { puppeteerUniTestkitFactoryCreator } from 'wix-ui-test-utils/puppeteer';
+
+const popoverNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
+  popoverNextPrivateDriverFactoryUni,
+);
 
 import { startServer } from './utils/server';
 
@@ -15,6 +21,12 @@ describe('PopoverNext - Dynamic Loading', () => {
   let browser: puppeteer.Browser;
   let page: puppeteer.Page;
 
+  const storyUrl = createStoryUrl({
+    kind: Category.COMPONENTS,
+    story: 'PopoverNext',
+    withExamples: false,
+  });
+
   beforeEach(async () => {
     server = await startServer(port);
     browser = await puppeteer.launch();
@@ -25,7 +37,7 @@ describe('PopoverNext - Dynamic Loading', () => {
     page.on('request', request => {
       const chunk = request.url().replace(`http://localhost:${port}/`, '');
       if (chunk.match(/^[0-9]{1,4}\./)) {
-        setTimeout(() => request.continue(), 5000);
+        setTimeout(() => request.continue(), 3000);
       } else {
         return request.continue();
       }
@@ -38,17 +50,9 @@ describe('PopoverNext - Dynamic Loading', () => {
     await browser.close();
   });
 
-  it('should simulate dynamically loaded assets', async () => {
-    const storyUrl = createStoryUrl({
-      kind: Category.COMPONENTS,
-      story: 'PopoverNext',
-      withExamples: false,
-    });
-
+  it('should simulate dynamically loaded assets without chunk await', async () => {
     // Navigate
-    await page.goto(`http://localhost:${port}/${storyUrl}`, {
-      waitUntil: 'networkidle2',
-    });
+    await page.goto(`http://localhost:${port}/${storyUrl}`);
 
     const testkit = await popoverNextTestkitFactory({
       dataHook: 'storybook-popover',
@@ -56,10 +60,25 @@ describe('PopoverNext - Dynamic Loading', () => {
     });
 
     expect(await testkit.isTargetElementExists()).toBe(true);
-    expect(await testkit.isContentElementExists()).toBe(false);
+    expect(await testkit.isContentElementExistsWithoutChunkAwait()).toBe(false);
 
     await eventually(async () => {
-      expect(await testkit.isContentElementExists()).toBe(true);
+      expect(await testkit.isContentElementExistsWithoutChunkAwait()).toBe(
+        true,
+      );
     });
+  });
+
+  it('should simulate dynamically loaded assets with testkit chunk await', async () => {
+    // Navigate
+    await page.goto(`http://localhost:${port}/${storyUrl}`);
+
+    const testkit = await popoverNextTestkitFactory({
+      dataHook: 'storybook-popover',
+      page,
+    });
+
+    expect(await testkit.isTargetElementExists()).toBe(true);
+    expect(await testkit.isContentElementExists()).toBe(true);
   });
 });

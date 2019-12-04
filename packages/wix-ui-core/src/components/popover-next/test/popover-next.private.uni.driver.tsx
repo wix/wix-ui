@@ -1,9 +1,11 @@
 import { popoverNextDriverFactory as publicDriverFactory } from '../popover-next.uni.driver';
+import { CommonDriver } from '../Popover.common.uni.driver';
 
 export const popoverNextPrivateDriverFactoryUni = (base, body) => {
+  const commonDriver = CommonDriver(base, body);
   return {
     ...publicDriverFactory(base, body),
-
-    // Add here driver methods that considered "private"
+    isContentElementExistsWithoutChunkAwait: async () =>
+      (await commonDriver.getContentElement()).exists(),
   };
 };
