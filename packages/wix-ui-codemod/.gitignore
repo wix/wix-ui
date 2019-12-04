@@ -4,6 +4,7 @@ node_modules
 target
 maven
 package-lock.json
+yarn.lock
 coverage
 typings
 .history

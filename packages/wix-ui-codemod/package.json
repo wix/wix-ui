@@ -45,6 +45,5 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/"
     ]
-  },
-  "yoshi": {}
+  }
 }
