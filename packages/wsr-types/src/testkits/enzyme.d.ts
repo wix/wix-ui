@@ -55,7 +55,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const stepperTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
   export const accordionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.AccordionUniDriver>;
-  export const breadcrumbsTestkitFactory: EnzymeTestkitFactory<__WSRTests.BreadcrumbsDriver>;
   export const imageViewerTestkitFactory: EnzymeTestkitFactory<__WSRTests.ImageViewerDriver<
     ReactWrapper
   >>;
@@ -84,6 +83,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const badgeTestkitFactory: any;
   export const badgeSelectTestkitFactory: any;
   export const boxTestkitFactory: any;
+  export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
