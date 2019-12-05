@@ -41,21 +41,21 @@ export const toggleSwitchUniDriverFactory = (
     const checkbox = base.$(byDataHook(dataHooks.toggleSwitchInput));
     const track = base.$(byDataHook(dataHooks.track));
 
-    const isDisabled = async () => await checkbox._prop('disabled');
-    const getKnobIcon = async() => await knobIcon.getNative();
+    const isDisabled = () => checkbox._prop('disabled');
+    const getKnobIcon = () => knobIcon.getNative();
 
     return {
         ...baseUniDriverFactory(base),
         click: async () => !(await isDisabled()) && await checkbox.click(),
         isDisabled,
-        isChecked: async () => await checkbox._prop('checked'),
+        isChecked: () => checkbox._prop('checked'),
         getKnobIcon,
         hasKnobIcon: async () => !!(await getKnobIcon()).innerHTML,
-        getId: async () => await checkbox._prop('id'),
-        getTabIndex: async () => await checkbox._prop('tabIndex'),
-        getRootStyles: async () => await base._prop('style'),
-        getTrackStyles: async () => track._prop('style'),
-        getKnobStyles: async () =>  knob._prop('style'),
-        getKnobIconStyles: async () => knobIcon._prop('style'),
+        getId: () => checkbox._prop('id'),
+        getTabIndex: () => checkbox._prop('tabIndex'),
+        getRootStyles: () => base._prop('style'),
+        getTrackStyles: () => track._prop('style'),
+        getKnobStyles: () =>  knob._prop('style'),
+        getKnobIconStyles: () => knobIcon._prop('style'),
     };
 };

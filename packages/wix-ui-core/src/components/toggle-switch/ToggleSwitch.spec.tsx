@@ -10,11 +10,11 @@ import { toggleSwitchUniDriverFactory } from './ToggleSwitch.uni.driver';
 describe('ToggleSwitch', () => {
     const testContainer = new ReactDOMTestContainer().unmountAfterEachTest();
 
-    // describe('[sync]', () => {
-    //     runTests(
-    //         testContainer.createLegacyRenderer(toggleSwitchDriverFactory)
-    //     );
-    // });
+    describe('[sync]', () => {
+        runTests(
+            testContainer.createLegacyRenderer(toggleSwitchDriverFactory)
+        );
+    });
 
     describe('[async]', () => {
         runTests(
