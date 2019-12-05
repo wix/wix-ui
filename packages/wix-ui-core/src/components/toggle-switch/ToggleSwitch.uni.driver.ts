@@ -2,8 +2,7 @@ import {
     BaseUniDriver,
     baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import styles from './ToggleSwitch.st.css';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { dataHooks } from "./constants";
 
 export interface ToggleSwitchUniDriver extends BaseUniDriver {
@@ -13,7 +12,7 @@ export interface ToggleSwitchUniDriver extends BaseUniDriver {
     isChecked(): Promise<boolean>,
     /** Returns a boolean indicating if the toggleSwitch is disabled */
     isDisabled(): Promise<boolean>,
-    // /** Returns the toggle icon inside the knob */
+    /** Returns the toggle icon inside the knob */
     getKnobIcon(): Promise<object>,
     /** Returns whether the toggle has an icon */
     hasKnobIcon(): Promise<boolean>,
