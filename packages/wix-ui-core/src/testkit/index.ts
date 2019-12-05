@@ -123,6 +123,15 @@ export const popoverTestkitFactory = testkitFactoryCreator(
 );
 
 import {
+  ToggleSwitchUniDriver,
+  toggleSwitchUniDriverFactory,
+} from '../components/toggle-switch/ToggleSwitch.uni.driver';
+export const toggleSwitchUniTestkitFactory = uniTestkitFactoryCreator<
+    ToggleSwitchUniDriver
+    >(toggleSwitchUniDriverFactory);
+export { ToggleSwitchUniDriver };
+
+import {
   LinearProgressBarUniDriver,
   linearProgressBarUniDriverFactory,
 } from '../components/linear-progress-bar/LinearProgressBar.uni.driver';
