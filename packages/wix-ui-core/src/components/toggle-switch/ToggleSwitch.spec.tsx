@@ -129,7 +129,7 @@ describe('ToggleSwitch', () => {
         });
 
         describe('styles', () => {
-            it('should pass inline styles prop to root div', async () => {
+            it('should pass inline styles to root element', async () => {
                 const styles = {
                     root: { color: 'green'},
                 };
@@ -137,7 +137,7 @@ describe('ToggleSwitch', () => {
                 expect((await driver.getRootStyles()).color).toBe('green');
             });
 
-            it('should pass inline styles prop to track div', async () => {
+            it('should pass inline styles to track element', async () => {
                 const styles = {
                     track: { color: 'blue'},
                 };
@@ -145,7 +145,7 @@ describe('ToggleSwitch', () => {
                 expect((await driver.getTrackStyles()).color).toBe('blue');
             });
 
-            it('should pass inline styles prop to knob div', async () => {
+            it('should pass inline styles to knob element', async () => {
                 const styles = {
                     knob: { color: 'red'},
                 };
@@ -153,7 +153,7 @@ describe('ToggleSwitch', () => {
                 expect((await driver.getKnobStyles()).color).toBe('red');
             });
 
-            it('should pass inline styles prop to knobIcon div', async () => {
+            it('should pass inline styles to knobIcon element', async () => {
                 const styles = {
                     knobIcon: { color: 'orange'},
                 };
