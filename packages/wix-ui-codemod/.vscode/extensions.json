@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "gabrielgrinberg.auto-run-command",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig"
+  ]
+}
