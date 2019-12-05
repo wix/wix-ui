@@ -10,11 +10,17 @@ import * as eventually from 'wix-eventually';
 import styles from './Popover.st.css';
 import { AppendTo } from './Popover';
 
+import { PopoverNext } from '../popover-next/popover-next';
+
+/** PopoverNext testkits  */
+import { popoverNextPrivateDriverFactory } from '../popover-next/test/popover-next.private.driver';
+import { popoverNextPrivateDriverFactoryUni } from '../popover-next/test/popover-next.private.uni.driver';
+
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
+const renderPopover = (props: PopoverProps, content: string = 'Content') => (
   <Popover {...props}>
     <Popover.Element>
       <div>Element</div>
@@ -25,6 +31,20 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
   </Popover>
 );
 
+const renderPopoverNext = (
+  props: PopoverProps,
+  content: string = 'Content',
+) => (
+  <PopoverNext {...props}>
+    <PopoverNext.Element>
+      <div>Element</div>
+    </PopoverNext.Element>
+    <PopoverNext.Content>
+      <div>{content}</div>
+    </PopoverNext.Content>
+  </PopoverNext>
+);
+
 describe('Popover', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
@@ -33,7 +53,7 @@ describe('Popover', () => {
       popoverPrivateDriverFactory,
     );
 
-    runTests(createDriver, container);
+    runTests(createDriver, container, renderPopover, Popover);
   });
 
   describe('[async]', () => {
@@ -49,11 +69,39 @@ describe('Popover', () => {
       };
     });
 
-    runTests(createDriver, container);
+    runTests(createDriver, container, renderPopover, Popover);
   });
 });
 
-function runTests(createDriver, container) {
+describe('PopoverNext', () => {
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+
+  describe('[sync]', () => {
+    const createDriver = container.createLegacyRenderer(
+      popoverNextPrivateDriverFactory,
+    );
+
+    runTests(createDriver, container, renderPopoverNext, PopoverNext);
+  });
+
+  describe('[async]', () => {
+    const createDriver = container.createUniRendererAsync((base, body) => {
+      const privateDriver = popoverNextPrivateDriverFactory({
+        element: container.componentNode,
+        eventTrigger: Simulate,
+      });
+
+      return {
+        ...privateDriver,
+        ...popoverNextPrivateDriverFactoryUni(base, body),
+      };
+    });
+
+    runTests(createDriver, container, renderPopoverNext, PopoverNext);
+  });
+});
+
+function runTests(createDriver, container, popoverWithProps, Component) {
   it('should render', async () => {
     const driver = await createDriver(
       popoverWithProps({
@@ -224,7 +272,7 @@ function runTests(createDriver, container) {
     let updatePositionSpy;
 
     beforeEach(() => {
-      updatePositionSpy = jest.spyOn(Popover.prototype, 'updatePosition');
+      updatePositionSpy = jest.spyOn(Component.prototype, 'updatePosition');
     });
 
     afterEach(() => {
@@ -699,10 +747,10 @@ function runTests(createDriver, container) {
   describe('React <16 compatibility', () => {
     it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = await createDriver(
-        <Popover shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component shown placement="bottom">
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
 
       expect((await driver.getTargetElement()).childNodes[0].nodeName).toEqual(
@@ -861,10 +909,15 @@ function runTests(createDriver, container) {
   describe('data-hook', () => {
     it('should be found on target element container', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-hook')).toBe('random');
@@ -872,10 +925,15 @@ function runTests(createDriver, container) {
 
     it('should construct data-content-hook', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-content-hook')).toMatch(
@@ -885,10 +943,15 @@ function runTests(createDriver, container) {
 
     it('should apply data-content-element on content element', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const content = await driver.getContentElement();
       expect(content.getAttribute('data-content-element')).toMatch(
@@ -897,10 +960,15 @@ function runTests(createDriver, container) {
     });
     it('should not override portal component data-hook', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const content = await driver.getContentElement();
       expect(content.parentNode.getAttribute('data-hook')).toBe(

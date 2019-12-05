@@ -7,7 +7,8 @@ import { getModifiers } from '../utils/getModifiers';
 
 import CSSTransitionWrapper from './CSSTransitionWrapper';
 import PortalWrapper from './PortalWrapper';
-import styles from '../popover-next.st.css';
+import styles from '../../popover/Popover.st.css';
+
 import Arrow from './Arrow';
 
 class LoadablePopper extends Loadable<{
