@@ -24,13 +24,13 @@ export interface ToggleSwitchUniDriver extends BaseUniDriver {
     /** Returns the tab index */
     getTabIndex(): Promise<number>,
     /** Returns the computed styles object of the root component */
-    //getRootStyles(): Promise<any>,
-    // /** Returns the computed styles object of the track */
-    // getTrackStyles(): Promise<object>,
-    // /** Returns the computed styles object of the knob */
-    // getKnobStyles(): Promise<object>,
-    // /** Returns the computed styles object of the knob icon */
-    // getKnobIconStyles(): Promise<object>,
+    getRootStyles(): Promise<object>,
+    /** Returns the computed styles object of the track */
+    getTrackStyles(): Promise<object>,
+    /** Returns the computed styles object of the knob */
+    getKnobStyles(): Promise<object>,
+    /** Returns the computed styles object of the knob icon */
+    getKnobIconStyles(): Promise<object>,
 }
 
 export const toggleSwitchUniDriverFactory = (
@@ -48,22 +48,18 @@ export const toggleSwitchUniDriverFactory = (
     const isChecked = () => stylableUnidriverUtil.hasStyleState(base, 'checked');
     const getKnobIcon = async() => await knobIcon.getNative();
 
-    // const getStyle = async (element, rule) =>
-    //     (await element.attr('style')).match(new RegExp(`${rule}: (.*?);`))[1];
-
-
     return {
         ...baseUniDriverFactory(base),
         click: async () => !(await isDisabled()) && await input.click(),
         isDisabled,
         isChecked,
         getKnobIcon,
-        hasKnobIcon: () => !!(getKnobIcon()),
+        hasKnobIcon: async () => !!(await getKnobIcon()),
         getId: async () => await input.attr('id'),
         getTabIndex: async () => parseInt(await input.attr('tabindex'), 10),
-        //getRootStyles: async () => await base.attr('style'),
-        // getTrackStyles: () => track.attr('style'),
-        // getKnobStyles: () =>  knob.attr('style'),
-        // getKnobIconStyles: () => knobIcon.attr('style'),
+        getRootStyles: async () => await base._prop('style'),
+        getTrackStyles: async () => track._prop('style'),
+        getKnobStyles: async () =>  knob._prop('style'),
+        getKnobIconStyles: async () => knobIcon._prop('style'),
     };
 };

@@ -69,7 +69,6 @@ export class ToggleSwitch extends React.PureComponent<
           this.props,
         )}
         style={inlineStyles.root}
-        data-hook={dataHooks.toggleSwitch}
       >
         <div data-hook={dataHooks.track} className={style.track} style={inlineStyles.track} />
         <div data-hook={dataHooks.knob} className={style.knob} style={inlineStyles.knob}>

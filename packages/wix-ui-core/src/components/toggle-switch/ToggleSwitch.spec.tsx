@@ -125,11 +125,48 @@ describe('ToggleSwitch', () => {
             });
         });
 
+        describe('styles', () => {
+            it('should pass inline styles prop to root div', async () => {
+                const styles = {
+                    root: { color: 'green'},
+                };
+                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
 
-        // runTestkitExistsSuite({
-        //     Element:<ToggleSwitch />,
-        //     testkitFactory: toggleSwitchTestkitFactory,
-        //     enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
-        // });
+                expect((await driver.getRootStyles()).color).toBe('green');
+            });
+
+            it('should pass inline styles prop to track div', async () => {
+                const styles = {
+                    track: { color: 'blue'},
+                };
+                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
+
+                expect((await driver.getTrackStyles()).color).toBe('blue');
+            });
+
+            it('should pass inline styles prop to knob div', async () => {
+                const styles = {
+                    knob: { color: 'red'},
+                };
+                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
+
+                expect((await driver.getKnobStyles()).color).toBe('red');
+            });
+
+            it('should pass inline styles prop to knobIcon div', async () => {
+                const styles = {
+                    knobIcon: { color: 'orange'},
+                };
+                const driver = await createDriver(<ToggleSwitch styles={styles} /> );
+
+                expect((await driver.getKnobIconStyles()).color).toBe('orange');
+            });
+        });
+
+        runTestkitExistsSuite({
+            Element:<ToggleSwitch />,
+            testkitFactory: toggleSwitchTestkitFactory,
+            enzymeTestkitFactory: enzymeToggleSwitchTestkitFactory,
+        });
     }
 });
