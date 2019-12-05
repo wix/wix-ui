@@ -54,7 +54,7 @@ export const toggleSwitchUniDriverFactory = (
         isDisabled,
         isChecked,
         getKnobIcon,
-        hasKnobIcon: async () => !!(await getKnobIcon()),
+        hasKnobIcon: async () => !!(await getKnobIcon()).innerHTML,
         getId: async () => await input.attr('id'),
         getTabIndex: async () => parseInt(await input.attr('tabindex'), 10),
         getRootStyles: async () => await base._prop('style'),
