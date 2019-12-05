@@ -355,7 +355,7 @@ export class PopoverNext extends React.Component<
       id,
       timeout,
     } = this.props;
-    const { isMounted, shown, loaded } = this.state;
+    const { isMounted, shown } = this.state;
 
     const childrenObject = buildChildrenObject(children, {
       Element: null,
@@ -375,7 +375,6 @@ export class PopoverNext extends React.Component<
           <div
             ref={this.clickOutsideRef}
             style={inlineStyles}
-            data-loaded={loaded}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
             {...style('root', {}, this.props)}

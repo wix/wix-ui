@@ -11,19 +11,28 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
   const commonDriver = CommonDriver(base, body);
 
   const isChunkLoaded = async () => {
-    if ((await base.attr('data-loaded')) === `true`) {
-      return true;
+    let response = false;
+    const options = { timeout: 3000, interval: 200 };
+    try {
+      await eventually(async () => {
+        if ((await base.attr('data-loaded')) === `true`) {
+          response = true;
+          return true;
+        }
+        throw new Error('err');
+      }, options);
+      return response;
+    } catch {
+      return response;
     }
-
-    throw new Error('error');
   };
+
   return {
     ...baseUniDriverFactory(base),
     click: async () => byHook('popover-element').click(),
     getTargetElement: async () => safeGetNative(byHook('popover-element')),
 
     getPortalElement: async () => {
-      await eventually(async () => isChunkLoaded());
       return safeGetNative(body.$('[data-hook="popover-portal"]'));
     },
 
@@ -32,18 +41,18 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
      * @returns null if element is not found
      */
     getContentElement: async () => {
-      await eventually(async () => isChunkLoaded());
-      return safeGetNative(await commonDriver.getContentElement());
+      return (await isChunkLoaded())
+        ? safeGetNative(await commonDriver.getContentElement())
+        : null;
     },
 
     /** Returns `true` whether the target element (`<Popover.Element/>`) exists */
     isTargetElementExists: async () => byHook('popover-element').exists(),
 
     /** Returns `true` whether the content element (`<Popover.Content/>`) exists */
-    isContentElementExists: async () => {
-      await eventually(async () => isChunkLoaded());
-      return (await commonDriver.getContentElement()).exists();
-    },
+    isContentElementExists: async () =>
+      (await isChunkLoaded()) &&
+      (await commonDriver.getContentElement()).exists(),
 
     mouseEnter: () => base.hover(),
 

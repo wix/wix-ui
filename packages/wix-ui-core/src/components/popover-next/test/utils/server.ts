@@ -9,8 +9,6 @@ export const startServer = (port: number): Promise<Server> => {
     app.use(
       express.static(path.join(__dirname, '../../../../../storybook-static')),
     );
-    resolve(
-      app.listen(port, () => console.log(`Storybook listening on ${port}!`)),
-    );
+    resolve(app.listen(port));
   });
 };
