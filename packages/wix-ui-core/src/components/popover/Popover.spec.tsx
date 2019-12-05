@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { queryHook } from 'wix-ui-test-utils/dom';
-import { Popover, PopoverProps } from './';
+import { AppendTo } from './Popover';
 import { createModifiers } from './modifiers';
-import { popoverPrivateDriverFactory } from './Popover.private.driver';
-import { testkit } from './Popover.uni.driver';
+
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Simulate } from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
-import styles from './Popover.st.css';
-import { AppendTo } from './Popover';
 
-import { PopoverNext } from '../popover-next/popover-next';
+import { Popover, PopoverProps } from './';
+import { popoverPrivateDriverFactory } from './Popover.private.driver';
+import { testkit } from './Popover.uni.driver';
+import stylesPopover from './Popover.st.css';
 
-/** PopoverNext testkits  */
+/** PopoverNext  */
 import { popoverNextPrivateDriverFactory } from '../popover-next/test/popover-next.private.driver';
 import { popoverNextPrivateDriverFactoryUni } from '../popover-next/test/popover-next.private.uni.driver';
+import { PopoverNext } from '../popover-next/popover-next';
+import stylesPopoverNext from '../popover-next/popover-next.st.css';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -53,7 +55,7 @@ describe('Popover', () => {
       popoverPrivateDriverFactory,
     );
 
-    runTests(createDriver, container, renderPopover, Popover);
+    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
   });
 
   describe('[async]', () => {
@@ -69,7 +71,7 @@ describe('Popover', () => {
       };
     });
 
-    runTests(createDriver, container, renderPopover, Popover);
+    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
   });
 });
 
@@ -81,7 +83,13 @@ describe('PopoverNext', () => {
       popoverNextPrivateDriverFactory,
     );
 
-    runTests(createDriver, container, renderPopoverNext, PopoverNext);
+    runTests(
+      createDriver,
+      container,
+      renderPopoverNext,
+      PopoverNext,
+      stylesPopoverNext,
+    );
   });
 
   describe('[async]', () => {
@@ -97,11 +105,23 @@ describe('PopoverNext', () => {
       };
     });
 
-    runTests(createDriver, container, renderPopoverNext, PopoverNext);
+    runTests(
+      createDriver,
+      container,
+      renderPopoverNext,
+      PopoverNext,
+      stylesPopoverNext,
+    );
   });
 });
 
-function runTests(createDriver, container, popoverWithProps, Component) {
+function runTests(
+  createDriver,
+  container,
+  popoverWithProps,
+  Component,
+  styles,
+) {
   it('should render', async () => {
     const driver = await createDriver(
       popoverWithProps({

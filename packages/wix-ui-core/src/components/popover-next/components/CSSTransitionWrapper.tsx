@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from '../../popover/Popover.st.css';
+import styles from '../popover-next.st.css';
 
 const CSSTransitionWrapper = props => {
   const {
