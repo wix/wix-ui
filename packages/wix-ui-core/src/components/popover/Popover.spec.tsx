@@ -183,7 +183,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         const driver = await createDriver(
           popoverWithProps({
             placement: 'bottom',
-            shown: false,
+            shown: true,
             onClickOutside,
           }),
         );
