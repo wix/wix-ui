@@ -12,7 +12,7 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
 
   const isChunkLoaded = async () => {
     let response = false;
-    const options = { timeout: 3000, interval: 200 };
+    const options = { timeout: 1000, interval: 200 };
     try {
       await eventually(async () => {
         if ((await base.attr('data-loaded')) === `true`) {

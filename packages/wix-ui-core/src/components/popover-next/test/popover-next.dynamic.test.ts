@@ -46,7 +46,7 @@ describe('PopoverNext - Dynamic Loading', () => {
     page.on('request', request => {
       const chunk = request.url().replace(`http://localhost:${port}/`, '');
       if (chunk.match(/^[0-9]{1,4}\./)) {
-        setTimeout(() => request.continue(), 3000);
+        setTimeout(() => request.continue(), 500);
       } else {
         return request.continue();
       }
