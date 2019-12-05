@@ -7,8 +7,6 @@ import styles from './ToggleSwitch.st.css';
 import { dataHooks } from "./constants";
 
 export interface ToggleSwitchUniDriver extends BaseUniDriver {
-    /** Checks if element exists */
-    exists(): Promise<boolean>,
     /** Triggers change */
     click(): Promise<void>,
     /** Returns a boolean indicating if the toggleSwitch is checked */
@@ -37,26 +35,24 @@ export const toggleSwitchUniDriverFactory = (
     base: UniDriver,
 ): ToggleSwitchUniDriver => {
     const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
-    const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
 
     const knob = base.$(byDataHook(dataHooks.knob));
     const knobIcon = base.$(byDataHook(dataHooks.knobIcon));
-    const input = base.$(byDataHook(dataHooks.toggleSwitchInput));
+    const checkbox = base.$(byDataHook(dataHooks.toggleSwitchInput));
     const track = base.$(byDataHook(dataHooks.track));
 
-    const isDisabled = async () => await input._prop('disabled');
-    const isChecked = () => stylableUnidriverUtil.hasStyleState(base, 'checked');
+    const isDisabled = async () => await checkbox._prop('disabled');
     const getKnobIcon = async() => await knobIcon.getNative();
 
     return {
         ...baseUniDriverFactory(base),
-        click: async () => !(await isDisabled()) && await input.click(),
+        click: async () => !(await isDisabled()) && await checkbox.click(),
         isDisabled,
-        isChecked,
+        isChecked: async () => await checkbox._prop('checked'),
         getKnobIcon,
         hasKnobIcon: async () => !!(await getKnobIcon()).innerHTML,
-        getId: async () => await input.attr('id'),
-        getTabIndex: async () => parseInt(await input.attr('tabindex'), 10),
+        getId: async () => await checkbox._prop('id'),
+        getTabIndex: async () => await checkbox._prop('tabIndex'),
         getRootStyles: async () => await base._prop('style'),
         getTrackStyles: async () => track._prop('style'),
         getKnobStyles: async () =>  knob._prop('style'),
