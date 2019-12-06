@@ -507,7 +507,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       style: inlineStyles,
       id,
       excludeClass,
-      timeout,
     } = this.props;
     const { isMounted, shown } = this.state;
 
