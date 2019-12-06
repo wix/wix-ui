@@ -30,3 +30,7 @@ Will replace deprecated icon imports from `wix-style-react/new-icons` with impor
 - import Add from 'wix-style-react/new-icons/Add';
 + import Add from 'wix-ui-icons-common/Add';
 ```
+
+## Contributing
+
+Thanks! See [contributing guide](./CONTRIBUTING.md).
