@@ -14,8 +14,10 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
     if (base.type === 'react') {
       return true;
     }
+
     let response = false;
     const options = { timeout: 2000, interval: 200 };
+
     try {
       await eventually(async () => {
         if ((await base.attr('data-loaded')) === `true`) {
