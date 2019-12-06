@@ -87,7 +87,7 @@ export default {
     appendTo: 'parent',
     showArrow: true,
     timeout: 150,
-    shown: true,
+    shown: false,
     placement: 'top',
   },
 

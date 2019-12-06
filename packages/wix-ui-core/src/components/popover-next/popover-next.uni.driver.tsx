@@ -1,5 +1,5 @@
 import * as eventually from 'wix-eventually';
-import { CommonDriver } from './Popover.common.uni.driver';
+import { CommonDriver } from './popover.common.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
@@ -11,8 +11,11 @@ export const popoverNextDriverFactory = (base: UniDriver, body: UniDriver) => {
   const commonDriver = CommonDriver(base, body);
 
   const isChunkLoaded = async () => {
+    if (base.type === 'react') {
+      return true;
+    }
     let response = false;
-    const options = { timeout: 1000, interval: 200 };
+    const options = { timeout: 2000, interval: 200 };
     try {
       await eventually(async () => {
         if ((await base.attr('data-loaded')) === `true`) {
