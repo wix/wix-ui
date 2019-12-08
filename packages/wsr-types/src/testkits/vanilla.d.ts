@@ -76,6 +76,8 @@ declare module "wix-style-react/dist/testkit" {
   export const tableTestkitFactory: VanillaTestkitFactory<__WSRTests.TableDriver<
     HTMLElement
   >>;
+  export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
+  export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -87,7 +89,6 @@ declare module "wix-style-react/dist/testkit" {
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: any;
   export const calendarPanelFooterTestkitFactory: any;
-  export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
@@ -118,7 +119,6 @@ declare module "wix-style-react/dist/testkit" {
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
-  export const sliderTestkitFactory: any;
   export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
