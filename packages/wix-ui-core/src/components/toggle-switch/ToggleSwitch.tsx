@@ -1,6 +1,6 @@
 import * as React from 'react';
 import style from './ToggleSwitch.st.css';
-import { dataHooks } from "./constants";
+import { dataHooks } from './constants';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
 // in the style panel, and some of the styling options have to live in the layout panel,

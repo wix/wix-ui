@@ -3,7 +3,7 @@ import {
     baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
-import { dataHooks } from "./constants";
+import { dataHooks } from './constants';
 
 export interface ToggleSwitchUniDriver extends BaseUniDriver {
     /** Triggers change */
@@ -45,7 +45,7 @@ export const toggleSwitchUniDriverFactory = (
 
     return {
         ...baseUniDriverFactory(base),
-        click: async () => !(await isDisabled()) && await checkbox.click(),
+        click: async () => !(await isDisabled()) && checkbox.click(),
         isDisabled,
         isChecked: () => checkbox._prop('checked'),
         getKnobIcon,
