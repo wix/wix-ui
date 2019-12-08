@@ -1,6 +1,5 @@
 declare namespace __WSRTests {
   interface NotificationDriver extends BaseDriver {
-    getItemTitleAt: (idx: number) => string;
     visible: () => boolean;
     hasTheme: boolean;
     isStandardNotification: () => boolean;

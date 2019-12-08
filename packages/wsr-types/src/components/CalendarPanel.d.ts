@@ -27,7 +27,7 @@ declare namespace __WSR {
       selectedDays: SelectedDaysType;
     };
 
-    type LanguageType =
+    export type LanguageType =
       | "en"
       | "es"
       | "pt"
@@ -47,9 +47,9 @@ declare namespace __WSR {
       | "th"
       | "cs";
 
-    type SelectedDaysType = string | Date | DateRangeType;
+    export type SelectedDaysType = string | Date | DateRangeType;
 
-    type DateRangeType = { from?: string | Date; to?: string | Date };
+    export type DateRangeType = { from?: string | Date; to?: string | Date };
 
     type SelectionModeType = "day" | "range";
 

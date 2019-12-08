@@ -36,7 +36,7 @@ function DateInputWithAllProps() {
       helpMessage="msg"
       hideStatusSuffix
       id="1"
-      //locale - todo add
+      locale={"en"}
       max={10}
       maxLength={100}
       menuArrow

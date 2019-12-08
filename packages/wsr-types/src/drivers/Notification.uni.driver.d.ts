@@ -1,6 +1,5 @@
 declare namespace __WSRTests {
   interface NotificationUniDriver extends BaseUniDriver {
-    getItemTitleAt: (idx: number) => Promise<string>;
     visible: () => Promise<boolean>;
     hasTheme: Promise<boolean>;
     isStandardNotification: () => Promise<boolean>;

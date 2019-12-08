@@ -3,11 +3,9 @@ declare namespace __WSR {
     export interface DateInputProps extends BaseComponents.OmitPolyfill<Input.InputProps, "value"> {
       dataHook?: string;
       value?: object | string | number;
-      locale?: LocalType;
+      locale?: __WSR.CalendarPanel.LanguageType;
       dateFormat?: string |  ((date: Date) => void);
     }
-
-    export type LocalType = {}; // todo - extract to common from CalendarPanel
 
     export class DateInput extends React.PureComponent<DateInputProps> {}
   }

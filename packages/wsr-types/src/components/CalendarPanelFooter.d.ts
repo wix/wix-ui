@@ -7,9 +7,8 @@ declare namespace __WSR {
       primaryActionDisabled: boolean,
       primaryActionOnClick: React.MouseEventHandler<HTMLButtonElement>,
       secondaryActionOnClick: React.MouseEventHandler<HTMLButtonElement>,
-      // selectedDays: // todo: add once calendarPanel is merged
-      /** Formats a Date into a string for displaying the current selected days. Receives a Date instance (not undefined). */
-      // dateToString: (selectedDays: selectedDays) // todo: add once calendarPanel is merged
+      selectedDays?: __WSR.CalendarPanel.SelectedDaysType
+      dateToString: (selectedDays: __WSR.CalendarPanel.SelectedDaysType) => string
     }
 
     export class CalendarPanelFooter extends React.Component<CalendarPanelFooterProps> {}

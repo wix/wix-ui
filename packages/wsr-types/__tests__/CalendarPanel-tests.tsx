@@ -18,7 +18,7 @@ function CalendarPanelWithAllProps() {
       onClose={ _ev => {}}
       excludePastDates={true}
       filterDate={(date: Date) => true}
-      value={new Date()}
+        value={new Date()}
       selectionMode="day"
       showYearDropdown={false}
       showMonthDropdown={true}

@@ -12,7 +12,8 @@ function CalendarPanelFooterWithMandatoryProps() {
     secondaryActionLabel={"str"}
     primaryActionDisabled={true}
     primaryActionOnClick={_ev=>{}}
-    secondaryActionOnClick={_ev=>{}}/>;
+    secondaryActionOnClick={_ev=>{}}
+    dateToString={(selectedDays) => "converted"}/>;
 }
 
 function CalendarPanelFooterWithAllProps() {
@@ -24,6 +25,8 @@ function CalendarPanelFooterWithAllProps() {
       primaryActionDisabled={true}
       primaryActionOnClick={_ev=>{}}
       secondaryActionOnClick={_ev=>{}}
+      selectedDays={new Date()}
+      dateToString={(selectedDays) => "converted"}
     />
   );
 }
