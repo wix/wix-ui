@@ -1,5 +1,6 @@
 import * as React from 'react';
 import style from './ToggleSwitch.st.css';
+import { dataHooks } from './constants';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
 // in the style panel, and some of the styling options have to live in the layout panel,
@@ -69,9 +70,9 @@ export class ToggleSwitch extends React.PureComponent<
         )}
         style={inlineStyles.root}
       >
-        <div className={style.track} style={inlineStyles.track} />
-        <div className={style.knob} style={inlineStyles.knob}>
-          <div className={style.knobIcon} style={inlineStyles.knobIcon}>
+        <div data-hook={dataHooks.track} className={style.track} style={inlineStyles.track} />
+        <div data-hook={dataHooks.knob} className={style.knob} style={inlineStyles.knob}>
+          <div data-hook={dataHooks.knobIcon} className={style.knobIcon} style={inlineStyles.knobIcon}>
             {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
           </div>
         </div>
@@ -88,6 +89,7 @@ export class ToggleSwitch extends React.PureComponent<
           onMouseDown={this.handleMouseDown}
           onKeyDown={this.handleKeyDown}
           aria-label={this.props['aria-label']}
+          data-hook={dataHooks.toggleSwitchInput}
         />
       </div>
     );
