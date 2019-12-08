@@ -129,36 +129,38 @@ describe('ToggleSwitch', () => {
         });
 
         describe('styles', () => {
+            const redRgb = 'rgb(255, 0, 0)';
+
             it('should pass inline styles to root element', async () => {
                 const styles = {
-                    root: { color: 'green'},
+                    root: { color: redRgb},
                 };
                 const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getRootStyles()).color).toBe('green');
+                expect((await driver.getRootStyles()).color).toBe(redRgb);
             });
 
             it('should pass inline styles to track element', async () => {
                 const styles = {
-                    track: { color: 'blue'},
+                    track: { color: redRgb},
                 };
                 const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getTrackStyles()).color).toBe('blue');
+                expect((await driver.getTrackStyles()).color).toBe(redRgb);
             });
 
             it('should pass inline styles to knob element', async () => {
                 const styles = {
-                    knob: { color: 'red'},
+                    knob: { color: redRgb},
                 };
                 const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getKnobStyles()).color).toBe('red');
+                expect((await driver.getKnobStyles()).color).toBe(redRgb);
             });
 
             it('should pass inline styles to knobIcon element', async () => {
                 const styles = {
-                    knobIcon: { color: 'orange'},
+                    knobIcon: { color: redRgb},
                 };
                 const driver = await createDriver(<ToggleSwitch styles={styles} /> );
-                expect((await driver.getKnobIconStyles()).color).toBe('orange');
+                expect((await driver.getKnobIconStyles()).color).toBe(redRgb);
             });
         });
 
