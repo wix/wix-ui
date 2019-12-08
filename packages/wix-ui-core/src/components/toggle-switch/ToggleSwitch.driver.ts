@@ -39,12 +39,12 @@ export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
       window.getComputedStyle(
         element.querySelector(stylableDOMUtil.scopeSelector('.track')),
       ),
-    /** Returns the computed styles object of the knob */
+    /**  Returns the computed styles object of the knob */
     getKnobStyles: () =>
       window.getComputedStyle(
         element.querySelector(stylableDOMUtil.scopeSelector('.knob')),
       ),
-    /** Returns the computed styles object of the knob icon */
+    /**  Returns the computed styles object of the knob icon */
     getKnobIconStyles: () =>
       window.getComputedStyle(
         element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
