@@ -50,4 +50,5 @@ export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
         element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
       ),
   };
+
 };
