@@ -66,6 +66,7 @@ module.exports = {
     pascalCase: true
   },
   "toggle-switch": {
+    hasUnidriver: true,
     hasProtractorDriver: true,
     hasVanillaDriver: true,
     pascalCase: true
