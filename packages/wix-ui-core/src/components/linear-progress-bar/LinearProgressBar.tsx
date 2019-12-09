@@ -45,7 +45,7 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
 
   return wrapped(
     ProgressBarDataHooks.progressPercentage,
-    <span>{`${props.value}%`}</span>,
+    <span className={style.progressPercentage}>{`${props.value}%`}</span>,
   );
 };
 
