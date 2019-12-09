@@ -257,7 +257,9 @@ export const horizontalMenuTestkitFactory = protractorUniTestkitFactoryCreator(
 );
 export { HorizontalMenuDriver };
 
-import { popoverNextDriverFactory } from '../components/popover-next/popover-next.protractor.driver';
-export const popoverNextTestkitFactory = protractorTestkitFactoryCreator(
+import { popoverNextDriverFactory } from '../components/popover-next/popover-next.uni.driver';
+
+export const popoverNextTestkitFactory = protractorUniTestkitFactoryCreator(
   popoverNextDriverFactory,
 );
+

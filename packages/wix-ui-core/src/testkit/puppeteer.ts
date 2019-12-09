@@ -87,4 +87,3 @@ export const popoverNextTestkitFactory = puppeteerUniTestkitFactoryCreator(
   popoverNextDriverFactory,
 );
 
-export { popoverNextDriverFactory };
