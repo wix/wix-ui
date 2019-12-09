@@ -85,7 +85,10 @@ describe('metadataParser()', () => {
                 required: false,
                 type: {
                   name: 'enum',
-                  value: [{ computed: false, value: '"deez"' }, { computed: false, value: '"deeez"' }],
+                  value: [
+                    { computed: false, value: '"deez"' },
+                    { computed: false, value: '"deeez"' },
+                  ],
                 },
               },
             },
@@ -139,7 +142,10 @@ describe('metadataParser()', () => {
                 required: false,
                 type: {
                   name: 'enum',
-                  value: [{ computed: false, value: '"deez"' }, { computed: false, value: '"deeez"' }],
+                  value: [
+                    { computed: false, value: '"deez"' },
+                    { computed: false, value: '"deeez"' },
+                  ],
                 },
               },
             },
@@ -480,6 +486,69 @@ describe('metadataParser()', () => {
             },
           },
         });
+      });
+    });
+  });
+
+  describe('given component that includes tree shakable file modules', () => {
+    it.only('should resolve composed tree shakable component', () => {
+      const fakeFs = cista({
+        'MyComponent/index.js': `
+        import React from "react";
+        import { PopoverNext as CorePopover } from "wix-ui-core";
+        import PropTypes from "prop-types";
+
+        export default class Popover extends React.Component {
+              static propTypes = {
+                ...CorePopover.propTypes,
+                test: PropTypes.string,
+              }
+              render() {
+                return <CorePover/>
+              }
+        }
+        `,
+        'node_modules/wix-ui-core/package.json': `
+         {
+           module: "./dist/es/src/index.js"
+         }
+        `,
+        'node_modules/wix-ui-core/src/index.ts': `
+          export * from "./components/menu-item";
+          export * from "./components/nav-stepper";
+          export * from "./components/pagination";
+          export * from "./components/popover-next";
+        `,
+        'node_modules/wix-ui-core/src/components/popover-next/index.ts': `
+         export * from "./popover-next";`,
+        'node_modules/wix-ui-core/src/components/popover-next/popover-next.tsx': `
+         export default class PopoverNext extends React.Component {
+          static propTypes = {
+            core: PropTypes.string,
+          }
+          render() {
+            return <div/>
+          }
+        }
+         `,
+      });
+
+      return expect(metadataParser(fakeFs.dir + '/MyComponent/index.js')).resolves.toEqual({
+        description: '',
+        methods: [],
+        displayName: 'PopoverNext',
+        props: {
+          test: {
+            description: '',
+            required: false,
+            type: { name: 'string' },
+          },
+          core: {
+            description: '',
+            required: false,
+            type: { name: 'string' },
+          },
+        },
       });
     });
   });
