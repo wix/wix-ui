@@ -1,5 +1,10 @@
+:import {
+  -st-from: '../../themes/backoffice/colors.st.css';
+  -st-named: D10, D80;
+}
+
 .root {
-  -st-states: error, success;
+  -st-states: error, success, light;
   width: 100%;
   display: flex;
   align-items: center;
@@ -30,3 +35,12 @@
 }
 
 .indicationContainer {}
+
+.root .progressPercentage {
+  color: value(D10);
+}
+
+.root:light .progressPercentage {
+  color: value(D80);
+
+}

@@ -11,6 +11,8 @@ export interface LinearProgressBarProps {
   value?: number | string;
   /** should be true if had failure during the progress */
   error?: boolean;
+  /** should be true if the theme is light */
+  light?: boolean;
   /** when set to true, an indication of the progress state will be presented along side the progress bar */
   showProgressIndication?: boolean;
   /** an indication icon (any react component) that will be presented when 'error' and 'showProgressIndication' are set to true */
@@ -45,7 +47,7 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
 
   return wrapped(
     ProgressBarDataHooks.progressPercentage,
-    <span>{`${props.value}%`}</span>,
+    <span className={style.progressPercentage}>{`${props.value}%`}</span>,
   );
 };
 
@@ -118,7 +120,7 @@ const getAriaAttributes = (
 export const LinearProgressBar: React.FunctionComponent<
   LinearProgressBarProps
 > = (props: LinearProgressBarProps) => {
-  const { error, showProgressIndication } = props;
+  const { error, showProgressIndication, light } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
@@ -127,7 +129,7 @@ export const LinearProgressBar: React.FunctionComponent<
       {...getAriaAttributes(props)}
       data-min={_props.min}
       role="progressbar"
-      {...style('root', { error, success }, _props)}
+      {...style('root', { error, success, light }, _props)}
     >
       {renderBarSection(_props.value)}
 
