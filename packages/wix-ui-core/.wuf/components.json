@@ -199,5 +199,8 @@
     "missingFiles": [
       "click-outside.ts*"
     ]
+  },
+  "popover-next": {
+    "path": "src/components/popover-next"
   }
 }

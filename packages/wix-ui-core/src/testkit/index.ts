@@ -166,3 +166,9 @@ export const horizontalMenuTestkitFactory = uniTestkitFactoryCreator(
   horizontalMenuUniDriverFactory,
 );
 export { HorizontalMenuDriver };
+
+import { popoverNextDriverFactory } from '../components/popover-next/popover-next.uni.driver';
+
+export const popoverNextTestkitFactory = uniTestkitFactoryCreator(
+  popoverNextDriverFactory,
+);

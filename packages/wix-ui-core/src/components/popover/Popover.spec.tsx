@@ -1,20 +1,28 @@
 import * as React from 'react';
 import { queryHook } from 'wix-ui-test-utils/dom';
-import { Popover, PopoverProps } from './';
+import { AppendTo } from './Popover';
 import { createModifiers } from './modifiers';
-import { popoverPrivateDriverFactory } from './Popover.private.driver';
-import { testkit } from './Popover.uni.driver';
+
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Simulate } from 'react-dom/test-utils';
 import * as eventually from 'wix-eventually';
-import styles from './Popover.st.css';
-import { AppendTo } from './Popover';
+
+import { Popover, PopoverProps } from './';
+import { popoverPrivateDriverFactory } from './Popover.private.driver';
+import { testkit } from './Popover.uni.driver';
+import stylesPopover from './Popover.st.css';
+
+/** PopoverNext  */
+import { popoverNextPrivateDriverFactory } from '../popover-next/test/popover-next.private.driver';
+import { popoverNextPrivateDriverFactoryUni } from '../popover-next/test/popover-next.private.uni.driver';
+import { PopoverNext } from '../popover-next/popover-next';
+import stylesPopoverNext from '../popover-next/popover-next.st.css';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
+const renderPopover = (props: PopoverProps, content: string = 'Content') => (
   <Popover {...props}>
     <Popover.Element>
       <div>Element</div>
@@ -25,6 +33,20 @@ const popoverWithProps = (props: PopoverProps, content: string = 'Content') => (
   </Popover>
 );
 
+const renderPopoverNext = (
+  props: PopoverProps,
+  content: string = 'Content',
+) => (
+  <PopoverNext {...props}>
+    <PopoverNext.Element>
+      <div>Element</div>
+    </PopoverNext.Element>
+    <PopoverNext.Content>
+      <div>{content}</div>
+    </PopoverNext.Content>
+  </PopoverNext>
+);
+
 describe('Popover', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
@@ -33,7 +55,7 @@ describe('Popover', () => {
       popoverPrivateDriverFactory,
     );
 
-    runTests(createDriver, container);
+    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
   });
 
   describe('[async]', () => {
@@ -49,11 +71,57 @@ describe('Popover', () => {
       };
     });
 
-    runTests(createDriver, container);
+    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
   });
 });
 
-function runTests(createDriver, container) {
+describe('PopoverNext', () => {
+  const container = new ReactDOMTestContainer().unmountAfterEachTest();
+
+  describe('[sync]', () => {
+    const createDriver = container.createLegacyRenderer(
+      popoverNextPrivateDriverFactory,
+    );
+
+    runTests(
+      createDriver,
+      container,
+      renderPopoverNext,
+      PopoverNext,
+      stylesPopoverNext,
+    );
+  });
+
+  describe('[async]', () => {
+    const createDriver = container.createUniRendererAsync((base, body) => {
+      const privateDriver = popoverNextPrivateDriverFactory({
+        element: container.componentNode,
+        eventTrigger: Simulate,
+      });
+
+      return {
+        ...privateDriver,
+        ...popoverNextPrivateDriverFactoryUni(base, body),
+      };
+    });
+
+    runTests(
+      createDriver,
+      container,
+      renderPopoverNext,
+      PopoverNext,
+      stylesPopoverNext,
+    );
+  });
+});
+
+function runTests(
+  createDriver,
+  container,
+  popoverWithProps,
+  Component,
+  styles,
+) {
   it('should render', async () => {
     const driver = await createDriver(
       popoverWithProps({
@@ -135,7 +203,7 @@ function runTests(createDriver, container) {
         const driver = await createDriver(
           popoverWithProps({
             placement: 'bottom',
-            shown: false,
+            shown: true,
             onClickOutside,
           }),
         );
@@ -224,7 +292,7 @@ function runTests(createDriver, container) {
     let updatePositionSpy;
 
     beforeEach(() => {
-      updatePositionSpy = jest.spyOn(Popover.prototype, 'updatePosition');
+      updatePositionSpy = jest.spyOn(Component.prototype, 'updatePosition');
     });
 
     afterEach(() => {
@@ -699,10 +767,10 @@ function runTests(createDriver, container) {
   describe('React <16 compatibility', () => {
     it('should wrap children in a <div/> if provided as strings to support React 15', async () => {
       const driver = await createDriver(
-        <Popover shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component shown placement="bottom">
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
 
       expect((await driver.getTargetElement()).childNodes[0].nodeName).toEqual(
@@ -861,10 +929,15 @@ function runTests(createDriver, container) {
   describe('data-hook', () => {
     it('should be found on target element container', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-hook')).toBe('random');
@@ -872,10 +945,15 @@ function runTests(createDriver, container) {
 
     it('should construct data-content-hook', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const target = await driver.getTargetElement();
       expect(target.parentNode.getAttribute('data-content-hook')).toMatch(
@@ -885,10 +963,15 @@ function runTests(createDriver, container) {
 
     it('should apply data-content-element on content element', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const content = await driver.getContentElement();
       expect(content.getAttribute('data-content-element')).toMatch(
@@ -897,10 +980,15 @@ function runTests(createDriver, container) {
     });
     it('should not override portal component data-hook', async () => {
       const driver = await createDriver(
-        <Popover data-hook="random" appendTo="window" shown placement="bottom">
-          <Popover.Element>Element</Popover.Element>
-          <Popover.Content>Content</Popover.Content>
-        </Popover>,
+        <Component
+          data-hook="random"
+          appendTo="window"
+          shown
+          placement="bottom"
+        >
+          <Component.Element>Element</Component.Element>
+          <Component.Content>Content</Component.Content>
+        </Component>,
       );
       const content = await driver.getContentElement();
       expect(content.parentNode.getAttribute('data-hook')).toBe(

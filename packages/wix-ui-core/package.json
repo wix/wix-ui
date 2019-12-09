@@ -176,7 +176,7 @@
       "<rootDir>/node_modules/",
       "/src/.*\\.browser\\.spec\\.(ts|tsx)$"
     ],
-    "testRegex": "/src/.*\\.spec\\.(ts|tsx)$"
+    "testRegex": "/src/.*\\.(spec|test)\\.(ts|tsx)$"
   },
   "yoshi": {
     "experimentalTSTarget": true,
