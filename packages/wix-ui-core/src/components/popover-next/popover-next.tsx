@@ -48,6 +48,10 @@ export interface PopoverNextProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   /** Provides callback to invoke when clicked outside of the popover */
   onClickOutside?: Function;
+  /**
+   * Clicking on elements with this excluded class will will not trigger onClickOutside callback
+   */
+  excludeClass?: string;
   /** onMouseEnter on the component */
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   /** onMouseLeave on the component */
@@ -111,6 +115,11 @@ export interface PopoverNextProps {
    * - `string` value that contains `px`
    */
   width?: number | string;
+  /**
+   * Breaking change:
+   * When true - onClickOutside will be called only when popover content is shown
+   */
+  disableClickOutsideWhenClosed?: boolean;
 }
 
 export interface PopoverNextState {
@@ -168,8 +177,10 @@ export class PopoverNext extends React.Component<
   }
 
   _handleClickOutside = () => {
-    const { onClickOutside, shown } = this.props;
-    shown && onClickOutside();
+    const { onClickOutside, shown, disableClickOutsideWhenClosed } = this.props;
+    if (onClickOutside && !(disableClickOutsideWhenClosed && !shown)) {
+      onClickOutside();
+    }
   };
 
   renderPopperContent(childrenObject) {
@@ -354,6 +365,7 @@ export class PopoverNext extends React.Component<
       style: inlineStyles,
       id,
       timeout,
+      excludeClass,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -370,7 +382,7 @@ export class PopoverNext extends React.Component<
         <ClickOutside
           rootRef={this.clickOutsideRef}
           onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={style.popover}
+          excludeClass={excludeClass ? excludeClass : style.popover}
         >
           <div
             ref={this.clickOutsideRef}
