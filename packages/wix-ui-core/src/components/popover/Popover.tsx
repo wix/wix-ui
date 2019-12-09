@@ -6,7 +6,7 @@ import onClickOutside, {
 } from 'react-onclickoutside';
 import { Manager, Reference, Popper } from 'react-popper';
 import * as CSSTransition from 'react-transition-group/CSSTransition';
-import Portal from 'react-portal/lib/Portal';
+import { Portal } from 'react-portal';
 import style from './Popover.st.css';
 import { createModifiers } from './modifiers';
 import {
@@ -170,9 +170,9 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
 
 // We're declaring a wrapper for the clickOutside machanism and not using the
 // HOC because of Typings errors.
-const ClickOutsideWrapper: React.ComponentClass<
-  OnClickOutProps<InjectedOnClickOutProps>
-> = onClickOutside(
+const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
+  InjectedOnClickOutProps
+>> = onClickOutside(
   class extends React.Component<any, any> {
     handleClickOutside() {
       this.props.handleClickOutside();
