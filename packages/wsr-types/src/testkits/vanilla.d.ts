@@ -82,6 +82,10 @@ declare module "wix-style-react/dist/testkit" {
   export const calendarPanelFooterTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
   export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
+  export const colorPickerTestkitFactory: VanillaTestkitFactory<__WSRTests.ColorPickerDriver>;
+  export const proportionTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ProportionUniDriver>;
+  export const swatchesTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SwatchesUniDriver>;
+  export const tabsTestkitFactory: VanillaTestkitFactory<__WSRTests.TabsDriver>;
   export const sortableListTestkitFactory: VanillaTestkitFactory<__WSRTests.SortableListDriver>;
   export const nestableListTestkitFactory: VanillaTestkitFactory<__WSRTests.NestableListDriver>;
   export const multiSelectTestkitFactory: VanillaTestkitFactory<__WSRTests.MultiSelectDriver>;
@@ -102,7 +106,6 @@ declare module "wix-style-react/dist/testkit" {
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
-  export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
@@ -118,12 +121,12 @@ declare module "wix-style-react/dist/testkit" {
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
-  export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
+  export const tableActionCellTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
