@@ -79,6 +79,7 @@ declare module "wix-style-react/dist/testkit" {
   export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: VanillaTestkitFactory<__WSRTests.SortableListDriver>;
+  export const nestableListTestkitFactory: VanillaTestkitFactory<__WSRTests.NestableListDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -109,7 +110,6 @@ declare module "wix-style-react/dist/testkit" {
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const nestableListTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;

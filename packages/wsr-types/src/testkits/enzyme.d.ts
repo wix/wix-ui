@@ -81,6 +81,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const cardGalleryItemTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: EnzymeTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: EnzymeTestkitFactory<__WSRTests.SortableListDriver>;
+  export const nestableListTestkitFactory: EnzymeTestkitFactory<__WSRTests.NestableListDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -109,7 +110,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const nestableListTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;
