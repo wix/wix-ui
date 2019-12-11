@@ -61,6 +61,9 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const autoCompleteTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
   export const dataTableTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DataTableUniDriver>;
   export const tableTestkitFactory: PuppeteerTestkitFactory<__WSRTests.TablePuppeteerDriver>;
+  export const dateInputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.DateInputUniDriver>;
+  export const notificationTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.NotificationUniDriver>;
+  export const calendarPanelFooterTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
   export const cardGalleryItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SliderUniDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
@@ -70,14 +73,12 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const boxTestkitFactory: any;
   export const breadcrumbsTestkitFactory: any;
   export const calendarTestkitFactory: any;
-  export const calendarPanelTestkitFactory: any;
-  export const calendarPanelFooterTestkitFactory: any;
+  export const calendarPanelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
   export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
-  export const dateInputTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
@@ -91,7 +92,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
-  export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
