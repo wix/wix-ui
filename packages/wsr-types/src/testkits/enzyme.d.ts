@@ -127,9 +127,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const tableActionCellTestkitFactory: any;
-  export const swatchesTestkitFactory: any;
-  export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
