@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MessageBoxFunctionalLayout from 'wix-style-react/MessageBoxFunctionalLayout';
+import MessageBoxFunctionalLayout from 'wix-style-react/MessageBox';
 import { messageBoxFunctionalLayoutTestkitFactory } from 'wix-style-react/dist/testkit';
 import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
 import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutPuppeteerTestkitFactory } from 'wix-style-react/dist/testkit/puppeteer';
