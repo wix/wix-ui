@@ -92,6 +92,10 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const tableActionCellTestkitFactory: EnzymeTestkitFactory<__WSRTests.TableActionCellDriver<
     ReactWrapper
   >>;
+  export const colorPickerTestkitFactory: EnzymeTestkitFactory<__WSRTests.ColorPickerDriver>;
+  export const proportionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ProportionUniDriver>;
+  export const swatchesTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SwatchesUniDriver>;
+  export const tabsTestkitFactory: EnzymeTestkitFactory<__WSRTests.TabsDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -103,7 +107,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
-  export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
@@ -119,14 +122,11 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
-  export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const swatchesTestkitFactory: any;
-  export const tabsTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;

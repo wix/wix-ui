@@ -66,6 +66,10 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const calendarPanelFooterTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
   export const cardGalleryItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SliderUniDriver>;
+  export const colorPickerTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ColorPickerUniDriver>;
+  export const proportionTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ProportionUniDriver>;
+  export const swatchesTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SwatchesUniDriver>;
+  export const tabsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.TabsUniDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -77,7 +81,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const carouselTestkitFactory: any;
   export const circularProgressBarTestkitFactory: any;
   export const colorInputTestkitFactory: any;
-  export const colorPickerTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
@@ -95,14 +98,12 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: any;
   export const popoverMenuTestkitFactory: any;
-  export const proportionTestkitFactory: any;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
-  export const swatchesTestkitFactory: any;
-  export const tabsTestkitFactory: any;
+  export const tableActionCellTestkitFactory: any;
   export const timeInputTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: any;
