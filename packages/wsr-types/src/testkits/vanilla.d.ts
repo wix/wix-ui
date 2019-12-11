@@ -80,7 +80,6 @@ declare module "wix-style-react/dist/testkit" {
   export const dateInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DateInputUniDriver>;
   export const notificationTestkitFactory: VanillaTestkitFactory<__WSRTests.NotificationDriver>;
   export const calendarPanelFooterTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;
-  export const calendarPanelFooterTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelFooterUniDriver>;;
   export const cardGalleryItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CardGalleryItemUniDriver>;
   export const sliderTestkitFactory: VanillaTestkitFactory<__WSRTests.SliderDriver>;
   export const sortableListTestkitFactory: VanillaTestkitFactory<__WSRTests.SortableListDriver>;
