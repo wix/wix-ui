@@ -49,5 +49,5 @@ declare module 'wix-style-react' {
 declare module 'wix-style-react/MessageBox' {
   export interface MessageBoxFunctionalLayoutProps
     extends __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayoutProps {}
-  export default __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
+  export import MessageBoxFunctionalLayout = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
 }
