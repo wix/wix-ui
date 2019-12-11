@@ -89,7 +89,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const multiSelectTestkitFactory: any;
   export const multiSelectCheckboxTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const nestableListTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
   export const notificationTestkitFactory: any;
   export const numberInputTestkitFactory: any;
@@ -100,7 +99,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
   export const sidebarSectionTitleTestkitFactory: any;
-  export const sortableListTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const swatchesTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
@@ -125,7 +123,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const sideMenuDrillTestkitFactory: any;
   export const headerTestkitFactory: any;
   export const sideMenuTestkitFactory: any;
-  export const draggableTestkitFactory: any;
   export const editableRowTestkitFactory: any;
   export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
