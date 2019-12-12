@@ -63,29 +63,8 @@ describe('PopoverNext - Dynamic Loading', () => {
   });
 
   /**
-   * This test is running against Popvoer that has shown={true} by default
-   */
-  it('should simulate dynamically loaded assets without chunk await', async () => {
-    // Navigate
-    await page.goto(`http://localhost:${port}/${storyUrl}`);
-
-    const testkit = await popoverNextTestkitFactory({
-      dataHook: 'storybook-popover',
-      page,
-    });
-
-    expect(await testkit.isTargetElementExists()).toBe(true);
-    expect(await testkit.isContentElementExistsWithoutChunkAwait()).toBe(false);
-
-    await eventually(async () => {
-      expect(await testkit.isContentElementExistsWithoutChunkAwait()).toBe(
-        true,
-      );
-    });
-  });
-
-  /**
-   * This test is running against Popvoer that has shown={true} by default
+   * This test represents a situation where content chunk is not yet loaded
+   *  and our testkit method that tries to find the content will return false if asked immediately
    */
   it('should simulate dynamically loaded assets with testkit chunk await', async () => {
     // Navigate
@@ -97,6 +76,27 @@ describe('PopoverNext - Dynamic Loading', () => {
     });
 
     expect(await testkit.isTargetElementExists()).toBe(true);
-    expect(await testkit.isContentElementExists()).toBe(true);
+    expect(await testkit.isContentElementExists()).toBe(false);
+  });
+
+  /**
+   * This test represents a recommended pattern testing against production
+   *
+   */
+  it('should simulate dynamically loaded assets without chunk await', async () => {
+    // Navigate
+    await page.goto(`http://localhost:${port}/${storyUrl}`);
+
+    const testkit = await popoverNextTestkitFactory({
+      dataHook: 'storybook-popover',
+      page,
+    });
+
+    expect(await testkit.isTargetElementExists()).toBe(true);
+    expect(await testkit.isContentElementExists()).toBe(false);
+
+    await eventually(async () => {
+      expect(await testkit.isContentElementExists()).toBe(true);
+    });
   });
 });
