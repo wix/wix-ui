@@ -115,11 +115,6 @@ export interface PopoverNextProps {
    * - `string` value that contains `px`
    */
   width?: number | string;
-  /**
-   * Breaking change:
-   * When true - onClickOutside will be called only when popover content is shown
-   */
-  disableClickOutsideWhenClosed?: boolean;
 }
 
 export interface PopoverNextState {
@@ -177,10 +172,8 @@ export class PopoverNext extends React.Component<
   }
 
   _handleClickOutside = () => {
-    const { onClickOutside, shown, disableClickOutsideWhenClosed } = this.props;
-    if (onClickOutside && !(disableClickOutsideWhenClosed && !shown)) {
-      onClickOutside();
-    }
+    const { onClickOutside } = this.props;
+    onClickOutside && onClickOutside();
   };
 
   renderPopperContent(childrenObject) {
