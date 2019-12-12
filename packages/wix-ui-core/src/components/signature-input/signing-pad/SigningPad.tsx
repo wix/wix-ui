@@ -29,6 +29,7 @@ export type SigningPadOwnProps = Omit<
   required?: boolean;
   canvasRef?(instance: HTMLCanvasElement): void;
   onInit?(padAPI: SignaturePadApi): void;
+  onDrawStart?(e: MouseEvent | React.Touch | React.ChangeEvent): void;
   onDraw?(e: MouseEvent | React.Touch | React.ChangeEvent): void;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -86,6 +87,8 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     required: PropTypes.bool,
     /* Callback to get an instance of the canvas HTML element instance */
     canvasRef: PropTypes.func,
+    /* Callback which is called when a curve starts to be drawn on the canvas */
+    onDrawStart: PropTypes.func,
     /* Callback which is called when a curve is drawn on the canvas */
     onDraw: PropTypes.func,
     /* Callback which is called when the a11y input receives focus  */
@@ -111,12 +114,14 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
       setSignaturePadContext,
       penColor,
       penWidth,
+      onDrawStart,
       onDraw,
       disabled,
     } = this.props;
 
     this.signaturePad = new SignaturePad(this.canvasEl, {
       penColor: calculatePenColor(penColor),
+      onBegin: this.invokeIfDefined(onDrawStart),
       onEnd: this.invokeIfDefined(onDraw),
       ...transformPenSizeToWidths(penWidth),
     });

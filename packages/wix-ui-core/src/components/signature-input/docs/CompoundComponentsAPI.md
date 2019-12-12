@@ -19,6 +19,7 @@ A render slot for the signature input signing pad
 | `penWidth` | number   | 2.5          |            | The width of the signature             | 
 | `onInit`   | function |              |            | Callback to get the `SignaturePadApi`  |
 | `canvasRef`| function |              |            | Callback to get an instance of the canvas HTML element instance |
+| `onDrawStart` | function |           |            | Callback which is called when a curve started to be drawn on the canvas    |
 | `onDraw`   | function |              |            | Callback which is called when a curve is drawn on the canvas    |
 | `onFocus`  | function |              |            | Callback which is called when the a11y input receives focus     |
 | `onBlur`   | function |              |            | Callback which is called when the a11y input loses focus        |
