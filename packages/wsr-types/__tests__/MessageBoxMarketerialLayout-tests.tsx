@@ -1,10 +1,10 @@
-import * as React from 'react';
-import MessageBoxMarketerialLayout from 'wix-style-react/MessageBoxMarketerialLayout';
-import { messageBoxMarketerialLayoutTestkitFactory } from 'wix-style-react/dist/testkit';
-import { messageBoxMarketerialLayoutTestkitFactory as messageBoxMarketerialLayoutEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
-import { messageBoxMarketerialLayoutTestkitFactory as messageBoxMarketerialLayoutPuppeteerTestkitFactory } from 'wix-style-react/dist/testkit/puppeteer';
-import * as enzyme from 'enzyme';
-import * as puppeteer from 'puppeteer';
+import * as React from "react";
+import { MessageBoxMarketerialLayout } from "wix-style-react/MessageBox";
+import { messageBoxMarketerialLayoutTestkitFactory } from "wix-style-react/dist/testkit";
+import { messageBoxMarketerialLayoutTestkitFactory as messageBoxMarketerialLayoutEnzymeTestkitFactory } from "wix-style-react/dist/testkit/enzyme";
+import { messageBoxMarketerialLayoutTestkitFactory as messageBoxMarketerialLayoutPuppeteerTestkitFactory } from "wix-style-react/dist/testkit/puppeteer";
+import * as enzyme from "enzyme";
+import * as puppeteer from "puppeteer";
 
 function MessageBoxMarketerialLayoutWithMandatoryProps() {
   return (
@@ -41,12 +41,12 @@ function MessageBoxMarketerialLayoutWithAllProps() {
 
 async function testkits() {
   const testkit = messageBoxMarketerialLayoutTestkitFactory({
-    dataHook: 'hook',
-    wrapper: document.createElement('div')
+    dataHook: "hook",
+    wrapper: document.createElement("div")
   });
 
   const enzymeTestkit = messageBoxMarketerialLayoutEnzymeTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     wrapper: enzyme.mount(<div />)
   });
 
@@ -54,7 +54,7 @@ async function testkits() {
   const page = await browser.newPage();
   const puppeteerTestkit = await messageBoxMarketerialLayoutPuppeteerTestkitFactory(
     {
-      dataHook: 'hook',
+      dataHook: "hook",
       page
     }
   );
