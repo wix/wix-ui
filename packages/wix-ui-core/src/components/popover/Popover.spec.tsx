@@ -13,10 +13,8 @@ import { testkit } from './Popover.uni.driver';
 import stylesPopover from './Popover.st.css';
 
 /** PopoverNext  */
-import { popoverNextPrivateDriverFactory } from '../popover-next/test/popover-next.private.driver';
-import { popoverNextPrivateDriverFactoryUni } from '../popover-next/test/popover-next.private.uni.driver';
+
 import { PopoverNext } from '../popover-next/popover-next';
-import stylesPopoverNext from '../popover-next/popover-next.st.css';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -80,7 +78,7 @@ describe('PopoverNext', () => {
 
   describe('[sync]', () => {
     const createDriver = container.createLegacyRenderer(
-      popoverNextPrivateDriverFactory,
+      popoverPrivateDriverFactory,
     );
 
     runTests(
@@ -88,20 +86,20 @@ describe('PopoverNext', () => {
       container,
       renderPopoverNext,
       PopoverNext,
-      stylesPopoverNext,
+      stylesPopover,
     );
   });
 
   describe('[async]', () => {
     const createDriver = container.createUniRendererAsync((base, body) => {
-      const privateDriver = popoverNextPrivateDriverFactory({
+      const privateDriver = popoverPrivateDriverFactory({
         element: container.componentNode,
         eventTrigger: Simulate,
       });
 
       return {
         ...privateDriver,
-        ...popoverNextPrivateDriverFactoryUni(base, body),
+        ...testkit(base, body),
       };
     });
 
@@ -110,7 +108,7 @@ describe('PopoverNext', () => {
       container,
       renderPopoverNext,
       PopoverNext,
-      stylesPopoverNext,
+      stylesPopover,
     );
   });
 });
