@@ -34,20 +34,27 @@ declare namespace __WSR {
     > {}
 
     export type MessageBoxFunctionalLayoutTheme =
-      | 'red'
-      | 'blue'
-      | 'purple'
-      | 'green';
+      | "red"
+      | "blue"
+      | "purple"
+      | "green";
   }
 }
 
-declare module 'wix-style-react' {
+declare module "wix-style-react" {
   export import MessageBoxFunctionalLayout = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
   export import MessageBoxFunctionalLayoutProps = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayoutProps;
+
+  export import MessageBoxLayout2 = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
+  export import MessageBoxLayout2Props = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayoutProps;
 }
 
-declare module 'wix-style-react/MessageBox' {
+declare module "wix-style-react/MessageBox" {
   export interface MessageBoxFunctionalLayoutProps
     extends __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayoutProps {}
   export import MessageBoxFunctionalLayout = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
+
+  export interface MessageBoxLayout2Props
+    extends __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayoutProps {}
+  export import MessageBoxLayout2 = __WSR.MessageBoxFunctionalLayout.MessageBoxFunctionalLayout;
 }
