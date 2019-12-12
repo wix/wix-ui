@@ -537,4 +537,43 @@ describe('metadataParser()', () => {
       });
     });
   });
+
+  describe('given component exported with wrapped HOCs', () => {
+    it('should resolve component', () => {
+      const fakeFs = cista({
+        'Component.js': `
+          const PropTypes = require("prop-types");
+          const React = require("react");
+          const compose = require("../hoc/compose");
+          const { withValidation } = requre("../hoc/withValidation");
+
+          class NumericInput extends React.Component {
+            render() {
+              return <div/>;
+            }
+          }
+
+          NumericInput.displayName = "NumericInput"
+          NumericInput.propTypes = {
+            value: PropTypes.number.isRequired,
+          }
+
+          module.exports = compose(NumericInput, [withValidation]);
+        `,
+      });
+
+      return expect(metadataParser(fakeFs.dir + '/Component.js')).resolves.toEqual({
+        description: '',
+        methods: [],
+        displayName: 'NumericInput',
+        props: {
+          value: {
+            required: true,
+            description: '',
+            type: { name: 'number' },
+          },
+        },
+      });
+    });
+  });
 });

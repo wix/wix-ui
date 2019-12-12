@@ -53,12 +53,26 @@ const resolveHOC = path => {
 
   if (n.CallExpression.check(node) && !isReactCreateClassCall(path)) {
     if (node.arguments.length) {
-      return resolveHOC(path.get('arguments', node.arguments.length - 1));
+      const inner = path.get('arguments', 0);
+
+      if (
+        node.arguments.length > 1 &&
+        (n.Literal.check(inner.node) ||
+          n.ObjectExpression.check(inner.node) ||
+          n.ArrayExpression.check(inner.node) ||
+          n.SpreadElement.check(inner.node))
+      ) {
+        return resolveHOC(
+          resolveToValue(path.get('arguments', node.arguments.length - 1)),
+        );
+      }
+
+      return resolveHOC(resolveToValue(inner));
     }
   }
 
   return path;
-};
+}
 
 const resolveDefinition = definition => {
   if (isReactCreateClassCall(definition)) {
