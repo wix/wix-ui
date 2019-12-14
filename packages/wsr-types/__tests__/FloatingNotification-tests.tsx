@@ -13,7 +13,7 @@ function FloatingNotificationWithMandatoryProps() {
 function FloatingNotificationWithAllProps() {
   return (
     <FloatingNotification
-      buttonProps={{ as: "a", href: "", label: <div />, onClick: _ev => {} }}
+      buttonProps={{ label: <div />, onClick: () => {} }}
       className="cls"
       dataHook="hook"
       onClose={_ev => {}}
@@ -23,6 +23,7 @@ function FloatingNotificationWithAllProps() {
       textButtonProps={{
         as: "a",
         href: "",
+        target: "",
         label: <div />,
         onClick: _ev => {}
       }}

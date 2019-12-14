@@ -59,7 +59,7 @@ function tableWithAllProps() {
           render: (_row, _rowNum) => <span />,
           sortDescending: true,
           sortable: true,
-          style: "font: 14px",
+          style: { font: "14px" },
           title: <span />,
           width: "10"
         }

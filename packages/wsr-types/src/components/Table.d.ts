@@ -31,11 +31,7 @@ declare namespace __WSR {
     const EmptyState: React.SFC<EmptyState.EmptyStateProps>;
     const BulkSelectionCheckbox: React.SFC<{ dataHook: string }>;
 
-    export type TableColumn = DataTable.DataTableColumn & {
-      style?: string;
-      width?: string;
-      important?: boolean;
-    };
+    export type TableColumn = DataTable.DataTableColumn;
 
     export type OnSelectionChangedFn = (
       selectedIds: TableProps["selectedIds"] | null,

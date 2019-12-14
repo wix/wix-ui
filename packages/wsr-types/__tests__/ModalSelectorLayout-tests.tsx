@@ -46,6 +46,9 @@ function ModalSelectorLayoutWithAllProps() {
       styles="font: 14px"
       subtitle={<div />}
       withSearch
+      disableConfirmation
+      onSelect={_item => {}}
+      sideActions={<div />}
     />
   );
 }
