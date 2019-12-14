@@ -25,12 +25,9 @@ declare namespace __WSR {
       | "premium"
       | "preview";
 
-    export type FloatingNotificationButtonProps = {
+    export type FloatingNotificationButtonProps = Button.ButtonWithAsProp<{
       label?: React.ReactNode;
-      as?: React.ReactNode;
-      href?: string;
-      onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    };
+    }>;
   }
 }
 

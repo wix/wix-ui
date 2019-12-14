@@ -82,9 +82,12 @@ declare namespace __WSR {
     export type DataTableColumn = {
       title: React.ReactNode;
       render: (row: any, rowNum: number) => React.ReactNode;
+      width?: string;
+      important?: boolean;
       sortable?: boolean;
-      infoTooltipProps?: any; // TODO: replace with BaseComponents.OmitPolyfill<TooltipProps, 'dataHook' | 'moveBy'>
       sortDescending?: boolean;
+      style?: React.CSSProperties;
+      infoTooltipProps?: any; // TODO: replace with BaseComponents.OmitPolyfill<TooltipProps, 'dataHook' | 'moveBy'>
       align?: DataTableColumnAlign;
     };
   }
