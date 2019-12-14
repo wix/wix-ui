@@ -13,9 +13,10 @@ storybook-static
 storybook-e2e
 .yo-rc.json
 
-# we ignore all *.js in root folder to avoid comitting component export
-# files that appear in root after build
+# Ignore all generated *.js and *.svg files in root and /system folders
 /*.js
+/*.svg
+/system
+
 !wallaby.js
 !protractor.conf.js
-/system/*.js
