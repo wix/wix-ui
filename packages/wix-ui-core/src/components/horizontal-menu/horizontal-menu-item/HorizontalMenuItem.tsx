@@ -33,8 +33,6 @@ export class HorizontalMenuItem extends React.PureComponent<
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.item;
 
   static defaultProps = {
-    href: '#',
-    target: '_self',
     isForceOpened: false,
   };
 
