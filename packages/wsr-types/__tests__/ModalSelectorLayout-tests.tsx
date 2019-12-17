@@ -13,7 +13,6 @@ function ModalSelectorLayoutWithMandatoryProps() {
       dataSource={(_searchQuery, _number, _limit) =>
         Promise.resolve({ items: [], totalCount: 0 })
       }
-      emptyState={<div />}
     />
   );
 }
