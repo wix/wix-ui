@@ -15,7 +15,7 @@ components and testkits.
 To use install and update `tsconfig.json`:
 
 1. `npm install wsr-types --save-dev`
-1. update `tsconfig.json` `include` array:
+2. update `tsconfig.json` `include` array:
 
 ```js
 {
@@ -29,7 +29,12 @@ To use install and update `tsconfig.json`:
 }
 ```
 
-3. want to ignore one of the types? update `tsconfig.json`:
+3. If you are using `noImplicitAny: true` in your tsconfig, then add to your `external-types.d.ts`
+```ts
+declare module 'wix-style-react/*'
+```
+
+4. want to ignore one of the types? update `tsconfig.json`:
 ```js
 {
     “files”: [
