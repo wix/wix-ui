@@ -94,6 +94,7 @@ declare module "wix-style-react/dist/testkit" {
   export const tableActionCellTestkitFactory: VanillaTestkitFactory<__WSRTests.TableActionCellDriver<
     HTMLElement
   >>;
+  export const googlePreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -112,7 +113,6 @@ declare module "wix-style-react/dist/testkit" {
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;

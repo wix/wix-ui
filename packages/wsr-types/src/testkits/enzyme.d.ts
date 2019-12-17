@@ -97,6 +97,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const proportionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ProportionUniDriver>;
   export const swatchesTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SwatchesUniDriver>;
   export const tabsTestkitFactory: EnzymeTestkitFactory<__WSRTests.TabsDriver>;
+  export const googlePreviewTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -113,7 +114,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;

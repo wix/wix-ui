@@ -53,6 +53,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const thumbnailTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
   export const multiSelectTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectUniDriver>;
   export const multiSelectCheckboxTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectCheckboxUniDriver>;
+  export const googlePreviewTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
 
   export const inputWithOptionsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithOptionsUniDriver>;
   export const searchTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SearchUniDriver>;
@@ -88,7 +89,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const editableTitleTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
   export const inputAreaTestkitFactory: any;
   export const listItemActionTestkitFactory: any;
