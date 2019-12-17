@@ -25,7 +25,7 @@ declare namespace __WSR {
       imageSize?: ModalSelectorLayoutImageSize;
       imageShape?: ModalSelectorLayoutImageShape;
       searchPlaceholder?: string;
-      emptyState: React.ReactNode;
+      emptyState?: React.ReactNode;
       noResultsFoundStateFactory?: (searchValue: string) => React.ReactNode;
       itemsPerPage?: number;
       withSearch?: boolean;
