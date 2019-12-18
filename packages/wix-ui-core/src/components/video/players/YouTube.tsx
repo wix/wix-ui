@@ -47,7 +47,10 @@ const mapPropsToPlayer: IPropsToPlayer = {
     }
   },
   volume: 'setVolume',
-  loop: 'setLoop',
+  loop: instance => {
+    // We reinit player to set(based on 'loop' prop) playlist, which is needed to play video in loop.
+    instance.reload();
+  },
 };
 
 const mapMethodsToPlayer: IMethodsToPlayer = {
@@ -121,7 +124,6 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         autoplay: playing ? 1 : 0,
         mute: muted ? 1 : 0,
         controls: controls ? 1 : 0,
-        loop: loop ? 1 : 0,
         origin: window.location.origin,
         playsinline: 1,
         ...(loop && { playlist: videoId }),
