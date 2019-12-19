@@ -95,7 +95,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const noBorderInputTestkitFactory: any;
+  export const noBorderInputTestkitFactory: PuppeteerTestkitFactory<__WSRTests.NoBorderInputPuppeteerDriver>;
   export const numberInputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
   export const popoverTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.PopoverUniDriver>;
   export const rangeTestkitFactory: any;

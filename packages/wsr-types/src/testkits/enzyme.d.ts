@@ -114,12 +114,14 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const inputAreaTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputAreaDriver<ReactWrapper>>;
+  export const inputAreaTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputAreaDriver<
+    ReactWrapper
+  >>;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const noBorderInputTestkitFactory: any;
+  export const noBorderInputTestkitFactory: EnzymeTestkitFactory<__WSRTests.NoBorderInputDriver>;
   export const numberInputTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
   export const popoverTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverDriver>;
   export const popoverMenuTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverMenuDriver>;
