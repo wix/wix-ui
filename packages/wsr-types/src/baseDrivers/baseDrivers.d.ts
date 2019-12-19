@@ -9,6 +9,12 @@ declare namespace __WSRTests {
     type TooltipUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").tooltipDriverFactory
     >;
+    type PopoverDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/vanilla").popoverDriverFactory
+    >;
+    type PopoverUniDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/unidriver").testkit
+    >;
   }
 
   namespace __WUB {
@@ -28,6 +34,6 @@ declare namespace __WSRTests {
 
     type FloatingHelperDriver = ReturnType<
       typeof import("wix-ui-backoffice/dist/src/components/FloatingHelper/FloatingHelper.driver").floatingHelperDriverFactory
-      >;
+    >;
   }
 }

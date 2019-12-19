@@ -25,7 +25,7 @@ declare namespace __WSR {
       showOptionsIfEmptyInput?: boolean;
       highlight?: boolean;
       native?: boolean;
-      popoverProps?: object; // TODO update when PopoverProps are implemented
+      popoverProps?: Popover.PopoverProps;
       onSelect?: OnSelectFn;
     }
 
