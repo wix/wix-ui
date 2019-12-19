@@ -90,7 +90,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const highlighterTestkitFactory: any;
-  export const inputAreaTestkitFactory: any;
+  export const inputAreaTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputAreaUniDriver>;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
