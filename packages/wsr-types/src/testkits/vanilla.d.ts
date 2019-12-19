@@ -121,7 +121,7 @@ declare module "wix-style-react/dist/testkit" {
   export const noBorderInputTestkitFactory: any;
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverDriver>;
-  export const popoverMenuTestkitFactory: any;
+  export const popoverMenuTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;

@@ -122,7 +122,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const noBorderInputTestkitFactory: any;
   export const numberInputTestkitFactory: any;
   export const popoverTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverDriver>;
-  export const popoverMenuTestkitFactory: any;
+  export const popoverMenuTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;
