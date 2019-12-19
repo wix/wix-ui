@@ -5,6 +5,8 @@ declare namespace __WSRTests {
   namespace __WUC {
     type ButtonNextDriver = import("wix-ui-core/drivers/unidriver").ButtonNextDriver;
     type LinearProgressBarDriver = import("wix-ui-core/drivers/vanilla").LinearProgressBarDriver;
+    type CircularProgressBarDriver = import("wix-ui-core/drivers/vanilla").CircularProgressBarDriver;
+    type CircularProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").CircularProgressBarUniDriver;
     type LinearProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").LinearProgressBarUniDriver;
     type TooltipUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").tooltipDriverFactory
