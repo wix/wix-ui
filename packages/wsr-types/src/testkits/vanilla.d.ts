@@ -119,7 +119,7 @@ declare module "wix-style-react/dist/testkit" {
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
   export const noBorderInputTestkitFactory: any;
-  export const numberInputTestkitFactory: any;
+  export const numberInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
   export const popoverTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverDriver>;
   export const popoverMenuTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
