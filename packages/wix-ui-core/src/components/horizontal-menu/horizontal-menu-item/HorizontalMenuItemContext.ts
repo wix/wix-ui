@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+import { ExpandSize } from './HorizontalMenuItem';
+
 export interface HorizontalMenuItemContextValue {
   isOpen: boolean;
-  getMenuItemOffsetLeft(): number;
+  expandSize?: ExpandSize;
   getMenuItemBoundingRect(key: string): number;
   getMenuBoundingRect(key: string): number;
 }
@@ -11,7 +13,7 @@ export const HorizontalMenuItemContext = React.createContext<
   HorizontalMenuItemContextValue
 >({
   isOpen: false,
-  getMenuItemOffsetLeft: () => 0,
+  expandSize: 'column',
   getMenuItemBoundingRect: () => 0,
   getMenuBoundingRect: () => 0,
 });

@@ -7,6 +7,8 @@ import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuItem.st.css';
 
+export type ExpandSize = 'column' | 'menu' | 'fullWidth';
+
 export interface ExpandIconProps {
   isOpen: boolean;
 }
@@ -18,6 +20,7 @@ export interface HorizontalMenuItemProps {
   target?: string;
   icon?: React.ReactNode;
   isForceOpened?: boolean;
+  expandSize?: ExpandSize;
   style?: React.CSSProperties;
   expandIcon?(props: ExpandIconProps): React.ReactNode;
 }
@@ -34,6 +37,7 @@ export class HorizontalMenuItem extends React.PureComponent<
 
   static defaultProps = {
     isForceOpened: false,
+    expandSize: 'column',
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
@@ -56,16 +60,6 @@ export class HorizontalMenuItem extends React.PureComponent<
     }
 
     return current.getBoundingClientRect()[key];
-  };
-
-  private readonly getMenuItemOffsetLeft = () => {
-    const { current } = this.menuItemRef;
-
-    if (!current) {
-      return 0;
-    }
-
-    return current.offsetLeft;
   };
 
   private readonly toggleMenu = () => {
@@ -115,6 +109,7 @@ export class HorizontalMenuItem extends React.PureComponent<
       className: propClassName,
       icon,
       expandIcon,
+      expandSize,
       style: propStyle,
       isForceOpened,
       ...rest
@@ -122,7 +117,11 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     const { isOpen: isOpenState } = this.state;
 
-    const { className, ...stylableProps } = style('root', {}, this.props);
+    const { className, ...stylableProps } = style(
+      'root',
+      { expandSize },
+      this.props,
+    );
 
     const isOpen = isOpenState || isForceOpened;
 
@@ -161,8 +160,8 @@ export class HorizontalMenuItem extends React.PureComponent<
                     <HorizontalMenuItemContext.Provider
                       value={{
                         isOpen: isMenuOpen,
+                        expandSize,
                         getMenuBoundingRect: menuContext.getMenuBoundingRect,
-                        getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
                         getMenuItemBoundingRect: this.getMenuItemBoundingRect,
                       }}
                     >

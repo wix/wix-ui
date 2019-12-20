@@ -22,8 +22,8 @@ import { HorizontalMenu } from '..';
 const code = config => baseCode({ components: { HorizontalMenu }, ...config });
 
 const exampleColumnChildren = (
-  <HorizontalMenu.Item label="[fullWidth] Column Layout">
-    <HorizontalMenu.Layout.Columns columns={3} expandSize="fullWidth">
+  <HorizontalMenu.Item label="[fullWidth] Column Layout" expandSize="fullWidth">
+    <HorizontalMenu.Layout.Columns columns={3}>
       <HorizontalMenu.Item label="Example Item 1" />
       <HorizontalMenu.Item label="Example Item 2" />
       <HorizontalMenu.Item label="Example Item 3" />
@@ -37,8 +37,8 @@ const exampleColumnChildren = (
 );
 
 const exampleGridChildren = (
-  <HorizontalMenu.Item label="[menu] Grid Layout">
-    <HorizontalMenu.Layout.Grid expandSize="menu">
+  <HorizontalMenu.Item label="[menu] Grid Layout" expandSize="menu">
+    <HorizontalMenu.Layout.Grid>
       <HorizontalMenu.Item label="Example Item 1" />
       <HorizontalMenu.Item label="Example Item 2" />
       <HorizontalMenu.Item label="Example Item 3" />
@@ -89,8 +89,8 @@ const generateMenu = () => (
 
 const generateStringMenu = () => `
   <HorizontalMenu>
-    <HorizontalMenu.Item label="[fullWidth] Column Layout">
-      <HorizontalMenu.Layout.Columns columns={3} expandSize="fullWidth">
+    <HorizontalMenu.Item label="[fullWidth] Column Layout" expandSize="fullWidth">
+      <HorizontalMenu.Layout.Columns columns={3}>
         <HorizontalMenu.Item label="Example Item 1" />
         <HorizontalMenu.Item label="Example Item 2" />
         <HorizontalMenu.Item label="Example Item 3" />
@@ -102,8 +102,8 @@ const generateStringMenu = () => `
       </HorizontalMenu.Layout.Columns>
     </HorizontalMenu.Item>
 
-    <HorizontalMenu.Item label="[menu] Grid Layout">
-      <HorizontalMenu.Layout.Grid expandSize="menu">
+    <HorizontalMenu.Item label="[menu] Grid Layout" expandSize="menu">
+      <HorizontalMenu.Layout.Grid>
         <HorizontalMenu.Item label="Example Item 1" />
         <HorizontalMenu.Item label="Example Item 2" />
         <HorizontalMenu.Item label="Example Item 3" />
