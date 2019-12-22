@@ -105,7 +105,7 @@ declare module "wix-style-react/dist/testkit" {
 
   export const calendarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const calendarPanelTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelDriver>;
-  export const carouselTestkitFactory: any;
+  export const carouselTestkitFactory: VanillaTestkitFactory<__WSRTests.CarouselDriver>;
   export const circularProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.CircularProgressBarDriver>;
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
@@ -126,14 +126,14 @@ declare module "wix-style-react/dist/testkit" {
   export const popoverMenuTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
-  export const sidebarTestkitFactory: any;
-  export const sidebarSectionTitleTestkitFactory: any;
+  export const sidebarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarUniDriver>;
+  export const sidebarSectionTitleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarSectionTitleUniDriver>;
   export const statsWidgetTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
-  export const sidebarSectionItemTestkitFactory: any;
-  export const sidebarDividerTestkitFactory: any;
-  export const sidebarBackButtonTestkitFactory: any;
-  export const sidebarHeaderTestkitFactory: any;
+  export const sidebarSectionItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarSectionItemUniDriver>;
+  export const sidebarDividerTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarDividerUniDriver>;
+  export const sidebarBackButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarBackButtonUniDriver>;
+  export const sidebarHeaderTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
   export const composerHeaderTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
