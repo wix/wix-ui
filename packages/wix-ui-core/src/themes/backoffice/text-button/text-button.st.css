@@ -383,8 +383,8 @@
   -st-mixin: sizeSmall;
 }
 
-.textButton.tiny{
-  height: 18px;
+.textButton.tiny {
+  height: 15px;
   -st-mixin: sizeTiny;
 }
 
@@ -417,9 +417,11 @@
 .textButton.tiny .prefix {
   width: 18px;
   height: 18px;
+  margin: -2px 0 -1px 0;
 }
 
 .textButton.tiny .suffix {
   width: 18px;
   height: 18px;
+  margin: -2px 0 -1px 0;
 }
