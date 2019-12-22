@@ -100,7 +100,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const popoverTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.PopoverUniDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
-  export const sidebarTestkitFactory: any;
+  export const sidebarTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SidebarUniDriver>;
   export const sidebarSectionTitleTestkitFactory: any;
   export const statsWidgetTestkitFactory: any;
   export const tableActionCellTestkitFactory: any;
