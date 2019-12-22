@@ -94,6 +94,7 @@ declare module "wix-style-react/dist/testkit" {
   export const tableActionCellTestkitFactory: VanillaTestkitFactory<__WSRTests.TableActionCellDriver<
     HTMLElement
   >>;
+  export const googlePreviewTestkitFactory: VanillaUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
 
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
@@ -105,23 +106,24 @@ declare module "wix-style-react/dist/testkit" {
   export const calendarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const calendarPanelTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelDriver>;
   export const carouselTestkitFactory: any;
-  export const circularProgressBarTestkitFactory: any;
+  export const circularProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.CircularProgressBarDriver>;
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
-  export const inputAreaTestkitFactory: any;
+  export const inputAreaTestkitFactory: VanillaTestkitFactory<__WSRTests.InputAreaDriver<
+    HTMLElement
+  >>;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const noBorderInputTestkitFactory: any;
-  export const numberInputTestkitFactory: any;
-  export const popoverTestkitFactory: any;
-  export const popoverMenuTestkitFactory: any;
+  export const noBorderInputTestkitFactory: VanillaTestkitFactory<__WSRTests.NoBorderInputDriver>;
+  export const numberInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
+  export const popoverTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverDriver>;
+  export const popoverMenuTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;

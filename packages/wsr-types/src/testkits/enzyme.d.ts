@@ -97,6 +97,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const proportionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ProportionUniDriver>;
   export const swatchesTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SwatchesUniDriver>;
   export const tabsTestkitFactory: EnzymeTestkitFactory<__WSRTests.TabsDriver>;
+  export const googlePreviewTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
   export const autoCompleteCompositeTestkitFactory: any;
   export const avatarTestkitFactory: any;
   export const badgeTestkitFactory: any;
@@ -106,23 +107,24 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: EnzymeTestkitFactory<__WSRTests.CalendarPanelDriver>;
   export const carouselTestkitFactory: any;
-  export const circularProgressBarTestkitFactory: any;
+  export const circularProgressBarTestkitFactory: EnzymeTestkitFactory<__WSRTests.CircularProgressBarDriver>;
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
   export const editableSelectorTestkitFactory: any;
   export const editableTitleTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
-  export const inputAreaTestkitFactory: any;
+  export const inputAreaTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputAreaDriver<
+    ReactWrapper
+  >>;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const noBorderInputTestkitFactory: any;
-  export const numberInputTestkitFactory: any;
-  export const popoverTestkitFactory: any;
-  export const popoverMenuTestkitFactory: any;
+  export const noBorderInputTestkitFactory: EnzymeTestkitFactory<__WSRTests.NoBorderInputDriver>;
+  export const numberInputTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
+  export const popoverTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverDriver>;
+  export const popoverMenuTestkitFactory: EnzymeTestkitFactory<__WSRTests.PopoverMenuDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;

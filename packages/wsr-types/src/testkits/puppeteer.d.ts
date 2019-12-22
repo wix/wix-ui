@@ -53,6 +53,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const thumbnailTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ThumbnailUniDriver>;
   export const multiSelectTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectUniDriver>;
   export const multiSelectCheckboxTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.MultiSelectCheckboxUniDriver>;
+  export const googlePreviewTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.GooglePreviewUniDriver>;
 
   export const inputWithOptionsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithOptionsUniDriver>;
   export const searchTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SearchUniDriver>;
@@ -80,7 +81,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const calendarTestkitFactory: any;
   export const calendarPanelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const carouselTestkitFactory: any;
-  export const circularProgressBarTestkitFactory: any;
+  export const circularProgressBarTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.CircularProgressBarUniDriver>;
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
@@ -88,17 +89,15 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const editableTitleTestkitFactory: any;
   export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;
-  export const googlePreviewTestkitFactory: any;
   export const highlighterTestkitFactory: any;
-  export const inputAreaTestkitFactory: any;
+  export const inputAreaTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputAreaUniDriver>;
   export const listItemActionTestkitFactory: any;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
-  export const noBorderInputTestkitFactory: any;
-  export const numberInputTestkitFactory: any;
-  export const popoverTestkitFactory: any;
-  export const popoverMenuTestkitFactory: any;
+  export const noBorderInputTestkitFactory: PuppeteerTestkitFactory<__WSRTests.NoBorderInputPuppeteerDriver>;
+  export const numberInputTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
+  export const popoverTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.PopoverUniDriver>;
   export const rangeTestkitFactory: any;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: any;

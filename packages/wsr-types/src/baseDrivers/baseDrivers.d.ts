@@ -5,9 +5,17 @@ declare namespace __WSRTests {
   namespace __WUC {
     type ButtonNextDriver = import("wix-ui-core/drivers/unidriver").ButtonNextDriver;
     type LinearProgressBarDriver = import("wix-ui-core/drivers/vanilla").LinearProgressBarDriver;
+    type CircularProgressBarDriver = import("wix-ui-core/drivers/vanilla").CircularProgressBarDriver;
+    type CircularProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").CircularProgressBarUniDriver;
     type LinearProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").LinearProgressBarUniDriver;
     type TooltipUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").tooltipDriverFactory
+    >;
+    type PopoverDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/vanilla").popoverDriverFactory
+    >;
+    type PopoverUniDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/unidriver").testkit
     >;
   }
 
@@ -28,6 +36,6 @@ declare namespace __WSRTests {
 
     type FloatingHelperDriver = ReturnType<
       typeof import("wix-ui-backoffice/dist/src/components/FloatingHelper/FloatingHelper.driver").floatingHelperDriverFactory
-      >;
+    >;
   }
 }
