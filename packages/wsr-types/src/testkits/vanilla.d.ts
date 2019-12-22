@@ -131,7 +131,7 @@ declare module "wix-style-react/dist/testkit" {
   export const statsWidgetTestkitFactory: any;
   export const toggleSwitchTestkitFactory: any;
   export const sidebarSectionItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarSectionItemUniDriver>;
-  export const sidebarDividerTestkitFactory: any;
+  export const sidebarDividerTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarDividerUniDriver>;
   export const sidebarBackButtonTestkitFactory: any;
   export const sidebarHeaderTestkitFactory: any;
   export const composerHeaderTestkitFactory: any;
