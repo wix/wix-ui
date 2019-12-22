@@ -105,7 +105,7 @@ declare module "wix-style-react/dist/testkit" {
 
   export const calendarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.CalendarPanelUniDriver>;
   export const calendarPanelTestkitFactory: VanillaTestkitFactory<__WSRTests.CalendarPanelDriver>;
-  export const carouselTestkitFactory: any;
+  export const carouselTestkitFactory: VanillaTestkitFactory<__WSRTests.CarouselDriver>;
   export const circularProgressBarTestkitFactory: VanillaTestkitFactory<__WSRTests.CircularProgressBarDriver>;
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
