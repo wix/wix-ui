@@ -14,7 +14,7 @@ export interface TagProps {
   value?: string;
   label?: string;
   onChange?: React.FormEventHandler<HTMLInputElement>;
-  children: string;
+  children?: React.ReactNode;
 }
 
 export const Tag: React.FunctionComponent<TagProps> = ({
@@ -29,7 +29,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   <label
     data-hook={DataHooks.Tag}
     className={classNames(style.tag, className)}
-    title={children}
+    title={label}
     htmlFor={value}
     tabIndex={0}
     {...rest}
@@ -50,7 +50,10 @@ export const Tag: React.FunctionComponent<TagProps> = ({
 
 Tag.displayName = DisplayNames.Tag;
 Tag.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   className: PropTypes.string,
   checked: PropTypes.bool,
   value: PropTypes.string,
