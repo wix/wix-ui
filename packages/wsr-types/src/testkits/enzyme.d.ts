@@ -134,7 +134,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sidebarSectionItemTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SidebarSectionItemUniDriver>;
   export const sidebarDividerTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SidebarDividerUniDriver>;
   export const sidebarBackButtonTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SidebarBackButtonUniDriver>;
-  export const sidebarHeaderTestkitFactory: any;
+  export const sidebarHeaderTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
   export const composerHeaderTestkitFactory: any;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
