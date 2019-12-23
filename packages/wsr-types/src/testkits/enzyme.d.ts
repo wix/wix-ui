@@ -151,7 +151,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sideMenuTestkitFactory: any;
   export const draggableTestkitFactory: any;
   export const editableRowTestkitFactory: any;
-  export const fieldLabelAttributesTestkitFactory: any;
+  export const fieldLabelAttributesTestkitFactory: EnzymeTestkitFactory<__WSRTests.FieldLabelAttributesDriver>;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;

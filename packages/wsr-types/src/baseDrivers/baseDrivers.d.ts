@@ -11,6 +11,9 @@ declare namespace __WSRTests {
     type ToggleSwitchDriver = ReturnType<
       typeof import("wix-ui-core/drivers/vanilla").toggleSwitchDriverFactory
     >;
+    type TooltipDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/vanilla").tooltipDriverFactory
+    >;
     type TooltipUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").tooltipDriverFactory
     >;

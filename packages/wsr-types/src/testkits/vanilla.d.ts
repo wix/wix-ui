@@ -150,7 +150,7 @@ declare module "wix-style-react/dist/testkit" {
   export const sideMenuTestkitFactory: any;
   export const draggableTestkitFactory: any;
   export const editableRowTestkitFactory: any;
-  export const fieldLabelAttributesTestkitFactory: any;
+  export const fieldLabelAttributesTestkitFactory: VanillaTestkitFactory<__WSRTests.FieldLabelAttributesDriver>;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
   export const tooltipTestkitFactory: any;

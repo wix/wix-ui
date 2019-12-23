@@ -123,7 +123,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const headerTestkitFactory: any;
   export const sideMenuTestkitFactory: any;
   export const editableRowTestkitFactory: any;
-  export const fieldLabelAttributesTestkitFactory: any;
   export const fieldWithSelectionCompositeTestkitFactory: any;
   export const radioButtonTestkitFactory: any;
   export const cardSubheaderTestkitFactory: any;
