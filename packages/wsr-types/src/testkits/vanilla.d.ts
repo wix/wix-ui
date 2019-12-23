@@ -116,7 +116,7 @@ declare module "wix-style-react/dist/testkit" {
   export const inputAreaTestkitFactory: VanillaTestkitFactory<__WSRTests.InputAreaDriver<
     HTMLElement
   >>;
-  export const listItemActionTestkitFactory: any;
+  export const listItemActionTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ListItemActionUniDriver>;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
