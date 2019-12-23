@@ -8,6 +8,9 @@ declare namespace __WSRTests {
     type CircularProgressBarDriver = import("wix-ui-core/drivers/vanilla").CircularProgressBarDriver;
     type CircularProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").CircularProgressBarUniDriver;
     type LinearProgressBarUniDriver = import("wix-ui-core/drivers/unidriver").LinearProgressBarUniDriver;
+    type ToggleSwitchDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/vanilla").toggleSwitchDriverFactory
+    >;
     type TooltipUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").tooltipDriverFactory
     >;
