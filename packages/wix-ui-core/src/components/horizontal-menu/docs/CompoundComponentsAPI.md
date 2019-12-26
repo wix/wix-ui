@@ -11,6 +11,7 @@ A render slot for horizontal menu item
 | `isForceOpened`   | `boolean`                  | `false`      |            | Force open submenu of menu item |
 | `icon`            | `React.ReactNode`          |              |            | Icon before title |
 | `expandIcon`      | `({ isOpen: boolean }) => React.ReactNode` |      |            | Expand icon after label |
+| `expandSize`      | `'column'` &#124; `'menu'` &#124; `'fullWidth'` | `column`     |            | Size of expanded submenu |
 | `style`           | `React.CSSProperties`      |              |            | |
 
 
@@ -38,5 +39,4 @@ Common properties for layouts
 | `className`       | `string`                   |              |            | |
 | `style`           | `React.CSSProperties`      |              |            | |
 | `textAlign`       | `'left'` &#124; `'center'` &#124; `'right'` |              |            | |
-| `expandSize`      | `'column'` &#124; `'menu'` &#124; `'fullWidth'` | `column`     |            | Size of expanded submenu |
 | `maxOverflowWidth` | `number`                  | `280`        |              | Maximum content width of submenu that can be overflowed right or left if `<HorizontalMenu.Item />` is not enough to place it fully below itself. |

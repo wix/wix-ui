@@ -17,12 +17,12 @@ export class HorizontalMenuGridLayout extends HorizontalMenuLayout<
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.gridLayout;
 
   render() {
-    const { textAlign, menuContext, isOpen, expandSize } = this.props;
+    const { textAlign, menuContext, isOpen, menuItemContext } = this.props;
     const { styles: stateStyles } = this.state;
 
     const { className, ...stylableProps } = style(
       'root',
-      { expandSize },
+      { expandSize: menuItemContext.expandSize },
       this.props,
     );
     const classList = classnames(className, menuContext.gridLayoutClassName);

@@ -10,14 +10,11 @@ import {
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { calculatePositioning } from './calculatePositioning';
 
-export type ExpandSize = 'column' | 'menu' | 'fullWidth';
-
 export interface HorizontalMenuLayoutProps {
   className?: string;
   style?: React.CSSProperties;
   textAlign?: 'left' | 'center' | 'right';
   maxOverflowWidth?: number;
-  expandSize?: ExpandSize;
   children?: React.ReactNode;
 }
 
@@ -32,18 +29,10 @@ interface HorizontalMenuLayoutState {
   styles: React.CSSProperties;
 }
 
-interface HorizontalMenuLayoutDefaultProps {
-  expandSize: ExpandSize;
-}
-
 export class HorizontalMenuLayout<P> extends React.Component<
   HorizontalMenuLayoutWrappedProps & P,
   HorizontalMenuLayoutState
 > {
-  static defaultProps: HorizontalMenuLayoutDefaultProps = {
-    expandSize: 'column',
-  };
-
   layoutRef: React.RefObject<HTMLUListElement> = React.createRef();
 
   state = {
@@ -51,27 +40,26 @@ export class HorizontalMenuLayout<P> extends React.Component<
   };
 
   componentDidUpdate(props: HorizontalMenuLayoutWrappedProps) {
-    const { isOpen, expandSize } = this.props;
+    const { isOpen, menuItemContext } = this.props;
 
     if (
       (isOpen !== props.isOpen && isOpen) ||
-      expandSize !== props.expandSize
+      menuItemContext.expandSize !== props.menuItemContext.expandSize
     ) {
       this.recalculatePositions();
     }
   }
 
   private recalculatePositions() {
-    const { maxOverflowWidth, menuItemContext, expandSize } = this.props;
+    const { maxOverflowWidth, menuItemContext } = this.props;
 
     this.setState({
       styles: calculatePositioning({
-        expandSize,
+        expandSize: menuItemContext.expandSize,
         layoutRef: this.layoutRef,
         maxOverflowWidth,
         getMenuBoundingRect: menuItemContext.getMenuBoundingRect,
         getMenuItemBoundingRect: menuItemContext.getMenuItemBoundingRect,
-        getMenuItemOffsetLeft: menuItemContext.getMenuItemOffsetLeft,
       }),
     });
   }

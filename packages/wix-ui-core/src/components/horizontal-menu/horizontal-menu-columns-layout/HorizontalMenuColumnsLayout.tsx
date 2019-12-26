@@ -19,17 +19,22 @@ export class HorizontalMenuColumnsLayout extends HorizontalMenuLayout<
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.columnsLayout;
 
   static defaultProps = {
-    ...HorizontalMenuLayout.defaultProps,
     columns: 1,
   };
 
   render() {
-    const { textAlign, menuContext, isOpen, expandSize, columns } = this.props;
+    const {
+      textAlign,
+      menuContext,
+      isOpen,
+      menuItemContext,
+      columns,
+    } = this.props;
     const { styles: stateStyles } = this.state;
 
     const { className, ...stylableProps } = style(
       'root',
-      { expandSize },
+      { expandSize: menuItemContext.expandSize },
       this.props,
     );
     const classList = classnames(className, menuContext.columnsLayoutClassName);

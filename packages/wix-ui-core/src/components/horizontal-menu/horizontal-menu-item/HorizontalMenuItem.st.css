@@ -9,9 +9,13 @@
 }
 
 .root {
-  position: relative;
+  -st-states: expandSize(enum(column));
 
   transition: inherit;
+}
+
+.root:expandSize(column) {
+  position: relative;
 }
 
 .menuItemLink {
