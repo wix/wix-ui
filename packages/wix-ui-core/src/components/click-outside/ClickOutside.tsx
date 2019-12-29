@@ -9,6 +9,9 @@ export interface ClickOutsideProps {
 
   /** Elements with this class will not trigger onClickOutside callback */
   excludeClass?: string;
+
+  /** useCapture | options object, specifies characteristics about the event listener */
+  options?: boolean | AddEventListenerOptions;
 }
 
 /**
@@ -27,8 +30,9 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
    * Register ClickOutside events
    */
   _registerEvents() {
+    const { options } = this.props;
     ['mouseup', 'touchend'].forEach(eventName => {
-      document.addEventListener(eventName, this._onClickOutside);
+      document.addEventListener(eventName, this._onClickOutside, options);
       this._boundEvents.push(eventName);
     });
   }
@@ -37,9 +41,10 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
    * Unregister ClickOutside events
    */
   _unregisterEvents() {
+    const { options } = this.props;
     while (this._boundEvents.length > 0) {
       const eventName = this._boundEvents.pop();
-      document.removeEventListener(eventName, this._onClickOutside);
+      document.removeEventListener(eventName, this._onClickOutside, options);
     }
   }
 
