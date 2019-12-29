@@ -23,7 +23,7 @@ declare namespace __WSR {
     const TextLabel: React.SFC;
     const ActionButton: React.SFC<ActionButtonProps>;
     type ActionButtonProps = Button.ButtonWithAsProp<{
-      link?: boolean;
+      link?: string;
       type?: string;
       target?: string;
     }>;
