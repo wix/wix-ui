@@ -42,7 +42,7 @@ describe('HorizontalMenu', () => {
     const item = await driver.getMenuItem(menuItem.label);
     expect(await item.exists()).toBeTruthy();
     expect(await item.attr('aria-expanded')).toEqual('false');
-    expect(await item.attr('aria-haspopup')).toEqual('menu');
+    expect(await item.attr('aria-haspopup')).toEqual('true');
   });
 
   it('should render HorizontalMenuItem without children', async () => {
@@ -59,7 +59,7 @@ describe('HorizontalMenu', () => {
     const item = await driver.getMenuItem(menuItem.label);
     expect(await item.exists()).toBeTruthy();
     expect(await item.attr('aria-expanded')).toBeFalsy();
-    expect(await item.attr('aria-haspopup')).toBeFalsy();
+    expect(await item.attr('aria-haspopup')).toEqual('false');
   });
 
   it('should show submenu on HorizontalMenuItem hover', async () => {

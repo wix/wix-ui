@@ -6,7 +6,7 @@ export interface CalculatePositioningProps {
   expandSize: ExpandSize;
   getMenuBoundingRect(key: string): number;
   getMenuItemBoundingRect(key: string): number;
-  layoutRef: React.RefObject<HTMLUListElement>;
+  layoutRef: React.RefObject<HTMLDivElement>;
   maxOverflowWidth: number;
 }
 
