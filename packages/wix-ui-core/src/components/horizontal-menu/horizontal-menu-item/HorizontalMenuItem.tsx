@@ -91,6 +91,7 @@ export class HorizontalMenuItem extends React.PureComponent<
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
           href={href}
           target={target}
+          tabIndex={0}
         >
           {label}
         </a>
@@ -142,13 +143,12 @@ export class HorizontalMenuItem extends React.PureComponent<
                   <li
                     aria-selected={isOpen}
                     aria-expanded={children && isMenuOpen}
-                    aria-haspopup={children ? 'menu' : undefined}
+                    aria-haspopup={children ? true : false}
                     aria-label={label}
                     onMouseEnter={this.toggleMenu}
                     onMouseLeave={this.toggleMenu}
                     onFocus={this.toggleMenu}
                     onBlur={this.toggleMenu}
-                    menu-item-label={label}
                     data-hook={HORIZONTAL_MENU_METADATA.dataHooks.item}
                     ref={this.menuItemRef}
                     className={classList}

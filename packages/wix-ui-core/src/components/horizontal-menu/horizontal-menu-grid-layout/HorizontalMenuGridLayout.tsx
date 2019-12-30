@@ -1,23 +1,78 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
-import { withHorizontalMenuLayout } from '../horizontal-menu-layout';
-import { HorizontalMenuLayout } from '../horizontal-menu-layout/HorizontalMenuLayout';
-import { HorizontalMenuContext } from '../HorizontalMenuContext';
+import {
+  HorizontalMenuContext,
+  HorizontalMenuContextValue,
+  withHorizontalMenuContext,
+} from '../HorizontalMenuContext';
 import { HORIZONTAL_MENU_METADATA } from '../constants';
+import { calculatePositioning } from '../horizontal-menu-layout/calculatePositioning';
+import {
+  HorizontalMenuItemContextValue,
+  withHorizontalMenuItemContext,
+} from '../horizontal-menu-item/HorizontalMenuItemContext';
 
 import style from './HorizontalMenuGridLayout.st.css';
 
-export interface HorizontalMenuGridLayoutProps {}
+export interface HorizontalMenuGridLayoutProps {
+  className?: string;
+  style?: React.CSSProperties;
+  maxOverflowWidth?: number;
+  menuContext: HorizontalMenuContextValue;
+  menuItemContext: HorizontalMenuItemContextValue;
+}
+
+export interface HorizontalMenuGridLayoutState {
+  styles: React.CSSProperties;
+}
 
 /** Horizontal Menu Grid Layout */
-export class HorizontalMenuGridLayout extends HorizontalMenuLayout<
-  HorizontalMenuGridLayoutProps
+export class HorizontalMenuGridLayout extends React.Component<
+  HorizontalMenuGridLayoutProps,
+  HorizontalMenuGridLayoutState
 > {
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.gridLayout;
 
+  layoutRef: React.RefObject<HTMLDivElement> = React.createRef();
+
+  state = {
+    styles: {},
+  };
+
+  componentDidMount() {
+    this.recalculatePositions();
+  }
+
+  componentDidUpdate(prevProps: HorizontalMenuGridLayoutProps) {
+    const {
+      menuItemContext: { isOpen, expandSize },
+    } = this.props;
+
+    if (
+      (isOpen !== prevProps.menuItemContext.isOpen && isOpen) ||
+      expandSize !== prevProps.menuItemContext.expandSize
+    ) {
+      this.recalculatePositions();
+    }
+  }
+
+  recalculatePositions() {
+    const { maxOverflowWidth, menuItemContext } = this.props;
+
+    this.setState({
+      styles: calculatePositioning({
+        expandSize: menuItemContext.expandSize,
+        layoutRef: this.layoutRef,
+        maxOverflowWidth,
+        getMenuBoundingRect: menuItemContext.getMenuBoundingRect,
+        getMenuItemBoundingRect: menuItemContext.getMenuItemBoundingRect,
+      }),
+    });
+  }
+
   render() {
-    const { textAlign, menuContext, isOpen, menuItemContext } = this.props;
+    const { menuContext, menuItemContext } = this.props;
     const { styles: stateStyles } = this.state;
 
     const { className, ...stylableProps } = style(
@@ -29,7 +84,6 @@ export class HorizontalMenuGridLayout extends HorizontalMenuLayout<
 
     const styles = {
       ...this.props.style,
-      textAlign,
       ...stateStyles,
     };
 
@@ -43,22 +97,22 @@ export class HorizontalMenuGridLayout extends HorizontalMenuLayout<
           ),
         }}
       >
-        <ul
+        <div
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}
           data-layout="grid"
-          data-opened={isOpen}
+          data-opened={menuItemContext.isOpen}
           ref={this.layoutRef}
           className={classList}
           {...stylableProps}
           style={styles}
         >
-          {this.props.children}
-        </ul>
+          <ul className={style.listWrapper}>{this.props.children}</ul>
+        </div>
       </HorizontalMenuContext.Provider>
     );
   }
 }
 
-export default withHorizontalMenuLayout<HorizontalMenuGridLayoutProps>(
-  HorizontalMenuGridLayout,
+export default withHorizontalMenuContext(
+  withHorizontalMenuItemContext(HorizontalMenuGridLayout),
 );

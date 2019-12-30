@@ -4,7 +4,7 @@
 }
 
 .root {
-  -st-states: expandSize(enum(column));
+  -st-states: expandSize(enum(column)), columnsAlignment(enum(left, center, right, justify));
 
   box-sizing: border-box;
 
@@ -13,23 +13,43 @@
   display: none;
   min-width: 100%;
 
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-
   flex: 1;
 
   transition: inherit;
 }
 
-.root:expandSize(column) {
+.root:expandSize(column) .listWrapper {
   box-sizing: content-box;
   width: max-content;
 }
 
+.root:columnsAlignment(left) {
+  justify-content: flex-start;
+}
+
+.root:columnsAlignment(center) {
+  justify-content: center;
+}
+
+.root:columnsAlignment(right) {
+  justify-content: flex-end;
+}
+
+.root:columnsAlignment(justify) > .listWrapper {
+  width: 100%;
+}
+
 .root[data-opened="true"] {
-  display: inherit;
+  display: flex;
+}
+
+.listWrapper {
+  break-after: avoid-column;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
 }
 
 .menuItem {
