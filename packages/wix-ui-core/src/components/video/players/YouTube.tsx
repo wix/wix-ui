@@ -124,6 +124,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
         autoplay: playing ? 1 : 0,
         mute: muted ? 1 : 0,
         controls: controls ? 1 : 0,
+        loop: loop ? 1 : 0,
         origin: window.location.origin,
         playsinline: 1,
         ...(loop && { playlist: videoId }),
