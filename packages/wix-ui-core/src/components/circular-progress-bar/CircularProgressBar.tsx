@@ -106,7 +106,7 @@ export const CircularProgressBar: React.FunctionComponent<
       ? _props.errorLabel
       : `${Math.floor(_props.value)}%`;
   return (
-    <div {...style('root', { error, success }, _props)}>
+    <div {...style('root', { error, success }, _props)} data-error={error}>
       {renderArcs(_props)}
       {showProgressIndication && (
         <div

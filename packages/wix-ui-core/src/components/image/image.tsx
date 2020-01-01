@@ -89,7 +89,11 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
         backgroundSize: resizeMode,
       };
       return (
-        <div {...this.getRootStyleProps()} style={imageWrapper}>
+        <div
+          {...this.getRootStyleProps()}
+          style={imageWrapper}
+          data-load-state={this.state.status}
+        >
           <img {...this.getImageProps()} />
         </div>
       );

@@ -2,8 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import styles from './Label.st.css';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 
 export interface LabelDriver extends BaseUniDriver {
   /** get the label's text */
@@ -21,15 +20,13 @@ export interface LabelDriver extends BaseUniDriver {
 }
 
 export const labelUniDriverFactory = (base: UniDriver): LabelDriver => {
-  const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
-
   return {
     ...baseUniDriverFactory(base),
     getLabelText: () => base.text(),
     getId: () => base.attr('id'),
     getForAttribute: () => base.attr('for'),
-    hasEllipsis: () => stylableUnidriverUtil.hasStyleState(base, 'ellipsis'),
-    isDisabled: () => stylableUnidriverUtil.hasStyleState(base, 'disabled'),
+    hasEllipsis: async () => (await base.attr('data-ellipsis')) === 'true',
+    isDisabled: async () => (await base.attr('data-disabled')) === 'true',
     keyDown: key => base.pressKey(key),
   };
 };

@@ -2,8 +2,7 @@ import {
   BaseUniDriver,
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
-import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import styles from './CircularProgressBar.st.css';
+import { UniDriver } from 'wix-ui-test-utils/unidriver';
 import { dataHooks } from './constants';
 
 export interface CircularProgressBarUniDriver extends BaseUniDriver {
@@ -21,12 +20,11 @@ export interface CircularProgressBarUniDriver extends BaseUniDriver {
   hasError(): Promise<boolean>;
 }
 
+const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
+
 export const circularProgressBarUniDriverFactory = (
   base: UniDriver,
 ): CircularProgressBarUniDriver => {
-  const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
-  const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
-
   const getValue = async () => {
     if (!(await base.exists())) {
       return null;
@@ -45,6 +43,6 @@ export const circularProgressBarUniDriverFactory = (
       base.$(byDataHook(dataHooks.progressIndicator)).exists(),
     getValue: () => getValue(),
     isCompleted: async () => (await getValue()) === '100',
-    hasError: () => stylableUnidriverUtil.hasStyleState(base, 'error'),
+    hasError: async () => (await base.attr('data-error')) === 'true',
   };
 };
