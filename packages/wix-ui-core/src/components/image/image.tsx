@@ -83,23 +83,24 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   render() {
     const { resizeMode } = this.props;
 
+    const commonProps = {
+      ...this.getRootStyleProps(),
+      'data-load-state': this.state.status,
+    };
+
     if (this.isResized()) {
       const imageWrapper = {
         backgroundImage: `url("${this.state.src}")`,
         backgroundSize: resizeMode,
       };
       return (
-        <div
-          {...this.getRootStyleProps()}
-          style={imageWrapper}
-          data-load-state={this.state.status}
-        >
+        <div {...commonProps} style={imageWrapper}>
           <img {...this.getImageProps()} />
         </div>
       );
     }
 
-    return <img {...this.getRootStyleProps()} {...this.getImageProps()} />;
+    return <img {...commonProps} {...this.getImageProps()} />;
   }
 
   private readonly handleOnLoad: React.EventHandler<
