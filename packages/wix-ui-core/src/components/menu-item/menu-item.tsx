@@ -25,6 +25,9 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
     <div
       {...style('root', { selected, highlighted, disabled }, props)}
       {...rest}
+      data-selected={selected}
+      data-highlighted={highlighted}
+      data-disabled={disabled}
       onClick={disabled ? () => null : onSelect}
     />
   );

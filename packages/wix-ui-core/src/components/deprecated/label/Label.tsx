@@ -27,6 +27,8 @@ export const Label: React.FunctionComponent<LabelProps> = props => {
   return (
     <label
       {...style('root', { ellipsis, disabled }, props)}
+      data-ellipsis={ellipsis}
+      data-disabled={disabled}
       htmlFor={props.for}
       id={id}
     >
