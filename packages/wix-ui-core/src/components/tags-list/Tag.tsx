@@ -15,6 +15,7 @@ export interface TagProps {
   label?: string;
   onChange?: React.FormEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export const Tag: React.FunctionComponent<TagProps> = ({
@@ -24,6 +25,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
   value = '',
   label = '',
   onChange = noop,
+  disabled,
   ...rest
 }) => (
   <label
@@ -31,7 +33,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
     className={classNames(style.tag, className)}
     title={label}
     htmlFor={value}
-    tabIndex={0}
+    tabIndex={disabled ? -1 : 0}
     {...rest}
   >
     <input
@@ -43,6 +45,7 @@ export const Tag: React.FunctionComponent<TagProps> = ({
       value={value}
       name={label}
       id={value}
+      disabled={disabled}
     />
     {children}
   </label>
