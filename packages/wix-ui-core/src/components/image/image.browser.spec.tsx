@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { imageDriverFactory } from './image.driver.private';
-import { Image, FALLBACK_IMAGE } from './image';
+import { Image } from './image';
+import { FALLBACK_IMAGE } from './consts';
 import { SRC, BROKEN_SRC, ERROR_IMAGE_SRC } from './test-fixtures';
 import * as eventually from 'wix-eventually';
 

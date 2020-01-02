@@ -1,4 +1,5 @@
-import { Image, ImageStatus } from './image';
+import { Image } from './image';
+import { ImageStatus } from './consts';
 import Registry from '@ui-autotools/registry';
 import style from '../../themes/default/image/style.st.css';
 import { SRC, BROKEN_SRC } from './test-fixtures';
