@@ -1,6 +1,6 @@
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
-import { ImageStatus } from '../image';
-import { ImageDriver, imageDriverFactory } from '../image/image.driver';
+import { ImageStatus } from '../image/consts';
+import { ImageDriver, imageDriverFactory } from '../image/image.uni.driver';
 
 export interface MediaImageDriver extends ImageDriver {
   isLoaded(): Promise<boolean>;
