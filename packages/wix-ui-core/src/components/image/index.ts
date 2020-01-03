@@ -1,1 +1,2 @@
-export { Image, FALLBACK_IMAGE, ImageStatus } from './image';
+export { ImageStatus, FALLBACK_IMAGE } from './consts';
+export { Image } from './image';

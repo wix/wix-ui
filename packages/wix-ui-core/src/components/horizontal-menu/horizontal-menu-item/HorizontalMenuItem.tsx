@@ -7,6 +7,8 @@ import { HORIZONTAL_MENU_METADATA } from '../constants';
 
 import style from './HorizontalMenuItem.st.css';
 
+export type ExpandSize = 'column' | 'menu' | 'fullWidth';
+
 export interface ExpandIconProps {
   isOpen: boolean;
 }
@@ -18,6 +20,7 @@ export interface HorizontalMenuItemProps {
   target?: string;
   icon?: React.ReactNode;
   isForceOpened?: boolean;
+  expandSize?: ExpandSize;
   style?: React.CSSProperties;
   expandIcon?(props: ExpandIconProps): React.ReactNode;
 }
@@ -33,9 +36,8 @@ export class HorizontalMenuItem extends React.PureComponent<
   static displayName = HORIZONTAL_MENU_METADATA.displayNames.item;
 
   static defaultProps = {
-    href: '#',
-    target: '_self',
     isForceOpened: false,
+    expandSize: 'column',
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
@@ -58,16 +60,6 @@ export class HorizontalMenuItem extends React.PureComponent<
     }
 
     return current.getBoundingClientRect()[key];
-  };
-
-  private readonly getMenuItemOffsetLeft = () => {
-    const { current } = this.menuItemRef;
-
-    if (!current) {
-      return 0;
-    }
-
-    return current.offsetLeft;
   };
 
   private readonly toggleMenu = () => {
@@ -99,6 +91,7 @@ export class HorizontalMenuItem extends React.PureComponent<
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
           href={href}
           target={target}
+          tabIndex={0}
         >
           {label}
         </a>
@@ -117,6 +110,7 @@ export class HorizontalMenuItem extends React.PureComponent<
       className: propClassName,
       icon,
       expandIcon,
+      expandSize,
       style: propStyle,
       isForceOpened,
       ...rest
@@ -124,7 +118,11 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     const { isOpen: isOpenState } = this.state;
 
-    const { className, ...stylableProps } = style('root', {}, this.props);
+    const { className, ...stylableProps } = style(
+      'root',
+      { expandSize },
+      this.props,
+    );
 
     const isOpen = isOpenState || isForceOpened;
 
@@ -145,13 +143,12 @@ export class HorizontalMenuItem extends React.PureComponent<
                   <li
                     aria-selected={isOpen}
                     aria-expanded={children && isMenuOpen}
-                    aria-haspopup={children ? 'menu' : undefined}
+                    aria-haspopup={children ? true : false}
                     aria-label={label}
                     onMouseEnter={this.toggleMenu}
                     onMouseLeave={this.toggleMenu}
                     onFocus={this.toggleMenu}
                     onBlur={this.toggleMenu}
-                    menu-item-label={label}
                     data-hook={HORIZONTAL_MENU_METADATA.dataHooks.item}
                     ref={this.menuItemRef}
                     className={classList}
@@ -163,8 +160,8 @@ export class HorizontalMenuItem extends React.PureComponent<
                     <HorizontalMenuItemContext.Provider
                       value={{
                         isOpen: isMenuOpen,
+                        expandSize,
                         getMenuBoundingRect: menuContext.getMenuBoundingRect,
-                        getMenuItemOffsetLeft: this.getMenuItemOffsetLeft,
                         getMenuItemBoundingRect: this.getMenuItemBoundingRect,
                       }}
                     >

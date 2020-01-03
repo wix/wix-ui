@@ -21,7 +21,10 @@ function DataTableWithAllProps() {
           render: (_row, _num) => "text",
           sortDescending: true,
           sortable: true,
-          title: "title"
+          title: "title",
+          important: true,
+          style: { width: "10px" },
+          width: "10px"
         }
       ]}
       data={[{}]}

@@ -25,7 +25,7 @@ declare namespace __WSR {
       imageSize?: ModalSelectorLayoutImageSize;
       imageShape?: ModalSelectorLayoutImageShape;
       searchPlaceholder?: string;
-      emptyState: React.ReactNode;
+      emptyState?: React.ReactNode;
       noResultsFoundStateFactory?: (searchValue: string) => React.ReactNode;
       itemsPerPage?: number;
       withSearch?: boolean;
@@ -34,6 +34,9 @@ declare namespace __WSR {
       maxHeight?: string;
       selectAllText?: string;
       deselectAllText?: string;
+      disableConfirmation?: boolean;
+      onSelect?: (item: ModalSelectorLayoutItem) => void;
+      sideActions?: React.ReactNode;
     };
 
     export class ModalSelectorLayout extends BaseComponents.WixComponent<
@@ -48,7 +51,7 @@ declare namespace __WSR {
 
     export interface ModalSelectorLayoutItem {
       id: number | string;
-      title: string;
+      title: React.ReactNode;
       subtitle?: string;
       extraText?: string;
       extraNode?: string;

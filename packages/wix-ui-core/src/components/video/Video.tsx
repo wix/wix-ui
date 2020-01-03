@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { create, VIDEO_EVENTS, ENGINE_STATES } from 'playable';
 import { playerComponents, playerVerifiers } from './players';
 import { PlayerNameType, ICommonProps, IConfig } from './types';
 import styles from './Video.st.css';

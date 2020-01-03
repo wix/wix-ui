@@ -18,7 +18,10 @@ declare namespace __WSR {
     /**
      * Construct a type with the properties of T except for those in type K.
      */
-    export type OmitPolyfill<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+    export type OmitPolyfill<T, K extends keyof any> = Pick<
+      T,
+      Exclude<keyof T, K>
+    >;
 
     export interface FocusOptionsPolyfill {
       preventScroll?: boolean;
@@ -26,10 +29,10 @@ declare namespace __WSR {
 
     export interface EllipsisHOCProps {
       ellipsis?: boolean;
-      appendTo?: import('wix-ui-core/popover').AppendTo;
+      appendTo?: Popover.PopoverProps["appendTo"];
       flip?: boolean;
       fixed?: boolean;
-      placement?: import('wix-ui-core/popover').Placement;
+      placement?: Popover.PopoverProps["placement"];
       timeout?: number;
       maxWidth?: string | number;
       zIndex?: number;

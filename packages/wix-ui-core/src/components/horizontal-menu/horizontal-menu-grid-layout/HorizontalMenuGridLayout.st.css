@@ -16,11 +16,6 @@
   flex-wrap: wrap;
   align-items: stretch; 
 
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-
   flex: 1;
 
   transition: inherit;
@@ -32,7 +27,16 @@
 }
 
 .root[data-opened="true"] {
-  display: inherit;
+  display: flex;
+}
+
+.listWrapper {
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
 }
 
 .menuItem {

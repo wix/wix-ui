@@ -1,15 +1,7 @@
 import * as React from 'react';
 import style from './image.st.css';
+import { ImageStatus, FALLBACK_IMAGE } from './consts';
 
-export enum ImageStatus {
-  loading = 'loading',
-  loaded = 'loaded',
-  error = 'error',
-}
-
-// FALLBACK_IMAGE - an empty 1x1 pixel we provide as an alternative for the native browser broken pixel image
-export const FALLBACK_IMAGE: string =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 export interface ImageProps {
   nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   src?: string;
@@ -83,19 +75,24 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   render() {
     const { resizeMode } = this.props;
 
+    const commonProps = {
+      ...this.getRootStyleProps(),
+      'data-load-state': this.state.status,
+    };
+
     if (this.isResized()) {
       const imageWrapper = {
         backgroundImage: `url("${this.state.src}")`,
         backgroundSize: resizeMode,
       };
       return (
-        <div {...this.getRootStyleProps()} style={imageWrapper}>
+        <div {...commonProps} style={imageWrapper}>
           <img {...this.getImageProps()} />
         </div>
       );
     }
 
-    return <img {...this.getRootStyleProps()} {...this.getImageProps()} />;
+    return <img {...commonProps} {...this.getImageProps()} />;
   }
 
   private readonly handleOnLoad: React.EventHandler<

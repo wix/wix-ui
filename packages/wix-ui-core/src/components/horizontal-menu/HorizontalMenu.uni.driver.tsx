@@ -34,7 +34,7 @@ export interface HorizontalMenuDriver extends BaseUniDriver {
 export const horizontalMenuUniDriverFactory = (base: UniDriver) => {
   const getMenuItemByLabel = (menuItemLabel: string) =>
     base.$(
-      `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"]`,
+      `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][aria-label="${menuItemLabel}"]`,
     );
 
   return {
@@ -66,13 +66,13 @@ export const horizontalMenuUniDriverFactory = (base: UniDriver) => {
     /** Get grid layout by menu label */
     getMenuItemGridLayout: async (menuItemLabel: string) =>
       base.$(
-        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}"]`,
+        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][aria-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.gridLayout}"]`,
       ),
 
     /** Get column layout by menu label */
     getMenuItemColumnsLayout: async (menuItemLabel: string) =>
       base.$(
-        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][menu-item-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.columnsLayout}"]`,
+        `[data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.item}"][aria-label="${menuItemLabel}"] [data-hook="${HORIZONTAL_MENU_METADATA.dataHooks.columnsLayout}"]`,
       ),
   };
 };

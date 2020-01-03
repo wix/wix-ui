@@ -1,6 +1,3 @@
-import style from './menu-item.st.css';
-import { StylableDOMUtil } from '@stylable/dom-test-kit';
-
 import {
   BaseUniDriver,
   baseUniDriverFactory,
@@ -20,15 +17,11 @@ export interface MenuItemDriver extends BaseUniDriver {
 }
 
 export const menuItemDriverFactory = (base: UniDriver): MenuItemDriver => {
-  const stylableUtil = new StylableDOMUtil(style);
-  const assertState = async state =>
-    stylableUtil.hasStyleState(await base.getNative(), state);
-
   return {
     ...baseUniDriverFactory(base),
-    isSelected: async () => assertState('selected'),
-    isHighlighted: async () => assertState('highlighted'),
-    isDisabled: async () => assertState('disabled'),
+    isSelected: async () => (await base.attr('data-selected')) === 'true',
+    isHighlighted: async () => (await base.attr('data-highlighted')) === 'true',
+    isDisabled: async () => (await base.attr('data-disabled')) === 'true',
     getText: async () => base.text(),
   };
 };

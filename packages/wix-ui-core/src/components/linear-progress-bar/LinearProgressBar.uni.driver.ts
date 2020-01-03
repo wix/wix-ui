@@ -3,7 +3,6 @@ import {
   baseUniDriverFactory,
 } from 'wix-ui-test-utils/base-driver';
 import { UniDriver, StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import styles from './LinearProgressBar.st.css';
 import { ReactBase } from '../../../test/utils/unidriver/ReactBase';
 import {
   ProgressBarDataHooks,
@@ -48,7 +47,6 @@ export const linearProgressBarUniDriverFactory = (
   base: UniDriver,
 ): LinearProgressBarUniDriver => {
   const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
-  const stylableUnidriverUtil = new StylableUnidriverUtil(styles);
 
   const getValue = async () => {
     if (!(await base.exists())) {
@@ -87,7 +85,7 @@ export const linearProgressBarUniDriverFactory = (
     getNumericValue: () => getDataAttribute(ProgressBarDataKeys.value, Number),
     isCompleted: async () =>
       (await getValue()) >= (await getDataAttribute(ProgressBarDataKeys.max)),
-    hasError: () => stylableUnidriverUtil.hasStyleState(base, 'error'),
+    hasError: async () => (await base.attr('data-error')) === 'true',
     getMinValue: () => getDataAttribute(ProgressBarDataKeys.min, Number),
     getMaxValue: () => getDataAttribute(ProgressBarDataKeys.max, Number),
     getAriaValueNow: () =>

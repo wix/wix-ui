@@ -9,9 +9,13 @@
 }
 
 .root {
-  position: relative;
+  -st-states: expandSize(enum(column));
 
   transition: inherit;
+}
+
+.root:expandSize(column) {
+  position: relative;
 }
 
 .menuItemLink {
@@ -34,10 +38,7 @@
 
 .root:hover > HorizontalMenuColumnsLayout,
 .root:focus > HorizontalMenuColumnsLayout,
-.root:focus-within > HorizontalMenuColumnsLayout {
-  display: block;
-}
-
+.root:focus-within > HorizontalMenuColumnsLayout,
 .root:hover > HorizontalMenuGridLayout,
 .root:focus > HorizontalMenuGridLayout,
 .root:focus-within > HorizontalMenuGridLayout {

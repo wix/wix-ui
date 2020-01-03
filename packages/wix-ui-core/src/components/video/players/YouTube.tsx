@@ -47,7 +47,10 @@ const mapPropsToPlayer: IPropsToPlayer = {
     }
   },
   volume: 'setVolume',
-  loop: 'setLoop',
+  loop: instance => {
+    // We reinit player to set(based on 'loop' prop) playlist, which is needed to play video in loop.
+    instance.reload();
+  },
 };
 
 const mapMethodsToPlayer: IMethodsToPlayer = {

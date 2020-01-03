@@ -126,6 +126,7 @@ export const LinearProgressBar: React.FunctionComponent<
       {...getDataAttributes(_props)}
       {...getAriaAttributes(props)}
       data-min={_props.min}
+      data-error={error}
       role="progressbar"
       {...style('root', { error, success }, _props)}
     >

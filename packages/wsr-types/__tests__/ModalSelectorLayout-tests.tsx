@@ -13,7 +13,6 @@ function ModalSelectorLayoutWithMandatoryProps() {
       dataSource={(_searchQuery, _number, _limit) =>
         Promise.resolve({ items: [], totalCount: 0 })
       }
-      emptyState={<div />}
     />
   );
 }
@@ -46,6 +45,9 @@ function ModalSelectorLayoutWithAllProps() {
       styles="font: 14px"
       subtitle={<div />}
       withSearch
+      disableConfirmation
+      onSelect={_item => {}}
+      sideActions={<div />}
     />
   );
 }

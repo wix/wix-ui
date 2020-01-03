@@ -3,7 +3,7 @@ declare namespace __WSR {
     export interface DropdownBaseProps {
       dataHook?: string;
       open?: boolean;
-      placement?: string; // TODO: replace with PopoverProps['placement']
+      placement?: Popover.PopoverProps["placement"];
       appendTo?: string | React.ReactNode;
       showArrow?: boolean;
       onClickOutside?: () => void;

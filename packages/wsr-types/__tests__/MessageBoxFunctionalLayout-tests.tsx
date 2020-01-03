@@ -1,10 +1,14 @@
-import * as React from 'react';
-import {MessageBoxFunctionalLayout} from 'wix-style-react/MessageBox';
-import { messageBoxFunctionalLayoutTestkitFactory } from 'wix-style-react/dist/testkit';
-import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
-import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutPuppeteerTestkitFactory } from 'wix-style-react/dist/testkit/puppeteer';
-import * as enzyme from 'enzyme';
-import * as puppeteer from 'puppeteer';
+import * as React from "react";
+import {
+  MessageBoxFunctionalLayout,
+  HeaderLayout,
+  FooterLayout
+} from "wix-style-react/MessageBox";
+import { messageBoxFunctionalLayoutTestkitFactory } from "wix-style-react/dist/testkit";
+import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutEnzymeTestkitFactory } from "wix-style-react/dist/testkit/enzyme";
+import { messageBoxFunctionalLayoutTestkitFactory as messageBoxFunctionalLayoutPuppeteerTestkitFactory } from "wix-style-react/dist/testkit/puppeteer";
+import * as enzyme from "enzyme";
+import * as puppeteer from "puppeteer";
 
 function MessageBoxFunctionalLayoutWithMandatoryProps() {
   return <MessageBoxFunctionalLayout />;
@@ -44,14 +48,54 @@ function MessageBoxFunctionalLayoutWithAllProps() {
   );
 }
 
+function HeaderLayoutWithMandatoryProps() {
+  return <HeaderLayout />;
+}
+
+function HeaderLayoutWithAllProps() {
+  return (
+    <HeaderLayout
+      closeButton
+      onCancel={_ev => {}}
+      theme="blue"
+      title={<div />}
+    />
+  );
+}
+
+function FooterLayoutWithMandatoryProps() {
+  return <FooterLayout />;
+}
+
+function FooterLayoutWithAllProps() {
+  return (
+    <FooterLayout
+      bottomChildren={<div />}
+      buttonsHeight="10px"
+      cancelPrefixIcon={<div />}
+      cancelSuffixIcon={<div />}
+      cancelText="text"
+      confirmPrefixIcon={<div />}
+      confirmSuffixIcon={<div />}
+      confirmText="text"
+      enableCancel
+      enableOk
+      onCancel={_ev => {}}
+      onOk={_ev => {}}
+      sideActions={<div />}
+      theme="blue"
+    />
+  );
+}
+
 async function testkits() {
   const testkit = messageBoxFunctionalLayoutTestkitFactory({
-    dataHook: 'hook',
-    wrapper: document.createElement('div')
+    dataHook: "hook",
+    wrapper: document.createElement("div")
   });
 
   const enzymeTestkit = messageBoxFunctionalLayoutEnzymeTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     wrapper: enzyme.mount(<div />)
   });
 
@@ -59,7 +103,7 @@ async function testkits() {
   const page = await browser.newPage();
   const puppeteerTestkit = await messageBoxFunctionalLayoutPuppeteerTestkitFactory(
     {
-      dataHook: 'hook',
+      dataHook: "hook",
       page
     }
   );
