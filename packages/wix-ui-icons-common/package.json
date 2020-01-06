@@ -12,6 +12,7 @@
     "dist",
     "system",
     "*.js",
+    "*.svg",
     "!wallaby.js",
     "!protractor.conf.js"
   ],
@@ -19,7 +20,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run generate-stylable-index && build-storybook",
+    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run export-svg-icons && npm run generate-stylable-index && build-storybook",
     "test": "yoshi test --protractor",
     "start": "npm run buildIcons && npm run storybook",
     "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
@@ -29,6 +30,9 @@
     "create-aliases": "npm run create-general-aliases && npm run create-system-aliases",
     "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
     "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
+    "export-svg-icons": "npm run export-general-svg-icons && npm run export-system-svg-icons",
+    "export-general-svg-icons": "node ./scripts/export-svg-icons.js ./src/general/raw .",
+    "export-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/system/raw system",
     "storybook": "start-storybook -p 6006",
     "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease"
@@ -46,6 +50,7 @@
     "react": "~16.4.2",
     "react-dom": "~16.4.2",
     "svg2react-icon": "^3.0.0",
+    "svgo": "^1.3.2",
     "typescript": "~3.0.3",
     "wix-storybook-utils": "3.0.22",
     "wix-ui-test-utils": "^1.0.0",
