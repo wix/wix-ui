@@ -15,6 +15,8 @@ function StepperWithAllProps() {
     <Stepper
       activeStep={1}
       dataHook="hook"
+      fit="compact"
+      type="circle"
       onClick={_id => {}}
       steps={[{ text: "text", type: "completed" }]}
     />
