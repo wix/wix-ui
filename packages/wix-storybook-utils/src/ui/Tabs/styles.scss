@@ -25,7 +25,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-  font-family: "HelveticaNeueW01-55Roma", "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
+  font-family: "HelveticaNeueW01-55Roma", "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif"; /* IE11 */
+  font-family: var(--wsr-font-family, "HelveticaNeueW01-55Roma"), "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", "Helvetica Neue", "Helvetica", "Arial", "\30E1\30A4\30EA\30AA, meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 pro w3", "hiragino kaku gothic pro", "sans-serif";
   font-size: 16px;
   line-height: 24px;
   color: #162D3D;

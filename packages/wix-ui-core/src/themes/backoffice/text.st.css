@@ -24,18 +24,24 @@
 }
 
 .weightThin {
-  font-family: value(fontLight);
-  font-weight: normal;
+  font-family: value(fontLight); /* IE11 */
+  font-family: var(--wsr-font-family, value(fontLight));
+  font-weight: 400; /* IE11 */
+  font-weight: var(--wsr-font-weight-thin, 400);
 }
 
 .weightNormal {
-  font-family: value(fontRoman);
-  font-weight: normal;
+  font-family: value(fontRoman); /* IE11 */
+  font-family: var(--wsr-font-family, value(fontRoman));
+  font-weight: 400; /* IE11 */
+  font-weight: var(--wsr-font-weight-normal, 400);
 }
 
 .weightBold {
-  font-family: value(fontMedium);
-  font-weight: normal;
+  font-family: value(fontMedium); /* IE11 */
+  font-family: var(--wsr-font-family, value(fontMedium));
+  font-weight: 400; /* IE11 */
+  font-weight: var(--wsr-font-weight-bold, 400);
 }
 
 .light {

@@ -11,8 +11,10 @@ $font-fallback: "Helvetica Neue", "Helvetica", "Arial", "メイリオ", "meiryo"
 
 @mixin font($type) {
   @if map-has-key($fonts, $type) {
-    font-family: unquote(map-get($fonts, $type)), $font-fallback;
+    font-family: unquote(map-get($fonts, $type)), $font-fallback; /* IE11 */
+    font-family: var(--wsr-font-family, unquote(map-get($fonts, $type))), $font-fallback;
   } @else {
-    font-family: $font-fallback;
+    font-family: $font-fallback; /* IE11 */
+    font-family: var(--wsr-font-family, $font-fallback);
   }
 }
