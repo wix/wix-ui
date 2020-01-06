@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "sourceMap": true,
     "declaration": true,
     "importHelpers": true,
@@ -10,7 +11,10 @@
     "strictNullChecks": false,
     "target": "es5",
     "jsx": "react",
-    "lib": ["dom", "es2016"]
+    "lib": ["dom", "es2016"],
+    "paths": {
+      "protractor": ["src/protractor.d.ts"] // Fix protractor issue https://github.com/angular/protractor/issues/5348
+    }
   },
   "include": [
     "./src/**/*.ts",
