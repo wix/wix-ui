@@ -8,7 +8,7 @@ declare namespace __WSR {
       stretchContent?: boolean;
       label?: React.ReactNode;
       labelSize?: LabelPlacement;
-      LabelAlignment?: LabelAlignment;
+      labelAlignment?: LabelAlignment;
       labelPlacement?: FormFieldLabelPlacement;
       required?: boolean;
       infoContent?: React.ReactNode;
