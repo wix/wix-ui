@@ -8,6 +8,7 @@ declare namespace __WSR {
       stretchContent?: boolean;
       label?: React.ReactNode;
       labelSize?: LabelPlacement;
+      LabelAlignment?: LabelAlignment;
       labelPlacement?: FormFieldLabelPlacement;
       required?: boolean;
       infoContent?: React.ReactNode;
@@ -18,18 +19,19 @@ declare namespace __WSR {
 
     export class FormField extends React.Component<FormFieldProps> {}
 
-    export type FormFieldLabelPlacement = 'top' | 'right' | 'left';
-    export type LabelPlacement = 'small' | 'medium';
+    export type FormFieldLabelPlacement = "top" | "right" | "left";
+    export type LabelPlacement = "small" | "medium";
+    export type LabelAlignment = "middle" | "top";
     type CharactersLeftFn = (lengthLeft: number) => void;
   }
 }
 
-declare module 'wix-style-react' {
+declare module "wix-style-react" {
   export import FormField = __WSR.FormField.FormField;
   export import FormFieldProps = __WSR.FormField.FormFieldProps;
 }
 
-declare module 'wix-style-react/FormField' {
+declare module "wix-style-react/FormField" {
   export interface FormFieldProps extends __WSR.FormField.FormFieldProps {}
   export default __WSR.FormField.FormField;
 }
