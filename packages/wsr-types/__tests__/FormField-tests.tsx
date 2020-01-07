@@ -16,6 +16,7 @@ function FormFieldWithAllProps() {
       charCount={200}
       dataHook="hook"
       id="1"
+      labelAlignment="middle"
       infoContent={<div />}
       infoTooltipProps={{}}
       label="label"
