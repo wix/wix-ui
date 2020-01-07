@@ -8,6 +8,7 @@ declare namespace __WSR {
       stretchContent?: boolean;
       label?: React.ReactNode;
       labelSize?: LabelPlacement;
+      labelAlignment?: LabelAlignment;
       labelPlacement?: FormFieldLabelPlacement;
       required?: boolean;
       infoContent?: React.ReactNode;
@@ -20,6 +21,7 @@ declare namespace __WSR {
 
     export type FormFieldLabelPlacement = 'top' | 'right' | 'left';
     export type LabelPlacement = 'small' | 'medium';
+    export type LabelAlignment = 'middle' | 'top';
     type CharactersLeftFn = (lengthLeft: number) => void;
   }
 }
