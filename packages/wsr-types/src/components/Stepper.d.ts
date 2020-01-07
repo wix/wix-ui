@@ -2,9 +2,11 @@ declare namespace __WSR {
   namespace Stepper {
     export interface StepperProps {
       dataHook?: string;
-      onClick?: (id: number) => void;
+      onClick?: (index: number) => void;
       activeStep: number;
       steps: StepperStep[];
+      type?: StepperType;
+      fit?: StepperFit;
     }
 
     export class Stepper extends React.PureComponent<StepperProps> {}
@@ -14,6 +16,8 @@ declare namespace __WSR {
       type?: StepperStepType;
     }
 
+    export type StepperType = "circle" | "text";
+    export type StepperFit = "compact" | "stretched";
     export type StepperStepType = "completed" | "disabled" | "error" | "normal";
   }
 }
