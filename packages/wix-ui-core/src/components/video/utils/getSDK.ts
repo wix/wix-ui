@@ -13,9 +13,9 @@ const loadSDK = (name, url, onLoaded, onError, onReady) => {
   loadjs(url, {
     success: () => {
       if (onReady) {
-        const previousOnReady = window[onReady];
+        const previousOnReady = (window as any)[onReady];
 
-        window[onReady] = () => {
+        (window as any)[onReady] = () => {
           if (previousOnReady) {
             previousOnReady();
           }

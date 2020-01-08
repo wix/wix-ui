@@ -97,7 +97,7 @@ describe('IframesManager', () => {
     const srcSpy = jest.fn(() => null);
 
     beforeAll(() => {
-      const createElement = document.createElement.bind(document);
+      const createElement = (document as any).createElement.bind(document);
       jest.spyOn(document, 'createElement').mockImplementation(tag => {
         // monkey patch src setter
         const element = createElement(tag);
