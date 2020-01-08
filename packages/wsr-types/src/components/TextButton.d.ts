@@ -15,7 +15,7 @@ declare namespace __WSR {
 
     export class TextButton extends React.Component<TextButtonProps> {}
 
-    export type TextButtonSkin = 'standard' | 'light' | 'premium' | 'dark';
+    export type TextButtonSkin = 'standard' | 'light' | 'premium' | 'dark' | 'destructive';
     export type TextButtonUnderline = 'none' | 'onHover' | 'always';
     export type TextButtonWeight = 'thin' | 'normal';
     export type TextButtonSize = 'tiny' | 'small' | 'medium';
