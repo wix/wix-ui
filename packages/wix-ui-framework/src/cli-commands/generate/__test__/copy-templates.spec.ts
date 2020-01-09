@@ -10,7 +10,7 @@ describe('copyTemplates', () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: 'This is a very cool component, yall',
-      templates: path.join(__dirname, 'templates'),
+      templates: path.join(__dirname, 'fixtures', 'templates'),
       _process: {
         cwd: fakeFs.dir,
       },
@@ -30,7 +30,7 @@ describe('copyTemplates', () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: undefined,
-      templates: path.join(__dirname, 'templates'),
+      templates: path.join(__dirname, 'fixtures', 'templates'),
       _process: {
         cwd: fakeFs.dir,
       },
@@ -51,7 +51,7 @@ describe('copyTemplates', () => {
       await copyTemplates({
         ComponentName: 'MyNewComponent',
         description: undefined,
-        templates: path.join(__dirname, 'templates-kebab-case'),
+        templates: path.join(__dirname, 'fixtures', 'kebab-case'),
         _process: {
           cwd: fakeFs.dir,
         },
