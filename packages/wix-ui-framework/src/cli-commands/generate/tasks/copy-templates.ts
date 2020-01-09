@@ -2,19 +2,67 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import * as kebabCase from 'lodash/kebabCase';
+import * as camelCase from 'lodash/camelCase';
+import * as snakeCase from 'lodash/snakeCase';
 
 import { Options } from '../typings';
-import { objectEntries } from '../../../object-entries';
 import { replaceTemplates } from './replace-templates';
 
 import { createValuesMap } from '../create-values-map';
 
-const sameName = i => i;
+const includes = (a: string) => (b: string) => b.includes(a);
 
-const componentReplaceMap = {
-  Component: sameName,
-  ComponentName: sameName,
-  'component-name': kebabCase,
+const variableInterpolationRules = [
+  {
+    match: includes('$ComponentName'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/\$ComponentName/g, variables.ComponentName),
+  },
+  {
+    match: includes('$componentName'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/\$componentName/g, camelCase(variables.ComponentName)),
+  },
+  {
+    match: includes('$component-name'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/\$component-name/g, kebabCase(variables.ComponentName)),
+  },
+  {
+    match: includes('$component_name'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/\$component_name/g, snakeCase(variables.ComponentName)),
+  },
+
+  // DEPRECATED: the following should no longer be used!
+  // can be removed either:
+  // 1. with major version release
+  // 2. when ensured no consumers use it
+  {
+    match: includes('Component'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/Component/g, variables.ComponentName),
+  },
+  {
+    match: includes('ComponentName'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/ComponentName/g, variables.ComponentName),
+  },
+  {
+    match: includes('component-name'),
+    replace: ({ filename, variables }) =>
+      filename.replace(/component-name/g, kebabCase(variables.ComponentName)),
+  },
+
+  // default
+  { match: () => true, replace: ({ filename }) => filename },
+];
+
+const interpolateFileName = ({ filename, variables }): string => {
+  const { replace } = variableInterpolationRules.find(({ match }) =>
+    match(filename),
+  );
+  return replace({ filename, variables });
 };
 
 const pathExists = p =>
@@ -24,13 +72,13 @@ const pathExists = p =>
     });
   });
 
-export const copyTemplates: (a: Options) => Promise<void> = async ({
+export const copyTemplates = async ({
   templates,
   ComponentName,
   description,
   _process,
   output = '',
-}) => {
+}: Options): Promise<void> => {
   if (!ComponentName) {
     throw new Error('Component name must be provided!');
   }
@@ -45,17 +93,17 @@ export const copyTemplates: (a: Options) => Promise<void> = async ({
 
     const isDir = fs.lstatSync(itemPath).isDirectory();
 
-    const originalDestPath = path.join(
-      _process.cwd,
-      output,
-      itemPath.replace(templates, ''),
-    );
+    const renamedDestPath = interpolateFileName({
+      filename: path.join(
+        _process.cwd,
+        output,
+        itemPath.replace(templates, ''),
+      ),
 
-    const renamedDestPath = objectEntries(componentReplaceMap).reduce(
-      (output, [name, replaceFn]) =>
-        output.replace(new RegExp(name, 'g'), () => replaceFn(ComponentName)),
-      originalDestPath,
-    );
+      variables: {
+        ComponentName,
+      },
+    });
 
     if (isDir) {
       queue.push(...readdir(path.join(itemPath)));
