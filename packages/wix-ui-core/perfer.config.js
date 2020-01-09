@@ -35,7 +35,7 @@ const files = [
   ['time-picker.js', 9],
   ['toggle-switch.js', 6],
   ['tooltip.js', 29],
-  ['video.js', 88],
+  ['video.js', 90],
 ];
 
 module.exports = {
