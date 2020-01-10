@@ -8,7 +8,9 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
-import { TooltipNext } from '../tooltip-next';
+import * as Tooltipas from '../tooltip-next';
+
+const { TooltipNext } = Tooltipas
 
 describe('Tooltip', () => {
   const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
