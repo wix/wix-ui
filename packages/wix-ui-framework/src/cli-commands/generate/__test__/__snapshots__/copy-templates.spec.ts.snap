@@ -385,10 +385,9 @@ export const storySettings = {
 
 exports[`copyTemplates should work as expected when description is not provided 1`] = `
 Object {
-  "test-generated": Object {
-    "src": Object {
-      "MyNewComponent": Object {
-        "MyNewComponent.js": "import React from 'react';
+  "src": Object {
+    "MyNewComponent": Object {
+      "MyNewComponent.js": "import React from 'react';
 import PropTypes from 'prop-types';
 
 import Text from '../Text';
@@ -452,7 +451,7 @@ class MyNewComponent extends React.PureComponent {
 
 export default MyNewComponent;
 ",
-        "MyNewComponent.meta.js": "import MyNewComponent from './MyNewComponent';
+      "MyNewComponent.meta.js": "import MyNewComponent from './MyNewComponent';
 import Registry from '@ui-autotools/registry';
 
 const metadata = Registry.getComponentMetadata(MyNewComponent);
@@ -461,7 +460,7 @@ metadata.exportedFrom({
   path: 'src/MyNewComponent/MyNewComponent.js',
 });
 ",
-        "MyNewComponent.st.css": ":import {
+      "MyNewComponent.st.css": ":import {
   -st-from: \\"wix-ui-core/dist/src/themes/backoffice/colors.st.css\\";
   -st-named: G30,R30;
 }
@@ -487,7 +486,7 @@ metadata.exportedFrom({
   justify-content: space-evenly;
 }
 ",
-        "MyNewComponent.uni.driver.js": "import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
+      "MyNewComponent.uni.driver.js": "import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
 export const myNewComponentDriverFactory = base => {
   return {
@@ -507,8 +506,8 @@ export const myNewComponentDriverFactory = base => {
   };
 };
 ",
-        "docs": Object {
-          "index.story.js": "import React from 'react';
+      "docs": Object {
+        "index.story.js": "import React from 'react';
 import {
   header,
   tabs,
@@ -606,11 +605,11 @@ export default {
   ],
 };
 ",
-        },
-        "index.js": "export { default } from './MyNewComponent.js';
+      },
+      "index.js": "export { default } from './MyNewComponent.js';
 ",
-        "test": Object {
-          "MyNewComponent.e2e.js": "import {
+      "test": Object {
+        "MyNewComponent.e2e.js": "import {
   waitForVisibilityOf,
   scrollToElement,
 } from 'wix-ui-test-utils/protractor';
@@ -649,7 +648,7 @@ describe('MyNewComponent', () => {
   });
 });
 ",
-          "MyNewComponent.private.uni.driver.js": "import { myNewComponentDriverFactory as publicDriverFactory } from '../MyNewComponent.uni.driver';
+        "MyNewComponent.private.uni.driver.js": "import { myNewComponentDriverFactory as publicDriverFactory } from '../MyNewComponent.uni.driver';
 
 export const myNewComponentPrivateDriverFactory = base => {
   return {
@@ -659,7 +658,7 @@ export const myNewComponentPrivateDriverFactory = base => {
   };
 };
 ",
-          "MyNewComponent.spec.js": "import React from 'react';
+        "MyNewComponent.spec.js": "import React from 'react';
 import { createRendererWithUniDriver, cleanup } from '../../../test/utils/unit';
 
 import MyNewComponent from '../MyNewComponent';
@@ -699,7 +698,7 @@ describe('MyNewComponent', () => {
   });
 });
 ",
-          "MyNewComponent.visual.js": "import React from 'react';
+        "MyNewComponent.visual.js": "import React from 'react';
 import { storiesOf } from '@storybook/react';
 import MyNewComponent from '../MyNewComponent';
 
@@ -729,7 +728,7 @@ tests.forEach(({ describe, its }) => {
   });
 });
 ",
-          "MyNewComponentStories.js": "import React from 'react';
+        "MyNewComponentStories.js": "import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { getTestStoryKind } from '../../../stories/storiesHierarchy';
 import { storySettings } from './storySettings';
@@ -746,7 +745,7 @@ TestStories.add(testStoryNames.DEFAULT, () => (
   />
 ));
 ",
-          "storySettings.js": "import { Category } from '../../../stories/storiesHierarchy';
+        "storySettings.js": "import { Category } from '../../../stories/storiesHierarchy';
 
 export const storySettings = {
   category: Category.COMPONENTS,
@@ -757,32 +756,30 @@ export const storySettings = {
   },
 };
 ",
-        },
       },
-      "index.js": "// explicit test file
-",
     },
-    "stories": Object {
-      "index.js": "",
-    },
-    "testkit": Object {
-      "protractor.js": "// explicit test file
+    "index.js": "// explicit test file
 ",
-      "puppeteer.js": "// explicit test file
+  },
+  "stories": Object {
+    "index.js": "",
+  },
+  "testkit": Object {
+    "protractor.js": "// explicit test file
 ",
-      "testkit-definitions.js": "// explicit test file
+    "puppeteer.js": "// explicit test file
 ",
-    },
+    "testkit-definitions.js": "// explicit test file
+",
   },
 }
 `;
 
 exports[`copyTemplates should work as expected when description is provided 1`] = `
 Object {
-  "test-generated": Object {
-    "src": Object {
-      "MyNewComponent": Object {
-        "MyNewComponent.js": "import React from 'react';
+  "src": Object {
+    "MyNewComponent": Object {
+      "MyNewComponent.js": "import React from 'react';
 import PropTypes from 'prop-types';
 
 import Text from '../Text';
@@ -846,7 +843,7 @@ class MyNewComponent extends React.PureComponent {
 
 export default MyNewComponent;
 ",
-        "MyNewComponent.meta.js": "import MyNewComponent from './MyNewComponent';
+      "MyNewComponent.meta.js": "import MyNewComponent from './MyNewComponent';
 import Registry from '@ui-autotools/registry';
 
 const metadata = Registry.getComponentMetadata(MyNewComponent);
@@ -855,7 +852,7 @@ metadata.exportedFrom({
   path: 'src/MyNewComponent/MyNewComponent.js',
 });
 ",
-        "MyNewComponent.st.css": ":import {
+      "MyNewComponent.st.css": ":import {
   -st-from: \\"wix-ui-core/dist/src/themes/backoffice/colors.st.css\\";
   -st-named: G30,R30;
 }
@@ -881,7 +878,7 @@ metadata.exportedFrom({
   justify-content: space-evenly;
 }
 ",
-        "MyNewComponent.uni.driver.js": "import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
+      "MyNewComponent.uni.driver.js": "import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
 export const myNewComponentDriverFactory = base => {
   return {
@@ -901,8 +898,8 @@ export const myNewComponentDriverFactory = base => {
   };
 };
 ",
-        "docs": Object {
-          "index.story.js": "import React from 'react';
+      "docs": Object {
+        "index.story.js": "import React from 'react';
 import {
   header,
   tabs,
@@ -1000,11 +997,11 @@ export default {
   ],
 };
 ",
-        },
-        "index.js": "export { default } from './MyNewComponent.js';
+      },
+      "index.js": "export { default } from './MyNewComponent.js';
 ",
-        "test": Object {
-          "MyNewComponent.e2e.js": "import {
+      "test": Object {
+        "MyNewComponent.e2e.js": "import {
   waitForVisibilityOf,
   scrollToElement,
 } from 'wix-ui-test-utils/protractor';
@@ -1043,7 +1040,7 @@ describe('MyNewComponent', () => {
   });
 });
 ",
-          "MyNewComponent.private.uni.driver.js": "import { myNewComponentDriverFactory as publicDriverFactory } from '../MyNewComponent.uni.driver';
+        "MyNewComponent.private.uni.driver.js": "import { myNewComponentDriverFactory as publicDriverFactory } from '../MyNewComponent.uni.driver';
 
 export const myNewComponentPrivateDriverFactory = base => {
   return {
@@ -1053,7 +1050,7 @@ export const myNewComponentPrivateDriverFactory = base => {
   };
 };
 ",
-          "MyNewComponent.spec.js": "import React from 'react';
+        "MyNewComponent.spec.js": "import React from 'react';
 import { createRendererWithUniDriver, cleanup } from '../../../test/utils/unit';
 
 import MyNewComponent from '../MyNewComponent';
@@ -1093,7 +1090,7 @@ describe('MyNewComponent', () => {
   });
 });
 ",
-          "MyNewComponent.visual.js": "import React from 'react';
+        "MyNewComponent.visual.js": "import React from 'react';
 import { storiesOf } from '@storybook/react';
 import MyNewComponent from '../MyNewComponent';
 
@@ -1123,7 +1120,7 @@ tests.forEach(({ describe, its }) => {
   });
 });
 ",
-          "MyNewComponentStories.js": "import React from 'react';
+        "MyNewComponentStories.js": "import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { getTestStoryKind } from '../../../stories/storiesHierarchy';
 import { storySettings } from './storySettings';
@@ -1140,7 +1137,7 @@ TestStories.add(testStoryNames.DEFAULT, () => (
   />
 ));
 ",
-          "storySettings.js": "import { Category } from '../../../stories/storiesHierarchy';
+        "storySettings.js": "import { Category } from '../../../stories/storiesHierarchy';
 
 export const storySettings = {
   category: Category.COMPONENTS,
@@ -1151,22 +1148,21 @@ export const storySettings = {
   },
 };
 ",
-        },
       },
-      "index.js": "// explicit test file
-",
     },
-    "stories": Object {
-      "index.js": "",
-    },
-    "testkit": Object {
-      "protractor.js": "// explicit test file
+    "index.js": "// explicit test file
 ",
-      "puppeteer.js": "// explicit test file
+  },
+  "stories": Object {
+    "index.js": "",
+  },
+  "testkit": Object {
+    "protractor.js": "// explicit test file
 ",
-      "testkit-definitions.js": "// explicit test file
+    "puppeteer.js": "// explicit test file
 ",
-    },
+    "testkit-definitions.js": "// explicit test file
+",
   },
 }
 `;

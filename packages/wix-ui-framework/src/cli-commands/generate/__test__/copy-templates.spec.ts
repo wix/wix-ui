@@ -4,13 +4,16 @@ import { fsToJson } from '../../../fs-to-json';
 
 import { copyTemplates } from '../tasks/copy-templates';
 
+const templatesFixturesPath = folder =>
+  path.join(__dirname, '..', '__testfixtures__', 'templates', folder);
+
 describe('copyTemplates', () => {
   it('should work as expected when description is provided', async () => {
     const fakeFs = cista();
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: 'This is a very cool component, yall',
-      templates: path.join(__dirname, 'fixtures', 'templates'),
+      templates: templatesFixturesPath('test-generated'),
       _process: {
         cwd: fakeFs.dir,
       },
@@ -30,7 +33,7 @@ describe('copyTemplates', () => {
     await copyTemplates({
       ComponentName: 'MyNewComponent',
       description: undefined,
-      templates: path.join(__dirname, 'fixtures', 'templates'),
+      templates: templatesFixturesPath('test-generated'),
       _process: {
         cwd: fakeFs.dir,
       },
@@ -51,7 +54,7 @@ describe('copyTemplates', () => {
       await copyTemplates({
         ComponentName: 'MyNewComponent',
         description: undefined,
-        templates: path.join(__dirname, 'fixtures', 'kebab-case'),
+        templates: templatesFixturesPath('kebab-case'),
         _process: {
           cwd: fakeFs.dir,
         },
@@ -73,7 +76,7 @@ describe('copyTemplates', () => {
       await copyTemplates({
         ComponentName: 'MyNewComponent',
         description: undefined,
-        templates: path.join(__dirname, 'fixtures', 'variable-names'),
+        templates: templatesFixturesPath('variable-names'),
         _process: {
           cwd: fakeFs.dir,
         },

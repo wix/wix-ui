@@ -16,7 +16,7 @@ const fsReaddir = promisify(fs.readdir);
 const fsReadFile = promisify(fs.readFile);
 const fsStat = promisify(fs.stat);
 
-export const fsToJson: (a: Params) => Promise<object> = async ({
+export const fsToJson: (a: Params) => Promise<Object> = async ({
   cwd,
   path,
   withContent = false,
@@ -29,7 +29,7 @@ export const fsToJson: (a: Params) => Promise<object> = async ({
 
   const recursion = ({ entries, entryCwd }) =>
     entries.reduce(
-      (accPromise: Promise<object>, entry: string) =>
+      (accPromise: Promise<Object>, entry: string) =>
         accPromise.then(async acc => {
           const entryPath = pathResolve(entryCwd, entry);
 
