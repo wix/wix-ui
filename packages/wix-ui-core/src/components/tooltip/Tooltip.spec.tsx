@@ -8,6 +8,7 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
+import { TooltipNext } from '../tooltip-next';
 
 describe('Tooltip', () => {
   const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
@@ -21,6 +22,27 @@ describe('Tooltip', () => {
       {...props}
     />
   );
+
+  runTests(render, tooltip);
+});
+
+describe('TooltipNext', () => {
+  const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
+
+  const tooltip = (props = {}) => (
+    <TooltipNext
+      placement="top"
+      timeout={0}
+      content="Hovered Content"
+      children={<div>Element</div>}
+      {...props}
+    />
+  );
+
+  runTests(render, tooltip);
+});
+
+function runTests(render, tooltip) {
   afterEach(() => cleanup());
 
   it('should be hidden by default', async () => {
@@ -164,6 +186,7 @@ describe('Tooltip', () => {
     it('should call onClickOutside when clicked outside', async () => {
       const onClickOutside = jest.fn();
       const { driver } = render(tooltip({ onClickOutside }));
+      await driver.mouseEnter();
       await driver.clickOutside();
       expect(onClickOutside).toHaveBeenCalled();
     });
@@ -189,4 +212,4 @@ describe('Tooltip', () => {
       expect(await driver.tooltipExists()).toBe(true);
     });
   });
-});
+}
