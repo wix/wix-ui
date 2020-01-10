@@ -7,62 +7,39 @@ import * as snakeCase from 'lodash/snakeCase';
 
 import { Options } from '../typings';
 import { replaceTemplates } from './replace-templates';
-
 import { createValuesMap } from '../create-values-map';
 
-const includes = (a: string) => (b: string) => b.includes(a);
+const interpolateFileName = ({ filename, names }): string => {
+  const newInterpolations = [
+    [/\$ComponentName/, names.ComponentName],
+    [/\$componentName/, names.componentName],
+    [/\$component-name/, names['component-name']],
+    [/\$component_name/, names.component_name],
+  ];
 
-const variableInterpolationRules = [
-  {
-    match: includes('$ComponentName'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/\$ComponentName/g, variables.ComponentName),
-  },
-  {
-    match: includes('$componentName'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/\$componentName/g, camelCase(variables.ComponentName)),
-  },
-  {
-    match: includes('$component-name'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/\$component-name/g, kebabCase(variables.ComponentName)),
-  },
-  {
-    match: includes('$component_name'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/\$component_name/g, snakeCase(variables.ComponentName)),
-  },
+  const oldInterpolations = [
+    // DEPRECATED: the following should no longer be used!
+    // keeping them to not break existing users
+    // can be removed either:
+    // 1. with major version release
+    // 2. when ensured no consumers use it
+    [/Component/, names.ComponentName],
+    [/ComponentName/, names.ComponentName],
+    [/component-name/, names['component-name']],
+  ];
 
-  // DEPRECATED: the following should no longer be used!
-  // can be removed either:
-  // 1. with major version release
-  // 2. when ensured no consumers use it
-  {
-    match: includes('Component'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/Component/g, variables.ComponentName),
-  },
-  {
-    match: includes('ComponentName'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/ComponentName/g, variables.ComponentName),
-  },
-  {
-    match: includes('component-name'),
-    replace: ({ filename, variables }) =>
-      filename.replace(/component-name/g, kebabCase(variables.ComponentName)),
-  },
-
-  // default
-  { match: () => true, replace: ({ filename }) => filename },
-];
-
-const interpolateFileName = ({ filename, variables }): string => {
-  const { replace } = variableInterpolationRules.find(({ match }) =>
-    match(filename),
+  const matchesNewInterpolations = newInterpolations.some(([regexp]) =>
+    new RegExp(regexp, 'g').test(filename),
   );
-  return replace({ filename, variables });
+
+  const interpolations = matchesNewInterpolations
+    ? newInterpolations
+    : oldInterpolations;
+
+  return interpolations.reduce(
+    (name, [regex, replace]) => name.replace(new RegExp(regex, 'g'), replace),
+    filename,
+  );
 };
 
 const pathExists = p =>
@@ -86,6 +63,13 @@ export const copyTemplates = async ({
   const readdir = (entry: string) =>
     fs.readdirSync(entry).map(dir => path.join(entry, dir));
 
+  const componentNames = {
+    ComponentName,
+    componentName: camelCase(ComponentName),
+    'component-name': kebabCase(ComponentName),
+    component_name: snakeCase(ComponentName),
+  };
+
   const queue = readdir(templates);
 
   while (queue.length) {
@@ -99,10 +83,7 @@ export const copyTemplates = async ({
         output,
         itemPath.replace(templates, ''),
       ),
-
-      variables: {
-        ComponentName,
-      },
+      names: componentNames,
     });
 
     if (isDir) {
