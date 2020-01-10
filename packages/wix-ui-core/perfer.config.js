@@ -33,6 +33,7 @@ const files = [
   ['tags-list.js', 7],
   ['thumbnail.js', 6],
   ['time-picker.js', 9],
+  ['tooltip-next.js', 10],
   ['toggle-switch.js', 6],
   ['tooltip.js', 29],
   ['video.js', 90],
