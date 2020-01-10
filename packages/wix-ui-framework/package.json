@@ -60,8 +60,7 @@
       "<rootDir>/dist/",
       "<rootDir>/node_modules/",
       "<rootDir>/test-generated/",
-      "<rootDir>/src/cli-commands/generate/__test__/templates",
-      "<rootDir>/src/cli-commands/generate/__test__/codemods"
+      "<rootDir>/src/cli-commands/generate/__testfixtures__"
     ]
   },
   "devDependencies": {

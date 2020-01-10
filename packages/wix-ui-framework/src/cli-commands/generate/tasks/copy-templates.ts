@@ -2,20 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import * as kebabCase from 'lodash/kebabCase';
+import * as camelCase from 'lodash/camelCase';
+import * as snakeCase from 'lodash/snakeCase';
 
 import { Options } from '../typings';
-import { objectEntries } from '../../../object-entries';
 import { replaceTemplates } from './replace-templates';
-
 import { createValuesMap } from '../create-values-map';
-
-const sameName = i => i;
-
-const componentReplaceMap = {
-  Component: sameName,
-  ComponentName: sameName,
-  'component-name': kebabCase,
-};
+import { interpolateFileName } from '../interpolate-file-name';
 
 const pathExists = p =>
   new Promise(resolve => {
@@ -24,19 +17,26 @@ const pathExists = p =>
     });
   });
 
-export const copyTemplates: (a: Options) => Promise<void> = async ({
+export const copyTemplates = async ({
   templates,
   ComponentName,
   description,
   _process,
   output = '',
-}) => {
+}: Options): Promise<void> => {
   if (!ComponentName) {
     throw new Error('Component name must be provided!');
   }
 
   const readdir = (entry: string) =>
     fs.readdirSync(entry).map(dir => path.join(entry, dir));
+
+  const componentNames = {
+    ComponentName,
+    componentName: camelCase(ComponentName),
+    'component-name': kebabCase(ComponentName),
+    component_name: snakeCase(ComponentName),
+  };
 
   const queue = readdir(templates);
 
@@ -45,17 +45,14 @@ export const copyTemplates: (a: Options) => Promise<void> = async ({
 
     const isDir = fs.lstatSync(itemPath).isDirectory();
 
-    const originalDestPath = path.join(
-      _process.cwd,
-      output,
-      itemPath.replace(templates, ''),
-    );
-
-    const renamedDestPath = objectEntries(componentReplaceMap).reduce(
-      (output, [name, replaceFn]) =>
-        output.replace(new RegExp(name, 'g'), () => replaceFn(ComponentName)),
-      originalDestPath,
-    );
+    const renamedDestPath = interpolateFileName({
+      filename: path.join(
+        _process.cwd,
+        output,
+        itemPath.replace(templates, ''),
+      ),
+      names: componentNames,
+    });
 
     if (isDir) {
       queue.push(...readdir(path.join(itemPath)));
