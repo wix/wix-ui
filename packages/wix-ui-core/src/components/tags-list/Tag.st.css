@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 
-.tag > * {
+.tag * {
   cursor: pointer;
 }
 

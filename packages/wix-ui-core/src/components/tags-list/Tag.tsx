@@ -18,6 +18,8 @@ export interface TagProps {
   onChange?: React.FormEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
   disabled?: boolean;
+  link?: string;
+  rel?: string;
 }
 
 export class Tag extends React.Component<TagProps> {
@@ -32,14 +34,16 @@ export class Tag extends React.Component<TagProps> {
     value: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func,
+    link: PropTypes.string,
+    rel: PropTypes.string,
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  handleKeyDown = (ev: React.KeyboardEvent<HTMLLabelElement>) => {
+  handleKeyDown = (ev: React.KeyboardEvent<HTMLAnchorElement>) => {
     /**
-     * By default, label can't be selected by Space button, so we calling click
-     * on input.
+     * By default, list item can't be selected by Space button,
+     * so we call click on input.
      * Also, keyCode is 100% cross-browser - number 32 is everywhere
      */
 
@@ -50,27 +54,42 @@ export class Tag extends React.Component<TagProps> {
     }
   };
 
+  handleTagClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    ev.preventDefault();
+    /**
+     * Label wrapped in anchor, so we simulate click on input
+     * two fire change event and onChange listener.
+     */
+
+    this.inputRef.current.click();
+  };
+
   render() {
     const {
       children,
       className,
-      checked,
       value = '',
       label = '',
       disabled,
+      checked,
       onChange = noop,
+      link,
+      rel,
       ...rest
     } = this.props;
 
-    return (
+    const wrapperProps = {
+      className: classNames(style.tag, className),
+      ...rest,
+    };
+
+    const LabeledInput = (props: any) => (
       <label
         data-hook={DataHooks.Tag}
-        className={classNames(style.tag, className)}
         title={label}
         htmlFor={value}
-        onKeyDown={this.handleKeyDown}
-        tabIndex={disabled ? -1 : 0}
-        {...rest}
+        tabIndex={link ? -1 : 0}
+        {...props}
       >
         <input
           ref={this.inputRef}
@@ -86,6 +105,24 @@ export class Tag extends React.Component<TagProps> {
         />
         {children}
       </label>
+    );
+
+    return link ? (
+      <a
+        role="checkbox"
+        aria-checked={checked}
+        aria-disabled={disabled}
+        href={link}
+        rel={rel}
+        tabIndex={0}
+        onClick={this.handleTagClick}
+        onKeyDown={this.handleKeyDown}
+        {...wrapperProps}
+      >
+        <LabeledInput />
+      </a>
+    ) : (
+      <LabeledInput {...wrapperProps} onKeyDown={this.handleKeyDown} />
     );
   }
 }
