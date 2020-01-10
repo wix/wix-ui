@@ -202,5 +202,8 @@
   },
   "popover-next": {
     "path": "src/components/popover-next"
+  },
+  "tooltip-next": {
+    "path": "src/components/tooltip-next"
   }
 }
