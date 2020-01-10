@@ -11,7 +11,11 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
-# 3.3.1 - 17:17:53
+# 3.4.0 - 11:26:30
+## Added
+- `wuf generate` - support `$ComponentName`, `$componentName`, `$component-name`, `$component_name` in generator templates
+
+# 3.3.1 - 2019-09-20
 ## Added
 - `wuf generate` - support `component-name` in generator codemod options
 
