@@ -9,6 +9,10 @@
     background-color: #000;
 }
 
+.playerContainer_facebook {
+    display: block !important;
+}
+
 .playerContainer iframe {
     height: 100%;
     width: 100%;
