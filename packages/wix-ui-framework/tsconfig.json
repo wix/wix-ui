@@ -25,7 +25,8 @@
     "./src/**/*.js"
   ],
   "exclude": [
-    "src/cli-commands/generate/__testfixtures__/**/*",
+    "./src/**/__testfixtures__",
+    "./src/**/__test__",
     "./package.json",
     "src/**/*.spec.*"
   ]
