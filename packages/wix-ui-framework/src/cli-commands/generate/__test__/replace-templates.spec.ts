@@ -31,4 +31,21 @@ Test test hello another hello`,
       }),
     ).toEqual('This is working');
   });
+
+  describe('ejs', () => {
+    it('should be supported', () => {
+      const template = `Hello <%= utils.toPascal(who) %>! <% if(flag) { %>how are <%= ['y', 'o', 'u'].join('') %><% } %>`;
+
+      const scope = {
+        who: 'bat-man',
+        flag: true,
+      };
+
+      const output = replaceTemplates(template, scope);
+
+      const expected = `Hello BatMan! how are you`;
+
+      expect(output).toEqual(expected);
+    });
+  });
 });

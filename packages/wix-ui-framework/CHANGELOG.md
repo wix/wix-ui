@@ -11,7 +11,11 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
-# 3.4.0 - 11:26:30
+# 3.5.0 - 2020-01-10
+## Added
+- `wuf generate` - support EJS in component generator templates
+
+# 3.4.0 - 2020-01-10
 ## Added
 - `wuf generate` - support `$ComponentName`, `$componentName`, `$component-name`, `$component_name` in generator templates
 
