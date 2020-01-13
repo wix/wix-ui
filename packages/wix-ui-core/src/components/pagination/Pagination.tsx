@@ -110,7 +110,7 @@ export class Pagination extends React.Component<
     return getId(this.props.id, elementName);
   }
 
-  private get maxPagesToShow(): number {
+  private readonly getMaxPagesToShow = (): number => {
     if (this.props.maxPagesToShow) {
       return this.props.maxPagesToShow;
     }
@@ -118,7 +118,7 @@ export class Pagination extends React.Component<
       return 20;
     }
     return 7;
-  }
+  };
 
   public state = {
     pageInputValue: String(this.props.currentPage),
@@ -131,7 +131,7 @@ export class Pagination extends React.Component<
         id={this.props.id}
         totalPages={this.props.totalPages}
         currentPage={this.props.currentPage}
-        maxPagesToShow={this.maxPagesToShow}
+        maxPagesToShow={this.getMaxPagesToShow()}
         showFirstPage={this.props.showFirstPage}
         showLastPage={this.props.showLastPage}
         responsive={this.props.responsive}
