@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EventEmitter } from 'eventemitter3';
+import * as safeAreaInsets from 'safe-area-insets';
 const isString = require('lodash/isString');
 import { getSDK } from '../utils';
 import playerHOC from './playerHOC';
@@ -78,6 +79,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   durationTimeout: number;
   progressTimeout: number;
   parser: (element?: HTMLElement) => void;
+  videoSize: { width: number; height: number };
   unsubscribeFBEvents: Function = () => null;
 
   constructor(props: IFacebookProps) {
@@ -86,6 +88,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     this.containerRef = React.createRef();
     this.eventEmitter = new EventEmitter();
     this.playerId = `facebook-${props.id}`;
+    this.videoSize = null;
   }
 
   componentDidMount() {
@@ -140,6 +143,9 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
 
     if (msg.type === 'video' && msg.id === this.playerId) {
       this.player = msg.instance;
+
+      this.fitPlayer();
+      safeAreaInsets.onChange(this.fitPlayer);
 
       this.player.subscribe('startedPlaying', () => {
         this.eventEmitter.emit(EVENTS.PLAYING);
@@ -214,6 +220,37 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
     iframe.setAttribute('allow', 'autoplay; encrypted-media');
   };
 
+  fitPlayer = (insets?) => {
+    const rootElement = this.containerRef.current.firstChild as HTMLSpanElement;
+
+    if (rootElement) {
+      const { height, width } = this.props;
+      const rect = rootElement.getBoundingClientRect();
+      let scale = 1;
+
+      if (rect.height) {
+        if (!this.videoSize) {
+          this.videoSize = {
+            height: rect.height,
+            width: rect.width,
+          };
+        }
+
+        if (insets) {
+          const videoTagWidth =
+            this.videoSize.width - insets.left - insets.right;
+          scale = width / videoTagWidth;
+        }
+
+        if (this.videoSize.height > height) {
+          scale *= height / this.videoSize.height;
+          rootElement.style.transformOrigin = 'top center';
+          rootElement.style.transform = `scale(${scale})`;
+        }
+      }
+    }
+  };
+
   render() {
     const { src, playing, controls, width, height } = this.props;
 
@@ -221,7 +258,7 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
       <div
         ref={this.containerRef}
         id={this.playerId}
-        className={`fb-video ${styles.playerContainer}`}
+        className={`fb-video ${styles.playerContainer} ${styles.playerContainer_facebook}`}
         data-href={src}
         data-width={parseSize(width)}
         data-height={parseSize(height)}

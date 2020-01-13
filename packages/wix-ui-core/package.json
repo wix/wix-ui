@@ -96,6 +96,7 @@
     "react-portal": "^4.1.5",
     "react-transition-group": "^2.2.1",
     "reaptcha": "1.5.0",
+    "safe-area-insets": "^1.4.1",
     "shallowequal": "1.1.0",
     "signature_pad": "^3.0.0-beta.3",
     "tslib": "^1.9.3",
