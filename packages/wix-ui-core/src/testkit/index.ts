@@ -127,8 +127,8 @@ import {
   toggleSwitchUniDriverFactory,
 } from '../components/toggle-switch/ToggleSwitch.uni.driver';
 export const toggleSwitchUniTestkitFactory = uniTestkitFactoryCreator<
-    ToggleSwitchUniDriver
-    >(toggleSwitchUniDriverFactory);
+  ToggleSwitchUniDriver
+>(toggleSwitchUniDriverFactory);
 export { ToggleSwitchUniDriver };
 
 import {
@@ -166,9 +166,3 @@ export const horizontalMenuTestkitFactory = uniTestkitFactoryCreator(
   horizontalMenuUniDriverFactory,
 );
 export { HorizontalMenuDriver };
-
-import { popoverNextDriverFactory } from '../components/popover-next/popover-next.uni.driver';
-
-export const popoverNextTestkitFactory = uniTestkitFactoryCreator(
-  popoverNextDriverFactory,
-);

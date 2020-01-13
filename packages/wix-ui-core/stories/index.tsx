@@ -89,6 +89,3 @@ Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Disabled', () => (
   <SignatureInputTestFixture disabled />
 ));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';
-
-// TODO: move to correct position
-import '../src/components/popover-next/docs/index.story';

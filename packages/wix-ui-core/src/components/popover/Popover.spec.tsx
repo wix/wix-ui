@@ -10,13 +10,10 @@ import * as eventually from 'wix-eventually';
 import { Popover, PopoverProps } from './';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
 import { testkit } from './Popover.uni.driver';
-import stylesPopover from './Popover.st.css';
+import styles from './Popover.st.css';
 
 /** PopoverNext  */
-import { popoverNextPrivateDriverFactory } from '../popover-next/test/popover-next.private.driver';
-import { popoverNextPrivateDriverFactoryUni } from '../popover-next/test/popover-next.private.uni.driver';
 import { PopoverNext } from '../popover-next/popover-next';
-import stylesPopoverNext from '../popover-next/popover-next.st.css';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -47,81 +44,43 @@ const renderPopoverNext = (
   </PopoverNext>
 );
 
-describe('Popover', () => {
+describe('Popover && PopoverNext', () => {
   const container = new ReactDOMTestContainer().unmountAfterEachTest();
 
-  describe('[sync]', () => {
-    const createDriver = container.createLegacyRenderer(
-      popoverPrivateDriverFactory,
-    );
+  const regularDriver = container.createLegacyRenderer(
+    popoverPrivateDriverFactory,
+  );
 
-    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
-  });
-
-  describe('[async]', () => {
-    const createDriver = container.createUniRendererAsync((base, body) => {
-      const privateDriver = popoverPrivateDriverFactory({
-        element: container.componentNode,
-        eventTrigger: Simulate,
-      });
-
-      return {
-        ...privateDriver,
-        ...testkit(base, body),
-      };
+  const uniDriver = container.createUniRendererAsync((base, body) => {
+    const privateDriver = popoverPrivateDriverFactory({
+      element: container.componentNode,
+      eventTrigger: Simulate,
     });
 
-    runTests(createDriver, container, renderPopover, Popover, stylesPopover);
+    return {
+      ...privateDriver,
+      ...testkit(base, body),
+    };
+  });
+
+  describe('[sync] Popover', () => {
+    runTests(regularDriver, container, renderPopover, Popover);
+  });
+
+  describe('[async] Popover', () => {
+    runTests(uniDriver, container, renderPopover, Popover);
+  });
+
+  describe('[sync] PopoverNext', () => {
+    runTests(regularDriver, container, renderPopoverNext, PopoverNext);
+  });
+
+  describe('[async] PopoverNext', () => {
+    runTests(uniDriver, container, renderPopoverNext, PopoverNext);
   });
 });
 
-describe('PopoverNext', () => {
-  const container = new ReactDOMTestContainer().unmountAfterEachTest();
-
-  describe('[sync]', () => {
-    const createDriver = container.createLegacyRenderer(
-      popoverNextPrivateDriverFactory,
-    );
-
-    runTests(
-      createDriver,
-      container,
-      renderPopoverNext,
-      PopoverNext,
-      stylesPopoverNext,
-    );
-  });
-
-  describe('[async]', () => {
-    const createDriver = container.createUniRendererAsync((base, body) => {
-      const privateDriver = popoverNextPrivateDriverFactory({
-        element: container.componentNode,
-        eventTrigger: Simulate,
-      });
-
-      return {
-        ...privateDriver,
-        ...popoverNextPrivateDriverFactoryUni(base, body),
-      };
-    });
-
-    runTests(
-      createDriver,
-      container,
-      renderPopoverNext,
-      PopoverNext,
-      stylesPopoverNext,
-    );
-  });
-});
-
-function runTests(
-  createDriver,
-  container,
-  popoverWithProps,
-  Component,
-  styles,
-) {
+function runTests(createDriver, container, popoverWithProps, Component) {
   it('should render', async () => {
     const driver = await createDriver(
       popoverWithProps({
