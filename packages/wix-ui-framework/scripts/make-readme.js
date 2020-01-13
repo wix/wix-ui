@@ -24,9 +24,16 @@ const commandsDocs = allCommands
         match: /^Usage:/,
         inclusive: true,
       }),
+      moreInfoLink: `[docs/${command}.md](docs/${command}.md)`,
     };
   })
-  .map(({ name, doc }) => `## \`wuf ${name}\`\n \`\`\`md\n${doc}\`\`\``);
+  .map(({ name, doc, moreInfoLink }) =>
+    [
+      `## \`wuf ${name}\``,
+      `\`\`\`md\n${doc}\`\`\``,
+      `See more at ${moreInfoLink}\n`,
+    ].join('\n\n'),
+  );
 
 const readmeTemplate = fs.readFileSync(
   path.resolve(__dirname, 'README.template.md'),
@@ -37,7 +44,7 @@ const output = readmeTemplate.replace(
   commandsDocs.join('\n---\n\n'),
 );
 
-process.stdout.write(output)
+process.stdout.write(output);
 
 function removeUntil({ string, match, inclusive = false }) {
   const lines = string.split('\n');

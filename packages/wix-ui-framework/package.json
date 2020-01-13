@@ -29,7 +29,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "yoshi lint",
-    "postlint": "node docs/make-readme.js > README.md",
+    "postlint": "node scripts/make-readme.js > README.md",
     "start": "tsc --watch",
     "wuf": "./bin/wuf.js"
   },

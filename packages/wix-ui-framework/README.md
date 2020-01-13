@@ -46,7 +46,8 @@ Commands:
 ---
 
 ## `wuf generate`
- ```md
+
+```md
 Usage: generate [options]
 
 Scaffold file structure from templates
@@ -60,10 +61,14 @@ Options:
   -f, --force                Force component generation in a non clean git repo.
   -h, --help                 output usage information
 ```
+
+See more at [docs/generate.md](docs/generate.md)
+
 ---
 
 ## `wuf export-testkits`
- ```md
+
+```md
 Usage: export-testkits [options]
 
 Generate testkit export file
@@ -75,10 +80,14 @@ Options:
   --template <string>     Path ejs template file. Default is ".wuf/testkits/template.ejs"
   -h, --help              output usage information
 ```
+
+See more at [docs/export-testkits.md](docs/export-testkits.md)
+
 ---
 
 ## `wuf update`
- ```md
+
+```md
 Usage: update [options]
 
 Update components list file
@@ -91,3 +100,6 @@ Options:
   --max-mismatch <number>  Optional number of maximum mismatches between shape defined in required-component-files.json and component. Default is 0
   -h, --help               output usage information
 ```
+
+See more at [docs/update.md](docs/update.md)
+
