@@ -1,7 +1,7 @@
 import * as React from 'react';
-import styles from '../popover-next.st.css';
+import styles from '../../popover/Popover.st.css';
 
-import { getArrowShift } from '../utils/getArrowShift';
+import { getArrowShift } from '../../popover/utils/getArrowShift';
 
 const Arrow = props => {
   const { arrowProps, moveArrowTo, placement, customArrow } = props;

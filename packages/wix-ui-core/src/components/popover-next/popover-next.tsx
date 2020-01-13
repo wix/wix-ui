@@ -3,7 +3,7 @@ import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
 
 import { ClickOutside } from '../click-outside';
-import style from './popover-next.st.css';
+import style from '../popover/Popover.st.css';
 
 import {
   AttributeMap,
@@ -17,9 +17,12 @@ import {
   ElementProps,
 } from '../../utils';
 
-import { getPopoverTestUtils } from './utils/getPopoverTestUtils';
-import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
+import { getPopoverTestUtils } from '../popover/utils/getPopoverTestUtils';
+import {
+  getAppendToElement,
+  Predicate,
+} from '../popover/utils/getAppendToElement';
+import { shouldAnimatePopover } from '../popover/utils/shouldAnimatePopover';
 
 import Popper from './components/Popper';
 

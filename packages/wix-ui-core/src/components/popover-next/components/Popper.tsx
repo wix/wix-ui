@@ -3,11 +3,11 @@ import classNames from 'classnames';
 
 import { Loadable } from '../../loadable';
 
-import { getModifiers } from '../utils/getModifiers';
+import { getModifiers } from '../../popover/utils/getModifiers';
 
 import CSSTransitionWrapper from './CSSTransitionWrapper';
 import PortalWrapper from './PortalWrapper';
-import styles from '../popover-next.st.css';
+import styles from '../../popover/Popover.st.css';
 
 import Arrow from './Arrow';
 
