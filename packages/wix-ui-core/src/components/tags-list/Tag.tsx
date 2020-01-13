@@ -20,6 +20,7 @@ export interface TagProps {
   disabled?: boolean;
   link?: string;
   rel?: string;
+  compId?: string;
 }
 
 export class Tag extends React.Component<TagProps> {
@@ -36,6 +37,7 @@ export class Tag extends React.Component<TagProps> {
     onChange: PropTypes.func,
     link: PropTypes.string,
     rel: PropTypes.string,
+    compId: PropTypes.string,
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -75,6 +77,7 @@ export class Tag extends React.Component<TagProps> {
       onChange = noop,
       link,
       rel,
+      compId,
       ...rest
     } = this.props;
 
@@ -99,7 +102,7 @@ export class Tag extends React.Component<TagProps> {
           checked={checked}
           onChange={onChange}
           value={value}
-          name={label}
+          name={compId || label}
           id={value}
           disabled={disabled}
         />
