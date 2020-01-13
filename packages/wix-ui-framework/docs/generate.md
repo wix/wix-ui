@@ -20,7 +20,8 @@ Options:
 ---
 
 Component libraries often contain more than a list of `Component.js`
-files. All these components likely have styles, tests, testkits and documentation. Each of those might be required for different platforms.
+files. All these components likely have styles, tests, testkits and
+documentation. Each of those might be required for different platforms.
 
 Writing these files by hand for each new component is not only tedious
 but very error-prone.
@@ -53,7 +54,9 @@ For example, a `<DatePicker/>` component structure might look like so:
         └── date_picker_visual.js
 ```
 
-Just for illustration puproses, file names are not following strict convention and have different casing. Namely PascalCase, kebab-case & snake_case.
+Just for illustration puproses, file names are not following strict
+convention and have different casing. Namely PascalCase, kebab-case &
+snake_case.
 
 **Template** folder structure for the above could be:
 
@@ -94,41 +97,28 @@ The resulting generated files will look as you might expect:
         └── my_awesome_component_visual.js
 ```
 
-
-
-How are components exported? Is there a big `index.js` file pointing to
-each component? Or maybe `.storybook/stories.js` or similar for documentation How is that file maintained?
-
-Is there some smoke test to ensure all components at least render?
-
-There are many points to consider when creating a component and once
-library becomes mature on all ends, it becomes tedious to repeat
-integration process for each new component.
-
 ---
 
 ## `--codemods`
 
 ### Why are codemods needed?
 
-Component on it's own is not enough. It has to integrate well into the
-library to be fully usable by consumers. It has to be exported, perhaps registered in some metadata accumulator and so on.
-
-For this reason simply generating files is not enough. Some data about
-new component must appear in already existing "integration" files of the
-library.
+Component on it's own is too little. It also has to integrate well into
+the library to be fully usable by consumers. It needs to be exported,
+perhaps registered in some metadata accumulator and so on.
 
 This is achievable with codemods - small scripts that alter source
-files (be it add more data, adjust existing one, maybe remove something)
+files. It can be adding more data, adjusting existing one, maybe
+removing something
 
 ### How to add codemod
 
-For example, say that all components within the library are exported in
-`src/index.js`.
+For example, say that all components within the library are exported in `src/index.js`.
 
 That's a big file like so:
 
 ```
+// ... many similar lines above
 export DatePicker from 'src/DatePicker'
 export Checkbox from 'src/Checkbox'
 export ToggleSwitch from 'src/ToggleSwitch'
