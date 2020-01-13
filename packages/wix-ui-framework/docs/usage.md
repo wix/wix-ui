@@ -1,12 +1,14 @@
 # Usage
 
-as of version 2.4.1, `wuf` is a collection of separate commands to help
-dealing with common component library tasks. It does not automate
-everything on its own and thus requires configuration.
+`wuf` is a collection of CLI commands to help dealing with common component library tasks.
+
+To make it work well some configuration is required.
 
 ## Folder structure
 
-all `wuf` related things should be kept in a `.wuf` folder at the root level of project.
+All `wuf` related things should be kept in a `.wuf` folder at the root level of project.
+
+Here's an annotated example:
 
 ```sh
 .wuf
@@ -35,3 +37,12 @@ all `wuf` related things should be kept in a `.wuf` folder at the root level of 
     ├── definitions.js
     └── enzyme.template.js        # file to be used as starting template for `wuf export-testkits`
 ```
+
+> **NOTE:** above folder structure is recommended but not required. All `wuf` commands accept flags for granular configuration
+
+## `wuf --help`
+
+Make use of `--help` flag. It also works with separate commands, for example `wuf generate --help` would likely give you
+valid information.
+
+Explore `/docs` folder in this repo to find more information about each command.
