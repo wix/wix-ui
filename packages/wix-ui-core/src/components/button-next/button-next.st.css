@@ -24,3 +24,12 @@
 .root:disabled {
   cursor: default;
 }
+
+/*
+  NOTE: This fixes issues when disabled button is used with a Tooltip. The root issue
+  is that browsers do not fire a mouseleave event for a disabled button. More details:
+  https://github.com/facebook/react/issues/4251
+*/
+.root[disabled] {
+  pointer-events: none;
+}
