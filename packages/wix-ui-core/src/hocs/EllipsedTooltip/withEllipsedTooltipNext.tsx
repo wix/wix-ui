@@ -3,10 +3,14 @@ import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import textStyle from './Text.st.css';
 import { getDisplayName } from '../utils';
+import { Loadable } from '../../components/loadable';
+import { TooltipProps } from '../../components/tooltip-next/tooltip-next';
 const debounce = require('lodash/debounce');
 
-import { TooltipNext } from '../../components/tooltip-next';
-import ellipsisStyle from './EllipsedTooltip.st.css';
+class LoadableTooltip extends Loadable<{
+  TooltipNext: React.ComponentType<TooltipProps>;
+  style: RuntimeStylesheet;
+}> {}
 
 interface EllipsedTooltipProps {
   component: React.ReactElement;
@@ -24,6 +28,10 @@ export interface WrapperComponentProps {
   showTooltip?: boolean;
 }
 
+/*
+  React 15 can have refs just on StateFull components,
+  and as we need a ref of unknown children it required to proxy it with StateFullComponent
+*/
 interface StateFullComponentWrapProps {
   children?: any;
   [propName: string]: any;
@@ -99,18 +107,42 @@ class EllipsedTooltip extends React.Component<
     const { isEllipsisActive } = this.state;
     const shouldLoadTooltip = isEllipsisActive && showTooltip;
 
-    return shouldLoadTooltip ? (
-      <TooltipNext
-        appendTo="scrollParent"
-        {...tooltipProps}
-        {...ellipsisStyle('root', {}, tooltipProps || this.props)}
-        content={<div>{this.textNode.textContent}</div>}
-        showArrow
+    return (
+      <LoadableTooltip
+        loader={{
+          TooltipNext: () =>
+            // because variables are not parsed by webpack transpiler
+            process.env.NODE_ENV === 'test' ||
+            process.env.NODE_ENV === 'development'
+              ? require('../../components/tooltip-next')
+              : import('../../components/tooltip-next'),
+          style: () =>
+            // because variables are not parsed by webpack transpiler
+            process.env.NODE_ENV === 'test' ||
+            process.env.NODE_ENV === 'development'
+              ? require('./EllipsedTooltip.st.css')
+              : import('./EllipsedTooltip.st.css'),
+        }}
+        defaultComponent={this._renderText()}
+        namedExports={{
+          TooltipNext: 'TooltipNext',
+        }}
+        shouldLoadComponent={shouldLoadTooltip}
       >
-        {this._renderText()}
-      </TooltipNext>
-    ) : (
-      this._renderText()
+        {({ TooltipNext, style }) => {
+          return (
+            <TooltipNext
+              appendTo="scrollParent"
+              {...tooltipProps}
+              {...style('root', {}, tooltipProps || this.props)}
+              content={<div>{this.textNode.textContent}</div>}
+              showArrow
+            >
+              {this._renderText()}
+            </TooltipNext>
+          );
+        }}
+      </LoadableTooltip>
     );
   }
 }
@@ -120,6 +152,7 @@ export const withEllipsedTooltipNext = ({
   tooltipProps,
 }: {
   showTooltip?: boolean;
+
   tooltipProps?: object;
 } = {}) => Comp => {
   const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = props => (
