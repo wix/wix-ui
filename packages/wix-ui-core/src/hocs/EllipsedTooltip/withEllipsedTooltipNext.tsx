@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import textStyle from './Text.st.css';
 import { getDisplayName } from '../utils';
@@ -23,6 +24,20 @@ export interface WrapperComponentProps {
   showTooltip?: boolean;
 }
 
+interface StateFullComponentWrapProps {
+  children?: any;
+  [propName: string]: any;
+}
+
+class StateFullComponentWrap extends React.Component<
+  StateFullComponentWrapProps
+> {
+  render() {
+    const { children, ...props } = this.props;
+    return React.cloneElement(children, props);
+  }
+}
+
 class EllipsedTooltip extends React.Component<
   EllipsedTooltipProps,
   EllipsedTooltipState
@@ -31,7 +46,7 @@ class EllipsedTooltip extends React.Component<
 
   state = { isEllipsisActive: false };
 
-  private readonly textNode = React.createRef<HTMLDivElement>();
+  textNode: HTMLElement;
 
   componentDidMount() {
     window.addEventListener('resize', this._debouncedUpdate);
@@ -52,12 +67,10 @@ class EllipsedTooltip extends React.Component<
   }
 
   _updateEllipsisState = () => {
-    const { showTooltip } = this.props;
-    const { current: ref } = this.textNode;
-
     const isEllipsisActive =
-      showTooltip && ref && ref.offsetWidth < ref.scrollWidth;
-
+      this.props.showTooltip &&
+      this.textNode &&
+      this.textNode.offsetWidth < this.textNode.scrollWidth;
     this.setState({
       isEllipsisActive,
     });
@@ -68,16 +81,16 @@ class EllipsedTooltip extends React.Component<
   _renderText() {
     const { component, style } = this.props;
     return (
-      <div
+      <StateFullComponentWrap
         {...textStyle('root', {}, component.props)}
         style={{
           ...style,
           whiteSpace: 'nowrap',
         }}
-        ref={this.textNode}
+        ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
-      </div>
+      </StateFullComponentWrap>
     );
   }
 
@@ -91,7 +104,7 @@ class EllipsedTooltip extends React.Component<
         appendTo="scrollParent"
         {...tooltipProps}
         {...ellipsisStyle('root', {}, tooltipProps || this.props)}
-        content={<div>{this.textNode.current.textContent}</div>}
+        content={<div>{this.textNode.textContent}</div>}
         showArrow
       >
         {this._renderText()}
