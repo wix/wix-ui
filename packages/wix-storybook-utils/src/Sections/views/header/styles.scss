@@ -18,7 +18,7 @@ $surround-gap: 10px;
     width: calc(100vw - 8px);
 
     top: 0;
-    bottom: 0;
+    bottom: -1px;
     left: 50%;
     right: 50%;
     margin: 0 -50vw;
@@ -78,5 +78,5 @@ $surround-gap: 10px;
 }
 
 .component {
-  padding: $surround-gap;
+  padding: $surround-gap $surround-gap 60px;
 }
