@@ -44,8 +44,6 @@
 }
 
 .listWrapper {
-  break-after: avoid-column;
-
   margin: 0;
   padding: 0;
 

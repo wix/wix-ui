@@ -30,6 +30,8 @@ export function calculatePositioning({
   const menuItemY = getMenuItemBoundingRect('y');
   const menuLeft = getMenuBoundingRect('left');
   const menuWidth = getMenuBoundingRect('width');
+  const menuHeight = getMenuBoundingRect('height');
+  const menuY = getMenuBoundingRect('y');
   const documentWidth = document.documentElement.clientWidth;
 
   const {
@@ -42,6 +44,11 @@ export function calculatePositioning({
     menuItemY - layoutHeight >= 0
       ? 'bottom'
       : 'top';
+
+  const topValue = menuItemY - menuY + menuItemHeight;
+  const bottomValue = menuHeight - (menuItemY - menuY);
+
+  const verticalPosition = topOrBottom === 'top' ? topValue : bottomValue;
 
   switch (expandSize) {
     case 'column':
@@ -69,7 +76,7 @@ export function calculatePositioning({
       return {
         left: 0,
         right: 0,
-        [topOrBottom]: '100%',
+        [topOrBottom]: verticalPosition,
       };
 
     case 'fullWidth':
@@ -77,7 +84,11 @@ export function calculatePositioning({
       const scrollbarWidth = windowInnerWidth - documentWidth;
       const right = windowInnerWidth - scrollbarWidth - menuLeft - menuWidth;
 
-      return { left: -menuLeft, right: -right, [topOrBottom]: '100%' };
+      return {
+        left: -menuLeft,
+        right: -right,
+        [topOrBottom]: verticalPosition,
+      };
 
     default:
       return {};
