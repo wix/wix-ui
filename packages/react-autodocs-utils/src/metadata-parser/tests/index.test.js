@@ -579,4 +579,69 @@ describe('metadataParser()', () => {
       });
     });
   });
+
+  // TODO: unskip test
+  // this outlines a missing feature. Some higher order components (HOCs) might add additional props. They should be
+  // shown in output and merged with original component props
+  describe.skip('given component wrapped in HOC with annotations', () => {
+    it('should resolve component', () => {
+      const fakeFs = cista({
+        'Component.js': `
+          const PropTypes = require("prop-types");
+          const React = require("react");
+          const ellipsisHOC = require("./ellipsisHOC");
+
+          class Text extends React.Component {
+            render() {
+              return <div>{this.props.children}</div>;
+            }
+          }
+
+          Text.displayName = "Text"
+          Text.propTypes = {
+            children: PropTypes.node.isRequired,
+          }
+
+          module.exports = ellipsisHOC(Text);
+        `,
+        'ellipsisHOC.js': `
+          import PropTypes from 'prop-types';
+          const Comp /** @autodocs-component */ = Component => {
+            return React.memo(
+              React.forwardRef(({ ellipsis, ...props }, ref) => {
+                return ellipsis ?
+                  <Component ref={ref} {...props} />
+                  <Component {...props} />;
+              }),
+            );
+          };
+
+          Comp.propTypes = {
+            flip: PropTypes.bool.required
+          };
+          Comp.displayName = "Overriden"
+
+          export default Comp;
+        `
+      });
+
+      return expect(metadataParser(fakeFs.dir + '/Component.js')).resolves.toEqual({
+        description: '',
+        methods: [],
+        displayName: 'Text',
+        props: {
+          children: {
+            required: true,
+            description: '',
+            type: { name: 'node' },
+          },
+          flip: {
+            required: true,
+            description: '',
+            type: { name: 'bool' },
+          }
+        },
+      });
+    });
+  });
 });
