@@ -31,10 +31,13 @@ function MessageBoxMarketerialLayoutWithAllProps() {
       primaryButtonDisabled
       primaryButtonLabel="label"
       primaryButtonTheme="blue"
+      primaryButtonNode={<div />}
       removeButtonsPadding
       secondaryButtonLabel="label"
       styles="font: 14px"
       theme="blue"
+      width="300px"
+      noBodyPadding
     />
   );
 }
