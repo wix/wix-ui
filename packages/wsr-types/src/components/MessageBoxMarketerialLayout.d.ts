@@ -6,6 +6,7 @@ declare namespace __WSR {
       content: React.ReactNode;
       primaryButtonLabel?: string;
       primaryButtonDisabled?: boolean;
+      primaryButtonNode?: React.ReactNode;
       secondaryButtonLabel?: string;
       onPrimaryButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
       onSecondaryButtonClick?: React.MouseEventHandler<HTMLElement>;
@@ -16,6 +17,8 @@ declare namespace __WSR {
       theme?: MessageBoxMarketerialLayoutTheme;
       primaryButtonTheme?: MessageBoxMarketerialLayoutThemePrimaryButtonTheme;
       removeButtonsPadding?: boolean;
+      width?: string;
+      noBodyPadding?: boolean;
     }
 
     export class MessageBoxMarketerialLayout extends BaseComponents.WixComponent<

@@ -2,6 +2,7 @@ declare namespace __WSRTests {
   interface MessageBoxMarketerialLayoutDriver extends BaseDriver {
     getPrimaryButtonText: () => string;
     getPrimaryButton: () => HTMLButtonElement;
+    getPrimaryButtonNode: () => HTMLElement | null;
     getSecondaryButtonText: () => string;
     getSecondaryButton: () => HTMLElement;
     getHeaderCloseButton: () => HTMLButtonElement;
