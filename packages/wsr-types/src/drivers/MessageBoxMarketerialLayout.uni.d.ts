@@ -4,6 +4,9 @@ declare namespace __WSRTests {
     getPrimaryButton: () => Promise<
       import('wix-ui-test-utils/unidriver').UniDriver | null
     >;
+    getPrimaryButtonNode: () => Promise<
+      import('wix-ui-test-utils/unidriver').UniDriver | null
+    >;
     getSecondaryButtonText: () => Promise<string>;
     getSecondaryButton: () => Promise<
       import('wix-ui-test-utils/unidriver').UniDriver | null
