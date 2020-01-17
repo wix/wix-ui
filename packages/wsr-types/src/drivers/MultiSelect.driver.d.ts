@@ -3,7 +3,7 @@ declare namespace __WSRTests {
     extends __WSR.BaseComponents.OmitPolyfill<
       InputWithOptionsDriver,
       "driver"
-      > {
+    > {
     driver: InputWithOptionsDriver["driver"] & {
       getMaxHeight: () => string;
       clickOnInputWrapper: () => void;
