@@ -1,9 +1,7 @@
 declare namespace __WSRTests {
-  interface MultiSelectDriver
-    extends __WSR.BaseComponents.OmitPolyfill<
-      InputWithOptionsDriver,
-      "driver"
-    > {
+  interface MultiSelectDriver extends BaseDriver {
+    inputDriver: InputDriver;
+    dropdownLayoutDriver: DropdownLayoutDriver;
     driver: {
       getMaxHeight: () => string;
       clickOnInputWrapper: () => void;
@@ -13,7 +11,8 @@ declare namespace __WSRTests {
       numberOfTags: () => number;
       customSuffixExists: () => HTMLElement;
       getTagLabelAt: (index: number) => string;
+      pressCommaKey: () => void;
       getTagDriverByTagId: (tagId: string) => TagDriver;
-    } & Pick<InputWithOptionsDriver, "driver">;
+    };
   }
 }
