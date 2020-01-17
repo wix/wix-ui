@@ -1,8 +1,10 @@
 declare namespace __WSRTests {
-  interface MultiSelectDriver extends BaseDriver {
-    inputDriver: InputDriver;
-    dropdownLayoutDriver: DropdownLayoutDriver;
-    driver: {
+  interface MultiSelectDriver
+    extends __WSR.BaseComponents.OmitPolyfill<
+      InputWithOptionsDriver,
+      "driver"
+      > {
+    driver: InputWithOptionsDriver["driver"] & {
       getMaxHeight: () => string;
       clickOnInputWrapper: () => void;
       inputWrapperHasFocus: () => boolean;
