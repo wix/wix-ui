@@ -1,7 +1,7 @@
 declare namespace __WSRTests {
   interface TabsDriver extends BaseDriver {
     getTitles: () => Array<string>;
-    clickTabAt: () => void;
+    clickTabAt: (index: number) => void;
     getActiveTabIndex: () => number;
     isDefaultType: () => boolean;
     getItemsContainerClassList: () => DOMTokenList;

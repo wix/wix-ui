@@ -1,7 +1,7 @@
 declare namespace __WSRTests {
   interface TabsUniDriver extends BaseUniDriver {
     getTitles: () => Promise<Array<string>>;
-    clickTabAt: () => Promise<void>;
+    clickTabAt: (index: number) => Promise<void>;
     getActiveTabIndex: () => Promise<number>;
     isDefaultType: () => Promise<boolean>;
     getItemsContainerClassList: () => Promise<DOMTokenList>;

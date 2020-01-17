@@ -4,7 +4,7 @@ declare namespace __WSRTests {
       InputWithOptionsDriver,
       "driver"
     > {
-    driver: {
+    driver: InputWithOptionsDriver["driver"] & {
       getMaxHeight: () => string;
       clickOnInputWrapper: () => void;
       inputWrapperHasFocus: () => boolean;
@@ -13,7 +13,8 @@ declare namespace __WSRTests {
       numberOfTags: () => number;
       customSuffixExists: () => HTMLElement;
       getTagLabelAt: (index: number) => string;
+      pressCommaKey: () => void;
       getTagDriverByTagId: (tagId: string) => TagDriver;
-    } & Pick<InputWithOptionsDriver, "driver">;
+    };
   }
 }
