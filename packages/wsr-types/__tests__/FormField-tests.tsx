@@ -1,10 +1,10 @@
-import * as React from 'react';
-import FormField from 'wix-style-react/FormField';
-import { formFieldTestkitFactory } from 'wix-style-react/dist/testkit';
-import { formFieldTestkitFactory as formFieldEnzymeTestkitFactory } from 'wix-style-react/dist/testkit/enzyme';
-import { formFieldTestkitFactory as formFieldPuppeteerTestkitFactory } from 'wix-style-react/dist/testkit/puppeteer';
-import * as enzyme from 'enzyme';
-import * as puppeteer from 'puppeteer';
+import * as React from "react";
+import FormField from "wix-style-react/FormField";
+import { formFieldTestkitFactory } from "wix-style-react/dist/testkit";
+import { formFieldTestkitFactory as formFieldEnzymeTestkitFactory } from "wix-style-react/dist/testkit/enzyme";
+import { formFieldTestkitFactory as formFieldPuppeteerTestkitFactory } from "wix-style-react/dist/testkit/puppeteer";
+import * as enzyme from "enzyme";
+import * as puppeteer from "puppeteer";
 
 function FormFieldWithMandatoryProps() {
   return <FormField />;
@@ -24,6 +24,7 @@ function FormFieldWithAllProps() {
       labelSize="medium"
       required
       stretchContent
+      suffix={<div />}
     />
   );
 }
@@ -41,19 +42,19 @@ function FormFieldWithChildrenAsFunction() {
 
 async function testkits() {
   const testkit = formFieldTestkitFactory({
-    dataHook: 'hook',
-    wrapper: document.createElement('div')
+    dataHook: "hook",
+    wrapper: document.createElement("div")
   });
 
   const enzymeTestkit = formFieldEnzymeTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     wrapper: enzyme.mount(<div />)
   });
 
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const puppeteerTestkit = await formFieldPuppeteerTestkitFactory({
-    dataHook: 'hook',
+    dataHook: "hook",
     page
   });
 }
