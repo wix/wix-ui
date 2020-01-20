@@ -13,25 +13,26 @@ declare namespace __WSR {
       required?: boolean;
       infoContent?: React.ReactNode;
       infoTooltipProps?: any; // TODO: replace with TooltipProps onces in WSR
+      suffix?: React.ReactNode;
       id?: string;
       dataHook?: string;
     }
 
     export class FormField extends React.Component<FormFieldProps> {}
 
-    export type FormFieldLabelPlacement = 'top' | 'right' | 'left';
-    export type LabelPlacement = 'small' | 'medium';
-    export type LabelAlignment = 'middle' | 'top';
+    export type FormFieldLabelPlacement = "top" | "right" | "left";
+    export type LabelPlacement = "small" | "medium";
+    export type LabelAlignment = "middle" | "top";
     type CharactersLeftFn = (lengthLeft: number) => void;
   }
 }
 
-declare module 'wix-style-react' {
+declare module "wix-style-react" {
   export import FormField = __WSR.FormField.FormField;
   export import FormFieldProps = __WSR.FormField.FormFieldProps;
 }
 
-declare module 'wix-style-react/FormField' {
+declare module "wix-style-react/FormField" {
   export interface FormFieldProps extends __WSR.FormField.FormFieldProps {}
   export default __WSR.FormField.FormField;
 }

@@ -8,5 +8,6 @@ declare namespace __WSRTests {
     isLengthExceeded: () => boolean;
     hasTooltip: () => boolean;
     getInfoContent: () => string;
+    getSuffix: () => HTMLElement | null;
   }
 }
