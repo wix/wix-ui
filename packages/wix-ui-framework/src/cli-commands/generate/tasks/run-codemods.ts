@@ -49,7 +49,7 @@ const runCodemod: ({
     });
   });
 
-export const runCodemods: (a: Options) => Promise<void[]> = options => {
+export const runCodemods: (options: Options) => Promise<void> = options => {
   const { ComponentName, description, codemods } = options;
 
   const codemodsIndex: CodemodConfig[] = require(path.resolve(
@@ -62,13 +62,15 @@ export const runCodemods: (a: Options) => Promise<void[]> = options => {
     description,
   });
 
-  return Promise.all(
-    codemodsIndex.map((codemodConfig: CodemodConfig) =>
-      runCodemod({
-        options,
-        codemodValues,
-        codemodConfig,
-      }),
-    ),
+  return codemodsIndex.reduce(
+    (promise, codemodConfig) =>
+      promise.then(() =>
+        runCodemod({
+          options,
+          codemodValues,
+          codemodConfig,
+        }),
+      ),
+    Promise.resolve(),
   );
 };

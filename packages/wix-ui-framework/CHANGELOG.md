@@ -11,6 +11,10 @@ Types of changes:
 1. **Fixed** for any bug fixes.
 1. **Security** in case of vulnerabilities.
 
+# 3.5.1 - 2020-01-20
+## Fixed
+- `wuf generate` - make codemods run in sequence (and not concurrently)
+
 # 3.5.0 - 2020-01-10
 ## Added
 - `wuf generate` - support EJS in component generator templates
