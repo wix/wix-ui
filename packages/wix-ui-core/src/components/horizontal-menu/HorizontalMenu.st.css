@@ -15,14 +15,12 @@
 
 .root {
   box-sizing: border-box;
-  list-style: none;
+  position: relative;
   transition: inherit;
 }
 
 .menu {
   box-sizing: border-box;
-
-  position: relative;
 
   display: flex;
   flex-wrap: wrap;

@@ -28,6 +28,7 @@ export interface HorizontalMenuColumnsLayoutProps {
   maxOverflowWidth?: number;
   menuContext: HorizontalMenuContextValue;
   menuItemContext: HorizontalMenuItemContextValue;
+  columnGap?: number;
   columns?: number;
   columnsAlignment?: ColumnsAlignment;
 }
@@ -89,6 +90,7 @@ export class HorizontalMenuColumnsLayout extends React.Component<
     const {
       menuContext,
       menuItemContext,
+      columnGap,
       columns,
       columnsAlignment,
     } = this.props;
@@ -125,7 +127,7 @@ export class HorizontalMenuColumnsLayout extends React.Component<
           {...stylableProps}
           style={styles}
         >
-          <ul style={{ columns }} className={style.listWrapper}>
+          <ul style={{ columns, columnGap }} className={style.listWrapper}>
             {this.props.children}
           </ul>
         </div>

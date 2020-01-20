@@ -14,8 +14,11 @@ import style from './HorizontalMenu.st.css';
 export interface HorizontalMenuProps {
   className?: string;
 
-  /** Menu inline styles */
+  /** Nav inline styles */
   style?: React.CSSProperties;
+
+  /** Menu inline styles */
+  menuStyle?: React.CSSProperties;
 }
 
 /** Horizontal menu */
@@ -54,7 +57,13 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
   };
 
   render() {
-    const { children, className, style: propStyle, ...rest } = this.props;
+    const {
+      children,
+      className,
+      style: propStyle,
+      menuStyle,
+      ...rest
+    } = this.props;
 
     return (
       <HorizontalMenuContext.Provider value={this.contextValue}>
@@ -68,6 +77,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
           <ul
             data-hook={HORIZONTAL_MENU_METADATA.dataHooks.container}
             className={style.menu}
+            style={menuStyle}
           >
             {children}
           </ul>
