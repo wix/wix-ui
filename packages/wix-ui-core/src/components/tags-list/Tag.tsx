@@ -41,8 +41,11 @@ export class Tag extends React.Component<TagProps> {
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
+  labelRef: React.RefObject<HTMLLabelElement> = React.createRef();
+  anchorRef: React.RefObject<HTMLAnchorElement> = React.createRef();
 
   handleKeyDown = (ev: React.KeyboardEvent<HTMLAnchorElement>) => {
+    const { link } = this.props;
     /**
      * By default, list item can't be selected by Space button,
      * so we call click on input.
@@ -53,6 +56,22 @@ export class Tag extends React.Component<TagProps> {
     if (ev.keyCode === SPACE_KEY) {
       ev.preventDefault();
       this.inputRef.current.click();
+
+      /**
+       * We need to preserve focus on selected-deselected element,
+       * so we need to set focus on wrapper, when chain of events
+       * click -> change -> blur will be fired
+       */
+
+      const PAUSE_FOR_BLUR_EVENT = 10;
+
+      setTimeout(() => {
+        if (link) {
+          this.anchorRef.current.focus();
+        } else {
+          this.labelRef.current.focus();
+        }
+      }, PAUSE_FOR_BLUR_EVENT);
     }
   };
 
@@ -60,7 +79,7 @@ export class Tag extends React.Component<TagProps> {
     ev.preventDefault();
     /**
      * Label wrapped in anchor, so we simulate click on input
-     * two fire change event and onChange listener.
+     * to fire change event and onChange listener.
      */
 
     this.inputRef.current.click();
@@ -86,38 +105,45 @@ export class Tag extends React.Component<TagProps> {
       ...rest,
     };
 
-    const LabeledInput = (props: any) => (
-      <label
-        data-hook={DataHooks.Tag}
-        title={label}
-        htmlFor={value}
-        tabIndex={link ? -1 : 0}
-        {...props}
-      >
-        <input
-          ref={this.inputRef}
-          data-hook={DataHooks.TagInput}
-          className={style.tagInput}
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-          value={value}
-          name={compId || label}
-          id={value}
-          disabled={disabled}
-        />
-        {children}
-      </label>
-    );
+    const LabeledInput = (props: any) => {
+      // in case with link, we should focus anchor wrapper
+      const isDisabledFocus = disabled || link;
+
+      return (
+        <label
+          ref={this.labelRef}
+          data-hook={DataHooks.Tag}
+          title={label}
+          htmlFor={value}
+          tabIndex={isDisabledFocus ? -1 : 0}
+          {...props}
+        >
+          <input
+            ref={this.inputRef}
+            data-hook={DataHooks.TagInput}
+            className={style.tagInput}
+            type="checkbox"
+            checked={checked}
+            onChange={onChange}
+            value={value}
+            name={compId || label}
+            id={value}
+            disabled={disabled}
+          />
+          {children}
+        </label>
+      );
+    };
 
     return link ? (
       <a
+        ref={this.anchorRef}
         role="checkbox"
         aria-checked={checked}
         aria-disabled={disabled}
         href={link}
         rel={rel}
-        tabIndex={0}
+        tabIndex={disabled ? -1 : 0}
         onClick={this.handleTagClick}
         onKeyDown={this.handleKeyDown}
         {...wrapperProps}
