@@ -3,6 +3,7 @@ declare namespace __WSR {
     export interface SearchProps
       extends InputWithOptions.InputWithOptionsProps {
       expandable?: boolean;
+      expandWidth?: string | number;
       predicate?: (option: DropdownLayout.DropdownLayoutValueOption) => boolean;
       debounceMs?: number;
     }

@@ -14,6 +14,7 @@ function SearchWithAllProps() {
   return (
     <Search
       expandable
+      expandWidth="200px"
       debounceMs={1000}
       predicate={option => !!option.value}
       ariaControls="label"
