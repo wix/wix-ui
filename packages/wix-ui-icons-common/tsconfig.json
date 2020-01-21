@@ -6,7 +6,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "strict": true,
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
