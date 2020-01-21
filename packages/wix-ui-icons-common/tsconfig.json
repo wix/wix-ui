@@ -13,8 +13,5 @@
     "types": ["node", "jest"],
     "lib": ["dom", "es2016"]
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }
