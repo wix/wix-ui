@@ -7,8 +7,9 @@
     "name": "Wix",
     "email": "fed-infra@wix.com"
   },
-  "module": "./dist/es/src/dist/index.js",
-  "main": "./dist/src/index.js",
+  "module": "./dist/es/src/general/dist/index.js",
+  "main": "./dist/src/dist/index.js",
+  "sideEffects": false,
   "files": [
     "dist",
     "system",
@@ -30,7 +31,7 @@
     "buildSystemIcons": "svg2react-icon --typescript --monochrome  src/system/raw src/system/dist",
     "create-aliases": "npm run create-general-aliases && npm run create-system-aliases",
     "create-general-aliases": "node ./scripts/create-aliases.js ./dist/src/general/dist/components .",
-    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist && cp ./src/system/package.json ./system/package.json",
+    "create-system-aliases": "node ./scripts/create-aliases.js ./dist/src/system/dist/components system ./dist/src/system/dist",
     "export-svg-icons": "npm run export-general-svg-icons && npm run export-system-svg-icons",
     "export-general-svg-icons": "node ./scripts/export-svg-icons.js ./src/general/raw .",
     "export-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/system/raw system",
