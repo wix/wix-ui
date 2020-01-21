@@ -1,8 +1,0 @@
-{
-  "name": "wix-ui-icons-common",
-  "version": "2.0.0",
-  "license": "MIT",
-  "private": false,
-  "module": "../dist/es/src/system/dist/index.js",
-  "main": "../dist/src/system/dist/index.js"
-}
