@@ -6,15 +6,12 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "strict": true,
-    "module": "commonjs",
+    "module": "es6",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
     "types": ["node", "jest"],
     "lib": ["dom", "es2016"]
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }
