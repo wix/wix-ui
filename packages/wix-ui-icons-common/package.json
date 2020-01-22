@@ -8,7 +8,7 @@
     "email": "fed-infra@wix.com"
   },
   "module": "./dist/es/src/general/dist/index.js",
-  "main": "./dist/src/dist/index.js",
+  "main": "./dist/src/index.js",
   "sideEffects": false,
   "files": [
     "dist",
