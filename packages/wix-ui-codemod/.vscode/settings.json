@@ -29,7 +29,8 @@
   "html.format.indentInnerHtml": true,
   "html.format.extraLiners": "",
   "files.insertFinalNewline": true,
-  "eslint.autoFixOnSave": true,
-  "tslint.autoFixOnSave": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
