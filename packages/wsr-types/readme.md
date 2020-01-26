@@ -29,6 +29,14 @@ To use install and update `tsconfig.json`:
 }
 ```
 
+Most of wsr consumers use Puppeteer and Enzyme for their tests, because of that we export types for these platforms. In case you do not use them you should exclude these types, otherwise you will get errors. Exclude insturctions:
+```js
+    "exclude": [
+        "node_modules/wsr-types/enzyme-testkit-types.d.ts",
+        "node_modules/wsr-types/puppeteer-testkit-types.d.ts"
+    ]
+```
+
 3. If you are using `noImplicitAny: true` in your tsconfig, then add to your `external-types.d.ts`
 ```ts
 declare module 'wix-style-react/*'
