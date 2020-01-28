@@ -1,17 +1,11 @@
 import { Transform } from 'jscodeshift';
-import { type } from 'os';
-const addImports = require('jscodeshift-add-imports');
+import addImports from 'jscodeshift-add-imports';
 
-const getComponentName = /^wix-style-react\/(?!new-icons)(\/?.*)$/;
+const componentNameRegex = /^wix-style-react\/([A-Z][\w-]*?)$/;
 
 const transform: Transform = (fileInfo, api, options) => {
   const j = api.jscodeshift;
   const root = j(fileInfo.source);
-
-  const printOptions = options.printOptions || {
-    quote: 'single',
-    trailingComma: true,
-  };
 
   const resultSpecifiers = new Map();
 
@@ -22,69 +16,60 @@ const transform: Transform = (fileInfo, api, options) => {
     resultSpecifiers.get(source).push(specifier);
   };
 
-  root.find(api.jscodeshift.ImportDeclaration).forEach(path => {
-    if (!path.node.specifiers.length) {
-      return;
-    }
+  root
+    .find(api.jscodeshift.ImportDeclaration)
+    .filter(path =>
+      [
+        path.node.specifiers.length,
+        componentNameRegex.test(path.node.source.value as string),
+        path.node.importKind === 'value',
+      ].every(Boolean),
+    )
+    .forEach(path => {
+      const sourceNode = path.node.source.value;
+      const moduleName = (sourceNode as string).match(componentNameRegex);
 
-    if (path.value.importKind && path.value.importKind !== 'value') {
-      return;
-    }
+      const cleanImport = name => {
+        path.node.specifiers = path.node.specifiers.filter(
+          spec => spec.local.name !== name,
+        );
+      };
 
-    const sourceNode = path.value.source.value;
+      path.node.specifiers.forEach(specifier => {
+        const localName = specifier.local.name;
 
-    const moduleName = (sourceNode as string).match(getComponentName);
-
-    if (!getComponentName.test(sourceNode as string)) {
-      return;
-    }
-
-    const cleanImport = name => {
-      path.value.specifiers = path.value.specifiers.filter(
-        spec => spec.local.name !== name,
-      );
-    };
-
-    path.value.specifiers.forEach((specifier, index) => {
-      switch (specifier.type) {
-        case 'ImportDefaultSpecifier': {
+        if (j.ImportDefaultSpecifier.check(specifier)) {
           addSpecifier(
             'wix-style-react',
             j.importSpecifier(
               j.identifier(moduleName[1]),
-              j.identifier(specifier.local.name),
+              j.identifier(localName),
             ),
           );
-          cleanImport(specifier.local.name);
-          break;
+          cleanImport(localName);
         }
-        case 'ImportSpecifier': {
-          if (specifier.local.name === moduleName[1]) {
+
+        if (j.ImportSpecifier.check(specifier)) {
+          if (
+            localName === moduleName[1] ||
+            localName === `${moduleName[1]}Props`
+          ) {
             addSpecifier('wix-style-react', specifier);
-            cleanImport(specifier.local.name);
-            break;
           }
-          if (specifier.local.name === `${moduleName[1]}Props`) {
-            addSpecifier('wix-style-react', specifier);
-            cleanImport(specifier.local.name);
-            break;
-          }
-          cleanImport(specifier.local.name);
-          break;
+          cleanImport(localName);
         }
-        case 'ImportNamespaceSpecifier':
+
+        if (j.ImportNamespaceSpecifier.check(specifier)) {
           console.warn(
-            `[wix-ui-codemod][${fileInfo.path}]: we can't handle this import: "import as * ${specifier.local.name} from ${sourceNode}". Make sure to fix it to named import otherwise tree-shaking will not work for you.`,
+            `[wix-ui-codemod][${fileInfo.path}]: unable to handle this import: "import as * ${specifier.local.name} from ${sourceNode}". Make sure to fix it to named import otherwise tree-shaking will not work for you.`,
           );
-          break;
-        default:
+        }
+      });
+
+      if (!path.node.specifiers.length) {
+        path.prune();
       }
     });
-
-    if (!path.value.specifiers.length) {
-      path.prune();
-    }
-  });
 
   addImports(
     root,
@@ -98,7 +83,12 @@ const transform: Transform = (fileInfo, api, options) => {
       ),
   );
 
-  return root.toSource(printOptions);
+  return root.toSource(
+    options.printOptions || {
+      quote: 'single',
+      trailingComma: true,
+    },
+  );
 };
 
 export default transform;
