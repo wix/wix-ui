@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "commander": "^4.0.1",
-    "jscodeshift": "^0.6.4"
+    "jscodeshift": "^0.6.4",
+    "jscodeshift-add-imports": "^1.0.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
