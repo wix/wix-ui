@@ -37,7 +37,7 @@ Will replace deprecated icon imports from `wix-style-react/new-icons` with impor
 npx wix-ui-codemod wix-style-react/named-imports <path>
 ```
 
-Converts all `wix-style-react/ComponentName` imports more to the optimal form for tree shaking:
+Converts all `wix-style-react/ComponentName` imports to the optimal form for tree shaking:
 
 ```diff
 - import TextButton from 'wix-style-react/TextButton';
