@@ -34,6 +34,7 @@
     "release": "yoshi release"
   },
   "dependencies": {
+    "tslib": "^1.10.0",
     "commander": "^4.0.1",
     "jscodeshift": "^0.6.4",
     "jscodeshift-add-imports": "^1.0.3"

@@ -50,9 +50,7 @@ const transform: Transform = (fileInfo, api, options) => {
         }
 
         if (j.ImportSpecifier.check(specifier)) {
-          if (localName === moduleName || localName === `${moduleName}Props`) {
-            addSpecifier('wix-style-react', specifier);
-          }
+          addSpecifier('wix-style-react', specifier);
           cleanImport(localName);
         }
 
