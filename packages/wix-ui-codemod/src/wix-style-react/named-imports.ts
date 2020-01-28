@@ -27,7 +27,7 @@ const transform: Transform = (fileInfo, api, options) => {
     )
     .forEach(path => {
       const sourceNode = path.node.source.value;
-      const moduleName = (sourceNode as string).match(componentNameRegex);
+      const moduleName = (sourceNode as string).match(componentNameRegex)[1];
 
       const cleanImport = name => {
         path.node.specifiers = path.node.specifiers.filter(
@@ -42,7 +42,7 @@ const transform: Transform = (fileInfo, api, options) => {
           addSpecifier(
             'wix-style-react',
             j.importSpecifier(
-              j.identifier(moduleName[1]),
+              j.identifier(moduleName),
               j.identifier(localName),
             ),
           );
@@ -50,10 +50,7 @@ const transform: Transform = (fileInfo, api, options) => {
         }
 
         if (j.ImportSpecifier.check(specifier)) {
-          if (
-            localName === moduleName[1] ||
-            localName === `${moduleName[1]}Props`
-          ) {
+          if (localName === moduleName || localName === `${moduleName}Props`) {
             addSpecifier('wix-style-react', specifier);
           }
           cleanImport(localName);
