@@ -85,7 +85,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
-  export const editableSelectorTestkitFactory: any;
+  export const editableSelectorTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.EditableSelectorUniDriver>;
   export const editableTitleTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.EditableTitleUniDriver>
   export const floatingHelperTestkitFactory: any;
   export const googleAddressInputWithLabelTestkitFactory: any;

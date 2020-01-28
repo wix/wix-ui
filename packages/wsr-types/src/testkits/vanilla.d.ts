@@ -110,7 +110,7 @@ declare module "wix-style-react/dist/testkit" {
   export const colorInputTestkitFactory: any;
   export const contactItemBuilderTestkitFactory: any;
   export const datePickerTestkitFactory: any;
-  export const editableSelectorTestkitFactory: any;
+  export const editableSelectorTestkitFactory: VanillaTestkitFactory<__WSRTests.EditableSelectorDriver>;
   export const editableTitleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.EditableTitleUniDriver>;
   export const googleAddressInputWithLabelTestkitFactory: any;
   export const inputAreaTestkitFactory: VanillaTestkitFactory<__WSRTests.InputAreaDriver<
