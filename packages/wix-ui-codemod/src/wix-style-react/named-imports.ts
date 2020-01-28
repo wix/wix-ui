@@ -17,7 +17,7 @@ const transform: Transform = (fileInfo, api, options) => {
   };
 
   root
-    .find(api.jscodeshift.ImportDeclaration)
+    .find(j.ImportDeclaration)
     .filter(path =>
       [
         path.node.specifiers.length,
