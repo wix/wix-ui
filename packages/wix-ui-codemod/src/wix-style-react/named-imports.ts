@@ -68,6 +68,10 @@ const transform: Transform = (fileInfo, api, options) => {
       }
     });
 
+  if (!resultSpecifiers.size) {
+    return;
+  }
+
   addImports(
     root,
     Array.from(resultSpecifiers.keys())
