@@ -161,4 +161,5 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const browserPreviewWidgetTestkitFactory: any;
   export const timeTableTestkitFactory: any;
   export const marketingLayoutTestkitFactory: any;
+  export const imageTestkitFactory: any;
 }
