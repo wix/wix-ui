@@ -21,6 +21,7 @@ declare global {
 export default ({ _config, _metadata, ...storyConfig }) =>
   _config
     .storiesOf(storyConfig.category, module)
+    .addParameters(storyConfig.parameters)
     .add(storyConfig.storyName || _metadata.displayName, () =>
       isE2E ? (
         <div>
