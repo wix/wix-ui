@@ -3,7 +3,7 @@ declare namespace __WSR {
     export interface CarouselProps {
       dataHook?: string;
       className?: string;
-      images?: string[];
+      images?: CarouselImage[];
       buttonSkin?: CarouselButtonSkin;
       infinite?: boolean;
       autoplay?: boolean;
@@ -16,16 +16,18 @@ declare namespace __WSR {
 
     export class Carousel extends React.Component<CarouselProps> {}
 
-    export type CarouselButtonSkin = "standard" | "inverted";
+    export type CarouselButtonSkin = 'standard' | 'inverted';
+
+    export type CarouselImage = { src: string };
   }
 }
 
-declare module "wix-style-react" {
+declare module 'wix-style-react' {
   export import Carousel = __WSR.Carousel.Carousel;
   export import CarouselProps = __WSR.Carousel.CarouselProps;
 }
 
-declare module "wix-style-react/Carousel" {
+declare module 'wix-style-react/Carousel' {
   export interface CarouselProps extends __WSR.Carousel.CarouselProps {}
   export default __WSR.Carousel.Carousel;
 }
