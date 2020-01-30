@@ -118,6 +118,9 @@ export interface CodeSection extends StorySection {
 
   /** set to `true` if dark background should be enabled by default */
   darkBackground?: boolean;
+
+  /** set to `true` if transparent background should be enabled (override darkBackground) */
+  transparentBackground?: boolean;
 }
 
 /** Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into
