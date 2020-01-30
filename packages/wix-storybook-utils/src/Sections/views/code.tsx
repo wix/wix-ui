@@ -11,6 +11,7 @@ export const code: (a: CodeSection) => React.ReactNode = ({
   interactive = true,
   autoRender,
   darkBackground = false,
+  noBackground = false,
 }) => {
   if (interactive) {
     const LiveCodeExample = React.lazy(() => import('../../LiveCodeExample'));
@@ -22,6 +23,7 @@ export const code: (a: CodeSection) => React.ReactNode = ({
             compact,
             autoRender,
             darkBackground,
+            noBackground,
             scope: components,
             initialCode: source.trim(),
           }}
