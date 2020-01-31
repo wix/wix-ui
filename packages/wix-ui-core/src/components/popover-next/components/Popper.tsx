@@ -6,7 +6,7 @@ import { Loadable } from '../../loadable';
 import { getModifiers } from '../../popover/utils/getModifiers';
 
 import CSSTransitionWrapper from './CSSTransitionWrapper';
-import PortalWrapper from './PortalWrapper';
+import Portal from './Portal';
 import styles from '../../popover/Popover.st.css';
 
 import Arrow from './Arrow';
@@ -49,24 +49,17 @@ const Popper = (props: any) => {
           process.env.NODE_ENV === 'development'
             ? () => require('react-transition-group')
             : () => import('react-transition-group'),
-        Portal:
-          // because variables are not parsed by webpack transpiler
-          process.env.NODE_ENV === 'test' ||
-          process.env.NODE_ENV === 'development'
-            ? () => require('react-portal')
-            : () => import('react-portal'),
       }}
       defaultComponent={<div />}
       namedExports={{
         Popper: 'Popper',
         CSSTransition: 'CSSTransition',
-        Portal: 'Portal',
       }}
       onLoad={onLoad}
       shouldLoadComponent
     >
-      {({ Popper: ReactPopper, CSSTransition, Portal }) => (
-        <PortalWrapper Component={Portal} portalNode={portalNode}>
+      {({ Popper: ReactPopper, CSSTransition }) => (
+        <Portal node={portalNode}>
           <CSSTransitionWrapper Component={CSSTransition} {...props}>
             <ReactPopper modifiers={getModifiers(props)} placement={placement}>
               {({
@@ -116,7 +109,7 @@ const Popper = (props: any) => {
               }}
             </ReactPopper>
           </CSSTransitionWrapper>
-        </PortalWrapper>
+        </Portal>
       )}
     </LoadablePopper>
   );
