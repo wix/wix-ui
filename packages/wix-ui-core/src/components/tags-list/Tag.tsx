@@ -11,7 +11,6 @@ import style from './Tag.st.css';
 const SPACE_KEY = 32;
 
 export interface TagProps {
-  tagIndex: number;
   className?: string;
   checked?: boolean;
   value?: string;
@@ -39,7 +38,6 @@ export class Tag extends React.Component<TagProps> {
     link: PropTypes.string,
     rel: PropTypes.string,
     compId: PropTypes.string,
-    tagIndex: PropTypes.number,
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -99,7 +97,6 @@ export class Tag extends React.Component<TagProps> {
       link,
       rel,
       compId,
-      tagIndex,
       ...rest
     } = this.props;
 
@@ -111,14 +108,13 @@ export class Tag extends React.Component<TagProps> {
     const LabeledInput = (props: any) => {
       // in case with link, we should focus anchor wrapper
       const isDisabledFocus = disabled || link;
-      const uniqId = `${value}-${compId}-${tagIndex}`;
 
       return (
         <label
           ref={this.labelRef}
           data-hook={DataHooks.Tag}
           title={label}
-          htmlFor={uniqId}
+          htmlFor={value}
           tabIndex={isDisabledFocus ? -1 : 0}
           {...props}
         >
@@ -131,7 +127,7 @@ export class Tag extends React.Component<TagProps> {
             onChange={onChange}
             value={value}
             name={compId || label}
-            id={uniqId}
+            id={value}
             disabled={disabled}
           />
           {children}

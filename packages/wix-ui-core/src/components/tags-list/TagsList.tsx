@@ -25,9 +25,7 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
     role="group"
     {...rest}
   >
-    {React.Children.map(children, (child, tagIndex) =>
-      React.cloneElement(child as any, { tagIndex })
-    )}
+    {children}
   </div>
 );
 
