@@ -29,7 +29,7 @@ describe('TagsList', () => {
           <Tag label="name" value="value">
             Some tag
           </Tag>
-        </TagsList>,
+        </TagsList>
       );
 
       const tagsCount = await driver.getTagCount();
@@ -45,7 +45,7 @@ describe('TagsList', () => {
           <Tag label="name" value="value">
             Some tag
           </Tag>
-        </TagsList>,
+        </TagsList>
       );
 
       await driver.clickOnTagByIndex();
@@ -59,7 +59,7 @@ describe('TagsList', () => {
             <Tag label="name" value="value">
               Some tag
             </Tag>
-          </TagsList>,
+          </TagsList>
         );
 
         await driver.clickOnTagByIndex();
@@ -80,7 +80,7 @@ describe('TagsList', () => {
       const driver = await createDriver(
         <Tag label="name" value="value">
           {tagText}
-        </Tag>,
+        </Tag>
       );
 
       const text = await driver.getText();

@@ -11,7 +11,7 @@ import style from './Tag.st.css';
 const SPACE_KEY = 32;
 
 export interface TagProps {
-  tagIndex: number;
+  tagIndex?: number;
   className?: string;
   checked?: boolean;
   value?: string;
@@ -111,7 +111,10 @@ export class Tag extends React.Component<TagProps> {
     const LabeledInput = (props: any) => {
       // in case with link, we should focus anchor wrapper
       const isDisabledFocus = disabled || link;
-      const uniqId = `${value}-${compId}-${tagIndex}`;
+      const uniqId =
+        tagIndex !== undefined
+          ? `${value}-${compId}-${tagIndex}`
+          : `${value}-${compId}`;
 
       return (
         <label
