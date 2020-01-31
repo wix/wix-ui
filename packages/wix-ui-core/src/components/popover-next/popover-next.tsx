@@ -3,6 +3,7 @@ import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
 
 import { ClickOutside } from '../click-outside';
+import ErrorBoundary from './components/ErrorBoundary';
 import style from '../popover/Popover.st.css';
 
 import {
@@ -23,13 +24,6 @@ import {
   Predicate,
 } from '../popover/utils/getAppendToElement';
 import { shouldAnimatePopover } from '../popover/utils/shouldAnimatePopover';
-
-const Popper =
-  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
-    ? require('./components/Popper').default
-    : React.lazy(() =>
-        import(/* webpackPrefetch: true */ './components/Popper'),
-      );
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -129,6 +123,7 @@ export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
   loaded: boolean;
+  keyBoundary: number;
 }
 
 export type PopoverNextType = PopoverNextProps & {
@@ -174,6 +169,7 @@ export class PopoverNext extends React.Component<
       isMounted: false,
       shown: props.shown || false,
       loaded: false,
+      keyBoundary: 1,
     };
     this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -193,15 +189,17 @@ export class PopoverNext extends React.Component<
       this.popperScheduleUpdate = scheduleUpdate;
     };
 
-    const onLoad = () => {
-      /** we don't want to rerender so we set it silently */
-      this.clickOutsideRef.current.setAttribute('data-loaded', 'true');
-    };
-
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
     const { shown } = this.state;
+
+    const Popper =
+      process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+        ? require('./components/Popper').default
+        : React.lazy(() =>
+            import(/* webpackPrefetch: true */ './components/Popper'),
+          );
 
     return (
       <React.Suspense fallback={<div />}>
@@ -209,7 +207,6 @@ export class PopoverNext extends React.Component<
           portalNode={this.portalNode}
           shouldAnimate={shouldAnimate}
           contentHook={this.contentHook}
-          onLoad={onLoad}
           shown={shown}
           grabScheduleUpdater={grabScheduleUpdater}
           detachSyles={detachSyles}
@@ -381,39 +378,44 @@ export class PopoverNext extends React.Component<
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
-      <Manager>
-        <ClickOutside
-          rootRef={this.clickOutsideRef}
-          onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClass ? excludeClass : style.popover}
-        >
-          <div
-            ref={this.clickOutsideRef}
-            style={inlineStyles}
-            data-hook={this.props['data-hook']}
-            data-content-hook={this.contentHook}
-            {...style('root', {}, this.props)}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            id={id}
+      <ErrorBoundary
+        key={this.state.keyBoundary}
+        recover={() => this.setState({ keyBoundary: Math.random() })}
+      >
+        <Manager>
+          <ClickOutside
+            rootRef={this.clickOutsideRef}
+            onClickOutside={shown ? this._handleClickOutside : undefined}
+            excludeClass={excludeClass ? excludeClass : style.popover}
           >
-            <Reference innerRef={r => (this.targetRef = r)}>
-              {({ ref }) => (
-                <div
-                  ref={ref}
-                  className={style.popoverElement}
-                  data-hook="popover-element"
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                >
-                  {childrenObject.Element}
-                </div>
-              )}
-            </Reference>
-            {shouldRenderPopper && this.renderPopperContent(childrenObject)}
-          </div>
-        </ClickOutside>
-      </Manager>
+            <div
+              ref={this.clickOutsideRef}
+              style={inlineStyles}
+              data-hook={this.props['data-hook']}
+              data-content-hook={this.contentHook}
+              {...style('root', {}, this.props)}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              id={id}
+            >
+              <Reference innerRef={r => (this.targetRef = r)}>
+                {({ ref }) => (
+                  <div
+                    ref={ref}
+                    className={style.popoverElement}
+                    data-hook="popover-element"
+                    onClick={onClick}
+                    onKeyDown={onKeyDown}
+                  >
+                    {childrenObject.Element}
+                  </div>
+                )}
+              </Reference>
+              {shouldRenderPopper && this.renderPopperContent(childrenObject)}
+            </div>
+          </ClickOutside>
+        </Manager>
+      </ErrorBoundary>
     );
   }
 }

@@ -2,13 +2,14 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { Popper as ReactPopper } from 'react-popper';
+
 import Portal from './Portal';
+import CSSTransitionWrapper from './CSSTransitionWrapper';
 
 import { getModifiers } from '../../popover/utils/getModifiers';
-import CSSTransitionWrapper from './CSSTransitionWrapper';
-import styles from '../../popover/Popover.st.css';
-
 import { getArrowShift } from '../../popover/utils/getArrowShift';
+
+import styles from '../../popover/Popover.st.css';
 
 const Arrow = props => {
   const { arrowProps, moveArrowTo, placement, customArrow } = props;
