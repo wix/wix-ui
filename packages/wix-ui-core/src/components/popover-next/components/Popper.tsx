@@ -1,21 +1,34 @@
 import * as React from 'react';
 import classNames from 'classnames';
-
-import { Loadable } from '../../loadable';
+import { CSSTransition } from 'react-transition-group';
+import { Popper as ReactPopper } from 'react-popper';
+import Portal from './Portal';
 
 import { getModifiers } from '../../popover/utils/getModifiers';
-
 import CSSTransitionWrapper from './CSSTransitionWrapper';
-import Portal from './Portal';
 import styles from '../../popover/Popover.st.css';
 
-import Arrow from './Arrow';
+import { getArrowShift } from '../../popover/utils/getArrowShift';
 
-class LoadablePopper extends Loadable<{
-  Popper: React.ComponentType<any>;
-  CSSTransition: React.ComponentType<any>;
-  Portal: React.ComponentType<any>;
-}> {}
+const Arrow = props => {
+  const { arrowProps, moveArrowTo, placement, customArrow } = props;
+
+  const commonProps = {
+    ref: arrowProps.ref,
+    key: 'popover-arrow',
+    'data-hook': 'popover-arrow',
+    style: {
+      ...arrowProps.style,
+      ...getArrowShift(moveArrowTo, placement),
+    },
+  };
+
+  if (customArrow) {
+    return customArrow(placement, commonProps);
+  }
+
+  return <div {...commonProps} className={styles.arrow} />;
+};
 
 const Popper = (props: any) => {
   const {
@@ -30,88 +43,60 @@ const Popper = (props: any) => {
     children,
     id,
     role,
-    onLoad,
     portalNode,
   } = props;
-
   return (
-    <LoadablePopper
-      loader={{
-        Popper:
-          // because variables are not parsed by webpack transpiler
-          process.env.NODE_ENV === 'test' ||
-          process.env.NODE_ENV === 'development'
-            ? () => require('react-popper')
-            : () => import('react-popper'),
-        CSSTransition:
-          // because variables are not parsed by webpack transpiler
-          process.env.NODE_ENV === 'test' ||
-          process.env.NODE_ENV === 'development'
-            ? () => require('react-transition-group')
-            : () => import('react-transition-group'),
-      }}
-      defaultComponent={<div />}
-      namedExports={{
-        Popper: 'Popper',
-        CSSTransition: 'CSSTransition',
-      }}
-      onLoad={onLoad}
-      shouldLoadComponent
-    >
-      {({ Popper: ReactPopper, CSSTransition }) => (
-        <Portal node={portalNode}>
-          <CSSTransitionWrapper Component={CSSTransition} {...props}>
-            <ReactPopper modifiers={getModifiers(props)} placement={placement}>
-              {({
-                ref,
-                style,
-                placement: popperPlacement,
-                arrowProps,
-                scheduleUpdate,
-              }) => {
-                grabScheduleUpdater(scheduleUpdate);
-                return (
-                  <div
-                    ref={ref}
-                    data-hook="popover-content"
-                    data-content-element={contentHook}
-                    style={{
-                      ...style,
-                      top: isNaN(style.top) ? 0 : style.top,
-                      left: isNaN(style.left) ? 0 : style.left,
-                      zIndex,
-                      maxWidth,
-                    }}
-                    data-placement={popperPlacement || placement}
-                    className={classNames(styles.popover, {
-                      [styles.withArrow]: showArrow,
-                      [styles.popoverContent]: !showArrow,
-                    })}
-                  >
-                    {showArrow && (
-                      <Arrow
-                        arrowProps={arrowProps}
-                        moveArrowTo={moveArrowTo}
-                        placement={popperPlacement || placement}
-                        customArrow={customArrow}
-                      />
-                    )}
-                    <div
-                      key="popover-content"
-                      id={id}
-                      role={role}
-                      className={showArrow ? styles.popoverContent : ''}
-                    >
-                      {children}
-                    </div>
-                  </div>
-                );
-              }}
-            </ReactPopper>
-          </CSSTransitionWrapper>
-        </Portal>
-      )}
-    </LoadablePopper>
+    <Portal node={portalNode}>
+      <CSSTransitionWrapper Component={CSSTransition} {...props}>
+        <ReactPopper modifiers={getModifiers(props)} placement={placement}>
+          {({
+            ref,
+            style,
+            placement: popperPlacement,
+            arrowProps,
+            scheduleUpdate,
+          }) => {
+            grabScheduleUpdater(scheduleUpdate);
+            return (
+              <div
+                ref={ref}
+                data-hook="popover-content"
+                data-content-element={contentHook}
+                style={{
+                  ...style,
+                  top: isNaN(style.top as number) ? 0 : style.top,
+                  left: isNaN(style.left as number) ? 0 : style.left,
+                  zIndex,
+                  maxWidth,
+                }}
+                data-placement={popperPlacement || placement}
+                className={classNames(styles.popover, {
+                  [styles.withArrow]: showArrow,
+                  [styles.popoverContent]: !showArrow,
+                })}
+              >
+                {showArrow && (
+                  <Arrow
+                    arrowProps={arrowProps}
+                    moveArrowTo={moveArrowTo}
+                    placement={popperPlacement || placement}
+                    customArrow={customArrow}
+                  />
+                )}
+                <div
+                  key="popover-content"
+                  id={id}
+                  role={role}
+                  className={showArrow ? styles.popoverContent : ''}
+                >
+                  {children}
+                </div>
+              </div>
+            );
+          }}
+        </ReactPopper>
+      </CSSTransitionWrapper>
+    </Portal>
   );
 };
 

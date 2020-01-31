@@ -24,7 +24,12 @@ import {
 } from '../popover/utils/getAppendToElement';
 import { shouldAnimatePopover } from '../popover/utils/shouldAnimatePopover';
 
-import Popper from './components/Popper';
+const Popper =
+  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+    ? require('./components/Popper').default
+    : React.lazy(() =>
+        import(/* webpackPrefetch: true */ './components/Popper'),
+      );
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -199,18 +204,20 @@ export class PopoverNext extends React.Component<
     const { shown } = this.state;
 
     return (
-      <Popper
-        portalNode={this.portalNode}
-        shouldAnimate={shouldAnimate}
-        contentHook={this.contentHook}
-        onLoad={onLoad}
-        shown={shown}
-        grabScheduleUpdater={grabScheduleUpdater}
-        detachSyles={detachSyles}
-        {...this.props}
-      >
-        {childrenObject.Content}
-      </Popper>
+      <React.Suspense fallback={<div />}>
+        <Popper
+          portalNode={this.portalNode}
+          shouldAnimate={shouldAnimate}
+          contentHook={this.contentHook}
+          onLoad={onLoad}
+          shown={shown}
+          grabScheduleUpdater={grabScheduleUpdater}
+          detachSyles={detachSyles}
+          {...this.props}
+        >
+          {childrenObject.Content}
+        </Popper>
+      </React.Suspense>
     );
   }
 
