@@ -19,7 +19,7 @@ declare namespace __WSR {
       | 'transparent';
 
     export type CloseButtonSelectionArea = 'none' | 'hover' | 'always';
-    export type CloseButtonSize = 'small' | 'medium';
+    export type CloseButtonSize = 'small' | 'medium' | 'large';
   }
 }
 
