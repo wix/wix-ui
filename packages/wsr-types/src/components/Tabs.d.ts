@@ -15,7 +15,7 @@ declare namespace __WSR {
     export type Item = {
       id: string | number;
       title: React.ReactNode;
-      dataHook: string;
+      dataHook?: string;
     }
 
     export class Tabs extends React.PureComponent<TabsProps> {}
