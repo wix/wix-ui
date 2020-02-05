@@ -8,8 +8,8 @@ declare namespace __WSR {
       id?: string;
       max?: number;
       min?: number;
-      onAfterChange?: (value: number) => void;
-      onChange: (value: number) => void;
+      onAfterChange?: (value: number[] | number) => void;
+      onChange: (value: number[] | number) => void;
       rtl?: boolean;
       step?: number;
       pushable?: boolean | number;
