@@ -8,6 +8,7 @@ declare namespace __WSR {
       excludePastDates?: boolean;
       filterDate?: (date: Date) => boolean;
       value?: SelectedDaysType;
+      numOfMonths?: number;
       selectionMode?: SelectionModeType;
       showYearDropdown?: boolean;
       showMonthDropdown?: boolean;
