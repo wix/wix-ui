@@ -15,6 +15,7 @@ function AccordionWithAllProps() {
     <Accordion
       dataHook="hook"
       multiple
+      skin="light"
       items={[
         {
           buttonType: "button",
@@ -22,7 +23,8 @@ function AccordionWithAllProps() {
           content: <div />,
           expandLabel: <div />,
           icon: <div />,
-          title: <div />
+          title: <div />,
+          skin: "light"
         }
       ]}
     />

@@ -4,6 +4,7 @@ declare namespace __WSR {
       dataHook?: string;
       multiple?: boolean;
       items?: AccordionItem[];
+      skin?: "light" | "standard";
     }
 
     export class Accordion extends React.Component<AccordionProps> {}
@@ -15,6 +16,7 @@ declare namespace __WSR {
       expandLabel?: React.ReactNode;
       collapseLabel?: React.ReactNode;
       buttonType?: AccordionItemButtonType;
+      skin?: "light" | "standard";
     }
 
     export type AccordionItemButtonType = "textButton" | "button";
