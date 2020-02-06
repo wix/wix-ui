@@ -26,6 +26,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
 
   height: 48px;
   width: 48px;

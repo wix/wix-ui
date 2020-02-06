@@ -1,9 +1,15 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
+import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import style from './avatar.st.css';
 import { ContentType } from './types';
 import { nameToInitials } from './util';
+
+interface FocusableHOCProps {
+  focusableOnFocus(): void;
+  focusableOnBlur(): void;
+}
 
 export interface AvatarProps {
   /** Css class name to be applied to the root element */
@@ -40,7 +46,10 @@ const DEFAULT_CONTENT_TYPE: ContentType = 'placeholder';
  * If more than one of these props is supplied (with `name` prop giving default value to the `text` prop),
  * then the resolved content type for display goes according to this priority: image -> text -> placeholder.
  */
-export class Avatar extends React.Component<AvatarProps, AvatarState> {
+class AvatarComponent extends React.Component<
+  AvatarProps & FocusableHOCProps,
+  AvatarState
+> {
   static displayName = 'Avatar';
 
   static defaultProps = {
@@ -127,9 +136,30 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     delete this.img;
   };
 
+  handleKeyDown: React.KeyboardEventHandler<HTMLElement> = event => {
+    if (event.key === ' ' || event.key === 'Enter' || event.key === 'Space') {
+      event.preventDefault();
+      this.props.onClick();
+    }
+  };
+
   render() {
-    const { name, title, ariaLabel, onClick } = this.props;
+    const {
+      name,
+      title,
+      ariaLabel,
+      onClick,
+      focusableOnFocus,
+      focusableOnBlur,
+    } = this.props;
     const contentType = this.getCurrentContentType();
+    const focusProps = !!onClick && {
+      role: 'button',
+      onFocus: focusableOnFocus,
+      onBlur: focusableOnBlur,
+      onKeyDown: this.handleKeyDown,
+      tabIndex: 0,
+    };
 
     return (
       <div
@@ -138,6 +168,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
         title={title || name}
         aria-label={ariaLabel || name}
         onClick={onClick}
+        {...focusProps}
         {...style(
           'root',
           {
@@ -192,3 +223,5 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
     }
   }
 }
+
+export const Avatar = withFocusable(AvatarComponent);

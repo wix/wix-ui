@@ -1,5 +1,11 @@
+:import {
+  -st-from: "../../hocs/Focusable/Focusable.st.css";
+  -st-default: Focusable;
+}
+
 .root {
   -st-states: imgLoaded(boolean), contentType(enum(text, placeholder, image));
+  -st-extends: Focusable;
 }
 
 .content {}
