@@ -24,6 +24,8 @@ export interface AvatarProps {
   ariaLabel?: string;
   /** HTML title attribute value. To be applied on the root element */
   title?: string;
+  /** onClick event callback. */
+  onClick?(): void;
 }
 
 interface AvatarState {
@@ -48,7 +50,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
 
   img: HTMLImageElement;
 
-  /** This is the resolved content type the the consumer wants to display */
+  /** This is the resolved content type the consumer wants to display */
   getRequestedContentType(props): ContentType {
     const { name, text, placeholder, imgProps } = props;
 
@@ -126,23 +128,16 @@ export class Avatar extends React.Component<AvatarProps, AvatarState> {
   };
 
   render() {
-    const {
-      name,
-      text,
-      placeholder,
-      imgProps,
-      title,
-      ariaLabel,
-      ...rest
-    } = this.props;
-
+    const { name, title, ariaLabel, onClick } = this.props;
     const contentType = this.getCurrentContentType();
+
     return (
       <div
         data-content-type={contentType} // for testing
         data-img-loaded={this.state.imgLoaded} // for testing
         title={title || name}
         aria-label={ariaLabel || name}
+        onClick={onClick}
         {...style(
           'root',
           {

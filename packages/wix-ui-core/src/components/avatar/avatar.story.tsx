@@ -43,5 +43,6 @@ export default {
         value: { src: 'https://static.wixstatic.com/media/123454321.png' },
       },
     ],
+    onClick: () => {},
   },
 };

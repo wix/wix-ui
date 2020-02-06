@@ -375,6 +375,15 @@ describe('Avatar', () => {
     });
   });
 
+  describe('onClick prop', () => {
+    it('should be called on click', async () => {
+      const onClick = jest.fn();
+      const driver = await createDriver(<Avatar onClick={onClick} />);
+      await driver.click();
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe(`Styling`, () => {
     describe('content pseudo element', () => {
       it('should have content class when text displayed', async () => {
