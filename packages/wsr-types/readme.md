@@ -52,8 +52,17 @@ declare module 'wix-style-react/*'
 ```
 
 `external-types.d.ts`:
+
+Using default imports:
 ```js
 declare module "wix-style-react/Avatar"; // Avatar - is the name of the component to ignore
+```
+Using named imports:
+```js
+declare module "wix-style-react" {
+  export const Avatar // Avatar - is the name of the component to ignore
+  ...
+}
 ```
 
 
