@@ -136,7 +136,7 @@ class AvatarComponent extends React.Component<
     delete this.img;
   };
 
-  handleKeyDown: React.KeyboardEventHandler<HTMLElement> = event => {
+  _handleKeyDown: React.KeyboardEventHandler<HTMLElement> = event => {
     if (event.key === ' ' || event.key === 'Enter' || event.key === 'Space') {
       event.preventDefault();
       this.props.onClick();
@@ -157,7 +157,7 @@ class AvatarComponent extends React.Component<
       role: 'button',
       onFocus: focusableOnFocus,
       onBlur: focusableOnBlur,
-      onKeyDown: this.handleKeyDown,
+      onKeyDown: this._handleKeyDown,
       tabIndex: 0,
     };
 
