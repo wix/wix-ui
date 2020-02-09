@@ -177,7 +177,7 @@ export class DropdownComponent extends React.PureComponent<
 
   onKeyboardSelect() {
     const selectedOption = this.getSelectedOption();
-    this.onOptionClick(selectedOption);
+    selectedOption && this.onOptionClick(selectedOption);
   }
 
   isClosingKey(key) {
