@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
+import { CSSTransition as Transition } from 'react-transition-group';
+
 import * as memoizeOneModule from 'memoize-one';
 
 import { ClickOutside } from '../click-outside';
 import ErrorBoundary from './components/ErrorBoundary';
+import Portal from './components/Portal';
+
 import style from '../popover/Popover.st.css';
 
 import {
@@ -49,6 +53,29 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
         import(/* webpackPrefetch: true */ './components/Popper'),
       ),
 );
+
+const CSSTransition = props => {
+  const { shown, timeout, children, shouldAnimate, detachSyles } = props;
+
+  return shouldAnimate ? (
+    <Transition
+      in={shown}
+      timeout={timeout}
+      unmountOnExit
+      classNames={{
+        enter: style['popoverAnimation-enter'],
+        enterActive: style['popoverAnimation-enter-active'],
+        exit: style['popoverAnimation-exit'],
+        exitActive: style['popoverAnimation-exit-active'],
+      }}
+      onExited={detachSyles}
+    >
+      {children}
+    </Transition>
+  ) : (
+    children
+  );
+};
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -195,8 +222,7 @@ export class PopoverNext extends React.Component<
 
   renderPopperContent(childrenObject) {
     const { timeout } = this.props;
-
-    const shouldAnimate = shouldAnimatePopover(timeout);
+    const { shown, cacheIid } = this.state;
 
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
@@ -205,24 +231,28 @@ export class PopoverNext extends React.Component<
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const { shown, cacheIid } = this.state;
-
     const Popper = lazyPopperFactory(cacheIid);
 
     return (
-      <React.Suspense fallback={<div />}>
-        <Popper
-          portalNode={this.portalNode}
-          shouldAnimate={shouldAnimate}
-          contentHook={this.contentHook}
-          shown={shown}
-          grabScheduleUpdater={grabScheduleUpdater}
+      <Portal node={this.portalNode}>
+        <CSSTransition
+          timeout={timeout}
+          shouldAnimate={shouldAnimatePopover(timeout)}
           detachSyles={detachSyles}
-          {...this.props}
+          shown={shown}
         >
-          {childrenObject.Content}
-        </Popper>
-      </React.Suspense>
+          <React.Suspense fallback={<div />}>
+            <Popper
+              contentHook={this.contentHook}
+              grabScheduleUpdater={grabScheduleUpdater}
+              {...this.props}
+              shown={shown}
+            >
+              {childrenObject.Content}
+            </Popper>
+          </React.Suspense>
+        </CSSTransition>
+      </Portal>
     );
   }
 
@@ -378,6 +408,7 @@ export class PopoverNext extends React.Component<
       style: inlineStyles,
       id,
       excludeClass,
+      timeout,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -386,7 +417,12 @@ export class PopoverNext extends React.Component<
       Content: null,
     });
 
-    const shouldRenderPopper = isMounted && shown;
+    const shouldAnimate = shouldAnimatePopover(timeout);
+    /**
+     * (shouldAnimate || shown) - the shouldAnimate boolean will determine if
+     *  rendering popoer control will be passed to CSSTransition
+     **/
+    const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
       <ErrorBoundary key={this.state.cacheIid} onRetry={this.recoverFromError}>
