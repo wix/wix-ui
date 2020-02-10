@@ -1,12 +1,12 @@
 import * as React from 'react';
+import * as memoizeOneModule from 'memoize-one';
+
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
-import { CSSTransition as Transition } from 'react-transition-group';
-
-import * as memoizeOneModule from 'memoize-one';
 
 import { ClickOutside } from '../click-outside';
 import ErrorBoundary from './components/ErrorBoundary';
+import CSSTransition from './components/CSSTransition';
 import Portal from './components/Portal';
 
 import style from '../popover/Popover.st.css';
@@ -53,29 +53,6 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
         import(/* webpackPrefetch: true */ './components/Popper'),
       ),
 );
-
-const CSSTransition = props => {
-  const { shown, timeout, children, shouldAnimate, detachSyles } = props;
-
-  return shouldAnimate ? (
-    <Transition
-      in={shown}
-      timeout={timeout}
-      unmountOnExit
-      classNames={{
-        enter: style['popoverAnimation-enter'],
-        enterActive: style['popoverAnimation-enter-active'],
-        exit: style['popoverAnimation-exit'],
-        exitActive: style['popoverAnimation-exit-active'],
-      }}
-      onExited={detachSyles}
-    >
-      {children}
-    </Transition>
-  ) : (
-    children
-  );
-};
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
