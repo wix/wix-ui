@@ -35,13 +35,14 @@
     "concat:testkit:puppeteer": "cat src/testkits/puppeteer.d.ts src/drivers/*.d.ts src/drivers/puppeteer/*.d.ts > puppeteer-testkit-types.d.ts"
   },
   "dependencies": {
+    "@types/draft-js": "^0.10.38",
     "@types/react": "^16.8.4",
     "@types/react-dom": "^16.0.5",
     "@types/react-window": "^1.8.1",
+    "moment": "^2.24.0",
     "wix-ui-backoffice": "^1.0.408",
     "wix-ui-core": "^2.0.270",
-    "wix-ui-test-utils": "^1.0.169",
-    "moment": "^2.24.0"
+    "wix-ui-test-utils": "^1.0.169"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
