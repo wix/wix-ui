@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-const canUseDOM = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
+const canUseDOM = !!(typeof window !== 'undefined' && window.document);
 
 export interface PortalProps {
   children?: React.ReactElement;
