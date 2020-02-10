@@ -7,7 +7,7 @@ declare namespace __WSR {
       value?: string | number;
       status?: InputWithLabelStatus;
       statusMessage?: React.ReactNode;
-      onFocus?: (e?: FocusEvent) => void;
+      onFocus?: React.FocusEventHandler<HTMLInputElement>;
       onBlur?: React.FocusEventHandler<HTMLInputElement>;
       onChange?: React.ChangeEventHandler<HTMLInputElement>;
       name?: string;
