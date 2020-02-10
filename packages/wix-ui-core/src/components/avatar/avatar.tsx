@@ -12,6 +12,8 @@ interface FocusableHOCProps {
 }
 
 export interface AvatarProps {
+  /** Hook for testing purposes. */
+  'data-hook'?: string;
   /** Css class name to be applied to the root element */
   className?: string;
   /** The name of the avatar user. Text initials will be generated from the name. And it will be used as default value for html `title` and `aria-label` attributes. */
@@ -151,6 +153,7 @@ export class AvatarComponent extends React.Component<
       onClick,
       focusableOnFocus,
       focusableOnBlur,
+      'data-hook': dataHook,
     } = this.props;
     const contentType = this.getCurrentContentType();
     const focusProps = !!onClick && {
@@ -163,6 +166,7 @@ export class AvatarComponent extends React.Component<
 
     return (
       <div
+        data-hook={dataHook}
         data-content-type={contentType} // for testing
         data-img-loaded={this.state.imgLoaded} // for testing
         title={title || name}
