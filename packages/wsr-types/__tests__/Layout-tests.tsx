@@ -13,7 +13,9 @@ function LayoutWithAllProps() {
   return (
     <Layout dataHook="hook" gap={30} cols={12}>
       <Cell span={12} vertical>
-        Text
+        <Layout gap="30px">
+          <Cell />
+        </Layout>
       </Cell>
     </Layout>
   );
