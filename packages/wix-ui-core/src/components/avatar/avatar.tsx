@@ -7,8 +7,8 @@ import { ContentType } from './types';
 import { nameToInitials } from './util';
 
 interface FocusableHOCProps {
-  focusableOnFocus(): void;
-  focusableOnBlur(): void;
+  focusableOnFocus?(): void;
+  focusableOnBlur?(): void;
 }
 
 export interface AvatarProps {
@@ -46,7 +46,7 @@ const DEFAULT_CONTENT_TYPE: ContentType = 'placeholder';
  * If more than one of these props is supplied (with `name` prop giving default value to the `text` prop),
  * then the resolved content type for display goes according to this priority: image -> text -> placeholder.
  */
-class AvatarComponent extends React.Component<
+export class AvatarComponent extends React.Component<
   AvatarProps & FocusableHOCProps,
   AvatarState
 > {
@@ -224,4 +224,4 @@ class AvatarComponent extends React.Component<
   }
 }
 
-export const Avatar = withFocusable(AvatarComponent);
+export const Avatar: typeof AvatarComponent = withFocusable(AvatarComponent);
