@@ -15,6 +15,7 @@ declare namespace __WSR {
       pushable?: boolean | number;
       value?: number[] | number;
       disabled?: boolean;
+      marks?: object;
     }
 
     export class Slider extends React.PureComponent<SliderProps> {}
