@@ -68,6 +68,7 @@ declare module "wix-style-react/dist/testkit" {
     HTMLElement
   >>;
   export const inputWithOptionsTestkitFactory: VanillaTestkitFactory<__WSRTests.InputWithOptionsDriver>;
+  export const inputWithLabelTestkitFactory: VanillaUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
   export const searchTestkitFactory: VanillaTestkitFactory<__WSRTests.SearchDriver>;
   export const dropdownTestkitFactory: VanillaTestkitFactory<__WSRTests.DropdownDriver>;
   export const dropdownBaseTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
@@ -136,7 +137,6 @@ declare module "wix-style-react/dist/testkit" {
   export const sidebarHeaderTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
   export const composerHeaderTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ComposerHeaderUniDriver>;
   export const barChartTestkitFactory: any;
-  export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
