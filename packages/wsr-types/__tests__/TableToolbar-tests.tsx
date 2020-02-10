@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-  TableToolbar,
-  ItemGroup,
-  Item,
-  Label,
-  SelectedCount,
-  Title,
-  Divider
-} from 'wix-style-react/TableToolbar';
+import { TableToolbar } from 'wix-style-react/TableToolbar';
 
 function TableToolbarWithMandatoryProps() {
   return <TableToolbar>Text</TableToolbar>;
@@ -16,20 +8,22 @@ function TableToolbarWithMandatoryProps() {
 function TableToolbarWithAllProps() {
   return (
     <TableToolbar>
-      <ItemGroup position="start">
-        <Item layout="button">
-          <SelectedCount dataHook="hook">Text</SelectedCount>
-        </Item>
-      </ItemGroup>
-      <ItemGroup position="end">
-        <Item>
-          <Title dataHook="hook">Text</Title>
-        </Item>
-        <Divider />
-        <Item>
-          <Label>Text</Label>
-        </Item>
-      </ItemGroup>
+      <TableToolbar.ItemGroup position="start">
+        <TableToolbar.Item layout="button">
+          <TableToolbar.SelectedCount dataHook="hook">
+            Text
+          </TableToolbar.SelectedCount>
+        </TableToolbar.Item>
+      </TableToolbar.ItemGroup>
+      <TableToolbar.ItemGroup position="end">
+        <TableToolbar.Item>
+          <TableToolbar.Title dataHook="hook">Text</TableToolbar.Title>
+        </TableToolbar.Item>
+        <TableToolbar.Divider />
+        <TableToolbar.Item>
+          <TableToolbar.Label>Text</TableToolbar.Label>
+        </TableToolbar.Item>
+      </TableToolbar.ItemGroup>
     </TableToolbar>
   );
 }
