@@ -7,15 +7,29 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
     console.log(error);
     return { hasError: true };
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <div onClick={this.props.recover}>Something went wrong.</div>;
+      return (
+        <div
+          style={{
+            color: '#162d3d',
+            fontSize: '14px',
+            display: 'inline',
+            padding: '0 11px',
+            fontWeight: 400,
+            borderRadius: '6px',
+            backgroundColor: 'red',
+            borderColor: '#FFD7D7',
+          }}
+          onClick={this.props.onRetry}
+        >
+          Something happend with your network. Click here to retry.
+        </div>
+      );
     }
     return this.props.children;
   }

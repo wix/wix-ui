@@ -90,6 +90,7 @@
     "image-client-api": "^1.3581.0",
     "loadjs": "^3.5.4",
     "lodash": "^4.17.5",
+    "memoize-one": "^5.1.1",
     "playable": "2.11.0",
     "popper.js": "^1.14.5",
     "react-onclickoutside": "^6.8.0",
@@ -139,7 +140,7 @@
     "react-test-renderer": "^16.3.1",
     "react-testing-library": "^6.0.3",
     "slash": "^2.0.0",
-    "ts-jest": "^22.0.3",
+    "ts-jest": "^23.0.3",
     "typescript": "~3.7.4",
     "wait-for-cond": "^1.5.1",
     "webpack-cli": "^3.3.9",
@@ -157,7 +158,7 @@
   },
   "jest": {
     "transform": {
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(ts|tsx)$": "ts-jest"
     },
     "moduleNameMapper": {
       "\\.(scss)$": "identity-obj-proxy"
@@ -169,16 +170,18 @@
       "<rootDir>/test/enzyme-setup"
     ],
     "moduleFileExtensions": [
+      "js",
       "ts",
-      "tsx",
-      "js"
+      "tsx"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/dist/",
       "<rootDir>/node_modules/",
       "/src/.*\\.browser\\.spec\\.(ts|tsx)$"
     ],
-    "testRegex": "/src/.*\\.(spec|test)\\.(ts|tsx)$"
+    "testRegex": "/src/.*\\.(spec|test)\\.(ts|tsx)$",
+    "preset": "ts-jest",
+    "testMatch": null
   },
   "yoshi": {
     "experimentalTSTarget": true,

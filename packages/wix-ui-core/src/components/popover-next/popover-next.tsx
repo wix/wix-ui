@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
+import * as memoizeOneModule from 'memoize-one';
 
 import { ClickOutside } from '../click-outside';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -36,6 +37,18 @@ if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
 if (isTestEnv) {
   testId = getPopoverTestUtils.generateId();
 }
+
+// there is an issue with memoize-one package with typescript projects
+// https://github.com/alexreardon/memoize-one/pull/40
+const memoizeOne = memoizeOneModule.default || memoizeOneModule;
+
+const lazyPopperFactory = (memoizeOne as any)(key =>
+  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+    ? require('./components/Popper').default
+    : React.lazy(() =>
+        import(/* webpackPrefetch: true */ './components/Popper'),
+      ),
+);
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -123,7 +136,7 @@ export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
   loaded: boolean;
-  keyBoundary: number;
+  cacheIid: number;
 }
 
 export type PopoverNextType = PopoverNextProps & {
@@ -169,7 +182,7 @@ export class PopoverNext extends React.Component<
       isMounted: false,
       shown: props.shown || false,
       loaded: false,
-      keyBoundary: 1,
+      cacheIid: 1,
     };
     this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -192,14 +205,9 @@ export class PopoverNext extends React.Component<
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const { shown } = this.state;
+    const { shown, cacheIid } = this.state;
 
-    const Popper =
-      process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
-        ? require('./components/Popper').default
-        : React.lazy(() =>
-            import(/* webpackPrefetch: true */ './components/Popper'),
-          );
+    const Popper = lazyPopperFactory(cacheIid);
 
     return (
       <React.Suspense fallback={<div />}>
@@ -325,6 +333,11 @@ export class PopoverNext extends React.Component<
     }
   }
 
+  recoverFromError = () =>
+    this.setState(state => ({
+      cacheIid: (state.cacheIid as number) + 1,
+    }));
+
   updatePosition() {
     if (this.popperScheduleUpdate) {
       this.popperScheduleUpdate();
@@ -364,7 +377,6 @@ export class PopoverNext extends React.Component<
       children,
       style: inlineStyles,
       id,
-      timeout,
       excludeClass,
     } = this.props;
     const { isMounted, shown } = this.state;
@@ -374,14 +386,10 @@ export class PopoverNext extends React.Component<
       Content: null,
     });
 
-    const shouldAnimate = shouldAnimatePopover(timeout);
-    const shouldRenderPopper = isMounted && (shouldAnimate || shown);
+    const shouldRenderPopper = isMounted && shown;
 
     return (
-      <ErrorBoundary
-        key={this.state.keyBoundary}
-        recover={() => this.setState({ keyBoundary: Math.random() })}
-      >
+      <ErrorBoundary key={this.state.cacheIid} onRetry={this.recoverFromError}>
         <Manager>
           <ClickOutside
             rootRef={this.clickOutsideRef}
