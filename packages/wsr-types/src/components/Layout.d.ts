@@ -9,16 +9,29 @@ declare namespace __WSR {
       alignItems?: string;
     }
 
-    export class Layout extends React.Component<LayoutProps> {}
+    export interface CellProps {
+      children?: React.ReactNode;
+      span?: number;
+      vertical?: boolean;
+    }
+
+    export const Layout: React.SFC<LayoutProps>;
+    export const Cell: React.SFC<CellProps>;
   }
 }
 
 declare module 'wix-style-react' {
   export import Layout = __WSR.Layout.Layout;
   export import LayoutProps = __WSR.Layout.LayoutProps;
+
+  export import Cell = __WSR.Layout.Cell;
+  export import CellProps = __WSR.Layout.CellProps;
 }
 
 declare module 'wix-style-react/Layout' {
-  export interface LayoutProps extends __WSR.Layout.LayoutProps {}
-  export default __WSR.Layout.Layout;
+  export import Layout = __WSR.Layout.Layout;
+  export import LayoutProps = __WSR.Layout.LayoutProps;
+
+  export import Cell = __WSR.Layout.Cell;
+  export import CellProps = __WSR.Layout.CellProps;
 }
