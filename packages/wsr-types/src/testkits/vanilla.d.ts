@@ -143,8 +143,8 @@ declare module "wix-style-react/dist/testkit" {
   export const mediaOverlayTestkitFactory: any;
   export const infoIconTestkitFactory: any;
   export const socialButtonTestkitFactory: any;
-  export const verticalTabsTestkitFactory: any;
-  export const verticalTabsItemTestkitFactory: any;
+  export const verticalTabsTestkitFactory: VanillaUniTestkitFactory<__WSRTests.VerticalTabsUniDriver>;
+  export const verticalTabsItemTestkitFactory: VanillaUniTestkitFactory<__WSRTests.VerticalTabsItemUniDriver>;
   export const sideMenuDrillTestkitFactory: any;
   export const headerTestkitFactory: any;
   export const sideMenuTestkitFactory: any;
