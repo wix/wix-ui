@@ -2,7 +2,7 @@ declare namespace __WSR {
   namespace InputWithLabel {
     export interface InputWithLabelProps {
       dataHook?: string;
-      suffix?: React.ReactNode;
+      suffix?: React.ReactNode[];
       label?: string;
       value?: string | number;
       status?: InputWithLabelStatus;
@@ -14,7 +14,7 @@ declare namespace __WSR {
       type?: string;
       ariaLabel?: string;
       autoFocus?: boolean;
-      autocomplete?: boolean;
+      autocomplete?: string;
       disabled?: boolean;
       className?: string;
       maxLength?: number;

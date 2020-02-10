@@ -43,6 +43,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
   export const addItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AddItemUniDriver>;
   export const inputWithLabelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
+  export const autoCompleteWithLabelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
   export const stepperTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
   export const accordionTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AccordionUniDriver>;
@@ -112,7 +113,6 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const sidebarHeaderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
   export const composerHeaderTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ComposerHeaderUniDriver>;
   export const barChartTestkitFactory: any;
-  export const autoCompleteWithLabelTestkitFactory: any;
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
   export const mediaOverlayTestkitFactory: any;

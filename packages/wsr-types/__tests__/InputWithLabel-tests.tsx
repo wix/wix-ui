@@ -27,7 +27,7 @@ function InputWithLabelWithAllProps() {
       type="type"
       ariaLabel="aria"
       autoFocus
-      autocomplete
+      autocomplete="autocomplete"
       disabled
       className="class"
       maxLength={100}

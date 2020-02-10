@@ -70,6 +70,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   >>;
   export const inputWithOptionsTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputWithOptionsDriver>;
   export const inputWithLabelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
+  export const autoCompleteWithLabelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
   export const searchTestkitFactory: EnzymeTestkitFactory<__WSRTests.SearchDriver>;
   export const dropdownTestkitFactory: EnzymeTestkitFactory<__WSRTests.DropdownDriver>;
   export const dropdownBaseTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;
@@ -138,7 +139,6 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const sidebarHeaderTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
   export const composerHeaderTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ComposerHeaderUniDriver>;
   export const barChartTestkitFactory: any;
-  export const autoCompleteWithLabelTestkitFactory: any;
   export const dividerTestkitFactory: any;
   export const labelledElementTestkitFactory: any;
   export const mediaOverlayTestkitFactory: any;
