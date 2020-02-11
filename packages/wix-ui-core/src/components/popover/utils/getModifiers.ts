@@ -1,4 +1,4 @@
-import { Modifiers } from 'popper.js';
+import { Modifiers, Boundary, Placement } from 'popper.js';
 
 const getUnit = value => {
   if (typeof value === 'string') {
@@ -40,20 +40,31 @@ const resolveWidth = ({
   };
 };
 
-export const getModifiers = props => {
-  const {
-    width,
-    moveBy,
-    appendTo,
-    shouldAnimate,
-    flip,
-    fixed,
-    placement,
-    isTestEnv,
-    minWidth,
-    dynamicWidth,
-  } = props;
+export interface ModifiersParams {
+  width?: string | number;
+  moveBy?: { x: number; y: number };
+  appendTo?: Boundary | Element;
+  placement: Placement;
+  shouldAnimate: boolean;
+  flip?: boolean;
+  fixed?: boolean;
+  isTestEnv: boolean;
+  minWidth?: string | number;
+  dynamicWidth?: boolean;
+}
 
+export const getModifiers = ({
+  width,
+  moveBy,
+  appendTo,
+  shouldAnimate,
+  flip,
+  fixed,
+  placement,
+  isTestEnv,
+  minWidth,
+  dynamicWidth,
+}: ModifiersParams) => {
   const preventOverflow = !fixed;
 
   const modifiers: Modifiers = {
