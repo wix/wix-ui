@@ -5,7 +5,7 @@ export interface HorizontalMenuContextValue {
   menuItemClassName: string;
   columnsLayoutClassName: string;
   gridLayoutClassName: string;
-  getMenuBoundingRect(key: string): number;
+  rootMenuRef: React.RefObject<HTMLUListElement>;
 }
 
 export interface WithHorizontalMenuContextProps {
@@ -18,7 +18,7 @@ export const HorizontalMenuContext = React.createContext<
   menuItemClassName: '',
   columnsLayoutClassName: '',
   gridLayoutClassName: '',
-  getMenuBoundingRect: () => 0,
+  rootMenuRef: React.createRef(),
 });
 
 export const withHorizontalMenuContext = <

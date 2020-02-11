@@ -161,7 +161,7 @@ export class HorizontalMenuItem extends React.PureComponent<
                       value={{
                         isOpen: isMenuOpen,
                         expandSize,
-                        getMenuBoundingRect: menuContext.getMenuBoundingRect,
+                        rootMenuRef: menuContext.rootMenuRef,
                         getMenuItemBoundingRect: this.getMenuItemBoundingRect,
                       }}
                     >

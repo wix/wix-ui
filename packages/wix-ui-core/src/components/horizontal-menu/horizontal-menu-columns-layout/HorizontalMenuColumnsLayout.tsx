@@ -77,10 +77,10 @@ export class HorizontalMenuColumnsLayout extends React.Component<
 
     this.setState({
       styles: calculatePositioning({
-        expandSize: menuItemContext.expandSize,
-        layoutRef: this.layoutRef,
         maxOverflowWidth,
-        getMenuBoundingRect: menuItemContext.getMenuBoundingRect,
+        layoutRef: this.layoutRef,
+        rootMenuRef: menuItemContext.rootMenuRef,
+        expandSize: menuItemContext.expandSize,
         getMenuItemBoundingRect: menuItemContext.getMenuItemBoundingRect,
       }),
     });
