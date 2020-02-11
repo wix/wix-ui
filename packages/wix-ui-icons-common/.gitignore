@@ -15,6 +15,7 @@ storybook-e2e
 
 # Ignore all generated *.js and *.svg files in root and /system folders
 /*.js
+/*.d.ts
 /*.svg
 /system
 
