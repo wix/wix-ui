@@ -18,7 +18,7 @@ function InputWithLabelWithAllProps() {
       suffix={[<div />]}
       value={6}
       dataHook="hook"
-      status={Input.StatusError}
+      status={Input.StatusLoading}
       statusMessage={<div />}
       onChange={_ev => {}}
       onFocus={_ev => {}}

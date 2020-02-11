@@ -70,7 +70,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   >>;
   export const inputWithOptionsTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputWithOptionsDriver>;
   export const inputWithLabelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
-  export const autoCompleteWithLabelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
+  export const autoCompleteWithLabelTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.AutoCompleteUniDriver>;
   export const searchTestkitFactory: EnzymeTestkitFactory<__WSRTests.SearchDriver>;
   export const dropdownTestkitFactory: EnzymeTestkitFactory<__WSRTests.DropdownDriver>;
   export const dropdownBaseTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;

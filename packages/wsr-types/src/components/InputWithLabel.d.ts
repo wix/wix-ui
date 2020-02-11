@@ -5,7 +5,7 @@ declare namespace __WSR {
       suffix?: React.ReactNode[];
       label?: string;
       value?: string | number;
-      status?: InputWithLabelStatus;
+      status?: Input.InputStatus;
       statusMessage?: React.ReactNode;
       onFocus?: React.FocusEventHandler<HTMLInputElement>;
       onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -23,13 +23,7 @@ declare namespace __WSR {
     }
 
     export class InputWithLabel extends React.Component<InputWithLabelProps> {
-      static StatusError: typeof Input.Input.StatusError;
     }
-
-    export type InputWithLabelStatus = InputWithLabelStatusError;
-    export type InputWithLabelStatusError = Input.InputStatusError;
-
-
   }
 }
 

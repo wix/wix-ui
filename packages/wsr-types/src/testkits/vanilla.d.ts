@@ -69,7 +69,7 @@ declare module "wix-style-react/dist/testkit" {
   >>;
   export const inputWithOptionsTestkitFactory: VanillaTestkitFactory<__WSRTests.InputWithOptionsDriver>;
   export const inputWithLabelTestkitFactory: VanillaUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
-  export const autoCompleteWithLabelTestkitFactory: VanillaUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
+  export const autoCompleteWithLabelTestkitFactory: VanillaUniTestkitFactory<__WSRTests.AutoCompleteWithLabelUniDriver>;
   export const searchTestkitFactory: VanillaTestkitFactory<__WSRTests.SearchDriver>;
   export const dropdownTestkitFactory: VanillaTestkitFactory<__WSRTests.DropdownDriver>;
   export const dropdownBaseTestkitFactory: VanillaUniTestkitFactory<__WSRTests.DropdownBaseUniDriver>;

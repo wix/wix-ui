@@ -43,7 +43,7 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const errorIndicatorTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.ErrorIndicatorUniDriver>;
   export const addItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AddItemUniDriver>;
   export const inputWithLabelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
-  export const autoCompleteWithLabelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.InputWithLabelUniDriver>;
+  export const autoCompleteWithLabelTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AutoCompleteWithLabelUniDriver>;
   export const stepperTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.StepperUniDriver>;
   export const segmentedToggleTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.SegmentedToggleUniDriver>;
   export const accordionTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.AccordionUniDriver>;

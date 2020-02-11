@@ -7,19 +7,21 @@ import * as enzyme from 'enzyme';
 import * as puppeteer from 'puppeteer';
 
 function AutoCompleteWithLabelWithMandatoryProps() {
-  return <AutoCompleteWithLabel
-    label="label"
-    options={[
-      {
-        value: 'a',
-        id: 0,
-        disabled: true,
-        linkTo: 'google.com',
-        title: true,
-        overrideStyle: true
-      },
-    ]}
-  />;
+  return (
+    <AutoCompleteWithLabel
+      label="label"
+      options={[
+        {
+          value: 'a',
+          id: 0,
+          disabled: true,
+          linkTo: 'google.com',
+          title: true,
+          overrideStyle: true
+        }
+      ]}
+    />
+  );
 }
 
 function AutoCompleteWithLabelWithAllProps() {
@@ -55,7 +57,7 @@ function AutoCompleteWithLabelWithAllProps() {
         }
       ]}
       suffix={[<span />]}
-      status="error"
+      status={"warning"}
       statusMessage={<div />}
       onFocus={_ev => {}}
       onBlur={_ev => {}}

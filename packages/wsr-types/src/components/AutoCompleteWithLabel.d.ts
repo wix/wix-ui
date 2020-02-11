@@ -5,7 +5,7 @@ declare namespace __WSR {
       label: string;
       suffix?: React.ReactNode[];
       options: DropdownLayoutOption[];
-      status?: AutoCompleteWithLabelStatus;
+      status?: Input.InputStatus;
       statusMessage?: React.ReactNode;
       onFocus?: React.FocusEventHandler<HTMLInputElement>;
       onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -25,11 +25,7 @@ declare namespace __WSR {
     }
 
     export class AutoCompleteWithLabel extends React.Component<AutoCompleteWithLabelProps> {
-      static StatusError: typeof Input.Input.StatusError;
     }
-
-    export type AutoCompleteWithLabelStatus = AutoCompleteWithLabelStatusError;
-    export type AutoCompleteWithLabelStatusError = Input.InputStatusError;
 
     export type DropdownLayoutOption =
       | DropdownLayoutValueOption
