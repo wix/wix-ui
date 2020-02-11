@@ -27,6 +27,7 @@ function SliderWithAllProps() {
       rtl
       step={1}
       value={1}
+      marks={{ 1 : 1}}
     />
   );
 }
