@@ -179,9 +179,8 @@ export default {
           The <code>flip</code> behaviour is disabled when this props is used,
           in order to support negative values when making the
           <br />
-          Content element (<code>{`<PopoverNext.Content/>`}</code>)
-          intentionally overlapping the Target element (
-          <code>{`<PopoverNext.Element/>`}</code>).
+          Content element (<code>{`<Popover.Content/>`}</code>) intentionally
+          overlapping the Target element (<code>{`<Popover.Element/>`}</code>).
         </p>
         <PopoverNext
           placement="right"
@@ -221,9 +220,9 @@ export default {
       <div data-hook="story-popover-flip-behaviour">
         <h2>Flip behaviour</h2>
         <p>
-          This behaviour used to flip the <code>{`<PopoverNext/>`}</code>'s
+          This behaviour used to flip the <code>{`<Popover/>`}</code>'s
           placement when it starts to overlap the target element (
-          <code>{`<PopoverNext.Element/>`}</code>).
+          <code>{`<Popover.Element/>`}</code>).
           <br />
           It is enabled by default.
         </p>
@@ -253,8 +252,8 @@ export default {
           This behaviour used to keep the <code>{`<PopoverNext/>`}</code> in
           it's original placement.
           <br /> By default this behaviour is <b>disabled</b>, and the &nbsp;
-          <code>{`<PopoverNext/>`}</code> will change it's position when it'll
-          being positioned outside
+          <code>{`<Popover/>`}</code> will change it's position when it'll being
+          positioned outside
           <br />
           the boundary (the boundry is the value of the <code>
             appendTo
