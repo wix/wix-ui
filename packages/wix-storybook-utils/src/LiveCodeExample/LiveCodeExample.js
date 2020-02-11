@@ -32,6 +32,7 @@ export default class LiveCodeExample extends Component {
     initialCode: PropTypes.string,
     scope: PropTypes.object,
     compact: PropTypes.bool,
+    initiallyOpen: PropTypes.bool,
     previewRow: PropTypes.bool,
     previewProps: PropTypes.object,
     autoRender: PropTypes.bool,
@@ -41,6 +42,7 @@ export default class LiveCodeExample extends Component {
 
   static defaultProps = {
     compact: false,
+    initiallyOpen: false,
     previewRow: false,
     previewProps: {},
     autoRender: true,
@@ -58,7 +60,7 @@ export default class LiveCodeExample extends Component {
       dirty: false,
       isRtl: false,
       isDarkBackground: props.darkBackground,
-      isEditorOpened: !props.compact,
+      isEditorOpened: !props.compact || props.initiallyOpen,
       parseError: null,
     };
   }
