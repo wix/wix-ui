@@ -20,13 +20,14 @@ function SliderWithAllProps() {
       displayMarks
       displayTooltip
       id=""
-      max={1}
+      max={2}
       min={1}
       onAfterChange={() => {}}
       pushable
       rtl
       step={1}
       value={1}
+      marks={{ 1 : 1 , 2: '2'}}
     />
   );
 }

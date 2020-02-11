@@ -3,6 +3,7 @@ declare namespace __WSRTests {
     isDotSelected: (value: number) => Promise<boolean>;
     numOfSliderDots: () => Promise<number>;
     numOfSliderHandles: () => Promise<number>;
+    numOfSliderMarksLabels: () => Promise<number>;
     getToolTipValue: () => Promise<string>;
     hoverHandle: (payload: {handleIndex: number}) => Promise<void>;
     unHoverHandle: (payload: {handleIndex: number}) => Promise<void>;
