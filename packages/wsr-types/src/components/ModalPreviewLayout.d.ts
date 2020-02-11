@@ -7,9 +7,9 @@ declare namespace __WSR {
       children: React.ReactNode;
       onClose: () => void;
       shouldCloseOnOverlayClick?: boolean;
-      closeButtonTooltipText: string;
-      prevButtonTooltipText: string;
-      nextButtonTooltipText: string;
+      closeButtonTooltipText?: string;
+      prevButtonTooltipText?: string;
+      nextButtonTooltipText?: string;
     }
 
     export class ModalPreviewLayout extends React.PureComponent<
