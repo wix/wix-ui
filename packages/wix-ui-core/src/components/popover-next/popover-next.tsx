@@ -48,7 +48,7 @@ if (isTestEnv) {
 const memoizeOne = memoizeOneModule.default || memoizeOneModule;
 
 const lazyPopperFactory = (memoizeOne as any)(key =>
-  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'test'
     ? require('./components/Popper').default
     : React.lazy(() =>
         import(/* webpackPrefetch: true */ './components/Popper'),
@@ -141,7 +141,7 @@ export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
   loaded: boolean;
-  cacheIid: number;
+  cacheId: number;
 }
 
 export type PopoverNextType = PopoverNextProps & {
@@ -187,7 +187,7 @@ export class PopoverNext extends React.Component<
       isMounted: false,
       shown: props.shown || false,
       loaded: false,
-      cacheIid: 1,
+      cacheId: 1,
     };
     this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -200,7 +200,7 @@ export class PopoverNext extends React.Component<
 
   renderPopperContent(childrenObject) {
     const { timeout } = this.props;
-    const { shown, cacheIid } = this.state;
+    const { shown, cacheId } = this.state;
 
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
@@ -209,7 +209,7 @@ export class PopoverNext extends React.Component<
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const Popper = lazyPopperFactory(cacheIid);
+    const Popper = lazyPopperFactory(cacheId);
 
     return (
       <React.Suspense fallback={<Loader />}>
@@ -343,7 +343,7 @@ export class PopoverNext extends React.Component<
 
   recoverFromError = () =>
     this.setState(state => ({
-      cacheIid: (state.cacheIid as number) + 1,
+      cacheId: state.cacheId + 1,
     }));
 
   updatePosition() {
@@ -403,7 +403,7 @@ export class PopoverNext extends React.Component<
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
-      <ErrorBoundary key={this.state.cacheIid} onRetry={this.recoverFromError}>
+      <ErrorBoundary key={this.state.cacheId} onRetry={this.recoverFromError}>
         <Manager>
           <ClickOutside
             rootRef={this.clickOutsideRef}
