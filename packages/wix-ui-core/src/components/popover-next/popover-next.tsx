@@ -7,6 +7,7 @@ import { Manager, Reference } from 'react-popper';
 import { ClickOutside } from '../click-outside';
 import ErrorBoundary from './components/ErrorBoundary';
 import CSSTransition from './components/CSSTransition';
+import Loader from './components/Loader';
 import Portal from './components/Portal';
 
 import style from '../popover/Popover.st.css';
@@ -211,14 +212,14 @@ export class PopoverNext extends React.Component<
     const Popper = lazyPopperFactory(cacheIid);
 
     return (
-      <Portal node={this.portalNode}>
-        <CSSTransition
-          timeout={timeout}
-          shouldAnimate={shouldAnimatePopover(timeout)}
-          detachSyles={detachSyles}
-          shown={shown}
-        >
-          <React.Suspense fallback={<div />}>
+      <React.Suspense fallback={<Loader />}>
+        <Portal node={this.portalNode}>
+          <CSSTransition
+            timeout={timeout}
+            shouldAnimate={shouldAnimatePopover(timeout)}
+            detachSyles={detachSyles}
+            shown={shown}
+          >
             <Popper
               contentHook={this.contentHook}
               grabScheduleUpdater={grabScheduleUpdater}
@@ -227,9 +228,9 @@ export class PopoverNext extends React.Component<
             >
               {childrenObject.Content}
             </Popper>
-          </React.Suspense>
-        </CSSTransition>
-      </Portal>
+          </CSSTransition>
+        </Portal>
+      </React.Suspense>
     );
   }
 

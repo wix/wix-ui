@@ -24,6 +24,7 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
             borderRadius: '6px',
             backgroundColor: 'red',
             borderColor: '#FFD7D7',
+            zIndex: 10000,
           }}
           onClick={this.props.onRetry}
         >
