@@ -249,8 +249,8 @@ export default {
       <div data-hook="story-popover-fixed-behaviour">
         <h2>Fixed behaviour</h2>
         <p>
-          This behaviour used to keep the <code>{`<PopoverNext/>`}</code> in
-          it's original placement.
+          This behaviour used to keep the <code>{`<Popover/>`}</code> in it's
+          original placement.
           <br /> By default this behaviour is <b>disabled</b>, and the &nbsp;
           <code>{`<Popover/>`}</code> will change it's position when it'll being
           positioned outside
