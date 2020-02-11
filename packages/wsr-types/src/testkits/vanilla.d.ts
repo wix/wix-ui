@@ -134,7 +134,7 @@ declare module "wix-style-react/dist/testkit" {
   export const sidebarDividerTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarDividerUniDriver>;
   export const sidebarBackButtonTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarBackButtonUniDriver>;
   export const sidebarHeaderTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarHeaderUniDriver>;
-  export const composerHeaderTestkitFactory: any;
+  export const composerHeaderTestkitFactory: VanillaUniTestkitFactory<__WSRTests.ComposerHeaderUniDriver>;
   export const barChartTestkitFactory: any;
   export const inputWithLabelTestkitFactory: any;
   export const autoCompleteWithLabelTestkitFactory: any;
