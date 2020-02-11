@@ -118,8 +118,8 @@ declare module "wix-style-react/dist/testkit/puppeteer" {
   export const mediaOverlayTestkitFactory: any;
   export const infoIconTestkitFactory: any;
   export const socialButtonTestkitFactory: any;
-  export const verticalTabsTestkitFactory: any;
-  export const verticalTabsItemTestkitFactory: any;
+  export const verticalTabsTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.VerticalTabsUniDriver>;
+  export const verticalTabsItemTestkitFactory: PuppeteerUniTestkitFactory<__WSRTests.VerticalTabsItemUniDriver>;
   export const sideMenuDrillTestkitFactory: any;
   export const headerTestkitFactory: any;
   export const sideMenuTestkitFactory: any;
