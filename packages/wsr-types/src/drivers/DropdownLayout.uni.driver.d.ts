@@ -2,7 +2,7 @@ declare namespace __WSRTests {
   interface DropdownLayoutUniDriver extends BaseUniDriver {
     /** @deprecated should be private */
     classes: (name: string) => Promise<any>;
-    clickAtOption: () => Promise<void>;
+    clickAtOption: (index: number) => Promise<void>;
     clickAtOptionWithValue: (value: string) => Promise<void>;
     hasTheme: (
       theme: __WSR.DropdownLayout.DropdownLayoutTheme
