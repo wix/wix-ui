@@ -124,7 +124,7 @@ declare module "wix-style-react/dist/testkit" {
   export const numberInputTestkitFactory: VanillaUniTestkitFactory<__WSRTests.NumberInputUniDriver>;
   export const popoverTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverDriver>;
   export const popoverMenuTestkitFactory: VanillaTestkitFactory<__WSRTests.PopoverMenuDriver>;
-  export const rangeTestkitFactory: any;
+  export const rangeTestkitFactory: VanillaTestkitFactory<__WSRTests.RangeDriver>;
   export const richTextInputAreaTestkitFactory: any;
   export const sidebarTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarUniDriver>;
   export const sidebarSectionTitleTestkitFactory: VanillaUniTestkitFactory<__WSRTests.SidebarSectionTitleUniDriver>;
