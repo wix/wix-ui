@@ -20,8 +20,8 @@ function SliderWithAllProps() {
       displayMarks
       displayTooltip
       id=""
-      max={1}
-      min={2}
+      max={2}
+      min={1}
       onAfterChange={() => {}}
       pushable
       rtl
