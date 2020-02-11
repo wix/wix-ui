@@ -1,18 +1,12 @@
 import * as React from 'react';
+import { CSSTransition as Transition } from 'react-transition-group';
 import styles from '../../popover/Popover.st.css';
 
-const CSSTransitionWrapper = props => {
-  const {
-    Component,
-    shown,
-    timeout,
-    children,
-    shouldAnimate,
-    detachSyles,
-  } = props;
+const CSSTransition = props => {
+  const { shown, timeout, children, shouldAnimate, detachSyles } = props;
 
   return shouldAnimate ? (
-    <Component
+    <Transition
       in={shown}
       timeout={timeout}
       unmountOnExit
@@ -25,10 +19,10 @@ const CSSTransitionWrapper = props => {
       onExited={detachSyles}
     >
       {children}
-    </Component>
+    </Transition>
   ) : (
     children
   );
 };
 
-export default CSSTransitionWrapper;
+export default CSSTransition;

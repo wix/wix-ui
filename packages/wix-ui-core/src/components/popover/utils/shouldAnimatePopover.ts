@@ -1,4 +1,4 @@
-export const shouldAnimatePopover = timeout => {
+export const shouldAnimatePopover = (timeout = undefined) => {
   if (typeof timeout === 'object') {
     const { enter, exit } = timeout;
 

@@ -1,8 +1,15 @@
 import * as React from 'react';
+import * as memoizeOneModule from 'memoize-one';
+
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
 
 import { ClickOutside } from '../click-outside';
+import ErrorBoundary from './components/ErrorBoundary';
+import CSSTransition from './components/CSSTransition';
+import Loader from './components/Loader';
+import Portal from './components/Portal';
+
 import style from '../popover/Popover.st.css';
 
 import {
@@ -24,8 +31,6 @@ import {
 } from '../popover/utils/getAppendToElement';
 import { shouldAnimatePopover } from '../popover/utils/shouldAnimatePopover';
 
-import Popper from './components/Popper';
-
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -37,6 +42,18 @@ if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
 if (isTestEnv) {
   testId = getPopoverTestUtils.generateId();
 }
+
+// there is an issue with memoize-one package with typescript projects
+// https://github.com/alexreardon/memoize-one/pull/40
+const memoizeOne = memoizeOneModule.default || memoizeOneModule;
+
+const lazyPopperFactory = (memoizeOne as any)(key =>
+  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+    ? require('./components/Popper').default
+    : React.lazy(() =>
+        import(/* webpackPrefetch: true */ './components/Popper'),
+      ),
+);
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -124,6 +141,7 @@ export interface PopoverNextState {
   isMounted: boolean;
   shown: boolean;
   loaded: boolean;
+  cacheId: number;
 }
 
 export type PopoverNextType = PopoverNextProps & {
@@ -169,6 +187,7 @@ export class PopoverNext extends React.Component<
       isMounted: false,
       shown: props.shown || false,
       loaded: false,
+      cacheId: 1,
     };
     this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
@@ -181,36 +200,37 @@ export class PopoverNext extends React.Component<
 
   renderPopperContent(childrenObject) {
     const { timeout } = this.props;
-
-    const shouldAnimate = shouldAnimatePopover(timeout);
+    const { shown, cacheId } = this.state;
 
     const grabScheduleUpdater = scheduleUpdate => {
       this.popperScheduleUpdate = scheduleUpdate;
     };
 
-    const onLoad = () => {
-      /** we don't want to rerender so we set it silently */
-      this.clickOutsideRef.current.setAttribute('data-loaded', 'true');
-    };
-
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const { shown } = this.state;
+    const Popper = lazyPopperFactory(cacheId);
 
     return (
-      <Popper
-        portalNode={this.portalNode}
-        shouldAnimate={shouldAnimate}
-        contentHook={this.contentHook}
-        onLoad={onLoad}
-        shown={shown}
-        grabScheduleUpdater={grabScheduleUpdater}
-        detachSyles={detachSyles}
-        {...this.props}
-      >
-        {childrenObject.Content}
-      </Popper>
+      <React.Suspense fallback={<Loader />}>
+        <Portal node={this.portalNode}>
+          <CSSTransition
+            timeout={timeout}
+            shouldAnimate={shouldAnimatePopover(timeout)}
+            detachSyles={detachSyles}
+            shown={shown}
+          >
+            <Popper
+              contentHook={this.contentHook}
+              grabScheduleUpdater={grabScheduleUpdater}
+              {...this.props}
+              shown={shown}
+            >
+              {childrenObject.Content}
+            </Popper>
+          </CSSTransition>
+        </Portal>
+      </React.Suspense>
     );
   }
 
@@ -321,6 +341,11 @@ export class PopoverNext extends React.Component<
     }
   }
 
+  recoverFromError = () =>
+    this.setState(state => ({
+      cacheId: state.cacheId + 1,
+    }));
+
   updatePosition() {
     if (this.popperScheduleUpdate) {
       this.popperScheduleUpdate();
@@ -360,8 +385,8 @@ export class PopoverNext extends React.Component<
       children,
       style: inlineStyles,
       id,
-      timeout,
       excludeClass,
+      timeout,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -371,42 +396,48 @@ export class PopoverNext extends React.Component<
     });
 
     const shouldAnimate = shouldAnimatePopover(timeout);
+    /**
+     * (shouldAnimate || shown) - the shouldAnimate boolean will determine if
+     *  rendering popoer control will be passed to CSSTransition
+     **/
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
     return (
-      <Manager>
-        <ClickOutside
-          rootRef={this.clickOutsideRef}
-          onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClass ? excludeClass : style.popover}
-        >
-          <div
-            ref={this.clickOutsideRef}
-            style={inlineStyles}
-            data-hook={this.props['data-hook']}
-            data-content-hook={this.contentHook}
-            {...style('root', {}, this.props)}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            id={id}
+      <ErrorBoundary key={this.state.cacheId} onRetry={this.recoverFromError}>
+        <Manager>
+          <ClickOutside
+            rootRef={this.clickOutsideRef}
+            onClickOutside={shown ? this._handleClickOutside : undefined}
+            excludeClass={excludeClass ? excludeClass : style.popover}
           >
-            <Reference innerRef={r => (this.targetRef = r)}>
-              {({ ref }) => (
-                <div
-                  ref={ref}
-                  className={style.popoverElement}
-                  data-hook="popover-element"
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                >
-                  {childrenObject.Element}
-                </div>
-              )}
-            </Reference>
-            {shouldRenderPopper && this.renderPopperContent(childrenObject)}
-          </div>
-        </ClickOutside>
-      </Manager>
+            <div
+              ref={this.clickOutsideRef}
+              style={inlineStyles}
+              data-hook={this.props['data-hook']}
+              data-content-hook={this.contentHook}
+              {...style('root', {}, this.props)}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              id={id}
+            >
+              <Reference innerRef={r => (this.targetRef = r)}>
+                {({ ref }) => (
+                  <div
+                    ref={ref}
+                    className={style.popoverElement}
+                    data-hook="popover-element"
+                    onClick={onClick}
+                    onKeyDown={onKeyDown}
+                  >
+                    {childrenObject.Element}
+                  </div>
+                )}
+              </Reference>
+              {shouldRenderPopper && this.renderPopperContent(childrenObject)}
+            </div>
+          </ClickOutside>
+        </Manager>
+      </ErrorBoundary>
     );
   }
 }
