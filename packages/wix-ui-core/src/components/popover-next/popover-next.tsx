@@ -48,7 +48,7 @@ if (isTestEnv) {
 const memoizeOne = memoizeOneModule.default || memoizeOneModule;
 
 const lazyPopperFactory = (memoizeOne as any)(key =>
-  process.env.NODE_ENV === 'test'
+  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
     ? require('./components/Popper').default
     : React.lazy(() =>
         import(/* webpackPrefetch: true */ './components/Popper'),
