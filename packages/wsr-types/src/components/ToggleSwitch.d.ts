@@ -1,15 +1,15 @@
 declare namespace __WSR {
   namespace ToggleSwitch {
-    export type ToggleSwitchProps = Button.ButtonWithAsProp<{
+    export interface ToggleSwitchProps {
       dataHook?: string;
       skin?: ToggleSwitchSkin;
       size?: ToggleSwitchSize;
       checked?: boolean;
       disabled?: boolean;
-      id: string;
+      id?: string;
       onChange?(): void;
-      tabIndex: number;
-    }>;
+      tabIndex?: number;
+    }
 
     export class ToggleSwitch extends React.Component<ToggleSwitchProps> {}
 

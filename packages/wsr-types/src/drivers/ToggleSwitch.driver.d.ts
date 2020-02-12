@@ -1,5 +1,5 @@
 declare namespace __WSRTests {
-  interface ToggleSwitchDriver<T> extends BaseDriver {
+  interface ToggleSwitchDriver extends __WUC.ToggleSwitchDriver {
     getSize: () => string;
     getSkin: () => string;
   }
