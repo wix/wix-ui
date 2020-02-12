@@ -209,7 +209,7 @@ export class PopoverNext extends React.Component<
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
-    const shouldAnimate = shouldAnimatePopover({ timeout: this.props.timeout });
+    const shouldAnimate = shouldAnimatePopover(this.props.timeout);
 
     const appendTo = mapPopperAppendTo(this.props.appendTo);
 
@@ -244,7 +244,7 @@ export class PopoverNext extends React.Component<
     const { shown } = this.state;
     const { timeout } = this.props;
 
-    const shouldAnimate = shouldAnimatePopover({ timeout });
+    const shouldAnimate = shouldAnimatePopover(timeout);
 
     if (shouldAnimate || shown) {
       attachStylesToNode(this.portalNode, this.stylesObj);
@@ -401,7 +401,7 @@ export class PopoverNext extends React.Component<
       Content: null,
     });
 
-    const shouldAnimate = shouldAnimatePopover({ timeout });
+    const shouldAnimate = shouldAnimatePopover(timeout);
     /**
      * (shouldAnimate || shown) - the shouldAnimate boolean will determine if
      *  rendering popoer control will be passed to CSSTransition
