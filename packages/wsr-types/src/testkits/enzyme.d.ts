@@ -119,7 +119,7 @@ declare module "wix-style-react/dist/testkit/enzyme" {
   export const inputAreaTestkitFactory: EnzymeTestkitFactory<__WSRTests.InputAreaDriver<
     ReactWrapper
   >>;
-  export const listItemActionTestkitFactory: any;
+  export const listItemActionTestkitFactory: EnzymeUniTestkitFactory<__WSRTests.ListItemActionUniDriver>;
   export const listItemSectionTestkitFactory: any;
   export const listItemSelectTestkitFactory: any;
   export const multiSelectCompositeTestkitFactory: any;
