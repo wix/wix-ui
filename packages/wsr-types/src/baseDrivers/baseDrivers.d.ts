@@ -3,6 +3,7 @@ declare namespace __WSRTests {
   type BaseUniDriver = import("wix-ui-test-utils/base-driver").BaseUniDriver;
 
   namespace __WUC {
+    type ToggleSwitchUniDriver = import("wix-ui-core/drivers/unidriver").ToggleSwitchUniDriver;
     type ButtonNextDriver = import("wix-ui-core/drivers/unidriver").ButtonNextDriver;
     type LinearProgressBarDriver = import("wix-ui-core/drivers/vanilla").LinearProgressBarDriver;
     type CircularProgressBarDriver = import("wix-ui-core/drivers/vanilla").CircularProgressBarDriver;
@@ -14,6 +15,9 @@ declare namespace __WSRTests {
     type PopoverDriver = ReturnType<
       typeof import("wix-ui-core/drivers/vanilla").popoverDriverFactory
     >;
+    type ToggleSwitchDriver = ReturnType<
+      typeof import("wix-ui-core/drivers/vanilla").toggleSwitchDriverFactory
+      >;
     type PopoverUniDriver = ReturnType<
       typeof import("wix-ui-core/drivers/unidriver").testkit
     >;
