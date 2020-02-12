@@ -9,6 +9,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import CSSTransition from './components/CSSTransition';
 import Loader from './components/Loader';
 import Portal from './components/Portal';
+import { PopperProps } from './components/Popper';
 
 import style from '../popover/Popover.st.css';
 
@@ -25,6 +26,7 @@ import {
 } from '../../utils';
 
 import { getPopoverTestUtils } from '../popover/utils/getPopoverTestUtils';
+import { mapPopperAppendTo } from '../popover/utils/mapPopperAppendTo';
 import {
   getAppendToElement,
   Predicate,
@@ -53,7 +55,7 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
     : React.lazy(() =>
         import(/* webpackPrefetch: true */ './components/Popper'),
       ),
-);
+) as (key: number) => React.ComponentType<PopperProps>;
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -199,15 +201,17 @@ export class PopoverNext extends React.Component<
   };
 
   renderPopperContent(childrenObject) {
-    const { timeout } = this.props;
     const { shown, cacheId } = this.state;
 
-    const grabScheduleUpdater = scheduleUpdate => {
-      this.popperScheduleUpdate = scheduleUpdate;
-    };
+    const grabScheduleUpdater = scheduleUpdate =>
+      (this.popperScheduleUpdate = scheduleUpdate);
 
     const detachSyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
+
+    const shouldAnimate = shouldAnimatePopover(this.props.timeout);
+
+    const appendTo = mapPopperAppendTo(this.props.appendTo);
 
     const Popper = lazyPopperFactory(cacheId);
 
@@ -215,16 +219,18 @@ export class PopoverNext extends React.Component<
       <React.Suspense fallback={<Loader />}>
         <Portal node={this.portalNode}>
           <CSSTransition
-            timeout={timeout}
-            shouldAnimate={shouldAnimatePopover(timeout)}
+            timeout={this.props.timeout}
+            shouldAnimate={shouldAnimate}
             detachSyles={detachSyles}
             shown={shown}
           >
             <Popper
+              {...this.props}
+              appendTo={appendTo}
+              isTestEnv={isTestEnv}
               contentHook={this.contentHook}
               grabScheduleUpdater={grabScheduleUpdater}
-              {...this.props}
-              shown={shown}
+              shouldAnimate={shouldAnimate}
             >
               {childrenObject.Content}
             </Popper>

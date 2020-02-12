@@ -1,9 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Popper as ReactPopper } from 'react-popper';
+import { Popper as ReactPopper, PopperChildrenProps } from 'react-popper';
+import { PopoverNextProps } from '../popover-next';
 
-import { getModifiers } from '../../popover/utils/getModifiers';
+import {
+  getModifiers,
+  ModifiersParams,
+} from '../../popover/utils/getModifiers';
 import { getArrowShift } from '../../popover/utils/getArrowShift';
 
 import styles from '../../popover/Popover.st.css';
@@ -28,23 +32,57 @@ const Arrow = props => {
   return <div {...commonProps} className={styles.arrow} />;
 };
 
-const Popper = (props: any) => {
-  const {
+export type PopperProps = ModifiersParams &
+  Pick<
+    PopoverNextProps,
+    | 'maxWidth'
+    | 'showArrow'
+    | 'zIndex'
+    | 'moveArrowTo'
+    | 'customArrow'
+    | 'id'
+    | 'role'
+  > & {
+    contentHook?: string;
+    grabScheduleUpdater(scheduler: PopperChildrenProps['scheduleUpdate']): void;
+  };
+
+const Popper: React.FC<PopperProps> = ({
+  placement,
+  zIndex,
+  maxWidth,
+  showArrow,
+  contentHook,
+  moveArrowTo,
+  customArrow,
+  grabScheduleUpdater,
+  children,
+  id,
+  role,
+  shouldAnimate,
+  width,
+  moveBy,
+  appendTo,
+  flip,
+  fixed,
+  minWidth,
+  dynamicWidth,
+  isTestEnv,
+}) => {
+  const modifiers = getModifiers({
+    shouldAnimate,
+    width,
+    moveBy,
+    appendTo,
+    flip,
+    fixed,
     placement,
-    zIndex,
-    maxWidth,
-    showArrow,
-    contentHook,
-    moveArrowTo,
-    customArrow,
-    grabScheduleUpdater,
-    children,
-    id,
-    role,
-    portalNode,
-  } = props;
+    isTestEnv,
+    minWidth,
+    dynamicWidth,
+  });
   return (
-    <ReactPopper modifiers={getModifiers(props)} placement={placement}>
+    <ReactPopper modifiers={modifiers} placement={placement}>
       {({
         ref,
         style,
