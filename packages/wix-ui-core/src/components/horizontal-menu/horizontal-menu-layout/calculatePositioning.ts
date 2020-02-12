@@ -4,40 +4,53 @@ import { ExpandSize } from '../horizontal-menu-item/HorizontalMenuItem';
 
 export interface CalculatePositioningProps {
   expandSize: ExpandSize;
-  getMenuBoundingRect(key: string): number;
   getMenuItemBoundingRect(key: string): number;
+  rootMenuRef: React.RefObject<HTMLUListElement>;
   layoutRef: React.RefObject<HTMLDivElement>;
   maxOverflowWidth: number;
 }
 
 const MAX_SINGLE_COLUMN_OVERFLOW_WIDTH = 280;
 
+function getNumberValue(value: string) {
+  const number = parseInt(value, 10);
+  return isFinite(number) ? number : 0;
+}
+
 export function calculatePositioning({
   expandSize,
   layoutRef,
+  rootMenuRef,
   maxOverflowWidth = MAX_SINGLE_COLUMN_OVERFLOW_WIDTH,
-  getMenuBoundingRect,
   getMenuItemBoundingRect,
 }: CalculatePositioningProps) {
-  const { current } = layoutRef;
+  const { current: currentLayoutRef } = layoutRef;
+  const { current: currentRootMenuRef } = rootMenuRef;
 
-  if (!current) {
+  if (!currentLayoutRef || !currentRootMenuRef) {
     return {};
   }
 
   const menuItemWidth = getMenuItemBoundingRect('width');
   const menuItemHeight = getMenuItemBoundingRect('height');
   const menuItemY = getMenuItemBoundingRect('y');
-  const menuLeft = getMenuBoundingRect('left');
-  const menuWidth = getMenuBoundingRect('width');
-  const menuHeight = getMenuBoundingRect('height');
-  const menuY = getMenuBoundingRect('y');
+
+  const {
+    left: menuLeft,
+    width: menuWidth,
+    height: menuHeight,
+    y: menuY,
+  } = currentRootMenuRef.getBoundingClientRect();
+  const {
+    borderTopWidth: menuBorderTopWidth,
+    borderBottomWidth: menuBorderBottomWidth,
+  } = getComputedStyle(currentRootMenuRef);
   const documentWidth = document.documentElement.clientWidth;
 
   const {
     width: layoutWidth,
     height: layoutHeight,
-  } = current.getBoundingClientRect();
+  } = currentLayoutRef.getBoundingClientRect();
 
   const topOrBottom =
     menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
@@ -45,8 +58,10 @@ export function calculatePositioning({
       ? 'bottom'
       : 'top';
 
-  const topValue = menuItemY - menuY + menuItemHeight;
-  const bottomValue = menuHeight - (menuItemY - menuY);
+  const topValue =
+    menuItemY - menuY + menuItemHeight - getNumberValue(menuBorderTopWidth);
+  const bottomValue =
+    menuHeight - (menuItemY - menuY) - getNumberValue(menuBorderBottomWidth);
 
   const verticalPosition = topOrBottom === 'top' ? topValue : bottomValue;
 

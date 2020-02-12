@@ -7,7 +7,7 @@ export interface HorizontalMenuItemContextValue {
   isOpen: boolean;
   expandSize?: ExpandSize;
   getMenuItemBoundingRect(key: string): number;
-  getMenuBoundingRect(key: string): number;
+  rootMenuRef: React.RefObject<HTMLUListElement>;
 }
 
 export interface WithHorizontalMenuItemContextProps {
@@ -20,7 +20,7 @@ export const HorizontalMenuItemContext = React.createContext<
   isOpen: false,
   expandSize: 'column',
   getMenuItemBoundingRect: () => 0,
-  getMenuBoundingRect: () => 0,
+  rootMenuRef: React.createRef(),
 });
 
 export const withHorizontalMenuItemContext = <

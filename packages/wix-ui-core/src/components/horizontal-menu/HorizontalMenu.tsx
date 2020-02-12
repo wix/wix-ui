@@ -42,19 +42,9 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
       menuItemClassName: style.menuItem,
       columnsLayoutClassName: style.columnsLayout,
       gridLayoutClassName: style.gridLayout,
-      getMenuBoundingRect: this.getMenuBoundingRect,
+      rootMenuRef: this.rootRef,
     };
   }
-
-  getMenuBoundingRect = (key: string) => {
-    const { current } = this.rootRef;
-
-    if (!current) {
-      return 0;
-    }
-
-    return current.getBoundingClientRect()[key];
-  };
 
   render() {
     const {
