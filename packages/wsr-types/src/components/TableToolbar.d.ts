@@ -56,4 +56,10 @@ declare module 'wix-style-react' {
 declare module 'wix-style-react/TableToolbar' {
   export import TableToolbar = __WSR.TableToolbar.TableToolbar;
   export import TableToolbarProps = __WSR.TableToolbar.TableToolbarProps;
+  export import ItemGroup = __WSR.TableToolbar.ItemGroup;
+  export import Item = __WSR.TableToolbar.Item;
+  export import Title = __WSR.TableToolbar.Title;
+  export import Label = __WSR.TableToolbar.Label;
+  export import Divider = __WSR.TableToolbar.Divider;
+  export import SelectedCount = __WSR.TableToolbar.SelectedCount;
 }
