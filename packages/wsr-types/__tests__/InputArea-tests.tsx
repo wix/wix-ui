@@ -54,6 +54,8 @@ function InputAreaWithAllProps() {
       theme="amaterial"
       tooltipPlacement="top"
       value="value"
+      status="warning"
+      statusMessage="some status message"
     />
   );
 }

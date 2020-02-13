@@ -70,6 +70,7 @@ declare namespace __WSR {
       step?: number;
       customInput?: React.ReactNode | Function;
       updateControlledOnClear?: boolean;
+      pattern?: string;
     }
 
     export class Input extends React.Component<InputProps> {

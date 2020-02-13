@@ -22,6 +22,7 @@ function TimeInputWithAllProps() {
     defaultValue={moment()}
     disableAmPm
     style={{margin: 'auto'}}
+    minutesStep={11}
     />
   );
 }

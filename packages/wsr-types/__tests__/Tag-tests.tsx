@@ -13,6 +13,7 @@ function TagWithMandatoryProps() {
 function TagWithAllProps() {
   return (
     <Tag
+      dataHook={"hook"}
       id="asd"
       className="cls"
       disabled

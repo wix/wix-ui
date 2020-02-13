@@ -9,6 +9,7 @@ declare namespace __WSR {
       onChange?: (time: import('moment').Moment) => void;
       rtl?: boolean;
       style?: object;
+      minutesStep?: number;
     }
 
     export class TimeInput extends React.PureComponent<TimeInputProps> {}

@@ -7,6 +7,7 @@ declare namespace __WSR {
       showProgressIndication?: boolean;
       value?: number | string;
       shouldLoadAsync?: boolean;
+      skin?: 'standard' | 'success';
     }
 
     export class LinearProgressBar extends React.PureComponent<

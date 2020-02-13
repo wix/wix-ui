@@ -12,6 +12,7 @@ declare namespace __WSR {
       hover?: boolean;
       size?: CheckboxSize;
       onChange?: React.ChangeEventHandler<HTMLInputElement>;
+      className?: string;
     }
 
     export class Checkbox extends BaseComponents.WixComponent<CheckboxProps> {}

@@ -12,6 +12,9 @@ declare namespace __WSR {
       extraNode?: React.ReactNode;
       onToggle?: (id: SelectorProps['id']) => void;
       toggleType?: SelectorToggleType;
+      showBelowNodeOnSelect?: boolean;
+      belowNode?: React.ReactNode;
+      subtitleNode?: React.ReactNode;
     }
 
     export class Selector extends BaseComponents.WixComponent<SelectorProps> {

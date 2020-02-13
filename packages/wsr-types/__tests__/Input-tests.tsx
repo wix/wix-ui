@@ -73,6 +73,7 @@ function InputWithAllProps() {
       type="text"
       updateControlledOnClear
       value="value"
+      pattern="some pattern"
       withSelection>
       <Input.Ticker
         dataHook="hook"

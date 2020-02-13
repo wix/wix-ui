@@ -4,6 +4,7 @@ declare namespace __WSR {
       content: SkeletonContent[];
       alignment?: SkeletonAlignment;
       spacing?: SkeletonSpacing;
+      className?: string;
     }
 
     export class Skeleton extends BaseComponents.WixComponent<SkeletonProps> {}

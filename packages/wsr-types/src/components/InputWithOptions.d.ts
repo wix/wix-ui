@@ -27,6 +27,9 @@ declare namespace __WSR {
       native?: boolean;
       popoverProps?: Popover.PopoverProps;
       onSelect?: OnSelectFn;
+      onOptionsShow?: () => void;
+      onOptionsHide?: () => void;
+      disableClickOutsideWhenClosed?: boolean;
     }
 
     export class InputWithOptions<

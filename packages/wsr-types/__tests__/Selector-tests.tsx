@@ -32,6 +32,9 @@ function SelectorWithAllProps() {
       subtitle="text"
       title="title"
       toggleType="checkbox"
+      showBelowNodeOnSelect
+      belowNode={<div/>}
+      subtitleNode={<div/>}
     />
   );
 }

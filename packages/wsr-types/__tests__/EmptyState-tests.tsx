@@ -19,6 +19,7 @@ function EmptyStateWithAllProps() {
       subtitle="subtitle"
       theme="page"
       title="title"
+      align="center"
     />
   );
 }
