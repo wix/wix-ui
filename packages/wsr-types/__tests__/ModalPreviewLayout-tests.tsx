@@ -17,6 +17,9 @@ function ModalPreviewLayoutWithAllProps() {
       actions={<div />}
       dataHook="hook"
       title="title"
+      closeButtonTooltipText="Close"
+      prevButtonTooltipText="Previous"
+      nextButtonTooltipText="Next"
       shouldCloseOnOverlayClick>
       asd
     </ModalPreviewLayout>
