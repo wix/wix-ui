@@ -1,6 +1,7 @@
 declare namespace __WSR {
   namespace PopoverMenu {
     export interface PopoverMenuProps {
+      dataHook?: string;
       size?: PopoverMenuSize;
       placement?: PopoverMenuPlacement;
       buttonTheme?: PopoverMenuButtonTheme;

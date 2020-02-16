@@ -10,7 +10,6 @@ declare namespace __WSR {
       prefixIcon?: BaseComponents.IconElement;
       disabled?: boolean;
       dataHook?: string;
-      target?: string;
     }>;
 
     export class TextButton extends React.Component<TextButtonProps> {}

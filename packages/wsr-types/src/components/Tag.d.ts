@@ -12,6 +12,7 @@ declare namespace __WSR {
       thumb?: React.ReactElement;
       maxWidth?: number;
       className?: string;
+      dataHook?: string;
     }
 
     export class Tag extends React.PureComponent<TagProps> {}

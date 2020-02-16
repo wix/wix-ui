@@ -16,6 +16,7 @@ function SkeletonWithAllProps() {
       styles="font: 14px"
       spacing="large"
       content={[{ size: 'full', type: 'line' }]}
+      className={"class"}
     />
   );
 }

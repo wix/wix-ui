@@ -19,6 +19,7 @@ function LinearProgressBarWithAllProps() {
       shouldLoadAsync
       showProgressIndication
       value={40}
+      skin="success"
     />
   );
 }

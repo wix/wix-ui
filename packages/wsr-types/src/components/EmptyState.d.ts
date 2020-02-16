@@ -7,6 +7,7 @@ declare namespace __WSR {
       image?: string | JSX.Element;
       classNames?: { imageContainer?: string };
       dataHook?: string;
+      align?: 'start' | 'center' | 'end';
     }
 
     export const EmptyState: React.SFC<EmptyStateProps>;

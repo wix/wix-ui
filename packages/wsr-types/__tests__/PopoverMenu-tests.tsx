@@ -11,6 +11,7 @@ function PopoverMenuWithMandatoryProps() {
 function PopoverMenuWithAllProps() {
   return (
     <PopoverMenu
+      dataHook={"hook"}
       appendTo="parent"
       appendToParent
       buttonHeight="small"

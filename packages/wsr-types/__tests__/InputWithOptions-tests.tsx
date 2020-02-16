@@ -99,6 +99,9 @@ function InputWithOptionsWithAllProps() {
       visible
       withArrow
       overflow="scroll"
+      onOptionsShow={()=>{}}
+      onOptionsHide={()=>{}}
+      disableClickOutsideWhenClosed
       options={[
         {
           value: "a",

@@ -26,6 +26,7 @@ function CheckboxWithAllProps() {
       size="medium"
       styles="font: 14px"
       vAlign="center"
+      className="some-class"
     />
   );
 }

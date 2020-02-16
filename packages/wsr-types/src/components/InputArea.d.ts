@@ -43,6 +43,8 @@ declare namespace __WSR {
       theme?: InputAreaTheme;
       tooltipPlacement?: string; // TODO: replace with TooltipProps['placement']
       value?: string;
+      status?: Input.InputStatusError | Input.InputStatusWarning;
+      statusMessage?: string;
     }
 
     export class InputArea extends BaseComponents.WixComponent<InputAreaProps> {

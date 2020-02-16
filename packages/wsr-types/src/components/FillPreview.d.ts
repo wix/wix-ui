@@ -1,11 +1,13 @@
 declare namespace __WSR {
   namespace FillPreview {
-    export interface FillPreviewProps {
+    export type FillPreviewProps = Button.ButtonWithAsProp<{
       fill?: React.ReactNode;
       selected?: boolean;
       onClick?: React.MouseEventHandler<HTMLButtonElement>;
       disabled?: boolean;
-    }
+      tabIndex?: number;
+      aspectRatio?: string | number;
+    }>
 
     export class FillPreview extends React.Component<FillPreviewProps> {}
   }
@@ -17,7 +19,6 @@ declare module "wix-style-react" {
 }
 
 declare module "wix-style-react/FillPreview" {
-  export interface FillPreviewProps
-    extends __WSR.FillPreview.FillPreviewProps {}
+  export type FillPreviewProps =__WSR.FillPreview.FillPreviewProps;
   export default __WSR.FillPreview.FillPreview;
 }
