@@ -321,6 +321,7 @@ export class DropdownComponent extends React.PureComponent<
           !disabled && openTrigger === HOVER ? this.close : undefined
         }
         aria-label={this.props['aria-label']}
+        aria-labelledby={this.props['aria-labelledby']}
         style={inlineStyles}
         id={id}
         flip={flip}

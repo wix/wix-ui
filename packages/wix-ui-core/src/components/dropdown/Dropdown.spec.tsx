@@ -61,6 +61,17 @@ describe('Dropdown', () => {
     expect(driver.getTargetElement().getAttribute('aria-label')).toBe(ariaLabelContent);
   });
 
+  it('should not have aria-labelledby attribute when not received by props', () => {
+    const driver = createDriver(createDropdown());
+    expect(driver.getTargetElement().getAttribute('aria-labelledby')).toBe(null);
+  });
+
+  it('should have aria-labelledby attribute when received by props', () => {
+    const ariaLabelContent = 'Wubba lubba';
+    const driver = createDriver(createDropdown({'aria-labelledby': ariaLabelContent}));
+    expect(driver.getTargetElement().getAttribute('aria-labelledby')).toBe(ariaLabelContent);
+  });
+
   describe('openTrigger', () => {
     it('should show content on click', () => {
       const driver = createDriver(createDropdown({ options }));

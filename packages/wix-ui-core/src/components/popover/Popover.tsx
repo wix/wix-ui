@@ -48,8 +48,10 @@ export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 export interface PopoverProps {
   /** hook for testing purposes */
   'data-hook'?: string;
-  /** a11y aria-lbel attribute */
+  /** a11y aria-label attribute */
   'aria-label'?: string;
+  /** a11y aria-labelledby attribute */
+  'aria-labelledby'?: string;
   /** custom classname */
   className?: string;
   /** The location to display the content */
@@ -541,6 +543,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                   aria-haspopup
                   aria-expanded={this.state.shown}
                   aria-label={this.props['aria-label']}
+                  aria-labelledby={this.props['aria-labelledby']}
                   ref={ref}
                   className={style.popoverElement}
                   data-hook="popover-element"
