@@ -45,6 +45,22 @@ describe('Dropdown', () => {
     expect(driver.isContentElementExists()).toBeTruthy();
   });
 
+  it('should have aria-haspopup attribute', () => {
+    const driver = createDriver(createDropdown());
+    expect(driver.getTargetElement().getAttribute('aria-haspopup')).toBe('true');
+  });
+
+  it('should not have aria-label attribute when not received by props', () => {
+    const driver = createDriver(createDropdown());
+    expect(driver.getTargetElement().getAttribute('aria-label')).toBe(null);
+  });
+
+  it('should have aria-label attribute when received by props', () => {
+    const ariaLabelContent = 'Wubba lubba';
+    const driver = createDriver(createDropdown({'aria-label': ariaLabelContent}));
+    expect(driver.getTargetElement().getAttribute('aria-label')).toBe(ariaLabelContent);
+  });
+
   describe('openTrigger', () => {
     it('should show content on click', () => {
       const driver = createDriver(createDropdown({ options }));
@@ -60,6 +76,15 @@ describe('Dropdown', () => {
       await eventually(() =>
         expect(driver.isContentElementExists()).toBeFalsy(),
       );
+    });
+
+    it('should update a11y attribute aria-expanded when closing and expanding popover on click', async () => {
+      const driver = createDriver(createDropdown({ options }));
+      expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('false');
+      driver.click();
+      expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('true');
+      driver.click();
+      expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('false');
     });
 
     it('should preventDefault on up/down arrows key press inside dropdown content in order to prevent outer scroll', () => {
@@ -80,6 +105,21 @@ describe('Dropdown', () => {
       );
       expect(preventDefaultSpy).toHaveBeenCalled();
       preventDefaultSpy.mockClear();
+    });
+
+    it('should update a11y attribute aria-expanded when closing and expanding popover on hover', async () => {
+      const driver = createDriver(
+          createDropdown({ options, openTrigger: HOVER }),
+      );
+
+      expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('false');
+      driver.mouseEnter();
+      expect(driver.isContentElementExists()).toBeTruthy();
+      expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('true');
+      driver.mouseLeave();
+      await eventually(() =>
+          expect(driver.getTargetElement().getAttribute('aria-expanded')).toBe('false'),
+      );
     });
 
     it('should show content on hover', async () => {

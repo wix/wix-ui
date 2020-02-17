@@ -320,6 +320,7 @@ export class DropdownComponent extends React.PureComponent<
         onMouseLeave={
           !disabled && openTrigger === HOVER ? this.close : undefined
         }
+        aria-label={this.props['aria-label']}
         style={inlineStyles}
         id={id}
         flip={flip}
