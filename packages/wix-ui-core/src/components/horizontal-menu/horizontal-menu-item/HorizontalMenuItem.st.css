@@ -36,12 +36,3 @@
   align-items: center;
   height: 100%;
 }
-
-.root:hover > HorizontalMenuColumnsLayout,
-.root:focus > HorizontalMenuColumnsLayout,
-.root:focus-within > HorizontalMenuColumnsLayout,
-.root:hover > HorizontalMenuGridLayout,
-.root:focus > HorizontalMenuGridLayout,
-.root:focus-within > HorizontalMenuGridLayout {
-  display: flex;
-}

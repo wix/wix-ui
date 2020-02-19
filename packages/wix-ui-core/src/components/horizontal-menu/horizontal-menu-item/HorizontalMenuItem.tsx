@@ -19,6 +19,8 @@ export interface HorizontalMenuItemProps {
   href?: string;
   target?: string;
   icon?: React.ReactNode;
+  showDelay?: number;
+  hideDelay?: number;
   isForceOpened?: boolean;
   expandSize?: ExpandSize;
   style?: React.CSSProperties;
@@ -38,9 +40,13 @@ export class HorizontalMenuItem extends React.PureComponent<
   static defaultProps = {
     isForceOpened: false,
     expandSize: 'column',
+    showDelay: 200,
+    hideDelay: 200,
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
+  hideTimeout: NodeJS.Timeout | void;
+  showTimeout: NodeJS.Timeout | void;
 
   // Wait 16.6 version and use this way
   // Wait 16.8 and use Hooks for contexts
@@ -52,10 +58,30 @@ export class HorizontalMenuItem extends React.PureComponent<
     isOpen: false,
   };
 
-  private readonly toggleMenu = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+  private readonly showMenu = () => {
+    if (this.hideTimeout) {
+      this.hideTimeout = clearTimeout(this.hideTimeout);
+    }
+    if (!this.state.isOpen) {
+      this.showTimeout = setTimeout(() => {
+        if (!this.hideTimeout) {
+          this.setState({
+            isOpen: true,
+          });
+        }
+      }, this.props.showDelay);
+    }
+  };
+
+  private readonly hideMenu = () => {
+    this.hideTimeout = setTimeout(() => {
+      if (this.showTimeout) {
+        this.showTimeout = clearTimeout(this.showTimeout);
+      }
+      this.setState({
+        isOpen: false,
+      });
+    }, this.props.hideDelay);
   };
 
   private renderExpandIcon() {
@@ -103,6 +129,8 @@ export class HorizontalMenuItem extends React.PureComponent<
       expandSize,
       style: propStyle,
       isForceOpened,
+      hideDelay,
+      showDelay,
       ...rest
     } = this.props;
 
@@ -135,10 +163,10 @@ export class HorizontalMenuItem extends React.PureComponent<
                     aria-expanded={children && isMenuOpen}
                     aria-haspopup={children ? true : false}
                     aria-label={label}
-                    onMouseEnter={this.toggleMenu}
-                    onMouseLeave={this.toggleMenu}
-                    onFocus={this.toggleMenu}
-                    onBlur={this.toggleMenu}
+                    onMouseEnter={this.showMenu}
+                    onMouseLeave={this.hideMenu}
+                    onFocus={this.showMenu}
+                    onBlur={this.hideMenu}
                     data-hook={HORIZONTAL_MENU_METADATA.dataHooks.item}
                     ref={this.menuItemRef}
                     className={classList}

@@ -6,6 +6,7 @@ import {
 } from '../../../../test/utils/react';
 import { HorizontalMenu } from '../HorizontalMenu';
 import { horizontalMenuPrivateDriverFactory } from './HorizontalMenu.private.uni.driver';
+import { HorizontalMenuItemProps } from '../horizontal-menu-item';
 
 describe('HorizontalMenu', () => {
   const render = createRendererWithUniDriver(
@@ -23,7 +24,7 @@ describe('HorizontalMenu', () => {
   });
 
   it('should render HorizontalMenuItem with children', async () => {
-    const menuItem = {
+    const menuItem: HorizontalMenuItemProps = {
       label: 'Columns Layout',
     };
 
@@ -46,7 +47,7 @@ describe('HorizontalMenu', () => {
   });
 
   it('should render HorizontalMenuItem without children', async () => {
-    const menuItem = {
+    const menuItem: HorizontalMenuItemProps = {
       label: 'Columns Layout',
     };
 
@@ -63,8 +64,10 @@ describe('HorizontalMenu', () => {
   });
 
   it('should show submenu on HorizontalMenuItem hover', async () => {
-    const menuItem = {
+    const menuItem: HorizontalMenuItemProps = {
       label: 'Columns Layout',
+      showDelay: 0,
+      hideDelay: 0,
     };
 
     const { driver } = render(
@@ -86,17 +89,20 @@ describe('HorizontalMenu', () => {
     expect(await item.attr('aria-expanded')).toEqual('false');
     expect(await columnsLayout.attr('data-opened')).toEqual('false');
     await driver.hoverMenuItem(menuItem.label);
+    await new Promise(resolve => setTimeout(resolve, 50));
     expect(await item.attr('aria-selected')).toEqual('true');
     expect(await item.attr('aria-expanded')).toEqual('true');
     expect(await columnsLayout.attr('data-opened')).toEqual('true');
   });
 
   it('should render different expand icon on open/close states', async () => {
-    const menuItem = {
+    const menuItem: HorizontalMenuItemProps = {
       label: 'Columns Layout',
       expandIcon: ({ isOpen }: { isOpen: boolean }) => (
         <div data-hook="expand-icon" data-opened={isOpen} />
       ),
+      showDelay: 0,
+      hideDelay: 0,
     };
 
     const { driver } = render(
@@ -114,6 +120,7 @@ describe('HorizontalMenu', () => {
     const expandIcon = await driver.getElementByDataHook('expand-icon');
     expect(await expandIcon.attr('data-opened')).toEqual('false');
     await driver.hoverMenuItem(menuItem.label);
+    await new Promise(resolve => setTimeout(resolve, 50));
     expect(await expandIcon.attr('data-opened')).toEqual('true');
   });
 
