@@ -46,7 +46,6 @@ export class HorizontalMenuColumnsLayout extends React.Component<
 
   static defaultProps = {
     columns: 1,
-    columnsAlignment: ColumnsAlignment.Justify,
   };
 
   layoutRef: React.RefObject<HTMLDivElement> = React.createRef();
