@@ -52,16 +52,6 @@ export class HorizontalMenuItem extends React.PureComponent<
     isOpen: false,
   };
 
-  private readonly getMenuItemBoundingRect = (key: string) => {
-    const { current } = this.menuItemRef;
-
-    if (!current) {
-      return 0;
-    }
-
-    return current.getBoundingClientRect()[key];
-  };
-
   private readonly toggleMenu = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -162,7 +152,7 @@ export class HorizontalMenuItem extends React.PureComponent<
                         isOpen: isMenuOpen,
                         expandSize,
                         rootMenuRef: menuContext.rootMenuRef,
-                        getMenuItemBoundingRect: this.getMenuItemBoundingRect,
+                        menuItemRef: this.menuItemRef,
                       }}
                     >
                       {children}

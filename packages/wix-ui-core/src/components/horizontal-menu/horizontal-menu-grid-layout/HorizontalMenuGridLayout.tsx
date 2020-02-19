@@ -66,7 +66,7 @@ export class HorizontalMenuGridLayout extends React.Component<
         layoutRef: this.layoutRef,
         rootMenuRef: menuItemContext.rootMenuRef,
         expandSize: menuItemContext.expandSize,
-        getMenuItemBoundingRect: menuItemContext.getMenuItemBoundingRect,
+        menuItemRef: menuItemContext.menuItemRef,
       }),
     });
   }

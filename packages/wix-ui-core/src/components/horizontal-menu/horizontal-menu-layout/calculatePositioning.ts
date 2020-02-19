@@ -4,7 +4,7 @@ import { ExpandSize } from '../horizontal-menu-item/HorizontalMenuItem';
 
 export interface CalculatePositioningProps {
   expandSize: ExpandSize;
-  getMenuItemBoundingRect(key: string): number;
+  menuItemRef: React.RefObject<HTMLLIElement>;
   rootMenuRef: React.RefObject<HTMLUListElement>;
   layoutRef: React.RefObject<HTMLDivElement>;
   maxOverflowWidth: number;
@@ -17,40 +17,26 @@ function getNumberValue(value: string) {
   return isFinite(number) ? number : 0;
 }
 
-export function calculatePositioning({
-  expandSize,
+function calculateColumnExpandStyles({
+  menuItemRef,
   layoutRef,
-  rootMenuRef,
-  maxOverflowWidth = MAX_SINGLE_COLUMN_OVERFLOW_WIDTH,
-  getMenuItemBoundingRect,
-}: CalculatePositioningProps) {
-  const { current: currentLayoutRef } = layoutRef;
-  const { current: currentRootMenuRef } = rootMenuRef;
-
-  if (!currentLayoutRef || !currentRootMenuRef) {
-    return {};
-  }
-
-  const menuItemWidth = getMenuItemBoundingRect('width');
-  const menuItemHeight = getMenuItemBoundingRect('height');
-  const menuItemY = getMenuItemBoundingRect('y');
-
+  maxOverflowWidth,
+}: {
+  menuItemRef: HTMLLIElement;
+  layoutRef: HTMLDivElement;
+  maxOverflowWidth: number;
+}) {
   const {
-    left: menuLeft,
-    width: menuWidth,
-    height: menuHeight,
-    y: menuY,
-  } = currentRootMenuRef.getBoundingClientRect();
-  const {
-    borderTopWidth: menuBorderTopWidth,
-    borderBottomWidth: menuBorderBottomWidth,
-  } = getComputedStyle(currentRootMenuRef);
-  const documentWidth = document.documentElement.clientWidth;
+    width: menuItemWidth,
+    height: menuItemHeight,
+    left: menuItemLeft,
+    y: menuItemY,
+  } = menuItemRef.getBoundingClientRect();
 
   const {
     width: layoutWidth,
     height: layoutHeight,
-  } = currentLayoutRef.getBoundingClientRect();
+  } = layoutRef.getBoundingClientRect();
 
   const topOrBottom =
     menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
@@ -58,52 +44,185 @@ export function calculatePositioning({
       ? 'bottom'
       : 'top';
 
-  const topValue =
-    menuItemY - menuY + menuItemHeight - getNumberValue(menuBorderTopWidth);
-  const bottomValue =
-    menuHeight - (menuItemY - menuY) - getNumberValue(menuBorderBottomWidth);
+  const {
+    borderTopWidth: menuItemBorderTopWidth,
+    borderRightWidth: menuItemBorderRightWidth,
+    borderBottomWidth: menuItemBorderBottomWidth,
+    borderLeftWidth: menuItemBorderLeftWidth,
+  } = getComputedStyle(menuItemRef);
+
+  const topColumnValue = `calc(100% + ${getNumberValue(
+    menuItemBorderTopWidth,
+  )}px)`;
+  const bottomColumnValue = `calc(100% + ${getNumberValue(
+    menuItemBorderBottomWidth,
+  )}px)`;
+
+  const leftColumnValue = getNumberValue(menuItemBorderLeftWidth);
+  const rightColumnValue = getNumberValue(menuItemBorderRightWidth);
+
+  const leftOrRight =
+    menuItemLeft + layoutWidth <= window.innerWidth ? 'left' : 'right';
+
+  if (menuItemWidth >= maxOverflowWidth || layoutWidth <= menuItemWidth) {
+    return {
+      [leftOrRight]:
+        leftOrRight === 'left' ? -leftColumnValue : -rightColumnValue,
+      [topOrBottom]: topOrBottom === 'top' ? topColumnValue : bottomColumnValue,
+      width: `calc(100% + ${leftColumnValue + rightColumnValue}px)`,
+    };
+  }
+
+  const stylesObject = {
+    [leftOrRight]:
+      leftOrRight === 'left' ? -leftColumnValue : -rightColumnValue,
+    [topOrBottom]: topOrBottom === 'top' ? topColumnValue : bottomColumnValue,
+    width: 'max-content',
+    maxWidth: `${maxOverflowWidth}px`,
+  };
+
+  return stylesObject;
+}
+
+function calculateMenuExpandStyles({
+  menuItemRef,
+  rootMenuRef,
+  layoutRef,
+}: {
+  menuItemRef: HTMLLIElement;
+  rootMenuRef: HTMLUListElement;
+  layoutRef: HTMLDivElement;
+}) {
+  const {
+    height: menuItemHeight,
+    y: menuItemY,
+  } = menuItemRef.getBoundingClientRect();
+
+  const { height: menuHeight, y: menuY } = rootMenuRef.getBoundingClientRect();
+
+  const {
+    borderTopWidth: menuBorderTopWidth,
+    borderRightWidth: menuBorderRightWidth,
+    borderBottomWidth: menuBorderBottomWidth,
+    borderLeftWidth: menuBorderLeftWidth,
+  } = getComputedStyle(rootMenuRef);
+
+  const menuBorderTopValue = getNumberValue(menuBorderTopWidth);
+  const menuBorderBottomValue = getNumberValue(menuBorderBottomWidth);
+
+  const { height: layoutHeight } = layoutRef.getBoundingClientRect();
+
+  const topOrBottom =
+    menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
+    menuItemY - layoutHeight >= 0
+      ? 'bottom'
+      : 'top';
+
+  const topValue = menuItemY - menuY + menuItemHeight - menuBorderTopValue;
+  const bottomValue = menuHeight - (menuItemY - menuY) - menuBorderBottomValue;
 
   const verticalPosition = topOrBottom === 'top' ? topValue : bottomValue;
 
+  return {
+    left: -getNumberValue(menuBorderLeftWidth),
+    right: -getNumberValue(menuBorderRightWidth),
+    [topOrBottom]: verticalPosition,
+  };
+}
+
+function calculateFullWidthExpandStyles({
+  menuItemRef,
+  rootMenuRef,
+  layoutRef,
+}: {
+  menuItemRef: HTMLLIElement;
+  rootMenuRef: HTMLUListElement;
+  layoutRef: HTMLDivElement;
+}) {
+  const {
+    height: menuItemHeight,
+    y: menuItemY,
+  } = menuItemRef.getBoundingClientRect();
+
+  const {
+    left: menuLeft,
+    width: menuWidth,
+    height: menuHeight,
+    y: menuY,
+  } = rootMenuRef.getBoundingClientRect();
+
+  const {
+    borderTopWidth: menuBorderTopWidth,
+    borderRightWidth: menuBorderRightWidth,
+    borderBottomWidth: menuBorderBottomWidth,
+    borderLeftWidth: menuBorderLeftWidth,
+  } = getComputedStyle(rootMenuRef);
+
+  const menuBorderTopValue = getNumberValue(menuBorderTopWidth);
+  const menuBorderBottomValue = getNumberValue(menuBorderBottomWidth);
+
+  const documentWidth = document.documentElement.clientWidth;
+
+  const { height: layoutHeight } = layoutRef.getBoundingClientRect();
+
+  const topOrBottom =
+    menuItemY + menuItemHeight + layoutHeight > window.innerHeight &&
+    menuItemY - layoutHeight >= 0
+      ? 'bottom'
+      : 'top';
+
+  const topValue = menuItemY - menuY + menuItemHeight - menuBorderTopValue;
+  const bottomValue = menuHeight - (menuItemY - menuY) - menuBorderBottomValue;
+
+  const verticalPosition = topOrBottom === 'top' ? topValue : bottomValue;
+
+  const windowInnerWidth = window.innerWidth;
+  const scrollbarWidth = windowInnerWidth - documentWidth;
+  const right = windowInnerWidth - scrollbarWidth - menuLeft - menuWidth;
+
+  return {
+    left: -menuLeft - getNumberValue(menuBorderLeftWidth),
+    right: -right - getNumberValue(menuBorderRightWidth),
+    [topOrBottom]: verticalPosition,
+  };
+}
+
+export function calculatePositioning({
+  expandSize,
+  layoutRef,
+  rootMenuRef,
+  maxOverflowWidth = MAX_SINGLE_COLUMN_OVERFLOW_WIDTH,
+  menuItemRef,
+}: CalculatePositioningProps) {
+  const { current: currentLayoutRef } = layoutRef;
+  const { current: currentRootMenuRef } = rootMenuRef;
+  const { current: currentMenuItemRef } = menuItemRef;
+
+  if (!currentLayoutRef || !currentRootMenuRef || !currentMenuItemRef) {
+    return {};
+  }
+
   switch (expandSize) {
     case 'column':
-      if (menuItemWidth >= maxOverflowWidth) {
-        return {
-          left: 0,
-          right: 0,
-          [topOrBottom]: '100%',
-          maxWidth: `${maxOverflowWidth}px`,
-        };
-      }
-
-      const isSubmenuOverflows = menuItemWidth < layoutWidth;
-
-      const stylesObject = {
-        left: 0,
-        right: 0,
-        [topOrBottom]: '100%',
-        maxWidth: isSubmenuOverflows ? `${maxOverflowWidth}px` : undefined,
-      };
-
-      return stylesObject;
+      return calculateColumnExpandStyles({
+        menuItemRef: currentMenuItemRef,
+        layoutRef: currentLayoutRef,
+        maxOverflowWidth,
+      });
 
     case 'menu':
-      return {
-        left: 0,
-        right: 0,
-        [topOrBottom]: verticalPosition,
-      };
+      return calculateMenuExpandStyles({
+        layoutRef: currentLayoutRef,
+        menuItemRef: currentMenuItemRef,
+        rootMenuRef: currentRootMenuRef,
+      });
 
     case 'fullWidth':
-      const windowInnerWidth = window.innerWidth;
-      const scrollbarWidth = windowInnerWidth - documentWidth;
-      const right = windowInnerWidth - scrollbarWidth - menuLeft - menuWidth;
-
-      return {
-        left: -menuLeft,
-        right: -right,
-        [topOrBottom]: verticalPosition,
-      };
+      return calculateFullWidthExpandStyles({
+        layoutRef: currentLayoutRef,
+        menuItemRef: currentMenuItemRef,
+        rootMenuRef: currentRootMenuRef,
+      });
 
     default:
       return {};

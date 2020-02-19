@@ -21,9 +21,7 @@
   position: relative;
 }
 
-.menuItemLink {
-  cursor: pointer;
-}
+.menuItemLink {}
 
 .expandIcon {
   display: inline-block;
