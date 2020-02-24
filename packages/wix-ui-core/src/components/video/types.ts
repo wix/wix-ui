@@ -55,6 +55,7 @@ export interface IPlayableConfig {
   poster?: string;
   modules?: {};
   texts?: ITextMapConfig;
+  preventContextMenu?: boolean;
 }
 
 export interface ITwitchConfig {

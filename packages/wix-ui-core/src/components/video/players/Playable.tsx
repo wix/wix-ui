@@ -130,7 +130,6 @@ class PlayablePlayer extends React.PureComponent<
 
   componentWillUnmount() {
     if (this.player) {
-      this.player.getElement().removeEventListener('contextmenu', this._handleRightClick);
       this.player.destroy();
     }
     this.eventEmitter.removeAllListeners();
@@ -157,6 +156,7 @@ class PlayablePlayer extends React.PureComponent<
       alwaysShowLogo,
       modules,
       hideMainUI,
+      preventContextMenu,
     } = this.props;
 
     const preload = (!poster ? 'metadata' : this.props.preload) as PreloadType;
@@ -176,9 +176,9 @@ class PlayablePlayer extends React.PureComponent<
       texts,
       hideOverlay: true,
       hideMainUI,
+      preventContextMenu,
     });
 
-    this.player.getElement().addEventListener('contextmenu', this._handleRightClick);
     this._hidePlayableUI();
 
     if (!showTitle) {
@@ -256,7 +256,6 @@ class PlayablePlayer extends React.PureComponent<
           [styles.transparentOverlay]: !poster,
         })}
         onClick={this.onPlayClick}
-        onContextMenu={this._handleRightClick}
         data-hook="cover"
       >
         {poster && <img src={poster} alt={description} className={styles.poster}/>}
@@ -281,8 +280,6 @@ class PlayablePlayer extends React.PureComponent<
   onPlayClick = (): void => {
     this.player.play();
   };
-
-  _handleRightClick = event => event.preventDefault();
 
   render() {
     return (
