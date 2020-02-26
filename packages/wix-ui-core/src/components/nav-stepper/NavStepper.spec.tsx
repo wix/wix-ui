@@ -18,8 +18,8 @@ describe('NavStepper', () => {
       </NavStepper>,
     );
 
-    expect(driver.root.tagName).toBe('NAV');
-    expect(driver.root.firstElementChild.tagName).toBe('OL');
+    expect(driver.root().tagName).toBe('NAV');
+    expect(driver.root().firstElementChild.tagName).toBe('OL');
     expect(driver.stepContentAt(0)).toBe('First Step');
   });
 
@@ -40,7 +40,7 @@ describe('NavStepper', () => {
         <NavStepper.Step>First Step</NavStepper.Step>
       </NavStepper>,
     );
-    expect(driver.activeStep.attributes['aria-current'].value).toBe('page');
+    expect(driver.activeStep().attributes['aria-current'].value).toBe('page');
   });
 
   it('should pass disabled state to disabled children', async () => {
@@ -81,7 +81,7 @@ describe('NavStepper', () => {
         <NavStepper.Step value={5}>First Step</NavStepper.Step>
       </NavStepper>,
     );
-    expect(driver.activeStep.value).toBe(5);
+    expect(driver.activeStep().value).toBe(5);
   });
 
   it('notifies on step click', async () => {
