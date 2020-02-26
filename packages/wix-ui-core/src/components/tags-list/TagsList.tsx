@@ -12,12 +12,14 @@ export interface TagsListProps {
   className?: string;
   onChange?(e: React.FormEvent<HTMLDivElement>): void;
   children?: React.ReactNode;
+  singleSelection?: boolean;
 }
 
 export const TagsList: React.FunctionComponent<TagsListProps> = ({
   children,
   className,
   onChange = noop,
+  singleSelection = false,
   ...rest
 } = {}) => (
   <div
@@ -29,7 +31,7 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
     {...rest}
   >
     {React.Children.map(children, (child, tagIndex) =>
-      React.cloneElement(child as any, { tagIndex }),
+      React.cloneElement(child as any, { tagIndex, singleSelection }),
     )}
   </div>
 );

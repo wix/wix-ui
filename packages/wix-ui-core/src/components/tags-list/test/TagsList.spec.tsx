@@ -67,6 +67,30 @@ describe('TagsList', () => {
 
       await expect(runTest()).resolves.not.toThrow();
     });
+
+    describe('single selection', () => {
+        let driver, onChangeSpy;
+
+        beforeEach(async () => {
+            onChangeSpy = jest.fn();
+            driver = await createDriver(
+                <TagsList onChange={onChangeSpy} singleSelection>
+                    {
+                        [0, 1, 2].map(idx => (
+                            <Tag key={`tag-${idx}`} label={`label-${idx}`} value={`value-${idx}`}>Tag {idx}</Tag>
+                        ))
+                    }
+                </TagsList>
+            );
+        });
+
+        it('should render radio buttons instead of checkboxes', async () => {
+            await driver.clickOnTagByIndex(0);
+            console.log('adler', 'TagsList.spec.tsx:89', onChangeSpy.mock.calls[0][0].target.tagName);
+            expect(onChangeSpy.mock.calls[0][0].target.tagName.toLowerCase()).toBe('input');
+            expect(onChangeSpy.mock.calls[0][0].target.getAttribute('type')).toBe('radio');
+        });
+    });
   });
 
   describe('Tag', () => {
