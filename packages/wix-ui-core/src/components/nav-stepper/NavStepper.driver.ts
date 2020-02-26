@@ -19,7 +19,7 @@ export class NavStepperDriver implements BaseDriver {
   constructor(private readonly element: Element) {}
 
   /**  returns the root element */
-  get root() {
+  root() {
     return this.element;
   }
 
@@ -46,7 +46,7 @@ export class NavStepperDriver implements BaseDriver {
   clickOnStep = (index: number) => Simulate.click(this.stepAt(index));
 
   /** returns the active step element */
-  get activeStep() {
+  activeStep() {
     return Array.from<HTMLLIElement>(
       this.element.getElementsByTagName('li'),
     ).find(step => this.hasStyleState(step, 'active'));
