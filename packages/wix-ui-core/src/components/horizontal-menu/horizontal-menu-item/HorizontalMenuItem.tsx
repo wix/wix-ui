@@ -45,8 +45,8 @@ export class HorizontalMenuItem extends React.PureComponent<
   };
 
   menuItemRef: React.RefObject<HTMLLIElement> = React.createRef();
-  hideTimeout: NodeJS.Timeout | void;
-  showTimeout: NodeJS.Timeout | void;
+  hideTimeout: any;
+  showTimeout: any;
 
   // Wait 16.6 version and use this way
   // Wait 16.8 and use Hooks for contexts
