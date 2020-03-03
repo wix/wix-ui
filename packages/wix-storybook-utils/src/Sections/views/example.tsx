@@ -15,7 +15,7 @@ export const example = (
   storyConfig: StoryConfig,
 ): React.ReactNode => (
   <Layout>
-    <Cell span={3}>
+    <Cell span={4}>
       {console.log(section)}
       {sectionWithSiblings(
         description({
@@ -26,7 +26,7 @@ export const example = (
       )}
     </Cell>
 
-    <Cell span={9}>
+    <Cell span={8}>
       {sectionWithSiblings(code(section), codeView(section))}
     </Cell>
   </Layout>

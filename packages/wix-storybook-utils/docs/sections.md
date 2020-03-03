@@ -11,6 +11,7 @@ import {
   columns,
   description,
   divider,
+  example,
   header,
   importexample,
   mdx,
@@ -139,7 +140,9 @@ code('<div>hello there</div>')
 | `compact` |boolean|setting this to true would hide source code under "show code" button|
 | `components` |||
 | `darkBackground` |boolean|set to `true` if dark background should be enabled by default|
+| `initiallyOpen` |boolean|set to `true` to expand code editor in compact mode|
 | `interactive` |boolean|set to false if code example is read only|
+| `noBackground` |boolean|set to `true` if background should be transparent (override darkBackground)|
 | `previewProps` |object||
 | `source` **required** |string|string of source code to be used in code section|
 
@@ -168,6 +171,25 @@ Description section is used for regular text blocks.
 
 ## `divider()` section
 Divider section is used to visually divide other sections by rendering a horizontal line. Currently supports no parameters.
+
+---
+
+## `example()` section
+Example section is a combination of description and code playground, put in a predefined layout. It shall be used for
+specific component usage examples
+
+| Property | Type | Description |
+|---|---|---|
+| `autoRender` |boolean|by default `code` section automatically renders top level component given in `source`.|
+| `compact` |boolean|setting this to true would hide source code under "show code" button|
+| `components` |||
+| `darkBackground` |boolean|set to `true` if dark background should be enabled by default|
+| `initiallyOpen` |boolean|set to `true` to expand code editor in compact mode|
+| `interactive` |boolean|set to false if code example is read only|
+| `noBackground` |boolean|set to `true` if background should be transparent (override darkBackground)|
+| `previewProps` |object||
+| `source` **required** |string|string of source code to be used in code section|
+| `text` **required** |string||
 
 ---
 
