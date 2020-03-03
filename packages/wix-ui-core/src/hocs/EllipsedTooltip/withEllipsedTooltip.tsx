@@ -79,9 +79,12 @@ class EllipsedTooltip extends React.Component<
       this.props.showTooltip &&
       this.textNode &&
       this.textNode.offsetWidth < this.textNode.scrollWidth;
-    this.setState({
-      isEllipsisActive,
-    });
+
+    if (isEllipsisActive !== this.state.isEllipsisActive) {
+      this.setState({
+        isEllipsisActive,
+      });
+    }
   };
 
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
