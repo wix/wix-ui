@@ -17,6 +17,7 @@ export enum SectionType {
   Testkit = 'testkit',
   Title = 'title',
   Plugin = 'plugin',
+  Example = 'example',
 }
 
 export interface StorySection {
@@ -40,7 +41,8 @@ export type Section =
   | TabsSection
   | MDXSection
   | TitleSection
-  | PluginSection;
+  | PluginSection
+  | ExampleSection;
 
 export type PluginHandler = (
   section: PluginSection,
@@ -121,6 +123,17 @@ export interface CodeSection extends StorySection {
 
   /** set to `true` if background should be transparent (override darkBackground) */
   noBackground?: boolean;
+
+  /** set to `true` to expand code editor in compact mode */
+  initiallyOpen?: boolean;
+}
+
+/** Example section is a combination of description and code playground, put in a predefined layout. It shall be used for
+ * specific component usage examples
+ */
+export interface ExampleSection extends CodeSection, StorySection {
+  title: string;
+  text: string;
 }
 
 /** Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into

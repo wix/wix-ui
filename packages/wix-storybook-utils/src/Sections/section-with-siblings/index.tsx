@@ -1,24 +1,32 @@
 import * as React from 'react';
 
-import { Section, SectionType } from '../../typings/story-section';
+import {
+  Section,
+  SectionType,
+  ImportExampleSection,
+} from '../../typings/story-section';
 import Markdown from '../../Markdown';
 
 import styles from './styles.scss';
 
-const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
-const SECTIONS_WITHOUT_SIBLINGS = [SectionType.Title, SectionType.Header];
+export const SIBLINGS = ['pretitle', 'title', 'subtitle', 'description'];
+const SECTIONS_WITHOUT_SIBLINGS = [
+  SectionType.Title,
+  SectionType.Header,
+  SectionType.Example,
+];
 
 const sectionPrepares = {
-  [SectionType.ImportExample]: (section: Section) => ({
+  [SectionType.ImportExample]: (section: ImportExampleSection) => ({
     ...section,
     title: section.title || 'Import',
   }),
 };
 
 const prepareSection = (section: Section) => {
-  const preparedSection = (sectionPrepares[section.type] || ((i: any) => i))(
-    section,
-  );
+  const preparedSection = (
+    sectionPrepares[section.type] || ((i: unknown) => i)
+  )(section);
 
   const siblingsWithDiv = SIBLINGS.filter(
     sibling => preparedSection[sibling],

@@ -19,6 +19,7 @@ import { divider } from './divider';
 import { header } from './header';
 import { title } from './title';
 import { plugin } from './plugin';
+import { example } from './example';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -47,6 +48,7 @@ const views = {
   divider,
   title,
   plugin,
+  example,
 };
 
 export const getView = type => views[type] || (i => i);
