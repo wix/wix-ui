@@ -17,6 +17,7 @@ export enum SectionType {
   Testkit = 'testkit',
   Title = 'title',
   Plugin = 'plugin',
+  Example = 'example',
 }
 
 export interface StorySection {
@@ -40,7 +41,8 @@ export type Section =
   | TabsSection
   | MDXSection
   | TitleSection
-  | PluginSection;
+  | PluginSection
+  | ExampleSection;
 
 export type PluginHandler = (
   section: PluginSection,
@@ -121,6 +123,47 @@ export interface CodeSection extends StorySection {
 
   /** set to `true` if background should be transparent (override darkBackground) */
   noBackground?: boolean;
+
+  /** set to `true` to expand code editor in compact mode */
+  initiallyOpen?: boolean;
+}
+
+/** Usage section is a combination of description and code playground, put in a predefined layout. It shall be used for
+ * specific component usage examples
+ */
+export interface ExampleSection extends StorySection {
+  title: string;
+  text: string;
+
+  /** string of source code to be used in code playground */
+  source: string;
+
+  /** map of component references, same as in `code` section */
+  components?: { [s: string]: React.ReactNode };
+
+  /** setting this to true would hide source code under "show code" button */
+  compact?: boolean;
+
+  /** set to false if code example is read only */
+  interactive?: boolean;
+
+  /** by default `code` section automatically renders top level component given in `source`.
+   *
+   * In cases where there are multiple components (written as stateful class, for example):
+   *
+   * 1. set `autoRender: false`
+   * 2. in source code call globally available `render` function and pass a component which should be rendered in preview: `render(MyComponent)`.
+   * */
+  autoRender?: boolean;
+
+  /** set to `true` if dark background should be enabled by default */
+  darkBackground?: boolean;
+
+  /** set to `true` if background should be transparent (override darkBackground) */
+  noBackground?: boolean;
+
+  /** set to `true` to expand code editor in compact mode */
+  initiallyOpen?: boolean;
 }
 
 /** Tab section is used to nest other sections. It is useful when author desires to, for example, split story page into

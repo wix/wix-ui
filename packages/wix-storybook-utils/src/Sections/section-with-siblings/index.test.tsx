@@ -1,13 +1,13 @@
 import { mount } from 'enzyme';
 
-import { sectionWithSiblings } from '.';
+import { SIBLINGS, sectionWithSiblings } from '.';
 import { ImportExampleSection } from '../../typings/story-section';
 import Markdown from '../../Markdown';
 
 import * as sectionBuilders from '../';
 
 describe('sectionWithSiblings', () => {
-  ['title', 'header'].map(section => {
+  ['title', 'header', 'example'].map(section => {
     it(`should not render siblings for ${section} section`, () => {
       const expectation = `${section} without siblings`;
 
@@ -23,7 +23,9 @@ describe('sectionWithSiblings', () => {
         ),
       );
 
-      expect(rendered.text()).toEqual(expectation);
+      SIBLINGS.map(sibling => {
+        expect(rendered.find(`.${sibling}`).exists()).toBe(false);
+      });
     });
   });
 

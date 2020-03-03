@@ -144,3 +144,16 @@ describe('plugin section', () => {
     expect(output.storyConfig).toBe(mockStoryConfig);
   });
 });
+
+describe('example section', () => {
+  it('should set `compact` to true by default', () => {
+    const source = 'hello world';
+    expect(builders.example({ source })).toEqual(
+      expect.objectContaining({ source, compact: true }),
+    );
+
+    expect(builders.example({ source, compact: false })).toEqual(
+      expect.objectContaining({ source, compact: false }),
+    );
+  });
+});

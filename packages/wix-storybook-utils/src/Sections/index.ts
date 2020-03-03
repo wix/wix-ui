@@ -17,6 +17,7 @@ import {
   TabsSection,
   TestkitSection,
   TitleSection,
+  ExampleSection,
 } from '../typings/story-section';
 
 // functions exported in this file are used as builders for `sections` array in story config. they are typed
@@ -129,5 +130,12 @@ export const title = (config: string | Partial<DividerSection>): TitleSection =>
 export const plugin = (config: Partial<PluginSection>): PluginSection =>
   base({
     type: SectionType.Plugin,
+    ...config,
+  });
+
+export const example = (config: Partial<ExampleSection>): ExampleSection =>
+  base({
+    type: SectionType.Example,
+    compact: true,
     ...config,
   });
