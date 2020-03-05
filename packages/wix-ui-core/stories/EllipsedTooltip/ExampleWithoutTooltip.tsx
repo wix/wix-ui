@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { withEllipsedTooltipNext } from '../../src/hocs/EllipsedTooltip';
+import { withEllipsedTooltip } from '../../src/hocs/EllipsedTooltip';
 
 const Text = ({ children, ...rest }) => <span {...rest}>{children}</span>;
 
-const EllipsedText = withEllipsedTooltipNext({ showTooltip: false })(Text);
+const EllipsedText = withEllipsedTooltip({ showTooltip: false })(Text);
 
 export default () => (
   <div style={{ width: '170px', background: 'azure' }}>
