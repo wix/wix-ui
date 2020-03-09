@@ -54,7 +54,9 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
   process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
     ? require('./components/Popper').default
     : React.lazy(() =>
-        import(/* webpackPrefetch: true */ './components/Popper'),
+        import(
+          /* webpackPrefetch: true, webpackChunkName: "Popper" */ './components/Popper'
+        ),
       ),
 ) as (key: number) => React.ComponentType<PopperProps>;
 
@@ -217,14 +219,14 @@ export class PopoverNext extends React.Component<
     const Popper = lazyPopperFactory(cacheId);
 
     return (
-      <React.Suspense fallback={<Loader />}>
-        <Portal node={this.portalNode}>
-          <CSSTransition
-            timeout={this.props.timeout}
-            shouldAnimate={shouldAnimate}
-            detachStyles={detachStyles}
-            shown={shown}
-          >
+      <Portal node={this.portalNode}>
+        <CSSTransition
+          timeout={this.props.timeout}
+          shouldAnimate={shouldAnimate}
+          detachSyles={detachStyles}
+          shown={shown}
+        >
+          <React.Suspense fallback={<Loader />}>
             <Popper
               {...this.props}
               appendTo={appendTo}
@@ -235,9 +237,9 @@ export class PopoverNext extends React.Component<
             >
               {childrenObject.Content}
             </Popper>
-          </CSSTransition>
-        </Portal>
-      </React.Suspense>
+          </React.Suspense>
+        </CSSTransition>
+      </Portal>
     );
   }
 
@@ -348,10 +350,13 @@ export class PopoverNext extends React.Component<
     }
   }
 
-  recoverFromError = () =>
-    this.setState(state => ({
-      cacheId: state.cacheId + 1,
-    }));
+  recoverFromError = event =>
+    this.setState(
+      state => ({
+        cacheId: state.cacheId + 1,
+      }),
+      () => this.props.onMouseLeave && this.props.onMouseLeave(event),
+    );
 
   updatePosition() {
     if (this.popperScheduleUpdate) {

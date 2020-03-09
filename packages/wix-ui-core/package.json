@@ -41,7 +41,12 @@
   },
   "scripts": {
     "prebuild": "npm run update-components && npm run update-components-standalone",
+<<<<<<< HEAD
     "build": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
+=======
+    "storybook:production": "NODE_ENV=production build-storybook && npx serve ./storybook-static",
+    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
+>>>>>>> <PopoverNext/> - improved error boundary
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run lint",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
@@ -76,7 +81,8 @@
     "build-puppeteer-testkits": "webpack --config ./scripts/puppeteer.webpack.config.js",
     "test:browser": "wix-ui-mocha-runner",
     "update-components": "bash .wuf/update-components.sh",
-    "update-components-standalone": "bash .wuf/update-components-standalone.sh"
+    "update-components-standalone": "bash .wuf/update-components-standalone.sh",
+    "fix-ui-core-ns": "stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/src --unsr true --log true --js false && stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/es/src --unsr true --log true --js false"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^1.0.7",
@@ -104,6 +110,7 @@
     "wix-ui-test-utils": "^1.0.151"
   },
   "devDependencies": {
+    "@stylable/node": "^1.3.1",
     "@storybook/react": "5.0.0",
     "@stylable/cli": "^1.2.11",
     "@stylable/core": "^1.0.7",

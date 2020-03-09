@@ -16,19 +16,19 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
       return (
         <div
           style={{
-            color: '#162d3d',
+            color: '#4f4f4f',
             fontSize: '14px',
-            display: 'inline',
-            padding: '0 11px',
-            fontWeight: 400,
+            lineHeight: '1.33',
+            padding: '9px',
             borderRadius: '6px',
-            backgroundColor: 'red',
-            borderColor: '#FFD7D7',
+            backgroundColor: '#f2f1ef',
+            border: '1px dotted #4f4f4f',
             zIndex: 10000,
           }}
           onClick={this.props.onRetry}
         >
-          Something happend with your network. Click here to retry.
+          Uh-oh! Failed to load.
+          <br /> Please click to refresh.
         </div>
       );
     }
