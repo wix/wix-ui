@@ -41,6 +41,7 @@
   },
   "scripts": {
     "prebuild": "npm run update-components && npm run update-components-standalone",
+    "storybook:production": "NODE_ENV=production build-storybook && npx serve ./storybook-static",
     "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run lint",
@@ -70,6 +71,7 @@
     "bundles:generate": "NODE_ENV=production node ./scripts/bundlify-components/bundlify.js",
     "build:named-exports": "node scripts/create-named-export.js",
     "transpile-mixins": "babel src/mixins -d dist/src/mixins && babel src/mixins -d dist/es/src/mixins",
+    "generate": "wuf generate --templates .wuf/generator/templates --codemods .wuf/generator/codemods --output src/components",
     "generate-stylable-components": "stc --srcDir=\"./dist/src/components\" --diagnostics --indexFile=index.st.css",
     "generate-es-stylable-components": "stc --srcDir=\"./dist/es/src/components\" --diagnostics --indexFile=index.es.st.css",
     "generate-stylable-hocs": "stc --srcDir=\"./dist/src/hocs\" --diagnostics --indexFile=hocs.st.css && npm run generate-es-stylable-hocs",
@@ -78,7 +80,8 @@
     "build-puppeteer-testkits": "webpack --config ./scripts/puppeteer.webpack.config.js",
     "test:browser": "wix-ui-mocha-runner",
     "update-components": "bash .wuf/update-components.sh",
-    "update-components-standalone": "bash .wuf/update-components-standalone.sh"
+    "update-components-standalone": "bash .wuf/update-components-standalone.sh",
+    "fix-ui-core-ns": "stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/src --unsr true --log true --js false && stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/es/src --unsr true --log true --js false"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^1.0.7",
@@ -106,8 +109,9 @@
     "wix-ui-test-utils": "^1.0.151"
   },
   "devDependencies": {
+    "@stylable/node": "^1.3.1",
     "@storybook/react": "5.0.0",
-    "@stylable/cli": "^1.4.0",
+    "@stylable/cli": "^1.2.11",
     "@stylable/core": "^1.0.7",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
