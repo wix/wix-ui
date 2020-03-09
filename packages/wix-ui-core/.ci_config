@@ -8,5 +8,5 @@
   ],
   "pr_env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
   "env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
-  "publishOnPr": "true",
+  "publishOnPr": "true"
 }
