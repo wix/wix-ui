@@ -41,7 +41,7 @@
   },
   "scripts": {
     "prebuild": "npm run update-components && npm run update-components-standalone",
-    "build": "yoshi build && npm run patch-stylable && npm run transpile-mixins && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
+    "build": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run lint",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
