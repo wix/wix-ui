@@ -14,6 +14,11 @@ const tasks = [
     entryFile: 'hocs',
     description: 'stylable - hocs',
   },
+  {
+    task: () => require('./tasks/transpile-patch-export'),
+    folder: 'mixins',
+    description: 'stylable - hocs',
+  },
 ];
 
 const STEPS = tasks.length;
