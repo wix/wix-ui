@@ -6,7 +6,7 @@
     "wix-ui-core:a11y",
     "wix-ui-core:performance"
   ],
-  "pr_env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
+  "pr_env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122",  "node.publish": "" },
   "env_params" : { "env.NPM_CI_SCRIPTS_VERSION": "3.0.122" },
   "publishOnPr": "true"
 }
