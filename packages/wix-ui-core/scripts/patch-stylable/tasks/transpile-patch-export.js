@@ -6,20 +6,20 @@ module.exports = function({folder, entryFile}) {
 
 
   const patchCJS = execa.command(
-    `stc --srcDir=./src/${folder}/ --stcss true --outDir=./dist/src/${folder} --useNamespaceReference true`,
+    `stc --srcDir=./src/${folder}/ --stcss=true --js=false --outDir=./dist/src/${folder} --useNamespaceReference`,
   );
 
   const patchES = execa.command(
-    `stc --srcDir=./src/${folder}/ --stcss true --outDir=./dist/es/src/${folder} --useNamespaceReference true`,
+    `stc --srcDir=./src/${folder}/ --stcss=true --js=false --outDir=./dist/es/src/${folder} --useNamespaceReference`,
   );
 
   if(entryFile) {
     entryFileCJS = execa.command(
-      `stc --srcDir=./dist/src/${folder} --diagnostics --indexFile=${entryFile}.st.css`,
+      `stc --srcDir=./dist/src/${folder} --indexFile=${entryFile}.st.css`,
     );
   
    entryFileES = execa.command(
-      `stc --srcDir=./dist/es/src/${folder} --diagnostics --indexFile=${entryFile}.es.st.css`,
+      `stc --srcDir=./dist/es/src/${folder} --indexFile=${entryFile}.es.st.css`,
     );
   }
 

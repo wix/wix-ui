@@ -17,7 +17,17 @@ const tasks = [
   {
     task: () => require('./tasks/transpile-patch-export'),
     folder: 'mixins',
-    description: 'stylable - hocs',
+    description: 'stylable - mixins',
+  },
+  {
+    task: () => require('./tasks/transpile-patch-export'),
+    folder: 'themes',
+    description: 'stylable - themes',
+  },
+  {
+    task: () => require('./tasks/transpile-patch-export'),
+    folder: 'common',
+    description: 'stylable - common',
   },
 ];
 
