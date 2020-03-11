@@ -206,7 +206,7 @@ export class PopoverNext extends React.Component<
     const grabScheduleUpdater = scheduleUpdate =>
       (this.popperScheduleUpdate = scheduleUpdate);
 
-    const detachSyles = () =>
+    const detachStyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
     const shouldAnimate = shouldAnimatePopover(this.props.timeout);
@@ -221,7 +221,7 @@ export class PopoverNext extends React.Component<
           <CSSTransition
             timeout={this.props.timeout}
             shouldAnimate={shouldAnimate}
-            detachSyles={detachSyles}
+            detachStyles={detachStyles}
             shown={shown}
           >
             <Popper
