@@ -40,9 +40,11 @@ const resolveWidth = ({
   };
 };
 
+export type MoveBy = Partial<{ x: number; y: number }>;
+
 export interface ModifiersParams {
   width?: string | number;
-  moveBy?: Partial<{ x: number; y: number }>;
+  moveBy?: MoveBy;
   appendTo?: Boundary | Element;
   placement: Placement;
   shouldAnimate: boolean;
