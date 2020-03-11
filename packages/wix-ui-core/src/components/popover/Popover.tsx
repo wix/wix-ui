@@ -81,7 +81,7 @@ export interface PopoverProps {
    */
   fixed?: boolean;
   /** Moves popover relative to the parent */
-  moveBy?: { x: number; y: number };
+  moveBy?: Partial<{ x: number; y: number }>;
   /** Hide Delay in ms */
   hideDelay?: number;
   /** Show Delay in ms */
