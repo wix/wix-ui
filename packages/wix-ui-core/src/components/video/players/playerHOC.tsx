@@ -57,9 +57,13 @@ export default function playerHOC(
     }
 
     private _callPlayer(method: string | Function, ...args): any {
-      const player: IPlayerAPI = this.ref.player;
+      if (!this.ref || !this.ref.player) {
+        return;
+      }
 
       try {
+        const player: IPlayerAPI = this.ref.player;
+
         if (typeof method === 'string') {
           return player[method](...args);
         }
