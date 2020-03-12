@@ -23,6 +23,8 @@ export interface LinearProgressBarProps {
   max?: number;
   /** Number of decimal points to keep when normalizing value */
   precision?: number;
+  /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+  'data-hook'?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -118,7 +120,7 @@ const getAriaAttributes = (
 export const LinearProgressBar: React.FunctionComponent<
   LinearProgressBarProps
 > = (props: LinearProgressBarProps) => {
-  const { error, showProgressIndication } = props;
+  const { error, showProgressIndication, 'data-hook': dataHook } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
@@ -129,6 +131,7 @@ export const LinearProgressBar: React.FunctionComponent<
       data-error={error}
       role="progressbar"
       {...style('root', { error, success }, _props)}
+      {...(dataHook && { 'data-hook': dataHook })}
     >
       {renderBarSection(_props.value)}
 
