@@ -3,7 +3,7 @@ import { CSSTransition as Transition } from 'react-transition-group';
 import styles from '../../popover/Popover.st.css';
 
 const CSSTransition = props => {
-  const { shown, timeout, children, shouldAnimate, detachSyles } = props;
+  const { shown, timeout, children, shouldAnimate, detachStyles } = props;
 
   return shouldAnimate ? (
     <Transition
@@ -16,7 +16,7 @@ const CSSTransition = props => {
         exit: styles['popoverAnimation-exit'],
         exitActive: styles['popoverAnimation-exit-active'],
       }}
-      onExited={detachSyles}
+      onExited={detachStyles}
     >
       {children}
     </Transition>

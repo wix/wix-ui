@@ -24,6 +24,7 @@ import {
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 import * as classNames from 'classnames';
+import { MoveBy } from './utils/getModifiers';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 let testId;
@@ -81,7 +82,7 @@ export interface PopoverProps {
    */
   fixed?: boolean;
   /** Moves popover relative to the parent */
-  moveBy?: Partial<{ x: number; y: number }>;
+  moveBy?: MoveBy;
   /** Hide Delay in ms */
   hideDelay?: number;
   /** Show Delay in ms */

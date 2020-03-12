@@ -5,6 +5,7 @@ import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
 
 import { ClickOutside } from '../click-outside';
+import { MoveBy } from '../popover/utils/getModifiers';
 import ErrorBoundary from './components/ErrorBoundary';
 import CSSTransition from './components/CSSTransition';
 import Loader from './components/Loader';
@@ -93,7 +94,7 @@ export interface PopoverNextProps {
    */
   fixed?: boolean;
   /** Moves popover relative to the parent */
-  moveBy?: Partial<{ x: number; y: number }>;
+  moveBy?: MoveBy;
   /** Hide Delay in ms */
   hideDelay?: number;
   /** Show Delay in ms */
@@ -206,7 +207,7 @@ export class PopoverNext extends React.Component<
     const grabScheduleUpdater = scheduleUpdate =>
       (this.popperScheduleUpdate = scheduleUpdate);
 
-    const detachSyles = () =>
+    const detachStyles = () =>
       detachStylesFromNode(this.portalNode, this.stylesObj);
 
     const shouldAnimate = shouldAnimatePopover(this.props.timeout);
@@ -221,7 +222,7 @@ export class PopoverNext extends React.Component<
           <CSSTransition
             timeout={this.props.timeout}
             shouldAnimate={shouldAnimate}
-            detachSyles={detachSyles}
+            detachStyles={detachStyles}
             shown={shown}
           >
             <Popper
