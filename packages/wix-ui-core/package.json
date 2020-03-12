@@ -41,12 +41,7 @@
   },
   "scripts": {
     "prebuild": "npm run update-components && npm run update-components-standalone",
-<<<<<<< HEAD
     "build": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
-=======
-    "storybook:production": "NODE_ENV=production build-storybook && npx serve ./storybook-static",
-    "build": "npm run build:named-exports && yoshi build && (npm run generate-stylable-components | npm run generate-es-stylable-components) && npm run generate-stylable-hocs && npm run transpile-mixins && (npm run import-path | npm run build:named-exports) && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
->>>>>>> <PopoverNext/> - improved error boundary
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run lint",
     "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
