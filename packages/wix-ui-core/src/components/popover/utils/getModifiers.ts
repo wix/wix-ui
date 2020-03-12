@@ -42,7 +42,7 @@ const resolveWidth = ({
 
 export interface ModifiersParams {
   width?: string | number;
-  moveBy?: { x: number; y: number };
+  moveBy?: Partial<{ x: number; y: number }>;
   appendTo?: Boundary | Element;
   placement: Placement;
   shouldAnimate: boolean;
