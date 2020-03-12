@@ -218,6 +218,10 @@ export class PopoverNext extends React.Component<
 
     const Popper = lazyPopperFactory(cacheId);
 
+    // Here we need to put React.Suspense under the CSSTransition wrapper
+    // because CSSTransition still uses findDomNode which causes this part to fail with suspense.
+    // The issues is fixed in React 16.9.0.
+    // Current downside of this that we are not able to render Loader when appendTo="window".
     return (
       <Portal node={this.portalNode}>
         <CSSTransition
