@@ -77,7 +77,6 @@
     "test:browser": "wix-ui-mocha-runner",
     "update-components": "bash .wuf/update-components.sh",
     "update-components-standalone": "bash .wuf/update-components-standalone.sh",
-    "fix-ui-core-ns": "stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/src --unsr true --log true --js false && stc --srcDir ./node_modules/wix-ui-core/src --outDir ./node_modules/wix-ui-core/dist/es/src --unsr true --log true --js false"
   },
   "dependencies": {
     "@stylable/dom-test-kit": "^1.0.7",
