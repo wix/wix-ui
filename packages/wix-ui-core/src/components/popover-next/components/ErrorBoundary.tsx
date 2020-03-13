@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Refresh from 'wix-ui-icons-common/Refresh';
 
 class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   constructor(props) {
@@ -16,19 +17,21 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
       return (
         <div
           style={{
-            color: '#162d3d',
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            color: '#4f4f4f',
             fontSize: '14px',
-            display: 'inline',
-            padding: '0 11px',
-            fontWeight: 400,
+            lineHeight: '1.33',
+            padding: '9px',
             borderRadius: '6px',
-            backgroundColor: 'red',
-            borderColor: '#FFD7D7',
+            backgroundColor: '#f2f1ef',
+            border: '1px dotted #4f4f4f',
             zIndex: 10000,
           }}
           onClick={this.props.onRetry}
         >
-          Something happend with your network. Click here to retry.
+          <Refresh /> Uh-oh! Failed to load. Click to refresh.
         </div>
       );
     }
