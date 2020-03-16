@@ -11,7 +11,9 @@
   cursor: pointer;
 }
 
-.content {}
+.content {
+  width: inherit;
+}
 
 .prefix {
   flex-shrink: 0;
