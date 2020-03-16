@@ -10,7 +10,7 @@ import { makeTagUniDriver, TagUniDriver } from './Tag.uni.driver';
 
 export interface TagsListUniDriver extends BaseUniDriver {
   getTagCount(): Promise<number>;
-  clickOnTagByIndex(): Promise<void>;
+  clickOnTagByIndex(index?: number): Promise<void>;
   getTagByIndex(index?: number): TagUniDriver;
   getTags(): any;
 }
