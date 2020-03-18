@@ -16,7 +16,6 @@ export const example = (
 ): React.ReactNode => (
   <Layout>
     <Cell span={4}>
-      {console.log(section)}
       {sectionWithSiblings(
         description({
           ...section,
