@@ -1,11 +1,10 @@
 import {
   Avatar,
-  Modal,
+  SIZE,
   Button,
   Media,
   MediaProps,
   Text,
-  SIZE,
   TextButton as WSRTextButton,
   RadioGroup,
   RadioButton,
