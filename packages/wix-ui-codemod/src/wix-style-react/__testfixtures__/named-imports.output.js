@@ -6,6 +6,7 @@ import {
   MediaProps,
   Text,
   TextButton as WSRTextButton,
+  Modal,
   RadioGroup,
   RadioButton,
   PopoverMenuNext as PopoverMenu,
