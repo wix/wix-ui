@@ -32,6 +32,7 @@ export interface ICommonProps {
   onFirstPlay?: Function;
   onFirstEnded?: Function;
   onError?: Function;
+  isResponsiveMode?: boolean;
 }
 
 export interface IDailyMotionConfig {
