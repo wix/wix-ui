@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as memoizeOneModule from 'memoize-one';
-import * as loadable from '@loadable/component';
+import loadable from '@loadable/component';
 
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
@@ -54,11 +54,11 @@ const memoizeOne = memoizeOneModule.default || memoizeOneModule;
 type LoadablePopper = PopperProps & { fallback: any };
 
 const lazyPopperFactory = (memoizeOne as any)(key =>
-  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'test'
     ? require('./components/Popper').default
     : loadable(() =>
         import(
-          /* webpackPrefetch: true, webpackChunkName: "wix-ui-popper" */ './components/Popper'
+          /* webpackPrefetch: true, webpackChunkName: "wuc-popover-next" */ './components/Popper'
         ),
       ),
 ) as (key: number) => React.ComponentType<LoadablePopper>;
