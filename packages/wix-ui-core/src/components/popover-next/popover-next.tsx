@@ -58,7 +58,7 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
     ? require('./components/Popper').default
     : loadable(() =>
         import(
-          /* webpackPrefetch: true, webpackChunkName: "Popper" */ './components/Popper'
+          /* webpackPrefetch: true, webpackChunkName: "wix-ui-popper" */ './components/Popper'
         ),
       ),
 ) as (key: number) => React.ComponentType<LoadablePopper>;
