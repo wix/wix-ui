@@ -48,6 +48,8 @@ export interface PaginationProps {
   width?: number;
   showFirstPage?: boolean;
   showLastPage?: boolean;
+  showNextLabel?: boolean;
+  showPreviousLabel?: boolean;
   showInputModeTotalPages?: boolean;
   responsive?: boolean;
   maxPagesToShow?: number;
@@ -73,6 +75,8 @@ export class Pagination extends React.Component<
     showFirstLastNavButtons: false,
     showFirstPage: false,
     showLastPage: false,
+    showNextLabel: true,
+    showPreviousLabel: true,
     responsive: false,
     paginationMode: 'pages',
     showInputModeTotalPages: false,
@@ -286,10 +290,10 @@ export class Pagination extends React.Component<
 
     const disabled =
       this.props.disabled ||
-      (((type === ButtonType.First || type === ButtonType.Prev) &&
+      ((type === ButtonType.First || type === ButtonType.Prev) &&
         currentPage <= 1) ||
-        ((type === ButtonType.Last || type === ButtonType.Next) &&
-          currentPage >= totalPages));
+      ((type === ButtonType.Last || type === ButtonType.Next) &&
+        currentPage >= totalPages);
 
     const [btnClass, label, page] = {
       [ButtonType.Prev]: [
@@ -336,7 +340,13 @@ export class Pagination extends React.Component<
   }
 
   public render() {
-    const { showFirstLastNavButtons, width, style } = this.props;
+    const {
+      showFirstLastNavButtons,
+      showNextLabel,
+      showPreviousLabel,
+      width,
+      style,
+    } = this.props;
 
     const styleStates = {
       disabled: this.props.disabled,
@@ -356,8 +366,8 @@ export class Pagination extends React.Component<
         style={style || { width }}
         {...pStyle('root', styleStates, this.props)}
       >
-        {this.renderNavButton(ButtonType.Next)}
-        {this.renderNavButton(ButtonType.Prev)}
+        {showNextLabel && this.renderNavButton(ButtonType.Next)}
+        {showPreviousLabel && this.renderNavButton(ButtonType.Prev)}
         {this.renderPages()}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.Last)}
