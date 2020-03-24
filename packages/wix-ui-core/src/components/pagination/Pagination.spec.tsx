@@ -417,6 +417,20 @@ describe('Pagination', () => {
       expect(p.nextButton.textContent).toEqual('next-label');
       expect(p.lastButton.textContent).toEqual('last-label');
     });
+
+    it('does not render previous and next buttons when disabled'),
+      async () => {
+        const p = await render(
+          <Pagination
+            totalPages={7}
+            maxPagesToShow={4}
+            showNextLabel={false}
+            showPreviousLabel={false}
+          />,
+        );
+        expect(p.nextButton).toBeFalsy();
+        expect(p.previousButton).toBeFalsy();
+      };
   });
 
   describe('Keyboard and mouse interaction', () => {
