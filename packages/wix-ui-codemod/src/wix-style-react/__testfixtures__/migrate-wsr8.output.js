@@ -1,15 +1,38 @@
 import React from 'react';
-import { Page, Tooltip, Text } from 'wix-style-react';
+import { Page, Tooltip, Text, Card } from 'wix-style-react';
 
-export class AutoscrollablePage extends React.Component {
+export default class extends React.Component {
   render() {
     return (
-      <Page>
-        <Tooltip
-          appendTo="window"
-          content="Enter your postal code, so postman can easier send you a mail.">
-          <Text>Hover me</Text>
-        </Tooltip>
+      <Page dataHook="shipping-label-page">
+        <Page.Header title="header title" showBackButton={true} />
+        <Page.Content>
+          <Card>
+            <Card.Header>
+              <Text>Awesome text</Text>
+            </Card.Header>
+            <Card.Divider />
+
+            <Card.Content>
+              <Tooltip appendTo="window" content={<div>content</div>}>
+                <Text>Hover me</Text>
+              </Tooltip>
+            </Card.Content>
+          </Card>
+
+          <Card>
+            <Card.Header>
+              <Text>Awesome text #2</Text>
+            </Card.Header>
+            <Card.Divider />
+
+            <Card.Content>
+              <Tooltip appendTo="window" content={<div>content</div>}>
+                <Text>Hover me</Text>
+              </Tooltip>
+            </Card.Content>
+          </Card>
+        </Page.Content>
       </Page>
     );
   }
