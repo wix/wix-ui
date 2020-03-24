@@ -50,7 +50,7 @@ describe('Pagination', () => {
         <Pagination totalPages={5} showFirstLastNavButtons />,
       );
 
-      expect(p.nextButton.compareDocumentPosition(p.previousButton)).toEqual(
+      expect(p.firstButton.compareDocumentPosition(p.previousButton)).toEqual(
         Node.DOCUMENT_POSITION_FOLLOWING,
       );
 
@@ -58,13 +58,14 @@ describe('Pagination', () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
       );
 
-      expect(p.pageStrip.compareDocumentPosition(p.firstButton)).toEqual(
+      expect(p.pageStrip.compareDocumentPosition(p.nextButton)).toEqual(
         Node.DOCUMENT_POSITION_FOLLOWING,
       );
 
-      expect(p.firstButton.compareDocumentPosition(p.lastButton)).toEqual(
+      expect(p.nextButton.compareDocumentPosition(p.lastButton)).toEqual(
         Node.DOCUMENT_POSITION_FOLLOWING,
       );
+
     });
 
     it('has aria-label attribute on pages', async () => {
@@ -416,6 +417,18 @@ describe('Pagination', () => {
       expect(p.previousButton.textContent).toEqual('previous-label');
       expect(p.nextButton.textContent).toEqual('next-label');
       expect(p.lastButton.textContent).toEqual('last-label');
+    });
+
+    it('does not show previous and next buttons when disabled', async () => {
+      const p = await render(
+        <Pagination
+          totalPages={5}
+          showNextLabel={false}
+          showPreviousLabel={false}
+        />,
+      );
+      expect(p.nextButton).toBe(null);
+      expect(p.previousButton).toBe(null);
     });
   });
 
