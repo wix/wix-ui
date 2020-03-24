@@ -1,5 +1,10 @@
 import { Transform, JSXAttribute } from 'jscodeshift';
 
+const get = (obj, path) =>
+  path
+    .split('.')
+    .reduce((res, part) => (res && res[part] ? res[part] : undefined), obj);
+
 const transform: Transform = (file, api) => {
   const j = api.jscodeshift;
   const root = j(file.source);
@@ -43,8 +48,8 @@ const transform: Transform = (file, api) => {
       all.push(curr);
       if (
         j.JSXClosingElement.check(curr.closingElement) &&
-        curr.closingElement.name.object.name === 'Card' &&
-        curr.closingElement.name.property.name === 'Header'
+        get(curr, 'closingElement.name.object.name') === 'Card' &&
+        get(curr, 'closingElement.name.property.name') === 'Header'
       ) {
         all.push('\n', cardDividerNode, '\n');
       }
