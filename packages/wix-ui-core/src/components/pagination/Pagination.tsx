@@ -366,10 +366,10 @@ export class Pagination extends React.Component<
         style={style || { width }}
         {...pStyle('root', styleStates, this.props)}
       >
-        {showNextLabel && this.renderNavButton(ButtonType.Next)}
+        {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showPreviousLabel && this.renderNavButton(ButtonType.Prev)}
         {this.renderPages()}
-        {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
+        {showNextLabel && this.renderNavButton(ButtonType.Next)}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.Last)}
       </nav>
     );
