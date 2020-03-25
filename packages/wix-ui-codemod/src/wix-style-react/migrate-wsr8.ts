@@ -22,6 +22,23 @@ const transform: Transform = (file, api) => {
   // remove `upgrade` prop from `Page` & `Tooltip` components
   removeAttributeFromPaths(findByName('Page'), 'upgrade');
   removeAttributeFromPaths(findByName('Tooltip'), 'upgrade');
+  removeAttributeFromPaths(findByName('DropdownLayout'), 'theme');
+  removeAttributeFromPaths(findByName('Tag'), 'wrap');
+  removeAttributeFromPaths(findByName('BarChart'), 'deprecatedColors');
+  removeAttributeFromPaths(findByName('Loader'), 'shouldLoadAsync');
+  removeAttributeFromPaths(findByName('LinearProgressBar'), 'shouldLoadAsync');
+  removeAttributeFromPaths(
+    findByName('CircularProgressBar'),
+    'shouldLoadAsync',
+  );
+  removeAttributeFromPaths(
+    findByName('InputWithOptions'),
+    'disableClickOutsideWhenClosed',
+  );
+  removeAttributeFromPaths(
+    findByName('Popover'),
+    'disableClickOutsideWhenClosed',
+  );
 
   const cardHeaderPaths = root.find(j.JSXOpeningElement, {
     name: { object: { name: 'Card' }, property: { name: 'Header' } },

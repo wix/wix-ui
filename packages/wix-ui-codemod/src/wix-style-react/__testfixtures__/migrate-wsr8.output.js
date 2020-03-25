@@ -1,5 +1,18 @@
 import React from 'react';
-import { Page, Tooltip, Text, Card } from 'wix-style-react';
+import {
+  Page,
+  Tooltip,
+  Text,
+  Card,
+  DropdownLayout,
+  Tag,
+  BarChart,
+  CircularProgressBar,
+  LinearProgressBar,
+  Loader,
+  InputWithOptions,
+  Popover,
+} from 'wix-style-react';
 
 export default class extends React.Component {
   render() {
@@ -10,12 +23,18 @@ export default class extends React.Component {
           <Card>
             <Card.Header>
               <Text>Awesome text</Text>
+              <InputWithOptions />
             </Card.Header>
             <Card.Divider />
 
             <Card.Content>
               <Tooltip appendTo="window" content={<div>content</div>}>
                 <Text>Hover me</Text>
+                <CircularProgressBar />
+                <LinearProgressBar />
+                <Loader />
+                <Tag />
+                <Popover />
               </Tooltip>
             </Card.Content>
           </Card>
@@ -23,12 +42,13 @@ export default class extends React.Component {
           <Card>
             <Card.Header>
               <Text>Awesome text #2</Text>
+              <BarChart />
             </Card.Header>
             <Card.Divider />
 
             <Card.Content>
               <Tooltip appendTo="window" content={<div>content</div>}>
-                <Text>Hover me</Text>
+                <DropdownLayout />
               </Tooltip>
             </Card.Content>
           </Card>
