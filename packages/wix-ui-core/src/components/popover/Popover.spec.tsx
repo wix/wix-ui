@@ -170,7 +170,9 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         );
 
         await driver.clickOutside();
-        expect(onClickOutside).toBeCalled();
+        await eventually(async () => {
+          expect(onClickOutside).toBeCalled();
+        });
       });
 
       it('should not trigger onClickOutside when clicking inside with an excluded class', async () => {
@@ -190,7 +192,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
       });
     });
 
-    describe.skip('onClickOutside + disableClickOutsideWhenClosed', () => {
+    describe('onClickOutside + disableClickOutsideWhenClosed', () => {
       it('should be triggered when outside of the popover is called', async () => {
         const onClickOutside = jest.fn();
 
@@ -203,7 +205,12 @@ function runTests(createDriver, container, popoverWithProps, Component) {
           }),
         );
 
+        await eventually(async () => {
+          await driver.isContentElementExists();
+        });
+
         await driver.clickOutside();
+
         expect(onClickOutside).toBeCalled();
       });
 
@@ -241,6 +248,10 @@ function runTests(createDriver, container, popoverWithProps, Component) {
               appendTo: value,
             }),
           );
+
+          await eventually(async () => {
+            await driver.isContentElementExists();
+          });
 
           await driver.clickOnContent();
           expect(onClickOutside).not.toBeCalled();
