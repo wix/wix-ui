@@ -516,7 +516,9 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         }),
       );
 
-      expect(await driver.isContentElementExists()).toBe(true);
+      await eventually(async () => {
+        expect(await driver.isContentElementExists()).toBe(true);
+      });
     });
 
     it(`should show the popover immediately when delays are 0`, async () => {
@@ -530,7 +532,6 @@ function runTests(createDriver, container, popoverWithProps, Component) {
       );
 
       expect(queryPopoverContent()).toBeNull();
-
       await createDriver(
         popoverWithProps({
           placement: 'bottom',
@@ -540,7 +541,9 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         }),
       );
 
-      expect(queryPopoverContent()).toBeTruthy();
+      await eventually(async () => {
+        expect(queryPopoverContent()).toBeTruthy();
+      });
 
       // Close again the popover
       await createDriver(
@@ -991,6 +994,10 @@ function runTests(createDriver, container, popoverWithProps, Component) {
           customArrow,
         }),
       );
+
+      await eventually(async () => {
+        expect(await driver.isContentElementExists()).toBe(true);
+      });
 
       const arrowElement = await driver.getArrowElement();
       expect(arrowElement.getAttribute('data-test')).toBe('custom-arrow-top');
