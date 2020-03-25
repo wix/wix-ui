@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as memoizeOneModule from 'memoize-one';
+import loadable from '@loadable/component';
 
 import { Placement, Boundary } from 'popper.js';
 import { Manager, Reference } from 'react-popper';
@@ -50,15 +51,17 @@ if (isTestEnv) {
 // https://github.com/alexreardon/memoize-one/pull/40
 const memoizeOne = memoizeOneModule.default || memoizeOneModule;
 
+type LoadablePopper = PopperProps & { fallback: any };
+
 const lazyPopperFactory = (memoizeOne as any)(key =>
-  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'test'
     ? require('./components/Popper').default
-    : React.lazy(() =>
+    : loadable(() =>
         import(
-          /* webpackPrefetch: true, webpackChunkName: "Popper" */ './components/Popper'
+          /* webpackPrefetch: true, webpackChunkName: "wuc-popover-next" */ './components/Popper'
         ),
       ),
-) as (key: number) => React.ComponentType<PopperProps>;
+) as (key: number) => React.ComponentType<LoadablePopper>;
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -230,18 +233,17 @@ export class PopoverNext extends React.Component<
           detachSyles={detachStyles}
           shown={shown}
         >
-          <React.Suspense fallback={<Loader />}>
-            <Popper
-              {...this.props}
-              appendTo={appendTo}
-              isTestEnv={isTestEnv}
-              contentHook={this.contentHook}
-              grabScheduleUpdater={grabScheduleUpdater}
-              shouldAnimate={shouldAnimate}
-            >
-              {childrenObject.Content}
-            </Popper>
-          </React.Suspense>
+          <Popper
+            {...this.props}
+            fallback={<Loader />}
+            appendTo={appendTo}
+            isTestEnv={isTestEnv}
+            contentHook={this.contentHook}
+            grabScheduleUpdater={grabScheduleUpdater}
+            shouldAnimate={shouldAnimate}
+          >
+            {childrenObject.Content}
+          </Popper>
         </CSSTransition>
       </Portal>
     );
