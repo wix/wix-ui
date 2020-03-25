@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import { sleep } from 'wix-ui-test-utils/react-helpers';
 import { Pagination } from './Pagination';
 import { PaginationDriver } from './Pagination.private.driver';
+import { paginationDriverFactory } from './Pagination.uni.driver';
 import style from './Pagination.st.css';
 import testStyle from './PaginationTest.st.css';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
@@ -25,6 +25,10 @@ describe('Pagination', () => {
       .render(jsx)
       /* tslint:disable-next-line:no-non-null-assertion */
       .then(() => new PaginationDriver(container.componentNode!));
+
+  const createDriver = container.createUniRendererAsync(
+    paginationDriverFactory,
+  );
 
   describe('Accessibility', () => {
     it('has <nav> as the root node', async () => {
@@ -65,7 +69,6 @@ describe('Pagination', () => {
       expect(p.nextButton.compareDocumentPosition(p.lastButton)).toEqual(
         Node.DOCUMENT_POSITION_FOLLOWING,
       );
-
     });
 
     it('has aria-label attribute on pages', async () => {
@@ -102,15 +105,16 @@ describe('Pagination', () => {
 
   describe('Page numbers mode', () => {
     it('selects the first page by default', async () => {
-      const p = await render(<Pagination totalPages={5} />);
-
-      expect(p.currentPage.textContent).toBe('1');
+      const driver = await createDriver(<Pagination totalPages={5} />);
+      expect(await driver.getCurrentPage()).toBe(1);
     });
 
     it('selects given currentPage', async () => {
-      const p = await render(<Pagination totalPages={5} currentPage={5} />);
+      const driver = await createDriver(
+        <Pagination totalPages={5} currentPage={5} />,
+      );
 
-      expect(p.currentPage.textContent).toBe('5');
+      expect(await driver.getCurrentPage()).toBe(5);
     });
 
     it('calls onChange on page click', async () => {
@@ -160,19 +164,17 @@ describe('Pagination', () => {
 
   describe('Compact mode', () => {
     it('shows the total amount of pages', async () => {
-      const p = await render(
+      const driver = await createDriver(
         <Pagination paginationMode="compact" totalPages={5} />,
       );
-
-      expect(p.totalPagesLabel.textContent).toEqual('5');
+      expect(await driver.getTotalPages()).toBe(5);
     });
 
     it('shows the current page label', async () => {
-      const p = await render(
+      const driver = await createDriver(
         <Pagination paginationMode="compact" currentPage={2} totalPages={5} />,
       );
-
-      expect(p.currentPage.textContent).toBe('2');
+      expect(await driver.getCurrentPage()).toBe(2);
     });
 
     it('has correct order of elements', async () => {
@@ -452,12 +454,12 @@ describe('Pagination', () => {
 
     it('allows to select items using mouse', async () => {
       const onChange = jest.fn();
-      const p = await render(
-        <Pagination totalPages={3} currentPage={1} onChange={onChange} />,
+      const driver = await createDriver(
+        <Pagination totalPages={3} currentPage={2} onChange={onChange} />,
       );
 
-      Simulate.click(p.nextButton);
-      Simulate.click(p.getPage(2));
+      await driver.clickNextButton();
+      await driver.clickPreviousButton();
       expect(onChange).toHaveBeenCalledTimes(2);
     });
   });
