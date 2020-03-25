@@ -9,8 +9,10 @@
     background-color: #000;
 }
 
-.playerContainer_facebook {
-    display: block !important;
+.responsiveMode {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
 .playerContainer iframe {
