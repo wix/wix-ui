@@ -44,7 +44,6 @@ const ImportHandlersFactory = (j, path, results) => ({
   },
 });
 
-
 const transform: Transform = (fileInfo, api, options) => {
   const j = api.jscodeshift;
   const root = j(fileInfo.source);

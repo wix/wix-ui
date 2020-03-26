@@ -24,12 +24,9 @@ export default class extends React.Component {
         <Page.Header title="header title" showBackButton={true} />
         <Page.Content>
           <Card>
-            <Card.Header>
-              <Text>Awesome text</Text>
-              <InputWithOptions />
-            </Card.Header>
+            <Card.Header />
             <Card.Divider />
-
+            <InputWithOptions />
             <Card.Content>
               <Tooltip
                 appendTo="window"
@@ -49,16 +46,23 @@ export default class extends React.Component {
           </Card>
 
           <Card>
-            <Card.Header>
-              <Text>Awesome text #2</Text>
-              <BarChart />
-            </Card.Header>
+            <Card.Header />
             <Card.Divider />
-
+            <Text>Awesome text #2</Text>
+            <BarChart />
             <Card.Content>
               <Tooltip appendTo="window" content={<div>content</div>}>
                 <DropdownLayout />
               </Tooltip>
+
+              <Card>
+                <Card.Header title="Dont touch me" />
+              </Card>
+
+              <Card>
+                <Card.Header title="Insert divider here" />
+                <Card.Divider />
+              </Card>
             </Card.Content>
           </Card>
         </Page.Content>
