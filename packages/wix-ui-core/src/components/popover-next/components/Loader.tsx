@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './Loader.st.css';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <div className={styles.root}>
       <div></div>
@@ -11,5 +11,3 @@ const Loader = () => {
     </div>
   );
 };
-
-export default Loader;

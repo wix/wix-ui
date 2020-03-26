@@ -1,77 +1,62 @@
 import * as React from 'react';
-import { Manager, Reference } from 'react-popper';
 
-import { ClickOutside } from '../click-outside';
 import {
   createComponentThatRendersItsChildren,
   buildChildrenObject,
 } from '../../utils';
+import { testId } from './utils';
 
-import styles from '../popover/Popover.st.css';
+import { Manager, Trigger, Content } from './components-x';
 
 export const PopoverNext = props => {
   //props and states
   const [shown, setShown] = React.useState(false);
+  const [cacheId, setCacheId] = React.useState(1);
 
   //refs
-  const clickOutsideRef = React.createRef<HTMLElement>();
-  const referenceRef = React.createRef<HTMLElement>();
+  const referenceRef = React.createRef<HTMLDivElement>();
 
   //local variables
-  const contentHook = null;
+  const contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
 
   //callback handlers
-  const _handleClickOutside = () => {
-    const { onClickOutside } = props;
-    onClickOutside && onClickOutside();
+  const { onClickOutside, onMouseLeave } = props;
+
+  const _onClickOutside = () => onClickOutside && onClickOutside();
+  const _onErrorRecovery = () => {
+    onMouseLeave && onMouseLeave();
+    setCacheId(cacheId + 1);
   };
 
-  //render handlers
-  const renderElement = children => {
-    const { onClick, onKeyDown } = props;
-    return (
-      <Reference innerRef={referenceRef}>
-        {({ ref }) => (
-          <div
-            ref={ref}
-            data-hook="popover-element"
-            className={styles.popoverElement}
-            onClick={onClick}
-            onKeyDown={onKeyDown}
-          >
-            {children}
-          </div>
-        )}
-      </Reference>
-    );
-  };
+  const { onMouseEnter, onClick, onKeyDown } = props;
 
-  const { onMouseEnter, onMouseLeave, excludeClass, style, children } = props;
-
-  const childrenObject = buildChildrenObject(children, {
+  const children = buildChildrenObject(props.children, {
     Element: null,
     Content: null,
   });
 
   return (
-    <Manager>
-      <ClickOutside
-        rootRef={clickOutsideRef}
-        onClickOutside={shown ? _handleClickOutside : undefined}
-        excludeClass={excludeClass ? excludeClass : styles.popover}
+    <Manager
+      {...props}
+      cacheId={cacheId}
+      dataHook={props['data-hook']}
+      data-content-hook={contentHook}
+      onClickOutside={_onClickOutside}
+      onErrorRecovery={_onErrorRecovery}
+    >
+      <Trigger
+        dataHook="popover-element"
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onKeyDown={onKeyDown}
+        referenceRef={referenceRef}
       >
-        <div
-          {...style('root', {}, props)}
-          ref={clickOutsideRef}
-          style={style}
-          data-hook={props['data-hook']}
-          data-content-hook={contentHook}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          {renderElement()}
-        </div>
-      </ClickOutside>
+        {children.Element}
+      </Trigger>
+      <Content cacheId={cacheId} shown={shown}>
+        {children.Content}
+      </Content>
     </Manager>
   );
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Refresh from 'wix-ui-icons-common/Refresh';
 
-class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
+export class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -38,5 +38,3 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

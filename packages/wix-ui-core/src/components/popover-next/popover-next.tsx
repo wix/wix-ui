@@ -7,7 +7,7 @@ import { Manager, Reference } from 'react-popper';
 
 import { ClickOutside } from '../click-outside';
 import { MoveBy } from '../popover/utils/getModifiers';
-import ErrorBoundary from './components/ErrorBoundary';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import CSSTransition from './components/CSSTransition';
 import Loader from './components/Loader';
 import Portal from './components/Portal';

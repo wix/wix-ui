@@ -59,28 +59,8 @@ const Popper: React.FC<PopperProps> = ({
   children,
   id,
   role,
-  shouldAnimate,
-  width,
-  moveBy,
-  appendTo,
-  flip,
-  fixed,
-  minWidth,
-  dynamicWidth,
-  isTestEnv,
+  modifiers,
 }) => {
-  const modifiers = getModifiers({
-    shouldAnimate,
-    width,
-    moveBy,
-    appendTo,
-    flip,
-    fixed,
-    placement,
-    isTestEnv,
-    minWidth,
-    dynamicWidth,
-  });
   return (
     <ReactPopper modifiers={modifiers} placement={placement}>
       {({

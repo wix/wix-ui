@@ -8,7 +8,7 @@ export interface PortalProps {
   node?: any;
 }
 
-class Portal extends React.PureComponent<PortalProps> {
+export class Portal extends React.PureComponent<PortalProps> {
   render() {
     if (!canUseDOM) {
       return null;
@@ -19,5 +19,3 @@ class Portal extends React.PureComponent<PortalProps> {
     return ReactDOM.createPortal(this.props.children, this.props.node);
   }
 }
-
-export default Portal;
