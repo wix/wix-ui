@@ -12,6 +12,8 @@ import {
   Loader,
   InputWithOptions,
   Popover,
+  StatisticsWidget,
+  PopoverMenuNext,
 } from 'wix-style-react';
 
 export default class extends React.Component {
@@ -34,6 +36,8 @@ export default class extends React.Component {
                 <Loader shouldLoadAsync />
                 <Tag wrap />
                 <Popover disableClickOutsideWhenClosed />
+                <StatisticsWidget statistics={[]} />
+                <PopoverMenuNext flip fixed dataHook="popover-menu" />
               </Tooltip>
             </Card.Content>
           </Card>
