@@ -47,25 +47,21 @@ const transform: Transform = (file, api) => {
       );
     });
 
-  [
-    { component: 'Page', remove: 'upgrade' },
-    { component: 'Tooltip', remove: 'upgrade' },
-    { component: 'DropdownLayout', remove: 'theme' },
-    { component: 'Tag', remove: 'wrap' },
-    { component: 'BarChart', remove: 'deprecatedColors' },
-    { component: 'Loader', remove: 'shouldLoadAsync' },
-    { component: 'LinearProgressBar', remove: 'shouldLoadAsync' },
-    { component: 'CircularProgressBar', remove: 'shouldLoadAsync' },
-    {
-      component: 'InputWithOptions',
-      remove: 'disableClickOutsideWhenClosed',
-    },
-    { component: 'Popover', remove: 'disableClickOutsideWhenClosed' },
-    {
-      component: 'StatisticsWidget',
-      rename: { from: 'statistics', to: 'items' },
-    },
-  ].forEach(({ component, ...update }) =>
+  const updates = {
+    Page: { remove: 'upgrade' },
+    Tooltip: { remove: 'upgrade' },
+    DropdownLayout: { remove: 'theme' },
+    Tag: { remove: 'wrap' },
+    BarChart: { remove: 'deprecatedColors' },
+    Loader: { remove: 'shouldLoadAsync' },
+    LinearProgressBar: { remove: 'shouldLoadAsync' },
+    CircularProgressBar: { remove: 'shouldLoadAsync' },
+    InputWithOptions: { remove: 'disableClickOutsideWhenClosed' },
+    Popover: { remove: 'disableClickOutsideWhenClosed' },
+    StatisticsWidget: { rename: { from: 'statistics', to: 'items' } },
+  };
+
+  Object.entries(updates).forEach(([component, update]) =>
     updatePropName({ paths: findOpeningTag(component), ...update }),
   );
 
