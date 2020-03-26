@@ -81,17 +81,6 @@ const transform: Transform = (file, api) => {
       delete path.node.local;
     });
 
-  // migrate Card with `withoutDivider`
-  const cardHeaderPaths = root.find(j.JSXOpeningElement, {
-    name: { object: { name: 'Card' }, property: { name: 'Header' } },
-  });
-
-  // remove `withoutDivider` prop from `<Card.Header/>`
-  updatePropName({
-    paths: cardHeaderPaths,
-    remove: 'withoutDivider',
-  });
-
   // create <Card.Divider /> AST
   const cardDividerNode = j.jsxElement(
     j.jsxOpeningElement(
@@ -104,22 +93,42 @@ const transform: Transform = (file, api) => {
     ),
   );
 
-  // add <Card.Divider/> after </Card.Header>
-  cardHeaderPaths.forEach(cardHeaderPath => {
-    const cardChildren = cardHeaderPath.parentPath.parentPath.value;
-    const newChildren = cardChildren.reduce((all, curr) => {
-      all.push(curr);
-      if (
-        j.JSXClosingElement.check(curr.closingElement) &&
-        get(curr, 'closingElement.name.object.name') === 'Card' &&
-        get(curr, 'closingElement.name.property.name') === 'Header'
-      ) {
-        all.push('\n', cardDividerNode, '\n');
-      }
-      return all;
-    }, []);
+  // add <Card.Divider/> after <Card.Header withoutDivider />
+  root
+    .find(j.JSXOpeningElement, { name: { name: 'Card' } })
+    .forEach(cardPath => {
+      const cardChildren = cardPath.parentPath.value.children;
 
-    cardHeaderPath.parentPath.parentPath.replace(newChildren);
+      const headerIndice = cardChildren.reduce((acc, path, index) => {
+        if (
+          j.JSXOpeningElement.check(path.openingElement) &&
+          get(path, 'openingElement.name.object.name') === 'Card' &&
+          get(path, 'openingElement.name.property.name') === 'Header' &&
+          path.openingElement.selfClosing &&
+          get(path, 'openingElement.attributes').filter(
+            attribute => attribute.name.name === 'withoutDivider',
+          ).length === 1
+        ) {
+          acc.push(index);
+        }
+
+        return acc;
+      }, []);
+
+      headerIndice.reverse().forEach(index => {
+        cardChildren.splice(index + 1, 0, '\n', cardDividerNode);
+      });
+
+      cardPath.parentPath.value.children = cardChildren;
+    });
+
+  // remove `withoutDivider` prop from `<Card.Header/>`
+  updatePropName({
+    paths: root.find(j.JSXOpeningElement, {
+      name: { object: { name: 'Card' }, property: { name: 'Header' } },
+      attributes: [{ name: { name: 'withoutDivider' } }],
+    }),
+    remove: 'withoutDivider',
   });
 
   return root.toSource({

@@ -24,10 +24,8 @@ export default class extends React.Component {
         <Page.Header title="header title" showBackButton={true} />
         <Page.Content>
           <Card>
-            <Card.Header withoutDivider={true}>
-              <Text>Awesome text</Text>
-              <InputWithOptions disableClickOutsideWhenClosed />
-            </Card.Header>
+            <Card.Header withoutDivider={true} />
+            <InputWithOptions disableClickOutsideWhenClosed />
 
             <Card.Content>
               <Tooltip
@@ -48,15 +46,22 @@ export default class extends React.Component {
           </Card>
 
           <Card>
-            <Card.Header withoutDivider>
-              <Text>Awesome text #2</Text>
-              <BarChart deprecatedColors />
-            </Card.Header>
+            <Card.Header withoutDivider />
+            <Text>Awesome text #2</Text>
+            <BarChart deprecatedColors />
 
             <Card.Content>
               <Tooltip appendTo="window" content={<div>content</div>}>
                 <DropdownLayout theme="b2b" />
               </Tooltip>
+
+              <Card>
+                <Card.Header title="Dont touch me" />
+              </Card>
+
+              <Card>
+                <Card.Header withoutDivider title="Insert divider here" />
+              </Card>
             </Card.Content>
           </Card>
         </Page.Content>
