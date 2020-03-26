@@ -132,6 +132,7 @@ module.exports = {
     pascalCase: true
   },
   pagination: {
+    hasUnidriver: true,
     hasProtractorDriver: true,
     hasVanillaDriver: true,
     pascalCase: true
