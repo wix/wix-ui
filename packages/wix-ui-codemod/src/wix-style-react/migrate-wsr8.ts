@@ -1,4 +1,10 @@
-import { Transform, JSXAttribute, JSXIdentifier } from 'jscodeshift';
+import {
+  Transform,
+  JSXOpeningElement,
+  JSXAttribute,
+  JSXIdentifier,
+} from 'jscodeshift';
+import { Collection } from 'jscodeshift/src/Collection';
 
 const get = (obj, path) =>
   path
@@ -12,45 +18,56 @@ const transform: Transform = (file, api) => {
   const findOpeningTag = (name: string) =>
     root.find(j.JSXOpeningElement, { name: { name } });
 
-  // remove obsole props from a list of components
-  const updatePropName = (paths, propName: string) =>
+  const updatePropName = ({
+    paths,
+    rename,
+    remove,
+  }: {
+    paths: Collection<JSXOpeningElement>;
+    rename?: { from: string; to: string };
+    remove?: string;
+  }) =>
     paths.forEach(path => {
-      path.node.attributes = path.node.attributes.reduce(
-        (props: JSXAttribute[], prop: JSXAttribute) => {
-          if (propName && prop.name.name !== propName) {
-            props.push(prop);
+      (path.node as JSXOpeningElement).attributes = (path.node as JSXOpeningElement).attributes.reduce(
+        (props: JSXAttribute[], attribute: JSXAttribute) => {
+          if (j.JSXAttribute.check(attribute)) {
+            if (remove && attribute.name.name === remove) {
+              return props;
+            }
+
+            if (rename && attribute.name.name === rename.from) {
+              attribute.name.name = rename.to;
+            }
           }
+
+          props.push(attribute);
           return props;
         },
         [],
       );
     });
 
-  const removableProps = [
-    { component: 'Page', prop: 'upgrade' },
-    { component: 'Tooltip', prop: 'upgrade' },
-    { component: 'DropdownLayout', prop: 'theme' },
-    { component: 'Tag', prop: 'wrap' },
-    { component: 'BarChart', prop: 'deprecatedColors' },
-    { component: 'Loader', prop: 'shouldLoadAsync' },
-    { component: 'LinearProgressBar', prop: 'shouldLoadAsync' },
-    { component: 'CircularProgressBar', prop: 'shouldLoadAsync' },
-    { component: 'InputWithOptions', prop: 'disableClickOutsideWhenClosed' },
-    { component: 'Popover', prop: 'disableClickOutsideWhenClosed' },
-  ];
-
-  removableProps.forEach(({ component, prop }) =>
-    updatePropName(findOpeningTag(component), prop),
+  [
+    { component: 'Page', remove: 'upgrade' },
+    { component: 'Tooltip', remove: 'upgrade' },
+    { component: 'DropdownLayout', remove: 'theme' },
+    { component: 'Tag', remove: 'wrap' },
+    { component: 'BarChart', remove: 'deprecatedColors' },
+    { component: 'Loader', remove: 'shouldLoadAsync' },
+    { component: 'LinearProgressBar', remove: 'shouldLoadAsync' },
+    { component: 'CircularProgressBar', remove: 'shouldLoadAsync' },
+    {
+      component: 'InputWithOptions',
+      remove: 'disableClickOutsideWhenClosed',
+    },
+    { component: 'Popover', remove: 'disableClickOutsideWhenClosed' },
+    {
+      component: 'StatisticsWidget',
+      rename: { from: 'statistics', to: 'items' },
+    },
+  ].forEach(({ component, ...update }) =>
+    updatePropName({ paths: findOpeningTag(component), ...update }),
   );
-
-  // rename `statistics` prop to `items` in `StatisticsWidget`
-  findOpeningTag('StatisticsWidget').forEach(path => {
-    path.node.attributes.forEach((attribute: JSXAttribute) => {
-      if (attribute.name.name === 'statistics') {
-        attribute.name.name = 'items';
-      }
-    });
-  });
 
   // rename PopoverMenuNext to PopoverMenu
   findOpeningTag('PopoverMenuNext').forEach(path => {
@@ -74,7 +91,10 @@ const transform: Transform = (file, api) => {
   });
 
   // remove `withoutDivider` prop from `<Card.Header/>`
-  updatePropName(cardHeaderPaths, null /* falsy value removes prop */);
+  updatePropName({
+    paths: cardHeaderPaths,
+    remove: 'withoutDivider',
+  });
 
   // create <Card.Divider /> AST
   const cardDividerNode = j.jsxElement(

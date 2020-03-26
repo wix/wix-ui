@@ -18,6 +18,7 @@ import {
 
 export default class extends React.Component {
   render() {
+    const otherProps = { one: 1, two: 2, three: 3 };
     return (
       <Page dataHook="shipping-label-page">
         <Page.Header title="header title" showBackButton={true} />
@@ -30,7 +31,11 @@ export default class extends React.Component {
             <Card.Divider />
 
             <Card.Content>
-              <Tooltip appendTo="window" content={<div>content</div>}>
+              <Tooltip
+                appendTo="window"
+                content={<div>content</div>}
+                {...otherProps}
+              >
                 <Text>Hover me</Text>
                 <CircularProgressBar />
                 <LinearProgressBar />
