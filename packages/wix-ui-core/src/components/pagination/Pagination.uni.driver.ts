@@ -7,11 +7,17 @@ import { PaginationDataHooks as dataHooks } from './DataHooks';
 import { byDataHook } from '../../../test/utils/unidriver';
 
 export interface PaginationDriver extends BaseUniDriver {
+  /** Check if element is rendered */
   exists(): Promise<boolean>;
+  /** Returns currently selected page */
   getCurrentPage(): Promise<number>;
+  /** Returns a total amount of pages available */
   getTotalPages(): Promise<number>;
+  /** Clicks on gives page number */
   clickOnPage(page: number): Promise<void>;
+  /** Clicks on next button */
   clickNextButton(): Promise<void>;
+  /** Clicks on previous button */
   clickPreviousButton(): Promise<void>;
 }
 
