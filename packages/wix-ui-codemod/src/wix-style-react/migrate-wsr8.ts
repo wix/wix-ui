@@ -115,7 +115,7 @@ const transform: Transform = (file, api) => {
         return acc;
       }, []);
 
-      headerIndice.reverse().forEach(index => {
+      headerIndice.reverse().forEach((index: number) => {
         cardChildren.splice(index + 1, 0, '\n', cardDividerNode);
       });
 
