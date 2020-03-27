@@ -10,7 +10,7 @@ import { getDisplayName } from '../utils';
 import tooltipStyle from './EllipsedTooltip.st.css';
 
 interface EllipsedTooltipProps {
-  component: React.ReactElement | Function;
+  component: React.ReactElement;
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
@@ -90,7 +90,7 @@ class EllipsedTooltip extends React.Component<
     const { component, style } = this.props;
     return (
       <StateFullComponentWrap
-        className={textStyle.root}
+        {...textStyle('root', {}, component.props)}
         style={{
           ...style,
           whiteSpace: 'nowrap',
