@@ -7,33 +7,39 @@ import { PaginationDataHooks as dataHooks } from './DataHooks';
 import { byDataHook } from '../../../test/utils/unidriver';
 
 export interface PaginationDriver extends BaseUniDriver {
-  /** Check if element is rendered */
-  exists(): Promise<boolean>;
-  /** Returns currently selected page */
+  isVisible(): Promise<boolean>;
   getCurrentPage(): Promise<number>;
-  /** Returns a total amount of pages available */
   getTotalPages(): Promise<number>;
-  /** Clicks on gives page number */
   clickOnPage(page: number): Promise<void>;
-  /** Clicks on next button */
   clickNextButton(): Promise<void>;
-  /** Clicks on previous button */
   clickPreviousButton(): Promise<void>;
 }
 
 export const paginationDriverFactory = (base: UniDriver): PaginationDriver => {
   return {
     ...baseUniDriverFactory(base),
-    exists: async () => base.$(byDataHook(dataHooks.pageStrip)).exists(),
+
+    /** Check if element is rendered */
+    isVisible: async () => base.$(byDataHook(dataHooks.pageStrip)).exists(),
+
+    /** Returns currently selected page */
     getCurrentPage: async () =>
       parseInt(
         await base.$(`[data-hook~=${dataHooks.currentPage}]`).text(),
         10,
       ),
+
+    /** Returns a total amount of pages available */
     getTotalPages: async () =>
       parseInt(await base.$(byDataHook(dataHooks.totalPages)).text(), 10),
+
+    /** Clicks on gives page number */
     clickOnPage: async (n: number) => base.$(byDataHook(`page-${n}`)).click(),
+
+    /** Clicks on next button */
     clickNextButton: async () => base.$(byDataHook(dataHooks.next)).click(),
+
+    /** Clicks on previous button */
     clickPreviousButton: async () =>
       base.$(byDataHook(dataHooks.previous)).click(),
   };
