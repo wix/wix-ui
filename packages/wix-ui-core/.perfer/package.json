@@ -1,0 +1,14 @@
+{
+  "name": "components-bundles",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "author": {
+    "name": "Mykolas Sindeikis",
+    "email": "mykolass@wix.com"
+  },
+  "scripts": {
+    "build": "NODE_ENV=production yoshi build",
+    "analyse": "NODE_ENV=production yoshi build --analyze"
+  }
+}
