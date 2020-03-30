@@ -13,7 +13,7 @@ import { testkit } from './Popover.uni.driver';
 import styles from './Popover.st.css';
 
 /** PopoverNext  */
-import { PopoverNext } from '../popover-next/popover-next';
+import { PopoverNext } from '../popover-next/popover-next-next';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));
@@ -93,7 +93,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
   });
 
   describe('Display', () => {
-    it(`doesn't display popup when shown={false}`, async () => {
+    it.only(`doesn't display popup when shown={false}`, async () => {
       const driver = await createDriver(
         popoverWithProps({
           placement: 'bottom',
