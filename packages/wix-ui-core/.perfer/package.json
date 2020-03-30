@@ -9,6 +9,6 @@
   },
   "scripts": {
     "build": "NODE_ENV=production yoshi build",
-    "analyse": "NODE_ENV=production yoshi build --analyze"
+    "analyze": "NODE_ENV=production yoshi build --analyze"
   }
 }

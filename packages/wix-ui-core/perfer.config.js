@@ -43,7 +43,7 @@ module.exports = {
   bundleSize: {
     files: files.map(([name, size]) => ({
       maxSize: `${size}kb`,
-      glob: `bundles/${name}`,
+      glob: `.perfer/dist/statics/${name.replace('.js', '')}.bundle.min.js`,
     })),
   },
 };
