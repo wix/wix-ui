@@ -19,7 +19,7 @@ import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
 
 import style from '../popover/Popover.st.css';
 
-export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
+type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 export type MoveBy = Partial<{ x: number; y: number }>;
 
 export interface PopoverNextProps {
