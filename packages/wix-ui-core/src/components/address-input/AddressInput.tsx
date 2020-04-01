@@ -117,6 +117,8 @@ export type AddressInputProps = Pick<
   converterType?: Converter;
   /** Pass a custom class to the input element */
   inputClassName?: string;
+  /** popover z-index */
+  popoverZIndex?: number;
 };
 
 export interface AddressInputState {
@@ -474,6 +476,7 @@ export class AddressInput extends React.PureComponent<
       optionStyle,
       moveBy,
       inputClassName,
+      popoverZIndex,
     } = this.props;
     const options = this._options();
 
@@ -524,6 +527,7 @@ export class AddressInput extends React.PureComponent<
         moveBy={moveBy}
         emptyStateMessage={emptyStateMessage}
         emptyStateStyle={optionStyle}
+        popoverZIndex={popoverZIndex}
       />
     );
   }

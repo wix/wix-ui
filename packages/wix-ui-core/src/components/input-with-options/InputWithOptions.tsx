@@ -59,6 +59,8 @@ export type InputWithOptionsProps = Pick<
     emptyStateMessage?: string;
     /** Inline style to be passed to empty state message */
     emptyStateStyle?: React.CSSProperties;
+    /** popover z-index */
+    popoverZIndex?: number;
   };
 
 interface InputWithOptionsState {
@@ -224,6 +226,7 @@ export class InputWithOptions extends React.PureComponent<
       flip,
       fixed,
       moveBy,
+      popoverZIndex,
     } = this.props;
 
     const contentId = id ? `${id}-content` : null;
@@ -255,6 +258,7 @@ export class InputWithOptions extends React.PureComponent<
         onContentMouseDown={this._onContentMouseDown}
         contentId={contentId}
         onExpandedChange={this.changeExpanded}
+        popoverZIndex={popoverZIndex}
       >
         <Input
           data-hook={DataHooks.input}
