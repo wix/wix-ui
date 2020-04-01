@@ -1,18 +1,22 @@
 import { getPopoverTestUtils } from '../../popover/utils/getPopoverTestUtils';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
-let testId;
-const isTestEnv = process.env.NODE_ENV === 'test';
 
-if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
-  getPopoverTestUtils.createRange();
-}
+export const generateTestID = () => {
+  let testId;
 
-if (isTestEnv) {
-  testId = getPopoverTestUtils.generateId();
-}
+  const isTestEnv = process.env.NODE_ENV === 'test';
 
-export { testId };
+  if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
+    getPopoverTestUtils.createRange();
+  }
+
+  if (isTestEnv) {
+    testId = getPopoverTestUtils.generateId();
+  }
+
+  return testId;
+};
 
 export function getParentNode(element) {
   if (element.nodeName === 'HTML') {

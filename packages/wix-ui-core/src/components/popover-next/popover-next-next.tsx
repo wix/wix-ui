@@ -8,9 +8,9 @@ import {
 import {
   detachStylesFromNode,
   attachStylesToNode,
-} from '../../utils/stylableUtils';
+} from './utils/attachingStyles';
 
-import { testId } from './utils';
+import { generateTestID } from './utils';
 import { Manager, Trigger, Content } from './controllers';
 
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
@@ -112,6 +112,8 @@ export const PopoverNext = props => {
   const [shown, setShown] = React.useState(false);
   const [cacheId, setCacheId] = React.useState(1);
   const [isMounted, setMounted] = React.useState(false);
+  const [portalNode, setPortal] = React.useState(null);
+  const [stylesObj, setStylesObj] = React.useState(null);
 
   const { timeout, hideDelay, showDelay } = props;
 
@@ -119,10 +121,9 @@ export const PopoverNext = props => {
   const referenceRef = React.createRef<HTMLDivElement>();
 
   //local variables
-  const contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
+  const contentHook = `popover-content-${props['data-hook'] ||
+    ''}-${generateTestID()}`;
   const shouldAnimate = shouldAnimatePopover(timeout);
-  let portalNode = null;
-  let stylesObj = null;
   let appendToNode: HTMLElement = null;
   let popperScheduleUpdate: Function = null;
   let _hideTimeout = null;
@@ -136,10 +137,9 @@ export const PopoverNext = props => {
 
   const applyStylesToPortaledNode = () => {
     if (shouldAnimate || shown) {
-      attachStylesToNode(portalNode, stylesObj);
-    } else {
-      detachStylesFromNode(portalNode, stylesObj);
+      setPortal(attachStylesToNode(portalNode, stylesObj));
     }
+    setPortal(detachStylesFromNode(portalNode, stylesObj));
   };
 
   const updatePosition = () => {
@@ -190,11 +190,9 @@ export const PopoverNext = props => {
   React.useEffect(() => {
     const { appendTo } = props;
     appendToNode = getAppendToElement(appendTo, referenceRef.current);
-
     if (appendToNode) {
-      portalNode = document.createElement('div');
-      portalNode.setAttribute('data-hook', 'popover-portal');
-      portalNode.setAttribute('data-loaded', 'false');
+      const portal = document.createElement('div');
+      portal.setAttribute('data-hook', 'popover-portal');
       /**
        * reset overlay wrapping layer
        * so that styles from copied classnames
@@ -202,14 +200,16 @@ export const PopoverNext = props => {
        * - content is position relative to body
        * - overlay layer is hidden
        */
-      Object.assign(portalNode.style, {
+      Object.assign(portal.style, {
         position: 'static',
         top: 0,
         left: 0,
         width: 0,
         height: 0,
       });
-      appendToNode.appendChild(portalNode);
+
+      setPortal(portal);
+      appendToNode.appendChild(portal);
     }
 
     setMounted(true);
@@ -219,7 +219,7 @@ export const PopoverNext = props => {
       if (portalNode && appendToNode.children.length) {
         appendToNode.removeChild(portalNode);
       }
-      portalNode = null;
+      setPortal(null);
       setMounted(false);
       setShown(false);
     };
@@ -230,7 +230,8 @@ export const PopoverNext = props => {
     if (portalNode) {
       // Re-calculate the portal's styles
       const { ['data-hook']: omitted, ...rest } = props;
-      stylesObj = style('root', {}, rest);
+      setStylesObj(style('root', {}, rest));
+
       // Apply the styles to the portal
       applyStylesToPortaledNode();
     }
@@ -281,7 +282,7 @@ export const PopoverNext = props => {
       {...props}
       cacheId={cacheId}
       dataHook={dataHook}
-      data-content-hook={contentHook}
+      contentHook={contentHook}
       onClickOutside={_onClickOutside}
       onErrorRecovery={_onErrorRecovery}
     >
@@ -297,8 +298,8 @@ export const PopoverNext = props => {
       </Trigger>
       <Content
         shown={shown}
+        isMounted={isMounted}
         portalNode={portalNode}
-        popperOptions={{ placement }}
         dataHook="popover-content"
         cacheId={cacheId}
         contentHook={contentHook}
@@ -309,6 +310,7 @@ export const PopoverNext = props => {
           onAnimationExit: detachStyles,
           timeout,
         }}
+        popperOptions={{ placement }}
         arrowOptions={{ customArrow, moveArrowTo, showArrow }}
         accesibilityOptions={{ id, role }}
       >

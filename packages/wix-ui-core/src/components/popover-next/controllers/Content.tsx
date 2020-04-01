@@ -26,6 +26,7 @@ export interface ContentProps {
   shown: boolean;
   dataHook: string;
   cacheId: number;
+  isMounted: boolean;
   animationOptions: {
     animate?: boolean;
     onAnimationExit?(): void;
@@ -55,6 +56,7 @@ export const Content: React.ElementType<ContentProps> = props => {
     arrowOptions,
     accesibilityOptions,
     popperOptions,
+    isMounted,
   } = props;
 
   // dynamically loaded popper
@@ -76,7 +78,9 @@ export const Content: React.ElementType<ContentProps> = props => {
     </Popper>
   );
 
-  if (animationOptions.animate) {
+  const { animate } = animationOptions;
+
+  if (animate && isMounted) {
     return (
       <Portal node={portalNode}>
         <CSSTransition
