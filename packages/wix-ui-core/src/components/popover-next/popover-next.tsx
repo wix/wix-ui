@@ -5,22 +5,13 @@ import {
   createComponentThatRendersItsChildren,
   buildChildrenObject,
 } from '../../utils';
-import {
-  detachStylesFromNode,
-  attachStylesToNode,
-} from './utils/attachingStyles';
 
 import { generateTestID } from './utils';
 import { Manager, Trigger, Content } from './controllers';
 
-import { getAppendToElement, Predicate } from './utils/getAppendToElement';
-import { getModifiers } from './utils/getModifiers';
-import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
-
-import style from '../popover/Popover.st.css';
-
+type Predicate = (s: Element) => boolean;
 type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
-export type MoveBy = Partial<{ x: number; y: number }>;
+type MoveBy = Partial<{ x: number; y: number }>;
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -112,10 +103,6 @@ export const PopoverNext = props => {
   const [shown, setShown] = React.useState(false);
   const [cacheId, setCacheId] = React.useState(1);
   const [isMounted, setMounted] = React.useState(false);
-  const [portalNode, setPortal] = React.useState(null);
-  const [stylesObj, setStylesObj] = React.useState(null);
-
-  const { timeout, hideDelay, showDelay } = props;
 
   //refs
   const referenceRef = React.createRef<HTMLDivElement>();
@@ -123,28 +110,20 @@ export const PopoverNext = props => {
   //local variables
   const contentHook = `popover-content-${props['data-hook'] ||
     ''}-${generateTestID()}`;
-  const shouldAnimate = shouldAnimatePopover(timeout);
-  let appendToNode: HTMLElement = null;
-  let popperScheduleUpdate: Function = null;
-  let _hideTimeout = null;
-  let _showTimeout = null;
+
+  const popperScheduleUpdate = React.useRef<Function>();
+  const _hideTimeout = React.useRef<any>();
+  const _showTimeout = React.useRef<any>();
 
   //local handlers
-  const detachStyles = () => detachStylesFromNode(portalNode, stylesObj);
+  const { hideDelay, showDelay } = props;
 
   const grabScheduleUpdater = scheduleUpdate =>
-    (popperScheduleUpdate = scheduleUpdate);
-
-  const applyStylesToPortaledNode = () => {
-    if (shouldAnimate || shown) {
-      setPortal(attachStylesToNode(portalNode, stylesObj));
-    }
-    setPortal(detachStylesFromNode(portalNode, stylesObj));
-  };
+    (popperScheduleUpdate.current = scheduleUpdate);
 
   const updatePosition = () => {
-    if (popperScheduleUpdate) {
-      popperScheduleUpdate();
+    if (popperScheduleUpdate.current) {
+      popperScheduleUpdate.current();
     }
   };
 
@@ -153,13 +132,13 @@ export const PopoverNext = props => {
       return;
     }
 
-    if (_showTimeout) {
-      clearTimeout(_showTimeout);
-      _showTimeout = null;
+    if (_showTimeout.current) {
+      clearTimeout(_showTimeout.current);
+      _showTimeout.current = null;
     }
 
     if (hideDelay) {
-      _hideTimeout = setTimeout(() => setShown(false), hideDelay);
+      _hideTimeout.current = setTimeout(() => setShown(false), hideDelay);
       return;
     }
 
@@ -171,71 +150,40 @@ export const PopoverNext = props => {
       return;
     }
 
-    if (_hideTimeout) {
-      clearTimeout(_hideTimeout);
-      _hideTimeout = null;
+    if (_hideTimeout.current) {
+      clearTimeout(_hideTimeout.current);
+      _hideTimeout.current = null;
     }
 
     if (showDelay) {
-      _showTimeout = setTimeout(() => setShown(true), showDelay);
+      _showTimeout.current = setTimeout(() => setShown(true), showDelay);
       return;
     }
 
     return setShown(true);
   };
 
-  // component sideEffects
-
-  //componentDidMount && componentWillUnmount
+  //componentDidMount && unmount
   React.useEffect(() => {
-    const { appendTo } = props;
-    appendToNode = getAppendToElement(appendTo, referenceRef.current);
-    if (appendToNode) {
-      const portal = document.createElement('div');
-      portal.setAttribute('data-hook', 'popover-portal');
-      /**
-       * reset overlay wrapping layer
-       * so that styles from copied classnames
-       * won't break the overlay:
-       * - content is position relative to body
-       * - overlay layer is hidden
-       */
-      Object.assign(portal.style, {
-        position: 'static',
-        top: 0,
-        left: 0,
-        width: 0,
-        height: 0,
-      });
-
-      setPortal(portal);
-      appendToNode.appendChild(portal);
-    }
-
     setMounted(true);
     setShown(props.shown);
-
     return () => {
-      if (portalNode && appendToNode.children.length) {
-        appendToNode.removeChild(portalNode);
-      }
-      setPortal(null);
       setMounted(false);
-      setShown(false);
+
+      if (_hideTimeout) {
+        clearTimeout(_hideTimeout.current);
+        _hideTimeout.current = null;
+      }
+
+      if (_showTimeout) {
+        clearTimeout(_showTimeout.current);
+        _showTimeout.current = null;
+      }
     };
   }, []);
 
   //componentDidUpdate
   React.useEffect(() => {
-    if (portalNode) {
-      // Re-calculate the portal's styles
-      const { ['data-hook']: omitted, ...rest } = props;
-      setStylesObj(style('root', {}, rest));
-
-      // Apply the styles to the portal
-      applyStylesToPortaledNode();
-    }
-
     if (props.shown) {
       showPopover();
     } else {
@@ -260,22 +208,8 @@ export const PopoverNext = props => {
     Content: null,
   });
 
-  // controlling modifiers for popper
-  const modifiers = getModifiers({ ...props, shouldAnimate });
-
   // props for components
-  const {
-    ['data-hook']: dataHook,
-    role,
-    id,
-    onMouseEnter,
-    onClick,
-    onKeyDown,
-    customArrow,
-    moveArrowTo,
-    showArrow,
-    placement,
-  } = props;
+  const { ['data-hook']: dataHook, onMouseEnter, onClick, onKeyDown } = props;
 
   return (
     <Manager
@@ -297,22 +231,14 @@ export const PopoverNext = props => {
         {children.Element}
       </Trigger>
       <Content
+        {...props}
+        dataHook="popover-content"
         shown={shown}
         isMounted={isMounted}
-        portalNode={portalNode}
-        dataHook="popover-content"
         cacheId={cacheId}
         contentHook={contentHook}
-        modifiers={modifiers}
+        referenceRef={referenceRef}
         grabScheduleUpdater={grabScheduleUpdater}
-        animationOptions={{
-          animate: shouldAnimate,
-          onAnimationExit: detachStyles,
-          timeout,
-        }}
-        popperOptions={{ placement }}
-        arrowOptions={{ customArrow, moveArrowTo, showArrow }}
-        accesibilityOptions={{ id, role }}
       >
         {children.Content}
       </Content>

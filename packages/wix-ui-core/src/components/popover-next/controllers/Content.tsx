@@ -4,6 +4,11 @@ import * as memoizeOneModule from 'memoize-one';
 
 import { Portal, CSSTransition, Loader } from '../components';
 import { PopperProps } from '../components/Popper';
+import { PopoverNextProps } from '../popover-next';
+
+import { usePortalNode } from '../hooks/usePortalNode';
+import { getModifiers } from '../utils/getModifiers';
+import { shouldAnimatePopover } from '../utils/shouldAnimatePopover';
 
 // there is an issue with memoize-one package with typescript projects
 // https://github.com/alexreardon/memoize-one/pull/40
@@ -21,72 +26,78 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
       ),
 ) as (key: number) => React.ComponentType<LoadablePopper>;
 
-export interface ContentProps {
+export interface ContentProps extends PopoverNextProps {
   portalNode: Element;
   shown: boolean;
   dataHook: string;
   cacheId: number;
   isMounted: boolean;
-  animationOptions: {
-    animate?: boolean;
-    onAnimationExit?(): void;
-    timeout?: number | { enter: number; exit: number };
-  };
-  popperOptions: {
-    placement: PopperProps['placement'];
-  };
   contentHook: PopperProps['contentHook'];
-  modifiers: PopperProps['modifiers'];
-  arrowOptions: PopperProps['arrowOptions'];
-  accesibilityOptions: PopperProps['accesibilityOptions'];
   grabScheduleUpdater: PopperProps['grabScheduleUpdater'];
+  referenceRef: React.Ref<HTMLElement>;
 }
 
 export const Content: React.ElementType<ContentProps> = props => {
   const {
     dataHook,
-    portalNode,
     children,
     shown,
     contentHook,
     cacheId,
     grabScheduleUpdater,
-    modifiers,
-    animationOptions,
-    arrowOptions,
-    accesibilityOptions,
-    popperOptions,
     isMounted,
+    referenceRef,
+    ...rest
   } = props;
+
+  const {
+    timeout,
+    placement,
+    customArrow,
+    moveArrowTo,
+    showArrow,
+    id,
+    role,
+  } = rest;
 
   // dynamically loaded popper
   const Popper = lazyPopperFactory(cacheId);
 
+  //hooks
+  const { shouldAnimate } = shouldAnimatePopover(timeout);
+
+  // generate portalNode
+  const { portalNode, detachStyles, boundariesElement } = usePortalNode(
+    props,
+    referenceRef,
+    shouldAnimate,
+  );
+
+  // controlling modifiers for popper
+  const modifiers = getModifiers({ ...rest, shouldAnimate, boundariesElement });
+
   const popper = () => (
     <Popper
       dataHook={dataHook}
-      placement={popperOptions.placement}
+      placement={placement}
       fallback={<Loader />}
       modifiers={modifiers}
       contentHook={contentHook}
-      popperOptions={popperOptions}
-      arrowOptions={arrowOptions}
+      arrowOptions={{ customArrow, moveArrowTo, showArrow }}
       grabScheduleUpdater={grabScheduleUpdater}
-      accesibilityOptions={accesibilityOptions}
+      accesibilityOptions={{ id, role }}
     >
       {children}
     </Popper>
   );
 
-  const { animate } = animationOptions;
-
-  if (animate && isMounted) {
+  if (shouldAnimate && isMounted) {
     return (
       <Portal node={portalNode}>
         <CSSTransition
           shown={shown}
-          timeout={animationOptions.timeout}
-          onAnimationExit={animationOptions.onAnimationExit}
+          timeout={timeout}
+          onAnimationExit={detachStyles}
         >
           {popper()}
         </CSSTransition>
@@ -94,5 +105,5 @@ export const Content: React.ElementType<ContentProps> = props => {
     );
   }
 
-  return shown && <Portal node={portalNode}>{popper()}</Portal>;
+  return shown && isMounted && <Portal node={portalNode}>{popper()}</Portal>;
 };

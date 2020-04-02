@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PopoverNext, PopoverNextProps } from '../src/components/popover-next';
+import { PopoverNext, PopoverNextProps } from '../src/components/popover-next/';
 
 import { Category } from './utils';
 
@@ -83,14 +83,13 @@ export default {
     appendTo: 'window',
     showArrow: true,
     timeout: 150,
-    shown: false,
+    shown: true,
     placement: 'top',
   },
 
   exampleProps: {
     children,
     onClickOutside: () => 'onClickOutside called!',
-
     appendTo: [
       { label: 'window', value: window },
       { label: 'scrollParent', value: 'scrollParent' },

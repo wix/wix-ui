@@ -7,6 +7,8 @@ const getWidthUnit = value => {
   return `${value}px`;
 };
 
+const isTestEnv = process.env.NODE_ENV === 'test';
+
 const calculateOffset = ({ moveBy, placement = '' }): string => {
   /*
    * For `right` and `left` placements, we need to flip the `x` and `y` values as Popper.JS will use
@@ -51,24 +53,22 @@ export interface ModifiersParams {
   zIndex?: number;
   maxWidth?: string | number;
   moveBy?: MoveBy;
-  appendTo?: Boundary | Element;
+  boundariesElement?: Boundary | Element;
   placement: Placement;
   shouldAnimate: boolean;
   flip?: boolean;
   fixed?: boolean;
-  isTestEnv: boolean;
   dynamicWidth?: boolean;
 }
 
 export const getModifiers = ({
   width,
   moveBy,
-  appendTo,
+  boundariesElement,
   shouldAnimate,
   flip,
   fixed,
   placement,
-  isTestEnv,
   minWidth,
   dynamicWidth,
   zIndex,
@@ -131,10 +131,10 @@ export const getModifiers = ({
     modifiers.computeStyle = { enabled: false };
   }
 
-  if (appendTo) {
+  if (boundariesElement) {
     modifiers.preventOverflow = {
       ...modifiers.preventOverflow,
-      boundariesElement: appendTo,
+      boundariesElement,
     };
   }
 

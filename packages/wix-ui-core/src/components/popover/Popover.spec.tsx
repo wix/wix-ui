@@ -13,7 +13,7 @@ import { testkit } from './Popover.uni.driver';
 import styles from './Popover.st.css';
 
 /** PopoverNext  */
-import { PopoverNext } from '../popover-next/popover-next-next';
+import { PopoverNext } from '../popover-next/popover-next';
 
 function delay(millis: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, millis));

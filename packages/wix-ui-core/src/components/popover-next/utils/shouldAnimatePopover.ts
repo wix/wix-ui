@@ -1,15 +1,18 @@
-import { PopoverNextProps } from '../popover-next-next';
+import { PopoverNextProps } from '../popover-next';
 
-export const shouldAnimatePopover = (timeout: PopoverNextProps['timeout']) => {
+export const shouldAnimatePopover = (
+  timeout: PopoverNextProps['timeout'],
+): { shouldAnimate: boolean } => {
   if (typeof timeout === 'object') {
     const { enter, exit } = timeout;
 
-    return (
-      typeof enter !== 'undefined' &&
-      typeof exit !== 'undefined' &&
-      (enter > 0 || exit > 0)
-    );
+    return {
+      shouldAnimate:
+        typeof enter !== 'undefined' &&
+        typeof exit !== 'undefined' &&
+        (enter > 0 || exit > 0),
+    };
   }
 
-  return !!timeout;
+  return { shouldAnimate: !!timeout };
 };

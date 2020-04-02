@@ -1,1 +1,1 @@
-export * from './popover-next-next';
+export * from './popover-next';

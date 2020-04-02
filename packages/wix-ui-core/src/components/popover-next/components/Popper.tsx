@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Modifiers } from 'popper.js';
 
 import { Popper as ReactPopper, PopperChildrenProps } from 'react-popper';
-import { PopoverNextProps } from '../popover-next-next';
+import { PopoverNextProps } from '../popover-next';
 
 import { getArrowShift } from '../../popover/utils/getArrowShift';
 import styles from '../../popover/Popover.st.css';
