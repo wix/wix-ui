@@ -55,6 +55,8 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   contentId?: string;
   /** Allow onSelect event to be triggered upon re-selecting an option */
   allowReselect?: boolean;
+  /** Options box z-index */
+  optionsContainerZIndex?: number;
 };
 
 export interface DropdownState {
@@ -293,6 +295,7 @@ export class DropdownComponent extends React.PureComponent<
       moveBy,
       role,
       contentId,
+      optionsContainerZIndex,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
     const hasContent = Boolean(
@@ -326,6 +329,7 @@ export class DropdownComponent extends React.PureComponent<
         fixed={fixed}
         moveBy={moveBy}
         role={role}
+        zIndex={optionsContainerZIndex}
       >
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>
