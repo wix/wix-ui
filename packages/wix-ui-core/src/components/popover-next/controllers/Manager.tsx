@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { Manager as PopperManager } from 'react-popper';
-import { ClickOutside } from '../../click-outside';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { useClickOutside } from './hooks/useClickOutside';
 
 import styles from '../../popover/Popover.st.css';
 
@@ -34,24 +34,20 @@ export const Manager: React.ElementType<ManagerProps> = props => {
     cacheId,
   } = props;
 
+  useClickOutside(clickOutsideRef, onClickOutside, { excludeClass });
+
   return (
     <ErrorBoundary key={cacheId} onRetry={_recoverFromError}>
       <PopperManager>
-        <ClickOutside
-          rootRef={clickOutsideRef}
-          onClickOutside={onClickOutside ? onClickOutside : undefined}
-          excludeClass={excludeClass ? excludeClass : styles.popover}
+        <div
+          {...styles('root', {}, props)}
+          ref={clickOutsideRef}
+          style={style}
+          data-hook={dataHook}
+          data-content-hook={contentHook}
         >
-          <div
-            {...styles('root', {}, props)}
-            ref={clickOutsideRef}
-            style={style}
-            data-hook={dataHook}
-            data-content-hook={contentHook}
-          >
-            {children}
-          </div>
-        </ClickOutside>
+          {children}
+        </div>
       </PopperManager>
     </ErrorBoundary>
   );

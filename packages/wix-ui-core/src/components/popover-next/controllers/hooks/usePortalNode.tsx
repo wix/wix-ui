@@ -5,11 +5,11 @@ import {
   AttributeMap,
   attachStylesToNode,
   detachStylesFromNode,
-} from '../../../utils/stylableUtils';
+} from '../../../../utils/stylableUtils';
 
 import { getAppendToElement } from './utils/getAppendToElement';
 
-import styles from '../../popover/Popover.st.css';
+import styles from '../../../popover/Popover.st.css';
 
 const omit = (key, obj) => {
   const { [key]: omitted, ...rest } = obj;

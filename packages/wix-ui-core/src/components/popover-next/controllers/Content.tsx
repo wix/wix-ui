@@ -6,9 +6,9 @@ import { Portal, CSSTransition, Loader } from '../components';
 import { PopperProps } from '../components/Popper';
 import { PopoverNextProps } from '../popover-next';
 
-import { usePortalNode } from '../hooks/usePortalNode';
-import { getModifiers } from '../utils/getModifiers';
-import { shouldAnimatePopover } from '../utils/shouldAnimatePopover';
+import { usePortalNode } from './hooks/usePortalNode';
+import { getModifiers } from './utils/getModifiers';
+import { shouldAnimatePopover } from './utils/shouldAnimatePopover';
 
 // there is an issue with memoize-one package with typescript projects
 // https://github.com/alexreardon/memoize-one/pull/40

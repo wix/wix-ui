@@ -6,7 +6,7 @@ import {
   buildChildrenObject,
 } from '../../utils';
 
-import { generateTestID } from './utils';
+import { generateTestID } from './controllers/utils';
 import { Manager, Trigger, Content } from './controllers';
 
 type Predicate = (s: Element) => boolean;

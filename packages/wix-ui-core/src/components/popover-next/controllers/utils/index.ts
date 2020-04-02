@@ -1,4 +1,4 @@
-import { getPopoverTestUtils } from '../../popover/utils/getPopoverTestUtils';
+import { getPopoverTestUtils } from '../../../popover/utils/getPopoverTestUtils';
 
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 

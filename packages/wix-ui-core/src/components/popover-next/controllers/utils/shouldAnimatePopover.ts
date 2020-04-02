@@ -1,4 +1,4 @@
-import { PopoverNextProps } from '../popover-next';
+import { PopoverNextProps } from '../../popover-next';
 
 export const shouldAnimatePopover = (
   timeout: PopoverNextProps['timeout'],
