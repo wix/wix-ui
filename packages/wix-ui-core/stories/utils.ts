@@ -1,4 +1,4 @@
-import * as wuc from '../src/utils/index';
+import * as wuc from '../src/index';
 import * as Icons from 'wix-ui-icons-common';
 
 /*
