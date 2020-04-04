@@ -52,7 +52,7 @@ import './LabelWithOptions.story';
 import './LinearProgressBar/index.story';
 import './NavStepper.story';
 Components.add('Pagination', () => <PaginationStory />);
-import './Popover/Popover.story';
+import '../src/components/popover/docs/Popover.story';
 Components.add('RadioButton', () => <RadioButtonStory />);
 import '../src/components/signature-input/docs/index.story';
 import './Slider.story';

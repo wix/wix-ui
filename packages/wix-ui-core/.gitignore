@@ -23,6 +23,7 @@ drivers-standalone
 src/index.ts
 /*.js
 /*.d.ts
+!applitools.config.js
 !wallaby.js
 !protractor.conf.js
 !hocs.js

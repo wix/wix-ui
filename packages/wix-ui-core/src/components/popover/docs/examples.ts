@@ -58,7 +58,7 @@ export const zIndex = `
 () => {
   const [shown, setShown] = React.useState(true)
   return (
-    <div data-hook="story-popover-z-index">
+    <div>
     <div style={{ display: 'flex' }}>
       <div style={{ display: 'block', position: 'relative', width: '50%', marginRight: '30px', height: '50px' }}>
         <div style={{ position: 'absolute', top: '10px', left: '0px' }}>
@@ -127,6 +127,7 @@ export const flip = `
   const [shown, setShown] = React.useState(true)
   return (
     <div
+   
     style={{
       overflow: 'hidden',
       position: 'relative',
@@ -208,7 +209,7 @@ export const window = `
 () => {
   const [shown, setShown] = React.useState(true)
   return (
-    <Popover data-hook="popover-appendto-window" appendTo="window" shown={shown} onClick={() => setShown(!shown)} placement="right" showArrow>
+    <Popover appendTo="window" shown={shown} onClick={() => setShown(!shown)} placement="right" showArrow>
       <Popover.Element>The Element</Popover.Element>
       <Popover.Content>The content</Popover.Content>
     </Popover>
@@ -236,7 +237,7 @@ export const scrollParent = `
   >
     <ul>
       <li>item</li>
-      <Popover data-hook="popover-appendto-scroll-scrollParent" zIndex={1} appendTo="scrollParent" shown={shown} onClick={() => setShown(!shown)} placement="right" showArrow>
+      <Popover zIndex={1} appendTo="scrollParent" shown={shown} onClick={() => setShown(!shown)} placement="right" showArrow>
       <Popover.Element>The Element</Popover.Element>
       <Popover.Content>The content</Popover.Content>
     </Popover>
@@ -261,7 +262,7 @@ export const viewPort = `
 () => {
   const [shown, setShown] = React.useState(true)
   return (
-    <Popover data-hook="popover-appendto-scroll-viewport" appendTo="viewport" shown={shown} onClick={() => setShown(!shown)} placement="top" showArrow>
+    <Popover appendTo="viewport" shown={shown} onClick={() => setShown(!shown)} placement="top" showArrow>
       <Popover.Element>The Element</Popover.Element>
       <Popover.Content>I am attached to viewport</Popover.Content>
     </Popover> 
@@ -291,7 +292,6 @@ export const predicate = `
       <ul>
         <li>item</li>
         <Popover 
-            data-hook="popover-appendto-scroll-custom" 
             appendTo={elm => elm.getAttribute('data-hook') === 'hello'} 
             shown={shown} onClick={() => setShown(!shown)} 
             placement="right" 

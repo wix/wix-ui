@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   api,
-  code,
   columns,
   description,
   testkit,
@@ -14,8 +13,8 @@ import {
   example as baseExample,
   title,
 } from 'wix-storybook-utils/Sections';
-import { Popover } from '../../src/components/popover';
-import { Category, baseScope } from '../utils';
+import { Popover } from '../Popover';
+import { Category, baseScope } from '../../../../stories/utils';
 
 const example = config => baseExample({ components: baseScope, ...config });
 
@@ -25,7 +24,7 @@ export default {
   category: Category.COMPONENTS,
   storyName: 'Popover',
   component: Popover,
-  componentPath: '../../src/components/popover-next/popover-next.tsx',
+  componentPath: '../Popover.tsx',
   componentProps: {
     'data-hook': 'storybook-popover',
     children: [
