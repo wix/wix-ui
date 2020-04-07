@@ -3,7 +3,7 @@ version: "{build}"
 skip_tags: true 
 environment:
   matrix:
-    - nodejs_version: "8.9.1"
+    - nodejs_version: "12.10.0"
 
 install:
   - choco install -y googlechrome
