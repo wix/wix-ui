@@ -26,7 +26,7 @@ export interface AvatarProps {
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {
     ['data-hook']?: string;
   };
-  /** Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
+  /** Limit the number of letters in the generated initials (from name). */
   initialsLimit?: 1 | 2 | 3;
   /** HTML aria-label attribute value. To be applied on the root element */
   ariaLabel?: string;
