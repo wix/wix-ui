@@ -26,8 +26,8 @@ export interface AvatarProps {
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {
     ['data-hook']?: string;
   };
-  /** Limit the number of letters in the generated initials (from name). May be 2 or 3 only. */
-  initialsLimit?: 2 | 3;
+  /** Limit the number of letters in the generated initials (from name). */
+  initialsLimit?: 1 | 2 | 3;
   /** HTML aria-label attribute value. To be applied on the root element */
   ariaLabel?: string;
   /** HTML title attribute value. To be applied on the root element */
@@ -98,8 +98,8 @@ export class AvatarComponent extends React.Component<
   UNSAFE_componentWillReceiveProps(nextProps: AvatarProps) {
     if (
       !nextProps.imgProps ||
-      (!this.props.imgProps ||
-        nextProps.imgProps.src !== this.props.imgProps.src)
+      !this.props.imgProps ||
+      nextProps.imgProps.src !== this.props.imgProps.src
     ) {
       this.setState({ imgLoaded: false });
       this.img && this.unloadImg();
