@@ -259,6 +259,15 @@ describe('Avatar', () => {
   });
 
   describe('nameToInitials', () => {
+    describe('limit is invalid type', () => {
+      it('should render Avatar with 2 letter initials', async () => {
+        const driver = await createDriver(
+          <Avatar name="John Smith Junir Doe" initialsLimit={false as any} />,
+        );
+        expect(await driver.getTextContent()).toBe('JD');
+      });
+    });
+
     describe('limit = 3', () => {
       it('should render Avatar with 3 letter initials', async () => {
         const driver = await createDriver(

@@ -16,7 +16,7 @@ export function nameToInitials(name?: string, limit: 1 | 2 | 3 = 2) {
   }
 
   if (limit < 1 || limit > 3) {
-    limit = 1;
+    limit = 2;
   }
 
   let initials = name.split(' ').map(s => splitter.splitGraphemes(s)[0]);
