@@ -320,16 +320,53 @@ describe('Avatar', () => {
         expect(nameToInitials('John Doe')).toBe('JD');
       });
 
-      it('should be 3 initials given 3 name parts', () => {
+      it('should be 2 initials given 3 name parts', () => {
         expect(nameToInitials('John H. Doe')).toBe('JD');
       });
 
-      it('should be 3 initials given 5 name parts', () => {
+      it('should be 2 initials given 5 name parts', () => {
         expect(nameToInitials('John Hurley Stanley Kubrik Doe')).toBe('JD');
       });
 
       it('should be uppercase given lowercase name parts', () => {
         expect(nameToInitials('john hurley stanley kubrik doe')).toBe('JD');
+      });
+    });
+
+    describe('limit = 1', () => {
+      it('should render Avatar with 1 letter initials', async () => {
+        const driver = await createDriver(
+          <Avatar name="John Smith Junir Doe" initialsLimit={1} />,
+        );
+        expect(await driver.getTextContent()).toBe('J');
+      });
+
+      it('should be empty string given undefined name', () => {
+        expect(nameToInitials()).toBe('');
+      });
+
+      it('should be empty string given empty name', () => {
+        expect(nameToInitials('', 1)).toBe('');
+      });
+
+      it('should be first initial given 1 name part', () => {
+        expect(nameToInitials('John', 1)).toBe('J');
+      });
+
+      it('should be first initial given 2 name parts', () => {
+        expect(nameToInitials('John Doe', 1)).toBe('J');
+      });
+
+      it('should be 1 initials given 3 name parts', () => {
+        expect(nameToInitials('John H. Doe', 1)).toBe('J');
+      });
+
+      it('should be 1 initials given 5 name parts', () => {
+        expect(nameToInitials('John Hurley Stanley Kubrik Doe', 1)).toBe('J');
+      });
+
+      it('should be uppercase given lowercase name parts', () => {
+        expect(nameToInitials('john hurley stanley kubrik doe', 1)).toBe('J');
       });
     });
   });
