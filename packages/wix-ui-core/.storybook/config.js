@@ -8,7 +8,7 @@ function loadStories() {
 
 const theme = create({
   base: 'light',
-  brandTitle: `Wix Ui Core 2`,
+  brandTitle: 'wix-ui-core',
   brandUrl: 'https://github.com/wix/wix-ui-core',
 });
 
