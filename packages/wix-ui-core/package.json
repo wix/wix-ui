@@ -2,7 +2,7 @@
   "private": false,
   "name": "wix-ui-core",
   "description": "wix-ui-core",
-  "version": "2.0.196",
+  "version": "3.0.0",
   "main": "./dist/src/index.js",
   "module": "./dist/es/src/index.js",
   "stylable": {
