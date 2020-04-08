@@ -126,7 +126,6 @@
     "@ui-autotools/a11y": "^2.4.0",
     "@ui-autotools/registry": "^4.0.0",
     "@ui-autotools/sanity": "^2.5.0",
-    "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "execa": "^2.0.3",
@@ -167,7 +166,9 @@
     "moduleNameMapper": {
       "\\.(scss)$": "identity-obj-proxy"
     },
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
+    "setupFilesAfterEnv": [
+      "wix-ui-test-utils/jest-setup"
+    ],
     "setupFiles": [
       "raf/polyfill",
       "jest-canvas-mock",
