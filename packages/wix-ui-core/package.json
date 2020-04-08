@@ -54,7 +54,7 @@
     "sanity": "autotools-sanity",
     "a11y": "autotools-a11y",
     "lint": "yoshi lint",
-    "yoshi-start": "yoshi start --no-test",
+    "yoshi-start": "yoshi start --no-server",
     "------CI Parallel tasks (as in .ci_config)": "",
     "wix-ui-core:unit": "npm run test:unit",
     "wix-ui-core:e2e": "npm run test:e2e",
