@@ -1,5 +1,5 @@
 import * as React from 'react';
-import pStyle from './Slider.st.css';
+import { style, classes } from './Slider.st.css';
 
 export interface ThumbProps {
   shape: string;
@@ -17,7 +17,7 @@ export class Thumb extends React.Component<ThumbProps> {
     return (
       <div
         data-hook="thumb"
-        className={pStyle.thumb}
+        className={classes.thumb}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         style={{
@@ -40,7 +40,7 @@ class CircleThumb extends React.PureComponent<any> {
   render() {
     return (
       <div
-        {...pStyle('thumbShape', { shapeType: 'circle' })}
+        className={style(classes.thumbShape, { shapeType: 'circle' })}
         style={{ borderRadius: '50%' }}
       />
     );
@@ -49,19 +49,23 @@ class CircleThumb extends React.PureComponent<any> {
 
 class RectangleThumb extends React.PureComponent<any> {
   render() {
-    return <div {...pStyle('thumbShape', { shapeType: 'rectangle' })} />;
+    return (
+      <div className={style(classes.thumbShape, { shapeType: 'rectangle' })} />
+    );
   }
 }
 
 class SquareThumb extends React.PureComponent<any> {
   render() {
-    return <div {...pStyle('thumbShape', { shapeType: 'square' })} />;
+    return (
+      <div className={style(classes.thumbShape, { shapeType: 'square' })} />
+    );
   }
 }
 
 class BarThumb extends React.PureComponent<any> {
   render() {
-    return <div {...pStyle('thumbShape', { shapeType: 'bar' })} />;
+    return <div className={style(classes.thumbShape, { shapeType: 'bar' })} />;
   }
 }
 

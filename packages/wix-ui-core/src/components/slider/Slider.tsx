@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Ticks } from './Ticks';
 import { Thumb, getThumbSize } from './Thumb';
-import pStyle from './Slider.st.css';
+import { style, classes } from './Slider.st.css';
 
 const noop = () => {};
 
@@ -402,7 +402,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div
         data-hook="tooltip"
-        {...pStyle('tooltip', { [positionClassname]: true })}
+        className={style(classes.tooltip, { [positionClassname]: true })}
       >
         {this.props.tooltipPrefix}
         {clampedValue}
@@ -474,7 +474,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       tickMarksShape,
       thumbShape,
       orientation,
-      style,
+      style: inlineStyle,
     } = this.props;
 
     const vertical = this.isVertical();
@@ -498,17 +498,13 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     return (
       <div
-        {...pStyle(
-          'root',
-          {
-            orientation: vertical ? 'vertical' : 'horizontal',
-            dir,
-            tickMarksPosition,
-            tickMarksShape,
-            disabled,
-          },
-          this.props,
-        )}
+        className={style(classes.root, {
+          orientation: vertical ? 'vertical' : 'horizontal',
+          dir,
+          tickMarksPosition,
+          tickMarksShape,
+          disabled,
+        })}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
         onKeyDown={this.handleKeyDown}
@@ -520,7 +516,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-orientation={orientation}
         data-dir={dir}
         tabIndex={0}
-        style={style}
+        style={inlineStyle}
         ref={root => (this.root = root)}
         role="slider"
         aria-valuemin={min}
@@ -528,15 +524,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         aria-valuenow={value}
         aria-label={this.props['aria-label']}
       >
-        <div className={pStyle.inner} style={this.getInnerDims()}>
+        <div className={classes.inner} style={this.getInnerDims()}>
           <div
             data-hook="track"
             ref={this.setTrackNode}
-            className={pStyle.track}
+            className={classes.track}
             onClick={this.moveThumbByMouse}
             style={trackStyle}
           >
-            <div className={pStyle.trackFill} style={trackFillPosition} />
+            <div className={classes.trackFill} style={trackFillPosition} />
           </div>
 
           <Thumb
@@ -552,7 +548,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
         {showTicks && (
           <Ticks
-            pStyle={pStyle}
             step={step}
             min={min}
             max={max}

@@ -1,7 +1,8 @@
 import * as React from 'react';
 
+import { style, classes } from './Slider.st.css'
+
 export interface TicksProps {
-  pStyle: any;
   step: number;
   min: number;
   max: number;
@@ -32,7 +33,7 @@ export class Ticks extends React.PureComponent<TicksProps> {
     return adjustedStep;
   }
 
-  renderTick(i, min, max, vertical, thumbSize, pStyle) {
+  renderTick(i, min, max, vertical, thumbSize) {
     const { tickMarksShape } = this.props;
     const pct = (i - min) / (max - min);
     const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize /
@@ -40,7 +41,7 @@ export class Ticks extends React.PureComponent<TicksProps> {
 
     return (
       <div
-        {...pStyle('tick', { tickMarksShape })}
+        className={style(classes.tick, { tickMarksShape })}
         key={i}
         data-hook="tick"
         onClick={this.props.onTickClick}
@@ -50,7 +51,7 @@ export class Ticks extends React.PureComponent<TicksProps> {
   }
 
   render() {
-    const { min, max, thumbSize, vertical, trackSize, pStyle } = this.props;
+    const { min, max, thumbSize, vertical, trackSize } = this.props;
 
     if (!trackSize) {
       return null;
@@ -61,10 +62,10 @@ export class Ticks extends React.PureComponent<TicksProps> {
     const ticks = [];
 
     for (let i = min; i < max; i += step) {
-      ticks.push(this.renderTick(i, min, max, vertical, thumbSize, pStyle));
+      ticks.push(this.renderTick(i, min, max, vertical, thumbSize));
     }
 
-    ticks.push(this.renderTick(max, min, max, vertical, thumbSize, pStyle));
+    ticks.push(this.renderTick(max, min, max, vertical, thumbSize));
 
     return <div data-hook="ticks-wrapper">{ticks}</div>;
   }
