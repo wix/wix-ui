@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Thumbnail.st.css';
+import { style, classes } from './Thumbnail.st.css';
 
 export interface ThumbnailProps {
   /** Is the thumbnail selected */
@@ -19,11 +19,14 @@ export const Thumbnail: React.FunctionComponent<ThumbnailProps> = props => {
   const { selected, selectedIcon, onClick, disabled } = props;
 
   return (
-    <div {...style('root', { selected, disabled }, props)} onClick={onClick}>
+    <div
+      className={style(classes.root, { selected, disabled })}
+      onClick={onClick}
+    >
       {children}
 
       {selectedIcon && selected && (
-        <div className={style.selectedIcon} data-hook="selected-icon">
+        <div className={classes.selectedIcon} data-hook="selected-icon">
           {selectedIcon}
         </div>
       )}
