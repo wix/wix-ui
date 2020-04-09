@@ -1,30 +1,40 @@
 import * as React from 'react';
-import {Pagination as CorePagination, PaginationProps} from '../../src/components/pagination';
-import style from './pagination-story-theme.st.css';
-import {withStylable} from '../../src/utils/withStylable';
+import {
+  Pagination as CorePagination,
+  PaginationProps,
+} from '../../src/components/pagination';
+import { style } from './pagination-story-theme.st.css';
+import { withStylable } from '../../src/utils/withStylable';
 
 // Assuming we use pagination-story-theme
 const spaceForPages = n => (n + 2) * 40;
 
-const Pagination = withStylable<PaginationProps, {}>(CorePagination, style, () => ({}));
+const Pagination = withStylable<PaginationProps, {}>(
+  CorePagination,
+  style,
+  () => ({}),
+);
 
-class UncontrolledPagination extends React.Component<PaginationProps, {currentPage: number}> {
+class UncontrolledPagination extends React.Component<
+  PaginationProps,
+  { currentPage: number }
+> {
   state = {
-    currentPage: this.props.currentPage
+    currentPage: this.props.currentPage,
   };
 
   render() {
     return (
-        <Pagination
-          {...this.props}
-          {...style('root')}
-          onChange={({page, event}) => {
-            event.preventDefault();
-            this.setState({currentPage: page});
-          }}
-          pageUrl={pageNumber => `https://example.com/page/${pageNumber}`}
-          currentPage={this.state.currentPage}
-        />
+      <Pagination
+        {...this.props}
+        {...style('root')}
+        onChange={({ page, event }) => {
+          event.preventDefault();
+          this.setState({ currentPage: page });
+        }}
+        pageUrl={pageNumber => `https://example.com/page/${pageNumber}`}
+        currentPage={this.state.currentPage}
+      />
     );
   }
 }

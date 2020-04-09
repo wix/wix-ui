@@ -35,7 +35,9 @@ export default () => (
 
 const descriptionPrimary = (
   <div>
-    Standard skins <code>standard</code>, <code>standardFilled</code>, <code>light</code>, <code>lightFilled</code>, <code>dark</code> and <code>transparent</code>.
+    Standard skins <code>standard</code>, <code>standardFilled</code>,{' '}
+    <code>light</code>, <code>lightFilled</code>, <code>dark</code> and{' '}
+    <code>transparent</code>.
   </div>
 );
 
@@ -61,7 +63,7 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
         background: '#162d3d',
         padding: '2px',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <ButtonNext className={closeButton('light')}>
@@ -74,7 +76,7 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
         background: '#4eb7f5',
         padding: '2px',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <ButtonNext className={closeButton('lightFilled')}>
@@ -86,15 +88,15 @@ export const CloseButtonStandard = ({ style }: CloseButtonStandardProps) => (
         background: '#fef0ba',
         padding: '2px',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <ButtonNext className={closeButton('dark')}>
         <Close width="6px" height="6px" />
       </ButtonNext>
     </div>
-      <ButtonNext className={closeButton('transparent')}>
-          <Close width="6px" height="6px" />
-      </ButtonNext>
+    <ButtonNext className={closeButton('transparent')}>
+      <Close width="6px" height="6px" />
+    </ButtonNext>
   </CodeShowcase>
 );

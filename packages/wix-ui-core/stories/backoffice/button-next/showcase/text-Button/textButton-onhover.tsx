@@ -2,10 +2,7 @@ import * as React from 'react';
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
 import { ButtonNext } from '../../../../../src/components/button-next';
-import {
-  textButton,
-  backofficeTheme
-} from '../../../../../src/themes/backoffice';
+import { textButton } from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -52,7 +49,7 @@ export const TextButtonOnHover = ({ style }: TextButtonOnHoverProps) => (
     <div
       style={{
         background: 'rgb(91, 127, 164)',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={lightSecondary}>light</ButtonNext>

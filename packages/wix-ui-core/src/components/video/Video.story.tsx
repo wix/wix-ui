@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Video } from '.';
 import { storySettings } from './storySettings';
 

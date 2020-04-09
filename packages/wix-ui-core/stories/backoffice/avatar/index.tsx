@@ -3,26 +3,17 @@ import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 
 import More from 'wix-ui-icons-common/More';
 import { Avatar } from '../../../src/components/avatar';
-import {
-  avatar,
-  backofficeTheme
-} from '../../../src/themes/backoffice';
+import { avatar, backofficeTheme } from '../../../src/themes/backoffice';
 
 const NAME = 'John H Doe';
 
 const AvatarStory = () => (
   <div style={{ margin: '0px 0 16px', paddingLeft: '20px' }}>
-    <CodeShowcase
-      title="Default"
-      theme={backofficeTheme}
-    >
+    <CodeShowcase title="Default" theme={backofficeTheme}>
       <Avatar className={avatar()} name={NAME} />
     </CodeShowcase>
 
-    <CodeShowcase
-      title="Text with BG Colors"
-      theme={backofficeTheme}
-    >
+    <CodeShowcase title="Text with BG Colors" theme={backofficeTheme}>
       <Avatar className={avatar('colorBlue')} name={NAME} />
       <Avatar className={avatar('colorGreen')} name={NAME} />
       <Avatar className={avatar('colorGrey')} name={NAME} />
@@ -30,10 +21,7 @@ const AvatarStory = () => (
       <Avatar className={avatar('colorOrange')} name={NAME} />
     </CodeShowcase>
 
-    <CodeShowcase
-      title="Sizes"
-      theme={backofficeTheme}
-    >
+    <CodeShowcase title="Sizes" theme={backofficeTheme}>
       <Avatar className={avatar('size90')} name={NAME} />
       <Avatar className={avatar('size72')} name={NAME} />
       <Avatar className={avatar('size60')} name={NAME} />
@@ -44,20 +32,14 @@ const AvatarStory = () => (
       <Avatar className={avatar('size18')} name={NAME} />
     </CodeShowcase>
 
-    <CodeShowcase
-      title="Icon"
-      theme={backofficeTheme}
-    >
-      <Avatar className={avatar()} placeholder={<More/>} />
+    <CodeShowcase title="Icon" theme={backofficeTheme}>
+      <Avatar className={avatar()} placeholder={<More />} />
     </CodeShowcase>
 
-    <CodeShowcase
-      title="Image"
-      theme={backofficeTheme}
-    >
+    <CodeShowcase title="Image" theme={backofficeTheme}>
       <Avatar
         className={avatar()}
-        imgProps={{src: 'https://randomuser.me/api/portraits/women/39.jpg'}} 
+        imgProps={{ src: 'https://randomuser.me/api/portraits/women/39.jpg' }}
       />
     </CodeShowcase>
   </div>

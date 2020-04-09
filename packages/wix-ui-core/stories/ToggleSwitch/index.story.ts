@@ -1,5 +1,5 @@
 import { ToggleSwitch } from '../../src/components/toggle-switch';
-import style from './style.st.css';
+import { classes } from './style.st.css';
 import { Category } from '../utils';
 
 export default {
@@ -9,7 +9,7 @@ export default {
   componentPath: '../../src/components/toggle-switch',
 
   componentProps: (setState, getState) => ({
-    ...style('root'),
+    className: classes.root,
     checked: false,
     disabled: false,
     onChange: () => setState({ checked: !getState().checked }),

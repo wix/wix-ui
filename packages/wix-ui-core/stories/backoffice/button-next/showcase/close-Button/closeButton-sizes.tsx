@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
-import { backofficeTheme } from '../../../../../src/themes/backoffice';
 import { closeButton } from '../../../../../src/themes/backoffice';
 import CloseLarge from 'wix-ui-icons-common/system/CloseLarge';
 import Close from 'wix-ui-icons-common/system/Close';

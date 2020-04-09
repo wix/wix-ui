@@ -28,8 +28,8 @@ export default () => (
 
 const description = (
   <div>
-    Text Button supports <code>tiny</code>, <code>small</code> and <code>medium</code> sizes.
-    The default value is <code>medium</code>
+    Text Button supports <code>tiny</code>, <code>small</code> and{' '}
+    <code>medium</code> sizes. The default value is <code>medium</code>
   </div>
 );
 
@@ -44,10 +44,16 @@ export const TextButtonSizes = ({ style }: TextButtonSizesProps) => (
     code={example}
     description={description}
   >
-    <ButtonNext className={textButton('tiny')} prefixIcon={<ChevronDownSmall/>}>
+    <ButtonNext
+      className={textButton('tiny')}
+      prefixIcon={<ChevronDownSmall />}
+    >
       tiny
     </ButtonNext>
-    <ButtonNext className={textButton('small')} prefixIcon={<ChevronDownSmall/>}>
+    <ButtonNext
+      className={textButton('small')}
+      prefixIcon={<ChevronDownSmall />}
+    >
       small
     </ButtonNext>
     <ButtonNext className={textButton()} prefixIcon={<ChevronDown />}>

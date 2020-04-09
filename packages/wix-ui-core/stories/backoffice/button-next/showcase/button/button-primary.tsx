@@ -46,7 +46,7 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     <div
       style={{
         background: '#fef0ba',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={button(`dark`)}>dark</ButtonNext>
@@ -54,18 +54,20 @@ export const ButtonPrimary = ({ style }: ButtonPrimaryProps) => (
     <div
       style={{
         background: '#162d3d',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <span style={{ marginRight: '5px' }}>
-        <ButtonNext className={button('premium-light')}>premium-light</ButtonNext>
+        <ButtonNext className={button('premium-light')}>
+          premium-light
+        </ButtonNext>
       </span>
-        <ButtonNext className={button(`light`)}>light</ButtonNext>
+      <ButtonNext className={button(`light`)}>light</ButtonNext>
     </div>
     <div
       style={{
         background: '#4EB7F5',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={button(`transparent`)}>transparent</ButtonNext>

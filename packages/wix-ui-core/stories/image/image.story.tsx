@@ -1,5 +1,5 @@
 import { Image } from '../../src/components/image';
-import style from '../../src/themes/default/image/style.st.css';
+import { classes } from '../../src/themes/default/image/style.st.css';
 import { Category } from '../utils';
 
 export default {
@@ -10,7 +10,7 @@ export default {
   componentPath: '../../src/components/image',
 
   componentProps: {
-    ...style('root'),
+    className: classes.root,
     src:
       'https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg',
     errorImage:

@@ -7,7 +7,7 @@ import {
   dataHooksContent,
 } from './testSettings';
 import { EllipsisTooltip } from '..';
-import { style, classes, cssStates  } from './EllipsisTooltipTests.st.css';
+import { classes } from './EllipsisTooltipTests.st.css';
 
 const wrapperStylesWithEllipsis = {
   width: '170px',
@@ -52,7 +52,7 @@ storiesOf(testFolder, module)
           <span
             data-hook={dataHooksContent.mandatoryNonoverridableCss}
             {...extenedStyleProps({
-              className: styles.withDifferentWhiteSpace,
+              className: classes.withDifferentWhiteSpace,
             })}
           >
             the property "white-space: nowrap" must be applied, otherwise the

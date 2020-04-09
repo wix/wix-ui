@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Markdown from 'wix-storybook-utils/Markdown';
-import * as Readme from '../../src/hocs/Focusable/README.md';
+import Readme from '../../src/hocs/Focusable/README.md';
 import CodeExample from 'wix-storybook-utils/CodeExample';
 
 import ExampleFocusableButton from './ExampleFocusableButton';
