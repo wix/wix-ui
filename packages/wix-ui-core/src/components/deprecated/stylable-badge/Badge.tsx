@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Badge.st.css';
+import { classes } from './Badge.st.css';
 
 export interface BadgeProps {
   children?: React.ReactNode;
@@ -10,7 +10,7 @@ export interface BadgeProps {
  * Badge
  */
 export const Badge: React.FunctionComponent<BadgeProps> = props => (
-  <span {...style('root', {}, props)}>{props.children}</span>
+  <span className={classes.root}>{props.children}</span>
 );
 
 Badge.displayName = 'Badge';
