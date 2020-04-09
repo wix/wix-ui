@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './image.st.css';
+import { style, classes } from './image.st.css';
 import { ImageStatus, FALLBACK_IMAGE } from './consts';
 
 export interface ImageProps {
@@ -37,16 +37,6 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   private readonly isResized = (): boolean =>
     this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover';
 
-  private getRootStyleProps() {
-    const { resizeMode } = this.props;
-    const stylingClasses = `root${this.isResized() ? ' wrapper' : ''}`;
-    return style(
-      stylingClasses,
-      { resizeMode, loadState: this.state.status },
-      this.props,
-    );
-  }
-
   private getImageProps() {
     const {
       errorImage,
@@ -76,7 +66,11 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     const { resizeMode } = this.props;
 
     const commonProps = {
-      ...this.getRootStyleProps(),
+      className: style(
+        classes.root,
+        { resizeMode: this.props.resizeMode, loadState: this.state.status },
+        this.isResized() ? ' wrapper' : '',
+      ),
       'data-load-state': this.state.status,
     };
 
