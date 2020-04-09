@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import style from './button-next.st.css';
+import { style, classes } from './button-next.st.css';
 import { isStatelessComponent } from '../../utils';
 
 export interface ButtonProps
@@ -74,7 +74,7 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         ref={reference}
         tabIndex={htmlTabIndex}
         aria-disabled={disabled}
-        {...style('root', { disabled }, rest)}
+        className={style(classes.root, { disabled }, this.props.className)}
       >
         {_addAffix(prefixIcon, 'prefix')}
         <span className={style.content}>{children}</span>
