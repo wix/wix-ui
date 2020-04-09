@@ -13,7 +13,7 @@ import {
   withHorizontalMenuItemContext,
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 
-import style from './HorizontalMenuGridLayout.st.css';
+import { style, classes } from './HorizontalMenuGridLayout.st.css';
 
 export interface HorizontalMenuGridLayoutProps {
   className?: string;
@@ -75,13 +75,6 @@ export class HorizontalMenuGridLayout extends React.Component<
     const { menuContext, menuItemContext } = this.props;
     const { styles: stateStyles } = this.state;
 
-    const { className, ...stylableProps } = style(
-      'root',
-      { expandSize: menuItemContext.expandSize },
-      this.props,
-    );
-    const classList = classnames(className, menuContext.gridLayoutClassName);
-
     const styles = {
       ...this.props.style,
       ...stateStyles,
@@ -93,7 +86,7 @@ export class HorizontalMenuGridLayout extends React.Component<
           ...menuContext,
           menuItemClassName: classnames(
             menuContext.menuItemClassName,
-            style.menuItem,
+            classes.menuItem,
           ),
         }}
       >
@@ -102,11 +95,17 @@ export class HorizontalMenuGridLayout extends React.Component<
           data-layout="grid"
           data-opened={menuItemContext.isOpen}
           ref={this.layoutRef}
-          className={classList}
-          {...stylableProps}
+          className={classnames(
+            style(
+              classes.root,
+              { expandSize: menuItemContext.expandSize },
+              this.props.className,
+            ),
+            menuContext.gridLayoutClassName,
+          )}
           style={styles}
         >
-          <ul className={style.listWrapper}>{this.props.children}</ul>
+          <ul className={classes.listWrapper}>{this.props.children}</ul>
         </div>
       </HorizontalMenuContext.Provider>
     );

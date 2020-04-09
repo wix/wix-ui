@@ -13,7 +13,7 @@ import {
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { calculatePositioning } from '../horizontal-menu-layout/calculatePositioning';
 
-import style from './HorizontalMenuColumnsLayout.st.css';
+import { style, classes } from './HorizontalMenuColumnsLayout.st.css';
 
 export enum ColumnsAlignment {
   Left = 'left',
@@ -95,13 +95,6 @@ export class HorizontalMenuColumnsLayout extends React.Component<
     } = this.props;
     const { styles: stateStyles } = this.state;
 
-    const { className, ...stylableProps } = style(
-      'root',
-      { expandSize: menuItemContext.expandSize, columnsAlignment },
-      this.props,
-    );
-    const classList = classnames(className, menuContext.columnsLayoutClassName);
-
     const styles = {
       ...this.props.style,
       ...stateStyles,
@@ -113,7 +106,7 @@ export class HorizontalMenuColumnsLayout extends React.Component<
           ...menuContext,
           menuItemClassName: classnames(
             menuContext.menuItemClassName,
-            style.menuItem,
+            classes.menuItem,
           ),
         }}
       >
@@ -122,11 +115,17 @@ export class HorizontalMenuColumnsLayout extends React.Component<
           data-layout="column"
           data-opened={menuItemContext.isOpen}
           ref={this.layoutRef}
-          className={classList}
-          {...stylableProps}
+          className={classnames(
+            style(
+              classes.root,
+              { expandSize: menuItemContext.expandSize, columnsAlignment },
+              this.props,
+            ),
+            menuContext.columnsLayoutClassName,
+          )}
           style={styles}
         >
-          <ul style={{ columns, columnGap }} className={style.listWrapper}>
+          <ul style={{ columns, columnGap }} className={classes.listWrapper}>
             {this.props.children}
           </ul>
         </div>

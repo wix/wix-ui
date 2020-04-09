@@ -5,7 +5,7 @@ import { HorizontalMenuContext } from '../HorizontalMenuContext';
 import { HorizontalMenuItemContext } from './HorizontalMenuItemContext';
 import { HORIZONTAL_MENU_METADATA } from '../constants';
 
-import style from './HorizontalMenuItem.st.css';
+import { style, classes } from './HorizontalMenuItem.st.css';
 
 export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
@@ -94,16 +94,16 @@ export class HorizontalMenuItem extends React.PureComponent<
     const { isOpen: isOpenState } = this.state;
     const isOpen = isOpenState || isForceOpened;
 
-    return <span className={style.expandIcon}>{expandIcon({ isOpen })}</span>;
+    return <span className={classes.expandIcon}>{expandIcon({ isOpen })}</span>;
   }
 
   private renderLink() {
     const { href, target, icon, label } = this.props;
     return (
-      <div className={style.linkContainer}>
+      <div className={classes.linkContainer}>
         {icon}
         <a
-          className={style.menuItemLink}
+          className={classes.menuItemLink}
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.itemLink}
           href={href}
           target={target}
@@ -112,7 +112,7 @@ export class HorizontalMenuItem extends React.PureComponent<
           {label}
         </a>
         {this.renderExpandIcon()}
-        <div className={style.divider} />
+        <div className={classes.divider} />
       </div>
     );
   }
@@ -136,22 +136,11 @@ export class HorizontalMenuItem extends React.PureComponent<
 
     const { isOpen: isOpenState } = this.state;
 
-    const { className, ...stylableProps } = style(
-      'root',
-      { expandSize },
-      this.props,
-    );
-
     const isOpen = isOpenState || isForceOpened;
 
     return (
       <HorizontalMenuContext.Consumer>
         {menuContext => {
-          const classList = classnames(
-            className,
-            menuContext.menuItemClassName,
-          );
-
           return (
             <HorizontalMenuItemContext.Consumer>
               {menuItemContext => {
@@ -169,8 +158,10 @@ export class HorizontalMenuItem extends React.PureComponent<
                     onBlur={this.hideMenu}
                     data-hook={HORIZONTAL_MENU_METADATA.dataHooks.item}
                     ref={this.menuItemRef}
-                    className={classList}
-                    {...stylableProps}
+                    className={classnames(
+                      menuContext.menuItemClassName,
+                      style(classes.root, { expandSize }, this.props.className),
+                    )}
                     style={propStyle}
                     {...rest}
                   >
