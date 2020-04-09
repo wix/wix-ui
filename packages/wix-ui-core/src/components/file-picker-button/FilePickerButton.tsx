@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import style from './FilePickerButton.st.css';
+import { style, classes } from './FilePickerButton.st.css';
 import { DataHook } from './test/FilePickerButton.helpers';
 import { noop } from '../../utils';
 
@@ -55,14 +55,20 @@ export class FilePickerButton extends React.Component<
     const { id, children, accept, required, disabled } = this.props;
     const buttonId = id ? `${DataHook.ChooseFileButton}-${id}` : null;
     return (
-      <div {...style('root', { required, disabled }, this.props)}>
+      <div
+        className={style(
+          classes.root,
+          { required, disabled },
+          this.props.className,
+        )}
+      >
         <input
           id={id}
           type="file"
           tabIndex={-1}
           data-hook={DataHook.FileInput}
           ref={this.fileInputRef}
-          className={style.fileInput}
+          className={classes.fileInput}
           onChange={this.handleFileInputChange}
           accept={accept}
           required={required}
@@ -74,7 +80,7 @@ export class FilePickerButton extends React.Component<
           type="button"
           data-hook={DataHook.ChooseFileButton}
           ref={this.chooseFileButtonRef}
-          className={style.chooseFileButton}
+          className={classes.chooseFileButton}
           onClick={this.handleChooseFileButtonClick}
           onFocus={this.handleChooseFileButtonFocus}
           onBlur={this.handleChooseFileButtonBlur}
