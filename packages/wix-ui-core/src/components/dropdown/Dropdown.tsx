@@ -1,9 +1,6 @@
 import * as React from 'react';
-import onClickOutside, {
-  InjectedOnClickOutProps,
-  OnClickOutProps,
-} from 'react-onclickoutside';
-import style from './Dropdown.st.css';
+import onClickOutside, { InjectedOnClickOutProps } from 'react-onclickoutside';
+import { style, classes } from './Dropdown.st.css';
 import { Popover, Placement, PopoverProps } from '../popover';
 import { DropdownContent, IDOMid } from '../dropdown-content';
 import { Option } from '../dropdown-option';
@@ -306,7 +303,7 @@ export class DropdownComponent extends React.PureComponent<
 
     return (
       <Popover
-        {...style('root', { 'content-visible': shown }, this.props)}
+        className={style(classes.root, { 'content-visible': shown })}
         placement={placement}
         shown={shown}
         showArrow={showArrow}
