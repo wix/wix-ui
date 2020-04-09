@@ -6,7 +6,7 @@ import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Avatar, AvatarProps } from '.';
 import { nameToInitials } from './util';
 import { avatarDriverFactory } from './avatar.uni.driver';
-import styles from './avatar.st.css';
+import { style, classes, cssStates  } from './avatar.st.css';
 
 /** jsdom simulates loading of the image regardless of the src URL */
 const TEST_IMG_URL =
