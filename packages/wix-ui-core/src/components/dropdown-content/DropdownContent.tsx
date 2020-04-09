@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './DropdownContent.st.css';
+import { style, classes } from './DropdownContent.st.css';
 import { Option, DropdownOption } from '../dropdown-option';
 
 const NOT_HOVERED_INDEX = -1;
@@ -201,7 +201,7 @@ export class DropdownContent extends React.PureComponent<
 
     return (
       <div
-        {...style('root', {}, this.props)}
+        className={style(classes.root, {}, this.props.className)}
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}
         tabIndex={1000}
@@ -209,7 +209,7 @@ export class DropdownContent extends React.PureComponent<
         {fixedHeader}
         <div
           role="listbox"
-          className={style.optionsContainer}
+          className={classes.optionsContainer}
           id={optionsContainerId}
           ref={optionsContainer =>
             (this.optionsContainerRef = optionsContainer)
@@ -217,7 +217,7 @@ export class DropdownContent extends React.PureComponent<
         >
           {(options || []).map((option, index) => (
             <DropdownOption
-              className={style.dropdownOption}
+              className={classes.dropdownOption}
               data-hook="option"
               key={option.id}
               id={this.getOptionDOMid(option)}
