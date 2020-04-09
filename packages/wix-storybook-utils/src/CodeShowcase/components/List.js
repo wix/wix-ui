@@ -1,6 +1,8 @@
 import React from 'react';
-import styleclass from '../CodeShowcase.st.css';
+import classnames from 'classnames';
 import { node, bool } from 'prop-types';
+
+import styles from '../CodeShowcase.scss';
 
 const spacing = {
   marginRight: '8px',
@@ -11,7 +13,9 @@ const spacing = {
 };
 
 const List = ({ children, inverted }) => (
-  <div {...styleclass('demoItems', { inverted })}>
+  <div
+    className={classnames(styles.demoItems, { [styles.inverted]: inverted })}
+  >
     {Array.isArray(children)
       ? children.map((child, index) => (
           <div key={index} style={spacing}>

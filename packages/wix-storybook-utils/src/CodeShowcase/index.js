@@ -5,8 +5,9 @@ import SyntaxHighlighter, {
 } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import vs from 'react-syntax-highlighter/styles/prism/vs';
+import classnames from 'classnames';
 
-import styleclass from './CodeShowcase.st.css';
+import styles from './CodeShowcase.scss';
 import List from './components/List';
 import { iconShow } from './components/Show';
 import { iconHide } from './components/Hide';
@@ -45,23 +46,23 @@ class CodeShowcase extends React.Component {
     } = this.props;
     const { show } = this.state;
     return (
-      <div style={style} {...styleclass('root', {}, { className: theme })}>
-        <section className={styleclass.demo}>
+      <div style={style} className={classnames(styles.root, theme)}>
+        <section className={styles.demo}>
           <List inverted={inverted}>{children}</List>
         </section>
-        <section className={styleclass.meta}>
-          <a href={link} className={styleclass.title}>
+        <section className={styles.meta}>
+          <a href={link} className={styles.title}>
             {title}
           </a>
-          <div className={styleclass.description}>{description}</div>
+          <div className={styles.description}>{description}</div>
           <span
-            className={show ? styleclass.iconHide : styleclass.iconShow}
+            className={show ? styles.iconHide : styles.iconShow}
             onClick={this.toggleCodeShow}
           >
             {show ? iconHide : iconShow}
           </span>
         </section>
-        <section className={show ? styleclass.code : styleclass.codeHide}>
+        <section className={show ? styles.code : styles.codeHide}>
           <SyntaxHighlighter
             customStyle={customHighlighterStyle}
             language="jsx"
