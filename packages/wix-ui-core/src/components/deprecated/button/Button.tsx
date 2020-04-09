@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Button.st.css';
+import { style, classes } from './Button.st.css';
 import { BaseProps } from '../../../types/BaseProps';
 
 export interface ButtonProps
@@ -15,7 +15,12 @@ export interface ButtonProps
 export const Button: React.FunctionComponent<ButtonProps> = props => {
   const { disabled } = props;
 
-  return <button {...props} {...style('root', { disabled }, props)} />;
+  return (
+    <button
+      {...props}
+      className={style(classes.root, { disabled }, props.className)}
+    />
+  );
 };
 
 Button.displayName = 'Button';
