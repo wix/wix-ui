@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Label.st.css';
+import { style, classes } from './Label.st.css';
 
 export interface LabelProps {
   className?: string;
@@ -26,7 +26,7 @@ export const Label: React.FunctionComponent<LabelProps> = props => {
   const { id, children, ellipsis, disabled } = props;
   return (
     <label
-      {...style('root', { ellipsis, disabled }, props)}
+      className={style(classes.root, { ellipsis, disabled }, props.className)}
       data-ellipsis={ellipsis}
       data-disabled={disabled}
       htmlFor={props.for}
