@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './AddressInput.st.css';
+import { style, classes } from './AddressInput.st.css';
 import {
   InputWithOptions,
   InputWithOptionsProps,
@@ -14,7 +14,6 @@ import {
   MapsClientConstructor,
   PlaceDetails,
   Handler,
-  PlacesServiceStatusTypes,
 } from '../../clients/GoogleMaps/types';
 import {
   convertToFullAddress,
@@ -507,7 +506,7 @@ export class AddressInput extends React.PureComponent<
 
     return (
       <InputWithOptions
-        {...style('root', states, this.props)}
+        className={style(classes.root, states)}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}
