@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Divider.st.css';
+import { style, classes } from './Divider.st.css';
 
 export interface DividerProps {
   className?: string;
@@ -18,10 +18,10 @@ export const Divider: React.FunctionComponent<DividerProps> = (
 
   return (
     <div
-      {...style(
-        'root',
+      className={style(
+        classes.root,
         { vertical: vertical && !customDivider, customDivider },
-        props,
+        props.className,
       )}
     >
       {children}
