@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Divider } from '../../components/deprecated/divider';
-import style from './DropdownOption.st.css';
+import { classes } from './DropdownOption.st.css';
 const uniqueId = require('lodash/uniqueId');
 const compact = require('lodash/compact');
 
@@ -33,11 +33,11 @@ const highlightMatches = (option: Option, searchTerm: string): Option => {
   const f = stringArray[0] === '' ? isEven : isOdd;
   const parts = compact(stringArray).map((part, i) =>
     f(i) ? (
-      <mark className={style.highlight} key={i}>
+      <mark className={classes.highlight} key={i}>
         {part}
       </mark>
     ) : (
-      <span className={style.nonHighlight} key={i}>
+      <span className={classes.nonHighlight} key={i}>
         {part}
       </span>
     ),

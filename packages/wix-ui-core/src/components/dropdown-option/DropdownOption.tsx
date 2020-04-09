@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './DropdownOption.st.css';
+import { style, classes } from './DropdownOption.st.css';
 import { Option } from './';
 
 export interface DropdownOptionProps {
@@ -37,7 +37,11 @@ export const DropdownOption: DropdownOptionType = (
   return (
     <div
       id={id}
-      {...style('root', { disabled, selectable, hovered, selected }, props)}
+      className={style(
+        classes.root,
+        { disabled, selectable, hovered, selected },
+        props.className,
+      )}
       {...ariaProps}
       onClick={onClickHandler}
       title={option.value}
