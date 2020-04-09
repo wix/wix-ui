@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './Checkbox.st.css';
+import { style, classes } from './Checkbox.st.css';
 import { noop } from '../../utils';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
@@ -53,8 +53,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     return (
       <label
-        {...styles(
-          'root',
+        className={style(
+          classes.root,
           {
             checked,
             disabled,
@@ -64,13 +64,13 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             indeterminate,
             'focus-visible': this.state.focusVisible,
           },
-          this.props,
+          this.props.className,
         )}
         onMouseDown={this.handleMouseDown}
       >
         <input
           type="checkbox"
-          className={styles.nativeCheckbox}
+          className={classes.nativeCheckbox}
           onClick={e => e.stopPropagation()}
           onChange={this.handleChange}
           onKeyDown={this.handleInputKeyDown}
@@ -90,7 +90,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           aria-label={this.props['aria-label']}
         />
 
-        <span className={styles.box}>
+        <span className={classes.box}>
           {this.props.indeterminate
             ? indeterminateIcon
             : this.props.checked
@@ -99,7 +99,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         </span>
 
         {this.props.children ? (
-          <div className={styles.childContainer}>{this.props.children}</div>
+          <div className={classes.childContainer}>{this.props.children}</div>
         ) : null}
       </label>
     );
