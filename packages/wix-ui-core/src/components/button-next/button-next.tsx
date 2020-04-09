@@ -21,14 +21,10 @@ export interface ButtonProps
   focusableOnBlur?(): void;
 }
 
-interface ButtonState {
-  isStateLess: boolean;
-}
-
 const _addAffix = (Affix, styleClass) =>
   Affix &&
   React.cloneElement(Affix, {
-    className: classNames(style[styleClass], Affix.props.className),
+    className: classNames(classes[styleClass], Affix.props.className),
   });
 
 /**
@@ -77,7 +73,7 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         className={style(classes.root, { disabled }, this.props.className)}
       >
         {_addAffix(prefixIcon, 'prefix')}
-        <span className={style.content}>{children}</span>
+        <span className={classes.content}>{children}</span>
         {_addAffix(suffixIcon, 'suffix')}
       </Component>
     );
