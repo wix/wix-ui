@@ -7,7 +7,7 @@ import {
   dataHooksContent,
 } from './testSettings';
 import { EllipsisTooltip } from '..';
-import styles from './EllipsisTooltipTests.st.css';
+import { style, classes, cssStates  } from './EllipsisTooltipTests.st.css';
 
 const wrapperStylesWithEllipsis = {
   width: '170px',

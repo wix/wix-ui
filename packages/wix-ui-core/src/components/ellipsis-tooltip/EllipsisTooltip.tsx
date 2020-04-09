@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 import * as classNames from 'classnames';
-import ellipsisStyles from './Ellipsis.st.css';
+import { style, classes } from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
 const debounce = require('lodash/debounce');
 
@@ -58,7 +58,7 @@ export class EllipsisTooltip extends React.Component<
   };
 
   _loadTooltipStyle = async () => {
-    const { default: tooltipStyle } = await import('./EllipsisTooltip.st.css');
+    const tooltipStyle = await import('./EllipsisTooltip.st.css');
     this.setState({ tooltipStyle }, () => this._updateEllipsisState());
   };
 
@@ -97,7 +97,7 @@ export class EllipsisTooltip extends React.Component<
     const enhancedChildrenProps = (
       childrenProps = { className: null, style: {} },
     ) => ({
-      className: classNames(childrenProps.className, ellipsisStyles.root),
+      className: classNames(childrenProps.className, classes.root),
       style: {
         ...childrenProps.style,
         'white-space': 'nowrap', //required to make sure it will not break line
@@ -118,7 +118,9 @@ export class EllipsisTooltip extends React.Component<
 
     return isTooltipActivated ? (
       <Tooltip
-        {...(tooltipStyle ? tooltipStyle('root', {}, this.props) : {})}
+        className={
+          tooltipStyle ? tooltipStyle.style(tooltipStyle.classes.root) : {}
+        }
         appendTo="window"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
