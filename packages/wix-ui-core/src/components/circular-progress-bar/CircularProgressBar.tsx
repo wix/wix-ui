@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './CircularProgressBar.st.css';
+import { style, classes } from './CircularProgressBar.st.css';
 import { Arc } from './Arc';
 import { dataHooks } from './constants';
 
@@ -95,9 +95,9 @@ const normalizeProps = (props: CircularProgressBarProps) => {
   return { ...props, value };
 };
 
-export const CircularProgressBar: React.FunctionComponent<
-  CircularProgressBarProps
-> = (props: CircularProgressBarProps) => {
+export const CircularProgressBar: React.FunctionComponent<CircularProgressBarProps> = (
+  props: CircularProgressBarProps,
+) => {
   const { error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
@@ -106,12 +106,12 @@ export const CircularProgressBar: React.FunctionComponent<
       ? _props.errorLabel
       : `${Math.floor(_props.value)}%`;
   return (
-    <div {...style('root', { error, success }, _props)} data-error={error}>
+    <div className={style(classes.root, { error, success })} data-error={error}>
       {renderArcs(_props)}
       {showProgressIndication && (
         <div
           data-hook={dataHooks.progressIndicator}
-          className={style.progressIndicator}
+          className={classes.progressIndicator}
         >
           {value}
         </div>
