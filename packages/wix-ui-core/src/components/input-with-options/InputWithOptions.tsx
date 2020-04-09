@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './InputWithOptions.st.css';
+import { style, classes } from './InputWithOptions.st.css';
 import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
@@ -61,6 +61,8 @@ export type InputWithOptionsProps = Pick<
     emptyStateStyle?: React.CSSProperties;
     /** Options box z-index */
     optionsContainerZIndex?: number;
+
+    className?: string;
   };
 
 interface InputWithOptionsState {
@@ -99,7 +101,7 @@ export class InputWithOptions extends React.PureComponent<
 
   _setDropDownRef = (ref: InstanceType<typeof Dropdown>) => {
     this.dropDownRef = ref;
-  }
+  };
 
   open() {
     // Using getInstance() is here because closeOutside HOC
@@ -233,7 +235,7 @@ export class InputWithOptions extends React.PureComponent<
 
     return (
       <Dropdown
-        {...style('root', {}, this.props)}
+        className={style(classes.root, {}, this.props.className)}
         placement={placement}
         openTrigger={openTrigger}
         disabled={inputProps.disabled}
@@ -271,7 +273,7 @@ export class InputWithOptions extends React.PureComponent<
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
           onBlur={this._onBlur}
-          className={style.inputComponent}
+          className={classes.inputComponent}
         />
       </Dropdown>
     );
