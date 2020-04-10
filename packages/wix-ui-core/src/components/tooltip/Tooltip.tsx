@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Tooltip.st.css';
+import { style, classes } from './Tooltip.st.css';
 import { Popover, Placement, AppendTo } from '../popover';
 
 export interface Point {
@@ -146,7 +146,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
 
     return (
       <Popover
-        {...style('root', {}, this.props)}
+        className={style(classes.root)}
         {...(this.props['data-hook']
           ? { 'data-hook': this.props['data-hook'] }
           : {})}
