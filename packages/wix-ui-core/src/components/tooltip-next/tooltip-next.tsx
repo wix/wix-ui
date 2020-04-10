@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from '../tooltip/Tooltip.st.css';
+import { style, classes } from '../tooltip/Tooltip.st.css';
 import { PopoverNext } from '../popover-next';
 
 import { Placement, AppendTo } from '../popover';
@@ -54,6 +54,8 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
+
+  className?: string;
 }
 
 export interface TooltipState {
@@ -151,7 +153,7 @@ export class TooltipNext extends React.PureComponent<
 
     return (
       <PopoverNext
-        {...style('root', {}, this.props)}
+        className={style(classes.root, {}, this.props.className)}
         {...(this.props['data-hook']
           ? { 'data-hook': this.props['data-hook'] }
           : {})}
