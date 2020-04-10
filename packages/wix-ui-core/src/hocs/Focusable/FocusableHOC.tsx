@@ -2,7 +2,7 @@ import * as React from 'react';
 import hoistNonReactMethods from 'hoist-non-react-methods';
 
 import { getDisplayName } from '../utils';
-import styles from './Focusable.st.css';
+import { style, classes, cssStates } from './Focusable.st.css';
 import { isStatelessComponent } from '../../utils';
 
 type SubscribeCb = () => void;
@@ -134,13 +134,13 @@ export const withFocusable = Component => {
           ref={reference}
           focusableOnFocus={this.onFocus}
           focusableOnBlur={this.onBlur}
-          {...styles(
-            'root',
+          className={style(
+            classes.root,
             {
               focus: this.state.focus,
               'focus-visible': this.state.focusVisible,
             },
-            this.props,
+            this.props.className,
           )}
         />
       );
