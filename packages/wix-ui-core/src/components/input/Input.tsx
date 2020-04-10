@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Input.st.css';
+import { style, classes } from './Input.st.css';
 import { Omit } from 'type-zoo';
 import * as classnames from 'classnames';
 
@@ -61,10 +61,10 @@ export class Input extends React.Component<InputProps, InputState> {
 
     return (
       <div
-        {...style(
-          'root',
+        className={style(
+          classes.root,
           { disabled, error: !!error && !disabled, focus },
-          this.props,
+          this.props.className,
         )}
         style={inlineStyle}
       >
@@ -72,7 +72,7 @@ export class Input extends React.Component<InputProps, InputState> {
         <input
           {...allOtherProps}
           ref={input => (this.input = input)}
-          className={classnames(style.nativeInput, inputClassName)}
+          className={classnames(classes.nativeInput, inputClassName)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
         />
