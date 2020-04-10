@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './RadioButton.st.css';
+import { style, classes } from './RadioButton.st.css';
 
 const noop = () => null;
 
@@ -96,16 +96,12 @@ export class RadioButton extends React.Component<
 
     return (
       <div
-        {...style(
-          'root',
-          {
-            checked,
-            disabled,
-            focused,
-            'focus-visible': this.state.focusVisible,
-          },
-          this.props,
-        )}
+        className={style(classes.root, {
+          checked,
+          disabled,
+          focused,
+          'focus-visible': this.state.focusVisible,
+        })}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"
@@ -113,7 +109,7 @@ export class RadioButton extends React.Component<
       >
         <input
           type="radio"
-          className={style.hiddenRadio}
+          className={classes.hiddenRadio}
           disabled={disabled}
           required={required}
           onFocus={this.onFocus}
@@ -128,13 +124,13 @@ export class RadioButton extends React.Component<
           aria-label={this.props['aria-label']}
         />
         <span
-          className={style.icon}
+          className={classes.icon}
           onMouseEnter={this.onHover}
           onMouseLeave={onIconBlur}
         >
           {checked ? checkedIcon : uncheckedIcon}
         </span>
-        <span className={style.label}>{label}</span>
+        <span className={classes.label}>{label}</span>
       </div>
     );
   }
