@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Tickers.st.css';
+import { style, classes } from './Tickers.st.css';
 
 export interface TickersProps {
   className?: string;
@@ -28,12 +28,12 @@ export class Tickers extends React.PureComponent<TickersProps> {
 
   render() {
     return (
-      <div {...style('root', {}, this.props)}>
+      <div className={style(classes.root, {}, this.props.className)}>
         <button
           tabIndex={-1}
           type="button"
           onMouseDown={this.handleIncrement}
-          className={style.ticker}
+          className={classes.ticker}
           disabled={this.props.disabled}
           data-hook="ticker-button-up"
         >
@@ -43,7 +43,7 @@ export class Tickers extends React.PureComponent<TickersProps> {
           tabIndex={-1}
           type="button"
           onMouseDown={this.handleDecrement}
-          className={style.ticker}
+          className={classes.ticker}
           disabled={this.props.disabled}
           data-hook="ticker-button-down"
         >
