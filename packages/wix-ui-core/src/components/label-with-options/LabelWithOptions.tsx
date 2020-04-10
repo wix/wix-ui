@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './LabelWithOptions.st.css';
+import { style, classes } from './LabelWithOptions.st.css';
 import { Dropdown } from '../dropdown';
 import { Checkbox } from '../checkbox';
 import { Option, OptionFactory } from '../dropdown-option';
@@ -8,7 +8,7 @@ import { CLICK } from '../dropdown/constants';
 import { noop } from '../../utils';
 
 const createDivider = (value = null) =>
-  OptionFactory.createDivider({ className: style.divider, value });
+  OptionFactory.createDivider({ className: classes.divider, value });
 
 export interface LabelWithOptionsProps {
   /** The dropdown options array */
@@ -83,11 +83,12 @@ export class LabelWithOptions extends React.PureComponent<
     const error = !disabled && required && isDirty && selectedIds.length === 0;
     return (
       <Dropdown
-        {...style(
-          'root',
-          { required: required && !disabled, error, disabled, checkbox },
-          this.props,
-        )}
+        className={style(classes.root, {
+          required: required && !disabled,
+          error,
+          disabled,
+          checkbox,
+        })}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
@@ -100,10 +101,10 @@ export class LabelWithOptions extends React.PureComponent<
         onDeselect={this.onDeselect}
         disabled={disabled}
       >
-        <div className={style.selection}>
+        <div className={classes.selection}>
           <Label
-            className={`${style.label} ${
-              selectedIds && selectedIds.length ? '' : style.placeholder
+            className={`${classes.label} ${
+              selectedIds && selectedIds.length ? '' : classes.placeholder
             }`.trim()}
             ellipsis={ellipsis}
             data-hook="label"
@@ -163,13 +164,13 @@ export class LabelWithOptions extends React.PureComponent<
       newOption.render = option.isSelectable
         ? value => (
             <div
-              className={style.optionContainer}
+              className={classes.optionContainer}
               data-hook="checkbox-option-container"
             >
               <Checkbox
                 disabled={option.isDisabled}
                 checked={checked}
-                className={style.checkbox}
+                className={classes.checkbox}
               />
               {option.render(value)}
             </div>
