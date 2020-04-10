@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './menu-item.st.css';
+import { style, classes } from './menu-item.st.css';
 
 export interface MenuItemProps {
   /** any node to be rendered inside MenuItem */
@@ -23,7 +23,7 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
 
   return (
     <div
-      {...style('root', { selected, highlighted, disabled }, props)}
+      className={style(classes.root, { selected, highlighted, disabled })}
       {...rest}
       data-selected={selected}
       data-highlighted={highlighted}
