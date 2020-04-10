@@ -1,8 +1,7 @@
 import * as React from 'react';
-import style from './NavStepper.st.css';
-import { Stepper, StepProps } from '../stepper';
+import { style, classes } from './NavStepper.st.css';
+import { Stepper } from '../stepper';
 import { NavStep, ExternalNavStepProps } from './NavStep';
-import { isReactElement } from '../../utils';
 
 export { ExternalNavStepProps } from './NavStep';
 
@@ -20,15 +19,15 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
     const { activeStep, children } = this.props;
 
     return (
-      <nav {...style('root', {}, this.props)}>
+      <nav className={style(classes.root)}>
         <Stepper activeStep={activeStep}>
           {({ getStepProps }) => (
-            <ol className={style.steps}>
+            <ol className={classes.steps}>
               {React.Children.map(children, (child, index) => {
                 if (React.isValidElement(child)) {
                   const stepProps: any = getStepProps(index, {
                     ...child.props,
-                    className: style.step,
+                    className: classes.step,
                   });
 
                   if (
