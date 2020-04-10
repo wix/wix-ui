@@ -1,12 +1,12 @@
 import * as classNames from 'classnames';
 
-import Avatar from './avatar/avatar.st.css';
-import DefaultTheme from './theme.st.css';
+import { classes as avatarClasses } from './avatar/avatar.st.css';
+import { classes as defaultThemeClasses } from './theme.st.css';
 
 const getClassNames = (values, stylesheet, rootcls?) => {
   const clsArray = values.map(cls => stylesheet[cls] || null);
   return classNames(stylesheet[rootcls], clsArray);
 };
 
-export const avatar = (...values) => getClassNames(values, Avatar);
-export const defaultTheme = DefaultTheme.root;
+export const avatar = (...values) => getClassNames(values, avatarClasses);
+export const defaultTheme = defaultThemeClasses.root;
