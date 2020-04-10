@@ -9,11 +9,6 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import { style, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
-import {
-  AttributeMap,
-  attachStylesToNode,
-  detachStylesFromNode,
-} from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
@@ -145,6 +140,11 @@ export type PopoverType = PopoverProps & {
   Content?: React.FunctionComponent<ElementProps>;
 };
 
+const attachClasses = (node: HTMLElement, classNames: string) =>
+  node.classList.add(...classNames.split(' '));
+const detachClasses = (node: HTMLElement, classNames: string) =>
+  node.classList.remove(...classNames.split(' '));
+
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
   if (typeof timeout === 'object') {
     const { enter, exit } = timeout;
@@ -204,7 +204,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
-  stylesObj: AttributeMap = null;
+  portalClasses: string;
   appendToNode: HTMLElement = null;
   contentHook: string;
 
@@ -285,9 +285,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               data-content-element={this.contentHook}
               style={{ ...popperStyles, zIndex, maxWidth }}
               data-placement={popperPlacement || placement}
-              className={classNames(style.popover, {
-                [style.withArrow]: showArrow,
-                [style.popoverContent]: !showArrow,
+              className={classNames(classes.popover, {
+                [classes.withArrow]: showArrow,
+                [classes.popoverContent]: !showArrow,
               })}
             >
               {showArrow &&
@@ -301,7 +301,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 key="popover-content"
                 id={id}
                 role={role}
-                className={showArrow ? style.popoverContent : ''}
+                className={showArrow ? classes.popoverContent : ''}
               >
                 {childrenObject.Content}
               </div>
@@ -319,9 +319,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
 
     if (shouldAnimate || shown) {
-      attachStylesToNode(this.portalNode, this.stylesObj);
+      attachClasses(this.portalNode, this.portalClasses);
     } else {
-      detachStylesFromNode(this.portalNode, this.stylesObj);
+      detachClasses(this.portalNode, this.portalClasses);
     }
   }
 
@@ -342,7 +342,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           exit: style['popoverAnimation-exit'],
           exitActive: style['popoverAnimation-exit-active'],
         }}
-        onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
+        onExited={() => detachClasses(this.portalNode, this.portalClasses)}
       >
         {popper}
       </CSSTransition>
@@ -376,7 +376,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       return customArrow(placement, commonProps);
     }
 
-    return <div {...commonProps} className={style.arrow} />;
+    return <div {...commonProps} className={classes.arrow} />;
   }
 
   componentDidMount() {
@@ -481,7 +481,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, omit('data-hook', this.props));
+      this.portalClasses = style(classes.root, {}, this.props.className);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();

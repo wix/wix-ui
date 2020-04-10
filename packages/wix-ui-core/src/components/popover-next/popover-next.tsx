@@ -16,12 +16,6 @@ import { PopperProps } from './components/Popper';
 import { style, classes } from '../popover/Popover.st.css';
 
 import {
-  AttributeMap,
-  attachStylesToNode,
-  detachStylesFromNode,
-} from '../../utils/stylableUtils';
-
-import {
   buildChildrenObject,
   createComponentThatRendersItsChildren,
   ElementProps,
@@ -62,6 +56,11 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
         ),
       ),
 ) as (key: number) => React.ComponentType<LoadablePopper>;
+
+const attachClasses = (node: HTMLElement, classNames: string) =>
+  node.classList.add(...classNames.split(' '));
+const detachClasses = (node: HTMLElement, classNames: string) =>
+  node.classList.remove(...classNames.split(' '));
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
@@ -180,7 +179,7 @@ export class PopoverNext extends React.Component<
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
-  stylesObj: AttributeMap = null;
+  portalClasses: string;
   appendToNode: HTMLElement = null;
   clickOutsideRef: any = null;
   contentHook: string;
@@ -215,7 +214,7 @@ export class PopoverNext extends React.Component<
       (this.popperScheduleUpdate = scheduleUpdate);
 
     const detachStyles = () =>
-      detachStylesFromNode(this.portalNode, this.stylesObj);
+      detachClasses(this.portalNode, this.portalClasses);
 
     const shouldAnimate = shouldAnimatePopover(this.props.timeout);
 
@@ -232,7 +231,7 @@ export class PopoverNext extends React.Component<
         <CSSTransition
           timeout={this.props.timeout}
           shouldAnimate={shouldAnimate}
-          detachSyles={detachStyles}
+          detachStyles={detachStyles}
           shown={shown}
         >
           <Popper
@@ -258,9 +257,9 @@ export class PopoverNext extends React.Component<
     const shouldAnimate = shouldAnimatePopover(timeout);
 
     if (shouldAnimate || shown) {
-      attachStylesToNode(this.portalNode, this.stylesObj);
+      attachClasses(this.portalNode, this.portalClasses);
     } else {
-      detachStylesFromNode(this.portalNode, this.stylesObj);
+      detachClasses(this.portalNode, this.portalClasses);
     }
   }
 
@@ -377,7 +376,7 @@ export class PopoverNext extends React.Component<
     if (this.portalNode) {
       // Re-calculate the portal's styles
       const { ['data-hook']: omitted, ...rest } = this.props;
-      this.stylesObj = style(classes.root, {}, rest);
+      this.portalClasses = style(classes.root, {}, rest.className);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
