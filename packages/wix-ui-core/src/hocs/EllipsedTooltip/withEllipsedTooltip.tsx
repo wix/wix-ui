@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import textStyle from './Text.st.css';
+import { style, classes } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
@@ -90,12 +90,12 @@ class EllipsedTooltip extends React.Component<
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
   _renderText() {
-    const { component, style } = this.props;
+    const { component, style: inlineStyle } = this.props;
     return (
       <StateFullComponentWrap
-        {...textStyle('root', {}, component.props)}
+        className={style(classes.root, {}, component.props.className)}
         style={{
-          ...style,
+          ...inlineStyle,
           whiteSpace: 'nowrap',
         }}
         ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
@@ -155,9 +155,7 @@ export const withEllipsedTooltip = ({
   shouldLoadAsync?: boolean;
   tooltipProps?: object;
 } = {}) => Comp => {
-  const WrapperComponent: React.FunctionComponent<
-    WrapperComponentProps
-  > = props => (
+  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

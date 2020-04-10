@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import textStyle from './Text.st.css';
+
+import { style as textStyle, classes } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip-next/tooltip-next';
@@ -93,7 +94,7 @@ class EllipsedTooltip extends React.Component<
     const { component, style } = this.props;
     return (
       <StateFullComponentWrap
-        {...textStyle('root', {}, component.props)}
+        className={textStyle(classes.root, {}, component.props)}
         style={{
           ...style,
           whiteSpace: 'nowrap',
@@ -137,7 +138,7 @@ class EllipsedTooltip extends React.Component<
             <TooltipNext
               appendTo="scrollParent"
               {...tooltipProps}
-              {...style('root', {}, tooltipProps || this.props)}
+              className={classes.root}
               content={<div>{this.textNode.textContent}</div>}
               showArrow
             >
