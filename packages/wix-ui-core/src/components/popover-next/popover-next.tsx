@@ -13,7 +13,7 @@ import Loader from './components/Loader';
 import Portal from './components/Portal';
 import { PopperProps } from './components/Popper';
 
-import style from '../popover/Popover.st.css';
+import { style, classes } from '../popover/Popover.st.css';
 
 import {
   AttributeMap,
@@ -377,7 +377,7 @@ export class PopoverNext extends React.Component<
     if (this.portalNode) {
       // Re-calculate the portal's styles
       const { ['data-hook']: omitted, ...rest } = this.props;
-      this.stylesObj = style('root', {}, rest);
+      this.stylesObj = style(classes.root, {}, rest);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -436,7 +436,7 @@ export class PopoverNext extends React.Component<
               style={inlineStyles}
               data-hook={this.props['data-hook']}
               data-content-hook={this.contentHook}
-              {...style('root', { fluid }, this.props)}
+              className={style(classes.root, { fluid }, this.props.className)}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
               id={id}
