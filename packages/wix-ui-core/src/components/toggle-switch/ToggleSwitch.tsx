@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './ToggleSwitch.st.css';
+import { style, classes } from './ToggleSwitch.st.css';
 import { dataHooks } from './constants';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
@@ -58,27 +58,35 @@ export class ToggleSwitch extends React.PureComponent<
 
     return (
       <div
-        {...style(
-          'root',
-          {
-            checked,
-            disabled,
-            focus: this.state.focus,
-            'focus-visible': this.state.focusVisible,
-          },
-          this.props,
-        )}
+        className={style(classes.root, {
+          checked,
+          disabled,
+          focus: this.state.focus,
+          'focus-visible': this.state.focusVisible,
+        })}
         style={inlineStyles.root}
       >
-        <div data-hook={dataHooks.track} className={style.track} style={inlineStyles.track} />
-        <div data-hook={dataHooks.knob} className={style.knob} style={inlineStyles.knob}>
-          <div data-hook={dataHooks.knobIcon} className={style.knobIcon} style={inlineStyles.knobIcon}>
+        <div
+          data-hook={dataHooks.track}
+          className={classes.track}
+          style={inlineStyles.track}
+        />
+        <div
+          data-hook={dataHooks.knob}
+          className={classes.knob}
+          style={inlineStyles.knob}
+        >
+          <div
+            data-hook={dataHooks.knobIcon}
+            className={classes.knobIcon}
+            style={inlineStyles.knobIcon}
+          >
             {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
           </div>
         </div>
         <input
           id={this.props.id}
-          className={style.input}
+          className={classes.input}
           type="checkbox"
           checked={checked}
           disabled={disabled}
