@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { playerComponents, playerVerifiers } from './players';
 import { PlayerNameType, ICommonProps, IConfig } from './types';
-import styles from './Video.st.css';
+import { style, classes } from './Video.st.css';
 
 const noop = () => null;
 const DEFAULT_PLAYER = 'playable';
@@ -88,11 +88,7 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
     }
 
     return (
-      <div
-        id={id}
-        style={{ width, height }}
-        {...styles('root', {}, this.props)}
-      >
+      <div id={id} style={{ width, height }} className={style(classes.root)}>
         <Player {...playerProps} ref={playerRef} />
       </div>
     );

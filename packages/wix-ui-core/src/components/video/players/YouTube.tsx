@@ -15,7 +15,7 @@ import {
   ISDKConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 
 const URL_REGEX = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/;
 
@@ -178,7 +178,7 @@ class YouTubePlayer extends React.PureComponent<IYouTubeProps> {
     return (
       <div
         ref={this.containerRef}
-        className={styles.playerContainer}
+        className={classes.playerContainer}
         data-player-name="YouTube"
       />
     );

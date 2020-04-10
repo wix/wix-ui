@@ -16,7 +16,7 @@ import {
   ISDKConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 import classNames from 'classnames';
 
 const URL_REGEX = /facebook\.com\/([^/?].+\/)?video(s|\.php)[/?].*$/;
@@ -253,13 +253,22 @@ class FacebookPlayer extends React.PureComponent<IFacebookProps> {
   };
 
   render() {
-    const { src, playing, controls, width, height, isResponsiveMode } = this.props;
+    const {
+      src,
+      playing,
+      controls,
+      width,
+      height,
+      isResponsiveMode,
+    } = this.props;
 
     return (
       <div
         ref={this.containerRef}
         id={this.playerId}
-        className={classNames('fb-video', styles.playerContainer, {[styles.responsiveMode]: isResponsiveMode })}
+        className={classNames('fb-video', classes.playerContainer, {
+          [classes.responsiveMode]: isResponsiveMode,
+        })}
         data-href={src}
         data-width={parseSize(width)}
         data-height={parseSize(height)}

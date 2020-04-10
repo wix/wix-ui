@@ -15,7 +15,7 @@ import {
   ISDKConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 
 const URL_REGEX = /vimeo\.com\/.+/;
 
@@ -161,7 +161,7 @@ class VimeoPlayer extends React.PureComponent<IVimeoProps> {
     return (
       <div
         ref={this.containerRef}
-        className={styles.playerContainer}
+        className={classes.playerContainer}
         data-player-name="Vimeo"
       />
     );

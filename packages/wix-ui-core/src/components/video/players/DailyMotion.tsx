@@ -15,7 +15,7 @@ import {
   ISDKConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 
 const URL_REGEX = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
 
@@ -155,7 +155,7 @@ class DailyMotionPlayer extends React.PureComponent<IDailyMotionProps> {
 
   render() {
     return (
-      <div className={styles.playerContainer} data-player-name="DailyMotion">
+      <div className={classes.playerContainer} data-player-name="DailyMotion">
         <div ref={this.containerRef} />
       </div>
     );
