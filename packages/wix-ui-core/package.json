@@ -102,6 +102,7 @@
     "tslib": "^1.9.3",
     "type-zoo": "3.1.1",
     "wix-eventually": "^2.2.0",
+    "wix-ui-icons-common": "^2.0.0",
     "wix-ui-test-utils": "^1.0.151"
   },
   "devDependencies": {
@@ -144,7 +145,6 @@
     "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^3.0.7",
     "wix-ui-framework": "^3.3.1",
-    "wix-ui-icons-common": "^2.0.0",
     "wix-ui-mocha-runner": "^0.1.6",
     "yoshi": "^3.28.0",
     "yoshi-style-dependencies": "^3.16.0"
