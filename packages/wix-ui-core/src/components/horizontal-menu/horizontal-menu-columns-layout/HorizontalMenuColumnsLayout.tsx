@@ -119,7 +119,7 @@ export class HorizontalMenuColumnsLayout extends React.Component<
             style(
               classes.root,
               { expandSize: menuItemContext.expandSize, columnsAlignment },
-              this.props,
+              this.props.className,
             ),
             menuContext.columnsLayoutClassName,
           )}

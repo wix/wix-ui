@@ -331,7 +331,7 @@ export class DropdownComponent extends React.PureComponent<
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>
           <DropdownContent
-            className={style.dropdownContent}
+            className={classes.dropdownContent}
             data-hook="dropdown-content"
             ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
             options={options}

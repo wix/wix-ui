@@ -26,7 +26,7 @@ const VIEWBOX_SIZE = 54;
 
 const resolveIndicationElement = (props: CircularProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) => (
-    <div data-hook={dataHook} className={style.statusIndicator}>
+    <div data-hook={dataHook} className={classes.statusIndicator}>
       {children}
     </div>
   );
@@ -59,21 +59,21 @@ const renderArcs = (props: CircularProgressBarProps) => {
   const normalizedValue = normalizeValue(value);
   return (
     <div
-      className={style.arcsContainer}
+      className={classes.arcsContainer}
       style={{ width: `${normalizedSize}px`, height: `${normalizedSize}px` }}
     >
       {resolveIndicationElement(props)}
       <Arc
         data-hook={dataHooks.progressArcBackground}
         value={FULL_PROGRESS}
-        className={style.backArc}
+        className={classes.backArc}
         strokeWidth={4}
         size={normalizedSize}
       />
       <Arc
         data-hook={dataHooks.progressArcForeground}
         value={normalizedValue}
-        className={style.foreArc}
+        className={classes.foreArc}
         strokeWidth={4}
         size={normalizedSize}
       />

@@ -5,7 +5,7 @@ import { Option, OptionFactory } from '../dropdown-option/OptionFactory';
 import { InputProps, AriaAutoCompleteType } from '../input';
 
 const createDivider = (value = null) =>
-  OptionFactory.createDivider({ className: style.divider, value });
+  OptionFactory.createDivider({ className: classes.divider, value });
 
 export interface AutocompleteProps {
   /** The dropdown options array */

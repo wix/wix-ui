@@ -39,9 +39,9 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     super(props);
 
     this.contextValue = {
-      menuItemClassName: style.menuItem,
-      columnsLayoutClassName: style.columnsLayout,
-      gridLayoutClassName: style.gridLayout,
+      menuItemClassName: classes.menuItem,
+      columnsLayoutClassName: classes.columnsLayout,
+      gridLayoutClassName: classes.gridLayout,
       rootMenuRef: this.rootRef,
     };
   }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
-import { style, classes, cssStates } from './avatar.st.css';
+import { style, classes } from './avatar.st.css';
 import { ContentType } from './types';
 import { nameToInitials } from './util';
 
@@ -205,7 +205,10 @@ export class AvatarComponent extends React.Component<
         return placeholder === null
           ? null
           : React.cloneElement(placeholder, {
-              className: classNames(placeholder.props.className, style.content),
+              className: classNames(
+                placeholder.props.className,
+                classes.content,
+              ),
             });
       }
 
@@ -214,7 +217,7 @@ export class AvatarComponent extends React.Component<
 
         return (
           <img
-            className={classNames(style.content, className)}
+            className={classNames(classes.content, className)}
             alt={alt ? alt : this.props.name}
             {...rest}
           />

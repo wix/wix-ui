@@ -426,13 +426,16 @@ export class AddressInput extends React.PureComponent<
   _renderOption(val) {
     const { locationIcon, optionStyle } = this.props;
     return (
-      <div className={style.option} style={optionStyle}>
+      <div className={classes.option} style={optionStyle}>
         {locationIcon && (
-          <div className={style.iconWrapper} data-hook="location-icon-wrapper">
+          <div
+            className={classes.iconWrapper}
+            data-hook="location-icon-wrapper"
+          >
             {locationIcon}
           </div>
         )}
-        <div className={style.optionContent}>{val}</div>
+        <div className={classes.optionContent}>{val}</div>
       </div>
     );
   }
