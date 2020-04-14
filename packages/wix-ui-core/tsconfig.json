@@ -21,5 +21,8 @@
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/types/external-types.d.ts"
+  ],
+  "exclude": [
+    "./src/**/*.meta.ts"
   ]
 }
