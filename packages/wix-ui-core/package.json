@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.12.0",
-    "@stylable/dom-test-kit": "^1.0.7",
+    "@stylable/dom-test-kit": "^3.4.1",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "grapheme-splitter": "^1.0.4",
