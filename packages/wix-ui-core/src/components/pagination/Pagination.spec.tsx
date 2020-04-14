@@ -352,7 +352,7 @@ describe('Pagination', () => {
 
     it('shows first and last buttons when showFirstLastNavButtons is on', async () => {
       const p = await render(
-        <Pagination totalPages={3} showFirstLastNavButtons />,
+        <Pagination totalPages={3} showFirstLastNavButtons />
       );
 
       expect(p.firstButton).toBeTruthy();
@@ -367,7 +367,7 @@ describe('Pagination', () => {
           currentPage={3}
           showFirstLastNavButtons
           onChange={onChange}
-        />,
+        />
       );
 
       Simulate.click(p.previousButton);
@@ -383,7 +383,7 @@ describe('Pagination', () => {
     it('disables first and previous buttons when on the first page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />,
+        <Pagination totalPages={5} currentPage={1} showFirstLastNavButtons />
       );
 
       Simulate.click(p.previousButton);
@@ -395,7 +395,7 @@ describe('Pagination', () => {
     it('disables next and last buttons when on the last page', async () => {
       const onChange = jest.fn();
       const p = await render(
-        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />,
+        <Pagination totalPages={5} currentPage={5} showFirstLastNavButtons />
       );
 
       Simulate.click(p.nextButton);
@@ -413,7 +413,7 @@ describe('Pagination', () => {
           previousLabel="previous-label"
           nextLabel="next-label"
           lastLabel="last-label"
-        />,
+        />
       );
       expect(p.firstButton.textContent).toEqual('first-label');
       expect(p.previousButton.textContent).toEqual('previous-label');
@@ -421,16 +421,16 @@ describe('Pagination', () => {
       expect(p.lastButton.textContent).toEqual('last-label');
     });
 
-    it('does not show previous and next buttons when disabled', async () => {
+    it('renders previous and next buttons as empty when disabled', async () => {
       const p = await render(
         <Pagination
           totalPages={5}
           showNextLabel={false}
           showPreviousLabel={false}
-        />,
+        />
       );
-      expect(p.nextButton).toBe(null);
-      expect(p.previousButton).toBe(null);
+      expect(p.nextButton.textContent).toBe('');
+      expect(p.previousButton.textContent).toBe('');
     });
   });
 

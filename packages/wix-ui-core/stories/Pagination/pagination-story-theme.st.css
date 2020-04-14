@@ -29,6 +29,10 @@
 
 }
 
+.root::emptyButton {
+    -st-mixin: button-common-mixin;
+}
+
 .root::navButton {
     -st-mixin: button-common-mixin;
     background-color: value(materialBlueGray100);

@@ -285,6 +285,20 @@ export class Pagination extends React.Component<
     );
   }
 
+  private renderEmptyButton(type: ButtonType): JSX.Element {
+    const btnClass = {
+      [ButtonType.Prev]: [pStyle.emptyButtonPrevious],
+      [ButtonType.Next]: [pStyle.emptyButtonNext],
+    }[type] as [string];
+
+    return (
+      <div
+        data-hook={PaginationDataHooks[type]}
+        {...pStyle('emptyButton ' + btnClass)}
+      />
+    );
+  }
+
   private renderNavButton(type: ButtonType): JSX.Element {
     const { currentPage, totalPages, pageUrl } = this.props;
 
@@ -367,9 +381,13 @@ export class Pagination extends React.Component<
         {...pStyle('root', styleStates, this.props)}
       >
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
-        {showPreviousLabel && this.renderNavButton(ButtonType.Prev)}
+        {showPreviousLabel
+          ? this.renderNavButton(ButtonType.Prev)
+          : this.renderEmptyButton(ButtonType.Prev)}
         {this.renderPages()}
-        {showNextLabel && this.renderNavButton(ButtonType.Next)}
+        {showNextLabel
+          ? this.renderNavButton(ButtonType.Next)
+          : this.renderEmptyButton(ButtonType.Next)}
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.Last)}
       </nav>
     );

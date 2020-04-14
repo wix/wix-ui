@@ -18,9 +18,15 @@
     cursor: pointer;
 }
 
+.emptyButton {
+    -st-mixin: button-common-mixin;
+}
+
 .navButtonFirst {  order: 1;  }
-.navButtonPrevious {  order: 2;  }
-.navButtonNext {  order: 4;  }
+.navButtonPrevious,
+.emptyButtonPrevious{  order: 2;  }
+.navButtonNext,
+.emptyButtonNext{  order: 4;  }
 .navButtonLast {  order: 5;  }
 
 .pageStrip {
