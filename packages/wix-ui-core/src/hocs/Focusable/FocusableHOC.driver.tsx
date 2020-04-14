@@ -3,7 +3,7 @@ import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
 import { withFocusable } from './FocusableHOC';
-import style from './Focusable.st.css';
+import * as style from './Focusable.st.css';
 
 declare global {
   interface Window {
@@ -46,7 +46,7 @@ export class PureChildComponent extends React.PureComponent<
       <div
         onFocus={this.props.focusableOnFocus}
         onBlur={this.props.focusableOnBlur}
-        {...style('root', {}, this.props)}
+        className={style.style(style.classes.root)}
       >
         Hello
       </div>

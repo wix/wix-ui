@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './Divider.st.css';
+import * as style from './Divider.st.css';
 
 export const dividerDriverFactory = ({ element }) => {
   const domUtils = new StylableDOMUtil(style, element);

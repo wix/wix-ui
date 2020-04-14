@@ -428,7 +428,7 @@ export class PopoverNext extends React.Component<
           <ClickOutside
             rootRef={this.clickOutsideRef}
             onClickOutside={shown ? this._handleClickOutside : undefined}
-            excludeClass={excludeClass ? excludeClass : style.popover}
+            excludeClass={excludeClass ? excludeClass : classes.popover}
           >
             <div
               ref={this.clickOutsideRef}
@@ -444,7 +444,7 @@ export class PopoverNext extends React.Component<
                 {({ ref }) => (
                   <div
                     ref={ref}
-                    className={style.popoverElement}
+                    className={classes.popoverElement}
                     data-hook="popover-element"
                     onClick={onClick}
                     onKeyDown={onKeyDown}

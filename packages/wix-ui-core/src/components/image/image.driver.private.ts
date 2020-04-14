@@ -1,17 +1,13 @@
 import { UniDriver } from 'wix-ui-test-utils/unidriver';
-import {
-  BaseUniDriver,
-  baseUniDriverFactory,
-} from 'wix-ui-test-utils/base-driver';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './image.st.css';
+import * as style from './image.st.css';
 import {
   imageDriverFactory as publicImageDriverFactory,
   ImageDriver as ImagePublicDriver,
 } from './image.uni.driver';
 
 export interface ImageDriver extends ImagePublicDriver {
-  getResizeMode(): Promise<string>;
+  getResizeMode(): Promise<string | boolean>;
   getSrcSet(): Promise<string>;
 }
 

@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import styles from './Checkbox.st.css';
+import * as styles from './Checkbox.st.css';
 
 export const checkboxDriverFactory = ({ element, eventTrigger }) => {
   const utils = new StylableDOMUtil(styles, element);

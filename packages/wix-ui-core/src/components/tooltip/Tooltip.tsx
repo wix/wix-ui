@@ -52,6 +52,8 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
+
+  className?: string;
 }
 
 export interface TooltipState {
@@ -142,11 +144,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       minWidth,
       maxWidth,
       'aria-describedby': ariaDescribedBy,
+      className,
     } = this.props;
 
     return (
       <Popover
-        className={style(classes.root)}
+        className={style(classes.root, {}, className)}
         {...(this.props['data-hook']
           ? { 'data-hook': this.props['data-hook'] }
           : {})}

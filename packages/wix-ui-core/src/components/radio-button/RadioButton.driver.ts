@@ -1,4 +1,4 @@
-import styles from './RadioButton.st.css';
+import * as styles from './RadioButton.st.css';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
 export const radioButtonDriverFactory = ({ element, eventTrigger }) => {

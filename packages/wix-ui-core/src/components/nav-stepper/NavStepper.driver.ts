@@ -5,7 +5,7 @@ import {
 } from 'wix-ui-test-utils/driver-factory';
 import { Simulate } from 'react-dom/test-utils';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import stepStyle from './NavStep.st.css';
+import * as stepStyle from './NavStep.st.css';
 
 export class NavStepperDriver implements BaseDriver {
   private readonly styleUtil = new StylableDOMUtil(stepStyle);

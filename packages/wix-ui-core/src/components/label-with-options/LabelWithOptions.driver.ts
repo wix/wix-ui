@@ -2,7 +2,7 @@ import { dropdownDriverFactory } from '../dropdown/Dropdown.driver';
 import { labelDriverFactory } from '../deprecated/label/Label.driver';
 import { checkboxDriverFactory } from '../checkbox/Checkbox.driver';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import styles from './LabelWithOptions.st.css';
+import * as styles from './LabelWithOptions.st.css';
 
 export const labelWithOptionsDriverFactory = ({ element, eventTrigger }) => {
   const dropdownDriver = dropdownDriverFactory({ element, eventTrigger });

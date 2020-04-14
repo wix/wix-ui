@@ -5,6 +5,7 @@ import { style, classes } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
+import { RuntimeStylesheet } from '@stylable/runtime';
 const debounce = require('lodash/debounce');
 
 class LoadableTooltip extends Loadable<{
@@ -133,7 +134,7 @@ class EllipsedTooltip extends React.Component<
             <Tooltip
               appendTo="scrollParent"
               {...tooltipProps}
-              {...tooltipStyle('root', {}, tooltipProps || this.props)}
+              className={tooltipStyle.style(tooltipStyle.classes.root)}
               content={<div>{this.textNode.textContent}</div>}
               showArrow
             >

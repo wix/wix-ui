@@ -10,7 +10,7 @@ import { Simulate } from 'react-dom/test-utils';
 import { Popover, PopoverProps } from './';
 import { popoverPrivateDriverFactory } from './Popover.private.driver';
 import { testkit } from './Popover.uni.driver';
-import styles from './Popover.st.css';
+import { classes } from './Popover.st.css';
 
 /** PopoverNext  */
 import { PopoverNext } from '../popover-next/popover-next';
@@ -350,7 +350,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
     const queryPopoverContent = () =>
       queryHook<HTMLElement>(document, 'popover-content');
 
-    it(`animates on close given a timeout`, async () => {
+    it('animates on close given a timeout', async () => {
       await createDriver(
         popoverWithProps({ placement: 'bottom', shown: true, timeout: 10 }),
       );
@@ -606,7 +606,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         portalContainer.node,
       );
       expect((await driver.getPortalElement()).classList).toContain(
-        styles.root,
+        classes.root,
       );
     });
 
@@ -627,7 +627,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         portalContainer.node,
       );
       expect((await driver.getPortalElement()).classList).not.toContain(
-        styles.root,
+        classes.root,
       );
     });
 
@@ -742,10 +742,10 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         );
 
         expect(queryPopoverPortal()).toBeTruthy();
-        expect(queryPopoverPortal().classList).toContain(styles.root);
+        expect(queryPopoverPortal().classList).toContain(classes.root);
 
         await delay(10);
-        expect(queryPopoverPortal().classList).not.toContain(styles.root);
+        expect(queryPopoverPortal().classList).not.toContain(classes.root);
       });
     });
   });

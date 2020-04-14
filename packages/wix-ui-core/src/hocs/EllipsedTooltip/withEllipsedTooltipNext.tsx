@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 
-import { style as textStyle, classes } from './Text.st.css';
+import { style as textStyle, classes as textClasses } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip-next/tooltip-next';
+import { RuntimeStylesheet } from '@stylable/runtime';
 const debounce = require('lodash/debounce');
 
 class LoadableTooltip extends Loadable<{
@@ -18,7 +19,7 @@ interface EllipsedTooltipProps {
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
-  tooltipProps?: object;
+  tooltipProps?: TooltipProps;
 }
 
 interface EllipsedTooltipState {
@@ -94,7 +95,7 @@ class EllipsedTooltip extends React.Component<
     const { component, style } = this.props;
     return (
       <StateFullComponentWrap
-        className={textStyle(classes.root, {}, component.props)}
+        className={textStyle(textClasses.root, {}, component.props)}
         style={{
           ...style,
           whiteSpace: 'nowrap',
@@ -138,7 +139,11 @@ class EllipsedTooltip extends React.Component<
             <TooltipNext
               appendTo="scrollParent"
               {...tooltipProps}
-              className={classes.root}
+              className={style.style(
+                style.classes.root,
+                {},
+                tooltipProps.className,
+              )}
               content={<div>{this.textNode.textContent}</div>}
               showArrow
             >

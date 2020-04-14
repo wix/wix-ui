@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import styles from './DropdownOption.st.css';
+import * as styles from './DropdownOption.st.css';
 
 export const dropdownOptionDriverFactory = ({ element, eventTrigger }) => {
   const domUtils = new StylableDOMUtil(styles, element);
@@ -15,7 +15,7 @@ export const dropdownOptionDriverFactory = ({ element, eventTrigger }) => {
     getElement: () => element,
     getHighlightedStrings: () => {
       const highlightedElements: HTMLElement[] = Array.from(
-        element.querySelectorAll(`.${styles.highlight}`),
+        element.querySelectorAll(`.${styles.classes.highlight}`),
       );
       return highlightedElements.map((el: HTMLElement) => el.innerHTML);
     },

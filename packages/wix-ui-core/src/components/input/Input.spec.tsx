@@ -6,7 +6,7 @@ import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Input } from './Input';
 import { InputDriver } from './Input.private.driver';
-import style from './Input.st.css';
+import * as style from './Input.st.css';
 
 const stylableUtil = new StylableDOMUtil(style);
 
@@ -66,7 +66,7 @@ describe('Input', () => {
     expect(input.tabIndex).toBe(1);
     expect(input.type).toBe('password');
     expect(input.value).toBe('hunter2');
-    expect(input.className).toBe(`${style.nativeInput} my-input-class`);
+    expect(input.className).toBe(`${style.classes.nativeInput} my-input-class`);
   });
 
   it('should render prefix and suffix', async () => {
@@ -110,7 +110,7 @@ describe('Input', () => {
     });
 
     it('should support setSelectionRange() method', async () => {
-      const { input, instance } = await render(<Input value="1234" />);
+      const { instance } = await render(<Input value="1234" />);
       instance.setSelectionRange(1, 3);
       expect(instance.getSelectionStart()).toBe(1);
       expect(instance.getSelectionEnd()).toBe(3);

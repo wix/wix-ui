@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './Thumbnail.st.css';
+import * as style from './Thumbnail.st.css';
 import { BaseDriver, DriverFactory } from 'wix-ui-test-utils/driver-factory';
 
 export interface ThumbnailDriver extends BaseDriver {
