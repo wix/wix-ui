@@ -337,10 +337,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         timeout={timeout}
         unmountOnExit
         classNames={{
-          enter: style['popoverAnimation-enter'],
-          enterActive: style['popoverAnimation-enter-active'],
-          exit: style['popoverAnimation-exit'],
-          exitActive: style['popoverAnimation-exit-active'],
+          enter: classes['popoverAnimation-enter'],
+          enterActive: classes['popoverAnimation-enter-active'],
+          exit: classes['popoverAnimation-exit'],
+          exitActive: classes['popoverAnimation-exit-active'],
         }}
         onExited={() => detachClasses(this.portalNode, this.portalClasses)}
       >
@@ -526,13 +526,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       <Manager>
         <ClickOutsideWrapper
           handleClickOutside={this._handleClickOutside}
-          outsideClickIgnoreClass={excludeClass || style.popover}
+          outsideClickIgnoreClass={excludeClass || classes.popover}
         >
           <div
             style={inlineStyles}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
-            {...style('root', { fluid }, this.props)}
+            className={style(classes.root, { fluid }, this.props.className)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
@@ -541,7 +541,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               {({ ref }) => (
                 <div
                   ref={ref}
-                  className={style.popoverElement}
+                  className={classes.popoverElement}
                   data-hook="popover-element"
                   onClick={onClick}
                   onKeyDown={onKeyDown}
