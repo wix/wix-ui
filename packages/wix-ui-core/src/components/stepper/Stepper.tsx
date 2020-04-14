@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { BaseProps } from '../../types/BaseProps';
 
-export interface StepProps extends BaseProps, React.LiHTMLAttributes<any> {
+export interface StepProps extends React.LiHTMLAttributes<any> {
   active: boolean;
   visited: boolean;
 }
