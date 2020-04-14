@@ -697,7 +697,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
       const queryPopoverPortal = () =>
         queryHook<HTMLElement>(document, 'popover-portal');
 
-      it(`should update the portal's styles when updated`, async () => {
+      it.only(`should update the portal's styles when updated`, async () => {
         // First render without passing the `className` prop, the <Popover/>
         // portal should only have the root class applied.
         await createDriver(
@@ -718,6 +718,8 @@ function runTests(createDriver, container, popoverWithProps, Component) {
             className: 'some-class',
           }),
         );
+
+        console.log(queryPopoverPortal);
 
         expect(queryPopoverPortal().classList).toContain('some-class');
       });
@@ -985,6 +987,7 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         expect(await driver.isContentElementExists()).toBe(true);
       });
       const content = await driver.getContentElement();
+
       expect(content.parentNode.getAttribute('data-hook')).toBe(
         'popover-portal',
       );

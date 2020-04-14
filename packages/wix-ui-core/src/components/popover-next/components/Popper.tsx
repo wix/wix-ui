@@ -1,15 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { Modifiers } from 'popper.js';
 
 import { Popper as ReactPopper, PopperChildrenProps } from 'react-popper';
 import { PopoverNextProps } from '../popover-next';
 
-import {
-  getModifiers,
-  ModifiersParams,
-} from '../../popover/utils/getModifiers';
 import { getArrowShift } from '../../popover/utils/getArrowShift';
-
 import styles from '../../popover/Popover.st.css';
 
 const Arrow = props => {
@@ -32,55 +28,33 @@ const Arrow = props => {
   return <div {...commonProps} className={styles.arrow} />;
 };
 
-export type PopperProps = ModifiersParams &
-  Pick<
-    PopoverNextProps,
-    | 'maxWidth'
-    | 'showArrow'
-    | 'zIndex'
-    | 'moveArrowTo'
-    | 'customArrow'
-    | 'id'
-    | 'role'
-  > & {
-    contentHook?: string;
-    grabScheduleUpdater(scheduler: PopperChildrenProps['scheduleUpdate']): void;
+export interface PopperProps {
+  dataHook: string;
+  placement: any;
+  contentHook: string;
+  grabScheduleUpdater(scheduler: PopperChildrenProps['scheduleUpdate']): void;
+  modifiers: Modifiers;
+  arrowOptions: {
+    showArrow?: PopoverNextProps['showArrow'];
+    moveArrowTo?: PopoverNextProps['moveArrowTo'];
+    customArrow?: PopoverNextProps['customArrow'];
   };
+  accesibilityOptions: {
+    role?: string;
+    id?: string;
+  };
+}
 
 const Popper: React.FC<PopperProps> = ({
+  dataHook,
   placement,
-  zIndex,
-  maxWidth,
-  showArrow,
   contentHook,
-  moveArrowTo,
-  customArrow,
   grabScheduleUpdater,
   children,
-  id,
-  role,
-  shouldAnimate,
-  width,
-  moveBy,
-  appendTo,
-  flip,
-  fixed,
-  minWidth,
-  dynamicWidth,
-  isTestEnv,
+  accesibilityOptions,
+  arrowOptions,
+  modifiers,
 }) => {
-  const modifiers = getModifiers({
-    shouldAnimate,
-    width,
-    moveBy,
-    appendTo,
-    flip,
-    fixed,
-    placement,
-    isTestEnv,
-    minWidth,
-    dynamicWidth,
-  });
   return (
     <ReactPopper modifiers={modifiers} placement={placement}>
       {({
@@ -94,34 +68,27 @@ const Popper: React.FC<PopperProps> = ({
         return (
           <div
             ref={ref}
-            data-hook="popover-content"
-            data-content-element={contentHook}
-            style={{
-              ...style,
-              top: isNaN(style.top as number) ? 0 : style.top,
-              left: isNaN(style.left as number) ? 0 : style.left,
-              zIndex,
-              maxWidth,
-            }}
-            data-placement={popperPlacement || placement}
+            data-hook={dataHook}
             className={classNames(styles.popover, {
-              [styles.withArrow]: showArrow,
-              [styles.popoverContent]: !showArrow,
+              [styles.withArrow]: arrowOptions.showArrow,
+              [styles.popoverContent]: !arrowOptions.showArrow,
             })}
+            data-content-element={contentHook}
+            data-placement={popperPlacement || placement}
+            style={style}
           >
-            {showArrow && (
+            {arrowOptions.showArrow && (
               <Arrow
                 arrowProps={arrowProps}
-                moveArrowTo={moveArrowTo}
+                moveArrowTo={arrowOptions.moveArrowTo}
                 placement={popperPlacement || placement}
-                customArrow={customArrow}
+                customArrow={arrowOptions.customArrow}
               />
             )}
             <div
-              key="popover-content"
-              id={id}
-              role={role}
-              className={showArrow ? styles.popoverContent : ''}
+              id={accesibilityOptions.id}
+              role={accesibilityOptions.role}
+              className={arrowOptions.showArrow ? styles.popoverContent : ''}
             >
               {children}
             </div>
