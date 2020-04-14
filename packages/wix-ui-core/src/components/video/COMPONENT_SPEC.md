@@ -41,22 +41,20 @@ The element parses a URL and loads in the appropriate external SDKs to play medi
 //code example goes here
 import * as React from 'react';
 import { Video } from 'wix-ui-core/Video';
-import style from './style.st.css'; // link to Style file - see examples of style files below
+import {style, classes} from './style.st.css'; // link to Style file - see examples of style files below
 
 export class ComponentsDemo extends React.Component<{}, {}>{
 
     render() {
         return (
-            <div>
-                <Video
-                    src="video-source.mp4"
-                    id="my-player"
-                    loop={false}
-                    playing={true}
-                    muted={true}
-                    {...style('root', {}, {})}
-                />
-            </div>
+            <Video
+                className={style(classes.root)}
+                src="video-source.mp4"
+                id="my-player"
+                loop={false}
+                playing={true}
+                muted={true}
+            />
         )
     }
 }

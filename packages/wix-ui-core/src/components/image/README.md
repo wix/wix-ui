@@ -24,7 +24,7 @@ additional features, both visual and behavioral, adding image customizations.
 ```jsx
 import * as React from 'react';
 import {Image} from 'wix-ui-core/Image';
-import style from './image-demo.st.css';
+import {style, classes} from './image-demo.st.css';
 import Loader from './Loader';
 
 export class ImageDemo extends React.Component<{}, ImageDemoState> {
@@ -35,7 +35,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
     
         public render() {
             return (
-                <div {...style('root', {}, this.props)} >
+                <div className={style(classes.root)} >
                     <h2>Image</h2>
                     <div>
                         <label>src:
@@ -47,7 +47,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
                             <option value="fill">fill</option>
                         </select>
                     </div>
-                    <Image                      
+                    <Image
                         src={this.state.src}
                         resizeMode={this.state.resizeMode}
                         className="myImage"
