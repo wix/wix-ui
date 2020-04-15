@@ -6,7 +6,7 @@ import { DataHooks, DisplayNames } from './TagsList.helpers';
 
 import { noop } from '../../utils';
 
-import { style, classes } from './Tag.st.css';
+import style from './Tag.st.css';
 
 const SPACE_KEY = 32;
 
@@ -104,7 +104,7 @@ export class Tag extends React.Component<TagProps> {
     } = this.props;
 
     const wrapperProps = {
-      className: classNames(classes.tag, className),
+      className: classNames(style.tag, className),
       ...rest,
     };
 
@@ -128,7 +128,7 @@ export class Tag extends React.Component<TagProps> {
           <input
             ref={this.inputRef}
             data-hook={DataHooks.TagInput}
-            className={classes.tagInput}
+            className={style.tagInput}
             type="checkbox"
             checked={checked}
             onChange={onChange}
