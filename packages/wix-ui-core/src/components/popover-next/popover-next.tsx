@@ -118,6 +118,8 @@ export interface PopoverNextProps {
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
   /** target element role value */
   role?: string;
+  /* stretch trigger element to the width of its container. */
+  fluid?: boolean;
   /** popover z-index */
   zIndex?: number;
   /**
@@ -405,6 +407,7 @@ export class PopoverNext extends React.Component<
       id,
       excludeClass,
       timeout,
+      fluid,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -433,7 +436,7 @@ export class PopoverNext extends React.Component<
               style={inlineStyles}
               data-hook={this.props['data-hook']}
               data-content-hook={this.contentHook}
-              {...style('root', {}, this.props)}
+              {...style('root', { fluid }, this.props)}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
               id={id}
