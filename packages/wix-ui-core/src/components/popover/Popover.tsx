@@ -141,9 +141,9 @@ export type PopoverType = PopoverProps & {
 };
 
 const attachClasses = (node: HTMLElement, classnames: string) =>
-  node.classList.add(...classnames.split(' '));
+  node && node.classList.add(...classnames.split(' '));
 const detachClasses = (node: HTMLElement, classnames: string) =>
-  node.classList.remove(...classnames.split(' '));
+  node && node.classList.remove(...classnames.split(' '));
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
   if (typeof timeout === 'object') {

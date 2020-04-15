@@ -58,9 +58,9 @@ const lazyPopperFactory = (memoizeOne as any)(key =>
 ) as (key: number) => React.ComponentType<LoadablePopper>;
 
 const attachClasses = (node: HTMLElement, classNames: string) =>
-  node.classList.add(...classNames.split(' '));
+  node && node.classList.add(...classNames.split(' '));
 const detachClasses = (node: HTMLElement, classNames: string) =>
-  node.classList.remove(...classNames.split(' '));
+  node && node.classList.remove(...classNames.split(' '));
 
 export interface PopoverNextProps {
   /** hook for testing purposes */
