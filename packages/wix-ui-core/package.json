@@ -45,9 +45,10 @@
     "transpile": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "pretest": "npm run lint",
-    "test": "npm run test:unit && npm run test:e2e && npm run sanity && npm run a11y",
+    "test": "npm run test:unit && npm run test:visual && npm run test:e2e && npm run sanity && npm run a11y",
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
+    "test:visual": "eyes-storybook -c ./.storybook/visual",
     "test:e2e": "yoshi test --protractor",
     "test:performance": "npm run bundles:generate && npm install --no-save @wix/perfer && perfer --verbose",
     "sanity": "autotools-sanity",
@@ -62,6 +63,7 @@
     "wix-ui-core:performance": "npm run test:performance",
     "--------------------------------------------": "",
     "storybook-start": "npm run storybook",
+    "storybook:visual": "start-storybook -c ./.storybook/visual -p 6007",
     "start": "run-p yoshi-start storybook-start",
     "release": "npx yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
@@ -106,7 +108,10 @@
     "wix-ui-test-utils": "^1.0.151"
   },
   "devDependencies": {
-    "@storybook/react": "5.0.0",
+    "@applitools/eyes-storybook": "^3.3.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/preset-env": "^7.9.0",
+    "@storybook/react": "^5.0.0",
     "@stylable/cli": "^1.2.11",
     "@stylable/core": "^1.0.7",
     "@types/classnames": "^2.2.3",
@@ -121,7 +126,6 @@
     "@ui-autotools/a11y": "^2.4.0",
     "@ui-autotools/registry": "^4.0.0",
     "@ui-autotools/sanity": "^2.5.0",
-    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
@@ -138,6 +142,9 @@
     "react-test-renderer": "^16.3.1",
     "react-testing-library": "^6.0.3",
     "slash": "^2.0.0",
+    "style-loader": "^0.18.2",
+    "css-loader": "^0.28.11",
+    "storybook-snapper": "^1.0.61",
     "ts-jest": "^23.0.3",
     "typescript": "~3.7.4",
     "wait-for-cond": "^1.5.1",
@@ -186,7 +193,7 @@
   },
   "babel": {
     "presets": [
-      "env"
+      "@babel/preset-env"
     ]
   }
 }

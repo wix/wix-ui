@@ -2,6 +2,7 @@
   "batches": [
     "wix-ui-core:unit",
     "wix-ui-core:e2e",
+    "wix-ui-core:visual",
     "wix-ui-core:sanity",
     "wix-ui-core:a11y",
     "wix-ui-core:performance"
