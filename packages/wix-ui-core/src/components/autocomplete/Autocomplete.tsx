@@ -8,6 +8,8 @@ const createDivider = (value = null) =>
   OptionFactory.createDivider({ className: classes.divider, value });
 
 export interface AutocompleteProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** The dropdown options array */
   options: Option[];
   /** Handler for when an option is selected */
@@ -127,6 +129,7 @@ export class Autocomplete extends React.PureComponent<
     return (
       <InputWithOptions
         className={style(classes.root, { disabled })}
+        data-hook={this.props['data-hook']}
         onSelect={this._onSelect}
         initialSelectedIds={
           initialSelectedId || initialSelectedId === 0

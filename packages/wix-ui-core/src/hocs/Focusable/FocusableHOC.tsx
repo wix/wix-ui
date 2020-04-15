@@ -2,7 +2,7 @@ import * as React from 'react';
 import hoistNonReactMethods from 'hoist-non-react-methods';
 
 import { getDisplayName } from '../utils';
-import { style, classes, cssStates } from './Focusable.st.css';
+import { style, classes } from './Focusable.st.css';
 import { isStatelessComponent } from '../../utils';
 
 type SubscribeCb = () => void;

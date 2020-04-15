@@ -375,8 +375,7 @@ export class PopoverNext extends React.Component<
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      const { ['data-hook']: omitted, ...rest } = this.props;
-      this.portalClasses = style(classes.root, {}, rest.className);
+      this.portalClasses = style(classes.root, {}, this.props.className);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -407,6 +406,7 @@ export class PopoverNext extends React.Component<
       excludeClass,
       timeout,
       fluid,
+      className,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -435,7 +435,7 @@ export class PopoverNext extends React.Component<
               style={inlineStyles}
               data-hook={this.props['data-hook']}
               data-content-hook={this.contentHook}
-              className={style(classes.root, { fluid }, this.props.className)}
+              className={style(classes.root, { fluid }, className)}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
               id={id}

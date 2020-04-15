@@ -7,6 +7,8 @@ import { Option } from '../dropdown-option';
 import { CLICK, HOVER, OPEN_TRIGGER_TYPE } from './constants';
 
 export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
@@ -304,6 +306,7 @@ export class DropdownComponent extends React.PureComponent<
     return (
       <Popover
         className={style(classes.root, { 'content-visible': shown })}
+        data-hook={this.props['data-hook']}
         placement={placement}
         shown={shown}
         showArrow={showArrow}

@@ -12,6 +12,8 @@ declare global {
 }
 
 export interface IPureChildComponentProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   id: string;
   focusableOnFocus: any;
   focusableOnBlur: any;
@@ -47,6 +49,7 @@ export class PureChildComponent extends React.PureComponent<
         onFocus={this.props.focusableOnFocus}
         onBlur={this.props.focusableOnBlur}
         className={style.style(style.classes.root)}
+        data-hook={this.props['data-hook']}
       >
         Hello
       </div>

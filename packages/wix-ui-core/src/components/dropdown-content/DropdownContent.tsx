@@ -9,6 +9,8 @@ export interface IDOMid {
 }
 
 export interface DropdownContentProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** Component class name */
   className?: string;
   /** The dropdown options array */
@@ -27,7 +29,6 @@ export interface DropdownContentProps {
   fixedFooter?: React.ReactNode;
   /** DOM id of optionsContainer element */
   optionsContainerId?: string;
-  dataHook?: string;
 }
 
 export interface DropdownContentState {
@@ -197,7 +198,6 @@ export class DropdownContent extends React.PureComponent<
       selectedIds,
       onOptionClick,
       optionsContainerId,
-      dataHook,
       className,
     } = this.props;
     const { hoveredIndex } = this.state;
@@ -205,7 +205,7 @@ export class DropdownContent extends React.PureComponent<
     return (
       <div
         className={style(classes.root, {}, className)}
-        data-hook={dataHook}
+        data-hook={this.props['data-hook']}
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}
         tabIndex={1000}

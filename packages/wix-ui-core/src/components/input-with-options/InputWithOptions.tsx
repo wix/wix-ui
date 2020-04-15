@@ -17,6 +17,8 @@ export type InputWithOptionsProps = Pick<
   'fixed' | 'flip' | 'moveBy'
 > &
   Pick<DropdownProps, 'onContentMouseDown'> & {
+    /** hook for testing purposes */
+    'data-hook'?: string;
     /** The location to display the content */
     placement?: Placement;
     /** The dropdown options array */
@@ -229,13 +231,15 @@ export class InputWithOptions extends React.PureComponent<
       fixed,
       moveBy,
       optionsContainerZIndex,
+      className,
     } = this.props;
 
     const contentId = id ? `${id}-content` : null;
 
     return (
       <Dropdown
-        className={style(classes.root, {}, this.props.className)}
+        className={style(classes.root, {}, className)}
+        data-hook={this.props['data-hook']}
         placement={placement}
         openTrigger={openTrigger}
         disabled={inputProps.disabled}

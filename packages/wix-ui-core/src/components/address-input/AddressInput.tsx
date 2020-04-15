@@ -36,6 +36,8 @@ export type AddressInputProps = Pick<
   InputWithOptionsProps,
   'fixed' | 'flip' | 'moveBy' | 'placement' | 'emptyStateMessage'
 > & {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
   /** Handler for when an option is selected */
@@ -510,6 +512,7 @@ export class AddressInput extends React.PureComponent<
     return (
       <InputWithOptions
         className={style(classes.root, states)}
+        data-hook={this.props['data-hook']}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}

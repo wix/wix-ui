@@ -8,6 +8,8 @@ export type AriaAutoCompleteType = 'list' | 'none' | 'both';
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   className?: string;
   inputClassName?: string;
   error?: string | boolean;
@@ -26,7 +28,6 @@ export interface InputProps
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
   'aria-autocomplete'?: AriaAutoCompleteType;
-  dataHook?: string;
 }
 
 export interface InputState {
@@ -58,7 +59,7 @@ export class Input extends React.Component<InputProps, InputState> {
       prefix: prefixProps,
       suffix: suffixProp,
       inputClassName,
-      dataHook,
+      className,
       ...allOtherProps
     } = this.props;
 
@@ -67,9 +68,9 @@ export class Input extends React.Component<InputProps, InputState> {
         className={style(
           classes.root,
           { disabled, error: !!error && !disabled, focus },
-          this.props.className,
+          className,
         )}
-        data-hook={dataHook}
+        data-hook={this.props['data-hook']}
         style={inlineStyle}
       >
         {prefix}

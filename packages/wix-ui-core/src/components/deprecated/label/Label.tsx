@@ -2,6 +2,8 @@ import * as React from 'react';
 import { style, classes } from './Label.st.css';
 
 export interface LabelProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   className?: string;
   /** Children */
   children?: React.ReactNode;
@@ -13,7 +15,6 @@ export interface LabelProps {
   ellipsis?: boolean;
   /** Is the Label disabled */
   disabled?: boolean;
-  dataHook?: string;
 }
 
 const defaultProps: LabelProps = {
@@ -24,13 +25,13 @@ const defaultProps: LabelProps = {
  * Label
  */
 export const Label: React.FunctionComponent<LabelProps> = props => {
-  const { id, children, ellipsis, disabled, dataHook } = props;
+  const { id, children, ellipsis, disabled } = props;
   return (
     <label
       className={style(classes.root, { ellipsis, disabled }, props.className)}
       data-ellipsis={ellipsis}
       data-disabled={disabled}
-      data-hook={dataHook}
+      data-hook={props['data-hook']}
       htmlFor={props.for}
       id={id}
     >

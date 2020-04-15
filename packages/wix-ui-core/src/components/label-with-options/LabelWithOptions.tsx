@@ -11,6 +11,9 @@ const createDivider = (value = null) =>
   OptionFactory.createDivider({ className: classes.divider, value });
 
 export interface LabelWithOptionsProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
+
   /** The dropdown options array */
   options: Option[];
   /** set true for multiple selection, false for single */
@@ -89,6 +92,7 @@ export class LabelWithOptions extends React.PureComponent<
           disabled,
           checkbox,
         })}
+        data-hook={this.props['data-hook']}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}

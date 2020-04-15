@@ -2,6 +2,8 @@ import * as React from 'react';
 import { style, classes } from './Thumbnail.st.css';
 
 export interface ThumbnailProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** Is the thumbnail selected */
   selected?: boolean;
   /** Callback when the element is clicked */
@@ -21,6 +23,7 @@ export const Thumbnail: React.FunctionComponent<ThumbnailProps> = props => {
   return (
     <div
       className={style(classes.root, { selected, disabled })}
+      data-hook={props['data-hook']}
       onClick={onClick}
     >
       {children}
