@@ -54,6 +54,27 @@ export const moveBy = `
 }
 `;
 
+export const fluid = `
+() => {
+  return (
+  <div style={{ display: 'flex'}}>
+    <div style={{ width: '50%', border: '1px solid black'}} >
+      <Popover shown placement="top" showArrow>
+        <Popover.Element><ButtonNext style={{ width: '100%' }}>inline</ButtonNext></Popover.Element>
+        <Popover.Content>The content</Popover.Content>
+      </Popover>
+    </div>
+    <div style={{ width: '50%', border: '1px solid black', marginLeft: '15px'}} >
+      <Popover shown placement="top" showArrow fluid>
+        <Popover.Element><ButtonNext style={{ width: '100%' }}>fluid</ButtonNext></Popover.Element>
+        <Popover.Content>The content</Popover.Content>
+      </Popover>
+    </div>
+  </div>
+  )
+}
+`;
+
 export const zIndex = `
 () => {
   const [shown, setShown] = React.useState(true)

@@ -24,6 +24,29 @@ visualize('Popover', () => {
     ));
   });
 
+  story('trigger element fluid', () => {
+    snap('fluid=disabled', () => (
+      <div style={{ border: '1px solid black' }}>
+        <Popover shown placement="top" showArrow>
+          <Popover.Element>
+            <button style={{ width: '100%' }}>inline</button>
+          </Popover.Element>
+          <Popover.Content>The content</Popover.Content>
+        </Popover>
+      </div>
+    ));
+    snap('fluid=enabled', () => (
+      <div style={{ border: '1px solid black' }}>
+        <Popover fluid shown placement="top" showArrow>
+          <Popover.Element>
+            <button style={{ width: '100%' }}>inline</button>
+          </Popover.Element>
+          <Popover.Content>The content</Popover.Content>
+        </Popover>
+      </div>
+    ));
+  });
+
   story('zIndex', () => {
     snap('should set zindex', () => (
       <div

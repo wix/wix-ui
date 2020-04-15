@@ -97,6 +97,8 @@ export interface PopoverProps {
   style?: object;
   /** Id */
   id?: string;
+  /* stretch trigger element to the width of its container. */
+  fluid?: boolean;
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
   /** target element role value */
@@ -508,6 +510,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       style: inlineStyles,
       id,
       excludeClass,
+      fluid,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -529,7 +532,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             style={inlineStyles}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
-            {...style('root', {}, this.props)}
+            {...style('root', { fluid }, this.props)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
