@@ -443,22 +443,22 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   getInnerDims() {
     const offsets = this.getInnerOffsets();
-    const style: any = {};
+    const styles: any = {};
 
     if (offsets.offsetTop) {
-      style.top = offsets.offsetTop;
+      styles.top = offsets.offsetTop;
     }
     if (offsets.offsetLeft) {
-      style.left = offsets.offsetLeft;
+      styles.left = offsets.offsetLeft;
     }
     if (offsets.offsetHeight) {
-      style.height = `calc(100% - ${offsets.offsetHeight}px)`;
+      styles.height = `calc(100% - ${offsets.offsetHeight}px)`;
     }
     if (offsets.offsetWidth) {
-      style.width = `calc(100% - ${offsets.offsetWidth}px)`;
+      styles.width = `calc(100% - ${offsets.offsetWidth}px)`;
     }
 
-    return style;
+    return styles;
   }
 
   render() {

@@ -140,10 +140,10 @@ export type PopoverType = PopoverProps & {
   Content?: React.FunctionComponent<ElementProps>;
 };
 
-const attachClasses = (node: HTMLElement, classNames: string) =>
-  node.classList.add(...classNames.split(' '));
-const detachClasses = (node: HTMLElement, classNames: string) =>
-  node.classList.remove(...classNames.split(' '));
+const attachClasses = (node: HTMLElement, classnames: string) =>
+  node.classList.add(...classnames.split(' '));
+const detachClasses = (node: HTMLElement, classnames: string) =>
+  node.classList.remove(...classnames.split(' '));
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
   if (typeof timeout === 'object') {
