@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PageStrip } from './PageStrip';
+import classnames from 'classnames';
 import { style, classes } from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
 import { PaginationDataHooks } from './DataHooks';
@@ -287,14 +288,14 @@ export class Pagination extends React.Component<
 
   private renderEmptyButton(type: ButtonType): JSX.Element {
     const btnClass = {
-      [ButtonType.Prev]: [pStyle.emptyButtonPrevious],
-      [ButtonType.Next]: [pStyle.emptyButtonNext],
+      [ButtonType.Prev]: [classes.emptyButtonPrevious],
+      [ButtonType.Next]: [classes.emptyButtonNext],
     }[type] as [string];
 
     return (
       <div
         data-hook={PaginationDataHooks[type]}
-        {...pStyle('emptyButton ' + btnClass)}
+        className={style(classes.emptyButton, {}, ...btnClass)}
       />
     );
   }
