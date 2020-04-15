@@ -10,6 +10,7 @@ export interface DropdownOptionProps {
   isHovered: boolean;
   onClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
+  dataHook?: string;
 }
 
 export type DropdownOptionType = React.FunctionComponent<DropdownOptionProps>;
@@ -24,6 +25,7 @@ export const DropdownOption: DropdownOptionType = (
     isHovered,
     onClickHandler,
     onMouseEnterHandler,
+    dataHook,
   } = props;
   const disabled = option.isDisabled;
   const selectable = option.isSelectable;
@@ -42,6 +44,7 @@ export const DropdownOption: DropdownOptionType = (
         { disabled, selectable, hovered, selected },
         props.className,
       )}
+      data-hook={dataHook}
       {...ariaProps}
       onClick={onClickHandler}
       title={option.value}

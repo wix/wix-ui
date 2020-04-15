@@ -5,6 +5,7 @@ export interface DividerProps {
   className?: string;
   vertical?: boolean;
   children?: any;
+  dataHook?: string;
 }
 
 /**
@@ -13,7 +14,7 @@ export interface DividerProps {
 export const Divider: React.FunctionComponent<DividerProps> = (
   props: DividerProps,
 ) => {
-  const { children, vertical } = props;
+  const { children, vertical, dataHook } = props;
   const customDivider = !!children;
 
   return (
@@ -23,6 +24,7 @@ export const Divider: React.FunctionComponent<DividerProps> = (
         { vertical: vertical && !customDivider, customDivider },
         props.className,
       )}
+      data-hook={dataHook}
     >
       {children}
     </div>

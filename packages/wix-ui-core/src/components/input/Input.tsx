@@ -5,6 +5,7 @@ import * as classnames from 'classnames';
 
 type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
+
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
   className?: string;
@@ -25,6 +26,7 @@ export interface InputProps
   onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
   'aria-autocomplete'?: AriaAutoCompleteType;
+  dataHook?: string;
 }
 
 export interface InputState {
@@ -56,6 +58,7 @@ export class Input extends React.Component<InputProps, InputState> {
       prefix: prefixProps,
       suffix: suffixProp,
       inputClassName,
+      dataHook,
       ...allOtherProps
     } = this.props;
 
@@ -66,6 +69,7 @@ export class Input extends React.Component<InputProps, InputState> {
           { disabled, error: !!error && !disabled, focus },
           this.props.className,
         )}
+        data-hook={dataHook}
         style={inlineStyle}
       >
         {prefix}
