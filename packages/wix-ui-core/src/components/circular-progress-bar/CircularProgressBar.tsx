@@ -18,6 +18,9 @@ export interface CircularProgressBarProps {
   successIcon?: JSX.Element;
   /** circle size in pixels */
   size?: number | string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -106,7 +109,11 @@ export const CircularProgressBar: React.FunctionComponent<CircularProgressBarPro
       ? _props.errorLabel
       : `${Math.floor(_props.value)}%`;
   return (
-    <div className={style(classes.root, { error, success })} data-error={error}>
+    <div
+      className={style(classes.root, { error, success }, _props.className)}
+      data-error={error}
+      data-hook={_props['data-hook']}
+    >
       {renderArcs(_props)}
       {showProgressIndication && (
         <div

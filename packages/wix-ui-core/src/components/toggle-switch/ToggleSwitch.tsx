@@ -13,6 +13,9 @@ export interface ToggleSwitchStyles {
 }
 
 export interface ToggleSwitchProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
   checked?: boolean;
   disabled?: boolean;
   tabIndex?: number;
@@ -54,16 +57,21 @@ export class ToggleSwitch extends React.PureComponent<
   private focusedByMouse = false;
 
   render() {
-    const { checked, disabled, styles: inlineStyles } = this.props;
+    const { checked, disabled, styles: inlineStyles, className } = this.props;
 
     return (
       <div
-        className={style(classes.root, {
-          checked,
-          disabled,
-          focus: this.state.focus,
-          'focus-visible': this.state.focusVisible,
-        })}
+        className={style(
+          classes.root,
+          {
+            checked,
+            disabled,
+            focus: this.state.focus,
+            'focus-visible': this.state.focusVisible,
+          },
+          className,
+        )}
+        data-hook={this.props['data-hook']}
         style={inlineStyles.root}
       >
         <div
