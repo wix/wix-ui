@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const serve = require('webpack-serve');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StylableWebpackPlugin = require('stylable-webpack-plugin');
+const { StylableWebpackPlugin } = require('@stylable/webpack-plugin');
 const runTestsInPuppeteer = require('./run-in-puppeteer');
 
 const watchMode = process.argv.some(arg => arg === '--watch');
