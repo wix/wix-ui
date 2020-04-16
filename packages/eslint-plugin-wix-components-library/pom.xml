@@ -5,7 +5,7 @@
     <artifactId>prop-types-restrict-to-default-import</artifactId>
     <packaging>pom</packaging>
     <name>prop-types-restrict-to-default-import</name>
-    <description>eslint rule for wix-style-react</description>
+    <description>eslint rule for wix components libraries</description>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
