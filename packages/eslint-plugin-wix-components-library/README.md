@@ -1,6 +1,6 @@
 # eslint-plugin-wix-components-library
 
-Wix Componets Library ESLint Plugin
+Wix Components Library ESLint Plugin
 
 ## Installation
 
