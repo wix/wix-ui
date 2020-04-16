@@ -56,6 +56,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   allowReselect?: boolean;
   /** Options box z-index */
   optionsContainerZIndex?: number;
+  className?: string;
 };
 
 export interface DropdownState {
@@ -295,6 +296,7 @@ export class DropdownComponent extends React.PureComponent<
       role,
       contentId,
       optionsContainerZIndex,
+      className,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
     const hasContent = Boolean(
@@ -305,7 +307,7 @@ export class DropdownComponent extends React.PureComponent<
 
     return (
       <Popover
-        className={style(classes.root, { 'content-visible': shown })}
+        className={style(classes.root, { 'content-visible': shown }, className)}
         data-hook={this.props['data-hook']}
         placement={placement}
         shown={shown}
