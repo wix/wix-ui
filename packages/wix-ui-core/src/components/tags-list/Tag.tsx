@@ -22,6 +22,7 @@ export interface TagProps {
   link?: string;
   rel?: string;
   compId?: string;
+  style?: Record<string, string>
 }
 export class Tag extends React.Component<TagProps> {
   static displayName = DisplayNames.Tag;
@@ -39,6 +40,7 @@ export class Tag extends React.Component<TagProps> {
     rel: PropTypes.string,
     compId: PropTypes.string,
     tagIndex: PropTypes.number,
+    style: PropTypes.object
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -86,25 +88,18 @@ export class Tag extends React.Component<TagProps> {
     this.inputRef.current.click();
   };
 
-  renderLabledInput = (wrapperProps = {}) => {
+  renderLabledInput = (ownProps, wrapperProps = {}) => {
       const {
-        value = '',
-        label = '',
+        value,
+        label,
         disabled,
         checked,
-        onChange = noop,
-        link,
+        onChange,
         compId,
-        tagIndex,
         children,
-      } = this.props;
-
-    const uniqueId =
-      tagIndex !== undefined
-        ? `${value}-${compId}-${tagIndex}`
-        : `${value}-${compId}`;
-    const isFocusDisabled = Boolean(disabled || link);
-    const labelTabIndex = isFocusDisabled ? -1 : 0;
+        uniqueId,
+        tabIndex
+      } = ownProps;
 
     return (
       <label
@@ -112,7 +107,7 @@ export class Tag extends React.Component<TagProps> {
         data-hook={DataHooks.Tag}
         title={label}
         htmlFor={uniqueId}
-        tabIndex={labelTabIndex}
+        tabIndex={tabIndex}
         {...wrapperProps}
       >
         <input
@@ -134,17 +129,49 @@ export class Tag extends React.Component<TagProps> {
 
   render() {
     const {
-      className,
+      value = '',
+      label = '',
       disabled,
       checked,
       link,
       rel,
+      onChange = noop,
+      compId,
+      tagIndex,
+      children,
+      className,
+      /**
+       * component props may contain non-deterministically-named attribute
+       * created by "stylable" and used as css-selector.
+       * This variable will keep it and forward to root element.
+       */
+      ...wrapperStyles
     } = this.props;
 
-    const wrapperProps = {
-      className: classNames(style.tag, className),
+    const uniqueId =
+    tagIndex !== undefined
+      ? `${value}-${compId}-${tagIndex}`
+      : `${value}-${compId}`;
+    const isFocusDisabled = Boolean(disabled || link);
+    const tabIndex = isFocusDisabled ? -1 : 0;
+
+    const rootElementProps = {
       onKeyDown: this.handleKeyDown,
+      className: classNames(style.tag, className),
+      ...wrapperStyles
     };
+
+    const labledInputProps = {
+      value,
+      label,
+      disabled,
+      checked,
+      onChange,
+      tabIndex,
+      uniqueId,
+      compId,
+      children,
+    }
 
     return link ? (
       <a
@@ -156,10 +183,10 @@ export class Tag extends React.Component<TagProps> {
         rel={rel}
         tabIndex={disabled ? -1 : 0}
         onClick={this.handleTagClick}
-        {...wrapperProps}
+        {...rootElementProps}
       >
-        {this.renderLabledInput()}
+        {this.renderLabledInput(labledInputProps)}
       </a>
-    ) :  this.renderLabledInput(wrapperProps);
+    ) :  this.renderLabledInput(labledInputProps, rootElementProps);
   }
 }
