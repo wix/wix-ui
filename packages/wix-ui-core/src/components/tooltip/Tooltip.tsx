@@ -1,7 +1,6 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import { Popover, Placement, AppendTo } from '../popover';
-import {PopoverNext} from "../popover-next";
 
 export interface Point {
   x: number;
