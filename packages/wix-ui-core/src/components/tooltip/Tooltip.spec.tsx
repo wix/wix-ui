@@ -124,6 +124,21 @@ function runTests(render, tooltip) {
       await driver.mouseLeave();
       expect(onHide).toHaveBeenCalled();
     });
+
+    it('should not call onShow when tooltip is disabled', async () => {
+      const onShow = jest.fn();
+      const { driver } = render(tooltip({ onShow , disabled: true }));
+      await driver.mouseEnter();
+      expect(onShow).not.toHaveBeenCalled()
+    });
+
+    it('should not call onHide when tooltip is disabled', async () => {
+      const onHide = jest.fn();
+      const { driver } = render(tooltip({ onHide,  disabled: true }));
+      await driver.mouseEnter();
+      await driver.mouseLeave();
+      expect(onHide).not.toHaveBeenCalled();
+    });
   });
 
   describe('`content` prop', () => {

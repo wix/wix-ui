@@ -1,6 +1,7 @@
 import * as React from 'react';
 import style from './Tooltip.st.css';
 import { Popover, Placement, AppendTo } from '../popover';
+import {PopoverNext} from "../popover-next";
 
 export interface Point {
   x: number;
@@ -153,8 +154,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
-        onMouseEnter={this.open}
-        onMouseLeave={this.close}
+        onMouseEnter={disabled ? undefined : this.open}
+        onMouseLeave={disabled ? undefined : this.close}
         timeout={timeout}
         hideDelay={hideDelay}
         showDelay={showDelay}
