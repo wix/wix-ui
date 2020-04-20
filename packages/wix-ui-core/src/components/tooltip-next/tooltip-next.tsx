@@ -158,8 +158,8 @@ export class TooltipNext extends React.PureComponent<
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
-        onMouseEnter={this.open}
-        onMouseLeave={this.close}
+        onMouseEnter={disabled ? undefined : this.open}
+        onMouseLeave={disabled ? undefined : this.close}
         timeout={timeout}
         hideDelay={hideDelay}
         showDelay={showDelay}
