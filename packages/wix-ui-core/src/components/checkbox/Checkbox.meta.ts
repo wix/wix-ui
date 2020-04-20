@@ -1,6 +1,6 @@
 import { Checkbox } from './Checkbox';
 import Registry from '@ui-autotools/registry';
-import style from '../../../stories/Checkbox/style.st.css';
+import { style } from '../../../stories/Checkbox/style.st.css';
 
 const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 

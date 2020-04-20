@@ -1,6 +1,6 @@
 import { MediaImage } from './media-image';
 import Registry from '@ui-autotools/registry';
-import style from '../../themes/default/image/style.st.css';
+import { style } from '../../themes/default/image/style.st.css';
 import { SRC, BROKEN_SRC } from './test-fixtures';
 import { ImageStatus } from '../image';
 

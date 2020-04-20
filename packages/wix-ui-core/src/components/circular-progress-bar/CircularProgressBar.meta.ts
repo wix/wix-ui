@@ -1,6 +1,6 @@
 import { CircularProgressBar } from './CircularProgressBar';
 import Registry from '@ui-autotools/registry';
-import style from '../../../stories/CircularProgressBar/style.st.css';
+import { style } from '../../../stories/CircularProgressBar/style.st.css';
 
 const circularProgressBarMetadata = Registry.getComponentMetadata(
   CircularProgressBar,
