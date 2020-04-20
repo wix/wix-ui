@@ -14,6 +14,8 @@ class LoadableTooltip extends Loadable<{
 }> {}
 
 interface EllipsedTooltipProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   component: React.ReactElement;
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
@@ -134,7 +136,10 @@ class EllipsedTooltip extends React.Component<
             <Tooltip
               appendTo="scrollParent"
               {...tooltipProps}
-              className={tooltipStyle.style(tooltipStyle.classes.root)}
+              className={
+                tooltipStyle && tooltipStyle.style(tooltipStyle.classes.root)
+              }
+              data-hook={this.props['data-hook']}
               content={<div>{this.textNode.textContent}</div>}
               showArrow
             >

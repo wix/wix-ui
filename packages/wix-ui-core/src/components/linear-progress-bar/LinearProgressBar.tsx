@@ -25,6 +25,7 @@ export interface LinearProgressBarProps {
   precision?: number;
   /** Applied as data-hook HTML attribute that can be used to create driver in testing */
   'data-hook'?: string;
+  className?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -120,7 +121,7 @@ const getAriaAttributes = (
 export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> = (
   props: LinearProgressBarProps,
 ) => {
-  const { error, showProgressIndication, 'data-hook': dataHook } = props;
+  const { error, showProgressIndication, className } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
@@ -130,8 +131,8 @@ export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> 
       data-min={_props.min}
       data-error={error}
       role="progressbar"
-      className={style(classes.root, { error, success })}
-      {...(dataHook && { 'data-hook': dataHook })}
+      className={style(classes.root, { error, success }, className)}
+      data-hook={props['data-hook']}
     >
       {renderBarSection(_props.value)}
 

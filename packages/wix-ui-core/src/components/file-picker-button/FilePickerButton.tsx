@@ -18,6 +18,8 @@ export interface FilePickerButtonProps {
   onBlur?: Function;
   /** Triggered when the user finishes selecting files through a native OS file picker dialog. */
   onChange?(files: File[]): void;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 }
 
 interface FilePickerButtonState {
@@ -52,15 +54,12 @@ export class FilePickerButton extends React.Component<
   }
 
   render() {
-    const { id, children, accept, required, disabled } = this.props;
+    const { id, children, accept, required, disabled, className } = this.props;
     const buttonId = id ? `${DataHook.ChooseFileButton}-${id}` : null;
     return (
       <div
-        className={style(
-          classes.root,
-          { required, disabled },
-          this.props.className,
-        )}
+        className={style(classes.root, { required, disabled }, className)}
+        data-hook={this.props['data-hook']}
       >
         <input
           id={id}

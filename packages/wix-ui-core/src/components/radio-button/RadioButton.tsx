@@ -52,6 +52,9 @@ export interface RadioButtonProps {
   required?: boolean;
   /** aria-label - Accessibility */
   'aria-label'?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  classnName?: string;
 }
 
 export interface RadioButtonState {
@@ -102,6 +105,7 @@ export class RadioButton extends React.Component<
           focused,
           'focus-visible': this.state.focusVisible,
         })}
+        data-hook={this.props['data-hook']}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"

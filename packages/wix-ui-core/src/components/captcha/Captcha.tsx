@@ -6,6 +6,8 @@ import { style, classes } from './Captcha.st.css';
 export interface CaptchaProps {
   required?: boolean;
   className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
   sitekey: string;
   loader: any;
   size?: Size;
@@ -118,6 +120,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
           { loaded: this.state.rendered },
           this.props.className,
         )}
+        data-hook={this.props['data-hook']}
         data-captcha-type={captchaType}
         data-theme={theme}
         data-lang={lang}

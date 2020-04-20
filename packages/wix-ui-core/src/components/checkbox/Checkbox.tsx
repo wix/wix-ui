@@ -7,6 +7,8 @@ export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
 }
 
 export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** The onChange function will be called with a new checked value */
   onChange?: React.EventHandler<OnChangeEvent>;
   /** An element to be displayed when the checkbox is unchecked */
@@ -66,6 +68,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           },
           this.props.className,
         )}
+        data-hook={this.props['data-hook']}
         onMouseDown={this.handleMouseDown}
       >
         <input

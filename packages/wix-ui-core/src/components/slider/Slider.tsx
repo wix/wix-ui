@@ -28,6 +28,9 @@ export interface SliderProps {
   dir?: string;
   style?: Style;
   'aria-label': string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 export interface Style {
@@ -475,6 +478,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       thumbShape,
       orientation,
       style: inlineStyle,
+      className,
     } = this.props;
 
     const vertical = this.isVertical();
@@ -498,13 +502,18 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     return (
       <div
-        className={style(classes.root, {
-          orientation: vertical ? 'vertical' : 'horizontal',
-          dir,
-          tickMarksPosition,
-          tickMarksShape,
-          disabled,
-        })}
+        className={style(
+          classes.root,
+          {
+            orientation: vertical ? 'vertical' : 'horizontal',
+            dir,
+            tickMarksPosition,
+            tickMarksShape,
+            disabled,
+          },
+          className,
+        )}
+        data-hook={this.props['data-hook']}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
         onKeyDown={this.handleKeyDown}

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PageStrip } from './PageStrip';
-import classnames from 'classnames';
 import { style, classes } from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
 import { PaginationDataHooks } from './DataHooks';
@@ -27,6 +26,8 @@ export const enum PaginationMode {
 }
 
 export interface PaginationProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   // data
   totalPages: number;
   currentPage?: number;
@@ -333,7 +334,7 @@ export class Pagination extends React.Component<
       <a
         data-hook={PaginationDataHooks[type]}
         id={this.getId('navButton' + upperCaseFirst(type))}
-        className={style('navButton ' + btnClass, { disabled })}
+        className={style(classes.navButton, { disabled }, btnClass)}
         aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
@@ -380,6 +381,7 @@ export class Pagination extends React.Component<
         onMouseLeave={this.props.onMouseLeave}
         style={inlineStyle || { width }}
         className={style(classes.root, styleStates, this.props.className)}
+        data-hook={this.props['data-hook']}
       >
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showPreviousLabel
