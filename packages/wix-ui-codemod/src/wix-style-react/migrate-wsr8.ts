@@ -93,7 +93,7 @@ const transform: Transform = (file, api) => {
     ),
   );
 
-  // add <Card.Divider/> after <Card.Header withoutDivider />
+  // add <Card.Divider/> after <Card.Header />
   root
     .find(j.JSXOpeningElement, { name: { name: 'Card' } })
     .forEach(cardPath => {
@@ -107,7 +107,7 @@ const transform: Transform = (file, api) => {
           path.openingElement.selfClosing &&
           get(path, 'openingElement.attributes').filter(
             attribute => attribute.name.name === 'withoutDivider',
-          ).length === 1
+          ).length === 0
         ) {
           acc.push(index);
         }

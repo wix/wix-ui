@@ -18,7 +18,7 @@ import {
 
 export default class extends React.Component {
   render() {
-    const otherProps = { one: 1, two: 2, three: 3 };
+    const otherProps = { one: 1, two: 2, three: 3, withoutDivider: false };
     return (
       <Page upgrade dataHook="shipping-label-page">
         <Page.Header title="header title" showBackButton={true} />
@@ -56,11 +56,22 @@ export default class extends React.Component {
               </Tooltip>
 
               <Card>
-                <Card.Header title="Dont touch me" />
+                <Card.Header title="Add divider" />
               </Card>
 
               <Card>
-                <Card.Header withoutDivider title="Insert divider here" />
+                <Card.Header withoutDivider title="No divider" />
+              </Card>
+
+              <Card>
+                <Card.Header title="Add divider" />
+                <div>something</div>
+                <Card.Header title="Add divider" />
+                <Card.Header withoutDivider title="no divider" />
+                <Card.Header
+                  withoutDivider={withoutDivider}
+                  title="no divider"
+                />
               </Card>
             </Card.Content>
           </Card>
