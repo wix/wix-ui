@@ -128,6 +128,7 @@ export interface PopoverProps {
    * When true - onClickOutside will be called only when popover content is shown
    */
   disableClickOutsideWhenClosed?: boolean;
+  dataHook?: string;
 }
 
 export interface PopoverState {

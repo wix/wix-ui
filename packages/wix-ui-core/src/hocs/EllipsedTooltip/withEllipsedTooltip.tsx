@@ -101,6 +101,7 @@ class EllipsedTooltip extends React.Component<
           ...inlineStyle,
           whiteSpace: 'nowrap',
         }}
+        data-hook={component.props['data-hook']}
         ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}

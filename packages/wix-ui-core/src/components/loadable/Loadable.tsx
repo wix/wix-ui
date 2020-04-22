@@ -89,7 +89,7 @@ export class Loadable<LoadableExports> extends React.Component<
         ).slice(0)}" to access exported component property. `
       );
     }
-    return moduleItem[key];
+    return moduleItem[key] || moduleItem;
   };
   /* For node.js environment (unit tests) it will be transpiled into sync `require`.
    We don't want to break them and allowing to have both sync and async flow according to environment.

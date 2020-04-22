@@ -54,6 +54,8 @@ export interface TooltipProps {
   maxWidth?: number;
 
   className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 }
 
 export interface TooltipState {
@@ -150,9 +152,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return (
       <Popover
         className={style(classes.root, {}, className)}
-        {...(this.props['data-hook']
-          ? { 'data-hook': this.props['data-hook'] }
-          : {})}
+        data-hook={this.props['data-hook']}
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
