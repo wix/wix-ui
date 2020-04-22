@@ -457,7 +457,7 @@ export class TimePicker extends React.PureComponent<
       return (
         <Input
           {...passThroughProps}
-          className={style(classes.root)}
+          className={style(classes.root, {}, className)}
           type="time"
           value={sanitizedValue}
           onChange={e => onChange(e.target.value)}
