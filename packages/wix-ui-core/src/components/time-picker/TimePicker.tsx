@@ -52,6 +52,10 @@ export type TimePickerProps = Pick<
 
   /** custom width of component. Goes into inline style so any css distance value allowed */
   style?: React.CSSProperties;
+
+  className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 };
 
 export interface TimePickerState {
@@ -428,6 +432,7 @@ export class TimePicker extends React.PureComponent<
       style: inlineStyle,
       disabled,
       readOnly,
+      className,
       ...rest
     } = this.props;
 
@@ -481,7 +486,8 @@ export class TimePicker extends React.PureComponent<
     return (
       <Input
         {...passThroughProps}
-        className={style(classes.root, { focus })}
+        className={style(classes.root, { focus }, className)}
+        data-hook={this.props['data-hook']}
         ref={ref => (this._inputRef = ref)}
         type="text"
         value={value}
