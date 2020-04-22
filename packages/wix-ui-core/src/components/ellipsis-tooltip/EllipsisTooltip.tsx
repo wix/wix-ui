@@ -4,6 +4,7 @@ import * as shallowequal from 'shallowequal';
 import * as classNames from 'classnames';
 import { classes as ellipsisClasses } from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
+import { RuntimeStylesheet } from '@stylable/runtime';
 const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
@@ -17,12 +18,15 @@ interface EllipsisTooltipProps {
   };
   /** truncate the text but don't display a tooltip */
   showTooltip?: boolean;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 interface EllipsisTooltipState {
   isTooltipActivated: boolean;
   Tooltip: React.ComponentClass;
-  tooltipClasses: Record<string, string>;
+  tooltipStyles: RuntimeStylesheet;
 }
 /** Apply ellipsis and a custom tooltip to your text nodes */
 export class EllipsisTooltip extends React.Component<
@@ -31,7 +35,7 @@ export class EllipsisTooltip extends React.Component<
 > {
   static defaultProps = { showTooltip: true };
 
-  state = { isTooltipActivated: false, Tooltip: null, tooltipClasses: null };
+  state = { isTooltipActivated: false, Tooltip: null, tooltipStyles: null };
 
   dynamicAssetsLoadingTriggered: boolean = false;
   textNode: HTMLElement;
@@ -58,10 +62,8 @@ export class EllipsisTooltip extends React.Component<
   };
 
   _loadTooltipStyle = async () => {
-    const { classes } = await import('./EllipsisTooltip.st.css');
-    this.setState({ tooltipClasses: classes }, () =>
-      this._updateEllipsisState(),
-    );
+    const tooltipStyles = await import('./EllipsisTooltip.st.css');
+    this.setState({ tooltipStyles }, () => this._updateEllipsisState());
   };
 
   _isOverflowing() {
@@ -71,7 +73,7 @@ export class EllipsisTooltip extends React.Component<
   }
 
   _updateEllipsisState = () => {
-    const { Tooltip, tooltipClasses } = this.state;
+    const { Tooltip, tooltipStyles } = this.state;
     const { showTooltip } = this.props;
 
     const shouldShowTooltip = showTooltip && this._isOverflowing();
@@ -81,14 +83,14 @@ export class EllipsisTooltip extends React.Component<
       if (!Tooltip) {
         this._loadTooltip();
       }
-      if (!tooltipClasses) {
+      if (!tooltipStyles) {
         this._loadTooltipStyle();
       }
     }
 
     this.setState({
       isTooltipActivated:
-        shouldShowTooltip && Tooltip && Boolean(tooltipClasses),
+        shouldShowTooltip && Tooltip && Boolean(tooltipStyles),
     });
   };
 
@@ -117,11 +119,20 @@ export class EllipsisTooltip extends React.Component<
   }
 
   render() {
-    const { Tooltip, tooltipClasses, isTooltipActivated } = this.state;
+    const { Tooltip, tooltipStyles, isTooltipActivated } = this.state;
 
     return isTooltipActivated ? (
       <Tooltip
-        className={tooltipClasses ? tooltipClasses.root : {}}
+        className={
+          tooltipStyles
+            ? tooltipStyles.style(
+                tooltipStyles.classes.root,
+                {},
+                this.props.className,
+              )
+            : ''
+        }
+        data-hook={this.props['data-hook']}
         appendTo="window"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
