@@ -158,7 +158,7 @@ class EllipsedTooltip extends React.Component<
 export const withEllipsedTooltip = ({
   showTooltip,
   shouldLoadAsync,
-  tooltipProps,
+  tooltipProps = {},
 }: {
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
