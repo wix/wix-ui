@@ -40,6 +40,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
+    "postinstall": "npm install @stylable/dom-test-kit --no-save",
     "prebuild": "npm run update-components && npm run update-components-standalone",
     "build": "npm run transpile && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
     "transpile": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins",
