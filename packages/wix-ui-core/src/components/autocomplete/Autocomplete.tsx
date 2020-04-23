@@ -10,6 +10,7 @@ const createDivider = (value = null) =>
 export interface AutocompleteProps {
   /** hook for testing purposes */
   'data-hook'?: string;
+  className?: string;
   /** The dropdown options array */
   options: Option[];
   /** Handler for when an option is selected */
@@ -124,11 +125,12 @@ export class Autocomplete extends React.PureComponent<
       fixedFooter,
       onManualInput,
       disabled,
+      className,
     } = this.props;
     const inputProps = this._createInputProps();
     return (
       <InputWithOptions
-        className={style(classes.root, { disabled })}
+        className={style(classes.root, { disabled }, className)}
         data-hook={this.props['data-hook']}
         onSelect={this._onSelect}
         initialSelectedIds={

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { style, classes } from './menu-item.st.css';
 
 export interface MenuItemProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
   /** any node to be rendered inside MenuItem */
   children?: React.ReactNode;
 
@@ -19,12 +22,24 @@ export interface MenuItemProps {
 }
 
 export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
-  const { selected, highlighted, disabled, onSelect, ...rest } = props;
+  const {
+    selected,
+    highlighted,
+    disabled,
+    onSelect,
+    className,
+    ...rest
+  } = props;
 
   return (
     <div
-      className={style(classes.root, { selected, highlighted, disabled })}
+      className={style(
+        classes.root,
+        { selected, highlighted, disabled },
+        className,
+      )}
       {...rest}
+      data-hook={props['data-hook']}
       data-selected={selected}
       data-highlighted={highlighted}
       data-disabled={disabled}

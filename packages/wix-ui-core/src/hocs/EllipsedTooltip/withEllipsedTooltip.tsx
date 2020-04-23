@@ -20,7 +20,7 @@ interface EllipsedTooltipProps {
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
-  tooltipProps?: object;
+  tooltipProps?: TooltipProps;
 }
 
 interface EllipsedTooltipState {
@@ -137,7 +137,11 @@ class EllipsedTooltip extends React.Component<
             <Tooltip
               appendTo="scrollParent"
               {...tooltipProps}
-              className={tooltipStyle.style(tooltipStyle.classes.root)}
+              className={tooltipStyle.style(
+                tooltipStyle.classes.root,
+                {},
+                tooltipProps.className,
+              )}
               data-hook={this.props['data-hook']}
               content={<div>{this.textNode.textContent}</div>}
               showArrow

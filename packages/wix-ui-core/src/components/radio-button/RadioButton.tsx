@@ -54,7 +54,7 @@ export interface RadioButtonProps {
   'aria-label'?: string;
   /** hook for testing purposes */
   'data-hook'?: string;
-  classnName?: string;
+  className?: string;
 }
 
 export interface RadioButtonState {
@@ -94,17 +94,22 @@ export class RadioButton extends React.Component<
       required,
       onIconBlur,
       tabIndex,
+      className,
     } = this.props;
     const focused = this.state.focused;
 
     return (
       <div
-        className={style(classes.root, {
-          checked,
-          disabled,
-          focused,
-          'focus-visible': this.state.focusVisible,
-        })}
+        className={style(
+          classes.root,
+          {
+            checked,
+            disabled,
+            focused,
+            'focus-visible': this.state.focusVisible,
+          },
+          className,
+        )}
         data-hook={this.props['data-hook']}
         onChange={this.handleInputChange}
         onClick={this.handleClick}

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 
 import { DataHooks, DisplayNames } from './TagsList.helpers';
-import { classes } from './TagsList.st.css';
+import { style, classes } from './TagsList.st.css';
 
 import { noop } from '../../utils';
 export interface TagsListProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   className?: string;
   onChange?(e: React.FormEvent<HTMLDivElement>): void;
   children?: React.ReactNode;
@@ -19,7 +20,7 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
   ...rest
 } = {}) => (
   <div
-    className={classNames(classes.root, className)}
+    className={style(classes.root, {}, className)}
     data-hook={DataHooks.TagsList}
     onChange={onChange}
     role="group"

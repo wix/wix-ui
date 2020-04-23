@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { style, classes } from './Slider.st.css'
+import { style, classes } from './Slider.st.css';
 
 export interface TicksProps {
   step: number;
@@ -11,6 +11,7 @@ export interface TicksProps {
   vertical: boolean;
   trackSize: number;
   onTickClick(any): void;
+  className?: string;
 }
 
 export class Ticks extends React.PureComponent<TicksProps> {
@@ -34,14 +35,14 @@ export class Ticks extends React.PureComponent<TicksProps> {
   }
 
   renderTick(i, min, max, vertical, thumbSize) {
-    const { tickMarksShape } = this.props;
+    const { tickMarksShape, className } = this.props;
     const pct = (i - min) / (max - min);
     const val = `calc(${pct} * calc(100% - ${thumbSize}px) + ${thumbSize /
       2}px)`;
 
     return (
       <div
-        className={style(classes.tick, { tickMarksShape })}
+        className={style(classes.tick, { tickMarksShape }, className)}
         key={i}
         data-hook="tick"
         onClick={this.props.onTickClick}

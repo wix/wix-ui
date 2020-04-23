@@ -10,6 +10,7 @@ export interface NavStepperProps {
   onStepClick?(stepIndex: number, e: any): void;
   /** hook for testing purposes */
   'data-hook'?: string;
+  className?: string;
 }
 
 export class NavStepper extends React.PureComponent<NavStepperProps> {
@@ -18,10 +19,13 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
   > = NavStep as any;
 
   render() {
-    const { activeStep, children } = this.props;
+    const { activeStep, children, className } = this.props;
 
     return (
-      <nav className={style(classes.root)} data-hook={this.props['data-hook']}>
+      <nav
+        className={style(classes.root, className)}
+        data-hook={this.props['data-hook']}
+      >
         <Stepper activeStep={activeStep}>
           {({ getStepProps }) => (
             <ol className={classes.steps}>

@@ -27,6 +27,7 @@ export interface IconWithOptionsProps {
   /** Icon url to display */
   iconUrl: string;
   dataHook?: string;
+  className?: string;
 }
 
 /**
@@ -45,11 +46,12 @@ export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = pr
     fixedHeader,
     fixedFooter,
     dataHook,
+    className,
   } = props;
 
   return (
     <Dropdown
-      className={style(classes.root)}
+      className={style(classes.root, {}, className)}
       dataHook={dataHook}
       options={options}
       placement={placement}

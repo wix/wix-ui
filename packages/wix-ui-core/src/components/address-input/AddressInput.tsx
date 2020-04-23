@@ -120,6 +120,7 @@ export type AddressInputProps = Pick<
   inputClassName?: string;
   /** Options box z-index */
   optionsContainerZIndex?: number;
+  className?: string;
 };
 
 export interface AddressInputState {
@@ -481,6 +482,7 @@ export class AddressInput extends React.PureComponent<
       moveBy,
       inputClassName,
       optionsContainerZIndex,
+      className,
     } = this.props;
     const options = this._options();
 
@@ -511,7 +513,7 @@ export class AddressInput extends React.PureComponent<
 
     return (
       <InputWithOptions
-        className={style(classes.root, states)}
+        className={style(classes.root, states, className)}
         data-hook={this.props['data-hook']}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}

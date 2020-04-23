@@ -4,6 +4,7 @@ import { style, classes } from './Thumbnail.st.css';
 export interface ThumbnailProps {
   /** hook for testing purposes */
   'data-hook'?: string;
+  className?: string;
   /** Is the thumbnail selected */
   selected?: boolean;
   /** Callback when the element is clicked */
@@ -18,11 +19,11 @@ export interface ThumbnailProps {
 
 export const Thumbnail: React.FunctionComponent<ThumbnailProps> = props => {
   const children = React.Children.only(props.children);
-  const { selected, selectedIcon, onClick, disabled } = props;
+  const { selected, selectedIcon, onClick, disabled, className } = props;
 
   return (
     <div
-      className={style(classes.root, { selected, disabled })}
+      className={style(classes.root, { selected, disabled }, className)}
       data-hook={props['data-hook']}
       onClick={onClick}
     >

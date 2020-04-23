@@ -5,7 +5,7 @@ import {
   createResponsiveLayout,
   createResponsiveLayoutTemplate,
 } from './page-strip-layout';
-import { classes } from './Pagination.st.css';
+import { style, classes } from './Pagination.st.css';
 import { PaginationDataHooks } from './DataHooks';
 
 export interface PageStripProps {
@@ -22,6 +22,7 @@ export interface PageStripProps {
   onPageKeyDown(event: React.KeyboardEvent, page: number): void;
   updateResponsiveLayout(callback: () => void): void;
   disabled: boolean;
+  className?: string;
 }
 
 export interface PageStripState {
@@ -80,7 +81,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         ref={el => (this.rootNode = el)}
         data-hook={PaginationDataHooks.pageStrip}
         id={this.props.id ? this.props.id + 'pageStrip' : null}
-        className={classes.pageStrip}
+        className={style(classes.pageStrip, {}, this.props.className)}
         data-aid="qa-page-strip"
       >
         <div className={classes.pageStripInner}>

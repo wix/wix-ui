@@ -13,7 +13,7 @@ const createDivider = (value = null) =>
 export interface LabelWithOptionsProps {
   /** hook for testing purposes */
   'data-hook'?: string;
-
+  className?: string;
   /** The dropdown options array */
   options: Option[];
   /** set true for multiple selection, false for single */
@@ -79,6 +79,7 @@ export class LabelWithOptions extends React.PureComponent<
       multi,
       checkbox,
       ellipsis,
+      className,
     } = this.props;
 
     const { selectedIds, isDirty } = this.state;
@@ -86,12 +87,16 @@ export class LabelWithOptions extends React.PureComponent<
     const error = !disabled && required && isDirty && selectedIds.length === 0;
     return (
       <Dropdown
-        className={style(classes.root, {
-          required: required && !disabled,
-          error,
-          disabled,
-          checkbox,
-        })}
+        className={style(
+          classes.root,
+          {
+            required: required && !disabled,
+            error,
+            disabled,
+            checkbox,
+          },
+          className,
+        )}
         data-hook={this.props['data-hook']}
         multi={multi}
         placement="bottom-start"
