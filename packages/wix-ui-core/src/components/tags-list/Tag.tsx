@@ -88,7 +88,7 @@ class Tag extends React.Component<TagProps> {
     this.inputRef.current.click();
   };
 
-  renderLabledInput = (ownProps, wrapperProps = {}) => {
+  renderLabeledInput = (ownProps, wrapperProps = {}) => {
       const {
         value,
         label,
@@ -185,9 +185,9 @@ class Tag extends React.Component<TagProps> {
         onClick={this.handleTagClick}
         {...rootElementProps}
       >
-        {this.renderLabledInput(labledInputProps)}
+        {this.renderLabeledInput(labledInputProps)}
       </a>
-    ) :  this.renderLabledInput(labledInputProps, rootElementProps);
+    ) :  this.renderLabeledInput(labledInputProps, rootElementProps);
   }
 }
 
