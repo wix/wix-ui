@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { DataHooks, DisplayNames } from './TagsList.helpers';
-import { style, classes } from './TagsList.st.css';
+import { st, classes } from './TagsList.st.css';
 
 import { noop } from '../../utils';
 export interface TagsListProps {
@@ -20,7 +20,7 @@ export const TagsList: React.FunctionComponent<TagsListProps> = ({
   ...rest
 } = {}) => (
   <div
-    className={style(classes.root, {}, className)}
+    className={st(classes.root, className)}
     data-hook={DataHooks.TagsList}
     onChange={onChange}
     role="group"

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Label.st.css';
+import { st, classes } from './Label.st.css';
 
 export interface LabelProps {
   /** hook for testing purposes */
@@ -28,7 +28,7 @@ export const Label: React.FunctionComponent<LabelProps> = props => {
   const { id, children, ellipsis, disabled } = props;
   return (
     <label
-      className={style(classes.root, { ellipsis, disabled }, props.className)}
+      className={st(classes.root, { ellipsis, disabled }, props.className)}
       data-ellipsis={ellipsis}
       data-disabled={disabled}
       data-hook={props['data-hook']}

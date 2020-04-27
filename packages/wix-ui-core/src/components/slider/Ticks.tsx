@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { style, classes } from './Slider.st.css';
+import { st, classes } from './Slider.st.css';
 
 export interface TicksProps {
   step: number;
@@ -42,7 +42,7 @@ export class Ticks extends React.PureComponent<TicksProps> {
 
     return (
       <div
-        className={style(classes.tick, { tickMarksShape }, className)}
+        className={st(classes.tick, { tickMarksShape }, className)}
         key={i}
         data-hook="tick"
         onClick={this.props.onTickClick}

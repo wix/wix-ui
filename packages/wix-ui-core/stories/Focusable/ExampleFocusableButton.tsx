@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withFocusable } from '../../src/hocs/Focusable';
-import { style, classes } from './ExampleFocusableButton.st.css';
+import { st, classes } from './ExampleFocusableButton.st.css';
 
 interface IInputProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ class Input extends React.Component<IInputProps> {
       <input
         onFocus={rest.focusableOnFocus}
         onBlur={rest.focusableOnBlur}
-        className={style(classes.root, {})}
+        className={st(classes.root)}
       />
     );
   }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Checkbox.st.css';
+import { st, classes } from './Checkbox.st.css';
 import { noop } from '../../utils';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
@@ -55,7 +55,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     return (
       <label
-        className={style(
+        className={st(
           classes.root,
           {
             checked,

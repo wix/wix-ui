@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './IconWithOptions.st.css';
+import { st, classes } from './IconWithOptions.st.css';
 import { Dropdown } from '../dropdown';
 import { Placement } from '../popover';
 import { Option } from '../dropdown-option';
@@ -51,7 +51,7 @@ export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = pr
 
   return (
     <Dropdown
-      className={style(classes.root, {}, className)}
+      className={st(classes.root, className)}
       dataHook={dataHook}
       options={options}
       placement={placement}

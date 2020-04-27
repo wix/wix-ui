@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
 import { Size, CaptchaType, Theme, CaptchaLang } from './types';
-import { style, classes } from './Captcha.st.css';
+import { st, classes } from './Captcha.st.css';
 
 export interface CaptchaProps {
   required?: boolean;
@@ -115,7 +115,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
     } = this.props;
     return (
       <div
-        className={style(
+        className={st(
           classes.root,
           { loaded: this.state.rendered },
           this.props.className,

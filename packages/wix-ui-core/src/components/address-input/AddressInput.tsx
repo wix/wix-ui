@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './AddressInput.st.css';
+import { st, classes } from './AddressInput.st.css';
 import {
   InputWithOptions,
   InputWithOptionsProps,
@@ -513,7 +513,7 @@ export class AddressInput extends React.PureComponent<
 
     return (
       <InputWithOptions
-        className={style(classes.root, states, className)}
+        className={st(classes.root, states, className)}
         data-hook={this.props['data-hook']}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}

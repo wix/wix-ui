@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './NavStep.st.css';
+import { st, classes } from './NavStep.st.css';
 import { StepProps } from '../stepper';
 
 export type ExternalNavStepProps = Partial<StepProps> & {
@@ -18,7 +18,7 @@ export class NavStep extends React.PureComponent<NavStepProps> {
       <li
         {...ariaProps}
         {...rest}
-        className={style(classes.root, { active, visited, disabled })}
+        className={st(classes.root, { active, visited, disabled })}
       >
         {children}
       </li>

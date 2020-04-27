@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import { style, classes } from './Text.st.css';
+import { st, classes } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
@@ -96,7 +96,7 @@ class EllipsedTooltip extends React.Component<
     const { component, style: inlineStyle } = this.props;
     return (
       <StateFullComponentWrap
-        className={style(classes.root, {}, component.props.className)}
+        className={st(classes.root, component.props.className)}
         style={{
           ...inlineStyle,
           whiteSpace: 'nowrap',

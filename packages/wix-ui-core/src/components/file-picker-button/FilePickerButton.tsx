@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { style, classes } from './FilePickerButton.st.css';
+import { st, classes } from './FilePickerButton.st.css';
 import { DataHook } from './test/FilePickerButton.helpers';
 import { noop } from '../../utils';
 
@@ -58,7 +58,7 @@ export class FilePickerButton extends React.Component<
     const buttonId = id ? `${DataHook.ChooseFileButton}-${id}` : null;
     return (
       <div
-        className={style(classes.root, { required, disabled }, className)}
+        className={st(classes.root, { required, disabled }, className)}
         data-hook={this.props['data-hook']}
       >
         <input

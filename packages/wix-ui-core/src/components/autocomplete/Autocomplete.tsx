@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Autocomplete.st.css';
+import { st, classes } from './Autocomplete.st.css';
 import { InputWithOptions } from '../input-with-options';
 import { Option, OptionFactory } from '../dropdown-option/OptionFactory';
 import { InputProps, AriaAutoCompleteType } from '../input';
@@ -130,7 +130,7 @@ export class Autocomplete extends React.PureComponent<
     const inputProps = this._createInputProps();
     return (
       <InputWithOptions
-        className={style(classes.root, { disabled }, className)}
+        className={st(classes.root, { disabled }, className)}
         data-hook={this.props['data-hook']}
         onSelect={this._onSelect}
         initialSelectedIds={

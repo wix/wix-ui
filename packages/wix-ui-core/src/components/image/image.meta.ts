@@ -1,12 +1,12 @@
 import { Image } from './image';
 import { ImageStatus } from './consts';
 import Registry from '@ui-autotools/registry';
-import { style } from '../../themes/default/image/style.st.css';
+import { st } from '../../themes/default/image/style.st.css';
 import { SRC, BROKEN_SRC } from './test-fixtures';
 
 const imageMetadata = Registry.getComponentMetadata(Image);
 
-imageMetadata.addStyle(style, {
+imageMetadata.addStyle(st, {
   name: 'style',
   path: 'src/themes/default/image/style.st.css',
 });

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Ticks } from './Ticks';
 import { Thumb, getThumbSize } from './Thumb';
-import { style, classes } from './Slider.st.css';
+import { st, classes } from './Slider.st.css';
 
 const noop = () => {};
 
@@ -405,7 +405,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div
         data-hook="tooltip"
-        className={style(classes.tooltip, { [positionClassname]: true })}
+        className={st(classes.tooltip, { [positionClassname]: true })}
       >
         {this.props.tooltipPrefix}
         {clampedValue}
@@ -502,7 +502,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     return (
       <div
-        className={style(
+        className={st(
           classes.root,
           {
             orientation: vertical ? 'vertical' : 'horizontal',

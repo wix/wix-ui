@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './ToggleSwitch.st.css';
+import { st, classes } from './ToggleSwitch.st.css';
 import { dataHooks } from './constants';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
@@ -61,7 +61,7 @@ export class ToggleSwitch extends React.PureComponent<
 
     return (
       <div
-        className={style(
+        className={st(
           classes.root,
           {
             checked,

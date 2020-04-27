@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
-import { style, classes } from './avatar.st.css';
+import { st, classes } from './avatar.st.css';
 import { ContentType } from './types';
 import { nameToInitials } from './util';
 
@@ -173,7 +173,7 @@ export class AvatarComponent extends React.Component<
         aria-label={ariaLabel || name}
         onClick={onClick}
         {...focusProps}
-        className={style(
+        className={st(
           classes.root,
           {
             imgLoaded: this.state.imgLoaded,

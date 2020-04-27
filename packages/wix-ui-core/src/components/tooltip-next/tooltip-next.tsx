@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from '../tooltip/Tooltip.st.css';
+import { st, classes } from '../tooltip/Tooltip.st.css';
 import { PopoverNext } from '../popover-next';
 
 import { Placement, AppendTo } from '../popover';
@@ -153,7 +153,7 @@ export class TooltipNext extends React.PureComponent<
 
     return (
       <PopoverNext
-        className={style(classes.root, {}, this.props.className)}
+        className={st(classes.root, this.props.className)}
         {...(this.props['data-hook']
           ? { 'data-hook': this.props['data-hook'] }
           : {})}

@@ -65,7 +65,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
 
     render() {
         return (
-            <div className={style.toggle}>
+            <div className={st.toggle}>
                 <SegmentedToggle
                     value={this.state.selected}
                     onChange={this.onChange} 
@@ -124,7 +124,7 @@ export class ComponentsDemo extends React.Component<{}, {selected: string}>{
 
     render() {
         return (
-            <div className={style.toggle}>
+            <div className={st.toggle}>
                 <SegmentedToggle
                     value={this.state.selected}
                 >

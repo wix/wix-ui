@@ -5,7 +5,7 @@ import {
   createResponsiveLayout,
   createResponsiveLayoutTemplate,
 } from './page-strip-layout';
-import { style, classes } from './Pagination.st.css';
+import { st, classes } from './Pagination.st.css';
 import { PaginationDataHooks } from './DataHooks';
 
 export interface PageStripProps {
@@ -81,7 +81,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
         ref={el => (this.rootNode = el)}
         data-hook={PaginationDataHooks.pageStrip}
         id={this.props.id ? this.props.id + 'pageStrip' : null}
-        className={style(classes.pageStrip, {}, this.props.className)}
+        className={st(classes.pageStrip, this.props.className)}
         data-aid="qa-page-strip"
       >
         <div className={classes.pageStripInner}>

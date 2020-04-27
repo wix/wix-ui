@@ -13,7 +13,7 @@ import {
   withHorizontalMenuItemContext,
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 
-import { style, classes } from './HorizontalMenuGridLayout.st.css';
+import { st, classes } from './HorizontalMenuGridLayout.st.css';
 
 export interface HorizontalMenuGridLayoutProps {
   className?: string;
@@ -96,7 +96,7 @@ export class HorizontalMenuGridLayout extends React.Component<
           data-opened={menuItemContext.isOpen}
           ref={this.layoutRef}
           className={classnames(
-            style(
+            st(
               classes.root,
               { expandSize: menuItemContext.expandSize },
               this.props.className,

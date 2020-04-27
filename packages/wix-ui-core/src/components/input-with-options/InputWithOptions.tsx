@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './InputWithOptions.st.css';
+import { st, classes } from './InputWithOptions.st.css';
 import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
@@ -238,7 +238,7 @@ export class InputWithOptions extends React.PureComponent<
 
     return (
       <Dropdown
-        className={style(classes.root, {}, className)}
+        className={st(classes.root, className)}
         data-hook={this.props['data-hook']}
         placement={placement}
         openTrigger={openTrigger}

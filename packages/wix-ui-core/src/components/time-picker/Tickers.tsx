@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Tickers.st.css';
+import { st, classes } from './Tickers.st.css';
 
 export interface TickersProps {
   className?: string;
@@ -28,7 +28,7 @@ export class Tickers extends React.PureComponent<TickersProps> {
 
   render() {
     return (
-      <div className={style(classes.root, {}, this.props.className)}>
+      <div className={st(classes.root, this.props.className)}>
         <button
           tabIndex={-1}
           type="button"

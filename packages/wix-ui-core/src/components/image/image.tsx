@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './image.st.css';
+import { st, classes } from './image.st.css';
 import { ImageStatus, FALLBACK_IMAGE } from './consts';
 
 export interface ImageProps {
@@ -66,7 +66,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     const { resizeMode } = this.props;
 
     const commonProps = {
-      className: style(
+      className: st(
         classes.root,
         { resizeMode: this.props.resizeMode, loadState: this.state.status },
         this.isResized() ? ' wrapper' : '',

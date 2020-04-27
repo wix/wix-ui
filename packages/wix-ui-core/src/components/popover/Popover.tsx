@@ -7,7 +7,7 @@ import onClickOutside, {
 import { Manager, Reference, Popper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
-import { style, classes } from './Popover.st.css';
+import { st, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
 
 import {
@@ -482,7 +482,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.portalClasses = style(classes.root, {}, this.props.className);
+      this.portalClasses = st(classes.root, this.props.className);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -508,7 +508,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onKeyDown,
       onClick,
       children,
-      style: inlineStyles,
+      style,
       id,
       excludeClass,
       fluid,
@@ -530,10 +530,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           outsideClickIgnoreClass={excludeClass || classes.popover}
         >
           <div
-            style={inlineStyles}
+            style={style}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
-            className={style(classes.root, { fluid }, this.props.className)}
+            className={st(classes.root, { fluid }, this.props.className)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}

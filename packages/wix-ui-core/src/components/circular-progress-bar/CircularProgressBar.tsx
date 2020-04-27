@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './CircularProgressBar.st.css';
+import { st, classes } from './CircularProgressBar.st.css';
 import { Arc } from './Arc';
 import { dataHooks } from './constants';
 
@@ -110,7 +110,7 @@ export const CircularProgressBar: React.FunctionComponent<CircularProgressBarPro
       : `${Math.floor(_props.value)}%`;
   return (
     <div
-      className={style(classes.root, { error, success }, _props.className)}
+      className={st(classes.root, { error, success }, _props.className)}
       data-error={error}
       data-hook={_props['data-hook']}
     >

@@ -1,5 +1,5 @@
 import { Button } from './Button';
-import { style } from './ButtonStyle.st.css';
+import { st } from './ButtonStyle.st.css';
 import Registry from '@ui-autotools/registry';
 
 const buttonMetadata = Registry.getComponentMetadata(Button);
@@ -10,7 +10,7 @@ buttonMetadata.exportInfo = {
   baseStylePath: 'src/components/deprecated/button/Button.st.css',
 };
 
-buttonMetadata.addStyle(style, {
+buttonMetadata.addStyle(st, {
   name: 'style',
   path: 'src/components/deprecated/button/ButtonStyle.st.css',
 });

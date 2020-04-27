@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pagination, PaginationProps } from '../../src/components/pagination';
-import { style, classes } from './pagination-story-theme.st.css';
+import { st, classes } from './pagination-story-theme.st.css';
 
 // Assuming we use pagination-story-theme
 const spaceForPages = n => (n + 2) * 40;
@@ -17,7 +17,7 @@ class UncontrolledPagination extends React.Component<
     return (
       <Pagination
         {...this.props}
-        className={style(classes.root)}
+        className={st(classes.root)}
         onChange={({ page, event }) => {
           event.preventDefault();
           this.setState({ currentPage: page });

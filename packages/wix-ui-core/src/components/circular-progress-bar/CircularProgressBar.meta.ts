@@ -1,6 +1,6 @@
 import { CircularProgressBar } from './CircularProgressBar';
 import Registry from '@ui-autotools/registry';
-import { style } from '../../../stories/CircularProgressBar/style.st.css';
+import { st } from '../../../stories/CircularProgressBar/style.st.css';
 
 const circularProgressBarMetadata = Registry.getComponentMetadata(
   CircularProgressBar,
@@ -13,7 +13,7 @@ circularProgressBarMetadata.exportInfo = {
     'src/components/circular-progress-bar/CircularProgressBar.st.css',
 };
 
-circularProgressBarMetadata.addStyle(style, {
+circularProgressBarMetadata.addStyle(st, {
   name: 'style',
   path: 'stories/CircularProgressBar/style.st.css',
 });

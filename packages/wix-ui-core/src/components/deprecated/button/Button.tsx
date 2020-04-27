@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Button.st.css';
+import { st, classes } from './Button.st.css';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<any> {
   /** Type of the button - submit / button / reset */
@@ -15,7 +15,7 @@ export const Button: React.FunctionComponent<ButtonProps> = props => {
   return (
     <button
       {...props}
-      className={style(classes.root, { disabled }, props.className)}
+      className={st(classes.root, { disabled }, props.className)}
     />
   );
 };

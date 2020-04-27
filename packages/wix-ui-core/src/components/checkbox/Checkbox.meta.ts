@@ -1,6 +1,6 @@
 import { Checkbox } from './Checkbox';
 import Registry from '@ui-autotools/registry';
-import { style } from '../../../stories/Checkbox/style.st.css';
+import { st } from '../../../stories/Checkbox/style.st.css';
 
 const checkboxMetadata = Registry.getComponentMetadata(Checkbox);
 
@@ -10,7 +10,7 @@ checkboxMetadata.exportInfo = {
   baseStylePath: 'src/components/checkbox/Checkbox.st.css',
 };
 
-checkboxMetadata.addStyle(style, {
+checkboxMetadata.addStyle(st, {
   name: 'style',
   path: 'stories/Checkbox/style.st.css',
 });

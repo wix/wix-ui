@@ -5,7 +5,7 @@ import { HorizontalMenuContext } from '../HorizontalMenuContext';
 import { HorizontalMenuItemContext } from './HorizontalMenuItemContext';
 import { HORIZONTAL_MENU_METADATA } from '../constants';
 
-import { style, classes } from './HorizontalMenuItem.st.css';
+import { st, classes } from './HorizontalMenuItem.st.css';
 
 export type ExpandSize = 'column' | 'menu' | 'fullWidth';
 
@@ -160,7 +160,7 @@ export class HorizontalMenuItem extends React.PureComponent<
                     ref={this.menuItemRef}
                     className={classnames(
                       menuContext.menuItemClassName,
-                      style(classes.root, { expandSize }, this.props.className),
+                      st(classes.root, { expandSize }, this.props.className),
                     )}
                     style={propStyle}
                     {...rest}

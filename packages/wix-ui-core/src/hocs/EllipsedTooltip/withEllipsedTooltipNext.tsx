@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
 
-import { style as textStyle, classes as textClasses } from './Text.st.css';
+import { st as textStyle, classes as textClasses } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip-next/tooltip-next';

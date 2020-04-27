@@ -3,7 +3,7 @@ import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 
 import { withFocusable } from './FocusableHOC';
-import * as style from './Focusable.st.css';
+import * as stylesheet from './Focusable.st.css';
 
 declare global {
   interface Window {
@@ -20,7 +20,7 @@ export interface IPureChildComponentProps {
   focusableOnBlur: any;
 }
 
-const stylableUtil = new StylableDOMUtil(style);
+const stylableUtil = new StylableDOMUtil(stylesheet);
 
 const hasFocusState = element => stylableUtil.hasStyleState(element, 'focus');
 const hasFocusVisibleState = element =>
@@ -49,7 +49,7 @@ export class PureChildComponent extends React.PureComponent<
       <div
         onFocus={this.props.focusableOnFocus}
         onBlur={this.props.focusableOnBlur}
-        className={style.style(style.classes.root, {}, this.props.className)}
+        className={stylesheet.st(stylesheet.classes.root, this.props.className)}
         data-hook={this.props['data-hook']}
       >
         Hello

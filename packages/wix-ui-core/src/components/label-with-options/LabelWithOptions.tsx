@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './LabelWithOptions.st.css';
+import { st, classes } from './LabelWithOptions.st.css';
 import { Dropdown } from '../dropdown';
 import { Checkbox } from '../checkbox';
 import { Option, OptionFactory } from '../dropdown-option';
@@ -87,7 +87,7 @@ export class LabelWithOptions extends React.PureComponent<
     const error = !disabled && required && isDirty && selectedIds.length === 0;
     return (
       <Dropdown
-        className={style(
+        className={st(
           classes.root,
           {
             required: required && !disabled,

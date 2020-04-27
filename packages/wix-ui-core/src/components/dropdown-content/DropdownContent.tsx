@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './DropdownContent.st.css';
+import { st, classes } from './DropdownContent.st.css';
 import { Option, DropdownOption } from '../dropdown-option';
 
 const NOT_HOVERED_INDEX = -1;
@@ -204,7 +204,7 @@ export class DropdownContent extends React.PureComponent<
 
     return (
       <div
-        className={style(classes.root, {}, className)}
+        className={st(classes.root, className)}
         data-hook={this.props['data-hook']}
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}

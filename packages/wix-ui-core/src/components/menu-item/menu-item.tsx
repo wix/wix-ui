@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './menu-item.st.css';
+import { st, classes } from './menu-item.st.css';
 
 export interface MenuItemProps {
   /** hook for testing purposes */
@@ -33,7 +33,7 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
 
   return (
     <div
-      className={style(
+      className={st(
         classes.root,
         { selected, highlighted, disabled },
         className,

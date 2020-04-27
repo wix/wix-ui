@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Slider.st.css';
+import { st, classes } from './Slider.st.css';
 
 export interface ThumbProps {
   shape: string;
@@ -40,7 +40,7 @@ class CircleThumb extends React.PureComponent<any> {
   render() {
     return (
       <div
-        className={style(classes.thumbShape, { shapeType: 'circle' })}
+        className={st(classes.thumbShape, { shapeType: 'circle' })}
         style={{ borderRadius: '50%' }}
       />
     );
@@ -50,22 +50,20 @@ class CircleThumb extends React.PureComponent<any> {
 class RectangleThumb extends React.PureComponent<any> {
   render() {
     return (
-      <div className={style(classes.thumbShape, { shapeType: 'rectangle' })} />
+      <div className={st(classes.thumbShape, { shapeType: 'rectangle' })} />
     );
   }
 }
 
 class SquareThumb extends React.PureComponent<any> {
   render() {
-    return (
-      <div className={style(classes.thumbShape, { shapeType: 'square' })} />
-    );
+    return <div className={st(classes.thumbShape, { shapeType: 'square' })} />;
   }
 }
 
 class BarThumb extends React.PureComponent<any> {
   render() {
-    return <div className={style(classes.thumbShape, { shapeType: 'bar' })} />;
+    return <div className={st(classes.thumbShape, { shapeType: 'bar' })} />;
   }
 }
 

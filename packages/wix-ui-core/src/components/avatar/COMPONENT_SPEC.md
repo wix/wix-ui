@@ -63,7 +63,7 @@ The `alt` property is omitted from `imgProps` interface. `name` prop will be use
 import * as React from 'react';
 import { Avatar } from 'wix-ui-core/Avatar';
 import { AvatarIcon } from 'my-icons/AvatarIcon';
-import style from './style.st.css'; // link to Style file - see examples of style files below
+import { classes } from './style.st.css'; // link to Style file - see examples of style files below
 
 export class ComponentsDemo extends React.Component<{}, {}>{
 
@@ -71,7 +71,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
         return (
             <div>
                 <Avatar
-                    className={style.avatar}
+                    className={classes.avatar}
                     name="John H. Doe"
                     text="Doe"
                     imgProps={{

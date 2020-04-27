@@ -13,7 +13,7 @@ import {
 } from '../horizontal-menu-item/HorizontalMenuItemContext';
 import { calculatePositioning } from '../horizontal-menu-layout/calculatePositioning';
 
-import { style, classes } from './HorizontalMenuColumnsLayout.st.css';
+import { st, classes } from './HorizontalMenuColumnsLayout.st.css';
 
 export enum ColumnsAlignment {
   Left = 'left',
@@ -116,7 +116,7 @@ export class HorizontalMenuColumnsLayout extends React.Component<
           data-opened={menuItemContext.isOpen}
           ref={this.layoutRef}
           className={classnames(
-            style(
+            st(
               classes.root,
               { expandSize: menuItemContext.expandSize, columnsAlignment },
               this.props.className,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './Input.st.css';
+import { st, classes } from './Input.st.css';
 import { Omit } from 'type-zoo';
 import * as classnames from 'classnames';
 
@@ -65,7 +65,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
     return (
       <div
-        className={style(
+        className={st(
           classes.root,
           { disabled, error: !!error && !disabled, focus },
           className,

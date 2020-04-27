@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './RadioButton.st.css';
+import { st, classes } from './RadioButton.st.css';
 
 const noop = () => null;
 
@@ -100,7 +100,7 @@ export class RadioButton extends React.Component<
 
     return (
       <div
-        className={style(
+        className={st(
           classes.root,
           {
             checked,

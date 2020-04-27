@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PageStrip } from './PageStrip';
-import { style, classes } from './Pagination.st.css';
+import { st, classes } from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
 import { PaginationDataHooks } from './DataHooks';
 
@@ -296,7 +296,7 @@ export class Pagination extends React.Component<
     return (
       <div
         data-hook={PaginationDataHooks[type]}
-        className={style(classes.emptyButton, {}, ...btnClass)}
+        className={st(classes.emptyButton, ...btnClass)}
       />
     );
   }
@@ -334,7 +334,7 @@ export class Pagination extends React.Component<
       <a
         data-hook={PaginationDataHooks[type]}
         id={this.getId('navButton' + upperCaseFirst(type))}
-        className={style(classes.navButton, { disabled }, btnClass)}
+        className={st(classes.navButton, { disabled }, btnClass)}
         aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
@@ -380,7 +380,7 @@ export class Pagination extends React.Component<
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         style={inlineStyle || { width }}
-        className={style(classes.root, styleStates, this.props.className)}
+        className={st(classes.root, styleStates, this.props.className)}
         data-hook={this.props['data-hook']}
       >
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}

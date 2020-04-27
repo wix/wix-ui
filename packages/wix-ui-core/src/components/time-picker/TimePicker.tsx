@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tickers } from './Tickers';
 import { Input, InputProps } from '../input';
-import { style, classes } from './TimePicker.st.css';
+import { st, classes } from './TimePicker.st.css';
 import { FIELD, BLANK, NULL_TIME, AmPmOptions, AmPmStrings } from './constants';
 import {
   increment,
@@ -457,7 +457,7 @@ export class TimePicker extends React.PureComponent<
       return (
         <Input
           {...passThroughProps}
-          className={style(classes.root, {}, className)}
+          className={st(classes.root, className)}
           type="time"
           value={sanitizedValue}
           onChange={e => onChange(e.target.value)}
@@ -486,7 +486,7 @@ export class TimePicker extends React.PureComponent<
     return (
       <Input
         {...passThroughProps}
-        className={style(classes.root, { focus }, className)}
+        className={st(classes.root, { focus }, className)}
         data-hook={this.props['data-hook']}
         ref={ref => (this._inputRef = ref)}
         type="text"

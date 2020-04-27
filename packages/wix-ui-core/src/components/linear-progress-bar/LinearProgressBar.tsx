@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './LinearProgressBar.st.css';
+import { st, classes } from './LinearProgressBar.st.css';
 import {
   ProgressBarDataHooks,
   ProgressBarDataKeys,
@@ -131,7 +131,7 @@ export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> 
       data-min={_props.min}
       data-error={error}
       role="progressbar"
-      className={style(classes.root, { error, success }, className)}
+      className={st(classes.root, { error, success }, className)}
       data-hook={props['data-hook']}
     >
       {renderBarSection(_props.value)}

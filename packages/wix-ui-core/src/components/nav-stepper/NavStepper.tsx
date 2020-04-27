@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { style, classes } from './NavStepper.st.css';
+import { st, classes } from './NavStepper.st.css';
 import { Stepper } from '../stepper';
 import { NavStep, ExternalNavStepProps } from './NavStep';
 
@@ -23,7 +23,7 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
 
     return (
       <nav
-        className={style(classes.root, className)}
+        className={st(classes.root, className)}
         data-hook={this.props['data-hook']}
       >
         <Stepper activeStep={activeStep}>

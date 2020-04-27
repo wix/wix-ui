@@ -48,7 +48,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
     render() {
         return (
             <Video
-                className={style(classes.root)}
+                className={st(classes.root)}
                 src="video-source.mp4"
                 id="my-player"
                 loop={false}

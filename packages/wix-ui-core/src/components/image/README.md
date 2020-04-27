@@ -35,7 +35,7 @@ export class ImageDemo extends React.Component<{}, ImageDemoState> {
     
         public render() {
             return (
-                <div className={style(classes.root)} >
+                <div className={st(classes.root)} >
                     <h2>Image</h2>
                     <div>
                         <label>src:
