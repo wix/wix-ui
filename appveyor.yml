@@ -2,6 +2,8 @@ environment:
   nodejs_version: "12"
 # matches default clone depth of travis
 clone_depth: 50
+build: off
+
 install:
   - choco install -y googlechrome
   - ps: Install-Product node $env:nodejs_version
