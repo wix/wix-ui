@@ -111,7 +111,7 @@ export class FocusableTag extends React.Component<TagProps> {
         <input
           ref={this.inputRef}
           data-hook={DataHooks.TagInput}
-          className={style.tagInput}
+          className={classes.tagInput}
           type="checkbox"
           checked={checked}
           onChange={onChange}
@@ -155,7 +155,7 @@ export class FocusableTag extends React.Component<TagProps> {
 
     const rootElementProps = {
       onKeyDown: this.handleKeyDown,
-      className: classNames(style.tag, className),
+      className: classNames(classes.tag, className),
       ...wrapperStyles,
     };
 
