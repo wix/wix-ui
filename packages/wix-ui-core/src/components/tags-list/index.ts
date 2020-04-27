@@ -1,2 +1,2 @@
 export { TagsList } from './TagsList';
-export { WrappedWithExperimentTag as Tag } from './Tag';
+export { FocusableTag, Tag } from './Tag';

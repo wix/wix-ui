@@ -22,15 +22,13 @@ export interface TagProps {
   link?: string;
   rel?: string;
   compId?: string;
-  style?: Record<string, string>;
+  style?: React.CSSProperties;
 }
-class Tag extends React.Component<TagProps> {
+
+export class FocusableTag extends React.Component<TagProps> {
   static displayName = DisplayNames.Tag;
   static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
     checked: PropTypes.bool,
     value: PropTypes.string,
@@ -40,7 +38,7 @@ class Tag extends React.Component<TagProps> {
     rel: PropTypes.string,
     compId: PropTypes.string,
     tagIndex: PropTypes.number,
-    style: PropTypes.object
+    style: PropTypes.object,
   };
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -89,17 +87,17 @@ class Tag extends React.Component<TagProps> {
   };
 
   renderLabeledInput = (ownProps, wrapperProps = {}) => {
-      const {
-        value,
-        label,
-        disabled,
-        checked,
-        onChange,
-        compId,
-        children,
-        uniqueId,
-        tabIndex
-      } = ownProps;
+    const {
+      value,
+      label,
+      disabled,
+      checked,
+      onChange,
+      compId,
+      children,
+      uniqueId,
+      tabIndex,
+    } = ownProps;
 
     return (
       <label
@@ -114,7 +112,7 @@ class Tag extends React.Component<TagProps> {
           ref={this.inputRef}
           data-hook={DataHooks.TagInput}
           className={style.tagInput}
-          type="checkbox" 
+          type="checkbox"
           checked={checked}
           onChange={onChange}
           value={value}
@@ -125,7 +123,7 @@ class Tag extends React.Component<TagProps> {
         {children}
       </label>
     );
-  }
+  };
 
   render() {
     const {
@@ -149,19 +147,19 @@ class Tag extends React.Component<TagProps> {
     } = this.props;
 
     const uniqueId =
-    tagIndex !== undefined
-      ? `${value}-${compId}-${tagIndex}`
-      : `${value}-${compId}`;
+      tagIndex !== undefined
+        ? `${value}-${compId}-${tagIndex}`
+        : `${value}-${compId}`;
     const isFocusDisabled = Boolean(disabled || link);
     const tabIndex = isFocusDisabled ? -1 : 0;
 
     const rootElementProps = {
       onKeyDown: this.handleKeyDown,
       className: classNames(style.tag, className),
-      ...wrapperStyles
+      ...wrapperStyles,
     };
 
-    const labledInputProps = {
+    const labeledInputProps = {
       value,
       label,
       disabled,
@@ -171,7 +169,7 @@ class Tag extends React.Component<TagProps> {
       uniqueId,
       compId,
       children,
-    }
+    };
 
     return link ? (
       <a
@@ -185,20 +183,18 @@ class Tag extends React.Component<TagProps> {
         onClick={this.handleTagClick}
         {...rootElementProps}
       >
-        {this.renderLabeledInput(labledInputProps)}
+        {this.renderLabeledInput(labeledInputProps)}
       </a>
-    ) :  this.renderLabeledInput(labledInputProps, rootElementProps);
+    ) : (
+      this.renderLabeledInput(labeledInputProps, rootElementProps)
+    );
   }
 }
 
-
-class TagWithoutFocus extends React.Component<TagProps> {
+export class Tag extends React.Component<TagProps> {
   static displayName = DisplayNames.Tag;
   static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
     checked: PropTypes.bool,
     value: PropTypes.string,
@@ -329,14 +325,4 @@ class TagWithoutFocus extends React.Component<TagProps> {
       <LabeledInput {...wrapperProps} onKeyDown={this.handleKeyDown} />
     );
   }
-}
-export interface TagExperimentWrapperProps extends TagProps {
-  isFocusExperimentOpen?: boolean
-}
-export const WrappedWithExperimentTag: React.FC<TagExperimentWrapperProps> = (props) => {
-  const {isFocusExperimentOpen, ...tagProps} = props;
-  if(isFocusExperimentOpen) {
-    return <Tag {...tagProps}/>
-  }
-  return <TagWithoutFocus {...tagProps}/>
 }
