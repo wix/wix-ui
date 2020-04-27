@@ -1,7 +1,9 @@
 import * as React from 'react';
-import style from './Label.st.css';
+import { st, classes } from './Label.st.css';
 
 export interface LabelProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   className?: string;
   /** Children */
   children?: React.ReactNode;
@@ -26,9 +28,10 @@ export const Label: React.FunctionComponent<LabelProps> = props => {
   const { id, children, ellipsis, disabled } = props;
   return (
     <label
-      {...style('root', { ellipsis, disabled }, props)}
+      className={st(classes.root, { ellipsis, disabled }, props.className)}
       data-ellipsis={ellipsis}
       data-disabled={disabled}
+      data-hook={props['data-hook']}
       htmlFor={props.for}
       id={id}
     >

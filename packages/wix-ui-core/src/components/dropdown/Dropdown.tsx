@@ -1,15 +1,14 @@
 import * as React from 'react';
-import onClickOutside, {
-  InjectedOnClickOutProps,
-  OnClickOutProps,
-} from 'react-onclickoutside';
-import style from './Dropdown.st.css';
+import onClickOutside, { InjectedOnClickOutProps } from 'react-onclickoutside';
+import { st, classes } from './Dropdown.st.css';
 import { Popover, Placement, PopoverProps } from '../popover';
 import { DropdownContent, IDOMid } from '../dropdown-content';
 import { Option } from '../dropdown-option';
 import { CLICK, HOVER, OPEN_TRIGGER_TYPE } from './constants';
 
 export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** The location to display the content */
   placement: Placement;
   /** Should display arrow with the content */
@@ -57,6 +56,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   allowReselect?: boolean;
   /** Options box z-index */
   optionsContainerZIndex?: number;
+  className?: string;
 };
 
 export interface DropdownState {
@@ -296,6 +296,7 @@ export class DropdownComponent extends React.PureComponent<
       role,
       contentId,
       optionsContainerZIndex,
+      className,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
     const hasContent = Boolean(
@@ -306,7 +307,8 @@ export class DropdownComponent extends React.PureComponent<
 
     return (
       <Popover
-        {...style('root', { 'content-visible': shown }, this.props)}
+        className={st(classes.root, { 'content-visible': shown }, className)}
+        data-hook={this.props['data-hook']}
         placement={placement}
         shown={shown}
         showArrow={showArrow}
@@ -334,7 +336,7 @@ export class DropdownComponent extends React.PureComponent<
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>
           <DropdownContent
-            className={style.dropdownContent}
+            className={classes.dropdownContent}
             data-hook="dropdown-content"
             ref={dropdownContent => (this.dropdownContentRef = dropdownContent)}
             options={options}

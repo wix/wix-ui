@@ -1,10 +1,12 @@
 import * as React from 'react';
-import style from './Divider.st.css';
+import { st, classes } from './Divider.st.css';
 
 export interface DividerProps {
   className?: string;
   vertical?: boolean;
   children?: any;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 }
 
 /**
@@ -18,11 +20,12 @@ export const Divider: React.FunctionComponent<DividerProps> = (
 
   return (
     <div
-      {...style(
-        'root',
+      className={st(
+        classes.root,
         { vertical: vertical && !customDivider, customDivider },
-        props,
+        props.className,
       )}
+      data-hook={props['data-hook']}
     >
       {children}
     </div>

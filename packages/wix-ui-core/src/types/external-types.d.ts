@@ -1,1 +1,1 @@
-declare module '*.md';
+import 'yoshi/types';

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as shallowequal from 'shallowequal';
-import textStyle from './Text.st.css';
+import { st, classes } from './Text.st.css';
 import { getDisplayName } from '../utils';
 import { Loadable } from '../../components/loadable';
 import { TooltipProps } from '../../components/tooltip';
+import { RuntimeStylesheet } from '@stylable/runtime';
 const debounce = require('lodash/debounce');
 
 class LoadableTooltip extends Loadable<{
@@ -13,11 +14,13 @@ class LoadableTooltip extends Loadable<{
 }> {}
 
 interface EllipsedTooltipProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   component: React.ReactElement;
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   style?: object;
-  tooltipProps?: object;
+  tooltipProps?: TooltipProps;
 }
 
 interface EllipsedTooltipState {
@@ -90,14 +93,15 @@ class EllipsedTooltip extends React.Component<
   _debouncedUpdate = debounce(this._updateEllipsisState, 100);
 
   _renderText() {
-    const { component, style } = this.props;
+    const { component, style: inlineStyle } = this.props;
     return (
       <StateFullComponentWrap
-        {...textStyle('root', {}, component.props)}
+        className={st(classes.root, component.props.className)}
         style={{
-          ...style,
+          ...inlineStyle,
           whiteSpace: 'nowrap',
         }}
+        data-hook={component.props['data-hook']}
         ref={n => (this.textNode = ReactDOM.findDOMNode(n) as HTMLElement)}
       >
         {component}
@@ -133,7 +137,12 @@ class EllipsedTooltip extends React.Component<
             <Tooltip
               appendTo="scrollParent"
               {...tooltipProps}
-              {...tooltipStyle('root', {}, tooltipProps || this.props)}
+              className={tooltipStyle.style(
+                tooltipStyle.classes.root,
+                {},
+                tooltipProps.className,
+              )}
+              data-hook={this.props['data-hook']}
               content={<div>{this.textNode.textContent}</div>}
               showArrow
             >
@@ -149,15 +158,13 @@ class EllipsedTooltip extends React.Component<
 export const withEllipsedTooltip = ({
   showTooltip,
   shouldLoadAsync,
-  tooltipProps,
+  tooltipProps = {},
 }: {
   showTooltip?: boolean;
   shouldLoadAsync?: boolean;
   tooltipProps?: object;
 } = {}) => Comp => {
-  const WrapperComponent: React.FunctionComponent<
-    WrapperComponentProps
-  > = props => (
+  const WrapperComponent: React.FunctionComponent<WrapperComponentProps> = props => (
     <EllipsedTooltip
       {...props}
       component={React.createElement(Comp, props)}

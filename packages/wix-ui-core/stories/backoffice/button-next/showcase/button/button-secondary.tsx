@@ -2,10 +2,7 @@ import * as React from 'react';
 
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
-import {
-  button,
-  backofficeTheme
-} from '../../../../../src/themes/backoffice';
+import { button, backofficeTheme } from '../../../../../src/themes/backoffice';
 
 export const example = `import * as React from "react";
 import { ButtonNext } from "wix-ui-core/button-next";
@@ -62,7 +59,7 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     <div
       style={{
         background: '#fef0ba',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={darkSecondary}>dark</ButtonNext>
@@ -70,7 +67,7 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     <div
       style={{
         background: '#162d3d',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={lightSecondary}>light</ButtonNext>
@@ -78,7 +75,7 @@ export const ButtonSecondary = ({ style }: ButtonSecondaryProps) => (
     <div
       style={{
         background: '#4EB7F5',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={transparentSecondary}>transparent</ButtonNext>

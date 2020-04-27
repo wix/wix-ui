@@ -9,7 +9,7 @@ import {
 } from './HorizontalMenuContext';
 import { HORIZONTAL_MENU_METADATA } from './constants';
 
-import style from './HorizontalMenu.st.css';
+import { st, classes } from './HorizontalMenu.st.css';
 
 export interface HorizontalMenuProps {
   className?: string;
@@ -39,9 +39,9 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     super(props);
 
     this.contextValue = {
-      menuItemClassName: style.menuItem,
-      columnsLayoutClassName: style.columnsLayout,
-      gridLayoutClassName: style.gridLayout,
+      menuItemClassName: classes.menuItem,
+      columnsLayoutClassName: classes.columnsLayout,
+      gridLayoutClassName: classes.gridLayout,
       rootMenuRef: this.rootRef,
     };
   }
@@ -58,7 +58,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
     return (
       <HorizontalMenuContext.Provider value={this.contextValue}>
         <nav
-          {...style('root', {}, this.props)}
+          className={st(classes.root, this.props.className)}
           data-hook={HORIZONTAL_MENU_METADATA.dataHooks.navigation}
           style={propStyle}
           {...rest}
@@ -66,7 +66,7 @@ export class HorizontalMenu extends React.PureComponent<HorizontalMenuProps> {
         >
           <ul
             data-hook={HORIZONTAL_MENU_METADATA.dataHooks.container}
-            className={style.menu}
+            className={classes.menu}
             style={menuStyle}
           >
             {children}

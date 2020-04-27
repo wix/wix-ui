@@ -51,7 +51,7 @@ export class ComponentsDemo extends React.Component<{}, {}>{
         return (
             <div>
                 <FilePickerButton
-                    className={style.filePickerButton}
+                    className={st.filePickerButton}
                     accept=".jpg,.png">
                         <i>+</i> Choose a File
                 </FilePickerButton>  

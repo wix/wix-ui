@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
-import style from './avatar.st.css';
+import { st, classes } from './avatar.st.css';
 import { ContentType } from './types';
 import { nameToInitials } from './util';
 
@@ -173,13 +173,13 @@ export class AvatarComponent extends React.Component<
         aria-label={ariaLabel || name}
         onClick={onClick}
         {...focusProps}
-        {...style(
-          'root',
+        className={st(
+          classes.root,
           {
             imgLoaded: this.state.imgLoaded,
             contentType,
           },
-          this.props,
+          this.props.className,
         )}
       >
         {this.getContent(contentType)}
@@ -194,7 +194,7 @@ export class AvatarComponent extends React.Component<
         const textContent =
           text || nameToInitials(name, this.props.initialsLimit);
         return (
-          <div className={style.content} data-hook="text-container">
+          <div className={classes.content} data-hook="text-container">
             {textContent}
           </div>
         );
@@ -205,7 +205,10 @@ export class AvatarComponent extends React.Component<
         return placeholder === null
           ? null
           : React.cloneElement(placeholder, {
-              className: classNames(placeholder.props.className, style.content),
+              className: classNames(
+                placeholder.props.className,
+                classes.content,
+              ),
             });
       }
 
@@ -214,7 +217,7 @@ export class AvatarComponent extends React.Component<
 
         return (
           <img
-            className={classNames(style.content, className)}
+            className={classNames(classes.content, className)}
             alt={alt ? alt : this.props.name}
             {...rest}
           />

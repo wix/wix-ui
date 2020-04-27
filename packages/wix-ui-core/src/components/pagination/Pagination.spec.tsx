@@ -5,8 +5,8 @@ import { sleep } from 'wix-ui-test-utils/react-helpers';
 import { Pagination } from './Pagination';
 import { PaginationDriver } from './Pagination.private.driver';
 import { paginationDriverFactory } from './Pagination.uni.driver';
-import style from './Pagination.st.css';
-import testStyle from './PaginationTest.st.css';
+import * as style from './Pagination.st.css';
+import * as testStyle from './PaginationTest.st.css';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 
 const stylableUtil = new StylableDOMUtil(style);
@@ -469,7 +469,7 @@ describe('Pagination', () => {
     it(`shows all pages if there is enough room`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(9)}
           showFirstPage
@@ -495,7 +495,7 @@ describe('Pagination', () => {
     it(`starts adding ellipsis if there is not enough room`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(9) - 1}
           showFirstPage
@@ -511,7 +511,7 @@ describe('Pagination', () => {
     it(`doesn't try to include the first and the last page when not explicitly asked to`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(7)}
           currentPage={5}
@@ -525,7 +525,7 @@ describe('Pagination', () => {
     it(`shows ellipsis before the last page if the current page is close to the beginning`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(7)}
           showFirstPage
@@ -541,7 +541,7 @@ describe('Pagination', () => {
     it(`show ellipsis after the first page if the current page is close to the end`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(7)}
           showFirstPage
@@ -557,7 +557,7 @@ describe('Pagination', () => {
     it(`show ellipsis on each side if the current page is somewhere in the middle`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(7)}
           showFirstPage
@@ -573,7 +573,7 @@ describe('Pagination', () => {
     it(`gives higher priority to first and last page than to prev and next`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(5)}
           showFirstPage
@@ -589,7 +589,7 @@ describe('Pagination', () => {
     it(`doesn't show ellipses if there's too little space for them`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(3)}
           showFirstPage
@@ -605,7 +605,7 @@ describe('Pagination', () => {
     it(`always shows the current page even if there's not enough space for it`, async () => {
       const p = await render(
         <Pagination
-          className={testStyle.root}
+          className={testStyle.classes.root}
           responsive
           width={spaceForPages(0.5)}
           showFirstPage

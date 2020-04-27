@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
 import { Size, CaptchaType, Theme, CaptchaLang } from './types';
-import styles from './Captcha.st.css';
+import { st, classes } from './Captcha.st.css';
 
 export interface CaptchaProps {
   required?: boolean;
   className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
   sitekey: string;
   loader: any;
   size?: Size;
@@ -113,16 +115,21 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
     } = this.props;
     return (
       <div
-        {...styles('root', { loaded: this.state.rendered }, this.props)}
+        className={st(
+          classes.root,
+          { loaded: this.state.rendered },
+          this.props.className,
+        )}
+        data-hook={this.props['data-hook']}
         data-captcha-type={captchaType}
         data-theme={theme}
         data-lang={lang}
         data-size={size}
       >
         {!this.state.rendered && (
-          <div className={styles.loaderWrapper}>{loader}</div>
+          <div className={classes.loaderWrapper}>{loader}</div>
         )}
-        <div className={styles.captcha}>
+        <div className={classes.captcha}>
           <Reaptcha
             ref={e => (this.captchaRef = e)}
             sitekey={sitekey}
@@ -139,7 +146,7 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
           {required && (
             <input
               data-hook="required-field"
-              className={styles.requiredField}
+              className={classes.requiredField}
               type="checkbox"
               required
               onChange={() => {}}

@@ -1,13 +1,16 @@
 import * as React from 'react';
-import style from './Autocomplete.st.css';
+import { st, classes } from './Autocomplete.st.css';
 import { InputWithOptions } from '../input-with-options';
 import { Option, OptionFactory } from '../dropdown-option/OptionFactory';
 import { InputProps, AriaAutoCompleteType } from '../input';
 
 const createDivider = (value = null) =>
-  OptionFactory.createDivider({ className: style.divider, value });
+  OptionFactory.createDivider({ className: classes.divider, value });
 
 export interface AutocompleteProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
   /** The dropdown options array */
   options: Option[];
   /** Handler for when an option is selected */
@@ -122,11 +125,13 @@ export class Autocomplete extends React.PureComponent<
       fixedFooter,
       onManualInput,
       disabled,
+      className,
     } = this.props;
     const inputProps = this._createInputProps();
     return (
       <InputWithOptions
-        {...style('root', { disabled }, this.props)}
+        className={st(classes.root, { disabled }, className)}
+        data-hook={this.props['data-hook']}
         onSelect={this._onSelect}
         initialSelectedIds={
           initialSelectedId || initialSelectedId === 0

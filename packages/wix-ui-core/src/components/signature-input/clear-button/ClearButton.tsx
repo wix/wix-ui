@@ -5,7 +5,7 @@ import {
   WithSignaturePadProps,
 } from '../SignatureInputContext';
 import * as PropTypes from 'prop-types';
-import style from './ClearButton.st.css';
+import { classes } from './ClearButton.st.css';
 import * as classNames from 'classnames';
 
 export interface ClearButtonProps extends WithSignaturePadProps {
@@ -35,7 +35,7 @@ class ClearButtonComp extends React.Component<ClearButtonProps> {
     return {
       ...(inputId && { 'aria-controls': inputId }),
       ...overrides,
-      className: classNames(style.root, overrides.className),
+      className: classNames(classes.root, overrides.className),
       onClick: e => {
         const { padApi } = this.props;
         const { onClick } = overrides;

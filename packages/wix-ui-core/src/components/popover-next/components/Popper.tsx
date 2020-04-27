@@ -10,7 +10,7 @@ import {
 } from '../../popover/utils/getModifiers';
 import { getArrowShift } from '../../popover/utils/getArrowShift';
 
-import styles from '../../popover/Popover.st.css';
+import { classes } from '../../popover/Popover.st.css';
 
 const Arrow = props => {
   const { arrowProps, moveArrowTo, placement, customArrow } = props;
@@ -29,7 +29,7 @@ const Arrow = props => {
     return customArrow(placement, commonProps);
   }
 
-  return <div {...commonProps} className={styles.arrow} />;
+  return <div {...commonProps} className={classes.arrow} />;
 };
 
 export type PopperProps = ModifiersParams &
@@ -104,9 +104,9 @@ const Popper: React.FC<PopperProps> = ({
               maxWidth,
             }}
             data-placement={popperPlacement || placement}
-            className={classNames(styles.popover, {
-              [styles.withArrow]: showArrow,
-              [styles.popoverContent]: !showArrow,
+            className={classNames(classes.popover, {
+              [classes.withArrow]: showArrow,
+              [classes.popoverContent]: !showArrow,
             })}
           >
             {showArrow && (
@@ -121,7 +121,7 @@ const Popper: React.FC<PopperProps> = ({
               key="popover-content"
               id={id}
               role={role}
-              className={showArrow ? styles.popoverContent : ''}
+              className={showArrow ? classes.popoverContent : ''}
             >
               {children}
             </div>

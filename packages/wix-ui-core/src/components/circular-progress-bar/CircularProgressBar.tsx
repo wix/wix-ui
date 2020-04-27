@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './CircularProgressBar.st.css';
+import { st, classes } from './CircularProgressBar.st.css';
 import { Arc } from './Arc';
 import { dataHooks } from './constants';
 
@@ -18,6 +18,9 @@ export interface CircularProgressBarProps {
   successIcon?: JSX.Element;
   /** circle size in pixels */
   size?: number | string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -26,7 +29,7 @@ const VIEWBOX_SIZE = 54;
 
 const resolveIndicationElement = (props: CircularProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) => (
-    <div data-hook={dataHook} className={style.statusIndicator}>
+    <div data-hook={dataHook} className={classes.statusIndicator}>
       {children}
     </div>
   );
@@ -59,21 +62,21 @@ const renderArcs = (props: CircularProgressBarProps) => {
   const normalizedValue = normalizeValue(value);
   return (
     <div
-      className={style.arcsContainer}
+      className={classes.arcsContainer}
       style={{ width: `${normalizedSize}px`, height: `${normalizedSize}px` }}
     >
       {resolveIndicationElement(props)}
       <Arc
         data-hook={dataHooks.progressArcBackground}
         value={FULL_PROGRESS}
-        className={style.backArc}
+        className={classes.backArc}
         strokeWidth={4}
         size={normalizedSize}
       />
       <Arc
         data-hook={dataHooks.progressArcForeground}
         value={normalizedValue}
-        className={style.foreArc}
+        className={classes.foreArc}
         strokeWidth={4}
         size={normalizedSize}
       />
@@ -95,9 +98,9 @@ const normalizeProps = (props: CircularProgressBarProps) => {
   return { ...props, value };
 };
 
-export const CircularProgressBar: React.FunctionComponent<
-  CircularProgressBarProps
-> = (props: CircularProgressBarProps) => {
+export const CircularProgressBar: React.FunctionComponent<CircularProgressBarProps> = (
+  props: CircularProgressBarProps,
+) => {
   const { error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
@@ -106,12 +109,16 @@ export const CircularProgressBar: React.FunctionComponent<
       ? _props.errorLabel
       : `${Math.floor(_props.value)}%`;
   return (
-    <div {...style('root', { error, success }, _props)} data-error={error}>
+    <div
+      className={st(classes.root, { error, success }, _props.className)}
+      data-error={error}
+      data-hook={_props['data-hook']}
+    >
       {renderArcs(_props)}
       {showProgressIndication && (
         <div
           data-hook={dataHooks.progressIndicator}
-          className={style.progressIndicator}
+          className={classes.progressIndicator}
         >
           {value}
         </div>

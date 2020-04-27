@@ -7,13 +7,8 @@ import onClickOutside, {
 import { Manager, Reference, Popper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
-import style from './Popover.st.css';
+import { st, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
-import {
-  AttributeMap,
-  attachStylesToNode,
-  detachStylesFromNode,
-} from '../../utils/stylableUtils';
 
 import {
   buildChildrenObject,
@@ -133,6 +128,7 @@ export interface PopoverProps {
    * When true - onClickOutside will be called only when popover content is shown
    */
   disableClickOutsideWhenClosed?: boolean;
+  dataHook?: string;
 }
 
 export interface PopoverState {
@@ -144,6 +140,11 @@ export type PopoverType = PopoverProps & {
   Element?: React.FunctionComponent<ElementProps>;
   Content?: React.FunctionComponent<ElementProps>;
 };
+
+const attachClasses = (node: HTMLElement, classnames: string) =>
+  node && node.classList.add(...classnames.split(' '));
+const detachClasses = (node: HTMLElement, classnames: string) =>
+  node && node.classList.remove(...classnames.split(' '));
 
 const shouldAnimatePopover = ({ timeout }: PopoverProps) => {
   if (typeof timeout === 'object') {
@@ -204,7 +205,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   targetRef: HTMLElement = null;
   portalNode: HTMLElement = null;
-  stylesObj: AttributeMap = null;
+  portalClasses: string;
   appendToNode: HTMLElement = null;
   contentHook: string;
 
@@ -285,9 +286,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               data-content-element={this.contentHook}
               style={{ ...popperStyles, zIndex, maxWidth }}
               data-placement={popperPlacement || placement}
-              className={classNames(style.popover, {
-                [style.withArrow]: showArrow,
-                [style.popoverContent]: !showArrow,
+              className={classNames(classes.popover, {
+                [classes.withArrow]: showArrow,
+                [classes.popoverContent]: !showArrow,
               })}
             >
               {showArrow &&
@@ -301,7 +302,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                 key="popover-content"
                 id={id}
                 role={role}
-                className={showArrow ? style.popoverContent : ''}
+                className={showArrow ? classes.popoverContent : ''}
               >
                 {childrenObject.Content}
               </div>
@@ -319,9 +320,9 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
 
     if (shouldAnimate || shown) {
-      attachStylesToNode(this.portalNode, this.stylesObj);
+      attachClasses(this.portalNode, this.portalClasses);
     } else {
-      detachStylesFromNode(this.portalNode, this.stylesObj);
+      detachClasses(this.portalNode, this.portalClasses);
     }
   }
 
@@ -337,12 +338,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         timeout={timeout}
         unmountOnExit
         classNames={{
-          enter: style['popoverAnimation-enter'],
-          enterActive: style['popoverAnimation-enter-active'],
-          exit: style['popoverAnimation-exit'],
-          exitActive: style['popoverAnimation-exit-active'],
+          enter: classes['popoverAnimation-enter'],
+          enterActive: classes['popoverAnimation-enter-active'],
+          exit: classes['popoverAnimation-exit'],
+          exitActive: classes['popoverAnimation-exit-active'],
         }}
-        onExited={() => detachStylesFromNode(this.portalNode, this.stylesObj)}
+        onExited={() => detachClasses(this.portalNode, this.portalClasses)}
       >
         {popper}
       </CSSTransition>
@@ -376,7 +377,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       return customArrow(placement, commonProps);
     }
 
-    return <div {...commonProps} className={style.arrow} />;
+    return <div {...commonProps} className={classes.arrow} />;
   }
 
   componentDidMount() {
@@ -481,7 +482,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const { shown } = this.props;
     if (this.portalNode) {
       // Re-calculate the portal's styles
-      this.stylesObj = style('root', {}, omit('data-hook', this.props));
+      this.portalClasses = st(classes.root, this.props.className);
 
       // Apply the styles to the portal
       this.applyStylesToPortaledNode();
@@ -507,7 +508,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       onKeyDown,
       onClick,
       children,
-      style: inlineStyles,
+      style,
       id,
       excludeClass,
       fluid,
@@ -526,13 +527,13 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       <Manager>
         <ClickOutsideWrapper
           handleClickOutside={this._handleClickOutside}
-          outsideClickIgnoreClass={excludeClass || style.popover}
+          outsideClickIgnoreClass={excludeClass || classes.popover}
         >
           <div
-            style={inlineStyles}
+            style={style}
             data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
-            {...style('root', { fluid }, this.props)}
+            className={st(classes.root, { fluid }, this.props.className)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
@@ -541,7 +542,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               {({ ref }) => (
                 <div
                   ref={ref}
-                  className={style.popoverElement}
+                  className={classes.popoverElement}
                   data-hook="popover-element"
                   onClick={onClick}
                   onKeyDown={onKeyDown}

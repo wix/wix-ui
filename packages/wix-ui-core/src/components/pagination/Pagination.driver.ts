@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import styles from './Pagination.st.css';
+import * as styles from './Pagination.st.css';
 
 const utils = new StylableDOMUtil(styles);
 const hasStyleState = (element, state) => utils.hasStyleState(element, state);

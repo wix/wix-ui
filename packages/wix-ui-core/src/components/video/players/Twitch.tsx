@@ -15,7 +15,7 @@ import {
   ISDKConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 
 const VIDEO_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
 const CHANNEL_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/([a-z0-9_]+)($|\?)/;
@@ -174,7 +174,7 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
     return (
       <div
         id={this.playerId}
-        className={styles.playerContainer}
+        className={classes.playerContainer}
         data-player-name="Twitch"
       />
     );

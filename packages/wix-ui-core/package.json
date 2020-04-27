@@ -2,7 +2,7 @@
   "private": false,
   "name": "wix-ui-core",
   "description": "wix-ui-core",
-  "version": "2.0.196",
+  "version": "3.0.0",
   "main": "./dist/src/index.js",
   "module": "./dist/es/src/index.js",
   "stylable": {
@@ -40,6 +40,7 @@
     "url": "git+https://github.com/wix/wix-ui.git"
   },
   "scripts": {
+    "postinstall": "npm install @stylable/dom-test-kit --no-save",
     "prebuild": "npm run update-components && npm run update-components-standalone",
     "build": "npm run transpile && npm run import-path && npm run build:named-exports && build-storybook && npm run build-standalone && npm run build-puppeteer-testkits",
     "transpile": "npm run build:named-exports && yoshi build && npm run patch-stylable && npm run transpile-mixins",
@@ -54,7 +55,7 @@
     "sanity": "autotools-sanity",
     "a11y": "autotools-a11y",
     "lint": "yoshi lint",
-    "yoshi-start": "yoshi start --no-test",
+    "yoshi-start": "yoshi start --no-server",
     "------CI Parallel tasks (as in .ci_config)": "",
     "wix-ui-core:unit": "npm run test:unit",
     "wix-ui-core:e2e": "npm run test:e2e",
@@ -82,7 +83,6 @@
   },
   "dependencies": {
     "@loadable/component": "^5.12.0",
-    "@stylable/dom-test-kit": "^1.0.7",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "grapheme-splitter": "^1.0.4",
@@ -110,10 +110,10 @@
   "devDependencies": {
     "@applitools/eyes-storybook": "^3.3.1",
     "@babel/cli": "^7.8.4",
-    "@babel/preset-env": "^7.9.0",
     "@storybook/react": "^5.0.0",
-    "@stylable/cli": "^1.2.11",
-    "@stylable/core": "^1.0.7",
+    "@stylable/cli": "^3.4.0",
+    "@stylable/core": "^3.4.0",
+    "@stylable/runtime": "^3.4.1",
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^3.1.9",
     "@types/jest": "^22.1.1",
@@ -123,10 +123,9 @@
     "@types/react-dom": "^16.9.3",
     "@types/react-transition-group": "^2.0.6",
     "@types/storybook__react": "^4.0.2",
-    "@ui-autotools/a11y": "^2.4.0",
-    "@ui-autotools/registry": "^4.0.0",
-    "@ui-autotools/sanity": "^2.5.0",
-    "babel-preset-env": "^1.6.1",
+    "@ui-autotools/a11y": "^5.0.0",
+    "@ui-autotools/registry": "^5.0.0",
+    "@ui-autotools/sanity": "^5.0.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
     "execa": "^2.0.3",
@@ -142,8 +141,6 @@
     "react-test-renderer": "^16.3.1",
     "react-testing-library": "^6.0.3",
     "slash": "^2.0.0",
-    "style-loader": "^0.18.2",
-    "css-loader": "^0.28.11",
     "storybook-snapper": "^1.0.61",
     "ts-jest": "^23.0.3",
     "typescript": "~3.7.4",
@@ -152,9 +149,13 @@
     "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^3.0.7",
     "wix-ui-framework": "^3.3.1",
-    "wix-ui-mocha-runner": "^0.1.6",
-    "yoshi": "^3.28.0",
-    "yoshi-style-dependencies": "^3.16.0"
+    "wix-ui-mocha-runner": "^1.0.0",
+    "yoshi": "^4.55.1",
+    "yoshi-stylable-dependencies": "^4.49.0",
+    "yoshi-style-dependencies": "^4.37.1"
+  },
+  "peerDependencies": {
+    "@stylable/dom-test-kit": "^3.4.1"
   },
   "license": "MIT",
   "publishConfig": {
@@ -167,7 +168,9 @@
     "moduleNameMapper": {
       "\\.(scss)$": "identity-obj-proxy"
     },
-    "setupTestFrameworkScriptFile": "wix-ui-test-utils/jest-setup",
+    "setupFilesAfterEnv": [
+      "wix-ui-test-utils/jest-setup"
+    ],
     "setupFiles": [
       "raf/polyfill",
       "jest-canvas-mock",
@@ -188,12 +191,6 @@
     "testMatch": null
   },
   "yoshi": {
-    "experimentalTSTarget": true,
     "exports": "wix-ui-core"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   }
 }

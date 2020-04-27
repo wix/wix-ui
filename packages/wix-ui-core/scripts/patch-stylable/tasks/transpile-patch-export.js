@@ -6,11 +6,11 @@ module.exports = function({folder, entryFile}) {
 
 
   const patchCJS = execa.command(
-    `stc --srcDir=./src/${folder}/ --stcss=true --js=false --outDir=./dist/src/${folder} --useNamespaceReference`,
+    `stc --srcDir="./src/${folder}/" --stcss=true --cjs=false --outDir="./dist/src/${folder}" --useNamespaceReference=true`,
   );
 
   const patchES = execa.command(
-    `stc --srcDir=./src/${folder}/ --stcss=true --js=false --outDir=./dist/es/src/${folder} --useNamespaceReference`,
+    `stc --srcDir="./src/${folder}/" --stcss=true --cjs=false --outDir="./dist/es/src/${folder}" --useNamespaceReference=true`,
   );
 
   if(entryFile) {

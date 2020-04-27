@@ -1,9 +1,9 @@
 import * as React from 'react';
-import style from './IconWithOptions.st.css';
+import { st, classes } from './IconWithOptions.st.css';
 import { Dropdown } from '../dropdown';
 import { Placement } from '../popover';
 import { Option } from '../dropdown-option';
-import { HOVER, CLICK, OPEN_TRIGGER_TYPE } from '../dropdown/constants';
+import { HOVER, OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 
 export interface IconWithOptionsProps {
   /** The location to display the content */
@@ -26,14 +26,14 @@ export interface IconWithOptionsProps {
   fixedFooter?: React.ReactNode;
   /** Icon url to display */
   iconUrl: string;
+  dataHook?: string;
+  className?: string;
 }
 
 /**
  * IconWithOptions
  */
-export const IconWithOptions: React.FunctionComponent<
-  IconWithOptionsProps
-> = props => {
+export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = props => {
   const {
     placement,
     options,
@@ -45,11 +45,14 @@ export const IconWithOptions: React.FunctionComponent<
     iconUrl,
     fixedHeader,
     fixedFooter,
+    dataHook,
+    className,
   } = props;
 
   return (
     <Dropdown
-      {...style('root', {}, props)}
+      className={st(classes.root, className)}
+      dataHook={dataHook}
       options={options}
       placement={placement}
       openTrigger={openTrigger}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tickers } from './Tickers';
 import { Input, InputProps } from '../input';
-import style from './TimePicker.st.css';
+import { st, classes } from './TimePicker.st.css';
 import { FIELD, BLANK, NULL_TIME, AmPmOptions, AmPmStrings } from './constants';
 import {
   increment,
@@ -52,6 +52,10 @@ export type TimePickerProps = Pick<
 
   /** custom width of component. Goes into inline style so any css distance value allowed */
   style?: React.CSSProperties;
+
+  className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 };
 
 export interface TimePickerState {
@@ -428,6 +432,7 @@ export class TimePicker extends React.PureComponent<
       style: inlineStyle,
       disabled,
       readOnly,
+      className,
       ...rest
     } = this.props;
 
@@ -452,7 +457,7 @@ export class TimePicker extends React.PureComponent<
       return (
         <Input
           {...passThroughProps}
-          {...style('root', {}, this.props)}
+          className={st(classes.root, className)}
           type="time"
           value={sanitizedValue}
           onChange={e => onChange(e.target.value)}
@@ -469,7 +474,7 @@ export class TimePicker extends React.PureComponent<
 
     const tickers = tickerUpIcon && tickerDownIcon && (
       <Tickers
-        className={style.tickers}
+        className={classes.tickers}
         disabled={disabled}
         onIncrement={() => this._tick(increment)}
         onDecrement={() => this._tick(decrement)}
@@ -481,7 +486,8 @@ export class TimePicker extends React.PureComponent<
     return (
       <Input
         {...passThroughProps}
-        {...style('root', { focus }, this.props)}
+        className={st(classes.root, { focus }, className)}
+        data-hook={this.props['data-hook']}
         ref={ref => (this._inputRef = ref)}
         type="text"
         value={value}

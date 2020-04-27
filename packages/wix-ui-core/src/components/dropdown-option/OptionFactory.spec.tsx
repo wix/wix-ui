@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { OptionFactory } from './';
 import { Divider } from '../deprecated/divider';
-import style from './DropdownOption.st.css';
+import { classes } from './DropdownOption.st.css';
 
 describe('OptionFactory', () => {
   const value = 'value';
@@ -88,13 +88,13 @@ describe('OptionFactory', () => {
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <span className={style.nonHighlight} key={0}>
+        <span className={classes.nonHighlight} key={0}>
           va
         </span>,
-        <mark className={style.highlight} key={1}>
+        <mark className={classes.highlight} key={1}>
           lu
         </mark>,
-        <span className={style.nonHighlight} key={2}>
+        <span className={classes.nonHighlight} key={2}>
           e
         </span>,
       ]);
@@ -106,19 +106,19 @@ describe('OptionFactory', () => {
       });
       const option = OptionFactory.createHighlighted(existingOption, 'his sen');
       expect(option.render(value)).toEqual([
-        <span className={style.nonHighlight} key={0}>
+        <span className={classes.nonHighlight} key={0}>
           T
         </span>,
-        <mark className={style.highlight} key={1}>
+        <mark className={classes.highlight} key={1}>
           his
         </mark>,
-        <span className={style.nonHighlight} key={2}>
+        <span className={classes.nonHighlight} key={2}>
           {' is a '}
         </span>,
-        <mark className={style.highlight} key={3}>
+        <mark className={classes.highlight} key={3}>
           sen
         </mark>,
-        <span className={style.nonHighlight} key={4}>
+        <span className={classes.nonHighlight} key={4}>
           tence
         </span>,
       ]);
@@ -131,10 +131,10 @@ describe('OptionFactory', () => {
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <mark className={style.highlight} key={0}>
+        <mark className={classes.highlight} key={0}>
           valu
         </mark>,
-        <span className={style.nonHighlight} key={1}>
+        <span className={classes.nonHighlight} key={1}>
           e
         </span>,
       ]);
@@ -147,10 +147,10 @@ describe('OptionFactory', () => {
       expect(option.isDisabled).toBeFalsy();
       expect(option.isSelectable).toBeTruthy();
       expect(option.render(value)).toEqual([
-        <mark className={style.highlight} key={0}>
+        <mark className={classes.highlight} key={0}>
           va
         </mark>,
-        <span className={style.nonHighlight} key={1}>
+        <span className={classes.nonHighlight} key={1}>
           lue
         </span>,
       ]);

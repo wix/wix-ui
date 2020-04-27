@@ -33,6 +33,9 @@ export interface ICommonProps {
   onFirstEnded?: Function;
   onError?: Function;
   isResponsiveMode?: boolean;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 export interface IDailyMotionConfig {

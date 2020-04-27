@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './Tooltip.st.css';
+import { st, classes } from './Tooltip.st.css';
 import { Popover, Placement, AppendTo } from '../popover';
 
 export interface Point {
@@ -52,6 +52,10 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
+
+  className?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
 }
 
 export interface TooltipState {
@@ -142,14 +146,13 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       minWidth,
       maxWidth,
       'aria-describedby': ariaDescribedBy,
+      className,
     } = this.props;
 
     return (
       <Popover
-        {...style('root', {}, this.props)}
-        {...(this.props['data-hook']
-          ? { 'data-hook': this.props['data-hook'] }
-          : {})}
+        className={st(classes.root, className)}
+        data-hook={this.props['data-hook']}
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import CodeShowcase from 'wix-storybook-utils/CodeShowcase';
 import { ButtonNext } from '../../../../../src/components/button-next';
-import { backofficeTheme } from '../../../../../src/themes/backoffice';
 import { iconButton } from '../../../../../src/themes/backoffice';
 import More from 'wix-ui-icons-common/More';
 
@@ -27,7 +26,8 @@ export default () => (
 
 const descriptionPrimary = (
   <div>
-    Primary skins <code>standard</code>, <code>light</code> and <code>transparent</code>.
+    Primary skins <code>standard</code>, <code>light</code> and{' '}
+    <code>transparent</code>.
   </div>
 );
 
@@ -48,7 +48,7 @@ export const IconButtonPrimary = ({ style }: IconButtonPrimaryProps) => (
     <div
       style={{
         background: 'rgb(91, 127, 164)',
-        padding: '2px'
+        padding: '2px',
       }}
     >
       <ButtonNext className={iconButton('light')}>

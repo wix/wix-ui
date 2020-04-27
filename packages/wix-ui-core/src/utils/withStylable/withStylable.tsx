@@ -1,3 +1,4 @@
+import { RuntimeStylesheet, StateMap } from '@stylable/runtime';
 import * as React from 'react';
 
 function isReactClassComponent(value: any): value is React.ComponentClass<any> {
@@ -32,11 +33,11 @@ function withStylableStateful<CoreProps, ExtendedProps = {}>(
       const className = (root.props && root.props.className) || '';
       /* tslint:disable-next-line:deprecation */
       const statesMap = getState(this.props, this.state, this.context);
-      const props = stylesheet(
+      const classNameProp = stylesheet.st(
         `root ${className ? className : ''}`.trim(),
         statesMap,
       );
-      return React.cloneElement(root, props);
+      return React.cloneElement(root, { className: classNameProp });
     }
   } as any;
 }
@@ -56,11 +57,11 @@ function withStylableStateless<CoreProps, ExtendedProps = {}>(
     }
     const className = (root.props && root.props.className) || '';
     const statesMap = getState(props);
-    const stylableProps = stylesheet(
+    const classNameProp = stylesheet.st(
       `root ${className ? className : ''}`.trim(),
       statesMap,
     );
-    return React.cloneElement(root, stylableProps);
+    return React.cloneElement(root, { className: classNameProp });
   };
 
   // Copy static properties

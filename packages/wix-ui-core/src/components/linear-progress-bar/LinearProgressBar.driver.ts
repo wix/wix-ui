@@ -4,7 +4,7 @@ import {
   DriverFactory,
 } from 'wix-ui-test-utils/driver-factory';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './LinearProgressBar.st.css';
+import * as style from './LinearProgressBar.st.css';
 import {
   ProgressBarDataHooks,
   ProgressBarDataKeys,
@@ -44,9 +44,9 @@ export interface LinearProgressBarDriver extends BaseDriver {
   getAriaValueText(): string;
 }
 
-export const linearProgressBarDriverFactory: DriverFactory<
-  LinearProgressBarDriver
-> = ({ element }: ComponentFactory) => {
+export const linearProgressBarDriverFactory: DriverFactory<LinearProgressBarDriver> = ({
+  element,
+}: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook =>

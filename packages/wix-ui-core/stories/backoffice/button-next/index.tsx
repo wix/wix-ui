@@ -22,7 +22,7 @@ import { CloseButtonSizes } from './showcase/close-Button/closeButton-sizes';
 const controlledWidth = {
   height: 'auto',
   width: '100%',
-  display: 'flex'
+  display: 'flex',
 };
 
 const controlledWidthColumn = {
@@ -31,7 +31,7 @@ const controlledWidthColumn = {
   display: 'flex',
   flexDirection: 'column',
   lineHeight: '1.6',
-  padding: '10px'
+  padding: '10px',
 };
 
 const halfColumn = {
@@ -39,7 +39,7 @@ const halfColumn = {
   flexDirection: 'column',
   padding: '10px',
   width: '48%',
-  lineHeight: '1.6'
+  lineHeight: '1.6',
 };
 
 const Title = () => (
@@ -62,7 +62,7 @@ const SubTitle = ({ children }) => (
     style={{
       fontSize: '1.75rem',
       fontWeight: '300',
-      margin: '15px 0 15px 0'
+      margin: '15px 0 15px 0',
     }}
   >
     {children}
@@ -124,7 +124,7 @@ const ButtonsStory = () => (
     <SubContainer>
       <SubTitle>Text Buttons</SubTitle>
       <SubParagraph>
-        The major benefit of text buttons is pretty simple — they minimize
+        The major benefit of text buttons is pretty simple — they minimize
         distraction from content.
       </SubParagraph>
     </SubContainer>

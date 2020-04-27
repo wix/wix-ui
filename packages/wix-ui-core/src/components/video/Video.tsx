@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { playerComponents, playerVerifiers } from './players';
 import { PlayerNameType, ICommonProps, IConfig } from './types';
-import styles from './Video.st.css';
+import { st, classes } from './Video.st.css';
 
 const noop = () => null;
 const DEFAULT_PLAYER = 'playable';
@@ -79,7 +79,7 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
 
     const Player = playerComponents[playerName];
     const playerProps = { ...this.props, ...this.props.config[playerName] };
-    const { id, fillAllSpace, playerRef } = this.props;
+    const { id, fillAllSpace, playerRef, className } = this.props;
     let { width, height } = this.props;
 
     if (fillAllSpace) {
@@ -91,7 +91,8 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
       <div
         id={id}
         style={{ width, height }}
-        {...styles('root', {}, this.props)}
+        className={st(classes.root, className)}
+        data-hook={this.props['data-hook']}
       >
         <Player {...playerProps} ref={playerRef} />
       </div>

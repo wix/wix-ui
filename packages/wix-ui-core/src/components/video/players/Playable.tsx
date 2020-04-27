@@ -16,7 +16,7 @@ import {
   IPlayableConfig,
   PlayerNameType,
 } from '../types';
-import styles from '../Video.st.css';
+import { classes } from '../Video.st.css';
 import { PreloadType } from 'playable/dist/statics/modules/playback-engine/types';
 
 const URL_REGEX = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
@@ -130,7 +130,9 @@ class PlayablePlayer extends React.PureComponent<
 
   componentWillUnmount() {
     if (this.player) {
-      this.player.getElement().removeEventListener('contextmenu', this._handleRightClick);
+      this.player
+        .getElement()
+        .removeEventListener('contextmenu', this._handleRightClick);
       this.player.destroy();
     }
     this.eventEmitter.removeAllListeners();
@@ -178,7 +180,9 @@ class PlayablePlayer extends React.PureComponent<
       hideMainUI,
     });
 
-    this.player.getElement().addEventListener('contextmenu', this._handleRightClick);
+    this.player
+      .getElement()
+      .addEventListener('contextmenu', this._handleRightClick);
     this._hidePlayableUI();
 
     if (!showTitle) {
@@ -245,24 +249,34 @@ class PlayablePlayer extends React.PureComponent<
   }
 
   _renderCover() {
-    const {showTitle, title, poster, hideOverlay, playButton, playing, description} = this.props;
-    const {hasBeenPlayed} = this.state;
+    const {
+      showTitle,
+      title,
+      poster,
+      hideOverlay,
+      playButton,
+      playing,
+      description,
+    } = this.props;
+    const { hasBeenPlayed } = this.state;
     if (hideOverlay || playing || hasBeenPlayed) {
       return null;
     }
     return (
       <div
-        className={classNames(styles.cover, {
-          [styles.transparentOverlay]: !poster,
+        className={classNames(classes.cover, {
+          [classes.transparentOverlay]: !poster,
         })}
         onClick={this.onPlayClick}
         onContextMenu={this._handleRightClick}
         data-hook="cover"
       >
-        {poster && <img src={poster} alt={description} className={styles.poster}/>}
-        <div className={styles.overlay}>
+        {poster && (
+          <img src={poster} alt={description} className={classes.poster} />
+        )}
+        <div className={classes.overlay}>
           {showTitle && title && (
-            <div data-hook="title" title={title} className={styles.title}>
+            <div data-hook="title" title={title} className={classes.title}>
               {title}
             </div>
           )}
@@ -289,7 +303,7 @@ class PlayablePlayer extends React.PureComponent<
       <React.Fragment>
         <div
           ref={this.containerRef}
-          className={styles.playerContainer}
+          className={classes.playerContainer}
           data-player-name="Playable"
         />
         {this._renderCover()}

@@ -7,7 +7,7 @@ import {
 import * as PropTypes from 'prop-types';
 import { DataHooks } from '../dataHooks';
 import { generateID } from '../utils';
-import style from './SigningPad.st.css';
+import { classes } from './SigningPad.st.css';
 import { Omit } from 'type-zoo/types';
 
 export type SignaturePadApi = Pick<
@@ -264,7 +264,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
           id={inputId}
           value={a11yInputValue}
           onChange={this.handleInputChange}
-          className={style.visuallyHidden}
+          className={classes.visuallyHidden}
           data-hook={DataHooks.a11yInput}
           disabled={!!disabled}
           aria-required={!!required}

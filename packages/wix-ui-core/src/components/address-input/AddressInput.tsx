@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './AddressInput.st.css';
+import { st, classes } from './AddressInput.st.css';
 import {
   InputWithOptions,
   InputWithOptionsProps,
@@ -14,7 +14,6 @@ import {
   MapsClientConstructor,
   PlaceDetails,
   Handler,
-  PlacesServiceStatusTypes,
 } from '../../clients/GoogleMaps/types';
 import {
   convertToFullAddress,
@@ -37,6 +36,8 @@ export type AddressInputProps = Pick<
   InputWithOptionsProps,
   'fixed' | 'flip' | 'moveBy' | 'placement' | 'emptyStateMessage'
 > & {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
   /** Handler for when an option is selected */
@@ -119,6 +120,7 @@ export type AddressInputProps = Pick<
   inputClassName?: string;
   /** Options box z-index */
   optionsContainerZIndex?: number;
+  className?: string;
 };
 
 export interface AddressInputState {
@@ -427,13 +429,16 @@ export class AddressInput extends React.PureComponent<
   _renderOption(val) {
     const { locationIcon, optionStyle } = this.props;
     return (
-      <div className={style.option} style={optionStyle}>
+      <div className={classes.option} style={optionStyle}>
         {locationIcon && (
-          <div className={style.iconWrapper} data-hook="location-icon-wrapper">
+          <div
+            className={classes.iconWrapper}
+            data-hook="location-icon-wrapper"
+          >
             {locationIcon}
           </div>
         )}
-        <div className={style.optionContent}>{val}</div>
+        <div className={classes.optionContent}>{val}</div>
       </div>
     );
   }
@@ -477,6 +482,7 @@ export class AddressInput extends React.PureComponent<
       moveBy,
       inputClassName,
       optionsContainerZIndex,
+      className,
     } = this.props;
     const options = this._options();
 
@@ -507,7 +513,8 @@ export class AddressInput extends React.PureComponent<
 
     return (
       <InputWithOptions
-        {...style('root', states, this.props)}
+        className={st(classes.root, states, className)}
+        data-hook={this.props['data-hook']}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}

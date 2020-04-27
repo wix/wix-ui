@@ -1,13 +1,13 @@
 import * as classNames from 'classnames';
 
-import Avatar from './avatar/avatar.st.css';
-import ButtonNext from './button/button.st.css';
-import IconButton from './icon-button/icon-button.st.css';
-import TextButton from './text-button/text-button.st.css';
-import CloseButton from './close-button/close-button.st.css';
-import BackofficeTheme from './theme.st.css';
-import Opacity from './opacity.st.css';
-import Border from './border.st.css';
+import { classes as Avatar } from './avatar/avatar.st.css';
+import { classes as ButtonNext } from './button/button.st.css';
+import { classes as IconButton } from './icon-button/icon-button.st.css';
+import { classes as TextButton } from './text-button/text-button.st.css';
+import { classes as CloseButton } from './close-button/close-button.st.css';
+import { classes as BackofficeTheme } from './theme.st.css';
+import { classes as Opacity } from './opacity.st.css';
+import { classes as Border } from './border.st.css';
 
 export const opacity = Opacity;
 export const border = Border;

@@ -4,7 +4,7 @@ import {
   DriverFactory,
 } from 'wix-ui-test-utils/driver-factory';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './CircularProgressBar.st.css';
+import * as style from './CircularProgressBar.st.css';
 
 export interface CircularProgressBarDriver extends BaseDriver {
   /** Returns boolean that indicates if the success icon exists */
@@ -21,9 +21,9 @@ export interface CircularProgressBarDriver extends BaseDriver {
   hasError(): boolean;
 }
 
-export const circularProgressBarDriverFactory: DriverFactory<
-  CircularProgressBarDriver
-> = ({ element }: ComponentFactory) => {
+export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBarDriver> = ({
+  element,
+}: ComponentFactory) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   const getElement = dataHook =>

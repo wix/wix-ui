@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './ToggleSwitch.st.css';
+import { st, classes } from './ToggleSwitch.st.css';
 import { dataHooks } from './constants';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
@@ -13,6 +13,9 @@ export interface ToggleSwitchStyles {
 }
 
 export interface ToggleSwitchProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
   checked?: boolean;
   disabled?: boolean;
   tabIndex?: number;
@@ -54,31 +57,44 @@ export class ToggleSwitch extends React.PureComponent<
   private focusedByMouse = false;
 
   render() {
-    const { checked, disabled, styles: inlineStyles } = this.props;
+    const { checked, disabled, styles: inlineStyles, className } = this.props;
 
     return (
       <div
-        {...style(
-          'root',
+        className={st(
+          classes.root,
           {
             checked,
             disabled,
             focus: this.state.focus,
             'focus-visible': this.state.focusVisible,
           },
-          this.props,
+          className,
         )}
+        data-hook={this.props['data-hook']}
         style={inlineStyles.root}
       >
-        <div data-hook={dataHooks.track} className={style.track} style={inlineStyles.track} />
-        <div data-hook={dataHooks.knob} className={style.knob} style={inlineStyles.knob}>
-          <div data-hook={dataHooks.knobIcon} className={style.knobIcon} style={inlineStyles.knobIcon}>
+        <div
+          data-hook={dataHooks.track}
+          className={classes.track}
+          style={inlineStyles.track}
+        />
+        <div
+          data-hook={dataHooks.knob}
+          className={classes.knob}
+          style={inlineStyles.knob}
+        >
+          <div
+            data-hook={dataHooks.knobIcon}
+            className={classes.knobIcon}
+            style={inlineStyles.knobIcon}
+          >
             {checked ? this.props.checkedIcon : this.props.uncheckedIcon}
           </div>
         </div>
         <input
           id={this.props.id}
-          className={style.input}
+          className={classes.input}
           type="checkbox"
           checked={checked}
           disabled={disabled}

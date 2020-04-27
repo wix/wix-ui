@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import style from './button-next.st.css';
+import { st, classes } from './button-next.st.css';
 import { isStatelessComponent } from '../../utils';
 
 export interface ButtonProps
@@ -21,14 +21,10 @@ export interface ButtonProps
   focusableOnBlur?(): void;
 }
 
-interface ButtonState {
-  isStateLess: boolean;
-}
-
 const _addAffix = (Affix, styleClass) =>
   Affix &&
   React.cloneElement(Affix, {
-    className: classNames(style[styleClass], Affix.props.className),
+    className: classNames(classes[styleClass], Affix.props.className),
   });
 
 /**
@@ -74,10 +70,10 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         ref={reference}
         tabIndex={htmlTabIndex}
         aria-disabled={disabled}
-        {...style('root', { disabled }, rest)}
+        className={st(classes.root, { disabled }, this.props.className)}
       >
         {_addAffix(prefixIcon, 'prefix')}
-        <span className={style.content}>{children}</span>
+        <span className={classes.content}>{children}</span>
         {_addAffix(suffixIcon, 'suffix')}
       </Component>
     );

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { dropdownContentDriverFactory } from './DropdownContent.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { sleep } from 'wix-ui-test-utils/react-helpers';
-import { OptionFactory } from '../dropdown-option';
 import { DropdownContent } from './';
 import { generateOptions } from '../dropdown-option/OptionsExample';
 

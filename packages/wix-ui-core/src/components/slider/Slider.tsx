@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Ticks } from './Ticks';
 import { Thumb, getThumbSize } from './Thumb';
-import pStyle from './Slider.st.css';
+import { st, classes } from './Slider.st.css';
 
 const noop = () => {};
 
@@ -28,6 +28,9 @@ export interface SliderProps {
   dir?: string;
   style?: Style;
   'aria-label': string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 export interface Style {
@@ -402,7 +405,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
     return (
       <div
         data-hook="tooltip"
-        {...pStyle('tooltip', { [positionClassname]: true })}
+        className={st(classes.tooltip, { [positionClassname]: true })}
       >
         {this.props.tooltipPrefix}
         {clampedValue}
@@ -443,22 +446,22 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
   getInnerDims() {
     const offsets = this.getInnerOffsets();
-    const style: any = {};
+    const styles: any = {};
 
     if (offsets.offsetTop) {
-      style.top = offsets.offsetTop;
+      styles.top = offsets.offsetTop;
     }
     if (offsets.offsetLeft) {
-      style.left = offsets.offsetLeft;
+      styles.left = offsets.offsetLeft;
     }
     if (offsets.offsetHeight) {
-      style.height = `calc(100% - ${offsets.offsetHeight}px)`;
+      styles.height = `calc(100% - ${offsets.offsetHeight}px)`;
     }
     if (offsets.offsetWidth) {
-      style.width = `calc(100% - ${offsets.offsetWidth}px)`;
+      styles.width = `calc(100% - ${offsets.offsetWidth}px)`;
     }
 
-    return style;
+    return styles;
   }
 
   render() {
@@ -474,7 +477,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
       tickMarksShape,
       thumbShape,
       orientation,
-      style,
+      style: inlineStyle,
+      className,
     } = this.props;
 
     const vertical = this.isVertical();
@@ -498,8 +502,8 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
     return (
       <div
-        {...pStyle(
-          'root',
+        className={st(
+          classes.root,
           {
             orientation: vertical ? 'vertical' : 'horizontal',
             dir,
@@ -507,8 +511,9 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
             tickMarksShape,
             disabled,
           },
-          this.props,
+          className,
         )}
+        data-hook={this.props['data-hook']}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
         onKeyDown={this.handleKeyDown}
@@ -520,7 +525,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         data-orientation={orientation}
         data-dir={dir}
         tabIndex={0}
-        style={style}
+        style={inlineStyle}
         ref={root => (this.root = root)}
         role="slider"
         aria-valuemin={min}
@@ -528,15 +533,15 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         aria-valuenow={value}
         aria-label={this.props['aria-label']}
       >
-        <div className={pStyle.inner} style={this.getInnerDims()}>
+        <div className={classes.inner} style={this.getInnerDims()}>
           <div
             data-hook="track"
             ref={this.setTrackNode}
-            className={pStyle.track}
+            className={classes.track}
             onClick={this.moveThumbByMouse}
             style={trackStyle}
           >
-            <div className={pStyle.trackFill} style={trackFillPosition} />
+            <div className={classes.trackFill} style={trackFillPosition} />
           </div>
 
           <Thumb
@@ -552,7 +557,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
 
         {showTicks && (
           <Ticks
-            pStyle={pStyle}
             step={step}
             min={min}
             max={max}

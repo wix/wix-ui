@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './LinearProgressBar.st.css';
+import { st, classes } from './LinearProgressBar.st.css';
 import {
   ProgressBarDataHooks,
   ProgressBarDataKeys,
@@ -25,6 +25,7 @@ export interface LinearProgressBarProps {
   precision?: number;
   /** Applied as data-hook HTML attribute that can be used to create driver in testing */
   'data-hook'?: string;
+  className?: string;
 }
 
 const FULL_PROGRESS = 100;
@@ -32,7 +33,7 @@ const NO_PROGRESS = 0;
 
 const resolveIndicationElement = (props: LinearProgressBarProps) => {
   const wrapped = (dataHook: string, children: JSX.Element) => (
-    <div data-hook={dataHook} className={style.indicationContainer}>
+    <div data-hook={dataHook} className={classes.indicationContainer}>
       {children}
     </div>
   );
@@ -47,7 +48,7 @@ const resolveIndicationElement = (props: LinearProgressBarProps) => {
 
   return wrapped(
     ProgressBarDataHooks.progressPercentage,
-    <span className={style.progressPercentage}>{`${props.value}%`}</span>,
+    <span className={classes.progressPercentage}>{`${props.value}%`}</span>,
   );
 };
 
@@ -56,16 +57,16 @@ const renderBarSection = (value: number | string) => {
   return (
     <div
       data-hook={ProgressBarDataHooks.container}
-      className={style.barContainer}
+      className={classes.barContainer}
     >
       <div
         data-hook={ProgressBarDataHooks.background}
-        className={style.barBackground}
+        className={classes.barBackground}
       />
       <div
         data-hook={ProgressBarDataHooks.foreground}
         style={progressWidth}
-        className={style.barForeground}
+        className={classes.barForeground}
       />
     </div>
   );
@@ -117,10 +118,10 @@ const getAriaAttributes = (
   };
 };
 
-export const LinearProgressBar: React.FunctionComponent<
-  LinearProgressBarProps
-> = (props: LinearProgressBarProps) => {
-  const { error, showProgressIndication, 'data-hook': dataHook } = props;
+export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> = (
+  props: LinearProgressBarProps,
+) => {
+  const { error, showProgressIndication, className } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   return (
@@ -130,15 +131,15 @@ export const LinearProgressBar: React.FunctionComponent<
       data-min={_props.min}
       data-error={error}
       role="progressbar"
-      {...style('root', { error, success }, _props)}
-      {...(dataHook && { 'data-hook': dataHook })}
+      className={st(classes.root, { error, success }, className)}
+      data-hook={props['data-hook']}
     >
       {renderBarSection(_props.value)}
 
       {showProgressIndication && (
         <div
           data-hook={ProgressBarDataHooks.progressIndicator}
-          className={style.progressIndicationSection}
+          className={classes.progressIndicationSection}
         >
           {resolveIndicationElement(_props)}
         </div>

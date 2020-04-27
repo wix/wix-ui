@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './Input.st.css';
+import * as style from './Input.st.css';
 
 export const inputDriverFactory = ({ element, eventTrigger }) => {
   const input = element && element.querySelector('input');

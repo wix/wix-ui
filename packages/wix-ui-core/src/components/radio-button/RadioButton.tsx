@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './RadioButton.st.css';
+import { st, classes } from './RadioButton.st.css';
 
 const noop = () => null;
 
@@ -52,6 +52,9 @@ export interface RadioButtonProps {
   required?: boolean;
   /** aria-label - Accessibility */
   'aria-label'?: string;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 export interface RadioButtonState {
@@ -91,21 +94,23 @@ export class RadioButton extends React.Component<
       required,
       onIconBlur,
       tabIndex,
+      className,
     } = this.props;
     const focused = this.state.focused;
 
     return (
       <div
-        {...style(
-          'root',
+        className={st(
+          classes.root,
           {
             checked,
             disabled,
             focused,
             'focus-visible': this.state.focusVisible,
           },
-          this.props,
+          className,
         )}
+        data-hook={this.props['data-hook']}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"
@@ -113,7 +118,7 @@ export class RadioButton extends React.Component<
       >
         <input
           type="radio"
-          className={style.hiddenRadio}
+          className={classes.hiddenRadio}
           disabled={disabled}
           required={required}
           onFocus={this.onFocus}
@@ -128,13 +133,13 @@ export class RadioButton extends React.Component<
           aria-label={this.props['aria-label']}
         />
         <span
-          className={style.icon}
+          className={classes.icon}
           onMouseEnter={this.onHover}
           onMouseLeave={onIconBlur}
         >
           {checked ? checkedIcon : uncheckedIcon}
         </span>
-        <span className={style.label}>{label}</span>
+        <span className={classes.label}>{label}</span>
       </div>
     );
   }

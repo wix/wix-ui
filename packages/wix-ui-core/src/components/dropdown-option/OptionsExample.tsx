@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { OptionFactory, Option } from '.';
+import { OptionFactory } from '.';
 
 export const generateOptions = (
   dividerFactory = OptionFactory.createDivider,

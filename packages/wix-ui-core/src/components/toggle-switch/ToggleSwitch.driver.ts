@@ -1,5 +1,5 @@
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
-import style from './ToggleSwitch.st.css';
+import * as style from './ToggleSwitch.st.css';
 
 export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
   const checkbox = element && element.querySelector('input');
@@ -50,5 +50,4 @@ export const toggleSwitchDriverFactory = ({ element, eventTrigger }) => {
         element.querySelector(stylableDOMUtil.scopeSelector('.knobIcon')),
       ),
   };
-
 };

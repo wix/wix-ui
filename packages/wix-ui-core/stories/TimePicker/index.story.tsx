@@ -1,6 +1,6 @@
 import { TimePicker } from '../../src/components/time-picker';
 import { AmPmOptions } from '../../src/components/time-picker/constants';
-import style from './style.st.css';
+import { classes } from './style.st.css';
 import { Category } from '../utils';
 
 export default {
@@ -10,7 +10,7 @@ export default {
   componentPath: '../../src/components/time-picker',
 
   componentProps: setState => ({
-    ...style('root'),
+    className: classes.root,
     'data-hook': 'storybook-timepicker',
     onChange: value => setState({ value }),
     tickerUpIcon: '+',

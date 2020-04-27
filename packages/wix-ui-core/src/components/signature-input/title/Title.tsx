@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import style from './Title.st.css';
+import { classes } from './Title.st.css';
 import * as classNames from 'classnames';
 
 import {
@@ -44,7 +44,7 @@ class TitleComp extends React.Component<TitleProps> {
     return {
       id: titleId,
       ...overrides,
-      className: classNames(style.root, overrides.className),
+      className: classNames(classes.root, overrides.className),
     };
   };
 

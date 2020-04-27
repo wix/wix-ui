@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './InputWithOptions.st.css';
+import { st, classes } from './InputWithOptions.st.css';
 import { Dropdown, DropdownProps } from '../dropdown';
 import { Placement, PopoverProps } from '../popover';
 import { Option, OptionFactory } from '../dropdown-option';
@@ -17,6 +17,8 @@ export type InputWithOptionsProps = Pick<
   'fixed' | 'flip' | 'moveBy'
 > &
   Pick<DropdownProps, 'onContentMouseDown'> & {
+    /** hook for testing purposes */
+    'data-hook'?: string;
     /** The location to display the content */
     placement?: Placement;
     /** The dropdown options array */
@@ -61,6 +63,8 @@ export type InputWithOptionsProps = Pick<
     emptyStateStyle?: React.CSSProperties;
     /** Options box z-index */
     optionsContainerZIndex?: number;
+
+    className?: string;
   };
 
 interface InputWithOptionsState {
@@ -99,7 +103,7 @@ export class InputWithOptions extends React.PureComponent<
 
   _setDropDownRef = (ref: InstanceType<typeof Dropdown>) => {
     this.dropDownRef = ref;
-  }
+  };
 
   open() {
     // Using getInstance() is here because closeOutside HOC
@@ -227,13 +231,15 @@ export class InputWithOptions extends React.PureComponent<
       fixed,
       moveBy,
       optionsContainerZIndex,
+      className,
     } = this.props;
 
     const contentId = id ? `${id}-content` : null;
 
     return (
       <Dropdown
-        {...style('root', {}, this.props)}
+        className={st(classes.root, className)}
+        data-hook={this.props['data-hook']}
         placement={placement}
         openTrigger={openTrigger}
         disabled={inputProps.disabled}
@@ -271,7 +277,7 @@ export class InputWithOptions extends React.PureComponent<
           onKeyDown={this._onKeyDown}
           onFocus={this._onFocus}
           onBlur={this._onBlur}
-          className={style.inputComponent}
+          className={classes.inputComponent}
         />
       </Dropdown>
     );

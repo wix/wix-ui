@@ -1,12 +1,15 @@
 import * as React from 'react';
-import style from './Input.st.css';
+import { st, classes } from './Input.st.css';
 import { Omit } from 'type-zoo';
 import * as classnames from 'classnames';
 
 type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
+
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedInputProps> {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   className?: string;
   inputClassName?: string;
   error?: string | boolean;
@@ -56,23 +59,25 @@ export class Input extends React.Component<InputProps, InputState> {
       prefix: prefixProps,
       suffix: suffixProp,
       inputClassName,
+      className,
       ...allOtherProps
     } = this.props;
 
     return (
       <div
-        {...style(
-          'root',
+        className={st(
+          classes.root,
           { disabled, error: !!error && !disabled, focus },
-          this.props,
+          className,
         )}
+        data-hook={this.props['data-hook']}
         style={inlineStyle}
       >
         {prefix}
         <input
           {...allOtherProps}
           ref={input => (this.input = input)}
-          className={classnames(style.nativeInput, inputClassName)}
+          className={classnames(classes.nativeInput, inputClassName)}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
         />

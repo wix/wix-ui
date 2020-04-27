@@ -1,14 +1,16 @@
 import * as React from 'react';
-import style from './NavStepper.st.css';
-import { Stepper, StepProps } from '../stepper';
+import { st, classes } from './NavStepper.st.css';
+import { Stepper } from '../stepper';
 import { NavStep, ExternalNavStepProps } from './NavStep';
-import { isReactElement } from '../../utils';
 
 export { ExternalNavStepProps } from './NavStep';
 
 export interface NavStepperProps {
   activeStep: number;
   onStepClick?(stepIndex: number, e: any): void;
+  /** hook for testing purposes */
+  'data-hook'?: string;
+  className?: string;
 }
 
 export class NavStepper extends React.PureComponent<NavStepperProps> {
@@ -17,18 +19,21 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
   > = NavStep as any;
 
   render() {
-    const { activeStep, children } = this.props;
+    const { activeStep, children, className } = this.props;
 
     return (
-      <nav {...style('root', {}, this.props)}>
+      <nav
+        className={st(classes.root, className)}
+        data-hook={this.props['data-hook']}
+      >
         <Stepper activeStep={activeStep}>
           {({ getStepProps }) => (
-            <ol className={style.steps}>
+            <ol className={classes.steps}>
               {React.Children.map(children, (child, index) => {
                 if (React.isValidElement(child)) {
                   const stepProps: any = getStepProps(index, {
                     ...child.props,
-                    className: style.step,
+                    className: classes.step,
                   });
 
                   if (

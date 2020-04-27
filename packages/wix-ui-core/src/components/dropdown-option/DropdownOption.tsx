@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './DropdownOption.st.css';
+import { st, classes } from './DropdownOption.st.css';
 import { Option } from './';
 
 export interface DropdownOptionProps {
@@ -10,6 +10,7 @@ export interface DropdownOptionProps {
   isHovered: boolean;
   onClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
+  dataHook?: string;
 }
 
 export type DropdownOptionType = React.FunctionComponent<DropdownOptionProps>;
@@ -24,6 +25,7 @@ export const DropdownOption: DropdownOptionType = (
     isHovered,
     onClickHandler,
     onMouseEnterHandler,
+    dataHook,
   } = props;
   const disabled = option.isDisabled;
   const selectable = option.isSelectable;
@@ -37,7 +39,12 @@ export const DropdownOption: DropdownOptionType = (
   return (
     <div
       id={id}
-      {...style('root', { disabled, selectable, hovered, selected }, props)}
+      className={st(
+        classes.root,
+        { disabled, selectable, hovered, selected },
+        props.className,
+      )}
+      data-hook={dataHook}
       {...ariaProps}
       onClick={onClickHandler}
       title={option.value}

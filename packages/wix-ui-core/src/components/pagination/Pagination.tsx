@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PageStrip } from './PageStrip';
-import pStyle from './Pagination.st.css';
+import { st, classes } from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
 import { PaginationDataHooks } from './DataHooks';
 
@@ -26,6 +26,8 @@ export const enum PaginationMode {
 }
 
 export interface PaginationProps {
+  /** hook for testing purposes */
+  'data-hook'?: string;
   // data
   totalPages: number;
   currentPage?: number;
@@ -217,7 +219,7 @@ export class Pagination extends React.Component<
       <div
         data-hook={PaginationDataHooks.pageCompact}
         id={this.getId('pageCompact')}
-        className={pStyle.compact}
+        className={classes.compact}
       >
         <span
           id={this.getId('currentPage')}
@@ -227,7 +229,7 @@ export class Pagination extends React.Component<
         </span>
         <span
           id={this.getId('slash')}
-          className={pStyle.slash}
+          className={classes.slash}
           data-hook={PaginationDataHooks.slashLabel}
         >
           {this.props.slashLabel}
@@ -247,14 +249,14 @@ export class Pagination extends React.Component<
       <div
         data-hook={PaginationDataHooks.pageForm}
         id={this.getId('pageForm')}
-        className={pStyle.pageForm}
+        className={classes.pageForm}
         dir="ltr"
       >
         <input
           id={this.getId('pageInput')}
           data-hook={PaginationDataHooks.pageInput}
           type="number"
-          className={pStyle.pageInput}
+          className={classes.pageInput}
           min={1}
           max={this.props.totalPages}
           value={this.state.pageInputValue}
@@ -269,14 +271,14 @@ export class Pagination extends React.Component<
           style={{ width: calculateWidth(this.props.totalPages) }}
         />
         {this.props.showInputModeTotalPages && [
-          <span key="slash" id={this.getId('slash')} className={pStyle.slash}>
+          <span key="slash" id={this.getId('slash')} className={classes.slash}>
             {this.props.slashLabel}
           </span>,
           <span
             key="total-pages"
             id={this.getId('totalPages')}
             data-hook={PaginationDataHooks.totalPages}
-            className={pStyle.totalPages}
+            className={classes.totalPages}
           >
             {this.props.totalPages}
           </span>,
@@ -287,14 +289,14 @@ export class Pagination extends React.Component<
 
   private renderEmptyButton(type: ButtonType): JSX.Element {
     const btnClass = {
-      [ButtonType.Prev]: [pStyle.emptyButtonPrevious],
-      [ButtonType.Next]: [pStyle.emptyButtonNext],
+      [ButtonType.Prev]: [classes.emptyButtonPrevious],
+      [ButtonType.Next]: [classes.emptyButtonNext],
     }[type] as [string];
 
     return (
       <div
         data-hook={PaginationDataHooks[type]}
-        {...pStyle('emptyButton ' + btnClass)}
+        className={st(classes.emptyButton, ...btnClass)}
       />
     );
   }
@@ -311,18 +313,18 @@ export class Pagination extends React.Component<
 
     const [btnClass, label, page] = {
       [ButtonType.Prev]: [
-        pStyle.navButtonPrevious,
+        classes.navButtonPrevious,
         this.props.previousLabel,
         currentPage - 1,
       ],
       [ButtonType.Next]: [
-        pStyle.navButtonNext,
+        classes.navButtonNext,
         this.props.nextLabel,
         currentPage + 1,
       ],
-      [ButtonType.First]: [pStyle.navButtonFirst, this.props.firstLabel, 1],
+      [ButtonType.First]: [classes.navButtonFirst, this.props.firstLabel, 1],
       [ButtonType.Last]: [
-        pStyle.navButtonLast,
+        classes.navButtonLast,
         this.props.lastLabel,
         totalPages,
       ],
@@ -332,7 +334,7 @@ export class Pagination extends React.Component<
       <a
         data-hook={PaginationDataHooks[type]}
         id={this.getId('navButton' + upperCaseFirst(type))}
-        {...pStyle('navButton ' + btnClass, { disabled })}
+        className={st(classes.navButton, { disabled }, btnClass)}
         aria-label={upperCaseFirst(type) + ' Page'}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
@@ -359,7 +361,7 @@ export class Pagination extends React.Component<
       showNextLabel,
       showPreviousLabel,
       width,
-      style,
+      style: inlineStyle,
     } = this.props;
 
     const styleStates = {
@@ -377,8 +379,9 @@ export class Pagination extends React.Component<
         onDoubleClick={this.props.onDoubleClick}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
-        style={style || { width }}
-        {...pStyle('root', styleStates, this.props)}
+        style={inlineStyle || { width }}
+        className={st(classes.root, styleStates, this.props.className)}
+        data-hook={this.props['data-hook']}
       >
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showPreviousLabel
