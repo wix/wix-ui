@@ -49,7 +49,7 @@
     "test": "npm run test:unit && npm run test:visual && npm run test:e2e && npm run sanity && npm run a11y",
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
-    "test:visual": "eyes-storybook -c ./.storybook/visual",
+    "test:visual": "if [ -z '${APPLITOOLS_API_KEY}' ]; then eyes-storybook -c ./.storybook/visual; else echo 'skip visual tests'; fi",
     "test:e2e": "yoshi test --protractor",
     "test:performance": "npm run bundles:generate && npm install --no-save @wix/perfer && perfer --verbose",
     "sanity": "autotools-sanity",
