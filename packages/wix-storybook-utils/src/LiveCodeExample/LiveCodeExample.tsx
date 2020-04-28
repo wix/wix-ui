@@ -131,13 +131,13 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     // key codes for vs code
     const shouldPrettify = [
       /* windows: shift + alt + f */
-      e.shiftKey && e.altKey && e.keyCode === 70,
+      e.shiftKey && e.altKey && e.key === 'F',
 
       /* osx: shift + option + f */
-      e.shiftKey && e.altKey && e.keyCode === 70,
+      e.shiftKey && e.altKey && e.key === 'F',
 
       /* unix: shift + ctrl + i */
-      e.shiftKey && e.ctrlKey && e.keyCode === 73,
+      e.shiftKey && e.ctrlKey && e.key === 'I',
     ].some(Boolean);
 
     if (shouldPrettify) {
