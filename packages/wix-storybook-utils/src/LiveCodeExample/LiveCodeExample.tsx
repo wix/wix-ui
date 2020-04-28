@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
@@ -8,8 +8,10 @@ import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
 import debounce from 'lodash/debounce';
 
-import Revert from 'wix-ui-icons-common/Revert';
-import Code from 'wix-ui-icons-common/Code';
+import DuplicateSmall from 'wix-ui-icons-common/DuplicateSmall';
+import RevertSmall from 'wix-ui-icons-common/RevertSmall';
+import CodeSmall from 'wix-ui-icons-common/CodeSmall';
+import MagicWandSmall from 'wix-ui-icons-common/MagicWandSmall';
 
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
@@ -18,7 +20,7 @@ import { tokenHighlighter } from './token-highlighter';
 
 import styles from './index.scss';
 
-const safeTokenHighlighter = code => {
+const safeTokenHighlighter = (code: string) => {
   try {
     return tokenHighlighter(code);
   } catch (e) {
@@ -27,7 +29,30 @@ const safeTokenHighlighter = code => {
   }
 };
 
-export default class LiveCodeExample extends Component {
+interface Props {
+  initialCode?: string;
+  scope?: object;
+  compact?: boolean;
+  initiallyOpen?: boolean;
+  previewRow?: boolean;
+  previewProps?: object & { className?: string };
+  autoRender?: boolean;
+  darkBackground?: boolean;
+  noBackground?: boolean;
+}
+
+interface State {
+  initialFormattedCode: string;
+  code: string;
+  isRtl: boolean;
+  isDarkBackground: boolean;
+  isEditorOpened: boolean;
+  parseError: object | null;
+}
+
+export default class LiveCodeExample extends React.Component<Props, State> {
+  debouncedOnCodeChange: () => any;
+
   static propTypes = {
     initialCode: PropTypes.string,
     scope: PropTypes.object,
@@ -50,14 +75,17 @@ export default class LiveCodeExample extends Component {
     noBackground: false,
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
-    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100);
+    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100, {
+      trailing: true,
+    });
 
+    const formattedCode = this.formatCode(props.initialCode);
     this.state = {
-      code: this.formatCode(props.initialCode),
-      dirty: false,
+      initialFormattedCode: formattedCode,
+      code: formattedCode,
       isRtl: false,
       isDarkBackground: props.darkBackground,
       isEditorOpened: !props.compact || props.initiallyOpen,
@@ -65,7 +93,7 @@ export default class LiveCodeExample extends Component {
     };
   }
 
-  formatCode = code => {
+  formatCode = (code: string) => {
     const filteredCode = code
       .split('\n')
       .filter(
@@ -84,16 +112,54 @@ export default class LiveCodeExample extends Component {
     });
   };
 
+  prettifyCode = ({ textAreaNode, prePrettifySelectionEnd }) => {
+    try {
+      this.setState(
+        ({ code }) => ({ code: this.formatCode(code) }),
+        () => {
+          if (textAreaNode && prePrettifySelectionEnd) {
+            textAreaNode.selectionEnd = prePrettifySelectionEnd;
+          }
+        },
+      );
+    } catch (e) {
+      console.error('Unable to prettify code', e);
+    }
+  };
+
+  liveEditorOnKeyDown = (e: KeyboardEvent) => {
+    // key codes for vs code
+    const shouldPrettify = [
+      /* windows: shift + alt + f */
+      e.shiftKey && e.altKey && e.key === 'F',
+
+      /* osx: shift + option + f */
+      e.shiftKey && e.altKey && e.key === 'F',
+
+      /* unix: shift + ctrl + i */
+      e.shiftKey && e.ctrlKey && e.key === 'I',
+    ].some(Boolean);
+
+    if (shouldPrettify) {
+      e.stopPropagation();
+      e.preventDefault();
+      this.prettifyCode({
+        textAreaNode: e.target,
+        prePrettifySelectionEnd: (e.target as HTMLTextAreaElement).selectionEnd,
+      });
+    }
+  };
+
   resetCode = () =>
     this.setState({
       code: this.formatCode(this.props.initialCode),
-      dirty: false,
     });
 
-  onCodeChange = code => this.setState({ code, dirty: true });
+  onCodeChange = (code: string) => this.setState({ code });
 
-  onToggleRtl = isRtl => this.setState({ isRtl });
-  onToggleBackground = isDarkBackground => this.setState({ isDarkBackground });
+  onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
+  onToggleBackground = (isDarkBackground: boolean) =>
+    this.setState({ isDarkBackground });
 
   onToggleCode = () =>
     this.setState(state => ({
@@ -130,7 +196,13 @@ export default class LiveCodeExample extends Component {
   };
 
   render() {
-    const { compact, previewRow, previewProps, autoRender, noBackground } = this.props;
+    const {
+      compact,
+      previewRow,
+      previewProps,
+      autoRender,
+      noBackground,
+    } = this.props;
     const {
       code,
       isRtl,
@@ -138,6 +210,8 @@ export default class LiveCodeExample extends Component {
       isEditorOpened,
       parseError,
     } = this.state;
+
+    const dirty = this.state.initialFormattedCode !== this.state.code;
 
     return (
       <div
@@ -147,9 +221,23 @@ export default class LiveCodeExample extends Component {
       >
         {!compact && (
           <div className={styles.header}>
-            <CopyButton source={this.state.code} />
+            <CopyButton
+              source={this.state.code}
+              prefixIcon={<DuplicateSmall />}
+            />
 
             <div className={styles.spacer} />
+
+            {dirty && (
+              <div className={styles.headerControl}>
+                <TextButton
+                  onClick={this.prettifyCode}
+                  prefixIcon={<MagicWandSmall />}
+                >
+                  Prettify
+                </TextButton>
+              </div>
+            )}
 
             <div className={styles.headerControl}>
               Imitate RTL:&nbsp;
@@ -168,6 +256,12 @@ export default class LiveCodeExample extends Component {
                 onChange={this.onToggleBackground}
               />
             </div>
+
+            {dirty && (
+              <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
+                Reset
+              </TextButton>
+            )}
           </div>
         )}
 
@@ -207,7 +301,10 @@ export default class LiveCodeExample extends Component {
               <LiveEditor
                 onChange={this.debouncedOnCodeChange}
                 className={styles.editorView}
+                // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `highlight` prop even though react-live spreads props onto that component
                 highlight={safeTokenHighlighter}
+                // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `onKeyDown` prop even though react-live spreads props onto that component
+                onKeyDown={this.liveEditorOnKeyDown}
               />
             </Collapse>
           </div>
@@ -215,17 +312,29 @@ export default class LiveCodeExample extends Component {
 
         {compact && (
           <div className={styles.controlButtons}>
-            <CopyButton source={this.state.code} />
+            <CopyButton
+              source={this.state.code}
+              prefixIcon={<DuplicateSmall />}
+            />
+
+            {dirty && (
+              <TextButton
+                onClick={this.prettifyCode}
+                prefixIcon={<MagicWandSmall />}
+              >
+                Prettify
+              </TextButton>
+            )}
 
             <div style={{ marginLeft: 'auto' }} />
 
-            {this.state.dirty && (
-              <TextButton onClick={this.resetCode} prefixIcon={<Revert />}>
+            {dirty && (
+              <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
                 Reset
               </TextButton>
             )}
 
-            <TextButton onClick={this.onToggleCode} prefixIcon={<Code />}>
+            <TextButton onClick={this.onToggleCode} prefixIcon={<CodeSmall />}>
               {this.state.isEditorOpened ? 'Hide' : 'Show'} code
             </TextButton>
           </div>
