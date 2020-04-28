@@ -42,8 +42,8 @@ interface Props {
 }
 
 interface State {
+  initialFormattedCode: string;
   code: string;
-  dirty: boolean;
   isRtl: boolean;
   isDarkBackground: boolean;
   isEditorOpened: boolean;
@@ -78,11 +78,14 @@ export default class LiveCodeExample extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100);
+    this.debouncedOnCodeChange = debounce(this.onCodeChange, 100, {
+      trailing: true,
+    });
 
+    const formattedCode = this.formatCode(props.initialCode);
     this.state = {
-      code: this.formatCode(props.initialCode),
-      dirty: false,
+      initialFormattedCode: formattedCode,
+      code: formattedCode,
       isRtl: false,
       isDarkBackground: props.darkBackground,
       isEditorOpened: !props.compact || props.initiallyOpen,
@@ -109,16 +112,50 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     });
   };
 
-  prettifyCode = () =>
-    this.setState(({ code }) => ({ code: this.formatCode(code) }));
+  prettifyCode = ({ textAreaNode, prePrettifySelectionEnd }) => {
+    try {
+      this.setState(
+        ({ code }) => ({ code: this.formatCode(code) }),
+        () => {
+          if (textAreaNode && prePrettifySelectionEnd) {
+            textAreaNode.selectionEnd = prePrettifySelectionEnd;
+          }
+        },
+      );
+    } catch (e) {
+      console.error('Unable to prettify code', e);
+    }
+  };
+
+  liveEditorOnKeyDown = (e: KeyboardEvent) => {
+    // key codes for vs code
+    const shouldPrettify = [
+      /* windows: shift + alt + f */
+      e.shiftKey && e.altKey && e.keyCode === 70,
+
+      /* osx: shift + option + f */
+      e.shiftKey && e.altKey && e.keyCode === 70,
+
+      /* unix: shift + ctrl + i */
+      e.shiftKey && e.ctrlKey && e.keyCode === 73,
+    ].some(Boolean);
+
+    if (shouldPrettify) {
+      e.stopPropagation();
+      e.preventDefault();
+      this.prettifyCode({
+        textAreaNode: e.target,
+        prePrettifySelectionEnd: (e.target as HTMLTextAreaElement).selectionEnd,
+      });
+    }
+  };
 
   resetCode = () =>
     this.setState({
       code: this.formatCode(this.props.initialCode),
-      dirty: false,
     });
 
-  onCodeChange = (code: string) => this.setState({ code, dirty: true });
+  onCodeChange = (code: string) => this.setState({ code });
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
   onToggleBackground = (isDarkBackground: boolean) =>
@@ -174,6 +211,8 @@ export default class LiveCodeExample extends React.Component<Props, State> {
       parseError,
     } = this.state;
 
+    const dirty = this.state.initialFormattedCode !== this.state.code;
+
     return (
       <div
         className={classnames(styles.wrapper, {
@@ -189,7 +228,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
 
             <div className={styles.spacer} />
 
-            {this.state.dirty && (
+            {dirty && (
               <div className={styles.headerControl}>
                 <TextButton
                   onClick={this.prettifyCode}
@@ -218,7 +257,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
               />
             </div>
 
-            {this.state.dirty && (
+            {dirty && (
               <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
                 Reset
               </TextButton>
@@ -264,6 +303,8 @@ export default class LiveCodeExample extends React.Component<Props, State> {
                 className={styles.editorView}
                 // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `highlight` prop even though react-live spreads props onto that component
                 highlight={safeTokenHighlighter}
+                // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `onKeyDown` prop even though react-live spreads props onto that component
+                onKeyDown={this.liveEditorOnKeyDown}
               />
             </Collapse>
           </div>
@@ -276,7 +317,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
               prefixIcon={<DuplicateSmall />}
             />
 
-            {this.state.dirty && (
+            {dirty && (
               <TextButton
                 onClick={this.prettifyCode}
                 prefixIcon={<MagicWandSmall />}
@@ -287,7 +328,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
 
             <div style={{ marginLeft: 'auto' }} />
 
-            {this.state.dirty && (
+            {dirty && (
               <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
                 Reset
               </TextButton>
