@@ -1,0 +1,58 @@
+@import "../ui/typography.scss";
+
+.header {
+  margin-bottom: 12px;
+  text-align: right;
+  @include font(light);
+  font-size: 12px;
+}
+
+.loadPrompt {
+  display: inline-grid;
+  grid-template-columns: 400px auto auto;
+  gap: 10px;
+}
+
+.loadPromptButton {
+  width: 24px;
+  height: 24px;
+  background: #3899ec;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  justify-self: center;
+}
+
+.closeButton {
+  width: 24px;
+  height: 24px;
+  color: #000;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadPromptInput {
+  width: 200px;
+  border-radius: 3px;
+  border: 1px solid #dfe5eb;
+  padding: 4px 5px;
+  font-size: 0.7rem;
+}
+
+.saveSuccess {
+  display: grid;
+  grid-template-columns: auto 24px;
+  gap: 12px;
+
+  & > div {
+    align-self: center;
+  }
+}

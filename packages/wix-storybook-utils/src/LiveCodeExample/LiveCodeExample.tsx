@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import prettier from 'prettier/standalone';
-import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
 import debounce from 'lodash/debounce';
 
@@ -13,6 +11,7 @@ import RevertSmall from 'wix-ui-icons-common/RevertSmall';
 import CodeSmall from 'wix-ui-icons-common/CodeSmall';
 import MagicWandSmall from 'wix-ui-icons-common/MagicWandSmall';
 
+import { formatCode } from './format-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
@@ -39,6 +38,7 @@ interface Props {
   autoRender?: boolean;
   darkBackground?: boolean;
   noBackground?: boolean;
+  onChange?: Function;
 }
 
 interface State {
@@ -73,6 +73,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     autoRender: true,
     darkBackground: false,
     noBackground: false,
+    onChange: () => {},
   };
 
   constructor(props: Props) {
@@ -82,7 +83,7 @@ export default class LiveCodeExample extends React.Component<Props, State> {
       trailing: true,
     });
 
-    const formattedCode = this.formatCode(props.initialCode);
+    const formattedCode = formatCode(props.initialCode);
     this.state = {
       initialFormattedCode: formattedCode,
       code: formattedCode,
@@ -93,29 +94,10 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     };
   }
 
-  formatCode = (code: string) => {
-    const filteredCode = code
-      .split('\n')
-      .filter(
-        line =>
-          !/\/(\*|\/)+.*((t|e)slint[-|:](dis|en)able|prettier-ignore)/.test(
-            line,
-          ),
-      )
-      .join('\n');
-
-    return prettier.format(filteredCode, {
-      parser: 'babel',
-      plugins: [babylonParser],
-      singleQuote: true,
-      trailingComma: 'all',
-    });
-  };
-
   prettifyCode = ({ textAreaNode, prePrettifySelectionEnd }) => {
     try {
       this.setState(
-        ({ code }) => ({ code: this.formatCode(code) }),
+        ({ code }) => ({ code: formatCode(code) }),
         () => {
           if (textAreaNode && prePrettifySelectionEnd) {
             textAreaNode.selectionEnd = prePrettifySelectionEnd;
@@ -152,10 +134,11 @@ export default class LiveCodeExample extends React.Component<Props, State> {
 
   resetCode = () =>
     this.setState({
-      code: this.formatCode(this.props.initialCode),
+      code: formatCode(this.props.initialCode),
     });
 
-  onCodeChange = (code: string) => this.setState({ code });
+  onCodeChange = (code: string) =>
+    this.setState({ code }, () => this.props.onChange(this.state.code));
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
   onToggleBackground = (isDarkBackground: boolean) =>
