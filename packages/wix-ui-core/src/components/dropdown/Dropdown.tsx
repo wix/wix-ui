@@ -1,5 +1,4 @@
 import * as React from 'react';
-import onClickOutside, { InjectedOnClickOutProps } from 'react-onclickoutside';
 import { st, classes } from './Dropdown.st.css';
 import { Popover, Placement, PopoverProps } from '../popover';
 import { DropdownContent, IDOMid } from '../dropdown-content';
@@ -68,13 +67,13 @@ export interface DropdownState {
  * Dropdown
  */
 export class DropdownComponent extends React.PureComponent<
-  DropdownProps & InjectedOnClickOutProps,
+  DropdownProps,
   DropdownState
 > {
   static displayName = 'Dropdown';
   private dropdownContentRef: DropdownContent | null = null;
 
-  constructor(props: DropdownProps & InjectedOnClickOutProps) {
+  constructor(props: DropdownProps) {
     super(props);
 
     this.close = this.close.bind(this);
@@ -354,4 +353,4 @@ export class DropdownComponent extends React.PureComponent<
   }
 }
 
-export const Dropdown = onClickOutside(DropdownComponent);
+export const Dropdown = DropdownComponent;

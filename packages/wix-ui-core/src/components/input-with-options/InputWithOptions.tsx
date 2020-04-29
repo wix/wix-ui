@@ -107,11 +107,11 @@ export class InputWithOptions extends React.PureComponent<
 
   open() {
     // Using getInstance() is here because closeOutside HOC
-    this.dropDownRef && this.dropDownRef.getInstance().open();
+    this.dropDownRef && this.dropDownRef.open();
   }
 
   close() {
-    this.dropDownRef && this.dropDownRef.getInstance().close();
+    this.dropDownRef && this.dropDownRef.close();
   }
 
   changeExpanded = (isExpanded: boolean) => {

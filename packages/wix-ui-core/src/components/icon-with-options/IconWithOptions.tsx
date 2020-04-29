@@ -52,7 +52,7 @@ export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = pr
   return (
     <Dropdown
       className={st(classes.root, className)}
-      dataHook={dataHook}
+      data-hook={dataHook}
       options={options}
       placement={placement}
       openTrigger={openTrigger}
