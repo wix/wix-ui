@@ -1,4 +1,5 @@
 @import "../ui/typography.scss";
+@import "../LiveCodeExample/index.scss";
 
 .header {
   margin-bottom: 12px;
@@ -51,8 +52,20 @@
   display: grid;
   grid-template-columns: auto 24px;
   gap: 12px;
+  align-items: center;
 
   & > div {
     align-self: center;
+  }
+}
+
+.previewWarning {
+  @extend .error;
+  white-space: normal;
+  min-height: 120px;
+
+  > button {
+    display: block;
+    margin: 12px auto 0;
   }
 }

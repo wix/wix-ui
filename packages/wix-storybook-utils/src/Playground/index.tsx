@@ -5,6 +5,7 @@ import DownloadImportSmall from 'wix-ui-icons-common/DownloadImportSmall';
 import Close from 'wix-ui-icons-common/system/Close';
 import Check from 'wix-ui-icons-common/Check';
 
+import { createReducer } from './create-reducer';
 import { formatCode } from '../LiveCodeExample/format-code';
 import LiveCodeExample from '../LiveCodeExample';
 import TextButton from '../TextButton';
@@ -40,6 +41,7 @@ const LoadPrompt = ({ onClose, onConfirm }) => {
         <input
           className={styles.loadPromptInput}
           placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          maxLength={36}
           type="text"
           value={value}
           onChange={event => setValue(event.target.value)}
@@ -58,13 +60,15 @@ const LoadPrompt = ({ onClose, onConfirm }) => {
   );
 };
 
-const SaveSuccess = ({ snippetId, urlFormatter, onClose }) => (
+const SaveSuccess = ({ snippetId, formatUrl, onClose }) => (
   <div className={styles.saveSuccess}>
-    Snippet saved! ID: {snippetId}
-    {urlFormatter && (
-      <a href={urlFormatter(snippetId)} target="_blank">
-        Use this link to open playground
+    {'Snippet saved! ID: '}
+    {formatUrl ? (
+      <a href={formatUrl(snippetId)} target="_blank">
+        {snippetId}
       </a>
+    ) : (
+      snippetId
     )}
     <button className={styles.closeButton} onClick={onClose}>
       <Close />
@@ -72,11 +76,45 @@ const SaveSuccess = ({ snippetId, urlFormatter, onClose }) => (
   </div>
 );
 
-const Playground = ({ initialCode = '', urlFormatter, ...rest }) => {
-  const [code, setCode] = React.useState({ raw: initialCode });
-  const [status, setStatus] = React.useState('idle');
-  const [snippetId, setSnippedId] = React.useState('');
-  let editorCode = '';
+const previewWarning = ({ onConfirm }) => (
+  <div className={styles.previewWarning}>
+    <h3>WARNING!</h3>
+    Evaluating downloaded code can be dangerous!
+    <br />
+    Inspect code before running it!
+    <button onClick={onConfirm}>OK, I trust this code</button>
+  </div>
+);
+
+const actions = {
+  setLoadedCode: (state, { code }) => ({ ...state, loadedCode: code }),
+  setEditorCode: (state, { code }) => ({ ...state, editorCode: code }),
+  setStatus: (state, { status }) => ({ ...state, status }),
+  setSnippetId: (state, { id }) => ({ ...state, snippetId: id }),
+  setShowPreviewWarning: (state, { showPreviewWarning }) => ({
+    ...state,
+    showPreviewWarning,
+  }),
+};
+
+const Playground = ({ initialCode = '', formatSnippetUrl, ...rest }) => {
+  const initialState = {
+    editorCode: '',
+    loadedCode: initialCode,
+    status: 'idle',
+    snippetId: '',
+    showPreviewWarning: false,
+  };
+  const [state, dispatch] = React.useReducer(
+    createReducer(initialState, actions),
+    initialState,
+  );
+  const setEditorCode = code => dispatch({ type: 'setEditorCode', code });
+  const setLoadedCode = code => dispatch({ type: 'setLoadedCode', code });
+  const setSnippetId = (id: string) => dispatch({ type: 'setSnippetId', id });
+  const setStatus = (status: string) => dispatch({ type: 'setStatus', status });
+  const setShowPreviewWarning = (showPreviewWarning: boolean) =>
+    dispatch({ type: 'setShowPreviewWarning', showPreviewWarning });
 
   React.useEffect(() => {
     const id =
@@ -84,22 +122,26 @@ const Playground = ({ initialCode = '', urlFormatter, ...rest }) => {
 
     if (id) {
       setStatus('loading');
-      loadSnippet(snippetId);
+      void loadSnippet(id).then(snippetCode => {
+        setShowPreviewWarning(true);
+        setStatus('idle');
+        setLoadedCode(snippetCode);
+      });
     }
   }, []);
 
   const save =
-    status === 'saveSuccess' ? (
+    state.status === 'saveSuccess' ? (
       <SaveSuccess
-        snippetId={snippetId}
-        urlFormatter={urlFormatter}
+        snippetId={state.snippetId}
+        formatUrl={formatSnippetUrl}
         onClose={() => setStatus('idle')}
       />
     ) : (
       <TextButton
         onClick={() => {
-          saveSnippet(editorCode).then(id => {
-            setSnippedId(id);
+          void saveSnippet(state.editorCode || state.loadedCode).then(id => {
+            setSnippetId(id);
             setStatus('saveSuccess');
           });
         }}
@@ -111,14 +153,14 @@ const Playground = ({ initialCode = '', urlFormatter, ...rest }) => {
     );
 
   const load =
-    status === 'loadPrompt' ? (
+    state.status === 'loadPrompt' ? (
       <LoadPrompt
         onClose={() => setStatus('idle')}
-        onConfirm={snippetId => {
-          loadSnippet(snippetId).then(code => {
+        onConfirm={(id: string) => {
+          void loadSnippet(id).then(snippetCode => {
+            setShowPreviewWarning(true);
             setStatus('idle');
-            setCode({ raw: code });
-            editorCode = code;
+            setLoadedCode(snippetCode);
           });
         }}
       />
@@ -134,19 +176,20 @@ const Playground = ({ initialCode = '', urlFormatter, ...rest }) => {
   const memoizedLiveCodeExample = React.useMemo(
     () => (
       <LiveCodeExample
-        initialCode={code.raw}
-        onChange={code => (editorCode = code)}
+        initialCode={state.loadedCode}
+        previewWarning={state.showPreviewWarning ? previewWarning : null}
+        onChange={setEditorCode}
         {...rest}
       />
     ),
-    [code],
+    [state.loadedCode],
   );
 
   return (
     <>
       <div className={styles.header}>
-        {status !== 'loadPrompt' && save}
-        {status !== 'saveSuccess' && load}
+        {state.status !== 'loadPrompt' && save}
+        {state.status !== 'saveSuccess' && load}
       </div>
       {memoizedLiveCodeExample}
     </>
