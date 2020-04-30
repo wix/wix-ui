@@ -1,9 +1,6 @@
 import * as React from 'react';
 import PopperJS from 'popper.js';
-import onClickOutside, {
-  OnClickOutProps,
-  InjectedOnClickOutProps,
-} from 'react-onclickoutside';
+import { ClickOutside } from '../click-outside';
 import { Manager, Reference, Popper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
@@ -172,22 +169,6 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
   };
 };
 
-// We're declaring a wrapper for the clickOutside machanism and not using the
-// HOC because of Typings errors.
-const ClickOutsideWrapper: React.ComponentClass<OnClickOutProps<
-  InjectedOnClickOutProps
->> = onClickOutside(
-  class extends React.Component<any, any> {
-    handleClickOutside() {
-      this.props.handleClickOutside();
-    }
-
-    render() {
-      return this.props.children;
-    }
-  },
-);
-
 /**
  * Popover
  */
@@ -207,6 +188,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalNode: HTMLElement = null;
   portalClasses: string;
   appendToNode: HTMLElement = null;
+  clickOutsideRef: any = null;
   contentHook: string;
 
   popperScheduleUpdate: () => void = null;
@@ -222,6 +204,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false,
     };
 
+    this.clickOutsideRef = React.createRef();
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
@@ -525,9 +508,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     return (
       <Manager>
-        <ClickOutsideWrapper
-          handleClickOutside={this._handleClickOutside}
-          outsideClickIgnoreClass={excludeClass || classes.popover}
+        <ClickOutside
+          rootRef={this.clickOutsideRef}
+          onClickOutside={shown ? this._handleClickOutside : undefined}
+          excludeClass={excludeClass ? excludeClass : classes.popover}
         >
           <div
             style={style}
@@ -553,7 +537,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
             </Reference>
             {shouldRenderPopper && this.renderPopperContent(childrenObject)}
           </div>
-        </ClickOutsideWrapper>
+        </ClickOutside>
       </Manager>
     );
   }
