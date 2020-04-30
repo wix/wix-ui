@@ -50,12 +50,17 @@
 
 .saveSuccess {
   display: grid;
-  grid-template-columns: auto 24px;
+  grid-auto-flow: column;
   gap: 12px;
   align-items: center;
 
-  & > div {
+  > div {
     align-self: center;
+  }
+
+  > a {
+    color: #3899ec;
+    text-decoration: none;
   }
 }
 
