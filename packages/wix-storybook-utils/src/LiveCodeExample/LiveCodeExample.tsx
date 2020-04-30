@@ -307,12 +307,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
               {this.renderError()}
             </div>
 
-            <Collapse
-              isOpened={isEditorOpened}
-              className={classnames(styles.editor, {
-                [styles.opened]: isEditorOpened,
-              })}
-            >
+            <Collapse isOpened={isEditorOpened} className={styles.editor}>
               <LiveEditor
                 onChange={this.debouncedOnCodeChange}
                 className={styles.editorView}

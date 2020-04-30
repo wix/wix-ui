@@ -21,6 +21,6 @@ export default {
   sections: [
     header({ title: "Playground component" }),
     importExample("import Playground from 'wix-storybook-utils/Playground'"),
-    description(<Playground initialCode={code} />)
+    description(<Playground compact initiallyOpen initialCode={code} />)
   ]
 };

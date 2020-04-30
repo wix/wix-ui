@@ -61,8 +61,8 @@
 
 .previewWarning {
   @extend .error;
+  position: relative;
   white-space: normal;
-  min-height: 120px;
 
   > button {
     display: block;
