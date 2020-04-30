@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styles from './styles.scss';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styles from "./styles.scss";
 
 export default class TextButton extends Component {
   static propTypes = {
     onClick: PropTypes.func,
     prefixIcon: PropTypes.node,
     children: PropTypes.node,
+    disabled: PropTypes.bool
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      isHover: false,
+      isHover: false
     };
 
     this.toggleHover = this.toggleHover.bind(this);
@@ -20,19 +21,19 @@ export default class TextButton extends Component {
 
   toggleHover() {
     this.setState({
-      isHover: !this.state.isHover,
+      isHover: !this.state.isHover
     });
   }
 
   render() {
-    const buttonColor = this.state.isHover ? '#4EB7F5' : '#3899EC';
+    const buttonColor = this.state.isHover ? "#4EB7F5" : "#3899EC";
 
     const style = {
       color: buttonColor,
-      outline: 'none',
-      border: 'none',
-      background: 'none',
-      cursor: 'pointer',
+      outline: "none",
+      border: "none",
+      background: "none",
+      cursor: "pointer"
     };
 
     return (
@@ -41,7 +42,8 @@ export default class TextButton extends Component {
         style={style}
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
-        onClick={this.props.onClick}
+        onClick={!this.props.disabled && this.props.onClick}
+        disabled={this.props.disabled}
       >
         {this.props.prefixIcon ? (
           <div className={styles.prefix}>{this.props.prefixIcon}</div>

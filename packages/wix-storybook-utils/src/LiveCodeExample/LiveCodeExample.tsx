@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import prettier from 'prettier/standalone';
-import babylonParser from 'prettier/parser-babylon';
 import { transform } from '@babel/core';
 import debounce from 'lodash/debounce';
 
@@ -13,6 +11,7 @@ import RevertSmall from 'wix-ui-icons-common/RevertSmall';
 import CodeSmall from 'wix-ui-icons-common/CodeSmall';
 import MagicWandSmall from 'wix-ui-icons-common/MagicWandSmall';
 
+import { formatCode } from './format-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
@@ -39,6 +38,8 @@ interface Props {
   autoRender?: boolean;
   darkBackground?: boolean;
   noBackground?: boolean;
+  onChange?: Function;
+  previewWarning?({ onConfirm: Function }): React.ReactNode | null;
 }
 
 interface State {
@@ -48,9 +49,10 @@ interface State {
   isDarkBackground: boolean;
   isEditorOpened: boolean;
   parseError: object | null;
+  renderPreview: boolean;
 }
 
-export default class LiveCodeExample extends React.Component<Props, State> {
+export default class LiveCodeExample extends React.PureComponent<Props, State> {
   debouncedOnCodeChange: () => any;
 
   static propTypes = {
@@ -73,6 +75,8 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     autoRender: true,
     darkBackground: false,
     noBackground: false,
+    onChange: () => {},
+    renderPreview: true,
   };
 
   constructor(props: Props) {
@@ -82,7 +86,8 @@ export default class LiveCodeExample extends React.Component<Props, State> {
       trailing: true,
     });
 
-    const formattedCode = this.formatCode(props.initialCode);
+    const formattedCode = formatCode(props.initialCode);
+
     this.state = {
       initialFormattedCode: formattedCode,
       code: formattedCode,
@@ -90,32 +95,23 @@ export default class LiveCodeExample extends React.Component<Props, State> {
       isDarkBackground: props.darkBackground,
       isEditorOpened: !props.compact || props.initiallyOpen,
       parseError: null,
+      renderPreview: !Boolean(props.previewWarning),
     };
   }
 
-  formatCode = (code: string) => {
-    const filteredCode = code
-      .split('\n')
-      .filter(
-        line =>
-          !/\/(\*|\/)+.*((t|e)slint[-|:](dis|en)able|prettier-ignore)/.test(
-            line,
-          ),
-      )
-      .join('\n');
-
-    return prettier.format(filteredCode, {
-      parser: 'babel',
-      plugins: [babylonParser],
-      singleQuote: true,
-      trailingComma: 'all',
-    });
-  };
+  componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.previewWarning !== prevProps.previewWarning &&
+      typeof prevProps.previewWarning === 'function'
+    ) {
+      this.setState({ renderPreview: false });
+    }
+  }
 
   prettifyCode = ({ textAreaNode, prePrettifySelectionEnd }) => {
     try {
       this.setState(
-        ({ code }) => ({ code: this.formatCode(code) }),
+        ({ code }) => ({ code: formatCode(code) }),
         () => {
           if (textAreaNode && prePrettifySelectionEnd) {
             textAreaNode.selectionEnd = prePrettifySelectionEnd;
@@ -152,10 +148,11 @@ export default class LiveCodeExample extends React.Component<Props, State> {
 
   resetCode = () =>
     this.setState({
-      code: this.formatCode(this.props.initialCode),
+      code: formatCode(this.props.initialCode),
     });
 
-  onCodeChange = (code: string) => this.setState({ code });
+  onCodeChange = (code: string) =>
+    this.setState({ code }, () => this.props.onChange(this.state.code));
 
   onToggleRtl = (isRtl: boolean) => this.setState({ isRtl });
   onToggleBackground = (isDarkBackground: boolean) =>
@@ -195,6 +192,23 @@ export default class LiveCodeExample extends React.Component<Props, State> {
     }
   };
 
+  previewWarning = () =>
+    this.props.previewWarning({
+      onConfirm: () => this.setState({ renderPreview: true }),
+    });
+
+  renderError = () => {
+    if (this.state.renderPreview) {
+      return this.state.parseError ? (
+        <div className={styles.error}>{this.state.parseError}</div>
+      ) : (
+        <LiveError className={styles.error} />
+      );
+    }
+
+    return null;
+  };
+
   render() {
     const {
       compact,
@@ -203,12 +217,13 @@ export default class LiveCodeExample extends React.Component<Props, State> {
       autoRender,
       noBackground,
     } = this.props;
+
     const {
       code,
       isRtl,
       isDarkBackground,
       isEditorOpened,
-      parseError,
+      renderPreview,
     } = this.state;
 
     const dirty = this.state.initialFormattedCode !== this.state.code;
@@ -280,30 +295,25 @@ export default class LiveCodeExample extends React.Component<Props, State> {
               })}
               dir={isRtl ? 'rtl' : ''}
             >
-              <LivePreview
-                {...previewProps}
-                className={previewRow ? styles.previewRow : null}
-              />
-
-              {parseError ? (
-                <div className={styles.error}>{parseError}</div>
+              {renderPreview ? (
+                <LivePreview
+                  {...previewProps}
+                  className={previewRow ? styles.previewRow : null}
+                />
               ) : (
-                <LiveError className={styles.error} />
+                this.previewWarning()
               )}
+
+              {this.renderError()}
             </div>
 
-            <Collapse
-              isOpened={isEditorOpened}
-              className={classnames(styles.editor, {
-                [styles.opened]: isEditorOpened,
-              })}
-            >
+            <Collapse isOpened={isEditorOpened} className={styles.editor}>
               <LiveEditor
                 onChange={this.debouncedOnCodeChange}
                 className={styles.editorView}
-                // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `highlight` prop even though react-live spreads props onto that component
+                // @ts-ignore because LiveEditor spreads props onto `react-simple-code-editor` and it supports `highlight`
                 highlight={safeTokenHighlighter}
-                // @ts-ignore because react-live does not expose typings of their internal usage of `react-simple-code-editor which support `onKeyDown` prop even though react-live spreads props onto that component
+                // @ts-ignore because LiveEditor spreads props onto `react-simple-code-editor` and it supports `onKeyDown`
                 onKeyDown={this.liveEditorOnKeyDown}
               />
             </Collapse>
