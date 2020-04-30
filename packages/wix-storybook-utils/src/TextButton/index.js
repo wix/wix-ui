@@ -7,7 +7,7 @@ export default class TextButton extends Component {
     onClick: PropTypes.func,
     prefixIcon: PropTypes.node,
     children: PropTypes.node,
-    disabled: PropTypes.boolean
+    disabled: PropTypes.bool
   };
 
   constructor(props) {
