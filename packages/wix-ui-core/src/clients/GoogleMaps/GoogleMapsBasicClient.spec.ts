@@ -34,6 +34,7 @@ describe('GoogleMapsBasicClient', () => {
       const result = [
         {
           geometry: {
+            location_type:'ROOFTOP',
             location: {
               lat: () => 1,
               lng: () => 2,
@@ -189,7 +190,7 @@ describe('GoogleMapsBasicClient', () => {
           expect.anything(),
         );
         expect(await result).toEqual([
-          { geometry: { location: { lat: 1, lng: 2 } } },
+          { geometry: { location_type:'ROOFTOP',location: { lat: 1, lng: 2 } } },
         ]);
       });
 
@@ -204,7 +205,7 @@ describe('GoogleMapsBasicClient', () => {
           expect.anything(),
         );
         expect(await result).toEqual([
-          { geometry: { location: { lat: 1, lng: 2 } } },
+          { geometry: {location_type:'ROOFTOP', location: { lat: 1, lng: 2 } } },
         ]);
       });
 

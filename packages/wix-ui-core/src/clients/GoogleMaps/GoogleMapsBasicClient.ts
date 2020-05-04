@@ -22,6 +22,7 @@ const locationFuncOrValue = locationProp => {
 const serializeResult = results => ({
   ...results,
   geometry: {
+    ...results.geometry,
     location: {
       lat: locationFuncOrValue(results.geometry.location.lat),
       lng: locationFuncOrValue(results.geometry.location.lng),
