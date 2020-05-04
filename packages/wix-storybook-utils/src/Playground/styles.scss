@@ -3,6 +3,7 @@
 
 .header {
   margin-bottom: 12px;
+  min-height: 24px;
   text-align: right;
   @include font(light);
   font-size: 12px;

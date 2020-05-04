@@ -28,7 +28,7 @@ const safeTokenHighlighter = (code: string) => {
   }
 };
 
-interface Props {
+export interface Props {
   initialCode?: string;
   scope?: object;
   compact?: boolean;
