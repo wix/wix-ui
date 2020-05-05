@@ -32,15 +32,24 @@ const loadSnippet = async (snippetId: string) => {
 };
 
 const saveSnippet = async (code: string): Promise<string> => {
-  const response = await fetch(snippetDatastoreUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data: code }),
-  });
-  const { id } = await response.json();
-  return id;
+  try {
+    const response = await fetch(snippetDatastoreUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: code }),
+    });
+
+    if (response.status === 200) {
+      const { id } = await response.json();
+      return id;
+    }
+
+    return Promise.reject(response.statusText);
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 const SaveSuccess = ({
