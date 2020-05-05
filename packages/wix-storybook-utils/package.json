@@ -19,10 +19,10 @@
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
   "scripts": {
-    "prebuild": "yoshi lint",
+    "lint": "yoshi lint",
     "build": "yoshi build && import-path --path src",
     "postbuild": "npm run docs:sections",
-    "pretest": "build-storybook",
+    "pretest": "npm run lint && build-storybook",
     "test": "yoshi test --jest",
     "start": "start-storybook -p 6006",
     "release": "yoshi release",

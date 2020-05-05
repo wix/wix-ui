@@ -4,6 +4,15 @@
   @extend .commonText;
   display: inline-flex;
   align-items: center;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #3899EC;
+
+  &:hover {
+    color: #4EB7F5;
+  }
 }
 
 .prefix {

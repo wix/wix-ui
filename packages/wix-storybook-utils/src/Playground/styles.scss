@@ -1,31 +1,48 @@
 @import "../ui/typography.scss";
 @import "../LiveCodeExample/index.scss";
 
+$border-radius: 3px;
+
 .header {
   margin-bottom: 12px;
-  text-align: right;
+  height: 30px;
   @include font(light);
-  font-size: 12px;
+  font-size: 1$border-radius;
 }
 
-.loadPrompt {
-  display: inline-grid;
-  grid-template-columns: 400px auto auto;
-  gap: 10px;
-}
-
-.loadPromptButton {
-  width: 24px;
-  height: 24px;
-  background: #3899ec;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  display: inline-flex;
+.saveSuccess {
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  justify-self: center;
+  height: 100%;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.urlPreview {
+  width: 260px;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: $border-radius 0 0 $border-radius;
+  border: 1px solid #dfe5eb;
+  padding: 4px 5px;
+  font-size: 0.8em;
+  margin-left: 30px;
+  border-right: 0;
+  color: #292929;
+}
+
+.copyButton {
+  background: none;
+  cursor: pointer;
+  border: 1px solid rgb(223, 229, 235);
+  height: 100%;
+  border-radius: 0 $border-radius $border-radius 0;
+  padding: 0 10px 0 7px;
+  font-size: 0.9em;
 }
 
 .closeButton {
@@ -38,30 +55,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.loadPromptInput {
-  width: 200px;
-  border-radius: 3px;
-  border: 1px solid #dfe5eb;
-  padding: 4px 5px;
-  font-size: 0.7rem;
-}
-
-.saveSuccess {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 12px;
-  align-items: center;
-
-  > div {
-    align-self: center;
-  }
-
-  > a {
-    color: #3899ec;
-    text-decoration: none;
-  }
+  margin-left: 10px;
 }
 
 .previewWarning {
