@@ -108,7 +108,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   }
 
-  prettifyCode = ({ textAreaNode, prePrettifySelectionEnd }) => {
+  prettifyCode = ({
+    textAreaNode = null,
+    prePrettifySelectionEnd = null,
+  } = {}) => {
     try {
       this.setState(
         ({ code }) => ({ code: formatCode(code) }),
@@ -246,7 +249,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
             {dirty && (
               <div className={styles.headerControl}>
                 <TextButton
-                  onClick={this.prettifyCode}
+                  onClick={() => this.prettifyCode()}
                   prefixIcon={<MagicWandSmall />}
                 >
                   Prettify
@@ -329,7 +332,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
             {dirty && (
               <TextButton
-                onClick={this.prettifyCode}
+                onClick={() => this.prettifyCode()}
                 prefixIcon={<MagicWandSmall />}
               >
                 Prettify
