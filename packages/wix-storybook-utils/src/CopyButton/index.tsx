@@ -6,6 +6,7 @@ import TextButton from '../TextButton';
 interface Props {
   source: string;
   prefixIcon?: React.ReactNode;
+  className?: string;
 }
 
 interface State {
@@ -42,7 +43,11 @@ export class CopyButton extends React.Component<Props, State> {
 
   render() {
     return (
-      <TextButton onClick={this.onCopy} prefixIcon={this.props.prefixIcon}>
+      <TextButton
+        className={this.props.className}
+        onClick={this.onCopy}
+        prefixIcon={this.props.prefixIcon}
+      >
         {this.state.notification ? 'Copied to clipboard!' : 'Copy'}
       </TextButton>
     );

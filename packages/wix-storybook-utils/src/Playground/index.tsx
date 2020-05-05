@@ -8,6 +8,7 @@ import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';
 import TextButton from '../TextButton';
 import { CopyButton } from '../CopyButton';
+import LinkSmall from 'wix-ui-icons-common/LinkSmall';
 import styles from './styles.scss';
 
 const snippetDatastoreUrl = `https://www.wix.com/_serverless/wix-style-react-playground/snippet`;
@@ -44,10 +45,18 @@ const SaveSuccess = ({
   return (
     <div className={styles.saveSuccess}>
       {'Saved! '}
-      <a href={url} target="_blank">
-        {snippetId}
-      </a>
-      <CopyButton source={url} />
+      <input
+        onClick={e => (e.target as HTMLInputElement).select()}
+        className={styles.urlPreview}
+        readOnly
+        type="text"
+        value={url}
+      />
+      <CopyButton
+        className={styles.copyButton}
+        prefixIcon={<LinkSmall />}
+        source={url}
+      />
       <button className={styles.closeButton} onClick={onClose}>
         <Close />
       </button>
@@ -135,14 +144,16 @@ const Playground: React.FunctionComponent<Props> = ({
   );
 
   const headerViews = {
-    loadFailure: () => null,
     idle: () => (
       <TextButton
         onClick={() => {
           setState({ status: 'saving' });
-          void saveSnippet(
-            state.editorCode || state.loadedCode,
-          ).then(snippetId => setState({ snippetId, status: 'saveSuccess' }));
+          void saveSnippet(state.editorCode || state.loadedCode)
+            .then(snippetId => setState({ snippetId, status: 'saveSuccess' }))
+            .catch(error => {
+              console.error('Unable to save snippet', error);
+              setState({ status: 'saveFailure' });
+            });
         }}
         prefixIcon={<UploadExportSmall />}
       >
@@ -159,6 +170,18 @@ const Playground: React.FunctionComponent<Props> = ({
     ),
 
     saving: () => 'Saving...',
+
+    // don't render anything in header if loading failed
+    loadFailure: () => null,
+
+    saveFailure: () => (
+      <div>
+        Unable to save sippet :(
+        <TextButton onClick={() => setState({ status: 'idle' })}>
+          Try again
+        </TextButton>
+      </div>
+    ),
   };
 
   const views = {
