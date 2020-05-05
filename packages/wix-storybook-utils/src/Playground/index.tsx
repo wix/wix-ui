@@ -16,8 +16,16 @@ const snippetDatastoreUrl = `https://www.wix.com/_serverless/wix-style-react-pla
 const loadSnippet = async (snippetId: string) => {
   try {
     const response = await fetch(`${snippetDatastoreUrl}/${snippetId}`);
-    const code = await response.text();
-    return code && code.trim().length ? formatCode(code) : '';
+    const { isSafe, code } = await response.json();
+
+    if (code && code.trim().length) {
+      return {
+        code: formatCode(code),
+        isSafe,
+      };
+    }
+
+    return Promise.reject(`Invalid code snippet loaded: ${code}`);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -31,8 +39,8 @@ const saveSnippet = async (code: string): Promise<string> => {
     },
     body: JSON.stringify({ data: code }),
   });
-  const snippetId = await response.text();
-  return snippetId;
+  const { id } = await response.json();
+  return id;
 };
 
 const SaveSuccess = ({
@@ -121,8 +129,12 @@ const Playground: React.FunctionComponent<Props> = ({
     if (id) {
       setState({ status: 'loading' });
       void loadSnippet(id)
-        .then(loadedCode =>
-          setState({ loadedCode, status: 'idle', showPreviewWarning: true }),
+        .then(loaded =>
+          setState({
+            loadedCode: loaded.code,
+            status: 'idle',
+            showPreviewWarning: !loaded.isSafe,
+          }),
         )
         .catch(error => {
           console.log(error);
@@ -148,13 +160,14 @@ const Playground: React.FunctionComponent<Props> = ({
       <TextButton
         onClick={() => {
           setState({ status: 'saving' });
-          void saveSnippet(state.editorCode || state.loadedCode)
+          void saveSnippet(state.editorCode)
             .then(snippetId => setState({ snippetId, status: 'saveSuccess' }))
             .catch(error => {
               console.error('Unable to save snippet', error);
               setState({ status: 'saveFailure' });
             });
         }}
+        disabled={state.editorCode === state.loadedCode}
         prefixIcon={<UploadExportSmall />}
       >
         Save
