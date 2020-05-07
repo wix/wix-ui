@@ -1,5 +1,4 @@
 @import "../ui/typography.scss";
-@import "../LiveCodeExample/index.scss";
 
 $border-radius: 3px;
 
@@ -59,12 +58,44 @@ $border-radius: 3px;
 }
 
 .previewWarning {
-  @extend .error;
-  position: relative;
-  white-space: normal;
+  padding: 18px 42px 18px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #FFEBEB;
+  border: 1px solid #FFD7D7;
+  border-radius: 6px;
+  @include font(light);
+  color: #222;
+  line-height: 1.2;
+  font-size: 14px;
 
-  > button {
-    display: block;
-    margin: 12px auto 0;
+  h3 {
+    margin: 0;
+  }
+}
+
+.previewConfirmButton {
+  padding-top: 1em;
+  color: #222;
+  line-height: 1.2;
+  font-size: 13px;
+  background-color: transparent;
+  border-radius: 15px;
+  border: solid 1px #7a92a5;
+  color: #162d3d;
+  @include font(roman);
+  font-size: 14px;
+  font-weight: 400;
+  height: 30px;
+  line-height: 18px;
+  min-width: 72px;
+  padding: 0 17px;
+  transition: .2s ease all;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background-color: #32536a;
+    border-color: #32536a;
   }
 }

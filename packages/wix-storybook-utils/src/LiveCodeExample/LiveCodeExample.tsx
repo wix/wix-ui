@@ -76,7 +76,6 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     darkBackground: false,
     noBackground: false,
     onChange: () => {},
-    renderPreview: true,
   };
 
   constructor(props: Props) {
