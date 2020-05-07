@@ -10,7 +10,7 @@
   cursor: pointer;
   color: #3899EC;
 
-  &:hover {
+  &:not(.disabled):hover {
     color: #4EB7F5;
   }
 }
@@ -20,4 +20,9 @@
   line-height: 0;
   display: inline-block;
   vertical-align: middle;
+}
+
+.disabled { 
+  color: #333;
+  cursor: default;
 }

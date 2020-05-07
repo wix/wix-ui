@@ -8,6 +8,7 @@ import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';
 import TextButton from '../TextButton';
 import { CopyButton } from '../CopyButton';
+import { formatCode } from '../LiveCodeExample/format-code';
 
 import styles from './styles.scss';
 
@@ -69,8 +70,8 @@ const Playground: React.FunctionComponent<Props> = ({
   ...rest
 }) => {
   const initialState: State = {
-    editorCode: '',
-    loadedCode: initialCode,
+    editorCode: formatCode(initialCode),
+    loadedCode: formatCode(initialCode),
     status: 'idle',
     snippetId: '',
     showPreviewWarning: false,
@@ -93,7 +94,7 @@ const Playground: React.FunctionComponent<Props> = ({
       void loadSnippet(snippetId)
         .then(loaded =>
           setState({
-            loadedCode: loaded.code,
+            loadedCode: formatCode(loaded.code),
             status: 'idle',
             showPreviewWarning: !loaded.isSafe,
             snippetId,
@@ -111,7 +112,9 @@ const Playground: React.FunctionComponent<Props> = ({
       <LiveCodeExample
         initialCode={state.loadedCode}
         previewWarning={state.showPreviewWarning ? previewWarning : null}
-        onChange={(editorCode: string) => setState({ editorCode })}
+        onChange={(editorCode: string) =>
+          setState({ editorCode: formatCode(editorCode) })
+        }
         {...rest}
       />
     ),

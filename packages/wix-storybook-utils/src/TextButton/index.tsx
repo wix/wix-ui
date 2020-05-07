@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.scss';
+import classnames from 'classnames';
 
 interface Props {
   onClick(event: React.MouseEvent<HTMLButtonElement>): void;
@@ -17,7 +18,9 @@ const TextButton: React.FunctionComponent<Props> = ({
   children,
 }) => (
   <button
-    className={[styles.root, className].join(' ')}
+    className={classnames(styles.root, className, {
+      [styles.disabled]: disabled,
+    })}
     onClick={!disabled && onClick}
     disabled={disabled}
   >

@@ -1,5 +1,3 @@
-import { formatCode } from '../LiveCodeExample/format-code';
-
 const snippetDatastoreUrl = `https://www.wix.com/_serverless/wix-style-react-playground/snippet`;
 
 export const loadSnippet = async (snippetId: string) => {
@@ -9,7 +7,7 @@ export const loadSnippet = async (snippetId: string) => {
 
     if (code && code.trim().length) {
       return {
-        code: formatCode(code),
+        code,
         isSafe,
       };
     }
