@@ -41,6 +41,8 @@ export interface AutocompleteProps {
   prefix?: React.ReactNode;
   /** Suffix */
   suffix?: React.ReactNode;
+  /** DOM id for underlying input */
+  inputId?: string;
   inputProps?: InputProps;
 }
 
@@ -126,6 +128,7 @@ export class Autocomplete extends React.PureComponent<
       onManualInput,
       disabled,
       className,
+      inputId,
     } = this.props;
     const inputProps = this._createInputProps();
     return (
@@ -144,6 +147,7 @@ export class Autocomplete extends React.PureComponent<
         onManualInput={onManualInput}
         options={options}
         inputProps={inputProps}
+        id={inputId ? inputId : null}
       />
     );
   }

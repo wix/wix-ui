@@ -25,6 +25,17 @@ describe('Autocomplete', () => {
     expect(driver.isContentElementExists()).toBeFalsy();
   });
 
+  it('should set id for options nodes when inputId is given', () => {
+    const id = 'test-input-id';
+    const index = 2;
+    const driver = createDriver(
+        <Autocomplete options={options} inputId={id} />
+    );
+    driver.click();
+    const optionElement: HTMLElement = driver.optionAt(index).getElement();
+    expect(optionElement.id).toEqual(`${id}-content_option-${index}`);
+  });
+
   it('should initialize autocomplete with value', () => {
     const driver = createDriver(
       <Autocomplete initialSelectedId={1} options={options} />,
