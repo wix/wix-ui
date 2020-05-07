@@ -1,56 +1,18 @@
 import React, { Dispatch } from 'react';
 import * as queryString from 'query-string';
 import UploadExportSmall from 'wix-ui-icons-common/UploadExportSmall';
+import LinkSmall from 'wix-ui-icons-common/LinkSmall';
 import Close from 'wix-ui-icons-common/system/Close';
 
-import { formatCode } from '../LiveCodeExample/format-code';
 import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';
 import TextButton from '../TextButton';
 import { CopyButton } from '../CopyButton';
-import LinkSmall from 'wix-ui-icons-common/LinkSmall';
+
 import styles from './styles.scss';
 
-const snippetDatastoreUrl = `https://www.wix.com/_serverless/wix-style-react-playground/snippet`;
-
-const loadSnippet = async (snippetId: string) => {
-  try {
-    const response = await fetch(`${snippetDatastoreUrl}/${snippetId}`);
-    const { isSafe, code } = await response.json();
-
-    if (code && code.trim().length) {
-      return {
-        code: formatCode(code),
-        isSafe,
-      };
-    }
-
-    return Promise.reject(`Invalid code snippet loaded: ${code}`);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
-
-const saveSnippet = async (code: string): Promise<string> => {
-  try {
-    const response = await fetch(snippetDatastoreUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ data: code }),
-    });
-
-    if (response.status === 200) {
-      const { id } = await response.json();
-      return id;
-    }
-
-    return Promise.reject(response.statusText);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
+import { previewWarning } from './preview-warning';
+import { saveSnippet, loadSnippet } from './snippet';
 
 const SaveSuccess = ({
   snippetId,
@@ -80,15 +42,6 @@ const SaveSuccess = ({
     </div>
   );
 };
-
-const previewWarning = ({ onConfirm }) => (
-  <div className={styles.previewWarning}>
-    <h3>WARNING!</h3>
-    <p>Evaluating downloaded code can be dangerous!</p>
-    <p>Inspect code before running it!</p>
-    <button onClick={onConfirm}>OK, I trust this code</button>
-  </div>
-);
 
 interface State {
   editorCode: string;
@@ -132,22 +85,23 @@ const Playground: React.FunctionComponent<Props> = ({
   );
 
   React.useEffect(() => {
-    const id =
+    const snippetId =
       (queryString.parse(window.location.search).snippet as string) || null;
 
-    if (id) {
+    if (snippetId) {
       setState({ status: 'loading' });
-      void loadSnippet(id)
+      void loadSnippet(snippetId)
         .then(loaded =>
           setState({
             loadedCode: loaded.code,
             status: 'idle',
             showPreviewWarning: !loaded.isSafe,
+            snippetId,
           }),
         )
         .catch(error => {
           console.log(error);
-          setState({ status: 'loadFailure' });
+          setState({ status: 'loadFailure', snippetId });
         });
     }
   }, []);
@@ -211,11 +165,15 @@ const Playground: React.FunctionComponent<Props> = ({
     loading: () => 'Loading saved code snippet...',
     loadFailure: () => (
       <div className={styles.previewWarning}>
-        <h3>ERROR</h3>
+        <h3>Error!</h3>
         <p>
-          Can't find snippet with ID <strong>{state.snippetId}</strong>
+          Tried to load snippet ID <strong>{state.snippetId}</strong> but did
+          not find it.
         </p>
-        <button onClick={() => setState({ status: 'idle' })}>
+        <button
+          className={styles.previewConfirmButton}
+          onClick={() => setState({ status: 'idle' })}
+        >
           Reset Editor
         </button>
       </div>
