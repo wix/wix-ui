@@ -1,19 +1,13 @@
 @import "../ui/typography.scss";
 
-$border-radius: 3px;
-
 .header {
-  margin-bottom: 12px;
-  height: 30px;
-  @include font(light);
-  font-size: 1$border-radius;
-}
-
-.saveSuccess {
   display: flex;
+  height: 30px;
+  margin-bottom: 12px;
+  @include font(light);
+  font-size: 13px;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
 
   > div {
     display: flex;
@@ -25,7 +19,7 @@ $border-radius: 3px;
   width: 260px;
   height: 100%;
   box-sizing: border-box;
-  border-radius: $border-radius 0 0 $border-radius;
+  border-radius: 3px 0 0 3px;
   border: 1px solid #dfe5eb;
   padding: 4px 5px;
   font-size: 0.8em;
@@ -39,7 +33,7 @@ $border-radius: 3px;
   cursor: pointer;
   border: 1px solid rgb(223, 229, 235);
   height: 100%;
-  border-radius: 0 $border-radius $border-radius 0;
+  border-radius: 0 3px 3px 0;
   padding: 0 10px 0 7px;
   font-size: 0.9em;
 }

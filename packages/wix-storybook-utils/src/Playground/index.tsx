@@ -22,7 +22,7 @@ const SaveSuccess = ({
   const url = formatUrl(snippetId);
 
   return (
-    <div className={styles.saveSuccess}>
+    <>
       {'Saved! '}
       <input
         onClick={e => (e.target as HTMLInputElement).select()}
@@ -39,7 +39,7 @@ const SaveSuccess = ({
       <button className={styles.closeButton} onClick={onClose}>
         <Close />
       </button>
-    </div>
+    </>
   );
 };
 
@@ -151,12 +151,12 @@ const Playground: React.FunctionComponent<Props> = ({
     loadFailure: () => null,
 
     saveFailure: () => (
-      <div>
+      <>
         Unable to save sippet :(
         <TextButton onClick={() => setState({ status: 'idle' })}>
           Try again
         </TextButton>
-      </div>
+      </>
     ),
   };
 
