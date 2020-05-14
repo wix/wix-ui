@@ -31,7 +31,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** initial selected option ids */
   initialSelectedIds: (string | number)[];
   /** A callback for when initial selected options are set */
-  onInitialSelectedOptionsSet(options: Option[]): void;
+  onInitialSelectedOptionsSet?(options: Option[]): void;
   /** set true for multiple selection, false for single */
   multi?: boolean;
   /** An element that always appears at the top of the options */
