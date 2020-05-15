@@ -5,7 +5,7 @@ import { CircularProgressBar } from './';
 import { runTestkitExistsSuite } from '../../common/testkitTests';
 import { circularProgressBarTestkitFactory } from '../../testkit';
 import { circularProgressBarTestkitFactory as enzymeCircularProgressBarTestkitFactory } from '../../testkit/enzyme';
-import { circularProgressBarUniDriverFactory } from './CircularProgressBar.uni.driver';
+import { circularProgressBarUniDriverFactory } from './CircularProgressBar.private.uni.driver';
 
 const createCircularProgressBar = (props = {}) => {
   return <CircularProgressBar {...props} />;
@@ -25,16 +25,27 @@ describe('CircularProgressBar', () => {
   });
 
   describe('[async]', () => {
-    runTests(
-      testContainer.createUniRendererAsync(circularProgressBarUniDriverFactory),
+    const render = testContainer.createUniRendererAsync(
+      circularProgressBarUniDriverFactory,
     );
+
+    runTests(render);
+
+    it('should support data- attributes', async () => {
+      const driver = await render(
+        createCircularProgressBar({
+          'data-hello': 'world',
+          'hello-data': 'i should not exist!',
+        }),
+      );
+      expect(await driver.getAttribute('data-hello')).toBe('world');
+      expect(await driver.getAttribute('hello-data')).toBe(null);
+    });
   });
 
   function runTests(render) {
     it('should render', async () => {
-      const driver = await render(
-        createCircularProgressBar({ ...defaultProps }),
-      );
+      const driver = await render(createCircularProgressBar(defaultProps));
       expect(await driver.exists()).toBe(true);
     });
 
@@ -223,9 +234,7 @@ describe('CircularProgressBar', () => {
       });
 
       it('should not display percentages value by default', async () => {
-        const driver = await render(
-          createCircularProgressBar({ ...defaultProps }),
-        );
+        const driver = await render(createCircularProgressBar(defaultProps));
         expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
       });
     });
