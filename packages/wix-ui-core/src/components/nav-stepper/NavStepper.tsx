@@ -2,6 +2,7 @@ import * as React from 'react';
 import { st, classes } from './NavStepper.st.css';
 import { Stepper } from '../stepper';
 import { NavStep, ExternalNavStepProps } from './NavStep';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export { ExternalNavStepProps } from './NavStep';
 
@@ -24,7 +25,7 @@ export class NavStepper extends React.PureComponent<NavStepperProps> {
     return (
       <nav
         className={st(classes.root, className)}
-        data-hook={this.props['data-hook']}
+        {...filterDataProps(this.props)}
       >
         <Stepper activeStep={activeStep}>
           {({ getStepProps }) => (

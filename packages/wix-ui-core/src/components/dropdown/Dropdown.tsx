@@ -4,6 +4,7 @@ import { Popover, Placement, PopoverProps } from '../popover';
 import { DropdownContent, IDOMid } from '../dropdown-content';
 import { Option } from '../dropdown-option';
 import { CLICK, HOVER, OPEN_TRIGGER_TYPE } from './constants';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** hook for testing purposes */
@@ -307,7 +308,6 @@ export class DropdownComponent extends React.PureComponent<
     return (
       <Popover
         className={st(classes.root, { 'content-visible': shown }, className)}
-        data-hook={this.props['data-hook']}
         placement={placement}
         shown={shown}
         showArrow={showArrow}
@@ -331,6 +331,7 @@ export class DropdownComponent extends React.PureComponent<
         moveBy={moveBy}
         role={role}
         zIndex={optionsContainerZIndex}
+        {...filterDataProps(this.props)}
       >
         <Popover.Element>{children}</Popover.Element>
         <Popover.Content>

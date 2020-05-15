@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { st, classes } from './Tooltip.st.css';
 import { Popover, Placement, AppendTo } from '../popover';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface Point {
   x: number;
@@ -152,7 +153,6 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return (
       <Popover
         className={st(classes.root, className)}
-        data-hook={this.props['data-hook']}
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
@@ -173,6 +173,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         zIndex={zIndex}
         minWidth={minWidth}
         maxWidth={maxWidth}
+        {...filterDataProps(this.props)}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
         <Popover.Content>{content}</Popover.Content>

@@ -3,6 +3,7 @@ import { st, classes } from './Autocomplete.st.css';
 import { InputWithOptions } from '../input-with-options';
 import { Option, OptionFactory } from '../dropdown-option/OptionFactory';
 import { InputProps, AriaAutoCompleteType } from '../input';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({ className: classes.divider, value });
@@ -134,7 +135,6 @@ export class Autocomplete extends React.PureComponent<
     return (
       <InputWithOptions
         className={st(classes.root, { disabled }, className)}
-        data-hook={this.props['data-hook']}
         onSelect={this._onSelect}
         initialSelectedIds={
           initialSelectedId || initialSelectedId === 0
@@ -148,6 +148,7 @@ export class Autocomplete extends React.PureComponent<
         options={options}
         inputProps={inputProps}
         id={inputId ? inputId : null}
+        {...filterDataProps(this.props)}
       />
     );
   }

@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Portal } from 'react-portal';
 import { st, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 import {
   buildChildrenObject,
@@ -515,12 +516,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         >
           <div
             style={style}
-            data-hook={this.props['data-hook']}
             data-content-hook={this.contentHook}
             className={st(classes.root, { fluid }, this.props.className)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             id={id}
+            {...filterDataProps(this.props)}
           >
             <Reference innerRef={r => (this.targetRef = r)}>
               {({ ref }) => (

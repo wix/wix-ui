@@ -12,6 +12,7 @@ import {
   parseTime,
   isValidTime,
 } from './utils';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export type TimePickerProps = Pick<
   InputProps,
@@ -487,7 +488,6 @@ export class TimePicker extends React.PureComponent<
       <Input
         {...passThroughProps}
         className={st(classes.root, { focus }, className)}
-        data-hook={this.props['data-hook']}
         ref={ref => (this._inputRef = ref)}
         type="text"
         value={value}
@@ -501,6 +501,7 @@ export class TimePicker extends React.PureComponent<
         onClick={this._onClick}
         onDragStart={e => e.stopPropagation()}
         style={inlineStyle}
+        {...filterDataProps(this.props)}
       />
     );
   }

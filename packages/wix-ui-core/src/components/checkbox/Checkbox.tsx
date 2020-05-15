@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { st, classes } from './Checkbox.st.css';
 import { noop } from '../../utils';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface OnChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   checked: boolean;
@@ -68,8 +69,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
           },
           this.props.className,
         )}
-        data-hook={this.props['data-hook']}
         onMouseDown={this.handleMouseDown}
+        {...filterDataProps(this.props)}
       >
         <input
           type="checkbox"

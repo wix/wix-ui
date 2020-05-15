@@ -3,6 +3,7 @@ import * as React from 'react';
 import { st, classes } from './FilePickerButton.st.css';
 import { DataHook } from './test/FilePickerButton.helpers';
 import { noop } from '../../utils';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface FilePickerButtonProps {
   id?: string;
@@ -59,7 +60,7 @@ export class FilePickerButton extends React.Component<
     return (
       <div
         className={st(classes.root, { required, disabled }, className)}
-        data-hook={this.props['data-hook']}
+        {...filterDataProps(this.props)}
       >
         <input
           id={id}

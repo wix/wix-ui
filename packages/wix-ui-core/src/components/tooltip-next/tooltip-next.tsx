@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { st, classes } from '../tooltip/Tooltip.st.css';
 import { PopoverNext } from '../popover-next';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 import { Placement, AppendTo } from '../popover';
 
@@ -154,9 +155,6 @@ export class TooltipNext extends React.PureComponent<
     return (
       <PopoverNext
         className={st(classes.root, this.props.className)}
-        {...(this.props['data-hook']
-          ? { 'data-hook': this.props['data-hook'] }
-          : {})}
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
@@ -177,6 +175,7 @@ export class TooltipNext extends React.PureComponent<
         zIndex={zIndex}
         minWidth={minWidth}
         maxWidth={maxWidth}
+        {...filterDataProps(this.props)}
       >
         <PopoverNext.Element>{this._renderElement()}</PopoverNext.Element>
         <PopoverNext.Content>{content}</PopoverNext.Content>

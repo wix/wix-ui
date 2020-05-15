@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { st, classes } from './ToggleSwitch.st.css';
 import { dataHooks } from './constants';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 // The only reason this exists is that Santa currently doesn't support boolean and number types
 // in the style panel, and some of the styling options have to live in the layout panel,
@@ -71,8 +72,8 @@ export class ToggleSwitch extends React.PureComponent<
           },
           className,
         )}
-        data-hook={this.props['data-hook']}
         style={inlineStyles.root}
+        {...filterDataProps(this.props)}
       >
         <div
           data-hook={dataHooks.track}

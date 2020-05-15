@@ -2,6 +2,7 @@ import * as React from 'react';
 import { st, classes } from './Input.st.css';
 import { Omit } from 'type-zoo';
 import * as classnames from 'classnames';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 type OmittedInputProps = 'value' | 'prefix';
 export type AriaAutoCompleteType = 'list' | 'none' | 'both';
@@ -70,8 +71,8 @@ export class Input extends React.Component<InputProps, InputState> {
           { disabled, error: !!error && !disabled, focus },
           className,
         )}
-        data-hook={this.props['data-hook']}
         style={inlineStyle}
+        {...filterDataProps(this.props)}
       >
         {prefix}
         <input

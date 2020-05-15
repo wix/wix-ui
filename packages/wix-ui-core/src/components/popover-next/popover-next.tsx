@@ -12,6 +12,7 @@ import CSSTransition from './components/CSSTransition';
 import Loader from './components/Loader';
 import Portal from './components/Portal';
 import { PopperProps } from './components/Popper';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 import { style, classes } from '../popover/Popover.st.css';
 
@@ -433,12 +434,12 @@ export class PopoverNext extends React.Component<
             <div
               ref={this.clickOutsideRef}
               style={inlineStyles}
-              data-hook={this.props['data-hook']}
               data-content-hook={this.contentHook}
               className={style(classes.root, { fluid }, className)}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
               id={id}
+              {...filterDataProps(this.props)}
             >
               <Reference innerRef={r => (this.targetRef = r)}>
                 {({ ref }) => (
