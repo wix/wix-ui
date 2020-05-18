@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { st, classes } from './RadioButton.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const noop = () => null;
 
@@ -110,11 +111,11 @@ export class RadioButton extends React.Component<
           },
           className,
         )}
-        data-hook={this.props['data-hook']}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"
         aria-checked={checked ? checked : false}
+        {...filterDataProps(this.props)}
       >
         <input
           type="radio"

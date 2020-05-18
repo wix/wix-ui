@@ -6,6 +6,7 @@ import { Option, OptionFactory } from '../dropdown-option';
 import { Label } from '../deprecated/label';
 import { CLICK } from '../dropdown/constants';
 import { noop } from '../../utils';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const createDivider = (value = null) =>
   OptionFactory.createDivider({ className: classes.divider, value });
@@ -97,7 +98,6 @@ export class LabelWithOptions extends React.PureComponent<
           },
           className,
         )}
-        data-hook={this.props['data-hook']}
         multi={multi}
         placement="bottom-start"
         initialSelectedIds={initialSelectedIds}
@@ -109,6 +109,7 @@ export class LabelWithOptions extends React.PureComponent<
         onSelect={this.onSelect}
         onDeselect={this.onDeselect}
         disabled={disabled}
+        {...filterDataProps(this.props)}
       >
         <div className={classes.selection}>
           <Label

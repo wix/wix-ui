@@ -4,6 +4,7 @@ import { Dropdown } from '../dropdown';
 import { Placement } from '../popover';
 import { Option } from '../dropdown-option';
 import { HOVER, OPEN_TRIGGER_TYPE } from '../dropdown/constants';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface IconWithOptionsProps {
   /** The location to display the content */
@@ -45,14 +46,12 @@ export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = pr
     iconUrl,
     fixedHeader,
     fixedFooter,
-    dataHook,
     className,
   } = props;
 
   return (
     <Dropdown
       className={st(classes.root, className)}
-      data-hook={dataHook}
       options={options}
       placement={placement}
       openTrigger={openTrigger}
@@ -64,6 +63,7 @@ export const IconWithOptions: React.FunctionComponent<IconWithOptionsProps> = pr
       fixedHeader={fixedHeader}
       onDeselect={onDeselect}
       initialSelectedIds={initialSelectedIds}
+      {...filterDataProps(props)}
     >
       <img src={iconUrl} tabIndex={5} />
     </Dropdown>

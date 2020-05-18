@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { st, classes } from './menu-item.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface MenuItemProps {
   /** hook for testing purposes */
@@ -39,11 +40,11 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = props => {
         className,
       )}
       {...rest}
-      data-hook={props['data-hook']}
       data-selected={selected}
       data-highlighted={highlighted}
       data-disabled={disabled}
       onClick={disabled ? () => null : onSelect}
+      {...filterDataProps(props)}
     />
   );
 };

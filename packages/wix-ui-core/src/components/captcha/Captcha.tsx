@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Reaptcha from 'reaptcha';
 import { Size, CaptchaType, Theme, CaptchaLang } from './types';
 import { st, classes } from './Captcha.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface CaptchaProps {
   required?: boolean;
@@ -120,11 +121,11 @@ export class Captcha extends React.PureComponent<CaptchaProps, CaptchaState> {
           { loaded: this.state.rendered },
           this.props.className,
         )}
-        data-hook={this.props['data-hook']}
         data-captcha-type={captchaType}
         data-theme={theme}
         data-lang={lang}
         data-size={size}
+        {...filterDataProps(this.props)}
       >
         {!this.state.rendered && (
           <div className={classes.loaderWrapper}>{loader}</div>

@@ -5,6 +5,7 @@ import {
   ProgressBarDataKeys,
   ProgressBarAriaKeys,
 } from './DataHooks';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface LinearProgressBarProps {
   /** represent the progress state in percentages (min || 0 - no progress, max || 100 - progress completed) */
@@ -132,7 +133,7 @@ export const LinearProgressBar: React.FunctionComponent<LinearProgressBarProps> 
       data-error={error}
       role="progressbar"
       className={st(classes.root, { error, success }, className)}
-      data-hook={props['data-hook']}
+      {...filterDataProps(props)}
     >
       {renderBarSection(_props.value)}
 

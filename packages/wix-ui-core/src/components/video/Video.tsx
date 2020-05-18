@@ -2,6 +2,7 @@ import * as React from 'react';
 import { playerComponents, playerVerifiers } from './players';
 import { PlayerNameType, ICommonProps, IConfig } from './types';
 import { st, classes } from './Video.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const noop = () => null;
 const DEFAULT_PLAYER = 'playable';
@@ -92,7 +93,7 @@ export class Video extends React.Component<IVideoProps, IVideoState> {
         id={id}
         style={{ width, height }}
         className={st(classes.root, className)}
-        data-hook={this.props['data-hook']}
+        {...filterDataProps(this.props)}
       >
         <Player {...playerProps} ref={playerRef} />
       </div>

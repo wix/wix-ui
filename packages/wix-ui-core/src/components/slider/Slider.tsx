@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Ticks } from './Ticks';
 import { Thumb, getThumbSize } from './Thumb';
 import { st, classes } from './Slider.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const noop = () => {};
 
@@ -513,7 +514,6 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
           },
           className,
         )}
-        data-hook={this.props['data-hook']}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
         onKeyDown={this.handleKeyDown}
@@ -532,6 +532,7 @@ export class Slider extends React.PureComponent<SliderProps, SliderState> {
         aria-valuemax={max}
         aria-valuenow={value}
         aria-label={this.props['aria-label']}
+        {...filterDataProps(this.props)}
       >
         <div className={classes.inner} style={this.getInnerDims()}>
           <div

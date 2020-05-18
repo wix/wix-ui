@@ -3,6 +3,7 @@ import { PageStrip } from './PageStrip';
 import { st, classes } from './Pagination.st.css';
 import { measureAndSetRootMinWidth } from './root-min-width';
 import { PaginationDataHooks } from './DataHooks';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const upperCaseFirst = (str: string): string =>
   str[0].toUpperCase() + str.slice(1);
@@ -381,7 +382,7 @@ export class Pagination extends React.Component<
         onMouseLeave={this.props.onMouseLeave}
         style={inlineStyle || { width }}
         className={st(classes.root, styleStates, this.props.className)}
-        data-hook={this.props['data-hook']}
+        {...filterDataProps(this.props)}
       >
         {showFirstLastNavButtons && this.renderNavButton(ButtonType.First)}
         {showPreviousLabel

@@ -5,6 +5,7 @@ import * as classNames from 'classnames';
 import { classes as ellipsisClasses } from './Ellipsis.st.css';
 import { StateFullComponentWrap } from './StateFullComponentWrap';
 import { RuntimeStylesheet } from '@stylable/runtime';
+import { filterDataProps } from '../../utils/filter-data-props';
 const debounce = require('lodash/debounce');
 
 interface EllipsisTooltipProps {
@@ -132,10 +133,10 @@ export class EllipsisTooltip extends React.Component<
               )
             : ''
         }
-        data-hook={this.props['data-hook']}
         appendTo="window"
         content={<div>{this.textNode.textContent}</div>}
         showArrow
+        {...filterDataProps(this.props)}
       >
         {this._renderChildren()}
       </Tooltip>

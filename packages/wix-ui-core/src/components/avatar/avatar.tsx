@@ -5,6 +5,7 @@ import { withFocusable } from '../../hocs/Focusable/FocusableHOC';
 import { st, classes } from './avatar.st.css';
 import { ContentType } from './types';
 import { nameToInitials } from './util';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 interface FocusableHOCProps {
   focusableOnFocus?(): void;
@@ -153,7 +154,6 @@ export class AvatarComponent extends React.Component<
       onClick,
       focusableOnFocus,
       focusableOnBlur,
-      'data-hook': dataHook,
     } = this.props;
     const contentType = this.getCurrentContentType();
     const focusProps = !!onClick && {
@@ -166,7 +166,6 @@ export class AvatarComponent extends React.Component<
 
     return (
       <div
-        data-hook={dataHook}
         data-content-type={contentType} // for testing
         data-img-loaded={this.state.imgLoaded} // for testing
         title={title || name}
@@ -181,6 +180,7 @@ export class AvatarComponent extends React.Component<
           },
           this.props.className,
         )}
+        {...filterDataProps(this.props)}
       >
         {this.getContent(contentType)}
       </div>

@@ -20,6 +20,7 @@ import {
   convertToPartialAddress,
   trySetStreetNumberIfNotReceived,
 } from '../../clients/GoogleMaps/google2address/google2address';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 const first = require('lodash/first');
 const throttle = require('lodash/throttle');
@@ -514,7 +515,6 @@ export class AddressInput extends React.PureComponent<
     return (
       <InputWithOptions
         className={st(classes.root, states, className)}
-        data-hook={this.props['data-hook']}
         onContentMouseDown={this._handleContentMouseDown}
         onSelect={this._onSelect}
         options={options}
@@ -535,6 +535,7 @@ export class AddressInput extends React.PureComponent<
         emptyStateMessage={emptyStateMessage}
         emptyStateStyle={optionStyle}
         optionsContainerZIndex={optionsContainerZIndex}
+        {...filterDataProps(this.props)}
       />
     );
   }

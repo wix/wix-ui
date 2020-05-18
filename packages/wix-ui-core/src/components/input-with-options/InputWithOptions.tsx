@@ -6,6 +6,7 @@ import { Option, OptionFactory } from '../dropdown-option';
 import { IDOMid } from '../dropdown-content';
 import { OPEN_TRIGGER_TYPE } from '../dropdown/constants';
 import { Input, InputProps } from '../input';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export const DataHooks = {
   input: 'input',
@@ -239,7 +240,6 @@ export class InputWithOptions extends React.PureComponent<
     return (
       <Dropdown
         className={st(classes.root, className)}
-        data-hook={this.props['data-hook']}
         placement={placement}
         openTrigger={openTrigger}
         disabled={inputProps.disabled}
@@ -265,6 +265,7 @@ export class InputWithOptions extends React.PureComponent<
         contentId={contentId}
         onExpandedChange={this.changeExpanded}
         optionsContainerZIndex={optionsContainerZIndex}
+        {...filterDataProps(this.props)}
       >
         <Input
           data-hook={DataHooks.input}

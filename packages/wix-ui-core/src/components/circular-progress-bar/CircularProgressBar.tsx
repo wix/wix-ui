@@ -2,6 +2,7 @@ import * as React from 'react';
 import { st, classes } from './CircularProgressBar.st.css';
 import { Arc } from './Arc';
 import { dataHooks } from './constants';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface CircularProgressBarProps {
   /** represent the progress state in percentages (0 - no progress, 100 - progress completed) */
@@ -112,7 +113,7 @@ export const CircularProgressBar: React.FunctionComponent<CircularProgressBarPro
     <div
       className={st(classes.root, { error, success }, _props.className)}
       data-error={error}
-      data-hook={_props['data-hook']}
+      {...filterDataProps(props)}
     >
       {renderArcs(_props)}
       {showProgressIndication && (

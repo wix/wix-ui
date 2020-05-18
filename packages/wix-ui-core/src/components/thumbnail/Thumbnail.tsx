@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { st, classes } from './Thumbnail.st.css';
+import { filterDataProps } from '../../utils/filter-data-props';
 
 export interface ThumbnailProps {
   /** hook for testing purposes */
@@ -24,8 +25,8 @@ export const Thumbnail: React.FunctionComponent<ThumbnailProps> = props => {
   return (
     <div
       className={st(classes.root, { selected, disabled }, className)}
-      data-hook={props['data-hook']}
       onClick={onClick}
+      {...filterDataProps(props)}
     >
       {children}
 
