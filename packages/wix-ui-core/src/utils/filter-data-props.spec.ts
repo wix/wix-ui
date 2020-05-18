@@ -1,7 +1,7 @@
 import { filterDataProps } from './filter-data-props';
 
 describe('filterDataProps', () => {
-  it('should be defined', () => {
+  it('should return only data-* props', () => {
     const assert = {
       'data-hook': 'hook!',
       hello: null,
