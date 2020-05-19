@@ -1,12 +1,13 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as fromPairs from 'lodash/fromPairs';
 
 import { Path, Process } from '../../typings.d';
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { fsToJson } from '../../fs-to-json';
 import { readJson } from './read-json';
-import { matchComponent } from './match-component';
+import { matchComponent, match } from './match-component';
 
 interface Options {
   shape?: Path;
@@ -66,51 +67,46 @@ const makeOutput: (a: Options) => Promise<void> = async options => {
     path: '.',
   });
 
-  const analyzedComponents = objectEntries(componentsFs)
-    .filter(excludeWrongFiles(options) as any)
+  const filteredFs = objectEntries(componentsFs).filter(excludeWrongFiles(
+    options,
+  ) as any);
 
-    .map(([name, structure]) => {
-      const missingFiles = [];
+  const matches = matchComponent({
+    tree: fromPairs(filteredFs),
+    glob: shape,
+    treePath: path.relative(
+      options._process.cwd,
+      path.resolve(options.components),
+    ),
+  });
 
-      const compound = matchComponent({
-        tree: structure,
-        glob: shape,
-        treePath: path.relative(
-          options._process.cwd,
-          path.resolve(options.components, name),
-        ),
-        name,
-      });
+  console.log(matches);
 
-      return {
-        name,
-        compound,
-        missingFiles,
-        path: path.relative(
-          options._process.cwd,
-          path.resolve(options.components, name),
-        ),
-      };
-    });
+  // .map(([name, structure]) => {
 
-  const goodComponents = analyzedComponents.filter(
-    ({ missingFiles }) => missingFiles.length <= options.maxMismatch,
-  );
+  // console.log(name, matches);
+  // return {
+  // name,
+  // compound: matches,
+  // path: path.relative(
+  // options._process.cwd,
+  // path.resolve(options.components, name),
+  // ),
+  // };
+  // })
+  // .filter(({ compound }) => Object.keys(compound).length);
 
-  const newOutput = goodComponents.reduce((components, component) => {
-    components[component.name] = {
-      path: component.path,
-      ...(Object.keys(component.compound).length
-        ? { compound: component.compound }
-        : {}),
-      ...(component.missingFiles.length
-        ? { missingFiles: component.missingFiles }
-        : {}),
-    };
-    return components;
-  }, output);
+  // const goodComponents = analyzedComponents.filter(
+  // ({ missingFiles }) => missingFiles.length <= options.maxMismatch,
+  // );
 
-  fs.writeFileSync(options.output, JSON.stringify(newOutput, null, 2));
+  // const newOutput = analyzedComponents.reduce((components, component) => {
+  // components[component.name] = component;
+
+  // return components;
+  // }, output);
+
+  fs.writeFileSync(options.output, JSON.stringify(matches, null, 2));
 };
 
 export const updateComponentsList: (a: Options) => Promise<void> = guards;

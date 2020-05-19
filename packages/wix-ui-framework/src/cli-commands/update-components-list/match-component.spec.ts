@@ -332,6 +332,16 @@ describe('match tree', () => {
       });
     });
   });
+
+  describe('given onMissing callback', () => {
+    it('should call it with correct with path', () => {
+      const onMissing = jest.fn();
+      const tree = { a: '' };
+      const glob = { a: '', b: '' };
+      match({ tree, glob, onMissing });
+      expect(onMissing.mock.calls[0][0]).toEqual(['b']);
+    });
+  });
 });
 
 describe('matchComponent', () => {

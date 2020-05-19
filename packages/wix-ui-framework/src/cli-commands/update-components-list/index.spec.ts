@@ -205,7 +205,7 @@ describe('updateComponentsList', () => {
       const expectedOutput = {
         'test-component': {
           path: 'src/components/test-component',
-          compound: {
+          children: {
             child: {
               path: 'src/components/test-component/child',
             },

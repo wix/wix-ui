@@ -11,6 +11,7 @@ interface TreeObject {
 interface Input {
   tree?: TreeObject;
   glob?: TreeObject;
+  onMissing?: any;
   treePath?: string;
 }
 
@@ -19,6 +20,9 @@ interface Output extends TreeObject {}
 const isString = (a: unknown) => typeof a === 'string';
 const isUndefined = (a: unknown) => typeof a === 'undefined';
 const treeHasMatches = (matches: TreeObject) => Object.keys(matches).length;
+const head: (a: string[]) => string = ([a]) => a;
+const removeEntry = entries => entryKey =>
+  entries.filter(([key]) => key !== entryKey);
 
 // TODO: this should be a placeholder coming from config. There should be support for multiple
 const replaceableName = 'Component';
@@ -33,19 +37,20 @@ export const match: (a?: Input) => Output = (input = {}) => {
     return {};
   }
 
-  const { tree, glob } = input;
+  const { tree, glob, onMissing = () => {}, treePath = '' } = input;
   const globEntries = objectEntries(glob);
+  const matchedGlobEntries = [];
   const treeEntries = objectEntries(tree);
-  const output = {};
-  let matching = true;
+
+  const state = {
+    output: {},
+    matching: true,
+    missingFiles: [],
+  };
 
   treeLoop: for (const [treeKey, treeValue] of treeEntries) {
-    if (globEntries.length > treeEntries.length) {
-      matching = false;
-    }
-
     globLoop: for (const [globKey, globValue] of globEntries) {
-      if (!matching) {
+      if (!state.matching) {
         break globLoop;
       }
 
@@ -55,7 +60,8 @@ export const match: (a?: Input) => Output = (input = {}) => {
 
       if (minimatch(treeKey, globKey)) {
         if (isString(treeValue) && isString(globValue)) {
-          output[treeKey] = {};
+          state.output[treeKey] = {};
+          matchedGlobEntries.push(globKey);
           continue treeLoop;
         }
 
@@ -63,26 +69,36 @@ export const match: (a?: Input) => Output = (input = {}) => {
           const matches = match({
             tree: treeValue as TreeObject,
             glob: globValue as TreeObject,
+            treePath: treeKey,
           });
 
           if (matches) {
-            output[treeKey] = matches;
+            state.output[treeKey] = matches;
             continue treeLoop;
           }
-          matching = false;
+
+          state.matching = false;
         }
       }
     }
   }
 
-  if (objectEntries(output).length < objectEntries(glob).length) {
-    matching = false;
+  if (objectEntries(state.output).length < objectEntries(glob).length) {
+    const outputEntriesKeys = objectEntries(state.output).map(head);
+
+    const filtered = globEntries
+      .map(head)
+      .filter(key => !outputEntriesKeys.includes(key))
+      .map((key: string) => path.join(treePath, key));
+
+    onMissing(filtered);
+    state.matching = false;
   }
 
-  return matching ? output : null;
+  return state.matching ? state.output : null;
 };
 
-export const matchComponent = ({ tree, glob, treePath = '', name }) => {
+export const matchComponent = ({ tree, glob, treePath = '' }) => {
   const treeEntries = objectEntries(tree);
   const output = {};
 
@@ -98,9 +114,8 @@ export const matchComponent = ({ tree, glob, treePath = '', name }) => {
 
       const children = matchComponent({
         tree: treeValue,
-        glob: renamedGlob,
+        glob: renameGlob({ glob, name: treeKey }),
         treePath: childPath,
-        name,
       });
 
       output[treeKey] = {
