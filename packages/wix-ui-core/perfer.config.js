@@ -31,7 +31,7 @@ const files = [
   ['slider.js', 10],
   ['stepper.js', 5],
   ['tags-list.js', 7],
-  ['thumbnail.js', 6],
+  ['thumbnail.js', 8],
   ['time-picker.js', 9],
   ['tooltip-next.js', 16],
   ['toggle-switch.js', 6],
