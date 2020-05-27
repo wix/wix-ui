@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
+    "chalk": "^4.0.0",
     "ejs": "^2.6.2",
     "jscodeshift": "^0.6.4",
     "lodash": "^4.17.11",
