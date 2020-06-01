@@ -515,6 +515,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           excludeClass={excludeClass ? excludeClass : classes.popover}
         >
           <div
+            ref={this.clickOutsideRef}
             style={style}
             data-content-hook={this.contentHook}
             className={st(classes.root, { fluid }, this.props.className)}
