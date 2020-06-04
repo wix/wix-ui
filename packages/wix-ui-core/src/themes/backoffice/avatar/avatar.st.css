@@ -6,6 +6,7 @@
 :import {
   -st-from: '../../../components/avatar/avatar.st.css';
   -st-default: Avatar;
+  -st-named: content;
 }
 
 :import {
@@ -16,7 +17,7 @@
 :import {
   -st-from: "../text.st.css";
   -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
-} 
+}
 
 .avatar {
   -st-extends: Avatar;
@@ -30,10 +31,10 @@
 
   height: 48px;
   width: 48px;
-  border-radius: 30px; 
+  border-radius: 30px;
 }
 
-.avatar:contentType(image)::content {
+.avatar:contentType(image) .content {
   height: inherit;
   width: inherit;
   border-radius: inherit;
@@ -118,23 +119,23 @@
 }
 
 /* Sizes text */
-.avatar:contentType(text)::content {
+.avatar:contentType(text) .content {
   -st-mixin: sizeSmall, weightBold, light;
 }
 
 
-.avatar:contentType(text).size90::content,
-.avatar:contentType(text).size72::content  {
+.avatar:contentType(text).size90 .content,
+.avatar:contentType(text).size72 .content  {
   -st-mixin: sizeMedium;
 }
 
-.avatar:contentType(text).size36::content,
-.avatar:contentType(text).size30::content  {
+.avatar:contentType(text).size36 .content,
+.avatar:contentType(text).size30 .content  {
   -st-mixin: sizeTiny, weightNormal;
   line-height: 18px;
 }
 
-.avatar:contentType(text).size24::content,
-.avatar:contentType(text).size18::content  {
+.avatar:contentType(text).size24 .content,
+.avatar:contentType(text).size18 .content  {
   visibility: hidden;
 }
