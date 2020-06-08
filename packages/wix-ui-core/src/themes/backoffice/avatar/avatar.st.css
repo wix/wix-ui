@@ -16,7 +16,7 @@
 :import {
   -st-from: "../text.st.css";
   -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold, light;
-} 
+}
 
 .avatar {
   -st-extends: Avatar;
@@ -30,7 +30,7 @@
 
   height: 48px;
   width: 48px;
-  border-radius: 30px; 
+  border-radius: 30px;
 }
 
 .avatar:contentType(image)::content {
@@ -123,18 +123,18 @@
 }
 
 
-.avatar:contentType(text).size90::content,
-.avatar:contentType(text).size72::content  {
+.avatar:contentType(text)::content.size90,
+.avatar:contentType(text)::content.size72  {
   -st-mixin: sizeMedium;
 }
 
-.avatar:contentType(text).size36::content,
-.avatar:contentType(text).size30::content  {
+.avatar:contentType(text)::content.size36,
+.avatar:contentType(text)::content.size30  {
   -st-mixin: sizeTiny, weightNormal;
   line-height: 18px;
 }
 
-.avatar:contentType(text).size24::content,
-.avatar:contentType(text).size18::content  {
+.avatar:contentType(text)::content.size24,
+.avatar:contentType(text)::content.size18  {
   visibility: hidden;
 }
