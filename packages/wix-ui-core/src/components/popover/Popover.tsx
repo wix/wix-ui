@@ -7,6 +7,7 @@ import { Portal } from 'react-portal';
 import { st, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
 import { filterDataProps } from '../../utils/filter-data-props';
+const uniqueId = require('lodash/uniqueId');
 
 import {
   buildChildrenObject,
@@ -190,6 +191,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
   portalClasses: string;
   appendToNode: HTMLElement = null;
   clickOutsideRef: any = null;
+  clickOutsideClass: string;
   contentHook: string;
 
   popperScheduleUpdate: () => void = null;
@@ -206,6 +208,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     };
 
     this.clickOutsideRef = React.createRef();
+    this.clickOutsideClass = uniqueId('clickOutside');
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
@@ -270,7 +273,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
               data-content-element={this.contentHook}
               style={{ ...popperStyles, zIndex, maxWidth }}
               data-placement={popperPlacement || placement}
-              className={classNames(classes.popover, {
+              className={classNames(classes.popover, this.clickOutsideClass, {
                 [classes.withArrow]: showArrow,
                 [classes.popoverContent]: !showArrow,
               })}
@@ -494,7 +497,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       children,
       style,
       id,
-      excludeClass,
+      excludeClass = this.clickOutsideClass,
       fluid,
     } = this.props;
     const { isMounted, shown } = this.state;
@@ -512,7 +515,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         <ClickOutside
           rootRef={this.clickOutsideRef}
           onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClass ? excludeClass : classes.popover}
+          excludeClass={excludeClass}
         >
           <div
             ref={this.clickOutsideRef}
