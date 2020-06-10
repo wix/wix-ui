@@ -29,7 +29,6 @@ const SDKConfig: ISDKConfig = {
   name: 'Twitch',
   url: 'https://player.twitch.tv/js/embed/v1.js',
   isRequireAllow: true,
-  resolveRequire: sdk => ({ Player: sdk.PlayerEmbed }),
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
