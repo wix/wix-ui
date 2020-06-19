@@ -38,7 +38,8 @@
     background-color: value(materialBlueGray100);
 }
 
-.root::navButton.disabled {
+.root::navButton:disabled,
+.root::pageButton:disabled {
     color: value(materialBlueGray200);
     background-color: transparent;
 }
@@ -56,6 +57,11 @@
     -st-mixin: button-common-mixin;
     background-color: value(materialBlueGray700);
     color: value(materialBlueGray100);
+}
+
+.root:disabled::currentPage {
+    color: value(materialBlueGray200);
+    background-color: value(materialBlueGray100);
 }
 
 .root::gap {
