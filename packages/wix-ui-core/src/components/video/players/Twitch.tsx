@@ -19,7 +19,7 @@ import { classes } from '../Video.st.css';
 
 const VIDEO_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
 const CHANNEL_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/([a-z0-9_]+)($|\?)/;
-const URL_REGEX = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
+const URL_REGEX = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)(:([^\/]*))?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(\?([^#]*))?(#(.*))?$/;
 
 export const verifier: VerifierType = url =>
   isString(url) &&
@@ -37,9 +37,12 @@ const getParentDomains = () => {
 
   if (window.location != window.parent.location) {
     const parentUrl = document.referrer;
-    const parentHost = parentUrl.match(URL_REGEX)[3];
 
-    result.push(parentHost);
+    if (URL_REGEX.test(parentUrl)) {
+      const parentHost = parentUrl.match(URL_REGEX)[3];
+
+      result.push(parentHost);
+    }
   }
 
   return result;
