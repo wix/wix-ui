@@ -31,6 +31,26 @@ const SDKConfig: ISDKConfig = {
   isRequireAllow: true,
 };
 
+const getParentDomains = () => {
+  const result = [window.location.hostname];
+
+  if (window.location != window.parent.location) {
+    const parentReferrer = document.referrer;
+    let parentUrl;
+
+    if (typeof URL === 'function') {
+      parentUrl = new URL(parentReferrer);
+    } else {
+      parentUrl = document.createElement('a');
+      parentUrl.href = parentReferrer;
+    }
+
+    result.push(parentUrl.hostname);
+  }
+
+  return result;
+};
+
 const mapPropsToPlayer: IPropsToPlayer = {
   src: instance => instance.reload(),
   playing: (instance, player, nextPlaying) => {
@@ -112,6 +132,8 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
       playsinline: true,
       autoplay: playing,
       muted,
+      // add parent domains due to API updates https://discuss.dev.twitch.tv/t/twitch-embedded-player-updates-in-2020/23956
+      parent: getParentDomains(),
       ...playerOptions,
     });
 
