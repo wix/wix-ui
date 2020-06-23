@@ -14,7 +14,7 @@
     -st-states: disabled;
 }
 
-.navButton:not(.disabled) {
+.navButton:not(:disabled) {
     cursor: pointer;
 }
 
@@ -45,6 +45,10 @@
 
 .pageButton {
     -st-mixin: button-common-mixin;
+    -st-states: disabled;
+}
+
+.pageButton:not(:disabled) {
     cursor: pointer;
 }
 

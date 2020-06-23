@@ -358,6 +358,7 @@ export class Pagination extends React.Component<
 
   public render() {
     const {
+      disabled,
       showFirstLastNavButtons,
       showNextLabel,
       showPreviousLabel,
@@ -366,7 +367,7 @@ export class Pagination extends React.Component<
     } = this.props;
 
     const styleStates = {
-      disabled: this.props.disabled,
+      disabled,
       error: this.state.pageInputHasError,
     };
 
@@ -375,6 +376,7 @@ export class Pagination extends React.Component<
         ref={el => (this.rootNode = el)}
         id={this.getId('')}
         aria-label="Pagination Navigation"
+        aria-disabled={disabled ? 'true' : undefined}
         dir={this.props.rtl ? 'rtl' : null}
         onClick={this.props.onClick}
         onDoubleClick={this.props.onDoubleClick}

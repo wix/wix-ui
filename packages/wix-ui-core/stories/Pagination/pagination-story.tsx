@@ -99,6 +99,17 @@ export function PaginationStory() {
         />
       </div>
       <div>
+        <h3>Input mode disabled</h3>
+        <UncontrolledPagination
+          totalPages={1000000}
+          currentPage={500000}
+          paginationMode="input"
+          showInputModeTotalPages
+          showFirstLastNavButtons
+          disabled
+        />
+      </div>
+      <div>
         <h3>Compact mode</h3>
         <UncontrolledPagination
           totalPages={1000000}
