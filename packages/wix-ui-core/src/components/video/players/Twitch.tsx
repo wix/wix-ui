@@ -33,7 +33,7 @@ const SDKConfig: ISDKConfig = {
 };
 
 const getParentDomains = () => {
-  const result = [window.location.host];
+  const result = [window.location.hostname];
 
   if (window.location != window.parent.location) {
     const parentUrl = document.referrer;
