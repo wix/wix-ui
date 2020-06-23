@@ -19,6 +19,7 @@ import { classes } from '../Video.st.css';
 
 const VIDEO_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
 const CHANNEL_URL_REGEX = /(?:www\.|go\.)?twitch\.tv\/([a-z0-9_]+)($|\?)/;
+const URL_REGEX = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
 
 export const verifier: VerifierType = url =>
   isString(url) &&
@@ -29,6 +30,19 @@ const SDKConfig: ISDKConfig = {
   name: 'Twitch',
   url: 'https://player.twitch.tv/js/embed/v1.js',
   isRequireAllow: true,
+};
+
+const getParentDomains = () => {
+  const result = [window.location.host];
+
+  if (window.location != window.parent.location) {
+    const parentUrl = document.referrer;
+    const parentHost = parentUrl.match(URL_REGEX)[3];
+
+    result.push(parentHost);
+  }
+
+  return result;
 };
 
 const mapPropsToPlayer: IPropsToPlayer = {
@@ -112,6 +126,8 @@ class TwitchPlayer extends React.PureComponent<ITwitchProps> {
       playsinline: true,
       autoplay: playing,
       muted,
+      // add parent domains due to API updates https://discuss.dev.twitch.tv/t/twitch-embedded-player-updates-in-2020/23956
+      parent: getParentDomains(),
       ...playerOptions,
     });
 
