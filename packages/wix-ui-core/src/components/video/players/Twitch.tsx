@@ -34,7 +34,7 @@ const SDKConfig: ISDKConfig = {
 const getParentDomains = () => {
   const result = [window.location.hostname];
 
-  if (window.location != window.parent.location) {
+  if (window.location !== window.parent.location) {
     const parentReferrer = document.referrer;
     let parentUrl;
 
