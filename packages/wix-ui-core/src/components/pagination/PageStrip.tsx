@@ -159,6 +159,7 @@ export class PageStrip extends React.Component<PageStripProps, PageStripState> {
           key={`${pageNumber}-${index}`}
           data-hook={`${PaginationDataHooks.page}-${pageNumber}`}
           aria-label={`Page ${pageNumber}`}
+          aria-disabled={disabled}
           className={st(classes.pageButton, { disabled })}
           tabIndex={disabled || pageUrl ? null : 0}
           onClick={disabled ? null : e => this.props.onPageClick(e, pageNumber)}
