@@ -5,6 +5,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow-x: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .tag * {
