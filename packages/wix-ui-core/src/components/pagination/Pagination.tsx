@@ -337,6 +337,7 @@ export class Pagination extends React.Component<
         id={this.getId('navButton' + upperCaseFirst(type))}
         className={st(classes.navButton, { disabled }, btnClass)}
         aria-label={upperCaseFirst(type) + ' Page'}
+        aria-disabled={disabled}
         tabIndex={disabled || pageUrl ? null : 0}
         onClick={disabled ? null : event => this.handlePageClick(event, page)}
         onKeyDown={
@@ -376,7 +377,7 @@ export class Pagination extends React.Component<
         ref={el => (this.rootNode = el)}
         id={this.getId('')}
         aria-label="Pagination Navigation"
-        aria-disabled={disabled ? 'true' : undefined}
+        aria-disabled={disabled}
         dir={this.props.rtl ? 'rtl' : null}
         onClick={this.props.onClick}
         onDoubleClick={this.props.onDoubleClick}
