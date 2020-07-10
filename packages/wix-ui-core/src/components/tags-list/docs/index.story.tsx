@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { TagsList, Tag } from '..';
+import {Tag, TagsList} from '..';
 import { DisplayNames } from '../TagsList.helpers';
-import { SimpleExample } from './SimpleExample';
+import {SingleSelectionExample} from './SingleSelectionExample';
+import {SimpleExample} from './SimpleExample';
 import {
   header,
   description,
@@ -15,7 +16,6 @@ import {
   importExample,
   playground,
   columns,
-  code as baseCode,
 } from 'wix-storybook-utils/Sections';
 import {
   Category,
@@ -75,7 +75,15 @@ export default {
               text: '`TagsList` will render passed items - Tags.',
             }),
             liveCode({
-              source: SimpleExample,
+              source: SimpleExample(),
+            }),
+          ]),
+          columns([
+            description({
+              title: 'Single Selection example',
+            }),
+            liveCode({
+              source: SingleSelectionExample(),
             }),
           ]),
         ],

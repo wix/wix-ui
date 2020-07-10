@@ -86,9 +86,52 @@ describe('TagsList', () => {
 
         it('should render radio buttons instead of checkboxes', async () => {
             await driver.clickOnTagByIndex(0);
-            console.log('adler', 'TagsList.spec.tsx:89', onChangeSpy.mock.calls[0][0].target.tagName);
             expect(onChangeSpy.mock.calls[0][0].target.tagName.toLowerCase()).toBe('input');
             expect(onChangeSpy.mock.calls[0][0].target.getAttribute('type')).toBe('radio');
+        });
+    });
+
+    describe('Keyboard interaction', () => {
+        let driver, onChangeSpy;
+
+        async function setupDriver(singleSelection = false) {
+            driver = await createDriver(
+                <TagsList onChange={onChangeSpy} singleSelection={singleSelection}>
+                    {
+                        [0, 1, 2].map(idx => (
+                            <Tag key={`tag-${idx}`} label={`label-${idx}`} value={`value-${idx}`}>Tag {idx}</Tag>
+                        ))
+                    }
+                </TagsList>
+            );
+        }
+
+        beforeEach(() => {
+            onChangeSpy = jest.fn();
+        });
+
+        afterEach(() => {
+            onChangeSpy.mockReset();
+        });
+
+        describe('multiple selection', () => {
+            it('should iterate over tags using "tab" button', async () => {
+                await setupDriver();
+                const tagDriver = await driver.focusTag(0);
+                await driver.focusNextTag();
+                expect(onChangeSpy).not.toHaveBeenCalled();
+                await tagDriver.simulatePressSpace();
+                expect(onChangeSpy).toHaveBeenCalled();
+            });
+        });
+
+        describe('single selection', () => {
+            it('should iterate over tags using arrow keys', async () => {
+                await setupDriver(true);
+                await driver.focusTag(0);
+                await driver.focusNextTag();
+                expect(onChangeSpy).toHaveBeenCalled();
+            });
         });
     });
   });

@@ -1,18 +1,18 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
-
 import { DataHooks, DisplayNames } from './TagsList.helpers';
-
 import { noop } from '../../utils';
 
 import { classes } from './Tag.st.css';
 
 const SPACE_KEY = 32;
+const ARROW_RIGHT_KEY = 39;
+const ARROW_LEFT_KEY = 37;
 
 export interface TagProps {
   tagIndex?: number;
-  className?: string;
+  className?: object;
   checked?: boolean;
   value?: string;
   label?: string;
@@ -23,6 +23,7 @@ export interface TagProps {
   rel?: string;
   compId?: string;
   singleSelection?: boolean;
+  name?: string;
   style?: React.CSSProperties;
 }
 
@@ -192,6 +193,66 @@ export class FocusableTag extends React.Component<TagProps> {
   }
 }
 
+interface LabeledInput extends Omit<TagProps, 'className' | 'rel'> {
+  inputRef: React.Ref<HTMLInputElement>;
+  labelRef: React.Ref<HTMLLabelElement>;
+  inputType: string;
+  onKeyDown?: React.KeyboardEventHandler;
+  tabIndex: number;
+  wrapperProps: object;
+}
+
+
+const LabeledInput = (props: LabeledInput) => {
+  const {
+    disabled,
+    tagIndex,
+    value,
+    compId,
+    name,
+    inputRef,
+    labelRef,
+    inputType,
+    checked,
+    label,
+    onChange,
+    children,
+    tabIndex,
+    wrapperProps,
+  } = props;
+  // in case with link, we should focus anchor wrapper
+  const uniqId =
+      tagIndex !== undefined
+          ? `${value}-${compId}-${tagIndex}`
+          : `${value}-${compId}`;
+
+  return (
+      <label
+          ref={labelRef}
+          data-hook={DataHooks.Tag}
+          title={label}
+          htmlFor={uniqId}
+          tabIndex={tabIndex}
+          onKeyDown={props.onKeyDown}
+          {...wrapperProps}
+      >
+        <input
+            ref={inputRef}
+            data-hook={DataHooks.TagInput}
+            className={classes.tagInput}
+            type={inputType}
+            checked={checked}
+            onChange={onChange}
+            value={value}
+            name={name || compId || label}
+            id={uniqId}
+            disabled={disabled}
+        />
+        {children}
+      </label>
+  );
+};
+
 export class Tag extends React.Component<TagProps> {
   static displayName = DisplayNames.Tag;
   static propTypes = {
@@ -212,8 +273,15 @@ export class Tag extends React.Component<TagProps> {
   labelRef: React.RefObject<HTMLLabelElement> = React.createRef();
   anchorRef: React.RefObject<HTMLAnchorElement> = React.createRef();
 
+  componentDidUpdate(prevProps: Readonly<TagProps>, prevState: Readonly<{}>, snapshot?: any): void {
+    if (this.props.singleSelection && !prevProps.checked && this.props.checked) {
+      this.labelRef.current.focus();
+    }
+  }
+
   handleKeyDown = (ev: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const { link } = this.props;
+    const { link, singleSelection } = this.props;
+    const { keyCode } = ev;
     /**
      * By default, list item can't be selected by Space button,
      * so we call click on input.
@@ -221,7 +289,25 @@ export class Tag extends React.Component<TagProps> {
      */
 
     // tslint:disable-next-line: deprecation
-    if (ev.keyCode === SPACE_KEY) {
+    if (singleSelection) {
+      let nextSibling;
+
+      if (keyCode === ARROW_RIGHT_KEY || keyCode === ARROW_LEFT_KEY) {
+        const labelElement = this.labelRef.current;
+        const isRight = keyCode === ARROW_RIGHT_KEY;
+        nextSibling = isRight ? labelElement.nextElementSibling : labelElement.previousElementSibling;
+
+        if (!nextSibling) {
+          const parentNode = labelElement.parentNode;
+          nextSibling = isRight ? parentNode.firstElementChild : parentNode.lastElementChild;
+        }
+      }
+
+      if (nextSibling) {
+        nextSibling.focus();
+        nextSibling.click();
+      }
+    } else if (keyCode === SPACE_KEY) {
       ev.preventDefault();
       this.inputRef.current.click();
 
@@ -267,6 +353,7 @@ export class Tag extends React.Component<TagProps> {
       compId,
       tagIndex,
       singleSelection,
+      name,
       ...rest
     } = this.props;
 
@@ -277,57 +364,48 @@ export class Tag extends React.Component<TagProps> {
 
     const inputType = singleSelection ? 'radio' : 'checkbox';
 
-    const LabeledInput = (props: any) => {
-      // in case with link, we should focus anchor wrapper
-      const isDisabledFocus = disabled || link;
-      const uniqId =
-        tagIndex !== undefined
-          ? `${value}-${compId}-${tagIndex}`
-          : `${value}-${compId}`;
-
-      return (
-        <label
-          ref={this.labelRef}
-          data-hook={DataHooks.Tag}
-          title={label}
-          htmlFor={uniqId}
-          tabIndex={isDisabledFocus ? -1 : 0}
-          {...props}
-        >
-          <input
-            ref={this.inputRef}
-            data-hook={DataHooks.TagInput}
-            type={inputType}
-            className={classes.tagInput}
-            checked={checked}
-            onChange={onChange}
-            value={value}
-            name={compId || label}
-            id={uniqId}
-            disabled={disabled}
-          />
-          {children}
-        </label>
-      );
+    const labeledInputProps = {
+      disabled,
+      tagIndex,
+      value,
+      compId,
+      inputRef: this.inputRef,
+      labelRef: this.labelRef,
+      inputType,
+      checked,
+      label,
+      name,
+      onChange,
+      tabIndex: (disabled || link || singleSelection) ? -1 : 0,
+      wrapperProps,
+      onKeyDown: !link || singleSelection ? this.handleKeyDown : undefined
     };
 
-    return link ? (
-      <a
-        ref={this.anchorRef}
-        role={inputType}
-        aria-checked={checked}
-        aria-disabled={disabled}
-        href={link}
-        rel={rel}
-        tabIndex={disabled ? -1 : 0}
-        onClick={this.handleTagClick}
-        onKeyDown={this.handleKeyDown}
-        {...wrapperProps}
-      >
-        <LabeledInput />
-      </a>
-    ) : (
-      <LabeledInput {...wrapperProps} onKeyDown={this.handleKeyDown} />
+    let tag = (
+        <LabeledInput {...labeledInputProps} >
+          {children}
+        </LabeledInput>
     );
+
+    if (link) {
+      tag = (
+          <a
+          ref={this.anchorRef}
+          role={inputType}
+          aria-checked={checked}
+          aria-disabled={disabled}
+          href={link}
+          rel={rel}
+          tabIndex={disabled ? -1 : 0}
+          onClick={this.handleTagClick}
+          onKeyDown={this.handleKeyDown}
+          {...wrapperProps}
+      >
+        {tag}
+      </a>
+      )
+    }
+
+    return tag;
   }
 }

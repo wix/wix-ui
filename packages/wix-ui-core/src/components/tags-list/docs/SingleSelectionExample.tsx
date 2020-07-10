@@ -1,35 +1,19 @@
-export const SimpleExample = () => `
+export const SingleSelectionExample = () => `
 import * as React from 'react';
 import { TagsList, Tag } from 'wix-ui-core/tags-list';
 
-class BasicExample extends React.Component {
-  state = {
-    selectedTags: new Set()
-  };
-  
-  handleTagChange = e => {
-    const { selectedTags } = this.state;
-    const target = e.target;
-    const value = target.value; 
-    
-    if (selectedTags.has(value)) {
-      selectedTags.delete(value)
-    } else {
-      selectedTags.add(value);
-    }
-    
-    console.log('adler1', e);
-    
-    this.setState({ selectedTags });
-  };
+function SingleSelectionExample() {
+    const [selectedTags, setSelectedTags ] = React.useState(new Set());
 
-  render() {
-    const { selectedTags } = this.state;
-    
+    function onChange(e) {
+        console.log('adler12', e.target);
+        setSelectedTags(new Set([e.target.value]));
+    }
+
     return (
-      <TagsList onChange={this.handleTagChange}>
-        <Tag 
-          name="first-tag" 
+      <TagsList singleSelection={true} onChange={onChange} key="SingleSelectionExample">
+        <Tag
+          name="first-tag"
           checked={selectedTags.has('example value')}
           key="example value"
           value="example value">
@@ -51,5 +35,4 @@ class BasicExample extends React.Component {
         </Tag>
       </TagsList>
     );
-  }
 }`;

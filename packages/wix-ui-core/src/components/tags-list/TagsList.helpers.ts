@@ -8,3 +8,7 @@ export const enum DisplayNames {
   Tag = 'Tag',
   TagsList = 'TagsList',
 }
+
+export const enum DataAttributes {
+  SingleSelection = 'single-selection',
+}
