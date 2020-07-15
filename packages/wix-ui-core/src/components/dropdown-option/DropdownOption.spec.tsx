@@ -58,6 +58,7 @@ describe('DropdownOption', () => {
     expect(driver.isHovered()).toBeTruthy();
     expect(driver.isSelected()).toBeTruthy();
     expect(driver.isDisabled()).toBeFalsy();
+    expect(driver.isSelectable()).toBeTruthy();
   });
 
   it('should be disabled and not hovered and selected data attributes', () => {
@@ -66,6 +67,7 @@ describe('DropdownOption', () => {
     expect(driver.isHovered()).toBeFalsy();
     expect(driver.isSelected()).toBeFalsy();
     expect(driver.isDisabled()).toBeTruthy();
+    expect(driver.isSelectable()).toBeFalsy();
   });
 
   it('should integrate with highlighting functionality of OptionFactory', () => {

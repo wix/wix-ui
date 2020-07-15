@@ -11,6 +11,7 @@ export const dropdownOptionDriverFactory = ({ element, eventTrigger }) => {
     isHovered: () => element && domUtils.hasStyleState(element, 'hovered'),
     isSelected: () => element && domUtils.hasStyleState(element, 'selected'),
     isDisabled: () => element && domUtils.hasStyleState(element, 'disabled'),
+    isSelectable: () => element && domUtils.hasStyleState(element, 'selectable'),
     getText: () => element && element.textContent,
     getElement: () => element,
     getHighlightedStrings: () => {
