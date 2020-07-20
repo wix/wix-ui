@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## [3.6.2] - 2020-07-20
+### Fixed
+- pin `react-docgen-typescript` to `1.18.0` - newer versions introduce issues [1e115a59](https://github.com/wix/react-autodocs-utils/commit/1e115a59)
+
 ## [3.6.1] - 2019-12-12
 ### Fixed
 - `component-resolve` - better support for HOC'ed components [38067301](https://github.com/wix/react-autodocs-utils/commit/38067301)
