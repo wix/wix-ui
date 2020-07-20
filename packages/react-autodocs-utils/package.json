@@ -43,7 +43,7 @@
     "@babel/types": "^7.5.5",
     "doctrine": "^3.0.0",
     "react-docgen": "^4.1.1",
-    "react-docgen-typescript": "^1.12.5",
+    "react-docgen-typescript": "1.18.0",
     "recast": "0.13.0",
     "typescript": "^2.7.1"
   }
