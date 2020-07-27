@@ -80,11 +80,14 @@ const Playground: React.FunctionComponent<Props> = ({
         });
     }
 
-    window.addEventListener('beforeunload', event => {
+    const onBeforeUnload = event => {
       if (dirty) {
         event.returnValue = 'Sure you want to leave?';
       }
-    });
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, []);
 
   const memoizedLiveCodeExample = React.useMemo(
