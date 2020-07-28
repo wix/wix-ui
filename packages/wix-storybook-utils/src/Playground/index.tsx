@@ -1,59 +1,31 @@
 import React, { Dispatch } from 'react';
 import * as queryString from 'query-string';
 import UploadExportSmall from 'wix-ui-icons-common/UploadExportSmall';
-import LinkSmall from 'wix-ui-icons-common/LinkSmall';
-import Close from 'wix-ui-icons-common/system/Close';
 
 import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';
 import TextButton from '../TextButton';
-import { CopyButton } from '../CopyButton';
 import { formatCode } from '../LiveCodeExample/format-code';
 
 import styles from './styles.scss';
 
 import { previewWarning } from './preview-warning';
 import { saveSnippet, loadSnippet } from './snippet';
+import { SaveSuccess } from './save-success';
 
-const SaveSuccess = ({
-  snippetId,
-  formatUrl = (id: string) => `${window.parent.location.href}&snippet=${id}`,
-  onClose,
-}) => {
-  const url = formatUrl(snippetId);
-
-  return (
-    <>
-      {'Saved! '}
-      <input
-        onClick={e => (e.target as HTMLInputElement).select()}
-        className={styles.urlPreview}
-        readOnly
-        type="text"
-        value={url}
-      />
-      <CopyButton
-        className={styles.copyButton}
-        prefixIcon={<LinkSmall />}
-        source={url}
-      />
-      <button className={styles.closeButton} onClick={onClose}>
-        <Close />
-      </button>
-    </>
-  );
-};
+const enum ViewState {
+  Idle,
+  Loading,
+  Saving,
+  SaveSuccess,
+  SaveFailure,
+  LoadFailure,
+}
 
 interface State {
   editorCode: string;
   loadedCode: string;
-  status:
-    | 'idle'
-    | 'loading'
-    | 'saving'
-    | 'saveSuccess'
-    | 'saveFailure'
-    | 'loadFailure';
+  viewState: ViewState;
   snippetId: string;
   showPreviewWarning: boolean;
 }
@@ -64,6 +36,8 @@ interface Props extends LiveCodeExampleProps {
 
 const getView = (views, view) => (views[view] || views.idle)();
 
+let dirty = false;
+
 const Playground: React.FunctionComponent<Props> = ({
   initialCode = '',
   formatSnippetUrl,
@@ -72,7 +46,7 @@ const Playground: React.FunctionComponent<Props> = ({
   const initialState: State = {
     editorCode: formatCode(initialCode),
     loadedCode: formatCode(initialCode),
-    status: 'idle',
+    viewState: ViewState.Idle,
     snippetId: '',
     showPreviewWarning: false,
   };
@@ -90,21 +64,30 @@ const Playground: React.FunctionComponent<Props> = ({
       (queryString.parse(window.location.search).snippet as string) || null;
 
     if (snippetId) {
-      setState({ status: 'loading' });
-      void loadSnippet(snippetId)
+      setState({ viewState: ViewState.Loading });
+      loadSnippet(snippetId)
         .then(loaded =>
           setState({
             loadedCode: formatCode(loaded.code),
-            status: 'idle',
+            viewState: ViewState.Idle,
             showPreviewWarning: !loaded.isSafe,
             snippetId,
           }),
         )
         .catch(error => {
           console.log(error);
-          setState({ status: 'loadFailure', snippetId });
+          setState({ viewState: ViewState.LoadFailure, snippetId });
         });
     }
+
+    const onBeforeUnload = event => {
+      if (dirty) {
+        event.returnValue = 'Sure you want to leave?';
+      }
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, []);
 
   const memoizedLiveCodeExample = React.useMemo(
@@ -112,9 +95,13 @@ const Playground: React.FunctionComponent<Props> = ({
       <LiveCodeExample
         initialCode={state.loadedCode}
         previewWarning={state.showPreviewWarning ? previewWarning : null}
-        onChange={(editorCode: string) =>
-          setState({ editorCode: formatCode(editorCode) })
-        }
+        onChange={(editorCode: string) => {
+          const formatted = formatCode(editorCode);
+          dirty = formatted !== state.loadedCode;
+          setState({
+            editorCode: formatted,
+          });
+        }}
         {...rest}
       />
     ),
@@ -125,12 +112,14 @@ const Playground: React.FunctionComponent<Props> = ({
     idle: () => (
       <TextButton
         onClick={() => {
-          setState({ status: 'saving' });
-          void saveSnippet(state.editorCode)
-            .then(snippetId => setState({ snippetId, status: 'saveSuccess' }))
+          setState({ viewState: ViewState.Saving });
+          saveSnippet(state.editorCode)
+            .then(snippetId =>
+              setState({ snippetId, viewState: ViewState.SaveSuccess }),
+            )
             .catch(error => {
               console.error('Unable to save snippet', error);
-              setState({ status: 'saveFailure' });
+              setState({ viewState: ViewState.SaveFailure });
             });
         }}
         disabled={state.editorCode === state.loadedCode}
@@ -144,7 +133,7 @@ const Playground: React.FunctionComponent<Props> = ({
       <SaveSuccess
         snippetId={state.snippetId}
         formatUrl={formatSnippetUrl}
-        onClose={() => setState({ status: 'idle' })}
+        onClose={() => setState({ viewState: ViewState.Idle })}
       />
     ),
 
@@ -156,7 +145,7 @@ const Playground: React.FunctionComponent<Props> = ({
     saveFailure: () => (
       <>
         Unable to save sippet :(
-        <TextButton onClick={() => setState({ status: 'idle' })}>
+        <TextButton onClick={() => setState({ viewState: ViewState.Idle })}>
           Try again
         </TextButton>
       </>
@@ -175,7 +164,7 @@ const Playground: React.FunctionComponent<Props> = ({
         </p>
         <button
           className={styles.previewConfirmButton}
-          onClick={() => setState({ status: 'idle' })}
+          onClick={() => setState({ viewState: ViewState.Idle })}
         >
           Reset Editor
         </button>
@@ -185,8 +174,10 @@ const Playground: React.FunctionComponent<Props> = ({
 
   return (
     <>
-      <div className={styles.header}>{getView(headerViews, state.status)}</div>
-      {getView(views, state.status)}
+      <div className={styles.header}>
+        {getView(headerViews, state.viewState)}
+      </div>
+      {getView(views, state.viewState)}
     </>
   );
 };

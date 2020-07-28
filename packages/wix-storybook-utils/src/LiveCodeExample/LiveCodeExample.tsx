@@ -148,7 +148,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }
   };
 
-  resetCode = () =>
+  onResetCode = () =>
     this.setState({
       code: formatCode(this.props.initialCode),
     });
@@ -275,7 +275,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
             </div>
 
             {dirty && (
-              <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
+              <TextButton
+                onClick={this.onResetCode}
+                prefixIcon={<RevertSmall />}
+              >
                 Reset
               </TextButton>
             )}
@@ -341,7 +344,10 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
             <div style={{ marginLeft: 'auto' }} />
 
             {dirty && (
-              <TextButton onClick={this.resetCode} prefixIcon={<RevertSmall />}>
+              <TextButton
+                onClick={this.onResetCode}
+                prefixIcon={<RevertSmall />}
+              >
                 Reset
               </TextButton>
             )}

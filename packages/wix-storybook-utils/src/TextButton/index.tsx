@@ -21,7 +21,7 @@ const TextButton: React.FunctionComponent<Props> = ({
     className={classnames(styles.root, className, {
       [styles.disabled]: disabled,
     })}
-    onClick={!disabled && onClick}
+    onClick={disabled ? undefined : onClick}
     disabled={disabled}
   >
     {prefixIcon && <div className={styles.prefix}>{prefixIcon}</div>}
