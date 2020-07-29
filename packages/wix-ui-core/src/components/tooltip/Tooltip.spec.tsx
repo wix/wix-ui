@@ -56,7 +56,7 @@ function runTests(render, tooltip) {
     it('tooltip should be visible on load', async () => {
       const controlled = true;
       const { driver } = render(tooltip({ controlled }));
-      // await waitForCond(() => {console.log(1); return driver.tooltipExists()});
+
       expect(await driver.tooltipExists()).toBe(true);
     });
   });

@@ -372,9 +372,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   componentDidMount() {
     this.initAppendToNode();
-    this.setState({ isMounted: true }, () => {
-      this.showPopover();
-    });
+    this.setState({ isMounted: true });
   }
 
   initAppendToNode() {
@@ -472,7 +470,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
   componentDidUpdate(prevProps) {
     const { shown } = this.props;
-    shown; //?
     if (this.portalNode) {
       // Re-calculate the portal's styles
       this.portalClasses = st(classes.root, this.props.className);
@@ -516,7 +513,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
 
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
-    shouldRenderPopper; //?
     return (
       <Manager>
         <ClickOutside
