@@ -9,7 +9,6 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
-import * as waitForCond from 'wait-for-cond';
 const { TooltipNext } = Tooltipas;
 
 describe('Tooltip', () => {
@@ -54,9 +53,7 @@ function runTests(render, tooltip) {
 
   describe('controlled mode', () => {
     it('tooltip should be visible on load', async () => {
-      const controlled = true;
-      const { driver } = render(tooltip({ controlled }));
-
+      const { driver } = render(tooltip({ controlled: true, show: true }));
       expect(await driver.tooltipExists()).toBe(true);
     });
   });

@@ -55,9 +55,10 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
-  /** whether to enable open always or on hover*/
+  /** whether controlled or not*/
   controlled?: boolean;
-
+  /** when controlled enables tooltip show or not*/
+  show?: boolean;
   className?: string;
   /** hook for testing purposes */
   'data-hook'?: string;
@@ -133,9 +134,9 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   isShown = () => {
-    const { controlled, disabled } = this.props;
+    const { controlled, disabled, show} = this.props;
     if (controlled) {
-      return true;
+      return show;
     }
 
     return disabled ? false : this.state.isOpen;
@@ -159,12 +160,14 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       zIndex,
       minWidth,
       maxWidth,
+      controlled,
       'aria-describedby': ariaDescribedBy,
       className,
     } = this.props;
 
     return (
       <Popover
+        controlled={controlled}
         className={st(classes.root, className)}
         placement={placement}
         shown={this.isShown()}
