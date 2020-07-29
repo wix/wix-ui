@@ -43,8 +43,10 @@ export interface TooltipProps {
   timeout?: number | { enter: number; exit: number };
   /** If true, shows the tooltip arrow */
   showArrow?: boolean;
+
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+
   /** unique identifier to map target element and content element for screen readers */
   'aria-describedby'?: string;
   /** Tooltip's content zindex */
@@ -53,6 +55,8 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
+  /** whether to enable open always or on hover*/
+  controlled?: boolean;
 
   className?: string;
   /** hook for testing purposes */
@@ -128,6 +132,15 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return focusableHOC ? handlers.blur() : null;
   };
 
+  isShown = () => {
+    const { controlled, disabled } = this.props;
+    if (controlled) {
+      return true;
+    }
+
+    return disabled ? false : this.state.isOpen;
+  };
+
   render() {
     const {
       placement,
@@ -154,7 +167,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       <Popover
         className={st(classes.root, className)}
         placement={placement}
-        shown={disabled ? false : this.state.isOpen}
+        shown={this.isShown()}
         showArrow={showArrow}
         onMouseEnter={disabled ? undefined : this.open}
         onMouseLeave={disabled ? undefined : this.close}
