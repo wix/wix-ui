@@ -34,7 +34,7 @@ interface Props extends LiveCodeExampleProps {
   formatSnippetUrl(snippetId: string): string;
 }
 
-const getView = (views, view) => (views[view] || views.idle)();
+const getView = (views, view) => (views[view] || views[ViewState.Idle])();
 
 let dirty = false;
 
@@ -109,7 +109,7 @@ const Playground: React.FunctionComponent<Props> = ({
   );
 
   const headerViews = {
-    idle: () => (
+    [ViewState.Idle]: () => (
       <TextButton
         onClick={() => {
           setState({ viewState: ViewState.Saving });
@@ -129,7 +129,7 @@ const Playground: React.FunctionComponent<Props> = ({
       </TextButton>
     ),
 
-    saveSuccess: () => (
+    [ViewState.SaveSuccess]: () => (
       <SaveSuccess
         snippetId={state.snippetId}
         formatUrl={formatSnippetUrl}
@@ -137,12 +137,12 @@ const Playground: React.FunctionComponent<Props> = ({
       />
     ),
 
-    saving: () => 'Saving...',
+    [ViewState.Saving]: () => 'Saving...',
 
     // don't render anything in header if loading failed
-    loadFailure: () => null,
+    [ViewState.LoadFailure]: () => null,
 
-    saveFailure: () => (
+    [ViewState.SaveFailure]: () => (
       <>
         Unable to save sippet :(
         <TextButton onClick={() => setState({ viewState: ViewState.Idle })}>
@@ -153,9 +153,9 @@ const Playground: React.FunctionComponent<Props> = ({
   };
 
   const views = {
-    idle: () => memoizedLiveCodeExample,
-    loading: () => 'Loading saved code snippet...',
-    loadFailure: () => (
+    [ViewState.Idle]: () => memoizedLiveCodeExample,
+    [ViewState.Loading]: () => 'Loading saved code snippet...',
+    [ViewState.LoadFailure]: () => (
       <div className={styles.previewWarning}>
         <h3>Error!</h3>
         <p>
