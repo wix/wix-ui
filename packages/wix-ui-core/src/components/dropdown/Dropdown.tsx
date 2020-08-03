@@ -26,7 +26,7 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   /** Handler for when a mouse down event occurs on an option */
   onContentMouseDown?(e: React.MouseEvent): void;
   /** Handler for when an option is deselected */
-  onDeselect(option: Option | null): void;
+  onDeselect?(option: Option | null): void;
   /** Handler for when dropdown becomes opened/closed */
   onExpandedChange?(isExpanded: boolean): void;
   /** initial selected option ids */
