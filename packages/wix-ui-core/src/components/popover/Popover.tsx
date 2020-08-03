@@ -130,7 +130,7 @@ export interface PopoverProps {
    * When true - onClickOutside will be called only when popover content is shown
    */
   disableClickOutsideWhenClosed?: boolean;
-  controlled?: boolean;
+
   dataHook?: string;
 }
 
@@ -503,7 +503,6 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       id,
       excludeClass = this.clickOutsideClass,
       fluid,
-      controlled,
     } = this.props;
     const { isMounted, shown } = this.state;
 
@@ -514,9 +513,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
 
     const shouldAnimate = shouldAnimatePopover(this.props);
 
-    const shouldRenderPopper = controlled
-      ? shouldAnimate || shown
-      : isMounted && (shouldAnimate || shown);
+    const shouldRenderPopper = isMounted && (shouldAnimate || shown);
     return (
       <Manager>
         <ClickOutside
