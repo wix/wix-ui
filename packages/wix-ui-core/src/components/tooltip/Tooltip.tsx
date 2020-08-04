@@ -23,6 +23,8 @@ export interface TooltipProps {
   onShow?: Function;
   /** callback to call when the tooltip is being hidden */
   onHide?: Function;
+  /** hide tooltip when mouse leaves tooltip element */
+  hideOnMouseLeave?: boolean;
   /** disabled tooltip showup on mouse enter */
   disabled?: boolean;
   /** Enables calculations in relation to the parent element*/
@@ -78,6 +80,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     showDelay: 0,
     hideDelay: 0,
     showArrow: true,
+    hideOnMouseLeave: true,
   };
 
   state = { isOpen: false };
@@ -92,13 +95,24 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   _renderElement = () => {
-    const { children, 'aria-describedby': ariaDescribedBy } = this.props;
+    const {
+      children,
+      'aria-describedby': ariaDescribedBy,
+      hideOnMouseLeave,
+    } = this.props;
     if (typeof children === 'string' || !children) {
       return children || '';
     }
+    const hideOnMouseLeaveProps = hideOnMouseLeave
+      ? {
+          onMouseOver: () => this.handleElementHover(true),
+          onMouseLeave: () => this.handleElementHover(false),
+        }
+      : {};
     return React.cloneElement(children as any, {
       onFocus: this._onFocus,
       onBlur: this._onBlur,
+      ...hideOnMouseLeaveProps,
       'aria-describedby': ariaDescribedBy,
     });
   };
@@ -128,6 +142,16 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
     return focusableHOC ? handlers.blur() : null;
   };
 
+  handleElementHover = hovered => {
+    if (this.state.isOpen !== hovered) {
+      if (hovered) {
+        this.open();
+      } else {
+        this.close();
+      }
+    }
+  };
+
   render() {
     const {
       placement,
@@ -148,7 +172,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       maxWidth,
       'aria-describedby': ariaDescribedBy,
       className,
+      hideOnMouseLeave,
+      children,
     } = this.props;
+
+    const shouldHideOnLeave =
+      hideOnMouseLeave && children && typeof children !== 'string';
 
     return (
       <Popover
@@ -156,8 +185,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         placement={placement}
         shown={disabled ? false : this.state.isOpen}
         showArrow={showArrow}
-        onMouseEnter={disabled ? undefined : this.open}
-        onMouseLeave={disabled ? undefined : this.close}
+        onMouseEnter={disabled || shouldHideOnLeave ? undefined : this.open}
+        onMouseLeave={disabled || shouldHideOnLeave ? undefined : this.close}
         timeout={timeout}
         hideDelay={hideDelay}
         showDelay={showDelay}
