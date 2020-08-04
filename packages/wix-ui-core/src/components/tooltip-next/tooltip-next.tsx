@@ -55,6 +55,8 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
+  /** shows tooltip when true. This makes Tooltip controlled */
+  shown?: boolean;
 
   className?: string;
 }
@@ -131,6 +133,15 @@ export class TooltipNext extends React.PureComponent<
     return focusableHOC ? handlers.blur() : null;
   };
 
+  _isShown = () => {
+    const { disabled, shown } = this.props;
+    if (shown) {
+      return shown;
+    }
+
+    return disabled ? false : this.state.isOpen;
+  };
+
   render() {
     const {
       placement,
@@ -156,7 +167,7 @@ export class TooltipNext extends React.PureComponent<
       <PopoverNext
         className={st(classes.root, this.props.className)}
         placement={placement}
-        shown={disabled ? false : this.state.isOpen}
+        shown={this._isShown()}
         showArrow={showArrow}
         onMouseEnter={disabled ? undefined : this.open}
         onMouseLeave={disabled ? undefined : this.close}

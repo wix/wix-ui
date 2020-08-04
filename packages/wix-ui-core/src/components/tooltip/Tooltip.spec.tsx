@@ -52,9 +52,14 @@ function runTests(render, tooltip) {
   });
 
   describe('controlled mode', () => {
-    it('tooltip should be visible on load', async () => {
-      const { driver } = render(tooltip({ controlled: true, show: true }));
+    it('tooltip should be visible when shown={true}', async () => {
+      const { driver } = render(tooltip({ shown: true }));
       expect(await driver.tooltipExists()).toBe(true);
+    });
+
+    it('tooltip should not be visible when shown={false}', async () => {
+      const { driver } = render(tooltip({ shown: false }));
+      expect(await driver.tooltipExists()).toBe(false);
     });
   });
 

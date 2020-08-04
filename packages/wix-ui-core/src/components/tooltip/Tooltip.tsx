@@ -55,9 +55,7 @@ export interface TooltipProps {
   minWidth?: number;
   /** content element maxWidth value */
   maxWidth?: number;
-  /** whether controlled or not*/
-  controlled?: boolean;
-  /** when controlled enables tooltip shown or not*/
+  /** shows tooltip when true. This makes Tooltip controlled */
   shown?: boolean;
   className?: string;
   /** hook for testing purposes */
@@ -134,8 +132,8 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
   };
 
   isShown = () => {
-    const { controlled, disabled, shown } = this.props;
-    if (controlled) {
+    const { disabled, shown } = this.props;
+    if (shown) {
       return shown;
     }
 
@@ -162,7 +160,6 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       maxWidth,
       'aria-describedby': ariaDescribedBy,
       className,
-      controlled,
     } = this.props;
 
     return (
@@ -172,7 +169,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         shown={this.isShown()}
         showArrow={showArrow}
         onMouseEnter={disabled ? undefined : this.open}
-        onMouseLeave={disabled || controlled ? undefined : this.close}
+        onMouseLeave={disabled ? undefined : this.close}
         timeout={timeout}
         hideDelay={hideDelay}
         showDelay={showDelay}
