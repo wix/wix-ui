@@ -9,6 +9,7 @@ import { tooltipPrivateDriverFactory } from './Tooltip.private.uni.driver';
 import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
+
 const { TooltipNext } = Tooltipas;
 
 describe('Tooltip', () => {
@@ -181,14 +182,14 @@ function runTests(render, tooltip) {
   });
 
   describe('`disabled` prop', () => {
-    it('[when] given false should not shown tooltip on mouse enter', async () => {
+    it('[when] given false should not show tooltip on mouse enter', async () => {
       const children = 'kido';
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);
       await driver.mouseEnter();
       expect(await driver.tooltipExists()).toBe(false);
     });
-    it('[when] given true should not shown tooltip on focus', async () => {
+    it('[when] given true should not show tooltip on focus', async () => {
       const children = 'kido';
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);

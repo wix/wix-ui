@@ -7,7 +7,6 @@ import { Portal } from 'react-portal';
 import { st, classes } from './Popover.st.css';
 import { createModifiers } from './modifiers';
 import { filterDataProps } from '../../utils/filter-data-props';
-
 const uniqueId = require('lodash/uniqueId');
 
 import {
@@ -512,8 +511,8 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     });
 
     const shouldAnimate = shouldAnimatePopover(this.props);
-
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
+
     return (
       <Manager>
         <ClickOutside
