@@ -10,7 +10,7 @@ import { ButtonNext } from '../button-next';
 import { Tooltip } from './';
 import * as Tooltipas from '../tooltip-next';
 
-const { TooltipNext } = Tooltipas
+const { TooltipNext } = Tooltipas;
 
 describe('Tooltip', () => {
   const render = createRendererWithUniDriver(tooltipPrivateDriverFactory);
@@ -50,6 +50,18 @@ function runTests(render, tooltip) {
   it('should be hidden by default', async () => {
     const { driver } = render(tooltip());
     expect(await driver.tooltipExists()).toBe(false);
+  });
+
+  describe('controlled mode', () => {
+    it('tooltip should be visible when shown={true}', async () => {
+      const { driver } = render(tooltip({ shown: true }));
+      expect(await driver.tooltipExists()).toBe(true);
+    });
+
+    it('tooltip should not be visible when shown={false}', async () => {
+      const { driver } = render(tooltip({ shown: false }));
+      expect(await driver.tooltipExists()).toBe(false);
+    });
   });
 
   describe('Mouse events', () => {
@@ -127,14 +139,14 @@ function runTests(render, tooltip) {
 
     it('should not call onShow when tooltip is disabled', async () => {
       const onShow = jest.fn();
-      const { driver } = render(tooltip({ onShow , disabled: true }));
+      const { driver } = render(tooltip({ onShow, disabled: true }));
       await driver.mouseEnter();
-      expect(onShow).not.toHaveBeenCalled()
+      expect(onShow).not.toHaveBeenCalled();
     });
 
     it('should not call onHide when tooltip is disabled', async () => {
       const onHide = jest.fn();
-      const { driver } = render(tooltip({ onHide,  disabled: true }));
+      const { driver } = render(tooltip({ onHide, disabled: true }));
       await driver.mouseEnter();
       await driver.mouseLeave();
       expect(onHide).not.toHaveBeenCalled();

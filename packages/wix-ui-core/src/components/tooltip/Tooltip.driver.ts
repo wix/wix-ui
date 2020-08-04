@@ -4,7 +4,7 @@ export const tooltipDriverFactory = args => {
   const popoverDriver = popoverDriverFactory(args);
   const getTooltipStyle = () =>
     window.getComputedStyle(
-      args.element.querySelector('[data-hook="popover-content"]')
+      args.element.querySelector('[data-hook="popover-content"]'),
     );
 
   return {

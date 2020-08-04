@@ -93,8 +93,10 @@ export interface PopoverProps {
   id?: string;
   /* stretch trigger element to the width of its container. */
   fluid?: boolean;
+
   /** Custom arrow element */
   customArrow?(placement: Placement, arrowProps: object): React.ReactNode;
+
   /** target element role value */
   role?: string;
   /** popover z-index */
@@ -127,6 +129,7 @@ export interface PopoverProps {
    * When true - onClickOutside will be called only when popover content is shown
    */
   disableClickOutsideWhenClosed?: boolean;
+
   dataHook?: string;
 }
 
