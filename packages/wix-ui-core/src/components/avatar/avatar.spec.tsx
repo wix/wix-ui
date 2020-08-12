@@ -31,6 +31,11 @@ describe('Avatar', () => {
       expect((await driver.getContentType()) === 'image').toBeTruthy(),
     );
 
+  let imageSetUrlSpy;
+  beforeEach(() => {
+    imageSetUrlSpy = jest.fn();
+  });
+
   // TODO: remove this hack
   // this is to ensure `onload` is called,
   // because during yoshi3 migration it stopped working
@@ -38,6 +43,7 @@ describe('Avatar', () => {
   beforeAll(() => {
     Object.defineProperty((global as any).Image.prototype, 'src', {
       set(src) {
+        imageSetUrlSpy?.(src);
         if (src === TEST_IMG_URL) {
           setTimeout(() => this.onload());
         }
@@ -201,6 +207,20 @@ describe('Avatar', () => {
         );
         expect(imgElem.getAttribute('src')).toBe(TEST_IMG_URL);
       });
+    });
+
+    it('should load image with url', async () => {
+      const driver = await createDriver(
+        <Avatar imgProps={{ src: TEST_IMG_URL }} />,
+      );
+      expect(imageSetUrlSpy).toHaveBeenCalledWith(TEST_IMG_URL);
+    });
+
+    it('should not load image with undefined url', async () => {
+      const driver = await createDriver(
+        <Avatar imgProps={{ src: undefined }} />,
+      );
+      expect(imageSetUrlSpy).not.toHaveBeenCalled();
     });
 
     // This test is skipped because it either passes with jsdom and fails with browser (mocha-runner), or in it's current form
