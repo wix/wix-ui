@@ -117,27 +117,27 @@ export class RadioButton extends React.Component<
         aria-checked={checked ? checked : false}
         {...filterDataProps(this.props)}
       >
-        <input
-          type="radio"
-          className={classes.hiddenRadio}
-          disabled={disabled}
-          required={required}
-          onFocus={this.onFocus}
-          onBlur={this.onInputBlur}
-          checked={checked}
-          value={value}
-          name={name}
-          tabIndex={tabIndex}
-          onChange={() => null}
-          onKeyDown={this.handleInputKeyDown}
-          ref={radio => (this.radioRef = radio)}
-          aria-label={this.props['aria-label']}
-        />
         <span
           className={classes.icon}
           onMouseEnter={this.onHover}
           onMouseLeave={onIconBlur}
         >
+          <input
+            type="radio"
+            className={classes.hiddenRadio}
+            disabled={disabled}
+            required={required}
+            onFocus={this.onFocus}
+            onBlur={this.onInputBlur}
+            checked={checked}
+            value={value}
+            name={name}
+            tabIndex={tabIndex}
+            onChange={() => null}
+            onKeyDown={this.handleInputKeyDown}
+            ref={radio => (this.radioRef = radio)}
+            aria-label={this.props['aria-label']}
+          />
           {checked ? checkedIcon : uncheckedIcon}
         </span>
         <span className={classes.label}>{label}</span>
