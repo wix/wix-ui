@@ -75,6 +75,7 @@ export default {
       'left',
       'left-start',
     ],
+    onClickOutside: () => console.log('Clicked Outside'),
   },
 
   sections: [

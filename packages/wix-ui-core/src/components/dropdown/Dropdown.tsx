@@ -78,6 +78,7 @@ export class DropdownComponent extends React.PureComponent<
     super(props);
 
     this.close = this.close.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.onPopoverClick = this.onPopoverClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onOptionHover = this.onOptionHover.bind(this);
@@ -312,6 +313,7 @@ export class DropdownComponent extends React.PureComponent<
         shown={shown}
         showArrow={showArrow}
         timeout={timeout}
+        onClickOutside={this.handleClickOutside}
         onClick={
           !disabled && openTrigger === CLICK
             ? () => this.onPopoverClick()
