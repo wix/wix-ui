@@ -43,7 +43,7 @@ describe('Avatar', () => {
   beforeAll(() => {
     Object.defineProperty((global as any).Image.prototype, 'src', {
       set(src) {
-        imageSetUrlSpy?.(src);
+        imageSetUrlSpy && imageSetUrlSpy(src);
         if (src === TEST_IMG_URL) {
           setTimeout(() => this.onload());
         }

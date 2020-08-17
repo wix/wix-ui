@@ -66,7 +66,7 @@ export class AvatarComponent extends React.Component<
   getRequestedContentType(props): ContentType {
     const { name, text, placeholder, imgProps } = props;
 
-    return imgProps?.src
+    return imgProps && imgProps.src
       ? 'image'
       : text || name
       ? 'text'
