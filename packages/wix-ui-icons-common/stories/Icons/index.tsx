@@ -1,54 +1,71 @@
-import * as React from 'react';
-import Markdown from 'wix-storybook-utils/Markdown';
-import style from './icons.st.css';
-import * as generalIcons from '../../src/general';
-import * as systemIcons from '../../src/system';
+import * as React from "react";
+import Markdown from "wix-storybook-utils/Markdown";
+import icons from "./icons.json";
+import style from "./icons.st.css";
+
+type Icon = {
+  title: string;
+  category: string;
+  description: string;
+  tags: Array<string>;
+  system: boolean;
+  sizes: Record<string, string>;
+};
 
 export const ICON_TYPES = {
-  GENERAL: 'General',
-  SYSTEM: 'System'
+  GENERAL: "General",
+  SYSTEM: "System",
 };
 
 export const ICON_SIZES = {
-  SMALL: 'Small',
-  NORMAL: 'Normal',
-  MEDIUM: 'Medium',
-  LARGE: 'Large'
+  SMALL: "Small",
+  NORMAL: "Normal",
+  MEDIUM: "Medium",
+  LARGE: "Large",
 };
 
-const IconList = ({icons}) => (
+const IconList = () => (
   <div data-hook="icons-list" className={style.iconList}>
-    {Object.keys(icons).map(iconName =>
-      <div key={iconName} className={style.iconWithName}>
-        {React.createElement(icons[iconName], {className: style.icon})}
-        <div className={style.iconName}>{iconName}</div>
-      </div>
-    )}
+    {icons.map(({ title, sizes, system }) => {
+      const type = system ? "system" : "general";
+      const IconElement =
+        sizes["18"] &&
+        require(`../../src/${type}/dist/components/${sizes["18"]}`).default;
+      return (
+        <div key={title} className={style.iconWithName}>
+          {IconElement && <IconElement className={style.icon} />}
+          <div className={style.iconName}>{title}</div>
+        </div>
+      );
+    })}
   </div>
 );
 
-const endsWith = (str, suffix) => str.indexOf(suffix, str.length - suffix.length) !== -1;
+const endsWith = (str, suffix) =>
+  str.indexOf(suffix, str.length - suffix.length) !== -1;
 
 const getIconsInSizeNormal = (icons) => {
   const filteredIcons = {};
   Object.keys(icons)
-    .filter(iconName => !endsWith(iconName, ICON_SIZES.SMALL))
-    .filter(iconName => !endsWith(iconName, ICON_SIZES.MEDIUM))
-    .filter(iconName => !endsWith(iconName, ICON_SIZES.LARGE))
-    .forEach(iconName => filteredIcons[iconName] = icons[iconName]);
+    .filter((iconName) => !endsWith(iconName, ICON_SIZES.SMALL))
+    .filter((iconName) => !endsWith(iconName, ICON_SIZES.MEDIUM))
+    .filter((iconName) => !endsWith(iconName, ICON_SIZES.LARGE))
+    .forEach((iconName) => (filteredIcons[iconName] = icons[iconName]));
   return filteredIcons;
 };
 
 const getIconsNotInSizeNormal = (icons, size) => {
   const filteredIcons = {};
   Object.keys(icons)
-    .filter(iconName => endsWith(iconName, size))
-    .forEach(iconName => filteredIcons[iconName] = icons[iconName]);
+    .filter((iconName) => endsWith(iconName, size))
+    .forEach((iconName) => (filteredIcons[iconName] = icons[iconName]));
   return filteredIcons;
-}
+};
 
 const getIconsBySize = (icons, size) =>
-  size === ICON_SIZES.NORMAL ? getIconsInSizeNormal(icons) : getIconsNotInSizeNormal(icons, size);
+  size === ICON_SIZES.NORMAL
+    ? getIconsInSizeNormal(icons)
+    : getIconsNotInSizeNormal(icons, size);
 
 const description = `
 ## Usage
@@ -74,12 +91,14 @@ export interface Props {
 
 export class IconsStory extends React.Component<Props, {}> {
   render() {
-    const {type, size} = this.props;
+    const { type, size } = this.props;
     return (
       <div className={style.root}>
         <Markdown source={description} />
-        <h2>{type} Icons - {size}</h2>
-        <IconList icons={getIconsBySize(type === ICON_TYPES.GENERAL ? generalIcons : systemIcons, size)} />
+        <h2>
+          {type} Icons - {size}
+        </h2>
+        <IconList />
       </div>
     );
   }

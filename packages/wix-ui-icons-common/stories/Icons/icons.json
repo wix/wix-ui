@@ -1,0 +1,2150 @@
+[
+  {
+    "title": "Edit",
+    "category": "Actions",
+    "description": "Use it inside a button which opens the editing mode",
+    "tags": ["edit", "pencil", "write"],
+    "system": false,
+    "sizes": { "18": "EditSmall", "24": "Edit" }
+  },
+  {
+    "title": "DocDuplicate",
+    "category": "Actions",
+    "description": "Use it inside a button which makes a copy of a file",
+    "tags": [],
+    "system": false,
+    "sizes": { "24": "DocDuplicate" }
+  },
+  {
+    "title": "Duplicate",
+    "category": "Actions",
+    "description": "Use it inside a button which makes a copy of any item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DuplicateSmall", "24": "Duplicate" }
+  },
+  {
+    "title": "Delete",
+    "category": "Actions",
+    "description": "Use it inside a button which deletes the any item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DeleteSmall", "24": "Delete" }
+  },
+  {
+    "title": "EmptyTrash",
+    "category": "Actions",
+    "description": "Use it inside a button which permanently destroys the content from the trash list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmptyTrashSmall", "24": "EmptyTrash" }
+  },
+  {
+    "title": "Add",
+    "category": "Actions",
+    "description": "Use it inside a button which creates a new item or increases the value of a number",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AddSmall", "24": "Add" }
+  },
+  {
+    "title": "Minus",
+    "category": "Actions",
+    "description": "Use it inside a button which decreases number value",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MinusSmall", "24": "Minus" }
+  },
+  {
+    "title": "Confirm",
+    "category": "Actions",
+    "description": "Use it inside a button which confirms the changes or use it next to a static item which is shown as included",
+    "tags": ["Check", "Checkmark", "Success"],
+    "system": false,
+    "sizes": { "18": "ConfirmSmall", "24": "Confirm" }
+  },
+  {
+    "title": "Dismiss",
+    "category": "Actions",
+    "description": "Use it inside a button which dismisses the changes, removes the changes or item, or use it next to a static item which is shown as not included",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DismissSmall", "24": "Dismiss" }
+  },
+  {
+    "title": "More",
+    "category": "Actions",
+    "description": "Use it inside a button which displays more buttons",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MoreSmall", "24": "More" }
+  },
+  {
+    "title": "Replace",
+    "category": "Actions",
+    "description": "Use it inside a button which proceeds to replace a content",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ReplaceSmall", "24": "Replace" }
+  },
+  {
+    "title": "Refresh",
+    "category": "Actions",
+    "description": "Use it inside a button which refreshes the content or use it next to a static item which is being or needs to be refreshed.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RefreshSmall", "24": "Refresh" }
+  },
+  {
+    "title": "Revert",
+    "category": "Actions",
+    "description": "Use it inside a button which reverts changes to a previous or initial state",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RevertSmall", "24": "Revert" }
+  },
+  {
+    "title": "Print",
+    "category": "Actions",
+    "description": "Use it inside a button which opens a printer dialog",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PrintSmall", "24": "Print" }
+  },
+  {
+    "title": "Archive",
+    "category": "Actions",
+    "description": "Use it inside a button which moves an item to archive or redirects to an archive",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArchiveSmall", "24": "Archive" }
+  },
+  {
+    "title": "Unarchive",
+    "category": "Actions",
+    "description": "Use it inside a button which put an item back to the list from an archive",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UnarchiveSmall", "24": "Unarchive" }
+  },
+  {
+    "title": "DownloadImport",
+    "category": "Actions",
+    "description": "Use it inside a button which downloads or imports  content or item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DownloadImportSmall", "24": "DownloadImport" }
+  },
+  {
+    "title": "UploadExport",
+    "category": "Actions",
+    "description": "Use it inside a button which uploads or imports content or item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UploadExportSmall", "24": "UploadExport" }
+  },
+  {
+    "title": "Link",
+    "category": "Actions",
+    "description": "Use it inside a button which adds link to an internal or external source of content or copies a link to a clipboard",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LinkSmall", "24": "Link" }
+  },
+  {
+    "title": "Unlink",
+    "category": "Actions",
+    "description": "Use it inside a button which removes linked source of content",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UnlinkSmall", "24": "Unlink" }
+  },
+  {
+    "title": "Pin",
+    "category": "Actions",
+    "description": "Use it inside a button which pins item to position in the list or a layout",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PinSmall", "24": "Pin" }
+  },
+  {
+    "title": "Search",
+    "category": "Actions",
+    "description": "Use it inside an input which searches for content or an item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SearchSmall", "24": "Search" }
+  },
+  {
+    "title": "Tag",
+    "category": "Actions",
+    "description": "Use it inside a button which adds label to content or item in order to categorise it using descriptive keywords",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TagSmall", "24": "Tag" }
+  },
+  {
+    "title": "Block",
+    "category": "Actions",
+    "description": "Use it inside a button which prohibits or terminates certain content, item or actions. Also use it inline with the content to indicate that certain actions are not allowed.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BlockSmall", "24": "Block" }
+  },
+  {
+    "title": "DistributeGlobe",
+    "category": "Actions",
+    "description": "Use it inside a button which makes content accessible via multiple sources or platforms.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DistributeGlobeSmall", "24": "DistributeGlobe" }
+  },
+  {
+    "title": "TaskAdd",
+    "category": "Actions",
+    "description": "Use it inside a button which adds item to a list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TaskAddSmall", "24": "TaskAdd" }
+  },
+  {
+    "title": "TaskComplete",
+    "category": "Actions",
+    "description": "Use it inside a button which marks item as completed",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TaskCompleteSmall", "24": "TaskComplete" }
+  },
+  {
+    "title": "PromoteFilled",
+    "category": "Actions",
+    "description": "Use it inside a button which advertises or announces content and at the same time is active.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PromoteFilledSmall", "24": "PromoteFilled" }
+  },
+  {
+    "title": "Promote",
+    "category": "Actions",
+    "description": "Use it inside a button which advertise or announce content or item.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PromoteSmall", "24": "Promote" }
+  },
+  {
+    "title": "Preview",
+    "category": "Actions",
+    "description": "Use it inside a button which opens up a preview of a file",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PreviewSmall", "24": "Preview" }
+  },
+  {
+    "title": "Share",
+    "category": "Actions",
+    "description": "Use it inside a button which shares content or item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ShareSmall", "24": "Share" }
+  },
+  {
+    "title": "Site",
+    "category": "Actions",
+    "description": "Use it next to a content which controls or indicates actions happening on a desktop (i.e. desktop notifications in Inbox)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SiteSmall", "24": "Site" }
+  },
+  {
+    "title": "SiteMove",
+    "category": "Actions",
+    "description": "Use it inside a button which moves site to a desired location",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SiteMoveSmall", "24": "SiteMove" }
+  },
+  {
+    "title": "SiteDuplicate",
+    "category": "Actions",
+    "description": "Use it inside a button which duplicates a site",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SiteDuplicateSmall", "24": "SiteDuplicate" }
+  },
+  {
+    "title": "SiteAdd",
+    "category": "Actions",
+    "description": "Use it inside a button which adds or creates a new site",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SiteAddSmall", "24": "SiteAdd" }
+  },
+  {
+    "title": "SiteSearch",
+    "category": "Actions",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SiteSearchSmall", "24": "SiteSearch" }
+  },
+  {
+    "title": "Send",
+    "category": "Actions",
+    "description": "Use it inside a button which sends a message, mail or a newsletter.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SendSmall", "24": "Send" }
+  },
+  {
+    "title": "Filter",
+    "category": "Actions",
+    "description": "Use it inside a button which opens filter option for content or item.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FilterSmall", "24": "Filter" }
+  },
+  {
+    "title": "Settings",
+    "category": "General",
+    "description": "Use it inside a button which opens content or item settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SettingsSmall", "24": "Settings" }
+  },
+  {
+    "title": "Home",
+    "category": "General",
+    "description": "Use it inside a button which redirects to the main web page",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HomeSmall", "24": "Home" }
+  },
+  {
+    "title": "Location",
+    "category": "General",
+    "description": "Use it inside a button which adds or next to the content which defines content or item location.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LocationSmall", "24": "Location" }
+  },
+  {
+    "title": "AppMarket",
+    "category": "General",
+    "description": "Use it inside of a button which redirects to App Market",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AppMarketSmall", "24": "AppMarket" }
+  },
+  {
+    "title": "Mobile",
+    "category": "General",
+    "description": "Use it inside of a button which opens a mobile view of a site or next to a content which is related to a mobile environment (i.e. mobile notifications)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MobileSmall", "24": "Mobile" }
+  },
+  {
+    "title": "ExternalLink",
+    "category": "General",
+    "description": "Use it inside a button which adds a link to another domain or opens content on a new tab",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ExternalLinkSmall", "24": "ExternalLink" }
+  },
+  {
+    "title": "Coupon",
+    "category": "General",
+    "description": "Use it inside a button which displays discount coupons or redirects to its manager",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CouponSmall", "24": "Coupon" }
+  },
+  {
+    "title": "Code",
+    "category": "General",
+    "description": "Use it inside a button which displays, lets to insert or edit code.",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CodeSmall", "24": "Code" }
+  },
+  {
+    "title": "Hint",
+    "category": "General",
+    "description": "Use it inside a button or next to inline item which gives valuable information to a user",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HintSmall", "24": "Hint" }
+  },
+  {
+    "title": "Gift",
+    "category": "General",
+    "description": "Use it next to inline item which tells about special premium offer or a gift",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "GiftSmall", "24": "Gift" }
+  },
+  {
+    "title": "OpenModalSmall",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "OpenModalSmall", "24": "OpenModalSmall" }
+  },
+  {
+    "title": "InfoCircle",
+    "category": "General",
+    "description": "Use it next to field labels or other interface elements which need to display additional information in a tooltip",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "InfoCircleSmall", "24": "InfoCircle" }
+  },
+  {
+    "title": "Info",
+    "category": "General",
+    "description": "Use it inside a button which displays additional information",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "InfoSmall", "24": "Info" }
+  },
+  {
+    "title": "HelpCircle",
+    "category": "General",
+    "description": "Use it next to interface elements which need to display Wix Support Articles",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HelpCircleSmall", "24": "HelpCircle" }
+  },
+  {
+    "title": "Help",
+    "category": "General",
+    "description": "Use it inside a button which displays Wix Support Article",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HelpSmall", "24": "Help" }
+  },
+  {
+    "title": "Statistics",
+    "category": "General",
+    "description": "Use it inside a button which displays statistics",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatisticsSmall", "24": "Statistics" }
+  },
+  {
+    "title": "Smile",
+    "category": "General",
+    "description": "Use it inside a button which opens emoji library",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SmileSmall", "24": "Smile" }
+  },
+  {
+    "title": "BonusGift",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BonusGiftSmall", "24": "BonusGift" }
+  },
+  {
+    "title": "Languages",
+    "category": "General",
+    "description": "Use it inside a button which opens site language selection",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LanguagesSmall", "24": "Languages" }
+  },
+  {
+    "title": "Badge",
+    "category": "General",
+    "description": "Indicate that user is a site member or link to management of the badges",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BadgeSmall", "24": "Badge" }
+  },
+  {
+    "title": "Article",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArticleSmall", "24": "Article" }
+  },
+  {
+    "title": "ToolBox",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ToolboxSmall", "24": "Toolbox" }
+  },
+  {
+    "title": "Accessibility",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AccessibilitySmall", "24": "Accessibility" }
+  },
+  {
+    "title": "Database",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DatabaseSmall", "24": "Database" }
+  },
+  {
+    "title": "Collections",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CollectionsSmall", "24": "Collections" }
+  },
+  {
+    "title": "Category",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CategorySmall", "24": "Category" }
+  },
+  {
+    "title": "PenNib",
+    "category": "General",
+    "description": "Indicates blog post or a vector tool",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PenNibSmall", "24": "PenNib" }
+  },
+  {
+    "title": "PenNibAdd",
+    "category": "General",
+    "description": "Or add a contributor (or maybe it's a misuse of an icon ?)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PenNibAddSmall", "24": "PenNibAdd" }
+  },
+  {
+    "title": "Note",
+    "category": "General",
+    "description": "Add a new note or display existing ones",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "NoteSmall", "24": "Note" }
+  },
+  {
+    "title": "Hotel",
+    "category": "General",
+    "description": "Indicate or link to Wix Hotels",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HotelSmall", "24": "Hotel" }
+  },
+  {
+    "title": "DataCollection",
+    "category": "General",
+    "description": "Display data collection as a table",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DataCollectionSmall", "24": "DataCollection" }
+  },
+  {
+    "title": "CircleSmallFilled",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CircleSmallFilledSmall", "24": "CircleSmallFilled" }
+  },
+  {
+    "title": "Template",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TemplateSmall", "24": "Template" }
+  },
+  {
+    "title": "Notifications",
+    "category": "General",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "NotificationSmall", "24": "Notification" }
+  },
+  {
+    "title": "AutomationsFilled",
+    "category": "General",
+    "description": "View and manage automations list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AutomationsFilledSmall", "24": "AutomationsFilled" }
+  },
+  {
+    "title": "Automations",
+    "category": "General",
+    "description": "View and manage automations list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AutomationsSmall", "24": "Automations" }
+  },
+  {
+    "title": "Desktop",
+    "category": "General",
+    "description": "View the desktop version of a site",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DesktopSmall", "24": "Desktop" }
+  },
+  {
+    "title": "Public",
+    "category": "General",
+    "description": "Indicate that information is publicly accessible",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PublicSmall", "24": "Public" }
+  },
+  {
+    "title": "Visibility",
+    "category": "Toggle",
+    "description": "Static indicator - marks item as public, listed or visible\nButton - opens item preview or details\nButton - makes item visible on click",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VisibleSmall", "24": "Visible" }
+  },
+  {
+    "title": "VisibilityHidden",
+    "category": "Toggle",
+    "description": "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HiddenSmall", "24": "VisibileHidden" }
+  },
+  {
+    "title": "LockLocked",
+    "category": "Toggle",
+    "description": "Static indicator - marks item as locked or private\nButton - makes item locked or private",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LockLockedSmall", "24": "LockLocked" }
+  },
+  {
+    "title": "LockUnlocked",
+    "category": "Toggle",
+    "description": "Static indicator - marks item as unlocked\nButton - makes item unlocked",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LockUnlockedSmall", "24": "LockUnlocked" }
+  },
+  {
+    "title": "Favourite",
+    "category": "Toggle",
+    "description": "Button - makes item favorite\nButton - adds a rating to an item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FavoriteSmall", "24": "Favorite" }
+  },
+  {
+    "title": "FavouriteFilled",
+    "category": "Toggle",
+    "description": "Static indicator - displays rating of an item\nStatic indicator - marks item as favorite\nButton - removes item from favorites on click",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FavoriteFilledSmall", "24": "FavoriteFilled" }
+  },
+  {
+    "title": "Heart",
+    "category": "Toggle",
+    "description": "Button – hearts an item\nStatic Indicator – marks item as favorite",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HeartSmall", "24": "Heart" }
+  },
+  {
+    "title": "HeartFilled",
+    "category": "Toggle",
+    "description": "Button – unhearts an item\nStatic Indicator – marks item as favorite",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HeartFilledSmall", "24": "HeartFilled" }
+  },
+  {
+    "title": "StatusAlert",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as error, urgent or destructive",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusAlertSmall", "24": "StatusAlert" }
+  },
+  {
+    "title": "StatusAlertFilled",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as error, urgent or destructive",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusAlertFilledSmall", "24": "StatusAlertFilled" }
+  },
+  {
+    "title": "StatusComplete",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as success or complete",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusCompleteSmall", "24": "StatusComplete" }
+  },
+  {
+    "title": "StatusCompleteFilled",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as success or complete",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusCompleteFilledSmall", "24": "StatusCompleteFilled" }
+  },
+  {
+    "title": "Flag",
+    "category": "Toggle",
+    "description": "Button – flags an item\nStatic Indicator – marks an item as reported or highlighted",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FlagSmall", "24": "Flag" }
+  },
+  {
+    "title": "FlagFilled",
+    "category": "Toggle",
+    "description": "Button – unflags an item\nStatic Indicator – marks an item as reported or highlighted",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FlagFilledSmall", "24": "FlagFilled" }
+  },
+  {
+    "title": "StatusWarning",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as warning",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusWarningSmall", "24": "StatusWarning" }
+  },
+  {
+    "title": "StatusWarningFilled",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as warning",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusWarningFilledSmall", "24": "StatusWarningFilled" }
+  },
+  {
+    "title": "StatusAlertPlain",
+    "category": "Toggle",
+    "description": "Static Indicator – marks item as error, urgent or destructive. It's used in filled shapes",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusAlertPlainSmall", "24": "StatusAlertPlain" }
+  },
+  {
+    "title": "Bookmark",
+    "category": "Toggle",
+    "description": "Button – bookmarks an item\nStatic Indicator – marks an item as bookmarked",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BookmarkSmall", "24": "Bookmark" }
+  },
+  {
+    "title": "StatusStop",
+    "category": "Toggle",
+    "description": "Button – reports an item as a spam\nStatic Indicator – marks an item as a spam",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusStopSmall", "24": "StatusStop" }
+  },
+  {
+    "title": "StatusStopFilled",
+    "category": "Toggle",
+    "description": "Button – makes an item as not a spam\nStatic Indicator – marks an item as a spam",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StatusStopFilledSmall", "24": "StatusStopFilled" }
+  },
+  {
+    "title": "ThumbsUp",
+    "category": "Toggle",
+    "description": "Button – likes an item\nStatic Indicator – marks an item liked\nStatic Indicator – marks count of likes",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ThumbsUpSmall", "24": "ThumbsUp" }
+  },
+  {
+    "title": "ThumbsUpFilled",
+    "category": "Toggle",
+    "description": "Button – unlikes an item\nStatic Indicator – marks an item liked\nStatic Indicator – marks count of likes",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ThumbsUpFilled", "24": "ThumbsUpFilled" }
+  },
+  {
+    "title": "EmailFilled",
+    "category": "Communication",
+    "description": "Static indicator - marks email address\nButton - makes email unread\nButton - show emails",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailFilledSmall", "24": "EmailFilled" }
+  },
+  {
+    "title": "Email",
+    "category": "Communication",
+    "description": "Static indicator - marks email address\nButton - marks email as unread\nButton - shows emails",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailSmall", "24": "Email" }
+  },
+  {
+    "title": "EmailOpen",
+    "category": "Communication",
+    "description": "Static indicator - marks that email or message have been read by a recipient\nButton - marks email as read",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailOpenSmall", "24": "EmailOpen" }
+  },
+  {
+    "title": "EmailSend",
+    "category": "Communication",
+    "description": "Static indicator - marks that email was sent\nButton - sends email",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailSendSmall", "24": "EmailSend" }
+  },
+  {
+    "title": "EmailAlert",
+    "category": "Communication",
+    "description": "UNCLEAR",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailAlertSmall", "24": "EmailAlert" }
+  },
+  {
+    "title": "EmailClick",
+    "category": "Communication",
+    "description": "UNCLEAR",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "EmailClickSmall", "24": "EmailClick" }
+  },
+  {
+    "title": "ChatFilled",
+    "category": "Communication",
+    "description": "Static indicator - marks comments\nButton - composes a message\nButton - shows messages",
+    "tags": [],
+    "system": false,
+    "sizes": { "24": "ChatFilled" }
+  },
+  {
+    "title": "Chat",
+    "category": "Communication",
+    "description": "Static indicator - marks comments\nButton - composes a message\nButton - shows messages",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChatSmall", "24": "Chat" }
+  },
+  {
+    "title": "ChatReply",
+    "category": "Communication",
+    "description": "Button - composes a message by using quick reply templates",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChatReply", "24": "ChatReply" }
+  },
+  {
+    "title": "ChatDisabled",
+    "category": "Communication",
+    "description": "Static indicator - marks that chat is unavailable\nButton - makes chat disabled",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChatDisabledSmall", "24": "ChatDisabled" }
+  },
+  {
+    "title": "PhoneFilled",
+    "category": "Communication",
+    "description": "Button – makes a call\nStatic Indicator – marks phone number",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PhoneFilledSmall", "24": "PhoneFilled" }
+  },
+  {
+    "title": "Phone",
+    "category": "Communication",
+    "description": "Button – makes a call\nStatic Indicator – marks phone number",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PhoneSmall", "24": "Phone" }
+  },
+  {
+    "title": "Document",
+    "category": "Document",
+    "description": "Static Indicator – marks item as a document",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DocumentSmall", "24": "Document" }
+  },
+  {
+    "title": "DocSend",
+    "category": "Document",
+    "description": "Button – sends document to mailing list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DocSendSmall", "24": "DocSend" }
+  },
+  {
+    "title": "DocMoveto",
+    "category": "Document",
+    "description": "Button – moves document to a new directory",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DocMovetoSmall", "24": "DocMoveto" }
+  },
+  {
+    "title": "DocExpire",
+    "category": "Document",
+    "description": "Static Indicator – marks item as an expired document or file",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DocExpireSmall", "24": "DocExpire" }
+  },
+  {
+    "title": "Transfer",
+    "category": "Document",
+    "description": "UNCLEAR",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TransferSmall", "24": "Transfer" }
+  },
+  {
+    "title": "Attachment",
+    "category": "Document",
+    "description": "Button – opens a file browser to attach a file\nStatic Indicator – marks item as attached",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AttachmentSmall", "24": "Attachment" }
+  },
+  {
+    "title": "Folder",
+    "category": "Document",
+    "description": "Static Indicator – marks item as a folder",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FolderSmall", "24": "Folder" }
+  },
+  {
+    "title": "FolderAdd",
+    "category": "Document",
+    "description": "Button – adds new folder",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "NewFolderSmall", "24": "NewFolder" }
+  },
+  {
+    "title": "FolderMove",
+    "category": "Document",
+    "description": "Button – moves folder to a new directory",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FolderMoveSmall", "24": "FolderMove" }
+  },
+  {
+    "title": "FolderFind",
+    "category": "Document",
+    "description": "Button – searches in a folder",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FolderFindSmall", "24": "FolderFind" }
+  },
+  {
+    "title": "Users",
+    "category": "Users",
+    "description": "Button – shows list of contacts\nStatic Indicator – emphasises a number of users / attendees",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UsersSmall", "24": "Users" }
+  },
+  {
+    "title": "User",
+    "category": "Users",
+    "description": "Static indicator - marks user name",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserSmall", "24": "User" }
+  },
+  {
+    "title": "UserAdd",
+    "category": "Users",
+    "description": "Button - creates a new user",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserAddSmall", "24": "UserAdd" }
+  },
+  {
+    "title": "UserLeave",
+    "category": "Users",
+    "description": "Button - moves user to a new directory",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserLeaveSmall", "24": "UserLeave" }
+  },
+  {
+    "title": "UserJoin",
+    "category": "Users",
+    "description": "Button - imports user to a directory",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserJoinSmall", "24": "UserJoin" }
+  },
+  {
+    "title": "UserBlock",
+    "category": "Users",
+    "description": "Button - makes user blocked\nButton - shows all blocked users",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserBlockSmall", "24": "UserBlock" }
+  },
+  {
+    "title": "UserRemove",
+    "category": "Users",
+    "description": "Button - removes the user",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UserRemoveSmall", "24": "UserRemove" }
+  },
+  {
+    "title": "AdminAccess",
+    "category": "Users",
+    "description": "Static indicator - marks user with admin rights\nButton - make user an admin\nButton - redirects to permissions management",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AdminAccessSmall", "24": "AdminAccess" }
+  },
+  {
+    "title": "DateAndTime",
+    "category": "Date & Time",
+    "description": "Static indicator - marks working hours",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DateAndTimeSmall", "24": "DateAndTime" }
+  },
+  {
+    "title": "Date",
+    "category": "Date & Time",
+    "description": "Static indicator - marks date\nButton - displays calendar",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DateSmall", "24": "Date" }
+  },
+  {
+    "title": "DateChecked",
+    "category": "Date & Time",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DateCheckedSmall", "24": "DateChecked" }
+  },
+  {
+    "title": "DateAdd",
+    "category": "Date & Time",
+    "description": "Button - adds date",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DateAddSmall", "24": "DateAdd" }
+  },
+  {
+    "title": "Time",
+    "category": "Date & Time",
+    "description": "Static indicator - marks opening or working hours\nStatic indicator - marks duration",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TimeSmall", "24": "Time" }
+  },
+  {
+    "title": "ArrowLeft",
+    "category": "Arrows",
+    "description": "Button - moves or goes left",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArrowLeftSmall", "24": "ArrowLeft" }
+  },
+  {
+    "title": "ArrowRight",
+    "category": "Arrows",
+    "description": "Button - moves or goes right",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArrowRightSmall", "24": "ArrowRight" }
+  },
+  {
+    "title": "ArrowUp",
+    "category": "Arrows",
+    "description": "Button - moves or goes up",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArrowUpSmall", "24": "ArrowUp" }
+  },
+  {
+    "title": "ArrowDown",
+    "category": "Arrows",
+    "description": "Button - moves or goes down",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArrowDownSmall", "24": "ArrowDown" }
+  },
+  {
+    "title": "ChevronLeft",
+    "category": "Arrows",
+    "description": "Button - displays or navigates to previous item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronLeftSmall", "24": "ChevronLeft" }
+  },
+  {
+    "title": "ChevronRight",
+    "category": "Arrows",
+    "description": "Button - displays or navigates to next item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronRightSmall", "24": "ChevronRight" }
+  },
+  {
+    "title": "ChevronUp",
+    "category": "Arrows",
+    "description": "Button - decreases number input value by 1\nButton - collapses item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronUpSmall", "24": "ChevronUp" }
+  },
+  {
+    "title": "ChevronDown",
+    "category": "Arrows",
+    "description": "Button - increases number input value by 1\nButton - expands item",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronDownSmall", "24": "ChevronDown" }
+  },
+  {
+    "title": "ChevronLeftCircle",
+    "category": "Arrows",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronLeftCircleSmall", "24": "ChevronLeftCircle" }
+  },
+  {
+    "title": "ChevronRightCircle",
+    "category": "Arrows",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronRightCircleSmall", "24": "ChevronRightCircle" }
+  },
+  {
+    "title": "ChevronUpCircle",
+    "category": "Arrows",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronUpCircleSmall", "24": "ChevronUpCircle" }
+  },
+  {
+    "title": "ChevronDownCircle",
+    "category": "Arrows",
+    "description": "",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ChevronDownCircleSmall", "24": "ChevronDownCircle" }
+  },
+  {
+    "title": "ChevronLeftLarge",
+    "category": "Arrows",
+    "description": "Button - displays or navigates to previous item",
+    "tags": [],
+    "system": false,
+    "sizes": { "24": "ChevronLeftLarge" }
+  },
+  {
+    "title": "ChevronRightLarge",
+    "category": "Arrows",
+    "description": "Button - displays or navigates to next item",
+    "tags": [],
+    "system": false,
+    "sizes": { "24": "ChevronRightLarge" }
+  },
+  {
+    "title": "ArrowDownRight",
+    "category": "Arrows",
+    "description": "Static indicator - marks child item in the list\nButton - converts item to a child",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ArrowDownRightSmall", "24": "ArrowDownRight" }
+  },
+  {
+    "title": "LayoutGalleryWithPanel",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items as a gallery with a panel on a side",
+    "tags": [],
+    "system": false,
+    "sizes": {
+      "18": "LayoutGalleryWithPanelSmall",
+      "24": "LayoutGalleryWithPanel"
+    }
+  },
+  {
+    "title": "LayoutGallery",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items as a gallery",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LayoutGallerySmall", "24": "LayoutGallery" }
+  },
+  {
+    "title": "LayoutList",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items as a list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LayoutListSmall", "24": "LayoutList" }
+  },
+  {
+    "title": "LayoutListWithPanel",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items as a list with a panel on a side",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LayoutListWithPanelSmall", "24": "LayoutListWithPanel" }
+  },
+  {
+    "title": "SortAscending",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items in an ascending order",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SortAscendingSmall", "24": "SortAscending" }
+  },
+  {
+    "title": "SortDescending",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items in a descending order",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SortDescendingSmall", "24": "SortDescending" }
+  },
+  {
+    "title": "SortAZ",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items in an alphabetical order starting from A",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SortAZSmall", "24": "SortAZ" }
+  },
+  {
+    "title": "SortZA",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items in an alphabetical order starting from Z",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SortZASmall", "24": "SortZA" }
+  },
+  {
+    "title": "List",
+    "category": "Layout & Sorting",
+    "description": "Button - displays items as a list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ListSmall", "24": "List" }
+  },
+  {
+    "title": "Image",
+    "category": "Media",
+    "description": "Button - adds an image\nStatic indicator - marks image placeholder",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ImageSmall", "24": "Image" }
+  },
+  {
+    "title": "VideoCamera",
+    "category": "Media",
+    "description": "Button - starts video recording\nButton - starts live translation\nStatic indicator - marks video files",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VideoCameraSmall", "24": "VideoCamera" }
+  },
+  {
+    "title": "Music",
+    "category": "Media",
+    "description": "Static indicator - marks audio files",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MusicSmall", "24": "Music" }
+  },
+  {
+    "title": "Sound",
+    "category": "Media",
+    "description": "Button - displays volume control settings\nStatic indicator - marks an enabled sound",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SoundSmall", "24": "Sound" }
+  },
+  {
+    "title": "SoundOff",
+    "category": "Media",
+    "description": "Static indicator - marks a disabled sound",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SoundOffSmall", "24": "SoundOff" }
+  },
+  {
+    "title": "Play",
+    "category": "Media",
+    "description": "Button - plays media",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PlaySmall", "24": "Play" }
+  },
+  {
+    "title": "PlayFilled",
+    "category": "Media",
+    "description": "Button - plays media",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PlayFilledSmall", "24": "PlayFilled" }
+  },
+  {
+    "title": "Pause",
+    "category": "Media",
+    "description": "Button - pauses media playback",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PauseSmall", "24": "Pause" }
+  },
+  {
+    "title": "PauseFilled",
+    "category": "Media",
+    "description": "Button - pauses media playback",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PauseFilledSmall", "24": "PauseFilled" }
+  },
+  {
+    "title": "Stop",
+    "category": "Media",
+    "description": "Button - stops media playback",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StopSmall", "24": "Stop" }
+  },
+  {
+    "title": "StopFilled",
+    "category": "Media",
+    "description": "Button - stops media playback",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "StopFilledSmall", "24": "StopFilled" }
+  },
+  {
+    "title": "AddChannel",
+    "category": "Media",
+    "description": "Button - adds a new channel",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AddChannelSmall", "24": "AddChannel" }
+  },
+  {
+    "title": "PhotoCamera",
+    "category": "Media",
+    "description": "Button - captures a photo",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PhotoCameraSmall", "24": "PhotoCamera" }
+  },
+  {
+    "title": "CutOut",
+    "category": "Composer Actions",
+    "description": "Button - cuts object out of background",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CutOutSmall", "24": "CutOut" }
+  },
+  {
+    "title": "Undo",
+    "category": "Composer Actions",
+    "description": "Button - undoes the last action",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UndoSmall", "24": "Undo" }
+  },
+  {
+    "title": "Redo",
+    "category": "Composer Actions",
+    "description": "Button - redoes the last action that was undone",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RedoSmall", "24": "Redo" }
+  },
+  {
+    "title": "ZoomOut",
+    "category": "Composer Actions",
+    "description": "Button - zooms out the picture or document",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ZoomOutSmall", "24": "ZoomOut" }
+  },
+  {
+    "title": "ZoomIn",
+    "category": "Composer Actions",
+    "description": "Button - zooms into the picture or document",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ZoomInSmall", "24": "ZoomIn" }
+  },
+  {
+    "title": "Crop",
+    "category": "Composer Actions",
+    "description": "Button - enables item dimension cropping",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CropSmall", "24": "Crop" }
+  },
+  {
+    "title": "CropRotate",
+    "category": "Composer Actions",
+    "description": "Button - enables item dimension cropping and rotation at once",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CropRotateSmall", "24": "CropRotate" }
+  },
+  {
+    "title": "RotateLeft",
+    "category": "Composer Actions",
+    "description": "Button - rotates item counterclockwise by 90 degrees",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RotateLeftSmall", "24": "RotateLeft" }
+  },
+  {
+    "title": "RotateRight",
+    "category": "Composer Actions",
+    "description": "Button - rotates item clockwise by 90 degrees",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RotateRightSmall", "24": "RotateRight" }
+  },
+  {
+    "title": "MirrorHorizontal",
+    "category": "Composer Actions",
+    "description": "Button -  flips item horizontally",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MirrorHorizontalSmall", "24": "MirrorHorizontal" }
+  },
+  {
+    "title": "MirrorVertical",
+    "category": "Composer Actions",
+    "description": "Button -  flips item vertically",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MirrorVerticalSmall", "24": "MirrorVertical" }
+  },
+  {
+    "title": "Adjust",
+    "category": "Composer Adjustments",
+    "description": "Button - displays adjustment options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AdjustSmall", "24": "Adjust" }
+  },
+  {
+    "title": "Brightness",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image brightness settings\nButton - displays image brightness settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BrightnessSmall", "24": "Brightness" }
+  },
+  {
+    "title": "Contrast",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image contrast settings\nButton - displays image contrast settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ContrastSmall", "24": "Contrast" }
+  },
+  {
+    "title": "Shadows",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image shadow settings\nButton - displays image shadow settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ShadowsSmall", "24": "Shadows" }
+  },
+  {
+    "title": "Highlights",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image highlights settings\nButton - displays image highlights settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HighlightsSmall", "24": "Highlights" }
+  },
+  {
+    "title": "Exposure",
+    "category": "Composer Adjustments",
+    "description": "Static indicator- marks image exposure settings\nButton - displays image exposure settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ExposureSmall", "24": "Exposure" }
+  },
+  {
+    "title": "Temperature",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image temperature settings\nButton - displays image temperature settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TemperatureSmall", "24": "Temperature" }
+  },
+  {
+    "title": "Sharpness",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image sharpness settings\nButton -  displays image sharpness settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SharpnessSmall", "24": "Sharpness" }
+  },
+  {
+    "title": "Vignette",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks image vignette effect settings\nButton - displays image vignette effect settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VignetteSmall", "24": "Vignette" }
+  },
+  {
+    "title": "Volume",
+    "category": "Composer Adjustments",
+    "description": "Static indicator - marks value of effect",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VolumeSmall", "24": "Volume" }
+  },
+  {
+    "title": "Scenery",
+    "category": "Composer Adjustments",
+    "description": "Button - applies adjustments preset for outdoor images",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ScenerySmall", "24": "Scenery" }
+  },
+  {
+    "title": "FaceFemale",
+    "category": "Composer Adjustments",
+    "description": "Button - applies adjustments preset for portrait images",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FaceFemaleSmall", "24": "FaceFemale" }
+  },
+  {
+    "title": "IndoorLight",
+    "category": "Composer Adjustments",
+    "description": "Button - applies adjustments preset for indoor images",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "IndoorLightSmall", "24": "IndoorLight" }
+  },
+  {
+    "title": "TShirt",
+    "category": "Composer Adjustments",
+    "description": "Button - applies adjustments preset for object images",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TShirtSmall", "24": "TShirt" }
+  },
+  {
+    "title": "Layers",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - displays layers\nButton - displays layer settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LayersSmall", "24": "Layers" }
+  },
+  {
+    "title": "Background",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - displays background\nButton - displays background settings",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BackgroundSmall", "24": "Background" }
+  },
+  {
+    "title": "Forward",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - moves object forward",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ForwardSmall", "24": "Forward" }
+  },
+  {
+    "title": "Backward",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - moves object backward",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BackwardSmall", "24": "Backward" }
+  },
+  {
+    "title": "DistributeHorizontally",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - distributes objects with equal horizontal spacing",
+    "tags": [],
+    "system": false,
+    "sizes": {
+      "18": "DistributeHorizontallySmall",
+      "24": "DistributeHorizontally"
+    }
+  },
+  {
+    "title": "DistributeVertically",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - distributes objects with equal vertical spacing",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DistributeVerticallySmall", "24": "DistributeVertically" }
+  },
+  {
+    "title": "AlignLeft",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to left side of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AlignLeftSmall", "24": "AlignLeft" }
+  },
+  {
+    "title": "AlignCenterVertically",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to vertical center of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": {
+      "18": "AlignCenterVerticallySmall",
+      "24": "AlignCenterVertically"
+    }
+  },
+  {
+    "title": "AlignRight",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to right side of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AlignRightSmall", "24": "AlignRight" }
+  },
+  {
+    "title": "AlignTop",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to top of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AlignTopSmall", "24": "AlignTop" }
+  },
+  {
+    "title": "AlignCenterHorizontally",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to horizontal center of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": {
+      "18": "AlignCenterHorizontallySmall",
+      "24": "AlignCenterHorizontally"
+    }
+  },
+  {
+    "title": "AlignBottom",
+    "category": "Composer Layers & Alignment",
+    "description": "Button - aligns object to bottom of canvas or selection",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "AlignBottomSmall", "24": "AlignBottom" }
+  },
+  {
+    "title": "Intersect",
+    "category": "Composer Shapes",
+    "description": "Button - merges objects into one so only overlapping parts of them are visible",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "IntersectSmall", "24": "Intersect" }
+  },
+  {
+    "title": "Substract",
+    "category": "Composer Shapes",
+    "description": "Button - subtracts overlapping parts of bottom object",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SubstractSmall", "24": "Substract" }
+  },
+  {
+    "title": "Union",
+    "category": "Composer Shapes",
+    "description": "Button - merges selected objects",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UnionSmall", "24": "Union" }
+  },
+  {
+    "title": "Exclude",
+    "category": "Composer Shapes",
+    "description": "Button - merges objects into one and displays non-overlapping parts of them",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ExcludeSmall", "24": "Exclude" }
+  },
+  {
+    "title": "CircleLarge",
+    "category": "Composer Shapes",
+    "description": "Button - inserts circle shape",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CircleLargeSmall", "24": "CircleLarge" }
+  },
+  {
+    "title": "RectangleLarge",
+    "category": "Composer Shapes",
+    "description": "Button - inserts rectangle shape",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RectangleLargeSmall", "24": "RectangleLarge" }
+  },
+  {
+    "title": "TriangleLarge",
+    "category": "Composer Shapes",
+    "description": "Button - inserts triangle shape",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TriangleLargeSmall", "24": "TriangleLarge" }
+  },
+  {
+    "title": "ColorDrop",
+    "category": "Composer Tools",
+    "description": "Button - enables color picker",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ColorDropSmall", "24": "ColorDrop" }
+  },
+  {
+    "title": "MagicWand",
+    "category": "Composer Tools",
+    "description": "Button - enables magic wand tool",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "MagicWandSmall", "24": "MagicWand" }
+  },
+  {
+    "title": "Rename",
+    "category": "Composer Tools",
+    "description": "Button - enables text editing",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RenameSmall", "24": "Rename" }
+  },
+  {
+    "title": "Filters",
+    "category": "Composer Effects",
+    "description": "Static indicator - marks filters\nButton - displays filter options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FiltersSmall", "24": "Filters" }
+  },
+  {
+    "title": "Overlay",
+    "category": "Composer Effects",
+    "description": "Static indicator - marks overlay\nButton - display overlay options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "OverlaySmall", "24": "Overlay" }
+  },
+  {
+    "title": "DropShadowRight",
+    "category": "Composer Effects",
+    "description": "Button - applies right drop shadow effect",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DropShadowRightSmall", "24": "DropShadowRight" }
+  },
+  {
+    "title": "DropShadowLeft",
+    "category": "Composer Effects",
+    "description": "Button - applies left drop shadow effect",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DropShadowLeftSmall", "24": "DropShadowLeft" }
+  },
+  {
+    "title": "DropShadowBottom",
+    "category": "Composer Effects",
+    "description": "Button - applies buttom drop shadow effect",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DropShadowBottomSmall", "24": "DropShadowBottom" }
+  },
+  {
+    "title": "HorizontalRatio",
+    "category": "Composer Ratio",
+    "description": "Button - displays content in horizontal layout\nButton - creates horizontal ratio item (i.e. video)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HorizontalRatioSmall", "24": "HorizontalRatio" }
+  },
+  {
+    "title": "VerticalRatio",
+    "category": "Composer Ratio",
+    "description": "Button - displays content in vertical layout\nButton - creates vertical ration item (i.e. video)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VerticalRatioSmall", "24": "VerticalRatio" }
+  },
+  {
+    "title": "HorizontalRatioChecked",
+    "category": "Composer Ratio",
+    "description": "Static indicator - marks an applied horizontal display option",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "HorizontalRatioChecked", "24": "HorizontalRatioChecked" }
+  },
+  {
+    "title": "VerticalRatioChecked",
+    "category": "Composer Ratio",
+    "description": "Static indicator - marks an applied vertical display option",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "VerticalRatioCheckedSmall", "24": "VerticalRatioChecked" }
+  },
+  {
+    "title": "SquareRatio",
+    "category": "Composer Ratio",
+    "description": "Button - displays content in square layout\nButton - creates a square ratio item (i.e. video)",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SquareRatioSmall", "24": "SquareRatio" }
+  },
+  {
+    "title": "SquareRatioChecked",
+    "category": "Composer Ratio",
+    "description": "Static indicator - marks an applied square display option",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SquareRatioCheckedSmall", "24": "SquareRatioChecked" }
+  },
+  {
+    "title": "Size&Ratio",
+    "category": "Composer Ratio",
+    "description": "Button - displays size and ratio options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SizeAndRatioSmall", "24": "SizeAndRatio" }
+  },
+  {
+    "title": "Objects",
+    "category": "Composer Other",
+    "description": "Button - displays shape editing options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "ObjectsSmall", "24": "Objects" }
+  },
+  {
+    "title": "Divider",
+    "category": "Composer Other",
+    "description": "Button - displays divider options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "DividerSmall", "24": "Divider" }
+  },
+  {
+    "title": "Bow",
+    "category": "Composer Other",
+    "description": "Button - displays decoration options",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "BowSmall", "24": "Bow" }
+  },
+  {
+    "title": "FoodInStock",
+    "category": "Food",
+    "description": "Button - displays food items in stock",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FoodInStockSmall", "24": "FoodInStock" }
+  },
+  {
+    "title": "FoodOutOfStock",
+    "category": "Food",
+    "description": "Button - displays food items out of stock",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FoodOutOfStockSmall", "24": "FoodOutOfStock" }
+  },
+  {
+    "title": "Cutlery",
+    "category": "Food",
+    "description": "Static indicator - marks restaurants",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CutlerySmall", "24": "Cutlery" }
+  },
+  {
+    "title": "Facebook",
+    "category": "Brands",
+    "description": "Button - redirects to Facebook social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "FacebookSmall", "24": "Facebook" }
+  },
+  {
+    "title": "Instagram",
+    "category": "Brands",
+    "description": "Button - redirects to Instagram social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "InstagramSmall", "24": "Instagram" }
+  },
+  {
+    "title": "LinkedIn",
+    "category": "Brands",
+    "description": "Button - redirects to LinkedIn social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LinkedInSmall", "24": "LinkedIn" }
+  },
+  {
+    "title": "Google",
+    "category": "Brands",
+    "description": "Button - redirects to Google search",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "GoogleSmall", "24": "Google" }
+  },
+  {
+    "title": "YandexRu",
+    "category": "Brands",
+    "description": "Button - redirects to Yandex Ru social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "YandexRuSmall", "24": "YandexRu" }
+  },
+  {
+    "title": "YandexEn",
+    "category": "Brands",
+    "description": "Button - redirects to Yandex En social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "YandexEnSmall", "24": "YandexEn" }
+  },
+  {
+    "title": "GitHub",
+    "category": "Brands",
+    "description": "Button - redirects to Git Hub platform",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "GitHubSmall", "24": "GitHub" }
+  },
+  {
+    "title": "Youtube",
+    "category": "Brands",
+    "description": "Button - redirects to Youtube social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "YoutubeSmall", "24": "Youtube" }
+  },
+  {
+    "title": "YoutubeFilled",
+    "category": "Brands",
+    "description": "Button - redirects to Youtube social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "YoutubeFilledSmall", "24": "YoutubeFilled" }
+  },
+  {
+    "title": "Twitter",
+    "category": "Brands",
+    "description": "Button - redirects to Twitter social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TwitterSmall", "24": "Twitter" }
+  },
+  {
+    "title": "Pinterest",
+    "category": "Brands",
+    "description": "Button - redirects to Pinterest social network",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PinterestSmall", "24": "Pinterest" }
+  },
+  {
+    "title": "SoundCloud",
+    "category": "Brands",
+    "description": "Button - redirects to SoundCloud platform",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SoundCloud", "24": "SoundCloud" }
+  },
+  {
+    "title": "Whatsapp",
+    "category": "Brands",
+    "description": "Button - redirects to WhatsApp application",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "WhatsappSmall", "24": "Whatsapp" }
+  },
+  {
+    "title": "Cart",
+    "category": "Money",
+    "description": "Button - displays shopping cart",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CartSmall", "24": "Cart" }
+  },
+  {
+    "title": "Payment",
+    "category": "Money",
+    "description": "Static Indicator - marks payment option or payments list\nButton - displays payment options or payments list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PaymentSmall", "24": "Payment" }
+  },
+  {
+    "title": "Refund",
+    "category": "Money",
+    "description": "Button - creates order refund form",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "RefundSmall", "24": "Refund" }
+  },
+  {
+    "title": "Order",
+    "category": "Money",
+    "description": "Static Indicator - marks order or orders list",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "OrderSmall", "24": "Order" }
+  },
+  {
+    "title": "CancelOrder",
+    "category": "Money",
+    "description": "Button - cancels order",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "CancelOrderSmall", "24": "CancelOrder" }
+  },
+  {
+    "title": "OrderAdd",
+    "category": "Money",
+    "description": "Button - creates order",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "OrderAddSmall", "24": "OrderAdd" }
+  },
+  {
+    "title": "Invoice",
+    "category": "Money",
+    "description": "Button - opens up invoice preview",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "InvoiceSmall", "24": "Invoice" }
+  },
+  {
+    "title": "SentenceCase",
+    "category": "Text",
+    "description": "Button - writes in sentence case\nButton - applies sentence case for selected text",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "SentenceCaseSmall", "24": "SentenceCase" }
+  },
+  {
+    "title": "UpperCase",
+    "category": "Text",
+    "description": "Button - writes in upper case\nButton - applies upper case for selected text",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "UpperCaseSmall", "24": "UpperCase" }
+  },
+  {
+    "title": "LowerCase",
+    "category": "Text",
+    "description": "Button - writes in lower case\nButton - applies lower case for selected text",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "LowerCaseSmall", "24": "LowerCase" }
+  },
+  {
+    "title": "TextAlignLeft",
+    "category": "Text",
+    "description": "Button - aligns text to the right",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TextAlignLeftSmall", "24": "TextAlignLeft" }
+  },
+  {
+    "title": "TextAlignRight",
+    "category": "Text",
+    "description": "Button - aligns text to the left",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TextAlignRightSmall", "24": "TextAlignRight" }
+  },
+  {
+    "title": "TextAlignCenter",
+    "category": "Text",
+    "description": "Button - centers the text",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TextAlignCenterSmall", "24": "TextAlignCenter" }
+  },
+  {
+    "title": "TextJustify",
+    "category": "Text",
+    "description": "Button - stretches the text lines so that each line has equal width",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "TextJustifySmall", "24": "TextJustify" }
+  },
+  {
+    "title": "Premium",
+    "category": "Wix Brands",
+    "description": "Static Indicator - marks Premium product",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "PremiumSmall", "24": "Premium" }
+  },
+  {
+    "title": "WixForms",
+    "category": "Wix Brands",
+    "description": "Static Indicator - marks Wix Forms product",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "WixFormsSmall", "24": "WixForms" }
+  },
+  {
+    "title": "WixFormsFilled",
+    "category": "Wix Brands",
+    "description": "Static Indicator - marks Wix Forms product in text layouts",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "WixFormsFilledSmall", "24": "WixFormsFilled" }
+  },
+  {
+    "title": "WixChat",
+    "category": "Wix Brands",
+    "description": "Static Indicator - marks Wix Chat product",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "WixChatSmall", "24": "WixChat" }
+  },
+  {
+    "title": "WixChatFilled",
+    "category": "Wix Brands",
+    "description": "Static Indicator - marks Wix Chat product in text layouts",
+    "tags": [],
+    "system": false,
+    "sizes": { "18": "WixChatFilledSmall", "24": "WixChatFilled" }
+  }
+]
