@@ -5,12 +5,20 @@ import { StepProps } from '../stepper';
 export type ExternalNavStepProps = Partial<StepProps> & {
   disabled?: boolean;
   children: React.ReactNode;
+  className?: string;
 };
 export type NavStepProps = StepProps & ExternalNavStepProps;
 
 export class NavStep extends React.PureComponent<NavStepProps> {
   render() {
-    const { active, disabled, visited, children, ...rest } = this.props;
+    const {
+      active,
+      disabled,
+      visited,
+      children,
+      className,
+      ...rest
+    } = this.props;
     const ariaProps: any = {};
     active && (ariaProps['aria-current'] = 'page');
 
@@ -18,7 +26,7 @@ export class NavStep extends React.PureComponent<NavStepProps> {
       <li
         {...ariaProps}
         {...rest}
-        className={st(classes.root, { active, visited, disabled })}
+        className={st(classes.root, { active, visited, disabled }, className)}
       >
         {children}
       </li>
