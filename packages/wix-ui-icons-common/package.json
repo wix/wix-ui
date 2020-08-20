@@ -40,8 +40,8 @@
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease"
   },
   "devDependencies": {
-    "@storybook/addon-options": "^4.1.18",
-    "@storybook/react": "^4.1.18",
+    "@storybook/addon-options": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "@types/jest": "^22.2.3",
     "@types/node": "^12.0.0",
     "@types/react": "~16.4.2",
@@ -54,7 +54,7 @@
     "svg2react-icon": "^3.0.0",
     "svgo": "^1.3.2",
     "typescript": "~3.0.3",
-    "wix-storybook-utils": "3.0.22",
+    "wix-storybook-utils": "^3.0.127",
     "wix-ui-test-utils": "^1.0.0",
     "yoshi": "^3.31.2",
     "yoshi-style-dependencies": "^3.16.0"

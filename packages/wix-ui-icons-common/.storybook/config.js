@@ -1,10 +1,22 @@
-import {configure} from '@storybook/react';
-import {setOptions} from '@storybook/addon-options';
+import { addParameters, configure } from "@storybook/react";
+import { create } from "@storybook/theming";
 
-setOptions({
-  showAddonPanel: false,
-  name: 'wix-ui-icons-common',
-  url: 'https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common'
+const theme = create({
+  base: "light",
+  brandTitle: "wix-ui-icons-common",
+  brandUrl:
+    "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
 });
 
-configure(() => require('../stories'), module);
+// Parameters
+addParameters({
+  options: {
+    theme,
+    showPanel: false,
+    isFullscreen: false,
+    storySort: undefined,
+    isToolshown: true,
+  },
+});
+
+configure(() => require("../stories"), module);
