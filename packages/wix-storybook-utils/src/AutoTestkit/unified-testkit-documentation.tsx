@@ -50,7 +50,6 @@ export const UnifiedTestkitDocumentation: React.FunctionComponent<Props> = ({
           testkit: {
             template: `import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit';
 import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit/enzyme';
-import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit/protractor';
 import { <%= component.displayName %>Testkit } from 'wix-style-react/dist/testkit/puppeteer';`,
           },
           metadata,
