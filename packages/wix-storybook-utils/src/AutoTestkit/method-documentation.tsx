@@ -80,7 +80,7 @@ export const MethodDocumentation = ({ unit }) => {
                 return paramDocumentation(tag, index);
               }
 
-              if (tag.title === 'returns') {
+              if (tag.title === 'returns' || tag.title === 'return') {
                 return returnsDocumentation(tag, index);
               }
 
