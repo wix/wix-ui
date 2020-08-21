@@ -65,7 +65,7 @@ const createUnifiedTestkitDocumentation = metadata => {
 
 export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
   <div className="markdown-body">
-    {storyConfig.config.unifiedTestkit ? (
+    {get(storyConfig, 'config.unifiedTestkit') ? (
       <h1 data-hook="auto-testkit-heading">{metadata.displayName} Testkit</h1>
     ) : (
       <h1 data-hook="auto-testkit-heading">{metadata.displayName} Testkits</h1>
@@ -77,7 +77,7 @@ export const AutoTestkit = ({ metadata, storyConfig }: Props) => (
       </div>
     )}
 
-    {storyConfig.config.unifiedTestkit
+    {get(storyConfig, 'config.unifiedTestkit')
       ? createUnifiedTestkitDocumentation(metadata)
       : createDriverDocumentation(metadata, storyConfig)}
   </div>

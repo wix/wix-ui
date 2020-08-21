@@ -141,6 +141,7 @@ describe('AutoTestkit', () => {
     beforeEach(() => driver.create({ metadata }));
 
     it('should not render documentation table', () => {
+      console.log(driver);
       expect(driver.get.driverAt(0)).toBe(null);
     });
   });

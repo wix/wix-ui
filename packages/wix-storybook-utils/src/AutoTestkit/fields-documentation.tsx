@@ -20,7 +20,16 @@ export const FieldsDocumentation = ({ units }) => {
       </thead>
       <tbody>
         {units
+          // Filter by type
           .filter(({ type }) => typeComponents[type])
+          // Filter overridden functions
+          .filter(({ name }, index: number, arr) => {
+            let isDuplicate = false;
+            for (let i = index + 1; i < arr.length; i++) {
+              isDuplicate = isDuplicate || name === arr[i].name;
+            }
+            return !isDuplicate;
+          })
           .map((unit, i) => {
             const Documentation = typeComponents[unit.type];
             return (
