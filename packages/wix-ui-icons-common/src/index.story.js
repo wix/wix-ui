@@ -13,6 +13,15 @@ import {
   api,
   testkit,
 } from "wix-storybook-utils/Sections";
+import {
+  Edit,
+  DocDuplicate,
+  Delete,
+  EmptyTrash,
+  Add,
+  Minus,
+} from "wix-ui-icons-common";
+import { classes } from "./index.story.st.css";
 
 const example = (config) =>
   baseExample({
@@ -22,9 +31,20 @@ const example = (config) =>
     ...config,
   });
 
+const HeaderIcons = () => (
+  <div className={classes.headerIcons}>
+    <Edit />
+    <DocDuplicate />
+    <Delete />
+    <EmptyTrash />
+    <Add />
+    <Minus />
+  </div>
+);
+
 export default {
   category: "Icons",
-  storyName: "All",
+  storyName: "Component Icons",
 
   component: () => <div />,
   componentPath: ".",
@@ -35,6 +55,7 @@ export default {
 
   sections: [
     header({
+      component: <HeaderIcons />,
       sourceUrl:
         "https://github.com/wix/wix-style-react/tree/master/src/MessageModalLayout/",
     }),
