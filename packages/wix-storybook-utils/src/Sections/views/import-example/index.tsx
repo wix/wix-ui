@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StoryConfig } from '../../typings/story-config';
+import { StoryConfig } from '../../../typings/story-config';
 import { ImportExampleSection } from '../../../typings/story-section';
 import { importString } from '../../../StoryPage/import-string';
 

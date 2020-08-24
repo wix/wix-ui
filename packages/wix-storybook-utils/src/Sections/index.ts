@@ -53,7 +53,7 @@ export const header = (config: Partial<HeaderSection>): HeaderSection =>
   });
 
 export const importExample = (
-  config: string | Partial<ImportExampleSection>,
+  config?: string | Partial<ImportExampleSection>,
 ): ImportExampleSection =>
   base({
     type: SectionType.ImportExample,
