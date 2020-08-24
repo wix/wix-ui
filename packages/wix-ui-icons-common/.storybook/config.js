@@ -20,6 +20,7 @@ addParameters({
 });
 
 function loadStories() {
+  require("./stories.scss");
   const req = require.context("../src", true, /\.story.jsx?$/);
   req.keys().forEach((filename) => req(filename));
 }
