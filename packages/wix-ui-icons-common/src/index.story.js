@@ -53,7 +53,6 @@ const HeaderIcons = () => (
 );
 
 const getIcon = (name, system) => {
-  debugger;
   if (!name) return;
   if (system) {
     return require(`./system/dist/components/${name}`).default;
@@ -88,6 +87,7 @@ export default {
     tabs([
       tab({
         title: "Icon List",
+        dataHook: "icon-list",
         sections: [
           description({
             title: "Purpose of Use",

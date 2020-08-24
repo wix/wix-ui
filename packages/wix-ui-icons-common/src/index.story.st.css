@@ -3,3 +3,11 @@
 .headerIcons > *:not(:last-child) {
   margin-right: 18px;
 }
+
+div[data-hook="icon-list"] h2 {
+  margin-bottom: 18px;
+}
+
+div[data-hook="icon-list"] table {
+  margin-bottom: 42px;
+}
