@@ -78,13 +78,6 @@ export default {
   category: "Icons",
   storyName: "1.4 Component Icons",
 
-  component: () => <div />,
-  componentPath: ".",
-
-  componentProps: {},
-
-  exampleProps: {},
-
   sections: [
     header({
       component: <HeaderIcons />,
@@ -149,12 +142,6 @@ export default {
           // }),
         ],
       }),
-
-      ...[
-        { title: "API", sections: [api()] },
-        { title: "Testkit", sections: [testkit()] },
-        { title: "Playground", sections: [playground()] },
-      ].map(tab),
     ]),
   ],
 };
