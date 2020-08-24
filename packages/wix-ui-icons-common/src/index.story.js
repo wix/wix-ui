@@ -128,27 +128,6 @@ export default {
           }),
 
           ...getCategoryTables(icons),
-          // example({
-          //   title: "Simple Usage",
-          //   text: "A simple example with compact preview",
-          // }),
-          // example({
-          //   title: "Footnote Example",
-          //   description: "A simple example with Footnote",
-          // }),
-          // example({
-          //   title: "Illustration Example",
-          //   description: "A simple example with illustration",
-          // }),
-          // example({
-          //   title: "Destructive Theme Example",
-          //   description:
-          //     "A simple example with destructive theme and illustration",
-          // }),
-          // example({
-          //   title: "Premium Theme Example",
-          //   text: "A simple example with premium theme and illustration",
-          // }),
         ],
       }),
     ]),
