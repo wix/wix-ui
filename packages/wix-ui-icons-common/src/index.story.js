@@ -12,6 +12,7 @@ import {
   playground,
   api,
   testkit,
+  table,
 } from "wix-storybook-utils/Sections";
 import {
   Edit,
@@ -22,6 +23,15 @@ import {
   Minus,
 } from "wix-ui-icons-common";
 import { classes } from "./index.story.st.css";
+import icons from "./icons.json";
+
+const categories = icons.reduce((categoryMap, { category, ...icon }) => {
+  if (!categoryMap[category]) {
+    categoryMap[category] = [];
+  }
+  categoryMap[category].push(icon);
+  return categoryMap;
+}, {});
 
 const example = (config) =>
   baseExample({
@@ -42,9 +52,31 @@ const HeaderIcons = () => (
   </div>
 );
 
+const getIcon = (name, system) => {
+  debugger;
+  if (!name) return;
+  if (system) {
+    return require(`./system/dist/components/${name}`).default;
+  }
+  return require(`./general/dist/components/${name}`).default;
+};
+
+const mapIconToRow = ({ description, system, sizes }) => {
+  const Icon = getIcon(sizes[24], system);
+  const SmallIcon = getIcon(sizes[18], system);
+  console.log("Icon: ", Icon);
+  return [
+    Icon && <Icon />,
+    sizes[24],
+    SmallIcon && <SmallIcon />,
+    sizes[18],
+    description,
+  ];
+};
+
 export default {
   category: "Icons",
-  storyName: "Component Icons",
+  storyName: "1.4 Component Icons",
 
   component: () => <div />,
   componentPath: ".",
@@ -62,19 +94,38 @@ export default {
 
     tabs([
       tab({
-        title: "Description",
+        title: "Icon List",
         sections: [
           description({
-            title: "Description",
+            title: "Purpose of Use",
             text:
-              "Use this component inside a <Modal /> to display content in the MessageModalLayout. You may place a title and/or a footer with actions relevant to the displayed content",
+              "General icons are used to support the functional intentions of Wix Style elements.<br/>For more information read <a>Wix Style Iconography</a> article.",
+          }),
+          description({
+            title: "Adding New Icons",
+            text:
+              "WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit Icon Request.",
           }),
 
           importExample(
-            "import { MessageModalLayout } from 'wix-style-react';"
+            "import Favorite from 'wix-style-react/new-icons/Favorite';"
           ),
           divider(),
-          title("Examples"),
+          title("Categories"),
+          description({
+            text:
+              "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
+          }),
+
+          ...Object.entries(categories).map(([category, icons]) =>
+            table({
+              title: category,
+              rows: [
+                ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"],
+                ...icons.map(mapIconToRow),
+              ],
+            })
+          ),
           // example({
           //   title: "Simple Usage",
           //   text: "A simple example with compact preview",
