@@ -25,33 +25,6 @@ import {
 import { classes } from "./index.story.st.css";
 import icons from "./icons.json";
 
-const categories = icons.reduce((categoryMap, { category, ...icon }) => {
-  if (!categoryMap[category]) {
-    categoryMap[category] = [];
-  }
-  categoryMap[category].push(icon);
-  return categoryMap;
-}, {});
-
-const example = (config) =>
-  baseExample({
-    components: {
-      a: () => {},
-    },
-    ...config,
-  });
-
-const HeaderIcons = () => (
-  <div className={classes.headerIcons}>
-    <Edit />
-    <DocDuplicate />
-    <Delete />
-    <EmptyTrash />
-    <Add />
-    <Minus />
-  </div>
-);
-
 const getIcon = (name, system) => {
   if (!name) return;
   if (system) {
@@ -72,6 +45,50 @@ const mapIconToRow = ({ description, system, sizes }) => {
     description,
   ];
 };
+
+const mapIconsToCategories = (icons) => {
+  const categoryMap = {};
+  for (const { category, ...icon } of icons) {
+    if (!categoryMap[category]) {
+      categoryMap[category] = [];
+    }
+
+    categoryMap[category].push(icon);
+  }
+
+  return Object.entries(categoryMap);
+};
+
+const getCategoryTables = (icons) => {
+  const categories = mapIconsToCategories(icons);
+  const columns = ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"];
+  const tables = categories.map(([category, icons]) =>
+    table({
+      title: category,
+      rows: [columns, ...icons.map(mapIconToRow)],
+    })
+  );
+  return tables;
+};
+
+const example = (config) =>
+  baseExample({
+    components: {
+      a: () => {},
+    },
+    ...config,
+  });
+
+const HeaderIcons = () => (
+  <div className={classes.headerIcons}>
+    <Edit />
+    <DocDuplicate />
+    <Delete />
+    <EmptyTrash />
+    <Add />
+    <Minus />
+  </div>
+);
 
 export default {
   category: "Icons",
@@ -110,15 +127,7 @@ export default {
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
 
-          ...Object.entries(categories).map(([category, icons]) =>
-            table({
-              title: category,
-              rows: [
-                ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"],
-                ...icons.map(mapIconToRow),
-              ],
-            })
-          ),
+          ...getCategoryTables(icons),
           // example({
           //   title: "Simple Usage",
           //   text: "A simple example with compact preview",
