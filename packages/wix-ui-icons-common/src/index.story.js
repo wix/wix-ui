@@ -92,13 +92,13 @@ const HeaderIcons = () => (
 
 export default {
   category: "Icons",
-  storyName: "1.4 Component Icons",
+  storyName: "All",
 
   sections: [
     header({
       component: <HeaderIcons />,
       sourceUrl:
-        "https://github.com/wix/wix-style-react/tree/master/src/MessageModalLayout/",
+        "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
     }),
 
     tabs([
@@ -118,7 +118,7 @@ export default {
           }),
 
           importExample(
-            "import Favorite from 'wix-style-react/new-icons/Favorite';"
+            "import Duplicate from 'wix-ui-icons-common/Duplicate';"
           ),
           divider(),
           title("Categories"),
