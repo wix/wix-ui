@@ -32,10 +32,22 @@ const paramDocumentation = ({ title, name, description }, index) => {
 };
 
 const returnsDocumentation = ({ title, type, description }, index) => {
+  // No type
   if (!type) {
     return;
   }
 
+  // Basic type
+  if (!type.applications) {
+    return (
+      <li key={index}>
+        <b>{title}</b> {type}
+        {description && ` - ${description}`}
+      </li>
+    );
+  }
+
+  // Promise type
   const returnType = type.applications
     .map(app => {
       if (app.name) {
