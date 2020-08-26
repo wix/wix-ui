@@ -19,9 +19,4 @@ addParameters({
   },
 });
 
-function loadStories() {
-  const req = require.context("../src", true, /\.story.jsx?$/);
-  req.keys().forEach((filename) => req(filename));
-}
-
-configure(loadStories, module);
+configure(() => require("../stories/index.story"), module);
