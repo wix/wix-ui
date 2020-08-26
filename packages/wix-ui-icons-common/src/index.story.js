@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   header,
   tabs,
@@ -14,6 +14,8 @@ import {
   testkit,
   table,
 } from "wix-storybook-utils/Sections";
+import Markdown from "wix-storybook-utils/Markdown";
+import Input from "wix-storybook-utils/dist/src/ui/input";
 import {
   Edit,
   DocDuplicate,
@@ -21,29 +23,18 @@ import {
   EmptyTrash,
   Add,
   Minus,
+  Search,
 } from "wix-ui-icons-common";
+import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 import { classes } from "./index.story.st.css";
 import icons from "./icons.json";
 
 const getIcon = (name, system) => {
-  if (!name) return;
+  if (!name) return "";
   if (system) {
-    return require(`./system/dist/components/${name}`).default;
+    return `<object data=${require(`./system/raw/${name}.svg`)} type="image/svg+xml" />`;
   }
-  return require(`./general/dist/components/${name}`).default;
-};
-
-const mapIconToRow = ({ description, system, sizes }) => {
-  const Icon = getIcon(sizes[24], system);
-  const SmallIcon = getIcon(sizes[18], system);
-  console.log("Icon: ", Icon);
-  return [
-    Icon && <Icon />,
-    sizes[24],
-    SmallIcon && <SmallIcon />,
-    sizes[18],
-    description,
-  ];
+  return `<object data=${require(`./general/raw/${name}.svg`)} type="image/svg+xml" />`;
 };
 
 const mapIconsToCategories = (icons) => {
@@ -59,16 +50,35 @@ const mapIconsToCategories = (icons) => {
   return Object.entries(categoryMap);
 };
 
-const getCategoryTables = (icons) => {
-  const categories = mapIconsToCategories(icons);
-  const columns = ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"];
-  const tables = categories.map(([category, icons]) =>
-    table({
-      title: category,
-      rows: [columns, ...icons.map(mapIconToRow)],
-    })
+const categories = mapIconsToCategories(icons);
+
+const mapCategoryToTable = ([categoryName, icons]) => {
+  let table = `
+  | 24x24 | Icon Name | 18x18 | Icon Name | Use for |
+  | --- | --- | --- | --- | --- |
+  `;
+  for (const icon of icons) {
+    const {
+      description,
+      system,
+      sizes: { "18": smallName = "", "24": name = "" },
+    } = icon;
+
+    const Icon = getIcon(name, system);
+    const IconSmall = getIcon(smallName, system);
+    const parsedDescription = description
+      .replace(/\n/g, "<br/>")
+      .replace(/\|/g, "&#10072;");
+
+    table += `| ${Icon} | ${name} | ${IconSmall} | ${smallName} | ${parsedDescription} |\n`;
+  }
+
+  return (
+    <>
+      <h2 className={sectionStyles["section-title"]}>{categoryName}</h2>
+      <Markdown source={table} />
+    </>
   );
-  return tables;
 };
 
 const example = (config) =>
@@ -89,6 +99,25 @@ const HeaderIcons = () => (
     <Minus />
   </div>
 );
+
+const SearchInput = () => {
+  return (
+    <div className={classes.search}>
+      <Input placeholder="Search Icons" className={classes.searchInput} />
+      <Search className={classes.searchIcon} />
+    </div>
+  );
+};
+
+const CategoryTables = () => {
+  const [results, setResults] = useState(categories);
+  return (
+    <>
+      <SearchInput />
+      {results.map(mapCategoryToTable)}
+    </>
+  );
+};
 
 export default {
   category: "Icons",
@@ -126,8 +155,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-
-          ...getCategoryTables(icons),
+          <CategoryTables />,
         ],
       }),
     ]),

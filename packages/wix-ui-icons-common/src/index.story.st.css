@@ -4,10 +4,20 @@
   margin-right: 18px;
 }
 
-div[data-hook="icon-list"] h2 {
-  margin-bottom: 18px;
+
+.search {
+  position: relative;
+  margin: 30px 0;
 }
 
-div[data-hook="icon-list"] table {
-  margin-bottom: 42px;
+.searchInput {
+  width: 354px;
+  padding-left: 36px;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  color: #3899ec
 }
