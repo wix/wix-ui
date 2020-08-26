@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import Fuse from "fuse.js";
 import { useDebouncedCallback } from "use-debounce";
 import SearchInput from "./SearchInput";
@@ -24,12 +24,12 @@ const AllIcons: React.FC = () => {
     }
   }, 300);
   return (
-    <>
+    <div data-hook="icons-list">
       <SearchInput onChange={({ target: { value } }) => searchIcons(value)} />
       {categories.map(([categoryName, icons]) => (
         <CategoryTable {...{ categoryName, icons }} key={categoryName} />
       ))}
-    </>
+    </div>
   );
 };
 
