@@ -22,7 +22,7 @@ import {
   Add,
   Minus,
 } from "wix-ui-icons-common";
-import CategoryTables from "./AllIcons";
+import AllIcons from "./AllIcons";
 
 import { classes } from "./index.story.st.css";
 
@@ -81,7 +81,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryTables />,
+          <AllIcons />,
         ],
       }),
     ]),
