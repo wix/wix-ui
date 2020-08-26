@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 import { CategoryIcon } from "./types";

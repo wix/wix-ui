@@ -1,6 +1,6 @@
-declare module '*.st.css' {
-  const stylesheet: RuntimeStylesheet;
-  export default stylesheet;
+declare module "*.st.css" {
+  const stylesheet: import("@stylable/runtime").RuntimeStylesheet;
+  export = stylesheet;
 }
 
 interface StateMap {
@@ -19,11 +19,6 @@ interface RuntimeHelpers {
   $cssStates: (stateMapping: StateMap) => StateMap;
 }
 
-type StylesheetLocals = { [key: string]: string } & { $stylesheet: Stylesheet } & RuntimeHelpers;
-type RuntimeStylesheet = StylesheetLocals & (
-  (
-    className: string,
-    states?: StateMap,
-    props?: { className?: string, [key: string]: any }
-  ) => { [key: string]: string }
-);
+type StylesheetLocals = { [key: string]: string } & {
+  $stylesheet: Stylesheet;
+} & RuntimeHelpers;
