@@ -23,8 +23,7 @@ import {
   Minus,
 } from "wix-ui-icons-common";
 import AllIcons from "./AllIcons";
-
-import { classes } from "./index.story.st.css";
+import HeaderIcons from "./HeaderIcons";
 
 const example = (config) =>
   baseExample({
@@ -34,24 +33,22 @@ const example = (config) =>
     ...config,
   });
 
-const HeaderIcons = () => (
-  <div className={classes.headerIcons}>
-    <Edit />
-    <DocDuplicate />
-    <Delete />
-    <EmptyTrash />
-    <Add />
-    <Minus />
-  </div>
-);
-
 export default {
   category: "Icons",
-  storyName: "All",
+  storyName: "General Icons",
 
   sections: [
     header({
-      component: <HeaderIcons />,
+      component: (
+        <HeaderIcons>
+          <Edit />
+          <DocDuplicate />
+          <Delete />
+          <EmptyTrash />
+          <Add />
+          <Minus />
+        </HeaderIcons>
+      ),
       sourceUrl:
         "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
     }),

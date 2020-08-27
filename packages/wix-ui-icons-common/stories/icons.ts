@@ -6,7 +6,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which opens the editing mode",
     tags: ["edit", "pencil", "write"],
-    system: false,
     sizes: { "18": "EditSmall", "24": "Edit" },
   },
   {
@@ -14,7 +13,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which makes a copy of a file",
     tags: [],
-    system: false,
     sizes: { "24": "DocDuplicate" },
   },
   {
@@ -22,7 +20,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which makes a copy of any item",
     tags: [],
-    system: false,
     sizes: { "18": "DuplicateSmall", "24": "Duplicate" },
   },
   {
@@ -30,7 +27,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which deletes the any item",
     tags: [],
-    system: false,
     sizes: { "18": "DeleteSmall", "24": "Delete" },
   },
   {
@@ -39,7 +35,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which permanently destroys the content from the trash list",
     tags: [],
-    system: false,
     sizes: { "18": "EmptyTrashSmall", "24": "EmptyTrash" },
   },
   {
@@ -48,7 +43,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which creates a new item or increases the value of a number",
     tags: [],
-    system: false,
     sizes: { "18": "AddSmall", "24": "Add" },
   },
   {
@@ -56,7 +50,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which decreases number value",
     tags: [],
-    system: false,
     sizes: { "18": "MinusSmall", "24": "Minus" },
   },
   {
@@ -65,7 +58,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which confirms the changes or use it next to a static item which is shown as included",
     tags: ["Check", "Checkmark", "Success"],
-    system: false,
     sizes: { "18": "ConfirmSmall", "24": "Confirm" },
   },
   {
@@ -74,7 +66,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which dismisses the changes, removes the changes or item, or use it next to a static item which is shown as not included",
     tags: [],
-    system: false,
     sizes: { "18": "DismissSmall", "24": "Dismiss" },
   },
   {
@@ -82,7 +73,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which displays more buttons",
     tags: [],
-    system: false,
     sizes: { "18": "MoreSmall", "24": "More" },
   },
   {
@@ -90,7 +80,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which proceeds to replace a content",
     tags: [],
-    system: false,
     sizes: { "18": "ReplaceSmall", "24": "Replace" },
   },
   {
@@ -99,7 +88,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which refreshes the content or use it next to a static item which is being or needs to be refreshed.",
     tags: [],
-    system: false,
     sizes: { "18": "RefreshSmall", "24": "Refresh" },
   },
   {
@@ -108,7 +96,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which reverts changes to a previous or initial state",
     tags: [],
-    system: false,
     sizes: { "18": "RevertSmall", "24": "Revert" },
   },
   {
@@ -116,7 +103,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which opens a printer dialog",
     tags: [],
-    system: false,
     sizes: { "18": "PrintSmall", "24": "Print" },
   },
   {
@@ -125,7 +111,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which moves an item to archive or redirects to an archive",
     tags: [],
-    system: false,
     sizes: { "18": "ArchiveSmall", "24": "Archive" },
   },
   {
@@ -134,7 +119,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which put an item back to the list from an archive",
     tags: [],
-    system: false,
     sizes: { "18": "UnarchiveSmall", "24": "Unarchive" },
   },
   {
@@ -143,7 +127,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which downloads or imports  content or item",
     tags: [],
-    system: false,
     sizes: { "18": "DownloadImportSmall", "24": "DownloadImport" },
   },
   {
@@ -152,7 +135,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which uploads or imports content or item",
     tags: [],
-    system: false,
     sizes: { "18": "UploadExportSmall", "24": "UploadExport" },
   },
   {
@@ -161,7 +143,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which adds link to an internal or external source of content or copies a link to a clipboard",
     tags: [],
-    system: false,
     sizes: { "18": "LinkSmall", "24": "Link" },
   },
   {
@@ -170,7 +151,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which removes linked source of content",
     tags: [],
-    system: false,
     sizes: { "18": "UnlinkSmall", "24": "Unlink" },
   },
   {
@@ -179,7 +159,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which pins item to position in the list or a layout",
     tags: [],
-    system: false,
     sizes: { "18": "PinSmall", "24": "Pin" },
   },
   {
@@ -187,7 +166,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside an input which searches for content or an item",
     tags: [],
-    system: false,
     sizes: { "18": "SearchSmall", "24": "Search" },
   },
   {
@@ -196,7 +174,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which adds label to content or item in order to categorise it using descriptive keywords",
     tags: [],
-    system: false,
     sizes: { "18": "TagSmall", "24": "Tag" },
   },
   {
@@ -205,7 +182,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which prohibits or terminates certain content, item or actions. Also use it inline with the content to indicate that certain actions are not allowed.",
     tags: [],
-    system: false,
     sizes: { "18": "BlockSmall", "24": "Block" },
   },
   {
@@ -214,7 +190,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which makes content accessible via multiple sources or platforms.",
     tags: [],
-    system: false,
     sizes: { "18": "DistributeGlobeSmall", "24": "DistributeGlobe" },
   },
   {
@@ -222,7 +197,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which adds item to a list",
     tags: [],
-    system: false,
     sizes: { "18": "TaskAddSmall", "24": "TaskAdd" },
   },
   {
@@ -230,7 +204,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which marks item as completed",
     tags: [],
-    system: false,
     sizes: { "18": "TaskCompleteSmall", "24": "TaskComplete" },
   },
   {
@@ -239,7 +212,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which advertises or announces content and at the same time is active.",
     tags: [],
-    system: false,
     sizes: { "18": "PromoteFilledSmall", "24": "PromoteFilled" },
   },
   {
@@ -248,7 +220,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which advertise or announce content or item.",
     tags: [],
-    system: false,
     sizes: { "18": "PromoteSmall", "24": "Promote" },
   },
   {
@@ -256,7 +227,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which opens up a preview of a file",
     tags: [],
-    system: false,
     sizes: { "18": "PreviewSmall", "24": "Preview" },
   },
   {
@@ -264,7 +234,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which shares content or item",
     tags: [],
-    system: false,
     sizes: { "18": "ShareSmall", "24": "Share" },
   },
   {
@@ -273,7 +242,6 @@ const icons: Array<Icon> = [
     description:
       "Use it next to a content which controls or indicates actions happening on a desktop (i.e. desktop notifications in Inbox)",
     tags: [],
-    system: false,
     sizes: { "18": "SiteSmall", "24": "Site" },
   },
   {
@@ -282,7 +250,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which moves site to a desired location",
     tags: [],
-    system: false,
     sizes: { "18": "SiteMoveSmall", "24": "SiteMove" },
   },
   {
@@ -290,7 +257,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which duplicates a site",
     tags: [],
-    system: false,
     sizes: { "18": "SiteDuplicateSmall", "24": "SiteDuplicate" },
   },
   {
@@ -298,7 +264,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "Use it inside a button which adds or creates a new site",
     tags: [],
-    system: false,
     sizes: { "18": "SiteAddSmall", "24": "SiteAdd" },
   },
   {
@@ -306,7 +271,6 @@ const icons: Array<Icon> = [
     category: "Actions",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "SiteSearchSmall", "24": "SiteSearch" },
   },
   {
@@ -315,7 +279,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which sends a message, mail or a newsletter.",
     tags: [],
-    system: false,
     sizes: { "18": "SendSmall", "24": "Send" },
   },
   {
@@ -324,7 +287,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which opens filter option for content or item.",
     tags: [],
-    system: false,
     sizes: { "18": "FilterSmall", "24": "Filters" },
   },
   {
@@ -332,7 +294,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which opens content or item settings",
     tags: [],
-    system: false,
     sizes: { "18": "SettingsSmall", "24": "Settings" },
   },
   {
@@ -340,7 +301,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which redirects to the main web page",
     tags: [],
-    system: false,
     sizes: { "18": "HomeSmall", "24": "Home" },
   },
   {
@@ -349,7 +309,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which adds or next to the content which defines content or item location.",
     tags: [],
-    system: false,
     sizes: { "18": "LocationSmall", "24": "Location" },
   },
   {
@@ -357,7 +316,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside of a button which redirects to App Market",
     tags: [],
-    system: false,
     sizes: { "18": "AppMarketSmall", "24": "AppMarket" },
   },
   {
@@ -366,7 +324,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside of a button which opens a mobile view of a site or next to a content which is related to a mobile environment (i.e. mobile notifications)",
     tags: [],
-    system: false,
     sizes: { "18": "MobileSmall", "24": "Mobile" },
   },
   {
@@ -375,7 +332,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which adds a link to another domain or opens content on a new tab",
     tags: [],
-    system: false,
     sizes: { "18": "ExternalLinkSmall", "24": "ExternalLink" },
   },
   {
@@ -384,7 +340,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which displays discount coupons or redirects to its manager",
     tags: [],
-    system: false,
     sizes: { "18": "CouponSmall", "24": "Coupon" },
   },
   {
@@ -393,7 +348,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button which displays, lets to insert or edit code.",
     tags: [],
-    system: false,
     sizes: { "18": "CodeSmall", "24": "Code" },
   },
   {
@@ -402,7 +356,6 @@ const icons: Array<Icon> = [
     description:
       "Use it inside a button or next to inline item which gives valuable information to a user",
     tags: [],
-    system: false,
     sizes: { "18": "HintSmall", "24": "Hint" },
   },
   {
@@ -411,7 +364,6 @@ const icons: Array<Icon> = [
     description:
       "Use it next to inline item which tells about special premium offer or a gift",
     tags: [],
-    system: false,
     sizes: { "18": "GiftSmall", "24": "Gift" },
   },
   {
@@ -419,7 +371,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "OpenModalSmall", "24": "OpenModalSmall" },
   },
   {
@@ -428,7 +379,6 @@ const icons: Array<Icon> = [
     description:
       "Use it next to field labels or other interface elements which need to display additional information in a tooltip",
     tags: [],
-    system: false,
     sizes: { "18": "InfoCircleSmall", "24": "InfoCircle" },
   },
   {
@@ -436,7 +386,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which displays additional information",
     tags: [],
-    system: false,
     sizes: { "18": "InfoSmall", "24": "Info" },
   },
   {
@@ -445,7 +394,6 @@ const icons: Array<Icon> = [
     description:
       "Use it next to interface elements which need to display Wix Support Articles",
     tags: [],
-    system: false,
     sizes: { "18": "HelpCircleSmall", "24": "HelpCircle" },
   },
   {
@@ -453,7 +401,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which displays Wix Support Article",
     tags: [],
-    system: false,
     sizes: { "18": "HelpSmall", "24": "Help" },
   },
   {
@@ -461,7 +408,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which displays statistics",
     tags: [],
-    system: false,
     sizes: { "18": "StatisticsSmall", "24": "Statistics" },
   },
   {
@@ -469,7 +415,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which opens emoji library",
     tags: [],
-    system: false,
     sizes: { "18": "SmileSmall", "24": "Smile" },
   },
   {
@@ -477,7 +422,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "BonusGiftSmall", "24": "BonusGift" },
   },
   {
@@ -485,7 +429,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Use it inside a button which opens site language selection",
     tags: [],
-    system: false,
     sizes: { "18": "LanguagesSmall", "24": "Languages" },
   },
   {
@@ -494,7 +437,6 @@ const icons: Array<Icon> = [
     description:
       "Indicate that user is a site member or link to management of the badges",
     tags: [],
-    system: false,
     sizes: { "18": "BadgeSmall", "24": "Badge" },
   },
   {
@@ -502,7 +444,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ArticleSmall", "24": "Article" },
   },
   {
@@ -510,7 +451,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ToolboxSmall", "24": "Toolbox" },
   },
   {
@@ -518,7 +458,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "AccessibilitySmall", "24": "Accessibility" },
   },
   {
@@ -526,7 +465,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "DatabaseSmall", "24": "Database" },
   },
   {
@@ -534,7 +472,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "CollectionsSmall", "24": "Collections" },
   },
   {
@@ -542,7 +479,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "CategorySmall", "24": "Category" },
   },
   {
@@ -550,7 +486,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Indicates blog post or a vector tool",
     tags: [],
-    system: false,
     sizes: { "18": "PenNibSmall", "24": "PenNib" },
   },
   {
@@ -558,7 +493,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Or add a contributor (or maybe it's a misuse of an icon ?)",
     tags: [],
-    system: false,
     sizes: { "18": "PenNibAddSmall", "24": "PenNibAdd" },
   },
   {
@@ -566,7 +500,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Add a new note or display existing ones",
     tags: [],
-    system: false,
     sizes: { "18": "NoteSmall", "24": "Note" },
   },
   {
@@ -574,7 +507,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Indicate or link to Wix Hotels",
     tags: [],
-    system: false,
     sizes: { "18": "HotelSmall", "24": "Hotel" },
   },
   {
@@ -582,7 +514,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Display data collection as a table",
     tags: [],
-    system: false,
     sizes: { "18": "DataCollectionSmall", "24": "DataCollection" },
   },
   {
@@ -590,7 +521,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "CircleSmallFilledSmall", "24": "CircleSmallFilled" },
   },
   {
@@ -598,7 +528,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "TemplateSmall", "24": "Template" },
   },
   {
@@ -606,7 +535,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "NotificationSmall", "24": "Notification" },
   },
   {
@@ -614,7 +542,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "View and manage automations list",
     tags: [],
-    system: false,
     sizes: { "18": "AutomationsFilledSmall", "24": "AutomationsFilled" },
   },
   {
@@ -622,7 +549,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "View and manage automations list",
     tags: [],
-    system: false,
     sizes: { "18": "AutomationsSmall", "24": "Automations" },
   },
   {
@@ -630,7 +556,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "View the desktop version of a site",
     tags: [],
-    system: false,
     sizes: { "18": "DesktopSmall", "24": "Desktop" },
   },
   {
@@ -638,7 +563,6 @@ const icons: Array<Icon> = [
     category: "General",
     description: "Indicate that information is publicly accessible",
     tags: [],
-    system: false,
     sizes: { "18": "PublicSmall", "24": "Public" },
   },
   {
@@ -647,7 +571,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks item as public, listed or visible\nButton - opens item preview or details\nButton - makes item visible on click",
     tags: [],
-    system: false,
     sizes: { "18": "VisibleSmall", "24": "Visible" },
   },
   {
@@ -656,7 +579,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
     tags: [],
-    system: false,
     sizes: { "18": "HiddenSmall", "24": "VisibileHidden" },
   },
   {
@@ -665,7 +587,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks item as locked or private\nButton - makes item locked or private",
     tags: [],
-    system: false,
     sizes: { "18": "LockLockedSmall", "24": "LockLocked" },
   },
   {
@@ -674,7 +595,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks item as unlocked\nButton - makes item unlocked",
     tags: [],
-    system: false,
     sizes: { "18": "LockUnlockedSmall", "24": "LockUnlocked" },
   },
   {
@@ -683,7 +603,6 @@ const icons: Array<Icon> = [
     description:
       "Button - makes item favorite\nButton - adds a rating to an item",
     tags: [],
-    system: false,
     sizes: { "18": "FavoriteSmall", "24": "Favorite" },
   },
   {
@@ -692,7 +611,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - displays rating of an item\nStatic indicator - marks item as favorite\nButton - removes item from favorites on click",
     tags: [],
-    system: false,
     sizes: { "18": "FavoriteFilledSmall", "24": "FavoriteFilled" },
   },
   {
@@ -701,7 +619,6 @@ const icons: Array<Icon> = [
     description:
       "Button – hearts an item\nStatic Indicator – marks item as favorite",
     tags: [],
-    system: false,
     sizes: { "18": "HeartSmall", "24": "Heart" },
   },
   {
@@ -710,7 +627,6 @@ const icons: Array<Icon> = [
     description:
       "Button – unhearts an item\nStatic Indicator – marks item as favorite",
     tags: [],
-    system: false,
     sizes: { "18": "HeartFilledSmall", "24": "HeartFilled" },
   },
   {
@@ -719,7 +635,6 @@ const icons: Array<Icon> = [
     description:
       "Static Indicator – marks item as error, urgent or destructive",
     tags: [],
-    system: false,
     sizes: { "18": "StatusAlertSmall", "24": "StatusAlert" },
   },
   {
@@ -728,7 +643,6 @@ const icons: Array<Icon> = [
     description:
       "Static Indicator – marks item as error, urgent or destructive",
     tags: [],
-    system: false,
     sizes: { "18": "StatusAlertFilledSmall", "24": "StatusAlertFilled" },
   },
   {
@@ -736,7 +650,6 @@ const icons: Array<Icon> = [
     category: "Toggle",
     description: "Static Indicator – marks item as success or complete",
     tags: [],
-    system: false,
     sizes: { "18": "StatusCompleteSmall", "24": "StatusComplete" },
   },
   {
@@ -744,7 +657,6 @@ const icons: Array<Icon> = [
     category: "Toggle",
     description: "Static Indicator – marks item as success or complete",
     tags: [],
-    system: false,
     sizes: { "18": "StatusCompleteFilledSmall", "24": "StatusCompleteFilled" },
   },
   {
@@ -753,7 +665,6 @@ const icons: Array<Icon> = [
     description:
       "Button – flags an item\nStatic Indicator – marks an item as reported or highlighted",
     tags: [],
-    system: false,
     sizes: { "18": "FlagSmall", "24": "Flag" },
   },
   {
@@ -762,7 +673,6 @@ const icons: Array<Icon> = [
     description:
       "Button – unflags an item\nStatic Indicator – marks an item as reported or highlighted",
     tags: [],
-    system: false,
     sizes: { "18": "FlagFilledSmall", "24": "FlagFilled" },
   },
   {
@@ -770,7 +680,6 @@ const icons: Array<Icon> = [
     category: "Toggle",
     description: "Static Indicator – marks item as warning",
     tags: [],
-    system: false,
     sizes: { "18": "StatusWarningSmall", "24": "StatusWarning" },
   },
   {
@@ -778,7 +687,6 @@ const icons: Array<Icon> = [
     category: "Toggle",
     description: "Static Indicator – marks item as warning",
     tags: [],
-    system: false,
     sizes: { "18": "StatusWarningFilledSmall", "24": "StatusWarningFilled" },
   },
   {
@@ -787,7 +695,6 @@ const icons: Array<Icon> = [
     description:
       "Static Indicator – marks item as error, urgent or destructive. It's used in filled shapes",
     tags: [],
-    system: false,
     sizes: { "18": "StatusAlertPlainSmall", "24": "StatusAlertPlain" },
   },
   {
@@ -796,7 +703,6 @@ const icons: Array<Icon> = [
     description:
       "Button – bookmarks an item\nStatic Indicator – marks an item as bookmarked",
     tags: [],
-    system: false,
     sizes: { "18": "BookmarkSmall", "24": "Bookmark" },
   },
   {
@@ -805,7 +711,6 @@ const icons: Array<Icon> = [
     description:
       "Button – reports an item as a spam\nStatic Indicator – marks an item as a spam",
     tags: [],
-    system: false,
     sizes: { "18": "StatusStopSmall", "24": "StatusStop" },
   },
   {
@@ -814,7 +719,6 @@ const icons: Array<Icon> = [
     description:
       "Button – makes an item as not a spam\nStatic Indicator – marks an item as a spam",
     tags: [],
-    system: false,
     sizes: { "18": "StatusStopFilledSmall", "24": "StatusStopFilled" },
   },
   {
@@ -823,7 +727,6 @@ const icons: Array<Icon> = [
     description:
       "Button – likes an item\nStatic Indicator – marks an item liked\nStatic Indicator – marks count of likes",
     tags: [],
-    system: false,
     sizes: { "18": "ThumbsUpSmall", "24": "ThumbsUp" },
   },
   {
@@ -832,7 +735,6 @@ const icons: Array<Icon> = [
     description:
       "Button – unlikes an item\nStatic Indicator – marks an item liked\nStatic Indicator – marks count of likes",
     tags: [],
-    system: false,
     sizes: { "18": "ThumbsUpFilled", "24": "ThumbsUpFilled" },
   },
   {
@@ -841,7 +743,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks email address\nButton - makes email unread\nButton - show emails",
     tags: [],
-    system: false,
     sizes: { "18": "EmailFilledSmall", "24": "EmailFilled" },
   },
   {
@@ -850,7 +751,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks email address\nButton - marks email as unread\nButton - shows emails",
     tags: [],
-    system: false,
     sizes: { "18": "EmailSmall", "24": "Email" },
   },
   {
@@ -859,7 +759,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks that email or message have been read by a recipient\nButton - marks email as read",
     tags: [],
-    system: false,
     sizes: { "18": "EmailOpenSmall", "24": "EmailOpen" },
   },
   {
@@ -868,7 +767,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks that email was sent\nButton - sends email",
     tags: [],
-    system: false,
     sizes: { "18": "EmailSendSmall", "24": "EmailSend" },
   },
   {
@@ -876,7 +774,6 @@ const icons: Array<Icon> = [
     category: "Communication",
     description: "UNCLEAR",
     tags: [],
-    system: false,
     sizes: { "18": "EmailAlertSmall", "24": "EmailAlert" },
   },
   {
@@ -884,7 +781,6 @@ const icons: Array<Icon> = [
     category: "Communication",
     description: "UNCLEAR",
     tags: [],
-    system: false,
     sizes: { "18": "EmailClickSmall", "24": "EmailClick" },
   },
   {
@@ -893,7 +789,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks comments\nButton - composes a message\nButton - shows messages",
     tags: [],
-    system: false,
     sizes: { "24": "ChatFilled" },
   },
   {
@@ -902,7 +797,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks comments\nButton - composes a message\nButton - shows messages",
     tags: [],
-    system: false,
     sizes: { "18": "ChatSmall", "24": "Chat" },
   },
   {
@@ -910,7 +804,6 @@ const icons: Array<Icon> = [
     category: "Communication",
     description: "Button - composes a message by using quick reply templates",
     tags: [],
-    system: false,
     sizes: { "18": "ChatReply", "24": "ChatReply" },
   },
   {
@@ -919,7 +812,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks that chat is unavailable\nButton - makes chat disabled",
     tags: [],
-    system: false,
     sizes: { "18": "ChatDisabledSmall", "24": "ChatDisabed" },
   },
   {
@@ -927,7 +819,6 @@ const icons: Array<Icon> = [
     category: "Communication",
     description: "Button – makes a call\nStatic Indicator – marks phone number",
     tags: [],
-    system: false,
     sizes: { "18": "PhoneFilledSmall", "24": "PhoneFilled" },
   },
   {
@@ -935,7 +826,6 @@ const icons: Array<Icon> = [
     category: "Communication",
     description: "Button – makes a call\nStatic Indicator – marks phone number",
     tags: [],
-    system: false,
     sizes: { "18": "PhoneSmall", "24": "Phone" },
   },
   {
@@ -943,7 +833,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Static Indicator – marks item as a document",
     tags: [],
-    system: false,
     sizes: { "18": "DocumentSmall", "24": "Document" },
   },
   {
@@ -951,7 +840,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Button – sends document to mailing list",
     tags: [],
-    system: false,
     sizes: { "18": "DocSendSmall", "24": "DocSend" },
   },
   {
@@ -959,7 +847,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Button – moves document to a new directory",
     tags: [],
-    system: false,
     sizes: { "18": "DocMovetoSmall", "24": "DocMoveto" },
   },
   {
@@ -967,7 +854,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Static Indicator – marks item as an expired document or file",
     tags: [],
-    system: false,
     sizes: { "18": "DocExpireSmall", "24": "DocExpire" },
   },
   {
@@ -975,7 +861,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "UNCLEAR",
     tags: [],
-    system: false,
     sizes: { "18": "TransferSmall", "24": "Transfer" },
   },
   {
@@ -984,7 +869,6 @@ const icons: Array<Icon> = [
     description:
       "Button – opens a file browser to attach a file\nStatic Indicator – marks item as attached",
     tags: [],
-    system: false,
     sizes: { "18": "AttachmentSmall", "24": "Attachement" },
   },
   {
@@ -992,7 +876,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Static Indicator – marks item as a folder",
     tags: [],
-    system: false,
     sizes: { "18": "FolderSmall", "24": "Folder" },
   },
   {
@@ -1000,7 +883,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Button – adds new folder",
     tags: [],
-    system: false,
     sizes: { "18": "NewFolderSmall", "24": "NewFolder" },
   },
   {
@@ -1008,7 +890,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Button – moves folder to a new directory",
     tags: [],
-    system: false,
     sizes: { "18": "FolderMoveSmall", "24": "FolderMove" },
   },
   {
@@ -1016,7 +897,6 @@ const icons: Array<Icon> = [
     category: "Document",
     description: "Button – searches in a folder",
     tags: [],
-    system: false,
     sizes: { "18": "FolderFindSmall", "24": "FolderFind" },
   },
   {
@@ -1025,7 +905,6 @@ const icons: Array<Icon> = [
     description:
       "Button – shows list of contacts\nStatic Indicator – emphasises a number of users / attendees",
     tags: [],
-    system: false,
     sizes: { "18": "UsersSmall", "24": "Users" },
   },
   {
@@ -1033,7 +912,6 @@ const icons: Array<Icon> = [
     category: "Users",
     description: "Static indicator - marks user name",
     tags: [],
-    system: false,
     sizes: { "18": "UserSmall", "24": "User" },
   },
   {
@@ -1041,7 +919,6 @@ const icons: Array<Icon> = [
     category: "Users",
     description: "Button - creates a new user",
     tags: [],
-    system: false,
     sizes: { "18": "UserAddSmall", "24": "UserAdd" },
   },
   {
@@ -1049,7 +926,6 @@ const icons: Array<Icon> = [
     category: "Users",
     description: "Button - moves user to a new directory",
     tags: [],
-    system: false,
     sizes: { "18": "UserLeaveSmall", "24": "UserLeave" },
   },
   {
@@ -1057,7 +933,6 @@ const icons: Array<Icon> = [
     category: "Users",
     description: "Button - imports user to a directory",
     tags: [],
-    system: false,
     sizes: { "18": "UserJoinSmall", "24": "UserJoin" },
   },
   {
@@ -1066,7 +941,6 @@ const icons: Array<Icon> = [
     description:
       "Button - makes user blocked\nButton - shows all blocked users",
     tags: [],
-    system: false,
     sizes: { "18": "UserBlockSmall", "24": "UserBlock" },
   },
   {
@@ -1074,7 +948,6 @@ const icons: Array<Icon> = [
     category: "Users",
     description: "Button - removes the user",
     tags: [],
-    system: false,
     sizes: { "18": "UserRemoveSmall", "24": "UserRemove" },
   },
   {
@@ -1083,7 +956,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks user with admin rights\nButton - make user an admin\nButton - redirects to permissions management",
     tags: [],
-    system: false,
     sizes: { "18": "AdminAccessSmall", "24": "AdminAccess" },
   },
   {
@@ -1091,7 +963,6 @@ const icons: Array<Icon> = [
     category: "Date & Time",
     description: "Static indicator - marks working hours",
     tags: [],
-    system: false,
     sizes: { "18": "DateAndTimeSmall", "24": "DateAndTime" },
   },
   {
@@ -1099,7 +970,6 @@ const icons: Array<Icon> = [
     category: "Date & Time",
     description: "Static indicator - marks date\nButton - displays calendar",
     tags: [],
-    system: false,
     sizes: { "18": "DateSmall", "24": "Date" },
   },
   {
@@ -1107,7 +977,6 @@ const icons: Array<Icon> = [
     category: "Date & Time",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "DateCheckedSmall", "24": "DateChecked" },
   },
   {
@@ -1115,7 +984,6 @@ const icons: Array<Icon> = [
     category: "Date & Time",
     description: "Button - adds date",
     tags: [],
-    system: false,
     sizes: { "18": "DateAddSmall", "24": "DateAdd" },
   },
   {
@@ -1124,7 +992,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks opening or working hours\nStatic indicator - marks duration",
     tags: [],
-    system: false,
     sizes: { "18": "TimeSmall", "24": "Time" },
   },
   {
@@ -1132,7 +999,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - moves or goes left",
     tags: [],
-    system: false,
     sizes: { "18": "ArrowLeftSmall", "24": "ArrowLeft" },
   },
   {
@@ -1140,7 +1006,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - moves or goes right",
     tags: [],
-    system: false,
     sizes: { "18": "ArrowRightSmall", "24": "ArrowRight" },
   },
   {
@@ -1148,7 +1013,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - moves or goes up",
     tags: [],
-    system: false,
     sizes: { "18": "ArrowUpSmall", "24": "ArrowUp" },
   },
   {
@@ -1156,7 +1020,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - moves or goes down",
     tags: [],
-    system: false,
     sizes: { "18": "ArrowDownSmall", "24": "ArrowDown" },
   },
   {
@@ -1164,7 +1027,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - displays or navigates to previous item",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronLeftSmall", "24": "ChevronLeft" },
   },
   {
@@ -1172,7 +1034,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - displays or navigates to next item",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronRightSmall", "24": "ChevronRight" },
   },
   {
@@ -1181,7 +1042,6 @@ const icons: Array<Icon> = [
     description:
       "Button - decreases number input value by 1\nButton - collapses item",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronUpSmall", "24": "ChevronUp" },
   },
   {
@@ -1190,7 +1050,6 @@ const icons: Array<Icon> = [
     description:
       "Button - increases number input value by 1\nButton - expands item",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronDownSmall", "24": "ChevronDown" },
   },
   {
@@ -1198,7 +1057,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronLeftCircleSmall", "24": "ChevronLeftCircle" },
   },
   {
@@ -1206,7 +1064,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronRightCircleSmall", "24": "ChevronRightCircle" },
   },
   {
@@ -1214,7 +1071,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronUpCircleSmall", "24": "ChevronUpCircle" },
   },
   {
@@ -1222,7 +1078,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "",
     tags: [],
-    system: false,
     sizes: { "18": "ChevronDownCircleSmall", "24": "ChevronDownCircle" },
   },
   {
@@ -1230,7 +1085,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - displays or navigates to previous item",
     tags: [],
-    system: false,
     sizes: { "24": "ChevronLeftLarge" },
   },
   {
@@ -1238,7 +1092,6 @@ const icons: Array<Icon> = [
     category: "Arrows",
     description: "Button - displays or navigates to next item",
     tags: [],
-    system: false,
     sizes: { "24": "ChevronRightLarge" },
   },
   {
@@ -1247,7 +1100,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks child item in the list\nButton - converts item to a child",
     tags: [],
-    system: false,
     sizes: { "18": "ArrowDownRightSmall", "24": "ArrowDownRight" },
   },
   {
@@ -1255,7 +1107,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items as a gallery with a panel on a side",
     tags: [],
-    system: false,
     sizes: {
       "18": "LayoutGalleryWithPanelSmall",
       "24": "LayoutGalleryWithPanel",
@@ -1266,7 +1117,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items as a gallery",
     tags: [],
-    system: false,
     sizes: { "18": "LayoutGallerySmall", "24": "LayoutGallery" },
   },
   {
@@ -1274,7 +1124,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items as a list",
     tags: [],
-    system: false,
     sizes: { "18": "LayoutListSmall", "24": "LayoutList" },
   },
   {
@@ -1282,7 +1131,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items as a list with a panel on a side",
     tags: [],
-    system: false,
     sizes: { "18": "LayoutListWithPanelSmall", "24": "LayoutListWithPanel" },
   },
   {
@@ -1290,7 +1138,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items in an ascending order",
     tags: [],
-    system: false,
     sizes: { "18": "SortAscendingSmall", "24": "SortAscending" },
   },
   {
@@ -1298,7 +1145,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items in a descending order",
     tags: [],
-    system: false,
     sizes: { "18": "SortDescendingSmall", "24": "SortDescending" },
   },
   {
@@ -1307,7 +1153,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays items in an alphabetical order starting from A",
     tags: [],
-    system: false,
     sizes: { "18": "SortAZSmall", "24": "SortAZ" },
   },
   {
@@ -1316,7 +1161,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays items in an alphabetical order starting from Z",
     tags: [],
-    system: false,
     sizes: { "18": "SortZASmall", "24": "SortZA" },
   },
   {
@@ -1324,7 +1168,6 @@ const icons: Array<Icon> = [
     category: "Layout & Sorting",
     description: "Button - displays items as a list",
     tags: [],
-    system: false,
     sizes: { "18": "ListSmall", "24": "List" },
   },
   {
@@ -1333,7 +1176,6 @@ const icons: Array<Icon> = [
     description:
       "Button - adds an image\nStatic indicator - marks image placeholder",
     tags: [],
-    system: false,
     sizes: { "18": "ImageSmall", "24": "Image" },
   },
   {
@@ -1342,7 +1184,6 @@ const icons: Array<Icon> = [
     description:
       "Button - starts video recording\nButton - starts live translation\nStatic indicator - marks video files",
     tags: [],
-    system: false,
     sizes: { "18": "VideoCameraSmall", "24": "VideoCamera" },
   },
   {
@@ -1350,7 +1191,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Static indicator - marks audio files",
     tags: [],
-    system: false,
     sizes: { "18": "MusicSmall", "24": "Music" },
   },
   {
@@ -1359,7 +1199,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays volume control settings\nStatic indicator - marks an enabled sound",
     tags: [],
-    system: false,
     sizes: { "18": "SoundSmall", "24": "Sound" },
   },
   {
@@ -1367,7 +1206,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Static indicator - marks a disabled sound",
     tags: [],
-    system: false,
     sizes: { "18": "SoundOffSmall", "24": "SoundOff" },
   },
   {
@@ -1375,7 +1213,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - plays media",
     tags: [],
-    system: false,
     sizes: { "18": "PlaySmall", "24": "Play" },
   },
   {
@@ -1383,7 +1220,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - plays media",
     tags: [],
-    system: false,
     sizes: { "18": "PlayFilledSmall", "24": "PlayFilled" },
   },
   {
@@ -1391,7 +1227,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - pauses media playback",
     tags: [],
-    system: false,
     sizes: { "18": "PauseSmall", "24": "Pause" },
   },
   {
@@ -1399,7 +1234,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - pauses media playback",
     tags: [],
-    system: false,
     sizes: { "18": "PauseFilledSmall", "24": "PauseFilled" },
   },
   {
@@ -1407,7 +1241,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - stops media playback",
     tags: [],
-    system: false,
     sizes: { "18": "StopSmall", "24": "Stop" },
   },
   {
@@ -1415,7 +1248,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - stops media playback",
     tags: [],
-    system: false,
     sizes: { "18": "StopFilledSmall", "24": "StopFilled" },
   },
   {
@@ -1423,7 +1255,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - adds a new channel",
     tags: [],
-    system: false,
     sizes: { "18": "AddChannelSmall", "24": "AddChannel" },
   },
   {
@@ -1431,7 +1262,6 @@ const icons: Array<Icon> = [
     category: "Media",
     description: "Button - captures a photo",
     tags: [],
-    system: false,
     sizes: { "18": "PhotoCameraSmall", "24": "PhotoCamera" },
   },
   {
@@ -1439,7 +1269,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - cuts object out of background",
     tags: [],
-    system: false,
     sizes: { "18": "CutOutSmall", "24": "CutOut" },
   },
   {
@@ -1447,7 +1276,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - undoes the last action",
     tags: [],
-    system: false,
     sizes: { "18": "UndoSmall", "24": "Undo" },
   },
   {
@@ -1455,7 +1283,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - redoes the last action that was undone",
     tags: [],
-    system: false,
     sizes: { "18": "RedoSmall", "24": "Redo" },
   },
   {
@@ -1463,7 +1290,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - zooms out the picture or document",
     tags: [],
-    system: false,
     sizes: { "18": "ZoomOutSmall", "24": "ZoomOut" },
   },
   {
@@ -1471,7 +1297,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - zooms into the picture or document",
     tags: [],
-    system: false,
     sizes: { "18": "ZoomInSmall", "24": "ZoomIn" },
   },
   {
@@ -1479,7 +1304,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - enables item dimension cropping",
     tags: [],
-    system: false,
     sizes: { "18": "CropSmall", "24": "Crop" },
   },
   {
@@ -1488,7 +1312,6 @@ const icons: Array<Icon> = [
     description:
       "Button - enables item dimension cropping and rotation at once",
     tags: [],
-    system: false,
     sizes: { "18": "CropRotateSmall", "24": "CropRotate" },
   },
   {
@@ -1496,7 +1319,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - rotates item counterclockwise by 90 degrees",
     tags: [],
-    system: false,
     sizes: { "18": "RotateLeftSmall", "24": "RotateLeft" },
   },
   {
@@ -1504,7 +1326,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button - rotates item clockwise by 90 degrees",
     tags: [],
-    system: false,
     sizes: { "18": "RotateRightSmall", "24": "RotateRight" },
   },
   {
@@ -1512,7 +1333,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button -  flips item horizontally",
     tags: [],
-    system: false,
     sizes: { "18": "MirrorHorizontalSmall", "24": "MirrorHorizontal" },
   },
   {
@@ -1520,7 +1340,6 @@ const icons: Array<Icon> = [
     category: "Composer Actions",
     description: "Button -  flips item vertically",
     tags: [],
-    system: false,
     sizes: { "18": "MirrorVerticalSmall", "24": "MirrorVertical" },
   },
   {
@@ -1528,7 +1347,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Button - displays adjustment options",
     tags: [],
-    system: false,
     sizes: { "18": "AdjustSmall", "24": "Adjust" },
   },
   {
@@ -1537,7 +1355,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image brightness settings\nButton - displays image brightness settings",
     tags: [],
-    system: false,
     sizes: { "18": "BrightnessSmall", "24": "Brightness" },
   },
   {
@@ -1546,7 +1363,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image contrast settings\nButton - displays image contrast settings",
     tags: [],
-    system: false,
     sizes: { "18": "ContrastSmall", "24": "Contrast" },
   },
   {
@@ -1555,7 +1371,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image shadow settings\nButton - displays image shadow settings",
     tags: [],
-    system: false,
     sizes: { "18": "ShadowsSmall", "24": "Shadows" },
   },
   {
@@ -1564,7 +1379,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image highlights settings\nButton - displays image highlights settings",
     tags: [],
-    system: false,
     sizes: { "18": "HighlightsSmall", "24": "Highlights" },
   },
   {
@@ -1573,7 +1387,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator- marks image exposure settings\nButton - displays image exposure settings",
     tags: [],
-    system: false,
     sizes: { "18": "ExposureSmall", "24": "Exposure" },
   },
   {
@@ -1582,7 +1395,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image temperature settings\nButton - displays image temperature settings",
     tags: [],
-    system: false,
     sizes: { "18": "TemperatureSmall", "24": "Temperature" },
   },
   {
@@ -1591,7 +1403,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image sharpness settings\nButton -  displays image sharpness settings",
     tags: [],
-    system: false,
     sizes: { "18": "SharpnessSmall", "24": "Sharpness" },
   },
   {
@@ -1600,7 +1411,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks image vignette effect settings\nButton - displays image vignette effect settings",
     tags: [],
-    system: false,
     sizes: { "18": "VignetteSmall", "24": "Vignette" },
   },
   {
@@ -1608,7 +1418,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Static indicator - marks value of effect",
     tags: [],
-    system: false,
     sizes: { "18": "VolumeSmall", "24": "Volume" },
   },
   {
@@ -1616,7 +1425,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Button - applies adjustments preset for outdoor images",
     tags: [],
-    system: false,
     sizes: { "18": "ScenerySmall", "24": "Scenery" },
   },
   {
@@ -1624,7 +1432,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Button - applies adjustments preset for portrait images",
     tags: [],
-    system: false,
     sizes: { "18": "FaceFemaleSmall", "24": "FaceFemale" },
   },
   {
@@ -1632,7 +1439,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Button - applies adjustments preset for indoor images",
     tags: [],
-    system: false,
     sizes: { "18": "IndoorLightSmall", "24": "IndoorLight" },
   },
   {
@@ -1640,7 +1446,6 @@ const icons: Array<Icon> = [
     category: "Composer Adjustments",
     description: "Button - applies adjustments preset for object images",
     tags: [],
-    system: false,
     sizes: { "18": "TShirtSmall", "24": "TShirt" },
   },
   {
@@ -1648,7 +1453,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - displays layers\nButton - displays layer settings",
     tags: [],
-    system: false,
     sizes: { "18": "LayersSmall", "24": "Layers" },
   },
   {
@@ -1657,7 +1461,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays background\nButton - displays background settings",
     tags: [],
-    system: false,
     sizes: { "18": "BackgroundSmall", "24": "Background" },
   },
   {
@@ -1665,7 +1468,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - moves object forward",
     tags: [],
-    system: false,
     sizes: { "18": "ForwardSmall", "24": "Forward" },
   },
   {
@@ -1673,7 +1475,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - moves object backward",
     tags: [],
-    system: false,
     sizes: { "18": "BackwardSmall", "24": "Backward" },
   },
   {
@@ -1681,7 +1482,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - distributes objects with equal horizontal spacing",
     tags: [],
-    system: false,
     sizes: {
       "18": "DistributeHorizontallySmall",
       "24": "DistributeHorizontally",
@@ -1692,7 +1492,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - distributes objects with equal vertical spacing",
     tags: [],
-    system: false,
     sizes: { "18": "DistributeVerticallySmall", "24": "DistributeVertically" },
   },
   {
@@ -1700,7 +1499,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - aligns object to left side of canvas or selection",
     tags: [],
-    system: false,
     sizes: { "18": "AlignLeftSmall", "24": "AlignLeft" },
   },
   {
@@ -1709,7 +1507,6 @@ const icons: Array<Icon> = [
     description:
       "Button - aligns object to vertical center of canvas or selection",
     tags: [],
-    system: false,
     sizes: {
       "18": "AlignCenterVerticallySmall",
       "24": "AlignCenterVertically",
@@ -1720,7 +1517,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - aligns object to right side of canvas or selection",
     tags: [],
-    system: false,
     sizes: { "18": "AlignRightSmall", "24": "AlignRight" },
   },
   {
@@ -1728,7 +1524,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - aligns object to top of canvas or selection",
     tags: [],
-    system: false,
     sizes: { "18": "AlignTopSmall", "24": "AlignTop" },
   },
   {
@@ -1737,7 +1532,6 @@ const icons: Array<Icon> = [
     description:
       "Button - aligns object to horizontal center of canvas or selection",
     tags: [],
-    system: false,
     sizes: {
       "18": "AlignCenterHorizontallySmall",
       "24": "AlignCenterHorizontally",
@@ -1748,7 +1542,6 @@ const icons: Array<Icon> = [
     category: "Composer Layers & Alignment",
     description: "Button - aligns object to bottom of canvas or selection",
     tags: [],
-    system: false,
     sizes: { "18": "AlignBottomSmall", "24": "AlignBottom" },
   },
   {
@@ -1757,7 +1550,6 @@ const icons: Array<Icon> = [
     description:
       "Button - merges objects into one so only overlapping parts of them are visible",
     tags: [],
-    system: false,
     sizes: { "18": "IntersectSmall", "24": "Intersect" },
   },
   {
@@ -1765,7 +1557,6 @@ const icons: Array<Icon> = [
     category: "Composer Shapes",
     description: "Button - subtracts overlapping parts of bottom object",
     tags: [],
-    system: false,
     sizes: { "18": "SubstractSmall", "24": "Substract" },
   },
   {
@@ -1773,7 +1564,6 @@ const icons: Array<Icon> = [
     category: "Composer Shapes",
     description: "Button - merges selected objects",
     tags: [],
-    system: false,
     sizes: { "18": "UnionSmall", "24": "Union" },
   },
   {
@@ -1782,7 +1572,6 @@ const icons: Array<Icon> = [
     description:
       "Button - merges objects into one and displays non-overlapping parts of them",
     tags: [],
-    system: false,
     sizes: { "18": "ExcludeSmall", "24": "Exclude" },
   },
   {
@@ -1790,7 +1579,6 @@ const icons: Array<Icon> = [
     category: "Composer Shapes",
     description: "Button - inserts circle shape",
     tags: [],
-    system: false,
     sizes: { "18": "CircleLargeSmall", "24": "CircleLarge" },
   },
   {
@@ -1798,7 +1586,6 @@ const icons: Array<Icon> = [
     category: "Composer Shapes",
     description: "Button - inserts rectangle shape",
     tags: [],
-    system: false,
     sizes: { "18": "RectangleLargeSmall", "24": "RectangleLarge" },
   },
   {
@@ -1806,7 +1593,6 @@ const icons: Array<Icon> = [
     category: "Composer Shapes",
     description: "Button - inserts triangle shape",
     tags: [],
-    system: false,
     sizes: { "18": "TriangleLargeSmall", "24": "TriangleLarge" },
   },
   {
@@ -1814,7 +1600,6 @@ const icons: Array<Icon> = [
     category: "Composer Tools",
     description: "Button - enables color picker",
     tags: [],
-    system: false,
     sizes: { "18": "ColorDropSmall", "24": "ColorDrop" },
   },
   {
@@ -1822,7 +1607,6 @@ const icons: Array<Icon> = [
     category: "Composer Tools",
     description: "Button - enables magic wand tool",
     tags: [],
-    system: false,
     sizes: { "18": "MagicWandSmall", "24": "MagicWand" },
   },
   {
@@ -1830,7 +1614,6 @@ const icons: Array<Icon> = [
     category: "Composer Tools",
     description: "Button - enables text editing",
     tags: [],
-    system: false,
     sizes: { "18": "RenameSmall", "24": "Rename" },
   },
   {
@@ -1839,7 +1622,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks filters\nButton - displays filter options",
     tags: [],
-    system: false,
     sizes: { "18": "FiltersSmall", "24": "Filters" },
   },
   {
@@ -1848,7 +1630,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks overlay\nButton - display overlay options",
     tags: [],
-    system: false,
     sizes: { "18": "OverlaySmall", "24": "Overlay" },
   },
   {
@@ -1856,7 +1637,6 @@ const icons: Array<Icon> = [
     category: "Composer Effects",
     description: "Button - applies right drop shadow effect",
     tags: [],
-    system: false,
     sizes: { "18": "DropShadowRightSmall", "24": "DropShadowRight" },
   },
   {
@@ -1864,7 +1644,6 @@ const icons: Array<Icon> = [
     category: "Composer Effects",
     description: "Button - applies left drop shadow effect",
     tags: [],
-    system: false,
     sizes: { "18": "DropShadowLeftSmall", "24": "DropShadowLeft" },
   },
   {
@@ -1872,7 +1651,6 @@ const icons: Array<Icon> = [
     category: "Composer Effects",
     description: "Button - applies buttom drop shadow effect",
     tags: [],
-    system: false,
     sizes: { "18": "DropShadowBottomSmall", "24": "DropShadowBottom" },
   },
   {
@@ -1881,7 +1659,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays content in horizontal layout\nButton - creates horizontal ratio item (i.e. video)",
     tags: [],
-    system: false,
     sizes: { "18": "HorizontalRatioSmall", "24": "HorizontalRatio" },
   },
   {
@@ -1890,7 +1667,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays content in vertical layout\nButton - creates vertical ration item (i.e. video)",
     tags: [],
-    system: false,
     sizes: { "18": "VerticalRatioSmall", "24": "VerticalRatio" },
   },
   {
@@ -1899,7 +1675,6 @@ const icons: Array<Icon> = [
     description:
       "Static indicator - marks an applied horizontal display option",
     tags: [],
-    system: false,
     sizes: { "18": "HorizontalRatioChecked", "24": "HorizontalRatioChecked" },
   },
   {
@@ -1907,7 +1682,6 @@ const icons: Array<Icon> = [
     category: "Composer Ratio",
     description: "Static indicator - marks an applied vertical display option",
     tags: [],
-    system: false,
     sizes: { "18": "VerticalRatioCheckedSmall", "24": "VerticalRatioChecked" },
   },
   {
@@ -1916,7 +1690,6 @@ const icons: Array<Icon> = [
     description:
       "Button - displays content in square layout\nButton - creates a square ratio item (i.e. video)",
     tags: [],
-    system: false,
     sizes: { "18": "SquareRatioSmall", "24": "SquareRatio" },
   },
   {
@@ -1924,7 +1697,6 @@ const icons: Array<Icon> = [
     category: "Composer Ratio",
     description: "Static indicator - marks an applied square display option",
     tags: [],
-    system: false,
     sizes: { "18": "SquareRatioCheckedSmall", "24": "SquareRatioChecked" },
   },
   {
@@ -1932,7 +1704,6 @@ const icons: Array<Icon> = [
     category: "Composer Ratio",
     description: "Button - displays size and ratio options",
     tags: [],
-    system: false,
     sizes: { "18": "SizeAndRatioSmall", "24": "SizeAndRatio" },
   },
   {
@@ -1940,7 +1711,6 @@ const icons: Array<Icon> = [
     category: "Composer Other",
     description: "Button - displays shape editing options",
     tags: [],
-    system: false,
     sizes: { "18": "ObjectsSmall", "24": "Objects" },
   },
   {
@@ -1948,7 +1718,6 @@ const icons: Array<Icon> = [
     category: "Composer Other",
     description: "Button - displays divider options",
     tags: [],
-    system: false,
     sizes: { "18": "DividerSmall", "24": "Divider" },
   },
   {
@@ -1956,7 +1725,6 @@ const icons: Array<Icon> = [
     category: "Composer Other",
     description: "Button - displays decoration options",
     tags: [],
-    system: false,
     sizes: { "18": "BowSmall", "24": "Bow" },
   },
   {
@@ -1964,7 +1732,6 @@ const icons: Array<Icon> = [
     category: "Food",
     description: "Button - displays food items in stock",
     tags: [],
-    system: false,
     sizes: { "18": "FoodInStockSmall", "24": "FoodInStock" },
   },
   {
@@ -1972,7 +1739,6 @@ const icons: Array<Icon> = [
     category: "Food",
     description: "Button - displays food items out of stock",
     tags: [],
-    system: false,
     sizes: { "18": "FoodOutOfStockSmall", "24": "FoodOutOfStock" },
   },
   {
@@ -1980,7 +1746,6 @@ const icons: Array<Icon> = [
     category: "Food",
     description: "Static indicator - marks restaurants",
     tags: [],
-    system: false,
     sizes: { "18": "CutlerySmall", "24": "Cutlery" },
   },
   {
@@ -1988,7 +1753,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Facebook social network",
     tags: [],
-    system: false,
     sizes: { "18": "FacebookSmall", "24": "Facebook" },
   },
   {
@@ -1996,7 +1760,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Instagram social network",
     tags: [],
-    system: false,
     sizes: { "18": "InstagramSmall", "24": "Instagram" },
   },
   {
@@ -2004,7 +1767,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to LinkedIn social network",
     tags: [],
-    system: false,
     sizes: { "18": "LinkedInSmall", "24": "LinkedIn" },
   },
   {
@@ -2012,7 +1774,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Google search",
     tags: [],
-    system: false,
     sizes: { "18": "GoogleSmall", "24": "Google" },
   },
   {
@@ -2020,7 +1781,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Yandex Ru social network",
     tags: [],
-    system: false,
     sizes: { "18": "YandexRuSmall", "24": "YandexRu" },
   },
   {
@@ -2028,7 +1788,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Yandex En social network",
     tags: [],
-    system: false,
     sizes: { "18": "YandexEnSmall", "24": "YandexEn" },
   },
   {
@@ -2036,7 +1795,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Git Hub platform",
     tags: [],
-    system: false,
     sizes: { "18": "GitHubSmall", "24": "GitHub" },
   },
   {
@@ -2044,7 +1802,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Youtube social network",
     tags: [],
-    system: false,
     sizes: { "18": "YoutubeSmall", "24": "Youtube" },
   },
   {
@@ -2052,7 +1809,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Youtube social network",
     tags: [],
-    system: false,
     sizes: { "18": "YoutubeFilledSmall", "24": "YoutubeFilled" },
   },
   {
@@ -2060,7 +1816,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Twitter social network",
     tags: [],
-    system: false,
     sizes: { "18": "TwitterSmall", "24": "Twitter" },
   },
   {
@@ -2068,7 +1823,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to Pinterest social network",
     tags: [],
-    system: false,
     sizes: { "18": "PinterestSmall", "24": "Pinterest" },
   },
   {
@@ -2076,7 +1830,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to SoundCloud platform",
     tags: [],
-    system: false,
     sizes: { "18": "SoundCloud", "24": "SoundCloud" },
   },
   {
@@ -2084,7 +1837,6 @@ const icons: Array<Icon> = [
     category: "Brands",
     description: "Button - redirects to WhatsApp application",
     tags: [],
-    system: false,
     sizes: { "18": "WhatsappSmall", "24": "Whatsapp" },
   },
   {
@@ -2092,7 +1844,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Button - displays shopping cart",
     tags: [],
-    system: false,
     sizes: { "18": "CartSmall", "24": "Cart" },
   },
   {
@@ -2101,7 +1852,6 @@ const icons: Array<Icon> = [
     description:
       "Static Indicator - marks payment option or payments list\nButton - displays payment options or payments list",
     tags: [],
-    system: false,
     sizes: { "18": "PaymentSmall", "24": "Payment" },
   },
   {
@@ -2109,7 +1859,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Button - creates order refund form",
     tags: [],
-    system: false,
     sizes: { "18": "RefundSmall", "24": "Refund" },
   },
   {
@@ -2117,7 +1866,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Static Indicator - marks order or orders list",
     tags: [],
-    system: false,
     sizes: { "18": "OrderSmall", "24": "Order" },
   },
   {
@@ -2125,7 +1873,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Button - cancels order",
     tags: [],
-    system: false,
     sizes: { "18": "CancelOrderSmall", "24": "CancelOrder" },
   },
   {
@@ -2133,7 +1880,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Button - creates order",
     tags: [],
-    system: false,
     sizes: { "18": "OrderAddSmall", "24": "OrderAdd" },
   },
   {
@@ -2141,7 +1887,6 @@ const icons: Array<Icon> = [
     category: "Money",
     description: "Button - opens up invoice preview",
     tags: [],
-    system: false,
     sizes: { "18": "InvoiceSmall", "24": "Invoice" },
   },
   {
@@ -2150,7 +1895,6 @@ const icons: Array<Icon> = [
     description:
       "Button - writes in sentence case\nButton - applies sentence case for selected text",
     tags: [],
-    system: false,
     sizes: { "18": "SentenceCaseSmall", "24": "SentenceCase" },
   },
   {
@@ -2159,7 +1903,6 @@ const icons: Array<Icon> = [
     description:
       "Button - writes in upper case\nButton - applies upper case for selected text",
     tags: [],
-    system: false,
     sizes: { "18": "UpperCaseSmall", "24": "UpperCase" },
   },
   {
@@ -2168,7 +1911,6 @@ const icons: Array<Icon> = [
     description:
       "Button - writes in lower case\nButton - applies lower case for selected text",
     tags: [],
-    system: false,
     sizes: { "18": "LowerCaseSmall", "24": "LowerCase" },
   },
   {
@@ -2176,7 +1918,6 @@ const icons: Array<Icon> = [
     category: "Text",
     description: "Button - aligns text to the right",
     tags: [],
-    system: false,
     sizes: { "18": "TextAlignLeftSmall", "24": "TextAlignLeft" },
   },
   {
@@ -2184,7 +1925,6 @@ const icons: Array<Icon> = [
     category: "Text",
     description: "Button - aligns text to the left",
     tags: [],
-    system: false,
     sizes: { "18": "TextAlignRightSmall", "24": "TextAlignRight" },
   },
   {
@@ -2192,7 +1932,6 @@ const icons: Array<Icon> = [
     category: "Text",
     description: "Button - centers the text",
     tags: [],
-    system: false,
     sizes: { "18": "TextAlignCenterSmall", "24": "TextAlignCenter" },
   },
   {
@@ -2201,7 +1940,6 @@ const icons: Array<Icon> = [
     description:
       "Button - stretches the text lines so that each line has equal width",
     tags: [],
-    system: false,
     sizes: { "18": "TextJustifySmall", "24": "TextJustify" },
   },
   {
@@ -2209,7 +1947,6 @@ const icons: Array<Icon> = [
     category: "Wix Brands",
     description: "Static Indicator - marks Premium product",
     tags: [],
-    system: false,
     sizes: { "18": "PremiumSmall", "24": "Premium" },
   },
   {
@@ -2217,7 +1954,6 @@ const icons: Array<Icon> = [
     category: "Wix Brands",
     description: "Static Indicator - marks Wix Forms product",
     tags: [],
-    system: false,
     sizes: { "18": "WixFormsSmall", "24": "WixForms" },
   },
   {
@@ -2225,7 +1961,6 @@ const icons: Array<Icon> = [
     category: "Wix Brands",
     description: "Static Indicator - marks Wix Forms product in text layouts",
     tags: [],
-    system: false,
     sizes: { "18": "WixFormsFilledSmall", "24": "WixFormsFilled" },
   },
   {
@@ -2233,7 +1968,6 @@ const icons: Array<Icon> = [
     category: "Wix Brands",
     description: "Static Indicator - marks Wix Chat product",
     tags: [],
-    system: false,
     sizes: { "18": "WixChatSmall", "24": "WixChat" },
   },
   {
@@ -2241,7 +1975,6 @@ const icons: Array<Icon> = [
     category: "Wix Brands",
     description: "Static Indicator - marks Wix Chat product in text layouts",
     tags: [],
-    system: false,
     sizes: { "18": "WixChatFilledSmall", "24": "WixChatFilled" },
   },
 ];

@@ -1,0 +1,19 @@
+.iconList {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: 20px;
+  row-gap: 60px;
+}
+
+.iconWithName {
+  height: 100%;
+  text-align: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+.iconName {}

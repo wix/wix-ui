@@ -10,7 +10,6 @@ export type Icon = {
   category: string;
   description: string;
   tags: Array<string>;
-  system: boolean;
   sizes: IconSizeMap;
 };
 
