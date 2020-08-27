@@ -1,6 +1,6 @@
 import React from "react";
 import CategoryTable from "./CategoryTable";
-import icons from "./icons.json";
+import icons from "./icons";
 import { mapIconsToCategories } from "./utils";
 
 const categories = mapIconsToCategories(icons);
