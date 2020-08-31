@@ -1,16 +1,13 @@
 import React, { useMemo } from "react";
-import GeneralCategoryTable from "./CategoryTable";
-import { mapIconsToCategories } from "./utils";
-import { Icon } from "./types";
-import SystemCategoryTable from "./SystemCategoryTable";
+import { mapIconsToCategories } from "../../utils";
+import { Icon, CategoryTableProps } from "../../types";
 
 type Props = {
   icons: Array<Icon>;
-  system?: boolean;
+  CategoryTable: React.FC<CategoryTableProps>;
 };
 
-const CategoryList: React.FC<Props> = ({ icons, system }) => {
-  const CategoryTable = system ? SystemCategoryTable : GeneralCategoryTable;
+const CategoryList: React.FC<Props> = ({ icons, CategoryTable }) => {
   const categories = useMemo(() => mapIconsToCategories(icons), [icons]);
   return (
     <div data-hook="icons-list">

@@ -21,3 +21,8 @@ export type Category = [string, Array<CategoryIcon>];
 export type IconProps = React.SVGAttributes<SVGElement> & {
   size?: string;
 };
+
+export type CategoryTableProps = {
+  categoryName: string;
+  icons: Array<CategoryIcon>;
+};

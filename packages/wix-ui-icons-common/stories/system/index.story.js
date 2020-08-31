@@ -22,21 +22,10 @@ import {
   FaceSmiling30,
   Help24,
 } from "wix-ui-icons-common/system";
-import CategoryList from "./CategoryList";
-import systemIcons from "./icons/system";
-
-import { classes } from "./index.story.st.css";
-
-const HeaderIcons = () => (
-  <div className={classes.headerIcons}>
-    <AddItemMedium />
-    <BreadcrumbsChevronRight />
-    <CheckboxChecked />
-    <DragAndDropLarge />
-    <FaceSmiling30 />
-    <Help24 />
-  </div>
-);
+import CategoryList from "../components/category-list/CategoryList";
+import HeaderIcons from "../components/header-icons";
+import CategoryTable from "./CategoryTable";
+import icons from "../icons/system";
 
 export default {
   category: "Icons",
@@ -44,7 +33,16 @@ export default {
 
   sections: [
     header({
-      component: <HeaderIcons />,
+      component: (
+        <HeaderIcons>
+          <AddItemMedium />
+          <BreadcrumbsChevronRight />
+          <CheckboxChecked />
+          <DragAndDropLarge />
+          <FaceSmiling30 />
+          <Help24 />
+        </HeaderIcons>
+      ),
       sourceUrl:
         "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
     }),
@@ -72,7 +70,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList icons={systemIcons} system />,
+          <CategoryList {...{ icons, CategoryTable }} />,
         ],
       }),
     ]),

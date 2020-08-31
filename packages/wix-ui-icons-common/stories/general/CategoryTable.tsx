@@ -1,16 +1,11 @@
 import React from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
-import { CategoryIcon, IconProps } from "./types";
-
-type Props = {
-  categoryName: string;
-  icons: Array<CategoryIcon>;
-};
+import { CategoryIcon, IconProps, CategoryTableProps as Props } from "../types";
 
 const getIcon = (name: string | undefined): React.FC<IconProps> | undefined => {
   if (!name) return;
-  return require(`../src/general/dist/components/${name}`).default;
+  return require(`../../src/general/dist/components/${name}`).default;
 };
 
 export const mapIconToRow = ({ description, sizes }: CategoryIcon) => {

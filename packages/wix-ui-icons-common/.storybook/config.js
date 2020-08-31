@@ -20,8 +20,8 @@ addParameters({
 });
 
 const loadStories = () => {
-  require("../stories/index.story");
-  require("../stories/system.story");
+  require("../stories/general/index.story");
+  require("../stories/system/index.story");
 };
 
 configure(loadStories, module);

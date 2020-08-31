@@ -22,21 +22,10 @@ import {
   Add,
   Minus,
 } from "wix-ui-icons-common";
-import CategoryList from "./CategoryList";
-import icons from "./icons/general";
-
-import { classes } from "./index.story.st.css";
-
-const HeaderIcons = () => (
-  <div className={classes.headerIcons}>
-    <Edit />
-    <DocDuplicate />
-    <Delete />
-    <EmptyTrash />
-    <Add />
-    <Minus />
-  </div>
-);
+import CategoryList from "../components/category-list/CategoryList";
+import HeaderIcons from "../components/header-icons";
+import CategoryTable from "./CategoryTable";
+import icons from "../icons/general";
 
 export default {
   category: "Icons",
@@ -44,7 +33,16 @@ export default {
 
   sections: [
     header({
-      component: <HeaderIcons />,
+      component: (
+        <HeaderIcons>
+          <Edit />
+          <DocDuplicate />
+          <Delete />
+          <EmptyTrash />
+          <Add />
+          <Minus />
+        </HeaderIcons>
+      ),
       sourceUrl:
         "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
     }),
@@ -73,7 +71,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList icons={icons} />,
+          <CategoryList {...{ icons, CategoryTable }} />,
         ],
       }),
     ]),

@@ -1,17 +1,17 @@
 import React from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
-import { CategoryIcon, IconSizeMap, IconProps } from "./types";
+import {
+  CategoryIcon,
+  IconSizeMap,
+  IconProps,
+  CategoryTableProps as Props,
+} from "../types";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 import viewsStyles from "wix-storybook-utils/dist/src/Sections/views/styles.scss";
-import { classes } from "./SystemCategoryTable.st.css";
-
-type Props = {
-  categoryName: string;
-  icons: Array<CategoryIcon>;
-};
+import { classes } from "./CategoryTable.st.css";
 
 const getIcon = (name: string): React.FC<IconProps> => {
-  return require(`../src/system/dist/components/${name}`).default;
+  return require(`../../src/system/dist/components/${name}`).default;
 };
 
 const isNumeric = (size: string) => /^\d+$/.test(size);
