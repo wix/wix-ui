@@ -23,7 +23,7 @@ import {
   Minus,
 } from "wix-ui-icons-common";
 import CategoryList from "./CategoryList";
-import icons from "./icons/general";
+import systemIcons from "./icons/system";
 
 import { classes } from "./index.story.st.css";
 
@@ -40,7 +40,7 @@ const HeaderIcons = () => (
 
 export default {
   category: "Icons",
-  storyName: "General Icons",
+  storyName: "System Icons",
 
   sections: [
     header({
@@ -74,7 +74,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList icons={icons} />,
+          <CategoryList icons={systemIcons} system />,
         ],
       }),
     ]),

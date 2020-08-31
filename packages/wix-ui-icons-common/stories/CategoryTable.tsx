@@ -1,24 +1,21 @@
 import React from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
-import { CategoryIcon } from "./types";
+import { CategoryIcon, IconProps } from "./types";
 
 type Props = {
   categoryName: string;
   icons: Array<CategoryIcon>;
 };
 
-const getIcon = (name, system) => {
+const getIcon = (name: string | undefined): React.FC<IconProps> | undefined => {
   if (!name) return;
-  if (system) {
-    return require(`../src/system/dist/components/${name}`).default;
-  }
   return require(`../src/general/dist/components/${name}`).default;
 };
 
-export const mapIconToRow = ({ description, system, sizes }) => {
-  const Icon = getIcon(sizes[24], system);
-  const SmallIcon = getIcon(sizes[18], system);
+export const mapIconToRow = ({ description, sizes }: CategoryIcon) => {
+  const Icon = getIcon(sizes[24]);
+  const SmallIcon = getIcon(sizes[18]);
   return [
     Icon && <Icon />,
     sizes[24],

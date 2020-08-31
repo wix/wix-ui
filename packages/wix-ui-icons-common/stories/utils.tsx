@@ -2,7 +2,7 @@ import { Icon, Category } from "./types";
 
 export const mapIconsToCategories = (icons: Array<Icon>): Array<Category> => {
   const categoryMap = {};
-  for (const { category, ...icon } of icons) {
+  for (const { category = "Other", ...icon } of icons) {
     if (!categoryMap[category]) {
       categoryMap[category] = [];
     }

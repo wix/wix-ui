@@ -1,0 +1,24 @@
+.iconsContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 6px 0;
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon:not(:last-child) {
+  margin-right: 30px;
+}
+
+.svg {
+  margin-right: 18px;
+}
+
+.size {
+  font-size: 14px;
+  color: #32536A;
+}

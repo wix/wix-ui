@@ -1,4 +1,4 @@
-import { Icon } from "./types";
+import { Icon } from "../types";
 
 const icons: Array<Icon> = [
   {
