@@ -1,5 +1,3 @@
-export type OmitPolyfill<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 type IconSizeMap = {
   "18"?: string;
   "24"?: string;
@@ -10,11 +8,10 @@ export type Icon = {
   category: string;
   description: string;
   tags: Array<string>;
-  system: boolean;
   sizes: IconSizeMap;
 };
 
-export type CategoryIcon = OmitPolyfill<Icon, "category">;
+export type CategoryIcon = Omit<Icon, "category">;
 
 // [categoryName, icons]
 export type Category = [string, Array<CategoryIcon>];
