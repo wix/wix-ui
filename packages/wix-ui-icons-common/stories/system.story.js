@@ -15,13 +15,13 @@ import {
   table,
 } from "wix-storybook-utils/Sections";
 import {
-  Edit,
-  DocDuplicate,
-  Delete,
-  EmptyTrash,
-  Add,
-  Minus,
-} from "wix-ui-icons-common";
+  AddItemMedium,
+  BreadcrumbsChevronRight,
+  CheckboxChecked,
+  DragAndDropLarge,
+  FaceSmiling30,
+  Help24,
+} from "wix-ui-icons-common/system";
 import CategoryList from "./CategoryList";
 import systemIcons from "./icons/system";
 
@@ -29,12 +29,12 @@ import { classes } from "./index.story.st.css";
 
 const HeaderIcons = () => (
   <div className={classes.headerIcons}>
-    <Edit />
-    <DocDuplicate />
-    <Delete />
-    <EmptyTrash />
-    <Add />
-    <Minus />
+    <AddItemMedium />
+    <BreadcrumbsChevronRight />
+    <CheckboxChecked />
+    <DragAndDropLarge />
+    <FaceSmiling30 />
+    <Help24 />
   </div>
 );
 
