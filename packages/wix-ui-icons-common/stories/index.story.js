@@ -8,7 +8,7 @@ import {
   title,
   columns,
   divider,
-  example as baseExample,
+  example,
   playground,
   api,
   testkit,
@@ -25,14 +25,6 @@ import {
 import AllIcons from "./AllIcons";
 
 import { classes } from "./index.story.st.css";
-
-const example = (config) =>
-  baseExample({
-    components: {
-      a: () => {},
-    },
-    ...config,
-  });
 
 const HeaderIcons = () => (
   <div className={classes.headerIcons}>
