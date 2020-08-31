@@ -56,17 +56,15 @@ export default {
         sections: [
           description({
             title: "Purpose of Use",
-            text:
-              "General icons are used to support the functional intentions of Wix Style elements.<br/>For more information read <a>Wix Style Iconography</a> article.",
+            text: "System icons are used to...",
           }),
           description({
             title: "Adding New Icons",
             text:
               "WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit Icon Request.",
           }),
-
           importExample(
-            "import Duplicate from 'wix-ui-icons-common/Duplicate';"
+            "import AddItemLarge from 'wix-ui-icons-common/system/AddItemLarge';"
           ),
           divider(),
           title("Categories"),

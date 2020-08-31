@@ -64,7 +64,6 @@ export default {
             text:
               "WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit Icon Request.",
           }),
-
           importExample(
             "import Duplicate from 'wix-ui-icons-common/Duplicate';"
           ),
