@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import { transform } from '@babel/core';
 import debounce from 'lodash/debounce';
 
 import DuplicateSmall from 'wix-ui-icons-common/DuplicateSmall';
@@ -11,7 +10,7 @@ import RevertSmall from 'wix-ui-icons-common/RevertSmall';
 import CodeSmall from 'wix-ui-icons-common/CodeSmall';
 import MagicWandSmall from 'wix-ui-icons-common/MagicWandSmall';
 
-import { formatCode } from './format-code';
+import { transformCode, formatCode } from './doctor-code';
 import { CopyButton } from '../CopyButton';
 import ToggleSwitch from '../ui/toggle-switch';
 import TextButton from '../TextButton';
@@ -166,31 +165,13 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }));
 
   transformCode = (code = '') => {
-    const withoutImports = code
-      .split('\n')
-      .filter(
-        line =>
-          ![
-            // ignore import/export statements
-            /^[\s]*?(import|export)/,
-            // ignore require calls
-            /\S*?require\(['"]\S*?['"]\)/,
-          ].some(regex => regex.test(line)),
-      )
-      .join('\n');
-
     try {
-      const transformed = transform(withoutImports, {
-        plugins: [
-          require('@babel/plugin-syntax-jsx'),
-          [require('@babel/plugin-proposal-class-properties'), { loose: true }],
-        ],
-      });
+      const transformed = transformCode(code);
       this.setState({ parseError: null });
-      return transformed.code;
+      return transformed;
     } catch (error) {
       this.setState({ parseError: error.message });
-      return withoutImports;
+      return code;
     }
   };
 
