@@ -31,7 +31,7 @@ export const mapIconToRow = ({ description, system, sizes }) => {
 const CategoryTable: React.FC<Props> = ({ categoryName, icons }) => {
   const columns = ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"];
   const rows = icons.map(mapIconToRow);
-  debugger;
+
   return (
     <>
       <h2 className={sectionStyles["section-title"]}>{categoryName}</h2>
