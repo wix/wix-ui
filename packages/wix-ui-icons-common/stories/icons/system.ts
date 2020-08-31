@@ -59,7 +59,7 @@ const systemIcons: Array<Icon> = [
     category: undefined,
     description: undefined,
     tags: [],
-    sizes: { "18x24": "DragAndDropLarge", "7pxx12px": "DragAndDropSmall" },
+    sizes: { "7x12": "DragAndDropSmall", "18x24": "DragAndDropLarge" },
   },
   {
     title: "DragAndDropLocked",
@@ -339,14 +339,14 @@ const systemIcons: Array<Icon> = [
     category: undefined,
     description: undefined,
     tags: [],
-    sizes: { "10x2": "ToggleOff", "8x2": "ToggleOffSmall" },
+    sizes: { "8x2": "ToggleOffSmall", "10x2": "ToggleOff" },
   },
   {
     title: "ToggleOn",
     category: undefined,
     description: undefined,
     tags: [],
-    sizes: { "10x8": "ToggleOn", "9x7": "ToggleOnSmall" },
+    sizes: { "9x7": "ToggleOnSmall", "10x8": "ToggleOn" },
   },
 ];
 
