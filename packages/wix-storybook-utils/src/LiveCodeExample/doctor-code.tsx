@@ -1,9 +1,42 @@
 import prettier from 'prettier/standalone';
-import babylonParser from 'prettier/parser-babylon';
 import { parse } from '@babel/parser';
 import { transformFromAstSync } from '@babel/core';
-import * as types from '@babel/types';
+import { isIdentifier, File } from '@babel/types';
 import traverse from '@babel/traverse';
+
+const babelParse: (source: string) => File = source =>
+  parse(source, {
+    plugins: [
+      ['decorators', { decoratorsBeforeExport: true }],
+      'jsx',
+      'typescript',
+      'classProperties',
+      'objectRestSpread',
+      'dynamicImport',
+      require('@babel/plugin-proposal-class-properties'),
+    ],
+    sourceType: 'module',
+  });
+
+const locStart = (node, opts?) => {
+  const { ignoreDecorators } = opts || {};
+
+  if (!ignoreDecorators) {
+    const decorators =
+      (node.declaration && node.declaration.decorators) || node.decorators;
+
+    if (decorators && decorators.length > 0) {
+      return locStart(decorators[0]);
+    }
+  }
+
+  return node.range ? node.range[0] : node.start;
+};
+
+const locEnd = node => {
+  const end = node.range ? node.range[1] : node.end;
+  return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
+};
 
 export const formatCode = (code: string) => {
   try {
@@ -19,7 +52,18 @@ export const formatCode = (code: string) => {
 
     return prettier.format(filteredCode, {
       parser: 'babel',
-      plugins: [babylonParser],
+      plugins: [
+        {
+          parsers: {
+            babel: {
+              astFormat: 'estree',
+              parse: babelParse,
+              locStart,
+              locEnd,
+            },
+          },
+        },
+      ],
       singleQuote: true,
       trailingComma: 'all',
     });
@@ -31,18 +75,7 @@ export const formatCode = (code: string) => {
 
 export const transformCode: (code: string) => string = code => {
   try {
-    const ast = parse(code, {
-      plugins: [
-        ['decorators', { decoratorsBeforeExport: true }],
-        'jsx',
-        'typescript',
-        'classProperties',
-        'objectRestSpread',
-        'dynamicImport',
-        require('@babel/plugin-proposal-class-properties'),
-      ],
-      sourceType: 'module',
-    });
+    const ast = babelParse(code);
 
     traverse(ast, {
       ImportDeclaration(path) {
@@ -55,7 +88,7 @@ export const transformCode: (code: string) => string = code => {
         path.remove();
       },
       CallExpression(path) {
-        if (types.isIdentifier(path.node.callee, { name: 'require' })) {
+        if (isIdentifier(path.node.callee, { name: 'require' })) {
           const parent = path.getStatementParent();
           if (parent.type === 'VariableDeclaration') {
             path.getStatementParent().remove();
