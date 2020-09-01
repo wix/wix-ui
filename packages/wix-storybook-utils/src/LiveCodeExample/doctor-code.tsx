@@ -74,39 +74,34 @@ export const formatCode = (code: string) => {
 };
 
 export const transformCode: (code: string) => string = code => {
-  try {
-    const ast = babelParse(code);
+  const ast = babelParse(code);
 
-    traverse(ast, {
-      ImportDeclaration(path) {
-        path.remove();
-      },
-      ExportDefaultDeclaration(path) {
-        path.remove();
-      },
-      ExportNamedDeclaration(path) {
-        path.remove();
-      },
-      CallExpression(path) {
-        if (isIdentifier(path.node.callee, { name: 'require' })) {
-          const parent = path.getStatementParent();
-          if (parent.type === 'VariableDeclaration') {
-            path.getStatementParent().remove();
-          }
+  traverse(ast, {
+    ImportDeclaration(path) {
+      path.remove();
+    },
+    ExportDefaultDeclaration(path) {
+      path.remove();
+    },
+    ExportNamedDeclaration(path) {
+      path.remove();
+    },
+    CallExpression(path) {
+      if (isIdentifier(path.node.callee, { name: 'require' })) {
+        const parent = path.getStatementParent();
+        if (parent.type === 'VariableDeclaration') {
+          path.getStatementParent().remove();
         }
-      },
-    });
+      }
+    },
+  });
 
-    const transformed = transformFromAstSync(ast, code, {
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        [require('@babel/plugin-proposal-class-properties'), { loose: true }],
-      ],
-    });
+  const transformed = transformFromAstSync(ast, code, {
+    plugins: [
+      require('@babel/plugin-syntax-jsx'),
+      [require('@babel/plugin-proposal-class-properties'), { loose: true }],
+    ],
+  });
 
-    return transformed.code;
-  } catch (error) {
-    console.error('Error in <LiveCodeEditor/>:', error);
-    return code;
-  }
+  return transformed.code;
 };
