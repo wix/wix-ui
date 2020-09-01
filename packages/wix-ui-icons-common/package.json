@@ -55,12 +55,11 @@
     "svgo": "^1.3.2",
     "typescript": "~3.0.3",
     "wix-storybook-utils": "^3.0.127",
-    "wix-ui-test-utils": "^1.0.0",
+    "wix-ui-test-utils": "^1.0.172",
     "yoshi": "4.87.0",
     "yoshi-style-dependencies": "4.71.0"
   },
   "yoshi": {
-    "experimentalTSTarget": true,
     "exports": "wix-ui-icons-common"
   }
 }
