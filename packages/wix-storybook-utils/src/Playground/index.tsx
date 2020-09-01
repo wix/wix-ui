@@ -5,7 +5,7 @@ import UploadExportSmall from 'wix-ui-icons-common/UploadExportSmall';
 import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';
 import TextButton from '../TextButton';
-import { formatCode } from '../LiveCodeExample/format-code';
+import { formatCode } from '../LiveCodeExample/doctor-code';
 
 import styles from './styles.scss';
 
