@@ -22,7 +22,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run export-svg-icons && npm run generate-stylable-index && build-storybook",
+    "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run export-svg-icons && build-storybook",
     "test": "yoshi test --protractor",
     "start": "npm run buildIcons && npm run storybook",
     "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
@@ -36,13 +36,11 @@
     "export-general-svg-icons": "node ./scripts/export-svg-icons.js ./src/general/raw .",
     "export-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/system/raw system",
     "storybook": "start-storybook -p 6006",
-    "generate-stylable-index": "stc --srcDir=\"./dist/src\" --diagnostics",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease"
   },
   "devDependencies": {
     "@storybook/addon-options": "^5.3.19",
     "@storybook/react": "^5.3.19",
-    "@stylable/cli": "^3.5.1",
     "@types/jest": "^22.2.3",
     "@types/node": "^12.0.0",
     "@types/react": "~16.4.2",
