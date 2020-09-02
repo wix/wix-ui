@@ -31,7 +31,11 @@ const Sizes: React.FC<Pick<CategoryIcon, "sizes">> = ({ sizes }) => {
   );
 };
 
-export const mapIconToRow = ({ title, sizes, description }: CategoryIcon) => [
+export const mapIconToRow = ({
+  title,
+  sizes,
+  description,
+}: CategoryIcon): [string, React.ReactNode, string | undefined] => [
   title,
   <Sizes sizes={sizes} />,
   description,
