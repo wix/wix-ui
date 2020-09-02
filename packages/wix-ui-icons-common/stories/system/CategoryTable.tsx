@@ -1,11 +1,6 @@
 import React from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
-import {
-  CategoryIcon,
-  IconSizeMap,
-  IconProps,
-  CategoryTableProps as Props,
-} from "../types";
+import { CategoryIcon, IconProps, CategoryTableProps as Props } from "../types";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 import viewsStyles from "wix-storybook-utils/dist/src/Sections/views/styles.scss";
 import { classes } from "./CategoryTable.st.css";
@@ -16,7 +11,7 @@ const getIcon = (name: string): React.FC<IconProps> => {
 
 const isNumeric = (size: string) => /^\d+$/.test(size);
 
-const Sizes: React.FC<{ sizes: IconSizeMap }> = ({ sizes }) => {
+const Sizes: React.FC<Pick<CategoryIcon, "sizes">> = ({ sizes }) => {
   return (
     <div className={classes.iconsContainer}>
       {Object.entries(sizes).map(([size, name]) => {
