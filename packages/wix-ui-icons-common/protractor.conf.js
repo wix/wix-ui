@@ -1,3 +1,12 @@
-const {baseProtractorConfig} = require('wix-ui-test-utils/protractor');
+const { baseProtractorConfig } = require("wix-ui-test-utils/protractor");
 
-exports.config = baseProtractorConfig;
+module.exports.config = {
+  ...baseProtractorConfig,
+  onPrepare() {
+    browser.ignoreSynchronization = true;
+    require("@babel/register")({
+      presets: [[require.resolve("babel-preset-yoshi")]],
+      ignore: [],
+    });
+  },
+};
