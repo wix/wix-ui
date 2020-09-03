@@ -19,8 +19,28 @@ import {
 } from "wix-ui-icons-common";
 import CategoryList from "../components/category-list/CategoryList";
 import HeaderIcons from "../components/header-icons";
-import CategoryTable from "./CategoryTable";
 import icons from "../icons/general";
+import { mapIconsToCategories } from "../utils";
+
+const getIcon = (name) => {
+  if (!name) return;
+  return require(`../../src/general/dist/components/${name}`).default;
+};
+
+const mapIconToRow = ({ description, sizes }) => {
+  const Icon = getIcon(sizes[24]);
+  const SmallIcon = getIcon(sizes[18]);
+  return [
+    Icon && <Icon />,
+    sizes[24],
+    SmallIcon && <SmallIcon />,
+    sizes[18],
+    description,
+  ];
+};
+
+const columns = ["24x24", "Icon Name", "18x18", "Icon Name", "Use for"];
+const categories = mapIconsToCategories(icons, columns, mapIconToRow);
 
 export default {
   category: "Icons",
@@ -66,7 +86,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList {...{ icons, CategoryTable }} />,
+          <CategoryList categories={categories} />,
         ],
       }),
     ]),

@@ -6,16 +6,31 @@ export type Icon = {
   sizes: Record<string, string>;
 };
 
-export type CategoryIcon = Omit<Icon, "category">;
+/** [icon component, icon name, small icon component,
+ * small icon name, description] */
+export type GeneralTableRow = [
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  string | undefined
+];
+/** [icon name, icon sizes, description] */
+export type SystemTableRow = [string, React.ReactNode, string];
+export type CategoryTableRow = GeneralTableRow | SystemTableRow;
 
-// [categoryName, icons]
-export type Category = [string, Array<CategoryIcon>];
+export type Category = {
+  title: string;
+  columns: Array<string>;
+  rows: Array<CategoryTableRow>;
+};
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   size?: string;
 };
 
-export type CategoryTableProps = {
-  categoryName: string;
-  icons: Array<CategoryIcon>;
+export type IconDescriptor = {
+  size: string;
+  name: string;
+  Icon: React.FC<IconProps>;
 };

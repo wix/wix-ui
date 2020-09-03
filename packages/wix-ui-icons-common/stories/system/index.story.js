@@ -17,10 +17,31 @@ import {
   FaceSmiling30,
   Help24,
 } from "wix-ui-icons-common/system";
+import Sizes from "./Sizes";
 import CategoryList from "../components/category-list/CategoryList";
 import HeaderIcons from "../components/header-icons";
-import CategoryTable from "./CategoryTable";
 import icons from "../icons/system";
+import { mapIconsToCategories } from "../utils";
+
+const getIcon = (name) => {
+  return require(`../../src/system/dist/components/${name}`).default;
+};
+
+const mapIconToRow = ({ title, sizes, description }) => {
+  const iconDescriptors = [];
+  for (const [size, name] of Object.entries(sizes)) {
+    const Icon = getIcon(name);
+    iconDescriptors.push({
+      size,
+      name,
+      Icon,
+    });
+  }
+  return [title, <Sizes sizes={iconDescriptors} />, description];
+};
+
+const columns = ["Icon Name", "Sizes", "Use for"];
+const categories = mapIconsToCategories(icons, columns, mapIconToRow);
 
 export default {
   category: "Icons",
@@ -65,7 +86,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList {...{ icons, CategoryTable }} />,
+          <CategoryList categories={categories} />,
         ],
       }),
     ]),
