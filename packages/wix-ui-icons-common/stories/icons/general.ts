@@ -272,11 +272,11 @@ const icons: Array<Icon> = [
     sizes: { "18": "SendSmall", "24": "Send" },
   },
   {
-    title: "Filter",
+    title: "ContentFilter",
     category: "Actions",
     description: "Button - opens filter options for items or content",
     tags: ["funnel"],
-    sizes: { "18": "FilterSmall", "24": "Filter" },
+    sizes: { "18": "ContentFilterSmall", "24": "ContentFilter" },
   },
   {
     title: "Settings",
