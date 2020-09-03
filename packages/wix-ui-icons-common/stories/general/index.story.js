@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React from "react";
 import {
   header,
   tabs,
@@ -6,12 +6,7 @@ import {
   description,
   importExample,
   title,
-  columns,
   divider,
-  example,
-  playground,
-  api,
-  testkit,
   table,
 } from "wix-storybook-utils/Sections";
 import {
