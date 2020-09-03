@@ -51,7 +51,7 @@
     "express": "^4.16.2",
     "import-path": "latest",
     "protractor": "^5.3.0",
-    "puppeteer": "1.11.0",
+    "puppeteer": "1.20.0",
     "raf": "^3.4.0",
     "react": "~16.4.2",
     "react-dom": "~16.4.2",
