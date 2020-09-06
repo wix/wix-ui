@@ -1,6 +1,6 @@
-import { Icon } from "../types";
+import { IconMetadata } from "../types";
 
-const icons: Array<Icon> = [
+const generalIconsMetadata: Array<IconMetadata> = [
   {
     title: "Edit",
     category: "Actions",
@@ -1968,4 +1968,4 @@ const icons: Array<Icon> = [
   },
 ];
 
-export default icons;
+export default generalIconsMetadata;

@@ -1,11 +1,3 @@
-export type Icon = {
-  title: string;
-  category: string | undefined;
-  description: string | undefined;
-  tags: Array<string>;
-  sizes: Record<string, string>;
-};
-
 /** [icon component, icon name, small icon component,
  * small icon name, description] */
 export type GeneralTableRow = [

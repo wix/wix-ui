@@ -19,11 +19,11 @@ import {
 } from "wix-ui-icons-common";
 import CategoryList from "../components/category-list/CategoryList";
 import HeaderIcons from "../components/header-icons";
-import icons from "../icons/general";
 import * as iconComponents from "../../src/general/dist";
+import generalIconsMetadata from "../../src/general/metadata";
 import { mapIconsToCategories } from "../utils";
 
-// (icon: Icon) => GeneralTableRow
+// (icon: IconMetadata) => GeneralTableRow
 const mapIconToRow = ({ description, sizes }) => {
   const Icon = iconComponents[sizes[24]];
   const SmallIcon = iconComponents[sizes[18]];
@@ -43,7 +43,11 @@ const tableHeaderTitles = [
   "Icon Name",
   "Use for",
 ];
-const categories = mapIconsToCategories(icons, tableHeaderTitles, mapIconToRow);
+const categories = mapIconsToCategories(
+  generalIconsMetadata,
+  tableHeaderTitles,
+  mapIconToRow
+);
 
 export default {
   category: "Icons",

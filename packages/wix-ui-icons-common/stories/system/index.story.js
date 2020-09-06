@@ -20,11 +20,11 @@ import {
 import Sizes from "./Sizes";
 import CategoryList from "../components/category-list/CategoryList";
 import HeaderIcons from "../components/header-icons";
-import icons from "../icons/system";
+import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
 import { mapIconsToCategories } from "../utils";
 
-// (icon: Icon) => SystemTableRow
+// (icon: IconMetadata) => SystemTableRow
 const mapIconToRow = ({ title, sizes, description }) => {
   const iconDescriptors = [];
   for (const [size, name] of Object.entries(sizes)) {
@@ -39,7 +39,11 @@ const mapIconToRow = ({ title, sizes, description }) => {
 };
 
 const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
-const categories = mapIconsToCategories(icons, tableHeaderTitles, mapIconToRow);
+const categories = mapIconsToCategories(
+  systemIconsMetadata,
+  tableHeaderTitles,
+  mapIconToRow
+);
 
 export default {
   category: "Icons",

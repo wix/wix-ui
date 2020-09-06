@@ -1,6 +1,6 @@
-import { Icon } from "../types";
+import { IconMetadata } from "../types";
 
-const systemIcons: Array<Icon> = [
+const systemIconsMetadata: Array<IconMetadata> = [
   {
     title: "AddItem",
     category: undefined,
@@ -350,4 +350,4 @@ const systemIcons: Array<Icon> = [
   },
 ];
 
-export default systemIcons;
+export default systemIconsMetadata;
