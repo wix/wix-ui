@@ -13,7 +13,7 @@
     "types": ["node", "jest"],
     "lib": ["dom", "esnext"]
   },
-  "files": ["./src/external-types.d.ts", "./node_modules/yoshi/types.d.ts"],
+  "files": ["./src/global.d.ts", "./node_modules/yoshi/types.d.ts"],
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
