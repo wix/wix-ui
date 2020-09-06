@@ -11,7 +11,8 @@
     "target": "es5",
     "jsx": "react",
     "types": ["node", "jest"],
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+    "resolveJsonModule": true
   },
   "files": ["./src/global.d.ts", "./node_modules/yoshi/types.d.ts"],
   "include": [
