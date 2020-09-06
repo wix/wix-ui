@@ -24,6 +24,7 @@ import icons from "../icons/system";
 import * as iconComponents from "../../src/system/dist";
 import { mapIconsToCategories } from "../utils";
 
+// (icon: Icon) => SystemTableRow
 const mapIconToRow = ({ title, sizes, description }) => {
   const iconDescriptors = [];
   for (const [size, name] of Object.entries(sizes)) {

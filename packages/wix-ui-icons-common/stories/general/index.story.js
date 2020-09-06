@@ -23,6 +23,7 @@ import icons from "../icons/general";
 import * as iconComponents from "../../src/general/dist";
 import { mapIconsToCategories } from "../utils";
 
+// (icon: Icon) => GeneralTableRow
 const mapIconToRow = ({ description, sizes }) => {
   const Icon = iconComponents[sizes[24]];
   const SmallIcon = iconComponents[sizes[18]];
