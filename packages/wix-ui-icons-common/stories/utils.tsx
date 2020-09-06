@@ -7,7 +7,7 @@ export const mapIconsToCategories = (
 ): Array<Category> => {
   const categoryMap: Record<string, Category> = {};
   for (const icon of icons) {
-    const { category = "Other" } = icon;
+    const { category = "Uncategorized" } = icon;
     // Add category
     if (!categoryMap[category]) {
       categoryMap[category] = {
