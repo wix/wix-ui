@@ -14,14 +14,17 @@ const CategoryTable: React.FC<Category> = ({
   </>
 );
 
-type Props = {
+type CategoryListProps = {
   categories: Array<Category>;
   dataHook?: string;
 };
 
-const CategoryList: React.FC<Props> = ({ categories, dataHook }) => {
+const CategoryList: React.FC<CategoryListProps> = ({
+  categories,
+  dataHook,
+}) => {
   return (
-    <div data-hook="icons-list">
+    <div data-hook={dataHook}>
       {categories.map((category) => (
         <CategoryTable {...category} key={category.title} />
       ))}
