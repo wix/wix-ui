@@ -20,16 +20,12 @@ import {
 import CategoryList from "../components/category-list/CategoryList";
 import HeaderIcons from "../components/header-icons";
 import icons from "../icons/general";
+import * as iconComponents from "../../src/general/dist";
 import { mapIconsToCategories } from "../utils";
 
-const getIcon = (name) => {
-  if (!name) return;
-  return require(`../../src/general/dist/components/${name}`).default;
-};
-
 const mapIconToRow = ({ description, sizes }) => {
-  const Icon = getIcon(sizes[24]);
-  const SmallIcon = getIcon(sizes[18]);
+  const Icon = iconComponents[sizes[24]];
+  const SmallIcon = iconComponents[sizes[18]];
   return [
     Icon && <Icon />,
     sizes[24],
