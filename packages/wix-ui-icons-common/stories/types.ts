@@ -21,7 +21,7 @@ export type CategoryTableRow = GeneralTableRow | SystemTableRow;
 
 export type Category = {
   title: string;
-  columns: Array<string>;
+  tableHeaderTitles: Array<string>;
   rows: Array<CategoryTableRow>;
 };
 

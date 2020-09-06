@@ -2,7 +2,7 @@ import { Icon, Category, CategoryTableRow } from "./types";
 
 export const mapIconsToCategories = (
   icons: Array<Icon>,
-  columns: Array<string>,
+  tableHeaderTitles: Array<string>,
   mapIconToRow: (icon: Icon) => CategoryTableRow
 ): Array<Category> => {
   const categoryMap: Record<string, Category> = {};
@@ -12,7 +12,7 @@ export const mapIconsToCategories = (
     if (!categoryMap[category]) {
       categoryMap[category] = {
         title: category,
-        columns,
+        tableHeaderTitles,
         rows: [],
       };
     }

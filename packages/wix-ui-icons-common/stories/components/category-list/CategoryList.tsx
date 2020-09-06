@@ -3,10 +3,14 @@ import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/tabl
 import { Category } from "../../types";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 
-const CategoryTable: React.FC<Category> = ({ title, columns, rows }) => (
+const CategoryTable: React.FC<Category> = ({
+  title,
+  tableHeaderTitles,
+  rows,
+}) => (
   <>
     <h2 className={sectionStyles["section-title"]}>{title}</h2>
-    <Table rows={[columns, ...rows]} />
+    <Table rows={[tableHeaderTitles, ...rows]} />
   </>
 );
 

@@ -37,8 +37,8 @@ const mapIconToRow = ({ title, sizes, description }) => {
   return [title, <Sizes sizes={iconDescriptors} />, description];
 };
 
-const columns = ["Icon Name", "Sizes", "Use for"];
-const categories = mapIconsToCategories(icons, columns, mapIconToRow);
+const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
+const categories = mapIconsToCategories(icons, tableHeaderTitles, mapIconToRow);
 
 export default {
   category: "Icons",
