@@ -61,7 +61,6 @@ export default {
     tabs([
       tab({
         title: "Icon List",
-        dataHook: "icon-list",
         sections: [
           description({
             title: "Purpose of Use",
@@ -82,7 +81,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList categories={categories} />,
+          <CategoryList dataHook="icon-list" categories={categories} />,
         ],
       }),
     ]),

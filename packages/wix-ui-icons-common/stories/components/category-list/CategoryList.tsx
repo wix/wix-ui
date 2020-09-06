@@ -12,9 +12,10 @@ const CategoryTable: React.FC<Category> = ({ title, columns, rows }) => (
 
 type Props = {
   categories: Array<Category>;
+  dataHook?: string;
 };
 
-const CategoryList: React.FC<Props> = ({ categories }) => {
+const CategoryList: React.FC<Props> = ({ categories, dataHook }) => {
   return (
     <div data-hook="icons-list">
       {categories.map((category) => (
