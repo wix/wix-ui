@@ -13,12 +13,11 @@
     "types": ["node", "jest"],
     "lib": ["dom", "esnext"]
   },
+  "files": ["./src/external-types.d.ts", "./node_modules/yoshi/types.d.ts"],
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./stories/**/*.ts",
-    "./stories/**/*.tsx",
-    "./src/external-types.d.ts",
-    "./node_modules/yoshi/types.d.ts"
+    "./stories/**/*.tsx"
   ]
 }
