@@ -42,6 +42,7 @@
     "@babel/register": "^7.10.4",
     "@storybook/addon-options": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "@stylable/runtime": "^3.8.4",
     "@types/jest": "^22.2.3",
     "@types/node": "^12.0.0",
     "@types/react": "~16.8.3",
@@ -60,7 +61,6 @@
     "wix-storybook-utils": "^3.0.127",
     "wix-ui-test-utils": "^1.0.172",
     "yoshi": "4.87.0",
-    "yoshi-stylable-dependencies": "^4.86.0",
     "yoshi-style-dependencies": "4.71.0"
   },
   "yoshi": {
