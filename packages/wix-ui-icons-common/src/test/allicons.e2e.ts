@@ -12,7 +12,7 @@ describe("All icons", () => {
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
-    { width: 1024, height: 17500 }
+    { width: 1024, height: 7000 }
   );
   eyes.it(
     `check icons - System Icons`,
@@ -23,6 +23,6 @@ describe("All icons", () => {
         ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
-    { width: 1024, height: 6000 }
+    { width: 1024, height: 1000 }
   );
 });

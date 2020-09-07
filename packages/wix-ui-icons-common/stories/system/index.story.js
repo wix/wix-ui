@@ -18,8 +18,9 @@ import {
   Help24,
 } from "wix-ui-icons-common/system";
 import Sizes from "./Sizes";
-import CategoryList from "../components/category-list/CategoryList";
+import CategoryList from "../components/category-list";
 import HeaderIcons from "../components/header-icons";
+import IconsExample from "../components/icons-example";
 import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
 import { mapIconsToCategories } from "../utils";
@@ -48,6 +49,7 @@ const categories = mapIconsToCategories(
 export default {
   category: "Icons",
   storyName: "System Icons",
+  component: () => <IconsExample {...{ iconComponents }} />,
 
   sections: [
     header({

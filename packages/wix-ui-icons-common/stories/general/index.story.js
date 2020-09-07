@@ -17,8 +17,9 @@ import {
   Add,
   Minus,
 } from "wix-ui-icons-common";
-import CategoryList from "../components/category-list/CategoryList";
+import CategoryList from "../components/category-list";
 import HeaderIcons from "../components/header-icons";
+import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/general/dist";
 import generalIconsMetadata from "../../src/general/metadata";
 import { mapIconsToCategories } from "../utils";
@@ -52,6 +53,7 @@ const categories = mapIconsToCategories(
 export default {
   category: "Icons",
   storyName: "General Icons",
+  component: () => <IconsExample {...{ iconComponents }} />,
 
   sections: [
     header({
