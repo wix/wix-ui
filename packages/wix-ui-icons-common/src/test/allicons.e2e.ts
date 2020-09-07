@@ -9,7 +9,7 @@ describe("All icons", () => {
       const storyUrl = getStoryUrl("Icons", "General Icons");
       browser.get(storyUrl);
       await browser.wait(
-        ExpectedConditions.presenceOf($(`[data-hook="icons-list"]`))
+        ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
     { width: 1024, height: 17500 }
@@ -20,7 +20,7 @@ describe("All icons", () => {
       const storyUrl = getStoryUrl("Icons", "System Icons");
       browser.get(storyUrl);
       await browser.wait(
-        ExpectedConditions.presenceOf($(`[data-hook="icons-list"]`))
+        ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
       );
     },
     { width: 1024, height: 6000 }
