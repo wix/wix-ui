@@ -33,7 +33,7 @@ module.exports = ({ config }) => {
     },
     module: {
       rules: newConfig.module.rules.concat({
-        test: /\.story\.js$/,
+        test: /\.story\.tsx$/,
         loader: "wix-storybook-utils/loader",
         options: {
           storyConfig: {

@@ -7,48 +7,55 @@ import {
   importExample,
   title,
   divider,
-  table,
 } from "wix-storybook-utils/Sections";
 import {
-  AddItemMedium,
-  BreadcrumbsChevronRight,
-  CheckboxChecked,
-  DragAndDropLarge,
-  FaceSmiling30,
-  Help24,
-} from "wix-ui-icons-common/system";
-import Sizes from "./Sizes";
+  Edit,
+  DocDuplicate,
+  Delete,
+  EmptyTrash,
+  Add,
+  Minus,
+} from "wix-ui-icons-common";
 import CategoryList from "../components/category-list";
 import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
-import systemIconsMetadata from "../../src/system/metadata";
-import * as iconComponents from "../../src/system/dist";
+import * as iconComponents from "../../src/general/dist";
+import generalIconsMetadata from "../../src/general/metadata";
 import { mapIconsToCategories } from "../utils";
+import { IconMetadata } from "../../src/types";
+import { GeneralTableRow } from "../types";
 
-// (icon: IconMetadata) => SystemTableRow
-const mapIconToRow = ({ title, sizes, description }) => {
-  const iconDescriptors = [];
-  for (const [size, name] of Object.entries(sizes)) {
-    const Icon = iconComponents[name];
-    iconDescriptors.push({
-      size,
-      name,
-      Icon,
-    });
-  }
-  return [title, <Sizes sizes={iconDescriptors} />, description];
+const mapIconToRow = ({
+  description,
+  sizes,
+}: IconMetadata): GeneralTableRow => {
+  const Icon = iconComponents[sizes[24]];
+  const SmallIcon = iconComponents[sizes[18]];
+  return [
+    Icon && <Icon />,
+    sizes[24],
+    SmallIcon && <SmallIcon />,
+    sizes[18],
+    description,
+  ];
 };
 
-const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
+const tableHeaderTitles = [
+  "24x24",
+  "Icon Name",
+  "18x18",
+  "Icon Name",
+  "Use for",
+];
 const categories = mapIconsToCategories(
-  systemIconsMetadata,
+  generalIconsMetadata,
   tableHeaderTitles,
   mapIconToRow
 );
 
 export default {
   category: "Icons",
-  storyName: "System Icons",
+  storyName: "General Icons",
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
   ),
@@ -57,12 +64,12 @@ export default {
     header({
       component: (
         <HeaderIcons>
-          <AddItemMedium />
-          <BreadcrumbsChevronRight />
-          <CheckboxChecked />
-          <DragAndDropLarge />
-          <FaceSmiling30 />
-          <Help24 />
+          <Edit />
+          <DocDuplicate />
+          <Delete />
+          <EmptyTrash />
+          <Add />
+          <Minus />
         </HeaderIcons>
       ),
       sourceUrl:
@@ -75,7 +82,8 @@ export default {
         sections: [
           description({
             title: "Purpose of Use",
-            text: "System icons are used to...",
+            text:
+              "General icons are used to support the functional intentions of Wix Style elements.<br/>For more information read <a>Wix Style Iconography</a> article.",
           }),
           description({
             title: "Adding New Icons",
@@ -83,7 +91,7 @@ export default {
               "WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit Icon Request.",
           }),
           importExample(
-            "import AddItemLarge from 'wix-ui-icons-common/system/AddItemLarge';"
+            "import Duplicate from 'wix-ui-icons-common/Duplicate';"
           ),
           divider(),
           title("Categories"),
