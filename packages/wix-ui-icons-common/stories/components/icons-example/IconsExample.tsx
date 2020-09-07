@@ -4,10 +4,14 @@ import { classes } from "./IconsExample.st.css";
 
 type IconsExampleProps = {
   iconComponents: Record<string, React.FC<IconProps>>;
+  dataHook?: string;
 };
 
-const IconsExample: React.FC<IconsExampleProps> = ({ iconComponents }) => (
-  <div className={classes.root}>
+const IconsExample: React.FC<IconsExampleProps> = ({
+  iconComponents,
+  dataHook,
+}) => (
+  <div className={classes.root} data-hook={dataHook}>
     {Object.entries(iconComponents).map(([iconName, Icon]) => (
       <div className={classes.icon} key={iconName}>
         <Icon />

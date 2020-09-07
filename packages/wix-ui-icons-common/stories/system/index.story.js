@@ -49,7 +49,9 @@ const categories = mapIconsToCategories(
 export default {
   category: "Icons",
   storyName: "System Icons",
-  component: () => <IconsExample {...{ iconComponents }} />,
+  component: () => (
+    <IconsExample dataHook="icon-list" {...{ iconComponents }} />
+  ),
 
   sections: [
     header({
