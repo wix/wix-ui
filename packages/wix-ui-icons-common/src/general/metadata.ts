@@ -97,6 +97,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - reverts content to a previous state\nButton - resets an item to its initial state",
     tags: ["arrow", "spin"],
     sizes: { "18": "RevertSmall", "24": "Revert" },
+    aliases: ["RevertReset"],
   },
   {
     title: "Print",
@@ -359,11 +360,12 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "GiftSmall", "24": "Gift" },
   },
   {
-    title: "OpenModalSmall",
+    title: "OpenModal",
     category: "General",
     description: "UNKNOWN",
     tags: ["browser", "window"],
-    sizes: { "18": "OpenModalSmall", "24": "OpenModalSmall" },
+    sizes: { "18": "OpenModalSmall", "24": "OpenModal" },
+    aliases: ["ModalSmall"],
   },
   {
     title: "InfoCircle",
@@ -575,7 +577,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
     tags: ["eye", "hide", "show"],
     sizes: { "18": "HiddenSmall", "24": "Hidden" },
-    aliases: ["VisibleHidden"],
+    aliases: ["VisibleHidden", "VisibileHidden"],
   },
   {
     title: "LockLocked",
@@ -656,6 +658,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Static Indicator – marks item as success or complete",
     tags: ["Check", "Checkmark"],
     sizes: { "18": "StatusCompleteFilledSmall", "24": "StatusCompleteFilled" },
+    aliases: ["StatusCompletetFilled"],
   },
   {
     title: "Flag",
@@ -1838,7 +1841,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     category: "Brands",
     description: "Button - redirects to SoundCloud platform",
     tags: ["social"],
-    sizes: { "18": "SoundCloud", "24": "SoundCloud" },
+    sizes: { "18": "SoundCloudSmall", "24": "SoundCloud" },
   },
   {
     title: "Whatsapp",
