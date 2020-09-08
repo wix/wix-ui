@@ -58,6 +58,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator - marks an item as included or enabled\nButton - confirms changes to an item",
     tags: ["Check", "Checkmark", "Success"],
     sizes: { "18": "ConfirmSmall", "24": "Confirm" },
+    aliases: ["Check"],
   },
   {
     title: "Dismiss",
@@ -66,6 +67,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator - marks an item as not included or disabled\nButton - closes a component\nButton - dismisses changes to an item\nButton - removes an item",
     tags: ["close", "remove"],
     sizes: { "18": "DismissSmall", "24": "Dismiss" },
+    aliases: ["X"],
   },
   {
     title: "More",
@@ -109,6 +111,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Button - moves an item or content to an archive",
     tags: ["box", "cardboard"],
     sizes: { "18": "ArchiveSmall", "24": "Archive" },
+    aliases: ["TaskArchiveSmall"],
   },
   {
     title: "Unarchive",
@@ -124,6 +127,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - downloads an item or content\nButton - imports an item or content",
     tags: [],
     sizes: { "18": "DownloadImportSmall", "24": "DownloadImport" },
+    aliases: ["Download", "DownloadSmall"],
   },
   {
     title: "UploadExport",
@@ -132,6 +136,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - uploads an item or content\nButton - exports an item or content",
     tags: [],
     sizes: { "18": "UploadExportSmall", "24": "UploadExport" },
+    aliases: ["Upload"],
   },
   {
     title: "Link",
@@ -185,6 +190,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - Makes content globally accessible (as opposed to locally or regionally)",
     tags: [],
     sizes: { "18": "DistributeGlobeSmall", "24": "DistributeGlobe" },
+    aliases: ["Globe"],
   },
   {
     title: "TaskAdd",
@@ -569,6 +575,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
     tags: ["eye", "hide", "show"],
     sizes: { "18": "HiddenSmall", "24": "Hidden" },
+    aliases: ["VisibleHidden"],
   },
   {
     title: "LockLocked",
@@ -593,6 +600,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - makes item favorite\nButton - adds a rating to an item",
     tags: ["collection", "star"],
     sizes: { "18": "FavoriteSmall", "24": "Favorite" },
+    aliases: ["Star", "StarSmall"],
   },
   {
     title: "FavoriteFilled",
@@ -601,6 +609,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator - displays rating of an item\nStatic indicator - marks item as favorite\nButton - removes item from favorites on click",
     tags: ["collection", "star"],
     sizes: { "18": "FavoriteFilledSmall", "24": "FavoriteFilled" },
+    aliases: ["StarFilled", "StarFilledSmall"],
   },
   {
     title: "Heart",
@@ -724,7 +733,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description:
       "Button – unlikes an item\nStatic Indicator – marks an item liked\nStatic Indicator – marks count of likes",
     tags: ["like"],
-    sizes: { "18": "ThumbsUpFilled", "24": "ThumbsUpFilled" },
+    sizes: { "18": "ThumbsUpFilledSmall", "24": "ThumbsUpFilled" },
   },
   {
     title: "EmailFilled",
@@ -779,6 +788,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator - marks comments\nButton - composes a message\nButton - shows messages",
     tags: ["bubble", "chat", "message", "speech"],
     sizes: { "18": "ChatFilledSmall", "24": "ChatFilled" },
+    aliases: ["CahtFilledSmall"],
   },
   {
     title: "Chat",
@@ -793,7 +803,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     category: "Communication",
     description: "Button - composes a message by using quick reply templates",
     tags: ["bubble", "chat", "message", "speech"],
-    sizes: { "18": "ChatReply", "24": "ChatReply" },
+    sizes: { "18": "ChatReplySmall", "24": "ChatReply" },
   },
   {
     title: "ChatDisabled",
@@ -802,6 +812,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Static indicator - marks that chat is unavailable\nButton - makes chat disabled",
     tags: ["bubble", "chat", "message", "speech"],
     sizes: { "18": "ChatDisabledSmall", "24": "ChatDisabled" },
+    aliases: ["ChatDisabed"],
   },
   {
     title: "PhoneFilled",
@@ -823,6 +834,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Static Indicator – marks item as a document",
     tags: ["file"],
     sizes: { "18": "DocumentSmall", "24": "Document" },
+    aliases: ["FileDocumentSmall"],
   },
   {
     title: "DocSend",
@@ -830,6 +842,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Button – sends document to mailing list",
     tags: ["document", "file"],
     sizes: { "18": "DocSendSmall", "24": "DocSend" },
+    aliases: ["DocumentSend", "DocumentSendSmall"],
   },
   {
     title: "DocMoveto",
@@ -844,6 +857,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Static Indicator – marks item as an expired document or file",
     tags: ["document", "file"],
     sizes: { "18": "DocExpireSmall", "24": "DocExpire" },
+    aliases: ["DocumentExpire", "DocumentExpireSmall"],
   },
   {
     title: "Transfer",
@@ -859,6 +873,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button – opens a file browser to attach a file\nStatic Indicator – marks item as attached",
     tags: ["file"],
     sizes: { "18": "AttachmentSmall", "24": "Attachment" },
+    aliases: ["Attachement"],
   },
   {
     title: "Folder",
@@ -1302,6 +1317,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - enables item dimension cropping and rotation at once",
     tags: [],
     sizes: { "18": "CropRotateSmall", "24": "CropRotate" },
+    aliases: ["TransformSmall"],
   },
   {
     title: "RotateLeft",
@@ -1664,7 +1680,10 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description:
       "Static indicator - marks an applied horizontal display option",
     tags: [],
-    sizes: { "18": "HorizontalRatioChecked", "24": "HorizontalRatioChecked" },
+    sizes: {
+      "18": "HorizontalRatioCheckedSmall",
+      "24": "HorizontalRatioChecked",
+    },
   },
   {
     title: "VerticalRatioChecked",
