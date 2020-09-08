@@ -246,6 +246,14 @@ export type TableRow = Cell[];
 export interface TableSection extends StorySection {
   /** nested array representing rows and columns */
   rows: TableRow[];
+  /** array of titles for each column header */
+  headerTitles?: React.ReactNode[];
+  /** should table header be transparent,
+   * The Transparent Header has smaller top and bottom paddings compared to Default Header.
+   * Header text color is D40.
+   * The table starts with grey list item first.
+   */
+  transparentHeader?: boolean;
 }
 
 /** EXPERIMENTAL section for mdx content. Don't use, or use with EXTRA CAUTION */

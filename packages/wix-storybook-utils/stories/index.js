@@ -6,6 +6,7 @@ import "./sections/filled-sections.story";
 import "./sections/code-examples.story";
 import "./sections/story-testkit-section.story";
 import "./sections/story-with-example-section.story";
+import "./sections/table-section.story";
 import "./empty-story";
 import "./components";
 import "./playground.story";
