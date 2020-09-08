@@ -90,6 +90,7 @@ $grayRowBackground: rgba($D70, 0.42);
 
 .th {
   @include font(bold);
+  font-weight: 500;
   padding-top: 0;
   padding-bottom: 0;
   font-size: 12px;
