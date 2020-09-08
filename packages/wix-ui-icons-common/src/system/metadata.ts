@@ -1,5 +1,7 @@
 import { IconMetadata } from "../types";
 
+export const deprecatedSystemIcons: Array<string> = [];
+
 const systemIconsMetadata: Array<IconMetadata> = [
   {
     title: "AddItem",

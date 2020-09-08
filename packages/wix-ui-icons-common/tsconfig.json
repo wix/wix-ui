@@ -14,7 +14,11 @@
     "lib": ["dom", "esnext"],
     "resolveJsonModule": true
   },
-  "files": ["./src/globals.d.ts", "./node_modules/yoshi/types.d.ts"],
+  "files": [
+    "./src/globals.d.ts",
+    "./node_modules/yoshi/types.d.ts",
+    "./node_modules/jest-yoshi-preset/types.d.ts"
+  ],
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",

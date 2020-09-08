@@ -23,8 +23,8 @@
   },
   "scripts": {
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run export-svg-icons && build-storybook",
-    "test:unit": "yoshi test --jest",
-    "test:visual": "yoshi test --protractor",
+    "test:unit": "MATCH_ENV=spec yoshi test --jest",
+    "test:visual": "MATCH_ENV=e2e yoshi test --protractor",
     "test": "npm run test:unit && npm run test:visual",
     "start": "npm run buildIcons && npm run storybook",
     "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
