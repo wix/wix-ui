@@ -77,7 +77,12 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
     while (target) {
       if (
         rootRef.current === target ||
-        (target.classList && target.classList.contains(excludeClass))
+        (excludeClass &&
+          target.classList &&
+          target.classList
+            .toString()
+            .split(' ')
+            .some(c => excludeClass.split(' ').includes(c)))
       ) {
         return true;
       }

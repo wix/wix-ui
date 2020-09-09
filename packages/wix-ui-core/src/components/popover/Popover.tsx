@@ -14,7 +14,7 @@ import {
   createComponentThatRendersItsChildren,
   ElementProps,
 } from '../../utils';
-
+import { PopoverContext } from './PopoverContext';
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 import * as classNames from 'classnames';
@@ -243,6 +243,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       maxWidth,
       width,
       dynamicWidth,
+      excludeClass = this.clickOutsideClass,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -270,33 +271,55 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         }) => {
           this.popperScheduleUpdate = scheduleUpdate;
           return (
-            <div
-              ref={ref}
-              data-hook="popover-content"
-              data-content-element={this.contentHook}
-              style={{ ...popperStyles, zIndex, maxWidth }}
-              data-placement={popperPlacement || placement}
-              className={classNames(classes.popover, this.clickOutsideClass, {
-                [classes.withArrow]: showArrow,
-                [classes.popoverContent]: !showArrow,
-              })}
-            >
-              {showArrow &&
-                this.renderArrow(
-                  arrowProps,
-                  moveArrowTo,
-                  popperPlacement || placement,
-                  customArrow,
-                )}
-              <div
-                key="popover-content"
-                id={id}
-                role={role}
-                className={showArrow ? classes.popoverContent : ''}
-              >
-                {childrenObject.Content}
-              </div>
-            </div>
+            <PopoverContext.Consumer>
+              {context => {
+                let excludeClasses = excludeClass;
+                if (context.excludeClass) {
+                  excludeClasses += ` ${context.excludeClass}`;
+                }
+
+                return (
+                  <div
+                    ref={ref}
+                    data-hook="popover-content"
+                    data-content-element={this.contentHook}
+                    style={{ ...popperStyles, zIndex, maxWidth }}
+                    data-placement={popperPlacement || placement}
+                    className={classNames(
+                      classes.popover,
+                      this.clickOutsideClass,
+                      context.excludeClass,
+                      {
+                        [classes.withArrow]: showArrow,
+                        [classes.popoverContent]: !showArrow,
+                      },
+                    )}
+                  >
+                    {showArrow &&
+                      this.renderArrow(
+                        arrowProps,
+                        moveArrowTo,
+                        popperPlacement || placement,
+                        customArrow,
+                      )}
+                    <div
+                      key="popover-content"
+                      id={id}
+                      role={role}
+                      className={showArrow ? classes.popoverContent : ''}
+                    >
+                      <PopoverContext.Provider
+                        value={{
+                          excludeClass: excludeClasses,
+                        }}
+                      >
+                        {childrenObject.Content}
+                      </PopoverContext.Provider>
+                    </div>
+                  </div>
+                );
+              }}
+            </PopoverContext.Consumer>
           );
         }}
       </Popper>
@@ -500,7 +523,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       children,
       style,
       id,
-      excludeClass = this.clickOutsideClass,
+      excludeClass,
       fluid,
     } = this.props;
     const { isMounted, shown } = this.state;
@@ -513,12 +536,17 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
+    let excludeClasses = this.clickOutsideClass;
+    if (excludeClass) {
+      excludeClasses += ` ${excludeClass}`;
+    }
+
     return (
       <Manager>
         <ClickOutside
           rootRef={this.clickOutsideRef}
           onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClass}
+          excludeClass={excludeClasses}
         >
           <div
             ref={this.clickOutsideRef}
