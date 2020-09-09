@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import { Category, CategoryTableRow, IconsMetadataIndex } from "./types";
+import { Category, CategoryTableRow } from "./types";
 import { IconMetadata } from "../src/types";
 
 export const getIconsToCategoriesMapper = (
