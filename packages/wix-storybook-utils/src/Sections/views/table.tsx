@@ -1,8 +1,8 @@
-import * as React from "react";
-import classNames from "classnames";
-import { TableSection } from "../../typings/story-section";
-import Markdown from "../../Markdown";
-import styles from "./styles.scss";
+import * as React from 'react';
+import classNames from 'classnames';
+import { TableSection } from '../../typings/story-section';
+import Markdown from '../../Markdown';
+import styles from './styles.scss';
 
 export const table: (a: TableSection) => React.ReactNode = ({
   rows,
@@ -30,7 +30,7 @@ export const table: (a: TableSection) => React.ReactNode = ({
         <tr key={`tr-${i}`} className={styles.tr}>
           {row.map((cell, j) => (
             <td key={`td-${i}-${j}`} className={styles.td}>
-              {typeof cell === "string" ? (
+              {typeof cell === 'string' ? (
                 <Markdown source={cell} className={styles.tableMarkdown} />
               ) : (
                 cell
