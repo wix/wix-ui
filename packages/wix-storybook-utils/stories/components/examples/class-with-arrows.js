@@ -1,8 +1,31 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React from "react";
+
+import {
+  Lorem,
+  ipsum,
+  dolor,
+  sit,
+  amet,
+  consectetur,
+  adipisicing,
+  elit,
+  Cumque,
+  sapiente,
+  magni,
+  aliquam,
+  voluptates,
+  a,
+  fuga,
+  esse,
+  asperiores,
+  iste,
+  officia,
+  porro
+} from "somewhere";
 
 class Component extends React.Component {
-  state = { value: 'test' };
+  state = { value: "test" };
   onChange = event => this.setState({ value: event.target.value });
 
   render() {
@@ -17,13 +40,13 @@ class Component extends React.Component {
 render(
   <div
     style={{
-      background: 'teal',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      background: "teal",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       width: 300,
-      height: 300,
+      height: 300
     }}
     children={<Component />}
-  />,
+  />
 );

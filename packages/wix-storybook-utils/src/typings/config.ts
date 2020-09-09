@@ -5,6 +5,7 @@ export interface Config {
   issueURL?: string;
   testkits?: Testkits;
   testkitsWarning?: string;
+  unifiedTestkit?: boolean;
 }
 
 export interface Testkits {

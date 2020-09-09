@@ -1,20 +1,35 @@
-export type OmitPolyfill<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+import { IconMetadata } from "../src/types";
 
-type IconSizeMap = {
-  "18"?: string;
-  "24"?: string;
-};
+/** [icon component, icon name, small icon component,
+ * small icon name, description] */
+export type GeneralTableRow = [
+  React.ReactNode,
+  string | undefined,
+  React.ReactNode,
+  string | undefined,
+  string | undefined
+];
+/** [icon name, icon sizes, description] */
+export type SystemTableRow = [string, React.ReactNode, string | undefined];
+export type CategoryTableRow = GeneralTableRow | SystemTableRow;
 
-export type Icon = {
+export type Category = {
   title: string;
-  category: string;
-  description: string;
-  tags: Array<string>;
-  system: boolean;
-  sizes: IconSizeMap;
+  tableHeaderTitles: Array<string>;
+  rows: Array<CategoryTableRow>;
 };
 
-export type CategoryIcon = OmitPolyfill<Icon, "category">;
+export type IconProps = React.SVGAttributes<SVGElement> & {
+  size?: string;
+};
 
-// [categoryName, icons]
-export type Category = [string, Array<CategoryIcon>];
+export type IconDescriptor = {
+  size: string;
+  name: string;
+  Icon: React.FC<IconProps>;
+};
+
+export type IconsMetadataIndex = Fuse<
+  IconMetadata,
+  Pick<Fuse.FuseOptions<IconMetadata>, "keys" | "threshold">
+>;
