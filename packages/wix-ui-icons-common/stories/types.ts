@@ -11,7 +11,7 @@ export type GeneralTableRow = [
 ];
 /** [icon name, icon sizes, description] */
 export type SystemTableRow = [string, React.ReactNode, string | undefined];
-export type CategoryTableRow = GeneralTableRow | SystemTableRow;
+export type CategoryTableRow = Array<React.ReactNode>;
 
 export type Category = {
   title: string;

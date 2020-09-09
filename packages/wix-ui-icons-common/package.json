@@ -53,6 +53,7 @@
     "babel-preset-yoshi": "^4.78.0",
     "eyes.it": "^2.0.15",
     "fs-extra": "^5.0.0",
+    "fuse.js": "^6.4.1",
     "jest-yoshi-preset": "^4.87.0",
     "prop-types": "^15.6.0",
     "protractor": "^5.3.0",

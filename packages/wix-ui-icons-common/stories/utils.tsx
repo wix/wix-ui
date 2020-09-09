@@ -46,7 +46,8 @@ export const getCategoryIconsSearch = (
       return initialCategories;
     }
     const searchResults = searchIndex.search(query);
-    const filteredCategories = mapIconsToCategories(searchResults);
+    const filteredIcons = searchResults.map(({ item }) => item);
+    const filteredCategories = mapIconsToCategories(filteredIcons);
     return filteredCategories;
   };
 
