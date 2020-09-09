@@ -3,14 +3,14 @@
   margin: 30px 0;
 }
 
-.input {
+.root .input {
   width: 354px;
   padding-left: 36px;
 }
 
-.icon {
+.root .icon {
   position: absolute;
   top: 6px;
   left: 6px;
-  color: #3899ec
+  color: #3899ec;
 }
