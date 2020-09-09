@@ -1,6 +1,8 @@
 @import "../../ui/colors.scss";
 @import "../../ui/typography.scss";
 
+$grayRowBackground: rgba($D70, 0.42);
+
 .description {
   margin-bottom: calc(24px - 16px);
 
@@ -18,14 +20,87 @@
   width: 100%;
 }
 
-.tr {
-  &:nth-child(odd) {
-    background-color: rgba(240, 244, 247, 0.42);
+// Table margins
+.table {
+  margin: 30px 0;
+
+  &.transparentHeader {
+    margin: 6px 0 12px 0;
   }
 }
 
+// Header colors
+.table {
+  .thead {
+    tr {
+      background-color: $D70;
+    }
+    .th {
+      color: $D10;
+    }
+  }
+
+  &.transparentHeader {
+    .thead {
+      tr {
+        background-color: $D80;
+      }
+      .th {
+        color: $D40;
+      }
+    }
+  }
+}
+
+// Row background
+.table {
+  .tr {
+    &:nth-child(even) {
+      background-color: $grayRowBackground;
+    }
+    &:nth-child(odd) {
+      background-color: $D80;
+    }
+  }
+
+  &.transparentHeader {
+    .tr {
+      &:nth-child(even) {
+        background-color: $D80;
+      }
+      &:nth-child(odd) {
+        background-color: $grayRowBackground;
+      }
+    }
+  }
+}
+
+.td,
+.th {
+  padding-left: 0;
+  padding-right: 24px;
+
+  &:first-child {
+    padding-left: 30px;
+  }
+  &:last-child {
+    padding-right: 30px;
+  }
+}
+
+.th {
+  @include font(bold);
+  font-weight: 500;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 12px;
+  text-align: start;
+  height: 42px;
+}
+
 .td {
-  padding: 10px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 
   a {
     @include font(light);
@@ -38,7 +113,6 @@
       color: rgb(78, 183, 245);
     }
   }
-
 }
 
 .layout {
