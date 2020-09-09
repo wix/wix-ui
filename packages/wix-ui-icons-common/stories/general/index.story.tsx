@@ -24,6 +24,7 @@ import generalIconsMetadata from "../../src/general/metadata";
 import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
+import { classes } from "./index.story.st.css";
 
 const mapIconToRow = ({
   description,
@@ -99,7 +100,11 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList dataHook="icon-list" categories={categories} />,
+          <CategoryList
+            className={classes.tableList}
+            dataHook="icon-list"
+            categories={categories}
+          />,
         ],
       }),
     ]),
