@@ -128,9 +128,9 @@ $grayRowBackground: rgba($D70, 0.42);
   @include font(light);
   font-size: 14px;
   line-height: 18px;
-  color: $D20;
 
   p {
     margin: 0;
+    color: $D20;
   }
 }
