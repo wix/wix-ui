@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import CodeBlock from '../../CodeBlock';
 import { CodeSection } from '../../typings/story-section';
+import styles from './styles.scss';
 
 export const code: (a: CodeSection) => React.ReactNode = ({
   source,
@@ -17,7 +18,9 @@ export const code: (a: CodeSection) => React.ReactNode = ({
   if (interactive) {
     const LiveCodeExample = React.lazy(() => import('../../LiveCodeExample'));
     return (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense
+        fallback={<div className={styles.codeLoader}>Loading...</div>}
+      >
         <LiveCodeExample
           {...{
             previewProps,
