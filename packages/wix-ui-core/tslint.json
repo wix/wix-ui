@@ -15,10 +15,7 @@
       "never"
     ],
     "jsx-alignment": true,
-    "jsx-wrap-multilines": [
-      "error",
-      { "declaration": false, "assignment": false }
-    ],
+    "jsx-wrap-multiline": true,
     "space-in-brackets": [
       "error",
       "always"
