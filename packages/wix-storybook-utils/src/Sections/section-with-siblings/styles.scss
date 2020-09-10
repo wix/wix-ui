@@ -2,9 +2,9 @@
 @import '../../ui/colors.scss';
 
 .titles {
-  margin-bottom: 24px;
-
-  & p:first-child { margin: 0; }
+  & p:first-child {
+    margin: 0;
+  }
 }
 
 .pretitle {
@@ -18,6 +18,8 @@
 .title {
   @include font(roman);
   font-size: 20px;
+  line-height: 24px;
+  padding-top: 30px;
 }
 
 .subtitle {

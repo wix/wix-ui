@@ -1,17 +1,19 @@
-@import "../../ui/colors.scss";
-@import "../../ui/typography.scss";
+@import '../../ui/colors.scss';
+@import '../../ui/typography.scss';
 
 $grayRowBackground: rgba($D70, 0.42);
 
 .description {
-  margin-bottom: calc(24px - 16px);
+  padding-top: 24px;
+  padding-bottom: 12px;
 
   :global .markdown-body p {
     @include font(roman);
+    margin: 0;
     font-size: 14px;
+    line-height: 18px;
     font-weight: 300;
-    line-height: 1.5;
-    color: $D10;
+    color: $D20;
   }
 }
 
@@ -124,8 +126,9 @@ $grayRowBackground: rgba($D70, 0.42);
 
 .table-markdown {
   @include font(light);
-  font-size: 16px;
-  line-height: 1.88em;
+  font-size: 14px;
+  line-height: 18px;
+  color: $D20;
 
   p {
     margin: 0;
