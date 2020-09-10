@@ -12,6 +12,7 @@ import Focusable from './Focusable';
 import { FilePickerButtonTestFixture } from '../src/components/file-picker-button/test/FilePickerButtonTestFixture';
 import { FocusableHOCTestFixture } from '../src/hocs/Focusable/test/FocusableHOCTestFixture';
 import { InputWithOptionsTestFixture } from '../src/components/input-with-options/InputWithOptionsTestFixture';
+import { NestedPopoverTestFixture } from '../src/components/popover/tests/NestedPopoverTestFixture';
 import { SignatureInputTestFixture } from '../src/components/signature-input/test/SignatureInputTestFixture';
 import { SIGNATURE_INPUT_METADATA } from '../src/components/signature-input/constants';
 // import Backoffice stories
@@ -76,6 +77,7 @@ Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
 Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
+Tests.add('Popover - Nested', () => <NestedPopoverTestFixture />);
 Tests.add(SIGNATURE_INPUT_METADATA.displayName, () => (
   <SignatureInputTestFixture />
 ));

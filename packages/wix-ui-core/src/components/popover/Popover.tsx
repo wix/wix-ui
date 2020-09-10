@@ -215,14 +215,14 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
-  _handleClickOutside = () => {
+  _handleClickOutside = event => {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
       disableClickOutsideWhenClosed,
     } = this.props;
     if (onClickOutsideCallback && !(disableClickOutsideWhenClosed && !shown)) {
-      onClickOutsideCallback();
+      onClickOutsideCallback(event);
     }
   };
 
