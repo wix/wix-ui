@@ -197,11 +197,11 @@
   border-radius: 50%;
 }
 
-.root:orientation(horizontal):tickMarksShape(dot) .tick {
-  transform: translateX(calc(- value(tickDotSize) / 2));
+.root:orientation(horizontal) .tick {
+  transform: translateX(-50%);
 }
-.root:orientation(vertical):tickMarksShape(dot) .tick {
-  transform: translateY(calc(value(tickDotSize) / 2));
+.root:orientation(vertical) .tick {
+  transform: translateY(50%);
 }
 
 .root:orientation(horizontal):tickMarksPosition(normal) .tick {
@@ -214,12 +214,12 @@
 
 .root:orientation(horizontal):tickMarksPosition(middle) .tick {
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .root:orientation(vertical):tickMarksPosition(middle) .tick {
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(50%);
 }
 
 .root:orientation(horizontal):tickMarksPosition(across) .tick {
