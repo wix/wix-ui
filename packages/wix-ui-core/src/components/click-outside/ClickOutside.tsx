@@ -8,7 +8,7 @@ export interface ClickOutsideProps {
   onClickOutside?: Function;
 
   /** Elements with this class will not trigger onClickOutside callback */
-  excludeClass?: string;
+  excludeClass?: string | string[];
 
   /** useCapture | options object, specifies characteristics about the event listener */
   options?: boolean | AddEventListenerOptions;
@@ -75,17 +75,30 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
     const { rootRef, excludeClass } = this.props;
     let target: HTMLElement = event.target;
     while (target) {
-      if (
-        rootRef.current === target ||
-        (excludeClass &&
-          target.classList &&
+      // Same node
+      if (rootRef.current === target) {
+        return true;
+      }
+
+      // Contains an excluded class
+      if (target.classList) {
+        if (
+          typeof excludeClass === 'string' &&
+          target.classList.contains(excludeClass)
+        ) {
+          return true;
+        }
+        if (
+          typeof excludeClass === 'object' &&
           target.classList
             .toString()
             .split(' ')
-            .some(c => excludeClass.split(' ').includes(c)))
-      ) {
-        return true;
+            .some(c => excludeClass.includes(c))
+        ) {
+          return true;
+        }
       }
+
       target = target.parentElement;
     }
   };

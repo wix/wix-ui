@@ -32,11 +32,6 @@ if (isTestEnv) {
   testId = popoverTestUtils.generateId();
 }
 
-const omit = (key, obj) => {
-  const { [key]: omitted, ...rest } = obj;
-  return rest;
-};
-
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
@@ -272,12 +267,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
           this.popperScheduleUpdate = scheduleUpdate;
           return (
             <PopoverContext.Consumer>
-              {context => {
-                let excludeClasses = excludeClass;
-                if (context.excludeClass) {
-                  excludeClasses += ` ${context.excludeClass}`;
-                }
-
+              {({ excludeClickOutsideClasses }) => {
                 return (
                   <div
                     ref={ref}
@@ -288,11 +278,11 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                     className={classNames(
                       classes.popover,
                       this.clickOutsideClass,
-                      context.excludeClass,
                       {
                         [classes.withArrow]: showArrow,
                         [classes.popoverContent]: !showArrow,
                       },
+                      ...excludeClickOutsideClasses,
                     )}
                   >
                     {showArrow &&
@@ -310,7 +300,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                     >
                       <PopoverContext.Provider
                         value={{
-                          excludeClass: excludeClasses,
+                          excludeClickOutsideClasses: [
+                            excludeClass,
+                            ...excludeClickOutsideClasses,
+                          ],
                         }}
                       >
                         {childrenObject.Content}
@@ -536,17 +529,12 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
     const shouldAnimate = shouldAnimatePopover(this.props);
     const shouldRenderPopper = isMounted && (shouldAnimate || shown);
 
-    let excludeClasses = this.clickOutsideClass;
-    if (excludeClass) {
-      excludeClasses += ` ${excludeClass}`;
-    }
-
     return (
       <Manager>
         <ClickOutside
           rootRef={this.clickOutsideRef}
           onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClasses}
+          excludeClass={[this.clickOutsideClass, excludeClass]}
         >
           <div
             ref={this.clickOutsideRef}
