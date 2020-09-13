@@ -29,7 +29,6 @@ import {
 } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
-import { iconsMetadata } from "../fixtures";
 
 const mapIconToRow = ({
   title,
@@ -56,7 +55,7 @@ const mapSystemIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
 // The initial categories displayed pre-search
 const initialCategories = mapSystemIconsToCategories(systemIconsMetadata);
 
-const searchIndex = getSearchIndex(iconsMetadata);
+const searchIndex = getSearchIndex(systemIconsMetadata);
 
 const searchSystemIcons = (query: string) =>
   searchCategoryIcons(
