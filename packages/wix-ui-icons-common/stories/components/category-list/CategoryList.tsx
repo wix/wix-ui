@@ -10,21 +10,23 @@ const CategoryTable: React.FC<Category> = ({
 }) => (
   <>
     <h2 className={sectionStyles["section-title"]}>{title}</h2>
-    <Table rows={[tableHeaderTitles, ...rows]} />
+    <Table rows={rows} headerTitles={tableHeaderTitles} transparentHeader />
   </>
 );
 
 type CategoryListProps = {
   categories: Array<Category>;
   dataHook?: string;
+  className?: string;
 };
 
 const CategoryList: React.FC<CategoryListProps> = ({
   categories,
   dataHook,
+  className,
 }) => {
   return (
-    <div data-hook={dataHook}>
+    <div className={className} data-hook={dataHook}>
       {categories.map((category) => (
         <CategoryTable {...category} key={category.title} />
       ))}

@@ -24,6 +24,7 @@ import generalIconsMetadata from "../../src/general/metadata";
 import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
+import { classes } from "./index.story.st.css";
 
 const mapIconToRow = ({
   description,
@@ -87,8 +88,7 @@ export default {
           }),
           description({
             title: "Adding New Icons",
-            text:
-              "WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit Icon Request.",
+            text: `WSR icons are owned by Wix Style Team.<br/>If you can’t find an icon for your needs or some adjustments need to be made to existing ones, please submit <a href="https://goo.gl/forms/wrVuHnyBrEISXUPF2">Icon Request.</a>`,
           }),
           importExample(
             "import Duplicate from 'wix-ui-icons-common/Duplicate';"
@@ -99,7 +99,11 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList dataHook="icon-list" categories={categories} />,
+          <CategoryList
+            className={classes.tableList}
+            dataHook="icon-list"
+            categories={categories}
+          />,
         ],
       }),
     ]),
