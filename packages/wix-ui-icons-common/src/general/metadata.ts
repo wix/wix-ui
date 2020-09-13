@@ -193,7 +193,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
       "Button - Makes content globally accessible (as opposed to locally or regionally)",
     tags: [],
     sizes: { "18": "DistributeGlobeSmall", "24": "DistributeGlobe" },
-    aliases: ["Globe"],
+    aliases: ["Globe", "DistributeSmall"],
   },
   {
     title: "TaskAdd",
@@ -2061,11 +2061,11 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "FaceGriningSmall", "24": "FaceGrining" },
   },
   {
-    title: "FaceSmilling",
+    title: "FaceSmiling",
     category: "General",
     description: "",
     tags: [],
-    sizes: { "18": "FaceSmillingSmall", "24": "FaceSmilling" },
+    sizes: { "18": "FaceSmilingSmall", "24": "FaceSmiling" },
   },
   {
     title: "FaceNeutral",
@@ -2096,11 +2096,11 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "HeatmapChartSmall", "24": "HeatmapChart" },
   },
   {
-    title: "Line Chart",
+    title: "LineChart",
     category: "General",
     description: "",
     tags: [],
-    sizes: { "18": "Line ChartSmall", "24": "Line Chart" },
+    sizes: { "18": "LineChartSmall", "24": "LineChart" },
   },
   {
     title: "LineChartSplit",
@@ -2124,11 +2124,11 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "MoveToSmall", "24": "MoveTo" },
   },
   {
-    title: "MultipleChoice",
+    title: "MultipleChoices",
     category: "General",
     description: "",
     tags: [],
-    sizes: { "18": "MultipleChoiceSmall", "24": "MultipleChoice" },
+    sizes: { "18": "MultipleChoicesSmall", "24": "MultipleChoices" },
   },
   {
     title: "Number",
