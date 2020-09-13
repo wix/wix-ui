@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Category } from "../../types";
 
+/** Searches icons with `searchCategoryIcons`
+ * and sets the resulting categories to state
+ * returns categories and a debounced `searchCategoryIcons`
+ */
 function useCategoryListSearch(
   initialCategories: Array<Category>,
   searchCategoryIcons: (query: string) => Array<Category>

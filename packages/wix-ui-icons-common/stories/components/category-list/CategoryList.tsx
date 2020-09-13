@@ -17,7 +17,9 @@ const CategoryTable: React.FC<Category> = ({
 );
 
 type CategoryListProps = {
+  // Categories to show when query is empty
   initialCategories: Array<Category>;
+  // Function that searches categories by text query
   searchCategoryIcons: (query: string) => Array<Category>;
   dataHook?: string;
   className?: string;
