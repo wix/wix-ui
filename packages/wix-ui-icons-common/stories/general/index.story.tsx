@@ -29,7 +29,6 @@ import {
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
 import { classes } from "./index.story.st.css";
-import { iconsMetadata } from "../fixtures";
 
 const mapIconToRow = ({
   description,
@@ -60,7 +59,7 @@ const mapGeneralIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
 // The initial categories displayed pre-search
 const initialCategories = mapGeneralIconsToCategories(generalIconsMetadata);
 
-const searchIndex = getSearchIndex(iconsMetadata);
+const searchIndex = getSearchIndex(generalIconsMetadata);
 
 const searchGeneralIcons = (query: string) =>
   searchCategoryIcons(
