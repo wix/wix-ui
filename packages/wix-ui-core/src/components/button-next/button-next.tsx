@@ -16,6 +16,10 @@ export interface ButtonProps
   suffixIcon?: React.ReactElement;
   /** apply disabled styles */
   disabled?: boolean;
+  /** class name to be added to the content span */
+  contentClassName?: string;
+  /** React ref to be attached to the content span */
+  contentRef?: React.RefObject<HTMLSpanElement>;
 
   focusableOnFocus?(): void;
   focusableOnBlur?(): void;
@@ -51,6 +55,8 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
       focusableOnFocus,
       focusableOnBlur,
       href,
+      contentClassName,
+      contentRef,
       ...rest
     } = this.props;
     const htmlTabIndex = disabled ? -1 : rest.tabIndex || 0;
@@ -73,7 +79,12 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         className={st(classes.root, { disabled }, this.props.className)}
       >
         {_addAffix(prefixIcon, 'prefix')}
-        <span className={classes.content}>{children}</span>
+        <span
+          className={st(classes.content, contentClassName)}
+          ref={contentRef}
+        >
+          {children}
+        </span>
         {_addAffix(suffixIcon, 'suffix')}
       </Component>
     );
