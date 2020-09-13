@@ -1,53 +1,30 @@
-import { getIconsToCategoriesMapper, getCategoryIconsSearch } from "./utils";
+import { mapIconsToCategories, getCategoryIconsSearch } from "./utils";
 import { IconMetadata } from "../src/types";
-
-const tableHeaderTitles = ["Header 1", "Header 2"];
-const mapIconToRow = ({ title, description }: IconMetadata) => [
-  title,
-  description,
-];
-
-const iconsMetadata: Array<IconMetadata> = [
-  {
-    title: "Edit",
-    category: "Actions",
-    description: "Button - opens editing mode",
-    tags: ["edit", "pencil", "write"],
-    sizes: { "18": "EditSmall", "24": "Edit" },
-  },
-  {
-    title: "DocDuplicate",
-    category: "Actions",
-    description: "Button - makes a copy of a file",
-    tags: ["copy"],
-    sizes: { "24": "DocDuplicate" },
-  },
-  {
-    title: "Languages",
-    category: "General",
-    description: "Button - opens language selection",
-    tags: ["globe", "localization"],
-    sizes: { "18": "LanguagesSmall", "24": "Languages" },
-  },
-];
-
-const mapIconsToCategory = getIconsToCategoriesMapper(
+import {
+  mapIconToRow,
   tableHeaderTitles,
-  mapIconToRow
-);
-const editIconRow = mapIconToRow(iconsMetadata[0]);
-const docDuplicateIconRow = mapIconToRow(iconsMetadata[1]);
-const languagesIconRow = mapIconToRow(iconsMetadata[2]);
+  iconsMetadata,
+  editIconRow,
+  docDuplicateIconRow,
+  languagesIconRow,
+  initialCategories,
+} from "./fixtures";
 
 describe("mapIconsToCategories", () => {
   it("returns the right amount of categories", () => {
-    const categories = mapIconsToCategory(iconsMetadata);
+    const categories = mapIconsToCategories(
+      iconsMetadata,
+      tableHeaderTitles,
+      mapIconToRow
+    );
     expect(categories).toHaveLength(2);
   });
 
   it("maps category icons into rows using provided mapper", () => {
-    const [actionsCategory, generalCategory] = mapIconsToCategory(
-      iconsMetadata
+    const [actionsCategory, generalCategory] = mapIconsToCategories(
+      iconsMetadata,
+      tableHeaderTitles,
+      mapIconToRow
     );
     expect(actionsCategory.rows).toMatchObject([
       editIconRow,
@@ -56,12 +33,11 @@ describe("mapIconsToCategories", () => {
     expect(generalCategory.rows).toMatchObject([languagesIconRow]);
   });
 });
-
-const initialCategories = mapIconsToCategory(iconsMetadata);
 const searchCategoryIcons = getCategoryIconsSearch(
   initialCategories,
   iconsMetadata,
-  mapIconsToCategory
+  (iconsMetadata: Array<IconMetadata>) =>
+    mapIconsToCategories(iconsMetadata, tableHeaderTitles, mapIconToRow)
 );
 
 describe("searchCategoryIcons", () => {

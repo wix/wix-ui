@@ -22,7 +22,7 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
-import { getIconsToCategoriesMapper, getCategoryIconsSearch } from "../utils";
+import { mapIconsToCategories, getCategoryIconsSearch } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
 
@@ -45,18 +45,16 @@ const mapIconToRow = ({
 
 const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
 
-const mapIconsToCategories = getIconsToCategoriesMapper(
-  tableHeaderTitles,
-  mapIconToRow
-);
+const mapSystemIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
+  mapIconsToCategories(iconsMetadata, tableHeaderTitles, mapIconToRow);
 
 // The initial categories displayed pre-search
-const initialCategories = mapIconsToCategories(systemIconsMetadata);
+const initialCategories = mapSystemIconsToCategories(systemIconsMetadata);
 
 const searchCategoryIcons = getCategoryIconsSearch(
   initialCategories,
   systemIconsMetadata,
-  mapIconsToCategories
+  mapSystemIconsToCategories
 );
 
 export default {
