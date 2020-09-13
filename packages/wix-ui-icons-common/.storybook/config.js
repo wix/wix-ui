@@ -19,4 +19,9 @@ addParameters({
   },
 });
 
-configure(() => require("../stories"), module);
+const loadStories = () => {
+  require("../stories/general/index.story");
+  require("../stories/system/index.story");
+};
+
+configure(loadStories, module);

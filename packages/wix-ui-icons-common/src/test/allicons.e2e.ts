@@ -1,14 +1,28 @@
-import * as eyes from 'eyes.it';
-import {getStoryUrl} from 'wix-ui-test-utils/protractor';
-import {$, browser, ExpectedConditions} from 'protractor';
-import {ICON_SIZES, ICON_TYPES} from '../../stories/Icons';
+import * as eyes from "eyes.it";
+import { getStoryUrl } from "wix-ui-test-utils/protractor";
+import { $, browser, ExpectedConditions } from "protractor";
 
-describe('All icons', () => {
-  Object.keys(ICON_TYPES).forEach(type => Object.keys(ICON_SIZES).forEach(size => {
-    eyes.it(`check icons - ${ICON_TYPES[type]} - ${ICON_SIZES[size]}`, async () => {
-      const storyUrl = getStoryUrl(`Icons/${ICON_TYPES[type]}`, ICON_SIZES[size]);
+describe("All icons", () => {
+  eyes.it(
+    `check icons - General Icons`,
+    async () => {
+      const storyUrl = getStoryUrl("Icons", "General Icons");
       browser.get(storyUrl);
-      await browser.wait(ExpectedConditions.presenceOf($(`[data-hook="icons-list"]`)));
-    });
-  }));
+      await browser.wait(
+        ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
+      );
+    },
+    { width: 1024, height: 7000 }
+  );
+  eyes.it(
+    `check icons - System Icons`,
+    async () => {
+      const storyUrl = getStoryUrl("Icons", "System Icons");
+      browser.get(storyUrl);
+      await browser.wait(
+        ExpectedConditions.presenceOf($(`[data-hook="icon-list"]`))
+      );
+    },
+    { width: 1024, height: 1000 }
+  );
 });
