@@ -4,4 +4,5 @@ export type IconMetadata = {
   description: string | undefined;
   tags: Array<string>;
   sizes: Record<string, string>;
+  aliases?: Array<string>;
 };
