@@ -1,3 +1,4 @@
+import type Fuse from 'fuse.js';
 import { IconMetadata } from "../src/types";
 
 /** [icon component, icon name, small icon component,
@@ -29,7 +30,5 @@ export type IconDescriptor = {
   Icon: React.FC<IconProps>;
 };
 
-export type IconsMetadataIndex = Fuse<
-  IconMetadata,
-  Pick<Fuse.FuseOptions<IconMetadata>, "keys" | "threshold">
->;
+// Search index of icons metadata
+export type IconsMetadataIndex = Fuse<IconMetadata>;
