@@ -22,9 +22,14 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
-import { mapIconsToCategories, getCategoryIconsSearch } from "../utils";
+import {
+  mapIconsToCategories,
+  searchCategoryIcons,
+  getSearchIndex,
+} from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
+import { iconsMetadata } from "../fixtures";
 
 const mapIconToRow = ({
   title,
@@ -51,11 +56,15 @@ const mapSystemIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
 // The initial categories displayed pre-search
 const initialCategories = mapSystemIconsToCategories(systemIconsMetadata);
 
-const searchCategoryIcons = getCategoryIconsSearch(
-  initialCategories,
-  systemIconsMetadata,
-  mapSystemIconsToCategories
-);
+const searchIndex = getSearchIndex(iconsMetadata);
+
+const searchSystemIcons = (query: string) =>
+  searchCategoryIcons(
+    query,
+    searchIndex,
+    initialCategories,
+    mapSystemIconsToCategories
+  );
 
 export default {
   category: "Icons",
@@ -104,10 +113,8 @@ export default {
           }),
           <CategoryList
             dataHook="icon-list"
-            {...{
-              initialCategories,
-              searchCategoryIcons,
-            }}
+            searchCategoryIcons={searchSystemIcons}
+            initialCategories={initialCategories}
           />,
         ],
       }),
