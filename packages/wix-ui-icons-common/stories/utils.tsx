@@ -31,7 +31,7 @@ export const getSearchIndex = (
   iconsMetadata: Array<IconMetadata>
 ): IconsMetadataIndex =>
   new Fuse(iconsMetadata, {
-    keys: ["title", "sizes.18", "sizes.24", "tags"],
+    keys: ["title", "sizes.18", "sizes.24", "tags", "aliases"],
     threshold: 0.2,
   });
 
