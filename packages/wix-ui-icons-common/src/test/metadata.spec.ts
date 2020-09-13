@@ -16,23 +16,35 @@ const generalIconFileNames = getFileNames(generalIconsMetadata);
 const systemIconFileNames = getFileNames(systemIconsMetadata);
 
 describe("General icons metadata", () => {
-  Object.keys(generalIconComponents).forEach((iconName) => {
-    const isDeprecated = deprecatedGeneralIcons.includes(iconName);
-    if (!isDeprecated) {
-      it(`${iconName} has metadata`, () => {
-        expect(generalIconFileNames.includes(iconName)).toBe(true);
-      });
-    }
+  const generalIconComponentNames = Object.keys(generalIconComponents);
+  const activeGeneralIcons = generalIconComponentNames.filter(
+    (iconName) => !deprecatedGeneralIcons.includes(iconName)
+  );
+  activeGeneralIcons.forEach((iconName) => {
+    it(`${iconName} has metadata`, () => {
+      expect(generalIconFileNames.includes(iconName)).toBe(true);
+    });
+  });
+  deprecatedGeneralIcons.forEach((iconName) => {
+    it(`${iconName} is deprecated`, () => {
+      expect(generalIconFileNames.includes(iconName)).toBe(false);
+    });
   });
 });
 
 describe("System icons metadata", () => {
-  Object.keys(systemIconComponents).forEach((iconName) => {
-    const isDeprecated = deprecatedSystemIcons.includes(iconName);
-    if (!isDeprecated) {
-      it(`${iconName} has metadata`, () => {
-        expect(systemIconFileNames.includes(iconName)).toBe(true);
-      });
-    }
+  const systemIconComponentNames = Object.keys(systemIconComponents);
+  const activeSystemIcons = systemIconComponentNames.filter(
+    (iconName) => !deprecatedSystemIcons.includes(iconName)
+  );
+  activeSystemIcons.forEach((iconName) => {
+    it(`${iconName} has metadata`, () => {
+      expect(systemIconFileNames.includes(iconName)).toBe(true);
+    });
+  });
+  deprecatedSystemIcons.forEach((iconName) => {
+    it(`${iconName} is deprecated`, () => {
+      expect(systemIconFileNames.includes(iconName)).toBe(false);
+    });
   });
 });
