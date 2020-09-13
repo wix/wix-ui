@@ -1,14 +1,19 @@
-import { mapIconsToCategories, getCategoryIconsSearch } from "./utils";
+import {
+  mapIconsToCategories,
+  searchCategoryIcons,
+  getSearchIndex,
+} from "./utils";
 import { IconMetadata } from "../src/types";
 import {
   mapIconToRow,
   tableHeaderTitles,
   iconsMetadata,
   editIconRow,
-  docDuplicateIconRow,
+  confirmIconRow,
   languagesIconRow,
   initialCategories,
 } from "./fixtures";
+import { Category, IconsMetadataIndex } from "./types";
 
 describe("mapIconsToCategories", () => {
   it("returns the right amount of categories", () => {
@@ -28,21 +33,29 @@ describe("mapIconsToCategories", () => {
     );
     expect(actionsCategory.rows).toMatchObject([
       editIconRow,
-      docDuplicateIconRow,
+      confirmIconRow,
     ]);
     expect(generalCategory.rows).toMatchObject([languagesIconRow]);
   });
 });
-const searchCategoryIcons = getCategoryIconsSearch(
+
+const searchIndex = getSearchIndex(iconsMetadata);
+
+const mapSearchResultsToCategories = (searchResults: Array<IconMetadata>) =>
+mapIconsToCategories(searchResults, tableHeaderTitles, mapIconToRow);
+
+const searchParams: [
+  searchIndex: IconsMetadataIndex,
+  initialCategories: Array<Category>,
+  mapSearchResultsToCategories: typeof mapSearchResultsToCategories] = [
+  searchIndex,
   initialCategories,
-  iconsMetadata,
-  (iconsMetadata: Array<IconMetadata>) =>
-    mapIconsToCategories(iconsMetadata, tableHeaderTitles, mapIconToRow)
-);
+  mapSearchResultsToCategories,
+];
 
 describe("searchCategoryIcons", () => {
   it("searches by title", () => {
-    const results = searchCategoryIcons("Edit");
+    const results = searchCategoryIcons("Edit", ...searchParams);
     expect(results).toHaveLength(1);
 
     const [category] = results;
@@ -50,7 +63,7 @@ describe("searchCategoryIcons", () => {
     expect(rows).toMatchObject([editIconRow]);
   });
   it("searches by sizes", () => {
-    const results = searchCategoryIcons("EditSmall");
+    const results = searchCategoryIcons("EditSmall", ...searchParams);
     expect(results).toHaveLength(1);
 
     const [category] = results;
@@ -58,19 +71,27 @@ describe("searchCategoryIcons", () => {
     expect(rows).toMatchObject([editIconRow]);
   });
   it("searches by tags", () => {
-    const results = searchCategoryIcons("localization");
+    const results = searchCategoryIcons("localization", ...searchParams);
     expect(results).toHaveLength(1);
 
     const [category] = results;
     const { rows } = category;
     expect(rows).toMatchObject([languagesIconRow]);
   });
+  it("searches by aliases", () => {
+    const results = searchCategoryIcons("Check", ...searchParams);
+    expect(results).toHaveLength(1);
+
+    const [category] = results;
+    const { rows } = category;
+    expect(rows).toMatchObject([confirmIconRow]);
+  });
   it("returns empty array when no results found", () => {
-    const results = searchCategoryIcons("gibberishtext");
+    const results = searchCategoryIcons("gibberishtext", ...searchParams);
     expect(results).toHaveLength(0);
   });
   it("returns initial categories when query is empty", () => {
-    const results = searchCategoryIcons("");
+    const results = searchCategoryIcons("", ...searchParams);
     expect(results).toBe(initialCategories);
   });
 });
