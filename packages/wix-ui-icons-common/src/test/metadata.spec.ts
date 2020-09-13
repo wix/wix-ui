@@ -17,7 +17,7 @@ const systemIconFileNames = getFileNames(systemIconsMetadata);
 
 describe("General icons metadata", () => {
   Object.keys(generalIconComponents).forEach((iconName) => {
-    const isDeprecated = !deprecatedGeneralIcons.includes(iconName);
+    const isDeprecated = deprecatedGeneralIcons.includes(iconName);
     if (!isDeprecated) {
       it(`${iconName} has metadata`, () => {
         expect(generalIconFileNames.includes(iconName)).toBe(true);
@@ -28,7 +28,7 @@ describe("General icons metadata", () => {
 
 describe("System icons metadata", () => {
   Object.keys(systemIconComponents).forEach((iconName) => {
-    const isDeprecated = !deprecatedSystemIcons.includes(iconName);
+    const isDeprecated = deprecatedSystemIcons.includes(iconName);
     if (!isDeprecated) {
       it(`${iconName} has metadata`, () => {
         expect(systemIconFileNames.includes(iconName)).toBe(true);
