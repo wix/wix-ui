@@ -6,42 +6,33 @@ import systemIconsMetadata, { deprecatedSystemIcons } from "../system/metadata";
 import * as systemIconComponents from "../system/dist";
 import { IconMetadata } from "../types";
 
-const getFileNames = (
-  iconsMetadata: Array<IconMetadata>,
-  deprecatedIcons: Array<string>
-) => {
-  const allFileNames = iconsMetadata.flatMap(({ sizes, aliases = [] }) => {
+const getFileNames = (iconsMetadata: Array<IconMetadata>) =>
+  iconsMetadata.flatMap(({ sizes, aliases = [] }) => {
     const fileNames = [...Object.values(sizes), ...aliases];
     return fileNames;
   });
-  const nonDeprecatedFileNames = allFileNames.filter(
-    (fileName) => !deprecatedIcons.includes(fileName)
-  );
 
-  return nonDeprecatedFileNames;
-};
-
-const generalIconFileNames = getFileNames(
-  generalIconsMetadata,
-  deprecatedGeneralIcons
-);
-const systemIconFileNames = getFileNames(
-  systemIconsMetadata,
-  deprecatedSystemIcons
-);
+const generalIconFileNames = getFileNames(generalIconsMetadata);
+const systemIconFileNames = getFileNames(systemIconsMetadata);
 
 describe("General icons metadata", () => {
   Object.keys(generalIconComponents).forEach((iconName) => {
-    it(`${iconName} has metadata`, () => {
-      expect(generalIconFileNames.includes(iconName)).toBe(true);
-    });
+    const isDeprecated = !deprecatedGeneralIcons.includes(iconName);
+    if (!isDeprecated) {
+      it(`${iconName} has metadata`, () => {
+        expect(generalIconFileNames.includes(iconName)).toBe(true);
+      });
+    }
   });
 });
 
 describe("System icons metadata", () => {
   Object.keys(systemIconComponents).forEach((iconName) => {
-    it(`${iconName} has metadata`, () => {
-      expect(systemIconFileNames.includes(iconName)).toBe(true);
-    });
+    const isDeprecated = !deprecatedSystemIcons.includes(iconName);
+    if (!isDeprecated) {
+      it(`${iconName} has metadata`, () => {
+        expect(systemIconFileNames.includes(iconName)).toBe(true);
+      });
+    }
   });
 });
