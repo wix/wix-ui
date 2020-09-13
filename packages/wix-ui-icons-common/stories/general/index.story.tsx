@@ -31,7 +31,7 @@ import { GeneralTableRow } from "../types";
 import { classes } from "./index.story.st.css";
 import { iconsMetadata } from "../fixtures";
 
-export const mapIconToRow = ({
+const mapIconToRow = ({
   description,
   sizes,
 }: IconMetadata): GeneralTableRow => {
@@ -46,7 +46,7 @@ export const mapIconToRow = ({
   ];
 };
 
-export const tableHeaderTitles = [
+const tableHeaderTitles = [
   "24x24",
   "Icon Name",
   "18x18",
