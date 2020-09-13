@@ -79,7 +79,7 @@ export default {
         </HeaderIcons>
       ),
       sourceUrl:
-        "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common",
+        "https://github.com/wix/wix-ui/tree/master/packages/wix-ui-icons-common/src/system",
     }),
 
     tabs([
