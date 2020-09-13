@@ -117,7 +117,7 @@ const systemIconsMetadata: Array<IconMetadata> = [
     category: undefined,
     description: undefined,
     tags: [],
-    sizes: { "2x10": "FormFieldErrorSmall" },
+    sizes: { "2x10": "FormFieldError", "2x10 (small)": "FormFieldErrorSmall" },
   },
   {
     title: "FormFieldErrorFilled",
