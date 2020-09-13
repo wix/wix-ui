@@ -23,7 +23,9 @@
   },
   "scripts": {
     "build": "npm run buildIcons && yoshi build && npm run create-aliases && npm run export-svg-icons && build-storybook",
-    "test": "yoshi test --protractor",
+    "test:unit": "MATCH_ENV=spec yoshi test --jest",
+    "test:visual": "MATCH_ENV=e2e yoshi test --protractor",
+    "test": "npm run test:unit && npm run test:visual",
     "start": "npm run buildIcons && npm run storybook",
     "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "buildIcons": "npm run buildGeneralIcons && npm run buildSystemIcons",
@@ -51,6 +53,7 @@
     "babel-preset-yoshi": "^4.78.0",
     "eyes.it": "^2.0.15",
     "fs-extra": "^5.0.0",
+    "jest-yoshi-preset": "^4.87.0",
     "prop-types": "^15.6.0",
     "protractor": "^5.3.0",
     "react": "~16.8.3",
@@ -63,6 +66,9 @@
     "yoshi": "4.87.0",
     "yoshi-stylable-dependencies": "^4.86.0",
     "yoshi-style-dependencies": "4.71.0"
+  },
+  "jest": {
+    "preset": "jest-yoshi-preset"
   },
   "yoshi": {
     "exports": "wix-ui-icons-common"

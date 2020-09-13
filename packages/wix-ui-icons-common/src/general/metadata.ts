@@ -1,5 +1,7 @@
 import { IconMetadata } from "../types";
 
+export const deprecatedGeneralIcons: Array<string> = ["FilterSmall"];
+
 const generalIconsMetadata: Array<IconMetadata> = [
   {
     title: "Edit",
