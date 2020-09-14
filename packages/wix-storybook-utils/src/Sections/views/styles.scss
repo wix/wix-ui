@@ -4,15 +4,13 @@
 $grayRowBackground: rgba($D70, 0.42);
 
 .description {
-  padding-top: 24px;
-  padding-bottom: 12px;
+  margin-bottom: calc(24px - 16px);
 
   :global .markdown-body p {
     @include font(roman);
-    margin: 0;
     font-size: 14px;
-    line-height: 18px;
     font-weight: 300;
+    line-height: 18px;
     color: $D20;
   }
 }
@@ -29,11 +27,6 @@ $grayRowBackground: rgba($D70, 0.42);
   &.transparentHeader {
     margin: 6px 0 12px 0;
   }
-}
-
-.codeLoader {
-  margin-top: 30px;
-  margin-bottom: 20px;
 }
 
 // Header colors
