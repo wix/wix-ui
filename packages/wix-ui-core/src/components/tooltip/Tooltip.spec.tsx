@@ -45,7 +45,11 @@ describe('TooltipNext', () => {
 });
 
 function runTests(render, tooltip) {
-  afterEach(() => cleanup());
+  beforeEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  afterEach(cleanup);
 
   it('should be hidden by default', async () => {
     const { driver } = render(tooltip());
