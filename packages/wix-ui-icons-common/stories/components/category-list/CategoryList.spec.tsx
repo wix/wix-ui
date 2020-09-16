@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import CategoryList from "./CategoryList";
+import CategoryList, { mapIconsToCategories } from "./CategoryList";
 import {
   mapIconToRow,
   tableHeaderTitles,
@@ -11,6 +11,13 @@ import dataHooks from "../../dataHooks";
 
 const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
   baseElement.querySelectorAll(`[data-hook="${dataHook}"]`);
+
+describe("mapIconsToCategories", () => {
+  it("returns the right amount of categories", () => {
+    const categories = mapIconsToCategories(iconsMetadata);
+    expect(categories).toHaveLength(2);
+  });
+});
 
 describe("<CategoryList/>", () => {
   it("renders all categories", () => {
