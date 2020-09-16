@@ -42,8 +42,7 @@
   },
   "devDependencies": {
     "@babel/register": "^7.10.4",
-    "@storybook/addon-options": "^5.3.19",
-    "@storybook/react": "^5.3.19",
+    "@storybook/react": "^6.0.21",
     "@stylable/runtime": "^3.8.4",
     "@types/jest": "^22.2.3",
     "@types/node": "12.12.47",
