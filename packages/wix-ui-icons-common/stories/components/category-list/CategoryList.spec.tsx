@@ -13,9 +13,20 @@ const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
   baseElement.querySelectorAll(`[data-hook="${dataHook}"]`);
 
 describe("mapIconsToCategories", () => {
-  it("returns the right amount of categories", () => {
+  it("splits icons into categories", () => {
     const categories = mapIconsToCategories(iconsMetadata);
     expect(categories).toHaveLength(2);
+    const [actionsCategory, generalCategory] = categories;
+    const [edit, confirm, languages] = iconsMetadata;
+    expect(actionsCategory.iconsMetadata).toMatchObject([edit, confirm]);
+    expect(generalCategory.iconsMetadata).toMatchObject([languages]);
+  });
+
+  it("returns categories with titles", () => {
+    const categories = mapIconsToCategories(iconsMetadata);
+    const [actionsCategory, generalCategory] = categories;
+    expect(actionsCategory.title).toBe("Actions");
+    expect(generalCategory.title).toBe("General");
   });
 });
 
