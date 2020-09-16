@@ -21,11 +21,6 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/general/dist";
 import generalIconsMetadata from "../../src/general/metadata";
-import {
-  mapIconsToCategories,
-  getSearchIndex,
-  searchCategoryIcons,
-} from "../utils";
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
 import { classes } from "./index.story.st.css";
@@ -53,21 +48,7 @@ const tableHeaderTitles = [
   "Use for",
 ];
 
-const mapGeneralIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
-  mapIconsToCategories(iconsMetadata, tableHeaderTitles, mapIconToRow);
-
-// The initial categories displayed pre-search
-const initialCategories = mapGeneralIconsToCategories(generalIconsMetadata);
-
-const searchIndex = getSearchIndex(generalIconsMetadata);
-
-const searchGeneralIcons = (query: string) =>
-  searchCategoryIcons(
-    query,
-    searchIndex,
-    initialCategories,
-    mapGeneralIconsToCategories
-  );
+const searchKeys = ["title", "sizes.18", "sizes.24", "tags", "aliases"];
 
 export default {
   category: "Icons",
@@ -117,8 +98,12 @@ export default {
           <CategoryList
             className={classes.tableList}
             dataHook="icon-list"
-            searchCategoryIcons={searchGeneralIcons}
-            initialCategories={initialCategories}
+            iconsMetadata={generalIconsMetadata}
+            {...{
+              tableHeaderTitles,
+              searchKeys,
+              mapIconToRow,
+            }}
           />,
         ],
       }),

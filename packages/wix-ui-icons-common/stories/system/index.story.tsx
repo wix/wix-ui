@@ -22,13 +22,21 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
-import {
-  mapIconsToCategories,
-  searchCategoryIcons,
-  getSearchIndex,
-} from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
+
+// Returns a list of unique size keys
+const getIconSizeKeys = (iconsMetadata: Array<IconMetadata>) => {
+  const iconSizeKeys = new Set<string>();
+  for (const icon of iconsMetadata) {
+    const { sizes } = icon;
+    for (const size in sizes) {
+      iconSizeKeys.add(`sizes.${size}`);
+    }
+  }
+
+  return Array.from(iconSizeKeys);
+};
 
 const mapIconToRow = ({
   title,
@@ -49,21 +57,8 @@ const mapIconToRow = ({
 
 const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
 
-const mapSystemIconsToCategories = (iconsMetadata: Array<IconMetadata>) =>
-  mapIconsToCategories(iconsMetadata, tableHeaderTitles, mapIconToRow);
-
-// The initial categories displayed pre-search
-const initialCategories = mapSystemIconsToCategories(systemIconsMetadata);
-
-const searchIndex = getSearchIndex(systemIconsMetadata);
-
-const searchSystemIcons = (query: string) =>
-  searchCategoryIcons(
-    query,
-    searchIndex,
-    initialCategories,
-    mapSystemIconsToCategories
-  );
+const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
+const searchKeys = ["title", ...iconSizeKeys, "tags", "aliases"];
 
 export default {
   category: "Icons",
@@ -112,8 +107,12 @@ export default {
           }),
           <CategoryList
             dataHook="icon-list"
-            searchCategoryIcons={searchSystemIcons}
-            initialCategories={initialCategories}
+            iconsMetadata={systemIconsMetadata}
+            {...{
+              tableHeaderTitles,
+              searchKeys,
+              mapIconToRow,
+            }}
           />,
         ],
       }),

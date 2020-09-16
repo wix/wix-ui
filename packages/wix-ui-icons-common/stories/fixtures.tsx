@@ -1,5 +1,4 @@
 import { IconMetadata } from "../src/types";
-import { mapIconsToCategories } from "./utils";
 
 export const mapIconToRow = ({ title, description }: IconMetadata) => [
   title,
@@ -34,12 +33,8 @@ export const iconsMetadata: Array<IconMetadata> = [
   },
 ];
 
+export const searchKeys = ["title", "sizes.18", "sizes.24", "tags", "aliases"];
+
 export const editIconRow = mapIconToRow(iconsMetadata[0]);
 export const confirmIconRow = mapIconToRow(iconsMetadata[1]);
 export const languagesIconRow = mapIconToRow(iconsMetadata[2]);
-
-export const initialCategories = mapIconsToCategories(
-  iconsMetadata,
-  tableHeaderTitles,
-  mapIconToRow
-);

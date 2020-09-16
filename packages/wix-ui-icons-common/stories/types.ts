@@ -16,8 +16,7 @@ export type CategoryTableRow = Array<React.ReactNode>;
 
 export type Category = {
   title: string;
-  tableHeaderTitles: Array<string>;
-  rows: Array<CategoryTableRow>;
+  iconsMetadata: Array<IconMetadata>;
 };
 
 export type IconProps = React.SVGAttributes<SVGElement> & {

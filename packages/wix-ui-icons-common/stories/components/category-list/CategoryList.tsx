@@ -1,47 +1,68 @@
-import React from "react";
-import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
+import React, { useMemo } from "react";
+import CategoryTable from "../category-table";
 import SearchInput from "../search-input";
-import useCategoryListSearch from "./useCategoryListSearch";
-import { Category } from "../../types";
-import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
+import useSearchIcons from "./useSearchIcons";
+import { IconMetadata } from "../../../src/types";
+import { Category, CategoryTableRow } from "../../types";
 
-const CategoryTable: React.FC<Category> = ({
-  title,
-  tableHeaderTitles,
-  rows,
-}) => (
-  <>
-    <h2 className={sectionStyles["section-title"]}>{title}</h2>
-    <Table rows={rows} headerTitles={tableHeaderTitles} transparentHeader />
-  </>
-);
+// Splits icons into categories
+export const mapIconsToCategories = (
+  iconsMetadata: Array<IconMetadata>
+): Array<Category> => {
+  const categoryMap: Record<string, Category> = {};
+  for (const icon of iconsMetadata) {
+    const { category = "Uncategorized" } = icon;
+    // Add category
+    if (!categoryMap[category]) {
+      categoryMap[category] = {
+        title: category,
+        iconsMetadata: [],
+      };
+    }
+
+    categoryMap[category].iconsMetadata.push(icon);
+  }
+
+  return Object.values(categoryMap);
+};
 
 type CategoryListProps = {
-  // Categories to show when query is empty
-  initialCategories: Array<Category>;
-  // Function that searches categories by text query
-  searchCategoryIcons: (query: string) => Array<Category>;
+  iconsMetadata: Array<IconMetadata>;
+  tableHeaderTitles: Array<string>;
+  mapIconToRow: (iconMetadata: IconMetadata) => CategoryTableRow;
+  searchKeys: Array<string>;
   dataHook?: string;
   className?: string;
 };
 
 const CategoryList: React.FC<CategoryListProps> = ({
-  initialCategories,
-  searchCategoryIcons,
+  iconsMetadata,
+  tableHeaderTitles,
+  mapIconToRow,
+  searchKeys,
   dataHook,
   className,
 }) => {
-  const { categories, debouncedSearch } = useCategoryListSearch(
-    initialCategories,
-    searchCategoryIcons
+  const { filteredIconsMetadata, debouncedSearch } = useSearchIcons(
+    iconsMetadata,
+    searchKeys
   );
+  const categories = useMemo(
+    () => mapIconsToCategories(filteredIconsMetadata),
+    [filteredIconsMetadata]
+  );
+
   return (
     <div className={className} data-hook={dataHook}>
       <SearchInput
         onChange={({ target: { value } }) => debouncedSearch(value)}
       />
       {categories.map((category) => (
-        <CategoryTable {...category} key={category.title} />
+        <CategoryTable
+          {...category}
+          {...{ tableHeaderTitles, mapIconToRow }}
+          key={category.title}
+        />
       ))}
     </div>
   );
