@@ -25,7 +25,7 @@
     "build": "yoshi-library build",
     "postbuild": "npm run docs:sections",
     "pretest": "npm run lint && build-storybook",
-    "test": "yoshi-library test --jest",
+    "test": "yoshi test",
     "start": "start-storybook -p 6006",
     "docs:sections": "node docs/make-sections-docs.js"
   },
