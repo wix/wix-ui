@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/wix/wix-ui#readme",
   "main": "./dist/src/index.js",
+  "module": "./dist/es/src/index.js",
   "scripts": {
     "lint": "yoshi lint",
     "build": "yoshi build && import-path --path src",
