@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { deepAssign } from '../../test/utils/deep-assign';
+import { deepAssign } from '../test-utils/deep-assign';
 import Markdown from '../Markdown';
 import AutoExample from '../AutoExample';
 import StoryPage from './index';

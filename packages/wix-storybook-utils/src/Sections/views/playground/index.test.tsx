@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { deepAssign } from '../../../../test/utils/deep-assign';
+import { deepAssign } from '../../../test-utils/deep-assign';
 
 import AutoExample from '../../../AutoExample';
 import { PlaygroundSection } from '../../../typings/story-section';

@@ -6,7 +6,7 @@ const has: (
 const hasnt = (needle: string | RegExp) => (haystack: string) =>
   !has(needle)(haystack);
 
-const enum TestkitType {
+enum TestkitType {
   vanilla = 'vanilla',
   unidriver = 'unidriver',
   protractor = 'protractor',

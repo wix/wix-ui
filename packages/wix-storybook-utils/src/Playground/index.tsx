@@ -13,7 +13,7 @@ import { previewWarning } from './preview-warning';
 import { saveSnippet, loadSnippet } from './snippet';
 import { SaveSuccess } from './save-success';
 
-const enum ViewState {
+enum ViewState {
   Idle,
   Loading,
   Saving,

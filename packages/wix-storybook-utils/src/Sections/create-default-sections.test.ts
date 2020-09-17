@@ -1,4 +1,4 @@
-import { deepAssign } from '../../test/utils/deep-assign';
+import { deepAssign } from '../test-utils/deep-assign';
 
 import { SectionType, HeaderSection } from '../typings/story-section';
 import { createDefaultSections } from './create-default-sections';
