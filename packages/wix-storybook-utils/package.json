@@ -22,7 +22,7 @@
   "types": "dist/types/index.d.ts",
   "scripts": {
     "lint": "yoshi-library lint",
-    "build": "yoshi-library build",
+    "build": "yoshi-library build && import-path --path esm",
     "postbuild": "npm run docs:sections",
     "pretest": "npm run lint && build-storybook",
     "test": "yoshi test",
