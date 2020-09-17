@@ -1,16 +1,27 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import CategoryList, { mapIconsToCategories } from "./CategoryList";
+import { act } from "react-dom/test-utils";
 import {
-  mapIconToRow,
-  tableHeaderTitles,
-  iconsMetadata,
-  searchKeys,
-} from "../../fixtures";
+  render,
+  fireEvent,
+  createEvent,
+  waitForDomChange,
+} from "@testing-library/react";
+import CategoryList, { mapIconsToCategories } from "./CategoryList";
+import { tableHeaderTitles, iconsMetadata, searchKeys } from "../../fixtures";
 import dataHooks from "../../dataHooks";
+import CategoryListDriver from "./CategoryList.driver";
 
-const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
-  baseElement.querySelectorAll(`[data-hook="${dataHook}"]`);
+const mapIconToRow = () => [<div data-hook={dataHooks.categoryTableCell} />];
+
+const search = async (query: string, searchInput: HTMLInputElement) => {
+  const inputEvent = createEvent.input(searchInput, {
+    target: { value: query },
+  });
+
+  fireEvent(searchInput, inputEvent);
+
+  await waitForDomChange();
+};
 
 describe("mapIconsToCategories", () => {
   it("splits icons into categories", () => {
@@ -37,25 +48,30 @@ describe("<CategoryList/>", () => {
         {...{ iconsMetadata, tableHeaderTitles, mapIconToRow, searchKeys }}
       />
     );
-    const categoryTitles = getAllByDataHook(
-      baseElement,
-      dataHooks.categoryTableTitle
-    );
+    const driver = new CategoryListDriver(baseElement);
+    const categoryTitles = driver.getCategoryTitles();
     expect(categoryTitles).toHaveLength(2);
+
+    const categoryRows = driver.getCategoryRows();
+
+    expect(categoryRows).toHaveLength(3);
   });
 
-  it("renders categories rows", () => {
+  it("can be searched by query", async () => {
     const { baseElement } = render(
       <CategoryList
-        mapIconToRow={() => [<div data-hook={dataHooks.categoryTableCell} />]}
-        {...{ iconsMetadata, tableHeaderTitles, searchKeys }}
+        {...{ iconsMetadata, tableHeaderTitles, searchKeys, mapIconToRow }}
       />
     );
+    const driver = new CategoryListDriver(baseElement);
+    const searchInput = driver.getSearchInput();
 
-    const categoryRows = getAllByDataHook(
-      baseElement,
-      dataHooks.categoryTableCell
-    );
-    expect(categoryRows).toHaveLength(3);
+    expect(driver.getCategoryRows()).toHaveLength(3);
+
+    const [edit] = iconsMetadata;
+    const query = edit.title;
+    await search(query, searchInput);
+
+    expect(driver.getCategoryRows()).toHaveLength(1);
   });
 });

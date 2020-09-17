@@ -4,6 +4,7 @@ import SearchInput from "../search-input";
 import useSearchIcons from "./useSearchIcons";
 import { IconMetadata } from "../../../src/types";
 import { Category, CategoryTableRow } from "../../types";
+import dataHooks from "../../dataHooks";
 
 // Splits icons into categories
 export const mapIconsToCategories = (
@@ -56,6 +57,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
     <div className={className} data-hook={dataHook}>
       <SearchInput
         onChange={({ target: { value } }) => debouncedSearch(value)}
+        dataHook={dataHooks.categorySearchInput}
       />
       {categories.map((category) => (
         <CategoryTable

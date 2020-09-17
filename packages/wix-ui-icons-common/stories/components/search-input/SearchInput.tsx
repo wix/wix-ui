@@ -5,15 +5,17 @@ import { classes } from "./SearchInput.st.css";
 
 type Props = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  dataHook?: string;
 };
 
-const SearchInput: React.FC<Props> = ({ onChange }) => {
+const SearchInput: React.FC<Props> = ({ onChange, dataHook }) => {
   return (
     <div className={classes.root}>
       <Input
         onChange={onChange}
         placeholder="Search Icons"
         className={classes.input}
+        data-hook={dataHook}
       />
       <Search className={classes.icon} />
     </div>
