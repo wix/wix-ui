@@ -2,13 +2,13 @@
   "compilerOptions": {
     "sourceMap": true,
     "importHelpers": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "strictNullChecks": false,
-    "target": "es5",
+    "target": "ES5",
     "jsx": "react",
     "lib": [
       "dom",
@@ -16,12 +16,30 @@
     ],
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "incremental": true,
+    "rootDir": "src",
+    "outDir": "dist/esm",
+    "declarationDir": "dist/types",
+    "declaration": true,
+    "resolveJsonModule": true
   },
   "include": [
     "./src/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.js",
     "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "./src/**/*.spec.ts",
+    "./src/**/*.spec.js",
+    "./src/**/*.spec.tsx",
+    "./src/**/*.test.ts",
+    "./src/**/*.test.js",
+    "./src/**/*.test.tsx"
   ]
 }

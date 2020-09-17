@@ -13,6 +13,7 @@
     "space-in-brackets": ["error", "always"],
     "arrow-parens": [true, "ban-single-arg-parens"],
     "array-bracket-spacing": [true, "never"],
-    "indent": [ true, "spaces", 2 ]
+    "indent": [true, "spaces", 2],
+    "prefer-const-enum": false
   }
 }

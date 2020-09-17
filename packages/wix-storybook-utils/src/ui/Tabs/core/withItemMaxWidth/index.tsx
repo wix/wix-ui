@@ -3,14 +3,36 @@ import React from 'react';
 import * as TabPropTypes from '../constants/tab-prop-types';
 import { getWidth } from '../utils';
 
-const withMaxWidth = WrappedComponent => {
+interface Item {
+  id?: string | number;
+  title?: React.ReactNode;
+  dataHook?: string;
+}
+export interface WrapperProps {
+  type?: '' | 'compact' | 'compactSide' | 'uniformSide' | 'uniformFull';
+  items: Item[];
+}
+interface WrapperState {
+  itemMaxWidth?: number;
+}
+
+type WrapperComponent = React.ComponentType<WrapperProps>;
+
+const withMaxWidth = (
+  WrappedComponent: React.ComponentType<any>,
+): WrapperComponent => {
   const getMaxWidth = (items, containerWidth) => {
     const COMPACT_SIDE_MARGIN = 18;
     const marginsBetweenItems = COMPACT_SIDE_MARGIN * 2 * (items.length - 1);
     return (containerWidth - marginsBetweenItems) / items.length;
   };
 
-  class Wrapper extends React.Component {
+  class Wrapper extends React.Component<WrapperProps, WrapperState> {
+    static propTypes = {
+      type: TabPropTypes.type,
+      items: TabPropTypes.items.isRequired,
+    };
+
     state = {
       itemMaxWidth: undefined,
     };
@@ -40,12 +62,7 @@ const withMaxWidth = WrappedComponent => {
     }
   }
 
-  Wrapper.propTypes = {
-    type: TabPropTypes.type,
-    items: TabPropTypes.items.isRequired,
-  };
-
-  return Wrapper;
+  return Wrapper as WrapperComponent;
 };
 
 export default withMaxWidth;
