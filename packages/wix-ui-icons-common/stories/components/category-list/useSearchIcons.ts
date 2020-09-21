@@ -1,12 +1,7 @@
-import * as Fuse from "fuse.js";
+import Fuse from "fuse.js";
 import { useState, useMemo } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { IconMetadata } from "../../../src/types";
-
-// Fuse type expects ES modules, but is imported as commonjs
-const FuseIndex = Fuse.default || Fuse;
-
-console.log(FuseIndex);
 
 /** Searches icons with `searchCategoryIcons`
  * and sets the resulting categories to state
@@ -18,7 +13,7 @@ function useSearchIcons(
 ) {
   const searchIndex = useMemo(
     () =>
-      new FuseIndex(iconsMetadata, {
+      new Fuse(iconsMetadata, {
         keys,
         threshold: 0.2,
       }),
