@@ -1,5 +1,10 @@
+/**
+ * FIXME:
+ * remove when yoshi is updated to use jsdom 14
+ * @jest-environment jest-environment-jsdom-fourteen
+ */
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import CategoryList, { mapIconsToCategories } from "./CategoryList";
 import { tableHeaderTitles, iconsMetadata, searchKeys } from "../../fixtures";
 import dataHooks from "../../dataHooks";
@@ -36,11 +41,9 @@ describe("<CategoryList/>", () => {
     );
     const driver = new CategoryListDriver(baseElement);
     // assert amount of category tables rendered
-    expect(driver.getAmountOfCategoryTitles()).toHaveLength(2);
+    expect(driver.getAmountOfCategoryTitles()).toBe(2);
 
-    const categoryRows = driver.getCategoryRows();
-
-    expect(categoryRows).toHaveLength(3);
+    expect(driver.getAmountOfCategoryRows()).toBe(3);
   });
 
   it("can be searched by query", async () => {
@@ -51,13 +54,16 @@ describe("<CategoryList/>", () => {
     );
     const driver = new CategoryListDriver(baseElement);
 
-    expect(driver.getCategoryRows()).toHaveLength(3);
+    expect(driver.getAmountOfCategoryRows()).toBe(3);
 
     const [edit] = iconsMetadata;
     const query = edit.title;
-    await driver.search(query);
+    driver.search(query);
 
-    expect(driver.getCategoryRows()).toHaveLength(1);
+    await waitFor(() => {
+      expect(driver.getAmountOfCategoryRows()).toBe(1);
+    });
+
     expect(driver.getRowText(0)).toBe("Edit");
   });
 });

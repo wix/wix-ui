@@ -1,8 +1,4 @@
-import {
-  fireEvent,
-  createEvent,
-  waitForDomChange,
-} from "@testing-library/react";
+import { fireEvent, createEvent } from "@testing-library/react";
 import dataHooks from "../../dataHooks";
 
 const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
@@ -14,6 +10,9 @@ const getByDataHook = (baseElement: HTMLElement, dataHook: string) =>
 const getSearchInput = (baseElement: HTMLElement) =>
   getByDataHook(baseElement, dataHooks.categorySearchInput) as HTMLInputElement;
 
+const getCategoryRows = (baseElement: HTMLElement) =>
+  getAllByDataHook(baseElement, dataHooks.categoryTableCell);
+
 export default class CategoryListDriver {
   baseElement: HTMLElement;
 
@@ -24,23 +23,20 @@ export default class CategoryListDriver {
   getAmountOfCategoryTitles = () =>
     getAllByDataHook(this.baseElement, dataHooks.categoryTableTitle).length;
 
-  getCategoryRows = () =>
-    getAllByDataHook(this.baseElement, dataHooks.categoryTableCell);
+  getAmountOfCategoryRows = () => getCategoryRows(this.baseElement).length;
 
   getRowText = (index: number) => {
-    const categoryRows = this.getCategoryRows();
+    const categoryRows = getCategoryRows(this.baseElement);
     const row = categoryRows.item(index);
     return row.textContent;
   };
 
-  search = async (query: string) => {
+  search = (query: string) => {
     const searchInput = getSearchInput(this.baseElement);
     const inputEvent = createEvent.input(searchInput, {
       target: { value: query },
     });
 
     fireEvent(searchInput, inputEvent);
-
-    await waitForDomChange();
   };
 }
