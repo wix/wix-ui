@@ -30,6 +30,12 @@ export default class CategoryListDriver {
   getCategoryRows = () =>
     getAllByDataHook(this.baseElement, dataHooks.categoryTableCell);
 
+  getRowText = (index: number) => {
+    const categoryRows = this.getCategoryRows();
+    const row = categoryRows.item(index);
+    return row.textContent;
+  };
+
   search = async (query: string) => {
     const searchInput = this.getSearchInput();
     const inputEvent = createEvent.input(searchInput, {

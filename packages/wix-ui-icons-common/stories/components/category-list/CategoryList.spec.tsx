@@ -58,5 +58,6 @@ describe("<CategoryList/>", () => {
     await driver.search(query);
 
     expect(driver.getCategoryRows()).toHaveLength(1);
+    expect(driver.getRowText(0)).toBe("Edit");
   });
 });
