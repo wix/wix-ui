@@ -1,27 +1,13 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
-import {
-  render,
-  fireEvent,
-  createEvent,
-  waitForDomChange,
-} from "@testing-library/react";
+import { render } from "@testing-library/react";
 import CategoryList, { mapIconsToCategories } from "./CategoryList";
 import { tableHeaderTitles, iconsMetadata, searchKeys } from "../../fixtures";
 import dataHooks from "../../dataHooks";
 import CategoryListDriver from "./CategoryList.driver";
 
-const mapIconToRow = () => [<div data-hook={dataHooks.categoryTableCell} />];
-
-const search = async (query: string, searchInput: HTMLInputElement) => {
-  const inputEvent = createEvent.input(searchInput, {
-    target: { value: query },
-  });
-
-  fireEvent(searchInput, inputEvent);
-
-  await waitForDomChange();
-};
+const mapIconToRow = ({ title }) => [
+  <div data-hook={dataHooks.categoryTableCell}>{title}</div>,
+];
 
 describe("mapIconsToCategories", () => {
   it("splits icons into categories", () => {
@@ -64,13 +50,12 @@ describe("<CategoryList/>", () => {
       />
     );
     const driver = new CategoryListDriver(baseElement);
-    const searchInput = driver.getSearchInput();
 
     expect(driver.getCategoryRows()).toHaveLength(3);
 
     const [edit] = iconsMetadata;
     const query = edit.title;
-    await search(query, searchInput);
+    await driver.search(query);
 
     expect(driver.getCategoryRows()).toHaveLength(1);
   });

@@ -1,3 +1,8 @@
+import {
+  fireEvent,
+  createEvent,
+  waitForDomChange,
+} from "@testing-library/react";
 import dataHooks from "../../dataHooks";
 
 const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
@@ -24,4 +29,15 @@ export default class CategoryListDriver {
 
   getCategoryRows = () =>
     getAllByDataHook(this.baseElement, dataHooks.categoryTableCell);
+
+  search = async (query: string) => {
+    const searchInput = this.getSearchInput();
+    const inputEvent = createEvent.input(searchInput, {
+      target: { value: query },
+    });
+
+    fireEvent(searchInput, inputEvent);
+
+    await waitForDomChange();
+  };
 }
