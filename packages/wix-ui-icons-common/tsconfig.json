@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
@@ -11,8 +12,7 @@
     "jsx": "react",
     "types": ["node", "jest"],
     "lib": ["dom", "esnext"],
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "resolveJsonModule": true
   },
   "files": [
     "./src/globals.d.ts",
