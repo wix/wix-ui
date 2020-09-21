@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SignaturePad, { IOptions } from 'signature_pad';
+import SignaturePad, { Options as IOptions } from 'signature_pad';
 import {
   withSignatureInputContext,
   WithSignaturePadProps,
