@@ -1,4 +1,4 @@
-import Fuse from "fuse.js";
+import Fuse from "fuse.js/dist/fuse.esm";
 import { useState, useMemo } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { IconMetadata } from "../../../src/types";
