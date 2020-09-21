@@ -14,5 +14,6 @@ function componentFactory(Component: React.ReactElement<any>): UniDriver {
 }
 
 export function createUniDriverFactory<TDriver extends BaseUniDriver>(driverFactory: UniDriverFactory<TDriver>) {
-  return (Component: React.ReactElement<any>) => driverFactory(componentFactory(Component));
+  const body = jsdomReactUniDriver(document.body);
+  return (Component: React.ReactElement<any>) => driverFactory(componentFactory(Component), body);
 }
