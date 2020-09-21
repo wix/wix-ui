@@ -71,7 +71,12 @@
     "yoshi-style-dependencies": "4.71.0"
   },
   "jest": {
-    "preset": "jest-yoshi-preset"
+    "preset": "jest-yoshi-preset",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "./tsconfig.jest.json"
+      }
+    }
   },
   "yoshi": {
     "exports": "wix-ui-icons-common"
