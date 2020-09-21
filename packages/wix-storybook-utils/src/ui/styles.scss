@@ -54,12 +54,27 @@
   outline: 0;
 }
 
+.searchInputContainer {
+  position: relative;
+  margin: 30px 0;
+}
+
+.searchInput {
+  padding-left: 36px;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  color: #3899ec;
+}
+
 .heading {
   @include font(roman);
   font-weight: 400;
   margin: 0;
 }
-
 
 .toggleSwitch {
   position: relative;
