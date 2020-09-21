@@ -11,18 +11,15 @@ const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
 const getByDataHook = (baseElement: HTMLElement, dataHook: string) =>
   baseElement.querySelector(`[data-hook="${dataHook}"]`);
 
+const getSearchInput = (baseElement: HTMLElement) =>
+  getByDataHook(baseElement, dataHooks.categorySearchInput) as HTMLInputElement;
+
 export default class CategoryListDriver {
   baseElement: HTMLElement;
 
   constructor(baseElement: HTMLElement) {
     this.baseElement = baseElement;
   }
-
-  getSearchInput = () =>
-    getByDataHook(
-      this.baseElement,
-      dataHooks.categorySearchInput
-    ) as HTMLInputElement;
 
   getAmountOfCategoryTitles = () =>
     getAllByDataHook(this.baseElement, dataHooks.categoryTableTitle).length;
@@ -37,7 +34,7 @@ export default class CategoryListDriver {
   };
 
   search = async (query: string) => {
-    const searchInput = this.getSearchInput();
+    const searchInput = getSearchInput(this.baseElement);
     const inputEvent = createEvent.input(searchInput, {
       target: { value: query },
     });
