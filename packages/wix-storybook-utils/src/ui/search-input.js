@@ -6,7 +6,6 @@ import Search from 'wix-ui-icons-common/Search';
 
 import styles from './styles.scss';
 
-HTMLInputElement;
 const SearchInput = ({ dataHook, className, inputClassName, ...props }) => (
   <div className={classnames(styles.searchInputContainer, className)}>
     <Input
