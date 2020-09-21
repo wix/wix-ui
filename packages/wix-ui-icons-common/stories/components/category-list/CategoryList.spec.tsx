@@ -35,8 +35,8 @@ describe("<CategoryList/>", () => {
       />
     );
     const driver = new CategoryListDriver(baseElement);
-    const categoryTitles = driver.getCategoryTitles();
-    expect(categoryTitles).toHaveLength(2);
+    // assert amount of category tables rendered
+    expect(driver.getAmountOfCategoryTitles()).toHaveLength(2);
 
     const categoryRows = driver.getCategoryRows();
 

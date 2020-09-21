@@ -24,8 +24,8 @@ export default class CategoryListDriver {
       dataHooks.categorySearchInput
     ) as HTMLInputElement;
 
-  getCategoryTitles = () =>
-    getAllByDataHook(this.baseElement, dataHooks.categoryTableTitle);
+  getAmountOfCategoryTitles = () =>
+    getAllByDataHook(this.baseElement, dataHooks.categoryTableTitle).length;
 
   getCategoryRows = () =>
     getAllByDataHook(this.baseElement, dataHooks.categoryTableCell);
