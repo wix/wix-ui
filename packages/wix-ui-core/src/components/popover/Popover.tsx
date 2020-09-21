@@ -28,10 +28,6 @@ if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
   popoverTestUtils.createRange();
 }
 
-if (isTestEnv) {
-  testId = popoverTestUtils.generateId();
-}
-
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
 
@@ -204,6 +200,10 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       isMounted: false,
       shown: props.shown || false,
     };
+
+    if (isTestEnv) {
+      testId = popoverTestUtils.generateId();
+    }
 
     this.clickOutsideRef = React.createRef();
     this.clickOutsideClass = uniqueId('clickOutside');
