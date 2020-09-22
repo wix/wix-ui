@@ -3,7 +3,7 @@
  * remove when yoshi is updated to use jsdom 14
  * @jest-environment jest-environment-jsdom-fourteen
  */
-import React from "react";
+import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
 import CategoryList, { mapIconsToCategories } from "./CategoryList";
 import { tableHeaderTitles, iconsMetadata, searchKeys } from "../../fixtures";
