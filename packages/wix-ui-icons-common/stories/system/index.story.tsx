@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   header,
   tabs,
@@ -22,9 +22,21 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
-import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
+
+// Returns a list of unique size keys
+const getIconSizeKeys = (iconsMetadata: Array<IconMetadata>) => {
+  const iconSizeKeys = new Set<string>();
+  for (const icon of iconsMetadata) {
+    const { sizes } = icon;
+    for (const size in sizes) {
+      iconSizeKeys.add(`sizes.${size}`);
+    }
+  }
+
+  return Array.from(iconSizeKeys);
+};
 
 const mapIconToRow = ({
   title,
@@ -44,11 +56,9 @@ const mapIconToRow = ({
 };
 
 const tableHeaderTitles = ["Icon Name", "Sizes", "Use for"];
-const categories = mapIconsToCategories(
-  systemIconsMetadata,
-  tableHeaderTitles,
-  mapIconToRow
-);
+
+const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
+const searchKeys = ["title", ...iconSizeKeys, "tags", "aliases"];
 
 export default {
   category: "Icons",
@@ -95,7 +105,15 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList dataHook="icon-list" categories={categories} />,
+          <CategoryList
+            dataHook="icon-list"
+            iconsMetadata={systemIconsMetadata}
+            {...{
+              tableHeaderTitles,
+              searchKeys,
+              mapIconToRow,
+            }}
+          />,
         ],
       }),
     ]),

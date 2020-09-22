@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   header,
   tabs,
@@ -21,7 +21,6 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/general/dist";
 import generalIconsMetadata from "../../src/general/metadata";
-import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
 import { classes } from "./index.story.st.css";
@@ -48,11 +47,8 @@ const tableHeaderTitles = [
   "Icon Name",
   "Use for",
 ];
-const categories = mapIconsToCategories(
-  generalIconsMetadata,
-  tableHeaderTitles,
-  mapIconToRow
-);
+
+const searchKeys = ["title", "sizes.18", "sizes.24", "tags", "aliases"];
 
 export default {
   category: "Icons",
@@ -102,7 +98,12 @@ export default {
           <CategoryList
             className={classes.tableList}
             dataHook="icon-list"
-            categories={categories}
+            iconsMetadata={generalIconsMetadata}
+            {...{
+              tableHeaderTitles,
+              searchKeys,
+              mapIconToRow,
+            }}
           />,
         ],
       }),

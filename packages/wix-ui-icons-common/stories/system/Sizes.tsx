@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IconDescriptor } from "../types";
 import viewsStyles from "wix-storybook-utils/dist/src/Sections/views/styles.scss";
 import { classes } from "./Sizes.st.css";

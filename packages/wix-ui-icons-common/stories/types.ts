@@ -1,3 +1,6 @@
+import type Fuse from 'fuse.js';
+import { IconMetadata } from "../src/types";
+
 /** [icon component, icon name, small icon component,
  * small icon name, description] */
 export type GeneralTableRow = [
@@ -9,12 +12,11 @@ export type GeneralTableRow = [
 ];
 /** [icon name, icon sizes, description] */
 export type SystemTableRow = [string, React.ReactNode, string | undefined];
-export type CategoryTableRow = GeneralTableRow | SystemTableRow;
+export type CategoryTableRow = Array<React.ReactNode>;
 
 export type Category = {
   title: string;
-  tableHeaderTitles: Array<string>;
-  rows: Array<CategoryTableRow>;
+  iconsMetadata: Array<IconMetadata>;
 };
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
@@ -26,3 +28,6 @@ export type IconDescriptor = {
   name: string;
   Icon: React.FC<IconProps>;
 };
+
+// Search index of icons metadata
+export type IconsMetadataIndex = Fuse<IconMetadata>;
