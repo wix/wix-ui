@@ -25,6 +25,7 @@ import * as iconComponents from "../../src/system/dist";
 import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
+import APITab from "../APITab";
 
 const mapIconToRow = ({
   title,
@@ -98,6 +99,7 @@ export default {
           <CategoryList dataHook="icon-list" categories={categories} />,
         ],
       }),
+      APITab,
     ]),
   ],
 };
