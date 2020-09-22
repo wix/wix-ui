@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Downshift from 'downshift';
 import classnames from 'classnames';
-import CloseIcon from 'wix-ui-icons-common/system/Close';
-import DropDownArrowIcon from 'wix-ui-icons-common/system/DropDownArrow';
+import CloseIcon from '../icons/Close';
+import DropDownArrowIcon from '../icons/DropDownArrow';
 
 import styles from './styles.scss';
 import Input from './input';

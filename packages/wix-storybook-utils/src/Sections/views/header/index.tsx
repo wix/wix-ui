@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Promote from 'wix-ui-icons-common/Promote';
-import Code from 'wix-ui-icons-common/Code';
+import Promote from '../../../icons/Promote';
+import Code from '../../../icons/Code';
 
 import { HeaderSection } from '../../../typings/story-section';
 import { StoryConfig } from '../../../typings/story-config';
