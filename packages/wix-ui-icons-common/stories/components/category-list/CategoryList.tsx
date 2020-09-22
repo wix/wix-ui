@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import * as React from "react";
+import { useMemo } from "react";
 import CategoryTable from "../category-table";
 import SearchInput from "../search-input";
 import useSearchIcons from "./useSearchIcons";
