@@ -11,9 +11,9 @@ interface FuseConstructor<T>  {
 
 const FuseIndex = require("fuse.js/dist/fuse.common") as FuseConstructor<IconMetadata>;
 
-/** Searches icons with `searchCategoryIcons`
+/** Searches icons
  * and sets the resulting categories to state
- * returns categories and a debounced `searchCategoryIcons`
+ * returns filtered and a debounced `searchCategoryIcons`
  */
 function useSearchIcons(
   iconsMetadata: Array<IconMetadata>,
