@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LinkSmall from 'wix-ui-icons-common/LinkSmall';
-import Close from 'wix-ui-icons-common/system/Close';
+import LinkSmall from '../icons/LinkSmall';
+import Close from '../icons/Close';
 
 import { CopyButton } from '../CopyButton';
 

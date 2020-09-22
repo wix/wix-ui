@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { ToggleOff, ToggleOn } from 'wix-ui-icons-common/system';
+import ToggleOff from '../icons/ToggleOff';
+import ToggleOn from '../icons/ToggleOn';
 
 import styles from './styles.scss';
 

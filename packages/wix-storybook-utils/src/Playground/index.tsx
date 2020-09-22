@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import * as queryString from 'query-string';
-import UploadExportSmall from 'wix-ui-icons-common/UploadExportSmall';
+import UploadExportSmall from '../icons/UploadExportSmall';
 
 import LiveCodeExample from '../LiveCodeExample';
 import { Props as LiveCodeExampleProps } from '../LiveCodeExample/LiveCodeExample';

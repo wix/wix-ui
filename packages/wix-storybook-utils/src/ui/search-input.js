@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Input from './input';
-import Search from 'wix-ui-icons-common/Search';
+import Search from '../icons/Search';
 
 import styles from './styles.scss';
 

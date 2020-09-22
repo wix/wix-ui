@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CloseIcon from 'wix-ui-icons-common/system/Close';
+import CloseIcon from '../../icons/Close';
 import Dropdown from '../../ui/dropdown';
 import RadioGroup from '../../ui/radio-group';
 import Button from '../../ui/button';
