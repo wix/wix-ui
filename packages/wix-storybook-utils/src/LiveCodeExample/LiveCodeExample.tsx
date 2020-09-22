@@ -5,10 +5,10 @@ import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
 
-import DuplicateSmall from 'wix-ui-icons-common/DuplicateSmall';
-import RevertSmall from 'wix-ui-icons-common/RevertSmall';
-import CodeSmall from 'wix-ui-icons-common/CodeSmall';
-import MagicWandSmall from 'wix-ui-icons-common/MagicWandSmall';
+import DuplicateSmall from '../icons/DuplicateSmall';
+import RevertSmall from '../icons/RevertSmall';
+import CodeSmall from '../icons/CodeSmall';
+import MagicWandSmall from '../icons/MagicWandSmall';
 
 import { transformCode, formatCode } from './doctor-code';
 import { CopyButton } from '../CopyButton';

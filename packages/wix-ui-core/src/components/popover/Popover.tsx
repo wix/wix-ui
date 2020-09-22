@@ -14,7 +14,7 @@ import {
   createComponentThatRendersItsChildren,
   ElementProps,
 } from '../../utils';
-
+import { PopoverContext } from './PopoverContext';
 import { popoverTestUtils } from './helpers';
 import { getAppendToElement, Predicate } from './utils/getAppendToElement';
 import * as classNames from 'classnames';
@@ -27,15 +27,6 @@ const isTestEnv = process.env.NODE_ENV === 'test';
 if (isTestEnv && typeof document !== 'undefined' && !document.createRange) {
   popoverTestUtils.createRange();
 }
-
-if (isTestEnv) {
-  testId = popoverTestUtils.generateId();
-}
-
-const omit = (key, obj) => {
-  const { [key]: omitted, ...rest } = obj;
-  return rest;
-};
 
 export type Placement = PopperJS.Placement;
 export type AppendTo = PopperJS.Boundary | 'parent' | Element | Predicate;
@@ -210,19 +201,23 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       shown: props.shown || false,
     };
 
+    if (isTestEnv) {
+      testId = popoverTestUtils.generateId();
+    }
+
     this.clickOutsideRef = React.createRef();
     this.clickOutsideClass = uniqueId('clickOutside');
     this.contentHook = `popover-content-${props['data-hook'] || ''}-${testId}`;
   }
 
-  _handleClickOutside = () => {
+  _handleClickOutside = event => {
     const {
       onClickOutside: onClickOutsideCallback,
       shown,
       disableClickOutsideWhenClosed,
     } = this.props;
     if (onClickOutsideCallback && !(disableClickOutsideWhenClosed && !shown)) {
-      onClickOutsideCallback();
+      onClickOutsideCallback(event);
     }
   };
 
@@ -243,6 +238,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       maxWidth,
       width,
       dynamicWidth,
+      excludeClass = this.clickOutsideClass,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -270,33 +266,53 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         }) => {
           this.popperScheduleUpdate = scheduleUpdate;
           return (
-            <div
-              ref={ref}
-              data-hook="popover-content"
-              data-content-element={this.contentHook}
-              style={{ ...popperStyles, zIndex, maxWidth }}
-              data-placement={popperPlacement || placement}
-              className={classNames(classes.popover, this.clickOutsideClass, {
-                [classes.withArrow]: showArrow,
-                [classes.popoverContent]: !showArrow,
-              })}
-            >
-              {showArrow &&
-                this.renderArrow(
-                  arrowProps,
-                  moveArrowTo,
-                  popperPlacement || placement,
-                  customArrow,
-                )}
-              <div
-                key="popover-content"
-                id={id}
-                role={role}
-                className={showArrow ? classes.popoverContent : ''}
-              >
-                {childrenObject.Content}
-              </div>
-            </div>
+            <PopoverContext.Consumer>
+              {({ excludeClickOutsideClasses }) => {
+                return (
+                  <div
+                    ref={ref}
+                    data-hook="popover-content"
+                    data-content-element={this.contentHook}
+                    style={{ ...popperStyles, zIndex, maxWidth }}
+                    data-placement={popperPlacement || placement}
+                    className={classNames(
+                      classes.popover,
+                      this.clickOutsideClass,
+                      {
+                        [classes.withArrow]: showArrow,
+                        [classes.popoverContent]: !showArrow,
+                      },
+                      ...excludeClickOutsideClasses,
+                    )}
+                  >
+                    {showArrow &&
+                      this.renderArrow(
+                        arrowProps,
+                        moveArrowTo,
+                        popperPlacement || placement,
+                        customArrow,
+                      )}
+                    <div
+                      key="popover-content"
+                      id={id}
+                      role={role}
+                      className={showArrow ? classes.popoverContent : ''}
+                    >
+                      <PopoverContext.Provider
+                        value={{
+                          excludeClickOutsideClasses: [
+                            excludeClass,
+                            ...excludeClickOutsideClasses,
+                          ],
+                        }}
+                      >
+                        {childrenObject.Content}
+                      </PopoverContext.Provider>
+                    </div>
+                  </div>
+                );
+              }}
+            </PopoverContext.Consumer>
           );
         }}
       </Popper>
@@ -500,7 +516,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       children,
       style,
       id,
-      excludeClass = this.clickOutsideClass,
+      excludeClass,
       fluid,
     } = this.props;
     const { isMounted, shown } = this.state;
@@ -518,7 +534,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
         <ClickOutside
           rootRef={this.clickOutsideRef}
           onClickOutside={shown ? this._handleClickOutside : undefined}
-          excludeClass={excludeClass}
+          excludeClass={[this.clickOutsideClass, excludeClass]}
         >
           <div
             ref={this.clickOutsideRef}

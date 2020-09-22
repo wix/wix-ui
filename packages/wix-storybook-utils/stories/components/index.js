@@ -5,6 +5,8 @@ import { storiesOf } from "@storybook/react";
 import Markdown from "../../src/Markdown";
 import InteractiveCodeExample from "../../src/InteractiveCodeExample";
 import CodeExample from "../../src/CodeExample";
+import Input from "../../src/ui/input";
+import SearchInput from "../../src/ui/search-input";
 
 import markdown from "./examples/markdown.md";
 import SomeComponentExample from "./examples/Example";
@@ -35,5 +37,19 @@ storiesOf("Components", module)
       <InteractiveCodeExample title="Customize some section">
         <SomeComponentExample />
       </InteractiveCodeExample>
+    </div>
+  ))
+  
+  .add("<Input/>", () => (
+    <div>
+      This component allows to add text input to a story
+      <Input />
+    </div>
+  ))
+  
+  .add("<SearchInput/>", () => (
+    <div>
+      This component allows to add search to a story
+      <SearchInput />
     </div>
   ));
