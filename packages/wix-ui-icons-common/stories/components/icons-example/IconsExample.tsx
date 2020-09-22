@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IconProps } from "../../types";
 import { classes } from "./IconsExample.st.css";
 

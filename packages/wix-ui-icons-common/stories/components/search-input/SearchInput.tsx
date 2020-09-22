@@ -1,4 +1,5 @@
-import React, { ChangeEvent } from "react";
+import * as React from "react";
+import { ChangeEvent } from "react";
 import { Search } from "wix-ui-icons-common";
 import Input from "wix-storybook-utils/dist/src/ui/input";
 import { classes } from "./SearchInput.st.css";

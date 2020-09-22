@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import * as React from "react";
+import { useMemo } from "react";
 import { table as Table } from "wix-storybook-utils/dist/src/Sections/views/table";
 import sectionStyles from "wix-storybook-utils/dist/src/Sections/styles.scss";
 import { IconMetadata } from "../../../src/types";
