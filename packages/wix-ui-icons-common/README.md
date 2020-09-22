@@ -37,12 +37,12 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 
 * Every icon must have additional metadata describing the following attributes:
 
-	`title` - the name of the icon
-	`category` - icon type (`Actions`, `Communication`, etc.)
-	`description` - a short summary explaining the purpose of the icon and the context where it may appear
-	`tags` - list of terms that may apply to icon, used in storybook search
-	`sizes` - maps between the icon size in pixels (`"18"`/`"24"`) to the file name
-	`aliases` - list of other filenames the icon appears as
+	* `title` - the name of the icon
+	* `category` - icon type (`Actions`, `Communication`, etc.)
+	* `description` - a short summary explaining the purpose of the icon and the context where it may appear
+	* `tags` - list of terms that may apply to icon, used in storybook search
+	* `sizes` - maps between the icon size in pixels (`"18"`/`"24"`) to the file name
+	* `aliases` - list of other filenames the icon appears as
 
 	When adding an icon, add the icon's metadata to the following file:
 	`src/general/metadata.ts` *for general icons*
