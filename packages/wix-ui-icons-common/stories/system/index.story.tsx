@@ -15,7 +15,7 @@ import {
   DragAndDropLarge,
   FaceSmiling30,
   Help24,
-} from "wix-ui-icons-common/system";
+} from "../../src/system/dist";
 import Sizes from "./Sizes";
 import CategoryList from "../components/category-list";
 import HeaderIcons from "../components/header-icons";
