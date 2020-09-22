@@ -19,5 +19,9 @@
     "./node_modules/yoshi/types.d.ts",
     "./node_modules/jest-yoshi-preset/types.d.ts"
   ],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./stories/general/GeneralCategoryList.tsx"
+  ]
 }
