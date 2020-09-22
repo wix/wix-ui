@@ -9,7 +9,7 @@ interface FuseConstructor<T>  {
     options?: Fuse.IFuseOptions<T>,): Fuse<T>;
 }
 
-const FuseIndex = require("fuse.js") as FuseConstructor<IconMetadata>;
+const FuseIndex = require("fuse.js/dist/fuse.common") as FuseConstructor<IconMetadata>;
 
 /** Searches icons with `searchCategoryIcons`
  * and sets the resulting categories to state
