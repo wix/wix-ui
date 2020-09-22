@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useMemo } from "react";
 import CategoryTable from "../category-table";
-import SearchInput from "../search-input";
+import SearchInput from "wix-storybook-utils/dist/src/ui/search-input";
 import useSearchIcons from "./useSearchIcons";
 import { IconMetadata } from "../../../src/types";
 import { Category, CategoryTableRow } from "../../types";
 import dataHooks from "../../dataHooks";
+import { classes } from "./CategoryList.st.css";
 
 // Splits icons into categories
 export const mapIconsToCategories = (
@@ -57,6 +58,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
   return (
     <div className={className} data-hook={dataHook}>
       <SearchInput
+        className={classes.searchInput}
         onChange={({ target: { value } }) => debouncedSearch(value)}
         dataHook={dataHooks.categorySearchInput}
       />
