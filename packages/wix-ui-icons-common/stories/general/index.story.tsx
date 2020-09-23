@@ -25,7 +25,7 @@ import { mapIconsToCategories } from "../utils";
 import { IconMetadata } from "../../src/types";
 import { GeneralTableRow } from "../types";
 import { classes } from "./index.story.st.css";
-import APITab from "../APITab";
+import API_Table from "../APITable";
 
 const mapIconToRow = ({
   description,
@@ -107,7 +107,10 @@ export default {
           />,
         ],
       }),
-      APITab,
+      tab({
+        title: "API",
+        sections: [description({ title: "Props", text: API_Table })],
+      }),
     ]),
   ],
 };
