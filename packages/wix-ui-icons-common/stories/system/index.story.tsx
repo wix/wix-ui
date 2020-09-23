@@ -24,6 +24,7 @@ import systemIconsMetadata from "../../src/system/metadata";
 import * as iconComponents from "../../src/system/dist";
 import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
+import API_Table from "../APITable";
 
 // Returns a list of unique size keys
 const getIconSizeKeys = (iconsMetadata: Array<IconMetadata>) => {
@@ -115,6 +116,10 @@ export default {
             }}
           />,
         ],
+      }),
+      tab({
+        title: "API",
+        sections: [description({ title: "Props", text: API_Table })],
       }),
     ]),
   ],
