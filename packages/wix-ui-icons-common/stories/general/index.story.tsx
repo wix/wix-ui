@@ -20,6 +20,7 @@ import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/general/dist";
 import GeneralCategoryList from "./GeneralCategoryList";
+import API_Table from "../APITable";
 
 export default {
   category: "Icons",
