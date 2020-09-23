@@ -15,40 +15,11 @@ import {
   EmptyTrash,
   Add,
   Minus,
-} from "wix-ui-icons-common";
-import CategoryList from "../components/category-list";
+} from "../../src/general/dist";
 import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
 import * as iconComponents from "../../src/general/dist";
-import generalIconsMetadata from "../../src/general/metadata";
-import { IconMetadata } from "../../src/types";
-import { GeneralTableRow } from "../types";
-import { classes } from "./index.story.st.css";
-
-const mapIconToRow = ({
-  description,
-  sizes,
-}: IconMetadata): GeneralTableRow => {
-  const Icon = iconComponents[sizes[24]];
-  const SmallIcon = iconComponents[sizes[18]];
-  return [
-    Icon && <Icon />,
-    sizes[24],
-    SmallIcon && <SmallIcon />,
-    sizes[18],
-    description,
-  ];
-};
-
-const tableHeaderTitles = [
-  "24x24",
-  "Icon Name",
-  "18x18",
-  "Icon Name",
-  "Use for",
-];
-
-const searchKeys = ["title", "sizes.18", "sizes.24", "tags", "aliases"];
+import GeneralCategoryList from "./GeneralCategoryList";
 
 export default {
   category: "Icons",
@@ -95,16 +66,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <CategoryList
-            className={classes.tableList}
-            dataHook="icon-list"
-            iconsMetadata={generalIconsMetadata}
-            {...{
-              tableHeaderTitles,
-              searchKeys,
-              mapIconToRow,
-            }}
-          />,
+          <GeneralCategoryList />,
         ],
       }),
     ]),

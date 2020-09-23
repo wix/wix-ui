@@ -19,5 +19,10 @@
     "./node_modules/yoshi/types.d.ts",
     "./node_modules/jest-yoshi-preset/types.d.ts"
   ],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    // Used for sharing story with external Storybooks (e.g. wix-style-react)
+    "./stories/general/GeneralCategoryList.tsx"
+  ]
 }
