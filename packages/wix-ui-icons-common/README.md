@@ -38,7 +38,7 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 * Every icon must have additional metadata describing the following attributes:
 
 	* `title` - the name of the icon
-	* `category` - icon type (`Actions`, `Communication`, etc.)
+	* `category` - icon type (one of: `Actions`, `General`, `Toggle`, `Communication`, `Document`, `Users`, `Date & Time`, `Arrows`, `Layout & Sorting`, `Media`, `Composer Actions`, `Composer Adjustments`, `Composer Layers & Alignment`, `Composer Shapes`, `Composer Tools`, `Composer Effects`, `Composer Ratio`, `Composer Other`, `Food`, `Brands`, `Money`, `Text`, `Wix Brands`)
 	* `description` - a short summary explaining the purpose of the icon and the context where it may appear
 	* `tags` - list of terms that may apply to icon, used in storybook search
 	* `sizes` - maps between the icon size in pixels (`"18"`/`"24"`) to the file name
