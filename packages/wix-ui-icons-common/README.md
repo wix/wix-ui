@@ -48,4 +48,17 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 	[src/general/metadata.ts](https://github.com/wix/wix-ui/blob/master/packages/wix-ui-icons-common/src/general/metadata.ts) *for general icons*
 	or [src/system/metadata.ts](https://github.com/wix/wix-ui/blob/master/packages/wix-ui-icons-common/src/system/metadata.ts) *for system icons*
 
+	Icons should be entered in the following format:
+	```javascript
+	{
+    title: "Hidden",
+    category: "Toggle",
+    description:
+      "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
+    tags: ["eye", "hide", "show"],
+    sizes: { "18": "HiddenSmall", "24": "Hidden" },
+    aliases: ["VisibleHidden", "VisibileHidden"],
+	}
+	```
+
 * After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools)
