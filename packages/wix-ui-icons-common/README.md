@@ -51,13 +51,13 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 	Icons should be entered in the following format:
 	```javascript
 	{
-    title: "Hidden",
-    category: "Toggle",
-    description:
-      "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
-    tags: ["eye", "hide", "show"],
-    sizes: { "18": "HiddenSmall", "24": "Hidden" },
-    aliases: ["VisibleHidden", "VisibileHidden"],
+      title: "Hidden",
+      category: "Toggle",
+      description:
+        "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
+      tags: ["eye", "hide", "show"],
+      sizes: { "18": "HiddenSmall", "24": "Hidden" },
+      aliases: ["VisibleHidden", "VisibileHidden"],
 	}
 	```
 
