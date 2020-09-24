@@ -45,7 +45,7 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 	* `aliases` - list of other filenames the icon appears as
 
 	When adding an icon, add the icon's metadata to the following file:
-	`src/general/metadata.ts` *for general icons*
+	[src/general/metadata.ts](https://github.com/wix/wix-ui/blob/master/packages/wix-ui-icons-common/src/general/metadata.ts) *for general icons*
 	or `src/system/metadata.ts` *for system icons*
 
 * After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools)
