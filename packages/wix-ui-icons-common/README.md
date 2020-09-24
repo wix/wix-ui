@@ -34,4 +34,31 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 * Use a descriptive name since it'll be used as the React component name.
 * If the icon has multiple variations (small, large, outlined, filled), specify the variation at the end of the file name, e.g. `FormFieldErrorSmall.svg`.
 * Add the new SVG file to the `src/general/raw` or `src/system/raw` folder according to its purpose of usage (internal or external)
+
+* Every icon must have additional metadata describing the following attributes:
+
+	* `title` - the name of the icon
+	* `category` - icon type (one of: `Actions`, `General`, `Toggle`, `Communication`, `Document`, `Users`, `Date & Time`, `Arrows`, `Layout & Sorting`, `Media`, `Composer Actions`, `Composer Adjustments`, `Composer Layers & Alignment`, `Composer Shapes`, `Composer Tools`, `Composer Effects`, `Composer Ratio`, `Composer Other`, `Food`, `Brands`, `Money`, `Text`, `Wix Brands`)
+	* `description` - a short summary explaining the purpose of the icon and the context where it may appear
+	* `tags` - list of terms that may apply to icon, used in storybook search
+	* `sizes` - maps between the icon size in pixels (`"18"`/`"24"`) to the file name
+	* `aliases` - list of other filenames the icon appears as
+
+	When adding an icon, add the icon's metadata to the following file:
+	[src/general/metadata.ts](https://github.com/wix/wix-ui/blob/master/packages/wix-ui-icons-common/src/general/metadata.ts) *for general icons*
+	or [src/system/metadata.ts](https://github.com/wix/wix-ui/blob/master/packages/wix-ui-icons-common/src/system/metadata.ts) *for system icons*
+
+	Icons should be entered in the following format:
+	```javascript
+	{
+      title: "Hidden",
+      category: "Toggle",
+      description:
+        "Static indicator- marks item an unlisted or hidden\nButton - makes item hidden or unlisted",
+      tags: ["eye", "hide", "show"],
+      sizes: { "18": "HiddenSmall", "24": "Hidden" },
+      aliases: ["VisibleHidden", "VisibileHidden"],
+	}
+	```
+
 * After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools)
