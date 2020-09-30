@@ -41,7 +41,7 @@ const returnsDocumentation = ({ title, type, description }, index) => {
   if (!type.applications) {
     return (
       <li key={index}>
-        <b>{title}</b> {type}
+        <b>{title}</b> {type.name}
         {description && ` - ${description}`}
       </li>
     );
