@@ -4,6 +4,13 @@ export const deprecatedGeneralIcons: Array<string> = ["FilterSmall"];
 
 const generalIconsMetadata: Array<IconMetadata> = [
   {
+    title: "Merge",
+    category: "Actions",
+    description: "Button - calls out merge dialogue",
+    tags: ["join", "integrate", "unite"],
+    sizes: { "18": "MergeSmall", "24": "Merge" },
+  },
+  {
     title: "Edit",
     category: "Actions",
     description: "Button - opens editing mode",
