@@ -7,7 +7,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     title: "Merge",
     category: "Actions",
     description: "Button - calls out merge dialogue",
-    tags: ["join", "integrate", "unite"],
+    tags: ["join", "integrate", "unite"], 
     sizes: { "18": "MergeSmall", "24": "Merge" },
   },
   {
