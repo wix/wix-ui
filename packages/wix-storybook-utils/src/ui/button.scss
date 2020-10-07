@@ -1,8 +1,10 @@
-@import '../../ui/colors.scss';
-@import '../../ui/typography.scss';
+@import './colors.scss';
+@import './typography.scss';
 
 .root {
   @include font(roman);
+
+  cursor: pointer;
 
   justify-content: center;
 

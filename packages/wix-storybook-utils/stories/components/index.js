@@ -57,7 +57,7 @@ storiesOf('Components', module)
 
   .add('<Button/>', () => (
     <div>
-      A Button
-      <Button />
+      <p>A Button</p>
+      <Button>Hello</Button>
     </div>
   ));
