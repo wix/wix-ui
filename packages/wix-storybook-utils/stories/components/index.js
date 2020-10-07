@@ -1,35 +1,36 @@
 /* eslint-disable no-alert */
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import Markdown from "../../src/Markdown";
-import InteractiveCodeExample from "../../src/InteractiveCodeExample";
-import CodeExample from "../../src/CodeExample";
-import Input from "../../src/ui/input";
-import SearchInput from "../../src/ui/search-input";
+import Markdown from '../../src/Markdown';
+import InteractiveCodeExample from '../../src/InteractiveCodeExample';
+import CodeExample from '../../src/CodeExample';
+import Input from '../../src/ui/input';
+import SearchInput from '../../src/ui/search-input';
+import Button from '../../src/ui/button';
 
-import markdown from "./examples/markdown.md";
-import SomeComponentExample from "./examples/Example";
-import SomeComponentExampleRaw from "!raw-loader!./examples/Example";
+import markdown from './examples/markdown.md';
+import SomeComponentExample from './examples/Example';
+import SomeComponentExampleRaw from '!raw-loader!./examples/Example';
 
-storiesOf("Components", module)
-  .add("<CodeExample/>", () => (
+storiesOf('Components', module)
+  .add('<CodeExample/>', () => (
     <div>
       Cool way to render components and see their code
-      <CodeExample title={"some code example"} code={SomeComponentExampleRaw}>
+      <CodeExample title={'some code example'} code={SomeComponentExampleRaw}>
         <SomeComponentExample />
       </CodeExample>
     </div>
   ))
 
-  .add("<Markdown/>", () => (
+  .add('<Markdown/>', () => (
     <div>
       A great way to display Markdown files
       <Markdown source={markdown} />
     </div>
   ))
 
-  .add("<InteractiveCodeExample/> ", () => (
+  .add('<InteractiveCodeExample/> ', () => (
     <div>
       This component should display a component with some code above it
       <br />
@@ -39,17 +40,24 @@ storiesOf("Components", module)
       </InteractiveCodeExample>
     </div>
   ))
-  
-  .add("<Input/>", () => (
+
+  .add('<Input/>', () => (
     <div>
       This component allows to add text input to a story
       <Input />
     </div>
   ))
-  
-  .add("<SearchInput/>", () => (
+
+  .add('<SearchInput/>', () => (
     <div>
       This component allows to add search to a story
       <SearchInput />
+    </div>
+  ))
+
+  .add('<Button/>', () => (
+    <div>
+      A Button
+      <Button />
     </div>
   ));
