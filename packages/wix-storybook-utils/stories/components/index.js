@@ -56,8 +56,24 @@ storiesOf('Components', module)
   ))
 
   .add('<Button/>', () => (
-    <div>
-      <p>A Button</p>
-      <Button>Hello</Button>
+    <div style={{ display: 'grid', gridAutoRows: 'auto', gap: '10px' }}>
+      <div>
+        <Button>Regular</Button>
+      </div>
+      <div>
+        <Button disabled>Disabled</Button>
+      </div>
+      <div>
+        <Button size="tiny">Tiny</Button>
+      </div>
+      <div>
+        <Button size="small">Small</Button>
+      </div>
+      <div>
+        <Button size="large">Large</Button>
+      </div>
+      <div>
+        <Button fullWidth>Full Width</Button>
+      </div>
     </div>
   ));
