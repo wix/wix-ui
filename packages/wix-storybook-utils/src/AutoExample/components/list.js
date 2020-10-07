@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '../../icons/Close';
 import Dropdown from '../../ui/dropdown';
 import RadioGroup from '../../ui/radio-group';
-import Button from '../../ui/button';
+import Button from './button';
 
 import NO_VALUE_TYPE from '../../AutoExample/no-value-type';
 
