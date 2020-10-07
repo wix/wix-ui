@@ -53,18 +53,3 @@
     box-shadow: 0 0 10px 2px #486684 inset;
   }
 }
-
-.button {
-  padding: 0 11px;
-  height: 24px;
-  background-color: rgba(22, 45, 61, 0.24);
-  border: 0;
-  border-radius: 12px;
-  outline: none;
-  cursor: pointer;
-  color: #fff;
-
-  &:hover {
-    background-color: rgba(22, 45, 61, 0.3);
-  }
-}
