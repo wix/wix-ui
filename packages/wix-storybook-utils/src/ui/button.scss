@@ -49,6 +49,7 @@
 }
 
 .root:disabled {
+  cursor: default;
   color: $D80;
   background-color: $D10-30;
   border-color: transparent;
