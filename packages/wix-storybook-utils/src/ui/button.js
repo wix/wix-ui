@@ -29,8 +29,6 @@ class Button extends PureComponent {
 
   render() {
     const {
-      skin,
-      priority,
       size,
       className,
       fullWidth,
