@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { st, classes } from './Dropdown.st.css';
-import { Popover, Placement, PopoverProps } from '../popover';
+import { Popover, Placement, PopoverProps, AppendTo } from '../popover';
 import { DropdownContent, IDOMid } from '../dropdown-content';
 import { Option } from '../dropdown-option';
 import { CLICK, HOVER, OPEN_TRIGGER_TYPE } from './constants';
@@ -56,6 +56,10 @@ export type DropdownProps = Pick<PopoverProps, 'fixed' | 'flip' | 'moveBy'> & {
   allowReselect?: boolean;
   /** Options box z-index */
   optionsContainerZIndex?: number;
+  /** Make width fit container */
+  dynamicWidth?: boolean;
+  /** Element to append the dropdown to */
+  appendTo?: AppendTo;
   className?: string;
 };
 
@@ -297,6 +301,8 @@ export class DropdownComponent extends React.PureComponent<
       role,
       contentId,
       optionsContainerZIndex,
+      dynamicWidth,
+      appendTo,
       className,
     } = this.props;
     const { isOpen, selectedIds } = this.state;
@@ -333,6 +339,8 @@ export class DropdownComponent extends React.PureComponent<
         moveBy={moveBy}
         role={role}
         zIndex={optionsContainerZIndex}
+        dynamicWidth={dynamicWidth}
+        appendTo={appendTo}
         {...filterDataProps(this.props)}
       >
         <Popover.Element>{children}</Popover.Element>

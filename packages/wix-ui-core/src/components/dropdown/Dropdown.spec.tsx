@@ -431,4 +431,30 @@ describe('Dropdown', () => {
       expect(driver.hasStyleState('content-visible')).toBeFalsy();
     });
   });
+
+  describe('props for Popover', () => {
+    /*
+    * Some props are passed down to `<Popover>` component used internally.
+    * Behaviour of those props are tested in `<Popover>` implementation.
+    * Thus, these tests just confirm that props are really passed
+    */
+  
+    const propsAndValues = {
+      placement: 'test',
+      appendTo: 'test',
+      dynamicWidth: true,
+      showArrow: true,
+      timeout: 0,
+      id: 'test',
+      flip: 'test',
+      role: 'test',
+    };
+  
+    Object.entries(propsAndValues).forEach(([prop, value]) => {
+      it(`Popover should receive ${prop}=${value} prop`, () => {
+        const mounted = mount(createDropdown({ [prop]: value }));
+        expect(mounted.find('Popover').props()[prop]).toEqual(value);
+      });
+    });
+  });
 });
