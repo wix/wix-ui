@@ -28,6 +28,7 @@ export type SigningPadOwnProps = Omit<
   disabled?: boolean;
   required?: boolean;
   direction?: 'rtl' | 'ltr';
+  // direction?: string;
   canvasRef?(instance: HTMLCanvasElement): void;
   onInit?(padAPI: SignaturePadApi): void;
   onDrawStart?(e: MouseEvent | React.Touch | React.ChangeEvent): void;
@@ -85,7 +86,8 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     /* Is the signature pad disabled */
     disabled: PropTypes.bool,
     /* Is the signature pad direction rtl or ltr */
-    direction: PropTypes.oneOf(['rtl', 'ltr']),
+    direction: PropTypes.any,
+    // direction: PropTypes.any,
     /* Is signature mandatory in form context */
     required: PropTypes.bool,
     /* Callback to get an instance of the canvas HTML element instance */
