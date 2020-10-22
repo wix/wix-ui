@@ -23,11 +23,19 @@ export function puppeteerUniTestkitFactoryCreator<T extends BaseUniDriver>(
     options: { dataHook: string }
   ) => T
 ) {
-  return async (obj: { dataHook: string; page: Page }) => {
-    const base = pupUniDriver({
-      page: obj.page,
-      selector: `[data-hook='${obj.dataHook}']`,
-    });
+  return async (obj: {
+    dataHook: string;
+    page: Page;
+    wrapper?: ElementHandle;
+  }) => {
+    const {wrapper: element} = obj; // destructuring `wrapper` so that type inference works well
+    const selector = `[data-hook='${obj.dataHook}']`;
+    const page = obj.page;
+
+    const base = element
+      ? pupUniDriver(async () => ({element, page, selector}))
+      : pupUniDriver({page, selector});
+
     const body = pupUniDriver({page: obj.page, selector: 'body'});
     return driverFactory(base, body, {dataHook: obj.dataHook});
   };
