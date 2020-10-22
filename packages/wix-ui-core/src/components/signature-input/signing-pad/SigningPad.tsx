@@ -27,6 +27,7 @@ export type SigningPadOwnProps = Omit<
   penWidth?: string;
   disabled?: boolean;
   required?: boolean;
+  direction?: 'rtl' | 'ltr';
   canvasRef?(instance: HTMLCanvasElement): void;
   onInit?(padAPI: SignaturePadApi): void;
   onDrawStart?(e: MouseEvent | React.Touch | React.ChangeEvent): void;
@@ -85,6 +86,8 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     disabled: PropTypes.bool,
     /* Is signature mandatory in form context */
     required: PropTypes.bool,
+    /* Is the signature pad direction set to rtl or to ltr */
+    direction: PropTypes.oneOf<'rtl' | 'ltr'>(['rtl', 'ltr']),
     /* Callback to get an instance of the canvas HTML element instance */
     canvasRef: PropTypes.func,
     /* Callback which is called when a curve starts to be drawn on the canvas */
@@ -213,7 +216,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
   };
 
   handleInputChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    const { onDraw } = this.props;
+    const { onDraw, direction } = this.props;
 
     // clears drawns curves and typed characters and restore drawn curves
     if (!this.signaturePad.isEmpty() || !this.isA11yInputEmpty()) {
@@ -225,7 +228,9 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     this.setState(updateA11yValue(e.target.value));
     const ctx = this.canvasEl.getContext('2d');
     ctx.font = '25px Sacramento';
-    ctx.fillText(e.target.value, 20, this.canvasEl.offsetHeight / 2);
+    ctx.fillText(e.target.value,
+      direction === 'rtl' ? (this.canvasEl.offsetWidth - 20) : 20,
+      this.canvasEl.offsetHeight / 2);
     this.invokeIfDefined(onDraw)(e);
   };
 
