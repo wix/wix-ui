@@ -86,7 +86,7 @@ class SigningPadComp extends React.Component<SigningPadProps, SigningPadState> {
     disabled: PropTypes.bool,
     /* Is signature mandatory in form context */
     required: PropTypes.bool,
-    /* Is the signature pad direction rtl or ltr */
+    /* Is the signature pad direction set to rtl or to ltr */
     direction: PropTypes.oneOf<'rtl' | 'ltr'>(['rtl', 'ltr']),
     /* Callback to get an instance of the canvas HTML element instance */
     canvasRef: PropTypes.func,
