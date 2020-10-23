@@ -11,6 +11,23 @@ const mockTestkit = (base: UniDriver) => {
   };
 };
 
+const mockHtml = `
+<html>
+  <body>
+    <div data-hook="dataHook">content</div>
+  </body>
+</html>
+`.trim();
+
+const mockNestedHtml = `
+  <html>
+    <body>
+      <div data-hook="dataHook">fake content</div>
+      <div data-hook="wrapper"><div data-hook="dataHook">real content</div></div>
+    </body>
+  </html>
+`.trim();
+
 describe('puppeteerUniTestkitFactoryCreator', () => {
   let browser: puppeteer.Browser, page: puppeteer.Page;
   beforeAll(async () => {
@@ -23,13 +40,7 @@ describe('puppeteerUniTestkitFactoryCreator', () => {
   });
 
   it('should return testkit factory which returns testkit instance', async () => {
-    page.setContent(`
-<html>
-<body>
-<div data-hook="dataHook">content</div>
-</body>
-</html>
-                    `);
+    page.setContent(mockHtml);
     const testkitFactory = makeTestkit(mockTestkit);
     const testkit = await testkitFactory({
       page,
@@ -49,16 +60,7 @@ describe('puppeteerUniTestkitFactoryCreator', () => {
 
   describe('`wrappper`', () => {
     it('should return testkit factory which returns testkit instance', async () => {
-      page.setContent(`
-<html>
-<body>
-  <div data-hook="dataHook">fake content</div>
-  <div data-hook="wrapper">
-    <div data-hook="dataHook">real content</div>
-  </div>
-</body>
-</html>
-                    `);
+      page.setContent(mockNestedHtml);
       const testkitFactory = makeTestkit(mockTestkit);
       const testkit = await testkitFactory({
         page,
