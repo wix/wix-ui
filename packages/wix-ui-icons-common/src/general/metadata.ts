@@ -4,6 +4,13 @@ export const deprecatedGeneralIcons: Array<string> = ["FilterSmall"];
 
 const generalIconsMetadata: Array<IconMetadata> = [
   {
+    title: "Integrations",
+    category: "General",
+    description: "Button - opens integrations list",
+    tags: ["connect", "manage", "plugin", "app"], 
+    sizes: { "18": "IntegrationsSmall", "24": "Integrations" },
+  },
+  {
     title: "Compose",
     category: "Actions",
     description: "Button - opens message or text composing dialogue",
