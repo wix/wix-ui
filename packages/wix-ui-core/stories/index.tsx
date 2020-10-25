@@ -90,4 +90,7 @@ Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'ColorInvalid', () => (
 Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Disabled', () => (
   <SignatureInputTestFixture disabled />
 ));
+Tests.add(SIGNATURE_INPUT_METADATA.displayName + 'Rtl', () => (
+  <SignatureInputTestFixture direction="rtl" />
+));
 import '../src/components/ellipsis-tooltip/tests/EllipsisTooltipTests';
