@@ -38,7 +38,11 @@ export function puppeteerUniTestkitFactoryCreator<T extends BaseUniDriver>(
     const page = obj.page;
 
     const base = element
-      ? pupUniDriver(async () => ({element, page, selector}))
+      ? pupUniDriver(async () => ({
+          element: await element.$(selector),
+          page,
+          selector
+        }))
       : pupUniDriver({page, selector});
 
     const body = pupUniDriver({page: obj.page, selector: 'body'});

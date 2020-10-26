@@ -7,7 +7,8 @@ import {baseUniDriverFactory} from '../src/base-driver';
 const mockTestkit = (base: UniDriver) => {
   return {
     ...baseUniDriverFactory(base),
-    text: () => base.text()
+    text: () => base.text(),
+    getTestAttr: () => base.attr('data-test')
   };
 };
 
@@ -23,7 +24,13 @@ const mockNestedHtml = `
   <html>
     <body>
       <div data-hook="dataHook">fake content</div>
-      <div data-hook="wrapper"><div data-hook="dataHook">real content</div></div>
+      <div data-hook="wrapper">
+        <div data-test="skip-me">
+          <div data-test="find-me" data-hook="dataHook">
+            real content
+          </div>
+        </div>
+      </div>
     </body>
   </html>
 `.trim();
@@ -36,7 +43,7 @@ describe('puppeteerUniTestkitFactoryCreator', () => {
   });
 
   afterAll(async () => {
-    browser.close();
+    await browser.close();
   });
 
   it('should return testkit factory which returns testkit instance', async () => {
@@ -69,6 +76,7 @@ describe('puppeteerUniTestkitFactoryCreator', () => {
       });
 
       expect((await testkit.text()).trim()).toEqual('real content');
+      expect(await testkit.getTestAttr()).toEqual('find-me');
     });
   });
 });
