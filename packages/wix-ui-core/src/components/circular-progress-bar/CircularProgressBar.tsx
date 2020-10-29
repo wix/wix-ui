@@ -74,15 +74,13 @@ const renderArcs = (props: CircularProgressBarProps) => {
         strokeWidth={4}
         size={normalizedSize}
       />
-      {normalizedValue && (
-        <Arc
-          data-hook={dataHooks.progressArcForeground}
-          value={normalizedValue}
-          className={classes.foreArc}
-          strokeWidth={4}
-          size={normalizedSize}
-        />
-      )}
+      <Arc
+        data-hook={dataHooks.progressArcForeground}
+        value={normalizedValue}
+        className={classes.foreArc}
+        strokeWidth={4}
+        size={normalizedSize}
+      />
     </div>
   );
 };
