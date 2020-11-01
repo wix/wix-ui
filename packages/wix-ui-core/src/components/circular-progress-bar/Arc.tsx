@@ -23,7 +23,7 @@ export const Arc: React.FunctionComponent<ArcProps> = (props: ArcProps) => {
 
   return (
     <svg className={className} width={size} height={size} viewBox={viewBox}>
-      <path d={d} strokeWidth={strokeWidth} />
+      <path d={d} strokeWidth={value !== 0 ? strokeWidth : 0} />
     </svg>
   );
 };
