@@ -210,6 +210,7 @@ export class InputWithOptions extends React.PureComponent<
     const { onContentMouseDown } = this.props;
     this.isEditing = false;
     onContentMouseDown && onContentMouseDown(e);
+    e.preventDefault(); // Prevent input blur
   };
 
   render() {
