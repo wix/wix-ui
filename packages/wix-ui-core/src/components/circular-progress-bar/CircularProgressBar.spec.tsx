@@ -242,7 +242,7 @@ describe('CircularProgressBar', () => {
     describe('label', () => {
       it('should display label when received', async () => {
         const props = {
-          label: 'Label',
+          label: 'custom label',
         }
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isLabelDisplayed()).toBe(true);
@@ -261,7 +261,7 @@ describe('CircularProgressBar', () => {
         const props = {
           showProgressIndication: true,
           value: 40,
-          label: 'Label',
+          label: 'custom label',
         }
         const driver = await render(createCircularProgressBar(props));
         expect(await driver.isPercentagesProgressDisplayed()).toBe(false);
