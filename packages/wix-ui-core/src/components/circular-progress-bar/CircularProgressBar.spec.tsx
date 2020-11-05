@@ -254,7 +254,7 @@ describe('CircularProgressBar', () => {
           label,
         }
         const driver = await render(createCircularProgressBar(props));
-        expect(await driver.getTextContent()).toEqual(label);
+        expect(await driver.getLabelTextContent()).toEqual(label);
       });
 
       it('should not display progress inidicator when received label', async () => {
