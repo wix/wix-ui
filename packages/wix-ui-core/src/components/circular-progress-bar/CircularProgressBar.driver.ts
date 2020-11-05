@@ -13,7 +13,11 @@ export interface CircularProgressBarDriver extends BaseDriver {
   isErrorIconDisplayed(): boolean;
   /** Returns boolean that indicates if the progress percentages text exists */
   isPercentagesProgressDisplayed(): boolean;
-  /** Get the progress percentages value */
+  /** Returns boolean that indicates if the label text exists */
+  isLabelDisplayed(): boolean;
+  /** Get the text content displayed */
+  getLabelTextContent(): string;
+  /** Get the progress percentages value */  
   getValue(): string;
   /** Returms true if has progress completed (value is 100) */
   isCompleted(): boolean;
@@ -30,11 +34,15 @@ export const circularProgressBarDriverFactory: DriverFactory<CircularProgressBar
     element.querySelector(`[data-hook="${dataHook}"]`);
   const getValue = () =>
     !element ? null : getElement('progress-indicator').innerHTML;
+  const getByLabelText = () => 
+    !element ? null : getElement('label').innerHTML;
 
   const driver = {
     exists: () => !!element,
     isSuccessIconDisplayed: () => !!getElement('success-icon'),
     isErrorIconDisplayed: () => !!getElement('error-icon'),
+    getLabelTextContent: () => getByLabelText(),
+    isLabelDisplayed: () => !!getElement('label'),
     isPercentagesProgressDisplayed: () => !!getElement('progress-indicator'),
     getValue: () => getValue(),
     isCompleted: () => getValue() === '100',

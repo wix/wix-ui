@@ -12,6 +12,10 @@ export interface CircularProgressBarUniDriver extends BaseUniDriver {
   isErrorIconDisplayed(): Promise<boolean>;
   /** Returns boolean that indicates if the progress percentages text exists */
   isPercentagesProgressDisplayed(): Promise<boolean>;
+  /** Returns boolean that indicates if the label text exists */
+  isLabelDisplayed(): Promise<boolean>;
+  /** Get the text content displayed */
+  getLabelTextContent(): Promise<string>;
   /** Get the progress percentages value */
   getValue(): Promise<string>;
   /** Returns true if has progress completed (value is 100) */
@@ -39,6 +43,10 @@ export const circularProgressBarUniDriverFactory = (
       base.$(byDataHook(dataHooks.successIcon)).exists(),
     isErrorIconDisplayed: () =>
       base.$(byDataHook(dataHooks.errorIcon)).exists(),
+    isLabelDisplayed: () =>
+      base.$(byDataHook(dataHooks.label)).exists(),
+      getLabelTextContent: () =>
+      base.$(byDataHook(dataHooks.label)).text(),
     isPercentagesProgressDisplayed: () =>
       base.$(byDataHook(dataHooks.progressIndicator)).exists(),
     getValue: () => getValue(),

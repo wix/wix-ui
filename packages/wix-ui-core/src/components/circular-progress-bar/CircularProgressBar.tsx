@@ -17,6 +17,8 @@ export interface CircularProgressBarProps {
   errorIcon?: JSX.Element;
   /** an indication icon (any react component) that will be presented when 'showProgressIndication' are set to true and 'value' is 100 */
   successIcon?: JSX.Element;
+  /** custom text to display. will replace the progress indication if provided */
+  label?: string;
   /** circle size in pixels */
   size?: number | string;
   /** hook for testing purposes */
@@ -102,13 +104,15 @@ const normalizeProps = (props: CircularProgressBarProps) => {
 export const CircularProgressBar: React.FunctionComponent<CircularProgressBarProps> = (
   props: CircularProgressBarProps,
 ) => {
-  const { error, showProgressIndication } = props;
+  const { label, error, showProgressIndication } = props;
   const _props = normalizeProps(props);
   const success = _props.value === FULL_PROGRESS;
   const value =
     error && _props.errorLabel
       ? _props.errorLabel
       : `${Math.floor(_props.value)}%`;
+
+  const shouldShowProgressIndication = showProgressIndication && !label;
   return (
     <div
       className={st(classes.root, { error, success }, _props.className)}
@@ -116,7 +120,15 @@ export const CircularProgressBar: React.FunctionComponent<CircularProgressBarPro
       {...filterDataProps(props)}
     >
       {renderArcs(_props)}
-      {showProgressIndication && (
+      {label && (
+        <div
+          data-hook={dataHooks.label}
+          className={classes.label}
+        >
+          {label}
+        </div>
+      )}
+      {shouldShowProgressIndication && (
         <div
           data-hook={dataHooks.progressIndicator}
           className={classes.progressIndicator}
