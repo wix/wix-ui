@@ -5,7 +5,6 @@ import {
 } from 'wix-ui-test-utils/driver-factory';
 import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import * as style from './CircularProgressBar.st.css';
-import { getByLabelText } from 'react-testing-library';
 
 export interface CircularProgressBarDriver extends BaseDriver {
   /** Returns boolean that indicates if the success icon exists */
