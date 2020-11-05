@@ -121,7 +121,7 @@ export class Autocomplete extends React.PureComponent<
   };
 
   _handleContentMouseDown(e) {
-    // e.preventDefault(); // Prevent input blur
+    e.preventDefault(); // Prevent input blur from stopping click event
   }
 
   render() {
