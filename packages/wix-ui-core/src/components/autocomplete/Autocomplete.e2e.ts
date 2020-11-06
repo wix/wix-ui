@@ -50,4 +50,18 @@ describe('Autocomplete', () => {
 
     expect(driver.getText()).toBe('value1');
   });
+
+  eyes.it('should choose one of filtered autocomplete items', async () => {
+    const driver = autocompleteTestkitFactory({ dataHook });
+    await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
+
+    driver.focus();
+    driver.enterText('value');
+    driver
+      .dropdownContent()
+      .optionAt(1)
+      .click();
+
+    expect(driver.getText()).toBe('value1');
+  });
 });
