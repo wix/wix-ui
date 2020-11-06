@@ -1,6 +1,6 @@
 # `wuf generate`
 
-Command used to scaffold components and integrate them in existing component library codebase.
+`wuf generate` command is used to scaffold components and integrate them in existing library codebase.
 
 ```md
 Usage: generate [options]
@@ -33,10 +33,9 @@ but very error-prone.
 
 ## `--templates`
 
-For `wuf generate` to scaffold a new component, an existing template is
-required. How else would it know what to generate?
+`wuf generate` requires a template to scaffold new components.
 
-Templates are any files and/or folders require for component.
+A template is simply one or more files or folders.
 
 For example, a `<DatePicker/>` component structure might look like so:
 
@@ -54,11 +53,12 @@ For example, a `<DatePicker/>` component structure might look like so:
         └── date_picker_visual.js
 ```
 
-Just for illustration puproses, file names are not following strict
-convention and have different casing. Namely PascalCase, kebab-case &
-snake_case.
+Just for illustration puproses, file names have different casing. Namely
+PascalCase, kebab-case & snake_case.
 
-**Template** folder structure for the above could be:
+## Using file name variables in templates
+
+**Template** folder structure for the above would be:
 
 ```
 .
@@ -74,14 +74,13 @@ snake_case.
         └── $component_name_visual.js
 ```
 
-Let's leverage `--template` flag:
+Let's run the following command:
 
-`wuf generate --templates .wuf/generator/templates --output src`
+```
+wuf generate --componentName MyAwesomeComponent --templates .wuf/generator/templates --output src
+```
 
-running this will yield a prompt asking for component name. Let's say we
-typed `MyAwesomeComponent` in that prompt.
-
-The resulting generated files will look as you might expect:
+The generated files will look like so:
 
 ```
 .
@@ -95,6 +94,45 @@ The resulting generated files will look as you might expect:
         ├── my_awesome_component_e2e.js
         ├── my_awesome_component_unit.js
         └── my_awesome_component_visual.js
+```
+
+You can see the usage of variables in file/folder names. Variable format decides the output:
+
+* `$ComponentName` -> `MyAwesomeComponent`
+* `$componentName` -> `myAwesomeComponent`
+* `$component-name` -> `my-awesome-component`
+* `$component-name` -> `my_awesome_component`
+
+any other symbols will be left unchanged, for example:
+
+* `$ComponentNameTest.js` -> `MyAwesomeComponentTest.js`
+* `$component_name_visual.test.js` -> `my_awesome_component_visual.test.js`
+* etc.
+
+## Using EJS in template files
+
+[EJS](https://ejs.co/) is supported in all template files, for example:
+
+```js
+<% const script = 'script' %>
+This is template file of <%= ComponentName %>
+It supports <%= `java${script}` %> and includes utilities:
+<% Object.keys(utils).forEach(util => { %>* <%= util %>
+<% }) %>
+It means you can turn <%= utils.toKebab('aCamelIntoKebab') %>
+```
+
+The template above would be generated into (assuming `--component-name` is `MyAwesomeComponent`):
+
+```
+This is template file of MyAwesomeComponent
+It supports javascript and includes utilities:
+* toCamel
+* toKebab
+* toSnake
+* toPascal
+
+It means you can turn a-camel-into-kebab
 ```
 
 ---
