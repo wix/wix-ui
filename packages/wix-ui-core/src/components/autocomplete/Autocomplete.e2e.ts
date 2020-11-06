@@ -55,13 +55,13 @@ describe('Autocomplete', () => {
     const driver = autocompleteTestkitFactory({ dataHook });
     await waitForVisibilityOf(driver.element(), 'Cannot find Autocomplete');
 
-    driver.focus();
-    driver.enterText('value');
-    driver
+    await driver.focus();
+    await driver.enterText('value');
+    await driver
       .dropdownContent()
-      .optionAt(1)
+      .optionAt(0)
       .click();
 
-    expect(driver.getText()).toBe('value1');
+    expect(await driver.getText()).toBe('value0');
   });
 });
