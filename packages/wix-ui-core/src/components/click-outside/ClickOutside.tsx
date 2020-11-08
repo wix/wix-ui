@@ -109,7 +109,7 @@ export class ClickOutside extends React.PureComponent<ClickOutsideProps> {
    */
   _onClickOutside = event => {
     const { onClickOutside } = this.props;
-    if (!this._isInsideClick(event)) {
+    if (typeof onClickOutside === 'function' && !this._isInsideClick(event)) {
       onClickOutside(event);
     }
   };
