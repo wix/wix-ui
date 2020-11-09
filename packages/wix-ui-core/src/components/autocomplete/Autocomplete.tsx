@@ -120,6 +120,10 @@ export class Autocomplete extends React.PureComponent<
     }
   };
 
+  _handleContentMouseDown(e) {
+    e.preventDefault(); // Prevent input blur from stopping click event
+  }
+
   render() {
     const {
       options,
@@ -148,6 +152,7 @@ export class Autocomplete extends React.PureComponent<
         options={options}
         inputProps={inputProps}
         id={inputId ? inputId : null}
+        onContentMouseDown={this._handleContentMouseDown}
         {...filterDataProps(this.props)}
       />
     );
