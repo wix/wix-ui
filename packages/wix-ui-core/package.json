@@ -82,7 +82,7 @@
     "update-components-standalone": "bash .wuf/update-components-standalone.sh"
   },
   "dependencies": {
-    "@loadable/component": "5.13.1",
+    "@loadable/component": "^5.14.1",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
     "grapheme-splitter": "^1.0.4",
