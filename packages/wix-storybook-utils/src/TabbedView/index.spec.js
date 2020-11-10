@@ -35,6 +35,7 @@ describe('TabbedView', () => {
     driver.mount(activeTabId, tabs);
     expect(driver.getChildById(firstTabId).exists()).toBe(false);
     expect(driver.getChildById(activeTabId).exists()).toBe(true);
+    expect(false).toEqual(true);
   });
 
   it('should be case insensitive for activeTabId', () => {
