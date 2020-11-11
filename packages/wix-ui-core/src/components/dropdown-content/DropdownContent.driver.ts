@@ -19,5 +19,7 @@ export const dropdownContentDriverFactory = ({ element, eventTrigger }) => {
     triggerMouseDown: () => {
       return eventTrigger.mouseDown(element);
     },
+    getContainerScrollPosition: (containerId: string) =>
+      element.querySelector(`#${containerId}`).scrollTop,
   };
 };

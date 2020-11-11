@@ -57,10 +57,25 @@ export class DropdownContent extends React.PureComponent<
   state = { hoveredIndex: NOT_HOVERED_INDEX };
 
   componentDidMount() {
-    if (this.optionsContainerRef && this.props.selectedIds.length) {
-      const selectedIndex = this.props.options.findIndex((option) => option.id === this.props.selectedIds[0]);
-      const selectedOption = this.optionsContainerRef.childNodes[selectedIndex] as HTMLElement;
-      selectedOption.scrollIntoView({ block: 'center' });
+    if (this.props.selectedIds.length) {
+      const selectedIndex = this.props.options.findIndex(
+        option => option.id === this.props.selectedIds[0],
+      );
+      const selectedOption = this.optionsContainerRef.childNodes[
+        selectedIndex
+      ] as HTMLElement;
+      const parentRect = this.optionsContainerRef.getBoundingClientRect();
+      const selectedRect = selectedOption.getBoundingClientRect();
+
+      if (selectedRect.bottom > parentRect.bottom) {
+        this.optionsContainerRef.scrollTop = Math.min(
+          selectedOption.offsetTop +
+            selectedOption.clientHeight / 2 -
+            this.optionsContainerRef.offsetHeight / 2,
+          this.optionsContainerRef.scrollHeight,
+        );
+      }
+
       this.setHoveredIndex(selectedIndex);
     }
   }
