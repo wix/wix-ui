@@ -27,6 +27,7 @@ src/index.ts
 !wallaby.js
 !protractor.conf.js
 !hocs.js
+!hocs.es.js
 !perfer.config.js
 /index.st.css
 /index.es.st.css
