@@ -28,6 +28,6 @@ src/index.ts
 !protractor.conf.js
 !hocs.js
 !perfer.config.js
-index.st.css
-index.es.st.css
+/index.st.css
+/index.es.st.css
 hocs.st.css

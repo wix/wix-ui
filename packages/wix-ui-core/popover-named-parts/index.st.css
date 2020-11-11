@@ -1,0 +1,8 @@
+:import {
+  -st-from: "../dist/src/components/popover/Popover.st.css";
+  -st-named: popoverContent, arrow, withArrow;
+}
+
+.root popoverContent{};
+.root arrow{};
+.root withArrow{};

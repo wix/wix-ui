@@ -1,0 +1,9 @@
+{
+  "name": "hocs",
+  "main": "../hocs.js",
+  "module": "../hocs.es.js",
+  "browser": {
+    "./index.st.css": "../hocs.es.st.css",
+    "./index.js": "../dist/es/src/index.js"
+  }
+}

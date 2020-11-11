@@ -1,0 +1,6 @@
+{
+  "name": "popover-named-parts",
+  "browser": {
+    "./index.st.css": "./index.es.st.css"
+  }
+}
