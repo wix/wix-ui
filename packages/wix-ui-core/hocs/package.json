@@ -3,7 +3,7 @@
   "main": "../hocs.js",
   "module": "../hocs.es.js",
   "browser": {
-    "./index.st.css": "../hocs.es.st.css",
+    "./index.st.css": "./index.es.st.css",
     "./index.js": "../hocs.es.js"
   }
 }
