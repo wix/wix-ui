@@ -1,9 +1,3 @@
 
 :import {-st-from: "../dist/src/hocs/Focusable/Focusable.st.css";-st-default:Focusable;}
 .root Focusable{}
-:import {-st-from: "../dist/src/hocs/Focusable/FocusableMixins.st.css";-st-default:FocusableMixins;}
-.root FocusableMixins{}
-:import {-st-from: "../dist/src/hocs/EllipsedTooltip/EllipsedTooltip.st.css";-st-default:EllipsedTooltip;}
-.root EllipsedTooltip{}
-:import {-st-from: "../dist/src/hocs/EllipsedTooltip/Text.st.css";-st-default:Text;}
-.root Text{}
