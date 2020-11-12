@@ -34,9 +34,8 @@
     "index.es.st.css",
     "hocs.st.css",
     "hocs.es.st.css",
-    "hocs.js",
     "hocs",
-    "stylable-named-parts",
+    "popover-named-parts",
     "themes",
     "drivers",
     "drivers-standalone"
