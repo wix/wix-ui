@@ -35,7 +35,7 @@
     "hocs.st.css",
     "hocs.es.st.css",
     "hocs",
-    "popover-named-parts",
+    "popover-proxy",
     "themes",
     "drivers",
     "drivers-standalone"
