@@ -143,6 +143,29 @@ describe('Dropdown', () => {
       expect(onSelect).toHaveBeenCalledTimes(1);
     });
 
+    it('should not be called after Tab key press', () => {
+      const onSelect = jest.fn();
+      const dropdown = (
+        <Dropdown
+          placement="top"
+          initialSelectedIds={[]}
+          onDeselect={() => null}
+          onSelect={onSelect}
+          onInitialSelectedOptionsSet={() => null}
+          openTrigger={CLICK}
+          options={options}
+        >
+          <input data-hook="open-dropdown-input" />
+        </Dropdown>
+      );
+
+      const driver = createDriver(dropdown);
+
+      driver.click();
+      Simulate.keyDown(driver.getTargetElement(), { key: 'Tab' });
+      expect(onSelect).toHaveBeenCalledTimes(0);
+    });
+
     it('should be called when re-selecting a selected item when opted-in', () => {
       const onSelect = jest.fn();
       const driver = createDriver(
