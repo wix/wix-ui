@@ -1,6 +1,0 @@
-{
-  "name": "popover-proxy",
-  "browser": {
-    "./index.st.css": "./index.es.st.css"
-  }
-}
