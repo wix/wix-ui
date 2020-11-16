@@ -1,4 +1,24 @@
 const execa = require('execa');
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
+
+
+const appendFile = util.promisify(fs.appendFileSync);
+
+const addPopoverInternalParts = ({entryFile}) => {
+  const popoverInternalParts = (isEs) => `
+:import {-st-from: "./dist/${isEs ? 'es/' : ''}src/components/popover/Popover.st.css";-st-named: arrow as Popover_arrow, withArrow as  as Popover_withArrow, popoverContent as Popover_popoverContent;}
+.root .Popover_arrow {}
+.root .Popover_withArrow {}
+.root .Popover_popoverContent {}
+`;
+
+  return Promise.all([
+    appendFile(path.resolve(`${entryFile}.st.css`), popoverInternalParts()),
+    appendFile(path.resolve(`${entryFile}.es.st.css`), popoverInternalParts(true))
+  ])
+}
 
 
 module.exports = function({folder, entryFile}) {  
@@ -25,5 +45,5 @@ module.exports = function({folder, entryFile}) {
 
  
 
-  return Promise.all([patchCJS, patchES, entryFileCJS, entryFileES]);
+  return Promise.all([patchCJS, patchES, entryFileCJS, entryFileES]).then(() => addPopoverInternalParts({entryFile}))
 };
