@@ -14,6 +14,7 @@
     "dist",
     "system",
     "*.js",
+    "*.d.ts",
     "*.svg",
     "!wallaby.js",
     "!protractor.conf.js"
