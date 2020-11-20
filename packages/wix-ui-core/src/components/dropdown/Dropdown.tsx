@@ -213,11 +213,7 @@ export class DropdownComponent extends React.PureComponent<
           }
           break;
         }
-        case 'Tab': {
-          this.onKeyboardSelect();
-          this.close();
-          break;
-        }
+        case 'Tab':
         case 'Escape': {
           this.close();
           break;
