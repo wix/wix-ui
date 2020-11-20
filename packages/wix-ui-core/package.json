@@ -54,7 +54,7 @@
     "test:watch": "yoshi test --jest --watch",
     "test:unit": "yoshi test --jest && wix-ui-mocha-runner",
     "test:visual": "eyes-storybook -c ./.storybook/visual",
-    "test:e2e": "yoshi test --protractor",
+    "test:e2e": "#",
     "test:performance": "npm run bundles:generate && npm install --no-save @wix/perfer && perfer --verbose",
     "sanity": "autotools-sanity",
     "a11y": "autotools-a11y",
