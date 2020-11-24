@@ -5,10 +5,6 @@
   "version": "3.0.0",
   "main": "./dist/src/index.js",
   "module": "./dist/es/src/index.js",
-  "browser": {
-    "./index.st.css": "./index.es.st.css",
-    "./index.js": "./dist/es/src/index.js"
-  },
   "stylable": {
     "manifest": "./dist/standalone/src/stylable.manifest.json"
   },
