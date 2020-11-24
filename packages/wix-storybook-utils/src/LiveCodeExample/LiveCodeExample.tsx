@@ -75,6 +75,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     darkBackground: false,
     noBackground: false,
     onChange: () => {},
+    scope: {},
   };
 
   constructor(props: Props) {
@@ -98,9 +99,12 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
+    const { renderPreview } = this.state;
+
     if (
       this.props.previewWarning !== prevProps.previewWarning &&
-      typeof prevProps.previewWarning === 'function'
+      typeof prevProps.previewWarning === 'function' &&
+        renderPreview
     ) {
       this.setState({ renderPreview: false });
     }
@@ -165,14 +169,22 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     }));
 
   transformCode = (code = '') => {
+    const { parseError } = this.state;
+    let newParseError;
+    let returnValue = code;
+
     try {
-      const transformed = transformCode(code);
-      this.setState({ parseError: null });
-      return transformed;
+      returnValue = transformCode(code);
+      newParseError = null;
     } catch (error) {
-      this.setState({ parseError: error.message });
-      return code;
+      newParseError = error.message;
     }
+
+    if (newParseError !== parseError) {
+      this.setState({ parseError: newParseError });
+    }
+
+    return returnValue;
   };
 
   previewWarning = () =>
@@ -194,6 +206,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
   render() {
     const {
+      scope,
       compact,
       previewRow,
       previewProps,
@@ -268,7 +281,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
         <LiveProvider
           code={code.trim()}
-          scope={{ isRtl, ...this.props.scope }}
+          scope={{ isRtl, ...scope }}
           noInline={!autoRender}
           transformCode={this.transformCode}
         >
