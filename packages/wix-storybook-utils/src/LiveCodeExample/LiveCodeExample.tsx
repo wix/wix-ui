@@ -268,7 +268,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
 
         <LiveProvider
           code={code.trim()}
-          scope={this.props.scope}
+          scope={{ ...this.props.scope, isRtl }}
           noInline={!autoRender}
           transformCode={this.transformCode}
         >
