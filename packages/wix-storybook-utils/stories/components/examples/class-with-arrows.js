@@ -31,6 +31,7 @@ class Component extends React.Component {
   render() {
     return (
       <div>
+          <span style={{color: 'white'}}>Direction is {isRtl ? 'rtl' : 'ltr'}</span><br />
         <input value={this.state.value} onChange={this.onChange} />
       </div>
     );
