@@ -158,11 +158,16 @@ const getArrowShift = (shift: number | undefined, direction: string) => {
     return {};
   }
 
-  return {
-    [direction === 'top' || direction === 'bottom'
-      ? 'left'
-      : 'top']: `${shift}px`,
-  };
+  if (direction.startsWith('top') || direction.startsWith('bottom')) {
+    return { left: `${shift}px` };
+  }
+
+  if (direction.startsWith('left') || direction.startsWith('right')) {
+    return { top: `${shift}px` };
+  }
+
+  // Arrow can't be shifted when using automatic positioning
+  return {};
 };
 
 /**
