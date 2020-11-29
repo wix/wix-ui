@@ -10,13 +10,13 @@ import {UniDriver} from '@unidriver/core';
 import {jsdomReactUniDriver} from '@unidriver/jsdom-react';
 
 export interface TestkitArgs {
-  wrapper: HTMLElement;
+  wrapper: Element;
   dataHook: string;
 }
 
 export type TestkitOutputRegular<T extends BaseDriver> = (data: {
   element: Element | undefined;
-  wrapper: HTMLElement;
+  wrapper: Element;
   eventTrigger: typeof Simulate;
   dataHook: string;
 }) => T;
@@ -28,7 +28,7 @@ export type TestkitOutputUni<T extends BaseUniDriver> = (
 ) => T;
 
 const getElement = ({wrapper, dataHook}: TestkitArgs) => {
-  const domInstance = ReactDom.findDOMNode(wrapper) as HTMLElement;
+  const domInstance = ReactDom.findDOMNode(wrapper) as Element;
 
   if (domInstance) {
     const dataHookOnInstance = domInstance.attributes.getNamedItem(
