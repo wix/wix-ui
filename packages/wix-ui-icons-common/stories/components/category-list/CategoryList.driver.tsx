@@ -1,22 +1,22 @@
 import { fireEvent, createEvent } from "@testing-library/react";
 import dataHooks from "../../dataHooks";
 
-const getAllByDataHook = (baseElement: HTMLElement, dataHook: string) =>
+const getAllByDataHook = (baseElement: Element, dataHook: string) =>
   baseElement.querySelectorAll(`[data-hook="${dataHook}"]`);
 
-const getByDataHook = (baseElement: HTMLElement, dataHook: string) =>
+const getByDataHook = (baseElement: Element, dataHook: string) =>
   baseElement.querySelector(`[data-hook="${dataHook}"]`);
 
-const getSearchInput = (baseElement: HTMLElement) =>
+const getSearchInput = (baseElement: Element) =>
   getByDataHook(baseElement, dataHooks.categorySearchInput) as HTMLInputElement;
 
-const getCategoryRows = (baseElement: HTMLElement) =>
+const getCategoryRows = (baseElement: Element) =>
   getAllByDataHook(baseElement, dataHooks.categoryTableCell);
 
 export default class CategoryListDriver {
-  baseElement: HTMLElement;
+  baseElement: Element;
 
-  constructor(baseElement: HTMLElement) {
+  constructor(baseElement: Element) {
     this.baseElement = baseElement;
   }
 
