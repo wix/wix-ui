@@ -10,7 +10,7 @@ const appendFile = util.promisify(fs.appendFileSync);
  */
 const addPopoverInternalParts = ({entryFile}) => {
   const popoverInternalParts = (isEs) => `
-  :import {-st-from: "./dist/${isEs ? 'es/' : ''}src/components/popover/Popover.st.css";-st-named: arrow as Popover_arrow, withArrow as  as Popover_withArrow, popoverContent as Popover_popoverContent;}
+  :import {-st-from: "./dist/${isEs ? 'es/' : ''}src/components/popover/Popover.st.css";-st-named: arrow as Popover_arrow, withArrow as Popover_withArrow, popoverContent as Popover_popoverContent;}
   .root .Popover_arrow {}
   .root .Popover_withArrow {}
   .root .Popover_popoverContent {}
