@@ -309,6 +309,20 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "ContentFilterSmall", "24": "ContentFilter" },
   },
   {
+    title: "Enter",
+    category: "Actions",
+    description: "Button - opens login form",
+    tags: ["login"],
+    sizes: { "18": "EnterSmall", "24": "Enter" },
+  },
+    {
+    title: "Exit",
+    category: "Actions",
+    description: "Button - logs user out of the application or certain screen",
+    tags: ["logout", "leave"],
+    sizes: { "18": "ExitSmall", "24": "Exit" },
+  },
+  {
     title: "Settings",
     category: "General",
     description: "Button - opens settings for an item or content",
@@ -576,6 +590,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Button – Sets the view to desktop layout",
     tags: [],
     sizes: { "18": "DesktopSmall", "24": "Desktop" },
+  },
+  {
+    title: "DesktopDisabled",
+    category: "General",
+    description: "Button - Stops screen sharing|\nStatic Indicator - shows that screen sharing is disabled",
+    tags: ["screen share", "stop"],
+    sizes: { "18": "DesktopDisabledSmall", "24": "DesktopDisabled" },
   },
   {
     title: "Public",
@@ -1217,6 +1238,14 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "VideoCameraSmall", "24": "VideoCamera" },
   },
   {
+    title: "VideoCameraDisabled",
+    category: "Media",
+    description:
+      "Button - enables users' camera\nStatic Indicator - indicates that users' camera is disabled",
+    tags: ["live", "record", "stop"],
+    sizes: { "18": "VideoCameraDisabledSmall", "24": "VideoCameraDisabled" },
+  },
+  {
     title: "Music",
     category: "Media",
     description: "Static indicator - marks audio files",
@@ -1293,6 +1322,34 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Button - captures a photo",
     tags: ["photo", "selfie"],
     sizes: { "18": "PhotoCameraSmall", "24": "PhotoCamera" },
+  },
+  {
+    title: "FullScreen",
+    category: "Media",
+    description: "Button - expands video player or application to full-screen view",
+    tags: ["video", "maximize", "expand"],
+    sizes: { "18": "FullScreenSmall", "24": "FullScreen" },
+  },
+  {
+    title: "ExitFullScreen",
+    category: "Media",
+    description: "Button - contracts video or application to regular view",
+    tags: ["video", "minimize"],
+    sizes: { "18": "ExitFullScreenSmall", "24": "ExitFullScreen" },
+  },
+  {
+    title: "Microphone",
+    category: "Media",
+    description: "Button - mutes microphone\nStatic Indicator - indicates that the users' microphone is active",
+    tags: ["voice", "mute", "speach"],
+    sizes: { "18": "MicrophoneSmall", "24": "Microphone" },
+  },
+  {
+    title: "MicrophoneDisabled",
+    category: "Media",
+    description: "Button - unmutes microphone\nStatic Indicator - indicates that users' microphone is muted",
+    tags: ["voice", "mute", "speach", "stop"],
+    sizes: { "18": "MicrophoneDisabledSmall", "24": "MicrophoneDisabled" },
   },
   {
     title: "CutOut",
