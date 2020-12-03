@@ -55,6 +55,43 @@ describe('DropdownContent', () => {
       expect(onOptionClick).not.toHaveBeenCalled();
     });
 
+    it('should not scroll to first selected option on open if it is already in view', () => {
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          selectedIds: [1, 18],
+          optionsContainerId: 'container',
+        }),
+      );
+
+      expect(driver.getContainerScrollPosition('container')).toBe(0);
+    });
+
+    // Skipping this test since in JSDOM the scroll position is always 0, the test only passes in Mocha
+    xit('should scroll to first selected option on open if it is not in view', async () => {
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          selectedIds: [16],
+          optionsContainerId: 'container',
+        }),
+      );
+
+      expect(driver.getContainerScrollPosition('container')).toBe(83);
+    });
+
+    it('should focus on first selected option on open', () => {
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          selectedIds: [15, 16],
+          optionsContainerId: 'container',
+        }),
+      );
+
+      expect(driver.optionAt(15).isHovered()).toBe(true);
+    });
+
     it('should trigger an onMouseDown event', () => {
       const onMouseDown = jest.fn();
       const driver = createDriver(
