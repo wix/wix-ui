@@ -7,3 +7,7 @@
 .root EllipsedTooltip{}
 :import {-st-from: "./dist/src/hocs/EllipsedTooltip/Text.st.css";-st-default:Text;}
 .root Text{}
+:import {-st-from: "./dist/src/components/popover/Popover.st.css";-st-named: arrow as Popover_arrow, withArrow as Popover_withArrow, popoverContent as Popover_popoverContent;}
+.root .Popover_arrow {}
+.root .Popover_withArrow {}
+.root .Popover_popoverContent {}
