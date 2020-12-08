@@ -45,7 +45,7 @@ module.exports = function({folder, entryFile}) {
   }
 
   return Promise.all([patchCJS, patchES, entryFileCJS, entryFileES]).then(() => {
-    if(entryFile) {
+    if(entryFile === 'index') {
       return addPopoverInternalParts({entryFile})
     }
   })
