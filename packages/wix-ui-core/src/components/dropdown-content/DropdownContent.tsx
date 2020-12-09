@@ -64,19 +64,22 @@ export class DropdownContent extends React.PureComponent<
       const selectedOption = this.optionsContainerRef.childNodes[
         selectedIndex
       ] as HTMLElement;
-      const parentRect = this.optionsContainerRef.getBoundingClientRect();
-      const selectedRect = selectedOption.getBoundingClientRect();
 
-      if (selectedRect.bottom > parentRect.bottom) {
-        this.optionsContainerRef.scrollTop = Math.min(
-          selectedOption.offsetTop +
-            selectedOption.clientHeight / 2 -
-            this.optionsContainerRef.offsetHeight / 2,
-          this.optionsContainerRef.scrollHeight,
-        );
+      if (selectedOption) {
+        const parentRect = this.optionsContainerRef.getBoundingClientRect();
+        const selectedRect = selectedOption.getBoundingClientRect();
+  
+        if (selectedRect.bottom > parentRect.bottom) {
+          this.optionsContainerRef.scrollTop = Math.min(
+            selectedOption.offsetTop +
+              selectedOption.clientHeight / 2 -
+              this.optionsContainerRef.offsetHeight / 2,
+            this.optionsContainerRef.scrollHeight,
+          );
+        }
+  
+        this.setHoveredIndex(selectedIndex);
       }
-
-      this.setHoveredIndex(selectedIndex);
     }
   }
 
