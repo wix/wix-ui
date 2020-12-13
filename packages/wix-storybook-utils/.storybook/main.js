@@ -8,8 +8,8 @@ const testkitsWarning = `
 > I am a testkit warning and have a <a href="/?selectedKind=Test&selectedStory=Empty">link</a>.
 `;
 
-module.exports = ({ config }) => {
-  const newConfig = wixStorybookConfig(config);
+const configWebpack = baseConfig => {
+  const newConfig = wixStorybookConfig(baseConfig);
 
   newConfig.resolve.alias = {
     ...newConfig.resolve.alias,
@@ -44,4 +44,9 @@ module.exports = ({ config }) => {
   });
 
   return newConfig;
+};
+
+module.exports = {
+  webpackFinal: configWebpack,
+  stories: ['../stories/index.js'],
 };
