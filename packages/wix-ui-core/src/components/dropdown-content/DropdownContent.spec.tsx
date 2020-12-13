@@ -92,6 +92,18 @@ describe('DropdownContent', () => {
       expect(driver.optionAt(15).isHovered()).toBe(true);
     });
 
+    it('should not throw exception if first selected id does not exist in options', () => {
+      const driver = createDriver(
+        createDropdownContent({
+          options,
+          selectedIds: [1000, 15],
+          optionsContainerId: 'container',
+        }),
+      );
+      
+      expect(driver.getContainerScrollPosition('container')).toBe(0);
+    });
+
     it('should trigger an onMouseDown event', () => {
       const onMouseDown = jest.fn();
       const driver = createDriver(
