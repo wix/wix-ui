@@ -23,7 +23,7 @@
     "lint": "yoshi lint",
     "build": "yoshi build && import-path --path src",
     "postbuild": "npm run docs:sections",
-    "pretest": "npm run lint && build-storybook",
+    "pretest": "npm run lint && SKIP_THREAD_LOADER=true build-storybook",
     "test": "yoshi test --jest",
     "start": "SKIP_THREAD_LOADER=true start-storybook -p 6006",
     "release": "yoshi release",
