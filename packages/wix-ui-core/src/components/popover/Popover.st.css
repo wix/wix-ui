@@ -3,6 +3,12 @@
   -st-default: calc
 }
 
+@custom-selector :--popoverContent .root > .popover > .popoverContent,
+.root > .popoverContent;
+
+@custom-selector :--arrow .popover > .arrow, .arrow;
+
+
 :vars {
   /** Background color of the content */
   contentBackgroundColor: white;
@@ -43,7 +49,7 @@
 
 .popoverAnimation-exit.popoverAnimation-exit-active {}
 
-.popoverContent {
+:--popoverContent {
   background-color: value(contentBackgroundColor);
   border-width: value(contentBorderWidth);
   border-style: value(contentBorderStyle);
@@ -52,7 +58,7 @@
   padding: value(contentPadding);
 }
 
-.arrow {
+:--arrow {
   width: 0;
   height: 0;
   border-style: solid;
@@ -71,7 +77,7 @@
   padding-left: value(contentArrowSize);
 }
 
-.popover[data-placement*="right"].withArrow .arrow {
+.popover[data-placement*="right"].withArrow :--arrow {
   border-width: value(contentArrowSize) value(contentArrowSize) value(contentArrowSize) 0;
   left: calc(-1 * value(contentArrowSize));
   margin-left: value(contentArrowSize);
@@ -83,7 +89,7 @@
   padding-right: value(contentArrowSize);
 }
 
-.popover[data-placement*="left"].withArrow .arrow {
+.popover[data-placement*="left"].withArrow :--arrow {
   border-width: value(contentArrowSize) 0 value(contentArrowSize) value(contentArrowSize);
   right: calc(-1 * value(contentArrowSize));
   margin-left: 0;
@@ -95,7 +101,7 @@
   padding-top: value(contentArrowSize);
 }
 
-.popover[data-placement*="bottom"].withArrow .arrow {
+.popover[data-placement*="bottom"].withArrow :--arrow {
   border-width: 0 value(contentArrowSize) value(contentArrowSize) value(contentArrowSize);
   top: calc(-1 * value(contentArrowSize));
   margin-top: value(contentArrowSize);
@@ -107,7 +113,7 @@
   padding-bottom: value(contentArrowSize);
 }
 
-.popover[data-placement*="top"].withArrow .arrow {
+.popover[data-placement*="top"].withArrow :--arrow {
   border-width: value(contentArrowSize) value(contentArrowSize) 0 value(contentArrowSize);
   bottom: calc(-1 * value(contentArrowSize));
   margin-top: 0;
