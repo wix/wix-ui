@@ -13,6 +13,7 @@ export const radioButtonDriverFactory = ({ element, eventTrigger }) => {
     select: () => eventTrigger.change(element, { target: element }),
     click: () => eventTrigger.click(element),
     keyDown: (key: string) => eventTrigger.keyDown(getInput(), { key }),
+    blur: () => eventTrigger.blur(getInput()),
     value: () => getInput().getAttribute('value'),
     name: () => getInput().getAttribute('name'),
     isInputFocused: () => document.activeElement === getInput(),
