@@ -175,7 +175,7 @@ export class RadioButton extends React.Component<
   onInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     this.setState({ focused: false, focusVisible: false });
     this.focusedByMouse = false;
-    this.props.onBlur && this.props.onBlur({ ...event });
+    this.props.onBlur && this.props.onBlur(event);
   };
 
   handleInputKeyDown = (event: RadioButtonKeyDownEvent) => {
