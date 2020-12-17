@@ -52,7 +52,6 @@ describe('RadioButton', () => {
 
     radio.click();
     expect(onFocus.mock.calls.length).toEqual(1);
-    expect(onFocus.mock.calls[0][0].value).toEqual('horsie');
   });
 
   it('invokes callback for onBlur with the correct value', () => {
@@ -62,7 +61,6 @@ describe('RadioButton', () => {
     radio.click();
     radio.blur();
     expect(onBlur.mock.calls.length).toEqual(1);
-    expect(onBlur.mock.calls[0][0].value).toEqual('horsie');
   });
 
   it('is checked correctly', () => {
