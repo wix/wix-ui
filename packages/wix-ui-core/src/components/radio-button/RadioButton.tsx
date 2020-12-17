@@ -39,6 +39,10 @@ export interface RadioButtonProps {
   onHover?(event: RadioButtonHoverEvent): void;
   /** A callback to invoke on blur */
   onIconBlur?(event: React.MouseEvent<HTMLElement>): void;
+  /** A callback to invoke on focus */
+  onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
+  /** A callback to invoke on blur */
+  onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
   /** The checked icon */
   checkedIcon?: React.ReactNode;
   /** The unchecked icon */
@@ -163,13 +167,15 @@ export class RadioButton extends React.Component<
     this.props.onHover({ value: this.props.value, ...event });
   };
 
-  onFocus = () => {
+  onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     this.setState({ focused: true, focusVisible: !this.focusedByMouse });
+    this.props.onFocus && this.props.onFocus(event);
   };
 
-  onInputBlur = () => {
+  onInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     this.setState({ focused: false, focusVisible: false });
     this.focusedByMouse = false;
+    this.props.onBlur && this.props.onBlur(event);
   };
 
   handleInputKeyDown = (event: RadioButtonKeyDownEvent) => {
