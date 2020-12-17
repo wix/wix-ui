@@ -1,6 +1,6 @@
 export const generateDataAttr = (
   props: Record<string, unknown>,
-  filter?: Array<string>
+  filter?: string[]
 ) =>
   Object.entries(props)
     .filter(([key]) => filter && filter.includes(key))

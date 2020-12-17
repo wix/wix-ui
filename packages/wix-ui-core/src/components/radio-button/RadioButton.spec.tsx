@@ -103,6 +103,14 @@ describe('RadioButton', () => {
       expect(await radio.isFocused()).toBeTruthy();
       expect(await radio.isFocusVisible()).toBeFalsy();
     });
+
+    it('focuses on click', async () => {
+      const radio = await createDriver(createRadio());
+      expect(await radio.isInputFocused()).toBeFalsy();
+      await radio.click();
+
+      expect(await radio.isInputFocused()).toBeTruthy();
+    })
   }
 
   function runSyncTests(createDriver) {
