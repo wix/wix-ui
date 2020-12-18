@@ -44,6 +44,14 @@ describe('RadioButton', () => {
       expect(onKeyDown.mock.calls[0][0].value).toEqual('horsie');
     });
 
+    it('invokes callback for onFocus with the correct value', async () => {
+      const onFocus = jest.fn();
+      const radio = await createDriver(createRadio({ onFocus }));
+
+      await radio.click();
+      expect(onFocus.mock.calls.length).toEqual(1);
+    });
+
     it('is checked correctly', async () => {
       const radio = await createDriver(createRadio({ checked: true }));
 
@@ -107,9 +115,11 @@ describe('RadioButton', () => {
     it('focuses on click', async () => {
       const radio = await createDriver(createRadio());
       expect(await radio.isInputFocused()).toBeFalsy();
+
       await radio.click();
 
       expect(await radio.isInputFocused()).toBeTruthy();
+
     })
   }
 
@@ -141,6 +151,15 @@ describe('RadioButton', () => {
 
       expect(await radio.isFocused()).toBeTruthy();
       expect(await radio.isFocusVisible()).toBeTruthy();
+    });
+
+    it('invokes callback for onBlur with the correct value', () => {
+      const onBlur = jest.fn();
+      const radio = createDriver(createRadio({ onBlur }));
+
+      radio.click();
+      radio.blur();
+      expect(onBlur.mock.calls.length).toEqual(1);
     });
   }
 });
