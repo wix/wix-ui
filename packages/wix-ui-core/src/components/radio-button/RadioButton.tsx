@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { st, classes } from './RadioButton.st.css';
 import { filterDataProps } from '../../utils/filter-data-props';
+import { dataHooks } from './constants';
+import { generateDataAttr } from '../../utils/generateDataAttr';
 
 const noop = () => null;
 
@@ -31,6 +33,8 @@ export interface RadioButtonProps {
   value?: string;
   /** The group name which the button belongs to */
   name?: string;
+  /** The button id */
+  id?: string;
   /** A callback to invoke on change */
   onChange?(event: RadioButtonChangeEvent | RadioButtonClickEvent): void;
   /** A callback to invoke on keydown */
@@ -91,6 +95,7 @@ export class RadioButton extends React.Component<
     const {
       value,
       name,
+      id,
       checkedIcon,
       uncheckedIcon,
       label,
@@ -113,8 +118,11 @@ export class RadioButton extends React.Component<
             focused,
             'focus-visible': this.state.focusVisible,
           },
-          className,
+          className
         )}
+        {...generateDataAttr(this.props, ['checked', 'disabled', 'required'])}
+        data-focused={focused}
+        data-focus-visible={this.state.focusVisible}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
         role="radio"
@@ -124,6 +132,7 @@ export class RadioButton extends React.Component<
         <input
           type="radio"
           className={classes.hiddenRadio}
+          data-hook={dataHooks.hiddenRadio}
           disabled={disabled}
           required={required}
           onFocus={this.onFocus}
@@ -131,6 +140,7 @@ export class RadioButton extends React.Component<
           checked={checked}
           value={value}
           name={name}
+          id={id}
           tabIndex={tabIndex}
           onChange={() => null}
           onKeyDown={this.handleInputKeyDown}
@@ -139,12 +149,15 @@ export class RadioButton extends React.Component<
         />
         <span
           className={classes.icon}
+          data-hook={dataHooks.icon}
           onMouseEnter={this.onHover}
           onMouseLeave={onIconBlur}
         >
           {checked ? checkedIcon : uncheckedIcon}
         </span>
-        <span className={classes.label}>{label}</span>
+        <span className={classes.label} data-hook={dataHooks.label}>
+          {label}
+        </span>
       </div>
     );
   }

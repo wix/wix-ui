@@ -56,6 +56,7 @@ module.exports = {
     pascalCase: true
   },
   "radio-button": {
+    hasUnidriver: true,
     hasProtractorDriver: true,
     hasVanillaDriver: true,
     pascalCase: true
