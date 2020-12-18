@@ -12,7 +12,7 @@ describe('generateDataAttr', () => {
   it('should return empty object [when] given only props', () => {
     const props = { skin: 'dark' };
 
-    const result = generateDataAttr(props);
+    const result = generateDataAttr(props, []);
 
     expect(result).toEqual({});
   });
