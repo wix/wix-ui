@@ -359,6 +359,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "MobileSmall", "24": "Mobile" },
   },
   {
+    title: "Tablet",
+    category: "General",
+    description: "Button – Sets the view to tablet layout",
+    tags: ["device", "layout", "responsive"],
+    sizes: { "18": "TabletSmall", "24": "Tablet" },
+  },
+  {
     title: "ExternalLink",
     category: "General",
     description: "Button - opens a content in a new browser tab",
