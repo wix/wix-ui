@@ -66,7 +66,7 @@ export class AvatarComponent extends React.Component<
   getRequestedContentType(props): ContentType {
     const { name, text, placeholder, imgProps } = props;
 
-    return imgProps
+    return imgProps && imgProps.src
       ? 'image'
       : text || name
       ? 'text'
@@ -121,7 +121,8 @@ export class AvatarComponent extends React.Component<
   loadImg = () => {
     this.img = new Image();
     this.img.onload = () => {
-      this.setState({ imgLoaded: true });
+      // don't set state after unmount
+      this.img && this.setState({ imgLoaded: true });
     };
     this.img.src = this.props.imgProps.src;
   };
