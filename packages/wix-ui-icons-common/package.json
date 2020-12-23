@@ -65,9 +65,9 @@
     "typescript": "^4.0.2",
     "wix-storybook-utils": "^3.0.132",
     "wix-ui-test-utils": "^1.0.172",
-    "yoshi": "^4.87.0",
+    "yoshi": "4.87.0",
     "yoshi-stylable-dependencies": "^4.86.0",
-    "yoshi-style-dependencies": "^4.71.0"
+    "yoshi-style-dependencies": "4.71.0"
   },
   "dependencies": {
     "fuse.js": "^6.4.1",
