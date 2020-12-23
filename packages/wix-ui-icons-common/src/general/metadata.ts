@@ -2077,6 +2077,20 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "WixMarketplaceSmall", "24": "WixMarketplace" },
   },
   {
+    title: "PaidPlans",
+    category: "Wix Brands",
+    description: "Static Indicator - marks Wix Paid Plan",
+    tags: ["Subscription", "Pricing", "Membership", "Members"],
+    sizes: { "18": "PaidPlansSmall", "24": "PaidPlans" },
+  },
+  {
+    title: "PaidPlansSell",
+    category: "Wix Brands",
+    description: "Button - opens a dialog for selling a plan to a specific customer",
+    tags: ["Subscription", "Pricing", "Membership", "Members"],
+    sizes: { "18": "PaidPlansSellSmall", "24": "PaidPlansSell" },
+  },
+  {
     title: "TableChart",
     category: "General",
     description: "Button - displays data as table chart",
