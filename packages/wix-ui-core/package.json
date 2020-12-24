@@ -159,7 +159,7 @@
   "license": "MIT",
   "publishConfig": {
     "registry": "http://npm.dev.wixpress.com/",
-    "versionBumpStrategy": "minor"
+    "versionBumpStrategy": "patch"
   },
   "jest": {
     "transform": {
