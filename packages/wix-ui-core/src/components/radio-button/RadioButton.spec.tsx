@@ -67,7 +67,7 @@ describe('RadioButton', () => {
     it('does not invoke callback function when disabled and keydown happens', async () => {
       const onKeyDown = jest.fn();
       const radio = await createDriver(
-        createRadio({ onKeyDown, disabled: true })
+        createRadio({ onKeyDown, disabled: true }),
       );
 
       await radio.keyDown('Enter');
@@ -119,8 +119,7 @@ describe('RadioButton', () => {
       await radio.click();
 
       expect(await radio.isInputFocused()).toBeTruthy();
-
-    })
+    });
   }
 
   function runSyncTests(createDriver) {
@@ -138,7 +137,7 @@ describe('RadioButton', () => {
     it('does not invoke callback function when disabled and clicked', async () => {
       const onChange = jest.fn();
       const radio = await createDriver(
-        createRadio({ onChange, disabled: true })
+        createRadio({ onChange, disabled: true }),
       );
 
       radio.select();
