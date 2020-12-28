@@ -4,7 +4,7 @@ import { RadioButton, RadioButtonProps } from '..';
 export class RadioButtonTestFixture extends React.Component {
   state = {
     checkedIdx: '1',
-    afterFocusClickedButton: undefined,
+    isOnFocusByKeyboardCalled: false,
   };
 
   createRadio(props: RadioButtonProps = {}) {
@@ -44,29 +44,21 @@ export class RadioButtonTestFixture extends React.Component {
         </div>
         <div>
           <RadioButton
-            label={<span>props.label</span>}
+            onFocusByKeyboard={() => this.setState({isOnFocusByKeyboardCalled: true})}
+            label={<span>first radio button</span>}
             checkedIcon={<span>🔘</span>}
             uncheckedIcon={<span>⚪</span>}
             onChange={() => {}}
             data-hook={`radio-button-first`}
           />
           <RadioButton
-            onFocusByKeyboard={() =>
-              this.setState({
-                afterFocusClickedButton: this.createRadio({
-                  checked: false,
-                  value: 'focus-clicked',
-                  disabled: true,
-                }),
-              })
-            }
-            label={<span>props.label</span>}
+            label={<span>second radio button</span>}
             checkedIcon={<span>🔘</span>}
             uncheckedIcon={<span>⚪</span>}
             onChange={() => {}}
+            checked={this.state.isOnFocusByKeyboardCalled}
             data-hook={`radio-button-second`}
           />
-          {this.state.afterFocusClickedButton}
         </div>
       </div>
     );

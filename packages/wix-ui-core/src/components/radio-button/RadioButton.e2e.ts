@@ -23,22 +23,31 @@ describe('RadioButton', () => {
         expect(await radio.isSelected()).toBeFalsy();
         await radio.select();
         expect(await radio.isSelected()).toBeTruthy();
-      },
+      }
     );
   });
 
   it('RadioButton onFocusByKeyboard works', async () => {
-    const dataHook = 'radio-button-first';
-    const radio = radioButtonTestkitFactory({ dataHook });
-    return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton').then(
-      async () => {
-        await radio.select();
-        await radio.element().sendKeys(Key.ARROW_DOWN);
-        const radioAfterFocusClicked = radioButtonTestkitFactory({
-          dataHook: 'radio-button-focus-clicked',
-        });
-        expect(radioAfterFocusClicked).toBeDefined();
-      },
-    );
+    const dataHookFirst = 'radio-button-first';
+    const dataHookSecond = 'radio-button-second';
+    const radioFirst = radioButtonTestkitFactory({ dataHook: dataHookFirst });
+    const radioSecond = radioButtonTestkitFactory({ dataHook: dataHookSecond });
+    return waitForVisibilityOf(
+      radioFirst.element(),
+      'Cannot find RadioButton'
+    ).then(async () => {
+      expect(await radioSecond.isSelected()).toBeFalsy();
+      browser
+        .actions()
+        .sendKeys(
+          Key.TAB,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN
+        )
+        .perform();
+      expect(await radioSecond.isSelected()).toBeTruthy();
+    });
   });
 });
