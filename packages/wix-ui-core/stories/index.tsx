@@ -13,6 +13,7 @@ import { FilePickerButtonTestFixture } from '../src/components/file-picker-butto
 import { FocusableHOCTestFixture } from '../src/hocs/Focusable/test/FocusableHOCTestFixture';
 import { InputWithOptionsTestFixture } from '../src/components/input-with-options/InputWithOptionsTestFixture';
 import { NestedPopoverTestFixture } from '../src/components/popover/tests/NestedPopoverTestFixture';
+import { RadioButtonTestFixture } from '../src/components/radio-button/tests/RadioButtonTestFixture';
 import { SignatureInputTestFixture } from '../src/components/signature-input/test/SignatureInputTestFixture';
 import { SIGNATURE_INPUT_METADATA } from '../src/components/signature-input/constants';
 // import Backoffice stories
@@ -76,6 +77,7 @@ Backoffice.add('Buttons', ButtonsStory);
 Tests.add('EllipsedTooltip', CustomEllipsedText);
 Tests.add('FilePickerButton', () => <FilePickerButtonTestFixture />);
 Tests.add('FocusableHOC', () => <FocusableHOCTestFixture />);
+Tests.add('RadioButton', () => <RadioButtonTestFixture />);
 Tests.add('InputWithOptions', () => <InputWithOptionsTestFixture />);
 Tests.add('Popover - Nested', () => <NestedPopoverTestFixture />);
 Tests.add(SIGNATURE_INPUT_METADATA.displayName, () => (
