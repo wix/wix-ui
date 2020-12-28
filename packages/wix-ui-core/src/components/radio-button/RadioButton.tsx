@@ -120,7 +120,7 @@ export class RadioButton extends React.Component<
             focused,
             'focus-visible': this.state.focusVisible,
           },
-          className
+          className,
         )}
         {...generateDataAttr(this.props, ['checked', 'disabled', 'required'])}
         data-focused={focused}
@@ -183,7 +183,9 @@ export class RadioButton extends React.Component<
   };
 
   onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    !this.focusedByMouse && this.props.onFocusByKeyboard && this.props.onFocusByKeyboard(event);
+    !this.focusedByMouse &&
+      this.props.onFocusByKeyboard &&
+      this.props.onFocusByKeyboard(event);
     this.setState({ focused: true, focusVisible: !this.focusedByMouse });
     this.props.onFocus && this.props.onFocus(event);
   };

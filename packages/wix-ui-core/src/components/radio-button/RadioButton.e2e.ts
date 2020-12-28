@@ -34,7 +34,9 @@ describe('RadioButton', () => {
       async () => {
         await radio.select();
         await radio.element().sendKeys(Key.ARROW_DOWN);
-        const radioAfterFocusClicked = radioButtonTestkitFactory({ dataHook: 'radio-button-focus-clicked' });
+        const radioAfterFocusClicked = radioButtonTestkitFactory({
+          dataHook: 'radio-button-focus-clicked',
+        });
         expect(radioAfterFocusClicked).toBeDefined();
       },
     );

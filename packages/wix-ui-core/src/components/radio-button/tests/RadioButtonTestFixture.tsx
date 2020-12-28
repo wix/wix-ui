@@ -1,9 +1,9 @@
-import * as React from "react";
-import { RadioButton, RadioButtonProps } from "..";
+import * as React from 'react';
+import { RadioButton, RadioButtonProps } from '..';
 
 export class RadioButtonTestFixture extends React.Component {
   state = {
-    checkedIdx: "1",
+    checkedIdx: '1',
     afterFocusClickedButton: undefined,
   };
 
@@ -24,22 +24,22 @@ export class RadioButtonTestFixture extends React.Component {
 
   render() {
     return (
-      <div style={{ fontSize: "20px" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ fontSize: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h3>Radio Button</h3>
-          {["1", "2", "3", "4"].map((value) =>
-            this.createRadio({ value, label: `Star ${value}` })
+          {['1', '2', '3', '4'].map(value =>
+            this.createRadio({ value, label: `Star ${value}` }),
           )}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h3>Radio Buttons - disabled</h3>
-          {["unchecked", "checked"].map((value, idx) =>
+          {['unchecked', 'checked'].map((value, idx) =>
             this.createRadio({
               checked: !!idx,
               label: `Disabled ${value}`,
-              value: "1",
+              value: '1',
               disabled: true,
-            })
+            }),
           )}
         </div>
         <div>
@@ -51,15 +51,15 @@ export class RadioButtonTestFixture extends React.Component {
             data-hook={`radio-button-first`}
           />
           <RadioButton
-          onFocusByKeyboard={() =>
-            this.setState({
-              afterFocusClickedButton: this.createRadio({
-                checked: false,
-                value: "focus-clicked",
-                disabled: true,
-              }),
-            })
-          }
+            onFocusByKeyboard={() =>
+              this.setState({
+                afterFocusClickedButton: this.createRadio({
+                  checked: false,
+                  value: 'focus-clicked',
+                  disabled: true,
+                }),
+              })
+            }
             label={<span>props.label</span>}
             checkedIcon={<span>🔘</span>}
             uncheckedIcon={<span>⚪</span>}
