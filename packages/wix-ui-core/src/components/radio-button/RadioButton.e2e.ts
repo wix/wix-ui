@@ -27,7 +27,7 @@ describe('RadioButton', () => {
     );
   });
 
-  eyes.it('RadioButton onFocusByKeyboard works', async () => {
+  it('RadioButton onFocusByKeyboard works', async () => {
     const dataHook = 'radio-button-first';
     const radio = radioButtonTestkitFactory({ dataHook });
     return waitForVisibilityOf(radio.element(), 'Cannot find RadioButton').then(
