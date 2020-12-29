@@ -145,7 +145,6 @@
     "ts-jest": "^23.0.3",
     "typescript": "~3.7.4",
     "wait-for-cond": "^1.5.1",
-    "webpack": "4.44.1",
     "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "3.6.0",
     "wix-storybook-utils": "^3.0.7",
