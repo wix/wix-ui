@@ -9,6 +9,7 @@ import {
 export interface ImageDriver extends ImagePublicDriver {
   getResizeMode(): Promise<string | boolean>;
   getSrcSet(): Promise<string>;
+  hasClass(className: string): Promise<boolean>;
 }
 
 export const imageDriverFactory = (base: UniDriver): ImageDriver => {
@@ -24,5 +25,6 @@ export const imageDriverFactory = (base: UniDriver): ImageDriver => {
     ...publicDriver,
     getResizeMode: async () => getStyleState('resizeMode'),
     getSrcSet: () => base.attr('srcSet'),
+    hasClass: (className) => base.hasClass(className)
   };
 };
