@@ -272,6 +272,8 @@ export class AddressInput extends React.PureComponent<
       lang,
       createAutocompleteRequest(input, this.props),
     );
+    console.log('This is the response from clients autocomplete: ', results)
+
     const filteredResults = filterAddressesByType(results, filterTypes) || [];
     const options = filteredResults.map(this._createOptionFromAddress);
     if (!this.unmounted && requestId === this.addressRequestId) {
@@ -288,6 +290,7 @@ export class AddressInput extends React.PureComponent<
     const { lang, countryCode: region, converterType } = this.props;
     const request = placeId ? { placeId, region } : { address: rawInputValue };
     const geocode = await this.client.geocode(this._getKey(), lang, request);
+    console.log('This is the response from clients geocode: ', geocode)
 
     if (requestId === this.geocodeRequestId) {
       this._invokeOnSelect(
@@ -311,6 +314,9 @@ export class AddressInput extends React.PureComponent<
     const placeDetails = await this.client.placeDetails(this._getKey(), lang, {
       placeId,
     });
+    console.log('This is the response from clients placeDetails: ', placeDetails)
+    console.log(':thinking:')
+
 
     if (requestId === this.placeDetailsRequestId) {
       this._invokeOnSelect(
