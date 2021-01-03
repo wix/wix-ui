@@ -13,6 +13,6 @@ export const mediaImageDriverFactory = (base: UniDriver): MediaImageDriver => {
 
   return {
     ...publicDriver,
-    hasClass: (className) => base.hasClass(className),
+    hasClass: className => base.hasClass(className),
   };
 };
