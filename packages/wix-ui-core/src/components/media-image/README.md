@@ -15,6 +15,7 @@ The **MediaImage** component accepts **MediaPlatformItem** object and convert it
 | mediaPlatformItem | MediaPlatformItem | ✖ | ✔ | media platform item to be used as the source for the media |
 | width | number | mediaPlatformItem.width | ✖ | the width of the image |
 | height | number | mediaPlatformItem.height | ✖ | the height of the image |
+| className | string | ✖ | ✖ | A class name to be applied on the root element |
 | onLoad | (event: ImageEvent) => void;| noop | ✖ | An event handler triggered by the state's status. |
 | onError | (event: ImageEvent) => void; | noop | ✖ | An event handler setting an Error state. |
 | errorMediaPlatformItem | MediaPlatformItem | ✖  | ✖ | media platform item to be used as the source for error media |

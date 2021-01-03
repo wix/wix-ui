@@ -9,6 +9,8 @@ export interface ImageProps {
   alt?: string;
   errorImage?: string;
   resizeMode?: 'fill' | 'contain' | 'cover';
+  /** A class name to be applied on the root element */
+  className?: string;
   onError?(event: React.SyntheticEvent<HTMLImageElement>): void;
   onLoad?(event: React.SyntheticEvent<HTMLImageElement>): void;
 }
@@ -63,13 +65,14 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
   };
 
   render() {
-    const { resizeMode } = this.props;
+    const { resizeMode, className } = this.props;
 
     const commonProps = {
       className: st(
         classes.root,
         { resizeMode: this.props.resizeMode, loadState: this.state.status },
         this.isResized() ? ' wrapper' : '',
+        className,
       ),
       'data-load-state': this.state.status,
     };

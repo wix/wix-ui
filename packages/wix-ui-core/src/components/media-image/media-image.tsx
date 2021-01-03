@@ -59,6 +59,8 @@ export interface MediaProps {
   onLoad?(event: React.SyntheticEvent<HTMLImageElement>): void;
   alt?: string;
   scale?: MediaImageScaling;
+  /** A class name to be applied on the root element */
+  className?: string;
 }
 
 export class MediaImage extends React.Component<MediaProps> {
@@ -99,11 +101,13 @@ export class MediaImage extends React.Component<MediaProps> {
       mediaPlatformItem,
       errorMediaPlatformItem,
       alt,
+      className,
     } = this.props;
 
     return (
       <Image
         src={this.getImageSource(mediaPlatformItem)}
+        className={className}
         alt={alt}
         errorImage={this.getImageSource(errorMediaPlatformItem)}
         onLoad={onLoad}

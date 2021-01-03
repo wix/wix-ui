@@ -60,6 +60,15 @@ describe('Image', () => {
         expect(await imageDriver.getSrc()).toEqual(SRC);
       });
     });
+
+    it('should render the className on root', async () => {
+      const expectedClassName = 'something';
+      const imageDriver = await createDriver(
+        <Image className={expectedClassName} />,
+      );
+      
+      expect(await imageDriver.hasClass(expectedClassName)).toBe(true);
+    });
   });
 
   describe('props are not provided', () => {

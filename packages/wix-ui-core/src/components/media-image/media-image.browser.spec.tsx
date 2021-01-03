@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
-import { mediaImageDriverFactory } from './media-image.uni.driver';
+import { mediaImageDriverFactory } from './media-image.private.uni.driver';
 import {
   MediaPlatformItem,
   MediaImage,
@@ -116,6 +116,15 @@ describe('MediaImage', () => {
     );
 
     expect(await imageDriver.getAlt()).toEqual('this is an informative text');
+  });
+
+  it('should render the className on root', async () => {
+    const expectedClassName = 'something';
+    const mediaImageDriver = await createDriver(
+      <MediaImage className={expectedClassName} />,
+    );
+    
+    expect(await mediaImageDriver.hasClass(expectedClassName)).toBe(true);
   });
 
   it('should invoke onLoad callback when load successfully', async () => {
