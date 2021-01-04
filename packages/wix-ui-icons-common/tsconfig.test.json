@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "types": ["node", "jest"],
+    "lib": ["dom", "esnext"],
+    "resolveJsonModule": true
+  },
+  "files": [
+    "./src/globals.d.ts",
+    "./node_modules/yoshi/types.d.ts",
+    "./node_modules/jest-yoshi-preset/types.d.ts"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./stories/general/GeneralCategoryList.tsx",
+    "./stories/APITable.tsx"
+  ]
+}

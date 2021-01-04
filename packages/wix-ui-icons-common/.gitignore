@@ -21,3 +21,4 @@ storybook-e2e
 
 !wallaby.js
 !protractor.conf.js
+!jest-yoshi.config.js
