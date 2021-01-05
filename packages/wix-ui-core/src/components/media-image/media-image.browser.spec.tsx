@@ -105,6 +105,15 @@ describe('MediaImage', () => {
     expect(await mediaImageDriver.getSrc()).toEqual(SRC);
   });
 
+  it('should set the container dimensions as attributes when provided', async () => {
+    const mediaImageDriver = await createDriver(
+      <MediaImage mediaPlatformItem={mediaPlatformItem} width={WIDTH} height={HEIGHT} />,
+    );
+
+    expect(await mediaImageDriver.getWidthAttribute()).toEqual(WIDTH);
+    expect(await mediaImageDriver.getWidthAttribute()).toEqual(HEIGHT);
+  });
+
   it('displays an alt prop', async () => {
     imageClientSDK.getScaleToFillImageURL.mockReturnValue(BROKEN_SRC);
 
