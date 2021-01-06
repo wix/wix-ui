@@ -102,6 +102,8 @@ export class MediaImage extends React.Component<MediaProps> {
       errorMediaPlatformItem,
       alt,
       className,
+      width,
+      height,
     } = this.props;
 
     return (
@@ -109,6 +111,7 @@ export class MediaImage extends React.Component<MediaProps> {
         src={this.getImageSource(mediaPlatformItem)}
         className={className}
         alt={alt}
+        nativeProps={{ width, height }}
         errorImage={this.getImageSource(errorMediaPlatformItem)}
         onLoad={onLoad}
         onError={onError}
