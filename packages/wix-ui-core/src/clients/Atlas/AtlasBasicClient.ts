@@ -1,10 +1,12 @@
-import { WixAtlasServiceWeb } from '@wix/ambassador-wix-atlas-service-web/http';
-import { IAddressInputControllerActions } from '../AddressInput.types';
+import {
+  CommonAddress,
+  V2GetPlaceResponse,
+  V2Prediction,
+  WixAtlasServiceWeb,
+} from '@wix/ambassador-wix-atlas-service-web/http'
 import {
   Address,
-  Geocode,
-  MapsClient,
-  PlacesServiceStatusTypes,
+  // MapsClient,
 } from './types';
 
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
@@ -12,17 +14,23 @@ const BASE_LINGUIST_HEADER =
   '|en-us|false|4e8a573a-6b3e-426f-9d2f-5285b7dc90f8';
 const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasServiceWeb(ATLAS_WEB_BASE_URL);
 
-//TODO: Rewrite this
-const serializeResult = results => ({
-  ...results,
-  geometry: {
-    ...results.geometry,
-    location: {
-      lat: results.geometry.location.lat,
-      lng: results.geometry.location.lng,
-    },
-  },
-});
+const serializeResult = (results: Array<CommonAddress>) =>
+  results.map(atlasResponse => ({
+    formatted_address: atlasResponse.formattedAddress,
+    streetAddress: atlasResponse.streetAddress,
+    subdivision: atlasResponse.subdivision,
+    city: atlasResponse.city,
+    country: atlasResponse.country,
+    postalCode: atlasResponse.postalCode,
+    ...(atlasResponse.geocode
+      ? {
+        location: {
+          latitude: atlasResponse.geocode.latitude || 0,
+          longitude: atlasResponse.geocode.longitude || 0,
+        },
+      }
+      : {}),
+  }))
 
 const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
   predictions.map(prediction => ({
@@ -31,7 +39,8 @@ const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
     types: []
   }));
 
-export class AtlasBasicClient implements MapsClient {
+// export class AtlasBasicClient implements MapsClient {
+export class AtlasBasicClient {
   private _predict;
   private _getPlace;
 
@@ -65,37 +74,40 @@ export class AtlasBasicClient implements MapsClient {
     }
     this._initServices(lang);
     try {
-      const predictResponse = this._predict(predictRequest)
+      const predictResponse = await this._predict(predictRequest)
       if (predictResponse.predictions && predictResponse.predictions.length) {
         // setAutoCompleteError(false);
-        return toSuggestions(predictResponse.predictions || []);
+        // return toSuggestions(predictResponse.predictions || []);
+        const toSugg = toSuggestions(predictResponse.predictions || []);
+        return toSugg
       } else {
+        return Promise.reject('ZERO_RESULTS');
         //TODO: ....? How is it done in bolt?
-        return [];
+        // return [];
         // onAutoCompleteError(translationKeys.noResults);
       }
     }
-    //TODO: what to do here?
-    catch {
-      return []
+    catch (e) {
+      return Promise.reject(e)
     }
   }
 
   useClientId() {}
+  placeDetails() { return Promise.resolve({} as any)}
 
   async geocode(
     clientId: string,
     lang: string,
     request: any,
     //TODO: Why array?????
-  ): Promise<Geocode[]> {
+  ) {
     this._initServices(lang);
     const getPlaceRequest = {
       searchId: request.placeId
     }
     try {
-      const result = this._getPlace(getPlaceRequest);
-      return [serializeResult(result)];
+      const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
+      return serializeResult([result?.place?.address] || [{}]);
     }
     catch {
       //TODO: What to do here?
