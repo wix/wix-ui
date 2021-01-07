@@ -4,6 +4,20 @@ export const deprecatedGeneralIcons: Array<string> = ["FilterSmall"];
 
 const generalIconsMetadata: Array<IconMetadata> = [
   {
+    title: "Maximize",
+    category: "Media",
+    description: "Button - makes an image larger",
+    tags: ["expand", "enlarge", "increase", "view", "preview"],
+    sizes: { "18": "MaximizeSmall", "24": "Maximize" },
+  },
+  {
+    title: "ChangeOrder",
+    category: "Layout & Sorting",
+    description: "Button - displays sorting options\n Button - enables changing the order of the items",
+    tags: ["reorder", "prioritize", "list"],
+    sizes: { "18": "ImageSmall", "24": "Image" },
+  },
+  {
     title: "Integrations",
     category: "General",
     description: "Button - opens integrations list",
