@@ -5,6 +5,10 @@ import * as fs from 'fs';
 import { updateComponentsList } from '.';
 
 describe('updateComponentsList', () => {
+  beforeEach(() => {
+    cista().cleanup();
+  });
+
   describe('given non existing shape path', () => {
     it('should reject with error', () => {
       const fakeFs = cista();
