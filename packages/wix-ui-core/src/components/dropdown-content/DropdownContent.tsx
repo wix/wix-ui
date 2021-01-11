@@ -68,7 +68,7 @@ export class DropdownContent extends React.PureComponent<
         ] as HTMLElement;
         const parentRect = this.optionsContainerRef.getBoundingClientRect();
         const selectedRect = selectedOption.getBoundingClientRect();
-  
+
         if (selectedRect.bottom > parentRect.bottom) {
           this.optionsContainerRef.scrollTop = Math.min(
             selectedOption.offsetTop +
@@ -77,7 +77,7 @@ export class DropdownContent extends React.PureComponent<
             this.optionsContainerRef.scrollHeight,
           );
         }
-  
+
         this.setHoveredIndex(selectedIndex);
       }
     }
@@ -235,11 +235,10 @@ export class DropdownContent extends React.PureComponent<
         data-hook={this.props['data-hook']}
         onMouseMove={this.onMouseMove}
         onMouseDown={this.onMouseDown}
-        tabIndex={1000}
       >
         {fixedHeader}
         <div
-          role="listbox"
+          role="menu"
           className={classes.optionsContainer}
           id={optionsContainerId}
           ref={optionsContainer =>
