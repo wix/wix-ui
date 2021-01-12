@@ -33,12 +33,13 @@ export const DropdownOption: DropdownOptionType = (
   const selected = !disabled && isSelected;
 
   const ariaProps = selectable
-    ? { role: 'option', 'aria-selected': selected, 'aria-disabled': disabled }
+    ? { role: 'menuitem', 'aria-selected': selected, 'aria-disabled': disabled }
     : {};
 
   return (
     <div
       id={id}
+      tabIndex={-1}
       className={st(
         classes.root,
         { disabled, selectable, hovered, selected },
