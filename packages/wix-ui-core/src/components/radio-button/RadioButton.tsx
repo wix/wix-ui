@@ -64,6 +64,8 @@ export interface RadioButtonProps {
   /** hook for testing purposes */
   'data-hook'?: string;
   className?: string;
+  /** Inline style */
+  style?: object;
 }
 
 export interface RadioButtonState {
@@ -105,6 +107,7 @@ export class RadioButton extends React.Component<
       onIconBlur,
       tabIndex,
       className,
+      style,
     } = this.props;
     const focused = this.state.focused;
 
@@ -121,6 +124,7 @@ export class RadioButton extends React.Component<
           className
         )}
         {...generateDataAttr(this.props, ['checked', 'disabled', 'required'])}
+        style={style}
         data-focused={focused}
         data-focus-visible={this.state.focusVisible}
         onChange={this.handleInputChange}
