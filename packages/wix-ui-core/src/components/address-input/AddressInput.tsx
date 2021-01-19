@@ -52,6 +52,8 @@ export type AddressInputProps = Pick<
   clientId?: string;
   /** Maps language */
   lang?: string;
+  /** Metasite instance for Atlas */
+  instance?: string;
   /** Address handler - geocode or places */
   handler?: Handler;
   /** Limit addresses to certain country */

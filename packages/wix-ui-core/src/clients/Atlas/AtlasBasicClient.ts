@@ -44,15 +44,17 @@ export class AtlasBasicClient {
   private _predict;
   private _getPlace;
 
-  _initServices(lang) {
+  _initServices(instance: string, lang: string) {
     if (!this._predict) {
-      this._predict= AutocompleteServiceV2()({
+      this._predict = AutocompleteServiceV2()({
+        'Authorization': instance,
         'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
       }).predict;
     }
 
     if (!this._getPlace) {
-      this._getPlace= PlacesServiceV2()({
+      this._getPlace = PlacesServiceV2()({
+        'Authorization': instance,
         'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
       }).getPlace;
     }
@@ -62,6 +64,7 @@ export class AtlasBasicClient {
     clientId: string,
     lang: string,
     request: any,
+    instance: string
   ): Promise<Address[]> {
     const predictRequest = {
       input: request.input,
@@ -72,7 +75,7 @@ export class AtlasBasicClient {
         : {}),
 
     }
-    this._initServices(lang);
+    this._initServices(instance, lang);
     try {
       const predictResponse = await this._predict(predictRequest)
       if (predictResponse.predictions && predictResponse.predictions.length) {
@@ -99,9 +102,10 @@ export class AtlasBasicClient {
     clientId: string,
     lang: string,
     request: any,
+    instance: string
     //TODO: Why array?????
   ) {
-    this._initServices(lang);
+    this._initServices(instance, lang);
     const getPlaceRequest = {
       searchId: request.placeId
     }
