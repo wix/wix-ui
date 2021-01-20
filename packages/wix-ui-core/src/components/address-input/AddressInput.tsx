@@ -282,11 +282,12 @@ export class AddressInput extends React.PureComponent<
     this.currentAddressRequest = new Promise(
       resolve => (resolveCurrentAddressRequest = resolve),
     );
-    const { lang, filterTypes } = this.props;
+    const { lang, filterTypes, instance } = this.props;
     const results = await this.client.autocomplete(
       this._getKey(),
       lang,
       createAutocompleteRequest(input, this.props),
+      instance
     );
     const filteredResults = filterAddressesByType(results, filterTypes) || [];
     const options = filteredResults.map(this._createOptionFromAddress);
@@ -301,9 +302,10 @@ export class AddressInput extends React.PureComponent<
     rawInputValue: string,
   ) {
     const requestId = ++this.geocodeRequestId;
-    const { lang, countryCode: region, converterType, providerName } = this.props;
+    const { lang, countryCode: region, converterType, providerName, instance } = this.props;
     const request = placeId ? { placeId, region } : { address: rawInputValue };
-    const geocode = await this.client.geocode(this._getKey(), lang, request);
+    const geocode = await this.client.geocode(this._getKey(), lang, request, instance);
+
     const formatByProvider = providerName === 'atlas' ? formatAtlasAddressOutput : formatAddressOutput;
 
     if (requestId === this.geocodeRequestId) {

@@ -6,7 +6,6 @@ import {
 } from '@wix/ambassador-wix-atlas-service-web/http'
 import {
   Address,
-  // MapsClient,
 } from './types';
 
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
@@ -16,7 +15,7 @@ const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasServiceWeb(ATLAS_WEB_
 
 const serializeResult = (results: Array<CommonAddress>) =>
   results.map(atlasResponse => ({
-    formatted_address: atlasResponse.formattedAddress,
+    formatted: atlasResponse.formattedAddress,
     streetAddress: atlasResponse.streetAddress,
     subdivision: atlasResponse.subdivision,
     city: atlasResponse.city,
@@ -39,7 +38,6 @@ const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
     types: []
   }));
 
-// export class AtlasBasicClient implements MapsClient {
 export class AtlasBasicClient {
   private _predict;
   private _getPlace;
@@ -79,15 +77,9 @@ export class AtlasBasicClient {
     try {
       const predictResponse = await this._predict(predictRequest)
       if (predictResponse.predictions && predictResponse.predictions.length) {
-        // setAutoCompleteError(false);
-        // return toSuggestions(predictResponse.predictions || []);
-        const toSugg = toSuggestions(predictResponse.predictions || []);
-        return toSugg
+        return toSuggestions(predictResponse.predictions || []);
       } else {
         return Promise.reject('ZERO_RESULTS');
-        //TODO: ....? How is it done in bolt?
-        // return [];
-        // onAutoCompleteError(translationKeys.noResults);
       }
     }
     catch (e) {
@@ -103,7 +95,6 @@ export class AtlasBasicClient {
     lang: string,
     request: any,
     instance: string
-    //TODO: Why array?????
   ) {
     this._initServices(instance, lang);
     const getPlaceRequest = {
@@ -114,7 +105,6 @@ export class AtlasBasicClient {
       return serializeResult([result?.place?.address] || [{}]);
     }
     catch {
-      //TODO: What to do here?
       return [{}] as any
     }
   }

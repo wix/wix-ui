@@ -88,8 +88,8 @@ export interface AddressOutput {
 export type MapsClientConstructor = new () => MapsClient;
 
 export interface MapsClient {
-  autocomplete(apiKey: string, lang: string, request: any): Promise<Address[]>;
-  geocode(apiKey: string, lang: string, request: any): Promise<Geocode[]>;
+  autocomplete(apiKey: string, lang: string, request: any, instance?: string): Promise<Address[]>;
+  geocode(apiKey: string, lang: string, request: any, instance?: string): Promise<Geocode[]>;
   placeDetails(
     apiKey: string,
     lang: string,
