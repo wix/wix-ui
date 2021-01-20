@@ -8,29 +8,29 @@ const noop = () => null;
 
 export interface RadioButtonChangeEvent
   extends React.MouseEvent<HTMLDivElement> {
-  value: string;
+  value: RadioButtonProps['value'];
 }
 
 export interface RadioButtonClickEvent
   extends React.MouseEvent<HTMLDivElement> {
-  value: string;
+  value: RadioButtonProps['value'];
 }
 
 export interface RadioButtonKeyDownEvent
   extends React.KeyboardEvent<HTMLInputElement> {
-  value: string;
+  value: RadioButtonProps['value'];
 }
 
 export interface RadioButtonHoverEvent
   extends React.MouseEvent<HTMLSpanElement> {
-  value: string;
+  value: RadioButtonProps['value'];
 }
 
 export interface RadioButtonProps {
   /** Sets checked status of the radio */
   checked?: boolean;
   /** The value which the radio represents */
-  value?: string;
+  value?: string | number;
   /** The group name which the button belongs to */
   name?: string;
   /** The button id */

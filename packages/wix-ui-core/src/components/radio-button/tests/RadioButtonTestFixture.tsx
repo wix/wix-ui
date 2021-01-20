@@ -10,7 +10,7 @@ export class RadioButtonTestFixture extends React.Component {
   createRadio(props: RadioButtonProps = {}) {
     return (
       <RadioButton
-        key={props.label + props.value}
+        key={`${props.label}${props.value}`}
         label={<span>props.label</span>}
         checkedIcon={<span>🔘</span>}
         uncheckedIcon={<span>⚪</span>}
