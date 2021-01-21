@@ -7,6 +7,9 @@ import {
 import {
   Address,
 } from './types';
+import { MapsClient } from '../GoogleMaps/types'
+import { Omit } from 'type-zoo'
+import { metaSiteInstaceMock } from './testUtils'
 
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER =
@@ -38,7 +41,7 @@ const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
     types: []
   }));
 
-export class AtlasBasicClient {
+export class AtlasBasicClient implements Omit<MapsClient, 'placeDetails' | 'useClientId'> {
   private _predict;
   private _getPlace;
 
@@ -64,11 +67,12 @@ export class AtlasBasicClient {
     request: any,
     instance: string
   ): Promise<Address[]> {
+
     const predictRequest = {
-      input: request.input,
+      input: typeof request === 'string' ? request: request.input,
       ...(request.componentRestrictions && request.componentRestrictions.country
         ? {
-          country_codes: [request.componentRestrictions.country],
+          countryCodes: [request.componentRestrictions.country],
         }
         : {}),
 
@@ -87,9 +91,6 @@ export class AtlasBasicClient {
     }
   }
 
-  useClientId() {}
-  placeDetails() { return Promise.resolve({} as any)}
-
   async geocode(
     clientId: string,
     lang: string,
@@ -102,10 +103,10 @@ export class AtlasBasicClient {
     }
     try {
       const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
-      return serializeResult([result?.place?.address] || [{}]);
+      return serializeResult([result?.place?.address] || [{}]) as any;
     }
-    catch {
-      return [{}] as any
+    catch (e) {
+      return Promise.reject(e)
     }
   }
 }

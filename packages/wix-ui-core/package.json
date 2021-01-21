@@ -83,7 +83,6 @@
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
-    "@wix/ambassador": "^4.0.484",
     "@wix/ambassador-wix-atlas-service-web": "^1.0.148",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.1.0",
