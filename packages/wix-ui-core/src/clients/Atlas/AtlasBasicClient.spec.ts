@@ -7,7 +7,6 @@ import {
   successfulGetPlaceResponseMock,
 } from './testUtils'
 
-
 const lang = 'en'
 const clientId = 'some-id'
 
