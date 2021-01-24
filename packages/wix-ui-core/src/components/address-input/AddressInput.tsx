@@ -42,8 +42,8 @@ export type AddressInputProps = Pick<
   'data-hook'?: string;
   /** Maps client, should implement autocomplete, geocode and placeDetails methods */
   Client: MapsClientConstructor;
-  /** client identifier - GoogleMaps or Wix's Atlas */
-  providerName?: string;
+  /** Which location provider you want to use, can be either 'google' or 'atlas' (default : 'google') */
+  providerName?: 'google' | 'atlas';
   /** Handler for when an option is selected */
   onSelect(raw: AddressOutput): void;
   /** Maps API key */
@@ -82,7 +82,7 @@ export type AddressInputProps = Pick<
   types?: string[];
   /** Inputs value */
   value?: string;
-  /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
+  /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt. This is currently not supported with Atlas provider */
   fallbackToManual?: boolean;
   /** If set to true, content element will always be visible, used for preview mode */
   forceContentElementVisibility?: boolean;
@@ -201,6 +201,7 @@ export class AddressInput extends React.PureComponent<
   inputWithOptionsRef;
 
   static defaultProps = {
+    providerName: 'google',
     handler: Handler.geocode,
     throttleInterval: 150,
     lang: 'en',

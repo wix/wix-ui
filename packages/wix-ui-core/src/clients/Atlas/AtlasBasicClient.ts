@@ -5,16 +5,17 @@ import {
   WixAtlasServiceWeb,
 } from '@wix/ambassador-wix-atlas-service-web/http'
 import {
-  Address,
-} from './types';
+  ClientAutocompleteRequest, ClientGeocodeRequest,
+  Suggestion,
+} from './types'
 import { BaseMapsClient } from '../GoogleMaps/types'
 
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER =
-  '|en-us|false|4e8a573a-6b3e-426f-9d2f-5285b7dc90f8';
+  '|en-us|false|';
 const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasServiceWeb(ATLAS_WEB_BASE_URL);
 
-const serializeResult = (results: CommonAddress[]) =>
+const serializeGeocodeResult = (results: CommonAddress[]) =>
   results.map(atlasResponse => ({
     formatted: atlasResponse.formattedAddress,
     streetAddress: atlasResponse.streetAddress,
@@ -25,14 +26,14 @@ const serializeResult = (results: CommonAddress[]) =>
     ...(atlasResponse.geocode
       ? {
         location: {
-          latitude: atlasResponse.geocode.latitude || 0,
-          longitude: atlasResponse.geocode.longitude || 0,
+          latitude: atlasResponse.geocode.latitude,
+          longitude: atlasResponse.geocode.longitude,
         },
       }
       : {}),
   }))
 
-const toSuggestions = (predictions: V2Prediction[]): Address[] =>
+const toSuggestions = (predictions: V2Prediction[]): Suggestion[] =>
   predictions.map(prediction => ({
     place_id: prediction.searchId || '',
     description: prediction.description || '',
@@ -40,74 +41,56 @@ const toSuggestions = (predictions: V2Prediction[]): Address[] =>
   }));
 
 export class AtlasBasicClient implements BaseMapsClient {
-  private _predictWithHeaders;
-  private _getPlaceWithHeaders;
+  private _predict;
+  private _getPlace;
 
-  private _predict(request: any, lang: string, instance: string) {
-    if (!this._predictWithHeaders) {
-      this._predictWithHeaders = AutocompleteServiceV2()({
-        'Authorization': instance,
-        'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
-      }).predict;
-    }
-    return this._predictWithHeaders(request)
-  }
+  constructor(lang: string, instance: string) {
+    this._predict = AutocompleteServiceV2()({
+      'Authorization': instance,
+      'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}${instance}`,
+    }).predict;
 
-  private _getPlace(request: any, lang: string, instance: string) {
-    if (!this._getPlaceWithHeaders) {
-      this._getPlaceWithHeaders = PlacesServiceV2()({
-        'Authorization': instance,
-        'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
-      }).getPlace;
-    }
-
-    return this._getPlaceWithHeaders(request)
+    this._getPlace = PlacesServiceV2()({
+      'Authorization': instance,
+      'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}${instance}`,
+    }).getPlace;
   }
 
   async autocomplete(
     clientId: string,
     lang: string,
-    request: any,
-    instance: string
-  ): Promise<Address[]> {
+    request: ClientAutocompleteRequest,
+  ): Promise<Suggestion[]> {
 
     const predictRequest = {
-      input: typeof request === 'string' ? request: request.input,
-      ...(request.componentRestrictions && request.componentRestrictions.country
+      input: typeof request === 'string' ? request : request.input,
+      ...(typeof request !== 'string' && request.componentRestrictions && request.componentRestrictions.country
         ? {
           countryCodes: [request.componentRestrictions.country],
         }
         : {}),
 
     }
-    try {
-      const predictResponse = await this._predict(predictRequest, lang, instance)
-      if (predictResponse.predictions && predictResponse.predictions.length) {
-        return toSuggestions(predictResponse.predictions || []);
-      }
-      return Promise.reject('ZERO_RESULTS');
+    const predictResponse = await this._predict(predictRequest)
+    if (predictResponse.predictions && predictResponse.predictions.length) {
+      return toSuggestions(predictResponse.predictions || []);
     }
-    catch (e) {
-      return Promise.reject(e)
-    }
+    return Promise.reject('ZERO_RESULTS');
   }
 
   async geocode(
     clientId: string,
     lang: string,
-    request: any,
-    instance: string
+    request: ClientGeocodeRequest,
   ) {
     const getPlaceRequest = {
       searchId: request.placeId
     }
 
-    try {
-      const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest, lang, instance);
-      return serializeResult([result?.place?.address] || [{}]) as any;
+    const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
+    if (result?.place?.address) {
+      return serializeGeocodeResult([result.place.address]) as any;
     }
-    catch (e) {
-      return Promise.reject(e)
-    }
+    return Promise.reject('Place Not Found')
   }
 }
