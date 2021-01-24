@@ -236,7 +236,7 @@ export class AddressInput extends React.PureComponent<
     // If user interacted, meaning the value is "dirty",
     // we want to update it in any case.
     if (nextProps.value !== this.props.value || this.state.isDirty) {
-      this.setState({inputValue: nextProps.value, isDirty: false});
+      this.setState({ inputValue: nextProps.value, isDirty: false});
     }
   }
 
