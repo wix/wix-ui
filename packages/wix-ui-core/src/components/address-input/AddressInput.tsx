@@ -232,7 +232,7 @@ export class AddressInput extends React.PureComponent<
     this.unmounted = true;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps){
     // If user interacted, meaning the value is "dirty",
     // we want to update it in any case.
     if (nextProps.value !== this.props.value || this.state.isDirty) {
