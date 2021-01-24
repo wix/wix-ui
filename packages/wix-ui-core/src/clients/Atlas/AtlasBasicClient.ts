@@ -14,7 +14,7 @@ const BASE_LINGUIST_HEADER =
   '|en-us|false|4e8a573a-6b3e-426f-9d2f-5285b7dc90f8';
 const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasServiceWeb(ATLAS_WEB_BASE_URL);
 
-const serializeResult = (results: Array<CommonAddress>) =>
+const serializeResult = (results: CommonAddress[]) =>
   results.map(atlasResponse => ({
     formatted: atlasResponse.formattedAddress,
     streetAddress: atlasResponse.streetAddress,
@@ -32,7 +32,7 @@ const serializeResult = (results: Array<CommonAddress>) =>
       : {}),
   }))
 
-const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
+const toSuggestions = (predictions: V2Prediction[]): Address[] =>
   predictions.map(prediction => ({
     place_id: prediction.searchId || '',
     description: prediction.description || '',
@@ -84,9 +84,8 @@ export class AtlasBasicClient implements BaseMapsClient {
       const predictResponse = await this._predict(predictRequest, lang, instance)
       if (predictResponse.predictions && predictResponse.predictions.length) {
         return toSuggestions(predictResponse.predictions || []);
-      } else {
-        return Promise.reject('ZERO_RESULTS');
       }
+      return Promise.reject('ZERO_RESULTS');
     }
     catch (e) {
       return Promise.reject(e)
