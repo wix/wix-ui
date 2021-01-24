@@ -7,9 +7,7 @@ import {
 import {
   Address,
 } from './types';
-import { MapsClient } from '../GoogleMaps/types'
-import { Omit } from 'type-zoo'
-import { metaSiteInstaceMock } from './testUtils'
+import { BaseMapsClient } from '../GoogleMaps/types'
 
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER =
@@ -41,24 +39,29 @@ const toSuggestions = (predictions: Array<V2Prediction>): Array<Address> =>
     types: []
   }));
 
-export class AtlasBasicClient implements Omit<MapsClient, 'placeDetails' | 'useClientId'> {
-  private _predict;
-  private _getPlace;
+export class AtlasBasicClient implements BaseMapsClient {
+  private _predictWithHeaders;
+  private _getPlaceWithHeaders;
 
-  _initServices(instance: string, lang: string) {
-    if (!this._predict) {
-      this._predict = AutocompleteServiceV2()({
+  private _predict(request: any, lang: string, instance: string) {
+    if (!this._predictWithHeaders) {
+      this._predictWithHeaders = AutocompleteServiceV2()({
         'Authorization': instance,
         'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
       }).predict;
     }
+    return this._predictWithHeaders(request)
+  }
 
-    if (!this._getPlace) {
-      this._getPlace = PlacesServiceV2()({
+  private _getPlace(request: any, lang: string, instance: string) {
+    if (!this._getPlaceWithHeaders) {
+      this._getPlaceWithHeaders = PlacesServiceV2()({
         'Authorization': instance,
         'x-wix-linguist': `${lang}${BASE_LINGUIST_HEADER}`,
       }).getPlace;
     }
+
+    return this._getPlaceWithHeaders(request)
   }
 
   async autocomplete(
@@ -77,9 +80,8 @@ export class AtlasBasicClient implements Omit<MapsClient, 'placeDetails' | 'useC
         : {}),
 
     }
-    this._initServices(instance, lang);
     try {
-      const predictResponse = await this._predict(predictRequest)
+      const predictResponse = await this._predict(predictRequest, lang, instance)
       if (predictResponse.predictions && predictResponse.predictions.length) {
         return toSuggestions(predictResponse.predictions || []);
       } else {
@@ -97,12 +99,11 @@ export class AtlasBasicClient implements Omit<MapsClient, 'placeDetails' | 'useC
     request: any,
     instance: string
   ) {
-    this._initServices(instance, lang);
     const getPlaceRequest = {
       searchId: request.placeId
     }
     try {
-      const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
+      const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest, lang, instance);
       return serializeResult([result?.place?.address] || [{}]) as any;
     }
     catch (e) {

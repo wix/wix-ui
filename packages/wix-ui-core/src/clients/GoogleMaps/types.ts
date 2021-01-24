@@ -87,9 +87,12 @@ export interface AddressOutput {
 
 export type MapsClientConstructor = new () => MapsClient;
 
-export interface MapsClient {
+export interface BaseMapsClient {
   autocomplete(apiKey: string, lang: string, request: any, instance?: string): Promise<Address[]>;
   geocode(apiKey: string, lang: string, request: any, instance?: string): Promise<Geocode[]>;
+}
+
+interface GoogleMapsClient {
   placeDetails(
     apiKey: string,
     lang: string,
@@ -97,6 +100,8 @@ export interface MapsClient {
   ): Promise<PlaceDetails>;
   useClientId(): void;
 }
+
+export interface MapsClient extends BaseMapsClient, GoogleMapsClient {}
 
 export enum Handler {
   geocode = 'geocode',
