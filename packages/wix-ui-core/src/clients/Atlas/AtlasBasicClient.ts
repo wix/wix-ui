@@ -102,6 +102,7 @@ export class AtlasBasicClient implements BaseMapsClient {
     const getPlaceRequest = {
       searchId: request.placeId
     }
+
     try {
       const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest, lang, instance);
       return serializeResult([result?.place?.address] || [{}]) as any;
