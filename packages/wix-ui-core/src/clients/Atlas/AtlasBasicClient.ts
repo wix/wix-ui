@@ -89,7 +89,7 @@ export class AtlasBasicClient implements BaseMapsClient {
 
     const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
     if (result?.place?.address) {
-      return serializeGeocodeResult([result.place.address]);
+      return serializeGeocodeResult([result.place.address]) as any;
     }
     return Promise.reject('Place Not Found')
   }
