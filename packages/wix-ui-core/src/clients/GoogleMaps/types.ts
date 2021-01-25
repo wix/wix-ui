@@ -85,7 +85,7 @@ export interface AddressOutput {
   address: InternalAddress;
 }
 
-export type MapsClientConstructor = new () => MapsClient;
+export type MapsClientConstructor = new (lang?: string, instance?: string) => MapsClient;
 
 export interface BaseMapsClient<GeocodeResult> {
   name: string;

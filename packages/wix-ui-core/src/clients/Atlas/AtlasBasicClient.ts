@@ -78,7 +78,7 @@ export class AtlasBasicClient implements AtlasMapsClient {
     };
     const predictResponse = await this._predict(predictRequest);
     if (predictResponse.predictions && predictResponse.predictions.length) {
-      return toSuggestions(predictResponse.predictions || []);
+      return toSuggestions(predictResponse.predictions);
     }
     return Promise.reject('ZERO_RESULTS');
   }

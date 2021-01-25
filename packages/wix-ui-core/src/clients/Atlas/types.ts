@@ -6,7 +6,7 @@ export interface Suggestion {
 
 export type ClientAutocompleteRequest = string | {
   input: string,
-  componentRestrictions: {
+  componentRestrictions?: {
     country: string
   }
 }
