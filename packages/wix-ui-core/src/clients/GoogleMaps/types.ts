@@ -85,7 +85,7 @@ export interface AddressOutput {
   address: InternalAddress;
 }
 
-export type MapsClientConstructor = new () => MapsClient;
+export type MapsClientConstructor = new (lang?: string, instance?: string) => MapsClient;
 
 export interface BaseMapsClient {
   autocomplete(apiKey: string, lang: string, request: any, instance?: string): Promise<Address[]>;

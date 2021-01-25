@@ -20,7 +20,7 @@ describe('AtlasBasicClient', () => {
 
     it('should call atlass getPlace and return a promise', async () => {
       let result
-      const client = new AtlasBasicClient()
+      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
       const predictRequest = {
         input: predictRequestMock.input,
         componentRestrictions: {
@@ -28,7 +28,7 @@ describe('AtlasBasicClient', () => {
         }
       }
       try {
-        result = await client.autocomplete(clientId, lang, predictRequest, metaSiteInstaceMock)
+        result = await client.autocomplete(clientId, lang, predictRequest)
       }
       catch (e) {
         result = e
@@ -38,7 +38,7 @@ describe('AtlasBasicClient', () => {
 
     it('should set the country filter to atlas autocomplete request', async () => {
       let result
-      const client = new AtlasBasicClient()
+      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
       const predictRequest = {
         input: predictRequestMock.input,
         componentRestrictions: {
@@ -46,11 +46,12 @@ describe('AtlasBasicClient', () => {
         }
       }
       try {
-        result = await client.autocomplete(clientId, lang, predictRequest, metaSiteInstaceMock)
+        result = await client.autocomplete(clientId, lang, predictRequest)
       }
       catch (e) {
         result = e
       }
+      //autocomplete mock fails if country exists and isnt IL
       expect(result).toEqual('PredictFailed')
     })
   })
@@ -67,9 +68,9 @@ describe('AtlasBasicClient', () => {
 
     it('should call geocode and return a promise', async () => {
       let result
-      const client = new AtlasBasicClient()
+      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
       try {
-        result = await client.geocode(clientId, lang, getPlaceRequestMock, metaSiteInstaceMock)
+        result = await client.geocode(clientId, lang, getPlaceRequestMock)
       }
       catch (e) {
         result = e
@@ -81,9 +82,9 @@ describe('AtlasBasicClient', () => {
   describe('invalid auth headers', () => {
     it('Should fail autocomplete with invalid auth header', async () => {
       let result
-      const client = new AtlasBasicClient()
+      const client = new AtlasBasicClient(lang, '')
       try {
-        result = await client.autocomplete(clientId, lang, predictRequestMock, '')
+        result = await client.autocomplete(clientId, lang, predictRequestMock)
       }
       catch (e) {
         result = e
@@ -93,9 +94,9 @@ describe('AtlasBasicClient', () => {
 
     it('Should fail geocode with invalid auth header', async () => {
       let result
-      const client = new AtlasBasicClient()
+      const client = new AtlasBasicClient(lang, '')
       try {
-        result = await client.geocode(clientId, lang, getPlaceRequestMock, '')
+        result = await client.geocode(clientId, lang, getPlaceRequestMock)
       }
       catch (e) {
         result = e

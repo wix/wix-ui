@@ -73,7 +73,7 @@ export class AtlasBasicClient implements BaseMapsClient {
     }
     const predictResponse = await this._predict(predictRequest)
     if (predictResponse.predictions && predictResponse.predictions.length) {
-      return toSuggestions(predictResponse.predictions || []);
+      return toSuggestions(predictResponse.predictions);
     }
     return Promise.reject('ZERO_RESULTS');
   }
@@ -89,7 +89,7 @@ export class AtlasBasicClient implements BaseMapsClient {
 
     const result: V2GetPlaceResponse = await this._getPlace(getPlaceRequest);
     if (result?.place?.address) {
-      return serializeGeocodeResult([result.place.address]) as any;
+      return serializeGeocodeResult([result.place.address]);
     }
     return Promise.reject('Place Not Found')
   }
