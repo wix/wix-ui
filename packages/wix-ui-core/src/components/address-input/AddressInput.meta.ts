@@ -7,7 +7,7 @@ import Registry from '@ui-autotools/registry';
 GoogleMapsClientStub.setAddresses([helper.ADDRESS_1, helper.ADDRESS_2]);
 GoogleMapsClientStub.setGeocode(helper.GEOCODE_1);
 
-const Client: MapsClientConstructor = GoogleMapsClientStub as MapsClientConstructor;
+const Client: MapsClientConstructor = (GoogleMapsClientStub as unknown) as MapsClientConstructor;
 const addressInputMeta = Registry.getComponentMetadata(AddressInput);
 addressInputMeta.nonReactStrictModeCompliant = true;
 

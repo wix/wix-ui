@@ -87,12 +87,28 @@ export interface AddressOutput {
 
 export type MapsClientConstructor = new () => MapsClient;
 
-export interface BaseMapsClient {
-  autocomplete(apiKey: string, lang: string, request: any, instance?: string): Promise<Address[]>;
-  geocode(apiKey: string, lang: string, request: any, instance?: string): Promise<Geocode[]>;
+export interface BaseMapsClient<GeocodeResult> {
+  name: string;
+  autocomplete(
+    apiKey: string,
+    lang: string,
+    request: any,
+    instance?: string,
+  ): Promise<Address[]>;
+  geocode(
+    apiKey: string,
+    lang: string,
+    request: any,
+    instance?: string,
+  ): Promise<GeocodeResult[]>;
 }
 
-interface GoogleMapsClient {
+export interface AtlasMapsClient extends BaseMapsClient<InternalAddress> {
+  name: 'atlas';
+}
+
+export interface GoogleMapsClient extends BaseMapsClient<Geocode> {
+  name: 'google';
   placeDetails(
     apiKey: string,
     lang: string,
@@ -101,7 +117,7 @@ interface GoogleMapsClient {
   useClientId(): void;
 }
 
-export interface MapsClient extends BaseMapsClient, GoogleMapsClient {}
+export type MapsClient = GoogleMapsClient | AtlasMapsClient;
 
 export enum Handler {
   geocode = 'geocode',
