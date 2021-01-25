@@ -63,6 +63,8 @@ export interface RadioButtonProps {
   required?: boolean;
   /** aria-label - Accessibility */
   'aria-label'?: string;
+  /** aria-describedby - Accessibility */
+  'aria-describedby'?: string;
   /** hook for testing purposes */
   'data-hook'?: string;
   className?: string;
@@ -152,6 +154,7 @@ export class RadioButton extends React.Component<
           onKeyDown={this.handleInputKeyDown}
           ref={radio => (this.radioRef = radio)}
           aria-label={this.props['aria-label']}
+          aria-describedby={this.props['aria-describedby']}
         />
         <span
           className={classes.icon}
