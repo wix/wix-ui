@@ -5,12 +5,12 @@ export interface Suggestion {
 }
 
 export type ClientAutocompleteRequest = string | {
-  input: string,
+  input: string;
   componentRestrictions?: {
-    country: string
-  }
+    country: string;
+  };
 }
 
-export type ClientGeocodeRequest = {
-  placeId: string
+export interface ClientGeocodeRequest {
+  placeId: string;
 }

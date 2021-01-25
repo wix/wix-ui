@@ -44,8 +44,8 @@ const toSuggestions = (predictions: V2Prediction[]): Suggestion[] =>
 
 export class AtlasBasicClient implements AtlasMapsClient {
   name;
-  private _predict;
-  private _getPlace;
+  private readonly _predict;
+  private readonly _getPlace;
 
   constructor(lang: string, instance: string) {
     this.name = 'atlas';

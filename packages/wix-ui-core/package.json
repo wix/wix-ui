@@ -126,6 +126,7 @@
     "@ui-autotools/a11y": "^5.0.0",
     "@ui-autotools/registry": "^5.0.0",
     "@ui-autotools/sanity": "^5.0.0",
+    "@wix/ambassador": "^4.0.489",
     "@wix/ambassador-wix-atlas-service-web": "^1.0.148",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.5",
@@ -156,6 +157,7 @@
   },
   "peerDependencies": {
     "@stylable/dom-test-kit": "^3.4.1",
+    "@wix/ambassador": "^4.0.489",
     "@wix/ambassador-wix-atlas-service-web": "^1.0.148"
   },
   "license": "MIT",
