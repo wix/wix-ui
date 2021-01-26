@@ -1,4 +1,4 @@
-import { IconMetadata } from "../types";
+import { IconMetadata } from '../../types';
 
 const generalIconsMetadata: Array<IconMetadata> = [
   {

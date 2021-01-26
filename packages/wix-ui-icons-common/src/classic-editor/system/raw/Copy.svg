@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="copy-a" d="M15,20 L9,20 C7.35,20 6,18.651 6,17 L6,10 L8,10 L8,17 C8,17.55 8.45,18 9,18 L15,18 L15,20 M17,17 L11,17 C9.9,17 9,16.099 9,15 L9,7 C9,5.9 9.9,5 11,5 L17,5 C18.1,5 19,5.895 19,7 L19,15 C19,16.104 18.1,17 17,17 L17,17 Z M11,10 L17,10 L17,9 L11,9 L11,10 Z M11,8 L17,8 L17,7 L11,7 L11,8 Z"/>
+  </defs>
+  <use xlink:href="#copy-a"/>
+</svg>
