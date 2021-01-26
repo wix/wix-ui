@@ -98,6 +98,12 @@ describe('RadioButton', () => {
       expect(await radio.labelExists()).toBeTruthy();
     });
 
+    it('should not render label if it is not passed', async () => {
+      const radio = await createDriver(<RadioButton />);
+
+      expect(await radio.labelExists()).toBeFalsy();
+    });
+
     it('renders icon correctly', async () => {
       const radio = await createDriver(createRadio());
 
