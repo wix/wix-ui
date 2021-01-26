@@ -11,11 +11,14 @@ import {
 } from './types';
 import { AtlasMapsClient, InternalAddress } from '../GoogleMaps/types';
 
+let WixAtlasService = WixAtlasServiceWeb;
+
+export const mockWixAtlasService = (atlasMock: any): void => {
+  WixAtlasService = atlasMock
+}
+
 const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER = '|en-us|false|';
-const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasServiceWeb(
-  ATLAS_WEB_BASE_URL,
-);
 
 const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
   results.map(atlasResponse => ({
@@ -48,6 +51,10 @@ export class AtlasBasicClient implements AtlasMapsClient {
   private readonly _getPlace;
 
   constructor(lang: string, instance: string) {
+    const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(
+      ATLAS_WEB_BASE_URL,
+    );
+
     this.name = 'atlas';
 
     this._predict = AutocompleteServiceV2()({

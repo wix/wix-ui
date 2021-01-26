@@ -1,4 +1,4 @@
-import { AtlasBasicClient } from './AtlasBasicClient'
+import { AtlasBasicClient, mockWixAtlasService } from './AtlasBasicClient'
 import {
   getPlaceRequestMock,
   metaSiteInstaceMock,
@@ -6,11 +6,15 @@ import {
   successfulPredictResponseMock,
   successfulGetPlaceResponseMock,
 } from './testUtils'
+import { WixAtlasServiceMock } from './atlasServiceMock'
 
 const lang = 'en'
 const clientId = 'some-id'
 
 describe('AtlasBasicClient', () => {
+  beforeAll(() => {
+    mockWixAtlasService(WixAtlasServiceMock)
+  })
   describe('autocomplete', () => {
     const successfulResult = [{
       place_id: successfulPredictResponseMock.predictions[0].searchId,
