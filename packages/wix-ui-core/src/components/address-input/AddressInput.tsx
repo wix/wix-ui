@@ -52,7 +52,7 @@ export type AddressInputProps = Pick<
   lang?: string;
   /** Metasite instance for Atlas */
   instance?: string;
-  /** Address handler - geocode or places. PLEASE NOTE - places handler is not supported with Atlas client */
+  /** Address handler - geocode or places. This is currently not supported with Atlas provider */
   handler?: Handler;
   /** Limit addresses to certain country */
   countryCode?: string;
@@ -74,7 +74,7 @@ export type AddressInputProps = Pick<
   clearSuggestionsOnBlur?: boolean;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?(value: string): void;
-  /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list)  */
+  /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list). This is currently not supported with Atlas provider  */
   filterTypes?: string[];
   /** Limit the autocomplete to specific types (see [here](https://developers.google.com/places/supported_types#table3) for list) */
   types?: string[];
@@ -118,7 +118,7 @@ export type AddressInputProps = Pick<
   onMouseEnter?(): void;
   /** Standard input onMouseLeave callback */
   onMouseLeave?(): void;
-  /** A custom formatter for maps API response */
+  /** A custom formatter for maps API response. Converter of type full is not supported with Atlas provider at the moment. */
   converterType?: Converter;
   /** Pass a custom class to the input element */
   inputClassName?: string;
