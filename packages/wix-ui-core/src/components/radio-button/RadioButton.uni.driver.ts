@@ -24,21 +24,21 @@ export const radioButtonUniDriverFactory = (
 ): RadioUniDriver => {
   const byHook = (hook: string) => base.$(`[data-hook="${hook}"]`);
 
-  const getInput = byHook(dataHooks.hiddenRadio);
-  const getIcon = byHook(dataHooks.icon);
-  const getLabel = byHook(dataHooks.label);
+  const getInput = () => byHook(dataHooks.hiddenRadio);
+  const getIcon = () => byHook(dataHooks.icon);
+  const getLabel = () => byHook(dataHooks.label);
 
   return {
     ...baseUniDriverFactory(base),
 
-    keyDown: key => getInput.pressKey(key),
-    value: async () => getInput.attr('value'),
-    name: async () => getInput.attr('name'),
+    keyDown: (key) => getInput().pressKey(key),
+    value: async () => getInput().attr('value'),
+    name: async () => getInput().attr('name'),
     isInputFocused: async () =>
-      document.activeElement === (await getInput.getNative()),
+      document.activeElement === (await getInput().getNative()),
     isRequired: async () => (await base.attr('data-required')) === 'true',
-    iconExists: async () => getIcon.exists(),
-    labelExists: async () => getLabel.exists(),
+    iconExists: async () => getIcon().exists(),
+    labelExists: async () => getLabel().exists(),
     isChecked: async () => (await base.attr('data-checked')) === 'true',
     isDisabled: async () => (await base.attr('data-disabled')) === 'true',
     isFocused: async () => (await base.attr('data-focused')) === 'true',
