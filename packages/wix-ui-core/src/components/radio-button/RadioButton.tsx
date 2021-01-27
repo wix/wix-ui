@@ -164,9 +164,11 @@ export class RadioButton extends React.Component<
         >
           {checked ? checkedIcon : uncheckedIcon}
         </span>
-        <span className={classes.label} data-hook={dataHooks.label}>
-          {label}
-        </span>
+        {label && (
+          <span className={classes.label} data-hook={dataHooks.label}>
+            {label}
+          </span>
+        )}
       </div>
     );
   }
