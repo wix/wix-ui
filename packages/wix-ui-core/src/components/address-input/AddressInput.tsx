@@ -52,7 +52,7 @@ export type AddressInputProps = Pick<
   lang?: string;
   /** Metasite instance for Atlas */
   instance?: string;
-  /** Address handler - geocode or places */
+  /** Address handler - geocode or places. PLEASE NOTE - places handler is not supported with Atlas client */
   handler?: Handler;
   /** Limit addresses to certain country */
   countryCode?: string;
