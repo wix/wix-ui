@@ -5,14 +5,16 @@ import {
   placeDetailsHandlerName,
 } from './handlersName';
 import { generateID } from './utils';
-import { MapsClient, PlacesServiceStatusTypes } from './types';
+import { GoogleMapsClient, PlacesServiceStatusTypes } from './types';
 
-export class GoogleMapsIframeClient implements MapsClient {
+export class GoogleMapsIframeClient implements GoogleMapsClient {
+  name;
   _iframesManager = new IframesManager();
   _promisesMap = new Map();
   _useClientId = false;
 
   constructor() {
+    this.name = 'google';
     window.addEventListener('message', this.handleMessage, false);
   }
 

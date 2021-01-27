@@ -1,7 +1,7 @@
 import {
   Address,
   Geocode,
-  MapsClient,
+  GoogleMapsClient,
   PlaceDetails,
 } from '../../clients/GoogleMaps/types';
 
@@ -62,7 +62,8 @@ export function createPlaceDetails(
   };
 }
 
-export class GoogleMapsClientStub implements MapsClient {
+export class GoogleMapsClientStub implements GoogleMapsClient {
+  name;
   static addresses: Address[] = [];
   static addressesDelay: number;
   static addressesPromise: Promise<any>;
@@ -72,6 +73,10 @@ export class GoogleMapsClientStub implements MapsClient {
   static placeDetails: PlaceDetails = null;
   static placeDetailsDelay: number;
   static placeDetailsPromise: Promise<any>;
+
+  constructor() {
+    this.name = 'google';
+  }
 
   autocomplete(apiKey: string, lang: string, request: string) {
     const addresses = GoogleMapsClientStub.addresses;

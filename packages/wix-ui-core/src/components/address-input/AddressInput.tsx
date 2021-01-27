@@ -14,6 +14,7 @@ import {
   MapsClientConstructor,
   PlaceDetails,
   Handler,
+  InternalAddress,
 } from '../../clients/GoogleMaps/types';
 import {
   convertToFullAddress,
@@ -49,7 +50,9 @@ export type AddressInputProps = Pick<
   clientId?: string;
   /** Maps language */
   lang?: string;
-  /** Address handler - geocode or places */
+  /** Metasite instance for Atlas */
+  instance?: string;
+  /** Address handler - geocode or places. This is currently not supported with Atlas provider */
   handler?: Handler;
   /** Limit addresses to certain country */
   countryCode?: string;
@@ -71,13 +74,13 @@ export type AddressInputProps = Pick<
   clearSuggestionsOnBlur?: boolean;
   /** Callback when the user pressed the Enter key or Tab key after he wrote in the Input field - meaning the user selected something not in the list  */
   onManualInput?(value: string): void;
-  /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list)  */
+  /** Lower level filtering of autocomplete result types (see [here](https://developers.google.com/places/supported_types) for list). This is currently not supported with Atlas provider  */
   filterTypes?: string[];
   /** Limit the autocomplete to specific types (see [here](https://developers.google.com/places/supported_types#table3) for list) */
   types?: string[];
   /** Inputs value */
   value?: string;
-  /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt  */
+  /** If set to `true`, we will attempt to get a Google location from the input's text if there are no suggestions. This is useful when looking for locations for which google does not give suggestions - for example: Apartment/Apt. This is currently not supported with Atlas provider */
   fallbackToManual?: boolean;
   /** If set to true, content element will always be visible, used for preview mode */
   forceContentElementVisibility?: boolean;
@@ -115,7 +118,7 @@ export type AddressInputProps = Pick<
   onMouseEnter?(): void;
   /** Standard input onMouseLeave callback */
   onMouseLeave?(): void;
-  /** A custom formatter for maps API response */
+  /** A custom formatter for maps API response. Converter of type full is not supported with Atlas provider at the moment. */
   converterType?: Converter;
   /** Pass a custom class to the input element */
   inputClassName?: string;
@@ -136,6 +139,17 @@ function filterAddressesByType(addresses: Address[], filterTypes?: string[]) {
         address => intersection(address.types, filterTypes).length > 0,
       )
     : addresses;
+}
+
+function formatAtlasAddressOutput(
+  atlasAddress: InternalAddress,
+  description: string,
+): AddressOutput {
+  return {
+    originValue: description,
+    googleResult: {} as any,
+    address: atlasAddress,
+  };
 }
 
 function formatAddressOutput(
@@ -222,8 +236,9 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    this.client = new this.props.Client();
-    if (this.props.clientId) {
+    const { clientId, Client, instance, lang} = this.props;
+    this.client = new Client(lang, instance);
+    if (this.client.name === 'google' && this.props.clientId) {
       this.client.useClientId();
     }
   }
@@ -270,7 +285,7 @@ export class AddressInput extends React.PureComponent<
     const results = await this.client.autocomplete(
       this._getKey(),
       lang,
-      createAutocompleteRequest(input, this.props),
+      createAutocompleteRequest(input, this.props)
     );
     const filteredResults = filterAddressesByType(results, filterTypes) || [];
     const options = filteredResults.map(this._createOptionFromAddress);
@@ -285,13 +300,22 @@ export class AddressInput extends React.PureComponent<
     rawInputValue: string,
   ) {
     const requestId = ++this.geocodeRequestId;
-    const { lang, countryCode: region, converterType } = this.props;
+    const { lang, countryCode: region, converterType, instance } = this.props;
     const request = placeId ? { placeId, region } : { address: rawInputValue };
-    const geocode = await this.client.geocode(this._getKey(), lang, request);
+    const geocode = await this.client.geocode(
+      this._getKey(),
+      lang,
+      request
+    );
+
+    const formatByProvider =
+      this.client.name === 'atlas'
+        ? formatAtlasAddressOutput
+        : formatAddressOutput;
 
     if (requestId === this.geocodeRequestId) {
       this._invokeOnSelect(
-        formatAddressOutput(
+        formatByProvider(
           first(geocode),
           description,
           rawInputValue,
@@ -306,21 +330,28 @@ export class AddressInput extends React.PureComponent<
     description: string,
     rawInputValue: string,
   ) {
-    const requestId = ++this.placeDetailsRequestId;
-    const { lang, converterType } = this.props;
-    const placeDetails = await this.client.placeDetails(this._getKey(), lang, {
-      placeId,
-    });
+    if (this.client.name === 'google') {
+      const requestId = ++this.placeDetailsRequestId;
+      const { lang, converterType } = this.props;
 
-    if (requestId === this.placeDetailsRequestId) {
-      this._invokeOnSelect(
-        formatAddressOutput(
-          placeDetails,
-          description,
-          rawInputValue,
-          converterType,
-        ),
+      const placeDetails = await this.client.placeDetails(
+        this._getKey(),
+        lang,
+        {
+          placeId,
+        },
       );
+
+      if (requestId === this.placeDetailsRequestId) {
+        this._invokeOnSelect(
+          formatAddressOutput(
+            placeDetails,
+            description,
+            rawInputValue,
+            converterType,
+          ),
+        );
+      }
     }
   }
 

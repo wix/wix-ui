@@ -2,7 +2,7 @@ import { Omit } from 'type-zoo';
 import {
   Address,
   Geocode,
-  MapsClient,
+  GoogleMapsClient,
   PlacesServiceStatusTypes,
 } from './types';
 
@@ -31,11 +31,17 @@ const serializeResult = results => ({
 });
 
 // placeDetails is not required at the moment
-export class GoogleMapsBasicClient implements Omit<MapsClient, 'placeDetails'> {
+export class GoogleMapsBasicClient
+  implements Omit<GoogleMapsClient, 'placeDetails'> {
+  name;
   private _autocomplete;
   private _geocoder;
   private _loadScriptPromise;
   private _useClientId;
+
+  constructor() {
+    this.name = 'google';
+  }
 
   _initServices() {
     if (!this._autocomplete) {
