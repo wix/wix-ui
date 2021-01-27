@@ -55,6 +55,8 @@ module.exports = function(source) {
         ? gatherAll(path.join(this.context, componentPath))
         : Promise.resolve({});
 
+      console.log('adler', 'index.js:58', metadata);
+
       return metadata
         .then(applyPlugins({ source, plugins, basePath: this.context })) // 3. apply plugged in analyzers
         .then(metadataMerger(source)) // 4. merge component metadata with storybook config
