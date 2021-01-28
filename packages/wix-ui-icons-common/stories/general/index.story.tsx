@@ -21,7 +21,7 @@ import IconsExample from "../components/icons-example";
 import generalIconsMetadata from "../../src/general/metadata";
 import * as iconComponents from "../../src/general/dist";
 import API_Table from "../APITable";
-import GeneralCategoryList from '../components/general-category-list/GeneralCategoryList'
+import GeneralCategoryListBase from '../components/general-category-list-base/GeneralCategoryList'
 
 export default {
   category: "WSR Icons",
@@ -68,7 +68,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <GeneralCategoryList iconComponents={iconComponents} iconsMetadata={generalIconsMetadata}/>,
+          <GeneralCategoryListBase iconComponents={iconComponents} iconsMetadata={generalIconsMetadata}/>,
         ],
       }),
       tab({

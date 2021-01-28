@@ -22,7 +22,8 @@ import IconsExample from "../../components/icons-example";
 import generalIconsMetadata from "../../../src/classic-editor/general/metadata";
 import * as iconComponents from "../../../src/classic-editor/general/dist";
 import API_Table from "../../APITable";
-import GeneralCategoryList from '../../components/general-category-list/GeneralCategoryList'
+import GeneralCategoryListBase from '../../components/general-category-list-base/GeneralCategoryList'
+import ClassicEditorGeneralCategoryList from './classicEditorGeneralCategoryList'
 
 export default {
   category: "Classic-Editor Icons",
@@ -65,7 +66,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <GeneralCategoryList iconComponents={iconComponents} iconsMetadata={generalIconsMetadata} />,
+          <ClassicEditorGeneralCategoryList />,
         ],
       }),
       tab({

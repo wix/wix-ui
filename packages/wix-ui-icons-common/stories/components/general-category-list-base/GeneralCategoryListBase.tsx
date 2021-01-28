@@ -1,6 +1,6 @@
 import * as React from "react";
 import CategoryList from "../category-list";
-import { classes } from "./GeneralCategoryList.st.css";
+import { classes } from "./GeneralCategoryListBase.st.css";
 import { IconMetadata } from "../../../src/types";
 import { GeneralCategoryListProps, GeneralTableRow } from '../../types'
 
@@ -14,7 +14,7 @@ const tableHeaderTitles = [
 
 const searchKeys = ["title", "sizes.18", "sizes.24", "tags", "aliases"];
 
-const GeneralCategoryList: React.FC<GeneralCategoryListProps> = ({ iconComponents, iconsMetadata }) => {
+const GeneralCategoryListBase: React.FC<GeneralCategoryListProps> = ({ iconComponents, iconsMetadata }) => {
 
   const mapIconToRow = (
     {
@@ -46,4 +46,4 @@ const GeneralCategoryList: React.FC<GeneralCategoryListProps> = ({ iconComponent
   )
 };
 
-export default GeneralCategoryList;
+export default GeneralCategoryListBase;
