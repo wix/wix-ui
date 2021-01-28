@@ -126,24 +126,6 @@ describe('RadioButton', () => {
 
       expect(await radio.isInputFocused()).toBeTruthy();
     });
-
-    it('has role="radio" on wrapping div when supportSR is undefined', async () => {
-      const radio = await createDriver(createRadio());
-      const element = await radio.element();
-      expect(element.getAttribute('role')).toBe('radio');
-    });
-
-    it('has role="radio" on wrapping div when supportSR is false', async () => {
-      const radio = await createDriver(createRadio({ supportSR: false }));
-      const element = await radio.element();
-      expect(element.getAttribute('role')).toBe('radio');
-    });
-
-    it('removes role from wrapping div when supportSR is true', async () => {
-      const radio = await createDriver(createRadio({ supportSR: true }));
-      const element = await radio.element();
-      expect(element.getAttribute('role')).toBeNull();
-    });
   }
 
   function runSyncTests(createDriver) {

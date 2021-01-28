@@ -70,8 +70,6 @@ export interface RadioButtonProps {
   className?: string;
   /** Inline style */
   style?: object;
-  /** adjust component for screen readers - remove role attribute and opacity from input  */
-  supportSR?: boolean;
 }
 
 export interface RadioButtonState {
@@ -114,7 +112,6 @@ export class RadioButton extends React.Component<
       tabIndex,
       className,
       style,
-      supportSR,
     } = this.props;
     const focused = this.state.focused;
 
@@ -137,7 +134,6 @@ export class RadioButton extends React.Component<
         data-focus-visible={this.state.focusVisible}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
-        role={!supportSR ? 'radio' : undefined}
         aria-checked={checked ? checked : false}
         {...filterDataProps(this.props)}
       >

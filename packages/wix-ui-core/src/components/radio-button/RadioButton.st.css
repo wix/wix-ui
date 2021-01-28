@@ -1,6 +1,6 @@
 .root {
   display: inline-block;
-  -st-states: disabled, checked, focused, focus-visible, supportSR;
+  -st-states: disabled, checked, focused, focus-visible;
 }
 
 .icon {
@@ -20,18 +20,6 @@
 .hiddenRadio {
   position: absolute;
   overflow: hidden;
-}
-
-.root:not(:supportSR) .hiddenRadio {
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  opacity: 0;
-}
-
-.root:supportSR .hiddenRadio {
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
   padding:0 !important;
