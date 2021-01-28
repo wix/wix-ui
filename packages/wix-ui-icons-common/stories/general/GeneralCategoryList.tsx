@@ -3,11 +3,11 @@ import GeneralCategoryListBase from '../components/general-category-list-base/Ge
 import * as iconComponents from '../../src/general/dist'
 import generalIconsMetadata from '../../src/general/metadata'
 
-const ClassicEditorGeneralCategoryList: React.FC = () =>
+const GeneralCategoryList: React.FC = () =>
   (
     <>
       <GeneralCategoryListBase iconComponents={iconComponents} iconsMetadata={generalIconsMetadata}/>
     </>
   )
 
-export default ClassicEditorGeneralCategoryList
+export default GeneralCategoryList
