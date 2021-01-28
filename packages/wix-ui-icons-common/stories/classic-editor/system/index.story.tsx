@@ -42,7 +42,6 @@ const mapIconToRow = (
 }
 
 
-// const tableHeaderTitles = ["Icon", "Icon Name", "Icon Size", ""];
 const tableHeaderTitles = ["Icon", "Icon Name", "Icon Size"];
 
 const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
