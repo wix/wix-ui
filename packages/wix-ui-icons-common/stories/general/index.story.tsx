@@ -22,10 +22,11 @@ import generalIconsMetadata from "../../src/general/metadata";
 import * as iconComponents from "../../src/general/dist";
 import API_Table from "../APITable";
 import GeneralCategoryList from './GeneralCategoryList'
+import { GENERAL_ICONS, WSR_CATEGORY } from '../constants'
 
 export default {
-  category: "WSR Icons",
-  storyName: "General Icons",
+  category: WSR_CATEGORY,
+  storyName: GENERAL_ICONS,
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
   ),

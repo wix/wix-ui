@@ -25,6 +25,7 @@ import * as iconComponents from "../../../src/classic-editor/system/dist";
 import { IconMetadata } from "../../../src/types";
 import API_Table from "../../APITable";
 import { getIconSizeKeys } from '../../utils'
+import { CLASSIC_EDITOR_CATEGORY, SYSTEM_ICONS } from '../../constants'
 
 const mapIconToRow = (
   {
@@ -48,8 +49,8 @@ const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
 const searchKeys = ["title", ...iconSizeKeys, "tags", "aliases"];
 
 export default {
-  category: "Classic-Editor Icons",
-  storyName: "System Icons",
+  category: CLASSIC_EDITOR_CATEGORY,
+  storyName: SYSTEM_ICONS,
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
   ),

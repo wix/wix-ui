@@ -26,6 +26,7 @@ import { IconMetadata } from "../../src/types";
 import { SystemTableRow, IconDescriptor } from "../types";
 import API_Table from "../APITable";
 import { getIconSizeKeys } from '../utils'
+import { SYSTEM_ICONS, WSR_CATEGORY } from '../constants'
 
 const mapIconToRow = ({
   title,
@@ -50,8 +51,8 @@ const iconSizeKeys = getIconSizeKeys(systemIconsMetadata);
 const searchKeys = ["title", ...iconSizeKeys, "tags", "aliases"];
 
 export default {
-  category: "WSR Icons",
-  storyName: "System Icons",
+  category: WSR_CATEGORY,
+  storyName: SYSTEM_ICONS,
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
   ),

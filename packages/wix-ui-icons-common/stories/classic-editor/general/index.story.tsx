@@ -19,15 +19,14 @@ import {
 } from "../../../src/classic-editor/general/dist";
 import HeaderIcons from "../../components/header-icons";
 import IconsExample from "../../components/icons-example";
-import generalIconsMetadata from "../../../src/classic-editor/general/metadata";
 import * as iconComponents from "../../../src/classic-editor/general/dist";
 import API_Table from "../../APITable";
-import GeneralCategoryListBase from '../../components/general-category-list-base/GeneralCategoryList'
 import ClassicEditorGeneralCategoryList from './classicEditorGeneralCategoryList'
+import { CLASSIC_EDITOR_CATEGORY, GENERAL_ICONS } from '../../constants'
 
 export default {
-  category: "Classic-Editor Icons",
-  storyName: "General Icons",
+  category: CLASSIC_EDITOR_CATEGORY,
+  storyName: GENERAL_ICONS,
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
   ),
