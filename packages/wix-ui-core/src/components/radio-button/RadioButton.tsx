@@ -124,7 +124,6 @@ export class RadioButton extends React.Component<
             disabled,
             focused,
             'focus-visible': this.state.focusVisible,
-            supportSR,
           },
           className,
         )}
