@@ -16,6 +16,7 @@ export const radioButtonDriverFactory = ({ element, eventTrigger }) => {
     blur: () => eventTrigger.blur(getInput()),
     value: () => getInput().getAttribute('value'),
     name: () => getInput().getAttribute('name'),
+    id: () => getInput().getAttribute('id'),
     isInputFocused: () => document.activeElement === getInput(),
     isRequired: () => getInput().hasAttribute('required'),
     iconExists: () => !!getIcon(),
