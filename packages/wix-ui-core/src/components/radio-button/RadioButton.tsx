@@ -133,7 +133,6 @@ export class RadioButton extends React.Component<
         data-focus-visible={this.state.focusVisible}
         onChange={this.handleInputChange}
         onClick={this.handleClick}
-        role="radio"
         aria-checked={checked ? checked : false}
         {...filterDataProps(this.props)}
       >
