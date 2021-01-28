@@ -22,6 +22,8 @@ addParameters({
 const loadStories = () => {
   require("../stories/general/index.story");
   require("../stories/system/index.story");
+  require("../stories/classic-editor/general/index.story");
+  require("../stories/classic-editor/system/index.story");
 };
 
 configure(loadStories, module);

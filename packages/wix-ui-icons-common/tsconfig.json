@@ -23,7 +23,7 @@
     "./src/**/*.ts",
     "./src/**/*.tsx",
     // Used for sharing story with external Storybooks (e.g. wix-style-react)
-    "./stories/general/GeneralCategoryList.tsx",
+    "./stories/components/general-category-list/GeneralCategoryList.tsx",
     "./stories/APITable.tsx"
   ]
 }

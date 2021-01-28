@@ -18,12 +18,13 @@ import {
 } from "../../src/general/dist";
 import HeaderIcons from "../components/header-icons";
 import IconsExample from "../components/icons-example";
+import generalIconsMetadata from "../../src/general/metadata";
 import * as iconComponents from "../../src/general/dist";
-import GeneralCategoryList from "./GeneralCategoryList";
 import API_Table from "../APITable";
+import GeneralCategoryList from '../components/general-category-list/GeneralCategoryList'
 
 export default {
-  category: "Icons",
+  category: "WSR Icons",
   storyName: "General Icons",
   component: () => (
     <IconsExample dataHook="icon-list" {...{ iconComponents }} />
@@ -67,7 +68,7 @@ export default {
             text:
               "The usage of each icon type is determined by intention and size. Icons should be used strictly according to the description.",
           }),
-          <GeneralCategoryList />,
+          <GeneralCategoryList iconComponents={iconComponents} iconsMetadata={generalIconsMetadata}/>,
         ],
       }),
       tab({
