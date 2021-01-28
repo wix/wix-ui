@@ -9,6 +9,7 @@ export interface RadioUniDriver extends BaseUniDriver {
   keyDown(key): Promise<void>;
   value(): Promise<string>;
   name(): Promise<string>;
+  id(): Promise<string>;
   isInputFocused(): Promise<boolean>;
   isRequired(): Promise<boolean>;
   iconExists(): Promise<boolean>;
@@ -34,6 +35,7 @@ export const radioButtonUniDriverFactory = (
     keyDown: key => getInput().pressKey(key),
     value: async () => getInput().attr('value'),
     name: async () => getInput().attr('name'),
+    id: async () => getInput().attr('id'),
     isInputFocused: async () =>
       document.activeElement === (await getInput().getNative()),
     isRequired: async () => (await base.attr('data-required')) === 'true',

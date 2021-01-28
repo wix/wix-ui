@@ -92,6 +92,12 @@ describe('RadioButton', () => {
       expect(await radio.name()).toEqual('unicorns');
     });
 
+    it('accepts correct id', async () => {
+      const radio = await createDriver(createRadio({ id: 'radio-id' }));
+
+      expect(await radio.id()).toEqual('radio-id');
+    });
+
     it('renders label correctly', async () => {
       const radio = await createDriver(createRadio());
 
