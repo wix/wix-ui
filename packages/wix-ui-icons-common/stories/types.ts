@@ -21,7 +21,7 @@ export type Category = {
 };
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
-  size?: string;
+  size?: string | number;
 };
 
 export type IconDescriptor = {
