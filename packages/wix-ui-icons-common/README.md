@@ -9,10 +9,17 @@ npm install wix-ui-icons-common
 
 ## Usage
 
-You should use the system icons for internal components and the general icons for the consumer of your project:
+You should use the system icons for internal components and the general icons for the consumer of your project.
+To import and use wixStyleReact icons:
 ```jsx
-import SomeGeneralIcon from 'wix-ui-icons-common/general/SomeGeneralIcon';
+import SomeGeneralIcon from 'wix-ui-icons-common/SomeGeneralIcon';
 import SomeSystemIcon from 'wix-ui-icons-common/system/SomeSystemIcon';
+```
+
+To import and use classic editor (wix-base-ui) icons:
+```jsx
+import SomeGeneralIcon from 'wix-ui-icons-common/classic-editor/SomeGeneralIcon';
+import SomeSystemIcon from 'wix-ui-icons-common/classic-editor/system/SomeSystemIcon';
 ```
 
 ### Properties
