@@ -961,6 +961,18 @@ describe('AddressInput', () => {
       init({ id });
       expect(driver.getElementId()).toBe(id);
     });
+
+    it('Should pass required prop', () => {
+      init({ required: true });
+
+      expect(driver.getInput().required).toBe(true);
+    });
+
+    it('Should pass required false as default', () => {
+      init();
+
+      expect(driver.getInput().required).toBe(false);
+    });
   });
 
   describe('Preview states', () => {
