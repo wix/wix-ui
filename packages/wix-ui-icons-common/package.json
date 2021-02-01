@@ -52,7 +52,8 @@
     "export-classic-editor-general-svg-icons": "node ./scripts/export-svg-icons.js ./src/classic-editor/general/raw .",
     "export-classic-editor-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/classic-editor/system/raw system",
     "storybook": "start-storybook -p 6006",
-    "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease"
+    "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
+    "postpublish": "npx janet deploy --ci"
   },
   "devDependencies": {
     "@babel/register": "^7.10.4",

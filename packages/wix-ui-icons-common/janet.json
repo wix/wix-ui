@@ -1,0 +1,10 @@
+{
+  "name": "wix-ui-icons-common",
+  "rootDir": "storybook-static",
+  "files": [
+    "*"
+  ],
+  "exposure": [
+    "bo"
+  ]
+}
