@@ -1,5 +1,6 @@
 import type Fuse from 'fuse.js';
 import { IconMetadata } from "../src/types";
+import * as React from 'react'
 
 /** [icon component, icon name, small icon component,
  * small icon name, description] */
@@ -20,7 +21,7 @@ export type Category = {
 };
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
-  size?: string;
+  size?: string | number;
 };
 
 export type IconDescriptor = {
@@ -31,3 +32,8 @@ export type IconDescriptor = {
 
 // Search index of icons metadata
 export type IconsMetadataIndex = Fuse<IconMetadata>;
+
+export type GeneralCategoryListProps = {
+  iconComponents: Record<string, React.FC<IconProps>>;
+  iconsMetadata: Array<IconMetadata>
+}

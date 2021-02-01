@@ -1,0 +1,15 @@
+.tableList table {
+    table-layout: fixed;
+}
+
+.tableList th:nth-child(1) {
+    width: 36px;
+}
+
+.tableList th:nth-child(2) {
+    width: 160px;
+}
+
+.tableList th:nth-child(3) {
+    width: 650px;
+}
