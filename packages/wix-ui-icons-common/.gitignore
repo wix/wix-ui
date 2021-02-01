@@ -18,6 +18,7 @@ storybook-e2e
 /*.d.ts
 /*.svg
 /system
+/classic-editor
 
 !wallaby.js
 !protractor.conf.js
