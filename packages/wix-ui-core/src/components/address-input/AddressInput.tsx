@@ -125,6 +125,7 @@ export type AddressInputProps = Pick<
   /** Options box z-index */
   optionsContainerZIndex?: number;
   className?: string;
+  /** Sets the input to required */
   required?: boolean;
 };
 
