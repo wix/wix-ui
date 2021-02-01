@@ -12,11 +12,6 @@
 
 .root:checked::icon, .root:hover::icon {}
 
-.root:disabled {
-  filter: grayscale(75%);
-  opacity: 0.7;
-}
-
 .hiddenRadio {
   position: absolute;
   overflow: hidden;
