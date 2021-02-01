@@ -13,6 +13,7 @@
   "files": [
     "dist",
     "system",
+    "classic-editor",
     "*.js",
     "*.d.ts",
     "*.svg",
