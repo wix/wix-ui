@@ -68,4 +68,4 @@ Before adding a new icon, please consult with your relevant UX. Not from Wix? Pl
 	}
 	```
 
-* After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools)
+* After PR is merged to `wix-ui`, trigger and wait for `wix-style-react` build to finish, and approve new icons snapshot base-line (In Applitools).
