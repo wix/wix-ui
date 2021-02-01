@@ -29,7 +29,7 @@
     "test:visual": "MATCH_ENV=e2e yoshi test --protractor",
     "test": "npm run test:unit && npm run test:visual",
     "start": "npm run buildIcons && npm run storybook",
-    "release": "yoshi release && npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
+    "release": "yoshi release && npm run deploy:janet",
     "buildIcons": "npm run buildWSRIcons && npm run buildClassicEditorIcons",
     "buildWSRIcons": "npm run buildWSRGeneralIcons && npm run buildWSRSystemIcons",
     "buildWSRGeneralIcons": "svg2react-icon --typescript --monochrome src/general/raw src/general/dist",
@@ -53,7 +53,6 @@
     "export-classic-editor-system-svg-icons": "node ./scripts/export-svg-icons.js ./src/classic-editor/system/raw system",
     "storybook": "start-storybook -p 6006",
     "pr-postbuild": "npm run deploy:janet",
-    "postpublish": "npm run deploy:janet",
     "deploy:janet": "npx janet deploy --ci"
   },
   "devDependencies": {
