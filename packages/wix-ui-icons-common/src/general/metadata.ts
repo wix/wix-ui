@@ -1975,7 +1975,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
   {
     title: "Vimeo",
     category: "Brands",
-    description: "Button - redirects to Vimeo social network" ,
+    description: "Button - redirects to Vimeo social network",
     tags: [ "share", "video", "upload"],
     sizes: { "18": "VimeoSmall", "24": "Vimeo" },
   },
