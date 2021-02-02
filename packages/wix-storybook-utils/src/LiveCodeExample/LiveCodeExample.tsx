@@ -4,6 +4,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import classnames from 'classnames';
 import { Collapse } from 'react-collapse';
 import debounce from 'lodash/debounce';
+import { DebouncedFunc } from 'lodash';
 
 import DuplicateSmall from '../icons/DuplicateSmall';
 import RevertSmall from '../icons/RevertSmall';
@@ -52,7 +53,7 @@ interface State {
 }
 
 export default class LiveCodeExample extends React.PureComponent<Props, State> {
-  debouncedOnCodeChange: () => any;
+  debouncedOnCodeChange: DebouncedFunc<() => any>;
 
   static propTypes = {
     initialCode: PropTypes.string,
@@ -104,7 +105,7 @@ export default class LiveCodeExample extends React.PureComponent<Props, State> {
     if (
       this.props.previewWarning !== prevProps.previewWarning &&
       typeof prevProps.previewWarning === 'function' &&
-        renderPreview
+      renderPreview
     ) {
       this.setState({ renderPreview: false });
     }
