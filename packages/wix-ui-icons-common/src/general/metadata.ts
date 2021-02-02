@@ -21,7 +21,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     title: "Integrations",
     category: "General",
     description: "Button - opens integrations list",
-    tags: ["connect", "manage", "plugin", "app"], 
+    tags: ["connect", "manage", "plugin", "app"],
     sizes: { "18": "IntegrationsSmall", "24": "Integrations" },
   },
   {
@@ -42,14 +42,14 @@ const generalIconsMetadata: Array<IconMetadata> = [
     title: "Compose",
     category: "Actions",
     description: "Button - opens message or text composing dialogue",
-    tags: ["write", "create", "text", "message"], 
+    tags: ["write", "create", "text", "message"],
     sizes: { "18": "ComposeSmall", "24": "Compose" },
   },
   {
     title: "Merge",
     category: "Actions",
     description: "Button - calls out merge dialogue",
-    tags: ["join", "integrate", "unite"], 
+    tags: ["join", "integrate", "unite"],
     sizes: { "18": "MergeSmall", "24": "Merge" },
   },
   {
@@ -1975,7 +1975,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
   {
     title: "Vimeo",
     category: "Brands",
-    description: "Button - redirects to Vimeo social network",tags: ["social", "video"],
+    description: "Button - redirects to Vimeo social network",
     tags: [ "share", "video", "upload"],
     sizes: { "18": "VimeoSmall", "24": "ViemeoSmall" },
   },
