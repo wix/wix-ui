@@ -10,6 +10,7 @@ export interface DropdownOptionProps {
   isHovered: boolean;
   onClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
   onMouseEnterHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
+  onMouseLeaveHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
   dataHook?: string;
 }
 
@@ -25,6 +26,7 @@ export const DropdownOption: DropdownOptionType = (
     isHovered,
     onClickHandler,
     onMouseEnterHandler,
+    onMouseLeaveHandler,
     dataHook,
   } = props;
   const disabled = option.isDisabled;
@@ -50,6 +52,7 @@ export const DropdownOption: DropdownOptionType = (
       onClick={onClickHandler}
       title={option.value}
       onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
     >
       {option.render(option.value)}
     </div>

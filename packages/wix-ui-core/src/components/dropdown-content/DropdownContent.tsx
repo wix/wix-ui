@@ -264,6 +264,7 @@ export class DropdownContent extends React.PureComponent<
                   ? evt => this.onMouseEnter(evt, index)
                   : undefined
               }
+              onMouseLeaveHandler={()=>{this.setHoveredIndex(NOT_HOVERED_INDEX)}}
             />
           ))}
         </div>
