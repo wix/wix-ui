@@ -1,8 +1,8 @@
-import * as ejs from 'ejs';
+import ejs from 'ejs';
 
-import * as camelCase from 'lodash/camelCase';
-import * as kebabCase from 'lodash/kebabCase';
-import * as snakeCase from 'lodash/snakeCase';
+import camelCase from 'lodash/camelCase';
+import kebabCase from 'lodash/kebabCase';
+import snakeCase from 'lodash/snakeCase';
 
 const utils = {
   toCamel: camelCase,
@@ -24,7 +24,7 @@ export const replaceTemplates = (source: string, scope: Object) => {
    * 1. with major version release
    * 2. when ensured no consumers use it
    */
-  const replaceDeprecatedSyntax = source.replace(/{%[\w-]+%}/g, match => {
+  const replaceDeprecatedSyntax = source.replace(/{%[\w-]+%}/g, (match) => {
     const key = match.slice(2, -2);
 
     if (!scope.hasOwnProperty(key)) {

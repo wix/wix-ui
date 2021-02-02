@@ -25,10 +25,6 @@
       "error",
       "always"
     ],
-    "arrow-parens": [
-      true,
-      "ban-single-arg-parens"
-    ],
     "array-bracket-spacing": [
       true,
       "never"

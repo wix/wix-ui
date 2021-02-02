@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 import { Options } from './typings';
 import { runTasks } from './run-tasks';
@@ -8,7 +8,7 @@ const defaultTemplatesPath = '.wuf/generator/templates';
 
 export const generate: (
   a: Options & { componentName: string },
-) => Promise<void> = opts => {
+) => Promise<void> = (opts) => {
   try {
     require(path.join(opts._process.cwd, 'package.json'));
   } catch (e) {
@@ -33,7 +33,7 @@ export const generate: (
     return runTasks(options);
   }
 
-  return runPrompts().then(answers =>
+  return runPrompts().then((answers) =>
     runTasks({
       ...options,
       ...answers,

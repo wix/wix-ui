@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as cista from 'cista';
+import fs from 'fs';
+import path from 'path';
+import cista from 'cista';
 
 import { exportTestkits, warningBanner } from '.';
 

@@ -1,18 +1,18 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as mkdirp from 'mkdirp';
-import * as kebabCase from 'lodash/kebabCase';
-import * as camelCase from 'lodash/camelCase';
-import * as snakeCase from 'lodash/snakeCase';
+import fs from 'fs';
+import path from 'path';
+import mkdirp from 'mkdirp';
+import kebabCase from 'lodash/kebabCase';
+import camelCase from 'lodash/camelCase';
+import snakeCase from 'lodash/snakeCase';
 
 import { Options } from '../typings';
 import { replaceTemplates } from './replace-templates';
 import { createValuesMap } from '../create-values-map';
 import { interpolateFileName } from '../interpolate-file-name';
 
-const pathExists = p =>
-  new Promise(resolve => {
-    fs.access(p, fs.constants.F_OK, err => {
+const pathExists = (p: string) =>
+  new Promise((resolve) => {
+    fs.access(p, fs.constants.F_OK, (err) => {
       resolve(!err);
     });
   });
@@ -29,7 +29,7 @@ export const copyTemplates = async ({
   }
 
   const readdir = (entry: string) =>
-    fs.readdirSync(entry).map(dir => path.join(entry, dir));
+    fs.readdirSync(entry).map((dir) => path.join(entry, dir));
 
   const componentNames = {
     ComponentName,

@@ -1,4 +1,4 @@
-import * as cista from 'cista';
+import cista from 'cista';
 
 import * as logger from '../../../logger';
 import * as utils from '../utils';
@@ -9,7 +9,7 @@ import {
 
 let isGitRepoCleanSpy;
 
-const mockGitStatus = isClean => {
+const mockGitStatus = (isClean) => {
   isGitRepoCleanSpy = jest
     .spyOn(utils, 'isGitRepoClean')
     .mockImplementation(() => Promise.resolve(isClean));

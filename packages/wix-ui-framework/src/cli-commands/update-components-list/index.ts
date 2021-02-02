@@ -1,7 +1,7 @@
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 import { promisify } from 'util';
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
 
 import { Path, Process } from '../../typings.d';
 import { fileExists } from '../../file-exists';
@@ -12,7 +12,7 @@ import { mapTree } from '../../map-tree';
 const fsReadFile = promisify(fs.readFile);
 const fsWriteFile = promisify(fs.writeFile);
 
-const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
+const pathResolver = (cwd) => (...a) => path.resolve(cwd, ...a);
 
 interface Options {
   shape?: Path;
@@ -32,7 +32,7 @@ const readOutputFile = async (path = '') => {
   }
 };
 
-const guards: (a: Options) => Promise<void> = async unsafeOptions => {
+const guards: (a: Options) => Promise<void> = async (unsafeOptions) => {
   const pathResolve = pathResolver(unsafeOptions._process.cwd);
 
   const options = {
@@ -48,8 +48,9 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
 
   if (!(await fileExists(options.shape))) {
     throw new Error(
-      `Component structure file does not exist at "${unsafeOptions.shape ||
-        options.shape}"`,
+      `Component structure file does not exist at "${
+        unsafeOptions.shape || options.shape
+      }"`,
     );
   }
 
@@ -62,7 +63,7 @@ const guards: (a: Options) => Promise<void> = async unsafeOptions => {
   return makeOutput(options);
 };
 
-const makeOutput: (a: Options) => Promise<void> = async options => {
+const makeOutput: (a: Options) => Promise<void> = async (options) => {
   const shapeRaw = await fsReadFile(options.shape, 'utf8');
   const shape = JSON.parse(shapeRaw);
   const output = await readOutputFile(options.output);

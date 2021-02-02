@@ -1,4 +1,4 @@
-import * as program from 'commander';
+import program from 'commander';
 
 import { generate } from './cli-commands/generate';
 import { cli as generateCli } from './cli-commands/generate/cli';
@@ -13,14 +13,14 @@ import { cli as updateComponentsListCli } from './cli-commands/update-components
 // otherwise `dist` would contain extraneous `src` folder
 const { version } = require('../package.json');
 
-const extendOptions = options => ({
+const extendOptions = (options) => ({
   ...options,
   _process: {
     cwd: process.cwd(),
   },
 });
 
-const run = action => options =>
+const run = (action) => (options) =>
   action(extendOptions(options)).catch(console.error);
 
 program.name('wuf').version(version, '-v, --version');

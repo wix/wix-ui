@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 import { exec } from 'child_process';
 
 import * as logger from '../../../logger';
@@ -38,7 +38,7 @@ const runCodemod: ({
 
     const execProc = exec(command);
 
-    execProc.stderr.on('data', data => {
+    execProc.stderr.on('data', (data) => {
       logger.error(`Error in ${codemodConfig.codemod}: ${data.toString()}`);
       reject(data.toString());
     });
@@ -49,7 +49,7 @@ const runCodemod: ({
     });
   });
 
-export const runCodemods: (options: Options) => Promise<void> = options => {
+export const runCodemods: (options: Options) => Promise<void> = (options) => {
   const { ComponentName, description, codemods } = options;
 
   const codemodsIndex: CodemodConfig[] = require(path.resolve(

@@ -1,6 +1,6 @@
-import * as path from 'path';
-import * as nixt from 'nixt';
-import * as cista from 'cista';
+import path from 'path';
+import nixt from 'nixt';
+import cista from 'cista';
 
 import * as packageJson from '../package.json';
 
@@ -11,7 +11,7 @@ const cli = (...args) => {
 
 describe('wuf', () => {
   describe('help', () => {
-    it('should be displayed when no params', done => {
+    it('should be displayed when no params', (done) => {
       nixt()
         .expect(({ stdout }) => {
           expect(stdout).toMatchSnapshot();
@@ -20,7 +20,7 @@ describe('wuf', () => {
         .end(done);
     });
 
-    it('should be displayed when --help', done => {
+    it('should be displayed when --help', (done) => {
       nixt()
         .expect(({ stdout }) => {
           expect(stdout).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe('wuf', () => {
   });
 
   describe('-v, --version', () => {
-    it('should echo version from package.json', done => {
+    it('should echo version from package.json', (done) => {
       nixt()
         .expect(({ stdout }) => {
           expect(stdout).toEqual(packageJson.version);
@@ -43,7 +43,7 @@ describe('wuf', () => {
 
   describe('generate', () => {
     describe('--help', () => {
-      it('should render help text', done => {
+      it('should render help text', (done) => {
         nixt()
           .expect(({ stdout }) => {
             expect(stdout).toMatchSnapshot();
@@ -54,7 +54,7 @@ describe('wuf', () => {
     });
 
     describe('--component-name', () => {
-      it('should prompt for component name by default', done => {
+      it('should prompt for component name by default', (done) => {
         nixt()
           .expect(({ stdout }) => {
             expect(stdout).toMatch(/Component name \(PascalCase\).*Test/);
@@ -65,7 +65,7 @@ describe('wuf', () => {
           .end(done);
       });
 
-      it('should not prompt for component name given --component-name flag', done => {
+      it('should not prompt for component name given --component-name flag', (done) => {
         nixt()
           .expect(({ stdout }) => {
             expect(stdout).toMatch(/Generating.*<Testable\/>.*component/);
@@ -78,7 +78,7 @@ describe('wuf', () => {
 
   describe('export-testkits', () => {
     describe('--help', () => {
-      it('should render help text', done => {
+      it('should render help text', (done) => {
         nixt()
           .expect(({ stdout }) => {
             expect(stdout).toMatchSnapshot();
@@ -89,7 +89,7 @@ describe('wuf', () => {
     });
 
     describe('--output', () => {
-      it('should fail with error, when --output is missing', done => {
+      it('should fail with error, when --output is missing', (done) => {
         nixt()
           .expect(({ stderr }) => {
             expect(stderr).toMatch(
@@ -102,7 +102,7 @@ describe('wuf', () => {
     });
 
     describe('--definitions', () => {
-      it('should fail with error, given non existing path', done => {
+      it('should fail with error, given non existing path', (done) => {
         nixt()
           .expect(({ stderr }) => {
             expect(stderr).toMatch(
@@ -117,7 +117,7 @@ describe('wuf', () => {
 
   describe('update', () => {
     describe('--help', () => {
-      it('should render help text', done => {
+      it('should render help text', (done) => {
         nixt()
           .expect(({ stdout }) => {
             expect(stdout).toMatchSnapshot();

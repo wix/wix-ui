@@ -1,15 +1,15 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import * as ejs from 'ejs';
-import * as camelCase from 'lodash/camelCase';
-import * as kebabCase from 'lodash/kebabCase';
-import * as snakeCase from 'lodash/snakeCase';
+import path from 'path';
+import fs from 'fs';
+import ejs from 'ejs';
+import camelCase from 'lodash/camelCase';
+import kebabCase from 'lodash/kebabCase';
+import snakeCase from 'lodash/snakeCase';
 
 import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { Options } from './typings';
 
-const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
+const pathResolver = (cwd) => (...a) => path.resolve(cwd, ...a);
 
 export const warningBanner = (templatePath: string) =>
   `/* eslint-disable */
@@ -40,7 +40,7 @@ const tryRequire = ({ requirePath, cwd }) => {
   }
 };
 
-const guards: (a: Options) => Promise<void> = async unsafeOptions => {
+const guards: (a: Options) => Promise<void> = async (unsafeOptions) => {
   const pathResolve = pathResolver(unsafeOptions._process.cwd);
 
   if (!unsafeOptions.output) {
@@ -110,7 +110,7 @@ const ejsSource = ({ source, definitions, components }) => {
   }
 };
 
-const makeOutput: (a: Options) => Promise<void> = async options => {
+const makeOutput: (a: Options) => Promise<void> = async (options) => {
   const components = require(path.resolve(
     options._process.cwd,
     options.components,

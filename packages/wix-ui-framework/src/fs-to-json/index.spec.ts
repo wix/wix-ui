@@ -1,4 +1,4 @@
-import * as cista from 'cista';
+import cista from 'cista';
 import { fsToJson } from './index';
 
 describe('fsToJson', () => {
