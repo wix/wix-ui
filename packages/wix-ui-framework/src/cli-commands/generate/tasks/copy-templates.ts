@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as mkdirp from 'mkdirp';
+import fs from 'fs';
+import path from 'path';
+import mkdirp from 'mkdirp';
 import kebabCase from 'lodash/kebabCase';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';

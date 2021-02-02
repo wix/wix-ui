@@ -1,4 +1,4 @@
-import * as simpleGit from 'simple-git';
+import simpleGit from 'simple-git';
 
 export const isGitRepoClean = (cwd) =>
   new Promise((resolve) => {

@@ -1,4 +1,4 @@
-import * as ejs from 'ejs';
+import ejs from 'ejs';
 
 import camelCase from 'lodash/camelCase';
 import kebabCase from 'lodash/kebabCase';

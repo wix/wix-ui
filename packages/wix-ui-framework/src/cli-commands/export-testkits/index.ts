@@ -1,6 +1,6 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import * as ejs from 'ejs';
+import path from 'path';
+import fs from 'fs';
+import ejs from 'ejs';
 import camelCase from 'lodash/camelCase';
 import kebabCase from 'lodash/kebabCase';
 import snakeCase from 'lodash/snakeCase';

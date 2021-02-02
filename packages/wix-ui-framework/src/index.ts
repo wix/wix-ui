@@ -1,4 +1,4 @@
-import * as program from 'commander';
+import program from 'commander';
 
 import { generate } from './cli-commands/generate';
 import { cli as generateCli } from './cli-commands/generate/cli';
