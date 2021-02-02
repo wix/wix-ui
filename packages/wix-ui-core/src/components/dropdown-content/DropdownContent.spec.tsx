@@ -45,7 +45,7 @@ describe('DropdownContent', () => {
     it('should be hovered on mouse enter and not on mouse leave', () => {
       const driver = createDriver(createDropdownContent({ options }));
       driver.optionAt(0).mouseEnter();
-      expect(driver.optionAt(0).isHovered()).toBeTruthy();
+      expect(driver.optionAt(0).isHovered()).toBe(true);;
       driver.optionAt(0).mouseLeave();
       expect(driver.optionAt(0).isHovered()).toBeFalsy();
     });
