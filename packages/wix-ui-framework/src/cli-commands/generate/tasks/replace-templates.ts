@@ -1,8 +1,8 @@
 import * as ejs from 'ejs';
 
-import * as camelCase from 'lodash/camelCase';
-import * as kebabCase from 'lodash/kebabCase';
-import * as snakeCase from 'lodash/snakeCase';
+import camelCase from 'lodash/camelCase';
+import kebabCase from 'lodash/kebabCase';
+import snakeCase from 'lodash/snakeCase';
 
 const utils = {
   toCamel: camelCase,

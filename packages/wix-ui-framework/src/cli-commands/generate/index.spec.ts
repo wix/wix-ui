@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as cista from 'cista';
+import fs from 'fs';
+import cista from 'cista';
 
 import { generate } from '.';
 

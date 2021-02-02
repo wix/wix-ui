@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
-import * as kebabCase from 'lodash/kebabCase';
-import * as camelCase from 'lodash/camelCase';
-import * as snakeCase from 'lodash/snakeCase';
+import kebabCase from 'lodash/kebabCase';
+import camelCase from 'lodash/camelCase';
+import snakeCase from 'lodash/snakeCase';
 
 import { Options } from '../typings';
 import { replaceTemplates } from './replace-templates';

@@ -15,7 +15,8 @@
     ],
     "outDir": "dist",
     "rootDir": "./src",
-    "declaration": true
+    "declaration": true,
+    "esModuleInterop": true
   },
   "typeRoots": [
     "node_modules/@types"

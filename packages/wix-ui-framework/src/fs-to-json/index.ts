@@ -1,7 +1,7 @@
-import * as fs from 'fs';
+import fs from 'fs';
 import { promisify } from 'util';
 import { resolve as pathResolve } from 'path';
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
 
 import { fileExists } from '../file-exists';
 

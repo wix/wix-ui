@@ -1,6 +1,6 @@
-import * as cista from 'cista';
-import * as path from 'path';
-import * as fs from 'fs';
+import cista from 'cista';
+import path from 'path';
+import fs from 'fs';
 
 import { updateComponentsList } from '.';
 

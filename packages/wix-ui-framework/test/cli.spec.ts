@@ -1,6 +1,6 @@
-import * as path from 'path';
-import * as nixt from 'nixt';
-import * as cista from 'cista';
+import path from 'path';
+import nixt from 'nixt';
+import cista from 'cista';
 
 import * as packageJson from '../package.json';
 

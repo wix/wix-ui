@@ -1,5 +1,5 @@
-import * as chalk from 'chalk';
-import * as ora from 'ora';
+import chalk from 'chalk';
+import ora from 'ora';
 
 export const error = (msg: string) => console.log(`${chalk.red('✖')} ${msg}`);
 export const success = (msg: string) =>

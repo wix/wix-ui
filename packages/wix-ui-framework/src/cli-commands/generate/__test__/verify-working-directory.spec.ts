@@ -1,4 +1,4 @@
-import * as cista from 'cista';
+import cista from 'cista';
 
 import * as logger from '../../../logger';
 import * as utils from '../utils';

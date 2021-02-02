@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as logger from '../../logger';
 
 import { Options } from './typings';
