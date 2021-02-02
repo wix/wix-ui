@@ -1972,6 +1972,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     tags: ["social"],
     sizes: { "18": "WhatsappSmall", "24": "Whatsapp" },
   },
+
   {
     title: "Vimeo",
     category: "Brands",
