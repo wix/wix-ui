@@ -1469,7 +1469,7 @@ const generalIconsMetadata: Array<IconMetadata> = [
     title: "Focus",
     category: "Composer Actions",
     description: "Button - automatically crops image to region of interest",
-    tags: ["crop", "image", "focal point"],
+    tags: ["crop", "image", "region", "focal point"],
     sizes: { "18": "FocusSmall", "24": "Focus" },
   },
   {
