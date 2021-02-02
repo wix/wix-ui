@@ -47,7 +47,7 @@ describe('DropdownContent', () => {
       driver.optionAt(0).mouseEnter();
       expect(driver.optionAt(0).isHovered()).toBe(true);;
       driver.optionAt(0).mouseLeave();
-      expect(driver.optionAt(0).isHovered()).toBeFalsy();
+      expect(driver.optionAt(0).isHovered()).toBe(false);
     });
 
     it('should not select non selectable options', () => {
