@@ -125,6 +125,8 @@ export type AddressInputProps = Pick<
   /** Options box z-index */
   optionsContainerZIndex?: number;
   className?: string;
+  /** Sets the input to required */
+  required?: boolean;
 };
 
 export interface AddressInputState {
@@ -203,6 +205,7 @@ export class AddressInput extends React.PureComponent<
     throttleInterval: 150,
     lang: 'en',
     converterType: Converter.full,
+    required: false,
   };
 
   client: MapsClient;
@@ -537,6 +540,7 @@ export class AddressInput extends React.PureComponent<
       onMouseLeave: this.props.onMouseLeave,
       style: inputStyle,
       inputClassName,
+      required: this.props.required,
     };
 
     const states = {};
