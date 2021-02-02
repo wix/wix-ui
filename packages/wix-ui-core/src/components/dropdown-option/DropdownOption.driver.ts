@@ -7,6 +7,7 @@ export const dropdownOptionDriverFactory = ({ element, eventTrigger }) => {
     exists: () => !!element,
     click: () => element && eventTrigger.click(element),
     mouseEnter: () => element && eventTrigger.mouseEnter(element),
+    mouseLeave: () => element && eventTrigger.mouseLeave(element),
     className: () => element && element.className,
     isHovered: () => element && domUtils.hasStyleState(element, 'hovered'),
     isSelected: () => element && domUtils.hasStyleState(element, 'selected'),

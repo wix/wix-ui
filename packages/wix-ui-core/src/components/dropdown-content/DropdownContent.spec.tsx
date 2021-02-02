@@ -42,6 +42,14 @@ describe('DropdownContent', () => {
       expect(onOptionClick).toHaveBeenCalledWith(options[4]);
     });
 
+    it('should be hovered on mouse enter and not on mouse leave', () => {
+      const driver = createDriver(createDropdownContent({ options }));
+      driver.optionAt(0).mouseEnter();
+      expect(driver.optionAt(0).isHovered()).toBe(true);;
+      driver.optionAt(0).mouseLeave();
+      expect(driver.optionAt(0).isHovered()).toBe(false);
+    });
+
     it('should not select non selectable options', () => {
       const onOptionClick = jest.fn();
       const driver = createDriver(
@@ -100,7 +108,7 @@ describe('DropdownContent', () => {
           optionsContainerId: 'container',
         }),
       );
-      
+
       expect(driver.getContainerScrollPosition('container')).toBe(0);
     });
 

@@ -11,6 +11,7 @@ describe('DropdownOption', () => {
 
   const onClickHandler = jest.fn();
   const onMouseEnterHandler = jest.fn();
+  const onMouseLeaveHandler = jest.fn();
 
   const createOption = (isDisabled = false) =>
     OptionFactory.create({
@@ -28,6 +29,7 @@ describe('DropdownOption', () => {
       onClickHandler={onClickHandler}
       className="className"
       onMouseEnterHandler={onMouseEnterHandler}
+      onMouseLeaveHandler={onMouseLeaveHandler}
     />
   );
 
@@ -50,6 +52,13 @@ describe('DropdownOption', () => {
     const driver = createDriver(createDropdownOption(option));
     driver.mouseEnter();
     expect(onMouseEnterHandler).toHaveBeenCalled();
+  });
+
+  it('should call mouse leave handler', () => {
+    const option = createOption();
+    const driver = createDriver(createDropdownOption(option));
+    driver.mouseLeave();
+    expect(onMouseLeaveHandler).toHaveBeenCalled();
   });
 
   it('should be hovered and selected but not disabled', () => {
