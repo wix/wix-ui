@@ -265,7 +265,12 @@ table(
 
 | Property | Type | Description |
 |---|---|---|
+| `headerTitles` ||array of titles for each column header|
 | `rows` **required** ||nested array representing rows and columns|
+| `transparentHeader` |boolean|should table header be transparent,
+The Transparent Header has smaller top and bottom paddings compared to Default Header.
+Header text color is D40.
+The table starts with grey list item first.|
 
 ---
 
