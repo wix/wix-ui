@@ -1466,6 +1466,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     sizes: { "18": "MirrorVerticalSmall", "24": "MirrorVertical" },
   },
   {
+    title: "Focus",
+    category: "Composer Actions",
+    description: "Button - automatically crops image to region of interest",
+    tags: ["crop", "image", "region", "focal point"],
+    sizes: { "18": "FocusSmall", "24": "Focus" },
+  },
+  {
     title: "Adjust",
     category: "Composer Adjustments",
     description: "Button - displays adjustment options",
@@ -1964,6 +1971,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     description: "Button - redirects to WhatsApp application",
     tags: ["social"],
     sizes: { "18": "WhatsappSmall", "24": "Whatsapp" },
+  },
+  {
+    title: "Vimeo",
+    category: "Brands",
+    description: "Button - redirects to Vimeo social network",tags: ["social", "video"],
+    tags: [ "share", "video", "upload"],
+    sizes: { "18": "VimeoSmall", "24": "ViemeoSmall" },
   },
   {
     title: "Cart",
