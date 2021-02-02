@@ -10,9 +10,9 @@ import { replaceTemplates } from './replace-templates';
 import { createValuesMap } from '../create-values-map';
 import { interpolateFileName } from '../interpolate-file-name';
 
-const pathExists = p =>
-  new Promise(resolve => {
-    fs.access(p, fs.constants.F_OK, err => {
+const pathExists = (p: string) =>
+  new Promise((resolve) => {
+    fs.access(p, fs.constants.F_OK, (err) => {
       resolve(!err);
     });
   });
@@ -29,7 +29,7 @@ export const copyTemplates = async ({
   }
 
   const readdir = (entry: string) =>
-    fs.readdirSync(entry).map(dir => path.join(entry, dir));
+    fs.readdirSync(entry).map((dir) => path.join(entry, dir));
 
   const componentNames = {
     ComponentName,

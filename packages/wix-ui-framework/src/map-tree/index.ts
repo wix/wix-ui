@@ -1,4 +1,4 @@
-const isObject = o => o && o.toString() === '[object Object]';
+const isObject = (o) => o && o.toString() === '[object Object]';
 
 /**
  * mapTree is like Array.prototype.map but for objects

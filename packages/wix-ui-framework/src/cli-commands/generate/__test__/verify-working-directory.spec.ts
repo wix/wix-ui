@@ -9,7 +9,7 @@ import {
 
 let isGitRepoCleanSpy;
 
-const mockGitStatus = isClean => {
+const mockGitStatus = (isClean) => {
   isGitRepoCleanSpy = jest
     .spyOn(utils, 'isGitRepoClean')
     .mockImplementation(() => Promise.resolve(isClean));

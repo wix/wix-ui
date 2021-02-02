@@ -9,7 +9,7 @@ import { fileExists } from '../../file-exists';
 import { objectEntries } from '../../object-entries';
 import { Options } from './typings';
 
-const pathResolver = cwd => (...a) => path.resolve(cwd, ...a);
+const pathResolver = (cwd) => (...a) => path.resolve(cwd, ...a);
 
 export const warningBanner = (templatePath: string) =>
   `/* eslint-disable */
@@ -40,7 +40,7 @@ const tryRequire = ({ requirePath, cwd }) => {
   }
 };
 
-const guards: (a: Options) => Promise<void> = async unsafeOptions => {
+const guards: (a: Options) => Promise<void> = async (unsafeOptions) => {
   const pathResolve = pathResolver(unsafeOptions._process.cwd);
 
   if (!unsafeOptions.output) {
@@ -110,7 +110,7 @@ const ejsSource = ({ source, definitions, components }) => {
   }
 };
 
-const makeOutput: (a: Options) => Promise<void> = async options => {
+const makeOutput: (a: Options) => Promise<void> = async (options) => {
   const components = require(path.resolve(
     options._process.cwd,
     options.components,

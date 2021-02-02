@@ -38,7 +38,7 @@ const runCodemod: ({
 
     const execProc = exec(command);
 
-    execProc.stderr.on('data', data => {
+    execProc.stderr.on('data', (data) => {
       logger.error(`Error in ${codemodConfig.codemod}: ${data.toString()}`);
       reject(data.toString());
     });
@@ -49,7 +49,7 @@ const runCodemod: ({
     });
   });
 
-export const runCodemods: (options: Options) => Promise<void> = options => {
+export const runCodemods: (options: Options) => Promise<void> = (options) => {
   const { ComponentName, description, codemods } = options;
 
   const codemodsIndex: CodemodConfig[] = require(path.resolve(

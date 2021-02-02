@@ -1,4 +1,4 @@
-export const cli = program =>
+export const cli = (program) =>
   program
     .command('generate')
     .description('Scaffold file structure from templates')

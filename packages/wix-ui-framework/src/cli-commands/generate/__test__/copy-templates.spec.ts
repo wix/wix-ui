@@ -4,7 +4,7 @@ import { fsToJson } from '../../../fs-to-json';
 
 import { copyTemplates } from '../tasks/copy-templates';
 
-const templatesFixturesPath = folder =>
+const templatesFixturesPath = (folder: string) =>
   path.join(__dirname, '..', '__testfixtures__', 'templates', folder);
 
 describe('copyTemplates', () => {

@@ -13,7 +13,7 @@ export const runPrompts: () => Promise<Answers> = async () => {
       type: 'text',
       name: 'ComponentName',
       message: 'Component name (PascalCase)',
-      validate: value => {
+      validate: (value) => {
         if (!value.length) {
           return 'Please supply a component name';
         }

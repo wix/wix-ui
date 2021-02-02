@@ -9,7 +9,7 @@ interface Task {
   message: string;
 }
 
-export const runTasks: (a: Options) => Promise<void> = options => {
+export const runTasks: (a: Options) => Promise<void> = (options) => {
   const tasks: Task[] = [
     {
       // requires are put here for a reason, it is to delay code execution until needed. That's because one task
@@ -48,7 +48,7 @@ export const runTasks: (a: Options) => Promise<void> = options => {
               spinner.stop();
               logger.success(`Done: ${message}`);
             })
-            .catch(e => {
+            .catch((e) => {
               spinner.stop();
               logger.error(`Failed: ${message} ${e}`);
               return Promise.resolve();
@@ -63,7 +63,7 @@ export const runTasks: (a: Options) => Promise<void> = options => {
       ),
     )
 
-    .catch(e => {
+    .catch((e) => {
       logger.error(e);
       process.exit(1);
     });

@@ -30,10 +30,10 @@ export const fsToJson: (a: Params) => Promise<Object> = async ({
   const recursion = ({ entries, entryCwd }) =>
     entries.reduce(
       (accPromise: Promise<Object>, entry: string) =>
-        accPromise.then(async acc => {
+        accPromise.then(async (acc) => {
           const entryPath = pathResolve(entryCwd, entry);
 
-          if (exclude.some(glob => minimatch(entryPath, glob))) {
+          if (exclude.some((glob) => minimatch(entryPath, glob))) {
             return acc;
           }
 

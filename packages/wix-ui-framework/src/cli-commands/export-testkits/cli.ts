@@ -1,4 +1,4 @@
-export const cli = program =>
+export const cli = (program) =>
   program
     .command('export-testkits')
     .description('Generate testkit export file')
