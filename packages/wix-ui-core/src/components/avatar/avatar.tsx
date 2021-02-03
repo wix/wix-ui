@@ -35,6 +35,8 @@ export interface AvatarProps {
   title?: string;
   /** onClick event callback. */
   onClick?(): void;
+  /** Sets the tabIndex order*/
+  tabIndex?: number;
 }
 
 interface AvatarState {
@@ -57,6 +59,7 @@ export class AvatarComponent extends React.Component<
 
   static defaultProps = {
     placeholder: null,
+    tabIndex: 0
   };
   state: AvatarState = { imgLoaded: false };
 
@@ -155,6 +158,7 @@ export class AvatarComponent extends React.Component<
       onClick,
       focusableOnFocus,
       focusableOnBlur,
+      tabIndex
     } = this.props;
     const contentType = this.getCurrentContentType();
     const focusProps = !!onClick && {
@@ -162,7 +166,7 @@ export class AvatarComponent extends React.Component<
       onFocus: focusableOnFocus,
       onBlur: focusableOnBlur,
       onKeyDown: this._handleKeyDown,
-      tabIndex: 0,
+      tabIndex,
     };
 
     return (
