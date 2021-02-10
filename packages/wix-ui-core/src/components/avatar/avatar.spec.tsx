@@ -124,16 +124,6 @@ describe('Avatar', () => {
       expect(await driver.getTextContent()).toBe('ИТ');
     });
 
-    it('should preserve unicode graphemes (emoji)', async () => {
-      const driver = await createDriver(<Avatar name="🏳️‍🌈" />);
-      expect(await driver.getTextContent()).toBe('🏳️‍🌈');
-    });
-
-    it('should preserve unicode graphemes (accents)', async () => {
-      const driver = await createDriver(<Avatar name="ĺo͂řȩm̅ ipsum" />);
-      expect(await driver.getTextContent()).toBe('ĹI');
-    });
-
     it('should preserve unicode graphemes (hindi)', async () => {
       const driver = await createDriver(<Avatar name="अनुच्छेद" />);
       expect(await driver.getTextContent()).toBe('अ');
