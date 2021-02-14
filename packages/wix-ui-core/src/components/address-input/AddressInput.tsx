@@ -541,6 +541,7 @@ export class AddressInput extends React.PureComponent<
       style: inputStyle,
       inputClassName,
       required: this.props.required,
+      autoComplete: 'no-autocomplete',
     };
 
     const states = {};

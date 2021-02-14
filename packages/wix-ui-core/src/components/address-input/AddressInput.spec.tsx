@@ -846,6 +846,13 @@ describe('AddressInput', () => {
       expect(driver.isDisabled()).toBeFalsy();
     });
 
+    it('Should pass autocomplete prop (no-autocomplete)', () => {
+      init({});
+      const browserAutoComplete = driver.getAutoComplete();
+
+      expect(browserAutoComplete).toBe('no-autocomplete');
+    });
+
     it('Should handle onChange event', () => {
       const onChange = jest.fn();
       init({ onChange });
