@@ -27,8 +27,7 @@ export const inputDriverFactory = ({ element, eventTrigger }) => {
     getSuffix: () => input.nextSibling,
 
     /** get autoComplete */
-    getAutoComplete: () => input.autocomplete,
-
+    getAutoComplete: () => input.getAttribute('autocomplete'),
     /** is disabled */
     isDisabled: () => input.disabled,
 
