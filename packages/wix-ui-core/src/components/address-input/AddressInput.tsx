@@ -127,6 +127,8 @@ export type AddressInputProps = Pick<
   className?: string;
   /** Sets the input to required */
   required?: boolean;
+  /** externalBaseUrl to provide to Atlas clients */
+  externalBaseUrl?: string;
 };
 
 export interface AddressInputState {
@@ -239,9 +241,9 @@ export class AddressInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { clientId, Client, instance, lang} = this.props;
-    this.client = new Client(lang, instance);
-    if (this.client.name === 'google' && this.props.clientId) {
+    const { clientId, Client, instance, lang, externalBaseUrl } = this.props;
+    this.client = new Client({ lang, instance, externalBaseUrl });
+    if (this.client.name === 'google' && clientId) {
       this.client.useClientId();
     }
   }
