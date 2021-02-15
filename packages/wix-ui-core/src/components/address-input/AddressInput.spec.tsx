@@ -850,7 +850,7 @@ describe('AddressInput', () => {
       init({});
       const browserAutoComplete = driver.getAutoComplete();
 
-      expect(browserAutoComplete).toBe('no-autocomplete');
+      expect(browserAutoComplete).toBe('off');
     });
 
     it('Should handle onChange event', () => {
