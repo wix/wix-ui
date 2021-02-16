@@ -19,7 +19,8 @@ export interface ImageState {
   status: ImageStatus;
 }
 export class Image extends React.PureComponent<ImageProps, ImageState> {
-  private readonly getSrc = (): string => (this.props.src ? this.props.src : this.getSrcSet());
+  private readonly getSrc = (): string =>
+    this.props.src ? this.props.src : this.getSrcSet();
 
   private readonly getSrcSet = (): string =>
     this.props.srcSet ? this.getErrorImage() : FALLBACK_IMAGE;
@@ -28,15 +29,24 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE;
 
   private readonly getErrorSrc = (): string =>
-    this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.getErrorImage();
+    this.state.src === this.props.errorImage
+      ? FALLBACK_IMAGE
+      : this.getErrorImage();
 
-  private readonly isErrorState = (): boolean => this.state.status === ImageStatus.error;
+  private readonly isErrorState = (): boolean =>
+    this.state.status === ImageStatus.error;
 
   private readonly isResized = (): boolean =>
     this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover';
 
   private getImageProps() {
-    const { errorImage, resizeMode, srcSet, nativeProps, ...additionalProps } = this.props;
+    const {
+      errorImage,
+      resizeMode,
+      srcSet,
+      nativeProps,
+      ...additionalProps
+    } = this.props;
     const ret = {
       ...additionalProps,
       ...nativeProps,
@@ -95,23 +105,28 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
       );
     }
 
-    return <img ref={this.imageRef} {...commonProps} {...this.getImageProps()} />;
+    return (
+      <img ref={this.imageRef} {...commonProps} {...this.getImageProps()} />
+    );
   }
 
-  private readonly handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = (
-    e,
-  ) => {
+  private readonly handleOnLoad: React.EventHandler<
+    React.SyntheticEvent<HTMLImageElement>
+  > = (e) => {
     if (!this.isErrorState()) {
       this.setState({
-        status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded,
+        status:
+          this.state.status === 'error'
+            ? ImageStatus.error
+            : ImageStatus.loaded,
       });
       this.props.onLoad && this.props.onLoad(e);
     }
   };
 
-  private readonly handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = (
-    e,
-  ) => {
+  private readonly handleOnError: React.EventHandler<
+    React.SyntheticEvent<HTMLImageElement>
+  > = (e) => {
     if (!this.isErrorState()) {
       this.setState({
         status: ImageStatus.error,
