@@ -19,8 +19,7 @@ export interface ImageState {
   status: ImageStatus;
 }
 export class Image extends React.PureComponent<ImageProps, ImageState> {
-  private readonly getSrc = (): string =>
-    this.props.src ? this.props.src : this.getSrcSet();
+  private readonly getSrc = (): string => (this.props.src ? this.props.src : this.getSrcSet());
 
   private readonly getSrcSet = (): string =>
     this.props.srcSet ? this.getErrorImage() : FALLBACK_IMAGE;
@@ -29,24 +28,15 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     this.props.errorImage ? this.props.errorImage : FALLBACK_IMAGE;
 
   private readonly getErrorSrc = (): string =>
-    this.state.src === this.props.errorImage
-      ? FALLBACK_IMAGE
-      : this.getErrorImage();
+    this.state.src === this.props.errorImage ? FALLBACK_IMAGE : this.getErrorImage();
 
-  private readonly isErrorState = (): boolean =>
-    this.state.status === ImageStatus.error;
+  private readonly isErrorState = (): boolean => this.state.status === ImageStatus.error;
 
   private readonly isResized = (): boolean =>
     this.props.resizeMode === 'contain' || this.props.resizeMode === 'cover';
 
   private getImageProps() {
-    const {
-      errorImage,
-      resizeMode,
-      srcSet,
-      nativeProps,
-      ...additionalProps
-    } = this.props;
+    const { errorImage, resizeMode, srcSet, nativeProps, ...additionalProps } = this.props;
     const ret = {
       ...additionalProps,
       ...nativeProps,
@@ -63,6 +53,22 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     src: this.getSrc(),
     status: ImageStatus.loading,
   };
+
+  imageRef = React.createRef<HTMLImageElement>();
+
+  componentDidMount() {
+    const { status } = this.state;
+    const { current: imageElement } = this.imageRef;
+
+    // In case the component is rendered with SSR and so that the image is loaded on the client before registering the event handlers
+    if (imageElement?.complete && status === ImageStatus.loading) {
+      if (imageElement?.naturalWidth === 0) {
+        this.setState({ status: ImageStatus.error });
+      } else {
+        this.setState({ status: ImageStatus.loaded });
+      }
+    }
+  }
 
   render() {
     const { resizeMode, className } = this.props;
@@ -84,31 +90,28 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
       };
       return (
         <div {...commonProps} style={imageWrapper}>
-          <img {...this.getImageProps()} />
+          <img ref={this.imageRef} {...this.getImageProps()} />
         </div>
       );
     }
 
-    return <img {...commonProps} {...this.getImageProps()} />;
+    return <img ref={this.imageRef} {...commonProps} {...this.getImageProps()} />;
   }
 
-  private readonly handleOnLoad: React.EventHandler<
-    React.SyntheticEvent<HTMLImageElement>
-  > = e => {
+  private readonly handleOnLoad: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = (
+    e,
+  ) => {
     if (!this.isErrorState()) {
       this.setState({
-        status:
-          this.state.status === 'error'
-            ? ImageStatus.error
-            : ImageStatus.loaded,
+        status: this.state.status === 'error' ? ImageStatus.error : ImageStatus.loaded,
       });
       this.props.onLoad && this.props.onLoad(e);
     }
   };
 
-  private readonly handleOnError: React.EventHandler<
-    React.SyntheticEvent<HTMLImageElement>
-  > = e => {
+  private readonly handleOnError: React.EventHandler<React.SyntheticEvent<HTMLImageElement>> = (
+    e,
+  ) => {
     if (!this.isErrorState()) {
       this.setState({
         status: ImageStatus.error,
