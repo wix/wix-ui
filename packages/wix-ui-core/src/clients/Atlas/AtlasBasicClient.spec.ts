@@ -24,7 +24,7 @@ describe('AtlasBasicClient', () => {
 
     it('should call atlass getPlace and return a promise', async () => {
       let result
-      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
+      const client = new AtlasBasicClient({lang, instance: metaSiteInstaceMock})
       const predictRequest = {
         input: predictRequestMock.input,
         componentRestrictions: {
@@ -42,7 +42,7 @@ describe('AtlasBasicClient', () => {
 
     it('should set the country filter to atlas autocomplete request', async () => {
       let result
-      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
+      const client = new AtlasBasicClient({lang, instance: metaSiteInstaceMock})
       const predictRequest = {
         input: predictRequestMock.input,
         componentRestrictions: {
@@ -72,7 +72,7 @@ describe('AtlasBasicClient', () => {
 
     it('should call geocode and return a promise', async () => {
       let result
-      const client = new AtlasBasicClient(lang, metaSiteInstaceMock)
+      const client = new AtlasBasicClient({lang, instance: metaSiteInstaceMock})
       try {
         result = await client.geocode(clientId, lang, getPlaceRequestMock)
       }
@@ -86,7 +86,7 @@ describe('AtlasBasicClient', () => {
   describe('invalid auth headers', () => {
     it('Should fail autocomplete with invalid auth header', async () => {
       let result
-      const client = new AtlasBasicClient(lang, '')
+      const client = new AtlasBasicClient({lang, instance: ''})
       try {
         result = await client.autocomplete(clientId, lang, predictRequestMock)
       }
@@ -98,7 +98,7 @@ describe('AtlasBasicClient', () => {
 
     it('Should fail geocode with invalid auth header', async () => {
       let result
-      const client = new AtlasBasicClient(lang, '')
+      const client = new AtlasBasicClient({lang, instance: ''})
       try {
         result = await client.geocode(clientId, lang, getPlaceRequestMock)
       }
