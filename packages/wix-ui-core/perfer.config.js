@@ -36,7 +36,7 @@ const files = [
   ['tooltip-next.js', 16],
   ['toggle-switch.js', 6],
   ['tooltip.js', 29],
-  ['video.js', 90],
+  ['video.js', 90.2],
 ];
 
 module.exports = {
