@@ -17,8 +17,7 @@ export const mockWixAtlasService = (atlasMock: any): void => {
   WixAtlasService = atlasMock
 }
 
-const ATLAS_WEB_BASE_URL = '/_api/wix-atlas-service-web';
-// const ATLAS_SITE_SPECIFIC_WEB_BASE_URL = '/_api/wix-atlas-service-web';
+export const ATLAS_WEB_BASE_URL = '/_api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER = '|en-us|false|';
 
 const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
