@@ -112,7 +112,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private readonly handleOnLoad: React.EventHandler<
     React.SyntheticEvent<HTMLImageElement>
-  > = (e) => {
+  > = e => {
     if (!this.isErrorState()) {
       this.setState({
         status:
@@ -126,7 +126,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
 
   private readonly handleOnError: React.EventHandler<
     React.SyntheticEvent<HTMLImageElement>
-  > = (e) => {
+  > = e => {
     if (!this.isErrorState()) {
       this.setState({
         status: ImageStatus.error,
