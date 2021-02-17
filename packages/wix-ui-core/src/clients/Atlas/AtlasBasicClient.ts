@@ -50,7 +50,7 @@ export class AtlasBasicClient implements AtlasMapsClient {
   private readonly _predict;
   private readonly _getPlace;
 
-  constructor({ lang, instance, externalBaseUrl }: { lang: string, instance: string, externalBaseUrl?: string }) {
+  constructor({ lang, instance, externalBaseUrl }: { lang: string; instance: string; externalBaseUrl?: string }) {
     const baseUrl = externalBaseUrl ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}` : ATLAS_WEB_BASE_URL
     const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(
       baseUrl,
