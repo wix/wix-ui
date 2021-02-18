@@ -740,6 +740,20 @@ const generalIconsMetadata: Array<IconMetadata> = [
     aliases: ["StatusCompletetFilled"],
   },
   {
+	 title: "StatusIndeterminate",
+	 category: "Toggle",
+	 description: "Static Indicator – marks that status neither complete nor incomplete",
+	 tags: ["pending"],
+	 sizes: { "18": "StatusIndeterminateSmall", "24": "StatusIndeterminate" },
+	 },
+  {
+	 title: "StatusIndeterminateFilled",
+	 category: "Toggle",
+	 description: "Static Indicator – marks that status neither complete nor incomplete",
+	 tags: ["pending"],
+	 sizes: { "18": "StatusIndeterminateFilledSmall", "24": "StatusIndeterminateFilled" },
+	 },
+  {
     title: "Flag",
     category: "Toggle",
     description:
