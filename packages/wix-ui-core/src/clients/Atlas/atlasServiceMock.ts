@@ -9,7 +9,6 @@ import {
 const WixAtlasServiceMock = () => {
   let predictSucceeded = true
   let getPlaceSucceeded = true
-
   return {
     AutocompleteServiceV2: jest.fn().mockReturnValue(
       jest.fn().mockImplementation((headers: any) => {
