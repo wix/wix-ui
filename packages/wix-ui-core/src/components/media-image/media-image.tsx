@@ -61,6 +61,8 @@ export interface MediaProps {
   scale?: MediaImageScaling;
   /** A class name to be applied on the root element */
   className?: string;
+  /** A reference to be passed to the native image element */
+  nativeRef?: React.Ref<HTMLImageElement>;
 }
 
 export class MediaImage extends React.Component<MediaProps> {
@@ -104,6 +106,7 @@ export class MediaImage extends React.Component<MediaProps> {
       className,
       width,
       height,
+      nativeRef,
     } = this.props;
 
     return (
@@ -113,6 +116,7 @@ export class MediaImage extends React.Component<MediaProps> {
         alt={alt}
         nativeProps={{ width, height }}
         errorImage={this.getImageSource(errorMediaPlatformItem)}
+        nativeRef={nativeRef}
         onLoad={onLoad}
         onError={onError}
       />

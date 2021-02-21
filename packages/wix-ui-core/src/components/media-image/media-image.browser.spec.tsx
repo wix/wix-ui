@@ -153,6 +153,15 @@ describe('MediaImage', () => {
     );
   });
 
+  it('should pass the given reference to the native image element', async () => {
+    const ref = React.createRef<HTMLImageElement>();
+    const expectedTagName = 'IMG';
+
+    const mediaImageDriver = await createDriver(<MediaImage nativeRef={ref} />);
+
+    expect(await mediaImageDriver.getTagName()).toEqual(expectedTagName);
+  });
+
   describe('props are not provided', () => {
     it('displays empty pixel when mediaPlatformItem are not provided', async () => {
       const onLoadSpy = jest.fn();

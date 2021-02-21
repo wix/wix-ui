@@ -66,8 +66,17 @@ describe('Image', () => {
       const imageDriver = await createDriver(
         <Image className={expectedClassName} />,
       );
-      
+
       expect(await imageDriver.hasClass(expectedClassName)).toBe(true);
+    });
+
+    it('should pass the given reference to the native image element', async () => {
+      const ref = React.createRef<HTMLImageElement>();
+      const expectedTagName = 'IMG';
+
+      const imageDriver = await createDriver(<Image nativeRef={ref} />);
+
+      expect(await imageDriver.getTagName()).toEqual(expectedTagName);
     });
   });
 
