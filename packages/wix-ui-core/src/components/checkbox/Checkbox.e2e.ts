@@ -75,7 +75,6 @@ describe('Checkbox - onFocusByKeyboard', () => {
         .sendKeys(
           Key.TAB,
           Key.chord(Key.SHIFT, Key.TAB),
-          Key.TAB,
         )
         .perform();
       expect(await checkboxSecond.isChecked()).toBeTruthy();
