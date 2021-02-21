@@ -42,24 +42,24 @@ describe('Checkbox', () => {
     await waitForVisibilityOf(driver.element(), 'Cannot find Checkbox');
     expect(driver.isChecked()).toBe(false);
 
-    browser
-      .actions()
-      .sendKeys(Key.TAB, Key.SPACE)
-      .perform();
+    browser.actions().sendKeys(Key.TAB, Key.SPACE).perform();
     expect(driver.isChecked()).toBe(true);
 
-    browser
-      .actions()
-      .sendKeys(Key.SPACE)
-      .perform();
+    browser.actions().sendKeys(Key.SPACE).perform();
     expect(driver.isChecked()).toBe(false);
 
-    browser
-      .actions()
-      .sendKeys(Key.ENTER)
-      .perform();
+    browser.actions().sendKeys(Key.ENTER).perform();
     expect(driver.isChecked()).toBe(false);
   });
+});
+
+describe('Checkbox - onFocusByKeyboard', () => {
+  const storyUrl = createStoryUrl({
+    kind: Category.TESTS,
+    story: 'Checkbox',
+  });
+
+  beforeEach(() => browser.get(storyUrl));
 
   it('Checkbox onFocusByKeyboard works', async () => {
     const dataHookFirst = 'checkbox-first';
@@ -75,10 +75,10 @@ describe('Checkbox', () => {
         .actions()
         .sendKeys(
           Key.TAB,
-          Key.ARROW_DOWN,
-          Key.ARROW_DOWN,
-          Key.ARROW_DOWN,
-          Key.ARROW_DOWN
+          Key.chord(Key.SHIFT, Key.TAB),
+          Key.TAB,
+          Key.chord(Key.SHIFT, Key.TAB),
+          Key.TAB
         )
         .perform();
       expect(await checkboxSecond.isChecked()).toBeTruthy();
