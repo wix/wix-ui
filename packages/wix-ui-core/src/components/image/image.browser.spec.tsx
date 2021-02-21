@@ -72,12 +72,11 @@ describe('Image', () => {
 
     it('should pass the given reference to the native image element', async () => {
       const ref = React.createRef<HTMLImageElement>();
-      const expectedSrc = 'something';
+      const expectedTagName = 'IMG';
 
       const imageDriver = await createDriver(<Image nativeRef={ref} />);
-      ref.current.src = expectedSrc;
 
-      expect(await imageDriver.getSrc()).toEqual(expectedSrc);
+      expect(await imageDriver.getTagName()).toEqual(expectedTagName);
     });
   });
 

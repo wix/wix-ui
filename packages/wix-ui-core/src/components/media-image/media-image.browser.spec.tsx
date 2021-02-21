@@ -155,14 +155,11 @@ describe('MediaImage', () => {
 
   it('should pass the given reference to the native image element', async () => {
     const ref = React.createRef<HTMLImageElement>();
-    const expectedSrc = 'something';
+    const expectedTagName = 'IMG';
 
-    const mediaImageDriver = await createDriver(
-      <MediaImage nativeRef={ref} />,
-    );
-    ref.current.src = expectedSrc;
+    const mediaImageDriver = await createDriver(<MediaImage nativeRef={ref} />);
 
-    expect(await mediaImageDriver.getSrc()).toEqual(expectedSrc);
+    expect(await mediaImageDriver.getTagName()).toEqual(expectedTagName);
   });
 
   describe('props are not provided', () => {
