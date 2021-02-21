@@ -187,18 +187,26 @@ function runTests(render, tooltip) {
 
   describe('`disabled` prop', () => {
     it('[when] given false should not show tooltip on mouse enter', async () => {
-      const children = 'kido';
+      const children = <div>kido</div>;
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);
       await driver.mouseEnter();
       expect(await driver.tooltipExists()).toBe(false);
     });
     it('[when] given true should not show tooltip on focus', async () => {
-      const children = 'kido';
+      const children = <div>kido</div>;
       const { driver } = render(tooltip({ children, disabled: true }));
       expect(await driver.tooltipExists()).toBe(false);
       await driver.tabIn();
       expect(await driver.tooltipExists()).toBe(false);
+    });
+    it('[when] given true should not call onShow() prop on focus', async () => {
+      const children = <div>kido</div>;
+      const onShow = jest.fn();
+      const { driver } = render(tooltip({ children, onShow, disabled: true }));
+      expect(await driver.tooltipExists()).toBe(false);
+      await driver.tabIn();
+      expect(onShow).not.toHaveBeenCalled();
     });
   });
 
