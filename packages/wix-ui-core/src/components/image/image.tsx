@@ -4,6 +4,8 @@ import { ImageStatus, FALLBACK_IMAGE } from './consts';
 
 export interface ImageProps {
   nativeProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+  /** A reference to be passed to the native image element */
+  nativeRef?: React.Ref<HTMLImageElement>;
   src?: string;
   srcSet?: string;
   alt?: string;
@@ -18,7 +20,7 @@ export interface ImageState {
   src?: string;
   status: ImageStatus;
 }
-export class Image extends React.PureComponent<ImageProps, ImageState> {
+class ImageComponent extends React.PureComponent<ImageProps, ImageState> {
   private readonly getSrc = (): string =>
     this.props.src ? this.props.src : this.getSrcSet();
 
@@ -45,11 +47,13 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
       resizeMode,
       srcSet,
       nativeProps,
+      nativeRef,
       ...additionalProps
     } = this.props;
     const ret = {
       ...additionalProps,
       ...nativeProps,
+      ref: nativeRef,
       src: this.state.src,
       srcSet: this.isErrorState() ? null : srcSet,
       onLoad: this.handleOnLoad,
@@ -118,3 +122,7 @@ export class Image extends React.PureComponent<ImageProps, ImageState> {
     }
   };
 }
+
+export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
+  (props, ref) => <ImageComponent {...props} nativeRef={ref} />,
+);
