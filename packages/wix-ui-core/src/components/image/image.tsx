@@ -20,7 +20,7 @@ export interface ImageState {
   src?: string;
   status: ImageStatus;
 }
-class ImageComponent extends React.PureComponent<ImageProps, ImageState> {
+export class Image extends React.PureComponent<ImageProps, ImageState> {
   private readonly getSrc = (): string =>
     this.props.src ? this.props.src : this.getSrcSet();
 
@@ -122,7 +122,3 @@ class ImageComponent extends React.PureComponent<ImageProps, ImageState> {
     }
   };
 }
-
-export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
-  (props, ref) => <ImageComponent {...props} nativeRef={ref} />,
-);
