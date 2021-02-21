@@ -97,13 +97,13 @@ export class TooltipNext extends React.PureComponent<
   };
 
   _renderElement = () => {
-    const { children, 'aria-describedby': ariaDescribedBy } = this.props;
+    const { children, disabled, 'aria-describedby': ariaDescribedBy } = this.props;
     if (typeof children === 'string' || !children) {
       return children || '';
     }
     return React.cloneElement(children as any, {
-      onFocus: this._onFocus,
-      onBlur: this._onBlur,
+      onFocus: disabled ? undefined : this._onFocus,
+      onBlur: disabled ? undefined : this._onBlur,
       'aria-describedby': ariaDescribedBy,
     });
   };
