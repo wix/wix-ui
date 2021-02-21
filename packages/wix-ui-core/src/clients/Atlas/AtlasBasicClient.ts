@@ -17,7 +17,7 @@ export const mockWixAtlasService = (atlasMock: any): void => {
   WixAtlasService = atlasMock
 }
 
-const ATLAS_WEB_BASE_URL = '/api/wix-atlas-service-web';
+export const ATLAS_WEB_BASE_URL = '/_api/wix-atlas-service-web';
 const BASE_LINGUIST_HEADER = '|en-us|false|';
 
 const serializeGeocodeResult = (results: CommonAddress[]): InternalAddress[] =>
@@ -50,9 +50,10 @@ export class AtlasBasicClient implements AtlasMapsClient {
   private readonly _predict;
   private readonly _getPlace;
 
-  constructor(lang: string, instance: string) {
+  constructor({ lang, instance, externalBaseUrl }: { lang: string; instance: string; externalBaseUrl?: string }) {
+    const baseUrl = externalBaseUrl ? `${externalBaseUrl}${ATLAS_WEB_BASE_URL}` : ATLAS_WEB_BASE_URL
     const { AutocompleteServiceV2, PlacesServiceV2 } = WixAtlasService(
-      ATLAS_WEB_BASE_URL,
+      baseUrl,
     );
 
     this.name = 'atlas';
