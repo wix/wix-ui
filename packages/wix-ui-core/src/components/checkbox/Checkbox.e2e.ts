@@ -60,4 +60,28 @@ describe('Checkbox', () => {
       .perform();
     expect(driver.isChecked()).toBe(false);
   });
+
+  it('Checkbox onFocusByKeyboard works', async () => {
+    const dataHookFirst = 'checkbox-first';
+    const dataHookSecond = 'checkbox-second';
+    const checkboxFirst = checkboxTestkitFactory({ dataHook: dataHookFirst });
+    const checkboxSecond = checkboxTestkitFactory({ dataHook: dataHookSecond });
+    return waitForVisibilityOf(
+      checkboxFirst.element(),
+      'Cannot find Checkout'
+    ).then(async () => {
+      expect(await checkboxSecond.isChecked()).toBeFalsy();
+      browser
+        .actions()
+        .sendKeys(
+          Key.TAB,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN,
+          Key.ARROW_DOWN
+        )
+        .perform();
+      expect(await checkboxSecond.isChecked()).toBeTruthy();
+    });
+  });
 });
