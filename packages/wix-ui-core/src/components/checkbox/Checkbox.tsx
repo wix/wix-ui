@@ -12,6 +12,8 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLElement> {
   'data-hook'?: string;
   /** The onChange function will be called with a new checked value */
   onChange?: React.EventHandler<OnChangeEvent>;
+  /** A callback to invoke on focus fired from keyboard event */
+  onFocusByKeyboard? (event: React.FocusEvent<HTMLInputElement>): void;
   /** An element to be displayed when the checkbox is unchecked */
   uncheckedIcon?: JSX.Element;
   /** An element to be displayed when the checkbox is checked */
@@ -141,7 +143,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
   private readonly handleInputFocus: React.FocusEventHandler<
     HTMLInputElement
-  > = () => {
+  > = (event: React.FocusEvent<HTMLInputElement>) => {
+    !this.focusedByMouse &&
+    this.props.onFocusByKeyboard &&
+    this.props.onFocusByKeyboard(event);
     this.setState({ isFocused: true, focusVisible: !this.focusedByMouse });
   };
 }
