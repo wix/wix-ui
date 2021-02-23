@@ -122,6 +122,10 @@ export interface PopoverProps {
   disableClickOutsideWhenClosed?: boolean;
 
   dataHook?: string;
+  /**
+   * the classname to be passed to the popover's content container
+   */
+  contentClassName?: string;
 }
 
 export interface PopoverState {
@@ -244,6 +248,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
       width,
       dynamicWidth,
       excludeClass = this.clickOutsideClass,
+      contentClassName,
     } = this.props;
     const shouldAnimate = shouldAnimatePopover(this.props);
 
@@ -283,6 +288,7 @@ export class Popover extends React.Component<PopoverProps, PopoverState> {
                     className={classNames(
                       classes.popover,
                       this.clickOutsideClass,
+                      contentClassName,
                       {
                         [classes.withArrow]: showArrow,
                         [classes.popoverContent]: !showArrow,
