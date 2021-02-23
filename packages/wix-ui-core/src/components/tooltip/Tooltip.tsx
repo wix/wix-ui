@@ -60,6 +60,10 @@ export interface TooltipProps {
   className?: string;
   /** hook for testing purposes */
   'data-hook'?: string;
+  /**
+   * the classname to be passed to the popover's content container
+   */
+  contentClassName?: string;
 }
 
 export interface TooltipState {
@@ -160,6 +164,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
       maxWidth,
       'aria-describedby': ariaDescribedBy,
       className,
+      contentClassName,
     } = this.props;
 
     return (
@@ -185,6 +190,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, TooltipState> {
         zIndex={zIndex}
         minWidth={minWidth}
         maxWidth={maxWidth}
+        contentClassName={contentClassName}
         {...filterDataProps(this.props)}
       >
         <Popover.Element>{this._renderElement()}</Popover.Element>
