@@ -45,6 +45,7 @@ export type PopperProps = ModifiersParams &
   > & {
     contentHook?: string;
     grabScheduleUpdater(scheduler: PopperChildrenProps['scheduleUpdate']): void;
+    contentClassName?: string;
   };
 
 const Popper: React.FC<PopperProps> = ({
@@ -68,6 +69,7 @@ const Popper: React.FC<PopperProps> = ({
   minWidth,
   dynamicWidth,
   isTestEnv,
+  contentClassName,
 }) => {
   const modifiers = getModifiers({
     shouldAnimate,
@@ -104,7 +106,8 @@ const Popper: React.FC<PopperProps> = ({
               maxWidth,
             }}
             data-placement={popperPlacement || placement}
-            className={classNames(classes.popover, {
+            className={classNames(classes.popover,
+              contentClassName, {
               [classes.withArrow]: showArrow,
               [classes.popoverContent]: !showArrow,
             })}

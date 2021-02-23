@@ -696,6 +696,8 @@ function runTests(createDriver, container, popoverWithProps, Component) {
     describe('portal styles', () => {
       const queryPopoverPortal = () =>
         queryHook<HTMLElement>(document, 'popover-portal');
+      const queryPopoverContent = () =>
+        queryHook<HTMLElement>(document, 'popover-content');
 
       it(`should update the portal's styles when updated`, async () => {
         // First render without passing the `className` prop, the <Popover/>
@@ -747,6 +749,29 @@ function runTests(createDriver, container, popoverWithProps, Component) {
         await delay(10);
         expect(queryPopoverPortal().classList).not.toContain(classes.root);
       });
+
+        it(`should add contentClassName to the popover content if passed`, async () => {
+            const contentClassName = 'some-content-classname';
+
+            await createDriver(
+                popoverWithProps({
+                    shown: true,
+                    appendTo: portalContainer.node,
+                    contentClassName,
+                }),
+            );
+
+            await createDriver(
+                popoverWithProps({
+                    shown: true,
+                    appendTo: portalContainer.node,
+                    contentClassName,
+                }),
+            );
+
+            expect(queryPopoverContent()).toBeTruthy();
+            expect(queryPopoverContent().classList).toContain(contentClassName);
+        });
     });
   });
 

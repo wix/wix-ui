@@ -145,6 +145,10 @@ export interface PopoverNextProps {
    * - `string` value that contains `px`
    */
   width?: number | string;
+  /**
+   * the classname to be passed to the popover's content container
+   */
+  contentClassName?: string;
 }
 
 export interface PopoverNextState {
