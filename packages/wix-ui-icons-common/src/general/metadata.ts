@@ -350,6 +350,13 @@ const generalIconsMetadata: Array<IconMetadata> = [
     tags: ["logout", "leave"],
     sizes: { "18": "ExitSmall", "24": "Exit" },
   },
+{
+title: "GetStarted",
+category: "Actions",
+description: "Button – opens initial setup panel",
+tags: ["setup", "launch", "rocket"],
+sizes: { "18": "GetStartedSmall", "24": "GetStarted" },
+  },
   {
     title: "Settings",
     category: "General",
