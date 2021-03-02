@@ -4,7 +4,8 @@
   display: flex;
   height: 30px;
   margin-bottom: 12px;
-  @include font(light);
+  @include font();
+  @include fontWeight(medium);
   font-size: 13px;
   justify-content: flex-end;
   align-items: center;
@@ -58,7 +59,8 @@
   background-color: #FFEBEB;
   border: 1px solid #FFD7D7;
   border-radius: 6px;
-  @include font(light);
+  @include font();
+  @include fontWeight(medium);
   color: #222;
   line-height: 1.2;
   font-size: 14px;
@@ -77,7 +79,8 @@
   border-radius: 15px;
   border: solid 1px #7a92a5;
   color: #162d3d;
-  @include font(roman);
+  @include font();
+  @include fontWeight(bold);
   font-size: 14px;
   font-weight: 400;
   height: 30px;

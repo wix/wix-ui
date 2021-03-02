@@ -24,7 +24,7 @@ import {
 // abstractions for consumer, so that they don't need to write all details manually and can also leverage some
 // autocomplete
 
-const base = config => ({
+const base = (config) => ({
   pretitle: '',
   title: '',
   subtitle: '',

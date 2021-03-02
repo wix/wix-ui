@@ -19,35 +19,35 @@
 }
 
 .title {
+  @include font();
+  @include fontWeight(regular);
   font-size: 36px;
   line-height: 1.33;
   color: #162d3d;
 }
 
 .subtitle {
-  @include font(medium);
+  @include font();
+  @include fontWeight(regular);
   font-size: 16px;
   line-height: 1.5;
   color: #32536a;
 }
 
-.title,
-.subtitle {
-  @include font(medium);
-  font-weight: 500;
-}
 
 .section {
   margin-bottom: 30px;
 }
 
 .section-title {
-  @include font(roman);
+  @include font();
+  @include fontWeight(regular);
   font-size: 20px;
 }
 
 .section-subtitle {
-  @include font(roman);
+  @include font();
+  @include fontWeight(regular);
   margin-bottom: 30px;
   margin-top: 5px;
   font-size: 14px;
@@ -55,7 +55,8 @@
 }
 
 .section-pretitle {
-  @include font(roman);
+  @include font();
+  @include fontWeight(regular);
   font-size: 12px;
   font-weight: 500;
   color: #7a92a5;
@@ -63,6 +64,8 @@
 
 .tab {
   margin-bottom: 30px;
+  @include font();
+  @include fontWeight(medium);
 }
 
 .divider {

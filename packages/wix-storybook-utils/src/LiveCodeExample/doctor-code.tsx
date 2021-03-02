@@ -4,7 +4,7 @@ import { transformFromAstSync } from '@babel/core';
 import { isIdentifier, File } from '@babel/types';
 import traverse from '@babel/traverse';
 
-const babelParse: (source: string) => File = source =>
+const babelParse: (source: string) => File = (source) =>
   parse(source, {
     plugins: [
       ['decorators', { decoratorsBeforeExport: true }],
@@ -14,6 +14,7 @@ const babelParse: (source: string) => File = source =>
       'objectRestSpread',
       'dynamicImport',
       require('@babel/plugin-proposal-class-properties'),
+      require('@babel/plugin-transform-async-to-generator'),
     ],
     sourceType: 'module',
   });
@@ -33,7 +34,7 @@ const locStart = (node, opts?) => {
   return node.range ? node.range[0] : node.start;
 };
 
-const locEnd = node => {
+const locEnd = (node) => {
   const end = node.range ? node.range[1] : node.end;
   return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
 };
@@ -43,7 +44,7 @@ export const formatCode = (code: string) => {
     const filteredCode = code
       .split('\n')
       .filter(
-        line =>
+        (line) =>
           !/\/(\*|\/)+.*((t|e)slint[-|:](dis|en)able|prettier-ignore)/.test(
             line,
           ),
@@ -73,7 +74,7 @@ export const formatCode = (code: string) => {
   }
 };
 
-export const transformCode: (code: string) => string = code => {
+export const transformCode: (code: string) => string = (code) => {
   const ast = babelParse(code);
 
   traverse(ast, {

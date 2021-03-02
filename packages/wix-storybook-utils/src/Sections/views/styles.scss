@@ -5,13 +5,22 @@ $grayRowBackground: rgba($D70, 0.42);
 
 .description {
   margin-bottom: calc(24px - 16px);
-
+ 
   :global .markdown-body p {
-    @include font(roman);
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.5;
-    color: $D10;
+    @include font();
+    @include fontWeight(medium);
+    font-size: 16px;
+    line-height: 24px;
+    color: $D20;
+  }
+
+  :global .markdown-body li,
+  :global .markdown-body ol {
+    @include font();
+    @include fontWeight(medium);
+    font-size: 16px;
+    line-height: 24px;
+    color: $D20;
   }
 }
 

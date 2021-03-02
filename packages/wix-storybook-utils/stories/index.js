@@ -10,3 +10,4 @@ import "./sections/table-section.story";
 import "./empty-story";
 import "./components";
 import "./playground.story";
+import "./StoryStructure/StoryStructure.story"

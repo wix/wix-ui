@@ -1,8 +1,11 @@
 @import "../../../ui/typography.scss";
+@import '../../../ui/colors.scss';
 
 .root {
-  @include font(medium);
+  @include font();
+  @include fontWeight(bold);
   font-size: 28px;
-  color: #162d3d;
+  line-height: 36px;
+  color: $D10;
   margin: 0 0 60px;
 }

@@ -8,7 +8,8 @@
 }
 
 .pretitle {
-  @include font(roman);
+  @include font();
+  @include fontWeight(regular);
   margin-bottom: 5px;
   font-size: 12px;
   font-weight: 500;
@@ -16,19 +17,22 @@
 }
 
 .title {
-  @include font(roman);
+  @include font();
+  @include fontWeight(bold);
   font-size: 20px;
 }
 
 .subtitle {
-  @include font(roman);
+  @include font();
+  @include fontWeight(regular);
   margin-top: 5px;
   font-size: 14px;
   color: $D40;
 }
 
 .description {
-  @include font(roman);
+  @include font();
+  @include fontWeight(medium);
   margin-top: 10px;
   font-size: 14px;
   font-weight: 300;

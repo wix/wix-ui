@@ -48,13 +48,15 @@
     "react": "^15.4.0"
   },
   "dependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/generator": "^7.4.3",
+    "@babel/core": "~7.11.0",
+    "@babel/generator": "~7.11.0",
     "@babel/parser": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-syntax-jsx": "^7.2.0",
-    "@babel/traverse": "^7.4.3",
-    "@babel/types": "^7.4.3",
+    "@babel/plugin-transform-async-to-generator": "^7.13.0",
+    "@babel/traverse": "~7.11.0",
+    "@babel/types": "~7.11.0",
+    "babel-plugin-transform-async-to-promises": "^0.8.15",
     "babel-runtime": "^6.25.0",
     "classnames": "^2.2.5",
     "copy-to-clipboard": "^3.0.8",
@@ -97,6 +99,7 @@
     "ts-jest": "^24.2.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.1.3",
+    "wix-style-react": "^9.85.0",
     "wix-ui-test-utils": "^1.0.120",
     "yoshi": "^4.16.4",
     "yoshi-style-dependencies": "^4.11.1"
