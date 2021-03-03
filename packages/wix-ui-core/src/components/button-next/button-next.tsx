@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import { st, classes } from './button-next.st.css';
+import { dataHooks } from './constants';
 import { isStatelessComponent } from '../../utils';
 
 export interface ButtonProps
@@ -25,10 +26,11 @@ export interface ButtonProps
   focusableOnBlur?(): void;
 }
 
-const _addAffix = (Affix, styleClass) =>
+const _addAffix = (Affix, styleClass, dataHook) =>
   Affix &&
   React.cloneElement(Affix, {
     className: classNames(classes[styleClass], Affix.props.className),
+    dataHook,
   });
 
 /**
@@ -78,14 +80,14 @@ class ButtonNextComponent extends React.Component<ButtonProps> {
         aria-disabled={disabled}
         className={st(classes.root, { disabled }, this.props.className)}
       >
-        {_addAffix(prefixIcon, 'prefix')}
+        {_addAffix(prefixIcon, 'prefix', dataHooks.prefixIcon)}
         <span
           className={st(classes.content, contentClassName)}
           ref={contentRef}
         >
           {children}
         </span>
-        {_addAffix(suffixIcon, 'suffix')}
+        {_addAffix(suffixIcon, 'suffix', dataHooks.suffixIcon)}
       </Component>
     );
   }
