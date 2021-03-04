@@ -1,14 +1,25 @@
+$font-code: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace';
+$font-fallback: 'Helvetica Neue', 'Helvetica', 'Arial', 'メイリオ', 'meiryo',
+  'ヒラギノ角ゴ pro w3', 'hiragino kaku gothic pro', 'sans-serif';
+
 $fontWeight: (
   regular: var(--wix-font-weight-regular),
   medium: var(--wix-font-weight-medium),
   bold: var(--wix-font-weight-bold),
-  xbold: var(--wix-font-weight-xbold)
+  xbold: var(--wix-font-weight-xbold),
 );
 
-$font-fallback: "Helvetica Neue", "Helvetica", "Arial", "メイリオ", "meiryo", "ヒラギノ角ゴ pro w3", "hiragino kaku gothic pro", "sans-serif";
+$font: (
+  madeFor: var(--wix-font-stack),
+  code: $font-code,
+);
 
-@mixin font($type:false) {
-  font-family: var(--wix-font-stack), $font-fallback;
+@mixin font($type: madeFor) {
+  @if map-has-key($font, $type) {
+    font-family: map-get($font, $type), $font-fallback;
+  } @else {
+    font-family: var(--wix-font-stack), $font-fallback;
+  }
 }
 
 @mixin fontWeight($type) {

@@ -1,23 +1,89 @@
 @import '../ui/typography.scss';
 @import '../ui/colors.scss';
 
-.tableTitle {
-  @include font(medium);
+.title {
+  @include font();
+  @include fontWeight(bold);
+  font-size: 20px;
+  line-height: 1.2;
   margin-bottom: 20px;
-  font-size: 18px;
 }
 
-.propsTable {
+.table {
   margin-bottom: 60px;
 }
 
-.deprecatedTitle {
-  @include font(medium);
-  margin-bottom: 20px;
-  font-size: 18px;
+.table table {
+  display: table;
 }
 
-.deprecatedDescription {
-  color: $R00;
-  margin-bottom: 20px;
+.table thead {
+  padding: 0 30px;
+}
+
+.table thead tr {
+  background-color: $D70;
+  color: $D10;
+}
+
+.table thead tr th {
+  @include font();
+  @include fontWeight(bold);
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.25;
+  height: 42px;
+}
+
+.table table tbody tr:nth-child(2n) {
+  background-color: rgba(240, 244, 247, 0.42);
+}
+
+.table table tbody .propName,
+.table table tbody .propType,
+.table table tbody .defaultProp,
+.table table tbody .required {
+  @include font(code);
+  padding: 18px 30px;
+  color: $D10;
+  font-size: 14px;
+  line-height: 1.29;
+}
+
+.propName {
+  min-width: 15%;
+}
+
+.required {
+  min-width: 5%;
+}
+
+.defaultProps {
+  min-width: 10%;
+}
+
+.propType {
+  min-width: 20%;
+}
+
+.table table tbody .description {
+  @include font();
+  @include fontWeight(medium);
+  font-size: 14px;
+  color: $D20;
+  padding: 18px 30px 18px 11px;
+  min-width: 50%;
+}
+
+.table table tbody .description p {
+  @include font();
+  @include fontWeight(medium);
+  font-size: 14px;
+  color: $D20;
+  margin-bottom: 0;
+}
+
+.table table tbody code {
+  background-color: transparent;
+  font-size: 12px;
 }

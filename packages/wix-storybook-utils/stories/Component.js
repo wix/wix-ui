@@ -44,13 +44,16 @@ class Component extends React.Component {
 }
 
 Component.propTypes = {
-  /** this is a simple number prop */
+  /** used to associate a control with the regions that it controls. */
   number: PropTypes.number,
+  /** Used to associate a region with its descriptions, similar to aria-controls but instead associating descriptions to the region and description identifiers are separated with a space. */
   valueSetOnMounting: PropTypes.number,
+  /** Used to define a string that labels the current element in case where a text label is not visible on the screen. */
   children: PropTypes.node,
+  /** Sets value of native autocomplete attribute (consult the HTML spec for possible value */
   enabled: PropTypes.bool.isRequired,
+  /** Standard React Input autoFocus (focus the element on mount) */
   onClick: PropTypes.func,
-
   /** do not use this prop
    * @deprecated since forever*/
   propNotVisibleInStorybook: PropTypes.bool,

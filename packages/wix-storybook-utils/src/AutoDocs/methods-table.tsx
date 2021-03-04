@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './styles.scss';
 
 export const hiddenMethods = [
   'UNSAFE_componentWillMount',
@@ -19,7 +20,7 @@ export const hiddenMethods = [
 ];
 
 export const MethodsTable = ({ methods = [] }) => (
-  <table data-hook="autodocs-methods-table">
+  <table data-hook="autodocs-methods-table" className={styles.table}>
     <thead>
       <tr>
         <th>Name</th>
@@ -33,9 +34,11 @@ export const MethodsTable = ({ methods = [] }) => (
         .filter(({ name }) => !hiddenMethods.includes(name))
         .map(({ name = '', params = [], description = '' }) => (
           <tr data-hook="autodocs-methods-table-row" key={name}>
-            <td>{name}</td>
-            <td>{params.map(({ name: paramName }) => paramName).join(', ')}</td>
-            <td>{description}</td>
+            <td className={styles.propName}>{name}</td>
+            <td className={styles.propType}>
+              {params.map(({ name: paramName }) => paramName).join(', ')}
+            </td>
+            <td className={styles.description}>{description}</td>
           </tr>
         ))}
     </tbody>

@@ -99,7 +99,6 @@
     "ts-jest": "^24.2.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.1.3",
-    "wix-style-react": "^9.85.0",
     "wix-ui-test-utils": "^1.0.120",
     "yoshi": "^4.16.4",
     "yoshi-style-dependencies": "^4.11.1"
