@@ -30,7 +30,7 @@ const _addAffix = (Affix, styleClass, dataHook) =>
   Affix &&
   React.cloneElement(Affix, {
     className: classNames(classes[styleClass], Affix.props.className),
-    dataHook,
+    'data-hook': Affix.props['data-hook'] || Affix.props.dataHook || dataHook,
   });
 
 /**
