@@ -5,7 +5,7 @@ module.exports.config = {
   onPrepare() {
     browser.ignoreSynchronization = true;
     require("@babel/register")({
-      presets: [[require.resolve("babel-preset-yoshi")]],
+      presets: [[require.resolve("@wix/babel-preset-yoshi")]],
       ignore: [],
     });
   },

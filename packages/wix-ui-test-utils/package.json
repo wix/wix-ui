@@ -59,7 +59,7 @@
     "ts-jest": "^22.0.3",
     "tslint-config-wix": "^1.0.31",
     "typescript": "~3.0.3",
-    "yoshi": "^3.31.2"
+    "@wix/yoshi": "^3.31.2"
   },
   "jest": {
     "transform": {

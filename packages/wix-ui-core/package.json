@@ -151,7 +151,7 @@
     "wix-storybook-utils": "^3.0.7",
     "wix-ui-framework": "^3.3.1",
     "wix-ui-mocha-runner": "^1.0.0",
-    "yoshi": "^4.55.1",
+    "@wix/yoshi": "^4.55.1",
     "yoshi-style-dependencies": "^4.37.1"
   },
   "peerDependencies": {

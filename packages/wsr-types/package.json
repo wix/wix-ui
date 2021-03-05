@@ -49,7 +49,7 @@
     "@types/puppeteer": "^1.11.0",
     "@types/node": "^12.0.0",
     "typescript": "~3.6.0",
-    "yoshi": "^4.0.0"
+    "@wix/yoshi": "^4.0.0"
   },
   "yoshi": {},
   "prettier": {

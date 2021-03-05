@@ -1,5 +1,5 @@
 const path = require('path');
-const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
+const wixStorybookConfig = require('@wix/yoshi/config/webpack.config.storybook');
 
 const makeTestkitTemplate = platform =>
   `import { <%= utils.toCamel(component.displayName) %>TestkitFactory } from 'wix-style-react/dist${platform}';`;
