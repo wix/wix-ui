@@ -17,7 +17,7 @@ interface PropObject {
 
 const splitDeprecated: (
   PropObject,
-) => { deprecatedProps: PropObject; supportedProps: PropObject } = (props) =>
+) => { deprecatedProps: PropObject; supportedProps: PropObject } = props =>
   Object.keys(props).reduce(
     (output, name) => {
       const prop = props[name];

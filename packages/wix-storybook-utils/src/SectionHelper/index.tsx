@@ -1,1 +1,1 @@
-export { default } from './SectionHelper'
+export { default } from './SectionHelper';

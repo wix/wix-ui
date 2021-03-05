@@ -1,10 +1,10 @@
 import { Metadata } from '../typings/metadata';
 import { Prop } from '../typings/prop';
 
-export type AutoDocsProps = {
+export interface AutoDocsProps {
   metadata: Metadata;
-};
+}
 
-export type PropertiesTableProps = {
+export interface PropertiesTableProps {
   props: { [s: string]: Prop };
-};
+}
