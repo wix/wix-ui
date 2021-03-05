@@ -35,6 +35,21 @@
   height: 42px;
 }
 
+.table table tr th:first-child,
+.table table tr td:first-child {
+  padding: 16px 18px 16px 30px;
+}
+
+.table table tr th:last-child,
+.table table tr td:last-child {
+  padding: 16px 30px 16px 18px;
+}
+
+.table table tr th,
+.table table tr td {
+  padding: 16px 18px;
+}
+
 .table table tbody tr:nth-child(2n) {
   background-color: rgba(240, 244, 247, 0.42);
 }
@@ -44,26 +59,28 @@
 .table table tbody .defaultProp,
 .table table tbody .required {
   @include font(code);
-  padding: 18px 30px;
+  @include fontWeight(regular);
   color: $D10;
   font-size: 16px;
   line-height: 1.29;
 }
 
-.propName {
-  min-width: 15%;
+.table table tbody .propName code,
+.table table tbody .propType code,
+.table table tbody .defaultProp code,
+.table table tbody .required code {
+  padding: 0;
+  @include font(code);
+  @include fontWeight(regular);
+  font-size: 16px;
 }
 
-.required {
-  min-width: 5%;
+.table table tbody .required {
+  width: 10%;
 }
 
-.defaultProps {
-  min-width: 10%;
-}
-
-.propType {
-  min-width: 20%;
+.table table tbody .defaultProp {
+  width: 15%;
 }
 
 .table table tbody .description {
@@ -71,11 +88,11 @@
   @include fontWeight(medium);
   font-size: 16px;
   color: $D20;
-  padding: 18px 30px 18px 11px;
-  min-width: 50%;
+  min-width: 200px;
+  max-width: 800px;
 }
 
-.table table tbody .description p {
+.table table tbody .description div {
   @include font();
   @include fontWeight(medium);
   font-size: 16px;
@@ -84,6 +101,10 @@
 }
 
 .table table tbody code {
-  background-color: transparent;
   font-size: 12px;
+}
+
+.table p {
+  margin-top: 0;
+  margin-bottom: 0;
 }

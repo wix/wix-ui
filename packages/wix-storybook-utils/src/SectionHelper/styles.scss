@@ -1,9 +1,8 @@
-
 @import '../ui/typography.scss';
 
 .root {
   @include font();
-  @include fontWeight(regular);
+  @include fontWeight(medium);
   line-height: 1.29;
   font-size: 14px;
   position: relative;
@@ -12,7 +11,7 @@
   border-radius: 6px;
   border: 1px solid;
   box-sizing: border-box;
-  background-color: #FFEBEB;
-  border-color: #FFD7D7;
+  background-color: #ffebeb;
+  border-color: #ffd7d7;
   margin-bottom: 24px;
 }

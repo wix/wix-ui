@@ -1,4 +1,4 @@
-$font-code: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace';
+$font-code: '"Roboto Mono", monospace';
 $font-fallback: 'Helvetica Neue', 'Helvetica', 'Arial', 'メイリオ', 'meiryo',
   'ヒラギノ角ゴ pro w3', 'hiragino kaku gothic pro', 'sans-serif';
 
@@ -16,7 +16,7 @@ $font: (
 
 @mixin font($type: madeFor) {
   @if map-has-key($font, $type) {
-    font-family: map-get($font, $type), $font-fallback;
+    font-family: unquote(map-get($font, $type)), $font-fallback;
   } @else {
     font-family: var(--wix-font-stack), $font-fallback;
   }
