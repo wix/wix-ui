@@ -1,5 +1,5 @@
-@import "../../ui/colors.scss";
-@import "../../ui/typography.scss";
+@import '../../ui/colors.scss';
+@import '../../ui/typography.scss';
 
 $grayRowBackground: rgba($D70, 0.42);
 
@@ -10,8 +10,8 @@ $grayRowBackground: rgba($D70, 0.42);
     @include font(roman);
     font-size: 14px;
     font-weight: 300;
-    line-height: 1.5;
-    color: $D10;
+    line-height: 18px;
+    color: $D20;
   }
 }
 
@@ -124,10 +124,15 @@ $grayRowBackground: rgba($D70, 0.42);
 
 .table-markdown {
   @include font(light);
-  font-size: 16px;
-  line-height: 1.88em;
+  font-size: 14px;
+  line-height: 18px;
 
   p {
     margin: 0;
+    color: $D20;
+  }
+
+  code {
+    color: $D10;
   }
 }
