@@ -3,7 +3,7 @@ import { checkboxDriverFactory } from './Checkbox.driver';
 import { ReactDOMTestContainer } from '../../../test/dom-test-container';
 import { Checkbox } from './Checkbox';
 
-const tickSVG = <span data-name='custom-tickmark'>1</span>;
+const tickSVG = <span data-name="custom-tickmark">1</span>;
 
 describe('Checkbox', () => {
   const createDriver = new ReactDOMTestContainer()
@@ -33,7 +33,7 @@ describe('Checkbox', () => {
       const checkbox = createDriver(
         <Checkbox>
           <span>covfefe</span>
-        </Checkbox>
+        </Checkbox>,
       );
 
       expect(checkbox.children().textContent).toContain('covfefe');
@@ -47,7 +47,7 @@ describe('Checkbox', () => {
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith(
-        expect.objectContaining({ checked: true })
+        expect.objectContaining({ checked: true }),
       );
     });
 
@@ -56,7 +56,7 @@ describe('Checkbox', () => {
 
       expect(checkbox.tickmark()).toBeDefined();
       expect(checkbox.tickmark().getAttribute('data-name')).toBe(
-        'custom-tickmark'
+        'custom-tickmark',
       );
     });
   });
@@ -70,12 +70,12 @@ describe('Checkbox', () => {
 
     it('displays the given custom tick icon when indeterminate', () => {
       const checkbox = createDriver(
-        <Checkbox indeterminateIcon={tickSVG} indeterminate />
+        <Checkbox indeterminateIcon={tickSVG} indeterminate />,
       );
 
       expect(checkbox.tickmark()).toBeDefined();
       expect(checkbox.tickmark().getAttribute('data-name')).toBe(
-        'custom-tickmark'
+        'custom-tickmark',
       );
     });
   });
@@ -106,13 +106,13 @@ describe('Checkbox', () => {
 
   describe('Form element', () => {
     it('passes the name prop to the input', () => {
-      const checkbox = createDriver(<Checkbox name='shlomi' />);
+      const checkbox = createDriver(<Checkbox name="shlomi" />);
 
       expect(checkbox.input().getAttribute('name')).toBe('shlomi');
     });
 
     it('passes the id prop to the input', () => {
-      const checkbox = createDriver(<Checkbox id='covfefe' />);
+      const checkbox = createDriver(<Checkbox id="covfefe" />);
 
       expect(checkbox.input().getAttribute('id')).toBe('covfefe');
     });

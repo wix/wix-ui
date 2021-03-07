@@ -78,7 +78,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         {...filterDataProps(this.props)}
       >
         <input
-          type='checkbox'
+          type="checkbox"
           className={classes.nativeCheckbox}
           onClick={(e) => e.stopPropagation()}
           onChange={this.handleChange}
@@ -115,7 +115,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   }
 
   private readonly handleMouseDown: React.MouseEventHandler<HTMLElement> = (
-    e
+    e,
   ) => {
     //When clicking on the label, the input loses focus style state and then gains it again.
     //To prevent this we disable the default mouse down behavior and set the state to true
@@ -135,7 +135,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   private readonly handleInputBlur: React.FocusEventHandler<HTMLInputElement> = (
-    event: React.FocusEvent<HTMLInputElement>
+    event: React.FocusEvent<HTMLInputElement>,
   ) => {
     this.state.isFocused &&
       this.setState({ isFocused: false, focusVisible: false });
@@ -144,7 +144,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   };
 
   private readonly handleInputFocus: React.FocusEventHandler<HTMLInputElement> = (
-    event: React.FocusEvent<HTMLInputElement>
+    event: React.FocusEvent<HTMLInputElement>,
   ) => {
     !this.focusedByMouse &&
       this.props.onFocusByKeyboard &&
