@@ -73,7 +73,7 @@
     "ts-jest": "^24.0.2",
     "tslint-config-yoshi": "^4.1.0",
     "typescript": "^3.4.5",
-    "yoshi": "^4.3.0"
+    "@wix/yoshi": "^4.3.0"
   },
   "eslintConfig": {
     "extends": "yoshi",

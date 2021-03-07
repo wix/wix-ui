@@ -50,7 +50,7 @@
     "tslint-config-wix": "^1.0.31",
     "typescript": "~3.0.3",
     "wix-ui-test-utils": "^1.0.0",
-    "yoshi": "^3.31.2"
+    "@wix/yoshi": "^3.31.2"
   },
   "dependencies": {
     "hoist-non-react-methods": "^1.1.0",

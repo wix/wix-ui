@@ -1,1 +1,1 @@
-import 'yoshi/types';
+import '@wix/yoshi/types';

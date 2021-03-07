@@ -1,4 +1,4 @@
-const wixStorybookConfig = require('yoshi/config/webpack.config.storybook');
+const wixStorybookConfig = require('@wix/yoshi/config/webpack.config.storybook');
 const path = require('path');
 
 module.exports = ({config}) => {

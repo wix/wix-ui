@@ -1,1 +1,1 @@
-module.exports = require('yoshi/config/wallaby-jest');
+module.exports = require('@wix/yoshi/config/wallaby-jest');
