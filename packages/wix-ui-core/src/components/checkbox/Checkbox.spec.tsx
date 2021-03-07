@@ -230,5 +230,14 @@ describe('Checkbox', () => {
       checkbox.focus();
       expect(checkbox.hasFocusState()).toBe(true);
     });
+
+    it('invokes callback for onBlur with the correct value', () => {
+      const onBlur = jest.fn();
+      const checkbox = createDriver(<Checkbox onBlur={onBlur}/>);
+
+      checkbox.click();
+      checkbox.blur();
+      expect(onBlur.mock.calls.length).toEqual(1);
+    });
   });
 });
