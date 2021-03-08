@@ -66,7 +66,7 @@
     "storybook-start": "npm run storybook",
     "storybook:visual": "start-storybook -c ./.storybook/visual -p 6007",
     "start": "run-p yoshi-start storybook-start",
-    "release": "npx @wix/yoshi release && npx teamcity-surge-autorelease@^1.0.0",
+    "release": "yoshi release && npx teamcity-surge-autorelease@^1.0.0",
     "storybook": "start-storybook -p 6006",
     "import-path": "node scripts/import-path.js",
     "bundles:analyse": "npm run transpile && npm run analyze --prefix .perfer",
