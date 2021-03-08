@@ -3,7 +3,7 @@ import * as styles from './Checkbox.st.css';
 
 export const checkboxDriverFactory = ({ element, eventTrigger }) => {
   const utils = new StylableDOMUtil(styles, element);
-  const hasStyleState = state => utils.hasStyleState(element, state);
+  const hasStyleState =state => utils.hasStyleState(element, state);
   const input = utils.select('.nativeCheckbox') as HTMLInputElement;
 
   return {
@@ -30,6 +30,8 @@ export const checkboxDriverFactory = ({ element, eventTrigger }) => {
     mouseDown: () => eventTrigger.mouseDown(element),
     /** trigger focus on the element */
     focus: () => eventTrigger.focus(utils.select('.nativeCheckbox')),
+    /** trigger blur on the element */
+    blur: () => eventTrigger.blur(utils.select('.nativeCheckbox')),
     /** checks if the tickmark exists, i.e. the checkbox is checked */
     isChecked: () => hasStyleState('checked'),
     /** returns true if the element has indeterminate state */
