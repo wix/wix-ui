@@ -102,7 +102,7 @@ const Playground: React.FunctionComponent<Props> = ({
             editorCode: formatted,
           });
         }}
-        previewProps={{className: styles.overflowPreview}}
+        previewProps={{ className: styles.overflowPreview }}
         {...rest}
       />
     ),

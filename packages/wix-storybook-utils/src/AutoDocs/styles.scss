@@ -1,23 +1,110 @@
 @import '../ui/typography.scss';
 @import '../ui/colors.scss';
 
-.tableTitle {
-  @include font(medium);
+.title {
+  @include font();
+  @include fontWeight(bold);
+  font-size: 20px;
+  line-height: 1.2;
   margin-bottom: 20px;
-  font-size: 18px;
 }
 
-.propsTable {
+.table {
   margin-bottom: 60px;
 }
 
-.deprecatedTitle {
-  @include font(medium);
-  margin-bottom: 20px;
-  font-size: 18px;
+.table table {
+  display: table;
 }
 
-.deprecatedDescription {
-  color: $R00;
-  margin-bottom: 20px;
+.table thead {
+  padding: 0 30px;
+}
+
+.table thead tr {
+  background-color: $D70;
+  color: $D10;
+}
+
+.table thead tr th {
+  @include font();
+  @include fontWeight(bold);
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.25;
+  height: 42px;
+}
+
+.table table tr th:first-child,
+.table table tr td:first-child {
+  padding: 16px 18px 16px 30px;
+}
+
+.table table tr th:last-child,
+.table table tr td:last-child {
+  padding: 16px 30px 16px 18px;
+}
+
+.table table tr th,
+.table table tr td {
+  padding: 16px 18px;
+}
+
+.table table tbody tr:nth-child(2n) {
+  background-color: rgba(240, 244, 247, 0.42);
+}
+
+.table table tbody .propName,
+.table table tbody .propType,
+.table table tbody .defaultProp,
+.table table tbody .required {
+  @include font(code);
+  @include fontWeight(regular);
+  color: $D10;
+  font-size: 16px;
+  line-height: 1.29;
+}
+
+.table table tbody .propName code,
+.table table tbody .propType code,
+.table table tbody .defaultProp code,
+.table table tbody .required code {
+  padding: 0;
+  @include font(code);
+  @include fontWeight(regular);
+  font-size: 16px;
+}
+
+.table table tbody .required {
+  width: 10%;
+}
+
+.table table tbody .defaultProp {
+  width: 15%;
+}
+
+.table table tbody .description {
+  @include font();
+  @include fontWeight(medium);
+  font-size: 16px;
+  color: $D20;
+  min-width: 500px;
+  max-width: 800px;
+}
+
+.table table tbody .description div {
+  @include font();
+  @include fontWeight(medium);
+  font-size: 16px;
+  color: $D20;
+  margin-bottom: 0;
+}
+
+.table table tbody code {
+  font-size: 12px;
+}
+
+.table p {
+  margin-top: 0;
+  margin-bottom: 0;
 }

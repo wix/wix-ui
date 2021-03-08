@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Prop } from '../typings/prop';
 import Markdown from '../Markdown';
+import styles from './styles.scss';
 
 const wrap = name => children => (
   <span>
@@ -75,7 +76,10 @@ const renderPropType: (a: Prop['type']) => React.ReactNode = (type = {}) => {
 };
 
 const prepareProps = props => {
-  const asList = Object.keys(props).map(key => ({ ...props[key], name: key }));
+  const asList = Object.keys(props).map(key => ({
+    ...props[key],
+    name: key,
+  }));
 
   const lexical = (a, b) => a.name.localeCompare(b.name);
   const required = asList.filter(prop => prop.required).sort(lexical);
@@ -85,11 +89,13 @@ const prepareProps = props => {
   return required.concat(notRequired);
 };
 
-interface Props {
+export interface PropertiesTableProps {
   props: { [s: string]: Prop };
 }
 
-export const PropsTable: React.FunctionComponent<Props> = ({ props }) => (
+export const PropsTable: React.FunctionComponent<PropertiesTableProps> = ({
+  props,
+}) => (
   <table data-hook="autodocs-props-table">
     <thead>
       <tr>
@@ -104,19 +110,23 @@ export const PropsTable: React.FunctionComponent<Props> = ({ props }) => (
     <tbody>
       {prepareProps(props).map(prop => (
         <tr key={prop.name}>
-          <td data-hook="autodocs-prop-row-name">{prop.name || '-'}</td>
+          <td className={styles.propName} data-hook="autodocs-prop-row-name">
+            {prop.name || '-'}
+          </td>
 
-          <td>{renderPropType(prop.type)}</td>
+          <td className={styles.propType}>{renderPropType(prop.type)}</td>
 
-          <td>
+          <td className={styles.defaultProp}>
             {prop.defaultValue && prop.defaultValue.value && (
               <Markdown source={`\`${prop.defaultValue.value}\``} />
             )}
           </td>
 
-          <td>{prop.required && 'Required'}</td>
+          <td className={styles.required}>{prop.required && 'Required'}</td>
 
-          <td>{prop.description && <Markdown source={prop.description} />}</td>
+          <td className={styles.description}>
+            {prop.description && <Markdown source={prop.description} />}
+          </td>
         </tr>
       ))}
     </tbody>

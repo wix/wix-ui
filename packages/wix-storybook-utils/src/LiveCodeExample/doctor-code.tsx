@@ -14,6 +14,7 @@ const babelParse: (source: string) => File = source =>
       'objectRestSpread',
       'dynamicImport',
       require('@babel/plugin-proposal-class-properties'),
+      require('@babel/plugin-transform-async-to-generator'),
     ],
     sourceType: 'module',
   });

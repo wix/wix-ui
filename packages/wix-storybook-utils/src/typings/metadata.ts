@@ -16,7 +16,7 @@ export interface Metadata {
   drivers?: Driver[];
 }
 
-interface Method {
+export interface Method {
   name?: string;
   docblock?: null | string;
   modifiers?: string[];

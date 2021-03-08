@@ -36,8 +36,8 @@ $surround-gap: 10px;
   flex-direction: column;
   min-height: $header-min-height;
   max-height: $header-max-height;
-  margin-bottom: 30px;
   overflow: hidden;
+  margin-bottom: 30px;
 }
 
 .titleLayout {
@@ -45,10 +45,10 @@ $surround-gap: 10px;
 }
 
 .title {
-  @include font(medium);
-  font-weight: 500;
+  @include font();
+  @include fontWeight(bold);
   font-size: 36px;
-  line-height: 1.33;
+  line-height: 48px;
   color: $D10;
 }
 
@@ -63,12 +63,17 @@ $surround-gap: 10px;
 }
 
 .link {
-  @include font(thin);
+  @include font();
+  @include fontWeight(medium);
+  font-size: 16px;
+  color: $B10;
+  line-height: 24px;
+
   display: flex;
   align-items: center;
   margin-left: 30px;
-  color: $B10;
-  font-size: 16px;
+ 
+  
 
   a {
     text-decoration: none;
