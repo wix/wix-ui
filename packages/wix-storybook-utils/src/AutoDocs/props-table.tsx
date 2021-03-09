@@ -102,7 +102,6 @@ export const PropsTable: React.FunctionComponent<PropertiesTableProps> = ({
         <th>Name</th>
         <th>Type</th>
         <th>Default Value</th>
-        <th>Required</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -121,8 +120,6 @@ export const PropsTable: React.FunctionComponent<PropertiesTableProps> = ({
               <Markdown source={`\`${prop.defaultValue.value}\``} />
             )}
           </td>
-
-          <td className={styles.required}>{prop.required && 'Required'}</td>
 
           <td className={styles.description}>
             {prop.description && <Markdown source={prop.description} />}
