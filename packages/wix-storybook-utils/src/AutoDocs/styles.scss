@@ -15,6 +15,8 @@
 
 .table table {
   display: table;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .table thead {
@@ -43,6 +45,7 @@
 .table table tr th:last-child,
 .table table tr td:last-child {
   padding: 16px 30px 16px 18px;
+  width: 500px;
 }
 
 .table table tr th,
@@ -83,13 +86,11 @@
   width: 15%;
 }
 
-.table table tbody .description {
+.table table tbody td.description {
   @include font();
   @include fontWeight(medium);
   font-size: 16px;
   color: $D20;
-  min-width: 500px;
-  max-width: 800px;
 }
 
 .table table tbody .description div {
