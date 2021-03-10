@@ -6,12 +6,11 @@ import styles from './styles.scss';
 const Placeholder: React.FC<PlaceholderProps> = ({
   skin,
   children,
-  height,
-  width,
+  ...rest
 }) => {
   return (
     <div
-      style={{ height, width }}
+      style={{ ...rest }}
       className={classnames(styles.root, {
         [styles.light]: skin === 'light',
         [styles.dark]: skin === 'dark',
