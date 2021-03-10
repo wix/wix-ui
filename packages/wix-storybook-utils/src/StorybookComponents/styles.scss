@@ -1,0 +1,17 @@
+@import '../ui/colors.scss';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.light {
+  border: 1px dashed $D80;
+  color: $D80;
+}
+
+.dark {
+  border: 1px dashed $D10;
+  color: $D10;
+}
