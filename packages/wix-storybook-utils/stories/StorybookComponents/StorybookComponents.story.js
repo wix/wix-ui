@@ -48,7 +48,38 @@ export default {
           example({
             title: 'Width & Height',
             source: `<StorybookComponents.Placeholder width="100px" height="100px">Small Box</StorybookComponents.Placeholder>`
-          })
+          }),
+
+          title('StorybookComponent.Stack'),
+
+          example({
+            title: 'Gap',
+            source: `
+            <StorybookComponents.Stack gap="30px">
+            <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
+            <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
+            </StorybookComponents.Stack>`
+          }),
+
+          example({
+            title: 'Row',
+            source: `
+              <StorybookComponents.Stack>
+                <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
+                <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
+              </StorybookComponents.Stack>
+            `
+          }),
+
+          example({
+            title: 'Column',
+            source: `
+              <StorybookComponents.Stack flexDirection="column">
+                <StorybookComponents.Placeholder width="100px">Block 1</StorybookComponents.Placeholder>
+                <StorybookComponents.Placeholder width="100px">Block 2</StorybookComponents.Placeholder>
+              </StorybookComponents.Stack>
+          `
+          }),
         ],
       }),
     ]),

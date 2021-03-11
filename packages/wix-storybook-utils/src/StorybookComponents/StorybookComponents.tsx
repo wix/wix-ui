@@ -1,28 +1,55 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { PlaceholderProps } from './StorybookComponents.types';
+import { PlaceholderProps, StackProps } from './StorybookComponents.types';
 import styles from './styles.scss';
 
 const Placeholder: React.FC<PlaceholderProps> = ({
   skin,
   children,
-  ...rest
-}) => {
-  return (
-    <div
-      style={{ ...rest }}
-      className={classnames(styles.root, {
-        [styles.light]: skin === 'light',
-        [styles.dark]: skin === 'dark',
-      })}
-    >
-      {children}
-    </div>
-  );
-};
+  width,
+  height,
+}) => (
+  <div
+    style={{ width, height }}
+    className={classnames(styles.placeholder, {
+      [styles.light]: skin === 'light',
+      [styles.dark]: skin === 'dark',
+    })}
+  >
+    {children}
+  </div>
+);
 
 Placeholder.defaultProps = {
   skin: 'dark',
 };
 
-export default { Placeholder };
+const Stack: React.FC<StackProps> = ({
+  children,
+  justifyContent,
+  gap,
+  width,
+  height,
+  flexDirection,
+  alignItems,
+  padding,
+  margin,
+}) => (
+  <div
+    style={{
+      justifyContent,
+      gap,
+      flexDirection,
+      alignItems,
+      padding,
+      margin,
+      width,
+      height,
+    }}
+    className={classnames(styles.stack)}
+  >
+    {children}
+  </div>
+);
+
+export default { Placeholder, Stack };
