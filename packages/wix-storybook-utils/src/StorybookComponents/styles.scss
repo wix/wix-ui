@@ -1,6 +1,6 @@
 @import '../ui/colors.scss';
 
-.root {
+.placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,4 +16,11 @@
 .dark {
   border: 1px dashed $D10;
   color: $D10;
+}
+
+
+.stack {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
