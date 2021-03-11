@@ -1,11 +1,10 @@
 @import '../ui/colors.scss';
 
 .placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
   height: 100%;
+  text-align: center;
 }
 
 .light {
@@ -18,9 +17,9 @@
   color: $D10;
 }
 
-
 .stack {
   display: flex;
   flex-direction: row;
   justify-content: start;
+  gap: 30px;
 }

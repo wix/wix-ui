@@ -28,11 +28,24 @@ const Stack: React.FC<StackProps> = ({
   children,
   justifyContent,
   gap,
+  width,
+  height,
   flexDirection,
   alignItems,
+  padding,
+  margin,
 }) => (
   <div
-    style={{ justifyContent, gap, flexDirection, alignItems }}
+    style={{
+      justifyContent,
+      gap,
+      flexDirection,
+      alignItems,
+      padding,
+      margin,
+      width,
+      height,
+    }}
     className={classnames(styles.stack)}
   >
     {children}
