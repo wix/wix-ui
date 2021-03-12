@@ -20,6 +20,7 @@ import { header } from './header';
 import { title } from './title';
 import { plugin } from './plugin';
 import { example } from './example';
+import { doDont } from './doDont';
 
 import styles from '../styles.scss';
 import TabbedView from '../../TabbedView';
@@ -49,6 +50,7 @@ const views = {
   title,
   plugin,
   example,
+  doDont,
 };
 
 export const getView = type => views[type] || (i => i);

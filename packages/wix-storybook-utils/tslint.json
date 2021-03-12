@@ -1,5 +1,8 @@
 {
-  "extends": "tslint-config-yoshi",
+  "extends": [
+    "tslint-config-yoshi",
+    "tslint-config-prettier"
+  ],
   "rules": {
     "comma-dangle": ["error", "never"],
     "jsx-no-multiline-js": false,

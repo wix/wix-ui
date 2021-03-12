@@ -1,6 +1,3 @@
-import * as React from 'react';
-import Component from '../Component';
-
 import { header, doDont  } from '../../src/Sections';
 
 const dofor = [
@@ -26,13 +23,23 @@ export default {
 
     doDont({
       do: {
-        title: 'Do',
         list: dofor
       },
       dont: {
-        title: 'Dont',
         list: dontfot
       }
+    }),
+
+    doDont({
+      do: {
+        list: dontfot
+      },
+    }),
+
+    doDont({
+      dont: {
+        list: dontfot
+      },
     })
   ],
 };

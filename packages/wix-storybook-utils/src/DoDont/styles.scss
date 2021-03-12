@@ -1,12 +1,80 @@
+@import '../ui/colors.scss';
+@import '../ui/typography.scss';
+
 .root {
   display: flex;
   gap: 30px;
   flex-direction: row;
+  align-items: stretch;
   margin-bottom: 30px;
 }
 
-.item {
-  height: 546px;
-  width: 282px;
+.block {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
   background-color: #f7f9fb;
+  border: 1px solid #e5e5e5;
+  padding: 18px 24px;
 }
+
+.blockDo {
+  border-top:  6px solid $G20;
+}
+
+.blockDont {
+  border-top: 6px solid $R20;
+}
+
+.title {
+  @include font();
+  @include fontWeight(bold);
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  line-height: 24px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.listItem {
+  @include font();
+  @include fontWeight(medium);
+  display: flex;
+  align-items: flex-start;
+  font-size: 16px;
+}
+
+.dismissContainer {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.dismissIcon {
+  background-color: $R10;
+  border-radius: 50%;
+  color: white;
+  width: 14px;
+  height: 14px;
+}
+
+.completeIcon {
+  margin-right: 8px;
+  color: $G10;
+}
+
+.red {
+  color: $R10;
+}
+
+.green {
+  color: $G10;
+}
+
