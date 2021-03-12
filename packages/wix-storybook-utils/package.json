@@ -25,6 +25,7 @@
     "postbuild": "npm run docs:sections",
     "pretest": "npm run lint && build-storybook",
     "test": "yoshi test --jest",
+    "test:watch": "yoshi test --jest --watch",
     "start": "start-storybook -p 6006",
     "release": "yoshi release",
     "docs:sections": "node docs/make-sections-docs.js"
@@ -79,6 +80,7 @@
     "@mdx-js/loader": "^0.17.3",
     "@storybook/addon-options": "^5.2.4",
     "@storybook/react": "^5.2.4",
+    "@testing-library/react": "^11.2.5",
     "@types/jest": "^23.3.8",
     "@types/node": "^12.12.22",
     "@types/react": "~16.8.1",

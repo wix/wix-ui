@@ -5,8 +5,8 @@ import { StatusCompleteFilledSmall, DismissSmall } from 'wix-ui-icons-common';
 import styles from './styles.scss';
 
 export type DoDontProps = {
-  do: { title: string; list: String[] };
-  dont: { title: string; list: String[] };
+  do?: { title?: string; list: String[] };
+  dont?: { title?: string; list: String[] };
 };
 
 const DismisIcon = () => (
@@ -48,7 +48,7 @@ const Title: React.FC<{
     {props.title
       ? props.title
       : props.skin === 'red'
-      ? `Dont't use it`
+      ? `Don't use it`
       : 'Use it'}
   </div>
 );
@@ -57,6 +57,7 @@ export const DoDont = (props: DoDontProps) => (
   <div className={styles.root}>
     {props.do && (
       <div
+        data-hook="dodont-do"
         className={classnames(styles.block, styles.blockDo, {
           [styles.blockFull]: !props.do || !props.dont,
         })}
@@ -67,6 +68,7 @@ export const DoDont = (props: DoDontProps) => (
     )}
     {props.dont && (
       <div
+        data-hook="dodont-dont"
         className={classnames(styles.block, styles.blockDont, {
           [styles.blockFull]: !props.do || !props.dont,
         })}
