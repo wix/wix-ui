@@ -188,11 +188,11 @@ doDont({
    list: ['Don’t use it to insert long paragraphs, instead use the component.']
  }
 })
-
+```
 | Property | Type | Description |
 |---|---|---|
-| `do` |||
-| `dont` |||
+| `do` | `{ title: string; list: String[] }` | List of items for do section |
+| `dont` | `{ title: string; list: String[] }` | List of items for dont section|
 
 ---
 
